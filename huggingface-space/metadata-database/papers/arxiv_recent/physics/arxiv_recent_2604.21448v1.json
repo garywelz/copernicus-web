@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2604.21448v1",
+  "arxiv_id": "2604.21448v1",
+  "title": "Continuum granular flow model with restitution-derived viscoelastic damping",
+  "authors": [
+    "Bodhinanda Chandra",
+    "Sachith Dunatunga",
+    "Ken Kamrin"
+  ],
+  "author_string": "Bodhinanda Chandra, Sachith Dunatunga, Ken Kamrin",
+  "journal": "arXiv:2604.21448v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "This work presents a unified viscoelastic-viscoplastic continuum framework for modeling rate-dependent granular flows across regimes. The formulation incorporates two distinct rate-dependent mechanisms, namely micro-inertia and viscoelastic dissipation, within a single continuum description. A central contribution is an explicit link between the coefficient of restitution and a continuum viscosity, derived from an analysis of wave attenuation in granular assemblies, thereby establishing a direct connection between particle-scale collision physics and macroscopic damping. This relation is introduced while retaining inertia-dependent plastic flow governed by the classical $μ(I)$ rheology. The constitutive model is constructed by meticulously partitioning elastic and viscous responses within the model and corresponding stress-update routine, such that viscous dissipation governs wave propagation and collisional processes without altering the plastic flow rule. The framework is implemented within the material point method to simulate transient processes involving large deformations, material separation, and subsequent reconsolidation. A range of numerical examples, including steady, transient, vibrational, and impact-driven flows, demonstrates that the model captures wave propagation, diffusion, and rate-dependent granular behavior within a unified continuum setting.",
+  "categories": [
+    "cond-mat.soft",
+    "math.NA",
+    "physics.flu-dyn"
+  ],
+  "primary_category": "physics.flu-dyn",
+  "comment": "36 pages, 20 figures",
+  "published_date": "2026-04-23T09:06:28Z",
+  "updated_date": "2026-04-23T09:06:28Z",
+  "url": "https://arxiv.org/abs/2604.21448v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.21448v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-27T10:15:42.858360",
+  "category": "physics",
+  "subcategories": [
+    "cond-mat.soft",
+    "math.NA",
+    "physics.flu-dyn"
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2604.26917v1",
+  "arxiv_id": "2604.26917v1",
+  "title": "AnimateAnyMesh++: A Flexible 4D Foundation Model for High-Fidelity Text-Driven Mesh Animation",
+  "authors": [
+    "Zijie Wu",
+    "Chaohui Yu",
+    "Fan Wang",
+    "Xiang Bai"
+  ],
+  "author_string": "Zijie Wu, Chaohui Yu, Fan Wang, Xiang Bai",
+  "journal": "arXiv:2604.26917v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Recent advances in 4D content generation have attracted increasing attention, yet creating high-quality animated 3D models remains challenging due to the complexity of modeling spatio-temporal distributions and the scarcity of 4D training data. We present AnimateAnyMesh++, a feed-forward framework for text-driven animation of arbitrary 3D meshes with substantial upgrades in data, architecture, and generative capability. First, we expand the DyMesh-XL dataset by mining dynamic content from Objaverse-XL, increasing the number of unique identities from 60K to 300K and substantially broadening category and motion diversity. Second, we redesign DyMeshVAE-Flex with power-law topology-aware attention and vertex-normal enhanced features, which significantly improves trajectory reconstruction, local geometry preservation, and mitigates trajectory-sticking artifacts. Third, we introduce architectural changes to both DyMeshVAE-Flex and the rectified-flow (RF) generator to support variable-length sequence training and generation, enabling longer animations while preserving reconstruction fidelity. Extensive experiments demonstrate that AnimateAnyMesh++ generates semantically accurate and temporally coherent mesh animations within seconds, surpassing prior approaches in quality and efficiency. The enlarged DyMesh-XL, the upgraded DyMeshVAE-Flex, and variable-length RF together deliver consistent gains across benchmarks and in-the-wild meshes. We will release code, models, and the expanded DyMesh-XL upon acceptance of this manuscript to facilitate research in 4D content creation.",
+  "categories": [
+    "cs.CV"
+  ],
+  "primary_category": "cs.CV",
+  "comment": "14 pages, TPAMI submission, code url: https://github.com/JarrentWu1031/AnimateAnyMesh-pp",
+  "published_date": "2026-04-29T17:27:40Z",
+  "updated_date": "2026-04-29T17:27:40Z",
+  "url": "https://arxiv.org/abs/2604.26917v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.26917v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-30T10:15:42.516707",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CV"
+  ]
+}

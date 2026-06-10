@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2605.18192v1",
+  "arxiv_id": "2605.18192v1",
+  "title": "View-Aware Semantic Alignment for Aerial-Ground Person Re-Identification",
+  "authors": [
+    "Quan Zhang",
+    "Zeqiang Cai",
+    "Peiming Zhao",
+    "Jingze Wu",
+    "Cailun Wu",
+    "Hongbo Chen",
+    "Jianhuang Lai"
+  ],
+  "author_string": "Quan Zhang, Zeqiang Cai, Peiming Zhao, Jingze Wu, Cailun Wu et al.",
+  "journal": "arXiv:2605.18192v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Aerial-Ground Person Re-Identification (AGPReID) remains highly challenging due to drastic viewpoint variations between drones and fixed cameras. Existing methods typically follow a view-invariant paradigm, aligning shared features across views to achieve robustness. However, view-invariant inherently enforces part-level alignment, which ignores view-specific cues and discriminative identity information. To this end, this work proposes ViSA (View-aware Semantic Alignment), a view-aware framework that achieves cross-view semantic consistency containing an Expert-driven Token Generation Module (ETGM) and a Dual-branch Local Fusion Module (DLFM). Technically, the former constructs a set of view-aware experts to generate adaptive semantic queries that perceive viewpoint-specific patterns, while the latter leverages graph reasoning to extract and align local regions responsive to different experts. Extensive experiments on three AGPReID benchmarks including AG-ReID.v2, CARGO and LAGPeR demonstrate that ViSA consistently achieves superior performance, with a notable 10.06\\% mAP improvement on the challenging CARGO cross-view protocol. The code is available at \\href{https://github.com/Cat-Zero/ViSA}{https://github.com/Cat-Zero/ViSA}.",
+  "categories": [
+    "cs.CV"
+  ],
+  "primary_category": "cs.CV",
+  "comment": "CVPR 2026 POSTER",
+  "published_date": "2026-05-18T10:32:26Z",
+  "updated_date": "2026-05-18T10:32:26Z",
+  "url": "https://arxiv.org/abs/2605.18192v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.18192v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-18T22:16:04.719416",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CV"
+  ]
+}

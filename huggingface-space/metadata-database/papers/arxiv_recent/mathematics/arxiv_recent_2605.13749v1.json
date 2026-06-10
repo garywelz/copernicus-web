@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2605.13749v1",
+  "arxiv_id": "2605.13749v1",
+  "title": "SPLIT: SymPathy for Large jobs Improves Tail latency",
+  "authors": [
+    "Zhouzi Li",
+    "Mor Harchol-Balter",
+    "Alan Scheller-Wolf"
+  ],
+  "author_string": "Zhouzi Li, Mor Harchol-Balter, Alan Scheller-Wolf",
+  "journal": "arXiv:2605.13749v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We study the asymptotic response time tail in the M/G/n multi-server queue with heavy-tailed (regularly varying) job sizes, a setting representative of modern computing workloads. For single-server systems, tail optimization is well understood: under heavy-tailed job sizes, policies such as SRPT that strictly prioritize short jobs are strongly tail optimal, and giving any priority to large jobs is harmful. For multi-server systems, the question has been almost entirely open.   This paper gives the first strongly tail-optimal scheduling policies for the M/G/n queue with heavy-tailed job sizes. Our central finding is that the multi-server case is intrinsically different from the single-server case: giving a small amount of ``sympathy'' to large jobs is essential for strong tail optimality. We establish strong (or arbitrarily close to strong) tail optimality across the full stability region, both with and without knowledge of job sizes.",
+  "categories": [
+    "cs.PF",
+    "math.PR"
+  ],
+  "primary_category": "math.PR",
+  "comment": null,
+  "published_date": "2026-05-13T16:32:11Z",
+  "updated_date": "2026-05-13T16:32:11Z",
+  "url": "https://arxiv.org/abs/2605.13749v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.13749v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-13T22:17:00.036970",
+  "category": "mathematics",
+  "subcategories": [
+    "cs.PF",
+    "math.PR"
+  ]
+}

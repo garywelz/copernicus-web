@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Particle Collision - Physics Process</title>
+    <title>Stellar Collapse & Chandrasekhar Limit - Physics Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Particle Collision</h1>
+            <h1>Stellar Collapse & Chandrasekhar Limit</h1>
             <div class="header-meta">
                 <span class="meta-item">Physics</span>
                 <span class="meta-item">Astrophysics</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,67 +234,60 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Particle Collision Process. This particle physics process visualization demonstrates particle collisions and high energy physics. The flowchart shows particle inputs and collision energy, particle collision methods and particle interactions, particle collision operations and collision products, intermediate results, and final particle collision outputs.</p>
+                <p>When a star exhausts its core fuel, the core contracts until electron degeneracy pressure resists gravity: below the Chandrasekhar mass of about 1.4 solar masses it settles as a white dwarf, but above it degeneracy fails and the core collapses, ending as a neutron star halted by neutron degeneracy or, if too massive, a black hole.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-A1[Particle Beam] --> B1[Particle Collision Method]
-C1[Collision Energy] --> D1[Particle Interaction]
-E1[Collision Products] --> F1[Particle Collision Analysis]
-B1 --> G1[Proton Proton Collision]
-D1 --> H1[Electron Positron Collision]
-F1 --> I1[Heavy Ion Collision]
-G1 --> J1[Collision Cross Section]
-H1 --> K1[Collision Rate]
-I1 --> L1[Collision Power]
-J1 --> M1[Collision Yield]
-K1 --> L1
-L1 --> N1[Collision Efficiency]
-M1 --> O1[Collision Detection]
-N1 --> P1[Collision Analysis]
-O1 --> Q1[Particle Collision Process]
-P1 --> R1[Particle Collision Validation]
-Q1 --> S1[Particle Collision Verification]
-R1 --> T1[Particle Collision Result]
-S1 --> U1[Particle Collision Analysis]
-T1 --> V1[Particle Collision Parameters]
-U1 --> W1[Particle Collision Output]
-V1 --> X1[Particle Collision Analysis]
-W1 --> Y1[Particle Collision Final Result]
-X1 --> Z1[Particle Collision Complete]
+    N1["Star exhausts core fuel"]
+    N2["Core contracts"]
+    N3["Electron degeneracy push"]
+    N4{"Core mass < 1.4 Msun?"}
+    N5["Stable white dwarf"]
+    N6["Exceeds Chandrasekhar"]
+    N7["Degeneracy fails"]
+    N8["Core collapses"]
+    N9{"Neutron star or BH?"}
+    N10["Neutron degeneracy halts"]
+    N11["Compact remnant"]
 
-    style A1 fill:#ff6b6b,color:#fff
-    style C1 fill:#ff6b6b,color:#fff
-    style E1 fill:#ff6b6b,color:#fff
-    style B1 fill:#ffd43b,color:#000
-    style D1 fill:#ffd43b,color:#000
-    style F1 fill:#ffd43b,color:#000
-    style G1 fill:#ffd43b,color:#000
-    style H1 fill:#ffd43b,color:#000
-    style I1 fill:#ffd43b,color:#000
-    style J1 fill:#ffd43b,color:#000
-    style K1 fill:#ffd43b,color:#000
-    style L1 fill:#ffd43b,color:#000
-    style M1 fill:#51cf66,color:#fff
-    style N1 fill:#51cf66,color:#fff
-    style O1 fill:#51cf66,color:#fff
-    style P1 fill:#51cf66,color:#fff
-    style Q1 fill:#51cf66,color:#fff
-    style R1 fill:#51cf66,color:#fff
-    style S1 fill:#51cf66,color:#fff
-    style T1 fill:#51cf66,color:#fff
-    style U1 fill:#51cf66,color:#fff
-    style V1 fill:#51cf66,color:#fff
-    style W1 fill:#51cf66,color:#fff
-    style X1 fill:#51cf66,color:#fff
-    style Y1 fill:#51cf66,color:#fff
-    style Z1 fill:#b197fc,color:#fff
+    N1 --> N2
+    N2 --> N3
+    N3 --> N4
+    N4 -->|yes| N5
+    N5 --> N11
+    N4 -->|no| N6
+    N6 --> N7
+    N7 --> N8
+    N8 --> N9
+    N9 -->|neutron star| N10
+    N10 --> N11
+    N9 -->|black hole| N11
+
+    style N1 fill:#ff6b6b,color:#fff
+    style N2 fill:#51cf66,color:#fff
+    style N3 fill:#51cf66,color:#fff
+    style N4 fill:#74c0fc,color:#fff
+    style N5 fill:#51cf66,color:#fff
+    style N6 fill:#74c0fc,color:#fff
+    style N7 fill:#51cf66,color:#fff
+    style N8 fill:#51cf66,color:#fff
+    style N9 fill:#74c0fc,color:#fff
+    style N10 fill:#51cf66,color:#fff
+    style N11 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Star exhausts core fuel</td><td>Triggers & Inputs</td><td><a href="https://doi.org/10.1002/9783527617661" target="_blank" title="Black Holes, White Dwarfs, and Neutron Stars" style="color:#3498db;">Shapiro, S. L. et al. 1983</a></td></tr><tr><td style="font-weight:600;">Core contracts</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1002/9783527617661" target="_blank" title="Black Holes, White Dwarfs, and Neutron Stars" style="color:#3498db;">Shapiro, S. L. et al. 1983</a></td></tr><tr><td style="font-weight:600;">Electron degeneracy push</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1086/143324" target="_blank" title="The maximum mass of ideal white dwarfs" style="color:#3498db;">Chandrasekhar, S. 1931</a></td></tr><tr><td style="font-weight:600;">Core mass < 1.4 Msun?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1086/143324" target="_blank" title="The maximum mass of ideal white dwarfs" style="color:#3498db;">Chandrasekhar, S. 1931</a></td></tr><tr><td style="font-weight:600;">Stable white dwarf</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1086/143324" target="_blank" title="The maximum mass of ideal white dwarfs" style="color:#3498db;">Chandrasekhar, S. 1931</a></td></tr><tr><td style="font-weight:600;">Exceeds Chandrasekhar</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1086/143324" target="_blank" title="The maximum mass of ideal white dwarfs" style="color:#3498db;">Chandrasekhar, S. 1931</a></td></tr><tr><td style="font-weight:600;">Degeneracy fails</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1086/143324" target="_blank" title="The maximum mass of ideal white dwarfs" style="color:#3498db;">Chandrasekhar, S. 1931</a></td></tr><tr><td style="font-weight:600;">Core collapses</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1002/9783527617661" target="_blank" title="Black Holes, White Dwarfs, and Neutron Stars" style="color:#3498db;">Shapiro, S. L. et al. 1983</a></td></tr><tr><td style="font-weight:600;">Neutron star or BH?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1002/9783527617661" target="_blank" title="Black Holes, White Dwarfs, and Neutron Stars" style="color:#3498db;">Shapiro, S. L. et al. 1983</a></td></tr><tr><td style="font-weight:600;">Neutron degeneracy halts</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1002/9783527617661" target="_blank" title="Black Holes, White Dwarfs, and Neutron Stars" style="color:#3498db;">Shapiro, S. L. et al. 1983</a></td></tr><tr><td style="font-weight:600;">Compact remnant</td><td>Products & Outputs</td><td><a href="https://doi.org/10.1002/9783527617661" target="_blank" title="Black Holes, White Dwarfs, and Neutron Stars" style="color:#3498db;">Shapiro, S. L. et al. 1983</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -313,12 +333,12 @@ X1 --> Z1[Particle Collision Complete]
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 26</li>
-                        <li><strong>Edges:</strong> 24</li>
-                        <li><strong>Conditionals:</strong> 0</li>
+                        <li><strong>Nodes:</strong> 11</li>
+                        <li><strong>Edges:</strong> 12</li>
+                        <li><strong>Conditionals:</strong> 2</li>
                         <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 1</li>
+                        <li><strong>OR Gates:</strong> 2</li>
+                        <li><strong>Total Gates:</strong> 3</li>
                     </ul>
                 </div>
                 
@@ -326,7 +346,7 @@ X1 --> Z1[Particle Collision Complete]
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>astrophysics</li><li>collision</li><li>particle</li>
+                        <li>Chandrasekhar limit</li><li>electron degeneracy</li><li>white dwarf</li><li>core collapse</li><li>neutron star</li>
                     </ul>
                 </div>
                 
@@ -337,42 +357,22 @@ X1 --> Z1[Particle Collision Complete]
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>The maximum mass of ideal white dwarfs</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Chandrasekhar, S.
+                            , Astrophysical Journal
+                             (1931)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #3498db; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Higgs physics at the Large Hadron Collider</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Khachatryan, V.; Aad, G.
-                            , Nat Phys
-                             (2015)
-                            </span>
-                            <br><a href="https://doi.org/10.1038/nphys3282" target="_blank" style="color: #3498db; font-size: 0.85em;">DOI: 10.1038/nphys3282</a>
+                            <br><a href="https://doi.org/10.1086/143324" target="_blank" style="color: #3498db; font-size: 0.85em;">DOI: 10.1086/143324</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Observation of the Top Quark</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Abe, F.
-                            , Phys. Rev. Lett.
-                             (1995)
+                            <strong>Black Holes, White Dwarfs, and Neutron Stars</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Shapiro, S. L.; Teukolsky, S. A.
+                            , Wiley
+                             (1983)
                             </span>
-                            <br><a href="https://doi.org/10.1103/PhysRevLett.74.2626" target="_blank" style="color: #3498db; font-size: 0.85em;">DOI: 10.1103/PhysRevLett.74.2626</a>
-                            
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Heavy-ion collisions at the Large Hadron Collider</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">van der Kolk, M.
-                            , Rev. Mod. Phys.
-                             (2021)
-                            </span>
-                            <br><a href="https://doi.org/10.1103/RevModPhys.93.035002" target="_blank" style="color: #3498db; font-size: 0.85em;">DOI: 10.1103/RevModPhys.93.035002</a>
+                            <br><a href="https://doi.org/10.1002/9783527617661" target="_blank" style="color: #3498db; font-size: 0.85em;">DOI: 10.1002/9783527617661</a>
                             
                         </li>
                         

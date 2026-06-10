@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2604.19539v1",
+  "arxiv_id": "2604.19539v1",
+  "title": "An effective window framework for closed-Loop regional SAR reconnaissance with hybrid direct-relay downlink scheduling",
+  "authors": [
+    "Linhong Li",
+    "Qi Feng",
+    "Kebo Li",
+    "Yangang Liang"
+  ],
+  "author_string": "Linhong Li, Qi Feng, Kebo Li, Yangang Liang",
+  "journal": "arXiv:2604.19539v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "For operational regional synthetic aperture radar (SAR) reconnaissance, mission success depends not only on geometric visibility but also on whether geometric feasibility, prescribed imaging quality, and timely data delivery can be met together within the planning horizon. This paper develops an effective window framework for regional SAR window generation, per window signal level quality screening, and hybrid direct-relay closed loop scheduling. Through coarse angular bandpass screening, a planar characteristic curve containment test, and one dimensional boundary bisection, the framework forms geometry feasible candidate observation windows with millisecond-level accuracy for their entry and exit times. Each candidate window is then assessed in stripmap mode with a companion point target under a unified echo generation and Back Projection (BP) imaging workflow; only windows whose range and azimuth impulse response width (IRW), peak sidelobe ratio (PSLR), and integrated sidelobe ratio (ISLR) all satisfy the preset thresholds are retained. The retained observation, relay, and downlink windows feed a quality constrained hybrid direct-relay closed-loop mixed-integer linear programming (MILP) formulation for joint scheduling of observation and ground return. Numerical experiments confirm millisecond-level agreement with STK reference timing for window boundaries. Every candidate window is screened against preset imaging quality thresholds. Hybrid closed-loop scheduling improves closure performance and ground returned data volume relative to a relay-only baseline",
+  "categories": [
+    "physics.geo-ph"
+  ],
+  "primary_category": "physics.geo-ph",
+  "comment": null,
+  "published_date": "2026-04-21T14:58:38Z",
+  "updated_date": "2026-04-21T14:58:38Z",
+  "url": "https://arxiv.org/abs/2604.19539v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.19539v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-23T10:15:40.089530",
+  "category": "physics",
+  "subcategories": [
+    "physics.geo-ph"
+  ]
+}

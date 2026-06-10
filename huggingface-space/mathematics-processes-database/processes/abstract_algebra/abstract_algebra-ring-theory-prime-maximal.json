@@ -1,0 +1,39 @@
+{
+  "id": "abstract_algebra-ring-theory-prime-maximal",
+  "name": "Ring Theory — Prime & Maximal Ideals",
+  "category": "mathematics",
+  "subcategory": "abstract_algebra",
+  "subcategory_name": "Abstract Algebra",
+  "description": "Prime ideal P: ab ∈ P ⇒ a ∈ P or b ∈ P; R/P integral domain. Maximal ideal M: no ideal strictly between M and R; R/M field. PID, UFD.",
+  "mermaid": "graph TD\n    D1[\"Def: Prime ideal\\nab∈P ⇒ a∈P or b∈P\"]\n    D2[\"Def: Maximal ideal\\nno I with M⊂I⊂R\"]\n    D3[\"Def: PID\\nall ideals principal\"]\n    D4[\"Def: UFD\\nunique factorization\"]\n    T1[\"Thm: P prime ⟺ R/P\\nintegral domain\"]\n    T2[\"Thm: M maximal ⟺ R/M\\nfield\"]\n    T3[\"Thm: PID ⇒ UFD\"]\n    D1 --> T1\n    D2 --> T2\n    D3 --> D4\n    D3 --> T3\n    T2 --> T1\n    classDef definition fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef theorem fill:#51cf66,color:#fff,stroke:#40c057\n    class D1,D2,D3,D4 definition\n    class T1,T2,T3 theorem",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

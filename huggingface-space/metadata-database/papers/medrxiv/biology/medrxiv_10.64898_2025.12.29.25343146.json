@@ -1,0 +1,43 @@
+{
+  "id": "medrxiv_10.64898_2025.12.29.25343146",
+  "doi": "10.64898/2025.12.29.25343146",
+  "title": "Integrating large-scale serum metabolomics and APOE ε4 genotype status for the non-invasive detection of Alzheimer's disease in the ADNI cohort",
+  "authors": [
+    "Mukesha, D.",
+    "Firat, H.",
+    "Sacco, G.",
+    "CombiDiag (Combinatorial Early-Stage Diagnosis for Alzheimer's, Horizon-MSCA - GA#101071485),"
+  ],
+  "author_string": "Mukesha, D., Firat, H., Sacco, G., CombiDiag (Combinatorial Early-Stage Diagnosis for Alzheimer's, Horizon-MSCA - GA#101071485),",
+  "journal": "medRxiv",
+  "journal_full": "medRxiv",
+  "year": "2026",
+  "abstract": "INTRODUCTIONAccurate Alzheimers disease (AD) detection remains challenging and often requires invasive or costly procedures. Blood-based metabolomic signatures offer a promising non-invasive approach. This study aimed to identify a serum metabolite panel and evaluate its performance alone and in combination with apolipoprotein E (APOE) {varepsilon}4 genotype status for distinguishing AD from cognitively normal (CN) individuals.\n\nMETHODSBaseline data from 594 participants in the Alzheimers Disease Neuroimaging Initiative (237 AD, 357 CN) were analyzed. High-resolution serum metabolomics (Biocrates MxP(R) Quant 500) and APOE genotype data were used for LASSO-based feature selection, followed by machine learning model training and evaluation on a held-out test set.\n\nRESULTSA panel of 151 metabolites distinguished AD from CN with high accuracy (test-set AUC=0.90). Adding APOE to the panel further improved model performance (AUC=0.91 versus AUC=0.75 for APOE alone; p<0.001), achieving strong sensitivity (0.92), specificity (0.84), and negative predictive value (0.94). Key predictive metabolites included bile acids, ether-linked phosphatidylcholines, and acylcarnitines, which are associated with pathways related to lipid metabolism, mitochondrial function, and the gut-liver-brain axis.\n\nCONCLUSIONIntegrating serum metabolomics with APOE enables accurate, non-invasive AD detection and offers a scalable screening approach with strong potential to rule out AD in primary care.\n\nClinicalTrials.gov IdentifierNCT00106899 and related ADNI phases.",
+  "keywords": [],
+  "categories": [
+    "neurology"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.64898/2025.12.29.25343146",
+  "source": "medrxiv",
+  "sources": [
+    "medrxiv"
+  ],
+  "acquired_date": "2026-05-16T22:15:25.537213",
+  "category": "biology",
+  "subcategories": [
+    "neurology"
+  ],
+  "published_date": "2026-01-16",
+  "updated_date": "2026-01-16",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "medrxiv",
+  "preprint_version": "2",
+  "preprint_type": "PUBLISHAHEADOFPRINT",
+  "license": "cc_no",
+  "jatsxml": "https://www.medrxiv.org/content/early/2026/01/16//2025.12.29.25343146.source.xml",
+  "published_doi": null,
+  "author_corresponding": "Dany Mukesha",
+  "author_corresponding_institution": "Firalis SA & Université Côte d'Azur"
+}

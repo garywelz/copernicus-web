@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2605.16066v1",
+  "arxiv_id": "2605.16066v1",
+  "title": "A market-calibrated accelerated failure time model for in-play football forecasting",
+  "authors": [
+    "Lawrence Clegg",
+    "Zixing Song",
+    "John Cartlidge"
+  ],
+  "author_string": "Lawrence Clegg, Zixing Song, John Cartlidge",
+  "journal": "arXiv:2605.16066v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "In-play football forecasting models have struggled to match the accuracy of betting exchange prices, which aggregate information from many market participants. We close this gap by combining two extensions to a Weibull accelerated failure time model: calibrating team strength parameters to Betfair Exchange prices at kick-off to capture pre-match market information, and including post-shot expected goals as a time-varying covariate to capture in-play information. The calibration approach, where we jointly fit team-strength parameters to 1X2 and over/under betting markets via squared-error minimisation, applies to any intensity-based goal arrival model and enables stronger in-play forecasting. Evaluated across 140 English Premier League matches at minute intervals, the calibrated model almost matches Betfair's classification accuracy (70.2% versus 70.6%) while retaining interpretable team-level parameters and covariate effects. A comparison with two alternative continuous-time scoring models, both calibrated to the same pre-match odds, confirms that market calibration is the dominant driver of predictive accuracy. A betting simulation against Betfair in-play odds yields a 4.5% return on investment (Sharpe ratio 5.94) over 17,458 bets, suggesting an inefficiency within in-play football markets.",
+  "categories": [
+    "stat.AP"
+  ],
+  "primary_category": "stat.AP",
+  "comment": "25 pages, 6 figures, 6 tables",
+  "published_date": "2026-05-15T15:29:31Z",
+  "updated_date": "2026-05-15T15:29:31Z",
+  "url": "https://arxiv.org/abs/2605.16066v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.16066v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-18T10:15:50.685250",
+  "category": "mathematics",
+  "subcategories": [
+    "stat.AP"
+  ]
+}

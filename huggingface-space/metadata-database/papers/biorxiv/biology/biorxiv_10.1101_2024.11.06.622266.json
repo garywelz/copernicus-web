@@ -1,0 +1,41 @@
+{
+  "id": "biorxiv_10.1101_2024.11.06.622266",
+  "doi": "10.1101/2024.11.06.622266",
+  "title": "Disentangling cellular heterogeneity into interpretable biological factors through structured latent representations",
+  "authors": [
+    "Moinfar, A. A.",
+    "Theis, F. J."
+  ],
+  "author_string": "Moinfar, A. A., Theis, F. J.",
+  "journal": "bioRxiv",
+  "journal_full": "bioRxiv",
+  "year": "2026",
+  "abstract": "Single-cell genomics allows for the unbiased exploration of cellular heterogeneity. While deep generative models have become a keyprocessing step for integration and dimensionality reduction of single cell data, they function as black boxes that entangle biological signals and gene programs, restricting their interpretability and utility for downstream analysis. We address this limitation with Disentangled Representation Variational Inference (DRVI), a deep generative framework designed to provide dimension-wise interpretable disentangled representations for single-cell omics. DRVI isolates distinct sources of variation -- such as cell-type identity, developmental stage, cytokine signaling, and technical noise -- into individual, interpretable, and parallel factors without relying on supervised priors or restrictive linearity assumptions. This is achieved by exploiting additive decoders with a novel nonlinear pooling approach. We validate DRVIs capabilities to isolate cell types, secondary biological processes, perturbation effects, and stages in continuous trajectories on seven diverse datasets. In the Human Lung Cell Atlas, DRVI enables isolation of biological processes beyond cell types, covering interferon signaling, angiogenesis, proliferation, and stress response to metal ions, and identifies rare cell types such as migratory dendritic cells. In other examples, we show how to use interpretable factors to regress out isolated technical stress signals caused by sequencing, and to refine annotations for dendritic cells in an immune dataset. DRVIs interpretability does not come at the cost of integration performance, interpretable factors are consistent and transferable to similar datasets, and it generalizes easily to other modalities, such as single-cell chromatin accessibility. Altogether, DRVI provides a versatile framework for resolving the underlying structure of single-cell omics data.",
+  "keywords": [],
+  "categories": [
+    "bioinformatics"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.1101/2024.11.06.622266",
+  "source": "biorxiv",
+  "sources": [
+    "biorxiv"
+  ],
+  "acquired_date": "2026-05-15T22:15:24.333484",
+  "category": "biology",
+  "subcategories": [
+    "bioinformatics"
+  ],
+  "published_date": "2026-01-15",
+  "updated_date": "2026-01-15",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "biorxiv",
+  "preprint_version": "3",
+  "preprint_type": "new results",
+  "license": "cc_by_nc_nd",
+  "jatsxml": "https://www.biorxiv.org/content/early/2026/01/15/2024.11.06.622266.source.xml",
+  "published_doi": null,
+  "author_corresponding": "Fabian J. Theis",
+  "author_corresponding_institution": "Institute of Computational Biology, Helmholtz Center Munich, Neuherberg, Germany"
+}

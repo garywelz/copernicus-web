@@ -1,0 +1,184 @@
+{
+  "id": "pathways-nf-kb-inflammatory-signaling",
+  "name": "NF-kB Inflammatory Signaling",
+  "category": "biology",
+  "subcategory": "pathways",
+  "subcategory_name": "Pathways",
+  "description": "NF-kB signaling: inflammatory stimuli activate the IKK complex, which phosphorylates IkB to trigger its ubiquitination and degradation; freed NF-kB enters the nucleus to drive inflammatory genes, including newly synthesized IkB that provides negative feedback.",
+  "keywords": [
+    "nf-kb",
+    "ikk",
+    "ikb",
+    "inflammation",
+    "transcription"
+  ],
+  "namedCollections": [
+    "signaling-cell-fate"
+  ],
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "complexity": {
+    "nodes": 9,
+    "edges": 9,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 1,
+      "notGates": 0,
+      "total": 1
+    },
+    "level": "medium",
+    "detailLevel": "source_grounded",
+    "loops": 1
+  },
+  "graphMetrics": {
+    "nodes": 9,
+    "edges": 9,
+    "conditionals": 0,
+    "andGates": 1,
+    "orGates": 0,
+    "notGates": 0,
+    "loops": 1
+  },
+  "mermaid": "graph TD\n    N1[\"TNF / IL-1 / LPS stimulus\"]\n    N2[\"Receptor + adaptors recruited\"]\n    N3[\"IKK complex activated\"]\n    N4[\"IkB phosphorylated\"]\n    N5[\"IkB ubiquitinated + degraded\"]\n    N6[\"NF-kB freed (p65/p50)\"]\n    N7[\"NF-kB to nucleus\"]\n    N8[\"Inflammatory genes on\"]\n    N9[\"IkBalpha re-synthesized\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 --> N4\n    N4 --> N5\n    N5 --> N6\n    N6 --> N7\n    N7 --> N8\n    N8 --> N9\n    N9 -->|resequester| N6\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#b197fc,color:#fff\n    style N9 fill:#51cf66,color:#fff",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "TNF / IL-1 / LPS stimulus",
+      "detail": "Pro-inflammatory trigger",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N2",
+      "label": "Receptor + adaptors recruited",
+      "detail": "Signaling complex assembled",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N3",
+      "label": "IKK complex activated",
+      "detail": "IkB kinase turned on",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N4",
+      "label": "IkB phosphorylated",
+      "detail": "Marks IkB for destruction",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N5",
+      "label": "IkB ubiquitinated + degraded",
+      "detail": "Proteasomal removal",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N6",
+      "label": "NF-kB freed (p65/p50)",
+      "detail": "Nuclear localization unmasked",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N7",
+      "label": "NF-kB to nucleus",
+      "detail": "DNA binding",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N8",
+      "label": "Inflammatory genes on",
+      "detail": "Cytokines, chemokines induced",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N9",
+      "label": "IkBalpha re-synthesized",
+      "detail": "Feedback resequesters NF-kB",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:pathways-nf-kb-inflammatory-signaling",
+    "graphType": "mechanism_flowchart",
+    "topologySignature": "24100ad024e18b92",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "lastUpdated": "2026-06-01",
+  "verified": false,
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "sources": [
+    {
+      "title": "Shared principles in NF-κB signaling",
+      "authors": "Hayden, M. S.; Ghosh, S.",
+      "journal": "Cell",
+      "year": "2008",
+      "pubmed": "18267068",
+      "doi": "10.1016/j.cell.2008.01.020",
+      "url": "https://doi.org/10.1016/j.cell.2008.01.020"
+    },
+    {
+      "title": "Phosphorylation meets ubiquitination: the control of NF-κB activity",
+      "authors": "Karin, M.; Ben-Neriah, Y.",
+      "journal": "Annual Review of Immunology",
+      "year": "2000",
+      "pubmed": "10837071",
+      "doi": "10.1146/annurev.immunol.18.1.621",
+      "url": "https://doi.org/10.1146/annurev.immunol.18.1.621"
+    },
+    {
+      "title": "The NF-κB family of transcription factors and its regulation",
+      "authors": "Oeckinghaus, A.; Ghosh, S.",
+      "journal": "Cold Spring Harbor Perspectives in Biology",
+      "year": "2009",
+      "pubmed": "20066092",
+      "doi": "10.1101/cshperspect.a000034",
+      "url": "https://doi.org/10.1101/cshperspect.a000034"
+    }
+  ],
+  "graphType": "mechanism_flowchart",
+  "domainContext": "Inflammatory transcriptional control"
+}

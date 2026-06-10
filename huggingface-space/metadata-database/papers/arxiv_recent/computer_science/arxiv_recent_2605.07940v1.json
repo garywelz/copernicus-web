@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_2605.07940v1",
+  "arxiv_id": "2605.07940v1",
+  "title": "Delta-Adapter: Scalable Exemplar-Based Image Editing with Single-Pair Supervision",
+  "authors": [
+    "Jiacheng Chen",
+    "Songze Li",
+    "Han Fu",
+    "Baoquan Zhao",
+    "Wei Liu",
+    "Yanyan Liang",
+    "Li Qing",
+    "Xudong Mao"
+  ],
+  "author_string": "Jiacheng Chen, Songze Li, Han Fu, Baoquan Zhao, Wei Liu et al.",
+  "journal": "arXiv:2605.07940v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Exemplar-based image editing applies a transformation defined by a source-target image pair to a new query image. Existing methods rely on a pair-of-pairs supervision paradigm, requiring two image pairs sharing the same edit semantics to learn the target transformation. This constraint makes training data difficult to curate at scale and limits generalization across diverse edit types. We propose Delta-Adapter, a method that learns transferable editing semantics under single-pair supervision, requiring no textual guidance. Rather than directly exposing the exemplar pair to the model, we leverage a pre-trained vision encoder to extract a semantic delta that encodes the visual transformation between the two images. This semantic delta is injected into a pre-trained image editing model via a Perceiver-based adapter. Since the target image is never directly visible to the model, it can serve as the prediction target, enabling single-pair supervision without requiring additional exemplar pairs. This formulation allows us to leverage existing large-scale editing datasets for training. To further promote faithful transformation transfer, we introduce a semantic delta consistency loss that aligns the semantic change of the generated output with the ground-truth semantic delta extracted from the exemplar pair. Extensive experiments demonstrate that Delta-Adapter consistently improves both editing accuracy and content consistency over four strong baselines on seen editing tasks, while also generalizing more effectively to unseen editing tasks. Code will be available at https://delta-adapter.github.io.",
+  "categories": [
+    "cs.CV"
+  ],
+  "primary_category": "cs.CV",
+  "comment": null,
+  "published_date": "2026-05-08T16:09:15Z",
+  "updated_date": "2026-05-08T16:09:15Z",
+  "url": "https://arxiv.org/abs/2605.07940v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.07940v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-10T22:17:15.403313",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CV"
+  ]
+}

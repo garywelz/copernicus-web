@@ -1,0 +1,39 @@
+{
+  "id": "functional_analysis-banach-spaces",
+  "name": "Banach Spaces — Mathematics Process",
+  "category": "mathematics",
+  "subcategory": "functional_analysis",
+  "subcategory_name": "Functional Analysis",
+  "description": "Normed space complete in norm. Hahn–Banach extends functionals; uniform boundedness (Banach–Steinhaus). Core of classical FA.",
+  "mermaid": "graph TD\n    D1[\"Def: Normed space\\n(X, ‖·‖)\"]\n    D2[\"Def: Banach space\\ncomplete normed\"]\n    D3[\"Def: Dual X*\\nbounded linear functionals\"]\n    D4[\"Def: Operator norm\\n‖T‖ = sup ‖Tx‖/‖x‖\"]\n    T1[\"Thm: Hahn–Banach\\nextend ℓ: Y→ℝ\\npreserving ‖ℓ‖\"]\n    T2[\"Thm: Uniform boundedness\\npointwise bounded ⇒\\nnorm bounded\"]\n    T3[\"Thm: Open mapping\\nT surjective ⇒ T open\"]\n    T4[\"Thm: Closed graph\\nGr T closed ⇒ T bounded\"]\n    T5[\"Thm: ℓ(X*,X) separation\\nx≠0 ⇒ ∃ℓ ℓ(x)≠0\"]\n    D1 --> D2\n    D1 --> D3\n    D3 --> D4\n    D1 --> T1\n    D2 --> T2\n    T1 --> T5\n    D2 --> T3\n    D2 --> T4\n    classDef definition fill:#b197fc,color:#fff\n    classDef theorem fill:#51cf66,color:#fff\n    class D1,D2,D3,D4 definition\n    class T1,T2,T3,T4,T5 theorem",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

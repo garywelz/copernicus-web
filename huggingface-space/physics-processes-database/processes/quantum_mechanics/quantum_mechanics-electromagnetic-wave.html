@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Electromagnetic Wave - Physics Process</title>
+    <title>Quantum Tunneling Through a Barrier - Physics Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Electromagnetic Wave</h1>
+            <h1>Quantum Tunneling Through a Barrier</h1>
             <div class="header-meta">
                 <span class="meta-item">Physics</span>
                 <span class="meta-item">Quantum Mechanics</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,67 +234,56 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Electromagnetic Wave Process. This electromagnetism process visualization demonstrates electromagnetic wave propagation and interaction. The flowchart shows wave inputs and propagation, electromagnetic wave methods and field oscillations, electromagnetic wave operations and wave interactions, intermediate results, and final electromagnetic wave outputs.</p>
+                <p>Quantum tunneling lets a particle with energy below a potential barrier cross it: the wavefunction is solved piecewise in the three regions, decaying exponentially inside the barrier, and matching the function and its derivative at the walls yields a transmission amplitude with probability T approximately exp(-2*kappa*L).</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-A2[Wave Source] --> B2[Electromagnetic Wave Method]
-C2[Wave Propagation] --> D2[Field Oscillation]
-E2[Wave Interaction] --> F2[Electromagnetic Wave Analysis]
-B2 --> G2[Wave Equation]
-D2 --> H2[Polarization]
-F2 --> I2[Wave Interference]
-G2 --> J2[Wave Speed]
-H2 --> K2[Wave Amplitude]
-I2 --> L2[Wave Frequency]
-J2 --> M2[Wave Energy]
-K2 --> L2
-L2 --> N2[Wave Momentum]
-M2 --> O2[Wave Transmission]
-N2 --> P2[Wave Reflection]
-O2 --> Q2[Electromagnetic Wave Process]
-P2 --> R2[Electromagnetic Wave Validation]
-Q2 --> S2[Electromagnetic Wave Verification]
-R2 --> T2[Electromagnetic Wave Result]
-S2 --> U2[Electromagnetic Wave Analysis]
-T2 --> V2[Electromagnetic Wave Parameters]
-U2 --> W2[Electromagnetic Wave Output]
-V2 --> X2[Electromagnetic Wave Analysis]
-W2 --> Y2[Electromagnetic Wave Final Result]
-X2 --> Z2[Electromagnetic Wave Complete]
+    N1["Energy E below barrier V0"]
+    N2["Split into three regions"]
+    N3["Solve each region"]
+    N4["Region II: decaying psi"]
+    N5["Match psi, psi' at walls"]
+    N6{"Continuity satisfied?"}
+    N7["Re-solve coefficients"]
+    N8["Transmission amplitude"]
+    N9["T ~ exp(-2 kappa L)"]
+    N10["Tunneling probability"]
 
-    style A2 fill:#ff6b6b,color:#fff
-    style C2 fill:#ff6b6b,color:#fff
-    style E2 fill:#ff6b6b,color:#fff
-    style B2 fill:#ffd43b,color:#000
-    style D2 fill:#ffd43b,color:#000
-    style F2 fill:#ffd43b,color:#000
-    style G2 fill:#ffd43b,color:#000
-    style H2 fill:#ffd43b,color:#000
-    style I2 fill:#ffd43b,color:#000
-    style J2 fill:#ffd43b,color:#000
-    style K2 fill:#ffd43b,color:#000
-    style L2 fill:#ffd43b,color:#000
-    style M2 fill:#51cf66,color:#fff
+    N1 --> N2
+    N2 --> N3
+    N3 --> N4
+    N4 --> N5
+    N5 --> N6
+    N6 -->|no| N7
+    N7 -->|re-match| N5
+    N6 -->|yes| N8
+    N8 --> N9
+    N9 --> N10
+
+    style N1 fill:#ff6b6b,color:#fff
     style N2 fill:#51cf66,color:#fff
-    style O2 fill:#51cf66,color:#fff
-    style P2 fill:#51cf66,color:#fff
-    style Q2 fill:#51cf66,color:#fff
-    style R2 fill:#51cf66,color:#fff
-    style S2 fill:#51cf66,color:#fff
-    style T2 fill:#51cf66,color:#fff
-    style U2 fill:#51cf66,color:#fff
-    style V2 fill:#51cf66,color:#fff
-    style W2 fill:#51cf66,color:#fff
-    style X2 fill:#51cf66,color:#fff
-    style Y2 fill:#51cf66,color:#fff
-    style Z2 fill:#b197fc,color:#fff
+    style N3 fill:#51cf66,color:#fff
+    style N4 fill:#74c0fc,color:#fff
+    style N5 fill:#51cf66,color:#fff
+    style N6 fill:#74c0fc,color:#fff
+    style N7 fill:#51cf66,color:#fff
+    style N8 fill:#51cf66,color:#fff
+    style N9 fill:#51cf66,color:#fff
+    style N10 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Energy E below barrier V0</td><td>Triggers & Inputs</td><td><a href="https://doi.org/10.1017/9781316995433" target="_blank" title="Introduction to Quantum Mechanics (3rd ed.)" style="color:#3498db;">Griffiths, D. J. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Split into three regions</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1017/9781316995433" target="_blank" title="Introduction to Quantum Mechanics (3rd ed.)" style="color:#3498db;">Griffiths, D. J. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Solve each region</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1017/9781316995433" target="_blank" title="Introduction to Quantum Mechanics (3rd ed.)" style="color:#3498db;">Griffiths, D. J. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Region II: decaying psi</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1017/9781316995433" target="_blank" title="Introduction to Quantum Mechanics (3rd ed.)" style="color:#3498db;">Griffiths, D. J. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Match psi, psi' at walls</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1017/9781316995433" target="_blank" title="Introduction to Quantum Mechanics (3rd ed.)" style="color:#3498db;">Griffiths, D. J. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Continuity satisfied?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1017/9781316995433" target="_blank" title="Introduction to Quantum Mechanics (3rd ed.)" style="color:#3498db;">Griffiths, D. J. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Re-solve coefficients</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1017/9781316995433" target="_blank" title="Introduction to Quantum Mechanics (3rd ed.)" style="color:#3498db;">Griffiths, D. J. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Transmission amplitude</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1007/BF01343196" target="_blank" title="Zur Quantentheorie des Atomkernes (quantum theory of the atomic nucleus)" style="color:#3498db;">Gamow, G. 1928</a></td></tr><tr><td style="font-weight:600;">T ~ exp(-2 kappa L)</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1007/BF01343196" target="_blank" title="Zur Quantentheorie des Atomkernes (quantum theory of the atomic nucleus)" style="color:#3498db;">Gamow, G. 1928</a></td></tr><tr><td style="font-weight:600;">Tunneling probability</td><td>Products & Outputs</td><td><a href="https://doi.org/10.1007/BF01343196" target="_blank" title="Zur Quantentheorie des Atomkernes (quantum theory of the atomic nucleus)" style="color:#3498db;">Gamow, G. 1928</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -313,12 +329,12 @@ X2 --> Z2[Electromagnetic Wave Complete]
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 26</li>
-                        <li><strong>Edges:</strong> 24</li>
-                        <li><strong>Conditionals:</strong> 0</li>
+                        <li><strong>Nodes:</strong> 10</li>
+                        <li><strong>Edges:</strong> 10</li>
+                        <li><strong>Conditionals:</strong> 1</li>
                         <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 1</li>
+                        <li><strong>OR Gates:</strong> 1</li>
+                        <li><strong>Total Gates:</strong> 2</li>
                     </ul>
                 </div>
                 
@@ -326,7 +342,7 @@ X2 --> Z2[Electromagnetic Wave Complete]
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>mechanics</li><li>quantum</li><li>wave</li><li>electromagnetic</li>
+                        <li>quantum tunneling</li><li>potential barrier</li><li>transmission coefficient</li><li>evanescent wave</li><li>WKB</li>
                     </ul>
                 </div>
                 
@@ -337,42 +353,22 @@ X2 --> Z2[Electromagnetic Wave Complete]
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Zur Quantentheorie des Atomkernes (quantum theory of the atomic nucleus)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Gamow, G.
+                            , Zeitschrift fur Physik
+                             (1928)
                             </span>
+                            <br><a href="https://doi.org/10.1007/BF01343196" target="_blank" style="color: #3498db; font-size: 0.85em;">DOI: 10.1007/BF01343196</a>
                             
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #3498db; font-size: 0.85em;">View Source</a>
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Maxwell's equations in the 21st century: The promise of computational electrodynamics</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Taflove A, Hagness SC, O'Sullivan MJ
-                            , Rev. Mod. Phys.
+                            <strong>Introduction to Quantum Mechanics (3rd ed.)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Griffiths, D. J.; Schroeter, D. F.
+                            , Cambridge University Press
                              (2018)
                             </span>
-                            <br><a href="https://doi.org/10.1103/RevModPhys.90.015004" target="_blank" style="color: #3498db; font-size: 0.85em;">DOI: 10.1103/RevModPhys.90.015004</a>
-                            
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Negative Refraction Makes a Perfect Lens</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Pendry JB
-                            , Phys. Rev. Lett.
-                             (2000)
-                            </span>
-                            <br><a href="https://doi.org/10.1103/PhysRevLett.85.3966" target="_blank" style="color: #3498db; font-size: 0.85em;">DOI: 10.1103/PhysRevLett.85.3966</a>
-                            
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Maxwell and the origins of modern field theory</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Everitt CWF
-                            , Rev. Mod. Phys.
-                             (1974)
-                            </span>
-                            <br><a href="https://doi.org/10.1103/RevModPhys.46.29" target="_blank" style="color: #3498db; font-size: 0.85em;">DOI: 10.1103/RevModPhys.46.29</a>
+                            <br><a href="https://doi.org/10.1017/9781316995433" target="_blank" style="color: #3498db; font-size: 0.85em;">DOI: 10.1017/9781316995433</a>
                             
                         </li>
                         

@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2605.26093v1",
+  "arxiv_id": "2605.26093v1",
+  "title": "Goal-driven Bayesian Optimal Experimental Design for Robust Decision-Making Under Model Uncertainty",
+  "authors": [
+    "Jinwoo Go",
+    "Xiaoning Qian",
+    "Byung-Jun Yoon"
+  ],
+  "author_string": "Jinwoo Go, Xiaoning Qian, Byung-Jun Yoon",
+  "journal": "arXiv:2605.26093v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Bayesian optimal experimental design (BOED) selects experiments to maximize information gain about model parameters. However, in decision-critical settings, reducing parameter uncertainty does not necessarily improve downstream decisions, as only specific parameter directions relevant to the objective truly matter. We propose GoBOED, a goal-driven BOED framework that directly optimizes experimental designs for a specified decision-making objective. GoBOED combines an amortized variational posterior surrogate with a differentiable convex decision layer, enabling gradient-based design optimization that is fully decision-focused. We theoretically show that GoBOED gradients are insensitive to parameter directions irrelevant to the decision objective, providing a formal justification for why goal-driven design achieves equivalent decision quality over a wider set of experimental designs than information-gain maximization. Empirically, across source localization, epidemic management, and pharmacokinetic control, GoBOED identifies designs that better align with downstream decision objectives and reveals that near-optimal design windows are substantially wider than those predicted by goal-agnostic BOED approaches.",
+  "categories": [
+    "cs.LG",
+    "stat.ML"
+  ],
+  "primary_category": "stat.ML",
+  "comment": null,
+  "published_date": "2026-05-25T17:53:18Z",
+  "updated_date": "2026-05-25T17:53:18Z",
+  "url": "https://arxiv.org/abs/2605.26093v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.26093v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-26T10:15:43.030885",
+  "category": "mathematics",
+  "subcategories": [
+    "cs.LG",
+    "stat.ML"
+  ]
+}

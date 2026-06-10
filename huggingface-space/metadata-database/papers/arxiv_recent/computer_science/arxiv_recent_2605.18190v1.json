@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_2605.18190v1",
+  "arxiv_id": "2605.18190v1",
+  "title": "Dual-Rate Diffusion: Accelerating diffusion models with an interleaved heavy-light network",
+  "authors": [
+    "Grigory Bartosh",
+    "David Ruhe",
+    "Emiel Hoogeboom",
+    "Jonathan Heek",
+    "Thomas Mensink",
+    "Tim Salimans"
+  ],
+  "author_string": "Grigory Bartosh, David Ruhe, Emiel Hoogeboom, Jonathan Heek, Thomas Mensink et al.",
+  "journal": "arXiv:2605.18190v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Diffusion models achieve state-of-the-art generative performance but suffer from high computational costs during inference due to the repeated evaluation of a heavy neural network. In this work, we propose Dual-Rate Diffusion, a method to accelerate sampling by interleaving the execution of a heavy high-capacity context encoder and a light efficient denoising model. The context encoder is evaluated sparsely to extract high-dimensional features, which are effectively reused by the light denoising model at every step to refine the sample efficiently. This approach significantly accelerates inference without compromising sample quality. On ImageNet benchmarks, Dual-Rate Diffusion matches the performance of standard baselines while reducing computational cost by a factor of $2$-$4$. Furthermore, we demonstrate that our method is compatible with distillation techniques, such as Moment Matching Distillation, enabling further efficiency gains in few-step generation.",
+  "categories": [
+    "cs.LG",
+    "cs.CV"
+  ],
+  "primary_category": "cs.CV",
+  "comment": null,
+  "published_date": "2026-05-18T10:30:02Z",
+  "updated_date": "2026-05-18T10:30:02Z",
+  "url": "https://arxiv.org/abs/2605.18190v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.18190v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-18T22:16:04.719617",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.LG",
+    "cs.CV"
+  ]
+}

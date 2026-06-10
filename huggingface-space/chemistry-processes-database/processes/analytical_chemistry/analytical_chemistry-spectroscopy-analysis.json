@@ -1,21 +1,23 @@
 {
   "id": "analytical_chemistry-spectroscopy-analysis",
-  "name": "Spectroscopy Analysis",
+  "name": "Beer–Lambert Quantitation",
   "category": "chemistry",
   "subcategory": "analytical_chemistry",
   "subcategory_name": "Analytical Chemistry",
-  "description": "Spectroscopy Analysis process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "Quantitative spectrophotometry chooses an analytical wavelength, builds a calibration from standards, verifies Beer's-law linearity, fits a calibration line, then measures the sample absorbance and interpolates its concentration.",
   "complexity": {
-    "nodes": 26,
-    "edges": 21,
-    "conditionals": 0,
+    "nodes": 10,
+    "edges": 10,
+    "conditionals": 1,
     "logicGates": {
-      "orGates": 0,
+      "orGates": 1,
       "andGates": 1,
-      "total": 1
+      "notGates": 0,
+      "total": 2
     },
-    "level": "medium",
-    "detailLevel": "medium"
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 1
   },
   "colorScheme": {
     "red": {
@@ -39,53 +41,151 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nA1[Sample Preparation] --> B1[Spectroscopic Method]\nC1[Wavelength Selection] --> D1[Instrument Calibration]\nE1[Data Collection] --> F1[Spectral Analysis]\nB1 --> G1[UV Visible Spectroscopy]\nD1 --> H1[Infrared Spectroscopy]\nF1 --> I1[Nuclear Magnetic Resonance]\nG1 --> J1[Absorbance Measurement]\nH1 --> K1[Vibrational Analysis]\nI1 --> L1[Chemical Shift Analysis]\nJ1 --> M1[Concentration Calculation]\nK1 --> L1\nL1 --> N1[Molecular Structure]\nM1 --> O1[Beer Lambert Law]\nN1 --> P1[Spectral Interpretation]\nO1 --> Q1[Spectroscopy Analysis Process]\nP1 --> R1[Spectroscopy Validation]\nQ1 --> S1[Spectroscopy Verification]\nR1 --> T1[Spectroscopy Result]\nS1 --> U1[Spectroscopy Analysis]\nT1 --> V1[Spectroscopy Parameters]\nU1 --> W1[Spectroscopy Output]\nV1 --> X1[Spectroscopy Analysis]\nW1 --> Y1[Spectroscopy Final Result]\nX1 --> Z1[Spectroscopy Analysis Complete]\n\n    style A1 fill:#ff6b6b,color:#fff\n    style C1 fill:#ff6b6b,color:#fff\n    style E1 fill:#ff6b6b,color:#fff\n    style B1 fill:#ffd43b,color:#000\n    style D1 fill:#ffd43b,color:#000\n    style F1 fill:#ffd43b,color:#000\n    style G1 fill:#ffd43b,color:#000\n    style H1 fill:#ffd43b,color:#000\n    style I1 fill:#ffd43b,color:#000\n    style J1 fill:#ffd43b,color:#000\n    style K1 fill:#ffd43b,color:#000\n    style L1 fill:#ffd43b,color:#000\n    style M1 fill:#51cf66,color:#fff\n    style N1 fill:#51cf66,color:#fff\n    style O1 fill:#51cf66,color:#fff\n    style P1 fill:#51cf66,color:#fff\n    style Q1 fill:#51cf66,color:#fff\n    style R1 fill:#51cf66,color:#fff\n    style S1 fill:#51cf66,color:#fff\n    style T1 fill:#51cf66,color:#fff\n    style U1 fill:#51cf66,color:#fff\n    style V1 fill:#51cf66,color:#fff\n    style W1 fill:#51cf66,color:#fff\n    style X1 fill:#51cf66,color:#fff\n    style Y1 fill:#51cf66,color:#fff\n    style Z1 fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"Analyte with chromophore\"]\n    N2[\"Choose analytical λ\"]\n    N3[\"Prepare standards\"]\n    N4[\"Measure A of standards\"]\n    N5[\"Plot A vs concentration\"]\n    N6{\"Linear (Beer's law)?\"}\n    N7[\"Dilute / narrow range\"]\n    N8[\"Fit calibration line\"]\n    N9[\"Measure sample A\"]\n    N10[\"Interpolate concentration\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 --> N4\n    N4 --> N5\n    N5 --> N6\n    N6 -->|no| N7\n    N7 -->|re-prepare| N3\n    N6 -->|yes| N8\n    N8 --> N9\n    N9 --> N10\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#74c0fc,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#51cf66,color:#fff\n    style N10 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "title": "Quantitative Chemical Analysis, 9th ed. — Spectrophotometry",
+      "authors": "Harris, D. C.",
+      "journal": "W. H. Freeman",
+      "year": "2015",
       "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: Spectroscopy Analysis. Created using the Programming Framework methodology."
+      "url": "https://www.macmillanlearning.com/college/us/product/Quantitative-Chemical-Analysis/p/146413538X"
     },
     {
-      "title": "Chemical Structural Analysis of Bone by Spectroscopy",
-      "authors": "",
-      "journal": "Vibrational Spectroscopy for Tissue Analysis",
-      "year": "2012",
-      "pubmed": null,
-      "doi": "10.1201/b12949-12",
-      "url": "https://doi.org/10.1201/b12949-12"
+      "title": "Gold Book: Beer–Lambert law",
+      "authors": "IUPAC",
+      "journal": "IUPAC Compendium of Chemical Terminology",
+      "year": "2019",
+      "doi": "10.1351/goldbook.B00626",
+      "url": "https://goldbook.iupac.org/terms/view/B00626"
     },
     {
-      "title": "Surface Analysis by Electron Spectroscopy",
-      "authors": "Smith, Graham C.",
-      "journal": "Surface Analysis by Electron Spectroscopy",
-      "year": "1994",
-      "pubmed": null,
-      "doi": "10.1007/978-1-4899-0967-1_2",
-      "url": "https://doi.org/10.1007/978-1-4899-0967-1_2"
-    },
-    {
-      "title": "Illicit Drug Analysis in Blood Samples with Multivariate Analysis Using Surface-Enhanced Raman Spectroscopy",
-      "authors": "Açıkgöz, Güneş; Çolak, Abdullah",
-      "journal": "Spectroscopy",
-      "year": "2023",
-      "pubmed": null,
-      "doi": "10.56530/spectroscopy.er6076l5",
-      "url": "https://doi.org/10.56530/spectroscopy.er6076l5"
+      "title": "Principles of Instrumental Analysis, 7th ed. — Molecular Absorption Methods",
+      "authors": "Skoog, D. A.; Holler, F. J.; Crouch, S. R.",
+      "journal": "Cengage Learning",
+      "year": "2018",
+      "doi": null,
+      "url": "https://www.cengage.com/c/principles-of-instrumental-analysis-7e-skoog/9781305577213/"
     }
   ],
   "keywords": [
-    "spectroscopy",
-    "analysis"
+    "beer-lambert",
+    "calibration",
+    "molar absorptivity",
+    "linearity",
+    "spectrophotometry"
   ],
   "relatedProcesses": [],
   "created": "2026-01-08",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Analyte with chromophore",
+      "detail": "Absorbing species",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N2",
+      "label": "Choose analytical λ",
+      "detail": "Usually λmax",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N3",
+      "label": "Prepare standards",
+      "detail": "Known concentrations",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N4",
+      "label": "Measure A of standards",
+      "detail": "Absorbance readings",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N5",
+      "label": "Plot A vs concentration",
+      "detail": "Calibration data",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N6",
+      "label": "Linear (Beer's law)?",
+      "detail": "Check deviations",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N7",
+      "label": "Dilute / narrow range",
+      "detail": "Restore linearity",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N8",
+      "label": "Fit calibration line",
+      "detail": "Slope = εb",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N9",
+      "label": "Measure sample A",
+      "detail": "Unknown absorbance",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N10",
+      "label": "Interpolate concentration",
+      "detail": "Read from the line",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 1
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:analytical_chemistry-spectroscopy-analysis",
+    "graphType": "cyclic_pathway",
+    "topologySignature": "f0fcf2bdda0f3c47",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "namedCollections": [
+    "analytical-chemistry"
+  ],
+  "graphMetrics": {
+    "nodes": 10,
+    "edges": 10,
+    "conditionals": 1,
+    "andGates": 1,
+    "orGates": 1,
+    "notGates": 0,
+    "loops": 1
+  },
+  "graphType": "cyclic_pathway",
+  "domainContext": "Quantitative spectroscopy"
 }

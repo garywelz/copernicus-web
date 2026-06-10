@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Polymorphism - Chemistry Process</title>
+    <title>Wetting & Contact Angle - Chemistry Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Polymorphism</h1>
+            <h1>Wetting & Contact Angle</h1>
             <div class="header-meta">
                 <span class="meta-item">Chemistry</span>
                 <span class="meta-item">Surface Chemistry</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,68 +234,58 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Polymorphism process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>Wetting is governed by the balance of solid-vapor, solid-liquid and liquid-vapor interfacial tensions through Young's equation; the resulting contact angle classifies wetting, complete spreading or non-wetting, and roughness modifies it via the Wenzel/Cassie-Baxter regimes.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-A2[Molecular Compound] --> B2[Polymorphism Method]
-C2[Crystallization Conditions] --> D2[Phase Analysis]
-E2[Temperature Control] --> F2[Phase Transition]
-B2 --> G2[Phase Preparation]
-D2 --> H2[Phase Characterization]
-F2 --> I2[Transition Control]
-G2 --> J2[Initial Phase]
-H2 --> K2[Phase Properties]
-I2 --> L2[Transition Conditions]
-J2 --> M2[Phase Formation]
-K2 --> L2
-L2 --> N2[Phase Transition]
-M2 --> O2[Crystal Growth]
-N2 --> P2[Polymorphic Transformation]
-O2 --> Q2[Phase Analysis]
-P2 --> R2[New Phase]
-Q2 --> S2[Transition Analysis]
-R2 --> T2[Phase Properties]
-S2 --> U2[Transition Parameters]
-T2 --> V2[Property Comparison]
-U2 --> W2[Polymorphic Efficiency]
-V2 --> X2[Phase Characterization]
-W2 --> Y2[Process Optimization]
-X2 --> Z2[Final Polymorphic Form]
-Y2 --> Z2
+    N1["Liquid drop on solid"]
+    N2["Three interfacial tensions"]
+    N3["Young's equation balance"]
+    N4{"Contact angle θ?"}
+    N5["θ < 90°: wetting"]
+    N6["θ > 90°: non-wetting"]
+    N7["θ ≈ 0: spreads fully"]
+    N8{"Surface rough?"}
+    N9["Wenzel / Cassie–Baxter"]
+    N10["Effective wettability"]
 
-    style A2 fill:#ff6b6b,color:#fff
-    style C2 fill:#ff6b6b,color:#fff
-    style E2 fill:#ff6b6b,color:#fff
-    style B2 fill:#ffd43b,color:#000
-    style D2 fill:#ffd43b,color:#000
-    style F2 fill:#ffd43b,color:#000
-    style G2 fill:#ffd43b,color:#000
-    style H2 fill:#ffd43b,color:#000
-    style I2 fill:#ffd43b,color:#000
-    style J2 fill:#ffd43b,color:#000
-    style K2 fill:#ffd43b,color:#000
-    style L2 fill:#ffd43b,color:#000
-    style M2 fill:#51cf66,color:#fff
+    N1 --> N2
+    N2 --> N3
+    N3 --> N4
+    N4 -->|< 90°| N5
+    N4 -->|> 90°| N6
+    N4 -->|≈ 0| N7
+    N5 --> N8
+    N6 --> N8
+    N7 --> N10
+    N8 -->|yes| N9
+    N9 --> N10
+    N8 -->|smooth| N10
+
+    style N1 fill:#ff6b6b,color:#fff
     style N2 fill:#51cf66,color:#fff
-    style O2 fill:#51cf66,color:#fff
-    style P2 fill:#51cf66,color:#fff
-    style Q2 fill:#51cf66,color:#fff
-    style R2 fill:#51cf66,color:#fff
-    style S2 fill:#51cf66,color:#fff
-    style T2 fill:#51cf66,color:#fff
-    style U2 fill:#51cf66,color:#fff
-    style V2 fill:#51cf66,color:#fff
-    style W2 fill:#51cf66,color:#fff
-    style X2 fill:#51cf66,color:#fff
-    style Y2 fill:#51cf66,color:#fff
-    style Z2 fill:#b197fc,color:#fff
+    style N3 fill:#51cf66,color:#fff
+    style N4 fill:#74c0fc,color:#fff
+    style N5 fill:#51cf66,color:#fff
+    style N6 fill:#51cf66,color:#fff
+    style N7 fill:#51cf66,color:#fff
+    style N8 fill:#74c0fc,color:#fff
+    style N9 fill:#51cf66,color:#fff
+    style N10 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Liquid drop on solid</td><td>Triggers & Inputs</td><td><a href="https://doi.org/10.1098/rstl.1805.0005" target="_blank" title="An essay on the cohesion of fluids (Young's equation)" style="color:#e74c3c;">Young, T. 1805</a></td></tr><tr><td style="font-weight:600;">Three interfacial tensions</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1098/rstl.1805.0005" target="_blank" title="An essay on the cohesion of fluids (Young's equation)" style="color:#e74c3c;">Young, T. 1805</a></td></tr><tr><td style="font-weight:600;">Young's equation balance</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1098/rstl.1805.0005" target="_blank" title="An essay on the cohesion of fluids (Young's equation)" style="color:#e74c3c;">Young, T. 1805</a></td></tr><tr><td style="font-weight:600;">Contact angle θ?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1103/RevModPhys.57.827" target="_blank" title="Wetting: statics and dynamics" style="color:#e74c3c;">de Gennes, P. G. 1985</a></td></tr><tr><td style="font-weight:600;">θ < 90°: wetting</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1103/RevModPhys.57.827" target="_blank" title="Wetting: statics and dynamics" style="color:#e74c3c;">de Gennes, P. G. 1985</a></td></tr><tr><td style="font-weight:600;">θ > 90°: non-wetting</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1103/RevModPhys.57.827" target="_blank" title="Wetting: statics and dynamics" style="color:#e74c3c;">de Gennes, P. G. 1985</a></td></tr><tr><td style="font-weight:600;">θ ≈ 0: spreads fully</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1103/RevModPhys.57.827" target="_blank" title="Wetting: statics and dynamics" style="color:#e74c3c;">de Gennes, P. G. 1985</a></td></tr><tr><td style="font-weight:600;">Surface rough?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1021/ie50320a024" target="_blank" title="Resistance of solid surfaces to wetting by water (Wenzel)" style="color:#e74c3c;">Wenzel, R. N. 1936</a></td></tr><tr><td style="font-weight:600;">Wenzel / Cassie–Baxter</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1021/ie50320a024" target="_blank" title="Resistance of solid surfaces to wetting by water (Wenzel)" style="color:#e74c3c;">Wenzel, R. N. 1936</a></td></tr><tr><td style="font-weight:600;">Effective wettability</td><td>Products & Outputs</td><td><a href="https://doi.org/10.1103/RevModPhys.57.827" target="_blank" title="Wetting: statics and dynamics" style="color:#e74c3c;">de Gennes, P. G. 1985</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -314,12 +331,12 @@ Y2 --> Z2
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 26</li>
-                        <li><strong>Edges:</strong> 22</li>
-                        <li><strong>Conditionals:</strong> 0</li>
-                        <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 1</li>
+                        <li><strong>Nodes:</strong> 10</li>
+                        <li><strong>Edges:</strong> 12</li>
+                        <li><strong>Conditionals:</strong> 2</li>
+                        <li><strong>AND Gates:</strong> 2</li>
+                        <li><strong>OR Gates:</strong> 2</li>
+                        <li><strong>Total Gates:</strong> 4</li>
                     </ul>
                 </div>
                 
@@ -327,7 +344,7 @@ Y2 --> Z2
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>polymorphism</li>
+                        <li>wetting</li><li>contact angle</li><li>young's equation</li><li>surface tension</li><li>wenzel cassie</li>
                     </ul>
                 </div>
                 
@@ -338,42 +355,32 @@ Y2 --> Z2
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>An essay on the cohesion of fluids (Young's equation)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Young, T.
+                            , Philosophical Transactions of the Royal Society
+                             (1805)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Polymorphism of pharmaceuticals</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Bernstein, Joel
-                            , Polymorphism in Molecular Crystals
-                             (2020)
-                            </span>
-                            <br><a href="https://doi.org/10.1093/oso/9780199655441.003.0007" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1093/oso/9780199655441.003.0007</a>
+                            <br><a href="https://doi.org/10.1098/rstl.1805.0005" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1098/rstl.1805.0005</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Polymorphism and patents</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Bernstein, Joel
-                            , Polymorphism in Molecular Crystals
-                             (2020)
+                            <strong>Wetting: statics and dynamics</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">de Gennes, P. G.
+                            , Reviews of Modern Physics
+                             (1985)
                             </span>
-                            <br><a href="https://doi.org/10.1093/oso/9780199655441.003.0010" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1093/oso/9780199655441.003.0010</a>
+                            <br><a href="https://doi.org/10.1103/RevModPhys.57.827" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1103/RevModPhys.57.827</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Computational aspects of polymorphism</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Bernstein, Joel
-                            , Polymorphism in Molecular Crystals
-                             (2020)
+                            <strong>Resistance of solid surfaces to wetting by water (Wenzel)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Wenzel, R. N.
+                            , Industrial & Engineering Chemistry
+                             (1936)
                             </span>
-                            <br><a href="https://doi.org/10.1093/oso/9780199655441.003.0005" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1093/oso/9780199655441.003.0005</a>
+                            <br><a href="https://doi.org/10.1021/ie50320a024" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1021/ie50320a024</a>
                             
                         </li>
                         

@@ -1,0 +1,37 @@
+{
+  "id": "arxiv_2605.20110v1",
+  "arxiv_id": "2605.20110v1",
+  "title": "SetCon: Towards Open-Ended Referring Segmentation via Set-Level Concept Prediction",
+  "authors": [
+    "Zhixiong Zhang",
+    "Yizhuo Li",
+    "Shuangrui Ding",
+    "Yuhang Zang",
+    "Shengyuan Ding",
+    "Long Xing",
+    "Yibin Wang",
+    "Qiaosheng Zhang",
+    "Jiaqi Wang"
+  ],
+  "author_string": "Zhixiong Zhang, Yizhuo Li, Shuangrui Ding, Yuhang Zang, Shengyuan Ding et al.",
+  "journal": "arXiv:2605.20110v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Referring segmentation grounds natural-language queries to pixel-level masks, but extending it to complex scenarios with multiple instances, cross-category groups, or open-ended target sets remains challenging. Previous Large Vision Language Model (LVLM)-based methods represent referred targets with one or more special tokens sequentially, treating multiple targets as separate outputs rather than a coherent set and offering little incentive to capture set-level properties such as completeness and mutual exclusivity. We reformulate open-ended referring segmentation as explicit set-level concept prediction and propose Set-Concept Segmentation (SetCon), which uses LVLM-generated natural-language concepts, instead of segmentation-specific tokens, as semantic conditions for joint mask-set decoding. A hierarchical semantic decomposition first predicts a shared set-level concept defining the target scope and then refines it into fine-grained concept groups aligned with target subsets. To support this, a two-stage annotation pipeline augments existing reasoning segmentation datasets with hierarchical semantic supervision (236k samples, 784k concept phrases). SetCon achieves state-of-the-art results on image benchmarks (+3.3 gIoU on gRefCOCO, +12.1 gIoU on MUSE), with margins that grow as the number of referred targets increases. The concept interface also transfers to video under a detect-and-track setting, yielding new state-of-the-art results on seven referring video benchmarks, including +10.9 J&F on MeViS and +12.4 J&F on Ref-SeCVOS.",
+  "categories": [
+    "cs.CV"
+  ],
+  "primary_category": "cs.CV",
+  "comment": null,
+  "published_date": "2026-05-19T16:59:11Z",
+  "updated_date": "2026-05-19T16:59:11Z",
+  "url": "https://arxiv.org/abs/2605.20110v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.20110v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-20T10:16:33.997023",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CV"
+  ]
+}

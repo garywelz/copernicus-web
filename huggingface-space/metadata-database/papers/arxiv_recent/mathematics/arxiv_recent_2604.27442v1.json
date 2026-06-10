@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2604.27442v1",
+  "arxiv_id": "2604.27442v1",
+  "title": "The Bernstein-von Mises theorem for Bayesian one-pass online learning",
+  "authors": [
+    "Jeyong Lee",
+    "Junhyeok Choi",
+    "Dongguen Kim",
+    "Minwoo Chae"
+  ],
+  "author_string": "Jeyong Lee, Junhyeok Choi, Dongguen Kim, Minwoo Chae",
+  "journal": "arXiv:2604.27442v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Bayesian online learning provides a coherent framework for sequential inference. However, its theoretical understanding remains limited, particularly in the one-pass setting. Existing theoretical guarantees typically require the mini-batch sample size to diverge, a condition that fails in the one-pass regime. In this paper, we propose a new Bayesian online learning algorithm tailored to the one-pass setting, which incorporates a warm-start phase to ensure stable sequential updates. For this algorithm, we show that the sequentially updated posterior attains the optimal convergence rate. Building on this, we establish an online analogue of the Bernstein-von Mises theorem, which guarantees valid uncertainty quantification without diverging mini-batch sample sizes. Our analysis is based on a novel theoretical framework that differs fundamentally from existing approaches in the online learning literature. Numerical experiments on generalized linear models show that the proposed method matches the performance of the batch estimator while outperforming existing online procedures.",
+  "categories": [
+    "math.ST",
+    "stat.ML"
+  ],
+  "primary_category": "stat.ML",
+  "comment": "52 pages",
+  "published_date": "2026-04-30T05:29:06Z",
+  "updated_date": "2026-04-30T05:29:06Z",
+  "url": "https://arxiv.org/abs/2604.27442v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.27442v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-30T22:15:43.111202",
+  "category": "mathematics",
+  "subcategories": [
+    "math.ST",
+    "stat.ML"
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2604.19919v1",
+  "arxiv_id": "2604.19919v1",
+  "title": "Neural Simulation-based Inference with Hierarchical Priors for Detached Eclipsing Binaries",
+  "authors": [
+    "Jacqueline Blaum Hough",
+    "Joshua S. Bloom"
+  ],
+  "author_string": "Jacqueline Blaum Hough, Joshua S. Bloom",
+  "journal": "arXiv:2604.19919v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Detached eclipsing binaries (DEBs) enable direct inference of stellar and orbital properties across diverse stellar populations. However, inference typically requires computationally intensive forward modeling and radial velocity (RV) measurements, limiting homogeneous analyses to relatively small samples. The growing number of photometrically identified DEBs from modern time-domain surveys motivates scalable methods for extracting physical parameters without RVs. We present multimodal amortized neural posterior estimation for DEB inference that combines survey-realistic light curves, broadband SEDs, and Gaia parallaxes within a physically motivated hierarchical prior framework. The generative model enforces broad stellar evolution consistency through MIST isochrones and geometric eclipse prior constraints while incorporating empirically derived survey cadence patterns and flux-dependent noise models to produce realistic training data. A conditional normalizing flow, informed by modality-specific encoders, approximates the full 16-dimensional posterior distribution. Across nearly 5000 held-out simulations, the amortized posterior recovers parameters accurately and yields statistically calibrated uncertainties, verified through simulation-based calibration and empirical coverage tests. Parameters tied directly to eclipse geometry and flux scale are tightly constrained, while quantities intrinsically degenerate in broadband photometry (e.g., age and metallicity) exhibit broader posteriors consistent with expectations. Generating the training set requires computational effort similar to a traditional MCMC analysis of only a single system, and posterior inference for new systems is effectively instantaneous. This framework enables scalable, statistically calibrated inference for large DEB samples, providing a pathway toward population-level analysis in the era of large time-domain surveys.",
+  "categories": [
+    "astro-ph.SR",
+    "astro-ph.GA",
+    "astro-ph.IM"
+  ],
+  "primary_category": "astro-ph.IM",
+  "comment": null,
+  "published_date": "2026-04-21T18:59:57Z",
+  "updated_date": "2026-04-21T18:59:57Z",
+  "url": "https://arxiv.org/abs/2604.19919v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.19919v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-23T10:15:36.225484",
+  "category": "physics",
+  "subcategories": [
+    "astro-ph.SR",
+    "astro-ph.GA",
+    "astro-ph.IM"
+  ]
+}

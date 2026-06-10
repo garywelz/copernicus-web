@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_2604.22101v1",
+  "arxiv_id": "2604.22101v1",
+  "title": "Reconfigurable Superconducting Logic for On-Chip Photon Coincidence Detection",
+  "authors": [
+    "Gabriel Le Guay",
+    "Matteo Castellani",
+    "Reed Foster",
+    "Francesca Incalza",
+    "Alejandro Simon",
+    "Owen Medeiros",
+    "Phillip D. Keathley",
+    "Karl K. Berggren"
+  ],
+  "author_string": "Gabriel Le Guay, Matteo Castellani, Reed Foster, Francesca Incalza, Alejandro Simon et al.",
+  "journal": "arXiv:2604.22101v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Scaling photonic quantum-information platforms requires arrays of superconducting nanowire single-photon detectors (SNSPDs) for feedforward control, in which optical operations are conditioned on preceding Bell-state measurements that typically rely on photon coincidence detections. On-chip superconducting cryotron electronics, performing logic directly on detector outputs and subsequently driving optical modulators, could substantially reduce latency and room-temperature interconnect complexity for feedforward schemes. To date, no cryotron logic gates specifically designed to process SNSPD outputs for quantum applications have been demonstrated. We demonstrate a bias-programmable logic gate based on three nanocryotrons (nTrons), fabricated using the same thin-film technology as SNSPDs. The circuit implements selectable AND (coincidence), XOR (odd-parity), and OR functions on two externally generated electrical pulses at 4.2 K, with bit-error rates below $10^{-3}$, bias margins up to $\\pm24\\%$, and operation extending to 25 MHz over narrower bias windows. Moreover, it performs coincidence and odd-parity detection on two co-fabricated SNSPDs' outputs with bit-error rates below $3.2 \\times 10^{-2}$. As a proof-of-concept, we show that nTrons can drive capacitive loads up to 1.15 V, potentially enabling compatibility with electro-optic modulators in feedforward schemes.",
+  "categories": [
+    "physics.app-ph"
+  ],
+  "primary_category": "physics.app-ph",
+  "comment": "*These authors contributed equally to this work",
+  "published_date": "2026-04-23T22:17:26Z",
+  "updated_date": "2026-04-23T22:17:26Z",
+  "url": "https://arxiv.org/abs/2604.22101v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.22101v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-27T10:15:32.951004",
+  "category": "physics",
+  "subcategories": [
+    "physics.app-ph"
+  ]
+}

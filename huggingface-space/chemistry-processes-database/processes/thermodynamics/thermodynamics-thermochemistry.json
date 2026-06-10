@@ -1,21 +1,23 @@
 {
   "id": "thermodynamics-thermochemistry",
-  "name": "Thermochemistry",
+  "name": "Reaction Enthalpy via Hess's Law",
   "category": "chemistry",
   "subcategory": "thermodynamics",
   "subcategory_name": "Thermodynamics",
-  "description": "Thermochemistry process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "Obtain a reaction enthalpy either by direct calorimetry or, when the reaction is impractical to measure, by combining tabulated enthalpies of known reactions or formation enthalpies through Hess's law.",
   "complexity": {
-    "nodes": 26,
-    "edges": 22,
-    "conditionals": 0,
+    "nodes": 8,
+    "edges": 9,
+    "conditionals": 1,
     "logicGates": {
-      "orGates": 0,
+      "orGates": 1,
       "andGates": 1,
-      "total": 1
+      "notGates": 0,
+      "total": 2
     },
     "level": "medium",
-    "detailLevel": "medium"
+    "detailLevel": "source_grounded",
+    "loops": 0
   },
   "colorScheme": {
     "red": {
@@ -39,52 +41,135 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nA4[Chemical System] --> B4[Thermochemistry Method]\nC4[Energy Source] --> D4[Calorimeter Setup]\nE4[Reaction Vessel] --> F4[Temperature Monitoring]\nB4 --> G4[System Preparation]\nD4 --> H4[Calorimeter Calibration]\nF4 --> I4[Temperature Control]\nG4 --> J4[Initial State]\nH4 --> K4[Heat Capacity]\nI4 --> L4[Thermal Regulation]\nJ4 --> M4[Reaction Initiation]\nK4 --> L4\nL4 --> N4[Heat Transfer]\nM4 --> O4[Energy Release]\nN4 --> P4[Thermochemical Process]\nO4 --> Q4[Heat Measurement]\nP4 --> R4[Enthalpy Change]\nQ4 --> S4[Temperature Change]\nR4 --> T4[Energy Analysis]\nS4 --> U4[Calorimetric Analysis]\nT4 --> V4[Energy Assessment]\nU4 --> W4[Thermochemical Efficiency]\nV4 --> X4[Energy Characterization]\nW4 --> Y4[Process Optimization]\nX4 --> Z4[Final Energy State]\nY4 --> Z4\n\n    style A4 fill:#ff6b6b,color:#fff\n    style C4 fill:#ff6b6b,color:#fff\n    style E4 fill:#ff6b6b,color:#fff\n    style B4 fill:#ffd43b,color:#000\n    style D4 fill:#ffd43b,color:#000\n    style F4 fill:#ffd43b,color:#000\n    style G4 fill:#ffd43b,color:#000\n    style H4 fill:#ffd43b,color:#000\n    style I4 fill:#ffd43b,color:#000\n    style J4 fill:#ffd43b,color:#000\n    style K4 fill:#ffd43b,color:#000\n    style L4 fill:#ffd43b,color:#000\n    style M4 fill:#51cf66,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style O4 fill:#51cf66,color:#fff\n    style P4 fill:#51cf66,color:#fff\n    style Q4 fill:#51cf66,color:#fff\n    style R4 fill:#51cf66,color:#fff\n    style S4 fill:#51cf66,color:#fff\n    style T4 fill:#51cf66,color:#fff\n    style U4 fill:#51cf66,color:#fff\n    style V4 fill:#51cf66,color:#fff\n    style W4 fill:#51cf66,color:#fff\n    style X4 fill:#51cf66,color:#fff\n    style Y4 fill:#51cf66,color:#fff\n    style Z4 fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"Target reaction\"]\n    N2{\"Measurable directly?\"}\n    N3[\"Calorimetry: measure q\"]\n    N4[\"Select known reactions\"]\n    N5[\"Scale + reverse equations\"]\n    N6[\"Sum enthalpies (Hess)\"]\n    N7[\"Use ΔHf° formation data\"]\n    N8[\"ΔH_rxn obtained\"]\n\n    N1 --> N2\n    N2 -->|yes| N3\n    N3 --> N8\n    N2 -->|no| N4\n    N4 --> N5\n    N5 --> N6\n    N6 --> N8\n    N2 -->|formation data| N7\n    N7 --> N8\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#74c0fc,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "title": "Physical Chemistry, 11th ed. — The First Law (thermochemistry, Hess's law)",
+      "authors": "Atkins, P.; de Paula, J.; Keeler, J.",
+      "journal": "Oxford University Press",
+      "year": "2018",
       "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: Thermochemistry. Created using the Programming Framework methodology."
+      "url": "https://global.oup.com/ukhe/product/atkins-physical-chemistry-9780198769866"
     },
     {
-      "title": "Thermochemistry",
-      "authors": "",
-      "journal": "AccessScience",
-      "year": "None",
-      "pubmed": null,
-      "doi": "10.1036/1097-8542.690300",
-      "url": "https://doi.org/10.1036/1097-8542.690300"
+      "title": "Gold Book: standard enthalpy of reaction",
+      "authors": "IUPAC",
+      "journal": "IUPAC Compendium of Chemical Terminology",
+      "year": "2019",
+      "doi": "10.1351/goldbook.S05907",
+      "url": "https://goldbook.iupac.org/terms/view/S05907"
     },
     {
-      "title": "Thermochemistry",
-      "authors": "",
-      "journal": "SpringerReference",
-      "year": "None",
-      "pubmed": null,
-      "doi": "10.1007/springerreference_30232",
-      "url": "https://doi.org/10.1007/springerreference_30232"
-    },
-    {
-      "title": "Thermochemistry",
-      "authors": "Atkins, Peter; de Paula, Julio; Keeler, James",
-      "journal": "Atkins’ Physical Chemistry",
-      "year": "2022",
-      "pubmed": null,
-      "doi": "10.1093/hesc/9780198847816.003.0008",
-      "url": "https://doi.org/10.1093/hesc/9780198847816.003.0008"
+      "title": "NIST Chemistry WebBook — enthalpies of formation",
+      "authors": "Linstrom, P. J.; Mallard, W. G. (eds.)",
+      "journal": "NIST Standard Reference Database 69",
+      "year": "2023",
+      "doi": "10.18434/T4D303",
+      "url": "https://webbook.nist.gov/chemistry/"
     }
   ],
   "keywords": [
+    "hess's law",
+    "enthalpy",
+    "calorimetry",
+    "formation enthalpy",
     "thermochemistry"
   ],
   "relatedProcesses": [],
   "created": "2026-01-08",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Target reaction",
+      "detail": "Reaction whose ΔH is wanted",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N2",
+      "label": "Measurable directly?",
+      "detail": "Can the reaction run cleanly in a calorimeter?",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N3",
+      "label": "Calorimetry: measure q",
+      "detail": "Heat at constant P gives ΔH",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N4",
+      "label": "Select known reactions",
+      "detail": "Choose steps that sum to target",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N5",
+      "label": "Scale + reverse equations",
+      "detail": "Adjust coefficients and signs",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N6",
+      "label": "Sum enthalpies (Hess)",
+      "detail": "ΔH is path-independent",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N7",
+      "label": "Use ΔHf° formation data",
+      "detail": "Products minus reactants",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N8",
+      "label": "ΔH_rxn obtained",
+      "detail": "Reaction enthalpy reported",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 0
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:thermodynamics-thermochemistry",
+    "graphType": "decision_flowchart",
+    "topologySignature": "06147fdf5756ac09",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "namedCollections": [
+    "thermodynamics"
+  ],
+  "graphMetrics": {
+    "nodes": 8,
+    "edges": 9,
+    "conditionals": 1,
+    "andGates": 1,
+    "orGates": 1,
+    "notGates": 0,
+    "loops": 0
+  },
+  "graphType": "decision_flowchart",
+  "domainContext": "Thermochemistry"
 }

@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_2605.04596v1",
+  "arxiv_id": "2605.04596v1",
+  "title": "A Physics-Constrained Learning Framework for Wave Propagation in Complex Poroelastic Multilayered Media",
+  "authors": [
+    "Ya Gao",
+    "Yifan Wang",
+    "Yiming Chen",
+    "Haohan Sun",
+    "Shoukun Lyu",
+    "Junmei Cao",
+    "Weijiang Xu",
+    "Qian Cheng"
+  ],
+  "author_string": "Ya Gao, Yifan Wang, Yiming Chen, Haohan Sun, Shoukun Lyu et al.",
+  "journal": "arXiv:2605.04596v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Wave propagation through complex poroelastic multilayered media is difficult to model and invert because pronounced heterogeneity, scattering, mode conversion and fluid-solid coupling jointly distort acoustic signals during propagation. Here we present Physics-Constrained Learning for Complex Multilayered Media (PCL-CMM), a general framework that integrates Biot's poroelastic theory with the elastic wave equation to bridge the gap between physically rigorous wave modelling and data-driven learning. PCL-CMM constructs a high-fidelity digital twin that dynamically computes an effective acoustic stiffness tensor for forward wave modelling and incorporates the resulting physical constraint as a loss term to regularize the training of deep neural networks. We demonstrate PCL-CMM on transcranial photoacoustic imaging, where skull-induced acoustic distortions severely degrade image formation. Across simulations and ex vivo experiments, PCL-CMM effectively compensates for these distortions and improves SSIM by more than 0.06 compared with purely data-driven neural networks. This work establishes a physics-constrained learning framework for acoustic wave modelling in complex poroelastic multilayered media.",
+  "categories": [
+    "physics.med-ph"
+  ],
+  "primary_category": "physics.med-ph",
+  "comment": "30 pages,8 figures,2 tables",
+  "published_date": "2026-05-06T07:42:31Z",
+  "updated_date": "2026-05-06T07:42:31Z",
+  "url": "https://arxiv.org/abs/2605.04596v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.04596v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-07T10:15:50.772933",
+  "category": "physics",
+  "subcategories": [
+    "physics.med-ph"
+  ]
+}

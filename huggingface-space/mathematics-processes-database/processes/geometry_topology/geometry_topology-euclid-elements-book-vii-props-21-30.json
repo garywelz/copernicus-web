@@ -1,0 +1,39 @@
+{
+  "id": "geometry_topology-euclid-elements-book-vii-props-21-30",
+  "name": "Euclid's Elements Book VII — Propositions 21–30",
+  "category": "mathematics",
+  "subcategory": "geometry_topology",
+  "subcategory_name": "Geometry & Topology",
+  "description": "Process chart: geometry_topology-euclid-elements-book-vii-props-21-30",
+  "mermaid": "graph TD\n    Def1[\"Def. VII.1\\nUnit\"]\n    Def2[\"Def. VII.2\\nNumber\"]\n    Def3[\"Def. VII.3\\nPart\"]\n    Def4[\"Def. VII.4\\nParts\"]\n    Def5[\"Def. VII.5\\nMultiple\"]\n    Def6[\"Def. VII.6\\nEven\"]\n    Def7[\"Def. VII.7\\nOdd\"]\n    Def8[\"Def. VII.8\\nEven-times even\"]\n    Def9[\"Def. VII.9\\nEven-times odd\"]\n    Def10[\"Def. VII.10\\nOdd-times odd\"]\n    Def11[\"Def. VII.11\\nPrime\"]\n    Def12[\"Def. VII.12\\nRelatively prime\"]\n    Def13[\"Def. VII.13\\nComposite\"]\n    Def14[\"Def. VII.14\\nComposite to one another\"]\n    Def15[\"Def. VII.15\\nMultiply\"]\n    Def16[\"Def. VII.16\\nProduct\"]\n    Def17[\"Def. VII.17\\nSide\"]\n    Def18[\"Def. VII.18\\nPlane number\"]\n    Def19[\"Def. VII.19\\nSolid number\"]\n    Def20[\"Def. VII.20\\nSimilar plane\"]\n    Def21[\"Def. VII.21\\nSimilar solid\"]\n    Def22[\"Def. VII.22\\nPerfect\"]\n    Prop1[\"Prop. VII.1\\nAntenaresis, relatively prime\"]\n    Prop2[\"Prop. VII.2\\nGCD of two numbers\"]\n    Prop3[\"Prop. VII.3\\nGCD of three numbers\"]\n    Prop4[\"Prop. VII.4\\nPart or parts\"]\n    Prop5[\"Prop. VII.5\\nSame part: sum\"]\n    Prop6[\"Prop. VII.6\\nSame parts: sum\"]\n    Prop7[\"Prop. VII.7\\nSame part: remainder\"]\n    Prop8[\"Prop. VII.8\\nSame parts: remainder\"]\n    Prop9[\"Prop. VII.9\\nSame part: alternately\"]\n    Prop10[\"Prop. VII.10\\nSame parts: alternately\"]\n    Prop11[\"Prop. VII.11\\nProportion: remainder\"]\n    Prop12[\"Prop. VII.12\\nProportional: sum\"]\n    Prop13[\"Prop. VII.13\\nProportional: alternately\"]\n    Prop14[\"Prop. VII.14\\nEx aequali\"]\n    Prop15[\"Prop. VII.15\\nUnit measures\"]\n    Prop16[\"Prop. VII.16\\nCommutativity of product\"]\n    Prop17[\"Prop. VII.17\\nRatio of products\"]\n    Prop18[\"Prop. VII.18\\nRatio: multipliers\"]\n    Prop19[\"Prop. VII.19\\nProportional iff product\"]\n    Prop20[\"Prop. VII.20\\nLeast in ratio\"]\n    Prop21[\"Prop. VII.21\\nRelatively prime: least\"]\n    Prop22[\"Prop. VII.22\\nLeast: relatively prime\"]\n    Prop23[\"Prop. VII.23\\nRelatively prime: divisor\"]\n    Prop24[\"Prop. VII.24\\nProduct relatively prime\"]\n    Prop25[\"Prop. VII.25\\nSquare relatively prime\"]\n    Prop26[\"Prop. VII.26\\nProducts relatively prime\"]\n    Prop27[\"Prop. VII.27\\nSquares relatively prime\"]\n    Prop28[\"Prop. VII.28\\nSum relatively prime\"]\n    Prop29[\"Prop. VII.29\\nPrime to non-multiple\"]\n    Prop30[\"Prop. VII.30\\nPrime divides product\"]\n    Prop1 --> Prop2\n    Prop1 --> Prop3\n    Prop2 --> Prop3\n    Prop19 --> Prop20\n    Prop20 --> Prop21\n    Prop21 --> Prop22\n    Prop22 --> Prop23\n    Prop23 --> Prop24\n    Prop23 --> Prop25\n    Prop24 --> Prop26\n    Prop25 --> Prop27\n    Prop23 --> Prop28\n    Prop23 --> Prop29\n    Prop29 --> Prop30\n    classDef definition fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef proposition fill:#51cf66,color:#fff,stroke:#40c057\n    class Def1,Def2,Def3,Def4,Def5,Def6,Def7,Def8,Def9,Def10,Def11,Def12,Def13,Def14,Def15,Def16,Def17,Def18,Def19,Def20,Def21,Def22 definition\n    class Prop1,Prop2,Prop3,Prop4,Prop5,Prop6,Prop7,Prop8,Prop9,Prop10,Prop11,Prop12,Prop13,Prop14,Prop15,Prop16,Prop17,Prop18,Prop19,Prop20,Prop21,Prop22,Prop23,Prop24,Prop25,Prop26,Prop27,Prop28,Prop29,Prop30 proposition",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

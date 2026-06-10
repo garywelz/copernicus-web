@@ -1,0 +1,37 @@
+{
+  "id": "arxiv_2604.26898v1",
+  "arxiv_id": "2604.26898v1",
+  "title": "Stochastic Scaling Limits and Synchronization by Noise in Deep Transformer Models",
+  "authors": [
+    "Andrea Agazzi",
+    "Giuseppe Bruno",
+    "Eloy Mosig García",
+    "Samuele Saviozzi",
+    "Marco Romito"
+  ],
+  "author_string": "Andrea Agazzi, Giuseppe Bruno, Eloy Mosig García, Samuele Saviozzi, Marco Romito",
+  "journal": "arXiv:2604.26898v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We prove pathwise convergence of the layerwise evolution of tokens in a finite-depth, finite-width transformer model with MultiLayer Perceptron (MLP) blocks to a continuous-time stochastic interacting particle system. We also identify the stochastic partial differential equation describing the evolution of the tokens' distribution in this limit and prove propagation of chaos when the number of such tokens is large. The bounds we establish are quantitative and the limits we consider commute. We further prove that the limiting stochastic model displays synchronization by noise and establish exponential dissipation of the interaction energy on average, provided that the common noise is sufficiently coercive relative to the deterministic self-attention drift. We finally characterize the activation functions satisfying the former condition.",
+  "categories": [
+    "math.PR",
+    "cs.LG",
+    "stat.ML"
+  ],
+  "primary_category": "stat.ML",
+  "comment": "55 pages, 6 figures",
+  "published_date": "2026-04-29T17:09:05Z",
+  "updated_date": "2026-04-29T17:09:05Z",
+  "url": "https://arxiv.org/abs/2604.26898v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.26898v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-30T10:15:46.067301",
+  "category": "mathematics",
+  "subcategories": [
+    "math.PR",
+    "cs.LG",
+    "stat.ML"
+  ]
+}

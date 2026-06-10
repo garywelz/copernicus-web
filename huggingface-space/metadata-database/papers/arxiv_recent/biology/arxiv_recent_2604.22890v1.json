@@ -1,0 +1,29 @@
+{
+  "id": "arxiv_2604.22890v1",
+  "arxiv_id": "2604.22890v1",
+  "title": "AI-Derived Reproductive Phenotypes and Explainable ML for Concurrent Early Multimorbidity in U.S. Women: NHANES 2017-March 2020",
+  "authors": [
+    "Sunday A. Adetunji"
+  ],
+  "author_string": "Sunday A. Adetunji",
+  "journal": "2026 Symposium on Data Science and Statistic | American Statistics Association",
+  "journal_ref": "2026 Symposium on Data Science and Statistic | American Statistics Association",
+  "year": "2026",
+  "doi": null,
+  "abstract": "Background:Adverse reproductive history is a multisystemic risk factor, but evidence is constrained by isolated outcome studies, limited adjustment, and non-interpretable algorithmic models. We re-frame the estimand from prediction to concurrent risk classification and emphasize calibration, interpretability, and systematic error. Methods:We analyzed 1,602 U.S. women aged 20-44 years from NHANES 2017-March 2020 with reproductive-history variables, chronic-condition indicators, and PHQ-9 data. Restricted multimorbidity was defined as at least two of hypertension, hypercholesterolemia, cardiovascular disease, kidney disease, and kidney stones. Features were summarized using principal components analysis and k-means clustering. We compared multivariable logistic regression with XGBoost and used SHAP values to quantify contributions. Results:Early multimorbidity occurred in 6.6% (106/1,602); 71.0% had no chronic condition and 22.4% had one. Adverse reproductive burden was common: 58% had at least one adverse reproductive factor and 12.6% had three or more. Four latent phenotypes emerged (n=398, 508, 102, 594), including a fragile subgroup in which 77.5% met the multimorbidity definition. In holdout evaluation, XGBoost improved discrimination relative to logistic regression (ROC-AUC 0.766 vs 0.667), but showed worse probability accuracy and calibration (Brier 0.069 vs 0.059; expected calibration error 0.113 vs 0.037). Dominant drivers were age, PHQ-9 score, income-to-poverty ratio, race/ethnicity, education, and the adverse reproductive index. Conclusions: Principal components analysis and k-means phenotyping revealed that adverse reproductive life-course structure is strongly clustered with concurrent early multimorbidity in U.S. women aged 20-44 years. Although XGBoost improved discrimination, calibration and feature attribution remained essential for reliable translation into practice",
+  "categories": [
+    "q-bio.OT"
+  ],
+  "primary_category": "q-bio.OT",
+  "comment": "Refereed (Peer-Reviewed) Conference Paper",
+  "published_date": "2026-04-24T09:36:03Z",
+  "updated_date": "2026-04-24T09:36:03Z",
+  "url": "https://arxiv.org/abs/2604.22890v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.22890v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-04T10:15:36.487444",
+  "category": "biology",
+  "subcategories": [
+    "q-bio.OT"
+  ]
+}

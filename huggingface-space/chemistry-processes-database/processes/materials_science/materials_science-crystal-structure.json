@@ -1,21 +1,23 @@
 {
   "id": "materials_science-crystal-structure",
-  "name": "Crystal Structure",
+  "name": "Crystal Structure & Unit Cells",
   "category": "chemistry",
   "subcategory": "materials_science",
   "subcategory_name": "Materials Science",
-  "description": "Crystal Structure process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "Determining a crystal structure starts from the lattice-and-basis description: a unit cell and its Bravais lattice are identified, close-packed arrangements are classified as FCC/HCP versus BCC, coordination number and atomic packing factor are computed, and Miller indices label planes for relating structure to properties.",
   "complexity": {
-    "nodes": 26,
-    "edges": 22,
-    "conditionals": 0,
+    "nodes": 10,
+    "edges": 10,
+    "conditionals": 1,
     "logicGates": {
-      "orGates": 0,
+      "orGates": 1,
       "andGates": 1,
-      "total": 1
+      "notGates": 0,
+      "total": 2
     },
-    "level": "medium",
-    "detailLevel": "medium"
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 0
   },
   "colorScheme": {
     "red": {
@@ -39,53 +41,141 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nA1[Atomic Species] --> B1[Crystal Structure Method]\nC1[Lattice Parameters] --> D1[Symmetry Analysis]\nE1[Crystallization Conditions] --> F1[Structure Determination]\nB1 --> G1[Unit Cell Design]\nD1 --> H1[Symmetry Operations]\nF1 --> I1[Diffraction Analysis]\nG1 --> J1[Cell Parameters]\nH1 --> K1[Space Group]\nI1 --> L1[Diffraction Pattern]\nJ1 --> M1[Lattice Formation]\nK1 --> L1\nL1 --> N1[Structure Solution]\nM1 --> O1[Atomic Arrangement]\nN1 --> P1[Crystal Structure]\nO1 --> Q1[Structural Analysis]\nP1 --> R1[Unit Cell]\nQ1 --> S1[Structure Analysis]\nR1 --> T1[Crystal Properties]\nS1 --> U1[Structural Parameters]\nT1 --> V1[Property Calculation]\nU1 --> W1[Structural Efficiency]\nV1 --> X1[Crystal Characterization]\nW1 --> Y1[Process Optimization]\nX1 --> Z1[Final Crystal Structure]\nY1 --> Z1\n\n    style A1 fill:#ff6b6b,color:#fff\n    style C1 fill:#ff6b6b,color:#fff\n    style E1 fill:#ff6b6b,color:#fff\n    style B1 fill:#ffd43b,color:#000\n    style D1 fill:#ffd43b,color:#000\n    style F1 fill:#ffd43b,color:#000\n    style G1 fill:#ffd43b,color:#000\n    style H1 fill:#ffd43b,color:#000\n    style I1 fill:#ffd43b,color:#000\n    style J1 fill:#ffd43b,color:#000\n    style K1 fill:#ffd43b,color:#000\n    style L1 fill:#ffd43b,color:#000\n    style M1 fill:#51cf66,color:#fff\n    style N1 fill:#51cf66,color:#fff\n    style O1 fill:#51cf66,color:#fff\n    style P1 fill:#51cf66,color:#fff\n    style Q1 fill:#51cf66,color:#fff\n    style R1 fill:#51cf66,color:#fff\n    style S1 fill:#51cf66,color:#fff\n    style T1 fill:#51cf66,color:#fff\n    style U1 fill:#51cf66,color:#fff\n    style V1 fill:#51cf66,color:#fff\n    style W1 fill:#51cf66,color:#fff\n    style X1 fill:#51cf66,color:#fff\n    style Y1 fill:#51cf66,color:#fff\n    style Z1 fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"Crystalline solid\"]\n    N2[\"Identify lattice + basis\"]\n    N3[\"Choose unit cell\"]\n    N4[\"Assign Bravais lattice\"]\n    N5{\"Close-packed?\"}\n    N6[\"FCC / HCP\"]\n    N7[\"BCC or other\"]\n    N8[\"Compute coordination + APF\"]\n    N9[\"Miller indices for planes\"]\n    N10[\"Structure-property model\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 --> N4\n    N4 --> N5\n    N5 -->|yes| N6\n    N5 -->|no| N7\n    N6 --> N8\n    N7 --> N8\n    N8 --> N9\n    N9 --> N10\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#74c0fc,color:#fff\n    style N5 fill:#74c0fc,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#74c0fc,color:#fff\n    style N10 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
-      "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: Crystal Structure. Created using the Programming Framework methodology."
+      "title": "Introduction to Solid State Physics (8th ed.)",
+      "authors": "Kittel, C.",
+      "journal": "Wiley",
+      "year": "2005",
+      "url": "https://www.wiley.com/en-us/Introduction+to+Solid+State+Physics%2C+8th+Edition-p-9780471415268"
     },
     {
-      "title": "Outline of a crystal structure determination",
-      "authors": "Glusker, Jenny Pickworth; Trueblood, Kenneth N.",
-      "journal": "Crystal Structure Analysis",
-      "year": "2010",
-      "pubmed": null,
-      "doi": "10.1093/oso/9780199576340.003.0024",
-      "url": "https://doi.org/10.1093/oso/9780199576340.003.0024"
-    },
-    {
-      "title": "Crossref work (10.1107/s1600536805042182/su6260sup1.cif)",
-      "authors": "",
-      "journal": "",
-      "year": "None",
-      "pubmed": null,
-      "doi": "10.1107/s1600536805042182/su6260sup1.cif",
-      "url": "https://doi.org/10.1107/s1600536805042182/su6260sup1.cif"
-    },
-    {
-      "title": "Crossref work (10.1107/s002188980302689x/ks5018sup1.cif)",
-      "authors": "",
-      "journal": "",
-      "year": "None",
-      "pubmed": null,
-      "doi": "10.1107/s002188980302689x/ks5018sup1.cif",
-      "url": "https://doi.org/10.1107/s002188980302689x/ks5018sup1.cif"
+      "title": "Materials Science and Engineering: An Introduction (10th ed.)",
+      "authors": "Callister, W. D.; Rethwisch, D. G.",
+      "journal": "Wiley",
+      "year": "2018",
+      "url": "https://www.wiley.com/en-us/Materials+Science+and+Engineering%3A+An+Introduction%2C+10th+Edition-p-9781119405498"
     }
   ],
   "keywords": [
-    "crystal",
-    "structure"
+    "unit cell",
+    "Bravais lattice",
+    "atomic packing factor",
+    "Miller indices",
+    "close packing"
   ],
   "relatedProcesses": [],
   "created": "2026-01-08",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Crystalline solid",
+      "detail": "Periodic order",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N2",
+      "label": "Identify lattice + basis",
+      "detail": "Repeating motif",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N3",
+      "label": "Choose unit cell",
+      "detail": "Lattice parameters",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N4",
+      "label": "Assign Bravais lattice",
+      "detail": "One of 14 types",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N5",
+      "label": "Close-packed?",
+      "detail": "Stacking sequence",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N6",
+      "label": "FCC / HCP",
+      "detail": "ABC or ABA",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N7",
+      "label": "BCC or other",
+      "detail": "Lower packing",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N8",
+      "label": "Compute coordination + APF",
+      "detail": "Density of packing",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N9",
+      "label": "Miller indices for planes",
+      "detail": "(hkl) directions",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N10",
+      "label": "Structure-property model",
+      "detail": "Anisotropy, slip",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 1
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:materials_science-crystal-structure",
+    "graphType": "decision_flowchart",
+    "topologySignature": "233203189efe4134",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "namedCollections": [
+    "materials-science"
+  ],
+  "graphMetrics": {
+    "nodes": 10,
+    "edges": 10,
+    "conditionals": 1,
+    "andGates": 1,
+    "orGates": 1,
+    "notGates": 0,
+    "loops": 0
+  },
+  "graphType": "decision_flowchart",
+  "domainContext": "Crystallography / solid state"
 }

@@ -1,0 +1,201 @@
+{
+  "id": "immunology-complement-cascade",
+  "name": "Complement Cascade",
+  "category": "biology",
+  "subcategory": "immunology",
+  "subcategory_name": "Immunology",
+  "description": "Complement activation: classical, lectin, and alternative pathways converge on C3 convertase, driving opsonization, anaphylatoxin release, and assembly of the C5b-C9 membrane attack complex that lyses pathogens.",
+  "keywords": [
+    "complement",
+    "c3 convertase",
+    "classical",
+    "lectin",
+    "alternative",
+    "membrane attack complex"
+  ],
+  "namedCollections": [
+    "signaling-cell-fate"
+  ],
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "complexity": {
+    "nodes": 11,
+    "edges": 12,
+    "conditionals": 1,
+    "logicGates": {
+      "orGates": 2,
+      "andGates": 1,
+      "notGates": 0,
+      "total": 3
+    },
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 0
+  },
+  "graphMetrics": {
+    "nodes": 11,
+    "edges": 12,
+    "conditionals": 1,
+    "andGates": 1,
+    "orGates": 2,
+    "notGates": 0,
+    "loops": 0
+  },
+  "mermaid": "graph TD\n    N1[\"Pathogen surface\"]\n    N2{\"Activation pathway?\"}\n    N3[\"Classical: C1q-antibody\"]\n    N4[\"Lectin: MBL binds sugars\"]\n    N5[\"Alternative: C3 tickover\"]\n    N6[\"C3 convertase forms\"]\n    N7[\"C3 -> C3a + C3b\"]\n    N8[\"C3b opsonization\"]\n    N9[\"C5 convertase -> C5b\"]\n    N10[\"C5b-C9 membrane attack\"]\n    N11[\"Pathogen lysis\"]\n\n    N1 --> N2\n    N2 -->|classical| N3\n    N2 -->|lectin| N4\n    N2 -->|alternative| N5\n    N3 --> N6\n    N4 --> N6\n    N5 --> N6\n    N6 --> N7\n    N7 --> N8\n    N7 --> N9\n    N9 --> N10\n    N10 --> N11\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#74c0fc,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#51cf66,color:#fff\n    style N10 fill:#74c0fc,color:#fff\n    style N11 fill:#b197fc,color:#fff",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Pathogen surface",
+      "detail": "Microbial surface triggers complement",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N2",
+      "label": "Activation pathway?",
+      "detail": "Classical, lectin, or alternative initiation",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N3",
+      "label": "Classical: C1q-antibody",
+      "detail": "C1q binds antigen-bound antibody",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N4",
+      "label": "Lectin: MBL binds sugars",
+      "detail": "Mannose-binding lectin recognizes microbial carbohydrates",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N5",
+      "label": "Alternative: C3 tickover",
+      "detail": "Spontaneous C3 hydrolysis amplified on microbial surfaces",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N6",
+      "label": "C3 convertase forms",
+      "detail": "C4b2a or C3bBb assembles",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N7",
+      "label": "C3 -> C3a + C3b",
+      "detail": "C3 cleavage releases anaphylatoxin C3a and opsonin C3b",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N8",
+      "label": "C3b opsonization",
+      "detail": "C3b tags the pathogen for phagocytosis",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N9",
+      "label": "C5 convertase -> C5b",
+      "detail": "C5 cleavage yields C5a and C5b",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N10",
+      "label": "C5b-C9 membrane attack",
+      "detail": "Terminal components form the membrane attack complex",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N11",
+      "label": "Pathogen lysis",
+      "detail": "Pore formation lyses the target",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 1
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:immunology-complement-cascade",
+    "graphType": "decision_flowchart",
+    "topologySignature": "1e9896cac69223b3",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "pending",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "lastUpdated": "2026-06-01",
+  "verified": false,
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "sources": [
+    {
+      "title": "Complement: a key system for immune surveillance and homeostasis",
+      "authors": "Ricklin, D.; Hajishengallis, G.; Yang, K.; Lambris, J. D.",
+      "journal": "Nature Immunology",
+      "year": "2010",
+      "pubmed": "20720586",
+      "doi": "10.1038/ni.1923",
+      "url": "https://doi.org/10.1038/ni.1923"
+    },
+    {
+      "title": "Complement (First of two parts)",
+      "authors": "Walport, M. J.",
+      "journal": "New England Journal of Medicine",
+      "year": "2001",
+      "pubmed": "11297706",
+      "doi": "10.1056/NEJM200104053441406",
+      "url": "https://doi.org/10.1056/NEJM200104053441406"
+    },
+    {
+      "title": "Complement System Part I - Molecular Mechanisms of Activation and Regulation",
+      "authors": "Merle, N. S.; Church, S. E.; Fremeaux-Bacchi, V.; Roumenina, L. T.",
+      "journal": "Frontiers in Immunology",
+      "year": "2015",
+      "pubmed": "26082779",
+      "doi": "10.3389/fimmu.2015.00262",
+      "url": "https://doi.org/10.3389/fimmu.2015.00262"
+    }
+  ],
+  "graphType": "decision_flowchart",
+  "domainContext": "Innate humoral defense"
+}

@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2605.20085v1",
+  "arxiv_id": "2605.20085v1",
+  "title": "Spatially Prompted Visual Trajectory Prediction for Egocentric Manipulation",
+  "authors": [
+    "Yifan Li",
+    "Xinyu Zhou",
+    "Yunhao Ge",
+    "Yu Kong"
+  ],
+  "author_string": "Yifan Li, Xinyu Zhou, Yunhao Ge, Yu Kong",
+  "journal": "arXiv:2605.20085v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Robotic manipulation is often specified through language instructions or task identifiers, yet cluttered environments with similar objects are better handled by spatially indicating what to move and where to place it. Addressing the vision-centric challenge of object and goal specification, we present, to the best of our knowledge, the first formalization of Spatially Prompted Visual Trajectory Prediction (SP-VTP). This novel setting utilizes initial spatial prompts (like bounding boxes or points) to define task objectives, tasking the model with forecasting future end-effector trajectories from egocentric streams. To study this problem, we collect and annotate EgoSPT, a dataset of egocentric spatially prompted manipulation trajectories with first-frame object and target grounding annotations and recovered 3D end-effector motion. SP-VTP is challenging because the task specification is static, while the scene configuration evolves over time. To solve this problem, we propose SPOT(Spatially Prompted Object-Target Policy), which combines a task encoder for first-frame visual and coordinate spatial prompts, an observation encoder for current visual and history context, and a trajectory generator for future end-effector motion. Experiments under strict scene-level splits show that SPOT improves cross-scene trajectory prediction over non-prompted or single-source prompted baselines. Together, EgoSPT and SPOT establish a new spatial prompting problem SP-VTP, as a simple and scalable task condition for egocentric manipulation.",
+  "categories": [
+    "cs.CV"
+  ],
+  "primary_category": "cs.CV",
+  "comment": null,
+  "published_date": "2026-05-19T16:39:30Z",
+  "updated_date": "2026-05-19T16:39:30Z",
+  "url": "https://arxiv.org/abs/2605.20085v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.20085v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-20T10:16:33.997894",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CV"
+  ]
+}

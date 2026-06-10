@@ -1,0 +1,39 @@
+{
+  "id": "numerical_analysis-iterative",
+  "name": "Iterative Methods — Mathematics Process",
+  "category": "mathematics",
+  "subcategory": "numerical_analysis",
+  "subcategory_name": "Numerical Analysis",
+  "description": "x⁽ᵏ⁺¹⁾=Mx⁽ᵏ⁾+c. Splitting A=M−N. Convergence ⇔ ρ(M⁻¹N)<1. Jacobi, Gauss–Seidel, SOR.",
+  "mermaid": "graph TD\n    D1[\"Def: Splitting A=M−N\\nM easy to invert\"]\n    D2[\"Def: Spectral radius ρB\"]\n    D3[\"Def: Iteration matrix\\nG = M⁻¹N\"]\n    T1[\"Thm: Convergence\\nx⁽ᵏ⁾→x ⇔ ρG &lt 1\"]\n    T2[\"Thm: Jacobi\\nM = diag A\"]\n    T3[\"Thm: Gauss–Seidel\\nM = D−L lower\"]\n    T4[\"Thm: SOR\\nω-parameter relaxation\"]\n    T5[\"Thm: CG convergence\\nκ⁻¹/₂ per step\"]\n    L1[\"Lemma: ρ ≤ ‖·‖\"]\n    D1 --> D3\n    D2 --> T1\n    D3 --> T1\n    D1 --> T2\n    D1 --> T3\n    T3 --> T4\n    L1 --> T1\n    classDef definition fill:#b197fc,color:#fff\n    classDef theorem fill:#51cf66,color:#fff\n    classDef lemma fill:#74c0fc,color:#fff\n    class D1,D2,D3 definition\n    class T1,T2,T3,T4,T5 theorem\n    class L1 lemma",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

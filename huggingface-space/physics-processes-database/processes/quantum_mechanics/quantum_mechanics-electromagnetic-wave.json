@@ -2,52 +2,55 @@
   "acquired_date": "2026-01-08T00:00:00Z",
   "category": "physics",
   "colorScheme": {
-    "blue": {
-      "category": "Intermediates & States",
-      "hex": "#74c0fc"
-    },
-    "green": {
-      "category": "Processing & Operations",
-      "hex": "#51cf66"
-    },
     "red": {
-      "category": "Triggers & Inputs",
-      "hex": "#ff6b6b"
-    },
-    "violet": {
-      "category": "Products & Outputs",
-      "hex": "#b197fc"
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
     },
     "yellow": {
-      "category": "Structures & Objects",
-      "hex": "#ffd43b"
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
     }
   },
   "complexity": {
-    "conditionals": 0,
-    "detailLevel": "medium",
-    "edges": 24,
-    "level": "medium",
+    "nodes": 10,
+    "edges": 10,
+    "conditionals": 1,
     "logicGates": {
+      "orGates": 1,
       "andGates": 1,
-      "orGates": 0,
-      "total": 1
+      "notGates": 0,
+      "total": 2
     },
-    "nodes": 26
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 1
   },
   "created": "2026-01-08",
-  "description": "Electromagnetic Wave Process. This electromagnetism process visualization demonstrates electromagnetic wave propagation and interaction. The flowchart shows wave inputs and propagation, electromagnetic wave methods and field oscillations, electromagnetic wave operations and wave interactions, intermediate results, and final electromagnetic wave outputs.",
-  "id": "process_physics_electromagnetic-wave",
+  "description": "Quantum tunneling lets a particle with energy below a potential barrier cross it: the wavefunction is solved piecewise in the three regions, decaying exponentially inside the barrier, and matching the function and its derivative at the walls yields a transmission amplitude with probability T approximately exp(-2*kappa*L).",
+  "id": "quantum_mechanics-electromagnetic-wave",
   "keywords": [
-    "mechanics",
-    "quantum",
-    "wave",
-    "electromagnetic"
+    "quantum tunneling",
+    "potential barrier",
+    "transmission coefficient",
+    "evanescent wave",
+    "WKB"
   ],
-  "lastUpdated": "2026-01-08",
-  "mermaid": "graph TD\nA2[Wave Source] --> B2[Electromagnetic Wave Method]\nC2[Wave Propagation] --> D2[Field Oscillation]\nE2[Wave Interaction] --> F2[Electromagnetic Wave Analysis]\nB2 --> G2[Wave Equation]\nD2 --> H2[Polarization]\nF2 --> I2[Wave Interference]\nG2 --> J2[Wave Speed]\nH2 --> K2[Wave Amplitude]\nI2 --> L2[Wave Frequency]\nJ2 --> M2[Wave Energy]\nK2 --> L2\nL2 --> N2[Wave Momentum]\nM2 --> O2[Wave Transmission]\nN2 --> P2[Wave Reflection]\nO2 --> Q2[Electromagnetic Wave Process]\nP2 --> R2[Electromagnetic Wave Validation]\nQ2 --> S2[Electromagnetic Wave Verification]\nR2 --> T2[Electromagnetic Wave Result]\nS2 --> U2[Electromagnetic Wave Analysis]\nT2 --> V2[Electromagnetic Wave Parameters]\nU2 --> W2[Electromagnetic Wave Output]\nV2 --> X2[Electromagnetic Wave Analysis]\nW2 --> Y2[Electromagnetic Wave Final Result]\nX2 --> Z2[Electromagnetic Wave Complete]\n\n    style A2 fill:#ff6b6b,color:#fff\n    style C2 fill:#ff6b6b,color:#fff\n    style E2 fill:#ff6b6b,color:#fff\n    style B2 fill:#ffd43b,color:#000\n    style D2 fill:#ffd43b,color:#000\n    style F2 fill:#ffd43b,color:#000\n    style G2 fill:#ffd43b,color:#000\n    style H2 fill:#ffd43b,color:#000\n    style I2 fill:#ffd43b,color:#000\n    style J2 fill:#ffd43b,color:#000\n    style K2 fill:#ffd43b,color:#000\n    style L2 fill:#ffd43b,color:#000\n    style M2 fill:#51cf66,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style O2 fill:#51cf66,color:#fff\n    style P2 fill:#51cf66,color:#fff\n    style Q2 fill:#51cf66,color:#fff\n    style R2 fill:#51cf66,color:#fff\n    style S2 fill:#51cf66,color:#fff\n    style T2 fill:#51cf66,color:#fff\n    style U2 fill:#51cf66,color:#fff\n    style V2 fill:#51cf66,color:#fff\n    style W2 fill:#51cf66,color:#fff\n    style X2 fill:#51cf66,color:#fff\n    style Y2 fill:#51cf66,color:#fff\n    style Z2 fill:#b197fc,color:#fff",
-  "name": "Electromagnetic Wave",
-  "notes": "Converted from physics batch HTML. Process number: 2.",
+  "lastUpdated": "2026-06-01",
+  "mermaid": "graph TD\n    N1[\"Energy E below barrier V0\"]\n    N2[\"Split into three regions\"]\n    N3[\"Solve each region\"]\n    N4[\"Region II: decaying psi\"]\n    N5[\"Match psi, psi' at walls\"]\n    N6{\"Continuity satisfied?\"}\n    N7[\"Re-solve coefficients\"]\n    N8[\"Transmission amplitude\"]\n    N9[\"T ~ exp(-2 kappa L)\"]\n    N10[\"Tunneling probability\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 --> N4\n    N4 --> N5\n    N5 --> N6\n    N6 -->|no| N7\n    N7 -->|re-match| N5\n    N6 -->|yes| N8\n    N8 --> N9\n    N9 --> N10\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#74c0fc,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#74c0fc,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#51cf66,color:#fff\n    style N10 fill:#b197fc,color:#fff",
+  "name": "Quantum Tunneling Through a Barrier",
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
   "relatedProcesses": [],
   "related_papers": [
     "crossref_10_1103_RevModPhys_90_015004",
@@ -60,43 +63,20 @@
   "source": "programming_framework",
   "sources": [
     {
-      "authors": "Welz, G.",
-      "doi": null,
-      "journal": "CopernicusAI Knowledge Engine",
-      "notes": "Chemistry process visualization: Electromagnetic Wave. Created using the Programming Framework methodology for process analysis and visualization.",
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
-      "year": "2025"
+      "title": "Zur Quantentheorie des Atomkernes (quantum theory of the atomic nucleus)",
+      "authors": "Gamow, G.",
+      "journal": "Zeitschrift fur Physik",
+      "year": "1928",
+      "doi": "10.1007/BF01343196",
+      "url": "https://doi.org/10.1007/BF01343196"
     },
     {
-      "authors": "Taflove A, Hagness SC, O'Sullivan MJ",
-      "doi": "10.1103/RevModPhys.90.015004",
-      "journal": "Rev. Mod. Phys.",
-      "paper_id": "crossref_10_1103_RevModPhys_90_015004",
-      "pubmed": null,
-      "title": "Maxwell's equations in the 21st century: The promise of computational electrodynamics",
-      "url": "https://doi.org/10.1103/RevModPhys.90.015004",
-      "year": "2018"
-    },
-    {
-      "authors": "Pendry JB",
-      "doi": "10.1103/PhysRevLett.85.3966",
-      "journal": "Phys. Rev. Lett.",
-      "paper_id": "crossref_10_1103_PhysRevLett_85_3966",
-      "pubmed": null,
-      "title": "Negative Refraction Makes a Perfect Lens",
-      "url": "https://doi.org/10.1103/PhysRevLett.85.3966",
-      "year": "2000"
-    },
-    {
-      "authors": "Everitt CWF",
-      "doi": "10.1103/RevModPhys.46.29",
-      "journal": "Rev. Mod. Phys.",
-      "paper_id": "crossref_10_1103_RevModPhys_46_29",
-      "pubmed": null,
-      "title": "Maxwell and the origins of modern field theory",
-      "url": "https://doi.org/10.1103/RevModPhys.46.29",
-      "year": "1974"
+      "title": "Introduction to Quantum Mechanics (3rd ed.)",
+      "authors": "Griffiths, D. J.; Schroeter, D. F.",
+      "journal": "Cambridge University Press",
+      "year": "2018",
+      "doi": "10.1017/9781316995433",
+      "url": "https://doi.org/10.1017/9781316995433"
     }
   ],
   "subcategories": [
@@ -104,5 +84,111 @@
   ],
   "subcategory": "quantum_mechanics",
   "subcategory_name": "Quantum Mechanics",
-  "verified": false
+  "verified": false,
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Energy E below barrier V0",
+      "detail": "Classically forbidden",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 1
+    },
+    {
+      "id": "N2",
+      "label": "Split into three regions",
+      "detail": "Before, in, after",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N3",
+      "label": "Solve each region",
+      "detail": "Schrodinger eq.",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N4",
+      "label": "Region II: decaying psi",
+      "detail": "exp(-kappa x)",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N5",
+      "label": "Match psi, psi' at walls",
+      "detail": "Continuity",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N6",
+      "label": "Continuity satisfied?",
+      "detail": "Both boundaries",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N7",
+      "label": "Re-solve coefficients",
+      "detail": "Linear system",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N8",
+      "label": "Transmission amplitude",
+      "detail": "Outgoing/incoming",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N9",
+      "label": "T ~ exp(-2 kappa L)",
+      "detail": "Thick-barrier limit",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N10",
+      "label": "Tunneling probability",
+      "detail": "Nonzero crossing",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 0
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:quantum_mechanics-electromagnetic-wave",
+    "graphType": "decision_flowchart",
+    "topologySignature": "e300cb1d2750296a",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "namedCollections": [],
+  "graphMetrics": {
+    "nodes": 10,
+    "edges": 10,
+    "conditionals": 1,
+    "andGates": 1,
+    "orGates": 1,
+    "notGates": 0,
+    "loops": 1
+  },
+  "graphType": "decision_flowchart",
+  "domainContext": "Quantum mechanics"
 }

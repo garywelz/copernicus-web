@@ -1,0 +1,39 @@
+{
+  "id": "geometry_topology-euclid-elements-book-vi-props-12-22",
+  "name": "Euclid's Elements Book VI — Propositions 12–22",
+  "category": "mathematics",
+  "subcategory": "geometry_topology",
+  "subcategory_name": "Geometry & Topology",
+  "description": "Fourth proportional, reciprocally proportional, similar figures on lines, duplicate ratio.",
+  "mermaid": "graph TD\n    BookI[\"Book I\\nFoundation\"]\n    BookV[\"Book V\\nFoundation\"]\n    Def1[\"Def. VI.1\\nSimilar rectilinear\"]\n    Def2[\"Def. VI.2\\nReciprocally proportional\"]\n    Def3[\"Def. VI.3\\nMean proportional\"]\n    Def4[\"Def. VI.4\\nDuplicate ratio\"]\n    Prop1[\"Prop. VI.1\\nTriangles under same height\"]\n    Prop2[\"Prop. VI.2\\nParallel cuts sides proportionally\"]\n    Prop3[\"Prop. VI.3\\nAngle bisector divides base\"]\n    Prop4[\"Prop. VI.4\\nEquiangular: sides proportional\"]\n    Prop5[\"Prop. VI.5\\nSides proportional: equiangular\"]\n    Prop6[\"Prop. VI.6\\nOne angle equal, sides proportional\"]\n    Prop7[\"Prop. VI.7\\nOne angle equal, other sides proportional\"]\n    Prop8[\"Prop. VI.8\\nAltitude in right triangle\"]\n    Prop9[\"Prop. VI.9\\nCut off prescribed part\"]\n    Prop10[\"Prop. VI.10\\nCut line similarly\"]\n    Prop11[\"Prop. VI.11\\nThird proportional\"]\n    Prop12[\"Prop. VI.12\\nFourth proportional\"]\n    Prop13[\"Prop. VI.13\\nMean proportional\"]\n    Prop14[\"Prop. VI.14\\nParallelograms reciprocally proportional\"]\n    Prop15[\"Prop. VI.15\\nTriangles reciprocally proportional\"]\n    Prop16[\"Prop. VI.16\\nFour lines proportional: rectangle\"]\n    Prop17[\"Prop. VI.17\\nThree lines proportional: rectangle\"]\n    Prop18[\"Prop. VI.18\\nSimilar figure on given line\"]\n    Prop19[\"Prop. VI.19\\nSimilar triangles: duplicate ratio\"]\n    Prop20[\"Prop. VI.20\\nSimilar polygons: duplicate ratio\"]\n    Prop21[\"Prop. VI.21\\nSimilar to same: similar\"]\n    Prop22[\"Prop. VI.22\\nFour lines proportional: figures\"]\n    BookI --> Def1\n    BookV --> Def1\n    BookI --> Def2\n    BookV --> Def2\n    BookI --> Def3\n    BookV --> Def3\n    BookI --> Def4\n    BookV --> Def4\n    BookI --> Prop1\n    BookV --> Prop1\n    BookI --> Prop2\n    BookV --> Prop2\n    Prop1 --> Prop2\n    BookI --> Prop3\n    BookV --> Prop3\n    Prop1 --> Prop3\n    BookI --> Prop4\n    BookV --> Prop4\n    Prop1 --> Prop4\n    BookI --> Prop5\n    BookV --> Prop5\n    Prop1 --> Prop5\n    BookI --> Prop6\n    BookV --> Prop6\n    Prop1 --> Prop6\n    BookI --> Prop7\n    BookV --> Prop7\n    Prop1 --> Prop7\n    BookI --> Prop8\n    BookV --> Prop8\n    Prop1 --> Prop8\n    BookI --> Prop9\n    BookV --> Prop9\n    Prop1 --> Prop9\n    BookI --> Prop10\n    BookV --> Prop10\n    Prop1 --> Prop10\n    BookI --> Prop11\n    BookV --> Prop11\n    Prop1 --> Prop11\n    BookI --> Prop12\n    BookV --> Prop12\n    Prop1 --> Prop12\n    BookI --> Prop13\n    BookV --> Prop13\n    Prop1 --> Prop13\n    BookI --> Prop14\n    BookV --> Prop14\n    Prop1 --> Prop14\n    BookI --> Prop15\n    BookV --> Prop15\n    Prop1 --> Prop15\n    BookI --> Prop16\n    BookV --> Prop16\n    Prop1 --> Prop16\n    BookI --> Prop17\n    BookV --> Prop17\n    Prop1 --> Prop17\n    BookI --> Prop18\n    BookV --> Prop18\n    Prop1 --> Prop18\n    BookI --> Prop19\n    BookV --> Prop19\n    Prop1 --> Prop19\n    BookI --> Prop20\n    BookV --> Prop20\n    Prop1 --> Prop20\n    BookI --> Prop21\n    BookV --> Prop21\n    Prop1 --> Prop21\n    BookI --> Prop22\n    BookV --> Prop22\n    Prop1 --> Prop22\n    classDef foundation fill:#95a5a6,color:#fff,stroke:#7f8c8d\n    classDef definition fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef proposition fill:#51cf66,color:#fff,stroke:#40c057\n    class BookI,BookV foundation\n    class Def1,Def2,Def3,Def4 definition\n    class Prop1,Prop2,Prop3,Prop4,Prop5,Prop6,Prop7,Prop8,Prop9,Prop10,Prop11,Prop12,Prop13,Prop14,Prop15,Prop16,Prop17,Prop18,Prop19,Prop20,Prop21,Prop22 proposition",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

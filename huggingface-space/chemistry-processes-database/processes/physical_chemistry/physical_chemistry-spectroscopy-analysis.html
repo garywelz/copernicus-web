@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spectroscopy Analysis - Chemistry Process</title>
+    <title>Beer-Lambert Quantitative Analysis - Chemistry Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Spectroscopy Analysis</h1>
+            <h1>Beer-Lambert Quantitative Analysis</h1>
             <div class="header-meta">
                 <span class="meta-item">Chemistry</span>
                 <span class="meta-item">Physical Chemistry</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,67 +234,56 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Spectroscopy Analysis process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>Quantitative absorption spectroscopy relies on the Beer-Lambert law A = epsilon*b*c: a wavelength near the absorption maximum is selected, absorbance is kept within the linear range by dilution, a calibration curve is built from standards, and the unknown concentration is interpolated from its measured absorbance.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-A3[Sample Preparation] --> B3[Spectroscopic Method Selection]
-C3[Energy Source] --> D3[Wavelength Selection]
-E3[Detector Setup] --> F3[Signal Processing]
-B3 --> G3[UV Visible Spectroscopy]
-D3 --> H3[Infrared Spectroscopy]
-F3 --> I3[Nuclear Magnetic Resonance]
-G3 --> J3[Absorption Spectrum]
-H3 --> K3[Vibrational Modes]
-I3 --> L3[Chemical Shift Analysis]
-J3 --> M3[Electronic Transitions]
-K3 --> L3
-L3 --> N3[Spin Spin Coupling]
-M3 --> O3[Beer Lambert Law]
-N3 --> P3[Peak Integration]
-O3 --> Q3[Spectroscopic Analysis]
-P3 --> R3[Peak Assignment]
-Q3 --> S3[Concentration Determination]
-R3 --> T3[Spectroscopy Result]
-S3 --> U3[Spectroscopy Validation]
-T3 --> V3[Spectroscopic Parameters]
-U3 --> W3[Spectroscopy Output]
-V3 --> X3[Spectroscopy Analysis]
-W3 --> Y3[Spectroscopy Final Result]
-X3 --> Z3[Spectroscopy Analysis Complete]
+    N1["Analyte in solution"]
+    N2["Select lambda (max)"]
+    N3["Measure absorbance A"]
+    N4{"In linear range?"}
+    N5["Dilute sample"]
+    N6["Prepare standards"]
+    N7["Build calibration curve"]
+    N8["Fit A = epsilon b c"]
+    N9["Interpolate unknown"]
+    N10["Quantified concentration"]
 
-    style A3 fill:#ff6b6b,color:#fff
-    style C3 fill:#ff6b6b,color:#fff
-    style E3 fill:#ff6b6b,color:#fff
-    style B3 fill:#ffd43b,color:#000
-    style D3 fill:#ffd43b,color:#000
-    style F3 fill:#ffd43b,color:#000
-    style G3 fill:#ffd43b,color:#000
-    style H3 fill:#ffd43b,color:#000
-    style I3 fill:#ffd43b,color:#000
-    style J3 fill:#ffd43b,color:#000
-    style K3 fill:#ffd43b,color:#000
-    style L3 fill:#ffd43b,color:#000
-    style M3 fill:#51cf66,color:#fff
+    N1 --> N2
+    N2 --> N3
+    N3 --> N4
+    N4 -->|no| N5
+    N5 -->|remeasure| N3
+    N4 -->|yes| N6
+    N6 --> N7
+    N7 --> N8
+    N8 --> N9
+    N9 --> N10
+
+    style N1 fill:#ff6b6b,color:#fff
+    style N2 fill:#51cf66,color:#fff
     style N3 fill:#51cf66,color:#fff
-    style O3 fill:#51cf66,color:#fff
-    style P3 fill:#51cf66,color:#fff
-    style Q3 fill:#51cf66,color:#fff
-    style R3 fill:#51cf66,color:#fff
-    style S3 fill:#51cf66,color:#fff
-    style T3 fill:#51cf66,color:#fff
-    style U3 fill:#51cf66,color:#fff
-    style V3 fill:#51cf66,color:#fff
-    style W3 fill:#51cf66,color:#fff
-    style X3 fill:#51cf66,color:#fff
-    style Y3 fill:#51cf66,color:#fff
-    style Z3 fill:#b197fc,color:#fff
+    style N4 fill:#74c0fc,color:#fff
+    style N5 fill:#51cf66,color:#fff
+    style N6 fill:#51cf66,color:#fff
+    style N7 fill:#51cf66,color:#fff
+    style N8 fill:#74c0fc,color:#fff
+    style N9 fill:#51cf66,color:#fff
+    style N10 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Analyte in solution</td><td>Triggers & Inputs</td><td><a href="https://www.cengage.com/c/principles-of-instrumental-analysis-7e-skoog" target="_blank" title="Principles of Instrumental Analysis (7th ed.)" style="color:#e74c3c;">Skoog, D. A. et al. 2017</a></td></tr><tr><td style="font-weight:600;">Select lambda (max)</td><td>Processing & Operations</td><td><a href="https://www.cengage.com/c/principles-of-instrumental-analysis-7e-skoog" target="_blank" title="Principles of Instrumental Analysis (7th ed.)" style="color:#e74c3c;">Skoog, D. A. et al. 2017</a></td></tr><tr><td style="font-weight:600;">Measure absorbance A</td><td>Processing & Operations</td><td><a href="https://www.cengage.com/c/principles-of-instrumental-analysis-7e-skoog" target="_blank" title="Principles of Instrumental Analysis (7th ed.)" style="color:#e74c3c;">Skoog, D. A. et al. 2017</a></td></tr><tr><td style="font-weight:600;">In linear range?</td><td>Intermediates & States</td><td><a href="https://www.cengage.com/c/principles-of-instrumental-analysis-7e-skoog" target="_blank" title="Principles of Instrumental Analysis (7th ed.)" style="color:#e74c3c;">Skoog, D. A. et al. 2017</a></td></tr><tr><td style="font-weight:600;">Dilute sample</td><td>Processing & Operations</td><td><a href="https://www.cengage.com/c/principles-of-instrumental-analysis-7e-skoog" target="_blank" title="Principles of Instrumental Analysis (7th ed.)" style="color:#e74c3c;">Skoog, D. A. et al. 2017</a></td></tr><tr><td style="font-weight:600;">Prepare standards</td><td>Processing & Operations</td><td><a href="https://global.oup.com/academic/product/atkins-physical-chemistry-9780198769866" target="_blank" title="Atkins' Physical Chemistry (11th ed.)" style="color:#e74c3c;">Atkins, P. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Build calibration curve</td><td>Processing & Operations</td><td><a href="https://global.oup.com/academic/product/atkins-physical-chemistry-9780198769866" target="_blank" title="Atkins' Physical Chemistry (11th ed.)" style="color:#e74c3c;">Atkins, P. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Fit A = epsilon b c</td><td>Intermediates & States</td><td><a href="https://www.cengage.com/c/principles-of-instrumental-analysis-7e-skoog" target="_blank" title="Principles of Instrumental Analysis (7th ed.)" style="color:#e74c3c;">Skoog, D. A. et al. 2017</a></td></tr><tr><td style="font-weight:600;">Interpolate unknown</td><td>Processing & Operations</td><td><a href="https://global.oup.com/academic/product/atkins-physical-chemistry-9780198769866" target="_blank" title="Atkins' Physical Chemistry (11th ed.)" style="color:#e74c3c;">Atkins, P. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Quantified concentration</td><td>Products & Outputs</td><td><a href="https://www.cengage.com/c/principles-of-instrumental-analysis-7e-skoog" target="_blank" title="Principles of Instrumental Analysis (7th ed.)" style="color:#e74c3c;">Skoog, D. A. et al. 2017</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -313,12 +329,12 @@ X3 --> Z3[Spectroscopy Analysis Complete]
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 26</li>
-                        <li><strong>Edges:</strong> 21</li>
-                        <li><strong>Conditionals:</strong> 0</li>
+                        <li><strong>Nodes:</strong> 10</li>
+                        <li><strong>Edges:</strong> 10</li>
+                        <li><strong>Conditionals:</strong> 1</li>
                         <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 1</li>
+                        <li><strong>OR Gates:</strong> 1</li>
+                        <li><strong>Total Gates:</strong> 2</li>
                     </ul>
                 </div>
                 
@@ -326,7 +342,7 @@ X3 --> Z3[Spectroscopy Analysis Complete]
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>spectroscopy</li><li>analysis</li>
+                        <li>Beer-Lambert law</li><li>absorbance</li><li>calibration curve</li><li>molar absorptivity</li><li>quantitative analysis</li>
                     </ul>
                 </div>
                 
@@ -337,43 +353,23 @@ X3 --> Z3[Spectroscopy Analysis Complete]
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Principles of Instrumental Analysis (7th ed.)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Skoog, D. A.; Holler, F. J.; Crouch, S. R.
+                            , Cengage
+                             (2017)
                             </span>
                             
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
+                            <br><a href="https://www.cengage.com/c/principles-of-instrumental-analysis-7e-skoog" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Chemical Structural Analysis of Bone by Spectroscopy</strong>
-                            
-                            , Vibrational Spectroscopy for Tissue Analysis
-                             (2012)
+                            <strong>Atkins' Physical Chemistry (11th ed.)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Atkins, P.; de Paula, J.; Keeler, J.
+                            , Oxford University Press
+                             (2018)
                             </span>
-                            <br><a href="https://doi.org/10.1201/b12949-12" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1201/b12949-12</a>
                             
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Surface Analysis by Electron Spectroscopy</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Smith, Graham C.
-                            , Surface Analysis by Electron Spectroscopy
-                             (1994)
-                            </span>
-                            <br><a href="https://doi.org/10.1007/978-1-4899-0967-1_2" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1007/978-1-4899-0967-1_2</a>
-                            
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Illicit Drug Analysis in Blood Samples with Multivariate Analysis Using Surface-Enhanced Raman Spectroscopy</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Açıkgöz, Güneş; Çolak, Abdullah
-                            , Spectroscopy
-                             (2023)
-                            </span>
-                            <br><a href="https://doi.org/10.56530/spectroscopy.er6076l5" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.56530/spectroscopy.er6076l5</a>
-                            
+                            <br><a href="https://global.oup.com/academic/product/atkins-physical-chemistry-9780198769866" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
                         </li>
                         
                     </ul>

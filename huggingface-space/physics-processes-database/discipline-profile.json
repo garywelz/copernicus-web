@@ -1,0 +1,105 @@
+{
+  "displayName": "Physics",
+  "slug": "physics",
+  "databaseDir": "physics-processes-database",
+  "tableFile": "physics-database-table.html",
+  "accent": "#2563eb",
+  "subtitle": "Models, regimes, laws, observables, and physical mechanisms.",
+  "lensTitle": "Physics Lens",
+  "lensDescription": "Browse by regime, governing law, observable, idealization level, and scale.",
+  "facetLabels": {
+    "subcategory": "Current Folder",
+    "collection": "Domain",
+    "complexity": "Complexity"
+  },
+  "insightCards": [
+    {
+      "label": "Best for",
+      "value": "models, regimes, observables"
+    },
+    {
+      "label": "Research links",
+      "value": "arXiv and NASA ADS searches"
+    },
+    {
+      "label": "Curation focus",
+      "value": "normalize domain names where folder names drift"
+    }
+  ],
+  "frontierSearches": [
+    {
+      "label": "arXiv",
+      "urlTemplate": "https://arxiv.org/search/?query={query}&searchtype=all"
+    },
+    {
+      "label": "NASA ADS",
+      "urlTemplate": "https://ui.adsabs.harvard.edu/search/q={query}"
+    },
+    {
+      "label": "Crossref",
+      "urlTemplate": "https://search.crossref.org/?q={query}"
+    }
+  ],
+  "contextColumnLabel": "Regime / System",
+  "defaultContext": "Physical system",
+  "supportedGraphTypes": [
+    "flowchart",
+    "taxonomy",
+    "dependency_graph",
+    "state_transition",
+    "timeline"
+  ],
+  "metricColumns": [
+    {
+      "id": "nodes",
+      "label": "Nodes"
+    },
+    {
+      "id": "edges",
+      "label": "Edges"
+    },
+    {
+      "id": "conditionals",
+      "label": "Conditionals"
+    },
+    {
+      "id": "andGates",
+      "label": "AND Gates"
+    },
+    {
+      "id": "orGates",
+      "label": "OR Gates"
+    },
+    {
+      "id": "notGates",
+      "label": "NOT Gates"
+    },
+    {
+      "id": "loops",
+      "label": "Loops"
+    }
+  ],
+  "graphTypeLabels": {
+    "flowchart": "Flowchart",
+    "dependency_graph": "Dependency Graph",
+    "taxonomy": "Taxonomy",
+    "lineage_tree": "Lineage Tree",
+    "influence_network": "Influence Network",
+    "state_transition": "State Transition",
+    "timeline": "Timeline"
+  },
+  "featuredMaps": [
+    {
+      "label": "Whole of Physics",
+      "url": "whole-of-physics.html",
+      "description": "Physics is best treated as a regime/theory map over scales, governing laws, observables, and processes."
+    },
+    {
+      "label": "Physical Universe Map",
+      "url": "physical-universe-map.html",
+      "description": "Conceptual scale-and-theory map of the physical universe."
+    }
+  ],
+  "generatedFrom": "scripts/processes/discipline_databases/enhanced_database_table.py",
+  "collectionCount": 7
+}

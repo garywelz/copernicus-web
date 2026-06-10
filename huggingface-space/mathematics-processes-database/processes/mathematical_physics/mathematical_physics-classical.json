@@ -1,0 +1,39 @@
+{
+  "id": "mathematical_physics-classical",
+  "name": "Lagrangian & Hamiltonian",
+  "category": "mathematics",
+  "subcategory": "mathematical_physics",
+  "subcategory_name": "Mathematical Physics",
+  "description": "Process chart: mathematical_physics-classical",
+  "mermaid": "graph TD\n    D1[\"Def: Lagrangian L\\nL(q,q̇,t)\"]\n    D2[\"Def: Action S\\nS = ∫L dt\"]\n    D3[\"Def: Hamiltonian H\\nH = p·q̇ − L\"]\n    D4[\"Def: Poisson bracket\\n{f,g} = ∂f/∂q ∂g/∂p − ...\"]\n    T1[\"Thm: Euler–Lagrange\\n∂L/∂q = d/dt ∂L/∂q̇\"]\n    T2[\"Thm: Hamilton eqs\\nq̇=∂H/∂p, ṗ=−∂H/∂q\"]\n    T3[\"Thm: Least action\\nδS=0 ⇒ E-L\"]\n    T4[\"Thm: Noether\\nsymmetry → conserved\"]\n    T5[\"Thm: Liouville\\n{H,f}=0 ⇒ const\"]\n    D1 --> D2\n    D2 --> D3\n    D3 --> D4\n    D1 --> T1\n    T1 --> T3\n    T2 --> T4\n    classDef definition fill:#b197fc,color:#fff\n    classDef theorem fill:#51cf66,color:#fff\n    class D1,D2,D3,D4 definition\n    class T1,T2,T3,T4,T5 theorem",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

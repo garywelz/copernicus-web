@@ -1,0 +1,47 @@
+{
+  "id": "biorxiv_10.1101_2025.07.16.665183",
+  "doi": "10.1101/2025.07.16.665183",
+  "title": "Aberrant splicing prediction during human organ development",
+  "authors": [
+    "Wagner, N.",
+    "Neverov, A. M.",
+    "Martin-Geary, A. C.",
+    "Londhe, S.",
+    "Schröder, C.",
+    "Yepez, V. A.",
+    "Whiffin, N.",
+    "Gagneur, J."
+  ],
+  "author_string": "Wagner, N., Neverov, A. M., Martin-Geary, A. C., Londhe, S., Schröder, C. et al.",
+  "journal": "bioRxiv",
+  "journal_full": "bioRxiv",
+  "year": "2026",
+  "abstract": "Developmental disorders constitute a major class of genetic diseases, yet tools to identify splicing-disruptive variants during development are lacking. To address this need we extended the AbSplice framework to incorporate splicing dynamics across developmental stages. Moreover, we introduced several improvements including a refined ground truth from the aberrant splicing caller FRASER2, a continuous representation of splice site usage, and integration of the rich set of predictions from the sequence-based model Pangolin. These advances improve the performance of the original model at predicting aberrant splicing events and enable predictions across embryonic, childhood, and adult tissues. Genome-wide scores for all single-nucleotide variants and a web interface to score indels are available to facilitate the exploration of the predictions. Our genome-wide predictions reveal a class of variants with splicing-disruptive effects confined to early development, particularly abundant in the brain (>18,000 variants). These variants are enriched in loss-of-function intolerant genes and neurodevelopmental disorder genes. Within the rare-disease cohort Solve-RD high-impact brain-specific predictions are significantly enriched in individuals affected by neurodevelopmental disorders (NDD) in NDD-linked genes. Furthermore, the predicted developmental timing of the splicing disruption correlates with the clinical age of onset. Analysis of genomes of individuals with a suspected Mendelian disorder from Genomics England identified 26 unique variants in disease-linked genes, with stronger predicted effects during development than in adulthood, including a candidate new diagnosis in the gene FGFR1. Altogether, these results improve the accuracy of splice-disruptive variant prediction and provide tissue and developmental context to aid interpretation in rare disease diagnostics.",
+  "keywords": [],
+  "categories": [
+    "genomics"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.1101/2025.07.16.665183",
+  "source": "biorxiv",
+  "sources": [
+    "biorxiv"
+  ],
+  "acquired_date": "2026-05-12T22:15:24.942507",
+  "category": "biology",
+  "subcategories": [
+    "genomics"
+  ],
+  "published_date": "2026-01-12",
+  "updated_date": "2026-01-12",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "biorxiv",
+  "preprint_version": "2",
+  "preprint_type": "new results",
+  "license": "cc_by_nc_nd",
+  "jatsxml": "https://www.biorxiv.org/content/early/2026/01/12/2025.07.16.665183.source.xml",
+  "published_doi": null,
+  "author_corresponding": "Julien Gagneur",
+  "author_corresponding_institution": "Department of Informatics, Technical University of Munich, Garching, Germany; Helmholtz Association - Munich School for Data Science (MUDS), Munich, Germany; Co"
+}

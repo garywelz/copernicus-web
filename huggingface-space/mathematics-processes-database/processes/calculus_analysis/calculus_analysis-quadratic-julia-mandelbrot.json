@@ -1,0 +1,39 @@
+{
+  "id": "calculus_analysis-quadratic-julia-mandelbrot",
+  "name": "Quadratic Julia Sets & Mandelbrot Set",
+  "category": "mathematics",
+  "subcategory": "calculus_analysis",
+  "subcategory_name": "Calculus & Analysis",
+  "description": "Quadratic family f_c(z) = z² + c. Filled Julia set K_c = {z : f_cⁿ(z) ↛ ∞}; Julia set J_c = ∂K_c. Mandelbrot set M = {c ∈ ℂ : 0 ∈ K_c} = {c : critical orbit bounded}. Douady coined the name \"Mandelbrot set.\" Parameter space (c-plane) vs dynamic plane (z-plane). M compact, contained in |c| ≤ 2. Foundation for Douady-Hubbard theory.",
+  "mermaid": "graph TD\n    DefFc[\"Def: Quadratic family\\nf_c(z) = z² + c\"]\n    DefKc[\"Def: Filled Julia set K_c\\n{z : orbit bounded}\"]\n    DefJc[\"Def: Julia set J_c\\n= ∂K_c\"]\n    DefM[\"Def: Mandelbrot set M\\n{c : 0 ∈ K_c}\"]\n    LemCrit[\"Lem: Critical point 0\\nOnly critical point\"]\n    ThmEquiv[\"Thm: M = {c : K_c connected}\\nDouady-Hubbard\"]\n    ThmCompact[\"Thm: M compact\\nM ⊆ D(0,2)\"]\n    DefParam[\"Def: Parameter space\\nc-plane\"]\n    DefDyn[\"Def: Dynamic plane\\nz-plane, f_c iteration\"]\n    DefFc --> DefKc\n    DefFc --> DefJc\n    DefKc --> DefJc\n    DefKc --> DefM\n    LemCrit --> DefM\n    DefM --> ThmEquiv\n    DefM --> ThmCompact\n    DefFc --> DefParam\n    DefFc --> DefDyn\n    classDef definition fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef theorem fill:#51cf66,color:#fff,stroke:#40c057\n    classDef lemma fill:#74c0fc,color:#fff,stroke:#4dabf7\n    class DefFc,DefKc,DefJc,DefM,DefParam,DefDyn definition\n    class ThmEquiv,ThmCompact theorem\n    class LemCrit lemma",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

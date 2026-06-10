@@ -1,0 +1,39 @@
+{
+  "id": "foundations-axiomatic-set-theory-ch-continuum",
+  "name": "Axiomatic Set Theory — Continuum Hypothesis & Independence",
+  "category": "mathematics",
+  "subcategory": "foundations",
+  "subcategory_name": "Foundations",
+  "description": "Continuum Hypothesis (CH): 2^ℵ₀ = ℵ₁. Gödel (1940): CH consistent with ZFC via constructible universe L. Cohen (1963): ¬CH consistent via forcing. CH is independent of ZFC. Assumes Charts 1–3 (ZFC, ordinals, cardinals).",
+  "mermaid": "graph TD\n    ZFC[\"ZFC\\n(Charts 1–3)\"]\n    DefCH[\"Def: CH\\n2^ℵ₀ = ℵ₁\"]\n    DefGCH[\"Def: GCH\\n∀α ℵα₊₁ = 2^ℵα\"]\n    DefL[\"Def: Constructible L\\nL = ⋃ Lα\"]\n    T1[\"Thm: L ⊨ ZFC\\nGödel\"]\n    T2[\"Thm: L ⊨ CH\\nGödel 1940\"]\n    T3[\"Thm: Con(ZFC) → Con(ZFC+CH)\\nCH not disprovable\"]\n    T4[\"Thm: Con(ZFC) → Con(ZFC+¬CH)\\nCohen 1963\"]\n    T5[\"Thm: CH independent of ZFC\\nGödel + Cohen\"]\n    DefForcing[\"Def: Forcing\\nM, P, G, M[G]\"]\n    ZFC --> DefCH\n    ZFC --> DefGCH\n    ZFC --> DefL\n    DefL --> T1\n    T1 --> T2\n    T2 --> T3\n    ZFC --> DefForcing\n    DefForcing --> T4\n    T3 --> T5\n    T4 --> T5\n    classDef axiom fill:#ff6b6b,color:#fff,stroke:#c0392b\n    classDef definition fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef theorem fill:#51cf66,color:#fff,stroke:#40c057\n    class ZFC axiom\n    class DefCH,DefGCH,DefL,DefForcing definition\n    class T1,T2,T3,T4,T5 theorem",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

@@ -1,0 +1,45 @@
+{
+  "id": "arxiv_2604.24324v1",
+  "arxiv_id": "2604.24324v1",
+  "title": "The FLAMINGO simulations data release",
+  "authors": [
+    "John C. Helly",
+    "Robert J. McGibbon",
+    "Joop Schaye",
+    "Matthieu Schaller",
+    "William McDonald",
+    "Joey Braspenning",
+    "Jeger C. Broxterman",
+    "Emily E. Costello",
+    "Willem Elbers",
+    "Carlos S. Frenk",
+    "Adrian Jenkins",
+    "Roi Kugel",
+    "Ian G. McCarthy",
+    "Jaime Salcido",
+    "Marcel P. van Daalen",
+    "Bert Vandenbroucke",
+    "Tianyi Yang"
+  ],
+  "author_string": "John C. Helly, Robert J. McGibbon, Joop Schaye, Matthieu Schaller, William McDonald et al.",
+  "journal": "arXiv:2604.24324v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We describe the public release of $>2.3$ petabytes of data from the FLAMINGO cosmological simulations. The suite consists of hydrodynamical simulations that include radiative cooling, star formation, stellar mass loss and the resulting chemical enrichment, supernova feedback, and two implementations of AGN feedback. Neutrinos are simulated explicitly using particles. Data products include snapshots, halo and galaxy catalogues, HEALPix all-sky lightcone maps, particle data for lightcone maps, and power spectra. The FLAMINGO set includes 22 hydrodynamical simulations. In addition, there are 16 gravity-only simulations, including the $10080^3$ particles FLAMINGO-10k run, with initial conditions that match those of the corresponding hydrodynamical runs. The fiducial hydrodynamical simulations span three numerical resolutions that have each been calibrated to reproduce the present-day galaxy stellar mass function and gas fractions in low-redshift clusters. Other simulations systematically vary the galaxy stellar mass function, cluster gas fractions, cosmology (including neutrino masses), and/or the nature of dark matter, in volumes of 1Gpc$^3$. The release includes hitherto unpublished simulations that use extra dark matter particles. While we provide a facility for downloading complete simulation outputs, we recognise that for many users this will not be possible due to limited local storage or network bandwidth. We implement a web service that enables users to explore available outputs and selectively download datasets or parts of datasets.",
+  "categories": [
+    "astro-ph.CO"
+  ],
+  "primary_category": "astro-ph.CO",
+  "comment": "19 pages, 0 figures. For access to the FLAMINGO data see https://flamingo.strw.leidenuniv.nl/",
+  "published_date": "2026-04-27T11:15:55Z",
+  "updated_date": "2026-04-27T11:15:55Z",
+  "url": "https://arxiv.org/abs/2604.24324v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.24324v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-27T22:15:26.519233",
+  "category": "physics",
+  "subcategories": [
+    "astro-ph.CO"
+  ]
+}

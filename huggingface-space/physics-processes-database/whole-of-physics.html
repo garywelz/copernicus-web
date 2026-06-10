@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Whole of Physics — Candidate Maps</title>
+  <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f8fafc; color: #0f172a; overflow: hidden; }
+    .header { position: fixed; inset: 0 0 auto 0; height: 58px; z-index: 10; background: rgba(255,255,255,0.96); box-shadow: 0 2px 12px rgba(15,23,42,0.12); display: flex; align-items: center; gap: 16px; padding: 10px 18px; }
+    .header h1 { margin: 0; font-size: 1.1rem; color: #2563eb; white-space: nowrap; }
+    .header a { color: #2563eb; font-weight: 700; text-decoration: none; white-space: nowrap; }
+    .controls { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; font-size: 0.9rem; }
+    select, button, input { font: inherit; border: 1px solid #cbd5e1; border-radius: 8px; background: white; padding: 6px 9px; }
+    button { cursor: pointer; color: #0f172a; }
+    #chart { position: fixed; top: 58px; left: 0; right: 360px; bottom: 0; background: radial-gradient(circle at top left, #fff, #eef2ff); }
+    .sidebar { position: fixed; top: 58px; right: 0; bottom: 0; width: 360px; overflow-y: auto; background: white; border-left: 1px solid #e2e8f0; padding: 16px; }
+    .sidebar h2 { margin: 0 0 8px; font-size: 1rem; color: #2563eb; }
+    .sidebar p { line-height: 1.45; color: #475569; font-size: 0.9rem; }
+    .stat-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin: 12px 0; }
+    .stat { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 10px; }
+    .stat strong { display: block; font-size: 1.2rem; color: #0f172a; }
+    .legend { display: grid; gap: 6px; margin-top: 10px; }
+    .legend-item { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: #334155; }
+    .dot { width: 11px; height: 11px; border-radius: 999px; display: inline-block; }
+    .rubric { display: grid; gap: 6px; margin-top: 10px; }
+    .rubric-row { display: grid; grid-template-columns: 1fr 36px; gap: 8px; font-size: 0.82rem; }
+    .node { cursor: pointer; stroke: #0f172a; stroke-width: 1.1; }
+    .node:hover { stroke-width: 2.5; }
+    .link { stroke: #94a3b8; stroke-opacity: 0.5; }
+    .label { pointer-events: none; fill: #0f172a; paint-order: stroke; stroke: rgba(255,255,255,0.85); stroke-width: 3px; stroke-linejoin: round; }
+    .tooltip { position: fixed; display: none; max-width: 320px; padding: 10px 12px; background: rgba(15,23,42,0.94); color: white; border-radius: 8px; line-height: 1.35; font-size: 0.86rem; z-index: 20; pointer-events: none; }
+    .tooltip small { opacity: 0.86; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>Whole of Physics</h1>
+    <div class="controls">
+      <label>Variant <select id="variant"></select></label>
+      <label>Layout <select id="layout"><option value="auto">Auto</option><option value="force">Force</option><option value="radial">Radial</option><option value="layered">Layered</option></select></label>
+      <input id="search" type="search" placeholder="Search nodes">
+      <button id="reset" type="button">Reset</button>
+    </div>
+    <a id="back-link" href="physics-database-table.html">Database Table</a>
+  </div>
+  <div id="chart"></div>
+  <aside class="sidebar">
+    <h2 id="variant-title">Loading...</h2>
+    <p id="variant-description"></p>
+    <div class="stat-grid" id="stats"></div>
+    <h2>Rubric</h2>
+    <div class="rubric" id="rubric"></div>
+    <h2>Legend</h2>
+    <div class="legend" id="legend"></div>
+    <h2>Topic-scale extensions</h2>
+    <div id="extensions"></div>
+  </aside>
+  <div class="tooltip" id="tooltip"></div>
+  <script>
+    const PROFILE = {"accent": "#2563eb", "displayName": "Physics"};
+    const DATA_FILE = "whole-of-physics-graph-data.json";
+    const TABLE_FILE = "physics-database-table.html";
+    const baseUrl = window.location.hostname.includes('storage.googleapis.com')
+      ? 'https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/physics-processes-database'
+      : '.';
+    document.getElementById('back-link').href = baseUrl + '/' + TABLE_FILE;
+    let graphData;
+    let simulation;
+    const chart = d3.select('#chart');
+    const tooltip = d3.select('#tooltip');
+    const width = () => document.getElementById('chart').clientWidth;
+    const height = () => document.getElementById('chart').clientHeight;
+    const colors = { root: '#dc2626', subcategory: '#2563eb', collection: '#7c3aed', family: '#0f766e', branch: '#ea580c', process: '#16a34a' };
+
+    function escapeHtml(s) { return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+    function nodeColor(d) { return colors[d.type] || '#64748b'; }
+    function nodeRadius(d) {
+      if (d.type === 'root') return 22;
+      if (d.type === 'family' || d.type === 'collection') return 15;
+      if (d.type === 'subcategory' || d.type === 'branch') return 12;
+      return Math.max(5, Math.min(9, 4 + Math.sqrt(Number(d.nodes || 4))));
+    }
+    function linkDistance(d) { return d.target.type === 'process' ? 56 : 78; }
+    function showTooltip(event, d) {
+      tooltip.style('display', 'block').style('left', (event.pageX + 12) + 'px').style('top', (event.pageY + 12) + 'px')
+        .html('<strong>' + escapeHtml(d.name) + '</strong><small>' +
+          '<br>' + escapeHtml(d.type || '') +
+          (d.processCount ? '<br>' + d.processCount + ' processes' : '') +
+          (d.nodes ? '<br>' + d.nodes + ' diagram nodes' : '') +
+          (d.description ? '<br>' + escapeHtml(d.description) : '') +
+          (d.url ? '<br>Click to open process page' : '') + '</small>');
+    }
+    function renderSidebar(variant) {
+      document.getElementById('variant-title').textContent = variant.label;
+      document.getElementById('variant-description').textContent = variant.description;
+      document.getElementById('stats').innerHTML = [
+        ['Nodes', variant.nodes.length],
+        ['Links', variant.links.length],
+        ['Rubric', variant.rubric.total],
+        ['Default', variant.layout]
+      ].map(([label, value]) => `<div class="stat"><strong>${value}</strong><span>${label}</span></div>`).join('');
+      const rubricRows = Object.entries(variant.rubric).filter(([k]) => k !== 'notes' && k !== 'total');
+      document.getElementById('rubric').innerHTML = rubricRows.map(([k, v]) => `<div class="rubric-row"><span>${k}</span><strong>${v}</strong></div>`).join('') + `<p>${escapeHtml(variant.rubric.notes || '')}</p>`;
+      const types = Array.from(new Set(variant.nodes.map(n => n.type))).sort();
+      document.getElementById('legend').innerHTML = types.map(type => `<div class="legend-item"><span class="dot" style="background:${nodeColor({ type })}"></span>${type.replace(/_/g, ' ')}</div>`).join('');
+      document.getElementById('extensions').innerHTML = (graphData.meta.topicScaleExtensions || []).map(ext => `<p><strong>${escapeHtml(ext.label)}</strong><br><small>${escapeHtml(ext.model)}: ${escapeHtml(ext.description)}</small></p>`).join('');
+    }
+    function layoutPositions(nodes, links, mode) {
+      const w = width();
+      const h = height();
+      if (mode === 'radial') {
+        const byLevel = d3.group(nodes, d => d.level || 0);
+        const maxLevel = Math.max(...Array.from(byLevel.keys()));
+        byLevel.forEach((levelNodes, level) => {
+          const radius = level === 0 ? 0 : Math.min(w, h) * (0.12 + 0.34 * (level / Math.max(1, maxLevel)));
+          levelNodes.forEach((node, i) => {
+            const angle = (2 * Math.PI * i) / Math.max(1, levelNodes.length);
+            node.fx = w / 2 + radius * Math.cos(angle);
+            node.fy = h / 2 + radius * Math.sin(angle);
+          });
+        });
+      } else if (mode === 'layered') {
+        const root = nodes.find(n => n.type === 'root');
+        if (root) { root.fx = w * 0.11; root.fy = h * 0.5; }
+        const families = nodes.filter(n => n.type === 'family' || n.type === 'collection' || n.type === 'subcategory');
+        families.forEach((node, i) => {
+          node.fx = w * 0.36;
+          node.fy = ((i + 1) / (families.length + 1)) * h;
+        });
+        const familyY = new Map(families.map(n => [n.id.replace(/^family:/, ''), n.fy]));
+        const directY = new Map(families.map(n => [n.id, n.fy]));
+        const grouped = d3.group(nodes.filter(n => n.type === 'process'), n => n.familyId || parentId(n.id));
+        grouped.forEach((groupNodes, key) => {
+          const centerY = familyY.get(key) || directY.get(key) || h * 0.5;
+          const band = Math.min(h / Math.max(2, families.length), 150);
+          groupNodes.forEach((node, i) => {
+            const offset = ((i + 1) / (groupNodes.length + 1) - 0.5) * band;
+            const lane = i % 3;
+            node.fx = w * (0.64 + lane * 0.08);
+            node.fy = centerY + offset;
+          });
+        });
+      } else {
+        nodes.forEach(n => { n.fx = null; n.fy = null; });
+      }
+    }
+    function parentId(nodeId) {
+      const link = currentLinks.find(l => l.target && l.target.id === nodeId);
+      return link && link.source ? link.source.id : '';
+    }
+    let currentLinks = [];
+    function renderVariant() {
+      if (simulation) simulation.stop();
+      chart.selectAll('*').remove();
+      const selectedId = document.getElementById('variant').value;
+      const variant = graphData.variants.find(v => v.id === selectedId) || graphData.variants[0];
+      const selectedLayout = document.getElementById('layout').value === 'auto' ? variant.layout : document.getElementById('layout').value;
+      const query = document.getElementById('search').value.trim().toLowerCase();
+      const nodes = variant.nodes.map(d => ({ ...d }));
+      const nodeById = new Map(nodes.map(n => [n.id, n]));
+      const links = variant.links.map(l => ({ ...l, source: nodeById.get(l.source), target: nodeById.get(l.target) })).filter(l => l.source && l.target);
+      currentLinks = links;
+      layoutPositions(nodes, links, selectedLayout);
+      renderSidebar(variant);
+      const svg = chart.append('svg').attr('width', width()).attr('height', height());
+      const g = svg.append('g');
+      svg.call(d3.zoom().scaleExtent([0.08, 5]).on('zoom', e => g.attr('transform', e.transform)));
+      const link = g.append('g').selectAll('line').data(links).join('line').attr('class', 'link').attr('stroke-width', d => d.type === 'branch_contains' ? 0.8 : 1.3);
+      const node = g.append('g').selectAll('circle').data(nodes).join('circle')
+        .attr('class', 'node')
+        .attr('r', nodeRadius)
+        .attr('fill', d => query && !(`${d.name} ${d.type} ${d.description || ''}`.toLowerCase().includes(query)) ? '#cbd5e1' : nodeColor(d))
+        .on('mouseover', showTooltip)
+        .on('mousemove', event => tooltip.style('left', (event.pageX + 12) + 'px').style('top', (event.pageY + 12) + 'px'))
+        .on('mouseout', () => tooltip.style('display', 'none'))
+        .on('click', (event, d) => { if (d.url) window.open(baseUrl + '/' + d.url, '_blank'); })
+        .call(d3.drag().on('start', dragstarted).on('drag', dragged).on('end', dragended));
+      const label = g.append('g').selectAll('text')
+        .data(nodes.filter(n => n.type !== 'process' || (query && n.name.toLowerCase().includes(query))))
+        .join('text').attr('class', 'label').attr('font-size', d => d.type === 'root' ? 14 : d.type === 'process' ? 9 : 11).attr('dx', d => nodeRadius(d) + 4).attr('dy', '0.35em').text(d => d.name);
+      simulation = d3.forceSimulation(nodes)
+        .force('link', d3.forceLink(links).id(d => d.id).distance(linkDistance))
+        .force('charge', d3.forceManyBody().strength(d => d.type === 'root' ? -700 : d.type === 'process' ? -90 : -260))
+        .force('center', d3.forceCenter(width() / 2, height() / 2))
+        .force('collision', d3.forceCollide().radius(d => nodeRadius(d) + 5));
+      simulation.on('tick', () => {
+        link.attr('x1', d => d.source.x).attr('y1', d => d.source.y).attr('x2', d => d.target.x).attr('y2', d => d.target.y);
+        node.attr('cx', d => d.x).attr('cy', d => d.y);
+        label.attr('x', d => d.x).attr('y', d => d.y);
+      });
+      function dragstarted(event, d) { if (!event.active) simulation.alphaTarget(0.3).restart(); d.fx = d.x; d.fy = d.y; }
+      function dragged(event, d) { d.fx = event.x; d.fy = event.y; }
+      function dragended(event, d) { if (!event.active) simulation.alphaTarget(0); if (selectedLayout === 'force') { d.fx = null; d.fy = null; } }
+    }
+    d3.json(baseUrl + '/' + DATA_FILE).then(data => {
+      graphData = data;
+      document.getElementById('variant').innerHTML = data.variants.map(v => `<option value="${v.id}" ${v.id === data.meta.primaryVariant ? 'selected' : ''}>${v.label}</option>`).join('');
+      document.getElementById('variant').addEventListener('change', renderVariant);
+      document.getElementById('layout').addEventListener('change', renderVariant);
+      document.getElementById('search').addEventListener('input', renderVariant);
+      document.getElementById('reset').addEventListener('click', () => { document.getElementById('search').value = ''; document.getElementById('layout').value = 'auto'; renderVariant(); });
+      renderVariant();
+    });
+  </script>
+</body>
+</html>

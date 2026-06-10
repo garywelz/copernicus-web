@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2605.02829v1",
+  "arxiv_id": "2605.02829v1",
+  "title": "Compress Then Adapt? No, Do It Together via Task-aware Union of Subspaces",
+  "authors": [
+    "Jingze Ge",
+    "Yun Liu",
+    "Xue Geng",
+    "Wanqi Dong",
+    "Wang Zhe Mark",
+    "Min Wu",
+    "Xulei Yang"
+  ],
+  "author_string": "Jingze Ge, Yun Liu, Xue Geng, Wanqi Dong, Wang Zhe Mark et al.",
+  "journal": "arXiv:2605.02829v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Adapting large pretrained models to diverse tasks is now routine, yet the two dominant strategies of parameter-efficient fine-tuning (PEFT) and low-rank compression are typically composed in sequence. This decoupled practice first compresses and then fine-tunes adapters, potentially misaligning the compressed subspace with downstream objectives and squandering a global parameter budget. To overcome this limitation, we introduce JACTUS (Joint Adaptation and Compression with a Task-aware Union of Subspaces), a single framework that unifies compression and adaptation. From a small calibration set, JACTUS estimates input and pre-activation gradient covariances, forms their orthogonal union with the pretrained weight subspace, performs a projected low-rank approximation inside this union, allocates rank globally by marginal gain per parameter, and trains only a compact core matrix. This explicitly mitigates the potential misalignment between the compressed subspace and downstream objectives by coupling the directions preserved for compression with those required for adaptation, yielding a deployable low-rank model that avoids retaining full frozen weights while enabling fast and robust tuning. On vision, JACTUS attains an average 89.2% accuracy on ViT-Base across eight datasets at 80% retained parameters, surpassing strong 100% PEFT baselines (e.g., DoRA 87.9%). On language, JACTUS achieves an 80.9% average on Llama2-7B commonsense QA at the same 80% retained-parameter budget, outperforming 100% PEFT (e.g., DoRA 79.7%) and exceeding prior compress-then-finetune pipelines under the same ratained-parameter budget. We will release code.",
+  "categories": [
+    "cs.AI"
+  ],
+  "primary_category": "cs.AI",
+  "comment": "15 pages, 3 figures, supplementary material included",
+  "published_date": "2026-05-04T17:05:45Z",
+  "updated_date": "2026-05-04T17:05:45Z",
+  "url": "https://arxiv.org/abs/2605.02829v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.02829v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-05T10:15:47.086462",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.AI"
+  ]
+}

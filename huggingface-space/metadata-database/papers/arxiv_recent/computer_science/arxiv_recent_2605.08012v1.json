@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2605.08012v1",
+  "arxiv_id": "2605.08012v1",
+  "title": "Position: Mechanistic Interpretability Must Disclose Identification Assumptions for Causal Claims",
+  "authors": [
+    "Zezheng Lin",
+    "Fengming Liu"
+  ],
+  "author_string": "Zezheng Lin, Fengming Liu",
+  "journal": "arXiv:2605.08012v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Mechanistic interpretability papers increasingly use causal vocabulary: circuits, mediators, causal abstraction, monosemanticity. Such claims require explicit identification assumptions. A purposive audit of 10 papers across four methodological strands finds no dedicated identification-assumptions section and a recurring pattern: validation metrics such as faithfulness, completeness, monosemanticity, alignment, or ablation effects are reported as causal support without stating the assumptions that make them identifying. A two-human-coder audit on $n=30$ reproduces the direction of the main finding: dedicated identification sections are absent, and validation-metric substitution is common, though exact Dim B/D counts are coding-rule sensitive. The paper proposes a disclosure norm: state whether the claim is causal, name the identification strategy, enumerate assumptions, stress at least one, and explain how conclusions shift if assumptions fail. Validation is not identification.",
+  "categories": [
+    "cs.LG",
+    "cs.AI",
+    "cs.CL"
+  ],
+  "primary_category": "cs.CL",
+  "comment": "10 pages, 2 figures. Submitted to NeurIPS 2026 (Position Track)",
+  "published_date": "2026-05-08T17:01:55Z",
+  "updated_date": "2026-05-08T17:01:55Z",
+  "url": "https://arxiv.org/abs/2605.08012v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.08012v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-10T22:17:15.399013",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.LG",
+    "cs.AI",
+    "cs.CL"
+  ]
+}

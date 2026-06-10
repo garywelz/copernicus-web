@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_2605.10261v1",
+  "arxiv_id": "2605.10261v1",
+  "title": "E-TCAV: Formalizing Penultimate Proxies for Efficient Concept Based Interpretability",
+  "authors": [
+    "Hasib Aslam",
+    "Muhammad Ali Chattha",
+    "Muhammad Taha Mukhtar",
+    "Muhammad Imran Malik",
+    "Andreas Dengel",
+    "Sheraz Ahmed"
+  ],
+  "author_string": "Hasib Aslam, Muhammad Ali Chattha, Muhammad Taha Mukhtar, Muhammad Imran Malik, Andreas Dengel et al.",
+  "journal": "arXiv:2605.10261v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "TCAV (Testing with Concept Activation Vectors) is an interpretability method that assesses the alignment between the internal representations of a trained neural network and human-understandable, high-level concepts. Though effective, TCAV suffers from significant computational overhead, inter-layer disagreement of TCAV scores, and statistical instability. This work takes a step toward addressing these challenges by introducing E-TCAV, a framework for efficient approximation of TCAV scores, which is based on extensive investigation into three key aspects of the TCAV methodology: 1) the effect of latent classifiers on the stability of TCAV scores, 2) the inter-layer agreement of TCAV scores, and 3) the use of the penultimate layer as a fast proxy for earlier layers for TCAV computation. To ensure a solid foundation for E-TCAV, we conduct extensive evaluations across four different architectures and five datasets, encompassing problems from both computer vision and natural language domains. Our results show that the layers in the final block of the neural network strongly agree with the penultimate layer in terms of the TCAV scores, and the commonly observed variance of the TCAV scores can be attributed to the choice of the latent classifier. Leveraging this inter-layer agreement and the degeneracy of directional sensitivities at the penultimate layer, E-TCAV guarantees linearly scaling speed-ups with respect to the network's size and the number of evaluation samples, marking a step towards efficient model debugging and real-time concept-guided training.",
+  "categories": [
+    "cs.AI",
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": null,
+  "published_date": "2026-05-11T09:25:41Z",
+  "updated_date": "2026-05-11T09:25:41Z",
+  "url": "https://arxiv.org/abs/2605.10261v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.10261v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-11T22:15:37.969475",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.AI",
+    "cs.LG"
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "id": "arxiv_2605.18170v1",
+  "arxiv_id": "2605.18170v1",
+  "title": "Buffer-Parameterized Machine Learning Surrogate Models for Cross-Technology Signal Integrity Analysis and Optimization",
+  "authors": [
+    "Julian Withöft",
+    "Werner John",
+    "Emre Ecik",
+    "Ralf Brüning",
+    "Jürgen Götze"
+  ],
+  "author_string": "Julian Withöft, Werner John, Emre Ecik, Ralf Brüning, Jürgen Götze",
+  "journal": "arXiv:2605.18170v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Signal integrity (SI) analysis in printed circuit board (PCB) interconnects faces increasing complexity due to diverse integrated circuit (IC) buffer technologies, varying operating conditions, and manufacturing tolerances. Existing machine learning (ML) surrogate models for predicting SI metrics such as the inner eye contour, eye-height (EH), eye-width (EW), and transient waveform features typically rely on fixed buffer parameters, requiring costly new data generation and retraining cycles for every technology shift. This paper introduces a buffer-parameterized ML surrogate modeling methodology capable of handling cross-technology variations without retraining by treating IC buffer characteristics, e.g., clock frequency, supply voltage, rise/fall times, jitter, and internal resistors and capacitors, as dynamic model inputs alongside PCB parameters. To identify the optimal surrogate architecture for this high-dimensional space, a comprehensive benchmarking study compares tree-based methods (RFR/GBM), kernel methods (SVR/KRR), Gaussian process regression (GPR), and neural networks. The framework is subsequently validated on a complex interconnect with 44 design parameters. Results show that while anisotropic GPR excels in low-data regimes, neural networks heavily outperform other models on large datasets. Finally, the practical value of the ML surrogate models is demonstrated through a cross-technology design space exploration and optimization scenario, showcasing massive computational speedups for eye mask compliance checking compared to simulation.",
+  "categories": [
+    "eess.SP",
+    "cs.CE",
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": "12 pages, 16 figures, 7 tables. This work has been submitted to the IEEE for possible publication",
+  "published_date": "2026-05-18T10:12:57Z",
+  "updated_date": "2026-05-18T10:12:57Z",
+  "url": "https://arxiv.org/abs/2605.18170v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.18170v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-18T22:16:04.720689",
+  "category": "computer_science",
+  "subcategories": [
+    "eess.SP",
+    "cs.CE",
+    "cs.LG"
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2605.23821v1",
+  "arxiv_id": "2605.23821v1",
+  "title": "Hierarchical Concept Geometry in Language Models Emerges from Word Co-occurrence",
+  "authors": [
+    "Andres Nava",
+    "Matthieu Wyart"
+  ],
+  "author_string": "Andres Nava, Matthieu Wyart",
+  "journal": "arXiv:2605.23821v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We propose a distributional theory of how hypernymy -- the ``is-a'' relation between general and specific concepts -- is encoded geometrically in language representations. Starting from the empirically verified assumption that words closer on the WordNet hypernym graph co-occur more often, we characterize theoretically the spectrum of the resulting embedding Gram matrix of word2vec embeddings. Under mild positivity and decay conditions on the co-occurrence kernel, we prove that the leading eigenvectors first separate broad taxonomic branches and then progressively finer sub-branches, producing a \\emph{hierarchical splitting geometry} with a coarse-to-fine spectral organization that mirrors the tree. We confirm these predictions in word2vec embeddings across many sampled WordNet subtrees, and show that the same signature extends strikingly well to Gemma 2B unembeddings. Our results indicate that hierarchical concept geometry in LLMs need not reflect a hierarchy-specific functional mechanism, but emerges from the spectral structure of pairwise word statistics.",
+  "categories": [
+    "cs.CL",
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": "34 pages, 12 figures, including appendices",
+  "published_date": "2026-05-22T16:24:30Z",
+  "updated_date": "2026-05-22T16:24:30Z",
+  "url": "https://arxiv.org/abs/2605.23821v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.23821v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-25T10:15:39.083965",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CL",
+    "cs.LG"
+  ]
+}

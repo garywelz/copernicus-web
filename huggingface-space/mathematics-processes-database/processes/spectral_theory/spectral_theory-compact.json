@@ -1,0 +1,39 @@
+{
+  "id": "spectral_theory-compact",
+  "name": "Compact Operators",
+  "category": "mathematics",
+  "subcategory": "spectral_theory",
+  "subcategory_name": "Spectral Theory",
+  "description": "K compact: B bounded⇒KB compact. Riesz: σ(K)∖{0} discrete. Fredholm alternative.",
+  "mermaid": "graph TD\n    D1[\"Def: Compact K\\nK(B) precompact\"]\n    D2[\"Def: Finite rank\\nim K fin dim\"]\n    D3[\"Def: Fredholm\\nind = dim ker − codim im\"]\n    D4[\"Def: Essential spec\\nσ_ess\"]\n    T1[\"Thm: σK∖0 discrete\\n0 only limit pt\"]\n    T2[\"Thm: Spectral Riesz\\nK self-adj compact\"]\n    T3[\"Thm: Fredholm alt\\n(I−K)u=f solvable\"]\n    T4[\"Thm: Index stable\\ncompact pert\"]\n    T5[\"Thm: Hilbert–Schmidt\\n∑‖Teₙ‖²<∞\"]\n    D1 --> T1\n    D2 --> D1\n    D3 --> T3\n    D4 --> T1\n    T1 --> T2\n    T3 --> T4\n    classDef definition fill:#b197fc,color:#fff\n    classDef theorem fill:#51cf66,color:#fff\n    class D1,D2,D3,D4 definition\n    class T1,T2,T3,T4,T5 theorem",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

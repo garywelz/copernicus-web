@@ -1,0 +1,39 @@
+{
+  "id": "geometry_topology-euclid-elements-book-xiii-props-1-9",
+  "name": "Euclid's Elements Book XIII — Propositions 1-9",
+  "category": "mathematics",
+  "subcategory": "geometry_topology",
+  "subcategory_name": "Geometry & Topology",
+  "description": "Extreme and mean ratio, pentagon, hexagon, decagon",
+  "mermaid": "graph TD\n    BookI[\"Book I\\nFoundation\"]\n    BookIV[\"Book IV\\nFoundation\"]\n    BookVI[\"Book VI\\nFoundation\"]\n    BookX[\"Book X\\nFoundation\"]\n    BookXI[\"Book XI\\nFoundation\"]\n    Prop1[\"Prop. XIII.1\\nExtreme and mean: square on greater\"]\n    Prop2[\"Prop. XIII.2\\nSquare five times: extreme and mean\"]\n    Prop3[\"Prop. XIII.3\\nExtreme and mean: sum of segments\"]\n    Prop4[\"Prop. XIII.4\\nExtreme and mean: sum of squares\"]\n    Prop5[\"Prop. XIII.5\\nExtreme and mean: add greater\"]\n    Prop6[\"Prop. XIII.6\\nRational cut: apotome\"]\n    Prop7[\"Prop. XIII.7\\nEquilateral pentagon: three angles\"]\n    Prop8[\"Prop. XIII.8\\nPentagon: diagonals in extreme and mean\"]\n    Prop9[\"Prop. XIII.9\\nHexagon + decagon: extreme and mean\"]\n    BookI --> Prop1\n    BookIV --> Prop1\n    BookVI --> Prop1\n    BookX --> Prop1\n    BookXI --> Prop1\n    BookI --> Prop2\n    BookIV --> Prop2\n    BookVI --> Prop2\n    BookX --> Prop2\n    BookXI --> Prop2\n    BookI --> Prop3\n    BookIV --> Prop3\n    BookVI --> Prop3\n    BookX --> Prop3\n    BookXI --> Prop3\n    BookI --> Prop4\n    BookIV --> Prop4\n    BookVI --> Prop4\n    BookX --> Prop4\n    BookXI --> Prop4\n    BookI --> Prop5\n    BookIV --> Prop5\n    BookVI --> Prop5\n    BookX --> Prop5\n    BookXI --> Prop5\n    BookI --> Prop6\n    BookIV --> Prop6\n    BookVI --> Prop6\n    BookX --> Prop6\n    BookXI --> Prop6\n    BookI --> Prop7\n    BookIV --> Prop7\n    BookVI --> Prop7\n    BookX --> Prop7\n    BookXI --> Prop7\n    BookI --> Prop8\n    BookIV --> Prop8\n    BookVI --> Prop8\n    BookX --> Prop8\n    BookXI --> Prop8\n    BookI --> Prop9\n    BookIV --> Prop9\n    BookVI --> Prop9\n    BookX --> Prop9\n    BookXI --> Prop9\n    classDef foundation fill:#95a5a6,color:#fff,stroke:#7f8c8d\n    classDef proposition fill:#51cf66,color:#fff,stroke:#40c057\n    class BookI,BookIV,BookVI,BookX,BookXI foundation\n    class Prop1,Prop2,Prop3,Prop4,Prop5,Prop6,Prop7,Prop8,Prop9 proposition",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "algorithm"
+}

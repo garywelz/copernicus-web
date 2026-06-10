@@ -4,18 +4,20 @@
   "category": "computer_science",
   "subcategory": "software_engineering",
   "subcategory_name": "Software Engineering",
-  "description": "Requirements Engineering process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "Requirements engineering turns stakeholder needs into a validated specification: requirements are elicited, analyzed, and classified as functional behavior or non-functional quality attributes; conflicts and ambiguities are negotiated and resolved, the result is validated with stakeholders, and the agreed set is baselined into a specification.",
   "complexity": {
-    "nodes": 9,
-    "edges": 10,
-    "conditionals": 0,
+    "nodes": 11,
+    "edges": 12,
+    "conditionals": 2,
     "logicGates": {
-      "orGates": 1,
+      "orGates": 2,
       "andGates": 2,
-      "total": 3
+      "notGates": 0,
+      "total": 4
     },
-    "level": "medium",
-    "detailLevel": "medium"
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 1
   },
   "colorScheme": {
     "red": {
@@ -39,53 +41,148 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nN1[\"Stakeholder Needs\"]\nN2[\"Business Goals\"]\nN3[\"Backlog\"]\nN4[\"Choose Approach\"]\nN5[\"Constraints\"]\nN6[\"Elicit + Document\"]\nN7[\"Validate + Prioritize\"]\nN8[\"Approved Requirements\"]\nN9[\"Integrate Results\"]\n\nN1 --> N2\nN2 --> N3\nN3 --> N4\nN4 --> N5\nN4 --> N7\nN5 --> N6\nN7 --> N8\nN6 --> N9\nN8 --> N9\nN9 --> N6\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#ff6b6b,color:#fff\n    style N3 fill:#ffd43b,color:#000\n    style N4 fill:#ffd43b,color:#000\n    style N5 fill:#ffd43b,color:#000\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#b197fc,color:#fff\n    style N9 fill:#74c0fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"Stakeholder needs\"]\n    N2[\"Elicit requirements\"]\n    N3[\"Analyze + classify\"]\n    N4{\"Functional or not?\"}\n    N5[\"Specify behavior\"]\n    N6[\"Specify quality attrs\"]\n    N7{\"Conflicts / ambiguity?\"}\n    N8[\"Negotiate + resolve\"]\n    N9[\"Validate w/ stakeholders\"]\n    N10[\"Baseline specification\"]\n    N11[\"Requirements doc\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 --> N4\n    N4 -->|functional| N5\n    N4 -->|non-functional| N6\n    N5 --> N7\n    N6 --> N7\n    N7 -->|yes| N8\n    N8 -->|rework| N3\n    N7 -->|no| N9\n    N9 --> N10\n    N10 --> N11\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#74c0fc,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#74c0fc,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#51cf66,color:#fff\n    style N10 fill:#74c0fc,color:#fff\n    style N11 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
-      "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: Requirements Engineering. Created using the Programming Framework methodology."
+      "title": "Requirements engineering: a roadmap",
+      "authors": "Nuseibeh, B.; Easterbrook, S.",
+      "journal": "Proceedings of the Conference on the Future of Software Engineering",
+      "year": "2000",
+      "doi": "10.1145/336512.336523",
+      "url": "https://doi.org/10.1145/336512.336523"
     },
     {
-      "title": "Software Requirements Engineering Glossary",
-      "authors": "",
-      "journal": "Software Requirements Engineering",
-      "year": "2011",
-      "pubmed": null,
-      "doi": "10.1109/9781118156674.gloss",
-      "url": "https://doi.org/10.1109/9781118156674.gloss"
-    },
-    {
-      "title": "Requirements and Requirements Engineering ∗ ∗This chapter serves to deliver general background knowledge about requirements and requirements engineering.",
-      "authors": "Jin, Zhi",
-      "journal": "Environment Modeling-Based Requirements Engineering for Software Intensive Systems",
-      "year": "2018",
-      "pubmed": null,
-      "doi": "10.1016/b978-0-12-801954-2.00001-7",
-      "url": "https://doi.org/10.1016/b978-0-12-801954-2.00001-7"
-    },
-    {
-      "title": "System Modelling for Requirements Engineering",
-      "authors": "",
-      "journal": "Requirements Engineering",
-      "year": "None",
-      "pubmed": null,
-      "doi": "10.1007/1-84628-075-3_3",
-      "url": "https://doi.org/10.1007/1-84628-075-3_3"
+      "title": "Software Engineering (10th ed.)",
+      "authors": "Sommerville, I.",
+      "journal": "Pearson",
+      "year": "2015",
+      "url": "https://www.pearson.com/en-us/subject-catalog/p/software-engineering/P200000003258"
     }
   ],
   "keywords": [
-    "requirements",
-    "engineering"
+    "requirements engineering",
+    "elicitation",
+    "functional requirements",
+    "non-functional",
+    "validation"
   ],
   "relatedProcesses": [],
   "created": "2026-01-15",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations.\nCurated Mermaid applied (citations preserved)."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "namedCollections": [],
+  "graphMetrics": {
+    "nodes": 11,
+    "edges": 12,
+    "conditionals": 2,
+    "andGates": 2,
+    "orGates": 2,
+    "notGates": 0,
+    "loops": 1
+  },
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Stakeholder needs",
+      "detail": "Goals and problems",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N2",
+      "label": "Elicit requirements",
+      "detail": "Interviews, workshops",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N3",
+      "label": "Analyze + classify",
+      "detail": "Structure findings",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N4",
+      "label": "Functional or not?",
+      "detail": "Behavior vs quality",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N5",
+      "label": "Specify behavior",
+      "detail": "What system does",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N6",
+      "label": "Specify quality attrs",
+      "detail": "Performance, security",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N7",
+      "label": "Conflicts / ambiguity?",
+      "detail": "Inconsistencies",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N8",
+      "label": "Negotiate + resolve",
+      "detail": "Reconcile needs",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N9",
+      "label": "Validate w/ stakeholders",
+      "detail": "Confirm intent",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N10",
+      "label": "Baseline specification",
+      "detail": "Agreed version",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N11",
+      "label": "Requirements doc",
+      "detail": "SRS artifact",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 1
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:software_engineering-requirements-engineering",
+    "graphType": "decision_flowchart",
+    "topologySignature": "bb8f2401f51d24fb",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "graphType": "decision_flowchart",
+  "domainContext": "Software engineering"
 }

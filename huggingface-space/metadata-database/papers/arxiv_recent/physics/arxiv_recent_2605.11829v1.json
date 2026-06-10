@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2605.11829v1",
+  "arxiv_id": "2605.11829v1",
+  "title": "Bin Latent Transformer (BiLT): A shift-invariant autoencoder for calibration-free spectral unmixing of turbid media",
+  "authors": [
+    "Martin Hohmann"
+  ],
+  "author_string": "Martin Hohmann",
+  "journal": "arXiv:2605.11829v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "The accurate recovery of constituent-level optical properties from integrating sphere measurements is a central analytical challenge in pharmaceutical analysis, food science, and biomedical diagnostics. Neural network autoencoders can extract spectrally resolved absorption and scattering coefficients for each constituent without prior knowledge, but their fully connected encoders bind learned features to absolute wavelength indices, causing accuracy loss under spectrometer calibration drift or hardware exchange. This work introduces the Bin Latent Transformer (BiLT)-Autoencoder, in which the dense encoder is replaced by a cross-attention scanner: 16 learnable probe vectors query a convolutional feature map, aggregating morphological spectral information independently of absolute wavelength position. A physics-constrained linear decoder with enforced absorption/scattering separation and a three-phase curriculum augmentation strategy complete the architecture. On a liquid phantom benchmark (intralipid and two ink absorbers; 496 samples), the model achieves $R^2 = 0.979$ and $0.975$ for $μ_a(λ)$ and $μ_s'(λ)$, respectively, on held-out test spectra, maintaining $R^2 > 0.90$ for $μ_a$ and $R^2 \\approx 0.99$ for $μ_s'$ across the full tested shift range of $\\pm 10$ spectral bands. The model generalises to a simulated spectrometer with a broader instrument line shape (${\\approx}24$nm FWHM) without retraining, retaining $R^2 \\approx 0.96$ and $0.974$ for the two channels. Attention map analysis reveals a physically interpretable two-component probe strategy: sparse anchor probes at absorption-edge wavelengths combined with a diffuse, SNR-driven ensemble at the high-transmittance long-wavelength region, which recruits additional probes dynamically under noise to provide implicit spectral averaging.",
+  "categories": [
+    "physics.optics",
+    "cs.LG",
+    "eess.SP",
+    "physics.med-ph"
+  ],
+  "primary_category": "physics.med-ph",
+  "comment": null,
+  "published_date": "2026-05-12T09:17:43Z",
+  "updated_date": "2026-05-12T09:17:43Z",
+  "url": "https://arxiv.org/abs/2605.11829v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.11829v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-13T10:15:46.701795",
+  "category": "physics",
+  "subcategories": [
+    "physics.optics",
+    "cs.LG",
+    "eess.SP"
+  ]
+}

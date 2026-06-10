@@ -1,0 +1,39 @@
+{
+  "id": "number_theory-peano-arithmetic-godel-incompleteness-1",
+  "name": "Peano Arithmetic & Gödel — Part 7: First Incompleteness Theorem",
+  "category": "mathematics",
+  "subcategory": "number_theory",
+  "subcategory_name": "Number Theory",
+  "description": "Gödel's First Incompleteness Theorem: Any consistent, recursively axiomatized theory extending Robinson arithmetic is incomplete. Proof via diagonal lemma: construct sentence G such that G ↔ ¬Prov(#G).",
+  "mermaid": "graph TD\n    RefRep[\"Ref: Representability (Part 5)\"]\n    DefProv[\"Def: Provability predicate Prov(y) = ∃m Prf(m,y)\"]\n    LemProvRep[\"Lem: Prov is Σ₁ and representable\"]\n    DefDiag[\"Def: Diagonal function: diag(n) = #(φ(n̄) when #φ = n\"]\n    LemDiagRep[\"Lem: diag is representable in PA\"]\n    LemDiagonal[\"Lem: Diagonal Lemma: for any ψ(x), ∃ sentence G with PA ⊢ G ↔ ψ(#Ḡ)\"]\n    DefG[\"Def: Gödel sentence G: PA ⊢ G ↔ ¬Prov(#Ḡ)\"]\n    LemGUnprov[\"Lem: If PA consistent, PA ⊬ G\"]\n    LemGNegUnprov[\"Lem: If PA ω-consistent, PA ⊬ ¬G\"]\n    ThmFirstIncomp[\"Thm: First Incompleteness: consistent PA is incomplete\"]\n    CorRosser[\"Cor: Rosser: ω-consistency not needed; use Rosser trick\"]\n    RefRep --> DefProv\n    RefRep --> LemProvRep\n    LemProvRep --> DefProv\n    RefRep --> DefDiag\n    RefRep --> LemDiagRep\n    DefDiag --> LemDiagRep\n    LemDiagRep --> LemDiagonal\n    LemProvRep --> LemDiagonal\n    LemDiagonal --> DefG\n    DefG --> LemGUnprov\n    DefG --> LemGNegUnprov\n    LemGUnprov --> ThmFirstIncomp\n    LemGNegUnprov --> ThmFirstIncomp\n    ThmFirstIncomp --> CorRosser\n    classDef definition fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef lemma fill:#74c0fc,color:#fff,stroke:#4dabf7\n    classDef theorem fill:#51cf66,color:#fff,stroke:#40c057\n    classDef corollary fill:#1abc9c,color:#fff,stroke:#16a085\n    classDef ref fill:#bdc3c7,color:#333,stroke:#95a5a6\n    class RefRep ref\n    class DefProv,DefDiag,DefG definition\n    class LemProvRep,LemDiagRep,LemDiagonal,LemGUnprov,LemGNegUnprov lemma\n    class ThmFirstIncomp theorem\n    class CorRosser corollary",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

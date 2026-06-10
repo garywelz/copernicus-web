@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2605.08034v1",
+  "arxiv_id": "2605.08034v1",
+  "title": "Semiparametric Efficient Test for Interpretable Distributional Treatment Effects",
+  "authors": [
+    "Houssam Zenati",
+    "Arthur Gretton"
+  ],
+  "author_string": "Houssam Zenati, Arthur Gretton",
+  "journal": "arXiv:2605.08034v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Distributional treatment effects can be invisible to means: a treatment may preserve average outcomes while changing tails, modes, dispersion, or rare-event probabilities. Kernel tests can detect discrepancies between interventional outcome laws, but global tests do not reveal where the laws differ. We propose DR-ME, to our knowledge the first semiparametrically efficient finite-location test for interpretable distributional treatment effects. DR-ME evaluates an interventional kernel witness at learned outcome locations, returning causal-discrepancy coordinates rather than only a global rejection. From observational data, we derive orthogonal doubly robust kernel features whose centered oracle form is the canonical gradient of this finite witness. For fixed locations, we characterize the local testing limit: DR-ME is chi-square calibrated under the null, has noncentral chi-square local power, and uses the covariance whitening that optimizes local signal-to-noise for discrepancies visible through the selected coordinates. This efficient local-power geometry yields a principled location-learning criterion, with sample splitting preserving post-selection validity. Experiments show near-nominal type-I error, competitive power against global doubly robust kernel tests, and interpretable learned locations that localize distributional effects in a semi-synthetic medical-imaging study.",
+  "categories": [
+    "stat.ML",
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": null,
+  "published_date": "2026-05-08T17:23:34Z",
+  "updated_date": "2026-05-08T17:23:34Z",
+  "url": "https://arxiv.org/abs/2605.08034v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.08034v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-10T22:17:15.397839",
+  "category": "computer_science",
+  "subcategories": [
+    "stat.ML",
+    "cs.LG"
+  ]
+}

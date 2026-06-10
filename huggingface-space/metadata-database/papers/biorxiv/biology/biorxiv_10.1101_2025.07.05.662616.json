@@ -1,0 +1,41 @@
+{
+  "id": "biorxiv_10.1101_2025.07.05.662616",
+  "doi": "10.1101/2025.07.05.662616",
+  "title": "TickMotion: A user-friendly tool to measure and visualize muscle contractions and movements in insect and other arthropod tissues.",
+  "authors": [
+    "Medla, M.",
+    "Zitnan, D."
+  ],
+  "author_string": "Medla, M., Zitnan, D.",
+  "journal": "bioRxiv",
+  "journal_full": "bioRxiv",
+  "year": "2026",
+  "abstract": "TickMotion is a Python-based software tool designed for the post hoc analysis of video recordings that capture movements or muscle contractions in insects. It provides a simple, fast, and automated approach for semi-quantitative assessment of motion by measuring the \"pixel activity\" - changes in pixel intensity or color caused by movement. Unlike many existing approaches, it does not require specialized equipment, chemical reagents, or expensive software. In this context, clusters of pixels represent biological structures such as tissues or entire organisms, with their activity reflecting dynamic changes during the recording. The application can distinguish active pixels from inactive ones within selected regions of interest (ROIs) and measure their intensity over a pre-set time. It offers two distinct analyses: Graphical Analysis (GA), and Pixel Activity Analysis (PAA), both customizable to accommodate various experiments. GA generates a graphical illustration of pixel activity (in selected ROIs) over time together with numerical data from the measurement. PAA produces PNG images highlighting the active regions (clusters of pixels) in the video. Initially designed to analyze muscle contractions in tick tissues, TickMotion is useful for applications extending to any movement analysis. It serves as a simple but valuable tool across diverse research areas.",
+  "keywords": [],
+  "categories": [
+    "physiology"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.1101/2025.07.05.662616",
+  "source": "biorxiv",
+  "sources": [
+    "biorxiv"
+  ],
+  "acquired_date": "2026-05-26T10:15:22.510646",
+  "category": "biology",
+  "subcategories": [
+    "physiology"
+  ],
+  "published_date": "2026-01-26",
+  "updated_date": "2026-01-26",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "biorxiv",
+  "preprint_version": "2",
+  "preprint_type": "new results",
+  "license": "cc_by_nd",
+  "jatsxml": "https://www.biorxiv.org/content/early/2026/01/26/2025.07.05.662616.source.xml",
+  "published_doi": null,
+  "author_corresponding": "Matej Medla",
+  "author_corresponding_institution": "Institute of Zoology SAS"
+}

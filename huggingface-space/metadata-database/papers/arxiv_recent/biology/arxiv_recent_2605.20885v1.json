@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2605.20885v1",
+  "arxiv_id": "2605.20885v1",
+  "title": "Training distribution determines the ceiling of drug-blind cancer sensitivity prediction",
+  "authors": [
+    "Taekyung Heo"
+  ],
+  "author_string": "Taekyung Heo",
+  "journal": "arXiv:2605.20885v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Precision oncology requires predicting which drugs will suppress a specific tumor from its molecular profile, but drug-blind sensitivity prediction has plateaued despite increasingly complex drug representations. Here we show that this stagnation reflects a metric artifact rather than a representational bottleneck. The standard benchmark, global Pearson r, is dominated by between-drug potency differences that a trivial drug-mean predictor captures without any cell-specific learning. Per-drug Pearson r, which isolates within-drug cell ranking, reveals that no drug encoding improves over cell-only features across four independent datasets. A controlled experiment channeling mechanism-of-action identity as either a drug feature or a training-distribution constraint identifies the cause. Supplying MoA as a feature yields negligible benefit, whereas using it to stratify training raises per-drug r substantially for targeted kinase inhibitors, because pan-cancer co-training suppresses pathway-specific sensitivity signals. Mechanism-stratified training and response matching from pilot observations provide two deployable strategies that together recover the principal sources of predictive gain in drug-blind sensitivity prediction.",
+  "categories": [
+    "cs.LG",
+    "q-bio.QM"
+  ],
+  "primary_category": "q-bio.QM",
+  "comment": null,
+  "published_date": "2026-05-20T08:24:56Z",
+  "updated_date": "2026-05-20T08:24:56Z",
+  "url": "https://arxiv.org/abs/2605.20885v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.20885v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-26T10:15:35.457047",
+  "category": "biology",
+  "subcategories": [
+    "cs.LG",
+    "q-bio.QM"
+  ]
+}

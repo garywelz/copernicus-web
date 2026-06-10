@@ -1,21 +1,23 @@
 {
   "id": "inorganic_chemistry-ligand-substitution",
-  "name": "Ligand Substitution",
+  "name": "Ligand Substitution Mechanisms",
   "category": "chemistry",
   "subcategory": "inorganic_chemistry",
   "subcategory_name": "Inorganic Chemistry",
-  "description": "Ligand Substitution process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "Ligand substitution at a metal center proceeds by associative or dissociative pathways distinguished by the rate law: associative paths form a higher-coordinate intermediate by binding the incoming ligand first, while dissociative paths first lose a ligand to a lower-coordinate intermediate.",
   "complexity": {
-    "nodes": 6,
-    "edges": 5,
-    "conditionals": 0,
+    "nodes": 10,
+    "edges": 10,
+    "conditionals": 1,
     "logicGates": {
-      "orGates": 0,
-      "andGates": 0,
-      "total": 0
+      "orGates": 1,
+      "andGates": 1,
+      "notGates": 0,
+      "total": 2
     },
-    "level": "medium",
-    "detailLevel": "medium"
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 0
   },
   "colorScheme": {
     "red": {
@@ -39,53 +41,151 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nN1[\"Metal Complex\"]\nN2[\"Incoming Ligand\"]\nN3[\"Coordination Sphere\"]\nN4[\"Mechanism Choice (A/D/I)\"]\nN5[\"Substitution Step\"]\nN6[\"New Complex\"]\n\nN1 --> N2\nN2 --> N3\nN3 --> N4\nN4 --> N5\nN5 --> N6\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#ff6b6b,color:#fff\n    style N3 fill:#ffd43b,color:#000\n    style N4 fill:#ffd43b,color:#000\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"ML5X + incoming Y\"]\n    N2[\"Observe rate law\"]\n    N3{\"Rate depends on [Y]?\"}\n    N4[\"Associative (A/Ia)\"]\n    N5[\"7-coordinate intermediate\"]\n    N6[\"Dissociative (D/Id)\"]\n    N7[\"5-coordinate intermediate\"]\n    N8[\"Y enters vacated site\"]\n    N9[\"Stereochemistry result\"]\n    N10[\"Product ML5Y\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 -->|yes| N4\n    N4 --> N5\n    N3 -->|no| N6\n    N6 --> N7\n    N5 --> N8\n    N7 --> N8\n    N8 --> N9\n    N9 --> N10\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#74c0fc,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#74c0fc,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#74c0fc,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#51cf66,color:#fff\n    style N10 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "title": "Inorganic Reaction Mechanisms, 2nd ed.",
+      "authors": "Tobe, M. L.; Burgess, J.",
+      "journal": "Longman",
+      "year": "1999",
       "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: Ligand Substitution. Created using the Programming Framework methodology."
+      "url": "https://search.worldcat.org/title/40193029"
     },
     {
-      "title": "Ligand substitution reactions",
-      "authors": "Mingos, D.M.P.",
-      "journal": "Essentials of Inorganic Chemistry 2",
-      "year": "1998",
-      "pubmed": null,
-      "doi": "10.1093/hesc/9780198559184.003.0007",
-      "url": "https://doi.org/10.1093/hesc/9780198559184.003.0007"
+      "title": "Ligand Substitution Processes",
+      "authors": "Langford, C. H.; Gray, H. B.",
+      "journal": "W. A. Benjamin",
+      "year": "1965",
+      "doi": null,
+      "url": "https://search.worldcat.org/title/1031840"
     },
     {
-      "title": "Ligand Substitution Reactions",
-      "authors": "Jordan, Robert B.",
-      "journal": "Reaction Mechanisms of Inorganic and Organometallic Systems",
-      "year": "2007",
-      "pubmed": null,
-      "doi": "10.1093/oso/9780195301007.003.0005",
-      "url": "https://doi.org/10.1093/oso/9780195301007.003.0005"
-    },
-    {
-      "title": "Ligand Substitution Reactions",
-      "authors": "",
-      "journal": "Organometallic Chemistry and Catalysis",
-      "year": "None",
-      "pubmed": null,
-      "doi": "10.1007/978-3-540-46129-6_7",
-      "url": "https://doi.org/10.1007/978-3-540-46129-6_7"
+      "title": "Inorganic Chemistry, 6th ed. — Reaction Mechanisms of d-Block Complexes",
+      "authors": "Housecroft, C. E.; Sharpe, A. G.",
+      "journal": "Pearson",
+      "year": "2018",
+      "doi": null,
+      "url": "https://www.pearson.com/en-gb/subject-catalog/p/inorganic-chemistry/P200000005860"
     }
   ],
   "keywords": [
-    "ligand",
-    "substitution"
+    "ligand substitution",
+    "associative",
+    "dissociative",
+    "reaction mechanism",
+    "intermediate"
   ],
   "relatedProcesses": [],
   "created": "2026-01-15",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations.\nCurated Mermaid applied (citations preserved)."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "namedCollections": [
+    "inorganic-chemistry"
+  ],
+  "graphMetrics": {
+    "nodes": 10,
+    "edges": 10,
+    "conditionals": 1,
+    "andGates": 1,
+    "orGates": 1,
+    "notGates": 0,
+    "loops": 0
+  },
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "ML5X + incoming Y",
+      "detail": "Substitution reactants",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 2
+    },
+    {
+      "id": "N2",
+      "label": "Observe rate law",
+      "detail": "Kinetic probe",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N3",
+      "label": "Rate depends on [Y]?",
+      "detail": "Distinguish pathway",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N4",
+      "label": "Associative (A/Ia)",
+      "detail": "Bond to Y forms first",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N5",
+      "label": "7-coordinate intermediate",
+      "detail": "Higher coordination",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N6",
+      "label": "Dissociative (D/Id)",
+      "detail": "X leaves first",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N7",
+      "label": "5-coordinate intermediate",
+      "detail": "Lower coordination",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N8",
+      "label": "Y enters vacated site",
+      "detail": "Complete substitution",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N9",
+      "label": "Stereochemistry result",
+      "detail": "Retention or change",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N10",
+      "label": "Product ML5Y",
+      "detail": "Substituted complex",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 0
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:inorganic_chemistry-ligand-substitution",
+    "graphType": "decision_flowchart",
+    "topologySignature": "9d7f71d6659b4081",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "graphType": "decision_flowchart",
+  "domainContext": "Inorganic reaction mechanisms"
 }

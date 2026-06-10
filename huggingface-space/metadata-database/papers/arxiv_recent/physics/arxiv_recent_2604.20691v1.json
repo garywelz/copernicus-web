@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2604.20691v1",
+  "arxiv_id": "2604.20691v1",
+  "title": "Bayesian approach for uncertainty quantification of hybrid spectral unmixing in $γ$-ray spectrometry",
+  "authors": [
+    "Dinh Triem Phan",
+    "Jérôme Bobin",
+    "Cheick Thiam",
+    "Christophe Bobin"
+  ],
+  "author_string": "Dinh Triem Phan, Jérôme Bobin, Cheick Thiam, Christophe Bobin",
+  "journal": "arXiv:2604.20691v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Identifying and quantifying $γ$-emitting radionuclides, considering spectral deformation from $γ$-interactions in radioactive source surroundings, present a significant challenge in $γ$-ray spectrometry. In that context, a hybrid machine learning method has been previously proposed to jointly estimate the counting and spectral signatures of $γ$-emitters under conditions of spectral variability. This paper addresses the uncertainty quantification of the estimators (i.e., the counting and the variable $λ$ which characterizes the spectral signatures) obtained by this spectral unmixing algorithm. The focus is on the coverage interval, as defined by the GUM, which corresponds closely to a credible interval in the Bayesian framework. Given the inverse problem and the constraints associated with spectral deformation, two Bayesian methods - Laplace approximation and Markov Chain Monte Carlo - have been developed for uncertainty quantification to ensure robust decision-making. The Laplace approximation technique approximates the posterior distribution by a Gaussian distribution, while the Markov Chain Monte Carlo technique samples the posterior distribution. This study evaluates these two methods in terms of precision of coverage interval based on repeated Monte Carlo samples using the long-run success rate. Numerical experiments show that both methods yield similar results close to the expected success rate of 95.4$\\%$ when constraints related to spectral signatures deformation and counting are inactive. However, when constraints are active or the background counting significantly dominates other radionuclides, the Laplace approximation method deviates from the expected long-run success rate due to the non-Gaussian posterior distribution. In such cases, the Markov Chain Monte Carlo method still provides robust results.",
+  "categories": [
+    "physics.data-an"
+  ],
+  "primary_category": "physics.data-an",
+  "comment": null,
+  "published_date": "2026-04-22T15:37:56Z",
+  "updated_date": "2026-04-22T15:37:56Z",
+  "url": "https://arxiv.org/abs/2604.20691v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.20691v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-25T22:15:44.913533",
+  "category": "physics",
+  "subcategories": [
+    "physics.data-an"
+  ]
+}

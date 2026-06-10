@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Electrolysis - Chemistry Process</title>
+    <title>Electrolysis of Water and Brine - Chemistry Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Electrolysis</h1>
+            <h1>Electrolysis of Water and Brine</h1>
             <div class="header-meta">
                 <span class="meta-item">Chemistry</span>
                 <span class="meta-item">Electrochemistry</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,68 +234,58 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Electrolysis process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>Electrolysis uses an external voltage above the decomposition potential to drive reduction at the cathode and oxidation at the anode; competing anode reactions (O2 vs Cl2) depend on overpotential, and Faraday's laws relate product amounts to charge passed.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-A5[Electrolyte Solution] --> B5[Electrolysis Method]
-C5[Electrodes] --> D5[Power Source]
-E5[Reaction Vessel] --> F5[Temperature Control]
-B5 --> G5[Solution Preparation]
-D5 --> H5[Voltage Application]
-F5 --> I5[Heat Management]
-G5 --> J5[Concentration Setup]
-H5 --> K5[Current Flow]
-I5 --> L5[Thermal Regulation]
-J5 --> M5[Ion Separation]
-K5 --> L5
-L5 --> N5[Electrochemical Reaction]
-M5 --> O5[Oxidation Process]
-N5 --> P5[Reduction Process]
-O5 --> Q5[Gas Evolution]
-P5 --> R5[Product Formation]
-Q5 --> S5[Collection System]
-R5 --> T5[Separation Process]
-S5 --> U5[Gas Purification]
-T5 --> V5[Product Recovery]
-U5 --> W5[Quality Control]
-V5 --> X5[Yield Calculation]
-W5 --> Y5[Process Optimization]
-X5 --> Z5[Final Products]
-Y5 --> Z5
+    N1["Electrolyte + power supply"]
+    N2["Apply V > decomposition"]
+    N3["Cathode reduction (H2)"]
+    N4["Anode oxidation"]
+    N5{"Which anode product?"}
+    N6["Brine: Cl2 evolved"]
+    N7["Water: O2 evolved"]
+    N8["Faraday: n ∝ charge"]
+    N9["Overpotential adds voltage"]
+    N10["Products collected"]
 
-    style A5 fill:#ff6b6b,color:#fff
-    style C5 fill:#ff6b6b,color:#fff
-    style E5 fill:#ff6b6b,color:#fff
-    style B5 fill:#ffd43b,color:#000
-    style D5 fill:#ffd43b,color:#000
-    style F5 fill:#ffd43b,color:#000
-    style G5 fill:#ffd43b,color:#000
-    style H5 fill:#ffd43b,color:#000
-    style I5 fill:#ffd43b,color:#000
-    style J5 fill:#ffd43b,color:#000
-    style K5 fill:#ffd43b,color:#000
-    style L5 fill:#ffd43b,color:#000
-    style M5 fill:#51cf66,color:#fff
-    style N5 fill:#51cf66,color:#fff
-    style O5 fill:#51cf66,color:#fff
-    style P5 fill:#51cf66,color:#fff
-    style Q5 fill:#51cf66,color:#fff
-    style R5 fill:#51cf66,color:#fff
-    style S5 fill:#51cf66,color:#fff
-    style T5 fill:#51cf66,color:#fff
-    style U5 fill:#51cf66,color:#fff
-    style V5 fill:#51cf66,color:#fff
-    style W5 fill:#51cf66,color:#fff
-    style X5 fill:#51cf66,color:#fff
-    style Y5 fill:#51cf66,color:#fff
-    style Z5 fill:#b197fc,color:#fff
+    N1 --> N2
+    N2 --> N3
+    N2 --> N4
+    N4 --> N5
+    N5 -->|brine| N6
+    N5 -->|water| N7
+    N3 --> N8
+    N6 --> N8
+    N7 --> N8
+    N8 --> N10
+    N2 --> N9
+    N9 --> N10
+
+    style N1 fill:#ff6b6b,color:#fff
+    style N2 fill:#51cf66,color:#fff
+    style N3 fill:#51cf66,color:#fff
+    style N4 fill:#51cf66,color:#fff
+    style N5 fill:#74c0fc,color:#fff
+    style N6 fill:#51cf66,color:#fff
+    style N7 fill:#51cf66,color:#fff
+    style N8 fill:#51cf66,color:#fff
+    style N9 fill:#51cf66,color:#fff
+    style N10 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Electrolyte + power supply</td><td>Triggers & Inputs</td><td><a href="https://global.oup.com/ukhe/product/atkins-physical-chemistry-9780198769866" target="_blank" title="Physical Chemistry, 11th ed. — Electrochemistry" style="color:#e74c3c;">Atkins, P. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Apply V > decomposition</td><td>Processing & Operations</td><td><a href="https://global.oup.com/ukhe/product/atkins-physical-chemistry-9780198769866" target="_blank" title="Physical Chemistry, 11th ed. — Electrochemistry" style="color:#e74c3c;">Atkins, P. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Cathode reduction (H2)</td><td>Processing & Operations</td><td><a href="https://global.oup.com/ukhe/product/atkins-physical-chemistry-9780198769866" target="_blank" title="Physical Chemistry, 11th ed. — Electrochemistry" style="color:#e74c3c;">Atkins, P. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Anode oxidation</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1016/j.pecs.2009.11.002" target="_blank" title="Recent progress in alkaline water electrolysis for hydrogen production and applications" style="color:#e74c3c;">Zeng, K. et al. 2010</a></td></tr><tr><td style="font-weight:600;">Which anode product?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1016/j.pecs.2009.11.002" target="_blank" title="Recent progress in alkaline water electrolysis for hydrogen production and applications" style="color:#e74c3c;">Zeng, K. et al. 2010</a></td></tr><tr><td style="font-weight:600;">Brine: Cl2 evolved</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1016/j.pecs.2009.11.002" target="_blank" title="Recent progress in alkaline water electrolysis for hydrogen production and applications" style="color:#e74c3c;">Zeng, K. et al. 2010</a></td></tr><tr><td style="font-weight:600;">Water: O2 evolved</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1016/j.pecs.2009.11.002" target="_blank" title="Recent progress in alkaline water electrolysis for hydrogen production and applications" style="color:#e74c3c;">Zeng, K. et al. 2010</a></td></tr><tr><td style="font-weight:600;">Faraday: n ∝ charge</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1098/rstl.1834.0008" target="_blank" title="Experimental Researches in Electricity (laws of electrolysis)" style="color:#e74c3c;">Faraday, M. 1834</a></td></tr><tr><td style="font-weight:600;">Overpotential adds voltage</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1016/j.pecs.2009.11.002" target="_blank" title="Recent progress in alkaline water electrolysis for hydrogen production and applications" style="color:#e74c3c;">Zeng, K. et al. 2010</a></td></tr><tr><td style="font-weight:600;">Products collected</td><td>Products & Outputs</td><td><a href="https://doi.org/10.1098/rstl.1834.0008" target="_blank" title="Experimental Researches in Electricity (laws of electrolysis)" style="color:#e74c3c;">Faraday, M. 1834</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -314,12 +331,12 @@ Y5 --> Z5
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 26</li>
-                        <li><strong>Edges:</strong> 22</li>
-                        <li><strong>Conditionals:</strong> 0</li>
-                        <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 1</li>
+                        <li><strong>Nodes:</strong> 10</li>
+                        <li><strong>Edges:</strong> 12</li>
+                        <li><strong>Conditionals:</strong> 1</li>
+                        <li><strong>AND Gates:</strong> 2</li>
+                        <li><strong>OR Gates:</strong> 2</li>
+                        <li><strong>Total Gates:</strong> 4</li>
                     </ul>
                 </div>
                 
@@ -327,7 +344,7 @@ Y5 --> Z5
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>electrolysis</li>
+                        <li>electrolysis</li><li>faraday's laws</li><li>overpotential</li><li>chlor-alkali</li><li>decomposition potential</li>
                     </ul>
                 </div>
                 
@@ -338,43 +355,33 @@ Y5 --> Z5
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Experimental Researches in Electricity (laws of electrolysis)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Faraday, M.
+                            , Philosophical Transactions of the Royal Society
+                             (1834)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Marine Electrolysis for Building Materials and Environmental Restoration</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">J., Thomas
-                            , Electrolysis
-                             (2012)
-                            </span>
-                            <br><a href="https://doi.org/10.5772/48783" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.5772/48783</a>
+                            <br><a href="https://doi.org/10.1098/rstl.1834.0008" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1098/rstl.1834.0008</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Electrolysis for Ozone Water Production</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Okada, Fumio; Nay, Kazunari
-                            , Electrolysis
-                             (2012)
+                            <strong>Recent progress in alkaline water electrolysis for hydrogen production and applications</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Zeng, K.; Zhang, D.
+                            , Progress in Energy and Combustion Science
+                             (2010)
                             </span>
-                            <br><a href="https://doi.org/10.5772/51945" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.5772/51945</a>
+                            <br><a href="https://doi.org/10.1016/j.pecs.2009.11.002" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1016/j.pecs.2009.11.002</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Alkaline Electrolysis with Skeletal Ni Catalysts</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Fernandez, A.M.; Cano, U.
-                            , Electrolysis
-                             (2012)
+                            <strong>Physical Chemistry, 11th ed. — Electrochemistry</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Atkins, P.; de Paula, J.; Keeler, J.
+                            , Oxford University Press
+                             (2018)
                             </span>
-                            <br><a href="https://doi.org/10.5772/50617" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.5772/50617</a>
                             
+                            <br><a href="https://global.oup.com/ukhe/product/atkins-physical-chemistry-9780198769866" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
                         </li>
                         
                     </ul>

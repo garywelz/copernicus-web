@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2605.21634v1",
+  "arxiv_id": "2605.21634v1",
+  "title": "bioETH-PRS: Confidential Polygenic Risk Scoring without a Trusted Evaluator via Fully Homomorphic Encryption on a Programmable Blockchain",
+  "authors": [
+    "Kimon Antonios Provatas",
+    "Christos Galanopoulos",
+    "Ilias Georgakopoulos-Soares"
+  ],
+  "author_string": "Kimon Antonios Provatas, Christos Galanopoulos, Ilias Georgakopoulos-Soares",
+  "journal": "arXiv:2605.21634v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Polygenic risk scores (PRSs) aggregate genetic effect estimates to predict disease susceptibility, yet clinical deployment often exposes raw genotype data to third-party compute infrastructure. Prior homomorphic-encryption approaches, still require trust in a designated evaluator. We present bioETH-PRS, a protocol that replaces that evaluator role with immutable smart contracts on a blockchain supporting Fully Homomorphic Encryption (fhEVM). Using the integer-exact TFHE scheme, bioETH-PRS computes the PRS dot product entirely within the encrypted domain, keeping both genotype dosage vectors and GWAS weight vectors hidden from external parties throughout execution. We introduce a three-step fixed-point quantisation scheme for representing signed GWAS weights as unsigned 64-bit integers, achieving machine-epsilon reconstruction accuracy on validated fixtures. A four-contract architecture separates data custody, model publication, computation, and output release, and supports both a classic chunked path and a streaming path, with the latter reducing mock-measured gas by 37%. An on-chain noisy output oracle emits an encrypted noisy-score handle and a publicly decryptable ternary category, reducing raw score exposure and probing risk. Prototype evaluation on real GWAS fixtures confirms linear gas scaling and suggests that the approach may be cost-competitive in low-gas deployment environments.",
+  "categories": [
+    "q-bio.GN"
+  ],
+  "primary_category": "q-bio.GN",
+  "comment": "12 pages, 6 figures",
+  "published_date": "2026-05-20T18:45:17Z",
+  "updated_date": "2026-05-20T18:45:17Z",
+  "url": "https://arxiv.org/abs/2605.21634v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.21634v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-26T10:15:35.456607",
+  "category": "biology",
+  "subcategories": [
+    "q-bio.GN"
+  ]
+}

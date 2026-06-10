@@ -1,0 +1,37 @@
+{
+  "id": "arxiv_2605.18697v1",
+  "arxiv_id": "2605.18697v1",
+  "title": "PopPy: Opportunistically Exploiting Parallelism in Python Compound AI Applications",
+  "authors": [
+    "Stephen Mell",
+    "David Mell",
+    "Konstantinos Kallas",
+    "Steve Zdancewic",
+    "Osbert Bastani"
+  ],
+  "author_string": "Stephen Mell, David Mell, Konstantinos Kallas, Steve Zdancewic, Osbert Bastani",
+  "journal": "arXiv:2605.18697v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Compound AI applications, which compose calls to ML models using a general-purpose programming language like Python, are widely used for a variety of user-facing tasks, from software engineering to enterprise automation, making their end-to-end latency a critical bottleneck. In contrast to traditional applications, execution time is dominated by the external components, which cannot be handled by traditional language optimization systems, like optimizing compilers.   To address this problem, we develop PopPy, a system that can uncover parallelization opportunities in Python applications that invoke these heavy external components, including those used in compound AI applications. PopPy supports a very expressive fragment of Python and requires minimal developer input to uncover parallelism. It combines an ahead-of-time compiler with a runtime, addressing three key challenges in extracting parallelism from Python applications: language complexity, dynamic dispatch, and variable mutation. On a set of real-world compound AI applications, PopPy achieves up to $6.4\\times$ speedups in end-to-end execution time compared to standard Python execution while preserving the sequential program semantics.",
+  "categories": [
+    "cs.DC",
+    "cs.AI",
+    "cs.PL"
+  ],
+  "primary_category": "cs.PL",
+  "comment": null,
+  "published_date": "2026-05-18T17:33:50Z",
+  "updated_date": "2026-05-18T17:33:50Z",
+  "url": "https://arxiv.org/abs/2605.18697v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.18697v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-19T10:15:40.274877",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.DC",
+    "cs.AI",
+    "cs.PL"
+  ]
+}

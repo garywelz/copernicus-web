@@ -1,0 +1,47 @@
+{
+  "id": "medrxiv_10.64898_2026.01.06.26343341",
+  "doi": "10.64898/2026.01.06.26343341",
+  "title": "Development and validation of a generative AI-assisted medication-indication knowledge base",
+  "authors": [
+    "Deshpande, S.",
+    "Ma, F.",
+    "Marsland, A.",
+    "Ficarelli, M.",
+    "Zhang, L.",
+    "Beattie, A.",
+    "Bonnett, E.",
+    "Bray, B. D."
+  ],
+  "author_string": "Deshpande, S., Ma, F., Marsland, A., Ficarelli, M., Zhang, L. et al.",
+  "journal": "medRxiv",
+  "journal_full": "medRxiv",
+  "year": "2026",
+  "abstract": "BackgroundExisting information resources about medicines and their indications have limited usefulness for health data analytics. The emerging potential of large language models (LLMs) to generate clinically accurate responses presents a novel opportunity to develop a comprehensive knowledge base of medicines and their clinical indications.\n\nMethodUnique medications from the English Prescribing Dataset (EPD) were extracted and included in a fine-tuned prompt pipeline using the GPT-4 and MedCAT LLMs. The resulting database underwent clinical validation by three clinicians to calculate the precision for a sample of the knowledge base. This was followed by external validation using the participant reported indications included in the National Health and Nutrition Examination Survey (NHANES) dataset, a large-scale population health survey in the United States (US).\n\nResults1,540 unique medications from the EPD were used to generate 10,853 unique medication-indication pairs. Initial threshold-based investigations of accuracy across LLM generated confidence scores for each pair revealed that a threshold of 0.75 was an optimal trade-off between error rate and knowledge base size. Common types of error which had to be addressed in the pipeline included duplications, alternative spellings and medical synonyms. A random subset of 465 medication-indication pairs was selected for clinical validation, of which 418 were assessed to be correct (a precision of 89.9%). External validation using the NHANES overall agreement of 84% (210 out of 250). Of the remaining 40, only 2 were valid indications omitted in the knowledge base, whilst the rest were judged by clinical reviewers to be off-licence indications (n=7) or appeared to be incorrectly reported by survey participants (n=31).\n\nConclusionThe AI-assisted medication-indication knowledge base demonstrated high precision and external validity. The coverage of off-licence indications adds to the potential of this knowledge base in various biomedical applications such as real-world evidence research, drug discovery and adverse event detection.",
+  "keywords": [],
+  "categories": [
+    "health informatics"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.64898/2026.01.06.26343341",
+  "source": "medrxiv",
+  "sources": [
+    "medrxiv"
+  ],
+  "acquired_date": "2026-05-06T22:15:24.232282",
+  "category": "biology",
+  "subcategories": [
+    "health informatics"
+  ],
+  "published_date": "2026-01-06",
+  "updated_date": "2026-01-06",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "medrxiv",
+  "preprint_version": "1",
+  "preprint_type": "PUBLISHAHEADOFPRINT",
+  "license": "cc_no",
+  "jatsxml": "https://www.medrxiv.org/content/early/2026/01/06//2026.01.06.26343341.source.xml",
+  "published_doi": null,
+  "author_corresponding": "Saniya Deshpande",
+  "author_corresponding_institution": "Health Analytics, Lane Clark & Peacock LLP, London, UK, W1U 1DQ"
+}

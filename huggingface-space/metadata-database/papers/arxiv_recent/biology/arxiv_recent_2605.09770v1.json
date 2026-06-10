@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2605.09770v1",
+  "arxiv_id": "2605.09770v1",
+  "title": "Encoding and Decoding Temporal Signals with Spiking Bandpass Wavelets",
+  "authors": [
+    "Jens Egholm Pedersen",
+    "Tony Lindeberg",
+    "Peter Gerstoft"
+  ],
+  "author_string": "Jens Egholm Pedersen, Tony Lindeberg, Peter Gerstoft",
+  "journal": "arXiv:2605.09770v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Spike-based encodings are sparse and energy-efficient, but have largely been formulated probabilistically, disconnected from most signal processing literature. We recast spike encoders as time-causal wavelet frames with quantitative bandwidths and reconstruction error bounds. The proposed wavelets preserve the sparsity and locality of spiking representations, with reconstruction up to spike quantization and time discretization. We demonstrate reconstruction on ECG and audio datasets, achieving a normalized RMSE comparable to continuous wavelet transforms. The spiking wavelets map directly to neuromorphic hardware.",
+  "categories": [
+    "cs.NE",
+    "eess.SP",
+    "q-bio.NC"
+  ],
+  "primary_category": "q-bio.NC",
+  "comment": null,
+  "published_date": "2026-05-10T21:32:44Z",
+  "updated_date": "2026-05-10T21:32:44Z",
+  "url": "https://arxiv.org/abs/2605.09770v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.09770v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-18T10:15:43.641819",
+  "category": "biology",
+  "subcategories": [
+    "cs.NE",
+    "eess.SP",
+    "q-bio.NC"
+  ]
+}

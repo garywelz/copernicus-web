@@ -1,0 +1,39 @@
+{
+  "id": "spectral_theory-selfadjoint",
+  "name": "Self-Adjoint Operators",
+  "category": "mathematics",
+  "subcategory": "spectral_theory",
+  "subcategory_name": "Spectral Theory",
+  "description": "T=T*. σ(T)⊂ℝ. Spectral theorem: T=∫λ dE. Functional calculus.",
+  "mermaid": "graph TD\n    D1[\"Def: T*=T\\nself-adjoint\"]\n    D2[\"Def: Symmetric\\n〈Tx,y〉=〈x,Ty〉 dense\"]\n    D3[\"Def: Spectral measure\\nE(Δ) projection\"]\n    D4[\"Def: Resolution of identity\"]\n    T1[\"Thm: σT ⊂ ℝ\"]\n    T2[\"Thm: Spect thm\\nT=∫λ dE_λ\"]\n    T3[\"Thm: fT = ∫fλ dE\\nfunc calculus\"]\n    T4[\"Thm: Ess spectrum\\nσ_ess\"]\n    T5[\"Thm: Discrete spectrum\\nisolated eigenval\"]\n    D1 --> T1\n    D2 --> D1\n    D3 --> T2\n    D4 --> T2\n    T2 --> T3\n    T1 --> T4\n    classDef definition fill:#b197fc,color:#fff\n    classDef theorem fill:#51cf66,color:#fff\n    class D1,D2,D3,D4 definition\n    class T1,T2,T3,T4,T5 theorem",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

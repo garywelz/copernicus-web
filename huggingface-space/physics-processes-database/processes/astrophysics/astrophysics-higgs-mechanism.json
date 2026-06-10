@@ -2,51 +2,55 @@
   "acquired_date": "2026-01-08T00:00:00Z",
   "category": "physics",
   "colorScheme": {
-    "blue": {
-      "category": "Intermediates & States",
-      "hex": "#74c0fc"
-    },
-    "green": {
-      "category": "Processing & Operations",
-      "hex": "#51cf66"
-    },
     "red": {
-      "category": "Triggers & Inputs",
-      "hex": "#ff6b6b"
-    },
-    "violet": {
-      "category": "Products & Outputs",
-      "hex": "#b197fc"
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
     },
     "yellow": {
-      "category": "Structures & Objects",
-      "hex": "#ffd43b"
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
     }
   },
   "complexity": {
-    "conditionals": 0,
-    "detailLevel": "medium",
-    "edges": 24,
-    "level": "medium",
+    "nodes": 10,
+    "edges": 10,
+    "conditionals": 1,
     "logicGates": {
+      "orGates": 1,
       "andGates": 1,
-      "orGates": 0,
-      "total": 1
+      "notGates": 0,
+      "total": 2
     },
-    "nodes": 26
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 1
   },
   "created": "2026-01-08",
-  "description": "Higgs Mechanism Process. This particle physics process visualization demonstrates the Higgs mechanism and mass generation. The flowchart shows Higgs inputs and spontaneous symmetry breaking, Higgs mechanism methods and mass generation, Higgs mechanism operations and Higgs boson, intermediate results, and final Higgs mechanism outputs.",
-  "id": "process_physics_higgs-mechanism",
+  "description": "Big Bang nucleosynthesis forms the light elements in the first minutes: as the universe expands and cools, the neutron-to-proton ratio freezes out, and once photons are too cool to photodissociate deuterium the bottleneck clears and nucleons fuse to helium-4 with trace deuterium and lithium, fixing the primordial abundances.",
+  "id": "astrophysics-higgs-mechanism",
   "keywords": [
-    "mechanism",
-    "astrophysics",
-    "higgs"
+    "Big Bang nucleosynthesis",
+    "primordial abundances",
+    "deuterium bottleneck",
+    "neutron-proton ratio",
+    "helium-4"
   ],
-  "lastUpdated": "2026-01-08",
-  "mermaid": "graph TD\nA3[Higgs Field] --> B3[Higgs Mechanism Method]\nC3[Spontaneous Symmetry Breaking] --> D3[Mass Generation]\nE3[Higgs Boson] --> F3[Higgs Mechanism Analysis]\nB3 --> G3[Higgs Potential]\nD3 --> H3[Vacuum Expectation Value]\nF3 --> I3[Higgs Boson Detection]\nG3 --> J3[Higgs Mass]\nH3 --> K3[Higgs Coupling]\nI3 --> L3[Higgs Decay]\nJ3 --> M3[Higgs Production]\nK3 --> L3\nL3 --> N3[Higgs Branching Ratio]\nM3 --> O3[Higgs Cross Section]\nN3 --> P3[Higgs Width]\nO3 --> Q3[Higgs Mechanism Process]\nP3 --> R3[Higgs Mechanism Validation]\nQ3 --> S3[Higgs Mechanism Verification]\nR3 --> T3[Higgs Mechanism Result]\nS3 --> U3[Higgs Mechanism Analysis]\nT3 --> V3[Higgs Mechanism Parameters]\nU3 --> W3[Higgs Mechanism Output]\nV3 --> X3[Higgs Mechanism Analysis]\nW3 --> Y3[Higgs Mechanism Final Result]\nX3 --> Z3[Higgs Mechanism Complete]\n\n    style A3 fill:#ff6b6b,color:#fff\n    style C3 fill:#ff6b6b,color:#fff\n    style E3 fill:#ff6b6b,color:#fff\n    style B3 fill:#ffd43b,color:#000\n    style D3 fill:#ffd43b,color:#000\n    style F3 fill:#ffd43b,color:#000\n    style G3 fill:#ffd43b,color:#000\n    style H3 fill:#ffd43b,color:#000\n    style I3 fill:#ffd43b,color:#000\n    style J3 fill:#ffd43b,color:#000\n    style K3 fill:#ffd43b,color:#000\n    style L3 fill:#ffd43b,color:#000\n    style M3 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style O3 fill:#51cf66,color:#fff\n    style P3 fill:#51cf66,color:#fff\n    style Q3 fill:#51cf66,color:#fff\n    style R3 fill:#51cf66,color:#fff\n    style S3 fill:#51cf66,color:#fff\n    style T3 fill:#51cf66,color:#fff\n    style U3 fill:#51cf66,color:#fff\n    style V3 fill:#51cf66,color:#fff\n    style W3 fill:#51cf66,color:#fff\n    style X3 fill:#51cf66,color:#fff\n    style Y3 fill:#51cf66,color:#fff\n    style Z3 fill:#b197fc,color:#fff",
-  "name": "Higgs Mechanism",
-  "notes": "Converted from physics batch HTML. Process number: 3.",
+  "lastUpdated": "2026-06-01",
+  "mermaid": "graph TD\n    N1[\"Hot dense early universe\"]\n    N2[\"Universe expands + cools\"]\n    N3[\"Quark-hadron transition\"]\n    N4[\"p and n freeze out\"]\n    N5[\"n/p ratio set by T\"]\n    N6{\"Below D threshold?\"}\n    N7[\"Deuterium dissociated\"]\n    N8[\"D bottleneck clears\"]\n    N9[\"Fuse to He-4 (+ Li)\"]\n    N10[\"Primordial abundances\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 --> N4\n    N4 --> N5\n    N5 --> N6\n    N6 -->|no| N7\n    N7 -->|cool more| N2\n    N6 -->|yes| N8\n    N8 --> N9\n    N9 --> N10\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#74c0fc,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#74c0fc,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#74c0fc,color:#fff\n    style N9 fill:#51cf66,color:#fff\n    style N10 fill:#b197fc,color:#fff",
+  "name": "Big Bang Nucleosynthesis",
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
   "relatedProcesses": [],
   "related_papers": [
     "crossref_10_1103_PhysRevLett_13_321",
@@ -59,43 +63,20 @@
   "source": "programming_framework",
   "sources": [
     {
-      "authors": "Welz, G.",
-      "doi": null,
-      "journal": "CopernicusAI Knowledge Engine",
-      "notes": "Chemistry process visualization: Higgs Mechanism. Created using the Programming Framework methodology for process analysis and visualization.",
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
-      "year": "2025"
+      "title": "The origin of chemical elements",
+      "authors": "Alpher, R. A.; Bethe, H.; Gamow, G.",
+      "journal": "Physical Review",
+      "year": "1948",
+      "doi": "10.1103/PhysRev.73.803",
+      "url": "https://doi.org/10.1103/PhysRev.73.803"
     },
     {
-      "authors": "Englert F., Brout R.",
-      "doi": "10.1103/PhysRevLett.13.321",
-      "journal": "Phys. Rev. Lett.",
-      "paper_id": "crossref_10_1103_PhysRevLett_13_321",
-      "pubmed": null,
-      "title": "Broken Symmetry and the Mass of Gauge Vector Mesons",
-      "url": "https://doi.org/10.1103/PhysRevLett.13.321",
-      "year": "1964"
-    },
-    {
-      "authors": "Higgs P.W.",
-      "doi": "10.1103/PhysRevLett.13.508",
-      "journal": "Phys. Rev. Lett.",
-      "paper_id": "crossref_10_1103_PhysRevLett_13_508",
-      "pubmed": null,
-      "title": "Broken Symmetries and the Masses of Gauge Bosons",
-      "url": "https://doi.org/10.1103/PhysRevLett.13.508",
-      "year": "1964"
-    },
-    {
-      "authors": "Tarem S., Oreglia H.S.",
-      "doi": "10.1103/RevModPhys.86.1475",
-      "journal": "Rev. Mod. Phys.",
-      "paper_id": "crossref_10_1103_RevModPhys_86_1475",
-      "pubmed": null,
-      "title": "The Discovery of the Higgs Boson",
-      "url": "https://doi.org/10.1103/RevModPhys.86.1475",
-      "year": "2014"
+      "title": "Big bang nucleosynthesis: Present status",
+      "authors": "Cyburt, R. H.; Fields, B. D.; Olive, K. A.; Yeh, T.-H.",
+      "journal": "Reviews of Modern Physics",
+      "year": "2016",
+      "doi": "10.1103/RevModPhys.88.015004",
+      "url": "https://doi.org/10.1103/RevModPhys.88.015004"
     }
   ],
   "subcategories": [
@@ -103,5 +84,111 @@
   ],
   "subcategory": "astrophysics",
   "subcategory_name": "Astrophysics",
-  "verified": false
+  "verified": false,
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Hot dense early universe",
+      "detail": "First seconds",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N2",
+      "label": "Universe expands + cools",
+      "detail": "Temperature falls",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N3",
+      "label": "Quark-hadron transition",
+      "detail": "Free nucleons form",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N4",
+      "label": "p and n freeze out",
+      "detail": "Weak rates lag",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N5",
+      "label": "n/p ratio set by T",
+      "detail": "About 1:7",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N6",
+      "label": "Below D threshold?",
+      "detail": "Photon energy vs binding",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N7",
+      "label": "Deuterium dissociated",
+      "detail": "Photons too hot",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N8",
+      "label": "D bottleneck clears",
+      "detail": "Deuterium survives",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N9",
+      "label": "Fuse to He-4 (+ Li)",
+      "detail": "Light-element chains",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N10",
+      "label": "Primordial abundances",
+      "detail": "~25% helium by mass",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 1
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:astrophysics-higgs-mechanism",
+    "graphType": "decision_flowchart",
+    "topologySignature": "7de689a78f0387f1",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "namedCollections": [],
+  "graphMetrics": {
+    "nodes": 10,
+    "edges": 10,
+    "conditionals": 1,
+    "andGates": 1,
+    "orGates": 1,
+    "notGates": 0,
+    "loops": 1
+  },
+  "graphType": "decision_flowchart",
+  "domainContext": "Cosmology / early universe"
 }

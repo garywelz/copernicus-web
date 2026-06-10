@@ -1,0 +1,30 @@
+{
+  "id": "arxiv_2604.21333v1",
+  "arxiv_id": "2604.21333v1",
+  "title": "pygridsynth: A fast numerical tool for ancilla-free Clifford+T synthesis",
+  "authors": [
+    "Shuntaro Yamamoto",
+    "Nobuyuki Yoshioka"
+  ],
+  "author_string": "Shuntaro Yamamoto, Nobuyuki Yoshioka",
+  "journal": "arXiv:2604.21333v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We present pygridsynth, an open-source Python library for ancilla-free approximate Clifford+$T$ synthesis that runs in $O(\\log(1/ε))$ for precision $ε$. For $n=1, 2$ qubits, the library builds upon established efficient and high-precision synthesis routines, such as nearly optimal $Z$-rotation synthesis and magnitude approximation. For $n\\ge 3$ qubits, we introduce a partial-decomposition technique that generalizes the magnitude approximation, reducing constant factors in the $T$-count as $(\\frac{21}{8}\\cdot 4^n - \\frac{9}{2}\\cdot 2^n + 9)\\log_2(1/ε) + o(\\log(1/ε))$. The package also exposes a mixed-synthesis workflow that approximates target unitary channels by probabilistic mixtures of Clifford+$T$ circuits, for which we empirically find that the synthesis error is reduced from $ε$ to $ε^2/(2n)$. Taken together, these features make pygridsynth a Python-native platform for high-precision Clifford$+T$ synthesis and for benchmarking unitary and mixed synthesis strategies on multi-qubit instances.",
+  "categories": [
+    "quant-ph"
+  ],
+  "primary_category": "quant-ph",
+  "comment": "31 pages, 8 figures",
+  "published_date": "2026-04-23T06:44:35Z",
+  "updated_date": "2026-04-23T06:44:35Z",
+  "url": "https://arxiv.org/abs/2604.21333v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.21333v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-27T10:15:42.860947",
+  "category": "physics",
+  "subcategories": [
+    "quant-ph"
+  ]
+}

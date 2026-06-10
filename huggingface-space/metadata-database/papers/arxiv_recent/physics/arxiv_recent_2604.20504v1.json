@@ -1,0 +1,41 @@
+{
+  "id": "arxiv_2604.20504v1",
+  "arxiv_id": "2604.20504v1",
+  "title": "Baudrate- and Reach-Flexible All-Optical Equalization with a Co-Packaged Photonic Reservoir and Receiver",
+  "authors": [
+    "Sarah Masaad",
+    "Jakob Declercq",
+    "Stijn Sackesyn",
+    "Ruben Van Assche",
+    "Hasan Salmanian",
+    "Andrzej Polatynski",
+    "Dimitrios Chatzitheocharis",
+    "Konstantinos Vyrsokinos",
+    "Tatiana Buriakova",
+    "Christophe Caillaud",
+    "Stylianos Sygletos",
+    "Xin Yin",
+    "Peter Bienstman"
+  ],
+  "author_string": "Sarah Masaad, Jakob Declercq, Stijn Sackesyn, Ruben Van Assche, Hasan Salmanian et al.",
+  "journal": "arXiv:2604.20504v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Intensity-modulation direct-detection links must support increasing baudrates and transmission distances while operating under stringent power and cost constraints. However, as data rates and reaches increase, chromatic dispersion induces stronger inter-symbol interference and, after direct detection, frequency-selective fading, thus requiring increasingly powerful equalization. In conventional receivers, this translates into digital equalization whose complexity scales unfavorably with data rate. Photonic-domain equalization offers a hardware-based alternative that operates naturally at line rate and mitigates frequency fading. However, prior demonstrations were not readily adaptable for different rate and/or reach operation. In this paper, we experimentally demonstrate all-optical equalization across 10-46 Gbaud and 10-250 km SSMF in the C-band enabled solely through retraining of the readout layer, achieving up to four orders of magnitude BER improvement over standard DSP equalization. The demonstrator comprises a 16-node spatially multiplexed reservoir, programmable on-chip readout, and co-packaged receiver front-end. To our knowledge, this is the first co-packaged photonic reservoir receiver and the first demonstration of simultaneous baudrate- and reach-flexible equalization using a fixed-topology integrated photonic circuit.",
+  "categories": [
+    "physics.optics"
+  ],
+  "primary_category": "physics.optics",
+  "comment": null,
+  "published_date": "2026-04-22T12:44:46Z",
+  "updated_date": "2026-04-22T12:44:46Z",
+  "url": "https://arxiv.org/abs/2604.20504v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.20504v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-25T22:15:49.052460",
+  "category": "physics",
+  "subcategories": [
+    "physics.optics"
+  ]
+}

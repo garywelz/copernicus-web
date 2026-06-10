@@ -1,0 +1,54 @@
+{
+  "id": "medrxiv_10.64898_2025.12.01.25341004",
+  "doi": "10.64898/2025.12.01.25341004",
+  "title": "Rx-LLM: a benchmarking suite to evaluate safe LLM performance for medication-related tasks",
+  "authors": [
+    "Zhao, X.",
+    "Blotske, K.",
+    "Cargile, M.",
+    "Tilley, A.",
+    "Murray, B.",
+    "Gao, Y.",
+    "Henry, K.",
+    "Smith, S.",
+    "Barreto, E.",
+    "Bauer, S.",
+    "Sohn, S.",
+    "Liu, T.",
+    "Bennett, T. D.",
+    "Cohen, M.",
+    "Sikora, A."
+  ],
+  "author_string": "Zhao, X., Blotske, K., Cargile, M., Tilley, A., Murray, B. et al.",
+  "journal": "medRxiv",
+  "journal_full": "medRxiv",
+  "year": "2025",
+  "abstract": "BackgroundFor large language models (LLMs) to reach their potential as information technology tools that make medication use safer, clinically relevant benchmarks capable of automated grading and designed specifically to measure the performance of LLMs for medication tasks are required. The purpose of this study was to design a suite of benchmarking tests reflective of Comprehensive Medication Management (CMM; the standard of care for medication optimization) and quantify the baseline performance of the latest LLMs.\n\nMethodsWe established six benchmarks representing critical stages of the CMM process: drug formulation matching, drug order (sig) generation, drug route matching, drug-drug interaction identification, renal dose identification, and drug-indication matching. For each benchmark, we curated a clinician-annotated dataset comprising 250 standardized input-output pairs including both inpatient and outpatient medications. We evaluated the clinical knowledge retrieval capabilities of three LLMs: GPT-4o-mini, MedGemma-27B, and LLaMA3-70B. We employed a zero-shot prompting strategy, excluding in-context examples, to assess the models internal clinical knowledge rather than their few-shot learning potential. To check reliability, each model was run three times using a temperature of 0.7 (a mid-range value of an LLM setting controlling text generation randomness). Performance was assessed using task-specific evaluation metrics including precision (positive predictive value), recall (sensitivity), F1-score, accuracy, and correctness consistency across trials.\n\nResultsAcross six benchmarks, LLaMA3-70B demonstrated the highest performance in four tasks: drug-formulation matching (F1, 54.0% [95 CI: 50.1-58]), drug-order generation (accuracy, 88.0%), drug-route identification (F1, 74.3% [95 CI: 71-78]), and drug-indication identification (accuracy, 97.6% [95 CI: 95.6-99.2]). In the drug-drug interaction task, GPT-4o-mini achieved the highest overall accuracy (70.4% [95 CI: 64.8-75.7]). For renal dose-adjustment identification, GPT-4o-mini demonstrated the highest F1 score (83.3% [95 CI: 77.6-88]). Correctness-consistency scores ranged from 8.0% to 97.6% across benchmarks, with no model exhibiting uniformly superior consistency.\n\nConclusionsModel performance varied substantially across medication-related tasks. LLaMA3-70B demonstrated promising baseline performance in tasks involving formulation, ordering, route, and indication. GPT-4o-mini showed potential advantages in drug-drug interaction detection and renal dose adjustment. These findings underscore the need for task-specific evaluation when deploying models for medication-focused clinical decision support.",
+  "keywords": [],
+  "categories": [
+    "health informatics"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.64898/2025.12.01.25341004",
+  "source": "medrxiv",
+  "sources": [
+    "medrxiv"
+  ],
+  "acquired_date": "2026-04-29T22:15:24.901695",
+  "category": "biology",
+  "subcategories": [
+    "health informatics"
+  ],
+  "published_date": "2025-12-30",
+  "updated_date": "2025-12-30",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "medrxiv",
+  "preprint_version": "2",
+  "preprint_type": "PUBLISHAHEADOFPRINT",
+  "license": "cc_by_nc",
+  "jatsxml": "https://www.medrxiv.org/content/early/2025/12/30//2025.12.01.25341004.source.xml",
+  "published_doi": null,
+  "author_corresponding": "Kelli Henry",
+  "author_corresponding_institution": "University of Colorado"
+}

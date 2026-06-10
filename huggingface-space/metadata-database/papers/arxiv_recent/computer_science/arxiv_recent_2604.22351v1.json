@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2604.22351v1",
+  "arxiv_id": "2604.22351v1",
+  "title": "Thermal background reduction for mid-infrared imaging by low-rank background and sparse point-source modelling",
+  "authors": [
+    "R. A. R. Moens",
+    "A. G. M. Pietrow",
+    "B. Brandl",
+    "R. Van de Plas"
+  ],
+  "author_string": "R. A. R. Moens, A. G. M. Pietrow, B. Brandl, R. Van de Plas",
+  "journal": "arXiv:2604.22351v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": "10.1051/0004-6361/202555698",
+  "abstract": "Mid-infrared astronomy from the ground faces critical challenges in accurately detecting and quantifying sources due to the dominant spatially and time-variable background noise. Moreover, chopping and nodding, the traditional methods for dealing with these background issues, will not be technically feasible on the next generation of extremely large telescopes. This limitation requires the development of novel computational methods for a robust background reduction. We present and evaluate a novel method named LOw-RAnk Background ELimination (LORABEL) to improve the sensitivity of mid-infrared astronomical observations, without the need for classical telescope nodding, source masking, or other overheads in observing time. We applied a low-rank background-reduction strategy to (1) data taken on the ground with the VISIR with synthetically injected sources, and (2) airborne data from SOFIA. We compared the performance of our new method to classical chopping and nodding techniques, and analysed the effect on source photometry and detection precision for different observational scenarios. In regimes with a low signal-to-noise ratio (S/N $<5$) in the ground-based VISIR data, LORABEL reduces variation in the photometric error with respect to chopping differences alone and even the classical chop-nod sequence, at the cost of introducing a bias. Secondly, we demonstrate that LORABEL increases detection precision in comparison to traditional background-reduction methods. For the SOFIA dataset, we achieve a $20-100$ fold decrease in mean background flux with respect to the traditional chop-nod method while preserving most of the source flux. Our findings suggest that LORABEL is applicable to a wider range of instrumental observation, that is, both ground-based and airborne, and it is a suitable tool in the context of faint-source detection.",
+  "categories": [
+    "astro-ph.IM",
+    "cs.CV"
+  ],
+  "primary_category": "cs.CV",
+  "comment": null,
+  "published_date": "2026-04-24T08:36:53Z",
+  "updated_date": "2026-04-24T08:36:53Z",
+  "url": "https://arxiv.org/abs/2604.22351v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.22351v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-27T10:15:28.449129",
+  "category": "computer_science",
+  "subcategories": [
+    "astro-ph.IM",
+    "cs.CV"
+  ]
+}

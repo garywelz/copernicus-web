@@ -1,21 +1,23 @@
 {
   "id": "electrochemistry-spectroscopic-calculations",
-  "name": "Spectroscopic Calculations",
+  "name": "Spectroelectrochemistry",
   "category": "chemistry",
   "subcategory": "electrochemistry",
   "subcategory_name": "Electrochemistry",
-  "description": "Spectroscopic Calculations process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "Spectroelectrochemistry couples potential control with in-situ spectroscopy: stepping the potential in an optically transparent cell generates redox species whose UV-Vis, IR or EPR signatures are recorded simultaneously to correlate spectra with oxidation states and intermediates.",
   "complexity": {
-    "nodes": 26,
-    "edges": 22,
-    "conditionals": 0,
+    "nodes": 10,
+    "edges": 12,
+    "conditionals": 1,
     "logicGates": {
-      "orGates": 0,
-      "andGates": 1,
-      "total": 1
+      "orGates": 2,
+      "andGates": 2,
+      "notGates": 0,
+      "total": 4
     },
-    "level": "medium",
-    "detailLevel": "medium"
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 1
   },
   "colorScheme": {
     "red": {
@@ -39,53 +41,151 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nA5[Molecular System] --> B5[Spectroscopic Calculation Method]\nC5[Quantum States] --> D5[Transition Analysis]\nE5[Spectroscopic Properties] --> F5[Calculation Setup]\nB5 --> G5[State Preparation]\nD5 --> H5[Transition Selection]\nF5 --> I5[Computational Parameters]\nG5 --> J5[Initial State]\nH5 --> K5[Transition Rules]\nI5 --> L5[Calculation Setup]\nJ5 --> M5[State Characterization]\nK5 --> L5\nL5 --> N5[Spectroscopic Calculation]\nM5 --> O5[Property Calculation]\nN5 --> P5[Transition Analysis]\nO5 --> Q5[Quantum Analysis]\nP5 --> R5[Spectroscopic Properties]\nQ5 --> S5[Property Analysis]\nR5 --> T5[Spectroscopic Features]\nS5 --> U5[Intensity Calculation]\nT5 --> V5[Feature Analysis]\nU5 --> W5[Spectroscopic Efficiency]\nV5 --> X5[Spectroscopic Characterization]\nW5 --> Y5[Process Optimization]\nX5 --> Z5[Final Spectroscopic Properties]\nY5 --> Z5\n\n    style A5 fill:#ff6b6b,color:#fff\n    style C5 fill:#ff6b6b,color:#fff\n    style E5 fill:#ff6b6b,color:#fff\n    style B5 fill:#ffd43b,color:#000\n    style D5 fill:#ffd43b,color:#000\n    style F5 fill:#ffd43b,color:#000\n    style G5 fill:#ffd43b,color:#000\n    style H5 fill:#ffd43b,color:#000\n    style I5 fill:#ffd43b,color:#000\n    style J5 fill:#ffd43b,color:#000\n    style K5 fill:#ffd43b,color:#000\n    style L5 fill:#ffd43b,color:#000\n    style M5 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style O5 fill:#51cf66,color:#fff\n    style P5 fill:#51cf66,color:#fff\n    style Q5 fill:#51cf66,color:#fff\n    style R5 fill:#51cf66,color:#fff\n    style S5 fill:#51cf66,color:#fff\n    style T5 fill:#51cf66,color:#fff\n    style U5 fill:#51cf66,color:#fff\n    style V5 fill:#51cf66,color:#fff\n    style W5 fill:#51cf66,color:#fff\n    style X5 fill:#51cf66,color:#fff\n    style Y5 fill:#51cf66,color:#fff\n    style Z5 fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"Analyte in OTTLE cell\"]\n    N2[\"Apply controlled potential\"]\n    N3[\"Generate redox species\"]\n    N4[\"Acquire spectrum in situ\"]\n    N5{\"Which spectroscopy?\"}\n    N6[\"Electronic absorption shift\"]\n    N7[\"Vibrational band shift\"]\n    N8[\"Radical EPR signal\"]\n    N9[\"Correlate spectrum + state\"]\n    N10[\"Identify intermediate\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 --> N4\n    N4 --> N5\n    N5 -->|UV-Vis| N6\n    N5 -->|IR| N7\n    N5 -->|EPR| N8\n    N6 --> N9\n    N7 --> N9\n    N8 --> N9\n    N9 --> N10\n    N9 -->|next step| N2\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#74c0fc,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#51cf66,color:#fff\n    style N10 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "title": "Spectroelectrochemistry: the best of two worlds",
+      "authors": "Kaim, W.; Fiedler, J.",
+      "journal": "Chemical Society Reviews",
+      "year": "2009",
+      "doi": "10.1039/b811468b",
+      "url": "https://doi.org/10.1039/b811468b"
+    },
+    {
+      "title": "Recent advances in the field of spectroelectrochemistry",
+      "authors": "Dunsch, L.",
+      "journal": "Journal of Solid State Electrochemistry",
+      "year": "2011",
+      "doi": "10.1007/s10008-011-1453-1",
+      "url": "https://doi.org/10.1007/s10008-011-1453-1"
+    },
+    {
+      "title": "Electrochemical Methods: Fundamentals and Applications, 3rd ed.",
+      "authors": "Bard, A. J.; Faulkner, L. R.; White, H. S.",
+      "journal": "Wiley",
+      "year": "2022",
       "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: Spectroscopic Calculations. Created using the Programming Framework methodology."
-    },
-    {
-      "title": "Spectroscopic Calculations Using Computer Software: Winmostar",
-      "authors": "Ali, Rajjab; Rafique, Sahid; Farooq Khan, Zia; Aadil, Muhammad; Ibrahim, Sobhy M.; Mahmoud, Khaled H.",
-      "journal": "Afinidad. Journal of Chemical Engineering Theoretical and Applied Chemistry",
-      "year": "2025",
-      "pubmed": null,
-      "doi": "10.55815/9800292",
-      "url": "https://doi.org/10.55815/9800292"
-    },
-    {
-      "title": "Analysis of NMR Spectroscopic Parameters",
-      "authors": "Autschbach, Jochen",
-      "journal": "NMR Spectroscopic Parameters",
-      "year": "2025",
-      "pubmed": null,
-      "doi": "10.1039/9781837678020-00303",
-      "url": "https://doi.org/10.1039/9781837678020-00303"
-    },
-    {
-      "title": "Highly Accurate Spectroscopic Parameters from Ab Initio Calculations",
-      "authors": "Stein, Christopher J.",
-      "journal": "",
-      "year": "2016",
-      "pubmed": null,
-      "doi": "10.1007/978-3-658-14830-0",
-      "url": "https://doi.org/10.1007/978-3-658-14830-0"
+      "url": "https://www.wiley.com/en-us/Electrochemical+Methods%3A+Fundamentals+and+Applications%2C+3rd+Edition-p-9781119334064"
     }
   ],
   "keywords": [
-    "spectroscopic",
-    "calculations"
+    "spectroelectrochemistry",
+    "OTTLE cell",
+    "in-situ spectroscopy",
+    "redox intermediate",
+    "oxidation state"
   ],
   "relatedProcesses": [],
   "created": "2026-01-08",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Analyte in OTTLE cell",
+      "detail": "Optically transparent thin-layer cell",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N2",
+      "label": "Apply controlled potential",
+      "detail": "Step to a redox potential",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N3",
+      "label": "Generate redox species",
+      "detail": "Oxidize or reduce in situ",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N4",
+      "label": "Acquire spectrum in situ",
+      "detail": "Simultaneous measurement",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N5",
+      "label": "Which spectroscopy?",
+      "detail": "UV-Vis / IR / EPR",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N6",
+      "label": "Electronic absorption shift",
+      "detail": "UV-Vis bands change",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N7",
+      "label": "Vibrational band shift",
+      "detail": "IR marker modes",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N8",
+      "label": "Radical EPR signal",
+      "detail": "Detect unpaired spin",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N9",
+      "label": "Correlate spectrum + state",
+      "detail": "Assign oxidation state",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N10",
+      "label": "Identify intermediate",
+      "detail": "Mechanism elucidated",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 0
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:electrochemistry-spectroscopic-calculations",
+    "graphType": "cyclic_pathway",
+    "topologySignature": "0b1fe993462892b6",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "namedCollections": [
+    "electrochemistry"
+  ],
+  "graphMetrics": {
+    "nodes": 10,
+    "edges": 12,
+    "conditionals": 1,
+    "andGates": 2,
+    "orGates": 2,
+    "notGates": 0,
+    "loops": 1
+  },
+  "graphType": "cyclic_pathway",
+  "domainContext": "Hyphenated electroanalysis"
 }

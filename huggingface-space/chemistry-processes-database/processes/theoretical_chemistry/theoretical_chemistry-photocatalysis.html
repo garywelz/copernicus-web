@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Photocatalysis - Chemistry Process</title>
+    <title>Born–Oppenheimer Approximation - Chemistry Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Photocatalysis</h1>
+            <h1>Born–Oppenheimer Approximation</h1>
             <div class="header-meta">
                 <span class="meta-item">Chemistry</span>
                 <span class="meta-item">Theoretical Chemistry</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,68 +234,56 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Photocatalysis process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>Because nuclei are far heavier than electrons, the Born-Oppenheimer approximation separates nuclear and electronic motion: electrons are solved for fixed nuclei to give a potential energy surface on which nuclei then move, valid unless electronic states approach degeneracy.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-A2[Light Energy] --> B2[Photocatalyst Method]
-C2[Semiconductor Material] --> D2[Band Gap Analysis]
-E2[Reactant Solution] --> F2[Irradiation Setup]
-B2 --> G2[Catalyst Synthesis]
-D2 --> H2[Electronic Structure]
-F2 --> I2[Light Source]
-G2 --> J2[Surface Modification]
-H2 --> K2[Valence Band]
-I2 --> L2[Wavelength Control]
-J2 --> M2[Active Site Creation]
-K2 --> L2
-L2 --> N2[Photon Absorption]
-M2 --> O2[Electron Excitation]
-N2 --> P2[Charge Separation]
-O2 --> Q2[Photocatalytic Activity]
-P2 --> R2[Redox Reactions]
-Q2 --> S2[Reaction Kinetics]
-R2 --> T2[Product Formation]
-S2 --> U2[Quantum Efficiency]
-T2 --> V2[Product Analysis]
-U2 --> W2[Performance Evaluation]
-V2 --> X2[Conversion Yield]
-W2 --> Y2[Process Optimization]
-X2 --> Z2[Photocatalytic Efficiency]
-Y2 --> Z2
+    N1["Molecular Hamiltonian"]
+    N2["Nuclei ≫ electron mass"]
+    N3["Separate nuclear & electronic"]
+    N4["Fix nuclei, solve electrons"]
+    N5["Electronic energy E(R)"]
+    N6["Build PES"]
+    N7{"Surfaces well-separated?"}
+    N8["Nonadiabatic coupling"]
+    N9["Solve nuclear motion"]
+    N10["Separable wavefunction"]
 
-    style A2 fill:#ff6b6b,color:#fff
-    style C2 fill:#ff6b6b,color:#fff
-    style E2 fill:#ff6b6b,color:#fff
-    style B2 fill:#ffd43b,color:#000
-    style D2 fill:#ffd43b,color:#000
-    style F2 fill:#ffd43b,color:#000
-    style G2 fill:#ffd43b,color:#000
-    style H2 fill:#ffd43b,color:#000
-    style I2 fill:#ffd43b,color:#000
-    style J2 fill:#ffd43b,color:#000
-    style K2 fill:#ffd43b,color:#000
-    style L2 fill:#ffd43b,color:#000
-    style M2 fill:#51cf66,color:#fff
+    N1 --> N2
+    N2 --> N3
+    N3 --> N4
+    N4 --> N5
+    N5 --> N6
+    N6 --> N7
+    N7 -->|no| N8
+    N8 --> N10
+    N7 -->|yes| N9
+    N9 --> N10
+
+    style N1 fill:#ff6b6b,color:#fff
     style N2 fill:#51cf66,color:#fff
-    style O2 fill:#51cf66,color:#fff
-    style P2 fill:#51cf66,color:#fff
-    style Q2 fill:#51cf66,color:#fff
-    style R2 fill:#51cf66,color:#fff
-    style S2 fill:#51cf66,color:#fff
-    style T2 fill:#51cf66,color:#fff
-    style U2 fill:#51cf66,color:#fff
-    style V2 fill:#51cf66,color:#fff
-    style W2 fill:#51cf66,color:#fff
-    style X2 fill:#51cf66,color:#fff
-    style Y2 fill:#51cf66,color:#fff
-    style Z2 fill:#b197fc,color:#fff
+    style N3 fill:#51cf66,color:#fff
+    style N4 fill:#51cf66,color:#fff
+    style N5 fill:#74c0fc,color:#fff
+    style N6 fill:#51cf66,color:#fff
+    style N7 fill:#74c0fc,color:#fff
+    style N8 fill:#51cf66,color:#fff
+    style N9 fill:#74c0fc,color:#fff
+    style N10 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Molecular Hamiltonian</td><td>Triggers & Inputs</td><td><a href="https://www.pearson.com/en-us/subject-catalog/p/quantum-chemistry/P200000003505" target="_blank" title="Quantum Chemistry, 7th ed. — The Born–Oppenheimer Approximation" style="color:#e74c3c;">Levine, I. N. 2014</a></td></tr><tr><td style="font-weight:600;">Nuclei ≫ electron mass</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1002/andp.19273892002" target="_blank" title="Zur Quantentheorie der Molekeln" style="color:#e74c3c;">Born, M. et al. 1927</a></td></tr><tr><td style="font-weight:600;">Separate nuclear & electronic</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1002/andp.19273892002" target="_blank" title="Zur Quantentheorie der Molekeln" style="color:#e74c3c;">Born, M. et al. 1927</a></td></tr><tr><td style="font-weight:600;">Fix nuclei, solve electrons</td><td>Processing & Operations</td><td><a href="https://www.pearson.com/en-us/subject-catalog/p/quantum-chemistry/P200000003505" target="_blank" title="Quantum Chemistry, 7th ed. — The Born–Oppenheimer Approximation" style="color:#e74c3c;">Levine, I. N. 2014</a></td></tr><tr><td style="font-weight:600;">Electronic energy E(R)</td><td>Intermediates & States</td><td><a href="https://www.pearson.com/en-us/subject-catalog/p/quantum-chemistry/P200000003505" target="_blank" title="Quantum Chemistry, 7th ed. — The Born–Oppenheimer Approximation" style="color:#e74c3c;">Levine, I. N. 2014</a></td></tr><tr><td style="font-weight:600;">Build PES</td><td>Processing & Operations</td><td><a href="https://www.pearson.com/en-us/subject-catalog/p/quantum-chemistry/P200000003505" target="_blank" title="Quantum Chemistry, 7th ed. — The Born–Oppenheimer Approximation" style="color:#e74c3c;">Levine, I. N. 2014</a></td></tr><tr><td style="font-weight:600;">Surfaces well-separated?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1002/0471780081" target="_blank" title="Beyond Born–Oppenheimer: conical intersections and electronic nonadiabatic coupling terms" style="color:#e74c3c;">Baer, M. 2006</a></td></tr><tr><td style="font-weight:600;">Nonadiabatic coupling</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1002/0471780081" target="_blank" title="Beyond Born–Oppenheimer: conical intersections and electronic nonadiabatic coupling terms" style="color:#e74c3c;">Baer, M. 2006</a></td></tr><tr><td style="font-weight:600;">Solve nuclear motion</td><td>Intermediates & States</td><td><a href="https://www.pearson.com/en-us/subject-catalog/p/quantum-chemistry/P200000003505" target="_blank" title="Quantum Chemistry, 7th ed. — The Born–Oppenheimer Approximation" style="color:#e74c3c;">Levine, I. N. 2014</a></td></tr><tr><td style="font-weight:600;">Separable wavefunction</td><td>Products & Outputs</td><td><a href="https://doi.org/10.1002/andp.19273892002" target="_blank" title="Zur Quantentheorie der Molekeln" style="color:#e74c3c;">Born, M. et al. 1927</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -314,12 +329,12 @@ Y2 --> Z2
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 26</li>
-                        <li><strong>Edges:</strong> 22</li>
-                        <li><strong>Conditionals:</strong> 0</li>
+                        <li><strong>Nodes:</strong> 10</li>
+                        <li><strong>Edges:</strong> 10</li>
+                        <li><strong>Conditionals:</strong> 1</li>
                         <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 1</li>
+                        <li><strong>OR Gates:</strong> 1</li>
+                        <li><strong>Total Gates:</strong> 2</li>
                     </ul>
                 </div>
                 
@@ -327,7 +342,7 @@ Y2 --> Z2
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>photocatalysis</li>
+                        <li>born-oppenheimer</li><li>adiabatic approximation</li><li>potential energy surface</li><li>nonadiabatic coupling</li><li>separation of motion</li>
                     </ul>
                 </div>
                 
@@ -338,42 +353,32 @@ Y2 --> Z2
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Zur Quantentheorie der Molekeln</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Born, M.; Oppenheimer, R.
+                            , Annalen der Physik
+                             (1927)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Photocatalysis</strong>
-                            
-                            
-                             (None)
-                            </span>
-                            <br><a href="https://doi.org/10.20517/photocatalysis" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.20517/photocatalysis</a>
+                            <br><a href="https://doi.org/10.1002/andp.19273892002" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1002/andp.19273892002</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Welcome to the new journal Photocatalysis</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Ho, Wingkei
-                            , Photocatalysis
-                             (2021)
+                            <strong>Quantum Chemistry, 7th ed. — The Born–Oppenheimer Approximation</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Levine, I. N.
+                            , Pearson
+                             (2014)
                             </span>
-                            <br><a href="https://doi.org/10.20517/photocatalysis.2021.01" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.20517/photocatalysis.2021.01</a>
                             
+                            <br><a href="https://www.pearson.com/en-us/subject-catalog/p/quantum-chemistry/P200000003505" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Photocatalysis</strong>
-                            
-                            
-                             (2016)
+                            <strong>Beyond Born–Oppenheimer: conical intersections and electronic nonadiabatic coupling terms</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Baer, M.
+                            , Wiley
+                             (2006)
                             </span>
-                            <br><a href="https://doi.org/10.3390/books978-3-03842-184-9" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.3390/books978-3-03842-184-9</a>
+                            <br><a href="https://doi.org/10.1002/0471780081" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1002/0471780081</a>
                             
                         </li>
                         

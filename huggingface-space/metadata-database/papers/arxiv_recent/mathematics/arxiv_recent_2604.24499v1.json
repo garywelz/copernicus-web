@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2604.24499v1",
+  "arxiv_id": "2604.24499v1",
+  "title": "Fisher Information and Dynamical Sampling I",
+  "authors": [
+    "Mattia Carrino",
+    "Stefan Hohenegger"
+  ],
+  "author_string": "Mattia Carrino, Stefan Hohenegger",
+  "journal": "arXiv:2604.24499v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Information theory is a powerful framework to capture aspects of dynamical systems with multiple degrees of freedom. Mathematically, the dynamics can be represented as a continuous curve $\\mathcal{C}$ on a suitable hyperplane in flat space and the Fisher information provides the norm of an infinitesimal displacement along this curve. In many applications, however, we do not have direct access to $\\mathcal{C}$. Instead, we have to reconstruct the latter from a time-series of measurements (obtained as samples of size $n$), which are represented by an ordered set of points $\\widehat{\\mathcal{C}}$ on the same hyperplane. In this work, we calculate the bias of the Fisher information for large $n$, which provides a quantitative estimation for how accurately the dynamics of a system can be reconstructed from a given set of sampled data. Based on this result, we show that a clustering of the degrees of freedom reduces the bias and thus improves the accuracy with which the new system can be described with the same data. Inspired by a recent proposal for such a clustering, we provide a quantitive assessment of the loss of information, which allows to estimate how much information about the dynamics of a system can reliably be extracted based on a given set of data. We illustrate our findings in the case of a simple compartmental model. Although the latter is inspired by epidemiology, the results of this work are applicable to very general dynamical models with multiple degrees of freedom.",
+  "categories": [
+    "cs.IT",
+    "q-bio.PE",
+    "stat.AP"
+  ],
+  "primary_category": "stat.AP",
+  "comment": "41 pages, 17 figures",
+  "published_date": "2026-04-27T14:03:02Z",
+  "updated_date": "2026-04-27T14:03:02Z",
+  "url": "https://arxiv.org/abs/2604.24499v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.24499v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-05T10:15:43.368484",
+  "category": "mathematics",
+  "subcategories": [
+    "cs.IT",
+    "q-bio.PE",
+    "stat.AP"
+  ]
+}

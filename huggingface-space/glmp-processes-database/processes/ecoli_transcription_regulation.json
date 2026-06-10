@@ -77,7 +77,7 @@
   "mermaid": "graph TD\n    Start([Gene Expression Signal]) --> SigmaCheck{Sigma Factor<br/>Available?}\n    SigmaCheck -->|No| SigmaWait[Wait for Sigma<br/>Factor Release]\n    SigmaCheck -->|Yes| Holoenzyme[RNA Polymerase<br/>Holoenzyme Formation]\n    \n    Holoenzyme --> Search[Promoter Search<br/>Nonspecific DNA Binding]\n    Search --> Recognition[Promoter Recognition<br/>-35 and -10 Elements]\n    \n    Recognition --> ClosedComplex[Closed Complex<br/>Formation]\n    ClosedComplex --> Melting[DNA Melting at<br/>-10 Region]\n    Melting --> OpenComplex[Open Complex<br/>RPo Formation]\n    \n    OpenComplex --> Regulation{Regulatory<br/>Factors?}\n    Regulation -->|Activators| Enhanced[Enhanced<br/>Transcription]\n    Regulation -->|Repressors| Blocked[/Transcription<br/>Blocked/]\n    Regulation -->|None| Basal[Basal Level<br/>Transcription]\n    \n    Enhanced --> Initiation\n    Basal --> Initiation[Transcription<br/>Initiation]\n    Blocked --> NoTranscription[/No Transcription/]\n    \n    Initiation --> Elongation[Abortive Initiation<br/>Then Productive]\n    Elongation --> SigmaRelease[Sigma Factor<br/>Release]\n    SigmaRelease --> CorePol[Core Polymerase<br/>Elongation]\n    \n    CorePol --> mRNA[mRNA Synthesis]\n    mRNA --> Termination[/Termination<br/>Rho-dependent or Independent/]\n    \n\n    %% Semantic Color Styling\n\n    %% Semantic Color Styling\n\n    %% Semantic Color Styling\n\n    %% Semantic Color Styling\n    style RNA fill:#42a5f5,color:#fff\n    style Blocked fill:#e74c3c,color:#fff\n    style NoTranscription fill:#e74c3c,color:#fff\n    style Termination fill:#e74c3c,color:#fff",
   "name": "Transcription Initiation and Regulation",
   "notGates": 3,
-  "notes": "This model shows the core transcription initiation process. Contains 2 OR logic gates: sigma factor availability and regulatory factor type. E. coli has 7 sigma factors (\u03c370 is housekeeping). All 25 nodes are uniquely identified and colored according to the 7-color Programming Framework.",
+  "notes": "This model shows the core transcription initiation process. Contains 2 OR logic gates: sigma factor availability and regulatory factor type. E. coli has 7 sigma factors (σ70 is housekeeping). All 25 nodes are uniquely identified and colored according to the 7-color Programming Framework.",
   "organism": "E. coli",
   "relatedProcesses": [
     "ecoli_lac_operon",
@@ -155,5 +155,6 @@
   ],
   "totalNodes": 20,
   "verified": true,
-  "verifiedBy": "Literature review of primary sources on transcription mechanism"
+  "verifiedBy": "Literature review of primary sources on transcription mechanism",
+  "loops": 0
 }

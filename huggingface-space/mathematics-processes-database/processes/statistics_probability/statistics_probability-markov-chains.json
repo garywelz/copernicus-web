@@ -1,0 +1,39 @@
+{
+  "id": "statistics_probability-markov-chains",
+  "name": "Markov Chains — Mathematics Process",
+  "category": "mathematics",
+  "subcategory": "statistics_probability",
+  "subcategory_name": "Statistics & Probability",
+  "description": "Discrete-time Markov chain: transition kernel, Chapman–Kolmogorov, irreducibility, recurrence, stationary distribution. Bridge to MCMC and stochastic processes.",
+  "mermaid": "graph TD\n    D1[\"Def: Markov chain\\nP(Xₙ₊₁|X₀,...,Xₙ)=P(Xₙ₊₁|Xₙ)\"]\n    D2[\"Def: Transition matrix\\nP(i,j)=P(X₁=j|X₀=i)\"]\n    D3[\"Def: Chapman–Kolmogorov\\nPⁿ⁺ᵐ=PⁿPᵐ\"]\n    D4[\"Def: Irreducible\\nall states communicate\"]\n    D5[\"Def: Stationary dist\\nπP=π\"]\n    T1[\"Thm: Chapman–Kolmogorov\\nfollows from Markov prop\"]\n    T2[\"Thm: Perron–Frobenius\\nirred aperiodic ⇒ unique π\"]\n    T3[\"Thm: LLN for MC\\n1/n Σf(Xₖ)→π(f) a.s.\"]\n    T4[\"Thm: Recurrence criterion\\n∑Pⁿ(i,i)=∞\"]\n    T5[\"Thm: Foster–Lyapunov\\ndrift for stability\"]\n    D1 --> D2\n    D2 --> D3\n    D1 --> T1\n    D2 --> T1\n    D3 --> T1\n    D4 --> T2\n    D5 --> T2\n    T2 --> T3\n    D4 --> T4\n    T4 --> T5\n    classDef definition fill:#b197fc,color:#fff\n    classDef theorem fill:#51cf66,color:#fff\n    class D1,D2,D3,D4,D5 definition\n    class T1,T2,T3,T4,T5 theorem",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

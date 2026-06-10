@@ -1,0 +1,41 @@
+{
+  "id": "arxiv_2605.12891v1",
+  "arxiv_id": "2605.12891v1",
+  "title": "Dynamic Modulated Arc Therapy (DMAT): An Intent-Driven, Time-Aware Framework for Next-Generation Radiotherapy Delivery",
+  "authors": [
+    "Taoran Li",
+    "Esa Kuusela",
+    "Emmi Ruokokoski",
+    "Heini Hyvönen",
+    "Jerry Jaboin",
+    "Mirko Myllykoski",
+    "Jussi Nurminen",
+    "Riku Paananen",
+    "Jarkko Peltola",
+    "Marko Rusanen",
+    "Martin Sabel",
+    "Kevin Moore",
+    "Christopher Boylan"
+  ],
+  "author_string": "Taoran Li, Esa Kuusela, Emmi Ruokokoski, Heini Hyvönen, Jerry Jaboin et al.",
+  "journal": "arXiv:2605.12891v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Traditional VMAT optimization often ignores dynamic machine limits, treating delivery time as an emergent property rather than a steerable parameter. This work introduces Dynamic Modulated Arc Therapy (DMAT), an intent-driven framework that jointly co-optimizes dosimetric quality, delivery time, and modulation complexity.   DMAT couples machine emulation accounting for axis synchronization and finite acceleration with dynamic modulation control and clinical cost functions. A user-selected level (-3 to +3) governs leaf-travel, MU behavior, and CP density. Plans are created by initializing CP geometry, leaf positions, and MU, then iteratively alternating dosimetric updates with sequencing updates (penalties for motion, velocity changes, MU uniformity, and complexity), followed by post-processing. CP density is adapted by first optimizing with a uniform distribution and then redistributing CPs to arc sectors with higher complexity. DMAT was evaluated using a hypothetical system (2.5 RPM gantry, 6.25 cm/s MLC, 3000 MU/min) on H&N, lung SBRT, and prostate SBRT cases.   Higher modulation levels produced increased MU/Gy and longer delivery times, while adaptive CP allocation concentrated resolution in high-reward sectors. H&N cases showed substantial quality gains with increased modulation, whereas prostate and lung SBRT exhibited smaller incremental improvements. When efficiency was prioritized (negative levels), DMAT reduced modulation and maintained a constant CP budget while shortening delivery time, producing quantifiable reductions in plan quality.   DMAT enables intent-driven planning where quality and complexity are co-optimized via machine-aware timing. Accurate delivery time is exposed during planning, making trade-offs transparent and navigable for next-generation systems and time-constrained workflows like motion-sensitive or adaptive radiotherapy.",
+  "categories": [
+    "physics.med-ph"
+  ],
+  "primary_category": "physics.med-ph",
+  "comment": null,
+  "published_date": "2026-05-13T02:14:37Z",
+  "updated_date": "2026-05-13T02:14:37Z",
+  "url": "https://arxiv.org/abs/2605.12891v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.12891v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-13T22:16:44.892608",
+  "category": "physics",
+  "subcategories": [
+    "physics.med-ph"
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2605.14967v1",
+  "arxiv_id": "2605.14967v1",
+  "title": "InfoSFT: Learn More and Forget Less with Information-Aware Token Weighting",
+  "authors": [
+    "Mahdi Sabbaghi",
+    "George Pappas",
+    "Adel Javanmard",
+    "Hamed Hassani"
+  ],
+  "author_string": "Mahdi Sabbaghi, George Pappas, Adel Javanmard, Hamed Hassani",
+  "journal": "arXiv:2605.14967v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Supervised fine-tuning (SFT) provides the standard approach for teaching LLMs new behaviors from offline expert demonstrations. However, standard SFT uniformly fits all samples -- including those with low likelihood under the base model -- which can disproportionately drive training updates toward overfitting specific samples rather than learning the target behavior. Moreover, adapting to these unlikely samples induces substantial policy shifts that degrade prior capabilities. Existing methods mitigate this by filtering, regenerating, or down-weighting low-likelihood data. In doing so, they often suppress precisely the novel behaviors the base model has yet to learn.   We propose InfoSFT, a principled weighting scheme for the SFT objective that concentrates learning signals on maximally informative, medium-confidence tokens -- those neither overly familiar to the base model nor too unlikely to cause instability. Requiring only a one-line modification to the standard token-wise loss, InfoSFT demonstrably improves generalization over vanilla SFT and likelihood-weighted baselines across math, code, and chain-of-thought tasks with diverse model families, while better preserving pre-existing capabilities.",
+  "categories": [
+    "cs.LG",
+    "stat.ML"
+  ],
+  "primary_category": "stat.ML",
+  "comment": null,
+  "published_date": "2026-05-14T15:32:37Z",
+  "updated_date": "2026-05-14T15:32:37Z",
+  "url": "https://arxiv.org/abs/2605.14967v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.14967v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-16T10:15:40.621915",
+  "category": "mathematics",
+  "subcategories": [
+    "cs.LG",
+    "stat.ML"
+  ]
+}

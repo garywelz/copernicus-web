@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2604.24289v1",
+  "arxiv_id": "2604.24289v1",
+  "title": "On the complexity of quantum numerical integration: an angle-structure characterization",
+  "authors": [
+    "Francisco Chinesta",
+    "Antonio Falco",
+    "Daniela Falco-Pomares"
+  ],
+  "author_string": "Francisco Chinesta, Antonio Falco, Daniela Falco-Pomares",
+  "journal": "arXiv:2604.24289v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We study numerical integration on $[0,1]$ by quantum amplitude estimation (QAE), focusing on the cost of constructing the amplitude oracle. Although QAE improves the statistical component of the integration error, this advantage is relevant only when the integrand has low encoding complexity.   We introduce a hierarchy of grid function classes $\\mathcal{G}_n^{(d)}$, defined by requiring the angle map $Θ_g:\\{0,1\\}^n\\to[0,π]$ to be multilinear of degree at most $d$. Membership is classically checkable in $O(n2^n)$ time by the Walsh--Hadamard transform. For $g\\in\\mathcal{G}_n^{(d)}$, the encoding operator factorises into $\\sum_{k=0}^d\\binom{n}{k}$ multi-controlled $R_Y$ gates, interpolating between an affine $O(n)$ regime and the generic exponential regime.   Combining this structure with classical discretisation estimates for $g\\in C^α[0,1]$, we obtain a depth-versus-accuracy trade-off: gate count $O((\\log(1/\\varepsilon))^d\\varepsilon^{-1})$ suffices to achieve $\\varepsilon$-accuracy with constant probability. For $d=1$ this becomes $O(\\varepsilon^{-1}\\log(1/\\varepsilon))$, improving over classical Monte Carlo for every $α\\ge1$. We also prove an unconditional separation: $\\mathcal{G}_n^{(1)}$ contains functions of Sobolev regularity $s<1/2$ for which the quantum oracle cost is $O(1/\\varepsilon)$, whereas classical deterministic or randomised quadrature requires $Ω(\\varepsilon^{-1/s})$ evaluations.   These results identify explicit integrand classes for which the full cost of QAE-based integration, including state preparation, is asymptotically better than classical methods. Experiments on SpinQ Triangulum and IBM Kingston illustrate the hierarchy at $n=2$: circuits inside $\\mathcal{G}_n^{(d)}$ run successfully, while those exceeding the Triangulum coherence budget fail as predicted.",
+  "categories": [
+    "quant-ph",
+    "math.NA"
+  ],
+  "primary_category": "math.NA",
+  "comment": null,
+  "published_date": "2026-04-27T10:23:24Z",
+  "updated_date": "2026-04-27T10:23:24Z",
+  "url": "https://arxiv.org/abs/2604.24289v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.24289v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-27T22:15:26.520926",
+  "category": "mathematics",
+  "subcategories": [
+    "quant-ph",
+    "math.NA"
+  ]
+}

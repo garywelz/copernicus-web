@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2605.15748v1",
+  "arxiv_id": "2605.15748v1",
+  "title": "Quantitative stability for fractional Hardy inequalities: Rearrangement-free techniques and Emden-Fowler analysis",
+  "authors": [
+    "Avas Banerjee",
+    "Debdip Ganguly",
+    "Vivek Sahu"
+  ],
+  "author_string": "Avas Banerjee, Debdip Ganguly, Vivek Sahu",
+  "journal": "arXiv:2605.15748v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "A classical result due to Frank and Seiringer asserts that for $1\\leq p<\\frac Ns$, there exists a sharp constant $\\mathcal{C}_{N,s,p}>0$ such that $$ δ_{s,p}(u):=\\int_{\\mathbb{R}^N}\\int_{\\mathbb{R}^N}\\frac{|u(x)-u(y)|^p}{|x-y|^{N+sp}}\\,dx\\,dy-\\mathcal{C}_{N,s,p}\\int_{\\mathbb{R}^N}\\frac{|u(x)|^p}{|x|^{sp}}\\,dx\\ge0, $$ for all $u\\in W^{s,p}(\\mathbb{R}^N)$. The optimal constant is explicitly known. We investigate quantitative refinements of this inequality. Our first result shows that, under the normalization $ \\int_{\\mathbb{R}^N}\\frac{|u(x)|^p}{|x|^{sp}}\\,dx=1,$ the inequality \\[ δ_{s,p}(u)\\gtrsim\\bigl(\\mathrm{dist}_{s,p}(u,\\mathcal{Z})\\bigr)^α, \\] holds, where $α=\\max\\{4,2p\\}$, $\\mathcal{Z}$ denotes the family of ``virtual'' extremals, and the distance is measured in Marcinkiewicz (weak-$L^{p_s^*}$) space. The stability exponent remains constant for $p\\le2$, while it depends on $p$ for $p>2$. Our approach is based on a localized Poincaré-Sobolev inequality combined with suitable rescaling and Lorentz embeddings. We exploit a decomposition of the nonlocal energy together with Lorentz estimates, which enables us to control the deficit $δ_{s,p}(u)$ in terms of the distance to $\\mathcal{Z}$. The method also applies to the local case $s=1$, the argument is rearrangement-free and the exponent in the stability estimate improves the existing literature. For $p=2$, via an Emden-Fowler correspondence and pseudo-differential operators, we show that the nonlocal Hardy deficit coincides with the local one and obtain quantitative stability on $\\mathbb{R}\\times\\mathbb{S}^{N-1}$ using the diagonalization of the fractional Hardy quadratic form due to Frank, Lieb, and Seiringer. As an application, we establish a Hardy-Heisenberg-type uncertainty principle in the nonlocal setting, which appears to be new in the literature.",
+  "categories": [
+    "math.AP"
+  ],
+  "primary_category": "math.AP",
+  "comment": "44 pages",
+  "published_date": "2026-05-15T09:06:31Z",
+  "updated_date": "2026-05-15T09:06:31Z",
+  "url": "https://arxiv.org/abs/2605.15748v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.15748v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-17T22:17:38.078442",
+  "category": "mathematics",
+  "subcategories": [
+    "math.AP"
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "id": "numerical_analysis-quadrature",
+  "name": "Numerical Quadrature — Mathematics Process",
+  "category": "mathematics",
+  "subcategory": "numerical_analysis",
+  "subcategory_name": "Numerical Analysis",
+  "description": "Approximate ∫f by weighted sum Σwⱼf(xⱼ). Degree of precision. Trapezoidal O(h²), Simpson O(h⁴), Gaussian quadrature exact for polynomials of degree 2n−1.",
+  "mermaid": "graph TD\n    D1[\"Def: Quadrature rule\\n∫f ≈ Σ wⱼf(xⱼ)\"]\n    D2[\"Def: Degree of precision\\nexact for poly deg ≤ d\"]\n    D3[\"Def: Composite rule\\nsubdivide [a,b]\"]\n    T1[\"Thm: Trapezoidal\\nE = −(b−a)³f''(ξ)/12\"]\n    T2[\"Thm: Simpson\\nE = −(b−a)⁵f⁽⁴⁾(ξ)/2880\"]\n    T3[\"Thm: Gaussian\\nn nodes ⇒ degree 2n−1\"]\n    T4[\"Thm: Nodes = roots of\\nLegendre Pₙ\"]\n    T5[\"Thm: Error composite\\nO(hᵖ) with p=2,4,2n\"]\n    L1[\"Lemma: Peano kernel\"]\n    D1 --> D2\n    D1 --> D3\n    D2 --> T1\n    D2 --> T2\n    D2 --> T3\n    T3 --> T4\n    T1 --> T5\n    T2 --> T5\n    T3 --> T5\n    L1 --> T1\n    classDef definition fill:#b197fc,color:#fff\n    classDef theorem fill:#51cf66,color:#fff\n    classDef lemma fill:#74c0fc,color:#fff\n    class D1,D2,D3 definition\n    class T1,T2,T3,T4,T5 theorem\n    class L1 lemma",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

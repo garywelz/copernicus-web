@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Proof Graph Design Notes - Proof Graph Pilot</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #0f172a;
+      --panel: #111827;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --accent: #60a5fa;
+      --border: #334155;
+      --code-bg: #020617;
+    }
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg: #f8fafc;
+        --panel: #ffffff;
+        --text: #111827;
+        --muted: #4b5563;
+        --accent: #2563eb;
+        --border: #d1d5db;
+        --code-bg: #f1f5f9;
+      }
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    main {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 36px 20px 64px;
+    }
+    article {
+      border: 1px solid var(--border);
+      background: var(--panel);
+      border-radius: 14px;
+      padding: 28px;
+    }
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 18px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+    nav a, a { color: var(--accent); }
+    h1 { margin-top: 0; font-size: 2rem; line-height: 1.2; }
+    h2 { margin-top: 2rem; border-top: 1px solid var(--border); padding-top: 1.2rem; }
+    h3 { margin-top: 1.6rem; }
+    p, li { color: var(--text); }
+    ul, ol { padding-left: 1.35rem; }
+    code {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 0.05rem 0.25rem;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: 0.92em;
+    }
+    pre {
+      overflow-x: auto;
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+    }
+    pre code { background: transparent; border: 0; padding: 0; }
+    .mermaid {
+      background: #ffffff;
+      color: #111827;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      margin: 18px 0;
+      padding: 18px;
+      overflow-x: auto;
+    }
+    .mermaid svg { max-width: 100%; height: auto; }
+    .proof-legend {
+      margin-top: 28px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      background: color-mix(in srgb, var(--panel) 88%, var(--accent));
+    }
+    .proof-legend h2 {
+      border-top: 0;
+      margin: 0 0 12px;
+      padding-top: 0;
+      font-size: 1.05rem;
+    }
+    .proof-legend-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 10px 14px;
+    }
+    .proof-legend-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text);
+      font-size: 0.92rem;
+    }
+    .proof-legend-swatch {
+      width: 18px;
+      height: 18px;
+      border-radius: 5px;
+      border: 2px solid currentColor;
+      flex: 0 0 auto;
+    }
+    .legend-source { background: #f2c879; color: #7a4f12; }
+    .legend-assumption { background: #c084fc; color: #6d28d9; }
+    .legend-construction { background: #8fbc5a; color: #3f6212; }
+    .legend-assertion { background: #8ecae6; color: #25637a; }
+    .legend-inference { background: #f4a261; color: #9a3412; }
+    .legend-algorithm { background: #818cf8; color: #3730a3; }
+    .legend-contradiction { background: #ef4444; color: #991b1b; }
+    .legend-conclusion { background: #2dd4bf; color: #0f766e; }
+    .source-note {
+      margin-top: 32px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+</style>
+</head>
+<body>
+  <main>
+    <nav>
+      <a href="index.html">Proof Graph Pilot</a>
+      <span>/</span>
+      <a href="../mathematics-database-table.html">Mathematics Database</a>
+      <span>/</span>
+      <a href="design-notes.md">View Markdown source</a>
+    </nav>
+    <article>
+<h1>Proof Graph Design Notes</h1>
+<p>These notes record the design distinction that emerged from the Proof Graph Pilot: proofs are not just another instance of an algorithm or an axiomatic theory. They are <strong>derivational hybrids</strong>. A proof lives inside an axiomatic setting, but it often invokes constructions, procedures, case splits, diagonal scans, induction, recursion, or other algorithm-like substructures.</p>
+<h2>Three Graph Families</h2>
+<ul>
+<li><strong>Algorithms</strong> are operational graphs. They answer: &quot;What action happens next, and what branch or loop controls execution?&quot;</li>
+<li><strong>Axiomatic theories</strong> are structural dependency graphs. They answer: &quot;Which primitives, axioms, definitions, and prior theorems support the theory?&quot;</li>
+<li><strong>Proofs</strong> are derivational graphs. They answer: &quot;How is this conclusion licensed from sources, assumptions, constructions, inference moves, and sometimes procedures?&quot;</li>
+</ul>
+<p>This makes proof graphs a third category with a hybrid character, rather than a simple extension of the first two.</p>
+<h2>Design Problem</h2>
+<p>The first pilot graphs intentionally used plain Mermaid <code>flowchart</code> syntax with rectangular nodes and colored roles. That made the pages easy to build, but it flattened several important distinctions:</p>
+<ul>
+<li>one-to-one sequential derivation looked similar to multi-premise dependence;</li>
+<li>ordinary assertion nodes looked similar to branch/case nodes;</li>
+<li>algorithm capsules inside proofs looked similar to logical proof steps;</li>
+<li>induction, recursion, and diagonalization were visually close to ordinary dependencies;</li>
+<li>all edges looked alike, even when they meant <code>depends_on</code>, <code>constructs</code>, <code>invokes_algorithm</code>, or <code>discharges</code>.</li>
+</ul>
+<p>The next design pass should make those distinctions visible without turning proof graphs into unreadable formal proof trees.</p>
+<h2>Visual Grammar</h2>
+<p>Recommended node shapes:</p>
+<ul>
+<li><strong>Rounded rectangle:</strong> source, given, axiom, definition, lemma, prior theorem.</li>
+<li><strong>Rectangle:</strong> assertion established inside the proof.</li>
+<li><strong>Parallelogram or clipped rectangle:</strong> construction or introduced object.</li>
+<li><strong>Diamond:</strong> case split, branch, membership question, or proof fork.</li>
+<li><strong>Stadium / capsule:</strong> algorithm or procedure invoked by the proof.</li>
+<li><strong>Heavy bordered rectangle:</strong> discharged assumption or final conclusion.</li>
+<li><strong>Red bordered node:</strong> contradiction or impossible branch.</li>
+<li><strong>Small join node:</strong> explicit multi-premise conjunction where several incoming dependencies jointly license one inference.</li>
+</ul>
+<p>Recommended edge styles:</p>
+<ul>
+<li><strong>Solid arrow:</strong> ordinary dependency or derivation.</li>
+<li><strong>Labeled solid arrow:</strong> instantiation, construction, branch, or derives.</li>
+<li><strong>Dashed arrow:</strong> invokes an algorithm or procedural capsule.</li>
+<li><strong>Dotted arrow:</strong> discharges a temporary assumption.</li>
+<li><strong>Thicker arrow:</strong> decisive inference into a conclusion or contradiction.</li>
+</ul>
+<h2>Multi-Premise Nodes</h2>
+<p>In algorithm flowcharts, multiple incoming arrows often mean control flow can arrive from more than one previous state. In proof graphs, multiple incoming arrows usually mean something stronger: all incoming premises may be jointly required.</p>
+<p>Future proof graphs should distinguish:</p>
+<ul>
+<li><strong>alternative support:</strong> any one incoming route is sufficient;</li>
+<li><strong>joint support:</strong> all incoming premises are needed;</li>
+<li><strong>case exhaustion:</strong> all branches together close a proof;</li>
+<li><strong>dependency reuse:</strong> a prior theorem supports multiple later claims.</li>
+</ul>
+<p>This suggests adding explicit AND-join markers in proof graphs, but not necessarily using the same AND gate visual language as algorithm flowcharts. In proofs, a join means joint justification, not simultaneous computation.</p>
+<h2>Loops And Recursion</h2>
+<p>Ordinary mathematical proofs should usually remain acyclic at the visible dependency level. Apparent loops need interpretation:</p>
+<ul>
+<li><strong>Induction</strong> is a controlled schema: base case plus step case licenses all cases.</li>
+<li><strong>Recursion</strong> is an algorithmic procedure invoked by a proof, not usually a logical cycle in the proof itself.</li>
+<li><strong>Diagonalization</strong> is a construction that reads a presumed total list and produces an object outside it.</li>
+<li><strong>Self-reference</strong> is a special logical pattern, not an ordinary control-flow loop.</li>
+<li><strong>Theorem reuse</strong> is not a cycle if the reused theorem was already established.</li>
+</ul>
+<p>The pilot should therefore avoid representing proof loops as simple Mermaid feedback arrows unless the loop is explicitly an algorithm capsule. For proof-level loops, use named schema nodes such as <code>Induction schema</code>, <code>Recursive subroutine</code>, or <code>Diagonal construction</code>.</p>
+<h2>Algorithm Capsules Inside Proofs</h2>
+<p>Algorithm capsules should be expandable subgraphs. At the top proof level, a procedural step should appear as a single capsule node, connected by a dashed <code>invokes_algorithm</code> edge. The capsule itself may then open into a left-to-right algorithm flowchart with decisions, loops, and outputs.</p>
+<p>This preserves the distinction:</p>
+<ul>
+<li>the proof dependency graph shows why the procedure matters;</li>
+<li>the algorithm capsule shows how the procedure operates.</li>
+</ul>
+<h2>Distinct Proof Color Palette</h2>
+<p>Proof graphs should not reuse the GLMP/programming-framework five-color palette. That palette describes process roles such as triggers, structures, operations, intermediates, and outputs. Proof graphs need an argument-role palette.</p>
+<p>The proof palette should be muted and document-like, with colors chosen for proof roles:</p>
+<ul>
+<li><strong>Parchment:</strong> source / given / axiom / definition / lemma.</li>
+<li><strong>Mauve:</strong> assumption or temporary hypothesis.</li>
+<li><strong>Sage:</strong> construction or introduced object.</li>
+<li><strong>Blue-gray:</strong> assertion established in the proof.</li>
+<li><strong>Peach:</strong> inference, branch, or proof move.</li>
+<li><strong>Indigo:</strong> algorithm or procedural capsule.</li>
+<li><strong>Oxblood:</strong> contradiction.</li>
+<li><strong>Sea-teal:</strong> discharge or final conclusion.</li>
+</ul>
+<p>Each rendered proof page should carry its own proof color legend. The mathematics database landing page should not show a global color legend, because algorithms, axiomatic theories, GLMP circuits, and proof graphs have different visual grammars.</p>
+<h2>Relationship To The Foundational Typology</h2>
+<p>This design adds a new theoretical dimension but does not require an immediate edit to the GLMP foundational paper. The likely future claim is:</p>
+<p>&gt; Algorithms, axiomatic theories, and proofs are related but distinct graph families: operational, structural, and derivational. Proofs are hybrid derivational objects that instantiate axiomatic dependencies while sometimes invoking algorithmic procedures.</p>
+<p>That claim connects naturally to Curry-Howard, reverse mathematics, proof assistants, and the broader question of how primitive relations determine logical and computational character.</p>
+      <p class="source-note">Rendered from <code>design-notes.md</code>. Mermaid diagrams are rendered in the browser from the source graph blocks.</p>
+    </article>
+  </main>
+
+</body>
+</html>

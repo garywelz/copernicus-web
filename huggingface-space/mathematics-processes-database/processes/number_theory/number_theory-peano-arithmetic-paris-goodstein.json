@@ -1,0 +1,39 @@
+{
+  "id": "number_theory-peano-arithmetic-paris-goodstein",
+  "name": "Peano Arithmetic & Paris — Part 10: Goodstein & Kirby-Paris Indicators",
+  "category": "mathematics",
+  "subcategory": "number_theory",
+  "subcategory_name": "Number Theory",
+  "description": "Goodstein's theorem: every Goodstein sequence terminates at 0. Proof uses ordinals: map hereditary base-n to Cantor normal form ω; parallel sequence strictly decreases. Kirby-Paris (1982): Goodstein unprovable in PA. Uses indicators and nonstandard models—PA cannot prove ε₀ well-founded.",
+  "mermaid": "graph TD\n    DefHereditary[\"Def: Hereditary base-n notation (exponents recursively in base-n)\"]\n    DefBump[\"Def: Bump: replace base n with n+1 in hereditary representation\"]\n    DefGoodsteinSeq[\"Def: Goodstein sequence G_m: bump base, subtract 1, repeat\"]\n    DefOrdMap[\"Def: f(u,k): hereditary base-k → ordinal (replace k with ω)\"]\n    LemOrdDec[\"Lem: P_m(n) = f(G_m(n), n+1) strictly decreases\"]\n    LemWellFound[\"Lem: Ordinals well-founded ⇒ no infinite descending chain\"]\n    ThmGoodstein[\"Thm: Goodstein (1944): every G_m terminates at 0\"]\n    DefIndicator[\"Def: Indicator (Kirby-Paris): for nonstandard models of PA\"]\n    LemIndicator[\"Lem: Main indicator lemma: connects termination to ε₀\"]\n    DefNonStandard[\"Def: Nonstandard model of PA: contains infinite elements\"]\n    LemGoodsteinImpl[\"Lem: Goodstein termination implies ε₀ well-founded\"]\n    LemEps0[\"Lem: PA ⊬ ε₀ well-founded (Gentzen)\"]\n    ThmKirbyParis[\"Thm: Kirby-Paris: Goodstein unprovable in PA\"]\n    CorProvable[\"Cor: Goodstein provable in ACA₀, ZFC\"]\n    DefHereditary --> DefBump\n    DefBump --> DefGoodsteinSeq\n    DefHereditary --> DefOrdMap\n    DefGoodsteinSeq --> DefOrdMap\n    DefOrdMap --> LemOrdDec\n    LemOrdDec --> LemWellFound\n    LemWellFound --> ThmGoodstein\n    DefIndicator --> LemIndicator\n    DefNonStandard --> LemIndicator\n    LemIndicator --> LemGoodsteinImpl\n    ThmGoodstein --> LemGoodsteinImpl\n    LemGoodsteinImpl --> ThmKirbyParis\n    LemEps0 --> ThmKirbyParis\n    ThmKirbyParis --> CorProvable\n    classDef definition fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef lemma fill:#74c0fc,color:#fff,stroke:#4dabf7\n    classDef theorem fill:#51cf66,color:#fff,stroke:#40c057\n    classDef corollary fill:#1abc9c,color:#fff,stroke:#16a085\n    class DefHereditary,DefBump,DefGoodsteinSeq,DefOrdMap,DefIndicator,DefNonStandard definition\n    class LemOrdDec,LemWellFound,LemIndicator,LemGoodsteinImpl,LemEps0 lemma\n    class ThmGoodstein,ThmKirbyParis theorem\n    class CorProvable corollary",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

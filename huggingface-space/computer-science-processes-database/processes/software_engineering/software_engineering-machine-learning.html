@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Machine Learning - Computer Science Process</title>
+    <title>Agile Scrum Sprint - Computer Science Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Machine Learning</h1>
+            <h1>Agile Scrum Sprint</h1>
             <div class="header-meta">
                 <span class="meta-item">Computer Science</span>
                 <span class="meta-item">Software Engineering</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,67 +234,63 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Machine Learning process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>A Scrum sprint delivers a potentially shippable increment in a fixed timebox: the team plans and selects a sprint backlog from the product backlog, develops through daily standups, removing impediments as they arise, and when the timebox ends holds a sprint review to demo and a retrospective to improve.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-A1[Data Input] --> B1[Machine Learning Method]
-C1[Feature Engineering] --> D1[Model Training]
-E1[Model Evaluation] --> F1[Machine Learning Analysis]
-B1 --> G1[Supervised Learning]
-D1 --> H1[Unsupervised Learning]
-F1 --> I1[Reinforcement Learning]
-G1 --> J1[Classification Algorithm]
-H1 --> K1[Clustering Algorithm]
-I1 --> L1[Q Learning]
-J1 --> M1[Model Optimization]
-K1 --> L1
-L1 --> N1[Policy Learning]
-M1 --> O1[Hyperparameter Tuning]
-N1 --> P1[Model Validation]
-O1 --> Q1[Machine Learning Process]
-P1 --> R1[Machine Learning Validation]
-Q1 --> S1[Machine Learning Verification]
-R1 --> T1[Machine Learning Result]
-S1 --> U1[Machine Learning Analysis]
-T1 --> V1[Machine Learning Parameters]
-U1 --> W1[Machine Learning Output]
-V1 --> X1[Machine Learning Analysis]
-W1 --> Y1[Machine Learning Final Result]
-X1 --> Z1[Machine Learning Complete]
+    N1["Product backlog"]
+    N2["Sprint planning"]
+    N3["Select sprint backlog"]
+    N4["Daily standup"]
+    N5["Develop increment"]
+    N6{"Blockers raised?"}
+    N7["Resolve impediments"]
+    N8{"Sprint timebox ended?"}
+    N9["Continue work"]
+    N10["Sprint review (demo)"]
+    N11["Retrospective"]
+    N12["Shippable increment"]
 
-    style A1 fill:#ff6b6b,color:#fff
-    style C1 fill:#ff6b6b,color:#fff
-    style E1 fill:#ff6b6b,color:#fff
-    style B1 fill:#ffd43b,color:#000
-    style D1 fill:#ffd43b,color:#000
-    style F1 fill:#ffd43b,color:#000
-    style G1 fill:#ffd43b,color:#000
-    style H1 fill:#ffd43b,color:#000
-    style I1 fill:#ffd43b,color:#000
-    style J1 fill:#ffd43b,color:#000
-    style K1 fill:#ffd43b,color:#000
-    style L1 fill:#ffd43b,color:#000
-    style M1 fill:#51cf66,color:#fff
-    style N1 fill:#51cf66,color:#fff
-    style O1 fill:#51cf66,color:#fff
-    style P1 fill:#51cf66,color:#fff
-    style Q1 fill:#51cf66,color:#fff
-    style R1 fill:#51cf66,color:#fff
-    style S1 fill:#51cf66,color:#fff
-    style T1 fill:#51cf66,color:#fff
-    style U1 fill:#51cf66,color:#fff
-    style V1 fill:#51cf66,color:#fff
-    style W1 fill:#51cf66,color:#fff
-    style X1 fill:#51cf66,color:#fff
-    style Y1 fill:#51cf66,color:#fff
-    style Z1 fill:#b197fc,color:#fff
+    N1 --> N2
+    N2 --> N3
+    N3 --> N4
+    N4 --> N5
+    N5 --> N6
+    N6 -->|yes| N7
+    N7 -->|unblock| N4
+    N6 -->|no| N8
+    N8 -->|no| N9
+    N9 -->|iterate| N4
+    N8 -->|yes| N10
+    N10 --> N11
+    N11 --> N12
+
+    style N1 fill:#ff6b6b,color:#fff
+    style N2 fill:#51cf66,color:#fff
+    style N3 fill:#51cf66,color:#fff
+    style N4 fill:#51cf66,color:#fff
+    style N5 fill:#51cf66,color:#fff
+    style N6 fill:#74c0fc,color:#fff
+    style N7 fill:#51cf66,color:#fff
+    style N8 fill:#74c0fc,color:#fff
+    style N9 fill:#51cf66,color:#fff
+    style N10 fill:#51cf66,color:#fff
+    style N11 fill:#51cf66,color:#fff
+    style N12 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Product backlog</td><td>Triggers & Inputs</td><td><a href="https://scrumguides.org/scrum-guide.html" target="_blank" title="The Scrum Guide: The Definitive Guide to Scrum" style="color:#9b59b6;">Schwaber, K. et al. 2020</a></td></tr><tr><td style="font-weight:600;">Sprint planning</td><td>Processing & Operations</td><td><a href="https://scrumguides.org/scrum-guide.html" target="_blank" title="The Scrum Guide: The Definitive Guide to Scrum" style="color:#9b59b6;">Schwaber, K. et al. 2020</a></td></tr><tr><td style="font-weight:600;">Select sprint backlog</td><td>Processing & Operations</td><td><a href="https://scrumguides.org/scrum-guide.html" target="_blank" title="The Scrum Guide: The Definitive Guide to Scrum" style="color:#9b59b6;">Schwaber, K. et al. 2020</a></td></tr><tr><td style="font-weight:600;">Daily standup</td><td>Processing & Operations</td><td><a href="https://scrumguides.org/scrum-guide.html" target="_blank" title="The Scrum Guide: The Definitive Guide to Scrum" style="color:#9b59b6;">Schwaber, K. et al. 2020</a></td></tr><tr><td style="font-weight:600;">Develop increment</td><td>Processing & Operations</td><td><a href="https://agilemanifesto.org/" target="_blank" title="Manifesto for Agile Software Development" style="color:#9b59b6;">Beck, K. et al. 2001</a></td></tr><tr><td style="font-weight:600;">Blockers raised?</td><td>Intermediates & States</td><td><a href="https://scrumguides.org/scrum-guide.html" target="_blank" title="The Scrum Guide: The Definitive Guide to Scrum" style="color:#9b59b6;">Schwaber, K. et al. 2020</a></td></tr><tr><td style="font-weight:600;">Resolve impediments</td><td>Processing & Operations</td><td><a href="https://scrumguides.org/scrum-guide.html" target="_blank" title="The Scrum Guide: The Definitive Guide to Scrum" style="color:#9b59b6;">Schwaber, K. et al. 2020</a></td></tr><tr><td style="font-weight:600;">Sprint timebox ended?</td><td>Intermediates & States</td><td><a href="https://scrumguides.org/scrum-guide.html" target="_blank" title="The Scrum Guide: The Definitive Guide to Scrum" style="color:#9b59b6;">Schwaber, K. et al. 2020</a></td></tr><tr><td style="font-weight:600;">Continue work</td><td>Processing & Operations</td><td><a href="https://scrumguides.org/scrum-guide.html" target="_blank" title="The Scrum Guide: The Definitive Guide to Scrum" style="color:#9b59b6;">Schwaber, K. et al. 2020</a></td></tr><tr><td style="font-weight:600;">Sprint review (demo)</td><td>Processing & Operations</td><td><a href="https://scrumguides.org/scrum-guide.html" target="_blank" title="The Scrum Guide: The Definitive Guide to Scrum" style="color:#9b59b6;">Schwaber, K. et al. 2020</a></td></tr><tr><td style="font-weight:600;">Retrospective</td><td>Processing & Operations</td><td><a href="https://scrumguides.org/scrum-guide.html" target="_blank" title="The Scrum Guide: The Definitive Guide to Scrum" style="color:#9b59b6;">Schwaber, K. et al. 2020</a></td></tr><tr><td style="font-weight:600;">Shippable increment</td><td>Products & Outputs</td><td><a href="https://scrumguides.org/scrum-guide.html" target="_blank" title="The Scrum Guide: The Definitive Guide to Scrum" style="color:#9b59b6;">Schwaber, K. et al. 2020</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -313,12 +336,12 @@ X1 --> Z1[Machine Learning Complete]
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 26</li>
-                        <li><strong>Edges:</strong> 21</li>
-                        <li><strong>Conditionals:</strong> 0</li>
+                        <li><strong>Nodes:</strong> 12</li>
+                        <li><strong>Edges:</strong> 13</li>
+                        <li><strong>Conditionals:</strong> 2</li>
                         <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 1</li>
+                        <li><strong>OR Gates:</strong> 2</li>
+                        <li><strong>Total Gates:</strong> 3</li>
                     </ul>
                 </div>
                 
@@ -326,7 +349,7 @@ X1 --> Z1[Machine Learning Complete]
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>machine</li><li>learning</li>
+                        <li>Scrum</li><li>sprint</li><li>agile</li><li>sprint backlog</li><li>retrospective</li>
                     </ul>
                 </div>
                 
@@ -337,43 +360,23 @@ X1 --> Z1[Machine Learning Complete]
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>The Scrum Guide: The Definitive Guide to Scrum</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Schwaber, K.; Sutherland, J.
+                            , scrumguides.org
+                             (2020)
                             </span>
                             
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #9b59b6; font-size: 0.85em;">View Source</a>
+                            <br><a href="https://scrumguides.org/scrum-guide.html" target="_blank" style="color: #9b59b6; font-size: 0.85em;">View Source</a>
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Machine learning with sklearn</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Trappenberg, Thomas P.
-                            , Fundamentals of Machine Learning
-                             (2019)
+                            <strong>Manifesto for Agile Software Development</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Beck, K.; et al.
+                            , agilemanifesto.org
+                             (2001)
                             </span>
-                            <br><a href="https://doi.org/10.1093/oso/9780198828044.003.0003" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.1093/oso/9780198828044.003.0003</a>
                             
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Optimization and Machine Learning</strong>
-                            
-                            
-                             (2022)
-                            </span>
-                            <br><a href="https://doi.org/10.1002/9781119902881" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.1002/9781119902881</a>
-                            
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Machine learning</strong>
-                            
-                            , Bayesian Reasoning and Machine Learning
-                             (2012)
-                            </span>
-                            <br><a href="https://doi.org/10.1017/cbo9780511804779.017" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.1017/cbo9780511804779.017</a>
-                            
+                            <br><a href="https://agilemanifesto.org/" target="_blank" style="color: #9b59b6; font-size: 0.85em;">View Source</a>
                         </li>
                         
                     </ul>

@@ -4,18 +4,20 @@
   "category": "computer_science",
   "subcategory": "software_engineering",
   "subcategory_name": "Software Engineering",
-  "description": "Code Review Workflow process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "Code review gates changes into the main branch: an author opens a pull request that triggers CI, reviewers read the diff in context, and any change requests send the author back to revise; once discussions are resolved and the reviewers approve, the change is merged and integrated.",
   "complexity": {
     "nodes": 10,
-    "edges": 10,
-    "conditionals": 0,
+    "edges": 11,
+    "conditionals": 2,
     "logicGates": {
-      "orGates": 1,
+      "orGates": 2,
       "andGates": 1,
-      "total": 2
+      "notGates": 0,
+      "total": 3
     },
-    "level": "medium",
-    "detailLevel": "medium"
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 2
   },
   "colorScheme": {
     "red": {
@@ -39,54 +41,141 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nN1[\"Pull Request\"]\nN2[\"Change Context\"]\nN3[\"Reviewers\"]\nN4[\"Choose Approach\"]\nN5[\"Diff + Checks\"]\nN6[\"Automated CI\"]\nN7[\"Human Review\"]\nN8[\"Address Feedback\"]\nN9[\"Integrate Results\"]\nN10[\"Merge\"]\n\nN1 --> N2\nN2 --> N3\nN3 --> N4\nN4 --> N5\nN4 --> N7\nN5 --> N6\nN7 --> N8\nN6 --> N9\nN8 --> N9\nN9 --> N10\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#ff6b6b,color:#fff\n    style N3 fill:#ffd43b,color:#000\n    style N4 fill:#ffd43b,color:#000\n    style N5 fill:#ffd43b,color:#000\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#74c0fc,color:#fff\n    style N10 fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"Author opens PR\"]\n    N2[\"CI checks run\"]\n    N3[\"Reviewers assigned\"]\n    N4[\"Read diff + context\"]\n    N5{\"Change requests?\"}\n    N6[\"Author revises code\"]\n    N7{\"Approved?\"}\n    N8[\"Resolve discussions\"]\n    N9[\"Merge to main\"]\n    N10[\"Merged + integrated\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 --> N4\n    N4 --> N5\n    N5 -->|yes| N6\n    N6 -->|re-review| N4\n    N5 -->|no| N7\n    N7 -->|no| N8\n    N8 -->|discuss| N4\n    N7 -->|yes| N9\n    N9 --> N10\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#74c0fc,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#74c0fc,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#51cf66,color:#fff\n    style N10 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
-      "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: Code Review Workflow. Created using the Programming Framework methodology."
+      "title": "Expectations, outcomes, and challenges of modern code review",
+      "authors": "Bacchelli, A.; Bird, C.",
+      "journal": "International Conference on Software Engineering (ICSE)",
+      "year": "2013",
+      "doi": "10.1109/ICSE.2013.6606617",
+      "url": "https://doi.org/10.1109/ICSE.2013.6606617"
     },
     {
-      "title": "Crossref work (10.7287/peerj.preprints.2163v1/supp-5)",
-      "authors": "",
-      "journal": "Supplemental Information 5: Code review process workflow and structured unit testable code template block diagram",
-      "year": "None",
-      "pubmed": null,
-      "doi": "10.7287/peerj.preprints.2163v1/supp-5",
-      "url": "https://doi.org/10.7287/peerj.preprints.2163v1/supp-5"
-    },
-    {
-      "title": "Crossref work (10.7287/peerj.preprints.2163/supp-5)",
-      "authors": "",
-      "journal": "Supplemental Information 5: Code review process workflow and structured unit testable code template block diagram",
-      "year": "None",
-      "pubmed": null,
-      "doi": "10.7287/peerj.preprints.2163/supp-5",
-      "url": "https://doi.org/10.7287/peerj.preprints.2163/supp-5"
-    },
-    {
-      "title": "Supplemental Information 1: Diagram of code workflow.",
-      "authors": "",
-      "journal": "",
-      "year": "None",
-      "pubmed": null,
-      "doi": "10.7717/peerj.11298/supp-1",
-      "url": "https://doi.org/10.7717/peerj.11298/supp-1"
+      "title": "Design and code inspections to reduce errors in program development",
+      "authors": "Fagan, M. E.",
+      "journal": "IBM Systems Journal",
+      "year": "1976",
+      "doi": "10.1147/sj.153.0182",
+      "url": "https://doi.org/10.1147/sj.153.0182"
     }
   ],
   "keywords": [
-    "code",
-    "review",
-    "workflow"
+    "code review",
+    "pull request",
+    "modern code review",
+    "approval",
+    "merge"
   ],
   "relatedProcesses": [],
   "created": "2026-01-15",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations.\nCurated Mermaid applied (citations preserved)."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "namedCollections": [],
+  "graphMetrics": {
+    "nodes": 10,
+    "edges": 11,
+    "conditionals": 2,
+    "andGates": 1,
+    "orGates": 2,
+    "notGates": 0,
+    "loops": 2
+  },
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Author opens PR",
+      "detail": "Proposed change",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N2",
+      "label": "CI checks run",
+      "detail": "Automated gates",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N3",
+      "label": "Reviewers assigned",
+      "detail": "Subject experts",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N4",
+      "label": "Read diff + context",
+      "detail": "Understand change",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N5",
+      "label": "Change requests?",
+      "detail": "Issues raised",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N6",
+      "label": "Author revises code",
+      "detail": "Address feedback",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N7",
+      "label": "Approved?",
+      "detail": "Reviewer sign-off",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N8",
+      "label": "Resolve discussions",
+      "detail": "Close threads",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N9",
+      "label": "Merge to main",
+      "detail": "Integrate change",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N10",
+      "label": "Merged + integrated",
+      "detail": "In trunk",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 0
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:software_engineering-code-review-workflow",
+    "graphType": "decision_flowchart",
+    "topologySignature": "751f91c24482a567",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "graphType": "decision_flowchart",
+  "domainContext": "Software engineering"
 }

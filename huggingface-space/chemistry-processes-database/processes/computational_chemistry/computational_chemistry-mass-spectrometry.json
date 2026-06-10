@@ -1,21 +1,23 @@
 {
   "id": "computational_chemistry-mass-spectrometry",
-  "name": "Mass Spectrometry",
+  "name": "Geometry Optimization",
   "category": "chemistry",
   "subcategory": "computational_chemistry",
   "subcategory_name": "Computational Chemistry",
-  "description": "Mass Spectrometry process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "Geometry optimization finds a stationary point by iteratively stepping along energy gradients until they vanish; a subsequent frequency calculation confirms a true minimum (no imaginary modes) or signals a saddle that must be re-optimized.",
   "complexity": {
-    "nodes": 26,
-    "edges": 22,
-    "conditionals": 0,
+    "nodes": 10,
+    "edges": 11,
+    "conditionals": 2,
     "logicGates": {
-      "orGates": 0,
+      "orGates": 2,
       "andGates": 1,
-      "total": 1
+      "notGates": 0,
+      "total": 3
     },
-    "level": "medium",
-    "detailLevel": "medium"
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 2
   },
   "colorScheme": {
     "red": {
@@ -39,53 +41,151 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nA4[Sample Molecules] --> B4[Mass Spectrometry Method]\nC4[Ionization Source] --> D4[Mass Analyzer]\nE4[Detector System] --> F4[Data Collection]\nB4 --> G4[Sample Introduction]\nD4 --> H4[Mass Separation]\nF4 --> I4[Signal Processing]\nG4 --> J4[Sample Vaporization]\nH4 --> K4[Mass-to-Charge Ratio]\nI4 --> L4[Ion Detection]\nJ4 --> M4[Molecular Ionization]\nK4 --> L4\nL4 --> N4[Ion Separation]\nM4 --> O4[Ion Formation]\nN4 --> P4[Mass Analysis]\nO4 --> Q4[Spectroscopic Analysis]\nP4 --> R4[Mass Spectrum]\nQ4 --> S4[Fragmentation Analysis]\nR4 --> T4[Molecular Weight]\nS4 --> U4[Fragmentation Pattern]\nT4 --> V4[Molecular Identification]\nU4 --> W4[Spectroscopic Efficiency]\nV4 --> X4[Molecular Characterization]\nW4 --> Y4[Process Optimization]\nX4 --> Z4[Final Mass Spectrum]\nY4 --> Z4\n\n    style A4 fill:#ff6b6b,color:#fff\n    style C4 fill:#ff6b6b,color:#fff\n    style E4 fill:#ff6b6b,color:#fff\n    style B4 fill:#ffd43b,color:#000\n    style D4 fill:#ffd43b,color:#000\n    style F4 fill:#ffd43b,color:#000\n    style G4 fill:#ffd43b,color:#000\n    style H4 fill:#ffd43b,color:#000\n    style I4 fill:#ffd43b,color:#000\n    style J4 fill:#ffd43b,color:#000\n    style K4 fill:#ffd43b,color:#000\n    style L4 fill:#ffd43b,color:#000\n    style M4 fill:#51cf66,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style O4 fill:#51cf66,color:#fff\n    style P4 fill:#51cf66,color:#fff\n    style Q4 fill:#51cf66,color:#fff\n    style R4 fill:#51cf66,color:#fff\n    style S4 fill:#51cf66,color:#fff\n    style T4 fill:#51cf66,color:#fff\n    style U4 fill:#51cf66,color:#fff\n    style V4 fill:#51cf66,color:#fff\n    style W4 fill:#51cf66,color:#fff\n    style X4 fill:#51cf66,color:#fff\n    style Y4 fill:#51cf66,color:#fff\n    style Z4 fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"Initial structure\"]\n    N2[\"Energy + gradient\"]\n    N3{\"Gradient near zero?\"}\n    N4[\"Take optimizer step\"]\n    N5[\"Stationary point found\"]\n    N6[\"Frequency calculation\"]\n    N7{\"Imaginary modes?\"}\n    N8[\"Perturb + reoptimize\"]\n    N9[\"True minimum confirmed\"]\n    N10[\"Optimized geometry + thermo\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 -->|no| N4\n    N4 -->|step| N2\n    N3 -->|yes| N5\n    N5 --> N6\n    N6 --> N7\n    N7 -->|yes| N8\n    N8 -->|reoptimize| N2\n    N7 -->|no| N9\n    N9 --> N10\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#74c0fc,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#74c0fc,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#51cf66,color:#fff\n    style N10 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "title": "Geometry optimization in redundant internal coordinates",
+      "authors": "Pulay, P.; Fogarasi, G.",
+      "journal": "Journal of Chemical Physics",
+      "year": "1992",
+      "doi": "10.1063/1.462844",
+      "url": "https://doi.org/10.1063/1.462844"
+    },
+    {
+      "title": "Introduction to Computational Chemistry, 3rd ed. — Optimization Techniques",
+      "authors": "Jensen, F.",
+      "journal": "Wiley",
+      "year": "2017",
+      "doi": "10.1002/9781119839118",
+      "url": "https://doi.org/10.1002/9781119839118"
+    },
+    {
+      "title": "Essentials of Computational Chemistry, 2nd ed. — Potential Energy Surfaces",
+      "authors": "Cramer, C. J.",
+      "journal": "Wiley",
+      "year": "2004",
       "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: Mass Spectrometry. Created using the Programming Framework methodology."
-    },
-    {
-      "title": "Tandem mass spectrometry",
-      "authors": "McCullagh, James; Oldham, Neil",
-      "journal": "Mass Spectrometry",
-      "year": "2019",
-      "pubmed": null,
-      "doi": "10.1093/hesc/9780198789048.003.0005",
-      "url": "https://doi.org/10.1093/hesc/9780198789048.003.0005"
-    },
-    {
-      "title": "Mass spectrometry applications",
-      "authors": "McCullagh, James; Oldham, Neil",
-      "journal": "Mass Spectrometry",
-      "year": "2019",
-      "pubmed": null,
-      "doi": "10.1093/hesc/9780198789048.003.0008",
-      "url": "https://doi.org/10.1093/hesc/9780198789048.003.0008"
-    },
-    {
-      "title": "K. Busch, G. Glish and S. Mcluckey. Mass spectrometry/mass spectrometry: Techniques and applications of tandem mass spectrometry, VCH publishing, New York, 1988. Mass Spectrometry/Mass Spectrometry",
-      "authors": "Musselman, Brian D.",
-      "journal": "Biological Mass Spectrometry",
-      "year": "1989",
-      "pubmed": null,
-      "doi": "10.1002/bms.1200181017",
-      "url": "https://doi.org/10.1002/bms.1200181017"
+      "url": "https://www.wiley.com/en-us/Essentials+of+Computational+Chemistry%3A+Theories+and+Models%2C+2nd+Edition-p-9780470091821"
     }
   ],
   "keywords": [
-    "mass",
-    "spectrometry"
+    "geometry optimization",
+    "energy gradient",
+    "stationary point",
+    "frequency analysis",
+    "minimum"
   ],
   "relatedProcesses": [],
   "created": "2026-01-08",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Initial structure",
+      "detail": "Starting coordinates",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 1
+    },
+    {
+      "id": "N2",
+      "label": "Energy + gradient",
+      "detail": "Forces on atoms",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N3",
+      "label": "Gradient near zero?",
+      "detail": "Convergence test",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N4",
+      "label": "Take optimizer step",
+      "detail": "Quasi-Newton (BFGS)",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N5",
+      "label": "Stationary point found",
+      "detail": "Forces vanish",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N6",
+      "label": "Frequency calculation",
+      "detail": "Characterize curvature",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N7",
+      "label": "Imaginary modes?",
+      "detail": "Minimum vs saddle",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 2
+    },
+    {
+      "id": "N8",
+      "label": "Perturb + reoptimize",
+      "detail": "Distort along soft mode",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N9",
+      "label": "True minimum confirmed",
+      "detail": "All real frequencies",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N10",
+      "label": "Optimized geometry + thermo",
+      "detail": "Structure and free energy",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 2
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:computational_chemistry-mass-spectrometry",
+    "graphType": "cyclic_pathway",
+    "topologySignature": "e679e8766ad782ee",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "namedCollections": [
+    "computational-chemistry"
+  ],
+  "graphMetrics": {
+    "nodes": 10,
+    "edges": 11,
+    "conditionals": 2,
+    "andGates": 1,
+    "orGates": 2,
+    "notGates": 0,
+    "loops": 2
+  },
+  "graphType": "cyclic_pathway",
+  "domainContext": "Molecular structure optimization"
 }

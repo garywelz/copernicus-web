@@ -1,0 +1,201 @@
+{
+  "id": "development-epithelial-mesenchymal-transition",
+  "name": "Epithelial-Mesenchymal Transition",
+  "category": "biology",
+  "subcategory": "development",
+  "subcategory_name": "Development and Organismal Biology",
+  "description": "Epithelial-mesenchymal transition: TGF-beta/Wnt signals induce Snail/Zeb/Twist factors that repress E-cadherin, dissolve junctions and polarity, and confer a migratory mesenchymal phenotype that can revert via MET.",
+  "keywords": [
+    "emt",
+    "e-cadherin",
+    "snail",
+    "twist",
+    "migration",
+    "met"
+  ],
+  "namedCollections": [
+    "signaling-cell-fate"
+  ],
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "complexity": {
+    "nodes": 11,
+    "edges": 11,
+    "conditionals": 1,
+    "logicGates": {
+      "orGates": 1,
+      "andGates": 1,
+      "notGates": 0,
+      "total": 2
+    },
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 1
+  },
+  "graphMetrics": {
+    "nodes": 11,
+    "edges": 11,
+    "conditionals": 1,
+    "andGates": 1,
+    "orGates": 1,
+    "notGates": 0,
+    "loops": 1
+  },
+  "mermaid": "graph TD\n    N1[\"TGF-b / Wnt signal\"]\n    N2[\"Receptor signaling (SMAD)\"]\n    N3[\"EMT-TFs: Snail/Zeb/Twist\"]\n    N4[\"Repress E-cadherin (CDH1)\"]\n    N5[\"Loss of cell-cell junctions\"]\n    N6[\"Cytoskeletal remodeling\"]\n    N7[\"Gain N-cadherin/vimentin\"]\n    N8[\"Apical-basal polarity lost\"]\n    N9[\"Migratory/invasive cell\"]\n    N10{\"Revert via MET?\"}\n    N11[\"Epithelial state restored\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 --> N4\n    N4 --> N5\n    N5 --> N6\n    N6 --> N7\n    N7 --> N8\n    N8 --> N9\n    N9 --> N10\n    N10 -->|MET| N11\n    N10 -->|persist| N9\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#74c0fc,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#74c0fc,color:#fff\n    style N9 fill:#b197fc,color:#fff\n    style N10 fill:#74c0fc,color:#fff\n    style N11 fill:#b197fc,color:#fff",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "TGF-b / Wnt signal",
+      "detail": "EMT-inducing extracellular signal",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 2
+    },
+    {
+      "id": "N2",
+      "label": "Receptor signaling (SMAD)",
+      "detail": "Intracellular transduction to the nucleus",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N3",
+      "label": "EMT-TFs: Snail/Zeb/Twist",
+      "detail": "Induction of EMT transcription factors",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N4",
+      "label": "Repress E-cadherin (CDH1)",
+      "detail": "Transcriptional repression of E-cadherin",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N5",
+      "label": "Loss of cell-cell junctions",
+      "detail": "Adherens junctions dismantled",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N6",
+      "label": "Cytoskeletal remodeling",
+      "detail": "Actin reorganization for motility",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N7",
+      "label": "Gain N-cadherin/vimentin",
+      "detail": "Mesenchymal marker expression",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N8",
+      "label": "Apical-basal polarity lost",
+      "detail": "Front-rear polarity established",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 2
+    },
+    {
+      "id": "N9",
+      "label": "Migratory/invasive cell",
+      "detail": "Motile mesenchymal cell",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 1
+    },
+    {
+      "id": "N10",
+      "label": "Revert via MET?",
+      "detail": "Mesenchymal-epithelial transition checkpoint",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N11",
+      "label": "Epithelial state restored",
+      "detail": "Re-epithelialization at destination",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 1
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:development-epithelial-mesenchymal-transition",
+    "graphType": "mechanism_flowchart",
+    "topologySignature": "f0c6428677399442",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "lastUpdated": "2026-06-01",
+  "verified": false,
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "sources": [
+    {
+      "title": "Epithelial-mesenchymal transitions in development and disease",
+      "authors": "Thiery, J. P.; Acloque, H.; Huang, R. Y.; Nieto, M. A.",
+      "journal": "Cell",
+      "year": "2009",
+      "pubmed": "19945376",
+      "doi": "10.1016/j.cell.2009.11.007",
+      "url": "https://doi.org/10.1016/j.cell.2009.11.007"
+    },
+    {
+      "title": "EMT: 2016",
+      "authors": "Nieto, M. A.; Huang, R. Y.; Jackson, R. A.; Thiery, J. P.",
+      "journal": "Cell",
+      "year": "2016",
+      "pubmed": "27368099",
+      "doi": "10.1016/j.cell.2016.06.028",
+      "url": "https://doi.org/10.1016/j.cell.2016.06.028"
+    },
+    {
+      "title": "Molecular mechanisms of epithelial-mesenchymal transition",
+      "authors": "Lamouille, S.; Xu, J.; Derynck, R.",
+      "journal": "Nature Reviews Molecular Cell Biology",
+      "year": "2014",
+      "pubmed": "24556840",
+      "doi": "10.1038/nrm3758",
+      "url": "https://doi.org/10.1038/nrm3758"
+    }
+  ],
+  "graphType": "mechanism_flowchart",
+  "domainContext": "Developmental cell plasticity"
+}

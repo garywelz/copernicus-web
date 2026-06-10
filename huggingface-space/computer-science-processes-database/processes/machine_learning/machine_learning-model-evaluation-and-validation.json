@@ -1,21 +1,23 @@
 {
   "id": "machine_learning-model-evaluation-and-validation",
-  "name": "Model Evaluation and Validation",
+  "name": "Model Evaluation & Validation",
   "category": "computer_science",
   "subcategory": "machine_learning",
   "subcategory_name": "Machine Learning",
-  "description": "Model Evaluation and Validation process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "Model evaluation estimates generalization rather than training fit: metrics are chosen by task (precision/recall for classification, RMSE/R-squared for regression), k-fold cross-validation gives mean and variance of performance, the bias-variance regime is diagnosed, and a final held-out test confirms the model generalizes before acceptance.",
   "complexity": {
-    "nodes": 10,
-    "edges": 10,
-    "conditionals": 0,
+    "nodes": 11,
+    "edges": 13,
+    "conditionals": 3,
     "logicGates": {
-      "orGates": 1,
-      "andGates": 1,
-      "total": 2
+      "orGates": 3,
+      "andGates": 3,
+      "notGates": 0,
+      "total": 6
     },
-    "level": "medium",
-    "detailLevel": "medium"
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 1
   },
   "colorScheme": {
     "red": {
@@ -39,55 +41,148 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nN1[\"Trained Model\"]\nN2[\"Holdout/Test Data\"]\nN3[\"Evaluation Protocol\"]\nN4[\"Choose Approach\"]\nN5[\"Metrics\"]\nN6[\"Run Predictions\"]\nN7[\"Compute Metrics\"]\nN8[\"Error Analysis\"]\nN9[\"Integrate Results\"]\nN10[\"Validation Report\"]\n\nN1 --> N2\nN2 --> N3\nN3 --> N4\nN4 --> N5\nN4 --> N7\nN5 --> N6\nN7 --> N8\nN6 --> N9\nN8 --> N9\nN9 --> N10\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#ff6b6b,color:#fff\n    style N3 fill:#ffd43b,color:#000\n    style N4 fill:#ffd43b,color:#000\n    style N5 fill:#ffd43b,color:#000\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#74c0fc,color:#fff\n    style N9 fill:#74c0fc,color:#fff\n    style N10 fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"Trained model + test set\"]\n    N2{\"Choose metric (task)\"}\n    N3[\"Classification: P/R/F1\"]\n    N4[\"Regression: RMSE/R^2\"]\n    N5[\"K-fold cross-validation\"]\n    N6[\"Compute mean + variance\"]\n    N7{\"High bias or variance?\"}\n    N8[\"Diagnose under/overfit\"]\n    N9[\"Check on held-out test\"]\n    N10{\"Generalization ok?\"}\n    N11[\"Validated model\"]\n\n    N1 --> N2\n    N2 -->|classification| N3\n    N2 -->|regression| N4\n    N3 --> N5\n    N4 --> N5\n    N5 --> N6\n    N6 --> N7\n    N7 -->|yes| N8\n    N7 -->|no| N9\n    N8 --> N9\n    N9 --> N10\n    N10 -->|no| N8\n    N10 -->|yes| N11\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#74c0fc,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#74c0fc,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#51cf66,color:#fff\n    style N10 fill:#74c0fc,color:#fff\n    style N11 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
-      "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: Model Evaluation and Validation. Created using the Programming Framework methodology."
+      "title": "The Elements of Statistical Learning (2nd ed.)",
+      "authors": "Hastie, T.; Tibshirani, R.; Friedman, J.",
+      "journal": "Springer",
+      "year": "2009",
+      "doi": "10.1007/978-0-387-84858-7",
+      "url": "https://doi.org/10.1007/978-0-387-84858-7"
     },
     {
-      "title": "Figure 3: Evaluation and validation of prognostic model.",
-      "authors": "",
-      "journal": "",
-      "year": "None",
-      "pubmed": null,
-      "doi": "10.7717/peerj.20031/fig-3",
-      "url": "https://doi.org/10.7717/peerj.20031/fig-3"
-    },
-    {
-      "title": "Figure 15: Validation phase evaluation of ResNet-50 Model.",
-      "authors": "",
-      "journal": "",
-      "year": "None",
-      "pubmed": null,
-      "doi": "10.7717/peerjcs.1651/fig-15",
-      "url": "https://doi.org/10.7717/peerjcs.1651/fig-15"
-    },
-    {
-      "title": "Table 8: Evaluation of trained CRF model on external validation data.",
-      "authors": "",
-      "journal": "",
-      "year": "None",
-      "pubmed": null,
-      "doi": "10.7717/peerj-cs.2577/table-8",
-      "url": "https://doi.org/10.7717/peerj-cs.2577/table-8"
+      "title": "A study of cross-validation and bootstrap for accuracy estimation and model selection",
+      "authors": "Kohavi, R.",
+      "journal": "International Joint Conference on Artificial Intelligence",
+      "year": "1995",
+      "url": "https://www.ijcai.org/Proceedings/95-2/Papers/016.pdf"
     }
   ],
   "keywords": [
-    "model",
-    "evaluation",
-    "and",
-    "validation"
+    "model evaluation",
+    "cross-validation",
+    "bias-variance",
+    "generalization",
+    "held-out test"
   ],
   "relatedProcesses": [],
   "created": "2026-01-15",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations.\nCurated Mermaid applied (citations preserved)."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "namedCollections": [],
+  "graphMetrics": {
+    "nodes": 11,
+    "edges": 13,
+    "conditionals": 3,
+    "andGates": 3,
+    "orGates": 3,
+    "notGates": 0,
+    "loops": 1
+  },
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Trained model + test set",
+      "detail": "Evaluation inputs",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N2",
+      "label": "Choose metric (task)",
+      "detail": "Problem type",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N3",
+      "label": "Classification: P/R/F1",
+      "detail": "Confusion matrix",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N4",
+      "label": "Regression: RMSE/R^2",
+      "detail": "Error metrics",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N5",
+      "label": "K-fold cross-validation",
+      "detail": "Resample splits",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N6",
+      "label": "Compute mean + variance",
+      "detail": "Score stability",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N7",
+      "label": "High bias or variance?",
+      "detail": "Diagnose regime",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N8",
+      "label": "Diagnose under/overfit",
+      "detail": "Adjust complexity",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N9",
+      "label": "Check on held-out test",
+      "detail": "Final estimate",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N10",
+      "label": "Generalization ok?",
+      "detail": "Meets target",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N11",
+      "label": "Validated model",
+      "detail": "Accepted",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 0
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:machine_learning-model-evaluation-and-validation",
+    "graphType": "decision_flowchart",
+    "topologySignature": "1d0e58fad1ec0c0d",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "graphType": "decision_flowchart",
+  "domainContext": "Machine learning"
 }

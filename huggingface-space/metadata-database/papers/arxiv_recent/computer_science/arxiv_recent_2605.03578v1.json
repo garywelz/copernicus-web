@@ -1,0 +1,38 @@
+{
+  "id": "arxiv_2605.03578v1",
+  "arxiv_id": "2605.03578v1",
+  "title": "Expanding functional protein sequence space using high entropy generative models",
+  "authors": [
+    "Roberto Netti",
+    "Emily Hinds",
+    "Francesco Calvanese",
+    "Rama Ranganathan",
+    "Martin Weigt",
+    "Francesco Zamponi"
+  ],
+  "author_string": "Roberto Netti, Emily Hinds, Francesco Calvanese, Rama Ranganathan, Martin Weigt et al.",
+  "journal": "arXiv:2605.03578v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Boltzmann Machines trained on evolutionary sequence data have emerged as a powerful paradigm for the data-driven design of artificial proteins. However, the relationship between model architecture, specifically parameter density, and experimental performance remains poorly understood. Here, we investigate this relationship using the Chorismate Mutase enzyme family as a model system. We compare standard fully connected Boltzmann Machines for Direct Coupling Analysis (bmDCA) with sparse models generated via progressive edge activation (eaDCA) and edge decimation (edDCA). We identify a maximum-entropy model (meDCA) along the decimation trajectory that represents an optimal balance between constraint satisfaction and the flexibility of the probability distribution. We synthesized and tested artificial sequences from all models using an in vivo complementation assay, finding that all architectures, regardless of sparsity, generate functional enzymes with high success rates, even at significant divergence from natural sequences. Despite this functional equivalence, we demonstrate that the meDCA model samples a viable sequence space that is more than fifteen orders of magnitude larger than its low-entropy counterparts. Furthermore, comparative analyses reveal that high-entropy models systematically minimize overfitting and better capture the local neutral spaces surrounding natural proteins. These findings suggest that while various models satisfying coevolutionary statistics can generate functional sequences, high-entropy Boltzmann Machines provide a superior representation of the underlying evolutionary fitness landscape.",
+  "categories": [
+    "q-bio.QM",
+    "cond-mat.stat-mech",
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": "12 pages, 4 figures + Supplementary Information",
+  "published_date": "2026-05-05T09:45:46Z",
+  "updated_date": "2026-05-05T09:45:46Z",
+  "url": "https://arxiv.org/abs/2605.03578v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.03578v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-11T22:15:34.111582",
+  "category": "computer_science",
+  "subcategories": [
+    "q-bio.QM",
+    "cond-mat.stat-mech",
+    "cs.LG"
+  ]
+}

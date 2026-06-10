@@ -56,7 +56,7 @@
   },
   "conditionals": 62,
   "created": "2025-10-14",
-  "description": "Yeast vacuolar protein sorting (VPS) in *Saccharomyces cerevisiae* is a critical pathway for delivering newly synthesized proteins, such as hydrolases and membrane proteins, to the vacuole \u2013 the fungal equivalent of lysosomes. This process ensures proper cellular degradation, nutrient recycling, and storage. The pathway begins with protein synthesis and folding in the Endoplasmic Reticulum (ER). Correctly folded proteins are then transported via COPII vesicles to the Golgi apparatus, which serves as the primary sorting hub.",
+  "description": "Yeast vacuolar protein sorting (VPS) in *Saccharomyces cerevisiae* is a critical pathway for delivering newly synthesized proteins, such as hydrolases and membrane proteins, to the vacuole – the fungal equivalent of lysosomes. This process ensures proper cellular degradation, nutrient recycling, and storage. The pathway begins with protein synthesis and folding in the Endoplasmic Reticulum (ER). Correctly folded proteins are then transported via COPII vesicles to the Golgi apparatus, which serves as the primary sorting hub.",
   "id": "process_Biological Process_yeast-vacuolar-protein-sorting",
   "keywords": [
     "yeast",
@@ -123,5 +123,6 @@
   ],
   "totalNodes": 54,
   "verified": true,
-  "verifiedBy": "AI-assisted generation with PubMed literature review"
+  "verifiedBy": "AI-assisted generation with PubMed literature review",
+  "loops": 6
 }

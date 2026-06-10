@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2605.12164v1",
+  "arxiv_id": "2605.12164v1",
+  "title": "A Comparative Analysis of CT Degradation for LDCT Nodule Classification using Radiomics",
+  "authors": [
+    "Jiaying Liu",
+    "Anna Corti",
+    "Valentina D. A. Corino",
+    "Luca Mainardi"
+  ],
+  "author_string": "Jiaying Liu, Anna Corti, Valentina D. A. Corino, Luca Mainardi",
+  "journal": "arXiv:2605.12164v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Low-dose computed tomography (LDCT) is the standard modality for lung cancer screening, known for its low radiation dose but high noise levels. While existing literature focuses on denoising LDCT images, comparative research on simulating LDCT characteristics to directly use these images for model development is lacking. This study shifts the focus from denoising images to degrading available standard-dose CT (SDCT) data, generating synthetic images for data augmentation to train classifiers for screening-detected nodules. We compare three degradation methods: (1) a sinogram domain statistical noise insertion; (2) replicate a validated physics-based simulation using Pix2Pix; and (3) unpaired CycleGAN. The generated images were utilized to simulate LDCT screening scenario replacing 695 SDCT cases from the LIDC-IDRI dataset, from which radiomic features were extracted to train machine learning models for lung nodule classification. Regarding image quality, CycleGAN achieved the best Fréchet inception distance (0.1734) and kernel inception distance (0.0813; 0.1002) scores, indicating distributional alignment with the target low-dose domain. In the nodule classification task, results confirmed the necessity of domain adaptation since a baseline model trained on non-degraded SDCT data failed to generalize to the real LDCT set (AUC 0.789) with a low sensitivity (0.571). Degraded images generated using CycleGAN approach led to the most balanced performance on the classification task using Adam Booster classifier, achieving an AUC of 0.861, sensitivity of 0.743 and specificity of 0.858 in the independent test. Our findings confirm that generating synthetic LDCT data from standard-dose scans is a viable strategy for training robust nodule classifiers for screening detected nodules.",
+  "categories": [
+    "eess.IV",
+    "physics.med-ph"
+  ],
+  "primary_category": "physics.med-ph",
+  "comment": null,
+  "published_date": "2026-05-12T14:13:32Z",
+  "updated_date": "2026-05-12T14:13:32Z",
+  "url": "https://arxiv.org/abs/2605.12164v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.12164v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-13T10:15:46.701017",
+  "category": "physics",
+  "subcategories": [
+    "eess.IV",
+    "physics.med-ph"
+  ]
+}

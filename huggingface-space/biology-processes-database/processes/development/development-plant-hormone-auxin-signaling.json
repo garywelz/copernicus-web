@@ -1,0 +1,185 @@
+{
+  "id": "development-plant-hormone-auxin-signaling",
+  "name": "Plant Hormone Auxin Signaling",
+  "category": "biology",
+  "subcategory": "development",
+  "subcategory_name": "Development and Organismal Biology",
+  "description": "Auxin signaling: rising auxin promotes TIR1/AFB-mediated ubiquitination and degradation of Aux/IAA repressors, freeing ARF transcription factors to drive auxin-response genes, with negative feedback from re-synthesized repressors.",
+  "keywords": [
+    "auxin",
+    "tir1",
+    "aux/iaa",
+    "arf",
+    "ubiquitin",
+    "tropism"
+  ],
+  "namedCollections": [
+    "signaling-cell-fate"
+  ],
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "complexity": {
+    "nodes": 9,
+    "edges": 9,
+    "conditionals": 1,
+    "logicGates": {
+      "orGates": 1,
+      "andGates": 1,
+      "notGates": 0,
+      "total": 2
+    },
+    "level": "medium",
+    "detailLevel": "source_grounded",
+    "loops": 1
+  },
+  "graphMetrics": {
+    "nodes": 9,
+    "edges": 9,
+    "conditionals": 1,
+    "andGates": 1,
+    "orGates": 1,
+    "notGates": 0,
+    "loops": 1
+  },
+  "mermaid": "graph TD\n    N1[\"Auxin (IAA) level rises\"]\n    N2[\"Auxin binds TIR1/AFB\"]\n    N3[\"Aux/IAA ubiquitinated\"]\n    N4[\"Aux/IAA degraded\"]\n    N5[\"ARF factors freed\"]\n    N6[\"Auxin-response genes on\"]\n    N7{\"Auxin now low?\"}\n    N8[\"Aux/IAA re-accumulate\"]\n    N9[\"Growth / tropism response\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 --> N4\n    N4 --> N5\n    N5 --> N6\n    N6 --> N7\n    N7 -->|low| N8\n    N8 -->|repress| N5\n    N7 -->|sufficient| N9\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#74c0fc,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#b197fc,color:#fff",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Auxin (IAA) level rises",
+      "detail": "Increase in cellular auxin",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N2",
+      "label": "Auxin binds TIR1/AFB",
+      "detail": "Auxin acts as molecular glue for the SCF-TIR1 receptor",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N3",
+      "label": "Aux/IAA ubiquitinated",
+      "detail": "Repressors tagged for degradation",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N4",
+      "label": "Aux/IAA degraded",
+      "detail": "Proteasome removes the repressors",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N5",
+      "label": "ARF factors freed",
+      "detail": "Auxin Response Factors de-repressed",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N6",
+      "label": "Auxin-response genes on",
+      "detail": "Transcription of auxin targets",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N7",
+      "label": "Auxin now low?",
+      "detail": "Has auxin dropped below the response level?",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N8",
+      "label": "Aux/IAA re-accumulate",
+      "detail": "Newly made repressors restore repression",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N9",
+      "label": "Growth / tropism response",
+      "detail": "Differential growth output",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 2
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:development-plant-hormone-auxin-signaling",
+    "graphType": "mechanism_flowchart",
+    "topologySignature": "352182a3f6c7ec00",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "lastUpdated": "2026-06-01",
+  "verified": false,
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "sources": [
+    {
+      "title": "Auxin Signaling",
+      "authors": "Leyser, O.",
+      "journal": "Plant Physiology",
+      "year": "2018",
+      "pubmed": "29109178",
+      "doi": "10.1104/pp.17.00765",
+      "url": "https://doi.org/10.1104/pp.17.00765"
+    },
+    {
+      "title": "Mechanisms of auxin signaling",
+      "authors": "Lavy, M.; Estelle, M.",
+      "journal": "Development",
+      "year": "2016",
+      "pubmed": "27578174",
+      "doi": "10.1242/dev.131870",
+      "url": "https://doi.org/10.1242/dev.131870"
+    },
+    {
+      "title": "Transcriptional Responses to the Auxin Hormone",
+      "authors": "Weijers, D.; Wagner, D.",
+      "journal": "Annual Review of Plant Biology",
+      "year": "2016",
+      "pubmed": "26905656",
+      "doi": "10.1146/annurev-arplant-043015-112122",
+      "url": "https://doi.org/10.1146/annurev-arplant-043015-112122"
+    }
+  ],
+  "graphType": "mechanism_flowchart",
+  "domainContext": "Plant hormone signaling"
+}

@@ -1,21 +1,23 @@
 {
   "id": "surface_chemistry-crystal-structure",
-  "name": "Crystal Structure",
+  "name": "Surface Reconstruction & Relaxation",
   "category": "chemistry",
   "subcategory": "surface_chemistry",
   "subcategory_name": "Surface Chemistry",
-  "description": "Crystal Structure process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "A freshly created surface has high-energy dangling bonds; to lower its energy the top layers relax (change spacing) or reconstruct (rebond into a new periodicity), behavior that adsorbates can further alter and that is probed by LEED or STM.",
   "complexity": {
-    "nodes": 26,
-    "edges": 22,
-    "conditionals": 0,
+    "nodes": 10,
+    "edges": 11,
+    "conditionals": 2,
     "logicGates": {
-      "orGates": 0,
-      "andGates": 1,
-      "total": 1
+      "orGates": 2,
+      "andGates": 2,
+      "notGates": 0,
+      "total": 4
     },
-    "level": "medium",
-    "detailLevel": "medium"
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 0
   },
   "colorScheme": {
     "red": {
@@ -39,53 +41,151 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nA1[Atomic Species] --> B1[Crystal Structure Method]\nC1[Lattice Parameters] --> D1[Symmetry Analysis]\nE1[Crystallization Conditions] --> F1[Structure Determination]\nB1 --> G1[Unit Cell Design]\nD1 --> H1[Symmetry Operations]\nF1 --> I1[Diffraction Analysis]\nG1 --> J1[Cell Parameters]\nH1 --> K1[Space Group]\nI1 --> L1[Diffraction Pattern]\nJ1 --> M1[Lattice Formation]\nK1 --> L1\nL1 --> N1[Structure Solution]\nM1 --> O1[Atomic Arrangement]\nN1 --> P1[Crystal Structure]\nO1 --> Q1[Structural Analysis]\nP1 --> R1[Unit Cell]\nQ1 --> S1[Structure Analysis]\nR1 --> T1[Crystal Properties]\nS1 --> U1[Structural Parameters]\nT1 --> V1[Property Calculation]\nU1 --> W1[Structural Efficiency]\nV1 --> X1[Crystal Characterization]\nW1 --> Y1[Process Optimization]\nX1 --> Z1[Final Crystal Structure]\nY1 --> Z1\n\n    style A1 fill:#ff6b6b,color:#fff\n    style C1 fill:#ff6b6b,color:#fff\n    style E1 fill:#ff6b6b,color:#fff\n    style B1 fill:#ffd43b,color:#000\n    style D1 fill:#ffd43b,color:#000\n    style F1 fill:#ffd43b,color:#000\n    style G1 fill:#ffd43b,color:#000\n    style H1 fill:#ffd43b,color:#000\n    style I1 fill:#ffd43b,color:#000\n    style J1 fill:#ffd43b,color:#000\n    style K1 fill:#ffd43b,color:#000\n    style L1 fill:#ffd43b,color:#000\n    style M1 fill:#51cf66,color:#fff\n    style N1 fill:#51cf66,color:#fff\n    style O1 fill:#51cf66,color:#fff\n    style P1 fill:#51cf66,color:#fff\n    style Q1 fill:#51cf66,color:#fff\n    style R1 fill:#51cf66,color:#fff\n    style S1 fill:#51cf66,color:#fff\n    style T1 fill:#51cf66,color:#fff\n    style U1 fill:#51cf66,color:#fff\n    style V1 fill:#51cf66,color:#fff\n    style W1 fill:#51cf66,color:#fff\n    style X1 fill:#51cf66,color:#fff\n    style Y1 fill:#51cf66,color:#fff\n    style Z1 fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"Freshly cleaved surface\"]\n    N2[\"Dangling bonds, high energy\"]\n    N3{\"How to lower energy?\"}\n    N4[\"Relaxation: spacing shifts\"]\n    N5[\"Reconstruction: rebonding\"]\n    N6[\"New surface periodicity\"]\n    N7{\"Adsorbates present?\"}\n    N8[\"Adsorbate-driven change\"]\n    N9[\"Probe by LEED / STM\"]\n    N10[\"Stable surface structure\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 -->|small| N4\n    N3 -->|large| N5\n    N4 --> N6\n    N5 --> N6\n    N6 --> N7\n    N7 -->|yes| N8\n    N8 --> N9\n    N7 -->|no| N9\n    N9 --> N10\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#74c0fc,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#74c0fc,color:#fff\n    style N7 fill:#74c0fc,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#51cf66,color:#fff\n    style N10 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
-      "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: Crystal Structure. Created using the Programming Framework methodology."
+      "title": "Semiconductor surface reconstruction: the structural chemistry of two-dimensional surface compounds",
+      "authors": "Duke, C. B.",
+      "journal": "Chemical Reviews",
+      "year": "1996",
+      "doi": "10.1021/cr940034m",
+      "url": "https://doi.org/10.1021/cr940034m"
     },
     {
-      "title": "Outline of a crystal structure determination",
-      "authors": "Glusker, Jenny Pickworth; Trueblood, Kenneth N.",
-      "journal": "Crystal Structure Analysis",
+      "title": "Introduction to Surface Chemistry and Catalysis, 2nd ed. — Surface Structure",
+      "authors": "Somorjai, G. A.; Li, Y.",
+      "journal": "Wiley",
       "year": "2010",
-      "pubmed": null,
-      "doi": "10.1093/oso/9780199576340.003.0024",
-      "url": "https://doi.org/10.1093/oso/9780199576340.003.0024"
+      "doi": null,
+      "url": "https://www.wiley.com/en-us/Introduction+to+Surface+Chemistry+and+Catalysis%2C+2nd+Edition-p-9780470508237"
     },
     {
-      "title": "Crossref work (10.1107/s1600536805042182/su6260sup1.cif)",
-      "authors": "",
-      "journal": "",
-      "year": "None",
-      "pubmed": null,
-      "doi": "10.1107/s1600536805042182/su6260sup1.cif",
-      "url": "https://doi.org/10.1107/s1600536805042182/su6260sup1.cif"
-    },
-    {
-      "title": "Crossref work (10.1107/s002188980302689x/ks5018sup1.cif)",
-      "authors": "",
-      "journal": "",
-      "year": "None",
-      "pubmed": null,
-      "doi": "10.1107/s002188980302689x/ks5018sup1.cif",
-      "url": "https://doi.org/10.1107/s002188980302689x/ks5018sup1.cif"
+      "title": "Reactions at solid surfaces (Nobel Lecture)",
+      "authors": "Ertl, G.",
+      "journal": "Angewandte Chemie International Edition",
+      "year": "2008",
+      "doi": "10.1002/anie.200800480",
+      "url": "https://doi.org/10.1002/anie.200800480"
     }
   ],
   "keywords": [
-    "crystal",
-    "structure"
+    "surface reconstruction",
+    "relaxation",
+    "dangling bonds",
+    "leed",
+    "surface energy"
   ],
   "relatedProcesses": [],
   "created": "2026-01-08",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Freshly cleaved surface",
+      "detail": "New surface created",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 1
+    },
+    {
+      "id": "N2",
+      "label": "Dangling bonds, high energy",
+      "detail": "Unsatisfied valences",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N3",
+      "label": "How to lower energy?",
+      "detail": "Relax vs reconstruct",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N4",
+      "label": "Relaxation: spacing shifts",
+      "detail": "Interlayer contraction",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N5",
+      "label": "Reconstruction: rebonding",
+      "detail": "Atoms reposition",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N6",
+      "label": "New surface periodicity",
+      "detail": "e.g. Si(111)-7×7",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N7",
+      "label": "Adsorbates present?",
+      "detail": "Adsorption can change it",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 2
+    },
+    {
+      "id": "N8",
+      "label": "Adsorbate-driven change",
+      "detail": "Lifts/forms reconstruction",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N9",
+      "label": "Probe by LEED / STM",
+      "detail": "Determine structure",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N10",
+      "label": "Stable surface structure",
+      "detail": "Equilibrium termination",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 0
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:surface_chemistry-crystal-structure",
+    "graphType": "decision_flowchart",
+    "topologySignature": "626949753cbe067e",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "namedCollections": [
+    "surface-chemistry"
+  ],
+  "graphMetrics": {
+    "nodes": 10,
+    "edges": 11,
+    "conditionals": 2,
+    "andGates": 2,
+    "orGates": 2,
+    "notGates": 0,
+    "loops": 0
+  },
+  "graphType": "decision_flowchart",
+  "domainContext": "Surface structure"
 }

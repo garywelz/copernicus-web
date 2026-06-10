@@ -1,0 +1,30 @@
+{
+  "id": "arxiv_2605.02862v1",
+  "arxiv_id": "2605.02862v1",
+  "title": "Semantic Risk-Aware Heuristic Planning for Robotic Navigation in Dynamic Environments: An LLM-Inspired Approach",
+  "authors": [
+    "Hamza Ahmed Durrani",
+    "Rafay Suleman Durrani"
+  ],
+  "author_string": "Hamza Ahmed Durrani, Rafay Suleman Durrani",
+  "journal": "arXiv:2605.02862v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "The integration of Large Language Model (LLM) reasoning principles into classical robot path planning represents a rapidly emerging research direction. In this paper, we propose a Semantic Risk-Aware Heuristic (SRAH) planner that encodes LLM-inspired cost functions penalising geometrically cluttered or high-risk zones into an A$^*$ search framework, augmented with closed-loop replanning upon dynamic obstacle detection. We evaluate SRAH against two established baselines Breadth-First Search (BFS) with replanning and a Greedy heuristic without replanning across 200 randomised trials in a $15{\\times}15$ grid-world with 20\\% static obstacle density and stochastic dynamic obstacles. SRAH achieves a task success rate of 62.0\\%, outperforming BFS (56.5\\%) by 9.7\\% relative improvement and Greedy (4.0\\%) by a large margin. We further analyse the trade-off between planning overhead, path efficiency, and failure-recovery count, and demonstrate via an obstacle-density ablation that semantic cost shaping consistently improves navigation across environments of varying difficulty. Our results suggest that even lightweight, LLM-inspired heuristics provide measurable safety and robustness gains for autonomous robot navigation.",
+  "categories": [
+    "cs.RO"
+  ],
+  "primary_category": "cs.RO",
+  "comment": "5 pages, 5 figures. Experimental study on semantic risk-aware heuristic planning for robotic navigation",
+  "published_date": "2026-05-04T17:38:12Z",
+  "updated_date": "2026-05-04T17:38:12Z",
+  "url": "https://arxiv.org/abs/2605.02862v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.02862v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-04T22:16:57.186040",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.RO"
+  ]
+}

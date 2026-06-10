@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_2604.18431v2",
+  "arxiv_id": "2604.18431v2",
+  "title": "Care Trajectories Are Linked to Mental Health and Mortality in Cancer Patients",
+  "authors": [
+    "Simon D. Lindner",
+    "Elisabeth L. Zeilinger",
+    "Amelie Fuchs",
+    "Simone Lubowitzki",
+    "Peter Klimek",
+    "Alexander Gaiger"
+  ],
+  "author_string": "Simon D. Lindner, Elisabeth L. Zeilinger, Amelie Fuchs, Simone Lubowitzki, Peter Klimek et al.",
+  "journal": "arXiv:2604.18431v2",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Treatment of cancer involves heterogeneous, complex care pathways. The relationship between these longitudinal trajectories, baseline mental health, and prognostic outcomes remains poorly understood. We introduce an interpretable time-analysis framework leveraging these temporal dynamics, analyzing care patterns spanning up to 37 years for >8,000 patients. Using Dynamic Time Warping (DTW) and Hierarchical Clustering on sequence data of healthcare encounters, we identified nine distinct, robust trajectory phenotypes.   We evaluated their prognostic utility by incorporating them into generalized linear models alongside conventional clinical, demographic, and socioeconomic covariates. The trajectory clusters significantly enhanced mortality prediction and maintained independent predictive significance. Compared to a low-utilization reference group (mortality 31.5%), all eight remaining clusters exhibited substantially higher mortality odds. We uncovered two primary high-risk trajectory patterns: long-term, complex care pathways reflecting chronic disease courses (up to 196 events; mortality OR up to 3.38, 95% CI 2.13-5.37), and shorter but intense trajectories indicating rapid progression (median 78 events; OR 2.32, 95% CI 1.82-2.97).   Unexpectedly, the high-utilization complexity clusters were associated with significantly lower baseline anxiety scores, highlighting a divergent relationship between trajectory intensity, mortality risk, and initial psychological burden. These results demonstrate that incorporating temporal healthcare utilization data uncovers robust trajectory phenotypes capturing multidimensional prognostic information. This offers significant explanatory power beyond established static variables for refining risk stratification in precision oncology.",
+  "categories": [
+    "physics.soc-ph",
+    "q-bio.QM"
+  ],
+  "primary_category": "q-bio.QM",
+  "comment": null,
+  "published_date": "2026-04-20T15:49:03Z",
+  "updated_date": "2026-04-21T15:51:53Z",
+  "url": "https://arxiv.org/abs/2604.18431v2",
+  "pdf_url": "https://arxiv.org/pdf/2604.18431v2.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-22T10:15:48.105391",
+  "category": "biology",
+  "subcategories": [
+    "physics.soc-ph",
+    "q-bio.QM"
+  ]
+}

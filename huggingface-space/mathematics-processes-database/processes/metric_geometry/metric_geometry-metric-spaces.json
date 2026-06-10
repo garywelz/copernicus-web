@@ -1,0 +1,39 @@
+{
+  "id": "metric_geometry-metric-spaces",
+  "name": "Metric Spaces",
+  "category": "mathematics",
+  "subcategory": "metric_geometry",
+  "subcategory_name": "Metric Geometry",
+  "description": "d(x,y) distance. Complete, compact. Baire. Completion. Urysohn, Tietze.",
+  "mermaid": "graph TD\n    D1[\"Def: Metric d\\npos, sym, triangle\"]\n    D2[\"Def: Complete\\nCauchy⇒converge\"]\n    D3[\"Def: Compact\\ncover⇒finite sub\"]\n    D4[\"Def: Completion\\nX→X̄ isometric\"]\n    T1[\"Thm: Compact⇔seq compact\\nmetric spaces\"]\n    T2[\"Thm: Baire\\ncountable int dense\"]\n    T3[\"Thm: Completion exists\\nunique\"]\n    T4[\"Thm: Heine–Borel\\nℝⁿ\"]\n    T5[\"Thm: Urysohn\\nT4 normal\"]\n    D1 --> D2\n    D2 --> D3\n    D1 --> D4\n    D3 --> T1\n    D2 --> T2\n    D4 --> T3\n    classDef definition fill:#b197fc,color:#fff\n    classDef theorem fill:#51cf66,color:#fff\n    class D1,D2,D3,D4 definition\n    class T1,T2,T3,T4,T5 theorem",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

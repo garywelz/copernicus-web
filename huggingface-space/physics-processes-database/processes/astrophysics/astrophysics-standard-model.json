@@ -2,51 +2,55 @@
   "acquired_date": "2026-01-08T00:00:00Z",
   "category": "physics",
   "colorScheme": {
-    "blue": {
-      "category": "Intermediates & States",
-      "hex": "#74c0fc"
-    },
-    "green": {
-      "category": "Processing & Operations",
-      "hex": "#51cf66"
-    },
     "red": {
-      "category": "Triggers & Inputs",
-      "hex": "#ff6b6b"
-    },
-    "violet": {
-      "category": "Products & Outputs",
-      "hex": "#b197fc"
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
     },
     "yellow": {
-      "category": "Structures & Objects",
-      "hex": "#ffd43b"
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
     }
   },
   "complexity": {
-    "conditionals": 0,
-    "detailLevel": "medium",
-    "edges": 24,
-    "level": "medium",
+    "nodes": 11,
+    "edges": 11,
+    "conditionals": 1,
     "logicGates": {
+      "orGates": 1,
       "andGates": 1,
-      "orGates": 0,
-      "total": 1
+      "notGates": 0,
+      "total": 2
     },
-    "nodes": 26
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 1
   },
   "created": "2026-01-08",
-  "description": "Standard Model Process. This particle physics process visualization demonstrates the Standard Model and fundamental particles. The flowchart shows particle inputs and particle properties, Standard Model methods and gauge theory, Standard Model operations and particle interactions, intermediate results, and final Standard Model outputs.",
-  "id": "process_physics_standard-model",
+  "description": "A protostar becomes a main-sequence star through hydrogen fusion: gravitational contraction heats the core until the proton-proton chain ignites, fusing hydrogen to helium-4 and releasing energy by mass defect; the resulting radiation pressure balances gravity, establishing hydrostatic equilibrium.",
+  "id": "astrophysics-standard-model",
   "keywords": [
-    "astrophysics",
-    "standard",
-    "model"
+    "stellar nucleosynthesis",
+    "proton-proton chain",
+    "hydrogen fusion",
+    "hydrostatic equilibrium",
+    "main sequence"
   ],
-  "lastUpdated": "2026-01-08",
-  "mermaid": "graph TD\nA2[Elementary Particle] --> B2[Standard Model Method]\nC2[Particle Properties] --> D2[Gauge Theory]\nE2[Particle Interactions] --> F2[Standard Model Analysis]\nB2 --> G2[Quark Model]\nD2 --> H2[Electroweak Theory]\nF2 --> I2[Quantum Chromodynamics]\nG2 --> J2[Quark Properties]\nH2 --> K2[Gauge Bosons]\nI2 --> L2[Strong Force]\nJ2 --> M2[Particle Mass]\nK2 --> L2\nL2 --> N2[Particle Charge]\nM2 --> O2[Particle Spin]\nN2 --> P2[Particle Flavor]\nO2 --> Q2[Standard Model Process]\nP2 --> R2[Standard Model Validation]\nQ2 --> S2[Standard Model Verification]\nR2 --> T2[Standard Model Result]\nS2 --> U2[Standard Model Analysis]\nT2 --> V2[Standard Model Parameters]\nU2 --> W2[Standard Model Output]\nV2 --> X2[Standard Model Analysis]\nW2 --> Y2[Standard Model Final Result]\nX2 --> Z2[Standard Model Complete]\n\n    style A2 fill:#ff6b6b,color:#fff\n    style C2 fill:#ff6b6b,color:#fff\n    style E2 fill:#ff6b6b,color:#fff\n    style B2 fill:#ffd43b,color:#000\n    style D2 fill:#ffd43b,color:#000\n    style F2 fill:#ffd43b,color:#000\n    style G2 fill:#ffd43b,color:#000\n    style H2 fill:#ffd43b,color:#000\n    style I2 fill:#ffd43b,color:#000\n    style J2 fill:#ffd43b,color:#000\n    style K2 fill:#ffd43b,color:#000\n    style L2 fill:#ffd43b,color:#000\n    style M2 fill:#51cf66,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style O2 fill:#51cf66,color:#fff\n    style P2 fill:#51cf66,color:#fff\n    style Q2 fill:#51cf66,color:#fff\n    style R2 fill:#51cf66,color:#fff\n    style S2 fill:#51cf66,color:#fff\n    style T2 fill:#51cf66,color:#fff\n    style U2 fill:#51cf66,color:#fff\n    style V2 fill:#51cf66,color:#fff\n    style W2 fill:#51cf66,color:#fff\n    style X2 fill:#51cf66,color:#fff\n    style Y2 fill:#51cf66,color:#fff\n    style Z2 fill:#b197fc,color:#fff",
-  "name": "Standard Model",
-  "notes": "Converted from physics batch HTML. Process number: 2.",
+  "lastUpdated": "2026-06-01",
+  "mermaid": "graph TD\n    N1[\"Protostar contracts\"]\n    N2[\"Core heats by gravity\"]\n    N3{\"Core hot enough to fuse?\"}\n    N4[\"Keep contracting\"]\n    N5[\"p + p -> deuterium\"]\n    N6[\"d + p -> He-3\"]\n    N7[\"He-3 + He-3 -> He-4\"]\n    N8[\"Release energy E=mc^2\"]\n    N9[\"Radiation pressure builds\"]\n    N10[\"Hydrostatic equilibrium\"]\n    N11[\"Main-sequence star\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 -->|no| N4\n    N4 -->|heat more| N2\n    N3 -->|yes| N5\n    N5 --> N6\n    N6 --> N7\n    N7 --> N8\n    N8 --> N9\n    N9 --> N10\n    N10 --> N11\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#74c0fc,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#74c0fc,color:#fff\n    style N9 fill:#51cf66,color:#fff\n    style N10 fill:#74c0fc,color:#fff\n    style N11 fill:#b197fc,color:#fff",
+  "name": "Stellar Nucleosynthesis (pp-chain)",
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
   "relatedProcesses": [],
   "related_papers": [
     "crossref_10_1103_PhysRevLett_19_1264",
@@ -59,43 +63,20 @@
   "source": "programming_framework",
   "sources": [
     {
-      "authors": "Welz, G.",
-      "doi": null,
-      "journal": "CopernicusAI Knowledge Engine",
-      "notes": "Chemistry process visualization: Standard Model. Created using the Programming Framework methodology for process analysis and visualization.",
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
-      "year": "2025"
+      "title": "Energy production in stars",
+      "authors": "Bethe, H. A.",
+      "journal": "Physical Review",
+      "year": "1939",
+      "doi": "10.1103/PhysRev.55.434",
+      "url": "https://doi.org/10.1103/PhysRev.55.434"
     },
     {
-      "authors": "Weinberg, S.",
-      "doi": "10.1103/PhysRevLett.19.1264",
-      "journal": "Phys. Rev. Lett.",
-      "paper_id": "crossref_10_1103_PhysRevLett_19_1264",
-      "pubmed": null,
-      "title": "A Model of Leptons",
-      "url": "https://doi.org/10.1103/PhysRevLett.19.1264",
-      "year": "1967"
-    },
-    {
-      "authors": "Gross, D. J.; Wilczek, F.",
-      "doi": "10.1103/PhysRevLett.30.1343",
-      "journal": "Phys. Rev. Lett.",
-      "paper_id": "crossref_10_1103_PhysRevLett_30_1343",
-      "pubmed": null,
-      "title": "Ultraviolet Behavior of Non-Abelian Gauge Theories",
-      "url": "https://doi.org/10.1103/PhysRevLett.30.1343",
-      "year": "1973"
-    },
-    {
-      "authors": "Erler, J.; Langacker, P.",
-      "doi": "10.1103/RevModPhys.82.3609",
-      "journal": "Rev. Mod. Phys.",
-      "paper_id": "crossref_10_1103_RevModPhys_82_3609",
-      "pubmed": null,
-      "title": "Precision Electroweak Measurements and the Standard Model",
-      "url": "https://doi.org/10.1103/RevModPhys.82.3609",
-      "year": "2010"
+      "title": "Synthesis of the elements in stars",
+      "authors": "Burbidge, E. M.; Burbidge, G. R.; Fowler, W. A.; Hoyle, F.",
+      "journal": "Reviews of Modern Physics",
+      "year": "1957",
+      "doi": "10.1103/RevModPhys.29.547",
+      "url": "https://doi.org/10.1103/RevModPhys.29.547"
     }
   ],
   "subcategories": [
@@ -103,5 +84,119 @@
   ],
   "subcategory": "astrophysics",
   "subcategory_name": "Astrophysics",
-  "verified": false
+  "verified": false,
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Protostar contracts",
+      "detail": "Gas cloud collapse",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 1
+    },
+    {
+      "id": "N2",
+      "label": "Core heats by gravity",
+      "detail": "Virial heating",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N3",
+      "label": "Core hot enough to fuse?",
+      "detail": "~10^7 K threshold",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N4",
+      "label": "Keep contracting",
+      "detail": "Raise temperature",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N5",
+      "label": "p + p -> deuterium",
+      "detail": "Weak interaction",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N6",
+      "label": "d + p -> He-3",
+      "detail": "Plus gamma",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N7",
+      "label": "He-3 + He-3 -> He-4",
+      "detail": "Releases 2 protons",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N8",
+      "label": "Release energy E=mc^2",
+      "detail": "Mass defect",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N9",
+      "label": "Radiation pressure builds",
+      "detail": "Outward push",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N10",
+      "label": "Hydrostatic equilibrium",
+      "detail": "Gravity balanced",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N11",
+      "label": "Main-sequence star",
+      "detail": "Stable burning",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 1
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:astrophysics-standard-model",
+    "graphType": "decision_flowchart",
+    "topologySignature": "da66650a27f1ecb8",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "namedCollections": [],
+  "graphMetrics": {
+    "nodes": 11,
+    "edges": 11,
+    "conditionals": 1,
+    "andGates": 1,
+    "orGates": 1,
+    "notGates": 0,
+    "loops": 1
+  },
+  "graphType": "decision_flowchart",
+  "domainContext": "Stellar astrophysics"
 }

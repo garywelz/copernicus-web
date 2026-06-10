@@ -1,0 +1,193 @@
+{
+  "id": "mechanisms-mrna-splicing",
+  "name": "mRNA Splicing",
+  "category": "biology",
+  "subcategory": "mechanisms",
+  "subcategory_name": "Mechanisms",
+  "description": "mRNA splicing: the spliceosome assembles on a pre-mRNA (U1 at the 5' site, U2 at the branch point, then the tri-snRNP), catalyzes two transesterifications through a lariat intermediate, and joins exons, iterating over each intron.",
+  "keywords": [
+    "splicing",
+    "spliceosome",
+    "snrnp",
+    "lariat",
+    "exon",
+    "intron"
+  ],
+  "namedCollections": [
+    "gene-expression"
+  ],
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "complexity": {
+    "nodes": 10,
+    "edges": 10,
+    "conditionals": 1,
+    "logicGates": {
+      "orGates": 1,
+      "andGates": 1,
+      "notGates": 0,
+      "total": 2
+    },
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 1
+  },
+  "graphMetrics": {
+    "nodes": 10,
+    "edges": 10,
+    "conditionals": 1,
+    "andGates": 1,
+    "orGates": 1,
+    "notGates": 0,
+    "loops": 1
+  },
+  "mermaid": "graph TD\n    N1[\"Pre-mRNA (exon-intron)\"]\n    N2[\"U1 binds 5' splice site\"]\n    N3[\"U2 binds branch point\"]\n    N4[\"U4/U6.U5 tri-snRNP joins\"]\n    N5[\"Spliceosome activation\"]\n    N6[\"Branch-point attacks 5'SS\"]\n    N7[\"Lariat intermediate\"]\n    N8[\"Exon ligation (3'SS)\"]\n    N9{\"More introns?\"}\n    N10[\"Mature spliced mRNA\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 --> N4\n    N4 --> N5\n    N5 --> N6\n    N6 --> N7\n    N7 --> N8\n    N8 --> N9\n    N9 -->|next intron| N2\n    N9 -->|no| N10\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#74c0fc,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#74c0fc,color:#fff\n    style N10 fill:#b197fc,color:#fff",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Pre-mRNA (exon-intron)",
+      "detail": "Primary transcript with introns",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N2",
+      "label": "U1 binds 5' splice site",
+      "detail": "Early (E) complex formation",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N3",
+      "label": "U2 binds branch point",
+      "detail": "A complex formation",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N4",
+      "label": "U4/U6.U5 tri-snRNP joins",
+      "detail": "B complex assembly",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N5",
+      "label": "Spliceosome activation",
+      "detail": "Rearrangement to the catalytic state",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N6",
+      "label": "Branch-point attacks 5'SS",
+      "detail": "First transesterification",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N7",
+      "label": "Lariat intermediate",
+      "detail": "Intron lariat with free 5' exon",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 2
+    },
+    {
+      "id": "N8",
+      "label": "Exon ligation (3'SS)",
+      "detail": "Second transesterification joins exons",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N9",
+      "label": "More introns?",
+      "detail": "Additional introns to remove?",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N10",
+      "label": "Mature spliced mRNA",
+      "detail": "Intron-free mRNA",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 0
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:mechanisms-mrna-splicing",
+    "graphType": "mechanism_flowchart",
+    "topologySignature": "a1ce47693f6ecb7f",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "lastUpdated": "2026-06-01",
+  "verified": false,
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "sources": [
+    {
+      "title": "The spliceosome: design principles of a dynamic RNP machine",
+      "authors": "Wahl, M. C.; Will, C. L.; Lührmann, R.",
+      "journal": "Cell",
+      "year": "2009",
+      "pubmed": "19239890",
+      "doi": "10.1016/j.cell.2009.02.009",
+      "url": "https://doi.org/10.1016/j.cell.2009.02.009"
+    },
+    {
+      "title": "Spliceosome structure and function",
+      "authors": "Will, C. L.; Lührmann, R.",
+      "journal": "Cold Spring Harbor Perspectives in Biology",
+      "year": "2011",
+      "pubmed": "21441581",
+      "doi": "10.1101/cshperspect.a003707",
+      "url": "https://doi.org/10.1101/cshperspect.a003707"
+    },
+    {
+      "title": "A day in the life of the spliceosome",
+      "authors": "Matera, A. G.; Wang, Z.",
+      "journal": "Nature Reviews Molecular Cell Biology",
+      "year": "2014",
+      "pubmed": "24452469",
+      "doi": "10.1038/nrm3742",
+      "url": "https://doi.org/10.1038/nrm3742"
+    }
+  ],
+  "graphType": "mechanism_flowchart",
+  "domainContext": "RNA processing"
+}

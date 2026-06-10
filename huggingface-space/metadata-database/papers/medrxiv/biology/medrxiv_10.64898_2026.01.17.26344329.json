@@ -1,0 +1,45 @@
+{
+  "id": "medrxiv_10.64898_2026.01.17.26344329",
+  "doi": "10.64898/2026.01.17.26344329",
+  "title": "Pharmacogenomic Determinants of Post-Liver Transplant Diabetes Mellitus: A Systematic Review and In Silico Pharmacogenomic Analysis",
+  "authors": [
+    "de Oliveira Andrade, L. J.",
+    "Parana, R.",
+    "Matos de Oliveira, G. C.",
+    "Vinhaes Bittencourt, A. M.",
+    "de Mattos Salles, O. J.",
+    "Matos de Oliveira, L."
+  ],
+  "author_string": "de Oliveira Andrade, L. J., Parana, R., Matos de Oliveira, G. C., Vinhaes Bittencourt, A. M., de Mattos Salles, O. J. et al.",
+  "journal": "medRxiv",
+  "journal_full": "medRxiv",
+  "year": "2026",
+  "abstract": "IntroductionTacrolimus remains central to liver transplantation, yet its narrow therapeutic index and pharmacokinetic variability are associated with increased risk of post-transplant diabetes mellitus (PTDM). While polymorphisms in metabolizing enzymes modulate drug exposure and diabetogenic risk, these relationships have not been systematically integrated through targeted pharmacogenomic approaches.\n\nObjectiveTo systematically evaluate genetic variants in tacrolimus-metabolizing genes and their associations with PTDM through integrated in silico pharmacogenomic analysis.\n\nMethodsAn in silico analysis was performed, integrating data from public repositories (PharmGKB), curated literature, and functional annotations of genetic variants. Machine learning models were developed using synthetic data generated from literature-derived effect sizes to demonstrate proof-of-concept feasibility. We prioritized genes (CYP3A5, CYP3A4, ABCB1) based on PharmGKB evidence levels, functional impact, and clinical associations with tacrolimus exposure and PTDM risk, incorporating genotype information, drug dosing, and metabolic outcomes.\n\nResultsThe CYP3A5*1 allele emerged as a key determinant, consistently requiring 1.5- to 2.8-fold higher tacrolimus doses and conferring a significantly elevated risk of PTDM compared to non-expressers, an effect mediated by cumulative drug exposure. In the systematic review and synthetic modeling, carriers of functional CYP3A5 alleles expresser genotypes exhibited a significantly increased PTDM risk relative to non-expressers, demonstrating a clear dose-exposure-toxicity relationship. In contrast, CYP3A4 and ABCB1 showed only suggestive but heterogeneous, evidence of association.\n\nConclusionThis in silico pharmacogenomic study demonstrates a clinically significant association between genetic variability in tacrolimus metabolism and the development of PTDM following liver transplantation. These findings support genotype-guided strategies to optimize immunosuppressive therapy and advance precision medicine in transplant care.",
+  "keywords": [],
+  "categories": [
+    "endocrinology"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.64898/2026.01.17.26344329",
+  "source": "medrxiv",
+  "sources": [
+    "medrxiv"
+  ],
+  "acquired_date": "2026-05-19T22:15:24.244249",
+  "category": "biology",
+  "subcategories": [
+    "endocrinology"
+  ],
+  "published_date": "2026-01-19",
+  "updated_date": "2026-01-19",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "medrxiv",
+  "preprint_version": "1",
+  "preprint_type": "PUBLISHAHEADOFPRINT",
+  "license": "cc_no",
+  "jatsxml": "https://www.medrxiv.org/content/early/2026/01/19//2026.01.17.26344329.source.xml",
+  "published_doi": null,
+  "author_corresponding": "Luis Jesuino de Oliveira Andrade",
+  "author_corresponding_institution": "Department of Health, Santa Cruz State University, Ilheus, Bahia, Brazil."
+}

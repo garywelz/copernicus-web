@@ -2,51 +2,55 @@
   "acquired_date": "2026-01-08T00:00:00Z",
   "category": "physics",
   "colorScheme": {
-    "blue": {
-      "category": "Intermediates & States",
-      "hex": "#74c0fc"
-    },
-    "green": {
-      "category": "Processing & Operations",
-      "hex": "#51cf66"
-    },
     "red": {
-      "category": "Triggers & Inputs",
-      "hex": "#ff6b6b"
-    },
-    "violet": {
-      "category": "Products & Outputs",
-      "hex": "#b197fc"
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
     },
     "yellow": {
-      "category": "Structures & Objects",
-      "hex": "#ffd43b"
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
     }
   },
   "complexity": {
-    "conditionals": 0,
-    "detailLevel": "medium",
-    "edges": 24,
-    "level": "medium",
+    "nodes": 11,
+    "edges": 11,
+    "conditionals": 1,
     "logicGates": {
+      "orGates": 1,
       "andGates": 1,
-      "orGates": 0,
-      "total": 1
+      "notGates": 0,
+      "total": 2
     },
-    "nodes": 26
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 0
   },
   "created": "2026-01-08",
-  "description": "Hamiltonian Mechanics Process. This classical mechanics process visualization demonstrates phase space dynamics and canonical transformations. The flowchart shows phase space and canonical variables, Hamiltonian methods and transformations, canonical operations and perturbation theory, intermediate results, and final Hamiltonian mechanics outputs.",
-  "id": "process_physics_hamiltonian-mechanics",
+  "description": "Hamiltonian mechanics recasts dynamics in phase space: conjugate momenta are defined from the Lagrangian and a Legendre transform builds the Hamiltonian H(q,p,t); when time does not appear explicitly H is the conserved energy, and Hamilton's canonical equations give first-order flow of position and momentum.",
+  "id": "classical_mechanics-hamiltonian-mechanics",
   "keywords": [
-    "hamiltonian",
-    "mechanics",
-    "classical"
+    "Hamiltonian mechanics",
+    "phase space",
+    "Legendre transform",
+    "canonical equations",
+    "conjugate momentum"
   ],
-  "lastUpdated": "2026-01-08",
-  "mermaid": "graph TD\nA3[Phase Space] --> B3[Canonical Variables]\nC3[Legendre Transform] --> D3[Hamiltonian Function]\nE3[Poisson Brackets] --> F3[Canonical Equations]\nB3 --> G3[Position Momentum Pairs]\nD3 --> H3[H equals T plus V]\nF3 --> I3[Hamilton Equations]\nG3 --> J3[Canonical Transformations]\nH3 --> K3[Energy Conservation]\nI3 --> L3[Phase Space Evolution]\nJ3 --> M3[Action Angle Variables]\nK3 --> L3\nL3 --> N3[Liouville Theorem]\nM3 --> O3[Integrable Systems]\nN3 --> P3[Phase Space Volume]\nO3 --> Q3[Hamiltonian Mechanics Process]\nP3 --> R3[Chaotic Dynamics]\nQ3 --> S3[Canonical Perturbation Theory]\nR3 --> T3[Hamiltonian Mechanics Result]\nS3 --> U3[Adiabatic Invariants]\nT3 --> V3[Canonical Quantization]\nU3 --> W3[Hamiltonian Mechanics Output]\nV3 --> X3[Hamiltonian Mechanics Analysis]\nW3 --> Y3[Hamiltonian Mechanics Final Result]\nX3 --> Z3[Hamiltonian Mechanics Analysis Complete]\n\n    style A3 fill:#ff6b6b,color:#fff\n    style C3 fill:#ff6b6b,color:#fff\n    style E3 fill:#ff6b6b,color:#fff\n    style B3 fill:#ffd43b,color:#000\n    style D3 fill:#ffd43b,color:#000\n    style F3 fill:#ffd43b,color:#000\n    style G3 fill:#ffd43b,color:#000\n    style H3 fill:#ffd43b,color:#000\n    style I3 fill:#ffd43b,color:#000\n    style J3 fill:#ffd43b,color:#000\n    style K3 fill:#ffd43b,color:#000\n    style L3 fill:#ffd43b,color:#000\n    style M3 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style O3 fill:#51cf66,color:#fff\n    style P3 fill:#51cf66,color:#fff\n    style Q3 fill:#51cf66,color:#fff\n    style R3 fill:#51cf66,color:#fff\n    style S3 fill:#51cf66,color:#fff\n    style T3 fill:#51cf66,color:#fff\n    style U3 fill:#51cf66,color:#fff\n    style V3 fill:#51cf66,color:#fff\n    style W3 fill:#51cf66,color:#fff\n    style X3 fill:#51cf66,color:#fff\n    style Y3 fill:#51cf66,color:#fff\n    style Z3 fill:#b197fc,color:#fff",
+  "lastUpdated": "2026-06-01",
+  "mermaid": "graph TD\n    N1[\"Start from Lagrangian\"]\n    N2[\"Define conjugate momenta\"]\n    N3[\"Legendre transform\"]\n    N4[\"Hamiltonian H(q,p,t)\"]\n    N5{\"H = total energy?\"}\n    N6[\"Time-indep: H conserved\"]\n    N7[\"Explicit time dependence\"]\n    N8[\"Hamilton's equations\"]\n    N9[\"qdot=dH/dp, pdot=-dH/dq\"]\n    N10[\"Evolve in phase space\"]\n    N11[\"Phase-space trajectory\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 --> N4\n    N4 --> N5\n    N5 -->|yes| N6\n    N5 -->|no| N7\n    N6 --> N8\n    N7 --> N8\n    N8 --> N9\n    N9 --> N10\n    N10 --> N11\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#74c0fc,color:#fff\n    style N5 fill:#74c0fc,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#51cf66,color:#fff\n    style N10 fill:#51cf66,color:#fff\n    style N11 fill:#b197fc,color:#fff",
   "name": "Hamiltonian Mechanics",
-  "notes": "Converted from physics batch HTML. Process number: 3.",
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
   "relatedProcesses": [],
   "related_papers": [
     "crossref_10_1103_RevModPhys_21_392",
@@ -59,43 +63,19 @@
   "source": "programming_framework",
   "sources": [
     {
-      "authors": "Welz, G.",
-      "doi": null,
-      "journal": "CopernicusAI Knowledge Engine",
-      "notes": "Chemistry process visualization: Hamiltonian Mechanics. Created using the Programming Framework methodology for process analysis and visualization.",
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
-      "year": "2025"
+      "title": "On a general method in dynamics",
+      "authors": "Hamilton, W. R.",
+      "journal": "Philosophical Transactions of the Royal Society",
+      "year": "1834",
+      "doi": "10.1098/rstl.1834.0017",
+      "url": "https://doi.org/10.1098/rstl.1834.0017"
     },
     {
-      "authors": "Dirac, P. A. M.",
-      "doi": "10.1103/RevModPhys.21.392",
-      "journal": "Rev Mod Phys",
-      "paper_id": "crossref_10_1103_RevModPhys_21_392",
-      "pubmed": null,
-      "title": "Relativistic Hamiltonian dynamics",
-      "url": "https://doi.org/10.1103/RevModPhys.21.392",
-      "year": "1949"
-    },
-    {
-      "authors": "Zaslavsky, G. M.",
-      "doi": "10.1103/RevModPhys.76.575",
-      "journal": "Rev Mod Phys",
-      "paper_id": "crossref_10_1103_RevModPhys_76_575",
-      "pubmed": null,
-      "title": "Chaos in classical and quantum mechanics",
-      "url": "https://doi.org/10.1103/RevModPhys.76.575",
-      "year": "2004"
-    },
-    {
-      "authors": "Ott, E.",
-      "doi": "10.1103/RevModPhys.85.1435",
-      "journal": "Rev Mod Phys",
-      "paper_id": "crossref_10_1103_RevModPhys_85_1435",
-      "pubmed": null,
-      "title": "Nonlinear dynamics and chaos: Where do we go from here?",
-      "url": "https://doi.org/10.1103/RevModPhys.85.1435",
-      "year": "2013"
+      "title": "Mechanics (3rd ed., Course of Theoretical Physics Vol. 1)",
+      "authors": "Landau, L. D.; Lifshitz, E. M.",
+      "journal": "Butterworth-Heinemann",
+      "year": "1976",
+      "url": "https://www.elsevier.com/books/mechanics/landau/978-0-7506-2896-9"
     }
   ],
   "subcategories": [
@@ -103,5 +83,139 @@
   ],
   "subcategory": "classical_mechanics",
   "subcategory_name": "Classical Mechanics",
-  "verified": false
+  "verified": false,
+  "graphMetrics": {
+    "nodes": 11,
+    "edges": 11,
+    "conditionals": 1,
+    "andGates": 1,
+    "orGates": 1,
+    "notGates": 0,
+    "loops": 0
+  },
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Start from Lagrangian",
+      "detail": "L(q, qdot, t)",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 1
+    },
+    {
+      "id": "N2",
+      "label": "Define conjugate momenta",
+      "detail": "p = dL/dqdot",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N3",
+      "label": "Legendre transform",
+      "detail": "Swap qdot for p",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N4",
+      "label": "Hamiltonian H(q,p,t)",
+      "detail": "Phase-space function",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N5",
+      "label": "H = total energy?",
+      "detail": "Time dependence",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N6",
+      "label": "Time-indep: H conserved",
+      "detail": "Energy constant",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N7",
+      "label": "Explicit time dependence",
+      "detail": "dH/dt = -dL/dt",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N8",
+      "label": "Hamilton's equations",
+      "detail": "Canonical form",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N9",
+      "label": "qdot=dH/dp, pdot=-dH/dq",
+      "detail": "First-order flow",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N10",
+      "label": "Evolve in phase space",
+      "detail": "Integrate (q,p)",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N11",
+      "label": "Phase-space trajectory",
+      "detail": "Flow in (q,p)",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 0
+    }
+  ],
+  "researchEnhancements": {
+    "pilot": true,
+    "model": "research_grade_flowchart",
+    "nodeSemantics": [
+      "trigger",
+      "context",
+      "decision",
+      "operation",
+      "state",
+      "feedback",
+      "observable",
+      "prediction"
+    ],
+    "reviewFocus": [
+      "mechanistic correctness",
+      "decision density",
+      "evidence support",
+      "intervention value"
+    ]
+  },
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:classical_mechanics-hamiltonian-mechanics",
+    "graphType": "decision_flowchart",
+    "topologySignature": "77723be3bcf4d5df",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "namedCollections": [],
+  "graphType": "decision_flowchart",
+  "domainContext": "Analytical mechanics"
 }

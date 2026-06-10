@@ -1,0 +1,30 @@
+{
+  "id": "arxiv_2604.21722v1",
+  "arxiv_id": "2604.21722v1",
+  "title": "Near-Term Reduction in Nonlocal Gate Count from Distributed Logical Qubits",
+  "authors": [
+    "Bruno Avritzer",
+    "Nathan Sankary"
+  ],
+  "author_string": "Bruno Avritzer, Nathan Sankary",
+  "journal": "arXiv:2604.21722v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Modular quantum computing architectures require error correction schemes that remain effective in the presence of noisy inter-processor operations. As such, minimizing the number of such operations on logical circuits partitioned across quantum processors is a primary objective of distributed quantum computing. In this work, we develop basic techniques for qubit allocation using an exemplar color code family and explore generalizations to other color codes. In particular, we show that a 10% reduction in processor-nonlocal gates is achievable in a setting where syndrome extraction occurs after every logical gate, as in today's devices, and that this scales to significantly greater advantages in the multi-qubit case. We also explore methods of achieving universal gate sets efficiently in this distributed logical setting and evaluate the trade-offs of multiple approaches such as magic state distillation, code switching, and a new method based on logical swaps. Finally, we discuss some considerations for an allocation algorithm for these architectures to perform scalably and connect it to existing work on quantum circuit partitions.",
+  "categories": [
+    "quant-ph"
+  ],
+  "primary_category": "quant-ph",
+  "comment": null,
+  "published_date": "2026-04-23T14:25:55Z",
+  "updated_date": "2026-04-23T14:25:55Z",
+  "url": "https://arxiv.org/abs/2604.21722v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.21722v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-27T10:15:37.396610",
+  "category": "physics",
+  "subcategories": [
+    "quant-ph"
+  ]
+}

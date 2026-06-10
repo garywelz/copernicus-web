@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2605.18180v1",
+  "arxiv_id": "2605.18180v1",
+  "title": "Canonical Regularisation of Wide Feature-Learning Neural Networks",
+  "authors": [
+    "George Whittle",
+    "Pranav Vaidhyanathan",
+    "Juliusz Ziomek",
+    "Natalia Ares",
+    "Maike A. Osborne"
+  ],
+  "author_string": "George Whittle, Pranav Vaidhyanathan, Juliusz Ziomek, Natalia Ares, Maike A. Osborne",
+  "journal": "arXiv:2605.18180v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Wide neural networks in the feature-learning regime drive modern deep learning, and yet they remain far less studied than their kernel-regime counterparts. We consider a critical yet under-explored difference between these two regimes: the regulariser and prior implied by gradient flow training. This canonical regularisation property is well-studied in kernel regime networks -- of all the infinite global minima, gradient flow selects exactly the vanishing ridge solution -- and underpins the celebrated NN-GP correspondence, precisely allowing the modelling of noise during training. However, we prove ridge regularisation biases gradient flow in feature-learning regime networks, even in the infinitesimal limit of vanishing regularisation. Over training, ridge distorts the inductive bias of the network, with a particular damage done to pretrained networks where the implicit prior is informative. We resolve this by axiomatising the canonical regulariser as a regime-agnostic function-space energy and lift, which uniquely identifies ridge in the kernel regime, and crucially generalises to the feature-learning regime. By studying the Riemannian geometry of feature-learning networks, we derive geodesic ridge from our framework, generalising ridge to the feature-learning regime. Correspondingly, we prove the canonical function-space prior is a Riemannian Gibbs Process, generalising the more familiar Gaussian Process. As a practical contribution, we propose arc ridge as a minimax-robust, scalable surrogate to geodesic ridge, revealing a deep relationship between early stopping and canonical regularisation across learning regimes. Finally, we demonstrate the consequences of our theory empirically on both image processing and NLP transfer-learning problems.",
+  "categories": [
+    "stat.ML",
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": null,
+  "published_date": "2026-05-18T10:23:06Z",
+  "updated_date": "2026-05-18T10:23:06Z",
+  "url": "https://arxiv.org/abs/2605.18180v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.18180v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-18T22:16:04.720122",
+  "category": "computer_science",
+  "subcategories": [
+    "stat.ML",
+    "cs.LG"
+  ]
+}

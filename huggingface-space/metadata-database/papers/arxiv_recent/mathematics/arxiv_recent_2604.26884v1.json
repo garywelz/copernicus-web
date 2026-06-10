@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_2604.26884v1",
+  "arxiv_id": "2604.26884v1",
+  "title": "Improving Bias Correction Methods for Daily Rainfall Using a Markov Chain Approach",
+  "authors": [
+    "Danny Parsons",
+    "David Stern",
+    "Mouhamadou Bamba Sylla",
+    "James Musyoka",
+    "John Bagiliko",
+    "Lily Clements",
+    "John Mupuro",
+    "Denis Ndanguza"
+  ],
+  "author_string": "Danny Parsons, David Stern, Mouhamadou Bamba Sylla, James Musyoka, John Bagiliko et al.",
+  "journal": "arXiv:2604.26884v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Accurate, localised rainfall information is essential for applications such as agricultural planning, climate risk assessment, and water resources management. Gridded climate products provide rainfall information over large areas but can lack the accuracy needed at local scales, often requiring bias correction before use in local impact studies. Bias correction of daily rainfall is particularly challenging due to its complex characteristics. Local intensity scaling (LOCI) and quantile mapping (QM) are two widely used bias correction methods which adjust both rainfall frequency and intensity, but do not account for the temporal structure of daily rainfall. This can lead to biases in the representation of wet and dry spells. This study proposes integrating a two-state first-order Markov chain directly into existing bias correction methods through state-dependent rain day thresholds and rainfall adjustments, aimed at improving the temporal structure of rainfall. Two implementations of this framework are presented: Markov chain local intensity scaling (MC LOCI) and Markov chain quantile mapping (MC QM). The proposed methods were applied to AgERA5 reanalysis data with rainfall data from five stations in Zimbabwe. Results showed that the Markov chain methods outperformed LOCI and QM by improving the representation of rainfall persistence, onset, and wet and dry spell characteristics, while maintaining improvements in rain day frequency and overall rainfall statistics. These results demonstrate that the proposed methods could be beneficial for applications such as crop simulation, hydrological modelling and other applications which rely on accurate representation of rainfall sequencing.",
+  "categories": [
+    "stat.AP"
+  ],
+  "primary_category": "stat.AP",
+  "comment": "42 pages, 19 figures",
+  "published_date": "2026-04-29T16:53:05Z",
+  "updated_date": "2026-04-29T16:53:05Z",
+  "url": "https://arxiv.org/abs/2604.26884v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.26884v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-30T10:15:46.067440",
+  "category": "mathematics",
+  "subcategories": [
+    "stat.AP"
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_2604.21274v1",
+  "arxiv_id": "2604.21274v1",
+  "title": "Random Access Codes: Explicit Constructions, Optimality, and Classical-Quantum Gaps",
+  "authors": [
+    "Ruho Kondo",
+    "Yuki Sato",
+    "Hiroshi Yano",
+    "Yota Maeda",
+    "Kosuke Ito",
+    "Naoki Yamamoto"
+  ],
+  "author_string": "Ruho Kondo, Yuki Sato, Hiroshi Yano, Yota Maeda, Kosuke Ito et al.",
+  "journal": "arXiv:2604.21274v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "A random access code (RAC) encodes an $L$-bit string into a $k$-bit $(L>k)$ message from which any designated source bit can be recovered with high probability. Its quantum counterpart, a quantum random access code (QRAC), replaces the $k$-bit message with $k$ qubits. While upper bounds on the decoding success probability have long been studied in both classical and quantum settings, explicit constructions of optimal codes are known only in special cases, even for classical RACs. In this paper, we develop a constructive framework for classical $(L,k)$-RACs under both average- and worst-case criteria. We show that optimal code design reduces to selecting $2^k$ points in $\\{0,1\\}^L$ and $[0,1]^L$ for the average- and worst-case criteria, respectively, so as to minimize a distance-like objective. This characterization yields explicit constructions for general $(L,k)$. For $k=L-1$, we further obtain closed-form optimal encoders and decoders for both criteria, and show that the resulting classical $(L,L-1)$-RACs attain the corresponding proved upper bounds. We also show that these optimal classical codes induce $(L,L-1)$-QRACs that attain a conjectured upper bound on the decoding success probability. Numerical optimization suggests little difference between RACs and QRACs in the average-case setting, but a potentially large classical-quantum gap in the worst-case nonasymptotic regime.",
+  "categories": [
+    "quant-ph",
+    "cs.IT"
+  ],
+  "primary_category": "cs.IT",
+  "comment": "15 pages, 2 figures, 2 tables",
+  "published_date": "2026-04-23T04:36:05Z",
+  "updated_date": "2026-04-23T04:36:05Z",
+  "url": "https://arxiv.org/abs/2604.21274v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.21274v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-26T10:16:12.588868",
+  "category": "computer_science",
+  "subcategories": [
+    "quant-ph",
+    "cs.IT"
+  ]
+}

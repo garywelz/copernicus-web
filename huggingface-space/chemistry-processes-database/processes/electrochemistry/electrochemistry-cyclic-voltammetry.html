@@ -167,6 +167,33 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
@@ -176,7 +203,7 @@
             <div class="header-meta">
                 <span class="meta-item">Chemistry</span>
                 <span class="meta-item">Electrochemistry</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,35 +234,57 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Cyclic Voltammetry process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>Cyclic voltammetry sweeps the electrode potential forward and back at a three-electrode cell, producing diffusion-limited current peaks; peak separation and scan-rate dependence reveal reversibility, redox potentials, electron count and kinetics.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-N1["Analyte + Electrolyte"]
-N2["Working/Ref/Counter Electrodes"]
-N3["Potentiostat"]
-N4["Potential Sweep"]
-N5["Measure Current"]
-N6["Voltammogram"]
+    N1["Analyte + 3-electrode cell"]
+    N2["Sweep potential linearly"]
+    N3["Faradaic reaction occurs"]
+    N4["Diffusion-limited peak"]
+    N5["Reverse the scan"]
+    N6{"Reverse peak seen?"}
+    N7["Reversible: ΔEp ≈ 59/n mV"]
+    N8["Quasi/irreversible"]
+    N9["Extract E1/2, n, kinetics"]
+    N10["Redox + mechanistic data"]
 
-N1 --> N2
-N2 --> N3
-N3 --> N4
-N4 --> N5
-N5 --> N6
+    N1 --> N2
+    N2 --> N3
+    N3 --> N4
+    N4 --> N5
+    N5 --> N6
+    N6 -->|yes| N7
+    N6 -->|no| N8
+    N7 --> N9
+    N8 --> N9
+    N9 --> N10
+    N9 -->|vary scan rate| N2
 
     style N1 fill:#ff6b6b,color:#fff
-    style N2 fill:#ff6b6b,color:#fff
-    style N3 fill:#ffd43b,color:#000
-    style N4 fill:#51cf66,color:#fff
+    style N2 fill:#51cf66,color:#fff
+    style N3 fill:#51cf66,color:#fff
+    style N4 fill:#74c0fc,color:#fff
     style N5 fill:#51cf66,color:#fff
-    style N6 fill:#b197fc,color:#fff
+    style N6 fill:#74c0fc,color:#fff
+    style N7 fill:#51cf66,color:#fff
+    style N8 fill:#51cf66,color:#fff
+    style N9 fill:#51cf66,color:#fff
+    style N10 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Analyte + 3-electrode cell</td><td>Triggers & Inputs</td><td><a href="https://www.wiley.com/en-us/Electrochemical+Methods%3A+Fundamentals+and+Applications%2C+3rd+Edition-p-9781119334064" target="_blank" title="Electrochemical Methods: Fundamentals and Applications, 3rd ed." style="color:#e74c3c;">Bard, A. J. et al. 2022</a></td></tr><tr><td style="font-weight:600;">Sweep potential linearly</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1021/acs.jchemed.7b00361" target="_blank" title="A practical beginner's guide to cyclic voltammetry" style="color:#e74c3c;">Elgrishi, N. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Faradaic reaction occurs</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1021/ac60214a047" target="_blank" title="Theory of stationary electrode polarography (CV theory)" style="color:#e74c3c;">Nicholson, R. S. et al. 1964</a></td></tr><tr><td style="font-weight:600;">Diffusion-limited peak</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1021/ac60214a047" target="_blank" title="Theory of stationary electrode polarography (CV theory)" style="color:#e74c3c;">Nicholson, R. S. et al. 1964</a></td></tr><tr><td style="font-weight:600;">Reverse the scan</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1021/acs.jchemed.7b00361" target="_blank" title="A practical beginner's guide to cyclic voltammetry" style="color:#e74c3c;">Elgrishi, N. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Reverse peak seen?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1021/ac60214a047" target="_blank" title="Theory of stationary electrode polarography (CV theory)" style="color:#e74c3c;">Nicholson, R. S. et al. 1964</a></td></tr><tr><td style="font-weight:600;">Reversible: ΔEp ≈ 59/n mV</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1021/ac60214a047" target="_blank" title="Theory of stationary electrode polarography (CV theory)" style="color:#e74c3c;">Nicholson, R. S. et al. 1964</a></td></tr><tr><td style="font-weight:600;">Quasi/irreversible</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1021/acs.jchemed.7b00361" target="_blank" title="A practical beginner's guide to cyclic voltammetry" style="color:#e74c3c;">Elgrishi, N. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Extract E1/2, n, kinetics</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1021/ac60214a047" target="_blank" title="Theory of stationary electrode polarography (CV theory)" style="color:#e74c3c;">Nicholson, R. S. et al. 1964</a></td></tr><tr><td style="font-weight:600;">Redox + mechanistic data</td><td>Products & Outputs</td><td><a href="https://doi.org/10.1021/acs.jchemed.7b00361" target="_blank" title="A practical beginner's guide to cyclic voltammetry" style="color:#e74c3c;">Elgrishi, N. et al. 2018</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -281,12 +330,12 @@ N5 --> N6
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 6</li>
-                        <li><strong>Edges:</strong> 5</li>
-                        <li><strong>Conditionals:</strong> 0</li>
-                        <li><strong>AND Gates:</strong> 0</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 0</li>
+                        <li><strong>Nodes:</strong> 10</li>
+                        <li><strong>Edges:</strong> 11</li>
+                        <li><strong>Conditionals:</strong> 1</li>
+                        <li><strong>AND Gates:</strong> 2</li>
+                        <li><strong>OR Gates:</strong> 2</li>
+                        <li><strong>Total Gates:</strong> 4</li>
                     </ul>
                 </div>
                 
@@ -294,7 +343,7 @@ N5 --> N6
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>cyclic</li><li>voltammetry</li>
+                        <li>cyclic voltammetry</li><li>peak separation</li><li>reversibility</li><li>scan rate</li><li>diffusion</li>
                     </ul>
                 </div>
                 
@@ -305,43 +354,33 @@ N5 --> N6
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Theory of stationary electrode polarography (CV theory)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Nicholson, R. S.; Shain, I.
+                            , Analytical Chemistry
+                             (1964)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Cyclic Voltammetry of Phthalocyanines</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Sakamoto, Keiichi
-                            , Voltammetry
-                             (2019)
-                            </span>
-                            <br><a href="https://doi.org/10.5772/intechopen.81392" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.5772/intechopen.81392</a>
+                            <br><a href="https://doi.org/10.1021/ac60214a047" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1021/ac60214a047</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Cyclic Voltammetry and Its Applications</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Chooto, Pipat
-                            , Voltammetry
-                             (2019)
+                            <strong>A practical beginner's guide to cyclic voltammetry</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Elgrishi, N.; et al.
+                            , Journal of Chemical Education
+                             (2018)
                             </span>
-                            <br><a href="https://doi.org/10.5772/intechopen.83451" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.5772/intechopen.83451</a>
+                            <br><a href="https://doi.org/10.1021/acs.jchemed.7b00361" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1021/acs.jchemed.7b00361</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Cyclic Voltammetry at Macroelectrodes</strong>
-                            
-                            , Understanding Voltammetry
-                             (2025)
+                            <strong>Electrochemical Methods: Fundamentals and Applications, 3rd ed.</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Bard, A. J.; Faulkner, L. R.; White, H. S.
+                            , Wiley
+                             (2022)
                             </span>
-                            <br><a href="https://doi.org/10.1142/9781800615984_0004" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1142/9781800615984_0004</a>
                             
+                            <br><a href="https://www.wiley.com/en-us/Electrochemical+Methods%3A+Fundamentals+and+Applications%2C+3rd+Edition-p-9781119334064" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
                         </li>
                         
                     </ul>

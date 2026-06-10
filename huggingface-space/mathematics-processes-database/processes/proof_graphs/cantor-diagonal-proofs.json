@@ -1,0 +1,40 @@
+{
+  "id": "cantor-diagonal-proofs",
+  "name": "Cantor Diagonal Proofs - Proof Graph Pilot",
+  "category": "mathematics",
+  "subcategory": "proof_graphs",
+  "subcategory_name": "Proof Graphs",
+  "description": "This extension adds three Cantor-style proof graphs to the pilot. They test a family of structures that differs from the Euclidean and arithmetic examples: enumeration, diagonal traversal, anti-diagonal construction, and self-reference-like contradiction.",
+  "mermaid": "flowchart TD\n  assumeListing[&quot;Assumption: proposed enumeration or function&quot;] --> diagonalProcedure[&quot;Algorithm capsule: inspect diagonal or grid&quot;]\n  diagonalProcedure --> constructedObject[&quot;Construction: diagonal or anti-diagonal object&quot;]\n  constructedObject --> differsFromEach[&quot;Assertion: constructed object differs from every listed object&quot;]\n  assumeListing --> contradiction[&quot;Contradiction: listing was supposed to be complete&quot;]\n  differsFromEach --> contradiction\n  contradiction --> conclusion[&quot;Conclusion: original cardinality claim follows&quot;]\n\n%% additional_graph\n\nflowchart TD\n  target[&quot;Target: no function from S onto P(S) is surjective&quot;] --> assumeSurjection[&quot;Assumption: f maps S onto P(S)&quot;]\n  assumeSurjection --> defineD[&quot;Construction: D equals set of x in S such that x is not in f(x)&quot;]\n  separation[&quot;Set comprehension for subset of S&quot;] --> defineD\n  defineD --> dSubset[&quot;Assertion: D is an element of P(S)&quot;]\n  assumeSurjection --> existsA[&quot;Assertion: since f is surjective, some a in S has f(a) equals D&quot;]\n  dSubset --> existsA\n  defineD --> membershipQuestion{&quot;Is a in D?&quot;}\n  existsA --> membershipQuestion\n  membershipQuestion -->|&quot;yes&quot;| yesContradiction[&quot;If a is in D, then by definition a is not in f(a), so a is not in D&quot;]\n  membershipQuestion -->|&quot;no&quot;| noContradiction[&quot;If a is not in D, then by definition a is in f(a), so a is in D&quot;]\n  yesContradiction --> contradiction[&quot;Contradiction in both cases&quot;]\n  noContradiction --> contradiction\n  contradiction --> discharge[&quot;Discharge assumption: f is not surjective&quot;]\n  discharge --> conclusion[&quot;Conclusion: P(S) has strictly greater cardinality than S&quot;]\n\n%% additional_graph\n\nflowchart LR\n  inputF[&quot;Input: function f from S to P(S)&quot;] --> inspectX[&quot;For each x in S, inspect whether x is in f(x)&quot;]\n  inspectX --> flipMembership[&quot;Put x in D exactly when x is not in f(x)&quot;]\n  flipMembership --> outputD[&quot;Output: anti-diagonal subset D&quot;]\n\n%% additional_graph\n\nflowchart TD\n  target[&quot;Target: Q is countable&quot;] --> encodeRationals[&quot;Construction: represent rationals as integer pairs m,n with n nonzero&quot;]\n  defRational[&quot;Definition: rational equals m divided by n&quot;] --> encodeRationals\n  encodeRationals --> positiveGrid[&quot;Construction: positive rationals represented in N by N grid&quot;]\n  countableProduct[&quot;Fact: N by N is countable by diagonal traversal&quot;] --> enumeratePositive[&quot;Assertion: positive rationals can be enumerated&quot;]\n  positiveGrid --> enumeratePositive\n  enumeratePositive --> skipDuplicates[&quot;Inference: skip repeated fractions such as 1/2 and 2/4&quot;]\n  equalityFractions[&quot;Definition: fraction equality by cross multiplication&quot;] --> skipDuplicates\n  skipDuplicates --> positiveList[&quot;Assertion: positive rationals have a sequence listing&quot;]\n  zero[&quot;Construction: include 0&quot;] --> combineSigns[&quot;Construction: interleave zero, positives, and negatives&quot;]\n  positiveList --> combineSigns\n  signSymmetry[&quot;Fact: each positive rational has a negative counterpart&quot;] --> combineSigns\n  combineSigns --> surjectionNQ[&quot;Assertion: there is a surjection from N onto Q&quot;]\n  countableDef[&quot;Definition: countable means finite or enumerable by N&quot;] --> conclusion[&quot;Conclusion: Q is countable&quot;]\n  surjectionNQ --> conclusion\n\n%% additional_graph\n\nflowchart LR\n  start[&quot;Start with numerator plus denominator sum equal to 2&quot;] --> listPairs[&quot;List pairs m,n with m+n equal current sum&quot;]\n  listPairs --> reduceCheck{&quot;Has fraction m/n appeared before?&quot;}\n  reduceCheck -->|&quot;yes&quot;| skip[&quot;Skip duplicate&quot;]\n  reduceCheck -->|&quot;no&quot;| emit[&quot;Emit rational m/n&quot;]\n  skip --> nextPair{&quot;More pairs at this sum?&quot;}\n  emit --> nextPair\n  nextPair -->|&quot;yes&quot;| listPairs\n  nextPair -->|&quot;no&quot;| nextSum[&quot;Increase sum by 1&quot;]\n  nextSum --> listPairs\n\n%% additional_graph\n\nflowchart TD\n  target[&quot;Target: reals in (0,1) are uncountable&quot;] --> assumeList[&quot;Assumption: every real in (0,1) appears in a sequence r1, r2, r3, ...&quot;]\n  assumeList --> decimalRows[&quot;Construction: write each rn as a decimal row&quot;]\n  decimalConvention[&quot;Convention: choose decimal expansions not ending in repeating 9s&quot;] --> decimalRows\n  decimalRows --> diagonalDigits[&quot;Algorithm: read nth digit of rn&quot;]\n  diagonalDigits --> constructX[&quot;Construction: define x by changing each nth diagonal digit&quot;]\n  digitRule[&quot;Rule: choose a digit different from the diagonal digit and avoid 9&quot;] --> constructX\n  constructX --> xInInterval[&quot;Assertion: x is a real number in (0,1)&quot;]\n  constructX --> differsFromRn[&quot;Assertion: x differs from rn in the nth digit for every n&quot;]\n  decimalConvention --> differsFromRn\n  differsFromRn --> notInList[&quot;Assertion: x is not equal to any listed rn&quot;]\n  assumeList --> contradiction[&quot;Contradiction: list was assumed complete, but x is missing&quot;]\n  notInList --> contradiction\n  contradiction --> discharge[&quot;Discharge assumption: no sequence lists all reals in (0,1)&quot;]\n  discharge --> conclusion[&quot;Conclusion: reals are uncountable&quot;]\n\n%% additional_graph\n\nflowchart LR\n  inputRows[&quot;Input: sequence of decimal rows r1, r2, r3, ...&quot;] --> readDigit[&quot;Read nth digit of row n&quot;]\n  readDigit --> chooseDifferent[&quot;Choose output digit different from that digit&quot;]\n  chooseDifferent --> appendDigit[&quot;Append chosen digit to x&quot;]\n  appendDigit --> moreRows{&quot;Continue to next row?&quot;}\n  moreRows -->|&quot;yes&quot;| readDigit\n  moreRows -->|&quot;indefinitely&quot;| outputX[&quot;Output: real x determined by anti-diagonal digits&quot;]",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "proof_graph",
+  "graphType": "proof_graph"
+}

@@ -1,0 +1,17 @@
+{
+  "acquired_date": "2025-10-08T00:00:00Z",
+  "category": "DNA Repair",
+  "created": "2025-10-08",
+  "description": "SOS response from Abasy Atlas: meta-curated LexA/RecA regulon with individual SOS genes (recA, lexA, uvrA-D, recN, sulA, umuDC, dinB, dinI, polB, ruvA/B, ssb).",
+  "id": "process_DNA Repair_sos-abasy",
+  "name": "SOS Response (Abasy-sourced)",
+  "organism": "E. coli",
+  "source": "Abasy Atlas",
+  "source_version": "v2.2",
+  "version_label": "V6",
+  "notes": "V6 = Abasy only. LexA regulon and RecA–LexA system; gene list from Abasy meta-curated E. coli network.",
+  "mermaid": "graph TD\n    LEXA[LexA regulon]\n    RECA[RecA]\n    LEXA -->|repression| RECA_G[recA]\n    LEXA -->|repression| LEXA_G[lexA]\n    LEXA -->|repression| UVRA[uvrA]\n    LEXA -->|repression| UVRB[uvrB]\n    LEXA -->|repression| UVRC[uvrC]\n    LEXA -->|repression| UVRD[uvrD]\n    LEXA -->|repression| RECN[recN]\n    LEXA -->|repression| SULA[sulA]\n    LEXA -->|repression| UMUDC[umuDC]\n    LEXA -->|repression| DINB[dinB]\n    LEXA -->|repression| DINI[dinI]\n    LEXA -->|repression| POLB[polB]\n    LEXA -->|repression| RUVA[ruvA]\n    LEXA -->|repression| RUVB[ruvB]\n    LEXA -->|repression| SSB[ssb]\n    RECA -->|cleavage| LEXA\n    RECA_G -->|activation| RECA\n    style LEXA fill:#ffd43b,color:#000\n    style RECA fill:#ffd43b,color:#000\n    style RECA_G fill:#74c0fc,color:#000\n    style LEXA_G fill:#74c0fc,color:#000\n    style UVRA fill:#74c0fc,color:#000\n    style UVRB fill:#74c0fc,color:#000\n    style UVRC fill:#74c0fc,color:#000\n    style UVRD fill:#74c0fc,color:#000\n    style RECN fill:#74c0fc,color:#000\n    style SULA fill:#74c0fc,color:#000\n    style UMUDC fill:#74c0fc,color:#000\n    style DINB fill:#74c0fc,color:#000\n    style DINI fill:#74c0fc,color:#000\n    style POLB fill:#74c0fc,color:#000\n    style RUVA fill:#74c0fc,color:#000\n    style RUVB fill:#74c0fc,color:#000\n    style SSB fill:#74c0fc,color:#000",
+  "related_processes": ["ecoli_sos_response"],
+  "scientificAccuracy": "From Abasy Atlas v2.2 E. coli regulatory network; LexA regulon genes meta-curated from RegulonDB and others.",
+  "sources": [{"title": "Abasy Atlas", "url": "https://abasy.ccg.unam.mx", "note": "Meta-curated bacterial regulatory networks; SOS/LexA regulon."}]
+}

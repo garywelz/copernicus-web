@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2605.20006v1",
+  "arxiv_id": "2605.20006v1",
+  "title": "GeoX: Mastering Geospatial Reasoning Through Self-Play and Verifiable Rewards",
+  "authors": [
+    "Kyeongjin Ahn",
+    "Seungeon Lee",
+    "Krishna P. Gummadi",
+    "Meeyoung Cha"
+  ],
+  "author_string": "Kyeongjin Ahn, Seungeon Lee, Krishna P. Gummadi, Meeyoung Cha",
+  "journal": "arXiv:2605.20006v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Geospatial reasoning requires solving image-grounded problems over the complex spatial structure of a scene. However, developing this capability is hindered by the cost of annotating a vast and combinatorial question space. We propose GeoX, a self-play framework that acquires spatial logic through executable programs that yield verifiable rewards, without relying on large-scale human-curated data Given a satellite or aerial image, our framework employs a single multimodal policy that proposes spatial problems as executable programs and solves them under three reasoning modes-abduction, deduction, and induction-over spatial primitives and an image understanding tool. A verifier executes each program to covert a reward signal that jointly optimizes the two roles via reinforcement learning. GeoX consistently improves its base VLMs by up to 5.5 points on average, matching or exceeding conventional baselines trained on millions of curated data. Along-side the proposed method, we release a benchmark for geospatial understanding accumulated through self-play.",
+  "categories": [
+    "cs.AI"
+  ],
+  "primary_category": "cs.AI",
+  "comment": "26 pages,12 figures, 9 tables",
+  "published_date": "2026-05-19T15:37:01Z",
+  "updated_date": "2026-05-19T15:37:01Z",
+  "url": "https://arxiv.org/abs/2605.20006v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.20006v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-20T10:16:34.001002",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.AI"
+  ]
+}

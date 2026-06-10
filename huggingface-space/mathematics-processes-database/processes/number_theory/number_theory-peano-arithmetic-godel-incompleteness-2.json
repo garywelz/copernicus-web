@@ -1,0 +1,39 @@
+{
+  "id": "number_theory-peano-arithmetic-godel-incompleteness-2",
+  "name": "Peano Arithmetic & Gödel — Part 8: Second Incompleteness Theorem",
+  "category": "mathematics",
+  "subcategory": "number_theory",
+  "subcategory_name": "Number Theory",
+  "description": "Gödel's Second Incompleteness Theorem: If PA is consistent, then PA ⊬ Con(PA). A formal system cannot prove its own consistency. Proof: formalize First Incompleteness; G ↔ ¬Prov(#G) implies Con(PA) → G, so PA ⊢ Con(PA) would give PA ⊢ G, contradicting First Incompleteness.",
+  "mermaid": "graph TD\n    RefFirst[\"Ref: First Incompleteness (Part 7)\"]\n    DefCon[\"Def: Con(T) = ¬Prov(#⊥̄) = consistency statement\"]\n    LemD1[\"Lem: Derivability conditions D1: T ⊢ φ ⇒ T ⊢ Prov(#φ̄)\"]\n    LemD2[\"Lem: D2: T ⊢ Prov(#φ→ψ̄) → Prov(#φ̄) → Prov(#ψ̄)\"]\n    LemD3[\"Lem: D3: T ⊢ Prov(#φ̄) → Prov(#Prov(#φ̄)̄)\"]\n    LemFormal[\"Lem: Formalized First Incompleteness: T ⊢ Con(T) → G\"]\n    LemGUnprov[\"Lem: T consistent ⇒ T ⊬ G\"]\n    ThmSecondIncomp[\"Thm: Second Incompleteness: T consistent ⇒ T ⊬ Con(T)\"]\n    CorNoConsProof[\"Cor: No finitistic proof of consistency of PA within PA\"]\n    RefFirst --> DefCon\n    RefFirst --> LemFormal\n    RefFirst --> LemGUnprov\n    DefCon --> LemD1\n    DefCon --> LemD2\n    DefCon --> LemD3\n    LemD1 --> LemFormal\n    LemD2 --> LemFormal\n    LemD3 --> LemFormal\n    LemFormal --> ThmSecondIncomp\n    LemGUnprov --> ThmSecondIncomp\n    ThmSecondIncomp --> CorNoConsProof\n    classDef definition fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef lemma fill:#74c0fc,color:#fff,stroke:#4dabf7\n    classDef theorem fill:#51cf66,color:#fff,stroke:#40c057\n    classDef corollary fill:#1abc9c,color:#fff,stroke:#16a085\n    classDef ref fill:#bdc3c7,color:#333,stroke:#95a5a6\n    class RefFirst ref\n    class DefCon definition\n    class LemD1,LemD2,LemD3,LemFormal,LemGUnprov lemma\n    class ThmSecondIncomp theorem\n    class CorNoConsProof corollary",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

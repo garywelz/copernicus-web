@@ -1,0 +1,38 @@
+{
+  "id": "arxiv_2605.02767v1",
+  "arxiv_id": "2605.02767v1",
+  "title": "TOC-SR: Task-Optimal Compact diffusion for Image Super Resolution",
+  "authors": [
+    "Sowmya Vajrala",
+    "Akshay Bankar",
+    "Manjunath Arveti",
+    "Shreyas Pandith",
+    "Sravanth Kodavanti",
+    "Subhajit Sanyal",
+    "Amit Unde",
+    "Srinivas Soumitri Miriyala"
+  ],
+  "author_string": "Sowmya Vajrala, Akshay Bankar, Manjunath Arveti, Shreyas Pandith, Sravanth Kodavanti et al.",
+  "journal": "arXiv:2605.02767v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Diffusion models have recently demonstrated strong performance for image restoration tasks, including super-resolution. However, their large model size and iterative sampling procedures make them computationally expensive for practical deployment. In this work, we present TOC-SR, a framework for building efficient one-step super-resolution models by first discovering a compact diffusion backbone. Starting from a sixteen-channel latent diffusion model, we construct parameter-efficient surrogate blocks using feature-wise generative distillation and perform architecture discovery using epsilon-constrained Bayesian Optimization to minimize model complexity while preserving generative fidelity. The resulting compact diffusion backbone achieves a 6.6x reduction in parameters and a 2.8x reduction in GMACs compared to the expanded diffusion model. We then adapt this backbone for super-resolution and distill the diffusion process into a single-step generator. Experiments demonstrate that the proposed approach enables efficient super-resolution while maintaining strong reconstruction quality.",
+  "categories": [
+    "cs.CV",
+    "cs.AI"
+  ],
+  "primary_category": "cs.AI",
+  "comment": null,
+  "published_date": "2026-05-04T16:06:24Z",
+  "updated_date": "2026-05-04T16:06:24Z",
+  "url": "https://arxiv.org/abs/2605.02767v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.02767v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-04T22:15:50.302364",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CV",
+    "cs.AI"
+  ]
+}

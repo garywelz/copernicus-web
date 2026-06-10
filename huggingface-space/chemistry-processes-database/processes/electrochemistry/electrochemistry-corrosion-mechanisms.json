@@ -1,21 +1,23 @@
 {
   "id": "electrochemistry-corrosion-mechanisms",
-  "name": "Corrosion Mechanisms",
+  "name": "Galvanic Corrosion Mechanism",
   "category": "chemistry",
   "subcategory": "electrochemistry",
   "subcategory_name": "Electrochemistry",
-  "description": "Corrosion Mechanisms process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "Electrochemical corrosion couples an anodic metal-dissolution site to a cathodic reduction site through electron flow in the metal and ion flow in the electrolyte; galvanic coupling accelerates attack while a passive oxide film can slow it.",
   "complexity": {
-    "nodes": 26,
-    "edges": 22,
-    "conditionals": 0,
+    "nodes": 10,
+    "edges": 13,
+    "conditionals": 2,
     "logicGates": {
-      "orGates": 0,
-      "andGates": 1,
-      "total": 1
+      "orGates": 4,
+      "andGates": 3,
+      "notGates": 0,
+      "total": 7
     },
-    "level": "medium",
-    "detailLevel": "medium"
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 2
   },
   "colorScheme": {
     "red": {
@@ -39,53 +41,151 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nA3[Metal Surface] --> B3[Corrosion Analysis Method]\nC3[Oxygen Molecules] --> D3[Moisture Content]\nE3[Electrolyte Solution] --> F3[Environmental Factors]\nB3 --> G3[Surface Characterization]\nD3 --> H3[Humidity Control]\nF3 --> I3[Temperature Monitoring]\nG3 --> J3[Oxidation Sites]\nH3 --> K3[Water Adsorption]\nI3 --> L3[Corrosion Rate]\nJ3 --> M3[Electron Transfer]\nK3 --> L3\nL3 --> N3[Ion Formation]\nM3 --> O3[Oxide Formation]\nN3 --> P3[Corrosion Reaction]\nO3 --> Q3[Surface Degradation]\nP3 --> R3[Rust Formation]\nQ3 --> S3[Protective Coating]\nR3 --> T3[Corrosion Products]\nS3 --> U3[Inhibition Methods]\nT3 --> V3[Prevention Strategies]\nU3 --> W3[Coating Application]\nV3 --> X3[Performance Evaluation]\nW3 --> Y3[Protection Mechanism]\nX3 --> Z3[Corrosion Prevention]\nY3 --> Z3\n\n    style A3 fill:#ff6b6b,color:#fff\n    style C3 fill:#ff6b6b,color:#fff\n    style E3 fill:#ff6b6b,color:#fff\n    style B3 fill:#ffd43b,color:#000\n    style D3 fill:#ffd43b,color:#000\n    style F3 fill:#ffd43b,color:#000\n    style G3 fill:#ffd43b,color:#000\n    style H3 fill:#ffd43b,color:#000\n    style I3 fill:#ffd43b,color:#000\n    style J3 fill:#ffd43b,color:#000\n    style K3 fill:#ffd43b,color:#000\n    style L3 fill:#ffd43b,color:#000\n    style M3 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style O3 fill:#51cf66,color:#fff\n    style P3 fill:#51cf66,color:#fff\n    style Q3 fill:#51cf66,color:#fff\n    style R3 fill:#51cf66,color:#fff\n    style S3 fill:#51cf66,color:#fff\n    style T3 fill:#51cf66,color:#fff\n    style U3 fill:#51cf66,color:#fff\n    style V3 fill:#51cf66,color:#fff\n    style W3 fill:#51cf66,color:#fff\n    style X3 fill:#51cf66,color:#fff\n    style Y3 fill:#51cf66,color:#fff\n    style Z3 fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"Metal in electrolyte\"]\n    N2[\"Anodic: M -> M^n+ + ne−\"]\n    N3[\"Cathodic: O2/H+ reduction\"]\n    N4[\"Electrons flow in metal\"]\n    N5[\"Ions flow in electrolyte\"]\n    N6{\"Galvanic couple?\"}\n    N7[\"Active metal corrodes fast\"]\n    N8{\"Passive film forms?\"}\n    N9[\"Oxide slows dissolution\"]\n    N10[\"Degradation / pitting\"]\n\n    N1 --> N2\n    N1 --> N3\n    N2 --> N4\n    N4 --> N3\n    N3 --> N5\n    N5 -->|circuit| N2\n    N2 --> N6\n    N6 -->|yes| N7\n    N7 --> N10\n    N6 -->|no| N8\n    N8 -->|yes| N9\n    N9 --> N10\n    N8 -->|no film| N10\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#74c0fc,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#74c0fc,color:#fff\n    style N9 fill:#51cf66,color:#fff\n    style N10 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
-      "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: Corrosion Mechanisms. Created using the Programming Framework methodology."
+      "title": "Corrosion and Corrosion Control, 4th ed.",
+      "authors": "Revie, R. W.; Uhlig, H. H.",
+      "journal": "Wiley",
+      "year": "2008",
+      "doi": "10.1002/9780470277270",
+      "url": "https://doi.org/10.1002/9780470277270"
     },
     {
-      "title": "Mechanisms of Pitting Corrosion",
-      "authors": "",
-      "journal": "Corrosion Mechanisms in Theory and Practice",
-      "year": "2011",
-      "pubmed": null,
-      "doi": "10.1201/b11020-11",
-      "url": "https://doi.org/10.1201/b11020-11"
+      "title": "Revised Pourbaix diagrams for iron at 25–300 °C",
+      "authors": "Beverskog, B.; Puigdomenech, I.",
+      "journal": "Corrosion Science",
+      "year": "1996",
+      "doi": "10.1016/S0010-938X(97)00072-7",
+      "url": "https://doi.org/10.1016/S0010-938X(97)00072-7"
     },
     {
-      "title": "Stress-Corrosion Cracking Mechanisms",
-      "authors": "",
-      "journal": "Corrosion Mechanisms in Theory and Practice",
-      "year": "2011",
-      "pubmed": null,
-      "doi": "10.1201/b11020-15",
-      "url": "https://doi.org/10.1201/b11020-15"
-    },
-    {
-      "title": "Corrosion Mechanisms",
-      "authors": "",
-      "journal": "Fundamentals of Corrosion",
-      "year": "2009",
-      "pubmed": null,
-      "doi": "10.1201/9781420067712-6",
-      "url": "https://doi.org/10.1201/9781420067712-6"
+      "title": "Gold Book: corrosion",
+      "authors": "IUPAC",
+      "journal": "IUPAC Compendium of Chemical Terminology",
+      "year": "2019",
+      "doi": "10.1351/goldbook.C01342",
+      "url": "https://goldbook.iupac.org/terms/view/C01342"
     }
   ],
   "keywords": [
     "corrosion",
-    "mechanisms"
+    "anodic dissolution",
+    "galvanic couple",
+    "passivation",
+    "pitting"
   ],
   "relatedProcesses": [],
   "created": "2026-01-08",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Metal in electrolyte",
+      "detail": "Exposed surface",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N2",
+      "label": "Anodic: M -> M^n+ + ne−",
+      "detail": "Metal dissolution",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N3",
+      "label": "Cathodic: O2/H+ reduction",
+      "detail": "Electron-consuming reaction",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N4",
+      "label": "Electrons flow in metal",
+      "detail": "Anode to cathode",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N5",
+      "label": "Ions flow in electrolyte",
+      "detail": "Completes the circuit",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N6",
+      "label": "Galvanic couple?",
+      "detail": "Dissimilar metals in contact",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N7",
+      "label": "Active metal corrodes fast",
+      "detail": "Less noble member sacrificed",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N8",
+      "label": "Passive film forms?",
+      "detail": "Protective oxide",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N9",
+      "label": "Oxide slows dissolution",
+      "detail": "Passivation",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N10",
+      "label": "Degradation / pitting",
+      "detail": "Material failure mode",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 0
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:electrochemistry-corrosion-mechanisms",
+    "graphType": "cyclic_pathway",
+    "topologySignature": "01d27fc8d0a6208e",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "namedCollections": [
+    "electrochemistry"
+  ],
+  "graphMetrics": {
+    "nodes": 10,
+    "edges": 13,
+    "conditionals": 2,
+    "andGates": 3,
+    "orGates": 4,
+    "notGates": 0,
+    "loops": 2
+  },
+  "graphType": "cyclic_pathway",
+  "domainContext": "Corrosion science"
 }

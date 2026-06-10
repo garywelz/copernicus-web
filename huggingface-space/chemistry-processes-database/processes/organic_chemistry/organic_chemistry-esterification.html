@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Esterification - Chemistry Process</title>
+    <title>Fischer Esterification - Chemistry Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,12 +167,39 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Esterification</h1>
+            <h1>Fischer Esterification</h1>
             <div class="header-meta">
                 <span class="meta-item">Chemistry</span>
                 <span class="meta-item">Organic Chemistry</span>
@@ -207,35 +234,53 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Esterification process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>Acid-catalyzed Fischer esterification condenses a carboxylic acid and an alcohol: protonation activates the carbonyl, the alcohol adds to form a tetrahedral intermediate, and loss of water gives the ester; the reaction is an equilibrium driven by removing water or using excess reagent.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-N1["Carboxylic Acid"]
-N2["Alcohol"]
-N3["Acid Catalyst"]
-N4["Tetrahedral Intermediate"]
-N5["Water Elimination"]
-N6["Ester Product"]
+    N1["Carboxylic acid + alcohol"]
+    N2["Protonate carbonyl"]
+    N3["Alcohol attacks carbonyl"]
+    N4["Tetrahedral intermediate"]
+    N5["Proton transfers"]
+    N6["Lose water"]
+    N7{"Equilibrium reached?"}
+    N8["Remove water / excess ROH"]
+    N9["Ester product"]
 
-N1 --> N2
-N2 --> N3
-N3 --> N4
-N4 --> N5
-N5 --> N6
+    N1 --> N2
+    N2 --> N3
+    N3 --> N4
+    N4 --> N5
+    N5 --> N6
+    N6 --> N7
+    N7 -->|shift right| N8
+    N8 -->|more conversion| N3
+    N7 -->|at equilibrium| N9
 
     style N1 fill:#ff6b6b,color:#fff
-    style N2 fill:#ff6b6b,color:#fff
-    style N3 fill:#ffd43b,color:#000
+    style N2 fill:#51cf66,color:#fff
+    style N3 fill:#51cf66,color:#fff
     style N4 fill:#74c0fc,color:#fff
     style N5 fill:#51cf66,color:#fff
-    style N6 fill:#b197fc,color:#fff
+    style N6 fill:#51cf66,color:#fff
+    style N7 fill:#74c0fc,color:#fff
+    style N8 fill:#51cf66,color:#fff
+    style N9 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Carboxylic acid + alcohol</td><td>Triggers & Inputs</td><td><a href="https://doi.org/10.1002/cber.18950280333" target="_blank" title="Darstellung der Ester (Fischer esterification)" style="color:#e74c3c;">Fischer, E. et al. 1895</a></td></tr><tr><td style="font-weight:600;">Protonate carbonyl</td><td>Processing & Operations</td><td><a href="https://global.oup.com/academic/product/organic-chemistry-9780199270293" target="_blank" title="Organic Chemistry, 2nd ed. — Nucleophilic substitution at the carbonyl group" style="color:#e74c3c;">Clayden, J. et al. 2012</a></td></tr><tr><td style="font-weight:600;">Alcohol attacks carbonyl</td><td>Processing & Operations</td><td><a href="https://global.oup.com/academic/product/organic-chemistry-9780199270293" target="_blank" title="Organic Chemistry, 2nd ed. — Nucleophilic substitution at the carbonyl group" style="color:#e74c3c;">Clayden, J. et al. 2012</a></td></tr><tr><td style="font-weight:600;">Tetrahedral intermediate</td><td>Intermediates & States</td><td><a href="https://global.oup.com/academic/product/organic-chemistry-9780199270293" target="_blank" title="Organic Chemistry, 2nd ed. — Nucleophilic substitution at the carbonyl group" style="color:#e74c3c;">Clayden, J. et al. 2012</a></td></tr><tr><td style="font-weight:600;">Proton transfers</td><td>Processing & Operations</td><td><a href="https://global.oup.com/academic/product/organic-chemistry-9780199270293" target="_blank" title="Organic Chemistry, 2nd ed. — Nucleophilic substitution at the carbonyl group" style="color:#e74c3c;">Clayden, J. et al. 2012</a></td></tr><tr><td style="font-weight:600;">Lose water</td><td>Processing & Operations</td><td><a href="https://global.oup.com/academic/product/organic-chemistry-9780199270293" target="_blank" title="Organic Chemistry, 2nd ed. — Nucleophilic substitution at the carbonyl group" style="color:#e74c3c;">Clayden, J. et al. 2012</a></td></tr><tr><td style="font-weight:600;">Equilibrium reached?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1351/goldbook.E02194" target="_blank" title="Gold Book: esterification" style="color:#e74c3c;">IUPAC 2019</a></td></tr><tr><td style="font-weight:600;">Remove water / excess ROH</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1002/cber.18950280333" target="_blank" title="Darstellung der Ester (Fischer esterification)" style="color:#e74c3c;">Fischer, E. et al. 1895</a></td></tr><tr><td style="font-weight:600;">Ester product</td><td>Products & Outputs</td><td><a href="https://doi.org/10.1351/goldbook.E02194" target="_blank" title="Gold Book: esterification" style="color:#e74c3c;">IUPAC 2019</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -281,12 +326,12 @@ N5 --> N6
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 6</li>
-                        <li><strong>Edges:</strong> 5</li>
-                        <li><strong>Conditionals:</strong> 0</li>
-                        <li><strong>AND Gates:</strong> 0</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 0</li>
+                        <li><strong>Nodes:</strong> 9</li>
+                        <li><strong>Edges:</strong> 9</li>
+                        <li><strong>Conditionals:</strong> 1</li>
+                        <li><strong>AND Gates:</strong> 1</li>
+                        <li><strong>OR Gates:</strong> 1</li>
+                        <li><strong>Total Gates:</strong> 2</li>
                     </ul>
                 </div>
                 
@@ -294,7 +339,7 @@ N5 --> N6
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>esterification</li>
+                        <li>fischer esterification</li><li>acid catalysis</li><li>tetrahedral intermediate</li><li>equilibrium</li><li>ester</li>
                     </ul>
                 </div>
                 
@@ -305,42 +350,32 @@ N5 --> N6
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Darstellung der Ester (Fischer esterification)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Fischer, E.; Speier, A.
+                            , Berichte der deutschen chemischen Gesellschaft
+                             (1895)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Selective Esterification of Phosphonic Acids</strong>
-                            
-                            
-                             (None)
-                            </span>
-                            <br><a href="https://doi.org/10.37473/fic/10.3390/molecules26185637" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.37473/fic/10.3390/molecules26185637</a>
+                            <br><a href="https://doi.org/10.1002/cber.18950280333" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1002/cber.18950280333</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Selective Esterification of Phosphonic Acids</strong>
-                            
-                            
-                             (None)
+                            <strong>Organic Chemistry, 2nd ed. — Nucleophilic substitution at the carbonyl group</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Clayden, J.; Greeves, N.; Warren, S.
+                            , Oxford University Press
+                             (2012)
                             </span>
-                            <br><a href="https://doi.org/10.37473/dac/10.3390/molecules26185637" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.37473/dac/10.3390/molecules26185637</a>
                             
+                            <br><a href="https://global.oup.com/academic/product/organic-chemistry-9780199270293" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Hydrolysis and esterification</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Procter, Garry
-                            , Stereoselectivity in Organic Synthesis
-                             (1998)
+                            <strong>Gold Book: esterification</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">IUPAC
+                            , IUPAC Compendium of Chemical Terminology
+                             (2019)
                             </span>
-                            <br><a href="https://doi.org/10.1093/hesc/9780198559573.003.0010" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1093/hesc/9780198559573.003.0010</a>
+                            <br><a href="https://doi.org/10.1351/goldbook.E02194" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1351/goldbook.E02194</a>
                             
                         </li>
                         

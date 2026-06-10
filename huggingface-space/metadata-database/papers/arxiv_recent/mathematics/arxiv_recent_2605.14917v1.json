@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_2605.14917v1",
+  "arxiv_id": "2605.14917v1",
+  "title": "A Mutual Information Lower Bound for Multimodal Regression Active Learning",
+  "authors": [
+    "Leonardo Ferreira Guilhoto",
+    "Akshat Kaushal",
+    "Paris Perdikaris"
+  ],
+  "author_string": "Leonardo Ferreira Guilhoto, Akshat Kaushal, Paris Perdikaris",
+  "journal": "arXiv:2605.14917v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Active learning for continuous regression has lacked an acquisition function that targets epistemic uncertainty when the predictive distribution is multimodal: variance misses modal disagreement, and information-theoretic targets like BALD are designed for discrete outputs. We introduce a Two-Index framework that makes this separation explicit: one stochastic index selects among competing model hypotheses (epistemic source), while a second governs within-hypothesis randomness (aleatoric source). An entropy decomposition within the framework identifies the mutual information between the output and the epistemic index as a principled acquisition objective, and we prove this quantity vanishes as the model is trained on growing datasets, confirming that it captures exactly the uncertainty data can resolve. Because this mutual information is intractable for continuous outputs, we derive the Mutual Information Lower Bound (MI-LB) acquisition function, a closed-form approximation for Mixture Density Network ensembles. On benchmarks featuring multimodal systems, MI-LB matches or beats every baseline evaluated and is the only method to do so consistently -- geometric and Fisher-based baselines compete only when the input space already encodes the multimodality, and collapse otherwise.",
+  "categories": [
+    "cs.LG",
+    "cs.CE",
+    "cs.IT",
+    "stat.ML"
+  ],
+  "primary_category": "stat.ML",
+  "comment": null,
+  "published_date": "2026-05-14T14:50:47Z",
+  "updated_date": "2026-05-14T14:50:47Z",
+  "url": "https://arxiv.org/abs/2605.14917v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.14917v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-16T10:15:40.622900",
+  "category": "mathematics",
+  "subcategories": [
+    "cs.LG",
+    "cs.CE",
+    "cs.IT"
+  ]
+}

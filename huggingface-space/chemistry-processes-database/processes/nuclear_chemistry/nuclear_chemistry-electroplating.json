@@ -1,21 +1,23 @@
 {
   "id": "nuclear_chemistry-electroplating",
-  "name": "Electroplating",
+  "name": "Nuclear Fusion (D–T)",
   "category": "chemistry",
   "subcategory": "nuclear_chemistry",
   "subcategory_name": "Nuclear Chemistry",
-  "description": "Electroplating process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "Fusion joins light nuclei into a heavier one: only when enough energy is supplied to tunnel through the Coulomb barrier do deuterium and tritium fuse, releasing energy from the mass defect, and net power requires meeting the Lawson confinement criterion.",
   "complexity": {
-    "nodes": 26,
-    "edges": 22,
-    "conditionals": 0,
+    "nodes": 10,
+    "edges": 11,
+    "conditionals": 2,
     "logicGates": {
-      "orGates": 0,
-      "andGates": 1,
-      "total": 1
+      "orGates": 2,
+      "andGates": 2,
+      "notGates": 0,
+      "total": 4
     },
-    "level": "medium",
-    "detailLevel": "medium"
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 2
   },
   "colorScheme": {
     "red": {
@@ -39,52 +41,151 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nA4[Metal Ions] --> B4[Electroplating Method]\nC4[Substrate Surface] --> D4[Electrolyte Bath]\nE4[Power Supply] --> F4[Current Control]\nB4 --> G4[Surface Preparation]\nD4 --> H4[Solution Composition]\nF4 --> I4[Voltage Regulation]\nG4 --> J4[Cleaning Process]\nH4 --> K4[Concentration Control]\nI4 --> L4[Current Density]\nJ4 --> M4[Surface Activation]\nK4 --> L4\nL4 --> N4[Ion Migration]\nM4 --> O4[Nucleation Sites]\nN4 --> P4[Electrodeposition]\nO4 --> Q4[Film Growth]\nP4 --> R4[Metal Deposition]\nQ4 --> S4[Thickness Control]\nR4 --> T4[Coating Formation]\nS4 --> U4[Quality Assessment]\nT4 --> V4[Adhesion Testing]\nU4 --> W4[Surface Analysis]\nV4 --> X4[Performance Evaluation]\nW4 --> Y4[Process Optimization]\nX4 --> Z4[Final Coating]\nY4 --> Z4\n\n    style A4 fill:#ff6b6b,color:#fff\n    style C4 fill:#ff6b6b,color:#fff\n    style E4 fill:#ff6b6b,color:#fff\n    style B4 fill:#ffd43b,color:#000\n    style D4 fill:#ffd43b,color:#000\n    style F4 fill:#ffd43b,color:#000\n    style G4 fill:#ffd43b,color:#000\n    style H4 fill:#ffd43b,color:#000\n    style I4 fill:#ffd43b,color:#000\n    style J4 fill:#ffd43b,color:#000\n    style K4 fill:#ffd43b,color:#000\n    style L4 fill:#ffd43b,color:#000\n    style M4 fill:#51cf66,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style O4 fill:#51cf66,color:#fff\n    style P4 fill:#51cf66,color:#fff\n    style Q4 fill:#51cf66,color:#fff\n    style R4 fill:#51cf66,color:#fff\n    style S4 fill:#51cf66,color:#fff\n    style T4 fill:#51cf66,color:#fff\n    style U4 fill:#51cf66,color:#fff\n    style V4 fill:#51cf66,color:#fff\n    style W4 fill:#51cf66,color:#fff\n    style X4 fill:#51cf66,color:#fff\n    style Y4 fill:#51cf66,color:#fff\n    style Z4 fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"Light nuclei (D, T)\"]\n    N2{\"Overcome Coulomb barrier?\"}\n    N3[\"Too cold: nuclei repel\"]\n    N4[\"High T/P: tunnel through\"]\n    N5[\"Nuclei fuse\"]\n    N6[\"He-4 + neutron formed\"]\n    N7[\"Mass defect -> energy\"]\n    N8{\"Lawson criterion met?\"}\n    N9[\"Confinement losses\"]\n    N10[\"Ignition / net energy\"]\n\n    N1 --> N2\n    N2 -->|no| N3\n    N3 -->|add energy| N2\n    N2 -->|yes| N4\n    N4 --> N5\n    N5 --> N6\n    N6 --> N7\n    N7 --> N8\n    N8 -->|no| N9\n    N9 -->|improve confine…| N4\n    N8 -->|yes| N10\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#74c0fc,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#74c0fc,color:#fff\n    style N9 fill:#51cf66,color:#fff\n    style N10 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "title": "Energy production in stars",
+      "authors": "Bethe, H. A.",
+      "journal": "Physical Review",
+      "year": "1939",
+      "doi": "10.1103/PhysRev.55.434",
+      "url": "https://doi.org/10.1103/PhysRev.55.434"
+    },
+    {
+      "title": "Some criteria for a power producing thermonuclear reactor (Lawson criterion)",
+      "authors": "Lawson, J. D.",
+      "journal": "Proceedings of the Physical Society B",
+      "year": "1957",
+      "doi": "10.1088/0370-1301/70/1/303",
+      "url": "https://doi.org/10.1088/0370-1301/70/1/303"
+    },
+    {
+      "title": "Introductory Nuclear Physics — Nuclear Reactions and Fusion",
+      "authors": "Krane, K. S.",
+      "journal": "Wiley",
+      "year": "1987",
       "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: Electroplating. Created using the Programming Framework methodology."
-    },
-    {
-      "title": "Electroplating",
-      "authors": "Craddock, P. T.",
-      "journal": "Oxford Art Online",
-      "year": "2003",
-      "pubmed": null,
-      "doi": "10.1093/gao/9781884446054.article.t025807",
-      "url": "https://doi.org/10.1093/gao/9781884446054.article.t025807"
-    },
-    {
-      "title": "Resistant Fungal Biodiversity of Electroplating Effluent and Their Metal Tolerance Index",
-      "authors": "Tahir, Arifa",
-      "journal": "Electroplating",
-      "year": "2012",
-      "pubmed": null,
-      "doi": "10.5772/34624",
-      "url": "https://doi.org/10.5772/34624"
-    },
-    {
-      "title": "High Speed Electroplating",
-      "authors": "Safranek, W. H.; Duva, Robert",
-      "journal": "Electroplating Engineering Handbook",
-      "year": "1996",
-      "pubmed": null,
-      "doi": "10.1007/978-1-4613-2547-5_39",
-      "url": "https://doi.org/10.1007/978-1-4613-2547-5_39"
+      "url": "https://www.wiley.com/en-us/Introductory+Nuclear+Physics-p-9780471805533"
     }
   ],
   "keywords": [
-    "electroplating"
+    "nuclear fusion",
+    "coulomb barrier",
+    "mass defect",
+    "lawson criterion",
+    "deuterium-tritium"
   ],
   "relatedProcesses": [],
   "created": "2026-01-08",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Light nuclei (D, T)",
+      "detail": "Fusion fuel",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 2
+    },
+    {
+      "id": "N2",
+      "label": "Overcome Coulomb barrier?",
+      "detail": "Electrostatic repulsion",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 2
+    },
+    {
+      "id": "N3",
+      "label": "Too cold: nuclei repel",
+      "detail": "No fusion at low energy",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N4",
+      "label": "High T/P: tunnel through",
+      "detail": "Quantum tunneling at MK temps",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N5",
+      "label": "Nuclei fuse",
+      "detail": "Strong force binds them",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N6",
+      "label": "He-4 + neutron formed",
+      "detail": "D + T -> He + n",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N7",
+      "label": "Mass defect -> energy",
+      "detail": "E = mc² release (17.6 MeV)",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N8",
+      "label": "Lawson criterion met?",
+      "detail": "nτT threshold for net gain",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N9",
+      "label": "Confinement losses",
+      "detail": "Energy escapes the plasma",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N10",
+      "label": "Ignition / net energy",
+      "detail": "Self-sustaining burn",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 1
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:nuclear_chemistry-electroplating",
+    "graphType": "cyclic_pathway",
+    "topologySignature": "76a5d3429c1ed6f4",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "namedCollections": [
+    "nuclear-chemistry"
+  ],
+  "graphMetrics": {
+    "nodes": 10,
+    "edges": 11,
+    "conditionals": 2,
+    "andGates": 2,
+    "orGates": 2,
+    "notGates": 0,
+    "loops": 2
+  },
+  "graphType": "cyclic_pathway",
+  "domainContext": "Nuclear fusion"
 }

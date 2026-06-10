@@ -1,0 +1,39 @@
+{
+  "id": "arxiv_2605.02834v1",
+  "arxiv_id": "2605.02834v1",
+  "title": "VideoNet: A Large-Scale Dataset for Domain-Specific Action Recognition",
+  "authors": [
+    "Tanush Yadav",
+    "Mohammadreza Salehi",
+    "Jae Sung Park",
+    "Vivek Ramanujan",
+    "Hannaneh Hajishirzi",
+    "Yejin Choi",
+    "Ali Farhadi",
+    "Rohun Tripathi",
+    "Ranjay Krishna"
+  ],
+  "author_string": "Tanush Yadav, Mohammadreza Salehi, Jae Sung Park, Vivek Ramanujan, Hannaneh Hajishirzi et al.",
+  "journal": "CVPR 2026 Highlight",
+  "journal_ref": "CVPR 2026 Highlight",
+  "year": "2026",
+  "doi": null,
+  "abstract": "Videos are unique in their ability to capture actions which transcend multiple frames. Accordingly, for many years action recognition was the quintessential task for video understanding. Unfortunately, due to a lack of sufficiently diverse and challenging data, modern vision-language models (VLMs) are no longer evaluated on their action recognition capabilities. To revitalize action recognition in the era of VLMs, we advocate for a returned focus on domain-specific actions. To this end, we introduce VideoNet, a domain-specific action recognition benchmark covering 1,000 distinct actions from 37 domains. We begin with a multiple-choice evaluation setting, where the difference between closed and open models is stark: Gemini 3.1 Pro attains 69.9% accuracy while Qwen3-VL-8B gets a mere 45.0%. To understand why VLMs struggle on VideoNet, we relax the questions into a binary setting, where random chance is 50%. Still, Qwen achieves only 59.2% accuracy. Further relaxing the evaluation setup, we provide $k\\in\\{1,2,3\\}$ in-context examples of the action. Some models excel in the few-shot setting, while others falter; Qwen improves $+7.0\\%$, while Gemini declines $-4.8\\%$. Notably, these gains fall short of the $+13.6\\%$ improvement in non-expert humans when given few-shot examples. Finding that VLMs struggle to fully exploit in-context examples, we shift from test-time improvements to the training side. We collect the first large-scale training dataset for domain-specific actions, totaling nearly 500k video question-answer pairs. Fine-tuning a Molmo2-4B model on our data, we surpass all open-weight 8B models on the VideoNet benchmark.",
+  "categories": [
+    "cs.CV",
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": "project website at https://tanu.sh/videonet",
+  "published_date": "2026-05-04T17:11:16Z",
+  "updated_date": "2026-05-04T17:11:16Z",
+  "url": "https://arxiv.org/abs/2605.02834v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.02834v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-05T10:15:47.086145",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CV",
+    "cs.LG"
+  ]
+}

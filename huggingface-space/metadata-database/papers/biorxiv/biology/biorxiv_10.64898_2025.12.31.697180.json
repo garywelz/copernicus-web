@@ -1,0 +1,45 @@
+{
+  "id": "biorxiv_10.64898_2025.12.31.697180",
+  "doi": "10.64898/2025.12.31.697180",
+  "title": "PeptiVerse: A Unified Platform for Therapeutic Peptide Property Prediction",
+  "authors": [
+    "Zhang, Y.",
+    "Tang, S.",
+    "Chen, T.",
+    "Mahood, E.",
+    "Vincoff, S.",
+    "Chatterjee, P."
+  ],
+  "author_string": "Zhang, Y., Tang, S., Chen, T., Mahood, E., Vincoff, S. et al.",
+  "journal": "bioRxiv",
+  "journal_full": "bioRxiv",
+  "year": "2026",
+  "abstract": "Therapeutic peptides combine the advantages of small molecules and antibodies, offering target flexibility and low immunogenicity, yet their successful translation requires careful evaluation of multiple developability properties beyond binding alone. As chemically modified peptides become increasingly common in drug design, no unified platform currently supports systematic property assessment across both canonical sequences and SMILES-based representations. Leveraging the generalizability of large foundational models trained on protein and chemical data, we introduce PeptiVerse, a universal therapeutic peptide property prediction platform. PeptiVerse accepts either amino acid sequences or chemically modified peptide SMILES, delivers state-of-the-art performance across diverse property prediction tasks, and provides both a web interface and open-source implementation for rapid, accessible, and scalable pep-tide developability analysis. By unifying property prediction across representations, PeptiVerse directly supports early-stage peptide therapeutic development campaigns and property-aware generative design workflows.",
+  "keywords": [],
+  "categories": [
+    "bioinformatics"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.64898/2025.12.31.697180",
+  "source": "biorxiv",
+  "sources": [
+    "biorxiv"
+  ],
+  "acquired_date": "2026-05-03T22:15:25.966849",
+  "category": "biology",
+  "subcategories": [
+    "bioinformatics"
+  ],
+  "published_date": "2026-01-03",
+  "updated_date": "2026-01-03",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "biorxiv",
+  "preprint_version": "1",
+  "preprint_type": "new results",
+  "license": "cc_by",
+  "jatsxml": "https://www.biorxiv.org/content/early/2026/01/03//2025.12.31.697180.source.xml",
+  "published_doi": null,
+  "author_corresponding": "Pranam Chatterjee",
+  "author_corresponding_institution": "University of Pennsylvania"
+}

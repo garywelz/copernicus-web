@@ -167,6 +167,33 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
@@ -176,7 +203,7 @@
             <div class="header-meta">
                 <span class="meta-item">Computer Science</span>
                 <span class="meta-item">Computer Networks</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,51 +234,61 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>TCP Congestion Control process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>TCP congestion control regulates the sending rate via a congestion window: it begins in slow start with exponential growth, switches to linear congestion avoidance at the slow-start threshold, and on loss reacts differently to triple duplicate ACKs (fast retransmit and recovery) versus a timeout (reset window), seeking steady throughput.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-N1["TCP Connection"]
-N2["ACK/Loss Signals"]
-N3["cwnd + ssthresh"]
-N4["Choose Approach"]
-N5["RTT Estimator"]
-N6["Slow Start"]
-N7["Congestion Avoidance"]
-N8["Fast Recovery"]
-N9["Integrate Results"]
-N10["Stable Throughput"]
-N11["Adaptive Send Rate"]
+    N1["TCP connection up"]
+    N2["Slow start: cwnd=1"]
+    N3["Exponential cwnd growth"]
+    N4{"Reached ssthresh?"}
+    N5["Congestion avoidance"]
+    N6{"Packet loss detected?"}
+    N7{"Dup-ACK or timeout?"}
+    N8["Fast retransmit/recovery"]
+    N9["Timeout: reset cwnd"]
+    N10["Adjust window"]
+    N11["Steady throughput"]
 
-N1 --> N2
-N2 --> N3
-N3 --> N4
-N4 --> N5
-N4 --> N7
-N5 --> N6
-N7 --> N8
-N6 --> N9
-N8 --> N9
-N9 --> N10
-N10 --> N11
+    N1 --> N2
+    N2 --> N3
+    N3 --> N4
+    N4 -->|no| N3
+    N4 -->|yes| N5
+    N5 --> N6
+    N6 -->|no| N5
+    N6 -->|yes| N7
+    N7 -->|dup-ack| N8
+    N7 -->|timeout| N9
+    N8 --> N10
+    N9 --> N10
+    N10 --> N11
 
     style N1 fill:#ff6b6b,color:#fff
-    style N2 fill:#ff6b6b,color:#fff
-    style N3 fill:#ffd43b,color:#000
-    style N4 fill:#ffd43b,color:#000
-    style N5 fill:#ffd43b,color:#000
-    style N6 fill:#51cf66,color:#fff
-    style N7 fill:#51cf66,color:#fff
+    style N2 fill:#51cf66,color:#fff
+    style N3 fill:#51cf66,color:#fff
+    style N4 fill:#74c0fc,color:#fff
+    style N5 fill:#51cf66,color:#fff
+    style N6 fill:#74c0fc,color:#fff
+    style N7 fill:#74c0fc,color:#fff
     style N8 fill:#51cf66,color:#fff
-    style N9 fill:#74c0fc,color:#fff
+    style N9 fill:#51cf66,color:#fff
     style N10 fill:#74c0fc,color:#fff
     style N11 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">TCP connection up</td><td>Triggers & Inputs</td><td><a href="https://doi.org/10.17487/RFC5681" target="_blank" title="TCP Congestion Control (RFC 5681)" style="color:#9b59b6;">Allman, M. et al. 2009</a></td></tr><tr><td style="font-weight:600;">Slow start: cwnd=1</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1145/52325.52356" target="_blank" title="Congestion avoidance and control" style="color:#9b59b6;">Jacobson, V. 1988</a></td></tr><tr><td style="font-weight:600;">Exponential cwnd growth</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1145/52325.52356" target="_blank" title="Congestion avoidance and control" style="color:#9b59b6;">Jacobson, V. 1988</a></td></tr><tr><td style="font-weight:600;">Reached ssthresh?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.17487/RFC5681" target="_blank" title="TCP Congestion Control (RFC 5681)" style="color:#9b59b6;">Allman, M. et al. 2009</a></td></tr><tr><td style="font-weight:600;">Congestion avoidance</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1145/52325.52356" target="_blank" title="Congestion avoidance and control" style="color:#9b59b6;">Jacobson, V. 1988</a></td></tr><tr><td style="font-weight:600;">Packet loss detected?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1145/52325.52356" target="_blank" title="Congestion avoidance and control" style="color:#9b59b6;">Jacobson, V. 1988</a></td></tr><tr><td style="font-weight:600;">Dup-ACK or timeout?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.17487/RFC5681" target="_blank" title="TCP Congestion Control (RFC 5681)" style="color:#9b59b6;">Allman, M. et al. 2009</a></td></tr><tr><td style="font-weight:600;">Fast retransmit/recovery</td><td>Processing & Operations</td><td><a href="https://doi.org/10.17487/RFC5681" target="_blank" title="TCP Congestion Control (RFC 5681)" style="color:#9b59b6;">Allman, M. et al. 2009</a></td></tr><tr><td style="font-weight:600;">Timeout: reset cwnd</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1145/52325.52356" target="_blank" title="Congestion avoidance and control" style="color:#9b59b6;">Jacobson, V. 1988</a></td></tr><tr><td style="font-weight:600;">Adjust window</td><td>Intermediates & States</td><td><a href="https://doi.org/10.17487/RFC5681" target="_blank" title="TCP Congestion Control (RFC 5681)" style="color:#9b59b6;">Allman, M. et al. 2009</a></td></tr><tr><td style="font-weight:600;">Steady throughput</td><td>Products & Outputs</td><td><a href="https://doi.org/10.1145/52325.52356" target="_blank" title="Congestion avoidance and control" style="color:#9b59b6;">Jacobson, V. 1988</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -298,11 +335,11 @@ N10 --> N11
                     <h3>Process Statistics</h3>
                     <ul>
                         <li><strong>Nodes:</strong> 11</li>
-                        <li><strong>Edges:</strong> 11</li>
-                        <li><strong>Conditionals:</strong> 0</li>
-                        <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 1</li>
-                        <li><strong>Total Gates:</strong> 2</li>
+                        <li><strong>Edges:</strong> 13</li>
+                        <li><strong>Conditionals:</strong> 3</li>
+                        <li><strong>AND Gates:</strong> 3</li>
+                        <li><strong>OR Gates:</strong> 3</li>
+                        <li><strong>Total Gates:</strong> 6</li>
                     </ul>
                 </div>
                 
@@ -310,7 +347,7 @@ N10 --> N11
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>tcp</li><li>congestion</li><li>control</li>
+                        <li>TCP congestion control</li><li>slow start</li><li>congestion avoidance</li><li>fast retransmit</li><li>AIMD</li>
                     </ul>
                 </div>
                 
@@ -321,42 +358,22 @@ N10 --> N11
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Congestion avoidance and control</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Jacobson, V.
+                            , ACM SIGCOMM Computer Communication Review
+                             (1988)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #9b59b6; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Profile for Datagram Congestion Control Protocol (DCCP) Congestion Control ID 2: TCP-like Congestion Control</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Floyd, S.; Kohler, E.
-                            
-                             (2006)
-                            </span>
-                            <br><a href="https://doi.org/10.17487/rfc4341" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.17487/rfc4341</a>
+                            <br><a href="https://doi.org/10.1145/52325.52356" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.1145/52325.52356</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Enhanced TCP Friendly Congestion Control Protocol</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">A., Jennifer Cecilia Rana
-                            , International Journal of Computer Theory and Engineering
-                             (2014)
+                            <strong>TCP Congestion Control (RFC 5681)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Allman, M.; Paxson, V.; Blanton, E.
+                            , IETF
+                             (2009)
                             </span>
-                            <br><a href="https://doi.org/10.7763/ijcte.2014.v6.833" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.7763/ijcte.2014.v6.833</a>
-                            
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Congestion Issues and TCP</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Houmkozlis, Christos N.; Rovithakis, George A.
-                            , End-to-End Adaptive Congestion Control in TCP/IP Networks
-                             (2017)
-                            </span>
-                            <br><a href="https://doi.org/10.1201/b11870-4" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.1201/b11870-4</a>
+                            <br><a href="https://doi.org/10.17487/RFC5681" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.17487/RFC5681</a>
                             
                         </li>
                         

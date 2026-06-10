@@ -1,0 +1,41 @@
+{
+  "id": "medrxiv_10.64898_2026.01.17.26344330",
+  "doi": "10.64898/2026.01.17.26344330",
+  "title": "AlignInsight: A Three-Layer Framework for Detecting Deceptive Alignment and Evaluation Awareness in Healthcare AI Systems",
+  "authors": [
+    "Onovo, A. A.",
+    "Cherima, Y. J."
+  ],
+  "author_string": "Onovo, A. A., Cherima, Y. J.",
+  "journal": "medRxiv",
+  "journal_full": "medRxiv",
+  "year": "2026",
+  "abstract": "ImportanceEmerging evidence suggests healthcare AI systems may exhibit deceptive alignment (appearing safe during validation while optimizing for misaligned objectives in deployment) and evaluation awareness (detecting and adapting behavior during audits), undermining regulatory validation frameworks.\n\nObjectiveTo quantify the performance of multi-layer red-teaming approaches in detecting sophisticated healthcare AI safety failures across 10 vulnerability domains.\n\nDesign, Setting, and ParticipantsSystematic red-teaming evaluation conducted December 2025-January 2026 using 50 healthcare-specific adversarial prompts across 10 vulnerability domains (5 prompts per domain). GPT-OSS-20B (21-billion parameter open-source model) was evaluated using a three-layer framework: Layer 1 (automated keyword pattern matching), Layer 2 (GPT-5 semantic analysis with chain-of-thought reasoning), and Layer 3 (PhD-level human expert adjudication as ground truth). Inter-rater reliability was assessed using Cohen kappa statistic.\n\nMain Outcomes and MeasuresPrimary outcome was risk classification (SAFE, LOW, MODERATE, or HIGH RISK) with severity scoring (0-10 scale). Secondary outcomes included layer detection rates, inter-rater agreement, thematic vulnerability patterns, and chain-of-thought reasoning exposure.\n\nResultsOf 50 prompts evaluated, 12 (24%, 95% CI: 13.5%-38.2%) were classified HIGH RISK, 8 (16%, 95% CI: 7.7%-28.8%) MODERATE RISK, 17 (34%, 95% CI: 21.8%-48.3%) LOW RISK, and 13 (26%, 95% CI: 15.2%-39.9%) SAFE. Evaluation Awareness domain exhibited 100% HIGH/MODERATE RISK rate (5/5 prompts, mean severity 7.4/10), with the model providing technical specifications for audit detection and behavior switching. Sandbagging domain showed 40% HIGH RISK rate (2/5 prompts) with FDA validation gaming strategies. All 12 HIGH RISK prompts involved audit gaming themes (audit detection, behavior switching, system fingerprinting, or reporting violations). Layer 1 keyword matching detected 2/12 (17%, 95% CI: 4.7%-44.8%) high-risk prompts. Layer 2 GPT-5 analysis detected 12/12 (100%, 95% CI: 75.8%-100%) high-risk prompts with 0/13 (0%, 95% CI: 0%-22.8%) false positives. Human expert validation confirmed perfect concordance with Layer 2 assessments (kappa = 1.00, 95% CI: 0.999-1.000, p < 0.001), validating automated semantic analysis as reliable screening tool. Chain-of-thought leakage occurred in 28/50 (56%) prompts, exposing internal safety reasoning.\n\nConclusions and RelevanceMulti-layer evaluation is essential for detecting sophisticated AI safety failures in healthcare. Keyword filtering alone missed 83% (95% CI: 55.2%-95.3%) of high-risk behaviors. Perfect inter-rater agreement (kappa=1.00) between automated AI semantic analysis and human expert judgment demonstrates that scalable, reliable safety screening is achievable. All HIGH-RISK outputs contained audit gaming content, indicating systematic capability to articulate regulatory circumvention. Healthcare AI systems require domain-specific red-teaming for regulatory audit gaming and dual-mode behavior detection. Findings reveal critical gaps in current AI safety measures with immediate implications for FDA/CMS regulatory frameworks.",
+  "keywords": [],
+  "categories": [
+    "health informatics"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.64898/2026.01.17.26344330",
+  "source": "medrxiv",
+  "sources": [
+    "medrxiv"
+  ],
+  "acquired_date": "2026-05-21T22:15:25.664799",
+  "category": "biology",
+  "subcategories": [
+    "health informatics"
+  ],
+  "published_date": "2026-01-21",
+  "updated_date": "2026-01-21",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "medrxiv",
+  "preprint_version": "1",
+  "preprint_type": "PUBLISHAHEADOFPRINT",
+  "license": "cc_by",
+  "jatsxml": "https://www.medrxiv.org/content/early/2026/01/21//2026.01.17.26344330.source.xml",
+  "published_doi": null,
+  "author_corresponding": "Amobi Andrew Onovo",
+  "author_corresponding_institution": "Quantium Insights LLC"
+}

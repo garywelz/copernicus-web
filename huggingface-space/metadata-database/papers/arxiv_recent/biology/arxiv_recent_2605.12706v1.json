@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2605.12706v1",
+  "arxiv_id": "2605.12706v1",
+  "title": "A Resampling-Based Framework for Network Structure Learning in High-Dimensional Data",
+  "authors": [
+    "Ziwei Huang",
+    "Zeyuan Song",
+    "Paola Sebastiani",
+    "Stefano Monti"
+  ],
+  "author_string": "Ziwei Huang, Zeyuan Song, Paola Sebastiani, Stefano Monti",
+  "journal": "arXiv:2605.12706v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "RSNet is an open-source R package that provides a resampling-based framework for robust and interpretable network inference, designed to address the limited-sample-size challenges common in high-dimensional data. It supports both the estimation of partial correlation networks modeled as Gaussian networks and conditional Gaussian Bayesian networks for mixed data types that combine continuous and discrete variables. The framework incorporates multiple resampling strategies, including bootstrap, subsampling, and cluster-based approaches, to accommodate both independent and correlated observations. To enhance interpretability, RSNet integrates graphlet-based topology analysis that captures higher-order connectivity and edge sign information, enabling single-node and subnetwork-level insights. Notably, RSNet is the first R package to efficiently construct signed graphlet degree vector matrices (GDVMs) in near-constant time for sparse networks, providing scalable analysis of higher-order network structure. Collectively, RSNet offers a versatile tool for statistically reliable and interpretable network inference in high-dimensional data.",
+  "categories": [
+    "cs.LG",
+    "q-bio.GN"
+  ],
+  "primary_category": "q-bio.GN",
+  "comment": "7 pages, 1 figure",
+  "published_date": "2026-05-12T20:08:46Z",
+  "updated_date": "2026-05-12T20:08:46Z",
+  "url": "https://arxiv.org/abs/2605.12706v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.12706v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-19T10:15:36.794709",
+  "category": "biology",
+  "subcategories": [
+    "cs.LG",
+    "q-bio.GN"
+  ]
+}

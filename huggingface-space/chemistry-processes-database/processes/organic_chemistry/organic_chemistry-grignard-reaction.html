@@ -167,6 +167,33 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
@@ -176,7 +203,7 @@
             <div class="header-meta">
                 <span class="meta-item">Chemistry</span>
                 <span class="meta-item">Organic Chemistry</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,48 +234,57 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Grignard Reaction process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>A Grignard reagent forms when magnesium inserts into a carbon-halogen bond, giving a strongly nucleophilic carbanion equivalent that adds to electrophilic carbonyls (or CO2); aqueous workup then protonates the alkoxide to give an alcohol or carboxylic acid.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-N1["Alkyl Halide + Mg"]
-N2["Dry Ether Solvent"]
-N3["Grignard Reagent (RMgX)"]
-N4["Choose Path"]
-N5["Carbonyl Electrophile"]
-N6["Nucleophilic Addition"]
-N7["Alkoxide Intermediate"]
-N8["Acid Workup"]
-N9["Integrate"]
-N10["Alcohol Product"]
+    N1["Halide + Mg in dry ether"]
+    N2["Form R–MgX"]
+    N3["Carbanion-like nucleophile"]
+    N4{"Electrophile type?"}
+    N5["Aldehyde -> 2° alcohol"]
+    N6["Ketone -> 3° alcohol"]
+    N7["CO2 -> carboxylic acid"]
+    N8["Tetrahedral alkoxide"]
+    N9["Aqueous workup"]
+    N10["Alcohol / acid product"]
 
-N1 --> N2
-N2 --> N3
-N3 --> N4
-N4 --> N5
-N4 --> N7
-N5 --> N6
-N7 --> N8
-N6 --> N9
-N8 --> N9
-N9 --> N10
+    N1 --> N2
+    N2 --> N3
+    N3 --> N4
+    N4 -->|aldehyde| N5
+    N4 -->|ketone| N6
+    N4 -->|CO2| N7
+    N5 --> N8
+    N6 --> N8
+    N7 --> N9
+    N8 --> N9
+    N9 --> N10
 
     style N1 fill:#ff6b6b,color:#fff
-    style N2 fill:#ff6b6b,color:#fff
+    style N2 fill:#51cf66,color:#fff
     style N3 fill:#74c0fc,color:#fff
-    style N4 fill:#ffd43b,color:#000
-    style N5 fill:#ffd43b,color:#000
+    style N4 fill:#74c0fc,color:#fff
+    style N5 fill:#51cf66,color:#fff
     style N6 fill:#51cf66,color:#fff
-    style N7 fill:#74c0fc,color:#fff
-    style N8 fill:#51cf66,color:#fff
-    style N9 fill:#74c0fc,color:#fff
+    style N7 fill:#51cf66,color:#fff
+    style N8 fill:#74c0fc,color:#fff
+    style N9 fill:#51cf66,color:#fff
     style N10 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Halide + Mg in dry ether</td><td>Triggers & Inputs</td><td><a href="https://doi.org/10.1021/om900345n" target="_blank" title="The Grignard Reagents" style="color:#e74c3c;">Seyferth, D. 2009</a></td></tr><tr><td style="font-weight:600;">Form R–MgX</td><td>Processing & Operations</td><td><a href="https://gallica.bnf.fr/ark:/12148/bpt6k3086n/f1322" target="_blank" title="Sur quelques nouvelles combinaisons organométalliques du magnésium" style="color:#e74c3c;">Grignard, V. 1900</a></td></tr><tr><td style="font-weight:600;">Carbanion-like nucleophile</td><td>Intermediates & States</td><td><a href="https://global.oup.com/academic/product/organic-chemistry-9780199270293" target="_blank" title="Organic Chemistry, 2nd ed. — Nucleophilic addition to carbonyls" style="color:#e74c3c;">Clayden, J. et al. 2012</a></td></tr><tr><td style="font-weight:600;">Electrophile type?</td><td>Intermediates & States</td><td><a href="https://global.oup.com/academic/product/organic-chemistry-9780199270293" target="_blank" title="Organic Chemistry, 2nd ed. — Nucleophilic addition to carbonyls" style="color:#e74c3c;">Clayden, J. et al. 2012</a></td></tr><tr><td style="font-weight:600;">Aldehyde -> 2° alcohol</td><td>Processing & Operations</td><td><a href="https://global.oup.com/academic/product/organic-chemistry-9780199270293" target="_blank" title="Organic Chemistry, 2nd ed. — Nucleophilic addition to carbonyls" style="color:#e74c3c;">Clayden, J. et al. 2012</a></td></tr><tr><td style="font-weight:600;">Ketone -> 3° alcohol</td><td>Processing & Operations</td><td><a href="https://global.oup.com/academic/product/organic-chemistry-9780199270293" target="_blank" title="Organic Chemistry, 2nd ed. — Nucleophilic addition to carbonyls" style="color:#e74c3c;">Clayden, J. et al. 2012</a></td></tr><tr><td style="font-weight:600;">CO2 -> carboxylic acid</td><td>Processing & Operations</td><td><a href="https://global.oup.com/academic/product/organic-chemistry-9780199270293" target="_blank" title="Organic Chemistry, 2nd ed. — Nucleophilic addition to carbonyls" style="color:#e74c3c;">Clayden, J. et al. 2012</a></td></tr><tr><td style="font-weight:600;">Tetrahedral alkoxide</td><td>Intermediates & States</td><td><a href="https://global.oup.com/academic/product/organic-chemistry-9780199270293" target="_blank" title="Organic Chemistry, 2nd ed. — Nucleophilic addition to carbonyls" style="color:#e74c3c;">Clayden, J. et al. 2012</a></td></tr><tr><td style="font-weight:600;">Aqueous workup</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1021/om900345n" target="_blank" title="The Grignard Reagents" style="color:#e74c3c;">Seyferth, D. 2009</a></td></tr><tr><td style="font-weight:600;">Alcohol / acid product</td><td>Products & Outputs</td><td><a href="https://global.oup.com/academic/product/organic-chemistry-9780199270293" target="_blank" title="Organic Chemistry, 2nd ed. — Nucleophilic addition to carbonyls" style="color:#e74c3c;">Clayden, J. et al. 2012</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -295,11 +331,11 @@ N9 --> N10
                     <h3>Process Statistics</h3>
                     <ul>
                         <li><strong>Nodes:</strong> 10</li>
-                        <li><strong>Edges:</strong> 10</li>
-                        <li><strong>Conditionals:</strong> 0</li>
-                        <li><strong>AND Gates:</strong> 1</li>
+                        <li><strong>Edges:</strong> 11</li>
+                        <li><strong>Conditionals:</strong> 1</li>
+                        <li><strong>AND Gates:</strong> 2</li>
                         <li><strong>OR Gates:</strong> 1</li>
-                        <li><strong>Total Gates:</strong> 2</li>
+                        <li><strong>Total Gates:</strong> 3</li>
                     </ul>
                 </div>
                 
@@ -307,7 +343,7 @@ N9 --> N10
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>grignard</li><li>reaction</li>
+                        <li>grignard reagent</li><li>organomagnesium</li><li>nucleophilic addition</li><li>carbonyl</li><li>alcohol</li>
                     </ul>
                 </div>
                 
@@ -318,43 +354,33 @@ N9 --> N10
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>The Grignard Reagents</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Seyferth, D.
+                            , Organometallics
+                             (2009)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Grignard reaction</strong>
-                            
-                            , AccessScience
-                             (None)
-                            </span>
-                            <br><a href="https://doi.org/10.1036/1097-8542.300200" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1036/1097-8542.300200</a>
+                            <br><a href="https://doi.org/10.1021/om900345n" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1021/om900345n</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Grignard reaction</strong>
-                            
-                            , Name Reactions
-                             (None)
+                            <strong>Sur quelques nouvelles combinaisons organométalliques du magnésium</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Grignard, V.
+                            , Comptes Rendus de l'Académie des Sciences
+                             (1900)
                             </span>
-                            <br><a href="https://doi.org/10.1007/3-540-30031-7_120" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1007/3-540-30031-7_120</a>
                             
+                            <br><a href="https://gallica.bnf.fr/ark:/12148/bpt6k3086n/f1322" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Mixed Carboxylic Anhydrides in the Grignard Reaction.</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Kammann, Karl
-                            
-                             (None)
+                            <strong>Organic Chemistry, 2nd ed. — Nucleophilic addition to carbonyls</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Clayden, J.; Greeves, N.; Warren, S.
+                            , Oxford University Press
+                             (2012)
                             </span>
-                            <br><a href="https://doi.org/10.31390/gradschool_disstheses.753" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.31390/gradschool_disstheses.753</a>
                             
+                            <br><a href="https://global.oup.com/academic/product/organic-chemistry-9780199270293" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
                         </li>
                         
                     </ul>

@@ -1,0 +1,61 @@
+{
+  "id": "geometry_topology-kruskal-algorithm",
+  "name": "Kruskal's Algorithm",
+  "category": "mathematics",
+  "subcategory": "geometry_topology",
+  "subcategory_name": "Geometry & Topology",
+  "description": "Minimum spanning tree by sorting edges and adding in order if endpoints in different components. Greedy. O(E log E).",
+  "mermaid": "graph TD\n    A1[\"Weighted graph G\\nV vertices E edges\"]\n    B1[\"Sort edges by weight\\nMST = empty; init union-find\"]\n    D1{\"More edges?\"}\n    C1[\"Take smallest edge u v\"]\n    D2{\"u and v in\\nsame component?\"}\n    E1[\"Add edge to MST\\nUnion u v\"]\n    E2[\"Skip edge\"]\n    F1[\"Return MST\"]\n    A1 --> B1\n    B1 --> D1\n    D1 -->|No| F1\n    D1 -->|Yes| C1\n    C1 --> D2\n    D2 -->|No: sequential AND| E1\n    D2 -->|Yes: sequential AND| E2\n    E1 --> D1\n    E2 --> D1\n    classDef red fill:#ff6b6b,color:#fff,stroke:#c0392b\n    classDef yellow fill:#ffd43b,color:#000,stroke:#f59f00\n    classDef green fill:#51cf66,color:#fff,stroke:#40c057\n    classDef lightblue fill:#74c0fc,color:#fff,stroke:#4dabf7\n    classDef violet fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef lavender fill:#e6e6fa,color:#333,stroke:#b19cd9\n    class A1 red\n    class B1 yellow\n    class C1,E1,E2 green\n    class F1 violet\n    class D1,D2 lavender",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [
+    "Kruskal",
+    "minimum spanning tree",
+    "MST",
+    "graph algorithm",
+    "NIST DADS",
+    "greedy"
+  ],
+  "sources": [
+    {
+      "title": "NIST DADS",
+      "url": "https://xlinux.nist.gov/dads/HTML/kruskalsalgo.html"
+    },
+    {
+      "title": "Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Kruskal%27s_algorithm"
+    }
+  ],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "complexity": {
+    "level": "medium",
+    "nodes": 9,
+    "edges": 12,
+    "conditionals": 2
+  },
+  "processType": "algorithm"
+}

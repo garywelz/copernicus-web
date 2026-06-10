@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gödel Completeness Theorem — Proof Graph</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #0f172a;
+      --panel: #111827;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --accent: #60a5fa;
+      --border: #334155;
+      --code-bg: #020617;
+    }
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg: #f8fafc;
+        --panel: #ffffff;
+        --text: #111827;
+        --muted: #4b5563;
+        --accent: #2563eb;
+        --border: #d1d5db;
+        --code-bg: #f1f5f9;
+      }
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    main { max-width: 1120px; margin: 0 auto; padding: 36px 20px 64px; }
+    article {
+      border: 1px solid var(--border);
+      background: var(--panel);
+      border-radius: 14px;
+      padding: 28px;
+    }
+    nav { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 18px; color: var(--muted); font-size: 0.95rem; }
+    nav a, a { color: var(--accent); }
+    h1 { margin-top: 0; font-size: 2rem; line-height: 1.2; }
+    h2 { margin-top: 2rem; border-top: 1px solid var(--border); padding-top: 1.2rem; }
+    p, li { color: var(--text); }
+    ul { padding-left: 1.35rem; }
+    code {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 0.05rem 0.25rem;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.92em;
+    }
+    pre {
+      overflow-x: auto;
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+    }
+    pre code { background: transparent; border: 0; padding: 0; }
+    .mermaid {
+      background: #ffffff;
+      color: #111827;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      margin: 18px 0;
+      padding: 18px;
+      overflow-x: auto;
+    }
+    .mermaid svg { max-width: 100%; height: auto; }
+    .proof-legend {
+      margin-top: 28px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      background: color-mix(in srgb, var(--panel) 88%, var(--accent));
+    }
+    .proof-legend h2 { border-top: 0; margin: 0 0 12px; padding-top: 0; font-size: 1.05rem; }
+    .proof-legend-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 10px 14px;
+    }
+    .proof-legend-item { display: flex; align-items: center; gap: 8px; color: var(--text); font-size: 0.92rem; }
+    .proof-legend-swatch {
+      width: 18px; height: 18px; border-radius: 5px;
+      border: 2px solid currentColor; flex: 0 0 auto;
+    }
+    .legend-source { background: #f2c879; color: #7a4f12; }
+    .legend-assumption { background: #c084fc; color: #6d28d9; }
+    .legend-construction { background: #8fbc5a; color: #3f6212; }
+    .legend-assertion { background: #8ecae6; color: #25637a; }
+    .legend-inference { background: #f4a261; color: #9a3412; }
+    .legend-algorithm { background: #818cf8; color: #3730a3; }
+    .legend-contradiction { background: #ef4444; color: #991b1b; }
+    .legend-conclusion { background: #2dd4bf; color: #0f766e; }
+    .source-note { margin-top: 32px; color: var(--muted); font-size: 0.95rem; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav>
+      <a href="index.html">Proof Graph Pilot</a>
+      <span>/</span>
+      <a href="../mathematics-database-table.html">Mathematics Database</a>
+    </nav>
+    <article>
+      <h1>Gödel Completeness Theorem (informal proof graph)</h1>
+      <p>Semantic completeness of first-order logic: every sentence that is true in all models of a consistent theory is provable. The <strong>algorithm capsule</strong> is the Henkin witness-scheduling step that keeps consistency while closing existentials.</p>
+      <h2>Metadata</h2>
+      <ul>
+        <li><code>processType</code>: <code>proof_graph</code></li>
+        <li><code>algorithm_capsules</code>: 1</li>
+        <li><code>temporary_assumptions</code>: 0</li>
+        <li><code>nodes / edges</code>: 15 / 15</li>
+      </ul>
+      <h2>Main graph</h2>
+<pre class="mermaid">flowchart TD
+  T0[&quot;Target: completeness of first-order logic&quot;] --&gt; G0[&quot;Given: deduction relation and semantic consequence for FOL&quot;]
+  T0 --&gt; A0[&quot;Assumption: theory T is syntactically consistent&quot;]
+  A0 --&gt; C0[&quot;Construction: enumerate formulas of the language of T&quot;]
+  C0 --&gt; C1[&quot;Construction: adjoin Henkin witnesses for existential formulas&quot;]
+  C1 --&gt; P0[&quot;Algorithm capsule: build witness-adjunction schedule preserving finite satisfiability&quot;]
+  P0 --&gt; A1[&quot;Assertion: the Henkin precursor H remains consistent&quot;]
+  A1 --&gt; C2[&quot;Construction: extend H to a complete maximal consistent theory T star&quot;]
+  C2 --&gt; C3[&quot;Construction: form the Henkin term model M from closed terms modulo equality of T star&quot;]
+  C3 --&gt; L0[&quot;Lemma: for sentences sli, T star proves sli iff M models sli&quot;]
+  L0 --&gt; A2[&quot;Assertion: M models every formula proved by T star&quot;]
+  G0 --&gt; S0[&quot;Given: soundness of the Hilbert-style or natural deduction calculus&quot;]
+  S0 --&gt; A3[&quot;Assertion: theorems of T are true in every model of T&quot;]
+  A2 --&gt; A4[&quot;Assertion: if T semantically entails phi then phi is in T star closing&quot;]
+  A3 --&gt; A4
+  A4 --&gt; CO[&quot;Conclusion: every semantically valid consequence is formally provable from T&quot;]</pre>
+      <section class="proof-legend" aria-label="Proof graph color legend">
+        <h2>Proof Graph Color Legend</h2>
+        <div class="proof-legend-grid">
+          <div class="proof-legend-item"><span class="proof-legend-swatch legend-source"></span><span>Amber: source / given / definition / lemma</span></div>
+          <div class="proof-legend-item"><span class="proof-legend-swatch legend-assumption"></span><span>Violet: assumption</span></div>
+          <div class="proof-legend-item"><span class="proof-legend-swatch legend-construction"></span><span>Moss: construction</span></div>
+          <div class="proof-legend-item"><span class="proof-legend-swatch legend-assertion"></span><span>Steel: assertion</span></div>
+          <div class="proof-legend-item"><span class="proof-legend-swatch legend-inference"></span><span>Copper: inference / branch</span></div>
+          <div class="proof-legend-item"><span class="proof-legend-swatch legend-algorithm"></span><span>Indigo: algorithm capsule</span></div>
+          <div class="proof-legend-item"><span class="proof-legend-swatch legend-contradiction"></span><span>Crimson: contradiction</span></div>
+          <div class="proof-legend-item"><span class="proof-legend-swatch legend-conclusion"></span><span>Teal: conclusion / discharge</span></div>
+        </div>
+      </section>
+      <p class="source-note">Companion to the axiomatic chart &quot;Peano &amp; Gödel — Part 6: Completeness Theorem&quot; in the main database. This page is the <strong>proof-role</strong> view.</p>
+    </article>
+  </main>
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+
+    const roleStyles = `
+classDef proofSource fill:#f2c879,stroke:#7a4f12,color:#0f172a,stroke-width:2px;
+classDef proofAssumption fill:#c084fc,stroke:#6d28d9,color:#0f172a,stroke-width:2px;
+classDef proofConstruction fill:#8fbc5a,stroke:#3f6212,color:#0f172a,stroke-width:2px;
+classDef proofAssertion fill:#8ecae6,stroke:#25637a,color:#0f172a,stroke-width:2px;
+classDef proofInference fill:#f4a261,stroke:#9a3412,color:#0f172a,stroke-width:2px;
+classDef proofAlgorithm fill:#818cf8,stroke:#3730a3,color:#0f172a,stroke-width:2px;
+classDef proofContradiction fill:#ef4444,stroke:#991b1b,color:#ffffff,stroke-width:3px;
+classDef proofConclusion fill:#2dd4bf,stroke:#0f766e,color:#0f172a,stroke-width:3px;
+classDef proofNeutral fill:#f8fafc,stroke:#64748b,color:#0f172a,stroke-width:1.5px;
+`;
+
+    const roleRules = [
+      ['proofConclusion', /^(Conclusion:|Discharge assumption:|Discharge:|Target:)/i],
+      ['proofContradiction', /^Contradiction:/i],
+      ['proofAssumption', /^(Assumption:|Assume:|Methodological assumption:)/i],
+      ['proofAlgorithm', /^(Algorithm capsule:|Input:|Output:|Start |Set |For each |Read |Choose output|Put |List |Skip |Increase |Arrange |Make |Find |Factor |Concatenate|Multiply |Build )/i],
+      ['proofConstruction', /^Construction:/i],
+      ['proofAssertion', /^Assertion:/i],
+      ['proofInference', /^(Inference:|Branch:|Join:|Meta-level)/i],
+      ['proofSource', /^(Given:|Definition|Postulate|Common Notion|Euclid |Lemma:|Arithmetic fact:|Strong induction|Cancellation law|Bezout)/i]
+    ];
+
+    function classify(label, shape) {
+      const normalized = label.trim().replace(/\s+/g, ' ');
+      if (shape === '{') return 'proofInference';
+      for (const [role, pattern] of roleRules) {
+        if (pattern.test(normalized)) return role;
+      }
+      return 'proofNeutral';
+    }
+
+    function addRoleClasses(source) {
+      if (source.includes('classDef proofSource')) return source;
+      const assignments = new Map();
+      const nodePattern = /(?:^|\s)([A-Za-z][\w-]*)\s*(?:\[\s*"([^"]+)"\s*\]|\{\s*"([^"]+)"\s*\}|\(\s*"([^"]+)"\s*\)|\(\[\s*"([^"]+)"\s*\]\)|\[\[\s*"([^"]+)"\s*\]\]|\[\/\s*"([^"]+)"\s*\/\]|\(\(\s*"([^"]+)"\s*\)\))/gm;
+      let match;
+      while ((match = nodePattern.exec(source)) !== null) {
+        const nodeId = match[1];
+        const label = match.slice(2).find(Boolean);
+        const shape = match[3] ? '{' : '';
+        assignments.set(nodeId, classify(label, shape));
+      }
+      const classLines = Array.from(assignments.entries()).map(([nodeId, role]) => `class ${nodeId} ${role};`);
+      if (classLines.length === 0) return `${source}\n${roleStyles}`;
+      return `${source}\n${roleStyles}\n${classLines.join('\n')}`;
+    }
+
+    document.querySelectorAll('pre.mermaid').forEach((block) => {
+      block.textContent = addRoleClasses(block.textContent);
+    });
+
+    mermaid.initialize({
+      startOnLoad: false,
+      securityLevel: 'loose',
+      theme: 'base',
+      themeVariables: {
+        background: '#ffffff',
+        primaryColor: '#f8fafc',
+        primaryTextColor: '#0f172a',
+        primaryBorderColor: '#64748b',
+        lineColor: '#475569',
+        fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif'
+      },
+      flowchart: { htmlLabels: true, curve: 'basis', nodeSpacing: 42, rankSpacing: 58 }
+    });
+    await mermaid.run({ querySelector: 'pre.mermaid' });
+  </script>
+</body>
+</html>

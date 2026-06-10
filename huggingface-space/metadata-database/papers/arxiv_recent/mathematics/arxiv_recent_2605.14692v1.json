@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2605.14692v1",
+  "arxiv_id": "2605.14692v1",
+  "title": "Asymptotic Anytime-Valid Inference for U-statistics",
+  "authors": [
+    "Leheng Cai",
+    "Qirui Hu",
+    "Weijia Li"
+  ],
+  "author_string": "Leheng Cai, Qirui Hu, Weijia Li",
+  "journal": "arXiv:2605.14692v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We study asymptotic anytime-valid confidence sequences for degree-two U-statistics under continuous monitoring. In the nondegenerate case, Hoeffding's projection reduces the problem to a time-uniform central limit theory for the partial sums of the first-order projection, while the canonical remainder is shown to be negligible under mild moment assumptions. A leave-one-out jackknife estimator then yields a fully data-driven procedure, leading to confidence sequences with asymptotic coverage guarantee for the parameter of interest. In the degenerate case, we show that the U-statistic is approximated by a centered quadratic Gaussian-chaos rather than by a simple Gaussian, which poses significant challenges for sequential inference. To address this issue, we novelly develop the Spectrally Allocated Gaussian-chaos Excursion (SAGE) boundary, and then provide plug-in implementations based on truncated spectrum estimation with consistency guarantees. The resulting widths can attain the expected time-uniform optimal rates: $\\sqrt{\\log\\log n/n}$ in the nondegenerate regime and $\\log\\log n/n$ in the degenerate regime. Several widely used U-statistics are discussed within the proposed framework, and numerical experiments further support the validity of the derived theory.",
+  "categories": [
+    "math.ST",
+    "stat.ME"
+  ],
+  "primary_category": "stat.ME",
+  "comment": null,
+  "published_date": "2026-05-14T11:09:31Z",
+  "updated_date": "2026-05-14T11:09:31Z",
+  "url": "https://arxiv.org/abs/2605.14692v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.14692v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-16T10:15:40.623614",
+  "category": "mathematics",
+  "subcategories": [
+    "math.ST",
+    "stat.ME"
+  ]
+}

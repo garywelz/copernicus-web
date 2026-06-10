@@ -1,0 +1,30 @@
+{
+  "id": "arxiv_2605.05136v1",
+  "arxiv_id": "2605.05136v1",
+  "title": "CPCANet: Deep Unfolding Common Principal Component Analysis for Domain Generalization",
+  "authors": [
+    "Yu-Hsi Chen",
+    "Abd-Krim Seghouane"
+  ],
+  "author_string": "Yu-Hsi Chen, Abd-Krim Seghouane",
+  "journal": "arXiv:2605.05136v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Domain Generalization (DG) aims to learn representations that remain robust under out-of-distribution (OOD) shifts and generalize effectively to unseen target domains. While recent invariant learning strategies and architectural advances have achieved strong performance, explicitly discovering a structured domain-invariant subspace through second-order statistics remains underexplored. In this work, we propose CPCANet, a novel framework grounded in Common Principal Component Analysis (CPCA), which unrolls the iterative Flury-Gautschi (FG) algorithm into fully differentiable neural layers. This approach integrates the statistical properties of CPCA into an end-to-end trainable framework, enforcing the discovery of a shared subspace across diverse domains while preserving interpretability. Experiments on four standard DG benchmarks demonstrate that CPCANet achieves state-of-the-art (SOTA) performance in zero-shot transfer. Moreover, CPCANet is architecture-agnostic and requires no dataset-specific tuning, providing a simple and efficient approach to learning robust representations under distribution shift. Code is available at https://github.com/wish44165/CPCANet.",
+  "categories": [
+    "cs.CV"
+  ],
+  "primary_category": "cs.CV",
+  "comment": "9 pages, 5 tables",
+  "published_date": "2026-05-06T17:09:34Z",
+  "updated_date": "2026-05-06T17:09:34Z",
+  "url": "https://arxiv.org/abs/2605.05136v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.05136v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-07T10:15:41.352961",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CV"
+  ]
+}

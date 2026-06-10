@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2605.20107v1",
+  "arxiv_id": "2605.20107v1",
+  "title": "Beyond Isotropy in JEPAs: Hamiltonian Geometry and Symplectic Prediction",
+  "authors": [
+    "Robert Jenkinson Alvarez"
+  ],
+  "author_string": "Robert Jenkinson Alvarez",
+  "journal": "arXiv:2605.20107v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "JEPAs often regularize one-view embeddings toward an isotropic Gaussian, implicitly baking Euclidean symmetry into the representation. We show that this is not merely a benign default. For a known structured downstream geometry $H\\succ0$, the minimax and maximum-entropy covariance under a Hamiltonian energy budget is $(c/d)H^{-1}$, and Euclidean isotropy incurs a closed-form price of isotropy. More importantly, when the downstream geometry is unknown, no geometry-independent fixed marginal target is canonical: every fixed covariance shape can be maximally misaligned for some structured geometry. We further show that even oracle one-view marginals do not identify the JEPA view-to-view predictive coupling. These results suggest that the structural bias in JEPAs should enter the cross-view coupling rather than a fixed encoder marginal. We instantiate this principle with \\textbf{HamJEPA}, which encodes each view as a phase-space state $(q,p)$ and predicts view-to-view transitions with a learned Hamiltonian leapfrog map, while non-isotropic scale and spectral floors prevent collapse. In a deliberately headless token protocol, HamJEPA improves over SIGReg on CIFAR-100 by $+4.89$ kNN@20 and $+3.52$ linear-probe points at 30 epochs, and by $+6.45$ kNN@20 and $+10.64$ linear-probe points at 80 epochs, while a matched MLP predictor ablation shows that the symplectic coupling is the ingredient driving the neighborhood-geometry gain. On ImageNet-100, HamJEPA-$q$ improves by $+4.82$ kNN@20 and $+7.52$ linear-probe points at 45 epochs.",
+  "categories": [
+    "cs.LG",
+    "cs.AI"
+  ],
+  "primary_category": "cs.AI",
+  "comment": null,
+  "published_date": "2026-05-19T16:57:47Z",
+  "updated_date": "2026-05-19T16:57:47Z",
+  "url": "https://arxiv.org/abs/2605.20107v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.20107v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-20T10:16:33.997213",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.LG",
+    "cs.AI"
+  ]
+}

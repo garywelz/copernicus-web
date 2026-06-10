@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_2605.16198v1",
+  "arxiv_id": "2605.16198v1",
+  "title": "Formal Methods Meet LLMs: Auditing, Monitoring, and Intervention for Compliance of Advanced AI Systems",
+  "authors": [
+    "Parand A. Alamdari",
+    "Toryn Q. Klassen",
+    "Sheila A. McIlraith"
+  ],
+  "author_string": "Parand A. Alamdari, Toryn Q. Klassen, Sheila A. McIlraith",
+  "journal": "arXiv:2605.16198v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We examine one particular dimension of AI governance: how to monitor and audit AI-enabled products and services throughout the AI development lifecycle, from pre-deployment testing to post-deployment auditing. Combining principles from formal methods with SoTA machine learning, we propose techniques that enable AI-enabled product and service developers, as well as third party AI developers and evaluators, to perform offline auditing and online (runtime) monitoring of product-specific (temporally extended) behavioral constraints such as safety constraints, norms, rules and regulations with respect to black-box advanced AI systems, notably LLMs. We further provide practical techniques for predictive monitoring, such as sampling-based methods, and we introduce intervening monitors that act at runtime to preempt and potentially mitigate predicted violations. Experimental results show that by exploiting the formal syntax and semantics of Linear Temporal Logic (LTL), our proposed auditing and monitoring techniques are superior to LLM baseline methods in detecting violations of temporally extended behavioral constraints; with our approach, even small-model labelers match or exceed frontier LLM judges. Our predictive and intervening monitors significantly reduce the violation rates of LLM-based agents while largely preserving task performance. We further show through controlled experiments that LLMs' temporal reasoning shows a pronounced degradation in accuracy with increasing event distance, number of constraints, and number of propositions.",
+  "categories": [
+    "cs.AI",
+    "cs.CY",
+    "cs.LG",
+    "cs.LO"
+  ],
+  "primary_category": "cs.LO",
+  "comment": null,
+  "published_date": "2026-05-15T17:13:27Z",
+  "updated_date": "2026-05-15T17:13:27Z",
+  "url": "https://arxiv.org/abs/2605.16198v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.16198v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-18T10:15:47.146461",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.AI",
+    "cs.CY",
+    "cs.LG"
+  ]
+}

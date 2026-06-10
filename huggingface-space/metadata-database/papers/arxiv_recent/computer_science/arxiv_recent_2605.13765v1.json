@@ -1,0 +1,38 @@
+{
+  "id": "arxiv_2605.13765v1",
+  "arxiv_id": "2605.13765v1",
+  "title": "First Steps Towards Probabilistic Iris: Harmonizing Independence, Conditioning, and Dynamic Heap Allocation",
+  "authors": [
+    "Janine Lohse",
+    "Tim Rohde",
+    "Jimmy Xin",
+    "Niklas Mück",
+    "Iona Kuhn",
+    "Derek Dreyer",
+    "Deepak Garg",
+    "Emanuele D'Osualdo"
+  ],
+  "author_string": "Janine Lohse, Tim Rohde, Jimmy Xin, Niklas Mück, Iona Kuhn et al.",
+  "journal": "arXiv:2605.13765v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "There has recently been exciting progress in the realm of *probabilistic separation logics*. An important subclass of these -- including PSL, Lilac, Bluebell, and pcOL -- are *general-purpose probabilistic logics* (or GPLs, for short), meaning that they provide primitive Hoare-style assertions about probability distributions on the program state, along with powerful modularity principles like *independence* and *conditioning*. However, none of these logics support reasoning about dynamically allocated memory (i.e., pointers into a heap), let alone the more sophisticated resource algebra-based ghost state of modern separation logics like Iris. We argue that this is due to a fundamental obstacle: since the shape of memory (and identity of memory locations) may differ under different random outcomes, it is unclear how pointer ownership can be harmonized with probabilistic independence and conditioning. Furthermore, none of the existing GPLs have been mechanized in a proof assistant.   In this paper, we take a substantial first step towards a marriage of GPLs and modern separation logics like Iris, in the form of **Amaryllis**. Amaryllis is the first GPL to support independence and conditional reasoning while also handling dynamic memory allocation. To overcome the aforementioned obstacle, we propose a new *indexed valuation*-style model of probabilistic assertions, whereby ownership of a standard Iris-style resource (e.g., heaps) can be promoted to ownership at the level of distributions in a generic fashion. We then show how to adapt the central Iris notions of *frame-preserving update*, *authoritative resource algebras*, and the *weakest precondition modality* to be sound for probabilistic reasoning and validate dynamic allocation. Finally, we have mechanized all our results in the Rocq proof assistant and developed an Iris-based proof mode for conducting proofs within Amaryllis.",
+  "categories": [
+    "cs.LO",
+    "cs.PL"
+  ],
+  "primary_category": "cs.PL",
+  "comment": null,
+  "published_date": "2026-05-13T16:46:19Z",
+  "updated_date": "2026-05-13T16:46:19Z",
+  "url": "https://arxiv.org/abs/2605.13765v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.13765v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-13T22:17:00.036582",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.LO",
+    "cs.PL"
+  ]
+}

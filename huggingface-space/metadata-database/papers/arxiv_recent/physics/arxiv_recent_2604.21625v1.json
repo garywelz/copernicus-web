@@ -1,0 +1,40 @@
+{
+  "id": "arxiv_2604.21625v1",
+  "arxiv_id": "2604.21625v1",
+  "title": "DC Cryogenic Modeling of Open-Source SkyWater 130 nm MOSFETs at 77 K Using BSIM4",
+  "authors": [
+    "F. Beall",
+    "A. Rimal",
+    "O. Seidel",
+    "Y. Mei",
+    "A. D. McDonald",
+    "I. Parmaksiz",
+    "V. A. Chirayath",
+    "J. Asaadi",
+    "D. Braga",
+    "J. B. R. Battat"
+  ],
+  "author_string": "F. Beall, A. Rimal, O. Seidel, Y. Mei, A. D. McDonald et al.",
+  "journal": "arXiv:2604.21625v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Cryogenic applications in high-energy physics (HEP) demand reliable, low-power CMOS electronics capable of operating at liquid nitrogen temperatures (77 K). The open-source SkyWater 130nm (SKY130) CMOS process has previously been shown to operate at temperatures as low as 4 K making it a promising candidate for HEP applications. In this work, we characterize and model SKY130 low-threshold voltage transistors at 77 K, which is a temperature commonly used in modeling applications for liquid argon detectors. DC characteristic measurements were performed at both room temperature and liquid nitrogen temperature. We created a cryogenic modeling approach to produce a SPICE-compatible, isothermal BSIM4-based model for select transistor sizes at 77 K. The resulting model agrees with data at 77 K with an average error on the order of 20% (relative RMS) and shows no dependence on drain voltage. Due to the open-source nature of SKY130, we have made our models publicly available on Github. We hope this work will continue the trend for democratizing circuit design at cryogenic temperatures in high-energy physics by enabling open access to accurate cryogenic CMOS device models at 77 K.",
+  "categories": [
+    "cond-mat.mes-hall",
+    "hep-ex"
+  ],
+  "primary_category": "hep-ex",
+  "comment": null,
+  "published_date": "2026-04-23T12:45:11Z",
+  "updated_date": "2026-04-23T12:45:11Z",
+  "url": "https://arxiv.org/abs/2604.21625v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.21625v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-27T10:15:37.399979",
+  "category": "physics",
+  "subcategories": [
+    "cond-mat.mes-hall",
+    "hep-ex"
+  ]
+}

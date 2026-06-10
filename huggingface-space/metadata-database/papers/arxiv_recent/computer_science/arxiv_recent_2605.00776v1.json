@@ -1,0 +1,39 @@
+{
+  "id": "arxiv_2605.00776v1",
+  "arxiv_id": "2605.00776v1",
+  "title": "Directed Social Regard: Surfacing Targeted Advocacy, Opposition, Aid, Harms, and Victimization in Online Media",
+  "authors": [
+    "Scott Friedman",
+    "Ruta Wheelock",
+    "Sonja Schmer-Galunder",
+    "Drisana Iverson",
+    "Jake Vasilakes",
+    "Joan Zheng",
+    "Jeffrey Rye",
+    "Vasanth Sarathy",
+    "Christopher Miller"
+  ],
+  "author_string": "Scott Friedman, Ruta Wheelock, Sonja Schmer-Galunder, Drisana Iverson, Jake Vasilakes et al.",
+  "journal": "arXiv:2605.00776v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "The language in online platforms, influence operations, and political rhetoric frequently directs a mix of pro-social sentiment (e.g., advocacy, helpfulness, compassion) and anti-social sentiment (e.g., threats, opposition, blame) at different topics, all in the same message. While many natural language processing (NLP) tools classify or score a text's overall sentiment as positive, neutral, or negative, these tools cannot report that positive and negative sentiments coexist, and they cannot report the target of those sentiments. This paper presents the Directed Social Regard (DSR) approach to multi-dimensional, multi-valence sentiment analysis, comprised of a pair of transformer-based models that (1) detects span-level targets of sentiment in a message and then (2) scores all spans within the message context along three (-1, 1) axes of regard that are motivated by social science theories of moral disengagement and moral framing. We present a data collection and annotation strategy for DSR dataset construction, a transformer-based architecture for span-level scoring, and a validation study with promising results. We apply the validated DSR model on six third-party datasets of online media and report meaningful correlations between DSR outputs and the labels and topics in these pre-existing social science datasets.",
+  "categories": [
+    "cs.CL",
+    "cs.AI"
+  ],
+  "primary_category": "cs.AI",
+  "comment": "32 pages, 12 figures, 7 tables",
+  "published_date": "2026-05-01T16:45:31Z",
+  "updated_date": "2026-05-01T16:45:31Z",
+  "url": "https://arxiv.org/abs/2605.00776v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.00776v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-04T10:15:40.312749",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CL",
+    "cs.AI"
+  ]
+}

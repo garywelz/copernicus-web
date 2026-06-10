@@ -1,0 +1,39 @@
+{
+  "id": "arxiv_2604.28182v1",
+  "arxiv_id": "2604.28182v1",
+  "title": "Exploration Hacking: Can LLMs Learn to Resist RL Training?",
+  "authors": [
+    "Eyon Jang",
+    "Damon Falck",
+    "Joschka Braun",
+    "Nathalie Kirch",
+    "Achu Menon",
+    "Perusha Moodley",
+    "Scott Emmons",
+    "Roland S. Zimmermann",
+    "David Lindner"
+  ],
+  "author_string": "Eyon Jang, Damon Falck, Joschka Braun, Nathalie Kirch, Achu Menon et al.",
+  "journal": "arXiv:2604.28182v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Reinforcement learning (RL) has become essential to the post-training of large language models (LLMs) for reasoning, agentic capabilities and alignment. Successful RL relies on sufficient exploration of diverse actions by the model during training, which creates a potential failure mode: a model could strategically alter its exploration during training to influence the subsequent training outcome. In this paper we study this behavior, called exploration hacking. First, we create model organisms of selective RL resistance by fine-tuning LLMs to follow specific underperformance strategies; these models can successfully resist our RL-based capability elicitation in agentic biosecurity and AI R&D environments while maintaining performance on related tasks. We then use our model organisms to evaluate detection and mitigation strategies, including monitoring, weight noising, and SFT-based elicitation. Finally, we show that current frontier models can exhibit explicit reasoning about suppressing their exploration when provided with sufficient information about their training context, with higher rates when this information is acquired indirectly through the environment. Together, our results suggest exploration hacking is a possible failure mode of RL on sufficiently capable LLMs.",
+  "categories": [
+    "cs.LG",
+    "cs.CL"
+  ],
+  "primary_category": "cs.CL",
+  "comment": "81 pages, 37 figures",
+  "published_date": "2026-04-30T17:58:39Z",
+  "updated_date": "2026-04-30T17:58:39Z",
+  "url": "https://arxiv.org/abs/2604.28182v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.28182v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-30T22:15:39.333179",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.LG",
+    "cs.CL"
+  ]
+}

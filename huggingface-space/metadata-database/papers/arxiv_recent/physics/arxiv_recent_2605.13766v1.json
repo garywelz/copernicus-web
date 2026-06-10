@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_2605.13766v1",
+  "arxiv_id": "2605.13766v1",
+  "title": "Elastica++: A high-performance, multiphysics framework for large interacting assemblies of Cosserat rods",
+  "authors": [
+    "Tejaswin Parthasarathy",
+    "Seung Hyun Kim",
+    "Songyuan Cui",
+    "Mattia Gazzola"
+  ],
+  "author_string": "Tejaswin Parthasarathy, Seung Hyun Kim, Songyuan Cui, Mattia Gazzola",
+  "journal": "arXiv:2605.13766v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Soft, slender structures are ubiquitous in natural and engineered systems, with broad application potential from biomimetic materials to soft robotics. However, there is a notable lack of computational tools that simultaneously preserve high-fidelity continuum rod mechanics, scale to large interacting ensembles, and remain flexible across diverse biophysical settings. Here we introduce Elastica++, an open-source, high-performance implementation of the Cosserat-rod model for large-scale simulations of slender-body dynamics. Elastica++ combines performance-oriented kernels with shared-memory parallelism to sustain teraflop-scale throughput despite complex discretization domains and physical interactions. The framework further interoperates with external numerical solvers, supporting efficient multiphysics workflows. We demonstrate robustness and breadth through case studies spanning passive nest-like metamaterials, collective active-matter dynamics, cilia carpets, soft magnetic microrobots, and schooling swimmers. Elastica++ thus provides a missing foundation for high-throughput studies of emergent behavior in interacting assemblies of elastic slender structures.",
+  "categories": [
+    "cs.CE",
+    "math.NA",
+    "physics.comp-ph"
+  ],
+  "primary_category": "physics.comp-ph",
+  "comment": null,
+  "published_date": "2026-05-13T16:47:05Z",
+  "updated_date": "2026-05-13T16:47:05Z",
+  "url": "https://arxiv.org/abs/2605.13766v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.13766v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-13T22:17:00.036541",
+  "category": "physics",
+  "subcategories": [
+    "cs.CE",
+    "math.NA",
+    "physics.comp-ph"
+  ]
+}

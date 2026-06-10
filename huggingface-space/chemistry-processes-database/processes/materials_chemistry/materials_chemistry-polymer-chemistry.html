@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Polymer Chemistry - Chemistry Process</title>
+    <title>Controlled Radical Polymerization (ATRP/RAFT) - Chemistry Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Polymer Chemistry</h1>
+            <h1>Controlled Radical Polymerization (ATRP/RAFT)</h1>
             <div class="header-meta">
                 <span class="meta-item">Chemistry</span>
                 <span class="meta-item">Materials Chemistry</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,67 +234,57 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Polymer Chemistry process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>Controlled/living radical polymerization keeps a low instantaneous radical concentration through a fast dynamic equilibrium between active and dormant chains; when the equilibrium strongly favors the dormant species, all chains grow at the same slow rate, giving predictable molar mass and low dispersity once the target is reached.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-A1[Monomer Selection] --> B1[Polymerization Method]
-C1[Initiator System] --> D1[Polymerization Reaction]
-E1[Chain Growth] --> F1[Polymer Chemistry Analysis]
-B1 --> G1[Addition Polymerization]
-D1 --> H1[Condensation Polymerization]
-F1 --> I1[Ring Opening Polymerization]
-G1 --> J1[Free Radical Polymerization]
-H1 --> K1[Step Growth Polymerization]
-I1 --> L1[Coordination Polymerization]
-J1 --> M1[Chain Transfer]
-K1 --> L1
-L1 --> N1[Crosslinking]
-M1 --> O1[Molecular Weight]
-N1 --> P1[Polymer Properties]
-O1 --> Q1[Polymer Chemistry Process]
-P1 --> R1[Polymer Chemistry Validation]
-Q1 --> S1[Polymer Chemistry Verification]
-R1 --> T1[Polymer Chemistry Result]
-S1 --> U1[Polymer Chemistry Analysis]
-T1 --> V1[Polymer Chemistry Parameters]
-U1 --> W1[Polymer Chemistry Output]
-V1 --> X1[Polymer Chemistry Analysis]
-W1 --> Y1[Polymer Chemistry Final Result]
-X1 --> Z1[Polymer Chemistry Complete]
+    N1["Monomer + control agent"]
+    N2["Activate dormant species"]
+    N3["Active <=> dormant equilibrium"]
+    N4{"Favors dormant?"}
+    N5["Tune catalyst / CTA"]
+    N6["Low instantaneous [radical]"]
+    N7["Add monomers, re-cap"]
+    N8["Uniform chain growth"]
+    N9{"Target MW reached?"}
+    N10["Low-dispersity polymer"]
 
-    style A1 fill:#ff6b6b,color:#fff
-    style C1 fill:#ff6b6b,color:#fff
-    style E1 fill:#ff6b6b,color:#fff
-    style B1 fill:#ffd43b,color:#000
-    style D1 fill:#ffd43b,color:#000
-    style F1 fill:#ffd43b,color:#000
-    style G1 fill:#ffd43b,color:#000
-    style H1 fill:#ffd43b,color:#000
-    style I1 fill:#ffd43b,color:#000
-    style J1 fill:#ffd43b,color:#000
-    style K1 fill:#ffd43b,color:#000
-    style L1 fill:#ffd43b,color:#000
-    style M1 fill:#51cf66,color:#fff
-    style N1 fill:#51cf66,color:#fff
-    style O1 fill:#51cf66,color:#fff
-    style P1 fill:#51cf66,color:#fff
-    style Q1 fill:#51cf66,color:#fff
-    style R1 fill:#51cf66,color:#fff
-    style S1 fill:#51cf66,color:#fff
-    style T1 fill:#51cf66,color:#fff
-    style U1 fill:#51cf66,color:#fff
-    style V1 fill:#51cf66,color:#fff
-    style W1 fill:#51cf66,color:#fff
-    style X1 fill:#51cf66,color:#fff
-    style Y1 fill:#51cf66,color:#fff
-    style Z1 fill:#b197fc,color:#fff
+    N1 --> N2
+    N2 --> N3
+    N3 --> N4
+    N4 -->|no| N5
+    N5 -->|retune| N2
+    N4 -->|yes| N6
+    N6 --> N7
+    N7 --> N8
+    N8 --> N9
+    N9 -->|more cycles| N7
+    N9 -->|yes| N10
+
+    style N1 fill:#ff6b6b,color:#fff
+    style N2 fill:#51cf66,color:#fff
+    style N3 fill:#74c0fc,color:#fff
+    style N4 fill:#74c0fc,color:#fff
+    style N5 fill:#51cf66,color:#fff
+    style N6 fill:#51cf66,color:#fff
+    style N7 fill:#51cf66,color:#fff
+    style N8 fill:#51cf66,color:#fff
+    style N9 fill:#74c0fc,color:#fff
+    style N10 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Monomer + control agent</td><td>Triggers & Inputs</td><td><a href="https://doi.org/10.1021/cr940534g" target="_blank" title="Atom transfer radical polymerization" style="color:#e74c3c;">Matyjaszewski, K. et al. 2001</a></td></tr><tr><td style="font-weight:600;">Activate dormant species</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1021/cr940534g" target="_blank" title="Atom transfer radical polymerization" style="color:#e74c3c;">Matyjaszewski, K. et al. 2001</a></td></tr><tr><td style="font-weight:600;">Active <=> dormant equilibrium</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1021/ma9804951" target="_blank" title="Living free-radical polymerization by reversible addition-fragmentation chain transfer: the RAFT process" style="color:#e74c3c;">Chiefari, J. et al. 1998</a></td></tr><tr><td style="font-weight:600;">Favors dormant?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1021/cr940534g" target="_blank" title="Atom transfer radical polymerization" style="color:#e74c3c;">Matyjaszewski, K. et al. 2001</a></td></tr><tr><td style="font-weight:600;">Tune catalyst / CTA</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1021/ma9804951" target="_blank" title="Living free-radical polymerization by reversible addition-fragmentation chain transfer: the RAFT process" style="color:#e74c3c;">Chiefari, J. et al. 1998</a></td></tr><tr><td style="font-weight:600;">Low instantaneous [radical]</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1021/cr940534g" target="_blank" title="Atom transfer radical polymerization" style="color:#e74c3c;">Matyjaszewski, K. et al. 2001</a></td></tr><tr><td style="font-weight:600;">Add monomers, re-cap</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1021/ma9804951" target="_blank" title="Living free-radical polymerization by reversible addition-fragmentation chain transfer: the RAFT process" style="color:#e74c3c;">Chiefari, J. et al. 1998</a></td></tr><tr><td style="font-weight:600;">Uniform chain growth</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1021/cr940534g" target="_blank" title="Atom transfer radical polymerization" style="color:#e74c3c;">Matyjaszewski, K. et al. 2001</a></td></tr><tr><td style="font-weight:600;">Target MW reached?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1021/cr940534g" target="_blank" title="Atom transfer radical polymerization" style="color:#e74c3c;">Matyjaszewski, K. et al. 2001</a></td></tr><tr><td style="font-weight:600;">Low-dispersity polymer</td><td>Products & Outputs</td><td><a href="https://doi.org/10.1021/ma9804951" target="_blank" title="Living free-radical polymerization by reversible addition-fragmentation chain transfer: the RAFT process" style="color:#e74c3c;">Chiefari, J. et al. 1998</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -313,12 +330,12 @@ X1 --> Z1[Polymer Chemistry Complete]
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 26</li>
-                        <li><strong>Edges:</strong> 21</li>
-                        <li><strong>Conditionals:</strong> 0</li>
-                        <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 1</li>
+                        <li><strong>Nodes:</strong> 10</li>
+                        <li><strong>Edges:</strong> 11</li>
+                        <li><strong>Conditionals:</strong> 2</li>
+                        <li><strong>AND Gates:</strong> 2</li>
+                        <li><strong>OR Gates:</strong> 2</li>
+                        <li><strong>Total Gates:</strong> 4</li>
                     </ul>
                 </div>
                 
@@ -326,7 +343,7 @@ X1 --> Z1[Polymer Chemistry Complete]
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>polymer</li><li>chemistry</li>
+                        <li>controlled radical polymerization</li><li>ATRP</li><li>RAFT</li><li>dormant chain</li><li>low dispersity</li>
                     </ul>
                 </div>
                 
@@ -337,42 +354,22 @@ X1 --> Z1[Polymer Chemistry Complete]
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Atom transfer radical polymerization</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Matyjaszewski, K.; Xia, J.
+                            , Chemical Reviews
+                             (2001)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Polymer Chemistry</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Subramanian, Muralisrinivasan Natamai
-                            , Basics of Polymer Chemistry
-                             (2022)
-                            </span>
-                            <br><a href="https://doi.org/10.1201/9781003337324-4" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1201/9781003337324-4</a>
+                            <br><a href="https://doi.org/10.1021/cr940534g" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1021/cr940534g</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Polymer characterization</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Hosier, Ian L.; Vaughan, Alun S.
-                            , Polymer Chemistry
-                             (2004)
+                            <strong>Living free-radical polymerization by reversible addition-fragmentation chain transfer: the RAFT process</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Chiefari, J.; et al.
+                            , Macromolecules
+                             (1998)
                             </span>
-                            <br><a href="https://doi.org/10.1093/oso/9780198503095.003.0006" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1093/oso/9780198503095.003.0006</a>
-                            
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Polymer Chemistry</strong>
-                            
-                            , Polymer Chemistry
-                             (2010)
-                            </span>
-                            <br><a href="https://doi.org/10.1039/c000660m" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1039/c000660m</a>
+                            <br><a href="https://doi.org/10.1021/ma9804951" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1021/ma9804951</a>
                             
                         </li>
                         

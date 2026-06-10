@@ -1,0 +1,29 @@
+{
+  "id": "arxiv_2604.18899v1",
+  "arxiv_id": "2604.18899v1",
+  "title": "Application of Metric-Based Mesh Adaptation to Hypersonic Aerothermal Simulations Using US3D",
+  "authors": [
+    "Dirk Ekelschot"
+  ],
+  "author_string": "Dirk Ekelschot",
+  "journal": "arXiv:2604.18899v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": "10.13140/RG.2.2.16192.19205",
+  "abstract": "The main goal of this paper is to demonstrate the application of metric-based mesh adaptation to real gas problems and highlight the benefits particularly when complex geometries are considered. We use the Hessian of the temperature solution as an indicator to dictate where the mesh needs refinement or coarsening. In the context of hypersonic flow simulations, these methods are not widely adopted since unstructured meshes often result in poor surface heating predictions. The present work aims to demonstrate the great flexibility metric-based mesh adaptation provides when it comes to predicting complex flow features while still maintaining comparable surface heating predictions. We consider two test cases: (a) a supersonic flow over a hemisphere and show that comparable surface heating is obtained by applying mesh adaptation and by employing hexahedra instead of prisms in the boundary layer mesh; (b) we consider a more realistic test case of a hypersonic flow of a C02-N2 mixture past a 70 degree sphere cone atmospheric entry capsule. For the second test case, similar surface heating predictions are obtained compared to more conventional block structured DPLR simulations. Furthermore, for the adapted unstructured simulations, the geometries of the eight Reaction Control System (RCS) jet on the back shell were taken into account. This highlights the ability of these methods to deal with complex geometries that are typically out of reach for block structured approaches.",
+  "categories": [
+    "physics.flu-dyn"
+  ],
+  "primary_category": "physics.flu-dyn",
+  "comment": "21 pages",
+  "published_date": "2026-04-20T23:00:19Z",
+  "updated_date": "2026-04-20T23:00:19Z",
+  "url": "https://arxiv.org/abs/2604.18899v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.18899v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-22T10:15:44.048417",
+  "category": "physics",
+  "subcategories": [
+    "physics.flu-dyn"
+  ]
+}

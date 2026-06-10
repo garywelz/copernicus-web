@@ -1,0 +1,42 @@
+{
+  "id": "biorxiv_10.64898_2026.01.16.700002",
+  "doi": "10.64898/2026.01.16.700002",
+  "title": "Likelihood-Based Identification of Cell Division Mechanisms",
+  "authors": [
+    "Teichner, R.",
+    "Meir, R.",
+    "Brenner, N."
+  ],
+  "author_string": "Teichner, R., Meir, R., Brenner, N.",
+  "journal": "bioRxiv",
+  "journal_full": "bioRxiv",
+  "year": "2026",
+  "abstract": "Cell size homeostasis in bacteria is a fundamental problem in systems biology, where cells maintain growth and division over many generations despite intrinsic fluctuations. Identifying the underlying control mechanism--whether division is triggered by reaching a critical size (sizer ) or by adding a fixed size increment (adder )--is essential for understanding this process. These two hypotheses are widely studied, yet there is no guarantee that either fully captures the true biological mechanism. More fundamentally, it has been unclear whether the control mechanism is statistically identifiable at all from lineage data. We address this question by developing a likelihood-based framework that explicitly accounts for threshold dynamics modeled as an Ornstein-Uhlenbeck process. Division timing is formulated as the first-passage-time (FPT) of this stochastic process to a time-dependent barrier. However, the FPT distribution lacks a closed-form analytical expression, preventing direct derivation of the maximum likelihood estimator (MLE). We overcome this challenge by training a neural network to approximate the FPT distribution and integrating it into the likelihood function, preserving analytical structure up to the FPT term. Simulations demonstrate that our method reliably distinguishes between sizer and adder mechanisms under realistic conditions where heuristic methods fail, providing the first evidence that the underlying control mechanism is identifiable. This hybrid analytical-machine learning approach provides a generalizable framework for studying stochastic threshold-based regulation in biological systems. Code reproducing the results is available at https://github.com/RonTeichner/newBacteria.",
+  "keywords": [],
+  "categories": [
+    "cell biology"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.64898/2026.01.16.700002",
+  "source": "biorxiv",
+  "sources": [
+    "biorxiv"
+  ],
+  "acquired_date": "2026-05-20T22:15:23.944977",
+  "category": "biology",
+  "subcategories": [
+    "cell biology"
+  ],
+  "published_date": "2026-01-20",
+  "updated_date": "2026-01-20",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "biorxiv",
+  "preprint_version": "1",
+  "preprint_type": "new results",
+  "license": "cc_by",
+  "jatsxml": "https://www.biorxiv.org/content/early/2026/01/20//2026.01.16.700002.source.xml",
+  "published_doi": null,
+  "author_corresponding": "Ron Teichner",
+  "author_corresponding_institution": "Technion - Israel Institute of Technology"
+}

@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2604.21866v1",
+  "arxiv_id": "2604.21866v1",
+  "title": "High-performance cellular automaton decoders for quantum repetition and toric code",
+  "authors": [
+    "Don Winter",
+    "Thiago L. M. Guedes",
+    "Markus Müller"
+  ],
+  "author_string": "Don Winter, Thiago L. M. Guedes, Markus Müller",
+  "journal": "arXiv:2604.21866v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Execution of quantum algorithms on large-scale quantum computers will require extremely low logical error rates, which necessitates the development of scalable decoding architectures. Local decoders are promising candidates for this task, as they avoid the communication and data processing bottlenecks inherent in global decoding strategies. Cellular automaton (CA) decoders represent a distinct class of local decoders, offering a path toward the low-latency, real-time decoding required for practical applications. In this work, we present SCALA (Signaling CA with Local Attraction), a novel non-hierarchical cellular automaton decoder for quantum repetition and toric codes. By evaluating SCALA alongside the hierarchical CA decoder proposed by Harrington, we provide a direct comparison between non-hierarchical and renormalization-group-style local decoding strategies. We characterize SCALA across three key metrics: Performance, scalability, and robustness. Our results show that SCALA achieves a code-capacity threshold of approximately $p_c\\approx 7.5\\%$ and provides strong sub-threshold scaling of about $p_L\\propto p^{d/4}$ on the toric code. In terms of scalability, our non-hierarchical design ensures that the local computational resources remain independent of system size, yielding a modular local architecture suitable for hardware implementation. Finally, SCALA demonstrates strong robustness to qubit measurement errors and noise within the decoder itself, a critical advantage for real-time decoding on noisy hardware. Our results establish SCALA as a high-performance, scalable, and robust local decoder for scalable quantum error correction.",
+  "categories": [
+    "quant-ph",
+    "nlin.AO",
+    "nlin.CG"
+  ],
+  "primary_category": "nlin.CG",
+  "comment": "33 pages, 25 figures",
+  "published_date": "2026-04-23T17:01:26Z",
+  "updated_date": "2026-04-23T17:01:26Z",
+  "url": "https://arxiv.org/abs/2604.21866v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.21866v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-27T10:15:32.962284",
+  "category": "interdisciplinary",
+  "subcategories": [
+    "quant-ph",
+    "nlin.AO",
+    "nlin.CG"
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2605.10164v1",
+  "arxiv_id": "2605.10164v1",
+  "title": "Hyperparameter Transfer for Dense Associative Memories",
+  "authors": [
+    "Roi Holtzman",
+    "Dmitry Krotov",
+    "Boris Hanin"
+  ],
+  "author_string": "Roi Holtzman, Dmitry Krotov, Boris Hanin",
+  "journal": "arXiv:2605.10164v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Dense Associative Memory (DenseAM) is a promising family of AI architectures that is represented by a neural network performing temporal dynamics on an energy landscape. While hyperparameter transfer methods are well-studied for feed-forward networks, these methods have not been developed for settings in which weights are shared across layers and within the layer, which is common in DenseAMs. Additionally, DenseAMs utilize rapidly peaking activation functions that are rarely used in feed-forward architectures. The confluence of these aspects makes DenseAM a challenging framework for using existing methods for hyperparameter transfer. Our work initiates the development of hyperparameter transfer methods for this class of models. We derive explicit prescriptions for how the hyperparameters tuned on small models can be transferred to models trained at scale. We demonstrate excellent agreement between these theoretical findings and empirical results.",
+  "categories": [
+    "cs.LG",
+    "stat.ML"
+  ],
+  "primary_category": "stat.ML",
+  "comment": null,
+  "published_date": "2026-05-11T08:15:13Z",
+  "updated_date": "2026-05-11T08:15:13Z",
+  "url": "https://arxiv.org/abs/2605.10164v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.10164v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-11T22:15:41.416494",
+  "category": "mathematics",
+  "subcategories": [
+    "cs.LG",
+    "stat.ML"
+  ]
+}

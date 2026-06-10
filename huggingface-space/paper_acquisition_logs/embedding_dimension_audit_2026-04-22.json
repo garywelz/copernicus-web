@@ -1,0 +1,73 @@
+{
+  "project": "regal-scholar-453620-r7",
+  "database": "copernicusai",
+  "query": "with_model",
+  "sample_size_requested": 2000,
+  "documents_examined": 2000,
+  "vector_length_counts": {
+    "768": 2000
+  },
+  "embedding_model_counts": {
+    "text-embedding-004": 2000
+  },
+  "unique_vector_lengths": [
+    768
+  ],
+  "interpretation": {
+    "mixed_vector_lengths_in_sample": false,
+    "mixed_embedding_model_strings_in_sample": false,
+    "note": "If multiple lengths appear, the same Firestore `embedding` field is not safe for a single vector index. For A/B (Vertex vs OpenAI) research, use separate fields and indexes, e.g. embedding_vertex + embedding_openai."
+  },
+  "sample_doc_ids": [
+    "00001abc-be34-4bf1-9ab8-667859a83a96",
+    "00015c2e-621f-4497-af04-4cc3c386829c",
+    "000283b4-e989-4eb0-802e-96e39fd19933",
+    "0007cff9-3982-4923-ad12-76c9e4cdb4d6",
+    "00082f96-0b3f-428d-8739-ffe01f45e303",
+    "000b7b61-c1de-403a-b71b-0dc5da59eb8e",
+    "000d25ba-4ab8-467e-9f54-1e0987814c7f",
+    "0013cf33-2f23-4018-8915-24153791c789",
+    "0015e1c6-9f87-4857-a3e2-a7b51c357522",
+    "0016fff0-7b62-4d19-aebd-d6d76db51c74",
+    "001c0302-0613-4173-a256-aac1daf301dd",
+    "002078fc-ef4c-4dda-b0e8-f8053acbd530",
+    "0023cc11-5d77-48c1-ac4e-8874f37b931b",
+    "002f2578-9d1b-4945-96f6-45c4bd0e211a",
+    "003da2b3-368b-42ea-9623-38d63ec3c0ca",
+    "00441d4a-dc8a-4b03-9c4d-c678eb0b6983",
+    "006bff59-ea56-4e98-a58a-ebc3622fd176",
+    "00748606-0f81-4dfa-beef-e762ce839d36",
+    "007d5ec2-5ff8-4237-9b3b-87c4f0610db4",
+    "0081e3da-1e99-4454-a81d-526ecd9e48f7",
+    "008d4724-7ee0-47b6-b766-13ce62020e03",
+    "008da888-4cd4-4a4e-b3a1-447355c315c9",
+    "0090f380-3052-4b2d-97b2-748d7d7bcbe3",
+    "0094f08c-deb2-4ef4-81cd-bc653832fb18",
+    "0095a1bc-6667-4d45-a0e6-b11ad7e5c256",
+    "00a34abd-8efe-4e06-ae42-6c372bba7a62",
+    "00aaf6cc-545b-488d-84af-4e7f25fd161f",
+    "00abe828-65a5-4167-b4a1-b8ddefc3c7b4",
+    "00b4d11d-de3a-47f9-aa6a-6f0ad8508c02",
+    "00bd6175-1c64-4208-9fbd-731151843470",
+    "00c0cb97-d296-4e33-abc3-fb4d2caa5b36",
+    "00c33945-b88b-471b-9620-1880f9c0924c",
+    "00cf6158-9a95-48d3-bda6-bc3d9ec61cec",
+    "00db49ca-d788-4ac6-ada2-64dcfb010711",
+    "00dee402-88d4-4a85-84f9-be1818b29808",
+    "00e4afa5-ce85-4fc9-aaba-87292b4a0d9e",
+    "00eb836b-3fc9-483c-9729-5afe2bdc314f",
+    "00f7398b-4f26-4cf0-9dd7-f9d09b12a6f2",
+    "00f97f4d-d30b-48b9-8d9a-d76c223010d9",
+    "010b6751-50d4-4720-b07b-c37877de201d",
+    "010e5078-010a-494a-af59-083a2177efc6",
+    "010f1da2-0a84-41f7-97b0-3b89a7522ee9",
+    "01165830-d220-4d8d-b505-841797c7ac4a",
+    "0116c0e0-98a3-47fe-8aef-37759c33807c",
+    "012066e7-a720-4278-8e78-52f16321cba9",
+    "01212abe-f971-48c6-bbe3-f6c54b5189a3",
+    "013a302c-910b-41e4-9eb7-04114302ab75",
+    "013c73ad-bb52-4ab7-912f-6b1618a0b428",
+    "014a64db-2943-434c-84c4-8178e6e289f0",
+    "0159b864-ca10-46f6-b9db-eb3b7626b463"
+  ]
+}

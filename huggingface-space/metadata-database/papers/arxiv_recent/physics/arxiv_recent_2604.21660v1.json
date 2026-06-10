@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2604.21660v1",
+  "arxiv_id": "2604.21660v1",
+  "title": "Self-consistent evaluation of the Berry connection for Wannier functions",
+  "authors": [
+    "Martin Thümmler",
+    "Alexander Croy",
+    "Thomas Lettau",
+    "Ulf Peschel",
+    "Stefanie Gräfe"
+  ],
+  "author_string": "Martin Thümmler, Alexander Croy, Thomas Lettau, Ulf Peschel, Stefanie Gräfe",
+  "journal": "arXiv:2604.21660v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "The Berry connection is a gauge-dependent quantity frequently used to describe the optical response of solids. Its evaluation requires a k-derivative with respect to the cell periodic-part of the Bloch-functions and is commonly calculated in the Wannier basis by using overlap matrices of cell-periodic parts of Bloch-functions at neighboring k-points. So far, all proposed interpolation schemes for the Berry connection do not account for the matrix structure of the overlap matrices explicitly but treat the matrix elements as independent, or only distinguish between diagonal and off-diagonal entries. In this work, we propose a self-consistent interpolation scheme based on the matrix logarithm resulting in a strongly improved accuracy. Furthermore, we discuss how the basis set incompleteness of the bands used in the ab-initio calculation imposes constraints on the accuracy. We quantify the basis incompleteness based on the singular values of the overlap matrices and relate it to the invariant part of the spread functional $Ω_\\mathrm{I}$ of the Wannier functions. Numerical calculations for monolayer MoS2 and bulk Si demonstrate that the proposed interpolation scheme is much less sensitive to the Wannierization details and leads to an improved quality of the velocity matrix and the optical conductivity.",
+  "categories": [
+    "cond-mat.mtrl-sci"
+  ],
+  "primary_category": "cond-mat.mtrl-sci",
+  "comment": "13 pages, 6 figures, submitted to PRB",
+  "published_date": "2026-04-23T13:22:35Z",
+  "updated_date": "2026-04-23T13:22:35Z",
+  "url": "https://arxiv.org/abs/2604.21660v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.21660v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-27T10:15:37.398341",
+  "category": "physics",
+  "subcategories": [
+    "cond-mat.mtrl-sci"
+  ]
+}

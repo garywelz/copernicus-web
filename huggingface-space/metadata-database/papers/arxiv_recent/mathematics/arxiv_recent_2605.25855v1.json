@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2605.25855v1",
+  "arxiv_id": "2605.25855v1",
+  "title": "High-Dimensional Change-Point Detection via Angular Kernel Statistics",
+  "authors": [
+    "Jyotishka Ray Choudhury",
+    "Yao Xie"
+  ],
+  "author_string": "Jyotishka Ray Choudhury, Yao Xie",
+  "journal": "arXiv:2605.25855v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We study change-point detection for high-dimensional data in regimes where inference must be performed from small batches of observations. Our primary focus is the high-dimensional, low sample size (HDLSS) regime, where the sequence length is fixed while the ambient dimension diverges. We propose a dimension-averaged angular kernel scan framework for detecting marginal distributional shifts. The statistic aggregates bounded one-dimensional angular discrepancies across coordinates, yielding a fully nonparametric, hyperparameter-free, and moment-agnostic estimator that remains well-defined without specifying, estimating, or assuming finite marginal moments, for example under heavy-tailed or contaminated distributions. For the offline single-change problem, we derive an exact population mean factorization into a universal deterministic shape function and a scalar signal factor, characterize the null covariance structure up to a scalar long-run variance factor, and establish an HDLSS multivariate central limit theorem under cross-coordinate mixing. These results lead to plug-in Gaussian calibration, asymptotic type-I error control, and power and localization guarantees, including a $d^{-1/2}$ local detection scale. We further extend the offline procedure to a fixed-window sequential monitoring procedure for high-dimensional streaming data, and obtain ARL calibration and worst-case EDD bounds. Simulation studies demonstrate that the proposed method can accurately detect and localize changes in challenging HDLSS and streaming settings where moment-based or hyperparameter-sensitive procedures may be unreliable.",
+  "categories": [
+    "stat.ME",
+    "math.ST",
+    "stat.ML"
+  ],
+  "primary_category": "stat.ML",
+  "comment": null,
+  "published_date": "2026-05-25T13:45:38Z",
+  "updated_date": "2026-05-25T13:45:38Z",
+  "url": "https://arxiv.org/abs/2605.25855v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.25855v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-26T10:15:43.032489",
+  "category": "mathematics",
+  "subcategories": [
+    "stat.ME",
+    "math.ST",
+    "stat.ML"
+  ]
+}

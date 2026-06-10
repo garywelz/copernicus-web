@@ -323,16 +323,27 @@
                 <p class="stat-label" id="arxivLabel">arXiv (this page)</p>
             </div>
         </div>
+        <p id="statusAlignLine" style="display:none;padding:0 30px 8px 30px;font-size:0.9em;color:#5a6c7d;text-align:center;max-width:960px;margin:0 auto;line-height:1.45;"></p>
+        <p id="statusEmbedCallout" style="display:none;padding:0 30px 16px 30px;font-size:1em;font-weight:600;color:#4c1d95;background:#f5f3ff;border:2px solid #c4b5fd;border-radius:10px;max-width:960px;margin:0 auto 8px auto;line-height:1.4;"></p>
         
         <div id="loading" class="loading">
             <h3>Loading research papers...</h3>
             <p>Fetching paper metadata from the CopernicusAI API</p>
+            <p class="hint" style="font-size:0.9em;color:#7f8c8d;margin-top:8px;">This page requires JavaScript. Search-engine and static previews do not run <code>fetch</code>, so they may show zero results or errors.</p>
         </div>
         
         <div id="error" class="error" style="display: none;">
             <h3>❌ Error Loading Data</h3>
             <p id="errorMessage">Could not fetch paper metadata. Please check your connection and try again.</p>
+            <p id="errorHint" style="font-size:0.9em;margin-top:10px;color:#555;"></p>
         </div>
+        <noscript>
+            <div class="error" style="display:block;">
+                <h3>JavaScript required</h3>
+                <p>Enable JavaScript to load papers from the API. Or call the browse endpoint directly:
+                    <a href="https://copernicus-podcast-api-phzp4ie2sq-uc.a.run.app/api/content/browse?content_type=papers&amp;page=1&amp;limit=1">browse API (JSON)</a>.</p>
+            </div>
+        </noscript>
         
         <div id="content" style="display: none;">
             <div class="table-container">
@@ -364,6 +375,10 @@
 
     <script>
         const API_BASE_URL = 'https://copernicus-podcast-api-phzp4ie2sq-uc.a.run.app';
+        const STATUS_JSON_BASE = 'https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/knowledge-engine-status.json';
+        function statusJsonUrl() {
+            return STATUS_JSON_BASE + (STATUS_JSON_BASE.indexOf('?') >= 0 ? '&' : '?') + 'cb=' + Date.now();
+        }
 
         let allPapers = [];          // current in-memory dataset (either a single page, or search results)
         let filteredPapers = [];
@@ -375,9 +390,81 @@
         let currentSort = { column: 'year', direction: 'desc' };
 
         async function _fetchJson(url) {
-            const res = await fetch(url, { cache: 'no-store' });
-            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+            const res = await fetch(url, { cache: 'no-store', mode: 'cors' });
+            if (!res.ok) {
+                const err = new Error(`HTTP ${res.status} from ${url}`);
+                err.status = res.status;
+                throw err;
+            }
             return await res.json();
+        }
+
+        function _formatLoadError(err) {
+            const base = err && err.message ? err.message : String(err);
+            const api = API_BASE_URL + '/api/content/browse?content_type=papers&page=1&limit=1';
+            let hint = 'Open DevTools → Network, reload, and confirm this URL returns 200: ' + api;
+            if (err && (err.name === 'TypeError' || /Failed to fetch|NetworkError|Load failed/i.test(base))) {
+                hint += ' If the API is up, the failure is often ad-blockers, offline network, or opening this file as file:// (use the GCS HTTPS URL).';
+            }
+            return { base, hint };
+        }
+
+        async function loadStatusAlign() {
+            const el = document.getElementById('statusAlignLine');
+            const emBox = document.getElementById('statusEmbedCallout');
+            if (!el) return;
+            try {
+                const s = await _fetchJson(statusJsonUrl());
+                const t = s.last_updated ? new Date(s.last_updated) : null;
+                const asof = t && !isNaN(t.getTime())
+                    ? t.toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'short' })
+                    : '';
+                const filePapers = s.papers != null ? Number(s.papers) : null;
+                const apiTotal = totalPapersServer || 0;
+                let msg = (asof ? 'Status file (as of ' + asof + '). ' : '') +
+                    (s.count_source ? 'Source: ' + s.count_source + ' (knowledge-engine-status.json). ' : '');
+                if (filePapers != null && apiTotal) {
+                    if (filePapers === apiTotal) {
+                        msg += 'API total and status file both ' + apiTotal.toLocaleString() + ' papers.';
+                    } else {
+                        msg += 'Status file: ' + filePapers.toLocaleString() + ' · Live API: ' + apiTotal.toLocaleString() +
+                            ' — can differ until the next status publish (e.g. 10:45 ET) or a few minutes after new Firestore writes.';
+                    }
+                } else {
+                    msg += 'Live API total: ' + apiTotal.toLocaleString() + ' papers.';
+                }
+                el.textContent = msg;
+
+                let emb = s.papers_with_embedding;
+                let embPct = s.papers_embedding_coverage_percent;
+                if (emb == null) {
+                    try {
+                        const st = await _fetchJson(`${API_BASE_URL}/api/content/stats`);
+                        if (st) {
+                            emb = st.papers_with_embedding;
+                            embPct = st.papers_embedding_coverage_percent;
+                        }
+                    } catch (e) { /* optional */ }
+                }
+                if (emBox) {
+                    if (emb != null) {
+                        emBox.textContent = 'Papers with vector embeddings: ' + Number(emb).toLocaleString() +
+                            (embPct != null ? ' (' + embPct + '% of catalog). ' : '. ') +
+                            'Not every paper row has an embedding; semantic search and the knowledge map use this subset.';
+                        emBox.style.display = 'block';
+                    } else {
+                        emBox.textContent = 'Embedding count unavailable (status JSON missing papers_with_embedding, or /api/content/stats blocked by network/CORS).';
+                        emBox.style.display = 'block';
+                    }
+                }
+            } catch (e) {
+                el.textContent = 'Could not load knowledge-engine-status.json. Add ?cb= to URL or try again. ' + (e && e.message ? e.message : '');
+                if (emBox) {
+                    emBox.textContent = 'Could not load embedding info.';
+                    emBox.style.display = 'block';
+                }
+            }
+            el.style.display = 'block';
         }
 
         function _paperFromBrowseItem(item) {
@@ -447,6 +534,7 @@
             try {
                 await loadBrowsePage(1);
                 updateStats();
+                await loadStatusAlign();
                 // In browse mode we don't have a global year list without scanning everything; leave year filter empty.
                 document.getElementById('loading').style.display = 'none';
                 document.getElementById('content').style.display = 'block';
@@ -455,8 +543,10 @@
                 console.error('Error loading papers:', error);
                 document.getElementById('loading').style.display = 'none';
                 document.getElementById('error').style.display = 'block';
-                document.getElementById('errorMessage').textContent =
-                    `Could not load papers from the API (Error: ${error.message}).`;
+                const { base, hint } = _formatLoadError(error);
+                document.getElementById('errorMessage').textContent = 'Could not load papers from the API. ' + base;
+                const hintEl = document.getElementById('errorHint');
+                if (hintEl) hintEl.textContent = hint;
             }
         }
 

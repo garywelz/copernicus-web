@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2604.22645v1",
+  "arxiv_id": "2604.22645v1",
+  "title": "Correctness of Biot's model of in situ leaching for incompressible liquid and compressible solid components",
+  "authors": [
+    "Anvarbek Meirmanov",
+    "Akbota Senkebayeva"
+  ],
+  "author_string": "Anvarbek Meirmanov, Akbota Senkebayeva",
+  "journal": "arXiv:2604.22645v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We study a mathematical model of in situ leaching of rare metals, in which the joint filtration of two liquids is governed by the microscopic model $\\mathbb{A}^{\\varepsilon}$. A key difficulty is the unknown (free) boundary $Γ(r)$ between solid and liquid components, determined by an additional condition on $Γ(r)$; no standard methods exist for this nonlinear problem. To resolve it, we apply the fixed point theorem. For a given function $r(\\boldsymbol{x},t)$ from a set $\\mathfrak{M}_{(0,T)}$ of sufficiently smooth functions describing the skeleton structure, we consider the auxiliary problem $\\mathbb{B}^{\\varepsilon}(r)$: an elliptic system for displacements of the liquid and solid components coupled with parabolic equations for the acid concentration. Selecting the weak solution of minimal smoothness, we apply the homogenization method to pass from the microscopic to the macroscopic description. The resulting macroscopic model $\\mathbb{H}(r)$ contains a homogenized boundary condition that expresses the normal boundary velocity $V_{N}=\\partial r/\\partial t$ as a linear function of the acid concentration $c$. Since $c$ depends on $r$ via an operator $\\mathbb{F}\\colon\\mathfrak{M}_{(0,T)}\\to\\mathfrak{M}_{(0,T)}$, we prove that $\\mathbb{F}$ is Lipschitz continuous and, by Banach's theorem, possesses a unique fixed point $r^{*}$, which yields the unique solution $\\mathbb{H}=\\mathbb{H}(r^{*})$.",
+  "categories": [
+    "math.AP",
+    "math-ph"
+  ],
+  "primary_category": "math-ph",
+  "comment": "37 pages, Submitted to Mathematical Models and Methods in Applied Sciences",
+  "published_date": "2026-04-24T15:18:08Z",
+  "updated_date": "2026-04-24T15:18:08Z",
+  "url": "https://arxiv.org/abs/2604.22645v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.22645v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-27T10:15:23.657375",
+  "category": "physics",
+  "subcategories": [
+    "math.AP",
+    "math-ph"
+  ]
+}

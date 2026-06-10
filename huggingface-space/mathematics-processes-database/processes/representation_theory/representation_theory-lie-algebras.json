@@ -1,0 +1,39 @@
+{
+  "id": "representation_theory-lie-algebras",
+  "name": "Lie Algebras & sl₂",
+  "category": "mathematics",
+  "subcategory": "representation_theory",
+  "subcategory_name": "Representation Theory",
+  "description": "[x,y] bracket, Jacobi. sl₂ = {e,h,f}. Adjoint representation. Finite-dim irreducible sl₂-modules: highest weight λ, dim λ+1.",
+  "mermaid": "graph TD\n    D1[\"Def: Lie algebra\\n[x,y] bilinear, Jacobi\"]\n    D2[\"Def: sl₂\\ne,h,f brackets\"]\n    D3[\"Def: Adjoint\\nad x y = [x,y]\"]\n    D4[\"Def: Weight space\\nV_μ = ker h−μ\"]\n    T1[\"Thm: sl₂ irreps\\nV_n dim n+1\"]\n    T2[\"Thm: Highest weight\\nv, ev=0, hv=λv\"]\n    T3[\"Thm: v,fv,f²v... basis\"]\n    T4[\"Thm: Casimir\\nC central\"]\n    T5[\"Thm: Weyl unitary trick\\nsl₂ℂ reps\"]\n    L1[\"Lemma: [e,f]=h\"]\n    D1 --> D2\n    D2 --> L1\n    D2 --> D3\n    D4 --> T2\n    T2 --> T1\n    T1 --> T3\n    D2 --> T4\n    T1 --> T5\n    classDef definition fill:#b197fc,color:#fff\n    classDef theorem fill:#51cf66,color:#fff\n    classDef lemma fill:#74c0fc,color:#fff\n    class D1,D2,D3,D4 definition\n    class T1,T2,T3,T4,T5 theorem\n    class L1 lemma",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

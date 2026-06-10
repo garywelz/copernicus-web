@@ -1,0 +1,192 @@
+{
+  "id": "development-morphogen-gradient-patterning",
+  "name": "Morphogen Gradient Patterning",
+  "category": "biology",
+  "subcategory": "development",
+  "subcategory_name": "Development and Organismal Biology",
+  "description": "Morphogen gradient patterning: a localized source secretes a diffusible morphogen whose concentration gradient is read by cells against thresholds to switch on distinct target genes, with feedback shaping the gradient.",
+  "keywords": [
+    "morphogen",
+    "gradient",
+    "positional information",
+    "threshold",
+    "patterning"
+  ],
+  "namedCollections": [
+    "signaling-cell-fate"
+  ],
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "complexity": {
+    "nodes": 10,
+    "edges": 11,
+    "conditionals": 1,
+    "logicGates": {
+      "orGates": 2,
+      "andGates": 2,
+      "notGates": 0,
+      "total": 4
+    },
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 1
+  },
+  "graphMetrics": {
+    "nodes": 10,
+    "edges": 11,
+    "conditionals": 1,
+    "andGates": 2,
+    "orGates": 2,
+    "notGates": 0,
+    "loops": 1
+  },
+  "mermaid": "graph TD\n    N1[\"Localized morphogen source\"]\n    N2[\"Secretion + diffusion\"]\n    N3[\"Concentration gradient forms\"]\n    N4[\"Cell senses local conc.\"]\n    N5{\"Above threshold?\"}\n    N6[\"High-threshold gene on\"]\n    N7[\"Low-threshold gene on\"]\n    N8[\"Distinct expression domains\"]\n    N9[\"Feedback shapes gradient\"]\n    N10[\"Spatial pattern of fates\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 --> N4\n    N4 --> N5\n    N5 -->|high| N6\n    N5 -->|low| N7\n    N6 --> N8\n    N7 --> N8\n    N8 --> N9\n    N9 --> N10\n    N9 -->|refine| N3\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#74c0fc,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#74c0fc,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#51cf66,color:#fff\n    style N10 fill:#b197fc,color:#fff",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Localized morphogen source",
+      "detail": "Cells producing the morphogen",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N2",
+      "label": "Secretion + diffusion",
+      "detail": "Morphogen spreads from the source",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N3",
+      "label": "Concentration gradient forms",
+      "detail": "Graded distribution across the field",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N4",
+      "label": "Cell senses local conc.",
+      "detail": "Receptor reads local morphogen level",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N5",
+      "label": "Above threshold?",
+      "detail": "Concentration compared to gene thresholds",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 2
+    },
+    {
+      "id": "N6",
+      "label": "High-threshold gene on",
+      "detail": "High-concentration target gene activated",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N7",
+      "label": "Low-threshold gene on",
+      "detail": "Low-concentration target gene activated",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N8",
+      "label": "Distinct expression domains",
+      "detail": "Sharp boundaries of gene expression",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N9",
+      "label": "Feedback shapes gradient",
+      "detail": "Receptor/inhibitor feedback refines the profile",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N10",
+      "label": "Spatial pattern of fates",
+      "detail": "Ordered array of cell identities",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 0
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:development-morphogen-gradient-patterning",
+    "graphType": "mechanism_flowchart",
+    "topologySignature": "aad55c48d1ef1cd8",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "lastUpdated": "2026-06-01",
+  "verified": false,
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "sources": [
+    {
+      "title": "Positional information and the spatial pattern of cellular differentiation",
+      "authors": "Wolpert, L.",
+      "journal": "Journal of Theoretical Biology",
+      "year": "1969",
+      "pubmed": "4390734",
+      "doi": "10.1016/S0022-5193(69)80016-0",
+      "url": "https://doi.org/10.1016/S0022-5193(69)80016-0"
+    },
+    {
+      "title": "Morphogen gradients: from generation to interpretation",
+      "authors": "Rogers, K. W.; Schier, A. F.",
+      "journal": "Annual Review of Cell and Developmental Biology",
+      "year": "2011",
+      "pubmed": "21801015",
+      "doi": "10.1146/annurev-cellbio-092910-154148",
+      "url": "https://doi.org/10.1146/annurev-cellbio-092910-154148"
+    },
+    {
+      "title": "Morphogen rules: design principles of gradient-mediated embryo patterning",
+      "authors": "Briscoe, J.; Small, S.",
+      "journal": "Development",
+      "year": "2015",
+      "pubmed": "26534981",
+      "doi": "10.1242/dev.129452",
+      "url": "https://doi.org/10.1242/dev.129452"
+    }
+  ],
+  "graphType": "mechanism_flowchart",
+  "domainContext": "Developmental spatial patterning"
+}

@@ -1,0 +1,29 @@
+{
+  "id": "arxiv_2604.22962v1",
+  "arxiv_id": "2604.22962v1",
+  "title": "On Fin Based Propulsion and Maneuvering for Uncrewed Underwater Vehicles",
+  "authors": [
+    "Parker Thomas Grobe"
+  ],
+  "author_string": "Parker Thomas Grobe",
+  "journal": "arXiv:2604.22962v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Bio-inspired propulsion using oscillating fins has gained attention for its potential to achieve high thrust, efficiency, and maneuverability. Many aquatic organisms generate propulsion through coordinated fin oscillations, and understanding these hydrodynamic mechanisms can inform the design of advanced underwater vehicles. A numerical framework is developed to simulate a NACA 0020 hydrofoil undergoing prescribed heave and pitch about the leading edge in a uniform freestream. Simulations are performed using WaterLily, a two-dimensional incompressible flow solver based on the Boundary Data Immersion Method (BDIM). Key kinematic parameters, frequency, heave amplitude, pitch amplitude, and phase offset, are characterized through nondimensional groups, primarily the Strouhal number. Reynolds number is held constant to isolate kinematic effects, while an additional parameter is introduced to describe phase driven interactions in multi fin systems. The study begins with a single fin to establish baseline force generation. A reduced order model incorporating a leading-edge torsional spring is then developed to emulate flexibility. The effects of asymmetric actuation, through heave speed, pitch bias, and stiffness variation, are also examined, demonstrating the generation of net lateral forces for maneuvering. Next multi-fin configurations investigated. Downstream fins interact with vortices shed by upstream fins, enabling energy extraction from the wake. Results show that tuning phase offsets and spacing can significantly enhance thrust, while poor timing reduces performance. To efficiently explore the growing parameter space, Bayesian optimization is applied to identify high performance configurations. This work provides insight into the hydrodynamic mechanisms of oscillating fin propulsion and establishes a framework for designing efficient, bio-inspired underwater propulsion systems.",
+  "categories": [
+    "physics.flu-dyn"
+  ],
+  "primary_category": "physics.flu-dyn",
+  "comment": "Doctoral thesis, 106 pages, 31 figures, focus on bio-inspired propulsion for underwater vehicles",
+  "published_date": "2026-04-24T19:08:33Z",
+  "updated_date": "2026-04-24T19:08:33Z",
+  "url": "https://arxiv.org/abs/2604.22962v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.22962v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-27T22:15:39.110681",
+  "category": "physics",
+  "subcategories": [
+    "physics.flu-dyn"
+  ]
+}

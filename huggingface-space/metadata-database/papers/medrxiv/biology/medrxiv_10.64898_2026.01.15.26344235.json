@@ -1,0 +1,46 @@
+{
+  "id": "medrxiv_10.64898_2026.01.15.26344235",
+  "doi": "10.64898/2026.01.15.26344235",
+  "title": "Morphology-Driven Inference of Patient-Specific Pathophysiological States Enables Precision Treatment in Chronic Spontaneous Urticaria",
+  "authors": [
+    "Seirin-Lee, S.",
+    "hiraga, T.",
+    "Ishii, H.",
+    "Saito, R.",
+    "Matsubara, D.",
+    "Takahagi, S.",
+    "Hide, M."
+  ],
+  "author_string": "Seirin-Lee, S., hiraga, T., Ishii, H., Saito, R., Matsubara, D. et al.",
+  "journal": "medRxiv",
+  "journal_full": "medRxiv",
+  "year": "2026",
+  "abstract": "Skin diseases manifest as visually observable eruption patterns, making image-based assessment a central component of dermatological diagnosis. While recent artificial intelligence (AI)-based approaches have achieved remarkable progress in classifying skin diseases from images, their utility remains largely limited to pattern recognition tasks, such as disease identification or severity grading. Crucially, most existing AI frameworks operate as black-box classifiers and do not provide interpretable links between eruption morphology and the underlying in vivo pathophysiological states, thereby offering limited support for personalized treatment decisions. To date, no practical framework has been established to systematically translate eruption morphology into mechanistic insights or treatment-relevant predictions for inflammatory skin diseases such as chronic urticaria.\n\nHere, we propose a novel integrative framework that infers patient-specific pathophysiological states directly from skin eruption morphology. Our approach unifies mechanistic mathematical modeling with data science that encompasses machine learning and topological data analysis, together with in vitro experiments and clinical data into a single coherent system. By constructing a mathematical model that explicitly links disease pathophysiology to eruption morphology, we develop a computational parameter inference tool, the System for Skin Eruption Morphology-based Parameter Inference (SEMPi), that estimates patient-specific physiological parameters directly from real-world skin eruption images. Importantly, these inferred parameters are interpretable in terms of underlying biological processes, enabling direct insight into patient-specific disease states rather than mere image-level classification. Furthermore, by incorporating drug interactions into the mathematical model, our framework enables treatment-response prediction and optimization of individualized therapeutic strategies across multiple drugs. This study introduces a paradigm shift from morphology-based classification toward morphology-driven interpretation of patient physiology, providing a foundation for predictive diagnosis and precision treatment in inflammatory skin diseases.",
+  "keywords": [],
+  "categories": [
+    "dermatology"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.64898/2026.01.15.26344235",
+  "source": "medrxiv",
+  "sources": [
+    "medrxiv"
+  ],
+  "acquired_date": "2026-05-17T22:15:25.455963",
+  "category": "biology",
+  "subcategories": [
+    "dermatology"
+  ],
+  "published_date": "2026-01-17",
+  "updated_date": "2026-01-17",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "medrxiv",
+  "preprint_version": "1",
+  "preprint_type": "PUBLISHAHEADOFPRINT",
+  "license": "cc_by_nc_nd",
+  "jatsxml": "https://www.medrxiv.org/content/early/2026/01/17//2026.01.15.26344235.source.xml",
+  "published_doi": null,
+  "author_corresponding": "Sungrim Seirin-Lee",
+  "author_corresponding_institution": "Kyoto University"
+}

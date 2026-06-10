@@ -1,21 +1,23 @@
 {
   "id": "nuclear_chemistry-corrosion-mechanisms",
-  "name": "Corrosion Mechanisms",
+  "name": "Radioactive Decay Kinetics",
   "category": "chemistry",
   "subcategory": "nuclear_chemistry",
   "subcategory_name": "Nuclear Chemistry",
-  "description": "Corrosion Mechanisms process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "An unstable nuclide decays by a mode set by its neutron-to-proton ratio (beta-minus, beta-plus/electron capture, or alpha), emitting particles and energy; decay follows first-order kinetics with a characteristic half-life, sometimes through a chain to a stable nuclide.",
   "complexity": {
-    "nodes": 26,
-    "edges": 22,
-    "conditionals": 0,
+    "nodes": 11,
+    "edges": 13,
+    "conditionals": 2,
     "logicGates": {
-      "orGates": 0,
-      "andGates": 1,
-      "total": 1
+      "orGates": 2,
+      "andGates": 2,
+      "notGates": 0,
+      "total": 4
     },
-    "level": "medium",
-    "detailLevel": "medium"
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 1
   },
   "colorScheme": {
     "red": {
@@ -39,53 +41,159 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nA3[Metal Surface] --> B3[Corrosion Analysis Method]\nC3[Oxygen Molecules] --> D3[Moisture Content]\nE3[Electrolyte Solution] --> F3[Environmental Factors]\nB3 --> G3[Surface Characterization]\nD3 --> H3[Humidity Control]\nF3 --> I3[Temperature Monitoring]\nG3 --> J3[Oxidation Sites]\nH3 --> K3[Water Adsorption]\nI3 --> L3[Corrosion Rate]\nJ3 --> M3[Electron Transfer]\nK3 --> L3\nL3 --> N3[Ion Formation]\nM3 --> O3[Oxide Formation]\nN3 --> P3[Corrosion Reaction]\nO3 --> Q3[Surface Degradation]\nP3 --> R3[Rust Formation]\nQ3 --> S3[Protective Coating]\nR3 --> T3[Corrosion Products]\nS3 --> U3[Inhibition Methods]\nT3 --> V3[Prevention Strategies]\nU3 --> W3[Coating Application]\nV3 --> X3[Performance Evaluation]\nW3 --> Y3[Protection Mechanism]\nX3 --> Z3[Corrosion Prevention]\nY3 --> Z3\n\n    style A3 fill:#ff6b6b,color:#fff\n    style C3 fill:#ff6b6b,color:#fff\n    style E3 fill:#ff6b6b,color:#fff\n    style B3 fill:#ffd43b,color:#000\n    style D3 fill:#ffd43b,color:#000\n    style F3 fill:#ffd43b,color:#000\n    style G3 fill:#ffd43b,color:#000\n    style H3 fill:#ffd43b,color:#000\n    style I3 fill:#ffd43b,color:#000\n    style J3 fill:#ffd43b,color:#000\n    style K3 fill:#ffd43b,color:#000\n    style L3 fill:#ffd43b,color:#000\n    style M3 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style O3 fill:#51cf66,color:#fff\n    style P3 fill:#51cf66,color:#fff\n    style Q3 fill:#51cf66,color:#fff\n    style R3 fill:#51cf66,color:#fff\n    style S3 fill:#51cf66,color:#fff\n    style T3 fill:#51cf66,color:#fff\n    style U3 fill:#51cf66,color:#fff\n    style V3 fill:#51cf66,color:#fff\n    style W3 fill:#51cf66,color:#fff\n    style X3 fill:#51cf66,color:#fff\n    style Y3 fill:#51cf66,color:#fff\n    style Z3 fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"Unstable nuclide\"]\n    N2{\"N/Z ratio sets mode\"}\n    N3[\"Neutron-rich: β− decay\"]\n    N4[\"Proton-rich: β+ / EC\"]\n    N5[\"Heavy: α decay\"]\n    N6[\"Emit particle + energy\"]\n    N7[\"N = N0 e^(−λt)\"]\n    N8[\"Half-life t½ = ln2/λ\"]\n    N9{\"Daughter stable?\"}\n    N10[\"Decay chain continues\"]\n    N11[\"Stable nuclide reached\"]\n\n    N1 --> N2\n    N2 -->|n-rich| N3\n    N2 -->|p-rich| N4\n    N2 -->|heavy| N5\n    N3 --> N6\n    N4 --> N6\n    N5 --> N6\n    N6 --> N7\n    N7 --> N8\n    N8 --> N9\n    N9 -->|no| N10\n    N10 -->|next decay| N2\n    N9 -->|yes| N11\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#74c0fc,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#74c0fc,color:#fff\n    style N9 fill:#74c0fc,color:#fff\n    style N10 fill:#51cf66,color:#fff\n    style N11 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "title": "Radioactive change (exponential decay law)",
+      "authors": "Rutherford, E.; Soddy, F.",
+      "journal": "Philosophical Magazine",
+      "year": "1903",
+      "doi": "10.1080/14786440309462960",
+      "url": "https://doi.org/10.1080/14786440309462960"
+    },
+    {
+      "title": "Introductory Nuclear Physics",
+      "authors": "Krane, K. S.",
+      "journal": "Wiley",
+      "year": "1987",
       "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: Corrosion Mechanisms. Created using the Programming Framework methodology."
+      "url": "https://www.wiley.com/en-us/Introductory+Nuclear+Physics-p-9780471805533"
     },
     {
-      "title": "Mechanisms of Pitting Corrosion",
-      "authors": "",
-      "journal": "Corrosion Mechanisms in Theory and Practice",
-      "year": "2011",
-      "pubmed": null,
-      "doi": "10.1201/b11020-11",
-      "url": "https://doi.org/10.1201/b11020-11"
-    },
-    {
-      "title": "Stress-Corrosion Cracking Mechanisms",
-      "authors": "",
-      "journal": "Corrosion Mechanisms in Theory and Practice",
-      "year": "2011",
-      "pubmed": null,
-      "doi": "10.1201/b11020-15",
-      "url": "https://doi.org/10.1201/b11020-15"
-    },
-    {
-      "title": "Corrosion Mechanisms",
-      "authors": "",
-      "journal": "Fundamentals of Corrosion",
-      "year": "2009",
-      "pubmed": null,
-      "doi": "10.1201/9781420067712-6",
-      "url": "https://doi.org/10.1201/9781420067712-6"
+      "title": "The NUBASE2020 evaluation of nuclear physics properties",
+      "authors": "Kondev, F. G.; Wang, M.; Huang, W. J.; Naimi, S.; Audi, G.",
+      "journal": "Chinese Physics C",
+      "year": "2021",
+      "doi": "10.1088/1674-1137/abddae",
+      "url": "https://doi.org/10.1088/1674-1137/abddae"
     }
   ],
   "keywords": [
-    "corrosion",
-    "mechanisms"
+    "radioactive decay",
+    "half-life",
+    "beta decay",
+    "alpha decay",
+    "decay chain"
   ],
   "relatedProcesses": [],
   "created": "2026-01-08",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Unstable nuclide",
+      "detail": "Parent radioisotope",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 2
+    },
+    {
+      "id": "N2",
+      "label": "N/Z ratio sets mode",
+      "detail": "Position vs band of stability",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N3",
+      "label": "Neutron-rich: β− decay",
+      "detail": "n -> p + e− + antineutrino",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N4",
+      "label": "Proton-rich: β+ / EC",
+      "detail": "p -> n via positron or capture",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N5",
+      "label": "Heavy: α decay",
+      "detail": "Emit a helium-4 nucleus",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N6",
+      "label": "Emit particle + energy",
+      "detail": "Q-value released",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N7",
+      "label": "N = N0 e^(−λt)",
+      "detail": "First-order decay law",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N8",
+      "label": "Half-life t½ = ln2/λ",
+      "detail": "Characteristic timescale",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N9",
+      "label": "Daughter stable?",
+      "detail": "Check the product nuclide",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 2
+    },
+    {
+      "id": "N10",
+      "label": "Decay chain continues",
+      "detail": "Successive decays",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N11",
+      "label": "Stable nuclide reached",
+      "detail": "End of the chain",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 2
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:nuclear_chemistry-corrosion-mechanisms",
+    "graphType": "cyclic_pathway",
+    "topologySignature": "01f3973cbc216f88",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "namedCollections": [
+    "nuclear-chemistry"
+  ],
+  "graphMetrics": {
+    "nodes": 11,
+    "edges": 13,
+    "conditionals": 2,
+    "andGates": 2,
+    "orGates": 2,
+    "notGates": 0,
+    "loops": 1
+  },
+  "graphType": "cyclic_pathway",
+  "domainContext": "Nuclear chemistry"
 }

@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2604.28176v1",
+  "arxiv_id": "2604.28176v1",
+  "title": "Defending Quantum Classifiers against Adversarial Perturbations through Quantum Autoencoders",
+  "authors": [
+    "Emma Andrews",
+    "Sahan Sanjaya",
+    "Prabhat Mishra"
+  ],
+  "author_string": "Emma Andrews, Sahan Sanjaya, Prabhat Mishra",
+  "journal": "arXiv:2604.28176v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Machine learning models can learn from data samples to carry out various tasks efficiently. When data samples are adversarially manipulated, such as by insertion of carefully crafted noise, it can cause the model to make mistakes. Quantum machine learning models are also vulnerable to such adversarial attacks, especially in image classification using variational quantum classifiers. While there are promising defenses against these adversarial perturbations, such as training with adversarial samples, they face practical limitations. For example, they are not applicable in scenarios where training with adversarial samples is either not possible or can overfit the models on one type of attack. In this paper, we propose an adversarial training-free defense framework that utilizes a quantum autoencoder to purify the adversarial samples through reconstruction. Moreover, our defense framework provides a confidence metric to identify potentially adversarial samples that cannot be purified the quantum autoencoder. Extensive evaluation demonstrates that our defense framework can significantly outperform state-of-the-art in prediction accuracy (up to 68%) under adversarial attacks.",
+  "categories": [
+    "quant-ph",
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": null,
+  "published_date": "2026-04-30T17:56:40Z",
+  "updated_date": "2026-04-30T17:56:40Z",
+  "url": "https://arxiv.org/abs/2604.28176v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.28176v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-30T22:15:39.333592",
+  "category": "computer_science",
+  "subcategories": [
+    "quant-ph",
+    "cs.LG"
+  ]
+}

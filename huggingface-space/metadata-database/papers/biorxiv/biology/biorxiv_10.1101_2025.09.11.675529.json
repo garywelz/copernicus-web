@@ -1,0 +1,42 @@
+{
+  "id": "biorxiv_10.1101_2025.09.11.675529",
+  "doi": "10.1101/2025.09.11.675529",
+  "title": "barbieQ: An R software package for analysing barcode count data from clonal tracking experiments",
+  "authors": [
+    "Fei, L.",
+    "Maksimovic, J.",
+    "Oshlack, A."
+  ],
+  "author_string": "Fei, L., Maksimovic, J., Oshlack, A.",
+  "journal": "bioRxiv",
+  "journal_full": "bioRxiv",
+  "year": "2026",
+  "abstract": "Motivation: A clone encompasses a progenitor cell and its progeny cells. Tracking clonal composition as cells differentiate or evolve is useful in many fields. Various single-cell lineage tracing (clonal tracking) technologies use unique DNA barcodes that are passed from progenitor cells to their offspring. The barcode count for each sample indicates cell number in clones. However, analysis of barcode count data is often bespoke and relies on visualisations and heuristics. A generalized workflow for preprocessing and robust statistical analysis of barcode count data across protocols is needed. Results: We introduce barbieQ, a Bioconductor R package for analysing barcode count data across groups of samples. It provides data-driven quality control and filtering, extensive visualisations, and two statistical tests: 1) Differential barcode proportion (differences in proportions between sample groups), and 2) Differential barcode occurrence (differences in presence/absence odds between groups). Both tests handle complex experimental designs using regression models and rigorously account for sample-to-sample variability. We validated both tests on semi-simulated, real data and a case study, demonstrating that they hold their size, are sufficiently powered to detect true differences, and outperform existing approaches.",
+  "keywords": [],
+  "categories": [
+    "bioinformatics"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.1101/2025.09.11.675529",
+  "source": "biorxiv",
+  "sources": [
+    "biorxiv"
+  ],
+  "acquired_date": "2026-05-12T22:15:24.942393",
+  "category": "biology",
+  "subcategories": [
+    "bioinformatics"
+  ],
+  "published_date": "2026-01-12",
+  "updated_date": "2026-01-12",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "biorxiv",
+  "preprint_version": "2",
+  "preprint_type": "new results",
+  "license": "cc_by_nc",
+  "jatsxml": "https://www.biorxiv.org/content/early/2026/01/12/2025.09.11.675529.source.xml",
+  "published_doi": null,
+  "author_corresponding": "Alicia Oshlack",
+  "author_corresponding_institution": "Peter MacCallum Cancer Centre"
+}

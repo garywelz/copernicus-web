@@ -1,0 +1,44 @@
+{
+  "id": "arxiv_2604.20248v1",
+  "arxiv_id": "2604.20248v1",
+  "title": "Source localization realizes single frame super-resolution for fluorescence imaging",
+  "authors": [
+    "Mengrui Wang",
+    "Shouwen Ma",
+    "Zewei Luo",
+    "Wei Shi",
+    "Yiming Li",
+    "Yuwei Huang",
+    "Hu Zhao",
+    "Chang Liu",
+    "Manming Shu",
+    "Jingxiang Zhang",
+    "Yansheng Liang",
+    "Tianyu Zhao",
+    "Shaowei Wang",
+    "Tongsheng Chen",
+    "Chenguang Wang",
+    "Ming Lei"
+  ],
+  "author_string": "Mengrui Wang, Shouwen Ma, Zewei Luo, Wei Shi, Yiming Li et al.",
+  "journal": "arXiv:2604.20248v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Existing super-resolution microscopy is often constrained by inherent trade-offs between resolution, acquisition speed, phototoxicity, and hardware complexity. Computational post-processing approaches offer a promising alternative, but they typically suffer from linearity distortion, high computational cost, reliance on pre-training data, or reconstruction artifacts. Here, we present Source Localization (SoLo), a novel single-frame super-resolution algorithm for fluorescence imaging without these limitations. Built on the principle of inferring fluorescent source positions via sampling-detection strategy, SoLo achieves non-iterative, parallelizable computation, enabling real-time live-cell imaging with high spatiotemporal resolution. The intensity linearity preservation of SoLo makes it compatible with quantitative analysis such as calcium imaging and fluorescence resonance energy transfer. We further extended this framework to 3D-SoLo for volumetric imaging and nonlinear SoLo (NL-SoLo) for high-density fluorescence fluctuation imaging. With its ease of parameter tuning and compatibility with existing imaging systems, SoLo offers an accessible solution for ordinary labs, enabling diverse biomedical imaging applications.",
+  "categories": [
+    "physics.optics"
+  ],
+  "primary_category": "physics.optics",
+  "comment": "52 pages, 12 figures",
+  "published_date": "2026-04-22T06:55:05Z",
+  "updated_date": "2026-04-22T06:55:05Z",
+  "url": "https://arxiv.org/abs/2604.20248v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.20248v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-23T10:15:31.467293",
+  "category": "physics",
+  "subcategories": [
+    "physics.optics"
+  ]
+}

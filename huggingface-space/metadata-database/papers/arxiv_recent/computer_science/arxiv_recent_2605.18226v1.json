@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_2605.18226v1",
+  "arxiv_id": "2605.18226v1",
+  "title": "Context Memorization for Efficient Long Context Generation",
+  "authors": [
+    "Yasuyuki Okoshi",
+    "Hao Mark Chen",
+    "Guanxi Lu",
+    "Hongxiang Fan",
+    "Masato Motomura",
+    "Daichi Fujiki"
+  ],
+  "author_string": "Yasuyuki Okoshi, Hao Mark Chen, Guanxi Lu, Hongxiang Fan, Masato Motomura et al.",
+  "journal": "arXiv:2605.18226v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Modern large language model (LLM) applications increasingly rely on long conditioning prefixes to control model behavior at inference time. While prefix-augmented inference is effective, it incurs two structural limitations: i) the prefix's influence fades as generation proceeds, and ii) attention computation over the prefix scales linearly with its length. Existing approaches either keep the prefix in attention while compressing it, or internalize it into model parameters through gradient-based training. The former still attends to the prefix at inference, while the latter is training-intensive and ill-suited to prefix updates. To address these issues, we propose attention-state memory, a training-free approach that externalizes the prefix into a lightweight, lookup-based memory of precomputed attention states between prefix and query tokens. On ManyICLBench with LLaMA-3.1-8B, our method improves accuracy over in-context learning at 1K-8K memory budgets while reducing attention latency by 1.36x at 8K, and surpasses full-attention RAG performance on NBA benchmark using only 20% of its memory footprint.",
+  "categories": [
+    "cs.CL",
+    "cs.AI"
+  ],
+  "primary_category": "cs.AI",
+  "comment": null,
+  "published_date": "2026-05-18T11:12:45Z",
+  "updated_date": "2026-05-18T11:12:45Z",
+  "url": "https://arxiv.org/abs/2605.18226v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.18226v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-18T22:16:04.717996",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CL",
+    "cs.AI"
+  ]
+}

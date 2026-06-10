@@ -1,21 +1,23 @@
 {
   "id": "thermodynamics-phase-transitions",
-  "name": "Phase Transitions",
+  "name": "First-Order Phase Transition (Clapeyron)",
   "category": "chemistry",
   "subcategory": "thermodynamics",
   "subcategory_name": "Thermodynamics",
-  "description": "Phase Transitions process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "Two phases reach coexistence when their chemical potentials are equal; the Clapeyron equation then relates the slope of the phase boundary to the entropy and volume changes, and crossing the boundary drives the transition with its latent heat.",
   "complexity": {
-    "nodes": 26,
-    "edges": 22,
-    "conditionals": 0,
+    "nodes": 8,
+    "edges": 9,
+    "conditionals": 1,
     "logicGates": {
-      "orGates": 0,
+      "orGates": 1,
       "andGates": 1,
-      "total": 1
+      "notGates": 0,
+      "total": 2
     },
     "level": "medium",
-    "detailLevel": "medium"
+    "detailLevel": "source_grounded",
+    "loops": 2
   },
   "colorScheme": {
     "red": {
@@ -39,53 +41,135 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nA1[Initial Phase] --> B1[Phase Transition Method]\nC1[Temperature Control] --> D1[Pressure Regulation]\nE1[Energy Input] --> F1[System Monitoring]\nB1 --> G1[Phase Analysis]\nD1 --> H1[Pressure Control]\nF1 --> I1[Temperature Monitoring]\nG1 --> J1[Phase Identification]\nH1 --> K1[Pressure Adjustment]\nI1 --> L1[Heat Transfer]\nJ1 --> M1[Phase Boundary]\nK1 --> L1\nL1 --> N1[Energy Absorption]\nM1 --> O1[Molecular Reorganization]\nN1 --> P1[Phase Change Process]\nO1 --> Q1[Transition Kinetics]\nP1 --> R1[New Phase Formation]\nQ1 --> S1[Transition Rate]\nR1 --> T1[Phase Stability]\nS1 --> U1[Kinetic Analysis]\nT1 --> V1[Stability Assessment]\nU1 --> W1[Transition Efficiency]\nV1 --> X1[Phase Characterization]\nW1 --> Y1[Process Optimization]\nX1 --> Z1[Final Phase State]\nY1 --> Z1\n\n    style A1 fill:#ff6b6b,color:#fff\n    style C1 fill:#ff6b6b,color:#fff\n    style E1 fill:#ff6b6b,color:#fff\n    style B1 fill:#ffd43b,color:#000\n    style D1 fill:#ffd43b,color:#000\n    style F1 fill:#ffd43b,color:#000\n    style G1 fill:#ffd43b,color:#000\n    style H1 fill:#ffd43b,color:#000\n    style I1 fill:#ffd43b,color:#000\n    style J1 fill:#ffd43b,color:#000\n    style K1 fill:#ffd43b,color:#000\n    style L1 fill:#ffd43b,color:#000\n    style M1 fill:#51cf66,color:#fff\n    style N1 fill:#51cf66,color:#fff\n    style O1 fill:#51cf66,color:#fff\n    style P1 fill:#51cf66,color:#fff\n    style Q1 fill:#51cf66,color:#fff\n    style R1 fill:#51cf66,color:#fff\n    style S1 fill:#51cf66,color:#fff\n    style T1 fill:#51cf66,color:#fff\n    style U1 fill:#51cf66,color:#fff\n    style V1 fill:#51cf66,color:#fff\n    style W1 fill:#51cf66,color:#fff\n    style X1 fill:#51cf66,color:#fff\n    style Y1 fill:#51cf66,color:#fff\n    style Z1 fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"Two phases in contact\"]\n    N2{\"Chemical potentials equal?\"}\n    N3[\"Phase with lower μ grows\"]\n    N4[\"Coexistence: μ1 = μ2\"]\n    N5[\"Clapeyron: dP/dT = ΔS/ΔV\"]\n    N6[\"Latent heat ΔH = TΔS\"]\n    N7[\"Boundary on P–T diagram\"]\n    N8[\"Cross boundary -> transition\"]\n\n    N1 --> N2\n    N2 -->|no| N3\n    N3 -->|continue| N2\n    N2 -->|yes| N4\n    N4 --> N5\n    N5 --> N6\n    N6 --> N7\n    N7 --> N8\n    N8 -->|re-evaluate| N2\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#74c0fc,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#74c0fc,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#b197fc,color:#fff\n    style N8 fill:#51cf66,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "title": "Physical Chemistry, 11th ed. — Physical Transformations of Pure Substances",
+      "authors": "Atkins, P.; de Paula, J.; Keeler, J.",
+      "journal": "Oxford University Press",
+      "year": "2018",
       "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: Phase Transitions. Created using the Programming Framework methodology."
+      "url": "https://global.oup.com/ukhe/product/atkins-physical-chemistry-9780198769866"
     },
     {
-      "title": "Classical phase transitions",
-      "authors": "",
-      "journal": "Quantum Phase Transitions",
-      "year": "2011",
-      "pubmed": null,
-      "doi": "10.1017/cbo9780511973765.005",
-      "url": "https://doi.org/10.1017/cbo9780511973765.005"
+      "title": "Gold Book: Clapeyron equation",
+      "authors": "IUPAC",
+      "journal": "IUPAC Compendium of Chemical Terminology",
+      "year": "2019",
+      "doi": "10.1351/goldbook.C01097",
+      "url": "https://goldbook.iupac.org/terms/view/C01097"
     },
     {
-      "title": "A review of: “Structural Phase Transitions I”",
-      "authors": "",
-      "journal": "Phase Transitions",
-      "year": "1981",
-      "pubmed": null,
-      "doi": "10.1080/01411598108241317",
-      "url": "https://doi.org/10.1080/01411598108241317"
-    },
-    {
-      "title": "Phase transitions of Dirac fermions",
-      "authors": "",
-      "journal": "Quantum Phase Transitions",
-      "year": "2011",
-      "pubmed": null,
-      "doi": "10.1017/cbo9780511973765.019",
-      "url": "https://doi.org/10.1017/cbo9780511973765.019"
+      "title": "NIST Chemistry WebBook — phase-change data",
+      "authors": "Linstrom, P. J.; Mallard, W. G. (eds.)",
+      "journal": "NIST Standard Reference Database 69",
+      "year": "2023",
+      "doi": "10.18434/T4D303",
+      "url": "https://webbook.nist.gov/chemistry/"
     }
   ],
   "keywords": [
-    "phase",
-    "transitions"
+    "phase transition",
+    "clapeyron",
+    "chemical potential",
+    "latent heat",
+    "coexistence"
   ],
   "relatedProcesses": [],
   "created": "2026-01-08",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Two phases in contact",
+      "detail": "e.g. liquid and vapor",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N2",
+      "label": "Chemical potentials equal?",
+      "detail": "Coexistence criterion μ1 = μ2",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N3",
+      "label": "Phase with lower μ grows",
+      "detail": "Matter converts spontaneously",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N4",
+      "label": "Coexistence: μ1 = μ2",
+      "detail": "On the phase boundary",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N5",
+      "label": "Clapeyron: dP/dT = ΔS/ΔV",
+      "detail": "Slope of the boundary",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N6",
+      "label": "Latent heat ΔH = TΔS",
+      "detail": "Heat absorbed at transition",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N7",
+      "label": "Boundary on P–T diagram",
+      "detail": "Phase diagram constructed",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N8",
+      "label": "Cross boundary -> transition",
+      "detail": "Change T or P past the line",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:thermodynamics-phase-transitions",
+    "graphType": "cyclic_pathway",
+    "topologySignature": "e38dd8363455f01e",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "namedCollections": [
+    "thermodynamics"
+  ],
+  "graphMetrics": {
+    "nodes": 8,
+    "edges": 9,
+    "conditionals": 1,
+    "andGates": 1,
+    "orGates": 1,
+    "notGates": 0,
+    "loops": 2
+  },
+  "graphType": "cyclic_pathway",
+  "domainContext": "Phase equilibria"
 }

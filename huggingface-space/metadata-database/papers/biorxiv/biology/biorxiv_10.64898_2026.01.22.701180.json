@@ -1,0 +1,47 @@
+{
+  "id": "biorxiv_10.64898_2026.01.22.701180",
+  "doi": "10.64898/2026.01.22.701180",
+  "title": "Population-Scale Analysis of Frequency-Dependent Calcium Dynamics in Retinal Ganglion Cells Under Electric Field Stimulation",
+  "authors": [
+    "Sharafi, O.",
+    "Silliman, T.",
+    "Mokhtari Dowlatabad, H.",
+    "Niu, G.",
+    "T. Walston, S.",
+    "C. Bouteiller, J.-M.",
+    "K. Gokoffski, K.",
+    "Lazzi, G."
+  ],
+  "author_string": "Sharafi, O., Silliman, T., Mokhtari Dowlatabad, H., Niu, G., T. Walston, S. et al.",
+  "journal": "bioRxiv",
+  "journal_full": "bioRxiv",
+  "year": "2026",
+  "abstract": "Electric field (EF) stimulation is an emerging neuromodulatory strategy for promoting the repair and functional recovery of degenerated neural networks in neurodegenerative conditions such as glaucoma. EF stimulation therapeutic potential is thought to arise, in part, from modulation of calcium-dependent signaling pathways that regulate neuronal survival and plasticity. However, despite extensive use of EF stimulation in retinal research and clinical studies, it remains unclear how EF waveform frequency and shape govern population-level intracellular calcium dynamics in retinal ganglion cells (RGCs), limiting the rational design of stimulation protocols. Here we address this gap by combining large-scale ex-vivo calcium imaging of Thy1-GCaMP6f mouse retinas with controlled EF stimulation spanning a wide frequency range and a uniform, non-contact stimulation geometry. This approach enables direct measurement of intracellular calcium responses across thousands of individual RGCs under stimulation conditions relevant to non-invasive and translational paradigms. We further develop a morphologically detailed RGC model in NEURON incorporating reaction-diffusion calcium dynamics and admittance-based extracellular stimulation to mechanistically interpret the frequency-dependent responses observed under sinusoidal EF stimulation. Using this integrated experimental-computational framework, we reveal how electric field stimulation modulates population-level calcium signaling in retinal ganglion cells, enabling simultaneous characterization of spatial response patterns and ensemble-averaged activity across thousands of cells. At this scale, RGC calcium responses are constrained to a distinct frequency regime: low frequencies (below 5 Hz) evoke oscillatory transients, intermediate frequencies (10-100 Hz) produce sustained calcium elevation across the population, and high-frequency stimulation (>3 kHz) leads to a sharp attenuation of calcium responses. Among all tested waveforms, a 1:4 asymmetric charge-balanced stimulus at 50 Hz most effectively and consistently elevated intracellular calcium across the RGC population. The computational model reproduces the experimentally observed frequency dependence for sinusoidal stimulation and reveals that the behavior of these different frequency regimes emerges from the interplay between calcium influx, calcium-activated potassium feedback, calcium extrusion kinetics, and soma geometry. Beyond these findings, this work delivers, to our knowledge, the first large-scale dataset of single-cell calcium responses from RGC populations exposed to diverse EF waveforms and frequencies. This dataset enables future data-driven and hybrid modeling approaches that require rich mappings between extracellular stimulation parameters and intracellular calcium dynamics, and establishes a foundation for systematic, physiology-informed optimization of EF stimulation strategies targeting retinal neurodegenerative disease.",
+  "keywords": [],
+  "categories": [
+    "bioengineering"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.64898/2026.01.22.701180",
+  "source": "biorxiv",
+  "sources": [
+    "biorxiv"
+  ],
+  "acquired_date": "2026-05-25T22:15:24.333013",
+  "category": "biology",
+  "subcategories": [
+    "bioengineering"
+  ],
+  "published_date": "2026-01-25",
+  "updated_date": "2026-01-25",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "biorxiv",
+  "preprint_version": "2",
+  "preprint_type": "new results",
+  "license": "cc_by_nc",
+  "jatsxml": "https://www.biorxiv.org/content/early/2026/01/25//2026.01.22.701180.source.xml",
+  "published_doi": null,
+  "author_corresponding": "Gianluca Lazzi",
+  "author_corresponding_institution": "University of Southern California"
+}

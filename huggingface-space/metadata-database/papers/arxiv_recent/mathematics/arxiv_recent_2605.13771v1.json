@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2605.13771v1",
+  "arxiv_id": "2605.13771v1",
+  "title": "Upper Bounds for Symmetric Approximate Bounded Indistinguishability",
+  "authors": [
+    "Christopher Williamson"
+  ],
+  "author_string": "Christopher Williamson",
+  "journal": "arXiv:2605.13771v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "A pair of probability distributions over $\\{0,1\\}^n$ is said to be $(k,δ)$-wise indistinguishable if all of the size $k$ marginals are within statistical distance at most $δ$. Previous works introduced this concept and study when and how well one can distinguish between such a pair of symmetric distributions by observing $t$ bits. We use a simple hypergeometric smoothing approach and Hahn polynomials to obtain new upper bounds that apply across a wider range of parameters and improve previously available bounds in several regimes. In particular, prior works left open the basic question of whether there exist constants $0<c_1<c_2<1$ and a pair of $(c_1n,0)$-wise indistinguishable distributions such that the $c_2n$-wise marginals have statistical distance $Ω(1)$. One application of our new bounds is to rule this out for all $c_1,c_2$ and to show that the $c_2n$-wise marginals must in fact be exponentially close. Another application in this setting is to show that the $c_2n$-wise marginals must be super-polynomially close even if the $c_1n$-wise marginals are allowed to have statistical distance $δ$ for any $δ\\leq\\exp\\left({-ω(\\sqrt{n\\log{n}})}\\right)$. Our bounds also yield new results in other regimes, for example when $k$ is sublinear or when $t/n$ tends to 1.",
+  "categories": [
+    "cs.CC",
+    "math.PR"
+  ],
+  "primary_category": "math.PR",
+  "comment": null,
+  "published_date": "2026-05-13T16:48:41Z",
+  "updated_date": "2026-05-13T16:48:41Z",
+  "url": "https://arxiv.org/abs/2605.13771v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.13771v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-13T22:17:00.036414",
+  "category": "mathematics",
+  "subcategories": [
+    "cs.CC",
+    "math.PR"
+  ]
+}

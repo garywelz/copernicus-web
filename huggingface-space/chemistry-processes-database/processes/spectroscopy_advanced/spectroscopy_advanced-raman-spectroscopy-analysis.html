@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Raman Spectroscopy Analysis - Chemistry Process</title>
+    <title>Raman Spectroscopy - Chemistry Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Raman Spectroscopy Analysis</h1>
+            <h1>Raman Spectroscopy</h1>
             <div class="header-meta">
                 <span class="meta-item">Chemistry</span>
                 <span class="meta-item">Advanced Spectroscopy & Analysis</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,46 +234,56 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Raman Spectroscopy Analysis process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>Raman spectroscopy detects inelastically scattered laser light: modes that change polarizability produce Stokes/anti-Stokes shifts after the intense Rayleigh line is filtered, giving a vibrational fingerprint that complements IR through the rule of mutual exclusion.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-N1["Sample"]
-N2["Instrument Configuration"]
-N3["Acquire Spectrum/Pattern"]
-N4["Choose Path"]
-N5["Preprocess (baseline/noise)"]
-N6["Peak/Feature Extraction"]
-N7["Assign/Interpret"]
-N8["Spectroscopic Conclusion"]
-N9["Integrate"]
+    N1["Sample + laser"]
+    N2["Photons scatter"]
+    N3{"Polarizability changes?"}
+    N4["Inactive: only Rayleigh"]
+    N5["Stokes / anti-Stokes shift"]
+    N6["Inelastic scattering"]
+    N7["Filter Rayleigh line"]
+    N8["Record Raman shift"]
+    N9["Complement IR modes"]
+    N10["Vibrational fingerprint"]
 
-N1 --> N2
-N2 --> N3
-N3 --> N4
-N4 --> N5
-N4 --> N7
-N5 --> N6
-N7 --> N8
-N6 --> N9
-N8 --> N9
-N9 --> N6
+    N1 --> N2
+    N2 --> N3
+    N3 -->|no| N4
+    N4 --> N7
+    N3 -->|yes| N5
+    N5 --> N6
+    N6 --> N7
+    N7 --> N8
+    N8 --> N9
+    N9 --> N10
 
     style N1 fill:#ff6b6b,color:#fff
-    style N2 fill:#ffd43b,color:#000
-    style N3 fill:#51cf66,color:#fff
-    style N4 fill:#ffd43b,color:#000
-    style N5 fill:#51cf66,color:#fff
+    style N2 fill:#51cf66,color:#fff
+    style N3 fill:#74c0fc,color:#fff
+    style N4 fill:#51cf66,color:#fff
+    style N5 fill:#74c0fc,color:#fff
     style N6 fill:#74c0fc,color:#fff
     style N7 fill:#51cf66,color:#fff
-    style N8 fill:#b197fc,color:#fff
-    style N9 fill:#74c0fc,color:#fff
+    style N8 fill:#51cf66,color:#fff
+    style N9 fill:#51cf66,color:#fff
+    style N10 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Sample + laser</td><td>Triggers & Inputs</td><td><a href="https://doi.org/10.1016/B978-0-12-254105-6.X5000-8" target="_blank" title="Introductory Raman Spectroscopy, 2nd ed." style="color:#e74c3c;">Ferraro, J. R. et al. 2003</a></td></tr><tr><td style="font-weight:600;">Photons scatter</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1038/121501c0" target="_blank" title="A new type of secondary radiation" style="color:#e74c3c;">Raman, C. V. et al. 1928</a></td></tr><tr><td style="font-weight:600;">Polarizability changes?</td><td>Intermediates & States</td><td><a href="https://www.cengage.com/c/principles-of-instrumental-analysis-7e-skoog/9781305577213/" target="_blank" title="Principles of Instrumental Analysis, 7th ed. — Raman Spectroscopy" style="color:#e74c3c;">Skoog, D. A. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Inactive: only Rayleigh</td><td>Processing & Operations</td><td><a href="https://www.cengage.com/c/principles-of-instrumental-analysis-7e-skoog/9781305577213/" target="_blank" title="Principles of Instrumental Analysis, 7th ed. — Raman Spectroscopy" style="color:#e74c3c;">Skoog, D. A. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Stokes / anti-Stokes shift</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1038/121501c0" target="_blank" title="A new type of secondary radiation" style="color:#e74c3c;">Raman, C. V. et al. 1928</a></td></tr><tr><td style="font-weight:600;">Inelastic scattering</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1038/121501c0" target="_blank" title="A new type of secondary radiation" style="color:#e74c3c;">Raman, C. V. et al. 1928</a></td></tr><tr><td style="font-weight:600;">Filter Rayleigh line</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1016/B978-0-12-254105-6.X5000-8" target="_blank" title="Introductory Raman Spectroscopy, 2nd ed." style="color:#e74c3c;">Ferraro, J. R. et al. 2003</a></td></tr><tr><td style="font-weight:600;">Record Raman shift</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1016/B978-0-12-254105-6.X5000-8" target="_blank" title="Introductory Raman Spectroscopy, 2nd ed." style="color:#e74c3c;">Ferraro, J. R. et al. 2003</a></td></tr><tr><td style="font-weight:600;">Complement IR modes</td><td>Processing & Operations</td><td><a href="https://www.cengage.com/c/principles-of-instrumental-analysis-7e-skoog/9781305577213/" target="_blank" title="Principles of Instrumental Analysis, 7th ed. — Raman Spectroscopy" style="color:#e74c3c;">Skoog, D. A. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Vibrational fingerprint</td><td>Products & Outputs</td><td><a href="https://doi.org/10.1016/B978-0-12-254105-6.X5000-8" target="_blank" title="Introductory Raman Spectroscopy, 2nd ed." style="color:#e74c3c;">Ferraro, J. R. et al. 2003</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -292,12 +329,12 @@ N9 --> N6
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 9</li>
+                        <li><strong>Nodes:</strong> 10</li>
                         <li><strong>Edges:</strong> 10</li>
-                        <li><strong>Conditionals:</strong> 0</li>
-                        <li><strong>AND Gates:</strong> 2</li>
+                        <li><strong>Conditionals:</strong> 1</li>
+                        <li><strong>AND Gates:</strong> 1</li>
                         <li><strong>OR Gates:</strong> 1</li>
-                        <li><strong>Total Gates:</strong> 3</li>
+                        <li><strong>Total Gates:</strong> 2</li>
                     </ul>
                 </div>
                 
@@ -305,7 +342,7 @@ N9 --> N6
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>raman</li><li>spectroscopy</li><li>analysis</li>
+                        <li>raman</li><li>polarizability</li><li>stokes shift</li><li>rayleigh scattering</li><li>mutual exclusion</li>
                     </ul>
                 </div>
                 
@@ -316,43 +353,33 @@ N9 --> N6
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>A new type of secondary radiation</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Raman, C. V.; Krishnan, K. S.
+                            , Nature
+                             (1928)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Raman Spectroscopy of Surfaces</strong>
-                            
-                            , Raman Spectroscopy for Chemical Analysis
-                             (2000)
-                            </span>
-                            <br><a href="https://doi.org/10.1002/0471721646.ch13" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1002/0471721646.ch13</a>
+                            <br><a href="https://doi.org/10.1038/121501c0" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1038/121501c0</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Lasers for Raman Spectroscopy</strong>
-                            
-                            , Raman Spectroscopy for Chemical Analysis
-                             (2000)
+                            <strong>Introductory Raman Spectroscopy, 2nd ed.</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Ferraro, J. R.; Nakamoto, K.; Brown, C. W.
+                            , Academic Press
+                             (2003)
                             </span>
-                            <br><a href="https://doi.org/10.1002/0471721646.ch7" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1002/0471721646.ch7</a>
+                            <br><a href="https://doi.org/10.1016/B978-0-12-254105-6.X5000-8" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1016/B978-0-12-254105-6.X5000-8</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Sampling Modes in Raman Spectroscopy</strong>
-                            
-                            , Raman Spectroscopy for Chemical Analysis
-                             (2000)
+                            <strong>Principles of Instrumental Analysis, 7th ed. — Raman Spectroscopy</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Skoog, D. A.; Holler, F. J.; Crouch, S. R.
+                            , Cengage Learning
+                             (2018)
                             </span>
-                            <br><a href="https://doi.org/10.1002/0471721646.ch6" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1002/0471721646.ch6</a>
                             
+                            <br><a href="https://www.cengage.com/c/principles-of-instrumental-analysis-7e-skoog/9781305577213/" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
                         </li>
                         
                     </ul>

@@ -1,0 +1,37 @@
+{
+  "id": "arxiv_2604.23301v1",
+  "arxiv_id": "2604.23301v1",
+  "title": "Grassmann time-evolving matrix product operators for fermionic impurities coupled to a superconducting bath",
+  "authors": [
+    "Chu Guo",
+    "Wei Wu",
+    "Xiansong Xu",
+    "Ping-Xing Chen",
+    "Changming Yue",
+    "Tian Jiang",
+    "Ruofan Chen"
+  ],
+  "author_string": "Chu Guo, Wei Wu, Xiansong Xu, Ping-Xing Chen, Changming Yue et al.",
+  "journal": "arXiv:2604.23301v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "The Grassmann time-evolving matrix product operator (GTEMPO) method, which represents the Feynman-Vernon influence functional as a temporal matrix product state, has been shown to be a flexible and potentially scalable solution for fermionic quantum impurity problems. In this work, we extend GTEMPO to solve fermionic impurity problems in the Nambu formalism, in which the impurity is coupled to a superconducting bath. A key insight is that by employing the Bogoliubov transformation for the superconducting bath, one could obtain the analytic expression of the Feynman-Vernon influence functional in a similar form to the case of a normal bath, after which the core algorithms of GTEMPO can be straightforwardly adapted. We demonstrate the accuracy of our method by benchmarking it against exact diagonalization in several exactly solvable cases, and against the continuous-time quantum Monte Carlo method using converged dynamical mean field theory (DMFT) iterations on the imaginary contour in the non-integrable case. In all cases, we perform both imaginary- and real-time calculations to illustrate the flexibility of our method. These results illustrate that our method could be potentially useful as an impurity solver in DMFT as well as its non-equilibrium extension for fermionic impurity problems in the Nambu formalism.",
+  "categories": [
+    "cond-mat.str-el",
+    "cond-mat.supr-con"
+  ],
+  "primary_category": "cond-mat.supr-con",
+  "comment": "15 pages, 8 figures",
+  "published_date": "2026-04-25T13:35:35Z",
+  "updated_date": "2026-04-25T13:35:35Z",
+  "url": "https://arxiv.org/abs/2604.23301v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.23301v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-27T22:15:39.099397",
+  "category": "physics",
+  "subcategories": [
+    "cond-mat.str-el",
+    "cond-mat.supr-con"
+  ]
+}

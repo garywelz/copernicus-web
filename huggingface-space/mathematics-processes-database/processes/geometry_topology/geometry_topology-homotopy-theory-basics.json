@@ -1,0 +1,39 @@
+{
+  "id": "geometry_topology-homotopy-theory-basics",
+  "name": "Homotopy Theory Basics",
+  "category": "mathematics",
+  "subcategory": "geometry_topology",
+  "subcategory_name": "Geometry & Topology",
+  "description": "Homotopy equivalence, homotopy groups πₙ(X), CW complexes, and rationalization Xℚ. Rational homotopy theory studies spaces when \"all primes are ignored\"—i.e., up to rational homotopy equivalence. Whitehead's and Hurewicz theorems connect homotopy and homology. Foundation for Sullivan's minimal model approach.",
+  "mermaid": "graph TD\n    DefHomotopy[\"Def: Homotopy\\nf ≃ g : X×I → Y\"]\n    DefHEquiv[\"Def: Homotopy equivalence\\nX ≃ Y\"]\n    DefPi[\"Def: πₙ(X) = [Sⁿ, X]\\nHomotopy groups\"]\n    DefCW[\"Def: CW complex\\nCells, skeletons\"]\n    DefRational[\"Def: Rationalization Xℚ\\nπₙ(Xℚ) = πₙ(X)⊗ℚ\"]\n    ThmWhitehead[\"Thm: Whitehead\\nf* iso on πₙ ⇒ f homotopy equiv\"]\n    ThmHurewicz[\"Thm: Hurewicz\\nπₙ ≅ Hₙ for n-connected\"]\n    LemPiAbelian[\"Lem: πₙ abelian for n≥2\"]\n    DefHomotopy --> DefHEquiv\n    DefHomotopy --> DefPi\n    DefPi --> LemPiAbelian\n    DefCW --> ThmWhitehead\n    DefPi --> ThmWhitehead\n    DefPi --> ThmHurewicz\n    DefRational --> DefPi\n    classDef definition fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef theorem fill:#51cf66,color:#fff,stroke:#40c057\n    classDef lemma fill:#74c0fc,color:#fff,stroke:#4dabf7\n    class DefHomotopy,DefHEquiv,DefPi,DefCW,DefRational definition\n    class ThmWhitehead,ThmHurewicz theorem\n    class LemPiAbelian lemma",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

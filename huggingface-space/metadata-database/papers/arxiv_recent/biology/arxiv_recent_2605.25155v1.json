@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2605.25155v1",
+  "arxiv_id": "2605.25155v1",
+  "title": "Automated multi-dataset INST $^{13}$C metabolic flux analysis at microliter scale reveals robust fluxes but variable metabolite pools in $Corynebacterium~glutamicum$",
+  "authors": [
+    "Jochen Nießer",
+    "Anton Stratmann",
+    "Martin Beyß",
+    "Wolfgang Wiechert",
+    "Katharina Nöh",
+    "Stephan Noack"
+  ],
+  "author_string": "Jochen Nießer, Anton Stratmann, Martin Beyß, Wolfgang Wiechert, Katharina Nöh et al.",
+  "journal": "arXiv:2605.25155v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Isotopically non-stationary metabolic flux analysis (INST $^{13}$C-MFA) provides unique insights into cellular physiology but is typically limited by low throughput and high experimental costs. Here, we present a miniaturized and automated workflow that integrates transient isotope labeling experiments with advanced computational modeling to enable parallel INST $^{13}$C-MFA at microliter scale. The approach is demonstrated for an evolved $Corynebacterium~glutamicum$ strain capable of efficient growth on ethanol, a substrate for which isotopically stationary $^{13}$C-MFA is inherently limited due to low labeling diversity. Using robotic liquid handling, rapid hot isopropanol quenching, and LC-QToF-MS-based analytics, highly informative datasets were generated from parallel 48-well experiments with different ethanol tracers. Multi-dataset INST $^{13}$C-MFA unlocked joint estimation of intracellular fluxes and metabolite pool sizes and significantly improved flux precision compared to single-dataset analyses. While net fluxes were robust across datasets, pool size estimates exhibited variability and did not converge under joint inference, highlighting a fundamental methodological difference to single-dataset INST $^{13}$C-MFA. The resulting multi-dataset flux map reveals a central role of the glyoxylate shunt during growth on ethanol, consistent with metabolic adaption to C2-based substrate utilization. Overall, this work demonstrates that automated multi-dataset INST $^{13}$C-MFA is technically feasible and provides high-quality flux analysis at a fraction of the cost of conventional lab-scale bioreactor-based approaches. The presented workflow establishes a scalable framework for high-throughput quantitative fluxomics in microbial biotechnology and supports integration into iterative strain engineering and biofoundry pipelines.",
+  "categories": [
+    "q-bio.QM"
+  ],
+  "primary_category": "q-bio.QM",
+  "comment": null,
+  "published_date": "2026-05-24T16:27:40Z",
+  "updated_date": "2026-05-24T16:27:40Z",
+  "url": "https://arxiv.org/abs/2605.25155v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.25155v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-26T10:15:35.452631",
+  "category": "biology",
+  "subcategories": [
+    "q-bio.QM"
+  ]
+}

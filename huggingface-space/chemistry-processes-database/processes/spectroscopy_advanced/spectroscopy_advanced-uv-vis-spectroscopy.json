@@ -4,18 +4,20 @@
   "category": "chemistry",
   "subcategory": "spectroscopy_advanced",
   "subcategory_name": "Spectroscopy Advanced",
-  "description": "UV-Vis Spectroscopy process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "UV-Vis measures electronic absorption: light is scanned through a sample, chromophores promote electrons (pi->pi*, n->pi*), the absorbance is computed from transmitted intensity, and within the linear range Beer's law relates absorbance to concentration.",
   "complexity": {
-    "nodes": 26,
-    "edges": 22,
-    "conditionals": 0,
+    "nodes": 10,
+    "edges": 10,
+    "conditionals": 1,
     "logicGates": {
-      "orGates": 0,
+      "orGates": 1,
       "andGates": 1,
-      "total": 1
+      "notGates": 0,
+      "total": 2
     },
-    "level": "medium",
-    "detailLevel": "medium"
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 1
   },
   "colorScheme": {
     "red": {
@@ -39,54 +41,151 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nA1[Light Source] --> B1[UV-Vis Spectroscopy Method]\nC1[Sample Solution] --> D1[Wavelength Control]\nE1[Detector System] --> F1[Data Collection]\nB1 --> G1[Monochromator Setup]\nD1 --> H1[Wavelength Selection]\nF1 --> I1[Signal Processing]\nG1 --> J1[Light Dispersion]\nH1 --> K1[Wavelength Range]\nI1 --> L1[Absorbance Measurement]\nJ1 --> M1[Light Transmission]\nK1 --> L1\nL1 --> N1[Electronic Transitions]\nM1 --> O1[Sample Irradiation]\nN1 --> P1[Absorption Process]\nO1 --> Q1[Spectroscopic Analysis]\nP1 --> R1[Absorbance Spectrum]\nQ1 --> S1[Peak Analysis]\nR1 --> T1[Concentration Determination]\nS1 --> U1[Beer's Law Analysis]\nT1 --> V1[Concentration Calculation]\nU1 --> W1[Spectroscopic Efficiency]\nV1 --> X1[Sample Characterization]\nW1 --> Y1[Process Optimization]\nX1 --> Z1[Final Absorption Spectrum]\nY1 --> Z1\n\n    style A1 fill:#ff6b6b,color:#fff\n    style C1 fill:#ff6b6b,color:#fff\n    style E1 fill:#ff6b6b,color:#fff\n    style B1 fill:#ffd43b,color:#000\n    style D1 fill:#ffd43b,color:#000\n    style F1 fill:#ffd43b,color:#000\n    style G1 fill:#ffd43b,color:#000\n    style H1 fill:#ffd43b,color:#000\n    style I1 fill:#ffd43b,color:#000\n    style J1 fill:#ffd43b,color:#000\n    style K1 fill:#ffd43b,color:#000\n    style L1 fill:#ffd43b,color:#000\n    style M1 fill:#51cf66,color:#fff\n    style N1 fill:#51cf66,color:#fff\n    style O1 fill:#51cf66,color:#fff\n    style P1 fill:#51cf66,color:#fff\n    style Q1 fill:#51cf66,color:#fff\n    style R1 fill:#51cf66,color:#fff\n    style S1 fill:#51cf66,color:#fff\n    style T1 fill:#51cf66,color:#fff\n    style U1 fill:#51cf66,color:#fff\n    style V1 fill:#51cf66,color:#fff\n    style W1 fill:#51cf66,color:#fff\n    style X1 fill:#51cf66,color:#fff\n    style Y1 fill:#51cf66,color:#fff\n    style Z1 fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"Sample in cuvette\"]\n    N2[\"Scan UV-Vis light\"]\n    N3[\"Chromophore absorbs\"]\n    N4[\"Measure transmitted I\"]\n    N5[\"A = log(I0/I)\"]\n    N6[\"λmax identified\"]\n    N7{\"Within linear range?\"}\n    N8[\"Dilute sample\"]\n    N9[\"Beer's law A = εbc\"]\n    N10[\"Concentration / identity\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 --> N4\n    N4 --> N5\n    N5 --> N6\n    N6 --> N7\n    N7 -->|no| N8\n    N8 -->|rescan| N2\n    N7 -->|yes| N9\n    N9 --> N10\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#74c0fc,color:#fff\n    style N7 fill:#74c0fc,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#51cf66,color:#fff\n    style N10 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "title": "Bestimmung der Absorption des rothen Lichts in farbigen Flüssigkeiten (Beer's law)",
+      "authors": "Beer, A.",
+      "journal": "Annalen der Physik und Chemie",
+      "year": "1852",
+      "doi": "10.1002/andp.18521620505",
+      "url": "https://doi.org/10.1002/andp.18521620505"
+    },
+    {
+      "title": "UV-VIS Spectroscopy and Its Applications",
+      "authors": "Perkampus, H.-H.",
+      "journal": "Springer",
+      "year": "1992",
+      "doi": "10.1007/978-3-642-77477-5",
+      "url": "https://doi.org/10.1007/978-3-642-77477-5"
+    },
+    {
+      "title": "Principles of Instrumental Analysis, 7th ed. — UV-Visible Molecular Absorption",
+      "authors": "Skoog, D. A.; Holler, F. J.; Crouch, S. R.",
+      "journal": "Cengage Learning",
+      "year": "2018",
       "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: UV-Vis Spectroscopy. Created using the Programming Framework methodology."
-    },
-    {
-      "title": "Analytical Applications of UV-VIS Spectroscopy",
-      "authors": "Perkampus, Heinz-Helmut",
-      "journal": "UV-VIS Spectroscopy and Its Applications",
-      "year": "1992",
-      "pubmed": null,
-      "doi": "10.1007/978-3-642-77477-5_4",
-      "url": "https://doi.org/10.1007/978-3-642-77477-5_4"
-    },
-    {
-      "title": "Recent Developments in UV-VIS Spectroscopy",
-      "authors": "Perkampus, Heinz-Helmut",
-      "journal": "UV-VIS Spectroscopy and Its Applications",
-      "year": "1992",
-      "pubmed": null,
-      "doi": "10.1007/978-3-642-77477-5_5",
-      "url": "https://doi.org/10.1007/978-3-642-77477-5_5"
-    },
-    {
-      "title": "Applikationsbroschüre zur UV/Vis und UV/Vis/NIR-Spektroskopie / Application brochure on UV/Vis and UV/Vis/NIR spectroscopy",
-      "authors": "",
-      "journal": "Tenside Surfactants Detergents",
-      "year": "1995",
-      "pubmed": null,
-      "doi": "10.1515/tsd-1995-320317",
-      "url": "https://doi.org/10.1515/tsd-1995-320317"
+      "url": "https://www.cengage.com/c/principles-of-instrumental-analysis-7e-skoog/9781305577213/"
     }
   ],
   "keywords": [
-    "uv",
-    "vis",
-    "spectroscopy"
+    "uv-vis",
+    "absorbance",
+    "chromophore",
+    "beer-lambert",
+    "lambda max"
   ],
   "relatedProcesses": [],
   "created": "2026-01-08",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Sample in cuvette",
+      "detail": "Solution of known path length",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 2
+    },
+    {
+      "id": "N2",
+      "label": "Scan UV-Vis light",
+      "detail": "Vary wavelength",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N3",
+      "label": "Chromophore absorbs",
+      "detail": "π→π*, n→π* transitions",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N4",
+      "label": "Measure transmitted I",
+      "detail": "Detector reading",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N5",
+      "label": "A = log(I0/I)",
+      "detail": "Absorbance",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N6",
+      "label": "λmax identified",
+      "detail": "Peak absorption",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 2
+    },
+    {
+      "id": "N7",
+      "label": "Within linear range?",
+      "detail": "A roughly 0.1–1",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N8",
+      "label": "Dilute sample",
+      "detail": "Reduce absorbance",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N9",
+      "label": "Beer's law A = εbc",
+      "detail": "Linear absorbance law",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N10",
+      "label": "Concentration / identity",
+      "detail": "Quantitation",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 0
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:spectroscopy_advanced-uv-vis-spectroscopy",
+    "graphType": "cyclic_pathway",
+    "topologySignature": "0da6fe05dd81b307",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "namedCollections": [
+    "spectroscopy"
+  ],
+  "graphMetrics": {
+    "nodes": 10,
+    "edges": 10,
+    "conditionals": 1,
+    "andGates": 1,
+    "orGates": 1,
+    "notGates": 0,
+    "loops": 1
+  },
+  "graphType": "cyclic_pathway",
+  "domainContext": "Electronic absorption spectroscopy"
 }

@@ -1,0 +1,29 @@
+{
+  "id": "arxiv_2604.24362v1",
+  "arxiv_id": "2604.24362v1",
+  "title": "Practical lower bounds for hybrid quantum interior point methods in linear programming",
+  "authors": [
+    "Lennart Binkowski"
+  ],
+  "author_string": "Lennart Binkowski",
+  "journal": "arXiv:2604.24362v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Quantum interior point methods (QIPMs) promise polynomial speed-ups over classical solvers for linear programming by outsourcing the solution of Newton linear systems to quantum linear solvers (QLSAs). However, asymptotic speed-ups do not necessarily translate to practical advantages on realistic problem instances. In this work, I evaluate whether practical advantage of a standard hybrid QIPM pipeline can already be excluded relative to the classical open-source solver HiGHS on a broad and diverse collection of LP instances spanning eight problem families, including public benchmark libraries, such as MIPlib, and relaxations of combinatorial optimisation problems. Following the hybrid benchmarking paradigm initiated by Cade et al., I derive rigorous lower bounds on the quantum runtime under a series of highly benevolent assumptions and compare them against classical runtimes. I equip the QIPMs with the best-performing functional QLSA, the Chebyshev-based method, as identified by Lefterovici et al., and evaluate two Newton system formulations proposed by Mohammadisiahroudi et al.: the modified normal equation system and the orthogonal subspace system. The exclusion analysis yields a consistent negative picture: across all instances and for any realistic quantum cycle duration, the quantum runtime lower bounds already exceed the classical runtimes, establishing that these hybrid QIPMs will offer no practical advantage over good classical solvers for realistic linear programming instances.",
+  "categories": [
+    "quant-ph"
+  ],
+  "primary_category": "quant-ph",
+  "comment": "9 pages, 3 figures, Submitted to IEEE Quantum Week 2026 (QCE26). Code: https://github.com/MarkAureli/qipm",
+  "published_date": "2026-04-27T11:54:23Z",
+  "updated_date": "2026-04-27T11:54:23Z",
+  "url": "https://arxiv.org/abs/2604.24362v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.24362v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-27T22:15:26.517732",
+  "category": "physics",
+  "subcategories": [
+    "quant-ph"
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2605.08008v1",
+  "arxiv_id": "2605.08008v1",
+  "title": "Hot Wire 5D+: Evaluating Cognitive and Motor Trade-offs of Visual Feedback for 5D Augmented Reality Trajectories",
+  "authors": [
+    "Christian Masuhr",
+    "Julian Koch",
+    "Arne Wendt",
+    "Thorsten Schüppstuhl"
+  ],
+  "author_string": "Christian Masuhr, Julian Koch, Arne Wendt, Thorsten Schüppstuhl",
+  "journal": "arXiv:2605.08008v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Augmented Reality (AR) is increasingly utilized to guide users through complex spatial tasks in domains such as manufacturing, non-destructive testing, and surgery. These applications often require strict compliance with 5D+ trajectories using rotation-symmetric tools (3D position, 2D orientation, and movement speed). However, the sensori-motor baselines of untrained users during these multidimensional tracing tasks, along with the cognitive-motor trade-offs induced by varying visual feedback paradigms, remain underexplored. We present a controlled within-subjects user study (N=30) evaluating three distinct AR UI concepts for trajectory guidance, both with and without explicit orientation constraints. We analyzed spatial, orientational, and speed compliance based on the internal AR tracking, which was validated against a high-precision external optical tracking system to rule out hardware drift. By segmenting the execution into transient and steady-state phases and applying Aligned Rank Transform (ART) ANOVA, we isolated the interaction effects between visual design and task complexity. Alongside subjective metrics (NASA-TLX, SUS), our results establish conservative performance baselines for novice users performing freehand 5D trajectory following. We reveal orientation-induced cognitive-motor trade-offs and identify mitigating UI synergies. Ultimately, we provide empirical baselines and actionable design guidelines for developing effective AR guidance systems.",
+  "categories": [
+    "cs.HC"
+  ],
+  "primary_category": "cs.HC",
+  "comment": "19 pages, 9 figures. Preprint. Includes supplementary appendix",
+  "published_date": "2026-05-08T16:59:41Z",
+  "updated_date": "2026-05-08T16:59:41Z",
+  "url": "https://arxiv.org/abs/2605.08008v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.08008v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-10T22:17:15.399265",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.HC"
+  ]
+}

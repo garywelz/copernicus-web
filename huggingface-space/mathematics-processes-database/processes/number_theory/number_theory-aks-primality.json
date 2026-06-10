@@ -1,0 +1,39 @@
+{
+  "id": "number_theory-aks-primality",
+  "name": "AKS Primality Test",
+  "category": "mathematics",
+  "subcategory": "number_theory",
+  "subcategory_name": "Number Theory",
+  "description": "AKS: First unconditional deterministic polynomial-time primality test. Key: n is prime iff (X+a)^n ≡ X^n+a (mod n, X^r−1) for small a. Steps: (1) n perfect power? (2) find small r with ord_r(n) > log² n; (3) check small a; (4) n ≤ r ⇒ prime. Time Õ(log^6 n). Landmark 2002 result.",
+  "mermaid": "graph TD\n    A[\"Input: n\"]\n    B[\"n = a^b? → composite\"]\n    C[\"Find r: ord_r n > log² n\"]\n    D[\"a ≤ r: gcd a,n > 1? → composite\"]\n    E[\"For a=1 to ⌊√φ r log n⌋:\\n(X+a)^n ≡ X^n+a mod n,X^r−1?\"]\n    F[\"Composite\"]\n    G[\"Prime\"]\n    A --> B\n    B --> C\n    C --> D\n    D --> E\n    E -->|No| F\n    E -->|Yes| G\n    classDef red fill:#ff6b6b,color:#fff\n    classDef green fill:#51cf66,color:#fff\n    classDef lavender fill:#e6e6fa,color:#333\n    class A red\n    class B,C,D,E,G green\n    class E lavender\n    class F red",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "algorithm"
+}

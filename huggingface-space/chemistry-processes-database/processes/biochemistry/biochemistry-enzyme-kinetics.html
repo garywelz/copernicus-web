@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enzyme Kinetics - Chemistry Process</title>
+    <title>Michaelis-Menten Enzyme Kinetics - Chemistry Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Enzyme Kinetics</h1>
+            <h1>Michaelis-Menten Enzyme Kinetics</h1>
             <div class="header-meta">
                 <span class="meta-item">Chemistry</span>
                 <span class="meta-item">Biochemistry</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,67 +234,56 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Enzyme Kinetics process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>Michaelis-Menten kinetics models an enzyme binding substrate into an ES complex that turns over to product; under the steady-state assumption that [ES] is constant, the rate becomes v = Vmax[S]/(Km+[S]), and varying substrate concentration lets Km and Vmax be fitted from the saturation curve.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-A1[Substrate Binding] --> B1[Enzyme Method]
-C1[Active Site] --> D1[Enzyme Substrate Complex]
-E1[Catalytic Reaction] --> F1[Enzyme Kinetics Analysis]
-B1 --> G1[Michaelis Menten]
-D1 --> H1[Lock and Key Model]
-F1 --> I1[Induced Fit Model]
-G1 --> J1[Km Determination]
-H1 --> K1[Substrate Specificity]
-I1 --> L1[Conformational Change]
-J1 --> M1[Vmax Calculation]
-K1 --> L1
-L1 --> N1[Transition State]
-M1 --> O1[Turnover Number]
-N1 --> P1[Product Formation]
-O1 --> Q1[Enzyme Kinetics Process]
-P1 --> R1[Enzyme Kinetics Validation]
-Q1 --> S1[Enzyme Kinetics Verification]
-R1 --> T1[Enzyme Kinetics Result]
-S1 --> U1[Enzyme Kinetics Analysis]
-T1 --> V1[Enzyme Kinetics Parameters]
-U1 --> W1[Enzyme Kinetics Output]
-V1 --> X1[Enzyme Kinetics Analysis]
-W1 --> Y1[Enzyme Kinetics Final Result]
-X1 --> Z1[Enzyme Kinetics Complete]
+    N1["Enzyme + substrate"]
+    N2["Form ES (E+S <=> ES)"]
+    N3["ES complex"]
+    N4{"Steady state assumed?"}
+    N5["Pre-steady-state regime"]
+    N6["d[ES]/dt ~ 0"]
+    N7["Catalysis ES -> E + P"]
+    N8["v = Vmax[S]/(Km+[S])"]
+    N9["Vary [S], fit Km/Vmax"]
+    N10["Kinetic parameters"]
 
-    style A1 fill:#ff6b6b,color:#fff
-    style C1 fill:#ff6b6b,color:#fff
-    style E1 fill:#ff6b6b,color:#fff
-    style B1 fill:#ffd43b,color:#000
-    style D1 fill:#ffd43b,color:#000
-    style F1 fill:#ffd43b,color:#000
-    style G1 fill:#ffd43b,color:#000
-    style H1 fill:#ffd43b,color:#000
-    style I1 fill:#ffd43b,color:#000
-    style J1 fill:#ffd43b,color:#000
-    style K1 fill:#ffd43b,color:#000
-    style L1 fill:#ffd43b,color:#000
-    style M1 fill:#51cf66,color:#fff
-    style N1 fill:#51cf66,color:#fff
-    style O1 fill:#51cf66,color:#fff
-    style P1 fill:#51cf66,color:#fff
-    style Q1 fill:#51cf66,color:#fff
-    style R1 fill:#51cf66,color:#fff
-    style S1 fill:#51cf66,color:#fff
-    style T1 fill:#51cf66,color:#fff
-    style U1 fill:#51cf66,color:#fff
-    style V1 fill:#51cf66,color:#fff
-    style W1 fill:#51cf66,color:#fff
-    style X1 fill:#51cf66,color:#fff
-    style Y1 fill:#51cf66,color:#fff
-    style Z1 fill:#b197fc,color:#fff
+    N1 --> N2
+    N2 --> N3
+    N3 --> N4
+    N4 -->|no| N5
+    N5 -->|relax| N2
+    N4 -->|yes| N6
+    N6 --> N7
+    N7 --> N8
+    N8 --> N9
+    N9 --> N10
+
+    style N1 fill:#ff6b6b,color:#fff
+    style N2 fill:#51cf66,color:#fff
+    style N3 fill:#74c0fc,color:#fff
+    style N4 fill:#74c0fc,color:#fff
+    style N5 fill:#51cf66,color:#fff
+    style N6 fill:#51cf66,color:#fff
+    style N7 fill:#51cf66,color:#fff
+    style N8 fill:#51cf66,color:#fff
+    style N9 fill:#51cf66,color:#fff
+    style N10 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Enzyme + substrate</td><td>Triggers & Inputs</td><td><a href="https://doi.org/10.1021/bi201284u" target="_blank" title="The original Michaelis constant: translation of the 1913 Michaelis-Menten paper" style="color:#e74c3c;">Johnson, K. A. et al. 2011</a></td></tr><tr><td style="font-weight:600;">Form ES (E+S <=> ES)</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1021/bi201284u" target="_blank" title="The original Michaelis constant: translation of the 1913 Michaelis-Menten paper" style="color:#e74c3c;">Johnson, K. A. et al. 2011</a></td></tr><tr><td style="font-weight:600;">ES complex</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1021/bi201284u" target="_blank" title="The original Michaelis constant: translation of the 1913 Michaelis-Menten paper" style="color:#e74c3c;">Johnson, K. A. et al. 2011</a></td></tr><tr><td style="font-weight:600;">Steady state assumed?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1042/bj0190338" target="_blank" title="A note on the kinetics of enzyme action" style="color:#e74c3c;">Briggs, G. E. et al. 1925</a></td></tr><tr><td style="font-weight:600;">Pre-steady-state regime</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1042/bj0190338" target="_blank" title="A note on the kinetics of enzyme action" style="color:#e74c3c;">Briggs, G. E. et al. 1925</a></td></tr><tr><td style="font-weight:600;">d[ES]/dt ~ 0</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1042/bj0190338" target="_blank" title="A note on the kinetics of enzyme action" style="color:#e74c3c;">Briggs, G. E. et al. 1925</a></td></tr><tr><td style="font-weight:600;">Catalysis ES -> E + P</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1021/bi201284u" target="_blank" title="The original Michaelis constant: translation of the 1913 Michaelis-Menten paper" style="color:#e74c3c;">Johnson, K. A. et al. 2011</a></td></tr><tr><td style="font-weight:600;">v = Vmax[S]/(Km+[S])</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1021/bi201284u" target="_blank" title="The original Michaelis constant: translation of the 1913 Michaelis-Menten paper" style="color:#e74c3c;">Johnson, K. A. et al. 2011</a></td></tr><tr><td style="font-weight:600;">Vary [S], fit Km/Vmax</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1042/bj0190338" target="_blank" title="A note on the kinetics of enzyme action" style="color:#e74c3c;">Briggs, G. E. et al. 1925</a></td></tr><tr><td style="font-weight:600;">Kinetic parameters</td><td>Products & Outputs</td><td><a href="https://doi.org/10.1021/bi201284u" target="_blank" title="The original Michaelis constant: translation of the 1913 Michaelis-Menten paper" style="color:#e74c3c;">Johnson, K. A. et al. 2011</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -313,12 +329,12 @@ X1 --> Z1[Enzyme Kinetics Complete]
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 26</li>
-                        <li><strong>Edges:</strong> 21</li>
-                        <li><strong>Conditionals:</strong> 0</li>
+                        <li><strong>Nodes:</strong> 10</li>
+                        <li><strong>Edges:</strong> 10</li>
+                        <li><strong>Conditionals:</strong> 1</li>
                         <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 1</li>
+                        <li><strong>OR Gates:</strong> 1</li>
+                        <li><strong>Total Gates:</strong> 2</li>
                     </ul>
                 </div>
                 
@@ -326,7 +342,7 @@ X1 --> Z1[Enzyme Kinetics Complete]
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>enzyme</li><li>kinetics</li>
+                        <li>Michaelis-Menten</li><li>enzyme kinetics</li><li>steady state</li><li>Km</li><li>Vmax</li>
                     </ul>
                 </div>
                 
@@ -337,42 +353,22 @@ X1 --> Z1[Enzyme Kinetics Complete]
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>The original Michaelis constant: translation of the 1913 Michaelis-Menten paper</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Johnson, K. A.; Goody, R. S.
+                            , Biochemistry
+                             (2011)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Analysis of multi-reactant enzyme kinetics</strong>
-                            
-                            , Enzyme Kinetics
-                             (1994)
-                            </span>
-                            <br><a href="https://doi.org/10.1017/cbo9780511608438.007" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1017/cbo9780511608438.007</a>
+                            <br><a href="https://doi.org/10.1021/bi201284u" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1021/bi201284u</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Analysis of non-hyperbolic enzyme kinetics</strong>
-                            
-                            , Enzyme Kinetics
-                             (1994)
+                            <strong>A note on the kinetics of enzyme action</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Briggs, G. E.; Haldane, J. B. S.
+                            , Biochemical Journal
+                             (1925)
                             </span>
-                            <br><a href="https://doi.org/10.1017/cbo9780511608438.013" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1017/cbo9780511608438.013</a>
-                            
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>The causes of non-hyperbolic enzyme kinetics</strong>
-                            
-                            , Enzyme Kinetics
-                             (1994)
-                            </span>
-                            <br><a href="https://doi.org/10.1017/cbo9780511608438.012" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1017/cbo9780511608438.012</a>
+                            <br><a href="https://doi.org/10.1042/bj0190338" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1042/bj0190338</a>
                             
                         </li>
                         

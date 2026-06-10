@@ -1,0 +1,61 @@
+{
+  "id": "geometry_topology-dijkstra-algorithm",
+  "name": "Dijkstra's Algorithm",
+  "category": "mathematics",
+  "subcategory": "geometry_topology",
+  "subcategory_name": "Geometry & Topology",
+  "description": "Shortest paths from single source in weighted graph with nonnegative weights. Greedy with priority queue. O(V²) or O(E+V log V).",
+  "mermaid": "graph TD\n    A1[\"Weighted graph G\\nSource vertex s\"]\n    B1[\"dist s = 0; dist v = inf\\nQ = priority queue with s\"]\n    D1{\"Q empty?\"}\n    C1[\"u = extract-min Q\"]\n    C2[\"For each neighbor v of u\\nrelax u v: update dist v\"]\n    F1[\"Return dist array\\nShortest distances\"]\n    A1 --> B1\n    B1 --> D1\n    D1 -->|Yes| F1\n    D1 -->|No| C1\n    C1 --> C2\n    C2 --> D1\n    classDef red fill:#ff6b6b,color:#fff,stroke:#c0392b\n    classDef yellow fill:#ffd43b,color:#000,stroke:#f59f00\n    classDef green fill:#51cf66,color:#fff,stroke:#40c057\n    classDef lightblue fill:#74c0fc,color:#fff,stroke:#4dabf7\n    classDef violet fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef lavender fill:#e6e6fa,color:#333,stroke:#b19cd9\n    class A1 red\n    class B1 yellow\n    class C1,C2 green\n    class F1 violet\n    class D1 lavender",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [
+    "Dijkstra",
+    "shortest path",
+    "graph algorithm",
+    "priority queue",
+    "NIST DADS",
+    "greedy"
+  ],
+  "sources": [
+    {
+      "title": "NIST DADS",
+      "url": "https://xlinux.nist.gov/dads/HTML/dijkstraalgo.html"
+    },
+    {
+      "title": "Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm"
+    }
+  ],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "complexity": {
+    "level": "high",
+    "nodes": 7,
+    "edges": 8,
+    "conditionals": 1
+  },
+  "processType": "algorithm"
+}

@@ -1,0 +1,38 @@
+{
+  "id": "arxiv_2605.00809v1",
+  "arxiv_id": "2605.00809v1",
+  "title": "Let ViT Speak: Generative Language-Image Pre-training",
+  "authors": [
+    "Yan Fang",
+    "Mengcheng Lan",
+    "Zilong Huang",
+    "Weixian Lei",
+    "Yunqing Zhao",
+    "Yujie Zhong",
+    "Yingchen Yu",
+    "Qi She",
+    "Yao Zhao",
+    "Yunchao Wei"
+  ],
+  "author_string": "Yan Fang, Mengcheng Lan, Zilong Huang, Weixian Lei, Yunqing Zhao et al.",
+  "journal": "arXiv:2605.00809v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "In this paper, we present \\textbf{Gen}erative \\textbf{L}anguage-\\textbf{I}mage \\textbf{P}re-training (GenLIP), a minimalist generative pretraining framework for Vision Transformers (ViTs) designed for multimodal large language models (MLLMs). To better align vision encoders with the autoregressive nature of LLMs, GenLIP trains a ViT to predict language tokens directly from visual tokens using a standard language modeling objective, without contrastive batch construction or an additional text decoder. This design offers three key advantages: (1) \\textbf{Simplicity}: a single transformer jointly models visual and textual tokens; (2) \\textbf{Scalability}: it scales effectively with both data and model size; and (3) \\textbf{Performance}: it achieves competitive or superior results across diverse multimodal benchmarks. Trained on 8B samples from Recap-DataComp-1B, GenLIP matches or surpasses strong baselines despite using substantially less pretraining data. After continued pretraining on multi-resolution images at native aspect ratios, GenLIP further improves on detail-sensitive tasks such as OCR and chart understanding, making it a strong foundation for vision encoders in MLLMs.",
+  "categories": [
+    "cs.CV"
+  ],
+  "primary_category": "cs.CV",
+  "comment": "24 pages, 9 figures",
+  "published_date": "2026-05-01T17:51:38Z",
+  "updated_date": "2026-05-01T17:51:38Z",
+  "url": "https://arxiv.org/abs/2605.00809v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.00809v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-04T10:15:40.309169",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CV"
+  ]
+}

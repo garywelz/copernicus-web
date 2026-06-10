@@ -1,21 +1,23 @@
 {
   "id": "organic_chemistry-stereochemistry-analysis",
-  "name": "Stereochemistry Analysis",
+  "name": "R/S Stereochemistry Assignment",
   "category": "chemistry",
   "subcategory": "organic_chemistry",
   "subcategory_name": "Organic Chemistry",
-  "description": "Stereochemistry Analysis process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "Assign absolute configuration with the Cahn-Ingold-Prelog rules: locate each stereocenter, rank its four substituents by priority, orient the lowest priority away, and read 1->2->3 as clockwise (R) or counterclockwise (S), iterating over all centers.",
   "complexity": {
-    "nodes": 23,
-    "edges": 18,
-    "conditionals": 0,
+    "nodes": 10,
+    "edges": 12,
+    "conditionals": 3,
     "logicGates": {
-      "orGates": 0,
-      "andGates": 1,
-      "total": 1
+      "orGates": 3,
+      "andGates": 3,
+      "notGates": 0,
+      "total": 6
     },
-    "level": "medium",
-    "detailLevel": "medium"
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 1
   },
   "colorScheme": {
     "red": {
@@ -39,53 +41,151 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nA3[Molecular Structure] --> B3[Stereocenter Identification]\nC3[Chirality Analysis] --> D3[Configuration Assignment]\nE3[Optical Activity] --> F3[Stereoisomer Analysis]\nB3 --> G3[Chiral Centers]\nD3 --> H3[R S Configuration]\nF3 --> I3[Enantiomer Analysis]\nG3 --> J3[Diastereomer Analysis]\nH3 --> K3[Absolute Configuration]\nI3 --> L3[Optical Rotation]\nJ3 --> M3[Conformational Analysis]\nK3 --> L3\nL3 --> N3[Racemic Mixtures]\nM3 --> O3[Conformational Isomers]\nN3 --> P3[Resolution Methods]\nO3 --> Q3[Stereochemistry Result]\nP3 --> R3[Chiral Resolution]\nQ3 --> S3[Stereochemistry Validation]\nR3 --> T3[Stereochemistry Output]\nS3 --> U3[Stereochemistry Analysis]\nT3 --> V3[Stereochemistry Final Result]\nU3 --> W3[Stereochemistry Analysis Complete]\n\n    style A3 fill:#ff6b6b,color:#fff\n    style C3 fill:#ff6b6b,color:#fff\n    style E3 fill:#ff6b6b,color:#fff\n    style B3 fill:#ffd43b,color:#000\n    style D3 fill:#ffd43b,color:#000\n    style F3 fill:#ffd43b,color:#000\n    style G3 fill:#ffd43b,color:#000\n    style H3 fill:#ffd43b,color:#000\n    style I3 fill:#ffd43b,color:#000\n    style J3 fill:#ffd43b,color:#000\n    style K3 fill:#ffd43b,color:#000\n    style L3 fill:#ffd43b,color:#000\n    style M3 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style O3 fill:#51cf66,color:#fff\n    style P3 fill:#51cf66,color:#fff\n    style Q3 fill:#51cf66,color:#fff\n    style R3 fill:#51cf66,color:#fff\n    style S3 fill:#51cf66,color:#fff\n    style T3 fill:#51cf66,color:#fff\n    style U3 fill:#51cf66,color:#fff\n    style V3 fill:#51cf66,color:#fff\n    style W3 fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"Chiral molecule\"]\n    N2[\"Locate a stereocenter\"]\n    N3[\"Rank substituents (CIP)\"]\n    N4{\"Lowest priority in back?\"}\n    N5[\"Reorient / swap + invert\"]\n    N6{\"1->2->3 clockwise?\"}\n    N7[\"Assign R\"]\n    N8[\"Assign S\"]\n    N9{\"More stereocenters?\"}\n    N10[\"Full descriptor\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 --> N4\n    N4 -->|no| N5\n    N5 --> N6\n    N4 -->|yes| N6\n    N6 -->|cw| N7\n    N6 -->|ccw| N8\n    N7 --> N9\n    N8 --> N9\n    N9 -->|next center| N2\n    N9 -->|done| N10\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#74c0fc,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#74c0fc,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#74c0fc,color:#fff\n    style N10 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "title": "Specification of molecular chirality (CIP rules)",
+      "authors": "Cahn, R. S.; Ingold, C.; Prelog, V.",
+      "journal": "Angewandte Chemie International Edition",
+      "year": "1966",
+      "doi": "10.1002/anie.196603851",
+      "url": "https://doi.org/10.1002/anie.196603851"
+    },
+    {
+      "title": "Organic Chemistry, 2nd ed. — Stereochemistry",
+      "authors": "Clayden, J.; Greeves, N.; Warren, S.",
+      "journal": "Oxford University Press",
+      "year": "2012",
       "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: Stereochemistry Analysis. Created using the Programming Framework methodology."
+      "url": "https://global.oup.com/academic/product/organic-chemistry-9780199270293"
     },
     {
-      "title": "Guide to Stereochemistry Concepts and Analysis of Reaction Stereochemistry as Applied to Electrophilic Addition",
-      "authors": "",
-      "journal": "Survival Guide to Organic Chemistry",
-      "year": "2016",
-      "pubmed": null,
-      "doi": "10.1201/9781315380186-20",
-      "url": "https://doi.org/10.1201/9781315380186-20"
-    },
-    {
-      "title": "Conformational Analysis",
-      "authors": "Moss, G.P.",
-      "journal": "IUPAC Standards Online",
-      "year": "2016",
-      "pubmed": null,
-      "doi": "10.1515/iupac.68.3370",
-      "url": "https://doi.org/10.1515/iupac.68.3370"
-    },
-    {
-      "title": "The Torsion Angle Concept in Conformational Analysis",
-      "authors": "Bucourt, Robert",
-      "journal": "Topics in Stereochemistry",
-      "year": "1974",
-      "pubmed": null,
-      "doi": "10.1002/9780470147177.ch2",
-      "url": "https://doi.org/10.1002/9780470147177.ch2"
+      "title": "Gold Book: Cahn–Ingold–Prelog (CIP) priority",
+      "authors": "IUPAC",
+      "journal": "IUPAC Compendium of Chemical Terminology",
+      "year": "2019",
+      "doi": "10.1351/goldbook.C00772",
+      "url": "https://goldbook.iupac.org/terms/view/C00772"
     }
   ],
   "keywords": [
     "stereochemistry",
-    "analysis"
+    "cahn-ingold-prelog",
+    "absolute configuration",
+    "chirality",
+    "R/S"
   ],
   "relatedProcesses": [],
   "created": "2026-01-08",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Chiral molecule",
+      "detail": "Has stereocenters",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 1
+    },
+    {
+      "id": "N2",
+      "label": "Locate a stereocenter",
+      "detail": "Four different groups",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N3",
+      "label": "Rank substituents (CIP)",
+      "detail": "By atomic number, then outward",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N4",
+      "label": "Lowest priority in back?",
+      "detail": "Viewing orientation",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N5",
+      "label": "Reorient / swap + invert",
+      "detail": "Account for the swap",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N6",
+      "label": "1->2->3 clockwise?",
+      "detail": "Trace decreasing priority",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N7",
+      "label": "Assign R",
+      "detail": "Clockwise",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N8",
+      "label": "Assign S",
+      "detail": "Counterclockwise",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N9",
+      "label": "More stereocenters?",
+      "detail": "Repeat for each center",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N10",
+      "label": "Full descriptor",
+      "detail": "e.g. (2R,3S)",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 1
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:organic_chemistry-stereochemistry-analysis",
+    "graphType": "cyclic_pathway",
+    "topologySignature": "6fa070686e3a3872",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "namedCollections": [
+    "organic-chemistry"
+  ],
+  "graphMetrics": {
+    "nodes": 10,
+    "edges": 12,
+    "conditionals": 3,
+    "andGates": 3,
+    "orGates": 3,
+    "notGates": 0,
+    "loops": 1
+  },
+  "graphType": "cyclic_pathway",
+  "domainContext": "Stereochemistry"
 }

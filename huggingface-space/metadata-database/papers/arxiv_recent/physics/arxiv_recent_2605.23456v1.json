@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2605.23456v1",
+  "arxiv_id": "2605.23456v1",
+  "title": "RadMaps: A Geospatial Framework for Simultaneously Modelling Capacity and Geographic Constraints on Radiotherapy Access",
+  "authors": [
+    "Laurence Wroe",
+    "Archie Brown",
+    "Sophia Martin",
+    "Alika Ho",
+    "Steinar Stapnes"
+  ],
+  "author_string": "Laurence Wroe, Archie Brown, Sophia Martin, Alika Ho, Steinar Stapnes",
+  "journal": "arXiv:2605.23456v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Background: Access to radiotherapy (RT) is constrained by two compounding factors: insufficient machine capacity to meet patient demand and geographic distance from treatment facilities. Existing analyses address these factors separately, constraining the insights available to planners and policymakers. This paper presents RadMaps, an open-source geospatial framework that simultaneously models capacity and geographic constraints on RT access at any spatial scale.   Methods: RadMaps operates on Uber's H3 hexagonal grid and integrates population density data with national cancer incidence estimates and RT facility inventories. RT demand is estimated using cancer-site-specific RT utilisation rates, and geographic access is modelled via configurable decay functions using either distance, driving time, or public transport time. A greedy nearest-first allocation algorithm assigns demand to facilities subject to both capacity and geographic constraints, producing a localised access metric for every H3 hexagon.   Results: Applied globally with a 200 km step-function access threshold, RadMaps computes a capacity-only access of 70 %, a geography-only access of 91 %, and a combined RT access of 60 %, illustrating the compounding effect of capacity and geographic constraints to significantly reduce effective access. High-resolution analyses of six countries demonstrate the tool's ability to localise access deficits at sub-national scale and reveal distinct access profiles: capacity-limited, geographically-limited, and doubly-constrained.   Conclusions: RadMaps provides a flexible, open-access framework for visualising and identifying RT access gaps at regional to global scales, with applications in infrastructure planning and policy prioritisation. RadMaps' modular framework is also readily extensible to other spatial access modelling applications.",
+  "categories": [
+    "physics.med-ph"
+  ],
+  "primary_category": "physics.med-ph",
+  "comment": null,
+  "published_date": "2026-05-22T10:13:38Z",
+  "updated_date": "2026-05-22T10:13:38Z",
+  "url": "https://arxiv.org/abs/2605.23456v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.23456v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-25T10:15:46.173277",
+  "category": "physics",
+  "subcategories": [
+    "physics.med-ph"
+  ]
+}

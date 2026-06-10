@@ -1,0 +1,39 @@
+{
+  "id": "number_theory-peano-arithmetic-order-induction",
+  "name": "Peano Arithmetic — Order & Induction",
+  "category": "mathematics",
+  "subcategory": "number_theory",
+  "subcategory_name": "Number Theory",
+  "description": "Order relation, trichotomy, compatibility with operations, well-ordering, strong induction. Shows how theorems depend on axioms, definitions, and prior theorems.",
+  "mermaid": "graph TD\n    A5[\"A5\\nInduction\"]\n    DefAdd[\"DefAdd\\nDefinition of +\"]\n    T5[\"T5\\nAssociativity of +\"]\n    T6[\"T6\\nLeft identity\"]\n    T7[\"T7\\nSuccessor and add\"]\n    T8[\"T8\\nCommutativity of +\"]\n    T9[\"T9\\nCancellation for +\"]\n    DefMul[\"DefMul\\nDefinition of ·\"]\n    T12[\"T12\\nZero from left\"]\n    T13[\"T13\\nSuccessor and mul\"]\n    T14[\"T14\\nCommutativity of ·\"]\n    T15[\"T15\\nAssociativity of ·\"]\n    T16[\"T16\\nDistributivity\"]\n    T18[\"T18\\nOrder definition\"]\n    T19[\"T19\\nTrichotomy\"]\n    T20[\"T20\\nOrder + add\"]\n    T21[\"T21\\nOrder + mul\"]\n    T22[\"T22\\nMultiplicative identity\"]\n    T23[\"T23\\nRight identity\"]\n    T24[\"T24\\nWell-ordering\"]\n    T25[\"T25\\nStrong induction\"]\n    A5 --> DefAdd\n    DefAdd --> T5\n    A5 --> T5\n    DefAdd --> T6\n    A5 --> T6\n    DefAdd --> T7\n    T6 --> T7\n    A5 --> T7\n    DefAdd --> T8\n    T5 --> T8\n    T6 --> T8\n    T7 --> T8\n    A5 --> T8\n    DefAdd --> T9\n    T8 --> T9\n    A5 --> T9\n    DefAdd --> DefMul\n    A5 --> DefMul\n    DefMul --> T12\n    T6 --> T12\n    A5 --> T12\n    DefMul --> T13\n    T8 --> T13\n    A5 --> T13\n    DefMul --> T14\n    T12 --> T14\n    T13 --> T14\n    A5 --> T14\n    DefMul --> T15\n    T5 --> T15\n    T8 --> T15\n    A5 --> T15\n    DefMul --> T16\n    T5 --> T16\n    T8 --> T16\n    T15 --> T16\n    A5 --> T16\n    DefAdd --> T18\n    T8 --> T18\n    T9 --> T18\n    T18 --> T19\n    T9 --> T19\n    T18 --> T20\n    T8 --> T20\n    T18 --> T21\n    T16 --> T21\n    T14 --> T21\n    DefMul --> T22\n    T6 --> T22\n    A5 --> T22\n    T14 --> T23\n    T22 --> T23\n    T18 --> T24\n    T19 --> T24\n    A5 --> T24\n    T18 --> T25\n    T24 --> T25\n    A5 --> T25\n    classDef axiom fill:#ff6b6b,color:#fff,stroke:#c0392b\n    classDef definition fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef theorem fill:#51cf66,color:#fff,stroke:#40c057\n    class A5 axiom\n    class DefAdd,DefMul definition\n    class T5,T6,T7,T8,T9,T12,T13,T14,T15,T16,T18,T19,T20,T21,T22,T23,T24,T25 theorem",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

@@ -2,51 +2,55 @@
   "acquired_date": "2026-01-08T00:00:00Z",
   "category": "physics",
   "colorScheme": {
-    "blue": {
-      "category": "Intermediates & States",
-      "hex": "#74c0fc"
-    },
-    "green": {
-      "category": "Processing & Operations",
-      "hex": "#51cf66"
-    },
     "red": {
-      "category": "Triggers & Inputs",
-      "hex": "#ff6b6b"
-    },
-    "violet": {
-      "category": "Products & Outputs",
-      "hex": "#b197fc"
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
     },
     "yellow": {
-      "category": "Structures & Objects",
-      "hex": "#ffd43b"
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
     }
   },
   "complexity": {
-    "conditionals": 0,
-    "detailLevel": "medium",
-    "edges": 24,
-    "level": "medium",
+    "nodes": 11,
+    "edges": 12,
+    "conditionals": 2,
     "logicGates": {
-      "andGates": 1,
-      "orGates": 0,
-      "total": 1
+      "orGates": 2,
+      "andGates": 2,
+      "notGates": 0,
+      "total": 4
     },
-    "nodes": 26
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 0
   },
   "created": "2026-01-08",
-  "description": "Quantum Entanglement Process. This quantum mechanics process visualization demonstrates quantum entanglement and non-local correlations. The flowchart shows entangled inputs and Bell states, quantum entanglement methods and correlation measurements, quantum entanglement operations and quantum communication, intermediate results, and final quantum entanglement outputs.",
-  "id": "process_physics_quantum-entanglement",
+  "description": "Electrostatic boundary-value problems find the potential in a region from charges and conductor boundaries: Poisson's equation holds where charge is present and Laplace's equation elsewhere; applying boundary conditions, and exploiting symmetry via separation of variables or the method of images, gives the potential whose gradient is the field.",
+  "id": "electromagnetism-quantum-entanglement",
   "keywords": [
-    "electromagnetism",
-    "quantum",
-    "entanglement"
+    "electrostatics",
+    "Laplace equation",
+    "Poisson equation",
+    "method of images",
+    "boundary conditions"
   ],
-  "lastUpdated": "2026-01-08",
-  "mermaid": "graph TD\nA2[Entangled State] --> B2[Quantum Entanglement Method]\nC2[Bell State] --> D2[Correlation Measurement]\nE2[Quantum Communication] --> F2[Quantum Entanglement Analysis]\nB2 --> G2[EPR Paradox]\nD2 --> H2[Bell Inequality]\nF2 --> I2[Quantum Teleportation]\nG2 --> J2[Non Local Correlation]\nH2 --> K2[Hidden Variable Test]\nI2 --> L2[Quantum Channel]\nJ2 --> M2[Quantum Coherence]\nK2 --> L2\nL2 --> N2[Entanglement Distillation]\nM2 --> O2[Quantum Error Correction]\nN2 --> P2[Entanglement Swapping]\nO2 --> Q2[Quantum Entanglement Process]\nP2 --> R2[Quantum Entanglement Validation]\nQ2 --> S2[Quantum Entanglement Verification]\nR2 --> T2[Quantum Entanglement Result]\nS2 --> U2[Quantum Entanglement Analysis]\nT2 --> V2[Quantum Entanglement Parameters]\nU2 --> W2[Quantum Entanglement Output]\nV2 --> X2[Quantum Entanglement Analysis]\nW2 --> Y2[Quantum Entanglement Final Result]\nX2 --> Z2[Quantum Entanglement Complete]\n\n    style A2 fill:#ff6b6b,color:#fff\n    style C2 fill:#ff6b6b,color:#fff\n    style E2 fill:#ff6b6b,color:#fff\n    style B2 fill:#ffd43b,color:#000\n    style D2 fill:#ffd43b,color:#000\n    style F2 fill:#ffd43b,color:#000\n    style G2 fill:#ffd43b,color:#000\n    style H2 fill:#ffd43b,color:#000\n    style I2 fill:#ffd43b,color:#000\n    style J2 fill:#ffd43b,color:#000\n    style K2 fill:#ffd43b,color:#000\n    style L2 fill:#ffd43b,color:#000\n    style M2 fill:#51cf66,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style O2 fill:#51cf66,color:#fff\n    style P2 fill:#51cf66,color:#fff\n    style Q2 fill:#51cf66,color:#fff\n    style R2 fill:#51cf66,color:#fff\n    style S2 fill:#51cf66,color:#fff\n    style T2 fill:#51cf66,color:#fff\n    style U2 fill:#51cf66,color:#fff\n    style V2 fill:#51cf66,color:#fff\n    style W2 fill:#51cf66,color:#fff\n    style X2 fill:#51cf66,color:#fff\n    style Y2 fill:#51cf66,color:#fff\n    style Z2 fill:#b197fc,color:#fff",
-  "name": "Quantum Entanglement",
-  "notes": "Converted from physics batch HTML. Process number: 2.",
+  "lastUpdated": "2026-06-01",
+  "mermaid": "graph TD\n    N1[\"Charges + conductors\"]\n    N2{\"Charge-free region?\"}\n    N3[\"Poisson equation\"]\n    N4[\"Laplace equation\"]\n    N5[\"Apply boundary conditions\"]\n    N6{\"Symmetry available?\"}\n    N7[\"Separation of variables\"]\n    N8[\"Method of images\"]\n    N9[\"Solve potential V(r)\"]\n    N10[\"Field E = -grad V\"]\n    N11[\"Field & potential map\"]\n\n    N1 --> N2\n    N2 -->|no| N3\n    N2 -->|yes| N4\n    N3 --> N5\n    N4 --> N5\n    N5 --> N6\n    N6 -->|coordinate| N7\n    N6 -->|image| N8\n    N7 --> N9\n    N8 --> N9\n    N9 --> N10\n    N10 --> N11\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#74c0fc,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#74c0fc,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#74c0fc,color:#fff\n    style N10 fill:#51cf66,color:#fff\n    style N11 fill:#b197fc,color:#fff",
+  "name": "Electrostatic Boundary-Value Problem",
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
   "relatedProcesses": [],
   "related_papers": [
     "crossref_10_1103_PhysicsPhysiqueFizika_1_195",
@@ -59,43 +63,19 @@
   "source": "programming_framework",
   "sources": [
     {
-      "authors": "Welz, G.",
-      "doi": null,
-      "journal": "CopernicusAI Knowledge Engine",
-      "notes": "Chemistry process visualization: Quantum Entanglement. Created using the Programming Framework methodology for process analysis and visualization.",
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
-      "year": "2025"
+      "title": "Classical Electrodynamics (3rd ed.)",
+      "authors": "Jackson, J. D.",
+      "journal": "Wiley",
+      "year": "1998",
+      "url": "https://www.wiley.com/en-us/Classical+Electrodynamics%2C+3rd+Edition-p-9780471309321"
     },
     {
-      "authors": "Bell, J. S.",
-      "doi": "10.1103/PhysicsPhysiqueFizika.1.195",
-      "journal": "Physics (Long Island City)",
-      "paper_id": "crossref_10_1103_PhysicsPhysiqueFizika_1_195",
-      "pubmed": null,
-      "title": "On the Einstein Podolsky Rosen Paradox",
-      "url": "https://doi.org/10.1103/PhysicsPhysiqueFizika.1.195",
-      "year": "1964"
-    },
-    {
-      "authors": "Aspect, A., Dalibard, J., Roger, G.",
-      "doi": "10.1103/PhysRevLett.49.1804",
-      "journal": "Phys. Rev. Lett.",
-      "paper_id": "crossref_10_1103_PhysRevLett_49_1804",
-      "pubmed": null,
-      "title": "Experimental Test of Bell's Inequalities Using Time-Varying Analyzers",
-      "url": "https://doi.org/10.1103/PhysRevLett.49.1804",
-      "year": "1982"
-    },
-    {
-      "authors": "Ekert, A. K.",
-      "doi": "10.1103/PhysRevLett.67.661",
-      "journal": "Phys. Rev. Lett.",
-      "paper_id": "crossref_10_1103_PhysRevLett_67_661",
-      "pubmed": null,
-      "title": "Quantum cryptography based on Bell's theorem",
-      "url": "https://doi.org/10.1103/PhysRevLett.67.661",
-      "year": "1991"
+      "title": "Introduction to Electrodynamics (4th ed.)",
+      "authors": "Griffiths, D. J.",
+      "journal": "Cambridge University Press",
+      "year": "2017",
+      "doi": "10.1017/9781108333511",
+      "url": "https://doi.org/10.1017/9781108333511"
     }
   ],
   "subcategories": [
@@ -103,5 +83,119 @@
   ],
   "subcategory": "electromagnetism",
   "subcategory_name": "Electromagnetism",
-  "verified": false
+  "verified": false,
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Charges + conductors",
+      "detail": "Specify geometry",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 1
+    },
+    {
+      "id": "N2",
+      "label": "Charge-free region?",
+      "detail": "Is rho zero here",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N3",
+      "label": "Poisson equation",
+      "detail": "del^2 V = -rho/eps0",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N4",
+      "label": "Laplace equation",
+      "detail": "del^2 V = 0",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N5",
+      "label": "Apply boundary conditions",
+      "detail": "V on conductors",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N6",
+      "label": "Symmetry available?",
+      "detail": "Choose technique",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N7",
+      "label": "Separation of variables",
+      "detail": "Orthogonal modes",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N8",
+      "label": "Method of images",
+      "detail": "Image charges",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N9",
+      "label": "Solve potential V(r)",
+      "detail": "Unique by theorem",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N10",
+      "label": "Field E = -grad V",
+      "detail": "Differentiate",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N11",
+      "label": "Field & potential map",
+      "detail": "Full solution",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 0
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:electromagnetism-quantum-entanglement",
+    "graphType": "decision_flowchart",
+    "topologySignature": "4a6ecd2cbd92e7ce",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "namedCollections": [],
+  "graphMetrics": {
+    "nodes": 11,
+    "edges": 12,
+    "conditionals": 2,
+    "andGates": 2,
+    "orGates": 2,
+    "notGates": 0,
+    "loops": 0
+  },
+  "graphType": "decision_flowchart",
+  "domainContext": "Classical electrostatics"
 }

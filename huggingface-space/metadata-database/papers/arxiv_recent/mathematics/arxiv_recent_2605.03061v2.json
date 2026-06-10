@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2605.03061v2",
+  "arxiv_id": "2605.03061v2",
+  "title": "Dynamic Vine Copulas: Detecting and Quantifying Time-Varying Higher-Order Interactions",
+  "authors": [
+    "Houman Safaai",
+    "Alessandro Marin Vargas"
+  ],
+  "author_string": "Houman Safaai, Alessandro Marin Vargas",
+  "journal": "arXiv:2605.03061v2",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Time-varying dependence is often modeled with dynamic correlations or Gaussian graphical models, but multivariate systems can change through tail behavior, asymmetry, or conditional structure even when correlations are nearly stable. We introduce Dynamic Vine Copulas (DVC), a temporal vine-copula framework for estimating and diagnosing sequence-wide non-Gaussian dependence. DVC fixes a chosen vine factorization for comparability; the framework applies to C-, D-, and R-vines, and our experiments use fixed-root-order C-vines. Pair-copula states evolve through smooth parameter trajectories or temporally regularized family-switching paths. The main diagnostic is a held-out comparison between a full vine and its matched 1-truncated version, which separates flexible first-tree pairwise dependence from evidence contributed by higher-tree conditional terms. At the population level, under a correct fixed vine and the simplifying assumption, this contrast equals the higher-tree component of a vine total-correlation decomposition; in finite samples, it is a predictive diagnostic. In controlled benchmarks, DVC detects Student-t degrees-of-freedom changes, Clayton-to-Gumbel switches, and recurrent conditional-interaction episodes missed or conflated by Gaussian dynamic baselines. The higher-tree score remains near zero in pairwise-only regimes and rises during conditional-interaction regimes. On Allen Visual Behavior Neuropixels data, DVC identifies a reproducible time-indexed higher-tree signal that is positive across held-out splits and vanishes under a decorrelated null, indicating simultaneous cross-area dependence. DVC therefore provides a flexible temporal copula model and an interpretable test of whether temporal dependence changes are pairwise or conditional.",
+  "categories": [
+    "stat.ML",
+    "cs.LG",
+    "q-bio.QM",
+    "stat.ME"
+  ],
+  "primary_category": "stat.ME",
+  "comment": null,
+  "published_date": "2026-05-04T18:29:12Z",
+  "updated_date": "2026-05-07T06:20:57Z",
+  "url": "https://arxiv.org/abs/2605.03061v2",
+  "pdf_url": "https://arxiv.org/pdf/2605.03061v2.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-09T22:15:36.917270",
+  "category": "mathematics",
+  "subcategories": [
+    "stat.ML",
+    "cs.LG",
+    "q-bio.QM"
+  ]
+}

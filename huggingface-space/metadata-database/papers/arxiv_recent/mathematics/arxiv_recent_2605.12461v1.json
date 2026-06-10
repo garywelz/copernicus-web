@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2605.12461v1",
+  "arxiv_id": "2605.12461v1",
+  "title": "A proximal gradient algorithm for composite log-concave sampling",
+  "authors": [
+    "Linghai Liu",
+    "Sinho Chewi"
+  ],
+  "author_string": "Linghai Liu, Sinho Chewi",
+  "journal": "arXiv:2605.12461v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We propose an algorithm to sample from composite log-concave distributions over $\\mathbb{R}^d$, i.e., densities of the form $π\\propto e^{-f-g}$, assuming access to gradient evaluations of $f$ and a restricted Gaussian oracle (RGO) for $g$. The latter requirement means that we can easily sample from the density $\\text{RGO}_{g,h,y}(x) \\propto \\exp(-g(x) -\\frac{1}{2h}||y-x||^2)$, which is the sampling analogue of the proximal operator for $g$. If $f + g$ is $α$-strongly convex and $f$ is $β$-smooth, our sampler achieves $\\varepsilon$ error in total variation distance in $\\widetilde{\\mathcal O}(κ\\sqrt d \\log^4(1/\\varepsilon))$ iterations where $κ:= β/α$, which matches prior state-of-the-art results for the case $g=0$. We further extend our results to cases where (1) $π$ is non-log-concave but satisfies a Poincaré or log-Sobolev inequality, and (2) $f$ is non-smooth but Lipschitz.",
+  "categories": [
+    "math.ST",
+    "cs.DS",
+    "cs.LG",
+    "stat.ML"
+  ],
+  "primary_category": "stat.ML",
+  "comment": null,
+  "published_date": "2026-05-12T17:48:09Z",
+  "updated_date": "2026-05-12T17:48:09Z",
+  "url": "https://arxiv.org/abs/2605.12461v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.12461v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-13T10:15:43.131778",
+  "category": "mathematics",
+  "subcategories": [
+    "math.ST",
+    "cs.DS",
+    "cs.LG"
+  ]
+}

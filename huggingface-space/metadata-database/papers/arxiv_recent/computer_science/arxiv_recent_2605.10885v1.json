@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2605.10885v1",
+  "arxiv_id": "2605.10885v1",
+  "title": "Geometry-aware Prototype Learning for Cross-domain Few-shot Medical Image Segmentation",
+  "authors": [
+    "Feifan Song",
+    "Yuntian Bo",
+    "Haofeng Zhang"
+  ],
+  "author_string": "Feifan Song, Yuntian Bo, Haofeng Zhang",
+  "journal": "arXiv:2605.10885v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Cross-domain few-shot medical image segmentation (CD-FSMIS) requires a model to generalise simultaneously to novel anatomical categories and unseen imaging domains from only a handful of annotated examples. Existing prototypical approaches inevitably entangle anatomical structure with domain-specific appearance variations, and thus lack a stable reference for reliable matching under domain shift. We observe that the geometric structure of human anatomy constitutes a reliable, domain-transferable prior that has been overlooked. Building on this insight, we propose GeoProto, a geometry-aware CD-FSMIS framework that enriches prototypical matching with explicit structural priors. The core component, Geometry-Aware Prototype Enrichment (GAPE), augments each local appearance prototype with a learned geometric offset encoding its ordinal position within the organ's interior topology. This offset is derived from an auxiliary Ordinal Shape Branch (OSB) trained under an ordinally consistent objective that enforces monotonic variation of geometric embeddings across interior strata, requiring no annotation beyond standard segmentation masks. Extensive experiments across seven datasets spanning three evaluation settings (cross-modality, cross-sequence, and cross-context) demonstrate that GeoProto achieves state-of-the-art performance.",
+  "categories": [
+    "cs.CV"
+  ],
+  "primary_category": "cs.CV",
+  "comment": null,
+  "published_date": "2026-05-11T17:32:26Z",
+  "updated_date": "2026-05-11T17:32:26Z",
+  "url": "https://arxiv.org/abs/2605.10885v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.10885v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-12T10:15:39.165644",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CV"
+  ]
+}

@@ -1,21 +1,23 @@
 {
   "id": "physical_chemistry-phase-diagram-construction",
-  "name": "Phase Diagram Construction",
+  "name": "Phase Diagram (Gibbs Phase Rule)",
   "category": "chemistry",
   "subcategory": "physical_chemistry",
   "subcategory_name": "Physical Chemistry",
-  "description": "Phase Diagram Construction process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "A phase diagram is constructed from the Gibbs phase rule F = C - P + 2, which fixes the degrees of freedom: single-phase regions and the boundaries between them are mapped on temperature-composition axes, the lever rule gives phase amounts inside two-phase regions, and invariant points complete the diagram.",
   "complexity": {
-    "nodes": 9,
+    "nodes": 10,
     "edges": 10,
-    "conditionals": 0,
+    "conditionals": 1,
     "logicGates": {
       "orGates": 1,
-      "andGates": 2,
-      "total": 3
+      "andGates": 1,
+      "notGates": 0,
+      "total": 2
     },
-    "level": "medium",
-    "detailLevel": "medium"
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 0
   },
   "colorScheme": {
     "red": {
@@ -39,54 +41,141 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nN1[\"System + Components\"]\nN2[\"T/P Range\"]\nN3[\"Equilibrium Measurements\"]\nN4[\"Choose Path\"]\nN5[\"Identify Phase Regions\"]\nN6[\"Locate Phase Boundaries\"]\nN7[\"Critical/Triple Points\"]\nN8[\"Phase Diagram\"]\nN9[\"Integrate\"]\n\nN1 --> N2\nN2 --> N3\nN3 --> N4\nN4 --> N5\nN4 --> N7\nN5 --> N6\nN7 --> N8\nN6 --> N9\nN8 --> N9\nN9 --> N6\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#ff6b6b,color:#fff\n    style N3 fill:#ffd43b,color:#000\n    style N4 fill:#ffd43b,color:#000\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#74c0fc,color:#fff\n    style N8 fill:#b197fc,color:#fff\n    style N9 fill:#74c0fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"System: components C\"]\n    N2[\"Apply F = C - P + 2\"]\n    N3[\"Choose axes (T, comp)\"]\n    N4[\"Map single-phase regions\"]\n    N5[\"Locate phase boundaries\"]\n    N6{\"In two-phase region?\"}\n    N7[\"Apply lever rule\"]\n    N8[\"Mark invariant points\"]\n    N9[\"Assemble phase diagram\"]\n    N10[\"Predict phases vs T,x\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 --> N4\n    N4 --> N5\n    N5 --> N6\n    N6 -->|yes| N7\n    N7 --> N9\n    N6 -->|no| N8\n    N8 --> N9\n    N9 --> N10\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#74c0fc,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#74c0fc,color:#fff\n    style N9 fill:#51cf66,color:#fff\n    style N10 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
-      "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: Phase Diagram Construction. Created using the Programming Framework methodology."
+      "title": "Atkins' Physical Chemistry (11th ed.)",
+      "authors": "Atkins, P.; de Paula, J.; Keeler, J.",
+      "journal": "Oxford University Press",
+      "year": "2018",
+      "url": "https://global.oup.com/academic/product/atkins-physical-chemistry-9780198769866"
     },
     {
-      "title": "Pseudoternary phase diagram construction v1",
-      "authors": "Okonogi, Siriporn",
-      "journal": "",
-      "year": "2017",
-      "pubmed": null,
-      "doi": "10.17504/protocols.io.jyccpsw",
-      "url": "https://doi.org/10.17504/protocols.io.jyccpsw"
-    },
-    {
-      "title": "Construction of Structural Phase Diagram of LaGa1-xMgxO3-.DELTA. by Using Various Diffraction Measurements and Thermal Analyses-Effect of Long Period Anti-Phase Domain Structure on Phase Diagram-",
-      "authors": "OHZEKI, Takeshi; OGATA, Yoichiro; TSUDA, Kenji; HASHIMOTO, Takuya",
-      "journal": "Electrochemistry",
-      "year": "2009",
-      "pubmed": null,
-      "doi": "10.5796/electrochemistry.77.169",
-      "url": "https://doi.org/10.5796/electrochemistry.77.169"
-    },
-    {
-      "title": "3.4.2.1 Construction of an electronic phase diagram",
-      "authors": "Goodenough, J. B.; Longo, M.",
-      "journal": "Landolt-Börnstein - Group III Condensed Matter",
-      "year": "None",
-      "pubmed": null,
-      "doi": "10.1007/10201420_65",
-      "url": "https://doi.org/10.1007/10201420_65"
+      "title": "Materials Science and Engineering: An Introduction (10th ed.)",
+      "authors": "Callister, W. D.; Rethwisch, D. G.",
+      "journal": "Wiley",
+      "year": "2018",
+      "url": "https://www.wiley.com/en-us/Materials+Science+and+Engineering%3A+An+Introduction%2C+10th+Edition-p-9781119405498"
     }
   ],
   "keywords": [
-    "phase",
-    "diagram",
-    "construction"
+    "phase diagram",
+    "Gibbs phase rule",
+    "lever rule",
+    "two-phase region",
+    "invariant point"
   ],
   "relatedProcesses": [],
   "created": "2026-01-15",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations.\nCurated Mermaid applied (citations preserved)."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "namedCollections": [
+    "physical-chemistry"
+  ],
+  "graphMetrics": {
+    "nodes": 10,
+    "edges": 10,
+    "conditionals": 1,
+    "andGates": 1,
+    "orGates": 1,
+    "notGates": 0,
+    "loops": 0
+  },
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "System: components C",
+      "detail": "Define species",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N2",
+      "label": "Apply F = C - P + 2",
+      "detail": "Degrees of freedom",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N3",
+      "label": "Choose axes (T, comp)",
+      "detail": "Variables to plot",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N4",
+      "label": "Map single-phase regions",
+      "detail": "Stable phases",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N5",
+      "label": "Locate phase boundaries",
+      "detail": "Coexistence lines",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N6",
+      "label": "In two-phase region?",
+      "detail": "Tie-line applies",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N7",
+      "label": "Apply lever rule",
+      "detail": "Phase fractions",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N8",
+      "label": "Mark invariant points",
+      "detail": "Eutectic, peritectic",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N9",
+      "label": "Assemble phase diagram",
+      "detail": "Complete map",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N10",
+      "label": "Predict phases vs T,x",
+      "detail": "Equilibrium readout",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 0
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:physical_chemistry-phase-diagram-construction",
+    "graphType": "decision_flowchart",
+    "topologySignature": "cce6483c1aa03cce",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "graphType": "decision_flowchart",
+  "domainContext": "Chemical thermodynamics / phase equilibria"
 }

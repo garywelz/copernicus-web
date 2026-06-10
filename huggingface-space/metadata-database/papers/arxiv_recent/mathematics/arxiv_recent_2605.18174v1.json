@@ -1,0 +1,37 @@
+{
+  "id": "arxiv_2605.18174v1",
+  "arxiv_id": "2605.18174v1",
+  "title": "Ringmaster LMO: Asynchronous Linear Minimization Oracle Momentum Method",
+  "authors": [
+    "Abdurakhmon Sadiev",
+    "Artavazd Maranjyan",
+    "Ivan Ilin",
+    "Peter Richtárik"
+  ],
+  "author_string": "Abdurakhmon Sadiev, Artavazd Maranjyan, Ivan Ilin, Peter Richtárik",
+  "journal": "arXiv:2605.18174v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Muon has recently emerged as a strong alternative to AdamW for training neural networks, with encouraging large-scale pretraining results and growing evidence that matrix-structured updates can be faster in practice. Yet Muon, and more generally Linear Minimization Oracle (LMO) based methods, are typically used synchronously. This is problematic in heterogeneous distributed systems, where workers complete gradient computations at different speeds and synchronous training must repeatedly wait for slower workers. In this work, we introduce Ringmaster LMO, an asynchronous LMO-based momentum method for unconstrained stochastic nonconvex optimization. Our method builds on the delay-thresholding idea of Ringmaster ASGD. For SGD-type methods, Ringmaster ASGD achieves optimal time complexity by discarding overly stale gradients. Ringmaster LMO extends this mechanism to general LMO-based updates. We establish convergence guarantees under generalized $(L_0, L_1)$-smoothness and further develop a parameter-agnostic variant with decreasing stepsizes and adaptive delay thresholds. Finally, we translate our iteration guarantees into time complexity bounds under heterogeneous worker computation times. In the classical Euclidean smooth setting, these bounds recover the optimal time complexity of Ringmaster ASGD. Experiments on stochastic quadratic problems and NanoChat language-model pretraining show that the advantages of Ringmaster LMO grow with system heterogeneity and that the method outperforms strong synchronous and asynchronous baselines.",
+  "categories": [
+    "cs.LG",
+    "cs.DC",
+    "math.OC",
+    "stat.ML"
+  ],
+  "primary_category": "stat.ML",
+  "comment": null,
+  "published_date": "2026-05-18T10:18:02Z",
+  "updated_date": "2026-05-18T10:18:02Z",
+  "url": "https://arxiv.org/abs/2605.18174v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.18174v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-18T22:16:04.720412",
+  "category": "mathematics",
+  "subcategories": [
+    "cs.LG",
+    "cs.DC",
+    "math.OC"
+  ]
+}

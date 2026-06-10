@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thermochemistry - Chemistry Process</title>
+    <title>Reaction Enthalpy via Hess's Law - Chemistry Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,12 +167,39 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Thermochemistry</h1>
+            <h1>Reaction Enthalpy via Hess's Law</h1>
             <div class="header-meta">
                 <span class="meta-item">Chemistry</span>
                 <span class="meta-item">Thermodynamics</span>
@@ -207,68 +234,51 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Thermochemistry process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>Obtain a reaction enthalpy either by direct calorimetry or, when the reaction is impractical to measure, by combining tabulated enthalpies of known reactions or formation enthalpies through Hess's law.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-A4[Chemical System] --> B4[Thermochemistry Method]
-C4[Energy Source] --> D4[Calorimeter Setup]
-E4[Reaction Vessel] --> F4[Temperature Monitoring]
-B4 --> G4[System Preparation]
-D4 --> H4[Calorimeter Calibration]
-F4 --> I4[Temperature Control]
-G4 --> J4[Initial State]
-H4 --> K4[Heat Capacity]
-I4 --> L4[Thermal Regulation]
-J4 --> M4[Reaction Initiation]
-K4 --> L4
-L4 --> N4[Heat Transfer]
-M4 --> O4[Energy Release]
-N4 --> P4[Thermochemical Process]
-O4 --> Q4[Heat Measurement]
-P4 --> R4[Enthalpy Change]
-Q4 --> S4[Temperature Change]
-R4 --> T4[Energy Analysis]
-S4 --> U4[Calorimetric Analysis]
-T4 --> V4[Energy Assessment]
-U4 --> W4[Thermochemical Efficiency]
-V4 --> X4[Energy Characterization]
-W4 --> Y4[Process Optimization]
-X4 --> Z4[Final Energy State]
-Y4 --> Z4
+    N1["Target reaction"]
+    N2{"Measurable directly?"}
+    N3["Calorimetry: measure q"]
+    N4["Select known reactions"]
+    N5["Scale + reverse equations"]
+    N6["Sum enthalpies (Hess)"]
+    N7["Use ΔHf° formation data"]
+    N8["ΔH_rxn obtained"]
 
-    style A4 fill:#ff6b6b,color:#fff
-    style C4 fill:#ff6b6b,color:#fff
-    style E4 fill:#ff6b6b,color:#fff
-    style B4 fill:#ffd43b,color:#000
-    style D4 fill:#ffd43b,color:#000
-    style F4 fill:#ffd43b,color:#000
-    style G4 fill:#ffd43b,color:#000
-    style H4 fill:#ffd43b,color:#000
-    style I4 fill:#ffd43b,color:#000
-    style J4 fill:#ffd43b,color:#000
-    style K4 fill:#ffd43b,color:#000
-    style L4 fill:#ffd43b,color:#000
-    style M4 fill:#51cf66,color:#fff
+    N1 --> N2
+    N2 -->|yes| N3
+    N3 --> N8
+    N2 -->|no| N4
+    N4 --> N5
+    N5 --> N6
+    N6 --> N8
+    N2 -->|formation data| N7
+    N7 --> N8
+
+    style N1 fill:#ff6b6b,color:#fff
+    style N2 fill:#74c0fc,color:#fff
+    style N3 fill:#51cf66,color:#fff
     style N4 fill:#51cf66,color:#fff
-    style O4 fill:#51cf66,color:#fff
-    style P4 fill:#51cf66,color:#fff
-    style Q4 fill:#51cf66,color:#fff
-    style R4 fill:#51cf66,color:#fff
-    style S4 fill:#51cf66,color:#fff
-    style T4 fill:#51cf66,color:#fff
-    style U4 fill:#51cf66,color:#fff
-    style V4 fill:#51cf66,color:#fff
-    style W4 fill:#51cf66,color:#fff
-    style X4 fill:#51cf66,color:#fff
-    style Y4 fill:#51cf66,color:#fff
-    style Z4 fill:#b197fc,color:#fff
+    style N5 fill:#51cf66,color:#fff
+    style N6 fill:#51cf66,color:#fff
+    style N7 fill:#51cf66,color:#fff
+    style N8 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Target reaction</td><td>Triggers & Inputs</td><td><a href="https://global.oup.com/ukhe/product/atkins-physical-chemistry-9780198769866" target="_blank" title="Physical Chemistry, 11th ed. — The First Law (thermochemistry, Hess's law)" style="color:#e74c3c;">Atkins, P. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Measurable directly?</td><td>Intermediates & States</td><td><a href="https://global.oup.com/ukhe/product/atkins-physical-chemistry-9780198769866" target="_blank" title="Physical Chemistry, 11th ed. — The First Law (thermochemistry, Hess's law)" style="color:#e74c3c;">Atkins, P. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Calorimetry: measure q</td><td>Processing & Operations</td><td><a href="https://global.oup.com/ukhe/product/atkins-physical-chemistry-9780198769866" target="_blank" title="Physical Chemistry, 11th ed. — The First Law (thermochemistry, Hess's law)" style="color:#e74c3c;">Atkins, P. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Select known reactions</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1351/goldbook.S05907" target="_blank" title="Gold Book: standard enthalpy of reaction" style="color:#e74c3c;">IUPAC 2019</a></td></tr><tr><td style="font-weight:600;">Scale + reverse equations</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1351/goldbook.S05907" target="_blank" title="Gold Book: standard enthalpy of reaction" style="color:#e74c3c;">IUPAC 2019</a></td></tr><tr><td style="font-weight:600;">Sum enthalpies (Hess)</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1351/goldbook.S05907" target="_blank" title="Gold Book: standard enthalpy of reaction" style="color:#e74c3c;">IUPAC 2019</a></td></tr><tr><td style="font-weight:600;">Use ΔHf° formation data</td><td>Processing & Operations</td><td><a href="https://doi.org/10.18434/T4D303" target="_blank" title="NIST Chemistry WebBook — enthalpies of formation" style="color:#e74c3c;">Linstrom, P. J. et al. 2023</a></td></tr><tr><td style="font-weight:600;">ΔH_rxn obtained</td><td>Products & Outputs</td><td><a href="https://global.oup.com/ukhe/product/atkins-physical-chemistry-9780198769866" target="_blank" title="Physical Chemistry, 11th ed. — The First Law (thermochemistry, Hess's law)" style="color:#e74c3c;">Atkins, P. et al. 2018</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -314,12 +324,12 @@ Y4 --> Z4
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 26</li>
-                        <li><strong>Edges:</strong> 22</li>
-                        <li><strong>Conditionals:</strong> 0</li>
+                        <li><strong>Nodes:</strong> 8</li>
+                        <li><strong>Edges:</strong> 9</li>
+                        <li><strong>Conditionals:</strong> 1</li>
                         <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 1</li>
+                        <li><strong>OR Gates:</strong> 1</li>
+                        <li><strong>Total Gates:</strong> 2</li>
                     </ul>
                 </div>
                 
@@ -327,7 +337,7 @@ Y4 --> Z4
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>thermochemistry</li>
+                        <li>hess's law</li><li>enthalpy</li><li>calorimetry</li><li>formation enthalpy</li><li>thermochemistry</li>
                     </ul>
                 </div>
                 
@@ -338,42 +348,32 @@ Y4 --> Z4
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Physical Chemistry, 11th ed. — The First Law (thermochemistry, Hess's law)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Atkins, P.; de Paula, J.; Keeler, J.
+                            , Oxford University Press
+                             (2018)
                             </span>
                             
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
+                            <br><a href="https://global.oup.com/ukhe/product/atkins-physical-chemistry-9780198769866" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Thermochemistry</strong>
-                            
-                            , AccessScience
-                             (None)
+                            <strong>Gold Book: standard enthalpy of reaction</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">IUPAC
+                            , IUPAC Compendium of Chemical Terminology
+                             (2019)
                             </span>
-                            <br><a href="https://doi.org/10.1036/1097-8542.690300" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1036/1097-8542.690300</a>
-                            
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Thermochemistry</strong>
-                            
-                            , SpringerReference
-                             (None)
-                            </span>
-                            <br><a href="https://doi.org/10.1007/springerreference_30232" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1007/springerreference_30232</a>
+                            <br><a href="https://doi.org/10.1351/goldbook.S05907" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1351/goldbook.S05907</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Thermochemistry</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Atkins, Peter; de Paula, Julio; Keeler, James
-                            , Atkins’ Physical Chemistry
-                             (2022)
+                            <strong>NIST Chemistry WebBook — enthalpies of formation</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Linstrom, P. J.; Mallard, W. G. (eds.)
+                            , NIST Standard Reference Database 69
+                             (2023)
                             </span>
-                            <br><a href="https://doi.org/10.1093/hesc/9780198847816.003.0008" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1093/hesc/9780198847816.003.0008</a>
+                            <br><a href="https://doi.org/10.18434/T4D303" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.18434/T4D303</a>
                             
                         </li>
                         

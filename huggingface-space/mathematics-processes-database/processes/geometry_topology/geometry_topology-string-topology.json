@@ -1,0 +1,39 @@
+{
+  "id": "geometry_topology-string-topology",
+  "name": "String Topology",
+  "category": "mathematics",
+  "subcategory": "geometry_topology",
+  "subcategory_name": "Geometry & Topology",
+  "description": "String topology: operations on the free loop space LM = Map(S¹, M) of an oriented manifold M. Chas and Sullivan (1999) defined a loop product and coproduct on H*(LM), giving LM the structure of a 2D topological field theory (TQFT) with closed string compactification. Genus-zero part: ∞-Lie bialgebra; higher genus: quantum Lie bialgebra. Sullivan's contribution: field-theoretic interpretation, connections to rational homotopy.",
+  "mermaid": "graph TD\n    DefLoop[\"Def: Free loop space LM\\nMap(S¹,M)\"]\n    DefEq[\"Def: Equivariant homology\\nH^S¹_*(LM)\"]\n    DefProduct[\"Def: Loop product ⋆\\nConcat at intersection\"]\n    DefCoproduct[\"Def: Loop coproduct Δ\\nSelf-intersection\"]\n    ThmTQFT[\"Thm: 2D TQFT structure\\nOn equivariant chains\"]\n    ThmLie[\"Thm: Genus 0 ⇒ ∞-Lie bialgebra\\n[Bracket, cobracket]\"]\n    ThmQuantum[\"Thm: Higher genus ⇒ quantum Lie bialgebra\"]\n    DefCompact[\"Def: Closed string compactification\\nMod constant loops\"]\n    DefLoop --> DefEq\n    DefLoop --> DefProduct\n    DefLoop --> DefCoproduct\n    DefProduct --> ThmTQFT\n    DefCoproduct --> ThmTQFT\n    DefEq --> ThmTQFT\n    ThmTQFT --> ThmLie\n    ThmTQFT --> ThmQuantum\n    DefCompact --> ThmTQFT\n    classDef definition fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef theorem fill:#51cf66,color:#fff,stroke:#40c057\n    class DefLoop,DefEq,DefProduct,DefCoproduct,DefCompact definition\n    class ThmTQFT,ThmLie,ThmQuantum theorem",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

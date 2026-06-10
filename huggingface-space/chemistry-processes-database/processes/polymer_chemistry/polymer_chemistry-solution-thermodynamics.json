@@ -1,21 +1,23 @@
 {
   "id": "polymer_chemistry-solution-thermodynamics",
-  "name": "Solution Thermodynamics",
+  "name": "Flory–Huggins Solution Theory",
   "category": "chemistry",
   "subcategory": "polymer_chemistry",
   "subcategory_name": "Polymer Chemistry",
-  "description": "Solution Thermodynamics process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "Flory–Huggins lattice theory combines a small combinatorial entropy of mixing for long chains with an enthalpic χ interaction parameter; the resulting free energy predicts miscibility or phase separation of polymer solutions.",
   "complexity": {
-    "nodes": 26,
-    "edges": 22,
-    "conditionals": 0,
+    "nodes": 9,
+    "edges": 9,
+    "conditionals": 1,
     "logicGates": {
-      "orGates": 0,
+      "orGates": 2,
       "andGates": 1,
-      "total": 1
+      "notGates": 0,
+      "total": 3
     },
     "level": "medium",
-    "detailLevel": "medium"
+    "detailLevel": "source_grounded",
+    "loops": 0
   },
   "colorScheme": {
     "red": {
@@ -39,53 +41,143 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nA2[Solvent Molecules] --> B2[Solution Thermodynamics Method]\nC2[Solute Particles] --> D2[Concentration Control]\nE2[Temperature System] --> F2[Pressure Environment]\nB2 --> G2[Solution Preparation]\nD2 --> H2[Concentration Analysis]\nF2 --> I2[Environmental Control]\nG2 --> J2[Mixing Process]\nH2 --> K2[Concentration Measurement]\nI2 --> L2[Pressure Monitoring]\nJ2 --> M2[Solvation Process]\nK2 --> L2\nL2 --> N2[Solution Formation]\nM2 --> O2[Intermolecular Interactions]\nN2 --> P2[Solution Thermodynamics]\nO2 --> Q2[Colligative Properties]\nP2 --> R2[Thermodynamic Properties]\nQ2 --> S2[Property Measurement]\nR2 --> T2[Solution Behavior]\nS2 --> U2[Property Analysis]\nT2 --> V2[Behavior Prediction]\nU2 --> W2[Thermodynamic Efficiency]\nV2 --> X2[Solution Characterization]\nW2 --> Y2[Process Optimization]\nX2 --> Z2[Final Solution State]\nY2 --> Z2\n\n    style A2 fill:#ff6b6b,color:#fff\n    style C2 fill:#ff6b6b,color:#fff\n    style E2 fill:#ff6b6b,color:#fff\n    style B2 fill:#ffd43b,color:#000\n    style D2 fill:#ffd43b,color:#000\n    style F2 fill:#ffd43b,color:#000\n    style G2 fill:#ffd43b,color:#000\n    style H2 fill:#ffd43b,color:#000\n    style I2 fill:#ffd43b,color:#000\n    style J2 fill:#ffd43b,color:#000\n    style K2 fill:#ffd43b,color:#000\n    style L2 fill:#ffd43b,color:#000\n    style M2 fill:#51cf66,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style O2 fill:#51cf66,color:#fff\n    style P2 fill:#51cf66,color:#fff\n    style Q2 fill:#51cf66,color:#fff\n    style R2 fill:#51cf66,color:#fff\n    style S2 fill:#51cf66,color:#fff\n    style T2 fill:#51cf66,color:#fff\n    style U2 fill:#51cf66,color:#fff\n    style V2 fill:#51cf66,color:#fff\n    style W2 fill:#51cf66,color:#fff\n    style X2 fill:#51cf66,color:#fff\n    style Y2 fill:#51cf66,color:#fff\n    style Z2 fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"Polymer + solvent\"]\n    N2[\"Lattice model: place chains\"]\n    N3[\"Entropy of mixing (small)\"]\n    N4[\"Enthalpy via χ parameter\"]\n    N5[\"ΔG_mix with χφ₁φ₂\"]\n    N6{\"χ below critical?\"}\n    N7[\"Miscible: single phase\"]\n    N8[\"Phase separation (binodal)\"]\n    N9[\"Coexisting phases\"]\n\n    N1 --> N2\n    N2 --> N3\n    N1 --> N4\n    N3 --> N5\n    N4 --> N5\n    N5 --> N6\n    N6 -->|yes| N7\n    N6 -->|no| N8\n    N8 --> N9\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#74c0fc,color:#fff\n    style N7 fill:#b197fc,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "title": "Thermodynamics of high polymer solutions",
+      "authors": "Flory, P. J.",
+      "journal": "Journal of Chemical Physics",
+      "year": "1942",
+      "doi": "10.1063/1.1723621",
+      "url": "https://doi.org/10.1063/1.1723621"
+    },
+    {
+      "title": "Some properties of solutions of long-chain compounds",
+      "authors": "Huggins, M. L.",
+      "journal": "Journal of Physical Chemistry",
+      "year": "1942",
+      "doi": "10.1021/j150415a018",
+      "url": "https://doi.org/10.1021/j150415a018"
+    },
+    {
+      "title": "Principles of Polymer Chemistry — Polymer Solutions",
+      "authors": "Flory, P. J.",
+      "journal": "Cornell University Press",
+      "year": "1953",
       "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: Solution Thermodynamics. Created using the Programming Framework methodology."
-    },
-    {
-      "title": "Fundamentals of Polymer Solution Thermodynamics",
-      "authors": "",
-      "journal": "Handbook of Polymer Solution Thermodynamics",
-      "year": "1993",
-      "pubmed": null,
-      "doi": "10.1002/9780470938232.ch2",
-      "url": "https://doi.org/10.1002/9780470938232.ch2"
-    },
-    {
-      "title": "2. Thermodynamics of Solid Solution- Aqueous Solution Systems",
-      "authors": "Prieto, Manuel",
-      "journal": "Thermodynamics and Kinetics of Water-Rock Interaction",
-      "year": "2009",
-      "pubmed": null,
-      "doi": "10.1515/9781501508462-004",
-      "url": "https://doi.org/10.1515/9781501508462-004"
-    },
-    {
-      "title": "SOLUTION THERMODYNAMICS",
-      "authors": "Lee, Lloyd L.",
-      "journal": "Molecular Thermodynamics of Nonideal Fluids",
-      "year": "1988",
-      "pubmed": null,
-      "doi": "10.1016/b978-0-409-90088-0.50014-x",
-      "url": "https://doi.org/10.1016/b978-0-409-90088-0.50014-x"
+      "url": "https://www.cornellpress.cornell.edu/book/9780801401343/principles-of-polymer-chemistry/"
     }
   ],
   "keywords": [
-    "solution",
-    "thermodynamics"
+    "flory-huggins",
+    "chi parameter",
+    "lattice model",
+    "miscibility",
+    "phase separation"
   ],
   "relatedProcesses": [],
   "created": "2026-01-08",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Polymer + solvent",
+      "detail": "Long chains in small-molecule solvent",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N2",
+      "label": "Lattice model: place chains",
+      "detail": "Segments occupy lattice sites",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N3",
+      "label": "Entropy of mixing (small)",
+      "detail": "Connectivity limits configurations",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N4",
+      "label": "Enthalpy via χ parameter",
+      "detail": "Segment-solvent contact energy",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N5",
+      "label": "ΔG_mix with χφ₁φ₂",
+      "detail": "Flory–Huggins free energy",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N6",
+      "label": "χ below critical?",
+      "detail": "Good vs poor solvent",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 2
+    },
+    {
+      "id": "N7",
+      "label": "Miscible: single phase",
+      "detail": "Homogeneous solution",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 2
+    },
+    {
+      "id": "N8",
+      "label": "Phase separation (binodal)",
+      "detail": "Demixing into two phases",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N9",
+      "label": "Coexisting phases",
+      "detail": "Polymer-rich and -poor regions",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 2
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:polymer_chemistry-solution-thermodynamics",
+    "graphType": "decision_flowchart",
+    "topologySignature": "19cfbb866f6af558",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "namedCollections": [
+    "polymer-chemistry"
+  ],
+  "graphMetrics": {
+    "nodes": 9,
+    "edges": 9,
+    "conditionals": 1,
+    "andGates": 1,
+    "orGates": 2,
+    "notGates": 0,
+    "loops": 0
+  },
+  "graphType": "decision_flowchart",
+  "domainContext": "Polymer solution thermodynamics"
 }

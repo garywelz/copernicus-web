@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2604.26893v1",
+  "arxiv_id": "2604.26893v1",
+  "title": "Graph-based Semantic Calibration Network for Unaligned UAV RGBT Image Semantic Segmentation and A Large-scale Benchmark",
+  "authors": [
+    "Fangqiang Fan",
+    "Zhicheng Zhao",
+    "Xiaoliang Ma",
+    "Chenglong Li",
+    "Jin Tang"
+  ],
+  "author_string": "Fangqiang Fan, Zhicheng Zhao, Xiaoliang Ma, Chenglong Li, Jin Tang",
+  "journal": "arXiv:2604.26893v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Fine-grained RGBT image semantic segmentation is crucial for all-weather unmanned aerial vehicle (UAV) scene understanding. However, UAV RGBT semantic segmentation faces two coupled challenges: cross-modal spatial misalignment caused by sensor parallax and platform vibration, and severe semantic confusion among fine-grained ground objects under top-down aerial views. To address these issues, we propose a Graph-based Semantic Calibration Network (GSCNet) for unaligned UAV RGBT image semantic segmentation. Specifically, we design a Feature Decoupling and Alignment Module (FDAM) that decouples each modality into shared structural and private perceptual components and performs deformable alignment in the shared subspace, enabling robust spatial correction with reduced modality appearance interference. Moreover, we propose a Semantic Graph Calibration Module (SGCM) that explicitly encodes the hierarchical taxonomy and co-occurrence regularities among ground-object categories in UAV scenes into a structured category graph, and incorporates these priors into graph-attention reasoning to calibrate predictions of visually similar and rare categories.In addition, we construct the Unaligned RGB-Thermal Fine-grained (URTF) benchmark, to the best of our knowledge, the largest and most fine-grained benchmark for unaligned UAV RGBT image semantic segmentation, containing over 25,000 image pairs across 61 categories with realistic cross-modal misalignment. Extensive experiments on URTF demonstrate that GSCNet significantly outperforms state-of-the-art methods, with notable gains on fine-grained categories. The dataset is available at https://github.com/mmic-lcl/Datasets-and-benchmark-code.",
+  "categories": [
+    "cs.CV"
+  ],
+  "primary_category": "cs.CV",
+  "comment": "13 pages,13 figures",
+  "published_date": "2026-04-29T17:01:38Z",
+  "updated_date": "2026-04-29T17:01:38Z",
+  "url": "https://arxiv.org/abs/2604.26893v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.26893v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-30T10:15:42.517035",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CV"
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "id": "arxiv_2605.18734v1",
+  "arxiv_id": "2605.18734v1",
+  "title": "EgoExoMem: Cross-View Memory Reasoning over Synchronized Egocentric and Exocentric Videos",
+  "authors": [
+    "Ruiping Liu",
+    "Junwei Zheng",
+    "Yufan Chen",
+    "Di Wen",
+    "Shaofang Quan",
+    "Chengzhi Wu",
+    "Jiaming Zhang",
+    "Kailun Yang",
+    "Kunyu Peng",
+    "Rainer Stiefelhagen"
+  ],
+  "author_string": "Ruiping Liu, Junwei Zheng, Yufan Chen, Di Wen, Shaofang Quan et al.",
+  "journal": "arXiv:2605.18734v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Egocentric memory is widely used in embodied intelligence, but it may be insufficient for comprehensive spatial-temporal reasoning. Inspired by human recall from both field and observer perspectives, we introduce EgoExoMem, the first benchmark for cross-view memory reasoning over synchronized egocentric and exocentric videos. EgoExoMem contains $2.6K$ high-quality MCQs across eight temporal, spatial, and cross-view QA types. To support dual-view retrieval, we propose E$^2$-Select, a training-free frame selection method for synchronized ego-exo videos. It combines relevance-based budget allocation with per-view k-DPP sampling to handle view asymmetry and cross-view temporal consistency. Experiments show that ego and exo views provide complementary memory cues, while existing MLLMs remain far from solving the benchmark: the best model reaches only $55.3\\%$. E$^2$-Select achieves state-of-the-art performance of $58.2\\%$ over frame-selection and RAG-based memory baselines. Further analysis reveals systematic view-preference conflicts between question framing and answer grounding, underscoring the novelty and challenge of cross-view memory reasoning.",
+  "categories": [
+    "cs.CV"
+  ],
+  "primary_category": "cs.CV",
+  "comment": "The source code and dataset can be found at https://github.com/RuipingL/EgoExoMem",
+  "published_date": "2026-05-18T17:54:55Z",
+  "updated_date": "2026-05-18T17:54:55Z",
+  "url": "https://arxiv.org/abs/2605.18734v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.18734v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-19T10:15:40.272496",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CV"
+  ]
+}

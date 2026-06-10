@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Propositional Logic — Tautologies & Metalogic - Mathematics Process</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #8e44ad 0%, #3498db 100%); min-height: 100vh; padding: 20px; }
+        .container { max-width: 1600px; margin: 0 auto; background: white; border-radius: 15px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); overflow: hidden; }
+        .header { background: linear-gradient(135deg, #e67e22 0%, #e67e22dd 100%); color: white; padding: 30px; }
+        .header h1 { margin: 0 0 10px 0; font-size: 2em; font-weight: 300; }
+        .header-meta { display: flex; flex-wrap: wrap; gap: 15px; margin-top: 15px; font-size: 0.9em; opacity: 0.9; }
+        .meta-item { background: rgba(255,255,255,0.2); padding: 5px 12px; border-radius: 20px; }
+        .nav-links { padding: 15px 30px; background: #f8f9fa; border-bottom: 1px solid #ecf0f1; }
+        .nav-links a { color: #e67e22; text-decoration: none; margin-right: 20px; font-weight: 500; }
+        .nav-links a:hover { text-decoration: underline; }
+        .content { padding: 30px; }
+        .description { margin-bottom: 30px; }
+        .flowchart-container { margin: 30px 0; }
+        .flowchart-container h2 { color: #2c3e50; margin-bottom: 15px; }
+        .mermaid { background: white; padding: 20px; border-radius: 10px; border: 1px solid #ecf0f1; overflow-x: hidden; overflow-y: auto; min-height: 500px; max-width: 100%; }
+        .color-legend { background: #f8f9fa; padding: 20px; border-radius: 10px; margin: 30px 0; }
+        .color-legend h3 { color: #2c3e50; margin-bottom: 15px; }
+        .color-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; }
+        .color-item { display: flex; align-items: center; gap: 10px; padding: 10px; background: white; border-radius: 5px; }
+        .color-box { width: 30px; height: 30px; border-radius: 4px; border: 1px solid #ddd; }
+        .info-section { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 30px; }
+        .info-card { background: #f8f9fa; padding: 20px; border-radius: 10px; }
+        .info-card h3 { color: #2c3e50; margin-bottom: 15px; }
+        .info-card ul { list-style: none; padding: 0; }
+        .info-card li { padding: 8px 0; border-bottom: 1px solid #ecf0f1; }
+        .info-card li:last-child { border-bottom: none; }
+
+        .attribution-wrap { position: relative; }
+        .attribution-trigger { cursor: help; background: rgba(255,255,255,0.2) !important; }
+        .attribution-popover { display: none; position: absolute; top: 100%; left: 0; margin-top: 4px; background: #2c3e50; color: #ecf0f1; padding: 14px 18px; border-radius: 10px; box-shadow: 0 6px 20px rgba(0,0,0,0.25); min-width: 300px; z-index: 100; font-size: 0.85em; line-height: 1.5; }
+        .attribution-popover::before { content: ''; position: absolute; bottom: 100%; left: 0; right: 0; height: 12px; }
+        .attribution-popover strong { color: #fff; }
+        .attribution-popover a { color: #3498db; }
+        .attribution-wrap:hover .attribution-popover, .attribution-wrap:focus-within .attribution-popover { display: block; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Propositional Logic — Tautologies & Metalogic</h1>
+            <div class="header-meta">
+                <span class="meta-item">Mathematics</span>
+                <span class="meta-item">Discrete Mathematics / Logic</span>
+                <span class="meta-item">Source: Frege, Łukasiewicz</span>
+                <span class="meta-item attribution-wrap"><span class="attribution-trigger meta-item" tabindex="0">Cite</span><div class="attribution-popover"><strong>Primary:</strong> Wittgenstein, Tarski<br><strong>Publication:</strong> Tautologies and metalogic<br><strong>Year:</strong> 20th c.<br><strong>URL:</strong> <a href="https://en.wikipedia.org/wiki/Tautology_(logic)" target="_blank">Wikipedia</a></div></span>
+            </div>
+        </div>
+        <div class="nav-links">
+            <a id="back-link" href="#">← Back to Mathematics Database</a>
+            <a id="index-link" href="#">Propositional Logic Index</a>
+            <a href="https://en.wikipedia.org/wiki/Propositional_calculus" target="_blank">Propositional Calculus (Wikipedia)</a>
+            <a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank">Programming Framework</a>
+        </div>
+        <script>
+            (function() {
+                const hostname = window.location.hostname;
+                const base = hostname.includes('storage.googleapis.com')
+                    ? 'https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database'
+                    : '../..';
+                document.getElementById('back-link').href = base + '/mathematics-database-table.html';
+                document.getElementById('index-link').href = base + '/processes/discrete_mathematics/discrete_mathematics-propositional-logic.html';
+            })();
+        </script>
+        <div class="content">
+            <div class="description">
+                <h2>Description</h2>
+                <p>Excluded middle, non-contradiction, explosion, commutation, distribution, deduction theorem. Shows how theorems depend on axioms, definitions, and prior theorems.</p>
+                <p style="margin-top:10px;"><em>Source: Frege, G. <a href="https://en.wikipedia.org/wiki/Begriffsschrift" target="_blank">Begriffsschrift</a> (1879); Łukasiewicz, J. Elements of Mathematical Logic (1929)</em></p>
+            </div>
+            <div class="flowchart-container">
+                <h2>Dependency Flowchart</h2>
+                <p class="flowchart-note" style="font-size:0.9rem;color:#7f8c8d;margin-bottom:12px;"><strong>Note:</strong> Arrows mean &quot;depends on&quot; (tail → head).</p>
+                <div class="mermaid">graph TD
+    A1("A1 Weakening")
+    A2("A2 Distrib. of impl.")
+    A3("A3 Contraposition")
+    MP("MP MP")
+    T1("T1 Self-implication")
+    T2("T2 Double neg. elim")
+    T3("T3 Double neg. intro")
+    T4("T4 Transposition")
+    DefOr("DefOr Def. disjunction")
+    DefAnd("DefAnd Def. conjunction")
+    T6("T6 Addition (orI)")
+    T7("T7 Simplification (andE)")
+    T8("T8 Simplification (andE)")
+    T9("T9 Conjunction (andI)")
+    T13("T13 Excluded middle")
+    T14("T14 Non-contradiction")
+    T15("T15 Explosion")
+    T16("T16 Commutation (or)")
+    T17("T17 Commutation (and)")
+    T18("T18 Distribution")
+    T19("T19 Deduction thm")
+    A1 --&gt; T1
+    A2 --&gt; T1
+    MP --&gt; T1
+    A3 --&gt; T2
+    T1 --&gt; T2
+    MP --&gt; T2
+    A1 --&gt; T3
+    A3 --&gt; T3
+    MP --&gt; T3
+    A3 --&gt; T4
+    T2 --&gt; T4
+    T3 --&gt; T4
+    MP --&gt; T4
+    A1 --&gt; DefOr
+    A2 --&gt; DefOr
+    A3 --&gt; DefOr
+    MP --&gt; DefOr
+    DefOr --&gt; DefAnd
+    A3 --&gt; DefAnd
+    MP --&gt; DefAnd
+    DefOr --&gt; T6
+    A1 --&gt; T6
+    MP --&gt; T6
+    DefAnd --&gt; T7
+    A1 --&gt; T7
+    A3 --&gt; T7
+    MP --&gt; T7
+    DefAnd --&gt; T8
+    A1 --&gt; T8
+    A3 --&gt; T8
+    MP --&gt; T8
+    A1 --&gt; T9
+    A2 --&gt; T9
+    MP --&gt; T9
+    DefOr --&gt; T13
+    T2 --&gt; T13
+    T3 --&gt; T13
+    MP --&gt; T13
+    DefAnd --&gt; T14
+    T4 --&gt; T14
+    MP --&gt; T14
+    DefAnd --&gt; T15
+    A1 --&gt; T15
+    A2 --&gt; T15
+    MP --&gt; T15
+    DefOr --&gt; T16
+    T4 --&gt; T16
+    MP --&gt; T16
+    DefAnd --&gt; T17
+    T9 --&gt; T17
+    MP --&gt; T17
+    DefAnd --&gt; T18
+    DefOr --&gt; T18
+    T6 --&gt; T18
+    T7 --&gt; T18
+    T8 --&gt; T18
+    T9 --&gt; T18
+    MP --&gt; T18
+    A1 --&gt; T19
+    A2 --&gt; T19
+    MP --&gt; T19
+    classDef axiom fill:#ff6b6b,color:#fff,stroke:#c0392b
+    classDef definition fill:#b197fc,color:#fff,stroke:#9775fa
+    classDef theorem fill:#51cf66,color:#fff,stroke:#40c057
+    class A1,A2,A3,MP axiom
+    class DefOr,DefAnd definition
+    class T1,T2,T3,T4,T6,T7,T8,T9,T13,T14,T15,T16,T17,T18,T19 theorem</div>
+            </div>
+            <div class="color-legend">
+                <h3>Color Scheme</h3>
+                <div class="color-grid">
+                    <div class="color-item"><div class="color-box" style="background:#e74c3c"></div><div><strong>Red</strong><br><small>Axioms</small></div></div>
+                    <div class="color-item"><div class="color-box" style="background:#3498db"></div><div><strong>Blue</strong><br><small>Definitions</small></div></div>
+                    <div class="color-item"><div class="color-box" style="background:#1abc9c"></div><div><strong>Teal</strong><br><small>Theorems</small></div></div>
+                </div>
+            </div>
+            <div class="info-section">
+                <div class="info-card">
+                    <h3>Statistics</h3>
+                    <ul>
+                        <li><strong>Nodes:</strong> 21</li>
+                        <li><strong>Edges:</strong> 61</li>
+                    </ul>
+                </div>
+                <div class="info-card">
+                    <h3>Keywords</h3>
+                    <ul>
+                        <li>propositional logic</li><li>Hilbert</li><li>Łukasiewicz</li><li>tautology</li><li>modus ponens</li><li>De Morgan</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        mermaid.initialize({ startOnLoad: true, theme: 'default', flowchart: { useMaxWidth: true, htmlLabels: true, curve: 'linear', nodeSpacing: 25, rankSpacing: 90, padding: 20 }, themeVariables: { fontSize: '14px', fontFamily: 'Segoe UI, Arial, sans-serif' } });
+    </script>
+</body>
+</html>

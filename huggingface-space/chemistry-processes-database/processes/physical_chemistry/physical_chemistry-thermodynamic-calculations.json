@@ -1,21 +1,23 @@
 {
   "id": "physical_chemistry-thermodynamic-calculations",
-  "name": "Thermodynamic Calculations",
+  "name": "Hess's Law Thermochemical Cycle",
   "category": "chemistry",
   "subcategory": "physical_chemistry",
   "subcategory_name": "Physical Chemistry",
-  "description": "Thermodynamic Calculations process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "Because enthalpy is a state function, a reaction enthalpy can be obtained indirectly via Hess's law: if standard formation enthalpies are available they are combined directly, otherwise a thermochemical cycle of known reactions is built and scaled, summed, and cross-checked against bond enthalpies to give the reaction enthalpy.",
   "complexity": {
-    "nodes": 26,
-    "edges": 21,
-    "conditionals": 0,
+    "nodes": 10,
+    "edges": 10,
+    "conditionals": 1,
     "logicGates": {
-      "orGates": 0,
+      "orGates": 1,
       "andGates": 1,
-      "total": 1
+      "notGates": 0,
+      "total": 2
     },
-    "level": "medium",
-    "detailLevel": "medium"
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 0
   },
   "colorScheme": {
     "red": {
@@ -39,53 +41,142 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nA1[System Definition] --> B1[State Variables Analysis]\nC1[Energy Conservation] --> D1[First Law Application]\nE1[Entropy Analysis] --> F1[Second Law Application]\nB1 --> G1[Temperature Pressure Volume]\nD1 --> H1[Internal Energy Change]\nF1 --> I1[Entropy Change Calculation]\nG1 --> J1[State Function Determination]\nH1 --> K1[Heat Work Calculation]\nI1 --> L1[Reversible Process Analysis]\nJ1 --> M1[Enthalpy Calculation]\nK1 --> L1\nL1 --> N1[Gibbs Free Energy]\nM1 --> O1[Helmholtz Free Energy]\nN1 --> P1[Chemical Potential]\nO1 --> Q1[Thermodynamic Equilibrium]\nP1 --> R1[Phase Equilibrium]\nQ1 --> S1[Reaction Equilibrium]\nR1 --> T1[Thermodynamic Result]\nS1 --> U1[Equilibrium Constant]\nT1 --> V1[Thermodynamic Validation]\nU1 --> W1[Thermodynamic Output]\nV1 --> X1[Thermodynamic Analysis]\nW1 --> Y1[Thermodynamic Final Result]\nX1 --> Z1[Thermodynamic Analysis Complete]\n\n    style A1 fill:#ff6b6b,color:#fff\n    style C1 fill:#ff6b6b,color:#fff\n    style E1 fill:#ff6b6b,color:#fff\n    style B1 fill:#ffd43b,color:#000\n    style D1 fill:#ffd43b,color:#000\n    style F1 fill:#ffd43b,color:#000\n    style G1 fill:#ffd43b,color:#000\n    style H1 fill:#ffd43b,color:#000\n    style I1 fill:#ffd43b,color:#000\n    style J1 fill:#ffd43b,color:#000\n    style K1 fill:#ffd43b,color:#000\n    style L1 fill:#ffd43b,color:#000\n    style M1 fill:#51cf66,color:#fff\n    style N1 fill:#51cf66,color:#fff\n    style O1 fill:#51cf66,color:#fff\n    style P1 fill:#51cf66,color:#fff\n    style Q1 fill:#51cf66,color:#fff\n    style R1 fill:#51cf66,color:#fff\n    style S1 fill:#51cf66,color:#fff\n    style T1 fill:#51cf66,color:#fff\n    style U1 fill:#51cf66,color:#fff\n    style V1 fill:#51cf66,color:#fff\n    style W1 fill:#51cf66,color:#fff\n    style X1 fill:#51cf66,color:#fff\n    style Y1 fill:#51cf66,color:#fff\n    style Z1 fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"Target reaction ΔH?\"]\n    N2[\"Find known reactions\"]\n    N3{\"Have ΔHf data?\"}\n    N4[\"Use formation enthalpies\"]\n    N5[\"Build thermochemical cycle\"]\n    N6[\"Scale / reverse steps\"]\n    N7[\"Sum via Hess's law\"]\n    N8[\"State-function check\"]\n    N9[\"Cross-check bond enthalpies\"]\n    N10[\"Reaction enthalpy ΔHrxn\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 -->|yes| N4\n    N4 --> N7\n    N3 -->|no| N5\n    N5 --> N6\n    N6 --> N7\n    N7 --> N8\n    N8 --> N9\n    N9 --> N10\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#74c0fc,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#74c0fc,color:#fff\n    style N9 fill:#74c0fc,color:#fff\n    style N10 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
-      "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: Thermodynamic Calculations. Created using the Programming Framework methodology."
+      "title": "Atkins' Physical Chemistry (11th ed.)",
+      "authors": "Atkins, P.; de Paula, J.; Keeler, J.",
+      "journal": "Oxford University Press",
+      "year": "2018",
+      "url": "https://global.oup.com/academic/product/atkins-physical-chemistry-9780198769866"
     },
     {
-      "title": "Thermodynamic Calculations of Materials Processes",
-      "authors": "Chen, Long-Qing",
-      "journal": "Thermodynamic Equilibrium and Stability of Materials",
-      "year": "2021",
-      "pubmed": null,
-      "doi": "10.1007/978-981-13-8691-6_8",
-      "url": "https://doi.org/10.1007/978-981-13-8691-6_8"
-    },
-    {
-      "title": "Thermodynamic Calculations",
-      "authors": "",
-      "journal": "Dictionary of Concrete Technology",
-      "year": "2025",
-      "pubmed": null,
-      "doi": "10.1007/978-981-97-2998-2_661",
-      "url": "https://doi.org/10.1007/978-981-97-2998-2_661"
-    },
-    {
-      "title": "Software Databases for Thermodynamic Calculations",
-      "authors": "Havlík, Tomáš",
-      "journal": "Hydrometallurgy",
-      "year": "2008",
-      "pubmed": null,
-      "doi": "10.1533/9781845694616.173",
-      "url": "https://doi.org/10.1533/9781845694616.173"
+      "title": "NIST Chemistry WebBook, SRD 69",
+      "authors": "Linstrom, P. J.; Mallard, W. G. (eds.)",
+      "journal": "National Institute of Standards and Technology",
+      "year": "2023",
+      "doi": "10.18434/T4D303",
+      "url": "https://doi.org/10.18434/T4D303"
     }
   ],
   "keywords": [
-    "thermodynamic",
-    "calculations"
+    "Hess's law",
+    "state function",
+    "formation enthalpy",
+    "thermochemical cycle",
+    "reaction enthalpy"
   ],
   "relatedProcesses": [],
   "created": "2026-01-08",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Target reaction ΔH?",
+      "detail": "Unknown enthalpy",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N2",
+      "label": "Find known reactions",
+      "detail": "Tabulated data",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N3",
+      "label": "Have ΔHf data?",
+      "detail": "Formation enthalpies",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N4",
+      "label": "Use formation enthalpies",
+      "detail": "Sum products - reactants",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N5",
+      "label": "Build thermochemical cycle",
+      "detail": "Link known steps",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N6",
+      "label": "Scale / reverse steps",
+      "detail": "Match target",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N7",
+      "label": "Sum via Hess's law",
+      "detail": "Add step enthalpies",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N8",
+      "label": "State-function check",
+      "detail": "Path-independent",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N9",
+      "label": "Cross-check bond enthalpies",
+      "detail": "Sanity estimate",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N10",
+      "label": "Reaction enthalpy ΔHrxn",
+      "detail": "Computed value",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 0
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:physical_chemistry-thermodynamic-calculations",
+    "graphType": "decision_flowchart",
+    "topologySignature": "2eb5d2d248cf6268",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "namedCollections": [
+    "physical-chemistry"
+  ],
+  "graphMetrics": {
+    "nodes": 10,
+    "edges": 10,
+    "conditionals": 1,
+    "andGates": 1,
+    "orGates": 1,
+    "notGates": 0,
+    "loops": 0
+  },
+  "graphType": "decision_flowchart",
+  "domainContext": "Thermochemistry"
 }

@@ -1,0 +1,42 @@
+{
+  "id": "medrxiv_10.1101_2024.10.23.24315971",
+  "doi": "10.1101/2024.10.23.24315971",
+  "title": "Comparative Inference of Gene-Specific and Global Gene Regulatory Network Methodologies for Biomarker Assessment in Lung Cancer",
+  "authors": [
+    "Mandal, S.",
+    "Nath, S.",
+    "Biswas, S."
+  ],
+  "author_string": "Mandal, S., Nath, S., Biswas, S.",
+  "journal": "medRxiv",
+  "journal_full": "medRxiv",
+  "year": "2026",
+  "abstract": "Understanding biomarker transitions from normal physiological states to malignancy requires moving beyond differential expression toward regulatory network level characterization. This study aims to advance gene regulatory network (GRN) based biomarker transition methodologies by capturing condition specific regulatory rewiring in lung cancer (LC). Two independent LC gene expression datasets were harmonized, integrated, and normalized for unified network inference. A robust gene set was obtained through the intersection of simulated annealing based selection, variance based screening, and volcano plot analysis. Regulatory interactions were inferred separately for normal and disease states using coexpression networks, along with our proposed Focused Random Forest (FRF) based GRNs, and Global Dual Random Forest (GDRF) framework. A comparative analysis revealed widespread disruption of coordinated gene expression and substantial regulatory remodeling during disease progression. Centrality measures identified CLDN18, CPB2, GJB2, MT1M, MMP12, WIF1, and GREM1 as key biomarker drivers. Directed GRNs demonstrated gene specific phase transitions through shifts in regulator target relationships. GDRF analysis revealed a transition in regulatory dominance from GJB2 and GREM1 in the normal state to CLDN18 and CPB2 in LC. The novelty of this work lies in the unified integration of local and global Random Forest based GRN inference to quantify biomarker phase shifts through directed regulatory remodeling.",
+  "keywords": [],
+  "categories": [
+    "genetic and genomic medicine"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.1101/2024.10.23.24315971",
+  "source": "medrxiv",
+  "sources": [
+    "medrxiv"
+  ],
+  "acquired_date": "2026-05-24T22:15:24.713295",
+  "category": "biology",
+  "subcategories": [
+    "genetic and genomic medicine"
+  ],
+  "published_date": "2026-01-24",
+  "updated_date": "2026-01-24",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "medrxiv",
+  "preprint_version": "2",
+  "preprint_type": "PUBLISHAHEADOFPRINT",
+  "license": "cc_no",
+  "jatsxml": "https://www.medrxiv.org/content/early/2026/01/24/2024.10.23.24315971.source.xml",
+  "published_doi": null,
+  "author_corresponding": "Surama Biswas",
+  "author_corresponding_institution": "Meghnad Saha Institute of Technology"
+}

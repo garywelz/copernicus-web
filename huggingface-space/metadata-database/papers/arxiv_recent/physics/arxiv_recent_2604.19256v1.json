@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2604.19256v1",
+  "arxiv_id": "2604.19256v1",
+  "title": "Quantum Homomorphic Encryption: Towards Practical and Private Computation on Untrusted Quantum Hardware",
+  "authors": [
+    "Jon Hernández-Bueno",
+    "Oscar Lage",
+    "Marivi Higuero",
+    "Jasone Astorga"
+  ],
+  "author_string": "Jon Hernández-Bueno, Oscar Lage, Marivi Higuero, Jasone Astorga",
+  "journal": "arXiv:2604.19256v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "As quantum computing matures into a practical paradigm, the need for secure and private quantum computation on untrusted hardware becomes increasingly urgent. While classical fully homomorphic encryption has enabled computation over encrypted data in untrusted environments, a fully homomorphic and practically implementable quantum counterpart remains elusive. In this work, we propose a universal quantum homomorphic encryption (QHE) framework developed from the Quantum One-Time Pad (QOTP) scheme. Our approach (QOTPH) maintains information-theoretic security and supports a broad class of quantum operations on encrypted quantum states through a systematic set of homomorphic gate decompositions and key update rules.   By leveraging the symmetric structure of QOTP and exploiting the transformation properties of quantum gates under Pauli encryption, we enable non-interactive homomorphic evaluation of arbitrary circuits expressible in the Clifford+T gate set, as well as controlled and parameterized operations relevant to variational quantum algorithms and delegated computation. We provide a formal specification of the proposed encryption model, detail its implementation procedure, and report the results obtained from both simulated environments and real quantum processors. Experimental validation demonstrates the correctness of the homomorphic operations and the preservation of key secrecy under circuit-level noise and real-device constraints.   This work takes a step toward bridging the gap between theoretical quantum homomorphic encryption and practical realization on near-term quantum hardware, offering a scalable and symmetric cryptographic primitive for privacy-preserving quantum computation.",
+  "categories": [
+    "quant-ph"
+  ],
+  "primary_category": "quant-ph",
+  "comment": "14 pages, 9 figures, 4 tables",
+  "published_date": "2026-04-21T09:20:08Z",
+  "updated_date": "2026-04-21T09:20:08Z",
+  "url": "https://arxiv.org/abs/2604.19256v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.19256v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-23T10:15:44.422636",
+  "category": "physics",
+  "subcategories": [
+    "quant-ph"
+  ]
+}

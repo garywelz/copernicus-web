@@ -1,0 +1,39 @@
+{
+  "id": "operator_algebras-gns",
+  "name": "GNS Construction",
+  "category": "mathematics",
+  "subcategory": "operator_algebras",
+  "subcategory_name": "Operator Algebras",
+  "description": "State ω → Hilbert space H_ω, rep π_ω. Cyclic vector.",
+  "mermaid": "graph TD\n    D1[\"Def: State on C*\\nω:A→C linear pos\"]\n    D2[\"Def: GNS rep\\nH_ω from ω, π_ω\"]\n    D3[\"Def: Cyclic vector\\nξ, π(A)ξ dense\"]\n    D4[\"Def: Faithful state\\nω(x*x)=0 ⇒ x=0\"]\n    T1[\"Thm: GNS unique\\nω → (H_ω,π_ω,ξ) unique\"]\n    T2[\"Thm: Cyclic\\nπ_ω cyclic for ξ\"]\n    T3[\"Thm: ω(x)=⟨ξ,π(x)ξ⟩\\nrecovery formula\"]\n    T4[\"Thm: Irreducible iff\\nω pure\"]\n    T5[\"Thm: Universal rep\\n⊕ all GNS reps\"]\n    D1 --> D2\n    D2 --> D3\n    D1 --> D4\n    D2 --> T1\n    D3 --> T2\n    T1 --> T3\n    D4 --> T4\n    T1 --> T5\n    classDef definition fill:#b197fc,color:#fff\n    classDef theorem fill:#51cf66,color:#fff\n    class D1,D2,D3,D4 definition\n    class T1,T2,T3,T4,T5 theorem",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

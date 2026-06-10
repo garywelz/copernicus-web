@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coordination Chemistry - Chemistry Process</title>
+    <title>Crystal Field Theory - Chemistry Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Coordination Chemistry</h1>
+            <h1>Crystal Field Theory</h1>
             <div class="header-meta">
                 <span class="meta-item">Chemistry</span>
                 <span class="meta-item">Inorganic Chemistry</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,67 +234,57 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Coordination Chemistry process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>Crystal field theory models ligands as point charges that split a metal's d-orbitals according to coordination geometry; comparing the splitting to the electron pairing energy predicts high- or low-spin configurations, color, and magnetic properties.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-A1[Ligand Selection] --> B1[Coordination Method]
-C1[Metal Ion] --> D1[Ligand Binding]
-E1[Complex Formation] --> F1[Coordination Analysis]
-B1 --> G1[Lewis Acid Base]
-D1 --> H1[Ligand Field Theory]
-F1 --> I1[Crystal Field Theory]
-G1 --> J1[Coordination Number]
-H1 --> K1[Ligand Strength]
-I1 --> L1[Electronic Configuration]
-J1 --> M1[Geometry Prediction]
-K1 --> L1
-L1 --> N1[Spin State]
-M1 --> O1[Stability Constant]
-N1 --> P1[Magnetic Properties]
-O1 --> Q1[Coordination Chemistry Process]
-P1 --> R1[Coordination Validation]
-Q1 --> S1[Coordination Verification]
-R1 --> T1[Coordination Result]
-S1 --> U1[Coordination Analysis]
-T1 --> V1[Coordination Parameters]
-U1 --> W1[Coordination Output]
-V1 --> X1[Coordination Analysis]
-W1 --> Y1[Coordination Final Result]
-X1 --> Z1[Coordination Chemistry Complete]
+    N1["Metal ion + ligands"]
+    N2["Ligands as point charges"]
+    N3["d-orbitals split"]
+    N4{"Geometry?"}
+    N5["Oh: t2g below eg"]
+    N6["Td: e below t2"]
+    N7{"Δo vs pairing energy?"}
+    N8["Strong field: low spin"]
+    N9["Weak field: high spin"]
+    N10["d-config, color, magnetism"]
 
-    style A1 fill:#ff6b6b,color:#fff
-    style C1 fill:#ff6b6b,color:#fff
-    style E1 fill:#ff6b6b,color:#fff
-    style B1 fill:#ffd43b,color:#000
-    style D1 fill:#ffd43b,color:#000
-    style F1 fill:#ffd43b,color:#000
-    style G1 fill:#ffd43b,color:#000
-    style H1 fill:#ffd43b,color:#000
-    style I1 fill:#ffd43b,color:#000
-    style J1 fill:#ffd43b,color:#000
-    style K1 fill:#ffd43b,color:#000
-    style L1 fill:#ffd43b,color:#000
-    style M1 fill:#51cf66,color:#fff
-    style N1 fill:#51cf66,color:#fff
-    style O1 fill:#51cf66,color:#fff
-    style P1 fill:#51cf66,color:#fff
-    style Q1 fill:#51cf66,color:#fff
-    style R1 fill:#51cf66,color:#fff
-    style S1 fill:#51cf66,color:#fff
-    style T1 fill:#51cf66,color:#fff
-    style U1 fill:#51cf66,color:#fff
-    style V1 fill:#51cf66,color:#fff
-    style W1 fill:#51cf66,color:#fff
-    style X1 fill:#51cf66,color:#fff
-    style Y1 fill:#51cf66,color:#fff
-    style Z1 fill:#b197fc,color:#fff
+    N1 --> N2
+    N2 --> N3
+    N3 --> N4
+    N4 -->|octahedral| N5
+    N4 -->|tetrahedral| N6
+    N5 --> N7
+    N6 --> N10
+    N7 -->|Δo > P| N8
+    N7 -->|Δo < P| N9
+    N8 --> N10
+    N9 --> N10
+
+    style N1 fill:#ff6b6b,color:#fff
+    style N2 fill:#51cf66,color:#fff
+    style N3 fill:#51cf66,color:#fff
+    style N4 fill:#74c0fc,color:#fff
+    style N5 fill:#51cf66,color:#fff
+    style N6 fill:#51cf66,color:#fff
+    style N7 fill:#74c0fc,color:#fff
+    style N8 fill:#51cf66,color:#fff
+    style N9 fill:#51cf66,color:#fff
+    style N10 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Metal ion + ligands</td><td>Triggers & Inputs</td><td><a href="https://www.pearson.com/en-gb/subject-catalog/p/inorganic-chemistry/P200000005860" target="_blank" title="Inorganic Chemistry, 6th ed. — d-Block Chemistry: Coordination Complexes" style="color:#e74c3c;">Housecroft, C. E. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Ligands as point charges</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1039/qr9571100381" target="_blank" title="Ligand-field theory" style="color:#e74c3c;">Griffith, J. S. et al. 1957</a></td></tr><tr><td style="font-weight:600;">d-orbitals split</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1039/qr9571100381" target="_blank" title="Ligand-field theory" style="color:#e74c3c;">Griffith, J. S. et al. 1957</a></td></tr><tr><td style="font-weight:600;">Geometry?</td><td>Intermediates & States</td><td><a href="https://www.pearson.com/en-gb/subject-catalog/p/inorganic-chemistry/P200000005860" target="_blank" title="Inorganic Chemistry, 6th ed. — d-Block Chemistry: Coordination Complexes" style="color:#e74c3c;">Housecroft, C. E. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Oh: t2g below eg</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1039/qr9571100381" target="_blank" title="Ligand-field theory" style="color:#e74c3c;">Griffith, J. S. et al. 1957</a></td></tr><tr><td style="font-weight:600;">Td: e below t2</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1039/qr9571100381" target="_blank" title="Ligand-field theory" style="color:#e74c3c;">Griffith, J. S. et al. 1957</a></td></tr><tr><td style="font-weight:600;">Δo vs pairing energy?</td><td>Intermediates & States</td><td><a href="https://www.pearson.com/en-gb/subject-catalog/p/inorganic-chemistry/P200000005860" target="_blank" title="Inorganic Chemistry, 6th ed. — d-Block Chemistry: Coordination Complexes" style="color:#e74c3c;">Housecroft, C. E. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Strong field: low spin</td><td>Processing & Operations</td><td><a href="https://www.pearson.com/en-gb/subject-catalog/p/inorganic-chemistry/P200000005860" target="_blank" title="Inorganic Chemistry, 6th ed. — d-Block Chemistry: Coordination Complexes" style="color:#e74c3c;">Housecroft, C. E. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Weak field: high spin</td><td>Processing & Operations</td><td><a href="https://www.pearson.com/en-gb/subject-catalog/p/inorganic-chemistry/P200000005860" target="_blank" title="Inorganic Chemistry, 6th ed. — d-Block Chemistry: Coordination Complexes" style="color:#e74c3c;">Housecroft, C. E. et al. 2018</a></td></tr><tr><td style="font-weight:600;">d-config, color, magnetism</td><td>Products & Outputs</td><td><a href="https://www.pearson.com/en-gb/subject-catalog/p/inorganic-chemistry/P200000005860" target="_blank" title="Inorganic Chemistry, 6th ed. — d-Block Chemistry: Coordination Complexes" style="color:#e74c3c;">Housecroft, C. E. et al. 2018</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -313,12 +330,12 @@ X1 --> Z1[Coordination Chemistry Complete]
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 26</li>
-                        <li><strong>Edges:</strong> 21</li>
-                        <li><strong>Conditionals:</strong> 0</li>
+                        <li><strong>Nodes:</strong> 10</li>
+                        <li><strong>Edges:</strong> 11</li>
+                        <li><strong>Conditionals:</strong> 2</li>
                         <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 1</li>
+                        <li><strong>OR Gates:</strong> 2</li>
+                        <li><strong>Total Gates:</strong> 3</li>
                     </ul>
                 </div>
                 
@@ -326,7 +343,7 @@ X1 --> Z1[Coordination Chemistry Complete]
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>coordination</li><li>chemistry</li>
+                        <li>crystal field theory</li><li>d-orbital splitting</li><li>high spin low spin</li><li>ligand field</li><li>magnetism</li>
                     </ul>
                 </div>
                 
@@ -337,42 +354,32 @@ X1 --> Z1[Coordination Chemistry Complete]
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Ligand-field theory</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Griffith, J. S.; Orgel, L. E.
+                            , Quarterly Reviews, Chemical Society
+                             (1957)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Coordination Chemistry reviews</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Seddon, K.R.
-                            , Coordination Chemistry Reviews
-                             (1988)
-                            </span>
-                            <br><a href="https://doi.org/10.1016/0010-8545(88)80035-3" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1016/0010-8545(88)80035-3</a>
+                            <br><a href="https://doi.org/10.1039/qr9571100381" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1039/qr9571100381</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Coordination chemistry—20</strong>
-                            
-                            , Coordination Chemistry Reviews
-                             (1982)
+                            <strong>Inorganic Chemistry, 6th ed. — d-Block Chemistry: Coordination Complexes</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Housecroft, C. E.; Sharpe, A. G.
+                            , Pearson
+                             (2018)
                             </span>
-                            <br><a href="https://doi.org/10.1016/0010-8545(82)85016-9" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1016/0010-8545(82)85016-9</a>
                             
+                            <br><a href="https://www.pearson.com/en-gb/subject-catalog/p/inorganic-chemistry/P200000005860" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Coordination chemistry—21</strong>
-                            
-                            , Coordination Chemistry Reviews
-                             (1982)
+                            <strong>Gold Book: crystal-field splitting</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">IUPAC
+                            , IUPAC Compendium of Chemical Terminology
+                             (2019)
                             </span>
-                            <br><a href="https://doi.org/10.1016/0010-8545(82)85017-0" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1016/0010-8545(82)85017-0</a>
+                            <br><a href="https://doi.org/10.1351/goldbook.C01419" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1351/goldbook.C01419</a>
                             
                         </li>
                         

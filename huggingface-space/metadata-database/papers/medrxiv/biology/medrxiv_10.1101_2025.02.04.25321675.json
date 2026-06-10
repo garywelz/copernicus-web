@@ -1,0 +1,51 @@
+{
+  "id": "medrxiv_10.1101_2025.02.04.25321675",
+  "doi": "10.1101/2025.02.04.25321675",
+  "title": "A Multimodal Sleep Foundation Model for Disease Prediction",
+  "authors": [
+    "Thapa, R.",
+    "Kjaer, M. R.",
+    "He, B.",
+    "Covert, I.",
+    "Moore, H.",
+    "Hanif, U.",
+    "Ganjoo, G.",
+    "Westover, B.",
+    "Jennum, P.",
+    "Brink-Kjaer, A.",
+    "Mignot, E.",
+    "Zou, J."
+  ],
+  "author_string": "Thapa, R., Kjaer, M. R., He, B., Covert, I., Moore, H. et al.",
+  "journal": "medRxiv",
+  "journal_full": "medRxiv",
+  "year": "2026",
+  "abstract": "Sleep is a fundamental biological process with broad implications for physical and mental health, yet its complex relationship with disease remains poorly understood. Polysomnog-raphy (PSG), the gold standard for sleep analysis, captures rich physiological signals but remains underutilized due to challenges in standardization, generalizability, and multimodal integration. To address these limitations, we developed SleepFM, a multimodal sleep founda-tion model trained with a novel contrastive learning approach that accommodates multiple PSG montages--the specific arrangements of electrodes and sensors used to record physi-ological signals during sleep. Trained on a curated dataset of over 585,000 hours of PSG recordings from approximately 65,000 participants across multiple cohorts, SleepFM produces latent sleep representations that capture the physiological and temporal structure of sleep and enable accurate prediction of future disease risk. SleepFM achieved a C-Index of at least 0.75 (Bonferroni-corrected p < 0.01) for 130 conditions, including all-cause mortality (C-Index: 0.84), dementia (0.85), myocardial infarction (0.81), heart failure (0.80), chronic kidney disease (0.79), stroke (0.78), and atrial fibrillation (0.78). Moreover, the model demonstrates strong transfer learning performance on a dataset from the Sleep Heart Health Study (SHHS), a dataset that was excluded from pretraining, and performs competitively with specialized sleep-staging models such as U-Sleep and YASA on common sleep analysis tasks, achieving mean F1 scores of 0.70-0.78 for sleep staging and accuracies of 0.69 and 0.87 for classifying sleep apnea severity and presence. This work shows that foundation models can extract clinically meaningful features from multi-modal sleep recordings, enabling scalable, label-efficient analysis and disease prediction.",
+  "keywords": [],
+  "categories": [
+    "health informatics"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.1101/2025.02.04.25321675",
+  "source": "medrxiv",
+  "sources": [
+    "medrxiv"
+  ],
+  "acquired_date": "2026-05-12T22:15:25.506683",
+  "category": "biology",
+  "subcategories": [
+    "health informatics"
+  ],
+  "published_date": "2026-01-12",
+  "updated_date": "2026-01-12",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "medrxiv",
+  "preprint_version": "3",
+  "preprint_type": "PUBLISHAHEADOFPRINT",
+  "license": "cc_by_nc",
+  "jatsxml": "https://www.medrxiv.org/content/early/2026/01/12/2025.02.04.25321675.source.xml",
+  "published_doi": "10.1038/s41591-025-04133-4",
+  "author_corresponding": "Rahul Thapa",
+  "author_corresponding_institution": "Stanford University"
+}

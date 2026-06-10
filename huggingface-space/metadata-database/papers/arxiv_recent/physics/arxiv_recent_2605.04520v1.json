@@ -1,0 +1,42 @@
+{
+  "id": "arxiv_2605.04520v1",
+  "arxiv_id": "2605.04520v1",
+  "title": "Development and Validation of Patient-Specific Monte Carlo Dosimetry for Synchrotron Breast Phase-Contrast CT",
+  "authors": [
+    "Amir Entezam",
+    "Ashkan Pakzad",
+    "Christopher J. Hall",
+    "Anton Maksimenko",
+    "Matthew John Cameron",
+    "Adam Round",
+    "Mojtaba Hoseini-Ghahfarokhi",
+    "Seyedamir T. Taba",
+    "Yakov I. Nesterets",
+    "Daniel Hausermann",
+    "Magdalena Bazalova-Carter",
+    "Patrick C. Brennan",
+    "Timur E. Gureyev",
+    "Harry M. Quiney"
+  ],
+  "author_string": "Amir Entezam, Ashkan Pakzad, Christopher J. Hall, Anton Maksimenko, Matthew John Cameron et al.",
+  "journal": "arXiv:2605.04520v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "This study develops and validates a patient-specific Monte Carlo (MC) dosimetry framework for propagation-based phase-contrast breast CT (BCT) at the Imaging and Medical Beamline (IMBL), ANSTO Australian Synchrotron, for accurate mean glandular dose (MGD) estimation. BCT provides 3D imaging without breast compression, improving comfort and visualization of internal structures for cancer detection. Propagation-based phase contrast improves soft-tissue contrast at equal or lower dose than conventional systems. Accurate dosimetry remains essential for safety and optimisation. Most MC-based MGD studies use non-patient-specific phantoms that ignore anatomical variability, while existing patient-specific methods lack a unified framework. Here, a voxel-based MC framework using EGSnrc was implemented to compute MGD in realistic anthropomorphic breast phantoms derived from synchrotron BCT images. IMBL beam characteristics were used as source inputs. Homogeneous phantoms were also generated to compute air Kerma to MGD conversion coefficients (DgN) for comparison with heterogeneous models. Simulations covered breast height, skin thickness, and photon energies (28 to 38 keV). Results show MGD depends strongly on anatomy and energy. Higher glandular density reduces MGD, while larger breast volume increases dose. A 2 mm increase in skin thickness reduces MGD by 10%. Differences between heterogeneous and homogeneous phantoms show variations in DgN, highlighting the need for anatomical realism. The framework provides a robust basis for patient-specific dosimetry in synchrotron phase-contrast BCT, enabling precise MGD estimation and supporting safe, optimised clinical imaging. This supports improved protocol design and contributes to standardised patient-specific dosimetry for clinical translation across varying breast anatomies and imaging conditions within synchrotron BCT applications.",
+  "categories": [
+    "physics.med-ph"
+  ],
+  "primary_category": "physics.med-ph",
+  "comment": null,
+  "published_date": "2026-05-06T05:58:08Z",
+  "updated_date": "2026-05-06T05:58:08Z",
+  "url": "https://arxiv.org/abs/2605.04520v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.04520v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-07T10:15:50.772983",
+  "category": "physics",
+  "subcategories": [
+    "physics.med-ph"
+  ]
+}

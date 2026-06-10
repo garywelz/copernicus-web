@@ -1,0 +1,3216 @@
+{
+  "nodes": [
+    {
+      "id": "life",
+      "name": "Life",
+      "type": "root",
+      "level": 0,
+      "rank": "root",
+      "description": "Cellular life organized into Bacteria, Archaea, and Eukarya.",
+      "childCount": 4,
+      "normalizedRank": "root",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Broad taxonomy scaffold curated from common biology textbook and public taxonomy concepts."
+    },
+    {
+      "id": "bacteria",
+      "name": "Bacteria",
+      "type": "domain",
+      "level": 1,
+      "rank": "domain",
+      "description": "Prokaryotic domain containing diverse bacterial lineages.",
+      "childCount": 13,
+      "descendantCount": 32,
+      "normalizedRank": "domain",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Broad taxonomy scaffold curated from common biology textbook and public taxonomy concepts."
+    },
+    {
+      "id": "archaea",
+      "name": "Archaea",
+      "type": "domain",
+      "level": 1,
+      "rank": "domain",
+      "description": "Prokaryotic domain with many extremophiles and close evolutionary ties to eukaryotes.",
+      "childCount": 7,
+      "descendantCount": 19,
+      "normalizedRank": "domain",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Broad taxonomy scaffold curated from common biology textbook and public taxonomy concepts."
+    },
+    {
+      "id": "eukarya",
+      "name": "Eukarya",
+      "type": "domain",
+      "level": 1,
+      "rank": "domain",
+      "description": "Domain containing organisms with nuclei and membrane-bound organelles.",
+      "childCount": 4,
+      "descendantCount": 107,
+      "normalizedRank": "domain",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Broad taxonomy scaffold curated from common biology textbook and public taxonomy concepts."
+    },
+    {
+      "id": "proteobacteria",
+      "name": "Proteobacteria",
+      "type": "clade",
+      "level": 2,
+      "rank": "phylum",
+      "description": "Large bacterial phylum including many model organisms and pathogens.",
+      "childCount": 5,
+      "descendantCount": 6,
+      "normalizedRank": "phylum",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Broad taxonomy scaffold curated from common biology textbook and public taxonomy concepts."
+    },
+    {
+      "id": "firmicutes",
+      "name": "Firmicutes/Bacillota",
+      "type": "clade",
+      "level": 2,
+      "rank": "phylum",
+      "description": "Gram-positive lineage including Bacillus, Clostridia, and lactic acid bacteria.",
+      "childCount": 3,
+      "descendantCount": 4,
+      "normalizedRank": "phylum",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Broad taxonomy scaffold curated from common biology textbook and public taxonomy concepts."
+    },
+    {
+      "id": "actinobacteria",
+      "name": "Actinobacteria/Actinomycetota",
+      "type": "clade",
+      "level": 2,
+      "rank": "phylum",
+      "description": "High-GC Gram-positive bacteria including Streptomyces and Mycobacterium.",
+      "childCount": 2,
+      "descendantCount": 3,
+      "normalizedRank": "phylum",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Broad taxonomy scaffold curated from common biology textbook and public taxonomy concepts."
+    },
+    {
+      "id": "cyanobacteria",
+      "name": "Cyanobacteria",
+      "type": "clade",
+      "level": 2,
+      "rank": "phylum",
+      "description": "Photosynthetic bacteria central to oxygenic photosynthesis.",
+      "childCount": 3,
+      "descendantCount": 3,
+      "normalizedRank": "phylum",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Broad taxonomy scaffold curated from common biology textbook and public taxonomy concepts."
+    },
+    {
+      "id": "bacteroidetes",
+      "name": "Bacteroidetes/Bacteroidota",
+      "type": "clade",
+      "level": 2,
+      "rank": "phylum",
+      "description": "Diverse bacteria common in soils, oceans, and animal microbiomes.",
+      "childCount": 2,
+      "descendantCount": 3,
+      "normalizedRank": "phylum",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Broad taxonomy scaffold curated from common biology textbook and public taxonomy concepts."
+    },
+    {
+      "id": "spirochaetes",
+      "name": "Spirochaetes/Spirochaetota",
+      "type": "clade",
+      "level": 2,
+      "rank": "phylum",
+      "description": "Helical bacteria including free-living and pathogenic forms.",
+      "childCount": 0,
+      "descendantCount": 0,
+      "normalizedRank": "phylum",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Broad taxonomy scaffold curated from common biology textbook and public taxonomy concepts."
+    },
+    {
+      "id": "deinococcus_thermus",
+      "name": "Deinococcus-Thermus",
+      "type": "clade",
+      "level": 2,
+      "rank": "phylum",
+      "description": "Bacteria known for radiation resistance and thermophily.",
+      "childCount": 0,
+      "descendantCount": 0,
+      "normalizedRank": "phylum",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Broad taxonomy scaffold curated from common biology textbook and public taxonomy concepts."
+    },
+    {
+      "id": "planctomycetes",
+      "name": "Planctomycetes",
+      "type": "clade",
+      "level": 2,
+      "rank": "phylum",
+      "description": "Bacteria with unusual cell biology and aquatic/soil diversity.",
+      "childCount": 0,
+      "descendantCount": 0,
+      "normalizedRank": "phylum",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Broad taxonomy scaffold curated from common biology textbook and public taxonomy concepts."
+    },
+    {
+      "id": "chlamydiae",
+      "name": "Chlamydiae/Chlamydiota",
+      "type": "clade",
+      "level": 2,
+      "rank": "phylum",
+      "description": "Mostly intracellular bacterial lineage.",
+      "childCount": 0,
+      "descendantCount": 0,
+      "normalizedRank": "phylum",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Broad taxonomy scaffold curated from common biology textbook and public taxonomy concepts."
+    },
+    {
+      "id": "acidobacteria",
+      "name": "Acidobacteria/Acidobacteriota",
+      "type": "clade",
+      "level": 2,
+      "rank": "phylum",
+      "description": "Abundant soil bacterial lineage.",
+      "childCount": 0,
+      "descendantCount": 0,
+      "normalizedRank": "phylum",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Broad taxonomy scaffold curated from common biology textbook and public taxonomy concepts."
+    },
+    {
+      "id": "verrucomicrobia",
+      "name": "Verrucomicrobia/Verrucomicrobiota",
+      "type": "clade",
+      "level": 2,
+      "rank": "phylum",
+      "description": "Environmental and host-associated bacterial lineage.",
+      "childCount": 0,
+      "descendantCount": 0,
+      "normalizedRank": "phylum",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Broad taxonomy scaffold curated from common biology textbook and public taxonomy concepts."
+    },
+    {
+      "id": "aquificota",
+      "name": "Aquificota",
+      "type": "clade",
+      "level": 2,
+      "rank": "phylum",
+      "description": "Deep-branching thermophilic bacterial lineage.",
+      "childCount": 0,
+      "descendantCount": 0,
+      "normalizedRank": "phylum",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Broad taxonomy scaffold curated from common biology textbook and public taxonomy concepts."
+    },
+    {
+      "id": "thermotogota",
+      "name": "Thermotogota",
+      "type": "clade",
+      "level": 2,
+      "rank": "phylum",
+      "description": "Thermophilic anaerobic bacterial lineage.",
+      "childCount": 0,
+      "descendantCount": 0,
+      "normalizedRank": "phylum",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Broad taxonomy scaffold curated from common biology textbook and public taxonomy concepts."
+    },
+    {
+      "id": "alphaproteobacteria",
+      "name": "Alphaproteobacteria",
+      "type": "clade",
+      "level": 3,
+      "rank": "class/order",
+      "childCount": 0,
+      "descendantCount": 0,
+      "normalizedRank": "order",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "betaproteobacteria",
+      "name": "Betaproteobacteria",
+      "type": "clade",
+      "level": 3,
+      "rank": "class/order",
+      "childCount": 0,
+      "descendantCount": 0,
+      "normalizedRank": "order",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "gammaproteobacteria",
+      "name": "Gammaproteobacteria",
+      "type": "clade",
+      "level": 3,
+      "rank": "class/order",
+      "childCount": 1,
+      "descendantCount": 1,
+      "normalizedRank": "order",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "deltaproteobacteria",
+      "name": "Deltaproteobacteria",
+      "type": "clade",
+      "level": 3,
+      "rank": "class/order",
+      "childCount": 0,
+      "descendantCount": 0,
+      "normalizedRank": "order",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "epsilonproteobacteria",
+      "name": "Epsilonproteobacteria",
+      "type": "clade",
+      "level": 3,
+      "rank": "class/order",
+      "childCount": 0,
+      "descendantCount": 0,
+      "normalizedRank": "order",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "bacilli",
+      "name": "Bacilli",
+      "type": "clade",
+      "level": 3,
+      "rank": "class/order",
+      "childCount": 1,
+      "descendantCount": 1,
+      "normalizedRank": "order",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "clostridia",
+      "name": "Clostridia",
+      "type": "clade",
+      "level": 3,
+      "rank": "class/order",
+      "childCount": 0,
+      "descendantCount": 0,
+      "normalizedRank": "order",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "lactobacillales",
+      "name": "Lactobacillales",
+      "type": "clade",
+      "level": 3,
+      "rank": "class/order",
+      "childCount": 0,
+      "descendantCount": 0,
+      "normalizedRank": "order",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "actinomycetia",
+      "name": "Actinomycetia",
+      "type": "clade",
+      "level": 3,
+      "rank": "class/order",
+      "childCount": 1,
+      "descendantCount": 1,
+      "normalizedRank": "order",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "corynebacteriales",
+      "name": "Corynebacteriales",
+      "type": "clade",
+      "level": 3,
+      "rank": "class/order",
+      "childCount": 0,
+      "descendantCount": 0,
+      "normalizedRank": "order",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "oscillatoriophycideae",
+      "name": "Oscillatoriophycideae",
+      "type": "clade",
+      "level": 3,
+      "rank": "class/order",
+      "childCount": 0,
+      "descendantCount": 0,
+      "normalizedRank": "order",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "nostocales",
+      "name": "Nostocales",
+      "type": "clade",
+      "level": 3,
+      "rank": "class/order",
+      "childCount": 0,
+      "descendantCount": 0,
+      "normalizedRank": "order",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "bacteroidia",
+      "name": "Bacteroidia",
+      "type": "clade",
+      "level": 3,
+      "rank": "class/order",
+      "childCount": 1,
+      "descendantCount": 1,
+      "normalizedRank": "order",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "flavobacteriia",
+      "name": "Flavobacteriia",
+      "type": "clade",
+      "level": 3,
+      "rank": "class/order",
+      "childCount": 0,
+      "descendantCount": 0,
+      "normalizedRank": "order",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "escherichia_coli",
+      "name": "Escherichia coli",
+      "type": "organism",
+      "level": 4,
+      "rank": "species/genus",
+      "url": "processes/graph_type_pilots/taxonomy-domains-of-life.html",
+      "description": "Representative organism anchor for the pilot map.",
+      "childCount": 0,
+      "normalizedRank": "species",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "bacillus_subtilis",
+      "name": "Bacillus subtilis",
+      "type": "organism",
+      "level": 4,
+      "rank": "species/genus",
+      "url": "",
+      "description": "Representative organism anchor for the pilot map.",
+      "childCount": 0,
+      "normalizedRank": "species",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "streptomyces",
+      "name": "Streptomyces",
+      "type": "organism",
+      "level": 4,
+      "rank": "species/genus",
+      "url": "",
+      "description": "Representative organism anchor for the pilot map.",
+      "childCount": 0,
+      "normalizedRank": "species",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "synechocystis",
+      "name": "Synechocystis",
+      "type": "organism",
+      "level": 3,
+      "rank": "species/genus",
+      "url": "",
+      "description": "Representative organism anchor for the pilot map.",
+      "childCount": 0,
+      "normalizedRank": "species",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "bacteroides_fragilis",
+      "name": "Bacteroides fragilis",
+      "type": "organism",
+      "level": 4,
+      "rank": "species/genus",
+      "url": "",
+      "description": "Representative organism anchor for the pilot map.",
+      "childCount": 0,
+      "normalizedRank": "species",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "euryarchaeota",
+      "name": "Euryarchaeota",
+      "type": "clade",
+      "level": 2,
+      "rank": "phylum/superphylum",
+      "description": "Methanogens, halophiles, and thermophilic archaeal lineages.",
+      "childCount": 3,
+      "descendantCount": 4,
+      "normalizedRank": "phylum",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Broad taxonomy scaffold curated from common biology textbook and public taxonomy concepts."
+    },
+    {
+      "id": "crenarchaeota",
+      "name": "Crenarchaeota",
+      "type": "clade",
+      "level": 2,
+      "rank": "phylum/superphylum",
+      "description": "Thermophilic and environmental archaeal lineages.",
+      "childCount": 2,
+      "descendantCount": 3,
+      "normalizedRank": "phylum",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Broad taxonomy scaffold curated from common biology textbook and public taxonomy concepts."
+    },
+    {
+      "id": "thaumarchaeota",
+      "name": "Thaumarchaeota",
+      "type": "clade",
+      "level": 2,
+      "rank": "phylum/superphylum",
+      "description": "Ammonia-oxidizing archaea important in nitrogen cycling.",
+      "childCount": 1,
+      "descendantCount": 2,
+      "normalizedRank": "phylum",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Broad taxonomy scaffold curated from common biology textbook and public taxonomy concepts."
+    },
+    {
+      "id": "korarchaeota",
+      "name": "Korarchaeota",
+      "type": "clade",
+      "level": 2,
+      "rank": "phylum/superphylum",
+      "description": "Rare archaeal lineage known from high-temperature environments.",
+      "childCount": 0,
+      "descendantCount": 0,
+      "normalizedRank": "phylum",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Broad taxonomy scaffold curated from common biology textbook and public taxonomy concepts."
+    },
+    {
+      "id": "nanoarchaeota",
+      "name": "Nanoarchaeota",
+      "type": "clade",
+      "level": 2,
+      "rank": "phylum/superphylum",
+      "description": "Small symbiotic archaeal lineage.",
+      "childCount": 0,
+      "descendantCount": 0,
+      "normalizedRank": "phylum",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Broad taxonomy scaffold curated from common biology textbook and public taxonomy concepts."
+    },
+    {
+      "id": "asgard_archaea",
+      "name": "Asgard Archaea",
+      "type": "clade",
+      "level": 2,
+      "rank": "phylum/superphylum",
+      "description": "Archaeal superphylum relevant to eukaryotic origins.",
+      "childCount": 3,
+      "descendantCount": 3,
+      "normalizedRank": "phylum",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Broad taxonomy scaffold curated from common biology textbook and public taxonomy concepts."
+    },
+    {
+      "id": "dpann_archaea",
+      "name": "DPANN Archaea",
+      "type": "clade",
+      "level": 2,
+      "rank": "phylum/superphylum",
+      "description": "Diverse small archaeal lineages, often symbiotic.",
+      "childCount": 0,
+      "descendantCount": 0,
+      "normalizedRank": "phylum",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Broad taxonomy scaffold curated from common biology textbook and public taxonomy concepts."
+    },
+    {
+      "id": "methanogens",
+      "name": "Methanogens",
+      "type": "clade",
+      "level": 3,
+      "rank": "class/order",
+      "childCount": 0,
+      "descendantCount": 0,
+      "normalizedRank": "order",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "halobacteria",
+      "name": "Halobacteria",
+      "type": "clade",
+      "level": 3,
+      "rank": "class/order",
+      "childCount": 1,
+      "descendantCount": 1,
+      "normalizedRank": "order",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "thermococci",
+      "name": "Thermococci",
+      "type": "clade",
+      "level": 3,
+      "rank": "class/order",
+      "childCount": 0,
+      "descendantCount": 0,
+      "normalizedRank": "order",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "sulfolobales",
+      "name": "Sulfolobales",
+      "type": "clade",
+      "level": 3,
+      "rank": "class/order",
+      "childCount": 1,
+      "descendantCount": 1,
+      "normalizedRank": "order",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "desulfurococcales",
+      "name": "Desulfurococcales",
+      "type": "clade",
+      "level": 3,
+      "rank": "class/order",
+      "childCount": 0,
+      "descendantCount": 0,
+      "normalizedRank": "order",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "nitrososphaeria",
+      "name": "Nitrososphaeria",
+      "type": "clade",
+      "level": 3,
+      "rank": "class/order",
+      "childCount": 1,
+      "descendantCount": 1,
+      "normalizedRank": "order",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "lokiarchaeota",
+      "name": "Lokiarchaeota",
+      "type": "clade",
+      "level": 3,
+      "rank": "class/order",
+      "childCount": 0,
+      "descendantCount": 0,
+      "normalizedRank": "order",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "thorarchaeota",
+      "name": "Thorarchaeota",
+      "type": "clade",
+      "level": 3,
+      "rank": "class/order",
+      "childCount": 0,
+      "descendantCount": 0,
+      "normalizedRank": "order",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "heimdallarchaeota",
+      "name": "Heimdallarchaeota",
+      "type": "clade",
+      "level": 3,
+      "rank": "class/order",
+      "childCount": 0,
+      "descendantCount": 0,
+      "normalizedRank": "order",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "halobacterium_salinarum",
+      "name": "Halobacterium salinarum",
+      "type": "organism",
+      "level": 4,
+      "rank": "species",
+      "childCount": 0,
+      "normalizedRank": "species",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "sulfolobus_solfataricus",
+      "name": "Sulfolobus solfataricus",
+      "type": "organism",
+      "level": 4,
+      "rank": "species",
+      "childCount": 0,
+      "normalizedRank": "species",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "nitrosopumilus_maritimus",
+      "name": "Nitrosopumilus maritimus",
+      "type": "organism",
+      "level": 4,
+      "rank": "species",
+      "childCount": 0,
+      "normalizedRank": "species",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "animals",
+      "name": "Animals/Metazoa",
+      "type": "supergroup",
+      "level": 2,
+      "rank": "kingdom/supergroup",
+      "description": "Multicellular heterotrophic eukaryotes.",
+      "childCount": 4,
+      "descendantCount": 39,
+      "normalizedRank": "supergroup",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Broad taxonomy scaffold curated from common biology textbook and public taxonomy concepts."
+    },
+    {
+      "id": "plants",
+      "name": "Plants/Archaeplastida",
+      "type": "supergroup",
+      "level": 2,
+      "rank": "kingdom/supergroup",
+      "description": "Photosynthetic eukaryotes including green plants, red algae, and glaucophytes.",
+      "childCount": 3,
+      "descendantCount": 28,
+      "normalizedRank": "supergroup",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Broad taxonomy scaffold curated from common biology textbook and public taxonomy concepts."
+    },
+    {
+      "id": "fungi",
+      "name": "Fungi",
+      "type": "supergroup",
+      "level": 2,
+      "rank": "kingdom/supergroup",
+      "description": "Eukaryotes including yeasts, molds, and mushrooms.",
+      "childCount": 3,
+      "descendantCount": 12,
+      "normalizedRank": "supergroup",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Broad taxonomy scaffold curated from common biology textbook and public taxonomy concepts."
+    },
+    {
+      "id": "protists",
+      "name": "Protist supergroups",
+      "type": "supergroup",
+      "level": 2,
+      "rank": "kingdom/supergroup",
+      "description": "Diverse eukaryotic lineages outside animals, plants, and fungi.",
+      "childCount": 5,
+      "descendantCount": 24,
+      "normalizedRank": "supergroup",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Broad taxonomy scaffold curated from common biology textbook and public taxonomy concepts."
+    },
+    {
+      "id": "porifera",
+      "name": "Sponges/Porifera",
+      "type": "clade",
+      "level": 3,
+      "rank": "phylum",
+      "childCount": 0,
+      "descendantCount": 0,
+      "normalizedRank": "phylum",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Broad taxonomy scaffold curated from common biology textbook and public taxonomy concepts."
+    },
+    {
+      "id": "ctenophora",
+      "name": "Comb jellies/Ctenophora",
+      "type": "clade",
+      "level": 3,
+      "rank": "phylum",
+      "childCount": 0,
+      "descendantCount": 0,
+      "normalizedRank": "phylum",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Broad taxonomy scaffold curated from common biology textbook and public taxonomy concepts."
+    },
+    {
+      "id": "cnidaria",
+      "name": "Cnidaria",
+      "type": "clade",
+      "level": 3,
+      "rank": "phylum",
+      "childCount": 0,
+      "descendantCount": 0,
+      "normalizedRank": "phylum",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Broad taxonomy scaffold curated from common biology textbook and public taxonomy concepts."
+    },
+    {
+      "id": "bilateria",
+      "name": "Bilateria",
+      "type": "clade",
+      "level": 3,
+      "rank": "clade",
+      "childCount": 2,
+      "descendantCount": 35,
+      "normalizedRank": "clade",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "protostomes",
+      "name": "Protostomes",
+      "type": "clade",
+      "level": 4,
+      "rank": "clade",
+      "childCount": 2,
+      "descendantCount": 10,
+      "normalizedRank": "clade",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "deuterostomes",
+      "name": "Deuterostomes",
+      "type": "clade",
+      "level": 4,
+      "rank": "clade",
+      "childCount": 3,
+      "descendantCount": 23,
+      "normalizedRank": "clade",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "ecdysozoa",
+      "name": "Ecdysozoa",
+      "type": "clade",
+      "level": 5,
+      "rank": "clade",
+      "childCount": 3,
+      "descendantCount": 5,
+      "normalizedRank": "clade",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "lophotrochozoa",
+      "name": "Lophotrochozoa",
+      "type": "clade",
+      "level": 5,
+      "rank": "clade",
+      "childCount": 3,
+      "descendantCount": 3,
+      "normalizedRank": "clade",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "arthropods",
+      "name": "Arthropods",
+      "type": "clade",
+      "level": 6,
+      "rank": "phylum",
+      "childCount": 1,
+      "descendantCount": 1,
+      "normalizedRank": "phylum",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Broad taxonomy scaffold curated from common biology textbook and public taxonomy concepts."
+    },
+    {
+      "id": "nematodes",
+      "name": "Nematodes",
+      "type": "clade",
+      "level": 6,
+      "rank": "phylum",
+      "childCount": 1,
+      "descendantCount": 1,
+      "normalizedRank": "phylum",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Broad taxonomy scaffold curated from common biology textbook and public taxonomy concepts."
+    },
+    {
+      "id": "tardigrades",
+      "name": "Tardigrades",
+      "type": "clade",
+      "level": 6,
+      "rank": "phylum",
+      "childCount": 0,
+      "descendantCount": 0,
+      "normalizedRank": "phylum",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Broad taxonomy scaffold curated from common biology textbook and public taxonomy concepts."
+    },
+    {
+      "id": "molluscs",
+      "name": "Molluscs",
+      "type": "clade",
+      "level": 6,
+      "rank": "phylum",
+      "childCount": 0,
+      "descendantCount": 0,
+      "normalizedRank": "phylum",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Broad taxonomy scaffold curated from common biology textbook and public taxonomy concepts."
+    },
+    {
+      "id": "annelids",
+      "name": "Annelids",
+      "type": "clade",
+      "level": 6,
+      "rank": "phylum",
+      "childCount": 0,
+      "descendantCount": 0,
+      "normalizedRank": "phylum",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Broad taxonomy scaffold curated from common biology textbook and public taxonomy concepts."
+    },
+    {
+      "id": "flatworms",
+      "name": "Flatworms/Platyhelminthes",
+      "type": "clade",
+      "level": 6,
+      "rank": "phylum",
+      "childCount": 0,
+      "descendantCount": 0,
+      "normalizedRank": "phylum",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Broad taxonomy scaffold curated from common biology textbook and public taxonomy concepts."
+    },
+    {
+      "id": "echinoderms",
+      "name": "Echinoderms",
+      "type": "clade",
+      "level": 5,
+      "rank": "phylum",
+      "childCount": 0,
+      "descendantCount": 0,
+      "normalizedRank": "phylum",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Broad taxonomy scaffold curated from common biology textbook and public taxonomy concepts."
+    },
+    {
+      "id": "hemichordates",
+      "name": "Hemichordates",
+      "type": "clade",
+      "level": 5,
+      "rank": "phylum",
+      "childCount": 0,
+      "descendantCount": 0,
+      "normalizedRank": "phylum",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Broad taxonomy scaffold curated from common biology textbook and public taxonomy concepts."
+    },
+    {
+      "id": "chordates",
+      "name": "Chordates",
+      "type": "clade",
+      "level": 5,
+      "rank": "phylum",
+      "childCount": 1,
+      "descendantCount": 20,
+      "normalizedRank": "phylum",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Broad taxonomy scaffold curated from common biology textbook and public taxonomy concepts."
+    },
+    {
+      "id": "vertebrates",
+      "name": "Vertebrates",
+      "type": "clade",
+      "level": 6,
+      "rank": "subphylum",
+      "childCount": 5,
+      "descendantCount": 19,
+      "normalizedRank": "phylum",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Broad taxonomy scaffold curated from common biology textbook and public taxonomy concepts."
+    },
+    {
+      "id": "jawless_fish",
+      "name": "Jawless fish",
+      "type": "clade",
+      "level": 7,
+      "rank": "clade",
+      "childCount": 0,
+      "descendantCount": 0,
+      "normalizedRank": "clade",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "cartilaginous_fish",
+      "name": "Cartilaginous fish",
+      "type": "clade",
+      "level": 7,
+      "rank": "class",
+      "childCount": 0,
+      "descendantCount": 0,
+      "normalizedRank": "class",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "bony_fish",
+      "name": "Bony fish",
+      "type": "clade",
+      "level": 7,
+      "rank": "class",
+      "childCount": 1,
+      "descendantCount": 1,
+      "normalizedRank": "class",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "amphibians",
+      "name": "Amphibians",
+      "type": "clade",
+      "level": 7,
+      "rank": "class",
+      "childCount": 0,
+      "descendantCount": 0,
+      "normalizedRank": "class",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "amniotes",
+      "name": "Amniotes",
+      "type": "clade",
+      "level": 7,
+      "rank": "clade",
+      "childCount": 3,
+      "descendantCount": 13,
+      "normalizedRank": "clade",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "reptiles",
+      "name": "Reptiles",
+      "type": "clade",
+      "level": 8,
+      "rank": "class",
+      "childCount": 0,
+      "descendantCount": 0,
+      "normalizedRank": "class",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "birds",
+      "name": "Birds",
+      "type": "clade",
+      "level": 8,
+      "rank": "class",
+      "childCount": 0,
+      "descendantCount": 0,
+      "normalizedRank": "class",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "mammals",
+      "name": "Mammals",
+      "type": "clade",
+      "level": 8,
+      "rank": "class",
+      "childCount": 3,
+      "descendantCount": 10,
+      "normalizedRank": "class",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "monotremes",
+      "name": "Monotremes",
+      "type": "clade",
+      "level": 9,
+      "rank": "order",
+      "childCount": 0,
+      "descendantCount": 0,
+      "normalizedRank": "order",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "marsupials",
+      "name": "Marsupials",
+      "type": "clade",
+      "level": 9,
+      "rank": "infraclass",
+      "childCount": 0,
+      "descendantCount": 0,
+      "normalizedRank": "class",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "placentals",
+      "name": "Placental mammals",
+      "type": "clade",
+      "level": 9,
+      "rank": "clade",
+      "childCount": 5,
+      "descendantCount": 7,
+      "normalizedRank": "clade",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "primates",
+      "name": "Primates",
+      "type": "clade",
+      "level": 10,
+      "rank": "order",
+      "childCount": 1,
+      "descendantCount": 1,
+      "normalizedRank": "order",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "rodents",
+      "name": "Rodents",
+      "type": "clade",
+      "level": 10,
+      "rank": "order",
+      "childCount": 1,
+      "descendantCount": 1,
+      "normalizedRank": "order",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "carnivorans",
+      "name": "Carnivorans",
+      "type": "clade",
+      "level": 10,
+      "rank": "order",
+      "childCount": 0,
+      "descendantCount": 0,
+      "normalizedRank": "order",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "cetartiodactyls",
+      "name": "Cetartiodactyls",
+      "type": "clade",
+      "level": 10,
+      "rank": "order",
+      "childCount": 0,
+      "descendantCount": 0,
+      "normalizedRank": "order",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "bats",
+      "name": "Bats/Chiroptera",
+      "type": "clade",
+      "level": 10,
+      "rank": "order",
+      "childCount": 0,
+      "descendantCount": 0,
+      "normalizedRank": "order",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "drosophila_melanogaster",
+      "name": "Drosophila melanogaster",
+      "type": "organism",
+      "level": 7,
+      "rank": "species",
+      "url": "",
+      "description": "Representative model organism or human biology anchor.",
+      "childCount": 0,
+      "normalizedRank": "species",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "caenorhabditis_elegans",
+      "name": "Caenorhabditis elegans",
+      "type": "organism",
+      "level": 7,
+      "rank": "species",
+      "url": "",
+      "description": "Representative model organism or human biology anchor.",
+      "childCount": 0,
+      "normalizedRank": "species",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "danio_rerio",
+      "name": "Danio rerio",
+      "type": "organism",
+      "level": 8,
+      "rank": "species",
+      "url": "",
+      "description": "Representative model organism or human biology anchor.",
+      "childCount": 0,
+      "normalizedRank": "species",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "mus_musculus",
+      "name": "Mus musculus",
+      "type": "organism",
+      "level": 11,
+      "rank": "species",
+      "url": "",
+      "description": "Representative model organism or human biology anchor.",
+      "childCount": 0,
+      "normalizedRank": "species",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "homo_sapiens",
+      "name": "Homo sapiens",
+      "type": "organism",
+      "level": 11,
+      "rank": "species",
+      "url": "",
+      "description": "Representative model organism or human biology anchor.",
+      "childCount": 0,
+      "normalizedRank": "species",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "glaucophytes",
+      "name": "Glaucophytes",
+      "type": "clade",
+      "level": 3,
+      "rank": "lineage",
+      "childCount": 0,
+      "descendantCount": 0,
+      "normalizedRank": "clade",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "red_algae",
+      "name": "Red algae/Rhodophyta",
+      "type": "clade",
+      "level": 3,
+      "rank": "phylum",
+      "childCount": 0,
+      "descendantCount": 0,
+      "normalizedRank": "phylum",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Broad taxonomy scaffold curated from common biology textbook and public taxonomy concepts."
+    },
+    {
+      "id": "green_plants",
+      "name": "Green plants/Viridiplantae",
+      "type": "clade",
+      "level": 3,
+      "rank": "clade",
+      "childCount": 2,
+      "descendantCount": 25,
+      "normalizedRank": "clade",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "chlorophytes",
+      "name": "Chlorophyte green algae",
+      "type": "clade",
+      "level": 4,
+      "rank": "lineage",
+      "childCount": 0,
+      "descendantCount": 0,
+      "normalizedRank": "clade",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "streptophytes",
+      "name": "Streptophytes",
+      "type": "clade",
+      "level": 4,
+      "rank": "clade",
+      "childCount": 2,
+      "descendantCount": 23,
+      "normalizedRank": "clade",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "charophytes",
+      "name": "Charophyte algae",
+      "type": "clade",
+      "level": 5,
+      "rank": "lineage",
+      "childCount": 0,
+      "descendantCount": 0,
+      "normalizedRank": "clade",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "land_plants",
+      "name": "Land plants/Embryophytes",
+      "type": "clade",
+      "level": 5,
+      "rank": "clade",
+      "childCount": 2,
+      "descendantCount": 21,
+      "normalizedRank": "clade",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "bryophytes",
+      "name": "Bryophytes",
+      "type": "clade",
+      "level": 6,
+      "rank": "grade",
+      "childCount": 3,
+      "descendantCount": 3,
+      "normalizedRank": "clade",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "liverworts",
+      "name": "Liverworts",
+      "type": "clade",
+      "level": 7,
+      "rank": "lineage",
+      "childCount": 0,
+      "descendantCount": 0,
+      "normalizedRank": "clade",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "mosses",
+      "name": "Mosses",
+      "type": "clade",
+      "level": 7,
+      "rank": "lineage",
+      "childCount": 0,
+      "descendantCount": 0,
+      "normalizedRank": "clade",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "hornworts",
+      "name": "Hornworts",
+      "type": "clade",
+      "level": 7,
+      "rank": "lineage",
+      "childCount": 0,
+      "descendantCount": 0,
+      "normalizedRank": "clade",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "vascular_plants",
+      "name": "Vascular plants/Tracheophytes",
+      "type": "clade",
+      "level": 6,
+      "rank": "clade",
+      "childCount": 3,
+      "descendantCount": 16,
+      "normalizedRank": "clade",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "lycophytes",
+      "name": "Lycophytes",
+      "type": "clade",
+      "level": 7,
+      "rank": "lineage",
+      "childCount": 0,
+      "descendantCount": 0,
+      "normalizedRank": "clade",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "ferns",
+      "name": "Ferns",
+      "type": "clade",
+      "level": 7,
+      "rank": "lineage",
+      "childCount": 0,
+      "descendantCount": 0,
+      "normalizedRank": "clade",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "seed_plants",
+      "name": "Seed plants/Spermatophytes",
+      "type": "clade",
+      "level": 7,
+      "rank": "clade",
+      "childCount": 2,
+      "descendantCount": 13,
+      "normalizedRank": "clade",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "gymnosperms",
+      "name": "Gymnosperms",
+      "type": "clade",
+      "level": 8,
+      "rank": "grade",
+      "childCount": 4,
+      "descendantCount": 4,
+      "normalizedRank": "clade",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "cycads",
+      "name": "Cycads",
+      "type": "clade",
+      "level": 9,
+      "rank": "lineage",
+      "childCount": 0,
+      "descendantCount": 0,
+      "normalizedRank": "clade",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "ginkgo",
+      "name": "Ginkgo",
+      "type": "clade",
+      "level": 9,
+      "rank": "lineage",
+      "childCount": 0,
+      "descendantCount": 0,
+      "normalizedRank": "clade",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "conifers",
+      "name": "Conifers",
+      "type": "clade",
+      "level": 9,
+      "rank": "lineage",
+      "childCount": 0,
+      "descendantCount": 0,
+      "normalizedRank": "clade",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "gnetophytes",
+      "name": "Gnetophytes",
+      "type": "clade",
+      "level": 9,
+      "rank": "lineage",
+      "childCount": 0,
+      "descendantCount": 0,
+      "normalizedRank": "clade",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "angiosperms",
+      "name": "Flowering plants/Angiosperms",
+      "type": "clade",
+      "level": 8,
+      "rank": "clade",
+      "childCount": 2,
+      "descendantCount": 7,
+      "normalizedRank": "clade",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "monocots",
+      "name": "Monocots",
+      "type": "clade",
+      "level": 9,
+      "rank": "clade",
+      "childCount": 2,
+      "descendantCount": 2,
+      "normalizedRank": "clade",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "eudicots",
+      "name": "Eudicots",
+      "type": "clade",
+      "level": 9,
+      "rank": "clade",
+      "childCount": 2,
+      "descendantCount": 3,
+      "normalizedRank": "clade",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "rosids",
+      "name": "Rosids",
+      "type": "clade",
+      "level": 10,
+      "rank": "clade",
+      "childCount": 1,
+      "descendantCount": 1,
+      "normalizedRank": "clade",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "asterids",
+      "name": "Asterids",
+      "type": "clade",
+      "level": 10,
+      "rank": "clade",
+      "childCount": 0,
+      "descendantCount": 0,
+      "normalizedRank": "clade",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "arabidopsis_thaliana",
+      "name": "Arabidopsis thaliana",
+      "type": "organism",
+      "level": 11,
+      "rank": "species",
+      "childCount": 0,
+      "normalizedRank": "species",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "oryza_sativa",
+      "name": "Oryza sativa/rice",
+      "type": "organism",
+      "level": 10,
+      "rank": "species",
+      "childCount": 0,
+      "normalizedRank": "species",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "zea_mays",
+      "name": "Zea mays/maize",
+      "type": "organism",
+      "level": 10,
+      "rank": "species",
+      "childCount": 0,
+      "normalizedRank": "species",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "chytrids",
+      "name": "Chytrids",
+      "type": "clade",
+      "level": 3,
+      "rank": "lineage",
+      "childCount": 0,
+      "descendantCount": 0,
+      "normalizedRank": "clade",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "zygomycete_grade",
+      "name": "Zygomycete-grade fungi",
+      "type": "clade",
+      "level": 3,
+      "rank": "grade",
+      "childCount": 0,
+      "descendantCount": 0,
+      "normalizedRank": "clade",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "dikarya",
+      "name": "Dikarya",
+      "type": "clade",
+      "level": 3,
+      "rank": "clade",
+      "childCount": 2,
+      "descendantCount": 9,
+      "normalizedRank": "clade",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "ascomycetes",
+      "name": "Ascomycetes",
+      "type": "clade",
+      "level": 4,
+      "rank": "phylum",
+      "childCount": 2,
+      "descendantCount": 4,
+      "normalizedRank": "phylum",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Broad taxonomy scaffold curated from common biology textbook and public taxonomy concepts."
+    },
+    {
+      "id": "basidiomycetes",
+      "name": "Basidiomycetes",
+      "type": "clade",
+      "level": 4,
+      "rank": "phylum",
+      "childCount": 2,
+      "descendantCount": 3,
+      "normalizedRank": "phylum",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Broad taxonomy scaffold curated from common biology textbook and public taxonomy concepts."
+    },
+    {
+      "id": "saccharomycetes",
+      "name": "Saccharomycetes",
+      "type": "clade",
+      "level": 5,
+      "rank": "class",
+      "childCount": 1,
+      "descendantCount": 1,
+      "normalizedRank": "class",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "pezizomycotina",
+      "name": "Pezizomycotina",
+      "type": "clade",
+      "level": 5,
+      "rank": "subphylum",
+      "childCount": 1,
+      "descendantCount": 1,
+      "normalizedRank": "phylum",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Broad taxonomy scaffold curated from common biology textbook and public taxonomy concepts."
+    },
+    {
+      "id": "agaricomycetes",
+      "name": "Agaricomycetes",
+      "type": "clade",
+      "level": 5,
+      "rank": "class",
+      "childCount": 1,
+      "descendantCount": 1,
+      "normalizedRank": "class",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "ustilaginomycetes",
+      "name": "Ustilaginomycetes",
+      "type": "clade",
+      "level": 5,
+      "rank": "class",
+      "childCount": 0,
+      "descendantCount": 0,
+      "normalizedRank": "class",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "saccharomyces_cerevisiae",
+      "name": "Saccharomyces cerevisiae",
+      "type": "organism",
+      "level": 6,
+      "rank": "species",
+      "childCount": 0,
+      "normalizedRank": "species",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "neurospora_crassa",
+      "name": "Neurospora crassa",
+      "type": "organism",
+      "level": 6,
+      "rank": "species",
+      "childCount": 0,
+      "normalizedRank": "species",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "agaricus_bisporus",
+      "name": "Agaricus bisporus",
+      "type": "organism",
+      "level": 6,
+      "rank": "species",
+      "childCount": 0,
+      "normalizedRank": "species",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "amoebozoa",
+      "name": "Amoebozoa",
+      "type": "clade",
+      "level": 3,
+      "rank": "supergroup",
+      "childCount": 2,
+      "descendantCount": 2,
+      "normalizedRank": "supergroup",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Broad taxonomy scaffold curated from common biology textbook and public taxonomy concepts."
+    },
+    {
+      "id": "discoba",
+      "name": "Discoba/Excavata-grade",
+      "type": "clade",
+      "level": 3,
+      "rank": "supergroup",
+      "childCount": 3,
+      "descendantCount": 4,
+      "normalizedRank": "supergroup",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Broad taxonomy scaffold curated from common biology textbook and public taxonomy concepts."
+    },
+    {
+      "id": "sar",
+      "name": "SAR supergroup",
+      "type": "clade",
+      "level": 3,
+      "rank": "supergroup",
+      "childCount": 3,
+      "descendantCount": 13,
+      "normalizedRank": "supergroup",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Broad taxonomy scaffold curated from common biology textbook and public taxonomy concepts."
+    },
+    {
+      "id": "haptophytes",
+      "name": "Haptophytes",
+      "type": "clade",
+      "level": 3,
+      "rank": "lineage",
+      "childCount": 0,
+      "descendantCount": 0,
+      "normalizedRank": "clade",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "cryptophytes",
+      "name": "Cryptophytes",
+      "type": "clade",
+      "level": 3,
+      "rank": "lineage",
+      "childCount": 0,
+      "descendantCount": 0,
+      "normalizedRank": "clade",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "slime_molds",
+      "name": "Slime molds",
+      "type": "clade",
+      "level": 4,
+      "rank": "lineage",
+      "childCount": 0,
+      "descendantCount": 0,
+      "normalizedRank": "clade",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "lobose_amoebae",
+      "name": "Lobose amoebae",
+      "type": "clade",
+      "level": 4,
+      "rank": "lineage",
+      "childCount": 0,
+      "descendantCount": 0,
+      "normalizedRank": "clade",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "euglenozoa",
+      "name": "Euglenozoa",
+      "type": "clade",
+      "level": 4,
+      "rank": "lineage",
+      "childCount": 1,
+      "descendantCount": 1,
+      "normalizedRank": "clade",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "diplomonads",
+      "name": "Diplomonads",
+      "type": "clade",
+      "level": 4,
+      "rank": "lineage",
+      "childCount": 0,
+      "descendantCount": 0,
+      "normalizedRank": "clade",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "parabasalids",
+      "name": "Parabasalids",
+      "type": "clade",
+      "level": 4,
+      "rank": "lineage",
+      "childCount": 0,
+      "descendantCount": 0,
+      "normalizedRank": "clade",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "stramenopiles",
+      "name": "Stramenopiles",
+      "type": "clade",
+      "level": 4,
+      "rank": "lineage",
+      "childCount": 3,
+      "descendantCount": 3,
+      "normalizedRank": "clade",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "alveolates",
+      "name": "Alveolates",
+      "type": "clade",
+      "level": 4,
+      "rank": "lineage",
+      "childCount": 3,
+      "descendantCount": 5,
+      "normalizedRank": "clade",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "rhizaria",
+      "name": "Rhizaria",
+      "type": "clade",
+      "level": 4,
+      "rank": "lineage",
+      "childCount": 2,
+      "descendantCount": 2,
+      "normalizedRank": "clade",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "diatoms",
+      "name": "Diatoms",
+      "type": "clade",
+      "level": 5,
+      "rank": "lineage",
+      "childCount": 0,
+      "descendantCount": 0,
+      "normalizedRank": "clade",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "brown_algae",
+      "name": "Brown algae",
+      "type": "clade",
+      "level": 5,
+      "rank": "lineage",
+      "childCount": 0,
+      "descendantCount": 0,
+      "normalizedRank": "clade",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "oomycetes",
+      "name": "Oomycetes",
+      "type": "clade",
+      "level": 5,
+      "rank": "lineage",
+      "childCount": 0,
+      "descendantCount": 0,
+      "normalizedRank": "clade",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "ciliates",
+      "name": "Ciliates",
+      "type": "clade",
+      "level": 5,
+      "rank": "lineage",
+      "childCount": 1,
+      "descendantCount": 1,
+      "normalizedRank": "clade",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "dinoflagellates",
+      "name": "Dinoflagellates",
+      "type": "clade",
+      "level": 5,
+      "rank": "lineage",
+      "childCount": 0,
+      "descendantCount": 0,
+      "normalizedRank": "clade",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "apicomplexans",
+      "name": "Apicomplexans",
+      "type": "clade",
+      "level": 5,
+      "rank": "lineage",
+      "childCount": 1,
+      "descendantCount": 1,
+      "normalizedRank": "clade",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "foraminifera",
+      "name": "Foraminifera",
+      "type": "clade",
+      "level": 5,
+      "rank": "lineage",
+      "childCount": 0,
+      "descendantCount": 0,
+      "normalizedRank": "clade",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "radiolarians",
+      "name": "Radiolarians",
+      "type": "clade",
+      "level": 5,
+      "rank": "lineage",
+      "childCount": 0,
+      "descendantCount": 0,
+      "normalizedRank": "clade",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "tetrahymena_thermophila",
+      "name": "Tetrahymena thermophila",
+      "type": "organism",
+      "level": 6,
+      "rank": "species",
+      "childCount": 0,
+      "normalizedRank": "species",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "plasmodium_falciparum",
+      "name": "Plasmodium falciparum",
+      "type": "organism",
+      "level": 6,
+      "rank": "species",
+      "childCount": 0,
+      "normalizedRank": "species",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "euglena_gracilis",
+      "name": "Euglena gracilis",
+      "type": "organism",
+      "level": 5,
+      "rank": "species",
+      "childCount": 0,
+      "normalizedRank": "species",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Curated pilot node for visualization and navigation; not yet source-specific taxonomy import."
+    },
+    {
+      "id": "cellular_processes",
+      "name": "Cross-cutting Cellular Processes",
+      "type": "supergroup",
+      "level": 1,
+      "rank": "process overlay",
+      "description": "Selected biology process pages that apply across large parts of life.",
+      "childCount": 10,
+      "descendantCount": 10,
+      "normalizedRank": "supergroup",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Broad taxonomy scaffold curated from common biology textbook and public taxonomy concepts."
+    },
+    {
+      "id": "process_glycolysis",
+      "name": "Glycolysis",
+      "type": "process",
+      "level": 2,
+      "rank": "process",
+      "url": "processes/pathways/pathways-glycolysis.html",
+      "description": "Existing biology process page linked into the Whole of Life pilot.",
+      "childCount": 0,
+      "normalizedRank": "process",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Linked CopernicusAI biology process page."
+    },
+    {
+      "id": "process_krebs_cycle",
+      "name": "Krebs Cycle",
+      "type": "process",
+      "level": 2,
+      "rank": "process",
+      "url": "processes/pathways/pathways-krebs-cycle.html",
+      "description": "Existing biology process page linked into the Whole of Life pilot.",
+      "childCount": 0,
+      "normalizedRank": "process",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Linked CopernicusAI biology process page."
+    },
+    {
+      "id": "process_oxidative_phosphorylation",
+      "name": "Oxidative Phosphorylation",
+      "type": "process",
+      "level": 2,
+      "rank": "process",
+      "url": "processes/pathways/pathways-oxidative-phosphorylation.html",
+      "description": "Existing biology process page linked into the Whole of Life pilot.",
+      "childCount": 0,
+      "normalizedRank": "process",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Linked CopernicusAI biology process page."
+    },
+    {
+      "id": "process_calvin_cycle",
+      "name": "Calvin Cycle",
+      "type": "process",
+      "level": 2,
+      "rank": "process",
+      "url": "processes/pathways/pathways-calvin-cycle.html",
+      "description": "Existing biology process page linked into the Whole of Life pilot.",
+      "childCount": 0,
+      "normalizedRank": "process",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Linked CopernicusAI biology process page."
+    },
+    {
+      "id": "process_cell_cycle",
+      "name": "Cell Cycle",
+      "type": "process",
+      "level": 2,
+      "rank": "process",
+      "url": "processes/pathways/pathways-cell-cycle.html",
+      "description": "Existing biology process page linked into the Whole of Life pilot.",
+      "childCount": 0,
+      "normalizedRank": "process",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Linked CopernicusAI biology process page."
+    },
+    {
+      "id": "process_apoptosis",
+      "name": "Apoptosis",
+      "type": "process",
+      "level": 2,
+      "rank": "process",
+      "url": "processes/pathways/pathways-apoptosis.html",
+      "description": "Existing biology process page linked into the Whole of Life pilot.",
+      "childCount": 0,
+      "normalizedRank": "process",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Linked CopernicusAI biology process page."
+    },
+    {
+      "id": "process_central_dogma",
+      "name": "Central Dogma",
+      "type": "process",
+      "level": 2,
+      "rank": "process",
+      "url": "processes/mechanisms/mechanisms-central-dogma.html",
+      "description": "Existing biology process page linked into the Whole of Life pilot.",
+      "childCount": 0,
+      "normalizedRank": "process",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Linked CopernicusAI biology process page."
+    },
+    {
+      "id": "process_dna_replication",
+      "name": "DNA Replication",
+      "type": "process",
+      "level": 2,
+      "rank": "process",
+      "url": "processes/mechanisms/mechanisms-dna-replication.html",
+      "description": "Existing biology process page linked into the Whole of Life pilot.",
+      "childCount": 0,
+      "normalizedRank": "process",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Linked CopernicusAI biology process page."
+    },
+    {
+      "id": "process_crispr_cas9",
+      "name": "CRISPR-Cas9",
+      "type": "process",
+      "level": 2,
+      "rank": "process",
+      "url": "processes/mechanisms/mechanisms-crispr-cas9.html",
+      "description": "Existing biology process page linked into the Whole of Life pilot.",
+      "childCount": 0,
+      "normalizedRank": "process",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Linked CopernicusAI biology process page."
+    },
+    {
+      "id": "process_pcr",
+      "name": "PCR Protocol",
+      "type": "process",
+      "level": 2,
+      "rank": "process",
+      "url": "processes/assay_protocols/assay_protocols-pcr.html",
+      "description": "Existing biology process page linked into the Whole of Life pilot.",
+      "childCount": 0,
+      "normalizedRank": "process",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Linked CopernicusAI biology process page."
+    },
+    {
+      "id": "process_insulin_signaling",
+      "name": "Insulin Signaling",
+      "type": "process",
+      "level": 2,
+      "rank": "process",
+      "url": "processes/pathways/pathways-insulin-signaling.html",
+      "description": "Existing biology process page linked into the Whole of Life pilot.",
+      "childCount": 0,
+      "normalizedRank": "process",
+      "sourceMode": "textbook/public-source-informed curated seed",
+      "sourceNote": "Linked CopernicusAI biology process page."
+    }
+  ],
+  "links": [
+    {
+      "source": "life",
+      "target": "bacteria",
+      "relationship": "contains"
+    },
+    {
+      "source": "life",
+      "target": "archaea",
+      "relationship": "contains"
+    },
+    {
+      "source": "life",
+      "target": "eukarya",
+      "relationship": "contains"
+    },
+    {
+      "source": "bacteria",
+      "target": "proteobacteria",
+      "relationship": "contains"
+    },
+    {
+      "source": "bacteria",
+      "target": "firmicutes",
+      "relationship": "contains"
+    },
+    {
+      "source": "bacteria",
+      "target": "actinobacteria",
+      "relationship": "contains"
+    },
+    {
+      "source": "bacteria",
+      "target": "cyanobacteria",
+      "relationship": "contains"
+    },
+    {
+      "source": "bacteria",
+      "target": "bacteroidetes",
+      "relationship": "contains"
+    },
+    {
+      "source": "bacteria",
+      "target": "spirochaetes",
+      "relationship": "contains"
+    },
+    {
+      "source": "bacteria",
+      "target": "deinococcus_thermus",
+      "relationship": "contains"
+    },
+    {
+      "source": "bacteria",
+      "target": "planctomycetes",
+      "relationship": "contains"
+    },
+    {
+      "source": "bacteria",
+      "target": "chlamydiae",
+      "relationship": "contains"
+    },
+    {
+      "source": "bacteria",
+      "target": "acidobacteria",
+      "relationship": "contains"
+    },
+    {
+      "source": "bacteria",
+      "target": "verrucomicrobia",
+      "relationship": "contains"
+    },
+    {
+      "source": "bacteria",
+      "target": "aquificota",
+      "relationship": "contains"
+    },
+    {
+      "source": "bacteria",
+      "target": "thermotogota",
+      "relationship": "contains"
+    },
+    {
+      "source": "proteobacteria",
+      "target": "alphaproteobacteria",
+      "relationship": "contains"
+    },
+    {
+      "source": "proteobacteria",
+      "target": "betaproteobacteria",
+      "relationship": "contains"
+    },
+    {
+      "source": "proteobacteria",
+      "target": "gammaproteobacteria",
+      "relationship": "contains"
+    },
+    {
+      "source": "proteobacteria",
+      "target": "deltaproteobacteria",
+      "relationship": "contains"
+    },
+    {
+      "source": "proteobacteria",
+      "target": "epsilonproteobacteria",
+      "relationship": "contains"
+    },
+    {
+      "source": "firmicutes",
+      "target": "bacilli",
+      "relationship": "contains"
+    },
+    {
+      "source": "firmicutes",
+      "target": "clostridia",
+      "relationship": "contains"
+    },
+    {
+      "source": "firmicutes",
+      "target": "lactobacillales",
+      "relationship": "contains"
+    },
+    {
+      "source": "actinobacteria",
+      "target": "actinomycetia",
+      "relationship": "contains"
+    },
+    {
+      "source": "actinobacteria",
+      "target": "corynebacteriales",
+      "relationship": "contains"
+    },
+    {
+      "source": "cyanobacteria",
+      "target": "oscillatoriophycideae",
+      "relationship": "contains"
+    },
+    {
+      "source": "cyanobacteria",
+      "target": "nostocales",
+      "relationship": "contains"
+    },
+    {
+      "source": "bacteroidetes",
+      "target": "bacteroidia",
+      "relationship": "contains"
+    },
+    {
+      "source": "bacteroidetes",
+      "target": "flavobacteriia",
+      "relationship": "contains"
+    },
+    {
+      "source": "gammaproteobacteria",
+      "target": "escherichia_coli",
+      "relationship": "contains"
+    },
+    {
+      "source": "bacilli",
+      "target": "bacillus_subtilis",
+      "relationship": "contains"
+    },
+    {
+      "source": "actinomycetia",
+      "target": "streptomyces",
+      "relationship": "contains"
+    },
+    {
+      "source": "cyanobacteria",
+      "target": "synechocystis",
+      "relationship": "contains"
+    },
+    {
+      "source": "bacteroidia",
+      "target": "bacteroides_fragilis",
+      "relationship": "contains"
+    },
+    {
+      "source": "archaea",
+      "target": "euryarchaeota",
+      "relationship": "contains"
+    },
+    {
+      "source": "archaea",
+      "target": "crenarchaeota",
+      "relationship": "contains"
+    },
+    {
+      "source": "archaea",
+      "target": "thaumarchaeota",
+      "relationship": "contains"
+    },
+    {
+      "source": "archaea",
+      "target": "korarchaeota",
+      "relationship": "contains"
+    },
+    {
+      "source": "archaea",
+      "target": "nanoarchaeota",
+      "relationship": "contains"
+    },
+    {
+      "source": "archaea",
+      "target": "asgard_archaea",
+      "relationship": "contains"
+    },
+    {
+      "source": "archaea",
+      "target": "dpann_archaea",
+      "relationship": "contains"
+    },
+    {
+      "source": "euryarchaeota",
+      "target": "methanogens",
+      "relationship": "contains"
+    },
+    {
+      "source": "euryarchaeota",
+      "target": "halobacteria",
+      "relationship": "contains"
+    },
+    {
+      "source": "euryarchaeota",
+      "target": "thermococci",
+      "relationship": "contains"
+    },
+    {
+      "source": "crenarchaeota",
+      "target": "sulfolobales",
+      "relationship": "contains"
+    },
+    {
+      "source": "crenarchaeota",
+      "target": "desulfurococcales",
+      "relationship": "contains"
+    },
+    {
+      "source": "thaumarchaeota",
+      "target": "nitrososphaeria",
+      "relationship": "contains"
+    },
+    {
+      "source": "asgard_archaea",
+      "target": "lokiarchaeota",
+      "relationship": "contains"
+    },
+    {
+      "source": "asgard_archaea",
+      "target": "thorarchaeota",
+      "relationship": "contains"
+    },
+    {
+      "source": "asgard_archaea",
+      "target": "heimdallarchaeota",
+      "relationship": "contains"
+    },
+    {
+      "source": "halobacteria",
+      "target": "halobacterium_salinarum",
+      "relationship": "contains"
+    },
+    {
+      "source": "sulfolobales",
+      "target": "sulfolobus_solfataricus",
+      "relationship": "contains"
+    },
+    {
+      "source": "nitrososphaeria",
+      "target": "nitrosopumilus_maritimus",
+      "relationship": "contains"
+    },
+    {
+      "source": "eukarya",
+      "target": "animals",
+      "relationship": "contains"
+    },
+    {
+      "source": "eukarya",
+      "target": "plants",
+      "relationship": "contains"
+    },
+    {
+      "source": "eukarya",
+      "target": "fungi",
+      "relationship": "contains"
+    },
+    {
+      "source": "eukarya",
+      "target": "protists",
+      "relationship": "contains"
+    },
+    {
+      "source": "animals",
+      "target": "porifera",
+      "relationship": "contains"
+    },
+    {
+      "source": "animals",
+      "target": "ctenophora",
+      "relationship": "contains"
+    },
+    {
+      "source": "animals",
+      "target": "cnidaria",
+      "relationship": "contains"
+    },
+    {
+      "source": "animals",
+      "target": "bilateria",
+      "relationship": "contains"
+    },
+    {
+      "source": "bilateria",
+      "target": "protostomes",
+      "relationship": "contains"
+    },
+    {
+      "source": "bilateria",
+      "target": "deuterostomes",
+      "relationship": "contains"
+    },
+    {
+      "source": "protostomes",
+      "target": "ecdysozoa",
+      "relationship": "contains"
+    },
+    {
+      "source": "protostomes",
+      "target": "lophotrochozoa",
+      "relationship": "contains"
+    },
+    {
+      "source": "ecdysozoa",
+      "target": "arthropods",
+      "relationship": "contains"
+    },
+    {
+      "source": "ecdysozoa",
+      "target": "nematodes",
+      "relationship": "contains"
+    },
+    {
+      "source": "ecdysozoa",
+      "target": "tardigrades",
+      "relationship": "contains"
+    },
+    {
+      "source": "lophotrochozoa",
+      "target": "molluscs",
+      "relationship": "contains"
+    },
+    {
+      "source": "lophotrochozoa",
+      "target": "annelids",
+      "relationship": "contains"
+    },
+    {
+      "source": "lophotrochozoa",
+      "target": "flatworms",
+      "relationship": "contains"
+    },
+    {
+      "source": "deuterostomes",
+      "target": "echinoderms",
+      "relationship": "contains"
+    },
+    {
+      "source": "deuterostomes",
+      "target": "hemichordates",
+      "relationship": "contains"
+    },
+    {
+      "source": "deuterostomes",
+      "target": "chordates",
+      "relationship": "contains"
+    },
+    {
+      "source": "chordates",
+      "target": "vertebrates",
+      "relationship": "contains"
+    },
+    {
+      "source": "vertebrates",
+      "target": "jawless_fish",
+      "relationship": "contains"
+    },
+    {
+      "source": "vertebrates",
+      "target": "cartilaginous_fish",
+      "relationship": "contains"
+    },
+    {
+      "source": "vertebrates",
+      "target": "bony_fish",
+      "relationship": "contains"
+    },
+    {
+      "source": "vertebrates",
+      "target": "amphibians",
+      "relationship": "contains"
+    },
+    {
+      "source": "vertebrates",
+      "target": "amniotes",
+      "relationship": "contains"
+    },
+    {
+      "source": "amniotes",
+      "target": "reptiles",
+      "relationship": "contains"
+    },
+    {
+      "source": "amniotes",
+      "target": "birds",
+      "relationship": "contains"
+    },
+    {
+      "source": "amniotes",
+      "target": "mammals",
+      "relationship": "contains"
+    },
+    {
+      "source": "mammals",
+      "target": "monotremes",
+      "relationship": "contains"
+    },
+    {
+      "source": "mammals",
+      "target": "marsupials",
+      "relationship": "contains"
+    },
+    {
+      "source": "mammals",
+      "target": "placentals",
+      "relationship": "contains"
+    },
+    {
+      "source": "placentals",
+      "target": "primates",
+      "relationship": "contains"
+    },
+    {
+      "source": "placentals",
+      "target": "rodents",
+      "relationship": "contains"
+    },
+    {
+      "source": "placentals",
+      "target": "carnivorans",
+      "relationship": "contains"
+    },
+    {
+      "source": "placentals",
+      "target": "cetartiodactyls",
+      "relationship": "contains"
+    },
+    {
+      "source": "placentals",
+      "target": "bats",
+      "relationship": "contains"
+    },
+    {
+      "source": "arthropods",
+      "target": "drosophila_melanogaster",
+      "relationship": "contains"
+    },
+    {
+      "source": "nematodes",
+      "target": "caenorhabditis_elegans",
+      "relationship": "contains"
+    },
+    {
+      "source": "bony_fish",
+      "target": "danio_rerio",
+      "relationship": "contains"
+    },
+    {
+      "source": "rodents",
+      "target": "mus_musculus",
+      "relationship": "contains"
+    },
+    {
+      "source": "primates",
+      "target": "homo_sapiens",
+      "relationship": "contains"
+    },
+    {
+      "source": "plants",
+      "target": "glaucophytes",
+      "relationship": "contains"
+    },
+    {
+      "source": "plants",
+      "target": "red_algae",
+      "relationship": "contains"
+    },
+    {
+      "source": "plants",
+      "target": "green_plants",
+      "relationship": "contains"
+    },
+    {
+      "source": "green_plants",
+      "target": "chlorophytes",
+      "relationship": "contains"
+    },
+    {
+      "source": "green_plants",
+      "target": "streptophytes",
+      "relationship": "contains"
+    },
+    {
+      "source": "streptophytes",
+      "target": "charophytes",
+      "relationship": "contains"
+    },
+    {
+      "source": "streptophytes",
+      "target": "land_plants",
+      "relationship": "contains"
+    },
+    {
+      "source": "land_plants",
+      "target": "bryophytes",
+      "relationship": "contains"
+    },
+    {
+      "source": "bryophytes",
+      "target": "liverworts",
+      "relationship": "contains"
+    },
+    {
+      "source": "bryophytes",
+      "target": "mosses",
+      "relationship": "contains"
+    },
+    {
+      "source": "bryophytes",
+      "target": "hornworts",
+      "relationship": "contains"
+    },
+    {
+      "source": "land_plants",
+      "target": "vascular_plants",
+      "relationship": "contains"
+    },
+    {
+      "source": "vascular_plants",
+      "target": "lycophytes",
+      "relationship": "contains"
+    },
+    {
+      "source": "vascular_plants",
+      "target": "ferns",
+      "relationship": "contains"
+    },
+    {
+      "source": "vascular_plants",
+      "target": "seed_plants",
+      "relationship": "contains"
+    },
+    {
+      "source": "seed_plants",
+      "target": "gymnosperms",
+      "relationship": "contains"
+    },
+    {
+      "source": "gymnosperms",
+      "target": "cycads",
+      "relationship": "contains"
+    },
+    {
+      "source": "gymnosperms",
+      "target": "ginkgo",
+      "relationship": "contains"
+    },
+    {
+      "source": "gymnosperms",
+      "target": "conifers",
+      "relationship": "contains"
+    },
+    {
+      "source": "gymnosperms",
+      "target": "gnetophytes",
+      "relationship": "contains"
+    },
+    {
+      "source": "seed_plants",
+      "target": "angiosperms",
+      "relationship": "contains"
+    },
+    {
+      "source": "angiosperms",
+      "target": "monocots",
+      "relationship": "contains"
+    },
+    {
+      "source": "angiosperms",
+      "target": "eudicots",
+      "relationship": "contains"
+    },
+    {
+      "source": "eudicots",
+      "target": "rosids",
+      "relationship": "contains"
+    },
+    {
+      "source": "eudicots",
+      "target": "asterids",
+      "relationship": "contains"
+    },
+    {
+      "source": "rosids",
+      "target": "arabidopsis_thaliana",
+      "relationship": "contains"
+    },
+    {
+      "source": "monocots",
+      "target": "oryza_sativa",
+      "relationship": "contains"
+    },
+    {
+      "source": "monocots",
+      "target": "zea_mays",
+      "relationship": "contains"
+    },
+    {
+      "source": "fungi",
+      "target": "chytrids",
+      "relationship": "contains"
+    },
+    {
+      "source": "fungi",
+      "target": "zygomycete_grade",
+      "relationship": "contains"
+    },
+    {
+      "source": "fungi",
+      "target": "dikarya",
+      "relationship": "contains"
+    },
+    {
+      "source": "dikarya",
+      "target": "ascomycetes",
+      "relationship": "contains"
+    },
+    {
+      "source": "dikarya",
+      "target": "basidiomycetes",
+      "relationship": "contains"
+    },
+    {
+      "source": "ascomycetes",
+      "target": "saccharomycetes",
+      "relationship": "contains"
+    },
+    {
+      "source": "ascomycetes",
+      "target": "pezizomycotina",
+      "relationship": "contains"
+    },
+    {
+      "source": "basidiomycetes",
+      "target": "agaricomycetes",
+      "relationship": "contains"
+    },
+    {
+      "source": "basidiomycetes",
+      "target": "ustilaginomycetes",
+      "relationship": "contains"
+    },
+    {
+      "source": "saccharomycetes",
+      "target": "saccharomyces_cerevisiae",
+      "relationship": "contains"
+    },
+    {
+      "source": "pezizomycotina",
+      "target": "neurospora_crassa",
+      "relationship": "contains"
+    },
+    {
+      "source": "agaricomycetes",
+      "target": "agaricus_bisporus",
+      "relationship": "contains"
+    },
+    {
+      "source": "protists",
+      "target": "amoebozoa",
+      "relationship": "contains"
+    },
+    {
+      "source": "protists",
+      "target": "discoba",
+      "relationship": "contains"
+    },
+    {
+      "source": "protists",
+      "target": "sar",
+      "relationship": "contains"
+    },
+    {
+      "source": "protists",
+      "target": "haptophytes",
+      "relationship": "contains"
+    },
+    {
+      "source": "protists",
+      "target": "cryptophytes",
+      "relationship": "contains"
+    },
+    {
+      "source": "amoebozoa",
+      "target": "slime_molds",
+      "relationship": "contains"
+    },
+    {
+      "source": "amoebozoa",
+      "target": "lobose_amoebae",
+      "relationship": "contains"
+    },
+    {
+      "source": "discoba",
+      "target": "euglenozoa",
+      "relationship": "contains"
+    },
+    {
+      "source": "discoba",
+      "target": "diplomonads",
+      "relationship": "contains"
+    },
+    {
+      "source": "discoba",
+      "target": "parabasalids",
+      "relationship": "contains"
+    },
+    {
+      "source": "sar",
+      "target": "stramenopiles",
+      "relationship": "contains"
+    },
+    {
+      "source": "sar",
+      "target": "alveolates",
+      "relationship": "contains"
+    },
+    {
+      "source": "sar",
+      "target": "rhizaria",
+      "relationship": "contains"
+    },
+    {
+      "source": "stramenopiles",
+      "target": "diatoms",
+      "relationship": "contains"
+    },
+    {
+      "source": "stramenopiles",
+      "target": "brown_algae",
+      "relationship": "contains"
+    },
+    {
+      "source": "stramenopiles",
+      "target": "oomycetes",
+      "relationship": "contains"
+    },
+    {
+      "source": "alveolates",
+      "target": "ciliates",
+      "relationship": "contains"
+    },
+    {
+      "source": "alveolates",
+      "target": "dinoflagellates",
+      "relationship": "contains"
+    },
+    {
+      "source": "alveolates",
+      "target": "apicomplexans",
+      "relationship": "contains"
+    },
+    {
+      "source": "rhizaria",
+      "target": "foraminifera",
+      "relationship": "contains"
+    },
+    {
+      "source": "rhizaria",
+      "target": "radiolarians",
+      "relationship": "contains"
+    },
+    {
+      "source": "ciliates",
+      "target": "tetrahymena_thermophila",
+      "relationship": "contains"
+    },
+    {
+      "source": "apicomplexans",
+      "target": "plasmodium_falciparum",
+      "relationship": "contains"
+    },
+    {
+      "source": "euglenozoa",
+      "target": "euglena_gracilis",
+      "relationship": "contains"
+    },
+    {
+      "source": "life",
+      "target": "cellular_processes",
+      "relationship": "contains"
+    },
+    {
+      "source": "cellular_processes",
+      "target": "process_glycolysis",
+      "relationship": "contains"
+    },
+    {
+      "source": "cellular_processes",
+      "target": "process_krebs_cycle",
+      "relationship": "contains"
+    },
+    {
+      "source": "cellular_processes",
+      "target": "process_oxidative_phosphorylation",
+      "relationship": "contains"
+    },
+    {
+      "source": "cellular_processes",
+      "target": "process_calvin_cycle",
+      "relationship": "contains"
+    },
+    {
+      "source": "cellular_processes",
+      "target": "process_cell_cycle",
+      "relationship": "contains"
+    },
+    {
+      "source": "cellular_processes",
+      "target": "process_apoptosis",
+      "relationship": "contains"
+    },
+    {
+      "source": "cellular_processes",
+      "target": "process_central_dogma",
+      "relationship": "contains"
+    },
+    {
+      "source": "cellular_processes",
+      "target": "process_dna_replication",
+      "relationship": "contains"
+    },
+    {
+      "source": "cellular_processes",
+      "target": "process_crispr_cas9",
+      "relationship": "contains"
+    },
+    {
+      "source": "cellular_processes",
+      "target": "process_pcr",
+      "relationship": "contains"
+    },
+    {
+      "source": "cellular_processes",
+      "target": "process_insulin_signaling",
+      "relationship": "contains"
+    }
+  ],
+  "meta": {
+    "title": "Whole of Life",
+    "description": "A biology-first pilot map of Life, domains, major clades, representative organisms, and selected process biology links.",
+    "sourceMode": "textbook/public-source-informed curated seed",
+    "sourceNotes": [
+      "Common introductory biology taxonomy concepts",
+      "OpenStax Biology 2e and comparable textbook taxonomy concepts",
+      "NCBI Taxonomy Browser broad lineage concepts",
+      "Curated for navigation and visualization; not yet an authoritative taxonomy import"
+    ],
+    "targetNodeCount": "100-180",
+    "totalNodes": 174,
+    "totalLinks": 173,
+    "nodeTypeCounts": {
+      "clade": 132,
+      "domain": 3,
+      "organism": 22,
+      "process": 11,
+      "root": 1,
+      "supergroup": 5
+    },
+    "version": "whole-of-life-v2",
+    "rankModel": [
+      "root",
+      "domain",
+      "supergroup",
+      "phylum",
+      "class",
+      "order",
+      "family",
+      "genus",
+      "species",
+      "clade",
+      "process"
+    ],
+    "rankCounts": {
+      "clade": 53,
+      "class": 10,
+      "domain": 3,
+      "order": 29,
+      "phylum": 37,
+      "process": 11,
+      "root": 1,
+      "species": 22,
+      "supergroup": 8
+    },
+    "associationCount": 34
+  },
+  "associations": [
+    {
+      "source": "escherichia_coli",
+      "target": "process_central_dogma",
+      "relationship": "organism_process_context"
+    },
+    {
+      "source": "escherichia_coli",
+      "target": "process_dna_replication",
+      "relationship": "organism_process_context"
+    },
+    {
+      "source": "escherichia_coli",
+      "target": "process_crispr_cas9",
+      "relationship": "organism_process_context"
+    },
+    {
+      "source": "escherichia_coli",
+      "target": "process_glycolysis",
+      "relationship": "organism_process_context"
+    },
+    {
+      "source": "escherichia_coli",
+      "target": "process_krebs_cycle",
+      "relationship": "organism_process_context"
+    },
+    {
+      "source": "arabidopsis_thaliana",
+      "target": "process_calvin_cycle",
+      "relationship": "organism_process_context"
+    },
+    {
+      "source": "arabidopsis_thaliana",
+      "target": "process_cell_cycle",
+      "relationship": "organism_process_context"
+    },
+    {
+      "source": "arabidopsis_thaliana",
+      "target": "process_glycolysis",
+      "relationship": "organism_process_context"
+    },
+    {
+      "source": "arabidopsis_thaliana",
+      "target": "process_central_dogma",
+      "relationship": "organism_process_context"
+    },
+    {
+      "source": "oryza_sativa",
+      "target": "process_calvin_cycle",
+      "relationship": "organism_process_context"
+    },
+    {
+      "source": "zea_mays",
+      "target": "process_calvin_cycle",
+      "relationship": "organism_process_context"
+    },
+    {
+      "source": "homo_sapiens",
+      "target": "process_apoptosis",
+      "relationship": "organism_process_context"
+    },
+    {
+      "source": "homo_sapiens",
+      "target": "process_insulin_signaling",
+      "relationship": "organism_process_context"
+    },
+    {
+      "source": "homo_sapiens",
+      "target": "process_cell_cycle",
+      "relationship": "organism_process_context"
+    },
+    {
+      "source": "homo_sapiens",
+      "target": "process_dna_replication",
+      "relationship": "organism_process_context"
+    },
+    {
+      "source": "homo_sapiens",
+      "target": "process_central_dogma",
+      "relationship": "organism_process_context"
+    },
+    {
+      "source": "mus_musculus",
+      "target": "process_apoptosis",
+      "relationship": "organism_process_context"
+    },
+    {
+      "source": "mus_musculus",
+      "target": "process_insulin_signaling",
+      "relationship": "organism_process_context"
+    },
+    {
+      "source": "mus_musculus",
+      "target": "process_cell_cycle",
+      "relationship": "organism_process_context"
+    },
+    {
+      "source": "mus_musculus",
+      "target": "process_dna_replication",
+      "relationship": "organism_process_context"
+    },
+    {
+      "source": "drosophila_melanogaster",
+      "target": "process_cell_cycle",
+      "relationship": "organism_process_context"
+    },
+    {
+      "source": "drosophila_melanogaster",
+      "target": "process_apoptosis",
+      "relationship": "organism_process_context"
+    },
+    {
+      "source": "caenorhabditis_elegans",
+      "target": "process_apoptosis",
+      "relationship": "organism_process_context"
+    },
+    {
+      "source": "caenorhabditis_elegans",
+      "target": "process_cell_cycle",
+      "relationship": "organism_process_context"
+    },
+    {
+      "source": "danio_rerio",
+      "target": "process_cell_cycle",
+      "relationship": "organism_process_context"
+    },
+    {
+      "source": "danio_rerio",
+      "target": "process_apoptosis",
+      "relationship": "organism_process_context"
+    },
+    {
+      "source": "saccharomyces_cerevisiae",
+      "target": "process_cell_cycle",
+      "relationship": "organism_process_context"
+    },
+    {
+      "source": "saccharomyces_cerevisiae",
+      "target": "process_central_dogma",
+      "relationship": "organism_process_context"
+    },
+    {
+      "source": "saccharomyces_cerevisiae",
+      "target": "process_glycolysis",
+      "relationship": "organism_process_context"
+    },
+    {
+      "source": "saccharomyces_cerevisiae",
+      "target": "process_dna_replication",
+      "relationship": "organism_process_context"
+    },
+    {
+      "source": "synechocystis",
+      "target": "process_calvin_cycle",
+      "relationship": "organism_process_context"
+    },
+    {
+      "source": "synechocystis",
+      "target": "process_glycolysis",
+      "relationship": "organism_process_context"
+    },
+    {
+      "source": "bacillus_subtilis",
+      "target": "process_central_dogma",
+      "relationship": "organism_process_context"
+    },
+    {
+      "source": "bacillus_subtilis",
+      "target": "process_dna_replication",
+      "relationship": "organism_process_context"
+    }
+  ]
+}

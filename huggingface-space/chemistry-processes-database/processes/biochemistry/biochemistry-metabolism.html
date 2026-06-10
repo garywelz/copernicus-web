@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Metabolism - Chemistry Process</title>
+    <title>Glycolysis (Embden-Meyerhof-Parnas) - Chemistry Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Metabolism</h1>
+            <h1>Glycolysis (Embden-Meyerhof-Parnas)</h1>
             <div class="header-meta">
                 <span class="meta-item">Chemistry</span>
                 <span class="meta-item">Biochemistry</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,67 +234,56 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Metabolism process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>Glycolysis converts glucose to two pyruvate through an energy-investment phase that spends ATP to make fructose-1,6-bisphosphate, cleavage to two triose phosphates, and a payoff phase that oxidizes glyceraldehyde-3-phosphate to generate NADH and substrate-level ATP, requiring NAD+ regeneration to continue.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-A2[Metabolic Pathway] --> B2[Metabolism Method]
-C2[Energy Source] --> D2[Metabolic Regulation]
-E2[Biochemical Reaction] --> F2[Metabolism Analysis]
-B2 --> G2[Glycolysis]
-D2 --> H2[Krebs Cycle]
-F2 --> I2[Oxidative Phosphorylation]
-G2 --> J2[Glucose Breakdown]
-H2 --> K2[Citric Acid Cycle]
-I2 --> L2[Electron Transport]
-J2 --> M2[ATP Production]
-K2 --> L2
-L2 --> N2[NADH Formation]
-M2 --> O2[Energy Metabolism]
-N2 --> P2[Metabolic Flux]
-O2 --> Q2[Metabolism Process]
-P2 --> R2[Metabolism Validation]
-Q2 --> S2[Metabolism Verification]
-R2 --> T2[Metabolism Result]
-S2 --> U2[Metabolism Analysis]
-T2 --> V2[Metabolism Parameters]
-U2 --> W2[Metabolism Output]
-V2 --> X2[Metabolism Analysis]
-W2 --> Y2[Metabolism Final Result]
-X2 --> Z2[Metabolism Process Complete]
+    N1["Glucose"]
+    N2["Investment: phosphorylate"]
+    N3["Fructose-1,6-bisP"]
+    N4["Cleave to two trioses"]
+    N5["G3P x2"]
+    N6["Oxidation + NAD+ -> NADH"]
+    N7["Payoff: substrate-level ATP"]
+    N8{"Net 2 ATP + 2 NADH?"}
+    N9["Regenerate NAD+"]
+    N10["2 Pyruvate"]
 
-    style A2 fill:#ff6b6b,color:#fff
-    style C2 fill:#ff6b6b,color:#fff
-    style E2 fill:#ff6b6b,color:#fff
-    style B2 fill:#ffd43b,color:#000
-    style D2 fill:#ffd43b,color:#000
-    style F2 fill:#ffd43b,color:#000
-    style G2 fill:#ffd43b,color:#000
-    style H2 fill:#ffd43b,color:#000
-    style I2 fill:#ffd43b,color:#000
-    style J2 fill:#ffd43b,color:#000
-    style K2 fill:#ffd43b,color:#000
-    style L2 fill:#ffd43b,color:#000
-    style M2 fill:#51cf66,color:#fff
+    N1 --> N2
+    N2 --> N3
+    N3 --> N4
+    N4 --> N5
+    N5 --> N6
+    N6 --> N7
+    N7 --> N8
+    N8 -->|need NAD+| N9
+    N9 -->|recycle| N6
+    N8 -->|yes| N10
+
+    style N1 fill:#ff6b6b,color:#fff
     style N2 fill:#51cf66,color:#fff
-    style O2 fill:#51cf66,color:#fff
-    style P2 fill:#51cf66,color:#fff
-    style Q2 fill:#51cf66,color:#fff
-    style R2 fill:#51cf66,color:#fff
-    style S2 fill:#51cf66,color:#fff
-    style T2 fill:#51cf66,color:#fff
-    style U2 fill:#51cf66,color:#fff
-    style V2 fill:#51cf66,color:#fff
-    style W2 fill:#51cf66,color:#fff
-    style X2 fill:#51cf66,color:#fff
-    style Y2 fill:#51cf66,color:#fff
-    style Z2 fill:#b197fc,color:#fff
+    style N3 fill:#74c0fc,color:#fff
+    style N4 fill:#51cf66,color:#fff
+    style N5 fill:#74c0fc,color:#fff
+    style N6 fill:#51cf66,color:#fff
+    style N7 fill:#51cf66,color:#fff
+    style N8 fill:#74c0fc,color:#fff
+    style N9 fill:#51cf66,color:#fff
+    style N10 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Glucose</td><td>Triggers & Inputs</td><td><a href="https://www.macmillanlearning.com/college/us/product/Lehninger-Principles-of-Biochemistry/p/1464126119" target="_blank" title="Lehninger Principles of Biochemistry (7th ed.)" style="color:#e74c3c;">Nelson, D. L. et al. 2017</a></td></tr><tr><td style="font-weight:600;">Investment: phosphorylate</td><td>Processing & Operations</td><td><a href="https://www.macmillanlearning.com/college/us/product/Lehninger-Principles-of-Biochemistry/p/1464126119" target="_blank" title="Lehninger Principles of Biochemistry (7th ed.)" style="color:#e74c3c;">Nelson, D. L. et al. 2017</a></td></tr><tr><td style="font-weight:600;">Fructose-1,6-bisP</td><td>Intermediates & States</td><td><a href="https://www.macmillanlearning.com/college/us/product/Biochemistry/p/1464126100" target="_blank" title="Biochemistry (8th ed.)" style="color:#e74c3c;">Berg, J. M. et al. 2015</a></td></tr><tr><td style="font-weight:600;">Cleave to two trioses</td><td>Processing & Operations</td><td><a href="https://www.macmillanlearning.com/college/us/product/Lehninger-Principles-of-Biochemistry/p/1464126119" target="_blank" title="Lehninger Principles of Biochemistry (7th ed.)" style="color:#e74c3c;">Nelson, D. L. et al. 2017</a></td></tr><tr><td style="font-weight:600;">G3P x2</td><td>Intermediates & States</td><td><a href="https://www.macmillanlearning.com/college/us/product/Biochemistry/p/1464126100" target="_blank" title="Biochemistry (8th ed.)" style="color:#e74c3c;">Berg, J. M. et al. 2015</a></td></tr><tr><td style="font-weight:600;">Oxidation + NAD+ -> NADH</td><td>Processing & Operations</td><td><a href="https://www.macmillanlearning.com/college/us/product/Lehninger-Principles-of-Biochemistry/p/1464126119" target="_blank" title="Lehninger Principles of Biochemistry (7th ed.)" style="color:#e74c3c;">Nelson, D. L. et al. 2017</a></td></tr><tr><td style="font-weight:600;">Payoff: substrate-level ATP</td><td>Processing & Operations</td><td><a href="https://www.macmillanlearning.com/college/us/product/Lehninger-Principles-of-Biochemistry/p/1464126119" target="_blank" title="Lehninger Principles of Biochemistry (7th ed.)" style="color:#e74c3c;">Nelson, D. L. et al. 2017</a></td></tr><tr><td style="font-weight:600;">Net 2 ATP + 2 NADH?</td><td>Intermediates & States</td><td><a href="https://www.macmillanlearning.com/college/us/product/Biochemistry/p/1464126100" target="_blank" title="Biochemistry (8th ed.)" style="color:#e74c3c;">Berg, J. M. et al. 2015</a></td></tr><tr><td style="font-weight:600;">Regenerate NAD+</td><td>Processing & Operations</td><td><a href="https://www.macmillanlearning.com/college/us/product/Biochemistry/p/1464126100" target="_blank" title="Biochemistry (8th ed.)" style="color:#e74c3c;">Berg, J. M. et al. 2015</a></td></tr><tr><td style="font-weight:600;">2 Pyruvate</td><td>Products & Outputs</td><td><a href="https://www.macmillanlearning.com/college/us/product/Lehninger-Principles-of-Biochemistry/p/1464126119" target="_blank" title="Lehninger Principles of Biochemistry (7th ed.)" style="color:#e74c3c;">Nelson, D. L. et al. 2017</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -313,12 +329,12 @@ X2 --> Z2[Metabolism Process Complete]
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 26</li>
-                        <li><strong>Edges:</strong> 21</li>
-                        <li><strong>Conditionals:</strong> 0</li>
+                        <li><strong>Nodes:</strong> 10</li>
+                        <li><strong>Edges:</strong> 10</li>
+                        <li><strong>Conditionals:</strong> 1</li>
                         <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 1</li>
+                        <li><strong>OR Gates:</strong> 1</li>
+                        <li><strong>Total Gates:</strong> 2</li>
                     </ul>
                 </div>
                 
@@ -326,7 +342,7 @@ X2 --> Z2[Metabolism Process Complete]
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>metabolism</li>
+                        <li>glycolysis</li><li>Embden-Meyerhof-Parnas</li><li>ATP investment</li><li>NADH</li><li>pyruvate</li>
                     </ul>
                 </div>
                 
@@ -337,43 +353,23 @@ X2 --> Z2[Metabolism Process Complete]
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Lehninger Principles of Biochemistry (7th ed.)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Nelson, D. L.; Cox, M. M.
+                            , W. H. Freeman
+                             (2017)
                             </span>
                             
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
+                            <br><a href="https://www.macmillanlearning.com/college/us/product/Lehninger-Principles-of-Biochemistry/p/1464126119" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Metabolism</strong>
-                            
-                            , Metabolism
+                            <strong>Biochemistry (8th ed.)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Berg, J. M.; Tymoczko, J. L.; Gatto, G. J.; Stryer, L.
+                            , W. H. Freeman
                              (2015)
                             </span>
-                            <br><a href="https://doi.org/10.5040/9781350984653" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.5040/9781350984653</a>
                             
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Exercise Metabolism</strong>
-                            
-                            , Cell Metabolism
-                             (2015)
-                            </span>
-                            <br><a href="https://doi.org/10.1016/j.cmet.2015.06.012" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1016/j.cmet.2015.06.012</a>
-                            
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Metabolism 2005 Outside Reviewers</strong>
-                            
-                            , Metabolism
-                             (2006)
-                            </span>
-                            <br><a href="https://doi.org/10.1016/j.metabol.2006.07.015" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1016/j.metabol.2006.07.015</a>
-                            
+                            <br><a href="https://www.macmillanlearning.com/college/us/product/Biochemistry/p/1464126100" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
                         </li>
                         
                     </ul>

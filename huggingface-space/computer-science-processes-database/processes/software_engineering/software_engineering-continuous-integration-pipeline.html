@@ -167,6 +167,33 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
@@ -176,7 +203,7 @@
             <div class="header-meta">
                 <span class="meta-item">Computer Science</span>
                 <span class="meta-item">Software Engineering</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,48 +234,60 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Continuous Integration Pipeline process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>A CI pipeline validates every change automatically: a push triggers checkout and build, and on success the unit and integration test suites run, followed by static analysis; only when all gates pass is the artifact packaged and deployed to staging, while any failure stops the pipeline and notifies the author to fix.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-N1["Commit/PR Event"]
-N2["Pipeline Config"]
-N3["Runner"]
-N4["Choose Approach"]
-N5["Artifacts"]
-N6["Build"]
-N7["Test"]
-N8["Report Status"]
-N9["Integrate Results"]
-N10["Green Build"]
+    N1["Developer pushes commit"]
+    N2["CI triggers on push"]
+    N3["Checkout + build"]
+    N4{"Build succeeds?"}
+    N5["Fail fast, notify"]
+    N6["Run unit + integration"]
+    N7{"Tests pass?"}
+    N8["Static analysis / lint"]
+    N9["Package artifact"]
+    N10["Deploy to staging"]
+    N11["Merge-ready build"]
 
-N1 --> N2
-N2 --> N3
-N3 --> N4
-N4 --> N5
-N4 --> N7
-N5 --> N6
-N7 --> N8
-N6 --> N9
-N8 --> N9
-N9 --> N10
+    N1 --> N2
+    N2 --> N3
+    N3 --> N4
+    N4 -->|no| N5
+    N5 -->|fix| N1
+    N4 -->|yes| N6
+    N6 --> N7
+    N7 -->|no| N5
+    N7 -->|yes| N8
+    N8 --> N9
+    N9 --> N10
+    N10 --> N11
 
     style N1 fill:#ff6b6b,color:#fff
-    style N2 fill:#ff6b6b,color:#fff
-    style N3 fill:#ffd43b,color:#000
-    style N4 fill:#ffd43b,color:#000
-    style N5 fill:#ffd43b,color:#000
+    style N2 fill:#51cf66,color:#fff
+    style N3 fill:#51cf66,color:#fff
+    style N4 fill:#74c0fc,color:#fff
+    style N5 fill:#51cf66,color:#fff
     style N6 fill:#51cf66,color:#fff
-    style N7 fill:#51cf66,color:#fff
-    style N8 fill:#74c0fc,color:#fff
-    style N9 fill:#74c0fc,color:#fff
-    style N10 fill:#b197fc,color:#fff
+    style N7 fill:#74c0fc,color:#fff
+    style N8 fill:#51cf66,color:#fff
+    style N9 fill:#51cf66,color:#fff
+    style N10 fill:#51cf66,color:#fff
+    style N11 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Developer pushes commit</td><td>Triggers & Inputs</td><td><a href="https://martinfowler.com/articles/continuousIntegration.html" target="_blank" title="Continuous Integration" style="color:#9b59b6;">Fowler, M. 2006</a></td></tr><tr><td style="font-weight:600;">CI triggers on push</td><td>Processing & Operations</td><td><a href="https://martinfowler.com/articles/continuousIntegration.html" target="_blank" title="Continuous Integration" style="color:#9b59b6;">Fowler, M. 2006</a></td></tr><tr><td style="font-weight:600;">Checkout + build</td><td>Processing & Operations</td><td><a href="https://www.oreilly.com/library/view/continuous-delivery-reliable/9780321670250/" target="_blank" title="Continuous Delivery: Reliable Software Releases through Build, Test, and Deployment Automation" style="color:#9b59b6;">Humble, J. et al. 2010</a></td></tr><tr><td style="font-weight:600;">Build succeeds?</td><td>Intermediates & States</td><td><a href="https://www.oreilly.com/library/view/continuous-delivery-reliable/9780321670250/" target="_blank" title="Continuous Delivery: Reliable Software Releases through Build, Test, and Deployment Automation" style="color:#9b59b6;">Humble, J. et al. 2010</a></td></tr><tr><td style="font-weight:600;">Fail fast, notify</td><td>Processing & Operations</td><td><a href="https://martinfowler.com/articles/continuousIntegration.html" target="_blank" title="Continuous Integration" style="color:#9b59b6;">Fowler, M. 2006</a></td></tr><tr><td style="font-weight:600;">Run unit + integration</td><td>Processing & Operations</td><td><a href="https://www.oreilly.com/library/view/continuous-delivery-reliable/9780321670250/" target="_blank" title="Continuous Delivery: Reliable Software Releases through Build, Test, and Deployment Automation" style="color:#9b59b6;">Humble, J. et al. 2010</a></td></tr><tr><td style="font-weight:600;">Tests pass?</td><td>Intermediates & States</td><td><a href="https://www.oreilly.com/library/view/continuous-delivery-reliable/9780321670250/" target="_blank" title="Continuous Delivery: Reliable Software Releases through Build, Test, and Deployment Automation" style="color:#9b59b6;">Humble, J. et al. 2010</a></td></tr><tr><td style="font-weight:600;">Static analysis / lint</td><td>Processing & Operations</td><td><a href="https://www.oreilly.com/library/view/continuous-delivery-reliable/9780321670250/" target="_blank" title="Continuous Delivery: Reliable Software Releases through Build, Test, and Deployment Automation" style="color:#9b59b6;">Humble, J. et al. 2010</a></td></tr><tr><td style="font-weight:600;">Package artifact</td><td>Processing & Operations</td><td><a href="https://www.oreilly.com/library/view/continuous-delivery-reliable/9780321670250/" target="_blank" title="Continuous Delivery: Reliable Software Releases through Build, Test, and Deployment Automation" style="color:#9b59b6;">Humble, J. et al. 2010</a></td></tr><tr><td style="font-weight:600;">Deploy to staging</td><td>Processing & Operations</td><td><a href="https://www.oreilly.com/library/view/continuous-delivery-reliable/9780321670250/" target="_blank" title="Continuous Delivery: Reliable Software Releases through Build, Test, and Deployment Automation" style="color:#9b59b6;">Humble, J. et al. 2010</a></td></tr><tr><td style="font-weight:600;">Merge-ready build</td><td>Products & Outputs</td><td><a href="https://martinfowler.com/articles/continuousIntegration.html" target="_blank" title="Continuous Integration" style="color:#9b59b6;">Fowler, M. 2006</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -294,12 +333,12 @@ N9 --> N10
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 10</li>
-                        <li><strong>Edges:</strong> 10</li>
-                        <li><strong>Conditionals:</strong> 0</li>
+                        <li><strong>Nodes:</strong> 11</li>
+                        <li><strong>Edges:</strong> 12</li>
+                        <li><strong>Conditionals:</strong> 2</li>
                         <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 1</li>
-                        <li><strong>Total Gates:</strong> 2</li>
+                        <li><strong>OR Gates:</strong> 2</li>
+                        <li><strong>Total Gates:</strong> 3</li>
                     </ul>
                 </div>
                 
@@ -307,7 +346,7 @@ N9 --> N10
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>continuous</li><li>integration</li><li>pipeline</li>
+                        <li>continuous integration</li><li>build pipeline</li><li>automated testing</li><li>fail fast</li><li>staging deploy</li>
                     </ul>
                 </div>
                 
@@ -318,43 +357,23 @@ N9 --> N10
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Continuous Delivery: Reliable Software Releases through Build, Test, and Deployment Automation</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Humble, J.; Farley, D.
+                            , Addison-Wesley
+                             (2010)
                             </span>
                             
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #9b59b6; font-size: 0.85em;">View Source</a>
+                            <br><a href="https://www.oreilly.com/library/view/continuous-delivery-reliable/9780321670250/" target="_blank" style="color: #9b59b6; font-size: 0.85em;">View Source</a>
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Automating Security in a Continuous Integration Pipeline</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Chalishhafshejani, Sohrab; Pham, Bao; Jaatun, Martin
-                            , Proceedings of the 7th International Conference on Internet of Things, Big Data and Security
-                             (2022)
+                            <strong>Continuous Integration</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Fowler, M.
+                            , martinfowler.com
+                             (2006)
                             </span>
-                            <br><a href="https://doi.org/10.5220/0011083500003194" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.5220/0011083500003194</a>
                             
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>AUTOMATING SOFTWARE CODE DEPLOYMENT USING CONTINUOUS INTEGRATION AND CONTINUOUS DELIVERY PIPELINE FOR BUSINESS INTELLIGENCE SOLUTIONS</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Sethi, Farhana
-                            
-                             (2020)
-                            </span>
-                            <br><a href="https://doi.org/10.22541/au.160373745.57814465/v1" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.22541/au.160373745.57814465/v1</a>
-                            
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Crossref work (10.1117/12.3014548.d3f83481-5d0c-439e-91a4-1ab7e96ee6b)</strong>
-                            
-                            
-                             (None)
-                            </span>
-                            <br><a href="https://doi.org/10.1117/12.3014548.d3f83481-5d0c-439e-91a4-1ab7e96ee6b" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.1117/12.3014548.d3f83481-5d0c-439e-91a4-1ab7e96ee6b</a>
-                            
+                            <br><a href="https://martinfowler.com/articles/continuousIntegration.html" target="_blank" style="color: #9b59b6; font-size: 0.85em;">View Source</a>
                         </li>
                         
                     </ul>

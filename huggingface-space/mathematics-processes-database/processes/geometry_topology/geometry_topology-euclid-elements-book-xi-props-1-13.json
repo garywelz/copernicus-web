@@ -1,0 +1,39 @@
+{
+  "id": "geometry_topology-euclid-elements-book-xi-props-1-13",
+  "name": "Euclid's Elements Book XI — Propositions 1-13",
+  "category": "mathematics",
+  "subcategory": "geometry_topology",
+  "subcategory_name": "Geometry & Topology",
+  "description": "Process chart: geometry_topology-euclid-elements-book-xi-props-1-13",
+  "mermaid": "graph TD\n    BookI[\"Book I\\nFoundation\"]\n    BookVI[\"Book VI\\nFoundation\"]\n    Prop1[\"Prop. XI.1\\nLine part in plane\"]\n    Prop2[\"Prop. XI.2\\nTwo lines cut: one plane\"]\n    Prop3[\"Prop. XI.3\\nPlanes cut: line\"]\n    Prop4[\"Prop. XI.4\\nLine perpendicular to plane\"]\n    Prop5[\"Prop. XI.5\\nThree lines from point\"]\n    Prop6[\"Prop. XI.6\\nPerpendicular to same plane: parallel\"]\n    Prop7[\"Prop. XI.7\\nParallel lines: join in plane\"]\n    Prop8[\"Prop. XI.8\\nParallel: one perpendicular\"]\n    Prop9[\"Prop. XI.9\\nParallel to same: parallel\"]\n    Prop10[\"Prop. XI.10\\nSkew lines: equal angles\"]\n    Prop11[\"Prop. XI.11\\nPerpendicular from point to plane\"]\n    Prop12[\"Prop. XI.12\\nPerpendicular from point in plane\"]\n    Prop13[\"Prop. XI.13\\nOne perpendicular only\"]\n    BookI --> Prop1\n    BookVI --> Prop1\n    BookI --> Prop2\n    BookVI --> Prop2\n    BookI --> Prop3\n    BookVI --> Prop3\n    BookI --> Prop4\n    BookVI --> Prop4\n    BookI --> Prop5\n    BookVI --> Prop5\n    BookI --> Prop6\n    BookVI --> Prop6\n    BookI --> Prop7\n    BookVI --> Prop7\n    BookI --> Prop8\n    BookVI --> Prop8\n    BookI --> Prop9\n    BookVI --> Prop9\n    BookI --> Prop10\n    BookVI --> Prop10\n    BookI --> Prop11\n    BookVI --> Prop11\n    BookI --> Prop12\n    BookVI --> Prop12\n    BookI --> Prop13\n    BookVI --> Prop13\n    classDef foundation fill:#95a5a6,color:#fff,stroke:#7f8c8d\n    classDef proposition fill:#51cf66,color:#fff,stroke:#40c057\n    class BookI,BookVI foundation\n    class Prop1,Prop2,Prop3,Prop4,Prop5,Prop6,Prop7,Prop8,Prop9,Prop10,Prop11,Prop12,Prop13 proposition",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "algorithm"
+}

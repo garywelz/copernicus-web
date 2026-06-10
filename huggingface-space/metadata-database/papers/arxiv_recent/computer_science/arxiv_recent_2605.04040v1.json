@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_2605.04040v1",
+  "arxiv_id": "2605.04040v1",
+  "title": "Large Language Models are Universal Reasoners for Visual Generation",
+  "authors": [
+    "Sucheng Ren",
+    "Chen Chen",
+    "Zhenbang Wang",
+    "Liangchen Song",
+    "Xiangxin Zhu",
+    "Alan Yuille",
+    "Liang-Chieh Chen",
+    "Jiasen Lu"
+  ],
+  "author_string": "Sucheng Ren, Chen Chen, Zhenbang Wang, Liangchen Song, Xiangxin Zhu et al.",
+  "journal": "arXiv:2605.04040v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Text-to-image generation has advanced rapidly with diffusion models, progressing from CLIP and T5 conditioning to unified systems where a single LLM backbone handles both visual understanding and generation. Despite the architectural unification, these systems frequently fail to faithfully align complex prompts during synthesis, even though they remain highly accurate at verifying whether an image satisfies those same prompts. We formalize this as the \\emph{understanding-generation gap} and propose UniReasoner, a framework that leverages the LLM as a universal reasoner to convert its understanding strength into direct generation guidance. Given a prompt, the LLM first produces a coarse visual draft composed of discrete vision tokens. It then performs a self-critique by evaluating the draft for prompt consistency, producing a grounded textual evaluation that pinpoints what needs to be corrected. Finally, a diffusion model is conditioned jointly on the prompt, the visual draft, and the evaluation, ensuring that generation is guided by explicit corrective signals. Each signal addresses a limitation of the other: the draft provides a concrete, scene-level anchor that reduces under-specification in text-only conditioning, while the evaluation turns verification into grounded, actionable constraints that correct omissions, hallucinations, and relational errors. Experiments show that UniReasoner improves compositional alignment and semantic faithfulness under the same diffusion backbone while maintaining image quality, demonstrating a practical way to exploit LLM reasoning to close the understanding-generation gap.",
+  "categories": [
+    "cs.CV"
+  ],
+  "primary_category": "cs.CV",
+  "comment": null,
+  "published_date": "2026-05-05T17:57:36Z",
+  "updated_date": "2026-05-05T17:57:36Z",
+  "url": "https://arxiv.org/abs/2605.04040v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.04040v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-06T10:15:40.980987",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CV"
+  ]
+}

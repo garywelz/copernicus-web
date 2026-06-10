@@ -1,0 +1,45 @@
+{
+  "id": "medrxiv_10.64898_2026.01.03.26343379",
+  "doi": "10.64898/2026.01.03.26343379",
+  "title": "Representing Injuries in Trauma Patients: Development and Evaluation of Embeddings for Injuries",
+  "authors": [
+    "Szolnoky, K.",
+    "Attergrim, J.",
+    "Ashfaq, A.",
+    "Linusson, H.",
+    "Gerdin Wärnberg, M.",
+    "Berg, J."
+  ],
+  "author_string": "Szolnoky, K., Attergrim, J., Ashfaq, A., Linusson, H., Gerdin Wärnberg, M. et al.",
+  "journal": "medRxiv",
+  "journal_full": "medRxiv",
+  "year": "2026",
+  "abstract": "AO_SCPLOWBSTRACTC_SCPLOWO_ST_ABSBackgroundC_ST_ABSTrauma patients present with heterogeneous injury patterns that are challenging to represent in statistical models. Traditional approaches either use high-dimensional one-hot encoding, resulting in sparse features, or aggregate injuries into summary scores that lose patient-specific detail. This study developed data-driven ICD-10 embeddings for trauma injuries and evaluated their ability to preserve injury information.\n\nMethodsUsing the National Trauma Data Bank, we trained autoencoder models on all trauma patients from 2018 to generate dense vector representations of ICD-10 injury codes. We evaluated embeddings of dimensions 2, 4, 8, 16, and 32 against one-hot encoding using three prediction tasks: in-hospital mortality, emergency department disposition, and blood transfusion within 24 hours. For each hospital included, we trained separate logistic regression and LightGBM models using 2018 data from that hospital, then evaluated performance on 2019 data from the same hospital. Performance was measured using area under the receiver operating characteristic curve (AUC) and stratified by hospital size.\n\nResultsIn LightGBM models, 8-dimensional embeddings improved AUC compared to one-hot encoding of 0.08 (95% CI: 0.06, 0.10) in small hospitals, 0.03 (0.02, 0.04) in medium hospitals, and 0.02 (0.01, 0.02) in large hospitals, with comparable performance in major hospitals (0.00 [-0.01, 0.01]). In logistic regression, 32-dimensional embeddings showed AUC improvements of 0.03 (0.01, 0.05), 0.02 (0.01, 0.03), and 0.02 (0.02, 0.03) for small, medium, and large hospitals respectively, with similar performance in major hospitals (0.01 [0.00, 0.01]).\n\nConclusionICD-10 code injury embeddings with [&ge;]8 dimensions preserve clinically relevant information and can outperform one-hot encoding while reducing dimensionality. The embeddings and software are openly available to support further trauma research and applications.",
+  "keywords": [],
+  "categories": [
+    "emergency medicine"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.64898/2026.01.03.26343379",
+  "source": "medrxiv",
+  "sources": [
+    "medrxiv"
+  ],
+  "acquired_date": "2026-05-12T22:15:25.507165",
+  "category": "biology",
+  "subcategories": [
+    "emergency medicine"
+  ],
+  "published_date": "2026-01-12",
+  "updated_date": "2026-01-12",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "medrxiv",
+  "preprint_version": "2",
+  "preprint_type": "PUBLISHAHEADOFPRINT",
+  "license": "cc_by_nc_nd",
+  "jatsxml": "https://www.medrxiv.org/content/early/2026/01/12//2026.01.03.26343379.source.xml",
+  "published_doi": null,
+  "author_corresponding": "Kelvin Szolnoky",
+  "author_corresponding_institution": "Department of Medical Epidemiology and Biostatistics, Karolinska Institutet, Stockholm, Sweden"
+}

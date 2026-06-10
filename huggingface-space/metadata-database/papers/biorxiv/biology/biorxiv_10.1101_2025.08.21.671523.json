@@ -1,0 +1,43 @@
+{
+  "id": "biorxiv_10.1101_2025.08.21.671523",
+  "doi": "10.1101/2025.08.21.671523",
+  "title": "Interactive Visualization of Metric Distortion in Nonlinear Data Embeddings using the distortions Package",
+  "authors": [
+    "Sankaran, K.",
+    "Zhang, S.",
+    "Chenab,",
+    "Meila, M."
+  ],
+  "author_string": "Sankaran, K., Zhang, S., Chenab,, Meila, M.",
+  "journal": "bioRxiv",
+  "journal_full": "bioRxiv",
+  "year": "2026",
+  "abstract": "Nonlinear dimensionality reduction methods like UMAP and t-SNE can help to organize high-dimensional genomics data into manageable low-dimensional representations, like cell types or differentiation trajectories. Such reductions can be powerful, but inevitably introduce distortion. A growing body of work has demonstrated that this distortion can have serious consequences for downstream interpretation, for example, suggesting clusters that do not exist in the original data. Motivated by these developments, we implemented a software package, distortions, which builds on state-of-the-art methods for measuring local distortions and displays them in an intuitive and interactive way. Through case studies on simulated and real data, we find that the visualizations can help flag fragmented neighborhoods, support hyperparameter tuning, and enable method selection. We believe that this extra layer of information will help practitioners use nonlinear dimensionality reduction methods more confidently. The package documentation and notebooks reproducing all case studies are available online at https://krisrs1128.github.io/distortions/site/.",
+  "keywords": [],
+  "categories": [
+    "bioinformatics"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.1101/2025.08.21.671523",
+  "source": "biorxiv",
+  "sources": [
+    "biorxiv"
+  ],
+  "acquired_date": "2026-05-21T22:15:24.426899",
+  "category": "biology",
+  "subcategories": [
+    "bioinformatics"
+  ],
+  "published_date": "2026-01-21",
+  "updated_date": "2026-01-21",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "biorxiv",
+  "preprint_version": "3",
+  "preprint_type": "new results",
+  "license": "cc_by",
+  "jatsxml": "https://www.biorxiv.org/content/early/2026/01/21/2025.08.21.671523.source.xml",
+  "published_doi": null,
+  "author_corresponding": "Kris Sankaran",
+  "author_corresponding_institution": "University of Wisconsin - Madison"
+}

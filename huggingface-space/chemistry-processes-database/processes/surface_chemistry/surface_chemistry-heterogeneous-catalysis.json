@@ -1,21 +1,23 @@
 {
   "id": "surface_chemistry-heterogeneous-catalysis",
-  "name": "Heterogeneous Catalysis",
+  "name": "Heterogeneous Catalysis (Langmuir–Hinshelwood)",
   "category": "chemistry",
   "subcategory": "surface_chemistry",
   "subcategory_name": "Surface Chemistry",
-  "description": "Heterogeneous Catalysis process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "In the Langmuir-Hinshelwood mechanism both reactants adsorb on the catalyst surface, diffuse and react in the adsorbed state, and the product desorbs to regenerate the active site, giving a catalytic turnover cycle.",
   "complexity": {
-    "nodes": 26,
-    "edges": 22,
-    "conditionals": 0,
+    "nodes": 10,
+    "edges": 11,
+    "conditionals": 1,
     "logicGates": {
-      "orGates": 0,
+      "orGates": 2,
       "andGates": 1,
-      "total": 1
+      "notGates": 0,
+      "total": 3
     },
-    "level": "medium",
-    "detailLevel": "medium"
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 2
   },
   "colorScheme": {
     "red": {
@@ -39,53 +41,151 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nA1[Reactant Molecules] --> B1[Catalyst Surface Method]\nC1[Catalyst Material] --> D1[Surface Characterization]\nE1[Reaction Conditions] --> F1[Temperature Control]\nB1 --> G1[Surface Preparation]\nD1 --> H1[Active Site Analysis]\nF1 --> I1[Pressure Regulation]\nG1 --> J1[Surface Cleaning]\nH1 --> K1[Site Density]\nI1 --> L1[Reaction Pressure]\nJ1 --> M1[Surface Activation]\nK1 --> L1\nL1 --> N1[Adsorption Process]\nM1 --> O1[Reactant Adsorption]\nN1 --> P1[Surface Reaction]\nO1 --> Q1[Catalytic Activity]\nP1 --> R1[Product Formation]\nQ1 --> S1[Reaction Rate]\nR1 --> T1[Desorption Process]\nS1 --> U1[Turnover Frequency]\nT1 --> V1[Product Collection]\nU1 --> W1[Catalyst Performance]\nV1 --> X1[Yield Analysis]\nW1 --> Y1[Optimization Process]\nX1 --> Z1[Catalytic Efficiency]\nY1 --> Z1\n\n    style A1 fill:#ff6b6b,color:#fff\n    style C1 fill:#ff6b6b,color:#fff\n    style E1 fill:#ff6b6b,color:#fff\n    style B1 fill:#ffd43b,color:#000\n    style D1 fill:#ffd43b,color:#000\n    style F1 fill:#ffd43b,color:#000\n    style G1 fill:#ffd43b,color:#000\n    style H1 fill:#ffd43b,color:#000\n    style I1 fill:#ffd43b,color:#000\n    style J1 fill:#ffd43b,color:#000\n    style K1 fill:#ffd43b,color:#000\n    style L1 fill:#ffd43b,color:#000\n    style M1 fill:#51cf66,color:#fff\n    style N1 fill:#51cf66,color:#fff\n    style O1 fill:#51cf66,color:#fff\n    style P1 fill:#51cf66,color:#fff\n    style Q1 fill:#51cf66,color:#fff\n    style R1 fill:#51cf66,color:#fff\n    style S1 fill:#51cf66,color:#fff\n    style T1 fill:#51cf66,color:#fff\n    style U1 fill:#51cf66,color:#fff\n    style V1 fill:#51cf66,color:#fff\n    style W1 fill:#51cf66,color:#fff\n    style X1 fill:#51cf66,color:#fff\n    style Y1 fill:#51cf66,color:#fff\n    style Z1 fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"Reactants in gas phase\"]\n    N2[\"Adsorb on surface\"]\n    N3{\"Both species adsorbed?\"}\n    N4[\"Wait for co-adsorption\"]\n    N5[\"Surface diffusion\"]\n    N6[\"React on surface\"]\n    N7[\"Product adsorbed\"]\n    N8[\"Desorb product\"]\n    N9[\"Site regenerated\"]\n    N10[\"Catalytic turnover\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 -->|no| N4\n    N4 -->|build coverage| N2\n    N3 -->|yes| N5\n    N5 --> N6\n    N6 --> N7\n    N7 --> N8\n    N8 --> N9\n    N9 -->|next turn| N2\n    N8 --> N10\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#74c0fc,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#74c0fc,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#51cf66,color:#fff\n    style N10 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "title": "Reactions at solid surfaces: from atoms to complexity (Nobel Lecture)",
+      "authors": "Ertl, G.",
+      "journal": "Angewandte Chemie International Edition",
+      "year": "2008",
+      "doi": "10.1002/anie.200800480",
+      "url": "https://doi.org/10.1002/anie.200800480"
+    },
+    {
+      "title": "Introduction to Surface Chemistry and Catalysis, 2nd ed. — Reaction Mechanisms",
+      "authors": "Somorjai, G. A.; Li, Y.",
+      "journal": "Wiley",
+      "year": "2010",
       "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: Heterogeneous Catalysis. Created using the Programming Framework methodology."
+      "url": "https://www.wiley.com/en-us/Introduction+to+Surface+Chemistry+and+Catalysis%2C+2nd+Edition-p-9780470508237"
     },
     {
-      "title": "An introduction to heterogeneous catalysis",
-      "authors": "",
-      "journal": "Electron Microscopy in Heterogeneous Catalysis",
-      "year": "None",
-      "pubmed": null,
-      "doi": "10.1887/0750308095/b661c1",
-      "url": "https://doi.org/10.1887/0750308095/b661c1"
-    },
-    {
-      "title": "Electron microscopy and diffraction in heterogeneous catalysis",
-      "authors": "",
-      "journal": "Electron Microscopy in Heterogeneous Catalysis",
-      "year": "None",
-      "pubmed": null,
-      "doi": "10.1887/0750308095/b661c2",
-      "url": "https://doi.org/10.1887/0750308095/b661c2"
-    },
-    {
-      "title": "Heterogeneous Catalysis – Chemistry in Two Dimensions",
-      "authors": "Ross, Julian R.H.",
-      "journal": "Heterogeneous Catalysis",
-      "year": "2012",
-      "pubmed": null,
-      "doi": "10.1016/b978-0-444-53363-0.10001-5",
-      "url": "https://doi.org/10.1016/b978-0-444-53363-0.10001-5"
+      "title": "Concepts of Modern Catalysis and Kinetics, 3rd ed.",
+      "authors": "Chorkendorff, I.; Niemantsverdriet, J. W.",
+      "journal": "Wiley-VCH",
+      "year": "2017",
+      "doi": "10.1002/9783527691937",
+      "url": "https://doi.org/10.1002/9783527691937"
     }
   ],
   "keywords": [
-    "heterogeneous",
-    "catalysis"
+    "langmuir-hinshelwood",
+    "heterogeneous catalysis",
+    "surface reaction",
+    "desorption",
+    "turnover"
   ],
   "relatedProcesses": [],
   "created": "2026-01-08",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Reactants in gas phase",
+      "detail": "A and B molecules",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 1
+    },
+    {
+      "id": "N2",
+      "label": "Adsorb on surface",
+      "detail": "Occupy active sites",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N3",
+      "label": "Both species adsorbed?",
+      "detail": "Co-adsorption required",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 2
+    },
+    {
+      "id": "N4",
+      "label": "Wait for co-adsorption",
+      "detail": "Coverage builds",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N5",
+      "label": "Surface diffusion",
+      "detail": "Adsorbates migrate",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N6",
+      "label": "React on surface",
+      "detail": "Bond formation at site",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N7",
+      "label": "Product adsorbed",
+      "detail": "Bound product species",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N8",
+      "label": "Desorb product",
+      "detail": "Release to gas phase",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N9",
+      "label": "Site regenerated",
+      "detail": "Ready for next cycle",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N10",
+      "label": "Catalytic turnover",
+      "detail": "Net product formed",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 2
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:surface_chemistry-heterogeneous-catalysis",
+    "graphType": "cyclic_pathway",
+    "topologySignature": "d4c51fad3dbcd8db",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "namedCollections": [
+    "surface-chemistry"
+  ],
+  "graphMetrics": {
+    "nodes": 10,
+    "edges": 11,
+    "conditionals": 1,
+    "andGates": 1,
+    "orGates": 2,
+    "notGates": 0,
+    "loops": 2
+  },
+  "graphType": "cyclic_pathway",
+  "domainContext": "Heterogeneous catalysis"
 }

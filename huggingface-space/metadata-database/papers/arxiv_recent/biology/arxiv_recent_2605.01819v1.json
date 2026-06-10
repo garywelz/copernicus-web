@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2605.01819v1",
+  "arxiv_id": "2605.01819v1",
+  "title": "Longitudinal QSM: Enhancing consistency of multiple time point susceptibility maps via simultaneous reconstruction",
+  "authors": [
+    "Jiye Kim",
+    "Hwihun Jeong",
+    "Taechang Kim",
+    "Eunseon Jeong",
+    "Jinhee Jang",
+    "Yangsean Choi",
+    "Jongho Lee"
+  ],
+  "author_string": "Jiye Kim, Hwihun Jeong, Taechang Kim, Eunseon Jeong, Jinhee Jang et al.",
+  "journal": "arXiv:2605.01819v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Quantitative susceptibility mapping (QSM) has been increasingly applied in longitudinal studies of neurodegenerative diseases and aging to assess temporal alterations in brain iron and myelin. The accuracy of such investigations depends on the repeatability and sensitivity of measurements. However, the ill-posed nature of the QSM processing steps makes the reconstruction vulnerable to background field changes, head orientation changes, noise, and imperfect registration, which compromise repeatability and sensitivity and hinder reliable detection of true changes. To address these limitations, we propose Longitudinal QSM, a simultaneous reconstruction framework that jointly estimates susceptibility maps across time points while enforcing spatial sparsity of temporal changes. The method was evaluated through simulations and in-vivo experiments and compared with conventional reconstruction methods. Longitudinal QSM consistently reduced inter-scan variability and accurately recovered simulated lesion changes. Application to stroke patient and multiple sclerosis patient data further demonstrated that the framework stabilizes non-lesion variability while preserving lesion-related temporal changes. This approach offers a promising tool for monitoring subtle temporal changes in brain iron and myelin in various neurodegenerative diseases as well as throughout aging and development.",
+  "categories": [
+    "q-bio.QM"
+  ],
+  "primary_category": "q-bio.QM",
+  "comment": null,
+  "published_date": "2026-05-03T10:55:08Z",
+  "updated_date": "2026-05-03T10:55:08Z",
+  "url": "https://arxiv.org/abs/2605.01819v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.01819v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-09T22:15:36.917697",
+  "category": "biology",
+  "subcategories": [
+    "q-bio.QM"
+  ]
+}

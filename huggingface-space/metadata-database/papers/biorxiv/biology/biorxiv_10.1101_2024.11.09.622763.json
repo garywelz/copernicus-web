@@ -1,0 +1,48 @@
+{
+  "id": "biorxiv_10.1101_2024.11.09.622763",
+  "doi": "10.1101/2024.11.09.622763",
+  "title": "Comprehensive benchmarking of tools for nanopore-based detection of DNA methylation",
+  "authors": [
+    "Kulkarni, O.",
+    "Mathew, R. J.",
+    "Jana, R.",
+    "Zaveri, L.",
+    "Ara, S.",
+    "Nagabandi, T.",
+    "Singh, N. K.",
+    "Tallapaka, K. B.",
+    "Sowpati, D. T."
+  ],
+  "author_string": "Kulkarni, O., Mathew, R. J., Jana, R., Zaveri, L., Ara, S. et al.",
+  "journal": "bioRxiv",
+  "journal_full": "bioRxiv",
+  "year": "2026",
+  "abstract": "Long read sequencing technologies such as Oxford Nanopore (ONT) offer direct, simultaneous detection of DNA base modifications. The recent migration of ONT to the upgraded R10 chemistry has spurred the development of diverse methylation detection models. However, their performance and accuracy remain unclear. Here, leveraging diverse bacterial, plant, and mammalian datasets, we systematically evaluate the current landscape of tools and models for studying DNA methylation using nanopore sequencing. Our results demonstrate that the older models remain the best choice for studying CpG methylation. We note substantial improvement of newer tools in identifying 5-methylcytosine in non-CG contexts, 6-methyladenine, and 4-methylcytosine. We highlight the sensitivity of various tools to confounding methylation nearby. We also assess the computational performance of various tools, and effects of sequencing depth, methylation abundance, read quality, and basecalling mode. Our reusable pipelines and fully open access datasets provide a framework of resources to empower future benchmarking efforts. Our work thus details the strengths and limitations of the state-of-the-art methylation models and outlines practical guidelines for researchers using nanopore sequencing to study DNA modifications.",
+  "keywords": [],
+  "categories": [
+    "genomics"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.1101/2024.11.09.622763",
+  "source": "biorxiv",
+  "sources": [
+    "biorxiv"
+  ],
+  "acquired_date": "2026-05-19T22:15:23.693384",
+  "category": "biology",
+  "subcategories": [
+    "genomics"
+  ],
+  "published_date": "2026-01-19",
+  "updated_date": "2026-01-19",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "biorxiv",
+  "preprint_version": "2",
+  "preprint_type": "new results",
+  "license": "cc_by",
+  "jatsxml": "https://www.biorxiv.org/content/early/2026/01/19/2024.11.09.622763.source.xml",
+  "published_doi": null,
+  "author_corresponding": "Divya Tej Sowpati",
+  "author_corresponding_institution": "CSIR Centre for Cellular and Molecular Biology"
+}

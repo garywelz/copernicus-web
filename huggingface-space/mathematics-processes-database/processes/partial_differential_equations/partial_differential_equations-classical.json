@@ -1,0 +1,39 @@
+{
+  "id": "partial_differential_equations-classical",
+  "name": "Laplace, Heat, Wave",
+  "category": "mathematics",
+  "subcategory": "partial_differential_equations",
+  "subcategory_name": "Partial Differential Equations",
+  "description": "Δu=0, u_t−Δu=0, u_tt−c²Δu=0. Elliptic, parabolic, hyperbolic. Existence, uniqueness, regularity.",
+  "mermaid": "graph TD\n    D1[\"Def: Laplace Δu\\nΣ ∂²u/∂xᵢ²=0\"]\n    D2[\"Def: Heat eq\\nu_t−αΔu=0\"]\n    D3[\"Def: Wave eq\\nu_tt−c²Δu=0\"]\n    D4[\"Def: Elliptic/Parab/Hyp\\nclassify by symbol\"]\n    T1[\"Thm: Dirichlet\\nΔu=0 has soln\"]\n    T2[\"Thm: Max principle\\nheat uniqueness\"]\n    T3[\"Thm: Energy method\\nwave uniqueness\"]\n    T4[\"Thm: Regularity\\nsmooth data⇒smooth soln\"]\n    T5[\"Thm: Harnack\\nharmonic pos\"]\n    D1 --> T1\n    D1 --> D2\n    D1 --> D3\n    D2 --> T2\n    D3 --> T3\n    D1 --> T5\n    D4 --> T4\n    classDef definition fill:#b197fc,color:#fff\n    classDef theorem fill:#51cf66,color:#fff\n    class D1,D2,D3,D4 definition\n    class T1,T2,T3,T4,T5 theorem",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

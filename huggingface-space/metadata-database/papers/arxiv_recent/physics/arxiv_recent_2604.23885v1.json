@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2604.23885v1",
+  "arxiv_id": "2604.23885v1",
+  "title": "A positivity preserving and entropy stable nodal discontinuous Galerkin scheme for ideal MHD equations",
+  "authors": [
+    "Yue Wu",
+    "Chi-Wang Shu"
+  ],
+  "author_string": "Yue Wu, Chi-Wang Shu",
+  "journal": "arXiv:2604.23885v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Numerically solving magnetohydrodynamic (MHD) equations faces many challenges: avoiding divergence error, maintaining positivity, and satisfying entropy conditions. Among discontinuous Galerkin (DG) schemes, there has been a modal version that is locally divergence-free and positivity preserving and a nodal version that is entropy stable. In this work, we develop a DG scheme that combines the advantages of these two and solves all the three challenges. The key ingredients that bring these two schemes together are an HLL numerical flux with entropy stable signal speed estimates and a locally divergence-free projection. To handle problems with strong shocks, the essentially oscillation-free damping is applied. Various numerical experiments verify the accuracy and robustness of our method.",
+  "categories": [
+    "math.NA",
+    "physics.comp-ph"
+  ],
+  "primary_category": "physics.comp-ph",
+  "comment": "23 pages, 8 figures",
+  "published_date": "2026-04-26T20:57:44Z",
+  "updated_date": "2026-04-26T20:57:44Z",
+  "url": "https://arxiv.org/abs/2604.23885v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.23885v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-27T22:15:30.654355",
+  "category": "physics",
+  "subcategories": [
+    "math.NA",
+    "physics.comp-ph"
+  ]
+}

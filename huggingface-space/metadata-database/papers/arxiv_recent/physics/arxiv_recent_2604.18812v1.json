@@ -1,0 +1,44 @@
+{
+  "id": "arxiv_2604.18812v1",
+  "arxiv_id": "2604.18812v1",
+  "title": "SAGUI: SED-based Segmentation of Multi-band Galaxy Images -- Application to JADES in GOODS-South",
+  "authors": [
+    "Rafael S. de Souza",
+    "Andressa Wille",
+    "Shravya Shenoy",
+    "Aarya A. Patil",
+    "Alberto Krone-Martins",
+    "Ana L. Chies-Santos",
+    "Celine Boehm",
+    "Reinaldo R. Rosa",
+    "Thallis Pessi",
+    "Emille E. O. Ishida",
+    "Kristen C. Dage",
+    "Lilianne Nakazono",
+    "Phelipe Darc",
+    "Rupesh Durgesh"
+  ],
+  "author_string": "Rafael S. de Souza, Andressa Wille, Shravya Shenoy, Aarya A. Patil, Alberto Krone-Martins et al.",
+  "journal": "arXiv:2604.18812v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We present sagui, a modular framework for the analysis of multi-band imaging data in spatially resolved galaxies, with synergies to integral-field spectroscopy (IFS). Building on the spectro-spatial paradigm introduced by capivara for IFS data, sagui extends this approach to imaging datasets, enabling a coherent, pixel-level treatment of spatial and spectral information across multiple bands. The method follows a two-stage strategy: a starlet-based decomposition is first used to identify and mask spatial structures across multiple scales while suppressing noise, and a spectral-similarity analysis then partitions the image into coherent pixel groups that preserve spectral consistency. In addition to compact and high-contrast structures, the framework incorporates a dedicated statistical treatment, based on a copula transform, to identify and recover faint, diffuse low-surface-brightness components. We demonstrate the method across a diverse range of galaxy morphologies, highlighting its ability to characterize complex spatial structures, including clumps, bars, interacting systems, and low-surface-brightness features. As a case study, we apply it to eleven morphologically diverse galaxies from the James Webb Space Telescope Advanced Deep Extragalactic Survey in the GOODS--South field. sagui is released under an MIT license and is available at https://rafaelsdesouza.github.io/sagui/.",
+  "categories": [
+    "astro-ph.IM",
+    "astro-ph.GA"
+  ],
+  "primary_category": "astro-ph.GA",
+  "comment": "Submitted to MNRAS, comments and suggestions are very welcome",
+  "published_date": "2026-04-20T20:29:40Z",
+  "updated_date": "2026-04-20T20:29:40Z",
+  "url": "https://arxiv.org/abs/2604.18812v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.18812v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-22T10:15:44.050137",
+  "category": "physics",
+  "subcategories": [
+    "astro-ph.IM",
+    "astro-ph.GA"
+  ]
+}

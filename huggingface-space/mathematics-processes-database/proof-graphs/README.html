@@ -117,14 +117,14 @@
       border: 2px solid currentColor;
       flex: 0 0 auto;
     }
-    .legend-source { background: #e0f2fe; color: #0369a1; }
-    .legend-assumption { background: #fef3c7; color: #b45309; }
-    .legend-construction { background: #dcfce7; color: #15803d; }
-    .legend-assertion { background: #ede9fe; color: #7c3aed; }
-    .legend-inference { background: #fce7f3; color: #be185d; }
-    .legend-algorithm { background: #e0e7ff; color: #4338ca; }
-    .legend-contradiction { background: #fee2e2; color: #dc2626; }
-    .legend-conclusion { background: #ccfbf1; color: #0f766e; }
+    .legend-source { background: #f2c879; color: #7a4f12; }
+    .legend-assumption { background: #c084fc; color: #6d28d9; }
+    .legend-construction { background: #8fbc5a; color: #3f6212; }
+    .legend-assertion { background: #8ecae6; color: #25637a; }
+    .legend-inference { background: #f4a261; color: #9a3412; }
+    .legend-algorithm { background: #818cf8; color: #3730a3; }
+    .legend-contradiction { background: #ef4444; color: #991b1b; }
+    .legend-conclusion { background: #2dd4bf; color: #0f766e; }
     .source-note {
       margin-top: 32px;
       color: var(--muted);
@@ -147,6 +147,8 @@
 <p>Start with:</p>
 <ul>
 <li><code>schema.md</code> for graph vocabulary and metadata conventions.</li>
+<li><code>proof-graph-schema-v2.md</code> for the revised visual grammar, proof-specific palette, edge styles, joins, and loop policy.</li>
+<li><code>design-notes.md</code> for the conceptual framing of proofs as hybrid derivational graphs.</li>
 <li><code>pilot-summary.md</code> for scope, selected proofs, and database integration recommendations.</li>
 </ul>
 <p>Proof graph drafts:</p>
@@ -157,7 +159,7 @@
 <li><code>fundamental-theorem-arithmetic.md</code></li>
 <li><code>cantor-diagonal-proofs.md</code></li>
 </ul>
-<p>The pilot&#x27;s main recommendation is to attach proof graphs as drill-down views on theorem entries rather than creating a separate top-level category. This keeps theorem-level dependency graphs and proof-level internal dependency graphs distinct while allowing multiple proofs of the same theorem.</p>
+<p>The pilot&#x27;s main recommendation is to attach proof graphs as drill-down views on theorem entries and list them as a distinct proof-level category inside the mathematics database. This keeps theorem-level dependency graphs and proof-level internal dependency graphs distinct while allowing multiple proofs of the same theorem.</p>
 <p>The Cantor extension adds a second proof family around diagonal structures: Cantor&#x27;s theorem for power sets, countability of the rationals by diagonal enumeration, and uncountability of the reals by anti-diagonal construction. It also sketches later candidates involving Russell&#x27;s paradox, the liar paradox, and Godel&#x27;s completeness and incompleteness theorems.</p>
       <p class="source-note">Rendered from <code>README.md</code>. Mermaid diagrams are rendered in the browser from the source graph blocks.</p>
     </article>

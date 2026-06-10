@@ -1,0 +1,29 @@
+{
+  "id": "arxiv_2604.18662v1",
+  "arxiv_id": "2604.18662v1",
+  "title": "Coherence-gated quantum devices via real-time weak measurement",
+  "authors": [
+    "Priyank Singh"
+  ],
+  "author_string": "Priyank Singh",
+  "journal": "arXiv:2604.18662v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Single-photon routers in cavity and circuit QED direct photons based on which energy eigenstate a qubit occupies -- a projective decision that destroys coherence. We propose \\emph{coherence-gated routing}, where the routing decision depends on the magnitude of quantum coherence, estimated in real time from simultaneous weak measurements of $σ_x$ and $σ_z$. A photon is accepted depending on whether $S(T) = \\sqrt{\\langleσ_x\\rangle_c^2 + \\langleσ_y\\rangle_c^2}$ exceeds a tunable threshold~$S_{\\mathrm{th}}$.   Because coherence is certified at emission, the protocol enables two applications beyond conventional heralded sources: (i)~a quantum random number generator with min-entropy bounded by Bloch-sphere geometry, $H_\\infty \\geq -\\log_2\\bigl(\\frac{1+\\sqrt{1-S_{\\mathrm{th}}^2}}{2}\\bigr)$, and (ii)~a phase-tracked photon source where independent certification at two nodes bounds the matter-matter entanglement fidelity after Bell-state measurement.   The real-time estimator is a security primitive, not merely a numerical tool. We benchmark seven configurations across 3000 trajectories and show that deliberately underestimating detector efficiency ($η_{\\mathrm{a}} < η_{\\mathrm{true}}$) simultaneously stabilizes the numerics and suppresses overcertification. We trace this analytically through a purity monotonicity result, identify a geometric loophole amplifying purity undercertification into coherence overcertification by~$45\\times$, and develop two pointwise bounds: an Ornstein-Uhlenbeck comparison yielding $4.5\\%$ operational overcertification (validated at $3.6\\%$ from $10^6$ trajectories), and an exponential supermartingale establishing an exponential tail. The gap -- a single polynomial optimization -- defines a path to fully composable security.",
+  "categories": [
+    "quant-ph"
+  ],
+  "primary_category": "quant-ph",
+  "comment": "13 pages, 15 figures",
+  "published_date": "2026-04-20T12:19:54Z",
+  "updated_date": "2026-04-20T12:19:54Z",
+  "url": "https://arxiv.org/abs/2604.18662v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.18662v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-22T10:15:52.071948",
+  "category": "physics",
+  "subcategories": [
+    "quant-ph"
+  ]
+}

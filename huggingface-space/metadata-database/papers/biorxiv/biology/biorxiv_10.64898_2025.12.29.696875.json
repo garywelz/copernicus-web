@@ -1,0 +1,44 @@
+{
+  "id": "biorxiv_10.64898_2025.12.29.696875",
+  "doi": "10.64898/2025.12.29.696875",
+  "title": "MetaPaCS: A Novel Meta-Learning Framework for Pancreatic Cancer Subtype Identification",
+  "authors": [
+    "Peterson, N. B.",
+    "Sun, M.",
+    "Wu, X.",
+    "Wang, J.",
+    "Wan, S."
+  ],
+  "author_string": "Peterson, N. B., Sun, M., Wu, X., Wang, J., Wan, S.",
+  "journal": "bioRxiv",
+  "journal_full": "bioRxiv",
+  "year": "2025",
+  "abstract": "As the third leading cause of cancer related deaths in the United States, pancreatic cancer (PaC) is a highly heterogenous malignancy that can be divided into a multitude of potential subtypes, with the main 4 consisting of aberrantly differentiated endocrine exocrine (ADEX), immunogenic, progenitor, and squamous. Each PaC subtype is characterized by unique molecular pathways and therapeutic characteristics. Identifying PaC molecular subtypes is essential for downstream patient risk stratification and tailored treatment design. Conventional wet-lab approaches for PaC subtyping like microdissection, histopathological studies or molecular profiling are often laborious, costly, and time-consuming. To address these concerns, we present MetaPaCS, a novel meta-learning framework to accurately identify PaC subtypes based on transcriptomics data only. Specifically, after preprocessing, the transcriptome-based feature vectors were classified by 10 base machine learning (ML) classifiers, whose prediction outputs were then combined with the initial preprocessed feature vectors to constitute a new set of ensemble feature vectors for a meta-learning model. Our meta-learning model could learn and leverage the diversity of different base classifiers to boost the prediction performance beyond any single ML model. Results based on 100 times ten-fold cross validation tests on benchmarking datasets demonstrated that MetaPaCS performed significantly better than existing state-of-the-art methods for PaC subtyping. In addition, our meta-learning model remarkably outperformed each individual base classifier, demonstrating that MetaPaCS could combine diverse results from multiple base classifiers to boost the ensemble performance. We believe that MetaPaCS is a promising tool for characterizing PaC subtypes and will have positive impacts on downstream risk stratification and personalized treatment design for PaC patients.",
+  "keywords": [],
+  "categories": [
+    "bioinformatics"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.64898/2025.12.29.696875",
+  "source": "biorxiv",
+  "sources": [
+    "biorxiv"
+  ],
+  "acquired_date": "2026-04-30T22:15:24.115579",
+  "category": "biology",
+  "subcategories": [
+    "bioinformatics"
+  ],
+  "published_date": "2025-12-31",
+  "updated_date": "2025-12-31",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "biorxiv",
+  "preprint_version": "2",
+  "preprint_type": "new results",
+  "license": "cc_by",
+  "jatsxml": "https://www.biorxiv.org/content/early/2025/12/31//2025.12.29.696875.source.xml",
+  "published_doi": null,
+  "author_corresponding": "Shibiao Wan",
+  "author_corresponding_institution": "University of Nebraska Medical Center"
+}

@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2604.24342v1",
+  "arxiv_id": "2604.24342v1",
+  "title": "Numerical Investigation of Elastically-Mounted tandem Cylinders using an ALE Runge-Kutta Discontinuous Galerkin method",
+  "authors": [
+    "Alexios Papadimitriou",
+    "Spyridon Zafeiris",
+    "George Papadakis"
+  ],
+  "author_string": "Alexios Papadimitriou, Spyridon Zafeiris, George Papadakis",
+  "journal": "arXiv:2604.24342v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "This work presents a high-order Arbitrary-Lagrangian-Eulerian (ALE) Discontinuous Galerkin framework for simulating multi-body Vortex-Induced Vibrations. The ALE formulation extends a Runge-Kutta Interior-Penalty nodal DG solver with minimal additional computational overhead, incorporating discrete enforcement of the Geometric Conservation Law (GCL) to ensure free-stream preservation and Radial Basis Function (RBF) mesh deformation to handle large structural displacements. The framework is applied to elastically-mounted tandem cylinder configurations: a two-cylinder arrangement with cross-flow oscillations at Re=200, and a three-cylinder arrangement with two degrees of freedom at Re=150. In the three-cylinder case, the trajectories exhibit highly irregular behavior driven by complex wake interference, including a periodic attract-and-release mechanism governing the trailing cylinder's stream-wise response. Results are verified against established benchmarks through Lissajous curves, Poincaré phase maps, power spectra, and vortex shedding mode classification. An hp-refinement comparison demonstrates that increasing the polynomial order is more effective and computationally efficient than mesh refinement for capturing multi-body wake dynamics, as the low numerical diffusion of the high-order method preserves vortical structures over long distances on relatively coarse meshes. These findings highlight the importance of high-order methods for CFD-FSI applications where wake interactions drive the structural response.",
+  "categories": [
+    "physics.flu-dyn"
+  ],
+  "primary_category": "physics.flu-dyn",
+  "comment": null,
+  "published_date": "2026-04-27T11:34:37Z",
+  "updated_date": "2026-04-27T11:34:37Z",
+  "url": "https://arxiv.org/abs/2604.24342v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.24342v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-27T22:15:26.518364",
+  "category": "physics",
+  "subcategories": [
+    "physics.flu-dyn"
+  ]
+}

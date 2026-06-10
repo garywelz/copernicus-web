@@ -167,6 +167,33 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
@@ -176,7 +203,7 @@
             <div class="header-meta">
                 <span class="meta-item">Computer Science</span>
                 <span class="meta-item">Algorithms & Data Structures</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,67 +234,64 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Dynamic Programming process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>Dynamic programming solves optimization problems that have optimal substructure and overlapping subproblems: a recurrence relating a solution to smaller subproblems is defined and solved either top-down with memoization or bottom-up by filling a table, after which the stored results are combined and the optimal solution is reconstructed.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-A3[Problem Analysis] --> B3[Optimal Substructure]
-C3[Overlapping Subproblems] --> D3[Recursive Formulation]
-E3[Memoization Strategy] --> F3[Tabulation Method]
-B3 --> G3[Subproblem Identification]
-D3 --> H3[Recursive Solution]
-F3 --> I3[Bottom Up Approach]
-G3 --> J3[State Definition]
-H3 --> K3[Top Down Approach]
-I3 --> L3[Table Construction]
-J3 --> M3[Transition Function]
-K3 --> L3
-L3 --> N3[Space Optimization]
-M3 --> O3[Base Case Definition]
-N3 --> P3[Time Complexity]
-O3 --> Q3[Dynamic Programming Process]
-P3 --> R3[Algorithm Validation]
-Q3 --> S3[Solution Construction]
-R3 --> T3[Dynamic Programming Result]
-S3 --> U3[Dynamic Programming Validation]
-T3 --> V3[Dynamic Programming Parameters]
-U3 --> W3[Dynamic Programming Output]
-V3 --> X3[Dynamic Programming Analysis]
-W3 --> Y3[Dynamic Programming Final Result]
-X3 --> Z3[Dynamic Programming Analysis Complete]
+    N1["Optimization problem"]
+    N2{"Optimal substructure?"}
+    N3["Not DP-suitable"]
+    N4{"Overlapping subproblems?"}
+    N5["Define recurrence"]
+    N6{"Top-down or bottom-up?"}
+    N7["Top-down: recurse+cache"]
+    N8["Bottom-up: fill table"]
+    N9["Solve subproblems in order"]
+    N10["Combine to optimal"]
+    N11["Reconstruct solution"]
+    N12["Optimal answer"]
 
-    style A3 fill:#ff6b6b,color:#fff
-    style C3 fill:#ff6b6b,color:#fff
-    style E3 fill:#ff6b6b,color:#fff
-    style B3 fill:#ffd43b,color:#000
-    style D3 fill:#ffd43b,color:#000
-    style F3 fill:#ffd43b,color:#000
-    style G3 fill:#ffd43b,color:#000
-    style H3 fill:#ffd43b,color:#000
-    style I3 fill:#ffd43b,color:#000
-    style J3 fill:#ffd43b,color:#000
-    style K3 fill:#ffd43b,color:#000
-    style L3 fill:#ffd43b,color:#000
-    style M3 fill:#51cf66,color:#fff
+    N1 --> N2
+    N2 -->|no| N3
+    N3 -->|alt| N12
+    N2 -->|yes| N4
+    N4 -->|no| N3
+    N4 -->|yes| N5
+    N5 --> N6
+    N6 -->|top-down| N7
+    N6 -->|bottom-up| N8
+    N7 --> N9
+    N8 --> N9
+    N9 --> N10
+    N10 --> N11
+    N11 --> N12
+
+    style N1 fill:#ff6b6b,color:#fff
+    style N2 fill:#74c0fc,color:#fff
     style N3 fill:#51cf66,color:#fff
-    style O3 fill:#51cf66,color:#fff
-    style P3 fill:#51cf66,color:#fff
-    style Q3 fill:#51cf66,color:#fff
-    style R3 fill:#51cf66,color:#fff
-    style S3 fill:#51cf66,color:#fff
-    style T3 fill:#51cf66,color:#fff
-    style U3 fill:#51cf66,color:#fff
-    style V3 fill:#51cf66,color:#fff
-    style W3 fill:#51cf66,color:#fff
-    style X3 fill:#51cf66,color:#fff
-    style Y3 fill:#51cf66,color:#fff
-    style Z3 fill:#b197fc,color:#fff
+    style N4 fill:#74c0fc,color:#fff
+    style N5 fill:#51cf66,color:#fff
+    style N6 fill:#74c0fc,color:#fff
+    style N7 fill:#51cf66,color:#fff
+    style N8 fill:#51cf66,color:#fff
+    style N9 fill:#51cf66,color:#fff
+    style N10 fill:#51cf66,color:#fff
+    style N11 fill:#51cf66,color:#fff
+    style N12 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Optimization problem</td><td>Triggers & Inputs</td><td><a href="https://press.princeton.edu/books/paperback/9780691146683/dynamic-programming" target="_blank" title="Dynamic Programming" style="color:#9b59b6;">Bellman, R. 1957</a></td></tr><tr><td style="font-weight:600;">Optimal substructure?</td><td>Intermediates & States</td><td><a href="https://mitpress.mit.edu/9780262046305/introduction-to-algorithms/" target="_blank" title="Introduction to Algorithms (4th ed.)" style="color:#9b59b6;">Cormen, T. H. et al. 2022</a></td></tr><tr><td style="font-weight:600;">Not DP-suitable</td><td>Processing & Operations</td><td><a href="https://mitpress.mit.edu/9780262046305/introduction-to-algorithms/" target="_blank" title="Introduction to Algorithms (4th ed.)" style="color:#9b59b6;">Cormen, T. H. et al. 2022</a></td></tr><tr><td style="font-weight:600;">Overlapping subproblems?</td><td>Intermediates & States</td><td><a href="https://mitpress.mit.edu/9780262046305/introduction-to-algorithms/" target="_blank" title="Introduction to Algorithms (4th ed.)" style="color:#9b59b6;">Cormen, T. H. et al. 2022</a></td></tr><tr><td style="font-weight:600;">Define recurrence</td><td>Processing & Operations</td><td><a href="https://press.princeton.edu/books/paperback/9780691146683/dynamic-programming" target="_blank" title="Dynamic Programming" style="color:#9b59b6;">Bellman, R. 1957</a></td></tr><tr><td style="font-weight:600;">Top-down or bottom-up?</td><td>Intermediates & States</td><td><a href="https://mitpress.mit.edu/9780262046305/introduction-to-algorithms/" target="_blank" title="Introduction to Algorithms (4th ed.)" style="color:#9b59b6;">Cormen, T. H. et al. 2022</a></td></tr><tr><td style="font-weight:600;">Top-down: recurse+cache</td><td>Processing & Operations</td><td><a href="https://mitpress.mit.edu/9780262046305/introduction-to-algorithms/" target="_blank" title="Introduction to Algorithms (4th ed.)" style="color:#9b59b6;">Cormen, T. H. et al. 2022</a></td></tr><tr><td style="font-weight:600;">Bottom-up: fill table</td><td>Processing & Operations</td><td><a href="https://mitpress.mit.edu/9780262046305/introduction-to-algorithms/" target="_blank" title="Introduction to Algorithms (4th ed.)" style="color:#9b59b6;">Cormen, T. H. et al. 2022</a></td></tr><tr><td style="font-weight:600;">Solve subproblems in order</td><td>Processing & Operations</td><td><a href="https://press.princeton.edu/books/paperback/9780691146683/dynamic-programming" target="_blank" title="Dynamic Programming" style="color:#9b59b6;">Bellman, R. 1957</a></td></tr><tr><td style="font-weight:600;">Combine to optimal</td><td>Processing & Operations</td><td><a href="https://press.princeton.edu/books/paperback/9780691146683/dynamic-programming" target="_blank" title="Dynamic Programming" style="color:#9b59b6;">Bellman, R. 1957</a></td></tr><tr><td style="font-weight:600;">Reconstruct solution</td><td>Processing & Operations</td><td><a href="https://press.princeton.edu/books/paperback/9780691146683/dynamic-programming" target="_blank" title="Dynamic Programming" style="color:#9b59b6;">Bellman, R. 1957</a></td></tr><tr><td style="font-weight:600;">Optimal answer</td><td>Products & Outputs</td><td><a href="https://press.princeton.edu/books/paperback/9780691146683/dynamic-programming" target="_blank" title="Dynamic Programming" style="color:#9b59b6;">Bellman, R. 1957</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -313,12 +337,12 @@ X3 --> Z3[Dynamic Programming Analysis Complete]
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 26</li>
-                        <li><strong>Edges:</strong> 21</li>
-                        <li><strong>Conditionals:</strong> 0</li>
-                        <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 1</li>
+                        <li><strong>Nodes:</strong> 12</li>
+                        <li><strong>Edges:</strong> 14</li>
+                        <li><strong>Conditionals:</strong> 3</li>
+                        <li><strong>AND Gates:</strong> 3</li>
+                        <li><strong>OR Gates:</strong> 3</li>
+                        <li><strong>Total Gates:</strong> 6</li>
                     </ul>
                 </div>
                 
@@ -326,7 +350,7 @@ X3 --> Z3[Dynamic Programming Analysis Complete]
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>dynamic</li><li>programming</li>
+                        <li>dynamic programming</li><li>optimal substructure</li><li>overlapping subproblems</li><li>memoization</li><li>tabulation</li>
                     </ul>
                 </div>
                 
@@ -337,43 +361,23 @@ X3 --> Z3[Dynamic Programming Analysis Complete]
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Dynamic Programming</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Bellman, R.
+                            , Princeton University Press
+                             (1957)
                             </span>
                             
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #9b59b6; font-size: 0.85em;">View Source</a>
+                            <br><a href="https://press.princeton.edu/books/paperback/9780691146683/dynamic-programming" target="_blank" style="color: #9b59b6; font-size: 0.85em;">View Source</a>
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>The Structure of Dynamic Programming Processes</strong>
-                            
-                            , Dynamic Programming
-                             (2021)
+                            <strong>Introduction to Algorithms (4th ed.)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Cormen, T. H.; Leiserson, C. E.; Rivest, R. L.; Stein, C.
+                            , MIT Press
+                             (2022)
                             </span>
-                            <br><a href="https://doi.org/10.2307/j.ctv1nxcw0f.7" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.2307/j.ctv1nxcw0f.7</a>
                             
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Dynamic programming</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Luus, Rein
-                            , Iterative Dynamic Programming
-                             (2019)
-                            </span>
-                            <br><a href="https://doi.org/10.1201/9780429123641-3" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.1201/9780429123641-3</a>
-                            
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Iterative dynamic programming</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Luus, Rein
-                            , Iterative Dynamic Programming
-                             (2019)
-                            </span>
-                            <br><a href="https://doi.org/10.1201/9780429123641-4" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.1201/9780429123641-4</a>
-                            
+                            <br><a href="https://mitpress.mit.edu/9780262046305/introduction-to-algorithms/" target="_blank" style="color: #9b59b6; font-size: 0.85em;">View Source</a>
                         </li>
                         
                     </ul>

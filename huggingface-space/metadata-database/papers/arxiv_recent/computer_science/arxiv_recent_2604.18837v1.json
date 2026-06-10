@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2604.18837v1",
+  "arxiv_id": "2604.18837v1",
+  "title": "Benchmarking Quantum Kernel Support Vector Machines Against Classical Baselines on Tabular Data: A Rigorous Empirical Study with Hardware Validation",
+  "authors": [
+    "Siavash Kakavand",
+    "Christoph Strohmeyer",
+    "Michael Schlotter"
+  ],
+  "author_string": "Siavash Kakavand, Christoph Strohmeyer, Michael Schlotter",
+  "journal": "arXiv:2604.18837v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Quantum kernel methods have been proposed as a promising approach for leveraging near-term quantum computers for supervised learning, yet rigorous benchmarks against strong classical baselines remain scarce. We present a comprehensive empirical study of quantum kernel support vector machines (QSVMs) across nine binary classification datasets, four quantum feature maps, three classical kernels, and multiple noise models, totalling 970 experiments with strict nested cross-validation.   Our analysis spans four phases: (i) statistical significance testing, revealing that none of 29 pairwise quantum-classical comparisons reach significance at $α= 0.05$; (ii) learning curve analysis over six training fractions, showing steeper quantum slopes on six of eight datasets that nonetheless fail to close the gap to the best classical baseline; (iii) hardware validation on IBM ibm_fez (Heron r2), demonstrating kernel fidelity $r \\geq 0.976$ across six experiments; and (iv) seed sensitivity analysis confirming reproducibility (mean CV 1.4%).   A Kruskal-Wallis factorial analysis reveals that dataset choice dominates performance variance ($\\varepsilon^2 = 0.73$), while kernel type accounts for only 9%. Spectral analysis offers a mechanistic explanation: current quantum feature maps produce eigenspectra that are either too flat or too concentrated, missing the intermediate profile of the best classical kernel, the radial basis function (RBF). Quantum kernel training (QKT) via kernel-target alignment yields the single competitive result -- balanced accuracy 0.968 on breast cancer -- but with ~2,000x computational overhead.   Our findings provide actionable guidelines for quantum kernel research. The complete benchmark suite is publicly available to facilitate reproduction and extension.",
+  "categories": [
+    "quant-ph",
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": "Code and data: https://doi.org/10.5281/zenodo.19197916",
+  "published_date": "2026-04-20T21:03:02Z",
+  "updated_date": "2026-04-20T21:03:02Z",
+  "url": "https://arxiv.org/abs/2604.18837v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.18837v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-22T10:15:44.049659",
+  "category": "computer_science",
+  "subcategories": [
+    "quant-ph",
+    "cs.LG"
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "id": "medrxiv_10.64898_2025.12.24.25342959",
+  "doi": "10.64898/2025.12.24.25342959",
+  "title": "End-to-End Reliability of Automated Systems for Diagnostic Data Extraction: A Benchmark Study in Uro-Oncologic Evidence Synthesis",
+  "authors": [
+    "May, M.",
+    "Garzaro, J.",
+    "Kravchuk, A.",
+    "Gilfrich, C.",
+    "Donabauer, G.",
+    "Ateia, S.",
+    "Kruschwitz, U.",
+    "Haas, M.",
+    "Eckl, C.",
+    "Burger, M."
+  ],
+  "author_string": "May, M., Garzaro, J., Kravchuk, A., Gilfrich, C., Donabauer, G. et al.",
+  "journal": "medRxiv",
+  "journal_full": "medRxiv",
+  "year": "2025",
+  "abstract": "BackgroundAutomated systems, including large language models, are increasingly used to support data extraction in diagnostic systematic reviews. However, their reliability, safety, and repeatability under realistic extraction conditions remain insufficiently characterized.\n\nObjectiveTo benchmark the end-to-end reliability of automated systems for extracting diagnostic accuracy data from published uro-oncologic studies, with a focus on correctness, abstention behavior in non-derivable scenarios, repeatability across repeated runs, and operational efficiency.\n\nMethodsThis prospective, protocol-driven benchmarking study evaluates a purpose-built extraction system (MedNuggetizer) and three contemporary large language models. Systems are applied to a fixed corpus of published full-text PDFs and publicly available supplementary material reporting on Uromonitor and urine cytology for bladder cancer detection. A locked, uniform extraction prompt is used across all systems. The primary endpoint is dataset-run correctness, defined as either exact extraction of the complete 2-by-2 diagnostic table or correct declaration of non-derivability. A non-inferiority design with an exact one-sided binomial test is employed. Secondary endpoints include hallucination behavior on pre-specified sentinel datasets, repeatability across repeated runs, fidelity of derived diagnostic metrics, and execution time compared with human extraction.\n\nResultsThe study is powered for a non-inferiority margin of 5 percentage points relative to a predefined correctness threshold of 95 percent. Twenty independent runs per system are performed, yielding 320 dataset-run observations. Primary inference is conducted at the run level, with consensus-level results reported as supportive robustness analyses.\n\nConclusionsThis protocol establishes a conservative and reproducible framework for evaluating automated systems used in diagnostic evidence synthesis. By integrating correctness, abstention, repeatability, and safety into a single end-to-end evaluation, the study addresses key methodological gaps in the clinical assessment of generative AI tools.",
+  "keywords": [],
+  "categories": [
+    "urology"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.64898/2025.12.24.25342959",
+  "source": "medrxiv",
+  "sources": [
+    "medrxiv"
+  ],
+  "acquired_date": "2026-04-30T22:15:24.581127",
+  "category": "biology",
+  "subcategories": [
+    "urology"
+  ],
+  "published_date": "2025-12-31",
+  "updated_date": "2025-12-31",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "medrxiv",
+  "preprint_version": "1",
+  "preprint_type": "PUBLISHAHEADOFPRINT",
+  "license": "cc_by",
+  "jatsxml": "https://www.medrxiv.org/content/early/2025/12/31//2025.12.24.25342959.source.xml",
+  "published_doi": null,
+  "author_corresponding": "Matthias May",
+  "author_corresponding_institution": "Department of Urology, St. Elisabeth Hospital Straubing, Brothers of Mercy Hospital, Straubing, Germany"
+}

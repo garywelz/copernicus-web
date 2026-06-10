@@ -4,18 +4,20 @@
   "category": "chemistry",
   "subcategory": "inorganic_chemistry",
   "subcategory_name": "Inorganic Chemistry",
-  "description": "Coordination Complex Synthesis process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "Synthesizing a coordination complex selects solvent and conditions so ligands displace labile aqua/halide ligands; the chelate effect favors stable polydentate products, and the target geometry/isomer is reached by tuning stoichiometry or templating before crystallization.",
   "complexity": {
-    "nodes": 6,
-    "edges": 5,
-    "conditionals": 0,
+    "nodes": 11,
+    "edges": 12,
+    "conditionals": 2,
     "logicGates": {
-      "orGates": 0,
-      "andGates": 0,
-      "total": 0
+      "orGates": 2,
+      "andGates": 2,
+      "notGates": 0,
+      "total": 4
     },
-    "level": "medium",
-    "detailLevel": "medium"
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 1
   },
   "colorScheme": {
     "red": {
@@ -39,54 +41,159 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nN1[\"Metal Salt\"]\nN2[\"Ligands\"]\nN3[\"Solvent/Atmosphere\"]\nN4[\"Complexation Reaction\"]\nN5[\"Purify/Crystallize\"]\nN6[\"Characterized Complex\"]\n\nN1 --> N2\nN2 --> N3\nN3 --> N4\nN4 --> N5\nN5 --> N6\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#ff6b6b,color:#fff\n    style N3 fill:#ffd43b,color:#000\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"Metal salt + ligand\"]\n    N2[\"Choose solvent + conditions\"]\n    N3[\"Ligand displaces aqua/halide\"]\n    N4{\"Chelate effect favors?\"}\n    N5[\"Polydentate: chelate\"]\n    N6[\"Monodentate: stepwise\"]\n    N7{\"Right geometry/isomer?\"}\n    N8[\"Tune stoichiometry/template\"]\n    N9[\"Crystallize product\"]\n    N10[\"Characterize (XRD/UV-Vis)\"]\n    N11[\"Isolated complex\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 --> N4\n    N4 -->|yes| N5\n    N4 -->|no| N6\n    N5 --> N7\n    N6 --> N7\n    N7 -->|no| N8\n    N8 -->|retry| N3\n    N7 -->|yes| N9\n    N9 --> N10\n    N10 --> N11\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#74c0fc,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#74c0fc,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#51cf66,color:#fff\n    style N10 fill:#51cf66,color:#fff\n    style N11 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "title": "Inorganic Chemistry, 6th ed. — Synthesis of Coordination Compounds",
+      "authors": "Housecroft, C. E.; Sharpe, A. G.",
+      "journal": "Pearson",
+      "year": "2018",
       "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: Coordination Complex Synthesis. Created using the Programming Framework methodology."
+      "url": "https://www.pearson.com/en-gb/subject-catalog/p/inorganic-chemistry/P200000005860"
     },
     {
-      "title": "Ruthenium pincer complexes: Ligand design and complex synthesis",
-      "authors": "Younus, Hussein A.; Ahmad, Nazir; Su, Wei; Verpoort, Francis",
-      "journal": "Coordination Chemistry Reviews",
-      "year": "2014",
-      "pubmed": null,
-      "doi": "10.1016/j.ccr.2014.06.016",
-      "url": "https://doi.org/10.1016/j.ccr.2014.06.016"
+      "title": "The chelate, macrocyclic and cryptate effects",
+      "authors": "Lindoy, L. F.",
+      "journal": "Advances in Inorganic Chemistry",
+      "year": "1998",
+      "doi": "10.1016/S0898-8838(08)60026-6",
+      "url": "https://doi.org/10.1016/S0898-8838(08)60026-6"
     },
     {
-      "title": "SYNTHESIS OF A SILVER(III) DIETHYLDITHIOCARBAMATO COMPLEX",
-      "authors": "Abedini, M.; Farnia, M.; Kahani, A.",
-      "journal": "Journal of Coordination Chemistry",
-      "year": "2000",
-      "pubmed": null,
-      "doi": "10.1080/00958970008054922",
-      "url": "https://doi.org/10.1080/00958970008054922"
-    },
-    {
-      "title": "Synthesis and characterization of a dysprosium complex with strong photoluminescence",
-      "authors": "Chen, Wentong; Yao, Zhongliang",
-      "journal": "Journal of Coordination Chemistry",
-      "year": "2011",
-      "pubmed": null,
-      "doi": "10.1080/00958972.2011.560937",
-      "url": "https://doi.org/10.1080/00958972.2011.560937"
+      "title": "Gold Book: chelation",
+      "authors": "IUPAC",
+      "journal": "IUPAC Compendium of Chemical Terminology",
+      "year": "2019",
+      "doi": "10.1351/goldbook.C01012",
+      "url": "https://goldbook.iupac.org/terms/view/C01012"
     }
   ],
   "keywords": [
-    "coordination",
-    "complex",
-    "synthesis"
+    "coordination complex",
+    "chelate effect",
+    "ligand",
+    "isomer",
+    "crystallization"
   ],
   "relatedProcesses": [],
   "created": "2026-01-15",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations.\nCurated Mermaid applied (citations preserved)."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "namedCollections": [
+    "inorganic-chemistry"
+  ],
+  "graphMetrics": {
+    "nodes": 11,
+    "edges": 12,
+    "conditionals": 2,
+    "andGates": 2,
+    "orGates": 2,
+    "notGates": 0,
+    "loops": 1
+  },
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Metal salt + ligand",
+      "detail": "Starting materials",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N2",
+      "label": "Choose solvent + conditions",
+      "detail": "pH, temperature",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N3",
+      "label": "Ligand displaces aqua/halide",
+      "detail": "Substitution at metal",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N4",
+      "label": "Chelate effect favors?",
+      "detail": "Polydentate stability",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N5",
+      "label": "Polydentate: chelate",
+      "detail": "Entropically stabilized",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N6",
+      "label": "Monodentate: stepwise",
+      "detail": "Sequential binding",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N7",
+      "label": "Right geometry/isomer?",
+      "detail": "Target structure",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N8",
+      "label": "Tune stoichiometry/template",
+      "detail": "Direct the assembly",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N9",
+      "label": "Crystallize product",
+      "detail": "Isolate solid",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N10",
+      "label": "Characterize (XRD/UV-Vis)",
+      "detail": "Confirm structure",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N11",
+      "label": "Isolated complex",
+      "detail": "Pure product",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 0
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:inorganic_chemistry-coordination-complex-synthesis",
+    "graphType": "cyclic_pathway",
+    "topologySignature": "728b365b5931a506",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "graphType": "cyclic_pathway",
+  "domainContext": "Synthetic inorganic chemistry"
 }

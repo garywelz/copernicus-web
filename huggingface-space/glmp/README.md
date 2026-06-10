@@ -12,6 +12,20 @@ license: mit
 
 A microscope for biological processes. GLMP applies the Programming Framework to visualize complex biochemical processes as interactive flowcharts, revealing the logic of life at the molecular level.
 
+**Contact:** [gwelz@gc.cuny.edu](mailto:gwelz@gc.cuny.edu) (CUNY Graduate Center)
+
+## 📄 GLMP manuscripts, class presentation & companion article
+
+Full-title HTML (Google Cloud Storage):
+
+- [Primitive Relations, Computational Complexity, and a Conjecture on the Genomic Computational Class](https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/GLMP_Foundational_Typology.html)
+- [The Genome as Computer: Logical Primitives, Runtime States, and the Computational Limits of Biological Prediction](https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/genome_as_computer_v2.html)
+- [Circuit Class Predicts Virtual Cell Model Accuracy: An Empirical Test of the Genomic Computational Complexity Hypothesis](https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/empirical_sequel_draft.html)
+
+**Teaching (April 2026):** [Flowcharts, Mermaid & smarter perturbation design](https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-v2/slides/GLMP_Krampis_Combined_April_2026.html) — guest seminar slide deck (Prof. Konstantinos Krampis, CUNY BIO 37105 / 77105).
+
+**Companion article (HTML):** [*Mermaid Flowcharts and Smarter Perturbation Design*](https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-v2/slides/Mermaid_Flowcharts_and_Perturbation_Design.html) — expanded notes, hands-on preface, and references aligned with the deck.
+
 ## 📚 Prior Work & Research Contributions
 
 ### Overview
@@ -22,7 +36,6 @@ The Genome Logic Modeling Project (GLMP) represents **prior work** that demonstr
 - **LLM-Powered Analysis:** Automated extraction using Google Gemini 2.0 Flash
 - **Interactive Visualization:** Mermaid.js-based dynamic flowchart system
 - **Knowledge Engine Integration:** Links to CopernicusAI and Programming Framework
-- **Topological Data Analysis:** Application of TDA to genetic regulatory circuits (see Publications below)
 
 ### ⚙️ Technical Achievements
 - **Structured Database:** JSON format in Google Cloud Storage
@@ -125,22 +138,6 @@ Each file contains:
 - [Programming Framework](https://huggingface.co/spaces/garywelz/programming_framework) - The meta-tool powering GLMP
 - [CopernicusAI](https://huggingface.co/spaces/garywelz/copernicusai) - Knowledge engine integrating GLMP with AI podcasts
 
-## 📄 Publications & Presentations
-
-### Topological Data Analysis of Genetic Regulatory Circuits
-
-**Preprint:** Welz, G., & Vejdemo-Johansson, M. (2026). *Topological Data Analysis of Genetic Regulatory Circuits: Feedback Loops as Persistent Homology Features*.  
-[Download PDF](https://huggingface.co/spaces/garywelz/glmp/resolve/main/TDA_PREPRINT_DRAFT.pdf) | [View HTML](https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/TDA_PREPRINT_DRAFT.html) | [View HTML Slides](https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/TDA_Seminar_Slides_2026.html)
-
-**Abstract:** We apply topological data analysis (TDA) to 108 genetic regulatory circuits from GLMP. Each circuit is represented as a Mermaid Markdown flowchart derived from textual process descriptions. The most persistent H₁ loops align with known feedback circuits (lac operon, two-component signaling, SOS, stringent response, and related systems), suggesting that TDA on structural features captures genuine regulatory architecture.
-
-**Key Findings:**
-- Feedback circuits appear as persistent H₁ loops in topological space
-- Topology groups processes by regulatory logic (e.g. negative feedback, stress response) rather than by pathway alone
-- Cross-organism patterns emerge (E. coli, S. cerevisiae, Bacillus subtilis)
-
-**Presentation:** TDA Seminar, CUNY Graduate Center, March 13, 2026
-
 ### How to Cite This Work
 
 Welz, G. (2024–2025). *Genome Logic Modeling Project (GLMP)*.
@@ -162,5 +159,5 @@ GLMP is designed as infrastructure for AI-assisted science, not as a static visu
 
 **Part of the CopernicusAI Knowledge Engine**
 
-© 2025 Gary Welz. All rights reserved.
+© 2025–2026 Gary Welz. All rights reserved.
 

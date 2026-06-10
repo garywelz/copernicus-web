@@ -2,53 +2,55 @@
   "acquired_date": "2026-01-08T00:00:00Z",
   "category": "physics",
   "colorScheme": {
-    "blue": {
-      "category": "Intermediates & States",
-      "hex": "#74c0fc"
-    },
-    "green": {
-      "category": "Processing & Operations",
-      "hex": "#51cf66"
-    },
     "red": {
-      "category": "Triggers & Inputs",
-      "hex": "#ff6b6b"
-    },
-    "violet": {
-      "category": "Products & Outputs",
-      "hex": "#b197fc"
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
     },
     "yellow": {
-      "category": "Structures & Objects",
-      "hex": "#ffd43b"
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
     }
   },
   "complexity": {
-    "conditionals": 0,
-    "detailLevel": "medium",
-    "edges": 24,
-    "level": "medium",
+    "nodes": 10,
+    "edges": 10,
+    "conditionals": 1,
     "logicGates": {
+      "orGates": 1,
       "andGates": 1,
-      "orGates": 0,
-      "total": 1
+      "notGates": 0,
+      "total": 2
     },
-    "nodes": 26
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 1
   },
   "created": "2026-01-08",
-  "description": "Nuclear Fission Process. This nuclear physics process visualization demonstrates nuclear fission and chain reactions. The flowchart shows fissionable inputs and neutron bombardment, nuclear fission methods and fission reactions, nuclear fission operations and fission products, intermediate results, and final nuclear fission outputs.",
-  "id": "process_physics_nuclear-fission",
+  "description": "BCS theory explains superconductivity below a critical temperature: a phonon-mediated attraction between electrons, when it overcomes Coulomb repulsion near the Fermi surface, binds them into Cooper pairs that condense into a coherent ground state; an energy gap opens, producing zero resistance and the Meissner effect.",
+  "id": "solid_state-nuclear-fission",
   "keywords": [
-    "nuclear",
-    "physics",
-    "state",
-    "solid",
-    "fission"
+    "BCS theory",
+    "Cooper pairs",
+    "electron-phonon coupling",
+    "energy gap",
+    "Meissner effect"
   ],
-  "lastUpdated": "2026-01-08",
-  "mermaid": "graph TD\nA3[Fissionable Material] --> B3[Nuclear Fission Method]\nC3[Neutron Bombardment] --> D3[Fission Reaction]\nE3[Fission Products] --> F3[Nuclear Fission Analysis]\nB3 --> G3[Uranium 235]\nD3 --> H3[Plutonium 239]\nF3 --> I3[Fission Energy]\nG3 --> J3[Fission Cross Section]\nH3 --> K3[Fission Rate]\nI3 --> L3[Fission Power]\nJ3 --> M3[Fission Yield]\nK3 --> L3\nL3 --> N3[Fission Efficiency]\nM3 --> O3[Fission Chain Reaction]\nN3 --> P3[Fission Control]\nO3 --> Q3[Nuclear Fission Process]\nP3 --> R3[Nuclear Fission Validation]\nQ3 --> S3[Nuclear Fission Verification]\nR3 --> T3[Nuclear Fission Result]\nS3 --> U3[Nuclear Fission Analysis]\nT3 --> V3[Nuclear Fission Parameters]\nU3 --> W3[Nuclear Fission Output]\nV3 --> X3[Nuclear Fission Analysis]\nW3 --> Y3[Nuclear Fission Final Result]\nX3 --> Z3[Nuclear Fission Complete]\n\n    style A3 fill:#ff6b6b,color:#fff\n    style C3 fill:#ff6b6b,color:#fff\n    style E3 fill:#ff6b6b,color:#fff\n    style B3 fill:#ffd43b,color:#000\n    style D3 fill:#ffd43b,color:#000\n    style F3 fill:#ffd43b,color:#000\n    style G3 fill:#ffd43b,color:#000\n    style H3 fill:#ffd43b,color:#000\n    style I3 fill:#ffd43b,color:#000\n    style J3 fill:#ffd43b,color:#000\n    style K3 fill:#ffd43b,color:#000\n    style L3 fill:#ffd43b,color:#000\n    style M3 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style O3 fill:#51cf66,color:#fff\n    style P3 fill:#51cf66,color:#fff\n    style Q3 fill:#51cf66,color:#fff\n    style R3 fill:#51cf66,color:#fff\n    style S3 fill:#51cf66,color:#fff\n    style T3 fill:#51cf66,color:#fff\n    style U3 fill:#51cf66,color:#fff\n    style V3 fill:#51cf66,color:#fff\n    style W3 fill:#51cf66,color:#fff\n    style X3 fill:#51cf66,color:#fff\n    style Y3 fill:#51cf66,color:#fff\n    style Z3 fill:#b197fc,color:#fff",
-  "name": "Nuclear Fission",
-  "notes": "Converted from physics batch HTML. Process number: 3.",
+  "lastUpdated": "2026-06-01",
+  "mermaid": "graph TD\n    N1[\"Electrons in metal < Tc\"]\n    N2[\"Electron-phonon attraction\"]\n    N3{\"Beats Coulomb repulsion?\"}\n    N4[\"Cool / improve coupling\"]\n    N5[\"Net attractive near E_F\"]\n    N6[\"Cooper pair forms\"]\n    N7[\"Pairs condense (BCS)\"]\n    N8[\"Energy gap Delta opens\"]\n    N9[\"Zero resistance + Meissner\"]\n    N10[\"Superconducting state\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 -->|no| N4\n    N4 -->|retry| N2\n    N3 -->|yes| N5\n    N5 --> N6\n    N6 --> N7\n    N7 --> N8\n    N8 --> N9\n    N9 --> N10\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#74c0fc,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#74c0fc,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#74c0fc,color:#fff\n    style N9 fill:#51cf66,color:#fff\n    style N10 fill:#b197fc,color:#fff",
+  "name": "BCS Superconductivity (Cooper Pairing)",
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
   "relatedProcesses": [],
   "related_papers": [
     "crossref_10_1038_143239a0",
@@ -61,43 +63,20 @@
   "source": "programming_framework",
   "sources": [
     {
-      "authors": "Welz, G.",
-      "doi": null,
-      "journal": "CopernicusAI Knowledge Engine",
-      "notes": "Chemistry process visualization: Nuclear Fission. Created using the Programming Framework methodology for process analysis and visualization.",
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
-      "year": "2025"
+      "title": "Theory of superconductivity",
+      "authors": "Bardeen, J.; Cooper, L. N.; Schrieffer, J. R.",
+      "journal": "Physical Review",
+      "year": "1957",
+      "doi": "10.1103/PhysRev.108.1175",
+      "url": "https://doi.org/10.1103/PhysRev.108.1175"
     },
     {
-      "authors": "Meitner, L.; Frisch, O. R.",
-      "doi": "10.1038/143239a0",
-      "journal": "Nature",
-      "paper_id": "crossref_10_1038_143239a0",
-      "pubmed": null,
-      "title": "Disintegration of Uranium by Neutrons: a New Type of Nuclear Reaction",
-      "url": "https://doi.org/10.1038/143239a0",
-      "year": "1939"
-    },
-    {
-      "authors": "Bohr, N.; Wheeler, J. A.",
-      "doi": "10.1103/PhysRev.56.426",
-      "journal": "Phys. Rev.",
-      "paper_id": "crossref_10_1103_PhysRev_56_426",
-      "pubmed": null,
-      "title": "The Mechanism of Nuclear Fission",
-      "url": "https://doi.org/10.1103/PhysRev.56.426",
-      "year": "1939"
-    },
-    {
-      "authors": "Szilard, L.",
-      "doi": "10.1038/144495b0",
-      "journal": "Nature",
-      "paper_id": "crossref_10_1038_144495b0",
-      "pubmed": null,
-      "title": "Nuclear chain reactions",
-      "url": "https://doi.org/10.1038/144495b0",
-      "year": "1939"
+      "title": "Bound electron pairs in a degenerate Fermi gas",
+      "authors": "Cooper, L. N.",
+      "journal": "Physical Review",
+      "year": "1956",
+      "doi": "10.1103/PhysRev.104.1189",
+      "url": "https://doi.org/10.1103/PhysRev.104.1189"
     }
   ],
   "subcategories": [
@@ -105,5 +84,111 @@
   ],
   "subcategory": "solid_state",
   "subcategory_name": "Solid State Physics",
-  "verified": false
+  "verified": false,
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Electrons in metal < Tc",
+      "detail": "Below critical temp",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N2",
+      "label": "Electron-phonon attraction",
+      "detail": "Lattice polarization",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N3",
+      "label": "Beats Coulomb repulsion?",
+      "detail": "Net interaction sign",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N4",
+      "label": "Cool / improve coupling",
+      "detail": "Lower T, tune material",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N5",
+      "label": "Net attractive near E_F",
+      "detail": "Within Debye shell",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N6",
+      "label": "Cooper pair forms",
+      "detail": "Bound (k up, -k down)",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N7",
+      "label": "Pairs condense (BCS)",
+      "detail": "Coherent ground state",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N8",
+      "label": "Energy gap Delta opens",
+      "detail": "At Fermi surface",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N9",
+      "label": "Zero resistance + Meissner",
+      "detail": "Expel magnetic field",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N10",
+      "label": "Superconducting state",
+      "detail": "Macroscopic coherence",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 0
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:solid_state-nuclear-fission",
+    "graphType": "decision_flowchart",
+    "topologySignature": "de3d4b22fd41c292",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "namedCollections": [],
+  "graphMetrics": {
+    "nodes": 10,
+    "edges": 10,
+    "conditionals": 1,
+    "andGates": 1,
+    "orGates": 1,
+    "notGates": 0,
+    "loops": 1
+  },
+  "graphType": "decision_flowchart",
+  "domainContext": "Solid-state physics / superconductivity"
 }

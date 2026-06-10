@@ -4,18 +4,20 @@
   "category": "computer_science",
   "subcategory": "networks",
   "subcategory_name": "Computer Networks",
-  "description": "Load Balancing process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "A load balancer spreads incoming requests across backend servers: it selects a target by an algorithm such as round-robin, least-connections, or weighted hashing, checks backend health and removes unhealthy nodes from the pool, then forwards the request, achieving an even and resilient distribution of load.",
   "complexity": {
     "nodes": 11,
-    "edges": 11,
-    "conditionals": 0,
+    "edges": 13,
+    "conditionals": 2,
     "logicGates": {
-      "orGates": 1,
+      "orGates": 2,
       "andGates": 1,
-      "total": 2
+      "notGates": 0,
+      "total": 3
     },
-    "level": "medium",
-    "detailLevel": "medium"
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 1
   },
   "colorScheme": {
     "red": {
@@ -39,53 +41,148 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nN1[\"Incoming Requests\"]\nN2[\"Traffic Pattern\"]\nN3[\"Load Balancer\"]\nN4[\"Choose Approach\"]\nN5[\"Backend Pool\"]\nN6[\"Health Checks\"]\nN7[\"Choose Backend\"]\nN8[\"Route Request\"]\nN9[\"Integrate Results\"]\nN10[\"Observed Latency/Errors\"]\nN11[\"Balanced Service\"]\n\nN1 --> N2\nN2 --> N3\nN3 --> N4\nN4 --> N5\nN4 --> N7\nN5 --> N6\nN7 --> N8\nN6 --> N9\nN8 --> N9\nN9 --> N10\nN10 --> N11\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#ff6b6b,color:#fff\n    style N3 fill:#ffd43b,color:#000\n    style N4 fill:#ffd43b,color:#000\n    style N5 fill:#ffd43b,color:#000\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#74c0fc,color:#fff\n    style N10 fill:#74c0fc,color:#fff\n    style N11 fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"Incoming requests\"]\n    N2[\"Load balancer receives\"]\n    N3{\"Choose algorithm\"}\n    N4[\"Round-robin\"]\n    N5[\"Least connections\"]\n    N6[\"Weighted / hash\"]\n    N7[\"Health-check backends\"]\n    N8{\"Backend healthy?\"}\n    N9[\"Remove from pool\"]\n    N10[\"Forward to server\"]\n    N11[\"Balanced distribution\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 -->|round-robin| N4\n    N3 -->|least-conn| N5\n    N3 -->|weighted| N6\n    N4 --> N7\n    N5 --> N7\n    N6 --> N7\n    N7 --> N8\n    N8 -->|no| N9\n    N9 -->|recheck| N7\n    N8 -->|yes| N10\n    N10 --> N11\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#74c0fc,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#74c0fc,color:#fff\n    style N9 fill:#51cf66,color:#fff\n    style N10 fill:#51cf66,color:#fff\n    style N11 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
-      "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: Load Balancing. Created using the Programming Framework methodology."
+      "title": "Dynamic load balancing on Web-server systems",
+      "authors": "Cardellini, V.; Colajanni, M.; Yu, P. S.",
+      "journal": "IEEE Internet Computing",
+      "year": "1999",
+      "doi": "10.1109/4236.769420",
+      "url": "https://doi.org/10.1109/4236.769420"
     },
     {
-      "title": "DNS Load Balancing",
-      "authors": "Membrey, Peter; Hows, David; Plugge, Eelco",
-      "journal": "Practical Load Balancing",
-      "year": "2012",
-      "pubmed": null,
-      "doi": "10.1007/978-1-4302-3681-8_4",
-      "url": "https://doi.org/10.1007/978-1-4302-3681-8_4"
-    },
-    {
-      "title": "Network Load Balancing",
-      "authors": "Membrey, Peter; Hows, David; Plugge, Eelco",
-      "journal": "Practical Load Balancing",
-      "year": "2012",
-      "pubmed": null,
-      "doi": "10.1007/978-1-4302-3681-8_10",
-      "url": "https://doi.org/10.1007/978-1-4302-3681-8_10"
-    },
-    {
-      "title": "SSL Load Balancing",
-      "authors": "Membrey, Peter; Hows, David; Plugge, Eelco",
-      "journal": "Practical Load Balancing",
-      "year": "2012",
-      "pubmed": null,
-      "doi": "10.1007/978-1-4302-3681-8_11",
-      "url": "https://doi.org/10.1007/978-1-4302-3681-8_11"
+      "title": "Computer Networks (5th ed.)",
+      "authors": "Tanenbaum, A. S.; Wetherall, D. J.",
+      "journal": "Pearson",
+      "year": "2011",
+      "url": "https://www.pearson.com/en-us/subject-catalog/p/computer-networks/P200000003188"
     }
   ],
   "keywords": [
-    "load",
-    "balancing"
+    "load balancing",
+    "round-robin",
+    "least connections",
+    "health check",
+    "request distribution"
   ],
   "relatedProcesses": [],
   "created": "2026-01-15",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations.\nCurated Mermaid applied (citations preserved)."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "namedCollections": [],
+  "graphMetrics": {
+    "nodes": 11,
+    "edges": 13,
+    "conditionals": 2,
+    "andGates": 1,
+    "orGates": 2,
+    "notGates": 0,
+    "loops": 1
+  },
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Incoming requests",
+      "detail": "Client traffic",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N2",
+      "label": "Load balancer receives",
+      "detail": "Front-end VIP",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N3",
+      "label": "Choose algorithm",
+      "detail": "Selection policy",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N4",
+      "label": "Round-robin",
+      "detail": "Rotate servers",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N5",
+      "label": "Least connections",
+      "detail": "Pick least loaded",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N6",
+      "label": "Weighted / hash",
+      "detail": "Capacity or affinity",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N7",
+      "label": "Health-check backends",
+      "detail": "Probe liveness",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N8",
+      "label": "Backend healthy?",
+      "detail": "Responds ok",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N9",
+      "label": "Remove from pool",
+      "detail": "Stop routing",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N10",
+      "label": "Forward to server",
+      "detail": "Proxy request",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N11",
+      "label": "Balanced distribution",
+      "detail": "Even, resilient",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 0
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:networks-load-balancing",
+    "graphType": "decision_flowchart",
+    "topologySignature": "64b8581ea8509f8c",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "graphType": "decision_flowchart",
+  "domainContext": "Distributed systems / networks"
 }

@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2605.08035v1",
+  "arxiv_id": "2605.08035v1",
+  "title": "PropSplat: Map-Free RF Field Reconstruction via 3D Gaussian Propagation Splatting",
+  "authors": [
+    "William Bjorndahl",
+    "Maninder Pal Singh",
+    "Farhad Nouri",
+    "Joseph Camp"
+  ],
+  "author_string": "William Bjorndahl, Maninder Pal Singh, Farhad Nouri, Joseph Camp",
+  "journal": "arXiv:2605.08035v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Building a site-specific propagation model typically requires either ray-tracing over detailed 3D maps or dense measurement campaigns. Both approaches are expensive and often infeasible for rapid deployments where geographic data is unavailable or outdated. We present PropSplat, a map-free propagation modeling method that reconstructs radio frequency (RF) fields using 3D anisotropic Gaussian primitives. Each Gaussian encodes a scalar path loss offset relative to an explicit baseline path loss model with a learnable path loss exponent. Gaussians are initialized along observed transmitter--receiver paths and optimized end-to-end to learn the propagation environment without external information like floor plans, terrain databases, or clutter data. We evaluate PropSplat against wireless radiance field methods NeRF$^2$, GSRF, and WRF-GS+ on two real-world datasets. On large-scale outdoor drive-tests spanning multiple topographical regions at six sub-6 GHz frequencies, PropSplat achieves 5.38 dB RMSE when training measurements are spaced 300m apart and outperforms WRF-GS+ (5.87 dB), GSRF (7.46 dB), and NeRF$^2$ (14.76 dB). On indoor Bluetooth Low Energy measurements, PropSplat achieves 0.19m mean localization error, an order of magnitude better than NeRF$^2$ (1.84m), while achieving near-identical received signal strength prediction accuracy. These results show that accurate site-specific propagation reconstruction is achievable from sparse RF-native measurements. The need for geographic data as a prerequisite for scalable RF environment modeling is reduced.",
+  "categories": [
+    "eess.SP",
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": "Accepted for presentation at IEEE DySPAN 2026",
+  "published_date": "2026-05-08T17:24:06Z",
+  "updated_date": "2026-05-08T17:24:06Z",
+  "url": "https://arxiv.org/abs/2605.08035v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.08035v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-10T22:17:15.397760",
+  "category": "computer_science",
+  "subcategories": [
+    "eess.SP",
+    "cs.LG"
+  ]
+}

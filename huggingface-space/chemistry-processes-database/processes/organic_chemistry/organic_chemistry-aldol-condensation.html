@@ -167,6 +167,33 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
@@ -176,7 +203,7 @@
             <div class="header-meta">
                 <span class="meta-item">Chemistry</span>
                 <span class="meta-item">Organic Chemistry</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,46 +234,55 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Aldol Condensation process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>In the aldol reaction an enol/enolate generated from a carbonyl with an alpha-hydrogen attacks a second carbonyl to give a beta-hydroxy carbonyl; on heating, E1cb dehydration eliminates water to form a conjugated alpha,beta-unsaturated product.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-N1["Carbonyl Substrates"]
-N2["Base/Acid Conditions"]
-N3["Enolate/Enol Formation"]
-N4["Choose Path"]
-N5["C–C Bond Formation (Addition)"]
-N6["β-Hydroxy Carbonyl (Aldol)"]
-N7["Dehydration"]
-N8["α,β-Unsaturated Carbonyl"]
-N9["Integrate"]
+    N1["Carbonyl with α-H"]
+    N2["Form enol / enolate"]
+    N3["Nucleophilic enolate"]
+    N4["Attack second carbonyl"]
+    N5["β-hydroxy carbonyl (aldol)"]
+    N6{"Heat to dehydrate?"}
+    N7["E1cb: lose water"]
+    N8["α,β-unsaturated product"]
+    N9["Stop at aldol"]
+    N10["Conjugated enone"]
 
-N1 --> N2
-N2 --> N3
-N3 --> N4
-N4 --> N5
-N4 --> N7
-N5 --> N6
-N7 --> N8
-N6 --> N9
-N8 --> N9
-N9 --> N6
+    N1 --> N2
+    N2 --> N3
+    N3 --> N4
+    N4 --> N5
+    N5 --> N6
+    N6 -->|yes| N7
+    N7 --> N8
+    N8 --> N10
+    N6 -->|no| N9
 
     style N1 fill:#ff6b6b,color:#fff
-    style N2 fill:#ff6b6b,color:#fff
-    style N3 fill:#51cf66,color:#fff
-    style N4 fill:#ffd43b,color:#000
-    style N5 fill:#51cf66,color:#fff
+    style N2 fill:#51cf66,color:#fff
+    style N3 fill:#74c0fc,color:#fff
+    style N4 fill:#51cf66,color:#fff
+    style N5 fill:#74c0fc,color:#fff
     style N6 fill:#74c0fc,color:#fff
     style N7 fill:#51cf66,color:#fff
-    style N8 fill:#b197fc,color:#fff
-    style N9 fill:#74c0fc,color:#fff
+    style N8 fill:#51cf66,color:#fff
+    style N9 fill:#b197fc,color:#fff
+    style N10 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Carbonyl with α-H</td><td>Triggers & Inputs</td><td><a href="https://global.oup.com/academic/product/organic-chemistry-9780199270293" target="_blank" title="Organic Chemistry, 2nd ed. — Enols, enolates and the aldol reaction" style="color:#e74c3c;">Clayden, J. et al. 2012</a></td></tr><tr><td style="font-weight:600;">Form enol / enolate</td><td>Processing & Operations</td><td><a href="https://global.oup.com/academic/product/organic-chemistry-9780199270293" target="_blank" title="Organic Chemistry, 2nd ed. — Enols, enolates and the aldol reaction" style="color:#e74c3c;">Clayden, J. et al. 2012</a></td></tr><tr><td style="font-weight:600;">Nucleophilic enolate</td><td>Intermediates & States</td><td><a href="https://global.oup.com/academic/product/organic-chemistry-9780199270293" target="_blank" title="Organic Chemistry, 2nd ed. — Enols, enolates and the aldol reaction" style="color:#e74c3c;">Clayden, J. et al. 2012</a></td></tr><tr><td style="font-weight:600;">Attack second carbonyl</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1002/9783527619566" target="_blank" title="Modern Aldol Reactions" style="color:#e74c3c;">Mahrwald, R. (ed.) 2004</a></td></tr><tr><td style="font-weight:600;">β-hydroxy carbonyl (aldol)</td><td>Intermediates & States</td><td><a href="https://global.oup.com/academic/product/organic-chemistry-9780199270293" target="_blank" title="Organic Chemistry, 2nd ed. — Enols, enolates and the aldol reaction" style="color:#e74c3c;">Clayden, J. et al. 2012</a></td></tr><tr><td style="font-weight:600;">Heat to dehydrate?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1002/9783527619566" target="_blank" title="Modern Aldol Reactions" style="color:#e74c3c;">Mahrwald, R. (ed.) 2004</a></td></tr><tr><td style="font-weight:600;">E1cb: lose water</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1002/9783527619566" target="_blank" title="Modern Aldol Reactions" style="color:#e74c3c;">Mahrwald, R. (ed.) 2004</a></td></tr><tr><td style="font-weight:600;">α,β-unsaturated product</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1002/9783527619566" target="_blank" title="Modern Aldol Reactions" style="color:#e74c3c;">Mahrwald, R. (ed.) 2004</a></td></tr><tr><td style="font-weight:600;">Stop at aldol</td><td>Products & Outputs</td><td><a href="https://global.oup.com/academic/product/organic-chemistry-9780199270293" target="_blank" title="Organic Chemistry, 2nd ed. — Enols, enolates and the aldol reaction" style="color:#e74c3c;">Clayden, J. et al. 2012</a></td></tr><tr><td style="font-weight:600;">Conjugated enone</td><td>Products & Outputs</td><td><a href="https://doi.org/10.1002/9783527619566" target="_blank" title="Modern Aldol Reactions" style="color:#e74c3c;">Mahrwald, R. (ed.) 2004</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -292,12 +328,12 @@ N9 --> N6
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 9</li>
-                        <li><strong>Edges:</strong> 10</li>
-                        <li><strong>Conditionals:</strong> 0</li>
-                        <li><strong>AND Gates:</strong> 2</li>
+                        <li><strong>Nodes:</strong> 10</li>
+                        <li><strong>Edges:</strong> 9</li>
+                        <li><strong>Conditionals:</strong> 1</li>
+                        <li><strong>AND Gates:</strong> 0</li>
                         <li><strong>OR Gates:</strong> 1</li>
-                        <li><strong>Total Gates:</strong> 3</li>
+                        <li><strong>Total Gates:</strong> 1</li>
                     </ul>
                 </div>
                 
@@ -305,7 +341,7 @@ N9 --> N6
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>aldol</li><li>condensation</li>
+                        <li>aldol reaction</li><li>enolate</li><li>beta-hydroxy carbonyl</li><li>dehydration</li><li>condensation</li>
                     </ul>
                 </div>
                 
@@ -316,42 +352,32 @@ N9 --> N6
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Organic Chemistry, 2nd ed. — Enols, enolates and the aldol reaction</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Clayden, J.; Greeves, N.; Warren, S.
+                            , Oxford University Press
+                             (2012)
                             </span>
                             
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
+                            <br><a href="https://global.oup.com/academic/product/organic-chemistry-9780199270293" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Aldol addition and condensation</strong>
-                            
-                            , AccessScience
-                             (None)
+                            <strong>Modern Aldol Reactions</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Mahrwald, R. (ed.)
+                            , Wiley-VCH
+                             (2004)
                             </span>
-                            <br><a href="https://doi.org/10.1036/1097-8542.021801" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1036/1097-8542.021801</a>
-                            
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Aldol condensation</strong>
-                            
-                            , Name Reactions
-                             (None)
-                            </span>
-                            <br><a href="https://doi.org/10.1007/3-540-30031-7_2" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1007/3-540-30031-7_2</a>
+                            <br><a href="https://doi.org/10.1002/9783527619566" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1002/9783527619566</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Aldol Reaction and Aldol Condensation</strong>
-                            
-                            , Comprehensive Organic Name Reactions and Reagents
-                             (2010)
+                            <strong>Gold Book: aldol reaction</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">IUPAC
+                            , IUPAC Compendium of Chemical Terminology
+                             (2019)
                             </span>
-                            <br><a href="https://doi.org/10.1002/9780470638859.conrr012" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1002/9780470638859.conrr012</a>
+                            <br><a href="https://doi.org/10.1351/goldbook.A00211" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1351/goldbook.A00211</a>
                             
                         </li>
                         

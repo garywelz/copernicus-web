@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Central Limit Theorem — Mathematics Process</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 20px; }
+        .container { max-width: 1600px; margin: 0 auto; background: white; border-radius: 15px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); overflow: hidden; }
+        .header { background: linear-gradient(135deg, #e67e22 0%, #e67e22dd 100%); color: white; padding: 30px; }
+        .header-meta { display: flex; flex-wrap: wrap; gap: 15px; margin-top: 15px; font-size: 0.9em; opacity: 0.9; }
+        .meta-item { background: rgba(255,255,255,0.2); padding: 5px 12px; border-radius: 20px; }
+        .nav-links { padding: 15px 30px; background: #f8f9fa; border-bottom: 1px solid #ecf0f1; }
+        .nav-links a { color: #e67e22; text-decoration: none; margin-right: 20px; font-weight: 500; }
+        .content { padding: 30px; }
+        .mermaid { background: white; padding: 20px; border-radius: 10px; border: 1px solid #ecf0f1; overflow-x: auto; min-height: 400px; }
+        .info-card { background: #f8f9fa; padding: 20px; border-radius: 10px; margin-top: 20px; }
+        .frontier { margin-top: 20px; padding: 15px; background: #fff3e0; border-left: 4px solid #e67e22; font-size: 0.9em; }
+
+        .attribution-wrap { position: relative; }
+        .attribution-trigger { cursor: help; background: rgba(255,255,255,0.2) !important; }
+        .attribution-popover { display: none; position: absolute; top: 100%; left: 0; margin-top: 4px; background: #2c3e50; color: #ecf0f1; padding: 14px 18px; border-radius: 10px; box-shadow: 0 6px 20px rgba(0,0,0,0.25); min-width: 300px; z-index: 100; font-size: 0.85em; line-height: 1.5; }
+        .attribution-popover::before { content: ''; position: absolute; bottom: 100%; left: 0; right: 0; height: 12px; }
+        .attribution-popover strong { color: #fff; }
+        .attribution-popover a { color: #3498db; }
+        .attribution-wrap:hover .attribution-popover, .attribution-wrap:focus-within .attribution-popover { display: block; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Central Limit Theorem</h1>
+            <div class="header-meta">
+                <span class="meta-item">Statistics & Probability</span>
+                <span class="meta-item">Lindeberg–Lévy, Lyapunov</span>
+                <span class="meta-item attribution-wrap"><span class="attribution-trigger meta-item" tabindex="0">Cite</span><div class="attribution-popover"><strong>Primary:</strong> Laplace, Lyapunov, Lindeberg, Lévy<br><strong>Publication:</strong> Central limit theorem<br><strong>Year:</strong> 18th–20th c.<br><strong>URL:</strong> <a href="https://en.wikipedia.org/wiki/Central_limit_theorem" target="_blank">Wikipedia</a></div></span>
+            </div>
+        </div>
+        <div class="nav-links">
+            <a id="back-link" href="#">← Back to Mathematics Database</a>
+            <a id="index-link" href="#">Statistics & Probability Index</a>
+            <a href="https://en.wikipedia.org/wiki/Central_limit_theorem" target="_blank">CLT (Wikipedia)</a>
+        </div>
+        <script>
+            (function() {
+                const base = window.location.hostname.includes('storage.googleapis.com')
+                    ? 'https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database'
+                    : '../..';
+                document.getElementById('back-link').href = base + '/mathematics-database-table.html';
+                document.getElementById('index-link').href = base + '/processes/statistics_probability/statistics_probability.html';
+            })();
+        </script>
+        <div class="content">
+            <p style="margin-bottom:20px;">Sample means converge in distribution to normal. Lindeberg–Lévy (i.i.d.), Lyapunov (non-identically distributed). Foundation for asymptotic inference.</p>
+            <div class="mermaid">graph TD
+    D1["Def: Convergence in\ndistribution Xₙ↝X"]
+    D2["Def: i.i.d. sequence"]
+    D3["Def: Standard normal\nΦ distribution"]
+    T1["Thm: Lindeberg–Lévy\n√n(Sₙ/n−μ)/σ ↝ N(0,1)\ni.i.d. finite variance"]
+    T2["Thm: Lyapunov CLT\nnon-identical, Lyapunov cond"]
+    T3["Thm: Berry–Esseen\nrate of convergence"]
+    T4["Thm: Multivariate CLT"]
+    L1["Lemma: Char functions\nφₓₙ(t)→φₓ(t)"]
+    T5["Thm: Delta method\nθ̂ asymptotically normal"]
+    D1 --> T1
+    D2 --> T1
+    D3 --> T1
+    D1 --> T2
+    T1 --> T3
+    T1 --> T4
+    T1 --> L1
+    T1 --> T5
+    classDef definition fill:#b197fc,color:#fff
+    classDef theorem fill:#51cf66,color:#fff
+    classDef lemma fill:#74c0fc,color:#fff
+    class D1,D2,D3 definition
+    class T1,T2,T3,T4,T5 theorem
+    class L1 lemma</div>
+            <div class="info-card">
+                <h3>Process Statistics</h3>
+                <ul><li><strong>Nodes:</strong> 15</li><li><strong>Edges:</strong> 11</li><li><strong>Definitions:</strong> 3</li><li><strong>Theorems:</strong> 5</li><li><strong>Lemmas:</strong> 1</li></ul>
+            </div>
+            <div class="frontier">
+                <strong>Frontier:</strong> High-dimensional CLT, Stein's method, rate of convergence (quantitative CLT). <a href="https://arxiv.org/list/math.PR/recent" target="_blank">math.PR</a>
+            </div>
+        </div>
+    </div>
+    <script>mermaid.initialize({ startOnLoad: true, flowchart: { useMaxWidth: true, htmlLabels: true } });</script>
+</body>
+</html>

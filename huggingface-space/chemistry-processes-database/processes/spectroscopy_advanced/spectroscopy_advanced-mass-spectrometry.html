@@ -167,6 +167,33 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
@@ -176,7 +203,7 @@
             <div class="header-meta">
                 <span class="meta-item">Chemistry</span>
                 <span class="meta-item">Spectroscopy Advanced</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,68 +234,56 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Mass Spectrometry process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>Mass spectrometry ionizes a sample to molecular and fragment ions, accelerates them into a mass analyzer that separates by mass-to-charge ratio, and detects abundances; identifying the molecular ion and interpreting fragmentation reveals mass and structure.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-A4[Sample Molecules] --> B4[Mass Spectrometry Method]
-C4[Ionization Source] --> D4[Mass Analyzer]
-E4[Detector System] --> F4[Data Collection]
-B4 --> G4[Sample Introduction]
-D4 --> H4[Mass Separation]
-F4 --> I4[Signal Processing]
-G4 --> J4[Sample Vaporization]
-H4 --> K4[Mass-to-Charge Ratio]
-I4 --> L4[Ion Detection]
-J4 --> M4[Molecular Ionization]
-K4 --> L4
-L4 --> N4[Ion Separation]
-M4 --> O4[Ion Formation]
-N4 --> P4[Mass Analysis]
-O4 --> Q4[Spectroscopic Analysis]
-P4 --> R4[Mass Spectrum]
-Q4 --> S4[Fragmentation Analysis]
-R4 --> T4[Molecular Weight]
-S4 --> U4[Fragmentation Pattern]
-T4 --> V4[Molecular Identification]
-U4 --> W4[Spectroscopic Efficiency]
-V4 --> X4[Molecular Characterization]
-W4 --> Y4[Process Optimization]
-X4 --> Z4[Final Mass Spectrum]
-Y4 --> Z4
+    N1["Sample introduced"]
+    N2["Ionization (EI / ESI)"]
+    N3["Molecular ion + fragments"]
+    N4["Accelerate into analyzer"]
+    N5["Separate by m/z"]
+    N6["Detect ion abundance"]
+    N7{"Molecular ion clear?"}
+    N8["Use soft ionization"]
+    N9["Interpret fragmentation"]
+    N10["Structure / mass"]
 
-    style A4 fill:#ff6b6b,color:#fff
-    style C4 fill:#ff6b6b,color:#fff
-    style E4 fill:#ff6b6b,color:#fff
-    style B4 fill:#ffd43b,color:#000
-    style D4 fill:#ffd43b,color:#000
-    style F4 fill:#ffd43b,color:#000
-    style G4 fill:#ffd43b,color:#000
-    style H4 fill:#ffd43b,color:#000
-    style I4 fill:#ffd43b,color:#000
-    style J4 fill:#ffd43b,color:#000
-    style K4 fill:#ffd43b,color:#000
-    style L4 fill:#ffd43b,color:#000
-    style M4 fill:#51cf66,color:#fff
+    N1 --> N2
+    N2 --> N3
+    N3 --> N4
+    N4 --> N5
+    N5 --> N6
+    N6 --> N7
+    N7 -->|no| N8
+    N8 -->|re-ionize| N2
+    N7 -->|yes| N9
+    N9 --> N10
+
+    style N1 fill:#ff6b6b,color:#fff
+    style N2 fill:#51cf66,color:#fff
+    style N3 fill:#74c0fc,color:#fff
     style N4 fill:#51cf66,color:#fff
-    style O4 fill:#51cf66,color:#fff
-    style P4 fill:#51cf66,color:#fff
-    style Q4 fill:#51cf66,color:#fff
-    style R4 fill:#51cf66,color:#fff
-    style S4 fill:#51cf66,color:#fff
-    style T4 fill:#51cf66,color:#fff
-    style U4 fill:#51cf66,color:#fff
-    style V4 fill:#51cf66,color:#fff
-    style W4 fill:#51cf66,color:#fff
-    style X4 fill:#51cf66,color:#fff
-    style Y4 fill:#51cf66,color:#fff
-    style Z4 fill:#b197fc,color:#fff
+    style N5 fill:#51cf66,color:#fff
+    style N6 fill:#51cf66,color:#fff
+    style N7 fill:#74c0fc,color:#fff
+    style N8 fill:#51cf66,color:#fff
+    style N9 fill:#51cf66,color:#fff
+    style N10 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Sample introduced</td><td>Triggers & Inputs</td><td><a href="https://www.cengage.com/c/principles-of-instrumental-analysis-7e-skoog/9781305577213/" target="_blank" title="Principles of Instrumental Analysis, 7th ed. — Molecular Mass Spectrometry" style="color:#e74c3c;">Skoog, D. A. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Ionization (EI / ESI)</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1126/science.2675315" target="_blank" title="Electrospray ionization for mass spectrometry of large biomolecules" style="color:#e74c3c;">Fenn, J. B. et al. 1989</a></td></tr><tr><td style="font-weight:600;">Molecular ion + fragments</td><td>Intermediates & States</td><td><a href="https://www.cengage.com/c/principles-of-instrumental-analysis-7e-skoog/9781305577213/" target="_blank" title="Principles of Instrumental Analysis, 7th ed. — Molecular Mass Spectrometry" style="color:#e74c3c;">Skoog, D. A. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Accelerate into analyzer</td><td>Processing & Operations</td><td><a href="https://www.cengage.com/c/principles-of-instrumental-analysis-7e-skoog/9781305577213/" target="_blank" title="Principles of Instrumental Analysis, 7th ed. — Molecular Mass Spectrometry" style="color:#e74c3c;">Skoog, D. A. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Separate by m/z</td><td>Processing & Operations</td><td><a href="https://www.cengage.com/c/principles-of-instrumental-analysis-7e-skoog/9781305577213/" target="_blank" title="Principles of Instrumental Analysis, 7th ed. — Molecular Mass Spectrometry" style="color:#e74c3c;">Skoog, D. A. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Detect ion abundance</td><td>Processing & Operations</td><td><a href="https://www.cengage.com/c/principles-of-instrumental-analysis-7e-skoog/9781305577213/" target="_blank" title="Principles of Instrumental Analysis, 7th ed. — Molecular Mass Spectrometry" style="color:#e74c3c;">Skoog, D. A. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Molecular ion clear?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1126/science.2675315" target="_blank" title="Electrospray ionization for mass spectrometry of large biomolecules" style="color:#e74c3c;">Fenn, J. B. et al. 1989</a></td></tr><tr><td style="font-weight:600;">Use soft ionization</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1126/science.2675315" target="_blank" title="Electrospray ionization for mass spectrometry of large biomolecules" style="color:#e74c3c;">Fenn, J. B. et al. 1989</a></td></tr><tr><td style="font-weight:600;">Interpret fragmentation</td><td>Processing & Operations</td><td><a href="https://www.wiley.com/en-us/Mass+Spectrometry%3A+Principles+and+Applications%2C+3rd+Edition-p-9780470033104" target="_blank" title="Mass Spectrometry: Principles and Applications, 3rd ed." style="color:#e74c3c;">de Hoffmann, E. et al. 2007</a></td></tr><tr><td style="font-weight:600;">Structure / mass</td><td>Products & Outputs</td><td><a href="https://www.wiley.com/en-us/Mass+Spectrometry%3A+Principles+and+Applications%2C+3rd+Edition-p-9780470033104" target="_blank" title="Mass Spectrometry: Principles and Applications, 3rd ed." style="color:#e74c3c;">de Hoffmann, E. et al. 2007</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -314,12 +329,12 @@ Y4 --> Z4
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 26</li>
-                        <li><strong>Edges:</strong> 22</li>
-                        <li><strong>Conditionals:</strong> 0</li>
+                        <li><strong>Nodes:</strong> 10</li>
+                        <li><strong>Edges:</strong> 10</li>
+                        <li><strong>Conditionals:</strong> 1</li>
                         <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 1</li>
+                        <li><strong>OR Gates:</strong> 1</li>
+                        <li><strong>Total Gates:</strong> 2</li>
                     </ul>
                 </div>
                 
@@ -327,7 +342,7 @@ Y4 --> Z4
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>mass</li><li>spectrometry</li>
+                        <li>mass spectrometry</li><li>ionization</li><li>mass-to-charge</li><li>fragmentation</li><li>molecular ion</li>
                     </ul>
                 </div>
                 
@@ -338,43 +353,33 @@ Y4 --> Z4
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
-                            </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Tandem mass spectrometry</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">McCullagh, James; Oldham, Neil
-                            , Mass Spectrometry
-                             (2019)
-                            </span>
-                            <br><a href="https://doi.org/10.1093/hesc/9780198789048.003.0005" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1093/hesc/9780198789048.003.0005</a>
-                            
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Mass spectrometry applications</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">McCullagh, James; Oldham, Neil
-                            , Mass Spectrometry
-                             (2019)
-                            </span>
-                            <br><a href="https://doi.org/10.1093/hesc/9780198789048.003.0008" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1093/hesc/9780198789048.003.0008</a>
-                            
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>K. Busch, G. Glish and S. Mcluckey. Mass spectrometry/mass spectrometry: Techniques and applications of tandem mass spectrometry, VCH publishing, New York, 1988. Mass Spectrometry/Mass Spectrometry</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Musselman, Brian D.
-                            , Biological Mass Spectrometry
+                            <strong>Electrospray ionization for mass spectrometry of large biomolecules</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Fenn, J. B.; Mann, M.; Meng, C. K.; Wong, S. F.; Whitehouse, C. M.
+                            , Science
                              (1989)
                             </span>
-                            <br><a href="https://doi.org/10.1002/bms.1200181017" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1002/bms.1200181017</a>
+                            <br><a href="https://doi.org/10.1126/science.2675315" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1126/science.2675315</a>
                             
+                        </li>
+                        
+                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
+                            <strong>Mass Spectrometry: Principles and Applications, 3rd ed.</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">de Hoffmann, E.; Stroobant, V.
+                            , Wiley
+                             (2007)
+                            </span>
+                            
+                            <br><a href="https://www.wiley.com/en-us/Mass+Spectrometry%3A+Principles+and+Applications%2C+3rd+Edition-p-9780470033104" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
+                        </li>
+                        
+                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
+                            <strong>Principles of Instrumental Analysis, 7th ed. — Molecular Mass Spectrometry</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Skoog, D. A.; Holler, F. J.; Crouch, S. R.
+                            , Cengage Learning
+                             (2018)
+                            </span>
+                            
+                            <br><a href="https://www.cengage.com/c/principles-of-instrumental-analysis-7e-skoog/9781305577213/" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
                         </li>
                         
                     </ul>

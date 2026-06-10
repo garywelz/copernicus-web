@@ -1,0 +1,38 @@
+{
+  "id": "arxiv_2604.21263v1",
+  "arxiv_id": "2604.21263v1",
+  "title": "Trustworthy Clinical Decision Support Using Meta-Predicates and Domain-Specific Languages",
+  "authors": [
+    "Michael Bouzinier",
+    "Sergey Trifonov",
+    "Michael Chumack",
+    "Eugenia Lvova",
+    "Dmitry Etin"
+  ],
+  "author_string": "Michael Bouzinier, Sergey Trifonov, Michael Chumack, Eugenia Lvova, Dmitry Etin",
+  "journal": "arXiv:2604.21263v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "\\textbf{Background:} Regulatory frameworks for AI in healthcare, including the EU AI Act and FDA guidance on AI/ML-based medical devices, require clinical decision support to demonstrate not only accuracy but auditability. Existing formal languages for clinical logic validate syntactic and structural correctness but not whether decision rules use epistemologically appropriate evidence.   \\textbf{Methods:} Drawing on design-by-contract principles, we introduce meta-predicates -- predicates about predicates -- for asserting epistemological constraints on clinical decision rules expressed in a DSL. An epistemological type system classifies annotations along four dimensions: purpose, knowledge domain, scale, and method of acquisition. Meta-predicates assert which evidence types are permissible in any given rule. The framework is instantiated in AnFiSA, an open-source platform for genetic variant curation, and demonstrated using the Brigham Genomics Medicine protocol on 5.6 million variants from the Genome in a Bottle benchmark.   \\textbf{Results:} Decision trees used in variant interpretation can be reformulated as unate cascades, enabling per-variant audit trails that identify which rule classified each variant and why. Meta-predicate validation catches epistemological errors before deployment, whether rules are human-written or AI-generated. The approach complements post-hoc methods such as LIME and SHAP: where explanation reveals what evidence was used after the fact, meta-predicates constrain what evidence may be used before deployment, while preserving human readability.   \\textbf{Conclusions:} Meta-predicate validation is a step toward demonstrating not only that decisions are accurate but that they rest on appropriate evidence in ways that can be independently audited. While demonstrated in genomics, the approach generalises to any domain requiring auditable decision logic.",
+  "categories": [
+    "cs.AI",
+    "cs.PL",
+    "cs.SE",
+    "q-bio.QM"
+  ],
+  "primary_category": "q-bio.QM",
+  "comment": null,
+  "published_date": "2026-04-23T04:11:44Z",
+  "updated_date": "2026-04-23T04:11:44Z",
+  "url": "https://arxiv.org/abs/2604.21263v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.21263v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-30T22:15:35.865153",
+  "category": "biology",
+  "subcategories": [
+    "cs.AI",
+    "cs.PL",
+    "cs.SE"
+  ]
+}

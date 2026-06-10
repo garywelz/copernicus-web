@@ -1,21 +1,23 @@
 {
   "id": "thermodynamics-gibbs-free-energy-calculation",
-  "name": "Gibbs Free Energy Calculation",
+  "name": "Gibbs Free Energy & Spontaneity",
   "category": "chemistry",
   "subcategory": "thermodynamics",
   "subcategory_name": "Thermodynamic Processes",
-  "description": "Gibbs Free Energy Calculation process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "Determine reaction spontaneity by combining enthalpy and entropy into the Gibbs free energy change, classifying the sign of ΔG and relating ΔG° to the equilibrium constant.",
   "complexity": {
-    "nodes": 5,
-    "edges": 4,
-    "conditionals": 0,
+    "nodes": 9,
+    "edges": 9,
+    "conditionals": 1,
     "logicGates": {
-      "orGates": 0,
-      "andGates": 0,
-      "total": 0
+      "orGates": 2,
+      "andGates": 1,
+      "notGates": 0,
+      "total": 3
     },
     "level": "medium",
-    "detailLevel": "medium"
+    "detailLevel": "source_grounded",
+    "loops": 0
   },
   "colorScheme": {
     "red": {
@@ -39,55 +41,143 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nN1[\"Reaction/Process Definition\"]\nN2[\"T,P Conditions\"]\nN3[\"ΔH, ΔS Data\"]\nN4[\"Compute ΔG = ΔH − TΔS\"]\nN5[\"Spontaneity/Equilibrium Insight\"]\n\nN1 --> N2\nN2 --> N3\nN3 --> N4\nN4 --> N5\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#ff6b6b,color:#fff\n    style N3 fill:#ffd43b,color:#000\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"Define system + reaction\"]\n    N2[\"Tabulate ΔH (enthalpy)\"]\n    N3[\"Tabulate ΔS (entropy)\"]\n    N4[\"ΔG = ΔH − TΔS\"]\n    N5{\"Sign of ΔG?\"}\n    N6[\"ΔG < 0: spontaneous\"]\n    N7[\"ΔG > 0: non-spontaneous\"]\n    N8[\"ΔG = 0: at equilibrium\"]\n    N9[\"ΔG° = −RT ln K\"]\n\n    N1 --> N2\n    N1 --> N3\n    N2 --> N4\n    N3 --> N4\n    N4 --> N5\n    N5 -->|< 0| N6\n    N5 -->|> 0| N7\n    N5 -->|= 0| N8\n    N8 --> N9\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#74c0fc,color:#fff\n    style N6 fill:#b197fc,color:#fff\n    style N7 fill:#b197fc,color:#fff\n    style N8 fill:#b197fc,color:#fff\n    style N9 fill:#51cf66,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "title": "Physical Chemistry, 11th ed. — The Second and Third Laws (Gibbs energy)",
+      "authors": "Atkins, P.; de Paula, J.; Keeler, J.",
+      "journal": "Oxford University Press",
+      "year": "2018",
       "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: Gibbs Free Energy Calculation. Created using the Programming Framework methodology."
+      "url": "https://global.oup.com/ukhe/product/atkins-physical-chemistry-9780198769866"
     },
     {
-      "title": "A Generalized Solid Solution Framework for the Gibbs Free Energy Calculation",
-      "authors": "",
-      "journal": "",
-      "year": "None",
-      "pubmed": null,
-      "doi": "10.1021/acs.jctc.5c00524.s001",
-      "url": "https://doi.org/10.1021/acs.jctc.5c00524.s001"
+      "title": "Gold Book: Gibbs energy (function), G",
+      "authors": "IUPAC",
+      "journal": "IUPAC Compendium of Chemical Terminology",
+      "year": "2019",
+      "doi": "10.1351/goldbook.G02629",
+      "url": "https://goldbook.iupac.org/terms/view/G02629"
     },
     {
-      "title": "Gibbs Sampler-Based Dynamics and RaoBlackwell Estimator for Alchemical Free Energy Calculation",
-      "authors": "",
-      "journal": "",
-      "year": "None",
-      "pubmed": null,
-      "doi": "10.1021/acs.jctc.7b00204.s001",
-      "url": "https://doi.org/10.1021/acs.jctc.7b00204.s001"
-    },
-    {
-      "title": "Calculation of Gibbs Free Energy of Iron Based Alloys Using Miedema's Model and Comparison with Experiment",
-      "authors": "Kadhim, Ali K.",
-      "journal": "Materials Science Forum",
-      "year": "2024",
-      "pubmed": null,
-      "doi": "10.4028/p-6ykus2",
-      "url": "https://doi.org/10.4028/p-6ykus2"
+      "title": "NIST Chemistry WebBook — thermochemical data",
+      "authors": "Linstrom, P. J.; Mallard, W. G. (eds.)",
+      "journal": "NIST Standard Reference Database 69",
+      "year": "2023",
+      "doi": "10.18434/T4D303",
+      "url": "https://webbook.nist.gov/chemistry/"
     }
   ],
   "keywords": [
-    "gibbs",
-    "free",
-    "energy",
-    "calculation"
+    "gibbs free energy",
+    "spontaneity",
+    "enthalpy",
+    "entropy",
+    "equilibrium constant"
   ],
   "relatedProcesses": [],
   "created": "2026-01-15",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations.\nCurated Mermaid applied (citations preserved)."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Define system + reaction",
+      "detail": "Specify reactants, products, T and P",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N2",
+      "label": "Tabulate ΔH (enthalpy)",
+      "detail": "Reaction enthalpy from formation data",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N3",
+      "label": "Tabulate ΔS (entropy)",
+      "detail": "Reaction entropy from standard entropies",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N4",
+      "label": "ΔG = ΔH − TΔS",
+      "detail": "Combine at temperature T",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N5",
+      "label": "Sign of ΔG?",
+      "detail": "Spontaneity criterion at constant T,P",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N6",
+      "label": "ΔG < 0: spontaneous",
+      "detail": "Forward reaction favored",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 1
+    },
+    {
+      "id": "N7",
+      "label": "ΔG > 0: non-spontaneous",
+      "detail": "Reverse reaction favored",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 1
+    },
+    {
+      "id": "N8",
+      "label": "ΔG = 0: at equilibrium",
+      "detail": "No net change",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 1
+    },
+    {
+      "id": "N9",
+      "label": "ΔG° = −RT ln K",
+      "detail": "Link standard ΔG to equilibrium constant",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:thermodynamics-gibbs-free-energy-calculation",
+    "graphType": "decision_flowchart",
+    "topologySignature": "d4d92bb18870cf84",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "namedCollections": [
+    "thermodynamics"
+  ],
+  "graphMetrics": {
+    "nodes": 9,
+    "edges": 9,
+    "conditionals": 1,
+    "andGates": 1,
+    "orGates": 2,
+    "notGates": 0,
+    "loops": 0
+  },
+  "graphType": "decision_flowchart",
+  "domainContext": "Chemical thermodynamics"
 }

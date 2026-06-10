@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2605.18224v1",
+  "arxiv_id": "2605.18224v1",
+  "title": "A Simplex Witness Certificate for Constant Collapse in Variational Autoencoders",
+  "authors": [
+    "Zegu Zhang",
+    "Jianhua Peng",
+    "Jian Zhang"
+  ],
+  "author_string": "Zegu Zhang, Jianhua Peng, Jian Zhang",
+  "journal": "arXiv:2605.18224v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "This note studies exact constant collapse in variational autoencoders, where the encoder mean becomes independent of the input. The goal is to make this specific failure mode pre-designable, monitorable during training, and certifiable after training. The prior is kept as the standard Gaussian. Given a fixed teacher posterior, we attach to the latent mean a fixed simplex witness head. The resulting teacher-student alignment loss has an exact constant-predictor baseline equal to the teacher information. If the alignment loss is below this baseline, the latent mean cannot be input-independent constant collapsed.   The simplex witness also has a closed-form inverse. Any full-support teacher posterior can be represented by embedding its centered log-odds into the latent space. This gives an explicit latent energy cost and explains when the alignment loss can be made small. A computable view gap handles the case where teacher targets are computed from a different view. Thus exact constant collapse is converted from an after-the-fact training pathology into a design-and-certificate problem.",
+  "categories": [
+    "cs.LG",
+    "cs.AI"
+  ],
+  "primary_category": "cs.AI",
+  "comment": "Preliminary theory note",
+  "published_date": "2026-05-18T11:09:22Z",
+  "updated_date": "2026-05-18T11:09:22Z",
+  "url": "https://arxiv.org/abs/2605.18224v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.18224v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-18T22:16:04.718161",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.LG",
+    "cs.AI"
+  ]
+}

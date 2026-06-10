@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2604.18059v1",
+  "arxiv_id": "2604.18059v1",
+  "title": "Information decomposition for disentangled and interpretable manifold learning of fluid flows via variational autoencoders",
+  "authors": [
+    "Zhiyuan Wang",
+    "Iacopo Tirelli",
+    "Stefano Discetti",
+    "Andrea Ianiro"
+  ],
+  "author_string": "Zhiyuan Wang, Iacopo Tirelli, Stefano Discetti, Andrea Ianiro",
+  "journal": "arXiv:2604.18059v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We introduce an information-theoretic framework that uses variational autoencoders (VAEs) to extract compact, physically interpretable manifolds from high-dimensional flow-field data. To this end, the Kullback--Leibler (KL) divergence in the variational objective is decomposed into three complementary information-theoretic terms: the index-code mutual information, the total correlation, and the dimension-wise KL divergence. These terms explicitly regulate data compression, latent disentanglement, and geometric regularization. This establishes a principled basis for targeted latent-space design, allowing enhanced interpretability without sacrificing information capacity, a common drawback of heavily regularized VAE variants. The approach is evaluated on two synthetic unsteady flow datasets. First, we consider a flow around a cylinder in a channel with variable cylinder position, diameter, and Reynolds number. Later, we also consider the flow around a NACA 0012 airfoil at varying angles of attack and subjected to strong vortex gusts with variable intensity, position, and length scale. Comparisons with Principal Component Analysis, Isometric Feature Mapping, and $β$-VAE demonstrate clear advantages in disentanglement and physical interpretability. The learned latent coordinates successfully separate distinct physical effects. Moreover, the proposed method demonstrates strong robustness to variations in the loss-weighting parameters, despite involving a larger number of such parameters.",
+  "categories": [
+    "physics.flu-dyn"
+  ],
+  "primary_category": "physics.flu-dyn",
+  "comment": null,
+  "published_date": "2026-04-20T10:28:38Z",
+  "updated_date": "2026-04-20T10:28:38Z",
+  "url": "https://arxiv.org/abs/2604.18059v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.18059v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-22T10:15:52.073035",
+  "category": "physics",
+  "subcategories": [
+    "physics.flu-dyn"
+  ]
+}

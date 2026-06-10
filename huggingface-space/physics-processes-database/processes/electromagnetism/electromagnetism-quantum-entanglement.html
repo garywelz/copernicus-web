@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quantum Entanglement - Physics Process</title>
+    <title>Electrostatic Boundary-Value Problem - Physics Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Quantum Entanglement</h1>
+            <h1>Electrostatic Boundary-Value Problem</h1>
             <div class="header-meta">
                 <span class="meta-item">Physics</span>
                 <span class="meta-item">Electromagnetism</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,67 +234,60 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Quantum Entanglement Process. This quantum mechanics process visualization demonstrates quantum entanglement and non-local correlations. The flowchart shows entangled inputs and Bell states, quantum entanglement methods and correlation measurements, quantum entanglement operations and quantum communication, intermediate results, and final quantum entanglement outputs.</p>
+                <p>Electrostatic boundary-value problems find the potential in a region from charges and conductor boundaries: Poisson's equation holds where charge is present and Laplace's equation elsewhere; applying boundary conditions, and exploiting symmetry via separation of variables or the method of images, gives the potential whose gradient is the field.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-A2[Entangled State] --> B2[Quantum Entanglement Method]
-C2[Bell State] --> D2[Correlation Measurement]
-E2[Quantum Communication] --> F2[Quantum Entanglement Analysis]
-B2 --> G2[EPR Paradox]
-D2 --> H2[Bell Inequality]
-F2 --> I2[Quantum Teleportation]
-G2 --> J2[Non Local Correlation]
-H2 --> K2[Hidden Variable Test]
-I2 --> L2[Quantum Channel]
-J2 --> M2[Quantum Coherence]
-K2 --> L2
-L2 --> N2[Entanglement Distillation]
-M2 --> O2[Quantum Error Correction]
-N2 --> P2[Entanglement Swapping]
-O2 --> Q2[Quantum Entanglement Process]
-P2 --> R2[Quantum Entanglement Validation]
-Q2 --> S2[Quantum Entanglement Verification]
-R2 --> T2[Quantum Entanglement Result]
-S2 --> U2[Quantum Entanglement Analysis]
-T2 --> V2[Quantum Entanglement Parameters]
-U2 --> W2[Quantum Entanglement Output]
-V2 --> X2[Quantum Entanglement Analysis]
-W2 --> Y2[Quantum Entanglement Final Result]
-X2 --> Z2[Quantum Entanglement Complete]
+    N1["Charges + conductors"]
+    N2{"Charge-free region?"}
+    N3["Poisson equation"]
+    N4["Laplace equation"]
+    N5["Apply boundary conditions"]
+    N6{"Symmetry available?"}
+    N7["Separation of variables"]
+    N8["Method of images"]
+    N9["Solve potential V(r)"]
+    N10["Field E = -grad V"]
+    N11["Field & potential map"]
 
-    style A2 fill:#ff6b6b,color:#fff
-    style C2 fill:#ff6b6b,color:#fff
-    style E2 fill:#ff6b6b,color:#fff
-    style B2 fill:#ffd43b,color:#000
-    style D2 fill:#ffd43b,color:#000
-    style F2 fill:#ffd43b,color:#000
-    style G2 fill:#ffd43b,color:#000
-    style H2 fill:#ffd43b,color:#000
-    style I2 fill:#ffd43b,color:#000
-    style J2 fill:#ffd43b,color:#000
-    style K2 fill:#ffd43b,color:#000
-    style L2 fill:#ffd43b,color:#000
-    style M2 fill:#51cf66,color:#fff
-    style N2 fill:#51cf66,color:#fff
-    style O2 fill:#51cf66,color:#fff
-    style P2 fill:#51cf66,color:#fff
-    style Q2 fill:#51cf66,color:#fff
-    style R2 fill:#51cf66,color:#fff
-    style S2 fill:#51cf66,color:#fff
-    style T2 fill:#51cf66,color:#fff
-    style U2 fill:#51cf66,color:#fff
-    style V2 fill:#51cf66,color:#fff
-    style W2 fill:#51cf66,color:#fff
-    style X2 fill:#51cf66,color:#fff
-    style Y2 fill:#51cf66,color:#fff
-    style Z2 fill:#b197fc,color:#fff
+    N1 --> N2
+    N2 -->|no| N3
+    N2 -->|yes| N4
+    N3 --> N5
+    N4 --> N5
+    N5 --> N6
+    N6 -->|coordinate| N7
+    N6 -->|image| N8
+    N7 --> N9
+    N8 --> N9
+    N9 --> N10
+    N10 --> N11
+
+    style N1 fill:#ff6b6b,color:#fff
+    style N2 fill:#74c0fc,color:#fff
+    style N3 fill:#51cf66,color:#fff
+    style N4 fill:#51cf66,color:#fff
+    style N5 fill:#51cf66,color:#fff
+    style N6 fill:#74c0fc,color:#fff
+    style N7 fill:#51cf66,color:#fff
+    style N8 fill:#51cf66,color:#fff
+    style N9 fill:#74c0fc,color:#fff
+    style N10 fill:#51cf66,color:#fff
+    style N11 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Charges + conductors</td><td>Triggers & Inputs</td><td><a href="https://doi.org/10.1017/9781108333511" target="_blank" title="Introduction to Electrodynamics (4th ed.)" style="color:#3498db;">Griffiths, D. J. 2017</a></td></tr><tr><td style="font-weight:600;">Charge-free region?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1017/9781108333511" target="_blank" title="Introduction to Electrodynamics (4th ed.)" style="color:#3498db;">Griffiths, D. J. 2017</a></td></tr><tr><td style="font-weight:600;">Poisson equation</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1017/9781108333511" target="_blank" title="Introduction to Electrodynamics (4th ed.)" style="color:#3498db;">Griffiths, D. J. 2017</a></td></tr><tr><td style="font-weight:600;">Laplace equation</td><td>Processing & Operations</td><td><a href="https://www.wiley.com/en-us/Classical+Electrodynamics%2C+3rd+Edition-p-9780471309321" target="_blank" title="Classical Electrodynamics (3rd ed.)" style="color:#3498db;">Jackson, J. D. 1998</a></td></tr><tr><td style="font-weight:600;">Apply boundary conditions</td><td>Processing & Operations</td><td><a href="https://www.wiley.com/en-us/Classical+Electrodynamics%2C+3rd+Edition-p-9780471309321" target="_blank" title="Classical Electrodynamics (3rd ed.)" style="color:#3498db;">Jackson, J. D. 1998</a></td></tr><tr><td style="font-weight:600;">Symmetry available?</td><td>Intermediates & States</td><td><a href="https://www.wiley.com/en-us/Classical+Electrodynamics%2C+3rd+Edition-p-9780471309321" target="_blank" title="Classical Electrodynamics (3rd ed.)" style="color:#3498db;">Jackson, J. D. 1998</a></td></tr><tr><td style="font-weight:600;">Separation of variables</td><td>Processing & Operations</td><td><a href="https://www.wiley.com/en-us/Classical+Electrodynamics%2C+3rd+Edition-p-9780471309321" target="_blank" title="Classical Electrodynamics (3rd ed.)" style="color:#3498db;">Jackson, J. D. 1998</a></td></tr><tr><td style="font-weight:600;">Method of images</td><td>Processing & Operations</td><td><a href="https://www.wiley.com/en-us/Classical+Electrodynamics%2C+3rd+Edition-p-9780471309321" target="_blank" title="Classical Electrodynamics (3rd ed.)" style="color:#3498db;">Jackson, J. D. 1998</a></td></tr><tr><td style="font-weight:600;">Solve potential V(r)</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1017/9781108333511" target="_blank" title="Introduction to Electrodynamics (4th ed.)" style="color:#3498db;">Griffiths, D. J. 2017</a></td></tr><tr><td style="font-weight:600;">Field E = -grad V</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1017/9781108333511" target="_blank" title="Introduction to Electrodynamics (4th ed.)" style="color:#3498db;">Griffiths, D. J. 2017</a></td></tr><tr><td style="font-weight:600;">Field & potential map</td><td>Products & Outputs</td><td><a href="https://www.wiley.com/en-us/Classical+Electrodynamics%2C+3rd+Edition-p-9780471309321" target="_blank" title="Classical Electrodynamics (3rd ed.)" style="color:#3498db;">Jackson, J. D. 1998</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -313,12 +333,12 @@ X2 --> Z2[Quantum Entanglement Complete]
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 26</li>
-                        <li><strong>Edges:</strong> 24</li>
-                        <li><strong>Conditionals:</strong> 0</li>
-                        <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 1</li>
+                        <li><strong>Nodes:</strong> 11</li>
+                        <li><strong>Edges:</strong> 12</li>
+                        <li><strong>Conditionals:</strong> 2</li>
+                        <li><strong>AND Gates:</strong> 2</li>
+                        <li><strong>OR Gates:</strong> 2</li>
+                        <li><strong>Total Gates:</strong> 4</li>
                     </ul>
                 </div>
                 
@@ -326,7 +346,7 @@ X2 --> Z2[Quantum Entanglement Complete]
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>electromagnetism</li><li>quantum</li><li>entanglement</li>
+                        <li>electrostatics</li><li>Laplace equation</li><li>Poisson equation</li><li>method of images</li><li>boundary conditions</li>
                     </ul>
                 </div>
                 
@@ -337,42 +357,22 @@ X2 --> Z2[Quantum Entanglement Complete]
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Classical Electrodynamics (3rd ed.)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Jackson, J. D.
+                            , Wiley
+                             (1998)
                             </span>
                             
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #3498db; font-size: 0.85em;">View Source</a>
+                            <br><a href="https://www.wiley.com/en-us/Classical+Electrodynamics%2C+3rd+Edition-p-9780471309321" target="_blank" style="color: #3498db; font-size: 0.85em;">View Source</a>
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>On the Einstein Podolsky Rosen Paradox</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Bell, J. S.
-                            , Physics (Long Island City)
-                             (1964)
+                            <strong>Introduction to Electrodynamics (4th ed.)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Griffiths, D. J.
+                            , Cambridge University Press
+                             (2017)
                             </span>
-                            <br><a href="https://doi.org/10.1103/PhysicsPhysiqueFizika.1.195" target="_blank" style="color: #3498db; font-size: 0.85em;">DOI: 10.1103/PhysicsPhysiqueFizika.1.195</a>
-                            
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Experimental Test of Bell's Inequalities Using Time-Varying Analyzers</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Aspect, A., Dalibard, J., Roger, G.
-                            , Phys. Rev. Lett.
-                             (1982)
-                            </span>
-                            <br><a href="https://doi.org/10.1103/PhysRevLett.49.1804" target="_blank" style="color: #3498db; font-size: 0.85em;">DOI: 10.1103/PhysRevLett.49.1804</a>
-                            
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Quantum cryptography based on Bell's theorem</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Ekert, A. K.
-                            , Phys. Rev. Lett.
-                             (1991)
-                            </span>
-                            <br><a href="https://doi.org/10.1103/PhysRevLett.67.661" target="_blank" style="color: #3498db; font-size: 0.85em;">DOI: 10.1103/PhysRevLett.67.661</a>
+                            <br><a href="https://doi.org/10.1017/9781108333511" target="_blank" style="color: #3498db; font-size: 0.85em;">DOI: 10.1017/9781108333511</a>
                             
                         </li>
                         

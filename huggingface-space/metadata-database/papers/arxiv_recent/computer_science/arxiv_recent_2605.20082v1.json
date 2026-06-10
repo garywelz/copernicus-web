@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_2605.20082v1",
+  "arxiv_id": "2605.20082v1",
+  "title": "VL-DPO: Vision-Language-Guided Finetuning for Preference-Aligned Autonomous Driving",
+  "authors": [
+    "Zhefan Xu",
+    "Ghassen Jerfel",
+    "Marina Haliem",
+    "Qi Zhao",
+    "Jeonhyung Kang",
+    "Khaled S. Refaat"
+  ],
+  "author_string": "Zhefan Xu, Ghassen Jerfel, Marina Haliem, Qi Zhao, Jeonhyung Kang et al.",
+  "journal": "arXiv:2605.20082v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "The rapid growth of autonomous driving datasets has enabled the scaling of powerful motion forecasting models. While large-scale pretraining provides strong performance, the standard imitation objective may not fully capture the complex nuances of human driving preferences. Meanwhile, recent advances in vision-language models (VLMs) have demonstrated impressive reasoning and commonsense understanding. Building on these capabilities, this paper presents VL-DPO, a vision-language-guided framework that aligns ego-vehicle motion forecasting models with human preferences. Our approach leverages a VLM as a zero-shot reasoner to automatically generate preference pairs from a pretrained model's rollouts, which are then used to finetune the model via Direct Preference Optimization (DPO). We finetune our models on the Waymo Open End-to-End Driving Dataset (WOD-E2E) and evaluate performance against held-out human preference annotations using rater feedback score (RFS) and average displacement error (ADE). Our experiments confirm that the VLM's trajectory selection is a high-quality proxy for human preference. Our final model, VL-DPO, yields an 11.94% increase in RFS and a 10.01% reduction in ADE over the pretrained model.",
+  "categories": [
+    "cs.CV",
+    "cs.AI"
+  ],
+  "primary_category": "cs.AI",
+  "comment": "Published in International Conference on Robotics and Automation (ICRA), 2026 8 pages, 6 figures, 4 tables",
+  "published_date": "2026-05-19T16:36:34Z",
+  "updated_date": "2026-05-19T16:36:34Z",
+  "url": "https://arxiv.org/abs/2605.20082v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.20082v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-20T10:16:33.998056",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CV",
+    "cs.AI"
+  ]
+}

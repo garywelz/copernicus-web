@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Water Treatment (Coagulation-Flocculation) - Chemistry Process</title>
+    <title>Coagulation-Flocculation Treatment - Chemistry Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Water Treatment (Coagulation-Flocculation)</h1>
+            <h1>Coagulation-Flocculation Treatment</h1>
             <div class="header-meta">
                 <span class="meta-item">Chemistry</span>
                 <span class="meta-item">Environmental Chemistry</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,46 +234,59 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Water Treatment (Coagulation-Flocculation) process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>Coagulation-flocculation clarifies turbid water: a metal-salt coagulant is rapidly mixed to neutralize colloid surface charge and destabilize particles, then slow mixing promotes collisions that grow flocs; if flocs are large enough they settle out, otherwise aids are added and mixing continues before sedimentation yields clarified water.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-N1["Raw Water"]
-N2["Coagulant Dose"]
-N3["Mixing Basin"]
-N4["Choose Path"]
-N5["Coagulation"]
-N6["Floc Growth"]
-N7["Settling/Filtration"]
-N8["Treated Water"]
-N9["Integrate"]
+    N1["Turbid water (colloids)"]
+    N2["Add coagulant (Al/Fe salt)"]
+    N3["Rapid mix / dispersion"]
+    N4["Charge neutralization"]
+    N5["Destabilized colloids"]
+    N6["Slow mix (flocculation)"]
+    N7["Floc growth by collisions"]
+    N8{"Floc large + settleable?"}
+    N9["Add flocculant aid"]
+    N10["Sedimentation"]
+    N11["Clarified water"]
 
-N1 --> N2
-N2 --> N3
-N3 --> N4
-N4 --> N5
-N4 --> N7
-N5 --> N6
-N7 --> N8
-N6 --> N9
-N8 --> N9
-N9 --> N6
+    N1 --> N2
+    N2 --> N3
+    N3 --> N4
+    N4 --> N5
+    N5 --> N6
+    N6 --> N7
+    N7 --> N8
+    N8 -->|no| N9
+    N9 -->|more mixing| N6
+    N8 -->|yes| N10
+    N10 --> N11
 
     style N1 fill:#ff6b6b,color:#fff
-    style N2 fill:#ff6b6b,color:#fff
-    style N3 fill:#ffd43b,color:#000
-    style N4 fill:#ffd43b,color:#000
-    style N5 fill:#51cf66,color:#fff
-    style N6 fill:#74c0fc,color:#fff
+    style N2 fill:#51cf66,color:#fff
+    style N3 fill:#51cf66,color:#fff
+    style N4 fill:#51cf66,color:#fff
+    style N5 fill:#74c0fc,color:#fff
+    style N6 fill:#51cf66,color:#fff
     style N7 fill:#51cf66,color:#fff
-    style N8 fill:#b197fc,color:#fff
-    style N9 fill:#74c0fc,color:#fff
+    style N8 fill:#74c0fc,color:#fff
+    style N9 fill:#51cf66,color:#fff
+    style N10 fill:#51cf66,color:#fff
+    style N11 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Turbid water (colloids)</td><td>Triggers & Inputs</td><td><a href="https://doi.org/10.1002/9781118131473" target="_blank" title="MWH's Water Treatment: Principles and Design (3rd ed.)" style="color:#e74c3c;">Crittenden, J. C. et al. 2012</a></td></tr><tr><td style="font-weight:600;">Add coagulant (Al/Fe salt)</td><td>Processing & Operations</td><td><a href="https://doi.org/10.2166/9781780407500" target="_blank" title="Coagulation and Flocculation in Water and Wastewater Treatment (3rd ed.)" style="color:#e74c3c;">Bratby, J. 2016</a></td></tr><tr><td style="font-weight:600;">Rapid mix / dispersion</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1002/9781118131473" target="_blank" title="MWH's Water Treatment: Principles and Design (3rd ed.)" style="color:#e74c3c;">Crittenden, J. C. et al. 2012</a></td></tr><tr><td style="font-weight:600;">Charge neutralization</td><td>Processing & Operations</td><td><a href="https://doi.org/10.2166/9781780407500" target="_blank" title="Coagulation and Flocculation in Water and Wastewater Treatment (3rd ed.)" style="color:#e74c3c;">Bratby, J. 2016</a></td></tr><tr><td style="font-weight:600;">Destabilized colloids</td><td>Intermediates & States</td><td><a href="https://doi.org/10.2166/9781780407500" target="_blank" title="Coagulation and Flocculation in Water and Wastewater Treatment (3rd ed.)" style="color:#e74c3c;">Bratby, J. 2016</a></td></tr><tr><td style="font-weight:600;">Slow mix (flocculation)</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1002/9781118131473" target="_blank" title="MWH's Water Treatment: Principles and Design (3rd ed.)" style="color:#e74c3c;">Crittenden, J. C. et al. 2012</a></td></tr><tr><td style="font-weight:600;">Floc growth by collisions</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1002/9781118131473" target="_blank" title="MWH's Water Treatment: Principles and Design (3rd ed.)" style="color:#e74c3c;">Crittenden, J. C. et al. 2012</a></td></tr><tr><td style="font-weight:600;">Floc large + settleable?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1002/9781118131473" target="_blank" title="MWH's Water Treatment: Principles and Design (3rd ed.)" style="color:#e74c3c;">Crittenden, J. C. et al. 2012</a></td></tr><tr><td style="font-weight:600;">Add flocculant aid</td><td>Processing & Operations</td><td><a href="https://doi.org/10.2166/9781780407500" target="_blank" title="Coagulation and Flocculation in Water and Wastewater Treatment (3rd ed.)" style="color:#e74c3c;">Bratby, J. 2016</a></td></tr><tr><td style="font-weight:600;">Sedimentation</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1002/9781118131473" target="_blank" title="MWH's Water Treatment: Principles and Design (3rd ed.)" style="color:#e74c3c;">Crittenden, J. C. et al. 2012</a></td></tr><tr><td style="font-weight:600;">Clarified water</td><td>Products & Outputs</td><td><a href="https://doi.org/10.2166/9781780407500" target="_blank" title="Coagulation and Flocculation in Water and Wastewater Treatment (3rd ed.)" style="color:#e74c3c;">Bratby, J. 2016</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -292,12 +332,12 @@ N9 --> N6
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 9</li>
-                        <li><strong>Edges:</strong> 10</li>
-                        <li><strong>Conditionals:</strong> 0</li>
-                        <li><strong>AND Gates:</strong> 2</li>
+                        <li><strong>Nodes:</strong> 11</li>
+                        <li><strong>Edges:</strong> 11</li>
+                        <li><strong>Conditionals:</strong> 1</li>
+                        <li><strong>AND Gates:</strong> 1</li>
                         <li><strong>OR Gates:</strong> 1</li>
-                        <li><strong>Total Gates:</strong> 3</li>
+                        <li><strong>Total Gates:</strong> 2</li>
                     </ul>
                 </div>
                 
@@ -305,7 +345,7 @@ N9 --> N6
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>water</li><li>treatment</li><li>coagulation</li><li>flocculation</li>
+                        <li>coagulation</li><li>flocculation</li><li>charge neutralization</li><li>floc</li><li>sedimentation</li>
                     </ul>
                 </div>
                 
@@ -316,42 +356,22 @@ N9 --> N6
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Coagulation and Flocculation in Water and Wastewater Treatment (3rd ed.)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Bratby, J.
+                            , IWA Publishing
+                             (2016)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>84Chapter 3 Process of drinking water treatment using coagulation/flocculation method</strong>
-                            
-                            , Coagulation and Flocculation
-                             (2025)
-                            </span>
-                            <br><a href="https://doi.org/10.1515/9783111246765-003" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1515/9783111246765-003</a>
+                            <br><a href="https://doi.org/10.2166/9781780407500" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.2166/9781780407500</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Hybrid process : hydrocyclone, coagulation flocculation and flotation in water treatment process</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Siangsanun, Vorasiri
-                            
-                             (None)
+                            <strong>MWH's Water Treatment: Principles and Design (3rd ed.)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Crittenden, J. C.; et al.
+                            , Wiley
+                             (2012)
                             </span>
-                            <br><a href="https://doi.org/10.58837/chula.the.2009.1650" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.58837/chula.the.2009.1650</a>
-                            
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Hybrid process : hydrocyclone, coagulation, flocculation and floatation in water treatment process</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Bamrungsri, Pradipat
-                            
-                             (None)
-                            </span>
-                            <br><a href="https://doi.org/10.58837/chula.the.2007.2028" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.58837/chula.the.2007.2028</a>
+                            <br><a href="https://doi.org/10.1002/9781118131473" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1002/9781118131473</a>
                             
                         </li>
                         

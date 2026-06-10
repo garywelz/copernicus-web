@@ -1,0 +1,39 @@
+{
+  "id": "calculus_analysis-real-analysis-completeness",
+  "name": "Real Analysis — Completeness",
+  "category": "mathematics",
+  "subcategory": "calculus_analysis",
+  "subcategory_name": "Calculus & Analysis",
+  "description": "Ordered field: field with total order compatible with + and ·. Completeness: every nonempty bounded above set has supremum. Archimedean property: ℕ unbounded in ℝ.",
+  "mermaid": "graph TD\n    A1[\"A1 Field axioms\\nR + ·\"]\n    A2[\"A2 Order axioms\\ntotal order, compat\"]\n    D1[\"Def: Bounded above\\n∃M ∀x x≤M\"]\n    D2[\"Def: Supremum\\nleast upper bound\"]\n    D3[\"Def: Completeness\\nsup exists\"]\n    T1[\"Thm: Archimedean\\n∀ε>0 ∃n nε>1\"]\n    T2[\"Thm: Q dense in R\"]\n    A1 --> D1\n    A2 --> D1\n    D1 --> D2\n    D2 --> D3\n    D3 --> T1\n    D3 --> T2\n    classDef axiom fill:#ff6b6b,color:#fff,stroke:#c0392b\n    classDef definition fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef theorem fill:#51cf66,color:#fff,stroke:#40c057\n    class A1,A2 axiom\n    class D1,D2,D3 definition\n    class T1,T2 theorem",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

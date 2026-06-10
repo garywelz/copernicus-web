@@ -1,0 +1,39 @@
+{
+  "id": "linear_algebra-linear-algebra-linear-maps",
+  "name": "Linear Algebra — Linear Maps",
+  "category": "mathematics",
+  "subcategory": "linear_algebra",
+  "subcategory_name": "Linear Algebra",
+  "description": "Linear map T: V→W preserves + and scalar mult. Kernel, image. Rank, nullity. Rank-nullity theorem. Isomorphism when bijective.",
+  "mermaid": "graph TD\n    D1[\"Def: Linear map\\nT av+bw = aTv + bTw\"]\n    D2[\"Def: Kernel\\nker T = T⁻¹0\"]\n    D3[\"Def: Image\\nim T = T V\"]\n    D4[\"Def: Rank\\nrank T = dim im T\"]\n    D5[\"Def: Nullity\\nnull T = dim ker T\"]\n    T1[\"Thm: Rank-nullity\\ndim V = rank + null\"]\n    T2[\"Thm: T iso ⟺\\nker=0 and im=W\"]\n    D1 --> D2\n    D1 --> D3\n    D2 --> D5\n    D3 --> D4\n    D4 --> T1\n    D5 --> T1\n    D2 --> T2\n    D3 --> T2\n    classDef definition fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef theorem fill:#51cf66,color:#fff,stroke:#40c057\n    class D1,D2,D3,D4,D5 definition\n    class T1,T2 theorem",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

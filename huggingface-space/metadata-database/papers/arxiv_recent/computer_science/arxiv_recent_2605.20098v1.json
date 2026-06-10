@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2605.20098v1",
+  "arxiv_id": "2605.20098v1",
+  "title": "Neurosymbolic Learning for Inference-Time Argumentation",
+  "authors": [
+    "Gabriel Freedman",
+    "Adam Dejl",
+    "Adam Gould",
+    " Mansi",
+    "Lihu Chen",
+    "Jianqi Jiang",
+    "Francesca Toni"
+  ],
+  "author_string": "Gabriel Freedman, Adam Dejl, Adam Gould,  Mansi, Lihu Chen et al.",
+  "journal": "arXiv:2605.20098v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Claim verification is an important problem in high-stakes settings, including health and finance. When information underpinning claims is incomplete or conflicting, uncertain answers may be more appropriate than binary true or false classifications. In all cases, faithful explanations of the considerations determining the final verdict are crucial. We introduce inference-time argumentation (ITA), a trainable neurosymbolic framework for ternary claim verification in which a formal argumentation semantics giving the strength of claims is used both (i) to guide LLM training as models learn to generate arguments and assign them base scores (representing intrinsic strengths) and (ii) to compute ternary (true/false/uncertain) predictions from generated, scored arguments. As a result, at training time, argument generation and scoring can be optimised according to the quality of the induced argumentative predictions. Moreover, at inference time, the final prediction is faithful, by construction, to the arguments and scores determining the verdict, rather than being justified by a potentially unfaithful post-hoc reasoning trace as in conventional reasoning models. We finally show that, on two datasets for ternary claim verification, ITA improves upon argumentative baselines and can perform competitively against non-argumentative direct-prediction baselines, while providing verdicts that are computed deterministically from explicit, inspectable argumentative structures.",
+  "categories": [
+    "cs.AI"
+  ],
+  "primary_category": "cs.AI",
+  "comment": "Under review",
+  "published_date": "2026-05-19T16:49:29Z",
+  "updated_date": "2026-05-19T16:49:29Z",
+  "url": "https://arxiv.org/abs/2605.20098v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.20098v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-20T10:16:33.997514",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.AI"
+  ]
+}

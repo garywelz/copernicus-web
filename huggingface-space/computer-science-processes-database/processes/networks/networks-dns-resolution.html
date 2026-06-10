@@ -167,6 +167,33 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
@@ -176,7 +203,7 @@
             <div class="header-meta">
                 <span class="meta-item">Computer Science</span>
                 <span class="meta-item">Computer Networks</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,48 +234,59 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>DNS Resolution process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>DNS resolution maps a hostname to an IP address through a hierarchy: the resolver first checks its cache, and on a miss queries the root server, which refers it to the TLD server and then to the authoritative name server that returns the record; the answer is cached with its TTL before being returned.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-N1["Client Query"]
-N2["Domain Name"]
-N3["Resolver Cache"]
-N4["Choose Approach"]
-N5["Recursive Resolver"]
-N6["Check Cache"]
-N7["Query Root/TLD/Auth"]
-N8["DNS Response"]
-N9["Integrate Results"]
-N10["Return IP Address"]
+    N1["App requests hostname"]
+    N2["Check local cache"]
+    N3{"Cached + valid TTL?"}
+    N4["Return cached IP"]
+    N5["Query recursive resolver"]
+    N6["Resolver asks root"]
+    N7["Referral to TLD server"]
+    N8["TLD -> authoritative NS"]
+    N9["Authoritative answers"]
+    N10["Cache with TTL"]
+    N11["Resolved IP address"]
 
-N1 --> N2
-N2 --> N3
-N3 --> N4
-N4 --> N5
-N4 --> N7
-N5 --> N6
-N7 --> N8
-N6 --> N9
-N8 --> N9
-N9 --> N10
+    N1 --> N2
+    N2 --> N3
+    N3 -->|yes| N4
+    N4 --> N11
+    N3 -->|no| N5
+    N5 --> N6
+    N6 --> N7
+    N7 --> N8
+    N8 --> N9
+    N9 --> N10
+    N10 --> N11
 
     style N1 fill:#ff6b6b,color:#fff
-    style N2 fill:#ff6b6b,color:#fff
-    style N3 fill:#ffd43b,color:#000
-    style N4 fill:#ffd43b,color:#000
-    style N5 fill:#ffd43b,color:#000
+    style N2 fill:#51cf66,color:#fff
+    style N3 fill:#74c0fc,color:#fff
+    style N4 fill:#51cf66,color:#fff
+    style N5 fill:#51cf66,color:#fff
     style N6 fill:#51cf66,color:#fff
     style N7 fill:#51cf66,color:#fff
-    style N8 fill:#74c0fc,color:#fff
+    style N8 fill:#51cf66,color:#fff
     style N9 fill:#74c0fc,color:#fff
-    style N10 fill:#b197fc,color:#fff
+    style N10 fill:#51cf66,color:#fff
+    style N11 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">App requests hostname</td><td>Triggers & Inputs</td><td><a href="https://doi.org/10.17487/RFC1034" target="_blank" title="Domain Names - Concepts and Facilities (RFC 1034)" style="color:#9b59b6;">Mockapetris, P. 1987</a></td></tr><tr><td style="font-weight:600;">Check local cache</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1145/52325.52338" target="_blank" title="Development of the Domain Name System" style="color:#9b59b6;">Mockapetris, P. V. et al. 1988</a></td></tr><tr><td style="font-weight:600;">Cached + valid TTL?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1145/52325.52338" target="_blank" title="Development of the Domain Name System" style="color:#9b59b6;">Mockapetris, P. V. et al. 1988</a></td></tr><tr><td style="font-weight:600;">Return cached IP</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1145/52325.52338" target="_blank" title="Development of the Domain Name System" style="color:#9b59b6;">Mockapetris, P. V. et al. 1988</a></td></tr><tr><td style="font-weight:600;">Query recursive resolver</td><td>Processing & Operations</td><td><a href="https://doi.org/10.17487/RFC1034" target="_blank" title="Domain Names - Concepts and Facilities (RFC 1034)" style="color:#9b59b6;">Mockapetris, P. 1987</a></td></tr><tr><td style="font-weight:600;">Resolver asks root</td><td>Processing & Operations</td><td><a href="https://doi.org/10.17487/RFC1034" target="_blank" title="Domain Names - Concepts and Facilities (RFC 1034)" style="color:#9b59b6;">Mockapetris, P. 1987</a></td></tr><tr><td style="font-weight:600;">Referral to TLD server</td><td>Processing & Operations</td><td><a href="https://doi.org/10.17487/RFC1034" target="_blank" title="Domain Names - Concepts and Facilities (RFC 1034)" style="color:#9b59b6;">Mockapetris, P. 1987</a></td></tr><tr><td style="font-weight:600;">TLD -> authoritative NS</td><td>Processing & Operations</td><td><a href="https://doi.org/10.17487/RFC1034" target="_blank" title="Domain Names - Concepts and Facilities (RFC 1034)" style="color:#9b59b6;">Mockapetris, P. 1987</a></td></tr><tr><td style="font-weight:600;">Authoritative answers</td><td>Intermediates & States</td><td><a href="https://doi.org/10.17487/RFC1034" target="_blank" title="Domain Names - Concepts and Facilities (RFC 1034)" style="color:#9b59b6;">Mockapetris, P. 1987</a></td></tr><tr><td style="font-weight:600;">Cache with TTL</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1145/52325.52338" target="_blank" title="Development of the Domain Name System" style="color:#9b59b6;">Mockapetris, P. V. et al. 1988</a></td></tr><tr><td style="font-weight:600;">Resolved IP address</td><td>Products & Outputs</td><td><a href="https://doi.org/10.17487/RFC1034" target="_blank" title="Domain Names - Concepts and Facilities (RFC 1034)" style="color:#9b59b6;">Mockapetris, P. 1987</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -294,9 +332,9 @@ N9 --> N10
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 10</li>
-                        <li><strong>Edges:</strong> 10</li>
-                        <li><strong>Conditionals:</strong> 0</li>
+                        <li><strong>Nodes:</strong> 11</li>
+                        <li><strong>Edges:</strong> 11</li>
+                        <li><strong>Conditionals:</strong> 1</li>
                         <li><strong>AND Gates:</strong> 1</li>
                         <li><strong>OR Gates:</strong> 1</li>
                         <li><strong>Total Gates:</strong> 2</li>
@@ -307,7 +345,7 @@ N9 --> N10
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>dns</li><li>resolution</li>
+                        <li>DNS</li><li>name resolution</li><li>recursive resolver</li><li>authoritative server</li><li>TTL caching</li>
                     </ul>
                 </div>
                 
@@ -318,42 +356,22 @@ N9 --> N10
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Domain Names - Concepts and Facilities (RFC 1034)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Mockapetris, P.
+                            , IETF
+                             (1987)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #9b59b6; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Selecting Labels for Use with Conventional DNS and Other Resolution Systems in DNS-Based Service Discovery</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Sullivan, A.
-                            
-                             (2017)
-                            </span>
-                            <br><a href="https://doi.org/10.17487/rfc8222" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.17487/rfc8222</a>
+                            <br><a href="https://doi.org/10.17487/RFC1034" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.17487/RFC1034</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Observed DNS Resolution Misbehavior</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Larson, M.; Barber, P.
-                            
-                             (2006)
+                            <strong>Development of the Domain Name System</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Mockapetris, P. V.; Dunlap, K. J.
+                            , ACM SIGCOMM Computer Communication Review
+                             (1988)
                             </span>
-                            <br><a href="https://doi.org/10.17487/rfc4697" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.17487/rfc4697</a>
-                            
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Figure 5: Typical procedure for DGA DNS resolution.</strong>
-                            
-                            
-                             (None)
-                            </span>
-                            <br><a href="https://doi.org/10.7717/peerj-cs.640/fig-5" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.7717/peerj-cs.640/fig-5</a>
+                            <br><a href="https://doi.org/10.1145/52325.52338" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.1145/52325.52338</a>
                             
                         </li>
                         

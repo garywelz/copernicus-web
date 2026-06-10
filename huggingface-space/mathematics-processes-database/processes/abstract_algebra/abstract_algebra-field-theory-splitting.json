@@ -1,0 +1,39 @@
+{
+  "id": "abstract_algebra-field-theory-splitting",
+  "name": "Field Theory — Splitting Fields",
+  "category": "mathematics",
+  "subcategory": "abstract_algebra",
+  "subcategory_name": "Abstract Algebra",
+  "description": "Algebraically closed field: every nonconstant polynomial has a root. Splitting field of f over F: minimal extension where f splits. Uniqueness up to F-isomorphism.",
+  "mermaid": "graph TD\n    D1[\"Def: Algebraically closed\\nevery poly has root\"]\n    D2[\"Def: Splitting field\\nminimal K where f splits\"]\n    D3[\"Def: Algebraic closure\\nF-bar of F\"]\n    T1[\"Thm: Splitting field exists\\nfor any f\"]\n    T2[\"Thm: Splitting field unique\\nup to F-iso\"]\n    T3[\"Thm: Closure exists\\nSteinitz\"]\n    D1 --> D3\n    D2 --> T1\n    D2 --> T2\n    D1 --> T3\n    T1 --> T2\n    classDef definition fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef theorem fill:#51cf66,color:#fff,stroke:#40c057\n    class D1,D2,D3 definition\n    class T1,T2,T3 theorem",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

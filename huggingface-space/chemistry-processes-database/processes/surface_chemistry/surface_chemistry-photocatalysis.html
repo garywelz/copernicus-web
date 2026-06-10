@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Photocatalysis - Chemistry Process</title>
+    <title>Semiconductor Photocatalysis (TiO2) - Chemistry Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Photocatalysis</h1>
+            <h1>Semiconductor Photocatalysis (TiO2)</h1>
             <div class="header-meta">
                 <span class="meta-item">Chemistry</span>
                 <span class="meta-item">Surface Chemistry</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,68 +234,59 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Photocatalysis process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>In TiO2 photocatalysis, photons above the band gap excite electron-hole pairs; charges either recombine (losing energy) or migrate to the surface, where they drive redox reactions that generate reactive oxygen species and degrade adsorbed pollutants.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-A2[Light Energy] --> B2[Photocatalyst Method]
-C2[Semiconductor Material] --> D2[Band Gap Analysis]
-E2[Reactant Solution] --> F2[Irradiation Setup]
-B2 --> G2[Catalyst Synthesis]
-D2 --> H2[Electronic Structure]
-F2 --> I2[Light Source]
-G2 --> J2[Surface Modification]
-H2 --> K2[Valence Band]
-I2 --> L2[Wavelength Control]
-J2 --> M2[Active Site Creation]
-K2 --> L2
-L2 --> N2[Photon Absorption]
-M2 --> O2[Electron Excitation]
-N2 --> P2[Charge Separation]
-O2 --> Q2[Photocatalytic Activity]
-P2 --> R2[Redox Reactions]
-Q2 --> S2[Reaction Kinetics]
-R2 --> T2[Product Formation]
-S2 --> U2[Quantum Efficiency]
-T2 --> V2[Product Analysis]
-U2 --> W2[Performance Evaluation]
-V2 --> X2[Conversion Yield]
-W2 --> Y2[Process Optimization]
-X2 --> Z2[Photocatalytic Efficiency]
-Y2 --> Z2
+    N1["TiO2 + light"]
+    N2{"Photon ≥ band gap?"}
+    N3["No absorption"]
+    N4["Excite e−/hole pair"]
+    N5["Charge separation"]
+    N6{"Recombine?"}
+    N7["Energy lost as heat"]
+    N8["Migrate to surface"]
+    N9["Redox of adsorbates"]
+    N10["Reactive oxygen species"]
+    N11["Pollutant degraded"]
 
-    style A2 fill:#ff6b6b,color:#fff
-    style C2 fill:#ff6b6b,color:#fff
-    style E2 fill:#ff6b6b,color:#fff
-    style B2 fill:#ffd43b,color:#000
-    style D2 fill:#ffd43b,color:#000
-    style F2 fill:#ffd43b,color:#000
-    style G2 fill:#ffd43b,color:#000
-    style H2 fill:#ffd43b,color:#000
-    style I2 fill:#ffd43b,color:#000
-    style J2 fill:#ffd43b,color:#000
-    style K2 fill:#ffd43b,color:#000
-    style L2 fill:#ffd43b,color:#000
-    style M2 fill:#51cf66,color:#fff
-    style N2 fill:#51cf66,color:#fff
-    style O2 fill:#51cf66,color:#fff
-    style P2 fill:#51cf66,color:#fff
-    style Q2 fill:#51cf66,color:#fff
-    style R2 fill:#51cf66,color:#fff
-    style S2 fill:#51cf66,color:#fff
-    style T2 fill:#51cf66,color:#fff
-    style U2 fill:#51cf66,color:#fff
-    style V2 fill:#51cf66,color:#fff
-    style W2 fill:#51cf66,color:#fff
-    style X2 fill:#51cf66,color:#fff
-    style Y2 fill:#51cf66,color:#fff
-    style Z2 fill:#b197fc,color:#fff
+    N1 --> N2
+    N2 -->|no| N3
+    N2 -->|yes| N4
+    N4 --> N5
+    N5 --> N6
+    N6 -->|yes| N7
+    N7 -->|re-excite| N4
+    N6 -->|no| N8
+    N8 --> N9
+    N9 --> N10
+    N10 --> N11
+
+    style N1 fill:#ff6b6b,color:#fff
+    style N2 fill:#74c0fc,color:#fff
+    style N3 fill:#51cf66,color:#fff
+    style N4 fill:#51cf66,color:#fff
+    style N5 fill:#74c0fc,color:#fff
+    style N6 fill:#74c0fc,color:#fff
+    style N7 fill:#51cf66,color:#fff
+    style N8 fill:#51cf66,color:#fff
+    style N9 fill:#51cf66,color:#fff
+    style N10 fill:#51cf66,color:#fff
+    style N11 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">TiO2 + light</td><td>Triggers & Inputs</td><td><a href="https://doi.org/10.1038/238037a0" target="_blank" title="Electrochemical photolysis of water at a semiconductor electrode" style="color:#e74c3c;">Fujishima, A. et al. 1972</a></td></tr><tr><td style="font-weight:600;">Photon ≥ band gap?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1021/cr00033a004" target="_blank" title="Environmental applications of semiconductor photocatalysis" style="color:#e74c3c;">Hoffmann, M. R. et al. 1995</a></td></tr><tr><td style="font-weight:600;">No absorption</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1021/cr00033a004" target="_blank" title="Environmental applications of semiconductor photocatalysis" style="color:#e74c3c;">Hoffmann, M. R. et al. 1995</a></td></tr><tr><td style="font-weight:600;">Excite e−/hole pair</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1038/238037a0" target="_blank" title="Electrochemical photolysis of water at a semiconductor electrode" style="color:#e74c3c;">Fujishima, A. et al. 1972</a></td></tr><tr><td style="font-weight:600;">Charge separation</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1021/cr00033a004" target="_blank" title="Environmental applications of semiconductor photocatalysis" style="color:#e74c3c;">Hoffmann, M. R. et al. 1995</a></td></tr><tr><td style="font-weight:600;">Recombine?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1021/cr00033a004" target="_blank" title="Environmental applications of semiconductor photocatalysis" style="color:#e74c3c;">Hoffmann, M. R. et al. 1995</a></td></tr><tr><td style="font-weight:600;">Energy lost as heat</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1021/cr00033a004" target="_blank" title="Environmental applications of semiconductor photocatalysis" style="color:#e74c3c;">Hoffmann, M. R. et al. 1995</a></td></tr><tr><td style="font-weight:600;">Migrate to surface</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1038/238037a0" target="_blank" title="Electrochemical photolysis of water at a semiconductor electrode" style="color:#e74c3c;">Fujishima, A. et al. 1972</a></td></tr><tr><td style="font-weight:600;">Redox of adsorbates</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1021/cr00033a004" target="_blank" title="Environmental applications of semiconductor photocatalysis" style="color:#e74c3c;">Hoffmann, M. R. et al. 1995</a></td></tr><tr><td style="font-weight:600;">Reactive oxygen species</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1021/cr00033a004" target="_blank" title="Environmental applications of semiconductor photocatalysis" style="color:#e74c3c;">Hoffmann, M. R. et al. 1995</a></td></tr><tr><td style="font-weight:600;">Pollutant degraded</td><td>Products & Outputs</td><td><a href="https://doi.org/10.1016/S1389-5567(00)00002-2" target="_blank" title="TiO2 photocatalysis: a historical overview and future prospects" style="color:#e74c3c;">Fujishima, A. et al. 2000</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -314,12 +332,12 @@ Y2 --> Z2
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 26</li>
-                        <li><strong>Edges:</strong> 22</li>
-                        <li><strong>Conditionals:</strong> 0</li>
+                        <li><strong>Nodes:</strong> 11</li>
+                        <li><strong>Edges:</strong> 11</li>
+                        <li><strong>Conditionals:</strong> 2</li>
                         <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 1</li>
+                        <li><strong>OR Gates:</strong> 2</li>
+                        <li><strong>Total Gates:</strong> 3</li>
                     </ul>
                 </div>
                 
@@ -327,7 +345,7 @@ Y2 --> Z2
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>photocatalysis</li>
+                        <li>photocatalysis</li><li>band gap</li><li>electron-hole pair</li><li>recombination</li><li>reactive oxygen species</li>
                     </ul>
                 </div>
                 
@@ -338,42 +356,32 @@ Y2 --> Z2
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Electrochemical photolysis of water at a semiconductor electrode</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Fujishima, A.; Honda, K.
+                            , Nature
+                             (1972)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Photocatalysis</strong>
-                            
-                            
-                             (None)
-                            </span>
-                            <br><a href="https://doi.org/10.20517/photocatalysis" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.20517/photocatalysis</a>
+                            <br><a href="https://doi.org/10.1038/238037a0" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1038/238037a0</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Welcome to the new journal Photocatalysis</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Ho, Wingkei
-                            , Photocatalysis
-                             (2021)
+                            <strong>Environmental applications of semiconductor photocatalysis</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Hoffmann, M. R.; Martin, S. T.; Choi, W.; Bahnemann, D. W.
+                            , Chemical Reviews
+                             (1995)
                             </span>
-                            <br><a href="https://doi.org/10.20517/photocatalysis.2021.01" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.20517/photocatalysis.2021.01</a>
+                            <br><a href="https://doi.org/10.1021/cr00033a004" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1021/cr00033a004</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Photocatalysis</strong>
-                            
-                            
-                             (2016)
+                            <strong>TiO2 photocatalysis: a historical overview and future prospects</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Fujishima, A.; Rao, T. N.; Tryk, D. A.
+                            , Journal of Photochemistry and Photobiology C
+                             (2000)
                             </span>
-                            <br><a href="https://doi.org/10.3390/books978-3-03842-184-9" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.3390/books978-3-03842-184-9</a>
+                            <br><a href="https://doi.org/10.1016/S1389-5567(00)00002-2" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1016/S1389-5567(00)00002-2</a>
                             
                         </li>
                         

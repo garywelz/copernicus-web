@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_2605.15996v1",
+  "arxiv_id": "2605.15996v1",
+  "title": "Testing properties of trees in graphical models with covariance queries",
+  "authors": [
+    "Sofiya Burova",
+    "Francisco Calvillo",
+    "Gábor Lugosi",
+    "Piotr Zwiernik"
+  ],
+  "author_string": "Sofiya Burova, Francisco Calvillo, Gábor Lugosi, Piotr Zwiernik",
+  "journal": "arXiv:2605.15996v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We consider the problem of testing properties of graphs underlying high-dimensional graphical models. We adopt the model of covariance queries introduced by Lugosi, Truszkowski, Velona, and Zwiernik (2021). We study the case when the underlying graph is a tree. The main results of the paper show that, while reconstructing the entire tree may be costly, certain global structural properties can be tested efficiently. In particular, we design randomized tests for global structural properties that use a sub-quadratic number of queries. We develop testing procedures for several fundamental properties, including the number of leaves, the maximum degree, the typical distance, and the diameter of the tree. For each property, we obtain explicit query complexity bounds that depend on the target threshold and tolerance parameters.",
+  "categories": [
+    "stat.ML",
+    "cs.LG",
+    "math.ST"
+  ],
+  "primary_category": "math.ST",
+  "comment": null,
+  "published_date": "2026-05-15T14:26:19Z",
+  "updated_date": "2026-05-15T14:26:19Z",
+  "url": "https://arxiv.org/abs/2605.15996v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.15996v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-17T22:17:38.072273",
+  "category": "mathematics",
+  "subcategories": [
+    "stat.ML",
+    "cs.LG",
+    "math.ST"
+  ]
+}

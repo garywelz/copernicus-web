@@ -1,0 +1,40 @@
+{
+  "id": "biorxiv_10.1101_2025.09.17.672302",
+  "doi": "10.1101/2025.09.17.672302",
+  "title": "Finding stable clusterings of single-cell RNA-seq data",
+  "authors": [
+    "Klebanoff, V. F."
+  ],
+  "author_string": "Klebanoff, V. F.",
+  "journal": "bioRxiv",
+  "journal_full": "bioRxiv",
+  "year": "2026",
+  "abstract": "Run a UMI count matrix through a clustering pipeline to obtain n cell clusters. Suppose that counts from the same experiment for an equal number of additional cells become available. Would including them change the results? Form the matrix containing both sets of counts, process it to obtain n clusters, restrict this (second) clustering to the initial cells and compare it with the initial clustering. If the clusterings are not consistent, conclude that the initial clustering is unstable.\n\nAlthough this scenario is unrealistic, it is practical to reverse the perspective: given a clustering, process samples of half of the cells. If their clusters are consistent with those of the full set of cells restricted to the samples, conclude that the clustering is stable.\n\nWe use divisive hierarchical spectral clustering and describe a possibly novel mapping of the tree it produces to a set of nested clusterings.\n\nPositive affinities are defined for points (representing cells in Euclidean space) that are k-nearest neighbors (k is an input parameter). The affinity equals the inverse of the distance between the points. Ng, Jordan, and Weiss algorithm divides a set of points into two clusters. The normalized cut measures the clusters separation. Recursion generates a hierarchy of clusters.\n\nViewing clusters as nodes of a tree, set the length of the branch between a node and each of its daughters to the normalized cut. Nodes distances from the root define the mapping of the tree to nested clusterings. For four large data sets, this gave clusterings compatible with published results.\n\nAnalysis is performed for all cells and for multiple pairs of complementary samples of cells. For a given number of clusters, each samples clustering and clusters are compared with those of the full data set (restricted to the sample). This provides measures of the stability of the clustering and its clusters. For two of the large data sets, the clusterings compatible with published results were judged to be stable.",
+  "keywords": [],
+  "categories": [
+    "bioinformatics"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.1101/2025.09.17.672302",
+  "source": "biorxiv",
+  "sources": [
+    "biorxiv"
+  ],
+  "acquired_date": "2026-05-18T22:15:23.219257",
+  "category": "biology",
+  "subcategories": [
+    "bioinformatics"
+  ],
+  "published_date": "2026-01-18",
+  "updated_date": "2026-01-18",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "biorxiv",
+  "preprint_version": "2",
+  "preprint_type": "new results",
+  "license": "cc_by_nd",
+  "jatsxml": "https://www.biorxiv.org/content/early/2026/01/18/2025.09.17.672302.source.xml",
+  "published_doi": null,
+  "author_corresponding": "Victor F Klebanoff",
+  "author_corresponding_institution": "none"
+}

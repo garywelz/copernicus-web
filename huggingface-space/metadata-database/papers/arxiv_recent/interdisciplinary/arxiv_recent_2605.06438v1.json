@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2605.06438v1",
+  "arxiv_id": "2605.06438v1",
+  "title": "Neural-Actuarial Longevity Forecasting: Anchoring LSTMs for Explainable Risk Management",
+  "authors": [
+    "Davide Rindori"
+  ],
+  "author_string": "Davide Rindori",
+  "journal": "arXiv:2605.06438v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Traditional multi-population models, such as the Li-Lee framework, rely on the assumption of mean-reverting country-specific deviations. However, recent data from high-longevity clusters suggest a systemic break in this paradigm. We identify a stationarity paradox where mortality residuals in countries like Sweden and West Germany exhibit persistent unit roots, leading to a systematic mispricing of longevity risk in linear models. To address these non-linearities, we propose Hybrid-Lift, a neural-actuarial framework that combines Hierarchical LSTM networks with a Mean-Bias Correction (MBC) anchoring mechanism. Positioned as a governance-friendly model challenger rather than a replacement of classical approaches, the framework exhibits selective superiority on out-of-sample validation (2012-2020): it outperforms Li-Lee by 17.40% in Sweden and 12.57% in West Germany, while remaining comparable for near-linear regimes such as Switzerland and Japan. We complement the predictive model with an integrated governance suite comprising SHAP-based cross-country influence mapping, a dual uncertainty framework for regulatory capital calibration (Swiss ES 99.0% of +1.153 years), and a reverse stress test identifying the critical shock threshold for solvency buffer exhaustion. This research provides evidence that neural networks, when properly anchored by actuarial principles, can serve as effective model challengers for longevity risk management under the SST and Solvency II standards.",
+  "categories": [
+    "stat.ML",
+    "cs.LG",
+    "q-fin.RM"
+  ],
+  "primary_category": "q-fin.RM",
+  "comment": "26 pages, 12 figures. Code available at https://github.com/davide-rindori/Actuarial-DS-Portfolio/tree/main/04_Multi_Population_Longevity_XAI",
+  "published_date": "2026-05-07T15:37:28Z",
+  "updated_date": "2026-05-07T15:37:28Z",
+  "url": "https://arxiv.org/abs/2605.06438v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.06438v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-09T22:15:44.050413",
+  "category": "interdisciplinary",
+  "subcategories": [
+    "stat.ML",
+    "cs.LG",
+    "q-fin.RM"
+  ]
+}

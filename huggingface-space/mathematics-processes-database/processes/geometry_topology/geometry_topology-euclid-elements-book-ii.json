@@ -1,0 +1,39 @@
+{
+  "id": "geometry_topology-euclid-elements-book-ii",
+  "name": "Euclid's Elements Book II",
+  "category": "mathematics",
+  "subcategory": "geometry_topology",
+  "subcategory_name": "Geometry & Topology",
+  "description": "Dependency graph for all 14 propositions of Euclid's Elements Book II. Geometric algebra: rectangles, squares, distributive law. Props 1-10 independent within Book II; 11-14 depend on 6, 4, 7, 5. All depend on Book I.",
+  "mermaid": "graph TD\n    BookI[\"Book I\\nFoundation\"]\n    Def1[\"Def. II.1\\nRectangle contained by two strai...\"]\n    Def2[\"Def. II.2\\nGnomon: parallelogram about diam...\"]\n    Prop1[\"Prop. II.1\\nRectangle = sum of rectangles\"]\n    Prop2[\"Prop. II.2\\nSum of rectangles = square on whole\"]\n    Prop3[\"Prop. II.3\\nRectangle = rectangle + square\"]\n    Prop4[\"Prop. II.4\\nSquare on whole = squares + 2×rectangle\"]\n    Prop5[\"Prop. II.5\\nUnequal segments: rectangle + square = square on half\"]\n    Prop6[\"Prop. II.6\\nBisected + added: rectangle + square = square\"]\n    Prop7[\"Prop. II.7\\nSquare on whole + square on segment\"]\n    Prop8[\"Prop. II.8\\nFour times rectangle + square\"]\n    Prop9[\"Prop. II.9\\nUnequal segments: sum of squares\"]\n    Prop10[\"Prop. II.10\\nBisected + added: sum of squares\"]\n    Prop11[\"Prop. II.11\\nCut line: rectangle = square (golden section)\"]\n    Prop12[\"Prop. II.12\\nObtuse triangle: law of cosines\"]\n    Prop13[\"Prop. II.13\\nAcute triangle: law of cosines\"]\n    Prop14[\"Prop. II.14\\nConstruct square = rectilinear figure\"]\n    BookI --> Prop1\n    Def1 --> Prop1\n    BookI --> Prop2\n    Def1 --> Prop2\n    BookI --> Prop3\n    Def1 --> Prop3\n    BookI --> Prop4\n    Def1 --> Prop4\n    BookI --> Prop5\n    Def1 --> Prop5\n    Def2 --> Prop5\n    BookI --> Prop6\n    Def1 --> Prop6\n    Def2 --> Prop6\n    BookI --> Prop7\n    Def1 --> Prop7\n    BookI --> Prop8\n    Def1 --> Prop8\n    BookI --> Prop9\n    Def1 --> Prop9\n    BookI --> Prop10\n    Def1 --> Prop10\n    BookI --> Prop11\n    Prop6 --> Prop11\n    BookI --> Prop12\n    Prop4 --> Prop12\n    BookI --> Prop13\n    Prop7 --> Prop13\n    BookI --> Prop14\n    Prop5 --> Prop14\n    classDef foundation fill:#95a5a6,color:#fff,stroke:#7f8c8d\n    classDef definition fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef proposition fill:#51cf66,color:#fff,stroke:#40c057\n    class BookI foundation\n    class Def1,Def2 definition\n    class Prop1,Prop2,Prop3,Prop4,Prop5,Prop6,Prop7,Prop8,Prop9,Prop10,Prop11,Prop12,Prop13,Prop14 proposition",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

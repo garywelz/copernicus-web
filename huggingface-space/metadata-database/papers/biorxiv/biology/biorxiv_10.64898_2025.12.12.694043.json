@@ -1,0 +1,59 @@
+{
+  "id": "biorxiv_10.64898_2025.12.12.694043",
+  "doi": "10.64898/2025.12.12.694043",
+  "title": "An Interactive Brain Atlas of Knowledge",
+  "authors": [
+    "Stefanovski, L.",
+    "Bülau, K.",
+    "Martin, L.",
+    "Huettl, C.",
+    "Langford, C.",
+    "Palmer, J.",
+    "Sacks, M.",
+    "Deger, L.",
+    "Pille, M.",
+    "Schirner, M.",
+    "Meier, J.",
+    "Neudorfer, C.",
+    "Horn, A.",
+    "Solodkin, A.",
+    "Thirion, B.",
+    "Hofmann-Apitius, M.",
+    "Jacobs, M.",
+    "Tom Kodamullil, A.",
+    "for the Alzheimer's Disease Neuroimaging Initiative,",
+    "Ritter, P."
+  ],
+  "author_string": "Stefanovski, L., Bülau, K., Martin, L., Huettl, C., Langford, C. et al.",
+  "journal": "bioRxiv",
+  "journal_full": "bioRxiv",
+  "year": "2026",
+  "abstract": "Biomedical knowledge about the brain increases every day, with a rapidly growing number of scientific publications, datasets, and software tools. While this informational plethora is not merely comprehensible by human beings, recent developments in information science and computational linguistics aim to make this knowledge programmatically accessible by literature mining. However, integrating these semantic methods into neuroimaging standards remains insufficient, hindering researchers from unraveling their full potential.\n\nTherefore, we developed the semantic meta-analysis platform The Virtual Brain adapter of semantics (TVBase) that projects biomedical knowledge preserved in over 36 million scientific articles onto a 3D standardized brain. The literature-mining platform SCAIView was used to extract ontologically defined biomedical entities and their associations with brain anatomy from the PubMed database. By querying a specific concept, the association strength with each anatomical term was calculated using entropy. To project the data onto a standardized brain, we created a unique transformation matrix that links over 800 anatomical terms to voxel coordinates of a parcellated standard brain.\n\nThis novel method of knowledge projection extracts region-specific information about biomedical concepts from the literature to support translational multi-scale approaches to computational neuroscience. The multi-purpose software framework TVBase is openly available as a Python library. It aims for hypothesis-free neuroimaging pattern interpretation, hypothesis generation, and applications in personalized medicine.",
+  "keywords": [],
+  "categories": [
+    "neuroscience"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.64898/2025.12.12.694043",
+  "source": "biorxiv",
+  "sources": [
+    "biorxiv"
+  ],
+  "acquired_date": "2026-05-26T10:15:22.514074",
+  "category": "biology",
+  "subcategories": [
+    "neuroscience"
+  ],
+  "published_date": "2026-01-26",
+  "updated_date": "2026-01-26",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "biorxiv",
+  "preprint_version": "2",
+  "preprint_type": "new results",
+  "license": "cc_by_nc",
+  "jatsxml": "https://www.biorxiv.org/content/early/2026/01/26//2025.12.12.694043.source.xml",
+  "published_doi": null,
+  "author_corresponding": "Petra Ritter",
+  "author_corresponding_institution": "Berlin Institute of Health at Charité - Universitätsmedizin Berlin, Berlin, Germany"
+}

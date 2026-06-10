@@ -1,21 +1,23 @@
 {
   "id": "quantum_chemistry-computational-methods",
-  "name": "Computational Methods",
+  "name": "Ab Initio Hartree–Fock SCF",
   "category": "chemistry",
   "subcategory": "quantum_chemistry",
   "subcategory_name": "Quantum Chemistry",
-  "description": "Computational Methods process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "Hartree–Fock solves the electronic structure self-consistently: from a geometry and basis set, integrals are computed, an initial guess builds the Fock matrix, the Roothaan equations are solved for new orbitals and density, and the cycle repeats until the energy converges.",
   "complexity": {
-    "nodes": 26,
-    "edges": 22,
-    "conditionals": 0,
+    "nodes": 10,
+    "edges": 10,
+    "conditionals": 1,
     "logicGates": {
-      "orGates": 0,
+      "orGates": 1,
       "andGates": 1,
-      "total": 1
+      "notGates": 0,
+      "total": 2
     },
-    "level": "medium",
-    "detailLevel": "medium"
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 1
   },
   "colorScheme": {
     "red": {
@@ -39,53 +41,151 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nA3[Molecular System] --> B3[Computational Method Selection]\nC3[Quantum Theory] --> D3[Algorithm Implementation]\nE3[Computational Resources] --> F3[Calculation Setup]\nB3 --> G3[Method Selection]\nD3 --> H3[Algorithm Development]\nF3 --> I3[Resource Allocation]\nG3 --> J3[DFT Selection]\nH3 --> K3[Code Implementation]\nI3 --> L3[Computational Parameters]\nJ3 --> M3[Functional Selection]\nK3 --> L3\nL3 --> N3[Calculation Execution]\nM3 --> O3[Electronic Structure]\nN3 --> P3[Quantum Calculation]\nO3 --> Q3[Computational Analysis]\nP3 --> R3[Energy Calculation]\nQ3 --> S3[Property Analysis]\nR3 --> T3[Molecular Properties]\nS3 --> U3[Accuracy Assessment]\nT3 --> V3[Property Validation]\nU3 --> W3[Computational Efficiency]\nV3 --> X3[Result Characterization]\nW3 --> Y3[Process Optimization]\nX3 --> Z3[Final Computational Results]\nY3 --> Z3\n\n    style A3 fill:#ff6b6b,color:#fff\n    style C3 fill:#ff6b6b,color:#fff\n    style E3 fill:#ff6b6b,color:#fff\n    style B3 fill:#ffd43b,color:#000\n    style D3 fill:#ffd43b,color:#000\n    style F3 fill:#ffd43b,color:#000\n    style G3 fill:#ffd43b,color:#000\n    style H3 fill:#ffd43b,color:#000\n    style I3 fill:#ffd43b,color:#000\n    style J3 fill:#ffd43b,color:#000\n    style K3 fill:#ffd43b,color:#000\n    style L3 fill:#ffd43b,color:#000\n    style M3 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style O3 fill:#51cf66,color:#fff\n    style P3 fill:#51cf66,color:#fff\n    style Q3 fill:#51cf66,color:#fff\n    style R3 fill:#51cf66,color:#fff\n    style S3 fill:#51cf66,color:#fff\n    style T3 fill:#51cf66,color:#fff\n    style U3 fill:#51cf66,color:#fff\n    style V3 fill:#51cf66,color:#fff\n    style W3 fill:#51cf66,color:#fff\n    style X3 fill:#51cf66,color:#fff\n    style Y3 fill:#51cf66,color:#fff\n    style Z3 fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"Geometry + basis set\"]\n    N2[\"Compute integrals\"]\n    N3[\"Initial MO guess\"]\n    N4[\"Build Fock matrix\"]\n    N5[\"Solve FC = SCε\"]\n    N6[\"New density matrix\"]\n    N7{\"Energy converged?\"}\n    N8[\"Update density (DIIS)\"]\n    N9[\"Converged HF wavefunction\"]\n    N10[\"Energy + properties\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 --> N4\n    N4 --> N5\n    N5 --> N6\n    N6 --> N7\n    N7 -->|no| N8\n    N8 -->|iterate| N4\n    N7 -->|yes| N9\n    N9 --> N10\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#74c0fc,color:#fff\n    style N7 fill:#74c0fc,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#51cf66,color:#fff\n    style N10 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "title": "New Developments in Molecular Orbital Theory (Roothaan equations)",
+      "authors": "Roothaan, C. C. J.",
+      "journal": "Reviews of Modern Physics",
+      "year": "1951",
+      "doi": "10.1103/RevModPhys.23.69",
+      "url": "https://doi.org/10.1103/RevModPhys.23.69"
+    },
+    {
+      "title": "Modern Quantum Chemistry: Introduction to Advanced Electronic Structure Theory",
+      "authors": "Szabo, A.; Ostlund, N. S.",
+      "journal": "Dover Publications",
+      "year": "1996",
       "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: Computational Methods. Created using the Programming Framework methodology."
+      "url": "https://store.doverpublications.com/products/9780486691862"
     },
     {
-      "title": "Computational and Mathematical Methods",
-      "authors": "",
-      "journal": "",
-      "year": "None",
-      "pubmed": null,
-      "doi": "10.1155/cmm",
-      "url": "https://doi.org/10.1155/cmm"
-    },
-    {
-      "title": "Dynamics Methods",
-      "authors": "Harvey, Jeremy",
-      "journal": "Computational Chemistry",
-      "year": "2018",
-      "pubmed": null,
-      "doi": "10.1093/hesc/9780198755500.003.0006",
-      "url": "https://doi.org/10.1093/hesc/9780198755500.003.0006"
-    },
-    {
-      "title": "Journal of Computational Methods in Physics",
-      "authors": "",
-      "journal": "",
-      "year": "None",
-      "pubmed": null,
-      "doi": "10.1155/4181",
-      "url": "https://doi.org/10.1155/4181"
+      "title": "Introduction to Computational Chemistry, 3rd ed.",
+      "authors": "Jensen, F.",
+      "journal": "Wiley",
+      "year": "2017",
+      "doi": "10.1002/9781119839118",
+      "url": "https://doi.org/10.1002/9781119839118"
     }
   ],
   "keywords": [
-    "computational",
-    "methods"
+    "hartree-fock",
+    "self-consistent field",
+    "fock matrix",
+    "roothaan equations",
+    "basis set"
   ],
   "relatedProcesses": [],
   "created": "2026-01-08",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Geometry + basis set",
+      "detail": "Define the molecule and AOs",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 1
+    },
+    {
+      "id": "N2",
+      "label": "Compute integrals",
+      "detail": "One- and two-electron integrals",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N3",
+      "label": "Initial MO guess",
+      "detail": "Starting coefficients/density",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N4",
+      "label": "Build Fock matrix",
+      "detail": "Mean-field operator",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N5",
+      "label": "Solve FC = SCε",
+      "detail": "Roothaan eigenvalue problem",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N6",
+      "label": "New density matrix",
+      "detail": "From occupied orbitals",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N7",
+      "label": "Energy converged?",
+      "detail": "ΔE and density change small",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 2
+    },
+    {
+      "id": "N8",
+      "label": "Update density (DIIS)",
+      "detail": "Accelerate convergence",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N9",
+      "label": "Converged HF wavefunction",
+      "detail": "Self-consistent solution",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N10",
+      "label": "Energy + properties",
+      "detail": "Observable predictions",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 2
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:quantum_chemistry-computational-methods",
+    "graphType": "cyclic_pathway",
+    "topologySignature": "987b62c59ff79c71",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "namedCollections": [
+    "quantum-chemistry"
+  ],
+  "graphMetrics": {
+    "nodes": 10,
+    "edges": 10,
+    "conditionals": 1,
+    "andGates": 1,
+    "orGates": 1,
+    "notGates": 0,
+    "loops": 1
+  },
+  "graphType": "cyclic_pathway",
+  "domainContext": "Electronic structure theory"
 }

@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2605.10269v1",
+  "arxiv_id": "2605.10269v1",
+  "title": "Increasing the Efficiency of DETR for Maritime High-Resolution Images",
+  "authors": [
+    "Tinsae Yehuala",
+    "Hao Cheng",
+    "Ville Lehtola"
+  ],
+  "author_string": "Tinsae Yehuala, Hao Cheng, Ville Lehtola",
+  "journal": "arXiv:2605.10269v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Maritime object detection is critical for the safe navigation of unmanned surface vessels (USVs), requiring accurate recognition of obstacles from small buoys to large vessels. Real-time detection is challenging due to long distances, small object sizes, large-scale variations, edge computing limitations, and the high memory demands of high-resolution imagery. Existing solutions, such as downsampling or image splitting, often reduce accuracy or require additional processing, while memory-efficient models typically handle only limited resolutions. To overcome these limitations, we leverage Vision Mamba (ViM) backbones, which build on State Space Models (SSMs) to capture long-range dependencies while scaling linearly with sequence length. Images are tokenized into sequences for efficient high-resolution processing. For further computational efficiency, we design a tailored Feature Pyramid Network with successive downsampling and SSM layers, as well as token pruning to reduce unnecessary computation on background regions. Compared to state-of-the-art methods like RT-DETR with ResNet50 backbone, our approach achieves a better balance between performance and computational efficiency in maritime object detection.",
+  "categories": [
+    "cs.CV",
+    "cs.RO"
+  ],
+  "primary_category": "cs.RO",
+  "comment": "Accepted to IEEE ITSC 2026. Copyright 2026 IEEE. Personal use of this material is permitted. Permission from IEEE must be obtained for all other uses. DOI to be added upon publication",
+  "published_date": "2026-05-11T09:31:12Z",
+  "updated_date": "2026-05-11T09:31:12Z",
+  "url": "https://arxiv.org/abs/2605.10269v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.10269v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-11T22:15:37.969114",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CV",
+    "cs.RO"
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "id": "biorxiv_10.1101_2025.08.17.670761",
+  "doi": "10.1101/2025.08.17.670761",
+  "title": "Decoding the gene regulatory landscape through multimodal learning of protein-DNA interactions",
+  "authors": [
+    "Tan, J.",
+    "Fu, X.",
+    "Ling, X.",
+    "Mo, S.",
+    "Bai, J.",
+    "Rabadan, R.",
+    "Fenyo, D.",
+    "Boeke, J. D.",
+    "Tsirigos, A.",
+    "Xia, B."
+  ],
+  "author_string": "Tan, J., Fu, X., Ling, X., Mo, S., Bai, J. et al.",
+  "journal": "bioRxiv",
+  "journal_full": "bioRxiv",
+  "year": "2026",
+  "abstract": "The identity of a cell is governed by regulatory proteins binding to the genome to control gene expression. Mapping these genome-wide binding events across thousands of proteins and cell types is essential for understanding development and disease at scale, yet has remained a major experimental and computational barrier. Here we present Chromnitron, a multimodal foundation model that learns the rules of protein-DNA binding from protein sequence, DNA sequence, and context-specific chromatin states. Unlike prior single-task and multi-task learning approaches, Chromnitron implements a multimodal learning framework that accurately predicts the binding landscape for proteins and cell types not seen during training. Using Chromnitron, we discovered and experimentally validated new protein regulators of T cell exhaustion. Chromnitron also uncovered previously uncharacterized dynamic shifts in the binding landscape of regulatory proteins during neurogenesis. This marks a critical step toward a predictive model of interpretable gene regulatory programs across cell types, enabling rapid discovery of regulatory circuits and identification of new therapeutic targets.",
+  "keywords": [],
+  "categories": [
+    "systems biology"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.1101/2025.08.17.670761",
+  "source": "biorxiv",
+  "sources": [
+    "biorxiv"
+  ],
+  "acquired_date": "2026-05-18T22:15:23.218075",
+  "category": "biology",
+  "subcategories": [
+    "systems biology"
+  ],
+  "published_date": "2026-01-18",
+  "updated_date": "2026-01-18",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "biorxiv",
+  "preprint_version": "2",
+  "preprint_type": "new results",
+  "license": "cc_by_nc",
+  "jatsxml": "https://www.biorxiv.org/content/early/2026/01/18/2025.08.17.670761.source.xml",
+  "published_doi": null,
+  "author_corresponding": "Bo Xia",
+  "author_corresponding_institution": "Broad Institute of MIT and Harvard"
+}

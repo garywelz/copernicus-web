@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sorting Algorithms - Computer Science Process</title>
+    <title>Sorting by Divide and Conquer - Computer Science Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Sorting Algorithms</h1>
+            <h1>Sorting by Divide and Conquer</h1>
             <div class="header-meta">
                 <span class="meta-item">Computer Science</span>
                 <span class="meta-item">Algorithms & Data Structures</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,67 +234,58 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Sorting Algorithms process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>Comparison sorts like merge sort and quicksort use divide and conquer to reach O(n log n): merge sort splits the array in half, recursively sorts each part, and merges the sorted halves, while quicksort partitions around a pivot and recurses on each side; recursion bottoms out on subarrays of size one.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-A1[Input Array] --> B1[Algorithm Selection]
-C1[Array Analysis] --> D1[Complexity Analysis]
-E1[Memory Constraints] --> F1[Optimization Strategy]
-B1 --> G1[Comparison Based Sorting]
-D1 --> H1[Time Complexity O n squared]
-F1 --> I1[Space Complexity Analysis]
-G1 --> J1[Bubble Sort Algorithm]
-H1 --> K1[Quick Sort Algorithm]
-I1 --> L1[Merge Sort Algorithm]
-J1 --> M1[Adjacent Element Comparison]
-K1 --> L1
-L1 --> N1[Divide and Conquer]
-M1 --> O1[Element Swapping]
-N1 --> P1[Pivot Selection]
-O1 --> Q1[Sorting Process]
-P1 --> R1[Partitioning Strategy]
-Q1 --> S1[Recursive Sorting]
-R1 --> T1[Sorting Algorithm Result]
-S1 --> U1[Algorithm Validation]
-T1 --> V1[Sorted Array Output]
-U1 --> W1[Sorting Algorithm Output]
-V1 --> X1[Sorting Algorithm Analysis]
-W1 --> Y1[Sorting Algorithm Final Result]
-X1 --> Z1[Sorting Algorithm Analysis Complete]
+    N1["Unsorted array"]
+    N2{"Merge or quick?"}
+    N3["Merge: split in half"]
+    N4["Quick: pivot + partition"]
+    N5{"Subarray size <= 1?"}
+    N6["Recurse on subproblems"]
+    N7["Base case reached"]
+    N8["Merge sorted halves"]
+    N9["Concatenate partitions"]
+    N10["Sorted array"]
 
-    style A1 fill:#ff6b6b,color:#fff
-    style C1 fill:#ff6b6b,color:#fff
-    style E1 fill:#ff6b6b,color:#fff
-    style B1 fill:#ffd43b,color:#000
-    style D1 fill:#ffd43b,color:#000
-    style F1 fill:#ffd43b,color:#000
-    style G1 fill:#ffd43b,color:#000
-    style H1 fill:#ffd43b,color:#000
-    style I1 fill:#ffd43b,color:#000
-    style J1 fill:#ffd43b,color:#000
-    style K1 fill:#ffd43b,color:#000
-    style L1 fill:#ffd43b,color:#000
-    style M1 fill:#51cf66,color:#fff
-    style N1 fill:#51cf66,color:#fff
-    style O1 fill:#51cf66,color:#fff
-    style P1 fill:#51cf66,color:#fff
-    style Q1 fill:#51cf66,color:#fff
-    style R1 fill:#51cf66,color:#fff
-    style S1 fill:#51cf66,color:#fff
-    style T1 fill:#51cf66,color:#fff
-    style U1 fill:#51cf66,color:#fff
-    style V1 fill:#51cf66,color:#fff
-    style W1 fill:#51cf66,color:#fff
-    style X1 fill:#51cf66,color:#fff
-    style Y1 fill:#51cf66,color:#fff
-    style Z1 fill:#b197fc,color:#fff
+    N1 --> N2
+    N2 -->|merge| N3
+    N2 -->|quick| N4
+    N3 --> N5
+    N4 --> N5
+    N5 -->|no| N6
+    N6 -->|recurse| N5
+    N5 -->|yes| N7
+    N7 --> N8
+    N7 --> N9
+    N8 --> N10
+    N9 --> N10
+
+    style N1 fill:#ff6b6b,color:#fff
+    style N2 fill:#74c0fc,color:#fff
+    style N3 fill:#51cf66,color:#fff
+    style N4 fill:#51cf66,color:#fff
+    style N5 fill:#74c0fc,color:#fff
+    style N6 fill:#51cf66,color:#fff
+    style N7 fill:#74c0fc,color:#fff
+    style N8 fill:#51cf66,color:#fff
+    style N9 fill:#51cf66,color:#fff
+    style N10 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Unsorted array</td><td>Triggers & Inputs</td><td><a href="https://www-cs-faculty.stanford.edu/~knuth/taocp.html" target="_blank" title="The Art of Computer Programming, Vol. 3: Sorting and Searching (2nd ed.)" style="color:#9b59b6;">Knuth, D. E. 1998</a></td></tr><tr><td style="font-weight:600;">Merge or quick?</td><td>Intermediates & States</td><td><a href="https://www-cs-faculty.stanford.edu/~knuth/taocp.html" target="_blank" title="The Art of Computer Programming, Vol. 3: Sorting and Searching (2nd ed.)" style="color:#9b59b6;">Knuth, D. E. 1998</a></td></tr><tr><td style="font-weight:600;">Merge: split in half</td><td>Processing & Operations</td><td><a href="https://www-cs-faculty.stanford.edu/~knuth/taocp.html" target="_blank" title="The Art of Computer Programming, Vol. 3: Sorting and Searching (2nd ed.)" style="color:#9b59b6;">Knuth, D. E. 1998</a></td></tr><tr><td style="font-weight:600;">Quick: pivot + partition</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1093/comjnl/5.1.10" target="_blank" title="Quicksort" style="color:#9b59b6;">Hoare, C. A. R. 1962</a></td></tr><tr><td style="font-weight:600;">Subarray size <= 1?</td><td>Intermediates & States</td><td><a href="https://www-cs-faculty.stanford.edu/~knuth/taocp.html" target="_blank" title="The Art of Computer Programming, Vol. 3: Sorting and Searching (2nd ed.)" style="color:#9b59b6;">Knuth, D. E. 1998</a></td></tr><tr><td style="font-weight:600;">Recurse on subproblems</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1093/comjnl/5.1.10" target="_blank" title="Quicksort" style="color:#9b59b6;">Hoare, C. A. R. 1962</a></td></tr><tr><td style="font-weight:600;">Base case reached</td><td>Intermediates & States</td><td><a href="https://www-cs-faculty.stanford.edu/~knuth/taocp.html" target="_blank" title="The Art of Computer Programming, Vol. 3: Sorting and Searching (2nd ed.)" style="color:#9b59b6;">Knuth, D. E. 1998</a></td></tr><tr><td style="font-weight:600;">Merge sorted halves</td><td>Processing & Operations</td><td><a href="https://www-cs-faculty.stanford.edu/~knuth/taocp.html" target="_blank" title="The Art of Computer Programming, Vol. 3: Sorting and Searching (2nd ed.)" style="color:#9b59b6;">Knuth, D. E. 1998</a></td></tr><tr><td style="font-weight:600;">Concatenate partitions</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1093/comjnl/5.1.10" target="_blank" title="Quicksort" style="color:#9b59b6;">Hoare, C. A. R. 1962</a></td></tr><tr><td style="font-weight:600;">Sorted array</td><td>Products & Outputs</td><td><a href="https://www-cs-faculty.stanford.edu/~knuth/taocp.html" target="_blank" title="The Art of Computer Programming, Vol. 3: Sorting and Searching (2nd ed.)" style="color:#9b59b6;">Knuth, D. E. 1998</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -313,12 +331,12 @@ X1 --> Z1[Sorting Algorithm Analysis Complete]
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 26</li>
-                        <li><strong>Edges:</strong> 21</li>
-                        <li><strong>Conditionals:</strong> 0</li>
-                        <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 1</li>
+                        <li><strong>Nodes:</strong> 10</li>
+                        <li><strong>Edges:</strong> 12</li>
+                        <li><strong>Conditionals:</strong> 2</li>
+                        <li><strong>AND Gates:</strong> 2</li>
+                        <li><strong>OR Gates:</strong> 3</li>
+                        <li><strong>Total Gates:</strong> 5</li>
                     </ul>
                 </div>
                 
@@ -326,7 +344,7 @@ X1 --> Z1[Sorting Algorithm Analysis Complete]
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>sorting</li><li>algorithms</li>
+                        <li>sorting</li><li>merge sort</li><li>quicksort</li><li>divide and conquer</li><li>pivot partition</li>
                     </ul>
                 </div>
                 
@@ -337,43 +355,23 @@ X1 --> Z1[Sorting Algorithm Analysis Complete]
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Quicksort</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Hoare, C. A. R.
+                            , The Computer Journal
+                             (1962)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #9b59b6; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Networks for Sorting</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">AKL, SELIM G.
-                            , Parallel Sorting Algorithms
-                             (1985)
-                            </span>
-                            <br><a href="https://doi.org/10.1016/b978-0-12-047680-0.50007-6" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.1016/b978-0-12-047680-0.50007-6</a>
+                            <br><a href="https://doi.org/10.1093/comjnl/5.1.10" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.1093/comjnl/5.1.10</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Sorting</strong>
-                            
-                            , Algorithms
-                             (2020)
+                            <strong>The Art of Computer Programming, Vol. 3: Sorting and Searching (2nd ed.)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Knuth, D. E.
+                            , Addison-Wesley
+                             (1998)
                             </span>
-                            <br><a href="https://doi.org/10.7551/mitpress/11884.003.0007" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.7551/mitpress/11884.003.0007</a>
                             
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Parallel External Sorting</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">AKL, SELIM G.
-                            , Parallel Sorting Algorithms
-                             (1985)
-                            </span>
-                            <br><a href="https://doi.org/10.1016/b978-0-12-047680-0.50015-5" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.1016/b978-0-12-047680-0.50015-5</a>
-                            
+                            <br><a href="https://www-cs-faculty.stanford.edu/~knuth/taocp.html" target="_blank" style="color: #9b59b6; font-size: 0.85em;">View Source</a>
                         </li>
                         
                     </ul>

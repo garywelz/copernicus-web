@@ -1,21 +1,23 @@
 {
   "id": "surface_chemistry-adsorption-isotherm-analysis",
-  "name": "Adsorption Isotherm Analysis",
+  "name": "Langmuir Adsorption Isotherm",
   "category": "chemistry",
   "subcategory": "surface_chemistry",
   "subcategory_name": "Surface Chemistry & Catalysis",
-  "description": "Adsorption Isotherm Analysis process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "The Langmuir model treats adsorption as molecules occupying a finite set of equivalent surface sites: molecules that strike an empty site adsorb, adsorption and desorption reach equilibrium, and coverage follows theta = KP/(1+KP), saturating at a monolayer.",
   "complexity": {
-    "nodes": 6,
-    "edges": 5,
-    "conditionals": 0,
+    "nodes": 10,
+    "edges": 10,
+    "conditionals": 1,
     "logicGates": {
-      "orGates": 0,
-      "andGates": 0,
-      "total": 0
+      "orGates": 1,
+      "andGates": 1,
+      "notGates": 0,
+      "total": 2
     },
-    "level": "medium",
-    "detailLevel": "medium"
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 1
   },
   "colorScheme": {
     "red": {
@@ -39,54 +41,151 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nN1[\"Adsorbent Material\"]\nN2[\"Adsorbate/Pressure\"]\nN3[\"Surface Sites\"]\nN4[\"Measure Uptake\"]\nN5[\"Fit Isotherm Model\"]\nN6[\"Capacity/Parameters\"]\n\nN1 --> N2\nN2 --> N3\nN3 --> N4\nN4 --> N5\nN5 --> N6\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#ff6b6b,color:#fff\n    style N3 fill:#ffd43b,color:#000\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"Gas + solid surface\"]\n    N2[\"Molecule strikes surface\"]\n    N3{\"Empty site available?\"}\n    N4[\"Bounce off (no adsorption)\"]\n    N5[\"Adsorb on site\"]\n    N6[\"Adsorption = desorption\"]\n    N7[\"θ = KP/(1+KP)\"]\n    N8[\"Monolayer saturates\"]\n    N9[\"Vary P, fit isotherm\"]\n    N10[\"Adsorption parameters\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 -->|no| N4\n    N4 -->|retry| N2\n    N3 -->|yes| N5\n    N5 --> N6\n    N6 --> N7\n    N7 --> N8\n    N8 --> N9\n    N9 --> N10\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#74c0fc,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#74c0fc,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#51cf66,color:#fff\n    style N10 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "title": "The adsorption of gases on plane surfaces of glass, mica and platinum",
+      "authors": "Langmuir, I.",
+      "journal": "Journal of the American Chemical Society",
+      "year": "1918",
+      "doi": "10.1021/ja02242a004",
+      "url": "https://doi.org/10.1021/ja02242a004"
+    },
+    {
+      "title": "Introduction to Surface Chemistry and Catalysis, 2nd ed.",
+      "authors": "Somorjai, G. A.; Li, Y.",
+      "journal": "Wiley",
+      "year": "2010",
       "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: Adsorption Isotherm Analysis. Created using the Programming Framework methodology."
+      "url": "https://www.wiley.com/en-us/Introduction+to+Surface+Chemistry+and+Catalysis%2C+2nd+Edition-p-9780470508237"
     },
     {
-      "title": "Figure 8: Adsorption isotherm and adsorption rate of TC.",
-      "authors": "",
-      "journal": "",
-      "year": "None",
-      "pubmed": null,
-      "doi": "10.7717/peerj.13030/fig-8",
-      "url": "https://doi.org/10.7717/peerj.13030/fig-8"
-    },
-    {
-      "title": "Adsorption isotherm",
-      "authors": "",
-      "journal": "Physics Subject Headings (PhySH)",
-      "year": "None",
-      "pubmed": null,
-      "doi": "10.29172/020035d3-c88b-49ea-9d53-0df5782a9a28",
-      "url": "https://doi.org/10.29172/020035d3-c88b-49ea-9d53-0df5782a9a28"
-    },
-    {
-      "title": "Extended Short Cycle Time Analysis of Pressure Swing Adsorption with Nonlinear Adsorption Isotherm",
-      "authors": "Nakamura, Takuya; Kodama, Akio; Goto, Motonobu; Hirose, Tsutomu",
-      "journal": "Adsorption",
-      "year": "2005",
-      "pubmed": null,
-      "doi": "10.1007/s10450-005-5993-5",
-      "url": "https://doi.org/10.1007/s10450-005-5993-5"
+      "title": "Gold Book: Langmuir adsorption isotherm",
+      "authors": "IUPAC",
+      "journal": "IUPAC Compendium of Chemical Terminology",
+      "year": "2019",
+      "doi": "10.1351/goldbook.L03442",
+      "url": "https://goldbook.iupac.org/terms/view/L03442"
     }
   ],
   "keywords": [
+    "langmuir isotherm",
     "adsorption",
-    "isotherm",
-    "analysis"
+    "surface coverage",
+    "monolayer",
+    "equilibrium"
   ],
   "relatedProcesses": [],
   "created": "2026-01-15",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations.\nCurated Mermaid applied (citations preserved)."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "namedCollections": [
+    "surface-chemistry"
+  ],
+  "graphMetrics": {
+    "nodes": 10,
+    "edges": 10,
+    "conditionals": 1,
+    "andGates": 1,
+    "orGates": 1,
+    "notGates": 0,
+    "loops": 1
+  },
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Gas + solid surface",
+      "detail": "Adsorbate and adsorbent",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N2",
+      "label": "Molecule strikes surface",
+      "detail": "Collision with surface",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N3",
+      "label": "Empty site available?",
+      "detail": "Finite equivalent sites",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N4",
+      "label": "Bounce off (no adsorption)",
+      "detail": "Site occupied",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N5",
+      "label": "Adsorb on site",
+      "detail": "Occupy a vacancy",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N6",
+      "label": "Adsorption = desorption",
+      "detail": "Dynamic equilibrium",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N7",
+      "label": "θ = KP/(1+KP)",
+      "detail": "Coverage isotherm",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N8",
+      "label": "Monolayer saturates",
+      "detail": "θ -> 1 at high P",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N9",
+      "label": "Vary P, fit isotherm",
+      "detail": "Extract K",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N10",
+      "label": "Adsorption parameters",
+      "detail": "Equilibrium constant, capacity",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 1
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:surface_chemistry-adsorption-isotherm-analysis",
+    "graphType": "cyclic_pathway",
+    "topologySignature": "bc56e528cdb57637",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "graphType": "cyclic_pathway",
+  "domainContext": "Surface adsorption"
 }

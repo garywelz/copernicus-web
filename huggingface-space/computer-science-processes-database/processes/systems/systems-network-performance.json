@@ -1,21 +1,23 @@
 {
   "id": "systems-network-performance",
-  "name": "Network Performance",
+  "name": "CPU Cache & Memory Hierarchy",
   "category": "computer_science",
   "subcategory": "systems",
   "subcategory_name": "Systems & Architecture",
-  "description": "Network Performance process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "The memory hierarchy serves CPU accesses from the fastest level that holds the data: L1 is checked first, then L2/L3; on a last-level miss the line is fetched from main memory, evicting and writing back a dirty victim if needed, then filling the cache and updating replacement state before returning data.",
   "complexity": {
-    "nodes": 26,
-    "edges": 21,
-    "conditionals": 0,
+    "nodes": 12,
+    "edges": 14,
+    "conditionals": 3,
     "logicGates": {
-      "orGates": 0,
-      "andGates": 1,
-      "total": 1
+      "orGates": 3,
+      "andGates": 2,
+      "notGates": 0,
+      "total": 5
     },
-    "level": "medium",
-    "detailLevel": "medium"
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 0
   },
   "colorScheme": {
     "red": {
@@ -39,53 +41,156 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nA3[Performance Monitoring] --> B3[Network Performance Method]\nC3[Bandwidth Analysis] --> D3[Latency Measurement]\nE3[Throughput Optimization] --> F3[Network Performance Analysis]\nB3 --> G3[Quality of Service]\nD3 --> H3[Traffic Engineering]\nF3 --> I3[Load Balancing]\nG3 --> J3[Priority Queuing]\nH3 --> K3[Resource Allocation]\nI3 --> L3[Traffic Distribution]\nJ3 --> M3[Performance Metrics]\nK3 --> L3\nL3 --> N3[Bottleneck Detection]\nM3 --> O3[Capacity Planning]\nN3 --> P3[Performance Tuning]\nO3 --> Q3[Network Performance Process]\nP3 --> R3[Network Performance Validation]\nQ3 --> S3[Network Performance Verification]\nR3 --> T3[Network Performance Result]\nS3 --> U3[Network Performance Analysis]\nT3 --> V3[Network Performance Parameters]\nU3 --> W3[Network Performance Output]\nV3 --> X3[Network Performance Analysis]\nW3 --> Y3[Network Performance Final Result]\nX3 --> Z3[Network Performance Complete]\n\n    style A3 fill:#ff6b6b,color:#fff\n    style C3 fill:#ff6b6b,color:#fff\n    style E3 fill:#ff6b6b,color:#fff\n    style B3 fill:#ffd43b,color:#000\n    style D3 fill:#ffd43b,color:#000\n    style F3 fill:#ffd43b,color:#000\n    style G3 fill:#ffd43b,color:#000\n    style H3 fill:#ffd43b,color:#000\n    style I3 fill:#ffd43b,color:#000\n    style J3 fill:#ffd43b,color:#000\n    style K3 fill:#ffd43b,color:#000\n    style L3 fill:#ffd43b,color:#000\n    style M3 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style O3 fill:#51cf66,color:#fff\n    style P3 fill:#51cf66,color:#fff\n    style Q3 fill:#51cf66,color:#fff\n    style R3 fill:#51cf66,color:#fff\n    style S3 fill:#51cf66,color:#fff\n    style T3 fill:#51cf66,color:#fff\n    style U3 fill:#51cf66,color:#fff\n    style V3 fill:#51cf66,color:#fff\n    style W3 fill:#51cf66,color:#fff\n    style X3 fill:#51cf66,color:#fff\n    style Y3 fill:#51cf66,color:#fff\n    style Z3 fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"CPU memory access\"]\n    N2[\"Check L1 cache\"]\n    N3{\"L1 hit?\"}\n    N4[\"Return data (fast)\"]\n    N5[\"Check L2 / L3\"]\n    N6{\"LLC hit?\"}\n    N7[\"Fetch from memory\"]\n    N8{\"Eviction needed?\"}\n    N9[\"Write back dirty line\"]\n    N10[\"Fill cache line\"]\n    N11[\"Update replacement\"]\n    N12[\"Data to CPU\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 -->|yes| N4\n    N4 --> N12\n    N3 -->|no| N5\n    N5 --> N6\n    N6 -->|yes| N10\n    N6 -->|no| N7\n    N7 --> N8\n    N8 -->|yes| N9\n    N9 --> N10\n    N8 -->|no| N10\n    N10 --> N11\n    N11 --> N12\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#74c0fc,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#74c0fc,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#74c0fc,color:#fff\n    style N9 fill:#51cf66,color:#fff\n    style N10 fill:#74c0fc,color:#fff\n    style N11 fill:#51cf66,color:#fff\n    style N12 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
-      "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: Network Performance. Created using the Programming Framework methodology."
+      "title": "Cache memories",
+      "authors": "Smith, A. J.",
+      "journal": "ACM Computing Surveys",
+      "year": "1982",
+      "doi": "10.1145/356887.356892",
+      "url": "https://doi.org/10.1145/356887.356892"
     },
     {
-      "title": "Network performance evaluation",
-      "authors": "",
-      "journal": "Network Design, Modelling and Performance Evaluation",
-      "year": "2018",
-      "pubmed": null,
-      "doi": "10.1049/pbte077e_ch7",
-      "url": "https://doi.org/10.1049/pbte077e_ch7"
-    },
-    {
-      "title": "Network Performance",
-      "authors": "",
-      "journal": "Network Performance Analysis",
-      "year": "2011",
-      "pubmed": null,
-      "doi": "10.1002/9781118602911.ch11",
-      "url": "https://doi.org/10.1002/9781118602911.ch11"
-    },
-    {
-      "title": "Performance Study on Switch and Network",
-      "authors": "Yamanaka, Naoaki",
-      "journal": "High-Performance Backbone Network Technology",
-      "year": "2020",
-      "pubmed": null,
-      "doi": "10.1201/9781315214672-5",
-      "url": "https://doi.org/10.1201/9781315214672-5"
+      "title": "Computer Architecture: A Quantitative Approach (6th ed.)",
+      "authors": "Hennessy, J. L.; Patterson, D. A.",
+      "journal": "Morgan Kaufmann",
+      "year": "2017",
+      "url": "https://www.elsevier.com/books/computer-architecture/hennessy/978-0-12-811905-1"
     }
   ],
   "keywords": [
-    "network",
-    "performance"
+    "cache memory",
+    "memory hierarchy",
+    "cache hit",
+    "write-back",
+    "replacement policy"
   ],
   "relatedProcesses": [],
   "created": "2026-01-08",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "CPU memory access",
+      "detail": "Load/store",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 1
+    },
+    {
+      "id": "N2",
+      "label": "Check L1 cache",
+      "detail": "Fastest level",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N3",
+      "label": "L1 hit?",
+      "detail": "Line present",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N4",
+      "label": "Return data (fast)",
+      "detail": "Few cycles",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N5",
+      "label": "Check L2 / L3",
+      "detail": "Lower levels",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N6",
+      "label": "LLC hit?",
+      "detail": "Last-level cache",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N7",
+      "label": "Fetch from memory",
+      "detail": "DRAM access",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N8",
+      "label": "Eviction needed?",
+      "detail": "Set is full",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N9",
+      "label": "Write back dirty line",
+      "detail": "Preserve writes",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N10",
+      "label": "Fill cache line",
+      "detail": "Install block",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N11",
+      "label": "Update replacement",
+      "detail": "LRU/PLRU state",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N12",
+      "label": "Data to CPU",
+      "detail": "Access satisfied",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 1
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:systems-network-performance",
+    "graphType": "decision_flowchart",
+    "topologySignature": "3e510f7eb97e73da",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "namedCollections": [],
+  "graphMetrics": {
+    "nodes": 12,
+    "edges": 14,
+    "conditionals": 3,
+    "andGates": 2,
+    "orGates": 3,
+    "notGates": 0,
+    "loops": 0
+  },
+  "graphType": "decision_flowchart",
+  "domainContext": "Computer architecture"
 }

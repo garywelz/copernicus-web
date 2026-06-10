@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apoptosis Pathway - Biology Process</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #27ae60 0%, #27ae60dd 100%);
+            color: white;
+            padding: 30px;
+        }
+        
+        .header h1 {
+            margin: 0 0 10px 0;
+            font-size: 2em;
+            font-weight: 300;
+        }
+        
+        .header-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 15px;
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+        
+        .meta-item {
+            background: rgba(255,255,255,0.2);
+            padding: 5px 12px;
+            border-radius: 20px;
+        }
+        
+        .nav-links {
+            padding: 15px 30px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #ecf0f1;
+        }
+        
+        .nav-links a {
+            color: #27ae60;
+            text-decoration: none;
+            margin-right: 20px;
+            font-weight: 500;
+        }
+        
+        .nav-links a:hover {
+            text-decoration: underline;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .description {
+            margin-bottom: 30px;
+        }
+        
+        .description h2 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        .flowchart-container {
+            margin: 30px 0;
+        }
+        
+        .flowchart-container h2 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        .mermaid {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #ecf0f1;
+            overflow-x: auto;
+        }
+        
+        .color-legend {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 30px 0;
+        }
+        
+        .color-legend h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        
+        .color-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            background: white;
+            border-radius: 5px;
+        }
+        
+        .color-box {
+            width: 30px;
+            height: 30px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+        
+        .info-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .info-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        
+        .info-card h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        .info-card ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .info-card li {
+            padding: 8px 0;
+            border-bottom: 1px solid #ecf0f1;
+        }
+        
+        .info-card li:last-child {
+            border-bottom: none;
+        }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Apoptosis Pathway</h1>
+            <div class="header-meta">
+                <span class="meta-item">Biology</span>
+                <span class="meta-item">Pathways</span>
+                <span class="meta-item">Complexity: high</span>
+            </div>
+        </div>
+        
+        <div class="nav-links">
+            <a id="back-link" href="#">← Back to Biology Database</a>
+            <a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank">Programming Framework</a>
+        </div>
+        <script>
+            // Dynamically set back link based on current location
+            (function() {
+                const hostname = window.location.hostname;
+                const pathname = window.location.pathname;
+                const backLink = document.getElementById('back-link');
+                
+                if (hostname.includes('storage.googleapis.com')) {
+                    // GCS hosted
+                    backLink.href = 'https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/biology-processes-database/biology-database-table.html';
+                } else if (hostname.includes('huggingface.co') || pathname.includes('huggingface')) {
+                    // Hugging Face hosted
+                    backLink.href = '../biology-database-table.html';
+                } else {
+                    // Local or relative
+                    backLink.href = '../biology-database-table.html';
+                }
+            })();
+        </script>
+        
+        <div class="content">
+            <div class="description">
+                <h2>Description</h2>
+                <p>Apoptosis: extrinsic death receptors activate caspase-8 while intrinsic stress is gated by the BCL-2 family at the mitochondrion; cytochrome c release forms the apoptosome and activates caspase-9, converging on executioner caspases that dismantle the cell.</p>
+            </div>
+            
+            <div class="flowchart-container">
+                <h2>Process Flowchart</h2>
+                <div class="mermaid">
+graph TD
+    N1["Death signal / stress"]
+    N2{"Intrinsic or extrinsic?"}
+    N3["Death receptor (Fas/TNF)"]
+    N4["DISC -> caspase-8"]
+    N5["Mito stress: BAX/BAK"]
+    N6{"BCL-2 balance?"}
+    N7["Cell survives"]
+    N8["Cytochrome c released"]
+    N9["Apoptosome -> caspase-9"]
+    N10["Executioner caspases-3/7"]
+    N11["Substrate cleavage; DNA cut"]
+    N12["Apoptotic cell death"]
+
+    N1 --> N2
+    N2 -->|extrinsic| N3
+    N2 -->|intrinsic| N5
+    N3 --> N4
+    N4 --> N10
+    N5 --> N6
+    N6 -->|anti-apoptotic| N7
+    N6 -->|pro-apoptotic| N8
+    N8 --> N9
+    N9 --> N10
+    N10 --> N11
+    N11 --> N12
+
+    style N1 fill:#ff6b6b,color:#fff
+    style N2 fill:#74c0fc,color:#fff
+    style N3 fill:#51cf66,color:#fff
+    style N4 fill:#51cf66,color:#fff
+    style N5 fill:#51cf66,color:#fff
+    style N6 fill:#74c0fc,color:#fff
+    style N7 fill:#b197fc,color:#fff
+    style N8 fill:#74c0fc,color:#fff
+    style N9 fill:#51cf66,color:#fff
+    style N10 fill:#51cf66,color:#fff
+    style N11 fill:#51cf66,color:#fff
+    style N12 fill:#b197fc,color:#fff
+                </div>
+            </div>
+            
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Death signal / stress</td><td>Triggers & Inputs</td><td><a href="https://doi.org/10.1038/nrm2312" target="_blank" title="Apoptosis: controlled demolition at the cellular level" style="color:#27ae60;">Taylor, R. C. et al. 2008</a></td></tr><tr><td style="font-weight:600;">Intrinsic or extrinsic?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1101/cshperspect.a006080" target="_blank" title="Cell Death Signaling" style="color:#27ae60;">Green, D. R. et al. 2015</a></td></tr><tr><td style="font-weight:600;">Death receptor (Fas/TNF)</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1038/nrm2312" target="_blank" title="Apoptosis: controlled demolition at the cellular level" style="color:#27ae60;">Taylor, R. C. et al. 2008</a></td></tr><tr><td style="font-weight:600;">DISC -> caspase-8</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1038/nrm1496" target="_blank" title="Molecular mechanisms of caspase regulation during apoptosis" style="color:#27ae60;">Riedl, S. J. et al. 2004</a></td></tr><tr><td style="font-weight:600;">Mito stress: BAX/BAK</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1101/cshperspect.a006080" target="_blank" title="Cell Death Signaling" style="color:#27ae60;">Green, D. R. et al. 2015</a></td></tr><tr><td style="font-weight:600;">BCL-2 balance?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1101/cshperspect.a006080" target="_blank" title="Cell Death Signaling" style="color:#27ae60;">Green, D. R. et al. 2015</a></td></tr><tr><td style="font-weight:600;">Cell survives</td><td>Products & Outputs</td><td><a href="https://doi.org/10.1101/cshperspect.a006080" target="_blank" title="Cell Death Signaling" style="color:#27ae60;">Green, D. R. et al. 2015</a></td></tr><tr><td style="font-weight:600;">Cytochrome c released</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1101/cshperspect.a006080" target="_blank" title="Cell Death Signaling" style="color:#27ae60;">Green, D. R. et al. 2015</a></td></tr><tr><td style="font-weight:600;">Apoptosome -> caspase-9</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1038/nrm1496" target="_blank" title="Molecular mechanisms of caspase regulation during apoptosis" style="color:#27ae60;">Riedl, S. J. et al. 2004</a></td></tr><tr><td style="font-weight:600;">Executioner caspases-3/7</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1038/nrm1496" target="_blank" title="Molecular mechanisms of caspase regulation during apoptosis" style="color:#27ae60;">Riedl, S. J. et al. 2004</a></td></tr><tr><td style="font-weight:600;">Substrate cleavage; DNA cut</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1038/nrm2312" target="_blank" title="Apoptosis: controlled demolition at the cellular level" style="color:#27ae60;">Taylor, R. C. et al. 2008</a></td></tr><tr><td style="font-weight:600;">Apoptotic cell death</td><td>Products & Outputs</td><td><a href="https://doi.org/10.1038/nrm2312" target="_blank" title="Apoptosis: controlled demolition at the cellular level" style="color:#27ae60;">Taylor, R. C. et al. 2008</a></td></tr></tbody>
+                </table>
+            </div>
+            <div class="color-legend">
+                <h3>🎨 Color Scheme (5-Color System)</h3>
+                <div class="color-grid">
+                    <div class="color-item">
+                        <div class="color-box" style="background: #ff6b6b;"></div>
+                        <div>
+                            <strong>Red</strong><br>
+                            <small>Triggers & Inputs</small>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-box" style="background: #ffd43b;"></div>
+                        <div>
+                            <strong>Yellow</strong><br>
+                            <small>Structures & Objects</small>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-box" style="background: #51cf66;"></div>
+                        <div>
+                            <strong>Green</strong><br>
+                            <small>Processing & Operations</small>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-box" style="background: #74c0fc;"></div>
+                        <div>
+                            <strong>Blue</strong><br>
+                            <small>Intermediates & States</small>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-box" style="background: #b197fc;"></div>
+                        <div>
+                            <strong>Violet</strong><br>
+                            <small>Products & Outputs</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="info-section">
+                <div class="info-card">
+                    <h3>Process Statistics</h3>
+                    <ul>
+                        <li><strong>Nodes:</strong> 12</li>
+                        <li><strong>Edges:</strong> 12</li>
+                        <li><strong>Conditionals:</strong> 2</li>
+                        <li><strong>AND Gates:</strong> 1</li>
+                        <li><strong>OR Gates:</strong> 2</li>
+                        <li><strong>Total Gates:</strong> 3</li>
+                    </ul>
+                </div>
+                
+                
+                <div class="info-card">
+                    <h3>Keywords</h3>
+                    <ul>
+                        <li>apoptosis</li><li>caspase</li><li>apoptosome</li><li>cytochrome c</li><li>bcl-2</li>
+                    </ul>
+                </div>
+                
+                
+                <div class="info-card">
+                    <h3>Sources & References</h3>
+                    
+                    <ul style="list-style: none; padding: 0;">
+                        
+                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
+                            <strong>Apoptosis: controlled demolition at the cellular level</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Taylor, R. C.; Cullen, S. P.; Martin, S. J.
+                            , Nature Reviews Molecular Cell Biology
+                             (2008)
+                            </span>
+                            <br><a href="https://doi.org/10.1038/nrm2312" target="_blank" style="color: #27ae60; font-size: 0.85em;">DOI: 10.1038/nrm2312</a>
+                            
+                        </li>
+                        
+                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
+                            <strong>Cell Death Signaling</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Green, D. R.; Llambi, F.
+                            , Cold Spring Harbor Perspectives in Biology
+                             (2015)
+                            </span>
+                            <br><a href="https://doi.org/10.1101/cshperspect.a006080" target="_blank" style="color: #27ae60; font-size: 0.85em;">DOI: 10.1101/cshperspect.a006080</a>
+                            
+                        </li>
+                        
+                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
+                            <strong>Molecular mechanisms of caspase regulation during apoptosis</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Riedl, S. J.; Shi, Y.
+                            , Nature Reviews Molecular Cell Biology
+                             (2004)
+                            </span>
+                            <br><a href="https://doi.org/10.1038/nrm1496" target="_blank" style="color: #27ae60; font-size: 0.85em;">DOI: 10.1038/nrm1496</a>
+                            
+                        </li>
+                        
+                    </ul>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            flowchart: {
+                useMaxWidth: false,
+                htmlLabels: true,
+                curve: 'linear',
+                nodeSpacing: 30,
+                rankSpacing: 30,
+                padding: 10
+            },
+            themeVariables: {
+                fontFamily: 'Arial Unicode MS, Arial, sans-serif'
+            }
+        });
+    </script>
+</body>
+</html>

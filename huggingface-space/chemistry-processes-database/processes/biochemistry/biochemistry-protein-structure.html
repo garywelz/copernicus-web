@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Protein Structure - Chemistry Process</title>
+    <title>Protein Folding (Anfinsen) - Chemistry Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Protein Structure</h1>
+            <h1>Protein Folding (Anfinsen)</h1>
             <div class="header-meta">
                 <span class="meta-item">Chemistry</span>
                 <span class="meta-item">Biochemistry</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,67 +234,60 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Protein Structure process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>Protein folding builds higher-order structure from the primary sequence: local secondary structure forms, hydrophobic collapse drives a tertiary fold toward the native free-energy minimum down a folding funnel, subunits assemble into quaternary structure, and misfolded chains are refolded with chaperones to reach the functional native state.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-A3[Amino Acid Sequence] --> B3[Protein Structure Method]
-C3[Primary Structure] --> D3[Secondary Structure]
-E3[Tertiary Structure] --> F3[Protein Structure Analysis]
-B3 --> G3[X Ray Crystallography]
-D3 --> H3[NMR Spectroscopy]
-F3 --> I3[Cryo EM]
-G3 --> J3[Alpha Helix]
-H3 --> K3[Beta Sheet]
-I3 --> L3[Protein Folding]
-J3 --> M3[Disulfide Bonds]
-K3 --> L3
-L3 --> N3[Hydrophobic Core]
-M3 --> O3[Quaternary Structure]
-N3 --> P3[Protein Function]
-O3 --> Q3[Protein Structure Process]
-P3 --> R3[Protein Structure Validation]
-Q3 --> S3[Protein Structure Verification]
-R3 --> T3[Protein Structure Result]
-S3 --> U3[Protein Structure Analysis]
-T3 --> V3[Protein Structure Parameters]
-U3 --> W3[Protein Structure Output]
-V3 --> X3[Protein Structure Analysis]
-W3 --> Y3[Protein Structure Final Result]
-X3 --> Z3[Protein Structure Complete]
+    N1["Polypeptide (primary seq)"]
+    N2["Local secondary structure"]
+    N3["Helices / sheets"]
+    N4["Hydrophobic collapse"]
+    N5["Tertiary fold"]
+    N6{"Native fold reached?"}
+    N7["Explore folding funnel"]
+    N8["Assemble subunits"]
+    N9{"Misfolded / aggregated?"}
+    N10["Chaperone refold"]
+    N11["Functional native protein"]
 
-    style A3 fill:#ff6b6b,color:#fff
-    style C3 fill:#ff6b6b,color:#fff
-    style E3 fill:#ff6b6b,color:#fff
-    style B3 fill:#ffd43b,color:#000
-    style D3 fill:#ffd43b,color:#000
-    style F3 fill:#ffd43b,color:#000
-    style G3 fill:#ffd43b,color:#000
-    style H3 fill:#ffd43b,color:#000
-    style I3 fill:#ffd43b,color:#000
-    style J3 fill:#ffd43b,color:#000
-    style K3 fill:#ffd43b,color:#000
-    style L3 fill:#ffd43b,color:#000
-    style M3 fill:#51cf66,color:#fff
-    style N3 fill:#51cf66,color:#fff
-    style O3 fill:#51cf66,color:#fff
-    style P3 fill:#51cf66,color:#fff
-    style Q3 fill:#51cf66,color:#fff
-    style R3 fill:#51cf66,color:#fff
-    style S3 fill:#51cf66,color:#fff
-    style T3 fill:#51cf66,color:#fff
-    style U3 fill:#51cf66,color:#fff
-    style V3 fill:#51cf66,color:#fff
-    style W3 fill:#51cf66,color:#fff
-    style X3 fill:#51cf66,color:#fff
-    style Y3 fill:#51cf66,color:#fff
-    style Z3 fill:#b197fc,color:#fff
+    N1 --> N2
+    N2 --> N3
+    N3 --> N4
+    N4 --> N5
+    N5 --> N6
+    N6 -->|no| N7
+    N7 -->|re-search| N4
+    N6 -->|yes| N8
+    N8 --> N9
+    N9 -->|yes| N10
+    N10 -->|refold| N4
+    N9 -->|no| N11
+
+    style N1 fill:#ff6b6b,color:#fff
+    style N2 fill:#51cf66,color:#fff
+    style N3 fill:#74c0fc,color:#fff
+    style N4 fill:#51cf66,color:#fff
+    style N5 fill:#74c0fc,color:#fff
+    style N6 fill:#74c0fc,color:#fff
+    style N7 fill:#51cf66,color:#fff
+    style N8 fill:#51cf66,color:#fff
+    style N9 fill:#74c0fc,color:#fff
+    style N10 fill:#51cf66,color:#fff
+    style N11 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Polypeptide (primary seq)</td><td>Triggers & Inputs</td><td><a href="https://doi.org/10.1126/science.181.4096.223" target="_blank" title="Principles that govern the folding of protein chains" style="color:#e74c3c;">Anfinsen, C. B. 1973</a></td></tr><tr><td style="font-weight:600;">Local secondary structure</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1126/science.1219021" target="_blank" title="The protein-folding problem, 50 years on" style="color:#e74c3c;">Dill, K. A. et al. 2012</a></td></tr><tr><td style="font-weight:600;">Helices / sheets</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1126/science.1219021" target="_blank" title="The protein-folding problem, 50 years on" style="color:#e74c3c;">Dill, K. A. et al. 2012</a></td></tr><tr><td style="font-weight:600;">Hydrophobic collapse</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1126/science.1219021" target="_blank" title="The protein-folding problem, 50 years on" style="color:#e74c3c;">Dill, K. A. et al. 2012</a></td></tr><tr><td style="font-weight:600;">Tertiary fold</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1126/science.181.4096.223" target="_blank" title="Principles that govern the folding of protein chains" style="color:#e74c3c;">Anfinsen, C. B. 1973</a></td></tr><tr><td style="font-weight:600;">Native fold reached?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1126/science.181.4096.223" target="_blank" title="Principles that govern the folding of protein chains" style="color:#e74c3c;">Anfinsen, C. B. 1973</a></td></tr><tr><td style="font-weight:600;">Explore folding funnel</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1126/science.1219021" target="_blank" title="The protein-folding problem, 50 years on" style="color:#e74c3c;">Dill, K. A. et al. 2012</a></td></tr><tr><td style="font-weight:600;">Assemble subunits</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1126/science.181.4096.223" target="_blank" title="Principles that govern the folding of protein chains" style="color:#e74c3c;">Anfinsen, C. B. 1973</a></td></tr><tr><td style="font-weight:600;">Misfolded / aggregated?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1126/science.1219021" target="_blank" title="The protein-folding problem, 50 years on" style="color:#e74c3c;">Dill, K. A. et al. 2012</a></td></tr><tr><td style="font-weight:600;">Chaperone refold</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1126/science.1219021" target="_blank" title="The protein-folding problem, 50 years on" style="color:#e74c3c;">Dill, K. A. et al. 2012</a></td></tr><tr><td style="font-weight:600;">Functional native protein</td><td>Products & Outputs</td><td><a href="https://doi.org/10.1126/science.181.4096.223" target="_blank" title="Principles that govern the folding of protein chains" style="color:#e74c3c;">Anfinsen, C. B. 1973</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -313,12 +333,12 @@ X3 --> Z3[Protein Structure Complete]
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 26</li>
-                        <li><strong>Edges:</strong> 21</li>
-                        <li><strong>Conditionals:</strong> 0</li>
+                        <li><strong>Nodes:</strong> 11</li>
+                        <li><strong>Edges:</strong> 12</li>
+                        <li><strong>Conditionals:</strong> 2</li>
                         <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 1</li>
+                        <li><strong>OR Gates:</strong> 2</li>
+                        <li><strong>Total Gates:</strong> 3</li>
                     </ul>
                 </div>
                 
@@ -326,7 +346,7 @@ X3 --> Z3[Protein Structure Complete]
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>protein</li><li>structure</li>
+                        <li>protein folding</li><li>Anfinsen</li><li>folding funnel</li><li>hydrophobic collapse</li><li>native structure</li>
                     </ul>
                 </div>
                 
@@ -337,42 +357,22 @@ X3 --> Z3[Protein Structure Complete]
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Principles that govern the folding of protein chains</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Anfinsen, C. B.
+                            , Science
+                             (1973)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Protein Structure</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Lesk, Arthur
-                            , Protein Science
-                             (2021)
-                            </span>
-                            <br><a href="https://doi.org/10.1093/hesc/9780198846451.003.0002" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1093/hesc/9780198846451.003.0002</a>
+                            <br><a href="https://doi.org/10.1126/science.181.4096.223" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1126/science.181.4096.223</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Protein structure</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Lesk, Arthur M.
-                            , Introduction to Protein Science
-                             (2016)
+                            <strong>The protein-folding problem, 50 years on</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Dill, K. A.; MacCallum, J. L.
+                            , Science
+                             (2012)
                             </span>
-                            <br><a href="https://doi.org/10.1093/hesc/9780198716846.003.0002" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1093/hesc/9780198716846.003.0002</a>
-                            
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Protein structure determination</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Lesk, Arthur M.
-                            , Introduction to Protein Science
-                             (2016)
-                            </span>
-                            <br><a href="https://doi.org/10.1093/hesc/9780198716846.003.0003" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1093/hesc/9780198716846.003.0003</a>
+                            <br><a href="https://doi.org/10.1126/science.1219021" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1126/science.1219021</a>
                             
                         </li>
                         

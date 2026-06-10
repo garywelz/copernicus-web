@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2604.25986v1",
+  "arxiv_id": "2604.25986v1",
+  "title": "Robust Clustering Analysis of Genes Related to Age-related Macular Degeneration using RNA-Seq",
+  "authors": [
+    "Brayan Gutierrez",
+    "Rinki Ratnapriya",
+    "Arko Barman"
+  ],
+  "author_string": "Brayan Gutierrez, Rinki Ratnapriya, Arko Barman",
+  "journal": "arXiv:2604.25986v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Identifying genes associated with diseases is crucial to understanding disease mechanisms and developing therapies. However, identification of individual genes associated with a disease often needs to be supplemented with clustering analysis to understand the relationships between genes and identify gene modules beyond individual gene-level relationships. Gene co-expression networks are widely used as a graph theoretic approach to the clustering analysis of genes. In our work, we perform robust clustering analysis on RNA-Seq data of Age-related Macular Degeneration (AMD) patients and controls by generalizing one such framework, Multiscale Embedded Gene Co-Expression Network Analysis (MEGENA). We propose a carefully curated set of module quality evaluation metrics to choose appropriate statistical distance-based or information theoretic similarity measures over simple linear correlation to represent the similarities between genes. Furthermore, we design and implement a stability test to ensure the robustness of the detected hub genes in the presence of noise. Finally, we propose differential module eigengene analysis for a deeper understanding of upregulation and downregulation of each module with respect to the disease and control groups for a comprehensive understanding of the clustering analysis. Besides detecting robust hub genes and modules that are supported by prior findings, we also identify previously undiscovered hub genes that can potentially lead to further biomedical research into understanding the AMD disease mechanism and developing new treatments.",
+  "categories": [
+    "q-bio.GN"
+  ],
+  "primary_category": "q-bio.GN",
+  "comment": null,
+  "published_date": "2026-04-28T17:56:36Z",
+  "updated_date": "2026-04-28T17:56:36Z",
+  "url": "https://arxiv.org/abs/2604.25986v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.25986v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-06T10:15:36.874288",
+  "category": "biology",
+  "subcategories": [
+    "q-bio.GN"
+  ]
+}

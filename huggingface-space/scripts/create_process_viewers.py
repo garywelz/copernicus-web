@@ -26,6 +26,8 @@ def create_process_viewer(process_json_file: Path, output_dir: Path, discipline:
     category_name = subcategory.replace('_', ' ').title() if subcategory else category.title()
     mermaid = process_data.get('mermaid', '')
     complexity = process_data.get('complexity', {})
+    if not isinstance(complexity, dict):
+        complexity = {'level': str(complexity or 'medium')}
     sources = process_data.get('sources', [])
     keywords = process_data.get('keywords', [])
     
@@ -119,10 +121,12 @@ def create_process_viewer(process_json_file: Path, output_dir: Path, discipline:
         
         .flowchart-container {{
             background: #f8f9fa;
-            padding: 30px;
+            padding: 16px;
             border-radius: 10px;
             margin: 30px 0;
-            overflow-x: auto;
+            overflow-x: hidden;
+            overflow-y: auto;
+            max-height: 78vh;
         }}
         
         .flowchart-container h2 {{
@@ -132,9 +136,16 @@ def create_process_viewer(process_json_file: Path, output_dir: Path, discipline:
         
         .mermaid {{
             background: white;
-            padding: 20px;
+            padding: 12px;
             border-radius: 8px;
             text-align: center;
+        }}
+
+        .mermaid svg {{
+            max-width: 100% !important;
+            height: auto !important;
+            display: block;
+            margin: 0 auto;
         }}
         
         .color-legend {{
@@ -387,11 +398,8 @@ def create_process_viewer(process_json_file: Path, output_dir: Path, discipline:
                     </ul>
                     ''' if sources and len(sources) > 0 else f'''
                     <p style="color: #666; font-style: italic; line-height: 1.6;">
-                        Source citations will be added. These processes are based on established {category.capitalize()} principles 
-                        and the Programming Framework methodology. For more information, see: 
-                        <a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c;">
-                            Programming Framework Documentation
-                        </a>
+                        No peer-reviewed source citations are recorded for this page yet. This should be treated as
+                        incomplete curation metadata until primary literature or authoritative review sources are added.
                     </p>
                     '''}
                 </div>
@@ -404,12 +412,12 @@ def create_process_viewer(process_json_file: Path, output_dir: Path, discipline:
             startOnLoad: true,
             theme: 'default',
             flowchart: {{
-                useMaxWidth: false,
+                useMaxWidth: true,
                 htmlLabels: true,
                 curve: 'linear',
-                nodeSpacing: 30,
-                rankSpacing: 30,
-                padding: 10
+                nodeSpacing: 18,
+                rankSpacing: 24,
+                padding: 6
             }},
             themeVariables: {{
                 fontFamily: 'Arial Unicode MS, Arial, sans-serif'

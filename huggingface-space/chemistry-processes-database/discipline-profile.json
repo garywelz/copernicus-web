@@ -1,0 +1,99 @@
+{
+  "displayName": "Chemistry",
+  "slug": "chemistry",
+  "databaseDir": "chemistry-processes-database",
+  "tableFile": "chemistry-database-table.html",
+  "accent": "#dc2626",
+  "subtitle": "Reactions, measurements, synthesis workflows, materials, and molecular models.",
+  "lensTitle": "Chemical Lens",
+  "lensDescription": "Browse by branch, reaction type, instrumentation, thermodynamic or kinetic emphasis.",
+  "facetLabels": {
+    "subcategory": "Branch",
+    "collection": "Collection",
+    "complexity": "Complexity"
+  },
+  "insightCards": [
+    {
+      "label": "Best for",
+      "value": "reaction mechanisms, analytical methods, synthesis"
+    },
+    {
+      "label": "Research links",
+      "value": "PubMed, arXiv, and DOI searches"
+    },
+    {
+      "label": "Curation focus",
+      "value": "collapse duplicated branch templates and highlight curated reactions"
+    }
+  ],
+  "frontierSearches": [
+    {
+      "label": "PubMed",
+      "urlTemplate": "https://pubmed.ncbi.nlm.nih.gov/?term={query}+chemistry"
+    },
+    {
+      "label": "arXiv",
+      "urlTemplate": "https://arxiv.org/search/?query={query}&searchtype=all"
+    },
+    {
+      "label": "Crossref",
+      "urlTemplate": "https://search.crossref.org/?q={query}"
+    }
+  ],
+  "contextColumnLabel": "Branch / Material System",
+  "defaultContext": "General chemistry",
+  "supportedGraphTypes": [
+    "flowchart",
+    "taxonomy",
+    "dependency_graph",
+    "state_transition"
+  ],
+  "metricColumns": [
+    {
+      "id": "nodes",
+      "label": "Nodes"
+    },
+    {
+      "id": "edges",
+      "label": "Edges"
+    },
+    {
+      "id": "conditionals",
+      "label": "Conditionals"
+    },
+    {
+      "id": "andGates",
+      "label": "AND Gates"
+    },
+    {
+      "id": "orGates",
+      "label": "OR Gates"
+    },
+    {
+      "id": "notGates",
+      "label": "NOT Gates"
+    },
+    {
+      "id": "loops",
+      "label": "Loops"
+    }
+  ],
+  "graphTypeLabels": {
+    "flowchart": "Flowchart",
+    "dependency_graph": "Dependency Graph",
+    "taxonomy": "Taxonomy",
+    "lineage_tree": "Lineage Tree",
+    "influence_network": "Influence Network",
+    "state_transition": "State Transition",
+    "timeline": "Timeline"
+  },
+  "featuredMaps": [
+    {
+      "label": "Whole of Chemistry",
+      "url": "whole-of-chemistry.html",
+      "description": "Chemistry benefits from a hybrid of branch taxonomy, reaction families, analytical methods, materials systems, and process links."
+    }
+  ],
+  "generatedFrom": "scripts/processes/discipline_databases/enhanced_database_table.py",
+  "collectionCount": 26
+}

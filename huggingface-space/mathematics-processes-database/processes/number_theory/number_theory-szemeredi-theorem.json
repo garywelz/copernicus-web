@@ -1,0 +1,39 @@
+{
+  "id": "number_theory-szemeredi-theorem",
+  "name": "Szemerédi's Theorem",
+  "category": "mathematics",
+  "subcategory": "number_theory",
+  "subcategory_name": "Number Theory",
+  "description": "Szemerédi's Theorem (1975): Every set A ⊆ ℕ with positive upper density contains arbitrarily long arithmetic progressions. That is, if δ̄(A) = lim sup |A ∩ [1,N]|/N > 0, then for every k ≥ 3, A contains a k-term arithmetic progression.",
+  "mermaid": "graph TD\n    DefDensity[\"Def: Upper density\\nδ̄(A) = lim sup |A∩[1,N]|/N\"]\n    DefAP[\"Def: k-AP\\nArithmetic progression of length k\"]\n    DefPos[\"Def: Positive density\\nδ̄(A) > 0\"]\n    ThmSz[\"Thm: Szemerédi 1975\\nA with δ̄>0 contains k-AP ∀k\"]\n    L1[\"Lemma: van der Waerden\\nMonochromatic k-AP in finite colorings\"]\n    L2[\"Lemma: Szemerédi regularity\\nGraph partition into ε-regular pairs\"]\n    L3[\"Lemma: Furstenberg multiple recurrence\\nErgodic systems, recurrence\"]\n    L4[\"Lemma: Hypergraph regularity\\nGowers, Rödl–Schacht\"]\n    DefUnif[\"Def: Gowers uniformity U^k\\nHigher-order Fourier analysis\"]\n    DefPseudo[\"Def: Pseudorandom / uniform set\\nGowers norm bounds\"]\n    L5[\"Lemma: Count lemma\\nAP count in regular partition\"]\n    DefDensity --> DefPos\n    DefAP --> ThmSz\n    DefPos --> ThmSz\n    L1 --> ThmSz\n    L2 --> L5\n    L5 --> ThmSz\n    L3 --> ThmSz\n    L4 --> ThmSz\n    DefUnif --> DefPseudo\n    DefPseudo --> ThmSz\n    classDef definition fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef theorem fill:#51cf66,color:#fff,stroke:#40c057\n    classDef lemma fill:#74c0fc,color:#fff,stroke:#4dabf7\n    class DefDensity,DefAP,DefPos,DefUnif,DefPseudo definition\n    class ThmSz theorem\n    class L1,L2,L3,L4,L5 lemma",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

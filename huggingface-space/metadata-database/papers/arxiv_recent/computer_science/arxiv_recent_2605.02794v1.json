@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2605.02794v1",
+  "arxiv_id": "2605.02794v1",
+  "title": "Edge-Efficient Image Restoration: Transformer Distillation into State-Space Models",
+  "authors": [
+    "Srinivas Soumitri Miriyala",
+    "Sowmya Vajrala",
+    "Sravanth Kodavanti",
+    "Vikram Nelvoy Rajendiran",
+    "Sharan Kumar Allur"
+  ],
+  "author_string": "Srinivas Soumitri Miriyala, Sowmya Vajrala, Sravanth Kodavanti, Vikram Nelvoy Rajendiran, Sharan Kumar Allur",
+  "journal": "arXiv:2605.02794v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We propose a modular framework for hybrid image restoration that integrates transformer and state-space model (SSM) blocks with a focus on improving runtime efficiency on edge hardware. While transformers provide strong global modeling through self-attention, their attention kernels incur substantial latency on mobile devices, especially for high-resolution inputs. In contrast, SSMs such as Mamba offer lineartime sequence modeling with lower runtime overhead but may underperform on fine grained restoration tasks. To balance accuracy and efficiency, we train lightweight SSM blocks as feature-distilled surrogates of transformer blocks and use them to construct hybrid U-Net-style architectures. To automatically discover effective block combinations, we introduce Efficient Network Search (ENS), a multi-objective search strategy that selects task-specific hybrid configurations from pre-aligned components. ENS optimizes restoration quality while penalizing transformer usage, serving as a lightweight proxy for latency and enabling architecture discovery without repeated hardware profiling. On a Snapdragon 8 Elite CPU, the Restormer baseline requires 10119.52 ms for inference. In contrast, ENS-discovered hybrids significantly reduce runtime: ENS-Deblurring runs in 2973 ms (3.4x faster), ENS-Deraining in 5816 ms (1.74x faster), and ENS-Denoising in 8666 ms (1.17x faster), while maintaining competitive restoration quality.",
+  "categories": [
+    "cs.CV"
+  ],
+  "primary_category": "cs.CV",
+  "comment": "Preprint",
+  "published_date": "2026-05-04T16:35:26Z",
+  "updated_date": "2026-05-04T16:35:26Z",
+  "url": "https://arxiv.org/abs/2605.02794v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.02794v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-05T10:15:47.087377",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CV"
+  ]
+}

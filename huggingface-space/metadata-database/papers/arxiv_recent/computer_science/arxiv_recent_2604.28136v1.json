@@ -1,0 +1,29 @@
+{
+  "id": "arxiv_2604.28136v1",
+  "arxiv_id": "2604.28136v1",
+  "title": "Beyond Pixel Fidelity: Minimizing Perceptual Distortion and Color Bias in Night Photography Rendering",
+  "authors": [
+    "Furkan Kınlı"
+  ],
+  "author_string": "Furkan Kınlı",
+  "journal": "arXiv:2604.28136v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Night Photography Rendering (NPR) poses a significant challenge due to the extreme contrast between dark and illuminated areas in scenes, stemming from concurrent capture of severely dark regions alongside intense point light sources. Existing methods, which are mainly tailored for fidelity metrics, reveal considerable perceptual gaps and often detract from visual quality. We introduce pHVI-ISPNet, a novel RAW-to-RGB framework built on the robust HVI color space. Our network integrates four distinct key refinements: RAW-domain feature processing and Wavelet-based feature propagation to mitigate high-frequency detail loss; sample-based dynamic loss coefficients to ensure stable learning across varying exposure levels; and loss term based on feature distributions to maintain rigorous color constancy. Evaluations on the dataset introduced in the NTIRE 2025 challenge on NPR confirm our approach achieves competitive fidelity while establishing new state-of-the-art results in both CIE2000 color difference and LPIPS. This validates our perceptually-driven design for high-quality nighttime imaging.",
+  "categories": [
+    "cs.CV"
+  ],
+  "primary_category": "cs.CV",
+  "comment": "6 pages, 3 figures, Accepted to 2026 IEEE International Conference on Image Processing",
+  "published_date": "2026-04-30T17:19:36Z",
+  "updated_date": "2026-04-30T17:19:36Z",
+  "url": "https://arxiv.org/abs/2604.28136v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.28136v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-30T22:15:39.334427",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CV"
+  ]
+}

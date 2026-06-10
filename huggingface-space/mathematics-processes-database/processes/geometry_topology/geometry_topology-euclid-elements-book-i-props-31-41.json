@@ -1,0 +1,39 @@
+{
+  "id": "geometry_topology-euclid-elements-book-i-props-31-41",
+  "name": "Euclid's Elements Book I — Propositions 31–41",
+  "category": "mathematics",
+  "subcategory": "geometry_topology",
+  "subcategory_name": "Geometry & Topology",
+  "description": "Dependency graph for Propositions 31–41 of Euclid's Elements Book I. Parallelograms, triangles, areas. Shows how propositions depend on postulates (P1–P5), common notions (CN1–CN5), and prior propositions.",
+  "mermaid": "graph TD\n    P1[\"Post. 1\\nDraw a straight line from any po...\"]\n    P2[\"Post. 2\\nProduce a finite straight line c...\"]\n    P3[\"Post. 3\\nDescribe a circle with any cente...\"]\n    P4[\"Post. 4\\nAll right angles equal one another\"]\n    P5[\"Post. 5\\nParallel postulate: if interior ...\"]\n    CN1[\"CN 1\\nThings equal to the same thing a...\"]\n    CN2[\"CN 2\\nIf equals are added to equals, t...\"]\n    CN3[\"CN 3\\nIf equals are subtracted from eq...\"]\n    CN4[\"CN 4\\nThings coinciding with one anoth...\"]\n    CN5[\"CN 5\\nThe whole is greater than the part\"]\n    Prop1[\"Prop. I.1\\nEquilateral triangle on given line\"]\n    Prop2[\"Prop. I.2\\nPlace line equal to given at point\"]\n    Prop3[\"Prop. I.3\\nCut off from greater segment equal to less\"]\n    Prop4[\"Prop. I.4\\nSAS congruence\"]\n    Prop5[\"Prop. I.5\\nBase angles of isosceles equal\"]\n    Prop7[\"Prop. I.7\\nUniqueness of triangle from ends\"]\n    Prop8[\"Prop. I.8\\nSSS congruence\"]\n    Prop9[\"Prop. I.9\\nBisect angle\"]\n    Prop10[\"Prop. I.10\\nBisect line\"]\n    Prop11[\"Prop. I.11\\nPerpendicular from point on line\"]\n    Prop13[\"Prop. I.13\\nAngles on line sum to two right\"]\n    Prop15[\"Prop. I.15\\nVertical angles equal\"]\n    Prop16[\"Prop. I.16\\nExterior angle > interior opposite\"]\n    Prop18[\"Prop. I.18\\nAngle opposite greater side greater\"]\n    Prop19[\"Prop. I.19\\nSide opposite greater angle greater\"]\n    Prop20[\"Prop. I.20\\nTriangle inequality\"]\n    Prop22[\"Prop. I.22\\nConstruct triangle from three lines\"]\n    Prop23[\"Prop. I.23\\nConstruct angle equal to given\"]\n    Prop26[\"Prop. I.26\\nAAS congruence\"]\n    Prop27[\"Prop. I.27\\nAlternate angles equal => parallel\"]\n    Prop29[\"Prop. I.29\\nParallel => alternate angles equal\"]\n    Prop31[\"Prop. I.31\\nDraw parallel through point\"]\n    Prop32[\"Prop. I.32\\nExterior angle = sum interior opposite\"]\n    Prop33[\"Prop. I.33\\nJoining ends of equal parallel lines\"]\n    Prop34[\"Prop. I.34\\nParallelogram properties\"]\n    Prop35[\"Prop. I.35\\nParallelograms same base equal\"]\n    Prop36[\"Prop. I.36\\nParallelograms equal bases equal\"]\n    Prop37[\"Prop. I.37\\nTriangles same base equal\"]\n    Prop38[\"Prop. I.38\\nTriangles equal bases equal\"]\n    Prop39[\"Prop. I.39\\nEqual triangles same base same side\"]\n    Prop40[\"Prop. I.40\\nEqual triangles equal bases same side\"]\n    Prop41[\"Prop. I.41\\nParallelogram = 2× triangle\"]\n    P1 --> Prop1\n    P3 --> Prop1\n    Prop1 --> Prop2\n    P1 --> Prop2\n    P2 --> Prop2\n    P3 --> Prop2\n    Prop2 --> Prop3\n    P3 --> Prop3\n    CN4 --> Prop4\n    CN5 --> Prop4\n    Prop3 --> Prop5\n    Prop4 --> Prop5\n    Prop5 --> Prop7\n    Prop7 --> Prop8\n    Prop1 --> Prop9\n    Prop3 --> Prop9\n    Prop8 --> Prop9\n    Prop1 --> Prop10\n    Prop4 --> Prop10\n    Prop9 --> Prop10\n    Prop1 --> Prop11\n    Prop3 --> Prop11\n    Prop8 --> Prop11\n    Prop11 --> Prop13\n    Prop13 --> Prop15\n    Prop3 --> Prop16\n    Prop4 --> Prop16\n    Prop10 --> Prop16\n    Prop15 --> Prop16\n    Prop3 --> Prop18\n    Prop5 --> Prop18\n    Prop16 --> Prop18\n    Prop5 --> Prop19\n    Prop18 --> Prop19\n    Prop3 --> Prop20\n    Prop5 --> Prop20\n    Prop19 --> Prop20\n    Prop3 --> Prop22\n    Prop20 --> Prop22\n    Prop8 --> Prop23\n    Prop22 --> Prop23\n    Prop3 --> Prop26\n    Prop4 --> Prop26\n    Prop16 --> Prop26\n    Prop16 --> Prop27\n    Prop13 --> Prop29\n    Prop15 --> Prop29\n    Prop27 --> Prop29\n    P5 --> Prop29\n    Prop23 --> Prop31\n    Prop27 --> Prop31\n    Prop13 --> Prop32\n    Prop29 --> Prop32\n    Prop31 --> Prop32\n    Prop4 --> Prop33\n    Prop27 --> Prop33\n    Prop29 --> Prop33\n    Prop4 --> Prop34\n    Prop26 --> Prop34\n    Prop29 --> Prop34\n    Prop4 --> Prop35\n    Prop29 --> Prop35\n    Prop34 --> Prop35\n    Prop33 --> Prop36\n    Prop34 --> Prop36\n    Prop35 --> Prop36\n    Prop31 --> Prop37\n    Prop34 --> Prop37\n    Prop35 --> Prop37\n    Prop31 --> Prop38\n    Prop34 --> Prop38\n    Prop36 --> Prop38\n    Prop31 --> Prop39\n    Prop37 --> Prop39\n    Prop31 --> Prop40\n    Prop38 --> Prop40\n    Prop34 --> Prop41\n    Prop37 --> Prop41\n    classDef postulate fill:#ff6b6b,color:#fff,stroke:#c0392b\n    classDef commonNotion fill:#ffd43b,color:#000,stroke:#f59f00\n    classDef proposition fill:#51cf66,color:#fff,stroke:#40c057\n    class P1,P2,P3,P4,P5 postulate\n    class CN1,CN2,CN3,CN4,CN5 commonNotion\n    class Prop1,Prop2,Prop3,Prop4,Prop5,Prop7,Prop8,Prop9,Prop10,Prop11,Prop13,Prop15,Prop16,Prop18,Prop19,Prop20,Prop22,Prop23,Prop26,Prop27,Prop29,Prop31,Prop32,Prop33,Prop34,Prop35,Prop36,Prop37,Prop38,Prop39,Prop40,Prop41 proposition",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "algorithm"
+}

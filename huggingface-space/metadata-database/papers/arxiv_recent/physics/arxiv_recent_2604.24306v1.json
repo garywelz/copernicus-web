@@ -1,0 +1,37 @@
+{
+  "id": "arxiv_2604.24306v1",
+  "arxiv_id": "2604.24306v1",
+  "title": "SolarTformer: A Transformer Based Deep Learning Approach for Short Term Solar Power Forecasting",
+  "authors": [
+    "Ankan Basu",
+    "Jyotiraditya Roy",
+    "Aditya Datta",
+    "Prayas Sanyal",
+    "Sumanta Banerjee"
+  ],
+  "author_string": "Ankan Basu, Jyotiraditya Roy, Aditya Datta, Prayas Sanyal, Sumanta Banerjee",
+  "journal": "arXiv:2604.24306v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Accurate forecasting of solar power output is essential for efficient integration of renewable energy into the grid. In this study, an attention-based deep learning model, inspired by transformer architecture, is used for short-term solar power forecasting. Our proposed model, \"SolarTformer\", is designed to predict solar power output from meteorological data. Unlike traditional models, SolarTformer leverages self-attention mechanisms to effectively capture temporal dependencies and spatial variability in solar irradiance. In addition, the proposed methodology includes feeding power station-specific metadata into the model, which helps to generalize between power stations located at different locations and with different panel configurations and in different seasons. Our experiments demonstrate that SolarTformer significantly outperforms previous models on the same data set. In particular, the model exhibits strong performance on both clear and cloudy days, indicating high robustness and generalizability. These findings highlight the potential of attention-based architectures in enhancing the accuracy of solar forecasting, contributing to a more reliable management of renewable energy.",
+  "categories": [
+    "cs.LG",
+    "cs.AI",
+    "physics.comp-ph"
+  ],
+  "primary_category": "physics.comp-ph",
+  "comment": "14 pages, 5 figures",
+  "published_date": "2026-04-27T10:56:16Z",
+  "updated_date": "2026-04-27T10:56:16Z",
+  "url": "https://arxiv.org/abs/2604.24306v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.24306v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-27T22:15:26.519942",
+  "category": "physics",
+  "subcategories": [
+    "cs.LG",
+    "cs.AI",
+    "physics.comp-ph"
+  ]
+}

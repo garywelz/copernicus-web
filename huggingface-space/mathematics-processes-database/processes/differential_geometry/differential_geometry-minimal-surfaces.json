@@ -1,0 +1,39 @@
+{
+  "id": "differential_geometry-minimal-surfaces",
+  "name": "Minimal Surfaces",
+  "category": "mathematics",
+  "subcategory": "differential_geometry",
+  "subcategory_name": "Differential Geometry",
+  "description": "Surfaces with zero mean curvature H=0. First variation of area. Plateau problem. Classical examples: catenoid, helicoid. Costa surface (finite topology, embedded).",
+  "mermaid": "graph TD\n    D1[\"Def: Mean curvature H\\nH = (κ₁+κ₂)/2\"]\n    D2[\"Def: Minimal surface\\nH ≡ 0\"]\n    D3[\"Def: Weierstrass rep\\nparametrization via holomorphic data\"]\n    D4[\"Def: Finite topology\\nfinite genus, ends\"]\n    T1[\"Thm: First variation\\nδArea = −2∫H N dA\"]\n    T2[\"Thm: Minimal ⇔ conformal\\nharmonic coord\"]\n    T3[\"Thm: Bernstein (1912)\\nplane only minimal graph in ℝ³\"]\n    T4[\"Thm: Plateau problem\\nexists disc spanning curve\"]\n    T5[\"Ex: Catenoid, helicoid\\ncomplete embedded\"]\n    T6[\"Ex: Costa surface (1982)\\nembedded, genus 1, 3 ends\"]\n    D1 --> D2\n    D2 --> T1\n    D2 --> T2\n    T2 --> T3\n    T3 --> T4\n    T4 --> T5\n    T5 --> T6\n    D3 --> T5\n    classDef definition fill:#b197fc,color:#fff\n    classDef theorem fill:#51cf66,color:#fff\n    class D1,D2,D3,D4 definition\n    class T1,T2,T3,T4,T5,T6 theorem",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

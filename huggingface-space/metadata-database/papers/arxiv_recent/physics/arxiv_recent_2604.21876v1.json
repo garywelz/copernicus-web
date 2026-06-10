@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2604.21876v1",
+  "arxiv_id": "2604.21876v1",
+  "title": "Loss-biased fault-tolerant quantum error correction",
+  "authors": [
+    "Laura Pecorari",
+    "Gavin K. Brennen",
+    "Stanimir S. Kondov",
+    "Guido Pupillo"
+  ],
+  "author_string": "Laura Pecorari, Gavin K. Brennen, Stanimir S. Kondov, Guido Pupillo",
+  "journal": "arXiv:2604.21876v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We investigate the limits of quantum error correction (QEC) in neutral-atom processors approaching high-fidelity gates and fast cycle times. We show that shorter QEC cycles amplify platform-specific errors, notably Rydberg excitation hopping, and hinder decay of residual Rydberg population, leading to non-Markovian correlated errors that degrade logical performance. To address this, we introduce loss biasing, where spurious Rydberg excitations are rapidly converted into atom loss via mid-circuit ionization, transforming errors into erasure-like noise and suppressing their propagation. Loss biasing restores the fault-tolerant logical error scaling for intra-cycle Pauli errors; furthermore, we argue that when supported with loss-aware decoding, it can achieve the optimal scaling of erasures while enabling shorter QEC cycles with reduced hardware overhead. We outline an implementation using fast autoionization in alkaline-earth(-like) atoms, establishing loss biasing as a practical route toward fault-tolerant quantum computing with sub-millisecond QEC cycles.",
+  "categories": [
+    "quant-ph"
+  ],
+  "primary_category": "quant-ph",
+  "comment": "6+3 pages, 3+1 figures",
+  "published_date": "2026-04-23T17:21:39Z",
+  "updated_date": "2026-04-23T17:21:39Z",
+  "url": "https://arxiv.org/abs/2604.21876v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.21876v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-27T10:15:32.961919",
+  "category": "physics",
+  "subcategories": [
+    "quant-ph"
+  ]
+}

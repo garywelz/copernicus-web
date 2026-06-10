@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2605.18163v1",
+  "arxiv_id": "2605.18163v1",
+  "title": "TRACE: Trajectory Correction from Cross-layer Evidence for Hallucination Reduction",
+  "authors": [
+    "Tej Sanibh Ranade"
+  ],
+  "author_string": "Tej Sanibh Ranade",
+  "journal": "arXiv:2605.18163v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Hallucination correction is not a one-direction problem. We show that intermediate layers are neither uniformly more truthful than final layers nor uniformly less trustworthy. Yet hallucination reduction is usually instantiated through one fixed intervention form: contrast one layer against another, steer along a truthfulness direction, or defer to external evidence. This framing is structurally incomplete. Cross-layer factual evidence does not evolve uniformly: in some failures truthful support is present internally and later suppressed, whereas in others candidate competition remains genuinely multi-directional across depth, so no single signed scalar family is generally sufficient. We introduce Trajectory Correction from Cross-layer Evidence for Hallucination Reduction (TRACE), a deterministic, training-free algorithm which corrects hallucinations at inference time by deriving both the corrective layer and the appropriate correction operator from each input's cross-layer candidate trajectory inside the LLM's own forward pass. Under one frozen hyperparameter setting, TRACE selects among scalar reversal, earlier-state recovery, and candidate-space correction using only model-internal evidence. Evaluated as a single universal algorithm across 15 models, 8 model families, and 3 factuality benchmarks, TRACE improves every evaluation cell, yielding mean gains of +12.26 MC1 points and +8.65 MC2-style points with no regressions, with gains reaching +47.20 MC1 and +43.38 MC2-style points. The method uses no labels, retrieval, pretraining, finetuning, or per-model calibration.",
+  "categories": [
+    "cs.AI",
+    "cs.CL"
+  ],
+  "primary_category": "cs.CL",
+  "comment": "25 pages, 8 figures, 4 tables",
+  "published_date": "2026-05-18T10:08:09Z",
+  "updated_date": "2026-05-18T10:08:09Z",
+  "url": "https://arxiv.org/abs/2605.18163v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.18163v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-18T22:16:04.720866",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.AI",
+    "cs.CL"
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "id": "number_theory-sieve-of-eratosthenes",
+  "name": "Sieve of Eratosthenes",
+  "category": "mathematics",
+  "subcategory": "number_theory",
+  "subcategory_name": "Number Theory",
+  "description": "Find all primes up to n by iteratively marking multiples. Create a boolean array [2..n] initially true. For each p from 2 to √n: if p is still marked prime, mark all multiples of p (starting at p²) as composite. Remaining true indices are primes. Time O(n log log n).",
+  "mermaid": "graph TD\n    A1[\"Upper limit n\"]\n    B1[\"Create is_prime 2..n\\nall true; p = 2\"]\n    C1[\"Mark multiples of p\\nj = p², j += p\"]\n    D1{\"p² ≤ n?\"}\n    D2{\"is_prime[p]?\"}\n    D3{\"j ≤ n?\"}\n    E1[\"Mark is_prime j false\\nj = j + p\"]\n    E2[\"p = p + 1\"]\n    F1[\"Return primes\\nindices where true\"]\n    A1 --> B1\n    B1 --> D1\n    D1 -->|No| F1\n    D1 -->|Yes| D2\n    D2 -->|No| E2\n    D2 -->|Yes: sequential AND| C1\n    C1 --> D3\n    D3 -->|Yes: sequential AND| E1\n    E1 --> D3\n    D3 -->|No| E2\n    E2 --> D1\n    classDef red fill:#ff6b6b,color:#fff,stroke:#c0392b\n    classDef yellow fill:#ffd43b,color:#000,stroke:#f59f00\n    classDef green fill:#51cf66,color:#fff,stroke:#40c057\n    classDef lightblue fill:#74c0fc,color:#fff,stroke:#4dabf7\n    classDef violet fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef lavender fill:#e6e6fa,color:#333,stroke:#b19cd9\n    class A1 red\n    class B1 yellow\n    class C1 green\n    class E1,E2 lightblue\n    class F1 violet\n    class D1,D2,D3 lavender",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [
+    "sieve of Eratosthenes",
+    "prime numbers",
+    "NIST DADS",
+    "number theory"
+  ],
+  "sources": [
+    {
+      "title": "NIST DADS",
+      "url": "https://www.nist.gov/dads/HTML/sieveOfEratosthenes.html"
+    },
+    {
+      "title": "Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes"
+    }
+  ],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "complexity": {
+    "level": "medium",
+    "nodes": 10,
+    "edges": 14,
+    "conditionals": 3,
+    "logicGates": {
+      "andGates": 0,
+      "orGates": 0,
+      "total": 0
+    }
+  },
+  "processType": "algorithm"
+}

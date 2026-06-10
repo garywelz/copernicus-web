@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2604.21983v1",
+  "arxiv_id": "2604.21983v1",
+  "title": "Fast, Stable, and Physical: Hyperbolic, Magnetic Field-Aligned Diffusion in SPH",
+  "authors": [
+    "Nicholas Owens",
+    "James Wadsley",
+    "Robert Wissing",
+    "Ben Keller"
+  ],
+  "author_string": "Nicholas Owens, James Wadsley, Robert Wissing, Ben Keller",
+  "journal": "arXiv:2604.21983v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "In this paper, we introduce the first implementation of magnetic field-aligned hyperbolic diffusion for standard smoothed particle (magneto-)hydrodynamics (SPH), and its linear-exact gradient extension (LESPH). Hyperbolic diffusion differs from traditional parabolic methods by incorporating the physical characteristic speed of diffusing particles and is computationally faster. This work extends it to encompass field-aligned diffusion, linear-exact gradients, and linear reconstruction to limit dissipation. Several standard test problems are presented: a diffusing slab, diffusion around a ring, a Gaussian pulse, and the magneto-thermal instability (MTI). The MTI only grows for for LESPH with reconstruction, and not for SPH. Both LESPH and SPH remain stable while fully aligning diffusion to magnetic fields. LESPH is more accurate and converges faster in the L1 error norm. SPH and LESPH both see improvements when using when also using linear reconstruction. These methods apply to other diffusive transport such as cosmic rays, viscosity, or magnetic resistivity.",
+  "categories": [
+    "astro-ph.IM"
+  ],
+  "primary_category": "astro-ph.IM",
+  "comment": "9 pages, 8 figures",
+  "published_date": "2026-04-23T18:03:13Z",
+  "updated_date": "2026-04-23T18:03:13Z",
+  "url": "https://arxiv.org/abs/2604.21983v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.21983v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-27T10:15:32.959270",
+  "category": "physics",
+  "subcategories": [
+    "astro-ph.IM"
+  ]
+}

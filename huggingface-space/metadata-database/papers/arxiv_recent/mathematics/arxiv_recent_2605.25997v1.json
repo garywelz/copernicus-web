@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2605.25997v1",
+  "arxiv_id": "2605.25997v1",
+  "title": "Deployment-complete benchmarking",
+  "authors": [
+    "El Mustapha Mansouri",
+    "Keigo Arai"
+  ],
+  "author_string": "El Mustapha Mansouri, Keigo Arai",
+  "journal": "arXiv:2605.25997v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Benchmarks increasingly guide deployment, procurement and scientific screening, yet a score supports only the response it records, not necessarily the deployment action. We introduce deployment-complete benchmarking, which tests whether benchmark evidence determines a deployment action. A benchmark is complete for a claim exactly when the action is constant on each evidence fiber; mixed fibers expose missing deployment information, and completion curves quantify the evidence required to resolve ambiguity. In controlled response spaces, benchmark-channel conformal coverage of 94.98% transferred poorly to an unmeasured deployment channel (10.07%), whereas response-rank intervals achieved 94.91% coverage; even zero benchmark error certified only 45.4% of candidates at the largest residual size. Public audits revealed incompleteness, including 97.9% mixed Tox21 fibers and zero median certifiable fraction in main Matbench and JARVIS audits. In held-out replays, certify-then-acquire reduced false decisions from 1.19% to 0.027% in Tox21 and from 20.3% to 0.128% in JARVIS, while changing model choice and identifying deployment-relevant probes. Deployment-ready benchmarks should report evidence, supported actions, ambiguity and completion cost rather than scores alone.",
+  "categories": [
+    "cs.LG",
+    "stat.ML"
+  ],
+  "primary_category": "stat.ML",
+  "comment": "33 pages, 5 figures, 1 table; supplementary tables and code available",
+  "published_date": "2026-05-25T16:15:22Z",
+  "updated_date": "2026-05-25T16:15:22Z",
+  "url": "https://arxiv.org/abs/2605.25997v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.25997v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-26T10:15:43.031513",
+  "category": "mathematics",
+  "subcategories": [
+    "cs.LG",
+    "stat.ML"
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2604.22022v1",
+  "arxiv_id": "2604.22022v1",
+  "title": "Entanglement and information scrambling in long-range measurement-only circuits",
+  "authors": [
+    "Abigail McClain Gomez",
+    "Fiona Abney-McPeek",
+    "Hong-Ye Hu",
+    "Susanne F. Yelin",
+    "Ceren B. Dağ"
+  ],
+  "author_string": "Abigail McClain Gomez, Fiona Abney-McPeek, Hong-Ye Hu, Susanne F. Yelin, Ceren B. Dağ",
+  "journal": "arXiv:2604.22022v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Measurement-only circuits provide a minimal setting in which repeated local projections can either generate or suppress many-body entanglement, giving rise to measurement-induced phase transitions and dynamical regimes, that might have no unitary counterpart. Here we investigate entanglement and information transitions in one-dimensional measurement-only Clifford circuits with long-range two-qubit parity checks. By tuning both the measurement range and density per layer, we uncover a broad set of phases whose classification requires probes beyond entanglement entropy, such as mutual information, tripartite mutual information, purification from an ancilla, and Bell-cluster statistics. We map phase diagrams using large-scale Clifford simulations for two protocols: a random-basis design in which each measurement is randomly chosen from $\\lbrace XX,YY,ZZ \\rbrace$, and a single-basis design in which the basis is fixed within each layer but varies between layers, hence introducing more structure to the circuit.   We map the trajectory-averaged entanglement entropy to a two-dimensional statistical mechanics model by extending a replica-based method to random-basis measurement-only circuits, and show that a continuous-time limit yields an effective long-range XX hamiltonian in the steady state. This connection links the observed volume-law to sub-volume-law entanglement transition to the boundary between a continuous symmetry broken phase and a critical XY phase. Strikingly, in structured (single-basis) circuits we find a phase in which volume-law and long-range entanglement coexists with rapid, size-independent purification of an ancilla qubit, and the absence of scrambling, highlighting measurement-only circuits as a promising route to efficiently preparing highly entangled and technologically useful quantum states.",
+  "categories": [
+    "quant-ph",
+    "cond-mat.stat-mech"
+  ],
+  "primary_category": "cond-mat.stat-mech",
+  "comment": "24 pages with appendices, 11 main text figures",
+  "published_date": "2026-04-23T19:29:27Z",
+  "updated_date": "2026-04-23T19:29:27Z",
+  "url": "https://arxiv.org/abs/2604.22022v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.22022v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-27T10:15:32.953172",
+  "category": "physics",
+  "subcategories": [
+    "quant-ph",
+    "cond-mat.stat-mech"
+  ]
+}

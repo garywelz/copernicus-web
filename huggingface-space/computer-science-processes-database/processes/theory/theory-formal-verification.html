@@ -167,6 +167,33 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
@@ -176,7 +203,7 @@
             <div class="header-meta">
                 <span class="meta-item">Computer Science</span>
                 <span class="meta-item">Theoretical Computer Science</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,46 +234,63 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Formal Verification process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>Formal verification mathematically proves a system meets its specification: a formal model and a property (often in temporal logic) are built, and either model checking explores the state space or theorem proving derives a proof; a failed check yields a counterexample that refines the model until the property is guaranteed.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-N1["Specification"]
-N2["Properties"]
-N3["Formal Model"]
-N4["Choose Approach"]
-N5["Proof Artifacts"]
-N6["Model Check/Prove"]
-N7["Counterexamples"]
-N8["Verified Properties"]
-N9["Integrate Results"]
+    N1["System + specification"]
+    N2["Build formal model"]
+    N3["Express property"]
+    N4{"Choose technique"}
+    N5["Model checking"]
+    N6["Theorem proving"]
+    N7["Explore state space"]
+    N8{"Property holds?"}
+    N9["Produce counterexample"]
+    N10["Refine model/spec"]
+    N11["Proof / guarantee"]
+    N12["Verified system"]
 
-N1 --> N2
-N2 --> N3
-N3 --> N4
-N4 --> N5
-N4 --> N7
-N5 --> N6
-N7 --> N8
-N6 --> N9
-N8 --> N9
-N9 --> N6
+    N1 --> N2
+    N2 --> N3
+    N3 --> N4
+    N4 -->|model check| N5
+    N4 -->|prove| N6
+    N5 --> N7
+    N6 --> N7
+    N7 --> N8
+    N8 -->|no| N9
+    N9 --> N10
+    N10 -->|refine| N2
+    N8 -->|yes| N11
+    N11 --> N12
 
     style N1 fill:#ff6b6b,color:#fff
-    style N2 fill:#ff6b6b,color:#fff
-    style N3 fill:#ffd43b,color:#000
-    style N4 fill:#ffd43b,color:#000
-    style N5 fill:#ffd43b,color:#000
+    style N2 fill:#51cf66,color:#fff
+    style N3 fill:#51cf66,color:#fff
+    style N4 fill:#74c0fc,color:#fff
+    style N5 fill:#51cf66,color:#fff
     style N6 fill:#51cf66,color:#fff
-    style N7 fill:#74c0fc,color:#fff
-    style N8 fill:#b197fc,color:#fff
-    style N9 fill:#74c0fc,color:#fff
+    style N7 fill:#51cf66,color:#fff
+    style N8 fill:#74c0fc,color:#fff
+    style N9 fill:#51cf66,color:#fff
+    style N10 fill:#51cf66,color:#fff
+    style N11 fill:#74c0fc,color:#fff
+    style N12 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">System + specification</td><td>Triggers & Inputs</td><td><a href="https://doi.org/10.1145/1592761.1592781" target="_blank" title="Model checking: algorithmic verification and debugging" style="color:#9b59b6;">Clarke, E. M. et al. 2009</a></td></tr><tr><td style="font-weight:600;">Build formal model</td><td>Processing & Operations</td><td><a href="https://mitpress.mit.edu/9780262026499/principles-of-model-checking/" target="_blank" title="Principles of Model Checking" style="color:#9b59b6;">Baier, C. et al. 2008</a></td></tr><tr><td style="font-weight:600;">Express property</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1145/1592761.1592781" target="_blank" title="Model checking: algorithmic verification and debugging" style="color:#9b59b6;">Clarke, E. M. et al. 2009</a></td></tr><tr><td style="font-weight:600;">Choose technique</td><td>Intermediates & States</td><td><a href="https://mitpress.mit.edu/9780262026499/principles-of-model-checking/" target="_blank" title="Principles of Model Checking" style="color:#9b59b6;">Baier, C. et al. 2008</a></td></tr><tr><td style="font-weight:600;">Model checking</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1145/1592761.1592781" target="_blank" title="Model checking: algorithmic verification and debugging" style="color:#9b59b6;">Clarke, E. M. et al. 2009</a></td></tr><tr><td style="font-weight:600;">Theorem proving</td><td>Processing & Operations</td><td><a href="https://mitpress.mit.edu/9780262026499/principles-of-model-checking/" target="_blank" title="Principles of Model Checking" style="color:#9b59b6;">Baier, C. et al. 2008</a></td></tr><tr><td style="font-weight:600;">Explore state space</td><td>Processing & Operations</td><td><a href="https://mitpress.mit.edu/9780262026499/principles-of-model-checking/" target="_blank" title="Principles of Model Checking" style="color:#9b59b6;">Baier, C. et al. 2008</a></td></tr><tr><td style="font-weight:600;">Property holds?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1145/1592761.1592781" target="_blank" title="Model checking: algorithmic verification and debugging" style="color:#9b59b6;">Clarke, E. M. et al. 2009</a></td></tr><tr><td style="font-weight:600;">Produce counterexample</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1145/1592761.1592781" target="_blank" title="Model checking: algorithmic verification and debugging" style="color:#9b59b6;">Clarke, E. M. et al. 2009</a></td></tr><tr><td style="font-weight:600;">Refine model/spec</td><td>Processing & Operations</td><td><a href="https://mitpress.mit.edu/9780262026499/principles-of-model-checking/" target="_blank" title="Principles of Model Checking" style="color:#9b59b6;">Baier, C. et al. 2008</a></td></tr><tr><td style="font-weight:600;">Proof / guarantee</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1145/1592761.1592781" target="_blank" title="Model checking: algorithmic verification and debugging" style="color:#9b59b6;">Clarke, E. M. et al. 2009</a></td></tr><tr><td style="font-weight:600;">Verified system</td><td>Products & Outputs</td><td><a href="https://doi.org/10.1145/1592761.1592781" target="_blank" title="Model checking: algorithmic verification and debugging" style="color:#9b59b6;">Clarke, E. M. et al. 2009</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -292,12 +336,12 @@ N9 --> N6
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 9</li>
-                        <li><strong>Edges:</strong> 10</li>
-                        <li><strong>Conditionals:</strong> 0</li>
+                        <li><strong>Nodes:</strong> 12</li>
+                        <li><strong>Edges:</strong> 13</li>
+                        <li><strong>Conditionals:</strong> 2</li>
                         <li><strong>AND Gates:</strong> 2</li>
-                        <li><strong>OR Gates:</strong> 1</li>
-                        <li><strong>Total Gates:</strong> 3</li>
+                        <li><strong>OR Gates:</strong> 2</li>
+                        <li><strong>Total Gates:</strong> 4</li>
                     </ul>
                 </div>
                 
@@ -305,7 +349,7 @@ N9 --> N6
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>formal</li><li>verification</li>
+                        <li>formal verification</li><li>model checking</li><li>theorem proving</li><li>temporal logic</li><li>counterexample</li>
                     </ul>
                 </div>
                 
@@ -316,43 +360,23 @@ N9 --> N6
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Model checking: algorithmic verification and debugging</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Clarke, E. M.; Emerson, E. A.; Sifakis, J.
+                            , Communications of the ACM
+                             (2009)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #9b59b6; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Formal Methods</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Garoche, Pierre-Loïc
-                            , Formal Verification of Control System Software
-                             (2019)
-                            </span>
-                            <br><a href="https://doi.org/10.23943/princeton/9780691181301.003.0002" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.23943/princeton/9780691181301.003.0002</a>
+                            <br><a href="https://doi.org/10.1145/1592761.1592781" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.1145/1592761.1592781</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Formal Methods:</strong>
-                            
-                            , Formal Verification of Control System Software
-                             (2019)
+                            <strong>Principles of Model Checking</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Baier, C.; Katoen, J.-P.
+                            , MIT Press
+                             (2008)
                             </span>
-                            <br><a href="https://doi.org/10.2307/j.ctv80cd4v.4" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.2307/j.ctv80cd4v.4</a>
                             
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>A Roadmap for Formal Property Verification</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">DasGupta, Pallab
-                            , A Roadmap for Formal Property Verification
-                             (None)
-                            </span>
-                            <br><a href="https://doi.org/10.1007/978-1-4020-4758-9_8" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.1007/978-1-4020-4758-9_8</a>
-                            
+                            <br><a href="https://mitpress.mit.edu/9780262026499/principles-of-model-checking/" target="_blank" style="color: #9b59b6; font-size: 0.85em;">View Source</a>
                         </li>
                         
                     </ul>

@@ -1,0 +1,39 @@
+{
+  "id": "complex_analysis-singularities-laurent",
+  "name": "Singularities & Laurent Series",
+  "category": "mathematics",
+  "subcategory": "complex_analysis",
+  "subcategory_name": "Complex Analysis",
+  "description": "Classification: removable, pole, essential. Laurent expansion in annulus. Residue = c₋₁. Meromorphic = holomorphic except poles.",
+  "mermaid": "graph TD\n    D1[\"Def: Isolated sing\\nf holomorphic on\\npunctured D(z₀,r)\"]\n    D2[\"Def: Laurent series\\nf = Σ cₙ(z−z₀)ⁿ\\nn ∈ ℤ\"]\n    D3[\"Def: Removable\\nlim f exists finite\"]\n    D4[\"Def: Pole\\nfinitely many neg\\nLaurent coeffs\"]\n    D5[\"Def: Essential\\ninfinitely many neg\\nLaurent coeffs\"]\n    T1[\"Thm: Laurent expansion\\nunique in annulus\"]\n    T2[\"Thm: Riemann removable\\nbounded ⇒ extendable\"]\n    T3[\"Thm: Pole order m\\n⇔ (z−z₀)ᵐf bounded\"]\n    T4[\"Thm: Residue = c₋₁\"]\n    T5[\"Thm: Meromorphic\\n= ratio of holomorphic\"]\n    L1[\"Lemma: Casorati–Weierstrass\"]\n    D1 --> D2\n    D1 --> D3\n    D1 --> D4\n    D1 --> D5\n    D2 --> T1\n    D2 --> T4\n    D3 --> T2\n    D4 --> T3\n    D5 --> L1\n    T1 --> T2\n    T1 --> T3\n    classDef definition fill:#b197fc,color:#fff\n    classDef theorem fill:#51cf66,color:#fff\n    classDef lemma fill:#74c0fc,color:#fff\n    class D1,D2,D3,D4,D5 definition\n    class T1,T2,T3,T4,T5 theorem\n    class L1 lemma",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

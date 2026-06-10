@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2604.28142v1",
+  "arxiv_id": "2604.28142v1",
+  "title": "Efficient Multivector Retrieval with Token-Aware Clustering and Hierarchical Indexing",
+  "authors": [
+    "Silvio Martinico",
+    "Franco Maria Nardini",
+    "Cosimo Rulli",
+    "Rossano Venturini"
+  ],
+  "author_string": "Silvio Martinico, Franco Maria Nardini, Cosimo Rulli, Rossano Venturini",
+  "journal": "arXiv:2604.28142v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Multivector retrieval models achieve state-of-the-art effectiveness through fine-grained token-level representations, but their deployment incurs substantial computational and memory costs. Current solutions, based on the well-known k-means clustering algorithm, group similar vectors together to enable both effective compression and efficient retrieval. However, standard k-means scales poorly with the number of clusters and dataset size, and favours frequent tokens during training while underrepresenting rare, discriminative ones. In this work, we introduce TACHIOM, a multivector retrieval system that exploits token-level structure to significantly accelerate both clustering and retrieval. By accounting for tokens' distribution during centroid allocation, TACHIOM easily scales to millions of centroids, enabling highly accurate document scoring using only centroids, avoiding expensive token-level computation. TACHIOM combines a graph-based index over centroids with an optimized Product Quantization layout for efficient final scoring. Experiments on MS-MARCOv1 and LoTTE show that TACHIOM achieves up to $247\\times$ faster clustering than k-means and up to $9.8\\times$ retrieval speedup over state-of-the-art systems while maintaining comparable or superior effectiveness.",
+  "categories": [
+    "cs.IR",
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": "6 pages, 2 figures, SIGIR 2026",
+  "published_date": "2026-04-30T17:30:15Z",
+  "updated_date": "2026-04-30T17:30:15Z",
+  "url": "https://arxiv.org/abs/2604.28142v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.28142v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-30T22:15:39.334270",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.IR",
+    "cs.LG"
+  ]
+}

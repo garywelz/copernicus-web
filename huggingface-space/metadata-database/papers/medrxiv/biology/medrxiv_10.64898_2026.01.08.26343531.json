@@ -1,0 +1,51 @@
+{
+  "id": "medrxiv_10.64898_2026.01.08.26343531",
+  "doi": "10.64898/2026.01.08.26343531",
+  "title": "Using local and statewide Electronic Health Record data to evaluate the impact of telemedicine in Virginia",
+  "authors": [
+    "Sengupta, S.",
+    "Loomba, J. J.",
+    "Zhou, A.",
+    "Holtzclaw, R. W.",
+    "Gravitt, J. A.",
+    "Chang, M.-U. M.",
+    "Eassa, J.",
+    "Driscoll, D. L.",
+    "O'Donnell, H.",
+    "Chattopadhyay, S.",
+    "Rheuban, K. S.",
+    "Brown, D. E."
+  ],
+  "author_string": "Sengupta, S., Loomba, J. J., Zhou, A., Holtzclaw, R. W., Gravitt, J. A. et al.",
+  "journal": "medRxiv",
+  "journal_full": "medRxiv",
+  "year": "2026",
+  "abstract": "ObjectiveTo analyze the impact of telemedicine on emergency department (ED) utilization among University of Virginia (UVA) Health System patients, examining which patient characteristics predict reduced ED usage and whether telemedicine reduces ED utilization.\n\nMaterials and MethodsWe used UVA Electronic Health Records and public datasets to establish clinical and contextual features including demographics, comorbidities, insurance status, and community characteristics. UVA patient data were linked to Virginia Health Information (VHI) data at the individual level, ensuring our utilization measure included ED encounters across all Virginia health systems. We evaluated: (1) patient characteristics associated with reduced ED usage following the first telemedicine encounter using an XGBoost model and (2) associations between telemedicine and ED usage using fixed effects modeling.\n\nResultsYounger, healthier patients with high prior ED usage experienced the greatest reduction in ED visits following their first telemedicine visit. Telemedicine was significantly associated with reduced ED utilization across all observation windows (3, 6, and 12 months), with effects attenuating over longer windows.\n\nDiscussionData pipelines and models were designed to support rapid iteration on varying feature sets and sub-populations and to enable longitudinal model retraining and evaluation. These findings suggest telemedicine reduces ED utilization with significant reductions observed in specific sub-populations in our cohort.\n\nConclusionTelemedicine engagement is associated with meaningful reductions in ED utilization, particularly among younger, healthier high-utilizer patients. Data science tools can help providers and policymakers optimize telemedicine delivery to benefit patients while reducing health system burden.",
+  "keywords": [],
+  "categories": [
+    "health informatics"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.64898/2026.01.08.26343531",
+  "source": "medrxiv",
+  "sources": [
+    "medrxiv"
+  ],
+  "acquired_date": "2026-05-09T22:15:26.084225",
+  "category": "biology",
+  "subcategories": [
+    "health informatics"
+  ],
+  "published_date": "2026-01-09",
+  "updated_date": "2026-01-09",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "medrxiv",
+  "preprint_version": "1",
+  "preprint_type": "PUBLISHAHEADOFPRINT",
+  "license": "cc_by",
+  "jatsxml": "https://www.medrxiv.org/content/early/2026/01/09//2026.01.08.26343531.source.xml",
+  "published_doi": null,
+  "author_corresponding": "Saurav Sengupta",
+  "author_corresponding_institution": "School of Data Science, University of Virginia"
+}

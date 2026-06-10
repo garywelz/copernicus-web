@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2605.14215v1",
+  "arxiv_id": "2605.14215v1",
+  "title": "GenCircuit-RL: Reinforcement Learning from Hierarchical Verification for Genetic Circuit Design",
+  "authors": [
+    "Noah Flynn"
+  ],
+  "author_string": "Noah Flynn",
+  "journal": "arXiv:2605.14215v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Genetic circuit design remains a laborious, expert-driven process despite decades of progress in synthetic biology. We study this problem through code generation: models produce Python code in pysbol3 to construct genetic circuits in the Synthetic Biology Open Language (SBOL), a formal representation that supports automated verification. We introduce GenCircuit-RL, a reinforcement learning framework built around hierarchical verification rewards that decompose correctness into five levels, from code execution to task-specific topological checks, and a four-stage curriculum that shifts optimization pressure from code generation to functional reasoning. We also introduce SynBio-Reason, a benchmark of 4,753 circuits spanning six canonical circuit types and nine tasks from code repair to de novo design, with held-out biological parts for out-of-distribution evaluation. Hierarchical verification improves task success on functional reasoning tasks by 14 to 16 percentage points over binary rewards, and curriculum learning is required for strong design performance. The resulting models generate topologically correct circuits, generalize to novel biological parts, and rediscover canonical designs from the synthetic biology literature.",
+  "categories": [
+    "cs.AI",
+    "cs.LG",
+    "q-bio.QM"
+  ],
+  "primary_category": "q-bio.QM",
+  "comment": "Link: https://icml.cc/virtual/2026/poster/61789",
+  "published_date": "2026-05-14T00:18:09Z",
+  "updated_date": "2026-05-14T00:18:09Z",
+  "url": "https://arxiv.org/abs/2605.14215v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.14215v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-20T22:16:04.375404",
+  "category": "biology",
+  "subcategories": [
+    "cs.AI",
+    "cs.LG",
+    "q-bio.QM"
+  ]
+}

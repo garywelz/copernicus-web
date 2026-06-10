@@ -1,0 +1,39 @@
+{
+  "id": "arxiv_2604.26943v1",
+  "arxiv_id": "2604.26943v1",
+  "title": "ProcFunc: Function-Oriented Abstractions for Procedural 3D Generation in Python",
+  "authors": [
+    "Alexander Raistrick",
+    "Karhan Kayan",
+    "Jack Nugent",
+    "David Yan",
+    "Lingjie Mei",
+    "Meenal Parakh",
+    "Hongyu Wen",
+    "Dylan Li",
+    "Yiming Zuo",
+    "Erich Liang",
+    "Jia Deng"
+  ],
+  "author_string": "Alexander Raistrick, Karhan Kayan, Jack Nugent, David Yan, Lingjie Mei et al.",
+  "journal": "arXiv:2604.26943v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We introduce ProcFunc, a library for Blender-based procedural 3D generation in Python. ProcFunc provides a library of easy-to-use Python functions, which streamline creating, combining, analyzing, and executing procedural generation code. ProcFunc makes it easy to create large-scale diverse training data, by combinatorial compositions of semantic components. VLMs can use ProcFunc to edit procedural material and geometry code and can create new procedural code with significantly fewer coding errors. Finally, as an example use case, we use ProcFunc to develop a new procedural generator of indoor rooms, which includes a collection of new compositional procedural materials. We demonstrate the detail, runtime efficiency, and diversity of this room generator, as well as its use for 3D synthetic data generation. Please visit https://github.com/princeton-vl/procfunc for source code.",
+  "categories": [
+    "cs.CV"
+  ],
+  "primary_category": "cs.CV",
+  "comment": null,
+  "published_date": "2026-04-29T17:52:17Z",
+  "updated_date": "2026-04-29T17:52:17Z",
+  "url": "https://arxiv.org/abs/2604.26943v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.26943v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-30T10:15:42.515943",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CV"
+  ]
+}

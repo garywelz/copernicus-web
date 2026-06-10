@@ -1,0 +1,39 @@
+{
+  "id": "discrete_mathematics-proof-theory-sequents",
+  "name": "Proof Theory — Sequent Calculus",
+  "category": "mathematics",
+  "subcategory": "discrete_mathematics",
+  "subcategory_name": "Discrete Mathematics",
+  "description": "Sequent Γ ⊢ Δ: multiset of formulas. Structural rules: weakening, contraction, exchange. Logical rules: left/right intro for ∧∨→¬∀∃. Cut rule.",
+  "mermaid": "graph TD\n    D1[\"Def: Sequent\\nΓ ⊢ Δ\"]\n    D2[\"Def: Axiom\\nA ⊢ A\"]\n    R1[\"Rule: Weakening\\nΓ⊢Δ ⇒ Γ,A⊢Δ\"]\n    R2[\"Rule: Contraction\\nΓ,A,A⊢Δ ⇒ Γ,A⊢Δ\"]\n    R3[\"Rule: Cut\\nΓ⊢A,Δ Γ',A⊢Δ' ⇒ Γ,Γ'⊢Δ,Δ'\"]\n    R4[\"Rule: Logical\\nL∧ R∧ L∨ R∨ etc\"]\n    T1[\"Thm: Equivalence\\nwith ND, Hilbert\"]\n    D1 --> D2\n    D1 --> R1\n    D1 --> R2\n    D1 --> R3\n    D2 --> R4\n    R4 --> T1\n    classDef definition fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef axiom fill:#ff6b6b,color:#fff,stroke:#c0392b\n    classDef theorem fill:#51cf66,color:#fff,stroke:#40c057\n    class D1,D2 definition\n    class R1,R2,R3,R4 axiom\n    class T1 theorem",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

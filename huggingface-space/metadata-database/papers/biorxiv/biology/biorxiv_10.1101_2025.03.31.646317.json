@@ -1,0 +1,45 @@
+{
+  "id": "biorxiv_10.1101_2025.03.31.646317",
+  "doi": "10.1101/2025.03.31.646317",
+  "title": "Generative Approaches to Kinetic Parameter Inference in Metabolic Networks via Latent Space Exploration",
+  "authors": [
+    "Choudhury, S.",
+    "Toumpe, I.",
+    "Gabouj, O.",
+    "Behler, J. S.",
+    "Hatzimanikatis, V.",
+    "Miskovic, L."
+  ],
+  "author_string": "Choudhury, S., Toumpe, I., Gabouj, O., Behler, J. S., Hatzimanikatis, V. et al.",
+  "journal": "bioRxiv",
+  "journal_full": "bioRxiv",
+  "year": "2026",
+  "abstract": "Generative machine learning methods that utilize neural networks to parameterize large-scale and near-genome-scale kinetic models have yielded significant efficiency gains in model construction, paving the way for high-throughput dynamic metabolism studies in biomedical and biotechnological applications. Nevertheless, challenges remain in interpreting the outputs of generative neural networks and developing strategies to quickly adapt these networks to different organisms and physiological contexts without having to restart the modeling process from scratch. Here, we present a systematic framework for repurposing generative neural networks trained under one physiological context to build large-scale kinetic models tailored to another. We showcase the effectiveness of this framework through three case studies in Escherichia coli: (i) adjusting the speed of the dynamic response of aerobic metabolism, (ii) improving interpretability by identifying key enzymatic steps that limit the dynamic response speed of the metabolic models, and (iii) adapting a trained generator to capture the distinct dynamic behavior of anaerobic metabolism. To assess robustness and generalizability beyond E. coli, we extend our approach to large-scale kinetic models of Saccharomyces cerevisiae, systematically exploring latent-space-driven control of network dynamics across generators at different training stages and across multiple representative regions of the latent input space. Together, these results demonstrate that latent space exploration provides a transferable and computationally efficient strategy for controlling the dynamic behavior in large-scale kinetic models across species and physiological regimes. Given the growing adoption of generative neural networks in biological systems modeling, our approach has the potential to facilitate applications in personalized medicine and accelerate the high-throughput design of cell factories by streamlining model construction across diverse living organisms.",
+  "keywords": [],
+  "categories": [
+    "systems biology"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.1101/2025.03.31.646317",
+  "source": "biorxiv",
+  "sources": [
+    "biorxiv"
+  ],
+  "acquired_date": "2026-05-15T22:15:24.333558",
+  "category": "biology",
+  "subcategories": [
+    "systems biology"
+  ],
+  "published_date": "2026-01-15",
+  "updated_date": "2026-01-15",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "biorxiv",
+  "preprint_version": "3",
+  "preprint_type": "new results",
+  "license": "cc_by_nc_nd",
+  "jatsxml": "https://www.biorxiv.org/content/early/2026/01/15/2025.03.31.646317.source.xml",
+  "published_doi": null,
+  "author_corresponding": "Ljubisa Miskovic",
+  "author_corresponding_institution": "Ecole Polytechnique Federale de Lausanne (EPFL)"
+}

@@ -1,0 +1,48 @@
+{
+  "id": "medrxiv_10.1101_2025.09.04.25334786",
+  "doi": "10.1101/2025.09.04.25334786",
+  "title": "Evaluation of Resolution-Aware Training Strategies for Deep Learning Detection of Calcaneus Fractures on X-Ray",
+  "authors": [
+    "Yee, N. J.",
+    "Taseh, A.",
+    "Ghandour, S.",
+    "Sirls, E.",
+    "Halai, M.",
+    "Whyne, C.",
+    "DiGiovanni, C. W.",
+    "Kwon, J. Y.",
+    "Ashkani-Esfahani, S. J."
+  ],
+  "author_string": "Yee, N. J., Taseh, A., Ghandour, S., Sirls, E., Halai, M. et al.",
+  "journal": "medRxiv",
+  "journal_full": "medRxiv",
+  "year": "2026",
+  "abstract": "PurposeTo evaluate convolutional neural network (CNN) model training strategies that optimize the performance of calcaneus fracture detection on radiographs at different image resolutions.\n\nMaterials and MethodsThis retrospective study included foot radiographs from a single hospital between 2015 and 2022 for a total of 1,775 x-ray series (551 fractures; 1,224 without) and was split into training (70%), validation (15%), and testing (15%). ImageNet pre-trained ResNet models were fine-tuned on the dataset. Three training strategies were evaluated: 1) single size: trained exclusively on 128x128, 256x256, 512x512, 640x640, or 900x900 radiographs (5 model sets); 2) curriculum learning: trained exclusively on 128x128 radiographs then exclusively on 256x256, then 512x512, then 640x640, and finally on 900x900 (5 model sets); and 3) multi-scale augmentation: trained on x-ray images resized along continuous dimensions between 128x128 to 900x900 (1 model set). Inference time and training time were compared.\n\nResultsMulti-scale augmentation trained models achieved the highest average area under the Receiver Operating Characteristic curve of 0.938 [95% CI: 0.936 - 0.939] for a single model across image resolutions compared to the other strategies without prolonging training or inference time. Using the optimal model sets, curriculum learning had the highest sensitivity on in-distribution low-resolution images (85.4% to 90.1%) and on out-of-distribution high-resolution images (78.2% to 89.2%). However, curriculum learning models took significantly longer to train (11.8 [IQR: 11.1-16.4] hours; P<.001).\n\nConclusioWhile 512x512 images worked well for fracture identification, curriculum learning and multi-scale augmentation training strategies algorithmically improved model robustness towards different image resolutions without requiring additional annotated data.\n\nSummary statementDifferent deep learning training strategies affect performance in detecting calcaneus fractures on radiographs across in- and out-of-distribution image resolutions, with a multi-scale augmentation strategy conferring the greatest overall performance improvement in a single model.\n\nKey pointsO_LITraining strategies addressing differences in radiograph image resolution (or pixel dimensions) could improve deep learning performance.\nC_LIO_LIThe highest average performance across different image resolutions in a single model was achieved by multi-scale augmentation, where the sampled training dataset is uniformly resized between square resolutions of 128x128 to 900x900.\nC_LIO_LICompared to model training on a single image resolution, sequentially training on increasingly higher resolution images up to 900x900 (i.e., curriculum learning) resulted in higher fracture detection performance on images resolutions between 128x128 and 2048x2048.\nC_LI",
+  "keywords": [],
+  "categories": [
+    "orthopedics"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.1101/2025.09.04.25334786",
+  "source": "medrxiv",
+  "sources": [
+    "medrxiv"
+  ],
+  "acquired_date": "2026-05-06T22:15:24.232130",
+  "category": "biology",
+  "subcategories": [
+    "orthopedics"
+  ],
+  "published_date": "2026-01-06",
+  "updated_date": "2026-01-06",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "medrxiv",
+  "preprint_version": "2",
+  "preprint_type": "PUBLISHAHEADOFPRINT",
+  "license": "cc_no",
+  "jatsxml": "https://www.medrxiv.org/content/early/2026/01/06/2025.09.04.25334786.source.xml",
+  "published_doi": null,
+  "author_corresponding": "Nicholas J Yee",
+  "author_corresponding_institution": "Massachusetts General Hospital, Harvard Medical School; University of Toronto"
+}

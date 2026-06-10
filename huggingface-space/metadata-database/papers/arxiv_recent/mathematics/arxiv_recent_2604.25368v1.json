@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2604.25368v1",
+  "arxiv_id": "2604.25368v1",
+  "title": "Self-organized regime switching in null-recurrent dynamics",
+  "authors": [
+    "Johannes Brutsche",
+    "Sebastian Hahn",
+    "Angelika Rohde"
+  ],
+  "author_string": "Johannes Brutsche, Sebastian Hahn, Angelika Rohde",
+  "journal": "arXiv:2604.25368v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Based on discrete observations $X_0,X_Δ,\\dots, X_{nΔ}$ for $Δ=n^{-γ}$ with $γ\\in [0,1)$ of the null-recurrent dynamic $dX_t = σ(X_t)dW_t$ with a Brownian motion $W$ and $σ(x)=α\\mathbb{1}\\{x<ρ\\} + β\\mathbb{1}\\{x\\geq ρ\\}$, we derive rate of convergence and limiting distribution of the profile MLE for $ρ$. This includes low-frequency asymptotics ($γ=0$) for which the observations form a null-recurrent Markov chain. The derived non-standard limit is the argsup over a doubly stochastic drifted Poisson process explicitly involving the local time of oscillating Brownian motion. Its dependence on $ρ$ as well as the unknown volatility levels $α$ and $β$ is shown to be continuous w.r.t. the topology of weak convergence, enabling statistical inference. Whereas this limit is independent of the sampling frequency, the profile MLE's rate of convergence equals $n^{-(1+γ)/2}$ and is proven to be minimax optimal. The surprising idea of the proof of the limit theorem is to relate the long-term behavior of the null-recurrent Markov chain to the infill asymptotics on a fixed time interval. Indeed, in the very special case that $(X_t)_{t\\geq 0}$ is started in the true parameter $X_0=ρ_0$, the process $(X_t-ρ_0)_{t\\geq 0}$ is shown to possess a desirable distributional self-similarity. On basis of the strong Markov property, the artificial constallation of starting in $ρ_0$ is finally overcome by a coupling argument.",
+  "categories": [
+    "math.ST",
+    "math.PR"
+  ],
+  "primary_category": "math.PR",
+  "comment": null,
+  "published_date": "2026-04-28T08:33:49Z",
+  "updated_date": "2026-04-28T08:33:49Z",
+  "url": "https://arxiv.org/abs/2604.25368v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.25368v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-29T10:15:44.739093",
+  "category": "mathematics",
+  "subcategories": [
+    "math.ST",
+    "math.PR"
+  ]
+}

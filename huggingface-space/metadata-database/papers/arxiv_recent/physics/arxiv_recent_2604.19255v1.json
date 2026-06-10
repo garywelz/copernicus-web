@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2604.19255v1",
+  "arxiv_id": "2604.19255v1",
+  "title": "Rapidly oscillating Ap stars observed with TESS. The LAMOST Ap sample and 49 Cam",
+  "authors": [
+    "Inês Rolo",
+    "Daniel L. Holdsworth",
+    "Margarida S. Cunha",
+    "Victoria Antoci",
+    "Donald W. Kurtz",
+    "Rahul Jayaraman",
+    "Ângela R. G. Santos"
+  ],
+  "author_string": "Inês Rolo, Daniel L. Holdsworth, Margarida S. Cunha, Victoria Antoci, Donald W. Kurtz et al.",
+  "journal": "arXiv:2604.19255v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "The rapidly oscillating chemically peculiar A-type (roAp) stars offer valuable insights into the internal physical processes of all stars, but their study is challenged by their rarity. The large-scale TESS surveys have allowed for the collection of data for a sizeable dataset of roAp stars. Nevertheless, asteroseismic data obtained with TESS and Gaia has not been explored to its full potential. We develop an algorithm capable of analysing large quantities of data to search for new roAp stars and increase the current sample. We focus on data products that have not been previously explored for the search of roAp stars, namely the 200-s FFIs and 20-s cadence light curves. 20-s and 200-s cadence light curves of target stars are retrieved from the MAST server and cleaned. DFTs are computed for each light curve which are used to pre-whiten the data to remove any low frequency signals. A final DFT is calculated which is used to classify stars as non-pulsating (NP), delta Scuti or roAp based on the remaining signal. We apply our algorithm to two independent datasets: i) ~2700 Ap stars spectroscopically classified with LAMOST and observed by TESS in the 200-s FFIs and ii) all TESS 20-s cadence light curves available for known or candidate roAp stars. These two samples have no overlap, i.e. none of the LAMOST stars have been observed with 20-s cadence. We identify four new roAp stars: TIC 312111544, TIC 252881095, TIC 46054683, and 49 Cam (TIC 393276640). We find evidence in TESS data that TIC 252881095 may be part of a binary system. If the tentative ~30-d orbital signal is confirmed, TIC 252881095 could be one of the shortest-period roAp binary currently known. Furthermore, the detection of high-frequency pulsations in 49 Cam is particularly relevant, as this well-known roAp candidate star is here confirmed to be roAp based on TESS 20-s cadence data.",
+  "categories": [
+    "astro-ph.SR"
+  ],
+  "primary_category": "astro-ph.SR",
+  "comment": "Recommended for publication in the section \"14. Catalogs and data\" of Astronomy & Astrophysics",
+  "published_date": "2026-04-21T09:18:30Z",
+  "updated_date": "2026-04-21T09:18:30Z",
+  "url": "https://arxiv.org/abs/2604.19255v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.19255v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-23T10:15:44.422690",
+  "category": "physics",
+  "subcategories": [
+    "astro-ph.SR"
+  ]
+}

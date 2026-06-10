@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Phase Transitions - Chemistry Process</title>
+    <title>First-Order Phase Transition (Clapeyron) - Chemistry Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,12 +167,39 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Phase Transitions</h1>
+            <h1>First-Order Phase Transition (Clapeyron)</h1>
             <div class="header-meta">
                 <span class="meta-item">Chemistry</span>
                 <span class="meta-item">Thermodynamics</span>
@@ -207,68 +234,51 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Phase Transitions process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>Two phases reach coexistence when their chemical potentials are equal; the Clapeyron equation then relates the slope of the phase boundary to the entropy and volume changes, and crossing the boundary drives the transition with its latent heat.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-A1[Initial Phase] --> B1[Phase Transition Method]
-C1[Temperature Control] --> D1[Pressure Regulation]
-E1[Energy Input] --> F1[System Monitoring]
-B1 --> G1[Phase Analysis]
-D1 --> H1[Pressure Control]
-F1 --> I1[Temperature Monitoring]
-G1 --> J1[Phase Identification]
-H1 --> K1[Pressure Adjustment]
-I1 --> L1[Heat Transfer]
-J1 --> M1[Phase Boundary]
-K1 --> L1
-L1 --> N1[Energy Absorption]
-M1 --> O1[Molecular Reorganization]
-N1 --> P1[Phase Change Process]
-O1 --> Q1[Transition Kinetics]
-P1 --> R1[New Phase Formation]
-Q1 --> S1[Transition Rate]
-R1 --> T1[Phase Stability]
-S1 --> U1[Kinetic Analysis]
-T1 --> V1[Stability Assessment]
-U1 --> W1[Transition Efficiency]
-V1 --> X1[Phase Characterization]
-W1 --> Y1[Process Optimization]
-X1 --> Z1[Final Phase State]
-Y1 --> Z1
+    N1["Two phases in contact"]
+    N2{"Chemical potentials equal?"}
+    N3["Phase with lower μ grows"]
+    N4["Coexistence: μ1 = μ2"]
+    N5["Clapeyron: dP/dT = ΔS/ΔV"]
+    N6["Latent heat ΔH = TΔS"]
+    N7["Boundary on P–T diagram"]
+    N8["Cross boundary -> transition"]
 
-    style A1 fill:#ff6b6b,color:#fff
-    style C1 fill:#ff6b6b,color:#fff
-    style E1 fill:#ff6b6b,color:#fff
-    style B1 fill:#ffd43b,color:#000
-    style D1 fill:#ffd43b,color:#000
-    style F1 fill:#ffd43b,color:#000
-    style G1 fill:#ffd43b,color:#000
-    style H1 fill:#ffd43b,color:#000
-    style I1 fill:#ffd43b,color:#000
-    style J1 fill:#ffd43b,color:#000
-    style K1 fill:#ffd43b,color:#000
-    style L1 fill:#ffd43b,color:#000
-    style M1 fill:#51cf66,color:#fff
-    style N1 fill:#51cf66,color:#fff
-    style O1 fill:#51cf66,color:#fff
-    style P1 fill:#51cf66,color:#fff
-    style Q1 fill:#51cf66,color:#fff
-    style R1 fill:#51cf66,color:#fff
-    style S1 fill:#51cf66,color:#fff
-    style T1 fill:#51cf66,color:#fff
-    style U1 fill:#51cf66,color:#fff
-    style V1 fill:#51cf66,color:#fff
-    style W1 fill:#51cf66,color:#fff
-    style X1 fill:#51cf66,color:#fff
-    style Y1 fill:#51cf66,color:#fff
-    style Z1 fill:#b197fc,color:#fff
+    N1 --> N2
+    N2 -->|no| N3
+    N3 -->|continue| N2
+    N2 -->|yes| N4
+    N4 --> N5
+    N5 --> N6
+    N6 --> N7
+    N7 --> N8
+    N8 -->|re-evaluate| N2
+
+    style N1 fill:#ff6b6b,color:#fff
+    style N2 fill:#74c0fc,color:#fff
+    style N3 fill:#51cf66,color:#fff
+    style N4 fill:#74c0fc,color:#fff
+    style N5 fill:#51cf66,color:#fff
+    style N6 fill:#51cf66,color:#fff
+    style N7 fill:#b197fc,color:#fff
+    style N8 fill:#51cf66,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Two phases in contact</td><td>Triggers & Inputs</td><td><a href="https://global.oup.com/ukhe/product/atkins-physical-chemistry-9780198769866" target="_blank" title="Physical Chemistry, 11th ed. — Physical Transformations of Pure Substances" style="color:#e74c3c;">Atkins, P. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Chemical potentials equal?</td><td>Intermediates & States</td><td><a href="https://global.oup.com/ukhe/product/atkins-physical-chemistry-9780198769866" target="_blank" title="Physical Chemistry, 11th ed. — Physical Transformations of Pure Substances" style="color:#e74c3c;">Atkins, P. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Phase with lower μ grows</td><td>Processing & Operations</td><td><a href="https://global.oup.com/ukhe/product/atkins-physical-chemistry-9780198769866" target="_blank" title="Physical Chemistry, 11th ed. — Physical Transformations of Pure Substances" style="color:#e74c3c;">Atkins, P. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Coexistence: μ1 = μ2</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1351/goldbook.C01097" target="_blank" title="Gold Book: Clapeyron equation" style="color:#e74c3c;">IUPAC 2019</a></td></tr><tr><td style="font-weight:600;">Clapeyron: dP/dT = ΔS/ΔV</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1351/goldbook.C01097" target="_blank" title="Gold Book: Clapeyron equation" style="color:#e74c3c;">IUPAC 2019</a></td></tr><tr><td style="font-weight:600;">Latent heat ΔH = TΔS</td><td>Processing & Operations</td><td><a href="https://doi.org/10.18434/T4D303" target="_blank" title="NIST Chemistry WebBook — phase-change data" style="color:#e74c3c;">Linstrom, P. J. et al. 2023</a></td></tr><tr><td style="font-weight:600;">Boundary on P–T diagram</td><td>Products & Outputs</td><td><a href="https://global.oup.com/ukhe/product/atkins-physical-chemistry-9780198769866" target="_blank" title="Physical Chemistry, 11th ed. — Physical Transformations of Pure Substances" style="color:#e74c3c;">Atkins, P. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Cross boundary -> transition</td><td>Processing & Operations</td><td><a href="https://global.oup.com/ukhe/product/atkins-physical-chemistry-9780198769866" target="_blank" title="Physical Chemistry, 11th ed. — Physical Transformations of Pure Substances" style="color:#e74c3c;">Atkins, P. et al. 2018</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -314,12 +324,12 @@ Y1 --> Z1
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 26</li>
-                        <li><strong>Edges:</strong> 22</li>
-                        <li><strong>Conditionals:</strong> 0</li>
+                        <li><strong>Nodes:</strong> 8</li>
+                        <li><strong>Edges:</strong> 9</li>
+                        <li><strong>Conditionals:</strong> 1</li>
                         <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 1</li>
+                        <li><strong>OR Gates:</strong> 1</li>
+                        <li><strong>Total Gates:</strong> 2</li>
                     </ul>
                 </div>
                 
@@ -327,7 +337,7 @@ Y1 --> Z1
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>phase</li><li>transitions</li>
+                        <li>phase transition</li><li>clapeyron</li><li>chemical potential</li><li>latent heat</li><li>coexistence</li>
                     </ul>
                 </div>
                 
@@ -338,42 +348,32 @@ Y1 --> Z1
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Physical Chemistry, 11th ed. — Physical Transformations of Pure Substances</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Atkins, P.; de Paula, J.; Keeler, J.
+                            , Oxford University Press
+                             (2018)
                             </span>
                             
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
+                            <br><a href="https://global.oup.com/ukhe/product/atkins-physical-chemistry-9780198769866" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Classical phase transitions</strong>
-                            
-                            , Quantum Phase Transitions
-                             (2011)
+                            <strong>Gold Book: Clapeyron equation</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">IUPAC
+                            , IUPAC Compendium of Chemical Terminology
+                             (2019)
                             </span>
-                            <br><a href="https://doi.org/10.1017/cbo9780511973765.005" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1017/cbo9780511973765.005</a>
-                            
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>A review of: “Structural Phase Transitions I”</strong>
-                            
-                            , Phase Transitions
-                             (1981)
-                            </span>
-                            <br><a href="https://doi.org/10.1080/01411598108241317" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1080/01411598108241317</a>
+                            <br><a href="https://doi.org/10.1351/goldbook.C01097" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1351/goldbook.C01097</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Phase transitions of Dirac fermions</strong>
-                            
-                            , Quantum Phase Transitions
-                             (2011)
+                            <strong>NIST Chemistry WebBook — phase-change data</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Linstrom, P. J.; Mallard, W. G. (eds.)
+                            , NIST Standard Reference Database 69
+                             (2023)
                             </span>
-                            <br><a href="https://doi.org/10.1017/cbo9780511973765.019" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1017/cbo9780511973765.019</a>
+                            <br><a href="https://doi.org/10.18434/T4D303" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.18434/T4D303</a>
                             
                         </li>
                         

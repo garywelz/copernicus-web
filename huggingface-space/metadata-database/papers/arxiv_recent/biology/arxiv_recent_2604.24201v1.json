@@ -1,0 +1,40 @@
+{
+  "id": "arxiv_2604.24201v1",
+  "arxiv_id": "2604.24201v1",
+  "title": "CMGL: Confidence-guided Multi-omics Graph Learning for Cancer Subtype Classification",
+  "authors": [
+    "Boyang Fan",
+    "Hengchuang Yin",
+    "Siyu Yi",
+    "Yifan Wang",
+    "Zhicheng Li",
+    "Leijiyu Zhou",
+    "Jiancheng Lv",
+    "Wei Ju"
+  ],
+  "author_string": "Boyang Fan, Hengchuang Yin, Siyu Yi, Yifan Wang, Zhicheng Li et al.",
+  "journal": "arXiv:2604.24201v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Motivation: Multi-omics integration can improve cancer subtyping, but modality informativeness and noise vary across cancer types and patients. Existing graph-based methods optimize modality weights jointly with the classification objective and therefore lack independent reliability estimates, so low-quality omics distort patient similarity graphs and amplify noise through message passing.   Results: We propose CMGL, a two-stage framework that estimates per-sample modality reliability through evidential deep learning and uses the frozen confidence scores to guide cross-omics fusion and graph construction. On four MLOmics cancer-subtype tasks and the 32-class pan-cancer task, CMGL consistently improves over the strongest baseline, surpassing it by 4.03% in average accuracy on the four single-cancer tasks. Its representations recover the PAM50 intrinsic subtypes of breast invasive carcinoma (BRCA), and the BRCA-trained model transfers without fine-tuning to kidney renal clear cell carcinoma (KIRC), stratifying patients into prognostically distinct groups.",
+  "categories": [
+    "cs.LG",
+    "q-bio.GN",
+    "q-bio.MN"
+  ],
+  "primary_category": "q-bio.MN",
+  "comment": "24 pages, 15 figures, 13 tables, 2 algorithms (main paper + supplementary materials)",
+  "published_date": "2026-04-27T09:02:50Z",
+  "updated_date": "2026-04-27T09:02:50Z",
+  "url": "https://arxiv.org/abs/2604.24201v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.24201v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-05T10:15:43.368625",
+  "category": "biology",
+  "subcategories": [
+    "cs.LG",
+    "q-bio.GN",
+    "q-bio.MN"
+  ]
+}

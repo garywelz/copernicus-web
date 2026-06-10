@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_2605.00737v1",
+  "arxiv_id": "2605.00737v1",
+  "title": "To Call or Not to Call: A Framework to Assess and Optimize LLM Tool Calling",
+  "authors": [
+    "Qinyuan Wu",
+    "Soumi Das",
+    "Mahsa Amani",
+    "Arijit Nag",
+    "Seungeon Lee",
+    "Krishna P. Gummadi",
+    "Abhilasha Ravichander",
+    "Muhammad Bilal Zafar"
+  ],
+  "author_string": "Qinyuan Wu, Soumi Das, Mahsa Amani, Arijit Nag, Seungeon Lee et al.",
+  "journal": "arXiv:2605.00737v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Agentic AI architectures augment LLMs with external tools, unlocking strong capabilities. However, tool use is not always beneficial; some calls may be redundant or even harmful. Effective tool use, therefore, hinges on a core LLM decision: whether to call or not call a tool, when performing a task. This decision is particularly challenging for web search tools, where the benefits of external information depend on the model's internal knowledge and its ability to integrate potentially noisy tool responses. We introduce a principled framework inspired by decision-making theory to evaluate web search tool-use decisions along three key factors: necessity, utility, and affordability. Our analysis combines two complementary lenses: a normative perspective that infers true need and utility from an optimal allocation of tool calls, and a descriptive perspective that infers the model's self-perceived need and utility from their observed behaviors. We find that models' perceived need and utility of tool calls are often misaligned with their true need and utility. Building on this framework, we train lightweight estimators of need and utility based on models' hidden states. Our estimators enable simple controllers that can improve decision quality and lead to stronger task performance than the self-perceived set up across three tasks and six models.",
+  "categories": [
+    "cs.AI"
+  ],
+  "primary_category": "cs.AI",
+  "comment": "Preprint, under review",
+  "published_date": "2026-05-01T15:38:13Z",
+  "updated_date": "2026-05-01T15:38:13Z",
+  "url": "https://arxiv.org/abs/2605.00737v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.00737v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-04T10:15:40.316008",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.AI"
+  ]
+}

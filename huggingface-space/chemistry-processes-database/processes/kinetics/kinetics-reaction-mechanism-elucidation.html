@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reaction Mechanism Elucidation - Chemistry Process</title>
+    <title>Mechanism Elucidation from Probes - Chemistry Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Reaction Mechanism Elucidation</h1>
+            <h1>Mechanism Elucidation from Probes</h1>
             <div class="header-meta">
                 <span class="meta-item">Chemistry</span>
                 <span class="meta-item">Kinetic Processes</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,35 +234,56 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Reaction Mechanism Elucidation process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>Elucidate a mechanism by combining experimental probes - the measured rate law, trapped intermediates, kinetic isotope effects, and stereochemical outcome - proposing a mechanism, testing it against all evidence and computation, and iterating.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-N1["Observed Products/Intermediates"]
-N2["Kinetic Data"]
-N3["Candidate Mechanisms"]
-N4["Design Probing Experiments"]
-N5["Compare Predictions vs Data"]
-N6["Supported Mechanism"]
+    N1["Unknown mechanism"]
+    N2["Measure the rate law"]
+    N3["Trap / detect intermediates"]
+    N4["Kinetic isotope effect"]
+    N5["Stereochemical probe"]
+    N6["Propose mechanism"]
+    N7{"Consistent with all data?"}
+    N8["Gather further evidence"]
+    N9["Computational support (DFT)"]
+    N10["Validated mechanism"]
 
-N1 --> N2
-N2 --> N3
-N3 --> N4
-N4 --> N5
-N5 --> N6
+    N1 --> N2
+    N2 --> N3
+    N3 --> N4
+    N4 --> N5
+    N5 --> N6
+    N6 --> N7
+    N7 -->|no| N8
+    N8 -->|more probes| N3
+    N7 -->|yes| N9
+    N9 --> N10
 
     style N1 fill:#ff6b6b,color:#fff
-    style N2 fill:#ff6b6b,color:#fff
-    style N3 fill:#ffd43b,color:#000
+    style N2 fill:#51cf66,color:#fff
+    style N3 fill:#51cf66,color:#fff
     style N4 fill:#51cf66,color:#fff
     style N5 fill:#51cf66,color:#fff
-    style N6 fill:#b197fc,color:#fff
+    style N6 fill:#51cf66,color:#fff
+    style N7 fill:#74c0fc,color:#fff
+    style N8 fill:#51cf66,color:#fff
+    style N9 fill:#51cf66,color:#fff
+    style N10 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Unknown mechanism</td><td>Triggers & Inputs</td><td><a href="https://search.worldcat.org/title/14905898" target="_blank" title="Chemical Kinetics, 3rd ed. — Determining Mechanisms" style="color:#e74c3c;">Laidler, K. J. 1987</a></td></tr><tr><td style="font-weight:600;">Measure the rate law</td><td>Processing & Operations</td><td><a href="https://search.worldcat.org/title/14905898" target="_blank" title="Chemical Kinetics, 3rd ed. — Determining Mechanisms" style="color:#e74c3c;">Laidler, K. J. 1987</a></td></tr><tr><td style="font-weight:600;">Trap / detect intermediates</td><td>Processing & Operations</td><td><a href="https://uscibooks.aip.org/books/modern-physical-organic-chemistry/" target="_blank" title="Modern Physical Organic Chemistry — Mechanisms and Probes" style="color:#e74c3c;">Anslyn, E. V. et al. 2006</a></td></tr><tr><td style="font-weight:600;">Kinetic isotope effect</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1021/cr60211a004" target="_blank" title="The kinetic isotope effect and its use in studying reaction mechanisms" style="color:#e74c3c;">Westheimer, F. H. 1961</a></td></tr><tr><td style="font-weight:600;">Stereochemical probe</td><td>Processing & Operations</td><td><a href="https://uscibooks.aip.org/books/modern-physical-organic-chemistry/" target="_blank" title="Modern Physical Organic Chemistry — Mechanisms and Probes" style="color:#e74c3c;">Anslyn, E. V. et al. 2006</a></td></tr><tr><td style="font-weight:600;">Propose mechanism</td><td>Processing & Operations</td><td><a href="https://uscibooks.aip.org/books/modern-physical-organic-chemistry/" target="_blank" title="Modern Physical Organic Chemistry — Mechanisms and Probes" style="color:#e74c3c;">Anslyn, E. V. et al. 2006</a></td></tr><tr><td style="font-weight:600;">Consistent with all data?</td><td>Intermediates & States</td><td><a href="https://search.worldcat.org/title/14905898" target="_blank" title="Chemical Kinetics, 3rd ed. — Determining Mechanisms" style="color:#e74c3c;">Laidler, K. J. 1987</a></td></tr><tr><td style="font-weight:600;">Gather further evidence</td><td>Processing & Operations</td><td><a href="https://uscibooks.aip.org/books/modern-physical-organic-chemistry/" target="_blank" title="Modern Physical Organic Chemistry — Mechanisms and Probes" style="color:#e74c3c;">Anslyn, E. V. et al. 2006</a></td></tr><tr><td style="font-weight:600;">Computational support (DFT)</td><td>Processing & Operations</td><td><a href="https://uscibooks.aip.org/books/modern-physical-organic-chemistry/" target="_blank" title="Modern Physical Organic Chemistry — Mechanisms and Probes" style="color:#e74c3c;">Anslyn, E. V. et al. 2006</a></td></tr><tr><td style="font-weight:600;">Validated mechanism</td><td>Products & Outputs</td><td><a href="https://search.worldcat.org/title/14905898" target="_blank" title="Chemical Kinetics, 3rd ed. — Determining Mechanisms" style="color:#e74c3c;">Laidler, K. J. 1987</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -281,12 +329,12 @@ N5 --> N6
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 6</li>
-                        <li><strong>Edges:</strong> 5</li>
-                        <li><strong>Conditionals:</strong> 0</li>
-                        <li><strong>AND Gates:</strong> 0</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 0</li>
+                        <li><strong>Nodes:</strong> 10</li>
+                        <li><strong>Edges:</strong> 10</li>
+                        <li><strong>Conditionals:</strong> 1</li>
+                        <li><strong>AND Gates:</strong> 1</li>
+                        <li><strong>OR Gates:</strong> 1</li>
+                        <li><strong>Total Gates:</strong> 2</li>
                     </ul>
                 </div>
                 
@@ -294,7 +342,7 @@ N5 --> N6
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>reaction</li><li>mechanism</li><li>elucidation</li>
+                        <li>mechanism</li><li>kinetic isotope effect</li><li>intermediate trapping</li><li>stereochemistry</li><li>elucidation</li>
                     </ul>
                 </div>
                 
@@ -305,43 +353,33 @@ N5 --> N6
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Modern Physical Organic Chemistry — Mechanisms and Probes</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Anslyn, E. V.; Dougherty, D. A.
+                            , University Science Books
+                             (2006)
                             </span>
                             
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
+                            <br><a href="https://uscibooks.aip.org/books/modern-physical-organic-chemistry/" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Catalytic Reductive Aminolysis of Reducing Sugars: Elucidation of Reaction Mechanism</strong>
-                            
-                            
-                             (None)
+                            <strong>The kinetic isotope effect and its use in studying reaction mechanisms</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Westheimer, F. H.
+                            , Chemical Reviews
+                             (1961)
                             </span>
-                            <br><a href="https://doi.org/10.1021/acscatal.8b00619.s001" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1021/acscatal.8b00619.s001</a>
-                            
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>JEEChemSage.AI: An Explainable AI Platform for Immersive Organic Reaction Mechanism Elucidation and Education</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Mukku, Charvik Reddy
-                            
-                             (2026)
-                            </span>
-                            <br><a href="https://doi.org/10.21203/rs.3.rs-8572253/v1" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.21203/rs.3.rs-8572253/v1</a>
+                            <br><a href="https://doi.org/10.1021/cr60211a004" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1021/cr60211a004</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Elucidation of the Reaction Mechanism of Cavia porcellus lAsparaginase: A QM/MM Study</strong>
-                            
-                            
-                             (None)
+                            <strong>Chemical Kinetics, 3rd ed. — Determining Mechanisms</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Laidler, K. J.
+                            , Harper & Row
+                             (1987)
                             </span>
-                            <br><a href="https://doi.org/10.1021/acs.jcim.2c01122.s001" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1021/acs.jcim.2c01122.s001</a>
                             
+                            <br><a href="https://search.worldcat.org/title/14905898" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
                         </li>
                         
                     </ul>

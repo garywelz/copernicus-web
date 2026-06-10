@@ -5,540 +5,422 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Physics Processes Database</title>
     <style>
+        :root {
+            --accent: #2563eb;
+            --accent-soft: color-mix(in srgb, var(--accent) 12%, white);
+            --text: #172033;
+            --muted: #5d6678;
+            --border: #d9dee8;
+            --bg: #f6f8fb;
+            --card: #ffffff;
+        }
+        * { box-sizing: border-box; }
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
-            padding: 20px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
+            font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            color: var(--text);
+            background: var(--bg);
         }
-        
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            overflow: hidden;
-        }
-        
-        .header {
-            background: linear-gradient(135deg, #3498db 0%, #3498db 100%);
+        a { color: var(--accent); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        .hero {
+            background: linear-gradient(135deg, var(--accent), #111827);
             color: white;
-            padding: 30px;
-            text-align: center;
+            padding: 42px 24px;
         }
-        
-        .header h1 {
-            margin: 0;
-            font-size: 2.5em;
-            font-weight: 300;
+        .hero-inner, main { max-width: 1280px; margin: 0 auto; }
+        .eyebrow { text-transform: uppercase; letter-spacing: .12em; opacity: .8; font-size: .78rem; }
+        h1 { margin: 8px 0 8px; font-size: clamp(2rem, 4vw, 3.5rem); line-height: 1; }
+        .hero p { margin: 0; max-width: 850px; opacity: .9; font-size: 1.08rem; }
+        main { padding: 24px; }
+        .grid { display: grid; gap: 16px; }
+        .stats { grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); margin-bottom: 18px; }
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            box-shadow: 0 8px 28px rgba(15, 23, 42, .08);
+            padding: 18px;
         }
-        
-        .header p {
-            margin: 10px 0 0 0;
-            opacity: 0.8;
-            font-size: 1.1em;
-        }
-        
-        .stats-grid {
+        .stat-value { font-size: 2rem; font-weight: 800; color: var(--accent); }
+        .stat-label { color: var(--muted); font-size: .92rem; margin-top: 4px; }
+        .toolbar {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            padding: 30px;
-            background: #f8f9fa;
+            grid-template-columns: minmax(220px, 1fr) repeat(4, minmax(140px, 210px));
+            gap: 12px;
+            margin: 18px 0;
         }
-        
-        .stat-card {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-            border-left: 4px solid #3498db;
-        }
-        
-        .stat-number {
-            font-size: 2.5em;
-            font-weight: bold;
-            color: #2c3e50;
-            margin: 0;
-        }
-        
-        .stat-label {
-            color: #7f8c8d;
-            font-size: 0.9em;
-            margin: 5px 0 0 0;
-        }
-        
-        .table-container {
-            padding: 30px;
-            overflow-x: auto;
-        }
-        
-        .table-header {
-            background: #3498db;
-            color: white;
-            padding: 20px;
-            margin: -30px -30px 20px -30px;
-        }
-        
-        .table-header h2 {
-            margin: 0;
-            font-size: 1.8em;
-            font-weight: 300;
-        }
-        
-        table {
+        input, select {
             width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-            font-size: 0.9em;
-        }
-        
-        th, td {
-            padding: 12px 8px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-        
-        th {
-            background: #ecf0f1;
-            font-weight: 600;
-            color: #2c3e50;
-            position: sticky;
-            top: 0;
-            cursor: pointer;
-        }
-        
-        th:hover {
-            background: #d5dbdb;
-        }
-        
-        tr:hover {
-            background: #f8f9fa;
-        }
-        
-        .process-name {
-            font-weight: 600;
-            color: #2c3e50;
-            max-width: 300px;
-        }
-        
-        .process-name a {
-            color: #3498db;
-            text-decoration: none;
-        }
-        
-        .process-name a:hover {
-            text-decoration: underline;
-        }
-        
-        .subcategory {
-            background: #fde8e8;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 0.8em;
-            color: #3498db;
-        }
-        
-        .complexity {
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 0.8em;
-            font-weight: 600;
-        }
-        
-        .complexity.low {
-            background: #d5f4e6;
-            color: #27ae60;
-        }
-        
-        .complexity.medium {
-            background: #fff3cd;
-            color: #856404;
-        }
-        
-        .complexity.detailed, .complexity.high {
-            background: #fadbd8;
-            color: #3498db;
-        }
-        
-        .number {
-            text-align: center;
-            font-weight: 600;
-        }
-        
-        .loading {
-            text-align: center;
-            padding: 50px;
-            color: #7f8c8d;
-        }
-        
-        .error {
-            text-align: center;
-            padding: 50px;
-            color: #3498db;
-        }
-        
-        .refresh-btn {
-            background: #3498db;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 0.9em;
-            margin: 10px;
-        }
-        
-        .refresh-btn:hover {
-            background: #3498db;
-        }
-        
-        .breakdown {
-            padding: 30px;
-            background: #f8f9fa;
-            border-top: 1px solid #ecf0f1;
-        }
-        
-        .breakdown h3 {
-            color: #2c3e50;
-            margin-bottom: 15px;
-        }
-        
-        .breakdown-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-        }
-        
-        .breakdown-card {
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 11px 12px;
+            font: inherit;
             background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
-        
-        .breakdown-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 8px 0;
-            border-bottom: 1px solid #ecf0f1;
-        }
-        
-        .breakdown-item:last-child {
-            border-bottom: none;
-        }
-        
-        .breakdown-label {
-            color: #7f8c8d;
-        }
-        
-        .breakdown-count {
-            font-weight: 600;
-            color: #2c3e50;
-        }
-        
-        .color-legend {
-            padding: 20px;
-            background: #f8f9fa;
-            border-top: 1px solid #ecf0f1;
-        }
-        
-        .color-legend h3 {
-            color: #2c3e50;
-            margin-bottom: 15px;
-        }
-        
-        .color-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-        }
-        
-        .color-item {
-            display: flex;
+        .section-title { display: flex; justify-content: space-between; align-items: end; gap: 16px; margin: 24px 0 12px; }
+        .section-title h2 { margin: 0; }
+        .section-title p { margin: 4px 0 0; color: var(--muted); }
+        .collections { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+        .collection-card { cursor: pointer; border-left: 5px solid var(--accent); }
+        .collection-card.active { outline: 3px solid color-mix(in srgb, var(--accent) 22%, transparent); }
+        .collection-card h3 { margin: 0 0 6px; }
+        .collection-card p { color: var(--muted); margin: 0 0 12px; }
+        .pill {
+            display: inline-flex;
             align-items: center;
-            gap: 10px;
-            padding: 10px;
-            background: white;
-            border-radius: 5px;
+            gap: 6px;
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            padding: 4px 10px;
+            background: var(--accent-soft);
+            font-size: .84rem;
+            color: #243044;
         }
-        
-        .color-box {
-            width: 30px;
-            height: 30px;
-            border-radius: 4px;
-            border: 1px solid #ddd;
+        .lens { grid-template-columns: minmax(260px, 1.2fr) minmax(260px, 2fr); }
+        .insights { grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); }
+        .frontier-links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
+        .frontier-links a {
+            display: inline-block;
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            padding: 8px 12px;
+            background: white;
+        }
+        .table-wrap {
+            overflow: auto;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            background: white;
+        }
+        table { width: 100%; border-collapse: collapse; min-width: 1320px; }
+        th, td { padding: 12px 14px; border-bottom: 1px solid var(--border); text-align: left; vertical-align: top; }
+        th { background: #eef2f7; font-size: .84rem; text-transform: uppercase; letter-spacing: .04em; color: #435066; }
+        tbody tr:hover { background: #f9fbff; }
+        .name-cell { font-weight: 750; min-width: 260px; }
+        .muted { color: var(--muted); }
+        .error { border-left: 5px solid #b91c1c; }
+        .hidden { display: none; }
+        footer { color: var(--muted); padding: 28px 0; font-size: .9rem; }
+        @media (max-width: 900px) {
+            .toolbar, .lens { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>⚛️ Physics Processes Database</h1>
-            <p>Programming Framework - Interactive Database Analysis</p>
-            <button class="refresh-btn" onclick="loadData()">🔄 Refresh Data</button>
+    <header class="hero">
+        <div class="hero-inner">
+            <div class="eyebrow">Programming Framework</div>
+            <h1>Physics Processes</h1>
+            <p>Models, regimes, laws, observables, and physical mechanisms.</p>
         </div>
-        
-        <div id="loading" class="loading">
-            <h3>Loading physics processes database...</h3>
-            <p>Fetching process data from metadata.json</p>
-        </div>
-        
-        <div id="error" class="error" style="display: none;">
-            <h3>❌ Error Loading Data</h3>
-            <p>Could not fetch physics processes metadata. Please check your connection and try again.</p>
-        </div>
-        
-        <div id="content" style="display: none;">
-            <div class="stats-grid" id="statsGrid">
-                <!-- Stats will be populated here -->
-            </div>
-            
-            <div class="table-container">
-                <div class="table-header">
-                    <h2>📊 Process Database Table</h2>
-                    <p style="margin: 10px 0 0 0; opacity: 0.8; font-size: 0.9em;">
-                        💡 Click on any process name to view its interactive flowchart
-                    </p>
+    </header>
+    <main>
+        <div id="error" class="card error hidden"></div>
+        <section class="grid stats" id="stats"></section>
+        <section class="card">
+            <div class="section-title">
+                <div>
+                    <h2 id="lensTitle">Discipline Lens</h2>
+                    <p id="lensDescription"></p>
                 </div>
-                <table id="processTable">
+                <span class="pill" id="lastUpdated">Loading</span>
+            </div>
+            <div class="grid insights" id="insights"></div>
+            <div class="frontier-links" id="frontierLinks"></div>
+        </section>
+        <section>
+            <div class="section-title">
+                <div>
+                    <h2>Collections</h2>
+                    <p>Discipline-specific groupings generated from the current process catalog.</p>
+                </div>
+                <button class="pill" id="clearCollection" type="button">Show all</button>
+            </div>
+            <div class="grid collections" id="collections"></div>
+        </section>
+        <section class="card">
+            <div class="toolbar">
+                <input id="search" type="search" placeholder="Search by process, subcategory, collection, or keyword">
+                <select id="subcategoryFilter"></select>
+                <select id="collectionFilter"></select>
+                <select id="complexityFilter"></select>
+                <select id="graphTypeFilter"></select>
+            </div>
+            <div class="section-title">
+                <div>
+                    <h2>Process Database Table</h2>
+                    <p><span id="visibleCount">0</span> matching processes.</p>
+                </div>
+            </div>
+            <div class="table-wrap">
+                <table>
                     <thead>
                         <tr>
-                            <th onclick="sortTable(0)">Process Name ↕</th>
-                            <th onclick="sortTable(1)">Subcategory ↕</th>
-                            <th onclick="sortTable(2)">Complexity ↕</th>
-                            <th onclick="sortTable(3)">Nodes ↕</th>
-                            <th onclick="sortTable(4)">Edges ↕</th>
-                            <th onclick="sortTable(5)">AND Gates ↕</th>
-                            <th onclick="sortTable(6)">OR Gates ↕</th>
+                            <th>Process</th>
+                            <th id="contextHeader">Context</th>
+                            <th>Category</th>
+                            <th>Complexity</th>
+                            <th>Nodes</th>
+                            <th>Edges</th>
+                            <th>Conditionals</th>
+                            <th>AND Gates</th>
+                            <th>OR Gates</th>
+                            <th>NOT Gates</th>
+                            <th>Loops</th>
+                            <th>Graph Type</th>
+                            <th>Collections</th>
+                            <th>Frontier</th>
                         </tr>
                     </thead>
-                    <tbody id="tableBody">
-                        <!-- Data will be populated here -->
-                    </tbody>
+                    <tbody id="processRows"></tbody>
                 </table>
             </div>
-            
-            <div class="breakdown">
-                <h3>📈 Database Analysis</h3>
-                <div class="breakdown-grid" id="breakdownGrid">
-                    <!-- Breakdown will be populated here -->
-                </div>
-            </div>
-            
-            <div class="color-legend">
-                <h3>🎨 Color Scheme (5-Color System)</h3>
-                <div class="color-grid">
-                    <div class="color-item">
-                        <div class="color-box" style="background: #ff6b6b;"></div>
-                        <div>
-                            <strong>Red</strong><br>
-                            <small>Triggers & Inputs</small>
-                        </div>
-                    </div>
-                    <div class="color-item">
-                        <div class="color-box" style="background: #ffd43b;"></div>
-                        <div>
-                            <strong>Yellow</strong><br>
-                            <small>Structures & Objects</small>
-                        </div>
-                    </div>
-                    <div class="color-item">
-                        <div class="color-box" style="background: #51cf66;"></div>
-                        <div>
-                            <strong>Green</strong><br>
-                            <small>Processing & Operations</small>
-                        </div>
-                    </div>
-                    <div class="color-item">
-                        <div class="color-box" style="background: #74c0fc;"></div>
-                        <div>
-                            <strong>Blue</strong><br>
-                            <small>Intermediates & States</small>
-                        </div>
-                    </div>
-                    <div class="color-item">
-                        <div class="color-box" style="background: #b197fc;"></div>
-                        <div>
-                            <strong>Violet</strong><br>
-                            <small>Products & Outputs</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
+        </section>
+        <footer>
+            Static host: GCS. Data files: same-folder metadata.json, discipline-profile.json, and collections.json.
+        </footer>
+    </main>
     <script>
-        // Determine metadata URL based on where this file is hosted
-        const METADATA_URL = window.location.hostname.includes('storage.googleapis.com') 
-            ? 'https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/physics-processes-database/metadata.json'
-            : (window.location.hostname.includes('huggingface.co'))
-            ? './physics-processes-database/metadata.json'
-            : './metadata.json';
-        let currentSortColumn = -1;
-        let sortDirection = 1;
-        let processes = [];
-        
-        async function loadData() {
-            console.log('🔄 Starting data load from:', METADATA_URL);
-            document.getElementById('loading').style.display = 'block';
-            document.getElementById('error').style.display = 'none';
-            document.getElementById('content').style.display = 'none';
-            
+        const EMBEDDED_PROFILE = {"displayName": "Physics", "slug": "physics", "databaseDir": "physics-processes-database", "tableFile": "physics-database-table.html", "accent": "#2563eb", "subtitle": "Models, regimes, laws, observables, and physical mechanisms.", "lensTitle": "Physics Lens", "lensDescription": "Browse by regime, governing law, observable, idealization level, and scale.", "facetLabels": {"subcategory": "Current Folder", "collection": "Domain", "complexity": "Complexity"}, "insightCards": [{"label": "Best for", "value": "models, regimes, observables"}, {"label": "Research links", "value": "arXiv and NASA ADS searches"}, {"label": "Curation focus", "value": "normalize domain names where folder names drift"}], "frontierSearches": [{"label": "arXiv", "urlTemplate": "https://arxiv.org/search/?query={query}&searchtype=all"}, {"label": "NASA ADS", "urlTemplate": "https://ui.adsabs.harvard.edu/search/q={query}"}, {"label": "Crossref", "urlTemplate": "https://search.crossref.org/?q={query}"}], "contextColumnLabel": "Regime / System", "defaultContext": "Physical system", "supportedGraphTypes": ["flowchart", "taxonomy", "dependency_graph", "state_transition", "timeline"], "metricColumns": [{"id": "nodes", "label": "Nodes"}, {"id": "edges", "label": "Edges"}, {"id": "conditionals", "label": "Conditionals"}, {"id": "andGates", "label": "AND Gates"}, {"id": "orGates", "label": "OR Gates"}, {"id": "notGates", "label": "NOT Gates"}, {"id": "loops", "label": "Loops"}], "graphTypeLabels": {"flowchart": "Flowchart", "dependency_graph": "Dependency Graph", "taxonomy": "Taxonomy", "lineage_tree": "Lineage Tree", "influence_network": "Influence Network", "state_transition": "State Transition", "timeline": "Timeline"}, "featuredMaps": [{"label": "Whole of Physics", "url": "whole-of-physics.html", "description": "Physics is best treated as a regime/theory map over scales, governing laws, observables, and processes."}, {"label": "Physical Universe Map", "url": "physical-universe-map.html", "description": "Conceptual scale-and-theory map of the physical universe."}], "generatedFrom": "scripts/processes/discipline_databases/enhanced_database_table.py", "collectionCount": 7};
+        let metadata = null;
+        let profile = EMBEDDED_PROFILE;
+        let collections = [];
+        let selectedCollection = "";
+
+        function sameFolderUrl(file) {
+            return new URL(file, window.location.href).href;
+        }
+
+        async function fetchJson(file, fallback) {
             try {
-                const cacheBustedUrl = METADATA_URL + (METADATA_URL.includes('?') ? '&' : '?') + 'ts=' + Date.now();
-                const response = await fetch(cacheBustedUrl, { cache: 'no-store' });
-                if (!response.ok) {
-                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-                }
-                
-                const data = await response.json();
-                console.log('✅ Data loaded successfully:', data.totalProcesses, 'processes');
-                
-                processes = data.processes || [];
-                populateData(data);
-                
-                document.getElementById('loading').style.display = 'none';
-                document.getElementById('content').style.display = 'block';
-                
+                const url = sameFolderUrl(file) + "?ts=" + Date.now();
+                const response = await fetch(url, { cache: "no-store" });
+                if (!response.ok) throw new Error("HTTP " + response.status);
+                return await response.json();
             } catch (error) {
-                console.error('❌ Error loading data:', error);
-                document.getElementById('loading').style.display = 'none';
-                document.getElementById('error').style.display = 'block';
-                document.getElementById('error').innerHTML = `
-                    <h3>❌ Error Loading Data</h3>
-                    <p>Could not fetch physics processes metadata.</p>
-                    <p style="font-size: 0.9em; color: #95a5a6; margin-top: 10px;">
-                        Error: ${error.message}
-                    </p>
-                `;
+                if (fallback !== undefined) return fallback;
+                throw error;
             }
         }
-        
-        function populateData(data) {
-            // Populate statistics
-            const stats = data.statistics || {};
-            document.getElementById('statsGrid').innerHTML = `
-                <div class="stat-card">
-                    <div class="stat-number">${data.totalProcesses || 0}</div>
-                    <div class="stat-label">Total Processes</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">${stats.totalNodes || 0}</div>
-                    <div class="stat-label">Total Nodes</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">${stats.totalEdges || 0}</div>
-                    <div class="stat-label">Total Edges</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">${data.subcategories || 0}</div>
-                    <div class="stat-label">Subcategories</div>
-                </div>
-            `;
-            
-            // Populate table
-            const tableBody = document.getElementById('tableBody');
-            tableBody.innerHTML = '';
-            
-            const processList = data.processes || [];
-            processList.forEach(process => {
-                const row = document.createElement('tr');
-                const isGCS = window.location.hostname.includes('storage.googleapis.com');
-                const isHF = window.location.hostname.includes('huggingface.co');
-                const viewerUrl = isGCS 
-                    ? `https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/physics-processes-database/processes/${process.subcategory}/${process.id}.html`
-                    : (isHF)
-                    ? `./physics-processes-database/processes/${process.subcategory}/${process.id}.html`
-                    : `./processes/${process.subcategory}/${process.id}.html`;
-                row.innerHTML = `
-                    <td class="process-name">
-                        <a href="${viewerUrl}" target="_blank">${process.name}</a>
-                    </td>
-                    <td><span class="subcategory">${process.subcategory_name || process.subcategory}</span></td>
-                    <td><span class="complexity ${process.complexity}">${process.complexity}</span></td>
-                    <td class="number">${process.nodes}</td>
-                    <td class="number">${process.edges}</td>
-                    <td class="number">${process.andGates || 0}</td>
-                    <td class="number">${process.orGates || 0}</td>
-                `;
-                tableBody.appendChild(row);
-            });
-            
-            // Populate breakdown
-            const breakdown = {};
-            processList.forEach(p => {
-                const subcat = p.subcategory_name || p.subcategory;
-                breakdown[subcat] = (breakdown[subcat] || 0) + 1;
-            });
-            
-            let breakdownHTML = '<div class="breakdown-card"><h4>Processes by Subcategory</h4>';
-            Object.entries(breakdown).sort((a, b) => b[1] - a[1]).forEach(([subcat, count]) => {
-                breakdownHTML += `
-                    <div class="breakdown-item">
-                        <span class="breakdown-label">${subcat}</span>
-                        <span class="breakdown-count">${count}</span>
-                    </div>
-                `;
-            });
-            breakdownHTML += '</div>';
-            
-            const complexityBreakdown = {};
-            processList.forEach(p => {
-                const comp = p.complexity || 'unknown';
-                complexityBreakdown[comp] = (complexityBreakdown[comp] || 0) + 1;
-            });
-            
-            breakdownHTML += '<div class="breakdown-card"><h4>Processes by Complexity</h4>';
-            Object.entries(complexityBreakdown).sort((a, b) => b[1] - a[1]).forEach(([comp, count]) => {
-                breakdownHTML += `
-                    <div class="breakdown-item">
-                        <span class="breakdown-label">${comp}</span>
-                        <span class="breakdown-count">${count}</span>
-                    </div>
-                `;
-            });
-            breakdownHTML += '</div>';
-            
-            document.getElementById('breakdownGrid').innerHTML = breakdownHTML;
+
+        function getProcessCollections(process) {
+            if (Array.isArray(process.collections)) return process.collections;
+            if (Array.isArray(process.namedCollections)) return process.namedCollections;
+            return [];
         }
-        
-        function sortTable(column) {
-            const table = document.getElementById('processTable');
-            const tbody = table.querySelector('tbody');
-            const rows = Array.from(tbody.querySelectorAll('tr'));
-            
-            if (currentSortColumn === column) {
-                sortDirection *= -1;
-            } else {
-                currentSortColumn = column;
-                sortDirection = 1;
+
+        function applyCollectionMemberships() {
+            const byProcess = new Map();
+            collections.forEach(collection => {
+                (collection.processIds || []).forEach(processId => {
+                    if (!byProcess.has(processId)) byProcess.set(processId, new Set());
+                    byProcess.get(processId).add(collection.id);
+                });
+            });
+            (metadata.processes || []).forEach(process => {
+                const existing = new Set(process.namedCollections || []);
+                const generated = byProcess.get(process.id) || new Set();
+                process.collections = Array.from(new Set([...existing, ...generated])).sort();
+            });
+        }
+
+        function normalizeText(value) {
+            return String(value || "").toLowerCase();
+        }
+
+        function processUrl(process) {
+            const subcategory = process.subcategory || "processes";
+            return "processes/" + encodeURIComponent(subcategory) + "/" + encodeURIComponent(process.id) + ".html";
+        }
+
+        function graphMetrics(process) {
+            return process.graphMetrics || {
+                nodes: process.nodes || 0,
+                edges: process.edges || 0,
+                conditionals: process.conditionals || 0,
+                andGates: process.andGates || 0,
+                orGates: process.orGates || 0,
+                notGates: process.notGates || 0,
+                loops: process.loops || 0
+            };
+        }
+
+        function metricValue(process, key) {
+            return Number(graphMetrics(process)[key] || 0).toLocaleString();
+        }
+
+        function graphTypeLabel(graphType) {
+            const labels = profile.graphTypeLabels || {};
+            const value = graphType || "flowchart";
+            return labels[value] || value.replace(/_/g, " ").replace(/\b\w/g, c => c.toUpperCase());
+        }
+
+        function frontierUrl(template, processName) {
+            return template.replace("{query}", encodeURIComponent(processName));
+        }
+
+        function renderStats() {
+            const stats = metadata.statistics || {};
+            const processes = metadata.processes || [];
+            const nodes = stats.totalNodes || processes.reduce((sum, p) => sum + Number(graphMetrics(p).nodes || 0), 0);
+            const edges = stats.totalEdges || processes.reduce((sum, p) => sum + Number(graphMetrics(p).edges || 0), 0);
+            const gates = stats.totalGates || processes.reduce((sum, p) => {
+                const metrics = graphMetrics(p);
+                return sum + Number(metrics.andGates || 0) + Number(metrics.orGates || 0) + Number(metrics.notGates || 0);
+            }, 0);
+            const subcats = Object.keys(metadata.subcategoryCounts || {}).length || metadata.subcategories || 0;
+            document.getElementById("stats").innerHTML = [
+                ["Processes", metadata.totalProcesses || processes.length],
+                ["Subcategories", subcats],
+                ["Nodes", nodes],
+                ["Edges", edges],
+                ["Logic gates", gates],
+                ["Collections", collections.length]
+            ].map(([label, value]) => `<div class="card"><div class="stat-value">${Number(value || 0).toLocaleString()}</div><div class="stat-label">${label}</div></div>`).join("");
+            document.getElementById("lastUpdated").textContent = "Updated " + (metadata.lastUpdated || "unknown");
+        }
+
+        function renderLens() {
+            document.getElementById("lensTitle").textContent = profile.lensTitle || (profile.displayName + " Lens");
+            document.getElementById("lensDescription").textContent = profile.lensDescription || metadata.description || "";
+            document.getElementById("contextHeader").textContent = profile.contextColumnLabel || "Context";
+            document.getElementById("insights").innerHTML = (profile.insightCards || []).map(card => `
+                <div class="card">
+                    <div class="stat-label">${card.label}</div>
+                    <div style="font-weight:700;margin-top:6px">${card.value}</div>
+                </div>
+            `).join("");
+            const mapLinks = (profile.featuredMaps || []).map(link => {
+                return `<a href="${link.url}" target="_blank" rel="noopener noreferrer">${link.label}</a>`;
+            });
+            const searchLinks = (profile.frontierSearches || []).map(link => {
+                const sample = metadata.processes && metadata.processes[0] ? metadata.processes[0].name : profile.displayName;
+                return `<a href="${frontierUrl(link.urlTemplate, sample)}" target="_blank" rel="noopener noreferrer">${link.label}</a>`;
+            });
+            document.getElementById("frontierLinks").innerHTML = [...mapLinks, ...searchLinks].join("");
+        }
+
+        function renderCollections() {
+            document.getElementById("collections").innerHTML = collections.map(collection => `
+                <div class="card collection-card ${selectedCollection === collection.id ? "active" : ""}" data-id="${collection.id}">
+                    <h3>${collection.label}</h3>
+                    <p>${collection.description || ""}</p>
+                    <span class="pill">${(collection.processIds || []).length} processes</span>
+                </div>
+            `).join("");
+            document.querySelectorAll(".collection-card").forEach(card => {
+                card.addEventListener("click", () => {
+                    selectedCollection = card.dataset.id;
+                    document.getElementById("collectionFilter").value = selectedCollection;
+                    renderCollections();
+                    renderRows();
+                });
+            });
+        }
+
+        function populateFilters() {
+            const processes = metadata.processes || [];
+            const subcategories = [...new Set(processes.map(p => p.subcategory_name || p.subcategory).filter(Boolean))].sort();
+            const complexities = [...new Set(processes.map(p => p.complexity).filter(Boolean))].sort();
+            const graphTypes = [...new Set(processes.map(p => p.graphType || "flowchart").filter(Boolean))].sort();
+            document.getElementById("subcategoryFilter").innerHTML = `<option value="">All ${profile.facetLabels?.subcategory || "subcategories"}</option>` + subcategories.map(v => `<option value="${v}">${v}</option>`).join("");
+            document.getElementById("collectionFilter").innerHTML = `<option value="">All ${profile.facetLabels?.collection || "collections"}</option>` + collections.map(c => `<option value="${c.id}">${c.label}</option>`).join("");
+            document.getElementById("complexityFilter").innerHTML = `<option value="">All complexity levels</option>` + complexities.map(v => `<option value="${v}">${v}</option>`).join("");
+            document.getElementById("graphTypeFilter").innerHTML = `<option value="">All graph types</option>` + graphTypes.map(v => `<option value="${v}">${graphTypeLabel(v)}</option>`).join("");
+        }
+
+        function filteredProcesses() {
+            const q = normalizeText(document.getElementById("search").value);
+            const subcategory = document.getElementById("subcategoryFilter").value;
+            const collection = document.getElementById("collectionFilter").value;
+            const complexity = document.getElementById("complexityFilter").value;
+            const graphType = document.getElementById("graphTypeFilter").value;
+            return (metadata.processes || []).filter(process => {
+                const processCollections = getProcessCollections(process);
+                const haystack = normalizeText([
+                    process.name,
+                    process.domainContext,
+                    process.category,
+                    process.subcategory,
+                    process.subcategory_name,
+                    process.complexity,
+                    process.graphType,
+                    processCollections.join(" "),
+                    (process.keywords || []).join(" ")
+                ].join(" "));
+                return (!q || haystack.includes(q))
+                    && (!subcategory || (process.subcategory_name || process.subcategory) === subcategory)
+                    && (!collection || processCollections.includes(collection))
+                    && (!complexity || process.complexity === complexity)
+                    && (!graphType || (process.graphType || "flowchart") === graphType);
+            });
+        }
+
+        function renderRows() {
+            const rows = filteredProcesses();
+            document.getElementById("visibleCount").textContent = rows.length.toLocaleString();
+            document.getElementById("processRows").innerHTML = rows.map(process => {
+                const processCollections = getProcessCollections(process);
+                const collectionLabels = processCollections.map(id => (collections.find(c => c.id === id) || {label: id}).label);
+                const primarySearch = (profile.frontierSearches || [])[0];
+                return `
+                    <tr>
+                        <td class="name-cell"><a href="${processUrl(process)}">${process.name}</a></td>
+                        <td>${process.domainContext || ""}</td>
+                        <td>${process.category || process.subcategory_name || process.subcategory || ""}</td>
+                        <td>${process.complexity || ""}</td>
+                        <td>${metricValue(process, "nodes")}</td>
+                        <td>${metricValue(process, "edges")}</td>
+                        <td>${metricValue(process, "conditionals")}</td>
+                        <td>${metricValue(process, "andGates")}</td>
+                        <td>${metricValue(process, "orGates")}</td>
+                        <td>${metricValue(process, "notGates")}</td>
+                        <td>${metricValue(process, "loops")}</td>
+                        <td><span class="pill">${graphTypeLabel(process.graphType)}</span></td>
+                        <td>${collectionLabels.map(label => `<span class="pill">${label}</span>`).join(" ") || '<span class="muted">Unassigned</span>'}</td>
+                        <td>${primarySearch ? `<a href="${frontierUrl(primarySearch.urlTemplate, process.name)}" target="_blank" rel="noopener noreferrer">${primarySearch.label}</a>` : ""}</td>
+                    </tr>
+                `;
+            }).join("");
+        }
+
+        function wireEvents() {
+            ["search", "subcategoryFilter", "collectionFilter", "complexityFilter", "graphTypeFilter"].forEach(id => {
+                document.getElementById(id).addEventListener("input", () => {
+                    selectedCollection = document.getElementById("collectionFilter").value;
+                    renderCollections();
+                    renderRows();
+                });
+            });
+            document.getElementById("clearCollection").addEventListener("click", () => {
+                selectedCollection = "";
+                document.getElementById("collectionFilter").value = "";
+                renderCollections();
+                renderRows();
+            });
+        }
+
+        async function init() {
+            try {
+                profile = await fetchJson("discipline-profile.json", profile);
+                metadata = await fetchJson("metadata.json");
+                metadata = await fetchJson("process-index.json", metadata);
+                collections = await fetchJson("collections.json", []);
+                applyCollectionMemberships();
+                renderStats();
+                renderLens();
+                renderCollections();
+                populateFilters();
+                wireEvents();
+                renderRows();
+            } catch (error) {
+                const el = document.getElementById("error");
+                el.classList.remove("hidden");
+                el.innerHTML = `<strong>Could not load database metadata.</strong><br><span class="muted">${error.message}</span>`;
             }
-            
-            rows.sort((a, b) => {
-                const aText = a.cells[column].textContent.trim();
-                const bText = b.cells[column].textContent.trim();
-                
-                // Try to parse as number
-                const aNum = parseFloat(aText);
-                const bNum = parseFloat(bText);
-                
-                if (!isNaN(aNum) && !isNaN(bNum)) {
-                    return (aNum - bNum) * sortDirection;
-                }
-                
-                return aText.localeCompare(bText) * sortDirection;
-            });
-            
-            rows.forEach(row => tbody.appendChild(row));
         }
-        
-        // Load data on page load
-        loadData();
+        init();
     </script>
 </body>
 </html>

@@ -1,0 +1,52 @@
+{
+  "id": "medrxiv_10.64898_2026.01.05.26343425",
+  "doi": "10.64898/2026.01.05.26343425",
+  "title": "PANDORA: Population Archive of Neuroimaging Data Organized for Rapid Analysis",
+  "authors": [
+    "Abivardi, A.",
+    "Webster, M.",
+    "McCarthy, P.",
+    "Alfaro-Magro, F.",
+    "Radosavljevic, L.",
+    "Miller, K. L.",
+    "Jbabdi, S.",
+    "Woolrich, M. W.",
+    "Gong, W.",
+    "Beckmann, C. F.",
+    "Elliott, L. T.",
+    "Nichols, T. E.",
+    "Smith, S. M."
+  ],
+  "author_string": "Abivardi, A., Webster, M., McCarthy, P., Alfaro-Magro, F., Radosavljevic, L. et al.",
+  "journal": "medRxiv",
+  "journal_full": "medRxiv",
+  "year": "2026",
+  "abstract": "Population-scale neuroimaging allows for novel biological discovery, but voxelwise analyses are computationally paralyzing and noisy, whereas imaging-derived phenotypes discard crucial spatial detail. We introduce PANDORA (Population Archive of Neuroimaging Data Organized for Rapid Analysis), a data-adaptive modelling platform designed to resolve this trade-off. PANDORA has encoded brain MRI data comprising 98 sub-modalities from over 80,000 UK Biobank participants in a highly efficient supervoxel representation. By performing statistical regressions directly within this compressed embedding, PANDORA reduces storage by up to 99% and accelerates computation 10-fold, while acting as a spatial denoiser to enhance statistical power. PANDORA also includes the full-resolution voxelwise ground-truth data, curated imaging confound variables, and a fast analysis tool achieving whole brain, voxelwise population-level regression in seconds to minutes. We showcase PANDORAs ability to reproduce known patterns and reveal new associations including trauma, anxiety/depression, autism polygenic scores, and EPHA3.",
+  "keywords": [],
+  "categories": [
+    "radiology and imaging"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.64898/2026.01.05.26343425",
+  "source": "medrxiv",
+  "sources": [
+    "medrxiv"
+  ],
+  "acquired_date": "2026-05-06T22:15:24.232397",
+  "category": "biology",
+  "subcategories": [
+    "radiology and imaging"
+  ],
+  "published_date": "2026-01-06",
+  "updated_date": "2026-01-06",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "medrxiv",
+  "preprint_version": "1",
+  "preprint_type": "PUBLISHAHEADOFPRINT",
+  "license": "cc_by_nd",
+  "jatsxml": "https://www.medrxiv.org/content/early/2026/01/06//2026.01.05.26343425.source.xml",
+  "published_doi": null,
+  "author_corresponding": "Aslan Abivardi",
+  "author_corresponding_institution": "University of Oxford; University of Zurich"
+}

@@ -1,0 +1,39 @@
+{
+  "id": "differential_geometry-connections",
+  "name": "Connections & Geodesics",
+  "category": "mathematics",
+  "subcategory": "differential_geometry",
+  "subcategory_name": "Differential Geometry",
+  "description": "∇ connection, parallel transport. Geodesic ∇_γ' γ'=0. Exponential map. Hopf–Rinow.",
+  "mermaid": "graph TD\n    D1[\"Def: Connection ∇\\n∇_X Y cov derivative\"]\n    D2[\"Def: Parallel transport\\n∇_γ' V=0\"]\n    D3[\"Def: Geodesic\\n∇_γ' γ'=0\"]\n    D4[\"Def: Exp map\\nexp_p v = γ(1)\"]\n    T1[\"Thm: Geodesic eqn\\nΓ-Christoffel\"]\n    T2[\"Thm: Exp local diffeo\\nnear 0\"]\n    T3[\"Thm: Hopf–Rinow\\ncompl⇔geod complete\"]\n    T4[\"Thm: Gauss lemma\\n〈exp'v,exp'w〉=〈v,w〉\"]\n    T5[\"Thm: Jacobi fields\\ngeod variation\"]\n    D1 --> D2\n    D1 --> D3\n    D3 --> D4\n    D1 --> T1\n    D4 --> T2\n    D3 --> T3\n    T2 --> T4\n    classDef definition fill:#b197fc,color:#fff\n    classDef theorem fill:#51cf66,color:#fff\n    class D1,D2,D3,D4 definition\n    class T1,T2,T3,T4,T5 theorem",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

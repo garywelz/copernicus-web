@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2605.12460v1",
+  "arxiv_id": "2605.12460v1",
+  "title": "Multi-Stream LLMs: Unblocking Language Models with Parallel Streams of Thoughts, Inputs and Outputs",
+  "authors": [
+    "Guinan Su",
+    "Yanwu Yang",
+    "Xueyan Li",
+    "Jonas Geiping"
+  ],
+  "author_string": "Guinan Su, Yanwu Yang, Xueyan Li, Jonas Geiping",
+  "journal": "arXiv:2605.12460v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "The continued improvements in language model capability have unlocked their widespread use as drivers of autonomous agents, for example in coding or computer use applications. However, the core of these systems has not changed much since early instruction-tuned models like ChatGPT. Even advanced AI agents function on message exchange formats, successively exchanging messages with users, systems, with itself (i.e. chain-of-thought) and tools in a single stream of computation. This bottleneck to a single stream in chat models leads to a number of limitations: the agent cannot act (generate output) while reading, and in reverse, cannot react to new information while writing. Similarly, the agent cannot act while thinking and cannot think while reading or acting on information.   In this work, we show that models can be unblocked by switching from instruction-tuning for sequential message formats to instruction-tuning for multiple, parallel streams of computation, splitting each role into a separate stream. Every forward pass of the language model then simultaneously reads from multiple input streams and generates tokens in multiple output streams, all of which causally depend on earlier timesteps. We argue that this data-driven change remedies a number of usability limitations as outlined above, improves model efficiency through parallelization, improves model security through better separation of concerns and can further improve model monitorability.",
+  "categories": [
+    "cs.LG",
+    "cs.CL"
+  ],
+  "primary_category": "cs.CL",
+  "comment": "Preprint, 37 pages. Code at https://github.com/seal-rg/streaming/",
+  "published_date": "2026-05-12T17:47:41Z",
+  "updated_date": "2026-05-12T17:47:41Z",
+  "url": "https://arxiv.org/abs/2605.12460v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.12460v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-13T10:15:39.535674",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.LG",
+    "cs.CL"
+  ]
+}

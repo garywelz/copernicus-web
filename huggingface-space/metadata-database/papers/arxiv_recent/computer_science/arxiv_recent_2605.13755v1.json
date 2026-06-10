@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2605.13755v1",
+  "arxiv_id": "2605.13755v1",
+  "title": "Generative Texture Diversification of 3D Pedestrians for Robust Autonomous Driving Perception",
+  "authors": [
+    "Arka Bhowmick",
+    "Enes Ozeren",
+    "Ahmed Abdullah",
+    "Oliver Wasenmuller"
+  ],
+  "author_string": "Arka Bhowmick, Enes Ozeren, Ahmed Abdullah, Oliver Wasenmuller",
+  "journal": "arXiv:2605.13755v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "In recent years, autonomous driving has significantly in creased the demand for high-quality data to train 2D and 3D perception models for safety-critical scenarios. Real world datasets struggle to meet this demand as require ments continuously evolve and large-scale annotated data collection remains costly and time-consuming making syn thetic data a scalable, practical and controllable alterna tive. Pedestrian detection is among the most safety-critical tasks in autonomous driving. In this paper, we propose a simple yet effective method for scaling variability in 3D pedestrian assets for synthetic scene generation. Starting from a single 3D base asset, we generate multiple distinct pedestrian instances by synthesizing diverse facial textures and identity-level appearance variations using StyleGAN2 and automatically mapping them onto 3D meshes. This ap proach enables scalable appearance-level asset diversifica tion without requiring the design of new geometries for each instance. Using the assets, we construct synthetic datasets and study the impact of mixing real and synthetic data for RGB-based object detection. Through complementary ex periments, we analyze geometry-driven distribution shifts in point cloud perception for 3D object detection. Our findings demonstrate that controlled synthetic diversifica tion improves robustness in 2D detection while revealing the sensitivity of 3D perception models to geometric domain gaps. Overall, this work highlights how generative AI en ables scalable, simulation-ready pedestrian diversification through controlled facial texture synthesis, along with the benefits and limitations of cross-domain training strategies in autonomous driving pipelines.",
+  "categories": [
+    "cs.CV"
+  ],
+  "primary_category": "cs.CV",
+  "comment": "Published at SAIAD 2026 Workshop at CVPR 2026",
+  "published_date": "2026-05-13T16:35:50Z",
+  "updated_date": "2026-05-13T16:35:50Z",
+  "url": "https://arxiv.org/abs/2605.13755v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.13755v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-13T22:17:00.036800",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CV"
+  ]
+}

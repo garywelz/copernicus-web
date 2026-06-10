@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2605.20040v1",
+  "arxiv_id": "2605.20040v1",
+  "title": "Active Context Selection Improves Simple Regret in Contextual Bandits",
+  "authors": [
+    "Mohammad Shahverdikondori",
+    "Jalal Etesami",
+    "Negar Kiyavash"
+  ],
+  "author_string": "Mohammad Shahverdikondori, Jalal Etesami, Negar Kiyavash",
+  "journal": "arXiv:2605.20040v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We study the contextual multi-armed bandit problem with a finite context space (a.k.a. subpopulations), where the learner recommends a best action for each context and is evaluated by context-weighted simple regret. Our guarantees are worst-case over the reward distributions, while remaining instance-dependent with respect to the context distribution vector $p$. Akin to experimental design problems where the population of interest is fixed but the sampled subpopulation can be controlled, we allow the learner to actively choose which context to sample from. For a known $p$, we characterize tight regret rates: passive sampling where contexts are randomly revealed achieves regret of order $\\sqrt{n/T \\, \\lVert p \\rVert_{1/2}}$, whereas active sampling with allocation $q_j \\propto p_j^{2/3}$ achieves the tight rate $\\sqrt{n/T} \\, \\lVert p \\rVert_{2/3}$. The resulting improvement can be as large as $Θ(k^{1/4})$, where $k$ is the number of contexts. We further extend the analysis to budgeted active sampling, characterize the corresponding tight rate, and identify when a limited active budget suffices to recover the fully active rate. When $p$ is unknown, we propose the Explore-Explore-Then-Commit (EETC) algorithm, which optimally balances estimating the context distribution and the time to switch to active allocation, such that for large horizons, it matches the known-$p$ active rate up to constants. Experiments on synthetic and real-world data support our theoretical findings.",
+  "categories": [
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": null,
+  "published_date": "2026-05-19T16:01:58Z",
+  "updated_date": "2026-05-19T16:01:58Z",
+  "url": "https://arxiv.org/abs/2605.20040v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.20040v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-20T10:16:33.999933",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.LG"
+  ]
+}

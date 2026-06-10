@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2605.20054v1",
+  "arxiv_id": "2605.20054v1",
+  "title": "Automating proof search when equality is a logical connective",
+  "authors": [
+    "Kaustuv Chaudhuri",
+    "Arunava Gantait",
+    "Dale Miller"
+  ],
+  "author_string": "Kaustuv Chaudhuri, Arunava Gantait, Dale Miller",
+  "journal": "arXiv:2605.20054v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Treating syntactic equality as a logical connective -- governed by left- and right-introduction rules within the sequent calculus -- offers an elegant and powerful approach to term identity. This treatment of equality allows for the derivation of core mathematical principles, such as Peano's axioms (excluding induction), and serves as a foundation for the Abella interactive proof assistant. However, integrating this equality into automated proof search remains challenging. We present a proof search procedure that extends unification to handle the complexities of quantifier alternation and equations that occur in both positive and negative occurrences. While established logical frameworks such as $λ$Prolog and LF lack direct support for this kind of equality, our procedure enables a lightweight logical framework that addresses this gap. Our system enables unification-aware proof search across a diverse range of first-order sequent calculi that can directly use this form of equality.",
+  "categories": [
+    "cs.LO"
+  ],
+  "primary_category": "cs.LO",
+  "comment": "To appear in IJCAR 2026: International Joint Conference on Automated Reasoning, Lisbon (Portugal), July 2026",
+  "published_date": "2026-05-19T16:14:33Z",
+  "updated_date": "2026-05-19T16:14:33Z",
+  "url": "https://arxiv.org/abs/2605.20054v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.20054v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-20T10:16:33.999195",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.LO"
+  ]
+}

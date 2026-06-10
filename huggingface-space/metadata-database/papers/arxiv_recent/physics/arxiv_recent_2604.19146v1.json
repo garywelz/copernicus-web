@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2604.19146v1",
+  "arxiv_id": "2604.19146v1",
+  "title": "RL-ABC: Reinforcement Learning for Accelerator Beamline Control",
+  "authors": [
+    "Anwar Ibrahim",
+    "Fedor Ratnikov",
+    "Maxim Kaledin",
+    "Alexey Petrenko",
+    "Denis Derkach"
+  ],
+  "author_string": "Anwar Ibrahim, Fedor Ratnikov, Maxim Kaledin, Alexey Petrenko, Denis Derkach",
+  "journal": "arXiv:2604.19146v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Particle accelerator beamline optimization is a high-dimensional control problem traditionally requiring significant expert intervention. We present RLABC (Reinforcement Learning for Accelerator Beamline Control), an open-source Python framework that automatically transforms standard Elegant beamline configurations into reinforcement learning environments. RLABC integrates with the widely-used Elegant beam dynamics simulation code via SDDS-based interfaces, enabling researchers to apply modern RL algorithms to beamline optimization with minimal RL-specific development.   The main contribution is a general methodology for formulating beamline tuning as a Markov decision process: RLABC automatically preprocesses lattice files to insert diagnostic watch points before each tunable element, constructs a 57-dimensional state representation from beam statistics, covariance information, and aperture constraints, and provides a configurable reward function for transmission optimization. The framework supports multiple RL algorithms through Stable-Baselines3 compatibility and implements stage learning strategies for improved training efficiency.   Validation on a test beamline derived from the VEPP-5 injection complex (37 control parameters across 11 quadrupoles and 4 dipoles) demonstrates that the framework successfully enables RL-based optimization, with a Deep Deterministic Policy Gradient agent achieving 70.3\\% particle transmission -- performance matching established methods such as differential evolution. The framework's stage learning capability allows decomposition of complex optimization problems into manageable subproblems, improving training efficiency. The complete framework, including configuration files and example notebooks, is available as open-source software to facilitate adoption and further research.",
+  "categories": [
+    "cs.LG",
+    "hep-ex"
+  ],
+  "primary_category": "hep-ex",
+  "comment": null,
+  "published_date": "2026-04-21T06:52:36Z",
+  "updated_date": "2026-04-21T06:52:36Z",
+  "url": "https://arxiv.org/abs/2604.19146v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.19146v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-22T10:15:40.965147",
+  "category": "physics",
+  "subcategories": [
+    "cs.LG",
+    "hep-ex"
+  ]
+}

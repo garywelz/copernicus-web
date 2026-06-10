@@ -1,0 +1,39 @@
+{
+  "id": "number_theory-godel-numbering-algorithm",
+  "name": "Gödel Numbering Algorithm",
+  "category": "mathematics",
+  "subcategory": "number_theory",
+  "subcategory_name": "Number Theory",
+  "description": "Assign a unique natural number to each formula of arithmetic by recursively encoding the syntax tree with prime exponentiation (standard Gödel-style numbering). This algorithm is the algorithm capsule sibling of the logical diagonal construction in the incompleteness proof graph.",
+  "mermaid": "graph TD\n    A1[\"Input: formula phi as finite parse tree\"]\n    B1[\"Assign numeric codes to atomic symbols\"]\n    C1[\"Initialize postorder walk over subformulas\"]\n    D1{\"More internal nodes?\"}\n    E1[\"Leaf: emit code for symbol from lookup table\"]\n    F1[\"Compound: combine child codes with fixed prime-power packing\"]\n    G1[\"Quantifier: merge bounded variable code with body encoding\"]\n    H1[\"Contract to single natural\"]\n    I1[\"Output Gödel number of phi\"]\n    A1 --> B1\n    B1 --> C1\n    C1 --> D1\n    D1 -->|yes|E1\n    E1 --> F1\n    F1 --> G1\n    G1 --> C1\n    D1 -->|no|H1\n    H1 --> I1\n    classDef red fill:#ff6b6b,color:#fff,stroke:#c0392b\n    classDef yellow fill:#ffd43b,color:#000,stroke:#f59f00\n    classDef green fill:#51cf66,color:#fff,stroke:#40c057\n    classDef lightblue fill:#74c0fc,color:#fff,stroke:#4dabf7\n    classDef violet fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef lavender fill:#e6e6fa,color:#333,stroke:#b19cd9\n    class A1 red\n    class B1,C1 yellow\n    class E1,F1,G1 green\n    class H1 lightblue\n    class I1 violet\n    class D1 lavender",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "algorithm"
+}

@@ -1,21 +1,23 @@
 {
   "id": "machine_learning-software-development-lifecycle",
-  "name": "Software Development Lifecycle",
+  "name": "Backpropagation Training",
   "category": "computer_science",
   "subcategory": "machine_learning",
   "subcategory_name": "Machine Learning",
-  "description": "Software Development Lifecycle process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "Backpropagation trains a neural network by gradient descent: a forward pass computes the output and loss, then the loss gradient is propagated backward layer by layer via the chain rule to obtain per-parameter gradients; weights are updated and the cycle repeats over the data until the loss converges.",
   "complexity": {
-    "nodes": 26,
-    "edges": 21,
-    "conditionals": 0,
+    "nodes": 12,
+    "edges": 13,
+    "conditionals": 2,
     "logicGates": {
-      "orGates": 0,
-      "andGates": 1,
-      "total": 1
+      "orGates": 2,
+      "andGates": 2,
+      "notGates": 0,
+      "total": 4
     },
-    "level": "medium",
-    "detailLevel": "medium"
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 2
   },
   "colorScheme": {
     "red": {
@@ -39,54 +41,156 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nA1[Requirements Analysis] --> B1[Software Development Method]\nC1[System Design] --> D1[Architecture Planning]\nE1[Implementation Phase] --> F1[Software Development Analysis]\nB1 --> G1[Waterfall Model]\nD1 --> H1[Agile Methodology]\nF1 --> I1[Spiral Model]\nG1 --> J1[Requirements Gathering]\nH1 --> K1[Sprint Planning]\nI1 --> L1[Risk Analysis]\nJ1 --> M1[System Specification]\nK1 --> L1\nL1 --> N1[Prototype Development]\nM1 --> O1[Design Implementation]\nN1 --> P1[Testing Integration]\nO1 --> Q1[Software Development Lifecycle Process]\nP1 --> R1[Software Development Validation]\nQ1 --> S1[Software Development Verification]\nR1 --> T1[Software Development Result]\nS1 --> U1[Software Development Analysis]\nT1 --> V1[Software Development Parameters]\nU1 --> W1[Software Development Output]\nV1 --> X1[Software Development Analysis]\nW1 --> Y1[Software Development Final Result]\nX1 --> Z1[Software Development Lifecycle Complete]\n\n    style A1 fill:#ff6b6b,color:#fff\n    style C1 fill:#ff6b6b,color:#fff\n    style E1 fill:#ff6b6b,color:#fff\n    style B1 fill:#ffd43b,color:#000\n    style D1 fill:#ffd43b,color:#000\n    style F1 fill:#ffd43b,color:#000\n    style G1 fill:#ffd43b,color:#000\n    style H1 fill:#ffd43b,color:#000\n    style I1 fill:#ffd43b,color:#000\n    style J1 fill:#ffd43b,color:#000\n    style K1 fill:#ffd43b,color:#000\n    style L1 fill:#ffd43b,color:#000\n    style M1 fill:#51cf66,color:#fff\n    style N1 fill:#51cf66,color:#fff\n    style O1 fill:#51cf66,color:#fff\n    style P1 fill:#51cf66,color:#fff\n    style Q1 fill:#51cf66,color:#fff\n    style R1 fill:#51cf66,color:#fff\n    style S1 fill:#51cf66,color:#fff\n    style T1 fill:#51cf66,color:#fff\n    style U1 fill:#51cf66,color:#fff\n    style V1 fill:#51cf66,color:#fff\n    style W1 fill:#51cf66,color:#fff\n    style X1 fill:#51cf66,color:#fff\n    style Y1 fill:#51cf66,color:#fff\n    style Z1 fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"Neural network + loss\"]\n    N2[\"Forward pass per layer\"]\n    N3[\"Compute output + loss\"]\n    N4[\"Loss gradient at output\"]\n    N5[\"Apply chain rule back\"]\n    N6[\"Gradients per layer\"]\n    N7{\"More layers upstream?\"}\n    N8[\"Propagate to prev layer\"]\n    N9[\"Update weights (GD)\"]\n    N10{\"Converged / max epochs?\"}\n    N11[\"Repeat forward pass\"]\n    N12[\"Trained weights\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 --> N4\n    N4 --> N5\n    N5 --> N6\n    N6 --> N7\n    N7 -->|yes| N8\n    N8 -->|continue| N5\n    N7 -->|no| N9\n    N9 --> N10\n    N10 -->|no| N11\n    N11 -->|epoch| N2\n    N10 -->|yes| N12\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#74c0fc,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#74c0fc,color:#fff\n    style N7 fill:#74c0fc,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#51cf66,color:#fff\n    style N10 fill:#74c0fc,color:#fff\n    style N11 fill:#51cf66,color:#fff\n    style N12 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
-      "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: Software Development Lifecycle. Created using the Programming Framework methodology."
+      "title": "Learning representations by back-propagating errors",
+      "authors": "Rumelhart, D. E.; Hinton, G. E.; Williams, R. J.",
+      "journal": "Nature",
+      "year": "1986",
+      "doi": "10.1038/323533a0",
+      "url": "https://doi.org/10.1038/323533a0"
     },
     {
-      "title": "Adherence to Secure Software Development Lifecycle",
-      "authors": "Omar, Alaa’; Alsadeh, Ahmad; Nawahdah, Mamoun",
-      "journal": "Proceedings of the 17th International Conference on Software Technologies",
-      "year": "2022",
-      "pubmed": null,
-      "doi": "10.5220/0011263700003266",
-      "url": "https://doi.org/10.5220/0011263700003266"
-    },
-    {
-      "title": "Introduction to Security in the Automotive Software Development Lifecycle",
-      "authors": "",
-      "journal": "Building Secure Cars",
-      "year": "2021",
-      "pubmed": null,
-      "doi": "10.1002/9781119710783.ch2",
-      "url": "https://doi.org/10.1002/9781119710783.ch2"
-    },
-    {
-      "title": "Need for Automated Security Solutions in the Automotive Software Development Lifecycle",
-      "authors": "",
-      "journal": "Building Secure Cars",
-      "year": "2021",
-      "pubmed": null,
-      "doi": "10.1002/9781119710783.ch4",
-      "url": "https://doi.org/10.1002/9781119710783.ch4"
+      "title": "Deep Learning",
+      "authors": "Goodfellow, I.; Bengio, Y.; Courville, A.",
+      "journal": "MIT Press",
+      "year": "2016",
+      "url": "https://www.deeplearningbook.org/"
     }
   ],
   "keywords": [
-    "software",
-    "development",
-    "lifecycle"
+    "backpropagation",
+    "chain rule",
+    "gradient descent",
+    "neural network",
+    "loss gradient"
   ],
   "relatedProcesses": [],
   "created": "2026-01-08",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Neural network + loss",
+      "detail": "Layers + objective",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 1
+    },
+    {
+      "id": "N2",
+      "label": "Forward pass per layer",
+      "detail": "Compute activations",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N3",
+      "label": "Compute output + loss",
+      "detail": "Prediction error",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N4",
+      "label": "Loss gradient at output",
+      "detail": "dL/d(output)",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N5",
+      "label": "Apply chain rule back",
+      "detail": "Layer by layer",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N6",
+      "label": "Gradients per layer",
+      "detail": "dL/dW for each",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N7",
+      "label": "More layers upstream?",
+      "detail": "Reached input?",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N8",
+      "label": "Propagate to prev layer",
+      "detail": "Continue backward",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N9",
+      "label": "Update weights (GD)",
+      "detail": "W -= lr * grad",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N10",
+      "label": "Converged / max epochs?",
+      "detail": "Stopping rule",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N11",
+      "label": "Repeat forward pass",
+      "detail": "Next iteration",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N12",
+      "label": "Trained weights",
+      "detail": "Fitted network",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 1
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:machine_learning-software-development-lifecycle",
+    "graphType": "cyclic_pathway",
+    "topologySignature": "a2133e3d61decd46",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "namedCollections": [],
+  "graphMetrics": {
+    "nodes": 12,
+    "edges": 13,
+    "conditionals": 2,
+    "andGates": 2,
+    "orGates": 2,
+    "notGates": 0,
+    "loops": 2
+  },
+  "graphType": "cyclic_pathway",
+  "domainContext": "Deep learning"
 }

@@ -1,21 +1,23 @@
 {
   "id": "inorganic_chemistry-solid-state-chemistry",
-  "name": "Solid State Chemistry",
+  "name": "Born–Haber Cycle",
   "category": "chemistry",
   "subcategory": "inorganic_chemistry",
   "subcategory_name": "Inorganic Chemistry",
-  "description": "Solid State Chemistry process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "The Born-Haber cycle applies Hess's law to ionic-solid formation, summing atomization, ionization, electron affinity and lattice enthalpy; comparing the cycle's predicted formation enthalpy with experiment lets one solve for or validate the lattice energy.",
   "complexity": {
-    "nodes": 26,
-    "edges": 21,
-    "conditionals": 0,
+    "nodes": 10,
+    "edges": 10,
+    "conditionals": 1,
     "logicGates": {
-      "orGates": 0,
+      "orGates": 1,
       "andGates": 1,
-      "total": 1
+      "notGates": 0,
+      "total": 2
     },
-    "level": "medium",
-    "detailLevel": "medium"
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 1
   },
   "colorScheme": {
     "red": {
@@ -39,54 +41,151 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nA3[Crystal Structure] --> B3[Solid State Method]\nC3[Lattice Parameters] --> D3[Defect Analysis]\nE3[Phase Transition] --> F3[Solid State Analysis]\nB3 --> G3[X Ray Diffraction]\nD3 --> H3[Electron Microscopy]\nF3 --> I3[Thermal Analysis]\nG3 --> J3[Bragg's Law]\nH3 --> K3[Defect Characterization]\nI3 --> L3[Phase Diagram]\nJ3 --> M3[Crystal Symmetry]\nK3 --> L3\nL3 --> N3[Thermodynamic Stability]\nM3 --> O3[Electronic Properties]\nN3 --> P3[Magnetic Properties]\nO3 --> Q3[Solid State Chemistry Process]\nP3 --> R3[Solid State Validation]\nQ3 --> S3[Solid State Verification]\nR3 --> T3[Solid State Result]\nS3 --> U3[Solid State Analysis]\nT3 --> V3[Solid State Parameters]\nU3 --> W3[Solid State Output]\nV3 --> X3[Solid State Analysis]\nW3 --> Y3[Solid State Final Result]\nX3 --> Z3[Solid State Chemistry Complete]\n\n    style A3 fill:#ff6b6b,color:#fff\n    style C3 fill:#ff6b6b,color:#fff\n    style E3 fill:#ff6b6b,color:#fff\n    style B3 fill:#ffd43b,color:#000\n    style D3 fill:#ffd43b,color:#000\n    style F3 fill:#ffd43b,color:#000\n    style G3 fill:#ffd43b,color:#000\n    style H3 fill:#ffd43b,color:#000\n    style I3 fill:#ffd43b,color:#000\n    style J3 fill:#ffd43b,color:#000\n    style K3 fill:#ffd43b,color:#000\n    style L3 fill:#ffd43b,color:#000\n    style M3 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style O3 fill:#51cf66,color:#fff\n    style P3 fill:#51cf66,color:#fff\n    style Q3 fill:#51cf66,color:#fff\n    style R3 fill:#51cf66,color:#fff\n    style S3 fill:#51cf66,color:#fff\n    style T3 fill:#51cf66,color:#fff\n    style U3 fill:#51cf66,color:#fff\n    style V3 fill:#51cf66,color:#fff\n    style W3 fill:#51cf66,color:#fff\n    style X3 fill:#51cf66,color:#fff\n    style Y3 fill:#51cf66,color:#fff\n    style Z3 fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"Target ionic solid MX\"]\n    N2[\"Atomize metal (ΔH_sub)\"]\n    N3[\"Ionize metal (IE)\"]\n    N4[\"Atomize + EA of X\"]\n    N5[\"Lattice enthalpy U\"]\n    N6[\"Sum via Hess's law\"]\n    N7[\"Compute ΔHf\"]\n    N8{\"Matches experiment?\"}\n    N9[\"Refine lattice / EA\"]\n    N10[\"Validated energetics\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 --> N4\n    N4 --> N5\n    N5 --> N6\n    N6 --> N7\n    N7 --> N8\n    N8 -->|no| N9\n    N9 -->|re-evaluate| N5\n    N8 -->|yes| N10\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#74c0fc,color:#fff\n    style N9 fill:#51cf66,color:#fff\n    style N10 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "title": "Inorganic Chemistry, 6th ed. — Lattice Energy and the Born–Haber Cycle",
+      "authors": "Housecroft, C. E.; Sharpe, A. G.",
+      "journal": "Pearson",
+      "year": "2018",
       "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: Solid State Chemistry. Created using the Programming Framework methodology."
+      "url": "https://www.pearson.com/en-gb/subject-catalog/p/inorganic-chemistry/P200000005860"
     },
     {
-      "title": "Basic solid state chemistry",
-      "authors": "Wold, Aaron",
-      "journal": "Journal of Solid State Chemistry",
-      "year": "1989",
-      "pubmed": null,
-      "doi": "10.1016/0022-4596(89)90241-7",
-      "url": "https://doi.org/10.1016/0022-4596(89)90241-7"
+      "title": "Physical Chemistry, 11th ed. — The Born–Haber Cycle",
+      "authors": "Atkins, P.; de Paula, J.; Keeler, J.",
+      "journal": "Oxford University Press",
+      "year": "2018",
+      "doi": null,
+      "url": "https://global.oup.com/ukhe/product/atkins-physical-chemistry-9780198769866"
     },
     {
-      "title": "Keywords for progress in solid state chemistry",
-      "authors": "",
-      "journal": "Progress in Solid State Chemistry",
-      "year": "1998",
-      "pubmed": null,
-      "doi": "10.1016/s0079-6786(97)82936-6",
-      "url": "https://doi.org/10.1016/s0079-6786(97)82936-6"
-    },
-    {
-      "title": "Keywords for progress in solid state chemistry",
-      "authors": "",
-      "journal": "Progress in Solid State Chemistry",
-      "year": "1998",
-      "pubmed": null,
-      "doi": "10.1016/s0079-6786(98)90002-4",
-      "url": "https://doi.org/10.1016/s0079-6786(98)90002-4"
+      "title": "Gold Book: lattice energy",
+      "authors": "IUPAC",
+      "journal": "IUPAC Compendium of Chemical Terminology",
+      "year": "2019",
+      "doi": "10.1351/goldbook.L03488",
+      "url": "https://goldbook.iupac.org/terms/view/L03488"
     }
   ],
   "keywords": [
-    "solid",
-    "state",
-    "chemistry"
+    "born-haber cycle",
+    "lattice enthalpy",
+    "ionization energy",
+    "electron affinity",
+    "hess's law"
   ],
   "relatedProcesses": [],
   "created": "2026-01-08",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Target ionic solid MX",
+      "detail": "Formation from elements",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N2",
+      "label": "Atomize metal (ΔH_sub)",
+      "detail": "Solid to gaseous atoms",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N3",
+      "label": "Ionize metal (IE)",
+      "detail": "Remove electron(s)",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N4",
+      "label": "Atomize + EA of X",
+      "detail": "Form gaseous anion",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N5",
+      "label": "Lattice enthalpy U",
+      "detail": "Ions to crystal",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N6",
+      "label": "Sum via Hess's law",
+      "detail": "Close the cycle",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N7",
+      "label": "Compute ΔHf",
+      "detail": "Predicted formation enthalpy",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N8",
+      "label": "Matches experiment?",
+      "detail": "Validate the cycle",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N9",
+      "label": "Refine lattice / EA",
+      "detail": "Adjust a term",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N10",
+      "label": "Validated energetics",
+      "detail": "Lattice energy obtained",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 2
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:inorganic_chemistry-solid-state-chemistry",
+    "graphType": "cyclic_pathway",
+    "topologySignature": "c3e88b64aee8aa5c",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "namedCollections": [
+    "inorganic-chemistry"
+  ],
+  "graphMetrics": {
+    "nodes": 10,
+    "edges": 10,
+    "conditionals": 1,
+    "andGates": 1,
+    "orGates": 1,
+    "notGates": 0,
+    "loops": 1
+  },
+  "graphType": "cyclic_pathway",
+  "domainContext": "Solid-state energetics"
 }

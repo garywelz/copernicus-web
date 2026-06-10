@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2604.21250v1",
+  "arxiv_id": "2604.21250v1",
+  "title": "How it cools? Studying the heat flow out of a semi-infinite slab in welding: An analytical approach",
+  "authors": [
+    "Fawzi Aly",
+    "Alex Kitt",
+    "Luke Mohr"
+  ],
+  "author_string": "Fawzi Aly, Alex Kitt, Luke Mohr",
+  "journal": "arXiv:2604.21250v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Additive manufacturing and welding processes are highly sensitive to heat dissipation, where improper thermal management leads to residual stresses, distortions, and cracking. Existing heat transfer models, such as Rosenthal's solutions, fail to handle finite 3D geometries, cooling effects, or transient behavior, limiting their accuracy. We overcome these limitations by developing an analytical framework that incorporates cooling boundary conditions mimicking Newton's Law of Cooling. Using two different and proven-equivalent approaches, Laplace transform and Fourier series, we derive closed-form solutions for transient and steady-state temperature profiles under various heat sources, including Gaussian, ellipsoidal, double-ellipsoidal, and time-dependent on/off switch sources. We compare our analytical solutions to numerical implementations, demonstrating strong agreement while providing deeper physical insight. This approach significantly reduces computational cost and experimental requirements, making it a scalable tool for optimizing thermal predictions and mitigating residual stresses in metal-based manufacturing. Additionally, our framework enables the generation of synthetic datasets for machine learning models to predict heat distribution efficiently.",
+  "categories": [
+    "math-ph",
+    "physics.app-ph"
+  ],
+  "primary_category": "physics.app-ph",
+  "comment": "23 pages, 15 figures and a table",
+  "published_date": "2026-04-23T03:41:19Z",
+  "updated_date": "2026-04-23T03:41:19Z",
+  "url": "https://arxiv.org/abs/2604.21250v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.21250v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-26T10:16:12.592313",
+  "category": "physics",
+  "subcategories": [
+    "math-ph",
+    "physics.app-ph"
+  ]
+}

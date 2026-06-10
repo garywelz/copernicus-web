@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2605.02819v1",
+  "arxiv_id": "2605.02819v1",
+  "title": "SCPRM: A Schema-aware Cumulative Process Reward Model for Knowledge Graph Question Answering",
+  "authors": [
+    "Jiujiu Chen",
+    "Yazheng Liu",
+    "Sihong Xie",
+    "Hui Xiong"
+  ],
+  "author_string": "Jiujiu Chen, Yazheng Liu, Sihong Xie, Hui Xiong",
+  "journal": "arXiv:2605.02819v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Large language models excel at complex reasoning, yet evaluating their intermediate steps remains challenging. Although process reward models provide step-wise supervision, they often suffer from a risk compensation effect, where incorrect steps are offset by later correct ones, assigning high rewards to flawed reasoning paths. This issue is further exacerbated in knowledge graph (KG) reasoning, as there may exist multiple paths between the start and end entities in the KGs, and a risky step can make the reasoning path flawed. Those limitations are problematic in risk-sensitive tasks such as medical and legal KG reasoning. To address the issues, we propose a Schema-aware Cumulative Process Reward Model (SCPRM) that evaluates reasoning paths by conditioning on the reasoning prefix , and incorporating schema distance between current reasoning step and the implicit target parsed from the query, which provides cumulative and future rewards to guide the path explorations. We further integrate SCPRM into Monte Carlo Tree Search (MCTS) as SCPRM-MCTS to conduct multi-hop reasoning on KGs for question answering (QA) tasks. Across medical and legal KGQA and CWQ, SCPRM-MCTS improves the performance of Hits@k by an average of 1.18% over strong baselines, demonstrating more accurate and risk-sensitive reasoning evaluation.",
+  "categories": [
+    "cs.AI"
+  ],
+  "primary_category": "cs.AI",
+  "comment": null,
+  "published_date": "2026-05-04T16:56:01Z",
+  "updated_date": "2026-05-04T16:56:01Z",
+  "url": "https://arxiv.org/abs/2605.02819v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.02819v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-05T10:15:47.086660",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.AI"
+  ]
+}

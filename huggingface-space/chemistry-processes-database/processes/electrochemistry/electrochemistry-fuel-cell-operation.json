@@ -1,21 +1,23 @@
 {
   "id": "electrochemistry-fuel-cell-operation",
-  "name": "Fuel Cell Operation",
+  "name": "PEM Fuel Cell Operation",
   "category": "chemistry",
   "subcategory": "electrochemistry",
   "subcategory_name": "Electrochemistry",
-  "description": "Fuel Cell Operation process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "A proton-exchange-membrane fuel cell oxidizes hydrogen at the anode, conducts protons through the membrane while electrons do work in the external circuit, and reduces oxygen at the cathode; the sluggish oxygen reduction is accelerated by a Pt catalyst.",
   "complexity": {
-    "nodes": 9,
-    "edges": 10,
-    "conditionals": 0,
+    "nodes": 10,
+    "edges": 11,
+    "conditionals": 1,
     "logicGates": {
-      "orGates": 1,
+      "orGates": 2,
       "andGates": 2,
-      "total": 3
+      "notGates": 0,
+      "total": 4
     },
-    "level": "medium",
-    "detailLevel": "medium"
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 0
   },
   "colorScheme": {
     "red": {
@@ -39,54 +41,151 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nN1[\"Fuel + Oxidant\"]\nN2[\"Load Demand\"]\nN3[\"Electrodes + Membrane\"]\nN4[\"Choose Path\"]\nN5[\"Anode Oxidation\"]\nN6[\"Cathode Reduction\"]\nN7[\"Ion Transport\"]\nN8[\"Electrical Power\"]\nN9[\"Integrate\"]\n\nN1 --> N2\nN2 --> N3\nN3 --> N4\nN4 --> N5\nN4 --> N7\nN5 --> N6\nN7 --> N8\nN6 --> N9\nN8 --> N9\nN9 --> N6\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#ff6b6b,color:#fff\n    style N3 fill:#ffd43b,color:#000\n    style N4 fill:#ffd43b,color:#000\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#74c0fc,color:#fff\n    style N8 fill:#b197fc,color:#fff\n    style N9 fill:#74c0fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"H2 fuel + O2 oxidant\"]\n    N2[\"Anode HOR: H2 -> 2H+ + 2e−\"]\n    N3[\"Protons cross membrane\"]\n    N4[\"Electrons via external circuit\"]\n    N5[\"Electric work delivered\"]\n    N6[\"Cathode ORR: O2 -> H2O\"]\n    N7{\"ORR limits performance?\"}\n    N8[\"Pt catalyst lowers barrier\"]\n    N9[\"Water + heat removed\"]\n    N10[\"Continuous power output\"]\n\n    N1 --> N2\n    N2 --> N3\n    N2 --> N4\n    N3 --> N6\n    N4 --> N5\n    N5 --> N6\n    N6 --> N7\n    N7 -->|yes| N8\n    N8 --> N9\n    N7 -->|no| N9\n    N9 --> N10\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#74c0fc,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#74c0fc,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#51cf66,color:#fff\n    style N10 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
-      "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: Fuel Cell Operation. Created using the Programming Framework methodology."
+      "title": "Electrocatalyst approaches and challenges for automotive fuel cells",
+      "authors": "Debe, M. K.",
+      "journal": "Nature",
+      "year": "2012",
+      "doi": "10.1038/nature11115",
+      "url": "https://doi.org/10.1038/nature11115"
     },
     {
-      "title": "Fuel cell technologies",
-      "authors": "",
-      "journal": "",
-      "year": "None",
-      "pubmed": null,
-      "doi": "10.3403/30451601u",
-      "url": "https://doi.org/10.3403/30451601u"
+      "title": "Fuel Cell Fundamentals, 3rd ed.",
+      "authors": "O'Hayre, R.; Cha, S.-W.; Colella, W.; Prinz, F. B.",
+      "journal": "Wiley",
+      "year": "2016",
+      "doi": "10.1002/9781119191766",
+      "url": "https://doi.org/10.1002/9781119191766"
     },
     {
-      "title": "Fuel cell technologies",
-      "authors": "",
-      "journal": "",
-      "year": "None",
-      "pubmed": null,
-      "doi": "10.3403/30451601",
-      "url": "https://doi.org/10.3403/30451601"
-    },
-    {
-      "title": "Fuel cell operation with periodic fuel cell starvation",
-      "authors": "",
-      "journal": "Fuel Cells Bulletin",
-      "year": "2001",
-      "pubmed": null,
-      "doi": "10.1016/s1464-2859(01)80077-8",
-      "url": "https://doi.org/10.1016/s1464-2859(01)80077-8"
+      "title": "Fuel Cell Systems Explained, 3rd ed.",
+      "authors": "Dicks, A. L.; Rand, D. A. J.",
+      "journal": "Wiley",
+      "year": "2018",
+      "doi": "10.1002/9781118878330",
+      "url": "https://doi.org/10.1002/9781118878330"
     }
   ],
   "keywords": [
-    "fuel",
-    "cell",
-    "operation"
+    "fuel cell",
+    "pemfc",
+    "hydrogen oxidation",
+    "oxygen reduction",
+    "proton exchange membrane"
   ],
   "relatedProcesses": [],
   "created": "2026-01-15",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations.\nCurated Mermaid applied (citations preserved)."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "namedCollections": [
+    "electrochemistry"
+  ],
+  "graphMetrics": {
+    "nodes": 10,
+    "edges": 11,
+    "conditionals": 1,
+    "andGates": 2,
+    "orGates": 2,
+    "notGates": 0,
+    "loops": 0
+  },
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "H2 fuel + O2 oxidant",
+      "detail": "Reactants fed to electrodes",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 2
+    },
+    {
+      "id": "N2",
+      "label": "Anode HOR: H2 -> 2H+ + 2e−",
+      "detail": "Hydrogen oxidation",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N3",
+      "label": "Protons cross membrane",
+      "detail": "PEM conducts H+",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N4",
+      "label": "Electrons via external circuit",
+      "detail": "Drive the load",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N5",
+      "label": "Electric work delivered",
+      "detail": "Usable power",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 2
+    },
+    {
+      "id": "N6",
+      "label": "Cathode ORR: O2 -> H2O",
+      "detail": "Oxygen reduction",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N7",
+      "label": "ORR limits performance?",
+      "detail": "Large cathodic overpotential",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N8",
+      "label": "Pt catalyst lowers barrier",
+      "detail": "Accelerate sluggish ORR",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N9",
+      "label": "Water + heat removed",
+      "detail": "Product and thermal management",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N10",
+      "label": "Continuous power output",
+      "detail": "Steady electricity",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 2
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:electrochemistry-fuel-cell-operation",
+    "graphType": "mechanism_flowchart",
+    "topologySignature": "180f475a8fc86eb5",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "graphType": "mechanism_flowchart",
+  "domainContext": "Electrochemical energy conversion"
 }

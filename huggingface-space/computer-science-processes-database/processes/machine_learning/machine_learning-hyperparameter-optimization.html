@@ -167,6 +167,33 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
@@ -176,7 +203,7 @@
             <div class="header-meta">
                 <span class="meta-item">Computer Science</span>
                 <span class="meta-item">Machine Learning</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,51 +234,62 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Hyperparameter Optimization process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>Hyperparameter optimization searches configuration space for the best-performing model: a strategy is chosen among grid, random, or Bayesian search, candidate configurations are sampled, scored by cross-validation, and the best is tracked; sampling continues until the budget is exhausted, returning the optimal hyperparameters.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-N1["Model Family"]
-N2["Metric + Budget"]
-N3["Search Space"]
-N4["Choose Approach"]
-N5["Sampler Strategy"]
-N6["Propose Params"]
-N7["Train Candidate"]
-N8["Validate Candidate"]
-N9["Integrate Results"]
-N10["Trial History"]
-N11["Best Parameters"]
+    N1["Model + search space"]
+    N2{"Choose search strategy"}
+    N3["Grid search"]
+    N4["Random search"]
+    N5["Bayesian optimization"]
+    N6["Sample configuration"]
+    N7["Cross-validate score"]
+    N8{"Better than best?"}
+    N9["Update best config"]
+    N10{"Budget exhausted?"}
+    N11["Best hyperparameters"]
 
-N1 --> N2
-N2 --> N3
-N3 --> N4
-N4 --> N5
-N4 --> N7
-N5 --> N6
-N7 --> N8
-N6 --> N9
-N8 --> N9
-N9 --> N10
-N10 --> N11
+    N1 --> N2
+    N2 -->|grid| N3
+    N2 -->|random| N4
+    N2 -->|bayesian| N5
+    N3 --> N6
+    N4 --> N6
+    N5 --> N6
+    N6 --> N7
+    N7 --> N8
+    N8 -->|yes| N9
+    N9 --> N10
+    N8 -->|no| N10
+    N10 -->|no| N6
+    N10 -->|yes| N11
 
     style N1 fill:#ff6b6b,color:#fff
-    style N2 fill:#ff6b6b,color:#fff
-    style N3 fill:#ffd43b,color:#000
-    style N4 fill:#ffd43b,color:#000
-    style N5 fill:#ffd43b,color:#000
+    style N2 fill:#74c0fc,color:#fff
+    style N3 fill:#51cf66,color:#fff
+    style N4 fill:#51cf66,color:#fff
+    style N5 fill:#51cf66,color:#fff
     style N6 fill:#51cf66,color:#fff
     style N7 fill:#51cf66,color:#fff
-    style N8 fill:#51cf66,color:#fff
-    style N9 fill:#74c0fc,color:#fff
+    style N8 fill:#74c0fc,color:#fff
+    style N9 fill:#51cf66,color:#fff
     style N10 fill:#74c0fc,color:#fff
     style N11 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Model + search space</td><td>Triggers & Inputs</td><td><a href="https://jmlr.org/papers/v13/bergstra12a.html" target="_blank" title="Random search for hyper-parameter optimization" style="color:#9b59b6;">Bergstra, J. et al. 2012</a></td></tr><tr><td style="font-weight:600;">Choose search strategy</td><td>Intermediates & States</td><td><a href="https://jmlr.org/papers/v13/bergstra12a.html" target="_blank" title="Random search for hyper-parameter optimization" style="color:#9b59b6;">Bergstra, J. et al. 2012</a></td></tr><tr><td style="font-weight:600;">Grid search</td><td>Processing & Operations</td><td><a href="https://jmlr.org/papers/v13/bergstra12a.html" target="_blank" title="Random search for hyper-parameter optimization" style="color:#9b59b6;">Bergstra, J. et al. 2012</a></td></tr><tr><td style="font-weight:600;">Random search</td><td>Processing & Operations</td><td><a href="https://jmlr.org/papers/v13/bergstra12a.html" target="_blank" title="Random search for hyper-parameter optimization" style="color:#9b59b6;">Bergstra, J. et al. 2012</a></td></tr><tr><td style="font-weight:600;">Bayesian optimization</td><td>Processing & Operations</td><td><a href="https://arxiv.org/abs/1206.2944" target="_blank" title="Practical Bayesian optimization of machine learning algorithms" style="color:#9b59b6;">Snoek, J. et al. 2012</a></td></tr><tr><td style="font-weight:600;">Sample configuration</td><td>Processing & Operations</td><td><a href="https://arxiv.org/abs/1206.2944" target="_blank" title="Practical Bayesian optimization of machine learning algorithms" style="color:#9b59b6;">Snoek, J. et al. 2012</a></td></tr><tr><td style="font-weight:600;">Cross-validate score</td><td>Processing & Operations</td><td><a href="https://jmlr.org/papers/v13/bergstra12a.html" target="_blank" title="Random search for hyper-parameter optimization" style="color:#9b59b6;">Bergstra, J. et al. 2012</a></td></tr><tr><td style="font-weight:600;">Better than best?</td><td>Intermediates & States</td><td><a href="https://arxiv.org/abs/1206.2944" target="_blank" title="Practical Bayesian optimization of machine learning algorithms" style="color:#9b59b6;">Snoek, J. et al. 2012</a></td></tr><tr><td style="font-weight:600;">Update best config</td><td>Processing & Operations</td><td><a href="https://arxiv.org/abs/1206.2944" target="_blank" title="Practical Bayesian optimization of machine learning algorithms" style="color:#9b59b6;">Snoek, J. et al. 2012</a></td></tr><tr><td style="font-weight:600;">Budget exhausted?</td><td>Intermediates & States</td><td><a href="https://jmlr.org/papers/v13/bergstra12a.html" target="_blank" title="Random search for hyper-parameter optimization" style="color:#9b59b6;">Bergstra, J. et al. 2012</a></td></tr><tr><td style="font-weight:600;">Best hyperparameters</td><td>Products & Outputs</td><td><a href="https://jmlr.org/papers/v13/bergstra12a.html" target="_blank" title="Random search for hyper-parameter optimization" style="color:#9b59b6;">Bergstra, J. et al. 2012</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -298,11 +336,11 @@ N10 --> N11
                     <h3>Process Statistics</h3>
                     <ul>
                         <li><strong>Nodes:</strong> 11</li>
-                        <li><strong>Edges:</strong> 11</li>
-                        <li><strong>Conditionals:</strong> 0</li>
-                        <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 1</li>
-                        <li><strong>Total Gates:</strong> 2</li>
+                        <li><strong>Edges:</strong> 14</li>
+                        <li><strong>Conditionals:</strong> 3</li>
+                        <li><strong>AND Gates:</strong> 2</li>
+                        <li><strong>OR Gates:</strong> 3</li>
+                        <li><strong>Total Gates:</strong> 5</li>
                     </ul>
                 </div>
                 
@@ -310,7 +348,7 @@ N10 --> N11
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>hyperparameter</li><li>optimization</li>
+                        <li>hyperparameter optimization</li><li>grid search</li><li>random search</li><li>Bayesian optimization</li><li>cross-validation</li>
                     </ul>
                 </div>
                 
@@ -321,43 +359,23 @@ N10 --> N11
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Random search for hyper-parameter optimization</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Bergstra, J.; Bengio, Y.
+                            , Journal of Machine Learning Research
+                             (2012)
                             </span>
                             
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #9b59b6; font-size: 0.85em;">View Source</a>
+                            <br><a href="https://jmlr.org/papers/v13/bergstra12a.html" target="_blank" style="color: #9b59b6; font-size: 0.85em;">View Source</a>
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Table 3: Hyperparameter optimization results.</strong>
-                            
-                            
-                             (None)
+                            <strong>Practical Bayesian optimization of machine learning algorithms</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Snoek, J.; Larochelle, H.; Adams, R. P.
+                            , Advances in Neural Information Processing Systems
+                             (2012)
                             </span>
-                            <br><a href="https://doi.org/10.7717/peerj-cs.2992/table-3" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.7717/peerj-cs.2992/table-3</a>
                             
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Algorithm 2 : Firebug swarm optimization (FSO) for hyperparameter optimization.</strong>
-                            
-                            
-                             (None)
-                            </span>
-                            <br><a href="https://doi.org/10.7717/peerj-cs.3119/table-102" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.7717/peerj-cs.3119/table-102</a>
-                            
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Table 5: Hyperparameter optimization algorithm.</strong>
-                            
-                            
-                             (None)
-                            </span>
-                            <br><a href="https://doi.org/10.7717/peerj-cs.444/table-5" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.7717/peerj-cs.444/table-5</a>
-                            
+                            <br><a href="https://arxiv.org/abs/1206.2944" target="_blank" style="color: #9b59b6; font-size: 0.85em;">View Source</a>
                         </li>
                         
                     </ul>

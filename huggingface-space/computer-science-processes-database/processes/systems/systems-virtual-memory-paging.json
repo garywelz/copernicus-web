@@ -4,18 +4,20 @@
   "category": "computer_science",
   "subcategory": "systems",
   "subcategory_name": "Systems & Architecture",
-  "description": "Virtual Memory Paging process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "Paging translates a process's virtual address to a physical one: the address splits into a page number and offset, the TLB is consulted, and on a miss the page table is walked; if the page is not resident a page fault traps to the OS, which evicts a victim and loads the page from disk before forming the physical address.",
   "complexity": {
-    "nodes": 10,
-    "edges": 10,
-    "conditionals": 0,
+    "nodes": 12,
+    "edges": 13,
+    "conditionals": 2,
     "logicGates": {
-      "orGates": 1,
-      "andGates": 1,
-      "total": 2
+      "orGates": 2,
+      "andGates": 2,
+      "notGates": 0,
+      "total": 4
     },
-    "level": "medium",
-    "detailLevel": "medium"
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 0
   },
   "colorScheme": {
     "red": {
@@ -39,54 +41,156 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nN1[\"Virtual Address\"]\nN2[\"Access Request\"]\nN3[\"Page Table\"]\nN4[\"Choose Approach\"]\nN5[\"Physical Frames\"]\nN6[\"Translate\"]\nN7[\"Handle Page Fault\"]\nN8[\"Working Set\"]\nN9[\"Integrate Results\"]\nN10[\"Mapped Address\"]\n\nN1 --> N2\nN2 --> N3\nN3 --> N4\nN4 --> N5\nN4 --> N7\nN5 --> N6\nN7 --> N8\nN6 --> N9\nN8 --> N9\nN9 --> N10\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#ff6b6b,color:#fff\n    style N3 fill:#ffd43b,color:#000\n    style N4 fill:#ffd43b,color:#000\n    style N5 fill:#ffd43b,color:#000\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#74c0fc,color:#fff\n    style N9 fill:#74c0fc,color:#fff\n    style N10 fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"Process virtual address\"]\n    N2[\"Split page# + offset\"]\n    N3[\"Lookup TLB\"]\n    N4{\"TLB hit?\"}\n    N5[\"Walk page table\"]\n    N6{\"Page in memory?\"}\n    N7[\"Page fault: trap OS\"]\n    N8[\"Evict victim page\"]\n    N9[\"Load page from disk\"]\n    N10[\"Update page table+TLB\"]\n    N11[\"Form physical address\"]\n    N12[\"Access memory word\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 --> N4\n    N4 -->|yes| N11\n    N4 -->|no| N5\n    N5 --> N6\n    N6 -->|yes| N10\n    N6 -->|no| N7\n    N7 --> N8\n    N8 --> N9\n    N9 --> N10\n    N10 --> N11\n    N11 --> N12\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#74c0fc,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#74c0fc,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#51cf66,color:#fff\n    style N10 fill:#74c0fc,color:#fff\n    style N11 fill:#51cf66,color:#fff\n    style N12 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
-      "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: Virtual Memory Paging. Created using the Programming Framework methodology."
+      "title": "Virtual memory",
+      "authors": "Denning, P. J.",
+      "journal": "ACM Computing Surveys",
+      "year": "1970",
+      "doi": "10.1145/356571.356573",
+      "url": "https://doi.org/10.1145/356571.356573"
     },
     {
-      "title": "Measurement criteria for virtual memory paging rules",
-      "authors": "McCredie, John W.",
-      "journal": "Proceedings of the 1969 24th national conference on   -",
-      "year": "1969",
-      "pubmed": null,
-      "doi": "10.1145/800195.805932",
-      "url": "https://doi.org/10.1145/800195.805932"
-    },
-    {
-      "title": "Segmentation, paging and optimal page sizes in virtual memory",
-      "authors": "Alanko, Timo O.; Verkamo, A.Inkeri",
-      "journal": "Computer Compacts",
-      "year": "1983",
-      "pubmed": null,
-      "doi": "10.1016/0167-7136(83)90150-6",
-      "url": "https://doi.org/10.1016/0167-7136(83)90150-6"
-    },
-    {
-      "title": "Segmentation, paging and optimal page sizes in virtual memory",
-      "authors": "Alanko, Timo O; Inkeri Verkamo, A",
-      "journal": "Performance Evaluation",
-      "year": "1983",
-      "pubmed": null,
-      "doi": "10.1016/0166-5316(83)90030-5",
-      "url": "https://doi.org/10.1016/0166-5316(83)90030-5"
+      "title": "Operating System Concepts (10th ed.)",
+      "authors": "Silberschatz, A.; Galvin, P. B.; Gagne, G.",
+      "journal": "Wiley",
+      "year": "2018",
+      "url": "https://www.os-book.com/OS10/"
     }
   ],
   "keywords": [
-    "virtual",
-    "memory",
-    "paging"
+    "virtual memory",
+    "paging",
+    "TLB",
+    "page fault",
+    "page replacement"
   ],
   "relatedProcesses": [],
   "created": "2026-01-15",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations.\nCurated Mermaid applied (citations preserved)."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "namedCollections": [],
+  "graphMetrics": {
+    "nodes": 12,
+    "edges": 13,
+    "conditionals": 2,
+    "andGates": 2,
+    "orGates": 2,
+    "notGates": 0,
+    "loops": 0
+  },
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Process virtual address",
+      "detail": "Logical reference",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 1
+    },
+    {
+      "id": "N2",
+      "label": "Split page# + offset",
+      "detail": "Decode address",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N3",
+      "label": "Lookup TLB",
+      "detail": "Cached mappings",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N4",
+      "label": "TLB hit?",
+      "detail": "Mapping cached",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N5",
+      "label": "Walk page table",
+      "detail": "Multi-level lookup",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N6",
+      "label": "Page in memory?",
+      "detail": "Valid bit set",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N7",
+      "label": "Page fault: trap OS",
+      "detail": "Kernel handler",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N8",
+      "label": "Evict victim page",
+      "detail": "Replacement policy",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N9",
+      "label": "Load page from disk",
+      "detail": "Backing store",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N10",
+      "label": "Update page table+TLB",
+      "detail": "Record frame",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N11",
+      "label": "Form physical address",
+      "detail": "Frame + offset",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N12",
+      "label": "Access memory word",
+      "detail": "Read/write data",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 1
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:systems-virtual-memory-paging",
+    "graphType": "decision_flowchart",
+    "topologySignature": "271ff617cc4f8aad",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "graphType": "decision_flowchart",
+  "domainContext": "Operating systems"
 }

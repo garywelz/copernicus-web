@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Metal Oxide Formation - Chemistry Process</title>
+    <title>Metal Oxidation (Ellingham) - Chemistry Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Metal Oxide Formation</h1>
+            <h1>Metal Oxidation (Ellingham)</h1>
             <div class="header-meta">
                 <span class="meta-item">Chemistry</span>
                 <span class="meta-item">Inorganic Chemistry</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,32 +234,60 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Metal Oxide Formation process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>Metal oxidation is analyzed with an Ellingham diagram of the oxidation free energy versus temperature: a negative free energy means the oxide is favored, and a reductant whose oxidation line lies below the metal's allows the oxide to be reduced (e.g. carbothermic reduction).</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-N1["Metal Precursor"]
-N2["Oxidant/Heat"]
-N3["Nucleation Sites"]
-N4["Growth/Calcination"]
-N5["Metal Oxide"]
+    N1["Metal + O2"]
+    N2["Form oxide MOx"]
+    N3["ΔG of oxidation vs T"]
+    N4["Plot Ellingham diagram"]
+    N5{"ΔG negative?"}
+    N6["Oxidation spontaneous"]
+    N7["Oxide unstable"]
+    N8{"Reductant line below?"}
+    N9["Carbothermic/H2 works"]
+    N10["No accessible reductant"]
+    N11["Oxide stability map"]
 
-N1 --> N2
-N2 --> N3
-N3 --> N4
-N4 --> N5
+    N1 --> N2
+    N2 --> N3
+    N3 --> N4
+    N4 --> N5
+    N5 -->|yes| N6
+    N5 -->|no| N7
+    N6 --> N8
+    N8 -->|yes| N9
+    N8 -->|no| N10
+    N9 --> N11
+    N10 --> N11
+    N7 --> N11
 
     style N1 fill:#ff6b6b,color:#fff
-    style N2 fill:#ff6b6b,color:#fff
-    style N3 fill:#ffd43b,color:#000
+    style N2 fill:#51cf66,color:#fff
+    style N3 fill:#51cf66,color:#fff
     style N4 fill:#51cf66,color:#fff
-    style N5 fill:#b197fc,color:#fff
+    style N5 fill:#74c0fc,color:#fff
+    style N6 fill:#51cf66,color:#fff
+    style N7 fill:#51cf66,color:#fff
+    style N8 fill:#74c0fc,color:#fff
+    style N9 fill:#51cf66,color:#fff
+    style N10 fill:#51cf66,color:#fff
+    style N11 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Metal + O2</td><td>Triggers & Inputs</td><td><a href="https://www.pearson.com/en-gb/subject-catalog/p/inorganic-chemistry/P200000005860" target="_blank" title="Inorganic Chemistry, 6th ed. — Extraction of the Elements" style="color:#e74c3c;">Housecroft, C. E. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Form oxide MOx</td><td>Processing & Operations</td><td><a href="https://www.pearson.com/en-gb/subject-catalog/p/inorganic-chemistry/P200000005860" target="_blank" title="Inorganic Chemistry, 6th ed. — Extraction of the Elements" style="color:#e74c3c;">Housecroft, C. E. et al. 2018</a></td></tr><tr><td style="font-weight:600;">ΔG of oxidation vs T</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1002/jctb.5000630501" target="_blank" title="Transactions and reducibility of oxides and sulphides in metallurgical processes (Ellingham diagrams)" style="color:#e74c3c;">Ellingham, H. J. T. 1944</a></td></tr><tr><td style="font-weight:600;">Plot Ellingham diagram</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1002/jctb.5000630501" target="_blank" title="Transactions and reducibility of oxides and sulphides in metallurgical processes (Ellingham diagrams)" style="color:#e74c3c;">Ellingham, H. J. T. 1944</a></td></tr><tr><td style="font-weight:600;">ΔG negative?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1201/9781315119175" target="_blank" title="Introduction to the Thermodynamics of Materials, 6th ed." style="color:#e74c3c;">Gaskell, D. R. et al. 2017</a></td></tr><tr><td style="font-weight:600;">Oxidation spontaneous</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1201/9781315119175" target="_blank" title="Introduction to the Thermodynamics of Materials, 6th ed." style="color:#e74c3c;">Gaskell, D. R. et al. 2017</a></td></tr><tr><td style="font-weight:600;">Oxide unstable</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1201/9781315119175" target="_blank" title="Introduction to the Thermodynamics of Materials, 6th ed." style="color:#e74c3c;">Gaskell, D. R. et al. 2017</a></td></tr><tr><td style="font-weight:600;">Reductant line below?</td><td>Intermediates & States</td><td><a href="https://www.pearson.com/en-gb/subject-catalog/p/inorganic-chemistry/P200000005860" target="_blank" title="Inorganic Chemistry, 6th ed. — Extraction of the Elements" style="color:#e74c3c;">Housecroft, C. E. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Carbothermic/H2 works</td><td>Processing & Operations</td><td><a href="https://www.pearson.com/en-gb/subject-catalog/p/inorganic-chemistry/P200000005860" target="_blank" title="Inorganic Chemistry, 6th ed. — Extraction of the Elements" style="color:#e74c3c;">Housecroft, C. E. et al. 2018</a></td></tr><tr><td style="font-weight:600;">No accessible reductant</td><td>Processing & Operations</td><td><a href="https://www.pearson.com/en-gb/subject-catalog/p/inorganic-chemistry/P200000005860" target="_blank" title="Inorganic Chemistry, 6th ed. — Extraction of the Elements" style="color:#e74c3c;">Housecroft, C. E. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Oxide stability map</td><td>Products & Outputs</td><td><a href="https://doi.org/10.1002/jctb.5000630501" target="_blank" title="Transactions and reducibility of oxides and sulphides in metallurgical processes (Ellingham diagrams)" style="color:#e74c3c;">Ellingham, H. J. T. 1944</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -278,12 +333,12 @@ N4 --> N5
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 5</li>
-                        <li><strong>Edges:</strong> 4</li>
-                        <li><strong>Conditionals:</strong> 0</li>
-                        <li><strong>AND Gates:</strong> 0</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 0</li>
+                        <li><strong>Nodes:</strong> 11</li>
+                        <li><strong>Edges:</strong> 12</li>
+                        <li><strong>Conditionals:</strong> 2</li>
+                        <li><strong>AND Gates:</strong> 1</li>
+                        <li><strong>OR Gates:</strong> 2</li>
+                        <li><strong>Total Gates:</strong> 3</li>
                     </ul>
                 </div>
                 
@@ -291,7 +346,7 @@ N4 --> N5
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>metal</li><li>oxide</li><li>formation</li>
+                        <li>ellingham diagram</li><li>metal oxidation</li><li>gibbs energy</li><li>carbothermic reduction</li><li>oxide stability</li>
                     </ul>
                 </div>
                 
@@ -302,43 +357,33 @@ N4 --> N5
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Transactions and reducibility of oxides and sulphides in metallurgical processes (Ellingham diagrams)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Ellingham, H. J. T.
+                            , Journal of the Society of Chemical Industry
+                             (1944)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Formation and characterization of metal and metal oxide nanoparticles</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Glaspell, Garry
-                            
-                             (None)
-                            </span>
-                            <br><a href="https://doi.org/10.33915/etd.2100" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.33915/etd.2100</a>
+                            <br><a href="https://doi.org/10.1002/jctb.5000630501" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1002/jctb.5000630501</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Formation and investigation of phospholipid bilayers on metal/metal oxide surfaces</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Sabirovas, Tomas
-                            
-                             (None)
+                            <strong>Introduction to the Thermodynamics of Materials, 6th ed.</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Gaskell, D. R.; Laughlin, D. E.
+                            , CRC Press
+                             (2017)
                             </span>
-                            <br><a href="https://doi.org/10.15388/vu.thesis.87" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.15388/vu.thesis.87</a>
+                            <br><a href="https://doi.org/10.1201/9781315119175" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1201/9781315119175</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Formation, stability and structure of transition metal oxide clusters</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Γκλόντιτς, Παύλος
-                            
-                             (None)
+                            <strong>Inorganic Chemistry, 6th ed. — Extraction of the Elements</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Housecroft, C. E.; Sharpe, A. G.
+                            , Pearson
+                             (2018)
                             </span>
-                            <br><a href="https://doi.org/10.12681/eadd/40782" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.12681/eadd/40782</a>
                             
+                            <br><a href="https://www.pearson.com/en-gb/subject-catalog/p/inorganic-chemistry/P200000005860" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
                         </li>
                         
                     </ul>

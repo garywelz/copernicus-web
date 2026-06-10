@@ -1,0 +1,38 @@
+{
+  "id": "arxiv_2605.02841v1",
+  "arxiv_id": "2605.02841v1",
+  "title": "TRACE: Temporal Reasoning over Context and Evidence for Activity Recognition in Smart Homes",
+  "authors": [
+    "Yingtian Shi",
+    "Abivishaq Balasubramanian",
+    "Jessica Herring",
+    "Jiachen Li",
+    "Juan Macias Romero",
+    "Rosemarie Santa Gonzalez",
+    "Varun Mishra",
+    "Agata Rozga",
+    "Xiang Zhi Tan",
+    "Thomas Plötz"
+  ],
+  "author_string": "Yingtian Shi, Abivishaq Balasubramanian, Jessica Herring, Jiachen Li, Juan Macias Romero et al.",
+  "journal": "arXiv:2605.02841v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Human activity recognition (HAR) in smart homes remains challenging because many daily activities exhibit similar local sensor patterns, while minimally intrusive sensing provides sparse and ambiguous observations. As a result, methods based on short temporal or event windows often fail to capture the broader temporal and behavioral context needed for reliable activity understanding. We present TRACE (Temporal Reasoning over Context and Evidence), a contextual activity recognition framework for smart homes that integrates multi-source sensor evidence with user-specific contextual priors to improve activity interpretation. Rather than treating recognition as a local classification problem, TRACE leverages contextual reasoning to resolve ambiguities, reduce fragmented predictions, and infer more semantically specific activities. We evaluate TRACE on public benchmarks and in a deployment study conducted in our smart-home environment. Results show that TRACE improves recognition accuracy for semantically complex activities, produces more temporally coherent predictions that better align with user-specific routines, and maintains robust performance under cross-domain transfer and missing-modality conditions. These findings demonstrate the value of contextual reasoning for advancing smart-home HAR.",
+  "categories": [
+    "cs.HC"
+  ],
+  "primary_category": "cs.HC",
+  "comment": null,
+  "published_date": "2026-05-04T17:19:24Z",
+  "updated_date": "2026-05-04T17:19:24Z",
+  "url": "https://arxiv.org/abs/2605.02841v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.02841v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-04T22:16:57.186968",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.HC"
+  ]
+}

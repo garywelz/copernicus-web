@@ -1,0 +1,43 @@
+{
+  "id": "arxiv_2605.13821v1",
+  "arxiv_id": "2605.13821v1",
+  "title": "Harnessing Agentic Evolution",
+  "authors": [
+    "Jiayi Zhang",
+    "Yongfeng Gu",
+    "Jianhao Ruan",
+    "Maojia Song",
+    "Yiran Peng",
+    "Zhiguang Han",
+    "Jinyu Xiang",
+    "Zhitao Wang",
+    "Caiyin Yang",
+    "Yixi Ouyang",
+    "Bang Liu",
+    "Chenglin Wu",
+    "Yuyu Luo"
+  ],
+  "author_string": "Jiayi Zhang, Yongfeng Gu, Jianhao Ruan, Maojia Song, Yiran Peng et al.",
+  "journal": "arXiv:2605.13821v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Agentic evolution has emerged as a powerful paradigm for improving programs, workflows, and scientific solutions by iteratively generating candidates, evaluating them, and using feedback to guide future search. However, existing methods are typically instantiated either as fixed hand-designed procedures that are modular but rigid, or as general-purpose agents that flexibly integrate feedback but can drift in long-horizon evolution. Both forms accumulate rich evidence over time, including candidates, feedback, traces, and failures, yet lack a stable interface for organizing this evidence and revising the mechanism that drives future evolution. We address this limitation by formulating agentic evolution as an interactive environment, where the accumulated evolution context serves as a process-level state. We introduce AEvo, a harnessed meta-editing framework in which a meta-agent observes this state and acts not by directly proposing the next candidate, but by editing the procedure or agent context that controls future evolution. This unified interface enables AEvo to steer both procedure-based and agent-based evolution, making accumulated evidence actionable for long-horizon search. Empirical evaluations on agentic and reasoning benchmarks show that AEvo outperforms five evolution baselines, achieving a 26 relative improvement over the strongest baseline. Across three open-ended optimization tasks, AEvo further outperforms four evolution baselines and achieves state-of-the-art performance under the same iteration budget.",
+  "categories": [
+    "cs.AI",
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": null,
+  "published_date": "2026-05-13T17:45:16Z",
+  "updated_date": "2026-05-13T17:45:16Z",
+  "url": "https://arxiv.org/abs/2605.13821v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.13821v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-13T22:17:00.035209",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.AI",
+    "cs.LG"
+  ]
+}

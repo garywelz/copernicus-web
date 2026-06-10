@@ -1,21 +1,23 @@
 {
   "id": "thermodynamics-chemical-equilibrium",
-  "name": "Chemical Equilibrium",
+  "name": "Chemical Equilibrium & Le Chatelier",
   "category": "chemistry",
   "subcategory": "thermodynamics",
   "subcategory_name": "Thermodynamics",
-  "description": "Chemical Equilibrium process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "Starting from a system at equilibrium, apply a disturbance (composition, temperature, or pressure), compare the reaction quotient to K, and predict the direction of the shift that relieves the stress until a new equilibrium is reached.",
   "complexity": {
-    "nodes": 26,
-    "edges": 22,
-    "conditionals": 0,
+    "nodes": 9,
+    "edges": 11,
+    "conditionals": 1,
     "logicGates": {
-      "orGates": 0,
-      "andGates": 1,
-      "total": 1
+      "orGates": 1,
+      "andGates": 3,
+      "notGates": 0,
+      "total": 4
     },
     "level": "medium",
-    "detailLevel": "medium"
+    "detailLevel": "source_grounded",
+    "loops": 1
   },
   "colorScheme": {
     "red": {
@@ -39,53 +41,143 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nA3[Reactant Species] --> B3[Chemical Equilibrium Method]\nC3[Product Species] --> D3[Concentration Control]\nE3[Reaction Conditions] --> F3[Temperature Control]\nB3 --> G3[Equilibrium Setup]\nD3 --> H3[Concentration Monitoring]\nF3 --> I3[Temperature Regulation]\nG3 --> J3[Initial Conditions]\nH3 --> K3[Concentration Analysis]\nI3 --> L3[Thermal Equilibrium]\nJ3 --> M3[Forward Reaction]\nK3 --> L3\nL3 --> N3[Reverse Reaction]\nM3 --> O3[Reaction Progress]\nN3 --> P3[Equilibrium Process]\nO3 --> Q3[Rate Balance]\nP3 --> R3[Equilibrium State]\nQ3 --> S3[Rate Measurement]\nR3 --> T3[Concentration Balance]\nS3 --> U3[Equilibrium Analysis]\nT3 --> V3[Balance Assessment]\nU3 --> W3[Equilibrium Efficiency]\nV3 --> X3[State Characterization]\nW3 --> Y3[Process Optimization]\nX3 --> Z3[Final Equilibrium State]\nY3 --> Z3\n\n    style A3 fill:#ff6b6b,color:#fff\n    style C3 fill:#ff6b6b,color:#fff\n    style E3 fill:#ff6b6b,color:#fff\n    style B3 fill:#ffd43b,color:#000\n    style D3 fill:#ffd43b,color:#000\n    style F3 fill:#ffd43b,color:#000\n    style G3 fill:#ffd43b,color:#000\n    style H3 fill:#ffd43b,color:#000\n    style I3 fill:#ffd43b,color:#000\n    style J3 fill:#ffd43b,color:#000\n    style K3 fill:#ffd43b,color:#000\n    style L3 fill:#ffd43b,color:#000\n    style M3 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style O3 fill:#51cf66,color:#fff\n    style P3 fill:#51cf66,color:#fff\n    style Q3 fill:#51cf66,color:#fff\n    style R3 fill:#51cf66,color:#fff\n    style S3 fill:#51cf66,color:#fff\n    style T3 fill:#51cf66,color:#fff\n    style U3 fill:#51cf66,color:#fff\n    style V3 fill:#51cf66,color:#fff\n    style W3 fill:#51cf66,color:#fff\n    style X3 fill:#51cf66,color:#fff\n    style Y3 fill:#51cf66,color:#fff\n    style Z3 fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"System at equilibrium\"]\n    N2[\"Write K expression\"]\n    N3{\"Apply a disturbance?\"}\n    N4[\"Add reactant / product\"]\n    N5[\"Change temperature\"]\n    N6[\"Change pressure / volume\"]\n    N7[\"Compare Q vs K\"]\n    N8[\"Shift to relieve stress\"]\n    N9[\"New equilibrium reached\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 -->|composition| N4\n    N3 -->|temperature| N5\n    N3 -->|pressure| N6\n    N4 --> N7\n    N6 --> N7\n    N5 --> N8\n    N7 --> N8\n    N8 --> N9\n    N9 -->|further stress| N3\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#74c0fc,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#74c0fc,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "title": "Physical Chemistry, 11th ed. — Chemical Equilibrium",
+      "authors": "Atkins, P.; de Paula, J.; Keeler, J.",
+      "journal": "Oxford University Press",
+      "year": "2018",
       "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: Chemical Equilibrium. Created using the Programming Framework methodology."
+      "url": "https://global.oup.com/ukhe/product/atkins-physical-chemistry-9780198769866"
     },
     {
-      "title": "Chemical Equilibrium",
-      "authors": "",
-      "journal": "Physical and Chemical Equilibrium for Chemical Engineers",
-      "year": "2012",
-      "pubmed": null,
-      "doi": "10.1002/9781118135341.ch12",
-      "url": "https://doi.org/10.1002/9781118135341.ch12"
-    },
-    {
-      "title": "Equilibrium with Gravity or Centrifugal Force, Osmotic Equilibrium, Equilibrium with Surface Tension",
-      "authors": "",
-      "journal": "Physical and Chemical Equilibrium for Chemical Engineers",
-      "year": "2012",
-      "pubmed": null,
-      "doi": "10.1002/9781118135341.ch14",
-      "url": "https://doi.org/10.1002/9781118135341.ch14"
-    },
-    {
-      "title": "Equilibrium in chemical reactions",
-      "authors": "Price, Gareth",
-      "journal": "Thermodynamics of Chemical Processes",
+      "title": "Gold Book: Le Chatelier's principle",
+      "authors": "IUPAC",
+      "journal": "IUPAC Compendium of Chemical Terminology",
       "year": "2019",
-      "pubmed": null,
-      "doi": "10.1093/hesc/9780198814450.003.0004",
-      "url": "https://doi.org/10.1093/hesc/9780198814450.003.0004"
+      "doi": "10.1351/goldbook.L03482",
+      "url": "https://goldbook.iupac.org/terms/view/L03482"
+    },
+    {
+      "title": "Sur un énoncé général des lois des équilibres chimiques",
+      "authors": "Le Chatelier, H.",
+      "journal": "Comptes Rendus de l'Académie des Sciences",
+      "year": "1884",
+      "doi": null,
+      "url": "https://gallica.bnf.fr/ark:/12148/bpt6k3055f"
     }
   ],
   "keywords": [
-    "chemical",
-    "equilibrium"
+    "equilibrium",
+    "le chatelier",
+    "reaction quotient",
+    "equilibrium constant",
+    "shift"
   ],
   "relatedProcesses": [],
   "created": "2026-01-08",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "System at equilibrium",
+      "detail": "Forward and reverse rates equal",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N2",
+      "label": "Write K expression",
+      "detail": "Equilibrium constant in activities",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N3",
+      "label": "Apply a disturbance?",
+      "detail": "Type of stress imposed",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N4",
+      "label": "Add reactant / product",
+      "detail": "Composition change",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N5",
+      "label": "Change temperature",
+      "detail": "K itself changes with T",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N6",
+      "label": "Change pressure / volume",
+      "detail": "Shifts toward fewer gas moles",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N7",
+      "label": "Compare Q vs K",
+      "detail": "Reaction quotient relative to K",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N8",
+      "label": "Shift to relieve stress",
+      "detail": "Net reaction in restoring direction",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N9",
+      "label": "New equilibrium reached",
+      "detail": "Rates re-balance",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 0
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:thermodynamics-chemical-equilibrium",
+    "graphType": "mechanism_flowchart",
+    "topologySignature": "72b05c6af0e66878",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "namedCollections": [
+    "thermodynamics"
+  ],
+  "graphMetrics": {
+    "nodes": 9,
+    "edges": 11,
+    "conditionals": 1,
+    "andGates": 3,
+    "orGates": 1,
+    "notGates": 0,
+    "loops": 1
+  },
+  "graphType": "mechanism_flowchart",
+  "domainContext": "Chemical equilibrium"
 }

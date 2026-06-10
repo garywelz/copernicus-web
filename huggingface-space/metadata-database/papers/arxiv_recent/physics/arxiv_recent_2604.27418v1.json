@@ -1,0 +1,44 @@
+{
+  "id": "arxiv_2604.27418v1",
+  "arxiv_id": "2604.27418v1",
+  "title": "MAAS-SFRThelper: An Integrated ESAPI Plugin for Structure Generation, Optimization, and Evaluation of Spatially Fractionated Radiation Therapy",
+  "authors": [
+    "Japan K. Patel",
+    "Todd A. Wareing",
+    "Tenzin Kunkyab",
+    "Caleb Raman",
+    "Ilias Sachpazidis",
+    "Peter Szentivanyi",
+    "Ryan Clark",
+    "Gregory Gill",
+    "Pierre Lansonneur",
+    "Arjun Karnwal",
+    "Michael Kudla",
+    "Sergejs Unterkirhers",
+    "Junqi Song",
+    "Jun Yang",
+    "Anthony Magliari",
+    "Matthew C. Schmidt"
+  ],
+  "author_string": "Japan K. Patel, Todd A. Wareing, Tenzin Kunkyab, Caleb Raman, Ilias Sachpazidis et al.",
+  "journal": "arXiv:2604.27418v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Spatially fractionated radiation therapy (SFRT) planning requires three coordinated tasks: generation of high-dose sphere structures, position-aware optimization, and peak-valley dose ratio evaluation. We present MAAS-SFRThelper, a shared-source Eclipse Scripting Application Programming Interface (ESAPI) plugin that integrates structure generation, geometric-aware optimization, and peak-valley dose ratio evaluation for SFRT into a single workflow inside Varian's Eclipse treatment planning system. The plugin exposes five task-oriented tabs sharing common services for sphere extraction and objective creation. The SphereLattice tab generates sphere lattices using five placement patterns. The Optimization tab searches over candidate lattice positions using a four-metric geometric surrogate score and triggers VMAT optimization and dose calculation. The Evaluation tab implements four analysis modes; its three-dimensional peak-valley classification recovers sphere centers from the lattice structure through a geometric extraction pipeline rather than relying on dose thresholds. We validated all functionality on digital phantoms against analytic ground truth. The plugin is distributed as source code under the Varian Limited Use Software License Agreement. Source code and documentation are publicly available on GitHub.",
+  "categories": [
+    "physics.med-ph"
+  ],
+  "primary_category": "physics.med-ph",
+  "comment": "Manuscript is being submitted to JACMP for review",
+  "published_date": "2026-04-30T04:48:38Z",
+  "updated_date": "2026-04-30T04:48:38Z",
+  "url": "https://arxiv.org/abs/2604.27418v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.27418v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-30T22:15:46.587545",
+  "category": "physics",
+  "subcategories": [
+    "physics.med-ph"
+  ]
+}

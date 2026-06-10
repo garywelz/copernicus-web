@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_2605.07972v1",
+  "arxiv_id": "2605.07972v1",
+  "title": "It Just Takes Two: Scaling Amortized Inference to Large Sets",
+  "authors": [
+    "Antoine Wehenkel",
+    "Michael Kagan",
+    "Lukas Heinrich",
+    "Chris Pollard"
+  ],
+  "author_string": "Antoine Wehenkel, Michael Kagan, Lukas Heinrich, Chris Pollard",
+  "journal": "arXiv:2605.07972v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Neural posterior estimation has emerged as a powerful tool for amortized inference, with growing adoption across scientific and applied domains. In many of these applications, the conditioning variable is a set of observations whose elements depend not only on the target but also on unknown factors shared across the set. Optimal inference therefore requires treating the set jointly, which in turn requires training the estimator at the deployment set size -- a regime where memory and compute quickly become prohibitive. We introduce a simple, theoretically grounded strategy that decouples representation learning from posterior modeling. Our method trains a mean-pool Deep Set on sets of size at most two, producing an encoder that generalizes to arbitrary set sizes. The inference head is then finetuned on pre-aggregated embeddings, making training cost essentially independent of the deployment set size N. Across scalar, image, multi-view 3D, molecular, and high-dimensional conditional generation benchmarks with N in the thousands, our approach matches or outperforms standard baselines at a fraction of the compute.",
+  "categories": [
+    "cs.LG",
+    "cs.AI",
+    "stat.ML"
+  ],
+  "primary_category": "stat.ML",
+  "comment": null,
+  "published_date": "2026-05-08T16:32:34Z",
+  "updated_date": "2026-05-08T16:32:34Z",
+  "url": "https://arxiv.org/abs/2605.07972v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.07972v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-10T22:17:15.401447",
+  "category": "mathematics",
+  "subcategories": [
+    "cs.LG",
+    "cs.AI",
+    "stat.ML"
+  ]
+}

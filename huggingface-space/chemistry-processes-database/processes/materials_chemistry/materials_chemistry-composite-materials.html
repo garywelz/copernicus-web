@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Composite Materials - Chemistry Process</title>
+    <title>Composite Fabrication - Chemistry Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Composite Materials</h1>
+            <h1>Composite Fabrication</h1>
             <div class="header-meta">
                 <span class="meta-item">Chemistry</span>
                 <span class="meta-item">Materials Chemistry</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,67 +234,57 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Composite Materials process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>Composite fabrication combines a matrix with a reinforcing phase: after selecting matrix chemistry, fibers or particles are surface-treated for wetting, then impregnated or infiltrated by the matrix, and interfacial bonding is verified before consolidation and curing produce the finished part.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-A3[Matrix Selection] --> B3[Composite Method]
-C3[Fiber Reinforcement] --> D3[Interface Design]
-E3[Processing Technique] --> F3[Composite Analysis]
-B3 --> G3[Polymer Matrix Composites]
-D3 --> H3[Ceramic Matrix Composites]
-F3 --> I3[Metal Matrix Composites]
-G3 --> J3[Fiber Orientation]
-H3 --> K3[Fiber Matrix Bonding]
-I3 --> L3[Processing Parameters]
-J3 --> M3[Mechanical Properties]
-K3 --> L3
-L3 --> N3[Thermal Properties]
-M3 --> O3[Strength Analysis]
-N3 --> P3[Stiffness Analysis]
-O3 --> Q3[Composite Materials Process]
-P3 --> R3[Composite Materials Validation]
-Q3 --> S3[Composite Materials Verification]
-R3 --> T3[Composite Materials Result]
-S3 --> U3[Composite Materials Analysis]
-T3 --> V3[Composite Materials Parameters]
-U3 --> W3[Composite Materials Output]
-V3 --> X3[Composite Materials Analysis]
-W3 --> Y3[Composite Materials Final Result]
-X3 --> Z3[Composite Materials Complete]
+    N1["Matrix + reinforcement"]
+    N2{"Choose matrix type"}
+    N3["Polymer matrix route"]
+    N4["Metal / ceramic matrix"]
+    N5["Surface-treat fibers"]
+    N6["Impregnate / infiltrate"]
+    N7{"Strong interface?"}
+    N8["Add coupling agent"]
+    N9["Consolidate + cure"]
+    N10["Composite part"]
 
-    style A3 fill:#ff6b6b,color:#fff
-    style C3 fill:#ff6b6b,color:#fff
-    style E3 fill:#ff6b6b,color:#fff
-    style B3 fill:#ffd43b,color:#000
-    style D3 fill:#ffd43b,color:#000
-    style F3 fill:#ffd43b,color:#000
-    style G3 fill:#ffd43b,color:#000
-    style H3 fill:#ffd43b,color:#000
-    style I3 fill:#ffd43b,color:#000
-    style J3 fill:#ffd43b,color:#000
-    style K3 fill:#ffd43b,color:#000
-    style L3 fill:#ffd43b,color:#000
-    style M3 fill:#51cf66,color:#fff
+    N1 --> N2
+    N2 -->|polymer| N3
+    N2 -->|metal/ceramic| N4
+    N3 --> N5
+    N4 --> N5
+    N5 --> N6
+    N6 --> N7
+    N7 -->|no| N8
+    N8 -->|retreat| N5
+    N7 -->|yes| N9
+    N9 --> N10
+
+    style N1 fill:#ff6b6b,color:#fff
+    style N2 fill:#74c0fc,color:#fff
     style N3 fill:#51cf66,color:#fff
-    style O3 fill:#51cf66,color:#fff
-    style P3 fill:#51cf66,color:#fff
-    style Q3 fill:#51cf66,color:#fff
-    style R3 fill:#51cf66,color:#fff
-    style S3 fill:#51cf66,color:#fff
-    style T3 fill:#51cf66,color:#fff
-    style U3 fill:#51cf66,color:#fff
-    style V3 fill:#51cf66,color:#fff
-    style W3 fill:#51cf66,color:#fff
-    style X3 fill:#51cf66,color:#fff
-    style Y3 fill:#51cf66,color:#fff
-    style Z3 fill:#b197fc,color:#fff
+    style N4 fill:#51cf66,color:#fff
+    style N5 fill:#51cf66,color:#fff
+    style N6 fill:#51cf66,color:#fff
+    style N7 fill:#74c0fc,color:#fff
+    style N8 fill:#51cf66,color:#fff
+    style N9 fill:#51cf66,color:#fff
+    style N10 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Matrix + reinforcement</td><td>Triggers & Inputs</td><td><a href="https://www.wiley.com/en-us/Materials+Science+and+Engineering%3A+An+Introduction%2C+10th+Edition-p-9781119405498" target="_blank" title="Materials Science and Engineering: An Introduction (10th ed.)" style="color:#e74c3c;">Callister, W. D. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Choose matrix type</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1017/9781139178600" target="_blank" title="An Introduction to Composite Materials (3rd ed.)" style="color:#e74c3c;">Hull, D. et al. 2019</a></td></tr><tr><td style="font-weight:600;">Polymer matrix route</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1017/9781139178600" target="_blank" title="An Introduction to Composite Materials (3rd ed.)" style="color:#e74c3c;">Hull, D. et al. 2019</a></td></tr><tr><td style="font-weight:600;">Metal / ceramic matrix</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1017/9781139178600" target="_blank" title="An Introduction to Composite Materials (3rd ed.)" style="color:#e74c3c;">Hull, D. et al. 2019</a></td></tr><tr><td style="font-weight:600;">Surface-treat fibers</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1017/9781139178600" target="_blank" title="An Introduction to Composite Materials (3rd ed.)" style="color:#e74c3c;">Hull, D. et al. 2019</a></td></tr><tr><td style="font-weight:600;">Impregnate / infiltrate</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1017/9781139178600" target="_blank" title="An Introduction to Composite Materials (3rd ed.)" style="color:#e74c3c;">Hull, D. et al. 2019</a></td></tr><tr><td style="font-weight:600;">Strong interface?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1017/9781139178600" target="_blank" title="An Introduction to Composite Materials (3rd ed.)" style="color:#e74c3c;">Hull, D. et al. 2019</a></td></tr><tr><td style="font-weight:600;">Add coupling agent</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1017/9781139178600" target="_blank" title="An Introduction to Composite Materials (3rd ed.)" style="color:#e74c3c;">Hull, D. et al. 2019</a></td></tr><tr><td style="font-weight:600;">Consolidate + cure</td><td>Processing & Operations</td><td><a href="https://www.wiley.com/en-us/Materials+Science+and+Engineering%3A+An+Introduction%2C+10th+Edition-p-9781119405498" target="_blank" title="Materials Science and Engineering: An Introduction (10th ed.)" style="color:#e74c3c;">Callister, W. D. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Composite part</td><td>Products & Outputs</td><td><a href="https://www.wiley.com/en-us/Materials+Science+and+Engineering%3A+An+Introduction%2C+10th+Edition-p-9781119405498" target="_blank" title="Materials Science and Engineering: An Introduction (10th ed.)" style="color:#e74c3c;">Callister, W. D. et al. 2018</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -313,12 +330,12 @@ X3 --> Z3[Composite Materials Complete]
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 26</li>
-                        <li><strong>Edges:</strong> 21</li>
-                        <li><strong>Conditionals:</strong> 0</li>
+                        <li><strong>Nodes:</strong> 10</li>
+                        <li><strong>Edges:</strong> 11</li>
+                        <li><strong>Conditionals:</strong> 2</li>
                         <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 1</li>
+                        <li><strong>OR Gates:</strong> 2</li>
+                        <li><strong>Total Gates:</strong> 3</li>
                     </ul>
                 </div>
                 
@@ -326,7 +343,7 @@ X3 --> Z3[Composite Materials Complete]
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>composite</li><li>materials</li>
+                        <li>composite</li><li>matrix</li><li>reinforcement</li><li>interfacial bonding</li><li>consolidation</li>
                     </ul>
                 </div>
                 
@@ -337,43 +354,23 @@ X3 --> Z3[Composite Materials Complete]
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>An Introduction to Composite Materials (3rd ed.)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Hull, D.; Clyne, T. W.
+                            , Cambridge University Press
+                             (2019)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Composite Materials Series</strong>
-                            
-                            , Composite Materials Series
-                             (1991)
-                            </span>
-                            <br><a href="https://doi.org/10.1016/b978-0-444-70507-5.50001-9" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1016/b978-0-444-70507-5.50001-9</a>
+                            <br><a href="https://doi.org/10.1017/9781139178600" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1017/9781139178600</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Composite Materials Series</strong>
-                            
-                            , Composite Materials Series
-                             (1989)
+                            <strong>Materials Science and Engineering: An Introduction (10th ed.)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Callister, W. D.; Rethwisch, D. G.
+                            , Wiley
+                             (2018)
                             </span>
-                            <br><a href="https://doi.org/10.1016/b978-0-444-87285-2.50001-7" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1016/b978-0-444-87285-2.50001-7</a>
                             
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Composite Functional Materials</strong>
-                            
-                            
-                             (None)
-                            </span>
-                            <br><a href="https://doi.org/10.63823/cfm" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.63823/cfm</a>
-                            
+                            <br><a href="https://www.wiley.com/en-us/Materials+Science+and+Engineering%3A+An+Introduction%2C+10th+Edition-p-9781119405498" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
                         </li>
                         
                     </ul>

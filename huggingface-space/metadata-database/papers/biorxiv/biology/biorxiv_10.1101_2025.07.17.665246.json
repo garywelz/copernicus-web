@@ -1,0 +1,41 @@
+{
+  "id": "biorxiv_10.1101_2025.07.17.665246",
+  "doi": "10.1101/2025.07.17.665246",
+  "title": "Molecular Clock Dating of Deep-Time Evolution Using Complex Mixture Models",
+  "authors": [
+    "Wang, S.",
+    "Meade, A."
+  ],
+  "author_string": "Wang, S., Meade, A.",
+  "journal": "bioRxiv",
+  "journal_full": "bioRxiv",
+  "year": "2025",
+  "abstract": "Molecular clocks are a fundamental technique in evolutionary biology for establishing the timing and tempo of organismal divergence. However, currently available molecular clock methods, which often rely on simple homogeneous substitution models, can produce inaccurate time estimates, particularly for deep-time or rapidly evolving lineages where substitution heterogeneity and saturation are common. Hereby, we introduce phyloHessian (https://github.com/evolbeginner/phyloHessianWrapper), a Julia-based software to enable the use of complex mixture substitution models in molecular dating. phyloHessian computes the phylogenetic Hessian matrix and integrates it into PAML-MCMCtrees approximate likelihood framework to conduct dating analyses. Simulations mimicking phylogenies at different timescales demonstrate that complex mixture substitution models significantly enhance the accuracy of divergence time and substitution rate estimates in deep-time phylogenies. This pattern remains consistent across a wide range of uncertainties associated with molecular clock analysis. Additionally, mixture models display greater robustness to model and calibration specifications compared to their homogeneous counterparts. Empirical analysis of ancient symbiont lineages Microsporidia and Rickettsiales with different substitution models shows that mixture models, compared to homogeneous models, yield accelerated substitution rates and in some cases significantly different divergence times, leading to a revised understanding of their host association origins. Our findings underscore the importance of incorporating complex mixture substitution models for constructing reliable evolutionary timelines and elucidating the evolutionary history of deep-time or fast-evolving lineages.",
+  "keywords": [],
+  "categories": [
+    "evolutionary biology"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.1101/2025.07.17.665246",
+  "source": "biorxiv",
+  "sources": [
+    "biorxiv"
+  ],
+  "acquired_date": "2026-04-30T22:15:24.115524",
+  "category": "biology",
+  "subcategories": [
+    "evolutionary biology"
+  ],
+  "published_date": "2025-12-31",
+  "updated_date": "2025-12-31",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "biorxiv",
+  "preprint_version": "2",
+  "preprint_type": "new results",
+  "license": "cc_by_nc_nd",
+  "jatsxml": "https://www.biorxiv.org/content/early/2025/12/31/2025.07.17.665246.source.xml",
+  "published_doi": "10.1093/molbev/msag039",
+  "author_corresponding": "Sishuo Wang",
+  "author_corresponding_institution": "Chinese University of Hong Kong"
+}

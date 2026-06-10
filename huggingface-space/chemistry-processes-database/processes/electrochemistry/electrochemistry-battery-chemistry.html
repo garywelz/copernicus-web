@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Battery Chemistry - Chemistry Process</title>
+    <title>Lithium-Ion Battery Operation - Chemistry Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Battery Chemistry</h1>
+            <h1>Lithium-Ion Battery Operation</h1>
             <div class="header-meta">
                 <span class="meta-item">Chemistry</span>
                 <span class="meta-item">Electrochemistry</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,68 +234,58 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Battery Chemistry process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>A lithium-ion cell shuttles Li+ between a graphite anode and a layered-oxide cathode: during discharge lithium leaves the anode and intercalates into the cathode while electrons power the load, and charging reverses the flow, with SEI growth driving aging.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-A2[Lithium Ions] --> B2[Battery Design Method]
-C2[Electrode Materials] --> D2[Electrolyte Selection]
-E2[Separator Membrane] --> F2[Cell Assembly]
-B2 --> G2[Anode Material]
-D2 --> H2[Ion Conductivity]
-F2 --> I2[Safety Features]
-G2 --> J2[Lithium Storage]
-H2 --> K2[Ion Transport]
-I2 --> L2[Thermal Management]
-J2 --> M2[Intercalation Process]
-K2 --> L2
-L2 --> N2[Charge Transfer]
-M2 --> O2[Electron Flow]
-N2 --> P2[Electrochemical Reaction]
-O2 --> Q2[Energy Storage]
-P2 --> R2[Voltage Generation]
-Q2 --> S2[Capacity Measurement]
-R2 --> T2[Power Output]
-S2 --> U2[Performance Testing]
-T2 --> V2[Cycle Life Analysis]
-U2 --> W2[Efficiency Calculation]
-V2 --> X2[Degradation Study]
-W2 --> Y2[Optimization Process]
-X2 --> Z2[Final Battery Design]
-Y2 --> Z2
+    N1["Charged cell (C / LiMO2)"]
+    N2{"Discharge or charge?"}
+    N3["Discharge: Li+ leaves anode"]
+    N4["Li+ crosses electrolyte"]
+    N5["Intercalate into cathode"]
+    N6["Electrons power load"]
+    N7["Charge: source reverses"]
+    N8["Li+ returns to anode"]
+    N9["SEI growth / aging"]
+    N10["Reversible energy storage"]
 
-    style A2 fill:#ff6b6b,color:#fff
-    style C2 fill:#ff6b6b,color:#fff
-    style E2 fill:#ff6b6b,color:#fff
-    style B2 fill:#ffd43b,color:#000
-    style D2 fill:#ffd43b,color:#000
-    style F2 fill:#ffd43b,color:#000
-    style G2 fill:#ffd43b,color:#000
-    style H2 fill:#ffd43b,color:#000
-    style I2 fill:#ffd43b,color:#000
-    style J2 fill:#ffd43b,color:#000
-    style K2 fill:#ffd43b,color:#000
-    style L2 fill:#ffd43b,color:#000
-    style M2 fill:#51cf66,color:#fff
-    style N2 fill:#51cf66,color:#fff
-    style O2 fill:#51cf66,color:#fff
-    style P2 fill:#51cf66,color:#fff
-    style Q2 fill:#51cf66,color:#fff
-    style R2 fill:#51cf66,color:#fff
-    style S2 fill:#51cf66,color:#fff
-    style T2 fill:#51cf66,color:#fff
-    style U2 fill:#51cf66,color:#fff
-    style V2 fill:#51cf66,color:#fff
-    style W2 fill:#51cf66,color:#fff
-    style X2 fill:#51cf66,color:#fff
-    style Y2 fill:#51cf66,color:#fff
-    style Z2 fill:#b197fc,color:#fff
+    N1 --> N2
+    N2 -->|discharge| N3
+    N3 --> N4
+    N4 --> N5
+    N3 --> N6
+    N5 --> N10
+    N6 --> N10
+    N2 -->|charge| N7
+    N7 --> N8
+    N8 -->|recharged| N1
+    N5 --> N9
+    N9 --> N10
+
+    style N1 fill:#ff6b6b,color:#fff
+    style N2 fill:#74c0fc,color:#fff
+    style N3 fill:#51cf66,color:#fff
+    style N4 fill:#51cf66,color:#fff
+    style N5 fill:#51cf66,color:#fff
+    style N6 fill:#51cf66,color:#fff
+    style N7 fill:#51cf66,color:#fff
+    style N8 fill:#51cf66,color:#fff
+    style N9 fill:#51cf66,color:#fff
+    style N10 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Charged cell (C / LiMO2)</td><td>Triggers & Inputs</td><td><a href="https://doi.org/10.1021/ja3091438" target="_blank" title="The Li-ion rechargeable battery: a perspective" style="color:#e74c3c;">Goodenough, J. B. et al. 2013</a></td></tr><tr><td style="font-weight:600;">Discharge or charge?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1021/cr020731c" target="_blank" title="Lithium batteries and cathode materials" style="color:#e74c3c;">Whittingham, M. S. 2004</a></td></tr><tr><td style="font-weight:600;">Discharge: Li+ leaves anode</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1021/ja3091438" target="_blank" title="The Li-ion rechargeable battery: a perspective" style="color:#e74c3c;">Goodenough, J. B. et al. 2013</a></td></tr><tr><td style="font-weight:600;">Li+ crosses electrolyte</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1021/ja3091438" target="_blank" title="The Li-ion rechargeable battery: a perspective" style="color:#e74c3c;">Goodenough, J. B. et al. 2013</a></td></tr><tr><td style="font-weight:600;">Intercalate into cathode</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1021/cr020731c" target="_blank" title="Lithium batteries and cathode materials" style="color:#e74c3c;">Whittingham, M. S. 2004</a></td></tr><tr><td style="font-weight:600;">Electrons power load</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1021/ja3091438" target="_blank" title="The Li-ion rechargeable battery: a perspective" style="color:#e74c3c;">Goodenough, J. B. et al. 2013</a></td></tr><tr><td style="font-weight:600;">Charge: source reverses</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1021/ja3091438" target="_blank" title="The Li-ion rechargeable battery: a perspective" style="color:#e74c3c;">Goodenough, J. B. et al. 2013</a></td></tr><tr><td style="font-weight:600;">Li+ returns to anode</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1021/cr020731c" target="_blank" title="Lithium batteries and cathode materials" style="color:#e74c3c;">Whittingham, M. S. 2004</a></td></tr><tr><td style="font-weight:600;">SEI growth / aging</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1038/35104644" target="_blank" title="Issues and challenges facing rechargeable lithium batteries" style="color:#e74c3c;">Tarascon, J.-M. et al. 2001</a></td></tr><tr><td style="font-weight:600;">Reversible energy storage</td><td>Products & Outputs</td><td><a href="https://doi.org/10.1038/35104644" target="_blank" title="Issues and challenges facing rechargeable lithium batteries" style="color:#e74c3c;">Tarascon, J.-M. et al. 2001</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -314,12 +331,12 @@ Y2 --> Z2
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 26</li>
-                        <li><strong>Edges:</strong> 22</li>
-                        <li><strong>Conditionals:</strong> 0</li>
+                        <li><strong>Nodes:</strong> 10</li>
+                        <li><strong>Edges:</strong> 12</li>
+                        <li><strong>Conditionals:</strong> 1</li>
                         <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 1</li>
+                        <li><strong>OR Gates:</strong> 3</li>
+                        <li><strong>Total Gates:</strong> 4</li>
                     </ul>
                 </div>
                 
@@ -327,7 +344,7 @@ Y2 --> Z2
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>battery</li><li>chemistry</li>
+                        <li>lithium-ion battery</li><li>intercalation</li><li>discharge</li><li>charge</li><li>solid electrolyte interphase</li>
                     </ul>
                 </div>
                 
@@ -338,42 +355,32 @@ Y2 --> Z2
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>The Li-ion rechargeable battery: a perspective</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Goodenough, J. B.; Park, K.-S.
+                            , Journal of the American Chemical Society
+                             (2013)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Recycling the lithium battery</strong>
-                            
-                            , Industrial Chemistry Library
-                             (2001)
-                            </span>
-                            <br><a href="https://doi.org/10.1016/s0926-9614(01)80011-3" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1016/s0926-9614(01)80011-3</a>
+                            <br><a href="https://doi.org/10.1021/ja3091438" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1021/ja3091438</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Primary battery recycling in Europe</strong>
-                            
-                            , Industrial Chemistry Library
-                             (2001)
+                            <strong>Lithium batteries and cathode materials</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Whittingham, M. S.
+                            , Chemical Reviews
+                             (2004)
                             </span>
-                            <br><a href="https://doi.org/10.1016/s0926-9614(01)80009-5" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1016/s0926-9614(01)80009-5</a>
+                            <br><a href="https://doi.org/10.1021/cr020731c" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1021/cr020731c</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Battery collection and recycling in Japan</strong>
-                            
-                            , Industrial Chemistry Library
+                            <strong>Issues and challenges facing rechargeable lithium batteries</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Tarascon, J.-M.; Armand, M.
+                            , Nature
                              (2001)
                             </span>
-                            <br><a href="https://doi.org/10.1016/s0926-9614(01)80005-8" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1016/s0926-9614(01)80005-8</a>
+                            <br><a href="https://doi.org/10.1038/35104644" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1038/35104644</a>
                             
                         </li>
                         

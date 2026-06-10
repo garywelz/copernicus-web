@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2605.13798v1",
+  "arxiv_id": "2605.13798v1",
+  "title": "VoxCor: Training-Free Volumetric Features for Multimodal Voxel Correspondence",
+  "authors": [
+    "Guney Tombak",
+    "Ertunc Erdil",
+    "Ender Konukoglu"
+  ],
+  "author_string": "Guney Tombak, Ertunc Erdil, Ender Konukoglu",
+  "journal": "arXiv:2605.13798v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Cross-modal 3D medical image analysis requires voxelwise representations that remain anatomically consistent across imaging contrasts, scanners, and acquisition protocols. Recent work has shown that frozen 2D Vision Transformer (ViT) foundation models can support such representations, but typical pipelines extract features along a single anatomical axis and adapt those features inside a registration solver for one image pair at a time, leaving complementary viewing directions unused and producing representations that do not transfer to new volumes. We introduce VoxCor, a training-free fit--transform method for reusable volumetric feature representations from frozen 2D ViT foundation models. During an offline fitting phase, VoxCor combines triplanar ViT inference with a compact closed-form weighted partial least squares (WPLS) projection that uses fitting-time voxel correspondences to select modality-stable anatomical directions in the triplanar feature space. At transform time, new volumes are mapped by triplanar ViT inference and linear projection alone, without fine-tuning or registration. Voxel correspondences can then be queried directly by nearest-neighbor search. We evaluate VoxCor on intra-subject Abdomen MR--CT and inter-subject HCP T2w--T1w tasks using deformable registration, voxelwise k-nearest-neighbor segmentation, and segmentation-center landmark localization. VoxCor improves the hardest cross-subject, cross-modality transfer settings, reduces encoder sensitivity for dense correspondence transfer, and yields registration performance competitive with handcrafted descriptors and learned 3D features. This positions VoxCor as a reusable feature layer for downstream multimodal analysis beyond pairwise registration. Code, configuration files, and implementation details are publicly available on GitHub at \\href{https://github.com/guneytombak/VoxCor}{guneytombak/VoxCor}.",
+  "categories": [
+    "cs.CV"
+  ],
+  "primary_category": "cs.CV",
+  "comment": null,
+  "published_date": "2026-05-13T17:20:26Z",
+  "updated_date": "2026-05-13T17:20:26Z",
+  "url": "https://arxiv.org/abs/2605.13798v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.13798v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-13T22:17:00.035674",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CV"
+  ]
+}

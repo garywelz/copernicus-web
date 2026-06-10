@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2605.13669v1",
+  "arxiv_id": "2605.13669v1",
+  "title": "Bounded-Input True Proportional Navigation for Impact-Time Control",
+  "authors": [
+    "Lohitvel Gopikannan",
+    "Shashi Ranjan Kumar",
+    "Abhinav Sinha"
+  ],
+  "author_string": "Lohitvel Gopikannan, Shashi Ranjan Kumar, Abhinav Sinha",
+  "journal": "arXiv:2605.13669v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "This paper proposes a nonlinear guidance strategy capable of intercepting a constant-velocity, non-maneuvering target while strictly satisfying the prescribed bounds on the control input (commanded acceleration). Unlike conventional strategies that estimate time-to-go using linearization or small-angle approximations, the proposed strategy employs true proportional-navigation guidance (TPNG) as a baseline, which utilizes an exact time-to-go formulation and is applicable over a wide range of target motions. In contrast to most existing strategies, which do not incorporate control input bounds into the guidance design, the proposed approach explicitly accounts for these limits by modeling the interceptor acceleration as a dynamic variable. Based on the sliding mode control technique, an effective guidance law that achieves time-constrained interception while accounting for bounded input is then derived. The performance of the proposed strategy is evaluated for various engagement scenarios.",
+  "categories": [
+    "eess.SY",
+    "cs.RO",
+    "math.DS"
+  ],
+  "primary_category": "math.DS",
+  "comment": "Preprint; Accepted for presentation at the 15th Asian Control Conference, June 17th-21st, 2026, Indonesia",
+  "published_date": "2026-05-13T15:29:44Z",
+  "updated_date": "2026-05-13T15:29:44Z",
+  "url": "https://arxiv.org/abs/2605.13669v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.13669v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-13T22:17:14.550055",
+  "category": "mathematics",
+  "subcategories": [
+    "eess.SY",
+    "cs.RO",
+    "math.DS"
+  ]
+}

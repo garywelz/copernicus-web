@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2605.16781v1",
+  "arxiv_id": "2605.16781v1",
+  "title": "Control Laws in Aging and Longevity",
+  "authors": [
+    "Alex Zhavoronkov"
+  ],
+  "author_string": "Alex Zhavoronkov",
+  "journal": "arXiv:2605.16781v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Aging research has produced powerful explanatory frameworks -- evolutionary theories, the Hallmarks of Aging, SENS, geroscience, hyperfunction, and information-loss models -- yet none provides quantitative rules for determining which intervention, in which biological state, at what dose, time, and sequence, will safely restore function. Existing frameworks characterize what changes during aging; they do not define equations of motion, safety constraints, or optimality conditions for drug discovery.   We propose a control-theoretic framework in which aging is defined as progressive loss of safe controllability: the increasing cost and decreasing feasibility of returning a biological system to a functional viability set. Biological age is the minimum safe control cost required to restore or maintain function. Drugs are vector fields on biological state space; targets are ranked by expected cost reduction; combinations by their expansion of the reachable safe set; sequences matter because intervention vector fields do not commute.   We provide a five-dimensional ODE model with analytic Lie-bracket derivation of order dependence; a modality-aware control layer distinguishing small molecules, biologics, gene therapy, and reprogramming by reversibility and safety envelope; three translational case studies (thymus, sarcopenia, ovarian aging); an implementation architecture with power analysis; and empirical scoring of 110 aging interventions across five biological epochs. The framework generates twenty falsifiable predictions. The central empirical claim is that control-value reduction predicts translational success better than Hallmark annotation or static biomarker reversal.",
+  "categories": [
+    "q-bio.MN",
+    "q-bio.PE"
+  ],
+  "primary_category": "q-bio.PE",
+  "comment": null,
+  "published_date": "2026-05-16T03:23:23Z",
+  "updated_date": "2026-05-16T03:23:23Z",
+  "url": "https://arxiv.org/abs/2605.16781v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.16781v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-24T10:15:35.245186",
+  "category": "biology",
+  "subcategories": [
+    "q-bio.MN",
+    "q-bio.PE"
+  ]
+}

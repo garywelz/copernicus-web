@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Whole of Mathematics — Interactive Map</title>
+  <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      overflow: hidden;
+    }
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(255,255,255,0.95);
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      z-index: 100;
+    }
+    .header h1 { font-size: 1.2em; color: #2c3e50; }
+    .header a { color: #e67e22; text-decoration: none; font-weight: 500; }
+    .header a:hover { text-decoration: underline; }
+    .breadcrumb {
+      font-size: 0.9em;
+      color: #7f8c8d;
+      max-width: 50%;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 2px;
+    }
+    .breadcrumb-sep { color: #bdc3c7; margin: 0 2px; }
+    .breadcrumb-item {
+      color: #3498db;
+      cursor: pointer;
+      padding: 2px 4px;
+      border-radius: 3px;
+    }
+    .breadcrumb-item:hover { background: #ecf0f1; color: #2980b9; }
+    .breadcrumb-item.active { color: #2c3e50; font-weight: 600; cursor: default; }
+    #chart {
+      position: fixed;
+      top: 52px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #f8f9fa;
+    }
+    #chart.list-open { right: 320px !important; }
+    .legend {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background: rgba(255,255,255,0.95);
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-size: 0.85em;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      z-index: 100;
+    }
+    .legend-item { display: flex; align-items: center; gap: 8px; margin: 4px 0; }
+    .legend-dot { width: 12px; height: 12px; border-radius: 50%; }
+    .legend-total { margin-top: 8px; padding-top: 8px; border-top: 1px solid #ecf0f1; font-size: 0.8em; color: #7f8c8d; }
+    .tooltip {
+      position: fixed;
+      background: rgba(0,0,0,0.9);
+      color: white;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 0.9em;
+      pointer-events: none;
+      z-index: 1000;
+      max-width: 300px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      line-height: 1.4;
+    }
+    .tooltip strong { display: block; margin-bottom: 4px; }
+    .tooltip small { opacity: 0.9; }
+    .list-toggle {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      padding: 10px 16px;
+      background: #e67e22;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 500;
+      z-index: 100;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+    }
+    .list-toggle:hover { background: #d35400; }
+    .list-toggle.open { background: #27ae60; }
+    .list-sidebar {
+      position: fixed;
+      top: 52px;
+      right: -320px;
+      width: 300px;
+      height: calc(100vh - 52px);
+      background: white;
+      box-shadow: -4px 0 20px rgba(0,0,0,0.1);
+      z-index: 99;
+      overflow-y: auto;
+      transition: right 0.25s ease;
+      padding: 16px;
+    }
+    .list-sidebar.open { right: 0; }
+    .list-sidebar h3 { margin-bottom: 12px; color: #2c3e50; font-size: 1em; }
+    .list-domain { margin-bottom: 16px; }
+    .list-domain-title {
+      font-weight: 600;
+      color: #3498db;
+      cursor: pointer;
+      padding: 6px 8px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .list-domain-title:hover { background: #ecf0f1; }
+    .list-domain-title .count { font-size: 0.8em; color: #7f8c8d; font-weight: normal; }
+    .list-subcat { margin-left: 16px; margin-top: 4px; }
+    .list-subcat-title {
+      font-weight: 500;
+      color: #9b59b6;
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 0.95em;
+    }
+    .list-subcat-title:hover { background: #f8f9fa; }
+    .list-process {
+      margin-left: 24px;
+      margin-top: 2px;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 0.85em;
+      cursor: pointer;
+      color: #27ae60;
+    }
+    .list-process:hover { background: #e8f8f5; }
+    .node { cursor: pointer; }
+    .node.process { cursor: pointer; }
+    .node.process:hover { stroke-width: 3; }
+    .node.highlight { stroke: #e67e22; stroke-width: 3; }
+    .link { stroke: #bdc3c7; stroke-opacity: 0.6; }
+    .link:hover { stroke-opacity: 1; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>🔢 Whole of Mathematics</h1>
+    <div class="breadcrumb" id="breadcrumb">Mathematics</div>
+    <a id="back-link" href="#">← Database Table</a>
+  </div>
+  <div id="chart"></div>
+  <div class="legend">
+    <strong>Node types</strong>
+    <div class="legend-item"><span class="legend-dot" style="background:#e74c3c;"></span> Root</div>
+    <div class="legend-item"><span class="legend-dot" style="background:#3498db;"></span> Domain</div>
+    <div class="legend-item"><span class="legend-dot" style="background:#9b59b6;"></span> Subcategory</div>
+    <div class="legend-item"><span class="legend-dot" style="background:#27ae60;"></span> Process</div>
+    <div class="legend-total" id="legend-total"></div>
+    <p style="margin-top:8px;font-size:0.8em;color:#7f8c8d;">Scroll to zoom • Drag to pan • Click process to open</p>
+  </div>
+  <button class="list-toggle" id="list-toggle" type="button">📋 List view</button>
+  <div class="list-sidebar" id="list-sidebar">
+    <h3>Browse by domain</h3>
+    <div id="list-content"></div>
+  </div>
+  <div class="tooltip" id="tooltip" style="display:none;"></div>
+
+  <script>
+    (function() {
+      const isGCS = window.location.hostname.includes('storage.googleapis.com');
+      const isHF = window.location.hostname.includes('huggingface.co');
+      const baseUrl = isGCS
+        ? 'https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database'
+        : (isHF ? '.' : '.');
+      const graphDataUrl = baseUrl + '/graph-data.json';
+      const tableUrl = isGCS
+        ? baseUrl + '/mathematics-database-table.html'
+        : (isHF ? './mathematics-database-table.html' : './mathematics-database-table.html');
+
+      document.getElementById('back-link').href = tableUrl;
+
+      const width = window.innerWidth;
+      const height = window.innerHeight - 52;
+      const svg = d3.select('#chart').append('svg').attr('width', width).attr('height', height);
+      const zoomG = svg.append('g');
+
+      const zoom = d3.zoom()
+        .scaleExtent([0.1, 4])
+        .on('zoom', (e) => zoomG.attr('transform', e.transform));
+      svg.call(zoom);
+
+      const tooltip = d3.select('#tooltip');
+      const breadcrumbEl = document.getElementById('breadcrumb');
+
+      function escapeHtml(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+      function nodeColor(d) {
+        if (d.type === 'root') return '#e74c3c';
+        if (d.type === 'domain') return '#3498db';
+        if (d.type === 'subcategory') return '#9b59b6';
+        return '#27ae60';
+      }
+      function nodeRadius(d) {
+        if (d.type === 'root') return 24;
+        if (d.type === 'domain') return 18;
+        if (d.type === 'subcategory') return 12;
+        return 6;
+      }
+
+      function getPathNodes(node) {
+        const path = [{ node, isLast: true }];
+        let curr = node;
+        while (curr) {
+          const link = links.find(l => l.target === curr);
+          if (link) {
+            curr = link.source;
+            if (curr && curr !== node) path.unshift({ node: curr, isLast: false });
+          } else curr = null;
+        }
+        return path;
+      }
+
+      function renderBreadcrumb(pathNodes, onNodeClick) {
+        if (!pathNodes.length) return;
+        breadcrumbEl.innerHTML = pathNodes.map((p, i) => {
+          const isLast = i === pathNodes.length - 1;
+          const cls = isLast ? 'breadcrumb-item active' : 'breadcrumb-item';
+          const click = !isLast && onNodeClick ? ` onclick="window.__zoomToNode && window.__zoomToNode('${p.node.id}')"` : '';
+          const sep = i > 0 ? '<span class="breadcrumb-sep">›</span>' : '';
+          return sep + '<span class="' + cls + '"' + click + '>' + escapeHtml(p.node.name) + '</span>';
+        }).join('');
+      }
+
+      function zoomToNode(n, scale = 1.5) {
+        if (!n.x || !n.y) return;
+        const t = d3.zoomTransform(svg.node());
+        const x = width / 2 - n.x * scale;
+        const y = height / 2 - n.y * scale;
+        svg.transition().duration(500).call(zoom.transform, d3.zoomIdentity.translate(x, y).scale(scale));
+        node.classed('highlight', d => d.id === n.id);
+        setTimeout(() => node.classed('highlight', false), 1500);
+      }
+
+      let nodes, links, node, link, label, simulation;
+
+      d3.json(graphDataUrl).then(function(data) {
+        nodes = data.nodes.map(d => ({ ...d }));
+        const nodeById = new Map(nodes.map(n => [n.id, n]));
+        links = data.links.map(l => ({
+          source: nodeById.get(l.source) || l.source,
+          target: nodeById.get(l.target) || l.target
+        }));
+
+        const processCount = nodes.filter(n => n.type === 'process').length;
+        document.getElementById('legend-total').textContent = data.meta ? `${data.meta.totalNodes} nodes • ${processCount} processes` : `${processCount} processes`;
+
+        simulation = d3.forceSimulation(nodes)
+          .force('link', d3.forceLink(links).id(d => d.id).distance(80))
+          .force('charge', d3.forceManyBody().strength(-200))
+          .force('center', d3.forceCenter(width / 2, height / 2))
+          .force('collision', d3.forceCollide().radius(d => nodeRadius(d) + 4));
+
+        link = zoomG.append('g').attr('class', 'links')
+          .selectAll('line')
+          .data(links)
+          .join('line')
+          .attr('class', 'link')
+          .attr('stroke-width', 1.5);
+
+        node = zoomG.append('g').attr('class', 'nodes')
+          .selectAll('circle')
+          .data(nodes)
+          .join('circle')
+          .attr('class', d => 'node ' + d.type)
+          .attr('r', nodeRadius)
+          .attr('fill', nodeColor)
+          .attr('stroke', '#2c3e50')
+          .attr('stroke-width', 1.5)
+          .call(d3.drag()
+            .on('start', dragstarted)
+            .on('drag', dragged)
+            .on('end', dragended))
+          .on('mouseover', (e, d) => {
+            tooltip.style('display', 'block')
+              .style('left', (e.pageX + 12) + 'px')
+              .style('top', (e.pageY + 12) + 'px')
+              .html(() => {
+                let h = '<strong>' + escapeHtml(d.name) + '</strong>';
+                if (d.processCount) h += '<br><small>' + d.processCount + ' processes</small>';
+                if (d.processType) h += '<br><small>' + (d.processType === 'algorithm' ? 'Algorithm' : 'Axiomatic theory') + '</small>';
+                if (d.subcategory) h += '<br><small>' + escapeHtml(d.subcategory.replace(/_/g, ' ')) + '</small>';
+                if (d.type === 'process') h += '<br><small>Click to open</small>';
+                return h;
+              });
+            renderBreadcrumb(getPathNodes(d));
+          })
+          .on('mousemove', (e) => {
+            tooltip.style('left', (e.pageX + 12) + 'px').style('top', (e.pageY + 12) + 'px');
+          })
+          .on('mouseout', () => {
+            tooltip.style('display', 'none');
+            const root = nodeById.get('root');
+            if (root) renderBreadcrumb(getPathNodes(root));
+            else breadcrumbEl.innerHTML = '<span class="breadcrumb-item active">Mathematics</span>';
+          })
+          .on('click', (e, d) => {
+            if (d.type === 'process' && d.url) {
+              const url = d.url.startsWith('http') ? d.url : baseUrl + '/' + d.url;
+              window.open(url, '_blank');
+            }
+          });
+
+        label = zoomG.append('g').attr('class', 'labels')
+          .selectAll('text')
+          .data(nodes.filter(n => n.type !== 'process'))
+          .join('text')
+          .attr('font-size', d => d.type === 'root' ? 14 : d.type === 'domain' ? 11 : 9)
+          .attr('font-weight', d => d.type === 'root' ? 'bold' : 'normal')
+          .attr('fill', '#2c3e50')
+          .attr('dx', d => nodeRadius(d) + 4)
+          .attr('dy', '0.35em')
+          .text(d => d.name);
+
+        simulation.on('tick', () => {
+          link.attr('x1', d => d.source.x).attr('y1', d => d.source.y).attr('x2', d => d.target.x).attr('y2', d => d.target.y);
+          node.attr('cx', d => d.x).attr('cy', d => d.y);
+          label.attr('x', d => d.x).attr('y', d => d.y);
+        });
+
+        window.__zoomToNode = (id) => {
+          const n = nodeById.get(id);
+          if (n) zoomToNode(n);
+        };
+
+        setTimeout(() => {
+          const rootNode = nodeById.get('root');
+          if (rootNode) renderBreadcrumb(getPathNodes(rootNode));
+        }, 500);
+
+        function buildList() {
+          const domains = nodes.filter(n => n.type === 'domain');
+          const byDomain = {};
+          nodes.filter(n => n.type === 'subcategory').forEach(s => { byDomain[s.domain] = byDomain[s.domain] || []; byDomain[s.domain].push(s); });
+          const bySubcat = {};
+          nodes.filter(n => n.type === 'process').forEach(p => { bySubcat[p.subcategory] = bySubcat[p.subcategory] || []; bySubcat[p.subcategory].push(p); });
+          let html = '';
+          domains.forEach(dom => {
+            const subcats = byDomain[dom.id] || [];
+            html += '<div class="list-domain"><div class="list-domain-title" data-id="' + dom.id + '">' + escapeHtml(dom.name) + ' <span class="count">(' + (dom.processCount || 0) + ')</span></div>';
+            subcats.forEach(sub => {
+              const procs = bySubcat[sub.id] || [];
+              html += '<div class="list-subcat"><div class="list-subcat-title" data-id="' + sub.id + '">' + escapeHtml(sub.name) + '</div>';
+              procs.forEach(proc => {
+                html += '<div class="list-process" data-id="' + proc.id + '" data-url="' + (proc.url || '') + '">' + escapeHtml(proc.name) + '</div>';
+              });
+              html += '</div>';
+            });
+            html += '</div>';
+          });
+          document.getElementById('list-content').innerHTML = html;
+          document.querySelectorAll('.list-domain-title, .list-subcat-title').forEach(el => {
+            el.addEventListener('click', () => { const n = nodeById.get(el.dataset.id); if (n) zoomToNode(n); });
+          });
+          document.querySelectorAll('.list-process').forEach(el => {
+            el.addEventListener('click', () => {
+              const url = el.dataset.url;
+              if (url) window.open(url.startsWith('http') ? url : baseUrl + '/' + url, '_blank');
+            });
+          });
+        }
+        setTimeout(buildList, 800);
+
+        function dragstarted(e) { if (!e.active) simulation.alphaTarget(0.3).restart(); }
+        function dragged(e, d) { d.fx = e.x; d.fy = e.y; }
+        function dragended(e) { if (!e.active) simulation.alphaTarget(0); d.fx = null; d.fy = null; }
+      }).catch(err => {
+        document.getElementById('chart').innerHTML = '<div style="padding:40px;text-align:center;color:#e74c3c;"><p>Failed to load graph data.</p><p>' + err.message + '</p></div>';
+      });
+
+      document.getElementById('list-toggle').addEventListener('click', () => {
+        const sb = document.getElementById('list-sidebar');
+        const btn = document.getElementById('list-toggle');
+        sb.classList.toggle('open');
+        btn.classList.toggle('open', sb.classList.contains('open'));
+        btn.textContent = sb.classList.contains('open') ? '✕ Close list' : '📋 List view';
+        document.getElementById('chart').classList.toggle('list-open', sb.classList.contains('open'));
+      });
+    })();
+  </script>
+</body>
+</html>

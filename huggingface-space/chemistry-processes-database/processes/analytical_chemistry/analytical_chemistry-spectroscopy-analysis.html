@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spectroscopy Analysis - Chemistry Process</title>
+    <title>Beer–Lambert Quantitation - Chemistry Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Spectroscopy Analysis</h1>
+            <h1>Beer–Lambert Quantitation</h1>
             <div class="header-meta">
                 <span class="meta-item">Chemistry</span>
                 <span class="meta-item">Analytical Chemistry</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,67 +234,56 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Spectroscopy Analysis process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>Quantitative spectrophotometry chooses an analytical wavelength, builds a calibration from standards, verifies Beer's-law linearity, fits a calibration line, then measures the sample absorbance and interpolates its concentration.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-A1[Sample Preparation] --> B1[Spectroscopic Method]
-C1[Wavelength Selection] --> D1[Instrument Calibration]
-E1[Data Collection] --> F1[Spectral Analysis]
-B1 --> G1[UV Visible Spectroscopy]
-D1 --> H1[Infrared Spectroscopy]
-F1 --> I1[Nuclear Magnetic Resonance]
-G1 --> J1[Absorbance Measurement]
-H1 --> K1[Vibrational Analysis]
-I1 --> L1[Chemical Shift Analysis]
-J1 --> M1[Concentration Calculation]
-K1 --> L1
-L1 --> N1[Molecular Structure]
-M1 --> O1[Beer Lambert Law]
-N1 --> P1[Spectral Interpretation]
-O1 --> Q1[Spectroscopy Analysis Process]
-P1 --> R1[Spectroscopy Validation]
-Q1 --> S1[Spectroscopy Verification]
-R1 --> T1[Spectroscopy Result]
-S1 --> U1[Spectroscopy Analysis]
-T1 --> V1[Spectroscopy Parameters]
-U1 --> W1[Spectroscopy Output]
-V1 --> X1[Spectroscopy Analysis]
-W1 --> Y1[Spectroscopy Final Result]
-X1 --> Z1[Spectroscopy Analysis Complete]
+    N1["Analyte with chromophore"]
+    N2["Choose analytical λ"]
+    N3["Prepare standards"]
+    N4["Measure A of standards"]
+    N5["Plot A vs concentration"]
+    N6{"Linear (Beer's law)?"}
+    N7["Dilute / narrow range"]
+    N8["Fit calibration line"]
+    N9["Measure sample A"]
+    N10["Interpolate concentration"]
 
-    style A1 fill:#ff6b6b,color:#fff
-    style C1 fill:#ff6b6b,color:#fff
-    style E1 fill:#ff6b6b,color:#fff
-    style B1 fill:#ffd43b,color:#000
-    style D1 fill:#ffd43b,color:#000
-    style F1 fill:#ffd43b,color:#000
-    style G1 fill:#ffd43b,color:#000
-    style H1 fill:#ffd43b,color:#000
-    style I1 fill:#ffd43b,color:#000
-    style J1 fill:#ffd43b,color:#000
-    style K1 fill:#ffd43b,color:#000
-    style L1 fill:#ffd43b,color:#000
-    style M1 fill:#51cf66,color:#fff
-    style N1 fill:#51cf66,color:#fff
-    style O1 fill:#51cf66,color:#fff
-    style P1 fill:#51cf66,color:#fff
-    style Q1 fill:#51cf66,color:#fff
-    style R1 fill:#51cf66,color:#fff
-    style S1 fill:#51cf66,color:#fff
-    style T1 fill:#51cf66,color:#fff
-    style U1 fill:#51cf66,color:#fff
-    style V1 fill:#51cf66,color:#fff
-    style W1 fill:#51cf66,color:#fff
-    style X1 fill:#51cf66,color:#fff
-    style Y1 fill:#51cf66,color:#fff
-    style Z1 fill:#b197fc,color:#fff
+    N1 --> N2
+    N2 --> N3
+    N3 --> N4
+    N4 --> N5
+    N5 --> N6
+    N6 -->|no| N7
+    N7 -->|re-prepare| N3
+    N6 -->|yes| N8
+    N8 --> N9
+    N9 --> N10
+
+    style N1 fill:#ff6b6b,color:#fff
+    style N2 fill:#51cf66,color:#fff
+    style N3 fill:#51cf66,color:#fff
+    style N4 fill:#51cf66,color:#fff
+    style N5 fill:#51cf66,color:#fff
+    style N6 fill:#74c0fc,color:#fff
+    style N7 fill:#51cf66,color:#fff
+    style N8 fill:#51cf66,color:#fff
+    style N9 fill:#51cf66,color:#fff
+    style N10 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Analyte with chromophore</td><td>Triggers & Inputs</td><td><a href="https://www.macmillanlearning.com/college/us/product/Quantitative-Chemical-Analysis/p/146413538X" target="_blank" title="Quantitative Chemical Analysis, 9th ed. — Spectrophotometry" style="color:#e74c3c;">Harris, D. C. 2015</a></td></tr><tr><td style="font-weight:600;">Choose analytical λ</td><td>Processing & Operations</td><td><a href="https://www.cengage.com/c/principles-of-instrumental-analysis-7e-skoog/9781305577213/" target="_blank" title="Principles of Instrumental Analysis, 7th ed. — Molecular Absorption Methods" style="color:#e74c3c;">Skoog, D. A. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Prepare standards</td><td>Processing & Operations</td><td><a href="https://www.macmillanlearning.com/college/us/product/Quantitative-Chemical-Analysis/p/146413538X" target="_blank" title="Quantitative Chemical Analysis, 9th ed. — Spectrophotometry" style="color:#e74c3c;">Harris, D. C. 2015</a></td></tr><tr><td style="font-weight:600;">Measure A of standards</td><td>Processing & Operations</td><td><a href="https://www.macmillanlearning.com/college/us/product/Quantitative-Chemical-Analysis/p/146413538X" target="_blank" title="Quantitative Chemical Analysis, 9th ed. — Spectrophotometry" style="color:#e74c3c;">Harris, D. C. 2015</a></td></tr><tr><td style="font-weight:600;">Plot A vs concentration</td><td>Processing & Operations</td><td><a href="https://www.macmillanlearning.com/college/us/product/Quantitative-Chemical-Analysis/p/146413538X" target="_blank" title="Quantitative Chemical Analysis, 9th ed. — Spectrophotometry" style="color:#e74c3c;">Harris, D. C. 2015</a></td></tr><tr><td style="font-weight:600;">Linear (Beer's law)?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1351/goldbook.B00626" target="_blank" title="Gold Book: Beer–Lambert law" style="color:#e74c3c;">IUPAC 2019</a></td></tr><tr><td style="font-weight:600;">Dilute / narrow range</td><td>Processing & Operations</td><td><a href="https://www.macmillanlearning.com/college/us/product/Quantitative-Chemical-Analysis/p/146413538X" target="_blank" title="Quantitative Chemical Analysis, 9th ed. — Spectrophotometry" style="color:#e74c3c;">Harris, D. C. 2015</a></td></tr><tr><td style="font-weight:600;">Fit calibration line</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1351/goldbook.B00626" target="_blank" title="Gold Book: Beer–Lambert law" style="color:#e74c3c;">IUPAC 2019</a></td></tr><tr><td style="font-weight:600;">Measure sample A</td><td>Processing & Operations</td><td><a href="https://www.macmillanlearning.com/college/us/product/Quantitative-Chemical-Analysis/p/146413538X" target="_blank" title="Quantitative Chemical Analysis, 9th ed. — Spectrophotometry" style="color:#e74c3c;">Harris, D. C. 2015</a></td></tr><tr><td style="font-weight:600;">Interpolate concentration</td><td>Products & Outputs</td><td><a href="https://doi.org/10.1351/goldbook.B00626" target="_blank" title="Gold Book: Beer–Lambert law" style="color:#e74c3c;">IUPAC 2019</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -313,12 +329,12 @@ X1 --> Z1[Spectroscopy Analysis Complete]
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 26</li>
-                        <li><strong>Edges:</strong> 21</li>
-                        <li><strong>Conditionals:</strong> 0</li>
+                        <li><strong>Nodes:</strong> 10</li>
+                        <li><strong>Edges:</strong> 10</li>
+                        <li><strong>Conditionals:</strong> 1</li>
                         <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 1</li>
+                        <li><strong>OR Gates:</strong> 1</li>
+                        <li><strong>Total Gates:</strong> 2</li>
                     </ul>
                 </div>
                 
@@ -326,7 +342,7 @@ X1 --> Z1[Spectroscopy Analysis Complete]
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>spectroscopy</li><li>analysis</li>
+                        <li>beer-lambert</li><li>calibration</li><li>molar absorptivity</li><li>linearity</li><li>spectrophotometry</li>
                     </ul>
                 </div>
                 
@@ -337,43 +353,33 @@ X1 --> Z1[Spectroscopy Analysis Complete]
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Quantitative Chemical Analysis, 9th ed. — Spectrophotometry</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Harris, D. C.
+                            , W. H. Freeman
+                             (2015)
                             </span>
                             
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
+                            <br><a href="https://www.macmillanlearning.com/college/us/product/Quantitative-Chemical-Analysis/p/146413538X" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Chemical Structural Analysis of Bone by Spectroscopy</strong>
-                            
-                            , Vibrational Spectroscopy for Tissue Analysis
-                             (2012)
+                            <strong>Gold Book: Beer–Lambert law</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">IUPAC
+                            , IUPAC Compendium of Chemical Terminology
+                             (2019)
                             </span>
-                            <br><a href="https://doi.org/10.1201/b12949-12" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1201/b12949-12</a>
-                            
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Surface Analysis by Electron Spectroscopy</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Smith, Graham C.
-                            , Surface Analysis by Electron Spectroscopy
-                             (1994)
-                            </span>
-                            <br><a href="https://doi.org/10.1007/978-1-4899-0967-1_2" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1007/978-1-4899-0967-1_2</a>
+                            <br><a href="https://doi.org/10.1351/goldbook.B00626" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1351/goldbook.B00626</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Illicit Drug Analysis in Blood Samples with Multivariate Analysis Using Surface-Enhanced Raman Spectroscopy</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Açıkgöz, Güneş; Çolak, Abdullah
-                            , Spectroscopy
-                             (2023)
+                            <strong>Principles of Instrumental Analysis, 7th ed. — Molecular Absorption Methods</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Skoog, D. A.; Holler, F. J.; Crouch, S. R.
+                            , Cengage Learning
+                             (2018)
                             </span>
-                            <br><a href="https://doi.org/10.56530/spectroscopy.er6076l5" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.56530/spectroscopy.er6076l5</a>
                             
+                            <br><a href="https://www.cengage.com/c/principles-of-instrumental-analysis-7e-skoog/9781305577213/" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
                         </li>
                         
                     </ul>

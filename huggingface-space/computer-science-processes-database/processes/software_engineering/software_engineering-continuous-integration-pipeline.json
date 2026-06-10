@@ -4,18 +4,20 @@
   "category": "computer_science",
   "subcategory": "software_engineering",
   "subcategory_name": "Software Engineering",
-  "description": "Continuous Integration Pipeline process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "A CI pipeline validates every change automatically: a push triggers checkout and build, and on success the unit and integration test suites run, followed by static analysis; only when all gates pass is the artifact packaged and deployed to staging, while any failure stops the pipeline and notifies the author to fix.",
   "complexity": {
-    "nodes": 10,
-    "edges": 10,
-    "conditionals": 0,
+    "nodes": 11,
+    "edges": 12,
+    "conditionals": 2,
     "logicGates": {
-      "orGates": 1,
+      "orGates": 2,
       "andGates": 1,
-      "total": 2
+      "notGates": 0,
+      "total": 3
     },
-    "level": "medium",
-    "detailLevel": "medium"
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 2
   },
   "colorScheme": {
     "red": {
@@ -39,54 +41,147 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nN1[\"Commit/PR Event\"]\nN2[\"Pipeline Config\"]\nN3[\"Runner\"]\nN4[\"Choose Approach\"]\nN5[\"Artifacts\"]\nN6[\"Build\"]\nN7[\"Test\"]\nN8[\"Report Status\"]\nN9[\"Integrate Results\"]\nN10[\"Green Build\"]\n\nN1 --> N2\nN2 --> N3\nN3 --> N4\nN4 --> N5\nN4 --> N7\nN5 --> N6\nN7 --> N8\nN6 --> N9\nN8 --> N9\nN9 --> N10\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#ff6b6b,color:#fff\n    style N3 fill:#ffd43b,color:#000\n    style N4 fill:#ffd43b,color:#000\n    style N5 fill:#ffd43b,color:#000\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#74c0fc,color:#fff\n    style N9 fill:#74c0fc,color:#fff\n    style N10 fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"Developer pushes commit\"]\n    N2[\"CI triggers on push\"]\n    N3[\"Checkout + build\"]\n    N4{\"Build succeeds?\"}\n    N5[\"Fail fast, notify\"]\n    N6[\"Run unit + integration\"]\n    N7{\"Tests pass?\"}\n    N8[\"Static analysis / lint\"]\n    N9[\"Package artifact\"]\n    N10[\"Deploy to staging\"]\n    N11[\"Merge-ready build\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 --> N4\n    N4 -->|no| N5\n    N5 -->|fix| N1\n    N4 -->|yes| N6\n    N6 --> N7\n    N7 -->|no| N5\n    N7 -->|yes| N8\n    N8 --> N9\n    N9 --> N10\n    N10 --> N11\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#74c0fc,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#74c0fc,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#51cf66,color:#fff\n    style N10 fill:#51cf66,color:#fff\n    style N11 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
-      "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: Continuous Integration Pipeline. Created using the Programming Framework methodology."
+      "title": "Continuous Delivery: Reliable Software Releases through Build, Test, and Deployment Automation",
+      "authors": "Humble, J.; Farley, D.",
+      "journal": "Addison-Wesley",
+      "year": "2010",
+      "url": "https://www.oreilly.com/library/view/continuous-delivery-reliable/9780321670250/"
     },
     {
-      "title": "Automating Security in a Continuous Integration Pipeline",
-      "authors": "Chalishhafshejani, Sohrab; Pham, Bao; Jaatun, Martin",
-      "journal": "Proceedings of the 7th International Conference on Internet of Things, Big Data and Security",
-      "year": "2022",
-      "pubmed": null,
-      "doi": "10.5220/0011083500003194",
-      "url": "https://doi.org/10.5220/0011083500003194"
-    },
-    {
-      "title": "AUTOMATING SOFTWARE CODE DEPLOYMENT USING CONTINUOUS INTEGRATION AND CONTINUOUS DELIVERY PIPELINE FOR BUSINESS INTELLIGENCE SOLUTIONS",
-      "authors": "Sethi, Farhana",
-      "journal": "",
-      "year": "2020",
-      "pubmed": null,
-      "doi": "10.22541/au.160373745.57814465/v1",
-      "url": "https://doi.org/10.22541/au.160373745.57814465/v1"
-    },
-    {
-      "title": "Crossref work (10.1117/12.3014548.d3f83481-5d0c-439e-91a4-1ab7e96ee6b)",
-      "authors": "",
-      "journal": "",
-      "year": "None",
-      "pubmed": null,
-      "doi": "10.1117/12.3014548.d3f83481-5d0c-439e-91a4-1ab7e96ee6b",
-      "url": "https://doi.org/10.1117/12.3014548.d3f83481-5d0c-439e-91a4-1ab7e96ee6b"
+      "title": "Continuous Integration",
+      "authors": "Fowler, M.",
+      "journal": "martinfowler.com",
+      "year": "2006",
+      "url": "https://martinfowler.com/articles/continuousIntegration.html"
     }
   ],
   "keywords": [
-    "continuous",
-    "integration",
-    "pipeline"
+    "continuous integration",
+    "build pipeline",
+    "automated testing",
+    "fail fast",
+    "staging deploy"
   ],
   "relatedProcesses": [],
   "created": "2026-01-15",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations.\nCurated Mermaid applied (citations preserved)."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "namedCollections": [],
+  "graphMetrics": {
+    "nodes": 11,
+    "edges": 12,
+    "conditionals": 2,
+    "andGates": 1,
+    "orGates": 2,
+    "notGates": 0,
+    "loops": 2
+  },
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Developer pushes commit",
+      "detail": "Change to repo",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 1
+    },
+    {
+      "id": "N2",
+      "label": "CI triggers on push",
+      "detail": "Webhook fires",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N3",
+      "label": "Checkout + build",
+      "detail": "Compile sources",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N4",
+      "label": "Build succeeds?",
+      "detail": "No compile errors",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N5",
+      "label": "Fail fast, notify",
+      "detail": "Alert author",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N6",
+      "label": "Run unit + integration",
+      "detail": "Test suites",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N7",
+      "label": "Tests pass?",
+      "detail": "All green",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N8",
+      "label": "Static analysis / lint",
+      "detail": "Quality gates",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N9",
+      "label": "Package artifact",
+      "detail": "Build output",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N10",
+      "label": "Deploy to staging",
+      "detail": "Pre-prod env",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N11",
+      "label": "Merge-ready build",
+      "detail": "Verified change",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 1
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:software_engineering-continuous-integration-pipeline",
+    "graphType": "decision_flowchart",
+    "topologySignature": "f09554e990445940",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "graphType": "decision_flowchart",
+  "domainContext": "Software engineering"
 }

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Organic Synthesis Pathways - Chemistry Process</title>
+    <title>Retrosynthetic Analysis - Chemistry Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Organic Synthesis Pathways</h1>
+            <h1>Retrosynthetic Analysis</h1>
             <div class="header-meta">
                 <span class="meta-item">Chemistry</span>
                 <span class="meta-item">Organic Chemistry</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,67 +234,57 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Organic Synthesis Pathways process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>Retrosynthesis works backward from a target: identify functional groups, make strategic bond disconnections into synthons and their reagent equivalents, check that each maps to a known reaction, and recurse on the precursors until commercially available starting materials are reached.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-A2[Starting Materials] --> B2[Target Molecule Analysis]
-C2[Retrosynthetic Analysis] --> D2[Disconnection Strategy]
-E2[Functional Group Analysis] --> F2[Protection Strategy]
-B2 --> G2[Retrosynthetic Disconnection]
-D2 --> H2[Key Bond Identification]
-F2 --> I2[Protecting Group Selection]
-G2 --> J2[Synthon Generation]
-H2 --> K2[Reaction Selection]
-I2 --> L2[Protection Reaction]
-J2 --> M2[Reagent Selection]
-K2 --> L2
-L2 --> N2[Deprotection Strategy]
-M2 --> O2[Reaction Sequence]
-N2 --> P2[Purification Methods]
-O2 --> Q2[Yield Optimization]
-P2 --> R2[Chromatography]
-Q2 --> S2[Recrystallization]
-R2 --> T2[Organic Synthesis Result]
-S2 --> U2[Synthesis Validation]
-T2 --> V2[Product Characterization]
-U2 --> W2[Organic Synthesis Output]
-V2 --> X2[Organic Synthesis Analysis]
-W2 --> Y2[Organic Synthesis Final Result]
-X2 --> Z2[Organic Synthesis Analysis Complete]
+    N1["Target molecule"]
+    N2["Identify groups/bonds"]
+    N3["Disconnect strategic bond"]
+    N4["Synthons + equivalents"]
+    N5{"Maps to known reaction?"}
+    N6["Try other disconnection"]
+    N7["Simpler precursors"]
+    N8{"Precursors available?"}
+    N9["Recurse on precursor"]
+    N10["Forward synthetic route"]
 
-    style A2 fill:#ff6b6b,color:#fff
-    style C2 fill:#ff6b6b,color:#fff
-    style E2 fill:#ff6b6b,color:#fff
-    style B2 fill:#ffd43b,color:#000
-    style D2 fill:#ffd43b,color:#000
-    style F2 fill:#ffd43b,color:#000
-    style G2 fill:#ffd43b,color:#000
-    style H2 fill:#ffd43b,color:#000
-    style I2 fill:#ffd43b,color:#000
-    style J2 fill:#ffd43b,color:#000
-    style K2 fill:#ffd43b,color:#000
-    style L2 fill:#ffd43b,color:#000
-    style M2 fill:#51cf66,color:#fff
+    N1 --> N2
+    N2 --> N3
+    N3 --> N4
+    N4 --> N5
+    N5 -->|no| N6
+    N6 -->|re-disconnect| N3
+    N5 -->|yes| N7
+    N7 --> N8
+    N8 -->|no| N9
+    N9 -->|deeper| N3
+    N8 -->|yes| N10
+
+    style N1 fill:#ff6b6b,color:#fff
     style N2 fill:#51cf66,color:#fff
-    style O2 fill:#51cf66,color:#fff
-    style P2 fill:#51cf66,color:#fff
-    style Q2 fill:#51cf66,color:#fff
-    style R2 fill:#51cf66,color:#fff
-    style S2 fill:#51cf66,color:#fff
-    style T2 fill:#51cf66,color:#fff
-    style U2 fill:#51cf66,color:#fff
-    style V2 fill:#51cf66,color:#fff
-    style W2 fill:#51cf66,color:#fff
-    style X2 fill:#51cf66,color:#fff
-    style Y2 fill:#51cf66,color:#fff
-    style Z2 fill:#b197fc,color:#fff
+    style N3 fill:#51cf66,color:#fff
+    style N4 fill:#74c0fc,color:#fff
+    style N5 fill:#74c0fc,color:#fff
+    style N6 fill:#51cf66,color:#fff
+    style N7 fill:#51cf66,color:#fff
+    style N8 fill:#74c0fc,color:#fff
+    style N9 fill:#51cf66,color:#fff
+    style N10 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Target molecule</td><td>Triggers & Inputs</td><td><a href="https://doi.org/10.1002/anie.199104553" target="_blank" title="The logic of chemical synthesis (Nobel Lecture)" style="color:#e74c3c;">Corey, E. J. 1991</a></td></tr><tr><td style="font-weight:600;">Identify groups/bonds</td><td>Processing & Operations</td><td><a href="https://global.oup.com/academic/product/organic-chemistry-9780199270293" target="_blank" title="Organic Chemistry, 2nd ed. — Retrosynthetic analysis" style="color:#e74c3c;">Clayden, J. et al. 2012</a></td></tr><tr><td style="font-weight:600;">Disconnect strategic bond</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1002/anie.199104553" target="_blank" title="The logic of chemical synthesis (Nobel Lecture)" style="color:#e74c3c;">Corey, E. J. 1991</a></td></tr><tr><td style="font-weight:600;">Synthons + equivalents</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1002/anie.199104553" target="_blank" title="The logic of chemical synthesis (Nobel Lecture)" style="color:#e74c3c;">Corey, E. J. 1991</a></td></tr><tr><td style="font-weight:600;">Maps to known reaction?</td><td>Intermediates & States</td><td><a href="https://global.oup.com/academic/product/organic-chemistry-9780199270293" target="_blank" title="Organic Chemistry, 2nd ed. — Retrosynthetic analysis" style="color:#e74c3c;">Clayden, J. et al. 2012</a></td></tr><tr><td style="font-weight:600;">Try other disconnection</td><td>Processing & Operations</td><td><a href="https://www.wiley.com/en-us/The+Logic+of+Chemical+Synthesis-p-9780471115946" target="_blank" title="The Logic of Chemical Synthesis" style="color:#e74c3c;">Corey, E. J. et al. 1989</a></td></tr><tr><td style="font-weight:600;">Simpler precursors</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1002/anie.199104553" target="_blank" title="The logic of chemical synthesis (Nobel Lecture)" style="color:#e74c3c;">Corey, E. J. 1991</a></td></tr><tr><td style="font-weight:600;">Precursors available?</td><td>Intermediates & States</td><td><a href="https://www.wiley.com/en-us/The+Logic+of+Chemical+Synthesis-p-9780471115946" target="_blank" title="The Logic of Chemical Synthesis" style="color:#e74c3c;">Corey, E. J. et al. 1989</a></td></tr><tr><td style="font-weight:600;">Recurse on precursor</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1002/anie.199104553" target="_blank" title="The logic of chemical synthesis (Nobel Lecture)" style="color:#e74c3c;">Corey, E. J. 1991</a></td></tr><tr><td style="font-weight:600;">Forward synthetic route</td><td>Products & Outputs</td><td><a href="https://www.wiley.com/en-us/The+Logic+of+Chemical+Synthesis-p-9780471115946" target="_blank" title="The Logic of Chemical Synthesis" style="color:#e74c3c;">Corey, E. J. et al. 1989</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -313,12 +330,12 @@ X2 --> Z2[Organic Synthesis Analysis Complete]
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 26</li>
-                        <li><strong>Edges:</strong> 21</li>
-                        <li><strong>Conditionals:</strong> 0</li>
+                        <li><strong>Nodes:</strong> 10</li>
+                        <li><strong>Edges:</strong> 11</li>
+                        <li><strong>Conditionals:</strong> 2</li>
                         <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 1</li>
+                        <li><strong>OR Gates:</strong> 2</li>
+                        <li><strong>Total Gates:</strong> 3</li>
                     </ul>
                 </div>
                 
@@ -326,7 +343,7 @@ X2 --> Z2[Organic Synthesis Analysis Complete]
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>organic</li><li>synthesis</li><li>pathways</li>
+                        <li>retrosynthesis</li><li>disconnection</li><li>synthon</li><li>precursor</li><li>synthetic route</li>
                     </ul>
                 </div>
                 
@@ -337,43 +354,33 @@ X2 --> Z2[Organic Synthesis Analysis Complete]
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>The logic of chemical synthesis (Nobel Lecture)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Corey, E. J.
+                            , Angewandte Chemie International Edition
+                             (1991)
                             </span>
+                            <br><a href="https://doi.org/10.1002/anie.199104553" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1002/anie.199104553</a>
                             
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Problem Solving in Organic Synthesis: The False Steps, Failed Pathways, and Ultimately Successful Route to the Bottom Half of Ivermectin</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Jung, Michael E.
-                            , Strategies and Tactics in Organic Synthesis
+                            <strong>The Logic of Chemical Synthesis</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Corey, E. J.; Cheng, X.-M.
+                            , Wiley
                              (1989)
                             </span>
-                            <br><a href="https://doi.org/10.1016/b978-0-08-092429-8.50012-x" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1016/b978-0-08-092429-8.50012-x</a>
                             
+                            <br><a href="https://www.wiley.com/en-us/The+Logic+of+Chemical+Synthesis-p-9780471115946" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Oxidative Polycyclization Versus the “Polyepoxide cascade”: New Pathways in Polyether (Bio)synthesis?</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Koert, Ulrich
-                            , Organic Synthesis Set
-                             (2003)
+                            <strong>Organic Chemistry, 2nd ed. — Retrosynthetic analysis</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Clayden, J.; Greeves, N.; Warren, S.
+                            , Oxford University Press
+                             (2012)
                             </span>
-                            <br><a href="https://doi.org/10.1002/9783527620784.ch36b" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1002/9783527620784.ch36b</a>
                             
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Decision letter for "Sulfonamide Synthesis: Unlocking New Pathways with Aryl Triflates via Photocatalytic Coupling"</strong>
-                            
-                            
-                             (2025)
-                            </span>
-                            <br><a href="https://doi.org/10.1039/d5qo00954e/v1/decision1" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1039/d5qo00954e/v1/decision1</a>
-                            
+                            <br><a href="https://global.oup.com/academic/product/organic-chemistry-9780199270293" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
                         </li>
                         
                     </ul>

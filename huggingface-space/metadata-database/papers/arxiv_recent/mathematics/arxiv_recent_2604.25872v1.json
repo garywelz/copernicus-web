@@ -1,0 +1,37 @@
+{
+  "id": "arxiv_2604.25872v1",
+  "arxiv_id": "2604.25872v1",
+  "title": "When Errors Can Be Beneficial: A Categorization of Imperfect Rewards for Policy Gradient",
+  "authors": [
+    "Shuning Shang",
+    "Hubert Strauss",
+    "Stanley Wei",
+    "Sanjeev Arora",
+    "Noam Razin"
+  ],
+  "author_string": "Shuning Shang, Hubert Strauss, Stanley Wei, Sanjeev Arora, Noam Razin",
+  "journal": "arXiv:2604.25872v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Training language models via reinforcement learning often relies on imperfect proxy rewards, since ground truth rewards that precisely define the intended behavior are rarely available. Standard metrics for assessing the quality of proxy rewards, such as ranking accuracy, treat incorrect rewards as strictly harmful. In this work, however, we highlight that not all deviations from the ground truth are equal. By theoretically analyzing which outputs attract probability during policy gradient optimization, we categorize reward errors according to their effect on the increase in ground truth reward. The analysis establishes that reward errors, though conventionally viewed as harmful, can also be benign or even beneficial by preventing the policy from stalling around outputs with mediocre ground truth reward. We then present two practical implications of our theory. First, for reinforcement learning from human feedback (RLHF), we develop reward model evaluation metrics that account for the harmfulness of reward errors. Compared to standard ranking accuracy, these metrics typically correlate better with the performance of a language model after RLHF, yet gaps remain in robustly evaluating reward models. Second, we provide insights for reward design in settings with verifiable rewards. A key theme underlying our results is that the effectiveness of a proxy reward function depends heavily on its interaction with the initial policy and learning algorithm.",
+  "categories": [
+    "cs.LG",
+    "cs.AI",
+    "stat.ML"
+  ],
+  "primary_category": "stat.ML",
+  "comment": "Code available at https://github.com/princeton-pli/imperfect-rewards",
+  "published_date": "2026-04-28T17:10:15Z",
+  "updated_date": "2026-04-28T17:10:15Z",
+  "url": "https://arxiv.org/abs/2604.25872v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.25872v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-29T10:15:44.738306",
+  "category": "mathematics",
+  "subcategories": [
+    "cs.LG",
+    "cs.AI",
+    "stat.ML"
+  ]
+}

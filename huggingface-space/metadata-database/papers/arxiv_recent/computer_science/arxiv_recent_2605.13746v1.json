@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2605.13746v1",
+  "arxiv_id": "2605.13746v1",
+  "title": "Weakly-Supervised Spatiotemporal Anomaly Detection",
+  "authors": [
+    "Urvi Gianchandani",
+    "Praveen Tirupattur",
+    "Mubarak Shah"
+  ],
+  "author_string": "Urvi Gianchandani, Praveen Tirupattur, Mubarak Shah",
+  "journal": "arXiv:2605.13746v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "In this paper, we explore a weakly supervised method for anomaly detection. Since annotating videos is time-consuming, we only look at weak video-level labels during training. This means that given a video, we know that it is either normal or contains an anomaly, but no further annotations are used to train the network. Features are extracted from video clips that are either normal or anomalous. These features are used to determine anomaly scores for spatiotemporal regions of the clips based on a classifier and the implementation of a multiple instance ranking loss (MIL). We represent both anomalous and normal video clips as positive and negative bags, respectively, to apply MIL. Furthermore, since anomalies are usually localized to a part of a frame rather than the whole frame, we chose to explore temporal as well as spatial anomaly detection. We show our results on the UCF Crime2Local Dataset, which contains spatiotemporal annotations for a portion of the UCF Crime Dataset.",
+  "categories": [
+    "cs.CV",
+    "cs.AI"
+  ],
+  "primary_category": "cs.AI",
+  "comment": null,
+  "published_date": "2026-05-13T16:28:01Z",
+  "updated_date": "2026-05-13T16:28:01Z",
+  "url": "https://arxiv.org/abs/2605.13746v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.13746v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-13T22:17:00.037039",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CV",
+    "cs.AI"
+  ]
+}

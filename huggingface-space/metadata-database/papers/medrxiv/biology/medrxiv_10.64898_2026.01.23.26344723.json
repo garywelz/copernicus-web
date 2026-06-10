@@ -1,0 +1,52 @@
+{
+  "id": "medrxiv_10.64898_2026.01.23.26344723",
+  "doi": "10.64898/2026.01.23.26344723",
+  "title": "Comparative Performance of agentic AI and Physicians in Taking Clinical History across Leading Large Language Models (LLMs)",
+  "authors": [
+    "Steinbuch, S. M.",
+    "de Vos-Hillebrand, L.",
+    "O'Neill-Dee, C.",
+    "Wu, I.",
+    "Steinbuch, H.",
+    "Kulcsar, Z.",
+    "Ranjan, A.",
+    "Verma, A.",
+    "Landsberg, J.",
+    "Dietrich, D.",
+    "Hardin, C. C.",
+    "Jain, R. K.",
+    "Subudhi, S."
+  ],
+  "author_string": "Steinbuch, S. M., de Vos-Hillebrand, L., O'Neill-Dee, C., Wu, I., Steinbuch, H. et al.",
+  "journal": "medRxiv",
+  "journal_full": "medRxiv",
+  "year": "2026",
+  "abstract": "Comprehensive clinical history taking is essential for high-quality care. We hypothesized that large language models (LLMs), guided by a structured agentic framework, can efficiently obtain clinically meaningful patient histories. We developed an iterative prompting system that evaluates relevance and completeness across standard history domains and generates targeted follow-up questions until sufficient detail is obtained. We built a patient-facing application and evaluated it using 52 published case reports and 20 constructed clinical scenarios with simulated patient interactions. The framework was implemented using GPT-4o, Gemini-2.5-Flash-Lite, or Grok-3. After each interaction, the system generated an EHR-ready clinical summary, differential diagnosis, and recommended investigations. Across models, relevant history elements were captured with >85% accuracy and F1 scores, as independently assessed by three blinded physicians, and recommended investigations aligned with those used to establish final diagnoses. These findings support the potential of agentic LLM systems for structured clinical history collection and justify prospective clinical evaluation.",
+  "keywords": [],
+  "categories": [
+    "health informatics"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.64898/2026.01.23.26344723",
+  "source": "medrxiv",
+  "sources": [
+    "medrxiv"
+  ],
+  "acquired_date": "2026-05-25T22:15:24.729585",
+  "category": "biology",
+  "subcategories": [
+    "health informatics"
+  ],
+  "published_date": "2026-01-25",
+  "updated_date": "2026-01-25",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "medrxiv",
+  "preprint_version": "1",
+  "preprint_type": "PUBLISHAHEADOFPRINT",
+  "license": "cc_by_nc",
+  "jatsxml": "https://www.medrxiv.org/content/early/2026/01/25//2026.01.23.26344723.source.xml",
+  "published_doi": null,
+  "author_corresponding": "Sonu Subudhi",
+  "author_corresponding_institution": "Massachusetts General Hospital and Harvard Medical School"
+}

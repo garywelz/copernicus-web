@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Concentration Effects - Chemistry Process</title>
+    <title>Dose–Response & EC50 - Chemistry Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Concentration Effects</h1>
+            <h1>Dose–Response & EC50</h1>
             <div class="header-meta">
                 <span class="meta-item">Chemistry</span>
                 <span class="meta-item">Medicinal Chemistry</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,68 +234,56 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Concentration Effects process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>Pharmacodynamic characterization: apply a range of doses, measure the response, fit a sigmoidal concentration-response (Hill) curve to extract potency (EC50/IC50) and efficacy, and assess cooperativity and the therapeutic window.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-A3[Reactant Concentrations] --> B3[Concentration Effect Method]
-C3[Reaction Vessel] --> D3[Concentration Control]
-E3[Rate Measurement] --> F3[Kinetic Analysis]
-B3 --> G3[Concentration Setup]
-D3 --> H3[Concentration Monitoring]
-F3 --> I3[Rate Determination]
-G3 --> J3[Initial Concentrations]
-H3 --> K3[Concentration Changes]
-I3 --> L3[Rate Law Analysis]
-J3 --> M3[Concentration Dependence]
-K3 --> L3
-L3 --> N3[Reaction Order]
-M3 --> O3[Molecular Collisions]
-N3 --> P3[Concentration Kinetics]
-O3 --> Q3[Collision Theory]
-P3 --> R3[Rate Changes]
-Q3 --> S3[Collision Analysis]
-R3 --> T3[Concentration Optimization]
-S3 --> U3[Rate Law Parameters]
-T3 --> V3[Optimal Concentrations]
-U3 --> W3[Concentration Efficiency]
-V3 --> X3[Concentration Characterization]
-W3 --> Y3[Process Optimization]
-X3 --> Z3[Final Concentration Conditions]
-Y3 --> Z3
+    N1["Compound + target/cells"]
+    N2["Apply range of doses"]
+    N3["Measure response per dose"]
+    N4["Plot response vs log[dose]"]
+    N5["Fit sigmoidal (Hill) curve"]
+    N6["Extract EC50 / IC50"]
+    N7{"Steep Hill slope?"}
+    N8["Cooperative binding"]
+    N9["Quantify potency/efficacy"]
+    N10["Therapeutic window"]
 
-    style A3 fill:#ff6b6b,color:#fff
-    style C3 fill:#ff6b6b,color:#fff
-    style E3 fill:#ff6b6b,color:#fff
-    style B3 fill:#ffd43b,color:#000
-    style D3 fill:#ffd43b,color:#000
-    style F3 fill:#ffd43b,color:#000
-    style G3 fill:#ffd43b,color:#000
-    style H3 fill:#ffd43b,color:#000
-    style I3 fill:#ffd43b,color:#000
-    style J3 fill:#ffd43b,color:#000
-    style K3 fill:#ffd43b,color:#000
-    style L3 fill:#ffd43b,color:#000
-    style M3 fill:#51cf66,color:#fff
+    N1 --> N2
+    N2 --> N3
+    N3 --> N4
+    N4 --> N5
+    N5 --> N6
+    N6 --> N7
+    N7 -->|yes| N8
+    N8 --> N9
+    N7 -->|no| N9
+    N9 --> N10
+
+    style N1 fill:#ff6b6b,color:#fff
+    style N2 fill:#51cf66,color:#fff
     style N3 fill:#51cf66,color:#fff
-    style O3 fill:#51cf66,color:#fff
-    style P3 fill:#51cf66,color:#fff
-    style Q3 fill:#51cf66,color:#fff
-    style R3 fill:#51cf66,color:#fff
-    style S3 fill:#51cf66,color:#fff
-    style T3 fill:#51cf66,color:#fff
-    style U3 fill:#51cf66,color:#fff
-    style V3 fill:#51cf66,color:#fff
-    style W3 fill:#51cf66,color:#fff
-    style X3 fill:#51cf66,color:#fff
-    style Y3 fill:#51cf66,color:#fff
-    style Z3 fill:#b197fc,color:#fff
+    style N4 fill:#51cf66,color:#fff
+    style N5 fill:#51cf66,color:#fff
+    style N6 fill:#74c0fc,color:#fff
+    style N7 fill:#74c0fc,color:#fff
+    style N8 fill:#51cf66,color:#fff
+    style N9 fill:#51cf66,color:#fff
+    style N10 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Compound + target/cells</td><td>Triggers & Inputs</td><td><a href="https://accessmedicine.mhmedical.com/book.aspx?bookid=2189" target="_blank" title="Goodman & Gilman's The Pharmacological Basis of Therapeutics, 13th ed." style="color:#e74c3c;">Brunton, L. L. et al. 2017</a></td></tr><tr><td style="font-weight:600;">Apply range of doses</td><td>Processing & Operations</td><td><a href="https://accessmedicine.mhmedical.com/book.aspx?bookid=2189" target="_blank" title="Goodman & Gilman's The Pharmacological Basis of Therapeutics, 13th ed." style="color:#e74c3c;">Brunton, L. L. et al. 2017</a></td></tr><tr><td style="font-weight:600;">Measure response per dose</td><td>Processing & Operations</td><td><a href="https://accessmedicine.mhmedical.com/book.aspx?bookid=2189" target="_blank" title="Goodman & Gilman's The Pharmacological Basis of Therapeutics, 13th ed." style="color:#e74c3c;">Brunton, L. L. et al. 2017</a></td></tr><tr><td style="font-weight:600;">Plot response vs log[dose]</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1124/pr.55.4.4" target="_blank" title="International Union of Pharmacology Committee on Receptor Nomenclature and Drug Classification" style="color:#e74c3c;">Neubig, R. R. et al. 2003</a></td></tr><tr><td style="font-weight:600;">Fit sigmoidal (Hill) curve</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1113/jphysiol.1910.sp001386" target="_blank" title="The possible effects of the aggregation of haemoglobin on its dissociation curves (Hill equation)" style="color:#e74c3c;">Hill, A. V. 1910</a></td></tr><tr><td style="font-weight:600;">Extract EC50 / IC50</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1124/pr.55.4.4" target="_blank" title="International Union of Pharmacology Committee on Receptor Nomenclature and Drug Classification" style="color:#e74c3c;">Neubig, R. R. et al. 2003</a></td></tr><tr><td style="font-weight:600;">Steep Hill slope?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1113/jphysiol.1910.sp001386" target="_blank" title="The possible effects of the aggregation of haemoglobin on its dissociation curves (Hill equation)" style="color:#e74c3c;">Hill, A. V. 1910</a></td></tr><tr><td style="font-weight:600;">Cooperative binding</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1113/jphysiol.1910.sp001386" target="_blank" title="The possible effects of the aggregation of haemoglobin on its dissociation curves (Hill equation)" style="color:#e74c3c;">Hill, A. V. 1910</a></td></tr><tr><td style="font-weight:600;">Quantify potency/efficacy</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1124/pr.55.4.4" target="_blank" title="International Union of Pharmacology Committee on Receptor Nomenclature and Drug Classification" style="color:#e74c3c;">Neubig, R. R. et al. 2003</a></td></tr><tr><td style="font-weight:600;">Therapeutic window</td><td>Products & Outputs</td><td><a href="https://accessmedicine.mhmedical.com/book.aspx?bookid=2189" target="_blank" title="Goodman & Gilman's The Pharmacological Basis of Therapeutics, 13th ed." style="color:#e74c3c;">Brunton, L. L. et al. 2017</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -314,12 +329,12 @@ Y3 --> Z3
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 26</li>
-                        <li><strong>Edges:</strong> 22</li>
-                        <li><strong>Conditionals:</strong> 0</li>
+                        <li><strong>Nodes:</strong> 10</li>
+                        <li><strong>Edges:</strong> 10</li>
+                        <li><strong>Conditionals:</strong> 1</li>
                         <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 1</li>
+                        <li><strong>OR Gates:</strong> 1</li>
+                        <li><strong>Total Gates:</strong> 2</li>
                     </ul>
                 </div>
                 
@@ -327,7 +342,7 @@ Y3 --> Z3
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>concentration</li><li>effects</li>
+                        <li>dose-response</li><li>ec50</li><li>hill equation</li><li>potency</li><li>efficacy</li>
                     </ul>
                 </div>
                 
@@ -338,43 +353,33 @@ Y3 --> Z3
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>The possible effects of the aggregation of haemoglobin on its dissociation curves (Hill equation)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Hill, A. V.
+                            , Journal of Physiology
+                             (1910)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>File S4: Effects of melatonin treatment on GA_1 concentration, GA_7 concentration, GA_4 concentration, GA_3 concentration, ABA concentration and GA_3/ABA of peony seed</strong>
-                            
-                            
-                             (None)
-                            </span>
-                            <br><a href="https://doi.org/10.7717/peerj.18038/supp-4" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.7717/peerj.18038/supp-4</a>
+                            <br><a href="https://doi.org/10.1113/jphysiol.1910.sp001386" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1113/jphysiol.1910.sp001386</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Concentration Effects on Nitroxides</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Eaton, Gareth
-                            
-                             (2025)
+                            <strong>International Union of Pharmacology Committee on Receptor Nomenclature and Drug Classification</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Neubig, R. R.; Spedding, M.; Kenakin, T.; Christopoulos, A.
+                            , Pharmacological Reviews
+                             (2003)
                             </span>
-                            <br><a href="https://doi.org/10.56902/facsch.2025.2" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.56902/facsch.2025.2</a>
+                            <br><a href="https://doi.org/10.1124/pr.55.4.4" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1124/pr.55.4.4</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>7. The Effects of Concentration</strong>
-                            
-                            , Industrial Concentration and Economic Power in Pakistan
-                             (2015)
+                            <strong>Goodman & Gilman's The Pharmacological Basis of Therapeutics, 13th ed.</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Brunton, L. L.; Hilal-Dandan, R.; Knollmann, B. C.
+                            , McGraw-Hill
+                             (2017)
                             </span>
-                            <br><a href="https://doi.org/10.1515/9781400871797-009" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1515/9781400871797-009</a>
                             
+                            <br><a href="https://accessmedicine.mhmedical.com/book.aspx?bookid=2189" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
                         </li>
                         
                     </ul>

@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2604.24580v1",
+  "arxiv_id": "2604.24580v1",
+  "title": "A Spectral Gap Informed Parameter Schedule for QAOA",
+  "authors": [
+    "Kieran McDowall",
+    "Konstantinos Georgopoulos",
+    "Petros Wallden"
+  ],
+  "author_string": "Kieran McDowall, Konstantinos Georgopoulos, Petros Wallden",
+  "journal": "arXiv:2604.24580v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "A challenge with the Quantum Approximate Optimisation Algorithm (QAOA), and variational algorithms in general, is finding good variational parameters, a task which in itself can be NP-hard. Recent work has sought to de-variationalise QAOA by picking well-informed guesses for the variational parameters. The Linear Ramp QAOA (LR-QAOA) achieves this by using parameter schedules inspired by the quantum adiabatic algorithm. We go a step further and use spectral gap information from an adiabatic Hamiltonian, with the QAOA mixer Hamiltonian as our initial Hamiltonian, to make smooth ramps which we call Spectral Gap Informed Ramps (SGIR-QAOA). SGIR-QAOA schedules perform slow evolution where the spectral gap of the adiabatic Hamiltonian is small. We show that SGIR-QAOA has performance improvements over LR-QAOA on Grover's problem at constant depth and that SGIR-QAOA requires shorter depths to achieve the same optimal solution probability. We then show that these performance benefits extend to a problem with potential practical applications -- the Maximum Independent Set (MIS) problem. Finally, we demonstrate the scalability of the SGIR-QAOA method using extrapolated spectral gap information for scales that the spectral gap cannot be exactly evaluated, and show that the advantage appears to persist under mild depolarising noise.",
+  "categories": [
+    "quant-ph"
+  ],
+  "primary_category": "quant-ph",
+  "comment": null,
+  "published_date": "2026-04-27T15:06:59Z",
+  "updated_date": "2026-04-27T15:06:59Z",
+  "url": "https://arxiv.org/abs/2604.24580v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.24580v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-27T22:15:21.995906",
+  "category": "physics",
+  "subcategories": [
+    "quant-ph"
+  ]
+}

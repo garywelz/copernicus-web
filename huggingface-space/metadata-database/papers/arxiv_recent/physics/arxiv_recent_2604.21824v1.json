@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2604.21824v1",
+  "arxiv_id": "2604.21824v1",
+  "title": "Deterministic generation of grid states with programmable nonlinear bosonic circuits",
+  "authors": [
+    "Yanis Le Fur",
+    "Javier Lalueza-Puértolas",
+    "Carlos Sánchez Muñoz",
+    "Alberto Muñoz de las Heras",
+    "Alejandro González-Tudela"
+  ],
+  "author_string": "Yanis Le Fur, Javier Lalueza-Puértolas, Carlos Sánchez Muñoz, Alberto Muñoz de las Heras, Alejandro González-Tudela",
+  "journal": "arXiv:2604.21824v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Bosonic quantum error correction enables hardware-efficient protection of quantum information by encoding logical qubits in harmonic oscillators. Bosonic grid states, such as Gottesman-Kitaev-Preskill (GKP) states, are particularly promising due to their potential to correct small displacements and boson loss. However, their generation remains challenging, typically relying on probabilistic protocols or auxiliary qubit systems. Here, we propose deterministic protocols for generating bosonic grid states using programmable nonlinear bosonic circuits composed solely of squeezing, displacement, and Kerr operations. We show that aiming to enforce GKP symmetries in the output of these circuits yields states with competitive performance with respect to current realizations, but whose quality saturates with increasing circuit depth due to imperfect symmetry restoration. Instead, we find that these bosonic circuits naturally give rise to a distinct class of states, that we label as phased-comb states, which are unitarily related to standard grid states but feature an intrinsic phase structure. We demonstrate that these states define a scalable bosonic quantum error-correcting code with near-optimal performance under boson loss comparable to that of approximate GKP states. We further analyze their logical operations and show how to implement a universal gate set for them. Our results establish programmable nonlinear bosonic circuits as a viable route towards the generation of scalable bosonic quantum error-correcting states beyond standard GKP encodings.",
+  "categories": [
+    "quant-ph"
+  ],
+  "primary_category": "quant-ph",
+  "comment": "11 pages, 3 figures",
+  "published_date": "2026-04-23T16:16:28Z",
+  "updated_date": "2026-04-23T16:16:28Z",
+  "url": "https://arxiv.org/abs/2604.21824v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.21824v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-27T10:15:37.391593",
+  "category": "physics",
+  "subcategories": [
+    "quant-ph"
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2604.20974v1",
+  "arxiv_id": "2604.20974v1",
+  "title": "Element-deletion-enhanced digital image correlation for automated crack detection and tracking in lattice materials",
+  "authors": [
+    "Alessandra Lingua",
+    "Arturo Chao Correas",
+    "François Hild",
+    "David S. Kammer"
+  ],
+  "author_string": "Alessandra Lingua, Arturo Chao Correas, François Hild, David S. Kammer",
+  "journal": "arXiv:2604.20974v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Architected materials can exhibit remarkable combinations of stiffness, strength, and toughness, yet their application is currently limited by an incomplete understanding of how cracks initiate and propagate through their discrete architecture. Elucidating the mechanisms that underpin these processes is challenging because lattice failure is governed by highly localized deformations of slender beams, which fall outside the resolution and assumptions of optical methods developed for continuum solids, such as digital image correlation (DIC). Thus, characterizing crack propagation within lattice materials requires measurement strategies capable of resolving lattice-scale deformations while accounting for both the intrinsic discreteness of lattice architectures and the progressive formation of material discontinuities during failure. This work introduces a global DIC framework tailored to architected materials, in which the correlation problem is solved directly on the lattice mesh and damaged elements are automatically removed during the analyses. Damage detection, which relies on a data-driven residual criterion, enables the robust tracking of localized deformation and crack-tip motion under different testing conditions. The method provides physically consistent displacement field measurements on the evolving intact lattice topology and resolves the crack path over time. Validations on 3D-printed regular and imperfect triangular lattices under mode-I loading demonstrate that the approach accurately captures both damage initiation and crack propagation. Furthermore, we demonstrate that identifying damaged elements provides an estimate of the critical failure strain, which can be used directly in numerical models or adopted as an alternative element-deletion threshold in DIC analyses.",
+  "categories": [
+    "cond-mat.soft",
+    "cond-mat.mtrl-sci"
+  ],
+  "primary_category": "cond-mat.mtrl-sci",
+  "comment": null,
+  "published_date": "2026-04-22T18:06:00Z",
+  "updated_date": "2026-04-22T18:06:00Z",
+  "url": "https://arxiv.org/abs/2604.20974v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.20974v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-25T22:15:44.911556",
+  "category": "physics",
+  "subcategories": [
+    "cond-mat.soft",
+    "cond-mat.mtrl-sci"
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2604.18139v1",
+  "arxiv_id": "2604.18139v1",
+  "title": "Evaluating dispersion models for ab initio simulation of G-I and G-II molten fluoride salts",
+  "authors": [
+    "Shubhojit Banerjee",
+    "Rajni Chahal Crockett",
+    "Julian Barra",
+    "Stephen T Lam"
+  ],
+  "author_string": "Shubhojit Banerjee, Rajni Chahal Crockett, Julian Barra, Stephen T Lam",
+  "journal": "arXiv:2604.18139v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Ab initio molecular dynamics (AIMD) based on density functional theory (DFT) is a powerful approach for modeling molten salts. However, standard exchange-correlation functionals often neglect dispersion interactions, introducing potential errors in property predictions. Dispersion corrections are commonly applied ad hoc to match experimental salt densities, but their systematic impact on predicting structure, thermophysical, and transport properties of salt remains unexamined. This study evaluates the impact of Grimme's DFT-D and nonlocal van der Waals (vdW-DF) corrections on molten fluorides of Group-I (LiF, NaF, KF) and Group-II (BeF$_2$, MgF$_2$, CaF$_2$), which are relevant to reactor applications. Results indicate that dispersion corrections have a minor effect on binding energies but significantly influence density predictions. Systematic benchmarking across compositions and temperatures reveals that semi-empirical dispersion models often produce more accurate densities compared to vdW-DF. Diffusion coefficients remain largely invariant to dispersion corrections at fixed densities, while coordination number distributions exhibit notable differences based on chosen dispersion. BeF$_2$, in particular, deviates from other fluorides, showing pronounced structural and dynamical differences in the absence of dispersion corrections. This highlights the necessity of dispersion effects for high-charge-density cations that promote intermediate- to long-range ordering. These findings provide a systematic framework for selecting dispersion models in molten salt simulations, improving density and structural predictions.",
+  "categories": [
+    "cond-mat.mtrl-sci",
+    "cond-mat.other"
+  ],
+  "primary_category": "cond-mat.other",
+  "comment": null,
+  "published_date": "2026-04-20T12:06:21Z",
+  "updated_date": "2026-04-20T12:06:21Z",
+  "url": "https://arxiv.org/abs/2604.18139v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.18139v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-22T10:15:52.072083",
+  "category": "physics",
+  "subcategories": [
+    "cond-mat.mtrl-sci",
+    "cond-mat.other"
+  ]
+}

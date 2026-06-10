@@ -1,0 +1,296 @@
+{
+  "generatedAt": "2026-04-30T23:44:14.744647+00:00",
+  "databases": {
+    "biology": {
+      "signatureCount": 9,
+      "duplicateTopologyGroups": {
+        "0dc3c4c497fecfee": [
+          "assay_protocols/assay_protocols-agarose-gel.json",
+          "assay_protocols/assay_protocols-bacterial-transformation.json",
+          "assay_protocols/assay_protocols-pcr.json",
+          "cell_biology/cell_biology-autophagy.json",
+          "cell_biology/cell_biology-protein-folding-and-chaperone-response.json",
+          "development/development-epithelial-mesenchymal-transition.json",
+          "development/development-morphogen-gradient-patterning.json",
+          "development/development-plant-hormone-auxin-signaling.json",
+          "immunology/immunology-antigen-processing-and-mhc-presentation.json",
+          "immunology/immunology-complement-cascade.json",
+          "immunology/immunology-inflammasome-activation.json",
+          "immunology/immunology-innate-immune-pattern-recognition.json",
+          "immunology/immunology-t-cell-receptor-activation.json",
+          "mechanisms/mechanisms-dna-replication.json",
+          "mechanisms/mechanisms-mrna-splicing.json",
+          "mechanisms/mechanisms-nucleotide-excision-repair.json",
+          "mechanisms/mechanisms-riboswitch-regulation.json",
+          "mechanisms/mechanisms-rna-interference-sirna-pathway.json",
+          "mechanisms/mechanisms-transcription-initiation-in-eukaryotes.json",
+          "mechanisms/mechanisms-trp-operon.json",
+          "pathways/pathways-calvin-cycle.json",
+          "pathways/pathways-gluconeogenesis.json",
+          "pathways/pathways-insulin-signaling.json",
+          "pathways/pathways-jak-stat-signaling.json",
+          "pathways/pathways-krebs-cycle.json",
+          "pathways/pathways-mapk-signaling.json",
+          "pathways/pathways-necroptosis.json",
+          "pathways/pathways-notch-signaling.json",
+          "pathways/pathways-oxidative-phosphorylation.json",
+          "pathways/pathways-pentose-phosphate-pathway.json",
+          "pathways/pathways-photosynthesis-light-reactions.json",
+          "pathways/pathways-urea-cycle.json"
+        ],
+        "adaac2776fb82ed8": [
+          "assay_protocols/assay_protocols-dna-extraction.json",
+          "assay_protocols/assay_protocols-elisa.json",
+          "assay_protocols/assay_protocols-western-blot.json",
+          "cell_biology/cell_biology-ubiquitin-proteasome-degradation.json",
+          "development/development-cell-differentiation.json",
+          "development/development-circadian-clock-regulation.json",
+          "immunology/immunology-b-cell-activation-and-antibody-production.json",
+          "mechanisms/mechanisms-central-dogma.json",
+          "mechanisms/mechanisms-feedback-inhibition.json",
+          "mechanisms/mechanisms-homologous-recombination-repair.json",
+          "pathways/pathways-cell-cycle.json",
+          "pathways/pathways-fatty-acid-beta-oxidation.json",
+          "pathways/pathways-fatty-acid-synthesis.json",
+          "pathways/pathways-gpcr-signaling.json",
+          "pathways/pathways-nf-kb-inflammatory-signaling.json",
+          "pathways/pathways-nitrogen-fixation.json",
+          "pathways/pathways-wnt-beta-catenin-signaling.json"
+        ]
+      },
+      "duplicateChartCount": 49
+    },
+    "chemistry": {
+      "signatureCount": 39,
+      "duplicateTopologyGroups": {
+        "aed46c3eb6fb869f": [
+          "analytical_chemistry/analytical_chemistry-chromatography.json",
+          "graph_type_pilots/influence-catalyst-design.json"
+        ],
+        "5afcd85942176a57": [
+          "analytical_chemistry/analytical_chemistry-electrochemical-analysis.json",
+          "analytical_chemistry/analytical_chemistry-spectroscopy-analysis.json"
+        ],
+        "562ed1be18c467b1": [
+          "analytical_chemistry/analytical_chemistry-sample-preparation-workflow.json",
+          "materials_chemistry/materials_chemistry-polymerization-process.json",
+          "organic_chemistry/organic_chemistry-suzuki-coupling.json"
+        ],
+        "181a9811080e43a6": [
+          "biochemistry/biochemistry-enzyme-kinetics.json",
+          "biochemistry/biochemistry-metabolism.json"
+        ],
+        "f1a6b417b65ce387": [
+          "computational_chemistry/computational_chemistry-chromatography.json",
+          "computational_chemistry/computational_chemistry-nmr-spectroscopy.json",
+          "materials_chemistry/materials_chemistry-thin-film-deposition.json",
+          "materials_science/materials_science-nanomaterials.json",
+          "materials_science/materials_science-polymorphism.json"
+        ],
+        "5fc8a95cf22d4815": [
+          "computational_chemistry/computational_chemistry-ir-spectroscopy.json",
+          "computational_chemistry/computational_chemistry-mass-spectrometry.json",
+          "computational_chemistry/computational_chemistry-uv-vis-spectroscopy.json",
+          "materials_science/materials_science-composite-materials.json",
+          "materials_science/materials_science-crystal-structure.json",
+          "materials_science/materials_science-defects-doping.json"
+        ],
+        "21c8aab60d06fba6": [
+          "electrochemistry/electrochemistry-battery-chemistry.json",
+          "electrochemistry/electrochemistry-corrosion-mechanisms.json",
+          "electrochemistry/electrochemistry-electrochemical-cell-design.json",
+          "electrochemistry/electrochemistry-spectroscopic-calculations.json",
+          "inorganic_chemistry/inorganic_chemistry-catalysis.json",
+          "inorganic_chemistry/inorganic_chemistry-solid-state-chemistry.json"
+        ],
+        "0d608be4dc7bfb35": [
+          "electrochemistry/electrochemistry-computational-methods.json",
+          "electrochemistry/electrochemistry-electrolysis.json",
+          "electrochemistry/electrochemistry-electronic-transitions.json",
+          "electrochemistry/electrochemistry-electroplating.json",
+          "electrochemistry/electrochemistry-molecular-orbitals.json",
+          "electrochemistry/electrochemistry-reaction-pathways.json",
+          "inorganic_chemistry/inorganic_chemistry-coordination-chemistry.json"
+        ],
+        "62b1de9426f2a8e4": [
+          "electrochemistry/electrochemistry-cyclic-voltammetry.json",
+          "electrochemistry/electrochemistry-electrodeposition.json",
+          "inorganic_chemistry/inorganic_chemistry-coordination-complex-synthesis.json",
+          "surface_chemistry/surface_chemistry-adsorption-isotherm-analysis.json"
+        ],
+        "351d29206341135e": [
+          "electrochemistry/electrochemistry-fuel-cell-operation.json",
+          "physical_chemistry/physical_chemistry-chemical-kinetics.json",
+          "physical_chemistry/physical_chemistry-spectroscopy-analysis.json",
+          "physical_chemistry/physical_chemistry-thermodynamic-calculations.json",
+          "surface_chemistry/surface_chemistry-defects-doping.json",
+          "surface_chemistry/surface_chemistry-photocatalysis.json",
+          "surface_chemistry/surface_chemistry-polymorphism.json"
+        ],
+        "21921290d33cfbf1": [
+          "environmental_chemistry/environmental_chemistry-atmospheric-chemistry.json",
+          "environmental_chemistry/environmental_chemistry-green-chemistry.json",
+          "environmental_chemistry/environmental_chemistry-water-chemistry.json",
+          "polymer_chemistry/polymer_chemistry-entropy-changes.json",
+          "polymer_chemistry/polymer_chemistry-phase-transitions.json"
+        ],
+        "85069b877644d46e": [
+          "environmental_chemistry/environmental_chemistry-water-treatment-coagulation-flocculation.json",
+          "materials_chemistry/materials_chemistry-nanomaterials.json"
+        ],
+        "97efd3a7b6497c59": [
+          "inorganic_chemistry/inorganic_chemistry-ligand-substitution.json",
+          "physical_chemistry/physical_chemistry-spectroscopic-line-broadening.json"
+        ],
+        "21a20472ea7c209b": [
+          "inorganic_chemistry/inorganic_chemistry-metal-oxide-formation.json",
+          "kinetics/kinetics-arrhenius-analysis.json",
+          "thermodynamics/thermodynamics-chemical-potential-determination.json",
+          "thermodynamics/thermodynamics-gibbs-free-energy-calculation.json"
+        ],
+        "2ecdb3b850cf096a": [
+          "kinetics/kinetics-catalyst-effects.json",
+          "kinetics/kinetics-concentration-effects.json",
+          "kinetics/kinetics-pressure-effects.json",
+          "kinetics/kinetics-reaction-mechanisms.json",
+          "kinetics/kinetics-temperature-effects.json",
+          "physical_chemistry/physical_chemistry-phase-diagram-construction.json",
+          "surface_chemistry/surface_chemistry-composite-materials.json",
+          "surface_chemistry/surface_chemistry-crystal-structure.json",
+          "surface_chemistry/surface_chemistry-enzyme-catalysis.json",
+          "surface_chemistry/surface_chemistry-heterogeneous-catalysis.json",
+          "surface_chemistry/surface_chemistry-heterogeneous-catalyst-screening.json",
+          "surface_chemistry/surface_chemistry-nanomaterials.json",
+          "surface_chemistry/surface_chemistry-supported-catalysts.json",
+          "surface_chemistry/surface_chemistry-zeolite-catalysis.json"
+        ],
+        "87a07950821545e0": [
+          "materials_chemistry/materials_chemistry-composite-materials.json",
+          "materials_chemistry/materials_chemistry-polymer-chemistry.json"
+        ],
+        "54cfe358f9f67e61": [
+          "medicinal_chemistry/medicinal_chemistry-concentration-effects.json",
+          "medicinal_chemistry/medicinal_chemistry-pressure-effects.json",
+          "medicinal_chemistry/medicinal_chemistry-reaction-mechanisms.json",
+          "medicinal_chemistry/medicinal_chemistry-temperature-effects.json"
+        ],
+        "ec39b0a29bbd9bc4": [
+          "nuclear_chemistry/nuclear_chemistry-battery-chemistry.json",
+          "nuclear_chemistry/nuclear_chemistry-electroplating.json"
+        ],
+        "0b0038512fd6bee6": [
+          "nuclear_chemistry/nuclear_chemistry-corrosion-mechanisms.json",
+          "nuclear_chemistry/nuclear_chemistry-electrochemical-cell-design.json",
+          "nuclear_chemistry/nuclear_chemistry-electrolysis.json"
+        ],
+        "ca3315a174885085": [
+          "organic_chemistry/organic_chemistry-organic-reaction-mechanisms.json",
+          "organic_chemistry/organic_chemistry-organic-synthesis-pathways.json"
+        ],
+        "bb3707d23a4a35b6": [
+          "polymer_chemistry/polymer_chemistry-chemical-equilibrium.json",
+          "polymer_chemistry/polymer_chemistry-solution-thermodynamics.json",
+          "polymer_chemistry/polymer_chemistry-thermochemistry.json"
+        ],
+        "97b747d2b2a61e4c": [
+          "quantum_chemistry/quantum_chemistry-computational-methods.json",
+          "quantum_chemistry/quantum_chemistry-density-functional-theory-workflow.json",
+          "quantum_chemistry/quantum_chemistry-electronic-transitions.json",
+          "quantum_chemistry/quantum_chemistry-molecular-dynamics-simulation-setup.json",
+          "quantum_chemistry/quantum_chemistry-molecular-orbitals.json",
+          "quantum_chemistry/quantum_chemistry-reaction-pathways.json",
+          "quantum_chemistry/quantum_chemistry-spectroscopic-calculations.json"
+        ],
+        "65f0588b0c94e11b": [
+          "spectroscopy_advanced/spectroscopy_advanced-chromatography.json",
+          "spectroscopy_advanced/spectroscopy_advanced-raman-spectroscopy-analysis.json"
+        ],
+        "e65b4d70ac690d93": [
+          "spectroscopy_advanced/spectroscopy_advanced-ir-spectroscopy.json",
+          "spectroscopy_advanced/spectroscopy_advanced-mass-spectrometry.json",
+          "spectroscopy_advanced/spectroscopy_advanced-nmr-spectroscopy.json",
+          "spectroscopy_advanced/spectroscopy_advanced-uv-vis-spectroscopy.json",
+          "spectroscopy_advanced/spectroscopy_advanced-x-ray-diffraction-analysis.json"
+        ],
+        "194464f78100e1b9": [
+          "theoretical_chemistry/theoretical_chemistry-enzyme-catalysis.json",
+          "theoretical_chemistry/theoretical_chemistry-heterogeneous-catalysis.json",
+          "theoretical_chemistry/theoretical_chemistry-photocatalysis.json",
+          "theoretical_chemistry/theoretical_chemistry-supported-catalysts.json",
+          "theoretical_chemistry/theoretical_chemistry-zeolite-catalysis.json"
+        ],
+        "12c369d4040adfe0": [
+          "thermodynamics/thermodynamics-chemical-equilibrium.json",
+          "thermodynamics/thermodynamics-entropy-changes.json",
+          "thermodynamics/thermodynamics-phase-transitions.json",
+          "thermodynamics/thermodynamics-solution-thermodynamics.json",
+          "thermodynamics/thermodynamics-thermochemistry.json"
+        ]
+      },
+      "duplicateChartCount": 111
+    },
+    "computer_science": {
+      "signatureCount": 31,
+      "duplicateTopologyGroups": {
+        "cc40bb00304e1ad6": [
+          "algorithms_data_structures/algorithms_data_structures-hash-table-operations.json",
+          "networks/networks-tcp-congestion-control.json",
+          "systems/systems-container-orchestration.json"
+        ],
+        "ab4b62cc891fc8d9": [
+          "algorithms_data_structures/algorithms_data_structures-minimum-spanning-tree.json",
+          "networks/networks-load-balancing.json"
+        ],
+        "276faf007b4a1352": [
+          "machine_learning/machine_learning-quality-assurance.json",
+          "networks/networks-query-processing.json",
+          "networks/networks-transaction-management.json",
+          "software_engineering/software_engineering-natural-language-processing.json",
+          "software_engineering/software_engineering-neural-network.json",
+          "systems/systems-network-performance.json",
+          "systems/systems-network-protocol.json",
+          "systems/systems-virtual-memory-paging.json"
+        ],
+        "d83b51b2e17bb99e": [
+          "networks/networks-dns-resolution.json",
+          "security/security-file-system.json",
+          "systems/systems-process-scheduling.json"
+        ],
+        "427784ac917295ce": [
+          "networks/networks-routing-protocol-operation.json",
+          "security/security-memory-management.json",
+          "security/security-process-management.json",
+          "software_engineering/software_engineering-continuous-integration-pipeline.json",
+          "software_engineering/software_engineering-incident-response.json",
+          "systems/systems-file-system-journaling.json",
+          "theory/theory-rendering.json"
+        ],
+        "81609272fb7f193b": [
+          "systems/systems-network-security.json",
+          "theory/theory-automata-construction.json",
+          "theory/theory-computational-complexity-analysis.json"
+        ]
+      },
+      "duplicateChartCount": 26
+    },
+    "physics": {
+      "signatureCount": 18,
+      "duplicateTopologyGroups": {
+        "9617a176a0063d47": [
+          "electromagnetism/electromagnetism-quantum-computing.json",
+          "electromagnetism/electromagnetism-quantum-entanglement.json"
+        ],
+        "155ac4b324030128": [
+          "electromagnetism/electromagnetism-wave-function.json",
+          "optics/optics-wave-optics.json",
+          "quantum_mechanics/quantum_mechanics-electromagnetic-induction.json"
+        ],
+        "bf787b1f8556dbf0": [
+          "optics/optics-geometric-optics.json",
+          "quantum_mechanics/quantum_mechanics-maxwells-equations.json"
+        ]
+      },
+      "duplicateChartCount": 7
+    }
+  }
+}

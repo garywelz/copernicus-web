@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2604.22620v1",
+  "arxiv_id": "2604.22620v1",
+  "title": "Memory in Integrated Photonic Neural Networks: From Physical Mechanisms to Neuromorphic Architectures",
+  "authors": [
+    "Alessandro Foradori",
+    "Ilya Auslender",
+    "Stefano Biasi",
+    "Stefano Gretter",
+    "Alessio Lugnan",
+    "Emiliano Staffoli",
+    "Lorenzo Pavesi"
+  ],
+  "author_string": "Alessandro Foradori, Ilya Auslender, Stefano Biasi, Stefano Gretter, Alessio Lugnan et al.",
+  "journal": "arXiv:2604.22620v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "The rapid scaling of artificial neural networks has exposed fundamental limitations of conventional von Neumann computing architectures. In these systems, the physical separation between memory and processing creates a bottleneck, as computational capabilities outpace the ability of memory and interconnects to supply and retrieve data. In contrast, biological neural systems inherently co-localize computation and memory through distributed, dynamical processes. Neuromorphic computing seeks to emulate this paradigm by leveraging physical substrates whose intrinsic dynamics simultaneously encode and process information. Among emerging platforms, silicon photoncis offer a compelling approach due to its high bandwidth, low-loss propagation, and inherent parallelism.   This review examines the role of memory in integrated photonic neuromorphic systems, with emphasis on the physical mechanisms that provide volatile (short-term) and non-volatile (long-term) memory in silicon-on-insulator and hybrid silicon-on-insulator platforms. Drawing inspiration from digital, biological, and photonic memory architectures, we classify existing approaches based on their underlying physical principles. We cover implementations ranging from delay lines and slow-light structures to multistable dynamics and structural memory based on charge trapping and phase-change materials. We then discuss how these mechanisms support photonic neural network architectures, including feed-forward, reservoir computing, spiking and hybrid optoelectronic recurrent systems, and assess their relevance for time-dependent singal-processing tasks such as channel equalization in telecommunications. This review aims to establish a unified framework for understanding memory and learning in neuromorphic photonics and outlines key challenges and opportunities for scalable, energy-efficient neuromorphic hardware.",
+  "categories": [
+    "physics.optics"
+  ],
+  "primary_category": "physics.optics",
+  "comment": "65 pages, 23 figures",
+  "published_date": "2026-04-24T14:49:16Z",
+  "updated_date": "2026-04-24T14:49:16Z",
+  "url": "https://arxiv.org/abs/2604.22620v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.22620v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-27T10:15:23.658224",
+  "category": "physics",
+  "subcategories": [
+    "physics.optics"
+  ]
+}

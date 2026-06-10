@@ -1,0 +1,67 @@
+{
+  "title": "Computing Stack Map",
+  "layers": [
+    {
+      "id": "foundations",
+      "label": "Foundations and Theory",
+      "tag": "models, proofs, complexity",
+      "processCount": 10
+    },
+    {
+      "id": "algorithms",
+      "label": "Algorithms and Data Structures",
+      "tag": "problems, invariants, efficiency",
+      "processCount": 3
+    },
+    {
+      "id": "runtime",
+      "label": "Runtime and Systems",
+      "tag": "memory, OS, scheduling",
+      "processCount": 5
+    },
+    {
+      "id": "distributed",
+      "label": "Networks, Data and Distributed Systems",
+      "tag": "protocols, storage, coordination",
+      "processCount": 10
+    },
+    {
+      "id": "security",
+      "label": "Security and Reliability",
+      "tag": "identity, threats, correctness",
+      "processCount": 9
+    },
+    {
+      "id": "ai",
+      "label": "AI, ML and Applications",
+      "tag": "models, training, deployment",
+      "processCount": 14
+    }
+  ],
+  "concerns": [
+    {
+      "label": "Correctness",
+      "processCount": 3
+    },
+    {
+      "label": "Performance",
+      "processCount": 13
+    },
+    {
+      "label": "Security",
+      "processCount": 9
+    },
+    {
+      "label": "Reliability",
+      "processCount": 10
+    },
+    {
+      "label": "Data",
+      "processCount": 15
+    },
+    {
+      "label": "Abstraction",
+      "processCount": 11
+    }
+  ]
+}

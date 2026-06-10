@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2605.26078v1",
+  "arxiv_id": "2605.26078v1",
+  "title": "Global Convergence of Wasserstein Policy Gradient for Entropy-Regularized Reinforcement Learning",
+  "authors": [
+    "Zhaoyu Zhu",
+    "Rui Gao",
+    "Shuang Li"
+  ],
+  "author_string": "Zhaoyu Zhu, Rui Gao, Shuang Li",
+  "journal": "arXiv:2605.26078v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Wasserstein policy gradient (WPG) is a policy optimization method for reinforcement learning (RL) that exploits the optimal-transport geometry of action distributions. For the entropy-regularized RL objective, WPG evolves each state-conditional policy by transporting it along the action gradient of the soft Q-function together with a Langevin-type diffusion. Despite its appeal for continuous-control problems, its global convergence properties remain poorly understood. Standard Langevin analyses do not directly apply, because the RL objective depends on the policy through the Bellman recursion rather than through a static convex functional, and the Langevin drift is determined by the soft Q-function, whose regularity must be controlled along the policy iterates.   In this paper, we develop a global convergence theory for WPG by exploiting the Bellman structure of entropy-regularized RL. We show that the role usually played by convexity can be replaced by a Bellman-based argument: the soft Bellman residual admits a statewise KL representation with respect to a Gibbs policy; Bellman contraction relates this residual to the global optimality gap; and a Bellman resolvent identity connects value improvement to relative Fisher information. Combined with a uniform log-Sobolev inequality (LSI) for the evolving Gibbs family, these ingredients yield a distributional Polyak--Łojasiewicz condition. We further establish the regularity and uniform bounds needed to control the discretization error, thereby obtaining geometric contraction up to a discretization bias. Conceptually, our analysis shows that although entropy-regularized RL is not convex in the usual flat sense, the Bellman recursion induces a favorable Polyak--Lojasiewicz-type (PL) geometry that supports global convergence of WPG.",
+  "categories": [
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": null,
+  "published_date": "2026-05-25T17:42:59Z",
+  "updated_date": "2026-05-25T17:42:59Z",
+  "url": "https://arxiv.org/abs/2605.26078v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.26078v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-26T10:15:39.095073",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.LG"
+  ]
+}

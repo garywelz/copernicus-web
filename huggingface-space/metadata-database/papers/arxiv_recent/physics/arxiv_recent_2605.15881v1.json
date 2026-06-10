@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_2605.15881v1",
+  "arxiv_id": "2605.15881v1",
+  "title": "Symplectic Neural Operators for Learning Infinite Dimensional Hamiltonian Systems",
+  "authors": [
+    "Yeang Makara",
+    "Yusuke Tanaka",
+    "Takashi Matsubara",
+    "Takaharu Yaguchi"
+  ],
+  "author_string": "Yeang Makara, Yusuke Tanaka, Takashi Matsubara, Takaharu Yaguchi",
+  "journal": "arXiv:2605.15881v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "The modeling and simulation of infinite-dimensional Hamiltonian systems are central problems in mathematical physics and engineering, however they pose significant computational and structural challenges for standard data-driven architectures. In this work, we introduce the Symplectic Neural Operator, a neural operator architecture designed to preserve the symplectic structure intrinsic to Hamiltonian PDEs. We provide a theoretical characterization of their symplecticity and establish a rigorous long-term stability result based on the combination of symplectic structure preservation and learning accuracy. Numerical experiments on canonical Hamiltonian PDEs corroborate this theoretical result and show that SNOs exhibit improved energy behavior compared with non-structure-preserving neural operators.",
+  "categories": [
+    "math.DS",
+    "cs.AI",
+    "physics.comp-ph"
+  ],
+  "primary_category": "physics.comp-ph",
+  "comment": null,
+  "published_date": "2026-05-15T11:58:15Z",
+  "updated_date": "2026-05-15T11:58:15Z",
+  "url": "https://arxiv.org/abs/2605.15881v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.15881v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-17T22:17:38.075541",
+  "category": "physics",
+  "subcategories": [
+    "math.DS",
+    "cs.AI",
+    "physics.comp-ph"
+  ]
+}

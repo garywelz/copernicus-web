@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2605.25295v1",
+  "arxiv_id": "2605.25295v1",
+  "title": "Accelerated Simulation Algorithms for Extreme First-Passage Problems with General Emission Profiles",
+  "authors": [
+    "Emmanuel Akame Mfoumou",
+    "David Holcman"
+  ],
+  "author_string": "Emmanuel Akame Mfoumou, David Holcman",
+  "journal": "arXiv:2605.25295v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Fastest arrival events, where the first among many diffusing particles reaches a target, are central in triggering signal initiation in molecular stochastic systems. Classical approaches to simulate such events rely on full trajectory generation of all particles, leading to prohibitive computational costs in the large particle number regime. In this work, we present a general simulation framework for efficiently generating order statistics of arrival times by exploiting asymptotic first-passage distributions. This framework applies to diffusion processes in bounded domains with localized absorbing targets, for which short-time first-passage asymptotics are available, such as Brownian motion in dimensions one, two, and three. Starting with the case of instantaneous emission, we derive and implement a recursive inverse transform algorithm to simulate the first $k$ arrivals without tracking particle trajectories. We extend this algorithm to time-dependent emission profiles via an iterative approach, enabling the simulation of extreme statistics in systems with temporal injection, ranging from rapid to prolonged emission. Additionally, we provide asymptotic estimates of the mean fastest arrival time. To conclude, the present acceleration algorithm which bypasses Brownian simulations of trajectories can be used for spatial reaction networks, rare event detection, or diffusion-controlled activation.",
+  "categories": [
+    "math.PR",
+    "cond-mat.stat-mech",
+    "q-bio.QM"
+  ],
+  "primary_category": "q-bio.QM",
+  "comment": "28pages, 7 figures",
+  "published_date": "2026-05-24T23:17:38Z",
+  "updated_date": "2026-05-24T23:17:38Z",
+  "url": "https://arxiv.org/abs/2605.25295v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.25295v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-26T10:15:35.452150",
+  "category": "biology",
+  "subcategories": [
+    "math.PR",
+    "cond-mat.stat-mech",
+    "q-bio.QM"
+  ]
+}

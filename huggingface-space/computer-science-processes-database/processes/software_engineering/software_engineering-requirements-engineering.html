@@ -167,6 +167,33 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
@@ -176,7 +203,7 @@
             <div class="header-meta">
                 <span class="meta-item">Computer Science</span>
                 <span class="meta-item">Software Engineering</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,46 +234,60 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Requirements Engineering process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>Requirements engineering turns stakeholder needs into a validated specification: requirements are elicited, analyzed, and classified as functional behavior or non-functional quality attributes; conflicts and ambiguities are negotiated and resolved, the result is validated with stakeholders, and the agreed set is baselined into a specification.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-N1["Stakeholder Needs"]
-N2["Business Goals"]
-N3["Backlog"]
-N4["Choose Approach"]
-N5["Constraints"]
-N6["Elicit + Document"]
-N7["Validate + Prioritize"]
-N8["Approved Requirements"]
-N9["Integrate Results"]
+    N1["Stakeholder needs"]
+    N2["Elicit requirements"]
+    N3["Analyze + classify"]
+    N4{"Functional or not?"}
+    N5["Specify behavior"]
+    N6["Specify quality attrs"]
+    N7{"Conflicts / ambiguity?"}
+    N8["Negotiate + resolve"]
+    N9["Validate w/ stakeholders"]
+    N10["Baseline specification"]
+    N11["Requirements doc"]
 
-N1 --> N2
-N2 --> N3
-N3 --> N4
-N4 --> N5
-N4 --> N7
-N5 --> N6
-N7 --> N8
-N6 --> N9
-N8 --> N9
-N9 --> N6
+    N1 --> N2
+    N2 --> N3
+    N3 --> N4
+    N4 -->|functional| N5
+    N4 -->|non-functional| N6
+    N5 --> N7
+    N6 --> N7
+    N7 -->|yes| N8
+    N8 -->|rework| N3
+    N7 -->|no| N9
+    N9 --> N10
+    N10 --> N11
 
     style N1 fill:#ff6b6b,color:#fff
-    style N2 fill:#ff6b6b,color:#fff
-    style N3 fill:#ffd43b,color:#000
-    style N4 fill:#ffd43b,color:#000
-    style N5 fill:#ffd43b,color:#000
+    style N2 fill:#51cf66,color:#fff
+    style N3 fill:#51cf66,color:#fff
+    style N4 fill:#74c0fc,color:#fff
+    style N5 fill:#51cf66,color:#fff
     style N6 fill:#51cf66,color:#fff
-    style N7 fill:#51cf66,color:#fff
-    style N8 fill:#b197fc,color:#fff
-    style N9 fill:#74c0fc,color:#fff
+    style N7 fill:#74c0fc,color:#fff
+    style N8 fill:#51cf66,color:#fff
+    style N9 fill:#51cf66,color:#fff
+    style N10 fill:#74c0fc,color:#fff
+    style N11 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Stakeholder needs</td><td>Triggers & Inputs</td><td><a href="https://doi.org/10.1145/336512.336523" target="_blank" title="Requirements engineering: a roadmap" style="color:#9b59b6;">Nuseibeh, B. et al. 2000</a></td></tr><tr><td style="font-weight:600;">Elicit requirements</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1145/336512.336523" target="_blank" title="Requirements engineering: a roadmap" style="color:#9b59b6;">Nuseibeh, B. et al. 2000</a></td></tr><tr><td style="font-weight:600;">Analyze + classify</td><td>Processing & Operations</td><td><a href="https://www.pearson.com/en-us/subject-catalog/p/software-engineering/P200000003258" target="_blank" title="Software Engineering (10th ed.)" style="color:#9b59b6;">Sommerville, I. 2015</a></td></tr><tr><td style="font-weight:600;">Functional or not?</td><td>Intermediates & States</td><td><a href="https://www.pearson.com/en-us/subject-catalog/p/software-engineering/P200000003258" target="_blank" title="Software Engineering (10th ed.)" style="color:#9b59b6;">Sommerville, I. 2015</a></td></tr><tr><td style="font-weight:600;">Specify behavior</td><td>Processing & Operations</td><td><a href="https://www.pearson.com/en-us/subject-catalog/p/software-engineering/P200000003258" target="_blank" title="Software Engineering (10th ed.)" style="color:#9b59b6;">Sommerville, I. 2015</a></td></tr><tr><td style="font-weight:600;">Specify quality attrs</td><td>Processing & Operations</td><td><a href="https://www.pearson.com/en-us/subject-catalog/p/software-engineering/P200000003258" target="_blank" title="Software Engineering (10th ed.)" style="color:#9b59b6;">Sommerville, I. 2015</a></td></tr><tr><td style="font-weight:600;">Conflicts / ambiguity?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1145/336512.336523" target="_blank" title="Requirements engineering: a roadmap" style="color:#9b59b6;">Nuseibeh, B. et al. 2000</a></td></tr><tr><td style="font-weight:600;">Negotiate + resolve</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1145/336512.336523" target="_blank" title="Requirements engineering: a roadmap" style="color:#9b59b6;">Nuseibeh, B. et al. 2000</a></td></tr><tr><td style="font-weight:600;">Validate w/ stakeholders</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1145/336512.336523" target="_blank" title="Requirements engineering: a roadmap" style="color:#9b59b6;">Nuseibeh, B. et al. 2000</a></td></tr><tr><td style="font-weight:600;">Baseline specification</td><td>Intermediates & States</td><td><a href="https://www.pearson.com/en-us/subject-catalog/p/software-engineering/P200000003258" target="_blank" title="Software Engineering (10th ed.)" style="color:#9b59b6;">Sommerville, I. 2015</a></td></tr><tr><td style="font-weight:600;">Requirements doc</td><td>Products & Outputs</td><td><a href="https://www.pearson.com/en-us/subject-catalog/p/software-engineering/P200000003258" target="_blank" title="Software Engineering (10th ed.)" style="color:#9b59b6;">Sommerville, I. 2015</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -292,12 +333,12 @@ N9 --> N6
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 9</li>
-                        <li><strong>Edges:</strong> 10</li>
-                        <li><strong>Conditionals:</strong> 0</li>
+                        <li><strong>Nodes:</strong> 11</li>
+                        <li><strong>Edges:</strong> 12</li>
+                        <li><strong>Conditionals:</strong> 2</li>
                         <li><strong>AND Gates:</strong> 2</li>
-                        <li><strong>OR Gates:</strong> 1</li>
-                        <li><strong>Total Gates:</strong> 3</li>
+                        <li><strong>OR Gates:</strong> 2</li>
+                        <li><strong>Total Gates:</strong> 4</li>
                     </ul>
                 </div>
                 
@@ -305,7 +346,7 @@ N9 --> N6
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>requirements</li><li>engineering</li>
+                        <li>requirements engineering</li><li>elicitation</li><li>functional requirements</li><li>non-functional</li><li>validation</li>
                     </ul>
                 </div>
                 
@@ -316,43 +357,23 @@ N9 --> N6
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Requirements engineering: a roadmap</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Nuseibeh, B.; Easterbrook, S.
+                            , Proceedings of the Conference on the Future of Software Engineering
+                             (2000)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #9b59b6; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Software Requirements Engineering Glossary</strong>
-                            
-                            , Software Requirements Engineering
-                             (2011)
-                            </span>
-                            <br><a href="https://doi.org/10.1109/9781118156674.gloss" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.1109/9781118156674.gloss</a>
+                            <br><a href="https://doi.org/10.1145/336512.336523" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.1145/336512.336523</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Requirements and Requirements Engineering ∗ ∗This chapter serves to deliver general background knowledge about requirements and requirements engineering.</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Jin, Zhi
-                            , Environment Modeling-Based Requirements Engineering for Software Intensive Systems
-                             (2018)
+                            <strong>Software Engineering (10th ed.)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Sommerville, I.
+                            , Pearson
+                             (2015)
                             </span>
-                            <br><a href="https://doi.org/10.1016/b978-0-12-801954-2.00001-7" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.1016/b978-0-12-801954-2.00001-7</a>
                             
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>System Modelling for Requirements Engineering</strong>
-                            
-                            , Requirements Engineering
-                             (None)
-                            </span>
-                            <br><a href="https://doi.org/10.1007/1-84628-075-3_3" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.1007/1-84628-075-3_3</a>
-                            
+                            <br><a href="https://www.pearson.com/en-us/subject-catalog/p/software-engineering/P200000003258" target="_blank" style="color: #9b59b6; font-size: 0.85em;">View Source</a>
                         </li>
                         
                     </ul>

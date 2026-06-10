@@ -1,21 +1,23 @@
 {
   "id": "algorithms_data_structures-graph-traversal",
-  "name": "Graph Traversal",
+  "name": "Graph Traversal (BFS / DFS)",
   "category": "computer_science",
   "subcategory": "algorithms_data_structures",
   "subcategory_name": "Algorithms & Data Structures",
-  "description": "Graph Traversal process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "Graph traversal visits every reachable vertex from a start node using a worklist: breadth-first search uses a FIFO queue to explore level by level, depth-first search uses a LIFO stack to dive deep first; vertices are marked visited to avoid revisiting, and traversal ends when the container is empty.",
   "complexity": {
-    "nodes": 12,
+    "nodes": 11,
     "edges": 12,
-    "conditionals": 0,
+    "conditionals": 2,
     "logicGates": {
-      "orGates": 1,
+      "orGates": 2,
       "andGates": 1,
-      "total": 2
+      "notGates": 0,
+      "total": 3
     },
-    "level": "medium",
-    "detailLevel": "medium"
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 1
   },
   "colorScheme": {
     "red": {
@@ -39,53 +41,147 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nN1[\"Graph (V,E)\"]\nN2[\"Start Node(s)\"]\nN3[\"Visited Set\"]\nN4[\"Choose Approach\"]\nN5[\"Frontier (Stack/Queue)\"]\nN6[\"Pop Next Node\"]\nN7[\"Mark Visited\"]\nN8[\"Process Node\"]\nN9[\"Integrate Results\"]\nN10[\"Push Unvisited Neighbors\"]\nN11[\"Traversal Order/Tree\"]\nN12[\"Traversal Output\"]\n\nN1 --> N2\nN2 --> N3\nN3 --> N4\nN4 --> N5\nN4 --> N7\nN5 --> N6\nN7 --> N8\nN6 --> N9\nN8 --> N9\nN9 --> N10\nN10 --> N11\nN11 --> N12\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#ff6b6b,color:#fff\n    style N3 fill:#ffd43b,color:#000\n    style N4 fill:#ffd43b,color:#000\n    style N5 fill:#ffd43b,color:#000\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#74c0fc,color:#fff\n    style N10 fill:#51cf66,color:#fff\n    style N11 fill:#74c0fc,color:#fff\n    style N12 fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"Graph + start vertex\"]\n    N2[\"Mark start visited\"]\n    N3{\"BFS or DFS?\"}\n    N4[\"BFS: enqueue (queue)\"]\n    N5[\"DFS: push (stack)\"]\n    N6[\"Remove next vertex\"]\n    N7[\"Visit unvisited neighbors\"]\n    N8{\"Container empty?\"}\n    N9[\"Add neighbor to container\"]\n    N10[\"All reachable visited\"]\n    N11[\"Traversal order\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 -->|bfs| N4\n    N3 -->|dfs| N5\n    N4 --> N6\n    N5 --> N6\n    N6 --> N7\n    N7 --> N8\n    N8 -->|no| N9\n    N9 -->|continue| N6\n    N8 -->|yes| N10\n    N10 --> N11\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#74c0fc,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#74c0fc,color:#fff\n    style N9 fill:#51cf66,color:#fff\n    style N10 fill:#74c0fc,color:#fff\n    style N11 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
-      "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: Graph Traversal. Created using the Programming Framework methodology."
+      "title": "Introduction to Algorithms (4th ed.)",
+      "authors": "Cormen, T. H.; Leiserson, C. E.; Rivest, R. L.; Stein, C.",
+      "journal": "MIT Press",
+      "year": "2022",
+      "url": "https://mitpress.mit.edu/9780262046305/introduction-to-algorithms/"
     },
     {
-      "title": "UNIVERSAL TRAVERSAL SEQUENCES, GRAPH TRAVERSAL AND GRAPH IDENTIFICATION",
-      "authors": "Richards, Dana; Swart, Charles",
-      "journal": "Combinatorics on Words",
-      "year": "1983",
-      "pubmed": null,
-      "doi": "10.1016/b978-0-12-198820-3.50025-5",
-      "url": "https://doi.org/10.1016/b978-0-12-198820-3.50025-5"
-    },
-    {
-      "title": "Exploring graph traversal algorithms in graph-based molecular generation",
-      "authors": "Mercado, Rocío; Bjerrum, Esben; Engkvist, Ola",
-      "journal": "",
-      "year": "2021",
-      "pubmed": null,
-      "doi": "10.26434/chemrxiv-2021-5c5l1",
-      "url": "https://doi.org/10.26434/chemrxiv-2021-5c5l1"
-    },
-    {
-      "title": "Exploring Graph Traversal Algorithms in Graph-Based Molecular Generation",
-      "authors": "",
-      "journal": "",
-      "year": "None",
-      "pubmed": null,
-      "doi": "10.1021/acs.jcim.1c00777.s001",
-      "url": "https://doi.org/10.1021/acs.jcim.1c00777.s001"
+      "title": "Algorithms (4th ed.)",
+      "authors": "Sedgewick, R.; Wayne, K.",
+      "journal": "Addison-Wesley",
+      "year": "2011",
+      "url": "https://algs4.cs.princeton.edu/home/"
     }
   ],
   "keywords": [
-    "graph",
-    "traversal"
+    "graph traversal",
+    "breadth-first search",
+    "depth-first search",
+    "queue",
+    "stack"
   ],
   "relatedProcesses": [],
   "created": "2026-01-15",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations.\nCurated Mermaid applied (citations preserved)."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "namedCollections": [],
+  "graphMetrics": {
+    "nodes": 11,
+    "edges": 12,
+    "conditionals": 2,
+    "andGates": 1,
+    "orGates": 2,
+    "notGates": 0,
+    "loops": 1
+  },
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Graph + start vertex",
+      "detail": "Adjacency lists",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N2",
+      "label": "Mark start visited",
+      "detail": "Add to container",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N3",
+      "label": "BFS or DFS?",
+      "detail": "Choose order",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N4",
+      "label": "BFS: enqueue (queue)",
+      "detail": "FIFO frontier",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N5",
+      "label": "DFS: push (stack)",
+      "detail": "LIFO frontier",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N6",
+      "label": "Remove next vertex",
+      "detail": "Dequeue / pop",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N7",
+      "label": "Visit unvisited neighbors",
+      "detail": "Scan adjacency",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N8",
+      "label": "Container empty?",
+      "detail": "Frontier exhausted",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N9",
+      "label": "Add neighbor to container",
+      "detail": "Mark + insert",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N10",
+      "label": "All reachable visited",
+      "detail": "Component covered",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N11",
+      "label": "Traversal order",
+      "detail": "Visit sequence",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 1
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:algorithms_data_structures-graph-traversal",
+    "graphType": "decision_flowchart",
+    "topologySignature": "f349e1b1cec0d713",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "graphType": "decision_flowchart",
+  "domainContext": "Graph algorithms"
 }

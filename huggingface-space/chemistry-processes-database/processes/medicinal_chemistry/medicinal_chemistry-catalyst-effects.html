@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Catalyst Effects - Chemistry Process</title>
+    <title>Fragment-Based Drug Discovery - Chemistry Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Catalyst Effects</h1>
+            <h1>Fragment-Based Drug Discovery</h1>
             <div class="header-meta">
                 <span class="meta-item">Chemistry</span>
                 <span class="meta-item">Medicinal Chemistry</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,68 +234,57 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Catalyst Effects process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>Fragment-based discovery screens a library of small fragments by biophysical methods, confirms weak binders and their binding site by structure, then grows or links fragments through iterative medicinal chemistry to build a high-affinity lead.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-A4[Catalyst Material] --> B4[Catalyst Effect Method]
-C4[Reaction System] --> D4[Catalyst Loading]
-E4[Rate Enhancement] --> F4[Catalytic Analysis]
-B4 --> G4[Catalyst Preparation]
-D4 --> H4[Loading Optimization]
-F4 --> I4[Activity Measurement]
-G4 --> J4[Catalyst Characterization]
-H4 --> K4[Surface Area]
-I4 --> L4[Turnover Frequency]
-J4 --> M4[Active Sites]
-K4 --> L4
-L4 --> N4[Catalytic Activity]
-M4 --> O4[Reaction Pathway]
-N4 --> P4[Catalyst Kinetics]
-O4 --> Q4[Mechanism Modification]
-P4 --> R4[Rate Enhancement]
-Q4 --> S4[Pathway Analysis]
-R4 --> T4[Catalyst Optimization]
-S4 --> U4[Catalytic Parameters]
-T4 --> V4[Optimal Loading]
-U4 --> W4[Catalyst Efficiency]
-V4 --> X4[Catalyst Characterization]
-W4 --> Y4[Process Optimization]
-X4 --> Z4[Final Catalyst Conditions]
-Y4 --> Z4
+    N1["Fragment library"]
+    N2["Biophysical screen (SPR/NMR)"]
+    N3{"Weak binders found?"}
+    N4["Expand / rescreen"]
+    N5["Confirm site by X-ray"]
+    N6["Fragment growing"]
+    N7["Fragment linking/merging"]
+    N8{"Affinity improved?"}
+    N9["Iterate chemistry"]
+    N10["Optimized lead"]
 
-    style A4 fill:#ff6b6b,color:#fff
-    style C4 fill:#ff6b6b,color:#fff
-    style E4 fill:#ff6b6b,color:#fff
-    style B4 fill:#ffd43b,color:#000
-    style D4 fill:#ffd43b,color:#000
-    style F4 fill:#ffd43b,color:#000
-    style G4 fill:#ffd43b,color:#000
-    style H4 fill:#ffd43b,color:#000
-    style I4 fill:#ffd43b,color:#000
-    style J4 fill:#ffd43b,color:#000
-    style K4 fill:#ffd43b,color:#000
-    style L4 fill:#ffd43b,color:#000
-    style M4 fill:#51cf66,color:#fff
+    N1 --> N2
+    N2 --> N3
+    N3 -->|no| N4
+    N4 -->|rescreen| N2
+    N3 -->|yes| N5
+    N5 --> N6
+    N6 --> N7
+    N7 --> N8
+    N8 -->|no| N9
+    N9 -->|grow more| N6
+    N8 -->|yes| N10
+
+    style N1 fill:#ff6b6b,color:#fff
+    style N2 fill:#51cf66,color:#fff
+    style N3 fill:#74c0fc,color:#fff
     style N4 fill:#51cf66,color:#fff
-    style O4 fill:#51cf66,color:#fff
-    style P4 fill:#51cf66,color:#fff
-    style Q4 fill:#51cf66,color:#fff
-    style R4 fill:#51cf66,color:#fff
-    style S4 fill:#51cf66,color:#fff
-    style T4 fill:#51cf66,color:#fff
-    style U4 fill:#51cf66,color:#fff
-    style V4 fill:#51cf66,color:#fff
-    style W4 fill:#51cf66,color:#fff
-    style X4 fill:#51cf66,color:#fff
-    style Y4 fill:#51cf66,color:#fff
-    style Z4 fill:#b197fc,color:#fff
+    style N5 fill:#51cf66,color:#fff
+    style N6 fill:#51cf66,color:#fff
+    style N7 fill:#51cf66,color:#fff
+    style N8 fill:#74c0fc,color:#fff
+    style N9 fill:#51cf66,color:#fff
+    style N10 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Fragment library</td><td>Triggers & Inputs</td><td><a href="https://doi.org/10.1038/nrd.2016.109" target="_blank" title="Twenty years on: the impact of fragments on drug discovery" style="color:#e74c3c;">Erlanson, D. A. et al. 2016</a></td></tr><tr><td style="font-weight:600;">Biophysical screen (SPR/NMR)</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1126/science.274.5292.1531" target="_blank" title="Discovering high-affinity ligands for proteins: SAR by NMR" style="color:#e74c3c;">Shuker, S. B. et al. 1996</a></td></tr><tr><td style="font-weight:600;">Weak binders found?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1038/nchem.217" target="_blank" title="The rise of fragment-based drug discovery" style="color:#e74c3c;">Murray, C. W. et al. 2009</a></td></tr><tr><td style="font-weight:600;">Expand / rescreen</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1038/nchem.217" target="_blank" title="The rise of fragment-based drug discovery" style="color:#e74c3c;">Murray, C. W. et al. 2009</a></td></tr><tr><td style="font-weight:600;">Confirm site by X-ray</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1038/nrd.2016.109" target="_blank" title="Twenty years on: the impact of fragments on drug discovery" style="color:#e74c3c;">Erlanson, D. A. et al. 2016</a></td></tr><tr><td style="font-weight:600;">Fragment growing</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1038/nchem.217" target="_blank" title="The rise of fragment-based drug discovery" style="color:#e74c3c;">Murray, C. W. et al. 2009</a></td></tr><tr><td style="font-weight:600;">Fragment linking/merging</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1126/science.274.5292.1531" target="_blank" title="Discovering high-affinity ligands for proteins: SAR by NMR" style="color:#e74c3c;">Shuker, S. B. et al. 1996</a></td></tr><tr><td style="font-weight:600;">Affinity improved?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1038/nchem.217" target="_blank" title="The rise of fragment-based drug discovery" style="color:#e74c3c;">Murray, C. W. et al. 2009</a></td></tr><tr><td style="font-weight:600;">Iterate chemistry</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1038/nrd.2016.109" target="_blank" title="Twenty years on: the impact of fragments on drug discovery" style="color:#e74c3c;">Erlanson, D. A. et al. 2016</a></td></tr><tr><td style="font-weight:600;">Optimized lead</td><td>Products & Outputs</td><td><a href="https://doi.org/10.1038/nrd.2016.109" target="_blank" title="Twenty years on: the impact of fragments on drug discovery" style="color:#e74c3c;">Erlanson, D. A. et al. 2016</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -314,12 +330,12 @@ Y4 --> Z4
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 26</li>
-                        <li><strong>Edges:</strong> 22</li>
-                        <li><strong>Conditionals:</strong> 0</li>
-                        <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 1</li>
+                        <li><strong>Nodes:</strong> 10</li>
+                        <li><strong>Edges:</strong> 11</li>
+                        <li><strong>Conditionals:</strong> 2</li>
+                        <li><strong>AND Gates:</strong> 2</li>
+                        <li><strong>OR Gates:</strong> 2</li>
+                        <li><strong>Total Gates:</strong> 4</li>
                     </ul>
                 </div>
                 
@@ -327,7 +343,7 @@ Y4 --> Z4
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>catalyst</li><li>effects</li>
+                        <li>fragment-based</li><li>sar by nmr</li><li>fragment growing</li><li>fragment linking</li><li>biophysical screening</li>
                     </ul>
                 </div>
                 
@@ -338,42 +354,32 @@ Y4 --> Z4
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Discovering high-affinity ligands for proteins: SAR by NMR</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Shuker, S. B.; Hajduk, P. J.; Meadows, R. P.; Fesik, S. W.
+                            , Science
+                             (1996)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Effects of oxygen and catalyst on tetraphenylborate decomposition rate</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Walker, D.D.
-                            
-                             (1999)
-                            </span>
-                            <br><a href="https://doi.org/10.2172/750108" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.2172/750108</a>
+                            <br><a href="https://doi.org/10.1126/science.274.5292.1531" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1126/science.274.5292.1531</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>The Catalytic Effects of Water and Halogens on the Alteration of Catalyst Surfaces</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Dowden, Dennis A.
-                            , Progress in Catalyst Deactivation
-                             (1982)
+                            <strong>Twenty years on: the impact of fragments on drug discovery</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Erlanson, D. A.; Fesik, S. W.; Hubbard, R. E.; Jahnke, W.; Jhoti, H.
+                            , Nature Reviews Drug Discovery
+                             (2016)
                             </span>
-                            <br><a href="https://doi.org/10.1007/978-94-009-7597-2_13" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1007/978-94-009-7597-2_13</a>
+                            <br><a href="https://doi.org/10.1038/nrd.2016.109" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1038/nrd.2016.109</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Cracking of heavy oils by combination of hydrogen donor solvent with catalyst. (Part 2). Effects of catalyst on cracking reaction.</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">KUBO, Junichi; YAMASHITA, Tadakazu; KAMIYA, Kohzo; SUZUKI, Kenji; AKIYAMA, Eiji; KATOH, Hiroshi
-                            , Journal of The Japan Petroleum Institute
-                             (1988)
+                            <strong>The rise of fragment-based drug discovery</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Murray, C. W.; Rees, D. C.
+                            , Nature Chemistry
+                             (2009)
                             </span>
-                            <br><a href="https://doi.org/10.1627/jpi1958.31.203" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1627/jpi1958.31.203</a>
+                            <br><a href="https://doi.org/10.1038/nchem.217" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1038/nchem.217</a>
                             
                         </li>
                         

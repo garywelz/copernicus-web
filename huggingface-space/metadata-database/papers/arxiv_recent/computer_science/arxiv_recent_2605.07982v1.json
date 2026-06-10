@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2605.07982v1",
+  "arxiv_id": "2605.07982v1",
+  "title": "GLiGuard: Schema-Conditioned Classification for LLM Safeguard",
+  "authors": [
+    "Urchade Zaratiana",
+    "Mary Newhauser",
+    "George Hurn-Maloney",
+    "Ash Lewis"
+  ],
+  "author_string": "Urchade Zaratiana, Mary Newhauser, George Hurn-Maloney, Ash Lewis",
+  "journal": "arXiv:2605.07982v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Ensuring safe, policy-compliant outputs from large language models requires real-time content moderation that can scale across multiple safety dimensions. However, state-of-the-art guardrail models rely on autoregressive decoders with 7B--27B parameters, reformulating what is fundamentally a classification problem as sequential text generation, a design choice that incurs high latency and scales poorly to multi-aspect evaluation. In this work, we introduce \\textbf{GLiGuard}, a 0.3B-parameter schema-conditioned bidirectional encoder adapted from GLiNER2 for LLM content moderation. The key idea is to encode task definitions and label semantics directly into the input sequence as structured token schemas, enabling simultaneous evaluation of prompt safety, response safety, refusal detection, 14 fine-grained harm categories, and 11 jailbreak strategies in a single non-autoregressive forward pass. This schema-conditioned design lets supported task and label blocks be composed directly in the input schema at inference time. Across nine established safety benchmarks, GLiGuard achieves F1 scores competitive with 7B--27B decoder-based guards despite being 23--90$\\times$ smaller, while delivering up to 16$\\times$ higher throughput and 17$\\times$ lower latency. These results suggest that compact bidirectional encoders can approach the accuracy of much larger guard models while drastically reducing inference cost. Code and models are available at https://github.com/fastino-ai/GLiGuard.",
+  "categories": [
+    "cs.CL",
+    "cs.CR"
+  ],
+  "primary_category": "cs.CR",
+  "comment": "20 pages, 4 figures",
+  "published_date": "2026-05-08T16:44:07Z",
+  "updated_date": "2026-05-08T16:44:07Z",
+  "url": "https://arxiv.org/abs/2605.07982v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.07982v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-10T22:17:15.400860",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CL",
+    "cs.CR"
+  ]
+}

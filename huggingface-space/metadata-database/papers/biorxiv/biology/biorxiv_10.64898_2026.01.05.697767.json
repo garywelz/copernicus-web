@@ -1,0 +1,43 @@
+{
+  "id": "biorxiv_10.64898_2026.01.05.697767",
+  "doi": "10.64898/2026.01.05.697767",
+  "title": "Guide scaffolding improves phylogenetic accuracy and enables integration across 16S amplicon regions",
+  "authors": [
+    "Arnold, H. K.",
+    "Little, E.",
+    "Hunt, A.",
+    "Sharpton, T. J."
+  ],
+  "author_string": "Arnold, H. K., Little, E., Hunt, A., Sharpton, T. J.",
+  "journal": "bioRxiv",
+  "journal_full": "bioRxiv",
+  "year": "2026",
+  "abstract": "The growing magnitude and scale of microbiome studies now support application of meta-analytical frameworks, however the challenge of integrating microbiome sequence data across distinct studies into a unified phylogeny remains a critical barrier to progress. The 16S rDNA gene has been key to sequence-based phylogenetic microbial community analyses for over 30 years in applications ranging from human health to agricultural production efficiency. Because the full length 16S gene ([~]1500 base pairs) is longer than what short-read sequencing technologies can typically capture, researchers must target a portion of the gene, or variable region, typically [~]250 base pairs in length. Using a simulation-based approach, we show that full-length, phylogenetically diverse 16S guide sequences can serve as a scaffold to improve topological accuracy of phylogenetic trees constructed from any variable region. We also show that guide sequences can provide enough essential context to build accurate tree topologies, even in the case of disjoint amplicons, allowing for integration of microbial datasets across variable regions. We validate that our findings extend to experimental data. Our approach not only suggests that guide sequences should become a standard for building phylogenetic trees from any short-read microbial data, but also extends microbial meta-analytical methods by allowing phylogenetic integration across cohorts which have used different variable regions to assess the microbiomes association with ecosystem services. We provide an easily usable application of our method, phyloguidesR, as an open-sourced tool to enable any researcher to apply and use guide sequences easily in their microbial community of interest.\n\nIMPORTANCEIntegrating data across independent studies can uncover robust biological patterns that strengthen inference and support more generalizable conclusions. In microbiome research, such integration is constrained by the heterogeneity of how microbial communities are sequenced. May studies target different regions of the 16S rDNA gene, producing datasets that lack a shared phylogenetic framework, and are difficult to analyze together without discarding information. As a result, comparisons across studies often rely on coarse conglomeration of taxonomic summaries or exclude entire datasets to integrate results. Here, we introduce a phylogenetic scaffolding framework that produces more accurate phylogenetic trees and demonstrate that it can unify even non-overlapping 16S amplicon datasets. Such integration has the power to reveal generalizable patterns that are invisible within individual microbiome studies, where noise and region-specific amplification have long obscured biological signals. In doing so, guides set the stage for a more powerful and integrative microbiome science at scale.",
+  "keywords": [],
+  "categories": [
+    "microbiology"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.64898/2026.01.05.697767",
+  "source": "biorxiv",
+  "sources": [
+    "biorxiv"
+  ],
+  "acquired_date": "2026-05-06T22:15:23.723202",
+  "category": "biology",
+  "subcategories": [
+    "microbiology"
+  ],
+  "published_date": "2026-01-06",
+  "updated_date": "2026-01-06",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "biorxiv",
+  "preprint_version": "1",
+  "preprint_type": "new results",
+  "license": "cc_by",
+  "jatsxml": "https://www.biorxiv.org/content/early/2026/01/06//2026.01.05.697767.source.xml",
+  "published_doi": null,
+  "author_corresponding": "Holly K Arnold",
+  "author_corresponding_institution": "Oregon State University"
+}

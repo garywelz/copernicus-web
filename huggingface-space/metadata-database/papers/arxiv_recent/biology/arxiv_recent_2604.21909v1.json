@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2604.21909v1",
+  "arxiv_id": "2604.21909v1",
+  "title": "Directional Confusions Reveal Divergent Inductive Biases Through Rate-Distortion Geometry in Human and Machine Vision",
+  "authors": [
+    "Leyla Roksan Caglar",
+    "Pedro A. M. Mediano",
+    "Baihan Lin"
+  ],
+  "author_string": "Leyla Roksan Caglar, Pedro A. M. Mediano, Baihan Lin",
+  "journal": "arXiv:2604.21909v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Humans and modern vision models can reach similar classification accuracy while making systematically different kinds of mistakes - differing not in how often they err, but in who gets mistaken for whom, and in which direction. We show that these directional confusions reveal distinct inductive biases that are invisible to accuracy alone. Using matched human and deep vision model responses on a natural-image categorization task under 12 perturbation types, we quantify asymmetry in confusion matrices and link it to generalization geometry through a Rate-Distortion (RD) framework, summarized by three geometric signatures (slope (beta), curvature (kappa)) and efficiency (AUC). We find that humans exhibit broad but weak asymmetries, whereas deep vision models show sparser, stronger directional collapses. Robustness training reduces global asymmetry but fails to recover the human-like breadth-strength profile of graded similarity. Mechanistic simulations further show that different asymmetry organizations shift the RD frontier in opposite directions, even when matched for performance. Together, these results position directional confusions and RD geometry as compact, interpretable signatures of inductive bias under distribution shift.",
+  "categories": [
+    "cs.CV",
+    "cs.IT",
+    "q-bio.NC"
+  ],
+  "primary_category": "q-bio.NC",
+  "comment": null,
+  "published_date": "2026-04-23T17:52:16Z",
+  "updated_date": "2026-04-23T17:52:16Z",
+  "url": "https://arxiv.org/abs/2604.21909v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.21909v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-30T22:15:35.864180",
+  "category": "biology",
+  "subcategories": [
+    "cs.CV",
+    "cs.IT",
+    "q-bio.NC"
+  ]
+}

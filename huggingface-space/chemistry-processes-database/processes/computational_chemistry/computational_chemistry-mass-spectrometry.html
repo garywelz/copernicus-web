@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mass Spectrometry - Chemistry Process</title>
+    <title>Geometry Optimization - Chemistry Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Mass Spectrometry</h1>
+            <h1>Geometry Optimization</h1>
             <div class="header-meta">
                 <span class="meta-item">Chemistry</span>
                 <span class="meta-item">Computational Chemistry</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,68 +234,57 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Mass Spectrometry process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>Geometry optimization finds a stationary point by iteratively stepping along energy gradients until they vanish; a subsequent frequency calculation confirms a true minimum (no imaginary modes) or signals a saddle that must be re-optimized.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-A4[Sample Molecules] --> B4[Mass Spectrometry Method]
-C4[Ionization Source] --> D4[Mass Analyzer]
-E4[Detector System] --> F4[Data Collection]
-B4 --> G4[Sample Introduction]
-D4 --> H4[Mass Separation]
-F4 --> I4[Signal Processing]
-G4 --> J4[Sample Vaporization]
-H4 --> K4[Mass-to-Charge Ratio]
-I4 --> L4[Ion Detection]
-J4 --> M4[Molecular Ionization]
-K4 --> L4
-L4 --> N4[Ion Separation]
-M4 --> O4[Ion Formation]
-N4 --> P4[Mass Analysis]
-O4 --> Q4[Spectroscopic Analysis]
-P4 --> R4[Mass Spectrum]
-Q4 --> S4[Fragmentation Analysis]
-R4 --> T4[Molecular Weight]
-S4 --> U4[Fragmentation Pattern]
-T4 --> V4[Molecular Identification]
-U4 --> W4[Spectroscopic Efficiency]
-V4 --> X4[Molecular Characterization]
-W4 --> Y4[Process Optimization]
-X4 --> Z4[Final Mass Spectrum]
-Y4 --> Z4
+    N1["Initial structure"]
+    N2["Energy + gradient"]
+    N3{"Gradient near zero?"}
+    N4["Take optimizer step"]
+    N5["Stationary point found"]
+    N6["Frequency calculation"]
+    N7{"Imaginary modes?"}
+    N8["Perturb + reoptimize"]
+    N9["True minimum confirmed"]
+    N10["Optimized geometry + thermo"]
 
-    style A4 fill:#ff6b6b,color:#fff
-    style C4 fill:#ff6b6b,color:#fff
-    style E4 fill:#ff6b6b,color:#fff
-    style B4 fill:#ffd43b,color:#000
-    style D4 fill:#ffd43b,color:#000
-    style F4 fill:#ffd43b,color:#000
-    style G4 fill:#ffd43b,color:#000
-    style H4 fill:#ffd43b,color:#000
-    style I4 fill:#ffd43b,color:#000
-    style J4 fill:#ffd43b,color:#000
-    style K4 fill:#ffd43b,color:#000
-    style L4 fill:#ffd43b,color:#000
-    style M4 fill:#51cf66,color:#fff
+    N1 --> N2
+    N2 --> N3
+    N3 -->|no| N4
+    N4 -->|step| N2
+    N3 -->|yes| N5
+    N5 --> N6
+    N6 --> N7
+    N7 -->|yes| N8
+    N8 -->|reoptimize| N2
+    N7 -->|no| N9
+    N9 --> N10
+
+    style N1 fill:#ff6b6b,color:#fff
+    style N2 fill:#51cf66,color:#fff
+    style N3 fill:#74c0fc,color:#fff
     style N4 fill:#51cf66,color:#fff
-    style O4 fill:#51cf66,color:#fff
-    style P4 fill:#51cf66,color:#fff
-    style Q4 fill:#51cf66,color:#fff
-    style R4 fill:#51cf66,color:#fff
-    style S4 fill:#51cf66,color:#fff
-    style T4 fill:#51cf66,color:#fff
-    style U4 fill:#51cf66,color:#fff
-    style V4 fill:#51cf66,color:#fff
-    style W4 fill:#51cf66,color:#fff
-    style X4 fill:#51cf66,color:#fff
-    style Y4 fill:#51cf66,color:#fff
-    style Z4 fill:#b197fc,color:#fff
+    style N5 fill:#51cf66,color:#fff
+    style N6 fill:#51cf66,color:#fff
+    style N7 fill:#74c0fc,color:#fff
+    style N8 fill:#51cf66,color:#fff
+    style N9 fill:#51cf66,color:#fff
+    style N10 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Initial structure</td><td>Triggers & Inputs</td><td><a href="https://doi.org/10.1002/9781119839118" target="_blank" title="Introduction to Computational Chemistry, 3rd ed. — Optimization Techniques" style="color:#e74c3c;">Jensen, F. 2017</a></td></tr><tr><td style="font-weight:600;">Energy + gradient</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1002/9781119839118" target="_blank" title="Introduction to Computational Chemistry, 3rd ed. — Optimization Techniques" style="color:#e74c3c;">Jensen, F. 2017</a></td></tr><tr><td style="font-weight:600;">Gradient near zero?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1002/9781119839118" target="_blank" title="Introduction to Computational Chemistry, 3rd ed. — Optimization Techniques" style="color:#e74c3c;">Jensen, F. 2017</a></td></tr><tr><td style="font-weight:600;">Take optimizer step</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1063/1.462844" target="_blank" title="Geometry optimization in redundant internal coordinates" style="color:#e74c3c;">Pulay, P. et al. 1992</a></td></tr><tr><td style="font-weight:600;">Stationary point found</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1002/9781119839118" target="_blank" title="Introduction to Computational Chemistry, 3rd ed. — Optimization Techniques" style="color:#e74c3c;">Jensen, F. 2017</a></td></tr><tr><td style="font-weight:600;">Frequency calculation</td><td>Processing & Operations</td><td><a href="https://www.wiley.com/en-us/Essentials+of+Computational+Chemistry%3A+Theories+and+Models%2C+2nd+Edition-p-9780470091821" target="_blank" title="Essentials of Computational Chemistry, 2nd ed. — Potential Energy Surfaces" style="color:#e74c3c;">Cramer, C. J. 2004</a></td></tr><tr><td style="font-weight:600;">Imaginary modes?</td><td>Intermediates & States</td><td><a href="https://www.wiley.com/en-us/Essentials+of+Computational+Chemistry%3A+Theories+and+Models%2C+2nd+Edition-p-9780470091821" target="_blank" title="Essentials of Computational Chemistry, 2nd ed. — Potential Energy Surfaces" style="color:#e74c3c;">Cramer, C. J. 2004</a></td></tr><tr><td style="font-weight:600;">Perturb + reoptimize</td><td>Processing & Operations</td><td><a href="https://www.wiley.com/en-us/Essentials+of+Computational+Chemistry%3A+Theories+and+Models%2C+2nd+Edition-p-9780470091821" target="_blank" title="Essentials of Computational Chemistry, 2nd ed. — Potential Energy Surfaces" style="color:#e74c3c;">Cramer, C. J. 2004</a></td></tr><tr><td style="font-weight:600;">True minimum confirmed</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1002/9781119839118" target="_blank" title="Introduction to Computational Chemistry, 3rd ed. — Optimization Techniques" style="color:#e74c3c;">Jensen, F. 2017</a></td></tr><tr><td style="font-weight:600;">Optimized geometry + thermo</td><td>Products & Outputs</td><td><a href="https://www.wiley.com/en-us/Essentials+of+Computational+Chemistry%3A+Theories+and+Models%2C+2nd+Edition-p-9780470091821" target="_blank" title="Essentials of Computational Chemistry, 2nd ed. — Potential Energy Surfaces" style="color:#e74c3c;">Cramer, C. J. 2004</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -314,12 +330,12 @@ Y4 --> Z4
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 26</li>
-                        <li><strong>Edges:</strong> 22</li>
-                        <li><strong>Conditionals:</strong> 0</li>
+                        <li><strong>Nodes:</strong> 10</li>
+                        <li><strong>Edges:</strong> 11</li>
+                        <li><strong>Conditionals:</strong> 2</li>
                         <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 1</li>
+                        <li><strong>OR Gates:</strong> 2</li>
+                        <li><strong>Total Gates:</strong> 3</li>
                     </ul>
                 </div>
                 
@@ -327,7 +343,7 @@ Y4 --> Z4
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>mass</li><li>spectrometry</li>
+                        <li>geometry optimization</li><li>energy gradient</li><li>stationary point</li><li>frequency analysis</li><li>minimum</li>
                     </ul>
                 </div>
                 
@@ -338,43 +354,33 @@ Y4 --> Z4
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Geometry optimization in redundant internal coordinates</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Pulay, P.; Fogarasi, G.
+                            , Journal of Chemical Physics
+                             (1992)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Tandem mass spectrometry</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">McCullagh, James; Oldham, Neil
-                            , Mass Spectrometry
-                             (2019)
-                            </span>
-                            <br><a href="https://doi.org/10.1093/hesc/9780198789048.003.0005" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1093/hesc/9780198789048.003.0005</a>
+                            <br><a href="https://doi.org/10.1063/1.462844" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1063/1.462844</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Mass spectrometry applications</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">McCullagh, James; Oldham, Neil
-                            , Mass Spectrometry
-                             (2019)
+                            <strong>Introduction to Computational Chemistry, 3rd ed. — Optimization Techniques</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Jensen, F.
+                            , Wiley
+                             (2017)
                             </span>
-                            <br><a href="https://doi.org/10.1093/hesc/9780198789048.003.0008" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1093/hesc/9780198789048.003.0008</a>
+                            <br><a href="https://doi.org/10.1002/9781119839118" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1002/9781119839118</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>K. Busch, G. Glish and S. Mcluckey. Mass spectrometry/mass spectrometry: Techniques and applications of tandem mass spectrometry, VCH publishing, New York, 1988. Mass Spectrometry/Mass Spectrometry</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Musselman, Brian D.
-                            , Biological Mass Spectrometry
-                             (1989)
+                            <strong>Essentials of Computational Chemistry, 2nd ed. — Potential Energy Surfaces</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Cramer, C. J.
+                            , Wiley
+                             (2004)
                             </span>
-                            <br><a href="https://doi.org/10.1002/bms.1200181017" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1002/bms.1200181017</a>
                             
+                            <br><a href="https://www.wiley.com/en-us/Essentials+of+Computational+Chemistry%3A+Theories+and+Models%2C+2nd+Edition-p-9780470091821" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
                         </li>
                         
                     </ul>

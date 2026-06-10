@@ -1,0 +1,463 @@
+{
+  "discipline": "mathematics",
+  "databaseDir": "mathematics-processes-database",
+  "generatedAt": "2026-04-28T18:06:08.911118+00:00",
+  "processCount": 222,
+  "findingCount": 63,
+  "findingCounts": {
+    "duplicate_mermaid": 6,
+    "supplemental_json": 6,
+    "zero_nodes_edges": 51
+  },
+  "duplicateMermaidGroups": [
+    [
+      "abstract_algebra-group-theory",
+      "process_mathematics_group-theory"
+    ],
+    [
+      "discrete_mathematics-numerical-methods",
+      "process_mathematics_numerical-methods"
+    ],
+    [
+      "geometry_topology-combinatorics",
+      "process_mathematics_combinatorics"
+    ]
+  ],
+  "findingsByProcess": {
+    "foundations-axiomatic-set-theory": [
+      {
+        "severity": "medium",
+        "code": "zero_nodes_edges",
+        "message": "Node and edge counts are both zero."
+      }
+    ],
+    "foundations-axiomatic-set-theory-axioms-basic": [
+      {
+        "severity": "medium",
+        "code": "zero_nodes_edges",
+        "message": "Node and edge counts are both zero."
+      }
+    ],
+    "foundations-axiomatic-set-theory-definitions-derived": [
+      {
+        "severity": "medium",
+        "code": "zero_nodes_edges",
+        "message": "Node and edge counts are both zero."
+      }
+    ],
+    "foundations-axiomatic-set-theory-ordinals-choice": [
+      {
+        "severity": "medium",
+        "code": "zero_nodes_edges",
+        "message": "Node and edge counts are both zero."
+      }
+    ],
+    "foundations-axiomatic-set-theory-ch-continuum": [
+      {
+        "severity": "medium",
+        "code": "zero_nodes_edges",
+        "message": "Node and edge counts are both zero."
+      }
+    ],
+    "foundations-axiomatic-set-theory-forcing": [
+      {
+        "severity": "medium",
+        "code": "zero_nodes_edges",
+        "message": "Node and edge counts are both zero."
+      }
+    ],
+    "foundations-axiomatic-set-theory-ad": [
+      {
+        "severity": "medium",
+        "code": "zero_nodes_edges",
+        "message": "Node and edge counts are both zero."
+      }
+    ],
+    "category_theory-category-theory": [
+      {
+        "severity": "medium",
+        "code": "zero_nodes_edges",
+        "message": "Node and edge counts are both zero."
+      }
+    ],
+    "algebraic_geometry": [
+      {
+        "severity": "medium",
+        "code": "zero_nodes_edges",
+        "message": "Node and edge counts are both zero."
+      }
+    ],
+    "representation_theory": [
+      {
+        "severity": "medium",
+        "code": "zero_nodes_edges",
+        "message": "Node and edge counts are both zero."
+      }
+    ],
+    "commutative_algebra": [
+      {
+        "severity": "medium",
+        "code": "zero_nodes_edges",
+        "message": "Node and edge counts are both zero."
+      }
+    ],
+    "partial_differential_equations": [
+      {
+        "severity": "medium",
+        "code": "zero_nodes_edges",
+        "message": "Node and edge counts are both zero."
+      }
+    ],
+    "differential_geometry": [
+      {
+        "severity": "medium",
+        "code": "zero_nodes_edges",
+        "message": "Node and edge counts are both zero."
+      }
+    ],
+    "spectral_theory": [
+      {
+        "severity": "medium",
+        "code": "zero_nodes_edges",
+        "message": "Node and edge counts are both zero."
+      }
+    ],
+    "symplectic_geometry": [
+      {
+        "severity": "medium",
+        "code": "zero_nodes_edges",
+        "message": "Node and edge counts are both zero."
+      }
+    ],
+    "metric_geometry": [
+      {
+        "severity": "medium",
+        "code": "zero_nodes_edges",
+        "message": "Node and edge counts are both zero."
+      }
+    ],
+    "operator_algebras": [
+      {
+        "severity": "medium",
+        "code": "zero_nodes_edges",
+        "message": "Node and edge counts are both zero."
+      }
+    ],
+    "k_theory": [
+      {
+        "severity": "medium",
+        "code": "zero_nodes_edges",
+        "message": "Node and edge counts are both zero."
+      }
+    ],
+    "quantum_algebra": [
+      {
+        "severity": "medium",
+        "code": "zero_nodes_edges",
+        "message": "Node and edge counts are both zero."
+      }
+    ],
+    "optimization": [
+      {
+        "severity": "medium",
+        "code": "zero_nodes_edges",
+        "message": "Node and edge counts are both zero."
+      }
+    ],
+    "information_theory": [
+      {
+        "severity": "medium",
+        "code": "zero_nodes_edges",
+        "message": "Node and edge counts are both zero."
+      }
+    ],
+    "mathematical_physics": [
+      {
+        "severity": "medium",
+        "code": "zero_nodes_edges",
+        "message": "Node and edge counts are both zero."
+      }
+    ],
+    "abstract_algebra-ring-theory": [
+      {
+        "severity": "medium",
+        "code": "zero_nodes_edges",
+        "message": "Node and edge counts are both zero."
+      }
+    ],
+    "abstract_algebra-field-theory": [
+      {
+        "severity": "medium",
+        "code": "zero_nodes_edges",
+        "message": "Node and edge counts are both zero."
+      }
+    ],
+    "calculus_analysis-real-analysis": [
+      {
+        "severity": "medium",
+        "code": "zero_nodes_edges",
+        "message": "Node and edge counts are both zero."
+      }
+    ],
+    "linear_algebra-linear-algebra": [
+      {
+        "severity": "medium",
+        "code": "zero_nodes_edges",
+        "message": "Node and edge counts are both zero."
+      }
+    ],
+    "discrete_mathematics-type-theory": [
+      {
+        "severity": "medium",
+        "code": "zero_nodes_edges",
+        "message": "Node and edge counts are both zero."
+      }
+    ],
+    "discrete_mathematics-model-theory": [
+      {
+        "severity": "medium",
+        "code": "zero_nodes_edges",
+        "message": "Node and edge counts are both zero."
+      }
+    ],
+    "discrete_mathematics-proof-theory": [
+      {
+        "severity": "medium",
+        "code": "zero_nodes_edges",
+        "message": "Node and edge counts are both zero."
+      }
+    ],
+    "geometry_topology-euclid-elements": [
+      {
+        "severity": "medium",
+        "code": "zero_nodes_edges",
+        "message": "Node and edge counts are both zero."
+      }
+    ],
+    "geometry_topology-euclid-elements-book-i": [
+      {
+        "severity": "medium",
+        "code": "zero_nodes_edges",
+        "message": "Node and edge counts are both zero."
+      }
+    ],
+    "geometry_topology-euclid-elements-book-ii": [
+      {
+        "severity": "medium",
+        "code": "zero_nodes_edges",
+        "message": "Node and edge counts are both zero."
+      }
+    ],
+    "geometry_topology-euclid-elements-book-iii": [
+      {
+        "severity": "medium",
+        "code": "zero_nodes_edges",
+        "message": "Node and edge counts are both zero."
+      }
+    ],
+    "geometry_topology-euclid-elements-book-iv": [
+      {
+        "severity": "medium",
+        "code": "zero_nodes_edges",
+        "message": "Node and edge counts are both zero."
+      }
+    ],
+    "geometry_topology-euclid-elements-book-v": [
+      {
+        "severity": "medium",
+        "code": "zero_nodes_edges",
+        "message": "Node and edge counts are both zero."
+      }
+    ],
+    "geometry_topology-euclid-elements-book-vi": [
+      {
+        "severity": "medium",
+        "code": "zero_nodes_edges",
+        "message": "Node and edge counts are both zero."
+      }
+    ],
+    "geometry_topology-euclid-elements-book-vii": [
+      {
+        "severity": "medium",
+        "code": "zero_nodes_edges",
+        "message": "Node and edge counts are both zero."
+      }
+    ],
+    "geometry_topology-euclid-elements-book-viii": [
+      {
+        "severity": "medium",
+        "code": "zero_nodes_edges",
+        "message": "Node and edge counts are both zero."
+      }
+    ],
+    "geometry_topology-euclid-elements-book-ix": [
+      {
+        "severity": "medium",
+        "code": "zero_nodes_edges",
+        "message": "Node and edge counts are both zero."
+      }
+    ],
+    "geometry_topology-euclid-elements-book-x": [
+      {
+        "severity": "medium",
+        "code": "zero_nodes_edges",
+        "message": "Node and edge counts are both zero."
+      }
+    ],
+    "geometry_topology-euclid-elements-book-xi": [
+      {
+        "severity": "medium",
+        "code": "zero_nodes_edges",
+        "message": "Node and edge counts are both zero."
+      }
+    ],
+    "geometry_topology-euclid-elements-book-xii": [
+      {
+        "severity": "medium",
+        "code": "zero_nodes_edges",
+        "message": "Node and edge counts are both zero."
+      }
+    ],
+    "geometry_topology-euclid-elements-book-xiii": [
+      {
+        "severity": "medium",
+        "code": "zero_nodes_edges",
+        "message": "Node and edge counts are both zero."
+      }
+    ],
+    "geometry_topology-sullivan-collection": [
+      {
+        "severity": "medium",
+        "code": "zero_nodes_edges",
+        "message": "Node and edge counts are both zero."
+      }
+    ],
+    "calculus_analysis-hubbard-douady-collection": [
+      {
+        "severity": "medium",
+        "code": "zero_nodes_edges",
+        "message": "Node and edge counts are both zero."
+      }
+    ],
+    "calculus_analysis-devaney-collection": [
+      {
+        "severity": "medium",
+        "code": "zero_nodes_edges",
+        "message": "Node and edge counts are both zero."
+      }
+    ],
+    "bioinformatics-collection": [
+      {
+        "severity": "medium",
+        "code": "zero_nodes_edges",
+        "message": "Node and edge counts are both zero."
+      }
+    ],
+    "statistics_probability": [
+      {
+        "severity": "medium",
+        "code": "zero_nodes_edges",
+        "message": "Node and edge counts are both zero."
+      }
+    ],
+    "complex_analysis": [
+      {
+        "severity": "medium",
+        "code": "zero_nodes_edges",
+        "message": "Node and edge counts are both zero."
+      }
+    ],
+    "functional_analysis": [
+      {
+        "severity": "medium",
+        "code": "zero_nodes_edges",
+        "message": "Node and edge counts are both zero."
+      }
+    ],
+    "numerical_analysis": [
+      {
+        "severity": "medium",
+        "code": "zero_nodes_edges",
+        "message": "Node and edge counts are both zero."
+      }
+    ],
+    "process_mathematics_prime-number-generation": [
+      {
+        "severity": "info",
+        "code": "supplemental_json",
+        "message": "Process comes from JSON outside metadata.json."
+      }
+    ],
+    "geometry_topology-euclid-elements-i-1-5": [
+      {
+        "severity": "info",
+        "code": "supplemental_json",
+        "message": "Process comes from JSON outside metadata.json."
+      }
+    ],
+    "process_mathematics_combinatorics": [
+      {
+        "severity": "info",
+        "code": "supplemental_json",
+        "message": "Process comes from JSON outside metadata.json."
+      },
+      {
+        "severity": "medium",
+        "code": "duplicate_mermaid",
+        "message": "Mermaid diagram duplicates: geometry_topology-combinatorics, process_mathematics_combinatorics"
+      }
+    ],
+    "process_mathematics_numerical-methods": [
+      {
+        "severity": "info",
+        "code": "supplemental_json",
+        "message": "Process comes from JSON outside metadata.json."
+      },
+      {
+        "severity": "medium",
+        "code": "duplicate_mermaid",
+        "message": "Mermaid diagram duplicates: discrete_mathematics-numerical-methods, process_mathematics_numerical-methods"
+      }
+    ],
+    "process_mathematics_group-theory": [
+      {
+        "severity": "info",
+        "code": "supplemental_json",
+        "message": "Process comes from JSON outside metadata.json."
+      },
+      {
+        "severity": "medium",
+        "code": "duplicate_mermaid",
+        "message": "Mermaid diagram duplicates: abstract_algebra-group-theory, process_mathematics_group-theory"
+      }
+    ],
+    "lineage-mathematical-schools": [
+      {
+        "severity": "info",
+        "code": "supplemental_json",
+        "message": "Process comes from JSON outside metadata.json."
+      }
+    ],
+    "abstract_algebra-group-theory": [
+      {
+        "severity": "medium",
+        "code": "duplicate_mermaid",
+        "message": "Mermaid diagram duplicates: abstract_algebra-group-theory, process_mathematics_group-theory"
+      }
+    ],
+    "discrete_mathematics-numerical-methods": [
+      {
+        "severity": "medium",
+        "code": "duplicate_mermaid",
+        "message": "Mermaid diagram duplicates: discrete_mathematics-numerical-methods, process_mathematics_numerical-methods"
+      }
+    ],
+    "geometry_topology-combinatorics": [
+      {
+        "severity": "medium",
+        "code": "duplicate_mermaid",
+        "message": "Mermaid diagram duplicates: geometry_topology-combinatorics, process_mathematics_combinatorics"
+      }
+    ]
+  }
+}

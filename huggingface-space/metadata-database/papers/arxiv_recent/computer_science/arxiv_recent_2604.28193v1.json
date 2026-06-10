@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2604.28193v1",
+  "arxiv_id": "2604.28193v1",
+  "title": "Generalizable Sparse-View 3D Reconstruction from Unconstrained Images",
+  "authors": [
+    "Vinayak Gupta",
+    "Chih-Hao Lin",
+    "Shenlong Wang",
+    "Anand Bhattad",
+    "Jia-Bin Huang"
+  ],
+  "author_string": "Vinayak Gupta, Chih-Hao Lin, Shenlong Wang, Anand Bhattad, Jia-Bin Huang",
+  "journal": "arXiv:2604.28193v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Reconstructing 3D scenes from sparse, unposed images remains challenging under real-world conditions with varying illumination and transient occlusions. Existing methods rely on scene-specific optimization using appearance embeddings or dynamic masks, which requires extensive per-scene training and fails under sparse views. Moreover, evaluations on limited scenes raise questions about generalization. We present GenWildSplat, a feed-forward framework for sparse-view outdoor reconstruction that requires no per-scene optimization. Given unposed internet images, GenWildSplat predicts depth, camera parameters, and 3D Gaussians in a canonical space using learned geometric priors. An appearance adapter modulates appearance for target lighting conditions, while semantic segmentation handles transient objects. Through curriculum learning on synthetic and real data, GenWildSplat generalizes across diverse illumination and occlusion patterns. Evaluations on PhotoTourism and MegaScenes benchmark demonstrate state-of-the-art feed-forward rendering quality, achieving real-time inference without test-time optimization",
+  "categories": [
+    "cs.CV"
+  ],
+  "primary_category": "cs.CV",
+  "comment": "Project Page: https://genwildsplat.github.io/",
+  "published_date": "2026-04-30T17:59:55Z",
+  "updated_date": "2026-04-30T17:59:55Z",
+  "url": "https://arxiv.org/abs/2604.28193v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.28193v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-30T22:15:39.332801",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CV"
+  ]
+}

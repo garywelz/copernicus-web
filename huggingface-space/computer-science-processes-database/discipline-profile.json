@@ -1,0 +1,105 @@
+{
+  "displayName": "Computer Science",
+  "slug": "computer_science",
+  "databaseDir": "computer-science-processes-database",
+  "tableFile": "computer-science-database-table.html",
+  "accent": "#7c3aed",
+  "subtitle": "Algorithms, systems, networks, security, machine learning, and software workflows.",
+  "lensTitle": "Computer Science Lens",
+  "lensDescription": "Browse by algorithmic complexity, execution environment, invariants, and failure mode.",
+  "facetLabels": {
+    "subcategory": "Area",
+    "collection": "Lens",
+    "complexity": "Complexity"
+  },
+  "insightCards": [
+    {
+      "label": "Best for",
+      "value": "algorithms, systems, security, ML pipelines"
+    },
+    {
+      "label": "Research links",
+      "value": "arXiv, Semantic Scholar, and Crossref"
+    },
+    {
+      "label": "Curation focus",
+      "value": "separate theory, implementation, and operational concerns"
+    }
+  ],
+  "frontierSearches": [
+    {
+      "label": "arXiv",
+      "urlTemplate": "https://arxiv.org/search/cs?query={query}&searchtype=all"
+    },
+    {
+      "label": "Crossref",
+      "urlTemplate": "https://search.crossref.org/?q={query}+computer+science"
+    },
+    {
+      "label": "Semantic Scholar",
+      "urlTemplate": "https://www.semanticscholar.org/search?q={query}"
+    }
+  ],
+  "contextColumnLabel": "System / Data Type",
+  "defaultContext": "Computing system",
+  "supportedGraphTypes": [
+    "flowchart",
+    "dependency_graph",
+    "taxonomy",
+    "state_transition",
+    "influence_network"
+  ],
+  "metricColumns": [
+    {
+      "id": "nodes",
+      "label": "Nodes"
+    },
+    {
+      "id": "edges",
+      "label": "Edges"
+    },
+    {
+      "id": "conditionals",
+      "label": "Conditionals"
+    },
+    {
+      "id": "andGates",
+      "label": "AND Gates"
+    },
+    {
+      "id": "orGates",
+      "label": "OR Gates"
+    },
+    {
+      "id": "notGates",
+      "label": "NOT Gates"
+    },
+    {
+      "id": "loops",
+      "label": "Loops"
+    }
+  ],
+  "graphTypeLabels": {
+    "flowchart": "Flowchart",
+    "dependency_graph": "Dependency Graph",
+    "taxonomy": "Taxonomy",
+    "lineage_tree": "Lineage Tree",
+    "influence_network": "Influence Network",
+    "state_transition": "State Transition",
+    "timeline": "Timeline"
+  },
+  "featuredMaps": [
+    {
+      "label": "Whole of Computer Science",
+      "url": "whole-of-computer-science.html",
+      "description": "Computer Science is strongest as a layered abstraction stack with dependency and process links."
+    },
+    {
+      "label": "Computing Stack Map",
+      "url": "computing-stack-map.html",
+      "description": "Conceptual stack/subway map of computing layers and cross-cutting concerns."
+    }
+  ],
+  "generatedFrom": "scripts/processes/discipline_databases/enhanced_database_table.py",
+  "collectionCount": 9
+}

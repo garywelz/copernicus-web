@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Natural Language Processing - Computer Science Process</title>
+    <title>Code Refactoring Workflow - Computer Science Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Natural Language Processing</h1>
+            <h1>Code Refactoring Workflow</h1>
             <div class="header-meta">
                 <span class="meta-item">Computer Science</span>
                 <span class="meta-item">Software Engineering</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,67 +234,64 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Natural Language Processing process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>Refactoring improves internal design without changing behavior: after spotting a code smell, test coverage is ensured (adding characterization tests if needed), then small behavior-preserving transformations are applied and verified by tests; any failure is reverted, and the cycle repeats until no smells remain.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-A3[Text Input] --> B3[NLP Method]
-C3[Tokenization] --> D3[Language Model]
-E3[Semantic Analysis] --> F3[NLP Analysis]
-B3 --> G3[Transformer Model]
-D3 --> H3[Word Embeddings]
-F3 --> I3[Sequence Model]
-G3 --> J3[Attention Mechanism]
-H3 --> K3[Context Understanding]
-I3 --> L3[Text Generation]
-J3 --> M3[Language Understanding]
-K3 --> L3
-L3 --> N3[Sentiment Analysis]
-M3 --> O3[Text Classification]
-N3 --> P3[Entity Recognition]
-O3 --> Q3[NLP Process]
-P3 --> R3[NLP Validation]
-Q3 --> S3[NLP Verification]
-R3 --> T3[NLP Result]
-S3 --> U3[NLP Analysis]
-T3 --> V3[NLP Parameters]
-U3 --> W3[NLP Output]
-V3 --> X3[NLP Analysis]
-W3 --> Y3[NLP Final Result]
-X3 --> Z3[NLP Complete]
+    N1["Code smell identified"]
+    N2["Ensure test coverage"]
+    N3{"Tests sufficient?"}
+    N4["Add characterization tests"]
+    N5["Choose refactoring"]
+    N6["Apply small transform"]
+    N7["Run tests"]
+    N8{"Behavior preserved?"}
+    N9["Revert change"]
+    N10{"More smells remain?"}
+    N11["Commit refactored code"]
+    N12["Cleaner design, same behavior"]
 
-    style A3 fill:#ff6b6b,color:#fff
-    style C3 fill:#ff6b6b,color:#fff
-    style E3 fill:#ff6b6b,color:#fff
-    style B3 fill:#ffd43b,color:#000
-    style D3 fill:#ffd43b,color:#000
-    style F3 fill:#ffd43b,color:#000
-    style G3 fill:#ffd43b,color:#000
-    style H3 fill:#ffd43b,color:#000
-    style I3 fill:#ffd43b,color:#000
-    style J3 fill:#ffd43b,color:#000
-    style K3 fill:#ffd43b,color:#000
-    style L3 fill:#ffd43b,color:#000
-    style M3 fill:#51cf66,color:#fff
-    style N3 fill:#51cf66,color:#fff
-    style O3 fill:#51cf66,color:#fff
-    style P3 fill:#51cf66,color:#fff
-    style Q3 fill:#51cf66,color:#fff
-    style R3 fill:#51cf66,color:#fff
-    style S3 fill:#51cf66,color:#fff
-    style T3 fill:#51cf66,color:#fff
-    style U3 fill:#51cf66,color:#fff
-    style V3 fill:#51cf66,color:#fff
-    style W3 fill:#51cf66,color:#fff
-    style X3 fill:#51cf66,color:#fff
-    style Y3 fill:#51cf66,color:#fff
-    style Z3 fill:#b197fc,color:#fff
+    N1 --> N2
+    N2 --> N3
+    N3 -->|no| N4
+    N4 -->|augment| N2
+    N3 -->|yes| N5
+    N5 --> N6
+    N6 --> N7
+    N7 --> N8
+    N8 -->|no| N9
+    N9 -->|retry| N5
+    N8 -->|yes| N10
+    N10 -->|yes| N11
+    N11 -->|next| N5
+    N10 -->|no| N12
+
+    style N1 fill:#ff6b6b,color:#fff
+    style N2 fill:#51cf66,color:#fff
+    style N3 fill:#74c0fc,color:#fff
+    style N4 fill:#51cf66,color:#fff
+    style N5 fill:#51cf66,color:#fff
+    style N6 fill:#51cf66,color:#fff
+    style N7 fill:#51cf66,color:#fff
+    style N8 fill:#74c0fc,color:#fff
+    style N9 fill:#51cf66,color:#fff
+    style N10 fill:#74c0fc,color:#fff
+    style N11 fill:#51cf66,color:#fff
+    style N12 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Code smell identified</td><td>Triggers & Inputs</td><td><a href="https://martinfowler.com/books/refactoring.html" target="_blank" title="Refactoring: Improving the Design of Existing Code (2nd ed.)" style="color:#9b59b6;">Fowler, M. 2018</a></td></tr><tr><td style="font-weight:600;">Ensure test coverage</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1109/TSE.2004.1265817" target="_blank" title="A survey of software refactoring" style="color:#9b59b6;">Mens, T. et al. 2004</a></td></tr><tr><td style="font-weight:600;">Tests sufficient?</td><td>Intermediates & States</td><td><a href="https://martinfowler.com/books/refactoring.html" target="_blank" title="Refactoring: Improving the Design of Existing Code (2nd ed.)" style="color:#9b59b6;">Fowler, M. 2018</a></td></tr><tr><td style="font-weight:600;">Add characterization tests</td><td>Processing & Operations</td><td><a href="https://martinfowler.com/books/refactoring.html" target="_blank" title="Refactoring: Improving the Design of Existing Code (2nd ed.)" style="color:#9b59b6;">Fowler, M. 2018</a></td></tr><tr><td style="font-weight:600;">Choose refactoring</td><td>Processing & Operations</td><td><a href="https://martinfowler.com/books/refactoring.html" target="_blank" title="Refactoring: Improving the Design of Existing Code (2nd ed.)" style="color:#9b59b6;">Fowler, M. 2018</a></td></tr><tr><td style="font-weight:600;">Apply small transform</td><td>Processing & Operations</td><td><a href="https://martinfowler.com/books/refactoring.html" target="_blank" title="Refactoring: Improving the Design of Existing Code (2nd ed.)" style="color:#9b59b6;">Fowler, M. 2018</a></td></tr><tr><td style="font-weight:600;">Run tests</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1109/TSE.2004.1265817" target="_blank" title="A survey of software refactoring" style="color:#9b59b6;">Mens, T. et al. 2004</a></td></tr><tr><td style="font-weight:600;">Behavior preserved?</td><td>Intermediates & States</td><td><a href="https://martinfowler.com/books/refactoring.html" target="_blank" title="Refactoring: Improving the Design of Existing Code (2nd ed.)" style="color:#9b59b6;">Fowler, M. 2018</a></td></tr><tr><td style="font-weight:600;">Revert change</td><td>Processing & Operations</td><td><a href="https://martinfowler.com/books/refactoring.html" target="_blank" title="Refactoring: Improving the Design of Existing Code (2nd ed.)" style="color:#9b59b6;">Fowler, M. 2018</a></td></tr><tr><td style="font-weight:600;">More smells remain?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1109/TSE.2004.1265817" target="_blank" title="A survey of software refactoring" style="color:#9b59b6;">Mens, T. et al. 2004</a></td></tr><tr><td style="font-weight:600;">Commit refactored code</td><td>Processing & Operations</td><td><a href="https://martinfowler.com/books/refactoring.html" target="_blank" title="Refactoring: Improving the Design of Existing Code (2nd ed.)" style="color:#9b59b6;">Fowler, M. 2018</a></td></tr><tr><td style="font-weight:600;">Cleaner design, same behavior</td><td>Products & Outputs</td><td><a href="https://martinfowler.com/books/refactoring.html" target="_blank" title="Refactoring: Improving the Design of Existing Code (2nd ed.)" style="color:#9b59b6;">Fowler, M. 2018</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -313,12 +337,12 @@ X3 --> Z3[NLP Complete]
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 26</li>
-                        <li><strong>Edges:</strong> 21</li>
-                        <li><strong>Conditionals:</strong> 0</li>
-                        <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 1</li>
+                        <li><strong>Nodes:</strong> 12</li>
+                        <li><strong>Edges:</strong> 14</li>
+                        <li><strong>Conditionals:</strong> 3</li>
+                        <li><strong>AND Gates:</strong> 2</li>
+                        <li><strong>OR Gates:</strong> 3</li>
+                        <li><strong>Total Gates:</strong> 5</li>
                     </ul>
                 </div>
                 
@@ -326,7 +350,7 @@ X3 --> Z3[NLP Complete]
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>natural</li><li>language</li><li>processing</li>
+                        <li>refactoring</li><li>code smell</li><li>behavior preserving</li><li>characterization tests</li><li>design improvement</li>
                     </ul>
                 </div>
                 
@@ -337,42 +361,22 @@ X3 --> Z3[NLP Complete]
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Refactoring: Improving the Design of Existing Code (2nd ed.)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Fowler, M.
+                            , Addison-Wesley
+                             (2018)
                             </span>
                             
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #9b59b6; font-size: 0.85em;">View Source</a>
+                            <br><a href="https://martinfowler.com/books/refactoring.html" target="_blank" style="color: #9b59b6; font-size: 0.85em;">View Source</a>
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>1. Introduction to natural language processing</strong>
-                            
-                            , Natural Language Processing
-                             (2014)
+                            <strong>A survey of software refactoring</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Mens, T.; Tourwe, T.
+                            , IEEE Transactions on Software Engineering
+                             (2004)
                             </span>
-                            <br><a href="https://doi.org/10.1075/nlp.11.01ch1" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.1075/nlp.11.01ch1</a>
-                            
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Robotics, Grounding and Natural Language Processing</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Mochihashi, Daichi
-                            , Journal of Natural Language Processing
-                             (2020)
-                            </span>
-                            <br><a href="https://doi.org/10.5715/jnlp.27.963" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.5715/jnlp.27.963</a>
-                            
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Vision, status, and research topics of Natural Language Processing</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Chen, Xieling; Xie, Haoran; Tao, Xiaohui
-                            , Natural Language Processing Journal
-                             (2022)
-                            </span>
-                            <br><a href="https://doi.org/10.1016/j.nlp.2022.100001" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.1016/j.nlp.2022.100001</a>
+                            <br><a href="https://doi.org/10.1109/TSE.2004.1265817" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.1109/TSE.2004.1265817</a>
                             
                         </li>
                         

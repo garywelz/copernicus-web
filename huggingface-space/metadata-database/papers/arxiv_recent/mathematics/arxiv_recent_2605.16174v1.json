@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_2605.16174v1",
+  "arxiv_id": "2605.16174v1",
+  "title": "A multi-objective optimization framework for sustainable transitions",
+  "authors": [
+    "Cris R. Hasan",
+    "Luigi Cao Pinna",
+    "John Crawford",
+    "Stuart Kauffman",
+    "Roger Koppl",
+    "Jonathan Lee",
+    "Demival Vasques",
+    "Edward Weinberger"
+  ],
+  "author_string": "Cris R. Hasan, Luigi Cao Pinna, John Crawford, Stuart Kauffman, Roger Koppl et al.",
+  "journal": "arXiv:2605.16174v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Achieving a just and sustainable transition requires the pursuit of multiple social and environmental targets. Two primary barriers impede this process: (1) targets are often in conflict with each other, and (2) policies aimed at these targets are commonly planned in isolation, neglecting complex interdependencies in the system. To address these challenges, we propose a general modeling framework that evaluates the holistic impact of policies and decision-making on sustainability targets while capturing system interdependencies in a policy-target network. Inspired by Kauffman's NK fitness landscape, our framework takes the form of a multi-objective optimization model that employs a dynamic evolutionary algorithm in conjunction with network analysis. Our algorithm accounts for tradeoffs between conflicting targets by dynamically reallocating resources to the most impactful and efficient policies. One key finding indicates that increasing resources generally enhances performance, but marginal gains stagnate at a point of diminishing returns. Sensitivity analysis reveals that the system is primarily driven by three factors: budget constraint, network density (interconnectivity), and policy efficacy. This study serves as a foundational step towards developing a decision-support tool that assists policymakers in achieving optimal outcomes for problems with a large number of dynamically interacting targets.",
+  "categories": [
+    "math.DS"
+  ],
+  "primary_category": "math.DS",
+  "comment": null,
+  "published_date": "2026-05-15T16:52:42Z",
+  "updated_date": "2026-05-15T16:52:42Z",
+  "url": "https://arxiv.org/abs/2605.16174v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.16174v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-17T22:17:38.065531",
+  "category": "mathematics",
+  "subcategories": [
+    "math.DS"
+  ]
+}

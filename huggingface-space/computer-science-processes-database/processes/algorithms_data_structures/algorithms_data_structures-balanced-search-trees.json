@@ -1,21 +1,23 @@
 {
   "id": "algorithms_data_structures-balanced-search-trees",
-  "name": "Balanced Search Trees",
+  "name": "Balanced Search Trees (Rotations)",
   "category": "computer_science",
   "subcategory": "algorithms_data_structures",
   "subcategory_name": "Algorithms & Data Structures",
-  "description": "Balanced Search Trees process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "Self-balancing search trees keep operations at O(log n) by restoring a balance invariant after each insertion: a standard BST insert is followed by checking the height or color invariant, and when it is violated, single or double rotations and recoloring are applied up the path until the tree property is restored.",
   "complexity": {
-    "nodes": 13,
-    "edges": 13,
-    "conditionals": 0,
+    "nodes": 12,
+    "edges": 14,
+    "conditionals": 3,
     "logicGates": {
-      "orGates": 1,
-      "andGates": 1,
-      "total": 2
+      "orGates": 3,
+      "andGates": 3,
+      "notGates": 0,
+      "total": 6
     },
-    "level": "medium",
-    "detailLevel": "medium"
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 1
   },
   "colorScheme": {
     "red": {
@@ -39,54 +41,156 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nN1[\"Keys + Comparison Function\"]\nN2[\"Insert/Delete/Search Request\"]\nN3[\"Balanced BST Invariant\"]\nN4[\"Choose Approach\"]\nN5[\"Tree Node Structure\"]\nN6[\"Traverse to Target Position\"]\nN7[\"Apply Update (insert/delete)\"]\nN8[\"Update Heights/Colors\"]\nN9[\"Integrate Results\"]\nN10[\"Detect Imbalance Case\"]\nN11[\"Rotation/Recoloring\"]\nN12[\"Restore Invariant\"]\nN13[\"Return Updated Root\"]\n\nN1 --> N2\nN2 --> N3\nN3 --> N4\nN4 --> N5\nN4 --> N7\nN5 --> N6\nN7 --> N8\nN6 --> N9\nN8 --> N9\nN9 --> N10\nN10 --> N11\nN11 --> N12\nN12 --> N13\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#ff6b6b,color:#fff\n    style N3 fill:#ffd43b,color:#000\n    style N4 fill:#ffd43b,color:#000\n    style N5 fill:#ffd43b,color:#000\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#74c0fc,color:#fff\n    style N9 fill:#74c0fc,color:#fff\n    style N10 fill:#51cf66,color:#fff\n    style N11 fill:#51cf66,color:#fff\n    style N12 fill:#74c0fc,color:#fff\n    style N13 fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"Insert key into BST\"]\n    N2[\"Standard BST insert\"]\n    N3[\"Update height / color\"]\n    N4{\"Balance violated?\"}\n    N5[\"Detect rotation case\"]\n    N6{\"Single or double?\"}\n    N7[\"Single rotation\"]\n    N8[\"Double rotation\"]\n    N9[\"Recolor / fix up\"]\n    N10[\"Rebalance ancestors\"]\n    N11{\"Property restored?\"}\n    N12[\"Balanced tree O(log n)\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 --> N4\n    N4 -->|no| N12\n    N4 -->|yes| N5\n    N5 --> N6\n    N6 -->|single| N7\n    N6 -->|double| N8\n    N7 --> N9\n    N8 --> N9\n    N9 --> N10\n    N10 --> N11\n    N11 -->|no| N5\n    N11 -->|yes| N12\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#74c0fc,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#74c0fc,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#51cf66,color:#fff\n    style N10 fill:#51cf66,color:#fff\n    style N11 fill:#74c0fc,color:#fff\n    style N12 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
-      "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: Balanced Search Trees. Created using the Programming Framework methodology."
+      "title": "A dichromatic framework for balanced trees",
+      "authors": "Guibas, L. J.; Sedgewick, R.",
+      "journal": "19th Annual Symposium on Foundations of Computer Science",
+      "year": "1978",
+      "doi": "10.1109/SFCS.1978.3",
+      "url": "https://doi.org/10.1109/SFCS.1978.3"
     },
     {
-      "title": "Balanced Search Trees",
-      "authors": "",
-      "journal": "Advanced Data Structures",
-      "year": "2008",
-      "pubmed": null,
-      "doi": "10.1017/cbo9780511800191.004",
-      "url": "https://doi.org/10.1017/cbo9780511800191.004"
-    },
-    {
-      "title": "Balanced Binary Search Trees",
-      "authors": "",
-      "journal": "Handbook of Data Structures and Applications",
-      "year": "2004",
-      "pubmed": null,
-      "doi": "10.1201/9781420035179-20",
-      "url": "https://doi.org/10.1201/9781420035179-20"
-    },
-    {
-      "title": "A new class of balanced search trees : half-balanced binary search tress",
-      "authors": "Olivié, H. J.",
-      "journal": "RAIRO. Informatique théorique",
-      "year": "1982",
-      "pubmed": null,
-      "doi": "10.1051/ita/1982160100511",
-      "url": "https://doi.org/10.1051/ita/1982160100511"
+      "title": "Introduction to Algorithms (4th ed.)",
+      "authors": "Cormen, T. H.; Leiserson, C. E.; Rivest, R. L.; Stein, C.",
+      "journal": "MIT Press",
+      "year": "2022",
+      "url": "https://mitpress.mit.edu/9780262046305/introduction-to-algorithms/"
     }
   ],
   "keywords": [
-    "balanced",
-    "search",
-    "trees"
+    "balanced search tree",
+    "red-black tree",
+    "AVL tree",
+    "rotation",
+    "logarithmic height"
   ],
   "relatedProcesses": [],
   "created": "2026-01-15",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations.\nCurated Mermaid applied (citations preserved)."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "namedCollections": [],
+  "graphMetrics": {
+    "nodes": 12,
+    "edges": 14,
+    "conditionals": 3,
+    "andGates": 3,
+    "orGates": 3,
+    "notGates": 0,
+    "loops": 1
+  },
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Insert key into BST",
+      "detail": "New element",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 1
+    },
+    {
+      "id": "N2",
+      "label": "Standard BST insert",
+      "detail": "By key order",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N3",
+      "label": "Update height / color",
+      "detail": "Along the path",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N4",
+      "label": "Balance violated?",
+      "detail": "Invariant check",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N5",
+      "label": "Detect rotation case",
+      "detail": "LL, LR, RL, RR",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N6",
+      "label": "Single or double?",
+      "detail": "Rotation type",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N7",
+      "label": "Single rotation",
+      "detail": "Left or right",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N8",
+      "label": "Double rotation",
+      "detail": "Two-step",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N9",
+      "label": "Recolor / fix up",
+      "detail": "Restore coloring",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N10",
+      "label": "Rebalance ancestors",
+      "detail": "Propagate upward",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N11",
+      "label": "Property restored?",
+      "detail": "Root reached",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N12",
+      "label": "Balanced tree O(log n)",
+      "detail": "Bounded height",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 1
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:algorithms_data_structures-balanced-search-trees",
+    "graphType": "decision_flowchart",
+    "topologySignature": "2b9c488fd48a4f31",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "graphType": "decision_flowchart",
+  "domainContext": "Data structures"
 }

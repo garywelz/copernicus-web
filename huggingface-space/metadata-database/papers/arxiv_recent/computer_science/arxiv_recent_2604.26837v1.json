@@ -1,0 +1,39 @@
+{
+  "id": "arxiv_2604.26837v1",
+  "arxiv_id": "2604.26837v1",
+  "title": "Unifying Sparse Attention with Hierarchical Memory for Scalable Long-Context LLM Serving",
+  "authors": [
+    "Zihan Zhao",
+    "Baotong Lu",
+    "Shengjie Lin",
+    "Yizou Chen",
+    "Jing Liu",
+    "Yanqi Zhang",
+    "Ziming Miao",
+    "Ming-Chang Yang",
+    "Haiying Shen",
+    "Qi Chen",
+    "Fan Yang"
+  ],
+  "author_string": "Zihan Zhao, Baotong Lu, Shengjie Lin, Yizou Chen, Jing Liu et al.",
+  "journal": "arXiv:2604.26837v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Long-context LLM serving is bottlenecked by the cost of attending over ever-growing KV caches. Dynamic sparse attention promises relief by accessing only a small, query-dependent subset of the KV state per decoding step and extending the KV storage to CPU memory. In practice, however, these algorithmic savings rarely translate into end-to-end system-level gains because sparse methods typically operate at different granularities and thus rely on ad hoc, per-algorithm implementations. At the same time, hierarchical KV storage introduces a new systems bottleneck: retrieving fine-grained, irregular KV subsets across the GPU-CPU boundary can easily erase the benefits of sparsity.   We present SPIN, a sparse-attention-aware inference framework that co-designs the execution pipeline with hierarchical KV storage through three techniques: (1) a unified partition abstraction that maps different sparsity granularities onto a shared page-based KV substrate; (2) a locality-aware KV cache manager that dynamically sizes per-request HBM budgets and uses a GPU-friendly bucketed LRU policy to cut PCIe round-trips; and (3) a two-level hierarchical metadata layout sized to the active working set rather than the worst-case address space. Built on vLLM with three representative sparse attention algorithms, SPIN delivers 1.66-5.66x higher end-to-end throughput and 7-9x lower TTFT than vLLM, and reduces TPOT by up to 58% over the original sparse-attention implementations.",
+  "categories": [
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": "15 pages",
+  "published_date": "2026-04-29T16:02:00Z",
+  "updated_date": "2026-04-29T16:02:00Z",
+  "url": "https://arxiv.org/abs/2604.26837v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.26837v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-30T10:15:42.518144",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.LG"
+  ]
+}

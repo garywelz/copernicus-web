@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Authentication and Authorization - Computer Science Process</title>
+    <title>Authentication & Authorization - Computer Science Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Authentication and Authorization</h1>
+            <h1>Authentication & Authorization</h1>
             <div class="header-meta">
                 <span class="meta-item">Computer Science</span>
                 <span class="meta-item">Security & Cryptography</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,46 +234,59 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Authentication and Authorization process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>Access control separates proving identity from granting rights: a user submits credentials that are verified (authentication), and on success a session or token is issued; when a protected resource is later requested, the system checks the subject's permissions (authorization) and grants or denies the specific action.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-N1["User Request"]
-N2["Credentials/Token"]
-N3["Identity Provider"]
-N4["Choose Approach"]
-N5["Policy/Role Store"]
-N6["Authenticate Identity"]
-N7["Authorize Action"]
-N8["Decision"]
-N9["Integrate Results"]
+    N1["User requests access"]
+    N2["Provide credentials"]
+    N3["Verify identity"]
+    N4{"Credentials valid?"}
+    N5["Reject / lockout"]
+    N6["Issue session/token"]
+    N7["Request resource"]
+    N8["Check permissions"]
+    N9{"Authorized?"}
+    N10["Deny (403)"]
+    N11["Grant access"]
 
-N1 --> N2
-N2 --> N3
-N3 --> N4
-N4 --> N5
-N4 --> N7
-N5 --> N6
-N7 --> N8
-N6 --> N9
-N8 --> N9
-N9 --> N6
+    N1 --> N2
+    N2 --> N3
+    N3 --> N4
+    N4 -->|no| N5
+    N5 -->|retry| N2
+    N4 -->|yes| N6
+    N6 --> N7
+    N7 --> N8
+    N8 --> N9
+    N9 -->|no| N10
+    N9 -->|yes| N11
 
     style N1 fill:#ff6b6b,color:#fff
-    style N2 fill:#ff6b6b,color:#fff
-    style N3 fill:#ffd43b,color:#000
-    style N4 fill:#ffd43b,color:#000
-    style N5 fill:#ffd43b,color:#000
+    style N2 fill:#51cf66,color:#fff
+    style N3 fill:#51cf66,color:#fff
+    style N4 fill:#74c0fc,color:#fff
+    style N5 fill:#51cf66,color:#fff
     style N6 fill:#51cf66,color:#fff
     style N7 fill:#51cf66,color:#fff
-    style N8 fill:#b197fc,color:#fff
+    style N8 fill:#51cf66,color:#fff
     style N9 fill:#74c0fc,color:#fff
+    style N10 fill:#51cf66,color:#fff
+    style N11 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">User requests access</td><td>Triggers & Inputs</td><td><a href="https://doi.org/10.1109/35.312842" target="_blank" title="Access control: principles and practice" style="color:#9b59b6;">Sandhu, R. S. et al. 1994</a></td></tr><tr><td style="font-weight:600;">Provide credentials</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1109/35.312842" target="_blank" title="Access control: principles and practice" style="color:#9b59b6;">Sandhu, R. S. et al. 1994</a></td></tr><tr><td style="font-weight:600;">Verify identity</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1109/35.312842" target="_blank" title="Access control: principles and practice" style="color:#9b59b6;">Sandhu, R. S. et al. 1994</a></td></tr><tr><td style="font-weight:600;">Credentials valid?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1109/35.312842" target="_blank" title="Access control: principles and practice" style="color:#9b59b6;">Sandhu, R. S. et al. 1994</a></td></tr><tr><td style="font-weight:600;">Reject / lockout</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1109/35.312842" target="_blank" title="Access control: principles and practice" style="color:#9b59b6;">Sandhu, R. S. et al. 1994</a></td></tr><tr><td style="font-weight:600;">Issue session/token</td><td>Processing & Operations</td><td><a href="https://doi.org/10.17487/RFC6749" target="_blank" title="The OAuth 2.0 Authorization Framework (RFC 6749)" style="color:#9b59b6;">Hardt, D. 2012</a></td></tr><tr><td style="font-weight:600;">Request resource</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1109/35.312842" target="_blank" title="Access control: principles and practice" style="color:#9b59b6;">Sandhu, R. S. et al. 1994</a></td></tr><tr><td style="font-weight:600;">Check permissions</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1109/35.312842" target="_blank" title="Access control: principles and practice" style="color:#9b59b6;">Sandhu, R. S. et al. 1994</a></td></tr><tr><td style="font-weight:600;">Authorized?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1109/35.312842" target="_blank" title="Access control: principles and practice" style="color:#9b59b6;">Sandhu, R. S. et al. 1994</a></td></tr><tr><td style="font-weight:600;">Deny (403)</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1109/35.312842" target="_blank" title="Access control: principles and practice" style="color:#9b59b6;">Sandhu, R. S. et al. 1994</a></td></tr><tr><td style="font-weight:600;">Grant access</td><td>Products & Outputs</td><td><a href="https://doi.org/10.1109/35.312842" target="_blank" title="Access control: principles and practice" style="color:#9b59b6;">Sandhu, R. S. et al. 1994</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -292,11 +332,11 @@ N9 --> N6
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 9</li>
-                        <li><strong>Edges:</strong> 10</li>
-                        <li><strong>Conditionals:</strong> 0</li>
-                        <li><strong>AND Gates:</strong> 2</li>
-                        <li><strong>OR Gates:</strong> 1</li>
+                        <li><strong>Nodes:</strong> 11</li>
+                        <li><strong>Edges:</strong> 11</li>
+                        <li><strong>Conditionals:</strong> 2</li>
+                        <li><strong>AND Gates:</strong> 1</li>
+                        <li><strong>OR Gates:</strong> 2</li>
                         <li><strong>Total Gates:</strong> 3</li>
                     </ul>
                 </div>
@@ -305,7 +345,7 @@ N9 --> N6
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>authentication</li><li>and</li><li>authorization</li>
+                        <li>authentication</li><li>authorization</li><li>access control</li><li>session token</li><li>permissions</li>
                     </ul>
                 </div>
                 
@@ -316,42 +356,22 @@ N9 --> N6
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Access control: principles and practice</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Sandhu, R. S.; Samarati, P.
+                            , IEEE Communications Magazine
+                             (1994)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #9b59b6; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Figure 17: Authentication and authorization process.</strong>
-                            
-                            
-                             (None)
-                            </span>
-                            <br><a href="https://doi.org/10.7717/peerj-cs.950/fig-17" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.7717/peerj-cs.950/fig-17</a>
+                            <br><a href="https://doi.org/10.1109/35.312842" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.1109/35.312842</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Guide for User Authentication and Authorization</strong>
-                            
-                            
-                             (None)
+                            <strong>The OAuth 2.0 Authorization Framework (RFC 6749)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Hardt, D.
+                            , IETF
+                             (2012)
                             </span>
-                            <br><a href="https://doi.org/10.1520/e1985" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.1520/e1985</a>
-                            
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>An Authorization Information Format (AIF) for Authentication and Authorization for Constrained Environments (ACE)</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Bormann, C.
-                            
-                             (2022)
-                            </span>
-                            <br><a href="https://doi.org/10.17487/rfc9237" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.17487/rfc9237</a>
+                            <br><a href="https://doi.org/10.17487/RFC6749" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.17487/RFC6749</a>
                             
                         </li>
                         

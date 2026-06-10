@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2604.26998v1",
+  "arxiv_id": "2604.26998v1",
+  "title": "Entropy-Dominated Temporal Vocal Dynamics as Digital Biomarkers for Depression Detection",
+  "authors": [
+    "Himadri S Samanta"
+  ],
+  "author_string": "Himadri S Samanta",
+  "journal": "arXiv:2604.26998v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Automated depression detection often relies on static aggregation of conversational signals, potentially obscuring clinically meaningful behavioral dynamics. We investigated whether entropy-driven temporal biomarkers improve depression detection beyond standard pooled features using the DAIC-WOZ corpus. Using 142 labeled participants, we reconstructed utterance-level acoustic trajectories and compared pooled temporal baselines, trajectory dynamics, Shannon entropy biomarkers, recurrence quantification, sample entropy, fractal complexity, and coupling biomarkers under leakage-aware validation. Static pooling achieved an AUC of 0.593, trajectory dynamics improved performance to 0.637, and entropy biomarkers produced the strongest statistically significant improvement over pooled baselines (AUC 0.646; nested cross-validated AUC 0.615; permutation p = 0.017). Entropy biomarkers outperformed recurrence, coupling, sample entropy, and fractalbased features, with several biomarkers stable across folds. These findings suggest depression-related signal may lie less in average acoustic levels than in entropy of conversational dynamics, supporting temporally informed digital phenotypes for mental-health assessment.",
+  "categories": [
+    "q-bio.OT",
+    "cs.AI",
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": "16 pages",
+  "published_date": "2026-04-29T02:42:45Z",
+  "updated_date": "2026-04-29T02:42:45Z",
+  "url": "https://arxiv.org/abs/2604.26998v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.26998v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-06T10:15:36.874076",
+  "category": "computer_science",
+  "subcategories": [
+    "q-bio.OT",
+    "cs.AI",
+    "cs.LG"
+  ]
+}

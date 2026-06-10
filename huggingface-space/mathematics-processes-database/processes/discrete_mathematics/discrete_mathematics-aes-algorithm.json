@@ -1,0 +1,60 @@
+{
+  "id": "discrete_mathematics-aes-algorithm",
+  "name": "AES Algorithm",
+  "category": "mathematics",
+  "subcategory": "discrete_mathematics",
+  "subcategory_name": "Discrete Mathematics",
+  "description": "Symmetric block cipher. 128-bit blocks, 128/192/256-bit keys. Rounds: SubBytes, ShiftRows, MixColumns, AddRoundKey.",
+  "mermaid": "graph TD\n    A1[\"128-bit plaintext block\\n128/192/256-bit key\"]\n    B1[\"Key expansion\\nGenerate round keys\"]\n    C1[\"AddRoundKey state xor round key\"]\n    D1{\"More rounds?\"}\n    C2[\"SubBytes S-box\\nShiftRows\\nMixColumns\\nAddRoundKey\"]\n    C3[\"SubBytes ShiftRows AddRoundKey\\nfinal round no MixColumns\"]\n    F1[\"Return ciphertext block\"]\n    A1 --> B1\n    B1 --> C1\n    C1 --> D1\n    D1 -->|Yes| C2\n    D1 -->|No| C3\n    C2 --> D1\n    C3 --> F1\n    classDef red fill:#ff6b6b,color:#fff,stroke:#c0392b\n    classDef yellow fill:#ffd43b,color:#000,stroke:#f59f00\n    classDef green fill:#51cf66,color:#fff,stroke:#40c057\n    classDef lightblue fill:#74c0fc,color:#fff,stroke:#4dabf7\n    classDef violet fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef lavender fill:#e6e6fa,color:#333,stroke:#b19cd9\n    class A1 red\n    class B1 yellow\n    class C1,C2,C3 green\n    class F1 violet\n    class D1 lavender",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [
+    "AES",
+    "Rijndael",
+    "symmetric encryption",
+    "block cipher",
+    "NIST FIPS 197"
+  ],
+  "sources": [
+    {
+      "title": "NIST FIPS 197",
+      "url": "https://csrc.nist.gov/publications/detail/fips/197/final"
+    },
+    {
+      "title": "Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Advanced_Encryption_Standard"
+    }
+  ],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "complexity": {
+    "level": "high",
+    "nodes": 8,
+    "edges": 8,
+    "conditionals": 1
+  },
+  "processType": "algorithm"
+}

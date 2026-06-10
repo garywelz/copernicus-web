@@ -1,0 +1,39 @@
+{
+  "id": "numerical_analysis-ode-solvers",
+  "name": "ODE Numerical Methods — Mathematics Process",
+  "category": "mathematics",
+  "subcategory": "numerical_analysis",
+  "subcategory_name": "Numerical Analysis",
+  "description": "y'=f(t,y). Euler O(h), RK4 O(h⁴). Consistency, convergence, stability (A-stability). Stiff equations.",
+  "mermaid": "graph TD\n    D1[\"Def: One-step method\\nyₙ₊₁ = Φ(tₙ,yₙ,h)\"]\n    D2[\"Def: Order of accuracy\\nlocal truncation O(hᵖ⁺¹)\"]\n    D3[\"Def: A-stable\\nReλ&lt0 ⇒ |R(z)|≤1\"]\n    T1[\"Thm: Euler\\norder 1\"]\n    T2[\"Thm: RK4\\norder 4, 4 stages\"]\n    T3[\"Thm: Convergence\\nconsistency + stability\"]\n    T4[\"Thm: Dahlquist\\nA-stable impl ⇒ order ≤2\"]\n    T5[\"Thm: B-stability\\ncontractive for dissipative\"]\n    L1[\"Lemma: Butcher tableau\"]\n    D1 --> D2\n    D1 --> T1\n    D1 --> T2\n    D2 --> T3\n    D3 --> T4\n    T2 --> L1\n    T3 --> T5\n    classDef definition fill:#b197fc,color:#fff\n    classDef theorem fill:#51cf66,color:#fff\n    classDef lemma fill:#74c0fc,color:#fff\n    class D1,D2,D3 definition\n    class T1,T2,T3,T4,T5 theorem\n    class L1 lemma",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

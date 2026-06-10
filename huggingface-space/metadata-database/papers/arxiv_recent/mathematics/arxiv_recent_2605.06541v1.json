@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2605.06541v1",
+  "arxiv_id": "2605.06541v1",
+  "title": "Hedging Memory Horizons for Non-Stationary Prediction via Online Aggregation",
+  "authors": [
+    "Yutong Wang",
+    "Yannig Goude",
+    "Qiwei Yao"
+  ],
+  "author_string": "Yutong Wang, Yannig Goude, Qiwei Yao",
+  "journal": "arXiv:2605.06541v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We study online prediction under distribution shift, where inputs arrive chronologically and outcomes are revealed only after prediction. In this setting, predictors must remain stable in quiet regimes yet adapt when regimes shift, and the right adaptation memory is unknown in advance. We propose MELO (Memory-hedged Exponentially Weighted Least-Squares Online aggregation), a model-agnostic method that hedges across adaptation scales: it wraps any non-anticipating base-predictor pool with exponentially weighted least-squares (EWLS) adaptation experts at multiple forgetting factors, and aggregates raw and EWLS-adapted forecasts with MLpol, a parameter-free online aggregation rule. Under boundedness conditions, we establish deterministic oracle inequalities showing that it competes with both the best raw predictor and the best bounded, time-varying affine combinations of the base predictions, up to a path-length-dependent tracking cost and a sublinear aggregation overhead. We evaluate MELO on French national electricity-load forecasting through the COVID-19 lockdown using no regime indicators, lockdown dates, or policy covariates. MELO reduces overall RMSE by 34.7\\% relative to base-only MLpol and achieves lower overall RMSE than a TabICL reference supplied with an external COVID policy-response covariate. Moreover, MELO requires only lightweight per-step recursive updates without model retraining.",
+  "categories": [
+    "cs.LG",
+    "stat.ML"
+  ],
+  "primary_category": "stat.ML",
+  "comment": "Preprint",
+  "published_date": "2026-05-07T16:38:21Z",
+  "updated_date": "2026-05-07T16:38:21Z",
+  "url": "https://arxiv.org/abs/2605.06541v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.06541v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-09T22:15:44.050079",
+  "category": "mathematics",
+  "subcategories": [
+    "cs.LG",
+    "stat.ML"
+  ]
+}

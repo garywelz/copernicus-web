@@ -1,0 +1,29 @@
+{
+  "id": "arxiv_2605.10318v1",
+  "arxiv_id": "2605.10318v1",
+  "title": "Extending Confidence-Based Text2Cypher with Grammar and Schema Aware Filtering",
+  "authors": [
+    "Makbule Gulcin Ozsoy"
+  ],
+  "author_string": "Makbule Gulcin Ozsoy",
+  "journal": "arXiv:2605.10318v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Large language models (LLMs) allow users to query databases using natural language by translating questions into executable queries. Despite strong progress on tasks such as Text2SQL, Text2SPARQL, and Text2Cypher, most existing methods focus on better prompting, fine-tuning, or iterative refinement. However, they often do not explicitly enforce structural constraints, such as syntactic validity and schema consistency. This can reduce reliability, since generated queries must satisfy both syntax rules and database schema constraints to be executable. In this work, we study how structured constraints can be used in test-time inference for Text2Cypher. We focus on post-generation validation to improve query correctness. We extend a confidence-based inference framework with a sequential filtering process that combines confidence scoring, grammar validation, and schema constraints before final aggregation. This lets us analyze how different constraint types affect generated queries. Our experiments with two instruction-tuned models show that grammar-based filtering improves syntactic validity. Schema-aware filtering further improves execution quality by enforcing consistency with the database structure. However, stronger filtering also increases the number of empty predictions and reduces execution coverage. Overall, we show that adding simple structural checks at test time improves the reliability of Text2Cypher generation, and we provide a clearer view of how syntax and schema constraints contribute differently.",
+  "categories": [
+    "cs.CL"
+  ],
+  "primary_category": "cs.CL",
+  "comment": null,
+  "published_date": "2026-05-11T10:18:13Z",
+  "updated_date": "2026-05-11T10:18:13Z",
+  "url": "https://arxiv.org/abs/2605.10318v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.10318v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-11T22:15:37.966024",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CL"
+  ]
+}

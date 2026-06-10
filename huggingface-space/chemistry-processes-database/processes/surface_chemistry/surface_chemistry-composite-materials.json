@@ -1,21 +1,23 @@
 {
   "id": "surface_chemistry-composite-materials",
-  "name": "Composite Materials",
+  "name": "Physisorption vs Chemisorption",
   "category": "chemistry",
   "subcategory": "surface_chemistry",
   "subcategory_name": "Surface Chemistry",
-  "description": "Composite Materials process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "Adsorption on a surface is classified by the interaction: weak van der Waals attraction gives reversible physisorption, while electron sharing gives chemisorption with a chemical bond, which may be activated (with a barrier) or non-activated.",
   "complexity": {
-    "nodes": 26,
-    "edges": 22,
-    "conditionals": 0,
+    "nodes": 10,
+    "edges": 11,
+    "conditionals": 2,
     "logicGates": {
-      "orGates": 0,
-      "andGates": 1,
-      "total": 1
+      "orGates": 2,
+      "andGates": 2,
+      "notGates": 0,
+      "total": 4
     },
-    "level": "medium",
-    "detailLevel": "medium"
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 0
   },
   "colorScheme": {
     "red": {
@@ -39,53 +41,151 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nA5[Matrix Material] --> B5[Composite Materials Method]\nC5[Reinforcement Material] --> D5[Interface Analysis]\nE5[Processing Conditions] --> F5[Composite Formation]\nB5 --> G5[Matrix Preparation]\nD5 --> H5[Interface Characterization]\nF5 --> I5[Processing Optimization]\nG5 --> J5[Matrix Properties]\nH5 --> K5[Interface Properties]\nI5 --> L5[Processing Parameters]\nJ5 --> M5[Matrix Formation]\nK5 --> L5\nL5 --> N5[Reinforcement Integration]\nM5 --> O5[Composite Assembly]\nN5 --> P5[Interface Bonding]\nO5 --> Q5[Composite Analysis]\nP5 --> R5[Reinforcement Effects]\nQ5 --> S5[Property Analysis]\nR5 --> T5[Composite Properties]\nS5 --> U5[Interface Parameters]\nT5 --> V5[Property Enhancement]\nU5 --> W5[Composite Efficiency]\nV5 --> X5[Composite Characterization]\nW5 --> Y5[Process Optimization]\nX5 --> Z5[Final Composite Material]\nY5 --> Z5\n\n    style A5 fill:#ff6b6b,color:#fff\n    style C5 fill:#ff6b6b,color:#fff\n    style E5 fill:#ff6b6b,color:#fff\n    style B5 fill:#ffd43b,color:#000\n    style D5 fill:#ffd43b,color:#000\n    style F5 fill:#ffd43b,color:#000\n    style G5 fill:#ffd43b,color:#000\n    style H5 fill:#ffd43b,color:#000\n    style I5 fill:#ffd43b,color:#000\n    style J5 fill:#ffd43b,color:#000\n    style K5 fill:#ffd43b,color:#000\n    style L5 fill:#ffd43b,color:#000\n    style M5 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style O5 fill:#51cf66,color:#fff\n    style P5 fill:#51cf66,color:#fff\n    style Q5 fill:#51cf66,color:#fff\n    style R5 fill:#51cf66,color:#fff\n    style S5 fill:#51cf66,color:#fff\n    style T5 fill:#51cf66,color:#fff\n    style U5 fill:#51cf66,color:#fff\n    style V5 fill:#51cf66,color:#fff\n    style W5 fill:#51cf66,color:#fff\n    style X5 fill:#51cf66,color:#fff\n    style Y5 fill:#51cf66,color:#fff\n    style Z5 fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"Adsorbate approaches\"]\n    N2{\"Interaction strength?\"}\n    N3[\"Weak van der Waals\"]\n    N4[\"Physisorption (reversible)\"]\n    N5[\"Strong: electron sharing\"]\n    N6{\"Activation barrier?\"}\n    N7[\"Activated chemisorption\"]\n    N8[\"Non-activated\"]\n    N9[\"Chemical bond to surface\"]\n    N10[\"Adsorbed state classified\"]\n\n    N1 --> N2\n    N2 -->|weak| N3\n    N3 --> N4\n    N4 --> N10\n    N2 -->|strong| N5\n    N5 --> N6\n    N6 -->|yes| N7\n    N6 -->|no| N8\n    N7 --> N9\n    N8 --> N9\n    N9 --> N10\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#74c0fc,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#74c0fc,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#74c0fc,color:#fff\n    style N10 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "title": "Introduction to Surface Chemistry and Catalysis, 2nd ed. — Adsorption",
+      "authors": "Somorjai, G. A.; Li, Y.",
+      "journal": "Wiley",
+      "year": "2010",
       "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: Composite Materials. Created using the Programming Framework methodology."
+      "url": "https://www.wiley.com/en-us/Introduction+to+Surface+Chemistry+and+Catalysis%2C+2nd+Edition-p-9780470508237"
     },
     {
-      "title": "Composite Materials Series",
-      "authors": "",
-      "journal": "Composite Materials Series",
-      "year": "1991",
-      "pubmed": null,
-      "doi": "10.1016/b978-0-444-70507-5.50001-9",
-      "url": "https://doi.org/10.1016/b978-0-444-70507-5.50001-9"
+      "title": "Reactions at solid surfaces: from atoms to complexity (Nobel Lecture)",
+      "authors": "Ertl, G.",
+      "journal": "Angewandte Chemie International Edition",
+      "year": "2008",
+      "doi": "10.1002/anie.200800480",
+      "url": "https://doi.org/10.1002/anie.200800480"
     },
     {
-      "title": "Composite Materials Series",
-      "authors": "",
-      "journal": "Composite Materials Series",
-      "year": "1989",
-      "pubmed": null,
-      "doi": "10.1016/b978-0-444-87285-2.50001-7",
-      "url": "https://doi.org/10.1016/b978-0-444-87285-2.50001-7"
-    },
-    {
-      "title": "Composite Functional Materials",
-      "authors": "",
-      "journal": "",
-      "year": "None",
-      "pubmed": null,
-      "doi": "10.63823/cfm",
-      "url": "https://doi.org/10.63823/cfm"
+      "title": "Gold Book: chemisorption",
+      "authors": "IUPAC",
+      "journal": "IUPAC Compendium of Chemical Terminology",
+      "year": "2019",
+      "doi": "10.1351/goldbook.C01048",
+      "url": "https://goldbook.iupac.org/terms/view/C01048"
     }
   ],
   "keywords": [
-    "composite",
-    "materials"
+    "physisorption",
+    "chemisorption",
+    "van der waals",
+    "activation barrier",
+    "adsorption energy"
   ],
   "relatedProcesses": [],
   "created": "2026-01-08",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Adsorbate approaches",
+      "detail": "Molecule nears the surface",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N2",
+      "label": "Interaction strength?",
+      "detail": "Energy scale of binding",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 2
+    },
+    {
+      "id": "N3",
+      "label": "Weak van der Waals",
+      "detail": "~10–40 kJ/mol",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N4",
+      "label": "Physisorption (reversible)",
+      "detail": "No bond formed",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N5",
+      "label": "Strong: electron sharing",
+      "detail": "Chemical interaction",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N6",
+      "label": "Activation barrier?",
+      "detail": "Energy needed to bond",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N7",
+      "label": "Activated chemisorption",
+      "detail": "Crosses a barrier",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N8",
+      "label": "Non-activated",
+      "detail": "Barrierless bonding",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N9",
+      "label": "Chemical bond to surface",
+      "detail": "Strong adsorbate–surface bond",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N10",
+      "label": "Adsorbed state classified",
+      "detail": "Physi- vs chemisorbed",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 2
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:surface_chemistry-composite-materials",
+    "graphType": "decision_flowchart",
+    "topologySignature": "fcc3252e903294c1",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "namedCollections": [
+    "surface-chemistry"
+  ],
+  "graphMetrics": {
+    "nodes": 10,
+    "edges": 11,
+    "conditionals": 2,
+    "andGates": 2,
+    "orGates": 2,
+    "notGates": 0,
+    "loops": 0
+  },
+  "graphType": "decision_flowchart",
+  "domainContext": "Adsorption thermodynamics"
 }

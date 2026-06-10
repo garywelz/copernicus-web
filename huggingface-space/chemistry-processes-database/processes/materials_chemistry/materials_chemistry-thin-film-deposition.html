@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thin Film Deposition - Chemistry Process</title>
+    <title>Thin-Film Deposition by CVD - Chemistry Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Thin Film Deposition</h1>
+            <h1>Thin-Film Deposition by CVD</h1>
             <div class="header-meta">
                 <span class="meta-item">Chemistry</span>
                 <span class="meta-item">Materials Chemistry</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,46 +234,56 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Thin Film Deposition process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>Chemical vapor deposition grows a solid thin film from gaseous precursors: reactant gases are transported to a heated substrate where they adsorb, react or decompose, nucleate, and grow into a conformal film while volatile byproducts desorb, with deposition rate and uniformity controlled by temperature, pressure, and flow.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-N1["Substrate"]
-N2["Precursor/Target"]
-N3["Deposition Tool (CVD/PVD)"]
-N4["Choose Path"]
-N5["Deposition Parameters"]
-N6["Film Growth"]
-N7["Anneal/Pattern (optional)"]
-N8["Thin Film"]
-N9["Integrate"]
+    N1["Substrate in reactor"]
+    N2["Introduce precursor gases"]
+    N3["Transport to hot surface"]
+    N4["Adsorb on substrate"]
+    N5["Surface reaction / decompose"]
+    N6["Nucleation + film growth"]
+    N7["Byproducts desorb"]
+    N8{"Uniform + conformal?"}
+    N9["Tune T / pressure / flow"]
+    N10["Deposited thin film"]
 
-N1 --> N2
-N2 --> N3
-N3 --> N4
-N4 --> N5
-N4 --> N7
-N5 --> N6
-N7 --> N8
-N6 --> N9
-N8 --> N9
-N9 --> N6
+    N1 --> N2
+    N2 --> N3
+    N3 --> N4
+    N4 --> N5
+    N5 --> N6
+    N6 --> N7
+    N7 --> N8
+    N8 -->|no| N9
+    N9 -->|adjust| N2
+    N8 -->|yes| N10
 
     style N1 fill:#ff6b6b,color:#fff
-    style N2 fill:#ff6b6b,color:#fff
-    style N3 fill:#ffd43b,color:#000
-    style N4 fill:#ffd43b,color:#000
-    style N5 fill:#ffd43b,color:#000
+    style N2 fill:#51cf66,color:#fff
+    style N3 fill:#51cf66,color:#fff
+    style N4 fill:#51cf66,color:#fff
+    style N5 fill:#51cf66,color:#fff
     style N6 fill:#51cf66,color:#fff
-    style N7 fill:#51cf66,color:#fff
-    style N8 fill:#b197fc,color:#fff
-    style N9 fill:#74c0fc,color:#fff
+    style N7 fill:#74c0fc,color:#fff
+    style N8 fill:#74c0fc,color:#fff
+    style N9 fill:#51cf66,color:#fff
+    style N10 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Substrate in reactor</td><td>Triggers & Inputs</td><td><a href="https://doi.org/10.1016/B978-081551432-9.50000-2" target="_blank" title="Handbook of Chemical Vapor Deposition (2nd ed.)" style="color:#e74c3c;">Pierson, H. O. 1999</a></td></tr><tr><td style="font-weight:600;">Introduce precursor gases</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1016/S0079-6425(01)00009-3" target="_blank" title="Chemical vapour deposition of thin films and coatings" style="color:#e74c3c;">Choy, K. L. 2003</a></td></tr><tr><td style="font-weight:600;">Transport to hot surface</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1016/S0079-6425(01)00009-3" target="_blank" title="Chemical vapour deposition of thin films and coatings" style="color:#e74c3c;">Choy, K. L. 2003</a></td></tr><tr><td style="font-weight:600;">Adsorb on substrate</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1016/S0079-6425(01)00009-3" target="_blank" title="Chemical vapour deposition of thin films and coatings" style="color:#e74c3c;">Choy, K. L. 2003</a></td></tr><tr><td style="font-weight:600;">Surface reaction / decompose</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1016/B978-081551432-9.50000-2" target="_blank" title="Handbook of Chemical Vapor Deposition (2nd ed.)" style="color:#e74c3c;">Pierson, H. O. 1999</a></td></tr><tr><td style="font-weight:600;">Nucleation + film growth</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1016/S0079-6425(01)00009-3" target="_blank" title="Chemical vapour deposition of thin films and coatings" style="color:#e74c3c;">Choy, K. L. 2003</a></td></tr><tr><td style="font-weight:600;">Byproducts desorb</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1016/B978-081551432-9.50000-2" target="_blank" title="Handbook of Chemical Vapor Deposition (2nd ed.)" style="color:#e74c3c;">Pierson, H. O. 1999</a></td></tr><tr><td style="font-weight:600;">Uniform + conformal?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1016/S0079-6425(01)00009-3" target="_blank" title="Chemical vapour deposition of thin films and coatings" style="color:#e74c3c;">Choy, K. L. 2003</a></td></tr><tr><td style="font-weight:600;">Tune T / pressure / flow</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1016/S0079-6425(01)00009-3" target="_blank" title="Chemical vapour deposition of thin films and coatings" style="color:#e74c3c;">Choy, K. L. 2003</a></td></tr><tr><td style="font-weight:600;">Deposited thin film</td><td>Products & Outputs</td><td><a href="https://doi.org/10.1016/B978-081551432-9.50000-2" target="_blank" title="Handbook of Chemical Vapor Deposition (2nd ed.)" style="color:#e74c3c;">Pierson, H. O. 1999</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -292,12 +329,12 @@ N9 --> N6
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 9</li>
+                        <li><strong>Nodes:</strong> 10</li>
                         <li><strong>Edges:</strong> 10</li>
-                        <li><strong>Conditionals:</strong> 0</li>
-                        <li><strong>AND Gates:</strong> 2</li>
+                        <li><strong>Conditionals:</strong> 1</li>
+                        <li><strong>AND Gates:</strong> 1</li>
                         <li><strong>OR Gates:</strong> 1</li>
-                        <li><strong>Total Gates:</strong> 3</li>
+                        <li><strong>Total Gates:</strong> 2</li>
                     </ul>
                 </div>
                 
@@ -305,7 +342,7 @@ N9 --> N6
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>thin</li><li>film</li><li>deposition</li>
+                        <li>chemical vapor deposition</li><li>thin film</li><li>precursor</li><li>surface reaction</li><li>conformal growth</li>
                     </ul>
                 </div>
                 
@@ -316,42 +353,22 @@ N9 --> N6
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Chemical vapour deposition of thin films and coatings</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Choy, K. L.
+                            , Progress in Materials Science
+                             (2003)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Current Research in Thin Film Deposition</strong>
-                            
-                            
-                             (2021)
-                            </span>
-                            <br><a href="https://doi.org/10.3390/books978-3-0365-0513-8" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.3390/books978-3-0365-0513-8</a>
+                            <br><a href="https://doi.org/10.1016/S0079-6425(01)00009-3" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1016/S0079-6425(01)00009-3</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Thin-film deposition</strong>
-                            
-                            , Electronic Thin-Film Reliability
-                             (2010)
+                            <strong>Handbook of Chemical Vapor Deposition (2nd ed.)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Pierson, H. O.
+                            , Noyes / William Andrew
+                             (1999)
                             </span>
-                            <br><a href="https://doi.org/10.1017/cbo9780511777691.003" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1017/cbo9780511777691.003</a>
-                            
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Role of Thin Film in Deposition Techniques</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Awan, Tahir Iqbal; Afsheen, Sumera; Kausar, Sabah
-                            , Thin Film Deposition Techniques
-                             (2025)
-                            </span>
-                            <br><a href="https://doi.org/10.1007/978-981-96-1364-9_8" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1007/978-981-96-1364-9_8</a>
+                            <br><a href="https://doi.org/10.1016/B978-081551432-9.50000-2" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1016/B978-081551432-9.50000-2</a>
                             
                         </li>
                         

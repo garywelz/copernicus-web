@@ -1,0 +1,42 @@
+{
+  "discipline": "physics",
+  "databaseDir": "physics-processes-database",
+  "generatedAt": "2026-04-30T16:11:48.986341+00:00",
+  "processCount": 22,
+  "findingCount": 4,
+  "findingCounts": {
+    "physics_domain_drift": 3,
+    "supplemental_json": 1
+  },
+  "duplicateMermaidGroups": [],
+  "findingsByProcess": {
+    "solid_state-nuclear-decay": [
+      {
+        "severity": "medium",
+        "code": "physics_domain_drift",
+        "message": "Nuclear topic appears under solid_state."
+      }
+    ],
+    "solid_state-nuclear-fission": [
+      {
+        "severity": "medium",
+        "code": "physics_domain_drift",
+        "message": "Nuclear topic appears under solid_state."
+      }
+    ],
+    "solid_state-nuclear-fusion": [
+      {
+        "severity": "medium",
+        "code": "physics_domain_drift",
+        "message": "Nuclear topic appears under solid_state."
+      }
+    ],
+    "state-transition-matter-phases": [
+      {
+        "severity": "info",
+        "code": "supplemental_json",
+        "message": "Process comes from JSON outside metadata.json."
+      }
+    ]
+  }
+}

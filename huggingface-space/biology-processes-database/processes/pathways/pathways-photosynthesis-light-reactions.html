@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photosynthesis Light Reactions - Biology Process</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #27ae60 0%, #27ae60dd 100%);
+            color: white;
+            padding: 30px;
+        }
+        
+        .header h1 {
+            margin: 0 0 10px 0;
+            font-size: 2em;
+            font-weight: 300;
+        }
+        
+        .header-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 15px;
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+        
+        .meta-item {
+            background: rgba(255,255,255,0.2);
+            padding: 5px 12px;
+            border-radius: 20px;
+        }
+        
+        .nav-links {
+            padding: 15px 30px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #ecf0f1;
+        }
+        
+        .nav-links a {
+            color: #27ae60;
+            text-decoration: none;
+            margin-right: 20px;
+            font-weight: 500;
+        }
+        
+        .nav-links a:hover {
+            text-decoration: underline;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .description {
+            margin-bottom: 30px;
+        }
+        
+        .description h2 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        .flowchart-container {
+            margin: 30px 0;
+        }
+        
+        .flowchart-container h2 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        .mermaid {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #ecf0f1;
+            overflow-x: auto;
+        }
+        
+        .color-legend {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 30px 0;
+        }
+        
+        .color-legend h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        
+        .color-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            background: white;
+            border-radius: 5px;
+        }
+        
+        .color-box {
+            width: 30px;
+            height: 30px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+        
+        .info-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .info-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        
+        .info-card h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        .info-card ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .info-card li {
+            padding: 8px 0;
+            border-bottom: 1px solid #ecf0f1;
+        }
+        
+        .info-card li:last-child {
+            border-bottom: none;
+        }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Photosynthesis Light Reactions</h1>
+            <div class="header-meta">
+                <span class="meta-item">Biology</span>
+                <span class="meta-item">Pathways</span>
+                <span class="meta-item">Complexity: high</span>
+            </div>
+        </div>
+        
+        <div class="nav-links">
+            <a id="back-link" href="#">← Back to Biology Database</a>
+            <a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank">Programming Framework</a>
+        </div>
+        <script>
+            // Dynamically set back link based on current location
+            (function() {
+                const hostname = window.location.hostname;
+                const pathname = window.location.pathname;
+                const backLink = document.getElementById('back-link');
+                
+                if (hostname.includes('storage.googleapis.com')) {
+                    // GCS hosted
+                    backLink.href = 'https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/biology-processes-database/biology-database-table.html';
+                } else if (hostname.includes('huggingface.co') || pathname.includes('huggingface')) {
+                    // Hugging Face hosted
+                    backLink.href = '../biology-database-table.html';
+                } else {
+                    // Local or relative
+                    backLink.href = '../biology-database-table.html';
+                }
+            })();
+        </script>
+        
+        <div class="content">
+            <div class="description">
+                <h2>Description</h2>
+                <p>Light reactions: photons excite Photosystem II, water is split to replace electrons and release O2, electrons travel the Z-scheme through cytochrome b6f and Photosystem I to make NADPH, and the proton gradient drives ATP synthesis.</p>
+            </div>
+            
+            <div class="flowchart-container">
+                <h2>Process Flowchart</h2>
+                <div class="mermaid">
+graph TD
+    N1["Photon absorbed"]
+    N2["PSII excites P680"]
+    N3["Water split: O2 + H+"]
+    N4["Electrons -> plastoquinone"]
+    N5["Cytochrome b6f pumps H+"]
+    N6["Plastocyanin -> PSI (P700)"]
+    N7["Photon re-excites PSI"]
+    N8["Ferredoxin -> NADPH"]
+    N9["ATP synthase makes ATP"]
+    N10["ATP + NADPH for Calvin"]
+
+    N1 --> N2
+    N2 --> N3
+    N3 -->|replace e-| N2
+    N2 --> N4
+    N4 --> N5
+    N5 --> N6
+    N6 --> N7
+    N7 --> N8
+    N5 --> N9
+    N9 --> N10
+    N8 --> N10
+
+    style N1 fill:#ff6b6b,color:#fff
+    style N2 fill:#51cf66,color:#fff
+    style N3 fill:#51cf66,color:#fff
+    style N4 fill:#51cf66,color:#fff
+    style N5 fill:#51cf66,color:#fff
+    style N6 fill:#51cf66,color:#fff
+    style N7 fill:#51cf66,color:#fff
+    style N8 fill:#51cf66,color:#fff
+    style N9 fill:#51cf66,color:#fff
+    style N10 fill:#b197fc,color:#fff
+                </div>
+            </div>
+            
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Photon absorbed</td><td>Triggers & Inputs</td><td><a href="https://www.ncbi.nlm.nih.gov/books/NBK22538/" target="_blank" title="Biochemistry, 5th ed. — The Light Reactions of Photosynthesis" style="color:#27ae60;">Berg, J. M. et al. 2002</a></td></tr><tr><td style="font-weight:600;">PSII excites P680</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1146/annurev.arplant.57.032905.105350" target="_blank" title="Structure and function of photosystems I and II" style="color:#27ae60;">Nelson, N. et al. 2006</a></td></tr><tr><td style="font-weight:600;">Water split: O2 + H+</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1039/b802262n" target="_blank" title="Photosynthetic energy conversion: natural and artificial" style="color:#27ae60;">Barber, J. 2009</a></td></tr><tr><td style="font-weight:600;">Electrons -> plastoquinone</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1146/annurev.arplant.57.032905.105350" target="_blank" title="Structure and function of photosystems I and II" style="color:#27ae60;">Nelson, N. et al. 2006</a></td></tr><tr><td style="font-weight:600;">Cytochrome b6f pumps H+</td><td>Processing & Operations</td><td><a href="https://www.ncbi.nlm.nih.gov/books/NBK22538/" target="_blank" title="Biochemistry, 5th ed. — The Light Reactions of Photosynthesis" style="color:#27ae60;">Berg, J. M. et al. 2002</a></td></tr><tr><td style="font-weight:600;">Plastocyanin -> PSI (P700)</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1146/annurev.arplant.57.032905.105350" target="_blank" title="Structure and function of photosystems I and II" style="color:#27ae60;">Nelson, N. et al. 2006</a></td></tr><tr><td style="font-weight:600;">Photon re-excites PSI</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1146/annurev.arplant.57.032905.105350" target="_blank" title="Structure and function of photosystems I and II" style="color:#27ae60;">Nelson, N. et al. 2006</a></td></tr><tr><td style="font-weight:600;">Ferredoxin -> NADPH</td><td>Processing & Operations</td><td><a href="https://www.ncbi.nlm.nih.gov/books/NBK22538/" target="_blank" title="Biochemistry, 5th ed. — The Light Reactions of Photosynthesis" style="color:#27ae60;">Berg, J. M. et al. 2002</a></td></tr><tr><td style="font-weight:600;">ATP synthase makes ATP</td><td>Processing & Operations</td><td><a href="https://www.ncbi.nlm.nih.gov/books/NBK22538/" target="_blank" title="Biochemistry, 5th ed. — The Light Reactions of Photosynthesis" style="color:#27ae60;">Berg, J. M. et al. 2002</a></td></tr><tr><td style="font-weight:600;">ATP + NADPH for Calvin</td><td>Products & Outputs</td><td><a href="https://www.ncbi.nlm.nih.gov/books/NBK22538/" target="_blank" title="Biochemistry, 5th ed. — The Light Reactions of Photosynthesis" style="color:#27ae60;">Berg, J. M. et al. 2002</a></td></tr></tbody>
+                </table>
+            </div>
+            <div class="color-legend">
+                <h3>🎨 Color Scheme (5-Color System)</h3>
+                <div class="color-grid">
+                    <div class="color-item">
+                        <div class="color-box" style="background: #ff6b6b;"></div>
+                        <div>
+                            <strong>Red</strong><br>
+                            <small>Triggers & Inputs</small>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-box" style="background: #ffd43b;"></div>
+                        <div>
+                            <strong>Yellow</strong><br>
+                            <small>Structures & Objects</small>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-box" style="background: #51cf66;"></div>
+                        <div>
+                            <strong>Green</strong><br>
+                            <small>Processing & Operations</small>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-box" style="background: #74c0fc;"></div>
+                        <div>
+                            <strong>Blue</strong><br>
+                            <small>Intermediates & States</small>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-box" style="background: #b197fc;"></div>
+                        <div>
+                            <strong>Violet</strong><br>
+                            <small>Products & Outputs</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="info-section">
+                <div class="info-card">
+                    <h3>Process Statistics</h3>
+                    <ul>
+                        <li><strong>Nodes:</strong> 10</li>
+                        <li><strong>Edges:</strong> 11</li>
+                        <li><strong>Conditionals:</strong> 0</li>
+                        <li><strong>AND Gates:</strong> 2</li>
+                        <li><strong>OR Gates:</strong> 2</li>
+                        <li><strong>Total Gates:</strong> 4</li>
+                    </ul>
+                </div>
+                
+                
+                <div class="info-card">
+                    <h3>Keywords</h3>
+                    <ul>
+                        <li>light reactions</li><li>photosystem</li><li>z-scheme</li><li>water splitting</li><li>nadph</li>
+                    </ul>
+                </div>
+                
+                
+                <div class="info-card">
+                    <h3>Sources & References</h3>
+                    
+                    <ul style="list-style: none; padding: 0;">
+                        
+                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
+                            <strong>Biochemistry, 5th ed. — The Light Reactions of Photosynthesis</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Berg, J. M.; Tymoczko, J. L.; Stryer, L.
+                            , W. H. Freeman (NCBI Bookshelf, Chapter 19)
+                             (2002)
+                            </span>
+                            
+                            <br><a href="https://www.ncbi.nlm.nih.gov/books/NBK22538/" target="_blank" style="color: #27ae60; font-size: 0.85em;">View Source</a>
+                        </li>
+                        
+                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
+                            <strong>Structure and function of photosystems I and II</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Nelson, N.; Yocum, C. F.
+                            , Annual Review of Plant Biology
+                             (2006)
+                            </span>
+                            <br><a href="https://doi.org/10.1146/annurev.arplant.57.032905.105350" target="_blank" style="color: #27ae60; font-size: 0.85em;">DOI: 10.1146/annurev.arplant.57.032905.105350</a>
+                            
+                        </li>
+                        
+                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
+                            <strong>Photosynthetic energy conversion: natural and artificial</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Barber, J.
+                            , Chemical Society Reviews
+                             (2009)
+                            </span>
+                            <br><a href="https://doi.org/10.1039/b802262n" target="_blank" style="color: #27ae60; font-size: 0.85em;">DOI: 10.1039/b802262n</a>
+                            
+                        </li>
+                        
+                    </ul>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            flowchart: {
+                useMaxWidth: false,
+                htmlLabels: true,
+                curve: 'linear',
+                nodeSpacing: 30,
+                rankSpacing: 30,
+                padding: 10
+            },
+            themeVariables: {
+                fontFamily: 'Arial Unicode MS, Arial, sans-serif'
+            }
+        });
+    </script>
+</body>
+</html>

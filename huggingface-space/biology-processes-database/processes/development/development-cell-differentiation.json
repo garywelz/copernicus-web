@@ -1,0 +1,192 @@
+{
+  "id": "development-cell-differentiation",
+  "name": "Cell Differentiation",
+  "category": "biology",
+  "subcategory": "development",
+  "subcategory_name": "Development and Organismal Biology",
+  "description": "Cell differentiation: niche signals drive a master transcription-factor network that resolves a bistable lineage decision, with chromatin remodeling and cross-antagonism locking in a stable differentiated state.",
+  "keywords": [
+    "differentiation",
+    "transcription factor",
+    "lineage",
+    "bistability",
+    "chromatin"
+  ],
+  "namedCollections": [
+    "signaling-cell-fate"
+  ],
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "complexity": {
+    "nodes": 10,
+    "edges": 11,
+    "conditionals": 1,
+    "logicGates": {
+      "orGates": 2,
+      "andGates": 3,
+      "notGates": 0,
+      "total": 5
+    },
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 1
+  },
+  "graphMetrics": {
+    "nodes": 10,
+    "edges": 11,
+    "conditionals": 1,
+    "andGates": 3,
+    "orGates": 2,
+    "notGates": 0,
+    "loops": 1
+  },
+  "mermaid": "graph TD\n    N1[\"Stem/progenitor cell\"]\n    N2[\"Niche / inductive signal\"]\n    N3[\"Signal transduction to TFs\"]\n    N4[\"Master TF network activated\"]\n    N5{\"Lineage decision point\"}\n    N6[\"Lineage A program\"]\n    N7[\"Lineage B program\"]\n    N8[\"Chromatin remodeling locks fate\"]\n    N9[\"Cross-antagonism stabilizes\"]\n    N10[\"Differentiated cell type\"]\n\n    N1 --> N3\n    N2 --> N3\n    N3 --> N4\n    N4 --> N5\n    N5 -->|lineage A| N6\n    N5 -->|lineage B| N7\n    N6 --> N8\n    N7 --> N8\n    N8 --> N9\n    N9 --> N10\n    N9 -->|reinforce| N5\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#ff6b6b,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#74c0fc,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#51cf66,color:#fff\n    style N10 fill:#b197fc,color:#fff",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Stem/progenitor cell",
+      "detail": "Multipotent starting cell",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 1
+    },
+    {
+      "id": "N2",
+      "label": "Niche / inductive signal",
+      "detail": "Extracellular cue specifying fate",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 1
+    },
+    {
+      "id": "N3",
+      "label": "Signal transduction to TFs",
+      "detail": "Pathway activation reaches transcription factors",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N4",
+      "label": "Master TF network activated",
+      "detail": "Lineage-determining transcription factors engaged",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N5",
+      "label": "Lineage decision point",
+      "detail": "Bistable choice between alternative fates",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 2
+    },
+    {
+      "id": "N6",
+      "label": "Lineage A program",
+      "detail": "Lineage-A gene expression program",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N7",
+      "label": "Lineage B program",
+      "detail": "Lineage-B gene expression program",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N8",
+      "label": "Chromatin remodeling locks fate",
+      "detail": "Epigenetic marks stabilize the chosen program",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N9",
+      "label": "Cross-antagonism stabilizes",
+      "detail": "Mutual repression reinforces the decision",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N10",
+      "label": "Differentiated cell type",
+      "detail": "Stable, specialized cell",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 1
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:development-cell-differentiation",
+    "graphType": "decision_flowchart",
+    "topologySignature": "fc5fb53a00922556",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "lastUpdated": "2026-06-01",
+  "verified": false,
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "sources": [
+    {
+      "title": "Induction of pluripotent stem cells from mouse embryonic and adult fibroblast cultures by defined factors",
+      "authors": "Takahashi, K.; Yamanaka, S.",
+      "journal": "Cell",
+      "year": "2006",
+      "pubmed": "16904174",
+      "doi": "10.1016/j.cell.2006.07.024",
+      "url": "https://doi.org/10.1016/j.cell.2006.07.024"
+    },
+    {
+      "title": "Forcing cells to change lineages",
+      "authors": "Graf, T.; Enver, T.",
+      "journal": "Nature",
+      "year": "2009",
+      "pubmed": "20010808",
+      "doi": "10.1038/nature08533",
+      "url": "https://doi.org/10.1038/nature08533"
+    },
+    {
+      "title": "Bistability, bifurcations, and Waddington's epigenetic landscape",
+      "authors": "Ferrell, J. E. Jr.",
+      "journal": "Current Biology",
+      "year": "2012",
+      "pubmed": "22575475",
+      "doi": "10.1016/j.cub.2012.03.045",
+      "url": "https://doi.org/10.1016/j.cub.2012.03.045"
+    }
+  ],
+  "graphType": "decision_flowchart",
+  "domainContext": "Developmental cell-fate control"
+}

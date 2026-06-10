@@ -1,0 +1,39 @@
+{
+  "id": "abstract_algebra-ring-theory-axioms-units",
+  "name": "Ring Theory — Axioms & Units",
+  "category": "mathematics",
+  "subcategory": "abstract_algebra",
+  "subcategory_name": "Abstract Algebra",
+  "description": "Ring: (R,+,·) with (R,+) abelian, (R,·) monoid, distributivity. Commutative ring, ring with unity. Unit (invertible), zero divisor, integral domain.",
+  "mermaid": "graph TD\n    R1[\"R1 (R,+) abelian\\ngroup\"]\n    R2[\"R2 (R,·) monoid\\nassoc, identity 1\"]\n    R3[\"R3 Distributivity\\na(b+c)=ab+ac\"]\n    D1[\"Def: Commutative\\nab=ba\"]\n    D2[\"Def: Unit\\nu invertible\"]\n    D3[\"Def: Zero divisor\\nab=0, a,b≠0\"]\n    D4[\"Def: Integral domain\\nno zero divisors\"]\n    T1[\"Thm: 0·a = a·0 = 0\"]\n    T2[\"Thm: (-a)b = -(ab)\"]\n    R1 --> T1\n    R3 --> T1\n    R1 --> T2\n    R3 --> T2\n    R1 --> D1\n    R2 --> D1\n    R2 --> D2\n    D3 --> D4\n    classDef axiom fill:#ff6b6b,color:#fff,stroke:#c0392b\n    classDef definition fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef theorem fill:#51cf66,color:#fff,stroke:#40c057\n    class R1,R2,R3 axiom\n    class D1,D2,D3,D4 definition\n    class T1,T2 theorem",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

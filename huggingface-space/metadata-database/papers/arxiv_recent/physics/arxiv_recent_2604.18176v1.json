@@ -1,0 +1,41 @@
+{
+  "id": "arxiv_2604.18176v1",
+  "arxiv_id": "2604.18176v1",
+  "title": "QuantumQA: Enhancing Scientific Reasoning via Physics-Consistent Dataset and Verification-Aware Reinforcement Learning",
+  "authors": [
+    "Songxin Qu",
+    "Tai-Ping Sun",
+    "Yun-Jie Wang",
+    "Huan-Yu Liu",
+    "Cheng Xue",
+    "Xiao-Fan Xu",
+    "Han Fang",
+    "Yang Yang",
+    "Yu-Chun Wu",
+    "Guo-Ping Guo",
+    "Zhao-Yun Chen"
+  ],
+  "author_string": "Songxin Qu, Tai-Ping Sun, Yun-Jie Wang, Huan-Yu Liu, Cheng Xue et al.",
+  "journal": "arXiv:2604.18176v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Large language models (LLMs) show strong capabilities in general reasoning but typically lack reliability in scientific domains like quantum mechanics, which demand strict adherence to physical constraints. This limitation arises from the scarcity of verifiable training resources and the inadequacy of coarse feedback signals in standard alignment paradigms. To address the data challenge, we introduce QuantumQA, a large-scale dataset constructed via a task-adaptive strategy and a hybrid verification protocol that combines deterministic solvers with semantic auditing to guarantee scientific rigor. Building on this foundation, we propose the verification-aware reward model (VRM) tailored for Reinforcement Learning with Verifiable Rewards (RLVR), which employs an adaptive reward fusion (ARF) mechanism to dynamically integrate deterministic signals from a scientific execution suite (SES) with multidimensional semantic evaluations for precise supervision. Experimental results demonstrate that our method consistently outperforms baselines and general-purpose preference models. Notably, our optimized 8B model achieves performance competitive with proprietary models, validating that incorporating verifiable, rule-based feedback into the reinforcement learning loop offers a parameter-efficient alternative to pure scaling.",
+  "categories": [
+    "cs.AI",
+    "quant-ph"
+  ],
+  "primary_category": "quant-ph",
+  "comment": "25 pages",
+  "published_date": "2026-04-20T12:33:50Z",
+  "updated_date": "2026-04-20T12:33:50Z",
+  "url": "https://arxiv.org/abs/2604.18176v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.18176v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-22T10:15:52.071784",
+  "category": "physics",
+  "subcategories": [
+    "cs.AI",
+    "quant-ph"
+  ]
+}

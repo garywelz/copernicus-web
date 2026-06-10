@@ -1,0 +1,47 @@
+{
+  "id": "medrxiv_10.1101_2025.09.13.25334650",
+  "doi": "10.1101/2025.09.13.25334650",
+  "title": "DeepCRI: Real-time EEG-based Prognostication after Cardiac Arrest",
+  "authors": [
+    "van Putten, M. J. A. M.",
+    "Keijzer, H.",
+    "Hofmeijer, J.",
+    "Buscher-Jungerhans, P.",
+    "Gaspard, N.",
+    "Caroyer, S.",
+    "Beishuizen, A.",
+    "Tjepkema-Cloostermans, M."
+  ],
+  "author_string": "van Putten, M. J. A. M., Keijzer, H., Hofmeijer, J., Buscher-Jungerhans, P., Gaspard, N. et al.",
+  "journal": "medRxiv",
+  "journal_full": "medRxiv",
+  "year": "2026",
+  "abstract": "Accurate prediction of neurological outcome after cardiac arrest is essential for guiding intensive care decisions. Electroencephalography (EEG) supports prognostication; however, interpretation relies on expert judgment and is often subjective and delayed.\n\nWe developed DeepCRI, a bedside-integrated deep learning system that produces continuously updated prognostic trajectories during the first 36 hours after arrest. DeepCRI uses time-dependent decision boundaries to define good-, poor-, and gray-zone regions over time, and applies a lock-in rule that fixes classification only after sustained, concordant high-confidence evidence within a compact temporal window, thereby preventing transient threshold crossings from driving decisions.\n\nDuring model development in a cohort of 522 patients, DeepCRI achieved an area under the receiver operating characteristic curve (AUC) of 0.97 at 24 h, with low calibration error (ECE=0.049). Independent validation was performed in an internal (n=219) and an external cohort (n=167). In the internal validation, DeepCRI provided lock-in classifications in 81.7% of patients, achieving 100% specificity for poor outcome with a sensitivity of 49.5%, and 95.5% sensitivity for good outcome at 73.2% specificity; 18.3% remained in the gray zone. Performance in the external validation cohort was lower: 59.9% locked, and a single false predictions reduced poor-outcome specificity to 98.4%. Post hoc analysis indicated residual EMG artifacts contributed to this false poor-outcome prediction.\n\nBy embedding DeepCRI into routine ICU EEG infrastructure, we demonstrate the technical feasibility and clinical promise of continuous, real-time AI-driven prognostication for comatose patients after cardiac arrest.",
+  "keywords": [],
+  "categories": [
+    "intensive care and critical care medicine"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.1101/2025.09.13.25334650",
+  "source": "medrxiv",
+  "sources": [
+    "medrxiv"
+  ],
+  "acquired_date": "2026-05-13T22:15:24.460569",
+  "category": "biology",
+  "subcategories": [
+    "intensive care and critical care medicine"
+  ],
+  "published_date": "2026-01-13",
+  "updated_date": "2026-01-13",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "medrxiv",
+  "preprint_version": "3",
+  "preprint_type": "PUBLISHAHEADOFPRINT",
+  "license": "cc_by_nc_nd",
+  "jatsxml": "https://www.medrxiv.org/content/early/2026/01/13/2025.09.13.25334650.source.xml",
+  "published_doi": "10.1016/j.resuscitation.2026.111102",
+  "author_corresponding": "Michel J.A.M. van Putten",
+  "author_corresponding_institution": "University of Twente, dept of Clinical Neurophysiology  & Medisch Spectrum Twente, dept of Neurology"
+}

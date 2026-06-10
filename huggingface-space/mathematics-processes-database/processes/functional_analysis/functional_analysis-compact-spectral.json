@@ -1,0 +1,39 @@
+{
+  "id": "functional_analysis-compact-spectral",
+  "name": "Compact Operators & Spectral Theory",
+  "category": "mathematics",
+  "subcategory": "functional_analysis",
+  "subcategory_name": "Functional Analysis",
+  "description": "Compact: T(B) relatively compact. Riesz: spectrum of compact T is 0 plus eigenvalues. Fredholm alternative. Spectral theorem for compact self-adjoint.",
+  "mermaid": "graph TD\n    D1[\"Def: Compact operator\\nT(B) compact\"]\n    D2[\"Def: Spectrum σT\\nλ: T−λI not invertible\"]\n    D3[\"Def: Resolvent set ρT\"]\n    T1[\"Thm: T compact ⇒\\nT bounded\"]\n    T2[\"Thm: Riesz–Schauder\\nσT = {0} ∪ {λⱼ}\\nλⱼ→0 eigenvalues\"]\n    T3[\"Thm: Fredholm alternative\\n(T−λI)x=y solvable\\n⇔ (T*−λ̄I)ϕ=0 trivial\"]\n    T4[\"Thm: Spectral thm\\nT compact self-adjoint\\nT = Σ λⱼ ⟨·,eⱼ⟩ eⱼ\"]\n    T5[\"Thm: Hilbert–Schmidt\\n∫∫|K|² &lt ∞\"]\n    D1 --> T1\n    D2 --> T2\n    D1 --> T2\n    T2 --> T3\n    T2 --> T4\n    D1 --> T5\n    classDef definition fill:#b197fc,color:#fff\n    classDef theorem fill:#51cf66,color:#fff\n    class D1,D2,D3 definition\n    class T1,T2,T3,T4,T5 theorem",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

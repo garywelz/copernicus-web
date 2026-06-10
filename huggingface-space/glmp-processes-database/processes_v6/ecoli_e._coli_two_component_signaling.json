@@ -1,0 +1,17 @@
+{
+  "acquired_date": "2025-10-08T00:00:00Z",
+  "category": "Signal Transduction",
+  "created": "2025-10-08",
+  "description": "EnvZ-OmpR from Abasy Atlas: meta-curated two-component system and OmpR regulon (ompF, ompC, micF) with regulatory edges.",
+  "id": "process_Signal Transduction_envz-ompr-abasy",
+  "name": "EnvZ-OmpR (Abasy-sourced)",
+  "organism": "E. coli",
+  "source": "Abasy Atlas",
+  "source_version": "v2.2",
+  "version_label": "V6",
+  "notes": "V6 = Abasy only. OmpR regulon: ompF, ompC, micF; EnvZ-OmpR phosphotransfer; micF represses ompF.",
+  "mermaid": "graph TD\n    ENVZ[EnvZ]\n    OMPR[OmpR regulon]\n    OMPF[ompF]\n    OMPC[ompC]\n    MICF[micF]\n    ENVZ -->|phosphotransfer| OMPR\n    OMPR -->|activation| OMPF\n    OMPR -->|activation| OMPC\n    OMPR -->|repression| MICF\n    MICF -->|represses| OMPF\n    style ENVZ fill:#ffd43b,color:#000\n    style OMPR fill:#ffd43b,color:#000\n    style OMPF fill:#74c0fc,color:#000\n    style OMPC fill:#74c0fc,color:#000\n    style MICF fill:#74c0fc,color:#000",
+  "related_processes": ["ecoli_e._coli_two_component_signaling"],
+  "scientificAccuracy": "From Abasy Atlas v2.2 E. coli regulatory network; OmpR targets and micF.",
+  "sources": [{"title": "Abasy Atlas", "url": "https://abasy.ccg.unam.mx", "note": "Meta-curated bacterial regulatory networks; EnvZ-OmpR."}]
+}

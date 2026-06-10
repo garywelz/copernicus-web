@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2604.25038v1",
+  "arxiv_id": "2604.25038v1",
+  "title": "Equation Learning for multiscale models of infectious diseases",
+  "authors": [
+    "James W. G. Doran",
+    "Cameron A. Smith",
+    "Christian A. Yates",
+    "Ruth Bowness"
+  ],
+  "author_string": "James W. G. Doran, Cameron A. Smith, Christian A. Yates, Ruth Bowness",
+  "journal": "arXiv:2604.25038v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Tuberculosis (TB) is an airborne disease caused by the pathogen Mycobacterium tuberculosis. In 2023, according to the World Health Organization, it ''probably'' replaced COVID-19 as the leading cause of death from an infectious agent globally; in the nineteenth century, one in seven of all humans deaths were as a result of tuberculosis. More than 10 million people are diagnosed with TB every year. The majority of cases in adults occur in males (62.5% of all global adult cases in 2023, compared to 37.5% in females). The main reasons for males suffering from a higher burden of global TB cases, compared to females, is likely to be a combination of within-host factors, such as differences in immune response, and population-scale factors, such as likelihood of completing treatment. To investigate the impact different scales have in determining this higher TB burden in males, we have developed a gender/sex-stratified multiscale framework. We have learnt ordinary differential equations (ODEs) to capture the average output of an agent-based within-host model, and used the resulting equations to describe the within-host scales of the multiscale framework. We evolve the population demographics at the between-host scale using ODEs, and link the scales with stochastic coupling functions. We have considered counterfactual scenarios to elucidate the impact of sex and gender on the infectious disease dynamics of TB. This paper is intended to provide a proof-of-concept for the development and implementation of the presented multiscale framework.",
+  "categories": [
+    "q-bio.PE"
+  ],
+  "primary_category": "q-bio.PE",
+  "comment": null,
+  "published_date": "2026-04-27T22:43:28Z",
+  "updated_date": "2026-04-27T22:43:28Z",
+  "url": "https://arxiv.org/abs/2604.25038v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.25038v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-05T10:15:43.368097",
+  "category": "biology",
+  "subcategories": [
+    "q-bio.PE"
+  ]
+}

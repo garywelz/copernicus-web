@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Polymorphism - Chemistry Process</title>
+    <title>Polymorphism & Phase Transformation - Chemistry Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Polymorphism</h1>
+            <h1>Polymorphism & Phase Transformation</h1>
             <div class="header-meta">
                 <span class="meta-item">Chemistry</span>
                 <span class="meta-item">Materials Science</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,68 +234,60 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Polymorphism process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>Polymorphic systems can crystallize into several structures: kinetics often favor a metastable form first (Ostwald's rule of stages) while thermodynamics favor the most stable polymorph, and applying temperature, pressure, or a seed crosses the transformation barrier to convert toward the controlled target polymorph.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-A2[Molecular Compound] --> B2[Polymorphism Method]
-C2[Crystallization Conditions] --> D2[Phase Analysis]
-E2[Temperature Control] --> F2[Phase Transition]
-B2 --> G2[Phase Preparation]
-D2 --> H2[Phase Characterization]
-F2 --> I2[Transition Control]
-G2 --> J2[Initial Phase]
-H2 --> K2[Phase Properties]
-I2 --> L2[Transition Conditions]
-J2 --> M2[Phase Formation]
-K2 --> L2
-L2 --> N2[Phase Transition]
-M2 --> O2[Crystal Growth]
-N2 --> P2[Polymorphic Transformation]
-O2 --> Q2[Phase Analysis]
-P2 --> R2[New Phase]
-Q2 --> S2[Transition Analysis]
-R2 --> T2[Phase Properties]
-S2 --> U2[Transition Parameters]
-T2 --> V2[Property Comparison]
-U2 --> W2[Polymorphic Efficiency]
-V2 --> X2[Phase Characterization]
-W2 --> Y2[Process Optimization]
-X2 --> Z2[Final Polymorphic Form]
-Y2 --> Z2
+    N1["Multiple polymorphs exist"]
+    N2["Rank stable vs metastable"]
+    N3{"Kinetic or thermodynamic?"}
+    N4["Metastable forms first"]
+    N5["Ostwald's rule of stages"]
+    N6["Most stable nucleates"]
+    N7["Apply T / P / seed"]
+    N8{"Barrier crossed?"}
+    N9["Anneal / add seed"]
+    N10["Converted polymorph"]
+    N11["Controlled polymorph"]
 
-    style A2 fill:#ff6b6b,color:#fff
-    style C2 fill:#ff6b6b,color:#fff
-    style E2 fill:#ff6b6b,color:#fff
-    style B2 fill:#ffd43b,color:#000
-    style D2 fill:#ffd43b,color:#000
-    style F2 fill:#ffd43b,color:#000
-    style G2 fill:#ffd43b,color:#000
-    style H2 fill:#ffd43b,color:#000
-    style I2 fill:#ffd43b,color:#000
-    style J2 fill:#ffd43b,color:#000
-    style K2 fill:#ffd43b,color:#000
-    style L2 fill:#ffd43b,color:#000
-    style M2 fill:#51cf66,color:#fff
+    N1 --> N2
+    N2 --> N3
+    N3 -->|kinetic| N4
+    N4 --> N5
+    N3 -->|thermodynamic| N6
+    N5 --> N7
+    N6 --> N7
+    N7 --> N8
+    N8 -->|no| N9
+    N9 -->|assist| N7
+    N8 -->|yes| N10
+    N10 --> N11
+
+    style N1 fill:#ff6b6b,color:#fff
     style N2 fill:#51cf66,color:#fff
-    style O2 fill:#51cf66,color:#fff
-    style P2 fill:#51cf66,color:#fff
-    style Q2 fill:#51cf66,color:#fff
-    style R2 fill:#51cf66,color:#fff
-    style S2 fill:#51cf66,color:#fff
-    style T2 fill:#51cf66,color:#fff
-    style U2 fill:#51cf66,color:#fff
-    style V2 fill:#51cf66,color:#fff
-    style W2 fill:#51cf66,color:#fff
-    style X2 fill:#51cf66,color:#fff
-    style Y2 fill:#51cf66,color:#fff
-    style Z2 fill:#b197fc,color:#fff
+    style N3 fill:#74c0fc,color:#fff
+    style N4 fill:#51cf66,color:#fff
+    style N5 fill:#74c0fc,color:#fff
+    style N6 fill:#51cf66,color:#fff
+    style N7 fill:#51cf66,color:#fff
+    style N8 fill:#74c0fc,color:#fff
+    style N9 fill:#51cf66,color:#fff
+    style N10 fill:#51cf66,color:#fff
+    style N11 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Multiple polymorphs exist</td><td>Triggers & Inputs</td><td><a href="https://doi.org/10.1093/acprof:oso/9780199236565.001.0001" target="_blank" title="Polymorphism in Molecular Crystals" style="color:#e74c3c;">Bernstein, J. 2002</a></td></tr><tr><td style="font-weight:600;">Rank stable vs metastable</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1093/acprof:oso/9780199236565.001.0001" target="_blank" title="Polymorphism in Molecular Crystals" style="color:#e74c3c;">Bernstein, J. 2002</a></td></tr><tr><td style="font-weight:600;">Kinetic or thermodynamic?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1093/acprof:oso/9780199236565.001.0001" target="_blank" title="Polymorphism in Molecular Crystals" style="color:#e74c3c;">Bernstein, J. 2002</a></td></tr><tr><td style="font-weight:600;">Metastable forms first</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1093/acprof:oso/9780199236565.001.0001" target="_blank" title="Polymorphism in Molecular Crystals" style="color:#e74c3c;">Bernstein, J. 2002</a></td></tr><tr><td style="font-weight:600;">Ostwald's rule of stages</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1093/acprof:oso/9780199236565.001.0001" target="_blank" title="Polymorphism in Molecular Crystals" style="color:#e74c3c;">Bernstein, J. 2002</a></td></tr><tr><td style="font-weight:600;">Most stable nucleates</td><td>Processing & Operations</td><td><a href="https://www.wiley.com/en-us/Materials+Science+and+Engineering%3A+An+Introduction%2C+10th+Edition-p-9781119405498" target="_blank" title="Materials Science and Engineering: An Introduction (10th ed.)" style="color:#e74c3c;">Callister, W. D. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Apply T / P / seed</td><td>Processing & Operations</td><td><a href="https://www.wiley.com/en-us/Materials+Science+and+Engineering%3A+An+Introduction%2C+10th+Edition-p-9781119405498" target="_blank" title="Materials Science and Engineering: An Introduction (10th ed.)" style="color:#e74c3c;">Callister, W. D. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Barrier crossed?</td><td>Intermediates & States</td><td><a href="https://www.wiley.com/en-us/Materials+Science+and+Engineering%3A+An+Introduction%2C+10th+Edition-p-9781119405498" target="_blank" title="Materials Science and Engineering: An Introduction (10th ed.)" style="color:#e74c3c;">Callister, W. D. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Anneal / add seed</td><td>Processing & Operations</td><td><a href="https://www.wiley.com/en-us/Materials+Science+and+Engineering%3A+An+Introduction%2C+10th+Edition-p-9781119405498" target="_blank" title="Materials Science and Engineering: An Introduction (10th ed.)" style="color:#e74c3c;">Callister, W. D. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Converted polymorph</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1093/acprof:oso/9780199236565.001.0001" target="_blank" title="Polymorphism in Molecular Crystals" style="color:#e74c3c;">Bernstein, J. 2002</a></td></tr><tr><td style="font-weight:600;">Controlled polymorph</td><td>Products & Outputs</td><td><a href="https://doi.org/10.1093/acprof:oso/9780199236565.001.0001" target="_blank" title="Polymorphism in Molecular Crystals" style="color:#e74c3c;">Bernstein, J. 2002</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -314,12 +333,12 @@ Y2 --> Z2
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 26</li>
-                        <li><strong>Edges:</strong> 22</li>
-                        <li><strong>Conditionals:</strong> 0</li>
+                        <li><strong>Nodes:</strong> 11</li>
+                        <li><strong>Edges:</strong> 12</li>
+                        <li><strong>Conditionals:</strong> 2</li>
                         <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 1</li>
+                        <li><strong>OR Gates:</strong> 2</li>
+                        <li><strong>Total Gates:</strong> 3</li>
                     </ul>
                 </div>
                 
@@ -327,7 +346,7 @@ Y2 --> Z2
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>polymorphism</li>
+                        <li>polymorphism</li><li>metastable</li><li>Ostwald rule of stages</li><li>phase transformation</li><li>nucleation barrier</li>
                     </ul>
                 </div>
                 
@@ -338,43 +357,23 @@ Y2 --> Z2
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Polymorphism in Molecular Crystals</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Bernstein, J.
+                            , Oxford University Press
+                             (2002)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Polymorphism of pharmaceuticals</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Bernstein, Joel
-                            , Polymorphism in Molecular Crystals
-                             (2020)
-                            </span>
-                            <br><a href="https://doi.org/10.1093/oso/9780199655441.003.0007" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1093/oso/9780199655441.003.0007</a>
+                            <br><a href="https://doi.org/10.1093/acprof:oso/9780199236565.001.0001" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1093/acprof:oso/9780199236565.001.0001</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Polymorphism and patents</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Bernstein, Joel
-                            , Polymorphism in Molecular Crystals
-                             (2020)
+                            <strong>Materials Science and Engineering: An Introduction (10th ed.)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Callister, W. D.; Rethwisch, D. G.
+                            , Wiley
+                             (2018)
                             </span>
-                            <br><a href="https://doi.org/10.1093/oso/9780199655441.003.0010" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1093/oso/9780199655441.003.0010</a>
                             
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Computational aspects of polymorphism</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Bernstein, Joel
-                            , Polymorphism in Molecular Crystals
-                             (2020)
-                            </span>
-                            <br><a href="https://doi.org/10.1093/oso/9780199655441.003.0005" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1093/oso/9780199655441.003.0005</a>
-                            
+                            <br><a href="https://www.wiley.com/en-us/Materials+Science+and+Engineering%3A+An+Introduction%2C+10th+Edition-p-9781119405498" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
                         </li>
                         
                     </ul>

@@ -1,0 +1,44 @@
+{
+  "id": "medrxiv_10.64898_2025.12.23.25342901",
+  "doi": "10.64898/2025.12.23.25342901",
+  "title": "Single-label and Multi-label Classification for Disease Recognition with Special Consideration of Comorbidities",
+  "authors": [
+    "Schmiegel, S.",
+    "Marchi, H.",
+    "Roechter, M.-H.",
+    "Rudwaleit, M.",
+    "Fuchs, C."
+  ],
+  "author_string": "Schmiegel, S., Marchi, H., Roechter, M.-H., Rudwaleit, M., Fuchs, C.",
+  "journal": "medRxiv",
+  "journal_full": "medRxiv",
+  "year": "2025",
+  "abstract": "Certain diseases require rapid treatment to avoid long-term consequences for patients. However, they may be difficult to recognize, especially if the symptoms are ambiguous and compatible with multiple possible diagnoses. Completing all necessary examinations often takes time, thereby prolonging patient suffering. Data-driven approaches, such as single-label classification (SLC) and multi-label classification (MLC), can help accelerate the diagnostic process and improve accuracy. These two approaches differ primarily in the number of classes they allow a sample to belong to: SLC assumes the classes being mutually exclusive so that each sample belongs to exactly one class whereas MLC supposes the classes being mutually inclusive, i.e. a sample can belong to several classes or none, acknowledging the possibility of comorbidities. Comparing SLC and MLC allows us to investigate whether disease recognition benefits from considering comorbidities. In this context, we aim to provide a conceptual framing of (differences between) the two approaches in model formulation, decision spaces and handling of class imbalance. To empirically assess their performance, we conduct a case study applying SLC and MLC to data from chronic pain patients. Our analysis yields an ambiguous picture of whether incorporating comorbidities improve disease recognition. The suitability of SLC and MLC is determined by multiple factors, notably the dependency structure among diseases and between diseases and covariates, as well as by data characteristics such as class imbalance. This highlights the importance of considering the specific characteristics of the data when selecting an appropriate classification approach for disease recognition and beyond.",
+  "keywords": [],
+  "categories": [
+    "health informatics"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.64898/2025.12.23.25342901",
+  "source": "medrxiv",
+  "sources": [
+    "medrxiv"
+  ],
+  "acquired_date": "2026-04-30T22:15:24.581051",
+  "category": "biology",
+  "subcategories": [
+    "health informatics"
+  ],
+  "published_date": "2025-12-31",
+  "updated_date": "2025-12-31",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "medrxiv",
+  "preprint_version": "1",
+  "preprint_type": "PUBLISHAHEADOFPRINT",
+  "license": "cc_by_nc_nd",
+  "jatsxml": "https://www.medrxiv.org/content/early/2025/12/31//2025.12.23.25342901.source.xml",
+  "published_doi": null,
+  "author_corresponding": "Christiane Fuchs",
+  "author_corresponding_institution": "Bielefeld University"
+}

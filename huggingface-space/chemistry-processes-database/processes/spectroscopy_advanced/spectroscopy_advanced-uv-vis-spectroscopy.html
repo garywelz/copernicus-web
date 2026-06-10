@@ -167,6 +167,33 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
@@ -176,7 +203,7 @@
             <div class="header-meta">
                 <span class="meta-item">Chemistry</span>
                 <span class="meta-item">Spectroscopy Advanced</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,68 +234,56 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>UV-Vis Spectroscopy process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>UV-Vis measures electronic absorption: light is scanned through a sample, chromophores promote electrons (pi->pi*, n->pi*), the absorbance is computed from transmitted intensity, and within the linear range Beer's law relates absorbance to concentration.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-A1[Light Source] --> B1[UV-Vis Spectroscopy Method]
-C1[Sample Solution] --> D1[Wavelength Control]
-E1[Detector System] --> F1[Data Collection]
-B1 --> G1[Monochromator Setup]
-D1 --> H1[Wavelength Selection]
-F1 --> I1[Signal Processing]
-G1 --> J1[Light Dispersion]
-H1 --> K1[Wavelength Range]
-I1 --> L1[Absorbance Measurement]
-J1 --> M1[Light Transmission]
-K1 --> L1
-L1 --> N1[Electronic Transitions]
-M1 --> O1[Sample Irradiation]
-N1 --> P1[Absorption Process]
-O1 --> Q1[Spectroscopic Analysis]
-P1 --> R1[Absorbance Spectrum]
-Q1 --> S1[Peak Analysis]
-R1 --> T1[Concentration Determination]
-S1 --> U1[Beer's Law Analysis]
-T1 --> V1[Concentration Calculation]
-U1 --> W1[Spectroscopic Efficiency]
-V1 --> X1[Sample Characterization]
-W1 --> Y1[Process Optimization]
-X1 --> Z1[Final Absorption Spectrum]
-Y1 --> Z1
+    N1["Sample in cuvette"]
+    N2["Scan UV-Vis light"]
+    N3["Chromophore absorbs"]
+    N4["Measure transmitted I"]
+    N5["A = log(I0/I)"]
+    N6["λmax identified"]
+    N7{"Within linear range?"}
+    N8["Dilute sample"]
+    N9["Beer's law A = εbc"]
+    N10["Concentration / identity"]
 
-    style A1 fill:#ff6b6b,color:#fff
-    style C1 fill:#ff6b6b,color:#fff
-    style E1 fill:#ff6b6b,color:#fff
-    style B1 fill:#ffd43b,color:#000
-    style D1 fill:#ffd43b,color:#000
-    style F1 fill:#ffd43b,color:#000
-    style G1 fill:#ffd43b,color:#000
-    style H1 fill:#ffd43b,color:#000
-    style I1 fill:#ffd43b,color:#000
-    style J1 fill:#ffd43b,color:#000
-    style K1 fill:#ffd43b,color:#000
-    style L1 fill:#ffd43b,color:#000
-    style M1 fill:#51cf66,color:#fff
-    style N1 fill:#51cf66,color:#fff
-    style O1 fill:#51cf66,color:#fff
-    style P1 fill:#51cf66,color:#fff
-    style Q1 fill:#51cf66,color:#fff
-    style R1 fill:#51cf66,color:#fff
-    style S1 fill:#51cf66,color:#fff
-    style T1 fill:#51cf66,color:#fff
-    style U1 fill:#51cf66,color:#fff
-    style V1 fill:#51cf66,color:#fff
-    style W1 fill:#51cf66,color:#fff
-    style X1 fill:#51cf66,color:#fff
-    style Y1 fill:#51cf66,color:#fff
-    style Z1 fill:#b197fc,color:#fff
+    N1 --> N2
+    N2 --> N3
+    N3 --> N4
+    N4 --> N5
+    N5 --> N6
+    N6 --> N7
+    N7 -->|no| N8
+    N8 -->|rescan| N2
+    N7 -->|yes| N9
+    N9 --> N10
+
+    style N1 fill:#ff6b6b,color:#fff
+    style N2 fill:#51cf66,color:#fff
+    style N3 fill:#51cf66,color:#fff
+    style N4 fill:#51cf66,color:#fff
+    style N5 fill:#51cf66,color:#fff
+    style N6 fill:#74c0fc,color:#fff
+    style N7 fill:#74c0fc,color:#fff
+    style N8 fill:#51cf66,color:#fff
+    style N9 fill:#51cf66,color:#fff
+    style N10 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Sample in cuvette</td><td>Triggers & Inputs</td><td><a href="https://www.cengage.com/c/principles-of-instrumental-analysis-7e-skoog/9781305577213/" target="_blank" title="Principles of Instrumental Analysis, 7th ed. — UV-Visible Molecular Absorption" style="color:#e74c3c;">Skoog, D. A. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Scan UV-Vis light</td><td>Processing & Operations</td><td><a href="https://www.cengage.com/c/principles-of-instrumental-analysis-7e-skoog/9781305577213/" target="_blank" title="Principles of Instrumental Analysis, 7th ed. — UV-Visible Molecular Absorption" style="color:#e74c3c;">Skoog, D. A. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Chromophore absorbs</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1007/978-3-642-77477-5" target="_blank" title="UV-VIS Spectroscopy and Its Applications" style="color:#e74c3c;">Perkampus, H.-H. 1992</a></td></tr><tr><td style="font-weight:600;">Measure transmitted I</td><td>Processing & Operations</td><td><a href="https://www.cengage.com/c/principles-of-instrumental-analysis-7e-skoog/9781305577213/" target="_blank" title="Principles of Instrumental Analysis, 7th ed. — UV-Visible Molecular Absorption" style="color:#e74c3c;">Skoog, D. A. et al. 2018</a></td></tr><tr><td style="font-weight:600;">A = log(I0/I)</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1007/978-3-642-77477-5" target="_blank" title="UV-VIS Spectroscopy and Its Applications" style="color:#e74c3c;">Perkampus, H.-H. 1992</a></td></tr><tr><td style="font-weight:600;">λmax identified</td><td>Intermediates & States</td><td><a href="https://www.cengage.com/c/principles-of-instrumental-analysis-7e-skoog/9781305577213/" target="_blank" title="Principles of Instrumental Analysis, 7th ed. — UV-Visible Molecular Absorption" style="color:#e74c3c;">Skoog, D. A. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Within linear range?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1007/978-3-642-77477-5" target="_blank" title="UV-VIS Spectroscopy and Its Applications" style="color:#e74c3c;">Perkampus, H.-H. 1992</a></td></tr><tr><td style="font-weight:600;">Dilute sample</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1007/978-3-642-77477-5" target="_blank" title="UV-VIS Spectroscopy and Its Applications" style="color:#e74c3c;">Perkampus, H.-H. 1992</a></td></tr><tr><td style="font-weight:600;">Beer's law A = εbc</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1002/andp.18521620505" target="_blank" title="Bestimmung der Absorption des rothen Lichts in farbigen Flüssigkeiten (Beer's law)" style="color:#e74c3c;">Beer, A. 1852</a></td></tr><tr><td style="font-weight:600;">Concentration / identity</td><td>Products & Outputs</td><td><a href="https://doi.org/10.1002/andp.18521620505" target="_blank" title="Bestimmung der Absorption des rothen Lichts in farbigen Flüssigkeiten (Beer's law)" style="color:#e74c3c;">Beer, A. 1852</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -314,12 +329,12 @@ Y1 --> Z1
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 26</li>
-                        <li><strong>Edges:</strong> 22</li>
-                        <li><strong>Conditionals:</strong> 0</li>
+                        <li><strong>Nodes:</strong> 10</li>
+                        <li><strong>Edges:</strong> 10</li>
+                        <li><strong>Conditionals:</strong> 1</li>
                         <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 1</li>
+                        <li><strong>OR Gates:</strong> 1</li>
+                        <li><strong>Total Gates:</strong> 2</li>
                     </ul>
                 </div>
                 
@@ -327,7 +342,7 @@ Y1 --> Z1
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>uv</li><li>vis</li><li>spectroscopy</li>
+                        <li>uv-vis</li><li>absorbance</li><li>chromophore</li><li>beer-lambert</li><li>lambda max</li>
                     </ul>
                 </div>
                 
@@ -338,43 +353,33 @@ Y1 --> Z1
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Bestimmung der Absorption des rothen Lichts in farbigen Flüssigkeiten (Beer's law)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Beer, A.
+                            , Annalen der Physik und Chemie
+                             (1852)
                             </span>
+                            <br><a href="https://doi.org/10.1002/andp.18521620505" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1002/andp.18521620505</a>
                             
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Analytical Applications of UV-VIS Spectroscopy</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Perkampus, Heinz-Helmut
-                            , UV-VIS Spectroscopy and Its Applications
+                            <strong>UV-VIS Spectroscopy and Its Applications</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Perkampus, H.-H.
+                            , Springer
                              (1992)
                             </span>
-                            <br><a href="https://doi.org/10.1007/978-3-642-77477-5_4" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1007/978-3-642-77477-5_4</a>
+                            <br><a href="https://doi.org/10.1007/978-3-642-77477-5" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1007/978-3-642-77477-5</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Recent Developments in UV-VIS Spectroscopy</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Perkampus, Heinz-Helmut
-                            , UV-VIS Spectroscopy and Its Applications
-                             (1992)
+                            <strong>Principles of Instrumental Analysis, 7th ed. — UV-Visible Molecular Absorption</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Skoog, D. A.; Holler, F. J.; Crouch, S. R.
+                            , Cengage Learning
+                             (2018)
                             </span>
-                            <br><a href="https://doi.org/10.1007/978-3-642-77477-5_5" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1007/978-3-642-77477-5_5</a>
                             
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Applikationsbroschüre zur UV/Vis und UV/Vis/NIR-Spektroskopie / Application brochure on UV/Vis and UV/Vis/NIR spectroscopy</strong>
-                            
-                            , Tenside Surfactants Detergents
-                             (1995)
-                            </span>
-                            <br><a href="https://doi.org/10.1515/tsd-1995-320317" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1515/tsd-1995-320317</a>
-                            
+                            <br><a href="https://www.cengage.com/c/principles-of-instrumental-analysis-7e-skoog/9781305577213/" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
                         </li>
                         
                     </ul>

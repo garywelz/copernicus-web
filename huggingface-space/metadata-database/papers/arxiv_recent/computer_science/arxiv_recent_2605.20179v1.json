@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2605.20179v1",
+  "arxiv_id": "2605.20179v1",
+  "title": "TIDE: Efficient and Lossless MoE Diffusion LLM Inference with I/O-aware Expert Offload",
+  "authors": [
+    "Zhiben Chen",
+    "Youpeng Zhao",
+    "Yang Sui",
+    "Jun Wang",
+    "Yuzhang Shang"
+  ],
+  "author_string": "Zhiben Chen, Youpeng Zhao, Yang Sui, Jun Wang, Yuzhang Shang",
+  "journal": "arXiv:2605.20179v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Diffusion Large Language Models (dLLMs) have emerged as a competitive alternative to autoregressive (AR) models, offering better hardware utilization and bidirectional context through parallel block-level decoding. However, as dLLMs continue to scale up with mixture-of-experts (MoE) architectures, their deployment on resource-constrained devices remains an open challenge. Existing AR-based methods often incur either prohibitive I/O overhead or significant compute bottlenecks. In this work, we propose TIDE, a novel resource-efficient inference system that leverages the temporal stability of expert activations during the diffusion process within the block. Specifically, we leverage the temporal stability of expert activations during the diffusion process within the block and introduce an interval-based expert refresh strategy that updates the expert placement in an I/O-aware fashion. To ensure optimal performance, we formulate the inference scheduling as a mathematical programming problem, solving for the optimal interval that minimizes I/O traffic and CPU computation. Most importantly, TIDE is a lossless optimization that requires no model training, providing a \"free lunch\" acceleration for dLLM inference. In a single GPU-CPU system, we demonstrate that TIDE achieves up to 1.4$\\times$ and 1.5$\\times$ throughput improvements over prior baselines on LLaDA2.0-mini and LLaDA2.0-flash models, respectively.",
+  "categories": [
+    "cs.CL"
+  ],
+  "primary_category": "cs.CL",
+  "comment": null,
+  "published_date": "2026-05-19T17:59:08Z",
+  "updated_date": "2026-05-19T17:59:08Z",
+  "url": "https://arxiv.org/abs/2605.20179v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.20179v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-20T10:16:33.993089",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CL"
+  ]
+}

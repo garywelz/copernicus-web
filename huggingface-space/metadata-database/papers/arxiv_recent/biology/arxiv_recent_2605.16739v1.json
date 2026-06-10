@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_2605.16739v1",
+  "arxiv_id": "2605.16739v1",
+  "title": "EmoMind: Decoding Affective Captions from Human Brain fMRI",
+  "authors": [
+    "Bilal A. Mohammed",
+    "Lin Gu",
+    "Ruogo Fang"
+  ],
+  "author_string": "Bilal A. Mohammed, Lin Gu, Ruogo Fang",
+  "journal": "arXiv:2605.16739v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Decoding visual experience from brain activity has advanced substantially, but cur- rent brain-to-text systems largely recover semantic content while discarding affect. Additionally, language models can generate emotional text when prompted with categorical labels, but such labels collapse rich inter-subject variability into coarse discrete bins. We present EmoMind, the first end-to-end pipeline for decoding affective captions directly from fMRI signals. EmoMind first retrieves a semanti- cally grounded neutral scene description from brain-decoded visual features, then rewrites it using a continuous 34-dimensional emotion vector decoded from the same fMRI recording. To control the balance between content preservation and affective expression, we train the rewriter with classifier-free guidance against an identity-preserving null branch, enabling smooth interpolation between semantic fidelity and affective expressivity. We evaluate affective caption generation with a three-axis validation framework spanning subject-specificity, structural geometry, and causal control. We further augment this framework with a synthetic-brain substitution test that probes robustness to the measurement apparatus, and we benchmark each axis against GPT-4 prompted with brain-decoded top-5 emotion labels as a strong discrete baseline. Across two independent emotion fMRI datasets, EmoMind significantly outperforms label-prompted GPT-4 on all three axes, with the largest gains on metrics that require person-specific affective structure rather than population-level emotion aggregation. These results establish continuous brain-decoded affect as a viable control signal for individualized affective cap- tion generation and open new directions for studying individual affective brain organisation.",
+  "categories": [
+    "cs.LG",
+    "cs.AI",
+    "cs.CL",
+    "q-bio.NC"
+  ],
+  "primary_category": "q-bio.NC",
+  "comment": null,
+  "published_date": "2026-05-16T01:32:45Z",
+  "updated_date": "2026-05-16T01:32:45Z",
+  "url": "https://arxiv.org/abs/2605.16739v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.16739v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-24T10:15:35.245290",
+  "category": "biology",
+  "subcategories": [
+    "cs.LG",
+    "cs.AI",
+    "cs.CL"
+  ]
+}

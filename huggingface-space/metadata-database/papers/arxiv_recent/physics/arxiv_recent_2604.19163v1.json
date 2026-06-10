@@ -1,0 +1,30 @@
+{
+  "id": "arxiv_2604.19163v1",
+  "arxiv_id": "2604.19163v1",
+  "title": "Noise Reduction for Universal Hybrid Oscillator-Qubit Quantum Computation",
+  "authors": [
+    "Mohammad Nobakht",
+    "Ivan Kassal"
+  ],
+  "author_string": "Mohammad Nobakht, Ivan Kassal",
+  "journal": "arXiv:2604.19163v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Hybrid continuous-variable--discrete-variable (CV--DV) architectures process quantum information in bosonic modes and qubits, but noise limits their performance. To reduce the noise, existing DV error correction must be complemented by CV noise reduction. Existing CV noise-reduction schemes -- such as GKP-stabilizer codes -- can reduce CV noise, but only for Gaussian gates. Therefore, no current noise-reduction scheme can correct arbitrary CV--DV gates, including non-Gaussian ones. Here, we develop noise reduction for a universal CV--DV gate set, making it applicable to arbitrary CV--DV gates. We do so by introducing an ancilla qubit into a GKP-stabilizer code, allowing us to reduce the standard deviation of Gaussian displacement noise from $σ$ to $\\tilde O(σ^2)$. To demonstrate the scheme, we show that it significantly reduces noise and improves fidelity in the preparation of non-Gaussian cat and Fock states.",
+  "categories": [
+    "quant-ph"
+  ],
+  "primary_category": "quant-ph",
+  "comment": null,
+  "published_date": "2026-04-21T07:17:22Z",
+  "updated_date": "2026-04-21T07:17:22Z",
+  "url": "https://arxiv.org/abs/2604.19163v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.19163v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-22T10:15:40.964024",
+  "category": "physics",
+  "subcategories": [
+    "quant-ph"
+  ]
+}

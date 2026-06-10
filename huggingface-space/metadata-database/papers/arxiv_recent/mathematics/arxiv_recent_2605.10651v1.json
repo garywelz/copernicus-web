@@ -1,0 +1,38 @@
+{
+  "id": "arxiv_2605.10651v1",
+  "arxiv_id": "2605.10651v1",
+  "title": "A Recursive Decomposition Framework for Causal Structure Learning in the Presence of Latent Variables",
+  "authors": [
+    "Zheng Li",
+    "Feng Xie",
+    "Shenglan Nie",
+    "Xichen Guo",
+    "Ruxin Wang",
+    "Hao Zhang"
+  ],
+  "author_string": "Zheng Li, Feng Xie, Shenglan Nie, Xichen Guo, Ruxin Wang et al.",
+  "journal": "arXiv:2605.10651v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Constraint-based causal discovery is widely used for learning causal structures, but heavy reliance on conditional independence (CI) testing makes it computationally expensive in high-dimensional settings. To mitigate this limitation, many divide-and-conquer frameworks have been proposed, but most assume causal sufficiency, i.e., no latent variables. In this paper, we show that divide-and-conquer strategies can be theoretically generalized beyond causal sufficiency to settings with latent variables. Specifically, we propose a recursive decomposition framework, termed DiCoLa, that enables divide-and-conquer causal discovery in the presence of latent variables. It recursively decomposes the global learning task into smaller subproblems and integrates their solutions through a principled reconstruction step to recover the global structure. We theoretically establish the soundness and completeness of the proposed framework. Extensive experiments on synthetic data demonstrate that our approach significantly improves computational efficiency across a range of causal discovery algorithms, while experiments on a real-world dataset further illustrate its practical effectiveness.",
+  "categories": [
+    "cs.LG",
+    "cs.AI",
+    "stat.ML"
+  ],
+  "primary_category": "stat.ML",
+  "comment": null,
+  "published_date": "2026-05-11T14:36:52Z",
+  "updated_date": "2026-05-11T14:36:52Z",
+  "url": "https://arxiv.org/abs/2605.10651v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.10651v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-12T10:15:42.875005",
+  "category": "mathematics",
+  "subcategories": [
+    "cs.LG",
+    "cs.AI",
+    "stat.ML"
+  ]
+}

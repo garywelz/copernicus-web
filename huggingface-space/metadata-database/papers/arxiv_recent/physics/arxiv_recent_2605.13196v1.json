@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2605.13196v1",
+  "arxiv_id": "2605.13196v1",
+  "title": "Onsager-variational formulation of diffuse-domain methods for computational modeling of microscale fluid-structure interactions",
+  "authors": [
+    "Xinpeng Xu"
+  ],
+  "author_string": "Xinpeng Xu",
+  "journal": "arXiv:2605.13196v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Direct numerical simulation of microscale fluid--structure interactions in multicomponent and multiphase flows requires methods that can represent moving boundaries together with fields constrained to evolving interfaces. Diffuse-domain methods (DDMs) address this geometric difficulty by replacing sharp surfaces with diffuse volumetric representations on regular computational domains. Here we formulate DDMs using Onsager's variational principle. Instead of extending sharp-interface equations and boundary conditions term by term, we embed sharp-surface free-energy and dissipation functionals into the bulk through a diffuse surface delta density and derive the governing equations from the Rayleighian. The framework distinguishes balance-law fields, internal nonconserved order parameters, and kinematic or constitutive rate variables. It also clarifies a key moving-surface distinction: conserved surface densities are transported by the full material surface velocity, whereas explicitly tangential vector and tensor internal variables require projected objective or co-rotational rates within their admissible tangential state spaces. For scalar transport on rigid and deformable interfaces, and for interfacial hydrodynamics near rigid walls, the formulation recovers established DDM models and their sharp-interface limits. The same variational construction yields coupled diffuse-domain models for multicomponent deformable vesicles with surface viscosity, tangential slip, and finite areal compressibility, and for active shells carrying chemical and tangential vector order. These results provide a unified route to thermodynamically consistent passive DDMs for interfacial and surface dynamics, while allowing active stresses through active work power. The framework is relevant to soft matter, microfluidic interfaces, biological membranes, and morphogenetic surface dynamics.",
+  "categories": [
+    "physics.bio-ph",
+    "cond-mat.soft",
+    "physics.comp-ph",
+    "physics.flu-dyn"
+  ],
+  "primary_category": "physics.flu-dyn",
+  "comment": "37 pages, 3 figures",
+  "published_date": "2026-05-13T08:50:31Z",
+  "updated_date": "2026-05-13T08:50:31Z",
+  "url": "https://arxiv.org/abs/2605.13196v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.13196v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-13T22:16:44.891875",
+  "category": "physics",
+  "subcategories": [
+    "physics.bio-ph",
+    "cond-mat.soft",
+    "physics.comp-ph"
+  ]
+}

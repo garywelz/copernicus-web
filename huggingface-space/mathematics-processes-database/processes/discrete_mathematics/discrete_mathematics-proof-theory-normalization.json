@@ -1,0 +1,39 @@
+{
+  "id": "discrete_mathematics-proof-theory-normalization",
+  "name": "Proof Theory — Normalization",
+  "category": "mathematics",
+  "subcategory": "discrete_mathematics",
+  "subcategory_name": "Discrete Mathematics",
+  "description": "Natural deduction: intro/elim rules. β-reduction (elim intro), η-reduction (intro elim). Normal proof: no detour. Strong normalization: all reduction sequences terminate.",
+  "mermaid": "graph TD\n    D1[\"Def: Normal proof\\nno detour\"]\n    D2[\"Def: β-reduction\\nelim of intro\"]\n    D3[\"Def: η-reduction\\nintro of elim\"]\n    T1[\"Thm: Weak norm\\nsome path to nf\"]\n    T2[\"Thm: Strong norm\\nall paths terminate\"]\n    T3[\"Thm: Uniqueness\\nnf unique\"]\n    D1 --> D2\n    D1 --> D3\n    D2 --> T1\n    D2 --> T2\n    T2 --> T3\n    classDef definition fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef theorem fill:#51cf66,color:#fff,stroke:#40c057\n    class D1,D2,D3 definition\n    class T1,T2,T3 theorem",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

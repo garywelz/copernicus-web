@@ -1,21 +1,23 @@
 {
   "id": "spectroscopy_advanced-ir-spectroscopy",
-  "name": "IR Spectroscopy",
+  "name": "FT-IR Spectroscopy",
   "category": "chemistry",
   "subcategory": "spectroscopy_advanced",
   "subcategory_name": "Spectroscopy Advanced",
-  "description": "IR Spectroscopy process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "FT-IR passes broadband infrared light through an interferometer and sample; bonds whose dipole moment changes absorb at characteristic frequencies, the interferogram is Fourier-transformed to a spectrum, and functional-group and fingerprint regions identify the compound.",
   "complexity": {
-    "nodes": 26,
-    "edges": 22,
-    "conditionals": 0,
+    "nodes": 10,
+    "edges": 10,
+    "conditionals": 1,
     "logicGates": {
-      "orGates": 0,
+      "orGates": 1,
       "andGates": 1,
-      "total": 1
+      "notGates": 0,
+      "total": 2
     },
-    "level": "medium",
-    "detailLevel": "medium"
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 0
   },
   "colorScheme": {
     "red": {
@@ -39,53 +41,151 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nA2[IR Radiation] --> B2[IR Spectroscopy Method]\nC2[Molecular Sample] --> D2[Wavelength Control]\nE2[Detector System] --> F2[Data Collection]\nB2 --> G2[IR Source Setup]\nD2 --> H2[Wavelength Selection]\nF2 --> I2[Signal Processing]\nG2 --> J2[Radiation Generation]\nH2 --> K2[Frequency Range]\nI2 --> L2[Transmittance Measurement]\nJ2 --> M2[Radiation Transmission]\nK2 --> L2\nL2 --> N2[Molecular Vibrations]\nM2 --> O2[Sample Irradiation]\nN2 --> P2[Vibrational Absorption]\nO2 --> Q2[Spectroscopic Analysis]\nP2 --> R2[IR Spectrum]\nQ2 --> S2[Peak Assignment]\nR2 --> T2[Functional Group Analysis]\nS2 --> U2[Vibrational Analysis]\nT2 --> V2[Group Identification]\nU2 --> W2[Spectroscopic Efficiency]\nV2 --> X2[Molecular Characterization]\nW2 --> Y2[Process Optimization]\nX2 --> Z2[Final IR Spectrum]\nY2 --> Z2\n\n    style A2 fill:#ff6b6b,color:#fff\n    style C2 fill:#ff6b6b,color:#fff\n    style E2 fill:#ff6b6b,color:#fff\n    style B2 fill:#ffd43b,color:#000\n    style D2 fill:#ffd43b,color:#000\n    style F2 fill:#ffd43b,color:#000\n    style G2 fill:#ffd43b,color:#000\n    style H2 fill:#ffd43b,color:#000\n    style I2 fill:#ffd43b,color:#000\n    style J2 fill:#ffd43b,color:#000\n    style K2 fill:#ffd43b,color:#000\n    style L2 fill:#ffd43b,color:#000\n    style M2 fill:#51cf66,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style O2 fill:#51cf66,color:#fff\n    style P2 fill:#51cf66,color:#fff\n    style Q2 fill:#51cf66,color:#fff\n    style R2 fill:#51cf66,color:#fff\n    style S2 fill:#51cf66,color:#fff\n    style T2 fill:#51cf66,color:#fff\n    style U2 fill:#51cf66,color:#fff\n    style V2 fill:#51cf66,color:#fff\n    style W2 fill:#51cf66,color:#fff\n    style X2 fill:#51cf66,color:#fff\n    style Y2 fill:#51cf66,color:#fff\n    style Z2 fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"Sample in IR beam\"]\n    N2[\"Beam through interferometer\"]\n    N3[\"Bonds absorb IR\"]\n    N4{\"Dipole moment changes?\"}\n    N5[\"IR-inactive mode\"]\n    N6[\"Record interferogram\"]\n    N7[\"Fourier transform\"]\n    N8[\"Functional-group region\"]\n    N9[\"Fingerprint comparison\"]\n    N10[\"Identified groups\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 --> N4\n    N4 -->|no| N5\n    N4 -->|yes| N6\n    N5 --> N8\n    N6 --> N7\n    N7 --> N8\n    N8 --> N9\n    N9 --> N10\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#74c0fc,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#74c0fc,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#51cf66,color:#fff\n    style N10 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "title": "Fourier Transform Infrared Spectrometry, 2nd ed.",
+      "authors": "Griffiths, P. R.; de Haseth, J. A.",
+      "journal": "Wiley-Interscience",
+      "year": "2007",
+      "doi": "10.1002/047010631X",
+      "url": "https://doi.org/10.1002/047010631X"
+    },
+    {
+      "title": "Principles of Instrumental Analysis, 7th ed. — Infrared Spectrometry",
+      "authors": "Skoog, D. A.; Holler, F. J.; Crouch, S. R.",
+      "journal": "Cengage Learning",
+      "year": "2018",
       "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: IR Spectroscopy. Created using the Programming Framework methodology."
+      "url": "https://www.cengage.com/c/principles-of-instrumental-analysis-7e-skoog/9781305577213/"
     },
     {
-      "title": "Crossref work (10.1117/12.2213129.4848650665001)",
-      "authors": "",
-      "journal": "",
-      "year": "None",
-      "pubmed": null,
-      "doi": "10.1117/12.2213129.4848650665001",
-      "url": "https://doi.org/10.1117/12.2213129.4848650665001"
-    },
-    {
-      "title": "Attenuated total reflection infrared (ATR-IR) spectroscopy, modulation excitation spectroscopy (MES), and vibrational circular dichroism (VCD)",
-      "authors": "Bürgi, Thomas",
-      "journal": "Biointerface Characterization by Advanced IR Spectroscopy",
-      "year": "2011",
-      "pubmed": null,
-      "doi": "10.1016/b978-0-444-53558-0.00005-9",
-      "url": "https://doi.org/10.1016/b978-0-444-53558-0.00005-9"
-    },
-    {
-      "title": "IR spectroscopy for biorecognition and molecular sensing",
-      "authors": "Pradier, C.M.; Salmain, M.; Boujday, S.",
-      "journal": "Biointerface Characterization by Advanced IR Spectroscopy",
-      "year": "2011",
-      "pubmed": null,
-      "doi": "10.1016/b978-0-444-53558-0.00007-2",
-      "url": "https://doi.org/10.1016/b978-0-444-53558-0.00007-2"
+      "title": "Gold Book: infrared spectroscopy",
+      "authors": "IUPAC",
+      "journal": "IUPAC Compendium of Chemical Terminology",
+      "year": "2019",
+      "doi": "10.1351/goldbook.IT07424",
+      "url": "https://goldbook.iupac.org/terms/view/IT07424"
     }
   ],
   "keywords": [
-    "ir",
-    "spectroscopy"
+    "ft-ir",
+    "infrared",
+    "dipole moment",
+    "interferogram",
+    "functional groups"
   ],
   "relatedProcesses": [],
   "created": "2026-01-08",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Sample in IR beam",
+      "detail": "Thin film, KBr, or ATR",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 1
+    },
+    {
+      "id": "N2",
+      "label": "Beam through interferometer",
+      "detail": "Michelson modulation",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N3",
+      "label": "Bonds absorb IR",
+      "detail": "Match vibrational frequencies",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N4",
+      "label": "Dipole moment changes?",
+      "detail": "IR selection rule",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 2
+    },
+    {
+      "id": "N5",
+      "label": "IR-inactive mode",
+      "detail": "Symmetric, no absorption",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N6",
+      "label": "Record interferogram",
+      "detail": "Detector signal vs path",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N7",
+      "label": "Fourier transform",
+      "detail": "Convert to spectrum",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N8",
+      "label": "Functional-group region",
+      "detail": "4000–1500 cm⁻¹",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N9",
+      "label": "Fingerprint comparison",
+      "detail": "<1500 cm⁻¹ pattern",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N10",
+      "label": "Identified groups",
+      "detail": "Structural assignment",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 1
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:spectroscopy_advanced-ir-spectroscopy",
+    "graphType": "decision_flowchart",
+    "topologySignature": "3b986a3680407c75",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "namedCollections": [
+    "spectroscopy"
+  ],
+  "graphMetrics": {
+    "nodes": 10,
+    "edges": 10,
+    "conditionals": 1,
+    "andGates": 1,
+    "orGates": 1,
+    "notGates": 0,
+    "loops": 0
+  },
+  "graphType": "decision_flowchart",
+  "domainContext": "Vibrational spectroscopy"
 }

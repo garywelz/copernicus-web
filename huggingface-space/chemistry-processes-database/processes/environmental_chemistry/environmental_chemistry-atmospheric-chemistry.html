@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Atmospheric Chemistry - Chemistry Process</title>
+    <title>Tropospheric Ozone (Photochemical Smog) - Chemistry Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Atmospheric Chemistry</h1>
+            <h1>Tropospheric Ozone (Photochemical Smog)</h1>
             <div class="header-meta">
                 <span class="meta-item">Chemistry</span>
                 <span class="meta-item">Environmental Chemistry</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,67 +234,56 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Atmospheric Chemistry process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>Tropospheric ozone builds through the photochemical NOx cycle: NO2 photolysis makes ozone while ozone titrates NO back to NO2 in a null cycle, but VOC oxidation produces peroxy radicals that convert NO to NO2 without consuming ozone, so net ozone accumulates and depends on the VOC-to-NOx balance.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-A1[Air Quality Monitoring] --> B1[Atmospheric Method]
-C1[Pollutant Detection] --> D1[Atmospheric Reaction]
-E1[Ozone Formation] --> F1[Atmospheric Chemistry Analysis]
-B1 --> G1[Photochemical Smog]
-D1 --> H1[Acid Rain Formation]
-F1 --> I1[Greenhouse Gas Chemistry]
-G1 --> J1[NOx Chemistry]
-H1 --> K1[SOx Chemistry]
-I1 --> L1[CO2 Chemistry]
-J1 --> M1[Ozone Depletion]
-K1 --> L1
-L1 --> N1[Climate Change]
-M1 --> O1[Atmospheric Modeling]
-N1 --> P1[Air Quality Index]
-O1 --> Q1[Atmospheric Chemistry Process]
-P1 --> R1[Atmospheric Chemistry Validation]
-Q1 --> S1[Atmospheric Chemistry Verification]
-R1 --> T1[Atmospheric Chemistry Result]
-S1 --> U1[Atmospheric Chemistry Analysis]
-T1 --> V1[Atmospheric Chemistry Parameters]
-U1 --> W1[Atmospheric Chemistry Output]
-V1 --> X1[Atmospheric Chemistry Analysis]
-W1 --> Y1[Atmospheric Chemistry Final Result]
-X1 --> Z1[Atmospheric Chemistry Complete]
+    N1["NOx + VOCs + sunlight"]
+    N2["NO2 photolysis (hv)"]
+    N3["O + O2 -> O3"]
+    N4["O3 + NO -> NO2 (null)"]
+    N5["VOC oxidation -> RO2/HO2"]
+    N6["RO2 converts NO->NO2"]
+    N7["Extra NO2 photolyzed"]
+    N8{"Net O3 accumulates?"}
+    N9["VOC-limited: cut VOC"]
+    N10["Photochemical smog"]
 
-    style A1 fill:#ff6b6b,color:#fff
-    style C1 fill:#ff6b6b,color:#fff
-    style E1 fill:#ff6b6b,color:#fff
-    style B1 fill:#ffd43b,color:#000
-    style D1 fill:#ffd43b,color:#000
-    style F1 fill:#ffd43b,color:#000
-    style G1 fill:#ffd43b,color:#000
-    style H1 fill:#ffd43b,color:#000
-    style I1 fill:#ffd43b,color:#000
-    style J1 fill:#ffd43b,color:#000
-    style K1 fill:#ffd43b,color:#000
-    style L1 fill:#ffd43b,color:#000
-    style M1 fill:#51cf66,color:#fff
-    style N1 fill:#51cf66,color:#fff
-    style O1 fill:#51cf66,color:#fff
-    style P1 fill:#51cf66,color:#fff
-    style Q1 fill:#51cf66,color:#fff
-    style R1 fill:#51cf66,color:#fff
-    style S1 fill:#51cf66,color:#fff
-    style T1 fill:#51cf66,color:#fff
-    style U1 fill:#51cf66,color:#fff
-    style V1 fill:#51cf66,color:#fff
-    style W1 fill:#51cf66,color:#fff
-    style X1 fill:#51cf66,color:#fff
-    style Y1 fill:#51cf66,color:#fff
-    style Z1 fill:#b197fc,color:#fff
+    N1 --> N2
+    N2 --> N3
+    N3 --> N4
+    N4 --> N5
+    N5 --> N6
+    N6 --> N7
+    N7 --> N8
+    N8 -->|no| N9
+    N9 -->|limit| N5
+    N8 -->|yes| N10
+
+    style N1 fill:#ff6b6b,color:#fff
+    style N2 fill:#51cf66,color:#fff
+    style N3 fill:#51cf66,color:#fff
+    style N4 fill:#74c0fc,color:#fff
+    style N5 fill:#51cf66,color:#fff
+    style N6 fill:#51cf66,color:#fff
+    style N7 fill:#51cf66,color:#fff
+    style N8 fill:#74c0fc,color:#fff
+    style N9 fill:#51cf66,color:#fff
+    style N10 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">NOx + VOCs + sunlight</td><td>Triggers & Inputs</td><td><a href="https://doi.org/10.1002/9781118947401" target="_blank" title="Atmospheric Chemistry and Physics: From Air Pollution to Climate Change (3rd ed.)" style="color:#e74c3c;">Seinfeld, J. H. et al. 2016</a></td></tr><tr><td style="font-weight:600;">NO2 photolysis (hv)</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1002/9781118947401" target="_blank" title="Atmospheric Chemistry and Physics: From Air Pollution to Climate Change (3rd ed.)" style="color:#e74c3c;">Seinfeld, J. H. et al. 2016</a></td></tr><tr><td style="font-weight:600;">O + O2 -> O3</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1002/9781118947401" target="_blank" title="Atmospheric Chemistry and Physics: From Air Pollution to Climate Change (3rd ed.)" style="color:#e74c3c;">Seinfeld, J. H. et al. 2016</a></td></tr><tr><td style="font-weight:600;">O3 + NO -> NO2 (null)</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1146/annurev.ea.07.050179.002303" target="_blank" title="The role of NO and NO2 in the chemistry of the troposphere and stratosphere" style="color:#e74c3c;">Crutzen, P. J. 1979</a></td></tr><tr><td style="font-weight:600;">VOC oxidation -> RO2/HO2</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1002/9781118947401" target="_blank" title="Atmospheric Chemistry and Physics: From Air Pollution to Climate Change (3rd ed.)" style="color:#e74c3c;">Seinfeld, J. H. et al. 2016</a></td></tr><tr><td style="font-weight:600;">RO2 converts NO->NO2</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1146/annurev.ea.07.050179.002303" target="_blank" title="The role of NO and NO2 in the chemistry of the troposphere and stratosphere" style="color:#e74c3c;">Crutzen, P. J. 1979</a></td></tr><tr><td style="font-weight:600;">Extra NO2 photolyzed</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1002/9781118947401" target="_blank" title="Atmospheric Chemistry and Physics: From Air Pollution to Climate Change (3rd ed.)" style="color:#e74c3c;">Seinfeld, J. H. et al. 2016</a></td></tr><tr><td style="font-weight:600;">Net O3 accumulates?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1002/9781118947401" target="_blank" title="Atmospheric Chemistry and Physics: From Air Pollution to Climate Change (3rd ed.)" style="color:#e74c3c;">Seinfeld, J. H. et al. 2016</a></td></tr><tr><td style="font-weight:600;">VOC-limited: cut VOC</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1002/9781118947401" target="_blank" title="Atmospheric Chemistry and Physics: From Air Pollution to Climate Change (3rd ed.)" style="color:#e74c3c;">Seinfeld, J. H. et al. 2016</a></td></tr><tr><td style="font-weight:600;">Photochemical smog</td><td>Products & Outputs</td><td><a href="https://doi.org/10.1146/annurev.ea.07.050179.002303" target="_blank" title="The role of NO and NO2 in the chemistry of the troposphere and stratosphere" style="color:#e74c3c;">Crutzen, P. J. 1979</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -313,12 +329,12 @@ X1 --> Z1[Atmospheric Chemistry Complete]
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 26</li>
-                        <li><strong>Edges:</strong> 21</li>
-                        <li><strong>Conditionals:</strong> 0</li>
+                        <li><strong>Nodes:</strong> 10</li>
+                        <li><strong>Edges:</strong> 10</li>
+                        <li><strong>Conditionals:</strong> 1</li>
                         <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 1</li>
+                        <li><strong>OR Gates:</strong> 1</li>
+                        <li><strong>Total Gates:</strong> 2</li>
                     </ul>
                 </div>
                 
@@ -326,7 +342,7 @@ X1 --> Z1[Atmospheric Chemistry Complete]
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>atmospheric</li><li>chemistry</li>
+                        <li>tropospheric ozone</li><li>photochemical smog</li><li>NOx cycle</li><li>peroxy radicals</li><li>Leighton relationship</li>
                     </ul>
                 </div>
                 
@@ -337,42 +353,22 @@ X1 --> Z1[Atmospheric Chemistry Complete]
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Atmospheric Chemistry and Physics: From Air Pollution to Climate Change (3rd ed.)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Seinfeld, J. H.; Pandis, S. N.
+                            , Wiley
+                             (2016)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Inverse Modeling for Atmospheric Chemistry</strong>
-                            
-                            , Modeling of Atmospheric Chemistry
-                             (2017)
-                            </span>
-                            <br><a href="https://doi.org/10.1017/9781316544754.012" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1017/9781316544754.012</a>
+                            <br><a href="https://doi.org/10.1002/9781118947401" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1002/9781118947401</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Peter V. Hobbs, Basic Physical Chemistry for the Atmospheric Sciences and Introduction to Atmospheric Chemistry</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Harrison, Roy M.
-                            , Journal of Atmospheric Chemistry
-                             (2001)
+                            <strong>The role of NO and NO2 in the chemistry of the troposphere and stratosphere</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Crutzen, P. J.
+                            , Annual Review of Earth and Planetary Sciences
+                             (1979)
                             </span>
-                            <br><a href="https://doi.org/10.1023/a:1010670623614" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1023/a:1010670623614</a>
-                            
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Ernö Mészáros: Fundamentals of Atmospheric Aerosol Chemistry</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Jaenicke, Ruprecht
-                            , Journal of Atmospheric Chemistry
-                             (2001)
-                            </span>
-                            <br><a href="https://doi.org/10.1023/a:1010753724116" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1023/a:1010753724116</a>
+                            <br><a href="https://doi.org/10.1146/annurev.ea.07.050179.002303" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1146/annurev.ea.07.050179.002303</a>
                             
                         </li>
                         

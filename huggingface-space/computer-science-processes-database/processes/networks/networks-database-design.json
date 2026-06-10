@@ -1,21 +1,23 @@
 {
   "id": "networks-database-design",
-  "name": "Database Design",
+  "name": "IP Addressing & Subnetting (CIDR)",
   "category": "computer_science",
   "subcategory": "networks",
   "subcategory_name": "Computer Networks",
-  "description": "Database Design process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "Subnetting divides an address block to fit host requirements: from the needed host count the required host bits and prefix length are computed, the block is split into subnets, and if a subnet is too small more host bits are borrowed; network and broadcast addresses are reserved and routes are aggregated with CIDR.",
   "complexity": {
-    "nodes": 26,
-    "edges": 21,
-    "conditionals": 0,
+    "nodes": 11,
+    "edges": 11,
+    "conditionals": 1,
     "logicGates": {
-      "orGates": 0,
+      "orGates": 1,
       "andGates": 1,
-      "total": 1
+      "notGates": 0,
+      "total": 2
     },
-    "level": "medium",
-    "detailLevel": "medium"
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 1
   },
   "colorScheme": {
     "red": {
@@ -39,53 +41,148 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nA1[Requirements Analysis] --> B1[Database Design Method]\nC1[Entity Relationship] --> D1[Data Modeling]\nE1[Schema Design] --> F1[Database Design Analysis]\nB1 --> G1[Conceptual Design]\nD1 --> H1[Logical Design]\nF1 --> I1[Physical Design]\nG1 --> J1[Entity Identification]\nH1 --> K1[Attribute Definition]\nI1 --> L1[Index Design]\nJ1 --> M1[Relationship Mapping]\nK1 --> L1\nL1 --> N1[Performance Optimization]\nM1 --> O1[Normalization Process]\nN1 --> P1[Storage Optimization]\nO1 --> Q1[Database Design Process]\nP1 --> R1[Database Design Validation]\nQ1 --> S1[Database Design Verification]\nR1 --> T1[Database Design Result]\nS1 --> U1[Database Design Analysis]\nT1 --> V1[Database Design Parameters]\nU1 --> W1[Database Design Output]\nV1 --> X1[Database Design Analysis]\nW1 --> Y1[Database Design Final Result]\nX1 --> Z1[Database Design Complete]\n\n    style A1 fill:#ff6b6b,color:#fff\n    style C1 fill:#ff6b6b,color:#fff\n    style E1 fill:#ff6b6b,color:#fff\n    style B1 fill:#ffd43b,color:#000\n    style D1 fill:#ffd43b,color:#000\n    style F1 fill:#ffd43b,color:#000\n    style G1 fill:#ffd43b,color:#000\n    style H1 fill:#ffd43b,color:#000\n    style I1 fill:#ffd43b,color:#000\n    style J1 fill:#ffd43b,color:#000\n    style K1 fill:#ffd43b,color:#000\n    style L1 fill:#ffd43b,color:#000\n    style M1 fill:#51cf66,color:#fff\n    style N1 fill:#51cf66,color:#fff\n    style O1 fill:#51cf66,color:#fff\n    style P1 fill:#51cf66,color:#fff\n    style Q1 fill:#51cf66,color:#fff\n    style R1 fill:#51cf66,color:#fff\n    style S1 fill:#51cf66,color:#fff\n    style T1 fill:#51cf66,color:#fff\n    style U1 fill:#51cf66,color:#fff\n    style V1 fill:#51cf66,color:#fff\n    style W1 fill:#51cf66,color:#fff\n    style X1 fill:#51cf66,color:#fff\n    style Y1 fill:#51cf66,color:#fff\n    style Z1 fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"Network address block\"]\n    N2[\"Determine host count\"]\n    N3[\"Compute required bits\"]\n    N4[\"Set subnet mask / prefix\"]\n    N5[\"Split into subnets\"]\n    N6{\"Enough addresses?\"}\n    N7[\"Borrow more host bits\"]\n    N8[\"Reserve net + broadcast\"]\n    N9[\"Usable host range\"]\n    N10[\"Aggregate routes (CIDR)\"]\n    N11[\"Subnet plan\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 --> N4\n    N4 --> N5\n    N5 --> N6\n    N6 -->|no| N7\n    N7 -->|recompute| N3\n    N6 -->|yes| N8\n    N8 --> N9\n    N9 --> N10\n    N10 --> N11\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#74c0fc,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#74c0fc,color:#fff\n    style N10 fill:#51cf66,color:#fff\n    style N11 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
-      "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: Database Design. Created using the Programming Framework methodology."
+      "title": "Classless Inter-domain Routing (CIDR): The Internet Address Assignment and Aggregation Plan (RFC 4632)",
+      "authors": "Fuller, V.; Li, T.",
+      "journal": "IETF",
+      "year": "2006",
+      "doi": "10.17487/RFC4632",
+      "url": "https://doi.org/10.17487/RFC4632"
     },
     {
-      "title": "Design of the Oltp Database",
-      "authors": "",
-      "journal": "Foundations of Database Design",
-      "year": "2005",
-      "pubmed": null,
-      "doi": "10.1201/9780203505168.ch9",
-      "url": "https://doi.org/10.1201/9780203505168.ch9"
-    },
-    {
-      "title": "Physical Database Design",
-      "authors": "",
-      "journal": "Semistructured Database Design",
-      "year": "2005",
-      "pubmed": null,
-      "doi": "10.1007/0-387-23568-x_7",
-      "url": "https://doi.org/10.1007/0-387-23568-x_7"
-    },
-    {
-      "title": "Introduction to Logical Database Design",
-      "authors": "",
-      "journal": "Foundations of Database Design",
-      "year": "2005",
-      "pubmed": null,
-      "doi": "10.1201/9780203505168.ch1",
-      "url": "https://doi.org/10.1201/9780203505168.ch1"
+      "title": "Computer Networks (5th ed.)",
+      "authors": "Tanenbaum, A. S.; Wetherall, D. J.",
+      "journal": "Pearson",
+      "year": "2011",
+      "url": "https://www.pearson.com/en-us/subject-catalog/p/computer-networks/P200000003188"
     }
   ],
   "keywords": [
-    "database",
-    "design"
+    "IP addressing",
+    "subnetting",
+    "CIDR",
+    "subnet mask",
+    "route aggregation"
   ],
   "relatedProcesses": [],
   "created": "2026-01-08",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Network address block",
+      "detail": "Base prefix",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N2",
+      "label": "Determine host count",
+      "detail": "Per subnet need",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N3",
+      "label": "Compute required bits",
+      "detail": "2^h - 2 hosts",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N4",
+      "label": "Set subnet mask / prefix",
+      "detail": "/n length",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N5",
+      "label": "Split into subnets",
+      "detail": "Partition block",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N6",
+      "label": "Enough addresses?",
+      "detail": "Fits all hosts",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N7",
+      "label": "Borrow more host bits",
+      "detail": "Widen subnet",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N8",
+      "label": "Reserve net + broadcast",
+      "detail": "First and last",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N9",
+      "label": "Usable host range",
+      "detail": "Assignable IPs",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N10",
+      "label": "Aggregate routes (CIDR)",
+      "detail": "Supernet summary",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N11",
+      "label": "Subnet plan",
+      "detail": "Address scheme",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 0
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:networks-database-design",
+    "graphType": "decision_flowchart",
+    "topologySignature": "703a605782e329a6",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "namedCollections": [],
+  "graphMetrics": {
+    "nodes": 11,
+    "edges": 11,
+    "conditionals": 1,
+    "andGates": 1,
+    "orGates": 1,
+    "notGates": 0,
+    "loops": 1
+  },
+  "graphType": "decision_flowchart",
+  "domainContext": "Computer networks"
 }

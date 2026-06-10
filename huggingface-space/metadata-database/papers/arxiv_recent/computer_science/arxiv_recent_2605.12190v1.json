@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2605.12190v1",
+  "arxiv_id": "2605.12190v1",
+  "title": "Information-Theoretic Generalization Bounds for Sequential Decision Making",
+  "authors": [
+    "Futoshi Futami",
+    "Masahiro Fujisawa"
+  ],
+  "author_string": "Futoshi Futami, Masahiro Fujisawa",
+  "journal": "arXiv:2605.12190v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Information-theoretic generalization bounds based on the supersample construction are a central tool for algorithm-dependent generalization analysis in the batch i.i.d.~setting. However, existing supersample conditional mutual information (CMI) bounds do not directly apply to sequential decision-making problems such as online learning, streaming active learning, and bandits, where data are revealed adaptively and the learner evolves along a causal trajectory. To address this limitation, we develop a sequential supersample framework that separates the learner filtration from a proof-side enlargement used for ghost-coordinate comparisons. Under a row-wise exchangeability assumption, the sequential generalization gap is controlled by sequential CMI, a sum of roundwise selector--loss information terms. We also establish a Bernstein-type refinement that yields faster rates under suitable variance conditions. The selector-SCMI proof strategy applies to online learning, streaming active learning with importance weighting, and stochastic multi-armed bandits.",
+  "categories": [
+    "stat.ML",
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": null,
+  "published_date": "2026-05-12T14:31:48Z",
+  "updated_date": "2026-05-12T14:31:48Z",
+  "url": "https://arxiv.org/abs/2605.12190v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.12190v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-13T10:15:43.132124",
+  "category": "computer_science",
+  "subcategories": [
+    "stat.ML",
+    "cs.LG"
+  ]
+}

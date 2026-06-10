@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Euclid's Elements Book IV - Mathematics Process</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 20px; }
+        .container { max-width: 900px; margin: 0 auto; background: white; border-radius: 15px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); overflow: hidden; padding: 30px; }
+        h1 { color: #2c3e50; margin-bottom: 15px; }
+        p { color: #555; margin-bottom: 25px; line-height: 1.6; }
+        .nav-links { margin-bottom: 20px; }
+        .nav-links a { color: #e67e22; text-decoration: none; margin-right: 20px; font-weight: 500; }
+        .nav-links a:hover { text-decoration: underline; }
+        .sections { display: grid; gap: 15px; }
+        .sections a { display: block; padding: 20px; background: #f8f9fa; border-radius: 10px; color: #2c3e50; text-decoration: none; font-weight: 500; border-left: 4px solid #e67e22; }
+        .sections a:hover { background: #ecf0f1; }
+        .chart-meta { font-size: 0.9em; color: #7f8c8d; margin-top: 4px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="nav-links">
+            <a id="back-link" href="#">← Back to Mathematics Database</a>
+            <a id="euclid-index-link" href="#">Euclid's Elements (all books)</a>
+            <a href="https://mathcs.clarku.edu/~djoyce/java/elements/bookIV/bookIV.html" target="_blank">Euclid's Elements Book IV (Joyce)</a>
+        </div>
+        <script>
+            (function() {
+                const base = window.location.hostname.includes('storage.googleapis.com')
+                    ? 'https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database'
+                    : '../..';
+                document.getElementById('back-link').href = base + '/mathematics-database-table.html';
+                document.getElementById('euclid-index-link').href = base + '/processes/geometry_topology/geometry_topology-euclid-elements.html';
+            })();
+        </script>
+        <h1>Euclid's Elements Book IV</h1>
+        <p>Inscribed and circumscribed figures: triangle, square, pentagon, hexagon, 15-gon. All depend on Books I and III. Prop IV.10 uses Prop II.11 (golden section). Dependency charts split into two views.</p>
+        <div class="sections">
+            <a href="geometry_topology-euclid-elements-book-iv-props-1-5.html">Propositions 1–5 <span class="chart-meta">Defs + triangle, circle</span></a>
+            <a href="geometry_topology-euclid-elements-book-iv-props-6-16.html">Propositions 6–16 <span class="chart-meta">Square, pentagon, hexagon, 15-gon</span></a>
+        </div>
+    </div>
+</body>
+</html>

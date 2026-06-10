@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2604.19340v1",
+  "arxiv_id": "2604.19340v1",
+  "title": "Improvements to the post-processing of weather forecasts using machine learning and feature selection",
+  "authors": [
+    "Kazuma Iwase",
+    "Tomoyuki Takenawa"
+  ],
+  "author_string": "Kazuma Iwase, Tomoyuki Takenawa",
+  "journal": "arXiv:2604.19340v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "This study aims to develop and improve machine learning-based post-processing models for precipitation, temperature, and wind speed predictions using the Mesoscale Model (MSM) dataset provided by the Japan Meteorological Agency (JMA) for 18 locations across Japan, including plains, mountainous regions, and islands. By incorporating meteorological variables from grid points surrounding the target locations as input features and applying feature selection based on correlation analysis, we found that, in our experimental setting, the LightGBM-based models achieved lower RMSE than the specific neural-network baselines tested in this study, including a reproduced CNN baseline, and also generally achieved lower RMSE than both the raw MSM forecasts and the JMA post-processing product, MSM Guidance (MSMG), across many locations and forecast lead times. Because precipitation has a highly skewed distribution with many zero cases, we additionally examined Tweedie-based loss functions and event-weighted training strategies for precipitation forecasting. These improved event-oriented performance relative to the original LightGBM model, especially at higher rainfall thresholds, although the gains were site dependent and overall performance remained slightly below MSMG.",
+  "categories": [
+    "physics.ao-ph",
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": "24 pages",
+  "published_date": "2026-04-21T11:17:29Z",
+  "updated_date": "2026-04-21T11:17:29Z",
+  "url": "https://arxiv.org/abs/2604.19340v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.19340v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-23T10:15:44.421248",
+  "category": "computer_science",
+  "subcategories": [
+    "physics.ao-ph",
+    "cs.LG"
+  ]
+}

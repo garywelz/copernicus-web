@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2605.23845v1",
+  "arxiv_id": "2605.23845v1",
+  "title": "Learning a Particle Dynamics Model with Real-world Videos",
+  "authors": [
+    "Chanho Kim",
+    "Suhas V. Sumukh",
+    "Li Fuxin"
+  ],
+  "author_string": "Chanho Kim, Suhas V. Sumukh, Li Fuxin",
+  "journal": "arXiv:2605.23845v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Data-driven learning approaches for physics simulation, sometimes referred to as world models, have emerged as promising alternatives to traditional physics simulators due to their differentiable nature. Prior work has demonstrated impressive results in predicting the motions of rigid and non-rigid objects in complex scenes involving multiple interacting bodies. However, these models are typically trained in simulated environments because obtaining perfect state information such as complete scene point clouds and point correspondences over time is challenging in real-world settings. This reliance on synthetic data can limit their applicability when the sim-to-real gap is large. In this work, we aim to overcome these limitations by introducing a novel framework for training neural object dynamics models directly from unlabeled real-world videos. Specifically, we propose to learn a particle-based dynamics model compatible with a Gaussian splatting framework, which operates on dense particles derived from Gaussians (i.e., particles with scales and rotations) and predicts their position and rotation changes over time. The model is trained via rendering supervision, enabling learning from real-world videos without requiring particle-level labeled states. Our model operates directly on dense Gaussians without relying on heuristic subsampling anchor points. To enable this study, we also present a real-world dataset consisting of about 500 videos capturing diverse object interactions.",
+  "categories": [
+    "cs.CV"
+  ],
+  "primary_category": "cs.CV",
+  "comment": "CVPR 2026 Findings",
+  "published_date": "2026-05-22T16:56:27Z",
+  "updated_date": "2026-05-22T16:56:27Z",
+  "url": "https://arxiv.org/abs/2605.23845v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.23845v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-25T10:15:39.083603",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CV"
+  ]
+}

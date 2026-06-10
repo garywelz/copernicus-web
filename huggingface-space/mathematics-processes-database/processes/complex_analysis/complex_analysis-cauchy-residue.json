@@ -1,0 +1,39 @@
+{
+  "id": "complex_analysis-cauchy-residue",
+  "name": "Cauchy Integral Theorem & Residue Calculus",
+  "category": "mathematics",
+  "subcategory": "complex_analysis",
+  "subcategory_name": "Complex Analysis",
+  "description": "∫_γ f(z) dz = 0 for null-homologous γ. Cauchy integral formula, residue theorem. Main computational tool for contour integrals.",
+  "mermaid": "graph TD\n    D1[\"Def: Contour integral\\n∫_γ f dz\"]\n    D2[\"Def: Winding number\\nn(γ,z)\"]\n    D3[\"Def: Residue\\nRes(f,z₀)\"]\n    T1[\"Thm: Cauchy–Goursat\\n∫_γ f=0 if f holomorphic\\ninside γ\"]\n    T2[\"Thm: Cauchy formula\\nf(z)=1/2πi ∫ f(ζ)/(ζ−z) dζ\"]\n    T3[\"Thm: Residue theorem\\n∫_γ f = 2πi Σ Res(f,zⱼ)\"]\n    T4[\"Thm: Argument principle\\n∫ f'/f = 2πi(N−P)\"]\n    T5[\"Thm: Rouché\\n|f−g|&lt|g| ⇒ same # zeros\"]\n    L1[\"Lemma: Laurent coeff\\nc₋₁ = Res\"]\n    T1 --> T2\n    T2 --> T3\n    T2 --> L1\n    L1 --> T3\n    T3 --> T4\n    T4 --> T5\n    D1 --> T1\n    D2 --> T4\n    D3 --> T3\n    classDef definition fill:#b197fc,color:#fff\n    classDef theorem fill:#51cf66,color:#fff\n    classDef lemma fill:#74c0fc,color:#fff\n    class D1,D2,D3 definition\n    class T1,T2,T3,T4,T5 theorem\n    class L1 lemma",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

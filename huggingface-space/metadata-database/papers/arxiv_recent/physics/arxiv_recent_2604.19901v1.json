@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2604.19901v1",
+  "arxiv_id": "2604.19901v1",
+  "title": "Geometric Correction of Side-Scan Sonar Images with Image-Consistent Attitude Refinement",
+  "authors": [
+    "Can Lei",
+    "Valerio Franchi",
+    "Hayat Rajani",
+    "Nuno Gracias",
+    "Rafael Garcia",
+    "Huigang Wang"
+  ],
+  "author_string": "Can Lei, Valerio Franchi, Hayat Rajani, Nuno Gracias, Rafael Garcia et al.",
+  "journal": "arXiv:2604.19901v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Side-scan sonar (SSS) images are susceptible to motion-induced geometric distortion, which degrades their reliability for seabed interpretation and downstream tasks. Existing correction methods either exploit image-domain consistency without adequately preserving global geometric referencing, or rely on navigation-based geocoding whose effectiveness is limited when recorded attitude and motion fail to capture ping-scale perturbations. To address this issue, we propose a geometric correction method for SSS images with image-consistent attitude refinement. The core idea is to refine the yaw-pitch sequence used in geocoding by explicitly linking stripe-wise distortion patterns in dual-sided waterfall images to geometric deformation modes. Specifically, a navigation-derived macro-scale attitude baseline is fused with image-inferred microscopic perturbations, where port-starboard symmetry is used to separate pitch-related common-mode responses from yaw-related differential-mode responses. The refined attitude is then incorporated into a physically geocoding framework with track-aligned gridding and normalized-convolution-based hole completion to generate the corrected image. Experiments on real SSS datasets from different sonar platforms and environments show that the proposed method reduces inter-ping misalignment, local stretching, and structural discontinuity, and improves local geometric consistency under both degraded-attitude and cross-dataset evaluation settings, demonstrating its effectiveness for geometrically consistent SSS correction.",
+  "categories": [
+    "physics.ao-ph"
+  ],
+  "primary_category": "physics.ao-ph",
+  "comment": null,
+  "published_date": "2026-04-21T18:24:39Z",
+  "updated_date": "2026-04-21T18:24:39Z",
+  "url": "https://arxiv.org/abs/2604.19901v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.19901v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-23T10:15:40.079849",
+  "category": "physics",
+  "subcategories": [
+    "physics.ao-ph"
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2605.03736v1",
+  "arxiv_id": "2605.03736v1",
+  "title": "Low Rank Tensor Completion via Adaptive ADMM",
+  "authors": [
+    "Niclas Führling",
+    "Getuar Rexhepi",
+    "Giuseppe Thadeu Freitas de Abreu"
+  ],
+  "author_string": "Niclas Führling, Getuar Rexhepi, Giuseppe Thadeu Freitas de Abreu",
+  "journal": "arXiv:2605.03736v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We consider a novel algorithm, for the completion of partially observed low-rank tensors, as a generalization of matrix completion. The proposed low-rank tensor completion (TC) method builds on the conventional nuclear norm (NN) minimization-based low-rank TC paradigm, by leveraging the alternating direction method of multipliers (ADMM) optimization framework. To that extend the original NN minimization problem is reformulated into multiple subproblems, which are then solved iteratively via closed-form proximal operators, making use of over-relaxation and an adaptive penalty parameter update scheme, to further speed up convergence and improve the overall performance of the method. Simulation results demonstrate the superior performance of the new method in terms of normalized mean square error (NMSE), compared to the conventional state-of-the-art (SotA) techniques, including NN minimization approaches, as well as a mixture of the latter with a matrix factorization approach, while its convergence can be significantly improved by initializing the algorithm with the solution of the SotA.",
+  "categories": [
+    "stat.ML",
+    "cs.LG",
+    "eess.SP"
+  ],
+  "primary_category": "eess.SP",
+  "comment": null,
+  "published_date": "2026-05-05T13:24:39Z",
+  "updated_date": "2026-05-05T13:24:39Z",
+  "url": "https://arxiv.org/abs/2605.03736v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.03736v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-06T10:15:44.571514",
+  "category": "interdisciplinary",
+  "subcategories": [
+    "stat.ML",
+    "cs.LG",
+    "eess.SP"
+  ]
+}

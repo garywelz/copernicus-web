@@ -1,21 +1,23 @@
 {
   "id": "security-process-management",
-  "name": "Process Management",
+  "name": "Diffie-Hellman Key Exchange",
   "category": "computer_science",
   "subcategory": "security",
   "subcategory_name": "Security & Cryptography",
-  "description": "Process Management process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "Diffie-Hellman lets two parties derive a shared secret over a public channel: they agree on public parameters, each picks a private exponent and exchanges its public power, then both compute the same shared value; because passive eavesdroppers cannot, but active attackers can, the exchange must be authenticated to resist man-in-the-middle.",
   "complexity": {
-    "nodes": 26,
-    "edges": 21,
-    "conditionals": 0,
+    "nodes": 12,
+    "edges": 12,
+    "conditionals": 2,
     "logicGates": {
-      "orGates": 0,
+      "orGates": 2,
       "andGates": 1,
-      "total": 1
+      "notGates": 0,
+      "total": 3
     },
-    "level": "medium",
-    "detailLevel": "medium"
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 0
   },
   "colorScheme": {
     "red": {
@@ -39,53 +41,157 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nA1[Process Creation] --> B1[Process Management Method]\nC1[Process Scheduling] --> D1[Context Switching]\nE1[Process Synchronization] --> F1[Process Management Analysis]\nB1 --> G1[Round Robin Scheduling]\nD1 --> H1[Priority Scheduling]\nF1 --> I1[Multilevel Queue]\nG1 --> J1[Time Quantum]\nH1 --> K1[Process Priority]\nI1 --> L1[Queue Management]\nJ1 --> M1[CPU Allocation]\nK1 --> L1\nL1 --> N1[Process State]\nM1 --> O1[Inter Process Communication]\nN1 --> P1[Deadlock Prevention]\nO1 --> Q1[Process Management Process]\nP1 --> R1[Process Management Validation]\nQ1 --> S1[Process Management Verification]\nR1 --> T1[Process Management Result]\nS1 --> U1[Process Management Analysis]\nT1 --> V1[Process Management Parameters]\nU1 --> W1[Process Management Output]\nV1 --> X1[Process Management Analysis]\nW1 --> Y1[Process Management Final Result]\nX1 --> Z1[Process Management Complete]\n\n    style A1 fill:#ff6b6b,color:#fff\n    style C1 fill:#ff6b6b,color:#fff\n    style E1 fill:#ff6b6b,color:#fff\n    style B1 fill:#ffd43b,color:#000\n    style D1 fill:#ffd43b,color:#000\n    style F1 fill:#ffd43b,color:#000\n    style G1 fill:#ffd43b,color:#000\n    style H1 fill:#ffd43b,color:#000\n    style I1 fill:#ffd43b,color:#000\n    style J1 fill:#ffd43b,color:#000\n    style K1 fill:#ffd43b,color:#000\n    style L1 fill:#ffd43b,color:#000\n    style M1 fill:#51cf66,color:#fff\n    style N1 fill:#51cf66,color:#fff\n    style O1 fill:#51cf66,color:#fff\n    style P1 fill:#51cf66,color:#fff\n    style Q1 fill:#51cf66,color:#fff\n    style R1 fill:#51cf66,color:#fff\n    style S1 fill:#51cf66,color:#fff\n    style T1 fill:#51cf66,color:#fff\n    style U1 fill:#51cf66,color:#fff\n    style V1 fill:#51cf66,color:#fff\n    style W1 fill:#51cf66,color:#fff\n    style X1 fill:#51cf66,color:#fff\n    style Y1 fill:#51cf66,color:#fff\n    style Z1 fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"No shared key\"]\n    N2[\"Agree params (p,g)\"]\n    N3[\"Pick secrets a,b\"]\n    N4[\"Compute g^a, g^b\"]\n    N5[\"Exchange public vals\"]\n    N6{\"MITM possible?\"}\n    N7[\"Authenticate (sign)\"]\n    N8[\"Compute g^ab\"]\n    N9{\"Keys match?\"}\n    N10[\"Abort (tampering)\"]\n    N11[\"Derive session key\"]\n    N12[\"Shared secret set\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 --> N4\n    N4 --> N5\n    N5 --> N6\n    N6 -->|yes| N7\n    N7 --> N8\n    N6 -->|no| N8\n    N8 --> N9\n    N9 -->|no| N10\n    N9 -->|yes| N11\n    N11 --> N12\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#74c0fc,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#74c0fc,color:#fff\n    style N9 fill:#74c0fc,color:#fff\n    style N10 fill:#51cf66,color:#fff\n    style N11 fill:#51cf66,color:#fff\n    style N12 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
-      "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: Process Management. Created using the Programming Framework methodology."
+      "title": "New directions in cryptography",
+      "authors": "Diffie, W.; Hellman, M. E.",
+      "journal": "IEEE Transactions on Information Theory",
+      "year": "1976",
+      "doi": "10.1109/TIT.1976.1055638",
+      "url": "https://doi.org/10.1109/TIT.1976.1055638"
     },
     {
-      "title": "Process Management",
-      "authors": "Phusavat, Kongkiti",
-      "journal": "Process Management",
-      "year": "2010",
-      "pubmed": null,
-      "doi": "10.5772/8448",
-      "url": "https://doi.org/10.5772/8448"
-    },
-    {
-      "title": "Business Process Management Architectures",
-      "authors": "",
-      "journal": "Business Process Management",
-      "year": "None",
-      "pubmed": null,
-      "doi": "10.1007/978-3-540-73522-9_7",
-      "url": "https://doi.org/10.1007/978-3-540-73522-9_7"
-    },
-    {
-      "title": "Process Safety Management Systems",
-      "authors": "",
-      "journal": "Process Systems Engineering",
-      "year": "2005",
-      "pubmed": null,
-      "doi": "10.1016/s1874-5970(05)80013-x",
-      "url": "https://doi.org/10.1016/s1874-5970(05)80013-x"
+      "title": "Secure communications over insecure channels",
+      "authors": "Merkle, R. C.",
+      "journal": "Communications of the ACM",
+      "year": "1978",
+      "doi": "10.1145/359460.359473",
+      "url": "https://doi.org/10.1145/359460.359473"
     }
   ],
   "keywords": [
-    "process",
-    "management"
+    "Diffie-Hellman",
+    "key exchange",
+    "shared secret",
+    "discrete logarithm",
+    "man-in-the-middle"
   ],
   "relatedProcesses": [],
   "created": "2026-01-08",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "No shared key",
+      "detail": "Two parties",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N2",
+      "label": "Agree params (p,g)",
+      "detail": "Public group",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N3",
+      "label": "Pick secrets a,b",
+      "detail": "Private exponents",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N4",
+      "label": "Compute g^a, g^b",
+      "detail": "mod p",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N5",
+      "label": "Exchange public vals",
+      "detail": "Over channel",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N6",
+      "label": "MITM possible?",
+      "detail": "Active attacker",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N7",
+      "label": "Authenticate (sign)",
+      "detail": "Bind to identity",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N8",
+      "label": "Compute g^ab",
+      "detail": "Both sides equal",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N9",
+      "label": "Keys match?",
+      "detail": "Same secret",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N10",
+      "label": "Abort (tampering)",
+      "detail": "Mismatch",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N11",
+      "label": "Derive session key",
+      "detail": "KDF on secret",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N12",
+      "label": "Shared secret set",
+      "detail": "Encrypted channel",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 0
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:security-process-management",
+    "graphType": "decision_flowchart",
+    "topologySignature": "d7fd1fc82568be8c",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "namedCollections": [],
+  "graphMetrics": {
+    "nodes": 12,
+    "edges": 12,
+    "conditionals": 2,
+    "andGates": 1,
+    "orGates": 2,
+    "notGates": 0,
+    "loops": 0
+  },
+  "graphType": "decision_flowchart",
+  "domainContext": "Cryptography"
 }

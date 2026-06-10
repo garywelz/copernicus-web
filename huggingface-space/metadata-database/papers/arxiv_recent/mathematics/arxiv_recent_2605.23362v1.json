@@ -1,0 +1,38 @@
+{
+  "id": "arxiv_2605.23362v1",
+  "arxiv_id": "2605.23362v1",
+  "title": "Instance-Optimal Estimation with Multiple LLM Judges on a Budget",
+  "authors": [
+    "Junghyun Lee",
+    "Sanghwa Kim",
+    "Yassir Jedra",
+    "Alexandre Proutière",
+    "Se-Young Yun"
+  ],
+  "author_string": "Junghyun Lee, Sanghwa Kim, Yassir Jedra, Alexandre Proutière, Se-Young Yun",
+  "journal": "arXiv:2605.23362v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Evaluating large language models increasingly relies on LLM-as-a-judge protocols, but such evaluations remain costly: different judges have different prices and reliabilities, and the difficulty of each prompt-response pair can vary substantially. This raises a basic allocation question: under a fixed budget, how should one distribute evaluation queries across heterogeneous judges and instances to obtain the most accurate score estimates? We formalize this question as *budgeted heteroskedastic multi-judge estimation*. Given $K$ prompt-response pairs, $J$ judges with known costs, and unknown query-judge variances, the goal is to estimate a bounded score vector while minimizing an $\\ell_p$-error. Our first contribution is to analyze the inverse-variance weighted estimator (IVWE) and to derive the oracle allocation that minimizes its error rate. Since this allocation depends on the unknown variances, we then address the practical unknown-variance setting by proposing EST-IVWE, an adaptive algorithm that constructs and leverages *optimistically biased* variance estimates to stabilize the empirical allocation. We prove that EST-IVWE matches the oracle IVWE rate up to lower-order terms in the budget. Our second and central theoretical contribution is a matching *local* minimax lower bound, which establishes the instance-optimality of the proposed algorithms. A key technical insight is that Fano-type high-probability arguments are too coarse for this problem: their packing construction loses the local variance structure that governs the optimal allocation. We instead use an Assouad-type in-expectation argument, based on local perturbations, which preserves this structure and yields the sharp allocation-dependent lower bound. Finally, we numerically validate the superiority of our approach over naïve uniform allocation on synthetic and HelpSteer2 datasets.",
+  "categories": [
+    "cs.LG",
+    "cs.IT",
+    "math.ST",
+    "stat.ML"
+  ],
+  "primary_category": "stat.ML",
+  "comment": "53 pages, 4 figures; the first two authors contributed equally",
+  "published_date": "2026-05-22T08:26:08Z",
+  "updated_date": "2026-05-22T08:26:08Z",
+  "url": "https://arxiv.org/abs/2605.23362v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.23362v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-25T10:15:42.726949",
+  "category": "mathematics",
+  "subcategories": [
+    "cs.LG",
+    "cs.IT",
+    "math.ST"
+  ]
+}

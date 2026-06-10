@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2605.05091v1",
+  "arxiv_id": "2605.05091v1",
+  "title": "Think-Aloud Reshapes Automated Cognitive Model Discovery Beyond Behavior",
+  "authors": [
+    "Hanbo Xie",
+    "Akshay K. Jagadish",
+    "Lan Pan",
+    "Robert C. Wilson"
+  ],
+  "author_string": "Hanbo Xie, Akshay K. Jagadish, Lan Pan, Robert C. Wilson",
+  "journal": "arXiv:2605.05091v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Computational cognitive models discovered using large language models have so far relied solely on behavioral data. However, it is well-known that models produced from the behavioral trajectory alone are typically under-determined. In this work, we explore the use of Think Aloud traces as an additional form of data constraint during automated model discovery. When applied to the domain of risky decision-making, we find that the models discovered with think-aloud achieve significantly improved predictive performance on held-out data. Additionally, we find that the discovered models belong to different structural classes than those discovered from behavior alone for the majority of participants (69.4\\%), specifically, it shifts from Explicit comparator towards Integrated utility. These results suggest that process-level language data not only improve model fit, but also systematically reshape the structure of the discovered cognitive models, enabling the identification of mechanisms that are not recoverable from behavior alone.",
+  "categories": [
+    "q-bio.NC",
+    "cs.AI"
+  ],
+  "primary_category": "cs.AI",
+  "comment": null,
+  "published_date": "2026-05-06T16:29:35Z",
+  "updated_date": "2026-05-06T16:29:35Z",
+  "url": "https://arxiv.org/abs/2605.05091v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.05091v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-13T10:15:35.805777",
+  "category": "computer_science",
+  "subcategories": [
+    "q-bio.NC",
+    "cs.AI"
+  ]
+}

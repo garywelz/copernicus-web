@@ -1,0 +1,39 @@
+{
+  "id": "calculus_analysis-devaney-hairs-cantor-bouquet",
+  "name": "Devaney Hairs & Cantor Bouquets",
+  "category": "mathematics",
+  "subcategory": "calculus_analysis",
+  "subcategory_name": "Calculus & Analysis",
+  "description": "Devaney hairs: arcs in Julia sets of transcendental entire functions (e.g. exponential E_a(z)=a·exp(z), 0<a<1/e). A hair is a simple curve from a finite endpoint to infinity; iterates preserve this structure. Cantor bouquet: Julia set of such exponentials; uncountably many hairs; homeomorphic to a straight brush. When attracting cycle has period > 1, hairs can pinch; kneading invariant determines connectivity. Devaney pioneered the study of these structures.",
+  "mermaid": "graph TD\n    Julia[\"Julia and Fatou sets\"]\n    DefExp[\"Def: Exponential map E_a(z) = a·exp(z)\"]\n    DefTrans[\"Def: Transcendental entire\\nEssential singularity at infinity\"]\n    DefHair[\"Def: Devaney hair\\nArc: endpoint to infinity, f-invariant\"]\n    DefBouquet[\"Def: Cantor bouquet\\nUncountably many hairs\"]\n    ThmStruct[\"Thm: J(E_a) Cantor bouquet\\nFor 0 less than a less than 1/e\"]\n    DefBrush[\"Def: Straight brush\\nTopological model for bouquet\"]\n    ThmHomeo[\"Thm: J ambiently homeo to straight brush\"]\n    LemKnead[\"Lem: Kneading invariant\\nDetermines pinched hairs when period greater than 1\"]\n    Julia --> DefExp\n    DefExp --> DefTrans\n    DefTrans --> DefHair\n    DefHair --> DefBouquet\n    DefBouquet --> ThmStruct\n    ThmStruct --> DefBrush\n    DefBrush --> ThmHomeo\n    ThmStruct --> LemKnead\n    classDef axiom fill:#ff6b6b,color:#fff,stroke:#c0392b\n    classDef definition fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef theorem fill:#51cf66,color:#fff,stroke:#40c057\n    classDef lemma fill:#74c0fc,color:#fff,stroke:#4dabf7\n    class Julia axiom\n    class DefExp,DefTrans,DefHair,DefBouquet,DefBrush definition\n    class ThmStruct,ThmHomeo theorem\n    class LemKnead lemma",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

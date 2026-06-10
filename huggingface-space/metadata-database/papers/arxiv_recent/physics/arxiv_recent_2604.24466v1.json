@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2604.24466v1",
+  "arxiv_id": "2604.24466v1",
+  "title": "An archive of reduced and telluric-corrected CRIRES+ L- and M-band spectra with slit-tilt and wavelength calibrations",
+  "authors": [
+    "Thomas Marquart",
+    "Alexis Lavail"
+  ],
+  "author_string": "Thomas Marquart, Alexis Lavail",
+  "journal": "arXiv:2604.24466v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "The high-resolution near-infrared spectrograph CRIRES+ at ESO VLT covers the Y, J, H, K, L and M bands. The U-Ne and Fabry-Perot calibration light sources, however, only work up to the K-band, leaving the bands L and M without wavelength calibration, and without a way to measure the inclination of the long slit relative to the detector frame. To remedy this, we present here a uniformly reprocessed archive of all public CRIRES+ L/M science observations obtained between September 2021 and March 2025, totalling 11 131 raw frames. We use the telluric modelling tool viper that fits a model to the plethora of atmospheric absorption features that exist around these wavelengths. We calibrate the slit tilt from the wavelength solutions for the nodding A and B frames that have the target in the lower and upper half of the slit, respectively. We then update the static inputs to the data reduction system with the slit tilt information and reduce the data with the standard pipeline recipes. Subsequently, we derive new wavelength scales for each observation from telluric fits on the spectra themselves, additionally interpolating the solutions for spectra that have no tellurics from the ones that have. The resulting 5649 extracted, calibrated and telluric-fitted AB nod-pair spectra, spanning 156 unique targets from 68 ESO programmes, are served through an interactive web archive at https://www.astro.uu.se/crires-lm that offers data downloads and figures for all datasets that allow an initial judgement of the data quality.",
+  "categories": [
+    "astro-ph.IM",
+    "astro-ph.SR"
+  ],
+  "primary_category": "astro-ph.SR",
+  "comment": "7 pages, 11 figures",
+  "published_date": "2026-04-27T13:35:37Z",
+  "updated_date": "2026-04-27T13:35:37Z",
+  "url": "https://arxiv.org/abs/2604.24466v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.24466v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-27T22:15:21.997901",
+  "category": "physics",
+  "subcategories": [
+    "astro-ph.IM",
+    "astro-ph.SR"
+  ]
+}

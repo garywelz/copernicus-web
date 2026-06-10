@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_2605.03964v1",
+  "arxiv_id": "2605.03964v1",
+  "title": "Pretrained Model Representations as Acquisition Signals for Active Learning of MLIPs",
+  "authors": [
+    "Eszter Varga-Umbrich",
+    "Shikha Surana",
+    "Paul Duckworth",
+    "Jules Tilly",
+    "Olivier Peltre",
+    "Zachary Weller-Davies"
+  ],
+  "author_string": "Eszter Varga-Umbrich, Shikha Surana, Paul Duckworth, Jules Tilly, Olivier Peltre et al.",
+  "journal": "arXiv:2605.03964v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Training machine learning interatomic potentials (MLIPs) for reactive chemistry is often bottlenecked by the high cost of quantum chemical labels and the scarcity of transition state configurations in candidate pools. Active learning (AL) can mitigate these costs, but its effectiveness hinges on the acquisition rule. We investigate whether the latent space of a pretrained MLIP already contains the information necessary for effective acquisition, eliminating the need for auxiliary uncertainty heads, Bayesian training and fine-tuning, or committee ensembles. We introduce two acquisition signals derived directly from a pretrained MACE potential: a finite-width neural tangent kernel (NTK) and an activation kernel built from hidden latent space features. On reactive-chemistry benchmarks, both kernels consistently outperform fixed-descriptor baselines, committee disagreement, and random acquisition, reducing the data required to reach performance targets by an average of 38% for energy error and 28% for force error. We further show that the pretrained model induces similarity spaces that preserve chemically meaningful structure and provide more reliable residual uncertainty estimates than randomly initialised or fixed-descriptor-based kernels. Our results suggest that pretraining aligns latent-space geometry with model error, yielding a practical and sufficient acquisition signal for reactive MLIP fine-tuning.",
+  "categories": [
+    "cs.LG",
+    "physics.chem-ph"
+  ],
+  "primary_category": "physics.chem-ph",
+  "comment": "8 main pages, 28 total pages",
+  "published_date": "2026-05-05T16:48:23Z",
+  "updated_date": "2026-05-05T16:48:23Z",
+  "url": "https://arxiv.org/abs/2605.03964v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.03964v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-06T10:15:40.982968",
+  "category": "physics",
+  "subcategories": [
+    "cs.LG",
+    "physics.chem-ph"
+  ]
+}

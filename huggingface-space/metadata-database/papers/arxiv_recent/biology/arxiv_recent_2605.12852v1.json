@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2605.12852v1",
+  "arxiv_id": "2605.12852v1",
+  "title": "Multitask Multimodal Fusion with Tabular Foundation Models for Peak and Durability Prediction of Pertussis Booster Response",
+  "authors": [
+    "Divya Sitani"
+  ],
+  "author_string": "Divya Sitani",
+  "journal": "arXiv:2605.12852v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Pertussis booster vaccination produces immune responses that vary widely across individuals in both peak magnitude and long-term durability. These two phases are governed by partly distinct biological compartments:peak reflects acute B-cell activation and antibody secretion, while durability reflects the establishment of long-term humoral memory. Yet most computational models target only one, missing the full boost-and-wane trajectory. Jointly predicting both is non-trivial because the two endpoints are biologically dissociated rather than redundant; samples are small, modalities are heterogeneous with structured missingness, and the two tasks rely on different measurement windows. We propose a multi-task contrastive multimodal fusion architecture combining frozen TabPFN-v2 per-modality encoders, a dual-label supervised contrastive loss that treats two subjects as a positive pair if they agree on the Task 1 label or the Task 2 label, modality dropout calibrated to empirical missingness, and missingness-masked attention fusion. Applied to a curated subset of the CMI-PB pertussis booster dataset (n = 158 subjects, four modalities, 44.9% with at least one modality missing; Spearman r = -0.58 between peak and durability, n = 96), the model achieves test AUROC 0.797 (95% CI [0.621, 0.948]) for peak response and 0.755 (95% CI [0.519, 0.945]) for durability, with both significant under joint label permutation (N = 1000; p = 0.002 and p = 0.045). Across logistic regression, XGBoost, and MLP baselines on raw features and on TabPFN embeddings, the proposed model is the only one whose 95% CIs lie above chance on both tasks simultaneously. Per-modality contribution analyses recover task-specific modality contributions consistent with the underlying immunology: peak prediction is carried by cytokine signatures, while durability is carried by baseline antibody features.",
+  "categories": [
+    "cs.LG",
+    "q-bio.QM"
+  ],
+  "primary_category": "q-bio.QM",
+  "comment": "22 pages, 8 figures, 4 tables. Code available at https://github.com/Divya1205/cmi-pb-multitask",
+  "published_date": "2026-05-13T01:00:50Z",
+  "updated_date": "2026-05-13T01:00:50Z",
+  "url": "https://arxiv.org/abs/2605.12852v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.12852v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-19T10:15:36.793889",
+  "category": "biology",
+  "subcategories": [
+    "cs.LG",
+    "q-bio.QM"
+  ]
+}

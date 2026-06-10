@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Theory — Research Frontier</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #e67e22 0%, #d35400 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        .header h1 { font-size: 1.8em; margin-bottom: 8px; }
+        .header p { opacity: 0.9; font-size: 1em; }
+        .nav { padding: 20px 30px; background: #f8f9fa; border-bottom: 1px solid #ddd; }
+        .nav a { color: #e67e22; text-decoration: none; font-weight: 500; }
+        .nav a:hover { text-decoration: underline; }
+        .intro {
+            padding: 25px 30px;
+            background: #f0f4ff;
+            border-left: 4px solid #3498db;
+            margin: 20px 30px;
+            border-radius: 0 8px 8px 0;
+            font-size: 1em;
+            line-height: 1.6;
+            color: #2c3e50;
+        }
+        .section {
+            padding: 20px 30px 30px;
+        }
+        .section h2 {
+            font-size: 1.2em;
+            color: #2c3e50;
+            margin-bottom: 12px;
+            padding-bottom: 6px;
+            border-bottom: 2px solid #ecf0f1;
+        }
+        .frontier-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 14px 16px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            border-left: 4px solid;
+            background: #f8f9fa;
+        }
+        .frontier-item.proved { border-left-color: #27ae60; background: #e8f5e9; }
+        .frontier-item.conjecture { border-left-color: #e67e22; background: #fff3e0; }
+        .frontier-item .status-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            margin-top: 4px;
+        }
+        .frontier-item.proved .status-dot { background: #27ae60; }
+        .frontier-item.conjecture .status-dot { background: #e67e22; }
+        .frontier-item .content { flex: 1; }
+        .frontier-item .name { font-weight: 600; color: #2c3e50; margin-bottom: 4px; }
+        .frontier-item .meta { font-size: 0.9em; color: #7f8c8d; margin-bottom: 6px; }
+        .frontier-item a.chart-link {
+            display: inline-block;
+            padding: 6px 12px;
+            background: #e67e22;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 0.9em;
+            margin-top: 4px;
+        }
+        .frontier-item a.chart-link:hover { background: #d35400; }
+        .frontier-item a.ext-link {
+            color: #3498db;
+            text-decoration: none;
+            font-size: 0.9em;
+        }
+        .frontier-item a.ext-link:hover { text-decoration: underline; }
+        .legend {
+            display: flex;
+            gap: 24px;
+            padding: 16px 30px;
+            background: #ecf0f1;
+            font-size: 0.9em;
+        }
+        .legend-item { display: flex; align-items: center; gap: 8px; }
+        .legend-dot { width: 12px; height: 12px; border-radius: 50%; }
+        .legend-dot.proved { background: #27ae60; }
+        .legend-dot.conjecture { background: #e67e22; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔬 Number Theory — Research Frontier</h1>
+            <p>A sample view of proved results vs open conjectures — where the frontier of research meets the classical foundations</p>
+        </div>
+        <div class="nav">
+            <a id="back-link" href="#">← Back to Mathematics Database</a>
+        </div>
+        <script>
+            (function() {
+                const isGCS = window.location.hostname.includes('storage.googleapis.com');
+                const isHF = window.location.hostname.includes('huggingface.co');
+                const procBase = isGCS
+                    ? 'https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/processes'
+                    : (isHF ? './processes' : 'processes');
+                document.getElementById('back-link').href = isGCS
+                    ? 'https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/mathematics-database-table.html'
+                    : (isHF ? './mathematics-database-table.html' : './mathematics-database-table.html');
+                document.querySelectorAll('a.chart-link').forEach(a => {
+                    const h = a.getAttribute('href');
+                    if (h && h.startsWith('processes/')) {
+                        a.href = procBase + '/' + h.slice(9); // "processes/xxx" -> procBase/xxx
+                    }
+                });
+            })();
+        </script>
+        <div class="intro">
+            <strong>What is this?</strong> This page demonstrates the "Research Frontier" concept: organizing mathematical results by <em>status</em> (proved vs conjecture) and <em>timeline</em> (year, prover). Green = proved; orange = conjecture. In the full vision, axiomatic dependency trees will show recent theorems and open problems alongside classical results.
+        </div>
+        <div class="legend">
+            <div class="legend-item"><span class="legend-dot proved"></span> Proved</div>
+            <div class="legend-item"><span class="legend-dot conjecture"></span> Conjecture (open)</div>
+        </div>
+        <div class="section">
+            <h2>Classical & Modern — Proved</h2>
+            <div class="frontier-item proved">
+                <span class="status-dot"></span>
+                <div class="content">
+                    <div class="name">Sieve of Eratosthenes</div>
+                    <div class="meta">Ancient (c. 240 BCE) · Eratosthenes · Algorithm</div>
+                    <a class="chart-link" href="processes/number_theory/number_theory-sieve-of-eratosthenes.html">View chart →</a>
+                </div>
+            </div>
+            <div class="frontier-item proved">
+                <span class="status-dot"></span>
+                <div class="content">
+                    <div class="name">Extended Euclidean Algorithm</div>
+                    <div class="meta">Classical · Algorithm for GCD and Bézout coefficients</div>
+                    <a class="chart-link" href="processes/number_theory/number_theory-extended-euclidean.html">View chart →</a>
+                </div>
+            </div>
+            <div class="frontier-item proved">
+                <span class="status-dot"></span>
+                <div class="content">
+                    <div class="name">Gödel's Incompleteness Theorems</div>
+                    <div class="meta">1931 · Kurt Gödel · Foundations</div>
+                    <a class="chart-link" href="processes/number_theory/number_theory-peano-arithmetic.html">View Peano & Gödel charts →</a>
+                </div>
+            </div>
+            <div class="frontier-item proved">
+                <span class="status-dot"></span>
+                <div class="content">
+                    <div class="name">Mordell Conjecture (Faltings' Theorem)</div>
+                    <div class="meta">1983 · Gerd Faltings · Finiteness of rational points on curves of genus > 1</div>
+                    <a class="ext-link" href="https://en.wikipedia.org/wiki/Mordell_conjecture" target="_blank">Wikipedia →</a>
+                </div>
+            </div>
+            <div class="frontier-item proved">
+                <span class="status-dot"></span>
+                <div class="content">
+                    <div class="name">Szemerédi's Theorem</div>
+                    <div class="meta">1975 · Endre Szemerédi · Arbitrarily long arithmetic progressions in sets of positive density</div>
+                    <a class="chart-link" href="processes/number_theory/number_theory-szemeredi-theorem.html">View chart →</a>
+                </div>
+            </div>
+            <div class="frontier-item proved">
+                <span class="status-dot"></span>
+                <div class="content">
+                    <div class="name">Green–Tao Theorem</div>
+                    <div class="meta">2004 · Ben Green & Terence Tao · Arbitrarily long arithmetic progressions of primes</div>
+                    <a class="chart-link" href="processes/number_theory/number_theory-green-tao-theorem.html">View chart →</a>
+                </div>
+            </div>
+            <div class="frontier-item proved">
+                <span class="status-dot"></span>
+                <div class="content">
+                    <div class="name">Fermat's Last Theorem</div>
+                    <div class="meta">1995 · Andrew Wiles (building on Taylor–Wiles, Ribet, Frey, …) · Modularity theorem → FLT</div>
+                    <a class="ext-link" href="https://en.wikipedia.org/wiki/Fermat%27s_Last_Theorem" target="_blank">Wikipedia →</a>
+                    <span style="color:#7f8c8d; font-size:0.85em;"> Chart coming soon</span>
+                </div>
+            </div>
+        </div>
+        <div class="section">
+            <h2>Conjectures — Open Problems</h2>
+            <div class="frontier-item conjecture">
+                <span class="status-dot"></span>
+                <div class="content">
+                    <div class="name">Riemann Hypothesis</div>
+                    <div class="meta">1859 · Bernhard Riemann · All non-trivial zeros of ζ(s) have real part ½</div>
+                    <a class="ext-link" href="https://en.wikipedia.org/wiki/Riemann_hypothesis" target="_blank">Wikipedia →</a>
+                </div>
+            </div>
+            <div class="frontier-item conjecture">
+                <span class="status-dot"></span>
+                <div class="content">
+                    <div class="name">Birch–Swinnerton-Dyer Conjecture</div>
+                    <div class="meta">Clay Millennium Problem · Ranks of elliptic curves and L-functions</div>
+                    <a class="ext-link" href="https://en.wikipedia.org/wiki/Birch_and_Swinnerton-Dyer_conjecture" target="_blank">Wikipedia →</a>
+                </div>
+            </div>
+            <div class="frontier-item conjecture">
+                <span class="status-dot"></span>
+                <div class="content">
+                    <div class="name">Goldbach Conjecture</div>
+                    <div class="meta">1742 · Every even integer > 2 is the sum of two primes</div>
+                    <a class="ext-link" href="https://en.wikipedia.org/wiki/Goldbach%27s_conjecture" target="_blank">Wikipedia →</a>
+                </div>
+            </div>
+            <div class="frontier-item conjecture">
+                <span class="status-dot"></span>
+                <div class="content">
+                    <div class="name">Twin Prime Conjecture</div>
+                    <div class="meta">Infinitely many prime pairs (p, p+2)</div>
+                    <a class="ext-link" href="https://en.wikipedia.org/wiki/Twin_prime" target="_blank">Wikipedia →</a>
+                </div>
+            </div>
+        </div>
+        <div class="section" style="padding-top: 0;">
+            <p style="font-size: 0.9em; color: #7f8c8d; line-height: 1.5;">
+                <strong>Schema (for future metadata):</strong> Each item can carry <code>status</code> (proved | conjecture), <code>year</code>, <code>prover</code>, and <code>link</code> (chart or external). This sample uses static HTML; the full system will derive frontier views from metadata.
+            </p>
+        </div>
+    </div>
+</body>
+</html>

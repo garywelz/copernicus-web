@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2604.23041v1",
+  "arxiv_id": "2604.23041v1",
+  "title": "Itô tracers: continuous-trajectory Lagrangian particles for Eulerian hydrodynamics",
+  "authors": [
+    "Eric R. Moseley",
+    "R. Teyssier",
+    "Tom Abel"
+  ],
+  "author_string": "Eric R. Moseley, R. Teyssier, Tom Abel",
+  "journal": "arXiv:2604.23041v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Lagrangian tracer particles have long been used to track the history of individual gas parcels in hydrodynamical codes. Particles advected by the cell-centered velocity carry no representation of underlying numerical diffusion, and thus exhibit systematic bias. The Monte-Carlo (MC) tracer resolves this with discrete probabilistic cell-to-cell, flux-based jumps, at the cost of trajectories that are discontinuous in time. We introduce the Itô tracer, a continuous-time Lagrangian particle with moments matched to the advection, diffusion, and dispersion of the gas. A subgrid-scale variant (SGS-Itô) replaces the numerical diffusion with a Smagorinsky--Lilly turbulent diffusivity, illustrating that the form of the diffusion matters less than its magnitude. We validate these methods with a 1D square-pulse advection test and 3D decaying turbulence at $σ_{\\rm rms} = 15\\,c_{\\rm s}$. We compare the different tracer particle methods using several statistical tests. Itô tracers largely reproduce or improve upon MC tracers statistics across column-density maps, joint density histograms, log-density-ratio PDFs, and density power spectra. In the turbulence test, Itô tracers improve the correlation between tracers and gas over the MC tracers by >3\\%, and reduce the width of the log-density ratio PDF by nearly 50\\%. Relative to classical tracers, these improvements are $\\gtrsim$30\\% and 230\\%, respectively. Because Itô tracers follow a stochastic differential equation, the method maps onto other continuous-trajectory Lagrangian processes (e.g. dust grains, charged particles, cosmic rays), admits variance-reduction techniques, higher-order integrators, and GPU-friendly implementations -- all of which are unavailable to discrete-jump schemes.",
+  "categories": [
+    "astro-ph.GA"
+  ],
+  "primary_category": "astro-ph.GA",
+  "comment": "16 pages, 11 figures, submitted to MNRAS",
+  "published_date": "2026-04-24T22:04:31Z",
+  "updated_date": "2026-04-24T22:04:31Z",
+  "url": "https://arxiv.org/abs/2604.23041v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.23041v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-27T22:15:39.107374",
+  "category": "physics",
+  "subcategories": [
+    "astro-ph.GA"
+  ]
+}

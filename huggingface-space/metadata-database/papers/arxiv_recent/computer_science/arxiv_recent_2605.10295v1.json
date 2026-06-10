@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2605.10295v1",
+  "arxiv_id": "2605.10295v1",
+  "title": "DECO-MWE: building a linguistic resource of Korean multiword expressions for feature-based sentiment analysis",
+  "authors": [
+    "Jaeho Han",
+    "Changhoe Hwang",
+    "Seongyong Choi",
+    "Gwanghoon Yoo",
+    "Eric Laporte",
+    "Jeesun Nam"
+  ],
+  "author_string": "Jaeho Han, Changhoe Hwang, Seongyong Choi, Gwanghoon Yoo, Eric Laporte et al.",
+  "journal": "13th Workshop on Asian Language Resources, May 2018, Miyazaki, Japan, pp.14-20",
+  "journal_ref": "13th Workshop on Asian Language Resources, May 2018, Miyazaki, Japan, pp.14-20",
+  "year": "2026",
+  "doi": null,
+  "abstract": "This paper aims to construct a linguistic resource of Korean Multiword Expressions for Feature-Based Sentiment Analysis (FBSA): DECO-MWE. Dealing with multiword expressions (MWEs) has been a critical issue in FBSA since many constructs reveal lexical idiosyncrasy. To construct linguistic resources of sentiment MWEs efficiently, we utilize the Local Grammar Graph (LGG) methodology: DECO-MWE is formalized as a Finite-State Transducer that represents lexical-syntactic restrictions on MWEs. In this study, we built a corpus of cosmetics review texts, which show particularly frequent occurrences of MWEs. Based on an empirical examination of the corpus, four types of MWEs have been distinguished. The DECO-MWE thus covers the following four categories: Standard Polarity MWEs (SMWEs), Domain-Dependent Polarity MWEs (DMWEs), Compound Named Entity MWEs (EMWEs) and Compound Feature MWEs (FMWEs). The retrieval performance of the DECO-MWE shows 0.806 f-measure in the test corpus. This study brings a twofold outcome: first, a sizeable general-purpose polarity MWE lexicon, which may be broadly used in FBSA; second, a finite-state methodology adopted in this study to treat domain-dependent MWEs such as idiosyncratic polarity expressions, named entity expressions or feature expressions, and which may be reused in describing linguistic properties of other corpus domains.",
+  "categories": [
+    "cs.CL"
+  ],
+  "primary_category": "cs.CL",
+  "comment": null,
+  "published_date": "2026-05-11T09:54:51Z",
+  "updated_date": "2026-05-11T09:54:51Z",
+  "url": "https://arxiv.org/abs/2605.10295v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.10295v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-11T22:15:37.967306",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CL"
+  ]
+}

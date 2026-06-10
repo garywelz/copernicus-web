@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metabolism & Bioenergetics — Biology Theme</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e8449 0%, #27ae60 100%); min-height: 100vh; padding: 20px; }
+        .container { max-width: 900px; margin: 0 auto; background: white; border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1); overflow: hidden; padding: 30px; }
+        h1 { color: #1e4620; margin-bottom: 10px; }
+        p { color: #555; margin-bottom: 25px; line-height: 1.6; }
+        .nav-links { margin-bottom: 20px; }
+        .nav-links a { color: #27ae60; text-decoration: none; margin-right: 20px; font-weight: 500; }
+        .nav-links a:hover { text-decoration: underline; }
+        .section-label { font-size: 0.9em; color: #7f8c8d; margin-bottom: 8px;
+            text-transform: uppercase; letter-spacing: 0.5px; }
+        .sections { display: grid; gap: 12px; }
+        .sections a { display: block; padding: 16px; background: #f0fdf4; border-radius: 10px;
+            color: #1e4620; text-decoration: none; font-weight: 500; border-left: 4px solid #27ae60; }
+        .sections a:hover { background: #dcfce7; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="nav-links">
+            <a id="back-link" href="#">← Back to Biology Database</a>
+            <a id="themes-link" href="index.html">All Themes</a>
+        </div>
+        <script>
+            (function() {
+                const isGCS = window.location.hostname.includes('storage.googleapis.com');
+                const base = isGCS ? 'https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/biology-processes-database' : '..';
+                document.getElementById('back-link').href = base + '/biology-database-table.html';
+                document.getElementById('themes-link').href = isGCS ? base + '/collections/index.html' : 'index.html';
+            })();
+        </script>
+        <h1>Metabolism & Bioenergetics</h1>
+        <p>Core catabolic and anabolic pathways: glycolysis, citric acid cycle, oxidative phosphorylation, and the Calvin cycle.</p>
+        <div class="section-label">Processes</div>
+        <div class="sections">
+            <a href="../processes/pathways/pathways-glycolysis.html">Glycolysis</a>
+            <a href="../processes/pathways/pathways-krebs-cycle.html">Krebs Cycle</a>
+            <a href="../processes/pathways/pathways-oxidative-phosphorylation.html">Oxidative Phosphorylation</a>
+            <a href="../processes/pathways/pathways-calvin-cycle.html">Calvin Cycle</a>
+        </div>
+    </div>
+</body>
+</html>

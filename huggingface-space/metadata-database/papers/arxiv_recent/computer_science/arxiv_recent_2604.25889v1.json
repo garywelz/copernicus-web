@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2604.25889v1",
+  "arxiv_id": "2604.25889v1",
+  "title": "Robust Deepfake Detection: Mitigating Spatial Attention Drift via Calibrated Complementary Ensembles",
+  "authors": [
+    "Minh-Khoa Le-Phan",
+    "Minh-Hoang Le",
+    "Trong-Le Do",
+    "Minh-Triet Tran"
+  ],
+  "author_string": "Minh-Khoa Le-Phan, Minh-Hoang Le, Trong-Le Do, Minh-Triet Tran",
+  "journal": "arXiv:2604.25889v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Current deepfake detection models achieve state-of-the-art performance on pristine academic datasets but suffer severe spatial attention drift under real-world compound degradations, such as blurring and severe lossy compression. To address this vulnerability, we propose a foundation-driven forensic framework that integrates an extreme compound degradation engine with a structurally constrained, multi-stream architecture. During training, our degradation pipeline systematically destroys high-frequency artifacts, optimizing the DINOv2-Giant backbone to extract invariant geometric and semantic priors. We then process images through three specialized pathways: a Global Texture stream, a Localized Facial stream, and a Hybrid Semantic Fusion stream incorporating CLIP. Through analyzing spatial attribution via Score-CAM and feature stability using Cosine Similarity, we quantitatively demonstrate that these streams extract non-redundant, complementary feature representations and stabilize attention entropy. By aggregating these predictions via a calibrated, discretized voting mechanism, our ensemble successfully suppresses background attention drift while acting as a robust geometric anchor. Our approach yields highly stable zero-shot generalization, achieving Fourth Place in the NTIRE 2026 Robust Deepfake Detection Challenge at CVPR. Code is available at https://github.com/khoalephanminh/ntire26-deepfake-challenge.",
+  "categories": [
+    "cs.CV"
+  ],
+  "primary_category": "cs.CV",
+  "comment": "4th place (out of 94 teams) in the NTIRE 2026 Robust Deepfake Detection Challenge",
+  "published_date": "2026-04-28T17:32:48Z",
+  "updated_date": "2026-04-28T17:32:48Z",
+  "url": "https://arxiv.org/abs/2604.25889v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.25889v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-29T10:15:41.140175",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CV"
+  ]
+}

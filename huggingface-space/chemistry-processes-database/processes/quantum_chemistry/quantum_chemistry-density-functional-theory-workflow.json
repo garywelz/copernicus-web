@@ -1,21 +1,23 @@
 {
   "id": "quantum_chemistry-density-functional-theory-workflow",
-  "name": "Density Functional Theory Workflow",
+  "name": "Kohn–Sham DFT Workflow",
   "category": "chemistry",
   "subcategory": "quantum_chemistry",
   "subcategory_name": "Quantum Chemistry",
-  "description": "Density Functional Theory Workflow process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "Kohn–Sham DFT recasts the interacting electron problem as non-interacting electrons in an effective potential: after choosing an exchange-correlation functional and basis, the density is iterated through the KS equations until self-consistency, then properties are computed.",
   "complexity": {
-    "nodes": 6,
-    "edges": 5,
-    "conditionals": 0,
+    "nodes": 11,
+    "edges": 11,
+    "conditionals": 2,
     "logicGates": {
-      "orGates": 0,
-      "andGates": 0,
-      "total": 0
+      "orGates": 1,
+      "andGates": 1,
+      "notGates": 0,
+      "total": 2
     },
-    "level": "medium",
-    "detailLevel": "medium"
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 1
   },
   "colorScheme": {
     "red": {
@@ -39,55 +41,159 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nN1[\"Molecular Hamiltonian Setup\"]\nN2[\"Basis Set/Representation\"]\nN3[\"Electronic Structure Method\"]\nN4[\"Solve Schrödinger Equation (approx.)\"]\nN5[\"Wavefunction/Density\"]\nN6[\"Energies/Orbitals/Properties\"]\n\nN1 --> N2\nN2 --> N3\nN3 --> N4\nN4 --> N5\nN5 --> N6\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#ffd43b,color:#000\n    style N3 fill:#ffd43b,color:#000\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#74c0fc,color:#fff\n    style N6 fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"System + nuclei\"]\n    N2{\"Choose functional + basis\"}\n    N3[\"LDA / GGA / hybrid\"]\n    N4[\"Initial electron density\"]\n    N5[\"Build KS potential\"]\n    N6[\"Solve KS equations\"]\n    N7[\"New density\"]\n    N8{\"SCF converged?\"}\n    N9[\"Mix densities, iterate\"]\n    N10[\"Ground-state density + E\"]\n    N11[\"Compute properties\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 --> N4\n    N4 --> N5\n    N5 --> N6\n    N6 --> N7\n    N7 --> N8\n    N8 -->|no| N9\n    N9 -->|iterate| N5\n    N8 -->|yes| N10\n    N10 --> N11\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#74c0fc,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#74c0fc,color:#fff\n    style N8 fill:#74c0fc,color:#fff\n    style N9 fill:#51cf66,color:#fff\n    style N10 fill:#51cf66,color:#fff\n    style N11 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
-      "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: Density Functional Theory Workflow. Created using the Programming Framework methodology."
+      "title": "Inhomogeneous Electron Gas",
+      "authors": "Hohenberg, P.; Kohn, W.",
+      "journal": "Physical Review",
+      "year": "1964",
+      "doi": "10.1103/PhysRev.136.B864",
+      "url": "https://doi.org/10.1103/PhysRev.136.B864"
     },
     {
-      "title": "Physical Interpretation of Kohn–Sham Density Functional Theory via Quantal Density Functional Theory",
-      "authors": "Sahni, Viraht",
-      "journal": "Quantal Density Functional Theory",
-      "year": "2016",
-      "pubmed": null,
-      "doi": "10.1007/978-3-662-49842-2_5",
-      "url": "https://doi.org/10.1007/978-3-662-49842-2_5"
+      "title": "Self-Consistent Equations Including Exchange and Correlation Effects",
+      "authors": "Kohn, W.; Sham, L. J.",
+      "journal": "Physical Review",
+      "year": "1965",
+      "doi": "10.1103/PhysRev.140.A1133",
+      "url": "https://doi.org/10.1103/PhysRev.140.A1133"
     },
     {
-      "title": "MC25: An Accurate Meta Pair-Density Functional for Multiconfiguration Pair-Density Functional Theory and Linearized Pair-Density Functional Theory",
-      "authors": "",
-      "journal": "",
-      "year": "None",
-      "pubmed": null,
-      "doi": "10.1021/acs.jctc.5c01321.s001",
-      "url": "https://doi.org/10.1021/acs.jctc.5c01321.s001"
-    },
-    {
-      "title": "Role of Density Functional Theory in “Ribocomputing Devices”",
-      "authors": "Srivastava, Ruby",
-      "journal": "Density Functional Theory",
-      "year": "2019",
-      "pubmed": null,
-      "doi": "10.5772/intechopen.80491",
-      "url": "https://doi.org/10.5772/intechopen.80491"
+      "title": "Density-functional thermochemistry. III. The role of exact exchange (B3LYP)",
+      "authors": "Becke, A. D.",
+      "journal": "Journal of Chemical Physics",
+      "year": "1993",
+      "doi": "10.1063/1.464913",
+      "url": "https://doi.org/10.1063/1.464913"
     }
   ],
   "keywords": [
-    "density",
-    "functional",
-    "theory",
-    "workflow"
+    "density functional theory",
+    "kohn-sham",
+    "exchange-correlation",
+    "self-consistent field",
+    "electron density"
   ],
   "relatedProcesses": [],
   "created": "2026-01-15",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations.\nCurated Mermaid applied (citations preserved)."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "System + nuclei",
+      "detail": "External potential defined",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N2",
+      "label": "Choose functional + basis",
+      "detail": "Accuracy vs cost",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 2
+    },
+    {
+      "id": "N3",
+      "label": "LDA / GGA / hybrid",
+      "detail": "Exchange-correlation choice",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N4",
+      "label": "Initial electron density",
+      "detail": "Starting guess",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N5",
+      "label": "Build KS potential",
+      "detail": "Hartree + XC + external",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N6",
+      "label": "Solve KS equations",
+      "detail": "Single-particle orbitals",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N7",
+      "label": "New density",
+      "detail": "Sum over occupied KS orbitals",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N8",
+      "label": "SCF converged?",
+      "detail": "Density self-consistent",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N9",
+      "label": "Mix densities, iterate",
+      "detail": "Update and repeat",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N10",
+      "label": "Ground-state density + E",
+      "detail": "Converged solution",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N11",
+      "label": "Compute properties",
+      "detail": "Geometry, spectra, energetics",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 2
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:quantum_chemistry-density-functional-theory-workflow",
+    "graphType": "cyclic_pathway",
+    "topologySignature": "411742ca675fb5b6",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "namedCollections": [
+    "quantum-chemistry"
+  ],
+  "graphMetrics": {
+    "nodes": 11,
+    "edges": 11,
+    "conditionals": 2,
+    "andGates": 1,
+    "orGates": 1,
+    "notGates": 0,
+    "loops": 1
+  },
+  "graphType": "cyclic_pathway",
+  "domainContext": "Density functional theory"
 }

@@ -1,0 +1,39 @@
+{
+  "id": "foundations-axiomatic-set-theory-definitions-derived",
+  "name": "Axiomatic Set Theory — Ordered Pair, Relation, Function",
+  "category": "mathematics",
+  "subcategory": "foundations",
+  "subcategory_name": "Foundations",
+  "description": "Derived definitions built from ZFC axioms. Kuratowski ordered pair (a,b) = {{a},{a,b}}; relation as set of pairs; function as single-valued relation; domain, range, image.",
+  "mermaid": "graph TD\n    DefPair[\"Def: Ordered pair\\n(a,b) = {{a},{a,b}}\"]\n    DefRel[\"Def: Relation\\nR ⊆ A×B\"]\n    DefFunc[\"Def: Function\\nf: A→B single-valued\"]\n    DefDom[\"Def: dom R\\nprojection\"]\n    DefRan[\"Def: ran R\\nprojection\"]\n    DefCart[\"Def: A×B\\nCartesian product\"]\n    T1[\"Thm: (a,b)=(c,d)\\niff a=c and b=d\"]\n    DefPair --> T1\n    DefPair --> DefCart\n    DefCart --> DefRel\n    DefRel --> DefFunc\n    DefRel --> DefDom\n    DefRel --> DefRan\n    classDef definition fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef theorem fill:#51cf66,color:#fff,stroke:#40c057\n    class DefPair,DefRel,DefFunc,DefDom,DefRan,DefCart definition\n    class T1 theorem",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

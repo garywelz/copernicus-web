@@ -1,21 +1,23 @@
 {
   "id": "kinetics-reaction-mechanism-elucidation",
-  "name": "Reaction Mechanism Elucidation",
+  "name": "Mechanism Elucidation from Probes",
   "category": "chemistry",
   "subcategory": "kinetics",
   "subcategory_name": "Kinetic Processes",
-  "description": "Reaction Mechanism Elucidation process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "Elucidate a mechanism by combining experimental probes - the measured rate law, trapped intermediates, kinetic isotope effects, and stereochemical outcome - proposing a mechanism, testing it against all evidence and computation, and iterating.",
   "complexity": {
-    "nodes": 6,
-    "edges": 5,
-    "conditionals": 0,
+    "nodes": 10,
+    "edges": 10,
+    "conditionals": 1,
     "logicGates": {
-      "orGates": 0,
-      "andGates": 0,
-      "total": 0
+      "orGates": 1,
+      "andGates": 1,
+      "notGates": 0,
+      "total": 2
     },
-    "level": "medium",
-    "detailLevel": "medium"
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 1
   },
   "colorScheme": {
     "red": {
@@ -39,54 +41,151 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nN1[\"Observed Products/Intermediates\"]\nN2[\"Kinetic Data\"]\nN3[\"Candidate Mechanisms\"]\nN4[\"Design Probing Experiments\"]\nN5[\"Compare Predictions vs Data\"]\nN6[\"Supported Mechanism\"]\n\nN1 --> N2\nN2 --> N3\nN3 --> N4\nN4 --> N5\nN5 --> N6\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#ff6b6b,color:#fff\n    style N3 fill:#ffd43b,color:#000\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"Unknown mechanism\"]\n    N2[\"Measure the rate law\"]\n    N3[\"Trap / detect intermediates\"]\n    N4[\"Kinetic isotope effect\"]\n    N5[\"Stereochemical probe\"]\n    N6[\"Propose mechanism\"]\n    N7{\"Consistent with all data?\"}\n    N8[\"Gather further evidence\"]\n    N9[\"Computational support (DFT)\"]\n    N10[\"Validated mechanism\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 --> N4\n    N4 --> N5\n    N5 --> N6\n    N6 --> N7\n    N7 -->|no| N8\n    N8 -->|more probes| N3\n    N7 -->|yes| N9\n    N9 --> N10\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#74c0fc,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#51cf66,color:#fff\n    style N10 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "title": "Modern Physical Organic Chemistry — Mechanisms and Probes",
+      "authors": "Anslyn, E. V.; Dougherty, D. A.",
+      "journal": "University Science Books",
+      "year": "2006",
       "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: Reaction Mechanism Elucidation. Created using the Programming Framework methodology."
+      "url": "https://uscibooks.aip.org/books/modern-physical-organic-chemistry/"
     },
     {
-      "title": "Catalytic Reductive Aminolysis of Reducing Sugars: Elucidation of Reaction Mechanism",
-      "authors": "",
-      "journal": "",
-      "year": "None",
-      "pubmed": null,
-      "doi": "10.1021/acscatal.8b00619.s001",
-      "url": "https://doi.org/10.1021/acscatal.8b00619.s001"
+      "title": "The kinetic isotope effect and its use in studying reaction mechanisms",
+      "authors": "Westheimer, F. H.",
+      "journal": "Chemical Reviews",
+      "year": "1961",
+      "doi": "10.1021/cr60211a004",
+      "url": "https://doi.org/10.1021/cr60211a004"
     },
     {
-      "title": "JEEChemSage.AI: An Explainable AI Platform for Immersive Organic Reaction Mechanism Elucidation and Education",
-      "authors": "Mukku, Charvik Reddy",
-      "journal": "",
-      "year": "2026",
-      "pubmed": null,
-      "doi": "10.21203/rs.3.rs-8572253/v1",
-      "url": "https://doi.org/10.21203/rs.3.rs-8572253/v1"
-    },
-    {
-      "title": "Elucidation of the Reaction Mechanism of Cavia porcellus lAsparaginase: A QM/MM Study",
-      "authors": "",
-      "journal": "",
-      "year": "None",
-      "pubmed": null,
-      "doi": "10.1021/acs.jcim.2c01122.s001",
-      "url": "https://doi.org/10.1021/acs.jcim.2c01122.s001"
+      "title": "Chemical Kinetics, 3rd ed. — Determining Mechanisms",
+      "authors": "Laidler, K. J.",
+      "journal": "Harper & Row",
+      "year": "1987",
+      "doi": null,
+      "url": "https://search.worldcat.org/title/14905898"
     }
   ],
   "keywords": [
-    "reaction",
     "mechanism",
+    "kinetic isotope effect",
+    "intermediate trapping",
+    "stereochemistry",
     "elucidation"
   ],
   "relatedProcesses": [],
   "created": "2026-01-15",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations.\nCurated Mermaid applied (citations preserved)."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Unknown mechanism",
+      "detail": "Reaction to be explained",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 2
+    },
+    {
+      "id": "N2",
+      "label": "Measure the rate law",
+      "detail": "Order in each species",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N3",
+      "label": "Trap / detect intermediates",
+      "detail": "Spectroscopy or trapping agents",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N4",
+      "label": "Kinetic isotope effect",
+      "detail": "Probe bond changes at the TS",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N5",
+      "label": "Stereochemical probe",
+      "detail": "Inversion/retention outcome",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N6",
+      "label": "Propose mechanism",
+      "detail": "Hypothesis consistent so far",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N7",
+      "label": "Consistent with all data?",
+      "detail": "Cross-check every probe",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 2
+    },
+    {
+      "id": "N8",
+      "label": "Gather further evidence",
+      "detail": "New probe or condition",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N9",
+      "label": "Computational support (DFT)",
+      "detail": "Energetics match observations",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N10",
+      "label": "Validated mechanism",
+      "detail": "Best-supported pathway",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 2
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:kinetics-reaction-mechanism-elucidation",
+    "graphType": "decision_flowchart",
+    "topologySignature": "3f2e4b6d0ceab022",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "namedCollections": [
+    "kinetics"
+  ],
+  "graphMetrics": {
+    "nodes": 10,
+    "edges": 10,
+    "conditionals": 1,
+    "andGates": 1,
+    "orGates": 1,
+    "notGates": 0,
+    "loops": 1
+  },
+  "graphType": "decision_flowchart",
+  "domainContext": "Mechanistic investigation"
 }

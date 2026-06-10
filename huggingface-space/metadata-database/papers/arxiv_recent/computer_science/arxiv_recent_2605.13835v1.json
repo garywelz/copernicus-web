@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2605.13835v1",
+  "arxiv_id": "2605.13835v1",
+  "title": "Unlocking Patch-Level Features for CLIP-Based Class-Incremental Learning",
+  "authors": [
+    "Hao Sun",
+    "Zi-Jun Ding",
+    "Da-Wei Zhou"
+  ],
+  "author_string": "Hao Sun, Zi-Jun Ding, Da-Wei Zhou",
+  "journal": "arXiv:2605.13835v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Class-Incremental Learning (CIL) enables models to continuously integrate new knowledge while mitigating catastrophic forgetting. Driven by the remarkable generalization of CLIP, leveraging pre-trained vision-language models has become a dominant paradigm in CIL. However, current work primarily focuses on aligning global image embeddings (i.e., [CLS] token) with their corresponding text prompts (i.e., [EOS] token). Despite their good performance, we find that they discard the rich patch-level semantic information inherent in CLIP's encoders. For instance, when recognizing a rabbit, local patches may encode its distinctive cues, such as long ears and a fluffy tail, which can provide complementary evidence for recognition. Based on the above observation, we propose SPA (Semantic-guided Patch-level Alignment) for CLIP-based CIL, which aims to awaken long-neglected local representations within CLIP. Specifically, for each class, we first construct representative and diverse visual samples and feed them to GPT-5 as visual guidance to generate class-wise semantic descriptions. These descriptions are used to guide the selection of discriminative patch-level visual features. Building upon these selected patches, we further employ optimal transport to align selected patch tokens with semantic tokens from class-wise descriptions, yielding a structured cross-modal alignment that improves recognition. Furthermore, we introduce task-specific projectors for effective adaptation to downstream incremental tasks, and sample pseudo-features from stored class-wise Gaussian statistics to calibrate old-class representations, thereby mitigating catastrophic forgetting. Extensive experiments demonstrate that SPA achieves state-of-the-art performance.",
+  "categories": [
+    "cs.CV"
+  ],
+  "primary_category": "cs.CV",
+  "comment": null,
+  "published_date": "2026-05-13T17:56:23Z",
+  "updated_date": "2026-05-13T17:56:23Z",
+  "url": "https://arxiv.org/abs/2605.13835v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.13835v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-13T22:17:00.034868",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CV"
+  ]
+}

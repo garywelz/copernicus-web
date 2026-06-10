@@ -1,0 +1,37 @@
+{
+  "id": "arxiv_2605.12462v1",
+  "arxiv_id": "2605.12462v1",
+  "title": "Towards Affordable Energy: A Gymnasium Environment for Electric Utility Demand-Response Programs",
+  "authors": [
+    "Jose E. Aguilar Escamilla",
+    "Lingdong Zhou",
+    "Xiangqi Zhu",
+    "Huazheng Wang"
+  ],
+  "author_string": "Jose E. Aguilar Escamilla, Lingdong Zhou, Xiangqi Zhu, Huazheng Wang",
+  "journal": "arXiv:2605.12462v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Extreme weather and volatile wholesale electricity markets expose residential consumers to catastrophic financial risks, yet demand response at the distribution level remains an underutilized tool for grid flexibility and energy affordability. While a demand-response program can shield consumers by issuing financial credits during high-price periods, optimizing this sequential decision-making process presents a unique challenge for reinforcement learning despite the plentiful offline historical smart meter and wholesale pricing data available publicly. Offline historical data fails to capture the dynamic, interactive feedback loop between an electric utility's pricing signals and customer acceptance and adaptation to a demand-response program. To address this, we introduce DR-Gym, an open-source, online Gymnasium-compatible environment designed to train and evaluate demand-response from the electric utility's perspective. Unlike existing device-level energy simulators, our environment focuses on the market-level electric utility setting and provides a rich observational space relevant to the electric utility. The simulator additionally features a regime-switching wholesale price model calibrated to real-world extreme events, alongside physics-based building demand profiles. For our learning signal, we use a configurable, multi-objective reward function for specifying diverse learning objectives. We demonstrate through baseline strategies and data snapshots the capability of our simulator to create realistic and learnable environments.",
+  "categories": [
+    "cs.AI",
+    "cs.CY",
+    "cs.GT",
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": null,
+  "published_date": "2026-05-12T17:48:45Z",
+  "updated_date": "2026-05-12T17:48:45Z",
+  "url": "https://arxiv.org/abs/2605.12462v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.12462v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-13T10:15:39.535580",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.AI",
+    "cs.CY",
+    "cs.GT"
+  ]
+}

@@ -1,21 +1,23 @@
 {
   "id": "analytical_chemistry-chromatography",
-  "name": "Chromatography",
+  "name": "Quantitative Chromatography (Internal Standard)",
   "category": "chemistry",
   "subcategory": "analytical_chemistry",
   "subcategory_name": "Analytical Chemistry",
-  "description": "Chromatography process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "Quantitative chromatography spikes a sample with an internal standard, separates and detects the analytes, confirms baseline resolution, integrates peak areas, applies response factors relative to the internal standard, and converts to concentration via calibration.",
   "complexity": {
-    "nodes": 26,
-    "edges": 21,
-    "conditionals": 0,
+    "nodes": 10,
+    "edges": 10,
+    "conditionals": 1,
     "logicGates": {
-      "orGates": 0,
+      "orGates": 1,
       "andGates": 1,
-      "total": 1
+      "notGates": 0,
+      "total": 2
     },
-    "level": "medium",
-    "detailLevel": "medium"
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 1
   },
   "colorScheme": {
     "red": {
@@ -39,52 +41,151 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nA2[Sample Injection] --> B2[Chromatographic Method]\nC2[Mobile Phase] --> D2[Stationary Phase]\nE2[Separation Process] --> F2[Retention Analysis]\nB2 --> G2[Gas Chromatography]\nD2 --> H2[Liquid Chromatography]\nF2 --> I2[Thin Layer Chromatography]\nG2 --> J2[Column Selection]\nH2 --> K2[Eluent Optimization]\nI2 --> L2[Plate Development]\nJ2 --> M2[Temperature Programming]\nK2 --> L2\nL2 --> N2[Solvent System]\nM2 --> O2[Detector Response]\nN2 --> P2[Retention Time]\nO2 --> Q2[Chromatography Process]\nP2 --> R2[Peak Integration]\nQ2 --> S2[Chromatography Validation]\nR2 --> T2[Chromatography Result]\nS2 --> U2[Chromatography Analysis]\nT2 --> V2[Chromatography Parameters]\nU2 --> W2[Chromatography Output]\nV2 --> X2[Chromatography Analysis]\nW2 --> Y2[Chromatography Final Result]\nX2 --> Z2[Chromatography Analysis Complete]\n\n    style A2 fill:#ff6b6b,color:#fff\n    style C2 fill:#ff6b6b,color:#fff\n    style E2 fill:#ff6b6b,color:#fff\n    style B2 fill:#ffd43b,color:#000\n    style D2 fill:#ffd43b,color:#000\n    style F2 fill:#ffd43b,color:#000\n    style G2 fill:#ffd43b,color:#000\n    style H2 fill:#ffd43b,color:#000\n    style I2 fill:#ffd43b,color:#000\n    style J2 fill:#ffd43b,color:#000\n    style K2 fill:#ffd43b,color:#000\n    style L2 fill:#ffd43b,color:#000\n    style M2 fill:#51cf66,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style O2 fill:#51cf66,color:#fff\n    style P2 fill:#51cf66,color:#fff\n    style Q2 fill:#51cf66,color:#fff\n    style R2 fill:#51cf66,color:#fff\n    style S2 fill:#51cf66,color:#fff\n    style T2 fill:#51cf66,color:#fff\n    style U2 fill:#51cf66,color:#fff\n    style V2 fill:#51cf66,color:#fff\n    style W2 fill:#51cf66,color:#fff\n    style X2 fill:#51cf66,color:#fff\n    style Y2 fill:#51cf66,color:#fff\n    style Z2 fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"Sample + internal standard\"]\n    N2[\"Inject onto column\"]\n    N3[\"Separate analytes\"]\n    N4[\"Detect peaks\"]\n    N5{\"Baseline resolved?\"}\n    N6[\"Optimize gradient\"]\n    N7[\"Integrate peak areas\"]\n    N8[\"Response factor vs IS\"]\n    N9[\"Apply calibration\"]\n    N10[\"Analyte concentration\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 --> N4\n    N4 --> N5\n    N5 -->|no| N6\n    N6 -->|re-run| N2\n    N5 -->|yes| N7\n    N7 --> N8\n    N8 --> N9\n    N9 --> N10\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#74c0fc,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#51cf66,color:#fff\n    style N10 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
-      "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: Chromatography. Created using the Programming Framework methodology."
-    },
-    {
-      "title": "Acknowledgement to Reviewers of Chromatography in 2014",
-      "authors": "Chromatography Editorial Office",
-      "journal": "Chromatography",
+      "title": "Quantitative Chemical Analysis, 9th ed. — Chromatographic Methods",
+      "authors": "Harris, D. C.",
+      "journal": "W. H. Freeman",
       "year": "2015",
-      "pubmed": null,
-      "doi": "10.3390/chromatography2010019",
-      "url": "https://doi.org/10.3390/chromatography2010019"
+      "doi": null,
+      "url": "https://www.macmillanlearning.com/college/us/product/Quantitative-Chemical-Analysis/p/146413538X"
     },
     {
-      "title": "Chromatography of Alkaloids - Part B: Gas-Liquid Chromatography and High-Performance Liquid Chromatography",
-      "authors": "",
-      "journal": "Journal of Chromatography Library",
-      "year": "1984",
-      "pubmed": null,
-      "doi": "10.1016/s0301-4770(08)x6062-2",
-      "url": "https://doi.org/10.1016/s0301-4770(08)x6062-2"
+      "title": "Modern HPLC for Practicing Scientists",
+      "authors": "Dong, M. W.",
+      "journal": "Wiley",
+      "year": "2006",
+      "doi": "10.1002/0471973106",
+      "url": "https://doi.org/10.1002/0471973106"
     },
     {
-      "title": "Microbore Column Chromatography: A Unified Approach to Chromatography",
-      "authors": "Yang, Frank J",
-      "journal": "Microbore Column Chromatography",
-      "year": "2020",
-      "pubmed": null,
-      "doi": "10.1201/9781003066088-1",
-      "url": "https://doi.org/10.1201/9781003066088-1"
+      "title": "Principles of Instrumental Analysis, 7th ed. — Chromatographic Quantitation",
+      "authors": "Skoog, D. A.; Holler, F. J.; Crouch, S. R.",
+      "journal": "Cengage Learning",
+      "year": "2018",
+      "doi": null,
+      "url": "https://www.cengage.com/c/principles-of-instrumental-analysis-7e-skoog/9781305577213/"
     }
   ],
   "keywords": [
-    "chromatography"
+    "internal standard",
+    "peak integration",
+    "response factor",
+    "resolution",
+    "quantitation"
   ],
   "relatedProcesses": [],
   "created": "2026-01-08",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Sample + internal standard",
+      "detail": "Known IS amount added",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N2",
+      "label": "Inject onto column",
+      "detail": "HPLC or GC",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N3",
+      "label": "Separate analytes",
+      "detail": "Differential elution",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N4",
+      "label": "Detect peaks",
+      "detail": "UV / MS / FID",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N5",
+      "label": "Baseline resolved?",
+      "detail": "Resolution > 1.5",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 2
+    },
+    {
+      "id": "N6",
+      "label": "Optimize gradient",
+      "detail": "Improve separation",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N7",
+      "label": "Integrate peak areas",
+      "detail": "Analyte and IS",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N8",
+      "label": "Response factor vs IS",
+      "detail": "Area ratio normalization",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N9",
+      "label": "Apply calibration",
+      "detail": "Ratio to concentration",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N10",
+      "label": "Analyte concentration",
+      "detail": "Reported result",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 0
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:analytical_chemistry-chromatography",
+    "graphType": "cyclic_pathway",
+    "topologySignature": "218ede3654ba31e9",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "namedCollections": [
+    "analytical-chemistry"
+  ],
+  "graphMetrics": {
+    "nodes": 10,
+    "edges": 10,
+    "conditionals": 1,
+    "andGates": 1,
+    "orGates": 1,
+    "notGates": 0,
+    "loops": 1
+  },
+  "graphType": "cyclic_pathway",
+  "domainContext": "Chromatographic quantitation"
 }

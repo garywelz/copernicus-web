@@ -1,0 +1,201 @@
+{
+  "id": "mechanisms-homologous-recombination-repair",
+  "name": "Homologous Recombination Repair",
+  "category": "biology",
+  "subcategory": "mechanisms",
+  "subcategory_name": "Mechanisms",
+  "description": "Homologous recombination repair: a double-strand break is resected to 3' ssDNA, coated by RPA then RAD51, which searches for a homologous template and invades it, with resolution via double-Holliday-junction or SDSA for accurate repair.",
+  "keywords": [
+    "homologous recombination",
+    "double-strand break",
+    "rad51",
+    "resection",
+    "holliday junction",
+    "sdsa"
+  ],
+  "namedCollections": [
+    "gene-expression"
+  ],
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "complexity": {
+    "nodes": 11,
+    "edges": 11,
+    "conditionals": 1,
+    "logicGates": {
+      "orGates": 1,
+      "andGates": 1,
+      "notGates": 0,
+      "total": 2
+    },
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 0
+  },
+  "graphMetrics": {
+    "nodes": 11,
+    "edges": 11,
+    "conditionals": 1,
+    "andGates": 1,
+    "orGates": 1,
+    "notGates": 0,
+    "loops": 0
+  },
+  "mermaid": "graph TD\n    N1[\"Double-strand break\"]\n    N2[\"MRN detects break\"]\n    N3[\"5' resection -> 3' ssDNA\"]\n    N4[\"RPA coats ssDNA\"]\n    N5[\"RAD51 filament (BRCA2)\"]\n    N6[\"Homology search + invasion\"]\n    N7[\"D-loop; DNA synthesis\"]\n    N8{\"Resolution pathway?\"}\n    N9[\"Double Holliday junction\"]\n    N10[\"SDSA (non-crossover)\"]\n    N11[\"Accurate repair restored\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 --> N4\n    N4 --> N5\n    N5 --> N6\n    N6 --> N7\n    N7 --> N8\n    N8 -->|dHJ| N9\n    N8 -->|SDSA| N10\n    N9 --> N11\n    N10 --> N11\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#74c0fc,color:#fff\n    style N9 fill:#51cf66,color:#fff\n    style N10 fill:#51cf66,color:#fff\n    style N11 fill:#b197fc,color:#fff",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Double-strand break",
+      "detail": "DSB requiring template-based repair",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 2
+    },
+    {
+      "id": "N2",
+      "label": "MRN detects break",
+      "detail": "MRN complex senses and initiates processing",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N3",
+      "label": "5' resection -> 3' ssDNA",
+      "detail": "Nucleolytic resection exposes 3' tails",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N4",
+      "label": "RPA coats ssDNA",
+      "detail": "RPA protects single-stranded DNA",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N5",
+      "label": "RAD51 filament (BRCA2)",
+      "detail": "RAD51 replaces RPA to form the presynaptic filament",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N6",
+      "label": "Homology search + invasion",
+      "detail": "Filament invades a homologous duplex",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N7",
+      "label": "D-loop; DNA synthesis",
+      "detail": "Extension primed from the invading strand",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N8",
+      "label": "Resolution pathway?",
+      "detail": "dHJ vs SDSA outcome",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N9",
+      "label": "Double Holliday junction",
+      "detail": "Junctions resolved (crossover/non-crossover)",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N10",
+      "label": "SDSA (non-crossover)",
+      "detail": "Strand displacement and annealing",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N11",
+      "label": "Accurate repair restored",
+      "detail": "Error-free repair of the break",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 2
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:mechanisms-homologous-recombination-repair",
+    "graphType": "mechanism_flowchart",
+    "topologySignature": "07879c1e117082ef",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "lastUpdated": "2026-06-01",
+  "verified": false,
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "sources": [
+    {
+      "title": "Mechanism of eukaryotic homologous recombination",
+      "authors": "San Filippo, J.; Sung, P.; Klein, H.",
+      "journal": "Annual Review of Biochemistry",
+      "year": "2008",
+      "pubmed": "18166979",
+      "doi": "10.1146/annurev.biochem.77.061306.125255",
+      "url": "https://doi.org/10.1146/annurev.biochem.77.061306.125255"
+    },
+    {
+      "title": "Regulation of homologous recombination in eukaryotes",
+      "authors": "Heyer, W. D.; Ehmsen, K. T.; Liu, J.",
+      "journal": "Annual Review of Genetics",
+      "year": "2010",
+      "pubmed": "20690856",
+      "doi": "10.1146/annurev-genet-051710-150955",
+      "url": "https://doi.org/10.1146/annurev-genet-051710-150955"
+    },
+    {
+      "title": "Homologous recombination and the repair of DNA double-strand breaks",
+      "authors": "Wright, W. D.; Shah, S. S.; Heyer, W. D.",
+      "journal": "Journal of Biological Chemistry",
+      "year": "2018",
+      "pubmed": "29643144",
+      "doi": "10.1074/jbc.TM118.000372",
+      "url": "https://doi.org/10.1074/jbc.TM118.000372"
+    }
+  ],
+  "graphType": "mechanism_flowchart",
+  "domainContext": "DNA double-strand-break repair"
+}

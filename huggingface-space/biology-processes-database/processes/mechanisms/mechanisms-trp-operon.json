@@ -1,0 +1,200 @@
+{
+  "id": "mechanisms-trp-operon",
+  "name": "Trp Operon (Attenuation)",
+  "category": "biology",
+  "subcategory": "mechanisms",
+  "subcategory_name": "Mechanisms",
+  "description": "Trp operon control: high tryptophan lets the Trp repressor block the operator, while at low tryptophan transcription proceeds and attenuation via leader-peptide ribosome stalling decides whether RNA polymerase reads through to the structural genes.",
+  "keywords": [
+    "trp operon",
+    "attenuation",
+    "repressor",
+    "leader peptide",
+    "terminator"
+  ],
+  "namedCollections": [
+    "gene-expression"
+  ],
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "complexity": {
+    "nodes": 11,
+    "edges": 10,
+    "conditionals": 2,
+    "logicGates": {
+      "orGates": 2,
+      "andGates": 0,
+      "notGates": 0,
+      "total": 2
+    },
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 0
+  },
+  "graphMetrics": {
+    "nodes": 11,
+    "edges": 10,
+    "conditionals": 2,
+    "andGates": 0,
+    "orGates": 2,
+    "notGates": 0,
+    "loops": 0
+  },
+  "mermaid": "graph TD\n    N1[\"Tryptophan level\"]\n    N2{\"Trp high?\"}\n    N3[\"Repressor binds operator\"]\n    N4[\"Transcription blocked\"]\n    N5[\"Pol transcribes leader\"]\n    N6{\"Ribosome stalls at Trp codons?\"}\n    N7[\"Antiterminator (2-3) forms\"]\n    N8[\"Read through to genes\"]\n    N9[\"Terminator (3-4) forms\"]\n    N10[\"Attenuation: stops\"]\n    N11[\"Trp biosynthesis enzymes\"]\n\n    N1 --> N2\n    N2 -->|high| N3\n    N3 --> N4\n    N2 -->|low| N5\n    N5 --> N6\n    N6 -->|stall| N7\n    N7 --> N8\n    N8 --> N11\n    N6 -->|no stall| N9\n    N9 --> N10\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#74c0fc,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#b197fc,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#74c0fc,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#51cf66,color:#fff\n    style N10 fill:#b197fc,color:#fff\n    style N11 fill:#b197fc,color:#fff",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Tryptophan level",
+      "detail": "Intracellular tryptophan concentration",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 1
+    },
+    {
+      "id": "N2",
+      "label": "Trp high?",
+      "detail": "Repression-level decision",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N3",
+      "label": "Repressor binds operator",
+      "detail": "Trp-activated repressor blocks transcription",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N4",
+      "label": "Transcription blocked",
+      "detail": "Operon repressed",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N5",
+      "label": "Pol transcribes leader",
+      "detail": "Low Trp: transcription of the leader region",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N6",
+      "label": "Ribosome stalls at Trp codons?",
+      "detail": "Leader-peptide translation senses Trp-tRNA",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N7",
+      "label": "Antiterminator (2-3) forms",
+      "detail": "Stalling favors the antiterminator",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N8",
+      "label": "Read through to genes",
+      "detail": "Transcription of trpE-A",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N9",
+      "label": "Terminator (3-4) forms",
+      "detail": "No stalling favors the terminator",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N10",
+      "label": "Attenuation: stops",
+      "detail": "Premature termination",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 1
+    },
+    {
+      "id": "N11",
+      "label": "Trp biosynthesis enzymes",
+      "detail": "Structural genes expressed",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 2
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:mechanisms-trp-operon",
+    "graphType": "decision_flowchart",
+    "topologySignature": "c3ae1fbcc62cbae7",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "lastUpdated": "2026-06-01",
+  "verified": false,
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "sources": [
+    {
+      "title": "Attenuation in the control of expression of bacterial operons",
+      "authors": "Yanofsky, C.",
+      "journal": "Nature",
+      "year": "1981",
+      "pubmed": "6259542",
+      "doi": "10.1038/289751a0",
+      "url": "https://doi.org/10.1038/289751a0"
+    },
+    {
+      "title": "Transcription attenuation: once viewed as a novel regulatory strategy, it has been found in many forms",
+      "authors": "Yanofsky, C.",
+      "journal": "Journal of Bacteriology",
+      "year": "2000",
+      "pubmed": "10613855",
+      "doi": "10.1128/JB.182.1.1-8.2000",
+      "url": "https://doi.org/10.1128/JB.182.1.1-8.2000"
+    },
+    {
+      "title": "Transcription attenuation: a highly conserved regulatory strategy used by bacteria",
+      "authors": "Merino, E.; Yanofsky, C.",
+      "journal": "Trends in Genetics",
+      "year": "2005",
+      "pubmed": "15922833",
+      "doi": "10.1016/j.tig.2005.04.013",
+      "url": "https://doi.org/10.1016/j.tig.2005.04.013"
+    }
+  ],
+  "graphType": "decision_flowchart",
+  "domainContext": "Bacterial operon regulation"
+}

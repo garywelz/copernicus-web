@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_2605.12619v1",
+  "arxiv_id": "2605.12619v1",
+  "title": "Human face perception reflects inverse-generative and naturalistic discriminative objectives",
+  "authors": [
+    "Wenxuan Guo",
+    "Heiko H. Schütt",
+    "Kamila Maria Jozwik",
+    "Katherine R. Storrs",
+    "Nikolaus Kriegeskorte",
+    "Tal Golan"
+  ],
+  "author_string": "Wenxuan Guo, Heiko H. Schütt, Kamila Maria Jozwik, Katherine R. Storrs, Nikolaus Kriegeskorte et al.",
+  "journal": "arXiv:2605.12619v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "The perceptual representations supporting our ability to recognize faces remain a computational mystery. Deep neural networks offer mechanistic hypotheses for human face perception, but theoretically distinct models often make indistinguishable representational predictions for randomly sampled faces. To expose diagnostic differences among these hypotheses, we compared six neural network models sharing an architecture but trained on distinct tasks, using face pairs optimized to elicit contrasting model predictions (\"controversial\" pairs) alongside randomly sampled pairs. We tested model predictions against face-dissimilarity judgments from 864 human participants across stimulus sets differing in realism and pose variation. Models prioritizing high-level, invariant structures (trained via inverse rendering, face identification, or object classification) most robustly matched human judgments. Furthermore, models trained on natural images typically outperformed synthetic-trained counterparts. Together, these findings suggest that human face perception is shaped by mechanisms that infer latent causes of facial appearance, discount nuisance variation, and are tuned by natural image statistics.",
+  "categories": [
+    "q-bio.NC",
+    "cs.CV"
+  ],
+  "primary_category": "cs.CV",
+  "comment": "33 pages, 10 figures, 4 tables",
+  "published_date": "2026-05-12T18:06:57Z",
+  "updated_date": "2026-05-12T18:06:57Z",
+  "url": "https://arxiv.org/abs/2605.12619v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.12619v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-19T10:15:36.794955",
+  "category": "computer_science",
+  "subcategories": [
+    "q-bio.NC",
+    "cs.CV"
+  ]
+}

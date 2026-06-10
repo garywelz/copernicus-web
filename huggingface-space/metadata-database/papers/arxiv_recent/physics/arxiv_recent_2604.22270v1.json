@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2604.22270v1",
+  "arxiv_id": "2604.22270v1",
+  "title": "Single-Shot Lensless Imaging with Physics Guided Genetic Programming",
+  "authors": [
+    "Ganesh M. Balasubramaniam",
+    "Xiao-Liu Chu",
+    "Radhika V. Nair",
+    "Matthew R. Foreman"
+  ],
+  "author_string": "Ganesh M. Balasubramaniam, Xiao-Liu Chu, Radhika V. Nair, Matthew R. Foreman",
+  "journal": "arXiv:2604.22270v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Lensless optical imaging eliminates the need for refractive optics, enabling compact and low-cost cameras with a large field-of-view, supporting point-of-care diagnostics and industrial monitoring. Practical deployments, however, remain constrained by ill-posed image reconstruction pipelines that require multiple measurements, careful calibration or object-specific training, thus limiting robustness and scalability. In this work, we introduce a single-shot lensless imaging framework that reconstructs complex objects from only a single recorded intensity pattern using a genetically programmed iterative algorithm. Our method couples a wave-propagation model with an adaptive meta-optimisation strategy to jointly estimate the object amplitude, object phase, and effective object-detector distance. Experiments demonstrate high-fidelity recovery of amplitude objects, including a USAF target and 2~$μ$m silicon beads on a glass slide, as well as a phase-dominant biological sample consisting of U2OS cells on a glass slide. Across multiple object types, wavelengths, and propagation distances, the same learned policy maintains high reconstruction quality with minimal retuning, indicating strong out-of-distribution generalisation. As a practical demonstration, the framework is integrated with a $β$-amyloid-based optical digital bead assay under wide field-of-view acquisition. The resulting platform combines single-shot capture, compact hardware, and accurate reconstruction of complex fields, enabling rapid, portable assays in which throughput, alignment tolerance, and cost are critical.",
+  "categories": [
+    "physics.optics"
+  ],
+  "primary_category": "physics.optics",
+  "comment": null,
+  "published_date": "2026-04-24T06:32:25Z",
+  "updated_date": "2026-04-24T06:32:25Z",
+  "url": "https://arxiv.org/abs/2604.22270v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.22270v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-27T10:15:28.451940",
+  "category": "physics",
+  "subcategories": [
+    "physics.optics"
+  ]
+}

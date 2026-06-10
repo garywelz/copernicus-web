@@ -1,0 +1,19 @@
+{
+  "acquired_date": "2025-10-08T00:00:00Z",
+  "category": "Gene Regulation",
+  "created": "2025-10-08",
+  "description": "Lac operon in KEGG style: gene orthologs (eco:b), lac promoter, allolactose, and pathway (lactose degradation to glucose + galactose). Regulation: LacI represses, CRP activates promoter; allolactose relieves LacI.",
+  "id": "process_Gene Regulation_lac-operon-kegg",
+  "name": "Lac Operon (KEGG-sourced)",
+  "organism": "E. coli",
+  "source": "KEGG",
+  "source_version": "2024",
+  "version_label": "V5",
+  "notes": "V5 = KEGG only. KEGG GENES (eco), lactose/galactose pathway, allolactose, lac promoter; LacI/CRP regulatory links.",
+  "mermaid": "graph TD\n    LAC[Lactose]\n    LACI[eco:b1677 lacI]\n    CRP[eco:b3356 crp]\n    ALLO[Allolactose]\n    PROM[lac promoter]\n    LACZ[eco:b1675 lacZ]\n    LACY[eco:b1676 lacY]\n    LACA[eco:b1674 lacA]\n    GAL[Galactose]\n    GLU[Glucose]\n    LAC -->|lacY transport| LACY\n    LAC -->|lacZ isomerase| ALLO\n    ALLO -->|inducer| LACI\n    LACI -->|repress| PROM\n    CRP -->|activate| PROM\n    PROM --> LACZ\n    PROM --> LACY\n    PROM --> LACA\n    LACZ -->|hydrolysis| GAL\n    LACZ -->|hydrolysis| GLU\n    style LAC fill:#e74c3c,color:#fff\n    style LACI fill:#ffd43b,color:#000\n    style CRP fill:#ffd43b,color:#000\n    style ALLO fill:#74c0fc,color:#000\n    style PROM fill:#51cf66,color:#000\n    style LACZ fill:#74c0fc,color:#000\n    style LACY fill:#74c0fc,color:#000\n    style LACA fill:#74c0fc,color:#000\n    style GAL fill:#b197fc,color:#fff\n    style GLU fill:#b197fc,color:#fff",
+  "related_processes": ["ecoli_lac_operon"],
+  "scientificAccuracy": "KEGG pathway and gene annotations; lac promoter and allolactose from lactose metabolism map.",
+  "sources": [
+    {"title": "KEGG", "url": "https://www.genome.jp/kegg/", "note": "KEGG GENES (eco), lactose pathway, lac regulatory links."}
+  ]
+}

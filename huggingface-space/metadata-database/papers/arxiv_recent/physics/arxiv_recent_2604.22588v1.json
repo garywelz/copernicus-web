@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2604.22588v1",
+  "arxiv_id": "2604.22588v1",
+  "title": "Analytical and Compressed Simulation of Noisy Stabilizer Circuits",
+  "authors": [
+    "Paul Aigner",
+    "Jasmin Matti",
+    "Maria Flors Mor-Ruiz",
+    "Julius Wallnöfer",
+    "Wolfgang Dür"
+  ],
+  "author_string": "Paul Aigner, Jasmin Matti, Maria Flors Mor-Ruiz, Julius Wallnöfer, Wolfgang Dür",
+  "journal": "arXiv:2604.22588v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We develop analytical and algorithmic techniques that enable efficient simulation of a broad class of noisy stabilizer circuits. We derive closed-form expressions of expectation values for tensor product of Paulis in circuits with non-deterministic Pauli measurements, yielding an efficient strong simulation method that avoids explicit density matrix construction and enables direct noise parameter sweeps. We introduce a circuit compression framework that reduces the per-sample cost of weak simulation in general noisy stabilizer circuits, including deterministic measurements, by separating parameter-independent preprocessing from sampling. Finally, we extend the analytical framework beyond its standard domain to include a small number of deterministic measurements, general rotations, and non-diagonal noise channels. Our results provide a unified framework for both strong and weak simulation of noisy stabilizer circuits and corresponds to an extension of the noisy stabilizer formalism introduced in \\cite{PhysRevA.107.032424}. They offer applications ranging from calculation of the expectation values of entanglement witnesses, determination of reduced states, to energy evaluation.",
+  "categories": [
+    "quant-ph"
+  ],
+  "primary_category": "quant-ph",
+  "comment": "17 pages, 7 figures",
+  "published_date": "2026-04-24T14:17:40Z",
+  "updated_date": "2026-04-24T14:17:40Z",
+  "url": "https://arxiv.org/abs/2604.22588v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.22588v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-27T10:15:23.658772",
+  "category": "physics",
+  "subcategories": [
+    "quant-ph"
+  ]
+}

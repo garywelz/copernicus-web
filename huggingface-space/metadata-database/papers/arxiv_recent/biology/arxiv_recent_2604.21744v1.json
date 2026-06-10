@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2604.21744v1",
+  "arxiv_id": "2604.21744v1",
+  "title": "Agentic AI-assisted coding offers a unique opportunity to instill epistemic grounding during software development",
+  "authors": [
+    "Magnus Palmblad",
+    "Jared M. Ragland",
+    "Benjamin A. Neely"
+  ],
+  "author_string": "Magnus Palmblad, Jared M. Ragland, Benjamin A. Neely",
+  "journal": "arXiv:2604.21744v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "The capabilities of AI-assisted coding are progressing at breakneck speed. Chat-based vibe coding has evolved into fully fledged AI-assisted, agentic software development using agent scaffolds where the human developer creates a plan that agentic AIs implement. One current trend is utilizing documents beyond this plan document, such as project and method-scoped documents. Here we propose GROUNDING$.$md, a community-governed, field-scoped epistemic grounding document, using mass spectrometry-based proteomics as an example. This explicit field-scoped grounding document encodes Hard Constraints (non-negotiable validity invariants empirically required for scientific correctness) and Convention Parameters (community-agreed defaults) that override all other contexts to enforce validity, regardless of what the user prompts. In practice, this will empower a non-domain expert to generate code, tools, and software that have best practices baked in at the ground level, providing confidence to the software developer but also to those reviewing or using the final product. Undoubtedly it is easier to have agentic AIs adhere to guidelines than humans, and this opportunity allows for organizations to develop epistemic grounding documents in such a way as to keep domain experts in the loop in a future of democratized generation of bespoke software solutions.",
+  "categories": [
+    "cs.SE",
+    "cs.AI",
+    "q-bio.BM"
+  ],
+  "primary_category": "q-bio.BM",
+  "comment": "Letter, 9 pages, 1 table",
+  "published_date": "2026-04-23T14:50:35Z",
+  "updated_date": "2026-04-23T14:50:35Z",
+  "url": "https://arxiv.org/abs/2604.21744v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.21744v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-30T22:15:35.864621",
+  "category": "biology",
+  "subcategories": [
+    "cs.SE",
+    "cs.AI",
+    "q-bio.BM"
+  ]
+}

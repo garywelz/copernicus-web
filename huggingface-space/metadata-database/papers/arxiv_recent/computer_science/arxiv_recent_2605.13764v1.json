@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2605.13764v1",
+  "arxiv_id": "2605.13764v1",
+  "title": "VectorSmuggle: Steganographic Exfiltration in Embedding Stores and a Cryptographic Provenance Defense",
+  "authors": [
+    "Jascha Wanger"
+  ],
+  "author_string": "Jascha Wanger",
+  "journal": "arXiv:2605.13764v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": "10.5281/zenodo.20076420",
+  "abstract": "Modern retrieval-augmented generation (RAG) systems convert sensitive content into high-dimensional embeddings and store them in vector databases that treat the resulting numerical artifacts as opaque. Major vector-store products do not provide native controls for embedding integrity, ingestion-time distributional anomaly detection, or cryptographic provenance attestation. We show this opens a class of steganographic exfiltration attacks: an attacker with write access to the ingestion pipeline can hide payload data inside embeddings using simple post-embedding perturbations (noise injection, rotation, scaling, offset, fragmentation, and combinations thereof) while preserving the surface-level retrieval behavior the RAG system exposes to legitimate users.   We evaluate these techniques across a synthetic-PII corpus on text-embedding-3-large, four locally hosted open embedding models, a cross-corpus replication on BEIR NFCorpus and a Quora subset (over 26,000 chunks combined), seven vector-store configurations, an adaptive-attacker variant of the detector evaluation, and a paraphrased-query retrieval benchmark. Distribution-shifting perturbations are often caught by simple anomaly detectors; small-angle orthogonal rotation defeats distribution-based detection across every (model, corpus) pair tested. A disjoint-Givens rotation encoder gives a closed-form per-vector capacity ceiling of floor(d/2) * b bits, but real embedding manifolds impose a capacity-detectability trade-off, and the retrieval-preserving operating point sits well below it.   We propose VectorPin, a cryptographic provenance protocol that pins each embedding to its source content and producing model via an Ed25519 signature over a canonical byte representation. Any post-embedding modification breaks signature verification. Embedding-level integrity is a deployable, standardizable control that closes this attack class.",
+  "categories": [
+    "cs.CR",
+    "cs.IR",
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": "47 pages, 3 figures. Reference implementations: https://github.com/jaschadub/VectorSmuggle and https://github.com/jaschadub/VectorPin",
+  "published_date": "2026-05-13T16:44:20Z",
+  "updated_date": "2026-05-13T16:44:20Z",
+  "url": "https://arxiv.org/abs/2605.13764v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.13764v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-13T22:17:00.036609",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CR",
+    "cs.IR",
+    "cs.LG"
+  ]
+}

@@ -1,0 +1,143 @@
+[
+  {
+    "id": "ml-software",
+    "label": "Machine Learning and Software Engineering",
+    "description": "Model training, validation, feature engineering, CI, QA, requirements, and review workflows.",
+    "processIds": [
+      "machine_learning-feature-engineering-pipeline",
+      "machine_learning-hyperparameter-optimization",
+      "machine_learning-model-evaluation-and-validation",
+      "machine_learning-model-training-pipeline",
+      "machine_learning-project-management",
+      "machine_learning-quality-assurance",
+      "machine_learning-software-development-lifecycle",
+      "networks-database-design",
+      "security-intrusion-detection",
+      "security-secure-software-update",
+      "software_engineering-code-review-workflow",
+      "software_engineering-continuous-integration-pipeline",
+      "software_engineering-incident-response",
+      "software_engineering-machine-learning",
+      "software_engineering-natural-language-processing",
+      "software_engineering-neural-network",
+      "software_engineering-requirements-engineering",
+      "theory-formal-verification"
+    ]
+  },
+  {
+    "id": "algorithmic-complexity",
+    "label": "Algorithms and Complexity",
+    "description": "Graph algorithms, dynamic programming, sorting, trees, complexity, and formal analysis.",
+    "processIds": [
+      "algorithms_data_structures-balanced-search-trees",
+      "algorithms_data_structures-dynamic-programming",
+      "algorithms_data_structures-graph-algorithms",
+      "algorithms_data_structures-graph-traversal",
+      "algorithms_data_structures-minimum-spanning-tree",
+      "algorithms_data_structures-shortest-path-algorithms",
+      "algorithms_data_structures-sorting-algorithms",
+      "dependency-web-service-stack",
+      "machine_learning-quality-assurance",
+      "networks-load-balancing",
+      "security-secure-software-update",
+      "systems-network-protocol",
+      "theory-automata-construction",
+      "theory-computational-complexity-analysis",
+      "theory-formal-verification",
+      "theory-rendering",
+      "theory-type-system-checking"
+    ]
+  },
+  {
+    "id": "systems-runtime",
+    "label": "Systems and Runtime",
+    "description": "Operating systems, memory, containers, scheduling, filesystems, and runtime behavior.",
+    "processIds": [
+      "algorithms_data_structures-graph-traversal",
+      "dependency-web-service-stack",
+      "security-authentication-and-authorization",
+      "security-file-system",
+      "security-intrusion-detection",
+      "security-memory-management",
+      "systems-container-orchestration",
+      "systems-file-system-journaling",
+      "systems-network-performance",
+      "systems-network-protocol",
+      "systems-network-security",
+      "systems-process-scheduling",
+      "systems-virtual-memory-paging",
+      "theory-formal-verification",
+      "theory-type-system-checking"
+    ]
+  },
+  {
+    "id": "networks-distributed",
+    "label": "Networks and Distributed Systems",
+    "description": "DNS, routing, congestion control, load balancing, database transactions, and distributed behavior.",
+    "processIds": [
+      "dependency-web-service-stack",
+      "machine_learning-software-development-lifecycle",
+      "networks-database-design",
+      "networks-dns-resolution",
+      "networks-load-balancing",
+      "networks-query-processing",
+      "networks-routing-protocol-operation",
+      "networks-tcp-congestion-control",
+      "networks-transaction-management",
+      "security-intrusion-detection",
+      "software_engineering-neural-network",
+      "systems-network-performance",
+      "systems-network-protocol",
+      "systems-network-security"
+    ]
+  },
+  {
+    "id": "security-reliability",
+    "label": "Security and Reliability",
+    "description": "Authentication, authorization, PKI, intrusion detection, secure updates, and threat response.",
+    "processIds": [
+      "security-authentication-and-authorization",
+      "security-file-system",
+      "security-intrusion-detection",
+      "security-memory-management",
+      "security-process-management",
+      "security-public-key-infrastructure-pki",
+      "security-secure-software-update",
+      "software_engineering-incident-response",
+      "systems-network-security"
+    ]
+  },
+  {
+    "id": "theory",
+    "label": "Theoretical Computer Science",
+    "description": "Generated from process subcategory.",
+    "processIds": [
+      "theory-animation",
+      "theory-geometric-modeling"
+    ]
+  },
+  {
+    "id": "algorithms_data_structures",
+    "label": "Algorithms & Data Structures",
+    "description": "Generated from process subcategory.",
+    "processIds": [
+      "algorithms_data_structures-hash-table-operations"
+    ]
+  },
+  {
+    "id": "graph-type-pilots",
+    "label": "Graph Type Pilots",
+    "description": "Existing collection from metadata.",
+    "processIds": [
+      "dependency-web-service-stack"
+    ]
+  },
+  {
+    "id": "systems",
+    "label": "Systems",
+    "description": "Existing collection from metadata.",
+    "processIds": [
+      "dependency-web-service-stack"
+    ]
+  }
+]

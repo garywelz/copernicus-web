@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2605.18714v1",
+  "arxiv_id": "2605.18714v1",
+  "title": "Semantic Generative Tuning for Unified Multimodal Models",
+  "authors": [
+    "Songsong Yu",
+    "Yuxin Chen",
+    "Ying Shan",
+    "Yanwei Li"
+  ],
+  "author_string": "Songsong Yu, Yuxin Chen, Ying Shan, Yanwei Li",
+  "journal": "arXiv:2605.18714v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Unified multimodal models (UMMs) strive to consolidate visual understanding and visual generation within a single architecture. However, prevailing training paradigms independently optimize understanding via sparse text signals and generation through dense pixel objectives. Such a decoupled strategy yields misaligned representation spaces, isolating visual understanding from generation and hindering their mutual reinforcement. This work presents the first systematic investigation into generative post-training, where we formulate hierarchical visual tasks as generative proxies to bridge the isolation in UMMs. Our empirical investigation reveals that high-level semantic tasks, particularly image segmentation, serve as optimal proxies. Unlike low-level tasks that distract models with texture details, segmentation provides structural semantics that significantly enhance both vision-centric perception and generative layout fidelity. Building upon these insights, we introduce Semantic Generative Tuning (SGT), a novel paradigm that leverages segmentation as a generative proxy to align and synergize multimodal capabilities. Mechanistic analyses further demonstrate that SGT fundamentally improves feature linear separability and optimizes visual-textual attention allocation pattern. Extensive evaluations show that SGT consistently improves both multimodal comprehension and generative fidelity across mainstream benchmarks. Our code is available on the https://song2yu.github.io/SGT/.",
+  "categories": [
+    "cs.CV",
+    "cs.AI"
+  ],
+  "primary_category": "cs.AI",
+  "comment": "14 pages, 13 figures",
+  "published_date": "2026-05-18T17:46:46Z",
+  "updated_date": "2026-05-18T17:46:46Z",
+  "url": "https://arxiv.org/abs/2605.18714v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.18714v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-19T10:15:40.273619",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CV",
+    "cs.AI"
+  ]
+}

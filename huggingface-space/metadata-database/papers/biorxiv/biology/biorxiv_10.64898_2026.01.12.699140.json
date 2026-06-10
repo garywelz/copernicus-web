@@ -1,0 +1,43 @@
+{
+  "id": "biorxiv_10.64898_2026.01.12.699140",
+  "doi": "10.64898/2026.01.12.699140",
+  "title": "Identifying Evolutionary Relatedness Effects on Diversification from Phylogenies using Neural Networks",
+  "authors": [
+    "Qin, T.",
+    "van Benthem, K. J.",
+    "Valente, L.",
+    "Etienne, R."
+  ],
+  "author_string": "Qin, T., van Benthem, K. J., Valente, L., Etienne, R.",
+  "journal": "bioRxiv",
+  "journal_full": "bioRxiv",
+  "year": "2026",
+  "abstract": "Reconstructing the forces that shaped macroevolutionary histories from extant phylogenies is fundamentally challenging: richly parameterized diversification models are often only weakly identifiable; different evolutionary mechanisms can yield nearly indistinguishable tree shapes. Here we use a model with evolutionary relatedness dependence to evaluate how much information about such forces can be recovered from simulated trees. We train graph neural networks and long short-term memory classifiers to distinguish three scenarios of feedback of diversity on diversification: effect of phylogenetic diversity (total branch length), evolutionary distinctiveness (average phylogenetic distance of a species to all other species in a clade), and nearest-neighbor distance (phylogenetic distance to the mostly closely related species). We also train a suite of regression networks to estimate the underlying diversification parameters. We then analyze classification performance, calibration of predicted class probabilities, regression errors, and their dependence on tree size and on the strength and sign of richness and relatedness effects. Across network architectures and complexity levels, scenario classification is only moderately accurate and strongly asymmetric as revealed by the confusion matrix. Trees generated under an effect of nearest-neighbor distance on diversification tend to be correctly classified, whereas those with an effect of evolutionary distinctiveness are frequently misclassified. Regression networks systematically shrink predictions toward the empirical mean, especially for complex models, suggesting broad regions of parameter space with low identifiability. Strong global dependence of diversification rates on diversity further erodes recoverability by driving large variations in tree size that mask the subtler signatures of related-ness effects. In contrast, sufficiently strong speciation-relatedness effects can carve out narrow regions of parameter space in which scenarios and parameters become practically recoverable. Together, our results provide a map of when neural networks can and cannot infer diversification mechanisms from extant trees under our evolutionary relatedness dependence model, and they underscore the need for additional data or constraints when using flexible diversification models for macroevolutionary inference.",
+  "keywords": [],
+  "categories": [
+    "evolutionary biology"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.64898/2026.01.12.699140",
+  "source": "biorxiv",
+  "sources": [
+    "biorxiv"
+  ],
+  "acquired_date": "2026-05-13T22:15:23.786099",
+  "category": "biology",
+  "subcategories": [
+    "evolutionary biology"
+  ],
+  "published_date": "2026-01-13",
+  "updated_date": "2026-01-13",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "biorxiv",
+  "preprint_version": "1",
+  "preprint_type": "new results",
+  "license": "cc_by",
+  "jatsxml": "https://www.biorxiv.org/content/early/2026/01/13//2026.01.12.699140.source.xml",
+  "published_doi": null,
+  "author_corresponding": "Tianjian Qin",
+  "author_corresponding_institution": "University of Groningen"
+}

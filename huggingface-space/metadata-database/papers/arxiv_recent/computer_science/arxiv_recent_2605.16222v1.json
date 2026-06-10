@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2605.16222v1",
+  "arxiv_id": "2605.16222v1",
+  "title": "Artificial Aphasias in Lesioned Language Models",
+  "authors": [
+    "Nathan Roll",
+    "Jill Kries",
+    "Laura Gwilliams",
+    "Cory Shain"
+  ],
+  "author_string": "Nathan Roll, Jill Kries, Laura Gwilliams, Cory Shain",
+  "journal": "arXiv:2605.16222v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Aphasias, selective language impairments which can arise from brain damage, reveal the functional organization of human language by providing causal links between affected brain regions and specific symptom profiles. Drawing on this literature, we introduce an aphasia-inspired technique to characterize the emergent functional organization of language models (LMs). We ``lesion'' (zero-out) model parameters and measure the effects of this intervention against clinical aphasia symptoms, as diagnosed by the Text Aphasia Battery (TAB). When applied to 112,426 outputs from five 1B-scale LMs, the full range of evaluated symptoms surface, but in distributions largely distinct from those of humans. Our method uncovers broad symptom-profile differences between attention components (query, key, value, output) and feed-forward components (up, gate, down), with weaker evidence for differences among components within the same mechanism. We also find an effect of depth, where lesions in early layers disproportionately cause syntactic and semantic symptoms while late-middle layers yield higher rates of phonological and fluency deficits. Although some LM lesions induce quantitatively more similar profiles to some human aphasia types than others, qualitative differences in symptom patterns between LMs and humans suggest that aphasia syndromes are heavily influenced by the details of learning and processing rather than being a domain-invariant consequence of disrupted language processing.",
+  "categories": [
+    "cs.CL",
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": "49 pages, 13 figures",
+  "published_date": "2026-05-15T17:33:07Z",
+  "updated_date": "2026-05-15T17:33:07Z",
+  "url": "https://arxiv.org/abs/2605.16222v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.16222v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-18T10:15:47.144734",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CL",
+    "cs.LG"
+  ]
+}

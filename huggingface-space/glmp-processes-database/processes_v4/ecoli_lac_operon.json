@@ -1,0 +1,19 @@
+{
+  "acquired_date": "2025-10-08T00:00:00Z",
+  "category": "Gene Regulation",
+  "created": "2025-10-08",
+  "description": "Lac operon from EcoCyc: operon structure, lac promoter/operator, regulators (LacI, CRP-cAMP), structural genes (lacZ, lacY, lacA), and reactions (transport, allolactose, hydrolysis).",
+  "id": "process_Gene Regulation_lac-operon-ecocyc",
+  "name": "Lac Operon (EcoCyc-sourced)",
+  "organism": "E. coli",
+  "source": "EcoCyc",
+  "source_version": "28.0",
+  "version_label": "V4",
+  "notes": "V4 = EcoCyc only. LACOPERON, lac promoter (lacP/lacO), lacI, lacZ/Y/A, allolactose and lactose reactions from EcoCyc.",
+  "mermaid": "graph TD\n    LACTOSE[Lactose]\n    LACI[lacI Repressor]\n    CAMP[CAP-cAMP]\n    PROM[lac promoter]\n    OPERON[LACOPERON]\n    LACZ[lacZ β-galactosidase]\n    LACY[lacY Permease]\n    LACA[lacA Transacetylase]\n    ALLO[Allolactose]\n    GLU[Glucose + Galactose]\n    LACTOSE -->|LacY transport| LACY\n    LACY -->|intracellular| LACTOSE\n    LACTOSE -->|LacZ isomerase| ALLO\n    ALLO -->|binds LacI| LACI\n    LACI -->|represses| PROM\n    CAMP -->|activates| PROM\n    PROM --> OPERON\n    OPERON --> LACZ\n    OPERON --> LACY\n    OPERON --> LACA\n    LACZ -->|hydrolysis| GLU\n    style LACTOSE fill:#e74c3c,color:#fff\n    style LACI fill:#ffd43b,color:#000\n    style CAMP fill:#e74c3c,color:#fff\n    style PROM fill:#51cf66,color:#000\n    style OPERON fill:#ffd43b,color:#000\n    style LACZ fill:#ffd43b,color:#000\n    style LACY fill:#ffd43b,color:#000\n    style LACA fill:#ffd43b,color:#000\n    style ALLO fill:#74c0fc,color:#000\n    style GLU fill:#b197fc,color:#fff",
+  "related_processes": ["ecoli_lac_operon"],
+  "scientificAccuracy": "EcoCyc operon and pathway annotations; lac promoter and lactose/allolactose reactions.",
+  "sources": [
+    {"title": "EcoCyc", "url": "https://ecocyc.org", "note": "E. coli LACOPERON, lac promoter, lac genes, lactose reactions."}
+  ]
+}

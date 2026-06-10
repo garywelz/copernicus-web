@@ -1,0 +1,39 @@
+{
+  "id": "k_theory-algebraic",
+  "name": "Algebraic K-Theory",
+  "category": "mathematics",
+  "subcategory": "k_theory",
+  "subcategory_name": "K-Theory",
+  "description": "K₀, K₁. Grothendieck group. Exact sequences.",
+  "mermaid": "graph TD\n    D1[\"Def: Projective module\\nP ⊕ Q ≅ F free\"]\n    D2[\"Def: Grothendieck group\\nK₀(R) from proj mods\"]\n    D3[\"Def: K₁(R)\\nGL(R)/E(R) abelianized\"]\n    D4[\"Def: Exact sequence\\n0→A→B→C→0\"]\n    T1[\"Thm: K₀ additivity\\nK₀(A⊕B)≅K₀(A)⊕K₀(B)\"]\n    T2[\"Thm: K₀(R)≅Z\\nfor R field\"]\n    T3[\"Thm: K₁ stability\\nGL_n↪GL_{n+1}\"]\n    T4[\"Thm: Exact seq K₀\\n0→K₀(A)→K₀(B)→K₀(C)→0\"]\n    T5[\"Thm: Mayer–Vietoris\\nsquare → long exact\"]\n    D1 --> D2\n    D2 --> T1\n    T1 --> T2\n    D3 --> T3\n    D4 --> T4\n    T4 --> T5\n    classDef definition fill:#b197fc,color:#fff\n    classDef theorem fill:#51cf66,color:#fff\n    class D1,D2,D3,D4 definition\n    class T1,T2,T3,T4,T5 theorem",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

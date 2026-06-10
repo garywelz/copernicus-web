@@ -1,0 +1,37 @@
+{
+  "id": "arxiv_2605.26087v1",
+  "arxiv_id": "2605.26087v1",
+  "title": "DiscoverPhysics: Benchmarking LLMs for Out-of-the-Box Scientific Thinking",
+  "authors": [
+    "Matt L. Wiemann",
+    "Lindsay M. Smith",
+    "Peter Melchior",
+    "Siddharth Mishra-Sharma",
+    "Andrew Gordon Wilson",
+    "Pavel Izmailov",
+    "Carolina Cuesta-Lázaro"
+  ],
+  "author_string": "Matt L. Wiemann, Lindsay M. Smith, Peter Melchior, Siddharth Mishra-Sharma, Andrew Gordon Wilson et al.",
+  "journal": "arXiv:2605.26087v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Frontier LLMs now perform strongly across a wide range of physics evaluations, but it is hard to disentangle genuine reasoning from recall of established science. We introduce DiscoverPhysics, an interactive benchmark that asks a LLM agent to discover the laws of motion of a simulated world whose physics deliberately deviates from our own. We construct 22 worlds governed by, among others, screened and fractional-power gravity, multi-species couplings, hidden dark-matter-like particles, non-coordinate-free physics, and time-varying interactions. Each world is generated on demand by an N-body simulator, for which the agent proposes several rounds of experiments, observes raw trajectory data, and ultimately submits both a natural-language explanation of the world's physics and a Python implementation of the inferred law. Because solving a world requires the agent to design informative experiments and revise its hypotheses, the benchmark probes long-horizon reasoning over an experimental history. We evaluate submissions along two complementary axes: trajectory MSE on held-out particles and an LLM-judged explanation score following an expert-written rubric assessing conceptual understanding of each world. Across eleven frontier models, we find that the strongest agents pass only half of the worlds and consistently fail on those where latent structure must be uncovered. Open-source models lag substantially behind commercial models, both in their ability to design informative experiments and in extracting conclusions from the data. We further find that good predictive accuracy does not guarantee high explanation quality and that conceptual understanding depends on hypothesis refinement through well-chosen experiments.",
+  "categories": [
+    "stat.ML",
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": null,
+  "published_date": "2026-05-25T17:50:07Z",
+  "updated_date": "2026-05-25T17:50:07Z",
+  "url": "https://arxiv.org/abs/2605.26087v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.26087v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-26T10:15:43.031101",
+  "category": "computer_science",
+  "subcategories": [
+    "stat.ML",
+    "cs.LG"
+  ]
+}

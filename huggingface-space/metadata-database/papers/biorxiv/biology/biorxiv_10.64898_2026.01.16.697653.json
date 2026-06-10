@@ -1,0 +1,51 @@
+{
+  "id": "biorxiv_10.64898_2026.01.16.697653",
+  "doi": "10.64898/2026.01.16.697653",
+  "title": "COLLEMBOT: AI-Based Counting of Collembola for OECD 232 Tests",
+  "authors": [
+    "Wehrli, M.",
+    "Meyer, A. F.",
+    "Souza da Silva, E.",
+    "van Loon, S.",
+    "van Hall, B. G.",
+    "van Gestel, C. A. M.",
+    "Natal-da-Luz, T.",
+    "Doering, M. V. R.",
+    "Feldhaar, H.",
+    "Mair, M.",
+    "Jordan, D.",
+    "Langer, M."
+  ],
+  "author_string": "Wehrli, M., Meyer, A. F., Souza da Silva, E., van Loon, S., van Hall, B. G. et al.",
+  "journal": "bioRxiv",
+  "journal_full": "bioRxiv",
+  "year": "2026",
+  "abstract": "Ecotoxicological tests with soil organisms, such as the collembolan Folsomia candida, are essential for assessing chemical risks in terrestrial ecosystems. However, the current Organization for Economic Co-operation and Development (OECD) 232 reproduction tests rely on manual counting of juvenile and adult Collembola, a process that is costly, labor-intensive, time-consuming and prone to operator bias. These limitations restrict data availability and hinder robust risk assessments.\n\nWe therefore developed COLLEMBOT, an automated counting tool based on a YOLOv11 convolutional neural network, designed to integrate seamlessly into OECD workflows without protocol modifications. The model was trained on high-resolution images (n = 3207) from multiple laboratories and validated using 22 independent datasets (n = 1704 images) from Amsterdam (Netherlands), Basel (Switzerland), Bayreuth (Germany), Coimbra (Portugal) and Aarhus (Denmark). Datasets consisted of relevant standard soils (OECD artificial soils with 2.5%, 5% and 10% sphagnum peat; LUFA 2.2) and the springtail Folsomia candida. Automated counts showed strong agreement with manual counts (R{superscript 2} = 0.88-0.99). Dose-response curves derived from automated and manual counts strongly overlapped and effect concentrations (EC and EC) differed minimally (Median %{Delta} 6.2 {+/-} 23 and EC10 - EC90 R2 [&ge;] 0.977), remaining within acceptable limits for regulatory risk assessment and confirming reliability.\n\nTime efficiency improved significantly: a test with [~]300 images and up to 1,500 individuals per image was processed in less than 3 hours, compared to [~]137 hours needed for manual counting, a reduction of approximately 97%. By reducing labor and improving reproducibility, COLLEMBOT enables broader hazard data generation for collembolans, supporting science-based chemical risk assessment. The code and workflow are publicly available to facilitate adoption and community-driven development.\n\n\n\nO_FIG O_LINKSMALLFIG WIDTH=200 HEIGHT=187 SRC=\"FIGDIR/small/697653v1_ufig1.gif\" ALT=\"Figure 1\">\nView larger version (131K):\norg.highwire.dtl.DTLVardef@1d3ddc5org.highwire.dtl.DTLVardef@84c90aorg.highwire.dtl.DTLVardef@1aaf06aorg.highwire.dtl.DTLVardef@18ddfcd_HPS_FORMAT_FIGEXP  M_FIG C_FIG",
+  "keywords": [],
+  "categories": [
+    "ecology"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.64898/2026.01.16.697653",
+  "source": "biorxiv",
+  "sources": [
+    "biorxiv"
+  ],
+  "acquired_date": "2026-05-20T22:15:23.944536",
+  "category": "biology",
+  "subcategories": [
+    "ecology"
+  ],
+  "published_date": "2026-01-20",
+  "updated_date": "2026-01-20",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "biorxiv",
+  "preprint_version": "1",
+  "preprint_type": "new results",
+  "license": "cc_by",
+  "jatsxml": "https://www.biorxiv.org/content/early/2026/01/20//2026.01.16.697653.source.xml",
+  "published_doi": "10.1093/etojnl/vgag068",
+  "author_corresponding": "Micha Wehrli",
+  "author_corresponding_institution": "Swiss Federal Institute of Aquatic Science and Technology  Eawag, Duebendorf, Switzerland & Institute for Ecopreneurship, School of Life Sciences, University of"
+}

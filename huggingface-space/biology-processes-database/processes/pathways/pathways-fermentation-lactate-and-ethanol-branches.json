@@ -1,0 +1,183 @@
+{
+  "id": "pathways-fermentation-lactate-and-ethanol-branches",
+  "name": "Fermentation: Lactate and Ethanol Branches",
+  "category": "biology",
+  "subcategory": "pathways",
+  "subcategory_name": "Pathways",
+  "description": "Fermentation: when oxygen is limiting, cells regenerate NAD+ to sustain glycolysis by reducing pyruvate, either to lactate via lactate dehydrogenase (animals) or to ethanol via pyruvate decarboxylase and alcohol dehydrogenase (yeast).",
+  "keywords": [
+    "fermentation",
+    "lactate",
+    "ethanol",
+    "nad+ regeneration",
+    "anaerobic"
+  ],
+  "namedCollections": [
+    "metabolism"
+  ],
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "complexity": {
+    "nodes": 9,
+    "edges": 8,
+    "conditionals": 2,
+    "logicGates": {
+      "orGates": 2,
+      "andGates": 0,
+      "notGates": 0,
+      "total": 2
+    },
+    "level": "medium",
+    "detailLevel": "source_grounded",
+    "loops": 0
+  },
+  "graphMetrics": {
+    "nodes": 9,
+    "edges": 8,
+    "conditionals": 2,
+    "andGates": 0,
+    "orGates": 2,
+    "notGates": 0,
+    "loops": 0
+  },
+  "mermaid": "graph TD\n    N1[\"Glucose -> pyruvate\"]\n    N2{\"Oxygen limited?\"}\n    N3[\"Aerobic: pyruvate to mito\"]\n    N4{\"Organism type?\"}\n    N5[\"Lactate dehydrogenase\"]\n    N6[\"Lactate; NAD+ regenerated\"]\n    N7[\"Pyruvate decarboxylase\"]\n    N8[\"Alcohol dehydrogenase\"]\n    N9[\"Ethanol + CO2; NAD+ back\"]\n\n    N1 --> N2\n    N2 -->|O2 present| N3\n    N2 -->|anaerobic| N4\n    N4 -->|lactate| N5\n    N5 --> N6\n    N4 -->|ethanol| N7\n    N7 --> N8\n    N8 --> N9\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#74c0fc,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#74c0fc,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#b197fc,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#b197fc,color:#fff",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Glucose -> pyruvate",
+      "detail": "Glycolysis makes pyruvate + NADH",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N2",
+      "label": "Oxygen limited?",
+      "detail": "NADH must be reoxidized anaerobically",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N3",
+      "label": "Aerobic: pyruvate to mito",
+      "detail": "Oxidative metabolism instead",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N4",
+      "label": "Organism type?",
+      "detail": "Determines fermentation product",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N5",
+      "label": "Lactate dehydrogenase",
+      "detail": "Reduces pyruvate to lactate",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N6",
+      "label": "Lactate; NAD+ regenerated",
+      "detail": "Glycolysis can continue",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N7",
+      "label": "Pyruvate decarboxylase",
+      "detail": "Pyruvate -> acetaldehyde + CO2",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N8",
+      "label": "Alcohol dehydrogenase",
+      "detail": "Acetaldehyde -> ethanol",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N9",
+      "label": "Ethanol + CO2; NAD+ back",
+      "detail": "Yeast fermentation product",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 2
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:pathways-fermentation-lactate-and-ethanol-branches",
+    "graphType": "decision_flowchart",
+    "topologySignature": "9f73ba2c3aae6b27",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "lastUpdated": "2026-06-01",
+  "verified": false,
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "sources": [
+    {
+      "title": "Biochemistry, 5th ed. — Fermentations Provide a Means of Oxidizing NADH",
+      "authors": "Berg, J. M.; Tymoczko, J. L.; Stryer, L.",
+      "journal": "W. H. Freeman (NCBI Bookshelf, Section 16.1.9)",
+      "year": "2002",
+      "doi": null,
+      "url": "https://www.ncbi.nlm.nih.gov/books/NBK22593/"
+    },
+    {
+      "title": "Evolution of carbohydrate metabolic pathways",
+      "authors": "Romano, A. H.; Conway, T.",
+      "journal": "Research in Microbiology",
+      "year": "1996",
+      "pubmed": "9084754",
+      "doi": "10.1016/0923-2508(96)83998-2",
+      "url": "https://doi.org/10.1016/0923-2508(96)83998-2"
+    },
+    {
+      "title": "An evolutionary perspective on the Crabtree effect",
+      "authors": "Pfeiffer, T.; Morley, A.",
+      "journal": "Frontiers in Molecular Biosciences",
+      "year": "2014",
+      "pubmed": "25988158",
+      "doi": "10.3389/fmolb.2014.00017",
+      "url": "https://doi.org/10.3389/fmolb.2014.00017"
+    }
+  ],
+  "graphType": "decision_flowchart",
+  "domainContext": "Anaerobic NAD+ regeneration"
+}

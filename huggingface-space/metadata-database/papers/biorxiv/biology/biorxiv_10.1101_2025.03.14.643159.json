@@ -1,0 +1,42 @@
+{
+  "id": "biorxiv_10.1101_2025.03.14.643159",
+  "doi": "10.1101/2025.03.14.643159",
+  "title": "Ultra-fast and highly sensitive protein structure alignment with segment-level representations and block-sparse optimization",
+  "authors": [
+    "Litfin, T.",
+    "Zhou, Y.",
+    "von Itzstein, M."
+  ],
+  "author_string": "Litfin, T., Zhou, Y., von Itzstein, M.",
+  "journal": "bioRxiv",
+  "journal_full": "bioRxiv",
+  "year": "2025",
+  "abstract": "Deep learning models for protein structure prediction have given rise to extreme growth in 3D structure data. As a result, traditional methods for geometric structure alignment are too slow to effectively search modern structure libraries. In this study we introduce SPfast - a fully geometric method for structure-based alignment which accelerates search by more than 2 orders of magnitude while increasing sensitivity by 21% and 5% compared with foldseek and TMalign respectively. Using the significant speed of SPfast to conduct more than 100B pairwise comparisons between bona fide uncharacterized proteins and a large-scale, annotated structure library uncovers new biological insights relating to type III secretion in pathogenic bacteria and identifies novel toxin-antitoxin systems. Putative SPfast-based functional assignments are supported by orthogonal evidence including shared genomic context and high-confidence AlphaFold3 complex modelling.",
+  "keywords": [],
+  "categories": [
+    "bioinformatics"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.1101/2025.03.14.643159",
+  "source": "biorxiv",
+  "sources": [
+    "biorxiv"
+  ],
+  "acquired_date": "2026-04-29T22:15:24.296025",
+  "category": "biology",
+  "subcategories": [
+    "bioinformatics"
+  ],
+  "published_date": "2025-12-30",
+  "updated_date": "2025-12-30",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "biorxiv",
+  "preprint_version": "2",
+  "preprint_type": "new results",
+  "license": "cc_by",
+  "jatsxml": "https://www.biorxiv.org/content/early/2025/12/30/2025.03.14.643159.source.xml",
+  "published_doi": null,
+  "author_corresponding": "Thomas Litfin",
+  "author_corresponding_institution": "Institute for Biomedicine and Glycomics, Griffith University"
+}

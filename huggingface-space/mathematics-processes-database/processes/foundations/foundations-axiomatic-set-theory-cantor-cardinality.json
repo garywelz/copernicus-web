@@ -1,0 +1,39 @@
+{
+  "id": "foundations-axiomatic-set-theory-cantor-cardinality",
+  "name": "Axiomatic Set Theory — Cantor & Cardinality",
+  "category": "mathematics",
+  "subcategory": "foundations",
+  "subcategory_name": "Foundations",
+  "description": "Equinumerosity and countability; Cantor’s proofs that ℤ and ℚ are countable while ℝ is uncountable; Cantor’s theorem |𝒫(S)| > |S| (uses the power set, Chart 1). The Continuum Hypothesis (CH) and Generalized Continuum Hypothesis (GCH) sit between these results and independence — see Chart 4.",
+  "mermaid": "graph TD\n    DefEq[\"Def: Equinumerosity\\n|A| = |B| ⟺ ∃ bijection A → B\"]\n    DefDen[\"Def: Countable / denumerable\\ninjection into ℕ or |·| ≤ ℵ₀\"]\n    C1[\"Chart 1: Power set 𝒫(S)\\n& subset notion\"]\n    T1[\"Thm: ℤ and ℚ countable\\nsame cardinality as ℕ\"]\n    T2[\"Thm: ℝ uncountable\\n1891 diagonal; cardinality of ℝ exceeds aleph0\"]\n    T3[\"Thm: Cantor’s theorem\\npower set strictly larger; no surjection onto 𝒫(S)\"]\n    HCH[\"Hyp: CH\\nno cardinal strictly between aleph0 and 2^aleph0\"]\n    HGCH[\"Hyp: GCH\\nforall infinite kappa, 2^kappa = kappa+\"]\n    C4[\"Chart 4: CH & GCH\\nindependence from ZFC\"]\n    DefEq --> DefDen\n    DefEq --> T1\n    DefDen --> T1\n    DefEq --> T2\n    C1 --> T3\n    T3 --> HCH\n    T2 --> HCH\n    T3 --> HGCH\n    HCH --> C4\n    HGCH --> C4\n    classDef definition fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef theorem fill:#51cf66,color:#fff,stroke:#40c057\n    classDef hypothesis fill:#fd7e14,color:#fff,stroke:#e8590c\n    classDef chartref fill:#868e96,color:#fff,stroke:#495057\n    class DefEq,DefDen definition\n    class T1,T2,T3 theorem\n    class HCH,HGCH hypothesis\n    class C1,C4 chartref",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

@@ -167,6 +167,33 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
@@ -176,7 +203,7 @@
             <div class="header-meta">
                 <span class="meta-item">Computer Science</span>
                 <span class="meta-item">Theoretical Computer Science</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,46 +234,64 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Type System Checking process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>A type checker proves a program respects its type discipline: it traverses the syntax tree under a typing environment, inferring or looking up types and applying typing rules to each construct; type variables are unified, incompatibilities raise type errors, and a program with no errors is certified well-typed.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-N1["Source Program"]
-N2["Type Annotations"]
-N3["AST"]
-N4["Choose Approach"]
-N5["Type Environment"]
-N6["Infer + Unify"]
-N7["Type Errors/Proof"]
-N8["Well-Typed Program"]
-N9["Integrate Results"]
+    N1["Program AST"]
+    N2["Build type environment"]
+    N3["Traverse expression"]
+    N4["Infer / look up types"]
+    N5["Apply typing rules"]
+    N6{"Types compatible?"}
+    N7["Report type error"]
+    N8["Unify type variables"]
+    N9{"Unification succeeds?"}
+    N10{"More expressions?"}
+    N11["Next subexpression"]
+    N12["Well-typed program"]
 
-N1 --> N2
-N2 --> N3
-N3 --> N4
-N4 --> N5
-N4 --> N7
-N5 --> N6
-N7 --> N8
-N6 --> N9
-N8 --> N9
-N9 --> N6
+    N1 --> N2
+    N2 --> N3
+    N3 --> N4
+    N4 --> N5
+    N5 --> N6
+    N6 -->|no| N7
+    N7 -->|reject| N12
+    N6 -->|yes| N8
+    N8 --> N9
+    N9 -->|no| N7
+    N9 -->|yes| N10
+    N10 -->|yes| N11
+    N11 -->|loop| N3
+    N10 -->|no| N12
 
     style N1 fill:#ff6b6b,color:#fff
-    style N2 fill:#ff6b6b,color:#fff
-    style N3 fill:#ffd43b,color:#000
-    style N4 fill:#ffd43b,color:#000
-    style N5 fill:#ffd43b,color:#000
-    style N6 fill:#51cf66,color:#fff
-    style N7 fill:#74c0fc,color:#fff
-    style N8 fill:#b197fc,color:#fff
+    style N2 fill:#51cf66,color:#fff
+    style N3 fill:#51cf66,color:#fff
+    style N4 fill:#51cf66,color:#fff
+    style N5 fill:#51cf66,color:#fff
+    style N6 fill:#74c0fc,color:#fff
+    style N7 fill:#51cf66,color:#fff
+    style N8 fill:#51cf66,color:#fff
     style N9 fill:#74c0fc,color:#fff
+    style N10 fill:#74c0fc,color:#fff
+    style N11 fill:#51cf66,color:#fff
+    style N12 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Program AST</td><td>Triggers & Inputs</td><td><a href="https://www.cis.upenn.edu/~bcpierce/tapl/" target="_blank" title="Types and Programming Languages" style="color:#9b59b6;">Pierce, B. C. 2002</a></td></tr><tr><td style="font-weight:600;">Build type environment</td><td>Processing & Operations</td><td><a href="https://www.cis.upenn.edu/~bcpierce/tapl/" target="_blank" title="Types and Programming Languages" style="color:#9b59b6;">Pierce, B. C. 2002</a></td></tr><tr><td style="font-weight:600;">Traverse expression</td><td>Processing & Operations</td><td><a href="https://www.cis.upenn.edu/~bcpierce/tapl/" target="_blank" title="Types and Programming Languages" style="color:#9b59b6;">Pierce, B. C. 2002</a></td></tr><tr><td style="font-weight:600;">Infer / look up types</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1016/0022-0000(78)90014-4" target="_blank" title="A theory of type polymorphism in programming" style="color:#9b59b6;">Milner, R. 1978</a></td></tr><tr><td style="font-weight:600;">Apply typing rules</td><td>Processing & Operations</td><td><a href="https://www.cis.upenn.edu/~bcpierce/tapl/" target="_blank" title="Types and Programming Languages" style="color:#9b59b6;">Pierce, B. C. 2002</a></td></tr><tr><td style="font-weight:600;">Types compatible?</td><td>Intermediates & States</td><td><a href="https://www.cis.upenn.edu/~bcpierce/tapl/" target="_blank" title="Types and Programming Languages" style="color:#9b59b6;">Pierce, B. C. 2002</a></td></tr><tr><td style="font-weight:600;">Report type error</td><td>Processing & Operations</td><td><a href="https://www.cis.upenn.edu/~bcpierce/tapl/" target="_blank" title="Types and Programming Languages" style="color:#9b59b6;">Pierce, B. C. 2002</a></td></tr><tr><td style="font-weight:600;">Unify type variables</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1016/0022-0000(78)90014-4" target="_blank" title="A theory of type polymorphism in programming" style="color:#9b59b6;">Milner, R. 1978</a></td></tr><tr><td style="font-weight:600;">Unification succeeds?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1016/0022-0000(78)90014-4" target="_blank" title="A theory of type polymorphism in programming" style="color:#9b59b6;">Milner, R. 1978</a></td></tr><tr><td style="font-weight:600;">More expressions?</td><td>Intermediates & States</td><td><a href="https://www.cis.upenn.edu/~bcpierce/tapl/" target="_blank" title="Types and Programming Languages" style="color:#9b59b6;">Pierce, B. C. 2002</a></td></tr><tr><td style="font-weight:600;">Next subexpression</td><td>Processing & Operations</td><td><a href="https://www.cis.upenn.edu/~bcpierce/tapl/" target="_blank" title="Types and Programming Languages" style="color:#9b59b6;">Pierce, B. C. 2002</a></td></tr><tr><td style="font-weight:600;">Well-typed program</td><td>Products & Outputs</td><td><a href="https://www.cis.upenn.edu/~bcpierce/tapl/" target="_blank" title="Types and Programming Languages" style="color:#9b59b6;">Pierce, B. C. 2002</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -292,12 +337,12 @@ N9 --> N6
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 9</li>
-                        <li><strong>Edges:</strong> 10</li>
-                        <li><strong>Conditionals:</strong> 0</li>
-                        <li><strong>AND Gates:</strong> 2</li>
-                        <li><strong>OR Gates:</strong> 1</li>
-                        <li><strong>Total Gates:</strong> 3</li>
+                        <li><strong>Nodes:</strong> 12</li>
+                        <li><strong>Edges:</strong> 14</li>
+                        <li><strong>Conditionals:</strong> 3</li>
+                        <li><strong>AND Gates:</strong> 3</li>
+                        <li><strong>OR Gates:</strong> 3</li>
+                        <li><strong>Total Gates:</strong> 6</li>
                     </ul>
                 </div>
                 
@@ -305,7 +350,7 @@ N9 --> N6
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>type</li><li>system</li><li>checking</li>
+                        <li>type system</li><li>type checking</li><li>type inference</li><li>unification</li><li>typing rules</li>
                     </ul>
                 </div>
                 
@@ -316,43 +361,23 @@ N9 --> N6
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>A theory of type polymorphism in programming</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Milner, R.
+                            , Journal of Computer and System Sciences
+                             (1978)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #9b59b6; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>rtype: A strong type system for R</strong>
-                            
-                            , CRAN: Contributed Packages
-                             (2014)
-                            </span>
-                            <br><a href="https://doi.org/10.32614/cran.package.rtype" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.32614/cran.package.rtype</a>
+                            <br><a href="https://doi.org/10.1016/0022-0000(78)90014-4" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.1016/0022-0000(78)90014-4</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Combining type-checking with model-checking for system verification</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Ren, Zhiqiang; Xi, Hongwei
-                            , 2016 ACM/IEEE International Conference on Formal Methods and Models for System Design (MEMOCODE)
-                             (2016)
+                            <strong>Types and Programming Languages</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Pierce, B. C.
+                            , MIT Press
+                             (2002)
                             </span>
-                            <br><a href="https://doi.org/10.1109/memcod.2016.7797745" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.1109/memcod.2016.7797745</a>
                             
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Secure System Composition and Type Checking using Cryptographic Proofs [Slides]</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Barrack, Daniel
-                            
-                             (2021)
-                            </span>
-                            <br><a href="https://doi.org/10.2172/1808809" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.2172/1808809</a>
-                            
+                            <br><a href="https://www.cis.upenn.edu/~bcpierce/tapl/" target="_blank" style="color: #9b59b6; font-size: 0.85em;">View Source</a>
                         </li>
                         
                     </ul>

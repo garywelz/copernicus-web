@@ -2,53 +2,55 @@
   "acquired_date": "2026-01-08T00:00:00Z",
   "category": "physics",
   "colorScheme": {
-    "blue": {
-      "category": "Intermediates & States",
-      "hex": "#74c0fc"
-    },
-    "green": {
-      "category": "Processing & Operations",
-      "hex": "#51cf66"
-    },
     "red": {
-      "category": "Triggers & Inputs",
-      "hex": "#ff6b6b"
-    },
-    "violet": {
-      "category": "Products & Outputs",
-      "hex": "#b197fc"
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
     },
     "yellow": {
-      "category": "Structures & Objects",
-      "hex": "#ffd43b"
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
     }
   },
   "complexity": {
-    "conditionals": 0,
-    "detailLevel": "medium",
-    "edges": 24,
-    "level": "medium",
+    "nodes": 11,
+    "edges": 11,
+    "conditionals": 1,
     "logicGates": {
+      "orGates": 1,
       "andGates": 1,
-      "orGates": 0,
-      "total": 1
+      "notGates": 0,
+      "total": 2
     },
-    "nodes": 26
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 1
   },
   "created": "2026-01-08",
-  "description": "Heat Engine Process. This thermodynamics process visualization demonstrates heat engine cycles and power generation. The flowchart shows heat inputs and working fluids, heat engine methods and thermal cycles, heat engine operations and mechanical work, intermediate results, and final heat engine outputs.",
-  "id": "process_physics_heat-engine",
+  "description": "The Carnot engine sets the maximum efficiency of any heat engine: a working substance runs a reversible cycle of isothermal expansion absorbing heat from the hot reservoir, adiabatic expansion, isothermal compression rejecting heat to the cold reservoir, and adiabatic compression, giving efficiency eta = 1 - Tc/Th.",
+  "id": "thermodynamics_statistical-heat-engine",
   "keywords": [
-    "statistical",
-    "thermodynamics",
-    "physics",
-    "engine",
-    "heat"
+    "Carnot cycle",
+    "heat engine",
+    "thermal efficiency",
+    "reversible process",
+    "second law"
   ],
-  "lastUpdated": "2026-01-08",
-  "mermaid": "graph TD\nA1[Heat Input] --> B1[Heat Engine Method]\nC1[Working Fluid] --> D1[Thermal Cycle]\nE1[Mechanical Work] --> F1[Heat Engine Analysis]\nB1 --> G1[Carnot Cycle]\nD1 --> H1[Otto Cycle]\nF1 --> I1[Diesel Cycle]\nG1 --> J1[Isothermal Process]\nH1 --> K1[Adiabatic Process]\nI1 --> L1[Isentropic Process]\nJ1 --> M1[Heat Transfer]\nK1 --> L1\nL1 --> N1[Work Output]\nM1 --> O1[Thermal Efficiency]\nN1 --> P1[Power Generation]\nO1 --> Q1[Heat Engine Process]\nP1 --> R1[Heat Engine Validation]\nQ1 --> S1[Heat Engine Verification]\nR1 --> T1[Heat Engine Result]\nS1 --> U1[Heat Engine Analysis]\nT1 --> V1[Heat Engine Parameters]\nU1 --> W1[Heat Engine Output]\nV1 --> X1[Heat Engine Analysis]\nW1 --> Y1[Heat Engine Final Result]\nX1 --> Z1[Heat Engine Complete]\n\n    style A1 fill:#ff6b6b,color:#fff\n    style C1 fill:#ff6b6b,color:#fff\n    style E1 fill:#ff6b6b,color:#fff\n    style B1 fill:#ffd43b,color:#000\n    style D1 fill:#ffd43b,color:#000\n    style F1 fill:#ffd43b,color:#000\n    style G1 fill:#ffd43b,color:#000\n    style H1 fill:#ffd43b,color:#000\n    style I1 fill:#ffd43b,color:#000\n    style J1 fill:#ffd43b,color:#000\n    style K1 fill:#ffd43b,color:#000\n    style L1 fill:#ffd43b,color:#000\n    style M1 fill:#51cf66,color:#fff\n    style N1 fill:#51cf66,color:#fff\n    style O1 fill:#51cf66,color:#fff\n    style P1 fill:#51cf66,color:#fff\n    style Q1 fill:#51cf66,color:#fff\n    style R1 fill:#51cf66,color:#fff\n    style S1 fill:#51cf66,color:#fff\n    style T1 fill:#51cf66,color:#fff\n    style U1 fill:#51cf66,color:#fff\n    style V1 fill:#51cf66,color:#fff\n    style W1 fill:#51cf66,color:#fff\n    style X1 fill:#51cf66,color:#fff\n    style Y1 fill:#51cf66,color:#fff\n    style Z1 fill:#b197fc,color:#fff",
-  "name": "Heat Engine",
-  "notes": "Converted from physics batch HTML. Process number: 1.",
+  "lastUpdated": "2026-06-01",
+  "mermaid": "graph TD\n    N1[\"Hot + cold reservoirs\"]\n    N2[\"Working substance\"]\n    N3[\"Isothermal expansion (Th)\"]\n    N4[\"Absorb heat Qh\"]\n    N5[\"Adiabatic expansion\"]\n    N6[\"Isothermal compression (Tc)\"]\n    N7[\"Reject heat Qc\"]\n    N8[\"Adiabatic compression\"]\n    N9{\"Reversible cycle?\"}\n    N10[\"Reduce irreversibilities\"]\n    N11[\"eta = 1 - Tc/Th\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 --> N4\n    N4 --> N5\n    N5 --> N6\n    N6 --> N7\n    N7 --> N8\n    N8 --> N9\n    N9 -->|no| N10\n    N10 -->|idealize| N3\n    N9 -->|yes| N11\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#74c0fc,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#74c0fc,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#74c0fc,color:#fff\n    style N10 fill:#51cf66,color:#fff\n    style N11 fill:#b197fc,color:#fff",
+  "name": "Carnot Heat Engine",
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
   "relatedProcesses": [],
   "related_papers": [
     "crossref_10_1103_RevModPhys_87_1",
@@ -61,43 +63,18 @@
   "source": "programming_framework",
   "sources": [
     {
-      "authors": "Welz, G.",
-      "doi": null,
-      "journal": "CopernicusAI Knowledge Engine",
-      "notes": "Chemistry process visualization: Heat Engine. Created using the Programming Framework methodology for process analysis and visualization.",
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
-      "year": "2025"
+      "title": "Reflections on the Motive Power of Fire",
+      "authors": "Carnot, S.",
+      "journal": "Bachelier, Paris",
+      "year": "1824",
+      "url": "https://www.gutenberg.org/ebooks/52204"
     },
     {
-      "authors": "Binder, F., Correa, L. A., Gogolin, C., Anders, J., Adesso, G.",
-      "doi": "10.1103/RevModPhys.87.1",
-      "journal": "Rev Mod Phys",
-      "paper_id": "crossref_10_1103_RevModPhys_87_1",
-      "pubmed": null,
-      "title": "Quantum thermodynamics: an emerging new field",
-      "url": "https://doi.org/10.1103/RevModPhys.87.1",
-      "year": "2015"
-    },
-    {
-      "authors": "Jarzynski, C.",
-      "doi": "10.1103/RevModPhys.89.010503",
-      "journal": "Rev Mod Phys",
-      "paper_id": "crossref_10_1103_RevModPhys_89_010503",
-      "pubmed": null,
-      "title": "Perspective: Classical and quantum thermodynamics of information",
-      "url": "https://doi.org/10.1103/RevModPhys.89.010503",
-      "year": "2017"
-    },
-    {
-      "authors": "Peterson, J. P. S., Batalh\u00e3o, T. B., Herrera, M., Souza, A. M., Sarthour, R. S., Oliveira, I. S., Goold, J., Modi, K., Soares-Pinto, D. O., Estevam, I. G., Serra, R. M.",
-      "doi": "10.1103/PhysRevLett.117.050401",
-      "journal": "Phys Rev Lett",
-      "paper_id": "crossref_10_1103_PhysRevLett_117_050401",
-      "pubmed": null,
-      "title": "Experimental Realization of a Szilard Engine with a Single Electron",
-      "url": "https://doi.org/10.1103/PhysRevLett.117.050401",
-      "year": "2016"
+      "title": "Thermodynamics",
+      "authors": "Fermi, E.",
+      "journal": "Dover",
+      "year": "1956",
+      "url": "https://store.doverpublications.com/products/9780486603612"
     }
   ],
   "subcategories": [
@@ -105,5 +82,119 @@
   ],
   "subcategory": "thermodynamics_statistical",
   "subcategory_name": "Thermodynamics & Statistical Physics",
-  "verified": false
+  "verified": false,
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Hot + cold reservoirs",
+      "detail": "Th > Tc",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 1
+    },
+    {
+      "id": "N2",
+      "label": "Working substance",
+      "detail": "Ideal gas in cylinder",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N3",
+      "label": "Isothermal expansion (Th)",
+      "detail": "Contact hot reservoir",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N4",
+      "label": "Absorb heat Qh",
+      "detail": "At constant Th",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N5",
+      "label": "Adiabatic expansion",
+      "detail": "Cools to Tc",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N6",
+      "label": "Isothermal compression (Tc)",
+      "detail": "Contact cold reservoir",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N7",
+      "label": "Reject heat Qc",
+      "detail": "At constant Tc",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N8",
+      "label": "Adiabatic compression",
+      "detail": "Back to Th",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N9",
+      "label": "Reversible cycle?",
+      "detail": "No dissipation",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N10",
+      "label": "Reduce irreversibilities",
+      "detail": "Quasi-static limit",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N11",
+      "label": "eta = 1 - Tc/Th",
+      "detail": "Carnot efficiency",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 0
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:thermodynamics_statistical-heat-engine",
+    "graphType": "cyclic_pathway",
+    "topologySignature": "4da0c72e94537816",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "namedCollections": [],
+  "graphMetrics": {
+    "nodes": 11,
+    "edges": 11,
+    "conditionals": 1,
+    "andGates": 1,
+    "orGates": 1,
+    "notGates": 0,
+    "loops": 1
+  },
+  "graphType": "cyclic_pathway",
+  "domainContext": "Classical thermodynamics"
 }

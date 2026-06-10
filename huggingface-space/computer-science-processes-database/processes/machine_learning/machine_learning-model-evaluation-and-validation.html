@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Model Evaluation and Validation - Computer Science Process</title>
+    <title>Model Evaluation & Validation - Computer Science Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Model Evaluation and Validation</h1>
+            <h1>Model Evaluation & Validation</h1>
             <div class="header-meta">
                 <span class="meta-item">Computer Science</span>
                 <span class="meta-item">Machine Learning</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,48 +234,61 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Model Evaluation and Validation process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>Model evaluation estimates generalization rather than training fit: metrics are chosen by task (precision/recall for classification, RMSE/R-squared for regression), k-fold cross-validation gives mean and variance of performance, the bias-variance regime is diagnosed, and a final held-out test confirms the model generalizes before acceptance.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-N1["Trained Model"]
-N2["Holdout/Test Data"]
-N3["Evaluation Protocol"]
-N4["Choose Approach"]
-N5["Metrics"]
-N6["Run Predictions"]
-N7["Compute Metrics"]
-N8["Error Analysis"]
-N9["Integrate Results"]
-N10["Validation Report"]
+    N1["Trained model + test set"]
+    N2{"Choose metric (task)"}
+    N3["Classification: P/R/F1"]
+    N4["Regression: RMSE/R^2"]
+    N5["K-fold cross-validation"]
+    N6["Compute mean + variance"]
+    N7{"High bias or variance?"}
+    N8["Diagnose under/overfit"]
+    N9["Check on held-out test"]
+    N10{"Generalization ok?"}
+    N11["Validated model"]
 
-N1 --> N2
-N2 --> N3
-N3 --> N4
-N4 --> N5
-N4 --> N7
-N5 --> N6
-N7 --> N8
-N6 --> N9
-N8 --> N9
-N9 --> N10
+    N1 --> N2
+    N2 -->|classification| N3
+    N2 -->|regression| N4
+    N3 --> N5
+    N4 --> N5
+    N5 --> N6
+    N6 --> N7
+    N7 -->|yes| N8
+    N7 -->|no| N9
+    N8 --> N9
+    N9 --> N10
+    N10 -->|no| N8
+    N10 -->|yes| N11
 
     style N1 fill:#ff6b6b,color:#fff
-    style N2 fill:#ff6b6b,color:#fff
-    style N3 fill:#ffd43b,color:#000
-    style N4 fill:#ffd43b,color:#000
-    style N5 fill:#ffd43b,color:#000
+    style N2 fill:#74c0fc,color:#fff
+    style N3 fill:#51cf66,color:#fff
+    style N4 fill:#51cf66,color:#fff
+    style N5 fill:#51cf66,color:#fff
     style N6 fill:#51cf66,color:#fff
-    style N7 fill:#51cf66,color:#fff
-    style N8 fill:#74c0fc,color:#fff
-    style N9 fill:#74c0fc,color:#fff
-    style N10 fill:#b197fc,color:#fff
+    style N7 fill:#74c0fc,color:#fff
+    style N8 fill:#51cf66,color:#fff
+    style N9 fill:#51cf66,color:#fff
+    style N10 fill:#74c0fc,color:#fff
+    style N11 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Trained model + test set</td><td>Triggers & Inputs</td><td><a href="https://doi.org/10.1007/978-0-387-84858-7" target="_blank" title="The Elements of Statistical Learning (2nd ed.)" style="color:#9b59b6;">Hastie, T. et al. 2009</a></td></tr><tr><td style="font-weight:600;">Choose metric (task)</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1007/978-0-387-84858-7" target="_blank" title="The Elements of Statistical Learning (2nd ed.)" style="color:#9b59b6;">Hastie, T. et al. 2009</a></td></tr><tr><td style="font-weight:600;">Classification: P/R/F1</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1007/978-0-387-84858-7" target="_blank" title="The Elements of Statistical Learning (2nd ed.)" style="color:#9b59b6;">Hastie, T. et al. 2009</a></td></tr><tr><td style="font-weight:600;">Regression: RMSE/R^2</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1007/978-0-387-84858-7" target="_blank" title="The Elements of Statistical Learning (2nd ed.)" style="color:#9b59b6;">Hastie, T. et al. 2009</a></td></tr><tr><td style="font-weight:600;">K-fold cross-validation</td><td>Processing & Operations</td><td><a href="https://www.ijcai.org/Proceedings/95-2/Papers/016.pdf" target="_blank" title="A study of cross-validation and bootstrap for accuracy estimation and model selection" style="color:#9b59b6;">Kohavi, R. 1995</a></td></tr><tr><td style="font-weight:600;">Compute mean + variance</td><td>Processing & Operations</td><td><a href="https://www.ijcai.org/Proceedings/95-2/Papers/016.pdf" target="_blank" title="A study of cross-validation and bootstrap for accuracy estimation and model selection" style="color:#9b59b6;">Kohavi, R. 1995</a></td></tr><tr><td style="font-weight:600;">High bias or variance?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1007/978-0-387-84858-7" target="_blank" title="The Elements of Statistical Learning (2nd ed.)" style="color:#9b59b6;">Hastie, T. et al. 2009</a></td></tr><tr><td style="font-weight:600;">Diagnose under/overfit</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1007/978-0-387-84858-7" target="_blank" title="The Elements of Statistical Learning (2nd ed.)" style="color:#9b59b6;">Hastie, T. et al. 2009</a></td></tr><tr><td style="font-weight:600;">Check on held-out test</td><td>Processing & Operations</td><td><a href="https://www.ijcai.org/Proceedings/95-2/Papers/016.pdf" target="_blank" title="A study of cross-validation and bootstrap for accuracy estimation and model selection" style="color:#9b59b6;">Kohavi, R. 1995</a></td></tr><tr><td style="font-weight:600;">Generalization ok?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1007/978-0-387-84858-7" target="_blank" title="The Elements of Statistical Learning (2nd ed.)" style="color:#9b59b6;">Hastie, T. et al. 2009</a></td></tr><tr><td style="font-weight:600;">Validated model</td><td>Products & Outputs</td><td><a href="https://doi.org/10.1007/978-0-387-84858-7" target="_blank" title="The Elements of Statistical Learning (2nd ed.)" style="color:#9b59b6;">Hastie, T. et al. 2009</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -294,12 +334,12 @@ N9 --> N10
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 10</li>
-                        <li><strong>Edges:</strong> 10</li>
-                        <li><strong>Conditionals:</strong> 0</li>
-                        <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 1</li>
-                        <li><strong>Total Gates:</strong> 2</li>
+                        <li><strong>Nodes:</strong> 11</li>
+                        <li><strong>Edges:</strong> 13</li>
+                        <li><strong>Conditionals:</strong> 3</li>
+                        <li><strong>AND Gates:</strong> 3</li>
+                        <li><strong>OR Gates:</strong> 3</li>
+                        <li><strong>Total Gates:</strong> 6</li>
                     </ul>
                 </div>
                 
@@ -307,7 +347,7 @@ N9 --> N10
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>model</li><li>evaluation</li><li>and</li><li>validation</li>
+                        <li>model evaluation</li><li>cross-validation</li><li>bias-variance</li><li>generalization</li><li>held-out test</li>
                     </ul>
                 </div>
                 
@@ -318,43 +358,23 @@ N9 --> N10
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>The Elements of Statistical Learning (2nd ed.)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Hastie, T.; Tibshirani, R.; Friedman, J.
+                            , Springer
+                             (2009)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #9b59b6; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Figure 3: Evaluation and validation of prognostic model.</strong>
-                            
-                            
-                             (None)
-                            </span>
-                            <br><a href="https://doi.org/10.7717/peerj.20031/fig-3" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.7717/peerj.20031/fig-3</a>
+                            <br><a href="https://doi.org/10.1007/978-0-387-84858-7" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.1007/978-0-387-84858-7</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Figure 15: Validation phase evaluation of ResNet-50 Model.</strong>
-                            
-                            
-                             (None)
+                            <strong>A study of cross-validation and bootstrap for accuracy estimation and model selection</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Kohavi, R.
+                            , International Joint Conference on Artificial Intelligence
+                             (1995)
                             </span>
-                            <br><a href="https://doi.org/10.7717/peerjcs.1651/fig-15" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.7717/peerjcs.1651/fig-15</a>
                             
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Table 8: Evaluation of trained CRF model on external validation data.</strong>
-                            
-                            
-                             (None)
-                            </span>
-                            <br><a href="https://doi.org/10.7717/peerj-cs.2577/table-8" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.7717/peerj-cs.2577/table-8</a>
-                            
+                            <br><a href="https://www.ijcai.org/Proceedings/95-2/Papers/016.pdf" target="_blank" style="color: #9b59b6; font-size: 0.85em;">View Source</a>
                         </li>
                         
                     </ul>

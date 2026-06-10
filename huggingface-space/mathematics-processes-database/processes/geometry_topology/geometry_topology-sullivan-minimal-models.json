@@ -1,0 +1,39 @@
+{
+  "id": "geometry_topology-sullivan-minimal-models",
+  "name": "Sullivan Minimal Models & Rational Homotopy",
+  "category": "mathematics",
+  "subcategory": "geometry_topology",
+  "subcategory_name": "Geometry & Topology",
+  "description": "Sullivan's rational homotopy theory: algebraic models for spaces when primes are ignored. A Sullivan minimal model is a CDGA (∧V, d) with d: V → ∧²V, quasi-isomorphic to the algebra of piecewise polynomial forms. Equivalence: simply-connected rational homotopy types ↔ minimal CDGAs. H(X;ℚ) ≅ H(∧V); πₙ(X)⊗ℚ ≅ Hom(Vⁿ,ℚ). Parallel to Quillen's DGL approach.",
+  "mermaid": "graph TD\n    DR[\"De Rham cohomology\"]\n    Homotopy[\"Homotopy theory basics\"]\n    DefCDGA[\"Def: CDGA\\nCommutative dg algebra\"]\n    DefSullAlg[\"Def: Sullivan algebra\\n(A,d) → (A⊗∧V,d')\"]\n    DefMinimal[\"Def: Minimal\\n d: V → ∧²V\"]\n    DefModel[\"Def: Sullivan minimal model\\n(∧V,d) for space X\"]\n    ThmEquiv[\"Thm: Equivalence\\nRational ht types ↔ minimal CDGAs\"]\n    ThmH[\"Thm: H(X;ℚ) ≅ H(∧V)\"]\n    ThmPi[\"Thm: πₙ(X)⊗ℚ ≅ Hom(Vⁿ,ℚ)\"]\n    DR --> DefCDGA\n    Homotopy --> DefModel\n    DefCDGA --> DefSullAlg\n    DefSullAlg --> DefMinimal\n    DefMinimal --> DefModel\n    DefModel --> ThmEquiv\n    DefModel --> ThmH\n    DefModel --> ThmPi\n    classDef axiom fill:#ff6b6b,color:#fff,stroke:#c0392b\n    classDef definition fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef theorem fill:#51cf66,color:#fff,stroke:#40c057\n    class DR,Homotopy axiom\n    class DefCDGA,DefSullAlg,DefMinimal,DefModel definition\n    class ThmEquiv,ThmH,ThmPi theorem",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

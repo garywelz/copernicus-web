@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Green Chemistry - Chemistry Process</title>
+    <title>Green Chemistry Process Design - Chemistry Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Green Chemistry</h1>
+            <h1>Green Chemistry Process Design</h1>
             <div class="header-meta">
                 <span class="meta-item">Chemistry</span>
                 <span class="meta-item">Environmental Chemistry</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,67 +234,57 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Green Chemistry process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>Green chemistry redesigns a synthesis around its twelve principles: a candidate route is scored for atom economy, safer solvents and reagents are chosen, and the E-factor (mass of waste per mass of product) is estimated; the route is iterated with catalysis and waste reduction until both metrics are acceptable.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-A3[Sustainable Synthesis] --> B3[Green Chemistry Method]
-C3[Catalyst Design] --> D3[Solvent Selection]
-E3[Waste Minimization] --> F3[Green Chemistry Analysis]
-B3 --> G3[Atom Economy]
-D3 --> H3[Renewable Feedstocks]
-F3 --> I3[Biocatalysis]
-G3 --> J3[Reaction Efficiency]
-H3 --> K3[Biomass Conversion]
-I3 --> L3[Enzyme Catalysis]
-J3 --> M3[Energy Efficiency]
-K3 --> L3
-L3 --> N3[Product Selectivity]
-M3 --> O3[Life Cycle Assessment]
-N3 --> P3[Environmental Impact]
-O3 --> Q3[Green Chemistry Process]
-P3 --> R3[Green Chemistry Validation]
-Q3 --> S3[Green Chemistry Verification]
-R3 --> T3[Green Chemistry Result]
-S3 --> U3[Green Chemistry Analysis]
-T3 --> V3[Green Chemistry Parameters]
-U3 --> W3[Green Chemistry Output]
-V3 --> X3[Green Chemistry Analysis]
-W3 --> Y3[Green Chemistry Final Result]
-X3 --> Z3[Green Chemistry Complete]
+    N1["Target product"]
+    N2["Design synthesis route"]
+    N3["Compute atom economy"]
+    N4{"High atom economy?"}
+    N5["Redesign route"]
+    N6["Choose safer solvent/reagents"]
+    N7["Estimate E-factor"]
+    N8{"E-factor acceptable?"}
+    N9["Reduce waste / catalysis"]
+    N10["Green process"]
 
-    style A3 fill:#ff6b6b,color:#fff
-    style C3 fill:#ff6b6b,color:#fff
-    style E3 fill:#ff6b6b,color:#fff
-    style B3 fill:#ffd43b,color:#000
-    style D3 fill:#ffd43b,color:#000
-    style F3 fill:#ffd43b,color:#000
-    style G3 fill:#ffd43b,color:#000
-    style H3 fill:#ffd43b,color:#000
-    style I3 fill:#ffd43b,color:#000
-    style J3 fill:#ffd43b,color:#000
-    style K3 fill:#ffd43b,color:#000
-    style L3 fill:#ffd43b,color:#000
-    style M3 fill:#51cf66,color:#fff
+    N1 --> N2
+    N2 --> N3
+    N3 --> N4
+    N4 -->|no| N5
+    N5 -->|redesign| N2
+    N4 -->|yes| N6
+    N6 --> N7
+    N7 --> N8
+    N8 -->|no| N9
+    N9 -->|improve| N6
+    N8 -->|yes| N10
+
+    style N1 fill:#ff6b6b,color:#fff
+    style N2 fill:#51cf66,color:#fff
     style N3 fill:#51cf66,color:#fff
-    style O3 fill:#51cf66,color:#fff
-    style P3 fill:#51cf66,color:#fff
-    style Q3 fill:#51cf66,color:#fff
-    style R3 fill:#51cf66,color:#fff
-    style S3 fill:#51cf66,color:#fff
-    style T3 fill:#51cf66,color:#fff
-    style U3 fill:#51cf66,color:#fff
-    style V3 fill:#51cf66,color:#fff
-    style W3 fill:#51cf66,color:#fff
-    style X3 fill:#51cf66,color:#fff
-    style Y3 fill:#51cf66,color:#fff
-    style Z3 fill:#b197fc,color:#fff
+    style N4 fill:#74c0fc,color:#fff
+    style N5 fill:#51cf66,color:#fff
+    style N6 fill:#51cf66,color:#fff
+    style N7 fill:#51cf66,color:#fff
+    style N8 fill:#74c0fc,color:#fff
+    style N9 fill:#51cf66,color:#fff
+    style N10 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Target product</td><td>Triggers & Inputs</td><td><a href="https://doi.org/10.1126/science.1962206" target="_blank" title="The atom economy - a search for synthetic efficiency" style="color:#e74c3c;">Trost, B. M. 1991</a></td></tr><tr><td style="font-weight:600;">Design synthesis route</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1126/science.1962206" target="_blank" title="The atom economy - a search for synthetic efficiency" style="color:#e74c3c;">Trost, B. M. 1991</a></td></tr><tr><td style="font-weight:600;">Compute atom economy</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1126/science.1962206" target="_blank" title="The atom economy - a search for synthetic efficiency" style="color:#e74c3c;">Trost, B. M. 1991</a></td></tr><tr><td style="font-weight:600;">High atom economy?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1126/science.1962206" target="_blank" title="The atom economy - a search for synthetic efficiency" style="color:#e74c3c;">Trost, B. M. 1991</a></td></tr><tr><td style="font-weight:600;">Redesign route</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1126/science.1962206" target="_blank" title="The atom economy - a search for synthetic efficiency" style="color:#e74c3c;">Trost, B. M. 1991</a></td></tr><tr><td style="font-weight:600;">Choose safer solvent/reagents</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1039/C6GC02157C" target="_blank" title="The E factor 25 years on: the rise of green chemistry and sustainability" style="color:#e74c3c;">Sheldon, R. A. 2017</a></td></tr><tr><td style="font-weight:600;">Estimate E-factor</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1039/C6GC02157C" target="_blank" title="The E factor 25 years on: the rise of green chemistry and sustainability" style="color:#e74c3c;">Sheldon, R. A. 2017</a></td></tr><tr><td style="font-weight:600;">E-factor acceptable?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1039/C6GC02157C" target="_blank" title="The E factor 25 years on: the rise of green chemistry and sustainability" style="color:#e74c3c;">Sheldon, R. A. 2017</a></td></tr><tr><td style="font-weight:600;">Reduce waste / catalysis</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1039/C6GC02157C" target="_blank" title="The E factor 25 years on: the rise of green chemistry and sustainability" style="color:#e74c3c;">Sheldon, R. A. 2017</a></td></tr><tr><td style="font-weight:600;">Green process</td><td>Products & Outputs</td><td><a href="https://doi.org/10.1039/C6GC02157C" target="_blank" title="The E factor 25 years on: the rise of green chemistry and sustainability" style="color:#e74c3c;">Sheldon, R. A. 2017</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -313,12 +330,12 @@ X3 --> Z3[Green Chemistry Complete]
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 26</li>
-                        <li><strong>Edges:</strong> 21</li>
-                        <li><strong>Conditionals:</strong> 0</li>
-                        <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 1</li>
+                        <li><strong>Nodes:</strong> 10</li>
+                        <li><strong>Edges:</strong> 11</li>
+                        <li><strong>Conditionals:</strong> 2</li>
+                        <li><strong>AND Gates:</strong> 2</li>
+                        <li><strong>OR Gates:</strong> 2</li>
+                        <li><strong>Total Gates:</strong> 4</li>
                     </ul>
                 </div>
                 
@@ -326,7 +343,7 @@ X3 --> Z3[Green Chemistry Complete]
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>green</li><li>chemistry</li>
+                        <li>green chemistry</li><li>atom economy</li><li>E-factor</li><li>catalysis</li><li>twelve principles</li>
                     </ul>
                 </div>
                 
@@ -337,42 +354,22 @@ X3 --> Z3[Green Chemistry Complete]
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>The atom economy - a search for synthetic efficiency</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Trost, B. M.
+                            , Science
+                             (1991)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Green Chemistry University Course: Lecture 2 - Green Chemistry: Reimagining Chemistry</strong>
-                            
-                            , Green Chemistry Teaching and Learning Community
-                             (2023)
-                            </span>
-                            <br><a href="https://doi.org/10.59877/lnti5060" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.59877/lnti5060</a>
+                            <br><a href="https://doi.org/10.1126/science.1962206" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1126/science.1962206</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Green Chemistry University Course: Syllabus</strong>
-                            
-                            , Green Chemistry Teaching and Learning Community
-                             (2023)
-                            </span>
-                            <br><a href="https://doi.org/10.59877/iuoi5076" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.59877/iuoi5076</a>
-                            
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Adoption of green chemistry—view from the Director of the ACS Green Chemistry Institute®</strong>
-                            
+                            <strong>The E factor 25 years on: the rise of green chemistry and sustainability</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Sheldon, R. A.
                             , Green Chemistry
-                             (2009)
+                             (2017)
                             </span>
-                            <br><a href="https://doi.org/10.1039/b904513a" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1039/b904513a</a>
+                            <br><a href="https://doi.org/10.1039/C6GC02157C" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1039/C6GC02157C</a>
                             
                         </li>
                         

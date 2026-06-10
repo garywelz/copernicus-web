@@ -1,0 +1,39 @@
+{
+  "id": "calculus_analysis-boettcher-external-rays",
+  "name": "Böttcher Coordinate & External Rays",
+  "category": "mathematics",
+  "subcategory": "calculus_analysis",
+  "subcategory_name": "Calculus & Analysis",
+  "description": "Böttcher coordinate: near infinity, f_c(z) = z² + c is conjugate to w maps to w². Conformal map Φ_c on basin of infinity satisfying Φ_c(f_c(z)) = (Φ_c(z))². Equipotentials: level sets |Φ_c(z)| = const. External rays: curves arg(Φ_c(z)) = θ. For parameter space: Φ(c) = lim (f_cⁿ(c))^(1/2ⁿ) defines Böttcher map on complement of M. External rays of M: R_M(θ) = {c : arg Φ(c) = 2πθ}. Key for Douady-Hubbard connectedness proof.",
+  "mermaid": "graph TD\n    Quad[\"Quadratic Julia and Mandelbrot\"]\n    DefBott[\"Def: Böttcher coordinate Φ_c\"]\n    DefFuncEq[\"Def: Functional equation Φ_c(f_c(z)) = (Φ_c(z))²\"]\n    DefEquip[\"Def: Equipotential |Φ_c(z)| = const\"]\n    DefExtRay[\"Def: External ray R(θ) arg Φ_c(z) = 2πθ\"]\n    DefPhiParam[\"Def: Parameter Böttcher Φ(c) lim (f_cⁿ(c))^(1/2ⁿ)\"]\n    ThmBott[\"Thm: Böttcher-Fatou Φ analytic on basin of infinity\"]\n    LemLand[\"Lem: Ray landing Rays land on J_c or M\"]\n    Quad --> DefBott\n    DefBott --> DefFuncEq\n    DefBott --> DefEquip\n    DefBott --> DefExtRay\n    DefBott --> DefPhiParam\n    DefPhiParam --> ThmBott\n    DefExtRay --> LemLand\n    classDef axiom fill:#ff6b6b,color:#fff,stroke:#c0392b\n    classDef definition fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef theorem fill:#51cf66,color:#fff,stroke:#40c057\n    classDef lemma fill:#74c0fc,color:#fff,stroke:#4dabf7\n    class Quad axiom\n    class DefBott,DefFuncEq,DefEquip,DefExtRay,DefPhiParam definition\n    class ThmBott theorem\n    class LemLand lemma",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

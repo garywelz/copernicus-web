@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2604.21222v1",
+  "arxiv_id": "2604.21222v1",
+  "title": "Neutron and X-ray Diffraction Reveal the Limits of Long-Range Machine Learning Potentials for Medium-Range Order in Silica Glass",
+  "authors": [
+    "Sai Harshit Balantrapu",
+    "Atul C. Thakur",
+    "Chris Benmore",
+    "Ganesh Sivaraman"
+  ],
+  "author_string": "Sai Harshit Balantrapu, Atul C. Thakur, Chris Benmore, Ganesh Sivaraman",
+  "journal": "arXiv:2604.21222v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Glassy silica is a foundational material in optics and electronics, yet accurately predicting its medium-range order (MRO) remains a major challenge for machine-learning interatomic potentials (MLIPs). While local MLIPs reproduce the short-range SiO4 tetrahedral network well, it remains unclear whether locality alone is sufficient to recover the first sharp diffraction peak (FSDP), the principal experimental signature of MRO. Here, we combine neutron and X-ray diffraction measurements with large-scale molecular dynamics driven by two MACE-based models: a short-range (SR) potential and a long-range (LR) extension incorporating reciprocal-space gated attention. The SR model systematically over-structures the network, producing an overly intense FSDP in both the liquid and glassy states. Incorporating long-range interactions improves agreement with experiment for the liquid structure by reducing this excess ordering, but the LR model still fails to recover the experimental amorphous MRO after quenching. Ring-statistics and bond-angle analyses reveal that SR model exhibits an artificially narrow distribution dominated by six-membered rings, while the LR model produces a broader but still biased ring population. Despite preserving the correct tetrahedral geometry, both models show limited variability in Si-O-Si angles, indicating constrained network flexibility. These structural signatures demonstrate that both models retain excessive memory of the parent liquid network, leading to kinetically trapped and nonphysical medium-range configurations during vitrification. These results show that explicit long-range interactions are necessary but not sufficient for predictive modelling of disordered silica and suggest that accurate MRO further requires training data and sampling strategies that adequately represent the liquid-to-glass transition.",
+  "categories": [
+    "cond-mat.mtrl-sci",
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": "19 pages, 9 figures",
+  "published_date": "2026-04-23T02:37:29Z",
+  "updated_date": "2026-04-23T02:37:29Z",
+  "url": "https://arxiv.org/abs/2604.21222v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.21222v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-26T10:16:12.592866",
+  "category": "computer_science",
+  "subcategories": [
+    "cond-mat.mtrl-sci",
+    "cs.LG"
+  ]
+}

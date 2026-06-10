@@ -1,0 +1,41 @@
+{
+  "id": "arxiv_2605.07986v1",
+  "arxiv_id": "2605.07986v1",
+  "title": "Towards Apples to Apples for AI Evaluations: From Real-World Use Cases to Evaluation Scenarios",
+  "authors": [
+    "Yee-Yin Choong",
+    "Kristen Greene",
+    "Alice Qian",
+    "Meryem Marasli",
+    "Ziqi Yang",
+    "Sophia Chen",
+    "Laura Dabbish",
+    "Anand Rao",
+    "Hong Shen"
+  ],
+  "author_string": "Yee-Yin Choong, Kristen Greene, Alice Qian, Meryem Marasli, Ziqi Yang et al.",
+  "journal": "arXiv:2605.07986v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "AI measurement science has a wide variety of methodologies and measurements for comparing AI systems, resulting in what often appear to be \"apples-to-oranges\" comparisons across AI evaluations. To move toward \"apples-to-apples\" comparisons in real-world AI evaluations, this work advocates for methodological transparency in evaluation scenarios, operational grounding, and human-centered design (HCD) principles. We propose a repeatable process for transforming high-level use cases to detailed scenarios by eliciting use cases from subject matter experts (SMEs) via a structured AI Use Case Worksheet with six key elements: use case, sector, user (direct and indirect), intended outcomes, expected impacts (positive and negative), and KPIs and metrics. We demonstrate utility of the worksheet and process in the U.S. financial services sector. This paper reports on example high-level AI use cases identified by financial services sector SMEs: cyber defense enablement, developer productivity, financial crime aggregation, suspicious activity report (SAR) filing, credit memo generation, and internal call center support. These AI use cases provided are illustrative of the process and not exhaustive. Central to our work is a three-stage expansion pipeline combining LLM prompting with human reviews to generate 107 scenarios from those use cases elicited from SMEs. This process integrates iterative human reviews at every juncture to ensure operational grounding: for scenario titles and descriptions; for core scenario elements like users, benefits and risks, and metrics; and for scenario narratives and evaluation objectives. Human checkpoints ensure scenarios remain reflective of real-world usage and human needs. We describe a validation rubric to assess scenario quality. By defining key scenario components, this work supports a more consistent and meaningful paradigm for human-centered AI evaluations.",
+  "categories": [
+    "cs.HC",
+    "cs.AI",
+    "cs.CY"
+  ],
+  "primary_category": "cs.CY",
+  "comment": "23 pages, 3 figures",
+  "published_date": "2026-05-08T16:44:55Z",
+  "updated_date": "2026-05-08T16:44:55Z",
+  "url": "https://arxiv.org/abs/2605.07986v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.07986v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-10T22:17:15.400606",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.HC",
+    "cs.AI",
+    "cs.CY"
+  ]
+}

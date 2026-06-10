@@ -1,0 +1,192 @@
+{
+  "id": "pathways-necroptosis",
+  "name": "Necroptosis",
+  "category": "biology",
+  "subcategory": "pathways",
+  "subcategory_name": "Pathways",
+  "description": "Necroptosis: when caspase-8 is inhibited downstream of death receptors, RIPK1 and RIPK3 assemble the necrosome, RIPK3 phosphorylates MLKL, and oligomerized MLKL permeabilizes the plasma membrane to cause lytic, inflammatory cell death.",
+  "keywords": [
+    "necroptosis",
+    "ripk1",
+    "ripk3",
+    "mlkl",
+    "necrosome"
+  ],
+  "namedCollections": [
+    "cell-death"
+  ],
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "complexity": {
+    "nodes": 10,
+    "edges": 9,
+    "conditionals": 1,
+    "logicGates": {
+      "orGates": 1,
+      "andGates": 0,
+      "notGates": 0,
+      "total": 1
+    },
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 0
+  },
+  "graphMetrics": {
+    "nodes": 10,
+    "edges": 9,
+    "conditionals": 1,
+    "andGates": 0,
+    "orGates": 1,
+    "notGates": 0,
+    "loops": 0
+  },
+  "mermaid": "graph TD\n    N1[\"TNF / death receptor\"]\n    N2[\"Complex I -> RIPK1\"]\n    N3{\"Caspase-8 active?\"}\n    N4[\"Apoptosis (RIPK1 cleaved)\"]\n    N5[\"RIPK1-RIPK3 necrosome\"]\n    N6[\"RIPK3 phosphorylates MLKL\"]\n    N7[\"MLKL oligomerizes\"]\n    N8[\"MLKL to plasma membrane\"]\n    N9[\"Membrane permeabilized\"]\n    N10[\"Lytic death + DAMPs\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 -->|active| N4\n    N3 -->|inhibited| N5\n    N5 --> N6\n    N6 --> N7\n    N7 --> N8\n    N8 --> N9\n    N9 --> N10\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#74c0fc,color:#fff\n    style N4 fill:#b197fc,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#74c0fc,color:#fff\n    style N10 fill:#b197fc,color:#fff",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "TNF / death receptor",
+      "detail": "Ligation of TNFR1",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N2",
+      "label": "Complex I -> RIPK1",
+      "detail": "RIPK1 signaling hub",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N3",
+      "label": "Caspase-8 active?",
+      "detail": "Caspase-8 cleaves RIPK1/3",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N4",
+      "label": "Apoptosis (RIPK1 cleaved)",
+      "detail": "Default outcome if caspase active",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N5",
+      "label": "RIPK1-RIPK3 necrosome",
+      "detail": "RHIM-mediated amyloid complex",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N6",
+      "label": "RIPK3 phosphorylates MLKL",
+      "detail": "Pseudokinase substrate",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N7",
+      "label": "MLKL oligomerizes",
+      "detail": "Activated executioner",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N8",
+      "label": "MLKL to plasma membrane",
+      "detail": "Targets membrane phospholipids",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N9",
+      "label": "Membrane permeabilized",
+      "detail": "Loss of membrane integrity",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N10",
+      "label": "Lytic death + DAMPs",
+      "detail": "Inflammatory cell rupture",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 0
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:pathways-necroptosis",
+    "graphType": "mechanism_flowchart",
+    "topologySignature": "a41d78e18becb59a",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "lastUpdated": "2026-06-01",
+  "verified": false,
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "sources": [
+    {
+      "title": "Necroptosis and its role in inflammation",
+      "authors": "Pasparakis, M.; Vandenabeele, P.",
+      "journal": "Nature",
+      "year": "2015",
+      "pubmed": "25592536",
+      "doi": "10.1038/nature14191",
+      "url": "https://doi.org/10.1038/nature14191"
+    },
+    {
+      "title": "Mixed lineage kinase domain-like protein mediates necrosis signaling downstream of RIP3 kinase",
+      "authors": "Sun, L.; et al.",
+      "journal": "Cell",
+      "year": "2012",
+      "pubmed": "22265413",
+      "doi": "10.1016/j.cell.2011.11.031",
+      "url": "https://doi.org/10.1016/j.cell.2011.11.031"
+    },
+    {
+      "title": "Phosphorylation-driven assembly of the RIP1-RIP3 complex regulates programmed necrosis",
+      "authors": "Cho, Y. S.; et al.",
+      "journal": "Cell",
+      "year": "2009",
+      "pubmed": "19524513",
+      "doi": "10.1016/j.cell.2009.05.037",
+      "url": "https://doi.org/10.1016/j.cell.2009.05.037"
+    }
+  ],
+  "graphType": "mechanism_flowchart",
+  "domainContext": "Programmed necrosis"
+}

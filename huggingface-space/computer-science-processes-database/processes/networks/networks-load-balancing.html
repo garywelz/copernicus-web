@@ -167,6 +167,33 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
@@ -176,7 +203,7 @@
             <div class="header-meta">
                 <span class="meta-item">Computer Science</span>
                 <span class="meta-item">Computer Networks</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,51 +234,61 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Load Balancing process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>A load balancer spreads incoming requests across backend servers: it selects a target by an algorithm such as round-robin, least-connections, or weighted hashing, checks backend health and removes unhealthy nodes from the pool, then forwards the request, achieving an even and resilient distribution of load.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-N1["Incoming Requests"]
-N2["Traffic Pattern"]
-N3["Load Balancer"]
-N4["Choose Approach"]
-N5["Backend Pool"]
-N6["Health Checks"]
-N7["Choose Backend"]
-N8["Route Request"]
-N9["Integrate Results"]
-N10["Observed Latency/Errors"]
-N11["Balanced Service"]
+    N1["Incoming requests"]
+    N2["Load balancer receives"]
+    N3{"Choose algorithm"}
+    N4["Round-robin"]
+    N5["Least connections"]
+    N6["Weighted / hash"]
+    N7["Health-check backends"]
+    N8{"Backend healthy?"}
+    N9["Remove from pool"]
+    N10["Forward to server"]
+    N11["Balanced distribution"]
 
-N1 --> N2
-N2 --> N3
-N3 --> N4
-N4 --> N5
-N4 --> N7
-N5 --> N6
-N7 --> N8
-N6 --> N9
-N8 --> N9
-N9 --> N10
-N10 --> N11
+    N1 --> N2
+    N2 --> N3
+    N3 -->|round-robin| N4
+    N3 -->|least-conn| N5
+    N3 -->|weighted| N6
+    N4 --> N7
+    N5 --> N7
+    N6 --> N7
+    N7 --> N8
+    N8 -->|no| N9
+    N9 -->|recheck| N7
+    N8 -->|yes| N10
+    N10 --> N11
 
     style N1 fill:#ff6b6b,color:#fff
-    style N2 fill:#ff6b6b,color:#fff
-    style N3 fill:#ffd43b,color:#000
-    style N4 fill:#ffd43b,color:#000
-    style N5 fill:#ffd43b,color:#000
+    style N2 fill:#51cf66,color:#fff
+    style N3 fill:#74c0fc,color:#fff
+    style N4 fill:#51cf66,color:#fff
+    style N5 fill:#51cf66,color:#fff
     style N6 fill:#51cf66,color:#fff
     style N7 fill:#51cf66,color:#fff
-    style N8 fill:#51cf66,color:#fff
-    style N9 fill:#74c0fc,color:#fff
-    style N10 fill:#74c0fc,color:#fff
+    style N8 fill:#74c0fc,color:#fff
+    style N9 fill:#51cf66,color:#fff
+    style N10 fill:#51cf66,color:#fff
     style N11 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Incoming requests</td><td>Triggers & Inputs</td><td><a href="https://doi.org/10.1109/4236.769420" target="_blank" title="Dynamic load balancing on Web-server systems" style="color:#9b59b6;">Cardellini, V. et al. 1999</a></td></tr><tr><td style="font-weight:600;">Load balancer receives</td><td>Processing & Operations</td><td><a href="https://www.pearson.com/en-us/subject-catalog/p/computer-networks/P200000003188" target="_blank" title="Computer Networks (5th ed.)" style="color:#9b59b6;">Tanenbaum, A. S. et al. 2011</a></td></tr><tr><td style="font-weight:600;">Choose algorithm</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1109/4236.769420" target="_blank" title="Dynamic load balancing on Web-server systems" style="color:#9b59b6;">Cardellini, V. et al. 1999</a></td></tr><tr><td style="font-weight:600;">Round-robin</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1109/4236.769420" target="_blank" title="Dynamic load balancing on Web-server systems" style="color:#9b59b6;">Cardellini, V. et al. 1999</a></td></tr><tr><td style="font-weight:600;">Least connections</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1109/4236.769420" target="_blank" title="Dynamic load balancing on Web-server systems" style="color:#9b59b6;">Cardellini, V. et al. 1999</a></td></tr><tr><td style="font-weight:600;">Weighted / hash</td><td>Processing & Operations</td><td><a href="https://www.pearson.com/en-us/subject-catalog/p/computer-networks/P200000003188" target="_blank" title="Computer Networks (5th ed.)" style="color:#9b59b6;">Tanenbaum, A. S. et al. 2011</a></td></tr><tr><td style="font-weight:600;">Health-check backends</td><td>Processing & Operations</td><td><a href="https://www.pearson.com/en-us/subject-catalog/p/computer-networks/P200000003188" target="_blank" title="Computer Networks (5th ed.)" style="color:#9b59b6;">Tanenbaum, A. S. et al. 2011</a></td></tr><tr><td style="font-weight:600;">Backend healthy?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1109/4236.769420" target="_blank" title="Dynamic load balancing on Web-server systems" style="color:#9b59b6;">Cardellini, V. et al. 1999</a></td></tr><tr><td style="font-weight:600;">Remove from pool</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1109/4236.769420" target="_blank" title="Dynamic load balancing on Web-server systems" style="color:#9b59b6;">Cardellini, V. et al. 1999</a></td></tr><tr><td style="font-weight:600;">Forward to server</td><td>Processing & Operations</td><td><a href="https://www.pearson.com/en-us/subject-catalog/p/computer-networks/P200000003188" target="_blank" title="Computer Networks (5th ed.)" style="color:#9b59b6;">Tanenbaum, A. S. et al. 2011</a></td></tr><tr><td style="font-weight:600;">Balanced distribution</td><td>Products & Outputs</td><td><a href="https://doi.org/10.1109/4236.769420" target="_blank" title="Dynamic load balancing on Web-server systems" style="color:#9b59b6;">Cardellini, V. et al. 1999</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -298,11 +335,11 @@ N10 --> N11
                     <h3>Process Statistics</h3>
                     <ul>
                         <li><strong>Nodes:</strong> 11</li>
-                        <li><strong>Edges:</strong> 11</li>
-                        <li><strong>Conditionals:</strong> 0</li>
+                        <li><strong>Edges:</strong> 13</li>
+                        <li><strong>Conditionals:</strong> 2</li>
                         <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 1</li>
-                        <li><strong>Total Gates:</strong> 2</li>
+                        <li><strong>OR Gates:</strong> 2</li>
+                        <li><strong>Total Gates:</strong> 3</li>
                     </ul>
                 </div>
                 
@@ -310,7 +347,7 @@ N10 --> N11
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>load</li><li>balancing</li>
+                        <li>load balancing</li><li>round-robin</li><li>least connections</li><li>health check</li><li>request distribution</li>
                     </ul>
                 </div>
                 
@@ -321,43 +358,23 @@ N10 --> N11
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Dynamic load balancing on Web-server systems</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Cardellini, V.; Colajanni, M.; Yu, P. S.
+                            , IEEE Internet Computing
+                             (1999)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #9b59b6; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>DNS Load Balancing</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Membrey, Peter; Hows, David; Plugge, Eelco
-                            , Practical Load Balancing
-                             (2012)
-                            </span>
-                            <br><a href="https://doi.org/10.1007/978-1-4302-3681-8_4" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.1007/978-1-4302-3681-8_4</a>
+                            <br><a href="https://doi.org/10.1109/4236.769420" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.1109/4236.769420</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Network Load Balancing</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Membrey, Peter; Hows, David; Plugge, Eelco
-                            , Practical Load Balancing
-                             (2012)
+                            <strong>Computer Networks (5th ed.)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Tanenbaum, A. S.; Wetherall, D. J.
+                            , Pearson
+                             (2011)
                             </span>
-                            <br><a href="https://doi.org/10.1007/978-1-4302-3681-8_10" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.1007/978-1-4302-3681-8_10</a>
                             
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>SSL Load Balancing</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Membrey, Peter; Hows, David; Plugge, Eelco
-                            , Practical Load Balancing
-                             (2012)
-                            </span>
-                            <br><a href="https://doi.org/10.1007/978-1-4302-3681-8_11" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.1007/978-1-4302-3681-8_11</a>
-                            
+                            <br><a href="https://www.pearson.com/en-us/subject-catalog/p/computer-networks/P200000003188" target="_blank" style="color: #9b59b6; font-size: 0.85em;">View Source</a>
                         </li>
                         
                     </ul>

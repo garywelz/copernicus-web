@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2605.18191v1",
+  "arxiv_id": "2605.18191v1",
+  "title": "Pairwise Preference Reward and Group-Based Diversity Enhancement for Superior Open-Ended Generation",
+  "authors": [
+    "Guining Cao",
+    "Jiaxin Peng",
+    "Chu Zeng",
+    "Yu Zhao",
+    "Shuangyong Song",
+    " Yongxiang"
+  ],
+  "author_string": "Guining Cao, Jiaxin Peng, Chu Zeng, Yu Zhao, Shuangyong Song et al.",
+  "journal": "arXiv:2605.18191v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Current reinforcement learning(RL) methods are broadly applicable and powerful in verifiable settings where scalar rewards can be provided. However, in open-ended generation tasks, verifying the correctness of responses remains challenging, and training reward models incurs substantial computational and annotation costs. Moreover, reinforcement learning (RLVR) often leads to diversity collapse and produces stereotypical or rigid outputs, outcomes that are particularly undesirable in open-domain scenarios. We propose Pairwise Preference Reward and Group-based Diversity Enhancement (PPR-GDE), a RL method that is more suitable for open-ended generation. PPR-GDE does not require scalar rewards and incorporates group-level diversity into the reward signal, it preserves the comparative structure of subjective evaluation through a pairwise preference reward, mitigates judge position bias via repeated comparisons with swapped response order, and introduces a group-based diversity reward that explicitly encourages semantic dispersion within a response group, all of these reward signals are integrated into a unified group-relative policy optimization objective. We instantiate PPR-GDE on role-playing task, experiments show that PPR-GDE achieves a better alignment quality as well as expressive diversity than strong RL baselines. Further analysis shows that pairwise preference is critical for preference alignment in subjective perspective, while the diversity metric plays an essential role in achieving superior expressive diversity and broader semantic coverage.",
+  "categories": [
+    "cs.AI"
+  ],
+  "primary_category": "cs.AI",
+  "comment": "Work in progress",
+  "published_date": "2026-05-18T10:31:34Z",
+  "updated_date": "2026-05-18T10:31:34Z",
+  "url": "https://arxiv.org/abs/2605.18191v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.18191v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-18T22:16:04.719517",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.AI"
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2605.05284v2",
+  "arxiv_id": "2605.05284v2",
+  "title": "Direct From Darwin: Deriving Advanced Optimizers From Evolutionary First Principles",
+  "authors": [
+    "Daniel Grimmer"
+  ],
+  "author_string": "Daniel Grimmer",
+  "journal": "arXiv:2605.05284v2",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Evolutionary computation has long promised to deliver both high-performance optimization tools as well as rigorous scientific simulations of Darwinian evolution. However, modern algorithms frequently abandon evolutionary fidelity for physics-inspired heuristics or superficial biological metaphors. This paper derives a suite of advanced gradient-based optimization algorithms directly from evolutionary first principles. We introduce Darwinian Lineage Simulations (DLS) to prove that, in an asexual context, Fisher's and Wright's historically opposed views of evolution are actually formally equivalent; One can partition Fisher's deterministically-evolving total population into Wright's randomly-drifting sub-populations. We prove that proper bookkeeping requires introducing a specific kind of structured noise (the DLS noise relation). Crucially, any bookkeeping choices which satisfy this relation will yield a faithful simulation of evolution. Using this vast representational freedom, we prove that a broad family of battle-tested optimization algorithms are already perfectly compatible with evolutionary dynamics. These include: Stochastic Gradient Descent as well as many regularizations/approximations of Newton's method and Natural Gradient Descent. By simply adding DLS noise (i.e., evolutionarily faithful genetic drift), these algorithms become scientifically valid in silico simulations of Darwinian evolution. Finally, we demonstrate that even the state-of-the-art Adam optimizer can be brought into evolutionary compliance through a minor mathematical surgery.",
+  "categories": [
+    "cs.NE",
+    "cs.LG",
+    "q-bio.PE",
+    "q-bio.QM"
+  ],
+  "primary_category": "q-bio.QM",
+  "comment": "38 pages, 5 figures. Submitted to Evolutionary Computation, May 2026. Code available at: https://github.com/danielgrimmer/adam-dls",
+  "published_date": "2026-05-06T17:33:58Z",
+  "updated_date": "2026-05-10T18:20:15Z",
+  "url": "https://arxiv.org/abs/2605.05284v2",
+  "pdf_url": "https://arxiv.org/pdf/2605.05284v2.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-13T10:15:35.805701",
+  "category": "biology",
+  "subcategories": [
+    "cs.NE",
+    "cs.LG",
+    "q-bio.PE"
+  ]
+}

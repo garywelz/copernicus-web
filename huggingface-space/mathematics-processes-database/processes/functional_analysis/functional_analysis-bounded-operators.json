@@ -1,0 +1,39 @@
+{
+  "id": "functional_analysis-bounded-operators",
+  "name": "Bounded Linear Operators",
+  "category": "mathematics",
+  "subcategory": "functional_analysis",
+  "subcategory_name": "Functional Analysis",
+  "description": "T: X→Y linear. Bounded ⇔ continuous. ℬ(X,Y) Banach. Open mapping, closed graph, inverse mapping. Adjoint T*.",
+  "mermaid": "graph TD\n    D1[\"Def: B(X,Y)\\nbounded linear ops\"]\n    D2[\"Def: Adjoint T*\\n⟨Tx,y⟩ = ⟨x,T*y⟩\"]\n    D3[\"Def: Kernel ker T\\nnull space\"]\n    T1[\"Thm: Bounded ⇔\\ncontinuous\"]\n    T2[\"Thm: Open mapping\\nT surjective ⇒ T open\"]\n    T3[\"Thm: Closed graph\\nGr T closed ⇒ T bounded\"]\n    T4[\"Thm: Inverse mapping\\nT bijective ⇒ T⁻¹ bounded\"]\n    T5[\"Thm: (T*)* = T\\non reflexive X\"]\n    L1[\"Lemma: ‖T*‖ = ‖T‖\"]\n    D1 --> T1\n    D1 --> T2\n    D2 --> T5\n    D2 --> L1\n    T2 --> T4\n    T3 --> T2\n    classDef definition fill:#b197fc,color:#fff\n    classDef theorem fill:#51cf66,color:#fff\n    classDef lemma fill:#74c0fc,color:#fff\n    class D1,D2,D3 definition\n    class T1,T2,T3,T4,T5 theorem\n    class L1 lemma",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

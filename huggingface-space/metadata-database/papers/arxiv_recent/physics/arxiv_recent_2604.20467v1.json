@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2604.20467v1",
+  "arxiv_id": "2604.20467v1",
+  "title": "Mechanistic Interpretability Tool for AI Weather Models",
+  "authors": [
+    "Kirsten I. Tempest",
+    "Matthias Beylich",
+    "George C. Craig"
+  ],
+  "author_string": "Kirsten I. Tempest, Matthias Beylich, George C. Craig",
+  "journal": "arXiv:2604.20467v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Artificial Intelligence (AI) weather models are improving rapidly, and their forecasts are already competitive with long-established traditional Numerical Weather Prediction (NWP). To build confidence in this new methodology, it is critical that we understand how these predictions are generated. This is a huge challenge as these AI weather models remain largely black boxes. In other areas of Machine Learning (ML), mechanistic interpretability has emerged as a framework for understanding ML predictions by analysing the building blocks responsible for them. Here we present an open-source, highly adaptable tool which incorporates concepts from mechanistic interpretability. The tool organises internal latent representations from the model processor and allows for initial analyses, including cosine similarity and Principal Component Analysis (PCA), enabling the user to identify directions in latent space potentially associated with meteorological features. Applying our tool to the graph neural network GraphCast, we present preliminary case studies for mid-latitude synoptic-scale waves and specific humidity. These demonstrate the tool's ability to identify linear combinations of latent channels that appear to correspond to interpretable features.",
+  "categories": [
+    "physics.ao-ph",
+    "cs.LG",
+    "physics.comp-ph"
+  ],
+  "primary_category": "physics.comp-ph",
+  "comment": "14 pages, 5 figures. Submitted to International Conference on Computational Science 2026",
+  "published_date": "2026-04-22T11:54:09Z",
+  "updated_date": "2026-04-22T11:54:09Z",
+  "url": "https://arxiv.org/abs/2604.20467v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.20467v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-25T22:15:49.053199",
+  "category": "physics",
+  "subcategories": [
+    "physics.ao-ph",
+    "cs.LG",
+    "physics.comp-ph"
+  ]
+}

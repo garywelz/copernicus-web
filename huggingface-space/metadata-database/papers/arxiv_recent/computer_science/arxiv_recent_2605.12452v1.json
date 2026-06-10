@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2605.12452v1",
+  "arxiv_id": "2605.12452v1",
+  "title": "The Algorithmic Caricature: Auditing LLM-Generated Political Discourse Across Crisis Events",
+  "authors": [
+    " Gunjan",
+    "Sidahmed Benabderrahmane",
+    "Talal Rahwan"
+  ],
+  "author_string": " Gunjan, Sidahmed Benabderrahmane, Talal Rahwan",
+  "journal": "arXiv:2605.12452v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Large Language Models (LLMs) can generate fluent political text at scale, raising concerns about synthetic discourse during crises and social conflict. Existing AI-text detection often focuses on sentence-level cues such as perplexity, burstiness, or token irregularities, but these signals may weaken as generative systems improve. We instead adopt a Computational Social Science perspective and ask whether synthetic political discourse behaves like an observed online population. We construct a paired corpus of 1,789,406 posts across nine crisis events: COVID-19, the Jan. 6 Capitol attack, the 2020 and 2024 U.S. elections, Dobbs/Roe v. Wade, the 2020 BLM protests, U.S. midterms, the Utah shooting, and the U.S.-Iran war. For each event, we compare observed discourse from social platforms with synthetic discourse generated for the same context. We evaluate four dimensions: emotional intensity, structural regularity, lexical-ideological framing, and cross-event dependency, using mean gaps and dispersion evidence. Across events, synthetic discourse is fluent but population-level unrealistic. It is generally more negative and less dispersed in sentiment, structurally more regular, and lexically more abstract than observed discourse. Observed discourse instead shows broader emotional variation, longer-tailed structural distributions, and more context-specific, colloquial lexical markers. These differences are event-dependent: larger for fast-moving, decentralized crises and smaller for formal or institutionally mediated events. We summarize them with a simple event-level measure, the Caricature Gap. Our findings suggest that the main limitation of synthetic political discourse is not grammar or fluency, but reduced population realism. Population-level auditing complements traditional text-detection and provides a CSS framework for evaluating the social realism of generated discourse.",
+  "categories": [
+    "cs.CL",
+    "cs.AI",
+    "cs.CY"
+  ],
+  "primary_category": "cs.CY",
+  "comment": null,
+  "published_date": "2026-05-12T17:42:03Z",
+  "updated_date": "2026-05-12T17:42:03Z",
+  "url": "https://arxiv.org/abs/2605.12452v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.12452v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-13T10:15:39.535821",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CL",
+    "cs.AI",
+    "cs.CY"
+  ]
+}

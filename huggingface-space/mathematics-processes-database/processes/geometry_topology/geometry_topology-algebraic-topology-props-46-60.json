@@ -1,0 +1,39 @@
+{
+  "id": "geometry_topology-algebraic-topology-props-46-60",
+  "name": "Algebraic Topology — Part 4: Persistent Homology & TDA",
+  "category": "mathematics",
+  "subcategory": "geometry_topology",
+  "subcategory_name": "Geometry & Topology",
+  "description": "Filtrations, persistence modules, birth/death, persistence diagrams, barcodes, stability theorems, Vietoris-Rips, Čech complex. Core of topological data analysis.",
+  "mermaid": "graph TD\n    RefSimpComp[\"Simplicial complex (Part 2)\"]\n    RefHomology[\"Homology (Parts 1-3)\"]\n    DefFiltration[\"Def: Filtration K_0 ⊆ K_1 ⊆ ... ⊆ K_m\"]\n    DefPersMod[\"Def: Persistence module\"]\n    DefBirthDeath[\"Def: Birth and death of homology class\"]\n    DefPersDiagram[\"Def: Persistence diagram\"]\n    DefBarcode[\"Def: Barcode\"]\n    ThmPersDiagram[\"Thm: Persistence diagram from persistence module\"]\n    ThmStability[\"Thm: Stability: small perturbation ⇒ small change in diagram\"]\n    DefVR[\"Def: Vietoris-Rips complex VR(ε)\"]\n    DefCech[\"Def: Čech complex Cech(ε)\"]\n    ThmNerve[\"Thm: Nerve theorem: Cech ≃ union of balls\"]\n    LemVRCech[\"Lem: VR and Cech interleaving\"]\n    ThmRips[\"Thm: Vietoris-Rips for metric spaces\"]\n    DefPersistence[\"Def: Persistent homology H_k(K_t)\"]\n    CorBarcode[\"Cor: Barcode encodes persistence\"]\n    CorTDA[\"Cor: TDA pipeline: data → filtration → barcode\"]\n    RefSimpComp --> DefFiltration\n    RefHomology --> DefPersMod\n    DefFiltration --> DefPersMod\n    DefPersMod --> DefBirthDeath\n    DefBirthDeath --> DefPersDiagram\n    DefBirthDeath --> DefBarcode\n    DefPersMod --> ThmPersDiagram\n    ThmPersDiagram --> ThmStability\n    RefSimpComp --> DefVR\n    RefSimpComp --> DefCech\n    DefCech --> ThmNerve\n    DefVR --> LemVRCech\n    DefCech --> LemVRCech\n    LemVRCech --> ThmRips\n    DefFiltration --> DefPersistence\n    RefHomology --> DefPersistence\n    DefPersistence --> CorBarcode\n    ThmPersDiagram --> CorBarcode\n    ThmStability --> CorTDA\n    CorBarcode --> CorTDA\n    classDef ref fill:#bdc3c7,color:#333,stroke:#95a5a6\n    classDef definition fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef lemma fill:#74c0fc,color:#fff,stroke:#4dabf7\n    classDef theorem fill:#51cf66,color:#fff,stroke:#40c057\n    classDef corollary fill:#1abc9c,color:#fff,stroke:#16a085\n    class RefSimpComp,RefHomology ref\n    class DefFiltration,DefPersMod,DefBirthDeath,DefPersDiagram,DefBarcode,DefVR,DefCech,DefPersistence definition\n    class LemVRCech lemma\n    class ThmPersDiagram,ThmStability,ThmNerve,ThmRips theorem\n    class CorBarcode,CorTDA corollary",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

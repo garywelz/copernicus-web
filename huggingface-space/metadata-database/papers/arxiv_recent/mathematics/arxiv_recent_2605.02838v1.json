@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_2605.02838v1",
+  "arxiv_id": "2605.02838v1",
+  "title": "A second-order method on the Stiefel manifold via Newton$\\unicode{x2013}$Schulz",
+  "authors": [
+    "Xinhui Xiong",
+    "Bin Gao",
+    "P. -A. Absil"
+  ],
+  "author_string": "Xinhui Xiong, Bin Gao, P. -A. Absil",
+  "journal": "arXiv:2605.02838v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Retraction-free approaches offer attractive low-cost alternatives to Riemannian methods on the Stiefel manifold, but they are often first-order, which may limit the efficiency under high-accuracy requirements. To this end, we propose a second-order method landing on the Stiefel manifold without invoking retractions, which is proved to enjoy local quadratic (or superlinear for its inexact variant) convergence. The update consists of the sum of (i) a component tangent to the level set of the constraint-defining function that aims to reduce the objective and (ii) a component normal to the same level set that reduces the infeasibility. Specifically, we construct the normal component via Newton$\\unicode{x2013}$Schulz, a fixed-point iteration for orthogonalization. Moreover, we establish a geometric connection between the Newton$\\unicode{x2013}$Schulz iteration and Stiefel manifolds, in which Newton$\\unicode{x2013}$Schulz moves along the normal space. For the tangent component, we formulate a modified Newton equation that incorporates Newton$\\unicode{x2013}$Schulz. Numerical experiments on the orthogonal Procrustes problem, principal component analysis, and real-data independent component analysis illustrate that the proposed method performs better than the existing methods.",
+  "categories": [
+    "math.OC",
+    "cs.AI",
+    "cs.LG",
+    "math.NA"
+  ],
+  "primary_category": "math.NA",
+  "comment": "25 pages, 4 figures",
+  "published_date": "2026-05-04T17:18:11Z",
+  "updated_date": "2026-05-04T17:18:11Z",
+  "url": "https://arxiv.org/abs/2605.02838v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.02838v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-05T10:15:47.085610",
+  "category": "mathematics",
+  "subcategories": [
+    "math.OC",
+    "cs.AI",
+    "cs.LG"
+  ]
+}

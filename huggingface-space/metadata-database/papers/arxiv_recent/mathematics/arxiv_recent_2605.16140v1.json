@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2605.16140v1",
+  "arxiv_id": "2605.16140v1",
+  "title": "Covert Bayesian Quickest Change Detection",
+  "authors": [
+    "Yun-Feng Lo",
+    "Matthieu R. Bloch"
+  ],
+  "author_string": "Yun-Feng Lo, Matthieu R. Bloch",
+  "journal": "arXiv:2605.16140v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We investigate the problem of covert quickest change detection in a Bayesian and infinite-horizon setting. A legitimate entity seeks to detect a change in the state of a discrete memoryless channel as quickly as possible by actively probing it. Simultaneously, the entity must ensure its probing remains covert from an adversary monitoring the channel for active sensing. We introduce the expected covertness budget (ECB) as an analytically tractable covertness metric that bounds from above the relative entropy between the observation sequences induced by active and passive sensing. Under constraints on both the probability of false alarm (PFA) and the ECB, we establish a second-order asymptotic converse bound on the average detection delay as the PFA constraint approaches zero, for any positive ECB constraint, explicitly quantifying the maximum square-root-order covert sensing gain possible. Furthermore, we propose an achievability scheme utilizing a constant-sensing-probability Shiryaev-type policy and show that it matches the second-order asymptotic converse. We illustrate our result with a numerical example.",
+  "categories": [
+    "cs.IT",
+    "eess.SY",
+    "math.ST"
+  ],
+  "primary_category": "math.ST",
+  "comment": "36 pages, 2 figures. Submitted to IEEE ITW 2026",
+  "published_date": "2026-05-15T16:19:29Z",
+  "updated_date": "2026-05-15T16:19:29Z",
+  "url": "https://arxiv.org/abs/2605.16140v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.16140v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-18T10:15:50.684853",
+  "category": "mathematics",
+  "subcategories": [
+    "cs.IT",
+    "eess.SY",
+    "math.ST"
+  ]
+}

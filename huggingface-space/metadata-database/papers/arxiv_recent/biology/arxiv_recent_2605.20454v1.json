@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2605.20454v1",
+  "arxiv_id": "2605.20454v1",
+  "title": "Sparse Contextual Coupling Reshapes Diffusion Geometry in Multilayer Hypergraphs",
+  "authors": [
+    "Hao Ding",
+    "Sanjukta Krishnagopal"
+  ],
+  "author_string": "Hao Ding, Sanjukta Krishnagopal",
+  "journal": "arXiv:2605.20454v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Many complex systems combine dense background structure with sparse contextual information. We introduce a diffusion-based framework for analyzing how sparse condition-specific layers reshape diffusion geometry in multilayer hypergraphs. Each layer is represented as a weighted hypergraph, layers are coupled through shared entities, and random walks on the coupled system induce multiscale diffusion distances between nodes.   We apply the framework to disease-conditioned gene networks by coupling a dense MSigDB functional gene-set layer to sparse disease-specific DGIdb drug-gene hypergraphs, with disease-associated drugs selected from DDDB and HumanNet-GSP used to define external gene weights. Across Bipolar Disorder, Schizophrenia, Leukemia, and Breast Cancer, the disease-specific layer contains less than 2 percent of genes in the coupled system, yet substantially changes diffusion distances and community structure. Centrality analysis suggests that this disproportionate effect arises because DGIdb-associated genes occupy influential positions in the MSigDB-derived functional network.   The resulting diffusion-derived communities are stable under subsampling and show coherent post hoc functional enrichment, including signaling and neurotransmission categories in neuropsychiatric diseases and immune, translational, and metabolic categories in cancer-associated diseases. Community-level comparisons further reveal disease similarities not reducible to direct DGIdb gene overlap, including a Breast Cancer-Schizophrenia relationship consistent with recent biomedical evidence. These results show that sparse contextual layers can induce interpretable nonlocal changes in higher-order network geometry.",
+  "categories": [
+    "physics.soc-ph",
+    "cs.SI",
+    "q-bio.QM"
+  ],
+  "primary_category": "q-bio.QM",
+  "comment": null,
+  "published_date": "2026-05-19T20:06:54Z",
+  "updated_date": "2026-05-19T20:06:54Z",
+  "url": "https://arxiv.org/abs/2605.20454v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.20454v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-26T10:15:35.457335",
+  "category": "biology",
+  "subcategories": [
+    "physics.soc-ph",
+    "cs.SI",
+    "q-bio.QM"
+  ]
+}

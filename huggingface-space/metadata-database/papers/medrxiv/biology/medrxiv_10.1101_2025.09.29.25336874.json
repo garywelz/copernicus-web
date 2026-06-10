@@ -1,0 +1,55 @@
+{
+  "id": "medrxiv_10.1101_2025.09.29.25336874",
+  "doi": "10.1101/2025.09.29.25336874",
+  "title": "RetFit: A Novel Deep Learning-Based Biomarker of Cardiorespiratory Fitness Derived From the Retina",
+  "authors": [
+    "Quintas, I.",
+    "Bontempi, D.",
+    "Bors, S.",
+    "Trofimova, O.",
+    "Boettger, L.",
+    "Iuliani, I.",
+    "Ortin Vela, S.",
+    "Liefers, B.",
+    "Vargas-Quiros, J.",
+    "Klaver, C. C. W.",
+    "Meloni, I.",
+    "Elwakil, A.",
+    "Bergin, C.",
+    "Tomasoni, M.",
+    "Bergmann, S.",
+    "Presby, D. M."
+  ],
+  "author_string": "Quintas, I., Bontempi, D., Bors, S., Trofimova, O., Boettger, L. et al.",
+  "journal": "medRxiv",
+  "journal_full": "medRxiv",
+  "year": "2026",
+  "abstract": "Cardiorespiratory fitness (CRF) is a strong predictor of cardiovascular events and all-cause mortality, often outperforming traditional risk factors. However, its clinical assessment remains limited due to the need for specialized equipment, personnel, and time demands. Because CRF is closely tied to vascular health, surrogate measures that capture vascular features may provide a practical alternative for its estimation. Retinal Color Fundus Images (CFIs) provide a non-invasive window into systemic vascular health and have already proven useful in predicting cardiovascular risk factors and diseases. However, CFIs have yet to be explored for their potential to predict CRF. In this study, we introduce RetFit, a novel CRF estimator derived from CFIs by leveraging state-of-the-art vision transformers. We evaluated RetFits clinical relevance by analyzing its associations with cardiovascular risk factors and disease outcomes, and exploring its genetic architecture, benchmarking it against a submaximal-exercise-test CRF (SETCRF) estimate. RetFit was prognostic of both cardiovascular events (hazard ratios as low as 0.668, 95%CI 0.617-0.723, p<0.001) and overall mortality (hazard ratios as low as 0.780, 95%CI 0.754-0.801, p<0.001), and significantly associated with the majority of disease states and risk factors explored, with these effects being consistent across two external and independent cohorts. Although RetFit and SETCRF shared a moderate phenotypic correlation (r=0.45), their significant genetic associations were disjoint. Interpretability analyses suggest a role for retinal vasculature in RetFits predictions, with attention maps emphasizing vascular regions and segmentation analyses showing arterial bifurcation count as the strongest associated feature ({beta}=0.287, 95% CI 0.263-0.311, p<0.001). These findings highlight the potential of retinal imaging as a scalable, cost-effective, and accessible alternative for CRF estimation, supporting its use in large-scale screening and risk stratification in both clinical and public health contexts.",
+  "keywords": [],
+  "categories": [
+    "ophthalmology"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.1101/2025.09.29.25336874",
+  "source": "medrxiv",
+  "sources": [
+    "medrxiv"
+  ],
+  "acquired_date": "2026-05-26T10:15:22.891345",
+  "category": "biology",
+  "subcategories": [
+    "ophthalmology"
+  ],
+  "published_date": "2026-01-26",
+  "updated_date": "2026-01-26",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "medrxiv",
+  "preprint_version": "2",
+  "preprint_type": "PUBLISHAHEADOFPRINT",
+  "license": "cc_by",
+  "jatsxml": "https://www.medrxiv.org/content/early/2026/01/26/2025.09.29.25336874.source.xml",
+  "published_doi": null,
+  "author_corresponding": "David M Presby",
+  "author_corresponding_institution": "University of Lausanne"
+}

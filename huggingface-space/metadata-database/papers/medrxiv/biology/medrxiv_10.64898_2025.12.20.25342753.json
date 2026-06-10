@@ -1,0 +1,41 @@
+{
+  "id": "medrxiv_10.64898_2025.12.20.25342753",
+  "doi": "10.64898/2025.12.20.25342753",
+  "title": "Design-Induced Circularity in Alzheimer Biomarker Trials and Trial-Ready Cohorts: Enrichment, Data-Driven Selection, and Estimand Mismatch",
+  "authors": [
+    "Kumar, S.",
+    "Verma, K."
+  ],
+  "author_string": "Kumar, S., Verma, K.",
+  "journal": "medRxiv",
+  "journal_full": "medRxiv",
+  "year": "2025",
+  "abstract": "BackgroundBiomarkers increasingly gate Alzheimer disease trials and clinical access, raising risk of design-induced bias when biomarker data are reused for both selection and inference.\n\nObjectiveTo quantify circularity patterns in Alzheimer disease biomarker trials and trial-ready cohorts and, using mechanistic experiments, estimate effects on discrimination, calibration/transportability, and false-positive risk.\n\nMethodsWe audited PubMed-indexed biomarker interventional trials and trial-ready cohorts (2020-2024) using dual independent full-text review and mechanism classification. Two simulation experiments examined (1) enrichment-induced range restriction with transport to an unselected population and (2) selection-inference reuse (\"double dipping\") versus split-sample confirmation.\n\nResultsAmong 72 studies, 10 (13.9%) raised possible/definite non-independence; enrichment/range restriction predominated (7/10). In simulation experiment 1, enrichment preserved nominal type I error under the null but shifted the estimand under signal, attenuating discrimination and degrading calibration when enriched-fit models were applied to unselected populations. In simulation experiment 2, double dipping produced P(p < 0.05) = 0.994 under the null (n = 200, p = 100) versus 0.047 with split-sample confirmation, with winners-curse effect inflation.\n\nConclusionsCircularity was uncommon but nontrivial and most often reflected enrichment with implicit generalization beyond the enriched population. Safeguards include explicit target populations/estimands and separation of discovery from confirmation (or prespecified multiplicity control), with clear validation and leakage prevention when biomarker claims are intended to guide decisions.",
+  "keywords": [],
+  "categories": [
+    "neurology"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.64898/2025.12.20.25342753",
+  "source": "medrxiv",
+  "sources": [
+    "medrxiv"
+  ],
+  "acquired_date": "2026-04-28T22:15:24.795483",
+  "category": "biology",
+  "subcategories": [
+    "neurology"
+  ],
+  "published_date": "2025-12-29",
+  "updated_date": "2025-12-29",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "medrxiv",
+  "preprint_version": "1",
+  "preprint_type": "PUBLISHAHEADOFPRINT",
+  "license": "cc_by_nc_nd",
+  "jatsxml": "https://www.medrxiv.org/content/early/2025/12/29//2025.12.20.25342753.source.xml",
+  "published_doi": null,
+  "author_corresponding": "Satwant Kumar",
+  "author_corresponding_institution": "Alzheimer's Alliance"
+}

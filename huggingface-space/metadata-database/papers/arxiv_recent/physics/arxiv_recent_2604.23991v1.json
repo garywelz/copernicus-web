@@ -1,0 +1,30 @@
+{
+  "id": "arxiv_2604.23991v1",
+  "arxiv_id": "2604.23991v1",
+  "title": "Universal Complex Quantum-Like Bits from Hermitian Weighted Graphs",
+  "authors": [
+    "Ethan Dickey",
+    "Sabre Kais"
+  ],
+  "author_string": "Ethan Dickey, Sabre Kais",
+  "journal": "arXiv:2604.23991v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We study when block-coupled regular graphs can realize prescribed complex quantum-like bit states as exact synchronized eigenstates. Two regular subgraphs $G_A$ and $G_B$ supply normalized all-ones eigenvectors $V_A$ and $V_B$, and algebraically regular bipartite couplings reduce the full graph-supported operator exactly to a $2\\times 2$ effective block on $\\mathcal S=\\operatorname{span} \\{ \\lvert 0\\rangle, \\lvert 1\\rangle \\}$. Within this reduction we prove that two natural symmetric complexifications are not universal under a real-spectrum requirement: complex symmetric coupling with real diagonal regularities forces the target computational basis amplitude ratio $r=ω_2/ω_1$, for $\\lvert ψ\\rangle = ω_1\\lvert 0\\rangle + ω_2\\lvert 1\\rangle$, to satisfy $r^2\\in\\mathbb{R}$, while real symmetric coupling with complex diagonal regularities forces $r+1/r\\in\\mathbb{R}$. Replacing complex symmetry by Hermitian coupling removes this phase obstruction. For any nonbasis target state, any prescribed real eigenvalue, and any prescribed nonzero signed spectral gap, a Hermitian weighted coupling realizes the target exactly. Additionally, an independently tuned directed-coupling model gives a second universality mechanism. We then pass from continuous effective parameters to finite weighted graphs with entries in $\\{0, \\pm1, \\pm i\\}$ (the fourth roots of unity and zero), characterize the balanced discrete coupling lattice by perfect matchings, and show that exact discrete Hermitian realizations are dense in the synchronized pure-state space. These results give a universality taxonomy for complex QL-bits and identify Hermitian conjugate pairing as the robust structural mechanism that supports arbitrary complex amplitudes with real two-level spectra.",
+  "categories": [
+    "quant-ph"
+  ],
+  "primary_category": "quant-ph",
+  "comment": null,
+  "published_date": "2026-04-27T03:09:53Z",
+  "updated_date": "2026-04-27T03:09:53Z",
+  "url": "https://arxiv.org/abs/2604.23991v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.23991v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-27T22:15:30.648874",
+  "category": "physics",
+  "subcategories": [
+    "quant-ph"
+  ]
+}

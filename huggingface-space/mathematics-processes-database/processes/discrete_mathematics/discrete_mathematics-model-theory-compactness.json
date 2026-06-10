@@ -1,0 +1,39 @@
+{
+  "id": "discrete_mathematics-model-theory-compactness",
+  "name": "Model Theory — Compactness",
+  "category": "mathematics",
+  "subcategory": "discrete_mathematics",
+  "subcategory_name": "Discrete Mathematics",
+  "description": "Compactness: T has model iff every finite subset has model. Downward Löwenheim-Skolem: countable theory has countable model. Upward L-S: infinite model has arbitrarily large elementary extension.",
+  "mermaid": "graph TD\n    D1[\"Def: Consistent\\nT has model\"]\n    T1[\"Thm: Compactness\\nT model ⟺ fin sat\"]\n    T2[\"Thm: Downward L-S\\ncountable submodel\"]\n    T3[\"Thm: Upward L-S\\nlarge elementary ext\"]\n    T4[\"Thm: Completeness\\nprovable ⟺ valid\"]\n    D1 --> T1\n    T1 --> T2\n    T1 --> T3\n    T1 --> T4\n    classDef definition fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef theorem fill:#51cf66,color:#fff,stroke:#40c057\n    class D1 definition\n    class T1,T2,T3,T4 theorem",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

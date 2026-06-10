@@ -100,6 +100,66 @@ def run_arxiv_recent(log_file: Path, count: int = 100) -> bool:
         print(f"    ❌ Error: {e}")
         return False
 
+def run_biorxiv_medrxiv_recent(log_file: Path, count: int = 100) -> bool:
+    """Run BioRxiv/MedRxiv acquisition for recent preprints."""
+    cmd = [
+        'python3',
+        str(BASE_DIR / 'scripts' / 'acquire_papers' / 'acquire_biorxiv_medrxiv_batch.py'),
+        '--recent', str(count),
+    ]
+    
+    print(f"  Running BioRxiv/MedRxiv recent preprint acquisition")
+    print(f"    Target: {count} recent preprints")
+    
+    try:
+        with open(log_file, 'a') as log:
+            log.write(f"\n{'='*80}\n")
+            log.write(f"BioRxiv/MedRxiv Recent Preprints - {datetime.now().isoformat()}\n")
+            log.write(f"{'='*80}\n")
+            result = subprocess.run(
+                cmd,
+                cwd=str(BASE_DIR),
+                stdout=log,
+                stderr=subprocess.STDOUT,
+                timeout=3600
+            )
+            return result.returncode == 0
+    except subprocess.TimeoutExpired:
+        print(f"    ⚠️  Acquisition timed out after 60 minutes")
+        return False
+    except Exception as e:
+        print(f"    ❌ Error: {e}")
+        return False
+
+def run_nasa_ads_recent(log_file: Path, count: int = 100) -> bool:
+    """Run NASA ADS acquisition (requires NASA_ADS_API_TOKEN or Secret Manager)."""
+    cmd = [
+        'python3',
+        str(BASE_DIR / 'scripts' / 'acquire_papers' / 'acquire_nasa_ads_batch.py'),
+        '--count', str(count),
+    ]
+    print(f"  Running NASA ADS paper acquisition")
+    print(f"    Target: {count} papers")
+    try:
+        with open(log_file, 'a') as log:
+            log.write(f"\n{'='*80}\n")
+            log.write(f"NASA ADS - {datetime.now().isoformat()}\n")
+            log.write(f"{'='*80}\n")
+            result = subprocess.run(
+                cmd,
+                cwd=str(BASE_DIR),
+                stdout=log,
+                stderr=subprocess.STDOUT,
+                timeout=3600
+            )
+            return result.returncode == 0
+    except subprocess.TimeoutExpired:
+        print(f"    ⚠️  NASA ADS acquisition timed out after 60 minutes")
+        return False
+    except Exception as e:
+        print(f"    ❌ Error: {e}")
+        return False
+
 def run_daily_scout(config: Dict) -> Dict:
     """Run the daily scout collection across all sources."""
     print(f"\n{'='*80}")
@@ -119,30 +179,62 @@ def run_daily_scout(config: Dict) -> Dict:
         key=lambda x: x[1].get('priority', 999)
     )
     
-    # Get daily limits from config
+    # Get per-run limits from config. The same runner can be scheduled more than once per day.
     limits = config.get('limits', {})
-    papers_per_source = limits.get('papers_per_source_per_day', 100)
+    base_per_source = int(limits.get('papers_per_source_per_run', limits.get('papers_per_source_per_day', 100)))
+    total_cap = limits.get('total_papers_per_run', limits.get('total_papers_per_day'))
+    source_weights = limits.get('source_weights', {})
+    n_sources = len(sources)
+    source_targets = {}
+    if total_cap is not None and n_sources > 0 and source_weights:
+        enabled_weights = {
+            name: max(0.0, float(source_weights.get(name, source_config.get('budget_weight', 0))))
+            for name, source_config in sources
+        }
+        total_weight = sum(enabled_weights.values())
+        if total_weight > 0:
+            for name, _source_config in sources:
+                weighted_target = max(1, round(int(total_cap) * enabled_weights[name] / total_weight))
+                source_targets[name] = min(base_per_source, weighted_target)
+            print(
+                f"📊 Per-run budget: up to {total_cap} total / {n_sources} source(s) "
+                f"using configured weights → "
+                + ", ".join(f"{name}: {count}" for name, count in source_targets.items())
+                + f" (per-source cap {base_per_source})."
+            )
+        else:
+            source_weights = {}
+    
+    if total_cap is not None and n_sources > 0 and not source_weights:
+        # Split the run budget evenly across enabled sources, never exceeding base_per_source.
+        per_source_from_cap = max(1, int(total_cap) // n_sources)
+        source_targets = {name: min(base_per_source, per_source_from_cap) for name, _source_config in sources}
+        print(f"📊 Per-run budget: up to {total_cap} total / {n_sources} source(s) → {per_source_from_cap} per source (cap {base_per_source} each).")
+    else:
+        if not source_targets:
+            source_targets = {name: base_per_source for name, _source_config in sources}
+            print(f"📊 {base_per_source} papers per enabled source (no total_papers_per_run split).")
     
     for source_name, source_config in sources:
         print(f"\n📚 Source: {source_name.upper()}")
         print(f"{'-'*80}")
         
+        papers_for_source = source_targets[source_name]
         source_results = {
-            'papers_targeted': papers_per_source,
+            'papers_targeted': papers_for_source,
             'success': False
         }
         
         log_file = LOG_DIR / f"{source_name}_{datetime.now().strftime('%Y%m%d')}.log"
         
         if source_name == 'pubmed':
-            success = run_pubmed_recent(log_file, papers_per_source)
+            success = run_pubmed_recent(log_file, papers_for_source)
+        elif source_name == 'biorxiv_medrxiv':
+            success = run_biorxiv_medrxiv_recent(log_file, papers_for_source)
         elif source_name == 'arxiv':
-            success = run_arxiv_recent(log_file, papers_per_source)
+            success = run_arxiv_recent(log_file, papers_for_source)
         elif source_name == 'nasa_ads':
-            # TODO: Implement NASA ADS runner
-            print(f"  ⚠️  NASA ADS acquisition not yet implemented in daily scout")
-            print(f"  💡 Run manually: python3 acquire_nasa_ads_batch.py --count {papers_per_source}")
-            success = False
+            success = run_nasa_ads_recent(log_file, papers_for_source)
         else:
             print(f"  ⚠️  Unknown source: {source_name}")
             success = False
@@ -159,6 +251,11 @@ def run_daily_scout(config: Dict) -> Dict:
         if source_name != sources[-1][0]:  # Don't wait after last source
             print(f"  ⏳ Waiting 10 seconds before next source...")
             time.sleep(10)
+    
+    # Overall run success only if every enabled source succeeded
+    results['success'] = all(
+        s.get('success', False) for s in results['sources'].values()
+    )
     
     print(f"\n{'='*80}")
     print(f"Daily Scout Complete - {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
@@ -210,7 +307,10 @@ def main():
         papers = source_results.get('papers_targeted', 'N/A')
         print(f"  {source_name}: {status} (targeted {papers} papers)")
     
-    sys.exit(0 if results['success'] else 1)
+    any_failed = not results.get('success', True)
+    if any_failed:
+        print("\n⚠️  One or more sources failed; see logs in:", LOG_DIR)
+    sys.exit(0 if results.get('success', False) else 1)
 
 if __name__ == '__main__':
     main()

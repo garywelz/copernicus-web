@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2605.13364v1",
+  "arxiv_id": "2605.13364v1",
+  "title": "Predicting Endocrine Disruptors: A Deep Learning QSAR Model for Estrogen Receptor Activity",
+  "authors": [
+    "Belaguppa Manjunath Ashwin Desai",
+    "Shreyas Murthy",
+    "Bhoomika Sridhar",
+    "Anirudh Belaguppa Manjunath",
+    "Vivien Humtsoe",
+    "Pronama Biswas"
+  ],
+  "author_string": "Belaguppa Manjunath Ashwin Desai, Shreyas Murthy, Bhoomika Sridhar, Anirudh Belaguppa Manjunath, Vivien Humtsoe et al.",
+  "journal": "2026 IEEE Bangalore Humanitarian Technology Conference (B-HTC)",
+  "journal_ref": "2026 IEEE Bangalore Humanitarian Technology Conference (B-HTC)",
+  "year": "2026",
+  "doi": "10.1109/B-HTC67770.2026.11502197",
+  "abstract": "Endocrine-disrupting chemicals (EDCs) threaten human health, ecosystems, and biodiversity by interfering with hormonal signaling pathways conserved across vertebrates. Traditional in vivo assays are costly and time-consuming, limiting their capacity to screen the growing number of chemicals. To address this, we developed a deep learning-based QSAR model to predict estrogen receptor (ER) binding molecules. Using a curated dataset of 224 compounds and 2,944 molecular descriptors and fingerprints, a deep neural network (DNN) incorporating dropout and batch normalization was trained and validated. The model achieved training and test accuracies of 96.65% and 91.30%, respectively, with an ROC-AUC of 0.81, a precision of 0.82, and a recall of 0.88 for the active class. Molecular docking against estrogen receptor (PDB ID: 5TOA) confirmed that several predicted compounds exhibited binding comparable to Estradiol, sharing key interactions. This model enables rapid screening of potential EDCs, supporting efficient chemical risk assessment and contributing to biodiversity conservation by identifying compounds that may disrupt reproduction and population stability in humans and wildlife.",
+  "categories": [
+    "q-bio.BM"
+  ],
+  "primary_category": "q-bio.BM",
+  "comment": "Copyright IEEE 2026. Permission from IEEE must be obtained for all other uses, including reprinting/republishing for advertising or promotional purposes, creating new collective works, for resale or redistribution to servers or lists, or reuse of any copyrighted component of this work. DOI: 10.1109/B-HTC67770.2026.11502197",
+  "published_date": "2026-05-13T11:24:46Z",
+  "updated_date": "2026-05-13T11:24:46Z",
+  "url": "https://arxiv.org/abs/2605.13364v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.13364v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-19T10:15:36.792922",
+  "category": "biology",
+  "subcategories": [
+    "q-bio.BM"
+  ]
+}

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Molecular Dynamics Simulation Setup - Chemistry Process</title>
+    <title>Molecular Dynamics Setup - Chemistry Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Molecular Dynamics Simulation Setup</h1>
+            <h1>Molecular Dynamics Setup</h1>
             <div class="header-meta">
                 <span class="meta-item">Chemistry</span>
                 <span class="meta-item">Quantum Chemistry</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,35 +234,60 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Molecular Dynamics Simulation Setup process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>Setting up an MD simulation: define the system and force field, build and minimize the configuration, assign velocities and equilibrate under a thermostat/barostat, then run production dynamics with a stable integration timestep before analyzing the trajectory.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-N1["Molecular Hamiltonian Setup"]
-N2["Basis Set/Representation"]
-N3["Electronic Structure Method"]
-N4["Solve Schrödinger Equation (approx.)"]
-N5["Wavefunction/Density"]
-N6["Energies/Orbitals/Properties"]
+    N1["System + force field"]
+    N2["Build / solvate config"]
+    N3["Energy minimization"]
+    N4["Assign velocities (T)"]
+    N5["Equilibrate (NVT/NPT)"]
+    N6{"Equilibrated?"}
+    N7["Extend equilibration"]
+    N8["Production run"]
+    N9{"Timestep stable?"}
+    N10["Reduce timestep"]
+    N11["Trajectory analysis"]
 
-N1 --> N2
-N2 --> N3
-N3 --> N4
-N4 --> N5
-N5 --> N6
+    N1 --> N2
+    N2 --> N3
+    N3 --> N4
+    N4 --> N5
+    N5 --> N6
+    N6 -->|no| N7
+    N7 -->|continue| N5
+    N6 -->|yes| N8
+    N8 --> N9
+    N9 -->|no| N10
+    N10 -->|rerun| N8
+    N9 -->|yes| N11
 
     style N1 fill:#ff6b6b,color:#fff
-    style N2 fill:#ffd43b,color:#000
-    style N3 fill:#ffd43b,color:#000
+    style N2 fill:#51cf66,color:#fff
+    style N3 fill:#51cf66,color:#fff
     style N4 fill:#51cf66,color:#fff
-    style N5 fill:#74c0fc,color:#fff
-    style N6 fill:#b197fc,color:#fff
+    style N5 fill:#51cf66,color:#fff
+    style N6 fill:#74c0fc,color:#fff
+    style N7 fill:#51cf66,color:#fff
+    style N8 fill:#51cf66,color:#fff
+    style N9 fill:#74c0fc,color:#fff
+    style N10 fill:#51cf66,color:#fff
+    style N11 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">System + force field</td><td>Triggers & Inputs</td><td><a href="https://doi.org/10.1002/jcc.20289" target="_blank" title="Scalable molecular dynamics with NAMD" style="color:#e74c3c;">Phillips, J. C. et al. 2005</a></td></tr><tr><td style="font-weight:600;">Build / solvate config</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1016/B978-0-12-267351-1.X5000-7" target="_blank" title="Understanding Molecular Simulation: From Algorithms to Applications, 2nd ed." style="color:#e74c3c;">Frenkel, D. et al. 2002</a></td></tr><tr><td style="font-weight:600;">Energy minimization</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1016/B978-0-12-267351-1.X5000-7" target="_blank" title="Understanding Molecular Simulation: From Algorithms to Applications, 2nd ed." style="color:#e74c3c;">Frenkel, D. et al. 2002</a></td></tr><tr><td style="font-weight:600;">Assign velocities (T)</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1016/B978-0-12-267351-1.X5000-7" target="_blank" title="Understanding Molecular Simulation: From Algorithms to Applications, 2nd ed." style="color:#e74c3c;">Frenkel, D. et al. 2002</a></td></tr><tr><td style="font-weight:600;">Equilibrate (NVT/NPT)</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1016/B978-0-12-267351-1.X5000-7" target="_blank" title="Understanding Molecular Simulation: From Algorithms to Applications, 2nd ed." style="color:#e74c3c;">Frenkel, D. et al. 2002</a></td></tr><tr><td style="font-weight:600;">Equilibrated?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1016/B978-0-12-267351-1.X5000-7" target="_blank" title="Understanding Molecular Simulation: From Algorithms to Applications, 2nd ed." style="color:#e74c3c;">Frenkel, D. et al. 2002</a></td></tr><tr><td style="font-weight:600;">Extend equilibration</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1016/B978-0-12-267351-1.X5000-7" target="_blank" title="Understanding Molecular Simulation: From Algorithms to Applications, 2nd ed." style="color:#e74c3c;">Frenkel, D. et al. 2002</a></td></tr><tr><td style="font-weight:600;">Production run</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1103/PhysRev.159.98" target="_blank" title="Computer Experiments on Classical Fluids (Verlet integration)" style="color:#e74c3c;">Verlet, L. 1967</a></td></tr><tr><td style="font-weight:600;">Timestep stable?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1103/PhysRev.159.98" target="_blank" title="Computer Experiments on Classical Fluids (Verlet integration)" style="color:#e74c3c;">Verlet, L. 1967</a></td></tr><tr><td style="font-weight:600;">Reduce timestep</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1103/PhysRev.159.98" target="_blank" title="Computer Experiments on Classical Fluids (Verlet integration)" style="color:#e74c3c;">Verlet, L. 1967</a></td></tr><tr><td style="font-weight:600;">Trajectory analysis</td><td>Products & Outputs</td><td><a href="https://doi.org/10.1002/jcc.20289" target="_blank" title="Scalable molecular dynamics with NAMD" style="color:#e74c3c;">Phillips, J. C. et al. 2005</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -281,12 +333,12 @@ N5 --> N6
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 6</li>
-                        <li><strong>Edges:</strong> 5</li>
-                        <li><strong>Conditionals:</strong> 0</li>
-                        <li><strong>AND Gates:</strong> 0</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 0</li>
+                        <li><strong>Nodes:</strong> 11</li>
+                        <li><strong>Edges:</strong> 12</li>
+                        <li><strong>Conditionals:</strong> 2</li>
+                        <li><strong>AND Gates:</strong> 2</li>
+                        <li><strong>OR Gates:</strong> 2</li>
+                        <li><strong>Total Gates:</strong> 4</li>
                     </ul>
                 </div>
                 
@@ -294,7 +346,7 @@ N5 --> N6
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>molecular</li><li>dynamics</li><li>simulation</li><li>setup</li>
+                        <li>molecular dynamics</li><li>force field</li><li>equilibration</li><li>verlet integration</li><li>thermostat</li>
                     </ul>
                 </div>
                 
@@ -305,42 +357,32 @@ N5 --> N6
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Computer Experiments on Classical Fluids (Verlet integration)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Verlet, L.
+                            , Physical Review
+                             (1967)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Molecular dynamics simulations of protein aggregation: protocols for simulation setup and analysis with Markov state models and transition networks</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Samantray, Suman; Schumann, Wibke; Illig, Alexander-Maurice; Carballo-Pacheco, Martin; Paul, Arghadwip; Barz, Bogdan; Strodel, Birgit
-                            
-                             (2020)
-                            </span>
-                            <br><a href="https://doi.org/10.1101/2020.04.25.060269" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1101/2020.04.25.060269</a>
+                            <br><a href="https://doi.org/10.1103/PhysRev.159.98" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1103/PhysRev.159.98</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Control techniques of molecular dynamics simulation</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Zhou, Kun; Liu, Bo
-                            , Molecular Dynamics Simulation
-                             (2022)
+                            <strong>Understanding Molecular Simulation: From Algorithms to Applications, 2nd ed.</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Frenkel, D.; Smit, B.
+                            , Academic Press
+                             (2002)
                             </span>
-                            <br><a href="https://doi.org/10.1016/b978-0-12-816419-8.00008-8" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1016/b978-0-12-816419-8.00008-8</a>
+                            <br><a href="https://doi.org/10.1016/B978-0-12-267351-1.X5000-7" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1016/B978-0-12-267351-1.X5000-7</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Fundamentals of classical molecular dynamics simulation</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Zhou, Kun; Liu, Bo
-                            , Molecular Dynamics Simulation
-                             (2022)
+                            <strong>Scalable molecular dynamics with NAMD</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Phillips, J. C.; et al.
+                            , Journal of Computational Chemistry
+                             (2005)
                             </span>
-                            <br><a href="https://doi.org/10.1016/b978-0-12-816419-8.00006-4" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1016/b978-0-12-816419-8.00006-4</a>
+                            <br><a href="https://doi.org/10.1002/jcc.20289" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1002/jcc.20289</a>
                             
                         </li>
                         

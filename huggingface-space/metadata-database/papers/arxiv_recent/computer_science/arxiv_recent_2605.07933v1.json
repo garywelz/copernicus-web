@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2605.07933v1",
+  "arxiv_id": "2605.07933v1",
+  "title": "How to Train Your Latent Diffusion Language Model Jointly With the Latent Space",
+  "authors": [
+    "Viacheslav Meshchaninov",
+    "Alexander Shabalin",
+    "Egor Chimbulatov",
+    "Nikita Gushchin",
+    "Ilya Koziev",
+    "Alexander Korotin",
+    "Dmitry Vetrov"
+  ],
+  "author_string": "Viacheslav Meshchaninov, Alexander Shabalin, Egor Chimbulatov, Nikita Gushchin, Ilya Koziev et al.",
+  "journal": "arXiv:2605.07933v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Latent diffusion models offer an attractive alternative to discrete diffusion for non-autoregressive text generation by operating on continuous text representations and denoising entire sequences in parallel. The major challenge in latent diffusion modeling is constructing a suitable latent space. In this work, we present the Latent Diffusion Language Model (LDLM), in which the latent encoder, diffusion model, and decoder are trained jointly. LDLM builds its latent space by reshaping the representations of a pre-trained language model with a trainable encoder, yielding latents that are easy to both denoise and decode into tokens. We show that naive joint training produces a low-quality diffusion model, and propose a simple training recipe consisting of an MSE decoder loss, diffusion-to-encoder warmup, adaptive timestep sampling, and decoder-input noise. Ablations show that each component substantially impacts generation performance. On OpenWebText and LM1B, LDLM achieves better generation performance than existing discrete and continuous diffusion language models while being $2{\\text -}13\\times$ faster, indicating that jointly learning the latent space is a key step toward making latent diffusion competitive for text generation.",
+  "categories": [
+    "cs.CL"
+  ],
+  "primary_category": "cs.CL",
+  "comment": null,
+  "published_date": "2026-05-08T16:05:19Z",
+  "updated_date": "2026-05-08T16:05:19Z",
+  "url": "https://arxiv.org/abs/2605.07933v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.07933v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-10T22:17:15.403730",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CL"
+  ]
+}

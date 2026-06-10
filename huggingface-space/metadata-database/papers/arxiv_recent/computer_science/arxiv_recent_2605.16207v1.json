@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_2605.16207v1",
+  "arxiv_id": "2605.16207v1",
+  "title": "Confirming Correct, Missing the Rest: LLM Tutoring Agents Struggle Where Feedback Matters Most",
+  "authors": [
+    "Tahreem Yasir",
+    "Wenbo Li",
+    "Sam Gilson",
+    "Sutapa Dey Tithi",
+    "Xiaoyi Tian",
+    "Tiffany Barnes"
+  ],
+  "author_string": "Tahreem Yasir, Wenbo Li, Sam Gilson, Sutapa Dey Tithi, Xiaoyi Tian et al.",
+  "journal": "arXiv:2605.16207v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Effective tutoring requires distinguishing optimal, valid but suboptimal, and incorrect student solutions, a distinction central to intelligent tutoring systems (ITS) but untested for LLM-based tutors. As LLMs are increasingly explored as conversational complements to ITS, evaluating their diagnostic precision is essential. We present a benchmark of seven LLM feedback agents in propositional logic using knowledge-graph-derived ground truth across 10,836 solution--feedback pairs and three feedback conditions. Models achieved near-ceiling performance on optimal steps but systematically over-rejected valid but suboptimal reasoning and over-validated incorrect solutions, precisely where adaptive tutoring matters most. These failures persisted across models regardless of solution context, suggesting architectural rather than informational limits. Moreover, accurate diagnosis did not reliably produce pedagogically actionable feedback, revealing a gap between diagnostic judgment and instructional effectiveness. Our findings suggest that LLMs are better suited for hybrid architectures where KG-grounded models handle diagnosis while LLMs support open-ended scaffolding and dialogue.",
+  "categories": [
+    "cs.AI",
+    "cs.CL"
+  ],
+  "primary_category": "cs.CL",
+  "comment": "22 pages, 20 fgures",
+  "published_date": "2026-05-15T17:24:42Z",
+  "updated_date": "2026-05-15T17:24:42Z",
+  "url": "https://arxiv.org/abs/2605.16207v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.16207v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-18T10:15:47.146033",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.AI",
+    "cs.CL"
+  ]
+}

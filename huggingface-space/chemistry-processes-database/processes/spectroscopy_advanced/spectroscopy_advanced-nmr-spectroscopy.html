@@ -167,6 +167,33 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
@@ -176,7 +203,7 @@
             <div class="header-meta">
                 <span class="meta-item">Chemistry</span>
                 <span class="meta-item">Spectroscopy Advanced</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,68 +234,56 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>NMR Spectroscopy process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>In NMR, nuclei in a magnetic field are excited by an RF pulse; the recorded free-induction decay is Fourier-transformed to a spectrum where chemical shifts report electronic environment and spin-spin coupling splits signals, while integration counts equivalent nuclei.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-A3[Magnetic Field] --> B3[NMR Spectroscopy Method]
-C3[Nuclear Sample] --> D3[Radiofrequency Control]
-E3[Detector System] --> F3[Data Collection]
-B3 --> G3[Magnet Setup]
-D3 --> H3[RF Pulse Control]
-F3 --> I3[Signal Processing]
-G3 --> J3[Field Alignment]
-H3 --> K3[Pulse Sequence]
-I3 --> L3[Free Induction Decay]
-J3 --> M3[Nuclear Alignment]
-K3 --> L3
-L3 --> N3[Nuclear Spin Transitions]
-M3 --> O3[Sample Irradiation]
-N3 --> P3[Spin Relaxation]
-O3 --> Q3[Spectroscopic Analysis]
-P3 --> R3[NMR Spectrum]
-Q3 --> S3[Chemical Shift Analysis]
-R3 --> T3[Molecular Structure]
-S3 --> U3[Spin Analysis]
-T3 --> V3[Structure Determination]
-U3 --> W3[Spectroscopic Efficiency]
-V3 --> X3[Molecular Characterization]
-W3 --> Y3[Process Optimization]
-X3 --> Z3[Final NMR Spectrum]
-Y3 --> Z3
+    N1["Sample in magnetic field"]
+    N2["Nuclei align (Zeeman)"]
+    N3["RF pulse excites spins"]
+    N4["Free induction decay"]
+    N5["Fourier transform"]
+    N6["Chemical shifts"]
+    N7{"Spin-spin coupling?"}
+    N8["Multiplet (n+1 rule)"]
+    N9["Singlet (no neighbors)"]
+    N10["Integrate + assign"]
 
-    style A3 fill:#ff6b6b,color:#fff
-    style C3 fill:#ff6b6b,color:#fff
-    style E3 fill:#ff6b6b,color:#fff
-    style B3 fill:#ffd43b,color:#000
-    style D3 fill:#ffd43b,color:#000
-    style F3 fill:#ffd43b,color:#000
-    style G3 fill:#ffd43b,color:#000
-    style H3 fill:#ffd43b,color:#000
-    style I3 fill:#ffd43b,color:#000
-    style J3 fill:#ffd43b,color:#000
-    style K3 fill:#ffd43b,color:#000
-    style L3 fill:#ffd43b,color:#000
-    style M3 fill:#51cf66,color:#fff
+    N1 --> N2
+    N2 --> N3
+    N3 --> N4
+    N4 --> N5
+    N5 --> N6
+    N6 --> N7
+    N7 -->|yes| N8
+    N7 -->|no| N9
+    N8 --> N10
+    N9 --> N10
+
+    style N1 fill:#ff6b6b,color:#fff
+    style N2 fill:#51cf66,color:#fff
     style N3 fill:#51cf66,color:#fff
-    style O3 fill:#51cf66,color:#fff
-    style P3 fill:#51cf66,color:#fff
-    style Q3 fill:#51cf66,color:#fff
-    style R3 fill:#51cf66,color:#fff
-    style S3 fill:#51cf66,color:#fff
-    style T3 fill:#51cf66,color:#fff
-    style U3 fill:#51cf66,color:#fff
-    style V3 fill:#51cf66,color:#fff
-    style W3 fill:#51cf66,color:#fff
-    style X3 fill:#51cf66,color:#fff
-    style Y3 fill:#51cf66,color:#fff
-    style Z3 fill:#b197fc,color:#fff
+    style N4 fill:#74c0fc,color:#fff
+    style N5 fill:#51cf66,color:#fff
+    style N6 fill:#51cf66,color:#fff
+    style N7 fill:#74c0fc,color:#fff
+    style N8 fill:#51cf66,color:#fff
+    style N9 fill:#51cf66,color:#fff
+    style N10 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Sample in magnetic field</td><td>Triggers & Inputs</td><td><a href="https://www.wiley.com/en-us/Understanding+NMR+Spectroscopy%2C+2nd+Edition-p-9780470746080" target="_blank" title="Understanding NMR Spectroscopy, 2nd ed." style="color:#e74c3c;">Keeler, J. 2010</a></td></tr><tr><td style="font-weight:600;">Nuclei align (Zeeman)</td><td>Processing & Operations</td><td><a href="https://www.wiley.com/en-us/Understanding+NMR+Spectroscopy%2C+2nd+Edition-p-9780470746080" target="_blank" title="Understanding NMR Spectroscopy, 2nd ed." style="color:#e74c3c;">Keeler, J. 2010</a></td></tr><tr><td style="font-weight:600;">RF pulse excites spins</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1063/1.1719961" target="_blank" title="Application of Fourier transform spectroscopy to magnetic resonance" style="color:#e74c3c;">Ernst, R. R. et al. 1966</a></td></tr><tr><td style="font-weight:600;">Free induction decay</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1063/1.1719961" target="_blank" title="Application of Fourier transform spectroscopy to magnetic resonance" style="color:#e74c3c;">Ernst, R. R. et al. 1966</a></td></tr><tr><td style="font-weight:600;">Fourier transform</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1063/1.1719961" target="_blank" title="Application of Fourier transform spectroscopy to magnetic resonance" style="color:#e74c3c;">Ernst, R. R. et al. 1966</a></td></tr><tr><td style="font-weight:600;">Chemical shifts</td><td>Processing & Operations</td><td><a href="https://www.cengage.com/c/principles-of-instrumental-analysis-7e-skoog/9781305577213/" target="_blank" title="Principles of Instrumental Analysis, 7th ed. — NMR Spectroscopy" style="color:#e74c3c;">Skoog, D. A. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Spin-spin coupling?</td><td>Intermediates & States</td><td><a href="https://www.cengage.com/c/principles-of-instrumental-analysis-7e-skoog/9781305577213/" target="_blank" title="Principles of Instrumental Analysis, 7th ed. — NMR Spectroscopy" style="color:#e74c3c;">Skoog, D. A. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Multiplet (n+1 rule)</td><td>Processing & Operations</td><td><a href="https://www.cengage.com/c/principles-of-instrumental-analysis-7e-skoog/9781305577213/" target="_blank" title="Principles of Instrumental Analysis, 7th ed. — NMR Spectroscopy" style="color:#e74c3c;">Skoog, D. A. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Singlet (no neighbors)</td><td>Processing & Operations</td><td><a href="https://www.cengage.com/c/principles-of-instrumental-analysis-7e-skoog/9781305577213/" target="_blank" title="Principles of Instrumental Analysis, 7th ed. — NMR Spectroscopy" style="color:#e74c3c;">Skoog, D. A. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Integrate + assign</td><td>Products & Outputs</td><td><a href="https://www.wiley.com/en-us/Understanding+NMR+Spectroscopy%2C+2nd+Edition-p-9780470746080" target="_blank" title="Understanding NMR Spectroscopy, 2nd ed." style="color:#e74c3c;">Keeler, J. 2010</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -314,12 +329,12 @@ Y3 --> Z3
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 26</li>
-                        <li><strong>Edges:</strong> 22</li>
-                        <li><strong>Conditionals:</strong> 0</li>
+                        <li><strong>Nodes:</strong> 10</li>
+                        <li><strong>Edges:</strong> 10</li>
+                        <li><strong>Conditionals:</strong> 1</li>
                         <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 1</li>
+                        <li><strong>OR Gates:</strong> 1</li>
+                        <li><strong>Total Gates:</strong> 2</li>
                     </ul>
                 </div>
                 
@@ -327,7 +342,7 @@ Y3 --> Z3
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>nmr</li><li>spectroscopy</li>
+                        <li>nmr</li><li>chemical shift</li><li>spin-spin coupling</li><li>free induction decay</li><li>integration</li>
                     </ul>
                 </div>
                 
@@ -338,43 +353,33 @@ Y3 --> Z3
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Understanding NMR Spectroscopy, 2nd ed.</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Keeler, J.
+                            , Wiley
+                             (2010)
                             </span>
                             
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
+                            <br><a href="https://www.wiley.com/en-us/Understanding+NMR+Spectroscopy%2C+2nd+Edition-p-9780470746080" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Dynamic NMR spectroscopy</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Iggo, Jonathan A.; Luzyanin, Konstantin V.
-                            , NMR Spectroscopy in Inorganic Chemistry
-                             (2020)
+                            <strong>Application of Fourier transform spectroscopy to magnetic resonance</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Ernst, R. R.; Anderson, W. A.
+                            , Review of Scientific Instruments
+                             (1966)
                             </span>
-                            <br><a href="https://doi.org/10.1093/hesc/9780198794851.003.0006" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1093/hesc/9780198794851.003.0006</a>
-                            
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>The Role of NMR Spectroscopy in Understanding How Proteins Fold</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Dobson, C.M.
-                            , Biological NMR Spectroscopy
-                             (1997)
-                            </span>
-                            <br><a href="https://doi.org/10.1093/oso/9780195094688.003.0014" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1093/oso/9780195094688.003.0014</a>
+                            <br><a href="https://doi.org/10.1063/1.1719961" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1063/1.1719961</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>In-Cell NMR Spectroscopy</strong>
-                            
-                            
-                             (2020)
+                            <strong>Principles of Instrumental Analysis, 7th ed. — NMR Spectroscopy</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Skoog, D. A.; Holler, F. J.; Crouch, S. R.
+                            , Cengage Learning
+                             (2018)
                             </span>
-                            <br><a href="https://doi.org/10.3390/books978-3-03928-255-5" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.3390/books978-3-03928-255-5</a>
                             
+                            <br><a href="https://www.cengage.com/c/principles-of-instrumental-analysis-7e-skoog/9781305577213/" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
                         </li>
                         
                     </ul>

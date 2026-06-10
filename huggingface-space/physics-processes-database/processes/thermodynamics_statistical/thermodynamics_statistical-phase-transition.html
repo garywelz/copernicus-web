@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Phase Transition - Physics Process</title>
+    <title>Ising Model Phase Transition - Physics Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Phase Transition</h1>
+            <h1>Ising Model Phase Transition</h1>
             <div class="header-meta">
                 <span class="meta-item">Physics</span>
                 <span class="meta-item">Thermodynamics & Statistical Physics</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,67 +234,59 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Phase Transition Process. This thermodynamics process visualization demonstrates phase transitions and critical phenomena. The flowchart shows phase inputs and temperature changes, phase transition methods and critical points, phase transition operations and order parameters, intermediate results, and final phase transition outputs.</p>
+                <p>The Ising model captures a continuous phase transition: from the spin Hamiltonian the partition function gives the free energy and the magnetization order parameter; below the critical temperature the system spontaneously breaks symmetry into an ordered phase, with critical exponents describing behavior near Tc.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-A3[Phase State] --> B3[Phase Transition Method]
-C3[Temperature Change] --> D3[Critical Point]
-E3[Order Parameter] --> F3[Phase Transition Analysis]
-B3 --> G3[First Order Transition]
-D3 --> H3[Second Order Transition]
-F3 --> I3[Critical Phenomena]
-G3 --> J3[Latent Heat]
-H3 --> K3[Order Parameter]
-I3 --> L3[Scaling Behavior]
-J3 --> M3[Phase Coexistence]
-K3 --> L3
-L3 --> N3[Critical Exponents]
-M3 --> O3[Phase Diagram]
-N3 --> P3[Universality Class]
-O3 --> Q3[Phase Transition Process]
-P3 --> R3[Phase Transition Validation]
-Q3 --> S3[Phase Transition Verification]
-R3 --> T3[Phase Transition Result]
-S3 --> U3[Phase Transition Analysis]
-T3 --> V3[Phase Transition Parameters]
-U3 --> W3[Phase Transition Output]
-V3 --> X3[Phase Transition Analysis]
-W3 --> Y3[Phase Transition Final Result]
-X3 --> Z3[Phase Transition Complete]
+    N1["Many interacting spins"]
+    N2["Ising Hamiltonian"]
+    N3["Compute partition function"]
+    N4["Free energy F=-kT ln Z"]
+    N5["Order parameter m"]
+    N6{"Below critical temp Tc?"}
+    N7["Disordered: m = 0"]
+    N8["Ordered: m != 0"]
+    N9["Symmetry breaking"]
+    N10["Critical exponents near Tc"]
+    N11["Phase transition described"]
 
-    style A3 fill:#ff6b6b,color:#fff
-    style C3 fill:#ff6b6b,color:#fff
-    style E3 fill:#ff6b6b,color:#fff
-    style B3 fill:#ffd43b,color:#000
-    style D3 fill:#ffd43b,color:#000
-    style F3 fill:#ffd43b,color:#000
-    style G3 fill:#ffd43b,color:#000
-    style H3 fill:#ffd43b,color:#000
-    style I3 fill:#ffd43b,color:#000
-    style J3 fill:#ffd43b,color:#000
-    style K3 fill:#ffd43b,color:#000
-    style L3 fill:#ffd43b,color:#000
-    style M3 fill:#51cf66,color:#fff
+    N1 --> N2
+    N2 --> N3
+    N3 --> N4
+    N4 --> N5
+    N5 --> N6
+    N6 -->|no| N7
+    N6 -->|yes| N8
+    N7 --> N11
+    N8 --> N9
+    N9 --> N10
+    N10 --> N11
+
+    style N1 fill:#ff6b6b,color:#fff
+    style N2 fill:#51cf66,color:#fff
     style N3 fill:#51cf66,color:#fff
-    style O3 fill:#51cf66,color:#fff
-    style P3 fill:#51cf66,color:#fff
-    style Q3 fill:#51cf66,color:#fff
-    style R3 fill:#51cf66,color:#fff
-    style S3 fill:#51cf66,color:#fff
-    style T3 fill:#51cf66,color:#fff
-    style U3 fill:#51cf66,color:#fff
-    style V3 fill:#51cf66,color:#fff
-    style W3 fill:#51cf66,color:#fff
-    style X3 fill:#51cf66,color:#fff
-    style Y3 fill:#51cf66,color:#fff
-    style Z3 fill:#b197fc,color:#fff
+    style N4 fill:#74c0fc,color:#fff
+    style N5 fill:#51cf66,color:#fff
+    style N6 fill:#74c0fc,color:#fff
+    style N7 fill:#51cf66,color:#fff
+    style N8 fill:#51cf66,color:#fff
+    style N9 fill:#74c0fc,color:#fff
+    style N10 fill:#51cf66,color:#fff
+    style N11 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Many interacting spins</td><td>Triggers & Inputs</td><td><a href="https://doi.org/10.1007/BF02980577" target="_blank" title="Beitrag zur Theorie des Ferromagnetismus" style="color:#3498db;">Ising, E. 1925</a></td></tr><tr><td style="font-weight:600;">Ising Hamiltonian</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1007/BF02980577" target="_blank" title="Beitrag zur Theorie des Ferromagnetismus" style="color:#3498db;">Ising, E. 1925</a></td></tr><tr><td style="font-weight:600;">Compute partition function</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1103/PhysRev.65.117" target="_blank" title="Crystal statistics. I. A two-dimensional model with an order-disorder transition" style="color:#3498db;">Onsager, L. 1944</a></td></tr><tr><td style="font-weight:600;">Free energy F=-kT ln Z</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1103/PhysRev.65.117" target="_blank" title="Crystal statistics. I. A two-dimensional model with an order-disorder transition" style="color:#3498db;">Onsager, L. 1944</a></td></tr><tr><td style="font-weight:600;">Order parameter m</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1103/PhysRev.65.117" target="_blank" title="Crystal statistics. I. A two-dimensional model with an order-disorder transition" style="color:#3498db;">Onsager, L. 1944</a></td></tr><tr><td style="font-weight:600;">Below critical temp Tc?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1103/PhysRev.65.117" target="_blank" title="Crystal statistics. I. A two-dimensional model with an order-disorder transition" style="color:#3498db;">Onsager, L. 1944</a></td></tr><tr><td style="font-weight:600;">Disordered: m = 0</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1103/PhysRev.65.117" target="_blank" title="Crystal statistics. I. A two-dimensional model with an order-disorder transition" style="color:#3498db;">Onsager, L. 1944</a></td></tr><tr><td style="font-weight:600;">Ordered: m != 0</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1103/PhysRev.65.117" target="_blank" title="Crystal statistics. I. A two-dimensional model with an order-disorder transition" style="color:#3498db;">Onsager, L. 1944</a></td></tr><tr><td style="font-weight:600;">Symmetry breaking</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1103/PhysRev.65.117" target="_blank" title="Crystal statistics. I. A two-dimensional model with an order-disorder transition" style="color:#3498db;">Onsager, L. 1944</a></td></tr><tr><td style="font-weight:600;">Critical exponents near Tc</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1103/PhysRev.65.117" target="_blank" title="Crystal statistics. I. A two-dimensional model with an order-disorder transition" style="color:#3498db;">Onsager, L. 1944</a></td></tr><tr><td style="font-weight:600;">Phase transition described</td><td>Products & Outputs</td><td><a href="https://doi.org/10.1007/BF02980577" target="_blank" title="Beitrag zur Theorie des Ferromagnetismus" style="color:#3498db;">Ising, E. 1925</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -313,12 +332,12 @@ X3 --> Z3[Phase Transition Complete]
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 26</li>
-                        <li><strong>Edges:</strong> 24</li>
-                        <li><strong>Conditionals:</strong> 0</li>
+                        <li><strong>Nodes:</strong> 11</li>
+                        <li><strong>Edges:</strong> 11</li>
+                        <li><strong>Conditionals:</strong> 1</li>
                         <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 1</li>
+                        <li><strong>OR Gates:</strong> 1</li>
+                        <li><strong>Total Gates:</strong> 2</li>
                     </ul>
                 </div>
                 
@@ -326,7 +345,7 @@ X3 --> Z3[Phase Transition Complete]
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>statistical</li><li>thermodynamics</li><li>phase</li><li>physics</li><li>transition</li>
+                        <li>Ising model</li><li>phase transition</li><li>order parameter</li><li>spontaneous symmetry breaking</li><li>critical exponents</li>
                     </ul>
                 </div>
                 
@@ -337,42 +356,22 @@ X3 --> Z3[Phase Transition Complete]
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Crystal statistics. I. A two-dimensional model with an order-disorder transition</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Onsager, L.
+                            , Physical Review
+                             (1944)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #3498db; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>The Renormalization Group: Critical Phenomena and the Kondo Problem</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Wilson, K. G.
-                            , Rev. Mod. Phys.
-                             (1975)
-                            </span>
-                            <br><a href="https://doi.org/10.1103/RevModPhys.47.773" target="_blank" style="color: #3498db; font-size: 0.85em;">DOI: 10.1103/RevModPhys.47.773</a>
+                            <br><a href="https://doi.org/10.1103/PhysRev.65.117" target="_blank" style="color: #3498db; font-size: 0.85em;">DOI: 10.1103/PhysRev.65.117</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Renormalization Group Theory of Critical Phenomena</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Fisher, M. E.
-                            , Rev. Mod. Phys.
-                             (1983)
+                            <strong>Beitrag zur Theorie des Ferromagnetismus</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Ising, E.
+                            , Zeitschrift fur Physik
+                             (1925)
                             </span>
-                            <br><a href="https://doi.org/10.1103/RevModPhys.55.805" target="_blank" style="color: #3498db; font-size: 0.85em;">DOI: 10.1103/RevModPhys.55.805</a>
-                            
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Computational studies of phase transitions and critical phenomena: From classical to quantum systems</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Binder, K.
-                            , Rev. Mod. Phys.
-                             (2015)
-                            </span>
-                            <br><a href="https://doi.org/10.1103/RevModPhys.87.867" target="_blank" style="color: #3498db; font-size: 0.85em;">DOI: 10.1103/RevModPhys.87.867</a>
+                            <br><a href="https://doi.org/10.1007/BF02980577" target="_blank" style="color: #3498db; font-size: 0.85em;">DOI: 10.1007/BF02980577</a>
                             
                         </li>
                         

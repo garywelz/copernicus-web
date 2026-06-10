@@ -1,0 +1,38 @@
+{
+  "id": "arxiv_2604.23792v1",
+  "arxiv_id": "2604.23792v1",
+  "title": "Beyond the Final Label: Exploiting the Untapped Potential of Classification Histories in Astronomical Light Curve Analysis",
+  "authors": [
+    "Zhuoyang Zhou",
+    "Alex I. Malz",
+    "Chad M. Schafer",
+    "Konstantin Malanchev",
+    "Guillermo Cabrera-Vives",
+    "Christopher Hernández"
+  ],
+  "author_string": "Zhuoyang Zhou, Alex I. Malz, Chad M. Schafer, Konstantin Malanchev, Guillermo Cabrera-Vives et al.",
+  "journal": "arXiv:2604.23792v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "The Legacy Survey of Space and Time (LSST) on the Vera C. Rubin Observatory will generate a massive collection of time series (light curves) of the measured flux of transient and variable astronomical objects. With each new flux observation, light curve classifiers need to generate updated probability distributions over candidate classes, which will then be shared with the global community for the purpose of identifying interesting targets for follow-up observations as well as less time-sensitive analysis applications. Using the synthetic light curves and classification results of participating classifiers from the Extended LSST Astronomical Time-series Classification Challenge (ELAsTiCC), we investigate a novel framework to enhance existing light curve classifications by incorporating their classification histories and the temporal evolution of these histories. To demonstrate the potential of this approach, we introduce a model that combines a recurrent neural network and an additive attention module, which shows improved classification accuracy and more balanced precision-recall performance compared to existing classifiers from the challenge. Furthermore, at this stage, most, if not all, of the existing classifiers are evaluated by their final classification results on complete light curves; we propose new metrics that evaluate the stability, accuracy, and early classification performance of a classifier's predictions when using limited data by considering the Wasserstein distance between the temporally evolving classification probability distributions. Our metrics offer a more comprehensive perspective for model assessment by supplementing classical methods such as the confusion matrix and precision-recall.",
+  "categories": [
+    "astro-ph.IM",
+    "astro-ph.CO",
+    "stat.AP"
+  ],
+  "primary_category": "stat.AP",
+  "comment": "26 pages, 10 figures; prepared for submission to ApJ",
+  "published_date": "2026-04-26T16:31:50Z",
+  "updated_date": "2026-04-26T16:31:50Z",
+  "url": "https://arxiv.org/abs/2604.23792v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.23792v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-27T22:15:30.655913",
+  "category": "mathematics",
+  "subcategories": [
+    "astro-ph.IM",
+    "astro-ph.CO",
+    "stat.AP"
+  ]
+}

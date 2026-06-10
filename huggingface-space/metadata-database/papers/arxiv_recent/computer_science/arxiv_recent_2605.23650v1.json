@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2605.23650v1",
+  "arxiv_id": "2605.23650v1",
+  "title": "Learning Kernel-Based MDPs from Episodic Preferential Feedback",
+  "authors": [
+    "Nikola Pavlovic",
+    "Sattar Vakili",
+    "Qing Zhao"
+  ],
+  "author_string": "Nikola Pavlovic, Sattar Vakili, Qing Zhao",
+  "journal": "arXiv:2605.23650v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Human feedback often arrives as preferences rather than calibrated numeric rewards, motivating reinforcement learning from preferential feedback, also referred to as reinforcement learning from human feedback (RLHF). We present a rigorous theoretical study of preference-only learning in episodic kernel MDPs. In each episode, the learner deploys two policies from a common start state and receives a single binary label indicating which trajectory is preferred, modeled by a Bradley--Terry--Luce link on the difference of cumulative (unobserved) rewards. Under kernel-based assumptions on the reward and transition functions (one of the most general models amenable to theoretical analysis) we develop preference-based value estimation and confidence sets tailored to end-of-episode comparisons.We prove high-probability regret bounds that scale sublinearly in the number of episodes, implying that the value of the learned policy converges to that of the optimal policy.",
+  "categories": [
+    "stat.ML",
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": null,
+  "published_date": "2026-05-22T14:00:37Z",
+  "updated_date": "2026-05-22T14:00:37Z",
+  "url": "https://arxiv.org/abs/2605.23650v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.23650v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-25T10:15:42.725981",
+  "category": "computer_science",
+  "subcategories": [
+    "stat.ML",
+    "cs.LG"
+  ]
+}

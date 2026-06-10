@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_2604.20241v1",
+  "arxiv_id": "2604.20241v1",
+  "title": "Construction of a Battery Research Knowledge Graph using a Global Open Catalog",
+  "authors": [
+    "Luca Foppiano",
+    "Sae Dieb",
+    "Malik Zain",
+    "Kazuki Kasama",
+    "Keitaro Sodeyama",
+    "Mikiko Tanifuji"
+  ],
+  "author_string": "Luca Foppiano, Sae Dieb, Malik Zain, Kazuki Kasama, Keitaro Sodeyama et al.",
+  "journal": "arXiv:2604.20241v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Battery research is a rapidly growing and highly interdisciplinary field, making it increasingly difficult to track relevant expertise and identify potential collaborators across institutional boundaries. In this work, we present a pipeline for constructing an author-centric knowledge graph of battery research built on OpenAlex, a large-scale open bibliographic catalogue. For each author, we derive a weighted research descriptors vector that combines coarse-grained OpenAlex concepts with fine-grained keyphrases extracted from titles and abstracts using KeyBERT with ChatGPT (gpt-3.5-turbo) as the backend model, selected after evaluating multiple alternatives. Vector components are weighted by research descriptor origin, authorship position, and temporal recency. The framework is applied to a corpus of 189,581 battery-related works. The resulting vectors support author-author similarity computation, community detection, and exploratory search through a browser-based interface. The knowledge graph is then serialized in RDF and linked to Wikidata identifiers, making it interoperable with external linked open data sources and extensible beyond the battery domain. Unlike prior author-centric analyses confined to institutional repositories, our approach operates at cross-institutional scale and grounds similarity in domain semantics rather than citation or co-authorship structure alone.",
+  "categories": [
+    "cs.CL",
+    "physics.comp-ph"
+  ],
+  "primary_category": "physics.comp-ph",
+  "comment": null,
+  "published_date": "2026-04-22T06:45:42Z",
+  "updated_date": "2026-04-22T06:45:42Z",
+  "url": "https://arxiv.org/abs/2604.20241v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.20241v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-23T10:15:31.467351",
+  "category": "physics",
+  "subcategories": [
+    "cs.CL",
+    "physics.comp-ph"
+  ]
+}

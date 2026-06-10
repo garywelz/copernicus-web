@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2604.20635v1",
+  "arxiv_id": "2604.20635v1",
+  "title": "Variational Principles for Shock Dynamics in Compressible Euler Flows",
+  "authors": [
+    "François Gay-Balmaz",
+    "Cheng Yang"
+  ],
+  "author_string": "François Gay-Balmaz, Cheng Yang",
+  "journal": "arXiv:2604.20635v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Hamilton's principle plays a central role in fluid mechanics as a fundamental tool for deriving governing equations, analyzing conservation laws, and designing structure-preserving numerical schemes. However, its classical formulation is restricted to smooth solutions and does not directly accommodate shock discontinuities. Addressing this limitation within a variational framework has long been a challenging issue. In this paper, we develop a variational framework that extends Hamilton's principle to shock solutions in compressible fluid dynamics. For the barotropic Euler equations, we introduce a modified action principle that incorporates additional contributions localized at discontinuities. This allows the Rankine--Hugoniot conditions for mass and momentum to emerge directly from unrestricted variations, without imposing continuity across shocks. The additional term admits a natural interpretation as a dissipation potential, linking the variational structure to energy loss at shocks. We then extend the approach to the full compressible Euler equations. Using a variational formulation of nonequilibrium thermodynamics together with suitable variational and phenomenological constraints, we recover the Rankine--Hugoniot relations for mass, momentum, and energy. This yields a unified variational description of shock dynamics in compressible fluids and highlights a fundamental distinction between barotropic and full compressible models in the treatment of energy and entropy at discontinuities.",
+  "categories": [
+    "math-ph",
+    "math.AP",
+    "math.DS"
+  ],
+  "primary_category": "math.DS",
+  "comment": "41 pages, 1 figure",
+  "published_date": "2026-04-22T14:46:47Z",
+  "updated_date": "2026-04-22T14:46:47Z",
+  "url": "https://arxiv.org/abs/2604.20635v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.20635v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-25T22:15:49.050883",
+  "category": "mathematics",
+  "subcategories": [
+    "math-ph",
+    "math.AP",
+    "math.DS"
+  ]
+}

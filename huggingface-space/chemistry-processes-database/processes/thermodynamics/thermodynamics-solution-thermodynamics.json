@@ -1,21 +1,23 @@
 {
   "id": "thermodynamics-solution-thermodynamics",
-  "name": "Solution Thermodynamics",
+  "name": "Ideal vs Real Solution Behavior",
   "category": "chemistry",
   "subcategory": "thermodynamics",
   "subcategory_name": "Thermodynamics",
-  "description": "Solution Thermodynamics process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "Model a mixture starting from ideal mixing, test for Raoult's-law behavior, and when deviations occur describe them with activity coefficients and an excess Gibbs energy to predict vapor pressures and phase equilibria.",
   "complexity": {
-    "nodes": 26,
-    "edges": 22,
-    "conditionals": 0,
+    "nodes": 8,
+    "edges": 8,
+    "conditionals": 1,
     "logicGates": {
-      "orGates": 0,
+      "orGates": 1,
       "andGates": 1,
-      "total": 1
+      "notGates": 0,
+      "total": 2
     },
     "level": "medium",
-    "detailLevel": "medium"
+    "detailLevel": "source_grounded",
+    "loops": 0
   },
   "colorScheme": {
     "red": {
@@ -39,53 +41,135 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nA2[Solvent Molecules] --> B2[Solution Thermodynamics Method]\nC2[Solute Particles] --> D2[Concentration Control]\nE2[Temperature System] --> F2[Pressure Environment]\nB2 --> G2[Solution Preparation]\nD2 --> H2[Concentration Analysis]\nF2 --> I2[Environmental Control]\nG2 --> J2[Mixing Process]\nH2 --> K2[Concentration Measurement]\nI2 --> L2[Pressure Monitoring]\nJ2 --> M2[Solvation Process]\nK2 --> L2\nL2 --> N2[Solution Formation]\nM2 --> O2[Intermolecular Interactions]\nN2 --> P2[Solution Thermodynamics]\nO2 --> Q2[Colligative Properties]\nP2 --> R2[Thermodynamic Properties]\nQ2 --> S2[Property Measurement]\nR2 --> T2[Solution Behavior]\nS2 --> U2[Property Analysis]\nT2 --> V2[Behavior Prediction]\nU2 --> W2[Thermodynamic Efficiency]\nV2 --> X2[Solution Characterization]\nW2 --> Y2[Process Optimization]\nX2 --> Z2[Final Solution State]\nY2 --> Z2\n\n    style A2 fill:#ff6b6b,color:#fff\n    style C2 fill:#ff6b6b,color:#fff\n    style E2 fill:#ff6b6b,color:#fff\n    style B2 fill:#ffd43b,color:#000\n    style D2 fill:#ffd43b,color:#000\n    style F2 fill:#ffd43b,color:#000\n    style G2 fill:#ffd43b,color:#000\n    style H2 fill:#ffd43b,color:#000\n    style I2 fill:#ffd43b,color:#000\n    style J2 fill:#ffd43b,color:#000\n    style K2 fill:#ffd43b,color:#000\n    style L2 fill:#ffd43b,color:#000\n    style M2 fill:#51cf66,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style O2 fill:#51cf66,color:#fff\n    style P2 fill:#51cf66,color:#fff\n    style Q2 fill:#51cf66,color:#fff\n    style R2 fill:#51cf66,color:#fff\n    style S2 fill:#51cf66,color:#fff\n    style T2 fill:#51cf66,color:#fff\n    style U2 fill:#51cf66,color:#fff\n    style V2 fill:#51cf66,color:#fff\n    style W2 fill:#51cf66,color:#fff\n    style X2 fill:#51cf66,color:#fff\n    style Y2 fill:#51cf66,color:#fff\n    style Z2 fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"Mix two components\"]\n    N2[\"Ideal ΔG_mix = RTΣx ln x\"]\n    N3{\"Raoult's law obeyed?\"}\n    N4[\"Activity = mole fraction\"]\n    N5[\"Use activity coefficients γ\"]\n    N6[\"Excess Gibbs energy G^E\"]\n    N7[\"Positive/negative deviation\"]\n    N8[\"Predict VLE / vapor pressure\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 -->|yes| N4\n    N3 -->|no| N5\n    N5 --> N6\n    N6 --> N7\n    N4 --> N8\n    N7 --> N8\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#74c0fc,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#74c0fc,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "title": "Physical Chemistry, 11th ed. — Simple Mixtures",
+      "authors": "Atkins, P.; de Paula, J.; Keeler, J.",
+      "journal": "Oxford University Press",
+      "year": "2018",
       "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: Solution Thermodynamics. Created using the Programming Framework methodology."
+      "url": "https://global.oup.com/ukhe/product/atkins-physical-chemistry-9780198769866"
     },
     {
-      "title": "Fundamentals of Polymer Solution Thermodynamics",
-      "authors": "",
-      "journal": "Handbook of Polymer Solution Thermodynamics",
-      "year": "1993",
-      "pubmed": null,
-      "doi": "10.1002/9780470938232.ch2",
-      "url": "https://doi.org/10.1002/9780470938232.ch2"
+      "title": "Gold Book: activity coefficient",
+      "authors": "IUPAC",
+      "journal": "IUPAC Compendium of Chemical Terminology",
+      "year": "2019",
+      "doi": "10.1351/goldbook.A00116",
+      "url": "https://goldbook.iupac.org/terms/view/A00116"
     },
     {
-      "title": "2. Thermodynamics of Solid Solution- Aqueous Solution Systems",
-      "authors": "Prieto, Manuel",
-      "journal": "Thermodynamics and Kinetics of Water-Rock Interaction",
-      "year": "2009",
-      "pubmed": null,
-      "doi": "10.1515/9781501508462-004",
-      "url": "https://doi.org/10.1515/9781501508462-004"
-    },
-    {
-      "title": "SOLUTION THERMODYNAMICS",
-      "authors": "Lee, Lloyd L.",
-      "journal": "Molecular Thermodynamics of Nonideal Fluids",
-      "year": "1988",
-      "pubmed": null,
-      "doi": "10.1016/b978-0-409-90088-0.50014-x",
-      "url": "https://doi.org/10.1016/b978-0-409-90088-0.50014-x"
+      "title": "Gold Book: Raoult's law",
+      "authors": "IUPAC",
+      "journal": "IUPAC Compendium of Chemical Terminology",
+      "year": "2019",
+      "doi": "10.1351/goldbook.R05121",
+      "url": "https://goldbook.iupac.org/terms/view/R05121"
     }
   ],
   "keywords": [
-    "solution",
-    "thermodynamics"
+    "ideal solution",
+    "raoult's law",
+    "activity coefficient",
+    "excess gibbs energy",
+    "vapor pressure"
   ],
   "relatedProcesses": [],
   "created": "2026-01-08",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Mix two components",
+      "detail": "Define mole fractions",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N2",
+      "label": "Ideal ΔG_mix = RTΣx ln x",
+      "detail": "Ideal mixing free energy",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N3",
+      "label": "Raoult's law obeyed?",
+      "detail": "Test for ideality",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 2
+    },
+    {
+      "id": "N4",
+      "label": "Activity = mole fraction",
+      "detail": "Ideal limit",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N5",
+      "label": "Use activity coefficients γ",
+      "detail": "a = γx for real mixtures",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N6",
+      "label": "Excess Gibbs energy G^E",
+      "detail": "Departure from ideality",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N7",
+      "label": "Positive/negative deviation",
+      "detail": "Sign of deviation from Raoult",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N8",
+      "label": "Predict VLE / vapor pressure",
+      "detail": "Phase behavior of the solution",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 0
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:thermodynamics-solution-thermodynamics",
+    "graphType": "decision_flowchart",
+    "topologySignature": "c1fce25bd99e02a0",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "namedCollections": [
+    "thermodynamics"
+  ],
+  "graphMetrics": {
+    "nodes": 8,
+    "edges": 8,
+    "conditionals": 1,
+    "andGates": 1,
+    "orGates": 1,
+    "notGates": 0,
+    "loops": 0
+  },
+  "graphType": "decision_flowchart",
+  "domainContext": "Solution thermodynamics"
 }

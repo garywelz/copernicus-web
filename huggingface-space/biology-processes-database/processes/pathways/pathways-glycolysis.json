@@ -1,0 +1,183 @@
+{
+  "id": "pathways-glycolysis",
+  "name": "Glycolysis",
+  "category": "biology",
+  "subcategory": "pathways",
+  "subcategory_name": "Pathways",
+  "description": "Glycolysis: glucose is invested with two ATP and committed at phosphofructokinase-1, split into triose phosphates, then oxidized to yield NADH and a net two ATP and two pyruvate, with PFK-1 allosterically gated by the cell's energy charge.",
+  "keywords": [
+    "glycolysis",
+    "phosphofructokinase",
+    "atp",
+    "pyruvate",
+    "nadh"
+  ],
+  "namedCollections": [
+    "metabolism"
+  ],
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "complexity": {
+    "nodes": 9,
+    "edges": 9,
+    "conditionals": 1,
+    "logicGates": {
+      "orGates": 1,
+      "andGates": 1,
+      "notGates": 0,
+      "total": 2
+    },
+    "level": "medium",
+    "detailLevel": "source_grounded",
+    "loops": 1
+  },
+  "graphMetrics": {
+    "nodes": 9,
+    "edges": 9,
+    "conditionals": 1,
+    "andGates": 1,
+    "orGates": 1,
+    "notGates": 0,
+    "loops": 1
+  },
+  "mermaid": "graph TD\n    N1[\"Glucose\"]\n    N2[\"Hexokinase -> G6P\"]\n    N3[\"Isomerize -> F6P\"]\n    N4[\"PFK-1 -> F1,6BP\"]\n    N5[\"Aldolase: 2 triose-P\"]\n    N6[\"GAPDH: NAD+ -> NADH\"]\n    N7[\"Payoff: ATP via PGK/PK\"]\n    N8{\"Energy charge high?\"}\n    N9[\"2 Pyruvate (net 2 ATP)\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 --> N4\n    N4 --> N5\n    N5 --> N6\n    N6 --> N7\n    N7 --> N8\n    N8 -->|ATP high: inhib…| N4\n    N8 -->|proceed| N9\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#ffd43b,color:#000\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#74c0fc,color:#fff\n    style N9 fill:#b197fc,color:#fff",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Glucose",
+      "detail": "Six-carbon substrate",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N2",
+      "label": "Hexokinase -> G6P",
+      "detail": "First ATP-investing phosphorylation",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N3",
+      "label": "Isomerize -> F6P",
+      "detail": "Phosphoglucose isomerase",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N4",
+      "label": "PFK-1 -> F1,6BP",
+      "detail": "Committed, rate-limiting step",
+      "type": "process",
+      "role": "Structures & Objects",
+      "sourceRef": 1
+    },
+    {
+      "id": "N5",
+      "label": "Aldolase: 2 triose-P",
+      "detail": "Cleavage into DHAP + G3P",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N6",
+      "label": "GAPDH: NAD+ -> NADH",
+      "detail": "Oxidation and phosphorylation",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N7",
+      "label": "Payoff: ATP via PGK/PK",
+      "detail": "Substrate-level phosphorylation",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N8",
+      "label": "Energy charge high?",
+      "detail": "ATP/citrate inhibit, AMP activates PFK-1",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 2
+    },
+    {
+      "id": "N9",
+      "label": "2 Pyruvate (net 2 ATP)",
+      "detail": "Glycolytic end products",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 1
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:pathways-glycolysis",
+    "graphType": "mechanism_flowchart",
+    "topologySignature": "b3482788bf619ea9",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "lastUpdated": "2026-06-01",
+  "verified": false,
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "sources": [
+    {
+      "title": "Biochemistry, 5th ed. — Glycolysis Is an Energy-Conversion Pathway",
+      "authors": "Berg, J. M.; Tymoczko, J. L.; Stryer, L.",
+      "journal": "W. H. Freeman (NCBI Bookshelf, Section 16.1)",
+      "year": "2002",
+      "doi": null,
+      "url": "https://www.ncbi.nlm.nih.gov/books/NBK22593/"
+    },
+    {
+      "title": "Rethinking glycolysis: on the biochemical logic of metabolic pathways",
+      "authors": "Bar-Even, A.; Flamholz, A.; Noor, E.; Milo, R.",
+      "journal": "Nature Chemical Biology",
+      "year": "2012",
+      "pubmed": "22596202",
+      "doi": "10.1038/nchembio.971",
+      "url": "https://doi.org/10.1038/nchembio.971"
+    },
+    {
+      "title": "Aerobic glycolysis: meeting the metabolic requirements of cell proliferation",
+      "authors": "Lunt, S. Y.; Vander Heiden, M. G.",
+      "journal": "Annual Review of Cell and Developmental Biology",
+      "year": "2011",
+      "pubmed": "21985671",
+      "doi": "10.1146/annurev-cellbio-092910-154237",
+      "url": "https://doi.org/10.1146/annurev-cellbio-092910-154237"
+    }
+  ],
+  "graphType": "mechanism_flowchart",
+  "domainContext": "Central carbon catabolism"
+}

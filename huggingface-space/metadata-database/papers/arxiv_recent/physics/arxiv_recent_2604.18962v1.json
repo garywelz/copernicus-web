@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2604.18962v1",
+  "arxiv_id": "2604.18962v1",
+  "title": "AngstromPro: A versatile software for massive N-dimensional STM data management, visualization and in-depth analysis",
+  "authors": [
+    "Huiyu Zhao",
+    "Jiahao Yan",
+    "Catherine Dawson",
+    "Haitao Yang",
+    "Hong-Jun Gao"
+  ],
+  "author_string": "Huiyu Zhao, Jiahao Yan, Catherine Dawson, Haitao Yang, Hong-Jun Gao",
+  "journal": "arXiv:2604.18962v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We present AngstromPro, a versatile, modular and open-source software built on Python for managing, visualizing and analyzing large datasets acquired via Scanning Tunneling Microscopes (STM). Its robust architecture features a top-level module that manages a Global Variables List and a sub-modules List. Each sub-module, equipped with its own Local Variables List to maintain a tidy workspace, can be tailored for specific tasks, including built-in modules like the Multiple 2D Images Visualizer and Analyzer. These modules support step-by-step data processing and extensibility for custom algorithms and functions. AngstromPro's design supports a wide range of users, from those relying on built-in tools to developers creating custom algorithms or extending the platform with new modules. In its implementation, AngstromPro separates graphical user interface components from data processing algorithms, a strategy that enhances code readability, maintainability, and extensibility. The embedded algorithms reflect commonly adopted and recently developed approaches in STM data analysis, including background subtraction, perfect lattice correction, Lawler-Fujita correction, and sub-atomic precision registration, along with additional standard data processing routines. By consolidating fragmented STM workflows, maintaining detailed processing histories, and providing a flexible platform for customization, AngstromPro enhances both the efficiency, reliability, and reproducibility of STM data analysis, while enabling the rapid development of new methods and modules.",
+  "categories": [
+    "cond-mat.supr-con"
+  ],
+  "primary_category": "cond-mat.supr-con",
+  "comment": "The source code for this project is open source and available on Github at https://github.com/jhyan2018/ AngstromPro",
+  "published_date": "2026-04-21T01:21:42Z",
+  "updated_date": "2026-04-21T01:21:42Z",
+  "url": "https://arxiv.org/abs/2604.18962v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.18962v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-22T10:15:44.047323",
+  "category": "physics",
+  "subcategories": [
+    "cond-mat.supr-con"
+  ]
+}

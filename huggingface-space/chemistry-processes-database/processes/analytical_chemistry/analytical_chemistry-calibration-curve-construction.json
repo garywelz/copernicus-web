@@ -4,18 +4,20 @@
   "category": "chemistry",
   "subcategory": "analytical_chemistry",
   "subcategory_name": "Analytical Chemistry",
-  "description": "Calibration Curve Construction process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "A calibration curve relates instrument signal to concentration: measure a standard series, regress signal on concentration, reject outliers or re-prepare if the fit is poor, confirm the linear dynamic range, and use the fitted equation to quantify unknowns.",
   "complexity": {
-    "nodes": 6,
-    "edges": 5,
-    "conditionals": 0,
+    "nodes": 10,
+    "edges": 11,
+    "conditionals": 2,
     "logicGates": {
-      "orGates": 0,
-      "andGates": 0,
-      "total": 0
+      "orGates": 2,
+      "andGates": 1,
+      "notGates": 0,
+      "total": 3
     },
-    "level": "medium",
-    "detailLevel": "medium"
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 2
   },
   "colorScheme": {
     "red": {
@@ -39,54 +41,151 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nN1[\"Calibration Standards\"]\nN2[\"Instrument Response\"]\nN3[\"Regression Model\"]\nN4[\"Fit + Residual Check\"]\nN5[\"LOD/LOQ Estimate\"]\nN6[\"Calibration Function\"]\n\nN1 --> N2\nN2 --> N3\nN3 --> N4\nN4 --> N5\nN5 --> N6\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#ff6b6b,color:#fff\n    style N3 fill:#ffd43b,color:#000\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#74c0fc,color:#fff\n    style N6 fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"Prepare standard series\"]\n    N2[\"Measure response\"]\n    N3[\"Plot signal vs conc\"]\n    N4[\"Linear regression\"]\n    N5{\"R² acceptable?\"}\n    N6[\"Reject outlier / re-prep\"]\n    N7{\"Within dynamic range?\"}\n    N8[\"Dilute high standards\"]\n    N9[\"Equation y = mx + b\"]\n    N10[\"Quantify unknowns\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 --> N4\n    N4 --> N5\n    N5 -->|no| N6\n    N6 -->|re-prepare| N1\n    N5 -->|yes| N7\n    N7 -->|no| N8\n    N8 -->|re-prepare| N1\n    N7 -->|yes| N9\n    N9 --> N10\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#74c0fc,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#74c0fc,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#51cf66,color:#fff\n    style N10 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "title": "Statistics and Chemometrics for Analytical Chemistry, 6th ed. — Calibration",
+      "authors": "Miller, J. N.; Miller, J. C.",
+      "journal": "Pearson",
+      "year": "2010",
       "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: Calibration Curve Construction. Created using the Programming Framework methodology."
+      "url": "https://www.pearson.com/en-gb/subject-catalog/p/statistics-and-chemometrics-for-analytical-chemistry/P200000005060"
     },
     {
-      "title": "Construction of Calibration Curve for Premature Chromosome Condensation Assay for Dose Assessment",
-      "authors": "Neronova, Elizaveta G.",
-      "journal": "Genome Integrity",
-      "year": "2016",
-      "pubmed": null,
-      "doi": "10.4103/2041-9414.197166",
-      "url": "https://doi.org/10.4103/2041-9414.197166"
+      "title": "Quantitative Chemical Analysis, 9th ed. — Calibration Methods",
+      "authors": "Harris, D. C.",
+      "journal": "W. H. Freeman",
+      "year": "2015",
+      "doi": null,
+      "url": "https://www.macmillanlearning.com/college/us/product/Quantitative-Chemical-Analysis/p/146413538X"
     },
     {
-      "title": "Figure 3: The calibration curves of the 1-, 2-, and 3-year PFS prediction nomogram. (A) The calibration curve for 1-year-PFS. (B) The calibration curve for 2-year-PFS. (C) The calibration curve for 3-year-PFS.",
-      "authors": "",
-      "journal": "",
-      "year": "None",
-      "pubmed": null,
-      "doi": "10.7717/peerj.14566/fig-3",
-      "url": "https://doi.org/10.7717/peerj.14566/fig-3"
-    },
-    {
-      "title": "Figure 7: Performance of prognostic model: (A) Calibration curve for 1-year in the validation group; (B) calibration curve for 3-year in the validation group; (C) calibration curve for 5-year in the validation group.",
-      "authors": "",
-      "journal": "",
-      "year": "None",
-      "pubmed": null,
-      "doi": "10.7717/peerj.14457/fig-7",
-      "url": "https://doi.org/10.7717/peerj.14457/fig-7"
+      "title": "Guidelines for calibration in analytical chemistry (IUPAC)",
+      "authors": "Danzer, K.; Currie, L. A.",
+      "journal": "Pure and Applied Chemistry",
+      "year": "1998",
+      "doi": "10.1351/pac199870040993",
+      "url": "https://doi.org/10.1351/pac199870040993"
     }
   ],
   "keywords": [
-    "calibration",
-    "curve",
-    "construction"
+    "calibration curve",
+    "linear regression",
+    "linear dynamic range",
+    "standards",
+    "quantitation"
   ],
   "relatedProcesses": [],
   "created": "2026-01-15",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations.\nCurated Mermaid applied (citations preserved)."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "namedCollections": [
+    "analytical-chemistry"
+  ],
+  "graphMetrics": {
+    "nodes": 10,
+    "edges": 11,
+    "conditionals": 2,
+    "andGates": 1,
+    "orGates": 2,
+    "notGates": 0,
+    "loops": 2
+  },
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Prepare standard series",
+      "detail": "Range of concentrations",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 1
+    },
+    {
+      "id": "N2",
+      "label": "Measure response",
+      "detail": "Instrument signal per standard",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N3",
+      "label": "Plot signal vs conc",
+      "detail": "Calibration data",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N4",
+      "label": "Linear regression",
+      "detail": "Least-squares fit",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N5",
+      "label": "R² acceptable?",
+      "detail": "Goodness of fit",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N6",
+      "label": "Reject outlier / re-prep",
+      "detail": "Diagnose deviation",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N7",
+      "label": "Within dynamic range?",
+      "detail": "Saturation at high end",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 2
+    },
+    {
+      "id": "N8",
+      "label": "Dilute high standards",
+      "detail": "Stay in linear range",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N9",
+      "label": "Equation y = mx + b",
+      "detail": "Calibration model",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N10",
+      "label": "Quantify unknowns",
+      "detail": "Apply to samples",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 1
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:analytical_chemistry-calibration-curve-construction",
+    "graphType": "cyclic_pathway",
+    "topologySignature": "6220a40d43dad395",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "graphType": "cyclic_pathway",
+  "domainContext": "Instrument calibration"
 }

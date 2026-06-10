@@ -1,0 +1,40 @@
+{
+  "id": "biorxiv_10.1101_2025.07.23.666419",
+  "doi": "10.1101/2025.07.23.666419",
+  "title": "Reducing type II error in fMRI analysis: Cluster-extent threshold simulation results and an evaluation of current methods to correct for multiple comparisons",
+  "authors": [
+    "Slotnick, S. D."
+  ],
+  "author_string": "Slotnick, S. D.",
+  "journal": "bioRxiv",
+  "journal_full": "bioRxiv",
+  "year": "2026",
+  "abstract": "Many procedures to correct for multiple comparisons in functional magnetic resonance imaging (fMRI) analysis require a minimum cluster-extent threshold; however, sample size (N) is often not modeled. In this study, a series of simulations was conducted where N was varied to determine whether this parameter affected cluster threshold. The primary hypothesis was that modeling N in the simulations would reduce cluster thresholds. A secondary hypothesis was that this cluster size reduction was due to between-subject variability, which was tested by eliminating the corresponding standard error term. Acquisition volume parameters were fixed, while key parameters were varied to reflect reasonable ranges: N (10, 20, or 30), corrected p-value (.05, .01, or .001), individual-voxel p-value (.01, .005, or .001), FWHM (3, 5, or 7 mm), and voxel resolution (2 or 3 mm). Each simulation consisted of 100 iterations repeated 100 times, with a total of 4,860,000 iterations and 66,420,000 simulated subjects. There was a significant effect of condition with clusters approximately 18% smaller with versus without N modeled and a significant increase in cluster thresholds for larger sample sizes. Bayesian analysis provided very strong support for the secondary hypothesis. These simulation results were replicated in a real fMRI data set. The present findings indicate that sample size should be incorporated into all methods to provide the most accurate thresholds possible and reduce type II error. A broader range of topics is discussed including balancing type I and type II error, and the assumption that non-task fMRI activity reflects null data is questioned.",
+  "keywords": [],
+  "categories": [
+    "neuroscience"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.1101/2025.07.23.666419",
+  "source": "biorxiv",
+  "sources": [
+    "biorxiv"
+  ],
+  "acquired_date": "2026-05-18T22:15:23.219312",
+  "category": "biology",
+  "subcategories": [
+    "neuroscience"
+  ],
+  "published_date": "2026-01-18",
+  "updated_date": "2026-01-18",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "biorxiv",
+  "preprint_version": "2",
+  "preprint_type": "new results",
+  "license": "cc_by_nc_nd",
+  "jatsxml": "https://www.biorxiv.org/content/early/2026/01/18/2025.07.23.666419.source.xml",
+  "published_doi": "10.1080/17588928.2026.2615960",
+  "author_corresponding": "Scott D. Slotnick",
+  "author_corresponding_institution": "Boston College"
+}

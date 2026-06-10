@@ -1,0 +1,3549 @@
+{
+  "meta": {
+    "title": "Whole of Computer Science",
+    "discipline": "computer_science",
+    "displayName": "Computer Science",
+    "summary": "Computer Science is strongest as a layered abstraction stack with dependency and process links.",
+    "primaryVariant": "abstraction_stack",
+    "tableFile": "computer-science-database-table.html",
+    "generatedFrom": "scripts/processes/discipline_databases/generate_whole_discipline_maps.py",
+    "modelsCompared": {
+      "force": "Best for exploratory browsing and cross-links.",
+      "radial": "Best for hierarchy comprehension and compact coverage.",
+      "layered": "Best for prerequisites, regimes, stacks, and conceptual direction."
+    },
+    "topicScaleExtensions": [
+      {
+        "id": "glmp_style_process_corpus",
+        "label": "GLMP-style process corpus",
+        "model": "process family map plus influence network",
+        "description": "Use the same map machinery for dense curated process corpora where each node opens a Mermaid process diagram."
+      },
+      {
+        "id": "computing_stack",
+        "label": "Computing stack",
+        "model": "layered abstraction map",
+        "description": "Show hardware, runtime, operating systems, networks, databases, applications, AI systems, and security concerns."
+      }
+    ]
+  },
+  "variants": [
+    {
+      "id": "taxonomy",
+      "label": "Branch Taxonomy",
+      "layout": "radial",
+      "description": "Root-to-branch-to-process hierarchy. Useful as a coverage map and familiar table-of-contents view.",
+      "recommendation": "secondary",
+      "rubric": {
+        "subjectFidelity": 3,
+        "navigability": 5,
+        "crossLinks": 2,
+        "pedagogy": 4,
+        "extensibility": 4,
+        "total": 18,
+        "notes": "First-pass heuristic score for computer_science; revise after visual inspection."
+      },
+      "nodes": [
+        {
+          "id": "root",
+          "name": "Whole of Computer Science",
+          "type": "root",
+          "level": 0,
+          "description": "Algorithms, systems, networks, security, machine learning, and software workflows."
+        },
+        {
+          "id": "subcategory:algorithms_data_structures",
+          "name": "Algorithms & Data Structures",
+          "type": "subcategory",
+          "level": 1,
+          "processCount": 8,
+          "description": "Generated from the existing process database subcategory."
+        },
+        {
+          "id": "subcategory:machine_learning",
+          "name": "Machine Learning",
+          "type": "subcategory",
+          "level": 1,
+          "processCount": 7,
+          "description": "Generated from the existing process database subcategory."
+        },
+        {
+          "id": "subcategory:networks",
+          "name": "Computer Networks",
+          "type": "subcategory",
+          "level": 1,
+          "processCount": 7,
+          "description": "Generated from the existing process database subcategory."
+        },
+        {
+          "id": "subcategory:security",
+          "name": "Security & Cryptography",
+          "type": "subcategory",
+          "level": 1,
+          "processCount": 7,
+          "description": "Generated from the existing process database subcategory."
+        },
+        {
+          "id": "subcategory:software_engineering",
+          "name": "Software Engineering",
+          "type": "subcategory",
+          "level": 1,
+          "processCount": 7,
+          "description": "Generated from the existing process database subcategory."
+        },
+        {
+          "id": "subcategory:systems",
+          "name": "Systems & Architecture",
+          "type": "subcategory",
+          "level": 1,
+          "processCount": 7,
+          "description": "Generated from the existing process database subcategory."
+        },
+        {
+          "id": "subcategory:theory",
+          "name": "Theoretical Computer Science",
+          "type": "subcategory",
+          "level": 1,
+          "processCount": 7,
+          "description": "Generated from the existing process database subcategory."
+        },
+        {
+          "id": "subcategory:graph_type_pilots",
+          "name": "Graph Type Pilots",
+          "type": "subcategory",
+          "level": 1,
+          "processCount": 1,
+          "description": "Generated from the existing process database subcategory."
+        },
+        {
+          "id": "process:algorithms_data_structures-balanced-search-trees",
+          "name": "Balanced Search Trees (Rotations)",
+          "type": "process",
+          "level": 3,
+          "processId": "algorithms_data_structures-balanced-search-trees",
+          "url": "processes/algorithms_data_structures/algorithms_data_structures-balanced-search-trees.html",
+          "subcategory": "algorithms_data_structures",
+          "category": "Algorithms & Data Structures",
+          "graphType": "decision_flowchart",
+          "nodes": 12,
+          "edges": 14,
+          "description": "Self-balancing search trees keep operations at O(log n) by restoring a balance invariant after each insertion: a standard BST insert is followed by checking the height or color invariant, and when it is violated, single or double rotations and recoloring are applied up the path until the tree property is restored."
+        },
+        {
+          "id": "process:algorithms_data_structures-dynamic-programming",
+          "name": "Dynamic Programming",
+          "type": "process",
+          "level": 3,
+          "processId": "algorithms_data_structures-dynamic-programming",
+          "url": "processes/algorithms_data_structures/algorithms_data_structures-dynamic-programming.html",
+          "subcategory": "algorithms_data_structures",
+          "category": "Algorithms & Data Structures",
+          "graphType": "decision_flowchart",
+          "nodes": 12,
+          "edges": 14,
+          "description": "Dynamic programming solves optimization problems that have optimal substructure and overlapping subproblems: a recurrence relating a solution to smaller subproblems is defined and solved either top-down with memoization or bottom-up by filling a table, after which the stored results are combined and the optimal solution is reconstructed."
+        },
+        {
+          "id": "process:algorithms_data_structures-graph-algorithms",
+          "name": "Topological Sort (Kahn's Algorithm)",
+          "type": "process",
+          "level": 3,
+          "processId": "algorithms_data_structures-graph-algorithms",
+          "url": "processes/algorithms_data_structures/algorithms_data_structures-graph-algorithms.html",
+          "subcategory": "algorithms_data_structures",
+          "category": "Algorithms & Data Structures",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 12,
+          "description": "Topological sorting linearly orders the vertices of a directed acyclic graph so every edge points forward: Kahn's algorithm computes in-degrees, repeatedly removes a zero in-degree vertex into the order while decrementing its neighbors, and enqueues newly freed vertices; if fewer than all vertices are output, the graph contained a cycle."
+        },
+        {
+          "id": "process:algorithms_data_structures-graph-traversal",
+          "name": "Graph Traversal (BFS / DFS)",
+          "type": "process",
+          "level": 3,
+          "processId": "algorithms_data_structures-graph-traversal",
+          "url": "processes/algorithms_data_structures/algorithms_data_structures-graph-traversal.html",
+          "subcategory": "algorithms_data_structures",
+          "category": "Algorithms & Data Structures",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 12,
+          "description": "Graph traversal visits every reachable vertex from a start node using a worklist: breadth-first search uses a FIFO queue to explore level by level, depth-first search uses a LIFO stack to dive deep first; vertices are marked visited to avoid revisiting, and traversal ends when the container is empty."
+        },
+        {
+          "id": "process:algorithms_data_structures-hash-table-operations",
+          "name": "Hash Table Operations (Open Addressing)",
+          "type": "process",
+          "level": 3,
+          "processId": "algorithms_data_structures-hash-table-operations",
+          "url": "processes/algorithms_data_structures/algorithms_data_structures-hash-table-operations.html",
+          "subcategory": "algorithms_data_structures",
+          "category": "Algorithms & Data Structures",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 12,
+          "description": "A hash table stores key-value pairs by hashing the key to a bucket index; with open addressing, collisions are resolved by probing successive slots until an empty one is found, and when the load factor grows too large the table is resized and all keys are rehashed, keeping average insert and lookup at O(1)."
+        },
+        {
+          "id": "process:algorithms_data_structures-minimum-spanning-tree",
+          "name": "Minimum Spanning Tree (Kruskal / Prim)",
+          "type": "process",
+          "level": 3,
+          "processId": "algorithms_data_structures-minimum-spanning-tree",
+          "url": "processes/algorithms_data_structures/algorithms_data_structures-minimum-spanning-tree.html",
+          "subcategory": "algorithms_data_structures",
+          "category": "Algorithms & Data Structures",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 13,
+          "description": "A minimum spanning tree connects all vertices of a weighted graph with least total edge weight by a greedy rule: Kruskal sorts edges and adds the lightest that does not form a cycle (using union-find), while Prim grows a tree by repeatedly adding the lightest edge leaving it, until every vertex is connected."
+        },
+        {
+          "id": "process:algorithms_data_structures-shortest-path-algorithms",
+          "name": "Shortest Path (Dijkstra)",
+          "type": "process",
+          "level": 3,
+          "processId": "algorithms_data_structures-shortest-path-algorithms",
+          "url": "processes/algorithms_data_structures/algorithms_data_structures-shortest-path-algorithms.html",
+          "subcategory": "algorithms_data_structures",
+          "category": "Algorithms & Data Structures",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 12,
+          "description": "Dijkstra's algorithm finds shortest paths from a source in a graph with non-negative weights: distances start at infinity except the source, and a priority queue repeatedly extracts the closest unfinalized vertex, finalizes it, and relaxes its outgoing edges, updating tentative distances until the queue is empty and the shortest-path tree is complete."
+        },
+        {
+          "id": "process:algorithms_data_structures-sorting-algorithms",
+          "name": "Sorting by Divide and Conquer",
+          "type": "process",
+          "level": 3,
+          "processId": "algorithms_data_structures-sorting-algorithms",
+          "url": "processes/algorithms_data_structures/algorithms_data_structures-sorting-algorithms.html",
+          "subcategory": "algorithms_data_structures",
+          "category": "Algorithms & Data Structures",
+          "graphType": "decision_flowchart",
+          "nodes": 10,
+          "edges": 12,
+          "description": "Comparison sorts like merge sort and quicksort use divide and conquer to reach O(n log n): merge sort splits the array in half, recursively sorts each part, and merges the sorted halves, while quicksort partitions around a pivot and recurses on each side; recursion bottoms out on subarrays of size one."
+        },
+        {
+          "id": "process:dependency-web-service-stack",
+          "name": "Web Service Stack Dependency Graph",
+          "type": "process",
+          "level": 3,
+          "processId": "dependency-web-service-stack",
+          "url": "processes/graph_type_pilots/dependency-web-service-stack.html",
+          "subcategory": "graph_type_pilots",
+          "category": "Graph Type Pilots",
+          "graphType": "dependency_graph",
+          "nodes": 8,
+          "edges": 8,
+          "description": "A dependency graph captures which components a web service relies on to function: the load balancer depends on web/API servers, which depend on the auth service and application logic; the application in turn depends on a cache, primary database, and message queue, and queue workers depend on object storage, so a failure propagates up the chain."
+        },
+        {
+          "id": "process:machine_learning-feature-engineering-pipeline",
+          "name": "Feature Engineering Pipeline",
+          "type": "process",
+          "level": 3,
+          "processId": "machine_learning-feature-engineering-pipeline",
+          "url": "processes/machine_learning/machine_learning-feature-engineering-pipeline.html",
+          "subcategory": "machine_learning",
+          "category": "Machine Learning",
+          "graphType": "decision_flowchart",
+          "nodes": 10,
+          "edges": 10,
+          "description": "Feature engineering turns raw data into model-ready inputs: records are cleaned and missing values handled, categorical variables encoded, numeric features scaled, and derived features created, then features are selected by importance; transformations are fit only on training data to avoid leakage before producing the feature matrix."
+        },
+        {
+          "id": "process:machine_learning-hyperparameter-optimization",
+          "name": "Hyperparameter Optimization",
+          "type": "process",
+          "level": 3,
+          "processId": "machine_learning-hyperparameter-optimization",
+          "url": "processes/machine_learning/machine_learning-hyperparameter-optimization.html",
+          "subcategory": "machine_learning",
+          "category": "Machine Learning",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 14,
+          "description": "Hyperparameter optimization searches configuration space for the best-performing model: a strategy is chosen among grid, random, or Bayesian search, candidate configurations are sampled, scored by cross-validation, and the best is tracked; sampling continues until the budget is exhausted, returning the optimal hyperparameters."
+        },
+        {
+          "id": "process:machine_learning-model-evaluation-and-validation",
+          "name": "Model Evaluation & Validation",
+          "type": "process",
+          "level": 3,
+          "processId": "machine_learning-model-evaluation-and-validation",
+          "url": "processes/machine_learning/machine_learning-model-evaluation-and-validation.html",
+          "subcategory": "machine_learning",
+          "category": "Machine Learning",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 13,
+          "description": "Model evaluation estimates generalization rather than training fit: metrics are chosen by task (precision/recall for classification, RMSE/R-squared for regression), k-fold cross-validation gives mean and variance of performance, the bias-variance regime is diagnosed, and a final held-out test confirms the model generalizes before acceptance."
+        },
+        {
+          "id": "process:machine_learning-model-training-pipeline",
+          "name": "Model Training Pipeline",
+          "type": "process",
+          "level": 3,
+          "processId": "machine_learning-model-training-pipeline",
+          "url": "processes/machine_learning/machine_learning-model-training-pipeline.html",
+          "subcategory": "machine_learning",
+          "category": "Machine Learning",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 12,
+          "description": "A model training pipeline manages the end-to-end fit: data is split into train, validation, and test, parameters initialized, and the model trained over mini-batches while monitoring training and validation loss; regularization counters overfitting and the best checkpoint is kept once validation converges, yielding the trained model."
+        },
+        {
+          "id": "process:machine_learning-project-management",
+          "name": "Support Vector Machine (SVM)",
+          "type": "process",
+          "level": 3,
+          "processId": "machine_learning-project-management",
+          "url": "processes/machine_learning/machine_learning-project-management.html",
+          "subcategory": "machine_learning",
+          "category": "Machine Learning",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 12,
+          "description": "A support vector machine classifies by finding the maximum-margin hyperplane: data is mapped into a feature space, and if not linearly separable a kernel implicitly lifts it higher; solving the dual quadratic program identifies the support vectors that define the boundary, with a soft margin allowing controlled violations."
+        },
+        {
+          "id": "process:machine_learning-quality-assurance",
+          "name": "K-Means Clustering",
+          "type": "process",
+          "level": 3,
+          "processId": "machine_learning-quality-assurance",
+          "url": "processes/machine_learning/machine_learning-quality-assurance.html",
+          "subcategory": "machine_learning",
+          "category": "Machine Learning",
+          "graphType": "cyclic_pathway",
+          "nodes": 12,
+          "edges": 13,
+          "description": "K-means partitions unlabeled data into k clusters by minimizing within-cluster variance: after initializing k centroids, each point is assigned to its nearest centroid and centroids are recomputed as cluster means; this repeats until assignments stop changing, and cluster quality guides whether to adjust k."
+        },
+        {
+          "id": "process:machine_learning-software-development-lifecycle",
+          "name": "Backpropagation Training",
+          "type": "process",
+          "level": 3,
+          "processId": "machine_learning-software-development-lifecycle",
+          "url": "processes/machine_learning/machine_learning-software-development-lifecycle.html",
+          "subcategory": "machine_learning",
+          "category": "Machine Learning",
+          "graphType": "cyclic_pathway",
+          "nodes": 12,
+          "edges": 13,
+          "description": "Backpropagation trains a neural network by gradient descent: a forward pass computes the output and loss, then the loss gradient is propagated backward layer by layer via the chain rule to obtain per-parameter gradients; weights are updated and the cycle repeats over the data until the loss converges."
+        },
+        {
+          "id": "process:networks-database-design",
+          "name": "IP Addressing & Subnetting (CIDR)",
+          "type": "process",
+          "level": 3,
+          "processId": "networks-database-design",
+          "url": "processes/networks/networks-database-design.html",
+          "subcategory": "networks",
+          "category": "Computer Networks",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 11,
+          "description": "Subnetting divides an address block to fit host requirements: from the needed host count the required host bits and prefix length are computed, the block is split into subnets, and if a subnet is too small more host bits are borrowed; network and broadcast addresses are reserved and routes are aggregated with CIDR."
+        },
+        {
+          "id": "process:networks-dns-resolution",
+          "name": "DNS Resolution",
+          "type": "process",
+          "level": 3,
+          "processId": "networks-dns-resolution",
+          "url": "processes/networks/networks-dns-resolution.html",
+          "subcategory": "networks",
+          "category": "Computer Networks",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 11,
+          "description": "DNS resolution maps a hostname to an IP address through a hierarchy: the resolver first checks its cache, and on a miss queries the root server, which refers it to the TLD server and then to the authoritative name server that returns the record; the answer is cached with its TTL before being returned."
+        },
+        {
+          "id": "process:networks-load-balancing",
+          "name": "Load Balancing",
+          "type": "process",
+          "level": 3,
+          "processId": "networks-load-balancing",
+          "url": "processes/networks/networks-load-balancing.html",
+          "subcategory": "networks",
+          "category": "Computer Networks",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 13,
+          "description": "A load balancer spreads incoming requests across backend servers: it selects a target by an algorithm such as round-robin, least-connections, or weighted hashing, checks backend health and removes unhealthy nodes from the pool, then forwards the request, achieving an even and resilient distribution of load."
+        },
+        {
+          "id": "process:networks-query-processing",
+          "name": "Reliable Transfer with Sliding Window",
+          "type": "process",
+          "level": 3,
+          "processId": "networks-query-processing",
+          "url": "processes/networks/networks-query-processing.html",
+          "subcategory": "networks",
+          "category": "Computer Networks",
+          "graphType": "decision_flowchart",
+          "nodes": 10,
+          "edges": 11,
+          "description": "Sliding-window ARQ provides reliable, in-order delivery over an unreliable channel: the sender segments data and transmits a window of packets while running timers; arriving ACKs slide the window and admit new packets, while timeouts trigger retransmission of unacknowledged segments, continuing until all data is delivered."
+        },
+        {
+          "id": "process:networks-routing-protocol-operation",
+          "name": "Routing Protocol Operation",
+          "type": "process",
+          "level": 3,
+          "processId": "networks-routing-protocol-operation",
+          "url": "processes/networks/networks-routing-protocol-operation.html",
+          "subcategory": "networks",
+          "category": "Computer Networks",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 12,
+          "description": "Routing protocols build forwarding tables by sharing reachability information: distance-vector protocols exchange distance tables with neighbors while link-state protocols flood link advertisements to build a full topology, each then computes shortest paths and recomputes routes whenever the topology changes, converging on a consistent routing table."
+        },
+        {
+          "id": "process:networks-tcp-congestion-control",
+          "name": "TCP Congestion Control",
+          "type": "process",
+          "level": 3,
+          "processId": "networks-tcp-congestion-control",
+          "url": "processes/networks/networks-tcp-congestion-control.html",
+          "subcategory": "networks",
+          "category": "Computer Networks",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 13,
+          "description": "TCP congestion control regulates the sending rate via a congestion window: it begins in slow start with exponential growth, switches to linear congestion avoidance at the slow-start threshold, and on loss reacts differently to triple duplicate ACKs (fast retransmit and recovery) versus a timeout (reset window), seeking steady throughput."
+        },
+        {
+          "id": "process:networks-transaction-management",
+          "name": "Network Address Translation (NAT)",
+          "type": "process",
+          "level": 3,
+          "processId": "networks-transaction-management",
+          "url": "processes/networks/networks-transaction-management.html",
+          "subcategory": "networks",
+          "category": "Computer Networks",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 11,
+          "description": "Network address translation lets many private hosts share public addresses: the NAT gateway rewrites the source address and port of outbound packets and records the mapping, and for inbound packets it looks up that mapping to rewrite the destination back to the private host, dropping packets with no matching entry."
+        },
+        {
+          "id": "process:security-authentication-and-authorization",
+          "name": "Authentication & Authorization",
+          "type": "process",
+          "level": 3,
+          "processId": "security-authentication-and-authorization",
+          "url": "processes/security/security-authentication-and-authorization.html",
+          "subcategory": "security",
+          "category": "Security & Cryptography",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 11,
+          "description": "Access control separates proving identity from granting rights: a user submits credentials that are verified (authentication), and on success a session or token is issued; when a protected resource is later requested, the system checks the subject's permissions (authorization) and grants or denies the specific action."
+        },
+        {
+          "id": "process:security-file-system",
+          "name": "Role-Based Access Control (RBAC)",
+          "type": "process",
+          "level": 3,
+          "processId": "security-file-system",
+          "url": "processes/security/security-file-system.html",
+          "subcategory": "security",
+          "category": "Security & Cryptography",
+          "graphType": "decision_flowchart",
+          "nodes": 12,
+          "edges": 13,
+          "description": "RBAC grants permissions through roles rather than to users directly: an authenticated subject's assigned roles are activated in a session, and a requested operation is allowed only if some active role carries the permission and no separation-of-duty constraint is violated; every decision is logged for audit."
+        },
+        {
+          "id": "process:security-intrusion-detection",
+          "name": "Intrusion Detection",
+          "type": "process",
+          "level": 3,
+          "processId": "security-intrusion-detection",
+          "url": "processes/security/security-intrusion-detection.html",
+          "subcategory": "security",
+          "category": "Security & Cryptography",
+          "graphType": "cyclic_pathway",
+          "nodes": 12,
+          "edges": 14,
+          "description": "An intrusion detection system continuously watches network or host activity: events are collected and evaluated either by signature matching against known attacks or by comparison to an anomaly baseline; suspicious activity raises an alert, false positives feed back to tune the rules or model, and confirmed events trigger response."
+        },
+        {
+          "id": "process:security-memory-management",
+          "name": "Buffer Overflow Exploit & Defense",
+          "type": "process",
+          "level": 3,
+          "processId": "security-memory-management",
+          "url": "processes/security/security-memory-management.html",
+          "subcategory": "security",
+          "category": "Security & Cryptography",
+          "graphType": "decision_flowchart",
+          "nodes": 12,
+          "edges": 13,
+          "description": "A buffer overflow occurs when unchecked input is copied past a buffer's bounds, overwriting the return address to redirect control flow to attacker code; modern defenses such as stack canaries, ASLR, and non-executable memory detect or block the attack, while proper bounds checking rejects the input outright."
+        },
+        {
+          "id": "process:security-process-management",
+          "name": "Diffie-Hellman Key Exchange",
+          "type": "process",
+          "level": 3,
+          "processId": "security-process-management",
+          "url": "processes/security/security-process-management.html",
+          "subcategory": "security",
+          "category": "Security & Cryptography",
+          "graphType": "decision_flowchart",
+          "nodes": 12,
+          "edges": 12,
+          "description": "Diffie-Hellman lets two parties derive a shared secret over a public channel: they agree on public parameters, each picks a private exponent and exchanges its public power, then both compute the same shared value; because passive eavesdroppers cannot, but active attackers can, the exchange must be authenticated to resist man-in-the-middle."
+        },
+        {
+          "id": "process:security-public-key-infrastructure-pki",
+          "name": "Public Key Infrastructure (PKI)",
+          "type": "process",
+          "level": 3,
+          "processId": "security-public-key-infrastructure-pki",
+          "url": "processes/security/security-public-key-infrastructure-pki.html",
+          "subcategory": "security",
+          "category": "Security & Cryptography",
+          "graphType": "decision_flowchart",
+          "nodes": 12,
+          "edges": 12,
+          "description": "PKI binds identities to public keys through trusted certificate authorities: an entity generates a key pair and certificate signing request, the CA validates its identity and signs a certificate that chains to a trusted root; relying parties later verify the signature chain and revocation status before trusting it."
+        },
+        {
+          "id": "process:security-secure-software-update",
+          "name": "Secure Software Update",
+          "type": "process",
+          "level": 3,
+          "processId": "security-secure-software-update",
+          "url": "processes/security/security-secure-software-update.html",
+          "subcategory": "security",
+          "category": "Security & Cryptography",
+          "graphType": "decision_flowchart",
+          "nodes": 12,
+          "edges": 12,
+          "description": "Secure update mechanisms ensure only authentic, current code is installed: the vendor signs each release, the client downloads it and verifies the signature against the trusted key, rejects tampered packages, guards against downgrade attacks, and applies the update atomically with a post-install verification."
+        },
+        {
+          "id": "process:software_engineering-code-review-workflow",
+          "name": "Code Review Workflow",
+          "type": "process",
+          "level": 3,
+          "processId": "software_engineering-code-review-workflow",
+          "url": "processes/software_engineering/software_engineering-code-review-workflow.html",
+          "subcategory": "software_engineering",
+          "category": "Software Engineering",
+          "graphType": "decision_flowchart",
+          "nodes": 10,
+          "edges": 11,
+          "description": "Code review gates changes into the main branch: an author opens a pull request that triggers CI, reviewers read the diff in context, and any change requests send the author back to revise; once discussions are resolved and the reviewers approve, the change is merged and integrated."
+        },
+        {
+          "id": "process:software_engineering-continuous-integration-pipeline",
+          "name": "Continuous Integration Pipeline",
+          "type": "process",
+          "level": 3,
+          "processId": "software_engineering-continuous-integration-pipeline",
+          "url": "processes/software_engineering/software_engineering-continuous-integration-pipeline.html",
+          "subcategory": "software_engineering",
+          "category": "Software Engineering",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 12,
+          "description": "A CI pipeline validates every change automatically: a push triggers checkout and build, and on success the unit and integration test suites run, followed by static analysis; only when all gates pass is the artifact packaged and deployed to staging, while any failure stops the pipeline and notifies the author to fix."
+        },
+        {
+          "id": "process:software_engineering-incident-response",
+          "name": "Incident Response",
+          "type": "process",
+          "level": 3,
+          "processId": "software_engineering-incident-response",
+          "url": "processes/software_engineering/software_engineering-incident-response.html",
+          "subcategory": "software_engineering",
+          "category": "Software Engineering",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 12,
+          "description": "Incident response restores service and learns from failures: an alert is triaged and assigned a severity, an incident is declared and responders assembled, the root cause is investigated, a mitigation applied, and service confirmed restored; a blameless postmortem then captures action items so the failure mode is prevented."
+        },
+        {
+          "id": "process:software_engineering-machine-learning",
+          "name": "Agile Scrum Sprint",
+          "type": "process",
+          "level": 3,
+          "processId": "software_engineering-machine-learning",
+          "url": "processes/software_engineering/software_engineering-machine-learning.html",
+          "subcategory": "software_engineering",
+          "category": "Software Engineering",
+          "graphType": "cyclic_pathway",
+          "nodes": 12,
+          "edges": 13,
+          "description": "A Scrum sprint delivers a potentially shippable increment in a fixed timebox: the team plans and selects a sprint backlog from the product backlog, develops through daily standups, removing impediments as they arise, and when the timebox ends holds a sprint review to demo and a retrospective to improve."
+        },
+        {
+          "id": "process:software_engineering-natural-language-processing",
+          "name": "Code Refactoring Workflow",
+          "type": "process",
+          "level": 3,
+          "processId": "software_engineering-natural-language-processing",
+          "url": "processes/software_engineering/software_engineering-natural-language-processing.html",
+          "subcategory": "software_engineering",
+          "category": "Software Engineering",
+          "graphType": "cyclic_pathway",
+          "nodes": 12,
+          "edges": 14,
+          "description": "Refactoring improves internal design without changing behavior: after spotting a code smell, test coverage is ensured (adding characterization tests if needed), then small behavior-preserving transformations are applied and verified by tests; any failure is reverted, and the cycle repeats until no smells remain."
+        },
+        {
+          "id": "process:software_engineering-neural-network",
+          "name": "Test-Driven Development (TDD)",
+          "type": "process",
+          "level": 3,
+          "processId": "software_engineering-neural-network",
+          "url": "processes/software_engineering/software_engineering-neural-network.html",
+          "subcategory": "software_engineering",
+          "category": "Software Engineering",
+          "graphType": "cyclic_pathway",
+          "nodes": 12,
+          "edges": 14,
+          "description": "Test-driven development follows a red-green-refactor cycle: write a failing test that specifies desired behavior, confirm it fails, write the minimal code to make it pass, then refactor while keeping all tests green; the loop repeats per behavior, producing tested, well-factored code."
+        },
+        {
+          "id": "process:software_engineering-requirements-engineering",
+          "name": "Requirements Engineering",
+          "type": "process",
+          "level": 3,
+          "processId": "software_engineering-requirements-engineering",
+          "url": "processes/software_engineering/software_engineering-requirements-engineering.html",
+          "subcategory": "software_engineering",
+          "category": "Software Engineering",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 12,
+          "description": "Requirements engineering turns stakeholder needs into a validated specification: requirements are elicited, analyzed, and classified as functional behavior or non-functional quality attributes; conflicts and ambiguities are negotiated and resolved, the result is validated with stakeholders, and the agreed set is baselined into a specification."
+        },
+        {
+          "id": "process:systems-container-orchestration",
+          "name": "Container Orchestration",
+          "type": "process",
+          "level": 3,
+          "processId": "systems-container-orchestration",
+          "url": "processes/systems/systems-container-orchestration.html",
+          "subcategory": "systems",
+          "category": "Systems & Architecture",
+          "graphType": "cyclic_pathway",
+          "nodes": 12,
+          "edges": 14,
+          "description": "An orchestrator drives the cluster toward a declared desired state: a manifest is submitted, the scheduler places pods on suitable nodes (scaling out if none fit), images are pulled and containers started under health probes, and a control loop continuously reconciles actual against desired state, correcting any drift."
+        },
+        {
+          "id": "process:systems-file-system-journaling",
+          "name": "File System Journaling",
+          "type": "process",
+          "level": 3,
+          "processId": "systems-file-system-journaling",
+          "url": "processes/systems/systems-file-system-journaling.html",
+          "subcategory": "systems",
+          "category": "Systems & Architecture",
+          "graphType": "decision_flowchart",
+          "nodes": 12,
+          "edges": 13,
+          "description": "Journaling keeps a file system consistent across crashes: before changing the file system, the intended updates are written to a journal and committed durably, after which the changes are checkpointed to their final locations; if a crash occurs before checkpointing, recovery replays the committed journal entries."
+        },
+        {
+          "id": "process:systems-network-performance",
+          "name": "CPU Cache & Memory Hierarchy",
+          "type": "process",
+          "level": 3,
+          "processId": "systems-network-performance",
+          "url": "processes/systems/systems-network-performance.html",
+          "subcategory": "systems",
+          "category": "Systems & Architecture",
+          "graphType": "decision_flowchart",
+          "nodes": 12,
+          "edges": 14,
+          "description": "The memory hierarchy serves CPU accesses from the fastest level that holds the data: L1 is checked first, then L2/L3; on a last-level miss the line is fetched from main memory, evicting and writing back a dirty victim if needed, then filling the cache and updating replacement state before returning data."
+        },
+        {
+          "id": "process:systems-network-protocol",
+          "name": "Deadlock Avoidance (Banker's Algorithm)",
+          "type": "process",
+          "level": 3,
+          "processId": "systems-network-protocol",
+          "url": "processes/systems/systems-network-protocol.html",
+          "subcategory": "systems",
+          "category": "Systems & Architecture",
+          "graphType": "decision_flowchart",
+          "nodes": 12,
+          "edges": 14,
+          "description": "The Banker's algorithm grants resource requests only if the system stays in a safe state: a request is tentatively allocated, then the safety algorithm seeks an ordering in which every process can finish; if such a sequence exists the request is granted, otherwise the tentative allocation is rolled back and denied."
+        },
+        {
+          "id": "process:systems-network-security",
+          "name": "Thread Synchronization (Locks)",
+          "type": "process",
+          "level": 3,
+          "processId": "systems-network-security",
+          "url": "processes/systems/systems-network-security.html",
+          "subcategory": "systems",
+          "category": "Systems & Architecture",
+          "graphType": "decision_flowchart",
+          "nodes": 12,
+          "edges": 13,
+          "description": "Locks enforce mutual exclusion over shared data: a thread identifies the critical section and acquires a mutex, blocking or spinning if it is held; inside the section it performs read-modify-write safely, using atomics or memory barriers where needed, then releases the lock and wakes any waiting threads."
+        },
+        {
+          "id": "process:systems-process-scheduling",
+          "name": "Process Scheduling",
+          "type": "process",
+          "level": 3,
+          "processId": "systems-process-scheduling",
+          "url": "processes/systems/systems-process-scheduling.html",
+          "subcategory": "systems",
+          "category": "Systems & Architecture",
+          "graphType": "decision_flowchart",
+          "nodes": 12,
+          "edges": 14,
+          "description": "The CPU scheduler decides which ready process runs next: processes enter the ready queue and a policy such as round-robin or priority/multilevel feedback selects one to dispatch; a running process is preempted on quantum expiry or when it blocks, returning to the queue, until it finishes and terminates."
+        },
+        {
+          "id": "process:systems-virtual-memory-paging",
+          "name": "Virtual Memory Paging",
+          "type": "process",
+          "level": 3,
+          "processId": "systems-virtual-memory-paging",
+          "url": "processes/systems/systems-virtual-memory-paging.html",
+          "subcategory": "systems",
+          "category": "Systems & Architecture",
+          "graphType": "decision_flowchart",
+          "nodes": 12,
+          "edges": 13,
+          "description": "Paging translates a process's virtual address to a physical one: the address splits into a page number and offset, the TLB is consulted, and on a miss the page table is walked; if the page is not resident a page fault traps to the OS, which evicts a victim and loads the page from disk before forming the physical address."
+        },
+        {
+          "id": "process:theory-animation",
+          "name": "NP-Completeness via Reduction",
+          "type": "process",
+          "level": 3,
+          "processId": "theory-animation",
+          "url": "processes/theory/theory-animation.html",
+          "subcategory": "theory",
+          "category": "Theoretical Computer Science",
+          "graphType": "decision_flowchart",
+          "nodes": 12,
+          "edges": 14,
+          "description": "To prove a problem NP-complete one shows it lies in NP and is NP-hard: membership is shown with a polynomial-time verifier, then a known NP-complete problem is reduced to it by a polynomial-time mapping that preserves yes-instances; verifying the reduction's size and correctness completes the proof."
+        },
+        {
+          "id": "process:theory-automata-construction",
+          "name": "Automata Construction (NFA to DFA)",
+          "type": "process",
+          "level": 3,
+          "processId": "theory-automata-construction",
+          "url": "processes/theory/theory-automata-construction.html",
+          "subcategory": "theory",
+          "category": "Theoretical Computer Science",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 12,
+          "description": "A regular language is recognized by a deterministic automaton built in stages: Thompson's construction turns a regex into an NFA, then the subset construction explores sets of NFA states reachable under each symbol to form DFA states; accepting states are marked and the DFA is minimized into an equivalent canonical machine."
+        },
+        {
+          "id": "process:theory-computational-complexity-analysis",
+          "name": "Computational Complexity Analysis",
+          "type": "process",
+          "level": 3,
+          "processId": "theory-computational-complexity-analysis",
+          "url": "processes/theory/theory-computational-complexity-analysis.html",
+          "subcategory": "theory",
+          "category": "Theoretical Computer Science",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 12,
+          "description": "Complexity analysis bounds the resources an algorithm uses as input grows: basic operations are counted as a function of n, the relevant case (worst or average) is chosen, and the dominant term gives an asymptotic class; the analysis is refined until a tight bound is established and expressed in Big-O, Theta, or Omega notation."
+        },
+        {
+          "id": "process:theory-formal-verification",
+          "name": "Formal Verification",
+          "type": "process",
+          "level": 3,
+          "processId": "theory-formal-verification",
+          "url": "processes/theory/theory-formal-verification.html",
+          "subcategory": "theory",
+          "category": "Theoretical Computer Science",
+          "graphType": "decision_flowchart",
+          "nodes": 12,
+          "edges": 13,
+          "description": "Formal verification mathematically proves a system meets its specification: a formal model and a property (often in temporal logic) are built, and either model checking explores the state space or theorem proving derives a proof; a failed check yields a counterexample that refines the model until the property is guaranteed."
+        },
+        {
+          "id": "process:theory-geometric-modeling",
+          "name": "Decidability & the Halting Problem",
+          "type": "process",
+          "level": 3,
+          "processId": "theory-geometric-modeling",
+          "url": "processes/theory/theory-geometric-modeling.html",
+          "subcategory": "theory",
+          "category": "Theoretical Computer Science",
+          "graphType": "decision_flowchart",
+          "nodes": 12,
+          "edges": 14,
+          "description": "A problem is decidable if a Turing machine halts with the correct answer on every input: after formalizing the problem as a language, one either constructs a total decider or, failing that, reduces the halting problem to it; a valid reduction proves undecidability, as Turing showed the halting problem itself is undecidable."
+        },
+        {
+          "id": "process:theory-rendering",
+          "name": "CYK Parsing of Context-Free Grammars",
+          "type": "process",
+          "level": 3,
+          "processId": "theory-rendering",
+          "url": "processes/theory/theory-rendering.html",
+          "subcategory": "theory",
+          "category": "Theoretical Computer Science",
+          "graphType": "decision_flowchart",
+          "nodes": 12,
+          "edges": 13,
+          "description": "The CYK algorithm decides membership in a context-free language in cubic time using dynamic programming: the grammar is put in Chomsky normal form, a table is filled for substrings of length one, then for increasing spans every split point is tried to derive nonterminals; the string is accepted if the start symbol spans the whole input."
+        },
+        {
+          "id": "process:theory-type-system-checking",
+          "name": "Type System Checking",
+          "type": "process",
+          "level": 3,
+          "processId": "theory-type-system-checking",
+          "url": "processes/theory/theory-type-system-checking.html",
+          "subcategory": "theory",
+          "category": "Theoretical Computer Science",
+          "graphType": "decision_flowchart",
+          "nodes": 12,
+          "edges": 14,
+          "description": "A type checker proves a program respects its type discipline: it traverses the syntax tree under a typing environment, inferring or looking up types and applying typing rules to each construct; type variables are unified, incompatibilities raise type errors, and a program with no errors is certified well-typed."
+        }
+      ],
+      "links": [
+        {
+          "source": "root",
+          "target": "subcategory:algorithms_data_structures",
+          "type": "contains"
+        },
+        {
+          "source": "root",
+          "target": "subcategory:machine_learning",
+          "type": "contains"
+        },
+        {
+          "source": "root",
+          "target": "subcategory:networks",
+          "type": "contains"
+        },
+        {
+          "source": "root",
+          "target": "subcategory:security",
+          "type": "contains"
+        },
+        {
+          "source": "root",
+          "target": "subcategory:software_engineering",
+          "type": "contains"
+        },
+        {
+          "source": "root",
+          "target": "subcategory:systems",
+          "type": "contains"
+        },
+        {
+          "source": "root",
+          "target": "subcategory:theory",
+          "type": "contains"
+        },
+        {
+          "source": "root",
+          "target": "subcategory:graph_type_pilots",
+          "type": "contains"
+        },
+        {
+          "source": "subcategory:algorithms_data_structures",
+          "target": "process:algorithms_data_structures-balanced-search-trees",
+          "type": "contains"
+        },
+        {
+          "source": "subcategory:algorithms_data_structures",
+          "target": "process:algorithms_data_structures-dynamic-programming",
+          "type": "contains"
+        },
+        {
+          "source": "subcategory:algorithms_data_structures",
+          "target": "process:algorithms_data_structures-graph-algorithms",
+          "type": "contains"
+        },
+        {
+          "source": "subcategory:algorithms_data_structures",
+          "target": "process:algorithms_data_structures-graph-traversal",
+          "type": "contains"
+        },
+        {
+          "source": "subcategory:algorithms_data_structures",
+          "target": "process:algorithms_data_structures-hash-table-operations",
+          "type": "contains"
+        },
+        {
+          "source": "subcategory:algorithms_data_structures",
+          "target": "process:algorithms_data_structures-minimum-spanning-tree",
+          "type": "contains"
+        },
+        {
+          "source": "subcategory:algorithms_data_structures",
+          "target": "process:algorithms_data_structures-shortest-path-algorithms",
+          "type": "contains"
+        },
+        {
+          "source": "subcategory:algorithms_data_structures",
+          "target": "process:algorithms_data_structures-sorting-algorithms",
+          "type": "contains"
+        },
+        {
+          "source": "subcategory:graph_type_pilots",
+          "target": "process:dependency-web-service-stack",
+          "type": "contains"
+        },
+        {
+          "source": "subcategory:machine_learning",
+          "target": "process:machine_learning-feature-engineering-pipeline",
+          "type": "contains"
+        },
+        {
+          "source": "subcategory:machine_learning",
+          "target": "process:machine_learning-hyperparameter-optimization",
+          "type": "contains"
+        },
+        {
+          "source": "subcategory:machine_learning",
+          "target": "process:machine_learning-model-evaluation-and-validation",
+          "type": "contains"
+        },
+        {
+          "source": "subcategory:machine_learning",
+          "target": "process:machine_learning-model-training-pipeline",
+          "type": "contains"
+        },
+        {
+          "source": "subcategory:machine_learning",
+          "target": "process:machine_learning-project-management",
+          "type": "contains"
+        },
+        {
+          "source": "subcategory:machine_learning",
+          "target": "process:machine_learning-quality-assurance",
+          "type": "contains"
+        },
+        {
+          "source": "subcategory:machine_learning",
+          "target": "process:machine_learning-software-development-lifecycle",
+          "type": "contains"
+        },
+        {
+          "source": "subcategory:networks",
+          "target": "process:networks-database-design",
+          "type": "contains"
+        },
+        {
+          "source": "subcategory:networks",
+          "target": "process:networks-dns-resolution",
+          "type": "contains"
+        },
+        {
+          "source": "subcategory:networks",
+          "target": "process:networks-load-balancing",
+          "type": "contains"
+        },
+        {
+          "source": "subcategory:networks",
+          "target": "process:networks-query-processing",
+          "type": "contains"
+        },
+        {
+          "source": "subcategory:networks",
+          "target": "process:networks-routing-protocol-operation",
+          "type": "contains"
+        },
+        {
+          "source": "subcategory:networks",
+          "target": "process:networks-tcp-congestion-control",
+          "type": "contains"
+        },
+        {
+          "source": "subcategory:networks",
+          "target": "process:networks-transaction-management",
+          "type": "contains"
+        },
+        {
+          "source": "subcategory:security",
+          "target": "process:security-authentication-and-authorization",
+          "type": "contains"
+        },
+        {
+          "source": "subcategory:security",
+          "target": "process:security-file-system",
+          "type": "contains"
+        },
+        {
+          "source": "subcategory:security",
+          "target": "process:security-intrusion-detection",
+          "type": "contains"
+        },
+        {
+          "source": "subcategory:security",
+          "target": "process:security-memory-management",
+          "type": "contains"
+        },
+        {
+          "source": "subcategory:security",
+          "target": "process:security-process-management",
+          "type": "contains"
+        },
+        {
+          "source": "subcategory:security",
+          "target": "process:security-public-key-infrastructure-pki",
+          "type": "contains"
+        },
+        {
+          "source": "subcategory:security",
+          "target": "process:security-secure-software-update",
+          "type": "contains"
+        },
+        {
+          "source": "subcategory:software_engineering",
+          "target": "process:software_engineering-code-review-workflow",
+          "type": "contains"
+        },
+        {
+          "source": "subcategory:software_engineering",
+          "target": "process:software_engineering-continuous-integration-pipeline",
+          "type": "contains"
+        },
+        {
+          "source": "subcategory:software_engineering",
+          "target": "process:software_engineering-incident-response",
+          "type": "contains"
+        },
+        {
+          "source": "subcategory:software_engineering",
+          "target": "process:software_engineering-machine-learning",
+          "type": "contains"
+        },
+        {
+          "source": "subcategory:software_engineering",
+          "target": "process:software_engineering-natural-language-processing",
+          "type": "contains"
+        },
+        {
+          "source": "subcategory:software_engineering",
+          "target": "process:software_engineering-neural-network",
+          "type": "contains"
+        },
+        {
+          "source": "subcategory:software_engineering",
+          "target": "process:software_engineering-requirements-engineering",
+          "type": "contains"
+        },
+        {
+          "source": "subcategory:systems",
+          "target": "process:systems-container-orchestration",
+          "type": "contains"
+        },
+        {
+          "source": "subcategory:systems",
+          "target": "process:systems-file-system-journaling",
+          "type": "contains"
+        },
+        {
+          "source": "subcategory:systems",
+          "target": "process:systems-network-performance",
+          "type": "contains"
+        },
+        {
+          "source": "subcategory:systems",
+          "target": "process:systems-network-protocol",
+          "type": "contains"
+        },
+        {
+          "source": "subcategory:systems",
+          "target": "process:systems-network-security",
+          "type": "contains"
+        },
+        {
+          "source": "subcategory:systems",
+          "target": "process:systems-process-scheduling",
+          "type": "contains"
+        },
+        {
+          "source": "subcategory:systems",
+          "target": "process:systems-virtual-memory-paging",
+          "type": "contains"
+        },
+        {
+          "source": "subcategory:theory",
+          "target": "process:theory-animation",
+          "type": "contains"
+        },
+        {
+          "source": "subcategory:theory",
+          "target": "process:theory-automata-construction",
+          "type": "contains"
+        },
+        {
+          "source": "subcategory:theory",
+          "target": "process:theory-computational-complexity-analysis",
+          "type": "contains"
+        },
+        {
+          "source": "subcategory:theory",
+          "target": "process:theory-formal-verification",
+          "type": "contains"
+        },
+        {
+          "source": "subcategory:theory",
+          "target": "process:theory-geometric-modeling",
+          "type": "contains"
+        },
+        {
+          "source": "subcategory:theory",
+          "target": "process:theory-rendering",
+          "type": "contains"
+        },
+        {
+          "source": "subcategory:theory",
+          "target": "process:theory-type-system-checking",
+          "type": "contains"
+        }
+      ]
+    },
+    {
+      "id": "lens",
+      "label": "Curated Lens Map",
+      "layout": "force",
+      "description": "Uses collection presets as conceptual lenses, letting processes appear under task-oriented groupings.",
+      "recommendation": "candidate",
+      "rubric": {
+        "subjectFidelity": 4,
+        "navigability": 4,
+        "crossLinks": 4,
+        "pedagogy": 4,
+        "extensibility": 5,
+        "total": 21,
+        "notes": "First-pass heuristic score for computer_science; revise after visual inspection."
+      },
+      "nodes": [
+        {
+          "id": "root",
+          "name": "Whole of Computer Science",
+          "type": "root",
+          "level": 0,
+          "description": "Algorithms, systems, networks, security, machine learning, and software workflows."
+        },
+        {
+          "id": "collection:ml-software",
+          "name": "Machine Learning and Software Engineering",
+          "type": "collection",
+          "level": 1,
+          "processCount": 18,
+          "description": "Model training, validation, feature engineering, CI, QA, requirements, and review workflows."
+        },
+        {
+          "id": "process:machine_learning-feature-engineering-pipeline",
+          "name": "Feature Engineering Pipeline",
+          "type": "process",
+          "level": 3,
+          "processId": "machine_learning-feature-engineering-pipeline",
+          "url": "processes/machine_learning/machine_learning-feature-engineering-pipeline.html",
+          "subcategory": "machine_learning",
+          "category": "Machine Learning",
+          "graphType": "decision_flowchart",
+          "nodes": 10,
+          "edges": 10,
+          "description": "Feature engineering turns raw data into model-ready inputs: records are cleaned and missing values handled, categorical variables encoded, numeric features scaled, and derived features created, then features are selected by importance; transformations are fit only on training data to avoid leakage before producing the feature matrix."
+        },
+        {
+          "id": "process:machine_learning-hyperparameter-optimization",
+          "name": "Hyperparameter Optimization",
+          "type": "process",
+          "level": 3,
+          "processId": "machine_learning-hyperparameter-optimization",
+          "url": "processes/machine_learning/machine_learning-hyperparameter-optimization.html",
+          "subcategory": "machine_learning",
+          "category": "Machine Learning",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 14,
+          "description": "Hyperparameter optimization searches configuration space for the best-performing model: a strategy is chosen among grid, random, or Bayesian search, candidate configurations are sampled, scored by cross-validation, and the best is tracked; sampling continues until the budget is exhausted, returning the optimal hyperparameters."
+        },
+        {
+          "id": "process:machine_learning-model-evaluation-and-validation",
+          "name": "Model Evaluation & Validation",
+          "type": "process",
+          "level": 3,
+          "processId": "machine_learning-model-evaluation-and-validation",
+          "url": "processes/machine_learning/machine_learning-model-evaluation-and-validation.html",
+          "subcategory": "machine_learning",
+          "category": "Machine Learning",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 13,
+          "description": "Model evaluation estimates generalization rather than training fit: metrics are chosen by task (precision/recall for classification, RMSE/R-squared for regression), k-fold cross-validation gives mean and variance of performance, the bias-variance regime is diagnosed, and a final held-out test confirms the model generalizes before acceptance."
+        },
+        {
+          "id": "process:machine_learning-model-training-pipeline",
+          "name": "Model Training Pipeline",
+          "type": "process",
+          "level": 3,
+          "processId": "machine_learning-model-training-pipeline",
+          "url": "processes/machine_learning/machine_learning-model-training-pipeline.html",
+          "subcategory": "machine_learning",
+          "category": "Machine Learning",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 12,
+          "description": "A model training pipeline manages the end-to-end fit: data is split into train, validation, and test, parameters initialized, and the model trained over mini-batches while monitoring training and validation loss; regularization counters overfitting and the best checkpoint is kept once validation converges, yielding the trained model."
+        },
+        {
+          "id": "process:machine_learning-project-management",
+          "name": "Support Vector Machine (SVM)",
+          "type": "process",
+          "level": 3,
+          "processId": "machine_learning-project-management",
+          "url": "processes/machine_learning/machine_learning-project-management.html",
+          "subcategory": "machine_learning",
+          "category": "Machine Learning",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 12,
+          "description": "A support vector machine classifies by finding the maximum-margin hyperplane: data is mapped into a feature space, and if not linearly separable a kernel implicitly lifts it higher; solving the dual quadratic program identifies the support vectors that define the boundary, with a soft margin allowing controlled violations."
+        },
+        {
+          "id": "process:machine_learning-quality-assurance",
+          "name": "K-Means Clustering",
+          "type": "process",
+          "level": 3,
+          "processId": "machine_learning-quality-assurance",
+          "url": "processes/machine_learning/machine_learning-quality-assurance.html",
+          "subcategory": "machine_learning",
+          "category": "Machine Learning",
+          "graphType": "cyclic_pathway",
+          "nodes": 12,
+          "edges": 13,
+          "description": "K-means partitions unlabeled data into k clusters by minimizing within-cluster variance: after initializing k centroids, each point is assigned to its nearest centroid and centroids are recomputed as cluster means; this repeats until assignments stop changing, and cluster quality guides whether to adjust k."
+        },
+        {
+          "id": "process:machine_learning-software-development-lifecycle",
+          "name": "Backpropagation Training",
+          "type": "process",
+          "level": 3,
+          "processId": "machine_learning-software-development-lifecycle",
+          "url": "processes/machine_learning/machine_learning-software-development-lifecycle.html",
+          "subcategory": "machine_learning",
+          "category": "Machine Learning",
+          "graphType": "cyclic_pathway",
+          "nodes": 12,
+          "edges": 13,
+          "description": "Backpropagation trains a neural network by gradient descent: a forward pass computes the output and loss, then the loss gradient is propagated backward layer by layer via the chain rule to obtain per-parameter gradients; weights are updated and the cycle repeats over the data until the loss converges."
+        },
+        {
+          "id": "process:networks-database-design",
+          "name": "IP Addressing & Subnetting (CIDR)",
+          "type": "process",
+          "level": 3,
+          "processId": "networks-database-design",
+          "url": "processes/networks/networks-database-design.html",
+          "subcategory": "networks",
+          "category": "Computer Networks",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 11,
+          "description": "Subnetting divides an address block to fit host requirements: from the needed host count the required host bits and prefix length are computed, the block is split into subnets, and if a subnet is too small more host bits are borrowed; network and broadcast addresses are reserved and routes are aggregated with CIDR."
+        },
+        {
+          "id": "process:security-intrusion-detection",
+          "name": "Intrusion Detection",
+          "type": "process",
+          "level": 3,
+          "processId": "security-intrusion-detection",
+          "url": "processes/security/security-intrusion-detection.html",
+          "subcategory": "security",
+          "category": "Security & Cryptography",
+          "graphType": "cyclic_pathway",
+          "nodes": 12,
+          "edges": 14,
+          "description": "An intrusion detection system continuously watches network or host activity: events are collected and evaluated either by signature matching against known attacks or by comparison to an anomaly baseline; suspicious activity raises an alert, false positives feed back to tune the rules or model, and confirmed events trigger response."
+        },
+        {
+          "id": "process:security-secure-software-update",
+          "name": "Secure Software Update",
+          "type": "process",
+          "level": 3,
+          "processId": "security-secure-software-update",
+          "url": "processes/security/security-secure-software-update.html",
+          "subcategory": "security",
+          "category": "Security & Cryptography",
+          "graphType": "decision_flowchart",
+          "nodes": 12,
+          "edges": 12,
+          "description": "Secure update mechanisms ensure only authentic, current code is installed: the vendor signs each release, the client downloads it and verifies the signature against the trusted key, rejects tampered packages, guards against downgrade attacks, and applies the update atomically with a post-install verification."
+        },
+        {
+          "id": "process:software_engineering-code-review-workflow",
+          "name": "Code Review Workflow",
+          "type": "process",
+          "level": 3,
+          "processId": "software_engineering-code-review-workflow",
+          "url": "processes/software_engineering/software_engineering-code-review-workflow.html",
+          "subcategory": "software_engineering",
+          "category": "Software Engineering",
+          "graphType": "decision_flowchart",
+          "nodes": 10,
+          "edges": 11,
+          "description": "Code review gates changes into the main branch: an author opens a pull request that triggers CI, reviewers read the diff in context, and any change requests send the author back to revise; once discussions are resolved and the reviewers approve, the change is merged and integrated."
+        },
+        {
+          "id": "process:software_engineering-continuous-integration-pipeline",
+          "name": "Continuous Integration Pipeline",
+          "type": "process",
+          "level": 3,
+          "processId": "software_engineering-continuous-integration-pipeline",
+          "url": "processes/software_engineering/software_engineering-continuous-integration-pipeline.html",
+          "subcategory": "software_engineering",
+          "category": "Software Engineering",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 12,
+          "description": "A CI pipeline validates every change automatically: a push triggers checkout and build, and on success the unit and integration test suites run, followed by static analysis; only when all gates pass is the artifact packaged and deployed to staging, while any failure stops the pipeline and notifies the author to fix."
+        },
+        {
+          "id": "process:software_engineering-incident-response",
+          "name": "Incident Response",
+          "type": "process",
+          "level": 3,
+          "processId": "software_engineering-incident-response",
+          "url": "processes/software_engineering/software_engineering-incident-response.html",
+          "subcategory": "software_engineering",
+          "category": "Software Engineering",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 12,
+          "description": "Incident response restores service and learns from failures: an alert is triaged and assigned a severity, an incident is declared and responders assembled, the root cause is investigated, a mitigation applied, and service confirmed restored; a blameless postmortem then captures action items so the failure mode is prevented."
+        },
+        {
+          "id": "process:software_engineering-machine-learning",
+          "name": "Agile Scrum Sprint",
+          "type": "process",
+          "level": 3,
+          "processId": "software_engineering-machine-learning",
+          "url": "processes/software_engineering/software_engineering-machine-learning.html",
+          "subcategory": "software_engineering",
+          "category": "Software Engineering",
+          "graphType": "cyclic_pathway",
+          "nodes": 12,
+          "edges": 13,
+          "description": "A Scrum sprint delivers a potentially shippable increment in a fixed timebox: the team plans and selects a sprint backlog from the product backlog, develops through daily standups, removing impediments as they arise, and when the timebox ends holds a sprint review to demo and a retrospective to improve."
+        },
+        {
+          "id": "process:software_engineering-natural-language-processing",
+          "name": "Code Refactoring Workflow",
+          "type": "process",
+          "level": 3,
+          "processId": "software_engineering-natural-language-processing",
+          "url": "processes/software_engineering/software_engineering-natural-language-processing.html",
+          "subcategory": "software_engineering",
+          "category": "Software Engineering",
+          "graphType": "cyclic_pathway",
+          "nodes": 12,
+          "edges": 14,
+          "description": "Refactoring improves internal design without changing behavior: after spotting a code smell, test coverage is ensured (adding characterization tests if needed), then small behavior-preserving transformations are applied and verified by tests; any failure is reverted, and the cycle repeats until no smells remain."
+        },
+        {
+          "id": "process:software_engineering-neural-network",
+          "name": "Test-Driven Development (TDD)",
+          "type": "process",
+          "level": 3,
+          "processId": "software_engineering-neural-network",
+          "url": "processes/software_engineering/software_engineering-neural-network.html",
+          "subcategory": "software_engineering",
+          "category": "Software Engineering",
+          "graphType": "cyclic_pathway",
+          "nodes": 12,
+          "edges": 14,
+          "description": "Test-driven development follows a red-green-refactor cycle: write a failing test that specifies desired behavior, confirm it fails, write the minimal code to make it pass, then refactor while keeping all tests green; the loop repeats per behavior, producing tested, well-factored code."
+        },
+        {
+          "id": "process:software_engineering-requirements-engineering",
+          "name": "Requirements Engineering",
+          "type": "process",
+          "level": 3,
+          "processId": "software_engineering-requirements-engineering",
+          "url": "processes/software_engineering/software_engineering-requirements-engineering.html",
+          "subcategory": "software_engineering",
+          "category": "Software Engineering",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 12,
+          "description": "Requirements engineering turns stakeholder needs into a validated specification: requirements are elicited, analyzed, and classified as functional behavior or non-functional quality attributes; conflicts and ambiguities are negotiated and resolved, the result is validated with stakeholders, and the agreed set is baselined into a specification."
+        },
+        {
+          "id": "process:theory-formal-verification",
+          "name": "Formal Verification",
+          "type": "process",
+          "level": 3,
+          "processId": "theory-formal-verification",
+          "url": "processes/theory/theory-formal-verification.html",
+          "subcategory": "theory",
+          "category": "Theoretical Computer Science",
+          "graphType": "decision_flowchart",
+          "nodes": 12,
+          "edges": 13,
+          "description": "Formal verification mathematically proves a system meets its specification: a formal model and a property (often in temporal logic) are built, and either model checking explores the state space or theorem proving derives a proof; a failed check yields a counterexample that refines the model until the property is guaranteed."
+        },
+        {
+          "id": "collection:algorithmic-complexity",
+          "name": "Algorithms and Complexity",
+          "type": "collection",
+          "level": 1,
+          "processCount": 17,
+          "description": "Graph algorithms, dynamic programming, sorting, trees, complexity, and formal analysis."
+        },
+        {
+          "id": "process:algorithms_data_structures-balanced-search-trees",
+          "name": "Balanced Search Trees (Rotations)",
+          "type": "process",
+          "level": 3,
+          "processId": "algorithms_data_structures-balanced-search-trees",
+          "url": "processes/algorithms_data_structures/algorithms_data_structures-balanced-search-trees.html",
+          "subcategory": "algorithms_data_structures",
+          "category": "Algorithms & Data Structures",
+          "graphType": "decision_flowchart",
+          "nodes": 12,
+          "edges": 14,
+          "description": "Self-balancing search trees keep operations at O(log n) by restoring a balance invariant after each insertion: a standard BST insert is followed by checking the height or color invariant, and when it is violated, single or double rotations and recoloring are applied up the path until the tree property is restored."
+        },
+        {
+          "id": "process:algorithms_data_structures-dynamic-programming",
+          "name": "Dynamic Programming",
+          "type": "process",
+          "level": 3,
+          "processId": "algorithms_data_structures-dynamic-programming",
+          "url": "processes/algorithms_data_structures/algorithms_data_structures-dynamic-programming.html",
+          "subcategory": "algorithms_data_structures",
+          "category": "Algorithms & Data Structures",
+          "graphType": "decision_flowchart",
+          "nodes": 12,
+          "edges": 14,
+          "description": "Dynamic programming solves optimization problems that have optimal substructure and overlapping subproblems: a recurrence relating a solution to smaller subproblems is defined and solved either top-down with memoization or bottom-up by filling a table, after which the stored results are combined and the optimal solution is reconstructed."
+        },
+        {
+          "id": "process:algorithms_data_structures-graph-algorithms",
+          "name": "Topological Sort (Kahn's Algorithm)",
+          "type": "process",
+          "level": 3,
+          "processId": "algorithms_data_structures-graph-algorithms",
+          "url": "processes/algorithms_data_structures/algorithms_data_structures-graph-algorithms.html",
+          "subcategory": "algorithms_data_structures",
+          "category": "Algorithms & Data Structures",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 12,
+          "description": "Topological sorting linearly orders the vertices of a directed acyclic graph so every edge points forward: Kahn's algorithm computes in-degrees, repeatedly removes a zero in-degree vertex into the order while decrementing its neighbors, and enqueues newly freed vertices; if fewer than all vertices are output, the graph contained a cycle."
+        },
+        {
+          "id": "process:algorithms_data_structures-graph-traversal",
+          "name": "Graph Traversal (BFS / DFS)",
+          "type": "process",
+          "level": 3,
+          "processId": "algorithms_data_structures-graph-traversal",
+          "url": "processes/algorithms_data_structures/algorithms_data_structures-graph-traversal.html",
+          "subcategory": "algorithms_data_structures",
+          "category": "Algorithms & Data Structures",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 12,
+          "description": "Graph traversal visits every reachable vertex from a start node using a worklist: breadth-first search uses a FIFO queue to explore level by level, depth-first search uses a LIFO stack to dive deep first; vertices are marked visited to avoid revisiting, and traversal ends when the container is empty."
+        },
+        {
+          "id": "process:algorithms_data_structures-minimum-spanning-tree",
+          "name": "Minimum Spanning Tree (Kruskal / Prim)",
+          "type": "process",
+          "level": 3,
+          "processId": "algorithms_data_structures-minimum-spanning-tree",
+          "url": "processes/algorithms_data_structures/algorithms_data_structures-minimum-spanning-tree.html",
+          "subcategory": "algorithms_data_structures",
+          "category": "Algorithms & Data Structures",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 13,
+          "description": "A minimum spanning tree connects all vertices of a weighted graph with least total edge weight by a greedy rule: Kruskal sorts edges and adds the lightest that does not form a cycle (using union-find), while Prim grows a tree by repeatedly adding the lightest edge leaving it, until every vertex is connected."
+        },
+        {
+          "id": "process:algorithms_data_structures-shortest-path-algorithms",
+          "name": "Shortest Path (Dijkstra)",
+          "type": "process",
+          "level": 3,
+          "processId": "algorithms_data_structures-shortest-path-algorithms",
+          "url": "processes/algorithms_data_structures/algorithms_data_structures-shortest-path-algorithms.html",
+          "subcategory": "algorithms_data_structures",
+          "category": "Algorithms & Data Structures",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 12,
+          "description": "Dijkstra's algorithm finds shortest paths from a source in a graph with non-negative weights: distances start at infinity except the source, and a priority queue repeatedly extracts the closest unfinalized vertex, finalizes it, and relaxes its outgoing edges, updating tentative distances until the queue is empty and the shortest-path tree is complete."
+        },
+        {
+          "id": "process:algorithms_data_structures-sorting-algorithms",
+          "name": "Sorting by Divide and Conquer",
+          "type": "process",
+          "level": 3,
+          "processId": "algorithms_data_structures-sorting-algorithms",
+          "url": "processes/algorithms_data_structures/algorithms_data_structures-sorting-algorithms.html",
+          "subcategory": "algorithms_data_structures",
+          "category": "Algorithms & Data Structures",
+          "graphType": "decision_flowchart",
+          "nodes": 10,
+          "edges": 12,
+          "description": "Comparison sorts like merge sort and quicksort use divide and conquer to reach O(n log n): merge sort splits the array in half, recursively sorts each part, and merges the sorted halves, while quicksort partitions around a pivot and recurses on each side; recursion bottoms out on subarrays of size one."
+        },
+        {
+          "id": "process:dependency-web-service-stack",
+          "name": "Web Service Stack Dependency Graph",
+          "type": "process",
+          "level": 3,
+          "processId": "dependency-web-service-stack",
+          "url": "processes/graph_type_pilots/dependency-web-service-stack.html",
+          "subcategory": "graph_type_pilots",
+          "category": "Graph Type Pilots",
+          "graphType": "dependency_graph",
+          "nodes": 8,
+          "edges": 8,
+          "description": "A dependency graph captures which components a web service relies on to function: the load balancer depends on web/API servers, which depend on the auth service and application logic; the application in turn depends on a cache, primary database, and message queue, and queue workers depend on object storage, so a failure propagates up the chain."
+        },
+        {
+          "id": "process:networks-load-balancing",
+          "name": "Load Balancing",
+          "type": "process",
+          "level": 3,
+          "processId": "networks-load-balancing",
+          "url": "processes/networks/networks-load-balancing.html",
+          "subcategory": "networks",
+          "category": "Computer Networks",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 13,
+          "description": "A load balancer spreads incoming requests across backend servers: it selects a target by an algorithm such as round-robin, least-connections, or weighted hashing, checks backend health and removes unhealthy nodes from the pool, then forwards the request, achieving an even and resilient distribution of load."
+        },
+        {
+          "id": "process:systems-network-protocol",
+          "name": "Deadlock Avoidance (Banker's Algorithm)",
+          "type": "process",
+          "level": 3,
+          "processId": "systems-network-protocol",
+          "url": "processes/systems/systems-network-protocol.html",
+          "subcategory": "systems",
+          "category": "Systems & Architecture",
+          "graphType": "decision_flowchart",
+          "nodes": 12,
+          "edges": 14,
+          "description": "The Banker's algorithm grants resource requests only if the system stays in a safe state: a request is tentatively allocated, then the safety algorithm seeks an ordering in which every process can finish; if such a sequence exists the request is granted, otherwise the tentative allocation is rolled back and denied."
+        },
+        {
+          "id": "process:theory-automata-construction",
+          "name": "Automata Construction (NFA to DFA)",
+          "type": "process",
+          "level": 3,
+          "processId": "theory-automata-construction",
+          "url": "processes/theory/theory-automata-construction.html",
+          "subcategory": "theory",
+          "category": "Theoretical Computer Science",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 12,
+          "description": "A regular language is recognized by a deterministic automaton built in stages: Thompson's construction turns a regex into an NFA, then the subset construction explores sets of NFA states reachable under each symbol to form DFA states; accepting states are marked and the DFA is minimized into an equivalent canonical machine."
+        },
+        {
+          "id": "process:theory-computational-complexity-analysis",
+          "name": "Computational Complexity Analysis",
+          "type": "process",
+          "level": 3,
+          "processId": "theory-computational-complexity-analysis",
+          "url": "processes/theory/theory-computational-complexity-analysis.html",
+          "subcategory": "theory",
+          "category": "Theoretical Computer Science",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 12,
+          "description": "Complexity analysis bounds the resources an algorithm uses as input grows: basic operations are counted as a function of n, the relevant case (worst or average) is chosen, and the dominant term gives an asymptotic class; the analysis is refined until a tight bound is established and expressed in Big-O, Theta, or Omega notation."
+        },
+        {
+          "id": "process:theory-rendering",
+          "name": "CYK Parsing of Context-Free Grammars",
+          "type": "process",
+          "level": 3,
+          "processId": "theory-rendering",
+          "url": "processes/theory/theory-rendering.html",
+          "subcategory": "theory",
+          "category": "Theoretical Computer Science",
+          "graphType": "decision_flowchart",
+          "nodes": 12,
+          "edges": 13,
+          "description": "The CYK algorithm decides membership in a context-free language in cubic time using dynamic programming: the grammar is put in Chomsky normal form, a table is filled for substrings of length one, then for increasing spans every split point is tried to derive nonterminals; the string is accepted if the start symbol spans the whole input."
+        },
+        {
+          "id": "process:theory-type-system-checking",
+          "name": "Type System Checking",
+          "type": "process",
+          "level": 3,
+          "processId": "theory-type-system-checking",
+          "url": "processes/theory/theory-type-system-checking.html",
+          "subcategory": "theory",
+          "category": "Theoretical Computer Science",
+          "graphType": "decision_flowchart",
+          "nodes": 12,
+          "edges": 14,
+          "description": "A type checker proves a program respects its type discipline: it traverses the syntax tree under a typing environment, inferring or looking up types and applying typing rules to each construct; type variables are unified, incompatibilities raise type errors, and a program with no errors is certified well-typed."
+        },
+        {
+          "id": "collection:systems-runtime",
+          "name": "Systems and Runtime",
+          "type": "collection",
+          "level": 1,
+          "processCount": 15,
+          "description": "Operating systems, memory, containers, scheduling, filesystems, and runtime behavior."
+        },
+        {
+          "id": "process:security-authentication-and-authorization",
+          "name": "Authentication & Authorization",
+          "type": "process",
+          "level": 3,
+          "processId": "security-authentication-and-authorization",
+          "url": "processes/security/security-authentication-and-authorization.html",
+          "subcategory": "security",
+          "category": "Security & Cryptography",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 11,
+          "description": "Access control separates proving identity from granting rights: a user submits credentials that are verified (authentication), and on success a session or token is issued; when a protected resource is later requested, the system checks the subject's permissions (authorization) and grants or denies the specific action."
+        },
+        {
+          "id": "process:security-file-system",
+          "name": "Role-Based Access Control (RBAC)",
+          "type": "process",
+          "level": 3,
+          "processId": "security-file-system",
+          "url": "processes/security/security-file-system.html",
+          "subcategory": "security",
+          "category": "Security & Cryptography",
+          "graphType": "decision_flowchart",
+          "nodes": 12,
+          "edges": 13,
+          "description": "RBAC grants permissions through roles rather than to users directly: an authenticated subject's assigned roles are activated in a session, and a requested operation is allowed only if some active role carries the permission and no separation-of-duty constraint is violated; every decision is logged for audit."
+        },
+        {
+          "id": "process:security-memory-management",
+          "name": "Buffer Overflow Exploit & Defense",
+          "type": "process",
+          "level": 3,
+          "processId": "security-memory-management",
+          "url": "processes/security/security-memory-management.html",
+          "subcategory": "security",
+          "category": "Security & Cryptography",
+          "graphType": "decision_flowchart",
+          "nodes": 12,
+          "edges": 13,
+          "description": "A buffer overflow occurs when unchecked input is copied past a buffer's bounds, overwriting the return address to redirect control flow to attacker code; modern defenses such as stack canaries, ASLR, and non-executable memory detect or block the attack, while proper bounds checking rejects the input outright."
+        },
+        {
+          "id": "process:systems-container-orchestration",
+          "name": "Container Orchestration",
+          "type": "process",
+          "level": 3,
+          "processId": "systems-container-orchestration",
+          "url": "processes/systems/systems-container-orchestration.html",
+          "subcategory": "systems",
+          "category": "Systems & Architecture",
+          "graphType": "cyclic_pathway",
+          "nodes": 12,
+          "edges": 14,
+          "description": "An orchestrator drives the cluster toward a declared desired state: a manifest is submitted, the scheduler places pods on suitable nodes (scaling out if none fit), images are pulled and containers started under health probes, and a control loop continuously reconciles actual against desired state, correcting any drift."
+        },
+        {
+          "id": "process:systems-file-system-journaling",
+          "name": "File System Journaling",
+          "type": "process",
+          "level": 3,
+          "processId": "systems-file-system-journaling",
+          "url": "processes/systems/systems-file-system-journaling.html",
+          "subcategory": "systems",
+          "category": "Systems & Architecture",
+          "graphType": "decision_flowchart",
+          "nodes": 12,
+          "edges": 13,
+          "description": "Journaling keeps a file system consistent across crashes: before changing the file system, the intended updates are written to a journal and committed durably, after which the changes are checkpointed to their final locations; if a crash occurs before checkpointing, recovery replays the committed journal entries."
+        },
+        {
+          "id": "process:systems-network-performance",
+          "name": "CPU Cache & Memory Hierarchy",
+          "type": "process",
+          "level": 3,
+          "processId": "systems-network-performance",
+          "url": "processes/systems/systems-network-performance.html",
+          "subcategory": "systems",
+          "category": "Systems & Architecture",
+          "graphType": "decision_flowchart",
+          "nodes": 12,
+          "edges": 14,
+          "description": "The memory hierarchy serves CPU accesses from the fastest level that holds the data: L1 is checked first, then L2/L3; on a last-level miss the line is fetched from main memory, evicting and writing back a dirty victim if needed, then filling the cache and updating replacement state before returning data."
+        },
+        {
+          "id": "process:systems-network-security",
+          "name": "Thread Synchronization (Locks)",
+          "type": "process",
+          "level": 3,
+          "processId": "systems-network-security",
+          "url": "processes/systems/systems-network-security.html",
+          "subcategory": "systems",
+          "category": "Systems & Architecture",
+          "graphType": "decision_flowchart",
+          "nodes": 12,
+          "edges": 13,
+          "description": "Locks enforce mutual exclusion over shared data: a thread identifies the critical section and acquires a mutex, blocking or spinning if it is held; inside the section it performs read-modify-write safely, using atomics or memory barriers where needed, then releases the lock and wakes any waiting threads."
+        },
+        {
+          "id": "process:systems-process-scheduling",
+          "name": "Process Scheduling",
+          "type": "process",
+          "level": 3,
+          "processId": "systems-process-scheduling",
+          "url": "processes/systems/systems-process-scheduling.html",
+          "subcategory": "systems",
+          "category": "Systems & Architecture",
+          "graphType": "decision_flowchart",
+          "nodes": 12,
+          "edges": 14,
+          "description": "The CPU scheduler decides which ready process runs next: processes enter the ready queue and a policy such as round-robin or priority/multilevel feedback selects one to dispatch; a running process is preempted on quantum expiry or when it blocks, returning to the queue, until it finishes and terminates."
+        },
+        {
+          "id": "process:systems-virtual-memory-paging",
+          "name": "Virtual Memory Paging",
+          "type": "process",
+          "level": 3,
+          "processId": "systems-virtual-memory-paging",
+          "url": "processes/systems/systems-virtual-memory-paging.html",
+          "subcategory": "systems",
+          "category": "Systems & Architecture",
+          "graphType": "decision_flowchart",
+          "nodes": 12,
+          "edges": 13,
+          "description": "Paging translates a process's virtual address to a physical one: the address splits into a page number and offset, the TLB is consulted, and on a miss the page table is walked; if the page is not resident a page fault traps to the OS, which evicts a victim and loads the page from disk before forming the physical address."
+        },
+        {
+          "id": "collection:networks-distributed",
+          "name": "Networks and Distributed Systems",
+          "type": "collection",
+          "level": 1,
+          "processCount": 14,
+          "description": "DNS, routing, congestion control, load balancing, database transactions, and distributed behavior."
+        },
+        {
+          "id": "process:networks-dns-resolution",
+          "name": "DNS Resolution",
+          "type": "process",
+          "level": 3,
+          "processId": "networks-dns-resolution",
+          "url": "processes/networks/networks-dns-resolution.html",
+          "subcategory": "networks",
+          "category": "Computer Networks",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 11,
+          "description": "DNS resolution maps a hostname to an IP address through a hierarchy: the resolver first checks its cache, and on a miss queries the root server, which refers it to the TLD server and then to the authoritative name server that returns the record; the answer is cached with its TTL before being returned."
+        },
+        {
+          "id": "process:networks-query-processing",
+          "name": "Reliable Transfer with Sliding Window",
+          "type": "process",
+          "level": 3,
+          "processId": "networks-query-processing",
+          "url": "processes/networks/networks-query-processing.html",
+          "subcategory": "networks",
+          "category": "Computer Networks",
+          "graphType": "decision_flowchart",
+          "nodes": 10,
+          "edges": 11,
+          "description": "Sliding-window ARQ provides reliable, in-order delivery over an unreliable channel: the sender segments data and transmits a window of packets while running timers; arriving ACKs slide the window and admit new packets, while timeouts trigger retransmission of unacknowledged segments, continuing until all data is delivered."
+        },
+        {
+          "id": "process:networks-routing-protocol-operation",
+          "name": "Routing Protocol Operation",
+          "type": "process",
+          "level": 3,
+          "processId": "networks-routing-protocol-operation",
+          "url": "processes/networks/networks-routing-protocol-operation.html",
+          "subcategory": "networks",
+          "category": "Computer Networks",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 12,
+          "description": "Routing protocols build forwarding tables by sharing reachability information: distance-vector protocols exchange distance tables with neighbors while link-state protocols flood link advertisements to build a full topology, each then computes shortest paths and recomputes routes whenever the topology changes, converging on a consistent routing table."
+        },
+        {
+          "id": "process:networks-tcp-congestion-control",
+          "name": "TCP Congestion Control",
+          "type": "process",
+          "level": 3,
+          "processId": "networks-tcp-congestion-control",
+          "url": "processes/networks/networks-tcp-congestion-control.html",
+          "subcategory": "networks",
+          "category": "Computer Networks",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 13,
+          "description": "TCP congestion control regulates the sending rate via a congestion window: it begins in slow start with exponential growth, switches to linear congestion avoidance at the slow-start threshold, and on loss reacts differently to triple duplicate ACKs (fast retransmit and recovery) versus a timeout (reset window), seeking steady throughput."
+        },
+        {
+          "id": "process:networks-transaction-management",
+          "name": "Network Address Translation (NAT)",
+          "type": "process",
+          "level": 3,
+          "processId": "networks-transaction-management",
+          "url": "processes/networks/networks-transaction-management.html",
+          "subcategory": "networks",
+          "category": "Computer Networks",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 11,
+          "description": "Network address translation lets many private hosts share public addresses: the NAT gateway rewrites the source address and port of outbound packets and records the mapping, and for inbound packets it looks up that mapping to rewrite the destination back to the private host, dropping packets with no matching entry."
+        },
+        {
+          "id": "collection:security-reliability",
+          "name": "Security and Reliability",
+          "type": "collection",
+          "level": 1,
+          "processCount": 9,
+          "description": "Authentication, authorization, PKI, intrusion detection, secure updates, and threat response."
+        },
+        {
+          "id": "process:security-process-management",
+          "name": "Diffie-Hellman Key Exchange",
+          "type": "process",
+          "level": 3,
+          "processId": "security-process-management",
+          "url": "processes/security/security-process-management.html",
+          "subcategory": "security",
+          "category": "Security & Cryptography",
+          "graphType": "decision_flowchart",
+          "nodes": 12,
+          "edges": 12,
+          "description": "Diffie-Hellman lets two parties derive a shared secret over a public channel: they agree on public parameters, each picks a private exponent and exchanges its public power, then both compute the same shared value; because passive eavesdroppers cannot, but active attackers can, the exchange must be authenticated to resist man-in-the-middle."
+        },
+        {
+          "id": "process:security-public-key-infrastructure-pki",
+          "name": "Public Key Infrastructure (PKI)",
+          "type": "process",
+          "level": 3,
+          "processId": "security-public-key-infrastructure-pki",
+          "url": "processes/security/security-public-key-infrastructure-pki.html",
+          "subcategory": "security",
+          "category": "Security & Cryptography",
+          "graphType": "decision_flowchart",
+          "nodes": 12,
+          "edges": 12,
+          "description": "PKI binds identities to public keys through trusted certificate authorities: an entity generates a key pair and certificate signing request, the CA validates its identity and signs a certificate that chains to a trusted root; relying parties later verify the signature chain and revocation status before trusting it."
+        },
+        {
+          "id": "collection:theory",
+          "name": "Theoretical Computer Science",
+          "type": "collection",
+          "level": 1,
+          "processCount": 2,
+          "description": "Generated from process subcategory."
+        },
+        {
+          "id": "process:theory-animation",
+          "name": "NP-Completeness via Reduction",
+          "type": "process",
+          "level": 3,
+          "processId": "theory-animation",
+          "url": "processes/theory/theory-animation.html",
+          "subcategory": "theory",
+          "category": "Theoretical Computer Science",
+          "graphType": "decision_flowchart",
+          "nodes": 12,
+          "edges": 14,
+          "description": "To prove a problem NP-complete one shows it lies in NP and is NP-hard: membership is shown with a polynomial-time verifier, then a known NP-complete problem is reduced to it by a polynomial-time mapping that preserves yes-instances; verifying the reduction's size and correctness completes the proof."
+        },
+        {
+          "id": "process:theory-geometric-modeling",
+          "name": "Decidability & the Halting Problem",
+          "type": "process",
+          "level": 3,
+          "processId": "theory-geometric-modeling",
+          "url": "processes/theory/theory-geometric-modeling.html",
+          "subcategory": "theory",
+          "category": "Theoretical Computer Science",
+          "graphType": "decision_flowchart",
+          "nodes": 12,
+          "edges": 14,
+          "description": "A problem is decidable if a Turing machine halts with the correct answer on every input: after formalizing the problem as a language, one either constructs a total decider or, failing that, reduces the halting problem to it; a valid reduction proves undecidability, as Turing showed the halting problem itself is undecidable."
+        },
+        {
+          "id": "collection:algorithms_data_structures",
+          "name": "Algorithms & Data Structures",
+          "type": "collection",
+          "level": 1,
+          "processCount": 1,
+          "description": "Generated from process subcategory."
+        },
+        {
+          "id": "process:algorithms_data_structures-hash-table-operations",
+          "name": "Hash Table Operations (Open Addressing)",
+          "type": "process",
+          "level": 3,
+          "processId": "algorithms_data_structures-hash-table-operations",
+          "url": "processes/algorithms_data_structures/algorithms_data_structures-hash-table-operations.html",
+          "subcategory": "algorithms_data_structures",
+          "category": "Algorithms & Data Structures",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 12,
+          "description": "A hash table stores key-value pairs by hashing the key to a bucket index; with open addressing, collisions are resolved by probing successive slots until an empty one is found, and when the load factor grows too large the table is resized and all keys are rehashed, keeping average insert and lookup at O(1)."
+        },
+        {
+          "id": "collection:graph-type-pilots",
+          "name": "Graph Type Pilots",
+          "type": "collection",
+          "level": 1,
+          "processCount": 1,
+          "description": "Existing collection from metadata."
+        },
+        {
+          "id": "collection:systems",
+          "name": "Systems",
+          "type": "collection",
+          "level": 1,
+          "processCount": 1,
+          "description": "Existing collection from metadata."
+        }
+      ],
+      "links": [
+        {
+          "source": "root",
+          "target": "collection:ml-software",
+          "type": "contains"
+        },
+        {
+          "source": "collection:ml-software",
+          "target": "process:machine_learning-feature-engineering-pipeline",
+          "type": "lens"
+        },
+        {
+          "source": "collection:ml-software",
+          "target": "process:machine_learning-hyperparameter-optimization",
+          "type": "lens"
+        },
+        {
+          "source": "collection:ml-software",
+          "target": "process:machine_learning-model-evaluation-and-validation",
+          "type": "lens"
+        },
+        {
+          "source": "collection:ml-software",
+          "target": "process:machine_learning-model-training-pipeline",
+          "type": "lens"
+        },
+        {
+          "source": "collection:ml-software",
+          "target": "process:machine_learning-project-management",
+          "type": "lens"
+        },
+        {
+          "source": "collection:ml-software",
+          "target": "process:machine_learning-quality-assurance",
+          "type": "lens"
+        },
+        {
+          "source": "collection:ml-software",
+          "target": "process:machine_learning-software-development-lifecycle",
+          "type": "lens"
+        },
+        {
+          "source": "collection:ml-software",
+          "target": "process:networks-database-design",
+          "type": "lens"
+        },
+        {
+          "source": "collection:ml-software",
+          "target": "process:security-intrusion-detection",
+          "type": "lens"
+        },
+        {
+          "source": "collection:ml-software",
+          "target": "process:security-secure-software-update",
+          "type": "lens"
+        },
+        {
+          "source": "collection:ml-software",
+          "target": "process:software_engineering-code-review-workflow",
+          "type": "lens"
+        },
+        {
+          "source": "collection:ml-software",
+          "target": "process:software_engineering-continuous-integration-pipeline",
+          "type": "lens"
+        },
+        {
+          "source": "collection:ml-software",
+          "target": "process:software_engineering-incident-response",
+          "type": "lens"
+        },
+        {
+          "source": "collection:ml-software",
+          "target": "process:software_engineering-machine-learning",
+          "type": "lens"
+        },
+        {
+          "source": "collection:ml-software",
+          "target": "process:software_engineering-natural-language-processing",
+          "type": "lens"
+        },
+        {
+          "source": "collection:ml-software",
+          "target": "process:software_engineering-neural-network",
+          "type": "lens"
+        },
+        {
+          "source": "collection:ml-software",
+          "target": "process:software_engineering-requirements-engineering",
+          "type": "lens"
+        },
+        {
+          "source": "collection:ml-software",
+          "target": "process:theory-formal-verification",
+          "type": "lens"
+        },
+        {
+          "source": "root",
+          "target": "collection:algorithmic-complexity",
+          "type": "contains"
+        },
+        {
+          "source": "collection:algorithmic-complexity",
+          "target": "process:algorithms_data_structures-balanced-search-trees",
+          "type": "lens"
+        },
+        {
+          "source": "collection:algorithmic-complexity",
+          "target": "process:algorithms_data_structures-dynamic-programming",
+          "type": "lens"
+        },
+        {
+          "source": "collection:algorithmic-complexity",
+          "target": "process:algorithms_data_structures-graph-algorithms",
+          "type": "lens"
+        },
+        {
+          "source": "collection:algorithmic-complexity",
+          "target": "process:algorithms_data_structures-graph-traversal",
+          "type": "lens"
+        },
+        {
+          "source": "collection:algorithmic-complexity",
+          "target": "process:algorithms_data_structures-minimum-spanning-tree",
+          "type": "lens"
+        },
+        {
+          "source": "collection:algorithmic-complexity",
+          "target": "process:algorithms_data_structures-shortest-path-algorithms",
+          "type": "lens"
+        },
+        {
+          "source": "collection:algorithmic-complexity",
+          "target": "process:algorithms_data_structures-sorting-algorithms",
+          "type": "lens"
+        },
+        {
+          "source": "collection:algorithmic-complexity",
+          "target": "process:dependency-web-service-stack",
+          "type": "lens"
+        },
+        {
+          "source": "collection:algorithmic-complexity",
+          "target": "process:machine_learning-quality-assurance",
+          "type": "lens"
+        },
+        {
+          "source": "collection:algorithmic-complexity",
+          "target": "process:networks-load-balancing",
+          "type": "lens"
+        },
+        {
+          "source": "collection:algorithmic-complexity",
+          "target": "process:security-secure-software-update",
+          "type": "lens"
+        },
+        {
+          "source": "collection:algorithmic-complexity",
+          "target": "process:systems-network-protocol",
+          "type": "lens"
+        },
+        {
+          "source": "collection:algorithmic-complexity",
+          "target": "process:theory-automata-construction",
+          "type": "lens"
+        },
+        {
+          "source": "collection:algorithmic-complexity",
+          "target": "process:theory-computational-complexity-analysis",
+          "type": "lens"
+        },
+        {
+          "source": "collection:algorithmic-complexity",
+          "target": "process:theory-formal-verification",
+          "type": "lens"
+        },
+        {
+          "source": "collection:algorithmic-complexity",
+          "target": "process:theory-rendering",
+          "type": "lens"
+        },
+        {
+          "source": "collection:algorithmic-complexity",
+          "target": "process:theory-type-system-checking",
+          "type": "lens"
+        },
+        {
+          "source": "root",
+          "target": "collection:systems-runtime",
+          "type": "contains"
+        },
+        {
+          "source": "collection:systems-runtime",
+          "target": "process:algorithms_data_structures-graph-traversal",
+          "type": "lens"
+        },
+        {
+          "source": "collection:systems-runtime",
+          "target": "process:dependency-web-service-stack",
+          "type": "lens"
+        },
+        {
+          "source": "collection:systems-runtime",
+          "target": "process:security-authentication-and-authorization",
+          "type": "lens"
+        },
+        {
+          "source": "collection:systems-runtime",
+          "target": "process:security-file-system",
+          "type": "lens"
+        },
+        {
+          "source": "collection:systems-runtime",
+          "target": "process:security-intrusion-detection",
+          "type": "lens"
+        },
+        {
+          "source": "collection:systems-runtime",
+          "target": "process:security-memory-management",
+          "type": "lens"
+        },
+        {
+          "source": "collection:systems-runtime",
+          "target": "process:systems-container-orchestration",
+          "type": "lens"
+        },
+        {
+          "source": "collection:systems-runtime",
+          "target": "process:systems-file-system-journaling",
+          "type": "lens"
+        },
+        {
+          "source": "collection:systems-runtime",
+          "target": "process:systems-network-performance",
+          "type": "lens"
+        },
+        {
+          "source": "collection:systems-runtime",
+          "target": "process:systems-network-protocol",
+          "type": "lens"
+        },
+        {
+          "source": "collection:systems-runtime",
+          "target": "process:systems-network-security",
+          "type": "lens"
+        },
+        {
+          "source": "collection:systems-runtime",
+          "target": "process:systems-process-scheduling",
+          "type": "lens"
+        },
+        {
+          "source": "collection:systems-runtime",
+          "target": "process:systems-virtual-memory-paging",
+          "type": "lens"
+        },
+        {
+          "source": "collection:systems-runtime",
+          "target": "process:theory-formal-verification",
+          "type": "lens"
+        },
+        {
+          "source": "collection:systems-runtime",
+          "target": "process:theory-type-system-checking",
+          "type": "lens"
+        },
+        {
+          "source": "root",
+          "target": "collection:networks-distributed",
+          "type": "contains"
+        },
+        {
+          "source": "collection:networks-distributed",
+          "target": "process:dependency-web-service-stack",
+          "type": "lens"
+        },
+        {
+          "source": "collection:networks-distributed",
+          "target": "process:machine_learning-software-development-lifecycle",
+          "type": "lens"
+        },
+        {
+          "source": "collection:networks-distributed",
+          "target": "process:networks-database-design",
+          "type": "lens"
+        },
+        {
+          "source": "collection:networks-distributed",
+          "target": "process:networks-dns-resolution",
+          "type": "lens"
+        },
+        {
+          "source": "collection:networks-distributed",
+          "target": "process:networks-load-balancing",
+          "type": "lens"
+        },
+        {
+          "source": "collection:networks-distributed",
+          "target": "process:networks-query-processing",
+          "type": "lens"
+        },
+        {
+          "source": "collection:networks-distributed",
+          "target": "process:networks-routing-protocol-operation",
+          "type": "lens"
+        },
+        {
+          "source": "collection:networks-distributed",
+          "target": "process:networks-tcp-congestion-control",
+          "type": "lens"
+        },
+        {
+          "source": "collection:networks-distributed",
+          "target": "process:networks-transaction-management",
+          "type": "lens"
+        },
+        {
+          "source": "collection:networks-distributed",
+          "target": "process:security-intrusion-detection",
+          "type": "lens"
+        },
+        {
+          "source": "collection:networks-distributed",
+          "target": "process:software_engineering-neural-network",
+          "type": "lens"
+        },
+        {
+          "source": "collection:networks-distributed",
+          "target": "process:systems-network-performance",
+          "type": "lens"
+        },
+        {
+          "source": "collection:networks-distributed",
+          "target": "process:systems-network-protocol",
+          "type": "lens"
+        },
+        {
+          "source": "collection:networks-distributed",
+          "target": "process:systems-network-security",
+          "type": "lens"
+        },
+        {
+          "source": "root",
+          "target": "collection:security-reliability",
+          "type": "contains"
+        },
+        {
+          "source": "collection:security-reliability",
+          "target": "process:security-authentication-and-authorization",
+          "type": "lens"
+        },
+        {
+          "source": "collection:security-reliability",
+          "target": "process:security-file-system",
+          "type": "lens"
+        },
+        {
+          "source": "collection:security-reliability",
+          "target": "process:security-intrusion-detection",
+          "type": "lens"
+        },
+        {
+          "source": "collection:security-reliability",
+          "target": "process:security-memory-management",
+          "type": "lens"
+        },
+        {
+          "source": "collection:security-reliability",
+          "target": "process:security-process-management",
+          "type": "lens"
+        },
+        {
+          "source": "collection:security-reliability",
+          "target": "process:security-public-key-infrastructure-pki",
+          "type": "lens"
+        },
+        {
+          "source": "collection:security-reliability",
+          "target": "process:security-secure-software-update",
+          "type": "lens"
+        },
+        {
+          "source": "collection:security-reliability",
+          "target": "process:software_engineering-incident-response",
+          "type": "lens"
+        },
+        {
+          "source": "collection:security-reliability",
+          "target": "process:systems-network-security",
+          "type": "lens"
+        },
+        {
+          "source": "root",
+          "target": "collection:theory",
+          "type": "contains"
+        },
+        {
+          "source": "collection:theory",
+          "target": "process:theory-animation",
+          "type": "lens"
+        },
+        {
+          "source": "collection:theory",
+          "target": "process:theory-geometric-modeling",
+          "type": "lens"
+        },
+        {
+          "source": "root",
+          "target": "collection:algorithms_data_structures",
+          "type": "contains"
+        },
+        {
+          "source": "collection:algorithms_data_structures",
+          "target": "process:algorithms_data_structures-hash-table-operations",
+          "type": "lens"
+        },
+        {
+          "source": "root",
+          "target": "collection:graph-type-pilots",
+          "type": "contains"
+        },
+        {
+          "source": "collection:graph-type-pilots",
+          "target": "process:dependency-web-service-stack",
+          "type": "lens"
+        },
+        {
+          "source": "root",
+          "target": "collection:systems",
+          "type": "contains"
+        },
+        {
+          "source": "collection:systems",
+          "target": "process:dependency-web-service-stack",
+          "type": "lens"
+        }
+      ]
+    },
+    {
+      "id": "abstraction_stack",
+      "label": "Abstraction Stack",
+      "layout": "layered",
+      "description": "Places processes into conceptual layers from foundations through algorithms, systems, networks, security, and AI.",
+      "recommendation": "primary",
+      "rubric": {
+        "subjectFidelity": 5,
+        "navigability": 4,
+        "crossLinks": 4,
+        "pedagogy": 5,
+        "extensibility": 5,
+        "total": 23,
+        "notes": "First-pass heuristic score for computer_science; revise after visual inspection."
+      },
+      "nodes": [
+        {
+          "id": "root",
+          "name": "Whole of Computer Science",
+          "type": "root",
+          "level": 0,
+          "description": "Algorithms, systems, networks, security, machine learning, and software workflows."
+        },
+        {
+          "id": "family:foundations_theory",
+          "name": "Foundations and Theory",
+          "type": "family",
+          "level": 1,
+          "processCount": 19,
+          "description": "Automata, computability, complexity, formal methods, and mathematical foundations."
+        },
+        {
+          "id": "family:algorithms_data",
+          "name": "Algorithms and Data Structures",
+          "type": "family",
+          "level": 1,
+          "processCount": 8,
+          "description": "Algorithms, data structures, graph methods, dynamic programming, sorting, and search."
+        },
+        {
+          "id": "family:software_runtime",
+          "name": "Software and Runtime",
+          "type": "family",
+          "level": 1,
+          "processCount": 19,
+          "description": "Programming workflows, software engineering, runtimes, memory, and operating systems."
+        },
+        {
+          "id": "family:networks_distributed",
+          "name": "Networks, Databases, and Distributed Systems",
+          "type": "family",
+          "level": 1,
+          "processCount": 5,
+          "description": "Networking, distributed systems, transactions, routing, databases, and consistency."
+        },
+        {
+          "id": "family:security_reliability",
+          "name": "Security and Reliability",
+          "type": "family",
+          "level": 1,
+          "processCount": 0,
+          "description": "Authentication, authorization, PKI, incident response, reliability, and threat models."
+        },
+        {
+          "id": "family:ai_data_systems",
+          "name": "AI, ML, and Data Systems",
+          "type": "family",
+          "level": 1,
+          "processCount": 0,
+          "description": "Machine learning, neural networks, feature engineering, NLP, training, and validation."
+        },
+        {
+          "id": "process:algorithms_data_structures-balanced-search-trees",
+          "name": "Balanced Search Trees (Rotations)",
+          "type": "process",
+          "level": 3,
+          "processId": "algorithms_data_structures-balanced-search-trees",
+          "url": "processes/algorithms_data_structures/algorithms_data_structures-balanced-search-trees.html",
+          "subcategory": "algorithms_data_structures",
+          "category": "Algorithms & Data Structures",
+          "graphType": "decision_flowchart",
+          "nodes": 12,
+          "edges": 14,
+          "description": "Self-balancing search trees keep operations at O(log n) by restoring a balance invariant after each insertion: a standard BST insert is followed by checking the height or color invariant, and when it is violated, single or double rotations and recoloring are applied up the path until the tree property is restored.",
+          "familyId": "foundations_theory"
+        },
+        {
+          "id": "process:algorithms_data_structures-dynamic-programming",
+          "name": "Dynamic Programming",
+          "type": "process",
+          "level": 3,
+          "processId": "algorithms_data_structures-dynamic-programming",
+          "url": "processes/algorithms_data_structures/algorithms_data_structures-dynamic-programming.html",
+          "subcategory": "algorithms_data_structures",
+          "category": "Algorithms & Data Structures",
+          "graphType": "decision_flowchart",
+          "nodes": 12,
+          "edges": 14,
+          "description": "Dynamic programming solves optimization problems that have optimal substructure and overlapping subproblems: a recurrence relating a solution to smaller subproblems is defined and solved either top-down with memoization or bottom-up by filling a table, after which the stored results are combined and the optimal solution is reconstructed.",
+          "familyId": "foundations_theory"
+        },
+        {
+          "id": "process:algorithms_data_structures-graph-algorithms",
+          "name": "Topological Sort (Kahn's Algorithm)",
+          "type": "process",
+          "level": 3,
+          "processId": "algorithms_data_structures-graph-algorithms",
+          "url": "processes/algorithms_data_structures/algorithms_data_structures-graph-algorithms.html",
+          "subcategory": "algorithms_data_structures",
+          "category": "Algorithms & Data Structures",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 12,
+          "description": "Topological sorting linearly orders the vertices of a directed acyclic graph so every edge points forward: Kahn's algorithm computes in-degrees, repeatedly removes a zero in-degree vertex into the order while decrementing its neighbors, and enqueues newly freed vertices; if fewer than all vertices are output, the graph contained a cycle.",
+          "familyId": "foundations_theory"
+        },
+        {
+          "id": "process:algorithms_data_structures-graph-traversal",
+          "name": "Graph Traversal (BFS / DFS)",
+          "type": "process",
+          "level": 3,
+          "processId": "algorithms_data_structures-graph-traversal",
+          "url": "processes/algorithms_data_structures/algorithms_data_structures-graph-traversal.html",
+          "subcategory": "algorithms_data_structures",
+          "category": "Algorithms & Data Structures",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 12,
+          "description": "Graph traversal visits every reachable vertex from a start node using a worklist: breadth-first search uses a FIFO queue to explore level by level, depth-first search uses a LIFO stack to dive deep first; vertices are marked visited to avoid revisiting, and traversal ends when the container is empty.",
+          "familyId": "foundations_theory"
+        },
+        {
+          "id": "process:algorithms_data_structures-hash-table-operations",
+          "name": "Hash Table Operations (Open Addressing)",
+          "type": "process",
+          "level": 3,
+          "processId": "algorithms_data_structures-hash-table-operations",
+          "url": "processes/algorithms_data_structures/algorithms_data_structures-hash-table-operations.html",
+          "subcategory": "algorithms_data_structures",
+          "category": "Algorithms & Data Structures",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 12,
+          "description": "A hash table stores key-value pairs by hashing the key to a bucket index; with open addressing, collisions are resolved by probing successive slots until an empty one is found, and when the load factor grows too large the table is resized and all keys are rehashed, keeping average insert and lookup at O(1).",
+          "familyId": "algorithms_data"
+        },
+        {
+          "id": "process:algorithms_data_structures-minimum-spanning-tree",
+          "name": "Minimum Spanning Tree (Kruskal / Prim)",
+          "type": "process",
+          "level": 3,
+          "processId": "algorithms_data_structures-minimum-spanning-tree",
+          "url": "processes/algorithms_data_structures/algorithms_data_structures-minimum-spanning-tree.html",
+          "subcategory": "algorithms_data_structures",
+          "category": "Algorithms & Data Structures",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 13,
+          "description": "A minimum spanning tree connects all vertices of a weighted graph with least total edge weight by a greedy rule: Kruskal sorts edges and adds the lightest that does not form a cycle (using union-find), while Prim grows a tree by repeatedly adding the lightest edge leaving it, until every vertex is connected.",
+          "familyId": "foundations_theory"
+        },
+        {
+          "id": "process:algorithms_data_structures-shortest-path-algorithms",
+          "name": "Shortest Path (Dijkstra)",
+          "type": "process",
+          "level": 3,
+          "processId": "algorithms_data_structures-shortest-path-algorithms",
+          "url": "processes/algorithms_data_structures/algorithms_data_structures-shortest-path-algorithms.html",
+          "subcategory": "algorithms_data_structures",
+          "category": "Algorithms & Data Structures",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 12,
+          "description": "Dijkstra's algorithm finds shortest paths from a source in a graph with non-negative weights: distances start at infinity except the source, and a priority queue repeatedly extracts the closest unfinalized vertex, finalizes it, and relaxes its outgoing edges, updating tentative distances until the queue is empty and the shortest-path tree is complete.",
+          "familyId": "foundations_theory"
+        },
+        {
+          "id": "process:algorithms_data_structures-sorting-algorithms",
+          "name": "Sorting by Divide and Conquer",
+          "type": "process",
+          "level": 3,
+          "processId": "algorithms_data_structures-sorting-algorithms",
+          "url": "processes/algorithms_data_structures/algorithms_data_structures-sorting-algorithms.html",
+          "subcategory": "algorithms_data_structures",
+          "category": "Algorithms & Data Structures",
+          "graphType": "decision_flowchart",
+          "nodes": 10,
+          "edges": 12,
+          "description": "Comparison sorts like merge sort and quicksort use divide and conquer to reach O(n log n): merge sort splits the array in half, recursively sorts each part, and merges the sorted halves, while quicksort partitions around a pivot and recurses on each side; recursion bottoms out on subarrays of size one.",
+          "familyId": "foundations_theory"
+        },
+        {
+          "id": "process:dependency-web-service-stack",
+          "name": "Web Service Stack Dependency Graph",
+          "type": "process",
+          "level": 3,
+          "processId": "dependency-web-service-stack",
+          "url": "processes/graph_type_pilots/dependency-web-service-stack.html",
+          "subcategory": "graph_type_pilots",
+          "category": "Graph Type Pilots",
+          "graphType": "dependency_graph",
+          "nodes": 8,
+          "edges": 8,
+          "description": "A dependency graph captures which components a web service relies on to function: the load balancer depends on web/API servers, which depend on the auth service and application logic; the application in turn depends on a cache, primary database, and message queue, and queue workers depend on object storage, so a failure propagates up the chain.",
+          "familyId": "foundations_theory"
+        },
+        {
+          "id": "process:machine_learning-feature-engineering-pipeline",
+          "name": "Feature Engineering Pipeline",
+          "type": "process",
+          "level": 3,
+          "processId": "machine_learning-feature-engineering-pipeline",
+          "url": "processes/machine_learning/machine_learning-feature-engineering-pipeline.html",
+          "subcategory": "machine_learning",
+          "category": "Machine Learning",
+          "graphType": "decision_flowchart",
+          "nodes": 10,
+          "edges": 10,
+          "description": "Feature engineering turns raw data into model-ready inputs: records are cleaned and missing values handled, categorical variables encoded, numeric features scaled, and derived features created, then features are selected by importance; transformations are fit only on training data to avoid leakage before producing the feature matrix.",
+          "familyId": "software_runtime"
+        },
+        {
+          "id": "process:machine_learning-hyperparameter-optimization",
+          "name": "Hyperparameter Optimization",
+          "type": "process",
+          "level": 3,
+          "processId": "machine_learning-hyperparameter-optimization",
+          "url": "processes/machine_learning/machine_learning-hyperparameter-optimization.html",
+          "subcategory": "machine_learning",
+          "category": "Machine Learning",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 14,
+          "description": "Hyperparameter optimization searches configuration space for the best-performing model: a strategy is chosen among grid, random, or Bayesian search, candidate configurations are sampled, scored by cross-validation, and the best is tracked; sampling continues until the budget is exhausted, returning the optimal hyperparameters.",
+          "familyId": "algorithms_data"
+        },
+        {
+          "id": "process:machine_learning-model-evaluation-and-validation",
+          "name": "Model Evaluation & Validation",
+          "type": "process",
+          "level": 3,
+          "processId": "machine_learning-model-evaluation-and-validation",
+          "url": "processes/machine_learning/machine_learning-model-evaluation-and-validation.html",
+          "subcategory": "machine_learning",
+          "category": "Machine Learning",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 13,
+          "description": "Model evaluation estimates generalization rather than training fit: metrics are chosen by task (precision/recall for classification, RMSE/R-squared for regression), k-fold cross-validation gives mean and variance of performance, the bias-variance regime is diagnosed, and a final held-out test confirms the model generalizes before acceptance.",
+          "familyId": "software_runtime"
+        },
+        {
+          "id": "process:machine_learning-model-training-pipeline",
+          "name": "Model Training Pipeline",
+          "type": "process",
+          "level": 3,
+          "processId": "machine_learning-model-training-pipeline",
+          "url": "processes/machine_learning/machine_learning-model-training-pipeline.html",
+          "subcategory": "machine_learning",
+          "category": "Machine Learning",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 12,
+          "description": "A model training pipeline manages the end-to-end fit: data is split into train, validation, and test, parameters initialized, and the model trained over mini-batches while monitoring training and validation loss; regularization counters overfitting and the best checkpoint is kept once validation converges, yielding the trained model.",
+          "familyId": "software_runtime"
+        },
+        {
+          "id": "process:machine_learning-project-management",
+          "name": "Support Vector Machine (SVM)",
+          "type": "process",
+          "level": 3,
+          "processId": "machine_learning-project-management",
+          "url": "processes/machine_learning/machine_learning-project-management.html",
+          "subcategory": "machine_learning",
+          "category": "Machine Learning",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 12,
+          "description": "A support vector machine classifies by finding the maximum-margin hyperplane: data is mapped into a feature space, and if not linearly separable a kernel implicitly lifts it higher; solving the dual quadratic program identifies the support vectors that define the boundary, with a soft margin allowing controlled violations.",
+          "familyId": "software_runtime"
+        },
+        {
+          "id": "process:machine_learning-quality-assurance",
+          "name": "K-Means Clustering",
+          "type": "process",
+          "level": 3,
+          "processId": "machine_learning-quality-assurance",
+          "url": "processes/machine_learning/machine_learning-quality-assurance.html",
+          "subcategory": "machine_learning",
+          "category": "Machine Learning",
+          "graphType": "cyclic_pathway",
+          "nodes": 12,
+          "edges": 13,
+          "description": "K-means partitions unlabeled data into k clusters by minimizing within-cluster variance: after initializing k centroids, each point is assigned to its nearest centroid and centroids are recomputed as cluster means; this repeats until assignments stop changing, and cluster quality guides whether to adjust k.",
+          "familyId": "foundations_theory"
+        },
+        {
+          "id": "process:machine_learning-software-development-lifecycle",
+          "name": "Backpropagation Training",
+          "type": "process",
+          "level": 3,
+          "processId": "machine_learning-software-development-lifecycle",
+          "url": "processes/machine_learning/machine_learning-software-development-lifecycle.html",
+          "subcategory": "machine_learning",
+          "category": "Machine Learning",
+          "graphType": "cyclic_pathway",
+          "nodes": 12,
+          "edges": 13,
+          "description": "Backpropagation trains a neural network by gradient descent: a forward pass computes the output and loss, then the loss gradient is propagated backward layer by layer via the chain rule to obtain per-parameter gradients; weights are updated and the cycle repeats over the data until the loss converges.",
+          "familyId": "software_runtime"
+        },
+        {
+          "id": "process:networks-database-design",
+          "name": "IP Addressing & Subnetting (CIDR)",
+          "type": "process",
+          "level": 3,
+          "processId": "networks-database-design",
+          "url": "processes/networks/networks-database-design.html",
+          "subcategory": "networks",
+          "category": "Computer Networks",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 11,
+          "description": "Subnetting divides an address block to fit host requirements: from the needed host count the required host bits and prefix length are computed, the block is split into subnets, and if a subnet is too small more host bits are borrowed; network and broadcast addresses are reserved and routes are aggregated with CIDR.",
+          "familyId": "software_runtime"
+        },
+        {
+          "id": "process:networks-dns-resolution",
+          "name": "DNS Resolution",
+          "type": "process",
+          "level": 3,
+          "processId": "networks-dns-resolution",
+          "url": "processes/networks/networks-dns-resolution.html",
+          "subcategory": "networks",
+          "category": "Computer Networks",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 11,
+          "description": "DNS resolution maps a hostname to an IP address through a hierarchy: the resolver first checks its cache, and on a miss queries the root server, which refers it to the TLD server and then to the authoritative name server that returns the record; the answer is cached with its TTL before being returned.",
+          "familyId": "networks_distributed"
+        },
+        {
+          "id": "process:networks-load-balancing",
+          "name": "Load Balancing",
+          "type": "process",
+          "level": 3,
+          "processId": "networks-load-balancing",
+          "url": "processes/networks/networks-load-balancing.html",
+          "subcategory": "networks",
+          "category": "Computer Networks",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 13,
+          "description": "A load balancer spreads incoming requests across backend servers: it selects a target by an algorithm such as round-robin, least-connections, or weighted hashing, checks backend health and removes unhealthy nodes from the pool, then forwards the request, achieving an even and resilient distribution of load.",
+          "familyId": "foundations_theory"
+        },
+        {
+          "id": "process:networks-query-processing",
+          "name": "Reliable Transfer with Sliding Window",
+          "type": "process",
+          "level": 3,
+          "processId": "networks-query-processing",
+          "url": "processes/networks/networks-query-processing.html",
+          "subcategory": "networks",
+          "category": "Computer Networks",
+          "graphType": "decision_flowchart",
+          "nodes": 10,
+          "edges": 11,
+          "description": "Sliding-window ARQ provides reliable, in-order delivery over an unreliable channel: the sender segments data and transmits a window of packets while running timers; arriving ACKs slide the window and admit new packets, while timeouts trigger retransmission of unacknowledged segments, continuing until all data is delivered.",
+          "familyId": "networks_distributed"
+        },
+        {
+          "id": "process:networks-routing-protocol-operation",
+          "name": "Routing Protocol Operation",
+          "type": "process",
+          "level": 3,
+          "processId": "networks-routing-protocol-operation",
+          "url": "processes/networks/networks-routing-protocol-operation.html",
+          "subcategory": "networks",
+          "category": "Computer Networks",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 12,
+          "description": "Routing protocols build forwarding tables by sharing reachability information: distance-vector protocols exchange distance tables with neighbors while link-state protocols flood link advertisements to build a full topology, each then computes shortest paths and recomputes routes whenever the topology changes, converging on a consistent routing table.",
+          "familyId": "networks_distributed"
+        },
+        {
+          "id": "process:networks-tcp-congestion-control",
+          "name": "TCP Congestion Control",
+          "type": "process",
+          "level": 3,
+          "processId": "networks-tcp-congestion-control",
+          "url": "processes/networks/networks-tcp-congestion-control.html",
+          "subcategory": "networks",
+          "category": "Computer Networks",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 13,
+          "description": "TCP congestion control regulates the sending rate via a congestion window: it begins in slow start with exponential growth, switches to linear congestion avoidance at the slow-start threshold, and on loss reacts differently to triple duplicate ACKs (fast retransmit and recovery) versus a timeout (reset window), seeking steady throughput.",
+          "familyId": "networks_distributed"
+        },
+        {
+          "id": "process:networks-transaction-management",
+          "name": "Network Address Translation (NAT)",
+          "type": "process",
+          "level": 3,
+          "processId": "networks-transaction-management",
+          "url": "processes/networks/networks-transaction-management.html",
+          "subcategory": "networks",
+          "category": "Computer Networks",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 11,
+          "description": "Network address translation lets many private hosts share public addresses: the NAT gateway rewrites the source address and port of outbound packets and records the mapping, and for inbound packets it looks up that mapping to rewrite the destination back to the private host, dropping packets with no matching entry.",
+          "familyId": "networks_distributed"
+        },
+        {
+          "id": "process:security-authentication-and-authorization",
+          "name": "Authentication & Authorization",
+          "type": "process",
+          "level": 3,
+          "processId": "security-authentication-and-authorization",
+          "url": "processes/security/security-authentication-and-authorization.html",
+          "subcategory": "security",
+          "category": "Security & Cryptography",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 11,
+          "description": "Access control separates proving identity from granting rights: a user submits credentials that are verified (authentication), and on success a session or token is issued; when a protected resource is later requested, the system checks the subject's permissions (authorization) and grants or denies the specific action.",
+          "familyId": "algorithms_data"
+        },
+        {
+          "id": "process:security-file-system",
+          "name": "Role-Based Access Control (RBAC)",
+          "type": "process",
+          "level": 3,
+          "processId": "security-file-system",
+          "url": "processes/security/security-file-system.html",
+          "subcategory": "security",
+          "category": "Security & Cryptography",
+          "graphType": "decision_flowchart",
+          "nodes": 12,
+          "edges": 13,
+          "description": "RBAC grants permissions through roles rather than to users directly: an authenticated subject's assigned roles are activated in a session, and a requested operation is allowed only if some active role carries the permission and no separation-of-duty constraint is violated; every decision is logged for audit.",
+          "familyId": "algorithms_data"
+        },
+        {
+          "id": "process:security-intrusion-detection",
+          "name": "Intrusion Detection",
+          "type": "process",
+          "level": 3,
+          "processId": "security-intrusion-detection",
+          "url": "processes/security/security-intrusion-detection.html",
+          "subcategory": "security",
+          "category": "Security & Cryptography",
+          "graphType": "cyclic_pathway",
+          "nodes": 12,
+          "edges": 14,
+          "description": "An intrusion detection system continuously watches network or host activity: events are collected and evaluated either by signature matching against known attacks or by comparison to an anomaly baseline; suspicious activity raises an alert, false positives feed back to tune the rules or model, and confirmed events trigger response.",
+          "familyId": "algorithms_data"
+        },
+        {
+          "id": "process:security-memory-management",
+          "name": "Buffer Overflow Exploit & Defense",
+          "type": "process",
+          "level": 3,
+          "processId": "security-memory-management",
+          "url": "processes/security/security-memory-management.html",
+          "subcategory": "security",
+          "category": "Security & Cryptography",
+          "graphType": "decision_flowchart",
+          "nodes": 12,
+          "edges": 13,
+          "description": "A buffer overflow occurs when unchecked input is copied past a buffer's bounds, overwriting the return address to redirect control flow to attacker code; modern defenses such as stack canaries, ASLR, and non-executable memory detect or block the attack, while proper bounds checking rejects the input outright.",
+          "familyId": "algorithms_data"
+        },
+        {
+          "id": "process:security-process-management",
+          "name": "Diffie-Hellman Key Exchange",
+          "type": "process",
+          "level": 3,
+          "processId": "security-process-management",
+          "url": "processes/security/security-process-management.html",
+          "subcategory": "security",
+          "category": "Security & Cryptography",
+          "graphType": "decision_flowchart",
+          "nodes": 12,
+          "edges": 12,
+          "description": "Diffie-Hellman lets two parties derive a shared secret over a public channel: they agree on public parameters, each picks a private exponent and exchanges its public power, then both compute the same shared value; because passive eavesdroppers cannot, but active attackers can, the exchange must be authenticated to resist man-in-the-middle.",
+          "familyId": "algorithms_data"
+        },
+        {
+          "id": "process:security-public-key-infrastructure-pki",
+          "name": "Public Key Infrastructure (PKI)",
+          "type": "process",
+          "level": 3,
+          "processId": "security-public-key-infrastructure-pki",
+          "url": "processes/security/security-public-key-infrastructure-pki.html",
+          "subcategory": "security",
+          "category": "Security & Cryptography",
+          "graphType": "decision_flowchart",
+          "nodes": 12,
+          "edges": 12,
+          "description": "PKI binds identities to public keys through trusted certificate authorities: an entity generates a key pair and certificate signing request, the CA validates its identity and signs a certificate that chains to a trusted root; relying parties later verify the signature chain and revocation status before trusting it.",
+          "familyId": "algorithms_data"
+        },
+        {
+          "id": "process:security-secure-software-update",
+          "name": "Secure Software Update",
+          "type": "process",
+          "level": 3,
+          "processId": "security-secure-software-update",
+          "url": "processes/security/security-secure-software-update.html",
+          "subcategory": "security",
+          "category": "Security & Cryptography",
+          "graphType": "decision_flowchart",
+          "nodes": 12,
+          "edges": 12,
+          "description": "Secure update mechanisms ensure only authentic, current code is installed: the vendor signs each release, the client downloads it and verifies the signature against the trusted key, rejects tampered packages, guards against downgrade attacks, and applies the update atomically with a post-install verification.",
+          "familyId": "foundations_theory"
+        },
+        {
+          "id": "process:software_engineering-code-review-workflow",
+          "name": "Code Review Workflow",
+          "type": "process",
+          "level": 3,
+          "processId": "software_engineering-code-review-workflow",
+          "url": "processes/software_engineering/software_engineering-code-review-workflow.html",
+          "subcategory": "software_engineering",
+          "category": "Software Engineering",
+          "graphType": "decision_flowchart",
+          "nodes": 10,
+          "edges": 11,
+          "description": "Code review gates changes into the main branch: an author opens a pull request that triggers CI, reviewers read the diff in context, and any change requests send the author back to revise; once discussions are resolved and the reviewers approve, the change is merged and integrated.",
+          "familyId": "software_runtime"
+        },
+        {
+          "id": "process:software_engineering-continuous-integration-pipeline",
+          "name": "Continuous Integration Pipeline",
+          "type": "process",
+          "level": 3,
+          "processId": "software_engineering-continuous-integration-pipeline",
+          "url": "processes/software_engineering/software_engineering-continuous-integration-pipeline.html",
+          "subcategory": "software_engineering",
+          "category": "Software Engineering",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 12,
+          "description": "A CI pipeline validates every change automatically: a push triggers checkout and build, and on success the unit and integration test suites run, followed by static analysis; only when all gates pass is the artifact packaged and deployed to staging, while any failure stops the pipeline and notifies the author to fix.",
+          "familyId": "software_runtime"
+        },
+        {
+          "id": "process:software_engineering-incident-response",
+          "name": "Incident Response",
+          "type": "process",
+          "level": 3,
+          "processId": "software_engineering-incident-response",
+          "url": "processes/software_engineering/software_engineering-incident-response.html",
+          "subcategory": "software_engineering",
+          "category": "Software Engineering",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 12,
+          "description": "Incident response restores service and learns from failures: an alert is triaged and assigned a severity, an incident is declared and responders assembled, the root cause is investigated, a mitigation applied, and service confirmed restored; a blameless postmortem then captures action items so the failure mode is prevented.",
+          "familyId": "software_runtime"
+        },
+        {
+          "id": "process:software_engineering-machine-learning",
+          "name": "Agile Scrum Sprint",
+          "type": "process",
+          "level": 3,
+          "processId": "software_engineering-machine-learning",
+          "url": "processes/software_engineering/software_engineering-machine-learning.html",
+          "subcategory": "software_engineering",
+          "category": "Software Engineering",
+          "graphType": "cyclic_pathway",
+          "nodes": 12,
+          "edges": 13,
+          "description": "A Scrum sprint delivers a potentially shippable increment in a fixed timebox: the team plans and selects a sprint backlog from the product backlog, develops through daily standups, removing impediments as they arise, and when the timebox ends holds a sprint review to demo and a retrospective to improve.",
+          "familyId": "software_runtime"
+        },
+        {
+          "id": "process:software_engineering-natural-language-processing",
+          "name": "Code Refactoring Workflow",
+          "type": "process",
+          "level": 3,
+          "processId": "software_engineering-natural-language-processing",
+          "url": "processes/software_engineering/software_engineering-natural-language-processing.html",
+          "subcategory": "software_engineering",
+          "category": "Software Engineering",
+          "graphType": "cyclic_pathway",
+          "nodes": 12,
+          "edges": 14,
+          "description": "Refactoring improves internal design without changing behavior: after spotting a code smell, test coverage is ensured (adding characterization tests if needed), then small behavior-preserving transformations are applied and verified by tests; any failure is reverted, and the cycle repeats until no smells remain.",
+          "familyId": "software_runtime"
+        },
+        {
+          "id": "process:software_engineering-neural-network",
+          "name": "Test-Driven Development (TDD)",
+          "type": "process",
+          "level": 3,
+          "processId": "software_engineering-neural-network",
+          "url": "processes/software_engineering/software_engineering-neural-network.html",
+          "subcategory": "software_engineering",
+          "category": "Software Engineering",
+          "graphType": "cyclic_pathway",
+          "nodes": 12,
+          "edges": 14,
+          "description": "Test-driven development follows a red-green-refactor cycle: write a failing test that specifies desired behavior, confirm it fails, write the minimal code to make it pass, then refactor while keeping all tests green; the loop repeats per behavior, producing tested, well-factored code.",
+          "familyId": "software_runtime"
+        },
+        {
+          "id": "process:software_engineering-requirements-engineering",
+          "name": "Requirements Engineering",
+          "type": "process",
+          "level": 3,
+          "processId": "software_engineering-requirements-engineering",
+          "url": "processes/software_engineering/software_engineering-requirements-engineering.html",
+          "subcategory": "software_engineering",
+          "category": "Software Engineering",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 12,
+          "description": "Requirements engineering turns stakeholder needs into a validated specification: requirements are elicited, analyzed, and classified as functional behavior or non-functional quality attributes; conflicts and ambiguities are negotiated and resolved, the result is validated with stakeholders, and the agreed set is baselined into a specification.",
+          "familyId": "software_runtime"
+        },
+        {
+          "id": "process:systems-container-orchestration",
+          "name": "Container Orchestration",
+          "type": "process",
+          "level": 3,
+          "processId": "systems-container-orchestration",
+          "url": "processes/systems/systems-container-orchestration.html",
+          "subcategory": "systems",
+          "category": "Systems & Architecture",
+          "graphType": "cyclic_pathway",
+          "nodes": 12,
+          "edges": 14,
+          "description": "An orchestrator drives the cluster toward a declared desired state: a manifest is submitted, the scheduler places pods on suitable nodes (scaling out if none fit), images are pulled and containers started under health probes, and a control loop continuously reconciles actual against desired state, correcting any drift.",
+          "familyId": "software_runtime"
+        },
+        {
+          "id": "process:systems-file-system-journaling",
+          "name": "File System Journaling",
+          "type": "process",
+          "level": 3,
+          "processId": "systems-file-system-journaling",
+          "url": "processes/systems/systems-file-system-journaling.html",
+          "subcategory": "systems",
+          "category": "Systems & Architecture",
+          "graphType": "decision_flowchart",
+          "nodes": 12,
+          "edges": 13,
+          "description": "Journaling keeps a file system consistent across crashes: before changing the file system, the intended updates are written to a journal and committed durably, after which the changes are checkpointed to their final locations; if a crash occurs before checkpointing, recovery replays the committed journal entries.",
+          "familyId": "software_runtime"
+        },
+        {
+          "id": "process:systems-network-performance",
+          "name": "CPU Cache & Memory Hierarchy",
+          "type": "process",
+          "level": 3,
+          "processId": "systems-network-performance",
+          "url": "processes/systems/systems-network-performance.html",
+          "subcategory": "systems",
+          "category": "Systems & Architecture",
+          "graphType": "decision_flowchart",
+          "nodes": 12,
+          "edges": 14,
+          "description": "The memory hierarchy serves CPU accesses from the fastest level that holds the data: L1 is checked first, then L2/L3; on a last-level miss the line is fetched from main memory, evicting and writing back a dirty victim if needed, then filling the cache and updating replacement state before returning data.",
+          "familyId": "software_runtime"
+        },
+        {
+          "id": "process:systems-network-protocol",
+          "name": "Deadlock Avoidance (Banker's Algorithm)",
+          "type": "process",
+          "level": 3,
+          "processId": "systems-network-protocol",
+          "url": "processes/systems/systems-network-protocol.html",
+          "subcategory": "systems",
+          "category": "Systems & Architecture",
+          "graphType": "decision_flowchart",
+          "nodes": 12,
+          "edges": 14,
+          "description": "The Banker's algorithm grants resource requests only if the system stays in a safe state: a request is tentatively allocated, then the safety algorithm seeks an ordering in which every process can finish; if such a sequence exists the request is granted, otherwise the tentative allocation is rolled back and denied.",
+          "familyId": "foundations_theory"
+        },
+        {
+          "id": "process:systems-network-security",
+          "name": "Thread Synchronization (Locks)",
+          "type": "process",
+          "level": 3,
+          "processId": "systems-network-security",
+          "url": "processes/systems/systems-network-security.html",
+          "subcategory": "systems",
+          "category": "Systems & Architecture",
+          "graphType": "decision_flowchart",
+          "nodes": 12,
+          "edges": 13,
+          "description": "Locks enforce mutual exclusion over shared data: a thread identifies the critical section and acquires a mutex, blocking or spinning if it is held; inside the section it performs read-modify-write safely, using atomics or memory barriers where needed, then releases the lock and wakes any waiting threads.",
+          "familyId": "software_runtime"
+        },
+        {
+          "id": "process:systems-process-scheduling",
+          "name": "Process Scheduling",
+          "type": "process",
+          "level": 3,
+          "processId": "systems-process-scheduling",
+          "url": "processes/systems/systems-process-scheduling.html",
+          "subcategory": "systems",
+          "category": "Systems & Architecture",
+          "graphType": "decision_flowchart",
+          "nodes": 12,
+          "edges": 14,
+          "description": "The CPU scheduler decides which ready process runs next: processes enter the ready queue and a policy such as round-robin or priority/multilevel feedback selects one to dispatch; a running process is preempted on quantum expiry or when it blocks, returning to the queue, until it finishes and terminates.",
+          "familyId": "software_runtime"
+        },
+        {
+          "id": "process:systems-virtual-memory-paging",
+          "name": "Virtual Memory Paging",
+          "type": "process",
+          "level": 3,
+          "processId": "systems-virtual-memory-paging",
+          "url": "processes/systems/systems-virtual-memory-paging.html",
+          "subcategory": "systems",
+          "category": "Systems & Architecture",
+          "graphType": "decision_flowchart",
+          "nodes": 12,
+          "edges": 13,
+          "description": "Paging translates a process's virtual address to a physical one: the address splits into a page number and offset, the TLB is consulted, and on a miss the page table is walked; if the page is not resident a page fault traps to the OS, which evicts a victim and loads the page from disk before forming the physical address.",
+          "familyId": "software_runtime"
+        },
+        {
+          "id": "process:theory-animation",
+          "name": "NP-Completeness via Reduction",
+          "type": "process",
+          "level": 3,
+          "processId": "theory-animation",
+          "url": "processes/theory/theory-animation.html",
+          "subcategory": "theory",
+          "category": "Theoretical Computer Science",
+          "graphType": "decision_flowchart",
+          "nodes": 12,
+          "edges": 14,
+          "description": "To prove a problem NP-complete one shows it lies in NP and is NP-hard: membership is shown with a polynomial-time verifier, then a known NP-complete problem is reduced to it by a polynomial-time mapping that preserves yes-instances; verifying the reduction's size and correctness completes the proof.",
+          "familyId": "foundations_theory"
+        },
+        {
+          "id": "process:theory-automata-construction",
+          "name": "Automata Construction (NFA to DFA)",
+          "type": "process",
+          "level": 3,
+          "processId": "theory-automata-construction",
+          "url": "processes/theory/theory-automata-construction.html",
+          "subcategory": "theory",
+          "category": "Theoretical Computer Science",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 12,
+          "description": "A regular language is recognized by a deterministic automaton built in stages: Thompson's construction turns a regex into an NFA, then the subset construction explores sets of NFA states reachable under each symbol to form DFA states; accepting states are marked and the DFA is minimized into an equivalent canonical machine.",
+          "familyId": "foundations_theory"
+        },
+        {
+          "id": "process:theory-computational-complexity-analysis",
+          "name": "Computational Complexity Analysis",
+          "type": "process",
+          "level": 3,
+          "processId": "theory-computational-complexity-analysis",
+          "url": "processes/theory/theory-computational-complexity-analysis.html",
+          "subcategory": "theory",
+          "category": "Theoretical Computer Science",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 12,
+          "description": "Complexity analysis bounds the resources an algorithm uses as input grows: basic operations are counted as a function of n, the relevant case (worst or average) is chosen, and the dominant term gives an asymptotic class; the analysis is refined until a tight bound is established and expressed in Big-O, Theta, or Omega notation.",
+          "familyId": "foundations_theory"
+        },
+        {
+          "id": "process:theory-formal-verification",
+          "name": "Formal Verification",
+          "type": "process",
+          "level": 3,
+          "processId": "theory-formal-verification",
+          "url": "processes/theory/theory-formal-verification.html",
+          "subcategory": "theory",
+          "category": "Theoretical Computer Science",
+          "graphType": "decision_flowchart",
+          "nodes": 12,
+          "edges": 13,
+          "description": "Formal verification mathematically proves a system meets its specification: a formal model and a property (often in temporal logic) are built, and either model checking explores the state space or theorem proving derives a proof; a failed check yields a counterexample that refines the model until the property is guaranteed.",
+          "familyId": "foundations_theory"
+        },
+        {
+          "id": "process:theory-geometric-modeling",
+          "name": "Decidability & the Halting Problem",
+          "type": "process",
+          "level": 3,
+          "processId": "theory-geometric-modeling",
+          "url": "processes/theory/theory-geometric-modeling.html",
+          "subcategory": "theory",
+          "category": "Theoretical Computer Science",
+          "graphType": "decision_flowchart",
+          "nodes": 12,
+          "edges": 14,
+          "description": "A problem is decidable if a Turing machine halts with the correct answer on every input: after formalizing the problem as a language, one either constructs a total decider or, failing that, reduces the halting problem to it; a valid reduction proves undecidability, as Turing showed the halting problem itself is undecidable.",
+          "familyId": "foundations_theory"
+        },
+        {
+          "id": "process:theory-rendering",
+          "name": "CYK Parsing of Context-Free Grammars",
+          "type": "process",
+          "level": 3,
+          "processId": "theory-rendering",
+          "url": "processes/theory/theory-rendering.html",
+          "subcategory": "theory",
+          "category": "Theoretical Computer Science",
+          "graphType": "decision_flowchart",
+          "nodes": 12,
+          "edges": 13,
+          "description": "The CYK algorithm decides membership in a context-free language in cubic time using dynamic programming: the grammar is put in Chomsky normal form, a table is filled for substrings of length one, then for increasing spans every split point is tried to derive nonterminals; the string is accepted if the start symbol spans the whole input.",
+          "familyId": "foundations_theory"
+        },
+        {
+          "id": "process:theory-type-system-checking",
+          "name": "Type System Checking",
+          "type": "process",
+          "level": 3,
+          "processId": "theory-type-system-checking",
+          "url": "processes/theory/theory-type-system-checking.html",
+          "subcategory": "theory",
+          "category": "Theoretical Computer Science",
+          "graphType": "decision_flowchart",
+          "nodes": 12,
+          "edges": 14,
+          "description": "A type checker proves a program respects its type discipline: it traverses the syntax tree under a typing environment, inferring or looking up types and applying typing rules to each construct; type variables are unified, incompatibilities raise type errors, and a program with no errors is certified well-typed.",
+          "familyId": "foundations_theory"
+        }
+      ],
+      "links": [
+        {
+          "source": "root",
+          "target": "family:foundations_theory",
+          "type": "contains"
+        },
+        {
+          "source": "root",
+          "target": "family:algorithms_data",
+          "type": "contains"
+        },
+        {
+          "source": "root",
+          "target": "family:software_runtime",
+          "type": "contains"
+        },
+        {
+          "source": "root",
+          "target": "family:networks_distributed",
+          "type": "contains"
+        },
+        {
+          "source": "root",
+          "target": "family:security_reliability",
+          "type": "contains"
+        },
+        {
+          "source": "root",
+          "target": "family:ai_data_systems",
+          "type": "contains"
+        },
+        {
+          "source": "family:foundations_theory",
+          "target": "process:algorithms_data_structures-balanced-search-trees",
+          "type": "classified_as"
+        },
+        {
+          "source": "family:foundations_theory",
+          "target": "process:algorithms_data_structures-dynamic-programming",
+          "type": "classified_as"
+        },
+        {
+          "source": "family:foundations_theory",
+          "target": "process:algorithms_data_structures-graph-algorithms",
+          "type": "classified_as"
+        },
+        {
+          "source": "family:foundations_theory",
+          "target": "process:algorithms_data_structures-graph-traversal",
+          "type": "classified_as"
+        },
+        {
+          "source": "family:algorithms_data",
+          "target": "process:algorithms_data_structures-hash-table-operations",
+          "type": "classified_as"
+        },
+        {
+          "source": "family:foundations_theory",
+          "target": "process:algorithms_data_structures-minimum-spanning-tree",
+          "type": "classified_as"
+        },
+        {
+          "source": "family:foundations_theory",
+          "target": "process:algorithms_data_structures-shortest-path-algorithms",
+          "type": "classified_as"
+        },
+        {
+          "source": "family:foundations_theory",
+          "target": "process:algorithms_data_structures-sorting-algorithms",
+          "type": "classified_as"
+        },
+        {
+          "source": "family:foundations_theory",
+          "target": "process:dependency-web-service-stack",
+          "type": "classified_as"
+        },
+        {
+          "source": "family:software_runtime",
+          "target": "process:machine_learning-feature-engineering-pipeline",
+          "type": "classified_as"
+        },
+        {
+          "source": "family:algorithms_data",
+          "target": "process:machine_learning-hyperparameter-optimization",
+          "type": "classified_as"
+        },
+        {
+          "source": "family:software_runtime",
+          "target": "process:machine_learning-model-evaluation-and-validation",
+          "type": "classified_as"
+        },
+        {
+          "source": "family:software_runtime",
+          "target": "process:machine_learning-model-training-pipeline",
+          "type": "classified_as"
+        },
+        {
+          "source": "family:software_runtime",
+          "target": "process:machine_learning-project-management",
+          "type": "classified_as"
+        },
+        {
+          "source": "family:foundations_theory",
+          "target": "process:machine_learning-quality-assurance",
+          "type": "classified_as"
+        },
+        {
+          "source": "family:software_runtime",
+          "target": "process:machine_learning-software-development-lifecycle",
+          "type": "classified_as"
+        },
+        {
+          "source": "family:software_runtime",
+          "target": "process:networks-database-design",
+          "type": "classified_as"
+        },
+        {
+          "source": "family:networks_distributed",
+          "target": "process:networks-dns-resolution",
+          "type": "classified_as"
+        },
+        {
+          "source": "family:foundations_theory",
+          "target": "process:networks-load-balancing",
+          "type": "classified_as"
+        },
+        {
+          "source": "family:networks_distributed",
+          "target": "process:networks-query-processing",
+          "type": "classified_as"
+        },
+        {
+          "source": "family:networks_distributed",
+          "target": "process:networks-routing-protocol-operation",
+          "type": "classified_as"
+        },
+        {
+          "source": "family:networks_distributed",
+          "target": "process:networks-tcp-congestion-control",
+          "type": "classified_as"
+        },
+        {
+          "source": "family:networks_distributed",
+          "target": "process:networks-transaction-management",
+          "type": "classified_as"
+        },
+        {
+          "source": "family:algorithms_data",
+          "target": "process:security-authentication-and-authorization",
+          "type": "classified_as"
+        },
+        {
+          "source": "family:algorithms_data",
+          "target": "process:security-file-system",
+          "type": "classified_as"
+        },
+        {
+          "source": "family:algorithms_data",
+          "target": "process:security-intrusion-detection",
+          "type": "classified_as"
+        },
+        {
+          "source": "family:algorithms_data",
+          "target": "process:security-memory-management",
+          "type": "classified_as"
+        },
+        {
+          "source": "family:algorithms_data",
+          "target": "process:security-process-management",
+          "type": "classified_as"
+        },
+        {
+          "source": "family:algorithms_data",
+          "target": "process:security-public-key-infrastructure-pki",
+          "type": "classified_as"
+        },
+        {
+          "source": "family:foundations_theory",
+          "target": "process:security-secure-software-update",
+          "type": "classified_as"
+        },
+        {
+          "source": "family:software_runtime",
+          "target": "process:software_engineering-code-review-workflow",
+          "type": "classified_as"
+        },
+        {
+          "source": "family:software_runtime",
+          "target": "process:software_engineering-continuous-integration-pipeline",
+          "type": "classified_as"
+        },
+        {
+          "source": "family:software_runtime",
+          "target": "process:software_engineering-incident-response",
+          "type": "classified_as"
+        },
+        {
+          "source": "family:software_runtime",
+          "target": "process:software_engineering-machine-learning",
+          "type": "classified_as"
+        },
+        {
+          "source": "family:software_runtime",
+          "target": "process:software_engineering-natural-language-processing",
+          "type": "classified_as"
+        },
+        {
+          "source": "family:software_runtime",
+          "target": "process:software_engineering-neural-network",
+          "type": "classified_as"
+        },
+        {
+          "source": "family:software_runtime",
+          "target": "process:software_engineering-requirements-engineering",
+          "type": "classified_as"
+        },
+        {
+          "source": "family:software_runtime",
+          "target": "process:systems-container-orchestration",
+          "type": "classified_as"
+        },
+        {
+          "source": "family:software_runtime",
+          "target": "process:systems-file-system-journaling",
+          "type": "classified_as"
+        },
+        {
+          "source": "family:software_runtime",
+          "target": "process:systems-network-performance",
+          "type": "classified_as"
+        },
+        {
+          "source": "family:foundations_theory",
+          "target": "process:systems-network-protocol",
+          "type": "classified_as"
+        },
+        {
+          "source": "family:software_runtime",
+          "target": "process:systems-network-security",
+          "type": "classified_as"
+        },
+        {
+          "source": "family:software_runtime",
+          "target": "process:systems-process-scheduling",
+          "type": "classified_as"
+        },
+        {
+          "source": "family:software_runtime",
+          "target": "process:systems-virtual-memory-paging",
+          "type": "classified_as"
+        },
+        {
+          "source": "family:foundations_theory",
+          "target": "process:theory-animation",
+          "type": "classified_as"
+        },
+        {
+          "source": "family:foundations_theory",
+          "target": "process:theory-automata-construction",
+          "type": "classified_as"
+        },
+        {
+          "source": "family:foundations_theory",
+          "target": "process:theory-computational-complexity-analysis",
+          "type": "classified_as"
+        },
+        {
+          "source": "family:foundations_theory",
+          "target": "process:theory-formal-verification",
+          "type": "classified_as"
+        },
+        {
+          "source": "family:foundations_theory",
+          "target": "process:theory-geometric-modeling",
+          "type": "classified_as"
+        },
+        {
+          "source": "family:foundations_theory",
+          "target": "process:theory-rendering",
+          "type": "classified_as"
+        },
+        {
+          "source": "family:foundations_theory",
+          "target": "process:theory-type-system-checking",
+          "type": "classified_as"
+        }
+      ]
+    }
+  ],
+  "variantSummaries": [
+    {
+      "id": "taxonomy",
+      "label": "Branch Taxonomy",
+      "layout": "radial",
+      "recommendation": "secondary",
+      "nodes": 60,
+      "links": 59,
+      "nodeTypes": {
+        "process": 51,
+        "root": 1,
+        "subcategory": 8
+      },
+      "rubricTotal": 18
+    },
+    {
+      "id": "lens",
+      "label": "Curated Lens Map",
+      "layout": "force",
+      "recommendation": "candidate",
+      "nodes": 61,
+      "links": 87,
+      "nodeTypes": {
+        "collection": 9,
+        "process": 51,
+        "root": 1
+      },
+      "rubricTotal": 21
+    },
+    {
+      "id": "abstraction_stack",
+      "label": "Abstraction Stack",
+      "layout": "layered",
+      "recommendation": "primary",
+      "nodes": 58,
+      "links": 57,
+      "nodeTypes": {
+        "family": 6,
+        "process": 51,
+        "root": 1
+      },
+      "rubricTotal": 23
+    }
+  ]
+}

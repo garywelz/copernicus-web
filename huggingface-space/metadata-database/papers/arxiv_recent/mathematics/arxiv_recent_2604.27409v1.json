@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2604.27409v1",
+  "arxiv_id": "2604.27409v1",
+  "title": "Robust inference methods of diagnostic test accuracy meta-analysis for influential outlying studies via density power divergence",
+  "authors": [
+    "Kotaro Sasaki",
+    "Hisashi Noma",
+    "Theodoros Evrenoglou"
+  ],
+  "author_string": "Kotaro Sasaki, Hisashi Noma, Theodoros Evrenoglou",
+  "journal": "arXiv:2604.27409v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "In diagnostic test accuracy meta-analysis (DTA-MA), standard inference methods using bivariate random-effects models for jointly synthesizing sensitivity and specificity can be sensitive to outlying studies and may yield misleading conclusions. In this article, we propose frequentist outlier-robust statistical inference methods for DTA-MA based on density power divergence. The proposed methods automatically downweight influential outlying studies by modifying the estimating function using the robust divergence with a tuning parameter. To achieve robust yet statistically efficient inference in the presence of outlying studies, the proposed methods incorporate practical strategies for selecting the tuning parameter, including a data-adaptive criterion based on the Hyvärinen score. We also quantify the contributions of individual studies to the robust pooled estimates, facilitating interpretation of how outlying studies affect the results. We illustrate the effectiveness of the proposed methods through an application to a DTA-MA of the Mini-Mental State Examination. Simulation studies showed that the proposed methods reduced bias and root mean squared error relative to existing methods and improved coverage probability in the presence of outliers. The proposed methods enable a sensitivity analysis to assess whether the main results obtained using standard methods are driven by outlying studies.",
+  "categories": [
+    "stat.ME",
+    "stat.AP"
+  ],
+  "primary_category": "stat.AP",
+  "comment": "20 pages with 4 figures",
+  "published_date": "2026-04-30T04:20:28Z",
+  "updated_date": "2026-04-30T04:20:28Z",
+  "url": "https://arxiv.org/abs/2604.27409v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.27409v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-30T22:15:43.111245",
+  "category": "mathematics",
+  "subcategories": [
+    "stat.ME",
+    "stat.AP"
+  ]
+}

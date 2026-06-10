@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2604.21955v1",
+  "arxiv_id": "2604.21955v1",
+  "title": "A four-player potential game for barren-plateau-aware quantum ansatz design",
+  "authors": [
+    "Rubén Darío Guerrero"
+  ],
+  "author_string": "Rubén Darío Guerrero",
+  "journal": "arXiv:2604.21955v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We cast the design of parameterized quantum circuits as a four-player potential game whose state is a circuit directed acyclic graph (DAG) and whose players encode trainability, non-stabilizerness, task performance, and hardware cost. Per-player restricted action sets factorize the move space into append, remove, retype, and rewire operations; a block-coordinate $\\varepsilon$-Nash residual $δ_\\text{Nash}$ certifies that no single player can improve unilaterally. A single weight sweep on MaxCut $K_4$ traces a Pareto frontier from a Clifford endpoint $(M_2/n,\\langle H\\rangle)=(0,4.00)$ to a non-Clifford endpoint $(0.48,3.30)$. On three four-qubit hardware topologies (heavy-hex, $2\\times 2$ grid, Rydberg all-to-all), Nash search achieves the highest mean potential; on the $2\\times 2$ grid Nash reaches the theoretical ceiling $Φ_\\text{max}=4.10$ on two of five seeds while the simulated-annealing baseline does so on one; paired Wilcoxon tests over five seeds cannot reject the null on any single topology ($p\\ge 0.22$). On LiH/STO-3G, seeding Nash from a 58-gate Givens-doubles ansatz produces a 48-operation, depth-25 circuit retaining $97.7\\%$ of the correlation energy while simultaneously reducing gate count, increasing non-stabilizerness, and controlling trainability. The framework is complementary to energy-only searches such as ADAPT-VQE and k-UpCCGSD, which reach chemical accuracy with fewer operations but do not optimize the other three axes.",
+  "categories": [
+    "quant-ph",
+    "cs.MA"
+  ],
+  "primary_category": "cs.MA",
+  "comment": "8 pages, 4 figures",
+  "published_date": "2026-04-23T07:58:46Z",
+  "updated_date": "2026-04-23T07:58:46Z",
+  "url": "https://arxiv.org/abs/2604.21955v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.21955v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-27T10:15:42.859869",
+  "category": "computer_science",
+  "subcategories": [
+    "quant-ph",
+    "cs.MA"
+  ]
+}

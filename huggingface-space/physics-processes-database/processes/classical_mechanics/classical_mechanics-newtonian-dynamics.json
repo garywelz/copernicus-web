@@ -2,52 +2,55 @@
   "acquired_date": "2026-01-08T00:00:00Z",
   "category": "physics",
   "colorScheme": {
-    "blue": {
-      "category": "Intermediates & States",
-      "hex": "#74c0fc"
-    },
-    "green": {
-      "category": "Processing & Operations",
-      "hex": "#51cf66"
-    },
     "red": {
-      "category": "Triggers & Inputs",
-      "hex": "#ff6b6b"
-    },
-    "violet": {
-      "category": "Products & Outputs",
-      "hex": "#b197fc"
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
     },
     "yellow": {
-      "category": "Structures & Objects",
-      "hex": "#ffd43b"
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
     }
   },
   "complexity": {
-    "conditionals": 0,
-    "detailLevel": "medium",
-    "edges": 24,
-    "level": "medium",
+    "nodes": 10,
+    "edges": 10,
+    "conditionals": 1,
     "logicGates": {
+      "orGates": 1,
       "andGates": 1,
-      "orGates": 0,
-      "total": 1
+      "notGates": 0,
+      "total": 2
     },
-    "nodes": 26
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 1
   },
   "created": "2026-01-08",
-  "description": "Newtonian Dynamics Process. This classical mechanics process visualization demonstrates Newton's laws of motion and force analysis. The flowchart shows system definition and initial conditions, Newtonian methods and laws, dynamics operations and energy analysis, intermediate results, and final Newtonian dynamics outputs.",
-  "id": "process_physics_newtonian-dynamics",
+  "description": "Newtonian dynamics solves motion from forces: free-body diagrams identify every force on each body, a coordinate system is chosen, and Newton's second law F = ma is written per body; constraint forces are added as needed, giving equations of motion that integrate to the trajectory x(t) and velocity v(t).",
+  "id": "classical_mechanics-newtonian-dynamics",
   "keywords": [
-    "newtonian",
-    "mechanics",
-    "dynamics",
-    "classical"
+    "Newton's laws",
+    "free-body diagram",
+    "equations of motion",
+    "force",
+    "trajectory"
   ],
-  "lastUpdated": "2026-01-08",
-  "mermaid": "graph TD\nA1[System Definition] --> B1[Force Analysis]\nC1[Mass Distribution] --> D1[Inertia Calculation]\nE1[Initial Conditions] --> F1[Boundary Conditions]\nB1 --> G1[Newton First Law]\nD1 --> H1[Newton Second Law]\nF1 --> I1[Newton Third Law]\nG1 --> J1[Inertial Reference Frame]\nH1 --> K1[Force Equals Mass Times Acceleration]\nI1 --> L1[Action Reaction Pairs]\nJ1 --> M1[Equilibrium Analysis]\nK1 --> L1\nL1 --> N1[Momentum Conservation]\nM1 --> O1[Static Equilibrium]\nN1 --> P1[Angular Momentum]\nO1 --> Q1[Newtonian Dynamics Process]\nP1 --> R1[Torque Analysis]\nQ1 --> S1[Energy Conservation]\nR1 --> T1[Newtonian Dynamics Result]\nS1 --> U1[Kinetic Energy]\nT1 --> V1[Potential Energy]\nU1 --> W1[Newtonian Dynamics Output]\nV1 --> X1[Newtonian Dynamics Analysis]\nW1 --> Y1[Newtonian Dynamics Final Result]\nX1 --> Z1[Newtonian Dynamics Analysis Complete]\n\n    style A1 fill:#ff6b6b,color:#fff\n    style C1 fill:#ff6b6b,color:#fff\n    style E1 fill:#ff6b6b,color:#fff\n    style B1 fill:#ffd43b,color:#000\n    style D1 fill:#ffd43b,color:#000\n    style F1 fill:#ffd43b,color:#000\n    style G1 fill:#ffd43b,color:#000\n    style H1 fill:#ffd43b,color:#000\n    style I1 fill:#ffd43b,color:#000\n    style J1 fill:#ffd43b,color:#000\n    style K1 fill:#ffd43b,color:#000\n    style L1 fill:#ffd43b,color:#000\n    style M1 fill:#51cf66,color:#fff\n    style N1 fill:#51cf66,color:#fff\n    style O1 fill:#51cf66,color:#fff\n    style P1 fill:#51cf66,color:#fff\n    style Q1 fill:#51cf66,color:#fff\n    style R1 fill:#51cf66,color:#fff\n    style S1 fill:#51cf66,color:#fff\n    style T1 fill:#51cf66,color:#fff\n    style U1 fill:#51cf66,color:#fff\n    style V1 fill:#51cf66,color:#fff\n    style W1 fill:#51cf66,color:#fff\n    style X1 fill:#51cf66,color:#fff\n    style Y1 fill:#51cf66,color:#fff\n    style Z1 fill:#b197fc,color:#fff",
+  "lastUpdated": "2026-06-01",
+  "mermaid": "graph TD\n    N1[\"System of bodies\"]\n    N2[\"Draw free-body diagrams\"]\n    N3[\"Identify all forces\"]\n    N4[\"Choose coordinates\"]\n    N5[\"Apply F = ma each body\"]\n    N6{\"Constraints present?\"}\n    N7[\"Add constraint forces\"]\n    N8[\"Equations of motion\"]\n    N9[\"Integrate for x(t), v(t)\"]\n    N10[\"Trajectory & dynamics\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 --> N4\n    N4 --> N5\n    N5 --> N6\n    N6 -->|yes| N7\n    N7 -->|include| N5\n    N6 -->|no| N8\n    N8 --> N9\n    N9 --> N10\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#74c0fc,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#74c0fc,color:#fff\n    style N9 fill:#51cf66,color:#fff\n    style N10 fill:#b197fc,color:#fff",
   "name": "Newtonian Dynamics",
-  "notes": "Converted from physics batch HTML. Process number: 1.",
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
   "relatedProcesses": [],
   "related_papers": [
     "crossref_10_1103_RevModPhys_37_273",
@@ -60,43 +63,18 @@
   "source": "programming_framework",
   "sources": [
     {
-      "authors": "Welz, G.",
-      "doi": null,
-      "journal": "CopernicusAI Knowledge Engine",
-      "notes": "Chemistry process visualization: Newtonian Dynamics. Created using the Programming Framework methodology for process analysis and visualization.",
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
-      "year": "2025"
+      "title": "Philosophiae Naturalis Principia Mathematica",
+      "authors": "Newton, I.",
+      "journal": "Royal Society",
+      "year": "1687",
+      "url": "https://www.gutenberg.org/ebooks/28233"
     },
     {
-      "authors": "Arnold, V. I.",
-      "doi": "10.1103/RevModPhys.37.273",
-      "journal": "Rev. Mod. Phys.",
-      "paper_id": "crossref_10_1103_RevModPhys_37_273",
-      "pubmed": null,
-      "title": "Lectures on the geometry of classical mechanics",
-      "url": "https://doi.org/10.1103/RevModPhys.37.273",
-      "year": "1965"
-    },
-    {
-      "authors": "Laskar, J.",
-      "doi": "10.1126/science.246.4934.1022",
-      "journal": "Science",
-      "paper_id": "crossref_10_1126_science_246_4934_1022",
-      "pubmed": null,
-      "title": "Newton's Clock: Chaos in the Solar System",
-      "url": "https://doi.org/10.1126/science.246.4934.1022",
-      "year": "1989"
-    },
-    {
-      "authors": "Lebowitz, J. L.",
-      "doi": "10.1103/RevModPhys.71.S346",
-      "journal": "Rev. Mod. Phys.",
-      "paper_id": "crossref_10_1103_RevModPhys_71_S346",
-      "pubmed": null,
-      "title": "Foundations of classical statistical mechanics",
-      "url": "https://doi.org/10.1103/RevModPhys.71.S346",
-      "year": "1999"
+      "title": "Classical Mechanics",
+      "authors": "Taylor, J. R.",
+      "journal": "University Science Books",
+      "year": "2005",
+      "url": "https://uscibooks.aip.org/books/classical-mechanics/"
     }
   ],
   "subcategories": [
@@ -104,5 +82,111 @@
   ],
   "subcategory": "classical_mechanics",
   "subcategory_name": "Classical Mechanics",
-  "verified": false
+  "verified": false,
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "System of bodies",
+      "detail": "Define what moves",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 1
+    },
+    {
+      "id": "N2",
+      "label": "Draw free-body diagrams",
+      "detail": "Isolate each body",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N3",
+      "label": "Identify all forces",
+      "detail": "Gravity, normal, friction",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N4",
+      "label": "Choose coordinates",
+      "detail": "Axes / frame",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N5",
+      "label": "Apply F = ma each body",
+      "detail": "Second law",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N6",
+      "label": "Constraints present?",
+      "detail": "Contacts, rigid links",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N7",
+      "label": "Add constraint forces",
+      "detail": "Tension, normal",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N8",
+      "label": "Equations of motion",
+      "detail": "Coupled ODEs",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N9",
+      "label": "Integrate for x(t), v(t)",
+      "detail": "With initial data",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N10",
+      "label": "Trajectory & dynamics",
+      "detail": "Full motion",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 0
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:classical_mechanics-newtonian-dynamics",
+    "graphType": "decision_flowchart",
+    "topologySignature": "a1dd8b452b7c52cc",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "namedCollections": [],
+  "graphMetrics": {
+    "nodes": 10,
+    "edges": 10,
+    "conditionals": 1,
+    "andGates": 1,
+    "orGates": 1,
+    "notGates": 0,
+    "loops": 1
+  },
+  "graphType": "decision_flowchart",
+  "domainContext": "Classical mechanics"
 }

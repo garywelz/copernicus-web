@@ -1,0 +1,30 @@
+{
+  "id": "arxiv_2604.18517v1",
+  "arxiv_id": "2604.18517v1",
+  "title": "Low-noise Pauli-consistent ensemble Monte Carlo for graphene with electron-electron scattering",
+  "authors": [
+    "Tigran Zalinyan",
+    "Giovanni Nastasi"
+  ],
+  "author_string": "Tigran Zalinyan, Giovanni Nastasi",
+  "journal": "arXiv:2604.18517v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We investigate Pauli-consistent ensemble Monte Carlo simulations of graphene with explicit intraband electron-electron scattering. To reduce the cost of electron-electron proposal-rate evaluation, we introduce a sampled-partner approximation that replaces the full partner-cell sum by uniform sampling from the instantaneous ensemble, while leaving the event-level collision step unchanged. Comparison with the full-sum reference shows close agreement together with a substantial reduction in computational cost, enabling large-ensemble low-noise simulations. In this regime, systematic oscillatory components become clearly resolved in ensemble-averaged time traces. We show that these oscillations are numerical and originate from deterministic drift on the discretized momentum-space grid. We also discuss a procedure for reducing their impact in recorded observables without modifying the underlying Monte Carlo dynamics.",
+  "categories": [
+    "math-ph"
+  ],
+  "primary_category": "math-ph",
+  "comment": "15 pages, 12 figures, 7 tables, submitted manuscript (status: with referee(s))",
+  "published_date": "2026-04-20T17:13:05Z",
+  "updated_date": "2026-04-20T17:13:05Z",
+  "url": "https://arxiv.org/abs/2604.18517v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.18517v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-22T10:15:48.104128",
+  "category": "physics",
+  "subcategories": [
+    "math-ph"
+  ]
+}

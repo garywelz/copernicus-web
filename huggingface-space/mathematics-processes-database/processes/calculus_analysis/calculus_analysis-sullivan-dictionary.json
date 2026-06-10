@@ -1,0 +1,39 @@
+{
+  "id": "calculus_analysis-sullivan-dictionary",
+  "name": "Sullivan Dictionary",
+  "category": "mathematics",
+  "subcategory": "calculus_analysis",
+  "subcategory_name": "Calculus & Analysis",
+  "description": "The Sullivan dictionary establishes systematic parallels between Kleinian groups (discrete groups of Möbius maps) and the dynamics of rational maps. Kleinian Γ ↔ iterates fⁿ; limit set Λ(Γ) ↔ Julia set J(f); domain of discontinuity Ω(Γ) ↔ Fatou set F(f). Sullivan extended these with quasiconformal methods: Ahlfors finiteness (Kleinian) ↔ no wandering domains (rational); Bers finiteness ↔ Shishikura's bound. Enables transfer of ideas between the two fields.",
+  "mermaid": "graph TD\n    DefKlein[\"Def: Kleinian group Γ\\nDiscrete Möbius on ℂ̂\"]\n    DefRat[\"Def: Rational map f\\nIteration fⁿ\"]\n    DefLimit[\"Def: Limit set Λ(Γ)\\nAccumulation points\"]\n    DefDomain[\"Def: Domain Ω(Γ)\\n= ℂ̂ \\\\ Λ\"]\n    DefJulia[\"Def: Julia set J(f)\"]\n    DefFatou[\"Def: Fatou set F(f)\"]\n    Dict1[\"Dict: Λ(Γ) ↔ J(f)\\nNonempty, no interior\"]\n    Dict2[\"Dict: Ω(Γ) ↔ F(f)\"]\n    ThmAhlfors[\"Thm: Ahlfors finiteness\\nFinite type surfaces\"]\n    ThmNWD[\"Thm: No wandering domains\\nSullivan\"]\n    Dict3[\"Dict: Ahlfors ↔ NWD\"]\n    DefKlein --> DefLimit\n    DefKlein --> DefDomain\n    DefRat --> DefJulia\n    DefRat --> DefFatou\n    DefLimit --> Dict1\n    DefJulia --> Dict1\n    DefDomain --> Dict2\n    DefFatou --> Dict2\n    ThmAhlfors --> Dict3\n    ThmNWD --> Dict3\n    classDef definition fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef theorem fill:#51cf66,color:#fff,stroke:#40c057\n    class DefKlein,DefRat,DefLimit,DefDomain,DefJulia,DefFatou definition\n    class ThmAhlfors,ThmNWD theorem\n    class Dict1,Dict2,Dict3 definition",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

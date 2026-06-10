@@ -1,0 +1,39 @@
+{
+  "id": "geometry_topology-euclid-elements-book-i-props-1-10",
+  "name": "Euclid's Elements Book I — Propositions 1–10",
+  "category": "mathematics",
+  "subcategory": "geometry_topology",
+  "subcategory_name": "Geometry & Topology",
+  "description": "Dependency graph for Propositions 1–10 of Euclid's Elements Book I. Foundations, SAS, SSS, bisections, perpendiculars. Shows how propositions depend on postulates (P1–P5), common notions (CN1–CN5), and prior propositions.",
+  "mermaid": "graph TD\n    Def15[\"Def. 15\\nCircle — plane figure,\\nequal lines from center\"]\n    Def20[\"Def. 20\\nTriangles — equilateral,\\nisosceles, scalene\"]\n    P1[\"Post. 1\\nDraw a straight line from any po...\"]\n    P2[\"Post. 2\\nProduce a finite straight line c...\"]\n    P3[\"Post. 3\\nDescribe a circle with any cente...\"]\n    P4[\"Post. 4\\nAll right angles equal one another\"]\n    P5[\"Post. 5\\nParallel postulate: if interior ...\"]\n    CN1[\"CN 1\\nThings equal to the same thing a...\"]\n    CN2[\"CN 2\\nIf equals are added to equals, t...\"]\n    CN3[\"CN 3\\nIf equals are subtracted from eq...\"]\n    CN4[\"CN 4\\nThings coinciding with one anoth...\"]\n    CN5[\"CN 5\\nThe whole is greater than the part\"]\n    Prop1[\"Prop. I.1\\nEquilateral triangle on given line\"]\n    Prop2[\"Prop. I.2\\nPlace line equal to given at point\"]\n    Prop3[\"Prop. I.3\\nCut off from greater segment equal to less\"]\n    Prop4[\"Prop. I.4\\nSAS congruence\"]\n    Prop5[\"Prop. I.5\\nBase angles of isosceles equal\"]\n    Prop6[\"Prop. I.6\\nSides opposite equal angles equal\"]\n    Prop7[\"Prop. I.7\\nUniqueness of triangle from ends\"]\n    Prop8[\"Prop. I.8\\nSSS congruence\"]\n    Prop9[\"Prop. I.9\\nBisect angle\"]\n    Prop10[\"Prop. I.10\\nBisect line\"]\n    Def15 --> Prop1\n    Def20 --> Prop1\n    P1 --> Prop1\n    P3 --> Prop1\n    Prop1 --> Prop2\n    P1 --> Prop2\n    P2 --> Prop2\n    P3 --> Prop2\n    Prop2 --> Prop3\n    P3 --> Prop3\n    CN4 --> Prop4\n    CN5 --> Prop4\n    Prop3 --> Prop5\n    Prop4 --> Prop5\n    Prop3 --> Prop6\n    Prop4 --> Prop6\n    Prop5 --> Prop7\n    Prop7 --> Prop8\n    Prop1 --> Prop9\n    Prop3 --> Prop9\n    Prop8 --> Prop9\n    Prop1 --> Prop10\n    Prop4 --> Prop10\n    Prop9 --> Prop10\n    classDef definition fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef postulate fill:#ff6b6b,color:#fff,stroke:#c0392b\n    classDef commonNotion fill:#ffd43b,color:#000,stroke:#f59f00\n    classDef proposition fill:#51cf66,color:#fff,stroke:#40c057\n    class Def15,Def20 definition\n    class P1,P2,P3,P4,P5 postulate\n    class CN1,CN2,CN3,CN4,CN5 commonNotion\n    class Prop1,Prop2,Prop3,Prop4,Prop5,Prop6,Prop7,Prop8,Prop9,Prop10 proposition",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

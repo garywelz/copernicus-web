@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2605.13604v1",
+  "arxiv_id": "2605.13604v1",
+  "title": "Rethinking Graph Convolution for 2D-to-3D Hand Pose Lifting",
+  "authors": [
+    "Chanyoung Kim",
+    "Donghyun Kim",
+    "Dong-Hyun Sim",
+    "Seong Jae Hwang",
+    "Youngjoong Kwon"
+  ],
+  "author_string": "Chanyoung Kim, Donghyun Kim, Dong-Hyun Sim, Seong Jae Hwang, Youngjoong Kwon",
+  "journal": "arXiv:2605.13604v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Graph convolutional networks (GCNs) are widely used for 3D hand pose estimation, where the hand skeleton is encoded as a fixed adjacency graph. We revisit whether this is the most effective way to incorporate hand topology in 2D-to-3D lifting. In this paper, we perform controlled, parameter-matched ablations on the FPHA benchmark and show that standard multi-head self-attention consistently outperforms GCN baselines. Even when the GCN is strengthened with multi-hop adjacency and matched parameter count, self-attention reduces MPJPE from 12.36 mm to 10.09 mm. A skeleton-constrained graph attention network recovers most of this gap, indicating that input-dependent aggregation is a major source of improvement, while fully connected attention yields additional gains. We further show that hand topology is most effective when introduced as a soft structural prior through graph-distance positional encoding, rather than as a hard adjacency constraint. These results suggest that, for hand pose lifting, adaptive spatial attention is a more effective inductive bias than fixed graph convolution.",
+  "categories": [
+    "cs.CV"
+  ],
+  "primary_category": "cs.CV",
+  "comment": null,
+  "published_date": "2026-05-13T14:39:24Z",
+  "updated_date": "2026-05-13T14:39:24Z",
+  "url": "https://arxiv.org/abs/2605.13604v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.13604v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-13T22:17:14.553167",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CV"
+  ]
+}

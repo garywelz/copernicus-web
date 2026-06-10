@@ -1,0 +1,40 @@
+{
+  "id": "arxiv_2605.22816v1",
+  "arxiv_id": "2605.22816v1",
+  "title": "AwareVLN: Reasoning with Self-awareness for Vision-Language Navigation",
+  "authors": [
+    "Wenxuan Guo",
+    "Xiuwei Xu",
+    "Yichen Liu",
+    "Xiangyu Li",
+    "Hang Yin",
+    "Huangxing Chen",
+    "Wenzhao Zheng",
+    "Jianjiang Feng",
+    "Jie Zhou",
+    "Jiwen Lu"
+  ],
+  "author_string": "Wenxuan Guo, Xiuwei Xu, Yichen Liu, Xiangyu Li, Hang Yin et al.",
+  "journal": "arXiv:2605.22816v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Vision-and-Language Navigation (VLN) requires an agent to ground language instructions to its own movement within a visual environment. While state-of-the-art methods leverage the reasoning capabilities of Vision-Language Models (VLMs) for end-to-end action prediction, they often lack an explicit and explainable understanding of the relationships between the agent, the instruction, and the scene. Conversely, explicitly building a scene map for heuristic planning is intuitively appealing but relies on additional 3D sensors and hinders large-scale vision-language pre-training. To bridge this gap, we propose AwareVLN, a novel framework that equips the navigation model with a self-aware reasoning mechanism, enabling it to understand the agent's state and task progress in a fully end-to-end and data-driven manner. Our approach features two key innovations: (1) a structural reasoning module that fosters spatial and task-oriented self-awareness, and (2) an automatic data engine with progress division for effective training. Extensive experiments on various datasets in Habitat simulator show our AwareVLN significantly outperforms previous state-of-the-art vision-language navigation methods. Project page: https://gwxuan.github.io/AwareVLN/.",
+  "categories": [
+    "cs.RO",
+    "cs.CV"
+  ],
+  "primary_category": "cs.CV",
+  "comment": "Accepted to CVPR 2026. Project page: https://gwxuan.github.io/AwareVLN/",
+  "published_date": "2026-05-21T17:58:26Z",
+  "updated_date": "2026-05-21T17:58:26Z",
+  "url": "https://arxiv.org/abs/2605.22816v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.22816v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-24T10:15:38.640816",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.RO",
+    "cs.CV"
+  ]
+}

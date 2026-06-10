@@ -42,7 +42,12 @@ def create_process_viewer(process_json_file: Path, output_dir: Path, discipline:
         }
     }
     
-    config = discipline_config.get(discipline, discipline_config["chemistry"])
+    discipline = discipline.replace('-', '_')
+    if discipline not in discipline_config:
+        raise ValueError(
+            f"Unknown discipline {discipline!r}; expected one of {sorted(discipline_config)}"
+        )
+    config = discipline_config[discipline]
     
     # Read the process JSON
     with open(process_json_file, 'r', encoding='utf-8') as f:
@@ -62,6 +67,49 @@ def create_process_viewer(process_json_file: Path, output_dir: Path, discipline:
     complexity = process_data.get('complexity', {})
     sources = process_data.get('sources', [])
     keywords = process_data.get('keywords', [])
+    node_details = process_data.get('nodeDetails', [])
+
+    def _src_cite(ref):
+        if not isinstance(ref, int) or ref < 0 or ref >= len(sources):
+            return '<span style="color:#94a3b8;">—</span>'
+        s = sources[ref]
+        authors = (s.get('authors') or '').strip()
+        if authors:
+            first = authors.split(';')[0].strip()
+            label = f"{first} et al. {s.get('year', '')}".strip() if ';' in authors else f"{first} {s.get('year', '')}".strip()
+        else:
+            label = s.get('title', 'Source')
+        if s.get('doi'):
+            href = 'https://doi.org/' + str(s['doi']).replace('doi:', '')
+        elif s.get('url'):
+            href = s['url']
+        elif s.get('pubmed'):
+            href = 'https://pubmed.ncbi.nlm.nih.gov/' + str(s['pubmed'])
+        else:
+            href = ''
+        title = s.get('title', '')
+        if href:
+            return f'<a href="{href}" target="_blank" title="{title}" style="color:{config["color"]};">{label}</a>'
+        return f'<span title="{title}">{label}</span>'
+
+    if node_details and any('sourceRef' in nd for nd in node_details):
+        rows = ''.join(
+            f'<tr><td style="font-weight:600;">{nd.get("label", "")}</td>'
+            f'<td>{nd.get("role", "")}</td>'
+            f'<td>{_src_cite(nd.get("sourceRef"))}</td></tr>'
+            for nd in node_details
+        )
+        provenance_html = f'''
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody>{rows}</tbody>
+                </table>
+            </div>'''
+    else:
+        provenance_html = ''
     
     # Build HTML (same template as chemistry, adapted)
     html = f'''<!DOCTYPE html>
@@ -233,6 +281,33 @@ def create_process_viewer(process_json_file: Path, output_dir: Path, discipline:
         .info-card li:last-child {{
             border-bottom: none;
         }}
+        
+        .provenance {{
+            margin: 30px 0;
+        }}
+        
+        .provenance h2 {{
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }}
+        
+        .provenance-table {{
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }}
+        
+        .provenance-table th, .provenance-table td {{
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }}
+        
+        .provenance-table th {{
+            background: #f8f9fa;
+            color: #334155;
+        }}
     </style>
 </head>
 <body>
@@ -282,7 +357,7 @@ def create_process_viewer(process_json_file: Path, output_dir: Path, discipline:
 {mermaid}
                 </div>
             </div>
-            
+            {provenance_html}
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -413,7 +488,7 @@ def main():
         print("Example: python create_generic_viewers.py physics physics-processes-database/processes")
         return
     
-    discipline = sys.argv[1]
+    discipline = sys.argv[1].replace('-', '_')
     processes_dir = Path(sys.argv[2])
     
     print("=" * 60)

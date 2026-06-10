@@ -167,6 +167,33 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
@@ -176,7 +203,7 @@
             <div class="header-meta">
                 <span class="meta-item">Computer Science</span>
                 <span class="meta-item">Systems & Architecture</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,48 +234,63 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Virtual Memory Paging process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>Paging translates a process's virtual address to a physical one: the address splits into a page number and offset, the TLB is consulted, and on a miss the page table is walked; if the page is not resident a page fault traps to the OS, which evicts a victim and loads the page from disk before forming the physical address.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-N1["Virtual Address"]
-N2["Access Request"]
-N3["Page Table"]
-N4["Choose Approach"]
-N5["Physical Frames"]
-N6["Translate"]
-N7["Handle Page Fault"]
-N8["Working Set"]
-N9["Integrate Results"]
-N10["Mapped Address"]
+    N1["Process virtual address"]
+    N2["Split page# + offset"]
+    N3["Lookup TLB"]
+    N4{"TLB hit?"}
+    N5["Walk page table"]
+    N6{"Page in memory?"}
+    N7["Page fault: trap OS"]
+    N8["Evict victim page"]
+    N9["Load page from disk"]
+    N10["Update page table+TLB"]
+    N11["Form physical address"]
+    N12["Access memory word"]
 
-N1 --> N2
-N2 --> N3
-N3 --> N4
-N4 --> N5
-N4 --> N7
-N5 --> N6
-N7 --> N8
-N6 --> N9
-N8 --> N9
-N9 --> N10
+    N1 --> N2
+    N2 --> N3
+    N3 --> N4
+    N4 -->|yes| N11
+    N4 -->|no| N5
+    N5 --> N6
+    N6 -->|yes| N10
+    N6 -->|no| N7
+    N7 --> N8
+    N8 --> N9
+    N9 --> N10
+    N10 --> N11
+    N11 --> N12
 
     style N1 fill:#ff6b6b,color:#fff
-    style N2 fill:#ff6b6b,color:#fff
-    style N3 fill:#ffd43b,color:#000
-    style N4 fill:#ffd43b,color:#000
-    style N5 fill:#ffd43b,color:#000
-    style N6 fill:#51cf66,color:#fff
+    style N2 fill:#51cf66,color:#fff
+    style N3 fill:#51cf66,color:#fff
+    style N4 fill:#74c0fc,color:#fff
+    style N5 fill:#51cf66,color:#fff
+    style N6 fill:#74c0fc,color:#fff
     style N7 fill:#51cf66,color:#fff
-    style N8 fill:#74c0fc,color:#fff
-    style N9 fill:#74c0fc,color:#fff
-    style N10 fill:#b197fc,color:#fff
+    style N8 fill:#51cf66,color:#fff
+    style N9 fill:#51cf66,color:#fff
+    style N10 fill:#74c0fc,color:#fff
+    style N11 fill:#51cf66,color:#fff
+    style N12 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Process virtual address</td><td>Triggers & Inputs</td><td><a href="https://www.os-book.com/OS10/" target="_blank" title="Operating System Concepts (10th ed.)" style="color:#9b59b6;">Silberschatz, A. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Split page# + offset</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1145/356571.356573" target="_blank" title="Virtual memory" style="color:#9b59b6;">Denning, P. J. 1970</a></td></tr><tr><td style="font-weight:600;">Lookup TLB</td><td>Processing & Operations</td><td><a href="https://www.os-book.com/OS10/" target="_blank" title="Operating System Concepts (10th ed.)" style="color:#9b59b6;">Silberschatz, A. et al. 2018</a></td></tr><tr><td style="font-weight:600;">TLB hit?</td><td>Intermediates & States</td><td><a href="https://www.os-book.com/OS10/" target="_blank" title="Operating System Concepts (10th ed.)" style="color:#9b59b6;">Silberschatz, A. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Walk page table</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1145/356571.356573" target="_blank" title="Virtual memory" style="color:#9b59b6;">Denning, P. J. 1970</a></td></tr><tr><td style="font-weight:600;">Page in memory?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1145/356571.356573" target="_blank" title="Virtual memory" style="color:#9b59b6;">Denning, P. J. 1970</a></td></tr><tr><td style="font-weight:600;">Page fault: trap OS</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1145/356571.356573" target="_blank" title="Virtual memory" style="color:#9b59b6;">Denning, P. J. 1970</a></td></tr><tr><td style="font-weight:600;">Evict victim page</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1145/356571.356573" target="_blank" title="Virtual memory" style="color:#9b59b6;">Denning, P. J. 1970</a></td></tr><tr><td style="font-weight:600;">Load page from disk</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1145/356571.356573" target="_blank" title="Virtual memory" style="color:#9b59b6;">Denning, P. J. 1970</a></td></tr><tr><td style="font-weight:600;">Update page table+TLB</td><td>Intermediates & States</td><td><a href="https://www.os-book.com/OS10/" target="_blank" title="Operating System Concepts (10th ed.)" style="color:#9b59b6;">Silberschatz, A. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Form physical address</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1145/356571.356573" target="_blank" title="Virtual memory" style="color:#9b59b6;">Denning, P. J. 1970</a></td></tr><tr><td style="font-weight:600;">Access memory word</td><td>Products & Outputs</td><td><a href="https://www.os-book.com/OS10/" target="_blank" title="Operating System Concepts (10th ed.)" style="color:#9b59b6;">Silberschatz, A. et al. 2018</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -294,12 +336,12 @@ N9 --> N10
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 10</li>
-                        <li><strong>Edges:</strong> 10</li>
-                        <li><strong>Conditionals:</strong> 0</li>
-                        <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 1</li>
-                        <li><strong>Total Gates:</strong> 2</li>
+                        <li><strong>Nodes:</strong> 12</li>
+                        <li><strong>Edges:</strong> 13</li>
+                        <li><strong>Conditionals:</strong> 2</li>
+                        <li><strong>AND Gates:</strong> 2</li>
+                        <li><strong>OR Gates:</strong> 2</li>
+                        <li><strong>Total Gates:</strong> 4</li>
                     </ul>
                 </div>
                 
@@ -307,7 +349,7 @@ N9 --> N10
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>virtual</li><li>memory</li><li>paging</li>
+                        <li>virtual memory</li><li>paging</li><li>TLB</li><li>page fault</li><li>page replacement</li>
                     </ul>
                 </div>
                 
@@ -318,43 +360,23 @@ N9 --> N10
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Virtual memory</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Denning, P. J.
+                            , ACM Computing Surveys
+                             (1970)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #9b59b6; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Measurement criteria for virtual memory paging rules</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">McCredie, John W.
-                            , Proceedings of the 1969 24th national conference on   -
-                             (1969)
-                            </span>
-                            <br><a href="https://doi.org/10.1145/800195.805932" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.1145/800195.805932</a>
+                            <br><a href="https://doi.org/10.1145/356571.356573" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.1145/356571.356573</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Segmentation, paging and optimal page sizes in virtual memory</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Alanko, Timo O.; Verkamo, A.Inkeri
-                            , Computer Compacts
-                             (1983)
+                            <strong>Operating System Concepts (10th ed.)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Silberschatz, A.; Galvin, P. B.; Gagne, G.
+                            , Wiley
+                             (2018)
                             </span>
-                            <br><a href="https://doi.org/10.1016/0167-7136(83)90150-6" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.1016/0167-7136(83)90150-6</a>
                             
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Segmentation, paging and optimal page sizes in virtual memory</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Alanko, Timo O; Inkeri Verkamo, A
-                            , Performance Evaluation
-                             (1983)
-                            </span>
-                            <br><a href="https://doi.org/10.1016/0166-5316(83)90030-5" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.1016/0166-5316(83)90030-5</a>
-                            
+                            <br><a href="https://www.os-book.com/OS10/" target="_blank" style="color: #9b59b6; font-size: 0.85em;">View Source</a>
                         </li>
                         
                     </ul>

@@ -1,0 +1,41 @@
+{
+  "id": "biorxiv_10.64898_2026.01.20.700579",
+  "doi": "10.64898/2026.01.20.700579",
+  "title": "Cortical cognitive processing explains and predicts superior colliculus signals and timing of gaze shifts to multisensory targets.",
+  "authors": [
+    "Crawford, J. D.",
+    "Daemi, M."
+  ],
+  "author_string": "Crawford, J. D., Daemi, M.",
+  "journal": "bioRxiv",
+  "journal_full": "bioRxiv",
+  "year": "2026",
+  "abstract": "1When goal-directed movements are aimed toward multimodal stimuli, action planning differs compared to the unimodal case in both the spatial and temporal domains, as reflected in specific trends of behavioral response differences in the two conditions. This has been systematically reported in past behavioral and neurophysiological studies; however, a unified neurocognitive theory is yet to be proposed that explains all these findings together based on cognitive processes during the delay period.\n\nIn our previous paper (Daemi, Harris, & Crawford, 2016) we modeled causal inference in order to determine the spatial location of the goal for saccade. Here, we extend this framework into 1) the temporal domain, and 2) the domain of neural signals. Specifically, we propose that \"confidence\" on selecting a winning plan, relative to other alternatives, should influence the timing of execution of the winning action plan, as reflected in known superior colliculus signals and the generated behavior.\n\nTo model these concepts, we build upon our previous evidence-accumulation decision-making framework and compute an instantaneous measure of confidence based on the relative saliency of the winning motor plan compared to the alternate plans. A winning plan is only initiated when enough evidence is accumulated in its favor. This is realized by introducing an accumulative measure of confidence that integrates the instantaneous measure through time. A threshold is set on the accumulative confidence and a GO command is released whenever it reaches the threshold. We also formalize the computations of how this model may be neurally implemented in the brain, mainly in the projections between the superior colliculus (SC), the basal ganglia, and the cortex.\n\nThis model produces simulations that replicate and explain several experimental multisensory observations. In the behavioral domain, our model shows how higher reaction times are predicted for multi-modal targets with higher reliability, or with higher spatial or temporal disparities, due to less confidence on a unique cause. In the neurophysiological domain, our model replicates the principal multisensory behaviors observed in SC neurons: 1) the dependence of SC neuronal activity on the spatial and temporal structure of cross-modal stimuli (i.e., spatial and temporal principles), 2) the inverse relationship between stimulus intensity and the magnitude of the elicited multisensory response (i.e., principle of inverse effectiveness). We have also simulated some novel predictions that could guide new experimental studies.\n\nThus, our model provides a unified viewpoint to explain, for the first time, the effects of both spatial and temporal factors on reaction time variability for multisensory targets, and assigns each of these effects to a unique cognitive function upstream from sensorimotor transformations. Our model proposes cognitive significance for multisensory neural principles in SC, by linking them to how the cortex infers a causal structure and calculates confidence on its inference.",
+  "keywords": [],
+  "categories": [
+    "neuroscience"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.64898/2026.01.20.700579",
+  "source": "biorxiv",
+  "sources": [
+    "biorxiv"
+  ],
+  "acquired_date": "2026-05-23T22:15:22.051625",
+  "category": "biology",
+  "subcategories": [
+    "neuroscience"
+  ],
+  "published_date": "2026-01-23",
+  "updated_date": "2026-01-23",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "biorxiv",
+  "preprint_version": "1",
+  "preprint_type": "new results",
+  "license": "cc_by_nc_nd",
+  "jatsxml": "https://www.biorxiv.org/content/early/2026/01/23//2026.01.20.700579.source.xml",
+  "published_doi": null,
+  "author_corresponding": "John Douglas Crawford",
+  "author_corresponding_institution": "York University"
+}

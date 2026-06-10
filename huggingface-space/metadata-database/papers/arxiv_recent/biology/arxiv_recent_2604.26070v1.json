@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_2604.26070v1",
+  "arxiv_id": "2604.26070v1",
+  "title": "Observable Neural ODEs for Identifiable Causal Forecasting in Continuous Time",
+  "authors": [
+    "Jennifer Wendland",
+    "Nicolas Freitag",
+    "Maik Kschischo"
+  ],
+  "author_string": "Jennifer Wendland, Nicolas Freitag, Maik Kschischo",
+  "journal": "arXiv:2604.26070v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Causal inference in continuous-time sequential decision problems is challenged by hidden confounders. We show that, in latent state-space models with time-varying interventions, observability of the latent dynamics from observed data is necessary for identifying dynamic treatment effects, linking control-theoretic observability to causal identifiability, even when hidden confounders affect both treatments and outcomes. We derive a continuous-time adjustment formula expressing potential outcome distributions under treatment trajectories via the measurement model, latent dynamics, and the filtering distribution over latent states given observed histories. We propose Observable Neural ODEs (ObsNODEs), Neural ODE models in observable normal form for causal forecasting. ObsNODEs learn continuous-time dynamics with states reconstructible from observations, enabling outcome prediction under alternative treatment paths. Experiments on synthetic cancer data, semi-synthetic data based on MIMIC-IV, and real-world sepsis data show strong performance over recent sequence models.",
+  "categories": [
+    "cs.LG",
+    "math.OC",
+    "math.ST",
+    "q-bio.QM"
+  ],
+  "primary_category": "q-bio.QM",
+  "comment": "20 pages, 5 figures",
+  "published_date": "2026-04-28T19:18:42Z",
+  "updated_date": "2026-04-28T19:18:42Z",
+  "url": "https://arxiv.org/abs/2604.26070v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.26070v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-06T10:15:36.874180",
+  "category": "biology",
+  "subcategories": [
+    "cs.LG",
+    "math.OC",
+    "math.ST"
+  ]
+}

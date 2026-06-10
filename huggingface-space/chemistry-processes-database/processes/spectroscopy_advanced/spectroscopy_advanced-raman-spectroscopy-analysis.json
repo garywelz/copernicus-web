@@ -1,21 +1,23 @@
 {
   "id": "spectroscopy_advanced-raman-spectroscopy-analysis",
-  "name": "Raman Spectroscopy Analysis",
+  "name": "Raman Spectroscopy",
   "category": "chemistry",
   "subcategory": "spectroscopy_advanced",
   "subcategory_name": "Advanced Spectroscopy & Analysis",
-  "description": "Raman Spectroscopy Analysis process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "Raman spectroscopy detects inelastically scattered laser light: modes that change polarizability produce Stokes/anti-Stokes shifts after the intense Rayleigh line is filtered, giving a vibrational fingerprint that complements IR through the rule of mutual exclusion.",
   "complexity": {
-    "nodes": 9,
+    "nodes": 10,
     "edges": 10,
-    "conditionals": 0,
+    "conditionals": 1,
     "logicGates": {
       "orGates": 1,
-      "andGates": 2,
-      "total": 3
+      "andGates": 1,
+      "notGates": 0,
+      "total": 2
     },
-    "level": "medium",
-    "detailLevel": "medium"
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 0
   },
   "colorScheme": {
     "red": {
@@ -39,54 +41,151 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nN1[\"Sample\"]\nN2[\"Instrument Configuration\"]\nN3[\"Acquire Spectrum/Pattern\"]\nN4[\"Choose Path\"]\nN5[\"Preprocess (baseline/noise)\"]\nN6[\"Peak/Feature Extraction\"]\nN7[\"Assign/Interpret\"]\nN8[\"Spectroscopic Conclusion\"]\nN9[\"Integrate\"]\n\nN1 --> N2\nN2 --> N3\nN3 --> N4\nN4 --> N5\nN4 --> N7\nN5 --> N6\nN7 --> N8\nN6 --> N9\nN8 --> N9\nN9 --> N6\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#ffd43b,color:#000\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#ffd43b,color:#000\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#74c0fc,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#b197fc,color:#fff\n    style N9 fill:#74c0fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"Sample + laser\"]\n    N2[\"Photons scatter\"]\n    N3{\"Polarizability changes?\"}\n    N4[\"Inactive: only Rayleigh\"]\n    N5[\"Stokes / anti-Stokes shift\"]\n    N6[\"Inelastic scattering\"]\n    N7[\"Filter Rayleigh line\"]\n    N8[\"Record Raman shift\"]\n    N9[\"Complement IR modes\"]\n    N10[\"Vibrational fingerprint\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 -->|no| N4\n    N4 --> N7\n    N3 -->|yes| N5\n    N5 --> N6\n    N6 --> N7\n    N7 --> N8\n    N8 --> N9\n    N9 --> N10\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#74c0fc,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#74c0fc,color:#fff\n    style N6 fill:#74c0fc,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#51cf66,color:#fff\n    style N10 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "title": "A new type of secondary radiation",
+      "authors": "Raman, C. V.; Krishnan, K. S.",
+      "journal": "Nature",
+      "year": "1928",
+      "doi": "10.1038/121501c0",
+      "url": "https://doi.org/10.1038/121501c0"
+    },
+    {
+      "title": "Introductory Raman Spectroscopy, 2nd ed.",
+      "authors": "Ferraro, J. R.; Nakamoto, K.; Brown, C. W.",
+      "journal": "Academic Press",
+      "year": "2003",
+      "doi": "10.1016/B978-0-12-254105-6.X5000-8",
+      "url": "https://doi.org/10.1016/B978-0-12-254105-6.X5000-8"
+    },
+    {
+      "title": "Principles of Instrumental Analysis, 7th ed. — Raman Spectroscopy",
+      "authors": "Skoog, D. A.; Holler, F. J.; Crouch, S. R.",
+      "journal": "Cengage Learning",
+      "year": "2018",
       "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: Raman Spectroscopy Analysis. Created using the Programming Framework methodology."
-    },
-    {
-      "title": "Raman Spectroscopy of Surfaces",
-      "authors": "",
-      "journal": "Raman Spectroscopy for Chemical Analysis",
-      "year": "2000",
-      "pubmed": null,
-      "doi": "10.1002/0471721646.ch13",
-      "url": "https://doi.org/10.1002/0471721646.ch13"
-    },
-    {
-      "title": "Lasers for Raman Spectroscopy",
-      "authors": "",
-      "journal": "Raman Spectroscopy for Chemical Analysis",
-      "year": "2000",
-      "pubmed": null,
-      "doi": "10.1002/0471721646.ch7",
-      "url": "https://doi.org/10.1002/0471721646.ch7"
-    },
-    {
-      "title": "Sampling Modes in Raman Spectroscopy",
-      "authors": "",
-      "journal": "Raman Spectroscopy for Chemical Analysis",
-      "year": "2000",
-      "pubmed": null,
-      "doi": "10.1002/0471721646.ch6",
-      "url": "https://doi.org/10.1002/0471721646.ch6"
+      "url": "https://www.cengage.com/c/principles-of-instrumental-analysis-7e-skoog/9781305577213/"
     }
   ],
   "keywords": [
     "raman",
-    "spectroscopy",
-    "analysis"
+    "polarizability",
+    "stokes shift",
+    "rayleigh scattering",
+    "mutual exclusion"
   ],
   "relatedProcesses": [],
   "created": "2026-01-15",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations.\nCurated Mermaid applied (citations preserved)."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "namedCollections": [
+    "spectroscopy"
+  ],
+  "graphMetrics": {
+    "nodes": 10,
+    "edges": 10,
+    "conditionals": 1,
+    "andGates": 1,
+    "orGates": 1,
+    "notGates": 0,
+    "loops": 0
+  },
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Sample + laser",
+      "detail": "Monochromatic excitation",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 1
+    },
+    {
+      "id": "N2",
+      "label": "Photons scatter",
+      "detail": "Interact with molecules",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N3",
+      "label": "Polarizability changes?",
+      "detail": "Raman selection rule",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 2
+    },
+    {
+      "id": "N4",
+      "label": "Inactive: only Rayleigh",
+      "detail": "Elastic scattering",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N5",
+      "label": "Stokes / anti-Stokes shift",
+      "detail": "Energy gained/lost",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N6",
+      "label": "Inelastic scattering",
+      "detail": "Raman-active mode",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N7",
+      "label": "Filter Rayleigh line",
+      "detail": "Notch filter",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N8",
+      "label": "Record Raman shift",
+      "detail": "Intensity vs cm⁻¹",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N9",
+      "label": "Complement IR modes",
+      "detail": "Mutual exclusion rule",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N10",
+      "label": "Vibrational fingerprint",
+      "detail": "Identification",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 1
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:spectroscopy_advanced-raman-spectroscopy-analysis",
+    "graphType": "decision_flowchart",
+    "topologySignature": "cda0a0519b648ac9",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "graphType": "decision_flowchart",
+  "domainContext": "Raman scattering"
 }

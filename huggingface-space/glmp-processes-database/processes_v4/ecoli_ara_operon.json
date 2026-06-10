@@ -1,0 +1,17 @@
+{
+  "acquired_date": "2025-10-08T00:00:00Z",
+  "category": "Gene Regulation",
+  "created": "2025-10-08",
+  "description": "Ara operon from EcoCyc: AraC, CRP, araBAD operon, transport (araE, araFGH), genes (araB, araA, araD), and L-arabinose pathway (L-Arabinose → L-Ribulose → R5P → X5P).",
+  "id": "process_Gene Regulation_ara-ecocyc",
+  "name": "Ara Operon (EcoCyc-sourced)",
+  "organism": "E. coli",
+  "source": "EcoCyc",
+  "source_version": "28.0",
+  "version_label": "V4",
+  "notes": "V4 = EcoCyc only. ARABADOPERON, AraC, CRP, araE, araFGH, arabinose pathway reactions.",
+  "mermaid": "graph TD\n    ARAB[L-Arabinose]\n    ARAC[AraC]\n    CRP[CRP-cAMP]\n    ARAE[araE]\n    ARAF[araFGH]\n    OPERON[ARABADOPERON]\n    ARA_B[araB]\n    ARA_A[araA]\n    ARA_D[araD]\n    RIB[L-Ribulose]\n    R5P[Ribulose-5-P]\n    X5P[Xylulose-5-P]\n    ARAB -->|araE/araFGH transport| ARAE\n    ARAB -->|araE/araFGH transport| ARAF\n    ARAB -->|binds| ARAC\n    CRP -->|activates| OPERON\n    ARAC -->|represses/activates| OPERON\n    OPERON --> ARA_B\n    OPERON --> ARA_A\n    OPERON --> ARA_D\n    ARAB -->|AraA isomerase| RIB\n    ARA_A -->|isomerase| RIB\n    ARA_B -->|kinase| R5P\n    RIB -->|AraB| R5P\n    ARA_D -->|epimerase| X5P\n    R5P -->|AraD| X5P\n    style ARAB fill:#e74c3c,color:#fff\n    style ARAC fill:#ffd43b,color:#000\n    style CRP fill:#ffd43b,color:#000\n    style ARAE fill:#74c0fc,color:#000\n    style ARAF fill:#74c0fc,color:#000\n    style OPERON fill:#ffd43b,color:#000\n    style ARA_B fill:#74c0fc,color:#000\n    style ARA_A fill:#74c0fc,color:#000\n    style ARA_D fill:#74c0fc,color:#000\n    style RIB fill:#74c0fc,color:#000\n    style R5P fill:#74c0fc,color:#000\n    style X5P fill:#b197fc,color:#000",
+  "related_processes": ["ecoli_ara_operon"],
+  "scientificAccuracy": "From EcoCyc ara operon, transport (araE, araFGH), and arabinose metabolism pathway.",
+  "sources": [{"title": "EcoCyc", "url": "https://ecocyc.org", "note": "E. coli ara operon, AraC, araE, araFGH, arabinose pathway."}]
+}

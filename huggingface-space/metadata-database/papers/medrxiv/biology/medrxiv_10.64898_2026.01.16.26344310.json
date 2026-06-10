@@ -1,0 +1,48 @@
+{
+  "id": "medrxiv_10.64898_2026.01.16.26344310",
+  "doi": "10.64898/2026.01.16.26344310",
+  "title": "Using Artificial Intelligence to Assess Treatment-Effect Heterogeneity in Pragmatic Cardiovascular Trials: Insights from TRANSFORM-HF",
+  "authors": [
+    "Tong, G.",
+    "Li, C.",
+    "Li, F.",
+    "Zeng, Y.",
+    "Greene, S. J.",
+    "Anstrom, K. J.",
+    "Testani, J. M.",
+    "Mentz, R. J.",
+    "Velazquez, E. J."
+  ],
+  "author_string": "Tong, G., Li, C., Li, F., Zeng, Y., Greene, S. J. et al.",
+  "journal": "medRxiv",
+  "journal_full": "medRxiv",
+  "year": "2026",
+  "abstract": "Background and AimsPragmatic clinical trials are designed to assess interventions in real-world settings, and their broad inclusion criteria and clinical variability create valuable opportunities for exploring heterogeneity of treatment effects. In this context, TRANSFORM-HF was a pragmatic trial that found no overall survival difference between torsemide and furosemide in patients hospitalized with heart failure (HF), highlighting the importance of analytic strategies that can uncover clinically meaningful variation in treatment response.\n\nThe aim of this study was to evaluate whether baseline patient characteristics modify the relative survival benefit of torsemide versus furosemide using machine learning methods.\n\nMethodsThis was a post hoc analysis of the pragmatic, multicenter, open-label, randomized TRANSFORM-HF trial, which enrolled 2,859 patients hospitalized with HF across 60 US hospitals and randomized them to torsemide or furosemide. More than 50 baseline covariates were incorporated into a Bayesian Accelerated Failure Time model with Bayesian Additive Regression Trees (AFT-BART) to estimate individualized survival treatment effects (ISTEs). The outcome of interest was all-cause mortality over follow-up. Machine learning analyses estimated ISTEs for each patient and identified key baseline covariates modifying relative treatment effects. An exploratory decision tree was used to aid interpretability and to highlight influential effect modifiers.\n\nResultsWhile the overall trial showed no survival difference, machine learning analyses revealed heterogeneity in treatment effects. Atrial fibrillation (AF), BNP/NT-proBNP levels, and prior loop diuretic use emerged as the most influential baseline modifiers. Patients without AF, with lower BNP levels, and without prior loop use showed suggestive benefit from torsemide (fitted mean ISTE up to 0.49; 95% CrI, -0.07 to 1.04), whereas patients with AF, elevated BNP and prior loop use showed relative benefit with furosemide (fitted mean ISTE -0.40; 95% CrI, -0.78 to -0.05). Although most subgroup effect estimates were statistically inconclusive due to wide credible intervals, split points were statistically significant, highlighting the importance of candidate modifiers.\n\nConclusionsIn this exploratory AI-driven analysis of TRANSFORM-HF, we identified meaningful heterogeneity in diuretic response, with atrial fibrillation, natriuretic peptide levels, and prior diuretic use modifying relative survival benefit. These findings illustrate how integrating artificial intelligence into the analysis of pragmatic trials can move beyond average treatment effects to generate individualized, hypothesis-generating insights, and underscore the value of anticipating and systematically evaluating treatment-effect heterogeneity when designing and interpreting pragmatic cardiovascular trials.\n\nWhat is the clinical question being addressed?To apply artificial intelligence to detect treatment effect heterogeneity in the pragmatic TRANSFORM HF trial and to identify patient subgroups with differential benefit from torsemide versus furosemide, supporting precision medicine in heart failure.\n\nWhat is the main finding?Machine learning analyses within this pragmatic trial revealed substantial heterogeneity in the survival effects of torsemide versus furosemide. Torsemide appeared more beneficial among patients without atrial fibrillation and with lower BNP/NT-proBNP levels, whereas furosemide was favored in those with atrial fibrillation, higher BNP/NT-proBNP concentrations, and prior loop diuretic use. Exploratory analyses demonstrated that applying AI-driven methods to evaluate treatment effect heterogeneity within a pragmatic trial framework can leverage the inherent clinical diversity of pragmatic designs and potentially generate personalized and practice-relevant insights from pragmatic clinical research.",
+  "keywords": [],
+  "categories": [
+    "cardiovascular medicine"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.64898/2026.01.16.26344310",
+  "source": "medrxiv",
+  "sources": [
+    "medrxiv"
+  ],
+  "acquired_date": "2026-05-19T22:15:24.244202",
+  "category": "biology",
+  "subcategories": [
+    "cardiovascular medicine"
+  ],
+  "published_date": "2026-01-19",
+  "updated_date": "2026-01-19",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "medrxiv",
+  "preprint_version": "1",
+  "preprint_type": "PUBLISHAHEADOFPRINT",
+  "license": "cc_no",
+  "jatsxml": "https://www.medrxiv.org/content/early/2026/01/19//2026.01.16.26344310.source.xml",
+  "published_doi": null,
+  "author_corresponding": "Guangyu Tong",
+  "author_corresponding_institution": "Yale School of Medicine"
+}

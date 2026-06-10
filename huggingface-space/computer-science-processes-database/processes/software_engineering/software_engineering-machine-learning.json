@@ -1,21 +1,23 @@
 {
   "id": "software_engineering-machine-learning",
-  "name": "Machine Learning",
+  "name": "Agile Scrum Sprint",
   "category": "computer_science",
   "subcategory": "software_engineering",
   "subcategory_name": "Software Engineering",
-  "description": "Machine Learning process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "A Scrum sprint delivers a potentially shippable increment in a fixed timebox: the team plans and selects a sprint backlog from the product backlog, develops through daily standups, removing impediments as they arise, and when the timebox ends holds a sprint review to demo and a retrospective to improve.",
   "complexity": {
-    "nodes": 26,
-    "edges": 21,
-    "conditionals": 0,
+    "nodes": 12,
+    "edges": 13,
+    "conditionals": 2,
     "logicGates": {
-      "orGates": 0,
+      "orGates": 2,
       "andGates": 1,
-      "total": 1
+      "notGates": 0,
+      "total": 3
     },
-    "level": "medium",
-    "detailLevel": "medium"
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 2
   },
   "colorScheme": {
     "red": {
@@ -39,53 +41,155 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nA1[Data Input] --> B1[Machine Learning Method]\nC1[Feature Engineering] --> D1[Model Training]\nE1[Model Evaluation] --> F1[Machine Learning Analysis]\nB1 --> G1[Supervised Learning]\nD1 --> H1[Unsupervised Learning]\nF1 --> I1[Reinforcement Learning]\nG1 --> J1[Classification Algorithm]\nH1 --> K1[Clustering Algorithm]\nI1 --> L1[Q Learning]\nJ1 --> M1[Model Optimization]\nK1 --> L1\nL1 --> N1[Policy Learning]\nM1 --> O1[Hyperparameter Tuning]\nN1 --> P1[Model Validation]\nO1 --> Q1[Machine Learning Process]\nP1 --> R1[Machine Learning Validation]\nQ1 --> S1[Machine Learning Verification]\nR1 --> T1[Machine Learning Result]\nS1 --> U1[Machine Learning Analysis]\nT1 --> V1[Machine Learning Parameters]\nU1 --> W1[Machine Learning Output]\nV1 --> X1[Machine Learning Analysis]\nW1 --> Y1[Machine Learning Final Result]\nX1 --> Z1[Machine Learning Complete]\n\n    style A1 fill:#ff6b6b,color:#fff\n    style C1 fill:#ff6b6b,color:#fff\n    style E1 fill:#ff6b6b,color:#fff\n    style B1 fill:#ffd43b,color:#000\n    style D1 fill:#ffd43b,color:#000\n    style F1 fill:#ffd43b,color:#000\n    style G1 fill:#ffd43b,color:#000\n    style H1 fill:#ffd43b,color:#000\n    style I1 fill:#ffd43b,color:#000\n    style J1 fill:#ffd43b,color:#000\n    style K1 fill:#ffd43b,color:#000\n    style L1 fill:#ffd43b,color:#000\n    style M1 fill:#51cf66,color:#fff\n    style N1 fill:#51cf66,color:#fff\n    style O1 fill:#51cf66,color:#fff\n    style P1 fill:#51cf66,color:#fff\n    style Q1 fill:#51cf66,color:#fff\n    style R1 fill:#51cf66,color:#fff\n    style S1 fill:#51cf66,color:#fff\n    style T1 fill:#51cf66,color:#fff\n    style U1 fill:#51cf66,color:#fff\n    style V1 fill:#51cf66,color:#fff\n    style W1 fill:#51cf66,color:#fff\n    style X1 fill:#51cf66,color:#fff\n    style Y1 fill:#51cf66,color:#fff\n    style Z1 fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"Product backlog\"]\n    N2[\"Sprint planning\"]\n    N3[\"Select sprint backlog\"]\n    N4[\"Daily standup\"]\n    N5[\"Develop increment\"]\n    N6{\"Blockers raised?\"}\n    N7[\"Resolve impediments\"]\n    N8{\"Sprint timebox ended?\"}\n    N9[\"Continue work\"]\n    N10[\"Sprint review (demo)\"]\n    N11[\"Retrospective\"]\n    N12[\"Shippable increment\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 --> N4\n    N4 --> N5\n    N5 --> N6\n    N6 -->|yes| N7\n    N7 -->|unblock| N4\n    N6 -->|no| N8\n    N8 -->|no| N9\n    N9 -->|iterate| N4\n    N8 -->|yes| N10\n    N10 --> N11\n    N11 --> N12\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#74c0fc,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#74c0fc,color:#fff\n    style N9 fill:#51cf66,color:#fff\n    style N10 fill:#51cf66,color:#fff\n    style N11 fill:#51cf66,color:#fff\n    style N12 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
-      "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: Machine Learning. Created using the Programming Framework methodology."
+      "title": "The Scrum Guide: The Definitive Guide to Scrum",
+      "authors": "Schwaber, K.; Sutherland, J.",
+      "journal": "scrumguides.org",
+      "year": "2020",
+      "url": "https://scrumguides.org/scrum-guide.html"
     },
     {
-      "title": "Machine learning with sklearn",
-      "authors": "Trappenberg, Thomas P.",
-      "journal": "Fundamentals of Machine Learning",
-      "year": "2019",
-      "pubmed": null,
-      "doi": "10.1093/oso/9780198828044.003.0003",
-      "url": "https://doi.org/10.1093/oso/9780198828044.003.0003"
-    },
-    {
-      "title": "Optimization and Machine Learning",
-      "authors": "",
-      "journal": "",
-      "year": "2022",
-      "pubmed": null,
-      "doi": "10.1002/9781119902881",
-      "url": "https://doi.org/10.1002/9781119902881"
-    },
-    {
-      "title": "Machine learning",
-      "authors": "",
-      "journal": "Bayesian Reasoning and Machine Learning",
-      "year": "2012",
-      "pubmed": null,
-      "doi": "10.1017/cbo9780511804779.017",
-      "url": "https://doi.org/10.1017/cbo9780511804779.017"
+      "title": "Manifesto for Agile Software Development",
+      "authors": "Beck, K.; et al.",
+      "journal": "agilemanifesto.org",
+      "year": "2001",
+      "url": "https://agilemanifesto.org/"
     }
   ],
   "keywords": [
-    "machine",
-    "learning"
+    "Scrum",
+    "sprint",
+    "agile",
+    "sprint backlog",
+    "retrospective"
   ],
   "relatedProcesses": [],
   "created": "2026-01-08",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Product backlog",
+      "detail": "Prioritized items",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N2",
+      "label": "Sprint planning",
+      "detail": "Set sprint goal",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N3",
+      "label": "Select sprint backlog",
+      "detail": "Committed work",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N4",
+      "label": "Daily standup",
+      "detail": "Sync progress",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N5",
+      "label": "Develop increment",
+      "detail": "Build + test",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N6",
+      "label": "Blockers raised?",
+      "detail": "Impediments",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N7",
+      "label": "Resolve impediments",
+      "detail": "Scrum master",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N8",
+      "label": "Sprint timebox ended?",
+      "detail": "Fixed duration",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N9",
+      "label": "Continue work",
+      "detail": "Next day",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N10",
+      "label": "Sprint review (demo)",
+      "detail": "Inspect increment",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N11",
+      "label": "Retrospective",
+      "detail": "Improve process",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N12",
+      "label": "Shippable increment",
+      "detail": "Done work",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 0
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:software_engineering-machine-learning",
+    "graphType": "cyclic_pathway",
+    "topologySignature": "f8303507284a4b2c",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "namedCollections": [],
+  "graphMetrics": {
+    "nodes": 12,
+    "edges": 13,
+    "conditionals": 2,
+    "andGates": 1,
+    "orGates": 2,
+    "notGates": 0,
+    "loops": 2
+  },
+  "graphType": "cyclic_pathway",
+  "domainContext": "Software engineering / agile"
 }

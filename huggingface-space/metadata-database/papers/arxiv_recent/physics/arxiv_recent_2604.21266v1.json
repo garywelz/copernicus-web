@@ -1,0 +1,30 @@
+{
+  "id": "arxiv_2604.21266v1",
+  "arxiv_id": "2604.21266v1",
+  "title": "On the importance of hyperparameters in initializing parameterized quantum circuits",
+  "authors": [
+    "Ankit Kulshrestha",
+    "Sarvagya Upadhyay"
+  ],
+  "author_string": "Ankit Kulshrestha, Sarvagya Upadhyay",
+  "journal": "arXiv:2604.21266v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "There has been intensive research on increasing the utility and performance of Parameterized Quantum Circuits (PQCs) in the past couple of years. Owing to this research, there are now several inductive biases available to a quantum algorithms researchers to design a good circuit for their chosen task.   In this paper, we focus on the problem of finding performant initial parameters for a given PQC. Different from previous research that focuses on finding the right \\emph{distribution}, we focus on finding the \\emph{hyperparameters} for any given distribution. To that end we introduce an evolutionary-search based algorithm that finds optimal hyperparameter given a PQC and quantum task. Our empirical results indicate that our algorithm consistently leads to selection of performant initial parameters tuned specifically to the ansatz and the quantum task leading to faster convergence and performance. More importantly, our algorithm does not \\emph{negatively} affect the barren plateau phenomenon. In other words, the initial parameters suggested by algorithm do not worsen the gradient variance scaling for a given initializing distribution.",
+  "categories": [
+    "quant-ph"
+  ],
+  "primary_category": "quant-ph",
+  "comment": "8 pages",
+  "published_date": "2026-04-23T04:21:11Z",
+  "updated_date": "2026-04-23T04:21:11Z",
+  "url": "https://arxiv.org/abs/2604.21266v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.21266v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-26T10:16:12.589113",
+  "category": "physics",
+  "subcategories": [
+    "quant-ph"
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "id": "arxiv_2605.02892v1",
+  "arxiv_id": "2605.02892v1",
+  "title": "AlbumFill: Album-Guided Reasoning and Retrieval for Personalized Image Completion",
+  "authors": [
+    "Yu-Ju Tsai",
+    "Brian Price",
+    "Qing Liu",
+    "Luis Figueroa",
+    "Daniil Pakhomov",
+    "Zhihong Ding",
+    "Scott Cohen",
+    "Ming-Hsuan Yang"
+  ],
+  "author_string": "Yu-Ju Tsai, Brian Price, Qing Liu, Luis Figueroa, Daniil Pakhomov et al.",
+  "journal": "arXiv:2605.02892v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Personalized image completion aims to restore occluded regions in personal photos while preserving identity and appearance. Existing methods either rely on generic inpainting models that often fail to maintain identity consistency, or assume that suitable reference images are explicitly provided. In practice, suitable references are often not explicitly provided, requiring the system to search for identity-consistent images within personal photo collections. We present AlbumFill, a training-free framework that retrieves identity-consistent references from personal albums for personalized completion. Given an occluded image and a personal album, a vision-language model infers missing semantic cues to guide composed image retrieval, and the retrieved references are used by reference-based completion models. To facilitate this task, we introduce a dataset containing 54K human-centric samples with associated album images. Experiments across multiple baselines demonstrate the difficulty of personalized completion and highlight the importance of identity-consistent reference retrieval. Project Page: https://liagm.github.io/AlbumFill/",
+  "categories": [
+    "cs.CV",
+    "cs.IR"
+  ],
+  "primary_category": "cs.IR",
+  "comment": "Project Page: https://liagm.github.io/AlbumFill/",
+  "published_date": "2026-05-04T17:59:59Z",
+  "updated_date": "2026-05-04T17:59:59Z",
+  "url": "https://arxiv.org/abs/2605.02892v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.02892v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-05T10:15:47.083120",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CV",
+    "cs.IR"
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2605.03996v1",
+  "arxiv_id": "2605.03996v1",
+  "title": "3D Human Face Reconstruction with 3DMM face model from RGB image",
+  "authors": [
+    "Zhangnan Jiang",
+    "Zichen Yang"
+  ],
+  "author_string": "Zhangnan Jiang, Zichen Yang",
+  "journal": "arXiv:2605.03996v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Nowadays as convolution neural networks demonstrate its powerful problem-solving ability in the area of image processing, efforts have been made to reconstruct detailed face shapes from 2D face images or videos. However, to make the full use of CNN, a large number of labeled data is required to train the network. Coarse morphable face model has been used to synthesize labeled data. However, it is hard for coarse morphable face models to generate photo-realistic data with detail such as wrinkles. In this project, we present a pipeline that reconstructs a human face 3D model from a single RGB image. The pipeline includes face detection, landmark detection, regression of 3DMM model parameters, and soft rendering. Mentor: Zhipeng Fan (Email: zf606@nyu.edu) Code Repository: https://github.com/SeVEnMY/3d-face- reconstruction Code Reference: https://github.com/sicxu/Deep3DFaceRecon pytorch",
+  "categories": [
+    "cs.CV",
+    "cs.GR"
+  ],
+  "primary_category": "cs.GR",
+  "comment": null,
+  "published_date": "2026-05-05T17:19:44Z",
+  "updated_date": "2026-05-05T17:19:44Z",
+  "url": "https://arxiv.org/abs/2605.03996v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.03996v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-06T10:15:40.982360",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CV",
+    "cs.GR"
+  ]
+}

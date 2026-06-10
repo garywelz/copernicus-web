@@ -1,0 +1,39 @@
+{
+  "id": "k_theory-operator",
+  "name": "Operator K-Theory",
+  "category": "mathematics",
+  "subcategory": "k_theory",
+  "subcategory_name": "K-Theory",
+  "description": "K₀(A), K₁(A) for C*-algebras. Ext groups.",
+  "mermaid": "graph TD\n    D1[\"Def: K₀(A) C*-alg\\nproj mods over A\"]\n    D2[\"Def: K₁(A)\\nU(A)/U(A)_0\"]\n    D3[\"Def: Ext group\\nExt(A) for C*-alg A\"]\n    D4[\"Def: Suspension SA\\nC₀(R)⊗A\"]\n    T1[\"Thm: K₀(A)≅K₁(SA)\\nBott periodicity\"]\n    T2[\"Thm: Six-term exact\\nK₀,K₁,∂ in exact seq\"]\n    T3[\"Thm: Ext = K¹\\nKasparov\"]\n    T4[\"Thm: Index map\\nFredholm → K-theory\"]\n    T5[\"Thm: Pimsner–Voiculescu\\nK of crossed products\"]\n    D1 --> D2\n    D2 --> D4\n    D4 --> T1\n    T1 --> T2\n    D3 --> T3\n    T2 --> T4\n    classDef definition fill:#b197fc,color:#fff\n    classDef theorem fill:#51cf66,color:#fff\n    class D1,D2,D3,D4 definition\n    class T1,T2,T3,T4,T5 theorem",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2605.02706v1",
+  "arxiv_id": "2605.02706v1",
+  "title": "Semi-Markov Models with Particle-Based Bayesian Inference for Epidemics",
+  "authors": [
+    "Patrick Aschermayr",
+    "Konstantinos Kalogeropoulos",
+    "Nikolaos Demiris"
+  ],
+  "author_string": "Patrick Aschermayr, Konstantinos Kalogeropoulos, Nikolaos Demiris",
+  "journal": "arXiv:2605.02706v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "The COVID-19 pandemic has been characterised by multiple waves of transmission driven by interventions and emerging variants, challenging epidemic models that assume gradually evolving transmission dynamics. We propose a class of state-space models in which the transmission rate evolves through persistent regimes of random duration, governed by a semi-Markov process. This formulation yields an interpretable representation of sustained transmission phases and retains a parsimonious parameterisation. Particle-based Bayesian methods are well established for standard state-space models, but their use in semi-Markov settings has received comparatively limited attention. In epidemic applications, inference is further complicated by differential equation-driven latent dynamics and observation models defined through functionals of the latent process. We develop an inferential framework that accommodates these features, combining particle-based state updates with gradient-based parameter updates and enabling batch and sequential inference via particle and sequential Monte Carlo. We apply the proposed methodology to COVID-19 data from the United Kingdom and show that combining reported cases and deaths leads to more precise and stable inference compared to using deaths alone. These results illustrate the practical value of semi-Markov transmission models for epidemic analysis under complex observation schemes.",
+  "categories": [
+    "stat.AP"
+  ],
+  "primary_category": "stat.AP",
+  "comment": null,
+  "published_date": "2026-05-04T15:13:44Z",
+  "updated_date": "2026-05-04T15:13:44Z",
+  "url": "https://arxiv.org/abs/2605.02706v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.02706v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-05T10:15:50.910530",
+  "category": "mathematics",
+  "subcategories": [
+    "stat.AP"
+  ]
+}

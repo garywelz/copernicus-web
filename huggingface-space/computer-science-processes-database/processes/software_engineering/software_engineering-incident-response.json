@@ -4,18 +4,20 @@
   "category": "computer_science",
   "subcategory": "software_engineering",
   "subcategory_name": "Software Engineering",
-  "description": "Incident Response process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "Incident response restores service and learns from failures: an alert is triaged and assigned a severity, an incident is declared and responders assembled, the root cause is investigated, a mitigation applied, and service confirmed restored; a blameless postmortem then captures action items so the failure mode is prevented.",
   "complexity": {
-    "nodes": 10,
-    "edges": 10,
-    "conditionals": 0,
+    "nodes": 11,
+    "edges": 12,
+    "conditionals": 2,
     "logicGates": {
-      "orGates": 1,
+      "orGates": 2,
       "andGates": 1,
-      "total": 2
+      "notGates": 0,
+      "total": 3
     },
-    "level": "medium",
-    "detailLevel": "medium"
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 2
   },
   "colorScheme": {
     "red": {
@@ -39,53 +41,147 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nN1[\"Alert Trigger\"]\nN2[\"Service Impact\"]\nN3[\"On-Call Team\"]\nN4[\"Choose Approach\"]\nN5[\"Runbooks\"]\nN6[\"Triage\"]\nN7[\"Mitigate\"]\nN8[\"Postmortem\"]\nN9[\"Integrate Results\"]\nN10[\"Resolved Incident\"]\n\nN1 --> N2\nN2 --> N3\nN3 --> N4\nN4 --> N5\nN4 --> N7\nN5 --> N6\nN7 --> N8\nN6 --> N9\nN8 --> N9\nN9 --> N10\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#ff6b6b,color:#fff\n    style N3 fill:#ffd43b,color:#000\n    style N4 fill:#ffd43b,color:#000\n    style N5 fill:#ffd43b,color:#000\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#74c0fc,color:#fff\n    style N9 fill:#74c0fc,color:#fff\n    style N10 fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"Alert / incident detected\"]\n    N2[\"Triage + assign severity\"]\n    N3[\"Declare incident\"]\n    N4[\"Assemble responders\"]\n    N5[\"Investigate root cause\"]\n    N6{\"Mitigation found?\"}\n    N7[\"Gather more data\"]\n    N8[\"Apply mitigation\"]\n    N9{\"Service restored?\"}\n    N10[\"Postmortem + actions\"]\n    N11[\"Resolved + learnings\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 --> N4\n    N4 --> N5\n    N5 --> N6\n    N6 -->|no| N7\n    N7 -->|investigate| N5\n    N6 -->|yes| N8\n    N8 --> N9\n    N9 -->|no| N5\n    N9 -->|yes| N10\n    N10 --> N11\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#74c0fc,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#74c0fc,color:#fff\n    style N10 fill:#51cf66,color:#fff\n    style N11 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
-      "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: Incident Response. Created using the Programming Framework methodology."
-    },
-    {
-      "title": "Incident Response Basics",
-      "authors": "Bradley, Jaron",
-      "journal": "OS X Incident Response",
+      "title": "Site Reliability Engineering: How Google Runs Production Systems",
+      "authors": "Beyer, B.; Jones, C.; Petoff, J.; Murphy, N. R.",
+      "journal": "O'Reilly Media",
       "year": "2016",
-      "pubmed": null,
-      "doi": "10.1016/b978-0-12-804456-8.00002-9",
-      "url": "https://doi.org/10.1016/b978-0-12-804456-8.00002-9"
+      "url": "https://sre.google/sre-book/managing-incidents/"
     },
     {
-      "title": "Incident Response Approach",
-      "authors": "Finnigan, Pete",
-      "journal": "Oracle Incident Response and Forensics",
-      "year": "2017",
-      "pubmed": null,
-      "doi": "10.1007/978-1-4842-3264-4_3",
-      "url": "https://doi.org/10.1007/978-1-4842-3264-4_3"
-    },
-    {
-      "title": "Incident Response Tools",
-      "authors": "Johnson, Leighton R.",
-      "journal": "Computer Incident Response and Forensics Team Management",
-      "year": "2014",
-      "pubmed": null,
-      "doi": "10.1016/b978-1-59749-996-5.00006-6",
-      "url": "https://doi.org/10.1016/b978-1-59749-996-5.00006-6"
+      "title": "Blameless PostMortems and a Just Culture",
+      "authors": "Allspaw, J.",
+      "journal": "Code as Craft (Etsy Engineering)",
+      "year": "2012",
+      "url": "https://www.etsy.com/codeascraft/blameless-postmortems/"
     }
   ],
   "keywords": [
-    "incident",
-    "response"
+    "incident response",
+    "severity triage",
+    "root cause",
+    "mitigation",
+    "postmortem"
   ],
   "relatedProcesses": [],
   "created": "2026-01-15",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations.\nCurated Mermaid applied (citations preserved)."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "namedCollections": [],
+  "graphMetrics": {
+    "nodes": 11,
+    "edges": 12,
+    "conditionals": 2,
+    "andGates": 1,
+    "orGates": 2,
+    "notGates": 0,
+    "loops": 2
+  },
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Alert / incident detected",
+      "detail": "Monitoring fires",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N2",
+      "label": "Triage + assign severity",
+      "detail": "Impact level",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N3",
+      "label": "Declare incident",
+      "detail": "Open response",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N4",
+      "label": "Assemble responders",
+      "detail": "Roles assigned",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N5",
+      "label": "Investigate root cause",
+      "detail": "Form hypotheses",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N6",
+      "label": "Mitigation found?",
+      "detail": "Path to recovery",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N7",
+      "label": "Gather more data",
+      "detail": "Logs, metrics",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N8",
+      "label": "Apply mitigation",
+      "detail": "Stop the bleeding",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N9",
+      "label": "Service restored?",
+      "detail": "Health recovered",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N10",
+      "label": "Postmortem + actions",
+      "detail": "Blameless review",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N11",
+      "label": "Resolved + learnings",
+      "detail": "Prevent recurrence",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 1
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:software_engineering-incident-response",
+    "graphType": "decision_flowchart",
+    "topologySignature": "23e1d9b0a982b834",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "graphType": "decision_flowchart",
+  "domainContext": "Software engineering / SRE"
 }

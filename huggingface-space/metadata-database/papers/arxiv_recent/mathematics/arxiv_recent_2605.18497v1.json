@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_2605.18497v1",
+  "arxiv_id": "2605.18497v1",
+  "title": "Sharp Rates of MMD Empirical Estimation with Power Kernels",
+  "authors": [
+    "Francesco Colasanto",
+    "Matteo Focardi",
+    "Massimo Fornasier",
+    "Francesco Mattesini"
+  ],
+  "author_string": "Francesco Colasanto, Matteo Focardi, Massimo Fornasier, Francesco Mattesini",
+  "journal": "arXiv:2605.18497v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We establish quantitative rates of convergence for the empirical estimation of probability measures by means of the Maximum Mean Discrepancy (MMD) with power kernel $K_q(x,y) = -|x-y|^q$, $q \\in (0,2)$. The resulting discrepancy is the classical energy distance $$\\mathcal E_q^2(μ, ω) = -\\frac{1}{2}\\iint_{\\mathbb{R}^d \\times \\mathbb{R}^d} |x-y|^q \\, d(μ- ω)(x)\\, d(μ- ω)(y),$$ and we ask how fast the best $N$-point empirical approximation $\\inf_{μ_N \\in \\mathcal{P}^N}\\mathcal{E}_q(μ_N,ω)$ decays as $N \\to \\infty$. Given a probability measure $ω$ on $\\mathbb{R}^d$ satisfying an Ahlfors regularity condition of exponent $β$, we prove that the sharp two-sided bound $$\\mathcal E_q(μ_N, ω) \\asymp N^{-\\frac{1}{2}\\left(1 + \\frac{q}β\\right)}$$ holds both for the worst-case empirical measure $μ_N$ (lower bound, holding for every configuration of $N$ points) and for an optimally chosen empirical measure $μ_N$ (upper bound). This complements the qualitative consistency result of Fornasier and Hütter \\cite{fornasier2014consistency}, who proved narrow convergence of the minimizers of $\\mathcal E_q^2(\\cdot, ω)$ over empirical measures without quantitative rates.",
+  "categories": [
+    "math.PR",
+    "math.OC",
+    "math.ST"
+  ],
+  "primary_category": "math.ST",
+  "comment": "Comments very welcome!",
+  "published_date": "2026-05-18T14:49:52Z",
+  "updated_date": "2026-05-18T14:49:52Z",
+  "url": "https://arxiv.org/abs/2605.18497v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.18497v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-19T10:15:43.859052",
+  "category": "mathematics",
+  "subcategories": [
+    "math.PR",
+    "math.OC",
+    "math.ST"
+  ]
+}

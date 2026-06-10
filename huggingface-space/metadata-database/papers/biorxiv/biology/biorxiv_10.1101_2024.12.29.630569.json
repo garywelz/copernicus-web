@@ -1,0 +1,51 @@
+{
+  "id": "biorxiv_10.1101_2024.12.29.630569",
+  "doi": "10.1101/2024.12.29.630569",
+  "title": "CLCNet: a contrastive learning and chromosome-aware network for genomic prediction in plants",
+  "authors": [
+    "Huang, J.",
+    "Yang, Z.",
+    "Yin, M.",
+    "Li, C.",
+    "Li, J.",
+    "Wang, Y.",
+    "Huang, L.",
+    "Li, M.",
+    "Liang, C.",
+    "He, F.",
+    "Han, R.",
+    "Jiang, Y."
+  ],
+  "author_string": "Huang, J., Yang, Z., Yin, M., Li, C., Li, J. et al.",
+  "journal": "bioRxiv",
+  "journal_full": "bioRxiv",
+  "year": "2026",
+  "abstract": "Genomic selection (GS) leverages genome-wide markers and phenotypes to predict breeding values, with its effectiveness largely dependent on the accuracy of genomic prediction (GP) models. However, GP methods often struggle to capture inter-individual variability and are limited by the curse of dimensionality, where the number of SNPs far exceeds the sample size. To address these challenges, we present CLCNet (Contrastive Learning and Chromosome-aware Network), a novel deep learning framework that integrates contrastive learning and chromosome-aware feature modeling. CLCNet comprises two key components: (i) a contrastive learning module that enhances the models ability to capture fine-grained, genotype-dependent phenotypic differences among individuals, and (ii) a chromosome-aware module that captures structured feature selection at both chromosome and genome levels, thereby distilling the most informative SNPs. We evaluated CLCNet across four crop species, covering ten agronomically important traits, and compared it with a diverse set of classical linear, machine learning, and deep learning models. CLCNet achieved superior prediction performance, with statistically significant improvements in Pearson correlation coefficient (PCC), ranging from 0.34% to 12.19% over baseline, together with reduced mean squared error (MSE). Performance gains were more pronounced for traits with moderate linkage disequilibrium (LD; r2 = 0.21-0.36) and high heritability (h2 > 0.66), such as those in maize, rapeseed, and soybean. For cotton traits characterized by high LD (r2 = 0.74) and lower heritability (h2 < 0.50), CLCNet maintained robust performance without degradation. Overall, these results demonstrate that CLCNet is an effective framework for improving genomic prediction accuracy and holds strong potential for practical applications in plant breeding.\n\nShort abstractCLCNet is a novel deep learning framework for genomic prediction that integrates contrastive learning with chromosome-aware feature selection. By jointly modeling inter-individual genotype-phenotype variation and chromosomal genomic structure, CLCNet improves prediction accuracy under high-dimensional, low-sample-size conditions. Across four crop species and ten agronomic traits, CLCNet consistently outperformed classical statistical, machine learning, and existing deep learning models. The framework also identified biologically relevant SNPs and candidate genes, demonstrating its potential for practical applications in genomic selection and computational plant breeding.\n\nKey pointsO_LIWe propose CLCNet, a multi-task deep learning framework that integrates contrastive learning with chromosome-aware feature selection for genomic prediction, under high-dimensional, low-sample-size conditions.\nC_LIO_LIThe chromosome-aware module explicitly exploits genomic structural information to select representative and informative SNPs across chromosomes.\nC_LIO_LIContrastive learning improves model robustness by stabilizing representation learning and reducing the influence of random effects across samples.\nC_LIO_LIBy complementing GWAS analyses, CLCNet provides additional insights into genotype-phenotype relationships with potential relevance for gene discovery.\nC_LI\n\nBiographical NoteJiangwei Huang is a PhD candidate at the Institute of Genetics and Developmental Biology, Chinese Academy of Sciences. His research focuses on genomic prediction, deep learning, and computational plant breeding.\n\nZhihan Yang is a PhD candidate at the Institute of Genetics and Developmental Biology, Chinese Academy of Sciences. Her research interests include genomic prediction and bioinformatics.\n\nRongcheng Han is an associate professor at the Institute of Genetics and Developmental Biology, Chinese Academy of Sciences. His research focuses on bioinformatics and plant phenomics.\n\nYuqiang Jiang is a professor at the Institute of Genetics and Developmental Biology, Chinese Academy of Sciences. His research interests include plant genomics, plant phenomics and genetic improvement.\n\nOrganization descriptionThe Institute of Genetics and Developmental Biology, Chinese Academy of Sciences, is a leading research institute focusing on genetics, genomics, molecular breeding, bioinformatics, and systems biology in plants and animals.",
+  "keywords": [],
+  "categories": [
+    "bioinformatics"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.1101/2024.12.29.630569",
+  "source": "biorxiv",
+  "sources": [
+    "biorxiv"
+  ],
+  "acquired_date": "2026-05-22T22:15:22.925221",
+  "category": "biology",
+  "subcategories": [
+    "bioinformatics"
+  ],
+  "published_date": "2026-01-22",
+  "updated_date": "2026-01-22",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "biorxiv",
+  "preprint_version": "6",
+  "preprint_type": "new results",
+  "license": "cc_by_nc_nd",
+  "jatsxml": "https://www.biorxiv.org/content/early/2026/01/22/2024.12.29.630569.source.xml",
+  "published_doi": null,
+  "author_corresponding": "Yuqiang Jiang",
+  "author_corresponding_institution": "Institute of Genetics and Developmental Biology, Chinese Academy of Sciences"
+}

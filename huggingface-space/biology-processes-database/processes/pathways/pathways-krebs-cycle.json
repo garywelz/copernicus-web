@@ -1,0 +1,199 @@
+{
+  "id": "pathways-krebs-cycle",
+  "name": "Krebs Cycle (Citric Acid Cycle)",
+  "category": "biology",
+  "subcategory": "pathways",
+  "subcategory_name": "Pathways",
+  "description": "Citric acid cycle: acetyl-CoA condenses with oxaloacetate and is oxidized through eight steps that release two CO2, three NADH, one FADH2 and one GTP per turn, regenerating oxaloacetate, with isocitrate dehydrogenase gated by the NADH/ATP level.",
+  "keywords": [
+    "citric acid cycle",
+    "krebs",
+    "acetyl-coa",
+    "nadh",
+    "oxaloacetate"
+  ],
+  "namedCollections": [
+    "metabolism"
+  ],
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "complexity": {
+    "nodes": 11,
+    "edges": 12,
+    "conditionals": 1,
+    "logicGates": {
+      "orGates": 1,
+      "andGates": 2,
+      "notGates": 0,
+      "total": 3
+    },
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 2
+  },
+  "graphMetrics": {
+    "nodes": 11,
+    "edges": 12,
+    "conditionals": 1,
+    "andGates": 2,
+    "orGates": 1,
+    "notGates": 0,
+    "loops": 2
+  },
+  "mermaid": "graph TD\n    N1[\"Acetyl-CoA enters\"]\n    N2[\"Citrate synthase: citrate\"]\n    N3[\"Aconitase: isocitrate\"]\n    N4{\"NADH / ATP high?\"}\n    N5[\"Isocitrate DH: aKG + NADH\"]\n    N6[\"aKG DH: succinyl-CoA\"]\n    N7[\"Succinyl-CoA -> GTP\"]\n    N8[\"Succinate DH: FADH2\"]\n    N9[\"Fumarase: malate\"]\n    N10[\"Malate DH: OAA + NADH\"]\n    N11[\"OAA regenerated\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 --> N4\n    N4 -->|proceed| N5\n    N4 -->|NADH high: slow| N3\n    N5 --> N6\n    N6 --> N7\n    N7 --> N8\n    N8 --> N9\n    N9 --> N10\n    N10 --> N11\n    N11 -->|next turn| N2\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#74c0fc,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#51cf66,color:#fff\n    style N10 fill:#51cf66,color:#fff\n    style N11 fill:#b197fc,color:#fff",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Acetyl-CoA enters",
+      "detail": "Two-carbon fuel from pyruvate/fat",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N2",
+      "label": "Citrate synthase: citrate",
+      "detail": "Condensation with oxaloacetate",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N3",
+      "label": "Aconitase: isocitrate",
+      "detail": "Isomerization",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N4",
+      "label": "NADH / ATP high?",
+      "detail": "Isocitrate dehydrogenase regulation",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N5",
+      "label": "Isocitrate DH: aKG + NADH",
+      "detail": "First oxidative decarboxylation",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N6",
+      "label": "aKG DH: succinyl-CoA",
+      "detail": "Second oxidative decarboxylation, NADH",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N7",
+      "label": "Succinyl-CoA -> GTP",
+      "detail": "Substrate-level phosphorylation",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N8",
+      "label": "Succinate DH: FADH2",
+      "detail": "Oxidation to fumarate",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N9",
+      "label": "Fumarase: malate",
+      "detail": "Hydration",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N10",
+      "label": "Malate DH: OAA + NADH",
+      "detail": "Regenerates oxaloacetate",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N11",
+      "label": "OAA regenerated",
+      "detail": "Cycle ready for next acetyl-CoA",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 2
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:pathways-krebs-cycle",
+    "graphType": "cyclic_pathway",
+    "topologySignature": "96dbdba80a842eb4",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "lastUpdated": "2026-06-01",
+  "verified": false,
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "sources": [
+    {
+      "title": "Biochemistry, 5th ed. — The Citric Acid Cycle",
+      "authors": "Berg, J. M.; Tymoczko, J. L.; Stryer, L.",
+      "journal": "W. H. Freeman (NCBI Bookshelf, Chapter 17)",
+      "year": "2002",
+      "doi": null,
+      "url": "https://www.ncbi.nlm.nih.gov/books/NBK21163/"
+    },
+    {
+      "title": "The key role of anaplerosis and cataplerosis for citric acid cycle function",
+      "authors": "Owen, O. E.; Kalhan, S. C.; Hanson, R. W.",
+      "journal": "Journal of Biological Chemistry",
+      "year": "2002",
+      "pubmed": "12426160",
+      "doi": "10.1074/jbc.R200006200",
+      "url": "https://doi.org/10.1074/jbc.R200006200"
+    },
+    {
+      "title": "The role of citric acid in intermediate metabolism in animal tissues",
+      "authors": "Krebs, H. A.; Johnson, W. A.",
+      "journal": "FEBS Letters (reprint)",
+      "year": "1980",
+      "pubmed": "395075",
+      "doi": "10.1016/0014-5793(80)80029-2",
+      "url": "https://doi.org/10.1016/0014-5793(80)80029-2"
+    }
+  ],
+  "graphType": "cyclic_pathway",
+  "domainContext": "Central oxidative metabolism"
+}

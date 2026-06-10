@@ -1,0 +1,37 @@
+{
+  "id": "arxiv_2604.26367v1",
+  "arxiv_id": "2604.26367v1",
+  "title": "A Category-Theoretic Framework from Biological Mechanics to Engineered Stimulus-Response Systems",
+  "authors": [
+    "Lee Marom",
+    "Skylar Tibbits",
+    "Gioele Zardini",
+    "Markus J. Buehler"
+  ],
+  "author_string": "Lee Marom, Skylar Tibbits, Gioele Zardini, Markus J. Buehler",
+  "journal": "arXiv:2604.26367v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Natural materials achieve adaptive behavior through hierarchical organization and coupled mechanisms across scales. Their translation into engineering, however, remains largely heuristic. What is missing is a formal translation framework that carries biological design logic into engineered realization while preserving physical consistency across levels of abstraction. Here we present a category theoretic compositional framework for verified nature-derived design. The framework defines a category of stimulus response dynamical systems with natural and artificial subcategories. It introduces a structure preserving implementation functor from biological mechanics to engineered systems. It also formalizes a machine agnostic specification layer that links behavioral intent to executable fabrication programs. We instantiate the framework on the hygromorphic pinecone hierarchy as a representative biological case. We implement the full pipeline in Grasshopper, where formal specifications are translated into modular parametric scripts that preserve the compositional structure of the model. The resulting designs are fabricated by fused filament fabrication, evaluated experimentally, and tested against model predictions derived from the pipeline. The current implementation generates four actuator classes spanning two stimulus types and two kinematic responses. One actuator arises purely through composition from previously validated components, without additional manual derivation. The results show that compositionality can function not just as a descriptive language, but as a generative and system level verifiable method for mechanical material design. More broadly, the work provides a concrete route for embedding formal multiscale reasoning within increasingly computational, generative, and physics-driven design workflows.",
+  "categories": [
+    "cond-mat.soft",
+    "cond-mat.mtrl-sci",
+    "cs.CE",
+    "math.CT"
+  ],
+  "primary_category": "math.CT",
+  "comment": null,
+  "published_date": "2026-04-29T07:27:49Z",
+  "updated_date": "2026-04-29T07:27:49Z",
+  "url": "https://arxiv.org/abs/2604.26367v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.26367v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-30T10:15:50.302144",
+  "category": "mathematics",
+  "subcategories": [
+    "cond-mat.soft",
+    "cond-mat.mtrl-sci",
+    "cs.CE"
+  ]
+}

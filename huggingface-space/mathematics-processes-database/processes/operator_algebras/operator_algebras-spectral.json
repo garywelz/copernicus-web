@@ -1,0 +1,39 @@
+{
+  "id": "operator_algebras-spectral",
+  "name": "Spectral Theory for C*-Algebras",
+  "category": "mathematics",
+  "subcategory": "operator_algebras",
+  "subcategory_name": "Operator Algebras",
+  "description": "Spectrum σ(x), spectral radius. C*-functional calculus.",
+  "mermaid": "graph TD\n    D1[\"Def: Spectrum σ(x)\\nλ: x−λ1 not inv\"]\n    D2[\"Def: Spectral radius\\nr(x)=max|σ(x)|\"]\n    D3[\"Def: Normal element\\nx*x=xx*\"]\n    D4[\"Def: C*-funct. calc\\nf(x) for f∈C(σ(x))\"]\n    T1[\"Thm: σ(x) nonempty\\ncompact in C\"]\n    T2[\"Thm: r(x)=lim ‖xⁿ‖^{1/n}\"]\n    T3[\"Thm: Spectral mapping\\nσ(f(x))=f(σ(x))\"]\n    T4[\"Thm: Continuous calc\\nf↦f(x) iso\"]\n    T5[\"Thm: Borel calc\\nextends to bounded Borel\"]\n    D1 --> D2\n    D1 --> D3\n    D3 --> D4\n    D1 --> T1\n    D2 --> T2\n    D4 --> T3\n    T3 --> T4\n    T4 --> T5\n    classDef definition fill:#b197fc,color:#fff\n    classDef theorem fill:#51cf66,color:#fff\n    class D1,D2,D3,D4 definition\n    class T1,T2,T3,T4,T5 theorem",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

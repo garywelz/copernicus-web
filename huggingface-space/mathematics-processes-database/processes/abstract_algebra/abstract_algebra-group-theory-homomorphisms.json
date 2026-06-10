@@ -1,0 +1,39 @@
+{
+  "id": "abstract_algebra-group-theory-homomorphisms",
+  "name": "Group Theory — Homomorphisms & Isomorphism Theorems",
+  "category": "mathematics",
+  "subcategory": "abstract_algebra",
+  "subcategory_name": "Abstract Algebra",
+  "description": "Homomorphisms with layered dependencies. Definitions: homomorphism φ(ab)=φ(a)φ(b), kernel, image, normal subgroup. Kernel and image are subgroups; kernel is normal. Kernel trivial iff φ injective. First isomorphism theorem: G/ker φ ≅ im φ. Cayley's theorem: every group embeds in Sym(G). Second isomorphism theorem (H,K ≤ G, K normal: HK/K ≅ H/(H∩K)). Third isomorphism theorem (K ≤ H ≤ G normal: G/H ≅ (G/K)/(H/K)).",
+  "mermaid": "graph TD\n    DefHom[\"Def Homomorphism\\nphi ab = phi a phi b\"]\n    DefKer[\"Def Kernel\\nker phi = g : phi g = e\"]\n    DefIm[\"Def Image\\nim phi = phi G\"]\n    DefNorm[\"Def Normal subgroup\\nH normal iff gHg inv subset H\"]\n    T1[\"T1 Kernel is subgroup\"]\n    T2[\"T2 Image is subgroup\"]\n    T3[\"T3 Kernel is normal\"]\n    T4[\"T4 phi injective iff ker phi trivial\"]\n    FIT[\"First isomorphism\\nG ker phi iso im phi\"]\n    Cayley[\"Cayley\\nG embeds in Sym G\"]\n    SIT[\"Second isomorphism\\nHK K iso H H intersect K\"]\n    TIT[\"Third isomorphism\\nG H iso G K H K\"]\n    DefHom --> DefKer\n    DefHom --> DefIm\n    DefHom --> T1\n    DefHom --> T2\n    DefKer --> T1\n    DefKer --> T3\n    DefIm --> T2\n    DefHom --> T4\n    DefKer --> T4\n    DefHom --> FIT\n    DefKer --> FIT\n    DefIm --> FIT\n    DefNorm --> FIT\n    DefHom --> Cayley\n    DefKer --> Cayley\n    DefNorm --> SIT\n    DefNorm --> TIT\n    FIT --> SIT\n    FIT --> TIT\n    classDef axiom fill:#ff6b6b,color:#fff,stroke:#c0392b\n    classDef definition fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef theorem fill:#51cf66,color:#fff,stroke:#40c057\n    class DefHom,DefKer,DefIm,DefNorm definition\n    class T1,T2,T3,T4,FIT,Cayley,SIT,TIT theorem",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2604.23675v1",
+  "arxiv_id": "2604.23675v1",
+  "title": "GS-DOT: Gaussian splatting-based image reconstruction for diffuse optical tomography",
+  "authors": [
+    "Jingjing Jiang"
+  ],
+  "author_string": "Jingjing Jiang",
+  "journal": "arXiv:2604.23675v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "This work presents GS-DOT, a novel image reconstruction framework based on Gaussian Splatting (GS) for diffuse optical tomography (DOT). Inspired by GS for rendering applications, absorption coefficients are represented as a sparse sum of anisotropic Gaussian primitives optimized to fit measured time-resolved point-spread functions through analytic gradients and Adam optimization. This is the first adaptation of GS algorithms in the photon diffusion regime, where the ray transport function is replaced by the diffusion functions to enable accurate modeling of light transport in highly scattering media. Validation on synthetic tissue models demonstrate high accuracy in localization and quantification of reconstructed absorption maps for both clean and noisy signals. GS-DOT has demonstrated high robustness to noise and showed a huge reduction in memory demand.",
+  "categories": [
+    "eess.IV",
+    "cs.CV",
+    "physics.med-ph"
+  ],
+  "primary_category": "physics.med-ph",
+  "comment": null,
+  "published_date": "2026-04-26T12:27:38Z",
+  "updated_date": "2026-04-26T12:27:38Z",
+  "url": "https://arxiv.org/abs/2604.23675v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.23675v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-27T22:15:34.797136",
+  "category": "physics",
+  "subcategories": [
+    "eess.IV",
+    "cs.CV",
+    "physics.med-ph"
+  ]
+}

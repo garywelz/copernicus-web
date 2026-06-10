@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2605.07978v1",
+  "arxiv_id": "2605.07978v1",
+  "title": "Seeing Across Skies and Streets: Feedforward 3D Reconstruction from Satellite, Drone, and Ground Images",
+  "authors": [
+    "Qiwei Wang",
+    "Zhongyao Tuo",
+    "Xianghui Ze",
+    "Yujiao Shi"
+  ],
+  "author_string": "Qiwei Wang, Zhongyao Tuo, Xianghui Ze, Yujiao Shi",
+  "journal": "arXiv:2605.07978v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Cross-view localization classically asks: where does this ground image lie on the satellite tile? Existing methods are typically limited to 3-DoF estimates -- an $(x,y)$ position and a yaw angle -- because nadir satellite imagery provides no direct cues for roll, pitch, or altitude, forcing a reliance on planar-motion and zero-tilt assumptions. These assumptions break on real terrain with slopes, ramps, and tilted camera mounts. To overcome this, we introduce a single UAV image as an intermediate viewpoint: it reveals the 3D structure invisible from nadir, supplies the cues for roll, pitch, and altitude that the satellite alone cannot provide, and needs only spatial overlap with the ground camera -- no known relative pose is required. Building on this insight, we propose **Cross3R**, a flexible feed-forward model that ingests a satellite tile together with a UAV image, a ground image, or both, and, in a single forward pass, recovers a cross-view 3D point cloud, the 6-DoF poses of every input camera, and the on-tile $(x,y)$ position and yaw of each perspective camera. For training and evaluation, we also construct **CrossGeo**, a 278K-image tri-view dataset spanning 85 scenes across every continent except Antarctica. On CrossGeo, Cross3R consistently outperforms feed-forward 3D baselines in point-cloud reconstruction, 6-DoF camera-pose estimation, and cross-view localization. On KITTI, it outperforms dedicated cross-view methods trained on KITTI on most metrics, despite having no KITTI training itself.",
+  "categories": [
+    "cs.CV"
+  ],
+  "primary_category": "cs.CV",
+  "comment": null,
+  "published_date": "2026-05-08T16:35:57Z",
+  "updated_date": "2026-05-08T16:35:57Z",
+  "url": "https://arxiv.org/abs/2605.07978v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.07978v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-10T22:17:15.401155",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CV"
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2605.10163v1",
+  "arxiv_id": "2605.10163v1",
+  "title": "Coarsening Linear Non-Gaussian Causal Models with Cycles",
+  "authors": [
+    "Francisco Madaleno",
+    "Francisco C Pereira",
+    "Alex Markham"
+  ],
+  "author_string": "Francisco Madaleno, Francisco C Pereira, Alex Markham",
+  "journal": "arXiv:2605.10163v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Recent work on causal abstraction, in particular graphical approaches focusing on causal structure between clusters of variables, aims to summarize a high-dimensional causal structure in terms of a low-dimensional one. Existing methods for learning such summaries from data assume that both the high- and low-dimensional structures are acyclic, which is helpful for causal effect identification and reasoning but excludes many high-dimensional models and thus limits applicability. We show that in the linear non-Gaussian (LiNG) setting, the high-dimensional acyclicity assumption can be relaxed while still allowing recovery of a low-dimensional causal directed acyclic graph (DAG). We further connect identifiability of this low-dimensional DAG to existing results: LiNG models with cycles are observationally identifiable only up to an equivalence class whose members differ by reversals of directed cycles; our low-dimensional DAG, which is invariant across all members of a given equivalence class, thus forms a natural representative of the class. While existing approaches for learning this observational equivalence class over high-dimensional variables have exponential time complexity, our low-dimensional summary is learned in worst-case cubic time and comes with explicit bounds on the sample complexity. We provide open source code and experiments on synthetic data to corroborate our theoretical results.",
+  "categories": [
+    "stat.ML",
+    "cs.AI",
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": null,
+  "published_date": "2026-05-11T08:13:45Z",
+  "updated_date": "2026-05-11T08:13:45Z",
+  "url": "https://arxiv.org/abs/2605.10163v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.10163v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-11T22:15:41.416605",
+  "category": "computer_science",
+  "subcategories": [
+    "stat.ML",
+    "cs.AI",
+    "cs.LG"
+  ]
+}

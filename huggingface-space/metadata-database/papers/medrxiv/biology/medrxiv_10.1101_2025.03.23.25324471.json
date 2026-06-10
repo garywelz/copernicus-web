@@ -1,0 +1,41 @@
+{
+  "id": "medrxiv_10.1101_2025.03.23.25324471",
+  "doi": "10.1101/2025.03.23.25324471",
+  "title": "Bayesian ordered lattice design for Phase I clinical trials",
+  "authors": [
+    "Wang, G.-M.",
+    "Tatsuoka, C."
+  ],
+  "author_string": "Wang, G.-M., Tatsuoka, C.",
+  "journal": "medRxiv",
+  "journal_full": "medRxiv",
+  "year": "2026",
+  "abstract": "We develop a new framework specifically for early Phase I clinical trials called Bayesian Ordered Lattice Design (BOLD). This study is motivated by two key factors. First, Phase I clinical trials typically involve relatively small sample sizes, which can make the use of prior information on dose-limiting toxicity (DLT) rates highly significant. To address this challenge, the proposed Bayesian methodology incorporates prior information and posterior updating to guide dose selection, toxicity monitoring, early stopping and identification of the maximum tolerable dose (MTD). Second, a natural ordering among toxicity probabilities across different dose levels can be utilized, with the idea being that analysis of dose-level posterior probabilities can and should acquire insights from data obtained at other dose levels, by leveraging their order relationship. Our proposed approach employs straightforward dose-level Bayesian specifications and relies on intuitive and clinically interpretable DLT rate posterior probabilities for decision making. Importantly, we show that it can often outperform popular methods, in terms of accuracy in determining the MTD. This Bayesian approach is also computationally simple and avoids simulation.",
+  "keywords": [],
+  "categories": [
+    "oncology"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.1101/2025.03.23.25324471",
+  "source": "medrxiv",
+  "sources": [
+    "medrxiv"
+  ],
+  "acquired_date": "2026-05-03T22:15:26.393586",
+  "category": "biology",
+  "subcategories": [
+    "oncology"
+  ],
+  "published_date": "2026-01-03",
+  "updated_date": "2026-01-03",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "medrxiv",
+  "preprint_version": "3",
+  "preprint_type": "PUBLISHAHEADOFPRINT",
+  "license": "cc_no",
+  "jatsxml": "https://www.medrxiv.org/content/early/2026/01/03/2025.03.23.25324471.source.xml",
+  "published_doi": null,
+  "author_corresponding": "Curtis Tatsuoka",
+  "author_corresponding_institution": "Department of Epidemiology and Public Health, Division of Biostatistics and Bioinformatics, University of Maryland-Baltimore"
+}

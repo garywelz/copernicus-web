@@ -1,0 +1,37 @@
+{
+  "id": "arxiv_2604.19947v1",
+  "arxiv_id": "2604.19947v1",
+  "title": "SAT + NAUTY: Orderly Generation of Small Kochen-Specker Sets Containing the Smallest State-independent Contextuality Set",
+  "authors": [
+    "Zhengyu Li",
+    "Curtis Bright",
+    "Stefan Trandafir",
+    "Adán Cabello",
+    "Vijay Ganesh"
+  ],
+  "author_string": "Zhengyu Li, Curtis Bright, Stefan Trandafir, Adán Cabello, Vijay Ganesh",
+  "journal": "arXiv:2604.19947v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We present a search for small Kochen-Specker (KS) sets in dimension 3, specifically targeting extensions of the 13-ray Yu-Oh set, which has been proven to be the minimal witness to state-independent contextuality. To enable this search, we introduce a novel SAT-based orderly generation framework integrating recursive canonical labeling (RCL) with the graph isomorphism tool NAUTY. We demonstrate that previous SAT approaches relying on lexicographical canonicity suffer from exponential scaling on canonical graphs. This limitation renders them intractable on the large instances (25 to 33 vertices) encountered in our search, whereas our RCL check maintains consistent millisecond-level performance, effectively eliminating the bottleneck. Overcoming this bottleneck allows us to perform the first exhaustive enumeration of all KS sets with up to 33 rays containing the complete 25-ray state-independent contextuality (SI-C) set obtained by rigid extensions of the Yu-Oh set in 1,641 CPU hours. We found and verified that the 33-ray set discovered by Schütte is the smallest three-dimensional KS set containing the complete 25-ray SI-C set. All non-existence results are backed by independently verifiable proof certificates via an extension of the DRAT proof format.",
+  "categories": [
+    "cs.LO",
+    "math.CO",
+    "quant-ph"
+  ],
+  "primary_category": "quant-ph",
+  "comment": null,
+  "published_date": "2026-04-21T19:50:20Z",
+  "updated_date": "2026-04-21T19:50:20Z",
+  "url": "https://arxiv.org/abs/2604.19947v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.19947v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-23T10:15:36.224581",
+  "category": "physics",
+  "subcategories": [
+    "cs.LO",
+    "math.CO",
+    "quant-ph"
+  ]
+}

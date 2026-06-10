@@ -1,0 +1,39 @@
+{
+  "id": "geometry_topology-euclid-elements-book-ix-props-1-12",
+  "name": "Euclid's Elements Book IX — Propositions 1–12",
+  "category": "mathematics",
+  "subcategory": "geometry_topology",
+  "subcategory_name": "Geometry & Topology",
+  "description": "Squares, cubes, continued proportion from unit",
+  "mermaid": "graph TD\n    BookVII[\"Book VII\\nFoundation\"]\n    BookVIII[\"Book VIII\\nFoundation\"]\n    Prop1[\"Prop. IX.1\\nSimilar plane product square\"]\n    Prop2[\"Prop. IX.2\\nProduct square: similar plane\"]\n    Prop3[\"Prop. IX.3\\nCube times itself\"]\n    Prop4[\"Prop. IX.4\\nCube times cube\"]\n    Prop5[\"Prop. IX.5\\nCube times any makes cube\"]\n    Prop6[\"Prop. IX.6\\nNumber times itself cubic\"]\n    Prop7[\"Prop. IX.7\\nComposite times any: solid\"]\n    Prop8[\"Prop. IX.8\\nContinued proportion from unit\"]\n    Prop9[\"Prop. IX.9\\nSecond square: all square\"]\n    Prop10[\"Prop. IX.10\\nSecond not square\"]\n    Prop11[\"Prop. IX.11\\nLess measures greater\"]\n    Prop12[\"Prop. IX.12\\nPrime measures last\"]\n    BookVII --> Prop1\n    BookVIII --> Prop1\n    BookVII --> Prop2\n    BookVIII --> Prop2\n    BookVII --> Prop3\n    BookVIII --> Prop3\n    BookVII --> Prop4\n    BookVIII --> Prop4\n    BookVII --> Prop5\n    BookVIII --> Prop5\n    BookVII --> Prop6\n    BookVIII --> Prop6\n    BookVII --> Prop7\n    BookVIII --> Prop7\n    BookVII --> Prop8\n    BookVIII --> Prop8\n    BookVII --> Prop9\n    BookVIII --> Prop9\n    BookVII --> Prop10\n    BookVIII --> Prop10\n    BookVII --> Prop11\n    BookVIII --> Prop11\n    BookVII --> Prop12\n    BookVIII --> Prop12\n    classDef foundation fill:#95a5a6,color:#fff,stroke:#7f8c8d\n    classDef proposition fill:#51cf66,color:#fff,stroke:#40c057\n    class BookVII,BookVIII foundation\n    class Prop1,Prop2,Prop3,Prop4,Prop5,Prop6,Prop7,Prop8,Prop9,Prop10,Prop11,Prop12 proposition",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "algorithm"
+}

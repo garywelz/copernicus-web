@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2604.20013v1",
+  "arxiv_id": "2604.20013v1",
+  "title": "Assessing System Capabilities and Bottlenecks of an Early Fault-Tolerant Bicycle Architecture",
+  "authors": [
+    "Kun Liu",
+    "Ben Foxman",
+    "Gian-Luca R. Anselmetti",
+    "Yongshan Ding"
+  ],
+  "author_string": "Kun Liu, Ben Foxman, Gian-Luca R. Anselmetti, Yongshan Ding",
+  "journal": "arXiv:2604.20013v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Early modular fault tolerant quantum computers remain constrained by costly inter-module communication and limited magic state factory service. Understanding such bottlenecks and investigating compiler optimizations most close the gap between algorithm requirements and hardware capabilities is a concrete and practically urgent systems problem. We study the modular architectures based on Bivariate Bicycle codes and identify the dominant bottleneck: inter-module communication induced by non-Clifford operations. We build a compilation pipeline to fill the missing parts of prior works and propose compiler optimizations: synthesizing arbitrary-angle rotations at the factory (syn@fac), transvection based Clifford deferral, and Clifford insertion for critical path duration reduction. We extend the evaluation scope of the prior work to 40+ benchmark categories drawn from PennyLane and MQTBench, including quantum algorithms and Hamiltonian simulations with varying sizes. Under the present instruction cost, syn@fac reduces estimated circuit failure probability by a factor of 9.0 on average across non-Clifford benchmarks. The robustness persists across sweeps of instruction cost ratios, LPU count, and factory count. Besides, transvection reduces Clifford deferral compile time by 77.04\\%, while Clifford insertion reduces end-to-end circuit duration by 11.54\\% on average on MQTBench, with smaller gains on Hamiltonian simulations. We hope this work inspires the studies on compiler optimizations for early modular FTQC systems.",
+  "categories": [
+    "quant-ph"
+  ],
+  "primary_category": "quant-ph",
+  "comment": "We will open-source the code in a few months",
+  "published_date": "2026-04-21T21:43:03Z",
+  "updated_date": "2026-04-21T21:43:03Z",
+  "url": "https://arxiv.org/abs/2604.20013v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.20013v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-23T10:15:36.222876",
+  "category": "physics",
+  "subcategories": [
+    "quant-ph"
+  ]
+}

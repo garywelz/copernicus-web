@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pressure Effects - Chemistry Process</title>
+    <title>Pressure Effects on Gas Reactions - Chemistry Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Pressure Effects</h1>
+            <h1>Pressure Effects on Gas Reactions</h1>
             <div class="header-meta">
                 <span class="meta-item">Chemistry</span>
                 <span class="meta-item">Kinetics</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,68 +234,56 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Pressure Effects process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>Raising pressure increases gas-phase partial pressures and collision frequency, accelerating bimolecular reactions; unimolecular reactions show Lindemann fall-off where the apparent order changes with pressure, and changes in gas moles shift equilibrium.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-A5[Gas Pressure] --> B5[Pressure Effect Method]
-C5[Reaction System] --> D5[Pressure Control]
-E5[Volume Changes] --> F5[Pressure Analysis]
-B5 --> G5[Pressure Setup]
-D5 --> H5[Pressure Regulation]
-F5 --> I5[Volume Monitoring]
-G5 --> J5[Pressure Range]
-H5 --> K5[Pressure Control]
-I5 --> L5[Volume Analysis]
-J5 --> M5[Gas Compression]
-K5 --> L5
-L5 --> N5[Volume Changes]
-M5 --> O5[Molecular Density]
-N5 --> P5[Pressure Kinetics]
-O5 --> Q5[Collision Frequency]
-P5 --> R5[Rate Changes]
-Q5 --> S5[Pressure Analysis]
-R5 --> T5[Pressure Optimization]
-S5 --> U5[Pressure Parameters]
-T5 --> V5[Optimal Pressure]
-U5 --> W5[Pressure Efficiency]
-V5 --> X5[Pressure Characterization]
-W5 --> Y5[Process Optimization]
-X5 --> Z5[Final Pressure Conditions]
-Y5 --> Z5
+    N1["Gas-phase reaction"]
+    N2["Increase total pressure"]
+    N3["Partial pressures rise"]
+    N4["Collision frequency up"]
+    N5{"Molecularity?"}
+    N6["Bimolecular: rate rises"]
+    N7["Unimolecular (Lindemann)"]
+    N8["Fall-off: order shifts"]
+    N9["Δn(gas) shifts equilibrium"]
+    N10["New rate and position"]
 
-    style A5 fill:#ff6b6b,color:#fff
-    style C5 fill:#ff6b6b,color:#fff
-    style E5 fill:#ff6b6b,color:#fff
-    style B5 fill:#ffd43b,color:#000
-    style D5 fill:#ffd43b,color:#000
-    style F5 fill:#ffd43b,color:#000
-    style G5 fill:#ffd43b,color:#000
-    style H5 fill:#ffd43b,color:#000
-    style I5 fill:#ffd43b,color:#000
-    style J5 fill:#ffd43b,color:#000
-    style K5 fill:#ffd43b,color:#000
-    style L5 fill:#ffd43b,color:#000
-    style M5 fill:#51cf66,color:#fff
-    style N5 fill:#51cf66,color:#fff
-    style O5 fill:#51cf66,color:#fff
-    style P5 fill:#51cf66,color:#fff
-    style Q5 fill:#51cf66,color:#fff
-    style R5 fill:#51cf66,color:#fff
-    style S5 fill:#51cf66,color:#fff
-    style T5 fill:#51cf66,color:#fff
-    style U5 fill:#51cf66,color:#fff
-    style V5 fill:#51cf66,color:#fff
-    style W5 fill:#51cf66,color:#fff
-    style X5 fill:#51cf66,color:#fff
-    style Y5 fill:#51cf66,color:#fff
-    style Z5 fill:#b197fc,color:#fff
+    N1 --> N2
+    N2 --> N3
+    N3 --> N4
+    N4 --> N5
+    N5 -->|bimolecular| N6
+    N6 --> N9
+    N5 -->|unimolecular| N7
+    N7 --> N8
+    N8 --> N9
+    N9 --> N10
+
+    style N1 fill:#ff6b6b,color:#fff
+    style N2 fill:#51cf66,color:#fff
+    style N3 fill:#51cf66,color:#fff
+    style N4 fill:#51cf66,color:#fff
+    style N5 fill:#74c0fc,color:#fff
+    style N6 fill:#51cf66,color:#fff
+    style N7 fill:#51cf66,color:#fff
+    style N8 fill:#74c0fc,color:#fff
+    style N9 fill:#51cf66,color:#fff
+    style N10 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Gas-phase reaction</td><td>Triggers & Inputs</td><td><a href="https://global.oup.com/ukhe/product/atkins-physical-chemistry-9780198769866" target="_blank" title="Physical Chemistry, 11th ed. — Reaction Rates and Pressure" style="color:#e74c3c;">Atkins, P. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Increase total pressure</td><td>Processing & Operations</td><td><a href="https://global.oup.com/ukhe/product/atkins-physical-chemistry-9780198769866" target="_blank" title="Physical Chemistry, 11th ed. — Reaction Rates and Pressure" style="color:#e74c3c;">Atkins, P. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Partial pressures rise</td><td>Processing & Operations</td><td><a href="https://global.oup.com/ukhe/product/atkins-physical-chemistry-9780198769866" target="_blank" title="Physical Chemistry, 11th ed. — Reaction Rates and Pressure" style="color:#e74c3c;">Atkins, P. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Collision frequency up</td><td>Processing & Operations</td><td><a href="https://search.worldcat.org/title/14905898" target="_blank" title="Chemical Kinetics, 3rd ed. — Unimolecular Reactions" style="color:#e74c3c;">Laidler, K. J. 1987</a></td></tr><tr><td style="font-weight:600;">Molecularity?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1039/tf9221700598" target="_blank" title="Discussion on the radiation theory of chemical action (Lindemann mechanism)" style="color:#e74c3c;">Lindemann, F. A. 1922</a></td></tr><tr><td style="font-weight:600;">Bimolecular: rate rises</td><td>Processing & Operations</td><td><a href="https://search.worldcat.org/title/14905898" target="_blank" title="Chemical Kinetics, 3rd ed. — Unimolecular Reactions" style="color:#e74c3c;">Laidler, K. J. 1987</a></td></tr><tr><td style="font-weight:600;">Unimolecular (Lindemann)</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1039/tf9221700598" target="_blank" title="Discussion on the radiation theory of chemical action (Lindemann mechanism)" style="color:#e74c3c;">Lindemann, F. A. 1922</a></td></tr><tr><td style="font-weight:600;">Fall-off: order shifts</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1039/tf9221700598" target="_blank" title="Discussion on the radiation theory of chemical action (Lindemann mechanism)" style="color:#e74c3c;">Lindemann, F. A. 1922</a></td></tr><tr><td style="font-weight:600;">Δn(gas) shifts equilibrium</td><td>Processing & Operations</td><td><a href="https://global.oup.com/ukhe/product/atkins-physical-chemistry-9780198769866" target="_blank" title="Physical Chemistry, 11th ed. — Reaction Rates and Pressure" style="color:#e74c3c;">Atkins, P. et al. 2018</a></td></tr><tr><td style="font-weight:600;">New rate and position</td><td>Products & Outputs</td><td><a href="https://global.oup.com/ukhe/product/atkins-physical-chemistry-9780198769866" target="_blank" title="Physical Chemistry, 11th ed. — Reaction Rates and Pressure" style="color:#e74c3c;">Atkins, P. et al. 2018</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -314,12 +329,12 @@ Y5 --> Z5
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 26</li>
-                        <li><strong>Edges:</strong> 22</li>
-                        <li><strong>Conditionals:</strong> 0</li>
+                        <li><strong>Nodes:</strong> 10</li>
+                        <li><strong>Edges:</strong> 10</li>
+                        <li><strong>Conditionals:</strong> 1</li>
                         <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 1</li>
+                        <li><strong>OR Gates:</strong> 1</li>
+                        <li><strong>Total Gates:</strong> 2</li>
                     </ul>
                 </div>
                 
@@ -327,7 +342,7 @@ Y5 --> Z5
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>pressure</li><li>effects</li>
+                        <li>pressure</li><li>collision frequency</li><li>lindemann</li><li>fall-off</li><li>gas-phase</li>
                     </ul>
                 </div>
                 
@@ -338,43 +353,33 @@ Y5 --> Z5
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Discussion on the radiation theory of chemical action (Lindemann mechanism)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Lindemann, F. A.
+                            , Transactions of the Faraday Society
+                             (1922)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Pressure Effects on the Ligand-Binding Kinetics for Hemoproteins and Their Site-Directed Mutants</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Morishima, Isao
-                            , High Pressure Effects in Molecular Biophysics and Enzymology
-                             (1996)
-                            </span>
-                            <br><a href="https://doi.org/10.1093/oso/9780195097221.003.0016" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1093/oso/9780195097221.003.0016</a>
+                            <br><a href="https://doi.org/10.1039/tf9221700598" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1039/tf9221700598</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Transient Enzyme Kinetics at High Pressure</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Balny, Claude
-                            , High Pressure Effects in Molecular Biophysics and Enzymology
-                             (1996)
+                            <strong>Chemical Kinetics, 3rd ed. — Unimolecular Reactions</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Laidler, K. J.
+                            , Harper & Row
+                             (1987)
                             </span>
-                            <br><a href="https://doi.org/10.1093/oso/9780195097221.003.0017" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1093/oso/9780195097221.003.0017</a>
                             
+                            <br><a href="https://search.worldcat.org/title/14905898" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>High-Pressure Effects on the Structure and Phase Behavior of Model Membrane Systems</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Winter, Roland; Landwehr, Anne
-                            , High Pressure Effects in Molecular Biophysics and Enzymology
-                             (1996)
+                            <strong>Physical Chemistry, 11th ed. — Reaction Rates and Pressure</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Atkins, P.; de Paula, J.; Keeler, J.
+                            , Oxford University Press
+                             (2018)
                             </span>
-                            <br><a href="https://doi.org/10.1093/oso/9780195097221.003.0021" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1093/oso/9780195097221.003.0021</a>
                             
+                            <br><a href="https://global.oup.com/ukhe/product/atkins-physical-chemistry-9780198769866" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
                         </li>
                         
                     </ul>

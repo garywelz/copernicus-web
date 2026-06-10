@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2604.25853v1",
+  "arxiv_id": "2604.25853v1",
+  "title": "G-Loss: Graph-Guided Fine-Tuning of Language Models",
+  "authors": [
+    "Sharma Aditya",
+    "Agarwal Vinti",
+    "Kumar Rajesh"
+  ],
+  "author_string": "Sharma Aditya, Agarwal Vinti, Kumar Rajesh",
+  "journal": "arXiv:2604.25853v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Traditional loss functions, including cross-entropy, contrastive, triplet, and su pervised contrastive losses, used for fine-tuning pre-trained language models such as BERT, operate only within local neighborhoods and fail to account for the global semantic structure. We present G-Loss, a graph-guided loss function that incorporates semi-supervised label propagation to use structural relationships within the embedding manifold. G-Loss builds a document-similarity graph that captures global semantic relationships, thereby guiding the model to learn more discriminative and robust embeddings. We evaluate G-Loss on five benchmark datasets covering key downstream classification tasks: MR (sentiment analysis), R8 and R52 (topic categorization), Ohsumed (medical document classification), and 20NG (news categorization). In the majority of experimental setups, G-Loss converges faster and produces semantically coherent embedding spaces, resulting in higher classification accuracy than models fine-tuned with traditional loss functions.",
+  "categories": [
+    "cs.CL",
+    "cs.AI",
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": "20 pages, Learning on Graphs (LoG2025)",
+  "published_date": "2026-04-28T16:55:57Z",
+  "updated_date": "2026-04-28T16:55:57Z",
+  "url": "https://arxiv.org/abs/2604.25853v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.25853v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-29T10:15:41.140938",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CL",
+    "cs.AI",
+    "cs.LG"
+  ]
+}

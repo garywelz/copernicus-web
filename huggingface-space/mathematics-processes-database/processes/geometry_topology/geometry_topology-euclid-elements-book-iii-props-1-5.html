@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Euclid's Elements Book III — Propositions 1–5 - Mathematics Process</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 20px; }
+        .container { max-width: 1600px; margin: 0 auto; background: white; border-radius: 15px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); overflow: hidden; }
+        .header { background: linear-gradient(135deg, #e67e22 0%, #e67e22dd 100%); color: white; padding: 30px; }
+        .header h1 { margin: 0 0 10px 0; font-size: 2em; font-weight: 300; }
+        .header-meta { display: flex; flex-wrap: wrap; gap: 15px; margin-top: 15px; font-size: 0.9em; opacity: 0.9; }
+        .meta-item { background: rgba(255,255,255,0.2); padding: 5px 12px; border-radius: 20px; }
+        .nav-links { padding: 15px 30px; background: #f8f9fa; border-bottom: 1px solid #ecf0f1; }
+        .nav-links a { color: #e67e22; text-decoration: none; margin-right: 20px; font-weight: 500; }
+        .nav-links a:hover { text-decoration: underline; }
+        .content { padding: 30px; }
+        .description { margin-bottom: 30px; }
+        .flowchart-container { margin: 30px 0; }
+        .flowchart-container h2 { color: #2c3e50; margin-bottom: 15px; }
+        .mermaid { background: white; padding: 20px; border-radius: 10px; border: 1px solid #ecf0f1; overflow-x: auto; overflow-y: auto; min-height: 400px; }
+        .color-legend { background: #f8f9fa; padding: 20px; border-radius: 10px; margin: 30px 0; }
+        .color-legend h3 { color: #2c3e50; margin-bottom: 15px; }
+        .color-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; }
+        .color-item { display: flex; align-items: center; gap: 10px; padding: 10px; background: white; border-radius: 5px; }
+        .color-box { width: 30px; height: 30px; border-radius: 4px; border: 1px solid #ddd; }
+        .info-section { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 30px; }
+        .info-card { background: #f8f9fa; padding: 20px; border-radius: 10px; }
+        .info-card h3 { color: #2c3e50; margin-bottom: 15px; }
+        .info-card ul { list-style: none; padding: 0; }
+        .info-card li { padding: 8px 0; border-bottom: 1px solid #ecf0f1; }
+        .info-card li:last-child { border-bottom: none; }
+
+        .attribution-wrap { position: relative; }
+        .attribution-trigger { cursor: help; background: rgba(255,255,255,0.2) !important; }
+        .attribution-popover { display: none; position: absolute; top: 100%; left: 0; margin-top: 4px; background: #2c3e50; color: #ecf0f1; padding: 14px 18px; border-radius: 10px; box-shadow: 0 6px 20px rgba(0,0,0,0.25); min-width: 300px; z-index: 100; font-size: 0.85em; line-height: 1.5; }
+        .attribution-popover::before { content: ''; position: absolute; bottom: 100%; left: 0; right: 0; height: 12px; }
+        .attribution-popover strong { color: #fff; }
+        .attribution-popover a { color: #3498db; }
+        .attribution-wrap:hover .attribution-popover, .attribution-wrap:focus-within .attribution-popover { display: block; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Euclid's Elements Book III — Propositions 1–5</h1>
+            <div class="header-meta">
+                <span class="meta-item">Mathematics</span>
+                <span class="meta-item">Geometry & Topology</span>
+                <span class="meta-item">Source: Euclid's Elements</span>
+                <span class="meta-item attribution-wrap"><span class="attribution-trigger meta-item" tabindex="0">Cite</span><div class="attribution-popover"><strong>Primary:</strong> Euclid (c. 300 BCE)<br><strong>Publication:</strong> Euclid's Elements, Book III<br><strong>Year:</strong> c. 300 BCE<br><strong>URL:</strong> <a href="https://mathcs.clarku.edu/~djoyce/java/elements/bookIII/bookIII.html" target="_blank">Joyce (Clark)</a></div></span>
+            </div>
+        </div>
+        <div class="nav-links">
+            <a id="back-link" href="#">← Back to Mathematics Database</a>
+            <a id="euclid-index-link" href="#">Euclid's Elements (all books)</a>
+            <a id="book-index-link" href="#">Euclid Book III Index</a>
+            <a href="https://mathcs.clarku.edu/~djoyce/java/elements/bookIII/bookIII.html" target="_blank">Euclid's Elements Book III (Joyce)</a>
+            <a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank">Programming Framework</a>
+        </div>
+        <script>
+            (function() {
+                const hostname = window.location.hostname;
+                const backLink = document.getElementById('back-link');
+                const euclidLink = document.getElementById('euclid-index-link');
+                const indexLink = document.getElementById('book-index-link');
+                const base = hostname.includes('storage.googleapis.com')
+                    ? 'https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database'
+                    : '../..';
+                backLink.href = base + '/mathematics-database-table.html';
+                euclidLink.href = base + '/processes/geometry_topology/geometry_topology-euclid-elements.html';
+                indexLink.href = base + '/processes/geometry_topology/geometry_topology-euclid-elements-book-iii.html';
+            })();
+        </script>
+        <div class="content">
+            <div class="description">
+                <h2>Description</h2>
+                <p>Dependency graph for definitions and propositions 1–5 of Book III. Theory of circles: center, chords, diameters. All depend on Book I.</p>
+                <p style="margin-top:10px;"><em>Source: <a href="https://mathcs.clarku.edu/~djoyce/java/elements/bookIII/bookIII.html" target="_blank">Euclid's Elements, Book III</a> (David E. Joyce, Clark University)</em></p>
+            </div>
+            <div class="flowchart-container">
+                <h2>Dependency Flowchart</h2>
+                <div class="mermaid">graph TD
+    BookI["Book I\nFoundation"]
+    PropII5["Prop. II.5\nFrom Book II"]
+    Def1["Def. III.1\nEqual circles"]
+    Def2["Def. III.2\nTangent"]
+    Def3["Def. III.3\nCircles touching"]
+    Def4["Def. III.4\nEqually distant from center"]
+    Def5["Def. III.5\nGreater distance"]
+    Def6["Def. III.6\nSegment of circle"]
+    Def7["Def. III.7\nAngle of segment"]
+    Def8["Def. III.8\nAngle in segment"]
+    Def9["Def. III.9\nAngle stands on circumference"]
+    Def10["Def. III.10\nSector"]
+    Def11["Def. III.11\nSimilar segments"]
+    Prop1["Prop. III.1\nFind center of circle"]
+    Prop2["Prop. III.2\nChord falls within circle"]
+    Prop3["Prop. III.3\nDiameter bisects chord at right angles"]
+    Prop4["Prop. III.4\nNon-diameters do not bisect"]
+    Prop5["Prop. III.5\nCutting circles do not share center"]
+    BookI --&gt; Def1
+    BookI --&gt; Def2
+    BookI --&gt; Def3
+    BookI --&gt; Def4
+    BookI --&gt; Def5
+    BookI --&gt; Def6
+    BookI --&gt; Def7
+    BookI --&gt; Def8
+    BookI --&gt; Def9
+    BookI --&gt; Def10
+    BookI --&gt; Def11
+    BookI --&gt; Prop1
+    BookI --&gt; Prop2
+    Prop1 --&gt; Prop2
+    BookI --&gt; Prop3
+    Prop1 --&gt; Prop3
+    BookI --&gt; Prop4
+    Prop3 --&gt; Prop4
+    BookI --&gt; Prop5
+    classDef foundation fill:#95a5a6,color:#fff,stroke:#7f8c8d
+    classDef definition fill:#b197fc,color:#fff,stroke:#9775fa
+    classDef proposition fill:#51cf66,color:#fff,stroke:#40c057
+    class BookI,PropII5 foundation
+    class Def1,Def2,Def3,Def4,Def5,Def6,Def7,Def8,Def9,Def10,Def11 definition
+    class Prop1,Prop2,Prop3,Prop4,Prop5 proposition</div>
+            </div>
+            <div class="color-legend">
+                <h3>Color Scheme</h3>
+                <div class="color-grid">
+                    <div class="color-item"><div class="color-box" style="background:#95a5a6"></div><div><strong>Gray</strong><br><small>Book I, Prop II.5 (foundation)</small></div></div>
+                    <div class="color-item"><div class="color-box" style="background:#3498db"></div><div><strong>Blue</strong><br><small>Definitions</small></div></div>
+                    <div class="color-item"><div class="color-box" style="background:#1abc9c"></div><div><strong>Teal</strong><br><small>Propositions</small></div></div>
+                </div>
+            </div>
+            <div class="info-section">
+                <div class="info-card">
+                    <h3>Statistics</h3>
+                    <ul>
+                        <li><strong>Nodes:</strong> 18</li>
+                        <li><strong>Edges:</strong> 19</li>
+                    </ul>
+                </div>
+                <div class="info-card">
+                    <h3>Keywords</h3>
+                    <ul>
+                        <li>Euclid</li><li>Elements</li><li>Book III</li><li>circles</li><li>chords</li><li>tangents</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        mermaid.initialize({ startOnLoad: true, theme: 'default', flowchart: { useMaxWidth: false, htmlLabels: true, curve: 'linear', nodeSpacing: 40, rankSpacing: 40, padding: 20 }, themeVariables: { fontSize: '14px', fontFamily: 'Segoe UI, Arial, sans-serif' } });
+    </script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+{
+  "id": "calculus_analysis-sierpinski-curve-julia",
+  "name": "Sierpinski Curve Julia Sets",
+  "category": "mathematics",
+  "subcategory": "calculus_analysis",
+  "subcategory_name": "Calculus & Analysis",
+  "description": "Sierpinski curve: plane continuum homeomorphic to the standard Sierpinski carpet (complement of a Cantor set of disjoint disks in a disk). Devaney studied rational maps whose Julia sets are Sierpinski curves. Results: Cantor sets of parameters yield homeomorphic Sierpinski Julia sets with distinct dynamics; Cantor sets of invariant simple closed curves on which map is conjugate to subshifts. Indecomposable continuum: cannot be union of two proper subcontinua; non-landing hairs can form indecomposable subcontinua.",
+  "mermaid": "graph TD\n    Julia[\"Julia and Fatou sets\"]\n    Hairs[\"Devaney Hairs\"]\n    DefSierp[\"Def: Sierpinski curve\\nComplement of Cantor set of disks\"]\n    DefIndec[\"Def: Indecomposable continuum\\nNot union of two proper subcontinua\"]\n    ThmRational[\"Thm: Rational maps with Sierpinski J\\nOne-parameter families exist\"]\n    ThmCantor[\"Thm: Cantor set of params\\nHomeomorphic J, distinct dynamics\"]\n    ThmInvCurve[\"Thm: Cantor set of invariant curves\\nConjugate to subshift of finite type\"]\n    LemHairIndec[\"Lem: Non-landing hairs\\nClosure can be indecomposable\"]\n    Julia --> DefSierp\n    Hairs --> LemHairIndec\n    DefSierp --> DefIndec\n    DefSierp --> ThmRational\n    ThmRational --> ThmCantor\n    ThmRational --> ThmInvCurve\n    DefIndec --> LemHairIndec\n    classDef axiom fill:#ff6b6b,color:#fff,stroke:#c0392b\n    classDef definition fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef theorem fill:#51cf66,color:#fff,stroke:#40c057\n    classDef lemma fill:#74c0fc,color:#fff,stroke:#4dabf7\n    class Julia,Hairs axiom\n    class DefSierp,DefIndec definition\n    class ThmRational,ThmCantor,ThmInvCurve theorem\n    class LemHairIndec lemma",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

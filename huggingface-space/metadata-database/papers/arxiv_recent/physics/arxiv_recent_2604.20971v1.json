@@ -1,0 +1,37 @@
+{
+  "id": "arxiv_2604.20971v1",
+  "arxiv_id": "2604.20971v1",
+  "title": "Chaotic migration of LISA Extreme Mass Ratio Inspirals in a turbulent accretion disk: effect on waveform de-phasing",
+  "authors": [
+    "Mudit Garg",
+    "Lucio Mayer",
+    "Yinhao Wu",
+    "Yacine Ali-Haïmoud",
+    "Douglas N. C. Lin"
+  ],
+  "author_string": "Mudit Garg, Lucio Mayer, Yinhao Wu, Yacine Ali-Haïmoud, Douglas N. C. Lin",
+  "journal": "arXiv:2604.20971v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Gravitational wave (GW) detector LISA will observe near-coalescence extreme mass ratio inspirals (EMRIs), which typically form in galactic central accretion disks. Gas torques on EMRI will alter its GW-driven inspiral trajectory from the vacuum expectation, leading to potentially LISA-observable GW dephasing ($Δψ_{\\rm gas}$). Most studies compute $Δψ_{\\rm gas}$ for a thin, laminar disk, with negligible flow turbulence, where the disk exerts a fairly well-understood linear torque ($T_{\\rm lin}$). However, these disks must be turbulent due to magneto-rotational instability in the inner regions. Hence, we present a proof-of-concept general, agnostic prescription for the turbulent torque ($T_{\\rm turb}$) acting on an EMRI by modeling it as a Gaussian distribution around $T_{\\rm lin}$, based on recent advances from a global hydrodynamical (HD) study. We compute $Δψ_{\\rm gas}$ for the ``golden'' circular EMRI with total source mass $M=10^6~{\\rm M}_\\odot$ and mass ratio $q=5\\times10^{-5}$ in its final four-year evolution at redshift $z=0.276$ and signal-to-noise ratio (SNR) $=50$ by varying Eddington ratio ${\\rm f}_{\\rm Edd}$, turbulence normalization $C$ ($=~360$ in the aforementioned HD study), disk aspect ratio $h_0$, and turbo-viscous coefficient $α$ in a reasonable parameters space. We find that for ${\\rm f}_{\\rm Edd}\\gtrsim0.3$, $C\\gtrsim300$, $h_0\\gtrsim0.03$, and $α\\gtrsim0.1$, gas-induced dephasings are unobservable if only considering $T_{\\rm lin}$ but could become detectable ($Δψ_{\\rm gas}>8/$SNR) if EMRIs exhibit chaotic migration due to turbulent gas flow. Hence, this work motivates running MHD simulations of accretion disks with embedded LISA EMRIs in the early in-spiral phase over long enough timescales to understand the evolution of their orbital elements and the imprint of the turbulent environment on their gravitational waveforms.",
+  "categories": [
+    "astro-ph.GA",
+    "astro-ph.HE",
+    "gr-qc"
+  ],
+  "primary_category": "gr-qc",
+  "comment": "12 pages, 3 figures. Submitted to ApJL. Comments welcome",
+  "published_date": "2026-04-22T18:05:08Z",
+  "updated_date": "2026-04-22T18:05:08Z",
+  "url": "https://arxiv.org/abs/2604.20971v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.20971v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-25T22:15:44.911595",
+  "category": "physics",
+  "subcategories": [
+    "astro-ph.GA",
+    "astro-ph.HE",
+    "gr-qc"
+  ]
+}

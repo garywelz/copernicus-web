@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Electroplating - Chemistry Process</title>
+    <title>Nuclear Fusion (D–T) - Chemistry Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Electroplating</h1>
+            <h1>Nuclear Fusion (D–T)</h1>
             <div class="header-meta">
                 <span class="meta-item">Chemistry</span>
                 <span class="meta-item">Nuclear Chemistry</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,68 +234,57 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Electroplating process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>Fusion joins light nuclei into a heavier one: only when enough energy is supplied to tunnel through the Coulomb barrier do deuterium and tritium fuse, releasing energy from the mass defect, and net power requires meeting the Lawson confinement criterion.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-A4[Metal Ions] --> B4[Electroplating Method]
-C4[Substrate Surface] --> D4[Electrolyte Bath]
-E4[Power Supply] --> F4[Current Control]
-B4 --> G4[Surface Preparation]
-D4 --> H4[Solution Composition]
-F4 --> I4[Voltage Regulation]
-G4 --> J4[Cleaning Process]
-H4 --> K4[Concentration Control]
-I4 --> L4[Current Density]
-J4 --> M4[Surface Activation]
-K4 --> L4
-L4 --> N4[Ion Migration]
-M4 --> O4[Nucleation Sites]
-N4 --> P4[Electrodeposition]
-O4 --> Q4[Film Growth]
-P4 --> R4[Metal Deposition]
-Q4 --> S4[Thickness Control]
-R4 --> T4[Coating Formation]
-S4 --> U4[Quality Assessment]
-T4 --> V4[Adhesion Testing]
-U4 --> W4[Surface Analysis]
-V4 --> X4[Performance Evaluation]
-W4 --> Y4[Process Optimization]
-X4 --> Z4[Final Coating]
-Y4 --> Z4
+    N1["Light nuclei (D, T)"]
+    N2{"Overcome Coulomb barrier?"}
+    N3["Too cold: nuclei repel"]
+    N4["High T/P: tunnel through"]
+    N5["Nuclei fuse"]
+    N6["He-4 + neutron formed"]
+    N7["Mass defect -> energy"]
+    N8{"Lawson criterion met?"}
+    N9["Confinement losses"]
+    N10["Ignition / net energy"]
 
-    style A4 fill:#ff6b6b,color:#fff
-    style C4 fill:#ff6b6b,color:#fff
-    style E4 fill:#ff6b6b,color:#fff
-    style B4 fill:#ffd43b,color:#000
-    style D4 fill:#ffd43b,color:#000
-    style F4 fill:#ffd43b,color:#000
-    style G4 fill:#ffd43b,color:#000
-    style H4 fill:#ffd43b,color:#000
-    style I4 fill:#ffd43b,color:#000
-    style J4 fill:#ffd43b,color:#000
-    style K4 fill:#ffd43b,color:#000
-    style L4 fill:#ffd43b,color:#000
-    style M4 fill:#51cf66,color:#fff
+    N1 --> N2
+    N2 -->|no| N3
+    N3 -->|add energy| N2
+    N2 -->|yes| N4
+    N4 --> N5
+    N5 --> N6
+    N6 --> N7
+    N7 --> N8
+    N8 -->|no| N9
+    N9 -->|improve confine…| N4
+    N8 -->|yes| N10
+
+    style N1 fill:#ff6b6b,color:#fff
+    style N2 fill:#74c0fc,color:#fff
+    style N3 fill:#51cf66,color:#fff
     style N4 fill:#51cf66,color:#fff
-    style O4 fill:#51cf66,color:#fff
-    style P4 fill:#51cf66,color:#fff
-    style Q4 fill:#51cf66,color:#fff
-    style R4 fill:#51cf66,color:#fff
-    style S4 fill:#51cf66,color:#fff
-    style T4 fill:#51cf66,color:#fff
-    style U4 fill:#51cf66,color:#fff
-    style V4 fill:#51cf66,color:#fff
-    style W4 fill:#51cf66,color:#fff
-    style X4 fill:#51cf66,color:#fff
-    style Y4 fill:#51cf66,color:#fff
-    style Z4 fill:#b197fc,color:#fff
+    style N5 fill:#51cf66,color:#fff
+    style N6 fill:#51cf66,color:#fff
+    style N7 fill:#51cf66,color:#fff
+    style N8 fill:#74c0fc,color:#fff
+    style N9 fill:#51cf66,color:#fff
+    style N10 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Light nuclei (D, T)</td><td>Triggers & Inputs</td><td><a href="https://www.wiley.com/en-us/Introductory+Nuclear+Physics-p-9780471805533" target="_blank" title="Introductory Nuclear Physics — Nuclear Reactions and Fusion" style="color:#e74c3c;">Krane, K. S. 1987</a></td></tr><tr><td style="font-weight:600;">Overcome Coulomb barrier?</td><td>Intermediates & States</td><td><a href="https://www.wiley.com/en-us/Introductory+Nuclear+Physics-p-9780471805533" target="_blank" title="Introductory Nuclear Physics — Nuclear Reactions and Fusion" style="color:#e74c3c;">Krane, K. S. 1987</a></td></tr><tr><td style="font-weight:600;">Too cold: nuclei repel</td><td>Processing & Operations</td><td><a href="https://www.wiley.com/en-us/Introductory+Nuclear+Physics-p-9780471805533" target="_blank" title="Introductory Nuclear Physics — Nuclear Reactions and Fusion" style="color:#e74c3c;">Krane, K. S. 1987</a></td></tr><tr><td style="font-weight:600;">High T/P: tunnel through</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1103/PhysRev.55.434" target="_blank" title="Energy production in stars" style="color:#e74c3c;">Bethe, H. A. 1939</a></td></tr><tr><td style="font-weight:600;">Nuclei fuse</td><td>Processing & Operations</td><td><a href="https://www.wiley.com/en-us/Introductory+Nuclear+Physics-p-9780471805533" target="_blank" title="Introductory Nuclear Physics — Nuclear Reactions and Fusion" style="color:#e74c3c;">Krane, K. S. 1987</a></td></tr><tr><td style="font-weight:600;">He-4 + neutron formed</td><td>Processing & Operations</td><td><a href="https://www.wiley.com/en-us/Introductory+Nuclear+Physics-p-9780471805533" target="_blank" title="Introductory Nuclear Physics — Nuclear Reactions and Fusion" style="color:#e74c3c;">Krane, K. S. 1987</a></td></tr><tr><td style="font-weight:600;">Mass defect -> energy</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1103/PhysRev.55.434" target="_blank" title="Energy production in stars" style="color:#e74c3c;">Bethe, H. A. 1939</a></td></tr><tr><td style="font-weight:600;">Lawson criterion met?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1088/0370-1301/70/1/303" target="_blank" title="Some criteria for a power producing thermonuclear reactor (Lawson criterion)" style="color:#e74c3c;">Lawson, J. D. 1957</a></td></tr><tr><td style="font-weight:600;">Confinement losses</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1088/0370-1301/70/1/303" target="_blank" title="Some criteria for a power producing thermonuclear reactor (Lawson criterion)" style="color:#e74c3c;">Lawson, J. D. 1957</a></td></tr><tr><td style="font-weight:600;">Ignition / net energy</td><td>Products & Outputs</td><td><a href="https://doi.org/10.1088/0370-1301/70/1/303" target="_blank" title="Some criteria for a power producing thermonuclear reactor (Lawson criterion)" style="color:#e74c3c;">Lawson, J. D. 1957</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -314,12 +330,12 @@ Y4 --> Z4
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 26</li>
-                        <li><strong>Edges:</strong> 22</li>
-                        <li><strong>Conditionals:</strong> 0</li>
-                        <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 1</li>
+                        <li><strong>Nodes:</strong> 10</li>
+                        <li><strong>Edges:</strong> 11</li>
+                        <li><strong>Conditionals:</strong> 2</li>
+                        <li><strong>AND Gates:</strong> 2</li>
+                        <li><strong>OR Gates:</strong> 2</li>
+                        <li><strong>Total Gates:</strong> 4</li>
                     </ul>
                 </div>
                 
@@ -327,7 +343,7 @@ Y4 --> Z4
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>electroplating</li>
+                        <li>nuclear fusion</li><li>coulomb barrier</li><li>mass defect</li><li>lawson criterion</li><li>deuterium-tritium</li>
                     </ul>
                 </div>
                 
@@ -338,43 +354,33 @@ Y4 --> Z4
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Energy production in stars</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Bethe, H. A.
+                            , Physical Review
+                             (1939)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Electroplating</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Craddock, P. T.
-                            , Oxford Art Online
-                             (2003)
-                            </span>
-                            <br><a href="https://doi.org/10.1093/gao/9781884446054.article.t025807" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1093/gao/9781884446054.article.t025807</a>
+                            <br><a href="https://doi.org/10.1103/PhysRev.55.434" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1103/PhysRev.55.434</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Resistant Fungal Biodiversity of Electroplating Effluent and Their Metal Tolerance Index</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Tahir, Arifa
-                            , Electroplating
-                             (2012)
+                            <strong>Some criteria for a power producing thermonuclear reactor (Lawson criterion)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Lawson, J. D.
+                            , Proceedings of the Physical Society B
+                             (1957)
                             </span>
-                            <br><a href="https://doi.org/10.5772/34624" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.5772/34624</a>
+                            <br><a href="https://doi.org/10.1088/0370-1301/70/1/303" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1088/0370-1301/70/1/303</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>High Speed Electroplating</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Safranek, W. H.; Duva, Robert
-                            , Electroplating Engineering Handbook
-                             (1996)
+                            <strong>Introductory Nuclear Physics — Nuclear Reactions and Fusion</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Krane, K. S.
+                            , Wiley
+                             (1987)
                             </span>
-                            <br><a href="https://doi.org/10.1007/978-1-4613-2547-5_39" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1007/978-1-4613-2547-5_39</a>
                             
+                            <br><a href="https://www.wiley.com/en-us/Introductory+Nuclear+Physics-p-9780471805533" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
                         </li>
                         
                     </ul>

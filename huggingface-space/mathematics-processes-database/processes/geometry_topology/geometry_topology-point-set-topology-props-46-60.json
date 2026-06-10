@@ -1,0 +1,39 @@
+{
+  "id": "geometry_topology-point-set-topology-props-46-60",
+  "name": "Point-Set Topology — Part 4: Countability & Metrization",
+  "category": "mathematics",
+  "subcategory": "geometry_topology",
+  "subcategory_name": "Geometry & Topology",
+  "description": "Countability axioms, separability, Lindelöf, metrization, Tychonoff, Baire category, Arzelà-Ascoli, Stone-Weierstrass.",
+  "mermaid": "graph TD\n    DefFirstCount[\"Def: First countable: countable local base\"]\n    DefSecondCount[\"Def: Second countable: countable base\"]\n    DefSeparable[\"Def: Separable: countable dense subset\"]\n    ThmSecSep[\"Thm: Second countable ⇒ separable\"]\n    ThmLindelof[\"Thm: Second countable ⇒ Lindelöf\"]\n    DefLindelof[\"Def: Lindelöf: every open cover has countable subcover\"]\n    DefMetrizable[\"Def: Metrizable\"]\n    ThmUrysohnMet[\"Thm: Urysohn metrization: compact Hausdorff 2nd countable ⇒ metrizable\"]\n    ThmTychonoff[\"Thm: Tychonoff: product of compact is compact\"]\n    ThmBaire[\"Thm: Baire category: complete metric space\"]\n    ThmArzAsc[\"Thm: Arzelà-Ascoli: equicontinuous + pointwise bounded\"]\n    ThmStoneWeier[\"Thm: Stone-Weierstrass: dense subalgebra in C(X)\"]\n    LemProd2nd[\"Lem: Countable product of 2nd countable is 2nd countable\"]\n    CorCompactMet[\"Cor: Compact metric ⇒ separable\"]\n    LemSeqClosure[\"Lem: In 1st countable, x ∈ cl(A) iff seq in A → x\"]\n    DefFirstCount --> DefSecondCount\n    DefSecondCount --> ThmSecSep\n    DefSecondCount --> ThmLindelof\n    DefSecondCount --> LemProd2nd\n    ThmLindelof --> DefLindelof\n    ThmSecSep --> CorCompactMet\n    DefSecondCount --> ThmUrysohnMet\n    RefCompact[\"Compact (Part 2)\"]\n    RefHausdorff[\"Hausdorff (Part 3)\"]\n    RefCompact --> ThmUrysohnMet\n    RefHausdorff --> ThmUrysohnMet\n    LemProd2nd --> ThmTychonoff\n    RefCompact --> ThmTychonoff\n    DefFirstCount --> LemSeqClosure\n    classDef definition fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef lemma fill:#74c0fc,color:#fff,stroke:#4dabf7\n    classDef theorem fill:#51cf66,color:#fff,stroke:#40c057\n    classDef corollary fill:#1abc9c,color:#fff,stroke:#16a085\n    classDef ref fill:#bdc3c7,color:#333,stroke:#95a5a6\n    class RefCompact,RefHausdorff ref\n    class DefFirstCount,DefSecondCount,DefSeparable,DefLindelof,DefMetrizable definition\n    class LemProd2nd,LemSeqClosure lemma\n    class ThmSecSep,ThmLindelof,ThmUrysohnMet,ThmTychonoff,ThmBaire,ThmArzAsc,ThmStoneWeier theorem\n    class CorCompactMet corollary",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

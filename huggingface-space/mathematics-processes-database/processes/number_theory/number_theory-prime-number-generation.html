@@ -3,401 +3,154 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prime Number Generation - Mathematics Process</title>
+    <title>Sieve of Eratosthenes - Mathematics Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
-        }
-        
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            overflow: hidden;
-        }
-        
-        .header {
-            background: linear-gradient(135deg, #e67e22 0%, #e67e22dd 100%);
-            color: white;
-            padding: 30px;
-        }
-        
-        .header h1 {
-            margin: 0 0 10px 0;
-            font-size: 2em;
-            font-weight: 300;
-        }
-        
-        .header-meta {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin-top: 15px;
-            font-size: 0.9em;
-            opacity: 0.9;
-        }
-        
-        .meta-item {
-            background: rgba(255,255,255,0.2);
-            padding: 5px 12px;
-            border-radius: 20px;
-        }
-        
-        .nav-links {
-            padding: 15px 30px;
-            background: #f8f9fa;
-            border-bottom: 1px solid #ecf0f1;
-        }
-        
-        .nav-links a {
-            color: #e67e22;
-            text-decoration: none;
-            margin-right: 20px;
-            font-weight: 500;
-        }
-        
-        .nav-links a:hover {
-            text-decoration: underline;
-        }
-        
-        .content {
-            padding: 30px;
-        }
-        
-        .description {
-            margin-bottom: 30px;
-        }
-        
-        .description h2 {
-            color: #2c3e50;
-            margin-bottom: 15px;
-        }
-        
-        .flowchart-container {
-            margin: 30px 0;
-        }
-        
-        .flowchart-container h2 {
-            color: #2c3e50;
-            margin-bottom: 15px;
-        }
-        
-        .mermaid {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            border: 1px solid #ecf0f1;
-            overflow-x: auto;
-        }
-        
-        .color-legend {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 10px;
-            margin: 30px 0;
-        }
-        
-        .color-legend h3 {
-            color: #2c3e50;
-            margin-bottom: 15px;
-        }
-        
-        .color-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-        }
-        
-        .color-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px;
-            background: white;
-            border-radius: 5px;
-        }
-        
-        .color-box {
-            width: 30px;
-            height: 30px;
-            border-radius: 4px;
-            border: 1px solid #ddd;
-        }
-        
-        .info-section {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin-top: 30px;
-        }
-        
-        .info-card {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 10px;
-        }
-        
-        .info-card h3 {
-            color: #2c3e50;
-            margin-bottom: 15px;
-        }
-        
-        .info-card ul {
-            list-style: none;
-            padding: 0;
-        }
-        
-        .info-card li {
-            padding: 8px 0;
-            border-bottom: 1px solid #ecf0f1;
-        }
-        
-        .info-card li:last-child {
-            border-bottom: none;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 20px; }
+        .container { max-width: 1400px; margin: 0 auto; background: white; border-radius: 15px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); overflow: hidden; }
+        .header { background: linear-gradient(135deg, #e67e22 0%, #e67e22dd 100%); color: white; padding: 30px; }
+        .header h1 { margin: 0 0 10px 0; font-size: 2em; font-weight: 300; }
+        .header-meta { display: flex; flex-wrap: wrap; gap: 15px; margin-top: 15px; font-size: 0.9em; opacity: 0.9; }
+        .meta-item { background: rgba(255,255,255,0.2); padding: 5px 12px; border-radius: 20px; }
+        .nav-links { padding: 15px 30px; background: #f8f9fa; border-bottom: 1px solid #ecf0f1; }
+        .nav-links a { color: #e67e22; text-decoration: none; margin-right: 20px; font-weight: 500; }
+        .nav-links a:hover { text-decoration: underline; }
+        .content { padding: 30px; }
+        .description { margin-bottom: 30px; }
+        .description h2 { color: #2c3e50; margin-bottom: 15px; }
+        .flowchart-container { margin: 30px 0; }
+        .flowchart-container h2 { color: #2c3e50; margin-bottom: 15px; }
+        .mermaid { background: white; padding: 20px; border-radius: 10px; border: 1px solid #ecf0f1; overflow-x: auto; overflow-y: auto; }
+        .color-legend { background: #f8f9fa; padding: 20px; border-radius: 10px; margin: 30px 0; }
+        .color-legend h3 { color: #2c3e50; margin-bottom: 15px; }
+        .color-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; }
+        .color-item { display: flex; align-items: center; gap: 10px; padding: 10px; background: white; border-radius: 5px; }
+        .color-box { width: 30px; height: 30px; border-radius: 4px; border: 1px solid #ddd; }
+        .info-section { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 30px; }
+        .info-card { background: #f8f9fa; padding: 20px; border-radius: 10px; }
+        .info-card h3 { color: #2c3e50; margin-bottom: 15px; }
+        .info-card ul { list-style: none; padding: 0; }
+        .info-card li { padding: 8px 0; border-bottom: 1px solid #ecf0f1; }
+        .info-card li:last-child { border-bottom: none; }
+
+        .attribution-wrap { position: relative; }
+        .attribution-trigger { cursor: help; background: rgba(255,255,255,0.2) !important; }
+        .attribution-popover { display: none; position: absolute; top: 100%; left: 0; margin-top: 4px; background: #2c3e50; color: #ecf0f1; padding: 14px 18px; border-radius: 10px; box-shadow: 0 6px 20px rgba(0,0,0,0.25); min-width: 300px; z-index: 100; font-size: 0.85em; line-height: 1.5; }
+        .attribution-popover::before { content: ''; position: absolute; bottom: 100%; left: 0; right: 0; height: 12px; }
+        .attribution-popover strong { color: #fff; }
+        .attribution-popover a { color: #3498db; }
+        .attribution-wrap:hover .attribution-popover, .attribution-wrap:focus-within .attribution-popover { display: block; }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Prime Number Generation</h1>
+            <h1>Sieve of Eratosthenes</h1>
             <div class="header-meta">
                 <span class="meta-item">Mathematics</span>
                 <span class="meta-item">Number Theory</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Source: NIST DADS, Wikipedia</span>
+                <span class="meta-item attribution-wrap"><span class="attribution-trigger meta-item" tabindex="0">Cite</span><div class="attribution-popover"><strong>Primary:</strong> Eratosthenes; primality tests<br><strong>Publication:</strong> Prime generation<br><strong>Year:</strong> Ancient<br><strong>URL:</strong> <a href="https://en.wikipedia.org/wiki/Prime_number" target="_blank">Wikipedia</a></div></span>
             </div>
         </div>
-        
         <div class="nav-links">
             <a id="back-link" href="#">← Back to Mathematics Database</a>
+            <a href="https://www.nist.gov/dads/HTML/sieveOfEratosthenes.html" target="_blank">NIST DADS Entry</a>
+            <a href="https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes" target="_blank">Wikipedia</a>
             <a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank">Programming Framework</a>
         </div>
         <script>
-            // Dynamically set back link based on current location
             (function() {
                 const hostname = window.location.hostname;
-                const pathname = window.location.pathname;
                 const backLink = document.getElementById('back-link');
-                
                 if (hostname.includes('storage.googleapis.com')) {
-                    // GCS hosted
                     backLink.href = 'https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/mathematics-database-table.html';
-                } else if (hostname.includes('huggingface.co') || pathname.includes('huggingface')) {
-                    // Hugging Face hosted
-                    backLink.href = '../mathematics-database-table.html';
                 } else {
-                    // Local or relative
-                    backLink.href = '../mathematics-database-table.html';
+                    backLink.href = '../../mathematics-database-table.html';
                 }
             })();
         </script>
-        
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Prime Number Generation Process. This number theory process visualization demonstrates the Sieve of Eratosthenes algorithm. The flowchart shows range inputs and optimization strategies, number theory methods and sieve algorithms, prime operations and marking strategies, intermediate results, and final prime number outputs.</p>
+                <p>Find all primes up to n by iteratively marking multiples. Create a boolean array [2..n] initially true. For each p from 2 to √n: if p is still marked prime, mark all multiples of p (starting at p²) as composite. Remaining true indices are primes. Time O(n log log n).</p>
+                <p style="margin-top:10px;"><em>Source: <a href="https://www.nist.gov/dads/HTML/sieveOfEratosthenes.html" target="_blank">NIST DADS</a>; <a href="https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes" target="_blank">Wikipedia</a></em></p>
             </div>
-            
             <div class="flowchart-container">
-                <h2>Process Flowchart</h2>
+                <h2>Algorithm Flowchart</h2>
                 <div class="mermaid">
 graph TD
-A1[Range Definition] --> B1[Sieve Algorithm Selection]
-C1[Upper Bound] --> D1[Memory Allocation]
-E1[Optimization Strategy] --> F1[Algorithm Implementation]
-B1 --> G1[Eratosthenes Sieve]
-D1 --> H1[Boolean Array Creation]
-F1 --> I1[Marking Strategy]
-G1 --> J1[Initialize All True]
-H1 --> K1[Array Size Calculation]
-I1 --> L1[Prime Detection]
-J1 --> M1[Mark 0 and 1 False]
-K1 --> L1
-L1 --> N1[Square Root Optimization]
-M1 --> O1[Iterate from 2]
-N1 --> P1[Stop at Square Root]
-O1 --> Q1[Prime Number Process]
-P1 --> R1[Mark Multiples False]
-Q1 --> S1[Collect Prime Numbers]
-R1 --> T1[Prime Number Result]
-S1 --> U1[Prime Number Validation]
-T1 --> V1[Prime Number Count]
-U1 --> W1[Prime Number Output]
-V1 --> X1[Prime Number Analysis]
-W1 --> Y1[Prime Number Final Result]
-X1 --> Z1[Prime Number Analysis Complete]
-
-    style A1 fill:#ff6b6b,color:#fff
-    style C1 fill:#ff6b6b,color:#fff
-    style E1 fill:#ff6b6b,color:#fff
-    style B1 fill:#ffd43b,color:#000
-    style D1 fill:#ffd43b,color:#000
-    style F1 fill:#ffd43b,color:#000
-    style G1 fill:#ffd43b,color:#000
-    style H1 fill:#ffd43b,color:#000
-    style I1 fill:#ffd43b,color:#000
-    style J1 fill:#ffd43b,color:#000
-    style K1 fill:#ffd43b,color:#000
-    style L1 fill:#ffd43b,color:#000
-    style M1 fill:#51cf66,color:#fff
-    style N1 fill:#51cf66,color:#fff
-    style O1 fill:#51cf66,color:#fff
-    style P1 fill:#51cf66,color:#fff
-    style Q1 fill:#51cf66,color:#fff
-    style R1 fill:#51cf66,color:#fff
-    style S1 fill:#51cf66,color:#fff
-    style T1 fill:#51cf66,color:#fff
-    style U1 fill:#51cf66,color:#fff
-    style V1 fill:#51cf66,color:#fff
-    style W1 fill:#51cf66,color:#fff
-    style X1 fill:#51cf66,color:#fff
-    style Y1 fill:#51cf66,color:#fff
-    style Z1 fill:#b197fc,color:#fff
+    A1["Upper limit n"]
+    B1["Create is_prime 2..n\nall true; p = 2"]
+    C1["Mark multiples of p\nj = p², j += p"]
+    D1{"p² ≤ n?"}
+    D2{"is_prime[p]?"}
+    D3{"j ≤ n?"}
+    E1["Mark is_prime j false\nj = j + p"]
+    E2["p = p + 1"]
+    F1["Return primes\nindices where true"]
+    A1 --> B1
+    B1 --> D1
+    D1 -->|No| F1
+    D1 -->|Yes| D2
+    D2 -->|No| E2
+    D2 -->|Yes| C1
+    C1 --> D3
+    D3 -->|Yes| E1
+    E1 --> D3
+    D3 -->|No| E2
+    E2 --> D1
+    classDef red fill:#ff6b6b,color:#fff,stroke:#c0392b
+    classDef yellow fill:#ffd43b,color:#000,stroke:#f59f00
+    classDef green fill:#51cf66,color:#fff,stroke:#40c057
+    classDef lightblue fill:#74c0fc,color:#fff,stroke:#4dabf7
+    classDef violet fill:#b197fc,color:#fff,stroke:#9775fa
+    classDef lavender fill:#e6e6fa,color:#333,stroke:#b19cd9
+    class A1 red
+    class B1 yellow
+    class C1 green
+    class E1,E2 lightblue
+    class F1 violet
+    class D1,D2,D3 lavender
                 </div>
             </div>
-            
             <div class="color-legend">
-                <h3>🎨 Color Scheme (5-Color System)</h3>
+                <h3>Color Scheme (GLMP 6-Color)</h3>
                 <div class="color-grid">
-                    <div class="color-item">
-                        <div class="color-box" style="background: #ff6b6b;"></div>
-                        <div>
-                            <strong>Red</strong><br>
-                            <small>Triggers & Inputs</small>
-                        </div>
-                    </div>
-                    <div class="color-item">
-                        <div class="color-box" style="background: #ffd43b;"></div>
-                        <div>
-                            <strong>Yellow</strong><br>
-                            <small>Structures & Objects</small>
-                        </div>
-                    </div>
-                    <div class="color-item">
-                        <div class="color-box" style="background: #51cf66;"></div>
-                        <div>
-                            <strong>Green</strong><br>
-                            <small>Processing & Operations</small>
-                        </div>
-                    </div>
-                    <div class="color-item">
-                        <div class="color-box" style="background: #74c0fc;"></div>
-                        <div>
-                            <strong>Blue</strong><br>
-                            <small>Intermediates & States</small>
-                        </div>
-                    </div>
-                    <div class="color-item">
-                        <div class="color-box" style="background: #b197fc;"></div>
-                        <div>
-                            <strong>Violet</strong><br>
-                            <small>Products & Outputs</small>
-                        </div>
-                    </div>
+                    <div class="color-item"><div class="color-box" style="background:#ff6b6b"></div><div><strong>Red</strong><br><small>Triggers & Inputs</small></div></div>
+                    <div class="color-item"><div class="color-box" style="background:#ffd43b"></div><div><strong>Yellow</strong><br><small>Structures & Objects</small></div></div>
+                    <div class="color-item"><div class="color-box" style="background:#51cf66"></div><div><strong>Green</strong><br><small>Processing & Operations</small></div></div>
+                    <div class="color-item"><div class="color-box" style="background:#74c0fc"></div><div><strong>Light Blue</strong><br><small>Intermediates & States</small></div></div>
+                    <div class="color-item"><div class="color-box" style="background:#b197fc"></div><div><strong>Violet</strong><br><small>Products & Outputs</small></div></div>
+                    <div class="color-item"><div class="color-box" style="background:#e6e6fa"></div><div><strong>Lavender</strong><br><small>Decision diamonds</small></div></div>
                 </div>
             </div>
-            
             <div class="info-section">
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 26</li>
-                        <li><strong>Edges:</strong> 24</li>
-                        <li><strong>Conditionals:</strong> 0</li>
-                        <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 1</li>
+                        <li><strong>Nodes:</strong> 10</li>
+                        <li><strong>Edges:</strong> 14</li>
+                        <li><strong>Decision nodes:</strong> 3</li>
+                        <li><strong>Complexity:</strong> O(n log log n)</li>
                     </ul>
                 </div>
-                
-                
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>generation</li><li>number</li><li>theory</li><li>prime</li>
+                        <li>sieve of Eratosthenes</li><li>prime numbers</li><li>NIST DADS</li><li>number theory</li>
                     </ul>
-                </div>
-                
-                
-                <div class="info-card">
-                    <h3>Sources & References</h3>
-                    
-                    <ul style="list-style: none; padding: 0;">
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
-                            </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e67e22; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Algorithms for prime number sieves (revisited)</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Pritchard, P.
-                            , Commun. ACM
-                             (1987)
-                            </span>
-                            <br><a href="https://doi.org/10.1145/214617.214619" target="_blank" style="color: #e67e22; font-size: 0.85em;">DOI: 10.1145/214617.214619</a>
-                            
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>The Sieve of Atkin</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Atkin, A. O. L.; Bernstein, D. J.
-                            , Math. Comput.
-                             (2004)
-                            </span>
-                            <br><a href="https://doi.org/10.1090/S0025-5718-03-01602-5" target="_blank" style="color: #e67e22; font-size: 0.85em;">DOI: 10.1090/S0025-5718-03-01602-5</a>
-                            
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>A comparison of parallel sieve methods</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Smith, S. A.; Bernstein, D. J.
-                            , 2007 IEEE Int. Parallel Distrib. Process. Symp. (IPDPS)
-                             (2007)
-                            </span>
-                            <br><a href="https://doi.org/10.1109/IPDPS.2007.382" target="_blank" style="color: #e67e22; font-size: 0.85em;">DOI: 10.1109/IPDPS.2007.382</a>
-                            
-                        </li>
-                        
-                    </ul>
-                    
                 </div>
             </div>
         </div>
     </div>
-    
     <script>
         mermaid.initialize({
             startOnLoad: true,
             theme: 'default',
-            flowchart: {
-                useMaxWidth: false,
-                htmlLabels: true,
-                curve: 'linear',
-                nodeSpacing: 30,
-                rankSpacing: 30,
-                padding: 10
-            },
-            themeVariables: {
-                fontFamily: 'Arial Unicode MS, Arial, sans-serif'
-            }
+            flowchart: { useMaxWidth: false, htmlLabels: true, curve: 'linear', nodeSpacing: 40, rankSpacing: 40, padding: 20 },
+            themeVariables: { fontSize: '14px', fontFamily: 'Segoe UI, Arial, sans-serif' }
         });
     </script>
 </body>

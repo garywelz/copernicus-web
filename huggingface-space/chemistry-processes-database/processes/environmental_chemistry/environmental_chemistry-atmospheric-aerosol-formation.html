@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Atmospheric Aerosol Formation - Chemistry Process</title>
+    <title>Secondary Organic Aerosol Formation - Chemistry Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,12 +167,39 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Atmospheric Aerosol Formation</h1>
+            <h1>Secondary Organic Aerosol Formation</h1>
             <div class="header-meta">
                 <span class="meta-item">Chemistry</span>
                 <span class="meta-item">Environmental Chemistry</span>
@@ -207,32 +234,53 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Atmospheric Aerosol Formation process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>Secondary organic aerosol forms when volatile organic compounds are oxidized by OH, ozone, or nitrate radicals into lower-volatility products; once these vapors are supersaturated they partition onto existing particles or nucleate new ones, then grow by condensation and aging to build atmospheric aerosol mass.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-N1["Gas Precursors"]
-N2["Oxidants (OH/O3/NO3)"]
-N3["Nucleation"]
-N4["Condensation/Coagulation"]
-N5["Aerosol Particles"]
+    N1["VOC emissions"]
+    N2["Oxidation by OH/O3/NO3"]
+    N3["Lower-volatility products"]
+    N4{"Vapors supersaturated?"}
+    N5["Partition to particles"]
+    N6["New particle nucleation"]
+    N7["Condensational growth"]
+    N8["Aging / oligomerization"]
+    N9["Secondary organic aerosol"]
 
-N1 --> N2
-N2 --> N3
-N3 --> N4
-N4 --> N5
+    N1 --> N2
+    N2 --> N3
+    N3 --> N4
+    N4 -->|no: oxidize more| N2
+    N4 -->|yes| N5
+    N5 --> N6
+    N6 --> N7
+    N7 --> N8
+    N8 --> N9
 
     style N1 fill:#ff6b6b,color:#fff
-    style N2 fill:#ff6b6b,color:#fff
-    style N3 fill:#51cf66,color:#fff
-    style N4 fill:#51cf66,color:#fff
-    style N5 fill:#b197fc,color:#fff
+    style N2 fill:#51cf66,color:#fff
+    style N3 fill:#74c0fc,color:#fff
+    style N4 fill:#74c0fc,color:#fff
+    style N5 fill:#51cf66,color:#fff
+    style N6 fill:#51cf66,color:#fff
+    style N7 fill:#51cf66,color:#fff
+    style N8 fill:#51cf66,color:#fff
+    style N9 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">VOC emissions</td><td>Triggers & Inputs</td><td><a href="https://doi.org/10.1002/9781118947401" target="_blank" title="Atmospheric Chemistry and Physics: From Air Pollution to Climate Change (3rd ed.)" style="color:#e74c3c;">Seinfeld, J. H. et al. 2016</a></td></tr><tr><td style="font-weight:600;">Oxidation by OH/O3/NO3</td><td>Processing & Operations</td><td><a href="https://doi.org/10.5194/acp-9-5155-2009" target="_blank" title="The formation, properties and impact of secondary organic aerosol: current and emerging issues" style="color:#e74c3c;">Hallquist, M. et al. 2009</a></td></tr><tr><td style="font-weight:600;">Lower-volatility products</td><td>Intermediates & States</td><td><a href="https://doi.org/10.5194/acp-9-5155-2009" target="_blank" title="The formation, properties and impact of secondary organic aerosol: current and emerging issues" style="color:#e74c3c;">Hallquist, M. et al. 2009</a></td></tr><tr><td style="font-weight:600;">Vapors supersaturated?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.5194/acp-9-5155-2009" target="_blank" title="The formation, properties and impact of secondary organic aerosol: current and emerging issues" style="color:#e74c3c;">Hallquist, M. et al. 2009</a></td></tr><tr><td style="font-weight:600;">Partition to particles</td><td>Processing & Operations</td><td><a href="https://doi.org/10.5194/acp-9-5155-2009" target="_blank" title="The formation, properties and impact of secondary organic aerosol: current and emerging issues" style="color:#e74c3c;">Hallquist, M. et al. 2009</a></td></tr><tr><td style="font-weight:600;">New particle nucleation</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1002/9781118947401" target="_blank" title="Atmospheric Chemistry and Physics: From Air Pollution to Climate Change (3rd ed.)" style="color:#e74c3c;">Seinfeld, J. H. et al. 2016</a></td></tr><tr><td style="font-weight:600;">Condensational growth</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1002/9781118947401" target="_blank" title="Atmospheric Chemistry and Physics: From Air Pollution to Climate Change (3rd ed.)" style="color:#e74c3c;">Seinfeld, J. H. et al. 2016</a></td></tr><tr><td style="font-weight:600;">Aging / oligomerization</td><td>Processing & Operations</td><td><a href="https://doi.org/10.5194/acp-9-5155-2009" target="_blank" title="The formation, properties and impact of secondary organic aerosol: current and emerging issues" style="color:#e74c3c;">Hallquist, M. et al. 2009</a></td></tr><tr><td style="font-weight:600;">Secondary organic aerosol</td><td>Products & Outputs</td><td><a href="https://doi.org/10.5194/acp-9-5155-2009" target="_blank" title="The formation, properties and impact of secondary organic aerosol: current and emerging issues" style="color:#e74c3c;">Hallquist, M. et al. 2009</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -278,12 +326,12 @@ N4 --> N5
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 5</li>
-                        <li><strong>Edges:</strong> 4</li>
-                        <li><strong>Conditionals:</strong> 0</li>
-                        <li><strong>AND Gates:</strong> 0</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 0</li>
+                        <li><strong>Nodes:</strong> 9</li>
+                        <li><strong>Edges:</strong> 9</li>
+                        <li><strong>Conditionals:</strong> 1</li>
+                        <li><strong>AND Gates:</strong> 1</li>
+                        <li><strong>OR Gates:</strong> 1</li>
+                        <li><strong>Total Gates:</strong> 2</li>
                     </ul>
                 </div>
                 
@@ -291,7 +339,7 @@ N4 --> N5
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>atmospheric</li><li>aerosol</li><li>formation</li>
+                        <li>secondary organic aerosol</li><li>VOC oxidation</li><li>gas-particle partitioning</li><li>nucleation</li><li>volatility</li>
                     </ul>
                 </div>
                 
@@ -302,42 +350,22 @@ N4 --> N5
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>The formation, properties and impact of secondary organic aerosol: current and emerging issues</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Hallquist, M.; et al.
+                            , Atmospheric Chemistry and Physics
+                             (2009)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Aerosol formation processes</strong>
-                            
-                            , Springer Praxis Books
-                             (None)
-                            </span>
-                            <br><a href="https://doi.org/10.1007/3-540-37698-4_4" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1007/3-540-37698-4_4</a>
+                            <br><a href="https://doi.org/10.5194/acp-9-5155-2009" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.5194/acp-9-5155-2009</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Atmospheric acidity and aerosol nitrate formation</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Ζακούρα, Μαρία
-                            
-                             (None)
+                            <strong>Atmospheric Chemistry and Physics: From Air Pollution to Climate Change (3rd ed.)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Seinfeld, J. H.; Pandis, S. N.
+                            , Wiley
+                             (2016)
                             </span>
-                            <br><a href="https://doi.org/10.12681/eadd/46516" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.12681/eadd/46516</a>
-                            
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Atmospheric acidity and secondary inorganic aerosol formation</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Κακαβάς, Στυλιανός
-                            
-                             (None)
-                            </span>
-                            <br><a href="https://doi.org/10.12681/eadd/52213" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.12681/eadd/52213</a>
+                            <br><a href="https://doi.org/10.1002/9781118947401" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1002/9781118947401</a>
                             
                         </li>
                         

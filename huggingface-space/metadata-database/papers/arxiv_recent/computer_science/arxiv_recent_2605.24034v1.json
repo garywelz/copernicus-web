@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2605.24034v1",
+  "arxiv_id": "2605.24034v1",
+  "title": "WTKO-CNN: Deep Learning Reveals Sequence Motifs Distinguishing Wild-Type and Knockout ATAC-seq Peaks",
+  "authors": [
+    "Lopamudra Dey"
+  ],
+  "author_string": "Lopamudra Dey",
+  "journal": "arXiv:2605.24034v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Chromatin regulators can alter transcriptional programs by modifying the accessibility of regulatory DNA elements. Understanding how regulatory sequences differ between wild-type (WT) and knockout (KO) conditions is crucial for deciphering transcriptional control. Here, we applied a convolutional neural network, \\textbf{WTKO-CNN} with an attention mechanism to classify DNA sequences as WT or KO, achieving high predictive performance. To interpret the model, we generated saliency maps to identify nucleotide positions most influential for the classification decision. From these high-saliency regions, we extracted and clustered k-mers, enabling de novo motif discovery. Sequence logos and consensus motifs derived from the CNN filters revealed biologically meaningful patterns, which are further validated using MEME, TOMTOM, and HOMER against known transcription factor binding sites. Our analysis identified motifs associated with transcription factor families that discriminate WT from KO sequences, demonstrating that CNN-guided saliency mapping is a powerful approach for uncovering functional sequence features.",
+  "categories": [
+    "q-bio.GN",
+    "cs.AI"
+  ],
+  "primary_category": "cs.AI",
+  "comment": null,
+  "published_date": "2026-05-21T07:46:50Z",
+  "updated_date": "2026-05-21T07:46:50Z",
+  "url": "https://arxiv.org/abs/2605.24034v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.24034v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-26T10:15:35.456153",
+  "category": "computer_science",
+  "subcategories": [
+    "q-bio.GN",
+    "cs.AI"
+  ]
+}

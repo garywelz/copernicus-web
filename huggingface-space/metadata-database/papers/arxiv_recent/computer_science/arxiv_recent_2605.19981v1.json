@@ -1,0 +1,37 @@
+{
+  "id": "arxiv_2605.19981v1",
+  "arxiv_id": "2605.19981v1",
+  "title": "CEER: Compliant End-Effector and Root Control as a Unified Interface for Hierarchical Humanoid Loco-Manipulation",
+  "authors": [
+    "Xinyuan Luo",
+    "Xingrui Chen",
+    "Xunjian Yin",
+    "Hongxuan Wu",
+    "Boxi Xia",
+    "Zhuoqun Chen",
+    "Jinzhou Li",
+    "Boyuan Chen",
+    "Xianyi Cheng"
+  ],
+  "author_string": "Xinyuan Luo, Xingrui Chen, Xunjian Yin, Hongxuan Wu, Boxi Xia et al.",
+  "journal": "arXiv:2605.19981v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Humanoid robots have achieved impressive locomotion performance, yet contact-rich and long-horizon manipulation remains a major bottleneck. Manipulation is inherently contact-rich and demands compliant whole-body control for stable interaction, while its diversity and long-horizon nature favor modular, planner-compatible interfaces over joint-space tracking.   We propose CEER, a compliant end-effector-root (EE-root) control abstraction for modular humanoid loco-manipulation within a hierarchical planning framework. CEER enables compliance-aware whole-body control in an interpretable task space defined by root motion commands and end-effector pose targets, and supports plug-and-play integration with heterogeneous high-level planners. A teacher-student framework is adopted to distill a general motion-tracking controller into a low-level policy that consumes only EE-root commands.   We further construct a hierarchical system that integrates heterogeneous planners and task modules through the EE-root interface, enabling diverse manipulation tasks without retraining the underlying whole-body policy. Experiments in simulation and on hardware demonstrate 3.3 cm end-effector tracking accuracy with substantially reduced jerk compared to baselines, stable contact-rich manipulation under teleoperation, and up to 70% success in simulated single-object loco-manipulation tasks within a room-scale environment. These results indicate that compliant EE-root control provides a practical abstraction for humanoid loco-manipulation, enabling modular and scalable integration of diverse skills.",
+  "categories": [
+    "cs.RO"
+  ],
+  "primary_category": "cs.RO",
+  "comment": "Project page: https://robotproject8.github.io/ceer_page/. 9 pages, 7 figures",
+  "published_date": "2026-05-19T15:23:40Z",
+  "updated_date": "2026-05-19T15:23:40Z",
+  "url": "https://arxiv.org/abs/2605.19981v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.19981v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-20T10:16:34.001611",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.RO"
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2605.16171v1",
+  "arxiv_id": "2605.16171v1",
+  "title": "Res$^2$CLIP: Few-Shot Generalist Anomaly Detection with Residual-to-Residual Alignment",
+  "authors": [
+    "Xinyue Liu",
+    "Jianyuan Wang",
+    "Biao Leng",
+    "Shuo Zhang"
+  ],
+  "author_string": "Xinyue Liu, Jianyuan Wang, Biao Leng, Shuo Zhang",
+  "journal": "arXiv:2605.16171v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Few-shot Generalist Anomaly Detection requires models to generalize to novel categories without retraining, posing significant challenges in real-world scenarios with scarce samples and rapidly changing categories. Existing CLIP-based methods face two major challenges: coarse-grained unified text prompts struggle to adapt to fine-grained foreground-background differences, causing cross-granularity mismatch; and fine-tuning on auxiliary datasets disrupts CLIP's inherent open-world generalization due to domain shift, leading to cross-category generalization degradation. To address these, we propose to shift multimodal alignment entirely into a unified residual space, where residual representations naturally eliminate fine-grained normal feature differences across regions and class-specific biases, simultaneously resolving both problems. Based on this insight, Res$^2$CLIP, the first residual-to-residual alignment framework that symmetrically bridges visual and text modalities within CLIP's residual space, is designed. The framework is developed from a residual perspective into three branches: a text prompt-based branch, a visual prompt-based branch, and a novel residual-to-residual alignment branch. All learnable optimizations are constrained within the residual domain, and the residual alignment optimization objectives are designed to force the model to focus on relative anomaly deviations rather than optimizing class-specific features. Experiments on multiple datasets demonstrate the effectiveness of our architecture. The code is available at https://github.com/hito2448/Res2CLIP.",
+  "categories": [
+    "cs.CV"
+  ],
+  "primary_category": "cs.CV",
+  "comment": null,
+  "published_date": "2026-05-15T16:49:58Z",
+  "updated_date": "2026-05-15T16:49:58Z",
+  "url": "https://arxiv.org/abs/2605.16171v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.16171v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-18T10:15:47.147583",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CV"
+  ]
+}

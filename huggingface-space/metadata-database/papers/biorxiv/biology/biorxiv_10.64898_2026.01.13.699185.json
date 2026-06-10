@@ -1,0 +1,45 @@
+{
+  "id": "biorxiv_10.64898_2026.01.13.699185",
+  "doi": "10.64898/2026.01.13.699185",
+  "title": "AGIcam: An open-source IoT-based camera system for automated in-field phenotyping and yield prediction",
+  "authors": [
+    "Sangjan, W.",
+    "Pukrongta, N.",
+    "Buchanan, T.",
+    "Carter, A. H.",
+    "Pumphrey, M. O.",
+    "Sankaran, S."
+  ],
+  "author_string": "Sangjan, W., Pukrongta, N., Buchanan, T., Carter, A. H., Pumphrey, M. O. et al.",
+  "journal": "bioRxiv",
+  "journal_full": "bioRxiv",
+  "year": "2026",
+  "abstract": "Continuous, high-frequency monitoring is essential to capture rapid phenological transitions and dynamic crop responses to the environment. However, most phenotyping platforms lack the temporal resolution and automation required for consistent, season-long trait assessment. This study introduces AGIcam, an open-source IoT camera system for automated and continuous in-field plant phenotyping and yield prediction. The platform integrates solar-powered Raspberry Pi units with a modular software stack, comprising Node-RED, InfluxDB, Grafana, and Microsoft Azure, for automated data acquisition, transfer, and visualization. In the 2022 growing season, 18 AGIcam systems were deployed in spring and winter wheat breeding trials, maintaining an uptime of over 85% while capturing frequent RGB and NoIR imagery. Time-series vegetation indices derived from these images were used to predict yield using random forest and Long Short-Term Memory (LSTM) models. The LSTM approach achieved the highest accuracy approximately one week after heading, with mean prediction errors of 3.41% for spring wheat and 1.62% for winter wheat. These results highlight the potential of IoT-based platforms such as AGIcam to enable real-time, scalable, and effective phenotyping solutions for data-driven crop improvement.",
+  "keywords": [],
+  "categories": [
+    "plant biology"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.64898/2026.01.13.699185",
+  "source": "biorxiv",
+  "sources": [
+    "biorxiv"
+  ],
+  "acquired_date": "2026-05-13T22:15:23.786418",
+  "category": "biology",
+  "subcategories": [
+    "plant biology"
+  ],
+  "published_date": "2026-01-13",
+  "updated_date": "2026-01-13",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "biorxiv",
+  "preprint_version": "1",
+  "preprint_type": "new results",
+  "license": "cc_by",
+  "jatsxml": "https://www.biorxiv.org/content/early/2026/01/13//2026.01.13.699185.source.xml",
+  "published_doi": null,
+  "author_corresponding": "Sindhuja Sankaran",
+  "author_corresponding_institution": "Department of Biological Systems Engineering, Washington State University, Pullman, WA, United States"
+}

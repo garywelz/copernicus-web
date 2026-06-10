@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2604.22732v1",
+  "arxiv_id": "2604.22732v1",
+  "title": "Craig-Bampton-based Quadratic Manifold for Nonlinear Substructuring",
+  "authors": [
+    "Alexander Saccani",
+    "Paolo Tiso"
+  ],
+  "author_string": "Alexander Saccani, Paolo Tiso",
+  "journal": "arXiv:2604.22732v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Component Mode Synthesis methods, such as the Craig-Bampton (CB) approach, are widely used in structural dynamics due to their modularity and compatibility with substructuring workflows. While highly effective for linear systems, extending these methods to geometrically nonlinear structures remains a significant challenge. In this work, we propose a nonlinear extension of the CB method tailored to such contexts. The approach is based on the construction of a quadratic reduction manifold, derived via perturbation analysis, in which high-frequency fixed-interface modes are statically condensed onto a reduced set of low-frequency modes and interface coordinates. This formulation enables the representation of geometric nonlinear effects without increasing the number of reduced degrees of freedom.The resulting Nonlinear Craig-Bampton (NL-CB) reduced-order model is obtained through Galerkin projection onto the tangent space of the manifold and admits a polynomial structure that is efficient for time integration. The formulation preserves the Lagrangian structure of the underlying finite element model, ensuring consistent energetic behavior and numerical stability.The proposed method is demonstrated on representative nonlinear structural systems of increasing complexity. The results show that the NL-CB model captures the essential nonlinear dynamic response while retaining the modularity and computational efficiency of classical substructuring approaches.",
+  "categories": [
+    "math.NA",
+    "physics.comp-ph"
+  ],
+  "primary_category": "physics.comp-ph",
+  "comment": null,
+  "published_date": "2026-04-24T17:28:14Z",
+  "updated_date": "2026-04-24T17:28:14Z",
+  "url": "https://arxiv.org/abs/2604.22732v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.22732v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-27T10:15:23.655696",
+  "category": "physics",
+  "subcategories": [
+    "math.NA",
+    "physics.comp-ph"
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2605.13754v1",
+  "arxiv_id": "2605.13754v1",
+  "title": "Manipulation Planning for Construction Activities with Repetitive Tasks",
+  "authors": [
+    "Wangyi Liu",
+    "Dasharadhan Mahalingam",
+    "Fanru Gao",
+    "Ci-Jyun Liang",
+    "Nilanjan Chakraborty"
+  ],
+  "author_string": "Wangyi Liu, Dasharadhan Mahalingam, Fanru Gao, Ci-Jyun Liang, Nilanjan Chakraborty",
+  "journal": "arXiv:2605.13754v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "In this paper, we study the problem of manipulation skill acquisition for performing construction activities consisting of repetitive tasks (e.g., building a wall or installing ceiling tiles). Our approach involves setting up a simulated construction activity in a Virtual Reality (VR) environment, where the user can provide demonstrations of the object manipulation skills needed to perform the construction activity. We then exploit the screw geometry of motion to approximate the demonstrated motion as a sequence of constant screw motions. For performing the construction activity, we generate the sequence of manipulation task instances and then compute the joint space motion plan corresponding to each instance using Screw Linear Interpolation (ScLERP) and Resolved Motion Rate Control (RMRC). We evaluate our framework by executing two representative construction tasks: constructing brick walls and installing multiple ceiling tiles. Each task is performed using only a single demonstration, a pick-and-place action for the bricks, and a single ceiling tile installation. Our experiments with a 7-DoF robot in both simulation and hardware demonstrate that the approach generalizes robustly to arbitrarily long construction activities that involve repetitive motions and demand precision, even when provided with just one demonstration. For instance, we can construct walls of arbitrary layout and length by leveraging a single demonstration of placing one brick on top of another.",
+  "categories": [
+    "cs.RO"
+  ],
+  "primary_category": "cs.RO",
+  "comment": null,
+  "published_date": "2026-05-13T16:33:13Z",
+  "updated_date": "2026-05-13T16:33:13Z",
+  "url": "https://arxiv.org/abs/2605.13754v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.13754v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-13T22:17:00.036835",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.RO"
+  ]
+}

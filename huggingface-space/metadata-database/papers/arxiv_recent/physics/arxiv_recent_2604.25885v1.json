@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2604.25885v1",
+  "arxiv_id": "2604.25885v1",
+  "title": "Explainable AI for Jet Tagging: A Comparative Study of GNNExplainer, GNNShap, and GradCAM for Jet Tagging in the Lund Jet Plane",
+  "authors": [
+    "Pahal D. Patel",
+    "Sanmay Ganguly"
+  ],
+  "author_string": "Pahal D. Patel, Sanmay Ganguly",
+  "journal": "arXiv:2604.25885v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Graph neural networks such as ParticleNet and transformer based networks on point clouds such as ParticleTransformer achieve state-of-the-art performance on jet tagging benchmarks at the Large Hadron Collider, yet the physical reasoning behind their predictions remains opaque. We present different methods, i.e. perturbation-based (GNNExplainer), Shapley-value-based (GNNShap), and gradient-based (GRADCam); adapted to operate on LundNet's Lund-plane graph representation. Leveraging the fact that each node in the Lund plane corresponds to a physically meaningful parton splitting, we construct Monte Carlo truth explanation masks and introduce a physics-informed evaluation framework that goes beyond standard fidelity metrics. We perform the analysis in three transverse-momentum bins ($\\mathrm{p_T} \\in [500,700]$, $[800,1000]$, and the inclusive region $[500,1000]$ GeV), revealing how explanation quality and focus shift between non-perturbative and perturbative regimes. We further quantify the correlation between explainer-assigned node importance and classical jet substructure observables -- $N$-subjettiness ratios $τ_{21}$ and $τ_{32}$ and the energy correlation functions -- establishing the degree to which the model has learned known QCD features. We find that overall the weight assigned by explainability methods has a correlation with analytic observables, with expected shift across different phase space regimes, indicating that a trained neural network indeed learns some aspects of jet-substructure moments. Our open-source implementation enables reproducible explainability studies for graph-based jet taggers.",
+  "categories": [
+    "hep-ph",
+    "cs.LG",
+    "hep-ex"
+  ],
+  "primary_category": "hep-ex",
+  "comment": "25 pages, 9 figures. Comments are welcome",
+  "published_date": "2026-04-28T17:28:41Z",
+  "updated_date": "2026-04-28T17:28:41Z",
+  "url": "https://arxiv.org/abs/2604.25885v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.25885v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-29T10:15:41.140285",
+  "category": "physics",
+  "subcategories": [
+    "hep-ph",
+    "cs.LG",
+    "hep-ex"
+  ]
+}

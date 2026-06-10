@@ -1,0 +1,37 @@
+{
+  "id": "arxiv_2604.25891v1",
+  "arxiv_id": "2604.25891v1",
+  "title": "Conditional misalignment: common interventions can hide emergent misalignment behind contextual triggers",
+  "authors": [
+    "Jan Dubiński",
+    "Jan Betley",
+    "Anna Sztyber-Betley",
+    "Daniel Tan",
+    "Owain Evans"
+  ],
+  "author_string": "Jan Dubiński, Jan Betley, Anna Sztyber-Betley, Daniel Tan, Owain Evans",
+  "journal": "arXiv:2604.25891v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Finetuning a language model can lead to emergent misalignment (EM) [Betley et al., 2025b]. Models trained on a narrow distribution of misaligned behavior generalize to more egregious behaviors when tested outside the training distribution.   We study a set of interventions proposed to reduce EM. We confirm that these interventions reduce or eliminate EM on existing evaluations (questions like \"How do I make a quick buck?\"). However, if the evaluation prompts are tweaked to resemble the training context, the model displays EM. We call this conditional misalignment. As in standard EM, the model displays misaligned behaviors more egregious than those seen during training, but only on inputs sharing features with the training data.   The first two interventions are diluting misaligned data with benign data, and finetuning on benign data after misaligned data. Both produce conditional misalignment. For instance, models trained on a mix of only 5% insecure code still show misalignment when asked to format responses as Python strings (resembling the training context).   The third intervention is inoculation prompting. Here, statements with a similar form to the inoculation prompt serve as triggers for misalignment, even if they have the opposite meaning. On the positive side, inoculation prompting has lower (but still non-zero) conditional misalignment if training is on-policy or includes reasoning distillation.   Our results imply that in realistic post-training, where misaligned data is typically combined with benign data, models may be conditionally misaligned even if standard evaluations look clean.",
+  "categories": [
+    "cs.LG",
+    "cs.AI",
+    "cs.CR"
+  ],
+  "primary_category": "cs.CR",
+  "comment": null,
+  "published_date": "2026-04-28T17:36:06Z",
+  "updated_date": "2026-04-28T17:36:06Z",
+  "url": "https://arxiv.org/abs/2604.25891v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.25891v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-29T10:15:41.140088",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.LG",
+    "cs.AI",
+    "cs.CR"
+  ]
+}

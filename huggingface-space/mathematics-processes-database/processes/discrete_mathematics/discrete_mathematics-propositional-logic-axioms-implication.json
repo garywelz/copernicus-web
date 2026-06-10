@@ -1,0 +1,39 @@
+{
+  "id": "discrete_mathematics-propositional-logic-axioms-implication",
+  "name": "Propositional Logic — Axioms & Implication",
+  "category": "mathematics",
+  "subcategory": "discrete_mathematics",
+  "subcategory_name": "Discrete Mathematics",
+  "description": "Three Hilbert axioms, modus ponens, self-implication, double negation, transposition, hypothetical syllogism. Shows how theorems depend on axioms, definitions, and prior theorems.",
+  "mermaid": "graph TD\n    A1(\"A1 Weakening\")\n    A2(\"A2 Distrib. of impl.\")\n    A3(\"A3 Contraposition\")\n    MP(\"MP MP\")\n    T1(\"T1 Self-implication\")\n    T2(\"T2 Double neg. elim\")\n    T3(\"T3 Double neg. intro\")\n    T4(\"T4 Transposition\")\n    T5(\"T5 Hyp. syllogism\")\n    A1 --> T1\n    A2 --> T1\n    MP --> T1\n    A3 --> T2\n    T1 --> T2\n    MP --> T2\n    A1 --> T3\n    A3 --> T3\n    MP --> T3\n    A3 --> T4\n    T2 --> T4\n    T3 --> T4\n    MP --> T4\n    A2 --> T5\n    T1 --> T5\n    MP --> T5\n    classDef axiom fill:#ff6b6b,color:#fff,stroke:#c0392b\n    classDef definition fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef theorem fill:#51cf66,color:#fff,stroke:#40c057\n    class A1,A2,A3,MP axiom\n    class T1,T2,T3,T4,T5 theorem",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2604.21828v1",
+  "arxiv_id": "2604.21828v1",
+  "title": "ProDock: From multi-target consensus docking into database-backed storage",
+  "authors": [
+    "Tieu-Long Phan",
+    "Lai Hoang Son Le",
+    "Thanh-An Pham",
+    "Nhu-Ngoc Nguyen Song",
+    "Tuyet-Minh Phan",
+    "Tuyen Ngoc Truong"
+  ],
+  "author_string": "Tieu-Long Phan, Lai Hoang Son Le, Thanh-An Pham, Nhu-Ngoc Nguyen Song, Tuyet-Minh Phan et al.",
+  "journal": "arXiv:2604.21828v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Protein--ligand docking is widely used in structure-based discovery, but routine studies often fail at the workflow level rather than at the scoring level. Receptor cleaning, ligand preparation, file conversion, box definition, run organization, and downstream parsing are frequently handled by fragmented scripts, which reduces reproducibility, obscures provenance, and complicates comparative analysis across targets, ligands, and docking settings. We present ProDock, an open-source Python toolkit for reproducible protein--ligand docking and postprocessing. ProDock organizes application-oriented docking into four connected layers: receptor and ligand preprocessing, provenance-aware docking execution, postprocessing of poses and interaction fingerprints, and SQLite-backed storage for later querying. The package supports inputs ranging from PDB identifiers and local receptor files to \\texttt{SMILES} strings and prepared ligand directories, and integrates receptor preparation, ligand preparation, reference-ligand-based box generation, campaign serialization, batch docking, pose crawling, score extraction, interaction profiling, and database insertion within a consistent project-local workflow. By representing studies as explicit many-to-many campaigns linking multiple receptors, ligands, and docking backends, ProDock converts fragmented engine-specific outputs into structured analytical results that are easier to compare, reuse, and audit. ProDock is implemented in Python and released under an open-source license at https://github.com/Medicine-Artificial-Intelligence/ProDock. Documentation is available at https://prodock.readthedocs.io/en/latest.",
+  "categories": [
+    "q-bio.QM"
+  ],
+  "primary_category": "q-bio.QM",
+  "comment": null,
+  "published_date": "2026-04-23T16:18:45Z",
+  "updated_date": "2026-04-23T16:18:45Z",
+  "url": "https://arxiv.org/abs/2604.21828v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.21828v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-30T22:15:35.864340",
+  "category": "biology",
+  "subcategories": [
+    "q-bio.QM"
+  ]
+}

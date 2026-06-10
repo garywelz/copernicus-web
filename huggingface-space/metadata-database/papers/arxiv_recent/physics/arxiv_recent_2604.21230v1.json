@@ -1,0 +1,30 @@
+{
+  "id": "arxiv_2604.21230v1",
+  "arxiv_id": "2604.21230v1",
+  "title": "Time-optimal Qubit Reset via Environmental Spectral Structure",
+  "authors": [
+    "Hong-Bo Huang",
+    "Hui Dong"
+  ],
+  "author_string": "Hong-Bo Huang, Hui Dong",
+  "journal": "arXiv:2604.21230v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Fast qubit reset is essential for qubit reuse in the noisy intermediate-scale quantum computing era, yet it conflicts with the weak decoherence required for high-fidelity computation. We solve the time-optimal reset problem for a frequency-tunable qubit coupled to a structural environment under realistic spectral and control constraints. The optimal strategy consists of a switch--restore--switch sequence, where the qubit is moved from a low-decoherence computational configuration to a high-decoherence restoring configuration and then returned for reuse. For superconducting qubits in four representative environments, this strategy reduces the reset time from typically $\\gtrsim\\SI{100}{\\nano\\second}$ to $\\SI{20}{\\nano\\second}$, about $40\\%$ of a typical two-qubit gate time, while achieving a reset precision of $10^{-5}$. Our results identify environmental spectral structure as a practical resource for rapid, high-fidelity qubit reset and provide a design principle for qubit reuse on qubit-limited processors.",
+  "categories": [
+    "quant-ph"
+  ],
+  "primary_category": "quant-ph",
+  "comment": "7 pages, 4 figures",
+  "published_date": "2026-04-23T02:54:12Z",
+  "updated_date": "2026-04-23T02:54:12Z",
+  "url": "https://arxiv.org/abs/2604.21230v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.21230v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-26T10:16:12.592725",
+  "category": "physics",
+  "subcategories": [
+    "quant-ph"
+  ]
+}

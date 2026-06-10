@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2605.03823v1",
+  "arxiv_id": "2605.03823v1",
+  "title": "Realizable Bayes-Consistency for General Metric Losses",
+  "authors": [
+    "Dan Tsir Cohen",
+    "Steve Hanneke",
+    "Aryeh Kontorovich"
+  ],
+  "author_string": "Dan Tsir Cohen, Steve Hanneke, Aryeh Kontorovich",
+  "journal": "arXiv:2605.03823v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We study strong universal Bayes-consistency in the realizable setting for learning with general metric losses, extending classical characterizations beyond $0$-$1$ classification \\citep{bousquet_theory_2021, hanneke2021universalbayesconsistencymetric} and real-valued regression \\citep{attias_universal_2024}. Given an instance space $(\\mathcal X,ρ)$, a label space $(\\mathcal Y,\\ell)$ with possibly unbounded loss, and a hypothesis class $\\mathcal H \\subseteq \\mathcal Y^{\\mathcal X}$, we resolve the realizable case of an open problem presented in \\citet{pmlr-v178-cohen22a}. Specifically, we find the necessary and sufficient conditions on the hypothesis class $\\mathcal H$ under which there exists a distribution-free learning rule whose risk converges almost surely to the best-in-class risk (which is zero) for every realizable data-generating distribution. Our main contribution is this sharp characterization in terms of a combinatorial obstruction: Similarly to \\citet{attias2024optimallearnersrealizableregression}, we introduce the notion of an infinite non-decreasing $(γ_k)$-Littlestone tree, where $γ_k \\to \\infty$. This extends the Littlestone tree structure used in \\citet{bousquet_theory_2021} to the metric loss setting.",
+  "categories": [
+    "cs.LG",
+    "cs.IT",
+    "math.ST"
+  ],
+  "primary_category": "math.ST",
+  "comment": "14 pages. To appear in Proceedings of the 43rd International Conference on Machine Learning (ICML 2026)",
+  "published_date": "2026-05-05T14:50:55Z",
+  "updated_date": "2026-05-05T14:50:55Z",
+  "url": "https://arxiv.org/abs/2605.03823v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.03823v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-06T10:15:44.570321",
+  "category": "mathematics",
+  "subcategories": [
+    "cs.LG",
+    "cs.IT",
+    "math.ST"
+  ]
+}

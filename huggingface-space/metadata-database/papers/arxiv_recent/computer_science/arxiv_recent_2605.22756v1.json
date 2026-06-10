@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2605.22756v1",
+  "arxiv_id": "2605.22756v1",
+  "title": "Lumberjack: Better Differentially Private Random Forests through Heavy Hitter Detection in Trees",
+  "authors": [
+    "Christian Janos Lebeda",
+    "David Erb",
+    "Tudor Cebere",
+    "Aurélien Bellet"
+  ],
+  "author_string": "Christian Janos Lebeda, David Erb, Tudor Cebere, Aurélien Bellet",
+  "journal": "arXiv:2605.22756v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Random forests are widely used in fields involving sensitive tabular data, but existing approaches to enforcing differential privacy (DP) typically degrade performance to the point of impracticality. In this paper, we introduce Lumberjack, a differentially private random forest algorithm that achieves substantially higher utility by constructing large random decision trees and then applying aggressive, privacy-preserving pruning to retain only sufficiently populated nodes. A key component of our approach is a novel $(\\varepsilon,δ)$-DP heavy hitter detection algorithm for hierarchical data, whose error is $O_{\\varepsilon,δ}(\\sqrt{\\log h})$ for trees of height $h$ and may be of independent interest. This favorable scaling enables the use of significantly deeper trees than in prior work, leading to improved expressiveness under privacy constraints. Our empirical evaluation on benchmark datasets shows that Lumberjack consistently outperforms prior DP random forest methods, establishing a new state of the art. In particular, our approach yields substantial improvements in the privacy-utility trade-off for practical privacy budgets. Our findings suggest that carefully designed DP random forests can close much of the utility gap, highlighting a promising and underexplored direction for future research.",
+  "categories": [
+    "cs.LG",
+    "cs.DS"
+  ],
+  "primary_category": "cs.DS",
+  "comment": null,
+  "published_date": "2026-05-21T17:23:04Z",
+  "updated_date": "2026-05-21T17:23:04Z",
+  "url": "https://arxiv.org/abs/2605.22756v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.22756v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-24T10:15:38.642095",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.LG",
+    "cs.DS"
+  ]
+}

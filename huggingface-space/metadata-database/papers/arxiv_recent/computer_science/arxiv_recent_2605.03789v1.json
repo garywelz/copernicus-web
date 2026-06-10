@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2605.03789v1",
+  "arxiv_id": "2605.03789v1",
+  "title": "Training-Free Probabilistic Time-Series Forecasting with Conformal Seasonal Pools",
+  "authors": [
+    "Valery Manokhin"
+  ],
+  "author_string": "Valery Manokhin",
+  "journal": "arXiv:2605.03789v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": "10.5281/zenodo.20040003",
+  "abstract": "We propose Conformal Seasonal Pools (CSP), a training-free probabilistic time-series forecaster that mixes same-season empirical draws with signed residual draws around a seasonal naive forecast. In an audited rolling-origin benchmark on the six time-series datasets where DeepNPTS was originally evaluated (electricity, exchange_rate, solar_energy, taxi, traffic, wikipedia), CSP-Adaptive significantly outperforms DeepNPTS on every metric we report -- CRPS (per-window paired Wilcoxon $p \\approx 4 \\times 10^{-10}$), normalized mean quantile loss ($p \\approx 7 \\times 10^{-10}$), and empirical 95% coverage ($p \\approx 8 \\times 10^{-45}$, mean 0.89 vs 0.66) -- while running over 500x faster on CPU. Coverage is the most decision-critical of these: a 0.95 nominal interval that contains the truth in only ~66% of cases fails the basic calibration desideratum and would not survive deployment in safety- or decision-critical settings. The failure mode is also more severe than aggregate coverage suggests: in the worst 10% of windows, DeepNPTS's prediction interval covers none of the H forecast horizons -- the entire multi-step trajectory misses the truth at every step simultaneously. This poses serious risk in safety- and decision-critical applications such as healthcare, finance, energy operations, and autonomous systems, where prediction intervals that systematically miss the truth across the entire planning horizon translate directly into misclassified patients, regulatory capital failures, grid imbalances, and safety-case violations. CSP achieves all of this with no learned parameters and no training. We argue training-free conformal samplers should be mandatory baselines when evaluating learned non-parametric forecasters.",
+  "categories": [
+    "stat.ML",
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": null,
+  "published_date": "2026-05-05T14:16:35Z",
+  "updated_date": "2026-05-05T14:16:35Z",
+  "url": "https://arxiv.org/abs/2605.03789v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.03789v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-06T10:15:44.570779",
+  "category": "computer_science",
+  "subcategories": [
+    "stat.ML",
+    "cs.LG"
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2605.08014v1",
+  "arxiv_id": "2605.08014v1",
+  "title": "Dynamical mechanisms of flexible phase-locking in cortical theta oscillators",
+  "authors": [
+    "Yangyang Wang",
+    "Benjamin R. Pittman-Polletta"
+  ],
+  "author_string": "Yangyang Wang, Benjamin R. Pittman-Polletta",
+  "journal": "arXiv:2605.08014v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Oscillatory activity in auditory cortex is thought to play a central role in auditory and speech processing by synchronizing neural rhythms to external acoustic features of the speech stream. To support this function, cortical oscillators must flexibly phase-lock to inputs spanning a wide range of timescales, including rhythms substantially slower than their intrinsic frequency. Here we identify a general dynamical mechanism by which intrinsic inhibitory currents operating on multiple timescales enable such flexible phase-locking. Using tools from dynamical systems theory, we show that interactions between slow and superslow inhibitory processes generate prolonged post-input recovery delays through delayed Hopf phenomena, thereby substantially expanding the frequency range over which entrainment can occur. We demonstrate this mechanisms in a biophysically grounded cortical theta oscillator model for speech segmentation. Specifically, we show that both a theta-timescale (4-8 Hz) inhibitory current $I_m$ and a slower delta-timescale (1-4 Hz) inhibitory potassium current $I_{\\rm K_{SS}}$ are crucial for entrainment flexibility. Their interaction creates a three-timescale structure that gives rise to pronounced delay phenomena associated with a delayed Hopf bifurcation (DHB). Interestingly, the superslow $I_{\\rm K_{SS}}$ and the associated DHB play little role in the unforced oscillatory dynamics, but are recruited to support phase locking under external forcing. Moreover, the intermediate-timescale current $I_m$, rather than being redundant, further expands the phase-locking range by prolonging delayed recovery along the superslow manifold. Together, these results suggest that coordination among intrinsic inhibitory currents operating on multiple timescales may represent a key mechanism supporting flexible phase locking to rhythmic inputs in the brain.",
+  "categories": [
+    "q-bio.NC",
+    "math.DS"
+  ],
+  "primary_category": "math.DS",
+  "comment": "30 pages, 15 figures",
+  "published_date": "2026-05-08T17:05:09Z",
+  "updated_date": "2026-05-08T17:05:09Z",
+  "url": "https://arxiv.org/abs/2605.08014v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.08014v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-13T10:15:35.801945",
+  "category": "mathematics",
+  "subcategories": [
+    "q-bio.NC",
+    "math.DS"
+  ]
+}

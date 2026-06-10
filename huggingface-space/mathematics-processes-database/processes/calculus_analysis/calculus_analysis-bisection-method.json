@@ -1,0 +1,55 @@
+{
+  "id": "calculus_analysis-bisection-method",
+  "name": "Bisection Method",
+  "category": "mathematics",
+  "subcategory": "calculus_analysis",
+  "subcategory_name": "Calculus & Analysis",
+  "description": "Find a root of f(x)=0 in interval [a,b] where f(a)·f(b) < 0. Repeatedly bisect the interval; narrow by sign of f(a)·f(mid). Linear convergence.",
+  "mermaid": "graph TD\n    A1[\"f x, interval a b\\n tolerance eps\"]\n    B1[\"mid = a+b over 2\"]\n    D1{\"Converged?\\nabs f mid less than eps\\nor b - a less than eps\"}\n    D2{\"f a times f mid\\nless than 0?\"}\n    E1[\"b = mid\"]\n    E2[\"a = mid\"]\n    F1[\"Return mid\\nApproximate root\"]\n    A1 --> B1\n    B1 --> D1\n    D1 -->|Yes| F1\n    D1 -->|No| D2\n    D2 -->|Yes: sequential AND| E1\n    D2 -->|No: sequential AND| E2\n    E1 --> B1\n    E2 --> B1\n    classDef red fill:#ff6b6b,color:#fff,stroke:#c0392b\n    classDef yellow fill:#ffd43b,color:#000,stroke:#f59f00\n    classDef green fill:#51cf66,color:#fff,stroke:#40c057\n    classDef lightblue fill:#74c0fc,color:#fff,stroke:#4dabf7\n    classDef violet fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef lavender fill:#e6e6fa,color:#333,stroke:#b19cd9\n    class A1 red\n    class B1 yellow\n    class E1,E2 lightblue\n    class F1 violet\n    class D1,D2 lavender",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [
+    "bisection method",
+    "root finding",
+    "numerical methods",
+    "calculus"
+  ],
+  "sources": [
+    {
+      "title": "Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Bisection_method"
+    }
+  ],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "complexity": {
+    "level": "medium",
+    "nodes": 8,
+    "edges": 10,
+    "conditionals": 2
+  },
+  "processType": "algorithm"
+}

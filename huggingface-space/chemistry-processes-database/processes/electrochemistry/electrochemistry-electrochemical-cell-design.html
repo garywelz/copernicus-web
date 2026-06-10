@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Electrochemical Cell Design - Chemistry Process</title>
+    <title>Galvanic Cell & the Nernst Equation - Chemistry Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Electrochemical Cell Design</h1>
+            <h1>Galvanic Cell & the Nernst Equation</h1>
             <div class="header-meta">
                 <span class="meta-item">Chemistry</span>
                 <span class="meta-item">Electrochemistry</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,68 +234,57 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Electrochemical Cell Design process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>Design a galvanic cell by assigning anode and cathode half-reactions, computing the standard cell potential, correcting for non-standard conditions with the Nernst equation, and judging spontaneity from the sign of the cell potential.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-A1[Electrode Materials] --> B1[Cell Design Method]
-C1[Electrolyte Solution] --> D1[Potential Measurement]
-E1[External Circuit] --> F1[Current Control]
-B1 --> G1[Anode Selection]
-D1 --> H1[Voltage Monitoring]
-F1 --> I1[Resistance Optimization]
-G1 --> J1[Oxidation Potential]
-H1 --> K1[Cell Voltage]
-I1 --> L1[Current Density]
-J1 --> M1[Electron Release]
-K1 --> L1
-L1 --> N1[Charge Transfer]
-M1 --> O1[Ion Migration]
-N1 --> P1[Electrochemical Reaction]
-O1 --> Q1[Cell Performance]
-P1 --> R1[Product Formation]
-Q1 --> S1[Efficiency Calculation]
-R1 --> T1[Reaction Products]
-S1 --> U1[Performance Metrics]
-T1 --> V1[Yield Analysis]
-U1 --> W1[Optimization Parameters]
-V1 --> X1[Process Validation]
-W1 --> Y1[Design Refinement]
-X1 --> Z1[Final Cell Configuration]
-Y1 --> Z1
+    N1["Two half-reactions"]
+    N2["Assign anode (oxidation)"]
+    N3["Assign cathode (reduction)"]
+    N4["E°cell = E°cat − E°an"]
+    N5{"Non-standard conditions?"}
+    N6["Nernst: E = E° − (RT/nF)lnQ"]
+    N7{"E_cell > 0?"}
+    N8["Spontaneous: galvanic"]
+    N9["Electrolytic: needs power"]
+    N10["Salt bridge balances charge"]
 
-    style A1 fill:#ff6b6b,color:#fff
-    style C1 fill:#ff6b6b,color:#fff
-    style E1 fill:#ff6b6b,color:#fff
-    style B1 fill:#ffd43b,color:#000
-    style D1 fill:#ffd43b,color:#000
-    style F1 fill:#ffd43b,color:#000
-    style G1 fill:#ffd43b,color:#000
-    style H1 fill:#ffd43b,color:#000
-    style I1 fill:#ffd43b,color:#000
-    style J1 fill:#ffd43b,color:#000
-    style K1 fill:#ffd43b,color:#000
-    style L1 fill:#ffd43b,color:#000
-    style M1 fill:#51cf66,color:#fff
-    style N1 fill:#51cf66,color:#fff
-    style O1 fill:#51cf66,color:#fff
-    style P1 fill:#51cf66,color:#fff
-    style Q1 fill:#51cf66,color:#fff
-    style R1 fill:#51cf66,color:#fff
-    style S1 fill:#51cf66,color:#fff
-    style T1 fill:#51cf66,color:#fff
-    style U1 fill:#51cf66,color:#fff
-    style V1 fill:#51cf66,color:#fff
-    style W1 fill:#51cf66,color:#fff
-    style X1 fill:#51cf66,color:#fff
-    style Y1 fill:#51cf66,color:#fff
-    style Z1 fill:#b197fc,color:#fff
+    N1 --> N2
+    N1 --> N3
+    N2 --> N4
+    N3 --> N4
+    N4 --> N5
+    N5 -->|yes| N6
+    N5 -->|standard| N7
+    N6 --> N7
+    N7 -->|> 0| N8
+    N7 -->|< 0| N9
+    N8 --> N10
+
+    style N1 fill:#ff6b6b,color:#fff
+    style N2 fill:#51cf66,color:#fff
+    style N3 fill:#51cf66,color:#fff
+    style N4 fill:#51cf66,color:#fff
+    style N5 fill:#74c0fc,color:#fff
+    style N6 fill:#51cf66,color:#fff
+    style N7 fill:#74c0fc,color:#fff
+    style N8 fill:#b197fc,color:#fff
+    style N9 fill:#b197fc,color:#fff
+    style N10 fill:#51cf66,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Two half-reactions</td><td>Triggers & Inputs</td><td><a href="https://doi.org/10.1351/goldbook.S05912" target="_blank" title="Gold Book: standard electrode potential" style="color:#e74c3c;">IUPAC 2019</a></td></tr><tr><td style="font-weight:600;">Assign anode (oxidation)</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1351/goldbook.S05912" target="_blank" title="Gold Book: standard electrode potential" style="color:#e74c3c;">IUPAC 2019</a></td></tr><tr><td style="font-weight:600;">Assign cathode (reduction)</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1351/goldbook.S05912" target="_blank" title="Gold Book: standard electrode potential" style="color:#e74c3c;">IUPAC 2019</a></td></tr><tr><td style="font-weight:600;">E°cell = E°cat − E°an</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1351/goldbook.S05912" target="_blank" title="Gold Book: standard electrode potential" style="color:#e74c3c;">IUPAC 2019</a></td></tr><tr><td style="font-weight:600;">Non-standard conditions?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1515/zpch-1889-0408" target="_blank" title="Die elektromotorische Wirksamkeit der Ionen (Nernst equation)" style="color:#e74c3c;">Nernst, W. 1889</a></td></tr><tr><td style="font-weight:600;">Nernst: E = E° − (RT/nF)lnQ</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1515/zpch-1889-0408" target="_blank" title="Die elektromotorische Wirksamkeit der Ionen (Nernst equation)" style="color:#e74c3c;">Nernst, W. 1889</a></td></tr><tr><td style="font-weight:600;">E_cell > 0?</td><td>Intermediates & States</td><td><a href="https://www.wiley.com/en-us/Electrochemical+Methods%3A+Fundamentals+and+Applications%2C+3rd+Edition-p-9781119334064" target="_blank" title="Electrochemical Methods: Fundamentals and Applications, 3rd ed." style="color:#e74c3c;">Bard, A. J. et al. 2022</a></td></tr><tr><td style="font-weight:600;">Spontaneous: galvanic</td><td>Products & Outputs</td><td><a href="https://www.wiley.com/en-us/Electrochemical+Methods%3A+Fundamentals+and+Applications%2C+3rd+Edition-p-9781119334064" target="_blank" title="Electrochemical Methods: Fundamentals and Applications, 3rd ed." style="color:#e74c3c;">Bard, A. J. et al. 2022</a></td></tr><tr><td style="font-weight:600;">Electrolytic: needs power</td><td>Products & Outputs</td><td><a href="https://www.wiley.com/en-us/Electrochemical+Methods%3A+Fundamentals+and+Applications%2C+3rd+Edition-p-9781119334064" target="_blank" title="Electrochemical Methods: Fundamentals and Applications, 3rd ed." style="color:#e74c3c;">Bard, A. J. et al. 2022</a></td></tr><tr><td style="font-weight:600;">Salt bridge balances charge</td><td>Processing & Operations</td><td><a href="https://www.wiley.com/en-us/Electrochemical+Methods%3A+Fundamentals+and+Applications%2C+3rd+Edition-p-9781119334064" target="_blank" title="Electrochemical Methods: Fundamentals and Applications, 3rd ed." style="color:#e74c3c;">Bard, A. J. et al. 2022</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -314,12 +330,12 @@ Y1 --> Z1
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 26</li>
-                        <li><strong>Edges:</strong> 22</li>
-                        <li><strong>Conditionals:</strong> 0</li>
-                        <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 1</li>
+                        <li><strong>Nodes:</strong> 10</li>
+                        <li><strong>Edges:</strong> 11</li>
+                        <li><strong>Conditionals:</strong> 2</li>
+                        <li><strong>AND Gates:</strong> 2</li>
+                        <li><strong>OR Gates:</strong> 3</li>
+                        <li><strong>Total Gates:</strong> 5</li>
                     </ul>
                 </div>
                 
@@ -327,7 +343,7 @@ Y1 --> Z1
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>electrochemical</li><li>cell</li><li>design</li>
+                        <li>galvanic cell</li><li>nernst equation</li><li>cell potential</li><li>half-reaction</li><li>electrode potential</li>
                     </ul>
                 </div>
                 
@@ -338,42 +354,32 @@ Y1 --> Z1
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Die elektromotorische Wirksamkeit der Ionen (Nernst equation)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Nernst, W.
+                            , Zeitschrift für physikalische Chemie
+                             (1889)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Hydraulic Modelling As An Aid To Electrochemical Cell Design</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Wardle, Ian
-                            , Electrochemical Cell Design
-                             (1984)
-                            </span>
-                            <br><a href="https://doi.org/10.1007/978-1-4613-2795-0_5" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1007/978-1-4613-2795-0_5</a>
+                            <br><a href="https://doi.org/10.1515/zpch-1889-0408" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1515/zpch-1889-0408</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Design And Development Of Electrochemical Chlor-Alkali Cells</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Chatterjee, S. N.
-                            , Electrochemical Cell Design
-                             (1984)
+                            <strong>Electrochemical Methods: Fundamentals and Applications, 3rd ed.</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Bard, A. J.; Faulkner, L. R.; White, H. S.
+                            , Wiley
+                             (2022)
                             </span>
-                            <br><a href="https://doi.org/10.1007/978-1-4613-2795-0_1" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1007/978-1-4613-2795-0_1</a>
                             
+                            <br><a href="https://www.wiley.com/en-us/Electrochemical+Methods%3A+Fundamentals+and+Applications%2C+3rd+Edition-p-9781119334064" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Design of EC Modularized Electrochemical Cells</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Bjareklint, A.; Carlsson, L.; Sandegren, B.
-                            , Electrochemical Cell Design
-                             (1984)
+                            <strong>Gold Book: standard electrode potential</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">IUPAC
+                            , IUPAC Compendium of Chemical Terminology
+                             (2019)
                             </span>
-                            <br><a href="https://doi.org/10.1007/978-1-4613-2795-0_10" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1007/978-1-4613-2795-0_10</a>
+                            <br><a href="https://doi.org/10.1351/goldbook.S05912" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1351/goldbook.S05912</a>
                             
                         </li>
                         

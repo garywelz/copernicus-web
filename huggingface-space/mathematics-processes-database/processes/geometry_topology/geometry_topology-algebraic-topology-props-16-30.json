@@ -1,0 +1,39 @@
+{
+  "id": "geometry_topology-algebraic-topology-props-16-30",
+  "name": "Algebraic Topology — Part 2: Simplicial Homology",
+  "category": "mathematics",
+  "subcategory": "geometry_topology",
+  "subcategory_name": "Geometry & Topology",
+  "description": "Simplex, simplicial complex, chain groups, simplicial homology, Euler characteristic. Depends on Part 1 (homological algebra).",
+  "mermaid": "graph TD\n    RefTop[\"Topological space\"]\n    RefChain[\"Chain complex (Part 1)\"]\n    DefSimplex[\"Def: k-simplex\"]\n    DefFace[\"Def: Face of simplex\"]\n    DefSimpComp[\"Def: Simplicial complex K\"]\n    DefOrientation[\"Def: Oriented simplex\"]\n    DefChainGroup[\"Def: Chain group C_k(K)\"]\n    DefBoundSimp[\"Def: Boundary ∂ on C_k(K)\"]\n    LemBoundSqSimp[\"Lem: ∂² = 0 for simplicial chains\"]\n    DefSimpHom[\"Def: Simplicial homology H_k(K)\"]\n    DefReduced[\"Def: Reduced homology H̃_n\"]\n    ThmH0Conn[\"Thm: H_0 ≅ Z^c for c path components\"]\n    DefEuler[\"Def: Euler characteristic χ(K)\"]\n    ThmEulerAlt[\"Thm: χ = Σ (-1)^k rank H_k\"]\n    LemBetti[\"Lem: Betti numbers b_k = rank H_k\"]\n    ThmInvariance[\"Thm: H_* invariant under subdivision\"]\n    RefTop --> DefSimpComp\n    RefChain --> DefChainGroup\n    DefSimplex --> DefFace\n    DefSimplex --> DefSimpComp\n    DefFace --> DefSimpComp\n    DefSimpComp --> DefOrientation\n    DefOrientation --> DefChainGroup\n    DefChainGroup --> DefBoundSimp\n    DefBoundSimp --> LemBoundSqSimp\n    LemBoundSqSimp --> DefSimpHom\n    DefSimpHom --> DefReduced\n    DefSimpHom --> ThmH0Conn\n    DefSimpComp --> DefEuler\n    DefSimpHom --> LemBetti\n    LemBetti --> ThmEulerAlt\n    DefEuler --> ThmEulerAlt\n    DefSimpHom --> ThmInvariance\n    classDef ref fill:#bdc3c7,color:#333,stroke:#95a5a6\n    classDef definition fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef lemma fill:#74c0fc,color:#fff,stroke:#4dabf7\n    classDef theorem fill:#51cf66,color:#fff,stroke:#40c057\n    class RefTop,RefChain ref\n    class DefSimplex,DefFace,DefSimpComp,DefOrientation,DefChainGroup,DefBoundSimp,DefSimpHom,DefReduced,DefEuler definition\n    class LemBoundSqSimp,LemBetti lemma\n    class ThmH0Conn,ThmEulerAlt,ThmInvariance theorem",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

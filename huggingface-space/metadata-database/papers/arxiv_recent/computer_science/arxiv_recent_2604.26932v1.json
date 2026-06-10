@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2604.26932v1",
+  "arxiv_id": "2604.26932v1",
+  "title": "Learning Over-Relaxation Policies for ADMM with Convergence Guarantees",
+  "authors": [
+    "Junan Lin",
+    "Paul J. Goulart",
+    "Luca Furieri"
+  ],
+  "author_string": "Junan Lin, Paul J. Goulart, Luca Furieri",
+  "journal": "arXiv:2604.26932v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "The Alternating Direction Method of Multipliers (ADMM) is a widely used method for structured convex optimization, and its practical performance depends strongly on the choice of penalty and relaxation parameters. Motivated by settings such as Model Predictive Control (MPC), where one repeatedly solves related optimization problems with fixed structure and changing parameter values, we propose learning online updates of the relaxation parameter to improve performance on problem classes of interest. This choice is computationally attractive in OSQP-like architectures, since adapting relaxation does not trigger the matrix refactorizations associated with penalty updates. We establish convergence guarantees for ADMM with time-varying penalty and relaxation parameters under mild assumptions, and show on benchmark quadratic programs that the resulting learned policies improve both iteration count and wall-clock time over baseline OSQP.",
+  "categories": [
+    "math.OC",
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": null,
+  "published_date": "2026-04-29T17:45:52Z",
+  "updated_date": "2026-04-29T17:45:52Z",
+  "url": "https://arxiv.org/abs/2604.26932v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.26932v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-30T10:15:42.516256",
+  "category": "computer_science",
+  "subcategories": [
+    "math.OC",
+    "cs.LG"
+  ]
+}

@@ -328,13 +328,18 @@ def acquire_recent_papers(target_count: int = 5000):
     # - math: math.*
     # - cs: cs.*
     # - biology: q-bio.*
+    q_bio_target = max(1, int(target_count * 0.60))
+    cs_target = max(1, int(target_count * 0.20))
+    stats_target = max(1, int(target_count * 0.10))
+    bio_physics_target = max(1, target_count - q_bio_target - cs_target - stats_target)
     queries = [
-        ("(cat:astro-ph.* OR cat:cond-mat.* OR cat:gr-qc OR cat:hep-ph OR cat:hep-th OR cat:hep-ex OR cat:hep-lat OR cat:nucl-ex OR cat:nucl-th OR cat:physics.* OR cat:quant-ph OR cat:math-ph)", "physics", 1500),
-        ("cat:math.*", "mathematics", 1200),
-        ("cat:cs.*", "computer_science", 1200),
-        ("cat:q-bio.*", "biology", 600),
-        ("cat:stat.*", "mathematics", 300),
-        ("cat:q-fin.*", "interdisciplinary", 200),
+        ("cat:q-bio.*", "biology", q_bio_target),
+        ("(cat:cs.AI OR cat:cs.LG OR cat:cs.CL OR cat:cs.CV)", "computer_science", cs_target),
+        ("(cat:stat.ML OR cat:stat.AP OR cat:math.ST)", "mathematics", stats_target),
+        ("(cat:physics.bio-ph OR cat:physics.med-ph OR cat:cond-mat.soft)", "physics", bio_physics_target),
+        ("cat:cs.*", "computer_science", target_count),
+        ("cat:math.*", "mathematics", target_count),
+        ("(cat:astro-ph.* OR cat:cond-mat.* OR cat:gr-qc OR cat:hep-ph OR cat:hep-th OR cat:hep-ex OR cat:hep-lat OR cat:nucl-ex OR cat:nucl-th OR cat:physics.* OR cat:quant-ph OR cat:math-ph)", "physics", target_count),
     ]
     
     all_papers = []

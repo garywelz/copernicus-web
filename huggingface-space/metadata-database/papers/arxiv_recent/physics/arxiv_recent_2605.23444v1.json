@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_2605.23444v1",
+  "arxiv_id": "2605.23444v1",
+  "title": "Hyperedge approximation for stochastic processes on higher-order networks",
+  "authors": [
+    "Anzhi Sheng",
+    "Alex McAvoy",
+    "Ye Tian",
+    "Silun Zhang",
+    "Angela Fontan",
+    "Joshua B. Plotkin"
+  ],
+  "author_string": "Anzhi Sheng, Alex McAvoy, Ye Tian, Silun Zhang, Angela Fontan et al.",
+  "journal": "arXiv:2605.23444v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Graphs are a standard framework for describing dynamical processes shaped by pairwise interactions among agents. But many systems involve interactions in groups of three or more agents. Here, we develop a method of \"$\\ell$-hyperedge approximation\", a framework to analyze stochastic population processes on regular hypergraphs, in which each individual belongs to $k$ groups of size $\\ell$. The framework accommodates both higher-order interactions that determine payoffs and higher-order processes for updating states in response to payoffs. Applied to evolutionary game dynamics, the framework generalizes the classical pairwise result on benefits and costs, $b/c>k$, that favors the spread of cooperation; and it provides critical benefit-to-cost ratios for nonlinear $\\ell$-player public goods games that cannot be reduced to pairwise interactions. Applied to complex contagions, where inheritance of states occurs within hyperedges rather than along parent-offspring edges, the framework gives a closed-form result for the fixation probability, which shows how a complexity parameter governs the spread of rare types. Coupling the two processes produces a single stochastic model of payoff-biased complex contagion in structured populations. These results extend pair approximation from graphs to hypergraphs, accommodating multi-way interactions and inheritance structures with no pairwise analog.",
+  "categories": [
+    "physics.soc-ph",
+    "physics.bio-ph"
+  ],
+  "primary_category": "physics.bio-ph",
+  "comment": null,
+  "published_date": "2026-05-22T09:57:55Z",
+  "updated_date": "2026-05-22T09:57:55Z",
+  "url": "https://arxiv.org/abs/2605.23444v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.23444v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-25T10:15:46.173351",
+  "category": "physics",
+  "subcategories": [
+    "physics.soc-ph",
+    "physics.bio-ph"
+  ]
+}

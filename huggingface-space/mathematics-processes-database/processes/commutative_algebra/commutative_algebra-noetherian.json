@@ -1,0 +1,39 @@
+{
+  "id": "commutative_algebra-noetherian",
+  "name": "Noetherian Rings",
+  "category": "mathematics",
+  "subcategory": "commutative_algebra",
+  "subcategory_name": "Commutative Algebra",
+  "description": "ACC on ideals. Hilbert basis: R Noetherian ⇒ R[x] Noetherian. Primary ideals, Artin–Rees.",
+  "mermaid": "graph TD\n    D1[\"Def: Noetherian\\nACC on ideals\"]\n    D2[\"Def: Finitely generated\\nideal I=(a₁,...,aₙ)\"]\n    D3[\"Def: Hilbert basis\\nR Noeth ⇒ R[x] Noeth\"]\n    D4[\"Def: Artinian\\nDCC on ideals\"]\n    T1[\"Thm: I fg ⇔ ACC\\nNoetherian equiv\"]\n    T2[\"Thm: Hilbert basis\\nR[x] Noeth\"]\n    T3[\"Thm: Quotient Noeth\\nR/I Noeth\"]\n    T4[\"Thm: Localization\\nS⁻¹R Noeth\"]\n    T5[\"Thm: Artin–Rees\\nIⁿ∩J stabilizes\"]\n    D1 --> T1\n    D1 --> T2\n    D2 --> T1\n    D3 --> T2\n    T2 --> T3\n    T3 --> T4\n    classDef definition fill:#b197fc,color:#fff\n    classDef theorem fill:#51cf66,color:#fff\n    class D1,D2,D3,D4 definition\n    class T1,T2,T3,T4,T5 theorem",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

@@ -1,0 +1,43 @@
+{
+  "id": "arxiv_2604.23805v1",
+  "arxiv_id": "2604.23805v1",
+  "title": "Initial Performance of the E320 Tracker",
+  "authors": [
+    "Oleksandr Borysov",
+    "Sébastien Corde",
+    "Gal Evenzur",
+    "Alexander Knetsch",
+    "Alon Levi",
+    "Sebastian Meuren",
+    "Nathaly Nofech-Mozes",
+    "Ivan Rajkovic",
+    "Sheldon Rego",
+    "David A. Reis",
+    "Arka Santra",
+    "Tania Smorodnikova",
+    "Doug W. Storey",
+    "Noam Tal Hod",
+    "Roman Urmanov"
+  ],
+  "author_string": "Oleksandr Borysov, Sébastien Corde, Gal Evenzur, Alexander Knetsch, Alon Levi et al.",
+  "journal": "arXiv:2604.23805v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Our recent study discussed the prospects for measuring single positrons produced in electron-laser collisions via the nonlinear Breit-Wheeler deep-tunneling process in the SLAC Experiment 320 at the FACET-II RF LINAC. In this work, we demonstrate how a tracking detector, that is a scaled-down version of the one discussed in the prospective simulation study, enables the measurement. This prototype detector, installed in Aug 2024, is built out of five layers of single ALPIDE chips. The data are taken from several standalone runs completed in Nov 2024 and Feb 2025. We use positrons generated through conversion of Bremsstrahlung photons as a proxy to the nonlinear Breit-Wheeler process. These positrons are produced by the beam electrons in a thin Beryllium foil close to the experiment's interaction point. The tracking approach used in this initial work is based on a Hough-Transform seeding algorithm followed by a straight line fit confined to the detector volume. Even with this relatively simple approach, we are able to measure a signal rate of $(1.20\\pm0.06_{stat.}\\pm0.56_{syst.})\\times10^{-1}$ positrons per shot. This signal rate is comparable to the nonlinear Breit-Wheeler rate expected in the main experiment. Notably, the measurement is achieved under an extreme, unprecedented background hit density of ~1.7/mm$^2$, unlike the main experiment, where at least a twice lower density is expected. This large background is mostly due to secondary particles produced when the large flux of Bremsstrahlung photons interacts with the material of the beamline elements. When the foil is retracted, the false-positive signal rate is shown to be four orders of magnitude smaller than the signal rate. We further show that the high spatial tracking resolution of ~5 micron allows to characterize the positrons' spectra. The results are compared to simulations, which are found to be compatible with the data.",
+  "categories": [
+    "hep-ex"
+  ],
+  "primary_category": "hep-ex",
+  "comment": null,
+  "published_date": "2026-04-26T17:03:00Z",
+  "updated_date": "2026-04-26T17:03:00Z",
+  "url": "https://arxiv.org/abs/2604.23805v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.23805v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-27T22:15:30.655653",
+  "category": "physics",
+  "subcategories": [
+    "hep-ex"
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2604.25904v1",
+  "arxiv_id": "2604.25904v1",
+  "title": "Teacher Forcing as Generalized Bayes: Optimization Geometry Mismatch in Switching Surrogates for Chaotic Dynamics",
+  "authors": [
+    "Andre Herz",
+    "Daniel Durstewitz",
+    "Georgia Koppe"
+  ],
+  "author_string": "Andre Herz, Daniel Durstewitz, Georgia Koppe",
+  "journal": "arXiv:2604.25904v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Identity teacher forcing (ITF) enables stable training of deterministic recurrent surrogates for chaotic dynamical systems and has been highly effective for dynamical systems reconstruction (DSR) with recurrent neural networks (RNNs), including interpretable almost-linear RNNs (AL-RNNs). However, as an intervention-based prediction loss (and thus a generalized Bayes update), teacher forcing need not match the free-running model's marginal likelihood geometry. We compare the objective-induced curvatures of ITF and marginal likelihood in a probabilistic switching augmentation of AL-RNNs, estimating ambiguity-aware observed information via Louis' identity. In the switching setting studied here, conditioning on a single forced regime path (as ITF does) inflates curvature, while marginal likelihood curvature is reduced by a missing-information correction when multiple switching explanations remain plausible. In Lorenz-63 experiments, windowed evidence fine-tuning improves held-out evidence but can degrade dynamical quantities of interest (QoIs) relative to ITF-pretrained models.",
+  "categories": [
+    "cs.LG",
+    "math.DS",
+    "stat.ML"
+  ],
+  "primary_category": "stat.ML",
+  "comment": "Presented at the Workshop on Optimization and Post-Bayesian Inference in Machine Learning, AISTATS 2026",
+  "published_date": "2026-04-28T17:50:37Z",
+  "updated_date": "2026-04-28T17:50:37Z",
+  "url": "https://arxiv.org/abs/2604.25904v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.25904v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-29T10:15:44.738231",
+  "category": "mathematics",
+  "subcategories": [
+    "cs.LG",
+    "math.DS",
+    "stat.ML"
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "id": "arxiv_2605.00033v1",
+  "arxiv_id": "2605.00033v1",
+  "title": "Sure About That Line? Approaching Confidence-Based, Real-Time Line Assignment in Reading Gaze Data",
+  "authors": [
+    "Franziska Kaltenberger",
+    "Wei-Ling Chen",
+    "Enkeleda Thaqi",
+    "Enkelejda Kasneci"
+  ],
+  "author_string": "Franziska Kaltenberger, Wei-Ling Chen, Enkeleda Thaqi, Enkelejda Kasneci",
+  "journal": "arXiv:2605.00033v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Remote and webcam-based eye tracking in multi-line reading suffers from various noise factors and layout ambiguity, precisely where real-time reading support needs reliable, per-fixation line assignment. Prior work largely addresses this challenge post hoc or by restricting behavior (e.g., disallowing re-reading), undermining interactive use. We propose CONF-LA (Confidence-score-based Online Fixation-to-Line Assignment), a principled, low-latency approach that integrates knowledge about reading behavior and Gaussian line likelihoods over fixations to compute a posterior-line-score and defers assignments when uncertainty is high. Evaluated on existing open-source data, CONF-LA demonstrates stable performance in post hoc analysis and closes the online-offline gap (1-2 %) with a mean per-fixation latency of 0.348 ms. Our approach exhibits particular invariance toward regressions, yielding significant improvement in ad hoc median accuracies on children data (approx. 95 %) over all tested algorithms. We encourage further research in this direction and discuss possibilities for future development.",
+  "categories": [
+    "q-bio.NC",
+    "cs.AI",
+    "cs.HC",
+    "cs.LG",
+    "eess.IV"
+  ],
+  "primary_category": "eess.IV",
+  "comment": "Accepted at ETRA 2026. To appear in Proceedings of the ACM on Computer Graphics and Interactive Techniques. 21 pages, 12 figures",
+  "published_date": "2026-04-27T14:34:37Z",
+  "updated_date": "2026-04-27T14:34:37Z",
+  "url": "https://arxiv.org/abs/2605.00033v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.00033v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-05T10:15:43.368444",
+  "category": "interdisciplinary",
+  "subcategories": [
+    "q-bio.NC",
+    "cs.AI",
+    "cs.HC"
+  ]
+}

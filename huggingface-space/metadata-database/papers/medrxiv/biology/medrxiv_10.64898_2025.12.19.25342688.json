@@ -1,0 +1,45 @@
+{
+  "id": "medrxiv_10.64898_2025.12.19.25342688",
+  "doi": "10.64898/2025.12.19.25342688",
+  "title": "Relationship of the Microbiome with Neurodegenerative Diseases: Development of AI Tools to Detect Alzheimer's",
+  "authors": [
+    "Perez-Cuervo, A.",
+    "Lacruz-Pleguezuelos, B.",
+    "Coleto-Checa, D.",
+    "Marcos-Zambrano, L. J.",
+    "Carrillo de Santa Pau, E.",
+    "Martin-Segura, A."
+  ],
+  "author_string": "Perez-Cuervo, A., Lacruz-Pleguezuelos, B., Coleto-Checa, D., Marcos-Zambrano, L. J., Carrillo de Santa Pau, E. et al.",
+  "journal": "medRxiv",
+  "journal_full": "medRxiv",
+  "year": "2025",
+  "abstract": "This study aimed to develop an artificial intelligence (AI) algorithm capable of distinguishing Alzheimers disease (AD) from healthy patients using gut microbiome metagenomics data. To do so, 16S rRNA gene and Whole Genome Shotgun (WGS) datasets available in the literature were utilised. Data was pre-processed and filtered. Then, an initial analysis was done to study classical parameters of microbiome data, such as alpha and beta diversity, as well as to unveil taxonomical differences between the groups that might be influencing disease development, using a unified workflow to enable integration of 16S rRNA gene and WGS data.\n\nNeural Network algorithms were subsequently applied to develop the classifier. First a classical multi-layer perceptron (MLPNN) architecture was tested, which showed limited classification performance, particularly in detecting AD cases. These results were improved using a convolutional neural network (CNN) architecture, due to its better comprehension of hierarchic data like taxa relative abundances sorted following phylogenetic tree structure. In addition, these AI methods were compared with a random forest (RF) classifier, a traditional machine learning algorithm. All models struggled to accurately identify AD cases due to the low number of samples used for algorithm training. Although the RF showed a better performance under such circumstances, observing the evaluation metrics the application of AI to this task reveals promising upon higher amounts of training data. The use of SMOTE, a data augmentation approach, confirmed this assumption improving performance across all models but specifically in the CNN. These results support the utility of microbiome-based diagnostics in AD, but highlight the need for larger, diverse datasets and multi-omics approaches to improve model reliability and uncover disease mechanisms.",
+  "keywords": [],
+  "categories": [
+    "neurology"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.64898/2025.12.19.25342688",
+  "source": "medrxiv",
+  "sources": [
+    "medrxiv"
+  ],
+  "acquired_date": "2026-04-28T22:15:24.795319",
+  "category": "biology",
+  "subcategories": [
+    "neurology"
+  ],
+  "published_date": "2025-12-29",
+  "updated_date": "2025-12-29",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "medrxiv",
+  "preprint_version": "1",
+  "preprint_type": "PUBLISHAHEADOFPRINT",
+  "license": "cc_by_nc",
+  "jatsxml": "https://www.medrxiv.org/content/early/2025/12/29//2025.12.19.25342688.source.xml",
+  "published_doi": null,
+  "author_corresponding": "Adrian Martin-Segura",
+  "author_corresponding_institution": "IMDEA Food"
+}

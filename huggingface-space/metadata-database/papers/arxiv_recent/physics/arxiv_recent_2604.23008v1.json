@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_2604.23008v1",
+  "arxiv_id": "2604.23008v1",
+  "title": "Delay Modeling with Conformable and Caputo Derivatives: Analytical and Computational Insights",
+  "authors": [
+    "Yhon Flores",
+    "Michel Molina del Sol",
+    "Genly Leon",
+    "Byron Droguett",
+    "Guillermo Fernández-Anaya",
+    "Yoelsy Leyva"
+  ],
+  "author_string": "Yhon Flores, Michel Molina del Sol, Genly Leon, Byron Droguett, Guillermo Fernández-Anaya et al.",
+  "journal": "arXiv:2604.23008v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "This work presents an analytical and computational study of fractional-order delay differential equations formulated using both the conformable and Caputo derivatives. For the conformable case, we develop the associated integral, exponential function, and Laplace transform, showing how the conformable Laplace framework preserves algebraic structure and facilitates explicit solutions. Delay terms are treated through series expansions and transform-based methods, ensuring causal and finite representations. In parallel, Caputo-based formulations are examined, highlighting the challenges posed by convolutional memory kernels and the potential for long-term numerical instability. Numerical implementations are carried out using mesh-aligned algorithms: Euler and Runge--Kutta schemes for conformable dynamics, and Euler, L2--$σ$, and a series--anchored predictor--corrector method for Caputo dynamics. Comparative experiments demonstrate that conformable derivatives yield stable, consistent agreement between analytic and numerical solutions, whereas Caputo dynamics require higher-order or series-anchored schemes to suppress discretization noise and maintain long-term accuracy. These results underscore the advantages of the conformable formalism in modeling dynamic phenomena with delay and memory, offering a tractable and physically interpretable alternative to integral-based fractional models.",
+  "categories": [
+    "math.NA",
+    "math-ph"
+  ],
+  "primary_category": "math-ph",
+  "comment": "75 pages, 7 compound figures",
+  "published_date": "2026-04-24T20:54:31Z",
+  "updated_date": "2026-04-24T20:54:31Z",
+  "url": "https://arxiv.org/abs/2604.23008v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.23008v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-27T22:15:39.108169",
+  "category": "physics",
+  "subcategories": [
+    "math.NA",
+    "math-ph"
+  ]
+}

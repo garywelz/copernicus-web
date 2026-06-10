@@ -1,0 +1,100 @@
+{
+  "displayName": "Biology",
+  "slug": "biology",
+  "databaseDir": "biology-processes-database",
+  "tableFile": "biology-database-table.html",
+  "accent": "#16a34a",
+  "subtitle": "Pathways, mechanisms, assay protocols, organisms, and biological systems.",
+  "lensTitle": "Biological Lens",
+  "lensDescription": "Browse by pathway, mechanism, protocol, organismal scale, and experimental context.",
+  "facetLabels": {
+    "subcategory": "Process Type",
+    "collection": "Theme",
+    "complexity": "Complexity"
+  },
+  "insightCards": [
+    {
+      "label": "Best for",
+      "value": "pathways, mechanisms, assays"
+    },
+    {
+      "label": "Research links",
+      "value": "PubMed and BioRxiv/MedRxiv searches"
+    },
+    {
+      "label": "Expansion focus",
+      "value": "organismal biology, immunology, development, ecology"
+    }
+  ],
+  "frontierSearches": [
+    {
+      "label": "PubMed",
+      "urlTemplate": "https://pubmed.ncbi.nlm.nih.gov/?term={query}"
+    },
+    {
+      "label": "BioRxiv",
+      "urlTemplate": "https://www.biorxiv.org/search/{query}"
+    },
+    {
+      "label": "MedRxiv",
+      "urlTemplate": "https://www.medrxiv.org/search/{query}"
+    }
+  ],
+  "contextColumnLabel": "Organism",
+  "defaultContext": "General biology",
+  "supportedGraphTypes": [
+    "flowchart",
+    "taxonomy",
+    "lineage_tree",
+    "state_transition",
+    "influence_network"
+  ],
+  "metricColumns": [
+    {
+      "id": "nodes",
+      "label": "Nodes"
+    },
+    {
+      "id": "edges",
+      "label": "Edges"
+    },
+    {
+      "id": "conditionals",
+      "label": "Conditionals"
+    },
+    {
+      "id": "andGates",
+      "label": "AND Gates"
+    },
+    {
+      "id": "orGates",
+      "label": "OR Gates"
+    },
+    {
+      "id": "notGates",
+      "label": "NOT Gates"
+    },
+    {
+      "id": "loops",
+      "label": "Loops"
+    }
+  ],
+  "graphTypeLabels": {
+    "flowchart": "Flowchart",
+    "dependency_graph": "Dependency Graph",
+    "taxonomy": "Taxonomy",
+    "lineage_tree": "Lineage Tree",
+    "influence_network": "Influence Network",
+    "state_transition": "State Transition",
+    "timeline": "Timeline"
+  },
+  "featuredMaps": [
+    {
+      "label": "Whole of Life Map",
+      "url": "whole-of-life.html",
+      "description": "Interactive taxonomy pilot spanning Life, domains, major clades, representative organisms, and process links."
+    }
+  ],
+  "generatedFrom": "scripts/processes/discipline_databases/enhanced_database_table.py",
+  "collectionCount": 10
+}

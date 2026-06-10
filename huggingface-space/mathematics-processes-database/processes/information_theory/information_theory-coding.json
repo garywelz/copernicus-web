@@ -1,0 +1,39 @@
+{
+  "id": "information_theory-coding",
+  "name": "Source & Channel Coding",
+  "category": "mathematics",
+  "subcategory": "information_theory",
+  "subcategory_name": "Information Theory",
+  "description": "Source coding, channel coding. Optimal codes.",
+  "mermaid": "graph TD\n    D1[\"Def: Source code\\nenc: X^n→{0,1}*\"]\n    D2[\"Def: Channel code\\nenc, dec, rate R\"]\n    D3[\"Def: Block error\\nP_e = P(dec(Y)≠X)\"]\n    D4[\"Def: Rate R\\nbits/channel use\"]\n    T1[\"Thm: Source coding\\nR≥H(X) for lossless\"]\n    T2[\"Thm: Channel coding\\nR<C ⇒ ∃ code\"]\n    T3[\"Thm: Joint src-ch\\nseparation optimal\"]\n    T4[\"Thm: Lempel–Ziv\\nuniversal compress\"]\n    T5[\"Thm: Polar codes\\ncapacity achieving\"]\n    D1 --> D2\n    D2 --> D3\n    D3 --> T1\n    T1 --> T2\n    T2 --> T4\n    classDef definition fill:#b197fc,color:#fff\n    classDef theorem fill:#51cf66,color:#fff\n    class D1,D2,D3,D4 definition\n    class T1,T2,T3,T4,T5 theorem",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

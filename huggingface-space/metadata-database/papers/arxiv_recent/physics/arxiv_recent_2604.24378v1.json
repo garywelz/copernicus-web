@@ -1,0 +1,37 @@
+{
+  "id": "arxiv_2604.24378v1",
+  "arxiv_id": "2604.24378v1",
+  "title": "pyTANSPEC v1.0 and HxRGproc: Updated packages to Clean and Reduce TANSPEC data",
+  "authors": [
+    "Varghese Reji",
+    "Joe P. Ninan",
+    "Supriyo Ghosh",
+    "Devendra K. Ojha",
+    "Saurabh Sharma"
+  ],
+  "author_string": "Varghese Reji, Joe P. Ninan, Supriyo Ghosh, Devendra K. Ojha, Saurabh Sharma",
+  "journal": "arXiv:2604.24378v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "TIFR-ARIES Near-Infrared Spectrometer (TANSPEC) is a spectrograph-cum-imager operating over the wavelength range $0.55 - 2.5~μ$m. The instrument is mounted on the 3.6-m Devasthal Optical Telescope (3.6-m DOT). It offers two resolution modes: Low Resolution (LR) with $R\\sim100-350$ and Cross-Dispersed (XD) via various slits of different widths (0.5\", 0.75\", 1.0\", 1.5\", 2.0\" and 4.0\"). The LR mode provides a resolving power ($R$) of $\\sim 100-350$, while the XD mode achieves $R\\sim2500$ using the 0.5\" slit. The previous version of the data reduction pipeline supported only wavelength-calibrated XD mode spectra and was limited to two slits (S-0.5 and S-1.0). In this work, we present an upgraded version of pyTANSPEC. The upgraded pipeline not only improves the data extraction algorithm but also introduces several new features for users. It now enables the reduction of spectra from all available slits for both LR and XD modes. The upgraded version also implements a template-matching method for more precise wavelength calibration. Additionally, a step for flux calibration is also included.   Alongside pyTANSPEC, we upgraded HxRGproc, a Python package for cleaning and generating slope images from Non-Destructive Readout (NDR) frames taken with H1RG and H2RG detectors. The package performs non-linearity correction, flags saturated pixels, removes pink noise, and eliminates cosmic ray events. HxRGproc is updated to work for the H2RG detector of TANSPEC and is set up on the TANSPEC server, ensuring users receive data that are pre-cleaned and non-linearity corrected.",
+  "categories": [
+    "astro-ph.IM",
+    "astro-ph.GA",
+    "astro-ph.SR"
+  ],
+  "primary_category": "astro-ph.SR",
+  "comment": "15 pages, 12 figures, accepted for publication in Journal of Astrophysics and Astronomy on 27 April 2026",
+  "published_date": "2026-04-27T12:09:26Z",
+  "updated_date": "2026-04-27T12:09:26Z",
+  "url": "https://arxiv.org/abs/2604.24378v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.24378v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-27T22:15:21.999745",
+  "category": "physics",
+  "subcategories": [
+    "astro-ph.IM",
+    "astro-ph.GA",
+    "astro-ph.SR"
+  ]
+}

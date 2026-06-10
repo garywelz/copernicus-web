@@ -1,0 +1,45 @@
+{
+  "id": "medrxiv_10.64898_2025.12.23.25342912",
+  "doi": "10.64898/2025.12.23.25342912",
+  "title": "Clustering high-cost patients in England using machine learning: a population-based cohort study",
+  "authors": [
+    "Wang, S.",
+    "Anselmi, L.",
+    "Sutton, M.",
+    "Kontopantelis, E.",
+    "Beaney, T.",
+    "Anderson, M."
+  ],
+  "author_string": "Wang, S., Anselmi, L., Sutton, M., Kontopantelis, E., Beaney, T. et al.",
+  "journal": "medRxiv",
+  "journal_full": "medRxiv",
+  "year": "2026",
+  "abstract": "ObjectiveTo identify clusters of high-cost patients in England based on diagnoses and sociodemographic characteristics to inform targeted population health management.\n\nDesignA retrospective population-based cohort study using unsupervised machine learning.\n\nSettingEnglish primary care electronic health records from the Clinical Practice Research Datalink, linked to Hospital Episode Statistics for hospital records and Office for National Statistics mortality data.\n\nParticipants10,119,490 adult patients aged 18 years or over registered with 1,397 general practices in England on 1 April 2018. High-cost patients were defined as the top 1% of total healthcare spending (n=101,195). Additional high-cost population were examined, including age-specific subgroups, patients who died during the year and patients in the top 1% of unplanned care costs.\n\nMain outcome measuresPrimary and secondary care costs in financial year 2018/19. Clusters of high-cost patients defined using unsupervised machine learning based on age, sex, area-level deprivation, ethnicity, and diagnoses recorded during 2006/07-2018/19.\n\nResultsHigh-cost patients accounted for GBP1.8billion (26.8%) of GBP6.6billion population costs. Mean annual costs per high-cost patients were GBP17,485 (median GBP14,609; interquartile range: GBP12,028 to GBP19,633) compared with GBP653 (GBP103; GBP14 to GBP352) in the overall population. Hierarchical clustering identifying nine clusters was the optimal solution based on evaluation combining multiple validity and stability metrics. Across those clusters, mean age ranged from 56 to 79 years, and mean annual costs ranged from GBP15,792 (95%CI GBP15,629 to GBP15,955) to GBP19,107 (GBP18,784 to GBP19,430). Notable clusters produced across clustering approaches and high-cost populations, including younger people with liver disease and mental health conditions, patients with nodal metastases, patients with prostate cancer and hyperplasia, and older people with cardiovascular disease and dementia.\n\nConclusionHigh-cost patients are a heterogeneous population with distinct clinical and sociodemographic profiles and utilization patterns. Clustering across multiple high-cost populations identified recurrent clusters, highlighting common pathways of high expenditure, while also revealing population-specific patterns of need. Incorporating cluster-based approaches into population health management may improve the targeting of case management programmes, optimise resource allocation, and support more effective and sustainable health system planning.\n\nWhat is already known on this topicO_LIA small proportion of patients account for a large share of healthcare costs, and are a priority for population health management.\nC_LIO_LIPrevious clustering studies show heterogeneity among high-cost patients, but are often limited by scale, care settings, or lack of robustness assessment\nC_LI\n\nWhat this study addsO_LIUsing linked English primary and secondary care data for over 10 million adults, the top 1% high-cost patients accounted for more than a quarter of total costs.\nC_LIO_LIBy comparing multiple clustering methods across several high-cost populations, we identify recurrent, clinically interpretable subgroups, including younger adults with liver disease and mental health conditions, highly deprived, with heavy emergency use; oncology with nodal metastases, intensive planned pathways and high mortality; older men with prostate cancer or hyperplasia, sustained planned care; and older adults with cardiovascular disease and dementia, recurrent emergency admissions and high primary-care contact\nC_LI\n\nHow this study might affect research, practice or policyO_LIRobust segmentation can complement risk prediction by supporting more tailored, multidisciplinary care for high-cost patients.\nC_LIO_LICluster profiles can inform population health management and service planning in universal healthcare systems.\nC_LI",
+  "keywords": [],
+  "categories": [
+    "health systems and quality improvement"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.64898/2025.12.23.25342912",
+  "source": "medrxiv",
+  "sources": [
+    "medrxiv"
+  ],
+  "acquired_date": "2026-05-05T22:15:25.968723",
+  "category": "biology",
+  "subcategories": [
+    "health systems and quality improvement"
+  ],
+  "published_date": "2026-01-05",
+  "updated_date": "2026-01-05",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "medrxiv",
+  "preprint_version": "2",
+  "preprint_type": "PUBLISHAHEADOFPRINT",
+  "license": "cc_by",
+  "jatsxml": "https://www.medrxiv.org/content/early/2026/01/05//2025.12.23.25342912.source.xml",
+  "published_doi": null,
+  "author_corresponding": "Shaolin Wang",
+  "author_corresponding_institution": "University of Manchester"
+}

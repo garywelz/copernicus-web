@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2605.00789v1",
+  "arxiv_id": "2605.00789v1",
+  "title": "Make Your LVLM KV Cache More Lightweight",
+  "authors": [
+    "Xihao Chen",
+    "Yangyang Guo",
+    "Roger Zimmermann"
+  ],
+  "author_string": "Xihao Chen, Yangyang Guo, Roger Zimmermann",
+  "journal": "arXiv:2605.00789v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Key-Value (KV) cache has become a de facto component of modern Large Vision-Language Models (LVLMs) for inference. While it enhances decoding efficiency in Large Language Models (LLMs), its direct adoption in LVLMs introduces substantial GPU memory overhead due to the large number of vision tokens processed during the prefill stage. To tackle this problem, we propose LightKV, a novel approach that reduces KV cache size by exploiting the redundancy among vision-token embeddings. Guided by text prompts, LightKV employs cross-modality message passing to aggregate informative messages across vision tokens and progressively compress them during prefill. This prompt-aware guidance distinguishes our method from prior vision-only compression strategies. We evaluate LightKV on eight open-source LVLMs across eight public benchmark datasets, e.g., MME and SeedBench. Experimental results demonstrate that with only 55% of the original vision tokens, LightKV (a) halves the vision-token KV cache size, (b) reduces computation by up to 40%, and (c) preserves general-purpose performance while significantly outperforming existing baselines.",
+  "categories": [
+    "cs.CV",
+    "cs.AI",
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": "Accepted to Transactions on Machine Learning Research (TMLR), 2026",
+  "published_date": "2026-05-01T17:11:39Z",
+  "updated_date": "2026-05-01T17:11:39Z",
+  "url": "https://arxiv.org/abs/2605.00789v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.00789v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-04T10:15:40.310502",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CV",
+    "cs.AI",
+    "cs.LG"
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2605.11221v1",
+  "arxiv_id": "2605.11221v1",
+  "title": "Beyond Manual Curation: Augmenting Targeted Protein Degradation Databases via Agentic Literature Extraction Workflows",
+  "authors": [
+    "Yaochen Rao",
+    "Farzaneh Jalalypour",
+    "N. M. Anoop Krishnan",
+    "Rocío Mercado"
+  ],
+  "author_string": "Yaochen Rao, Farzaneh Jalalypour, N. M. Anoop Krishnan, Rocío Mercado",
+  "journal": "arXiv:2605.11221v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Predictive models in biomedicine depend on structured assay data locked in the text, tables, and supplements of primary publications. This bottleneck is especially acute in targeted protein degradation (TPD), where each assay record must combine compound identity, degradation target, recruiter, assay context, and endpoint values reported across sections, tables, and supplementary files. Inconsistent compound identifiers and incomplete or implicit assay context further demand domain-specific logic that generic LLM pipelines do not provide. Existing molecular glue and PROTAC databases are manually curated and often lack the experimental context required for downstream modeling. We formulate TPD database extraction as a domain-specific curation task and present an expert-in-the-loop LLM workflow, evaluated through a triangular comparison among LLM predictions, standardized baseline records, and expert-annotated ground truth. A lightweight cross-validated prompt-refinement module adapts extraction instructions from scarce expert annotations. With only seven annotated molecular glue publications, the workflow achieved record-level $F_1 = 0.98$ and transferred to PROTACs by terminology substitution alone, maintaining record-level $F_1 > 0.93$. Applied at scale, it expanded molecular glue and PROTAC databases by 81% and 92% records, respectively, with 92% and 82.5% of newly recovered records validated as correct upon expert review. The workflow also recovered kinetic and assay-context information essential for cross-study potency comparison and condition-aware degradation modeling. We release the workflow, prompts, evaluation code, and extracted datasets as resources for TPD data curation and AI-assisted scientific curation more broadly.",
+  "categories": [
+    "q-bio.QM",
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": null,
+  "published_date": "2026-05-11T20:33:04Z",
+  "updated_date": "2026-05-11T20:33:04Z",
+  "url": "https://arxiv.org/abs/2605.11221v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.11221v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-18T10:15:43.640853",
+  "category": "computer_science",
+  "subcategories": [
+    "q-bio.QM",
+    "cs.LG"
+  ]
+}

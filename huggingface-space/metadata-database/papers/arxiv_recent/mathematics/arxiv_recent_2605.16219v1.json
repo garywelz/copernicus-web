@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2605.16219v1",
+  "arxiv_id": "2605.16219v1",
+  "title": "The Privacy Price of Tail-Risk Learning: Effective Tail Sample Size in Differentially Private CVaR Optimization",
+  "authors": [
+    "El Mustapha Mansouri"
+  ],
+  "author_string": "El Mustapha Mansouri",
+  "journal": "arXiv:2605.16219v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Differential privacy changes the effective sample size governing CVaR learning. For tail mass $τ$, the privacy-relevant sample size is not $n$, but $nτ$; equivalently, the effective private tail sample size is $εnτ$. Private CVaR excess risk decomposes into ordinary tail-risk statistical error and a privacy price. This decomposition is complete for scalar estimation and finite classes: scalar estimation has rate $Θ(B \\min\\{1,(nτ)^{-1/2}+(εnτ)^{-1}\\})$, and finite classes of size $M$ have rate $Θ(B \\min\\{1,\\sqrt{\\log(2M)/(nτ)}+\\log(2M)/(εnτ)\\})$. These complete rates hold under pure DP, and their lower bounds extend to approximate DP in the stated small-$δ$ regimes. For convex Lipschitz learning, modular upper and lower reductions show that the CVaR-specific privacy term necessarily scales as $1/(εnτ)$, with dimension dependence inherited from private stochastic convex optimization. Together, these results identify ordinary private learning on $Θ(nτ)$ informative tail records as the canonical hard subproblem inside private CVaR learning.",
+  "categories": [
+    "cs.LG",
+    "stat.ML"
+  ],
+  "primary_category": "stat.ML",
+  "comment": "34 pages, 3 figures, 2 tables",
+  "published_date": "2026-05-15T17:30:42Z",
+  "updated_date": "2026-05-15T17:30:42Z",
+  "url": "https://arxiv.org/abs/2605.16219v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.16219v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-18T10:15:50.684570",
+  "category": "mathematics",
+  "subcategories": [
+    "cs.LG",
+    "stat.ML"
+  ]
+}

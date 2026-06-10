@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2604.23120v1",
+  "arxiv_id": "2604.23120v1",
+  "title": "Lift and leading-edge suction parameter of separated flows over an NACA0012 at high angles of attack",
+  "authors": [
+    "Ching Chang",
+    "You-Peng Shih",
+    "Tang-An Li"
+  ],
+  "author_string": "Ching Chang, You-Peng Shih, Tang-An Li",
+  "journal": "arXiv:2604.23120v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "The flow condition at the leading edge governs the dynamics of the leading-edge vortex, which is crucial for understanding the separated flow over an airfoil at high angle of attack. Furthermore, with extensive applications in biomimetic flight, the wings encountering high-angle-of-attack situations in an unsteady manner are of great interest. The leading-edge suction parameter (LESP) is a dimensionless metric proposed to quantify the leading-edge flow condition, and is implemented in the LESP-modulated discrete vortex method, which successfully predicts aerodynamics of airfoils in motion. To discern the timing of leading-edge vortex formation, a critical threshold for LESP is chosen to control the onset of separation. However, it is not obvious that the same strategy could be applied to a stationary wing where the separation is not dominated by the motion of the airfoil. We conduct computational fluid dynamics (CFD) simulations for a stationary NACA0012 airfoil at high angles of attack, and extract the leading-edge flow quantities from the CFD data. In addition, vorticity flux, which contributes to the formation of vortices above the top surface of the airfoil, is also investigated to reveal the vorticity budget and its relevance to aerodynamic performance. We show that for the laminar case ($Re=1000$), the instantaneous LESP is well correlated with the lift, while for the turbulence ($Re=10^5$), the time-averaged LESP is well correlated with the lift. The result would provide insights into future improvements for vortex-based models of separated flows.",
+  "categories": [
+    "physics.flu-dyn"
+  ],
+  "primary_category": "physics.flu-dyn",
+  "comment": null,
+  "published_date": "2026-04-25T03:15:54Z",
+  "updated_date": "2026-04-25T03:15:54Z",
+  "url": "https://arxiv.org/abs/2604.23120v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.23120v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-27T22:15:39.104874",
+  "category": "physics",
+  "subcategories": [
+    "physics.flu-dyn"
+  ]
+}

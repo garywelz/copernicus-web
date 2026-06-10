@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spectroscopic Line Broadening - Chemistry Process</title>
+    <title>Spectral Line Broadening - Chemistry Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Spectroscopic Line Broadening</h1>
+            <h1>Spectral Line Broadening</h1>
             <div class="header-meta">
                 <span class="meta-item">Chemistry</span>
                 <span class="meta-item">Physical Chemistry</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,35 +234,59 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Spectroscopic Line Broadening process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>An observed spectral line is broadened by several mechanisms: finite state lifetimes give a Lorentzian natural width, thermal motion adds a Gaussian Doppler width, and collisions add pressure broadening; the dominant mechanism sets the limiting shape, and convolving Gaussian and Lorentzian contributions yields the Voigt profile.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-N1["Spectral Data"]
-N2["Instrument Settings"]
-N3["Broadening Mechanisms"]
-N4["Line-Shape Model"]
-N5["Fit Line Profile"]
-N6["Width Parameters"]
+    N1["Spectral transition"]
+    N2["Natural lifetime broadening"]
+    N3["Lorentzian profile"]
+    N4["Add Doppler (thermal)"]
+    N5["Gaussian profile"]
+    N6["Add pressure/collisions"]
+    N7{"Dominant mechanism?"}
+    N8["Doppler-dominated"]
+    N9["Lifetime-dominated"]
+    N10["Convolve -> Voigt"]
+    N11["Observed line shape"]
 
-N1 --> N2
-N2 --> N3
-N3 --> N4
-N4 --> N5
-N5 --> N6
+    N1 --> N2
+    N2 --> N3
+    N3 --> N4
+    N4 --> N5
+    N5 --> N6
+    N6 --> N7
+    N7 -->|doppler| N8
+    N7 -->|lifetime| N9
+    N8 --> N10
+    N9 --> N10
+    N10 --> N11
 
     style N1 fill:#ff6b6b,color:#fff
-    style N2 fill:#ff6b6b,color:#fff
-    style N3 fill:#ffd43b,color:#000
-    style N4 fill:#ffd43b,color:#000
-    style N5 fill:#51cf66,color:#fff
-    style N6 fill:#b197fc,color:#fff
+    style N2 fill:#51cf66,color:#fff
+    style N3 fill:#74c0fc,color:#fff
+    style N4 fill:#51cf66,color:#fff
+    style N5 fill:#74c0fc,color:#fff
+    style N6 fill:#51cf66,color:#fff
+    style N7 fill:#74c0fc,color:#fff
+    style N8 fill:#51cf66,color:#fff
+    style N9 fill:#51cf66,color:#fff
+    style N10 fill:#51cf66,color:#fff
+    style N11 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Spectral transition</td><td>Triggers & Inputs</td><td><a href="https://global.oup.com/academic/product/atkins-physical-chemistry-9780198769866" target="_blank" title="Atkins' Physical Chemistry (11th ed.)" style="color:#e74c3c;">Atkins, P. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Natural lifetime broadening</td><td>Processing & Operations</td><td><a href="https://global.oup.com/academic/product/atkins-physical-chemistry-9780198769866" target="_blank" title="Atkins' Physical Chemistry (11th ed.)" style="color:#e74c3c;">Atkins, P. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Lorentzian profile</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1007/978-3-642-53859-9" target="_blank" title="Laser Spectroscopy 1: Basic Principles (5th ed.)" style="color:#e74c3c;">Demtroder, W. 2014</a></td></tr><tr><td style="font-weight:600;">Add Doppler (thermal)</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1007/978-3-642-53859-9" target="_blank" title="Laser Spectroscopy 1: Basic Principles (5th ed.)" style="color:#e74c3c;">Demtroder, W. 2014</a></td></tr><tr><td style="font-weight:600;">Gaussian profile</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1007/978-3-642-53859-9" target="_blank" title="Laser Spectroscopy 1: Basic Principles (5th ed.)" style="color:#e74c3c;">Demtroder, W. 2014</a></td></tr><tr><td style="font-weight:600;">Add pressure/collisions</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1007/978-3-642-53859-9" target="_blank" title="Laser Spectroscopy 1: Basic Principles (5th ed.)" style="color:#e74c3c;">Demtroder, W. 2014</a></td></tr><tr><td style="font-weight:600;">Dominant mechanism?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1007/978-3-642-53859-9" target="_blank" title="Laser Spectroscopy 1: Basic Principles (5th ed.)" style="color:#e74c3c;">Demtroder, W. 2014</a></td></tr><tr><td style="font-weight:600;">Doppler-dominated</td><td>Processing & Operations</td><td><a href="https://global.oup.com/academic/product/atkins-physical-chemistry-9780198769866" target="_blank" title="Atkins' Physical Chemistry (11th ed.)" style="color:#e74c3c;">Atkins, P. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Lifetime-dominated</td><td>Processing & Operations</td><td><a href="https://global.oup.com/academic/product/atkins-physical-chemistry-9780198769866" target="_blank" title="Atkins' Physical Chemistry (11th ed.)" style="color:#e74c3c;">Atkins, P. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Convolve -> Voigt</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1007/978-3-642-53859-9" target="_blank" title="Laser Spectroscopy 1: Basic Principles (5th ed.)" style="color:#e74c3c;">Demtroder, W. 2014</a></td></tr><tr><td style="font-weight:600;">Observed line shape</td><td>Products & Outputs</td><td><a href="https://global.oup.com/academic/product/atkins-physical-chemistry-9780198769866" target="_blank" title="Atkins' Physical Chemistry (11th ed.)" style="color:#e74c3c;">Atkins, P. et al. 2018</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -281,12 +332,12 @@ N5 --> N6
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 6</li>
-                        <li><strong>Edges:</strong> 5</li>
-                        <li><strong>Conditionals:</strong> 0</li>
-                        <li><strong>AND Gates:</strong> 0</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 0</li>
+                        <li><strong>Nodes:</strong> 11</li>
+                        <li><strong>Edges:</strong> 11</li>
+                        <li><strong>Conditionals:</strong> 1</li>
+                        <li><strong>AND Gates:</strong> 1</li>
+                        <li><strong>OR Gates:</strong> 1</li>
+                        <li><strong>Total Gates:</strong> 2</li>
                     </ul>
                 </div>
                 
@@ -294,7 +345,7 @@ N5 --> N6
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>spectroscopic</li><li>line</li><li>broadening</li>
+                        <li>line broadening</li><li>Doppler broadening</li><li>lifetime broadening</li><li>Voigt profile</li><li>Lorentzian</li>
                     </ul>
                 </div>
                 
@@ -305,43 +356,23 @@ N5 --> N6
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Laser Spectroscopy 1: Basic Principles (5th ed.)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Demtroder, W.
+                            , Springer
+                             (2014)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Line broadening</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Linne, Mark A.
-                            , Spectroscopic Measurement
-                             (2024)
-                            </span>
-                            <br><a href="https://doi.org/10.1016/b978-0-44-315474-4.00018-x" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1016/b978-0-44-315474-4.00018-x</a>
+                            <br><a href="https://doi.org/10.1007/978-3-642-53859-9" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1007/978-3-642-53859-9</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Line Broadening</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Linne, Mark A.
-                            , Spectroscopic Measurement
-                             (2002)
+                            <strong>Atkins' Physical Chemistry (11th ed.)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Atkins, P.; de Paula, J.; Keeler, J.
+                            , Oxford University Press
+                             (2018)
                             </span>
-                            <br><a href="https://doi.org/10.1016/b978-012451071-5/50013-0" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1016/b978-012451071-5/50013-0</a>
                             
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Temperature Induced Spectroscopic Line-broadening Effects in Open-path Eddy Covariance CO2 Flux</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Bogoev, Ivan; Holl, David
-                            
-                             (2020)
-                            </span>
-                            <br><a href="https://doi.org/10.5194/egusphere-egu2020-2779" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.5194/egusphere-egu2020-2779</a>
-                            
+                            <br><a href="https://global.oup.com/academic/product/atkins-physical-chemistry-9780198769866" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
                         </li>
                         
                     </ul>

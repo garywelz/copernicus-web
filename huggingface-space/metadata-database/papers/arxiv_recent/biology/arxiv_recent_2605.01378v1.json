@@ -1,0 +1,30 @@
+{
+  "id": "arxiv_2605.01378v1",
+  "arxiv_id": "2605.01378v1",
+  "title": "PhenotypeToGeneDownloaderR: automated multi-source retrieval and validation of phenotype-associated genes",
+  "authors": [
+    "Muhammad Muneeb",
+    "David B. Ascher"
+  ],
+  "author_string": "Muhammad Muneeb, David B. Ascher",
+  "journal": "arXiv:2605.01378v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Identifying phenotype-associated genes is a common first step in polygenic risk score construction, enrichment testing, target prioritisation and variant interpretation, but relevant evidence is distributed across heterogeneous databases with different interfaces, formats and evidence models. Here, we present PhenotypeToGeneDownloaderR, a phenotype-guided R/Python pipeline for automated gene retrieval, harmonisation, symbol validation and cross-source summary analysis. Given a phenotype term, the pipeline queries integrated biological databases, standardises per-source outputs, combines gene lists, validates retrieved symbols against the NCBI human gene reference and generates summary tables and visualisations. Across 13 clinically relevant phenotypes and 13 databases, PhenotypeToGeneDownloaderR generated 136,487 raw gene retrievals, with at least one source returning genes for every phenotype. Across all 13 phenotypes, 100,175 of 114,345 combined input symbols were retained after direct or synonym-based validation, corresponding to an 87.6\\% validation rate. Cross-source overlap was low, supporting the complementarity of integrated evidence sources. Against an HPO/ClinVar/OMIM-derived gold standard, the pipeline recovered 1,039 of 1,056 known phenotype-associated genes, corresponding to 98.4\\% recall. PhenotypeToGeneDownloaderR provides a lightweight, reproducible upstream framework for generating candidate gene sets for downstream prioritisation and interpretation. The pipeline is implemented in R and Python, released under the MIT licence, and available at https://github.com/MuhammadMuneeb007/PhenotypeToGeneDownloaderR.",
+  "categories": [
+    "q-bio.GN"
+  ],
+  "primary_category": "q-bio.GN",
+  "comment": "https://github.com/MuhammadMuneeb007/PhenotypeToGeneDownloaderR",
+  "published_date": "2026-05-02T11:01:35Z",
+  "updated_date": "2026-05-02T11:01:35Z",
+  "url": "https://arxiv.org/abs/2605.01378v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.01378v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-09T22:15:36.918022",
+  "category": "biology",
+  "subcategories": [
+    "q-bio.GN"
+  ]
+}

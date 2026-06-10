@@ -1,0 +1,39 @@
+{
+  "id": "geometry_topology-euclid-elements-book-viii-props-15-27",
+  "name": "Euclid's Elements Book VIII — Propositions 15–27",
+  "category": "mathematics",
+  "subcategory": "geometry_topology",
+  "subcategory_name": "Geometry & Topology",
+  "description": "Similar plane/solid, mean proportionals, square/cube ratios.",
+  "mermaid": "graph TD\n    BookVII[\"Book VII\\nFoundation\"]\n    Prop1[\"Prop. VIII.1\\nContinued proportion, extremes prime\"]\n    Prop2[\"Prop. VIII.2\\nFind numbers in continued proportion\"]\n    Prop3[\"Prop. VIII.3\\nLeast: extremes prime\"]\n    Prop4[\"Prop. VIII.4\\nFind continued proportion from ratios\"]\n    Prop5[\"Prop. VIII.5\\nPlane numbers: compound ratio\"]\n    Prop6[\"Prop. VIII.6\\nFirst does not measure second\"]\n    Prop7[\"Prop. VIII.7\\nFirst measures last\"]\n    Prop8[\"Prop. VIII.8\\nNumbers between in proportion\"]\n    Prop9[\"Prop. VIII.9\\nRelatively prime: numbers to unit\"]\n    Prop10[\"Prop. VIII.10\\nNumbers from unit\"]\n    Prop11[\"Prop. VIII.11\\nMean proportional of squares\"]\n    Prop12[\"Prop. VIII.12\\nTwo means between cubes\"]\n    Prop13[\"Prop. VIII.13\\nProducts proportional\"]\n    Prop14[\"Prop. VIII.14\\nSquare measures square\"]\n    Prop15[\"Prop. VIII.15\\nCube measures cube\"]\n    Prop16[\"Prop. VIII.16\\nSquare does not measure square\"]\n    Prop17[\"Prop. VIII.17\\nCube does not measure cube\"]\n    Prop18[\"Prop. VIII.18\\nSimilar plane: mean proportional\"]\n    Prop19[\"Prop. VIII.19\\nSimilar solid: two means\"]\n    Prop20[\"Prop. VIII.20\\nOne mean: similar plane\"]\n    Prop21[\"Prop. VIII.21\\nTwo means: similar solid\"]\n    Prop22[\"Prop. VIII.22\\nThree in proportion: first square\"]\n    Prop23[\"Prop. VIII.23\\nFour in proportion: first cube\"]\n    Prop24[\"Prop. VIII.24\\nRatio as square to square\"]\n    Prop25[\"Prop. VIII.25\\nRatio as cube to cube\"]\n    Prop26[\"Prop. VIII.26\\nSimilar plane: square ratio\"]\n    Prop27[\"Prop. VIII.27\\nSimilar solid: cube ratio\"]\n    BookVII --> Prop1\n    BookVII --> Prop2\n    Prop1 --> Prop2\n    BookVII --> Prop3\n    Prop2 --> Prop3\n    BookVII --> Prop4\n    Prop2 --> Prop4\n    BookVII --> Prop5\n    BookVII --> Prop6\n    Prop1 --> Prop6\n    BookVII --> Prop7\n    Prop1 --> Prop7\n    BookVII --> Prop8\n    BookVII --> Prop9\n    Prop8 --> Prop9\n    BookVII --> Prop10\n    Prop9 --> Prop10\n    BookVII --> Prop11\n    Prop8 --> Prop11\n    BookVII --> Prop12\n    Prop8 --> Prop12\n    BookVII --> Prop13\n    BookVII --> Prop14\n    Prop11 --> Prop14\n    BookVII --> Prop15\n    Prop12 --> Prop15\n    BookVII --> Prop16\n    Prop14 --> Prop16\n    BookVII --> Prop17\n    Prop15 --> Prop17\n    BookVII --> Prop18\n    Prop8 --> Prop18\n    BookVII --> Prop19\n    Prop8 --> Prop19\n    BookVII --> Prop20\n    Prop18 --> Prop20\n    BookVII --> Prop21\n    Prop19 --> Prop21\n    BookVII --> Prop22\n    Prop1 --> Prop22\n    BookVII --> Prop23\n    Prop1 --> Prop23\n    BookVII --> Prop24\n    Prop22 --> Prop24\n    BookVII --> Prop25\n    Prop23 --> Prop25\n    BookVII --> Prop26\n    Prop18 --> Prop26\n    BookVII --> Prop27\n    Prop19 --> Prop27\n    classDef foundation fill:#95a5a6,color:#fff,stroke:#7f8c8d\n    classDef proposition fill:#51cf66,color:#fff,stroke:#40c057\n    class BookVII foundation\n    class Prop1,Prop2,Prop3,Prop4,Prop5,Prop6,Prop7,Prop8,Prop9,Prop10,Prop11,Prop12,Prop13,Prop14,Prop15,Prop16,Prop17,Prop18,Prop19,Prop20,Prop21,Prop22,Prop23,Prop24,Prop25,Prop26,Prop27 proposition",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "algorithm"
+}

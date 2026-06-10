@@ -1,0 +1,43 @@
+{
+  "id": "biorxiv_10.1101_2025.04.29.651217",
+  "doi": "10.1101/2025.04.29.651217",
+  "title": "LazypipeX: Customizable Virome Analysis Pipeline Enabling Fast and Sensitive Virus Discovery from NGS data",
+  "authors": [
+    "Weinstein, I.",
+    "Vapalahti, O.",
+    "Kant, R.",
+    "Smura, T."
+  ],
+  "author_string": "Weinstein, I., Vapalahti, O., Kant, R., Smura, T.",
+  "journal": "bioRxiv",
+  "journal_full": "bioRxiv",
+  "year": "2026",
+  "abstract": "Metagenomic next-generation sequencing (mNGS) is pivotal for detecting known and novel viruses in diverse samples; however, its efficacy relies on robust bioinformatics pipelines. We present LazypipeX with multiple advanced features, including flexible annotation strategies that can be adjusted to match different datasets and applications. Using a synthetic benchmark, we show that a simple two-round annotation strategy designed for speed and low false positive rate required in virus diagnostics can reduce execution time to a fraction of the BLASTN search without any loss in accuracy. Additionally, using real data, we show that annotation strategies based on combinations of fast-to-accurate homology searches reduce execution time from 5- to 20-fold compared to the BLASTN/BLASTP baseline. Using one of these \"annotation chains\", we characterized multiple novel complete viral genomes that were missed by the Lazypipe v1/v2 and CZ ID analyses. LazypipeX is a highly efficient and versatile tool for virome analysis, offering customizable and transparent workflows that can facilitate virus discovery and identification in diverse mNGS applications.",
+  "keywords": [],
+  "categories": [
+    "bioinformatics"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.1101/2025.04.29.651217",
+  "source": "biorxiv",
+  "sources": [
+    "biorxiv"
+  ],
+  "acquired_date": "2026-05-24T22:15:24.126679",
+  "category": "biology",
+  "subcategories": [
+    "bioinformatics"
+  ],
+  "published_date": "2026-01-24",
+  "updated_date": "2026-01-24",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "biorxiv",
+  "preprint_version": "3",
+  "preprint_type": "new results",
+  "license": "cc_by_nc",
+  "jatsxml": "https://www.biorxiv.org/content/early/2026/01/24/2025.04.29.651217.source.xml",
+  "published_doi": null,
+  "author_corresponding": "Ilya Weinstein",
+  "author_corresponding_institution": "University of Helsinki"
+}

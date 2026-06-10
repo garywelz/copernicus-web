@@ -1,0 +1,39 @@
+{
+  "id": "representation_theory-induced-restricted",
+  "name": "Induced & Restricted Representations",
+  "category": "mathematics",
+  "subcategory": "representation_theory",
+  "subcategory_name": "Representation Theory",
+  "description": "Res_H^G V, Ind_H^G W = kG⊗_{kH} W. Frobenius reciprocity: Hom_G(Ind W, V) ≅ Hom_H(W, Res V). Mackey formula.",
+  "mermaid": "graph TD\n    D1[\"Def: Restriction\\nRes_H V from G\"]\n    D2[\"Def: Induction\\nInd_H W = kG⊗W\"]\n    D3[\"Def: Coinduction\\nCoind = Hom_H kG, W\"]\n    D4[\"Def: Trivial rep\\n1_H on H\"]\n    T1[\"Thm: Frobenius reciprocity\\nHom Ind, V ≅ Hom W, Res\"]\n    T2[\"Thm: Ind 1_H = perm rep\\non G/H\"]\n    T3[\"Thm: Mackey formula\\nRes Ind decomp\"]\n    T4[\"Thm: Transitivity\\nInd_K^G Ind_H^K = Ind_H^G\"]\n    T5[\"Thm: Dim Ind W\\n= [G:H] dim W\"]\n    D1 --> T1\n    D2 --> T1\n    D2 --> T2\n    D4 --> T2\n    D2 --> T3\n    D2 --> T4\n    D2 --> T5\n    classDef definition fill:#b197fc,color:#fff\n    classDef theorem fill:#51cf66,color:#fff\n    class D1,D2,D3,D4 definition\n    class T1,T2,T3,T4,T5 theorem",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

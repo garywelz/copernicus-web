@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2605.15165v1",
+  "arxiv_id": "2605.15165v1",
+  "title": "Due Process on Hold: A Queueing Framework for Improving Access in SNAP",
+  "authors": [
+    "Andrew Daw",
+    "Chloe Pache",
+    "Angela Zhou"
+  ],
+  "author_string": "Andrew Daw, Chloe Pache, Angela Zhou",
+  "journal": "arXiv:2605.15165v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "The U.S. social safety net delivers essential services at mass scale, but access burdens persist, as congested contact or call centers serve as a primary mode of application completion and assistance. In Holmes v. Knodell, Missouri's SNAP call centers were so congested that nearly half of all application denials were procedural, caused by applicants' inability to complete required interviews, rather than underlying ineligibility. The judge ruled these system failures led to a violation of procedural due process. We propose a performance evaluation framework based on queueing models from operations research and management to assess and improve access in such systems. Operational access failures of call centers are distinct from prior automation failures in benefits provision. Emergent arbitrariness arises from interactions between system dynamics and access demand, rather than from an explicit algorithmic rule, making diagnosis and repair inherently system-level. We develop a queueing model that incorporates phenomena that distinguish social services from standard service domains, redials and abandonment, through which backlogs generate endogenous congestion. Standard queueing guidance from Erlang-A that does not address endogenous congestion fundamentally understaffs, which could lead to persistent shortfalls in practice. Using a fluid approximation, we derive steady-state performance metrics to analytically characterize the impacts of bundled staffing and service delivery changes. We fit model parameters to call-center data disclosed in court documents. Our queueing model can support ex-ante evaluation and design of access systems, inform policy levers for improving access, and provide evidence about whether applicants are afforded a meaningful opportunity to be served at scale.",
+  "categories": [
+    "cs.CY",
+    "stat.AP"
+  ],
+  "primary_category": "stat.AP",
+  "comment": null,
+  "published_date": "2026-05-14T17:54:43Z",
+  "updated_date": "2026-05-14T17:54:43Z",
+  "url": "https://arxiv.org/abs/2605.15165v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.15165v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-16T10:15:40.620797",
+  "category": "mathematics",
+  "subcategories": [
+    "cs.CY",
+    "stat.AP"
+  ]
+}

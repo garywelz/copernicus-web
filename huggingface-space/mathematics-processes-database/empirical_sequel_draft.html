@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Circuit Class Predicts Virtual Cell Model Accuracy &mdash; GLMP 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=JetBrains+Mono:wght@400;600&family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<style>
+  :root {
+    --ink:    #1a1a2e;
+    --deep:   #1F3864;
+    --accent: #2E75B6;
+    --red:    #c0392b;
+    --green:  #27ae60;
+    --orange: #e67e22;
+    --purple: #8e44ad;
+    --muted:  #5a6a7a;
+    --rule:   #d0d8e0;
+    --bg:     #fafaf8;
+    --bg-alt: #f2f4f0;
+    --serif:  'Crimson Pro', Georgia, serif;
+    --sans:   'Outfit', system-ui, sans-serif;
+    --mono:   'JetBrains Mono', monospace;
+    --max:    760px;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 17px; scroll-behavior: smooth; }
+  body {
+    background: var(--bg); color: var(--ink); font-family: var(--serif);
+    line-height: 1.8; max-width: var(--max); margin: 0 auto; padding: 2.5rem 2rem 6rem;
+  }
+  .title-block { text-align: center; margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 2px solid var(--rule); }
+  .sequel-note { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 1rem; }
+  .title-block h1 { font-family: var(--serif); font-size: clamp(1.5rem, 4vw, 2.2rem); font-weight: 600; color: var(--deep); line-height: 1.25; margin-bottom: 0.6rem; }
+  .title-block .subtitle { font-family: var(--serif); font-size: 1rem; font-style: italic; color: var(--muted); margin-bottom: 1.25rem; }
+  .author-block { font-family: var(--sans); font-size: 0.88rem; color: var(--muted); line-height: 1.7; }
+  .author-block strong { color: var(--ink); }
+  .author-block a { color: var(--accent); text-decoration: none; }
+  .abstract { background: var(--bg-alt); border-left: 4px solid var(--accent); padding: 1.25rem 1.5rem; margin: 2rem 0; border-radius: 0 4px 4px 0; }
+  .abstract .label { font-family: var(--mono); font-size: 0.65rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.6rem; }
+  .abstract p { font-size: 0.92rem; font-style: italic; color: #2a3a4a; line-height: 1.8; margin: 0; }
+  .scope { background: #f8f8f5; border: 1px solid var(--rule); border-radius: 4px; padding: 1rem 1.25rem; margin: 1.5rem 0 2.5rem; font-family: var(--sans); font-size: 0.84rem; color: #3a4a5a; line-height: 1.7; }
+  .scope .label { font-family: var(--mono); font-size: 0.62rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.4rem; }
+  .part-header { margin: 3.5rem 0 1.5rem; padding: 0.9rem 1.4rem; background: var(--deep); border-radius: 4px; display: flex; align-items: baseline; gap: 0.9rem; }
+  .part-header .part-label { font-family: var(--mono); font-size: 0.62rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: #a8c4e0; flex-shrink: 0; }
+  .part-header .part-title { font-family: var(--serif); font-size: 1.1rem; font-weight: 600; color: #fff; }
+  .part-bridge { background: var(--bg-alt); border-left: 3px solid var(--accent); padding: 0.9rem 1.25rem; margin: 0 0 2rem; font-family: var(--sans); font-size: 0.84rem; color: #2a3a4a; line-height: 1.75; font-style: italic; border-radius: 0 3px 3px 0; }
+  h2 { font-family: var(--serif); font-size: 1.4rem; font-weight: 600; color: var(--deep); margin: 2.5rem 0 0.9rem; padding-bottom: 0.35rem; border-bottom: 1.5px solid var(--rule); }
+  h3 { font-family: var(--sans); font-size: 1rem; font-weight: 600; color: var(--accent); margin: 1.75rem 0 0.65rem; }
+  h4 { font-family: var(--sans); font-size: 0.9rem; font-weight: 600; color: var(--muted); margin: 1.4rem 0 0.5rem; font-style: italic; }
+  p { margin-bottom: 1rem; text-align: justify; hyphens: auto; }
+  strong.term { font-weight: 600; color: var(--deep); }
+  .hypothesis { background: linear-gradient(135deg, #eef4fb, #f5f0fa); border: 1px solid #b8cfe8; border-left: 4px solid var(--accent); border-radius: 0 5px 5px 0; padding: 1.25rem 1.5rem; margin: 1.5rem 0; color: #1a2a3a; line-height: 1.85; }
+  .hypothesis .label { font-family: var(--mono); font-size: 0.65rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem; }
+  .hypothesis p { font-style: italic; }
+  .hypothesis .testability { font-style: normal; font-family: var(--sans); font-size: 0.82rem; color: var(--muted); margin-top: 0.5rem; border-top: 1px solid rgba(0,0,0,0.08); padding-top: 0.4rem; }
+  .tbl-wrap { overflow-x: auto; margin: 1.5rem 0; }
+  table { width: 100%; border-collapse: collapse; font-family: var(--sans); font-size: 0.82rem; }
+  thead tr { background: var(--deep); color: #fff; }
+  thead th { padding: 0.55rem 0.8rem; text-align: left; }
+  tbody tr:nth-child(even) { background: var(--bg-alt); }
+  tbody td { padding: 0.5rem 0.8rem; border-bottom: 1px solid var(--rule); vertical-align: top; line-height: 1.5; }
+  tbody td:first-child { font-weight: 600; color: var(--deep); }
+  ul.plist { list-style: none; margin: 1rem 0 1.5rem; padding: 0; }
+  ul.plist li { padding: 0.35rem 0 0.35rem 1.5rem; position: relative; line-height: 1.65; border-bottom: 1px solid var(--rule); }
+  ul.plist li:last-child { border-bottom: none; }
+  ul.plist li::before { content: "›"; position: absolute; left: 0.3rem; color: var(--accent); font-weight: 700; }
+  .mmd-wrap { background: #fff; border: 1px solid var(--rule); border-radius: 5px; padding: 1.25rem 0.75rem 0.75rem; margin: 1.5rem 0; text-align: center; overflow-x: auto; }
+  .mmd-caption { font-family: var(--sans); font-size: 0.78rem; color: var(--muted); margin-top: 0.6rem; font-style: italic; line-height: 1.5; }
+  .mmd-caption strong { font-style: normal; color: var(--ink); }
+  hr { border: none; border-top: 1px solid var(--rule); margin: 2.5rem 0; }
+  .references ol { padding-left: 1.4rem; font-family: var(--sans); font-size: 0.84rem; line-height: 1.7; color: var(--muted); }
+  .references ol li { margin-bottom: 0.45rem; }
+  .references ol li a { color: var(--accent); text-decoration: none; }
+  .references ol li a:hover { text-decoration: underline; }
+  .paper-footer { margin-top: 3rem; padding-top: 1.25rem; border-top: 2px solid var(--rule); font-family: var(--sans); font-size: 0.78rem; color: var(--muted); text-align: center; line-height: 1.7; }
+  .paper-nav { font-family: var(--sans); font-size: 0.85rem; background: #243954; padding: 0.7rem 1rem; text-align: center; border-bottom: 1px solid #1a2a42; }
+  .paper-nav a { color: #a8c4e0; text-decoration: none; margin: 0 0.85rem; white-space: nowrap; }
+  .paper-nav a:hover { text-decoration: underline; color: #fff; }
+  .paper-nav .nav-sep { color: #4a6a8a; margin: 0 0.25rem; }
+  .paper-nav .nav-aux { display: block; margin-top: 0.5rem; font-size: 0.8rem; opacity: 0.92; }
+  .paper-nav .nav-aux a { margin: 0 0.65rem; }
+  @media print {
+    body { max-width: 100%; padding: 0; font-size: 11pt; }
+    .part-header { background: #fff; border: 1px solid #ccc; }
+    .part-header .part-label, .part-header .part-title { color: var(--ink); }
+    .paper-nav { display: none; }
+    a { color: var(--ink); }
+  }
+</style>
+</head>
+<body>
+
+<nav class="paper-nav" aria-label="Paper navigation and databases">
+  <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/GLMP_Foundational_Typology.html">Paper I: Foundational Typology</a>
+  <span class="nav-sep" aria-hidden="true">&middot;</span>
+  <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/genome_as_computer_v2.html">Paper II: The Genome as Computer</a>
+  <span class="nav-sep" aria-hidden="true">&middot;</span>
+  <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-database-table.html">GLMP Database</a>
+  <span class="nav-aux">
+    <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/mathematics-database-table.html?v=2">Mathematics Database</a>
+    <a href="https://gdubs-copernicus-web.hf.space/" target="_blank" rel="noopener">Programming Framework (HuggingFace)</a>
+  </span>
+</nav>
+
+<div class="title-block">
+  <div class="sequel-note">GLMP Working Paper 2026 &middot; Empirical Companion</div>
+  <h1>Circuit Class Predicts Virtual Cell Model Accuracy: An Empirical Test of the Genomic Computational Complexity Hypothesis</h1>
+  <p class="subtitle">Empirical companion to: <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/GLMP_Foundational_Typology.html" style="color:inherit;text-decoration:underline;text-decoration-color:#a8c4e0;"><em>Primitive Relations, Computational Complexity, and a Conjecture on the Genomic Computational Class</em></a> and <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/genome_as_computer_v2.html" style="color:inherit;text-decoration:underline;text-decoration-color:#a8c4e0;"><em>The Genome as Computer</em></a></p>
+  <div class="author-block">
+    <strong>Gary Welz</strong><br>
+    <a href="mailto:gwelz@gc.cuny.edu">gwelz@gc.cuny.edu</a><br>
+    CUNY Graduate Center / New Media Lab<br>
+    Genome Logic Modeling Project (GLMP)
+  </div>
+</div>
+
+<!-- ABSTRACT -->
+<div class="abstract">
+  <div class="label">Abstract</div>
+  <p>The companion theoretical papers conjectured that gene regulatory circuits can be classified by computational complexity class (I&ndash;V) based on their topological structure, and that this classification has measurable consequences for the predictability of circuit behavior. This paper proposes the first empirical test of that conjecture. We describe an experimental design in which predictions from two classes of virtual cell models &mdash; grammar-blind (STATE, a transformer trained on perturbation data without explicit network representation) and grammar-aware (CellOracle, which infers and reasons through gene regulatory network topology) &mdash; are evaluated on genome-scale Perturb-seq benchmarks and stratified by the GLMP complexity class of the perturbed gene&rsquo;s regulatory circuit. We state seven testable hypotheses, each with a specific predicted outcome and a falsification criterion. The central prediction is that model accuracy degrades monotonically from Class&nbsp;I (feed-forward, decidable) through Class&nbsp;V (self-modifying, potentially undecidable), and that the grammar-aware model outperforms the grammar-blind model most strongly on Class&nbsp;III (bistable) circuits where knowledge of toggle-switch topology is informative. A null result &mdash; no accuracy gradient across classes &mdash; would constrain the conjecture and clarify where the analogy between circuit topology and computational complexity breaks down. Either outcome advances the field.</p>
+</div>
+
+<!-- SCOPE -->
+<div class="scope">
+  <div class="label">Relationship to Companion Papers</div>
+  Paper&nbsp;I (<em>Primitive Relations, Computational Complexity</em>) established the five-class complexity ladder and stated the central conjecture. Paper&nbsp;II (<em>The Genome as Computer</em>) developed the logical primitive vocabulary, identified the transcriptome as runtime state, and derived nine predictions. This paper takes Prediction&nbsp;5 (virtual cell model accuracy correlates with circuit class) and Prediction&nbsp;8 (grammar-aware models outperform grammar-blind models) and converts them into a concrete experimental protocol with falsifiable hypotheses. No new theoretical claims are made. All theoretical apparatus is inherited from Papers I and II and cited by reference.
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="part-header">
+  <span class="part-label">Part I</span>
+  <span class="part-title">Hypotheses</span>
+</div>
+
+<h2>1. The Central Question</h2>
+
+<p>Virtual cell models &mdash; AI systems that predict how cells respond to genetic or chemical perturbations &mdash; are evaluated by aggregate accuracy across all genes. No existing benchmark stratifies predictions by the <em>regulatory circuit topology</em> of the perturbed gene. The theoretical framework of Papers I and II predicts that this topology matters: a feed-forward circuit (Class&nbsp;I) should be inherently more predictable than a bistable switch (Class&nbsp;III) or a self-modifying epigenetic circuit (Class&nbsp;V), regardless of the model used.</p>
+
+<p>If correct, this prediction has immediate practical consequences. It means that AI models of biology face not merely technological limitations but <em>mathematical</em> ones: for circuits above a certain complexity class, perfect prediction is impossible in principle. It also means that current aggregate benchmarks are misleading &mdash; a model reporting 70% accuracy may be achieving 95% on Class&nbsp;I genes and 30% on Class&nbsp;V genes, and the aggregate hides this biologically fundamental distinction.</p>
+
+<p>We propose to test this by re-stratifying existing virtual cell model benchmarks by circuit class. The experimental design requires no new biological data &mdash; only a new axis of analysis applied to existing public datasets.</p>
+
+<h2>2. Seven Testable Hypotheses</h2>
+
+<div class="hypothesis">
+  <div class="label">Hypothesis 1 &mdash; The Accuracy Gradient</div>
+  <p>Virtual cell model prediction accuracy decreases monotonically from Class&nbsp;I (feed-forward) through Class&nbsp;V (self-modifying epigenetic) when measured on genome-scale Perturb-seq benchmarks.</p>
+  <div class="testability"><strong>Metric:</strong> Mean Pearson correlation between predicted and observed expression change vectors, grouped by circuit class. <strong>Falsification:</strong> No statistically significant Spearman rank correlation between circuit class and prediction accuracy (p &gt; 0.05).</div>
+</div>
+
+<div class="hypothesis">
+  <div class="label">Hypothesis 2 &mdash; Grammar-Aware Advantage</div>
+  <p>Models that explicitly represent gene regulatory network topology (grammar-aware: CellOracle) outperform models that do not (grammar-blind: STATE) when evaluated per circuit class, and the performance gap is largest for Class&nbsp;III (bistable) circuits.</p>
+  <div class="testability"><strong>Metric:</strong> Paired accuracy difference (CellOracle &minus; STATE) per circuit class. <strong>Falsification:</strong> STATE matches or exceeds CellOracle accuracy across all classes (paired Wilcoxon p &gt; 0.05 for every class).</div>
+</div>
+
+<div class="hypothesis">
+  <div class="label">Hypothesis 3 &mdash; Class I Ceiling</div>
+  <p>For Class&nbsp;I (feed-forward) circuits, both grammar-blind and grammar-aware models approach high accuracy (&gt;0.7 Pearson correlation), and the inter-model accuracy gap is small (&lt;0.05). Feed-forward circuits are decidable; knowing the topology adds little because there is no hidden state.</p>
+  <div class="testability"><strong>Metric:</strong> Absolute accuracy and inter-model gap for Class I genes. <strong>Falsification:</strong> Class I accuracy is below 0.5 for both models, or the inter-model gap exceeds 0.15.</div>
+</div>
+
+<div class="hypothesis">
+  <div class="label">Hypothesis 4 &mdash; Class III Bistability Signature</div>
+  <p>Genes regulated by Class&nbsp;III (bistable) circuits exhibit bimodal expression distributions in single-cell data. Models that fail to predict the correct attractor state for individual cells will show a characteristic error pattern: high accuracy for the population mean but low accuracy for individual cell predictions.</p>
+  <div class="testability"><strong>Metric:</strong> Bimodality coefficient (Sarle's b) of expression distributions for Class III target genes; ratio of population-mean accuracy to single-cell accuracy. <strong>Falsification:</strong> Class III genes show unimodal expression distributions indistinguishable from Class I genes.</div>
+</div>
+
+<div class="hypothesis">
+  <div class="label">Hypothesis 5 &mdash; Class V Hard Ceiling</div>
+  <p>For Class&nbsp;V (self-modifying epigenetic) circuits, both models converge to low accuracy, and the grammar-aware model gains little advantage. If Class&nbsp;V circuits approach Turing-completeness, Rice&rsquo;s theorem implies that no algorithm &mdash; regardless of architecture &mdash; can perfectly predict their behavior. The accuracy ceiling for Class&nbsp;V should be strictly less than for Class&nbsp;I.</p>
+  <div class="testability"><strong>Metric:</strong> Absolute accuracy for Class V genes; inter-model gap for Class V. <strong>Falsification:</strong> Class V accuracy equals or exceeds Class I accuracy for either model.</div>
+</div>
+
+<div class="hypothesis">
+  <div class="label">Hypothesis 6 &mdash; DEG Recovery Gradient</div>
+  <p>The fraction of true differentially expressed genes (DEGs) correctly recovered by each model decreases with circuit class. Class&nbsp;I perturbations have simple, localized effects (few DEGs, high recovery). Class&nbsp;IV&ndash;V perturbations have complex, distributed effects (many DEGs, low recovery).</p>
+  <div class="testability"><strong>Metric:</strong> DEG recovery F1 score per circuit class. <strong>Falsification:</strong> No significant correlation between circuit class and DEG recovery (Spearman p &gt; 0.05).</div>
+</div>
+
+<div class="hypothesis">
+  <div class="label">Hypothesis 7 &mdash; Network Motif Concordance</div>
+  <p>CellOracle&rsquo;s inferred gene regulatory network, when classified by the same topology criteria as GLMP, assigns the majority of genes to the same complexity class as the GLMP classification. Where they disagree, the discordance is informative: genes misclassified by CellOracle (relative to GLMP) should show lower prediction accuracy than concordant genes.</p>
+  <div class="testability"><strong>Metric:</strong> Cohen&rsquo;s kappa between CellOracle-inferred and GLMP-assigned circuit classes; accuracy stratified by concordance/discordance. <strong>Falsification:</strong> Cohen&rsquo;s kappa &lt; 0.2 (poor agreement), or discordant genes show equal accuracy to concordant genes.</div>
+</div>
+
+<hr>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="part-header">
+  <span class="part-label">Part II</span>
+  <span class="part-title">Experimental Design</span>
+</div>
+<div class="part-bridge">
+  The experimental design below requires no new biological experiments. It applies a new analytical axis &mdash; circuit class stratification &mdash; to existing public datasets and publicly available virtual cell models. All data, models, and evaluation tools are open-source or open-access.
+</div>
+
+<h2>3. Phase 1: Gene Circuit Classification</h2>
+
+<h3>3.1 Benchmark Gene Set</h3>
+
+<p>The primary benchmark is the <strong>Replogle et al. (2022) K562 Perturb-seq dataset</strong> &mdash; genome-scale CRISPRi perturbations in K562 human chronic myeloid leukemia cells. This dataset perturbs approximately 5,000 essential genes with single-cell RNA-seq readout and is the standard benchmark used by STATE, CellOracle, and the Nature Methods 27-method comparison (2025). It is available in processed form on the CZI Virtual Cells Platform and in harmonized format via scPerturb.</p>
+
+<p>A secondary validation dataset is the <strong>Norman et al. (2019) combinatorial Perturb-seq dataset</strong>, which tests two-gene perturbation combinations in K562 cells. This dataset is particularly relevant because combinatorial perturbations probe AND/OR gate logic directly &mdash; a two-gene perturbation that shows synergistic effects implies the targets participate in an AND-gated circuit.</p>
+
+<h3>3.2 Classification Protocol</h3>
+
+<p>For each perturbed gene that encodes a transcription factor, signaling protein, or chromatin modifier, we classify the gene&rsquo;s regulatory circuit by GLMP complexity class using the following evidence hierarchy:</p>
+
+<div class="tbl-wrap">
+<table>
+  <thead>
+    <tr><th>Priority</th><th>Source</th><th>Method</th><th>Confidence</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>1</td><td>GLMP database</td><td>Direct classification from existing typed flowchart</td><td>High</td></tr>
+    <tr><td>2</td><td>Published literature</td><td>Well-characterized circuits (lac operon, p53-MDM2, Yamanaka factors, etc.)</td><td>High</td></tr>
+    <tr><td>3</td><td>TRRUST v2 / ENCODE</td><td>Known human TF-target interactions; classify by network motif topology</td><td>Medium</td></tr>
+    <tr><td>4</td><td>RegulonDB</td><td>E. coli ortholog regulatory interactions (for conserved circuits)</td><td>Medium</td></tr>
+    <tr><td>5</td><td>GLMP pipeline</td><td>LLM-generated typed flowchart from literature, classified by topology</td><td>Low&ndash;Medium</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>3.3 Classification Criteria</h3>
+
+<p>Circuit class assignment follows the five-class ladder from Paper I:</p>
+
+<div class="tbl-wrap">
+<table>
+  <thead>
+    <tr><th>Class</th><th>Topology Criterion</th><th>Formal Test</th><th>Prototype Example</th></tr>
+  </thead>
+  <tbody>
+    <tr><td style="color:#2980b9;">I</td><td>No feedback edges in regulatory subgraph</td><td>Directed acyclic graph (DAG)</td><td>Simple inducible promoters; JUN/AP-1 cascade</td></tr>
+    <tr><td style="color:#27ae60;">II</td><td>Negative autoregulation or negative feedback loop</td><td>Single negative cycle in subgraph</td><td>HIF1A-VHL loop; NF-κB&ndash;IκB loop</td></tr>
+    <tr><td style="color:#f39c12;">III</td><td>Positive feedback or mutual repression (bistable)</td><td>Positive cycle or double-negative cycle</td><td>p53-MDM2 toggle; GATA1-PU.1; Yamanaka circuit</td></tr>
+    <tr><td style="color:#e67e22;">IV</td><td>Mixed feedback with delay elements (oscillatory)</td><td>Negative cycle with &ge;3 nodes (repressilator topology)</td><td>CLOCK-BMAL1 circadian loop</td></tr>
+    <tr><td style="color:#c0392b;">V</td><td>Self-modifying: circuit alters its own regulatory architecture</td><td>Chromatin modifier targets its own regulatory region</td><td>DNMT3A self-methylation; EZH2 autosilencing</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>3.4 Expected Class Distribution</h3>
+
+<p>Based on known network motif frequencies in transcriptional regulation networks (Shen-Orr et al. 2002, Alon 2006, ENCODE Consortium 2012):</p>
+
+<div class="tbl-wrap">
+<table>
+  <thead>
+    <tr><th>Class</th><th>Expected %</th><th>Expected N (of ~500 classifiable TFs)</th><th>Statistical Power</th></tr>
+  </thead>
+  <tbody>
+    <tr><td style="color:#2980b9;">I</td><td>40&ndash;50%</td><td>200&ndash;250</td><td>Strong</td></tr>
+    <tr><td style="color:#27ae60;">II</td><td>30&ndash;40%</td><td>150&ndash;200</td><td>Strong</td></tr>
+    <tr><td style="color:#f39c12;">III</td><td>10&ndash;15%</td><td>50&ndash;75</td><td>Adequate</td></tr>
+    <tr><td style="color:#e67e22;">IV</td><td>2&ndash;5%</td><td>10&ndash;25</td><td>Limited &mdash; acknowledged</td></tr>
+    <tr><td style="color:#c0392b;">V</td><td>1&ndash;3%</td><td>5&ndash;15</td><td>Exploratory only</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p>Classes IV and V will have small sample sizes. This is a limitation we acknowledge in advance. However, even a small number of Class V genes showing consistently lower prediction accuracy than Class I genes would be a meaningful signal. We will supplement the primary K562 dataset with the Norman et al. combinatorial dataset where relevant.</p>
+
+<h3>3.5 Output</h3>
+
+<p>Phase 1 produces a publicly released table: <strong>gene_circuit_classes.tsv</strong>, containing for each classifiable gene: gene symbol, circuit class (I&ndash;V), topology type (e.g., feed-forward, negative autoregulation, toggle switch), evidence source, and confidence level. This table is an independent contribution &mdash; the first systematic classification of human transcription factor circuits by computational complexity class.</p>
+
+<h2>4. Phase 2: Virtual Cell Model Evaluation</h2>
+
+<h3>4.1 Model Selection Rationale</h3>
+
+<p>We select two models representing opposite ends of the grammar-blind vs. grammar-aware spectrum:</p>
+
+<div class="tbl-wrap">
+<table>
+  <thead>
+    <tr><th>Property</th><th>STATE (Arc Institute)</th><th>CellOracle (Morris Lab)</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Architecture</td><td>Transformer on single-cell expression profiles</td><td>GRN inference + network propagation simulation</td></tr>
+    <tr><td>Training data</td><td>100M+ perturbed cells across 70 contexts</td><td>Matched scATAC-seq + scRNA-seq per experiment</td></tr>
+    <tr><td>Regulatory network</td><td>No explicit representation (grammar-blind)</td><td>Inferred and used for prediction (grammar-aware)</td></tr>
+    <tr><td>Publication</td><td>bioRxiv 2025; pre-trained models on HuggingFace</td><td>Nature 2023; open-source Python library</td></tr>
+    <tr><td>Evaluation framework</td><td>Cell-Eval (ArcInstitute/cell-eval)</td><td>Built-in perturbation scoring</td></tr>
+    <tr><td>Computational cost</td><td>GPU-intensive (A100 recommended)</td><td>Moderate (mostly CPU)</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p>This pairing is chosen to maximize the contrast tested by Hypothesis 2: if grammar-aware models gain an advantage specifically on circuits where topology matters (Class III), this should be visible in the CellOracle vs. STATE comparison.</p>
+
+<p>An optional third model, <strong>RegVelo</strong> (GRN + RNA velocity), may be included as an additional grammar-aware comparison point, particularly for testing Class III toggle-switch predictions where it has been independently validated.</p>
+
+<h3>4.2 Evaluation Protocol</h3>
+
+<p>Both models are run on the same K562 Perturb-seq benchmark using the same pre-processing pipeline. For each perturbed gene, we compute four metrics:</p>
+
+<div class="tbl-wrap">
+<table>
+  <thead>
+    <tr><th>Metric</th><th>What It Measures</th><th>Which Hypothesis It Tests</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Pearson correlation</td><td>Agreement between predicted and observed mean expression change vectors</td><td>H1, H2, H3, H5</td></tr>
+    <tr><td>DEG recovery (F1)</td><td>Fraction of true differentially expressed genes correctly identified</td><td>H6</td></tr>
+    <tr><td>Direction accuracy</td><td>Fraction of genes where predicted up/down direction matches observed</td><td>H1, H2</td></tr>
+    <tr><td>E-distance</td><td>Distributional distance between predicted and observed single-cell populations</td><td>H4 (bimodality sensitivity)</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>5. Phase 3: Stratified Analysis</h2>
+
+<h3>5.1 Primary Analysis: The Accuracy Gradient</h3>
+
+<p>For each model and each metric, we compute the mean accuracy per circuit class and test for a monotonic decrease using Spearman rank correlation. The primary result is a table of the form:</p>
+
+<div class="tbl-wrap">
+<table>
+  <thead>
+    <tr><th>Class</th><th>N</th><th>STATE Pearson</th><th>CellOracle Pearson</th><th>&Delta; (aware &minus; blind)</th></tr>
+  </thead>
+  <tbody>
+    <tr style="background:#eaf4fb;"><td style="color:#2980b9;">I</td><td>~225</td><td colspan="3" style="text-align:center;color:var(--muted);font-style:italic;">To be determined empirically</td></tr>
+    <tr style="background:#eafaf1;"><td style="color:#27ae60;">II</td><td>~175</td><td colspan="3" style="text-align:center;color:var(--muted);font-style:italic;">To be determined empirically</td></tr>
+    <tr style="background:#fef9e7;"><td style="color:#f39c12;">III</td><td>~60</td><td colspan="3" style="text-align:center;color:var(--muted);font-style:italic;">To be determined empirically</td></tr>
+    <tr style="background:#fdf2e9;"><td style="color:#e67e22;">IV</td><td>~15</td><td colspan="3" style="text-align:center;color:var(--muted);font-style:italic;">To be determined empirically</td></tr>
+    <tr style="background:#fdf0ef;"><td style="color:#c0392b;">V</td><td>~10</td><td colspan="3" style="text-align:center;color:var(--muted);font-style:italic;">To be determined empirically</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>5.2 Statistical Tests</h3>
+
+<div class="tbl-wrap">
+<table>
+  <thead>
+    <tr><th>Test</th><th>Hypothesis</th><th>What It Answers</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Spearman rank correlation</td><td>H1, H6</td><td>Is accuracy monotonically related to circuit class?</td></tr>
+    <tr><td>Kruskal-Wallis</td><td>H1</td><td>Do accuracy distributions differ across classes?</td></tr>
+    <tr><td>Paired Wilcoxon (per class)</td><td>H2</td><td>Does CellOracle outperform STATE within each class?</td></tr>
+    <tr><td>Two-sample Kolmogorov-Smirnov</td><td>H3, H5</td><td>Do Class I and Class V accuracy distributions differ?</td></tr>
+    <tr><td>Sarle&rsquo;s bimodality coefficient</td><td>H4</td><td>Do Class III genes show bimodal expression?</td></tr>
+    <tr><td>Cohen&rsquo;s kappa</td><td>H7</td><td>Do CellOracle GRN and GLMP classifications agree?</td></tr>
+    <tr><td>Bootstrap CI (per class)</td><td>All</td><td>95% confidence intervals on per-class accuracy means</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>5.3 Planned Figures</h3>
+
+<ul class="plist">
+  <li><strong>Figure 1: Accuracy gradient.</strong> Box plots of per-gene Pearson correlation (y-axis) by circuit class (x-axis), with separate panels or colors for STATE and CellOracle. The predicted shape: downward slope from left (Class I) to right (Class V).</li>
+  <li><strong>Figure 2: Grammar advantage by class.</strong> Bar chart of accuracy difference (CellOracle &minus; STATE) per class. Predicted shape: small at Class I, largest at Class III, small again at Class V.</li>
+  <li><strong>Figure 3: Bimodality detection.</strong> Violin plots of single-cell expression for representative Class I (unimodal) vs. Class III (bimodal) genes, overlaid with model predictions.</li>
+  <li><strong>Figure 4: DEG recovery gradient.</strong> DEG F1 score by class, both models. Predicted shape: monotonic decrease.</li>
+  <li><strong>Figure 5: Network concordance.</strong> Confusion matrix of CellOracle-inferred vs. GLMP-assigned circuit classes (Hypothesis 7).</li>
+</ul>
+
+<hr>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="part-header">
+  <span class="part-label">Part III</span>
+  <span class="part-title">Interpretation Framework</span>
+</div>
+<div class="part-bridge">
+  A well-designed empirical test must specify in advance what different outcomes would mean. The following section describes the interpretation of each possible result, including the null.
+</div>
+
+<h2>6. What Different Outcomes Would Mean</h2>
+
+<h3>6.1 If the Accuracy Gradient Appears (H1 Confirmed)</h3>
+
+<p>A statistically significant monotonic decrease in prediction accuracy from Class I to Class V would constitute the first empirical evidence that computational complexity class &mdash; as defined by regulatory circuit topology &mdash; is a biologically real distinction with measurable consequences for AI model performance. This would validate the five-class ladder of Paper I as more than an analogy: it would be a classification scheme with predictive power over a completely independent domain (virtual cell model accuracy).</p>
+
+<p>The practical implication is that virtual cell model benchmarks should be stratified by circuit class, just as clinical trials are stratified by disease subtype. Aggregate accuracy numbers are misleading if they mask a systematic accuracy gradient across circuit classes.</p>
+
+<h3>6.2 If the Grammar-Aware Advantage Appears (H2 Confirmed)</h3>
+
+<p>If CellOracle consistently outperforms STATE on Class III circuits specifically, this would support the grammar-aware AI research program of Paper II (Prediction 8). It would demonstrate that explicit representation of regulatory network topology provides a measurable advantage for predicting the behavior of circuits where topology matters &mdash; precisely the prediction the framework makes.</p>
+
+<p>The strongest possible result would be: CellOracle outperforms STATE on Classes II&ndash;IV, but both converge to similar (low) accuracy on Class V. This would show that grammar-awareness helps where the grammar is learnable, but fails where the circuit is too complex for any current representation.</p>
+
+<h3>6.3 If No Gradient Appears (H1 Falsified)</h3>
+
+<p>This null result would be equally informative. It would mean one of three things:</p>
+
+<ul class="plist">
+  <li><strong>The classification is wrong:</strong> the GLMP complexity classes do not correctly capture the relevant structural distinction. This would require revising the classification criteria, not abandoning the framework.</li>
+  <li><strong>The theoretical prediction is wrong:</strong> circuit topology does not determine computational class in the way Papers I and II conjecture. This would be a genuine falsification of the central claim.</li>
+  <li><strong>The models are too crude:</strong> current virtual cell models are operating far below the theoretical ceiling for all classes, making the gradient invisible. This would constrain the conjecture rather than falsify it &mdash; the test would need to be repeated with more capable models.</li>
+</ul>
+
+<p>We would distinguish among these interpretations by examining the variance within classes (if intra-class variance dominates inter-class variance, the classification may be too coarse) and by checking whether CellOracle&rsquo;s inferred network topology correlates with GLMP classes (Hypothesis 7 &mdash; if not, the classification itself is suspect).</p>
+
+<h3>6.4 If Class V Accuracy Is High (H5 Falsified)</h3>
+
+<p>If Class V genes are predicted as accurately as Class I genes, this would be evidence against the Turing-completeness conjecture for epigenetic circuits. It would suggest that even self-modifying circuits, in the biological contexts tested, do not approach the computational power ascribed to them. This would be a productive falsification &mdash; it would place a tighter upper bound on the computational class of genomic regulation.</p>
+
+<h2>7. Limitations and Scope</h2>
+
+<ul class="plist">
+  <li><strong>K562 is a cancer cell line.</strong> Results may not generalize to primary cells. We propose follow-up experiments with primary cell Perturb-seq datasets (e.g., from the CZI scPerturb collection) as a validation step.</li>
+  <li><strong>Small sample sizes for Classes IV&ndash;V.</strong> Acknowledged. We treat Class IV results as suggestive and Class V as exploratory. A definitive test of Class V predictions would require targeted perturbation of known epigenetic self-modification circuits, which is beyond the scope of this re-analysis study.</li>
+  <li><strong>Circuit classification is partially subjective.</strong> We mitigate this by publishing the full classification table with evidence sources and confidence levels, and by testing concordance with CellOracle&rsquo;s independent GRN inference (Hypothesis 7).</li>
+  <li><strong>CellOracle and STATE are not perfectly comparable.</strong> They use different training data, architectures, and assumptions. We control for this by using identical benchmark data, identical gene sets, and identical metrics. The comparison tests the <em>representation</em> (grammar-aware vs. grammar-blind), not the <em>scale</em> (training data size).</li>
+  <li><strong>CRISPRi is not a clean single-gene perturbation.</strong> CRISPRi knockdown is partial, and off-target effects exist. We accept this as inherent to the Perturb-seq platform and note that it biases against finding clean effects, making any gradient we observe a conservative estimate.</li>
+</ul>
+
+<h2>8. Data Sources and Availability</h2>
+
+<div class="tbl-wrap">
+<table>
+  <thead>
+    <tr><th>Resource</th><th>Source</th><th>Access</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>K562 Perturb-seq</td><td>Replogle et al. 2022</td><td>CZI Virtual Cells Platform; scPerturb</td></tr>
+    <tr><td>Norman combinatorial Perturb-seq</td><td>Norman et al. 2019</td><td>scPerturb</td></tr>
+    <tr><td>Nature Methods benchmark (27 methods)</td><td>2025 benchmark paper</td><td>Figshare (DOI: 10.6084/m9.figshare.28143422)</td></tr>
+    <tr><td>STATE model + Cell-Eval</td><td>Arc Institute</td><td>github.com/ArcInstitute/state; HuggingFace</td></tr>
+    <tr><td>CellOracle</td><td>Morris Lab</td><td>github.com/morris-lab/CellOracle</td></tr>
+    <tr><td>TRRUST v2 (human TF-target)</td><td>Han et al.</td><td>grnpedia.org/trrust</td></tr>
+    <tr><td>RegulonDB (E. coli TF-gene)</td><td>UNAM</td><td>regulondb.ccg.unam.mx</td></tr>
+    <tr><td>ENCODE TF ChIP-seq</td><td>ENCODE Consortium</td><td>encodeproject.org</td></tr>
+    <tr><td>GLMP database</td><td>This project</td><td>GLMP database table</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p>All analysis code, the gene circuit classification table, and all intermediate results will be released as a public GitHub repository upon publication.</p>
+
+<h2>9. Proposed Timeline</h2>
+
+<div class="tbl-wrap">
+<table>
+  <thead>
+    <tr><th>Weeks</th><th>Phase</th><th>Deliverable</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>1&ndash;3</td><td>Phase 1: Gene circuit classification</td><td>gene_circuit_classes.tsv (~200&ndash;500 classified TFs)</td></tr>
+    <tr><td>2&ndash;4</td><td>Phase 2: Model evaluation</td><td>Per-gene prediction scores from STATE and CellOracle</td></tr>
+    <tr><td>4&ndash;6</td><td>Phase 3: Stratified analysis</td><td>Statistical tests, figures, result tables</td></tr>
+    <tr><td>6&ndash;8</td><td>Paper writing</td><td>Complete manuscript draft</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>10. Conclusion</h2>
+
+<p>This paper proposes the first empirical test of the conjecture that computational complexity class &mdash; determined by gene regulatory circuit topology &mdash; predicts the accuracy of AI models of cellular behavior. The test requires no new biological experiments: it re-stratifies existing genome-scale Perturb-seq benchmarks by a new axis (circuit class) and compares grammar-blind and grammar-aware virtual cell models within each stratum.</p>
+
+<p>Seven hypotheses are stated with explicit falsification criteria. The central prediction is that accuracy degrades monotonically from Class I (feed-forward, decidable) to Class V (self-modifying, potentially undecidable), and that grammar-aware models gain their largest advantage on Class III (bistable) circuits where topology knowledge is most informative.</p>
+
+<p>If confirmed, this result would demonstrate that the five-class complexity ladder is not merely a theoretical analogy but a classification with predictive power &mdash; one that reveals a fundamental, mathematically grounded limit on the predictability of biological systems. If falsified, the null result would constrain the conjecture and sharpen the question of where, precisely, the analogy between genomic circuits and formal computational systems breaks down.</p>
+
+<p style="text-align:center; font-style:italic; color:var(--muted); margin-top:1.5rem; margin-bottom:0;">Either outcome advances the field.</p>
+
+<hr>
+
+<section class="references">
+<h2>References</h2>
+<p style="font-family:var(--sans);font-size:0.88rem;margin-bottom:1.2rem;"><strong>Companion papers:</strong> Welz, G. <em>Primitive Relations, Computational Complexity, and a Conjecture on the Genomic Computational Class.</em> GLMP Working Paper, 2026. <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/GLMP_Foundational_Typology.html">Paper I</a>. &mdash; Welz, G. <em>The Genome as Computer: Logical Primitives, Runtime States, and the Computational Limits of Biological Prediction.</em> GLMP Working Paper, 2026. <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/genome_as_computer_v2.html">Paper II</a>.</p>
+<ol>
+  <li>Replogle, J.M. et al. Mapping information-rich genotype-phenotype landscapes with genome-scale Perturb-seq. <em>Cell,</em> 185(14), 2022. <a href="https://doi.org/10.1016/j.cell.2022.05.013">DOI</a>.</li>
+  <li>Norman, T.M. et al. Exploring genetic interaction manifolds constructed from rich single-cell phenotypes. <em>Science,</em> 365(6455), 2019. <a href="https://doi.org/10.1126/science.aax4438">DOI</a>.</li>
+  <li>Hie, B. et al. Predicting cellular responses to perturbation across diverse contexts with State. <em>bioRxiv,</em> 2025. <a href="https://doi.org/10.1101/2025.06.26.661135">DOI</a>.</li>
+  <li>Kamimoto, K. et al. Dissecting cell identity via network inference and in silico gene perturbation. <em>Nature,</em> 614, 2023. <a href="https://doi.org/10.1038/s41586-022-05688-9">DOI</a>. CellOracle.</li>
+  <li>Peidli, S. et al. scPerturb: harmonized single-cell perturbation data. <em>Nature Methods,</em> 21, 2024. <a href="https://doi.org/10.1038/s41592-023-02144-y">DOI</a>.</li>
+  <li>Benchmarking algorithms for generalizable single-cell perturbation response prediction. <em>Nature Methods,</em> 2025. <a href="https://doi.org/10.1038/s41592-025-02980-0">DOI</a>. 27-method benchmark.</li>
+  <li>Shen-Orr, S. et al. Network motifs in the transcriptional regulation network of Escherichia coli. <em>Nature Genetics,</em> 31, 2002. <a href="https://doi.org/10.1038/ng881">DOI</a>.</li>
+  <li>Alon, U. <em>An Introduction to Systems Biology: Design Principles of Biological Circuits.</em> Chapman &amp; Hall/CRC, 2006.</li>
+  <li>Han, H. et al. TRRUST v2: an expanded reference database of human and mouse transcriptional regulatory interactions. <em>Nucleic Acids Research,</em> 46(D1), 2018. <a href="https://doi.org/10.1093/nar/gkx1013">DOI</a>.</li>
+  <li>ENCODE Project Consortium. An integrated encyclopedia of DNA elements in the human genome. <em>Nature,</em> 489, 2012. <a href="https://doi.org/10.1038/nature11247">DOI</a>.</li>
+  <li>Gardner, T. et al. Construction of a genetic toggle switch in Escherichia coli. <em>Nature,</em> 2000. <a href="https://doi.org/10.1038/35002131">DOI</a>.</li>
+  <li>Elowitz, M. &amp; Leibler, S. A synthetic oscillatory network of transcriptional regulators. <em>Nature,</em> 2000. <a href="https://doi.org/10.1038/35002125">DOI</a>.</li>
+  <li>Rice, H.G. Classes of Recursively Enumerable Sets and Their Decision Problems. <em>Transactions of the AMS,</em> 74(2), 1953. <a href="https://doi.org/10.2307/1990888">JSTOR</a>.</li>
+</ol>
+</section>
+
+<div class="paper-footer">
+  Genome Logic Modeling Project &mdash; Gary Welz &mdash; CUNY Graduate Center / New Media Lab &mdash; Working Paper 2026<br>
+  Empirical companion to: <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/GLMP_Foundational_Typology.html">Paper I</a> and <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/genome_as_computer_v2.html">Paper II</a>
+</div>
+
+<script>
+(function () {
+  var cfg = {
+    startOnLoad: false,
+    theme: 'base',
+    themeVariables: {
+      primaryColor: '#1abc9c', primaryTextColor: '#fff', primaryBorderColor: '#16a085',
+      lineColor: '#333', secondaryColor: '#2E75B6', tertiaryColor: '#f0f4f8'
+    },
+    flowchart: { curve: 'basis', nodeSpacing: 50, rankSpacing: 60 }
+  };
+  function renderDiagrams() {
+    if (typeof mermaid === 'undefined' || !mermaid.run) return;
+    try { mermaid.initialize(cfg); } catch (e) { console.warn('Mermaid initialize', e); }
+    mermaid.run({ querySelector: '.mermaid' }).catch(function (err) {
+      console.warn('Mermaid run', err);
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', renderDiagrams);
+  } else {
+    renderDiagrams();
+  }
+})();
+</script>
+</body>
+</html>

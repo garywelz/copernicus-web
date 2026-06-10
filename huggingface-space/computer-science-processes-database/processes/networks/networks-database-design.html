@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Database Design - Computer Science Process</title>
+    <title>IP Addressing & Subnetting (CIDR) - Computer Science Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Database Design</h1>
+            <h1>IP Addressing & Subnetting (CIDR)</h1>
             <div class="header-meta">
                 <span class="meta-item">Computer Science</span>
                 <span class="meta-item">Computer Networks</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,67 +234,59 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Database Design process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>Subnetting divides an address block to fit host requirements: from the needed host count the required host bits and prefix length are computed, the block is split into subnets, and if a subnet is too small more host bits are borrowed; network and broadcast addresses are reserved and routes are aggregated with CIDR.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-A1[Requirements Analysis] --> B1[Database Design Method]
-C1[Entity Relationship] --> D1[Data Modeling]
-E1[Schema Design] --> F1[Database Design Analysis]
-B1 --> G1[Conceptual Design]
-D1 --> H1[Logical Design]
-F1 --> I1[Physical Design]
-G1 --> J1[Entity Identification]
-H1 --> K1[Attribute Definition]
-I1 --> L1[Index Design]
-J1 --> M1[Relationship Mapping]
-K1 --> L1
-L1 --> N1[Performance Optimization]
-M1 --> O1[Normalization Process]
-N1 --> P1[Storage Optimization]
-O1 --> Q1[Database Design Process]
-P1 --> R1[Database Design Validation]
-Q1 --> S1[Database Design Verification]
-R1 --> T1[Database Design Result]
-S1 --> U1[Database Design Analysis]
-T1 --> V1[Database Design Parameters]
-U1 --> W1[Database Design Output]
-V1 --> X1[Database Design Analysis]
-W1 --> Y1[Database Design Final Result]
-X1 --> Z1[Database Design Complete]
+    N1["Network address block"]
+    N2["Determine host count"]
+    N3["Compute required bits"]
+    N4["Set subnet mask / prefix"]
+    N5["Split into subnets"]
+    N6{"Enough addresses?"}
+    N7["Borrow more host bits"]
+    N8["Reserve net + broadcast"]
+    N9["Usable host range"]
+    N10["Aggregate routes (CIDR)"]
+    N11["Subnet plan"]
 
-    style A1 fill:#ff6b6b,color:#fff
-    style C1 fill:#ff6b6b,color:#fff
-    style E1 fill:#ff6b6b,color:#fff
-    style B1 fill:#ffd43b,color:#000
-    style D1 fill:#ffd43b,color:#000
-    style F1 fill:#ffd43b,color:#000
-    style G1 fill:#ffd43b,color:#000
-    style H1 fill:#ffd43b,color:#000
-    style I1 fill:#ffd43b,color:#000
-    style J1 fill:#ffd43b,color:#000
-    style K1 fill:#ffd43b,color:#000
-    style L1 fill:#ffd43b,color:#000
-    style M1 fill:#51cf66,color:#fff
-    style N1 fill:#51cf66,color:#fff
-    style O1 fill:#51cf66,color:#fff
-    style P1 fill:#51cf66,color:#fff
-    style Q1 fill:#51cf66,color:#fff
-    style R1 fill:#51cf66,color:#fff
-    style S1 fill:#51cf66,color:#fff
-    style T1 fill:#51cf66,color:#fff
-    style U1 fill:#51cf66,color:#fff
-    style V1 fill:#51cf66,color:#fff
-    style W1 fill:#51cf66,color:#fff
-    style X1 fill:#51cf66,color:#fff
-    style Y1 fill:#51cf66,color:#fff
-    style Z1 fill:#b197fc,color:#fff
+    N1 --> N2
+    N2 --> N3
+    N3 --> N4
+    N4 --> N5
+    N5 --> N6
+    N6 -->|no| N7
+    N7 -->|recompute| N3
+    N6 -->|yes| N8
+    N8 --> N9
+    N9 --> N10
+    N10 --> N11
+
+    style N1 fill:#ff6b6b,color:#fff
+    style N2 fill:#51cf66,color:#fff
+    style N3 fill:#51cf66,color:#fff
+    style N4 fill:#51cf66,color:#fff
+    style N5 fill:#51cf66,color:#fff
+    style N6 fill:#74c0fc,color:#fff
+    style N7 fill:#51cf66,color:#fff
+    style N8 fill:#51cf66,color:#fff
+    style N9 fill:#74c0fc,color:#fff
+    style N10 fill:#51cf66,color:#fff
+    style N11 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Network address block</td><td>Triggers & Inputs</td><td><a href="https://doi.org/10.17487/RFC4632" target="_blank" title="Classless Inter-domain Routing (CIDR): The Internet Address Assignment and Aggregation Plan (RFC 4632)" style="color:#9b59b6;">Fuller, V. et al. 2006</a></td></tr><tr><td style="font-weight:600;">Determine host count</td><td>Processing & Operations</td><td><a href="https://www.pearson.com/en-us/subject-catalog/p/computer-networks/P200000003188" target="_blank" title="Computer Networks (5th ed.)" style="color:#9b59b6;">Tanenbaum, A. S. et al. 2011</a></td></tr><tr><td style="font-weight:600;">Compute required bits</td><td>Processing & Operations</td><td><a href="https://www.pearson.com/en-us/subject-catalog/p/computer-networks/P200000003188" target="_blank" title="Computer Networks (5th ed.)" style="color:#9b59b6;">Tanenbaum, A. S. et al. 2011</a></td></tr><tr><td style="font-weight:600;">Set subnet mask / prefix</td><td>Processing & Operations</td><td><a href="https://doi.org/10.17487/RFC4632" target="_blank" title="Classless Inter-domain Routing (CIDR): The Internet Address Assignment and Aggregation Plan (RFC 4632)" style="color:#9b59b6;">Fuller, V. et al. 2006</a></td></tr><tr><td style="font-weight:600;">Split into subnets</td><td>Processing & Operations</td><td><a href="https://doi.org/10.17487/RFC4632" target="_blank" title="Classless Inter-domain Routing (CIDR): The Internet Address Assignment and Aggregation Plan (RFC 4632)" style="color:#9b59b6;">Fuller, V. et al. 2006</a></td></tr><tr><td style="font-weight:600;">Enough addresses?</td><td>Intermediates & States</td><td><a href="https://www.pearson.com/en-us/subject-catalog/p/computer-networks/P200000003188" target="_blank" title="Computer Networks (5th ed.)" style="color:#9b59b6;">Tanenbaum, A. S. et al. 2011</a></td></tr><tr><td style="font-weight:600;">Borrow more host bits</td><td>Processing & Operations</td><td><a href="https://www.pearson.com/en-us/subject-catalog/p/computer-networks/P200000003188" target="_blank" title="Computer Networks (5th ed.)" style="color:#9b59b6;">Tanenbaum, A. S. et al. 2011</a></td></tr><tr><td style="font-weight:600;">Reserve net + broadcast</td><td>Processing & Operations</td><td><a href="https://doi.org/10.17487/RFC4632" target="_blank" title="Classless Inter-domain Routing (CIDR): The Internet Address Assignment and Aggregation Plan (RFC 4632)" style="color:#9b59b6;">Fuller, V. et al. 2006</a></td></tr><tr><td style="font-weight:600;">Usable host range</td><td>Intermediates & States</td><td><a href="https://doi.org/10.17487/RFC4632" target="_blank" title="Classless Inter-domain Routing (CIDR): The Internet Address Assignment and Aggregation Plan (RFC 4632)" style="color:#9b59b6;">Fuller, V. et al. 2006</a></td></tr><tr><td style="font-weight:600;">Aggregate routes (CIDR)</td><td>Processing & Operations</td><td><a href="https://doi.org/10.17487/RFC4632" target="_blank" title="Classless Inter-domain Routing (CIDR): The Internet Address Assignment and Aggregation Plan (RFC 4632)" style="color:#9b59b6;">Fuller, V. et al. 2006</a></td></tr><tr><td style="font-weight:600;">Subnet plan</td><td>Products & Outputs</td><td><a href="https://doi.org/10.17487/RFC4632" target="_blank" title="Classless Inter-domain Routing (CIDR): The Internet Address Assignment and Aggregation Plan (RFC 4632)" style="color:#9b59b6;">Fuller, V. et al. 2006</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -313,12 +332,12 @@ X1 --> Z1[Database Design Complete]
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 26</li>
-                        <li><strong>Edges:</strong> 21</li>
-                        <li><strong>Conditionals:</strong> 0</li>
+                        <li><strong>Nodes:</strong> 11</li>
+                        <li><strong>Edges:</strong> 11</li>
+                        <li><strong>Conditionals:</strong> 1</li>
                         <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 1</li>
+                        <li><strong>OR Gates:</strong> 1</li>
+                        <li><strong>Total Gates:</strong> 2</li>
                     </ul>
                 </div>
                 
@@ -326,7 +345,7 @@ X1 --> Z1[Database Design Complete]
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>database</li><li>design</li>
+                        <li>IP addressing</li><li>subnetting</li><li>CIDR</li><li>subnet mask</li><li>route aggregation</li>
                     </ul>
                 </div>
                 
@@ -337,43 +356,23 @@ X1 --> Z1[Database Design Complete]
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Classless Inter-domain Routing (CIDR): The Internet Address Assignment and Aggregation Plan (RFC 4632)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Fuller, V.; Li, T.
+                            , IETF
+                             (2006)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #9b59b6; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Design of the Oltp Database</strong>
-                            
-                            , Foundations of Database Design
-                             (2005)
-                            </span>
-                            <br><a href="https://doi.org/10.1201/9780203505168.ch9" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.1201/9780203505168.ch9</a>
+                            <br><a href="https://doi.org/10.17487/RFC4632" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.17487/RFC4632</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Physical Database Design</strong>
-                            
-                            , Semistructured Database Design
-                             (2005)
+                            <strong>Computer Networks (5th ed.)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Tanenbaum, A. S.; Wetherall, D. J.
+                            , Pearson
+                             (2011)
                             </span>
-                            <br><a href="https://doi.org/10.1007/0-387-23568-x_7" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.1007/0-387-23568-x_7</a>
                             
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Introduction to Logical Database Design</strong>
-                            
-                            , Foundations of Database Design
-                             (2005)
-                            </span>
-                            <br><a href="https://doi.org/10.1201/9780203505168.ch1" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.1201/9780203505168.ch1</a>
-                            
+                            <br><a href="https://www.pearson.com/en-us/subject-catalog/p/computer-networks/P200000003188" target="_blank" style="color: #9b59b6; font-size: 0.85em;">View Source</a>
                         </li>
                         
                     </ul>

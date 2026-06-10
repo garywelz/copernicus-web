@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2605.22755v1",
+  "arxiv_id": "2605.22755v1",
+  "title": "Assessing global drivers of forest transpiration using clustered machine learning models",
+  "authors": [
+    "Morgan Thornwell",
+    "David Yang",
+    "Cheng-Wei Huang",
+    "Peyman Abbaszadeh",
+    "Samantha Hartzell"
+  ],
+  "author_string": "Morgan Thornwell, David Yang, Cheng-Wei Huang, Peyman Abbaszadeh, Samantha Hartzell",
+  "journal": "arXiv:2605.22755v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Understanding the environmental drivers of forest transpiration is critical for improving global predictions of water availability and ecosystem health. Due to many competing controls on plant water stress and ecosystem transpiration, however, these drivers may vary widely across tree species which have adapted hydraulically to local climate conditions. Here, clustered machine learning models were used to analyze global drivers of forest transpiration rates using the SAPFLUXNET database. Sap flux data from a total of ninety-five sites spanning seven biomes were grouped using two clustering strategies: by biome and by plant functional type. Two supervised machine learning algorithms, a random forest algorithm and a neural network algorithm, were used to predict rates of sap flux for each cluster. The performance and feature importance in each model were analyzed and compared to evaluate the environmental variables that control each cluster's performance. By defining site clusters, these models are able to predict transpiration and its environmental drivers across a wide variety of geographical sites and tree species. Unlike models trained on the entire dataset, high-performing clustered models achieved R$^2$ values to measurement data in the range of 0.74 to 0.90, with the highest performance being achieved in mid-sized clusters of up to thirty-six sites. There was high variance in feature importance between clusters, indicating that key predictors of transpiration varied strongly across both plant functional type and biome. Overall, water-limited climates tended to be more controlled by soil moisture, whereas climates with high mean annual temperature tended to be more controlled by solar radiation and less dependent on air temperature. These findings provide insights into how forest transpiration responds to environmental factors across a wide range of climate types and tree species.",
+  "categories": [
+    "q-bio.QM"
+  ],
+  "primary_category": "q-bio.QM",
+  "comment": null,
+  "published_date": "2026-05-21T17:22:38Z",
+  "updated_date": "2026-05-21T17:22:38Z",
+  "url": "https://arxiv.org/abs/2605.22755v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.22755v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-26T10:15:35.455367",
+  "category": "biology",
+  "subcategories": [
+    "q-bio.QM"
+  ]
+}

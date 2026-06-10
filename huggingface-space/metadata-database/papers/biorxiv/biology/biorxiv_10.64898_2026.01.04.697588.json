@@ -1,0 +1,45 @@
+{
+  "id": "biorxiv_10.64898_2026.01.04.697588",
+  "doi": "10.64898/2026.01.04.697588",
+  "title": "TubercuProbe: A Cross-Attention Graph-Sequence Model for Cross-Species Chemoproteomic Discovery in Mycobacterium tuberculosis",
+  "authors": [
+    "Chalamalasetty, A.",
+    "Mishra, A. R.",
+    "Ferguson, F.",
+    "Sanchez-Lengeling, B.",
+    "Barraza-Chavez, J. M.",
+    "Jinich, A."
+  ],
+  "author_string": "Chalamalasetty, A., Mishra, A. R., Ferguson, F., Sanchez-Lengeling, B., Barraza-Chavez, J. M. et al.",
+  "journal": "bioRxiv",
+  "journal_full": "bioRxiv",
+  "year": "2026",
+  "abstract": "Activity-based protein profiling (ABPP) and residue-specific chemoproteomics have transformed human chemical biology, yet applying these approaches to pathogens remains limited by biosafety constraints, low throughput, and the absence of reusable atlases. We present TubercuProbe, a cross-species machine learning framework that leverages large-scale human chemoproteomic knowledge to prioritize compound-protein interactions in Mycobacterium tuberculosis (Mtb) and other pathogens. Our model integrates a graph isomorphism network (GINE) for ligand encoding with frozen ESM-C (600M) protein embeddings via bidirectional cross-attention. Trained on >2M ChEMBL compound-protein pairs (predominantly human targets), TubercuProbe achieves R2=0.77 (MSE=0.45) for continuous affinity prediction and transfers effectively to binary cysteine reactivity prediction (CysDB AUPRC=0.63). Ablation studies reveal that pretrained features are highly transferable across freezing strategies ({Delta}AUPRC<0.03), suggesting the model captures fundamental protein-molecule interaction patterns. As a case study, we prioritize cysteine-reactive electrophiles and molecular glues for three Mtb virulence proteins (PtpB, SapM, Rv3671c), providing candidate probes for prospective ABPP validation. Orthogonal comparison with Boltz-2 structure predictions shows moderate correlation (Pearson r{approx}0.69). TubercuProbe provides a lightweight, sequence-driven first-pass ranker that enables pre-experimental prioritization--reducing the time, cost, and experimental burden of chemoproteomic discovery in biosafety-restricted systems. We discuss extensions toward multitask learning that jointly predicts non-covalent binding and covalent reactivity, recognizing that effective covalent probes must both reach their target and react once there.",
+  "keywords": [],
+  "categories": [
+    "biochemistry"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.64898/2026.01.04.697588",
+  "source": "biorxiv",
+  "sources": [
+    "biorxiv"
+  ],
+  "acquired_date": "2026-05-05T22:15:25.110480",
+  "category": "biology",
+  "subcategories": [
+    "biochemistry"
+  ],
+  "published_date": "2026-01-05",
+  "updated_date": "2026-01-05",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "biorxiv",
+  "preprint_version": "1",
+  "preprint_type": "new results",
+  "license": "cc_by_nc_nd",
+  "jatsxml": "https://www.biorxiv.org/content/early/2026/01/05//2026.01.04.697588.source.xml",
+  "published_doi": null,
+  "author_corresponding": "Adrian Jinich",
+  "author_corresponding_institution": "University of California San Diego"
+}

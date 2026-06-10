@@ -1,0 +1,42 @@
+{
+  "id": "arxiv_2605.20147v1",
+  "arxiv_id": "2605.20147v1",
+  "title": "PixVerve: Advancing Native UHR Image Generation to 100MP with a Large-Scale High-Quality Dataset",
+  "authors": [
+    "Haojun Chen",
+    "Haoyang He",
+    "Chengming Xu",
+    "Qingdong He",
+    "Junwei Zhu",
+    "Yabiao Wang",
+    "Zhucun Xue",
+    "Xianfang Zeng",
+    "Zhennan Chen",
+    "Xiaobin Hu",
+    "Hao Zhao",
+    "Yong Liu",
+    "Jiangning Zhang",
+    "Dacheng Tao"
+  ],
+  "author_string": "Haojun Chen, Haoyang He, Chengming Xu, Qingdong He, Junwei Zhu et al.",
+  "journal": "arXiv:2605.20147v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Text-to-Image (T2I) models have recently seen notable progress around 1K and 2K resolution. With the extreme desire for better visual experience and the rapid development of imaging technology, the demand for Ultra-High-Resolution (UHR) image generation has grown significantly. However, UHR image generation poses great challenges due to the scarcity and complexity of high-resolution content. In this paper, we first introduce PixVerve-95K, a high-quality, open-source UHR T2I dataset curated with a carefully designed data pipeline, which contains 95K images across diverse scenarios (each image has a minimum pixel-count of 100M) and seven-dimensional annotations. Based on our large-scale image-text dataset, we take a pioneering step to extend various T2I foundation models to native 100MP generation with three training schemes. Finally, leveraging both conventional metrics and multimodal large language model-based assessments, our proposed PixVerve-Bench benchmark establishes a comprehensive evaluation protocol for UHR images encompassing visual quality and semantic alignment. Extensive experimental results on our benchmark and the constructive exploration of training strategies collaboratively provide valuable insights for future breakthroughs.",
+  "categories": [
+    "cs.CV"
+  ],
+  "primary_category": "cs.CV",
+  "comment": "Project page is available at https://haojunchen663.github.io/projects/PixVerve/",
+  "published_date": "2026-05-19T17:35:09Z",
+  "updated_date": "2026-05-19T17:35:09Z",
+  "url": "https://arxiv.org/abs/2605.20147v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.20147v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-20T10:16:33.995681",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CV"
+  ]
+}

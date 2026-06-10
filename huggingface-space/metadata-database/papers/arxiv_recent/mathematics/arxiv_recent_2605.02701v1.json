@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2605.02701v1",
+  "arxiv_id": "2605.02701v1",
+  "title": "Robust and Fast Training via Per-Sample Clipping",
+  "authors": [
+    "Davide Nobile",
+    "Philipp Grohs"
+  ],
+  "author_string": "Davide Nobile, Philipp Grohs",
+  "journal": "arXiv:2605.02701v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We propose a robust gradient estimator based on per-sample gradient clipping and analyze its properties both theoretically and empirically. We show that the resulting method, per-sample clipped SGD (PS-Clip-SGD), achieves optimal in-expectation convergence rates for non-convex optimization problems under heavy-tailed gradient noise. Moreover, we establish high-probability convergence guarantees that match the in-expectation rates up to polylogarithmic factors in the failure probability. We complement our theoretical results with multiple numerical experiments. In particular, we demonstrate that PS-Clip-SGD outperforms both vanilla SGD with momentum and standard gradient clipping when training AlexNet on the CIFAR-100 dataset, even after accounting for the additional computational time caused by per-sample clipping. We also empirically show that, in the presence of gradient accumulation, applying clipping at the mini-batch level can improve training performance while incurring virtually no additional computational cost. This finding is particularly interesting, as it contradicts the common practice of applying clipping only after all accumulation steps have been completed.",
+  "categories": [
+    "math.OC",
+    "cs.LG",
+    "stat.ML"
+  ],
+  "primary_category": "stat.ML",
+  "comment": null,
+  "published_date": "2026-05-04T15:11:36Z",
+  "updated_date": "2026-05-04T15:11:36Z",
+  "url": "https://arxiv.org/abs/2605.02701v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.02701v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-05T10:15:50.910661",
+  "category": "mathematics",
+  "subcategories": [
+    "math.OC",
+    "cs.LG",
+    "stat.ML"
+  ]
+}

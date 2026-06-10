@@ -1,0 +1,199 @@
+{
+  "id": "pathways-oxidative-phosphorylation",
+  "name": "Oxidative Phosphorylation",
+  "category": "biology",
+  "subcategory": "pathways",
+  "subcategory_name": "Pathways",
+  "description": "Oxidative phosphorylation: electrons from NADH/FADH2 pass through respiratory complexes to O2 while protons are pumped across the inner membrane, and the resulting proton-motive force drives ATP synthase, with respiratory control by ADP availability.",
+  "keywords": [
+    "oxidative phosphorylation",
+    "electron transport chain",
+    "proton gradient",
+    "atp synthase",
+    "chemiosmosis"
+  ],
+  "namedCollections": [
+    "metabolism"
+  ],
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "complexity": {
+    "nodes": 11,
+    "edges": 13,
+    "conditionals": 1,
+    "logicGates": {
+      "orGates": 3,
+      "andGates": 2,
+      "notGates": 0,
+      "total": 5
+    },
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 1
+  },
+  "graphMetrics": {
+    "nodes": 11,
+    "edges": 13,
+    "conditionals": 1,
+    "andGates": 2,
+    "orGates": 3,
+    "notGates": 0,
+    "loops": 1
+  },
+  "mermaid": "graph TD\n    N1[\"NADH / FADH2 fuel\"]\n    N2[\"Complex I/II oxidize\"]\n    N3[\"Ubiquinone shuttle\"]\n    N4[\"Complex III -> cyt c\"]\n    N5[\"Complex IV reduces O2\"]\n    N6[\"Protons pumped out\"]\n    N7[\"Proton-motive force\"]\n    N8[\"ATP synthase rotates\"]\n    N9{\"ADP available?\"}\n    N10[\"ATP synthesized\"]\n    N11[\"Backpressure slows ETC\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 --> N4\n    N4 --> N5\n    N2 --> N6\n    N4 --> N6\n    N5 --> N6\n    N6 --> N7\n    N7 --> N8\n    N8 --> N9\n    N9 -->|yes| N10\n    N9 -->|no ADP| N11\n    N11 -->|respiratory con…| N2\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#74c0fc,color:#fff\n    style N7 fill:#74c0fc,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#74c0fc,color:#fff\n    style N10 fill:#b197fc,color:#fff\n    style N11 fill:#51cf66,color:#fff",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "NADH / FADH2 fuel",
+      "detail": "Reduced carriers from catabolism",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N2",
+      "label": "Complex I/II oxidize",
+      "detail": "Electrons enter the chain",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N3",
+      "label": "Ubiquinone shuttle",
+      "detail": "Mobile electron carrier",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N4",
+      "label": "Complex III -> cyt c",
+      "detail": "Q-cycle electron transfer",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N5",
+      "label": "Complex IV reduces O2",
+      "detail": "Terminal electron acceptor -> water",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N6",
+      "label": "Protons pumped out",
+      "detail": "H+ moved at I, III, IV",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N7",
+      "label": "Proton-motive force",
+      "detail": "Electrochemical gradient stored",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N8",
+      "label": "ATP synthase rotates",
+      "detail": "Protons flow back through F0F1",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N9",
+      "label": "ADP available?",
+      "detail": "Respiratory control by substrate",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 2
+    },
+    {
+      "id": "N10",
+      "label": "ATP synthesized",
+      "detail": "Phosphorylation of ADP",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N11",
+      "label": "Backpressure slows ETC",
+      "detail": "High gradient limits pumping",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:pathways-oxidative-phosphorylation",
+    "graphType": "mechanism_flowchart",
+    "topologySignature": "28c4be9effd929ca",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "lastUpdated": "2026-06-01",
+  "verified": false,
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "sources": [
+    {
+      "title": "Biochemistry, 5th ed. — Oxidative Phosphorylation",
+      "authors": "Berg, J. M.; Tymoczko, J. L.; Stryer, L.",
+      "journal": "W. H. Freeman (NCBI Bookshelf, Chapter 18)",
+      "year": "2002",
+      "doi": null,
+      "url": "https://www.ncbi.nlm.nih.gov/books/NBK21208/"
+    },
+    {
+      "title": "Coupling of phosphorylation to electron and hydrogen transfer by a chemi-osmotic type of mechanism",
+      "authors": "Mitchell, P.",
+      "journal": "Nature",
+      "year": "1961",
+      "pubmed": "13771349",
+      "doi": "10.1038/191144a0",
+      "url": "https://doi.org/10.1038/191144a0"
+    },
+    {
+      "title": "Oxidative phosphorylation at the fin de siècle",
+      "authors": "Saraste, M.",
+      "journal": "Science",
+      "year": "1999",
+      "pubmed": "10066159",
+      "doi": "10.1126/science.283.5407.1488",
+      "url": "https://doi.org/10.1126/science.283.5407.1488"
+    }
+  ],
+  "graphType": "mechanism_flowchart",
+  "domainContext": "Mitochondrial bioenergetics"
+}

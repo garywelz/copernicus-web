@@ -1,0 +1,200 @@
+{
+  "id": "pathways-gpcr-signaling",
+  "name": "GPCR Signaling",
+  "category": "biology",
+  "subcategory": "pathways",
+  "subcategory_name": "Pathways",
+  "description": "GPCR signaling: ligand binding makes the receptor a GEF that loads GTP onto Galpha, the dissociated subunits activate effectors producing second messengers and a cellular response, and GTP hydrolysis plus GRK/arrestin desensitization reset the system.",
+  "keywords": [
+    "gpcr",
+    "g protein",
+    "second messenger",
+    "camp",
+    "desensitization"
+  ],
+  "namedCollections": [
+    "signaling-cell-fate"
+  ],
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "complexity": {
+    "nodes": 11,
+    "edges": 12,
+    "conditionals": 1,
+    "logicGates": {
+      "orGates": 2,
+      "andGates": 2,
+      "notGates": 0,
+      "total": 4
+    },
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 2
+  },
+  "graphMetrics": {
+    "nodes": 11,
+    "edges": 12,
+    "conditionals": 1,
+    "andGates": 2,
+    "orGates": 2,
+    "notGates": 0,
+    "loops": 2
+  },
+  "mermaid": "graph TD\n    N1[\"Ligand binds GPCR\"]\n    N2[\"Receptor conformational change\"]\n    N3[\"Galpha GDP -> GTP\"]\n    N4[\"G protein dissociates\"]\n    N5[\"Effector (AC / PLC)\"]\n    N6[\"Second messengers\"]\n    N7[\"PKA / PKC activated\"]\n    N8[\"Cellular response\"]\n    N9{\"GTP hydrolyzed?\"}\n    N10[\"G protein reassociates\"]\n    N11[\"GRK + arrestin desensitize\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 --> N4\n    N4 --> N5\n    N5 --> N6\n    N6 --> N7\n    N7 --> N8\n    N4 --> N9\n    N9 -->|yes| N10\n    N10 -->|re-activate| N3\n    N2 --> N11\n    N11 -->|desensitize| N2\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#74c0fc,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#b197fc,color:#fff\n    style N9 fill:#74c0fc,color:#fff\n    style N10 fill:#51cf66,color:#fff\n    style N11 fill:#51cf66,color:#fff",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Ligand binds GPCR",
+      "detail": "Agonist engages the receptor",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N2",
+      "label": "Receptor conformational change",
+      "detail": "Active state created",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N3",
+      "label": "Galpha GDP -> GTP",
+      "detail": "Receptor acts as GEF",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N4",
+      "label": "G protein dissociates",
+      "detail": "Galpha and Gbetagamma separate",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N5",
+      "label": "Effector (AC / PLC)",
+      "detail": "Enzyme activity modulated",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N6",
+      "label": "Second messengers",
+      "detail": "cAMP, IP3, Ca2+ produced",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N7",
+      "label": "PKA / PKC activated",
+      "detail": "Downstream kinases",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N8",
+      "label": "Cellular response",
+      "detail": "Physiological output",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N9",
+      "label": "GTP hydrolyzed?",
+      "detail": "Intrinsic/RGS-accelerated timer",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N10",
+      "label": "G protein reassociates",
+      "detail": "Heterotrimer reforms, signal off",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N11",
+      "label": "GRK + arrestin desensitize",
+      "detail": "Receptor uncoupled/internalized",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:pathways-gpcr-signaling",
+    "graphType": "mechanism_flowchart",
+    "topologySignature": "3cdfb79622245827",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "lastUpdated": "2026-06-01",
+  "verified": false,
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "sources": [
+    {
+      "title": "Seven-transmembrane receptors",
+      "authors": "Pierce, K. L.; Premont, R. T.; Lefkowitz, R. J.",
+      "journal": "Nature Reviews Molecular Cell Biology",
+      "year": "2002",
+      "pubmed": "12209124",
+      "doi": "10.1038/nrm908",
+      "url": "https://doi.org/10.1038/nrm908"
+    },
+    {
+      "title": "G proteins: transducers of receptor-generated signals",
+      "authors": "Gilman, A. G.",
+      "journal": "Annual Review of Biochemistry",
+      "year": "1987",
+      "pubmed": "3113327",
+      "doi": "10.1146/annurev.bi.56.070187.003151",
+      "url": "https://doi.org/10.1146/annurev.bi.56.070187.003151"
+    },
+    {
+      "title": "Crystal structure of the β2 adrenergic receptor-Gs protein complex",
+      "authors": "Rasmussen, S. G.; et al.",
+      "journal": "Nature",
+      "year": "2011",
+      "pubmed": "21772288",
+      "doi": "10.1038/nature10361",
+      "url": "https://doi.org/10.1038/nature10361"
+    }
+  ],
+  "graphType": "mechanism_flowchart",
+  "domainContext": "Transmembrane signal transduction"
+}

@@ -1,0 +1,39 @@
+{
+  "id": "foundations-axiomatic-set-theory-forcing",
+  "name": "Axiomatic Set Theory — Forcing",
+  "category": "mathematics",
+  "subcategory": "foundations",
+  "subcategory_name": "Foundations",
+  "description": "Forcing: technique to expand universe V to V[G] by adjoining a generic object G. Forcing poset (P,≤,1); generic filter G; P-names; interpretation val(u,G); M[G]. Forcing relation p ⊩ φ. Coherence, definability, truth. Cohen forcing (Fin(S,2)).",
+  "mermaid": "graph TD\n    ZFC[\"ZFC\\n(Charts 1–3)\"]\n    DefPoset[\"Def: Forcing poset\\n(P,≤,1) preorder, splitting\"]\n    DefGeneric[\"Def: Generic filter\\nG ⊆ P, dense meet\"]\n    DefNames[\"Def: P-names\\nV^P = ⋃ Name(α)\"]\n    DefVal[\"Def: Interpretation\\nval(u,G)\"]\n    DefCheck[\"Def: Check names\\nx̌\"]\n    DefForce[\"Def: Forcing relation\\np ⊩ φ\"]\n    T1[\"Thm: M[G] ⊨ ZFC\\nM[G] is model\"]\n    T2[\"Thm: Coherence\\nq≤p, p⊩φ ⇒ q⊩φ\"]\n    T3[\"Thm: Definability\\n⊩ definable in M\"]\n    T4[\"Thm: Truth\\nM[G]⊨φ iff ∃p∈G p⊩φ\"]\n    T5[\"Thm: Rasiowa-Sikorski\\nG exists for countable M\"]\n    ExCohen[\"Ex: Cohen forcing\\nFin(S,2)\"]\n    ZFC --> DefPoset\n    DefPoset --> DefGeneric\n    DefPoset --> DefNames\n    DefNames --> DefVal\n    DefVal --> DefCheck\n    DefGeneric --> DefVal\n    DefVal --> DefForce\n    DefForce --> T1\n    DefForce --> T2\n    DefForce --> T3\n    DefForce --> T4\n    DefGeneric --> T5\n    DefPoset --> ExCohen\n    classDef axiom fill:#ff6b6b,color:#fff,stroke:#c0392b\n    classDef definition fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef theorem fill:#51cf66,color:#fff,stroke:#40c057\n    class ZFC axiom\n    class DefPoset,DefGeneric,DefNames,DefVal,DefCheck,DefForce,ExCohen definition\n    class T1,T2,T3,T4,T5 theorem",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

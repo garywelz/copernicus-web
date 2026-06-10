@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2605.10206v1",
+  "arxiv_id": "2605.10206v1",
+  "title": "Extended Wasserstein-GAN Approach to Causal Distribution Learning: Density-Free Estimation and Minimax Optimality",
+  "authors": [
+    "Shu Tamano",
+    "Masaaki Imaizumi"
+  ],
+  "author_string": "Shu Tamano, Masaaki Imaizumi",
+  "journal": "arXiv:2605.10206v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Distributional causal inference requires estimating not only average treatment effects but also interventional outcome distributions, including quantiles, tail risks, and policy-dependent uncertainty. As a method for distributional causal inference, generative adversarial network (GAN)-based counterfactual methods are flexible tools for this task. However, these methods have several limitations. First, the objectives of certain techniques do not coincide with the statistical risk of the identifiable causal target, and therefore provide limited theoretical guarantees regarding estimable counterfactual distributions or optimality. Second, they tend to rely on unstable density-based methods, such as density ratio estimation. In this paper, we propose GANICE (GAN for Interventional Conditional Estimation) with several advantages: it (i) clarifies the conditional interventional distribution for each treatment--covariate state as the causal estimation target; (ii) estimates the conditional distribution such that its averaged Wasserstein risk is minimized; (iii) establishes minimax optimality. GANICE achieves these advantages through the introduction of the extended Wasserstein distance, the incorporation of a cellwise critic in its dual, and an optimality proof based on Besov space theory. Our experiments demonstrate that GANICE consistently outperforms existing methods.",
+  "categories": [
+    "math.ST",
+    "cs.LG",
+    "stat.ML"
+  ],
+  "primary_category": "stat.ML",
+  "comment": null,
+  "published_date": "2026-05-11T08:52:20Z",
+  "updated_date": "2026-05-11T08:52:20Z",
+  "url": "https://arxiv.org/abs/2605.10206v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.10206v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-11T22:15:41.416368",
+  "category": "mathematics",
+  "subcategories": [
+    "math.ST",
+    "cs.LG",
+    "stat.ML"
+  ]
+}

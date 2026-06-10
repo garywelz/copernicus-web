@@ -1,0 +1,47 @@
+{
+  "acquired_date": "2026-03-15T00:00:00Z",
+  "category": "mathematics",
+  "colorScheme": {
+    "blue": { "category": "Intermediates & States", "hex": "#74c0fc" },
+    "green": { "category": "Processing & Operations", "hex": "#51cf66" },
+    "lavender": { "category": "Decision diamonds (AND/OR)", "hex": "#e6e6fa" },
+    "red": { "category": "Triggers & Inputs", "hex": "#ff6b6b" },
+    "violet": { "category": "Products & Outputs", "hex": "#b197fc" },
+    "yellow": { "category": "Structures & Objects", "hex": "#ffd43b" }
+  },
+  "complexity": {
+    "conditionals": 3,
+    "detailLevel": "medium",
+    "edges": 17,
+    "level": "medium",
+    "logicGates": { "andGates": 0, "orGates": 3, "total": 3 },
+    "nodes": 12
+  },
+  "created": "2026-03-15",
+  "description": "Search a sorted array by repeatedly dividing the search interval in half. From NIST Dictionary of Algorithms and Data Structures. Uses GLMP 6-color scheme: inputs (red), structures (yellow), processing (green), intermediates (light blue), outputs (violet), decision diamonds (lavender). Run time O(log n).",
+  "id": "discrete_mathematics-binary-search",
+  "keywords": ["binary search", "NIST DADS", "search algorithm", "divide and conquer", "sorted array", "dichotomic search"],
+  "lastUpdated": "2026-03-15",
+  "mermaid": "graph TD\n    A1[\"Sorted array A\\nSearch key K\"]\n    B1[\"Initialize interval\\nlow = 0, high = n-1\"]\n    C1[\"Compute middle\\nmid = low + (high-low)/2\"]\n    C2[\"Compare key with A[mid]\"]\n    D1{\"Interval\\nempty?\"}\n    D2{\"key ==\\nA[mid]?\"}\n    D3{\"key <\\nA[mid]?\"}\n    E1[\"Narrow to lower half\\nhigh = mid - 1\"]\n    E2[\"Narrow to upper half\\nlow = mid + 1\"]\n    F1[\"Return mid\\nFound\"]\n    F2[\"Return -1\\nNot found\"]\n    A1 --> B1\n    B1 --> D1\n    D1 -->|No| C1\n    D1 -->|Yes| F2\n    C1 --> C2\n    C2 --> D2\n    D2 -->|Yes| F1\n    D2 -->|No| D3\n    D3 -->|Yes| E1\n    D3 -->|No| E2\n    E1 --> D1\n    E2 --> D1\n    classDef red fill:#ff6b6b,color:#fff,stroke:#c0392b\n    classDef yellow fill:#ffd43b,color:#000,stroke:#f59f00\n    classDef green fill:#51cf66,color:#fff,stroke:#40c057\n    classDef lightblue fill:#74c0fc,color:#fff,stroke:#4dabf7\n    classDef violet fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef lavender fill:#e6e6fa,color:#333,stroke:#b19cd9\n    class A1 red\n    class B1 yellow\n    class C1,C2 green\n    class E1,E2 lightblue\n    class F1,F2 violet\n    class D1,D2,D3 lavender",
+  "name": "Binary Search",
+  "notes": "From NIST Dictionary of Algorithms and Data Structures. GLMP 6-color scheme including Lavender for decision diamonds.",
+  "relatedProcesses": [],
+  "related_processes": [],
+  "related_papers": [],
+  "related_podcasts": [],
+  "related_videos": [],
+  "source": "nist_dads",
+  "sources": [
+    {
+      "authors": "Black, Paul E.",
+      "title": "binary search",
+      "url": "https://www.nist.gov/dads/HTML/binarySearch.html",
+      "year": "2022",
+      "journal": "Dictionary of Algorithms and Data Structures, NIST"
+    }
+  ],
+  "subcategories": ["discrete_mathematics"],
+  "subcategory": "discrete_mathematics",
+  "subcategory_name": "Discrete Mathematics",
+  "verified": false
+}

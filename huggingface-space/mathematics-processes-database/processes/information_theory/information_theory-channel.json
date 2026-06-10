@@ -1,0 +1,39 @@
+{
+  "id": "information_theory-channel",
+  "name": "Channel Capacity",
+  "category": "mathematics",
+  "subcategory": "information_theory",
+  "subcategory_name": "Information Theory",
+  "description": "Process chart: information_theory-channel",
+  "mermaid": "graph TD\n    D1[\"Def: Channel\\np(y|x) conditional\"]\n    D2[\"Def: Capacity\\nC = max I(X;Y)\"]\n    D3[\"Def: DMC\\nmemoryless\"]\n    D4[\"Def: Input constraint\\nE[cost(X)]≤B\"]\n    T1[\"Thm: Shannon capacity\\nC = max I(X;Y)\"]\n    T2[\"Thm: Coding thm\\nR<C ⇒ reliable\"]\n    T3[\"Thm: Converse\\nR>C ⇒ unreliable\"]\n    T4[\"Thm: AWGN\\nC = ½ log(1+SNR)\"]\n    T5[\"Thm: Blahut–Arimoto\\nalg for C\"]\n    D1 --> D2\n    D2 --> D3\n    D3 --> T1\n    T1 --> T2\n    T2 --> T3\n    classDef definition fill:#b197fc,color:#fff\n    classDef theorem fill:#51cf66,color:#fff\n    class D1,D2,D3,D4 definition\n    class T1,T2,T3,T4,T5 theorem",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

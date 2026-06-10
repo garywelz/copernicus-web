@@ -1,0 +1,39 @@
+{
+  "id": "bioinformatics-phylogenetic-trees",
+  "name": "Phylogenetic Tree Construction",
+  "category": "mathematics",
+  "subcategory": "bioinformatics",
+  "subcategory_name": "Bioinformatics",
+  "description": "Distance-based tree construction from aligned sequences. UPGMA (Unweighted Pair Group Method with Arithmetic Mean): iteratively merge closest clusters; assumes molecular clock; produces rooted ultrametric tree. Neighbor-Joining (Saitou-Nei 1987): Q-matrix Q(i,j) = (n-2)d(i,j) - Σd(i,k) - Σd(j,k); join pair minimizing Q; no molecular clock; unrooted. Both O(n³). Input: distance matrix from alignment (e.g. p-distance, Jukes-Cantor). Used in metagenomics, taxonomy, evolution.",
+  "mermaid": "graph TD\n    Align[\"Sequence alignment\\nNW, SW, or MSA\"]\n    DefDist[\"Def: Distance matrix D\\nd(i,j) from alignment\"]\n    DefUPGMA[\"Def: UPGMA\\nMerge by average distance\"]\n    DefNJ[\"Def: Neighbor-Joining\\nQ-matrix, minimize Q(i,j)\"]\n    ThmUPGMA[\"Thm: UPGMA produces\\nrooted ultrametric tree\"]\n    ThmNJ[\"Thm: NJ produces\\nunrooted additive tree\"]\n    LemClock[\"Lem: UPGMA assumes\\nmolecular clock\"]\n    LemNoClock[\"Lem: NJ does not\\nassume clock\"]\n    Align --> DefDist\n    DefDist --> DefUPGMA\n    DefDist --> DefNJ\n    DefUPGMA --> ThmUPGMA\n    DefNJ --> ThmNJ\n    ThmUPGMA --> LemClock\n    ThmNJ --> LemNoClock\n    classDef axiom fill:#ff6b6b,color:#fff,stroke:#c0392b\n    classDef definition fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef theorem fill:#51cf66,color:#fff,stroke:#40c057\n    classDef lemma fill:#74c0fc,color:#fff,stroke:#4dabf7\n    class Align axiom\n    class DefDist,DefUPGMA,DefNJ definition\n    class ThmUPGMA,ThmNJ theorem\n    class LemClock,LemNoClock lemma",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

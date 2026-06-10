@@ -1,0 +1,39 @@
+{
+  "id": "algebraic_geometry-cohomology",
+  "name": "Sheaf Cohomology",
+  "category": "mathematics",
+  "subcategory": "algebraic_geometry",
+  "subcategory_name": "Algebraic Geometry",
+  "description": "Hⁱ(X,F) derived functors of Γ. Cech cohomology. Serre vanishing: ample L ⇒ Hⁱ(X,F⊗Lⁿ)=0 for i>0, n≫0. Riemann–Roch on curves.",
+  "mermaid": "graph TD\n    D1[\"Def: Hⁱ(X,F)\\nderived of Γ\"]\n    D2[\"Def: Ample line bundle\\nLⁿ very ample n≫0\"]\n    D3[\"Def: Degree deg D\\ncurve divisors\"]\n    D4[\"Def: Genus g\\nh¹O_X\"]\n    T1[\"Thm: Long exact\\n0→Γ→H⁰→H¹→...\"]\n    T2[\"Thm: Serre vanishing\\n ample L, i>0 ⇒ HⁱF⊗Lⁿ=0\"]\n    T3[\"Thm: Serre duality\\nHⁱ ≅ Hⁿ⁻ⁱ(K⊗·)*\"]\n    T4[\"Thm: Riemann–Roch\\nχ(L)=deg L + 1 − g\"]\n    T5[\"Thm: Kodaira vanishing\\nK ample, char 0\"]\n    L1[\"Lemma: Čech = derived\"]\n    D1 --> T1\n    D2 --> T2\n    D3 --> T4\n    D4 --> T4\n    D1 --> L1\n    T2 --> T5\n    T3 --> T4\n    classDef definition fill:#b197fc,color:#fff\n    classDef theorem fill:#51cf66,color:#fff\n    classDef lemma fill:#74c0fc,color:#fff\n    class D1,D2,D3,D4 definition\n    class T1,T2,T3,T4,T5 theorem\n    class L1 lemma",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2605.10293v1",
+  "arxiv_id": "2605.10293v1",
+  "title": "Robust Probabilistic Shielding for Safe Offline Reinforcement Learning",
+  "authors": [
+    "Maris F. L. Galesloot",
+    "Thomas Rhemrev",
+    "Nils Jansen"
+  ],
+  "author_string": "Maris F. L. Galesloot, Thomas Rhemrev, Nils Jansen",
+  "journal": "arXiv:2605.10293v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "In offline reinforcement learning (RL), we learn policies from fixed datasets without environment interaction. The major challenges are to provide guarantees on the (1) performance and (2) safety of the resulting policy. A technique called safe policy improvement (SPI) provides a performance guarantee: with high probability, the new policy outperforms a given baseline policy, which is assumed to be safe. Orthogonally, in the context of safe RL, a shield provides a safety guarantee by restricting the action space to those actions that are provably safe with respect to a given safety-relevant model. We integrate these paradigms by extending shielding to offline RL, relying solely on the available dataset and knowledge of safe and unsafe states. Then, we shield the policy improvement steps, guaranteeing, with high probability, a safe policy. Experimental results demonstrate that shielded SPI outperforms its unshielded counterpart, improving both average and worst-case performance, particularly in low-data regimes.",
+  "categories": [
+    "cs.LG",
+    "cs.AI"
+  ],
+  "primary_category": "cs.AI",
+  "comment": null,
+  "published_date": "2026-05-11T09:54:30Z",
+  "updated_date": "2026-05-11T09:54:30Z",
+  "url": "https://arxiv.org/abs/2605.10293v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.10293v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-11T22:15:37.967393",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.LG",
+    "cs.AI"
+  ]
+}

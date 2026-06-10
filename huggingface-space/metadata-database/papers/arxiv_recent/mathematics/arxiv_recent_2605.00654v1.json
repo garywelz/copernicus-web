@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2605.00654v1",
+  "arxiv_id": "2605.00654v1",
+  "title": "Reinforcement Learning with Markov Risk Measures and Multipattern Risk Approximation",
+  "authors": [
+    "Andrzej Ruszczynski",
+    "Tiangang Zhang"
+  ],
+  "author_string": "Andrzej Ruszczynski, Tiangang Zhang",
+  "journal": "arXiv:2605.00654v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "For a risk-averse finite-horizon Markov Decision Problem, we introduce a special class of Markov coherent risk measures, called mini-batch measures. We also define the class of multipattern risk-averse problems that generalizes the class of linear systems. We use both concepts in a feature-based $Q$-learning method with multipattern $Q$-factor approximation and we prove a high-probability regret bound of $\\mathcal{O}\\big(H^2 N^H \\sqrt{ K}\\big)$, where $H$ is the horizon, $N$ is the mini-batch size, and $K$ is the number of episodes. We also propose an economical version of the $Q$-learning method that streamlines the policy evaluation (backward) step. The theoretical results are illustrated on a stochastic assignment problem and a short-horizon multi-armed bandit problem.",
+  "categories": [
+    "cs.LG",
+    "cs.AI",
+    "math.OC",
+    "stat.ML"
+  ],
+  "primary_category": "stat.ML",
+  "comment": null,
+  "published_date": "2026-05-01T13:36:46Z",
+  "updated_date": "2026-05-01T13:36:46Z",
+  "url": "https://arxiv.org/abs/2605.00654v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.00654v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-04T10:15:43.780084",
+  "category": "mathematics",
+  "subcategories": [
+    "cs.LG",
+    "cs.AI",
+    "math.OC"
+  ]
+}

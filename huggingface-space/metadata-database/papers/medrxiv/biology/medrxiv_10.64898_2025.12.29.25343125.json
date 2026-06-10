@@ -1,0 +1,50 @@
+{
+  "id": "medrxiv_10.64898_2025.12.29.25343125",
+  "doi": "10.64898/2025.12.29.25343125",
+  "title": "Detection of Malaria Infection from parasite-free blood smears",
+  "authors": [
+    "Bourriez, N.",
+    "Mahanta, S. K.",
+    "Svatko, I.",
+    "Lacassagne, E.",
+    "Atchade, A.",
+    "Leonardi, F.",
+    "Massougbodji, A.",
+    "Cohen, E.",
+    "Argy, N.",
+    "Cottrell, G.",
+    "Genovesio, A."
+  ],
+  "author_string": "Bourriez, N., Mahanta, S. K., Svatko, I., Lacassagne, E., Atchade, A. et al.",
+  "journal": "medRxiv",
+  "journal_full": "medRxiv",
+  "year": "2026",
+  "abstract": "Malaria affects almost 263 million people worldwide, most of whom live in sub-Saharan countries. In a strategy to reduce malaria-related mortality and limit transmission, diagnosis in endemic areas needs to be immediately available on the field, easy to perform and cheap. Therefore, it currently heavily relies on microscopic examination of blood smears. However, several studies comparing the sensitivity of this approach with qPCR, considered as the most sensitive method albeit not available on the field, found that up to half of the infected population failed to be detected by microscopy alone because no visible parasites could be found in blood smears. These so-called submicroscopic infections pose a diagnostic challenge, yet represent a huge reservoir for malaria transmission.\n\nIn this study, we hypothesized that qPCR results could be predicted by deep learning from subtle cell signals present in thin blood smear images, even in the absence of visible parasites, making a sensitive diagnostic directly available on the field using a microscope and a smartphone. To test this hypothesis, we acquired a large smartphone-based blood smear images dataset from samples tested both for microscopy and qPCR. We then focused exclusively on these \"negative\" slides from the microscopic diagnostic point of view, among which half were qPCR positive. A range of standard deep learning models were evaluated to best predict the qPCR result from these microscopy images, using various backbones along with various aggregation functions at the slide level, from a simple vote to Multiple Instance Learning with attention.\n\nOur results show that the qPCR results can be predicted from parasite free blood smear images with 62.00% ({+/-}2.5 on 4-folds) accuracy and reaching 67.2 % ({+/-}9.6 on 4-folds) in sensitivity. We then used generative models to investigate the subtle morphological variations occurring in red blood cells that may contribute to predicting malaria infection in the absence of parasites. Leveraging thin blood smear and portable deep learning, we established the first proof of concept that the qPCR sensitivity can be approached through the detection of submicroscopic infections directly on the field without additional infrastructure and thus could significantly improve malaria surveillance and elimination efforts.",
+  "keywords": [],
+  "categories": [
+    "health informatics"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.64898/2025.12.29.25343125",
+  "source": "medrxiv",
+  "sources": [
+    "medrxiv"
+  ],
+  "acquired_date": "2026-05-05T22:15:25.968825",
+  "category": "biology",
+  "subcategories": [
+    "health informatics"
+  ],
+  "published_date": "2026-01-05",
+  "updated_date": "2026-01-05",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "medrxiv",
+  "preprint_version": "1",
+  "preprint_type": "PUBLISHAHEADOFPRINT",
+  "license": "cc_by",
+  "jatsxml": "https://www.medrxiv.org/content/early/2026/01/05//2025.12.29.25343125.source.xml",
+  "published_doi": null,
+  "author_corresponding": "Auguste Genovesio",
+  "author_corresponding_institution": "Ecole Normale Superieure"
+}

@@ -1,0 +1,17 @@
+{
+  "acquired_date": "2025-10-08T00:00:00Z",
+  "category": "Gene Regulation",
+  "created": "2025-10-08",
+  "description": "Ara operon from RegulonDB (v13): AraC, CRP, transport (araE, araFGH), structural genes (araB, araA, araD, araC), and L-arabinose pathway (L-Arabinose → Ribulose → R5P → X5P).",
+  "id": "process_Gene Regulation_ara-regulondb",
+  "name": "Ara Operon (RegulonDB-sourced)",
+  "organism": "E. coli",
+  "source": "RegulonDB",
+  "source_version": "v13",
+  "version_label": "V3",
+  "notes": "V3 = RegulonDB only. AraC/CRP regulate araBAD, araC, araE, araFGH; pathway: AraA isomerase, AraB kinase, AraD epimerase.",
+  "mermaid": "graph TD\n    ARAB[L-Arabinose]\n    CAMP[cAMP]\n    ARAC[AraC]\n    CRP[CRP]\n    ARAE[araE]\n    ARAF[araFGH]\n    ARABAD[araBAD]\n    ARAC2[araC]\n    RIB[L-Ribulose]\n    R5P[Ribulose-5-P]\n    X5P[Xylulose-5-P]\n    ARAB -->|transport| ARAE\n    ARAB -->|transport| ARAF\n    ARAB -->|inducer| ARAC\n    CAMP -->|activates| CRP\n    ARAC -->|represses/activates| ARABAD\n    ARAC -->|represses/activates| ARAE\n    CRP -->|activates| ARABAD\n    CRP -->|activates| ARAC2\n    ARAC -->|activates| ARAC2\n    ARAB -->|AraA isomerase| RIB\n    RIB -->|AraB kinase| R5P\n    R5P -->|AraD epimerase| X5P\n    style ARAB fill:#e74c3c,color:#fff\n    style CAMP fill:#e74c3c,color:#fff\n    style ARAC fill:#ffd43b,color:#000\n    style CRP fill:#ffd43b,color:#000\n    style ARAE fill:#74c0fc,color:#000\n    style ARAF fill:#74c0fc,color:#000\n    style ARABAD fill:#74c0fc,color:#000\n    style ARAC2 fill:#74c0fc,color:#000\n    style RIB fill:#74c0fc,color:#000\n    style R5P fill:#74c0fc,color:#000\n    style X5P fill:#b197fc,color:#000",
+  "related_processes": ["ecoli_ara_operon"],
+  "scientificAccuracy": "From RegulonDB (v13) ara operon: AraC, CRP, araE, araFGH, araBAD, araC; pathway from RegulonDB/ECOCYC.",
+  "sources": [{"title": "RegulonDB", "url": "https://regulondb.ccg.unam.mx", "note": "E. coli AraC, CRP, ara operon, araE, araFGH."}]
+}

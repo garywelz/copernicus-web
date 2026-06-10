@@ -1,21 +1,23 @@
 {
   "id": "surface_chemistry-enzyme-catalysis",
-  "name": "Enzyme Catalysis",
+  "name": "Self-Assembled Monolayers (SAMs)",
   "category": "chemistry",
   "subcategory": "surface_chemistry",
   "subcategory_name": "Surface Chemistry",
-  "description": "Enzyme Catalysis process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "Self-assembled monolayers form when amphiphilic molecules chemisorb through their headgroups onto a surface (e.g. thiols on gold) and then order via tail-tail van der Waals packing; coverage builds with time and annealing removes defects to yield a functional monolayer.",
   "complexity": {
-    "nodes": 26,
-    "edges": 22,
-    "conditionals": 0,
+    "nodes": 10,
+    "edges": 10,
+    "conditionals": 1,
     "logicGates": {
-      "orGates": 0,
+      "orGates": 1,
       "andGates": 1,
-      "total": 1
+      "notGates": 0,
+      "total": 2
     },
-    "level": "medium",
-    "detailLevel": "medium"
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 1
   },
   "colorScheme": {
     "red": {
@@ -39,53 +41,151 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nA3[Substrate Molecules] --> B3[Enzyme Catalysis Method]\nC3[Enzyme Protein] --> D3[Active Site Analysis]\nE3[Reaction Buffer] --> F3[Temperature Control]\nB3 --> G3[Enzyme Purification]\nD3 --> H3[Site Characterization]\nF3 --> I3[pH Regulation]\nG3 --> J3[Conformation Analysis]\nH3 --> K3[Binding Affinity]\nI3 --> L3[Optimal Conditions]\nJ3 --> M3[Substrate Binding]\nK3 --> L3\nL3 --> N3[Enzyme-Substrate Complex]\nM3 --> O3[Conformational Change]\nN3 --> P3[Catalytic Reaction]\nO3 --> Q3[Enzymatic Activity]\nP3 --> R3[Product Formation]\nQ3 --> S3[Reaction Rate]\nR3 --> T3[Product Release]\nS3 --> U3[Turnover Number]\nT3 --> V3[Product Analysis]\nU3 --> W3[Enzyme Performance]\nV3 --> X3[Conversion Efficiency]\nW3 --> Y3[Optimization Process]\nX3 --> Z3[Enzymatic Efficiency]\nY3 --> Z3\n\n    style A3 fill:#ff6b6b,color:#fff\n    style C3 fill:#ff6b6b,color:#fff\n    style E3 fill:#ff6b6b,color:#fff\n    style B3 fill:#ffd43b,color:#000\n    style D3 fill:#ffd43b,color:#000\n    style F3 fill:#ffd43b,color:#000\n    style G3 fill:#ffd43b,color:#000\n    style H3 fill:#ffd43b,color:#000\n    style I3 fill:#ffd43b,color:#000\n    style J3 fill:#ffd43b,color:#000\n    style K3 fill:#ffd43b,color:#000\n    style L3 fill:#ffd43b,color:#000\n    style M3 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style O3 fill:#51cf66,color:#fff\n    style P3 fill:#51cf66,color:#fff\n    style Q3 fill:#51cf66,color:#fff\n    style R3 fill:#51cf66,color:#fff\n    style S3 fill:#51cf66,color:#fff\n    style T3 fill:#51cf66,color:#fff\n    style U3 fill:#51cf66,color:#fff\n    style V3 fill:#51cf66,color:#fff\n    style W3 fill:#51cf66,color:#fff\n    style X3 fill:#51cf66,color:#fff\n    style Y3 fill:#51cf66,color:#fff\n    style Z3 fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"Substrate + amphiphile\"]\n    N2[\"Headgroup binds surface\"]\n    N3[\"Chemisorption (thiol–Au)\"]\n    N4[\"Molecules pack / order\"]\n    N5{\"Coverage high?\"}\n    N6[\"More adsorption time\"]\n    N7[\"Tail packing (vdW)\"]\n    N8[\"Ordered monolayer\"]\n    N9[\"Anneal out defects\"]\n    N10[\"Functional SAM\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 --> N4\n    N4 --> N5\n    N5 -->|no| N6\n    N6 -->|continue| N2\n    N5 -->|yes| N7\n    N7 --> N8\n    N8 --> N9\n    N9 --> N10\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#74c0fc,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#74c0fc,color:#fff\n    style N9 fill:#51cf66,color:#fff\n    style N10 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
-      "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: Enzyme Catalysis. Created using the Programming Framework methodology."
+      "title": "Adsorption of bifunctional organic disulfides on gold surfaces",
+      "authors": "Nuzzo, R. G.; Allara, D. L.",
+      "journal": "Journal of the American Chemical Society",
+      "year": "1983",
+      "doi": "10.1021/ja00352a020",
+      "url": "https://doi.org/10.1021/ja00352a020"
     },
     {
-      "title": "Areas Related to Enzyme Catalysis",
-      "authors": "",
-      "journal": "New Trends in Enzyme Catalysis and Biomimetic Chemical Reactions",
-      "year": "None",
-      "pubmed": null,
-      "doi": "10.1007/0-306-48110-3_5",
-      "url": "https://doi.org/10.1007/0-306-48110-3_5"
+      "title": "Self-assembled monolayers of thiolates on metals as a form of nanotechnology",
+      "authors": "Love, J. C.; Estroff, L. A.; Kriebel, J. K.; Nuzzo, R. G.; Whitesides, G. M.",
+      "journal": "Chemical Reviews",
+      "year": "2005",
+      "doi": "10.1021/cr0300789",
+      "url": "https://doi.org/10.1021/cr0300789"
     },
     {
-      "title": "Elementary Steps in Enzyme Catalysis",
-      "authors": "Hammes, Gordon G.",
-      "journal": "Enzyme Catalysis and Regulation",
-      "year": "1982",
-      "pubmed": null,
-      "doi": "10.1016/b978-0-12-321960-2.50010-x",
-      "url": "https://doi.org/10.1016/b978-0-12-321960-2.50010-x"
-    },
-    {
-      "title": "Enzyme Catalysis: An Overview from Physics",
-      "authors": "Careri, Giorgio",
-      "journal": "The Enzyme Catalysis Process",
-      "year": "1989",
-      "pubmed": null,
-      "doi": "10.1007/978-1-4757-1607-8_1",
-      "url": "https://doi.org/10.1007/978-1-4757-1607-8_1"
+      "title": "Formation and structure of self-assembled monolayers",
+      "authors": "Schreiber, F.",
+      "journal": "Progress in Surface Science",
+      "year": "2000",
+      "doi": "10.1016/S0079-6816(00)00024-1",
+      "url": "https://doi.org/10.1016/S0079-6816(00)00024-1"
     }
   ],
   "keywords": [
-    "enzyme",
-    "catalysis"
+    "self-assembled monolayer",
+    "thiol-gold",
+    "chemisorption",
+    "ordering",
+    "van der waals"
   ],
   "relatedProcesses": [],
   "created": "2026-01-08",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Substrate + amphiphile",
+      "detail": "Solution of SAM molecules",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 1
+    },
+    {
+      "id": "N2",
+      "label": "Headgroup binds surface",
+      "detail": "Anchoring chemistry",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N3",
+      "label": "Chemisorption (thiol–Au)",
+      "detail": "Strong S–Au bond",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N4",
+      "label": "Molecules pack / order",
+      "detail": "Lie-down to stand-up",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N5",
+      "label": "Coverage high?",
+      "detail": "Near-saturation",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 2
+    },
+    {
+      "id": "N6",
+      "label": "More adsorption time",
+      "detail": "Continue immersion",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N7",
+      "label": "Tail packing (vdW)",
+      "detail": "Crystalline chains",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N8",
+      "label": "Ordered monolayer",
+      "detail": "Densely packed film",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N9",
+      "label": "Anneal out defects",
+      "detail": "Improve ordering",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N10",
+      "label": "Functional SAM",
+      "detail": "Tailored surface",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 1
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:surface_chemistry-enzyme-catalysis",
+    "graphType": "cyclic_pathway",
+    "topologySignature": "6468f9853ac8ef80",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "namedCollections": [
+    "surface-chemistry"
+  ],
+  "graphMetrics": {
+    "nodes": 10,
+    "edges": 10,
+    "conditionals": 1,
+    "andGates": 1,
+    "orGates": 1,
+    "notGates": 0,
+    "loops": 1
+  },
+  "graphType": "cyclic_pathway",
+  "domainContext": "Molecular self-assembly"
 }

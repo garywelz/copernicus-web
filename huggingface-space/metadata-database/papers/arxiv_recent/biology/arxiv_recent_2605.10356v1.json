@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2605.10356v1",
+  "arxiv_id": "2605.10356v1",
+  "title": "Cortico-cerebellar modularity as an architectural inductive bias for efficient temporal learning",
+  "authors": [
+    "Alexandra Voce",
+    "Emmanouil Giannakakis",
+    "Claudia Clopath"
+  ],
+  "author_string": "Alexandra Voce, Emmanouil Giannakakis, Claudia Clopath",
+  "journal": "arXiv:2605.10356v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "The cerebellum and cerebral cortex form tightly coupled circuits thought to support flexible and efficient temporal processing. How this interaction shapes cortical learning dynamics, and whether such heterogeneous modularity can benefit artificial systems, remains unclear. Here, we augment a recurrent neural network (RNN) with a cerebellar-inspired feedforward module and evaluate the resulting architecture on temporal tasks of varying difficulty. The cortico-cerebellar RNN (CB-RNN) learns faster and reaches higher maximum performance than parameter-matched fully recurrent baselines across a variety of regimes. Crucially, freezing the recurrent core after minimal training and delegating subsequent learning to the cerebellar module preserves superior learning efficiency, suggesting the cerebellar module is a primary driver of efficiency and that the cortical network can largely function as a fixed reservoir. Our results suggest that heterogeneous modular architectures can act as a powerful structural inductive bias in neural systems.",
+  "categories": [
+    "q-bio.NC"
+  ],
+  "primary_category": "q-bio.NC",
+  "comment": null,
+  "published_date": "2026-05-11T11:03:41Z",
+  "updated_date": "2026-05-11T11:03:41Z",
+  "url": "https://arxiv.org/abs/2605.10356v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.10356v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-18T10:15:43.641485",
+  "category": "biology",
+  "subcategories": [
+    "q-bio.NC"
+  ]
+}

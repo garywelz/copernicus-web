@@ -1,0 +1,52 @@
+{
+  "id": "arxiv_2604.22660v1",
+  "arxiv_id": "2604.22660v1",
+  "title": "Fully multiplexed photonic tensor computing",
+  "authors": [
+    "Aolong Sun",
+    "Junhao Zhao",
+    "Fangchen Hu",
+    "Sizhe Xing",
+    "Yuqin Yuan",
+    "Jialin He",
+    "Yongzhu Hu",
+    "Xuyu Deng",
+    "Yinjun Liu",
+    "Ouhan Huang",
+    "Baiheng Zhao",
+    "Hancheng Liu",
+    "Tian Dong",
+    "Jingkai Zhou",
+    "Haoyang Sun",
+    "Liang Chen",
+    "Chao Shen",
+    "Feng Bao",
+    "Ziwei Li",
+    "Jianyang Shi",
+    "Wei Chu",
+    "Bowei Dong",
+    "Nan Chi",
+    "Junwen Zhang"
+  ],
+  "author_string": "Aolong Sun, Junhao Zhao, Fangchen Hu, Sizhe Xing, Yuqin Yuan et al.",
+  "journal": "arXiv:2604.22660v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Tensor operations dominate modern computational workloads, yet their further acceleration demands hardware platforms with greater parallelism. Although photonic computing provides a compelling route for parallel processing, fully exploiting all native multiplexing dimensions of optical fields is impeded by the challenges in routing and programming light in all dimensions simultaneously. Here we introduce FieldCore, a fully multiplexed photonic tensor core that jointly harnesses wavelength, radio-frequency, guided-mode, time and space dimensions, thereby enabling parallelism to scale multiplicatively within a single optical field. Enabled by inverse-designed silicon photonics, FieldCore preserves a uniform programmed computation across all multiplexed channels in parallel. Experimentally, we validate and benchmark its performance from ultra-high-baudrate arithmetic operations to high-fidelity image convolution and parallel handwritten-digit recognition. We further use FieldCore to unlock applications that naturally require high-dimensional data processing, such as high-dimensional hyperspectral classification and massively parallel mechanical fault diagnosis. Our FieldCore supports an estimated aggregate compute throughput of 69.12 tera operations per second (TOPS) and accommodates up to 1,800 parallel input streams within a single core, establishing a scalable paradigm for fully multiplexed photonic tensor computing and AI inference.",
+  "categories": [
+    "physics.optics"
+  ],
+  "primary_category": "physics.optics",
+  "comment": null,
+  "published_date": "2026-04-24T15:35:54Z",
+  "updated_date": "2026-04-24T15:35:54Z",
+  "url": "https://arxiv.org/abs/2604.22660v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.22660v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-27T10:15:23.657084",
+  "category": "physics",
+  "subcategories": [
+    "physics.optics"
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2604.26559v1",
+  "arxiv_id": "2604.26559v1",
+  "title": "Principled Estimation and Prediction with Competing Risks: a Bayesian Nonparametric Approach",
+  "authors": [
+    "Claudio Del Sole",
+    "Antonio Lijoi",
+    "Igor Prünster"
+  ],
+  "author_string": "Claudio Del Sole, Antonio Lijoi, Igor Prünster",
+  "journal": "arXiv:2604.26559v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Competing risks occur in survival analysis when multiple causes of death are present. They play a prominent role in several domains extending beyond biostatistics to encompass epidemiology, actuarial sciences, and reliability theory. This paper adopts a multi-state modeling framework to competing risks. We introduce a class of flexible nonparametric priors, defined through hierarchical completely random measures, to model the transition probabilities, and identify the specific (conditionally) conjugate member of this general class. Furthermore, we determine the joint marginal distribution of the data and of a latent random partition, and characterize the posterior distribution of the model. Leveraging these distributional results, we evaluate the predictive probability that a future event is of a specific type (e.g. death from a particular cause), as a function of the time at which the event occurs. The resulting function, derived on sound principles, is termed the prediction curve, and represents a major innovation in the literature. In addition, we provide posterior estimates for the survival function, and for the cause-specific incidence and subdistribution functions. Suitable simulation algorithms for posterior inference are also devised. The model's performance, as well as the algorithms' effectiveness, is evaluated through simulation studies. Finally, we illustrate our approach on clinical datasets.",
+  "categories": [
+    "stat.ME",
+    "math.ST"
+  ],
+  "primary_category": "math.ST",
+  "comment": null,
+  "published_date": "2026-04-29T11:46:17Z",
+  "updated_date": "2026-04-29T11:46:17Z",
+  "url": "https://arxiv.org/abs/2604.26559v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.26559v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-30T10:15:46.068270",
+  "category": "mathematics",
+  "subcategories": [
+    "stat.ME",
+    "math.ST"
+  ]
+}

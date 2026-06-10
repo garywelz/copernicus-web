@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2605.10069v1",
+  "arxiv_id": "2605.10069v1",
+  "title": "Estimating Consensus Epidemic Trajectories via a Constrained Power Fréchet Mean with Functional Registration",
+  "authors": [
+    "Yui Tomo",
+    "Shu Tamano",
+    "Daisuke Yoneoka"
+  ],
+  "author_string": "Yui Tomo, Shu Tamano, Daisuke Yoneoka",
+  "journal": "arXiv:2605.10069v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We propose a method for summarizing multiple solutions to SEIR-type compartmental models on a functional space by computing a constrained power Fréchet mean with functional registration to obtain consensus epidemic trajectories with partial mechanistic interpretability. In our method, we regard the pairs of exposed and infectious compartments as objects in a Hilbert space, and the consensus trajectory is defined as the solution to a constrained optimization problem. Differential equation constraints and population constraints are incorporated in the optimization to preserve a partially mechanistic interpretation regarding the infectious compartment. The full dynamics with additional susceptible and removed compartments can then be recovered from the estimated trajectories and parameters. We develop an efficient block-optimization algorithm based on functional data analysis and illustrate the method using simulated and literature-derived epidemiological parameters for COVID-19 in the early phase of the pandemic that began in 2020. The proposed approach provides a generalized trajectory-summarization framework that includes mean- and median-type estimators on a functional space and holds potential for model averaging and ensemble forecasting in infectious disease modeling.",
+  "categories": [
+    "stat.AP"
+  ],
+  "primary_category": "stat.AP",
+  "comment": null,
+  "published_date": "2026-05-11T06:47:48Z",
+  "updated_date": "2026-05-11T06:47:48Z",
+  "url": "https://arxiv.org/abs/2605.10069v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.10069v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-11T22:15:41.416836",
+  "category": "mathematics",
+  "subcategories": [
+    "stat.AP"
+  ]
+}

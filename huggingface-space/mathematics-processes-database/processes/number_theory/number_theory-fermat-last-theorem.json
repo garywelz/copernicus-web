@@ -1,0 +1,39 @@
+{
+  "id": "number_theory-fermat-last-theorem",
+  "name": "Fermat's Last Theorem",
+  "category": "mathematics",
+  "subcategory": "number_theory",
+  "subcategory_name": "Number Theory",
+  "description": "Fermat's Last Theorem (Wiles, 1995): For n > 2, the equation xn + yn = zn has no positive integer solutions. Fermat (1637) claimed a proof; Wiles proved it 358 years later.",
+  "mermaid": "graph TD\n    DefEC[\"Def: Elliptic curve\\nE: y² = x³ + ax + b\"]\n    DefMod[\"Def: Modular form\\nHolomorphic, transformation law\"]\n    DefModCurve[\"Def: Modular elliptic curve\\nL(E,s) = L(f,s) for some modular f\"]\n    ThmTS[\"Thm: Taniyama–Shimura\\nEvery E/ℚ is modular\"]\n    LemFrey[\"Lem: Frey curve\\nFLT solution ⇒ non-modular E\"]\n    ThmFLT[\"Thm: Fermat Last Theorem\\nxⁿ + yⁿ = zⁿ has no solution for n>2\"]\n    ThmTS --> ThmFLT\n    LemFrey --> ThmFLT\n    DefEC --> LemFrey\n    DefMod --> DefModCurve\n    DefModCurve --> ThmTS\n    DefEC --> ThmTS\n    classDef definition fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef theorem fill:#51cf66,color:#fff,stroke:#40c057\n    classDef lemma fill:#74c0fc,color:#fff,stroke:#4dabf7\n    class DefEC,DefMod,DefModCurve definition\n    class ThmTS,ThmFLT theorem\n    class LemFrey lemma",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

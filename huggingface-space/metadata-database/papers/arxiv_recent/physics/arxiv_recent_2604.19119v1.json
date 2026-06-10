@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2604.19119v1",
+  "arxiv_id": "2604.19119v1",
+  "title": "A General Framework for Radial Velocity Calibration in Low-Resolution Spectroscopic Surveys: Correcting Wavelength-Dependent and Global Systematics with Application to LAMOST DR9",
+  "authors": [
+    "Jinming Zhang",
+    "Haibo Yuan",
+    "Zhijia Tian"
+  ],
+  "author_string": "Jinming Zhang, Haibo Yuan, Zhijia Tian",
+  "journal": "arXiv:2604.19119v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Radial velocity (RV) is crucial for stellar kinematics and Galactic archaeology. The Large Sky Area Multi-Object Fiber Spectroscopic Telescope (LAMOST) has obtained over ten million low-resolution spectra ($R \\sim 1800$), yielding RVs for millions of stars, but these suffer from (1) wavelength-dependent inconsistencies (relative shifts between spectral segments) and (2) global zero-point offsets (uniform shifts of entire spectra). In this work, we comprehensively characterize and correct both. Each spectrum is first divided into eight segments of about 500 Angstrom. We organize the data at the spectrograph and fiber levels, measure segment-wise RV offsets relative to the full spectrum at each level, and then fit these offsets with low-order polynomials to correct wavelength-dependent systematics. We then correct zero-points hierarchically: at the spectrograph level by minimizing a joint chi-squared constrained by repeat observations and cross-matches with APOGEE and Gaia RVS, and at the fiber level by averaging seasonal offsets. After correction, RV precision improves significantly: for cross-night repeats, the standard deviation of RV differences at high signal-to-noise ratios drops by a factor of two from about 3.6 to about 1.8 km s$^{-1}$, implying a single-measurement precision of about 1.3 km s$^{-1}$. External checks with APOGEE and Gaia show dispersions drop from about 4.0 to about 2.0 km s$^{-1}$. The precision approaches, though slightly below, the theoretical limit at $R \\sim 1800$. We release a value-added RV catalog with corrected velocities for about 5.7 million spectra, providing a homogeneous and systematically corrected dataset. The framework established in this work is also applicable to RV calibration in other large-scale spectroscopic surveys.",
+  "categories": [
+    "astro-ph.SR",
+    "astro-ph.GA",
+    "astro-ph.IM"
+  ],
+  "primary_category": "astro-ph.IM",
+  "comment": "38 pages, 46 figures, accepted for publication in ApJS",
+  "published_date": "2026-04-21T05:58:53Z",
+  "updated_date": "2026-04-21T05:58:53Z",
+  "url": "https://arxiv.org/abs/2604.19119v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.19119v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-22T10:15:40.965895",
+  "category": "physics",
+  "subcategories": [
+    "astro-ph.SR",
+    "astro-ph.GA",
+    "astro-ph.IM"
+  ]
+}

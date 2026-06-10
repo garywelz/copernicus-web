@@ -4,18 +4,20 @@
   "category": "computer_science",
   "subcategory": "systems",
   "subcategory_name": "Systems & Architecture",
-  "description": "Container Orchestration process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "An orchestrator drives the cluster toward a declared desired state: a manifest is submitted, the scheduler places pods on suitable nodes (scaling out if none fit), images are pulled and containers started under health probes, and a control loop continuously reconciles actual against desired state, correcting any drift.",
   "complexity": {
-    "nodes": 11,
-    "edges": 11,
-    "conditionals": 0,
+    "nodes": 12,
+    "edges": 14,
+    "conditionals": 3,
     "logicGates": {
-      "orGates": 1,
+      "orGates": 3,
       "andGates": 1,
-      "total": 2
+      "notGates": 0,
+      "total": 4
     },
-    "level": "medium",
-    "detailLevel": "medium"
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 3
   },
   "colorScheme": {
     "red": {
@@ -39,53 +41,157 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nN1[\"Desired Services\"]\nN2[\"Cluster Resources\"]\nN3[\"Control Plane\"]\nN4[\"Choose Approach\"]\nN5[\"Scheduler\"]\nN6[\"Deploy Workloads\"]\nN7[\"Service Discovery\"]\nN8[\"Auto-Scale\"]\nN9[\"Integrate Results\"]\nN10[\"Observed State\"]\nN11[\"Running Cluster\"]\n\nN1 --> N2\nN2 --> N3\nN3 --> N4\nN4 --> N5\nN4 --> N7\nN5 --> N6\nN7 --> N8\nN6 --> N9\nN8 --> N9\nN9 --> N10\nN10 --> N11\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#ff6b6b,color:#fff\n    style N3 fill:#ffd43b,color:#000\n    style N4 fill:#ffd43b,color:#000\n    style N5 fill:#ffd43b,color:#000\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#74c0fc,color:#fff\n    style N10 fill:#74c0fc,color:#fff\n    style N11 fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"Declarative desired state\"]\n    N2[\"Submit manifest to API\"]\n    N3[\"Scheduler places pods\"]\n    N4{\"Suitable node found?\"}\n    N5[\"Queue / scale cluster\"]\n    N6[\"Pull image + start\"]\n    N7[\"Run health probes\"]\n    N8{\"Healthy?\"}\n    N9[\"Restart / reschedule\"]\n    N10[\"Reconcile actual/desired\"]\n    N11{\"Drift detected?\"}\n    N12[\"Desired state held\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 --> N4\n    N4 -->|no| N5\n    N5 -->|retry| N3\n    N4 -->|yes| N6\n    N6 --> N7\n    N7 --> N8\n    N8 -->|no| N9\n    N9 -->|replace| N3\n    N8 -->|yes| N10\n    N10 --> N11\n    N11 -->|yes| N3\n    N11 -->|no| N12\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#74c0fc,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#74c0fc,color:#fff\n    style N9 fill:#51cf66,color:#fff\n    style N10 fill:#74c0fc,color:#fff\n    style N11 fill:#74c0fc,color:#fff\n    style N12 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
-      "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: Container Orchestration. Created using the Programming Framework methodology."
+      "title": "Borg, Omega, and Kubernetes",
+      "authors": "Burns, B.; Grant, B.; Oppenheimer, D.; Brewer, E.; Wilkes, J.",
+      "journal": "ACM Queue / Communications of the ACM",
+      "year": "2016",
+      "doi": "10.1145/2890784",
+      "url": "https://doi.org/10.1145/2890784"
     },
     {
-      "title": "Container Orchestration: Experiences with Container Orchestration Platforms Like Docker Swarm, Kubernetes, and Nomad, Focusing on Scalability and Security Improvements",
-      "authors": "Mulpuri, Gowtham",
-      "journal": "International Journal of Science and Research (IJSR)",
-      "year": "2021",
-      "pubmed": null,
-      "doi": "10.21275/sr24402110309",
-      "url": "https://doi.org/10.21275/sr24402110309"
-    },
-    {
-      "title": "Load-Aware Container Orchestration on Kubernetes Clusters",
-      "authors": "Marchese, Angelo; Tomarchio, Orazio",
-      "journal": "Proceedings of the 14th International Conference on Cloud Computing and Services Science",
-      "year": "2024",
-      "pubmed": null,
-      "doi": "10.5220/0012738800003711",
-      "url": "https://doi.org/10.5220/0012738800003711"
-    },
-    {
-      "title": "Kubernetes for Container Orchestration in Artificial Intelligence Cloud Technologies",
-      "authors": "Lokiny, Naresh",
-      "journal": "International Journal of Science and Research (IJSR)",
-      "year": "2022",
-      "pubmed": null,
-      "doi": "10.21275/sr24724151929",
-      "url": "https://doi.org/10.21275/sr24724151929"
+      "title": "Large-scale cluster management at Google with Borg",
+      "authors": "Verma, A.; Pedrosa, L.; Korupolu, M.; Oppenheimer, D.; Tune, E.; Wilkes, J.",
+      "journal": "European Conference on Computer Systems (EuroSys)",
+      "year": "2015",
+      "doi": "10.1145/2741948.2741964",
+      "url": "https://doi.org/10.1145/2741948.2741964"
     }
   ],
   "keywords": [
-    "container",
-    "orchestration"
+    "container orchestration",
+    "Kubernetes",
+    "scheduler",
+    "reconciliation loop",
+    "desired state"
   ],
   "relatedProcesses": [],
   "created": "2026-01-15",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations.\nCurated Mermaid applied (citations preserved)."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "namedCollections": [],
+  "graphMetrics": {
+    "nodes": 12,
+    "edges": 14,
+    "conditionals": 3,
+    "andGates": 1,
+    "orGates": 3,
+    "notGates": 0,
+    "loops": 3
+  },
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Declarative desired state",
+      "detail": "Spec manifest",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N2",
+      "label": "Submit manifest to API",
+      "detail": "Store intent",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N3",
+      "label": "Scheduler places pods",
+      "detail": "Bind to nodes",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N4",
+      "label": "Suitable node found?",
+      "detail": "Fits resources",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N5",
+      "label": "Queue / scale cluster",
+      "detail": "Add capacity",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N6",
+      "label": "Pull image + start",
+      "detail": "Launch container",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N7",
+      "label": "Run health probes",
+      "detail": "Liveness/readiness",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N8",
+      "label": "Healthy?",
+      "detail": "Passing probes",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N9",
+      "label": "Restart / reschedule",
+      "detail": "Self-heal",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N10",
+      "label": "Reconcile actual/desired",
+      "detail": "Control loop",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N11",
+      "label": "Drift detected?",
+      "detail": "State diverged",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N12",
+      "label": "Desired state held",
+      "detail": "Converged cluster",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 0
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:systems-container-orchestration",
+    "graphType": "cyclic_pathway",
+    "topologySignature": "d09a940c60391dfb",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "graphType": "cyclic_pathway",
+  "domainContext": "Distributed systems"
 }

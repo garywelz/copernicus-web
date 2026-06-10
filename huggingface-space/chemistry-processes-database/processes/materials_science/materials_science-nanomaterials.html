@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nanomaterials - Chemistry Process</title>
+    <title>Quantum Confinement in Nanocrystals - Chemistry Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Nanomaterials</h1>
+            <h1>Quantum Confinement in Nanocrystals</h1>
             <div class="header-meta">
                 <span class="meta-item">Chemistry</span>
                 <span class="meta-item">Materials Science</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,68 +234,60 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Nanomaterials process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>When a semiconductor crystal shrinks below the exciton Bohr radius, charge carriers become spatially confined, their energy levels become discrete, and the band gap widens with decreasing size; this size-tunable gap shifts the absorption and emission, allowing the synthesis size to be adjusted to hit a target wavelength.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-A4[Precursor Materials] --> B4[Nanomaterials Method]
-C4[Synthesis Conditions] --> D4[Size Control]
-E4[Surface Modification] --> F4[Nanostructure Formation]
-B4 --> G4[Nanoparticle Synthesis]
-D4 --> H4[Size Distribution]
-F4 --> I4[Surface Analysis]
-G4 --> J4[Nucleation Process]
-H4 --> K4[Growth Control]
-I4 --> L4[Surface Properties]
-J4 --> M4[Particle Formation]
-K4 --> L4
-L4 --> N4[Size Effects]
-M4 --> O4[Nanoparticle Growth]
-N4 --> P4[Size-Dependent Properties]
-O4 --> Q4[Nanostructure Analysis]
-P4 --> R4[Surface Area Effects]
-Q4 --> S4[Property Analysis]
-R4 --> T4[Nanomaterial Properties]
-S4 --> U4[Size Parameters]
-T4 --> V4[Property Optimization]
-U4 --> W4[Nanomaterial Efficiency]
-V4 --> X4[Nanomaterial Characterization]
-W4 --> Y4[Process Optimization]
-X4 --> Z4[Final Nanomaterial]
-Y4 --> Z4
+    N1["Bulk semiconductor"]
+    N2["Reduce size toward nm"]
+    N3{"Size < exciton Bohr radius?"}
+    N4["Bulk-like band gap"]
+    N5["Confine carriers"]
+    N6["Discrete energy levels"]
+    N7["Band gap widens"]
+    N8["Size-tunable emission"]
+    N9{"Hit target wavelength?"}
+    N10["Adjust synthesis size"]
+    N11["Quantum dot, target gap"]
 
-    style A4 fill:#ff6b6b,color:#fff
-    style C4 fill:#ff6b6b,color:#fff
-    style E4 fill:#ff6b6b,color:#fff
-    style B4 fill:#ffd43b,color:#000
-    style D4 fill:#ffd43b,color:#000
-    style F4 fill:#ffd43b,color:#000
-    style G4 fill:#ffd43b,color:#000
-    style H4 fill:#ffd43b,color:#000
-    style I4 fill:#ffd43b,color:#000
-    style J4 fill:#ffd43b,color:#000
-    style K4 fill:#ffd43b,color:#000
-    style L4 fill:#ffd43b,color:#000
-    style M4 fill:#51cf66,color:#fff
+    N1 --> N2
+    N2 --> N3
+    N3 -->|no| N4
+    N4 -->|shrink more| N2
+    N3 -->|yes| N5
+    N5 --> N6
+    N6 --> N7
+    N7 --> N8
+    N8 --> N9
+    N9 -->|no| N10
+    N10 -->|re-grow| N2
+    N9 -->|yes| N11
+
+    style N1 fill:#ff6b6b,color:#fff
+    style N2 fill:#51cf66,color:#fff
+    style N3 fill:#74c0fc,color:#fff
     style N4 fill:#51cf66,color:#fff
-    style O4 fill:#51cf66,color:#fff
-    style P4 fill:#51cf66,color:#fff
-    style Q4 fill:#51cf66,color:#fff
-    style R4 fill:#51cf66,color:#fff
-    style S4 fill:#51cf66,color:#fff
-    style T4 fill:#51cf66,color:#fff
-    style U4 fill:#51cf66,color:#fff
-    style V4 fill:#51cf66,color:#fff
-    style W4 fill:#51cf66,color:#fff
-    style X4 fill:#51cf66,color:#fff
-    style Y4 fill:#51cf66,color:#fff
-    style Z4 fill:#b197fc,color:#fff
+    style N5 fill:#51cf66,color:#fff
+    style N6 fill:#74c0fc,color:#fff
+    style N7 fill:#51cf66,color:#fff
+    style N8 fill:#51cf66,color:#fff
+    style N9 fill:#74c0fc,color:#fff
+    style N10 fill:#51cf66,color:#fff
+    style N11 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Bulk semiconductor</td><td>Triggers & Inputs</td><td><a href="https://doi.org/10.1126/science.271.5251.933" target="_blank" title="Semiconductor clusters, nanocrystals, and quantum dots" style="color:#e74c3c;">Alivisatos, A. P. 1996</a></td></tr><tr><td style="font-weight:600;">Reduce size toward nm</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1126/science.271.5251.933" target="_blank" title="Semiconductor clusters, nanocrystals, and quantum dots" style="color:#e74c3c;">Alivisatos, A. P. 1996</a></td></tr><tr><td style="font-weight:600;">Size < exciton Bohr radius?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1063/1.447218" target="_blank" title="Electron-electron and electron-hole interactions in small semiconductor crystallites" style="color:#e74c3c;">Brus, L. E. 1984</a></td></tr><tr><td style="font-weight:600;">Bulk-like band gap</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1063/1.447218" target="_blank" title="Electron-electron and electron-hole interactions in small semiconductor crystallites" style="color:#e74c3c;">Brus, L. E. 1984</a></td></tr><tr><td style="font-weight:600;">Confine carriers</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1063/1.447218" target="_blank" title="Electron-electron and electron-hole interactions in small semiconductor crystallites" style="color:#e74c3c;">Brus, L. E. 1984</a></td></tr><tr><td style="font-weight:600;">Discrete energy levels</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1063/1.447218" target="_blank" title="Electron-electron and electron-hole interactions in small semiconductor crystallites" style="color:#e74c3c;">Brus, L. E. 1984</a></td></tr><tr><td style="font-weight:600;">Band gap widens</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1063/1.447218" target="_blank" title="Electron-electron and electron-hole interactions in small semiconductor crystallites" style="color:#e74c3c;">Brus, L. E. 1984</a></td></tr><tr><td style="font-weight:600;">Size-tunable emission</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1126/science.271.5251.933" target="_blank" title="Semiconductor clusters, nanocrystals, and quantum dots" style="color:#e74c3c;">Alivisatos, A. P. 1996</a></td></tr><tr><td style="font-weight:600;">Hit target wavelength?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1126/science.271.5251.933" target="_blank" title="Semiconductor clusters, nanocrystals, and quantum dots" style="color:#e74c3c;">Alivisatos, A. P. 1996</a></td></tr><tr><td style="font-weight:600;">Adjust synthesis size</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1126/science.271.5251.933" target="_blank" title="Semiconductor clusters, nanocrystals, and quantum dots" style="color:#e74c3c;">Alivisatos, A. P. 1996</a></td></tr><tr><td style="font-weight:600;">Quantum dot, target gap</td><td>Products & Outputs</td><td><a href="https://doi.org/10.1126/science.271.5251.933" target="_blank" title="Semiconductor clusters, nanocrystals, and quantum dots" style="color:#e74c3c;">Alivisatos, A. P. 1996</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -314,12 +333,12 @@ Y4 --> Z4
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 26</li>
-                        <li><strong>Edges:</strong> 22</li>
-                        <li><strong>Conditionals:</strong> 0</li>
+                        <li><strong>Nodes:</strong> 11</li>
+                        <li><strong>Edges:</strong> 12</li>
+                        <li><strong>Conditionals:</strong> 2</li>
                         <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 1</li>
+                        <li><strong>OR Gates:</strong> 2</li>
+                        <li><strong>Total Gates:</strong> 3</li>
                     </ul>
                 </div>
                 
@@ -327,7 +346,7 @@ Y4 --> Z4
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>nanomaterials</li>
+                        <li>quantum confinement</li><li>exciton Bohr radius</li><li>band gap</li><li>quantum dot</li><li>size-tunable emission</li>
                     </ul>
                 </div>
                 
@@ -338,42 +357,22 @@ Y4 --> Z4
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Electron-electron and electron-hole interactions in small semiconductor crystallites</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Brus, L. E.
+                            , Journal of Chemical Physics
+                             (1984)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Acknowledgment to Reviewers of Nanomaterials in 2020</strong>
-                            
-                            , Nanomaterials
-                             (2021)
-                            </span>
-                            <br><a href="https://doi.org/10.3390/nano11020308" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.3390/nano11020308</a>
+                            <br><a href="https://doi.org/10.1063/1.447218" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1063/1.447218</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Acknowledgment to Reviewers of Nanomaterials in 2021</strong>
-                            
-                            , Nanomaterials
-                             (2022)
+                            <strong>Semiconductor clusters, nanocrystals, and quantum dots</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Alivisatos, A. P.
+                            , Science
+                             (1996)
                             </span>
-                            <br><a href="https://doi.org/10.3390/nano12040667" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.3390/nano12040667</a>
-                            
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Acknowledgement to Reviewers of Nanomaterials in 2017</strong>
-                            
-                            , Nanomaterials
-                             (2018)
-                            </span>
-                            <br><a href="https://doi.org/10.3390/nano8010039" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.3390/nano8010039</a>
+                            <br><a href="https://doi.org/10.1126/science.271.5251.933" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1126/science.271.5251.933</a>
                             
                         </li>
                         

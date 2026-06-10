@@ -1,0 +1,40 @@
+{
+  "id": "pythagorean-comparison",
+  "name": "Pythagorean Theorem Proof Graph Comparison - Proof Graph Pilot",
+  "category": "mathematics",
+  "subcategory": "proof_graphs",
+  "subcategory_name": "Proof Graphs",
+  "description": "This pilot includes two proofs of the same theorem to test whether proof graphs reveal structural differences that are hidden by the final theorem statement.",
+  "mermaid": "flowchart TD\n  rightTriangle[&quot;Given: right triangle ABC with right angle at A&quot;] --> constructSquares[&quot;Construction: squares on AB, AC, and BC&quot;]\n  prop46[&quot;Euclid I.46: construct a square on a given straight line&quot;] --> constructSquares\n  constructSquares --> drawAuxiliary[&quot;Construction: draw auxiliary lines through A and to square vertices&quot;]\n  post1[&quot;Postulate 1: draw straight line between points&quot;] --> drawAuxiliary\n  rightTriangle --> angleRelations[&quot;Assertion: required angles are equal or supplementary&quot;]\n  constructSquares --> angleRelations\n  common2[&quot;Common notions: add equals to equals&quot;] --> angleRelations\n  angleRelations --> triangleCongruenceLeft[&quot;Inference: triangle on leg AB congruent to triangle linked to rectangle under hypotenuse&quot;]\n  prop4[&quot;Euclid I.4: SAS congruence&quot;] --> triangleCongruenceLeft\n  constructSquares --> triangleCongruenceLeft\n  angleRelations --> triangleCongruenceRight[&quot;Inference: triangle on leg AC congruent to triangle linked to other rectangle under hypotenuse&quot;]\n  prop4 --> triangleCongruenceRight\n  constructSquares --> triangleCongruenceRight\n  triangleCongruenceLeft --> areaLeft[&quot;Assertion: square on AB equals corresponding rectangle in square on BC&quot;]\n  prop41[&quot;Euclid I.41: triangle is half parallelogram on same base and parallels&quot;] --> areaLeft\n  triangleCongruenceRight --> areaRight[&quot;Assertion: square on AC equals corresponding rectangle in square on BC&quot;]\n  prop41 --> areaRight\n  areaLeft --> sumAreas[&quot;Assertion: sum of leg-square areas equals sum of two hypotenuse rectangles&quot;]\n  areaRight --> sumAreas\n  constructSquares --> hypSquarePartition[&quot;Assertion: two rectangles partition square on BC&quot;]\n  hypSquarePartition --> sumAreas\n  commonWhole[&quot;Common notion: whole equals sum of its parts&quot;] --> conclusion[&quot;Conclusion: square on BC equals squares on AB and AC&quot;]\n  sumAreas --> conclusion\n\n%% additional_graph\n\nflowchart TD\n  rightTriangle[&quot;Given: right triangle with legs a and b, hypotenuse c&quot;] --> fourCopies[&quot;Construction: four congruent copies of the triangle&quot;]\n  congruence[&quot;Definition: congruent figures have equal area&quot;] --> fourCopies\n  fourCopies --> outerSquare[&quot;Construction: arrange copies in square of side a plus b&quot;]\n  areaSquare[&quot;Area formula: square side s has area s squared&quot;] --> outerArea[&quot;Assertion: outer square area is (a plus b)^2&quot;]\n  outerSquare --> outerArea\n  fourCopies --> arrangementOne[&quot;Construction: arrangement leaves central square of side c&quot;]\n  arrangementOne --> centralC[&quot;Assertion: remaining central area is c squared&quot;]\n  areaSquare --> centralC\n  fourCopies --> arrangementTwo[&quot;Construction: rearrangement leaves two squares of sides a and b&quot;]\n  arrangementTwo --> centralAB[&quot;Assertion: remaining central area is a squared plus b squared&quot;]\n  areaSquare --> centralAB\n  samePieces[&quot;Principle: rearranging same pieces preserves total area&quot;] --> equalRemainders[&quot;Assertion: the two remaining central areas are equal&quot;]\n  outerArea --> equalRemainders\n  fourCopies --> equalRemainders\n  centralC --> equalRemainders\n  centralAB --> equalRemainders\n  equalRemainders --> conclusion[&quot;Conclusion: c squared equals a squared plus b squared&quot;]\n\n%% additional_graph\n\nflowchart LR\n  inputTriangle[&quot;Input: right triangle a, b, c&quot;] --> makeCopies[&quot;Make four congruent copies&quot;]\n  makeCopies --> arrangeC[&quot;Arrange with hypotenuses forming central c-square&quot;]\n  arrangeC --> recordC[&quot;Record leftover area c squared&quot;]\n  makeCopies --> arrangeAB[&quot;Rearrange with legs forming a-square and b-square&quot;]\n  arrangeAB --> recordAB[&quot;Record leftover area a squared plus b squared&quot;]\n  recordC --> compare[&quot;Compare equal outer area minus same four triangles&quot;]\n  recordAB --> compare\n  compare --> output[&quot;Output: a squared plus b squared equals c squared&quot;]",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "proof_graph",
+  "graphType": "proof_graph"
+}

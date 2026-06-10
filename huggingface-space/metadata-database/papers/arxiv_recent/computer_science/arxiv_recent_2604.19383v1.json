@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2604.19383v1",
+  "arxiv_id": "2604.19383v1",
+  "title": "Multimodal Transformer for Sample-Aware Prediction of Metal-Organic Framework Properties",
+  "authors": [
+    "Seunghee Han",
+    "Jaewoong Lee",
+    "Jihan Kim"
+  ],
+  "author_string": "Seunghee Han, Jaewoong Lee, Jihan Kim",
+  "journal": "arXiv:2604.19383v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Metal-organic frameworks (MOFs) are a major target of machine-learning-based property prediction, yet most models assume that a single framework representation maps to a single property value. This assumption becomes problematic for experimental MOFs, where samples reported as the same framework can exhibit different properties because of differences in crystallinity, phase purity, defects, and other sample-dependent factors. Here we introduce Experimental X-ray Diffraction Integrated Transformer (EXIT), a multimodal transformer for sample-aware prediction of MOF properties that combines MOFid with X-ray diffraction (XRD). In EXIT, MOFid encodes MOF identity, whereas XRD provides complementary information about the experimentally realized sample state. EXIT is pre-trained on one million hypothetical MOFs with simulated XRD to learn transferable representations, leading to improved downstream performance relative to existing approaches. EXIT is fine-tuned on literature-derived experimental datasets for surface area and pore volume prediction. Incorporating experimental XRD improves predictive performance relative to models without experimental XRD, and attention analysis and sample-level case studies further show that EXIT assigns different predictions to samples sharing the same MOF identity when their XRD patterns differ. These results establish a practical step from framework-aware to sample-aware MOF property prediction and highlight the value of incorporating experimental characterization into porous materials informatics.",
+  "categories": [
+    "cond-mat.mtrl-sci",
+    "cs.AI"
+  ],
+  "primary_category": "cs.AI",
+  "comment": "22 pages, 7 figures",
+  "published_date": "2026-04-21T12:06:52Z",
+  "updated_date": "2026-04-21T12:06:52Z",
+  "url": "https://arxiv.org/abs/2604.19383v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.19383v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-23T10:15:44.420560",
+  "category": "computer_science",
+  "subcategories": [
+    "cond-mat.mtrl-sci",
+    "cs.AI"
+  ]
+}

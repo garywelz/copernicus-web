@@ -1,0 +1,39 @@
+{
+  "id": "number_theory-green-tao-theorem",
+  "name": "Green-Tao Theorem",
+  "category": "mathematics",
+  "subcategory": "number_theory",
+  "subcategory_name": "Number Theory",
+  "description": "Green-Tao Theorem (2004): The primes contain arbitrarily long arithmetic progressions. For every k ≥ 3, there exist infinitely many k-term arithmetic progressions of primes.",
+  "mermaid": "graph TD\n    ThmSz[\"Thm: Szemerédi\\nDense sets contain k-AP\"]\n    DefPseudo[\"Def: Pseudorandom measure ν\\nMajorant for primes\"]\n    DefLinear[\"Def: (k-1)-linear forms\\nMultilinear structure\"]\n    DefDense[\"Def: Dense model\\nSparse set approximable by dense\"]\n    L1[\"Lemma: Transference principle\\nDense → primes via majorant\"]\n    L2[\"Lemma: W-trick\\nRestrict to n ≡ b mod W\"]\n    L3[\"Lemma: Goldston-Yıldırım\\nCorrelation condition for ν\"]\n    L4[\"Lemma: Dense model theorem\\nSparse ≈ dense in Gowers norm\"]\n    ThmGT[\"Thm: Green-Tao 2004\\nPrimes contain k-AP ∀k\"]\n    DefUnif[\"Def: Gowers uniformity on primes\\nU^k control\"]\n    ThmSz --> L1\n    DefPseudo --> L1\n    DefDense --> L1\n    L1 --> ThmGT\n    L2 --> DefPseudo\n    L3 --> DefPseudo\n    L4 --> L1\n    DefLinear --> L3\n    DefUnif --> L4\n    classDef definition fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef theorem fill:#51cf66,color:#fff,stroke:#40c057\n    classDef lemma fill:#74c0fc,color:#fff,stroke:#4dabf7\n    class DefPseudo,DefLinear,DefDense,DefUnif definition\n    class ThmSz,ThmGT theorem\n    class L1,L2,L3,L4 lemma",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

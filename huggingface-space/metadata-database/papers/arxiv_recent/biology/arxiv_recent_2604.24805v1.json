@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2604.24805v1",
+  "arxiv_id": "2604.24805v1",
+  "title": "minAction.net: Energy-First Neural Architecture Design -- From Biological Principles to Systematic Validation",
+  "authors": [
+    "Martin G. Frasch"
+  ],
+  "author_string": "Martin G. Frasch",
+  "journal": "arXiv:2604.24805v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Modern machine learning optimizes for accuracy without explicitly accounting for internal computational cost, even though physical and biological systems operate under intrinsic energy constraints. We evaluate energy-aware learning across 2,203 experiments spanning vision, text, neuromorphic, and physiological datasets, using 10 seeds per configuration and performing a factorial statistical analysis. Three findings emerge. First, architecture alone explains negligible variance in accuracy (partial eta^2 = 0.001). In contrast, the architecture x dataset interaction is large (partial eta^2 = 0.44, p < 0.001), demonstrating that optimal architecture depends critically on task modality and rejecting the assumption of a universal best architecture. Second, a controlled lambda-sweep over four orders of magnitude validates a single-parameter energy-regularized objective L = L_CE + lambda * E(theta, x): internal activation energy decreases to 6% of baseline at moderate lambda with no accuracy degradation on MNIST. Third, energy-first architectures inspired by an action-principle framework yield 5-33% within-modality training-efficiency gains over conventional baselines. These results emerge from a research program that interprets learning through a structural correspondence between the action functional in classical mechanics, free energy in statistical physics, and KL-regularized objectives in variational inference. We frame this correspondence as a design hypothesis rather than a derivation.",
+  "categories": [
+    "cs.LG",
+    "q-bio.QM"
+  ],
+  "primary_category": "q-bio.QM",
+  "comment": null,
+  "published_date": "2026-04-27T06:26:36Z",
+  "updated_date": "2026-04-27T06:26:36Z",
+  "url": "https://arxiv.org/abs/2604.24805v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.24805v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-30T10:15:38.344633",
+  "category": "biology",
+  "subcategories": [
+    "cs.LG",
+    "q-bio.QM"
+  ]
+}

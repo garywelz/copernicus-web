@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2604.21565v1",
+  "arxiv_id": "2604.21565v1",
+  "title": "Pulse Shaping for Superconducting Qubits",
+  "authors": [
+    "Animesh Patra",
+    "Ankur Raina"
+  ],
+  "author_string": "Animesh Patra, Ankur Raina",
+  "journal": "arXiv:2604.21565v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "High-fidelity control of superconducting qubits requires carefully shaped microwave pulses that account for multiple error channels. In this work, we present a pedagogical introduction to pulse-shaping techniques for transmon qubits, aiming to provide a unified, accessible framework that integrates physical intuition for pulse design, analytical understanding of gate-level descriptions, and practical considerations of hardware. This article further aims to serve as a guide for students and early researchers entering superconducting quantum computing. We begin by examining simple pulse envelopes and their spectral properties, highlighting how finite bandwidth leads to leakage outside the computational subspace. These observations motivate the introduction of the derivative removal by adiabatic gate (DRAG) technique, which uses a quadrature component proportional to the pulse's time derivative to suppress off-resonant excitations. We analyze the single-qubit case using the Magnus expansion, which provides a clear understanding of the order-by-order introduction of error channels. We discuss the practical hardware realities of control pulse generation, focusing on arbitrary waveform generators (AWG), local oscillators (LO), and IQ mixing. Common imperfections are discussed in terms of their impact on the effective pulse shape and qubit Hamiltonian. Finally, we extend the discussion to two-qubit operations, focusing on the cross-resonance gate and the emergence of effective interactions.",
+  "categories": [
+    "quant-ph",
+    "eess.SP"
+  ],
+  "primary_category": "eess.SP",
+  "comment": null,
+  "published_date": "2026-04-23T11:37:08Z",
+  "updated_date": "2026-04-23T11:37:08Z",
+  "url": "https://arxiv.org/abs/2604.21565v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.21565v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-27T10:15:37.401583",
+  "category": "interdisciplinary",
+  "subcategories": [
+    "quant-ph",
+    "eess.SP"
+  ]
+}

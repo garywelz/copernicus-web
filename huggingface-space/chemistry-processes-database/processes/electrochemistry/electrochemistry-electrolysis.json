@@ -1,21 +1,23 @@
 {
   "id": "electrochemistry-electrolysis",
-  "name": "Electrolysis",
+  "name": "Electrolysis of Water and Brine",
   "category": "chemistry",
   "subcategory": "electrochemistry",
   "subcategory_name": "Electrochemistry",
-  "description": "Electrolysis process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "Electrolysis uses an external voltage above the decomposition potential to drive reduction at the cathode and oxidation at the anode; competing anode reactions (O2 vs Cl2) depend on overpotential, and Faraday's laws relate product amounts to charge passed.",
   "complexity": {
-    "nodes": 26,
-    "edges": 22,
-    "conditionals": 0,
+    "nodes": 10,
+    "edges": 12,
+    "conditionals": 1,
     "logicGates": {
-      "orGates": 0,
-      "andGates": 1,
-      "total": 1
+      "orGates": 2,
+      "andGates": 2,
+      "notGates": 0,
+      "total": 4
     },
-    "level": "medium",
-    "detailLevel": "medium"
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 0
   },
   "colorScheme": {
     "red": {
@@ -39,52 +41,151 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nA5[Electrolyte Solution] --> B5[Electrolysis Method]\nC5[Electrodes] --> D5[Power Source]\nE5[Reaction Vessel] --> F5[Temperature Control]\nB5 --> G5[Solution Preparation]\nD5 --> H5[Voltage Application]\nF5 --> I5[Heat Management]\nG5 --> J5[Concentration Setup]\nH5 --> K5[Current Flow]\nI5 --> L5[Thermal Regulation]\nJ5 --> M5[Ion Separation]\nK5 --> L5\nL5 --> N5[Electrochemical Reaction]\nM5 --> O5[Oxidation Process]\nN5 --> P5[Reduction Process]\nO5 --> Q5[Gas Evolution]\nP5 --> R5[Product Formation]\nQ5 --> S5[Collection System]\nR5 --> T5[Separation Process]\nS5 --> U5[Gas Purification]\nT5 --> V5[Product Recovery]\nU5 --> W5[Quality Control]\nV5 --> X5[Yield Calculation]\nW5 --> Y5[Process Optimization]\nX5 --> Z5[Final Products]\nY5 --> Z5\n\n    style A5 fill:#ff6b6b,color:#fff\n    style C5 fill:#ff6b6b,color:#fff\n    style E5 fill:#ff6b6b,color:#fff\n    style B5 fill:#ffd43b,color:#000\n    style D5 fill:#ffd43b,color:#000\n    style F5 fill:#ffd43b,color:#000\n    style G5 fill:#ffd43b,color:#000\n    style H5 fill:#ffd43b,color:#000\n    style I5 fill:#ffd43b,color:#000\n    style J5 fill:#ffd43b,color:#000\n    style K5 fill:#ffd43b,color:#000\n    style L5 fill:#ffd43b,color:#000\n    style M5 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style O5 fill:#51cf66,color:#fff\n    style P5 fill:#51cf66,color:#fff\n    style Q5 fill:#51cf66,color:#fff\n    style R5 fill:#51cf66,color:#fff\n    style S5 fill:#51cf66,color:#fff\n    style T5 fill:#51cf66,color:#fff\n    style U5 fill:#51cf66,color:#fff\n    style V5 fill:#51cf66,color:#fff\n    style W5 fill:#51cf66,color:#fff\n    style X5 fill:#51cf66,color:#fff\n    style Y5 fill:#51cf66,color:#fff\n    style Z5 fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"Electrolyte + power supply\"]\n    N2[\"Apply V > decomposition\"]\n    N3[\"Cathode reduction (H2)\"]\n    N4[\"Anode oxidation\"]\n    N5{\"Which anode product?\"}\n    N6[\"Brine: Cl2 evolved\"]\n    N7[\"Water: O2 evolved\"]\n    N8[\"Faraday: n ∝ charge\"]\n    N9[\"Overpotential adds voltage\"]\n    N10[\"Products collected\"]\n\n    N1 --> N2\n    N2 --> N3\n    N2 --> N4\n    N4 --> N5\n    N5 -->|brine| N6\n    N5 -->|water| N7\n    N3 --> N8\n    N6 --> N8\n    N7 --> N8\n    N8 --> N10\n    N2 --> N9\n    N9 --> N10\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#74c0fc,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#51cf66,color:#fff\n    style N10 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "title": "Experimental Researches in Electricity (laws of electrolysis)",
+      "authors": "Faraday, M.",
+      "journal": "Philosophical Transactions of the Royal Society",
+      "year": "1834",
+      "doi": "10.1098/rstl.1834.0008",
+      "url": "https://doi.org/10.1098/rstl.1834.0008"
+    },
+    {
+      "title": "Recent progress in alkaline water electrolysis for hydrogen production and applications",
+      "authors": "Zeng, K.; Zhang, D.",
+      "journal": "Progress in Energy and Combustion Science",
+      "year": "2010",
+      "doi": "10.1016/j.pecs.2009.11.002",
+      "url": "https://doi.org/10.1016/j.pecs.2009.11.002"
+    },
+    {
+      "title": "Physical Chemistry, 11th ed. — Electrochemistry",
+      "authors": "Atkins, P.; de Paula, J.; Keeler, J.",
+      "journal": "Oxford University Press",
+      "year": "2018",
       "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: Electrolysis. Created using the Programming Framework methodology."
-    },
-    {
-      "title": "Marine Electrolysis for Building Materials and Environmental Restoration",
-      "authors": "J., Thomas",
-      "journal": "Electrolysis",
-      "year": "2012",
-      "pubmed": null,
-      "doi": "10.5772/48783",
-      "url": "https://doi.org/10.5772/48783"
-    },
-    {
-      "title": "Electrolysis for Ozone Water Production",
-      "authors": "Okada, Fumio; Nay, Kazunari",
-      "journal": "Electrolysis",
-      "year": "2012",
-      "pubmed": null,
-      "doi": "10.5772/51945",
-      "url": "https://doi.org/10.5772/51945"
-    },
-    {
-      "title": "Alkaline Electrolysis with Skeletal Ni Catalysts",
-      "authors": "Fernandez, A.M.; Cano, U.",
-      "journal": "Electrolysis",
-      "year": "2012",
-      "pubmed": null,
-      "doi": "10.5772/50617",
-      "url": "https://doi.org/10.5772/50617"
+      "url": "https://global.oup.com/ukhe/product/atkins-physical-chemistry-9780198769866"
     }
   ],
   "keywords": [
-    "electrolysis"
+    "electrolysis",
+    "faraday's laws",
+    "overpotential",
+    "chlor-alkali",
+    "decomposition potential"
   ],
   "relatedProcesses": [],
   "created": "2026-01-08",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Electrolyte + power supply",
+      "detail": "Cell with external EMF",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 2
+    },
+    {
+      "id": "N2",
+      "label": "Apply V > decomposition",
+      "detail": "Exceed thermodynamic threshold",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N3",
+      "label": "Cathode reduction (H2)",
+      "detail": "Hydrogen evolution",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N4",
+      "label": "Anode oxidation",
+      "detail": "O2 or Cl2 evolution",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N5",
+      "label": "Which anode product?",
+      "detail": "Set by overpotential, not just E°",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N6",
+      "label": "Brine: Cl2 evolved",
+      "detail": "Kinetics favor chlorine",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N7",
+      "label": "Water: O2 evolved",
+      "detail": "Oxygen evolution reaction",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N8",
+      "label": "Faraday: n ∝ charge",
+      "detail": "Moles from current × time",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N9",
+      "label": "Overpotential adds voltage",
+      "detail": "Raises energy cost",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N10",
+      "label": "Products collected",
+      "detail": "Gases/metals harvested",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 0
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:electrochemistry-electrolysis",
+    "graphType": "decision_flowchart",
+    "topologySignature": "892b7ca7eac8c907",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "namedCollections": [
+    "electrochemistry"
+  ],
+  "graphMetrics": {
+    "nodes": 10,
+    "edges": 12,
+    "conditionals": 1,
+    "andGates": 2,
+    "orGates": 2,
+    "notGates": 0,
+    "loops": 0
+  },
+  "graphType": "decision_flowchart",
+  "domainContext": "Industrial electrolysis"
 }

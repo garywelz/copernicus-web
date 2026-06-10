@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2604.22986v1",
+  "arxiv_id": "2604.22986v1",
+  "title": "A Machine Learning Approach to Meteor Classification",
+  "authors": [
+    "Samantha Hemmelgarn",
+    "Nicholas Moskovitz",
+    "Denis Vida"
+  ],
+  "author_string": "Samantha Hemmelgarn, Nicholas Moskovitz, Denis Vida",
+  "journal": "arXiv:2604.22986v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We use machine learning to develop a framework for classifying meteoroids based on 13 directly observed parameters from the Global Meteor Network. This method adds depth to the $K_{b}$ parameter, which uses only three parameters. We employ a semi-qualitative approach using 28,177 meteor events observed in 2023 by the Lowell Observatory Cameras for All-Sky Meteor Surveillance (LO-CAMS) network to evaluate multiple normalization, dimensionality-reduction, and clustering algorithms. We find that a combination of Factor Analysis (FA) and a Gaussian Mixture Model (GMM) results in clusters most consistent with traditional models. Three FA-derived factors corresponding to meteoroid kinematics, activation thresholds, and size/geometry effects describe the underlying structure of meteoroid behavior. The activation factor emerged as the most discriminating factor distinguishing whether a meteor is of asteroidal or cometary origin. Resulting 3, 6, and 11 cluster models reveal progressively finer compositional structure, from broad physical regimes to detailed subdivisions within cometary and asteroidal populations. From these results, we introduce a physically motivated hardness classification scheme: $H_{\\mathrm{class}}$. $H_{\\mathrm{class}}$ is a data-driven extension of $K_{b}$ which physically interprets clusters in terms of the densest iron meteoroids down to the softest cometary material. Application to nine well-studied meteor showers and analysis of clusters in orbital space aids in the physical interpretation of $H_{\\mathrm{class}}$ groups. The $H_{\\mathrm{class}}$ model is supported by an analytical FA-GMM formulation that enables application to future datasets. Our results demonstrate that machine learning methods can extract compositional information from modern optical meteor datasets at scale and offers a new framework for interpreting meteoroid populations.",
+  "categories": [
+    "astro-ph.EP",
+    "astro-ph.IM"
+  ],
+  "primary_category": "astro-ph.IM",
+  "comment": "35 pages, 13 figures, 10 tables, accepted for publication in Icarus",
+  "published_date": "2026-04-24T19:56:56Z",
+  "updated_date": "2026-04-24T19:56:56Z",
+  "url": "https://arxiv.org/abs/2604.22986v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.22986v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-27T22:15:39.109275",
+  "category": "physics",
+  "subcategories": [
+    "astro-ph.EP",
+    "astro-ph.IM"
+  ]
+}

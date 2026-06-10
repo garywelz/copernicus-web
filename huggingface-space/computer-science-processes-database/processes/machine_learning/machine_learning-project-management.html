@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project Management - Computer Science Process</title>
+    <title>Support Vector Machine (SVM) - Computer Science Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Project Management</h1>
+            <h1>Support Vector Machine (SVM)</h1>
             <div class="header-meta">
                 <span class="meta-item">Computer Science</span>
                 <span class="meta-item">Machine Learning</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,67 +234,60 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Project Management process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>A support vector machine classifies by finding the maximum-margin hyperplane: data is mapped into a feature space, and if not linearly separable a kernel implicitly lifts it higher; solving the dual quadratic program identifies the support vectors that define the boundary, with a soft margin allowing controlled violations.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-A3[Project Initiation] --> B3[Project Management Method]
-C3[Resource Allocation] --> D3[Team Coordination]
-E3[Progress Monitoring] --> F3[Project Management Analysis]
-B3 --> G3[Scrum Framework]
-D3 --> H3[Kanban System]
-F3 --> I3[Traditional PM]
-G3 --> J3[Sprint Management]
-H3 --> K3[Workflow Optimization]
-I3 --> L3[Gantt Charts]
-J3 --> M3[Task Prioritization]
-K3 --> L3
-L3 --> N3[Milestone Tracking]
-M3 --> O3[Risk Management]
-N3 --> P3[Stakeholder Communication]
-O3 --> Q3[Project Management Process]
-P3 --> R3[Project Management Validation]
-Q3 --> S3[Project Management Verification]
-R3 --> T3[Project Management Result]
-S3 --> U3[Project Management Analysis]
-T3 --> V3[Project Management Parameters]
-U3 --> W3[Project Management Output]
-V3 --> X3[Project Management Analysis]
-W3 --> Y3[Project Management Final Result]
-X3 --> Z3[Project Management Complete]
+    N1["Labeled training data"]
+    N2["Map to feature space"]
+    N3{"Linearly separable?"}
+    N4["Apply kernel trick"]
+    N5["Maximize margin"]
+    N6["Solve QP (dual)"]
+    N7["Identify support vectors"]
+    N8{"Soft margin (slack C)?"}
+    N9["Allow margin violations"]
+    N10["Decision boundary set"]
+    N11["SVM classifier"]
 
-    style A3 fill:#ff6b6b,color:#fff
-    style C3 fill:#ff6b6b,color:#fff
-    style E3 fill:#ff6b6b,color:#fff
-    style B3 fill:#ffd43b,color:#000
-    style D3 fill:#ffd43b,color:#000
-    style F3 fill:#ffd43b,color:#000
-    style G3 fill:#ffd43b,color:#000
-    style H3 fill:#ffd43b,color:#000
-    style I3 fill:#ffd43b,color:#000
-    style J3 fill:#ffd43b,color:#000
-    style K3 fill:#ffd43b,color:#000
-    style L3 fill:#ffd43b,color:#000
-    style M3 fill:#51cf66,color:#fff
-    style N3 fill:#51cf66,color:#fff
-    style O3 fill:#51cf66,color:#fff
-    style P3 fill:#51cf66,color:#fff
-    style Q3 fill:#51cf66,color:#fff
-    style R3 fill:#51cf66,color:#fff
-    style S3 fill:#51cf66,color:#fff
-    style T3 fill:#51cf66,color:#fff
-    style U3 fill:#51cf66,color:#fff
-    style V3 fill:#51cf66,color:#fff
-    style W3 fill:#51cf66,color:#fff
-    style X3 fill:#51cf66,color:#fff
-    style Y3 fill:#51cf66,color:#fff
-    style Z3 fill:#b197fc,color:#fff
+    N1 --> N2
+    N2 --> N3
+    N3 -->|no| N4
+    N4 --> N5
+    N3 -->|yes| N5
+    N5 --> N6
+    N6 --> N7
+    N7 --> N8
+    N8 -->|yes| N9
+    N9 --> N10
+    N8 -->|no| N10
+    N10 --> N11
+
+    style N1 fill:#ff6b6b,color:#fff
+    style N2 fill:#51cf66,color:#fff
+    style N3 fill:#74c0fc,color:#fff
+    style N4 fill:#51cf66,color:#fff
+    style N5 fill:#51cf66,color:#fff
+    style N6 fill:#51cf66,color:#fff
+    style N7 fill:#74c0fc,color:#fff
+    style N8 fill:#74c0fc,color:#fff
+    style N9 fill:#51cf66,color:#fff
+    style N10 fill:#51cf66,color:#fff
+    style N11 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Labeled training data</td><td>Triggers & Inputs</td><td><a href="https://doi.org/10.1007/BF00994018" target="_blank" title="Support-vector networks" style="color:#9b59b6;">Cortes, C. et al. 1995</a></td></tr><tr><td style="font-weight:600;">Map to feature space</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1007/BF00994018" target="_blank" title="Support-vector networks" style="color:#9b59b6;">Cortes, C. et al. 1995</a></td></tr><tr><td style="font-weight:600;">Linearly separable?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1145/130385.130401" target="_blank" title="A training algorithm for optimal margin classifiers" style="color:#9b59b6;">Boser, B. E. et al. 1992</a></td></tr><tr><td style="font-weight:600;">Apply kernel trick</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1007/BF00994018" target="_blank" title="Support-vector networks" style="color:#9b59b6;">Cortes, C. et al. 1995</a></td></tr><tr><td style="font-weight:600;">Maximize margin</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1007/BF00994018" target="_blank" title="Support-vector networks" style="color:#9b59b6;">Cortes, C. et al. 1995</a></td></tr><tr><td style="font-weight:600;">Solve QP (dual)</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1145/130385.130401" target="_blank" title="A training algorithm for optimal margin classifiers" style="color:#9b59b6;">Boser, B. E. et al. 1992</a></td></tr><tr><td style="font-weight:600;">Identify support vectors</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1007/BF00994018" target="_blank" title="Support-vector networks" style="color:#9b59b6;">Cortes, C. et al. 1995</a></td></tr><tr><td style="font-weight:600;">Soft margin (slack C)?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1007/BF00994018" target="_blank" title="Support-vector networks" style="color:#9b59b6;">Cortes, C. et al. 1995</a></td></tr><tr><td style="font-weight:600;">Allow margin violations</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1007/BF00994018" target="_blank" title="Support-vector networks" style="color:#9b59b6;">Cortes, C. et al. 1995</a></td></tr><tr><td style="font-weight:600;">Decision boundary set</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1007/BF00994018" target="_blank" title="Support-vector networks" style="color:#9b59b6;">Cortes, C. et al. 1995</a></td></tr><tr><td style="font-weight:600;">SVM classifier</td><td>Products & Outputs</td><td><a href="https://doi.org/10.1007/BF00994018" target="_blank" title="Support-vector networks" style="color:#9b59b6;">Cortes, C. et al. 1995</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -313,12 +333,12 @@ X3 --> Z3[Project Management Complete]
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 26</li>
-                        <li><strong>Edges:</strong> 21</li>
-                        <li><strong>Conditionals:</strong> 0</li>
-                        <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 1</li>
+                        <li><strong>Nodes:</strong> 11</li>
+                        <li><strong>Edges:</strong> 12</li>
+                        <li><strong>Conditionals:</strong> 2</li>
+                        <li><strong>AND Gates:</strong> 2</li>
+                        <li><strong>OR Gates:</strong> 2</li>
+                        <li><strong>Total Gates:</strong> 4</li>
                     </ul>
                 </div>
                 
@@ -326,7 +346,7 @@ X3 --> Z3[Project Management Complete]
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>project</li><li>management</li>
+                        <li>support vector machine</li><li>maximum margin</li><li>kernel trick</li><li>support vectors</li><li>soft margin</li>
                     </ul>
                 </div>
                 
@@ -337,42 +357,22 @@ X3 --> Z3[Project Management Complete]
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Support-vector networks</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Cortes, C.; Vapnik, V.
+                            , Machine Learning
+                             (1995)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #9b59b6; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Project management: Project Management</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Citeladze, David
-                            
-                             (2023)
-                            </span>
-                            <br><a href="https://doi.org/10.12737/1859087" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.12737/1859087</a>
+                            <br><a href="https://doi.org/10.1007/BF00994018" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.1007/BF00994018</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Project management</strong>
-                            
-                            
-                             (None)
+                            <strong>A training algorithm for optimal margin classifiers</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Boser, B. E.; Guyon, I. M.; Vapnik, V. N.
+                            , Workshop on Computational Learning Theory
+                             (1992)
                             </span>
-                            <br><a href="https://doi.org/10.3403/01970881u" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.3403/01970881u</a>
-                            
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Project management</strong>
-                            
-                            
-                             (None)
-                            </span>
-                            <br><a href="https://doi.org/10.3403/01970881" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.3403/01970881</a>
+                            <br><a href="https://doi.org/10.1145/130385.130401" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.1145/130385.130401</a>
                             
                         </li>
                         

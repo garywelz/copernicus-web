@@ -1,0 +1,30 @@
+{
+  "id": "arxiv_2605.10286v1",
+  "arxiv_id": "2605.10286v1",
+  "title": "AgentRx: A Benchmark Study of LLM Agents for Multimodal Clinical Prediction Tasks",
+  "authors": [
+    "Baraa Al Jorf",
+    "Farah E. Shamout"
+  ],
+  "author_string": "Baraa Al Jorf, Farah E. Shamout",
+  "journal": "arXiv:2605.10286v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Building effective clinical decision support systems requires the synthesis of complex heterogeneous multimodal data. Such modalities include temporal electronic health records data, medical images, radiology reports, and clinical notes. Large language model (LLM)-based agents have shown impressive performance in various healthcare tasks, especially those involving textual modalities. Considering the fragmentation of healthcare data across hospital systems, collaborative agent frameworks present a promising direction to mitigate data sharing challenges. However, the effectiveness of LLM agents for multimodal clinical risk prediction remains largely unexamined. In this work, we conduct a systematic evaluation of LLM-based agents for clinical prediction tasks using large-scale real-world data. We assess performance in unimodal and multimodal settings and quantify performance gaps between single agent and multi-agent systems. Our findings highlight that single agent frameworks outperform naive multi-agent systems, are better at handling multimodal data, and are better calibrated. This underscores a critical need for improving multi-agent collaboration to better handle heterogeneous inputs. By open-sourcing our code and evaluation framework, this work offers a new benchmark to support future developments relating to agentic systems in healthcare.",
+  "categories": [
+    "cs.AI"
+  ],
+  "primary_category": "cs.AI",
+  "comment": "Accepted at the AHLI Conference on Health, Inference, and Learning 2026",
+  "published_date": "2026-05-11T09:46:41Z",
+  "updated_date": "2026-05-11T09:46:41Z",
+  "url": "https://arxiv.org/abs/2605.10286v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.10286v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-11T22:15:37.968191",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.AI"
+  ]
+}

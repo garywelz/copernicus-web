@@ -1,0 +1,201 @@
+{
+  "id": "immunology-inflammasome-activation",
+  "name": "Inflammasome Activation",
+  "category": "biology",
+  "subcategory": "immunology",
+  "subcategory_name": "Immunology",
+  "description": "NLRP3 inflammasome: a priming signal induces NLRP3 and pro-IL-1beta, a second danger signal triggers NLRP3-ASC-caspase-1 assembly, and active caspase-1 matures IL-1beta and cleaves gasdermin D to drive pyroptosis.",
+  "keywords": [
+    "inflammasome",
+    "nlrp3",
+    "caspase-1",
+    "il-1beta",
+    "gasdermin d",
+    "pyroptosis"
+  ],
+  "namedCollections": [
+    "signaling-cell-fate"
+  ],
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "complexity": {
+    "nodes": 11,
+    "edges": 11,
+    "conditionals": 1,
+    "logicGates": {
+      "orGates": 1,
+      "andGates": 2,
+      "notGates": 0,
+      "total": 3
+    },
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 0
+  },
+  "graphMetrics": {
+    "nodes": 11,
+    "edges": 11,
+    "conditionals": 1,
+    "andGates": 2,
+    "orGates": 1,
+    "notGates": 0,
+    "loops": 0
+  },
+  "mermaid": "graph TD\n    N1[\"Signal 1: PAMP/TLR\"]\n    N2[\"NF-kB primes NLRP3, pro-IL-1b\"]\n    N3[\"Signal 2: DAMP / K+ efflux\"]\n    N4{\"Both signals present?\"}\n    N5[\"NLRP3 oligomerizes\"]\n    N6[\"ASC speck recruits casp-1\"]\n    N7[\"Caspase-1 autoactivation\"]\n    N8[\"Cleave pro-IL-1b/IL-18\"]\n    N9[\"Cleave gasdermin D\"]\n    N10[\"GSDMD pores; pyroptosis\"]\n    N11[\"IL-1b release; inflammation\"]\n\n    N1 --> N2\n    N2 --> N4\n    N3 --> N4\n    N4 -->|yes| N5\n    N5 --> N6\n    N6 --> N7\n    N7 --> N8\n    N7 --> N9\n    N8 --> N11\n    N9 --> N10\n    N10 --> N11\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#ff6b6b,color:#fff\n    style N4 fill:#74c0fc,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#51cf66,color:#fff\n    style N10 fill:#74c0fc,color:#fff\n    style N11 fill:#b197fc,color:#fff",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Signal 1: PAMP/TLR",
+      "detail": "Priming via TLR/NF-kB",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 1
+    },
+    {
+      "id": "N2",
+      "label": "NF-kB primes NLRP3, pro-IL-1b",
+      "detail": "Transcriptional induction of NLRP3 and pro-IL-1beta",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N3",
+      "label": "Signal 2: DAMP / K+ efflux",
+      "detail": "Danger signal (K+ efflux, ROS, lysosomal damage)",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 1
+    },
+    {
+      "id": "N4",
+      "label": "Both signals present?",
+      "detail": "Two-signal requirement for activation",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 2
+    },
+    {
+      "id": "N5",
+      "label": "NLRP3 oligomerizes",
+      "detail": "NLRP3 nucleates the inflammasome",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N6",
+      "label": "ASC speck recruits casp-1",
+      "detail": "ASC adaptor recruits pro-caspase-1",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N7",
+      "label": "Caspase-1 autoactivation",
+      "detail": "Proximity-induced caspase-1 activation",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N8",
+      "label": "Cleave pro-IL-1b/IL-18",
+      "detail": "Maturation of IL-1beta and IL-18",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N9",
+      "label": "Cleave gasdermin D",
+      "detail": "GSDMD N-terminal fragment released",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N10",
+      "label": "GSDMD pores; pyroptosis",
+      "detail": "Membrane pores drive lytic cell death",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N11",
+      "label": "IL-1b release; inflammation",
+      "detail": "Mature cytokines released, amplifying inflammation",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 0
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:immunology-inflammasome-activation",
+    "graphType": "mechanism_flowchart",
+    "topologySignature": "3b1446ef45974a2e",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "pending",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "lastUpdated": "2026-06-01",
+  "verified": false,
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "sources": [
+    {
+      "title": "The inflammasome: a molecular platform triggering activation of inflammatory caspases and processing of proIL-beta",
+      "authors": "Martinon, F.; Burns, K.; Tschopp, J.",
+      "journal": "Molecular Cell",
+      "year": "2002",
+      "pubmed": "12191486",
+      "doi": "10.1016/s1097-2765(02)00599-3",
+      "url": "https://doi.org/10.1016/s1097-2765(02)00599-3"
+    },
+    {
+      "title": "The NLRP3 inflammasome: molecular activation and regulation to therapeutics",
+      "authors": "Swanson, K. V.; Deng, M.; Ting, J. P.",
+      "journal": "Nature Reviews Immunology",
+      "year": "2019",
+      "pubmed": "31036962",
+      "doi": "10.1038/s41577-019-0165-0",
+      "url": "https://doi.org/10.1038/s41577-019-0165-0"
+    },
+    {
+      "title": "Inflammasomes: mechanism of assembly, regulation and signalling",
+      "authors": "Broz, P.; Dixit, V. M.",
+      "journal": "Nature Reviews Immunology",
+      "year": "2016",
+      "pubmed": "27291964",
+      "doi": "10.1038/nri.2016.58",
+      "url": "https://doi.org/10.1038/nri.2016.58"
+    }
+  ],
+  "graphType": "mechanism_flowchart",
+  "domainContext": "Innate inflammatory signaling"
+}

@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2605.02814v1",
+  "arxiv_id": "2605.02814v1",
+  "title": "IConFace: Identity-Structure Asymmetric Conditioning for Unified Reference-Aware Face Restoration",
+  "authors": [
+    "Axi Niu",
+    "Jinyang Zhang",
+    "Senyan Qing"
+  ],
+  "author_string": "Axi Niu, Jinyang Zhang, Senyan Qing",
+  "journal": "arXiv:2605.02814v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Blind face restoration is highly ill-posed under severe degradation, where identity-critical details may be missing from the degraded input. Same-identity references reduce this ambiguity, but mismatched pose, expression, illumination, age, makeup, or local facial states can lead to overuse of reference appearance. We propose \\textbf{IConFace}, a unified reference-aware and no-reference framework with identity--structure asymmetric conditioning. References are distilled into a norm-weighted global AdaFace identity anchor for image-only modulation, while the degraded image is reinforced as the spatial structure anchor through low-rank residuals and block-wise degraded cross-attention with two-route memory. The resulting single checkpoint exploits references when available and falls back to no-reference restoration when absent, improving identity consistency, fine-detail recovery, and degraded-only restoration quality in a unified model.",
+  "categories": [
+    "cs.CV",
+    "cs.AI"
+  ],
+  "primary_category": "cs.AI",
+  "comment": null,
+  "published_date": "2026-05-04T16:49:51Z",
+  "updated_date": "2026-05-04T16:49:51Z",
+  "url": "https://arxiv.org/abs/2605.02814v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.02814v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-05T10:15:47.086849",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CV",
+    "cs.AI"
+  ]
+}

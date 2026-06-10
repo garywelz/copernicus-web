@@ -1,0 +1,48 @@
+{
+  "id": "medrxiv_10.64898_2026.01.23.26344730",
+  "doi": "10.64898/2026.01.23.26344730",
+  "title": "Automated Intracranial Thrombus Segmentation from CT Images of Patients with Acute Ischemic Stroke: A Dual-Channel nnU-Net Approach with Uncertainty Quantification",
+  "authors": [
+    "Patel, T. R.",
+    "Jaikumar, V.",
+    "Kaneko, N.",
+    "Letavay, A.",
+    "Mokin, M. R.",
+    "Regenhardt, R. W.",
+    "Levy, E. I.",
+    "Siddiqui, A. H.",
+    "Tutino, V. M."
+  ],
+  "author_string": "Patel, T. R., Jaikumar, V., Kaneko, N., Letavay, A., Mokin, M. R. et al.",
+  "journal": "medRxiv",
+  "journal_full": "medRxiv",
+  "year": "2026",
+  "abstract": "BackgroundAutomated thrombus segmentation on CT imaging could enable routine extraction of clot volume and other biomarkers in large vessel occlusion (LVO) stroke, but current deep learning models provide deterministic masks without indicating when their output is unreliable. We developed and evaluated an uncertainty-aware segmentation framework that couples nnU-Net with Bayesian-style uncertainty estimation to support quality-controlled use of automated clot measurements.\n\nMethodsIn this single-center retrospective study, we included MT-treated AIS patients with baseline NCCT and CTA. NCCT was rigidly registered to CTA, and an atlas-based pipeline cropped images to a supratentorial intracranial arterial ROI. Clots were manually segmented on co-registered NCCT/CTA. A 3D nnU-Net with two-channel input (CTA+NCCT) was trained with a cyclical learning-rate schedule; ensembles of checkpoints were used to approximate the predictive posterior and compute voxel-wise entropy. Case-level clot uncertainty (U_clot) was defined as mean entropy within the predicted clot. We assessed segmentation metrics, volumetric agreement, the relationship between U_clot and Dice, and the performance of U_clot for triaging poor segmentations (Dice <0.60).\n\nResultsIn the test cohort (n=80), mean Dice was 0.64{+/-}0.24 and volumetric ICC 0.83, with strong correlation between predicted and ground-truth volumes ({rho}=0.77, R{superscript 2}=0.69). Performance was higher for hyperdense vs non-hyperdense clots and for medium/large vs small clots. U_clot was strongly inversely associated with Dice ({rho}=-0.70 overall) and remained informative within all phenotype subgroups. As a univariate predictor of poor segmentation, U_clot achieved an AUC of 0.89; the optimal threshold (0.323) yielded 90% sensitivity and 96% negative predictive value, allowing 60% of cases to be accepted automatically while improving volume-category agreement from 66% ({kappa}=0.49) to 83% ({kappa}=0.69).\n\nConclusionsUncertainty-aware nnU-Net segmentation provides human-level thrombus delineation while supplying a robust, interpretable case-level confidence score. Using U_clot to triage segmentations can substantially enhance the reliability of clot volume categorization, offering a practical pathway toward safe deployment of automated clot analysis in stroke care and research.",
+  "keywords": [],
+  "categories": [
+    "neurology"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.64898/2026.01.23.26344730",
+  "source": "medrxiv",
+  "sources": [
+    "medrxiv"
+  ],
+  "acquired_date": "2026-05-25T22:15:24.729503",
+  "category": "biology",
+  "subcategories": [
+    "neurology"
+  ],
+  "published_date": "2026-01-25",
+  "updated_date": "2026-01-25",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "medrxiv",
+  "preprint_version": "1",
+  "preprint_type": "PUBLISHAHEADOFPRINT",
+  "license": "cc_no",
+  "jatsxml": "https://www.medrxiv.org/content/early/2026/01/25//2026.01.23.26344730.source.xml",
+  "published_doi": null,
+  "author_corresponding": "Tatsat R Patel",
+  "author_corresponding_institution": "University at Buffalo Department of Pathology and Anatomical Sciences"
+}

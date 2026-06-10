@@ -1,0 +1,38 @@
+{
+  "id": "arxiv_2605.07999v1",
+  "arxiv_id": "2605.07999v1",
+  "title": "Graph-Structured Hyperdimensional Computing for Data-Efficient and Explainable Process-Structure-Property Prediction",
+  "authors": [
+    "Jingzhan Ge",
+    "Ajeeth Vellore",
+    "Ajinkya Palwe",
+    "Ahsan Khan",
+    "David Gorsich",
+    "Matthew P. Castanier",
+    "SeungYeon Kang",
+    "Farhad Imani"
+  ],
+  "author_string": "Jingzhan Ge, Ajeeth Vellore, Ajinkya Palwe, Ahsan Khan, David Gorsich et al.",
+  "journal": "arXiv:2605.07999v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Multiphoton photoreduction enables high-fidelity fabrication of complex 3D microstructures, yet reliable process-structure-property (PSP) prediction remains difficult because the available data are sparse, heterogeneous, and interaction-dominated. In this regime, conventional feature-vector models are statistically underdetermined, making them prone to spurious correlations, poor regime transfer, and unstable post hoc explanations, whereas mechanistic pipelines depend on calibrated submodels that are rarely available during early process development. We present PSP-HDC, a graph-structured hyperdimensional computing framework that encodes a directed PSP graph as an internal prior for representation, inference, and explanation. A trainable scalar-to-hypervector encoder learns parameter-specific embeddings on a fixed hyperdimensional basis to accommodate heterogeneous scales and noise. Sample representations are then composed through graph-aligned binding and bundling along directed PSP dependencies, and prediction is performed by associative-memory retrieval against class prototypes. Because the same prototype memories support both decision making and attribution, PSP-HDC provides intrinsic explanations at the parameter, group, and within-group levels, while memory alignment and separation quantify prototype formation during training. On sheet-resistance regime prediction for the 3D platform, PSP-HDC achieves an accuracy of 0.910 +/- 0.077 over 1000 random splits and 0.896 under process-fold generalization, outperforming strong baselines.",
+  "categories": [
+    "cs.LG",
+    "cs.AI"
+  ],
+  "primary_category": "cs.AI",
+  "comment": "19 pages, 18 figures",
+  "published_date": "2026-05-08T16:55:44Z",
+  "updated_date": "2026-05-08T16:55:44Z",
+  "url": "https://arxiv.org/abs/2605.07999v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.07999v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-10T22:17:15.399924",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.LG",
+    "cs.AI"
+  ]
+}

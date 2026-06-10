@@ -1,0 +1,26 @@
+{
+  "id": "lineage-mathematical-schools",
+  "name": "Mathematical School Lineage Pilot",
+  "graphType": "lineage_tree",
+  "category": "Mathematical Lineage",
+  "subcategory": "graph_type_pilots",
+  "subcategory_name": "Graph Type Pilots",
+  "domainContext": "Domain / Structure",
+  "complexity": "low",
+  "namedCollections": [
+    "graph-type-pilots",
+    "lineage"
+  ],
+  "graphMetrics": {
+    "nodes": 6,
+    "edges": 5,
+    "conditionals": 0,
+    "andGates": 0,
+    "orGates": 0,
+    "notGates": 0,
+    "loops": 0
+  },
+  "metricSource": "metadata",
+  "mermaid": "graph TD\n    Hilbert[Hilbert program] --> Noether[Noether algebra school]\n    Hilbert --> Weyl[Structural mathematics]\n    Noether --> Algebra[Modern abstract algebra]\n    Weyl --> Geometry[Differential geometry]\n    Algebra --> Category[Category-theoretic algebra]",
+  "description": "Pilot lineage tree Mermaid visualization for process database graph-type support."
+}

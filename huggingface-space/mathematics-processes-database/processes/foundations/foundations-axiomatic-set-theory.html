@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Axiomatic Set Theory - Mathematics Process</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 20px; }
+        .container { max-width: 900px; margin: 0 auto; background: white; border-radius: 15px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); overflow: hidden; padding: 30px; }
+        h1 { color: #2c3e50; margin-bottom: 15px; }
+        p { color: #555; margin-bottom: 25px; line-height: 1.6; }
+        .nav-links { margin-bottom: 20px; }
+        .nav-links a { color: #e67e22; text-decoration: none; margin-right: 20px; font-weight: 500; }
+        .nav-links a:hover { text-decoration: underline; }
+        .sections { display: grid; gap: 15px; }
+        .sections a { display: block; padding: 20px; background: #f8f9fa; border-radius: 10px; color: #2c3e50; text-decoration: none; font-weight: 500; border-left: 4px solid #16a085; }
+        .sections a:hover { background: #ecf0f1; }
+        .frontier { margin-top: 25px; padding: 20px; background: #e8f8f5; border-left: 4px solid #16a085; border-radius: 0 8px 8px 0; font-size: 0.95em; }
+        .frontier h3 { color: #2c3e50; margin-bottom: 8px; }
+        .frontier a { color: #16a085; }
+        .recent-frontier { margin-top: 20px; }
+        .recent-frontier h3 { color: #2c3e50; font-size: 1.1em; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 2px solid #ecf0f1; }
+        .frontier-item { display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px; margin-bottom: 8px; border-radius: 8px; background: white; border-left: 4px solid; }
+        .frontier-item.proved { border-left-color: #27ae60; }
+        .frontier-item.conjecture { border-left-color: #e67e22; background: #fff8f0; }
+        .frontier-item .content { flex: 1; }
+        .frontier-item .name { font-weight: 600; color: #2c3e50; margin-bottom: 4px; }
+        .frontier-item .meta { font-size: 0.85em; color: #7f8c8d; }
+        .frontier-item a { font-size: 0.9em; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="nav-links">
+            <a id="back-link" href="#">← Back to Mathematics Database</a>
+            <a href="https://plato.stanford.edu/entries/set-theory/zf.html" target="_blank" rel="noopener noreferrer">ZF (Stanford)</a>
+            <a href="https://en.wikipedia.org/wiki/Zermelo%E2%80%93Fraenkel_set_theory" target="_blank" rel="noopener noreferrer">ZFC (Wikipedia)</a>
+            <a href="https://arxiv.org/list/math.LO/recent" target="_blank" rel="noopener noreferrer">math.LO</a>
+            <a href="https://arxiv.org/list/math.HO/recent" target="_blank" rel="noopener noreferrer">math.HO</a>
+        </div>
+        <script>
+            (function() {
+                const backLink = document.getElementById('back-link');
+                backLink.href = window.location.hostname.includes('storage.googleapis.com')
+                    ? 'https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/mathematics-database-table.html'
+                    : '../../mathematics-database-table.html';
+            })();
+        </script>
+        <h1>Axiomatic Set Theory (ZFC)</h1>
+        <p>Zermelo–Fraenkel set theory with the Axiom of Choice. Dependency graphs showing axioms, definitions, and key theorems. Charts 1–3: ZFC foundations. Chart 4: Continuum Hypothesis & independence (Gödel, Cohen). Chart 5: Forcing (posets, generic filters, M[G]). Chart 6: Axiom of Determinacy (AD) and large cardinals. Chart 7: Cantor &amp; cardinality (countability, diagonal argument, Cantor’s theorem, bridge to CH/GCH).</p>
+        <p><strong>Cantor &amp; cardinality (historical thread).</strong> See <a href="foundations-axiomatic-set-theory-cantor-cardinality.html">Chart 7</a> for the dedicated flowchart. Cantor showed that the integers ℤ and the rationals ℚ are <em>countable</em> (same cardinality as ℕ), while ℝ is <em>uncountable</em> (Cantor’s diagonal argument, 1891; earlier non-denumerability of ℝ in 1874). <strong>Cantor’s theorem</strong> states |𝒫(S)| &gt; |S| for every set S—in particular 2<sup>ℵ₀</sup> &gt; ℵ₀. These results motivate the <strong>Continuum Hypothesis</strong> (CH: there is no cardinal strictly between ℵ₀ and |ℝ| = 2<sup>ℵ₀</sup>) and the <strong>Generalized Continuum Hypothesis</strong> (GCH: for every infinite cardinal κ, 2<sup>κ</sup> = κ<sup>+</sup>). CH and GCH are independent of ZFC (Gödel’s constructible universe L; Cohen’s forcing).</p>
+        <div class="sections">
+            <a href="foundations-axiomatic-set-theory-axioms-basic.html">Chart 1 — ZFC Axioms & Basic Notions (Extensionality, Pairing, Union, Power Set, Infinity, Separation, Replacement, Foundation, Choice)</a>
+            <a href="foundations-axiomatic-set-theory-definitions-derived.html">Chart 2 — Definitions: Ordered Pair, Relation, Function (Kuratowski pair, domain, range, etc.)</a>
+            <a href="foundations-axiomatic-set-theory-ordinals-choice.html">Chart 3 — Ordinals, Cardinals & Choice (well-ordering, transfinite induction, cardinality)</a>
+            <a href="foundations-axiomatic-set-theory-ch-continuum.html">Chart 4 — Continuum Hypothesis & Independence (Gödel's L, Cohen's forcing, CH independent of ZFC)</a>
+            <a href="foundations-axiomatic-set-theory-forcing.html">Chart 5 — Forcing (posets, generic filters, P-names, M[G], forcing relation ⊩)</a>
+            <a href="foundations-axiomatic-set-theory-ad.html">Chart 6 — Axiom of Determinacy (AD, determinacy of games, large cardinals)</a>
+            <a href="foundations-axiomatic-set-theory-cantor-cardinality.html">Chart 7 — Cantor &amp; Cardinality (countable vs uncountable, Cantor’s theorem, path to CH/GCH)</a>
+        </div>
+        <div class="frontier">
+            <h3>🔬 Frontier: Logic & Set Theory</h3>
+            <p>Forcing, large cardinals, inner model theory, descriptive set theory. <a href="https://arxiv.org/list/math.LO/recent" target="_blank" rel="noopener noreferrer">math.LO recent</a></p>
+        </div>
+        <div class="recent-frontier">
+            <h3>Recent & Frontier</h3>
+            <div class="frontier-item proved">
+                <div class="content"><div class="name">Cantor — ℤ and ℚ countable</div><div class="meta">Same cardinality as ℕ; explicit listings / bijections with ℕ</div><a href="foundations-axiomatic-set-theory-cantor-cardinality.html">Chart →</a> <a href="https://en.wikipedia.org/wiki/Countable_set" target="_blank" rel="noopener noreferrer">Wikipedia →</a></div>
+            </div>
+            <div class="frontier-item proved">
+                <div class="content"><div class="name">Cantor — ℝ uncountable</div><div class="meta">Diagonal argument · |ℝ| = 2<sup>ℵ₀</sup> &gt; ℵ₀</div><a href="foundations-axiomatic-set-theory-cantor-cardinality.html">Chart →</a> <a href="https://en.wikipedia.org/wiki/Cantor%27s_diagonal_argument" target="_blank" rel="noopener noreferrer">Wikipedia →</a></div>
+            </div>
+            <div class="frontier-item proved">
+                <div class="content"><div class="name">Cantor’s theorem</div><div class="meta">|𝒫(S)| &gt; |S| · No surjection S → 𝒫(S)</div><a href="foundations-axiomatic-set-theory-cantor-cardinality.html">Chart →</a> <a href="https://en.wikipedia.org/wiki/Cantor%27s_theorem" target="_blank" rel="noopener noreferrer">Wikipedia →</a></div>
+            </div>
+            <div class="frontier-item proved">
+                <div class="content"><div class="name">Continuum Hypothesis (CH) &amp; GCH (Gödel, Cohen)</div><div class="meta">CH: no cardinal strictly between ℵ₀ and 2<sup>ℵ₀</sup>. GCH: ∀ infinite κ, 2<sup>κ</sup> = κ<sup>+</sup>. Both independent of ZFC.</div><a href="foundations-axiomatic-set-theory-ch-continuum.html">Chart →</a> <a href="https://en.wikipedia.org/wiki/Continuum_hypothesis" target="_blank" rel="noopener noreferrer">Wikipedia (CH) →</a> <a href="https://en.wikipedia.org/wiki/Generalized_continuum_hypothesis" target="_blank" rel="noopener noreferrer">Wikipedia (GCH) →</a></div>
+            </div>
+            <div class="frontier-item proved">
+                <div class="content"><div class="name">Forcing (Cohen)</div><div class="meta">1963 · Generic extensions, relative consistency</div><a href="foundations-axiomatic-set-theory-forcing.html">Chart →</a> <a href="https://en.wikipedia.org/wiki/Forcing_(mathematics)" target="_blank" rel="noopener noreferrer">Wikipedia →</a></div>
+            </div>
+            <div class="frontier-item conjecture">
+                <div class="content"><div class="name">Woodin's Ω-logic</div><div class="meta">Absolute decidability; ultimate L</div><a href="https://en.wikipedia.org/wiki/Omega_logic" target="_blank" rel="noopener noreferrer">Wikipedia →</a></div>
+            </div>
+        </div>
+        <div class="frontier" style="margin-top: 20px; border-left-color: #3498db; background: #e3f2fd;">
+            <h3>Formal Verification & AI Mathematics</h3>
+            <p><a href="https://leanprover-community.github.io/" target="_blank" rel="noopener noreferrer">Lean</a> · <a href="https://coq.inria.fr/" target="_blank" rel="noopener noreferrer">Coq</a> · <a href="https://deepmind.google/discover/blog/alphaproof/" target="_blank" rel="noopener noreferrer">AlphaProof</a> · <a href="https://deepmind.google/discover/blog/alphageometry-solving-olympiad-geometry/" target="_blank" rel="noopener noreferrer">AlphaGeometry</a></p>
+        </div>
+    </div>
+</body>
+</html>

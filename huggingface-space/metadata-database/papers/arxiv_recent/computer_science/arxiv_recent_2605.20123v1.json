@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2605.20123v1",
+  "arxiv_id": "2605.20123v1",
+  "title": "BiRD: A Bidirectional Ranking Defense Mechanism for Retrieval Augmented Generation",
+  "authors": [
+    "Chengcai Gao",
+    "Zhihong Sun",
+    "Xiaochuan Shi",
+    "Qiufeng Wang",
+    "Chao Liang"
+  ],
+  "author_string": "Chengcai Gao, Zhihong Sun, Xiaochuan Shi, Qiufeng Wang, Chao Liang",
+  "journal": "arXiv:2605.20123v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "The growing adoption of Retrieval-Augmented Generation (RAG) has led to a rise in adversarial attacks. Existing defenses, relying on semantic analysis or voting, face a trade-off between high computational cost and limited robustness under strong poisoning attacks. Their fundamental limitation is the exclusive focus on semantic content relevance, while neglecting the retrieval context that is critically defined by ranking structures. To this end, we investigate the bidirectional ranking behavior of poisoned and benign documents, and discover a key discriminative pattern: poisoned documents exhibit significantly stronger alignment between their backward rankings and the query's forward ranking. Capitalizing on this, we propose BiRD, a bidirectional ranking defense mechanism built upon a dual-signal framework that leverages forward ranking to assess semantic content relevance and backward ranking to quantify ranking context consistency. This design directly addresses the fundamental limitation of prior approaches, enabling simultaneous efficiency and robustness. Extensive evaluation across 3 datasets with 3 retrievers and 3 LLMs under 2 attack scenarios validates BiRD's effectiveness. Notably, BiRD reduces the attack success rate of PoisonedRAG by up to 54% while simultaneously improving task accuracy by up to 56%, with average additional latency under 1 second.",
+  "categories": [
+    "cs.CR",
+    "cs.IR"
+  ],
+  "primary_category": "cs.IR",
+  "comment": "17 pages, 10 figures and 8 tables",
+  "published_date": "2026-05-19T17:11:00Z",
+  "updated_date": "2026-05-19T17:11:00Z",
+  "url": "https://arxiv.org/abs/2605.20123v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.20123v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-20T10:16:33.996694",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CR",
+    "cs.IR"
+  ]
+}

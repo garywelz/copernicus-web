@@ -1,0 +1,40 @@
+{
+  "id": "infinitely-many-primes-v2-demo",
+  "name": "Infinitely Many Primes — Proof Graph v2 Demo - Proof Graph Pilot",
+  "category": "mathematics",
+  "subcategory": "proof_graphs",
+  "subcategory_name": "Proof Graphs",
+  "description": "This page is a design demonstration of the revised proof graph grammar. It uses the same mathematical proof as the original infinitely-many-primes page, but applies distinct node shapes and edge styles:",
+  "mermaid": "flowchart TD\n  target[&quot;Target: prove there are infinitely many primes&quot;]\n  assumeFinite(&quot;Assumption: only finitely many primes p1 through pn&quot;)\n  listAll[&quot;Assertion: every prime is in the list&quot;]\n  algorithm([&quot;Algorithm capsule: product-plus-one witness&quot;])\n  constructN[/&quot;Construction: N equals product p1 through pn plus 1&quot;/]\n  nGreaterOne[&quot;Assertion: N is greater than 1&quot;]\n  primeFactorLemma([&quot;Lemma: every integer greater than 1 is prime or has a prime divisor&quot;])\n  branchPrime{&quot;Branch: N is prime or has prime divisor q?&quot;}\n  newPrime[&quot;Assertion: there exists a prime not in the list&quot;]\n  productDivisible[&quot;Assertion: each listed prime divides the product&quot;]\n  divisibilityDef([&quot;Definition: divisibility&quot;])\n  arithmetic([&quot;Arithmetic fact: if p divides product, p cannot divide product plus 1&quot;])\n  remainderOne[&quot;Assertion: N leaves remainder 1 when divided by each listed prime&quot;]\n  noListedPrime[&quot;Assertion: no listed prime divides N&quot;]\n  joinNewPrime{{&quot;AND&quot;}}\n  contradiction[&quot;Contradiction: every prime is listed, but q is not listed&quot;]\n  discharge[&quot;Discharge assumption: finite-prime assumption is false&quot;]\n  conclusion[&quot;Conclusion: infinitely many primes exist&quot;]\n\n  target --> assumeFinite\n  assumeFinite --> listAll\n  assumeFinite -. &quot;invokes_algorithm&quot; .-> algorithm\n  algorithm -. &quot;returns_object&quot; .-> constructN\n  constructN --> nGreaterOne\n  nGreaterOne --> branchPrime\n  primeFactorLemma --> branchPrime\n  branchPrime -->|&quot;N is prime&quot;| newPrime\n  branchPrime -->|&quot;prime divisor q&quot;| newPrime\n  constructN --> productDivisible\n  divisibilityDef --> productDivisible\n  productDivisible --> remainderOne\n  arithmetic --> remainderOne\n  constructN --> remainderOne\n  remainderOne --> noListedPrime\n  noListedPrime --> joinNewPrime\n  newPrime --> joinNewPrime\n  joinNewPrime --> contradiction\n  listAll --> contradiction\n  contradiction -. &quot;discharges&quot; .-> discharge\n  discharge ==> conclusion\n\n%% additional_graph\n\nflowchart LR\n  inputList([&quot;Input: finite list p1 through pn&quot;])\n  initProduct[&quot;Set product equal to 1&quot;]\n  multiplyNext[&quot;Multiply product by next listed prime&quot;]\n  remaining{&quot;More primes in list?&quot;}\n  addOne[/&quot;Construction: set N equal to product plus 1&quot;/]\n  outputN([&quot;Output: witness N&quot;])\n\n  inputList --> initProduct\n  initProduct --> multiplyNext\n  multiplyNext --> remaining\n  remaining -->|&quot;yes&quot;| multiplyNext\n  remaining -->|&quot;no&quot;| addOne\n  addOne --> outputN",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "proof_graph",
+  "graphType": "proof_graph"
+}

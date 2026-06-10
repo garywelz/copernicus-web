@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2605.10671v1",
+  "arxiv_id": "2605.10671v1",
+  "title": "Natural Policy Gradient as Doubly Smoothed Policy Iteration: A Bellman-Operator Framework",
+  "authors": [
+    "Phalguni Nanda",
+    "Zaiwei Chen"
+  ],
+  "author_string": "Phalguni Nanda, Zaiwei Chen",
+  "journal": "arXiv:2605.10671v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "In this work, we show that natural policy gradient, a core algorithm in reinforcement learning, admits an exact formulation as a smoothed and averaged form of policy iteration. Specifically, we introduce doubly smoothed policy iteration (DSPI), a Bellman-operator framework in which each policy is obtained by applying a regularized greedy step to a weighted average of past $Q$-functions. DSPI includes policy iteration, dual-averaged policy iteration, natural policy gradient, and more general policy dual averaging methods as special cases. Using only monotonicity and contraction of smoothed Bellman operators, we prove distribution-free global geometric convergence of DSPI. Consequently, standard natural policy gradient and policy dual averaging achieve an iteration complexity of $\\mathcal{O}((1-γ)^{-1}\\log((1-γ)^{-1}ε^{-1}))$ for computing an $ε$-optimal policy, without modifying the MDP, adding regularization beyond the mirror map inherent in the update, or using adaptive, trajectory-dependent stepsizes. For the unregularized greedy case, corresponding to dual-averaged policy iteration, we also prove finite termination. The same Bellman-operator framework further extends to discounted MDPs with linear function approximation and stochastic shortest path problems.",
+  "categories": [
+    "cs.LG",
+    "math.OC",
+    "stat.ML"
+  ],
+  "primary_category": "stat.ML",
+  "comment": null,
+  "published_date": "2026-05-11T14:53:03Z",
+  "updated_date": "2026-05-11T14:53:03Z",
+  "url": "https://arxiv.org/abs/2605.10671v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.10671v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-12T10:15:42.873773",
+  "category": "mathematics",
+  "subcategories": [
+    "cs.LG",
+    "math.OC",
+    "stat.ML"
+  ]
+}

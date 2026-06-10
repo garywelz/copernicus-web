@@ -1,0 +1,202 @@
+{
+  "id": "immunology-t-cell-receptor-activation",
+  "name": "T Cell Receptor Activation",
+  "category": "biology",
+  "subcategory": "immunology",
+  "subcategory_name": "Immunology",
+  "description": "T-cell activation: TCR engagement of peptide-MHC plus CD28 costimulation triggers Lck/ZAP-70 signaling and the LAT signalosome, branching into Ca2+/NFAT, NF-kB, and MAPK pathways that drive IL-2 and clonal expansion; without costimulation the cell becomes anergic.",
+  "keywords": [
+    "t cell receptor",
+    "cd28",
+    "lck",
+    "zap-70",
+    "lat",
+    "nfat",
+    "il-2"
+  ],
+  "namedCollections": [
+    "signaling-cell-fate"
+  ],
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "complexity": {
+    "nodes": 11,
+    "edges": 11,
+    "conditionals": 1,
+    "logicGates": {
+      "orGates": 2,
+      "andGates": 2,
+      "notGates": 0,
+      "total": 4
+    },
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 0
+  },
+  "graphMetrics": {
+    "nodes": 11,
+    "edges": 11,
+    "conditionals": 1,
+    "andGates": 2,
+    "orGates": 2,
+    "notGates": 0,
+    "loops": 0
+  },
+  "mermaid": "graph TD\n    N1[\"TCR binds peptide-MHC\"]\n    N2[\"CD28 binds B7\"]\n    N3{\"Costimulation present?\"}\n    N4[\"Anergy / no response\"]\n    N5[\"Lck phosphorylates ITAMs\"]\n    N6[\"ZAP-70 recruited\"]\n    N7[\"LAT signalosome\"]\n    N8[\"PLCg1: Ca2+/NFAT\"]\n    N9[\"Ras-MAPK / PKCt-NF-kB\"]\n    N10[\"IL-2 + activation genes\"]\n    N11[\"Clonal proliferation\"]\n\n    N1 --> N3\n    N2 --> N3\n    N3 -->|no| N4\n    N3 -->|yes| N5\n    N5 --> N6\n    N6 --> N7\n    N7 --> N8\n    N7 --> N9\n    N8 --> N10\n    N9 --> N10\n    N10 --> N11\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#ff6b6b,color:#fff\n    style N3 fill:#74c0fc,color:#fff\n    style N4 fill:#b197fc,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#51cf66,color:#fff\n    style N10 fill:#51cf66,color:#fff\n    style N11 fill:#b197fc,color:#fff",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "TCR binds peptide-MHC",
+      "detail": "Signal 1: TCR engages antigenic peptide-MHC",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 1
+    },
+    {
+      "id": "N2",
+      "label": "CD28 binds B7",
+      "detail": "Signal 2: CD28 costimulation by B7",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N3",
+      "label": "Costimulation present?",
+      "detail": "Costimulation checkpoint",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 2
+    },
+    {
+      "id": "N4",
+      "label": "Anergy / no response",
+      "detail": "TCR signal without CD28 induces anergy",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 2
+    },
+    {
+      "id": "N5",
+      "label": "Lck phosphorylates ITAMs",
+      "detail": "Lck phosphorylates CD3/zeta ITAMs",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N6",
+      "label": "ZAP-70 recruited",
+      "detail": "ZAP-70 binds phospho-ITAMs and activates",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N7",
+      "label": "LAT signalosome",
+      "detail": "LAT scaffolds the downstream signaling complex",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N8",
+      "label": "PLCg1: Ca2+/NFAT",
+      "detail": "Calcium flux activates NFAT",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N9",
+      "label": "Ras-MAPK / PKCt-NF-kB",
+      "detail": "MAPK/AP-1 and NF-kB arms activated",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N10",
+      "label": "IL-2 + activation genes",
+      "detail": "Transcription of IL-2 and activation program",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N11",
+      "label": "Clonal proliferation",
+      "detail": "T-cell expansion and differentiation",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 0
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:immunology-t-cell-receptor-activation",
+    "graphType": "mechanism_flowchart",
+    "topologySignature": "9001516835527323",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "pending",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "lastUpdated": "2026-06-01",
+  "verified": false,
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "sources": [
+    {
+      "title": "T cell activation",
+      "authors": "Smith-Garvin, J. E.; Koretzky, G. A.; Jordan, M. S.",
+      "journal": "Annual Review of Immunology",
+      "year": "2009",
+      "pubmed": "19132916",
+      "doi": "10.1146/annurev.immunol.021908.132706",
+      "url": "https://doi.org/10.1146/annurev.immunol.021908.132706"
+    },
+    {
+      "title": "Insights into the initiation of TCR signaling",
+      "authors": "Chakraborty, A. K.; Weiss, A.",
+      "journal": "Nature Immunology",
+      "year": "2014",
+      "pubmed": "24840981",
+      "doi": "10.1038/ni.2940",
+      "url": "https://doi.org/10.1038/ni.2940"
+    },
+    {
+      "title": "Regulatory mechanisms in T cell receptor signalling",
+      "authors": "Gaud, G.; Lesourne, R.; Love, P. E.",
+      "journal": "Nature Reviews Immunology",
+      "year": "2018",
+      "pubmed": "29789755",
+      "doi": "10.1038/s41577-018-0020-8",
+      "url": "https://doi.org/10.1038/s41577-018-0020-8"
+    }
+  ],
+  "graphType": "mechanism_flowchart",
+  "domainContext": "Adaptive immune signaling"
+}

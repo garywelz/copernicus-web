@@ -1,0 +1,41 @@
+{
+  "id": "arxiv_2605.08083v1",
+  "arxiv_id": "2605.08083v1",
+  "title": "LLMs Improving LLMs: Agentic Discovery for Test-Time Scaling",
+  "authors": [
+    "Tong Zheng",
+    "Haolin Liu",
+    "Chengsong Huang",
+    "Huiwen Bao",
+    "Sheng Zhang",
+    "Rui Liu",
+    "Runpeng Dai",
+    "Ruibo Chen",
+    "Chenxi Liu",
+    "Tianyi Xiong",
+    "Xidong Wu",
+    "Hongming Zhang",
+    "Heng Huang"
+  ],
+  "author_string": "Tong Zheng, Haolin Liu, Chengsong Huang, Huiwen Bao, Sheng Zhang et al.",
+  "journal": "arXiv:2605.08083v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Test-time scaling (TTS) has become an effective approach for improving large language model performance by allocating additional computation during inference. However, existing TTS strategies are largely hand-crafted: researchers manually design reasoning patterns and tune heuristics by intuition, leaving much of the computation-allocation space unexplored. We propose an environment-driven framework, AutoTTS, that changes what researchers design: from individual TTS heuristics to environments where TTS strategies can be discovered automatically. The key to AutoTTS lies in environment construction: the discovery environment must make the control space tractable and provide cheap, frequent feedback for TTS search. As a concrete instantiation, we formulate width--depth TTS as controller synthesis over pre-collected reasoning trajectories and probe signals, where controllers decide when to branch, continue, probe, prune, or stop and can be evaluated cheaply without repeated LLM calls. We further introduce beta parameterization to make the search tractable and fine-grained execution trace feedback to improve discovery efficiency by helping the agent diagnose why a TTS program fails. Experiments on mathematical reasoning benchmarks show that the discovered strategies improve the overall accuracy--cost tradeoff over strong manually designed baselines. The discovered strategies generalize to held-out benchmarks and model scales, while the entire discovery costs only $39.9 and 160 minutes. Our data, and code will be open-source at https://github.com/zhengkid/AutoTTS.",
+  "categories": [
+    "cs.CL"
+  ],
+  "primary_category": "cs.CL",
+  "comment": "25 pages",
+  "published_date": "2026-05-08T17:59:40Z",
+  "updated_date": "2026-05-08T17:59:40Z",
+  "url": "https://arxiv.org/abs/2605.08083v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.08083v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-10T22:17:15.394118",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CL"
+  ]
+}

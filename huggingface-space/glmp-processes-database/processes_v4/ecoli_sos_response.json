@@ -1,0 +1,17 @@
+{
+  "acquired_date": "2025-10-08T00:00:00Z",
+  "category": "DNA Repair",
+  "created": "2025-10-08",
+  "description": "SOS response from EcoCyc: LexA regulon, RecA-mediated cleavage, and individual SOS genes (recA, lexA, uvrA-D, recN, sulA, umuDC, dinB, dinI, polB, ruvA/B, ssb) with repair pathway context.",
+  "id": "process_DNA Repair_sos-ecocyc",
+  "name": "SOS Response (EcoCyc-sourced)",
+  "organism": "E. coli",
+  "source": "EcoCyc",
+  "source_version": "28.0",
+  "version_label": "V4",
+  "notes": "V4 = EcoCyc only. LexA repressor, RecA co-protease, SOS operons and repair genes from EcoCyc pathway annotations.",
+  "mermaid": "graph TD\n    DAMAGE[DNA Damage]\n    RECA[RecA]\n    LEXA[LexA]\n    DAMAGE -->|ssDNA| RECA\n    RECA -->|cleavage| LEXA\n    LEXA -->|represses| RECA_G[recA]\n    LEXA -->|represses| LEXA_G[lexA]\n    LEXA -->|represses| UVRA[uvrA]\n    LEXA -->|represses| UVRB[uvrB]\n    LEXA -->|represses| UVRC[uvrC]\n    LEXA -->|represses| UVRD[uvrD]\n    LEXA -->|represses| RECN[recN]\n    LEXA -->|represses| SULA[sulA]\n    LEXA -->|represses| UMUDC[umuDC]\n    LEXA -->|represses| DINB[dinB]\n    LEXA -->|represses| DINI[dinI]\n    LEXA -->|represses| POLB[polB]\n    LEXA -->|represses| RUVA[ruvA]\n    LEXA -->|represses| RUVB[ruvB]\n    LEXA -->|represses| SSB[ssb]\n    RECA_G -->|induction| RECA\n    UVRA -->|UvrABC| NER[NER pathway]\n    RECN -->|DSB repair| RECPATH[Recombination]\n    style DAMAGE fill:#e74c3c,color:#fff\n    style RECA fill:#ffd43b,color:#000\n    style LEXA fill:#ffd43b,color:#000\n    style RECA_G fill:#74c0fc,color:#000\n    style LEXA_G fill:#74c0fc,color:#000\n    style UVRA fill:#74c0fc,color:#000\n    style UVRB fill:#74c0fc,color:#000\n    style UVRC fill:#74c0fc,color:#000\n    style UVRD fill:#74c0fc,color:#000\n    style RECN fill:#74c0fc,color:#000\n    style SULA fill:#74c0fc,color:#000\n    style UMUDC fill:#74c0fc,color:#000\n    style DINB fill:#74c0fc,color:#000\n    style DINI fill:#74c0fc,color:#000\n    style POLB fill:#74c0fc,color:#000\n    style RUVA fill:#74c0fc,color:#000\n    style RUVB fill:#74c0fc,color:#000\n    style SSB fill:#74c0fc,color:#000\n    style NER fill:#51cf66,color:#000\n    style RECPATH fill:#51cf66,color:#000",
+  "related_processes": ["ecoli_sos_response"],
+  "scientificAccuracy": "From EcoCyc SOS pathway and LexA regulon; individual gene annotations.",
+  "sources": [{"title": "EcoCyc", "url": "https://ecocyc.org", "note": "E. coli SOS pathway, LexA, RecA, repair genes."}]
+}

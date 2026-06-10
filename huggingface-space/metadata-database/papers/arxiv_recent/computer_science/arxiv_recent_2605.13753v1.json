@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2605.13753v1",
+  "arxiv_id": "2605.13753v1",
+  "title": "Min Generalized Sliced Gromov Wasserstein: A Scalable Path to Gromov Wasserstein",
+  "authors": [
+    "Ashkan Shahbazi",
+    "Xinran Liu",
+    "Ping He",
+    "Soheil Kolouri"
+  ],
+  "author_string": "Ashkan Shahbazi, Xinran Liu, Ping He, Soheil Kolouri",
+  "journal": "arXiv:2605.13753v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We propose min Generalized Sliced Gromov--Wasserstein (min-GSGW), a sliced formulation for the Gromov--Wasserstein (GW) problem using expressive generalized slicers. The key idea is to learn coupled nonlinear slicers that assign compatible push-forward values to both input measures, so that monotone coupling in the projected domain lifts to a transport plan evaluated against the GW objective in the original spaces. The resulting plan induces a GW objective value, and min-GSGW minimizes this cost directly in the original spaces. We further show that min-GSGW is rigid-motion invariant, a crucial property for geometric matching and shape analysis tasks. Our contributions are threefold: 1) we introduce generalized slicers into the sliced GW framework, 2) we construct a slicing-based efficient GW transport plan; and 3) we develop an amortized variant that replaces per-instance optimization with a learned slicer for unseen input pairs. We perform experiments on animal mesh matching, horse mesh interpolation, and ShapeNet part transfer. Results show that min-GSGW produces meaningful geometric correspondences and GW objective values at substantially lower computational cost than existing GW solvers.",
+  "categories": [
+    "cs.LG",
+    "cs.CV"
+  ],
+  "primary_category": "cs.CV",
+  "comment": null,
+  "published_date": "2026-05-13T16:33:10Z",
+  "updated_date": "2026-05-13T16:33:10Z",
+  "url": "https://arxiv.org/abs/2605.13753v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.13753v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-13T22:17:00.036867",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.LG",
+    "cs.CV"
+  ]
+}

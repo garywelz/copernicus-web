@@ -1,0 +1,29 @@
+{
+  "id": "arxiv_2605.16027v1",
+  "arxiv_id": "2605.16027v1",
+  "title": "Nearest-Neighbour Matching on Unbounded Supports and Covariate Shift Transfer",
+  "authors": [
+    "Simon Viel"
+  ],
+  "author_string": "Simon Viel",
+  "journal": "arXiv:2605.16027v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Expectations of multivariate functions with missing labels occur in various fields such as transfer learning and average treatment effects. Although non-parametric estimators based on nearest-neighbour matching are frequently used in this context, the existing literature assumes that the covariates live in some well-shaped compact subset of $\\R^d$, with densities that are bounded away from zero. In this paper, we show that the usual rates of convergence can be achieved with minimal assumptions on the covariate supports. These assumptions are replaced with conditions on the source and target distributions, among which a measure of the tranferability between the two probability measures. We show that these conditions are general, can be applied to distributions supported on manifolds, and allow the target distribution to have a heavier tail than the source distribution. We also show that this control of the transferability is needed for any estimator to achieve good rates of convergence. Finally, applying our results to the estimation of treatment effects, we could relax the assumption that the assignment probabilities had to be bounded away from zero and one.",
+  "categories": [
+    "math.ST"
+  ],
+  "primary_category": "math.ST",
+  "comment": null,
+  "published_date": "2026-05-15T15:02:16Z",
+  "updated_date": "2026-05-15T15:02:16Z",
+  "url": "https://arxiv.org/abs/2605.16027v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.16027v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-18T10:15:50.685459",
+  "category": "mathematics",
+  "subcategories": [
+    "math.ST"
+  ]
+}

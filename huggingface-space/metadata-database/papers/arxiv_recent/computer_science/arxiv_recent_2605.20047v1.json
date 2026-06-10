@@ -1,0 +1,38 @@
+{
+  "id": "arxiv_2605.20047v1",
+  "arxiv_id": "2605.20047v1",
+  "title": "Taking Cryptography Out of the Data Path via Near-Memory Processing in DRAM",
+  "authors": [
+    "Nicola Barcarolo",
+    "Brahmaiah Gandham",
+    "Mohammad Sadrosadati",
+    "Roberto Passerone",
+    "Onur Mutlu",
+    "Flavio Vella"
+  ],
+  "author_string": "Nicola Barcarolo, Brahmaiah Gandham, Mohammad Sadrosadati, Roberto Passerone, Onur Mutlu et al.",
+  "journal": "arXiv:2605.20047v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Cryptographic algorithms such as AES-128 and SHA-256 are fundamental to ensuring data security and integrity. Although these algorithms are computationally efficient, their performance is often constrained by the processor-centric architectures (e.g., CPUs, GPUs), primarily due to the memory bottleneck. This constraint leads to increased latency and higher energy consumption, particularly when handling large volumes of data. To overcome these challenges, Processing-in-Memory (PIM) has emerged as a promising architectural paradigm, allowing computation to occur directly within or near memory units. By minimizing data movement between the processor and memory units, PIM can significantly accelerate cryptographic algorithms while improving energy efficiency. Several pieces of prior work have demonstrated the effectiveness of PIM at fundamentally accelerating cryptographic algorithms. However, none of the prior works have extensively demonstrated the potential of a real-world PIM system. In this paper, we want to investigate the potential and limitations of real-world PIM in accelerating cryptographic algorithms. As part of our methodology, the UPMEM PIM architecture is used to assess the scalability of cryptographic algorithms. When these algorithms operate on a single rank, their performance remains below that of modern CPUs. However, distributing the computation across multiple ranks significantly enhances performance. When all available ranks are utilized, real-world PIM can accelerate cryptographic algorithms more effectively.",
+  "categories": [
+    "cs.CR",
+    "cs.AR",
+    "cs.DC"
+  ],
+  "primary_category": "cs.DC",
+  "comment": null,
+  "published_date": "2026-05-19T16:06:03Z",
+  "updated_date": "2026-05-19T16:06:03Z",
+  "url": "https://arxiv.org/abs/2605.20047v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.20047v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-20T10:16:33.999720",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CR",
+    "cs.AR",
+    "cs.DC"
+  ]
+}

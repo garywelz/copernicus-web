@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2604.24422v1",
+  "arxiv_id": "2604.24422v1",
+  "title": "Noise-aware selection of circuit cutting strategies under hardware noise non-uniformity",
+  "authors": [
+    "Debarthi Pal",
+    "Ritajit Majumdar",
+    "Padmanabha Venkatagiri Seshadri",
+    "Anupama Ray",
+    "Yogesh Simmhan"
+  ],
+  "author_string": "Debarthi Pal, Ritajit Majumdar, Padmanabha Venkatagiri Seshadri, Anupama Ray, Yogesh Simmhan",
+  "journal": "arXiv:2604.24422v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Noise in contemporary quantum hardware is highly non-uniform across qubits and couplers, giving rise to localized low-noise \"islands\" within otherwise noisy device topologies. As quantum workloads scale, executions are increasingly forced to traverse high-noise regions, degrading algorithmic fidelity. Circuit cutting provides a route to circumvent such regions by decomposing large circuits into smaller subcircuits, but its practicality is limited by exponential sampling overhead and the lack of systematic guidance on how cut strategies should align with heterogeneous hardware noise. In this work, we present a hardware-noise-aware circuit cutting framework that explicitly exploits the spatial non-uniformity of noise in quantum devices. Rather than proposing a new cut-finding algorithm, we formalize the problem of device-constraint selection under realistic hardware noise and show that this choice critically determines both execution overhead and effective noise. Using a unified gate- and wire-cutting formulation, we demonstrate that small, hardware-informed relaxations in the device constraint yield exponential reductions in execution overhead while preserving alignment with low-noise hardware regions. Across representative workloads, our method achieves an average reduction in the number of circuit executions ranging from 5-54x for 20-qubit circuits, and enables tractable circuit cutting for 50-qubit circuits and application-level benchmarks where conventional strategies incur prohibitive overhead. These results establish noise-aware device-constraint selection as a necessary ingredient for making circuit cutting resource-efficient and practically deployable on contemporary quantum hardware.",
+  "categories": [
+    "quant-ph",
+    "cs.ET"
+  ],
+  "primary_category": "cs.ET",
+  "comment": "10 pages, 2 columns and 1 page for references",
+  "published_date": "2026-04-27T12:50:49Z",
+  "updated_date": "2026-04-27T12:50:49Z",
+  "url": "https://arxiv.org/abs/2604.24422v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.24422v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-27T22:15:21.998932",
+  "category": "computer_science",
+  "subcategories": [
+    "quant-ph",
+    "cs.ET"
+  ]
+}

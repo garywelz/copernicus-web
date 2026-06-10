@@ -1,0 +1,50 @@
+{
+  "id": "biorxiv_10.1101_2025.01.06.631471",
+  "doi": "10.1101/2025.01.06.631471",
+  "title": "End-to-end deep learning versus machine learning for biomarker discovery in cancer genomes",
+  "authors": [
+    "Unger, M.",
+    "Loeffler, C. M. L.",
+    "Zigutyte, L.",
+    "Sainath, S.",
+    "Lenz, T.",
+    "Vibert, J.",
+    "Mock, A.",
+    "Froehling, S.",
+    "Graham, T. A.",
+    "Carrero, Z. I.",
+    "Kather, J. N."
+  ],
+  "author_string": "Unger, M., Loeffler, C. M. L., Zigutyte, L., Sainath, S., Lenz, T. et al.",
+  "journal": "bioRxiv",
+  "journal_full": "bioRxiv",
+  "year": "2026",
+  "abstract": "BackgroundAccurate determination of genomic biomarkers from tumor sequencing is fundamental to precision oncology, informing disease classification and treatment decisions. In practice, biomarker inference relies on computational pipelines that often compress high-dimensional mutation data into predefined summaries such as mutational signatures or composite genomic features. While robust and widely adopted, these representations may not fully capture the complexity of cancer genomes. Deep learning (DL) offers an end-to-end alternative by learning features directly from raw genomic data. However, clinical translation remains challenging due to limited empirical validation of new DL models and a lack of systematic comparisons with established machine learning (ML) baselines, particularly when transitioning from information-rich genome or exome data to real-world targeted sequencing profiles. Here, we compare state-of-the-art DL architectures with classical ML models across variant-level, copy-number (CNV), and multimodal inputs, using microsatellite instability (MSI) and homologous recombination deficiency (HRD) prediction as oncologically relevant tasks. We aim to derive practical guidance on modelling strategies across different data modalities and clinical sequencing contexts.\n\nMethodsFor MSI and HRD prediction, we trained multiple DL models, including supervised and self-supervised encoders, alongside feature-based ML approaches using tumor mutation data, copy-number alterations, and their multimodal combinations. Analyses were conducted on 5,647 patients in The Cancer Genome Atlas (TCGA), the Clinical Proteomic Tumor Analysis Consortium (CPTAC), and two targeted sequencing panel cohorts. Model performance was evaluated on both whole-exome and panel-based datasets, and explainability analysis were performed for both DL and ML models.\n\nResultsFor MSI, DL demonstrated stronger generalization than ML on external validation data (F1 0.97 vs 0.76) and maintained comparatively high performance under pseudo-panels conditions, whereas ML performance dropped. In a real-world targeted panel cohort, DL again showed more robust generalization than ML, with performance partly affected by cross-assay variability. For HRD, incorporation of CNV data was the primary determinant of predictive performance. Once CNVs were included, DL and ML achieved similar accuracy on external datasets (F1 0.61 vs 0.58). In panel-based settings, DL retained an advantage over ML (F1 0.78 vs 0.62). Model interpretation analyses indicated that both DL and ML relied on mutation and chromosomal patterns consistent with established MSI and HRD biology.\n\nConclusionOverall, predictive performance depended strongly on data availability and clinical sequencing context. When information-rich inputs were available, both DL and classical ML achieved robust biomarker prediction, with DL generally matching or exceeding ML performance. The most pronounced advantages of DL emerged in cross-assay evaluations and data-sparse settings, where generalization was more reliable. Notably, the best-performing DL models were lightweight and interpretable, supporting practical deployment. In clinical genomics workflows, such models may complement established pipelines by leveraging patient sequencing data to provide additional evidence for treatment-relevant biomarker assessment.",
+  "keywords": [],
+  "categories": [
+    "bioinformatics"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.1101/2025.01.06.631471",
+  "source": "biorxiv",
+  "sources": [
+    "biorxiv"
+  ],
+  "acquired_date": "2026-05-26T10:15:22.510636",
+  "category": "biology",
+  "subcategories": [
+    "bioinformatics"
+  ],
+  "published_date": "2026-01-26",
+  "updated_date": "2026-01-26",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "biorxiv",
+  "preprint_version": "3",
+  "preprint_type": "new results",
+  "license": "cc_by_nc",
+  "jatsxml": "https://www.biorxiv.org/content/early/2026/01/26/2025.01.06.631471.source.xml",
+  "published_doi": null,
+  "author_corresponding": "Jakob Nikolas Kather",
+  "author_corresponding_institution": "Else Kroener Fresenius Center for Digital Health, University of Technology Dresden, Dresden, Germany; Medical Department 1, University Hospital and Faculty of M"
+}

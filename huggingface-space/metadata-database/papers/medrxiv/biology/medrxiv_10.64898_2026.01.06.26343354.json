@@ -1,0 +1,54 @@
+{
+  "id": "medrxiv_10.64898_2026.01.06.26343354",
+  "doi": "10.64898/2026.01.06.26343354",
+  "title": "Nasal Gene Expression in ART-Naive Adults with HIV and Pulmonary Tuberculosis in Uganda",
+  "authors": [
+    "Khambati, N.",
+    "Tamara, K. L.",
+    "Nakabugo, E.",
+    "Valkenburg, A. V.",
+    "Anderson, J. K.",
+    "Lu, S.",
+    "Song, R.",
+    "Gummuluru, S.",
+    "Pollard, A. J.",
+    "Ellner, J.",
+    "Salgame, P.",
+    "Bijker, E. M.",
+    "Nakiyingi, L.",
+    "Connor, D. O.",
+    "Johnson, W. E."
+  ],
+  "author_string": "Khambati, N., Tamara, K. L., Nakabugo, E., Valkenburg, A. V., Anderson, J. K. et al.",
+  "journal": "medRxiv",
+  "journal_full": "medRxiv",
+  "year": "2026",
+  "abstract": "BackgroundDiagnosis of pulmonary tuberculosis (TB) in people living with HIV remains difficult. Since the first pathogen-host interaction in TB occurs in the upper airway, we hypothesized that host transcriptomic analysis on nasal specimens may identify novel diagnostic biomarkers. We aimed to demonstrate differences in nasal gene expression between people with HIV and TB disease versus people with HIV without TB, evaluate the performance of nasal signatures in classifying TB and compare nasal gene profiles with blood gene profiles from the same cohort.\n\nMethodsWe enrolled adults in Uganda with newly diagnosed HIV and symptoms of pulmonary TB disease We collected nasal cells and blood for RNA sequencing to identify differentially expressed genes and enriched pathways between people with HIV and TB disease and people with HIV without TB. Supervised machine-learning of gene expression data was used to predict TB status.\n\nResults40 adults living with HIV were enrolled (median age: 34 years, median CD4 count: 182), including 20 with TB disease and 20 without. We identified 44 nasal differentially expressed genes and 238 blood differentially expressed genes, with three overlapping genes between sample types. Models trained using all 44 nasal differentially expressed genes had a cross-validated area under the curve between 0.87-0.90 for predicting TB disease amongst adults living with HIV. A simplified four-gene signature (SPIB, SHISA2, TESPA1 and CD1B) met the World Health Organization criteria for a TB triage test. Among adults with TB, pathways related to the inflammatory response and innate immune system were downregulated in nasal samples and upregulated in blood.\n\nConclusionThis proof-of-concept study demonstrated that there were distinct nasal gene expression patterns associated with TB, not seen in blood. Differences in nasal gene expression in people with HIV who have TB disease, versus those without TB, highlight their potential as diagnostic biomarkers. Further validation studies of gene signatures using minimally invasive nasal samples are recommended in other difficult to diagnose groups.",
+  "keywords": [],
+  "categories": [
+    "infectious diseases"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.64898/2026.01.06.26343354",
+  "source": "medrxiv",
+  "sources": [
+    "medrxiv"
+  ],
+  "acquired_date": "2026-05-08T22:15:22.681786",
+  "category": "biology",
+  "subcategories": [
+    "infectious diseases"
+  ],
+  "published_date": "2026-01-08",
+  "updated_date": "2026-01-08",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "medrxiv",
+  "preprint_version": "1",
+  "preprint_type": "PUBLISHAHEADOFPRINT",
+  "license": "cc_by",
+  "jatsxml": "https://www.medrxiv.org/content/early/2026/01/08//2026.01.06.26343354.source.xml",
+  "published_doi": null,
+  "author_corresponding": "Nisreen Khambati",
+  "author_corresponding_institution": "Oxford Vaccine Group, Department of Paediatrics, University of Oxford, Oxford, United Kingdom"
+}

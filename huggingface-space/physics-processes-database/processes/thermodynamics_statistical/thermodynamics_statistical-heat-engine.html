@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Heat Engine - Physics Process</title>
+    <title>Carnot Heat Engine - Physics Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Heat Engine</h1>
+            <h1>Carnot Heat Engine</h1>
             <div class="header-meta">
                 <span class="meta-item">Physics</span>
                 <span class="meta-item">Thermodynamics & Statistical Physics</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,67 +234,59 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Heat Engine Process. This thermodynamics process visualization demonstrates heat engine cycles and power generation. The flowchart shows heat inputs and working fluids, heat engine methods and thermal cycles, heat engine operations and mechanical work, intermediate results, and final heat engine outputs.</p>
+                <p>The Carnot engine sets the maximum efficiency of any heat engine: a working substance runs a reversible cycle of isothermal expansion absorbing heat from the hot reservoir, adiabatic expansion, isothermal compression rejecting heat to the cold reservoir, and adiabatic compression, giving efficiency eta = 1 - Tc/Th.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-A1[Heat Input] --> B1[Heat Engine Method]
-C1[Working Fluid] --> D1[Thermal Cycle]
-E1[Mechanical Work] --> F1[Heat Engine Analysis]
-B1 --> G1[Carnot Cycle]
-D1 --> H1[Otto Cycle]
-F1 --> I1[Diesel Cycle]
-G1 --> J1[Isothermal Process]
-H1 --> K1[Adiabatic Process]
-I1 --> L1[Isentropic Process]
-J1 --> M1[Heat Transfer]
-K1 --> L1
-L1 --> N1[Work Output]
-M1 --> O1[Thermal Efficiency]
-N1 --> P1[Power Generation]
-O1 --> Q1[Heat Engine Process]
-P1 --> R1[Heat Engine Validation]
-Q1 --> S1[Heat Engine Verification]
-R1 --> T1[Heat Engine Result]
-S1 --> U1[Heat Engine Analysis]
-T1 --> V1[Heat Engine Parameters]
-U1 --> W1[Heat Engine Output]
-V1 --> X1[Heat Engine Analysis]
-W1 --> Y1[Heat Engine Final Result]
-X1 --> Z1[Heat Engine Complete]
+    N1["Hot + cold reservoirs"]
+    N2["Working substance"]
+    N3["Isothermal expansion (Th)"]
+    N4["Absorb heat Qh"]
+    N5["Adiabatic expansion"]
+    N6["Isothermal compression (Tc)"]
+    N7["Reject heat Qc"]
+    N8["Adiabatic compression"]
+    N9{"Reversible cycle?"}
+    N10["Reduce irreversibilities"]
+    N11["eta = 1 - Tc/Th"]
 
-    style A1 fill:#ff6b6b,color:#fff
-    style C1 fill:#ff6b6b,color:#fff
-    style E1 fill:#ff6b6b,color:#fff
-    style B1 fill:#ffd43b,color:#000
-    style D1 fill:#ffd43b,color:#000
-    style F1 fill:#ffd43b,color:#000
-    style G1 fill:#ffd43b,color:#000
-    style H1 fill:#ffd43b,color:#000
-    style I1 fill:#ffd43b,color:#000
-    style J1 fill:#ffd43b,color:#000
-    style K1 fill:#ffd43b,color:#000
-    style L1 fill:#ffd43b,color:#000
-    style M1 fill:#51cf66,color:#fff
-    style N1 fill:#51cf66,color:#fff
-    style O1 fill:#51cf66,color:#fff
-    style P1 fill:#51cf66,color:#fff
-    style Q1 fill:#51cf66,color:#fff
-    style R1 fill:#51cf66,color:#fff
-    style S1 fill:#51cf66,color:#fff
-    style T1 fill:#51cf66,color:#fff
-    style U1 fill:#51cf66,color:#fff
-    style V1 fill:#51cf66,color:#fff
-    style W1 fill:#51cf66,color:#fff
-    style X1 fill:#51cf66,color:#fff
-    style Y1 fill:#51cf66,color:#fff
-    style Z1 fill:#b197fc,color:#fff
+    N1 --> N2
+    N2 --> N3
+    N3 --> N4
+    N4 --> N5
+    N5 --> N6
+    N6 --> N7
+    N7 --> N8
+    N8 --> N9
+    N9 -->|no| N10
+    N10 -->|idealize| N3
+    N9 -->|yes| N11
+
+    style N1 fill:#ff6b6b,color:#fff
+    style N2 fill:#51cf66,color:#fff
+    style N3 fill:#51cf66,color:#fff
+    style N4 fill:#74c0fc,color:#fff
+    style N5 fill:#51cf66,color:#fff
+    style N6 fill:#51cf66,color:#fff
+    style N7 fill:#74c0fc,color:#fff
+    style N8 fill:#51cf66,color:#fff
+    style N9 fill:#74c0fc,color:#fff
+    style N10 fill:#51cf66,color:#fff
+    style N11 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Hot + cold reservoirs</td><td>Triggers & Inputs</td><td><a href="https://store.doverpublications.com/products/9780486603612" target="_blank" title="Thermodynamics" style="color:#3498db;">Fermi, E. 1956</a></td></tr><tr><td style="font-weight:600;">Working substance</td><td>Processing & Operations</td><td><a href="https://store.doverpublications.com/products/9780486603612" target="_blank" title="Thermodynamics" style="color:#3498db;">Fermi, E. 1956</a></td></tr><tr><td style="font-weight:600;">Isothermal expansion (Th)</td><td>Processing & Operations</td><td><a href="https://www.gutenberg.org/ebooks/52204" target="_blank" title="Reflections on the Motive Power of Fire" style="color:#3498db;">Carnot, S. 1824</a></td></tr><tr><td style="font-weight:600;">Absorb heat Qh</td><td>Intermediates & States</td><td><a href="https://www.gutenberg.org/ebooks/52204" target="_blank" title="Reflections on the Motive Power of Fire" style="color:#3498db;">Carnot, S. 1824</a></td></tr><tr><td style="font-weight:600;">Adiabatic expansion</td><td>Processing & Operations</td><td><a href="https://www.gutenberg.org/ebooks/52204" target="_blank" title="Reflections on the Motive Power of Fire" style="color:#3498db;">Carnot, S. 1824</a></td></tr><tr><td style="font-weight:600;">Isothermal compression (Tc)</td><td>Processing & Operations</td><td><a href="https://www.gutenberg.org/ebooks/52204" target="_blank" title="Reflections on the Motive Power of Fire" style="color:#3498db;">Carnot, S. 1824</a></td></tr><tr><td style="font-weight:600;">Reject heat Qc</td><td>Intermediates & States</td><td><a href="https://www.gutenberg.org/ebooks/52204" target="_blank" title="Reflections on the Motive Power of Fire" style="color:#3498db;">Carnot, S. 1824</a></td></tr><tr><td style="font-weight:600;">Adiabatic compression</td><td>Processing & Operations</td><td><a href="https://www.gutenberg.org/ebooks/52204" target="_blank" title="Reflections on the Motive Power of Fire" style="color:#3498db;">Carnot, S. 1824</a></td></tr><tr><td style="font-weight:600;">Reversible cycle?</td><td>Intermediates & States</td><td><a href="https://store.doverpublications.com/products/9780486603612" target="_blank" title="Thermodynamics" style="color:#3498db;">Fermi, E. 1956</a></td></tr><tr><td style="font-weight:600;">Reduce irreversibilities</td><td>Processing & Operations</td><td><a href="https://store.doverpublications.com/products/9780486603612" target="_blank" title="Thermodynamics" style="color:#3498db;">Fermi, E. 1956</a></td></tr><tr><td style="font-weight:600;">eta = 1 - Tc/Th</td><td>Products & Outputs</td><td><a href="https://www.gutenberg.org/ebooks/52204" target="_blank" title="Reflections on the Motive Power of Fire" style="color:#3498db;">Carnot, S. 1824</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -313,12 +332,12 @@ X1 --> Z1[Heat Engine Complete]
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 26</li>
-                        <li><strong>Edges:</strong> 24</li>
-                        <li><strong>Conditionals:</strong> 0</li>
+                        <li><strong>Nodes:</strong> 11</li>
+                        <li><strong>Edges:</strong> 11</li>
+                        <li><strong>Conditionals:</strong> 1</li>
                         <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 1</li>
+                        <li><strong>OR Gates:</strong> 1</li>
+                        <li><strong>Total Gates:</strong> 2</li>
                     </ul>
                 </div>
                 
@@ -326,7 +345,7 @@ X1 --> Z1[Heat Engine Complete]
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>statistical</li><li>thermodynamics</li><li>physics</li><li>engine</li><li>heat</li>
+                        <li>Carnot cycle</li><li>heat engine</li><li>thermal efficiency</li><li>reversible process</li><li>second law</li>
                     </ul>
                 </div>
                 
@@ -337,43 +356,23 @@ X1 --> Z1[Heat Engine Complete]
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Reflections on the Motive Power of Fire</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Carnot, S.
+                            , Bachelier, Paris
+                             (1824)
                             </span>
                             
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #3498db; font-size: 0.85em;">View Source</a>
+                            <br><a href="https://www.gutenberg.org/ebooks/52204" target="_blank" style="color: #3498db; font-size: 0.85em;">View Source</a>
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Quantum thermodynamics: an emerging new field</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Binder, F., Correa, L. A., Gogolin, C., Anders, J., Adesso, G.
-                            , Rev Mod Phys
-                             (2015)
+                            <strong>Thermodynamics</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Fermi, E.
+                            , Dover
+                             (1956)
                             </span>
-                            <br><a href="https://doi.org/10.1103/RevModPhys.87.1" target="_blank" style="color: #3498db; font-size: 0.85em;">DOI: 10.1103/RevModPhys.87.1</a>
                             
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Perspective: Classical and quantum thermodynamics of information</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Jarzynski, C.
-                            , Rev Mod Phys
-                             (2017)
-                            </span>
-                            <br><a href="https://doi.org/10.1103/RevModPhys.89.010503" target="_blank" style="color: #3498db; font-size: 0.85em;">DOI: 10.1103/RevModPhys.89.010503</a>
-                            
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Experimental Realization of a Szilard Engine with a Single Electron</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Peterson, J. P. S., Batalhão, T. B., Herrera, M., Souza, A. M., Sarthour, R. S., Oliveira, I. S., Goold, J., Modi, K., Soares-Pinto, D. O., Estevam, I. G., Serra, R. M.
-                            , Phys Rev Lett
-                             (2016)
-                            </span>
-                            <br><a href="https://doi.org/10.1103/PhysRevLett.117.050401" target="_blank" style="color: #3498db; font-size: 0.85em;">DOI: 10.1103/PhysRevLett.117.050401</a>
-                            
+                            <br><a href="https://store.doverpublications.com/products/9780486603612" target="_blank" style="color: #3498db; font-size: 0.85em;">View Source</a>
                         </li>
                         
                     </ul>

@@ -1,0 +1,40 @@
+{
+  "id": "medrxiv_10.1101_2025.10.08.25337608",
+  "doi": "10.1101/2025.10.08.25337608",
+  "title": "BASIC: Bayesian Spiral Attention Classifier for Interpretable Medical Image Classification",
+  "authors": [
+    "Sagar, A."
+  ],
+  "author_string": "Sagar, A.",
+  "journal": "medRxiv",
+  "journal_full": "medRxiv",
+  "year": "2026",
+  "abstract": "Accurate medical image classification is critical for early diagnosis and effective treatment planning. However, conventional deep learning models often fail to provide reliable uncertainty estimates, limiting their clinical applicability. In this study, we propose a novel Bayesian neural network architecture for medical image classification that integrates channel-wise and spatial attention mechanisms, including Squeeze-and-Excitation (SE) blocks and a novel Spiral Attention, to enhance feature representation. The proposed model employs a Bayes-by-Backprop approach in the fully connected layers to quantify both epistemic and aleatoric uncertainties, allowing for reliable prediction confidence estimation. We validate our approach on multiple benchmark datasets, including diabetic retinopathy, COVID-19 chest X-rays, skin lesion images, and gastrointestinal endoscopy images. Extensive experiments demonstrate that our method not only achieves high classification performance but also provides meaningful uncertainty estimates, improving interpretability and robustness in clinical decision-making. Additionally, qualitative analysis using Grad-CAM visualizations highlights the models ability to focus on clinically relevant regions, further supporting its potential for real-world deployment.",
+  "keywords": [],
+  "categories": [
+    "health informatics"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.1101/2025.10.08.25337608",
+  "source": "medrxiv",
+  "sources": [
+    "medrxiv"
+  ],
+  "acquired_date": "2026-05-05T22:15:25.968711",
+  "category": "biology",
+  "subcategories": [
+    "health informatics"
+  ],
+  "published_date": "2026-01-05",
+  "updated_date": "2026-01-05",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "medrxiv",
+  "preprint_version": "2",
+  "preprint_type": "PUBLISHAHEADOFPRINT",
+  "license": "cc_by",
+  "jatsxml": "https://www.medrxiv.org/content/early/2026/01/05/2025.10.08.25337608.source.xml",
+  "published_doi": null,
+  "author_corresponding": "Abhinav Sagar",
+  "author_corresponding_institution": "Vrije Universiteit Brussel"
+}

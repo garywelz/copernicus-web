@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zeolite Catalysis - Chemistry Process</title>
+    <title>The Variational Method - Chemistry Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Zeolite Catalysis</h1>
+            <h1>The Variational Method</h1>
             <div class="header-meta">
                 <span class="meta-item">Chemistry</span>
                 <span class="meta-item">Theoretical Chemistry</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,68 +234,60 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Zeolite Catalysis process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>The variational principle guarantees that the expectation value of the Hamiltonian for any trial wavefunction is an upper bound to the true ground-state energy; minimizing over adjustable parameters and improving the trial form drives the estimate toward the exact energy.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-A4[Reactant Molecules] --> B4[Zeolite Catalysis Method]
-C4[Zeolite Framework] --> D4[Pore Structure Analysis]
-E4[Reaction Conditions] --> F4[Temperature Control]
-B4 --> G4[Zeolite Synthesis]
-D4 --> H4[Pore Size Distribution]
-F4 --> I4[Pressure Regulation]
-G4 --> J4[Framework Assembly]
-H4 --> K4[Channel Geometry]
-I4 --> L4[Reaction Pressure]
-J4 --> M4[Active Site Creation]
-K4 --> L4
-L4 --> N4[Molecular Sieving]
-M4 --> O4[Reactant Diffusion]
-N4 --> P4[Shape-Selective Reaction]
-O4 --> Q4[Catalytic Activity]
-P4 --> R4[Product Formation]
-Q4 --> S4[Reaction Selectivity]
-R4 --> T4[Product Diffusion]
-S4 --> U4[Selectivity Analysis]
-T4 --> V4[Product Collection]
-U4 --> W4[Catalyst Performance]
-V4 --> X4[Conversion Yield]
-W4 --> Y4[Process Optimization]
-X4 --> Z4[Shape-Selective Efficiency]
-Y4 --> Z4
+    N1["Unsolvable Hamiltonian"]
+    N2["Choose trial wavefunction"]
+    N3["Add adjustable parameters"]
+    N4["Compute ⟨H⟩"]
+    N5["⟨H⟩ ≥ E_exact"]
+    N6["Minimize wrt parameters"]
+    N7{"Energy minimized?"}
+    N8["Adjust parameters"]
+    N9{"Improve trial form?"}
+    N10["Add functions"]
+    N11["Best variational energy"]
 
-    style A4 fill:#ff6b6b,color:#fff
-    style C4 fill:#ff6b6b,color:#fff
-    style E4 fill:#ff6b6b,color:#fff
-    style B4 fill:#ffd43b,color:#000
-    style D4 fill:#ffd43b,color:#000
-    style F4 fill:#ffd43b,color:#000
-    style G4 fill:#ffd43b,color:#000
-    style H4 fill:#ffd43b,color:#000
-    style I4 fill:#ffd43b,color:#000
-    style J4 fill:#ffd43b,color:#000
-    style K4 fill:#ffd43b,color:#000
-    style L4 fill:#ffd43b,color:#000
-    style M4 fill:#51cf66,color:#fff
+    N1 --> N2
+    N2 --> N3
+    N3 --> N4
+    N4 --> N5
+    N5 --> N6
+    N6 --> N7
+    N7 -->|no| N8
+    N8 -->|iterate| N4
+    N7 -->|yes| N9
+    N9 -->|improve| N10
+    N10 -->|re-expand| N3
+    N9 -->|satisfied| N11
+
+    style N1 fill:#ff6b6b,color:#fff
+    style N2 fill:#51cf66,color:#fff
+    style N3 fill:#51cf66,color:#fff
     style N4 fill:#51cf66,color:#fff
-    style O4 fill:#51cf66,color:#fff
-    style P4 fill:#51cf66,color:#fff
-    style Q4 fill:#51cf66,color:#fff
-    style R4 fill:#51cf66,color:#fff
-    style S4 fill:#51cf66,color:#fff
-    style T4 fill:#51cf66,color:#fff
-    style U4 fill:#51cf66,color:#fff
-    style V4 fill:#51cf66,color:#fff
-    style W4 fill:#51cf66,color:#fff
-    style X4 fill:#51cf66,color:#fff
-    style Y4 fill:#51cf66,color:#fff
-    style Z4 fill:#b197fc,color:#fff
+    style N5 fill:#74c0fc,color:#fff
+    style N6 fill:#51cf66,color:#fff
+    style N7 fill:#74c0fc,color:#fff
+    style N8 fill:#51cf66,color:#fff
+    style N9 fill:#74c0fc,color:#fff
+    style N10 fill:#51cf66,color:#fff
+    style N11 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Unsolvable Hamiltonian</td><td>Triggers & Inputs</td><td><a href="https://www.pearson.com/en-us/subject-catalog/p/quantum-chemistry/P200000003505" target="_blank" title="Quantum Chemistry, 7th ed. — The Variation Method" style="color:#e74c3c;">Levine, I. N. 2014</a></td></tr><tr><td style="font-weight:600;">Choose trial wavefunction</td><td>Processing & Operations</td><td><a href="https://www.pearson.com/en-us/subject-catalog/p/quantum-chemistry/P200000003505" target="_blank" title="Quantum Chemistry, 7th ed. — The Variation Method" style="color:#e74c3c;">Levine, I. N. 2014</a></td></tr><tr><td style="font-weight:600;">Add adjustable parameters</td><td>Processing & Operations</td><td><a href="https://www.pearson.com/en-us/subject-catalog/p/quantum-chemistry/P200000003505" target="_blank" title="Quantum Chemistry, 7th ed. — The Variation Method" style="color:#e74c3c;">Levine, I. N. 2014</a></td></tr><tr><td style="font-weight:600;">Compute ⟨H⟩</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1103/PhysRev.43.830" target="_blank" title="Successive approximations by the Rayleigh–Ritz variation method" style="color:#e74c3c;">MacDonald, J. K. L. 1933</a></td></tr><tr><td style="font-weight:600;">⟨H⟩ ≥ E_exact</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1103/PhysRev.43.830" target="_blank" title="Successive approximations by the Rayleigh–Ritz variation method" style="color:#e74c3c;">MacDonald, J. K. L. 1933</a></td></tr><tr><td style="font-weight:600;">Minimize wrt parameters</td><td>Processing & Operations</td><td><a href="https://www.pearson.com/en-us/subject-catalog/p/quantum-chemistry/P200000003505" target="_blank" title="Quantum Chemistry, 7th ed. — The Variation Method" style="color:#e74c3c;">Levine, I. N. 2014</a></td></tr><tr><td style="font-weight:600;">Energy minimized?</td><td>Intermediates & States</td><td><a href="https://www.pearson.com/en-us/subject-catalog/p/quantum-chemistry/P200000003505" target="_blank" title="Quantum Chemistry, 7th ed. — The Variation Method" style="color:#e74c3c;">Levine, I. N. 2014</a></td></tr><tr><td style="font-weight:600;">Adjust parameters</td><td>Processing & Operations</td><td><a href="https://www.pearson.com/en-us/subject-catalog/p/quantum-chemistry/P200000003505" target="_blank" title="Quantum Chemistry, 7th ed. — The Variation Method" style="color:#e74c3c;">Levine, I. N. 2014</a></td></tr><tr><td style="font-weight:600;">Improve trial form?</td><td>Intermediates & States</td><td><a href="https://store.doverpublications.com/products/9780486691862" target="_blank" title="Modern Quantum Chemistry — The Variational Principle" style="color:#e74c3c;">Szabo, A. et al. 1996</a></td></tr><tr><td style="font-weight:600;">Add functions</td><td>Processing & Operations</td><td><a href="https://store.doverpublications.com/products/9780486691862" target="_blank" title="Modern Quantum Chemistry — The Variational Principle" style="color:#e74c3c;">Szabo, A. et al. 1996</a></td></tr><tr><td style="font-weight:600;">Best variational energy</td><td>Products & Outputs</td><td><a href="https://doi.org/10.1103/PhysRev.43.830" target="_blank" title="Successive approximations by the Rayleigh–Ritz variation method" style="color:#e74c3c;">MacDonald, J. K. L. 1933</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -314,12 +333,12 @@ Y4 --> Z4
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 26</li>
-                        <li><strong>Edges:</strong> 22</li>
-                        <li><strong>Conditionals:</strong> 0</li>
-                        <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 1</li>
+                        <li><strong>Nodes:</strong> 11</li>
+                        <li><strong>Edges:</strong> 12</li>
+                        <li><strong>Conditionals:</strong> 2</li>
+                        <li><strong>AND Gates:</strong> 2</li>
+                        <li><strong>OR Gates:</strong> 2</li>
+                        <li><strong>Total Gates:</strong> 4</li>
                     </ul>
                 </div>
                 
@@ -327,7 +346,7 @@ Y4 --> Z4
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>zeolite</li><li>catalysis</li>
+                        <li>variational method</li><li>variational principle</li><li>trial wavefunction</li><li>upper bound</li><li>energy minimization</li>
                     </ul>
                 </div>
                 
@@ -338,43 +357,33 @@ Y4 --> Z4
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Successive approximations by the Rayleigh–Ritz variation method</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">MacDonald, J. K. L.
+                            , Physical Review
+                             (1933)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Acid Zeolite Catalysis</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Bhatia, Subhash
-                            , Zeolite Catalysis: Principles and Applications
-                             (2020)
-                            </span>
-                            <br><a href="https://doi.org/10.1201/9781003068389-6" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1201/9781003068389-6</a>
+                            <br><a href="https://doi.org/10.1103/PhysRev.43.830" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1103/PhysRev.43.830</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Zeolite Catalysis</strong>
-                            
-                            
-                             (2016)
+                            <strong>Quantum Chemistry, 7th ed. — The Variation Method</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Levine, I. N.
+                            , Pearson
+                             (2014)
                             </span>
-                            <br><a href="https://doi.org/10.3390/books978-3-03842-265-5" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.3390/books978-3-03842-265-5</a>
                             
+                            <br><a href="https://www.pearson.com/en-us/subject-catalog/p/quantum-chemistry/P200000003505" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Zeolite catalysis</strong>
-                            
-                            , Applied Catalysis
-                             (1991)
+                            <strong>Modern Quantum Chemistry — The Variational Principle</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Szabo, A.; Ostlund, N. S.
+                            , Dover Publications
+                             (1996)
                             </span>
-                            <br><a href="https://doi.org/10.1016/0166-9834(91)85066-5" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1016/0166-9834(91)85066-5</a>
                             
+                            <br><a href="https://store.doverpublications.com/products/9780486691862" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
                         </li>
                         
                     </ul>

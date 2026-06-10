@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Infinitely Many Primes - Proof Graph Pilot</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #0f172a;
+      --panel: #111827;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --accent: #60a5fa;
+      --border: #334155;
+      --code-bg: #020617;
+    }
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg: #f8fafc;
+        --panel: #ffffff;
+        --text: #111827;
+        --muted: #4b5563;
+        --accent: #2563eb;
+        --border: #d1d5db;
+        --code-bg: #f1f5f9;
+      }
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    main {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 36px 20px 64px;
+    }
+    article {
+      border: 1px solid var(--border);
+      background: var(--panel);
+      border-radius: 14px;
+      padding: 28px;
+    }
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 18px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+    nav a, a { color: var(--accent); }
+    h1 { margin-top: 0; font-size: 2rem; line-height: 1.2; }
+    h2 { margin-top: 2rem; border-top: 1px solid var(--border); padding-top: 1.2rem; }
+    h3 { margin-top: 1.6rem; }
+    p, li { color: var(--text); }
+    ul, ol { padding-left: 1.35rem; }
+    code {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 0.05rem 0.25rem;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: 0.92em;
+    }
+    pre {
+      overflow-x: auto;
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+    }
+    pre code { background: transparent; border: 0; padding: 0; }
+    .mermaid {
+      background: #ffffff;
+      color: #111827;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      margin: 18px 0;
+      padding: 18px;
+      overflow-x: auto;
+    }
+    .mermaid svg { max-width: 100%; height: auto; }
+    .proof-legend {
+      margin-top: 28px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      background: color-mix(in srgb, var(--panel) 88%, var(--accent));
+    }
+    .proof-legend h2 {
+      border-top: 0;
+      margin: 0 0 12px;
+      padding-top: 0;
+      font-size: 1.05rem;
+    }
+    .proof-legend-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 10px 14px;
+    }
+    .proof-legend-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text);
+      font-size: 0.92rem;
+    }
+    .proof-legend-swatch {
+      width: 18px;
+      height: 18px;
+      border-radius: 5px;
+      border: 2px solid currentColor;
+      flex: 0 0 auto;
+    }
+    .legend-source { background: #f2c879; color: #7a4f12; }
+    .legend-assumption { background: #c084fc; color: #6d28d9; }
+    .legend-construction { background: #8fbc5a; color: #3f6212; }
+    .legend-assertion { background: #8ecae6; color: #25637a; }
+    .legend-inference { background: #f4a261; color: #9a3412; }
+    .legend-algorithm { background: #818cf8; color: #3730a3; }
+    .legend-contradiction { background: #ef4444; color: #991b1b; }
+    .legend-conclusion { background: #2dd4bf; color: #0f766e; }
+    .source-note {
+      margin-top: 32px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+</style>
+</head>
+<body>
+  <main>
+    <nav>
+      <a href="index.html">Proof Graph Pilot</a>
+      <span>/</span>
+      <a href="../mathematics-database-table.html">Mathematics Database</a>
+      <span>/</span>
+      <a href="infinitely-many-primes.md">View Markdown source</a>
+    </nav>
+    <article>
+<h1>Infinitely Many Primes</h1>
+<p>This example tests a short arithmetic proof with a temporary contradiction assumption and a constructed witness number.</p>
+<h2>Euclid-Style Proof</h2>
+<p>Metadata:</p>
+<ul>
+<li><code>id</code>: <code>infinitely-many-primes-euclid</code></li>
+<li><code>graph_kind</code>: <code>hybrid</code></li>
+<li><code>granularity</code>: <code>medium</code></li>
+<li><code>temporary_assumptions</code>: contradiction</li>
+<li><code>algorithm_capsules</code>: product-plus-one construction</li>
+<li><code>complexity</code>: 14 nodes, 17 edges, depth 6</li>
+</ul>
+<p>Source note: the standard proof attributed to Euclid: assume finitely many primes <code>p1, ..., pn</code>; form <code>N = p1 p2 ... pn + 1</code>; then no listed prime divides <code>N</code>, so either <code>N</code> is prime or has a prime divisor not in the list.</p>
+<pre class="mermaid">flowchart TD
+  theoremTarget[&quot;Target: there are infinitely many primes&quot;] --&gt; assumeFinite[&quot;Assumption: only finitely many primes p1 through pn&quot;]
+  assumeFinite --&gt; listAll[&quot;Assertion: every prime is in the list&quot;]
+  assumeFinite --&gt; constructN[&quot;Construction: N equals product p1 through pn plus 1&quot;]
+  constructN --&gt; productDivisible[&quot;Assertion: each listed prime divides the product&quot;]
+  divisibilityDef[&quot;Definition: divisibility&quot;] --&gt; productDivisible
+  constructN --&gt; remainderOne[&quot;Assertion: N leaves remainder 1 when divided by each listed prime&quot;]
+  productDivisible --&gt; remainderOne
+  arithmetic[&quot;Arithmetic fact: if p divides product, p cannot divide product plus 1&quot;] --&gt; remainderOne
+  remainderOne --&gt; noListedPrime[&quot;Assertion: no listed prime divides N&quot;]
+  primeFactorLemma[&quot;Lemma: every integer greater than 1 is prime or has a prime divisor&quot;] --&gt; nPrimeOrDivisor[&quot;Assertion: N is prime or has a prime divisor q&quot;]
+  constructN --&gt; nGreaterOne[&quot;Assertion: N is greater than 1&quot;]
+  nGreaterOne --&gt; nPrimeOrDivisor
+  nPrimeOrDivisor --&gt; newPrime[&quot;Assertion: there exists a prime not in the list&quot;]
+  noListedPrime --&gt; newPrime
+  listAll --&gt; contradiction[&quot;Contradiction: every prime is listed, but q is not listed&quot;]
+  newPrime --&gt; contradiction
+  contradiction --&gt; discharge[&quot;Discharge assumption: finite-prime assumption is false&quot;]
+  discharge --&gt; conclusion[&quot;Conclusion: infinitely many primes exist&quot;]</pre>
+<h2>Algorithm Capsule: Product-Plus-One Witness</h2>
+<p>The construction of <code>N</code> is simple enough to remain a single node in most views, but it is procedural. This capsule can be shown on demand if the database supports expanding algorithm nodes.</p>
+<pre class="mermaid">flowchart LR
+  inputList[&quot;Input: finite list p1 through pn&quot;] --&gt; initProduct[&quot;Set product equal to 1&quot;]
+  initProduct --&gt; multiplyNext[&quot;Multiply product by next listed prime&quot;]
+  multiplyNext --&gt; remaining{&quot;More primes in list?&quot;}
+  remaining --&gt;|&quot;yes&quot;| multiplyNext
+  remaining --&gt;|&quot;no&quot;| addOne[&quot;Set N equal to product plus 1&quot;]
+  addOne --&gt; outputN[&quot;Output: witness N&quot;]</pre>
+<h2>Structural Notes</h2>
+<p>This proof is best represented as a dependency graph with one optional algorithm capsule. The important logical structure is not the multiplication loop; it is the contradiction:</p>
+<ul>
+<li>finite list assumption;</li>
+<li>construction of a number tied to that list;</li>
+<li>divisibility argument excluding every listed prime;</li>
+<li>use of existence of prime divisors;</li>
+<li>discharge of the finite-list assumption.</li>
+</ul>
+<p>The graph also demonstrates that a proof can be constructive inside a nonconstructive contradiction frame.</p>
+      <section class="proof-legend" aria-label="Proof graph color legend">
+        <h2>Proof Graph Color Legend</h2>
+        <div class="proof-legend-grid">
+          <div class="proof-legend-item"><span class="proof-legend-swatch legend-source"></span><span>Amber: source / given / definition / lemma</span></div>
+          <div class="proof-legend-item"><span class="proof-legend-swatch legend-assumption"></span><span>Violet: assumption or temporary hypothesis</span></div>
+          <div class="proof-legend-item"><span class="proof-legend-swatch legend-construction"></span><span>Moss: construction or introduced object</span></div>
+          <div class="proof-legend-item"><span class="proof-legend-swatch legend-assertion"></span><span>Steel: assertion established in the proof</span></div>
+          <div class="proof-legend-item"><span class="proof-legend-swatch legend-inference"></span><span>Copper: inference, branch, or proof move</span></div>
+          <div class="proof-legend-item"><span class="proof-legend-swatch legend-algorithm"></span><span>Indigo: algorithm or procedural step</span></div>
+          <div class="proof-legend-item"><span class="proof-legend-swatch legend-contradiction"></span><span>Crimson: contradiction</span></div>
+          <div class="proof-legend-item"><span class="proof-legend-swatch legend-conclusion"></span><span>Teal: discharge or final conclusion</span></div>
+        </div>
+      </section>
+      <p class="source-note">Rendered from <code>infinitely-many-primes.md</code>. Mermaid diagrams are rendered in the browser from the source graph blocks.</p>
+    </article>
+  </main>
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+
+    const roleStyles = `
+classDef proofSource fill:#f2c879,stroke:#7a4f12,color:#0f172a,stroke-width:2px;
+classDef proofAssumption fill:#c084fc,stroke:#6d28d9,color:#0f172a,stroke-width:2px;
+classDef proofConstruction fill:#8fbc5a,stroke:#3f6212,color:#0f172a,stroke-width:2px;
+classDef proofAssertion fill:#8ecae6,stroke:#25637a,color:#0f172a,stroke-width:2px;
+classDef proofInference fill:#f4a261,stroke:#9a3412,color:#0f172a,stroke-width:2px;
+classDef proofAlgorithm fill:#818cf8,stroke:#3730a3,color:#0f172a,stroke-width:2px;
+classDef proofContradiction fill:#ef4444,stroke:#991b1b,color:#ffffff,stroke-width:3px;
+classDef proofConclusion fill:#2dd4bf,stroke:#0f766e,color:#0f172a,stroke-width:3px;
+classDef proofNeutral fill:#f8fafc,stroke:#64748b,color:#0f172a,stroke-width:1.5px;
+`;
+
+    const roleRules = [
+      ['proofConclusion', /^(Conclusion:|Discharge assumption:|Discharge:)/i],
+      ['proofContradiction', /^Contradiction:/i],
+      ['proofAssumption', /^(Assumption:|Assume:|Methodological assumption:)/i],
+      ['proofAlgorithm', /^(Algorithm capsule:|Input:|Output:|Start |Set |For each |Read |Choose output|Put |List |Skip |Increase |Arrange |Make |Find |Factor |Concatenate|Multiply )/i],
+      ['proofConstruction', /^Construction:/i],
+      ['proofAssertion', /^Assertion:/i],
+      ['proofInference', /^(Inference:|Branch:|Join:)/i],
+      ['proofSource', /^(Given:|Definition|Postulate|Common Notion|Euclid |Lemma:|Arithmetic fact:|Strong induction|Cancellation law|Bezout)/i]
+    ];
+
+    function classify(label, shape) {
+      const normalized = label.trim().replace(/\s+/g, ' ');
+      if (shape === '{') return 'proofInference';
+      if (/^Target:/i.test(normalized)) return 'proofConclusion';
+      for (const [role, pattern] of roleRules) {
+        if (pattern.test(normalized)) return role;
+      }
+      return 'proofNeutral';
+    }
+
+    function addRoleClasses(source) {
+      if (source.includes('classDef proofSource')) return source;
+      const assignments = new Map();
+      const nodePattern = /(?:^|\s)([A-Za-z][\w-]*)\s*(?:\[\s*"([^"]+)"\s*\]|\{\s*"([^"]+)"\s*\}|\(\s*"([^"]+)"\s*\)|\(\[\s*"([^"]+)"\s*\]\)|\[\[\s*"([^"]+)"\s*\]\]|\[\/\s*"([^"]+)"\s*\/\]|\(\(\s*"([^"]+)"\s*\)\))/gm;
+      let match;
+      while ((match = nodePattern.exec(source)) !== null) {
+        const nodeId = match[1];
+        const label = match.slice(2).find(Boolean);
+        const shape = match[3] ? '{' : '';
+        assignments.set(nodeId, classify(label, shape));
+      }
+      const classLines = Array.from(assignments.entries()).map(([nodeId, role]) => `class ${nodeId} ${role};`);
+      if (classLines.length === 0) return `${source}\n${roleStyles}`;
+      return `${source}\n${roleStyles}\n${classLines.join('\n')}`;
+    }
+
+    document.querySelectorAll('pre.mermaid').forEach((block) => {
+      block.textContent = addRoleClasses(block.textContent);
+    });
+
+    mermaid.initialize({
+      startOnLoad: false,
+      securityLevel: 'loose',
+      theme: 'base',
+      themeVariables: {
+        background: '#ffffff',
+        primaryColor: '#f8fafc',
+        primaryTextColor: '#0f172a',
+        primaryBorderColor: '#64748b',
+        lineColor: '#475569',
+        fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif'
+      },
+      flowchart: {
+        htmlLabels: true,
+        curve: 'basis',
+        nodeSpacing: 42,
+        rankSpacing: 58
+      }
+    });
+    await mermaid.run({ querySelector: 'pre.mermaid' });
+  </script>
+</body>
+</html>

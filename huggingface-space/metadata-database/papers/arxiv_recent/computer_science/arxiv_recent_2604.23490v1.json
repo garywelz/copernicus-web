@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_2604.23490v1",
+  "arxiv_id": "2604.23490v1",
+  "title": "Efficient Quantum Fully Homomorphic Encryption",
+  "authors": [
+    "Fengxia Liu",
+    "Zixian Gong",
+    "Kun Tian",
+    "Yi Zhang",
+    "Zhiming Zheng",
+    "Maozhi Xu"
+  ],
+  "author_string": "Fengxia Liu, Zixian Gong, Kun Tian, Yi Zhang, Zhiming Zheng et al.",
+  "journal": "arXiv:2604.23490v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Quantum fully homomorphic encryption (QFHE) promises secure delegated quantum computation but has been impeded by the prohibitive quantum resource demands of existing constructions. This paper introduces a unified framework that achieves an \\textbf{exponential improvement} in efficiency by synergistically integrating three theoretical tools: \\textbf{modular arithmetic programs (MAP)}, the \\textbf{garden-hose model}, and \\textbf{measurement-based quantum computation (MBQC)}.   Our central innovation is a novel MAP tailored to the algebraic structure of Learning-with-Errors (LWE) decryption. Unlike generic approaches that incur exponential overhead, our MAP computes the inner product $\\langle \\boldsymbol{sk}, \\boldsymbol{c} \\rangle \\bmod q$ by tracking a partial sum modulo $q$, requiring only $O(\\log q)$ bits of state width. This yields branching programs of width $O(\\log λ)$ and length $O(λ\\log λ)$, thereby reducing the size of the essential quantum gadget from $O(λ^{2.58})$ to $O(λ\\log^2 λ)$ EPR pairs -- a concrete improvement factor of $2^{15}$ to $2^{18}$ for standard security parameters.   Critically, we demonstrate that LWE decryption is not a \\textbf{symmetric function}, necessitating our specialized MAP design beyond prior symmetric-function optimizations. The framework provides a direct mapping from the MAP to an efficient gadget via the garden-hose model, with MBQC furnishing the deterministic control flow for homomorphic evaluation.   The resulting QFHE scheme supports \\textbf{fully classical clients}, relies solely on the \\textbf{classical LWE assumption} (avoiding circular security or quantum hardness assumptions), and maintains compactness. This work dramatically lowers the quantum resource barrier for practical QFHE, paving the way for realistic privacy-preserving quantum cloud computing.",
+  "categories": [
+    "quant-ph",
+    "cs.CR"
+  ],
+  "primary_category": "cs.CR",
+  "comment": "29pages, 2figures",
+  "published_date": "2026-04-26T01:48:28Z",
+  "updated_date": "2026-04-26T01:48:28Z",
+  "url": "https://arxiv.org/abs/2604.23490v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.23490v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-27T22:15:34.799217",
+  "category": "computer_science",
+  "subcategories": [
+    "quant-ph",
+    "cs.CR"
+  ]
+}

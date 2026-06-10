@@ -1,0 +1,41 @@
+{
+  "id": "arxiv_2604.20502v1",
+  "arxiv_id": "2604.20502v1",
+  "title": "OpenWaveLogger v2026 (OWL-v2026): an open source, low cost, easy to build, high performance logger for wave data measurements",
+  "authors": [
+    "Jean Rabault",
+    "Joey Voermans",
+    "Takuji Waseda",
+    "Takehiko Nose",
+    "Tsubasa Kodaira",
+    "Koya Sato",
+    "Alexander Babanin",
+    "Gaute Hope",
+    "Malte Müller",
+    "Lars Willas Dreyer",
+    "Øystein Lande",
+    "Atle Jensen",
+    "Øyvind Breivik"
+  ],
+  "author_string": "Jean Rabault, Joey Voermans, Takuji Waseda, Takehiko Nose, Tsubasa Kodaira et al.",
+  "journal": "arXiv:2604.20502v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Ocean wave models are critical for weather and climate forecasting, and accurate in-situ wave observations are essential for validating and improving these models. Open-source, community-driven buoys have democratized wave observations via telemetry in recent years, but these systems transmit only limited amounts of data. Full high-frequency time series, required to study detailed wave physics, can still in most cases only be collected in situ using data loggers. Yet open-source, low-cost logger solutions remain scarce compared to their telemetry-enabled counterparts. Here we present the Openlogartemis Wave Logger (OWL-v2026), an open-source, low-cost, easy-to-build, high-performance logger for wave data measurements. The OWL-v2026 is built from off-the-shelf components from the maker community, requiring only through-hole soldering for assembly, and totals approximately 220USD per unit. Custom firmware enables high-frequency, low-jitter logging of six-axis inertial measurement unit (IMU) data at 208 or 416Hz, and GNSS position and Doppler velocity at 10Hz, with Pulse Per Second (PPS) synchronization for accurate absolute UTC timestamping. We have successfully validated continuous logging over more than 10 days at 208Hz, a power consumption of approximately 80mA (approximately 20 days of autonomy with three D-cell lithium batteries), and absolute UTC timestamp accuracy typically better than 10ms. Though the OWL-v2026 is a purely technical contribution, it has the potential to substantially expand the availability and affordability of high-frequency in-situ wave time series, similar to how the OpenMetBuoy (OMB) (Rabault 2022) expanded the availability of telemetry-enabled wave observations and helped spark new developments in low-cost open-source buoys.",
+  "categories": [
+    "physics.geo-ph"
+  ],
+  "primary_category": "physics.geo-ph",
+  "comment": null,
+  "published_date": "2026-04-22T12:44:03Z",
+  "updated_date": "2026-04-22T12:44:03Z",
+  "url": "https://arxiv.org/abs/2604.20502v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.20502v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-25T22:15:49.052503",
+  "category": "physics",
+  "subcategories": [
+    "physics.geo-ph"
+  ]
+}

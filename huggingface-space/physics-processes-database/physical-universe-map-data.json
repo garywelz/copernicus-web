@@ -1,0 +1,62 @@
+{
+  "title": "Physical Universe Map",
+  "scales": [
+    {
+      "id": "subatomic",
+      "label": "Subatomic",
+      "tag": "particles, fields, nuclei",
+      "concept": "Particles, fields, symmetries, nuclear transformations",
+      "processCount": 6
+    },
+    {
+      "id": "atomic",
+      "label": "Atomic",
+      "tag": "atoms, spectra, electrons",
+      "concept": "Atomic structure, spectra, transitions",
+      "processCount": 3
+    },
+    {
+      "id": "matter",
+      "label": "Molecular and Matter",
+      "tag": "molecules, phases, condensed systems",
+      "concept": "Condensed matter, phases, thermodynamics",
+      "processCount": 5
+    },
+    {
+      "id": "macro",
+      "label": "Macroscopic",
+      "tag": "mechanics, waves, electromagnetism",
+      "concept": "Classical mechanics, fields, waves, optics",
+      "processCount": 2
+    },
+    {
+      "id": "cosmic",
+      "label": "Cosmic",
+      "tag": "stellar, galactic, cosmological",
+      "concept": "Stars, galaxies, cosmology, the universe as a system",
+      "processCount": 6
+    }
+  ],
+  "theories": [
+    {
+      "label": "Quantum / Field",
+      "processCount": 10
+    },
+    {
+      "label": "Electromagnetism / Optics",
+      "processCount": 7
+    },
+    {
+      "label": "Thermal / Statistical",
+      "processCount": 5
+    },
+    {
+      "label": "Classical Mechanics",
+      "processCount": 10
+    },
+    {
+      "label": "Nuclear / Astrophysics",
+      "processCount": 6
+    }
+  ]
+}

@@ -4,18 +4,20 @@
   "category": "computer_science",
   "subcategory": "machine_learning",
   "subcategory_name": "Machine Learning",
-  "description": "Model Training Pipeline process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "A model training pipeline manages the end-to-end fit: data is split into train, validation, and test, parameters initialized, and the model trained over mini-batches while monitoring training and validation loss; regularization counters overfitting and the best checkpoint is kept once validation converges, yielding the trained model.",
   "complexity": {
     "nodes": 11,
-    "edges": 11,
-    "conditionals": 0,
+    "edges": 12,
+    "conditionals": 2,
     "logicGates": {
-      "orGates": 1,
+      "orGates": 2,
       "andGates": 1,
-      "total": 2
+      "notGates": 0,
+      "total": 3
     },
-    "level": "medium",
-    "detailLevel": "medium"
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 2
   },
   "colorScheme": {
     "red": {
@@ -39,54 +41,147 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nN1[\"Training Data\"]\nN2[\"Loss Function\"]\nN3[\"Model Architecture\"]\nN4[\"Choose Approach\"]\nN5[\"Optimizer Config\"]\nN6[\"Forward Pass\"]\nN7[\"Backpropagation\"]\nN8[\"Optimizer Step\"]\nN9[\"Integrate Results\"]\nN10[\"Checkpoint State\"]\nN11[\"Trained Model\"]\n\nN1 --> N2\nN2 --> N3\nN3 --> N4\nN4 --> N5\nN4 --> N7\nN5 --> N6\nN7 --> N8\nN6 --> N9\nN8 --> N9\nN9 --> N10\nN10 --> N11\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#ff6b6b,color:#fff\n    style N3 fill:#ffd43b,color:#000\n    style N4 fill:#ffd43b,color:#000\n    style N5 fill:#ffd43b,color:#000\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#74c0fc,color:#fff\n    style N10 fill:#74c0fc,color:#fff\n    style N11 fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"Training data + model\"]\n    N2[\"Split train/val/test\"]\n    N3[\"Initialize parameters\"]\n    N4[\"Train on mini-batches\"]\n    N5[\"Compute training loss\"]\n    N6[\"Evaluate on validation\"]\n    N7{\"Overfitting?\"}\n    N8[\"Regularize / augment\"]\n    N9{\"Converged?\"}\n    N10[\"Checkpoint best model\"]\n    N11[\"Trained model\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 --> N4\n    N4 --> N5\n    N5 --> N6\n    N6 --> N7\n    N7 -->|yes| N8\n    N8 -->|retrain| N4\n    N7 -->|no| N9\n    N9 -->|no| N4\n    N9 -->|yes| N10\n    N10 --> N11\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#74c0fc,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#74c0fc,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#74c0fc,color:#fff\n    style N10 fill:#51cf66,color:#fff\n    style N11 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
-      "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: Model Training Pipeline. Created using the Programming Framework methodology."
+      "title": "Deep Learning",
+      "authors": "Goodfellow, I.; Bengio, Y.; Courville, A.",
+      "journal": "MIT Press",
+      "year": "2016",
+      "url": "https://www.deeplearningbook.org/"
     },
     {
-      "title": "Figure 1: Classification model flowchart and training pipeline.",
-      "authors": "",
-      "journal": "",
-      "year": "None",
-      "pubmed": null,
-      "doi": "10.7717/peerj.18391/fig-1",
-      "url": "https://doi.org/10.7717/peerj.18391/fig-1"
-    },
-    {
-      "title": "Figure 8: Different model performance using cleaning pipeline 0 on training data (Airbnb).",
-      "authors": "",
-      "journal": "",
-      "year": "None",
-      "pubmed": null,
-      "doi": "10.7717/peerj-cs.2793/fig-8",
-      "url": "https://doi.org/10.7717/peerj-cs.2793/fig-8"
-    },
-    {
-      "title": "The Beacon Training Model for Schools",
-      "authors": "",
-      "journal": "",
-      "year": "2024",
-      "pubmed": null,
-      "doi": "10.4135/9781529687996",
-      "url": "https://doi.org/10.4135/9781529687996"
+      "title": "Hands-On Machine Learning with Scikit-Learn, Keras, and TensorFlow (2nd ed.)",
+      "authors": "Geron, A.",
+      "journal": "O'Reilly Media",
+      "year": "2019",
+      "url": "https://www.oreilly.com/library/view/hands-on-machine-learning/9781492032632/"
     }
   ],
   "keywords": [
-    "model",
-    "training",
-    "pipeline"
+    "training pipeline",
+    "train-validation split",
+    "overfitting",
+    "regularization",
+    "checkpointing"
   ],
   "relatedProcesses": [],
   "created": "2026-01-15",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations.\nCurated Mermaid applied (citations preserved)."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "namedCollections": [],
+  "graphMetrics": {
+    "nodes": 11,
+    "edges": 12,
+    "conditionals": 2,
+    "andGates": 1,
+    "orGates": 2,
+    "notGates": 0,
+    "loops": 2
+  },
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Training data + model",
+      "detail": "Architecture chosen",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N2",
+      "label": "Split train/val/test",
+      "detail": "Disjoint partitions",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N3",
+      "label": "Initialize parameters",
+      "detail": "Weight init",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N4",
+      "label": "Train on mini-batches",
+      "detail": "Iterate epochs",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N5",
+      "label": "Compute training loss",
+      "detail": "Objective value",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N6",
+      "label": "Evaluate on validation",
+      "detail": "Held-out metric",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N7",
+      "label": "Overfitting?",
+      "detail": "Train << val gap",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N8",
+      "label": "Regularize / augment",
+      "detail": "Dropout, L2, data",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N9",
+      "label": "Converged?",
+      "detail": "Val loss plateau",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N10",
+      "label": "Checkpoint best model",
+      "detail": "Save weights",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N11",
+      "label": "Trained model",
+      "detail": "Ready to test",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 0
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:machine_learning-model-training-pipeline",
+    "graphType": "decision_flowchart",
+    "topologySignature": "481b484edac130b3",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "graphType": "decision_flowchart",
+  "domainContext": "Machine learning"
 }

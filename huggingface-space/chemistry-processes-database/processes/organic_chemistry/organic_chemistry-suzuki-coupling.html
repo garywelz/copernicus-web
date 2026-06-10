@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Suzuki Coupling - Chemistry Process</title>
+    <title>Suzuki–Miyaura Coupling - Chemistry Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Suzuki Coupling</h1>
+            <h1>Suzuki–Miyaura Coupling</h1>
             <div class="header-meta">
                 <span class="meta-item">Chemistry</span>
                 <span class="meta-item">Organic Chemistry</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,46 +234,56 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Suzuki Coupling process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>The palladium-catalyzed Suzuki–Miyaura coupling joins an aryl halide and an organoboron compound through a catalytic cycle of oxidative addition, base-assisted transmetalation, and reductive elimination, regenerating the Pd(0) catalyst each turn.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-N1["Aryl/Vinyl Halide"]
-N2["Boronic Acid/Ester"]
-N3["Pd Catalyst + Base"]
-N4["Choose Path"]
-N5["Oxidative Addition"]
-N6["Transmetalation"]
-N7["Reductive Elimination"]
-N8["Biaryl Product"]
-N9["Integrate"]
+    N1["Aryl halide + boronic acid"]
+    N2["Pd(0) catalyst"]
+    N3["Oxidative addition of Ar–X"]
+    N4["Base activates boronate"]
+    N5["Transmetalation"]
+    N6["Ar–Pd(II)–Ar′ complex"]
+    N7["Reductive elimination"]
+    N8["Biaryl product released"]
+    N9["Pd(0) regenerated"]
+    N10["Coupled product"]
 
-N1 --> N2
-N2 --> N3
-N3 --> N4
-N4 --> N5
-N4 --> N7
-N5 --> N6
-N7 --> N8
-N6 --> N9
-N8 --> N9
-N9 --> N6
+    N1 --> N3
+    N2 --> N3
+    N3 --> N4
+    N4 --> N5
+    N5 --> N6
+    N6 --> N7
+    N7 --> N8
+    N7 --> N9
+    N9 -->|next turn| N3
+    N8 --> N10
 
     style N1 fill:#ff6b6b,color:#fff
-    style N2 fill:#ff6b6b,color:#fff
-    style N3 fill:#ffd43b,color:#000
-    style N4 fill:#ffd43b,color:#000
+    style N2 fill:#51cf66,color:#fff
+    style N3 fill:#51cf66,color:#fff
+    style N4 fill:#51cf66,color:#fff
     style N5 fill:#51cf66,color:#fff
-    style N6 fill:#51cf66,color:#fff
+    style N6 fill:#74c0fc,color:#fff
     style N7 fill:#51cf66,color:#fff
-    style N8 fill:#b197fc,color:#fff
-    style N9 fill:#74c0fc,color:#fff
+    style N8 fill:#51cf66,color:#fff
+    style N9 fill:#51cf66,color:#fff
+    style N10 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Aryl halide + boronic acid</td><td>Triggers & Inputs</td><td><a href="https://doi.org/10.1021/cr00039a007" target="_blank" title="Palladium-catalyzed cross-coupling reactions of organoboron compounds" style="color:#e74c3c;">Miyaura, N. et al. 1995</a></td></tr><tr><td style="font-weight:600;">Pd(0) catalyst</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1021/cr00039a007" target="_blank" title="Palladium-catalyzed cross-coupling reactions of organoboron compounds" style="color:#e74c3c;">Miyaura, N. et al. 1995</a></td></tr><tr><td style="font-weight:600;">Oxidative addition of Ar–X</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1002/anie.201101379" target="_blank" title="Cross-coupling reactions of organoboranes: an easy way to construct C–C bonds (Nobel Lecture)" style="color:#e74c3c;">Suzuki, A. 2011</a></td></tr><tr><td style="font-weight:600;">Base activates boronate</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1021/cr00039a007" target="_blank" title="Palladium-catalyzed cross-coupling reactions of organoboron compounds" style="color:#e74c3c;">Miyaura, N. et al. 1995</a></td></tr><tr><td style="font-weight:600;">Transmetalation</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1021/cr00039a007" target="_blank" title="Palladium-catalyzed cross-coupling reactions of organoboron compounds" style="color:#e74c3c;">Miyaura, N. et al. 1995</a></td></tr><tr><td style="font-weight:600;">Ar–Pd(II)–Ar′ complex</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1002/anie.201101379" target="_blank" title="Cross-coupling reactions of organoboranes: an easy way to construct C–C bonds (Nobel Lecture)" style="color:#e74c3c;">Suzuki, A. 2011</a></td></tr><tr><td style="font-weight:600;">Reductive elimination</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1021/cr00039a007" target="_blank" title="Palladium-catalyzed cross-coupling reactions of organoboron compounds" style="color:#e74c3c;">Miyaura, N. et al. 1995</a></td></tr><tr><td style="font-weight:600;">Biaryl product released</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1016/S0040-4039(01)95429-2" target="_blank" title="A new stereospecific cross-coupling by the palladium-catalyzed reaction of 1-alkenylboranes" style="color:#e74c3c;">Miyaura, N. et al. 1979</a></td></tr><tr><td style="font-weight:600;">Pd(0) regenerated</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1021/cr00039a007" target="_blank" title="Palladium-catalyzed cross-coupling reactions of organoboron compounds" style="color:#e74c3c;">Miyaura, N. et al. 1995</a></td></tr><tr><td style="font-weight:600;">Coupled product</td><td>Products & Outputs</td><td><a href="https://doi.org/10.1016/S0040-4039(01)95429-2" target="_blank" title="A new stereospecific cross-coupling by the palladium-catalyzed reaction of 1-alkenylboranes" style="color:#e74c3c;">Miyaura, N. et al. 1979</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -292,12 +329,12 @@ N9 --> N6
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 9</li>
+                        <li><strong>Nodes:</strong> 10</li>
                         <li><strong>Edges:</strong> 10</li>
                         <li><strong>Conditionals:</strong> 0</li>
-                        <li><strong>AND Gates:</strong> 2</li>
+                        <li><strong>AND Gates:</strong> 1</li>
                         <li><strong>OR Gates:</strong> 1</li>
-                        <li><strong>Total Gates:</strong> 3</li>
+                        <li><strong>Total Gates:</strong> 2</li>
                     </ul>
                 </div>
                 
@@ -305,7 +342,7 @@ N9 --> N6
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>suzuki</li><li>coupling</li>
+                        <li>suzuki coupling</li><li>palladium catalysis</li><li>oxidative addition</li><li>transmetalation</li><li>reductive elimination</li>
                     </ul>
                 </div>
                 
@@ -316,42 +353,32 @@ N9 --> N6
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Palladium-catalyzed cross-coupling reactions of organoboron compounds</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Miyaura, N.; Suzuki, A.
+                            , Chemical Reviews
+                             (1995)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Suzuki Coupling</strong>
-                            
-                            , Comprehensive Organic Name Reactions and Reagents
-                             (2010)
-                            </span>
-                            <br><a href="https://doi.org/10.1002/9780470638859.conrr614" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1002/9780470638859.conrr614</a>
+                            <br><a href="https://doi.org/10.1021/cr00039a007" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1021/cr00039a007</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Organoborane Coupling Reactions (Suzuki Coupling)</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Suzuki, Akira
-                            , ChemInform
-                             (2005)
+                            <strong>Cross-coupling reactions of organoboranes: an easy way to construct C–C bonds (Nobel Lecture)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Suzuki, A.
+                            , Angewandte Chemie International Edition
+                             (2011)
                             </span>
-                            <br><a href="https://doi.org/10.1002/chin.200516248" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1002/chin.200516248</a>
+                            <br><a href="https://doi.org/10.1002/anie.201101379" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1002/anie.201101379</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Suzuki coupling</strong>
-                            
-                            , Name Reactions
-                             (None)
+                            <strong>A new stereospecific cross-coupling by the palladium-catalyzed reaction of 1-alkenylboranes</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Miyaura, N.; Yamada, K.; Suzuki, A.
+                            , Tetrahedron Letters
+                             (1979)
                             </span>
-                            <br><a href="https://doi.org/10.1007/3-540-30031-7_262" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1007/3-540-30031-7_262</a>
+                            <br><a href="https://doi.org/10.1016/S0040-4039(01)95429-2" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1016/S0040-4039(01)95429-2</a>
                             
                         </li>
                         

@@ -1,21 +1,23 @@
 {
   "id": "medicinal_chemistry-temperature-effects",
-  "name": "Temperature Effects",
+  "name": "Hit-to-Lead ADMET Optimization",
   "category": "chemistry",
   "subcategory": "medicinal_chemistry",
   "subcategory_name": "Medicinal Chemistry",
-  "description": "Temperature Effects process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "Hit-to-lead progression: confirm and triage hits, assess potency, profile ADMET, and iteratively modify structure to satisfy drug-likeness, improve solubility and metabolic stability, and clear toxicity flags before nominating a lead series.",
   "complexity": {
-    "nodes": 26,
-    "edges": 22,
-    "conditionals": 0,
+    "nodes": 10,
+    "edges": 11,
+    "conditionals": 2,
     "logicGates": {
-      "orGates": 0,
+      "orGates": 2,
       "andGates": 1,
-      "total": 1
+      "notGates": 0,
+      "total": 3
     },
-    "level": "medium",
-    "detailLevel": "medium"
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 2
   },
   "colorScheme": {
     "red": {
@@ -39,53 +41,151 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nA2[Thermal Energy] --> B2[Temperature Effect Method]\nC2[Reaction System] --> D2[Temperature Control]\nE2[Kinetic Parameters] --> F2[Arrhenius Analysis]\nB2 --> G2[Temperature Setup]\nD2 --> H2[Thermal Regulation]\nF2 --> I2[Parameter Analysis]\nG2 --> J2[Temperature Range]\nH2 --> K2[Heat Transfer]\nI2 --> L2[Arrhenius Plot]\nJ2 --> M2[Energy Distribution]\nK2 --> L2\nL2 --> N2[Activation Energy]\nM2 --> O2[Molecular Motion]\nN2 --> P2[Temperature Dependence]\nO2 --> Q2[Kinetic Analysis]\nP2 --> R2[Rate Changes]\nQ2 --> S2[Energy Analysis]\nR2 --> T2[Temperature Optimization]\nS2 --> U2[Arrhenius Parameters]\nT2 --> V2[Optimal Temperature]\nU2 --> W2[Temperature Efficiency]\nV2 --> X2[Temperature Characterization]\nW2 --> Y2[Process Optimization]\nX2 --> Z2[Final Temperature Conditions]\nY2 --> Z2\n\n    style A2 fill:#ff6b6b,color:#fff\n    style C2 fill:#ff6b6b,color:#fff\n    style E2 fill:#ff6b6b,color:#fff\n    style B2 fill:#ffd43b,color:#000\n    style D2 fill:#ffd43b,color:#000\n    style F2 fill:#ffd43b,color:#000\n    style G2 fill:#ffd43b,color:#000\n    style H2 fill:#ffd43b,color:#000\n    style I2 fill:#ffd43b,color:#000\n    style J2 fill:#ffd43b,color:#000\n    style K2 fill:#ffd43b,color:#000\n    style L2 fill:#ffd43b,color:#000\n    style M2 fill:#51cf66,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style O2 fill:#51cf66,color:#fff\n    style P2 fill:#51cf66,color:#fff\n    style Q2 fill:#51cf66,color:#fff\n    style R2 fill:#51cf66,color:#fff\n    style S2 fill:#51cf66,color:#fff\n    style T2 fill:#51cf66,color:#fff\n    style U2 fill:#51cf66,color:#fff\n    style V2 fill:#51cf66,color:#fff\n    style W2 fill:#51cf66,color:#fff\n    style X2 fill:#51cf66,color:#fff\n    style Y2 fill:#51cf66,color:#fff\n    style Z2 fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"Screening hits\"]\n    N2[\"Confirm + triage hits\"]\n    N3[\"Assess potency\"]\n    N4[\"ADMET profiling\"]\n    N5{\"Drug-likeness OK?\"}\n    N6[\"Modify structure\"]\n    N7[\"Solubility / stability\"]\n    N8{\"Toxicity flags?\"}\n    N9[\"Redesign / deprioritize\"]\n    N10[\"Lead series nominated\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 --> N4\n    N4 --> N5\n    N5 -->|no| N6\n    N6 -->|re-test| N3\n    N5 -->|yes| N7\n    N7 --> N8\n    N8 -->|yes| N9\n    N9 -->|iterate| N3\n    N8 -->|clean| N10\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#74c0fc,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#74c0fc,color:#fff\n    style N9 fill:#51cf66,color:#fff\n    style N10 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
-      "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: Temperature Effects. Created using the Programming Framework methodology."
+      "title": "Experimental and computational approaches to estimate solubility and permeability (Rule of Five)",
+      "authors": "Lipinski, C. A.; Lombardo, F.; Dominy, B. W.; Feeney, P. J.",
+      "journal": "Advanced Drug Delivery Reviews",
+      "year": "2001",
+      "doi": "10.1016/S0169-409X(00)00129-0",
+      "url": "https://doi.org/10.1016/S0169-409X(00)00129-0"
     },
     {
-      "title": "Effects of Temperature on the Biology of Spodoptera litura Fab.",
-      "authors": "",
-      "journal": "",
-      "year": "None",
-      "pubmed": null,
-      "doi": "10.59852/tpe-a278v7i6",
-      "url": "https://doi.org/10.59852/tpe-a278v7i6"
-    },
-    {
-      "title": "Temperature Effects in Semiconductors",
-      "authors": "Wolpert, David; Ampadu, Paul",
-      "journal": "Managing Temperature Effects in Nanoscale Adaptive Systems",
+      "title": "Principles of early drug discovery",
+      "authors": "Hughes, J. P.; Rees, S.; Kalindjian, S. B.; Philpott, K. L.",
+      "journal": "British Journal of Pharmacology",
       "year": "2011",
-      "pubmed": null,
-      "doi": "10.1007/978-1-4614-0748-5_2",
-      "url": "https://doi.org/10.1007/978-1-4614-0748-5_2"
+      "doi": "10.1111/j.1476-5381.2010.01127.x",
+      "url": "https://doi.org/10.1111/j.1476-5381.2010.01127.x"
     },
     {
-      "title": "Temperature Effects in Soil",
-      "authors": "",
-      "journal": "SpringerReference",
-      "year": "None",
-      "pubmed": null,
-      "doi": "10.1007/springerreference_224068",
-      "url": "https://doi.org/10.1007/springerreference_224068"
+      "title": "The influence of lead discovery strategies on the properties of drug candidates",
+      "authors": "Keserű, G. M.; Makara, G. M.",
+      "journal": "Nature Reviews Drug Discovery",
+      "year": "2009",
+      "doi": "10.1038/nrd2796",
+      "url": "https://doi.org/10.1038/nrd2796"
     }
   ],
   "keywords": [
-    "temperature",
-    "effects"
+    "hit-to-lead",
+    "admet",
+    "lipinski",
+    "drug-likeness",
+    "metabolic stability"
   ],
   "relatedProcesses": [],
   "created": "2026-01-08",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Screening hits",
+      "detail": "Actives from HTS",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 1
+    },
+    {
+      "id": "N2",
+      "label": "Confirm + triage hits",
+      "detail": "Remove artifacts/PAINS",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N3",
+      "label": "Assess potency",
+      "detail": "Establish activity baseline",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N4",
+      "label": "ADMET profiling",
+      "detail": "Absorption to toxicity panel",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N5",
+      "label": "Drug-likeness OK?",
+      "detail": "Rule-of-Five and properties",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N6",
+      "label": "Modify structure",
+      "detail": "Adjust physicochemistry",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N7",
+      "label": "Solubility / stability",
+      "detail": "Improve key liabilities",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N8",
+      "label": "Toxicity flags?",
+      "detail": "hERG, genotox, etc.",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 2
+    },
+    {
+      "id": "N9",
+      "label": "Redesign / deprioritize",
+      "detail": "Mitigate the liability",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N10",
+      "label": "Lead series nominated",
+      "detail": "Advance to optimization",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 1
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:medicinal_chemistry-temperature-effects",
+    "graphType": "cyclic_pathway",
+    "topologySignature": "d3b93106b3431b3f",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "namedCollections": [
+    "medicinal-chemistry"
+  ],
+  "graphMetrics": {
+    "nodes": 10,
+    "edges": 11,
+    "conditionals": 2,
+    "andGates": 1,
+    "orGates": 2,
+    "notGates": 0,
+    "loops": 2
+  },
+  "graphType": "cyclic_pathway",
+  "domainContext": "Early drug discovery"
 }

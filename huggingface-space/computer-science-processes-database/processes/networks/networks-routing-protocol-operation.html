@@ -167,6 +167,33 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
@@ -176,7 +203,7 @@
             <div class="header-meta">
                 <span class="meta-item">Computer Science</span>
                 <span class="meta-item">Computer Networks</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,48 +234,60 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Routing Protocol Operation process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>Routing protocols build forwarding tables by sharing reachability information: distance-vector protocols exchange distance tables with neighbors while link-state protocols flood link advertisements to build a full topology, each then computes shortest paths and recomputes routes whenever the topology changes, converging on a consistent routing table.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-N1["Network Topology"]
-N2["Link Updates"]
-N3["Neighbors"]
-N4["Choose Approach"]
-N5["Routing Table"]
-N6["Exchange Updates"]
-N7["Compute Best Paths"]
-N8["Converged Routes"]
-N9["Integrate Results"]
-N10["Forwarding Decisions"]
+    N1["Router knows neighbors"]
+    N2["Exchange routing info"]
+    N3{"DV or link-state?"}
+    N4["DV: share distance table"]
+    N5["LS: flood link states"]
+    N6["Build topology / table"]
+    N7["Run shortest-path"]
+    N8{"Topology changed?"}
+    N9["Recompute routes"]
+    N10["Converged routing table"]
+    N11["Forward by routing table"]
 
-N1 --> N2
-N2 --> N3
-N3 --> N4
-N4 --> N5
-N4 --> N7
-N5 --> N6
-N7 --> N8
-N6 --> N9
-N8 --> N9
-N9 --> N10
+    N1 --> N2
+    N2 --> N3
+    N3 -->|distance-vector| N4
+    N3 -->|link-state| N5
+    N4 --> N6
+    N5 --> N6
+    N6 --> N7
+    N7 --> N8
+    N8 -->|yes| N9
+    N9 -->|update| N6
+    N8 -->|no| N10
+    N10 --> N11
 
     style N1 fill:#ff6b6b,color:#fff
-    style N2 fill:#ff6b6b,color:#fff
-    style N3 fill:#ffd43b,color:#000
-    style N4 fill:#ffd43b,color:#000
-    style N5 fill:#ffd43b,color:#000
+    style N2 fill:#51cf66,color:#fff
+    style N3 fill:#74c0fc,color:#fff
+    style N4 fill:#51cf66,color:#fff
+    style N5 fill:#51cf66,color:#fff
     style N6 fill:#51cf66,color:#fff
     style N7 fill:#51cf66,color:#fff
     style N8 fill:#74c0fc,color:#fff
-    style N9 fill:#74c0fc,color:#fff
-    style N10 fill:#b197fc,color:#fff
+    style N9 fill:#51cf66,color:#fff
+    style N10 fill:#74c0fc,color:#fff
+    style N11 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Router knows neighbors</td><td>Triggers & Inputs</td><td><a href="https://www.pearson.com/en-us/subject-catalog/p/computer-networks/P200000003188" target="_blank" title="Computer Networks (5th ed.)" style="color:#9b59b6;">Tanenbaum, A. S. et al. 2011</a></td></tr><tr><td style="font-weight:600;">Exchange routing info</td><td>Processing & Operations</td><td><a href="https://doi.org/10.17487/RFC2328" target="_blank" title="OSPF Version 2 (RFC 2328)" style="color:#9b59b6;">Moy, J. 1998</a></td></tr><tr><td style="font-weight:600;">DV or link-state?</td><td>Intermediates & States</td><td><a href="https://www.pearson.com/en-us/subject-catalog/p/computer-networks/P200000003188" target="_blank" title="Computer Networks (5th ed.)" style="color:#9b59b6;">Tanenbaum, A. S. et al. 2011</a></td></tr><tr><td style="font-weight:600;">DV: share distance table</td><td>Processing & Operations</td><td><a href="https://www.pearson.com/en-us/subject-catalog/p/computer-networks/P200000003188" target="_blank" title="Computer Networks (5th ed.)" style="color:#9b59b6;">Tanenbaum, A. S. et al. 2011</a></td></tr><tr><td style="font-weight:600;">LS: flood link states</td><td>Processing & Operations</td><td><a href="https://doi.org/10.17487/RFC2328" target="_blank" title="OSPF Version 2 (RFC 2328)" style="color:#9b59b6;">Moy, J. 1998</a></td></tr><tr><td style="font-weight:600;">Build topology / table</td><td>Processing & Operations</td><td><a href="https://doi.org/10.17487/RFC2328" target="_blank" title="OSPF Version 2 (RFC 2328)" style="color:#9b59b6;">Moy, J. 1998</a></td></tr><tr><td style="font-weight:600;">Run shortest-path</td><td>Processing & Operations</td><td><a href="https://doi.org/10.17487/RFC2328" target="_blank" title="OSPF Version 2 (RFC 2328)" style="color:#9b59b6;">Moy, J. 1998</a></td></tr><tr><td style="font-weight:600;">Topology changed?</td><td>Intermediates & States</td><td><a href="https://www.pearson.com/en-us/subject-catalog/p/computer-networks/P200000003188" target="_blank" title="Computer Networks (5th ed.)" style="color:#9b59b6;">Tanenbaum, A. S. et al. 2011</a></td></tr><tr><td style="font-weight:600;">Recompute routes</td><td>Processing & Operations</td><td><a href="https://doi.org/10.17487/RFC2328" target="_blank" title="OSPF Version 2 (RFC 2328)" style="color:#9b59b6;">Moy, J. 1998</a></td></tr><tr><td style="font-weight:600;">Converged routing table</td><td>Intermediates & States</td><td><a href="https://doi.org/10.17487/RFC2328" target="_blank" title="OSPF Version 2 (RFC 2328)" style="color:#9b59b6;">Moy, J. 1998</a></td></tr><tr><td style="font-weight:600;">Forward by routing table</td><td>Products & Outputs</td><td><a href="https://www.pearson.com/en-us/subject-catalog/p/computer-networks/P200000003188" target="_blank" title="Computer Networks (5th ed.)" style="color:#9b59b6;">Tanenbaum, A. S. et al. 2011</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -294,12 +333,12 @@ N9 --> N10
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 10</li>
-                        <li><strong>Edges:</strong> 10</li>
-                        <li><strong>Conditionals:</strong> 0</li>
+                        <li><strong>Nodes:</strong> 11</li>
+                        <li><strong>Edges:</strong> 12</li>
+                        <li><strong>Conditionals:</strong> 2</li>
                         <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 1</li>
-                        <li><strong>Total Gates:</strong> 2</li>
+                        <li><strong>OR Gates:</strong> 2</li>
+                        <li><strong>Total Gates:</strong> 3</li>
                     </ul>
                 </div>
                 
@@ -307,7 +346,7 @@ N9 --> N10
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>routing</li><li>protocol</li><li>operation</li>
+                        <li>routing protocol</li><li>distance vector</li><li>link state</li><li>convergence</li><li>shortest path</li>
                     </ul>
                 </div>
                 
@@ -318,43 +357,23 @@ N9 --> N10
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>OSPF Version 2 (RFC 2328)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Moy, J.
+                            , IETF
+                             (1998)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #9b59b6; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>SLEEP MODE OPERATION OF A ROUTING PROTOCOL IN MOBILE AD HOC NETWORKS</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">QAYYUM, A.; TOOR, Y.; JACQUET, P.; MÜHLETHALER, P.; CLAUSEN, T.
-                            , Networks
-                             (2002)
-                            </span>
-                            <br><a href="https://doi.org/10.1142/9789812776730_0020" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.1142/9789812776730_0020</a>
+                            <br><a href="https://doi.org/10.17487/RFC2328" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.17487/RFC2328</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>EEMOR: Energy Efficient Metaheuristic Opportunistic Routing Protocol for WSNs</strong>
-                            
-                            
-                             (None)
+                            <strong>Computer Networks (5th ed.)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Tanenbaum, A. S.; Wetherall, D. J.
+                            , Pearson
+                             (2011)
                             </span>
-                            <br><a href="https://doi.org/10.32908/ahswn.v55.9265" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.32908/ahswn.v55.9265</a>
                             
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Developing Secure Multipath Routing (AODV-SMR) Protocol Framework Based Multipath Network Routing Protocol</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Albeladi, Marwah Yahya
-                            , Engineering and Technology Journal
-                             (2022)
-                            </span>
-                            <br><a href="https://doi.org/10.47191/etj/v7i1.05" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.47191/etj/v7i1.05</a>
-                            
+                            <br><a href="https://www.pearson.com/en-us/subject-catalog/p/computer-networks/P200000003188" target="_blank" style="color: #9b59b6; font-size: 0.85em;">View Source</a>
                         </li>
                         
                     </ul>

@@ -1,0 +1,39 @@
+{
+  "id": "geometry_topology-combinatorics-advanced-counting",
+  "name": "Combinatorics — Pigeonhole and Inclusion-Exclusion",
+  "category": "mathematics",
+  "subcategory": "geometry_topology",
+  "subcategory_name": "Geometry & Topology",
+  "description": "Pigeonhole principle, inclusion-exclusion, derangements, Stirling numbers. Shows how counting formulas depend on principles and prior results.",
+  "mermaid": "graph TD\n    DefFact(\"DefFact Factorial\")\n    DefSum(\"DefSum Sum principle\")\n    DefProd(\"DefProd Product principle\")\n    PermNoRep(\"PermNoRep Permutations no rep\")\n    Pigeonhole(\"Pigeonhole Pigeonhole principle\")\n    InclExcl(\"InclExcl Inclusion-exclusion\")\n    InclExcl3(\"InclExcl3 Incl-excl 3 sets\")\n    Derange(\"Derange Derangements\")\n    Stirling2(\"Stirling2 Stirling numbers\")\n    DefFact --> PermNoRep\n    DefProd --> PermNoRep\n    DefSum --> Pigeonhole\n    DefSum --> InclExcl\n    InclExcl --> InclExcl3\n    InclExcl --> Derange\n    PermNoRep --> Derange\n    DefSum --> Stirling2\n    DefProd --> Stirling2\n    classDef axiom fill:#ff6b6b,color:#fff,stroke:#c0392b\n    classDef definition fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef theorem fill:#51cf66,color:#fff,stroke:#40c057\n    class DefFact,DefSum,DefProd definition\n    class PermNoRep,Pigeonhole,InclExcl,InclExcl3,Derange,Stirling2 theorem",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

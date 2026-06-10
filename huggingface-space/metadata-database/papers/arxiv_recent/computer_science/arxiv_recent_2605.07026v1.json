@@ -1,0 +1,37 @@
+{
+  "id": "arxiv_2605.07026v1",
+  "arxiv_id": "2605.07026v1",
+  "title": "Learning Cross-Atlas Consistent Brain Disorder Representations via Disentangled Multi-Atlas Functional Connectivity Learning",
+  "authors": [
+    "Minheng Chen",
+    "Chao Cao",
+    "Jing Zhang",
+    "Tianming Liu",
+    "Dajiang Zhu"
+  ],
+  "author_string": "Minheng Chen, Chao Cao, Jing Zhang, Tianming Liu, Dajiang Zhu",
+  "journal": "arXiv:2605.07026v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Functional connectivity (FC) derived from resting-state fMRI is widely used to characterize large-scale brain network alterations in neurological and psychiatric disorders. However, FC construction critically depends on the choice of brain atlas, and different parcellations may emphasize distinct organizational features, leading to heterogeneous and sometimes inconsistent representations. Existing multi-atlas approaches partially alleviate this issue but often fuse atlas-derived features or predictions at a relatively shallow level, while single-atlas disentanglement methods do not explicitly address cross-atlas heterogeneity. We propose Multi-Atlas Disentangled Connectivity LEarning (MADCLE), a multi-branch representation learning framework that jointly encodes FC matrices derived from different brain atlases. Rather than introducing a single explicitly shared latent variable across parcellations, MADCLE learns atlas-wise disease-related representations and encourages them to be cross-atlas consistent through distributional alignment. Meanwhile, covariate-related and atlas-dependent residual factors are modeled separately using covariate similarity supervision, atlas-specific reconstruction, and decorrelation constraints, thereby reducing the leakage of non-disease and parcellation-dependent information into the disease-related embeddings. Experiments on the ADNI and ADHD-200 datasets suggest that MADCLE achieves competitive or improved performance compared with single-atlas baselines, multi-atlas GNN/Transformer models, and recent multi-atlas consistency frameworks. These results support the potential value of structured disentanglement for FC-based disorder identification under heterogeneous parcellation schemes.",
+  "categories": [
+    "q-bio.NC",
+    "cs.AI",
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": null,
+  "published_date": "2026-05-07T23:14:05Z",
+  "updated_date": "2026-05-07T23:14:05Z",
+  "url": "https://arxiv.org/abs/2605.07026v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.07026v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-13T10:15:35.803333",
+  "category": "computer_science",
+  "subcategories": [
+    "q-bio.NC",
+    "cs.AI",
+    "cs.LG"
+  ]
+}

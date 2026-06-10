@@ -1,0 +1,191 @@
+{
+  "id": "assay_protocols-agarose-gel",
+  "name": "Agarose Gel Electrophoresis",
+  "category": "biology",
+  "subcategory": "assay_protocols",
+  "subcategory_name": "Assay / Lab Protocols",
+  "description": "Agarose gel electrophoresis: DNA fragments loaded alongside a size ladder migrate through an agarose matrix toward the anode and separate by size, are stained and visualised under UV, and re-run at adjusted conditions if bands are not resolved.",
+  "keywords": [
+    "agarose",
+    "electrophoresis",
+    "dna ladder",
+    "size separation",
+    "uv"
+  ],
+  "namedCollections": [
+    "lab-protocols"
+  ],
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "complexity": {
+    "nodes": 10,
+    "edges": 11,
+    "conditionals": 2,
+    "logicGates": {
+      "orGates": 2,
+      "andGates": 3,
+      "notGates": 0,
+      "total": 5
+    },
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 2
+  },
+  "graphMetrics": {
+    "nodes": 10,
+    "edges": 11,
+    "conditionals": 2,
+    "andGates": 3,
+    "orGates": 2,
+    "notGates": 0,
+    "loops": 2
+  },
+  "mermaid": "graph TD\n    N1[\"DNA samples\"]\n    N2[\"DNA size ladder\"]\n    N3[\"Agarose + TAE buffer\"]\n    N4[\"Cast gel with comb\"]\n    N5[\"Load samples + ladder\"]\n    N6[\"Apply voltage; migrate\"]\n    N7{\"Dye front near gel end?\"}\n    N8[\"Stain; visualize on UV\"]\n    N9{\"Bands resolved at size?\"}\n    N10[\"Sized DNA fragments imaged\"]\n\n    N3 --> N4\n    N4 --> N5\n    N1 --> N5\n    N2 --> N5\n    N5 --> N6\n    N6 --> N7\n    N7 -->|no| N6\n    N7 -->|yes| N8\n    N8 --> N9\n    N9 -->|adjust %| N4\n    N9 -->|yes| N10\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#ff6b6b,color:#fff\n    style N3 fill:#ffd43b,color:#000\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#74c0fc,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#74c0fc,color:#fff\n    style N10 fill:#b197fc,color:#fff",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "DNA samples",
+      "detail": "Fragments to be sized, in loading dye",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 1
+    },
+    {
+      "id": "N2",
+      "label": "DNA size ladder",
+      "detail": "Reference ladder of known fragment sizes",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 2
+    },
+    {
+      "id": "N3",
+      "label": "Agarose + TAE buffer",
+      "detail": "Agarose dissolved in TAE/TBE running buffer",
+      "type": "process",
+      "role": "Structures & Objects",
+      "sourceRef": 2
+    },
+    {
+      "id": "N4",
+      "label": "Cast gel with comb",
+      "detail": "Pour molten agarose, set with comb to form wells",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N5",
+      "label": "Load samples + ladder",
+      "detail": "Load DNA and ladder into wells",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N6",
+      "label": "Apply voltage; migrate",
+      "detail": "DNA migrates toward the anode; smaller fragments move faster",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N7",
+      "label": "Dye front near gel end?",
+      "detail": "Has the tracking dye migrated far enough?",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N8",
+      "label": "Stain; visualize on UV",
+      "detail": "Stain with intercalating dye; image under UV",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N9",
+      "label": "Bands resolved at size?",
+      "detail": "Are fragments resolved at expected sizes vs ladder?",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 2
+    },
+    {
+      "id": "N10",
+      "label": "Sized DNA fragments imaged",
+      "detail": "Gel image with fragments sized against the ladder",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 0
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:assay_protocols-agarose-gel",
+    "graphType": "algorithm_flowchart",
+    "topologySignature": "a77172e75c45267c",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "pending",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "lastUpdated": "2026-06-01",
+  "verified": false,
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "sources": [
+    {
+      "title": "The gel electrophoresis of DNA",
+      "authors": "Aaij, C.; Borst, P.",
+      "journal": "Biochimica et Biophysica Acta",
+      "year": "1972",
+      "pubmed": "4555955",
+      "doi": "10.1016/0005-2787(72)90426-9",
+      "url": "https://doi.org/10.1016/0005-2787(72)90426-9"
+    },
+    {
+      "title": "Agarose gel electrophoresis for the separation of DNA fragments",
+      "authors": "Lee, P. Y.; Costumbrado, J.; Hsu, C. Y.; Kim, Y. H.",
+      "journal": "Journal of Visualized Experiments",
+      "year": "2012",
+      "pubmed": "22546956",
+      "doi": "10.3791/3923",
+      "url": "https://doi.org/10.3791/3923"
+    },
+    {
+      "title": "Molecular Cloning: A Laboratory Manual (3rd ed.)",
+      "authors": "Sambrook, J.; Russell, D. W.",
+      "journal": "Cold Spring Harbor Laboratory Press",
+      "year": "2001",
+      "doi": null,
+      "url": "https://www.worldcat.org/oclc/45458336"
+    }
+  ],
+  "graphType": "algorithm_flowchart",
+  "domainContext": "Nucleic-acid separation protocol"
+}

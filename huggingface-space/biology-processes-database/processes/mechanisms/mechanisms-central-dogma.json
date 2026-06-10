@@ -1,0 +1,190 @@
+{
+  "id": "mechanisms-central-dogma",
+  "name": "Central Dogma (Transcription → Translation)",
+  "category": "biology",
+  "subcategory": "mechanisms",
+  "subcategory_name": "Mechanisms",
+  "description": "Central dogma: genetic information flows from DNA to RNA by transcription, mRNA is processed and exported, and ribosomes translate codons into a polypeptide that folds into a functional protein.",
+  "keywords": [
+    "central dogma",
+    "transcription",
+    "translation",
+    "mrna",
+    "protein"
+  ],
+  "namedCollections": [
+    "gene-expression"
+  ],
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "complexity": {
+    "nodes": 10,
+    "edges": 9,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 1,
+      "notGates": 0,
+      "total": 1
+    },
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 1
+  },
+  "graphMetrics": {
+    "nodes": 10,
+    "edges": 9,
+    "conditionals": 0,
+    "andGates": 1,
+    "orGates": 0,
+    "notGates": 0,
+    "loops": 1
+  },
+  "mermaid": "graph TD\n    N1[\"DNA gene\"]\n    N2[\"RNA polymerase transcribes\"]\n    N3[\"Pre-mRNA\"]\n    N4[\"Cap, splice, polyA\"]\n    N5[\"Mature mRNA exported\"]\n    N6[\"Ribosome reads codons\"]\n    N7[\"tRNA delivers amino acids\"]\n    N8[\"Polypeptide synthesized\"]\n    N9[\"Folding / modification\"]\n    N10[\"Functional protein\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 --> N4\n    N4 --> N5\n    N5 --> N6\n    N7 --> N6\n    N6 --> N8\n    N8 --> N9\n    N9 --> N10\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#74c0fc,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#74c0fc,color:#fff\n    style N9 fill:#51cf66,color:#fff\n    style N10 fill:#b197fc,color:#fff",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "DNA gene",
+      "detail": "Template gene in the genome",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N2",
+      "label": "RNA polymerase transcribes",
+      "detail": "Synthesis of pre-mRNA from DNA",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N3",
+      "label": "Pre-mRNA",
+      "detail": "Primary transcript",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N4",
+      "label": "Cap, splice, polyA",
+      "detail": "RNA processing in the nucleus",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N5",
+      "label": "Mature mRNA exported",
+      "detail": "mRNA travels to the cytoplasm",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N6",
+      "label": "Ribosome reads codons",
+      "detail": "Translation of the coding sequence",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N7",
+      "label": "tRNA delivers amino acids",
+      "detail": "Charged tRNAs decode codons",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N8",
+      "label": "Polypeptide synthesized",
+      "detail": "Growing amino-acid chain",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 2
+    },
+    {
+      "id": "N9",
+      "label": "Folding / modification",
+      "detail": "Folding and post-translational modification",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N10",
+      "label": "Functional protein",
+      "detail": "Mature, active protein",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 0
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:mechanisms-central-dogma",
+    "graphType": "mechanism_flowchart",
+    "topologySignature": "4f38e28020a4b320",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "lastUpdated": "2026-06-01",
+  "verified": false,
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "sources": [
+    {
+      "title": "Central dogma of molecular biology",
+      "authors": "Crick, F.",
+      "journal": "Nature",
+      "year": "1970",
+      "pubmed": "4913914",
+      "doi": "10.1038/227561a0",
+      "url": "https://doi.org/10.1038/227561a0"
+    },
+    {
+      "title": "Molecular Biology of the Cell (From DNA to RNA / RNA to Protein)",
+      "authors": "Alberts, B.; Johnson, A.; Lewis, J.; Raff, M.; Roberts, K.; Walter, P.",
+      "journal": "Garland Science (NCBI Bookshelf)",
+      "year": "2002",
+      "doi": null,
+      "url": "https://www.ncbi.nlm.nih.gov/books/NBK26887/"
+    },
+    {
+      "title": "Molecular Cell Biology (Transcription and Translation)",
+      "authors": "Lodish, H.; Berk, A.; Zipursky, S. L.; Matsudaira, P.; Baltimore, D.; Darnell, J.",
+      "journal": "W. H. Freeman (NCBI Bookshelf)",
+      "year": "2000",
+      "doi": null,
+      "url": "https://www.ncbi.nlm.nih.gov/books/NBK21475/"
+    }
+  ],
+  "graphType": "mechanism_flowchart",
+  "domainContext": "Molecular information flow"
+}

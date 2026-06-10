@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2605.02495v1",
+  "arxiv_id": "2605.02495v1",
+  "title": "Efficient Preference Poisoning Attack on Offline RLHF",
+  "authors": [
+    "Chenye Yang",
+    "Weiyu Xu",
+    "Lifeng Lai"
+  ],
+  "author_string": "Chenye Yang, Weiyu Xu, Lifeng Lai",
+  "journal": "arXiv:2605.02495v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Offline Reinforcement Learning from Human Feedback (RLHF) pipelines such as Direct Preference Optimization (DPO) train on a pre-collected preference dataset, which makes them vulnerable to preference poisoning attack. We study label flip attacks against log-linear DPO. We first illustrate that flipping one preference label induces a parameter-independent shift in the DPO gradient. Using this key property, we can then convert the targeted poisoning problem into a structured binary sparse approximation problem. To solve this problem, we develop two attack methods: Binary-Aware Lattice Attack (BAL-A) and Binary Matching Pursuit Attack (BMP-A). BAL-A embeds the binary flip selection problem into a binary-aware lattice and applies Lenstra-Lenstra-Lovász reduction and Babai's nearest plane algorithm; we provide sufficient conditions that enforce binary coefficients and recover the minimum-flip objective. BMP-A adapts binary matching pursuit to our non-normalized gradient dictionary and yields coherence-based recovery guarantees and robustness (impossibility) certificates for $K$-flip budgets. Experiments on synthetic dictionaries and the Stanford Human Preferences dataset validate the theory and highlight how dictionary geometry governs attack success.",
+  "categories": [
+    "cs.LG",
+    "cs.AI",
+    "stat.ML"
+  ],
+  "primary_category": "stat.ML",
+  "comment": null,
+  "published_date": "2026-05-04T11:45:38Z",
+  "updated_date": "2026-05-04T11:45:38Z",
+  "url": "https://arxiv.org/abs/2605.02495v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.02495v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-05T10:15:50.911419",
+  "category": "mathematics",
+  "subcategories": [
+    "cs.LG",
+    "cs.AI",
+    "stat.ML"
+  ]
+}

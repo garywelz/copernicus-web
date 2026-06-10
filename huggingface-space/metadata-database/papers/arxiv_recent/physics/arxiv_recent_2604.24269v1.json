@@ -1,0 +1,49 @@
+{
+  "id": "arxiv_2604.24269v1",
+  "arxiv_id": "2604.24269v1",
+  "title": "SVOM/VT: Real-Time Onboard Data Processing",
+  "authors": [
+    "Hong-Bo Cai",
+    "Yu-Lei Qiu",
+    "Li-Ping Xin",
+    "Zheng-Yang Bian",
+    "Rui-Feng Su",
+    "Qing-Yun Mao",
+    "Bin-Ping Su",
+    "Jun-Wang He",
+    "Wei Gao",
+    "Jian Zhang",
+    "Li-Jun Dan",
+    "Kun Chen",
+    "Dong Li",
+    "Chao Wu",
+    "Hua-Li Li",
+    "Jin-Song Deng",
+    "Yong-He Zhang",
+    "Jian-Yan Wei",
+    "Bertrand Cordier"
+  ],
+  "author_string": "Hong-Bo Cai, Yu-Lei Qiu, Li-Ping Xin, Zheng-Yang Bian, Rui-Feng Su et al.",
+  "journal": "arXiv:2604.24269v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "The SVOM Visible Telescope (VT) is critical for the rapid identification of gamma-ray burst (GRB) optical counterparts, particularly for high-redshift candidates that require immediate infrared spectroscopic follow-up. To address the stringent bandwidth constraints of the VHF downlink while ensuring real-time data availability, we developed the VT Onboard Data Processing Pipeline (VOPP).This paper details the software architecture, algorithms, and hardware implementation of VOPP using an FPGA and a CPU. The pipeline performs essential real-time tasks, including image quality assessment, dark and flat-field correction, and optimized image stacking to mitigate cosmic ray contamination and variable background noise. Furthermore, it generates compact source catalogs and highly compressed 1-bit images to facilitate rapid downlink.In-flight performance analysis confirms the pipeline's robustness, demonstrating the availability of VT VHF data for 78 percent of promptly slewed SVOM GRBs, with 56 percent leading to the identification of optical counterparts, typically within 18 minutes post-trigger.",
+  "categories": [
+    "astro-ph.IM",
+    "astro-ph.HE"
+  ],
+  "primary_category": "astro-ph.HE",
+  "comment": "Accepted for publication in the SVOM special issue in Research in Astronomy and Astrophysics: 15 pages, 6 figures",
+  "published_date": "2026-04-27T10:01:16Z",
+  "updated_date": "2026-04-27T10:01:16Z",
+  "url": "https://arxiv.org/abs/2604.24269v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.24269v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-27T22:15:26.523387",
+  "category": "physics",
+  "subcategories": [
+    "astro-ph.IM",
+    "astro-ph.HE"
+  ]
+}

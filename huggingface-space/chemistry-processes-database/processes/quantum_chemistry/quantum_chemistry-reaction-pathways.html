@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reaction Pathways - Chemistry Process</title>
+    <title>Transition State on the PES - Chemistry Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Reaction Pathways</h1>
+            <h1>Transition State on the PES</h1>
             <div class="header-meta">
                 <span class="meta-item">Chemistry</span>
                 <span class="meta-item">Quantum Chemistry</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,68 +234,57 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Reaction Pathways process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>Locating a reaction pathway on the potential energy surface: build an initial path between reactant and product, optimize it (e.g. nudged elastic band) to a first-order saddle point, verify it has a single imaginary frequency, and confirm by IRC before reading the activation energy.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-A4[Reactant State] --> B4[Reaction Pathway Method]
-C4[Transition States] --> D4[Energy Surface Analysis]
-E4[Product State] --> F4[Pathway Calculation]
-B4 --> G4[Pathway Identification]
-D4 --> H4[Energy Surface Mapping]
-F4 --> I4[Reaction Coordinate]
-G4 --> J4[Initial State]
-H4 --> K4[Energy Barriers]
-I4 --> L4[Coordinate Analysis]
-J4 --> M4[Reaction Initiation]
-K4 --> L4
-L4 --> N4[Transition State]
-M4 --> O4[Pathway Evolution]
-N4 --> P4[Reaction Progress]
-O4 --> Q4[Quantum Analysis]
-P4 --> R4[Product Formation]
-Q4 --> S4[Pathway Analysis]
-R4 --> T4[Reaction Properties]
-S4 --> U4[Barrier Analysis]
-T4 --> V4[Property Calculation]
-U4 --> W4[Pathway Efficiency]
-V4 --> X4[Reaction Characterization]
-W4 --> Y4[Process Optimization]
-X4 --> Z4[Final Reaction Pathway]
-Y4 --> Z4
+    N1["Reactant + product geom"]
+    N2["Build initial path (NEB)"]
+    N3["Optimize images on PES"]
+    N4["Locate saddle point (TS)"]
+    N5{"One imaginary frequency?"}
+    N6["Refine TS guess"]
+    N7{"IRC connects R and P?"}
+    N8["Re-search the path"]
+    N9["Activation energy Ea"]
+    N10["Validated pathway"]
 
-    style A4 fill:#ff6b6b,color:#fff
-    style C4 fill:#ff6b6b,color:#fff
-    style E4 fill:#ff6b6b,color:#fff
-    style B4 fill:#ffd43b,color:#000
-    style D4 fill:#ffd43b,color:#000
-    style F4 fill:#ffd43b,color:#000
-    style G4 fill:#ffd43b,color:#000
-    style H4 fill:#ffd43b,color:#000
-    style I4 fill:#ffd43b,color:#000
-    style J4 fill:#ffd43b,color:#000
-    style K4 fill:#ffd43b,color:#000
-    style L4 fill:#ffd43b,color:#000
-    style M4 fill:#51cf66,color:#fff
+    N1 --> N2
+    N2 --> N3
+    N3 --> N4
+    N4 --> N5
+    N5 -->|no| N6
+    N6 -->|refine| N4
+    N5 -->|yes| N7
+    N7 -->|no| N8
+    N8 -->|restart| N2
+    N7 -->|yes| N9
+    N9 --> N10
+
+    style N1 fill:#ff6b6b,color:#fff
+    style N2 fill:#51cf66,color:#fff
+    style N3 fill:#51cf66,color:#fff
     style N4 fill:#51cf66,color:#fff
-    style O4 fill:#51cf66,color:#fff
-    style P4 fill:#51cf66,color:#fff
-    style Q4 fill:#51cf66,color:#fff
-    style R4 fill:#51cf66,color:#fff
-    style S4 fill:#51cf66,color:#fff
-    style T4 fill:#51cf66,color:#fff
-    style U4 fill:#51cf66,color:#fff
-    style V4 fill:#51cf66,color:#fff
-    style W4 fill:#51cf66,color:#fff
-    style X4 fill:#51cf66,color:#fff
-    style Y4 fill:#51cf66,color:#fff
-    style Z4 fill:#b197fc,color:#fff
+    style N5 fill:#74c0fc,color:#fff
+    style N6 fill:#51cf66,color:#fff
+    style N7 fill:#74c0fc,color:#fff
+    style N8 fill:#51cf66,color:#fff
+    style N9 fill:#51cf66,color:#fff
+    style N10 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Reactant + product geom</td><td>Triggers & Inputs</td><td><a href="https://doi.org/10.1002/9781119839118" target="_blank" title="Introduction to Computational Chemistry, 3rd ed. — Optimization and Reaction Paths" style="color:#e74c3c;">Jensen, F. 2017</a></td></tr><tr><td style="font-weight:600;">Build initial path (NEB)</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1063/1.1329672" target="_blank" title="A climbing image nudged elastic band method for finding saddle points" style="color:#e74c3c;">Henkelman, G. et al. 2000</a></td></tr><tr><td style="font-weight:600;">Optimize images on PES</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1063/1.1329672" target="_blank" title="A climbing image nudged elastic band method for finding saddle points" style="color:#e74c3c;">Henkelman, G. et al. 2000</a></td></tr><tr><td style="font-weight:600;">Locate saddle point (TS)</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1063/1.1329672" target="_blank" title="A climbing image nudged elastic band method for finding saddle points" style="color:#e74c3c;">Henkelman, G. et al. 2000</a></td></tr><tr><td style="font-weight:600;">One imaginary frequency?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1002/9781119839118" target="_blank" title="Introduction to Computational Chemistry, 3rd ed. — Optimization and Reaction Paths" style="color:#e74c3c;">Jensen, F. 2017</a></td></tr><tr><td style="font-weight:600;">Refine TS guess</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1002/9781119839118" target="_blank" title="Introduction to Computational Chemistry, 3rd ed. — Optimization and Reaction Paths" style="color:#e74c3c;">Jensen, F. 2017</a></td></tr><tr><td style="font-weight:600;">IRC connects R and P?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1021/ar00072a001" target="_blank" title="The intrinsic reaction coordinate. An ab initio calculation" style="color:#e74c3c;">Fukui, K. 1981</a></td></tr><tr><td style="font-weight:600;">Re-search the path</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1063/1.1329672" target="_blank" title="A climbing image nudged elastic band method for finding saddle points" style="color:#e74c3c;">Henkelman, G. et al. 2000</a></td></tr><tr><td style="font-weight:600;">Activation energy Ea</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1021/ar00072a001" target="_blank" title="The intrinsic reaction coordinate. An ab initio calculation" style="color:#e74c3c;">Fukui, K. 1981</a></td></tr><tr><td style="font-weight:600;">Validated pathway</td><td>Products & Outputs</td><td><a href="https://doi.org/10.1021/ar00072a001" target="_blank" title="The intrinsic reaction coordinate. An ab initio calculation" style="color:#e74c3c;">Fukui, K. 1981</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -314,12 +330,12 @@ Y4 --> Z4
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 26</li>
-                        <li><strong>Edges:</strong> 22</li>
-                        <li><strong>Conditionals:</strong> 0</li>
-                        <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 1</li>
+                        <li><strong>Nodes:</strong> 10</li>
+                        <li><strong>Edges:</strong> 11</li>
+                        <li><strong>Conditionals:</strong> 2</li>
+                        <li><strong>AND Gates:</strong> 2</li>
+                        <li><strong>OR Gates:</strong> 2</li>
+                        <li><strong>Total Gates:</strong> 4</li>
                     </ul>
                 </div>
                 
@@ -327,7 +343,7 @@ Y4 --> Z4
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>reaction</li><li>pathways</li>
+                        <li>potential energy surface</li><li>transition state</li><li>nudged elastic band</li><li>intrinsic reaction coordinate</li><li>activation energy</li>
                     </ul>
                 </div>
                 
@@ -338,42 +354,32 @@ Y4 --> Z4
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>A climbing image nudged elastic band method for finding saddle points</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Henkelman, G.; Uberuaga, B. P.; Jónsson, H.
+                            , Journal of Chemical Physics
+                             (2000)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Chlorination of Amino Acids: Reaction Pathways and Reaction Rates</strong>
-                            
-                            
-                             (None)
-                            </span>
-                            <br><a href="https://doi.org/10.1021/acs.est.6b04440.s001" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1021/acs.est.6b04440.s001</a>
+                            <br><a href="https://doi.org/10.1063/1.1329672" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1063/1.1329672</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Exploring the Multiple Reaction  Pathways for the H + cyc-C3H6 Reaction</strong>
-                            
-                            
-                             (None)
+                            <strong>The intrinsic reaction coordinate. An ab initio calculation</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Fukui, K.
+                            , Accounts of Chemical Research
+                             (1981)
                             </span>
-                            <br><a href="https://doi.org/10.1021/jp0458194.s001" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1021/jp0458194.s001</a>
+                            <br><a href="https://doi.org/10.1021/ar00072a001" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1021/ar00072a001</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Multiple Reaction Pathways in the Morphinone Reductase-Catalyzed Hydride Transfer Reaction</strong>
-                            
-                            
-                             (None)
+                            <strong>Introduction to Computational Chemistry, 3rd ed. — Optimization and Reaction Paths</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Jensen, F.
+                            , Wiley
+                             (2017)
                             </span>
-                            <br><a href="https://doi.org/10.1021/acsomega.0c03472.s001" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1021/acsomega.0c03472.s001</a>
+                            <br><a href="https://doi.org/10.1002/9781119839118" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1002/9781119839118</a>
                             
                         </li>
                         

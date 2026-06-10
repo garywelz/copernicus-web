@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2605.18165v1",
+  "arxiv_id": "2605.18165v1",
+  "title": "Elastic-dLLM: Position Preserving Context Compression and Augmentation of Diffusion LLMs",
+  "authors": [
+    "Junyi Wu",
+    "Tianchen Zhao",
+    "Shaoqiu Zhang",
+    "Linfeng Zhang",
+    "Guohao Dai",
+    "Yu Wang"
+  ],
+  "author_string": "Junyi Wu, Tianchen Zhao, Shaoqiu Zhang, Linfeng Zhang, Guohao Dai et al.",
+  "journal": "arXiv:2605.18165v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Unlike autoregressive models, which generate one token at a time, dLLMs denoise a chunk of [MASK] tokens jointly and sample one or more tokens per step; despite enabling parallel decoding, this process incurs substantial computational cost due to the large chunk size of masked tokens. We observe that much of this cost is spent on repeatedly processing the preceding context and many [MASK] tokens with the same feature representations, indicating considerable computational redundancy. In this work, we revisit dLLM's redundancy from the perspective of [MASK] tokens. Through systematic analysis, we verify the redundancy of [MASK] tokens while revealing their critical role in providing structural information. Guided by these findings, we propose position-preserving [MASK] token compression and terminal-aware augmentation. By compressing redundant [MASK] computation, this approach accelerates decoding and further provides a natural extension toward context-folding-like long-context scaling under limited input-length constraints for full-sequence dLLMs such as LLaDA-8B-Instruct and LLaDA-1.5. Moreover, for block dLLMs such as LLaDA2.0-mini, it augments the context with a protected terminal [MASK] token to enhance generation quality with negligible overhead.",
+  "categories": [
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": null,
+  "published_date": "2026-05-18T10:09:10Z",
+  "updated_date": "2026-05-18T10:09:10Z",
+  "url": "https://arxiv.org/abs/2605.18165v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.18165v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-18T22:16:04.720789",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.LG"
+  ]
+}

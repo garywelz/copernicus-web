@@ -1,0 +1,39 @@
+{
+  "id": "geometry_topology-point-set-topology-props-31-45",
+  "name": "Point-Set Topology — Part 3: Connectedness & Separation",
+  "category": "mathematics",
+  "subcategory": "geometry_topology",
+  "subcategory_name": "Geometry & Topology",
+  "description": "Connectedness, path-connectedness, separation axioms (T0–T4), Urysohn's Lemma, Tietze extension.",
+  "mermaid": "graph TD\n    DefConn[\"Def: Connected: no separation by two disjoint opens\"]\n    DefPathConn[\"Def: Path-connected\"]\n    ThmPathImplConn[\"Thm: Path-connected ⇒ connected\"]\n    ThmContConn[\"Thm: Continuous image of connected is connected\"]\n    CorIVT[\"Cor: Intermediate value theorem\"]\n    DefT0[\"Def: T0 (Kolmogorov)\"]\n    DefT1[\"Def: T1: points are closed\"]\n    DefT2[\"Def: T2 (Hausdorff): distinct points have disjoint nbhds\"]\n    ThmHausdorffLim[\"Thm: In Hausdorff, limits are unique\"]\n    DefNormal[\"Def: Normal: disjoint closed have disjoint opens\"]\n    DefRegular[\"Def: Regular\"]\n    LemCompactNorm[\"Lem: Compact Hausdorff ⇒ Normal\"]\n    ThmUrysohn[\"Thm: Urysohn: Normal ⇒ Urysohn functions exist\"]\n    ThmTietze[\"Thm: Tietze extension: extend continuous from closed\"]\n    LemConnInter[\"Lem: Connected iff only ∅ and X are clopen\"]\n    ThmPathConn[\"Thm: Path-connected components partition space\"]\n    DefT0 --> DefT1\n    DefT1 --> DefT2\n    DefT2 --> ThmHausdorffLim\n    DefT2 --> LemCompactNorm\n    DefNormal --> ThmUrysohn\n    DefNormal --> ThmTietze\n    LemCompactNorm --> ThmUrysohn\n    ThmUrysohn --> ThmTietze\n    DefConn --> ThmContConn\n    DefPathConn --> ThmPathImplConn\n    DefConn --> LemConnInter\n    ThmPathImplConn --> ThmContConn\n    ThmContConn --> CorIVT\n    DefPathConn --> ThmPathConn\n    classDef definition fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef lemma fill:#74c0fc,color:#fff,stroke:#4dabf7\n    classDef theorem fill:#51cf66,color:#fff,stroke:#40c057\n    classDef corollary fill:#1abc9c,color:#fff,stroke:#16a085\n    class DefConn,DefPathConn,DefT0,DefT1,DefT2,DefNormal,DefRegular definition\n    class LemConnInter,LemCompactNorm lemma\n    class ThmPathImplConn,ThmContConn,ThmHausdorffLim,ThmUrysohn,ThmTietze,ThmPathConn theorem\n    class CorIVT corollary",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

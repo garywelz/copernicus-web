@@ -1,21 +1,23 @@
 {
   "id": "algorithms_data_structures-shortest-path-algorithms",
-  "name": "Shortest Path Algorithms",
+  "name": "Shortest Path (Dijkstra)",
   "category": "computer_science",
   "subcategory": "algorithms_data_structures",
   "subcategory_name": "Algorithms & Data Structures",
-  "description": "Shortest Path Algorithms process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "Dijkstra's algorithm finds shortest paths from a source in a graph with non-negative weights: distances start at infinity except the source, and a priority queue repeatedly extracts the closest unfinalized vertex, finalizes it, and relaxes its outgoing edges, updating tentative distances until the queue is empty and the shortest-path tree is complete.",
   "complexity": {
-    "nodes": 12,
+    "nodes": 11,
     "edges": 12,
-    "conditionals": 0,
+    "conditionals": 2,
     "logicGates": {
-      "orGates": 1,
-      "andGates": 1,
-      "total": 2
+      "orGates": 2,
+      "andGates": 2,
+      "notGates": 0,
+      "total": 4
     },
-    "level": "medium",
-    "detailLevel": "medium"
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 1
   },
   "colorScheme": {
     "red": {
@@ -39,54 +41,148 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nN1[\"Graph + Weights\"]\nN2[\"Source/Target\"]\nN3[\"Distance Array\"]\nN4[\"Choose Approach\"]\nN5[\"Priority Queue\"]\nN6[\"Initialize dist(source)=0\"]\nN7[\"Extract-Min Node\"]\nN8[\"Relax Outgoing Edges\"]\nN9[\"Integrate Results\"]\nN10[\"Update Dist/Parents\"]\nN11[\"Reconstruct Path\"]\nN12[\"Shortest Path + Cost\"]\n\nN1 --> N2\nN2 --> N3\nN3 --> N4\nN4 --> N5\nN4 --> N7\nN5 --> N6\nN7 --> N8\nN6 --> N9\nN8 --> N9\nN9 --> N10\nN10 --> N11\nN11 --> N12\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#ff6b6b,color:#fff\n    style N3 fill:#ffd43b,color:#000\n    style N4 fill:#ffd43b,color:#000\n    style N5 fill:#ffd43b,color:#000\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#74c0fc,color:#fff\n    style N10 fill:#74c0fc,color:#fff\n    style N11 fill:#51cf66,color:#fff\n    style N12 fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"Weighted graph (non-neg)\"]\n    N2[\"Init dist: src=0, rest=inf\"]\n    N3[\"Priority queue of vertices\"]\n    N4[\"Extract min-dist vertex u\"]\n    N5[\"Mark u finalized\"]\n    N6[\"Relax each edge (u,v)\"]\n    N7{\"dist[u]+w < dist[v]?\"}\n    N8[\"Update dist[v], parent\"]\n    N9{\"Queue empty?\"}\n    N10[\"Back to extract-min\"]\n    N11[\"Shortest-path tree\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 --> N4\n    N4 --> N5\n    N5 --> N6\n    N6 --> N7\n    N7 -->|yes| N8\n    N8 --> N9\n    N7 -->|no| N9\n    N9 -->|no| N10\n    N10 -->|loop| N4\n    N9 -->|yes| N11\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#74c0fc,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#74c0fc,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#74c0fc,color:#fff\n    style N10 fill:#51cf66,color:#fff\n    style N11 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
-      "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: Shortest Path Algorithms. Created using the Programming Framework methodology."
+      "title": "A note on two problems in connexion with graphs",
+      "authors": "Dijkstra, E. W.",
+      "journal": "Numerische Mathematik",
+      "year": "1959",
+      "doi": "10.1007/BF01386390",
+      "url": "https://doi.org/10.1007/BF01386390"
     },
     {
-      "title": "Shortest Path Tree Algorithms, SPT",
-      "authors": "",
-      "journal": "SpringerReference",
-      "year": "None",
-      "pubmed": null,
-      "doi": "10.1007/springerreference_72683",
-      "url": "https://doi.org/10.1007/springerreference_72683"
-    },
-    {
-      "title": "Preliminaries: Shortest Path Algorithms",
-      "authors": "",
-      "journal": "Network Flow Algorithms",
-      "year": "2019",
-      "pubmed": null,
-      "doi": "10.1017/9781316888568.003",
-      "url": "https://doi.org/10.1017/9781316888568.003"
-    },
-    {
-      "title": "Robust Shortest Path Problem: Models and Solution Algorithms",
-      "authors": "Shahabi, Mehrdad",
-      "journal": "",
-      "year": "None",
-      "pubmed": null,
-      "doi": "10.33915/etd.6609",
-      "url": "https://doi.org/10.33915/etd.6609"
+      "title": "Introduction to Algorithms (4th ed.)",
+      "authors": "Cormen, T. H.; Leiserson, C. E.; Rivest, R. L.; Stein, C.",
+      "journal": "MIT Press",
+      "year": "2022",
+      "url": "https://mitpress.mit.edu/9780262046305/introduction-to-algorithms/"
     }
   ],
   "keywords": [
-    "shortest",
-    "path",
-    "algorithms"
+    "Dijkstra's algorithm",
+    "shortest path",
+    "priority queue",
+    "edge relaxation",
+    "greedy"
   ],
   "relatedProcesses": [],
   "created": "2026-01-15",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations.\nCurated Mermaid applied (citations preserved)."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "namedCollections": [],
+  "graphMetrics": {
+    "nodes": 11,
+    "edges": 12,
+    "conditionals": 2,
+    "andGates": 2,
+    "orGates": 2,
+    "notGates": 0,
+    "loops": 1
+  },
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Weighted graph (non-neg)",
+      "detail": "Source vertex given",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N2",
+      "label": "Init dist: src=0, rest=inf",
+      "detail": "Tentative distances",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N3",
+      "label": "Priority queue of vertices",
+      "detail": "Keyed by distance",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N4",
+      "label": "Extract min-dist vertex u",
+      "detail": "Closest unsettled",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N5",
+      "label": "Mark u finalized",
+      "detail": "Distance is optimal",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N6",
+      "label": "Relax each edge (u,v)",
+      "detail": "Examine neighbors",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N7",
+      "label": "dist[u]+w < dist[v]?",
+      "detail": "Shorter route found",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N8",
+      "label": "Update dist[v], parent",
+      "detail": "Decrease-key",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N9",
+      "label": "Queue empty?",
+      "detail": "All settled",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N10",
+      "label": "Back to extract-min",
+      "detail": "Next vertex",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N11",
+      "label": "Shortest-path tree",
+      "detail": "Distances + parents",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 0
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:algorithms_data_structures-shortest-path-algorithms",
+    "graphType": "decision_flowchart",
+    "topologySignature": "33b45b4ffc3f09ba",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "graphType": "decision_flowchart",
+  "domainContext": "Graph algorithms"
 }

@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2604.19688v1",
+  "arxiv_id": "2604.19688v1",
+  "title": "Quantum Eigenvalue Transformations for Arbitrary Matrices",
+  "authors": [
+    "Xabier Gutiérrez",
+    "Lorenzo Laneve",
+    "Mikel Sanz"
+  ],
+  "author_string": "Xabier Gutiérrez, Lorenzo Laneve, Mikel Sanz",
+  "journal": "arXiv:2604.19688v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Quantum Signal Processing (QSP) and Quantum Singular Value Transformation (QSVT) provide an efficient framework for implementing polynomials of block-encoded matrices, and thus offer a systematic approach to quantum algorithm design. However, despite a number of recent advances, important limitations remain. In particular, QSP can only transform unitary matrices, by applying a polynomial to their eigenvalues, while QSVT is a singular-value transformation and thus one can only obtain the polynomial of Hermitian matrices. As a consequence, these techniques do not directly apply to an arbitrary non-Hermitian matrix that is not diagonalizable. In this work, we propose a simple yet powerful method to extend these ideas to arbitrary square matrices by acting on their eigenvalues. To this end, we introduce the notion of an $n$-regular block encoding, namely, a block encoding whose $k$-th power reproduces the $k$-th power of the encoded matrix for every $0 < k < n$. We show that applying QSP to any unitary with this property is equivalent to applying a polynomial of degree at most $n$ to the block-encoded matrix, independently of its internal structure. Moreover, we provide a simple construction that transforms any block encoding into an $n$-regular one using only $O(\\log n)$ ancillary qubits and operations. Finally, we show that this construction induces the desired transformation on the eigenvalues associated with the Jordan normal form of the matrix.",
+  "categories": [
+    "quant-ph"
+  ],
+  "primary_category": "quant-ph",
+  "comment": null,
+  "published_date": "2026-04-21T17:11:03Z",
+  "updated_date": "2026-04-21T17:11:03Z",
+  "url": "https://arxiv.org/abs/2604.19688v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.19688v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-23T10:15:40.084635",
+  "category": "physics",
+  "subcategories": [
+    "quant-ph"
+  ]
+}

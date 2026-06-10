@@ -1,21 +1,23 @@
 {
   "id": "quantum_chemistry-spectroscopic-calculations",
-  "name": "Spectroscopic Calculations",
+  "name": "Harmonic Vibrational (IR) Frequencies",
   "category": "chemistry",
   "subcategory": "quantum_chemistry",
   "subcategory_name": "Quantum Chemistry",
-  "description": "Spectroscopic Calculations process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "Vibrational frequencies follow from the Hessian at an optimized geometry: mass-weighting and diagonalization give normal modes; the absence of imaginary frequencies confirms a minimum, IR intensities come from dipole derivatives, and scaled frequencies simulate the IR spectrum.",
   "complexity": {
-    "nodes": 26,
-    "edges": 22,
-    "conditionals": 0,
+    "nodes": 10,
+    "edges": 10,
+    "conditionals": 1,
     "logicGates": {
-      "orGates": 0,
-      "andGates": 1,
+      "orGates": 1,
+      "andGates": 0,
+      "notGates": 0,
       "total": 1
     },
-    "level": "medium",
-    "detailLevel": "medium"
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 1
   },
   "colorScheme": {
     "red": {
@@ -39,53 +41,151 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nA5[Molecular System] --> B5[Spectroscopic Calculation Method]\nC5[Quantum States] --> D5[Transition Analysis]\nE5[Spectroscopic Properties] --> F5[Calculation Setup]\nB5 --> G5[State Preparation]\nD5 --> H5[Transition Selection]\nF5 --> I5[Computational Parameters]\nG5 --> J5[Initial State]\nH5 --> K5[Transition Rules]\nI5 --> L5[Calculation Setup]\nJ5 --> M5[State Characterization]\nK5 --> L5\nL5 --> N5[Spectroscopic Calculation]\nM5 --> O5[Property Calculation]\nN5 --> P5[Transition Analysis]\nO5 --> Q5[Quantum Analysis]\nP5 --> R5[Spectroscopic Properties]\nQ5 --> S5[Property Analysis]\nR5 --> T5[Spectroscopic Features]\nS5 --> U5[Intensity Calculation]\nT5 --> V5[Feature Analysis]\nU5 --> W5[Spectroscopic Efficiency]\nV5 --> X5[Spectroscopic Characterization]\nW5 --> Y5[Process Optimization]\nX5 --> Z5[Final Spectroscopic Properties]\nY5 --> Z5\n\n    style A5 fill:#ff6b6b,color:#fff\n    style C5 fill:#ff6b6b,color:#fff\n    style E5 fill:#ff6b6b,color:#fff\n    style B5 fill:#ffd43b,color:#000\n    style D5 fill:#ffd43b,color:#000\n    style F5 fill:#ffd43b,color:#000\n    style G5 fill:#ffd43b,color:#000\n    style H5 fill:#ffd43b,color:#000\n    style I5 fill:#ffd43b,color:#000\n    style J5 fill:#ffd43b,color:#000\n    style K5 fill:#ffd43b,color:#000\n    style L5 fill:#ffd43b,color:#000\n    style M5 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style O5 fill:#51cf66,color:#fff\n    style P5 fill:#51cf66,color:#fff\n    style Q5 fill:#51cf66,color:#fff\n    style R5 fill:#51cf66,color:#fff\n    style S5 fill:#51cf66,color:#fff\n    style T5 fill:#51cf66,color:#fff\n    style U5 fill:#51cf66,color:#fff\n    style V5 fill:#51cf66,color:#fff\n    style W5 fill:#51cf66,color:#fff\n    style X5 fill:#51cf66,color:#fff\n    style Y5 fill:#51cf66,color:#fff\n    style Z5 fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"Optimized geometry\"]\n    N2[\"Compute Hessian\"]\n    N3[\"Mass-weight + diagonalize\"]\n    N4[\"Normal modes + freqs\"]\n    N5{\"Imaginary frequencies?\"}\n    N6[\"Re-optimize geometry\"]\n    N7[\"IR intensities (dμ/dQ)\"]\n    N8[\"Apply scale factor\"]\n    N9[\"Simulate IR spectrum\"]\n    N10[\"Assign vibrational bands\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 --> N4\n    N4 --> N5\n    N5 -->|yes| N6\n    N6 -->|re-run| N1\n    N5 -->|no| N7\n    N7 --> N8\n    N8 --> N9\n    N9 --> N10\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#74c0fc,color:#fff\n    style N5 fill:#74c0fc,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#51cf66,color:#fff\n    style N10 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "title": "Introduction to Computational Chemistry, 3rd ed. — Vibrational Frequencies",
+      "authors": "Jensen, F.",
+      "journal": "Wiley",
+      "year": "2017",
+      "doi": "10.1002/9781119839118",
+      "url": "https://doi.org/10.1002/9781119839118"
+    },
+    {
+      "title": "Harmonic vibrational frequencies: scale factors for obtaining fundamentals",
+      "authors": "Scott, A. P.; Radom, L.",
+      "journal": "Journal of Physical Chemistry",
+      "year": "1996",
+      "doi": "10.1021/jp960976r",
+      "url": "https://doi.org/10.1021/jp960976r"
+    },
+    {
+      "title": "Essentials of Computational Chemistry: Theories and Models, 2nd ed.",
+      "authors": "Cramer, C. J.",
+      "journal": "Wiley",
+      "year": "2004",
       "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: Spectroscopic Calculations. Created using the Programming Framework methodology."
-    },
-    {
-      "title": "Spectroscopic Calculations Using Computer Software: Winmostar",
-      "authors": "Ali, Rajjab; Rafique, Sahid; Farooq Khan, Zia; Aadil, Muhammad; Ibrahim, Sobhy M.; Mahmoud, Khaled H.",
-      "journal": "Afinidad. Journal of Chemical Engineering Theoretical and Applied Chemistry",
-      "year": "2025",
-      "pubmed": null,
-      "doi": "10.55815/9800292",
-      "url": "https://doi.org/10.55815/9800292"
-    },
-    {
-      "title": "Analysis of NMR Spectroscopic Parameters",
-      "authors": "Autschbach, Jochen",
-      "journal": "NMR Spectroscopic Parameters",
-      "year": "2025",
-      "pubmed": null,
-      "doi": "10.1039/9781837678020-00303",
-      "url": "https://doi.org/10.1039/9781837678020-00303"
-    },
-    {
-      "title": "Highly Accurate Spectroscopic Parameters from Ab Initio Calculations",
-      "authors": "Stein, Christopher J.",
-      "journal": "",
-      "year": "2016",
-      "pubmed": null,
-      "doi": "10.1007/978-3-658-14830-0",
-      "url": "https://doi.org/10.1007/978-3-658-14830-0"
+      "url": "https://www.wiley.com/en-us/Essentials+of+Computational+Chemistry%3A+Theories+and+Models%2C+2nd+Edition-p-9780470091821"
     }
   ],
   "keywords": [
-    "spectroscopic",
-    "calculations"
+    "hessian",
+    "normal modes",
+    "vibrational frequencies",
+    "ir intensity",
+    "frequency scaling"
   ],
   "relatedProcesses": [],
   "created": "2026-01-08",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Optimized geometry",
+      "detail": "Stationary point",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N2",
+      "label": "Compute Hessian",
+      "detail": "Second energy derivatives",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N3",
+      "label": "Mass-weight + diagonalize",
+      "detail": "Solve eigenvalue problem",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N4",
+      "label": "Normal modes + freqs",
+      "detail": "Force-constant eigenvalues",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N5",
+      "label": "Imaginary frequencies?",
+      "detail": "Minimum vs saddle",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N6",
+      "label": "Re-optimize geometry",
+      "detail": "Follow the soft mode",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N7",
+      "label": "IR intensities (dμ/dQ)",
+      "detail": "Dipole derivatives",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N8",
+      "label": "Apply scale factor",
+      "detail": "Correct harmonic bias",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N9",
+      "label": "Simulate IR spectrum",
+      "detail": "Broadened peaks",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N10",
+      "label": "Assign vibrational bands",
+      "detail": "Mode-by-mode assignment",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 1
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:quantum_chemistry-spectroscopic-calculations",
+    "graphType": "cyclic_pathway",
+    "topologySignature": "74b7fcb104192b66",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "namedCollections": [
+    "quantum-chemistry"
+  ],
+  "graphMetrics": {
+    "nodes": 10,
+    "edges": 10,
+    "conditionals": 1,
+    "andGates": 0,
+    "orGates": 1,
+    "notGates": 0,
+    "loops": 1
+  },
+  "graphType": "cyclic_pathway",
+  "domainContext": "Vibrational spectra computation"
 }

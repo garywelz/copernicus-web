@@ -1,0 +1,46 @@
+{
+  "id": "biorxiv_10.64898_2026.01.15.699631",
+  "doi": "10.64898/2026.01.15.699631",
+  "title": "MorphoLearn: A morphology-driven workflow to decipher 3D electron microscopy segmentation in diatoms",
+  "authors": [
+    "Uwizeye, C.",
+    "Flori, S.",
+    "Angulo, J.",
+    "Jouneau, P.-H.",
+    "Gallet, B.",
+    "Albanese, P.",
+    "Finazzi, G."
+  ],
+  "author_string": "Uwizeye, C., Flori, S., Angulo, J., Jouneau, P.-H., Gallet, B. et al.",
+  "journal": "bioRxiv",
+  "journal_full": "bioRxiv",
+  "year": "2026",
+  "abstract": "Three-dimensional electron microscopy (3D EM) enables the quantitative analysis of cellular ultrastructure. However, large-scale segmentation of whole-cell volumes poses a significant challenge, especially in biologically diverse systems. Unlike medical and animal cell imaging, which often benefit from temporal redundancy and relatively uniform morphology, studies of microbial and microalgal biodiversity must rely on static snapshots. These snapshots exhibit high variability in cell shape, organelle organisation, and image contrast. Consequently, robust AI-assisted segmentation in this context requires models that learn directly from morphological features and can adapt to heterogeneous sample preparation. In this paper, we present a systematic framework for AI-assisted segmentation of Focused Ion Beam-Scanning Electron Microscopy (FIB-SEM) datasets. This framework is specifically designed to address the challenges posed by morphological diversity and contrast variability while remaining within realistic computational constraints. We evaluate multiple lightweight 3D encoder-decoder architectures and identify VNet as the best option for balancing computational efficiency and volumetric accuracy in whole-cell segmentation. Using datasets from two strains of Phaeodactylum tricornutum and extending our analysis to cross-species comparisons, we demonstrate that training on specific regions of interest can lead to an overestimation of model performance. In contrast, performing whole-cell segmentation uncovers significant differences in architectural robustness. Moreover, we show that transfer learning and contrast-aware hybrid strategies allow for efficient adaptation to previously unseen datasets with minimal annotation. The incorporation of boundary-aware loss functions significantly enhances the delineation of closely associated organelles, such as chloroplasts and mitochondria, in multi-class segmentation tasks. Together, these findings establish a scalable, reproducible, and biologically informed AI framework for 3D FIB-SEM segmentation. This framework enables high-throughput analysis of cellular ultrastructure across diverse species and imaging conditions.\n\nAuthor SummaryCells exhibit a wide range of shapes, sizes, and internal structures, particularly among various microbial species. These morphological differences are not arbitrary; they indicate how cells adapt to their environments and manage essential biological functions. Modern three-dimensional electron microscopy can capture this structural diversity at the nanometre scale, but analysing the resulting data is often slow. This is due to the time-consuming process of manually outlining cellular structures, which also requires expert knowledge. Artificial intelligence (AI) has made significant advances in accelerating image analysis in medical and animal cell studies, typically by learning from repeated observations over time. However, studies focusing on microbial and microalgal biodiversity often rely on single snapshots of diverse cells prepared under varying imaging conditions. This complicates automated analysis since AI systems must learn from morphology directly rather than from temporal repetition. In this study, we developed and evaluated an AI-assisted segmentation framework specifically for whole-cell 3D electron microscopy data. By systematically comparing efficient neural network architectures and incorporating transfer learning and contrast-aware strategies, we demonstrate that accurate segmentation can be achieved even with limited training data and standard computing resources. Our approach facilitates faster, scalable, and reproducible analysis of cellular ultrastructure, paving the way for large-scale investigations into cell morphology, adaptation, and diversity across species.\n\nSignificance statementQuantitative analysis of cellular ultrastructure across species is currently limited by challenges in segmenting large three-dimensional electron microscopy datasets. Unlike medical imaging, which often benefits from artificial intelligence due to its use of temporal repetition and consistent morphology, studies of microbial biodiversity depend on single snapshots that display extreme variations in cell shape and image contrast. This work presents a scalable, morphology-driven AI framework for whole-cell 3D segmentation that is resilient to biological diversity and variations in sample preparation. By enabling accurate analysis with minimal annotations and standard computational resources, this approach enhances access to high-throughput ultrastructural studies and facilitates comparative investigations of cellular adaptation across different species.",
+  "keywords": [],
+  "categories": [
+    "cell biology"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.64898/2026.01.15.699631",
+  "source": "biorxiv",
+  "sources": [
+    "biorxiv"
+  ],
+  "acquired_date": "2026-05-20T22:15:23.945006",
+  "category": "biology",
+  "subcategories": [
+    "cell biology"
+  ],
+  "published_date": "2026-01-20",
+  "updated_date": "2026-01-20",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "biorxiv",
+  "preprint_version": "2",
+  "preprint_type": "new results",
+  "license": "cc_by",
+  "jatsxml": "https://www.biorxiv.org/content/early/2026/01/20//2026.01.15.699631.source.xml",
+  "published_doi": null,
+  "author_corresponding": "Clarisse Uwizeye",
+  "author_corresponding_institution": "Univ. Grenoble Alpes, CNRS, CEA, INRAe, IRIG-LPCV, Grenoble, France"
+}

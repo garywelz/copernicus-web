@@ -1,0 +1,39 @@
+{
+  "id": "algebraic_geometry-affine-projective",
+  "name": "Affine & Projective Varieties",
+  "category": "mathematics",
+  "subcategory": "algebraic_geometry",
+  "subcategory_name": "Algebraic Geometry",
+  "description": "V(I), Zariski topology. Hilbert Nullstellensatz: I(V(J))=√J. Affine vs projective space. Irreducible varieties. Coordinate ring.",
+  "mermaid": "graph TD\n    D1[\"Def: Affine variety\\nV(I) = zeros of I\"]\n    D2[\"Def: Zariski topol\\nclosed = V(I)\"]\n    D3[\"Def: Projective space\\nℙⁿ = kn+1∖0/~\"]\n    D4[\"Def: Irreducible\\nV=V₁∪V₂⇒V=Vᵢ\"]\n    T1[\"Thm: Nullstellensatz\\nI(V(J))=√J\"]\n    T2[\"Thm: V↔I bijection\\nirred aff var ↔ prime\"]\n    T3[\"Thm: Coordinate ring\\nΓV = k[x]/I(V)\"]\n    T4[\"Thm: dim V = tr deg\\nof frac field\"]\n    T5[\"Thm: Projective variety\\nhomog ideal V\"]\n    D1 --> D2\n    D1 --> T1\n    D2 --> D4\n    D1 --> T2\n    T2 --> T3\n    T3 --> T4\n    D3 --> T5\n    T1 --> T2\n    classDef definition fill:#b197fc,color:#fff\n    classDef theorem fill:#51cf66,color:#fff\n    class D1,D2,D3,D4 definition\n    class T1,T2,T3,T4,T5 theorem",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

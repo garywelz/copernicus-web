@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2604.25062v1",
+  "arxiv_id": "2604.25062v1",
+  "title": "Learning biophysical models of gene regulation with probability flow matching",
+  "authors": [
+    "Suryanarayana Maddu",
+    "Victor Chardès",
+    "Michael J. Shelley"
+  ],
+  "author_string": "Suryanarayana Maddu, Victor Chardès, Michael J. Shelley",
+  "journal": "arXiv:2604.25062v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Cellular differentiation is governed by gene regulatory networks, the high-dimensional stochastic biochemical systems that determine the transcriptional landscape and mediate cellular responses to signals and perturbations. Although single-cell RNA sequencing provides quantitative snapshots of the transcriptome, current methods for inferring gene-regulatory dynamics often lack mechanistic interpretability and fail to generalize to unseen conditions. Here we introduce Probability Flow Matching (PFM), a scalable framework for learning biophysically consistent stochastic processes directly from time-resolved single-cell measurements. Applying PFM to three hematopoiesis datasets, we show that models with similar interpolation accuracy can encode fundamentally different dynamics, with only biophysically consistent formulations accurately capturing mechanisms of lineage transitions, fate specification, and gene perturbation responses. We further demonstrate that PFM accommodates unbalanced populations, enabling simultaneous inference of cellular proliferation and death dynamics. Together, these results establish PFM as a flexible, scalable framework for integrating mechanistic modeling with single-cell omics.",
+  "categories": [
+    "q-bio.MN",
+    "cs.LG",
+    "physics.bio-ph"
+  ],
+  "primary_category": "physics.bio-ph",
+  "comment": null,
+  "published_date": "2026-04-27T23:30:18Z",
+  "updated_date": "2026-04-27T23:30:18Z",
+  "url": "https://arxiv.org/abs/2604.25062v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.25062v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-05T10:15:43.368046",
+  "category": "physics",
+  "subcategories": [
+    "q-bio.MN",
+    "cs.LG",
+    "physics.bio-ph"
+  ]
+}

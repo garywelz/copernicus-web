@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dennis Sullivan Collection - Mathematics Process</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 20px; }
+        .container { max-width: 900px; margin: 0 auto; background: white; border-radius: 15px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); overflow: hidden; padding: 30px; }
+        h1 { color: #2c3e50; margin-bottom: 15px; }
+        p { color: #555; margin-bottom: 25px; line-height: 1.6; }
+        .nav-links { margin-bottom: 20px; }
+        .nav-links a { color: #e67e22; text-decoration: none; margin-right: 20px; font-weight: 500; }
+        .nav-links a:hover { text-decoration: underline; }
+        .sections { display: grid; gap: 15px; }
+        .sections a { display: block; padding: 20px; background: #f8f9fa; border-radius: 10px; color: #2c3e50; text-decoration: none; font-weight: 500; border-left: 4px solid #8e44ad; }
+        .sections a:hover { background: #ecf0f1; }
+        .section-label { font-size: 0.85em; color: #7f8c8d; margin-top: 5px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="nav-links">
+            <a id="back-link" href="#">← Back to Mathematics Database</a>
+            <a href="https://www.gc.cuny.edu/people/dennis-sullivan" target="_blank">Dennis Sullivan (CUNY GC)</a>
+            <a href="https://abelprize.no/laureate/dennis-p-sullivan" target="_blank">Abel Prize 2022</a>
+        </div>
+        <script>
+            (function() {
+                document.getElementById('back-link').href = window.location.hostname.includes('storage.googleapis.com')
+                    ? 'https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/mathematics-database-table.html'
+                    : '../../mathematics-database-table.html';
+            })();
+        </script>
+        <h1>Dennis Sullivan Collection</h1>
+        <p>Dependency charts related to the work of Dennis Sullivan (CUNY Graduate Center, Abel Prize 2022): rational homotopy, complex dynamics, string topology. Foundational charts and Sullivan-specific results.</p>
+        <div class="sections">
+            <h3 style="color:#8e44ad;margin:20px 0 10px 0;">Foundational</h3>
+            <a href="geometry_topology-de-rham-cohomology.html">De Rham Cohomology <span class="section-label">Differential forms, de Rham theorem — foundation for Sullivan minimal models</span></a>
+            <a href="geometry_topology-homotopy-theory-basics.html">Homotopy Theory Basics <span class="section-label">Homotopy groups, CW complexes, rationalization</span></a>
+            <a href="../calculus_analysis/calculus_analysis-complex-dynamics-julia-fatou.html">Complex Dynamics — Julia & Fatou Sets <span class="section-label">Rational maps, Julia set, Fatou set, wandering domains</span></a>
+            <a href="../calculus_analysis/calculus_analysis-measurable-riemann-mapping.html">Measurable Riemann Mapping Theorem <span class="section-label">Beltrami equation, quasiconformal maps — key for Sullivan's proofs</span></a>
+            <h3 style="color:#8e44ad;margin:20px 0 10px 0;">Sullivan's Work</h3>
+            <a href="geometry_topology-sullivan-minimal-models.html">Sullivan Minimal Models & Rational Homotopy <span class="section-label">CDGA, minimal model, equivalence with rational homotopy types</span></a>
+            <a href="../calculus_analysis/calculus_analysis-sullivan-no-wandering-domains.html">Sullivan's No Wandering Domain Theorem <span class="section-label">Fatou components eventually periodic for rational maps</span></a>
+            <a href="../calculus_analysis/calculus_analysis-sullivan-dictionary.html">Sullivan Dictionary <span class="section-label">Kleinian groups ↔ Rational maps correspondence</span></a>
+            <a href="geometry_topology-string-topology.html">String Topology <span class="section-label">Chas-Sullivan operations, loop space, TQFT structure</span></a>
+        </div>
+    </div>
+</body>
+</html>

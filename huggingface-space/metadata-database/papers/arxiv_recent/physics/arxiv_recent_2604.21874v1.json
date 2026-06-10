@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2604.21874v1",
+  "arxiv_id": "2604.21874v1",
+  "title": "Enhancing Coherence of Spin Centers in p-n Diodes via Optimization Algorithms",
+  "authors": [
+    "Jonatan A. Posligua",
+    "David E. Stewart",
+    "Denis R. Candido"
+  ],
+  "author_string": "Jonatan A. Posligua, David E. Stewart, Denis R. Candido",
+  "journal": "arXiv:2604.21874v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Solid-state spin defects hold great promise as building blocks for various quantum technologies. Embedding spin centers in $p$-$n$ diodes under reverse bias has proved to be a powerful strategy to narrow the optical linewidth and increase spin coherence, while also enabling control of the photoluminescence wavelength via Stark shift. Given the multitude of parameters influencing spin centers in diodes (e.g., doping densities and profiles, temperature, bias voltage, spin center position), a question that has not yet been answered is: which set of these design parameters maximizes spin center coherence? In this work, we address this question by developing a scaled gradient descent optimization algorithm that minimizes the optical linewidth of spin centers by combining the numerical solution of a diode's Poisson equation with calculated charge noise from the non-depleted regions. Our optimization is performed for both single- and multiple-parameter cases for divacancies in SiC $p$-$i$-$n$ diodes, including reverse-bias voltage, doping density and profile, and diode total length. Importantly, the optimization is subject to realistic physical constraints, such as small operating bias voltages, avoidance of the dielectric breakdown regime and physical thresholds for doping density. Additionally, due to the leakage current at reverse bias voltages, we develop a new formalism to investigate its influence on coherence. We show that the corresponding noise can be mitigated by implanting spin defects away from the diode's surfaces. Our work provides guidance on experimentally relevant diodes for hosting spin centers with the narrowest optical linewidths and longest coherence times.",
+  "categories": [
+    "quant-ph",
+    "cond-mat.mes-hall"
+  ],
+  "primary_category": "cond-mat.mes-hall",
+  "comment": null,
+  "published_date": "2026-04-23T17:17:36Z",
+  "updated_date": "2026-04-23T17:17:36Z",
+  "url": "https://arxiv.org/abs/2604.21874v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.21874v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-27T10:15:32.962025",
+  "category": "physics",
+  "subcategories": [
+    "quant-ph",
+    "cond-mat.mes-hall"
+  ]
+}

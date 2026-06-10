@@ -1,0 +1,39 @@
+{
+  "id": "number_theory-peano-arithmetic-godel-completeness",
+  "name": "Peano Arithmetic & Gödel — Part 6: Completeness Theorem",
+  "category": "mathematics",
+  "subcategory": "number_theory",
+  "subcategory_name": "Number Theory",
+  "description": "Gödel's Completeness Theorem: T ⊨ φ iff T ⊢ φ. Every consistent first-order theory has a model. Proof via Henkin construction: extend to maximal consistent Henkin theory, build term model.",
+  "mermaid": "graph TD\n    RefSound[\"Ref: Soundness (Part 4)\"]\n    DefConsistent[\"Def: T consistent iff T ⊬ ⊥\"]\n    DefMaxCons[\"Def: Maximal consistent: T maximal, consistent\"]\n    LemLindenbaum[\"Lem: Lindenbaum: every consistent T extends to maximal consistent Δ\"]\n    DefHenkin[\"Def: Henkin theory: ∃xφ ∈ Δ ⇒ φ(c/x) ∈ Δ for some constant c\"]\n    LemHenkinExt[\"Lem: Every consistent T extends to Henkin theory T' in expanded language\"]\n    LemTermModel[\"Lem: From maximal Henkin T'', build term model M: |M| = closed terms, truth = membership\"]\n    ThmCompleteness[\"Thm: Completeness: T consistent ⇒ T has model\"]\n    CorCompact[\"Cor: Compactness: T ⊨ φ ⇒ finite T₀ ⊆ T with T₀ ⊨ φ\"]\n    RefSound --> ThmCompleteness\n    DefConsistent --> DefMaxCons\n    DefMaxCons --> LemLindenbaum\n    LemLindenbaum --> LemHenkinExt\n    DefHenkin --> LemHenkinExt\n    LemHenkinExt --> LemTermModel\n    LemTermModel --> ThmCompleteness\n    ThmCompleteness --> CorCompact\n    classDef definition fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef lemma fill:#74c0fc,color:#fff,stroke:#4dabf7\n    classDef theorem fill:#51cf66,color:#fff,stroke:#40c057\n    classDef corollary fill:#1abc9c,color:#fff,stroke:#16a085\n    classDef ref fill:#bdc3c7,color:#333,stroke:#95a5a6\n    class RefSound ref\n    class DefConsistent,DefMaxCons,DefHenkin definition\n    class LemLindenbaum,LemHenkinExt,LemTermModel lemma\n    class ThmCompleteness theorem\n    class CorCompact corollary",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

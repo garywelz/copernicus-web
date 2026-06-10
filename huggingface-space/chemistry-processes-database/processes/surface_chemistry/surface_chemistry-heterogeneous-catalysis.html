@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Heterogeneous Catalysis - Chemistry Process</title>
+    <title>Heterogeneous Catalysis (Langmuir–Hinshelwood) - Chemistry Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Heterogeneous Catalysis</h1>
+            <h1>Heterogeneous Catalysis (Langmuir–Hinshelwood)</h1>
             <div class="header-meta">
                 <span class="meta-item">Chemistry</span>
                 <span class="meta-item">Surface Chemistry</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,68 +234,57 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Heterogeneous Catalysis process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>In the Langmuir-Hinshelwood mechanism both reactants adsorb on the catalyst surface, diffuse and react in the adsorbed state, and the product desorbs to regenerate the active site, giving a catalytic turnover cycle.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-A1[Reactant Molecules] --> B1[Catalyst Surface Method]
-C1[Catalyst Material] --> D1[Surface Characterization]
-E1[Reaction Conditions] --> F1[Temperature Control]
-B1 --> G1[Surface Preparation]
-D1 --> H1[Active Site Analysis]
-F1 --> I1[Pressure Regulation]
-G1 --> J1[Surface Cleaning]
-H1 --> K1[Site Density]
-I1 --> L1[Reaction Pressure]
-J1 --> M1[Surface Activation]
-K1 --> L1
-L1 --> N1[Adsorption Process]
-M1 --> O1[Reactant Adsorption]
-N1 --> P1[Surface Reaction]
-O1 --> Q1[Catalytic Activity]
-P1 --> R1[Product Formation]
-Q1 --> S1[Reaction Rate]
-R1 --> T1[Desorption Process]
-S1 --> U1[Turnover Frequency]
-T1 --> V1[Product Collection]
-U1 --> W1[Catalyst Performance]
-V1 --> X1[Yield Analysis]
-W1 --> Y1[Optimization Process]
-X1 --> Z1[Catalytic Efficiency]
-Y1 --> Z1
+    N1["Reactants in gas phase"]
+    N2["Adsorb on surface"]
+    N3{"Both species adsorbed?"}
+    N4["Wait for co-adsorption"]
+    N5["Surface diffusion"]
+    N6["React on surface"]
+    N7["Product adsorbed"]
+    N8["Desorb product"]
+    N9["Site regenerated"]
+    N10["Catalytic turnover"]
 
-    style A1 fill:#ff6b6b,color:#fff
-    style C1 fill:#ff6b6b,color:#fff
-    style E1 fill:#ff6b6b,color:#fff
-    style B1 fill:#ffd43b,color:#000
-    style D1 fill:#ffd43b,color:#000
-    style F1 fill:#ffd43b,color:#000
-    style G1 fill:#ffd43b,color:#000
-    style H1 fill:#ffd43b,color:#000
-    style I1 fill:#ffd43b,color:#000
-    style J1 fill:#ffd43b,color:#000
-    style K1 fill:#ffd43b,color:#000
-    style L1 fill:#ffd43b,color:#000
-    style M1 fill:#51cf66,color:#fff
-    style N1 fill:#51cf66,color:#fff
-    style O1 fill:#51cf66,color:#fff
-    style P1 fill:#51cf66,color:#fff
-    style Q1 fill:#51cf66,color:#fff
-    style R1 fill:#51cf66,color:#fff
-    style S1 fill:#51cf66,color:#fff
-    style T1 fill:#51cf66,color:#fff
-    style U1 fill:#51cf66,color:#fff
-    style V1 fill:#51cf66,color:#fff
-    style W1 fill:#51cf66,color:#fff
-    style X1 fill:#51cf66,color:#fff
-    style Y1 fill:#51cf66,color:#fff
-    style Z1 fill:#b197fc,color:#fff
+    N1 --> N2
+    N2 --> N3
+    N3 -->|no| N4
+    N4 -->|build coverage| N2
+    N3 -->|yes| N5
+    N5 --> N6
+    N6 --> N7
+    N7 --> N8
+    N8 --> N9
+    N9 -->|next turn| N2
+    N8 --> N10
+
+    style N1 fill:#ff6b6b,color:#fff
+    style N2 fill:#51cf66,color:#fff
+    style N3 fill:#74c0fc,color:#fff
+    style N4 fill:#51cf66,color:#fff
+    style N5 fill:#51cf66,color:#fff
+    style N6 fill:#51cf66,color:#fff
+    style N7 fill:#74c0fc,color:#fff
+    style N8 fill:#51cf66,color:#fff
+    style N9 fill:#51cf66,color:#fff
+    style N10 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Reactants in gas phase</td><td>Triggers & Inputs</td><td><a href="https://www.wiley.com/en-us/Introduction+to+Surface+Chemistry+and+Catalysis%2C+2nd+Edition-p-9780470508237" target="_blank" title="Introduction to Surface Chemistry and Catalysis, 2nd ed. — Reaction Mechanisms" style="color:#e74c3c;">Somorjai, G. A. et al. 2010</a></td></tr><tr><td style="font-weight:600;">Adsorb on surface</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1002/anie.200800480" target="_blank" title="Reactions at solid surfaces: from atoms to complexity (Nobel Lecture)" style="color:#e74c3c;">Ertl, G. 2008</a></td></tr><tr><td style="font-weight:600;">Both species adsorbed?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1002/9783527691937" target="_blank" title="Concepts of Modern Catalysis and Kinetics, 3rd ed." style="color:#e74c3c;">Chorkendorff, I. et al. 2017</a></td></tr><tr><td style="font-weight:600;">Wait for co-adsorption</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1002/9783527691937" target="_blank" title="Concepts of Modern Catalysis and Kinetics, 3rd ed." style="color:#e74c3c;">Chorkendorff, I. et al. 2017</a></td></tr><tr><td style="font-weight:600;">Surface diffusion</td><td>Processing & Operations</td><td><a href="https://www.wiley.com/en-us/Introduction+to+Surface+Chemistry+and+Catalysis%2C+2nd+Edition-p-9780470508237" target="_blank" title="Introduction to Surface Chemistry and Catalysis, 2nd ed. — Reaction Mechanisms" style="color:#e74c3c;">Somorjai, G. A. et al. 2010</a></td></tr><tr><td style="font-weight:600;">React on surface</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1002/anie.200800480" target="_blank" title="Reactions at solid surfaces: from atoms to complexity (Nobel Lecture)" style="color:#e74c3c;">Ertl, G. 2008</a></td></tr><tr><td style="font-weight:600;">Product adsorbed</td><td>Intermediates & States</td><td><a href="https://www.wiley.com/en-us/Introduction+to+Surface+Chemistry+and+Catalysis%2C+2nd+Edition-p-9780470508237" target="_blank" title="Introduction to Surface Chemistry and Catalysis, 2nd ed. — Reaction Mechanisms" style="color:#e74c3c;">Somorjai, G. A. et al. 2010</a></td></tr><tr><td style="font-weight:600;">Desorb product</td><td>Processing & Operations</td><td><a href="https://www.wiley.com/en-us/Introduction+to+Surface+Chemistry+and+Catalysis%2C+2nd+Edition-p-9780470508237" target="_blank" title="Introduction to Surface Chemistry and Catalysis, 2nd ed. — Reaction Mechanisms" style="color:#e74c3c;">Somorjai, G. A. et al. 2010</a></td></tr><tr><td style="font-weight:600;">Site regenerated</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1002/anie.200800480" target="_blank" title="Reactions at solid surfaces: from atoms to complexity (Nobel Lecture)" style="color:#e74c3c;">Ertl, G. 2008</a></td></tr><tr><td style="font-weight:600;">Catalytic turnover</td><td>Products & Outputs</td><td><a href="https://doi.org/10.1002/9783527691937" target="_blank" title="Concepts of Modern Catalysis and Kinetics, 3rd ed." style="color:#e74c3c;">Chorkendorff, I. et al. 2017</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -314,12 +330,12 @@ Y1 --> Z1
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 26</li>
-                        <li><strong>Edges:</strong> 22</li>
-                        <li><strong>Conditionals:</strong> 0</li>
+                        <li><strong>Nodes:</strong> 10</li>
+                        <li><strong>Edges:</strong> 11</li>
+                        <li><strong>Conditionals:</strong> 1</li>
                         <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 1</li>
+                        <li><strong>OR Gates:</strong> 2</li>
+                        <li><strong>Total Gates:</strong> 3</li>
                     </ul>
                 </div>
                 
@@ -327,7 +343,7 @@ Y1 --> Z1
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>heterogeneous</li><li>catalysis</li>
+                        <li>langmuir-hinshelwood</li><li>heterogeneous catalysis</li><li>surface reaction</li><li>desorption</li><li>turnover</li>
                     </ul>
                 </div>
                 
@@ -338,42 +354,32 @@ Y1 --> Z1
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Reactions at solid surfaces: from atoms to complexity (Nobel Lecture)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Ertl, G.
+                            , Angewandte Chemie International Edition
+                             (2008)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>An introduction to heterogeneous catalysis</strong>
-                            
-                            , Electron Microscopy in Heterogeneous Catalysis
-                             (None)
-                            </span>
-                            <br><a href="https://doi.org/10.1887/0750308095/b661c1" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1887/0750308095/b661c1</a>
+                            <br><a href="https://doi.org/10.1002/anie.200800480" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1002/anie.200800480</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Electron microscopy and diffraction in heterogeneous catalysis</strong>
-                            
-                            , Electron Microscopy in Heterogeneous Catalysis
-                             (None)
+                            <strong>Introduction to Surface Chemistry and Catalysis, 2nd ed. — Reaction Mechanisms</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Somorjai, G. A.; Li, Y.
+                            , Wiley
+                             (2010)
                             </span>
-                            <br><a href="https://doi.org/10.1887/0750308095/b661c2" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1887/0750308095/b661c2</a>
                             
+                            <br><a href="https://www.wiley.com/en-us/Introduction+to+Surface+Chemistry+and+Catalysis%2C+2nd+Edition-p-9780470508237" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Heterogeneous Catalysis – Chemistry in Two Dimensions</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Ross, Julian R.H.
-                            , Heterogeneous Catalysis
-                             (2012)
+                            <strong>Concepts of Modern Catalysis and Kinetics, 3rd ed.</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Chorkendorff, I.; Niemantsverdriet, J. W.
+                            , Wiley-VCH
+                             (2017)
                             </span>
-                            <br><a href="https://doi.org/10.1016/b978-0-444-53363-0.10001-5" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1016/b978-0-444-53363-0.10001-5</a>
+                            <br><a href="https://doi.org/10.1002/9783527691937" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1002/9783527691937</a>
                             
                         </li>
                         

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nanomaterials - Chemistry Process</title>
+    <title>BET Surface Area Analysis - Chemistry Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Nanomaterials</h1>
+            <h1>BET Surface Area Analysis</h1>
             <div class="header-meta">
                 <span class="meta-item">Chemistry</span>
                 <span class="meta-item">Surface Chemistry</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,68 +234,56 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Nanomaterials process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>BET analysis measures specific surface area from multilayer gas physisorption: after degassing, nitrogen is dosed at increasing relative pressures, the BET equation is fit over its linear region to extract monolayer capacity, and the surface area follows from molecular cross-section.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-A4[Precursor Materials] --> B4[Nanomaterials Method]
-C4[Synthesis Conditions] --> D4[Size Control]
-E4[Surface Modification] --> F4[Nanostructure Formation]
-B4 --> G4[Nanoparticle Synthesis]
-D4 --> H4[Size Distribution]
-F4 --> I4[Surface Analysis]
-G4 --> J4[Nucleation Process]
-H4 --> K4[Growth Control]
-I4 --> L4[Surface Properties]
-J4 --> M4[Particle Formation]
-K4 --> L4
-L4 --> N4[Size Effects]
-M4 --> O4[Nanoparticle Growth]
-N4 --> P4[Size-Dependent Properties]
-O4 --> Q4[Nanostructure Analysis]
-P4 --> R4[Surface Area Effects]
-Q4 --> S4[Property Analysis]
-R4 --> T4[Nanomaterial Properties]
-S4 --> U4[Size Parameters]
-T4 --> V4[Property Optimization]
-U4 --> W4[Nanomaterial Efficiency]
-V4 --> X4[Nanomaterial Characterization]
-W4 --> Y4[Process Optimization]
-X4 --> Z4[Final Nanomaterial]
-Y4 --> Z4
+    N1["Porous / powder sample"]
+    N2["Degas + cool (LN2)"]
+    N3["Dose N2 at varied P/P0"]
+    N4["Measure adsorbed volume"]
+    N5["Plot BET equation"]
+    N6{"Linear in 0.05–0.3?"}
+    N7["Narrow P/P0 window"]
+    N8["Monolayer capacity Vm"]
+    N9["Area = Vm·N·σ"]
+    N10["Specific surface area"]
 
-    style A4 fill:#ff6b6b,color:#fff
-    style C4 fill:#ff6b6b,color:#fff
-    style E4 fill:#ff6b6b,color:#fff
-    style B4 fill:#ffd43b,color:#000
-    style D4 fill:#ffd43b,color:#000
-    style F4 fill:#ffd43b,color:#000
-    style G4 fill:#ffd43b,color:#000
-    style H4 fill:#ffd43b,color:#000
-    style I4 fill:#ffd43b,color:#000
-    style J4 fill:#ffd43b,color:#000
-    style K4 fill:#ffd43b,color:#000
-    style L4 fill:#ffd43b,color:#000
-    style M4 fill:#51cf66,color:#fff
+    N1 --> N2
+    N2 --> N3
+    N3 --> N4
+    N4 --> N5
+    N5 --> N6
+    N6 -->|no| N7
+    N7 -->|re-dose| N3
+    N6 -->|yes| N8
+    N8 --> N9
+    N9 --> N10
+
+    style N1 fill:#ff6b6b,color:#fff
+    style N2 fill:#51cf66,color:#fff
+    style N3 fill:#51cf66,color:#fff
     style N4 fill:#51cf66,color:#fff
-    style O4 fill:#51cf66,color:#fff
-    style P4 fill:#51cf66,color:#fff
-    style Q4 fill:#51cf66,color:#fff
-    style R4 fill:#51cf66,color:#fff
-    style S4 fill:#51cf66,color:#fff
-    style T4 fill:#51cf66,color:#fff
-    style U4 fill:#51cf66,color:#fff
-    style V4 fill:#51cf66,color:#fff
-    style W4 fill:#51cf66,color:#fff
-    style X4 fill:#51cf66,color:#fff
-    style Y4 fill:#51cf66,color:#fff
-    style Z4 fill:#b197fc,color:#fff
+    style N5 fill:#51cf66,color:#fff
+    style N6 fill:#74c0fc,color:#fff
+    style N7 fill:#51cf66,color:#fff
+    style N8 fill:#51cf66,color:#fff
+    style N9 fill:#51cf66,color:#fff
+    style N10 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Porous / powder sample</td><td>Triggers & Inputs</td><td><a href="https://www.wiley.com/en-us/Introduction+to+Surface+Chemistry+and+Catalysis%2C+2nd+Edition-p-9780470508237" target="_blank" title="Introduction to Surface Chemistry and Catalysis, 2nd ed. — Surface Area" style="color:#e74c3c;">Somorjai, G. A. et al. 2010</a></td></tr><tr><td style="font-weight:600;">Degas + cool (LN2)</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1515/pac-2014-1117" target="_blank" title="Physisorption of gases, with special reference to the evaluation of surface area (IUPAC technical report)" style="color:#e74c3c;">Thommes, M. et al. 2015</a></td></tr><tr><td style="font-weight:600;">Dose N2 at varied P/P0</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1021/ja01269a023" target="_blank" title="Adsorption of gases in multimolecular layers (BET theory)" style="color:#e74c3c;">Brunauer, S. et al. 1938</a></td></tr><tr><td style="font-weight:600;">Measure adsorbed volume</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1021/ja01269a023" target="_blank" title="Adsorption of gases in multimolecular layers (BET theory)" style="color:#e74c3c;">Brunauer, S. et al. 1938</a></td></tr><tr><td style="font-weight:600;">Plot BET equation</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1021/ja01269a023" target="_blank" title="Adsorption of gases in multimolecular layers (BET theory)" style="color:#e74c3c;">Brunauer, S. et al. 1938</a></td></tr><tr><td style="font-weight:600;">Linear in 0.05–0.3?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1515/pac-2014-1117" target="_blank" title="Physisorption of gases, with special reference to the evaluation of surface area (IUPAC technical report)" style="color:#e74c3c;">Thommes, M. et al. 2015</a></td></tr><tr><td style="font-weight:600;">Narrow P/P0 window</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1515/pac-2014-1117" target="_blank" title="Physisorption of gases, with special reference to the evaluation of surface area (IUPAC technical report)" style="color:#e74c3c;">Thommes, M. et al. 2015</a></td></tr><tr><td style="font-weight:600;">Monolayer capacity Vm</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1021/ja01269a023" target="_blank" title="Adsorption of gases in multimolecular layers (BET theory)" style="color:#e74c3c;">Brunauer, S. et al. 1938</a></td></tr><tr><td style="font-weight:600;">Area = Vm·N·σ</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1021/ja01269a023" target="_blank" title="Adsorption of gases in multimolecular layers (BET theory)" style="color:#e74c3c;">Brunauer, S. et al. 1938</a></td></tr><tr><td style="font-weight:600;">Specific surface area</td><td>Products & Outputs</td><td><a href="https://www.wiley.com/en-us/Introduction+to+Surface+Chemistry+and+Catalysis%2C+2nd+Edition-p-9780470508237" target="_blank" title="Introduction to Surface Chemistry and Catalysis, 2nd ed. — Surface Area" style="color:#e74c3c;">Somorjai, G. A. et al. 2010</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -314,12 +329,12 @@ Y4 --> Z4
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 26</li>
-                        <li><strong>Edges:</strong> 22</li>
-                        <li><strong>Conditionals:</strong> 0</li>
+                        <li><strong>Nodes:</strong> 10</li>
+                        <li><strong>Edges:</strong> 10</li>
+                        <li><strong>Conditionals:</strong> 1</li>
                         <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 1</li>
+                        <li><strong>OR Gates:</strong> 1</li>
+                        <li><strong>Total Gates:</strong> 2</li>
                     </ul>
                 </div>
                 
@@ -327,7 +342,7 @@ Y4 --> Z4
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>nanomaterials</li>
+                        <li>bet</li><li>surface area</li><li>physisorption</li><li>monolayer capacity</li><li>nitrogen adsorption</li>
                     </ul>
                 </div>
                 
@@ -338,43 +353,33 @@ Y4 --> Z4
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Adsorption of gases in multimolecular layers (BET theory)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Brunauer, S.; Emmett, P. H.; Teller, E.
+                            , Journal of the American Chemical Society
+                             (1938)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Acknowledgement to Reviewers of Nanomaterials in 2015</strong>
-                            
-                            , Nanomaterials
-                             (2016)
-                            </span>
-                            <br><a href="https://doi.org/10.3390/nano6010023" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.3390/nano6010023</a>
+                            <br><a href="https://doi.org/10.1021/ja01269a023" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1021/ja01269a023</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Acknowledgment to Reviewers of Nanomaterials in 2021</strong>
-                            
-                            , Nanomaterials
-                             (2022)
+                            <strong>Physisorption of gases, with special reference to the evaluation of surface area (IUPAC technical report)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Thommes, M.; et al.
+                            , Pure and Applied Chemistry
+                             (2015)
                             </span>
-                            <br><a href="https://doi.org/10.3390/nano12040667" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.3390/nano12040667</a>
+                            <br><a href="https://doi.org/10.1515/pac-2014-1117" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1515/pac-2014-1117</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Acknowledgement to Reviewers of Nanomaterials in 2016</strong>
-                            
-                            , Nanomaterials
-                             (2017)
+                            <strong>Introduction to Surface Chemistry and Catalysis, 2nd ed. — Surface Area</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Somorjai, G. A.; Li, Y.
+                            , Wiley
+                             (2010)
                             </span>
-                            <br><a href="https://doi.org/10.3390/nano7010014" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.3390/nano7010014</a>
                             
+                            <br><a href="https://www.wiley.com/en-us/Introduction+to+Surface+Chemistry+and+Catalysis%2C+2nd+Edition-p-9780470508237" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
                         </li>
                         
                     </ul>

@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_2605.10933v1",
+  "arxiv_id": "2605.10933v1",
+  "title": "DECO: Sparse Mixture-of-Experts with Dense-Comparable Performance on End-Side Devices",
+  "authors": [
+    "Chenyang Song",
+    "Weilin Zhao",
+    "Xu Han",
+    "Chaojun Xiao",
+    "Yingfa Chen",
+    "Zhiyuan Liu"
+  ],
+  "author_string": "Chenyang Song, Weilin Zhao, Xu Han, Chaojun Xiao, Yingfa Chen et al.",
+  "journal": "arXiv:2605.10933v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "While Mixture-of-Experts (MoE) scales model capacity without proportionally increasing computation, its massive total parameter footprint creates significant storage and memory-access bottlenecks, which hinder efficient end-side deployment that simultaneously requires high performance, low computational cost, and small storage overhead. To achieve these properties, we present DECO, a sparse MoE architecture designed to match the performance of dense Transformers under identical total parameter budgets and training tokens. DECO utilizes the differentiable and flexible ReLU-based routing enhanced by learnable expert-wise scaling, which adaptively balances the contributions of routed and shared experts. Furthermore, we introduce NormSiLU, an activation function that normalizes inputs prior to SiLU operators, producing a more stable trend of routed-expert activation ratio and a higher intrinsic sparsity level. We also identify an empirical advantage in using non-gated MLP experts with ReLU-based routing, indicating the possibility of MoE architecture simplification. Experiments demonstrate that DECO, activating only 20% of experts, matches dense performance and outperforms established MoE baselines. Our specialized acceleration kernel delivers a 3.00$\\times$ speedup on real hardware compared with dense inference. Codes and checkpoints will be released.",
+  "categories": [
+    "cs.LG",
+    "cs.CL"
+  ],
+  "primary_category": "cs.CL",
+  "comment": "14 pages, 11 figures, 11 tables",
+  "published_date": "2026-05-11T17:58:28Z",
+  "updated_date": "2026-05-11T17:58:28Z",
+  "url": "https://arxiv.org/abs/2605.10933v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.10933v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-12T10:15:39.159258",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.LG",
+    "cs.CL"
+  ]
+}

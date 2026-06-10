@@ -1,21 +1,23 @@
 {
   "id": "theory-automata-construction",
-  "name": "Automata Construction",
+  "name": "Automata Construction (NFA to DFA)",
   "category": "computer_science",
   "subcategory": "theory",
   "subcategory_name": "Theoretical Computer Science",
-  "description": "Automata Construction process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "A regular language is recognized by a deterministic automaton built in stages: Thompson's construction turns a regex into an NFA, then the subset construction explores sets of NFA states reachable under each symbol to form DFA states; accepting states are marked and the DFA is minimized into an equivalent canonical machine.",
   "complexity": {
-    "nodes": 9,
-    "edges": 10,
-    "conditionals": 0,
+    "nodes": 11,
+    "edges": 12,
+    "conditionals": 2,
     "logicGates": {
-      "orGates": 1,
+      "orGates": 2,
       "andGates": 2,
-      "total": 3
+      "notGates": 0,
+      "total": 4
     },
-    "level": "medium",
-    "detailLevel": "medium"
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 1
   },
   "colorScheme": {
     "red": {
@@ -39,53 +41,149 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nN1[\"Language Spec\"]\nN2[\"Alphabet Σ\"]\nN3[\"States Q\"]\nN4[\"Choose Approach\"]\nN5[\"Transitions δ\"]\nN6[\"Build Automaton\"]\nN7[\"Minimize/Determinize\"]\nN8[\"Recognizer\"]\nN9[\"Integrate Results\"]\n\nN1 --> N2\nN2 --> N3\nN3 --> N4\nN4 --> N5\nN4 --> N7\nN5 --> N6\nN7 --> N8\nN6 --> N9\nN8 --> N9\nN9 --> N6\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#ff6b6b,color:#fff\n    style N3 fill:#ffd43b,color:#000\n    style N4 fill:#ffd43b,color:#000\n    style N5 fill:#ffd43b,color:#000\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#b197fc,color:#fff\n    style N9 fill:#74c0fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"Regular language / regex\"]\n    N2[\"Build NFA (Thompson)\"]\n    N3[\"Epsilon-closure of start\"]\n    N4[\"Subset construction\"]\n    N5{\"New DFA state?\"}\n    N6[\"Add to worklist\"]\n    N7[\"Compute transitions\"]\n    N8{\"All subsets processed?\"}\n    N9[\"Mark accepting states\"]\n    N10[\"Minimize DFA\"]\n    N11[\"Equivalent DFA\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 --> N4\n    N4 --> N5\n    N5 -->|yes| N6\n    N6 --> N7\n    N5 -->|no| N7\n    N7 --> N8\n    N8 -->|no| N4\n    N8 -->|yes| N9\n    N9 --> N10\n    N10 --> N11\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#74c0fc,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#74c0fc,color:#fff\n    style N9 fill:#51cf66,color:#fff\n    style N10 fill:#51cf66,color:#fff\n    style N11 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
-      "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: Automata Construction. Created using the Programming Framework methodology."
+      "title": "Finite automata and their decision problems",
+      "authors": "Rabin, M. O.; Scott, D.",
+      "journal": "IBM Journal of Research and Development",
+      "year": "1959",
+      "doi": "10.1147/rd.32.0114",
+      "url": "https://doi.org/10.1147/rd.32.0114"
     },
     {
-      "title": "Universal Computation and Construction in GoL Cellular Automata",
-      "authors": "Goucher, Adam P.",
-      "journal": "Game of Life Cellular Automata",
-      "year": "2010",
-      "pubmed": null,
-      "doi": "10.1007/978-1-84996-217-9_25",
-      "url": "https://doi.org/10.1007/978-1-84996-217-9_25"
-    },
-    {
-      "title": "A Framework of Variant Logic Construction for Cellular Automata",
-      "authors": "Z.J., Jeffrey; H.H., Christian; L., Tosiyasu",
-      "journal": "Cellular Automata - Innovative Modelling for Science and Engineering",
-      "year": "2011",
-      "pubmed": null,
-      "doi": "10.5772/15400",
-      "url": "https://doi.org/10.5772/15400"
-    },
-    {
-      "title": "Self-Organized Construction in Sparse Random Arrays of Conway’s Game of Life",
-      "authors": "Gotts, Nicholas M.",
-      "journal": "New Constructions in Cellular Automata",
-      "year": "2003",
-      "pubmed": null,
-      "doi": "10.1093/oso/9780195137170.003.0005",
-      "url": "https://doi.org/10.1093/oso/9780195137170.003.0005"
+      "title": "Programming techniques: regular expression search algorithm",
+      "authors": "Thompson, K.",
+      "journal": "Communications of the ACM",
+      "year": "1968",
+      "doi": "10.1145/363347.363387",
+      "url": "https://doi.org/10.1145/363347.363387"
     }
   ],
   "keywords": [
-    "automata",
-    "construction"
+    "finite automata",
+    "subset construction",
+    "NFA to DFA",
+    "regular language",
+    "DFA minimization"
   ],
   "relatedProcesses": [],
   "created": "2026-01-15",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations.\nCurated Mermaid applied (citations preserved)."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "namedCollections": [],
+  "graphMetrics": {
+    "nodes": 11,
+    "edges": 12,
+    "conditionals": 2,
+    "andGates": 2,
+    "orGates": 2,
+    "notGates": 0,
+    "loops": 1
+  },
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Regular language / regex",
+      "detail": "Pattern to recognize",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 1
+    },
+    {
+      "id": "N2",
+      "label": "Build NFA (Thompson)",
+      "detail": "From regex",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N3",
+      "label": "Epsilon-closure of start",
+      "detail": "Initial DFA state",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N4",
+      "label": "Subset construction",
+      "detail": "Move + closure",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N5",
+      "label": "New DFA state?",
+      "detail": "Unseen subset",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N6",
+      "label": "Add to worklist",
+      "detail": "Queue subset",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N7",
+      "label": "Compute transitions",
+      "detail": "Per input symbol",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N8",
+      "label": "All subsets processed?",
+      "detail": "Worklist empty",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N9",
+      "label": "Mark accepting states",
+      "detail": "Contain NFA final",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N10",
+      "label": "Minimize DFA",
+      "detail": "Merge equivalents",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N11",
+      "label": "Equivalent DFA",
+      "detail": "Canonical machine",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 0
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:theory-automata-construction",
+    "graphType": "decision_flowchart",
+    "topologySignature": "ed372570112038cc",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "graphType": "decision_flowchart",
+  "domainContext": "Theory of computation"
 }

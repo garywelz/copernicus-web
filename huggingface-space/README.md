@@ -1,5 +1,5 @@
 ---
-title: CopernicusAI - Knowledge Engine for Scientific Discovery
+title: CopernicusAI
 emoji: 🔬
 colorFrom: purple
 colorTo: blue

@@ -1,0 +1,37 @@
+{
+  "id": "arxiv_2604.21260v1",
+  "arxiv_id": "2604.21260v1",
+  "title": "Calibeating Prediction-Powered Inference",
+  "authors": [
+    "Lars van der Laan",
+    "Mark Van Der Laan"
+  ],
+  "author_string": "Lars van der Laan, Mark Van Der Laan",
+  "journal": "arXiv:2604.21260v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We study semisupervised mean estimation with a small labeled sample, a large unlabeled sample, and a black-box prediction model whose output may be miscalibrated. A standard approach in this setting is augmented inverse-probability weighting (AIPW) [Robins et al., 1994], which protects against prediction-model misspecification but can be inefficient when the prediction score is poorly aligned with the outcome scale. We introduce Calibrated Prediction-Powered Inference, which post-hoc calibrates the prediction score on the labeled sample before using it for semisupervised estimation. This simple step requires no retraining and can improve the original score both as a predictor of the outcome and as a regression adjustment for semisupervised inference. We study both linear and isotonic calibration. For isotonic calibration, we establish first-order optimality guarantees: isotonic post-processing can improve predictive accuracy and estimator efficiency relative to the original score and simpler post-processing rules, while no further post-processing of the fitted isotonic score yields additional first-order gains. For linear calibration, we show first-order equivalence to PPI++. We also clarify the relationship among existing estimators, showing that the original PPI estimator is a special case of AIPW and can be inefficient when the prediction model is accurate, while PPI++ is AIPW with empirical efficiency maximization [Rubin et al., 2008]. In simulations and real-data experiments, our calibrated estimators often outperform PPI and are competitive with, or outperform, AIPW and PPI++. We provide an accompanying Python package, ppi_aipw, at https://larsvanderlaan.github.io/ppi-aipw/.",
+  "categories": [
+    "stat.ML",
+    "cs.AI",
+    "cs.LG",
+    "econ.EM",
+    "q-bio.QM",
+    "stat.ME"
+  ],
+  "primary_category": "stat.ME",
+  "comment": "Paper website: https://larsvanderlaan.github.io/ppi-aipw/",
+  "published_date": "2026-04-23T04:06:08Z",
+  "updated_date": "2026-04-23T04:06:08Z",
+  "url": "https://arxiv.org/abs/2604.21260v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.21260v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-30T10:15:38.348452",
+  "category": "mathematics",
+  "subcategories": [
+    "stat.ML",
+    "cs.AI",
+    "cs.LG"
+  ]
+}

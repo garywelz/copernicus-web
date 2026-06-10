@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2605.10288v1",
+  "arxiv_id": "2605.10288v1",
+  "title": "BROS: Bias-Corrected Randomized Subspaces for Memory-Efficient Single-Loop Bilevel Optimization",
+  "authors": [
+    "Hengrui Zhang",
+    "Boao Kong",
+    "Engao Zhang",
+    "Kun Yuan"
+  ],
+  "author_string": "Hengrui Zhang, Boao Kong, Engao Zhang, Kun Yuan",
+  "journal": "arXiv:2605.10288v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Stochastic bilevel optimization (SBO) has become a standard framework for hyperparameter learning, data reweighting, representation learning, and data-mixture optimization in deep learning. Existing exact single-loop SBO methods and memory-efficient surrogate SBO methods either create severe memory pressure for large lower-level neural networks or lack competitive convergence guarantees under standard assumptions. In this paper, we propose BROS, a memory-efficient single-loop SBO method with the same convergence rate order as exact single-loop SBO methods. BROS performs lower and auxiliary updates in randomized subspaces with a Rademacher bi-probe correction that recovers an unbiased Hessian-action estimator. We prove that BROS preserves the $\\mathcal O(\\varepsilon^{-2})$ sample complexity of MA-SOBA for finding an $\\varepsilon$-stationary point under only standard assumptions. Experiments on hyper-data cleaning, data-mixture learning, hyper-representation learning, and ViT sample reweighting show that BROS reduces peak memory by up to 44.9% while closely matching full-space baseline performance.",
+  "categories": [
+    "cs.LG",
+    "math.OC"
+  ],
+  "primary_category": "math.OC",
+  "comment": null,
+  "published_date": "2026-05-11T09:50:10Z",
+  "updated_date": "2026-05-11T09:50:10Z",
+  "url": "https://arxiv.org/abs/2605.10288v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.10288v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-11T22:15:37.968106",
+  "category": "mathematics",
+  "subcategories": [
+    "cs.LG",
+    "math.OC"
+  ]
+}

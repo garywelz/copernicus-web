@@ -1,21 +1,23 @@
 {
   "id": "systems-network-protocol",
-  "name": "Network Protocol",
+  "name": "Deadlock Avoidance (Banker's Algorithm)",
   "category": "computer_science",
   "subcategory": "systems",
   "subcategory_name": "Systems & Architecture",
-  "description": "Network Protocol process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "The Banker's algorithm grants resource requests only if the system stays in a safe state: a request is tentatively allocated, then the safety algorithm seeks an ordering in which every process can finish; if such a sequence exists the request is granted, otherwise the tentative allocation is rolled back and denied.",
   "complexity": {
-    "nodes": 26,
-    "edges": 21,
-    "conditionals": 0,
+    "nodes": 12,
+    "edges": 14,
+    "conditionals": 3,
     "logicGates": {
-      "orGates": 0,
-      "andGates": 1,
-      "total": 1
+      "orGates": 3,
+      "andGates": 3,
+      "notGates": 0,
+      "total": 6
     },
-    "level": "medium",
-    "detailLevel": "medium"
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 2
   },
   "colorScheme": {
     "red": {
@@ -39,53 +41,156 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nA1[Data Transmission] --> B1[Network Protocol Method]\nC1[Packet Formation] --> D1[Protocol Stack]\nE1[Routing Process] --> F1[Network Protocol Analysis]\nB1 --> G1[TCP IP Protocol]\nD1 --> H1[OSI Model]\nF1 --> I1[Network Layer]\nG1 --> J1[Connection Establishment]\nH1 --> K1[Data Encapsulation]\nI1 --> L1[Packet Forwarding]\nJ1 --> M1[Reliable Delivery]\nK1 --> L1\nL1 --> N1[Error Detection]\nM1 --> O1[Flow Control]\nN1 --> P1[Congestion Control]\nO1 --> Q1[Network Protocol Process]\nP1 --> R1[Network Protocol Validation]\nQ1 --> S1[Network Protocol Verification]\nR1 --> T1[Network Protocol Result]\nS1 --> U1[Network Protocol Analysis]\nT1 --> V1[Network Protocol Parameters]\nU1 --> W1[Network Protocol Output]\nV1 --> X1[Network Protocol Analysis]\nW1 --> Y1[Network Protocol Final Result]\nX1 --> Z1[Network Protocol Complete]\n\n    style A1 fill:#ff6b6b,color:#fff\n    style C1 fill:#ff6b6b,color:#fff\n    style E1 fill:#ff6b6b,color:#fff\n    style B1 fill:#ffd43b,color:#000\n    style D1 fill:#ffd43b,color:#000\n    style F1 fill:#ffd43b,color:#000\n    style G1 fill:#ffd43b,color:#000\n    style H1 fill:#ffd43b,color:#000\n    style I1 fill:#ffd43b,color:#000\n    style J1 fill:#ffd43b,color:#000\n    style K1 fill:#ffd43b,color:#000\n    style L1 fill:#ffd43b,color:#000\n    style M1 fill:#51cf66,color:#fff\n    style N1 fill:#51cf66,color:#fff\n    style O1 fill:#51cf66,color:#fff\n    style P1 fill:#51cf66,color:#fff\n    style Q1 fill:#51cf66,color:#fff\n    style R1 fill:#51cf66,color:#fff\n    style S1 fill:#51cf66,color:#fff\n    style T1 fill:#51cf66,color:#fff\n    style U1 fill:#51cf66,color:#fff\n    style V1 fill:#51cf66,color:#fff\n    style W1 fill:#51cf66,color:#fff\n    style X1 fill:#51cf66,color:#fff\n    style Y1 fill:#51cf66,color:#fff\n    style Z1 fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"Request resources\"]\n    N2{\"Resources available?\"}\n    N3[\"Block / wait\"]\n    N4[\"Tentatively allocate\"]\n    N5[\"Run safety algorithm\"]\n    N6[\"Find finishable proc\"]\n    N7[\"Release its resources\"]\n    N8{\"All can finish?\"}\n    N9{\"Safe state?\"}\n    N10[\"Grant request\"]\n    N11[\"Roll back (deny)\"]\n    N12[\"Deadlock-free alloc\"]\n\n    N1 --> N2\n    N2 -->|no| N3\n    N3 -->|wait| N2\n    N2 -->|yes| N4\n    N4 --> N5\n    N5 --> N6\n    N6 --> N7\n    N7 --> N8\n    N8 -->|no| N6\n    N8 -->|yes| N9\n    N9 -->|safe| N10\n    N9 -->|unsafe| N11\n    N10 --> N12\n    N11 --> N12\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#74c0fc,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#74c0fc,color:#fff\n    style N9 fill:#74c0fc,color:#fff\n    style N10 fill:#51cf66,color:#fff\n    style N11 fill:#51cf66,color:#fff\n    style N12 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
-      "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: Network Protocol. Created using the Programming Framework methodology."
+      "title": "Prevention of system deadlocks",
+      "authors": "Habermann, A. N.",
+      "journal": "Communications of the ACM",
+      "year": "1969",
+      "doi": "10.1145/363095.363143",
+      "url": "https://doi.org/10.1145/363095.363143"
     },
     {
-      "title": "network management protocol",
-      "authors": "",
-      "journal": "SpringerReference",
-      "year": "None",
-      "pubmed": null,
-      "doi": "10.1007/springerreference_19655",
-      "url": "https://doi.org/10.1007/springerreference_19655"
-    },
-    {
-      "title": "Information technology. Protocol for providing the connectionless-mode network service",
-      "authors": "",
-      "journal": "",
-      "year": "None",
-      "pubmed": null,
-      "doi": "10.3403/00501816u",
-      "url": "https://doi.org/10.3403/00501816u"
-    },
-    {
-      "title": "Information technology. Protocol for providing the connectionless-mode network service",
-      "authors": "",
-      "journal": "",
-      "year": "None",
-      "pubmed": null,
-      "doi": "10.3403/01584433",
-      "url": "https://doi.org/10.3403/01584433"
+      "title": "Operating System Concepts (10th ed.)",
+      "authors": "Silberschatz, A.; Galvin, P. B.; Gagne, G.",
+      "journal": "Wiley",
+      "year": "2018",
+      "url": "https://www.os-book.com/OS10/"
     }
   ],
   "keywords": [
-    "network",
-    "protocol"
+    "deadlock avoidance",
+    "Banker's algorithm",
+    "safe state",
+    "resource allocation",
+    "safety algorithm"
   ],
   "relatedProcesses": [],
   "created": "2026-01-08",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Request resources",
+      "detail": "Process asks",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 1
+    },
+    {
+      "id": "N2",
+      "label": "Resources available?",
+      "detail": "Within free pool",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N3",
+      "label": "Block / wait",
+      "detail": "Insufficient now",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N4",
+      "label": "Tentatively allocate",
+      "detail": "Pretend grant",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N5",
+      "label": "Run safety algorithm",
+      "detail": "Check ordering",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N6",
+      "label": "Find finishable proc",
+      "detail": "Need <= available",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N7",
+      "label": "Release its resources",
+      "detail": "Add to free pool",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N8",
+      "label": "All can finish?",
+      "detail": "Sequence exists",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N9",
+      "label": "Safe state?",
+      "detail": "No deadlock",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N10",
+      "label": "Grant request",
+      "detail": "Commit allocation",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N11",
+      "label": "Roll back (deny)",
+      "detail": "Undo tentative",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N12",
+      "label": "Deadlock-free alloc",
+      "detail": "Safety preserved",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 0
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:systems-network-protocol",
+    "graphType": "decision_flowchart",
+    "topologySignature": "40adbd189be58dc6",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "namedCollections": [],
+  "graphMetrics": {
+    "nodes": 12,
+    "edges": 14,
+    "conditionals": 3,
+    "andGates": 3,
+    "orGates": 3,
+    "notGates": 0,
+    "loops": 2
+  },
+  "graphType": "decision_flowchart",
+  "domainContext": "Operating systems"
 }

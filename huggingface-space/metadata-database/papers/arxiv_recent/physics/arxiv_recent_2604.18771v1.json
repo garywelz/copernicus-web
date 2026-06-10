@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2604.18771v1",
+  "arxiv_id": "2604.18771v1",
+  "title": "Diffusion Synthetic Acceleration for polytopic discretisations of Boltzmann transport",
+  "authors": [
+    "Ansar Calloo",
+    "Matthew Evans",
+    "François Madiot",
+    "Tristan Pryer"
+  ],
+  "author_string": "Ansar Calloo, Matthew Evans, François Madiot, Tristan Pryer",
+  "journal": "arXiv:2604.18771v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We present a computational study of diffusion synthetic acceleration (DSA) for the monoenergetic, isotropically scattering $S_N$ transport equations, discretised in space by a polytopic discontinuous Galerkin method. Using a discrete ordinates angular discretisation, we construct the DSA correction with an interior-penalty diffusion operator and compare a classical symmetric interior penalty (SIP) formulation with a modified interior penalty (MIP) variant, together with homogeneous Dirichlet and Marshak (Robin) diffusion boundary conditions imposed weakly in the DG framework.   We quantify the observed convergence behaviour of the resulting source iteration across variations in optical thickness, scattering ratio, angular quadrature, mesh refinement, polynomial degree and mesh anisotropy on families of bounded Voronoi meshes. The results show that MIP-based DSA remains robust across the parameter ranges tested, whereas SIP-based DSA can lose robustness in the intermediate regime. In challenging optically thick, highly scattering settings, the observed convergence factors for the MIP-based schemes are typically below $0.6$.",
+  "categories": [
+    "math.NA",
+    "physics.comp-ph"
+  ],
+  "primary_category": "physics.comp-ph",
+  "comment": "25 pages, 9 figures",
+  "published_date": "2026-04-20T19:26:24Z",
+  "updated_date": "2026-04-20T19:26:24Z",
+  "url": "https://arxiv.org/abs/2604.18771v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.18771v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-22T10:15:44.050962",
+  "category": "physics",
+  "subcategories": [
+    "math.NA",
+    "physics.comp-ph"
+  ]
+}

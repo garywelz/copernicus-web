@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Partial Differential Equations - Mathematics Process</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 20px; }
+        .container { max-width: 900px; margin: 0 auto; background: white; border-radius: 15px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); overflow: hidden; padding: 30px; }
+        h1 { color: #2c3e50; margin-bottom: 15px; }
+        p { color: #555; margin-bottom: 25px; line-height: 1.6; }
+        .nav-links { margin-bottom: 20px; }
+        .nav-links a { color: #e67e22; text-decoration: none; margin-right: 20px; font-weight: 500; }
+        .nav-links a:hover { text-decoration: underline; }
+        .sections { display: grid; gap: 15px; }
+        .sections a { display: block; padding: 20px; background: #f8f9fa; border-radius: 10px; color: #2c3e50; text-decoration: none; font-weight: 500; border-left: 4px solid #2980b9; }
+        .sections a:hover { background: #ecf0f1; }
+        .frontier { margin-top: 25px; padding: 20px; background: #ebf5fb; border-left: 4px solid #2980b9; border-radius: 0 8px 8px 0; font-size: 0.95em; }
+        .frontier h3 { color: #2c3e50; margin-bottom: 8px; }
+        .frontier a { color: #2980b9; }
+        .recent-frontier { margin-top: 20px; }
+        .recent-frontier h3 { color: #2c3e50; font-size: 1.1em; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 2px solid #ecf0f1; }
+        .frontier-item { display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px; margin-bottom: 8px; border-radius: 8px; background: white; border-left: 4px solid; }
+        .frontier-item.proved { border-left-color: #27ae60; }
+        .frontier-item.conjecture { border-left-color: #e67e22; background: #fff8f0; }
+        .frontier-item .content { flex: 1; }
+        .frontier-item .name { font-weight: 600; color: #2c3e50; margin-bottom: 4px; }
+        .frontier-item .meta { font-size: 0.85em; color: #7f8c8d; }
+        .frontier-item a { font-size: 0.9em; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="nav-links">
+            <a id="back-link" href="#">← Back to Mathematics Database</a>
+            <a href="https://arxiv.org/list/math.AP/recent" target="_blank">math.AP (arXiv)</a>
+        </div>
+        <script>
+            (function() {
+                document.getElementById('back-link').href = window.location.hostname.includes('storage.googleapis.com')
+                    ? 'https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/mathematics-database-table.html'
+                    : '../../mathematics-database-table.html';
+            })();
+        </script>
+        <h1>Partial Differential Equations</h1>
+        <p>Laplace, heat, wave. Well-posedness, Sobolev spaces, maximum principles. Existence, uniqueness, qualitative dynamics.</p>
+        <div class="sections">
+            <a href="partial_differential_equations-classical.html">Laplace, Heat, Wave</a>
+            <a href="partial_differential_equations-wellposed.html">Well-Posedness</a>
+            <a href="partial_differential_equations-sobolev.html">Sobolev Spaces</a>
+            <a href="partial_differential_equations-maximum.html">Maximum Principles</a>
+        </div>
+        <div class="frontier">
+            <h3>🔬 Frontier: math.AP</h3>
+            <p>Recent developments: nonlinear PDEs, dispersive equations, free boundaries. <a href="https://arxiv.org/list/math.AP/recent" target="_blank">math.AP recent</a></p>
+        </div>
+        <div class="recent-frontier">
+            <h3>Recent & Frontier</h3>
+            <div class="frontier-item conjecture">
+                <div class="content"><div class="name">Navier–Stokes Regularity</div><div class="meta">Clay Millennium · Global smooth solutions in 3D? Open.</div><a href="https://en.wikipedia.org/wiki/Navier%E2%80%93Stokes_existence_and_smoothness" target="_blank">Wikipedia →</a></div>
+            </div>
+            <div class="frontier-item proved">
+                <div class="content"><div class="name">Ricci Flow & Geometrization</div><div class="meta">Perelman (2003); Hamilton–Perelman, singularity analysis</div><a href="https://en.wikipedia.org/wiki/Ricci_flow" target="_blank">Wikipedia →</a></div>
+            </div>
+            <div class="frontier-item conjecture">
+                <div class="content"><div class="name">Yang–Mills Mass Gap</div><div class="meta">Clay Millennium · Gauge theory, quantum chromodynamics</div><a href="https://en.wikipedia.org/wiki/Yang%E2%80%93Mills_existence_and_mass_gap" target="_blank">Wikipedia →</a></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,39 @@
+{
+  "id": "bioinformatics-blast-algorithm",
+  "name": "BLAST Algorithm",
+  "category": "mathematics",
+  "subcategory": "bioinformatics",
+  "subcategory_name": "Bioinformatics",
+  "description": "BLAST (Basic Local Alignment Search Tool): heuristic for fast sequence database search. Phase 1 — Seed: split query into W-mers; build neighborhood (words scoring above T); hash lookup for exact matches in DB. Phase 2 — Extend: extend seed in both directions without gaps until score drops below threshold; two-hit method: extend only when two hits on same diagonal within distance A. Phase 3 — Gapped: for high-scoring hits, run DP (Smith-Waterman) on segment. Much faster than full DP while retaining sensitivity.",
+  "mermaid": "graph TD\n    A1[\"Input: query Q, database DB\\nParameters: W, T, S\"]\n    B1[\"Seed: Split Q into W-mers\\nBuild neighborhood above threshold T\"]\n    C1[\"Hash: Lookup W-mers in DB\\nFind seed matches\"]\n    D1{\"Two hits on same\\ndiagonal within A?\"}\n    E1[\"Extend: Ungapped extension\\nboth directions until score drops\"]\n    F1{\"Score above\\nthreshold S?\"}\n    G1[\"Gapped: Run DP on segment\\nSmith-Waterman\"]\n    H1[\"Output: Alignments\\nsorted by score\"]\n    A1 --> B1\n    B1 --> C1\n    C1 --> D1\n    D1 -->|Yes| E1\n    D1 -->|No| C1\n    E1 --> F1\n    F1 -->|Yes| G1\n    F1 -->|No| C1\n    G1 --> H1\n    classDef red fill:#ff6b6b,color:#fff\n    classDef yellow fill:#ffd43b,color:#000\n    classDef green fill:#51cf66,color:#fff\n    classDef blue fill:#74c0fc,color:#fff\n    class A1 red\n    class B1,C1,E1,G1 yellow\n    class D1,F1 green\n    class H1 blue",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "algorithm"
+}

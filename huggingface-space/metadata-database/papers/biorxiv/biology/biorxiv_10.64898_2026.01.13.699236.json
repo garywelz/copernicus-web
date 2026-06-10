@@ -1,0 +1,42 @@
+{
+  "id": "biorxiv_10.64898_2026.01.13.699236",
+  "doi": "10.64898/2026.01.13.699236",
+  "title": "Predictive coding narrows the gap between convolutional networks and human brain function in misspelled-word reading",
+  "authors": [
+    "You, J.",
+    "Salmelin, R.",
+    "van Vliet, M."
+  ],
+  "author_string": "You, J., Salmelin, R., van Vliet, M.",
+  "journal": "bioRxiv",
+  "journal_full": "bioRxiv",
+  "year": "2026",
+  "abstract": "Humans can readily recognize words even when they are misspelled, though with slower responses, demonstrating remarkable robustness in reading. The computational mechanisms underlying this combination of robustness and cost in reading remain unclear. Convolutional neural networks (CNNs) have been used to model primate visual and human word processing. However, standard CNNs lack recurrent and feedback connections abundant in the ventral visual stream, which are thought to support robust vision. Here, we incorporated brain-inspired predictive coding dynamics into a CNN to investigate whether predictive coding can enhance brain-likeness in misspelled-word reading. The CNN backbone was trained to classify images of a 1000-word Finnish vocabulary (supervised), and the predictive coding modules were trained to reconstruct the activity in the previous layer (unsupervised). The model, with and without the predictive coding dynamics, was then evaluated using the same real and misspelled word stimuli presented to human participants during a magnetoencephalography (MEG) recording. Predictive coding improved model performance on misspelled words, particularly reducing the accuracy gap between real and word-like misspelled words, mirroring human behavioral patterns. Furthermore, representational similarity and ridge regression analyses showed stronger correspondence between model activations and human MEG responses. These findings provide converging behavioral and neural evidence that predictive coding dynamics narrows the gap between CNN performance and human brain function in misspelled-word reading, offering a biologically plausible computational mechanism for the brains robust reading ability.\n\nAuthor summaryWhen we read, we can often understand a word even if it is misspelled, e.g, \"lamguage\", a form we have never learned. Models of visual word recognition in the brain should also exhibit such flexibility. Convolutional neural networks (CNNs) are gaining popularity as models of visual processing in the brain, including reading, yet they typically fail when faced with misspelled words. In our study, we enhanced a CNN by adding feedback connections that perform predictive coding, i.e. continuously attempt to reconstruct the input from the initial output and adjust the output until it can do so. Through this predictive coding loop, the model learned to refine its internal representations, mimicking how the brain may process unexpected or noisy inputs. We found that this predictive coding network not only identified the closest real word form of misspelled words more effectively than a conventional feedforward model but also produced activity patterns resembling those measured from human brain using magnetoencephalography. These results suggest that predictive coding could be a key computational principle enabling the brains remarkable flexibility in reading and provide insights into how biological mechanisms could inspire brain-like computational models.",
+  "keywords": [],
+  "categories": [
+    "neuroscience"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.64898/2026.01.13.699236",
+  "source": "biorxiv",
+  "sources": [
+    "biorxiv"
+  ],
+  "acquired_date": "2026-05-14T22:15:22.707111",
+  "category": "biology",
+  "subcategories": [
+    "neuroscience"
+  ],
+  "published_date": "2026-01-14",
+  "updated_date": "2026-01-14",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "biorxiv",
+  "preprint_version": "1",
+  "preprint_type": "new results",
+  "license": "cc_by",
+  "jatsxml": "https://www.biorxiv.org/content/early/2026/01/14//2026.01.13.699236.source.xml",
+  "published_doi": null,
+  "author_corresponding": "Jiaxin You",
+  "author_corresponding_institution": "Department of Neuroscience and Biomedical Engineering, Aalto University"
+}

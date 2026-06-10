@@ -1,0 +1,200 @@
+{
+  "id": "pathways-cell-cycle",
+  "name": "Cell Cycle (G1–S–G2–M)",
+  "category": "biology",
+  "subcategory": "pathways",
+  "subcategory_name": "Pathways",
+  "description": "Cell cycle: cyclin-CDK complexes drive progression through G1, S, G2 and M, with the G1/S restriction point, the G2/M DNA-integrity checkpoint and the spindle-assembly checkpoint arresting the cycle for repair when conditions are not met.",
+  "keywords": [
+    "cell cycle",
+    "cyclin",
+    "cdk",
+    "checkpoint",
+    "mitosis"
+  ],
+  "namedCollections": [
+    "cell-cycle"
+  ],
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "complexity": {
+    "nodes": 11,
+    "edges": 14,
+    "conditionals": 3,
+    "logicGates": {
+      "orGates": 3,
+      "andGates": 3,
+      "notGates": 0,
+      "total": 6
+    },
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 3
+  },
+  "graphMetrics": {
+    "nodes": 11,
+    "edges": 14,
+    "conditionals": 3,
+    "andGates": 3,
+    "orGates": 3,
+    "notGates": 0,
+    "loops": 3
+  },
+  "mermaid": "graph TD\n    N1[\"G1 phase\"]\n    N2[\"Cyclin D-CDK4/6\"]\n    N3{\"Restriction point passed?\"}\n    N4[\"S: DNA replication\"]\n    N5[\"G2 phase\"]\n    N6{\"G2/M: DNA intact?\"}\n    N7[\"Cyclin B-CDK1 -> mitosis\"]\n    N8{\"Spindle attached?\"}\n    N9[\"Anaphase: sisters separate\"]\n    N10[\"Cytokinesis -> two cells\"]\n    N11[\"Arrest / repair\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 -->|no| N11\n    N3 -->|yes| N4\n    N4 --> N5\n    N5 --> N6\n    N6 -->|damage| N11\n    N6 -->|intact| N7\n    N7 --> N8\n    N8 -->|not attached| N7\n    N8 -->|attached| N9\n    N9 --> N10\n    N10 -->|next cycle| N1\n    N11 -->|after repair| N1\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#74c0fc,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#74c0fc,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#74c0fc,color:#fff\n    style N9 fill:#51cf66,color:#fff\n    style N10 fill:#b197fc,color:#fff\n    style N11 fill:#51cf66,color:#fff",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "G1 phase",
+      "detail": "Growth and commitment",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N2",
+      "label": "Cyclin D-CDK4/6",
+      "detail": "Growth signals build CDK activity",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N3",
+      "label": "Restriction point passed?",
+      "detail": "G1/S commitment (Rb/E2F)",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 2
+    },
+    {
+      "id": "N4",
+      "label": "S: DNA replication",
+      "detail": "Genome duplicated once",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N5",
+      "label": "G2 phase",
+      "detail": "Preparation for mitosis",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N6",
+      "label": "G2/M: DNA intact?",
+      "detail": "DNA-damage checkpoint",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 2
+    },
+    {
+      "id": "N7",
+      "label": "Cyclin B-CDK1 -> mitosis",
+      "detail": "Mitotic entry",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N8",
+      "label": "Spindle attached?",
+      "detail": "Spindle-assembly checkpoint",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 2
+    },
+    {
+      "id": "N9",
+      "label": "Anaphase: sisters separate",
+      "detail": "APC/C triggers separation",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N10",
+      "label": "Cytokinesis -> two cells",
+      "detail": "Division complete",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N11",
+      "label": "Arrest / repair",
+      "detail": "Checkpoint halts the cycle",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:pathways-cell-cycle",
+    "graphType": "cyclic_pathway",
+    "topologySignature": "4d6f47ddeaf5ec98",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "lastUpdated": "2026-06-01",
+  "verified": false,
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "sources": [
+    {
+      "title": "Cyclin-dependent kinases: engines, clocks, and microprocessors",
+      "authors": "Morgan, D. O.",
+      "journal": "Annual Review of Cell and Developmental Biology",
+      "year": "1997",
+      "pubmed": "9442869",
+      "doi": "10.1146/annurev.cellbio.13.1.261",
+      "url": "https://doi.org/10.1146/annurev.cellbio.13.1.261"
+    },
+    {
+      "title": "Cell cycle, CDKs and cancer: a changing paradigm",
+      "authors": "Malumbres, M.; Barbacid, M.",
+      "journal": "Nature Reviews Cancer",
+      "year": "2009",
+      "pubmed": "19238148",
+      "doi": "10.1038/nrc2602",
+      "url": "https://doi.org/10.1038/nrc2602"
+    },
+    {
+      "title": "Checkpoints: controls that ensure the order of cell cycle events",
+      "authors": "Hartwell, L. H.; Weinert, T. A.",
+      "journal": "Science",
+      "year": "1989",
+      "pubmed": "2683079",
+      "doi": "10.1126/science.2683079",
+      "url": "https://doi.org/10.1126/science.2683079"
+    }
+  ],
+  "graphType": "cyclic_pathway",
+  "domainContext": "Cell division control"
+}

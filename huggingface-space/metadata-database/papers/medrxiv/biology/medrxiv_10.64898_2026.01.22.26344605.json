@@ -1,0 +1,45 @@
+{
+  "id": "medrxiv_10.64898_2026.01.22.26344605",
+  "doi": "10.64898/2026.01.22.26344605",
+  "title": "Advancements in Multilingual Biomedical Natural Language Processing: exploring Large Language Models for Named Entity Recognition and Linking",
+  "authors": [
+    "Mazzucato, S.",
+    "Seinen, T. M.",
+    "Moccia, S.",
+    "Micera, S.",
+    "Bandini, A.",
+    "van Mulligen, E. M."
+  ],
+  "author_string": "Mazzucato, S., Seinen, T. M., Moccia, S., Micera, S., Bandini, A. et al.",
+  "journal": "medRxiv",
+  "journal_full": "medRxiv",
+  "year": "2026",
+  "abstract": "ObjectiveNamed Entity Recognition (NER) and Biomedical Entity Linking (BEL) are essential for transforming unstructured Electronic Health Records (EHRs) into structured information. However, tools for these tasks are limited in non-English biomedical texts such as Dutch and Italian. This study investigates the use of prompt-based learning with Large Language Models (LLMs) to perform multilingual NER and BEL using minimal domainspecific data, while addressing annotation preservation during corpus translation.\n\nMethodsAn English-annotated corpus from the ShARe/CLEF dataset was translated into Dutch and Italian using a strategy that embeds annotations directly into the text prior to translation and retrieves them afterwards. GPT-4o was applied in zero-shot and few-shot settings to extract biomedical entities, which were then mapped to Unified Medical Language System Concept Unique Identifiers using contextual word embeddings. Performance was evaluated with precision, recall, and F1-score, and compared with goldstandard clinician annotations.\n\nResultsThe multilingual NER pipeline achieved strong performance, with an overall F1-score of 0.98 across languages. BEL experiments showed reliable entity normalization, with an overall accuracy of 0.91 and a mean reciprocal rank of 0.95. The combined performance of the NER and BEL achieved 0.90 supporting the utility of LLMs in standardizing biomedical concepts across languages.\n\nConclusionPrompt-based LLMs can effectively perform NER and BEL in languages with less annotated resources, even with limited annotated training data. The proposed annotation-preserving translation method, combined with generative and discriminative LLM capabilities, provides a scalable approach to multilingual clinical information extraction. These findings highlight the potential for broader adoption of LLM-based natural language processing systems to support multilingual healthcare data harmonization.\n\nGraphical Abstract\n\nO_FIG O_LINKSMALLFIG WIDTH=200 HEIGHT=133 SRC=\"FIGDIR/small/26344605v1_ufig1.gif\" ALT=\"Figure 1\">\nView larger version (27K):\norg.highwire.dtl.DTLVardef@100c385org.highwire.dtl.DTLVardef@12467d8org.highwire.dtl.DTLVardef@11d9ca5org.highwire.dtl.DTLVardef@1173e3d_HPS_FORMAT_FIGEXP  M_FIG C_FIG HighlightsO_LIThis study shows the feasibility of using prompt-based learning with large language models (LLMs) to perform multilingual named entity recognition (NER) and biomedical entity linking (BEL) in Dutch and Italian, two languages with less annotated resources.\nC_LIO_LIAn annotation-preserving translation strategy was proposed to adapt the ShARe/CLEF eHealth corpus, enabling consistent evaluation across English, Dutch, and Italian without loss of gold-standard annotations.\nC_LIO_LIThe multilingual NER pipeline achieved strong overall performance (F1-score: 0.89), while BEL experiments showed reliable entity normalization (F1-score: 0.64, MRR: 0.68) to standardized clinical concepts.\nC_LIO_LIThe approach highlights the potential of generative and discriminative LLM capabilities for scalable multilingual clinical information extraction, supporting broader European initiatives for cross-lingual health data harmonization.\nC_LI",
+  "keywords": [],
+  "categories": [
+    "health informatics"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.64898/2026.01.22.26344605",
+  "source": "medrxiv",
+  "sources": [
+    "medrxiv"
+  ],
+  "acquired_date": "2026-05-23T22:15:22.545053",
+  "category": "biology",
+  "subcategories": [
+    "health informatics"
+  ],
+  "published_date": "2026-01-23",
+  "updated_date": "2026-01-23",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "medrxiv",
+  "preprint_version": "1",
+  "preprint_type": "PUBLISHAHEADOFPRINT",
+  "license": "cc_by_nc_nd",
+  "jatsxml": "https://www.medrxiv.org/content/early/2026/01/23//2026.01.22.26344605.source.xml",
+  "published_doi": null,
+  "author_corresponding": "Sara Mazzucato",
+  "author_corresponding_institution": "Biorobotics Institute, Scuola Superiore Sant Anna, Pisa, Italy"
+}

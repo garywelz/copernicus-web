@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Duality</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 20px; }
+        .container { max-width: 1600px; margin: 0 auto; background: white; border-radius: 15px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); overflow: hidden; }
+        .header { background: linear-gradient(135deg, #e67e22 0%, #e67e22dd 100%); color: white; padding: 30px; }
+        .header-meta { display: flex; flex-wrap: wrap; gap: 15px; margin-top: 15px; font-size: 0.9em; opacity: 0.9; }
+        .meta-item { background: rgba(255,255,255,0.2); padding: 5px 12px; border-radius: 20px; }
+        .nav-links { padding: 15px 30px; background: #f8f9fa; border-bottom: 1px solid #ecf0f1; }
+        .nav-links a { color: #e67e22; text-decoration: none; margin-right: 20px; font-weight: 500; }
+        .content { padding: 30px; }
+        .mermaid { background: white; padding: 20px; border-radius: 10px; border: 1px solid #ecf0f1; overflow-x: auto; min-height: 450px; }
+        .info-card { background: #f8f9fa; padding: 20px; border-radius: 10px; margin-top: 20px; }
+        .frontier { margin-top: 20px; padding: 15px; font-size: 0.9em; }
+        .attribution-wrap { position: relative; }
+        .attribution-trigger { cursor: help; background: rgba(255,255,255,0.2) !important; }
+        .attribution-popover { display: none; position: absolute; top: 100%; left: 0; margin-top: 4px; background: #2c3e50; color: #ecf0f1; padding: 14px 18px; border-radius: 10px; box-shadow: 0 6px 20px rgba(0,0,0,0.25); min-width: 300px; z-index: 100; font-size: 0.85em; line-height: 1.5; }
+        .attribution-popover::before { content: ''; position: absolute; bottom: 100%; left: 0; right: 0; height: 12px; }
+        .attribution-popover strong { color: #fff; }
+        .attribution-popover a { color: #dd6b20; }
+        .attribution-wrap:hover .attribution-popover, .attribution-wrap:focus-within .attribution-popover { display: block; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header"><h1>Duality</h1><div class="header-meta"><span class="meta-item">Optimization</span></div></div>
+        <div class="nav-links"><a id="back-link" href="#">← Back</a><a id="index-link" href="#">Index</a></div>
+        <script>(function(){const b=window.location.hostname.includes('storage.googleapis.com')?'https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database':'../..';document.getElementById('back-link').href=b+'/mathematics-database-table.html';document.getElementById('index-link').href=b+'/processes/optimization/optimization.html';})();</script>
+        <div class="content">
+            <p style="margin-bottom:20px;">Primal-dual. Strong duality, complementary slackness.</p>
+            <div class="mermaid">graph TD
+    D1["Def: Primal (P)\nmax c·x, Ax≤b"]
+    D2["Def: Dual (D)\nmin b·y, A'y≥c, y≥0"]
+    D3["Def: Weak duality\nc·x ≤ b·y"]
+    D4["Def: Complementary slack\nxⱼ(A'y−c)ⱼ=0"]
+    T1["Thm: Strong duality\nval(P)=val(D) if feasible"]
+    T2["Thm: Complement slack\nx*,y* opt ⟺ slack"]
+    T3["Thm: Farkas\ninfeasibility cert"]
+    T4["Thm: KKTT\nLP KKT = duality"]
+    T5["Thm: Dual simplex\nfrom dual feas"]
+    D1 --> D2
+    D2 --> D3
+    D3 --> T1
+    T1 --> T2
+    D4 --> T2
+    classDef definition fill:#b197fc,color:#fff
+    classDef theorem fill:#51cf66,color:#fff
+    class D1,D2,D3,D4 definition
+    class T1,T2,T3,T4,T5 theorem</div>
+            <div class="info-card"><h3>Process Statistics</h3><ul><li><strong>Nodes:</strong> 14</li><li><strong>Edges:</strong> 11</li></ul></div>
+            <div class="frontier"><strong>Frontier:</strong> <a href="https://arxiv.org/list/math.OC/recent" target="_blank">math.OC</a></div>
+        </div>
+    </div>
+    <script>mermaid.initialize({ startOnLoad: true, flowchart: { useMaxWidth: true, htmlLabels: true } });</script>
+</body>
+</html>

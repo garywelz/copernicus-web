@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2604.22463v1",
+  "arxiv_id": "2604.22463v1",
+  "title": "Quantum analog-encoding for correlated Gaussian vectors and their exponentiation with application to rough volatility",
+  "authors": [
+    "Tassa Thaksakronwong",
+    "Koichi Miyamoto"
+  ],
+  "author_string": "Tassa Thaksakronwong, Koichi Miyamoto",
+  "journal": "arXiv:2604.22463v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Quantum computing may speed up numerical problems involving large matrices that are demanding for classical computers, and active research on this possibility is ongoing. In this work, we propose quantum algorithms for the exact simulation of a normalised correlated Gaussian random vector $|x\\rangle=\\vec{x}/\\lVert\\vec{x}\\rVert$, $\\vec{x}\\sim\\mathcal{N}(0,Σ)$, and its exponentiation $|e^{\\vec{x}} \\rangle= e^{\\vec{x}}/\\lVert e^{\\vec{x}}\\rVert$. When an $O(\\mathrm{polylog} N)$-gate-depth quantum data loader for the covariance matrix $Σ\\in\\mathbb{R}^{N\\times N}$ is available, preparing $|x\\rangle$ and $|e^{\\vec{x}}\\rangle$ require $\\widetilde{O}\\left(\\frac{\\lVertΣ\\rVert_F}{λ_{\\max}}κ^{1.5}\\right)$ and $\\widetilde{O}\\left(\\lVert\\vec{x}\\rVert\\frac{\\lVertΣ\\rVert_F}{λ_{\\max}}κ^{1.5}\\right)$ elementary gate depth respectively, where $\\lVertΣ\\rVert_F$, $λ_{\\max}$, $κ$ denote the Frobenius norm, maximal eigenvalue, and condition number of $Σ$. Motivated by financial applications, we provide an end-to-end resource analysis when $\\vec{x}$ represents a sample path of a Riemann-Liouville or standard fractional Brownian motion, or of a stationary fractional Ornstein-Uhlenbeck process. As a concrete example, we construct the quantum state encoding the rough Bergomi variance process and analyse the extraction of the integrated variance via quantum amplitude estimation. Under specific conditions, the dependence of $\\lVertΣ\\rVert_F/λ_{\\max}$ and $κ$ on $N$ is small, and subcubic complexity in $N$ is achieved, indicating a quantum advantage over classical Cholesky-based sampling methods. To our knowledge, this constitutes the first quantum algorithmic framework for the amplitude encoding of exponentiated Gaussian processes, providing foundational primitives for quantum-enhanced financial modelling.",
+  "categories": [
+    "quant-ph",
+    "q-fin.CP"
+  ],
+  "primary_category": "q-fin.CP",
+  "comment": "54 pages, 7 figures",
+  "published_date": "2026-04-24T11:29:09Z",
+  "updated_date": "2026-04-24T11:29:09Z",
+  "url": "https://arxiv.org/abs/2604.22463v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.22463v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-27T10:15:28.444998",
+  "category": "interdisciplinary",
+  "subcategories": [
+    "quant-ph",
+    "q-fin.CP"
+  ]
+}

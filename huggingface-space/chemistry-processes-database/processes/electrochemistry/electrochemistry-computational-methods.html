@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Computational Methods - Chemistry Process</title>
+    <title>Computational Electrochemistry (DFT) - Chemistry Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Computational Methods</h1>
+            <h1>Computational Electrochemistry (DFT)</h1>
             <div class="header-meta">
                 <span class="meta-item">Chemistry</span>
                 <span class="meta-item">Electrochemistry</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,68 +234,59 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Computational Methods process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>Computational electrocatalysis models an electrode reaction with DFT and the computational hydrogen electrode: intermediate energies build a potential-dependent free-energy diagram, identifying the potential-determining step and theoretical overpotential to screen catalysts.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-A3[Molecular System] --> B3[Computational Method Selection]
-C3[Quantum Theory] --> D3[Algorithm Implementation]
-E3[Computational Resources] --> F3[Calculation Setup]
-B3 --> G3[Method Selection]
-D3 --> H3[Algorithm Development]
-F3 --> I3[Resource Allocation]
-G3 --> J3[DFT Selection]
-H3 --> K3[Code Implementation]
-I3 --> L3[Computational Parameters]
-J3 --> M3[Functional Selection]
-K3 --> L3
-L3 --> N3[Calculation Execution]
-M3 --> O3[Electronic Structure]
-N3 --> P3[Quantum Calculation]
-O3 --> Q3[Computational Analysis]
-P3 --> R3[Energy Calculation]
-Q3 --> S3[Property Analysis]
-R3 --> T3[Molecular Properties]
-S3 --> U3[Accuracy Assessment]
-T3 --> V3[Property Validation]
-U3 --> W3[Computational Efficiency]
-V3 --> X3[Result Characterization]
-W3 --> Y3[Process Optimization]
-X3 --> Z3[Final Computational Results]
-Y3 --> Z3
+    N1["Electrode reaction of interest"]
+    N2["Build slab + adsorbate model"]
+    N3["Computational H electrode"]
+    N4["DFT energies of intermediates"]
+    N5["Apply −eU potential shift"]
+    N6["Free-energy diagram vs U"]
+    N7{"Potential-determining step?"}
+    N8["Identify limiting step"]
+    N9["Theoretical overpotential"]
+    N10["Screen new catalyst"]
+    N11["Activity prediction"]
 
-    style A3 fill:#ff6b6b,color:#fff
-    style C3 fill:#ff6b6b,color:#fff
-    style E3 fill:#ff6b6b,color:#fff
-    style B3 fill:#ffd43b,color:#000
-    style D3 fill:#ffd43b,color:#000
-    style F3 fill:#ffd43b,color:#000
-    style G3 fill:#ffd43b,color:#000
-    style H3 fill:#ffd43b,color:#000
-    style I3 fill:#ffd43b,color:#000
-    style J3 fill:#ffd43b,color:#000
-    style K3 fill:#ffd43b,color:#000
-    style L3 fill:#ffd43b,color:#000
-    style M3 fill:#51cf66,color:#fff
+    N1 --> N2
+    N2 --> N3
+    N3 --> N4
+    N4 --> N5
+    N5 --> N6
+    N6 --> N7
+    N7 --> N8
+    N8 --> N9
+    N9 --> N10
+    N10 -->|new model| N2
+    N9 --> N11
+
+    style N1 fill:#ff6b6b,color:#fff
+    style N2 fill:#51cf66,color:#fff
     style N3 fill:#51cf66,color:#fff
-    style O3 fill:#51cf66,color:#fff
-    style P3 fill:#51cf66,color:#fff
-    style Q3 fill:#51cf66,color:#fff
-    style R3 fill:#51cf66,color:#fff
-    style S3 fill:#51cf66,color:#fff
-    style T3 fill:#51cf66,color:#fff
-    style U3 fill:#51cf66,color:#fff
-    style V3 fill:#51cf66,color:#fff
-    style W3 fill:#51cf66,color:#fff
-    style X3 fill:#51cf66,color:#fff
-    style Y3 fill:#51cf66,color:#fff
-    style Z3 fill:#b197fc,color:#fff
+    style N4 fill:#51cf66,color:#fff
+    style N5 fill:#51cf66,color:#fff
+    style N6 fill:#74c0fc,color:#fff
+    style N7 fill:#74c0fc,color:#fff
+    style N8 fill:#51cf66,color:#fff
+    style N9 fill:#51cf66,color:#fff
+    style N10 fill:#51cf66,color:#fff
+    style N11 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Electrode reaction of interest</td><td>Triggers & Inputs</td><td><a href="https://doi.org/10.1021/jp047349j" target="_blank" title="Origin of the overpotential for oxygen reduction at a fuel-cell cathode (CHE model)" style="color:#e74c3c;">Nørskov, J. K. et al. 2004</a></td></tr><tr><td style="font-weight:600;">Build slab + adsorbate model</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1021/jacs.8b10723" target="_blank" title="Toward an atomic-scale understanding of electrochemical interface structure and dynamics" style="color:#e74c3c;">Magnussen, O. M. et al. 2019</a></td></tr><tr><td style="font-weight:600;">Computational H electrode</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1021/jp047349j" target="_blank" title="Origin of the overpotential for oxygen reduction at a fuel-cell cathode (CHE model)" style="color:#e74c3c;">Nørskov, J. K. et al. 2004</a></td></tr><tr><td style="font-weight:600;">DFT energies of intermediates</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1021/jp047349j" target="_blank" title="Origin of the overpotential for oxygen reduction at a fuel-cell cathode (CHE model)" style="color:#e74c3c;">Nørskov, J. K. et al. 2004</a></td></tr><tr><td style="font-weight:600;">Apply −eU potential shift</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1021/jp047349j" target="_blank" title="Origin of the overpotential for oxygen reduction at a fuel-cell cathode (CHE model)" style="color:#e74c3c;">Nørskov, J. K. et al. 2004</a></td></tr><tr><td style="font-weight:600;">Free-energy diagram vs U</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1021/jp047349j" target="_blank" title="Origin of the overpotential for oxygen reduction at a fuel-cell cathode (CHE model)" style="color:#e74c3c;">Nørskov, J. K. et al. 2004</a></td></tr><tr><td style="font-weight:600;">Potential-determining step?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1021/jp047349j" target="_blank" title="Origin of the overpotential for oxygen reduction at a fuel-cell cathode (CHE model)" style="color:#e74c3c;">Nørskov, J. K. et al. 2004</a></td></tr><tr><td style="font-weight:600;">Identify limiting step</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1021/jp047349j" target="_blank" title="Origin of the overpotential for oxygen reduction at a fuel-cell cathode (CHE model)" style="color:#e74c3c;">Nørskov, J. K. et al. 2004</a></td></tr><tr><td style="font-weight:600;">Theoretical overpotential</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1038/nchem.121" target="_blank" title="Towards the computational design of solid catalysts" style="color:#e74c3c;">Nørskov, J. K. et al. 2009</a></td></tr><tr><td style="font-weight:600;">Screen new catalyst</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1038/nchem.121" target="_blank" title="Towards the computational design of solid catalysts" style="color:#e74c3c;">Nørskov, J. K. et al. 2009</a></td></tr><tr><td style="font-weight:600;">Activity prediction</td><td>Products & Outputs</td><td><a href="https://doi.org/10.1038/nchem.121" target="_blank" title="Towards the computational design of solid catalysts" style="color:#e74c3c;">Nørskov, J. K. et al. 2009</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -314,12 +332,12 @@ Y3 --> Z3
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 26</li>
-                        <li><strong>Edges:</strong> 22</li>
-                        <li><strong>Conditionals:</strong> 0</li>
+                        <li><strong>Nodes:</strong> 11</li>
+                        <li><strong>Edges:</strong> 11</li>
+                        <li><strong>Conditionals:</strong> 1</li>
                         <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 1</li>
+                        <li><strong>OR Gates:</strong> 1</li>
+                        <li><strong>Total Gates:</strong> 2</li>
                     </ul>
                 </div>
                 
@@ -327,7 +345,7 @@ Y3 --> Z3
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>computational</li><li>methods</li>
+                        <li>density functional theory</li><li>computational hydrogen electrode</li><li>free-energy diagram</li><li>overpotential</li><li>catalyst screening</li>
                     </ul>
                 </div>
                 
@@ -338,42 +356,32 @@ Y3 --> Z3
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Origin of the overpotential for oxygen reduction at a fuel-cell cathode (CHE model)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Nørskov, J. K.; et al.
+                            , Journal of Physical Chemistry B
+                             (2004)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Computational and Mathematical Methods</strong>
-                            
-                            
-                             (None)
-                            </span>
-                            <br><a href="https://doi.org/10.1155/cmm" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1155/cmm</a>
+                            <br><a href="https://doi.org/10.1021/jp047349j" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1021/jp047349j</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Dynamics Methods</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Harvey, Jeremy
-                            , Computational Chemistry
-                             (2018)
+                            <strong>Towards the computational design of solid catalysts</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Nørskov, J. K.; Bligaard, T.; Rossmeisl, J.; Christensen, C. H.
+                            , Nature Chemistry
+                             (2009)
                             </span>
-                            <br><a href="https://doi.org/10.1093/hesc/9780198755500.003.0006" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1093/hesc/9780198755500.003.0006</a>
+                            <br><a href="https://doi.org/10.1038/nchem.121" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1038/nchem.121</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Journal of Computational Methods in Physics</strong>
-                            
-                            
-                             (None)
+                            <strong>Toward an atomic-scale understanding of electrochemical interface structure and dynamics</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Magnussen, O. M.; Groß, A.
+                            , Journal of the American Chemical Society
+                             (2019)
                             </span>
-                            <br><a href="https://doi.org/10.1155/4181" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1155/4181</a>
+                            <br><a href="https://doi.org/10.1021/jacs.8b10723" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1021/jacs.8b10723</a>
                             
                         </li>
                         

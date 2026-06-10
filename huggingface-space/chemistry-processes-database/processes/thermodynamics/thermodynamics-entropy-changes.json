@@ -1,21 +1,23 @@
 {
   "id": "thermodynamics-entropy-changes",
-  "name": "Entropy Changes",
+  "name": "Entropy Change & the Second Law",
   "category": "chemistry",
   "subcategory": "thermodynamics",
   "subcategory_name": "Thermodynamics",
-  "description": "Entropy Changes process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "Compute the entropy change of a process via a reversible path, add the surroundings' entropy change, and use the sign of the total entropy of the universe to judge whether the process is spontaneous, reversible, or impossible.",
   "complexity": {
-    "nodes": 26,
-    "edges": 22,
-    "conditionals": 0,
+    "nodes": 9,
+    "edges": 9,
+    "conditionals": 1,
     "logicGates": {
-      "orGates": 0,
+      "orGates": 2,
       "andGates": 1,
-      "total": 1
+      "notGates": 0,
+      "total": 3
     },
     "level": "medium",
-    "detailLevel": "medium"
+    "detailLevel": "source_grounded",
+    "loops": 0
   },
   "colorScheme": {
     "red": {
@@ -39,53 +41,143 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nA5[Initial System] --> B5[Entropy Analysis Method]\nC5[Energy Distribution] --> D5[State Characterization]\nE5[Process Conditions] --> F5[Temperature Control]\nB5 --> G5[System Analysis]\nD5 --> H5[State Monitoring]\nF5 --> I5[Thermal Control]\nG5 --> J5[Initial Entropy]\nH5 --> K5[State Analysis]\nI5 --> L5[Temperature Regulation]\nJ5 --> M5[Process Initiation]\nK5 --> L5\nL5 --> N5[Energy Redistribution]\nM5 --> O5[Disorder Changes]\nN5 --> P5[Entropy Process]\nO5 --> Q5[State Evolution]\nP5 --> R5[Entropy Change]\nQ5 --> S5[Disorder Measurement]\nR5 --> T5[System Evolution]\nS5 --> U5[Entropy Analysis]\nT5 --> V5[Evolution Assessment]\nU5 --> W5[Entropy Efficiency]\nV5 --> X5[Final State Characterization]\nW5 --> Y5[Process Optimization]\nX5 --> Z5[Final Entropy State]\nY5 --> Z5\n\n    style A5 fill:#ff6b6b,color:#fff\n    style C5 fill:#ff6b6b,color:#fff\n    style E5 fill:#ff6b6b,color:#fff\n    style B5 fill:#ffd43b,color:#000\n    style D5 fill:#ffd43b,color:#000\n    style F5 fill:#ffd43b,color:#000\n    style G5 fill:#ffd43b,color:#000\n    style H5 fill:#ffd43b,color:#000\n    style I5 fill:#ffd43b,color:#000\n    style J5 fill:#ffd43b,color:#000\n    style K5 fill:#ffd43b,color:#000\n    style L5 fill:#ffd43b,color:#000\n    style M5 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style O5 fill:#51cf66,color:#fff\n    style P5 fill:#51cf66,color:#fff\n    style Q5 fill:#51cf66,color:#fff\n    style R5 fill:#51cf66,color:#fff\n    style S5 fill:#51cf66,color:#fff\n    style T5 fill:#51cf66,color:#fff\n    style U5 fill:#51cf66,color:#fff\n    style V5 fill:#51cf66,color:#fff\n    style W5 fill:#51cf66,color:#fff\n    style X5 fill:#51cf66,color:#fff\n    style Y5 fill:#51cf66,color:#fff\n    style Z5 fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"Process of interest\"]\n    N2[\"Construct reversible path\"]\n    N3[\"ΔS_sys = ∫ dq_rev/T\"]\n    N4[\"ΔS_surroundings = −q/T\"]\n    N5[\"ΔS_univ = ΔS_sys + ΔS_surr\"]\n    N6{\"ΔS_univ sign?\"}\n    N7[\"> 0: spontaneous\"]\n    N8[\"= 0: reversible\"]\n    N9[\"< 0: impossible\"]\n\n    N1 --> N2\n    N2 --> N3\n    N1 --> N4\n    N3 --> N5\n    N4 --> N5\n    N5 --> N6\n    N6 -->|> 0| N7\n    N6 -->|= 0| N8\n    N6 -->|< 0| N9\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#74c0fc,color:#fff\n    style N6 fill:#74c0fc,color:#fff\n    style N7 fill:#b197fc,color:#fff\n    style N8 fill:#b197fc,color:#fff\n    style N9 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "title": "Physical Chemistry, 11th ed. — Entropy and the Second Law",
+      "authors": "Atkins, P.; de Paula, J.; Keeler, J.",
+      "journal": "Oxford University Press",
+      "year": "2018",
       "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: Entropy Changes. Created using the Programming Framework methodology."
+      "url": "https://global.oup.com/ukhe/product/atkins-physical-chemistry-9780198769866"
     },
     {
-      "title": "Entropy changes",
-      "authors": "Atkins, Peter; Paula, Julio de; Smith, David",
-      "journal": "Elements of Physical Chemistry",
-      "year": "2016",
-      "pubmed": null,
-      "doi": "10.1093/hesc/9780198727873.003.0014",
-      "url": "https://doi.org/10.1093/hesc/9780198727873.003.0014"
+      "title": "Gold Book: entropy, S",
+      "authors": "IUPAC",
+      "journal": "IUPAC Compendium of Chemical Terminology",
+      "year": "2019",
+      "doi": "10.1351/goldbook.E02149",
+      "url": "https://goldbook.iupac.org/terms/view/E02149"
     },
     {
-      "title": "Entropy changes accompanying specific processes",
-      "authors": "Atkins, Peter; de Paula, Julio; Keeler, James",
-      "journal": "Atkins’ Physical Chemistry",
-      "year": "2022",
-      "pubmed": null,
-      "doi": "10.1093/hesc/9780198847816.003.0013",
-      "url": "https://doi.org/10.1093/hesc/9780198847816.003.0013"
-    },
-    {
-      "title": "Wide Range Multiscale Entropy Changes through Development",
-      "authors": "Polizzotto, Nicola; Takahashi, Tetsuya; Walker, Christopher; Cho, Raymond",
-      "journal": "Entropy",
-      "year": "2015",
-      "pubmed": null,
-      "doi": "10.3390/e18010012",
-      "url": "https://doi.org/10.3390/e18010012"
+      "title": "Reflections on the Motive Power of Heat (Clausius formulation, reprint)",
+      "authors": "Clausius, R.",
+      "journal": "Annalen der Physik",
+      "year": "1865",
+      "doi": "10.1002/andp.18652010702",
+      "url": "https://doi.org/10.1002/andp.18652010702"
     }
   ],
   "keywords": [
     "entropy",
-    "changes"
+    "second law",
+    "reversible path",
+    "clausius",
+    "spontaneity"
   ],
   "relatedProcesses": [],
   "created": "2026-01-08",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Process of interest",
+      "detail": "Initial and final states",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N2",
+      "label": "Construct reversible path",
+      "detail": "State function lets path differ",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N3",
+      "label": "ΔS_sys = ∫ dq_rev/T",
+      "detail": "System entropy change",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N4",
+      "label": "ΔS_surroundings = −q/T",
+      "detail": "From heat exchanged with reservoir",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N5",
+      "label": "ΔS_univ = ΔS_sys + ΔS_surr",
+      "detail": "Total entropy production",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 2
+    },
+    {
+      "id": "N6",
+      "label": "ΔS_univ sign?",
+      "detail": "Clausius inequality",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N7",
+      "label": "> 0: spontaneous",
+      "detail": "Irreversible, occurs naturally",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 1
+    },
+    {
+      "id": "N8",
+      "label": "= 0: reversible",
+      "detail": "At equilibrium",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 1
+    },
+    {
+      "id": "N9",
+      "label": "< 0: impossible",
+      "detail": "Forbidden in isolation",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 1
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:thermodynamics-entropy-changes",
+    "graphType": "decision_flowchart",
+    "topologySignature": "38618900a371a865",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "namedCollections": [
+    "thermodynamics"
+  ],
+  "graphMetrics": {
+    "nodes": 9,
+    "edges": 9,
+    "conditionals": 1,
+    "andGates": 1,
+    "orGates": 2,
+    "notGates": 0,
+    "loops": 0
+  },
+  "graphType": "decision_flowchart",
+  "domainContext": "Second law of thermodynamics"
 }

@@ -1,0 +1,199 @@
+{
+  "id": "assay_protocols-dna-extraction",
+  "name": "DNA Extraction (Phenol–Chloroform)",
+  "category": "biology",
+  "subcategory": "assay_protocols",
+  "subcategory_name": "Assay / Lab Protocols",
+  "description": "Genomic DNA extraction: cells are lysed and proteins digested, then DNA is purified either by organic (phenol:chloroform) extraction or by silica-column binding, precipitated/eluted, and accepted only when the A260/A280 purity ratio is acceptable.",
+  "keywords": [
+    "dna extraction",
+    "lysis",
+    "phenol chloroform",
+    "silica column",
+    "purity"
+  ],
+  "namedCollections": [
+    "lab-protocols"
+  ],
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "complexity": {
+    "nodes": 11,
+    "edges": 12,
+    "conditionals": 2,
+    "logicGates": {
+      "orGates": 2,
+      "andGates": 2,
+      "notGates": 0,
+      "total": 4
+    },
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 1
+  },
+  "graphMetrics": {
+    "nodes": 11,
+    "edges": 12,
+    "conditionals": 2,
+    "andGates": 2,
+    "orGates": 2,
+    "notGates": 0,
+    "loops": 1
+  },
+  "mermaid": "graph TD\n    N1[\"Cell/tissue sample\"]\n    N2[\"Lysis buffer + proteinase K\"]\n    N3[\"Lyse cells; digest protein\"]\n    N4{\"Purification method?\"}\n    N5[\"Phenol:chloroform extract\"]\n    N6[\"Bind DNA to silica column\"]\n    N7[\"Wash column\"]\n    N8[\"Ethanol precipitate\"]\n    N9[\"Elute / resuspend DNA\"]\n    N10{\"A260/A280 ~ 1.8?\"}\n    N11[\"Purified genomic DNA\"]\n\n    N1 --> N3\n    N2 --> N3\n    N3 --> N4\n    N4 -->|organic| N5\n    N4 -->|column| N6\n    N5 --> N8\n    N6 --> N7\n    N7 --> N9\n    N8 --> N9\n    N9 --> N10\n    N10 -->|re-extract| N3\n    N10 -->|yes| N11\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#ffd43b,color:#000\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#74c0fc,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#51cf66,color:#fff\n    style N10 fill:#74c0fc,color:#fff\n    style N11 fill:#b197fc,color:#fff",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Cell/tissue sample",
+      "detail": "Starting biological material",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N2",
+      "label": "Lysis buffer + proteinase K",
+      "detail": "Detergent lysis buffer with proteinase K",
+      "type": "process",
+      "role": "Structures & Objects",
+      "sourceRef": 0
+    },
+    {
+      "id": "N3",
+      "label": "Lyse cells; digest protein",
+      "detail": "Disrupt membranes and digest proteins to release DNA",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N4",
+      "label": "Purification method?",
+      "detail": "Choose organic extraction or silica-column purification",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N5",
+      "label": "Phenol:chloroform extract",
+      "detail": "Partition proteins to organic phase; recover aqueous DNA",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N6",
+      "label": "Bind DNA to silica column",
+      "detail": "Bind DNA to silica in chaotropic salt",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N7",
+      "label": "Wash column",
+      "detail": "Ethanol washes remove salts and contaminants",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N8",
+      "label": "Ethanol precipitate",
+      "detail": "Precipitate DNA from aqueous phase with ethanol",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N9",
+      "label": "Elute / resuspend DNA",
+      "detail": "Elute or resuspend purified DNA in buffer",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N10",
+      "label": "A260/A280 ~ 1.8?",
+      "detail": "Spectrophotometric purity check (~1.8 for DNA)",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N11",
+      "label": "Purified genomic DNA",
+      "detail": "Clean genomic DNA ready for downstream use",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 0
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:assay_protocols-dna-extraction",
+    "graphType": "algorithm_flowchart",
+    "topologySignature": "1bab0de072b6ab95",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "pending",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "lastUpdated": "2026-06-01",
+  "verified": false,
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "sources": [
+    {
+      "title": "Molecular Cloning: A Laboratory Manual (3rd ed.)",
+      "authors": "Sambrook, J.; Russell, D. W.",
+      "journal": "Cold Spring Harbor Laboratory Press",
+      "year": "2001",
+      "doi": null,
+      "url": "https://www.worldcat.org/oclc/45458336"
+    },
+    {
+      "title": "Rapid and simple method for purification of nucleic acids",
+      "authors": "Boom, R.; Sol, C. J.; Salimans, M. M.; Jansen, C. L.; Wertheim-van Dillen, P. M.; van der Noordaa, J.",
+      "journal": "Journal of Clinical Microbiology",
+      "year": "1990",
+      "pubmed": "1691208",
+      "doi": "10.1128/jcm.28.3.495-503.1990",
+      "url": "https://doi.org/10.1128/jcm.28.3.495-503.1990"
+    },
+    {
+      "title": "Isolation of High-Molecular-Weight DNA Using Organic Solvents",
+      "authors": "Green, M. R.; Sambrook, J.",
+      "journal": "Cold Spring Harbor Protocols",
+      "year": "2017",
+      "pubmed": "28373480",
+      "doi": "10.1101/pdb.prot093450",
+      "url": "https://doi.org/10.1101/pdb.prot093450"
+    }
+  ],
+  "graphType": "algorithm_flowchart",
+  "domainContext": "Nucleic-acid purification protocol"
+}

@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2604.21184v1",
+  "arxiv_id": "2604.21184v1",
+  "title": "Predicting the thermodynamics in the chromosphere from the translation of SDO data into the IRIS$^{2}$ inversion results using a visual transformer model",
+  "authors": [
+    "Alberto Sainz Dalda",
+    "Vishal Upendran",
+    "Juno Kim",
+    "Kyuhyoun Cho",
+    "Paul S. Killam",
+    "Viggo Hansteen",
+    "Bart De Pontieu"
+  ],
+  "author_string": "Alberto Sainz Dalda, Vishal Upendran, Juno Kim, Kyuhyoun Cho, Paul S. Killam et al.",
+  "journal": "arXiv:2604.21184v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We present SDO2IRIS$^2$: a visual transformer model that translates a combination of images of the chromosphere and transition region (TR), observed by AIA, and a line-of-sight magnetogram, provided by HMI, into temperature, line-of-sight velocity (v$_{los}$), velocity of the turbulent motions (v$_{turb}$), and electron density (n$_{e}$) in the chromosphere. Using the thermodynamic variables obtained from the inversion of the chromospheric lines Mg II h&k, observed by IRIS, as the target of the model, and the intensity images in the chromosphere and TR, and the photospheric magnetogram as the input, the predicted T and n$_{e}$ show a strong correlation ($\\approx 0.80$) for $\\approx$80% of the test inverted data, a moderate-to-strong correlation ($\\approx0.63$) for 70% of the v$_{turb}$ of the target test inverted data, while for the $v_{los}$, the correlation is weak. Therefore, the predicted values by SDO2IRIS$^2$ may be used as an estimation of the thermodynamics in the chromosphere, either as a stand-alone result or as complementary information to other chromospheric data observed simultaneously. The execution time employed by SDO2IRIS$^2$ to obtain the thermodynamic values in the chromosphere is of the order of a few minutes, being $\\le10$ minutes when using a CPU, and $\\le5$ minutes when using a GPU. SDO2IRIS$^2$ opens a new avenue for the use of SDO data thanks to the inversions provided by IRIS observables.",
+  "categories": [
+    "astro-ph.SR"
+  ],
+  "primary_category": "astro-ph.SR",
+  "comment": "21 pages, 6 figures, and 7 tables",
+  "published_date": "2026-04-23T01:00:58Z",
+  "updated_date": "2026-04-23T01:00:58Z",
+  "url": "https://arxiv.org/abs/2604.21184v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.21184v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-26T10:16:12.593474",
+  "category": "physics",
+  "subcategories": [
+    "astro-ph.SR"
+  ]
+}

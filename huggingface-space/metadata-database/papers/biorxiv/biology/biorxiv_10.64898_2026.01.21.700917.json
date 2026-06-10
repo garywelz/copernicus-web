@@ -1,0 +1,45 @@
+{
+  "id": "biorxiv_10.64898_2026.01.21.700917",
+  "doi": "10.64898/2026.01.21.700917",
+  "title": "A Statistical Framework to Infer the Mutation Model of Tandem Repeat Variants",
+  "authors": [
+    "Luna, L. G. F.",
+    "Iturbe, S.",
+    "Adam, C.",
+    "Pope, N. S.",
+    "Ortega-Del Vecchyo, D.",
+    "Rohlfs, R."
+  ],
+  "author_string": "Luna, L. G. F., Iturbe, S., Adam, C., Pope, N. S., Ortega-Del Vecchyo, D. et al.",
+  "journal": "bioRxiv",
+  "journal_full": "bioRxiv",
+  "year": "2026",
+  "abstract": "Tandem Repeats (TRs) have complex mutational patterns that depend on many properties of the analyzed loci. An accurate characterization of the mutation model that defines the evolution of each TR is fundamental to understand the genetic diversity patterns of each TR. Here we propose a computational method that leverages the rich information contained in the ancestral recombination graph (ARG) to estimate the mutation process that drives the evolution of one loci containing a TR variant. Our method is called TRAMA, Tandem Repeat ARG-based Mutation Analysis. TRAMA uses the genealogical history estimated at each loci, which is contained in the ARG, to estimate the parameters that define the mutation of a TR under two different mutational models: The Stepwise Mutation Model (SMM) and the Two-Phase Mutation Model (TPM). First we show that TRAMA can provide estimates of the mutation rate of a TR evolving under the SMM that are accurate or have a slight underestimation when the mutation rate is higher than 10-5. Then, we show that TRAMA can provide reasonable estimates of the parameters that define the TPM under certain conditions. We also show that TRAMA can do an accurate selection of the mutational model that better explains the genetic diversity patterns of a loci from two competing models: TPM and SMM. Then, we show that estimates of the mutation rate under the SMM are similar when using the true genealogical history compared to using a genealogical history estimated using an ARG inference program, SINGER. We also discuss potential extensions of our methodology to perform a more accurate characterization of the mutation model driving the evolution of TRs.",
+  "keywords": [],
+  "categories": [
+    "evolutionary biology"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.64898/2026.01.21.700917",
+  "source": "biorxiv",
+  "sources": [
+    "biorxiv"
+  ],
+  "acquired_date": "2026-05-24T22:15:24.126545",
+  "category": "biology",
+  "subcategories": [
+    "evolutionary biology"
+  ],
+  "published_date": "2026-01-24",
+  "updated_date": "2026-01-24",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "biorxiv",
+  "preprint_version": "2",
+  "preprint_type": "new results",
+  "license": "cc_by",
+  "jatsxml": "https://www.biorxiv.org/content/early/2026/01/24//2026.01.21.700917.source.xml",
+  "published_doi": null,
+  "author_corresponding": "Diego Ortega-Del Vecchyo",
+  "author_corresponding_institution": "Universidad Nacional Autonoma de Mexico"
+}

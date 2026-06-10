@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2604.20458v1",
+  "arxiv_id": "2604.20458v1",
+  "title": "Surrogate Functionals for Machine-Learned Orbital-Free Density Functional Theory",
+  "authors": [
+    "Roman Remme",
+    "Fred A. Hamprecht"
+  ],
+  "author_string": "Roman Remme, Fred A. Hamprecht",
+  "journal": "arXiv:2604.20458v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We introduce surrogate functionals: machine-learned energy functionals for orbital-free density functional theory (OF-DFT) which are defined not by universal fidelity to a physical reference, but merely by the requirement that density optimization with a fixed procedure yields the true ground-state density. Helpfully, training surrogate functionals requires only ground-state densities, no energies or gradients away from the ground state. We here propose a gradient-descent-improvement loss that guarantees exponential convergence of the density to the ground state, and combine it with an adaptive sampling scheme that concentrates learning around the optimization trajectories actually visited during inference. On the QM9 and QMugs benchmarks, surrogate functionals achieve density errors competitive with or improving upon the state of the art for fully supervised machine-learned OF-DFT, while eliminating the need for the $O(N^3)$ orthononormalization step required by prior work, yielding improved runtime scaling for larger systems.",
+  "categories": [
+    "cs.LG",
+    "physics.chem-ph"
+  ],
+  "primary_category": "physics.chem-ph",
+  "comment": null,
+  "published_date": "2026-04-22T11:36:18Z",
+  "updated_date": "2026-04-22T11:36:18Z",
+  "url": "https://arxiv.org/abs/2604.20458v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.20458v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-25T22:15:49.053282",
+  "category": "physics",
+  "subcategories": [
+    "cs.LG",
+    "physics.chem-ph"
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "id": "complex_analysis-entire-picard",
+  "name": "Entire Functions & Picard Theorems",
+  "category": "mathematics",
+  "subcategory": "complex_analysis",
+  "subcategory_name": "Complex Analysis",
+  "description": "Entire = holomorphic on ℂ. Liouville: bounded ⇒ constant. Little Picard: entire omits at most one value. Great Picard: essential singularity omits at most one.",
+  "mermaid": "graph TD\n    D1[\"Def: Entire function\\nholomorphic on ℂ\"]\n    D2[\"Def: Order of growth\\nρ = lim sup log M(r)/log r\"]\n    D3[\"Def: Essential sing\\nLaurent: infinitely many\\nnegative powers\"]\n    T1[\"Thm: Liouville\\nentire bounded ⇒ constant\"]\n    T2[\"Thm: Little Picard\\nentire omits ≥2 values\\n⇒ constant\"]\n    T3[\"Thm: Great Picard\\nf has ess sing at z₀\\n⇒ f omits at most 1\\nin punctured nbhd\"]\n    T4[\"Thm: Hadamard factorization\\nentire order ρ\"]\n    T5[\"Thm: Weierstrass product\\nzeros ⇒ entire construction\"]\n    L1[\"Lemma: Casorati–Weierstrass\\nimage dense near ess sing\"]\n    D1 --> T1\n    D1 --> T2\n    D2 --> T4\n    D3 --> T3\n    D3 --> L1\n    L1 --> T3\n    T2 --> T4\n    classDef definition fill:#b197fc,color:#fff\n    classDef theorem fill:#51cf66,color:#fff\n    classDef lemma fill:#74c0fc,color:#fff\n    class D1,D2,D3 definition\n    class T1,T2,T3,T4,T5 theorem\n    class L1 lemma",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

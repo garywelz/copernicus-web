@@ -1,0 +1,38 @@
+{
+  "id": "arxiv_2604.18422v1",
+  "arxiv_id": "2604.18422v1",
+  "title": "Security Risks of VOA-Induced Luminescence in Chip-Based quantum key distribution",
+  "authors": [
+    "Zijian Li",
+    "Chenyu Xu",
+    "Xin Hua",
+    "Yongqiang Du",
+    "Xin Liu",
+    "Tao Lin",
+    "Xi Xiao",
+    "Kejin Wei"
+  ],
+  "author_string": "Zijian Li, Chenyu Xu, Xin Hua, Yongqiang Du, Xin Liu et al.",
+  "journal": "arXiv:2604.18422v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Integrated photonics is widely regarded as a key enabler for scalable quantum key distribution (QKD), offering compactness, stability, and compatibility with semiconductor fabrication. Despite rapid advances in chip-based QKD, the implementation security of integrated photonic components remains insufficiently understood. Here we present the first systematic study of an implementation-level security vulnerability associated with p-n junction-based variable optical attenuators (VOAs), a ubiquitous component in integrated QKD transmitters. We theoretically and experimentally demonstrate that electrically biased p-n junction VOAs emit spontaneous luminescence. Using a single-photon-sensitive spectral measurement technique, we identify the emission wavelength to be centered around 1107 nm, well separated from the C-band quantum signals. This spectral separation gives rise to a previously unrecognized wavelength-resolved side channel, enabling potential wavelength-splitting attacks without directly disturbing the encoded quantum states. By incorporating the measured luminescence into a quantitative security analysis, we show that even extremely weak emission can lead to non-negligible information leakage. Our findings reveal a fundamental and previously overlooked security risk in photonic integrated QKD systems and highlight the necessity of security-aware device design for future integrated quantum communication technologies.",
+  "categories": [
+    "quant-ph",
+    "physics.optics"
+  ],
+  "primary_category": "physics.optics",
+  "comment": null,
+  "published_date": "2026-04-20T15:40:45Z",
+  "updated_date": "2026-04-20T15:40:45Z",
+  "url": "https://arxiv.org/abs/2604.18422v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.18422v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-22T10:15:48.105568",
+  "category": "physics",
+  "subcategories": [
+    "quant-ph",
+    "physics.optics"
+  ]
+}

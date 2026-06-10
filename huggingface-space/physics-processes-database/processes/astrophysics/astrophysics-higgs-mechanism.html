@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Higgs Mechanism - Physics Process</title>
+    <title>Big Bang Nucleosynthesis - Physics Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Higgs Mechanism</h1>
+            <h1>Big Bang Nucleosynthesis</h1>
             <div class="header-meta">
                 <span class="meta-item">Physics</span>
                 <span class="meta-item">Astrophysics</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,67 +234,56 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Higgs Mechanism Process. This particle physics process visualization demonstrates the Higgs mechanism and mass generation. The flowchart shows Higgs inputs and spontaneous symmetry breaking, Higgs mechanism methods and mass generation, Higgs mechanism operations and Higgs boson, intermediate results, and final Higgs mechanism outputs.</p>
+                <p>Big Bang nucleosynthesis forms the light elements in the first minutes: as the universe expands and cools, the neutron-to-proton ratio freezes out, and once photons are too cool to photodissociate deuterium the bottleneck clears and nucleons fuse to helium-4 with trace deuterium and lithium, fixing the primordial abundances.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-A3[Higgs Field] --> B3[Higgs Mechanism Method]
-C3[Spontaneous Symmetry Breaking] --> D3[Mass Generation]
-E3[Higgs Boson] --> F3[Higgs Mechanism Analysis]
-B3 --> G3[Higgs Potential]
-D3 --> H3[Vacuum Expectation Value]
-F3 --> I3[Higgs Boson Detection]
-G3 --> J3[Higgs Mass]
-H3 --> K3[Higgs Coupling]
-I3 --> L3[Higgs Decay]
-J3 --> M3[Higgs Production]
-K3 --> L3
-L3 --> N3[Higgs Branching Ratio]
-M3 --> O3[Higgs Cross Section]
-N3 --> P3[Higgs Width]
-O3 --> Q3[Higgs Mechanism Process]
-P3 --> R3[Higgs Mechanism Validation]
-Q3 --> S3[Higgs Mechanism Verification]
-R3 --> T3[Higgs Mechanism Result]
-S3 --> U3[Higgs Mechanism Analysis]
-T3 --> V3[Higgs Mechanism Parameters]
-U3 --> W3[Higgs Mechanism Output]
-V3 --> X3[Higgs Mechanism Analysis]
-W3 --> Y3[Higgs Mechanism Final Result]
-X3 --> Z3[Higgs Mechanism Complete]
+    N1["Hot dense early universe"]
+    N2["Universe expands + cools"]
+    N3["Quark-hadron transition"]
+    N4["p and n freeze out"]
+    N5["n/p ratio set by T"]
+    N6{"Below D threshold?"}
+    N7["Deuterium dissociated"]
+    N8["D bottleneck clears"]
+    N9["Fuse to He-4 (+ Li)"]
+    N10["Primordial abundances"]
 
-    style A3 fill:#ff6b6b,color:#fff
-    style C3 fill:#ff6b6b,color:#fff
-    style E3 fill:#ff6b6b,color:#fff
-    style B3 fill:#ffd43b,color:#000
-    style D3 fill:#ffd43b,color:#000
-    style F3 fill:#ffd43b,color:#000
-    style G3 fill:#ffd43b,color:#000
-    style H3 fill:#ffd43b,color:#000
-    style I3 fill:#ffd43b,color:#000
-    style J3 fill:#ffd43b,color:#000
-    style K3 fill:#ffd43b,color:#000
-    style L3 fill:#ffd43b,color:#000
-    style M3 fill:#51cf66,color:#fff
+    N1 --> N2
+    N2 --> N3
+    N3 --> N4
+    N4 --> N5
+    N5 --> N6
+    N6 -->|no| N7
+    N7 -->|cool more| N2
+    N6 -->|yes| N8
+    N8 --> N9
+    N9 --> N10
+
+    style N1 fill:#ff6b6b,color:#fff
+    style N2 fill:#51cf66,color:#fff
     style N3 fill:#51cf66,color:#fff
-    style O3 fill:#51cf66,color:#fff
-    style P3 fill:#51cf66,color:#fff
-    style Q3 fill:#51cf66,color:#fff
-    style R3 fill:#51cf66,color:#fff
-    style S3 fill:#51cf66,color:#fff
-    style T3 fill:#51cf66,color:#fff
-    style U3 fill:#51cf66,color:#fff
-    style V3 fill:#51cf66,color:#fff
-    style W3 fill:#51cf66,color:#fff
-    style X3 fill:#51cf66,color:#fff
-    style Y3 fill:#51cf66,color:#fff
-    style Z3 fill:#b197fc,color:#fff
+    style N4 fill:#74c0fc,color:#fff
+    style N5 fill:#51cf66,color:#fff
+    style N6 fill:#74c0fc,color:#fff
+    style N7 fill:#51cf66,color:#fff
+    style N8 fill:#74c0fc,color:#fff
+    style N9 fill:#51cf66,color:#fff
+    style N10 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Hot dense early universe</td><td>Triggers & Inputs</td><td><a href="https://doi.org/10.1103/PhysRev.73.803" target="_blank" title="The origin of chemical elements" style="color:#3498db;">Alpher, R. A. et al. 1948</a></td></tr><tr><td style="font-weight:600;">Universe expands + cools</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1103/RevModPhys.88.015004" target="_blank" title="Big bang nucleosynthesis: Present status" style="color:#3498db;">Cyburt, R. H. et al. 2016</a></td></tr><tr><td style="font-weight:600;">Quark-hadron transition</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1103/PhysRev.73.803" target="_blank" title="The origin of chemical elements" style="color:#3498db;">Alpher, R. A. et al. 1948</a></td></tr><tr><td style="font-weight:600;">p and n freeze out</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1103/RevModPhys.88.015004" target="_blank" title="Big bang nucleosynthesis: Present status" style="color:#3498db;">Cyburt, R. H. et al. 2016</a></td></tr><tr><td style="font-weight:600;">n/p ratio set by T</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1103/RevModPhys.88.015004" target="_blank" title="Big bang nucleosynthesis: Present status" style="color:#3498db;">Cyburt, R. H. et al. 2016</a></td></tr><tr><td style="font-weight:600;">Below D threshold?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1103/RevModPhys.88.015004" target="_blank" title="Big bang nucleosynthesis: Present status" style="color:#3498db;">Cyburt, R. H. et al. 2016</a></td></tr><tr><td style="font-weight:600;">Deuterium dissociated</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1103/PhysRev.73.803" target="_blank" title="The origin of chemical elements" style="color:#3498db;">Alpher, R. A. et al. 1948</a></td></tr><tr><td style="font-weight:600;">D bottleneck clears</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1103/RevModPhys.88.015004" target="_blank" title="Big bang nucleosynthesis: Present status" style="color:#3498db;">Cyburt, R. H. et al. 2016</a></td></tr><tr><td style="font-weight:600;">Fuse to He-4 (+ Li)</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1103/PhysRev.73.803" target="_blank" title="The origin of chemical elements" style="color:#3498db;">Alpher, R. A. et al. 1948</a></td></tr><tr><td style="font-weight:600;">Primordial abundances</td><td>Products & Outputs</td><td><a href="https://doi.org/10.1103/RevModPhys.88.015004" target="_blank" title="Big bang nucleosynthesis: Present status" style="color:#3498db;">Cyburt, R. H. et al. 2016</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -313,12 +329,12 @@ X3 --> Z3[Higgs Mechanism Complete]
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 26</li>
-                        <li><strong>Edges:</strong> 24</li>
-                        <li><strong>Conditionals:</strong> 0</li>
+                        <li><strong>Nodes:</strong> 10</li>
+                        <li><strong>Edges:</strong> 10</li>
+                        <li><strong>Conditionals:</strong> 1</li>
                         <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 1</li>
+                        <li><strong>OR Gates:</strong> 1</li>
+                        <li><strong>Total Gates:</strong> 2</li>
                     </ul>
                 </div>
                 
@@ -326,7 +342,7 @@ X3 --> Z3[Higgs Mechanism Complete]
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>mechanism</li><li>astrophysics</li><li>higgs</li>
+                        <li>Big Bang nucleosynthesis</li><li>primordial abundances</li><li>deuterium bottleneck</li><li>neutron-proton ratio</li><li>helium-4</li>
                     </ul>
                 </div>
                 
@@ -337,42 +353,22 @@ X3 --> Z3[Higgs Mechanism Complete]
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>The origin of chemical elements</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Alpher, R. A.; Bethe, H.; Gamow, G.
+                            , Physical Review
+                             (1948)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #3498db; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Broken Symmetry and the Mass of Gauge Vector Mesons</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Englert F., Brout R.
-                            , Phys. Rev. Lett.
-                             (1964)
-                            </span>
-                            <br><a href="https://doi.org/10.1103/PhysRevLett.13.321" target="_blank" style="color: #3498db; font-size: 0.85em;">DOI: 10.1103/PhysRevLett.13.321</a>
+                            <br><a href="https://doi.org/10.1103/PhysRev.73.803" target="_blank" style="color: #3498db; font-size: 0.85em;">DOI: 10.1103/PhysRev.73.803</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Broken Symmetries and the Masses of Gauge Bosons</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Higgs P.W.
-                            , Phys. Rev. Lett.
-                             (1964)
+                            <strong>Big bang nucleosynthesis: Present status</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Cyburt, R. H.; Fields, B. D.; Olive, K. A.; Yeh, T.-H.
+                            , Reviews of Modern Physics
+                             (2016)
                             </span>
-                            <br><a href="https://doi.org/10.1103/PhysRevLett.13.508" target="_blank" style="color: #3498db; font-size: 0.85em;">DOI: 10.1103/PhysRevLett.13.508</a>
-                            
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>The Discovery of the Higgs Boson</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Tarem S., Oreglia H.S.
-                            , Rev. Mod. Phys.
-                             (2014)
-                            </span>
-                            <br><a href="https://doi.org/10.1103/RevModPhys.86.1475" target="_blank" style="color: #3498db; font-size: 0.85em;">DOI: 10.1103/RevModPhys.86.1475</a>
+                            <br><a href="https://doi.org/10.1103/RevModPhys.88.015004" target="_blank" style="color: #3498db; font-size: 0.85em;">DOI: 10.1103/RevModPhys.88.015004</a>
                             
                         </li>
                         

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wave Function - Physics Process</title>
+    <title>Electromagnetic Induction (Faraday's Law) - Physics Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Wave Function</h1>
+            <h1>Electromagnetic Induction (Faraday's Law)</h1>
             <div class="header-meta">
                 <span class="meta-item">Physics</span>
                 <span class="meta-item">Electromagnetism</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,67 +234,56 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Wave Function Process. This quantum mechanics process visualization demonstrates wave function evolution and measurement. The flowchart shows quantum inputs and superposition states, wave function methods and probability amplitudes, wave function operations and measurement processes, intermediate results, and final wave function outputs.</p>
+                <p>Faraday's law of induction relates a changing magnetic flux through a circuit to an induced electromotive force: the flux is defined as the surface integral of B, and when it changes in time an EMF equal to minus its rate of change drives a current whose direction, set by Lenz's law, opposes the change.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-A1[Quantum State] --> B1[Wave Function Method]
-C1[Superposition State] --> D1[Probability Amplitude]
-E1[Measurement Process] --> F1[Wave Function Analysis]
-B1 --> G1[Schrodinger Equation]
-D1 --> H1[Wave Function Collapse]
-F1 --> I1[Quantum Measurement]
-G1 --> J1[Time Evolution]
-H1 --> K1[Eigenstate Selection]
-I1 --> L1[Observable Operator]
-J1 --> M1[Quantum Coherence]
-K1 --> L1
-L1 --> N1[Measurement Outcome]
-M1 --> O1[Quantum Interference]
-N1 --> P1[State Reduction]
-O1 --> Q1[Wave Function Process]
-P1 --> R1[Wave Function Validation]
-Q1 --> S1[Wave Function Verification]
-R1 --> T1[Wave Function Result]
-S1 --> U1[Wave Function Analysis]
-T1 --> V1[Wave Function Parameters]
-U1 --> W1[Wave Function Output]
-V1 --> X1[Wave Function Analysis]
-W1 --> Y1[Wave Function Final Result]
-X1 --> Z1[Wave Function Complete]
+    N1["Conducting loop in B-field"]
+    N2["Define magnetic flux"]
+    N3{"Flux changing in time?"}
+    N4["Vary B, area, or angle"]
+    N5["Flux rate nonzero"]
+    N6["Faraday: EMF = -dPhi/dt"]
+    N7["Lenz's law sets polarity"]
+    N8["Induced current I = EMF/R"]
+    N9["Induced B opposes change"]
+    N10["Predicted EMF & current"]
 
-    style A1 fill:#ff6b6b,color:#fff
-    style C1 fill:#ff6b6b,color:#fff
-    style E1 fill:#ff6b6b,color:#fff
-    style B1 fill:#ffd43b,color:#000
-    style D1 fill:#ffd43b,color:#000
-    style F1 fill:#ffd43b,color:#000
-    style G1 fill:#ffd43b,color:#000
-    style H1 fill:#ffd43b,color:#000
-    style I1 fill:#ffd43b,color:#000
-    style J1 fill:#ffd43b,color:#000
-    style K1 fill:#ffd43b,color:#000
-    style L1 fill:#ffd43b,color:#000
-    style M1 fill:#51cf66,color:#fff
-    style N1 fill:#51cf66,color:#fff
-    style O1 fill:#51cf66,color:#fff
-    style P1 fill:#51cf66,color:#fff
-    style Q1 fill:#51cf66,color:#fff
-    style R1 fill:#51cf66,color:#fff
-    style S1 fill:#51cf66,color:#fff
-    style T1 fill:#51cf66,color:#fff
-    style U1 fill:#51cf66,color:#fff
-    style V1 fill:#51cf66,color:#fff
-    style W1 fill:#51cf66,color:#fff
-    style X1 fill:#51cf66,color:#fff
-    style Y1 fill:#51cf66,color:#fff
-    style Z1 fill:#b197fc,color:#fff
+    N1 --> N2
+    N2 --> N3
+    N3 -->|no| N4
+    N4 -->|drive change| N2
+    N3 -->|yes| N5
+    N5 --> N6
+    N6 --> N7
+    N7 --> N8
+    N8 --> N9
+    N9 --> N10
+
+    style N1 fill:#ff6b6b,color:#fff
+    style N2 fill:#51cf66,color:#fff
+    style N3 fill:#74c0fc,color:#fff
+    style N4 fill:#51cf66,color:#fff
+    style N5 fill:#74c0fc,color:#fff
+    style N6 fill:#51cf66,color:#fff
+    style N7 fill:#51cf66,color:#fff
+    style N8 fill:#51cf66,color:#fff
+    style N9 fill:#74c0fc,color:#fff
+    style N10 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Conducting loop in B-field</td><td>Triggers & Inputs</td><td><a href="https://doi.org/10.1017/9781108333511" target="_blank" title="Introduction to Electrodynamics (4th ed.)" style="color:#3498db;">Griffiths, D. J. 2017</a></td></tr><tr><td style="font-weight:600;">Define magnetic flux</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1017/9781108333511" target="_blank" title="Introduction to Electrodynamics (4th ed.)" style="color:#3498db;">Griffiths, D. J. 2017</a></td></tr><tr><td style="font-weight:600;">Flux changing in time?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1098/rstl.1832.0006" target="_blank" title="Experimental researches in electricity (First series)" style="color:#3498db;">Faraday, M. 1832</a></td></tr><tr><td style="font-weight:600;">Vary B, area, or angle</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1098/rstl.1832.0006" target="_blank" title="Experimental researches in electricity (First series)" style="color:#3498db;">Faraday, M. 1832</a></td></tr><tr><td style="font-weight:600;">Flux rate nonzero</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1098/rstl.1832.0006" target="_blank" title="Experimental researches in electricity (First series)" style="color:#3498db;">Faraday, M. 1832</a></td></tr><tr><td style="font-weight:600;">Faraday: EMF = -dPhi/dt</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1098/rstl.1832.0006" target="_blank" title="Experimental researches in electricity (First series)" style="color:#3498db;">Faraday, M. 1832</a></td></tr><tr><td style="font-weight:600;">Lenz's law sets polarity</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1017/9781108333511" target="_blank" title="Introduction to Electrodynamics (4th ed.)" style="color:#3498db;">Griffiths, D. J. 2017</a></td></tr><tr><td style="font-weight:600;">Induced current I = EMF/R</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1017/9781108333511" target="_blank" title="Introduction to Electrodynamics (4th ed.)" style="color:#3498db;">Griffiths, D. J. 2017</a></td></tr><tr><td style="font-weight:600;">Induced B opposes change</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1017/9781108333511" target="_blank" title="Introduction to Electrodynamics (4th ed.)" style="color:#3498db;">Griffiths, D. J. 2017</a></td></tr><tr><td style="font-weight:600;">Predicted EMF & current</td><td>Products & Outputs</td><td><a href="https://doi.org/10.1098/rstl.1832.0006" target="_blank" title="Experimental researches in electricity (First series)" style="color:#3498db;">Faraday, M. 1832</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -313,12 +329,12 @@ X1 --> Z1[Wave Function Complete]
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 26</li>
-                        <li><strong>Edges:</strong> 24</li>
-                        <li><strong>Conditionals:</strong> 0</li>
+                        <li><strong>Nodes:</strong> 10</li>
+                        <li><strong>Edges:</strong> 10</li>
+                        <li><strong>Conditionals:</strong> 1</li>
                         <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 1</li>
+                        <li><strong>OR Gates:</strong> 1</li>
+                        <li><strong>Total Gates:</strong> 2</li>
                     </ul>
                 </div>
                 
@@ -326,7 +342,7 @@ X1 --> Z1[Wave Function Complete]
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>electromagnetism</li><li>function</li><li>wave</li>
+                        <li>electromagnetic induction</li><li>Faraday's law</li><li>magnetic flux</li><li>Lenz's law</li><li>induced EMF</li>
                     </ul>
                 </div>
                 
@@ -337,42 +353,22 @@ X1 --> Z1[Wave Function Complete]
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Experimental researches in electricity (First series)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Faraday, M.
+                            , Philosophical Transactions of the Royal Society
+                             (1832)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #3498db; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Quantisierung als Eigenwertproblem. (Erste Mitteilung)</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Schrödinger, E.
-                            , Ann. Phys.
-                             (1926)
-                            </span>
-                            <br><a href="https://doi.org/10.1002/andp.19263840404" target="_blank" style="color: #3498db; font-size: 0.85em;">DOI: 10.1002/andp.19263840404</a>
+                            <br><a href="https://doi.org/10.1098/rstl.1832.0006" target="_blank" style="color: #3498db; font-size: 0.85em;">DOI: 10.1098/rstl.1832.0006</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Zur Quantenmechanik der Stoßvorgänge</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Born, M.
-                            , Z. Phys.
-                             (1926)
+                            <strong>Introduction to Electrodynamics (4th ed.)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Griffiths, D. J.
+                            , Cambridge University Press
+                             (2017)
                             </span>
-                            <br><a href="https://doi.org/10.1007/BF01397184" target="_blank" style="color: #3498db; font-size: 0.85em;">DOI: 10.1007/BF01397184</a>
-                            
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Decoherence, the measurement problem, and interpretations of quantum mechanics</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Schlosshauer, M.
-                            , Rev. Mod. Phys.
-                             (2007)
-                            </span>
-                            <br><a href="https://doi.org/10.1103/RevModPhys.76.1267" target="_blank" style="color: #3498db; font-size: 0.85em;">DOI: 10.1103/RevModPhys.76.1267</a>
+                            <br><a href="https://doi.org/10.1017/9781108333511" target="_blank" style="color: #3498db; font-size: 0.85em;">DOI: 10.1017/9781108333511</a>
                             
                         </li>
                         

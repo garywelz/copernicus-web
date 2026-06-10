@@ -1,0 +1,30 @@
+{
+  "id": "arxiv_2605.07968v1",
+  "arxiv_id": "2605.07968v1",
+  "title": "Measure Many Quantum Finite Automata on Infinite Words",
+  "authors": [
+    "Abhisek Midya",
+    "A Baskar"
+  ],
+  "author_string": "Abhisek Midya, A Baskar",
+  "journal": "arXiv:2605.07968v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We define a quantum computational model over infinite words, called Measure-Many Quantum Büchi Automata (MMQBA), which extends Measure-many Quantum Finite automata (MMQFA) to the infinite word setting with Büchi acceptance condition. In MMQBA, the quantum state evolves through unitary transformations followed by repeated projective measurements. An infinite word is accearaq2ppted with respect to a cutpoint p is in (0, 1] if (i) the run visits accepting states infinitely often, (ii) the limiting cumulative acceptance probability is at least p, and (iii) the limiting cumulative rejection lprobability is strictly less than p. We formalize the semantics of MMQBA, establish a language-theoretic characterization showing that MMQBA languages are precisely of the form lim(L(M, p)) for MMQFA M , and develop a decomposition of the non-halting subspace. We prove that MMQBA is closed under union but not under intersection or complementation. On the algorithmic side, we show that the emptiness problem is semi-decidable, while universality, inclusion, equivalence, and membership remain undecidable.",
+  "categories": [
+    "cs.FL"
+  ],
+  "primary_category": "cs.FL",
+  "comment": null,
+  "published_date": "2026-05-08T16:29:52Z",
+  "updated_date": "2026-05-08T16:29:52Z",
+  "url": "https://arxiv.org/abs/2605.07968v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.07968v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-10T22:17:15.401784",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.FL"
+  ]
+}

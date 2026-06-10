@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Standard Model - Physics Process</title>
+    <title>Stellar Nucleosynthesis (pp-chain) - Physics Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Standard Model</h1>
+            <h1>Stellar Nucleosynthesis (pp-chain)</h1>
             <div class="header-meta">
                 <span class="meta-item">Physics</span>
                 <span class="meta-item">Astrophysics</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,67 +234,59 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Standard Model Process. This particle physics process visualization demonstrates the Standard Model and fundamental particles. The flowchart shows particle inputs and particle properties, Standard Model methods and gauge theory, Standard Model operations and particle interactions, intermediate results, and final Standard Model outputs.</p>
+                <p>A protostar becomes a main-sequence star through hydrogen fusion: gravitational contraction heats the core until the proton-proton chain ignites, fusing hydrogen to helium-4 and releasing energy by mass defect; the resulting radiation pressure balances gravity, establishing hydrostatic equilibrium.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-A2[Elementary Particle] --> B2[Standard Model Method]
-C2[Particle Properties] --> D2[Gauge Theory]
-E2[Particle Interactions] --> F2[Standard Model Analysis]
-B2 --> G2[Quark Model]
-D2 --> H2[Electroweak Theory]
-F2 --> I2[Quantum Chromodynamics]
-G2 --> J2[Quark Properties]
-H2 --> K2[Gauge Bosons]
-I2 --> L2[Strong Force]
-J2 --> M2[Particle Mass]
-K2 --> L2
-L2 --> N2[Particle Charge]
-M2 --> O2[Particle Spin]
-N2 --> P2[Particle Flavor]
-O2 --> Q2[Standard Model Process]
-P2 --> R2[Standard Model Validation]
-Q2 --> S2[Standard Model Verification]
-R2 --> T2[Standard Model Result]
-S2 --> U2[Standard Model Analysis]
-T2 --> V2[Standard Model Parameters]
-U2 --> W2[Standard Model Output]
-V2 --> X2[Standard Model Analysis]
-W2 --> Y2[Standard Model Final Result]
-X2 --> Z2[Standard Model Complete]
+    N1["Protostar contracts"]
+    N2["Core heats by gravity"]
+    N3{"Core hot enough to fuse?"}
+    N4["Keep contracting"]
+    N5["p + p -> deuterium"]
+    N6["d + p -> He-3"]
+    N7["He-3 + He-3 -> He-4"]
+    N8["Release energy E=mc^2"]
+    N9["Radiation pressure builds"]
+    N10["Hydrostatic equilibrium"]
+    N11["Main-sequence star"]
 
-    style A2 fill:#ff6b6b,color:#fff
-    style C2 fill:#ff6b6b,color:#fff
-    style E2 fill:#ff6b6b,color:#fff
-    style B2 fill:#ffd43b,color:#000
-    style D2 fill:#ffd43b,color:#000
-    style F2 fill:#ffd43b,color:#000
-    style G2 fill:#ffd43b,color:#000
-    style H2 fill:#ffd43b,color:#000
-    style I2 fill:#ffd43b,color:#000
-    style J2 fill:#ffd43b,color:#000
-    style K2 fill:#ffd43b,color:#000
-    style L2 fill:#ffd43b,color:#000
-    style M2 fill:#51cf66,color:#fff
+    N1 --> N2
+    N2 --> N3
+    N3 -->|no| N4
+    N4 -->|heat more| N2
+    N3 -->|yes| N5
+    N5 --> N6
+    N6 --> N7
+    N7 --> N8
+    N8 --> N9
+    N9 --> N10
+    N10 --> N11
+
+    style N1 fill:#ff6b6b,color:#fff
     style N2 fill:#51cf66,color:#fff
-    style O2 fill:#51cf66,color:#fff
-    style P2 fill:#51cf66,color:#fff
-    style Q2 fill:#51cf66,color:#fff
-    style R2 fill:#51cf66,color:#fff
-    style S2 fill:#51cf66,color:#fff
-    style T2 fill:#51cf66,color:#fff
-    style U2 fill:#51cf66,color:#fff
-    style V2 fill:#51cf66,color:#fff
-    style W2 fill:#51cf66,color:#fff
-    style X2 fill:#51cf66,color:#fff
-    style Y2 fill:#51cf66,color:#fff
-    style Z2 fill:#b197fc,color:#fff
+    style N3 fill:#74c0fc,color:#fff
+    style N4 fill:#51cf66,color:#fff
+    style N5 fill:#51cf66,color:#fff
+    style N6 fill:#51cf66,color:#fff
+    style N7 fill:#51cf66,color:#fff
+    style N8 fill:#74c0fc,color:#fff
+    style N9 fill:#51cf66,color:#fff
+    style N10 fill:#74c0fc,color:#fff
+    style N11 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Protostar contracts</td><td>Triggers & Inputs</td><td><a href="https://doi.org/10.1103/RevModPhys.29.547" target="_blank" title="Synthesis of the elements in stars" style="color:#3498db;">Burbidge, E. M. et al. 1957</a></td></tr><tr><td style="font-weight:600;">Core heats by gravity</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1103/RevModPhys.29.547" target="_blank" title="Synthesis of the elements in stars" style="color:#3498db;">Burbidge, E. M. et al. 1957</a></td></tr><tr><td style="font-weight:600;">Core hot enough to fuse?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1103/PhysRev.55.434" target="_blank" title="Energy production in stars" style="color:#3498db;">Bethe, H. A. 1939</a></td></tr><tr><td style="font-weight:600;">Keep contracting</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1103/RevModPhys.29.547" target="_blank" title="Synthesis of the elements in stars" style="color:#3498db;">Burbidge, E. M. et al. 1957</a></td></tr><tr><td style="font-weight:600;">p + p -> deuterium</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1103/PhysRev.55.434" target="_blank" title="Energy production in stars" style="color:#3498db;">Bethe, H. A. 1939</a></td></tr><tr><td style="font-weight:600;">d + p -> He-3</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1103/PhysRev.55.434" target="_blank" title="Energy production in stars" style="color:#3498db;">Bethe, H. A. 1939</a></td></tr><tr><td style="font-weight:600;">He-3 + He-3 -> He-4</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1103/PhysRev.55.434" target="_blank" title="Energy production in stars" style="color:#3498db;">Bethe, H. A. 1939</a></td></tr><tr><td style="font-weight:600;">Release energy E=mc^2</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1103/PhysRev.55.434" target="_blank" title="Energy production in stars" style="color:#3498db;">Bethe, H. A. 1939</a></td></tr><tr><td style="font-weight:600;">Radiation pressure builds</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1103/RevModPhys.29.547" target="_blank" title="Synthesis of the elements in stars" style="color:#3498db;">Burbidge, E. M. et al. 1957</a></td></tr><tr><td style="font-weight:600;">Hydrostatic equilibrium</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1103/RevModPhys.29.547" target="_blank" title="Synthesis of the elements in stars" style="color:#3498db;">Burbidge, E. M. et al. 1957</a></td></tr><tr><td style="font-weight:600;">Main-sequence star</td><td>Products & Outputs</td><td><a href="https://doi.org/10.1103/RevModPhys.29.547" target="_blank" title="Synthesis of the elements in stars" style="color:#3498db;">Burbidge, E. M. et al. 1957</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -313,12 +332,12 @@ X2 --> Z2[Standard Model Complete]
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 26</li>
-                        <li><strong>Edges:</strong> 24</li>
-                        <li><strong>Conditionals:</strong> 0</li>
+                        <li><strong>Nodes:</strong> 11</li>
+                        <li><strong>Edges:</strong> 11</li>
+                        <li><strong>Conditionals:</strong> 1</li>
                         <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 1</li>
+                        <li><strong>OR Gates:</strong> 1</li>
+                        <li><strong>Total Gates:</strong> 2</li>
                     </ul>
                 </div>
                 
@@ -326,7 +345,7 @@ X2 --> Z2[Standard Model Complete]
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>astrophysics</li><li>standard</li><li>model</li>
+                        <li>stellar nucleosynthesis</li><li>proton-proton chain</li><li>hydrogen fusion</li><li>hydrostatic equilibrium</li><li>main sequence</li>
                     </ul>
                 </div>
                 
@@ -337,42 +356,22 @@ X2 --> Z2[Standard Model Complete]
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Energy production in stars</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Bethe, H. A.
+                            , Physical Review
+                             (1939)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #3498db; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>A Model of Leptons</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Weinberg, S.
-                            , Phys. Rev. Lett.
-                             (1967)
-                            </span>
-                            <br><a href="https://doi.org/10.1103/PhysRevLett.19.1264" target="_blank" style="color: #3498db; font-size: 0.85em;">DOI: 10.1103/PhysRevLett.19.1264</a>
+                            <br><a href="https://doi.org/10.1103/PhysRev.55.434" target="_blank" style="color: #3498db; font-size: 0.85em;">DOI: 10.1103/PhysRev.55.434</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Ultraviolet Behavior of Non-Abelian Gauge Theories</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Gross, D. J.; Wilczek, F.
-                            , Phys. Rev. Lett.
-                             (1973)
+                            <strong>Synthesis of the elements in stars</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Burbidge, E. M.; Burbidge, G. R.; Fowler, W. A.; Hoyle, F.
+                            , Reviews of Modern Physics
+                             (1957)
                             </span>
-                            <br><a href="https://doi.org/10.1103/PhysRevLett.30.1343" target="_blank" style="color: #3498db; font-size: 0.85em;">DOI: 10.1103/PhysRevLett.30.1343</a>
-                            
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Precision Electroweak Measurements and the Standard Model</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Erler, J.; Langacker, P.
-                            , Rev. Mod. Phys.
-                             (2010)
-                            </span>
-                            <br><a href="https://doi.org/10.1103/RevModPhys.82.3609" target="_blank" style="color: #3498db; font-size: 0.85em;">DOI: 10.1103/RevModPhys.82.3609</a>
+                            <br><a href="https://doi.org/10.1103/RevModPhys.29.547" target="_blank" style="color: #3498db; font-size: 0.85em;">DOI: 10.1103/RevModPhys.29.547</a>
                             
                         </li>
                         

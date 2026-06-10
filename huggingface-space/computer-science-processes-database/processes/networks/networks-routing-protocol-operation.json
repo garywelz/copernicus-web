@@ -4,18 +4,20 @@
   "category": "computer_science",
   "subcategory": "networks",
   "subcategory_name": "Computer Networks",
-  "description": "Routing Protocol Operation process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "Routing protocols build forwarding tables by sharing reachability information: distance-vector protocols exchange distance tables with neighbors while link-state protocols flood link advertisements to build a full topology, each then computes shortest paths and recomputes routes whenever the topology changes, converging on a consistent routing table.",
   "complexity": {
-    "nodes": 10,
-    "edges": 10,
-    "conditionals": 0,
+    "nodes": 11,
+    "edges": 12,
+    "conditionals": 2,
     "logicGates": {
-      "orGates": 1,
+      "orGates": 2,
       "andGates": 1,
-      "total": 2
+      "notGates": 0,
+      "total": 3
     },
-    "level": "medium",
-    "detailLevel": "medium"
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 1
   },
   "colorScheme": {
     "red": {
@@ -39,54 +41,148 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nN1[\"Network Topology\"]\nN2[\"Link Updates\"]\nN3[\"Neighbors\"]\nN4[\"Choose Approach\"]\nN5[\"Routing Table\"]\nN6[\"Exchange Updates\"]\nN7[\"Compute Best Paths\"]\nN8[\"Converged Routes\"]\nN9[\"Integrate Results\"]\nN10[\"Forwarding Decisions\"]\n\nN1 --> N2\nN2 --> N3\nN3 --> N4\nN4 --> N5\nN4 --> N7\nN5 --> N6\nN7 --> N8\nN6 --> N9\nN8 --> N9\nN9 --> N10\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#ff6b6b,color:#fff\n    style N3 fill:#ffd43b,color:#000\n    style N4 fill:#ffd43b,color:#000\n    style N5 fill:#ffd43b,color:#000\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#74c0fc,color:#fff\n    style N9 fill:#74c0fc,color:#fff\n    style N10 fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"Router knows neighbors\"]\n    N2[\"Exchange routing info\"]\n    N3{\"DV or link-state?\"}\n    N4[\"DV: share distance table\"]\n    N5[\"LS: flood link states\"]\n    N6[\"Build topology / table\"]\n    N7[\"Run shortest-path\"]\n    N8{\"Topology changed?\"}\n    N9[\"Recompute routes\"]\n    N10[\"Converged routing table\"]\n    N11[\"Forward by routing table\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 -->|distance-vector| N4\n    N3 -->|link-state| N5\n    N4 --> N6\n    N5 --> N6\n    N6 --> N7\n    N7 --> N8\n    N8 -->|yes| N9\n    N9 -->|update| N6\n    N8 -->|no| N10\n    N10 --> N11\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#74c0fc,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#74c0fc,color:#fff\n    style N9 fill:#51cf66,color:#fff\n    style N10 fill:#74c0fc,color:#fff\n    style N11 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
-      "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: Routing Protocol Operation. Created using the Programming Framework methodology."
+      "title": "OSPF Version 2 (RFC 2328)",
+      "authors": "Moy, J.",
+      "journal": "IETF",
+      "year": "1998",
+      "doi": "10.17487/RFC2328",
+      "url": "https://doi.org/10.17487/RFC2328"
     },
     {
-      "title": "SLEEP MODE OPERATION OF A ROUTING PROTOCOL IN MOBILE AD HOC NETWORKS",
-      "authors": "QAYYUM, A.; TOOR, Y.; JACQUET, P.; MÜHLETHALER, P.; CLAUSEN, T.",
-      "journal": "Networks",
-      "year": "2002",
-      "pubmed": null,
-      "doi": "10.1142/9789812776730_0020",
-      "url": "https://doi.org/10.1142/9789812776730_0020"
-    },
-    {
-      "title": "EEMOR: Energy Efficient Metaheuristic Opportunistic Routing Protocol for WSNs",
-      "authors": "",
-      "journal": "",
-      "year": "None",
-      "pubmed": null,
-      "doi": "10.32908/ahswn.v55.9265",
-      "url": "https://doi.org/10.32908/ahswn.v55.9265"
-    },
-    {
-      "title": "Developing Secure Multipath Routing (AODV-SMR) Protocol Framework Based Multipath Network Routing Protocol",
-      "authors": "Albeladi, Marwah Yahya",
-      "journal": "Engineering and Technology Journal",
-      "year": "2022",
-      "pubmed": null,
-      "doi": "10.47191/etj/v7i1.05",
-      "url": "https://doi.org/10.47191/etj/v7i1.05"
+      "title": "Computer Networks (5th ed.)",
+      "authors": "Tanenbaum, A. S.; Wetherall, D. J.",
+      "journal": "Pearson",
+      "year": "2011",
+      "url": "https://www.pearson.com/en-us/subject-catalog/p/computer-networks/P200000003188"
     }
   ],
   "keywords": [
-    "routing",
-    "protocol",
-    "operation"
+    "routing protocol",
+    "distance vector",
+    "link state",
+    "convergence",
+    "shortest path"
   ],
   "relatedProcesses": [],
   "created": "2026-01-15",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations.\nCurated Mermaid applied (citations preserved)."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "namedCollections": [],
+  "graphMetrics": {
+    "nodes": 11,
+    "edges": 12,
+    "conditionals": 2,
+    "andGates": 1,
+    "orGates": 2,
+    "notGates": 0,
+    "loops": 1
+  },
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Router knows neighbors",
+      "detail": "Adjacent links up",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 1
+    },
+    {
+      "id": "N2",
+      "label": "Exchange routing info",
+      "detail": "Advertise reachability",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N3",
+      "label": "DV or link-state?",
+      "detail": "Protocol class",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N4",
+      "label": "DV: share distance table",
+      "detail": "Bellman-Ford",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N5",
+      "label": "LS: flood link states",
+      "detail": "Topology DB",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N6",
+      "label": "Build topology / table",
+      "detail": "Assemble view",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N7",
+      "label": "Run shortest-path",
+      "detail": "Dijkstra / BF",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N8",
+      "label": "Topology changed?",
+      "detail": "Link up/down",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N9",
+      "label": "Recompute routes",
+      "detail": "Reconverge",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N10",
+      "label": "Converged routing table",
+      "detail": "Stable next-hops",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N11",
+      "label": "Forward by routing table",
+      "detail": "Per-packet lookup",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 1
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:networks-routing-protocol-operation",
+    "graphType": "decision_flowchart",
+    "topologySignature": "8d67525396b010da",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "graphType": "decision_flowchart",
+  "domainContext": "Computer networks"
 }

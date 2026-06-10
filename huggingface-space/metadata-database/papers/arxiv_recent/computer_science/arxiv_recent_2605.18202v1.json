@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2605.18202v1",
+  "arxiv_id": "2605.18202v1",
+  "title": "Concise and Logically Consistent Conformal Sets for Neuro-Symbolic Concept-Based Models",
+  "authors": [
+    "Samuele Bortolotti",
+    "Emanuele Marconato",
+    "Andrea Pugnana",
+    "Andrea Passerini",
+    "Stefano Teso"
+  ],
+  "author_string": "Samuele Bortolotti, Emanuele Marconato, Andrea Pugnana, Andrea Passerini, Stefano Teso",
+  "journal": "arXiv:2605.18202v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Neuro-Symbolic Concept-based Models (NeSy-CBMs) are a family of architectures that integrate neural networks with symbolic reasoning for enhanced reliability in high-stakes applications. They work by first extracting high-level concepts from the input and then inferring a task label from these compatibly with given logical constraints. Yet, their label and concept predictions can be overconfident, making it difficult for stakeholders to gauge when the model's decisions can be trusted. We address this issue by integrating ideas from Conformal Prediction (CP), a framework providing rigorous, distribution-free coverage guarantees. We formalize three desiderata -- consistency, coverage, and conciseness -- that any conformal method for NeSy-CBMs should satisfy, and show that existing approaches fall short of at least one. We then introduce COCOCO, a post-hoc framework that conformalizes concepts and labels jointly and reconciles them via a single deduction-abduction revision step. COCOCO satisfies all three desiderata, retains distribution-free coverage, is robust to imperfect knowledge and supports user-specified size budgets. Our experiments on 8 data sets highlight how COCOCO compares favorably against competitors and natural baselines in terms of performance and set size.",
+  "categories": [
+    "cs.LG",
+    "cs.AI"
+  ],
+  "primary_category": "cs.AI",
+  "comment": null,
+  "published_date": "2026-05-18T10:43:02Z",
+  "updated_date": "2026-05-18T10:43:02Z",
+  "url": "https://arxiv.org/abs/2605.18202v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.18202v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-18T22:16:04.718924",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.LG",
+    "cs.AI"
+  ]
+}

@@ -1,0 +1,212 @@
+[
+  {
+    "id": "lab-protocols",
+    "label": "Lab Protocols",
+    "description": "Assays and experimental procedures used in molecular biology labs.",
+    "processIds": [
+      "assay_protocols-agarose-gel",
+      "assay_protocols-bacterial-transformation",
+      "assay_protocols-dna-extraction",
+      "assay_protocols-elisa",
+      "assay_protocols-pcr",
+      "assay_protocols-western-blot",
+      "cell_biology-autophagy",
+      "cell_biology-protein-folding-and-chaperone-response",
+      "cell_biology-ubiquitin-proteasome-degradation",
+      "development-cell-differentiation",
+      "development-circadian-clock-regulation",
+      "development-epithelial-mesenchymal-transition",
+      "development-morphogen-gradient-patterning",
+      "development-plant-hormone-auxin-signaling",
+      "taxonomy-domains-of-life",
+      "immunology-antigen-processing-and-mhc-presentation",
+      "immunology-b-cell-activation-and-antibody-production",
+      "immunology-complement-cascade",
+      "immunology-inflammasome-activation",
+      "immunology-innate-immune-pattern-recognition",
+      "immunology-t-cell-receptor-activation",
+      "mechanisms-central-dogma",
+      "mechanisms-crispr-cas9",
+      "mechanisms-dna-replication",
+      "mechanisms-feedback-inhibition",
+      "mechanisms-homologous-recombination-repair",
+      "mechanisms-mrna-splicing",
+      "mechanisms-nucleotide-excision-repair",
+      "mechanisms-riboswitch-regulation",
+      "mechanisms-rna-interference-sirna-pathway",
+      "mechanisms-transcription-initiation-in-eukaryotes",
+      "mechanisms-translation-initiation",
+      "mechanisms-trp-operon",
+      "pathways-apoptosis",
+      "pathways-calvin-cycle",
+      "pathways-cell-cycle",
+      "pathways-fatty-acid-beta-oxidation",
+      "pathways-fatty-acid-synthesis",
+      "pathways-fermentation-lactate-and-ethanol-branches",
+      "pathways-gluconeogenesis",
+      "pathways-glycolysis",
+      "pathways-gpcr-signaling",
+      "pathways-insulin-signaling",
+      "pathways-jak-stat-signaling",
+      "pathways-krebs-cycle",
+      "pathways-mapk-signaling",
+      "pathways-necroptosis",
+      "pathways-nf-kb-inflammatory-signaling",
+      "pathways-nitrogen-fixation",
+      "pathways-notch-signaling",
+      "pathways-oxidative-phosphorylation",
+      "pathways-p53-dna-damage-response",
+      "pathways-pentose-phosphate-pathway",
+      "pathways-photosynthesis-light-reactions",
+      "pathways-urea-cycle",
+      "pathways-wnt-beta-catenin-signaling"
+    ]
+  },
+  {
+    "id": "gene-expression",
+    "label": "Gene Expression",
+    "description": "Replication, transcription, translation, regulatory switches, and genome editing.",
+    "processIds": [
+      "assay_protocols-agarose-gel",
+      "assay_protocols-bacterial-transformation",
+      "assay_protocols-dna-extraction",
+      "assay_protocols-pcr",
+      "development-cell-differentiation",
+      "development-circadian-clock-regulation",
+      "development-plant-hormone-auxin-signaling",
+      "immunology-innate-immune-pattern-recognition",
+      "mechanisms-central-dogma",
+      "mechanisms-crispr-cas9",
+      "mechanisms-dna-replication",
+      "mechanisms-homologous-recombination-repair",
+      "mechanisms-mrna-splicing",
+      "mechanisms-nucleotide-excision-repair",
+      "mechanisms-riboswitch-regulation",
+      "mechanisms-rna-interference-sirna-pathway",
+      "mechanisms-transcription-initiation-in-eukaryotes",
+      "mechanisms-translation-initiation",
+      "mechanisms-trp-operon",
+      "pathways-cell-cycle",
+      "pathways-jak-stat-signaling",
+      "pathways-nf-kb-inflammatory-signaling",
+      "pathways-p53-dna-damage-response"
+    ]
+  },
+  {
+    "id": "signaling-cell-fate",
+    "label": "Signaling and Cell Fate",
+    "description": "Signal cascades, decision points, cell cycle control, and apoptosis.",
+    "processIds": [
+      "development-cell-differentiation",
+      "development-circadian-clock-regulation",
+      "development-epithelial-mesenchymal-transition",
+      "development-morphogen-gradient-patterning",
+      "development-plant-hormone-auxin-signaling",
+      "immunology-antigen-processing-and-mhc-presentation",
+      "immunology-b-cell-activation-and-antibody-production",
+      "immunology-complement-cascade",
+      "immunology-inflammasome-activation",
+      "immunology-innate-immune-pattern-recognition",
+      "immunology-t-cell-receptor-activation",
+      "mechanisms-feedback-inhibition",
+      "pathways-apoptosis",
+      "pathways-cell-cycle",
+      "pathways-gpcr-signaling",
+      "pathways-insulin-signaling",
+      "pathways-jak-stat-signaling",
+      "pathways-mapk-signaling",
+      "pathways-nf-kb-inflammatory-signaling",
+      "pathways-notch-signaling",
+      "pathways-p53-dna-damage-response",
+      "pathways-wnt-beta-catenin-signaling"
+    ]
+  },
+  {
+    "id": "metabolism",
+    "label": "Metabolism",
+    "description": "Energy conversion, biosynthesis, carbon flow, and nutrient cycling.",
+    "processIds": [
+      "mechanisms-feedback-inhibition",
+      "pathways-calvin-cycle",
+      "pathways-fatty-acid-beta-oxidation",
+      "pathways-fatty-acid-synthesis",
+      "pathways-fermentation-lactate-and-ethanol-branches",
+      "pathways-gluconeogenesis",
+      "pathways-glycolysis",
+      "pathways-insulin-signaling",
+      "pathways-krebs-cycle",
+      "pathways-nitrogen-fixation",
+      "pathways-oxidative-phosphorylation",
+      "pathways-pentose-phosphate-pathway",
+      "pathways-photosynthesis-light-reactions",
+      "pathways-urea-cycle"
+    ]
+  },
+  {
+    "id": "immunology",
+    "label": "Immunology and Host Defense",
+    "description": "Immune recognition, antigen presentation, lymphocyte activation, complement, and inflammatory responses.",
+    "processIds": [
+      "assay_protocols-elisa",
+      "immunology-antigen-processing-and-mhc-presentation",
+      "immunology-b-cell-activation-and-antibody-production",
+      "immunology-complement-cascade",
+      "immunology-inflammasome-activation",
+      "immunology-innate-immune-pattern-recognition",
+      "immunology-t-cell-receptor-activation",
+      "pathways-necroptosis",
+      "pathways-nf-kb-inflammatory-signaling"
+    ]
+  },
+  {
+    "id": "organismal-biology",
+    "label": "Organismal Biology",
+    "description": "Development, physiology, ecology, behavior, and organism-level processes.",
+    "processIds": [
+      "development-cell-differentiation",
+      "development-circadian-clock-regulation",
+      "development-epithelial-mesenchymal-transition",
+      "development-morphogen-gradient-patterning",
+      "development-plant-hormone-auxin-signaling",
+      "immunology-innate-immune-pattern-recognition"
+    ]
+  },
+  {
+    "id": "cell-biology",
+    "label": "Cell Biology and Proteostasis",
+    "description": "Protein folding, degradation, autophagy, trafficking, and cell-state maintenance.",
+    "processIds": [
+      "cell_biology-autophagy",
+      "cell_biology-protein-folding-and-chaperone-response",
+      "cell_biology-ubiquitin-proteasome-degradation",
+      "development-plant-hormone-auxin-signaling",
+      "immunology-antigen-processing-and-mhc-presentation"
+    ]
+  },
+  {
+    "id": "cell-cycle",
+    "label": "Cell Cycle",
+    "description": "Existing collection from metadata.",
+    "processIds": [
+      "pathways-cell-cycle",
+      "pathways-p53-dna-damage-response"
+    ]
+  },
+  {
+    "id": "cell-death",
+    "label": "Cell Death",
+    "description": "Existing collection from metadata.",
+    "processIds": [
+      "pathways-apoptosis",
+      "pathways-necroptosis"
+    ]
+  },
+  {
+    "id": "taxonomy-pilots",
+    "label": "Taxonomy Pilots",
+    "description": "Existing collection from metadata.",
+    "processIds": [
+      "taxonomy-domains-of-life"
+    ]
+  }
+]

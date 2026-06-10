@@ -1,21 +1,23 @@
 {
   "id": "electrochemistry-electrodeposition",
-  "name": "Electrodeposition",
+  "name": "Electrodeposition: Nucleation & Growth",
   "category": "chemistry",
   "subcategory": "electrochemistry",
   "subcategory_name": "Electrochemistry",
-  "description": "Electrodeposition process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "At an applied overpotential, metal ions are reduced to adatoms that diffuse on the surface; only clusters exceeding a critical size survive to grow, following instantaneous or progressive nucleation before coalescing into a continuous film.",
   "complexity": {
-    "nodes": 6,
-    "edges": 5,
-    "conditionals": 0,
+    "nodes": 10,
+    "edges": 10,
+    "conditionals": 1,
     "logicGates": {
-      "orGates": 0,
-      "andGates": 0,
-      "total": 0
+      "orGates": 1,
+      "andGates": 1,
+      "notGates": 0,
+      "total": 2
     },
-    "level": "medium",
-    "detailLevel": "medium"
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 1
   },
   "colorScheme": {
     "red": {
@@ -39,52 +41,151 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nN1[\"Metal Ion Solution\"]\nN2[\"Substrate/Cathode\"]\nN3[\"Power Supply\"]\nN4[\"Apply Potential/Current\"]\nN5[\"Nucleation/Growth\"]\nN6[\"Deposited Film/Coating\"]\n\nN1 --> N2\nN2 --> N3\nN3 --> N4\nN4 --> N5\nN5 --> N6\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#ff6b6b,color:#fff\n    style N3 fill:#ffd43b,color:#000\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"Metal ions in solution\"]\n    N2[\"Apply overpotential\"]\n    N3[\"Ion reduced to adatom\"]\n    N4[\"Surface diffusion to site\"]\n    N5{\"Cluster > critical size?\"}\n    N6[\"Subcritical: dissolves\"]\n    N7[\"Stable nucleus grows\"]\n    N8[\"Instantaneous vs progressive\"]\n    N9[\"Nuclei coalesce\"]\n    N10[\"Continuous deposit\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 --> N4\n    N4 --> N5\n    N5 -->|no| N6\n    N6 -->|redeposit| N3\n    N5 -->|yes| N7\n    N7 --> N8\n    N8 --> N9\n    N9 --> N10\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#74c0fc,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#51cf66,color:#fff\n    style N10 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
-      "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: Electrodeposition. Created using the Programming Framework methodology."
+      "title": "Electrochemical Phase Formation and Growth",
+      "authors": "Budevski, E.; Staikov, G.; Lorenz, W. J.",
+      "journal": "Wiley-VCH",
+      "year": "1996",
+      "doi": "10.1002/9783527614936",
+      "url": "https://doi.org/10.1002/9783527614936"
     },
     {
-      "title": "Electrodeposition of Alloys",
-      "authors": "",
-      "journal": "Electrodeposition of Alloys",
-      "year": "1963",
-      "pubmed": null,
-      "doi": "10.1016/b978-1-4831-9808-8.50001-0",
-      "url": "https://doi.org/10.1016/b978-1-4831-9808-8.50001-0"
+      "title": "Fundamentals of Electrochemical Deposition, 2nd ed.",
+      "authors": "Paunovic, M.; Schlesinger, M.",
+      "journal": "Wiley",
+      "year": "2006",
+      "doi": "10.1002/0471712566",
+      "url": "https://doi.org/10.1002/0471712566"
     },
     {
-      "title": "Electrodeposition of Alloys: PRINCIPLES and PRACTICE",
-      "authors": "",
-      "journal": "Electrodeposition of Alloys",
-      "year": "1963",
-      "pubmed": null,
-      "doi": "10.1016/b978-1-4831-9807-1.50001-5",
-      "url": "https://doi.org/10.1016/b978-1-4831-9807-1.50001-5"
-    },
-    {
-      "title": "Electrodeposition of alloys III. Electrodeposition and x-ray structure of cobalt-indium alloys (initial studies)",
-      "authors": "Sadana, Y.N.; Keskinen, A.E.; Guindon, M.",
-      "journal": "Electrodeposition and Surface Treatment",
-      "year": "1975",
-      "pubmed": null,
-      "doi": "10.1016/0300-9416(75)90037-1",
-      "url": "https://doi.org/10.1016/0300-9416(75)90037-1"
+      "title": "Theory of the potentiostatic current transient (nucleation)",
+      "authors": "Scharifker, B.; Hills, G.",
+      "journal": "Electrochimica Acta",
+      "year": "1983",
+      "doi": "10.1016/0013-4686(83)85163-9",
+      "url": "https://doi.org/10.1016/0013-4686(83)85163-9"
     }
   ],
   "keywords": [
-    "electrodeposition"
+    "electrodeposition",
+    "nucleation",
+    "overpotential",
+    "adatom",
+    "crystal growth"
   ],
   "relatedProcesses": [],
   "created": "2026-01-15",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations.\nCurated Mermaid applied (citations preserved)."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "namedCollections": [
+    "electrochemistry"
+  ],
+  "graphMetrics": {
+    "nodes": 10,
+    "edges": 10,
+    "conditionals": 1,
+    "andGates": 1,
+    "orGates": 1,
+    "notGates": 0,
+    "loops": 1
+  },
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Metal ions in solution",
+      "detail": "Electroactive cations",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 1
+    },
+    {
+      "id": "N2",
+      "label": "Apply overpotential",
+      "detail": "Drive reduction past E_eq",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N3",
+      "label": "Ion reduced to adatom",
+      "detail": "Charge transfer at surface",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N4",
+      "label": "Surface diffusion to site",
+      "detail": "Adatom migration",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N5",
+      "label": "Cluster > critical size?",
+      "detail": "Nucleation barrier",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N6",
+      "label": "Subcritical: dissolves",
+      "detail": "Unstable embryo lost",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N7",
+      "label": "Stable nucleus grows",
+      "detail": "Crystallite expands",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N8",
+      "label": "Instantaneous vs progressive",
+      "detail": "Nucleation kinetics regime",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N9",
+      "label": "Nuclei coalesce",
+      "detail": "Islands merge",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N10",
+      "label": "Continuous deposit",
+      "detail": "Complete film",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 1
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:electrochemistry-electrodeposition",
+    "graphType": "cyclic_pathway",
+    "topologySignature": "378520737d70eec9",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "graphType": "cyclic_pathway",
+  "domainContext": "Electrochemical phase formation"
 }

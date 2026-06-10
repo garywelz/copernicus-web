@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chromatography - Chemistry Process</title>
+    <title>Quantitative Chromatography (Internal Standard) - Chemistry Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Chromatography</h1>
+            <h1>Quantitative Chromatography (Internal Standard)</h1>
             <div class="header-meta">
                 <span class="meta-item">Chemistry</span>
                 <span class="meta-item">Analytical Chemistry</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,67 +234,56 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Chromatography process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>Quantitative chromatography spikes a sample with an internal standard, separates and detects the analytes, confirms baseline resolution, integrates peak areas, applies response factors relative to the internal standard, and converts to concentration via calibration.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-A2[Sample Injection] --> B2[Chromatographic Method]
-C2[Mobile Phase] --> D2[Stationary Phase]
-E2[Separation Process] --> F2[Retention Analysis]
-B2 --> G2[Gas Chromatography]
-D2 --> H2[Liquid Chromatography]
-F2 --> I2[Thin Layer Chromatography]
-G2 --> J2[Column Selection]
-H2 --> K2[Eluent Optimization]
-I2 --> L2[Plate Development]
-J2 --> M2[Temperature Programming]
-K2 --> L2
-L2 --> N2[Solvent System]
-M2 --> O2[Detector Response]
-N2 --> P2[Retention Time]
-O2 --> Q2[Chromatography Process]
-P2 --> R2[Peak Integration]
-Q2 --> S2[Chromatography Validation]
-R2 --> T2[Chromatography Result]
-S2 --> U2[Chromatography Analysis]
-T2 --> V2[Chromatography Parameters]
-U2 --> W2[Chromatography Output]
-V2 --> X2[Chromatography Analysis]
-W2 --> Y2[Chromatography Final Result]
-X2 --> Z2[Chromatography Analysis Complete]
+    N1["Sample + internal standard"]
+    N2["Inject onto column"]
+    N3["Separate analytes"]
+    N4["Detect peaks"]
+    N5{"Baseline resolved?"}
+    N6["Optimize gradient"]
+    N7["Integrate peak areas"]
+    N8["Response factor vs IS"]
+    N9["Apply calibration"]
+    N10["Analyte concentration"]
 
-    style A2 fill:#ff6b6b,color:#fff
-    style C2 fill:#ff6b6b,color:#fff
-    style E2 fill:#ff6b6b,color:#fff
-    style B2 fill:#ffd43b,color:#000
-    style D2 fill:#ffd43b,color:#000
-    style F2 fill:#ffd43b,color:#000
-    style G2 fill:#ffd43b,color:#000
-    style H2 fill:#ffd43b,color:#000
-    style I2 fill:#ffd43b,color:#000
-    style J2 fill:#ffd43b,color:#000
-    style K2 fill:#ffd43b,color:#000
-    style L2 fill:#ffd43b,color:#000
-    style M2 fill:#51cf66,color:#fff
+    N1 --> N2
+    N2 --> N3
+    N3 --> N4
+    N4 --> N5
+    N5 -->|no| N6
+    N6 -->|re-run| N2
+    N5 -->|yes| N7
+    N7 --> N8
+    N8 --> N9
+    N9 --> N10
+
+    style N1 fill:#ff6b6b,color:#fff
     style N2 fill:#51cf66,color:#fff
-    style O2 fill:#51cf66,color:#fff
-    style P2 fill:#51cf66,color:#fff
-    style Q2 fill:#51cf66,color:#fff
-    style R2 fill:#51cf66,color:#fff
-    style S2 fill:#51cf66,color:#fff
-    style T2 fill:#51cf66,color:#fff
-    style U2 fill:#51cf66,color:#fff
-    style V2 fill:#51cf66,color:#fff
-    style W2 fill:#51cf66,color:#fff
-    style X2 fill:#51cf66,color:#fff
-    style Y2 fill:#51cf66,color:#fff
-    style Z2 fill:#b197fc,color:#fff
+    style N3 fill:#51cf66,color:#fff
+    style N4 fill:#51cf66,color:#fff
+    style N5 fill:#74c0fc,color:#fff
+    style N6 fill:#51cf66,color:#fff
+    style N7 fill:#51cf66,color:#fff
+    style N8 fill:#51cf66,color:#fff
+    style N9 fill:#51cf66,color:#fff
+    style N10 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Sample + internal standard</td><td>Triggers & Inputs</td><td><a href="https://www.macmillanlearning.com/college/us/product/Quantitative-Chemical-Analysis/p/146413538X" target="_blank" title="Quantitative Chemical Analysis, 9th ed. — Chromatographic Methods" style="color:#e74c3c;">Harris, D. C. 2015</a></td></tr><tr><td style="font-weight:600;">Inject onto column</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1002/0471973106" target="_blank" title="Modern HPLC for Practicing Scientists" style="color:#e74c3c;">Dong, M. W. 2006</a></td></tr><tr><td style="font-weight:600;">Separate analytes</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1002/0471973106" target="_blank" title="Modern HPLC for Practicing Scientists" style="color:#e74c3c;">Dong, M. W. 2006</a></td></tr><tr><td style="font-weight:600;">Detect peaks</td><td>Processing & Operations</td><td><a href="https://www.cengage.com/c/principles-of-instrumental-analysis-7e-skoog/9781305577213/" target="_blank" title="Principles of Instrumental Analysis, 7th ed. — Chromatographic Quantitation" style="color:#e74c3c;">Skoog, D. A. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Baseline resolved?</td><td>Intermediates & States</td><td><a href="https://www.cengage.com/c/principles-of-instrumental-analysis-7e-skoog/9781305577213/" target="_blank" title="Principles of Instrumental Analysis, 7th ed. — Chromatographic Quantitation" style="color:#e74c3c;">Skoog, D. A. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Optimize gradient</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1002/0471973106" target="_blank" title="Modern HPLC for Practicing Scientists" style="color:#e74c3c;">Dong, M. W. 2006</a></td></tr><tr><td style="font-weight:600;">Integrate peak areas</td><td>Processing & Operations</td><td><a href="https://www.macmillanlearning.com/college/us/product/Quantitative-Chemical-Analysis/p/146413538X" target="_blank" title="Quantitative Chemical Analysis, 9th ed. — Chromatographic Methods" style="color:#e74c3c;">Harris, D. C. 2015</a></td></tr><tr><td style="font-weight:600;">Response factor vs IS</td><td>Processing & Operations</td><td><a href="https://www.macmillanlearning.com/college/us/product/Quantitative-Chemical-Analysis/p/146413538X" target="_blank" title="Quantitative Chemical Analysis, 9th ed. — Chromatographic Methods" style="color:#e74c3c;">Harris, D. C. 2015</a></td></tr><tr><td style="font-weight:600;">Apply calibration</td><td>Processing & Operations</td><td><a href="https://www.macmillanlearning.com/college/us/product/Quantitative-Chemical-Analysis/p/146413538X" target="_blank" title="Quantitative Chemical Analysis, 9th ed. — Chromatographic Methods" style="color:#e74c3c;">Harris, D. C. 2015</a></td></tr><tr><td style="font-weight:600;">Analyte concentration</td><td>Products & Outputs</td><td><a href="https://www.macmillanlearning.com/college/us/product/Quantitative-Chemical-Analysis/p/146413538X" target="_blank" title="Quantitative Chemical Analysis, 9th ed. — Chromatographic Methods" style="color:#e74c3c;">Harris, D. C. 2015</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -313,12 +329,12 @@ X2 --> Z2[Chromatography Analysis Complete]
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 26</li>
-                        <li><strong>Edges:</strong> 21</li>
-                        <li><strong>Conditionals:</strong> 0</li>
+                        <li><strong>Nodes:</strong> 10</li>
+                        <li><strong>Edges:</strong> 10</li>
+                        <li><strong>Conditionals:</strong> 1</li>
                         <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 1</li>
+                        <li><strong>OR Gates:</strong> 1</li>
+                        <li><strong>Total Gates:</strong> 2</li>
                     </ul>
                 </div>
                 
@@ -326,7 +342,7 @@ X2 --> Z2[Chromatography Analysis Complete]
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>chromatography</li>
+                        <li>internal standard</li><li>peak integration</li><li>response factor</li><li>resolution</li><li>quantitation</li>
                     </ul>
                 </div>
                 
@@ -337,43 +353,33 @@ X2 --> Z2[Chromatography Analysis Complete]
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
-                            </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Acknowledgement to Reviewers of Chromatography in 2014</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Chromatography Editorial Office
-                            , Chromatography
+                            <strong>Quantitative Chemical Analysis, 9th ed. — Chromatographic Methods</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Harris, D. C.
+                            , W. H. Freeman
                              (2015)
                             </span>
-                            <br><a href="https://doi.org/10.3390/chromatography2010019" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.3390/chromatography2010019</a>
+                            
+                            <br><a href="https://www.macmillanlearning.com/college/us/product/Quantitative-Chemical-Analysis/p/146413538X" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
+                        </li>
+                        
+                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
+                            <strong>Modern HPLC for Practicing Scientists</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Dong, M. W.
+                            , Wiley
+                             (2006)
+                            </span>
+                            <br><a href="https://doi.org/10.1002/0471973106" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1002/0471973106</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Chromatography of Alkaloids - Part B: Gas-Liquid Chromatography and High-Performance Liquid Chromatography</strong>
-                            
-                            , Journal of Chromatography Library
-                             (1984)
+                            <strong>Principles of Instrumental Analysis, 7th ed. — Chromatographic Quantitation</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Skoog, D. A.; Holler, F. J.; Crouch, S. R.
+                            , Cengage Learning
+                             (2018)
                             </span>
-                            <br><a href="https://doi.org/10.1016/s0301-4770(08)x6062-2" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1016/s0301-4770(08)x6062-2</a>
                             
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Microbore Column Chromatography: A Unified Approach to Chromatography</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Yang, Frank J
-                            , Microbore Column Chromatography
-                             (2020)
-                            </span>
-                            <br><a href="https://doi.org/10.1201/9781003066088-1" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1201/9781003066088-1</a>
-                            
+                            <br><a href="https://www.cengage.com/c/principles-of-instrumental-analysis-7e-skoog/9781305577213/" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
                         </li>
                         
                     </ul>

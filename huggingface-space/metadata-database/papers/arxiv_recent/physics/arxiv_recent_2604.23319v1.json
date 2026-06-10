@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2604.23319v1",
+  "arxiv_id": "2604.23319v1",
+  "title": "Revisit viscous shock tube at low Reynolds number",
+  "authors": [
+    "Yue Zhang",
+    "Kun Xu"
+  ],
+  "author_string": "Yue Zhang, Kun Xu",
+  "journal": "arXiv:2604.23319v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "The viscous shock tube is a canonical test case for assessing Navier-Stokes (NS) solvers in the continuum-flow regime, widely used to validate numerical accuracy and probe flow physics. It features a rich set of interacting structures-shock and rarefaction waves, contact discontinuities, boundary layers, and their coupling-spanning multiple spatial and temporal scales. However, NS-based modeling, which presumes near-equilibrium behavior, may fail to capture important non-equilibrium effects even in nominally continuum conditions. This study investigates the viscous shock tube at low Reynolds numbers and demonstrates the presence of non-equilibrium phenomena within the conventional continuum regime. To obtain physically consistent solutions across scales, we employ the unified gas-kinetic scheme (UGKS) and compare its results with NS solutions computed using the gas-kinetic scheme (GKS). Discrepancies between UGKS and GKS solutions reveal pronounced non-equilibrium effects in regions where shock waves interact with boundary layers. For continuum flows at high Mach and low Reynolds numbers, such multiscale non-equilibrium transport becomes important, underscoring the need for multiscale methods in analysis and prediction.",
+  "categories": [
+    "physics.flu-dyn",
+    "physics.comp-ph"
+  ],
+  "primary_category": "physics.comp-ph",
+  "comment": null,
+  "published_date": "2026-04-25T14:11:52Z",
+  "updated_date": "2026-04-25T14:11:52Z",
+  "url": "https://arxiv.org/abs/2604.23319v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.23319v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-27T22:15:34.800953",
+  "category": "physics",
+  "subcategories": [
+    "physics.flu-dyn",
+    "physics.comp-ph"
+  ]
+}

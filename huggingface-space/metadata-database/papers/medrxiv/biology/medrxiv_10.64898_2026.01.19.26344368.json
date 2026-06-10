@@ -1,0 +1,42 @@
+{
+  "id": "medrxiv_10.64898_2026.01.19.26344368",
+  "doi": "10.64898/2026.01.19.26344368",
+  "title": "Lattice Radiation Therapy with Alternating Dosimetric Peaks and Valleys",
+  "authors": [
+    "Song, Y.",
+    "Ma, P.",
+    "Dai, J."
+  ],
+  "author_string": "Song, Y., Ma, P., Dai, J.",
+  "journal": "medRxiv",
+  "journal_full": "medRxiv",
+  "year": "2026",
+  "abstract": "BackgroundLattice radiotherapy (LRT) delivers heterogeneous dose distribution through a three-dimensional array of vertices within the tumor. It is typically applied in 1[~]5 fractions for patients with large tumor volumes. However, conventional LRT generally employs only a single vertex set, which may limit the biological advantages of this technique in multi-fraction treatments.\n\nPurposeThis study proposes a novel vertex arrangement strategy in LRT aimed at improving intratumoral dose homogeneity and enhancing coverage of high-dose regions through alternating irradiation of different vertex sets.\n\nMaterials and methodsPatients with the gross tumor volume (GTV) between 300 cm3 to 2000 cm3 who received radiotherapy treatment at our institution were considered for inclusion. An \"NaCl\"-type structure was employed. Two sets of vertices (\"Na\"-type and \"Cl\"-type) were distributed within the tumor volume following a face-centered cubic (FCC) close-packed pattern analogous to the NaCl crystal structure. For each of the 10 patients with large tumor volumes (range: 319.23-1649.47 cc), two plans were generated: Plan A (optimized for \"Na\" vertices) and Plan B (optimized for \"Cl\" vertices). Each plan delivered 15 Gy per fraction to the vertices. Physical doses from Plans A and B were converted to EQD2 (/{beta} = 10 for GTV, /{beta} = 3 for normal tissues) and summed into three composite plans: A+A, A+B, and B+B. Plan quality was assessed using generalized equivalent uniform dose (EUD), homogeneity index (HI), D2, D98, and mean normal tissue dose (Dmean of NT).\n\nResultsThe alternating composite plan (A+B) achieved significantly greater dose homogeneity compared to non-alternating plans (A+A and B+B), with a lower HI (1.23 {+/-} 0.08 vs. 1.70 {+/-} 0.08 and 1.70 {+/-} 0.09, p < 0.05) and higher EUD (3.76 {+/-} 0.38 Gy vs. 3.48 {+/-} 0.40 Gy and 3.42 {+/-} 0.25 Gy, p < 0.05). The low-dose metric D98 was also higher in A+B (4.23 {+/-} 0.27 Gy) than in A+A (3.92 {+/-} 0.25 Gy) and B+B (3.94 {+/-} 0.25 Gy). No significant difference was observed in NT Dmean among the three composite plans.\n\nConclusionAlternating irradiation of two geometrically complementary vertex sets significantly improves dose coverage in high-dose regions and overall dose homogeneity without increasing normal tissue toxicity and potentially enhances therapeutic efficacy in spatially fractionated radiotherapy for large tumors.",
+  "keywords": [],
+  "categories": [
+    "radiology and imaging"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.64898/2026.01.19.26344368",
+  "source": "medrxiv",
+  "sources": [
+    "medrxiv"
+  ],
+  "acquired_date": "2026-05-22T22:15:23.270143",
+  "category": "biology",
+  "subcategories": [
+    "radiology and imaging"
+  ],
+  "published_date": "2026-01-22",
+  "updated_date": "2026-01-22",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "medrxiv",
+  "preprint_version": "1",
+  "preprint_type": "PUBLISHAHEADOFPRINT",
+  "license": "cc_by_nd",
+  "jatsxml": "https://www.medrxiv.org/content/early/2026/01/22//2026.01.19.26344368.source.xml",
+  "published_doi": null,
+  "author_corresponding": "Jianrong Dai",
+  "author_corresponding_institution": "National Cancer Center/National Clinical Research Center for Cancer/Cancer Hospital, Chinese Academy of Medical Sciences and Peking Union Medical College,"
+}

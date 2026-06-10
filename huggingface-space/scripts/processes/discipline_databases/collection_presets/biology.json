@@ -1,0 +1,103 @@
+[
+  {
+    "id": "metabolism",
+    "label": "Metabolism",
+    "description": "Energy conversion, biosynthesis, carbon flow, and nutrient cycling.",
+    "match": [
+      "metabolism",
+      "glycolysis",
+      "krebs",
+      "oxidative",
+      "calvin",
+      "insulin"
+    ]
+  },
+  {
+    "id": "signaling-cell-fate",
+    "label": "Signaling and Cell Fate",
+    "description": "Signal cascades, decision points, cell cycle control, and apoptosis.",
+    "match": [
+      "signaling",
+      "mapk",
+      "apoptosis",
+      "cell cycle",
+      "feedback"
+    ]
+  },
+  {
+    "id": "gene-expression",
+    "label": "Gene Expression",
+    "description": "Replication, transcription, translation, regulatory switches, and genome editing.",
+    "match": [
+      "gene",
+      "dna",
+      "replication",
+      "transcription",
+      "translation",
+      "crispr",
+      "operon",
+      "riboswitch",
+      "central dogma"
+    ]
+  },
+  {
+    "id": "lab-protocols",
+    "label": "Lab Protocols",
+    "description": "Assays and experimental procedures used in molecular biology labs.",
+    "match": [
+      "protocol",
+      "assay",
+      "pcr",
+      "elisa",
+      "western",
+      "gel",
+      "transformation",
+      "extraction"
+    ]
+  },
+  {
+    "id": "organismal-biology",
+    "label": "Organismal Biology",
+    "description": "Development, physiology, ecology, behavior, and organism-level processes.",
+    "match": [
+      "development",
+      "immune",
+      "ecology",
+      "organism",
+      "plant",
+      "animal",
+      "physiology"
+    ]
+  },
+  {
+    "id": "immunology",
+    "label": "Immunology and Host Defense",
+    "description": "Immune recognition, antigen presentation, lymphocyte activation, complement, and inflammatory responses.",
+    "match": [
+      "immune",
+      "immunity",
+      "antigen",
+      "mhc",
+      "t cell",
+      "b cell",
+      "complement",
+      "inflammasome",
+      "inflammatory",
+      "pattern recognition"
+    ]
+  },
+  {
+    "id": "cell-biology",
+    "label": "Cell Biology and Proteostasis",
+    "description": "Protein folding, degradation, autophagy, trafficking, and cell-state maintenance.",
+    "match": [
+      "protein folding",
+      "chaperone",
+      "ubiquitin",
+      "proteasome",
+      "autophagy",
+      "proteostasis",
+      "cell biology"
+    ]
+  }
+]

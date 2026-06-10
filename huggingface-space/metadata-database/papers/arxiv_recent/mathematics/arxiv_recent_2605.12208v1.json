@@ -1,0 +1,37 @@
+{
+  "id": "arxiv_2605.12208v1",
+  "arxiv_id": "2605.12208v1",
+  "title": "Self-Supervised Laplace Approximation for Bayesian Uncertainty Quantification",
+  "authors": [
+    "Julian Rodemann",
+    "Alexander Marquard",
+    "Thomas Augustin",
+    "Michele Caprio"
+  ],
+  "author_string": "Julian Rodemann, Alexander Marquard, Thomas Augustin, Michele Caprio",
+  "journal": "Transactions on Machine Learning Research (TMLR). ISSN 2835-8856 (2026)",
+  "journal_ref": "Transactions on Machine Learning Research (TMLR). ISSN 2835-8856 (2026)",
+  "year": "2026",
+  "doi": null,
+  "abstract": "Approximate Bayesian inference typically revolves around computing the posterior parameter distribution. In practice, however, the main object of interest is often a model's predictions rather than its parameters. In this work, we propose to bypass the parameter posterior and focus directly on approximating the posterior predictive distribution. We achieve this by drawing inspiration from self-training within self-supervised and semi-supervised learning. Essentially, we quantify a Bayesian model's predictive uncertainty by refitting on self-predicted data. The idea is strikingly simple: If a model assigns high likelihood to self-predicted data, these predictions are of low uncertainty, and vice versa. This yields a deterministic, sampling-free approximation of the posterior predictive. The modular structure of our Self-Supervised Laplace Approximation (SSLA) further allows us to plug in different prior specifications, enabling classical Bayesian sensitivity (w.r.t. prior choice) analysis. In order to bypass expensive refitting, we further introduce an approximate version of SSLA, called ASSLA. We study (A)SSLA both theoretically and empirically in regression models ranging from Bayesian linear models to Bayesian neural networks. Across a wide array of regression tasks with simulated and real-world datasets, our methods outperform classical Laplace approximations in predictive calibration while remaining computationally efficient.",
+  "categories": [
+    "stat.ML",
+    "cs.AI",
+    "cs.LG",
+    "stat.CO"
+  ],
+  "primary_category": "stat.CO",
+  "comment": "Accepted for publication in TMLR (https://openreview.net/forum?id=T8w8L2t3JG)",
+  "published_date": "2026-05-12T14:46:08Z",
+  "updated_date": "2026-05-12T14:46:08Z",
+  "url": "https://arxiv.org/abs/2605.12208v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.12208v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-13T10:15:43.132093",
+  "category": "mathematics",
+  "subcategories": [
+    "stat.ML",
+    "cs.AI",
+    "cs.LG"
+  ]
+}

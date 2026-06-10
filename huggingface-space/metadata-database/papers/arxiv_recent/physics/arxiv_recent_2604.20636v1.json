@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2604.20636v1",
+  "arxiv_id": "2604.20636v1",
+  "title": "Load-dependent Hardness Prediction for Materials using Machine Learning",
+  "authors": [
+    "Madhubanti Mukherjee",
+    "Rampi Ramprasad",
+    "Harikrishna Sahu"
+  ],
+  "author_string": "Madhubanti Mukherjee, Rampi Ramprasad, Harikrishna Sahu",
+  "journal": "arXiv:2604.20636v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Superhard materials are critical for wear-resistant and high-stress applications. Conventional approaches correlating hardness with elastic moduli derived from DFT calculations enable rapid screening but overlook the strong load dependence of hardness. In this work, machine learning (ML) models were developed using a large, curated dataset of load-dependent experimental Vickers hardness (Hv) measurements. Moderate correlation was observed between experimental and DFT-based Hv values, whereas a single-task ML model trained solely on experimental data outperformed multi-task models that combined experimental and computed data. The superior performance of the single-task model highlights that explicit inclusion of indentation load, along with compositional, electronic, and structural descriptors, is essential and sufficient for accurate hardness prediction, beyond what can be achieved using DFT-accessible bulk and shear moduli alone (or in tandem with experimental data). These results emphasize the importance of high-quality experimental data and explicit inclusion of measurement conditions, particularly load, in the development of reliable hardness prediction models.",
+  "categories": [
+    "cond-mat.mtrl-sci",
+    "physics.app-ph"
+  ],
+  "primary_category": "physics.app-ph",
+  "comment": null,
+  "published_date": "2026-04-22T14:47:46Z",
+  "updated_date": "2026-04-22T14:47:46Z",
+  "url": "https://arxiv.org/abs/2604.20636v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.20636v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-25T22:15:49.050856",
+  "category": "physics",
+  "subcategories": [
+    "cond-mat.mtrl-sci",
+    "physics.app-ph"
+  ]
+}

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crystal Structure - Chemistry Process</title>
+    <title>Surface Reconstruction & Relaxation - Chemistry Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Crystal Structure</h1>
+            <h1>Surface Reconstruction & Relaxation</h1>
             <div class="header-meta">
                 <span class="meta-item">Chemistry</span>
                 <span class="meta-item">Surface Chemistry</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,68 +234,57 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Crystal Structure process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>A freshly created surface has high-energy dangling bonds; to lower its energy the top layers relax (change spacing) or reconstruct (rebond into a new periodicity), behavior that adsorbates can further alter and that is probed by LEED or STM.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-A1[Atomic Species] --> B1[Crystal Structure Method]
-C1[Lattice Parameters] --> D1[Symmetry Analysis]
-E1[Crystallization Conditions] --> F1[Structure Determination]
-B1 --> G1[Unit Cell Design]
-D1 --> H1[Symmetry Operations]
-F1 --> I1[Diffraction Analysis]
-G1 --> J1[Cell Parameters]
-H1 --> K1[Space Group]
-I1 --> L1[Diffraction Pattern]
-J1 --> M1[Lattice Formation]
-K1 --> L1
-L1 --> N1[Structure Solution]
-M1 --> O1[Atomic Arrangement]
-N1 --> P1[Crystal Structure]
-O1 --> Q1[Structural Analysis]
-P1 --> R1[Unit Cell]
-Q1 --> S1[Structure Analysis]
-R1 --> T1[Crystal Properties]
-S1 --> U1[Structural Parameters]
-T1 --> V1[Property Calculation]
-U1 --> W1[Structural Efficiency]
-V1 --> X1[Crystal Characterization]
-W1 --> Y1[Process Optimization]
-X1 --> Z1[Final Crystal Structure]
-Y1 --> Z1
+    N1["Freshly cleaved surface"]
+    N2["Dangling bonds, high energy"]
+    N3{"How to lower energy?"}
+    N4["Relaxation: spacing shifts"]
+    N5["Reconstruction: rebonding"]
+    N6["New surface periodicity"]
+    N7{"Adsorbates present?"}
+    N8["Adsorbate-driven change"]
+    N9["Probe by LEED / STM"]
+    N10["Stable surface structure"]
 
-    style A1 fill:#ff6b6b,color:#fff
-    style C1 fill:#ff6b6b,color:#fff
-    style E1 fill:#ff6b6b,color:#fff
-    style B1 fill:#ffd43b,color:#000
-    style D1 fill:#ffd43b,color:#000
-    style F1 fill:#ffd43b,color:#000
-    style G1 fill:#ffd43b,color:#000
-    style H1 fill:#ffd43b,color:#000
-    style I1 fill:#ffd43b,color:#000
-    style J1 fill:#ffd43b,color:#000
-    style K1 fill:#ffd43b,color:#000
-    style L1 fill:#ffd43b,color:#000
-    style M1 fill:#51cf66,color:#fff
-    style N1 fill:#51cf66,color:#fff
-    style O1 fill:#51cf66,color:#fff
-    style P1 fill:#51cf66,color:#fff
-    style Q1 fill:#51cf66,color:#fff
-    style R1 fill:#51cf66,color:#fff
-    style S1 fill:#51cf66,color:#fff
-    style T1 fill:#51cf66,color:#fff
-    style U1 fill:#51cf66,color:#fff
-    style V1 fill:#51cf66,color:#fff
-    style W1 fill:#51cf66,color:#fff
-    style X1 fill:#51cf66,color:#fff
-    style Y1 fill:#51cf66,color:#fff
-    style Z1 fill:#b197fc,color:#fff
+    N1 --> N2
+    N2 --> N3
+    N3 -->|small| N4
+    N3 -->|large| N5
+    N4 --> N6
+    N5 --> N6
+    N6 --> N7
+    N7 -->|yes| N8
+    N8 --> N9
+    N7 -->|no| N9
+    N9 --> N10
+
+    style N1 fill:#ff6b6b,color:#fff
+    style N2 fill:#51cf66,color:#fff
+    style N3 fill:#74c0fc,color:#fff
+    style N4 fill:#51cf66,color:#fff
+    style N5 fill:#51cf66,color:#fff
+    style N6 fill:#74c0fc,color:#fff
+    style N7 fill:#74c0fc,color:#fff
+    style N8 fill:#51cf66,color:#fff
+    style N9 fill:#51cf66,color:#fff
+    style N10 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Freshly cleaved surface</td><td>Triggers & Inputs</td><td><a href="https://www.wiley.com/en-us/Introduction+to+Surface+Chemistry+and+Catalysis%2C+2nd+Edition-p-9780470508237" target="_blank" title="Introduction to Surface Chemistry and Catalysis, 2nd ed. — Surface Structure" style="color:#e74c3c;">Somorjai, G. A. et al. 2010</a></td></tr><tr><td style="font-weight:600;">Dangling bonds, high energy</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1021/cr940034m" target="_blank" title="Semiconductor surface reconstruction: the structural chemistry of two-dimensional surface compounds" style="color:#e74c3c;">Duke, C. B. 1996</a></td></tr><tr><td style="font-weight:600;">How to lower energy?</td><td>Intermediates & States</td><td><a href="https://www.wiley.com/en-us/Introduction+to+Surface+Chemistry+and+Catalysis%2C+2nd+Edition-p-9780470508237" target="_blank" title="Introduction to Surface Chemistry and Catalysis, 2nd ed. — Surface Structure" style="color:#e74c3c;">Somorjai, G. A. et al. 2010</a></td></tr><tr><td style="font-weight:600;">Relaxation: spacing shifts</td><td>Processing & Operations</td><td><a href="https://www.wiley.com/en-us/Introduction+to+Surface+Chemistry+and+Catalysis%2C+2nd+Edition-p-9780470508237" target="_blank" title="Introduction to Surface Chemistry and Catalysis, 2nd ed. — Surface Structure" style="color:#e74c3c;">Somorjai, G. A. et al. 2010</a></td></tr><tr><td style="font-weight:600;">Reconstruction: rebonding</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1021/cr940034m" target="_blank" title="Semiconductor surface reconstruction: the structural chemistry of two-dimensional surface compounds" style="color:#e74c3c;">Duke, C. B. 1996</a></td></tr><tr><td style="font-weight:600;">New surface periodicity</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1021/cr940034m" target="_blank" title="Semiconductor surface reconstruction: the structural chemistry of two-dimensional surface compounds" style="color:#e74c3c;">Duke, C. B. 1996</a></td></tr><tr><td style="font-weight:600;">Adsorbates present?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1002/anie.200800480" target="_blank" title="Reactions at solid surfaces (Nobel Lecture)" style="color:#e74c3c;">Ertl, G. 2008</a></td></tr><tr><td style="font-weight:600;">Adsorbate-driven change</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1002/anie.200800480" target="_blank" title="Reactions at solid surfaces (Nobel Lecture)" style="color:#e74c3c;">Ertl, G. 2008</a></td></tr><tr><td style="font-weight:600;">Probe by LEED / STM</td><td>Processing & Operations</td><td><a href="https://www.wiley.com/en-us/Introduction+to+Surface+Chemistry+and+Catalysis%2C+2nd+Edition-p-9780470508237" target="_blank" title="Introduction to Surface Chemistry and Catalysis, 2nd ed. — Surface Structure" style="color:#e74c3c;">Somorjai, G. A. et al. 2010</a></td></tr><tr><td style="font-weight:600;">Stable surface structure</td><td>Products & Outputs</td><td><a href="https://doi.org/10.1021/cr940034m" target="_blank" title="Semiconductor surface reconstruction: the structural chemistry of two-dimensional surface compounds" style="color:#e74c3c;">Duke, C. B. 1996</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -314,12 +330,12 @@ Y1 --> Z1
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 26</li>
-                        <li><strong>Edges:</strong> 22</li>
-                        <li><strong>Conditionals:</strong> 0</li>
-                        <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 1</li>
+                        <li><strong>Nodes:</strong> 10</li>
+                        <li><strong>Edges:</strong> 11</li>
+                        <li><strong>Conditionals:</strong> 2</li>
+                        <li><strong>AND Gates:</strong> 2</li>
+                        <li><strong>OR Gates:</strong> 2</li>
+                        <li><strong>Total Gates:</strong> 4</li>
                     </ul>
                 </div>
                 
@@ -327,7 +343,7 @@ Y1 --> Z1
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>crystal</li><li>structure</li>
+                        <li>surface reconstruction</li><li>relaxation</li><li>dangling bonds</li><li>leed</li><li>surface energy</li>
                     </ul>
                 </div>
                 
@@ -338,42 +354,32 @@ Y1 --> Z1
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Semiconductor surface reconstruction: the structural chemistry of two-dimensional surface compounds</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Duke, C. B.
+                            , Chemical Reviews
+                             (1996)
                             </span>
+                            <br><a href="https://doi.org/10.1021/cr940034m" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1021/cr940034m</a>
                             
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Outline of a crystal structure determination</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Glusker, Jenny Pickworth; Trueblood, Kenneth N.
-                            , Crystal Structure Analysis
+                            <strong>Introduction to Surface Chemistry and Catalysis, 2nd ed. — Surface Structure</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Somorjai, G. A.; Li, Y.
+                            , Wiley
                              (2010)
                             </span>
-                            <br><a href="https://doi.org/10.1093/oso/9780199576340.003.0024" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1093/oso/9780199576340.003.0024</a>
                             
+                            <br><a href="https://www.wiley.com/en-us/Introduction+to+Surface+Chemistry+and+Catalysis%2C+2nd+Edition-p-9780470508237" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Crossref work (10.1107/s1600536805042182/su6260sup1.cif)</strong>
-                            
-                            
-                             (None)
+                            <strong>Reactions at solid surfaces (Nobel Lecture)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Ertl, G.
+                            , Angewandte Chemie International Edition
+                             (2008)
                             </span>
-                            <br><a href="https://doi.org/10.1107/s1600536805042182/su6260sup1.cif" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1107/s1600536805042182/su6260sup1.cif</a>
-                            
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Crossref work (10.1107/s002188980302689x/ks5018sup1.cif)</strong>
-                            
-                            
-                             (None)
-                            </span>
-                            <br><a href="https://doi.org/10.1107/s002188980302689x/ks5018sup1.cif" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1107/s002188980302689x/ks5018sup1.cif</a>
+                            <br><a href="https://doi.org/10.1002/anie.200800480" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1002/anie.200800480</a>
                             
                         </li>
                         

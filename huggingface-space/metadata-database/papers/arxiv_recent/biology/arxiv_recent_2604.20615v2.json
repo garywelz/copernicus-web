@@ -1,0 +1,39 @@
+{
+  "id": "arxiv_2604.20615v2",
+  "arxiv_id": "2604.20615v2",
+  "title": "Semi supervised GAN for smart microscopy, fast and data efficient cell cycle classification",
+  "authors": [
+    "Rajeev Manick",
+    "Youssef El Habouz",
+    "Maëlle Guillout",
+    "Celia Martin",
+    "Julia Bonnet",
+    "Louis Ruel",
+    "Sylvain Pastezeur",
+    "Olivier Chanteux",
+    "Otmane Bouchareb",
+    "Marc Tramier",
+    "Jacques Pécréaux"
+  ],
+  "author_string": "Rajeev Manick, Youssef El Habouz, Maëlle Guillout, Celia Martin, Julia Bonnet et al.",
+  "journal": "arXiv:2604.20615v2",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Modern optical microscopes are fully motorised; however, transforming them into truly smart systems requires real-time adjustment of acquisition settings in response to detected objects and dynamic biological events. At the core are classification algorithms that commonly depend on customised softwares and are generally designed for narrowly-defined biological applications. In addition, they often require substantial annotated datasets for effective training. We introduce a semi-supervised generative adversarial network (SGAN) for robust cell-cycle stage classification under low-resource conditions, adaptable to diverse cellular structures. The framework combines unlabelled microscopy images with synthetically generated samples to mitigate limited annotation, while preserving stable performance even when the unlabelled subset is class-imbalanced. Tested on the Mitocheck dataset, which features five mitosis classes, the model achieved $93 \\pm 2\\%$ accuracy using only 80 labelled per class and 600 unlabelled images. The proposed algorithm is generic and can be readily adapted to new labeling schemes, classification targets, cell lines, or microscopy modalities through transfer learning. SGAN is well suited for integration into automated microscopes, enabling efficient and adaptable image analysis across diverse biological and microscopy applications.",
+  "categories": [
+    "q-bio.QM"
+  ],
+  "primary_category": "q-bio.QM",
+  "comment": null,
+  "published_date": "2026-04-22T14:31:38Z",
+  "updated_date": "2026-04-27T21:02:07Z",
+  "url": "https://arxiv.org/abs/2604.20615v2",
+  "pdf_url": "https://arxiv.org/pdf/2604.20615v2.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-30T10:15:38.349155",
+  "category": "biology",
+  "subcategories": [
+    "q-bio.QM"
+  ]
+}

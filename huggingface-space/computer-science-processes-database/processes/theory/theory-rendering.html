@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rendering - Computer Science Process</title>
+    <title>CYK Parsing of Context-Free Grammars - Computer Science Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Rendering</h1>
+            <h1>CYK Parsing of Context-Free Grammars</h1>
             <div class="header-meta">
                 <span class="meta-item">Computer Science</span>
                 <span class="meta-item">Theoretical Computer Science</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,67 +234,63 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Rendering process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>The CYK algorithm decides membership in a context-free language in cubic time using dynamic programming: the grammar is put in Chomsky normal form, a table is filled for substrings of length one, then for increasing spans every split point is tried to derive nonterminals; the string is accepted if the start symbol spans the whole input.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-A1[Scene Input] --> B1[Rendering Method]
-C1[Geometry Processing] --> D1[Lighting Model]
-E1[Pixel Processing] --> F1[Rendering Analysis]
-B1 --> G1[Ray Tracing]
-D1 --> H1[Rasterization]
-F1 --> I1[Global Illumination]
-G1 --> J1[Ray Generation]
-H1 --> K1[Fragment Shading]
-I1 --> L1[Shadow Mapping]
-J1 --> M1[Intersection Testing]
-K1 --> L1
-L1 --> N1[Texture Mapping]
-M1 --> O1[Color Calculation]
-N1 --> P1[Anti Aliasing]
-O1 --> Q1[Rendering Process]
-P1 --> R1[Rendering Validation]
-Q1 --> S1[Rendering Verification]
-R1 --> T1[Rendering Result]
-S1 --> U1[Rendering Analysis]
-T1 --> V1[Rendering Parameters]
-U1 --> W1[Rendering Output]
-V1 --> X1[Rendering Analysis]
-W1 --> Y1[Rendering Final Result]
-X1 --> Z1[Rendering Complete]
+    N1["String + CFG"]
+    N2["Convert to CNF"]
+    N3["Init DP table"]
+    N4["Fill length-1 cells"]
+    N5["Increase span length"]
+    N6["Try all split points"]
+    N7{"Production matches?"}
+    N8["Add nonterminal to cell"]
+    N9{"More spans?"}
+    N10["Next span"]
+    N11{"Start symbol on top?"}
+    N12["Accept / reject"]
 
-    style A1 fill:#ff6b6b,color:#fff
-    style C1 fill:#ff6b6b,color:#fff
-    style E1 fill:#ff6b6b,color:#fff
-    style B1 fill:#ffd43b,color:#000
-    style D1 fill:#ffd43b,color:#000
-    style F1 fill:#ffd43b,color:#000
-    style G1 fill:#ffd43b,color:#000
-    style H1 fill:#ffd43b,color:#000
-    style I1 fill:#ffd43b,color:#000
-    style J1 fill:#ffd43b,color:#000
-    style K1 fill:#ffd43b,color:#000
-    style L1 fill:#ffd43b,color:#000
-    style M1 fill:#51cf66,color:#fff
-    style N1 fill:#51cf66,color:#fff
-    style O1 fill:#51cf66,color:#fff
-    style P1 fill:#51cf66,color:#fff
-    style Q1 fill:#51cf66,color:#fff
-    style R1 fill:#51cf66,color:#fff
-    style S1 fill:#51cf66,color:#fff
-    style T1 fill:#51cf66,color:#fff
-    style U1 fill:#51cf66,color:#fff
-    style V1 fill:#51cf66,color:#fff
-    style W1 fill:#51cf66,color:#fff
-    style X1 fill:#51cf66,color:#fff
-    style Y1 fill:#51cf66,color:#fff
-    style Z1 fill:#b197fc,color:#fff
+    N1 --> N2
+    N2 --> N3
+    N3 --> N4
+    N4 --> N5
+    N5 --> N6
+    N6 --> N7
+    N7 -->|yes| N8
+    N8 --> N9
+    N7 -->|no| N9
+    N9 -->|yes| N10
+    N10 -->|loop| N5
+    N9 -->|no| N11
+    N11 --> N12
+
+    style N1 fill:#ff6b6b,color:#fff
+    style N2 fill:#51cf66,color:#fff
+    style N3 fill:#51cf66,color:#fff
+    style N4 fill:#51cf66,color:#fff
+    style N5 fill:#51cf66,color:#fff
+    style N6 fill:#51cf66,color:#fff
+    style N7 fill:#74c0fc,color:#fff
+    style N8 fill:#51cf66,color:#fff
+    style N9 fill:#74c0fc,color:#fff
+    style N10 fill:#51cf66,color:#fff
+    style N11 fill:#74c0fc,color:#fff
+    style N12 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">String + CFG</td><td>Triggers & Inputs</td><td><a href="https://doi.org/10.1016/S0019-9958(67)80007-X" target="_blank" title="Recognition and parsing of context-free languages in time n^3" style="color:#9b59b6;">Younger, D. H. 1967</a></td></tr><tr><td style="font-weight:600;">Convert to CNF</td><td>Processing & Operations</td><td><a href="https://www.pearson.com/en-us/subject-catalog/p/introduction-to-automata-theory-languages-and-computation/P200000003671" target="_blank" title="Introduction to Automata Theory, Languages, and Computation (3rd ed.)" style="color:#9b59b6;">Hopcroft, J. E. et al. 2006</a></td></tr><tr><td style="font-weight:600;">Init DP table</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1016/S0019-9958(67)80007-X" target="_blank" title="Recognition and parsing of context-free languages in time n^3" style="color:#9b59b6;">Younger, D. H. 1967</a></td></tr><tr><td style="font-weight:600;">Fill length-1 cells</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1016/S0019-9958(67)80007-X" target="_blank" title="Recognition and parsing of context-free languages in time n^3" style="color:#9b59b6;">Younger, D. H. 1967</a></td></tr><tr><td style="font-weight:600;">Increase span length</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1016/S0019-9958(67)80007-X" target="_blank" title="Recognition and parsing of context-free languages in time n^3" style="color:#9b59b6;">Younger, D. H. 1967</a></td></tr><tr><td style="font-weight:600;">Try all split points</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1016/S0019-9958(67)80007-X" target="_blank" title="Recognition and parsing of context-free languages in time n^3" style="color:#9b59b6;">Younger, D. H. 1967</a></td></tr><tr><td style="font-weight:600;">Production matches?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1016/S0019-9958(67)80007-X" target="_blank" title="Recognition and parsing of context-free languages in time n^3" style="color:#9b59b6;">Younger, D. H. 1967</a></td></tr><tr><td style="font-weight:600;">Add nonterminal to cell</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1016/S0019-9958(67)80007-X" target="_blank" title="Recognition and parsing of context-free languages in time n^3" style="color:#9b59b6;">Younger, D. H. 1967</a></td></tr><tr><td style="font-weight:600;">More spans?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1016/S0019-9958(67)80007-X" target="_blank" title="Recognition and parsing of context-free languages in time n^3" style="color:#9b59b6;">Younger, D. H. 1967</a></td></tr><tr><td style="font-weight:600;">Next span</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1016/S0019-9958(67)80007-X" target="_blank" title="Recognition and parsing of context-free languages in time n^3" style="color:#9b59b6;">Younger, D. H. 1967</a></td></tr><tr><td style="font-weight:600;">Start symbol on top?</td><td>Intermediates & States</td><td><a href="https://www.pearson.com/en-us/subject-catalog/p/introduction-to-automata-theory-languages-and-computation/P200000003671" target="_blank" title="Introduction to Automata Theory, Languages, and Computation (3rd ed.)" style="color:#9b59b6;">Hopcroft, J. E. et al. 2006</a></td></tr><tr><td style="font-weight:600;">Accept / reject</td><td>Products & Outputs</td><td><a href="https://doi.org/10.1016/S0019-9958(67)80007-X" target="_blank" title="Recognition and parsing of context-free languages in time n^3" style="color:#9b59b6;">Younger, D. H. 1967</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -313,12 +336,12 @@ X1 --> Z1[Rendering Complete]
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 26</li>
-                        <li><strong>Edges:</strong> 21</li>
-                        <li><strong>Conditionals:</strong> 0</li>
-                        <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 1</li>
+                        <li><strong>Nodes:</strong> 12</li>
+                        <li><strong>Edges:</strong> 13</li>
+                        <li><strong>Conditionals:</strong> 3</li>
+                        <li><strong>AND Gates:</strong> 2</li>
+                        <li><strong>OR Gates:</strong> 2</li>
+                        <li><strong>Total Gates:</strong> 4</li>
                     </ul>
                 </div>
                 
@@ -326,7 +349,7 @@ X1 --> Z1[Rendering Complete]
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>rendering</li>
+                        <li>CYK algorithm</li><li>context-free grammar</li><li>parsing</li><li>Chomsky normal form</li><li>dynamic programming</li>
                     </ul>
                 </div>
                 
@@ -337,43 +360,23 @@ X1 --> Z1[Rendering Complete]
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Recognition and parsing of context-free languages in time n^3</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Younger, D. H.
+                            , Information and Control
+                             (1967)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #9b59b6; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Rendering Gems</strong>
-                            
-                            , Production Rendering
-                             (None)
-                            </span>
-                            <br><a href="https://doi.org/10.1007/1-84628-085-0_9" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.1007/1-84628-085-0_9</a>
+                            <br><a href="https://doi.org/10.1016/S0019-9958(67)80007-X" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.1016/S0019-9958(67)80007-X</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>3D yantram architectural walkthrough animation Presentations</strong>
-                            
-                            , SciVee
-                             (2012)
+                            <strong>Introduction to Automata Theory, Languages, and Computation (3rd ed.)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Hopcroft, J. E.; Motwani, R.; Ullman, J. D.
+                            , Pearson
+                             (2006)
                             </span>
-                            <br><a href="https://doi.org/10.4016/48378.01" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.4016/48378.01</a>
                             
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Fusion of Forward Rendering and Deferred Rendering for 3d Model Rendering in Osgverse</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Duan, lian
-                            
-                             (2024)
-                            </span>
-                            <br><a href="https://doi.org/10.2139/ssrn.4777619" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.2139/ssrn.4777619</a>
-                            
+                            <br><a href="https://www.pearson.com/en-us/subject-catalog/p/introduction-to-automata-theory-languages-and-computation/P200000003671" target="_blank" style="color: #9b59b6; font-size: 0.85em;">View Source</a>
                         </li>
                         
                     </ul>

@@ -1,21 +1,23 @@
 {
   "id": "theoretical_chemistry-supported-catalysts",
-  "name": "Supported Catalysts",
+  "name": "Rayleigh–Schrödinger Perturbation Theory",
   "category": "chemistry",
   "subcategory": "theoretical_chemistry",
   "subcategory_name": "Theoretical Chemistry",
-  "description": "Supported Catalysts process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "Perturbation theory treats a Hamiltonian as a solvable reference plus a small perturbation, expanding the energy and wavefunction in powers of the coupling; first- and second-order corrections (as in Møller–Plesset MP2) improve the energy when the series converges.",
   "complexity": {
-    "nodes": 26,
-    "edges": 22,
-    "conditionals": 0,
+    "nodes": 10,
+    "edges": 10,
+    "conditionals": 1,
     "logicGates": {
-      "orGates": 0,
+      "orGates": 1,
       "andGates": 1,
-      "total": 1
+      "notGates": 0,
+      "total": 2
     },
-    "level": "medium",
-    "detailLevel": "medium"
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 0
   },
   "colorScheme": {
     "red": {
@@ -39,53 +41,151 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nA5[Metal Precursors] --> B5[Supported Catalyst Method]\nC5[Support Material] --> D5[Surface Area Analysis]\nE5[Reaction Conditions] --> F5[Temperature Control]\nB5 --> G5[Support Preparation]\nD5 --> H5[Pore Volume]\nF5 --> I5[Pressure Regulation]\nG5 --> J5[Surface Modification]\nH5 --> K5[Active Site Density]\nI5 --> L5[Reaction Pressure]\nJ5 --> M5[Metal Deposition]\nK5 --> L5\nL5 --> N5[Catalyst Activation]\nM5 --> O5[Particle Formation]\nN5 --> P5[Surface Reaction]\nO5 --> Q5[Catalytic Activity]\nP5 --> R5[Product Formation]\nQ5 --> S5[Reaction Rate]\nR5 --> T5[Product Desorption]\nS5 --> U5[Turnover Frequency]\nT5 --> V5[Product Analysis]\nU5 --> W5[Catalyst Performance]\nV5 --> X5[Conversion Yield]\nW5 --> Y5[Stability Testing]\nX5 --> Z5[Supported Catalyst Efficiency]\nY5 --> Z5\n\n    style A5 fill:#ff6b6b,color:#fff\n    style C5 fill:#ff6b6b,color:#fff\n    style E5 fill:#ff6b6b,color:#fff\n    style B5 fill:#ffd43b,color:#000\n    style D5 fill:#ffd43b,color:#000\n    style F5 fill:#ffd43b,color:#000\n    style G5 fill:#ffd43b,color:#000\n    style H5 fill:#ffd43b,color:#000\n    style I5 fill:#ffd43b,color:#000\n    style J5 fill:#ffd43b,color:#000\n    style K5 fill:#ffd43b,color:#000\n    style L5 fill:#ffd43b,color:#000\n    style M5 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style O5 fill:#51cf66,color:#fff\n    style P5 fill:#51cf66,color:#fff\n    style Q5 fill:#51cf66,color:#fff\n    style R5 fill:#51cf66,color:#fff\n    style S5 fill:#51cf66,color:#fff\n    style T5 fill:#51cf66,color:#fff\n    style U5 fill:#51cf66,color:#fff\n    style V5 fill:#51cf66,color:#fff\n    style W5 fill:#51cf66,color:#fff\n    style X5 fill:#51cf66,color:#fff\n    style Y5 fill:#51cf66,color:#fff\n    style Z5 fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"H = H0 + λV\"]\n    N2[\"Known H0 eigenstates\"]\n    N3[\"Expand in powers of λ\"]\n    N4[\"First order ⟨0|V|0⟩\"]\n    N5[\"Second-order sum\"]\n    N6{\"Series converging?\"}\n    N7[\"Diverges (strong V)\"]\n    N8[\"Switch to variational\"]\n    N9[\"Sum corrections (MP2)\"]\n    N10[\"Improved energy\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 --> N4\n    N4 --> N5\n    N5 --> N6\n    N6 -->|no| N7\n    N7 --> N8\n    N8 --> N10\n    N6 -->|yes| N9\n    N9 --> N10\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#74c0fc,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#51cf66,color:#fff\n    style N10 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "title": "Note on an approximation treatment for many-electron systems (Møller–Plesset)",
+      "authors": "Møller, C.; Plesset, M. S.",
+      "journal": "Physical Review",
+      "year": "1934",
+      "doi": "10.1103/PhysRev.46.618",
+      "url": "https://doi.org/10.1103/PhysRev.46.618"
+    },
+    {
+      "title": "Quantum Chemistry, 7th ed. — Perturbation Theory",
+      "authors": "Levine, I. N.",
+      "journal": "Pearson",
+      "year": "2014",
       "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: Supported Catalysts. Created using the Programming Framework methodology."
+      "url": "https://www.pearson.com/en-us/subject-catalog/p/quantum-chemistry/P200000003505"
     },
     {
-      "title": "Carbon-Supported Catalysts",
-      "authors": "",
-      "journal": "Carbons and Carbon-Supported Catalysts in Hydroprocessing",
-      "year": "2008",
-      "pubmed": null,
-      "doi": "10.1039/9781847558411-00048",
-      "url": "https://doi.org/10.1039/9781847558411-00048"
-    },
-    {
-      "title": "Alkaloid-supported Catalysts",
-      "authors": "Kumari, Poonam; Kumar Meena, Rajesh; Fageria, Pragati",
-      "journal": "Polymer Supported Organic Catalysts",
-      "year": "2024",
-      "pubmed": null,
-      "doi": "10.1201/9781003039785-5",
-      "url": "https://doi.org/10.1201/9781003039785-5"
-    },
-    {
-      "title": "Peptide-supported Catalysts: Synthesis and Applications",
-      "authors": "Rajput, Anupama; Rajput, Prachika; Samanta, Srikanta",
-      "journal": "Polymer Supported Organic Catalysts",
-      "year": "2024",
-      "pubmed": null,
-      "doi": "10.1201/9781003039785-2",
-      "url": "https://doi.org/10.1201/9781003039785-2"
+      "title": "Modern Quantum Chemistry — Many-Body Perturbation Theory",
+      "authors": "Szabo, A.; Ostlund, N. S.",
+      "journal": "Dover Publications",
+      "year": "1996",
+      "doi": null,
+      "url": "https://store.doverpublications.com/products/9780486691862"
     }
   ],
   "keywords": [
-    "supported",
-    "catalysts"
+    "perturbation theory",
+    "moller-plesset",
+    "energy correction",
+    "series expansion",
+    "reference hamiltonian"
   ],
   "relatedProcesses": [],
   "created": "2026-01-08",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "H = H0 + λV",
+      "detail": "Reference plus perturbation",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 1
+    },
+    {
+      "id": "N2",
+      "label": "Known H0 eigenstates",
+      "detail": "Solvable zeroth order",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N3",
+      "label": "Expand in powers of λ",
+      "detail": "Series for E and ψ",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N4",
+      "label": "First order ⟨0|V|0⟩",
+      "detail": "Leading correction",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N5",
+      "label": "Second-order sum",
+      "detail": "Couples excited states",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N6",
+      "label": "Series converging?",
+      "detail": "Small-perturbation test",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 2
+    },
+    {
+      "id": "N7",
+      "label": "Diverges (strong V)",
+      "detail": "Expansion fails",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N8",
+      "label": "Switch to variational",
+      "detail": "Non-perturbative method",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N9",
+      "label": "Sum corrections (MP2)",
+      "detail": "Add correlation energy",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N10",
+      "label": "Improved energy",
+      "detail": "Better estimate",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 1
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:theoretical_chemistry-supported-catalysts",
+    "graphType": "decision_flowchart",
+    "topologySignature": "56fe2590feedd9eb",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "namedCollections": [
+    "theoretical-chemistry"
+  ],
+  "graphMetrics": {
+    "nodes": 10,
+    "edges": 10,
+    "conditionals": 1,
+    "andGates": 1,
+    "orGates": 1,
+    "notGates": 0,
+    "loops": 0
+  },
+  "graphType": "decision_flowchart",
+  "domainContext": "Approximation methods"
 }

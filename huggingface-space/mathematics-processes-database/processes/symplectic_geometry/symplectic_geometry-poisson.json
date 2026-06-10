@@ -1,0 +1,39 @@
+{
+  "id": "symplectic_geometry-poisson",
+  "name": "Poisson Bracket",
+  "category": "mathematics",
+  "subcategory": "symplectic_geometry",
+  "subcategory_name": "Symplectic Geometry",
+  "description": "{f,g}=ω(X_f,X_g). Jacobi identity. Casimir functions. Poisson manifold.",
+  "mermaid": "graph TD\n    D1[\"Def: {f,g}\\nω(X_f,X_g)\"]\n    D2[\"Def: Jacobi\\n{f,{g,h}}+cycl=0\"]\n    D3[\"Def: Casimir\\n{f,C}=0 ∀f\"]\n    D4[\"Def: Poisson manifold\\n{·,·} Lie bracket\"]\n    T1[\"Thm: {f,g}=−{g,f}\\nskew-sym\"]\n    T2[\"Thm: Leibniz\\n{f,gh}=g{f,h}+h{f,g}\"]\n    T3[\"Thm: Jacobi holds\\nfrom dω=0\"]\n    T4[\"Thm: Symplectic⇒Poisson\\nnondeg\"]\n    T5[\"Thm: Dirac bracket\\nconstraints\"]\n    D1 --> T1\n    D2 --> T3\n    D1 --> T2\n    D3 --> T4\n    D4 --> T5\n    classDef definition fill:#b197fc,color:#fff\n    classDef theorem fill:#51cf66,color:#fff\n    class D1,D2,D3,D4 definition\n    class T1,T2,T3,T4,T5 theorem",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

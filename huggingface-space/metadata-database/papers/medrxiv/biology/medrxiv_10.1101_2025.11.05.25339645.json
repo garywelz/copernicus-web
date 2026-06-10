@@ -1,0 +1,42 @@
+{
+  "id": "medrxiv_10.1101_2025.11.05.25339645",
+  "doi": "10.1101/2025.11.05.25339645",
+  "title": "Subject-Disjoint, Imbalance Aware Gameplay Rest Classification in Pediatric Mobile EEG Using Enriched Topological Features",
+  "authors": [
+    "Bin Owais, W.",
+    "Jelinek, H. F.",
+    "Elfadel, I."
+  ],
+  "author_string": "Bin Owais, W., Jelinek, H. F., Elfadel, I.",
+  "journal": "medRxiv",
+  "journal_full": "medRxiv",
+  "year": "2026",
+  "abstract": "ObjectiveClassifying cognitive state from pediatric mobile electroencephalography (EEG) recorded during naturalistic, high-movement behavior is challenging due to motion artifacts, low channel count, and severe imbalance between rest and task conditions. Rather than optimizing accuracy under favorable or imbalance-agnostic evaluation settings, this study proposes an imbalance-aware and computationally feasible framework to distinguish Minecraft gameplay from eyes-open rest using low-density pediatric EEG.\n\nMethodsWe introduce Enriched Topological Features, which combine Takens phase-space embeddings with persistent homology, persistence landscapes, and persistence entropy. Evaluation was performed on four-channel Muse EEG from 43 children using subject-disjoint five-fold GroupKFold cross-validation. Class imbalance was handled exclusively within training folds using synthetic minority oversampling or within-subject random undersampling, while test folds preserved natural class proportions. Robustness to persistence landscape resolution and truncation depth was assessed using linear mixed-effects modeling.\n\nResultsUnder oversampling-based training, the proposed framework achieved test balanced accuracy up to 65.39% and macro-averaged F1 score up to 64.48%, with minority-class rest recall reaching 49.51% using temporal electrodes. Feature attribution analysis associated gameplay predictions with frontal gamma-band topological structure, whereas rest predictions were associated with alpha-band organization at temporal sites. End-to-end processing required 0.676 s per 4.5 s epoch (0.15x real time), supporting near-real-time feasibility.\n\nConclusionThe proposed approach enables imbalance-aware gameplay-rest classification from low-density pediatric mobile EEG and is compatible with near-real-time analysis.\n\nSignificanceThis work demonstrates that topological representations support robust cognitive-state monitoring in pediatric mobile neuroengineering under realistic motion and hardware constraints.",
+  "keywords": [],
+  "categories": [
+    "neurology"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.1101/2025.11.05.25339645",
+  "source": "medrxiv",
+  "sources": [
+    "medrxiv"
+  ],
+  "acquired_date": "2026-05-05T22:15:25.968717",
+  "category": "biology",
+  "subcategories": [
+    "neurology"
+  ],
+  "published_date": "2026-01-05",
+  "updated_date": "2026-01-05",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "medrxiv",
+  "preprint_version": "3",
+  "preprint_type": "PUBLISHAHEADOFPRINT",
+  "license": "cc_no",
+  "jatsxml": "https://www.medrxiv.org/content/early/2026/01/05/2025.11.05.25339645.source.xml",
+  "published_doi": null,
+  "author_corresponding": "Waleed Bin Owais",
+  "author_corresponding_institution": "Khalifa University"
+}

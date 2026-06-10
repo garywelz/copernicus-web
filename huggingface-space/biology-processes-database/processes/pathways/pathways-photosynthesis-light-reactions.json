@@ -1,0 +1,191 @@
+{
+  "id": "pathways-photosynthesis-light-reactions",
+  "name": "Photosynthesis Light Reactions",
+  "category": "biology",
+  "subcategory": "pathways",
+  "subcategory_name": "Pathways",
+  "description": "Light reactions: photons excite Photosystem II, water is split to replace electrons and release O2, electrons travel the Z-scheme through cytochrome b6f and Photosystem I to make NADPH, and the proton gradient drives ATP synthesis.",
+  "keywords": [
+    "light reactions",
+    "photosystem",
+    "z-scheme",
+    "water splitting",
+    "nadph"
+  ],
+  "namedCollections": [
+    "metabolism"
+  ],
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "complexity": {
+    "nodes": 10,
+    "edges": 11,
+    "conditionals": 0,
+    "logicGates": {
+      "orGates": 2,
+      "andGates": 2,
+      "notGates": 0,
+      "total": 4
+    },
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 1
+  },
+  "graphMetrics": {
+    "nodes": 10,
+    "edges": 11,
+    "conditionals": 0,
+    "andGates": 2,
+    "orGates": 2,
+    "notGates": 0,
+    "loops": 1
+  },
+  "mermaid": "graph TD\n    N1[\"Photon absorbed\"]\n    N2[\"PSII excites P680\"]\n    N3[\"Water split: O2 + H+\"]\n    N4[\"Electrons -> plastoquinone\"]\n    N5[\"Cytochrome b6f pumps H+\"]\n    N6[\"Plastocyanin -> PSI (P700)\"]\n    N7[\"Photon re-excites PSI\"]\n    N8[\"Ferredoxin -> NADPH\"]\n    N9[\"ATP synthase makes ATP\"]\n    N10[\"ATP + NADPH for Calvin\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 -->|replace e-| N2\n    N2 --> N4\n    N4 --> N5\n    N5 --> N6\n    N6 --> N7\n    N7 --> N8\n    N5 --> N9\n    N9 --> N10\n    N8 --> N10\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#51cf66,color:#fff\n    style N10 fill:#b197fc,color:#fff",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Photon absorbed",
+      "detail": "Light energy enters antenna",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N2",
+      "label": "PSII excites P680",
+      "detail": "Charge separation at reaction center",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N3",
+      "label": "Water split: O2 + H+",
+      "detail": "Oxygen-evolving complex donates e-",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N4",
+      "label": "Electrons -> plastoquinone",
+      "detail": "Reduced PQ carries electrons",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N5",
+      "label": "Cytochrome b6f pumps H+",
+      "detail": "Builds the proton gradient",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N6",
+      "label": "Plastocyanin -> PSI (P700)",
+      "detail": "Electron handoff to PSI",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N7",
+      "label": "Photon re-excites PSI",
+      "detail": "Second photochemical step",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N8",
+      "label": "Ferredoxin -> NADPH",
+      "detail": "FNR reduces NADP+",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N9",
+      "label": "ATP synthase makes ATP",
+      "detail": "Photophosphorylation",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N10",
+      "label": "ATP + NADPH for Calvin",
+      "detail": "Power the dark reactions",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 0
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:pathways-photosynthesis-light-reactions",
+    "graphType": "mechanism_flowchart",
+    "topologySignature": "cc91369f7dcc52e8",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "lastUpdated": "2026-06-01",
+  "verified": false,
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "sources": [
+    {
+      "title": "Biochemistry, 5th ed. — The Light Reactions of Photosynthesis",
+      "authors": "Berg, J. M.; Tymoczko, J. L.; Stryer, L.",
+      "journal": "W. H. Freeman (NCBI Bookshelf, Chapter 19)",
+      "year": "2002",
+      "doi": null,
+      "url": "https://www.ncbi.nlm.nih.gov/books/NBK22538/"
+    },
+    {
+      "title": "Structure and function of photosystems I and II",
+      "authors": "Nelson, N.; Yocum, C. F.",
+      "journal": "Annual Review of Plant Biology",
+      "year": "2006",
+      "pubmed": "16669766",
+      "doi": "10.1146/annurev.arplant.57.032905.105350",
+      "url": "https://doi.org/10.1146/annurev.arplant.57.032905.105350"
+    },
+    {
+      "title": "Photosynthetic energy conversion: natural and artificial",
+      "authors": "Barber, J.",
+      "journal": "Chemical Society Reviews",
+      "year": "2009",
+      "pubmed": "19169468",
+      "doi": "10.1039/b802262n",
+      "url": "https://doi.org/10.1039/b802262n"
+    }
+  ],
+  "graphType": "mechanism_flowchart",
+  "domainContext": "Photosynthetic energy capture"
+}

@@ -167,6 +167,33 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
@@ -176,7 +203,7 @@
             <div class="header-meta">
                 <span class="meta-item">Chemistry</span>
                 <span class="meta-item">Materials Chemistry</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,46 +234,60 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Sol-Gel Synthesis process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>Sol-gel processing converts metal alkoxide precursors into an oxide network through hydrolysis and condensation: a colloidal sol crosslinks into a continuous gel, which is aged and then dried either supercritically to an aerogel or by evaporation to a xerogel, and finally calcined to the dense oxide.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-N1["Metal Alkoxide"]
-N2["Water + Catalyst"]
-N3["Hydrolysis"]
-N4["Choose Path"]
-N5["Condensation"]
-N6["Gel Network"]
-N7["Dry/Calcine"]
-N8["Oxide Material"]
-N9["Integrate"]
+    N1["Metal alkoxide precursor"]
+    N2["Hydrolysis (M-OR -> M-OH)"]
+    N3["Condensation (M-O-M)"]
+    N4["Colloidal sol"]
+    N5["Crosslink to gel network"]
+    N6{"Gel point reached?"}
+    N7["Age (more condensation)"]
+    N8{"Drying route?"}
+    N9["Supercritical -> aerogel"]
+    N10["Evaporate -> xerogel"]
+    N11["Calcine to oxide"]
 
-N1 --> N2
-N2 --> N3
-N3 --> N4
-N4 --> N5
-N4 --> N7
-N5 --> N6
-N7 --> N8
-N6 --> N9
-N8 --> N9
-N9 --> N6
+    N1 --> N2
+    N2 --> N3
+    N3 --> N4
+    N4 --> N5
+    N5 --> N6
+    N6 -->|no| N7
+    N7 -->|age| N3
+    N6 -->|yes| N8
+    N8 -->|supercritical| N9
+    N8 -->|evaporative| N10
+    N9 --> N11
+    N10 --> N11
 
     style N1 fill:#ff6b6b,color:#fff
-    style N2 fill:#ff6b6b,color:#fff
+    style N2 fill:#51cf66,color:#fff
     style N3 fill:#51cf66,color:#fff
-    style N4 fill:#ffd43b,color:#000
+    style N4 fill:#74c0fc,color:#fff
     style N5 fill:#51cf66,color:#fff
     style N6 fill:#74c0fc,color:#fff
     style N7 fill:#51cf66,color:#fff
-    style N8 fill:#b197fc,color:#fff
-    style N9 fill:#74c0fc,color:#fff
+    style N8 fill:#74c0fc,color:#fff
+    style N9 fill:#51cf66,color:#fff
+    style N10 fill:#51cf66,color:#fff
+    style N11 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Metal alkoxide precursor</td><td>Triggers & Inputs</td><td><a href="https://doi.org/10.1016/C2009-0-22386-5" target="_blank" title="Sol-Gel Science: The Physics and Chemistry of Sol-Gel Processing" style="color:#e74c3c;">Brinker, C. J. et al. 1990</a></td></tr><tr><td style="font-weight:600;">Hydrolysis (M-OR -> M-OH)</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1021/cr00099a003" target="_blank" title="The sol-gel process" style="color:#e74c3c;">Hench, L. L. et al. 1990</a></td></tr><tr><td style="font-weight:600;">Condensation (M-O-M)</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1021/cr00099a003" target="_blank" title="The sol-gel process" style="color:#e74c3c;">Hench, L. L. et al. 1990</a></td></tr><tr><td style="font-weight:600;">Colloidal sol</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1016/C2009-0-22386-5" target="_blank" title="Sol-Gel Science: The Physics and Chemistry of Sol-Gel Processing" style="color:#e74c3c;">Brinker, C. J. et al. 1990</a></td></tr><tr><td style="font-weight:600;">Crosslink to gel network</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1021/cr00099a003" target="_blank" title="The sol-gel process" style="color:#e74c3c;">Hench, L. L. et al. 1990</a></td></tr><tr><td style="font-weight:600;">Gel point reached?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1016/C2009-0-22386-5" target="_blank" title="Sol-Gel Science: The Physics and Chemistry of Sol-Gel Processing" style="color:#e74c3c;">Brinker, C. J. et al. 1990</a></td></tr><tr><td style="font-weight:600;">Age (more condensation)</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1016/C2009-0-22386-5" target="_blank" title="Sol-Gel Science: The Physics and Chemistry of Sol-Gel Processing" style="color:#e74c3c;">Brinker, C. J. et al. 1990</a></td></tr><tr><td style="font-weight:600;">Drying route?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1016/C2009-0-22386-5" target="_blank" title="Sol-Gel Science: The Physics and Chemistry of Sol-Gel Processing" style="color:#e74c3c;">Brinker, C. J. et al. 1990</a></td></tr><tr><td style="font-weight:600;">Supercritical -> aerogel</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1016/C2009-0-22386-5" target="_blank" title="Sol-Gel Science: The Physics and Chemistry of Sol-Gel Processing" style="color:#e74c3c;">Brinker, C. J. et al. 1990</a></td></tr><tr><td style="font-weight:600;">Evaporate -> xerogel</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1016/C2009-0-22386-5" target="_blank" title="Sol-Gel Science: The Physics and Chemistry of Sol-Gel Processing" style="color:#e74c3c;">Brinker, C. J. et al. 1990</a></td></tr><tr><td style="font-weight:600;">Calcine to oxide</td><td>Products & Outputs</td><td><a href="https://doi.org/10.1021/cr00099a003" target="_blank" title="The sol-gel process" style="color:#e74c3c;">Hench, L. L. et al. 1990</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -292,12 +333,12 @@ N9 --> N6
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 9</li>
-                        <li><strong>Edges:</strong> 10</li>
-                        <li><strong>Conditionals:</strong> 0</li>
+                        <li><strong>Nodes:</strong> 11</li>
+                        <li><strong>Edges:</strong> 12</li>
+                        <li><strong>Conditionals:</strong> 2</li>
                         <li><strong>AND Gates:</strong> 2</li>
-                        <li><strong>OR Gates:</strong> 1</li>
-                        <li><strong>Total Gates:</strong> 3</li>
+                        <li><strong>OR Gates:</strong> 2</li>
+                        <li><strong>Total Gates:</strong> 4</li>
                     </ul>
                 </div>
                 
@@ -305,7 +346,7 @@ N9 --> N6
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>sol</li><li>gel</li><li>synthesis</li>
+                        <li>sol-gel</li><li>hydrolysis</li><li>condensation</li><li>gelation</li><li>aerogel</li>
                     </ul>
                 </div>
                 
@@ -316,42 +357,22 @@ N9 --> N6
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>The sol-gel process</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Hench, L. L.; West, J. K.
+                            , Chemical Reviews
+                             (1990)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Facile Methodology of Sol-Gel Synthesis for Metal Oxide Nanostructures</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Thiagarajan, Shrividhya; Sanmugam, Anandhavelu; Vikraman, Dhanasekaran
-                            , Recent Applications in Sol-Gel Synthesis
-                             (2017)
-                            </span>
-                            <br><a href="https://doi.org/10.5772/intechopen.68708" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.5772/intechopen.68708</a>
+                            <br><a href="https://doi.org/10.1021/cr00099a003" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1021/cr00099a003</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Introductory Chapter: Sol-Gel Synthesis</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Shankar Acharya, Shakti; Pal Singh, Jitendra
-                            , Sol-Gel Method - Recent Advances
-                             (2023)
+                            <strong>Sol-Gel Science: The Physics and Chemistry of Sol-Gel Processing</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Brinker, C. J.; Scherer, G. W.
+                            , Academic Press
+                             (1990)
                             </span>
-                            <br><a href="https://doi.org/10.5772/intechopen.112248" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.5772/intechopen.112248</a>
-                            
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Synthesis Strategies for the Preparation of Sol-Gel Nanocomposites</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Guglielmi, Massimo
-                            , Sol-Gel Nanocomposites
-                             (2014)
-                            </span>
-                            <br><a href="https://doi.org/10.1007/978-1-4939-1209-4_3" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1007/978-1-4939-1209-4_3</a>
+                            <br><a href="https://doi.org/10.1016/C2009-0-22386-5" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1016/C2009-0-22386-5</a>
                             
                         </li>
                         

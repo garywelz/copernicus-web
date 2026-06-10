@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2605.05829v1",
+  "arxiv_id": "2605.05829v1",
+  "title": "MP2D: Constrained Monte Carlo Tree-Guided Diffusion for Multi-Objective Protein Sequence Design",
+  "authors": [
+    "Zitai Kong",
+    "Yifan Dong",
+    "Yixuan Wu",
+    "Zhaokang Liang",
+    "Jian Wu",
+    "Hongxia Xu"
+  ],
+  "author_string": "Zitai Kong, Yifan Dong, Yixuan Wu, Zhaokang Liang, Jian Wu et al.",
+  "journal": "arXiv:2605.05829v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Designing functional protein sequences that satisfy multiple desired properties is a core research focus of protein engineering. Prior methods struggle with inability or inefficiency when dealing with numerous, often conflicting, properties. We propose Multi-Property Protein Diffusion (MP2D), a unified framework for multi-objective protein sequence optimization that integrates conditional discrete diffusion with constrained MCTS and global iterative refinement. MP2D formulates diffusion denoising as a constrained sequential decision-making process and employs MCTS to explore diverse denoising trajectories guided by Pareto-based rewards. A global iterative refinement strategy further enables repeated remasking and re-optimization of candidate sequences, while a dynamic Pareto constraint prevents candidate bloat and maintains balanced trade-offs across objectives. We evaluate MP2D on two challenging multi-objective protein design tasks: antimicrobial peptide and protein binder optimization, involving four to five conflicting properties. Experimental results demonstrate that MP2D consistently outperforms existing multi-objective baselines, achieving robust and balanced improvements across all objectives without retraining generative models. These results highlight MP2D as a practical and scalable solution for multi-objective functional protein design.",
+  "categories": [
+    "q-bio.BM"
+  ],
+  "primary_category": "q-bio.BM",
+  "comment": "16 pages, 4 figures, 7 tables, accepted by the 35th International Joint Conference on Artificial Intelligence",
+  "published_date": "2026-05-07T08:04:16Z",
+  "updated_date": "2026-05-07T08:04:16Z",
+  "url": "https://arxiv.org/abs/2605.05829v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.05829v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-13T10:15:35.805160",
+  "category": "biology",
+  "subcategories": [
+    "q-bio.BM"
+  ]
+}

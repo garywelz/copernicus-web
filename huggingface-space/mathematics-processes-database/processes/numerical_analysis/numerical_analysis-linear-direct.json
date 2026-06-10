@@ -1,0 +1,39 @@
+{
+  "id": "numerical_analysis-linear-direct",
+  "name": "Linear Systems — Direct Methods",
+  "category": "mathematics",
+  "subcategory": "numerical_analysis",
+  "subcategory_name": "Numerical Analysis",
+  "description": "Ax=b. LU factorization, pivoting. Condition number κ(A)=‖A‖‖A⁻¹‖. Backward stability.",
+  "mermaid": "graph TD\n    D1[\"Def: LU factorization\\nA = LU lower/upper tri\"]\n    D2[\"Def: Condition number\\nκA = ‖A‖‖A⁻¹‖\"]\n    D3[\"Def: Backward stable\\n(A+δA)x̂ = b+δb\"]\n    T1[\"Thm: LU exists\\nif all leading minors ≠0\"]\n    T2[\"Thm: PA = LU\\npartial pivoting\"]\n    T3[\"Thm: Error bound\\n‖x−x̂‖/‖x‖ ≤ κ·ε\"]\n    T4[\"Thm: Cholesky\\nA pos def ⇒ A=LL*\"]\n    T5[\"Thm: QR for least squares\\nmin ‖Ax−b‖\"]\n    L1[\"Lemma: Growth factor\"]\n    D1 --> T1\n    D1 --> T2\n    D2 --> T3\n    D3 --> T3\n    T1 --> T4\n    T2 --> L1\n    classDef definition fill:#b197fc,color:#fff\n    classDef theorem fill:#51cf66,color:#fff\n    classDef lemma fill:#74c0fc,color:#fff\n    class D1,D2,D3 definition\n    class T1,T2,T3,T4,T5 theorem\n    class L1 lemma",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

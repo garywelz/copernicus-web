@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2605.14762v1",
+  "arxiv_id": "2605.14762v1",
+  "title": "Differentially private inference framework of Riemannian manifold data",
+  "authors": [
+    "Yangdi Jiang",
+    "Xiaotian Chang",
+    "Qirui Hu"
+  ],
+  "author_string": "Yangdi Jiang, Xiaotian Chang, Qirui Hu",
+  "journal": "arXiv:2605.14762v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We propose a novel and systematic differentially private (DP) inference framework for non-Euclidean data. First, we design two types of DP mechanisms for the Fréchet mean and variance with i.i.d. Riemannian manifold-valued data, tailored to different geometric structures and accompanied by analytic privacy budgets calibrated to the geometry of the underlying manifold. Second, we establish the consistency and central limit theorems (CLTs) of the proposed DP estimators, enabling a suite of statistical inference procedures under privacy protection. Furthermore, we provide comprehensive implementation guidelines and feasible procedures, including consistent DP estimators of the asymptotic variance in the CLTs. Extensive numerical experiments support the proposed methodologies. Finally, we demonstrate the effectiveness of our approach on real-world medical image and sociological datasets lying on two representative manifolds.",
+  "categories": [
+    "stat.ME",
+    "math.ST"
+  ],
+  "primary_category": "math.ST",
+  "comment": null,
+  "published_date": "2026-05-14T12:24:28Z",
+  "updated_date": "2026-05-14T12:24:28Z",
+  "url": "https://arxiv.org/abs/2605.14762v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.14762v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-16T10:15:40.623466",
+  "category": "mathematics",
+  "subcategories": [
+    "stat.ME",
+    "math.ST"
+  ]
+}

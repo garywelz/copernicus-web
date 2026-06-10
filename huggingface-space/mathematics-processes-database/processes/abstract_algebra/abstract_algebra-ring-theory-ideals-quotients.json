@@ -1,0 +1,39 @@
+{
+  "id": "abstract_algebra-ring-theory-ideals-quotients",
+  "name": "Ring Theory — Ideals & Quotients",
+  "category": "mathematics",
+  "subcategory": "abstract_algebra",
+  "subcategory_name": "Abstract Algebra",
+  "description": "Ideal I ⊆ R: subgroup under +, absorbs multiplication (rI ⊆ I, Ir ⊆ I). Quotient ring R/I. Ring homomorphism, kernel, image. First, second, third isomorphism theorems.",
+  "mermaid": "graph TD\n    D1[\"Def: Ideal\\nI subgroup, rI Ir ⊆ I\"]\n    D2[\"Def: Quotient R/I\\ncosets, ring structure\"]\n    D3[\"Def: Ring homomorphism\\nφ preserves + · 1\"]\n    D4[\"Def: Kernel\\nker φ = φ⁻¹0\"]\n    T1[\"Thm: FIT\\nR/ker φ ≅ im φ\"]\n    T2[\"Thm: 2nd iso\\n(I+J)/J ≅ I/(I∩J)\"]\n    T3[\"Thm: 3rd iso\\n(R/I)/(J/I) ≅ R/J\"]\n    D1 --> D2\n    D3 --> D4\n    D2 --> T1\n    D4 --> T1\n    D1 --> T2\n    D2 --> T3\n    classDef definition fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef theorem fill:#51cf66,color:#fff,stroke:#40c057\n    class D1,D2,D3,D4 definition\n    class T1,T2,T3 theorem",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

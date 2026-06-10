@@ -1,0 +1,37 @@
+{
+  "id": "arxiv_2605.13748v1",
+  "arxiv_id": "2605.13748v1",
+  "title": "TinySDP: Real Time Semidefinite Optimization for Certifiable and Agile Edge Robotics",
+  "authors": [
+    "Ishaan Mahajan",
+    "Jon Arrizabalaga",
+    "Andrea Grillo",
+    "Fausto Vega",
+    "James Anderson",
+    "Zachary Manchester",
+    "Brian Plancher"
+  ],
+  "author_string": "Ishaan Mahajan, Jon Arrizabalaga, Andrea Grillo, Fausto Vega, James Anderson et al.",
+  "journal": "arXiv:2605.13748v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Semidefinite programming (SDP) provides a principled framework for convex relaxations of nonconvex geometric constraints in motion planning, yet existing solvers are too computationally expensive for real-time control, particularly on resource-constrained embedded systems. To address this gap, we introduce TinySDP, the first semidefinite programming solver designed for embedded systems, enabling real-time model-predictive control (MPC) on microcontrollers for problems with nonconvex obstacle constraints. Our approach integrates positive-semidefinite cone projections into a cached-Riccati-based ADMM solver, leveraging computational structure for embedded tractability. We pair this solver with an a posteriori rank-1 certificate that converts relaxed solutions into explicit geometric guarantees at each timestep. On challenging benchmarks, e.g., cul-de-sac and dynamic obstacle avoidance scenarios that induce failures in local methods, TinySDP achieves collision-free navigation with up to 73% shorter paths than state-of-the-art baselines. We validate our approach on a Crazyflie quadrotor, demonstrating that semidefinite constraints can be enforced at real-time rates for agile embedded robotics.",
+  "categories": [
+    "cs.RO",
+    "eess.SY"
+  ],
+  "primary_category": "eess.SY",
+  "comment": "Accepted to Robotics: Science and Systems (RSS) 2026. 11 pages, 5 figures, 2 tables. Project website: https://a2r-lab.org/TinySDP/",
+  "published_date": "2026-05-13T16:30:32Z",
+  "updated_date": "2026-05-13T16:30:32Z",
+  "url": "https://arxiv.org/abs/2605.13748v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.13748v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-13T22:17:00.037008",
+  "category": "interdisciplinary",
+  "subcategories": [
+    "cs.RO",
+    "eess.SY"
+  ]
+}

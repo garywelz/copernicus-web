@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Geometric Modeling - Computer Science Process</title>
+    <title>Decidability & the Halting Problem - Computer Science Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Geometric Modeling</h1>
+            <h1>Decidability & the Halting Problem</h1>
             <div class="header-meta">
                 <span class="meta-item">Computer Science</span>
                 <span class="meta-item">Theoretical Computer Science</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,67 +234,64 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Geometric Modeling process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>A problem is decidable if a Turing machine halts with the correct answer on every input: after formalizing the problem as a language, one either constructs a total decider or, failing that, reduces the halting problem to it; a valid reduction proves undecidability, as Turing showed the halting problem itself is undecidable.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-A3[Geometric Input] --> B3[Geometric Modeling Method]
-C3[Shape Definition] --> D3[Surface Generation]
-E3[Mesh Processing] --> F3[Geometric Modeling Analysis]
-B3 --> G3[Polygonal Modeling]
-D3 --> H3[NURBS Modeling]
-F3 --> I3[Subdivision Surface]
-G3 --> J3[Vertex Manipulation]
-H3 --> K3[Control Point Editing]
-I3 --> L3[Subdivision Algorithm]
-J3 --> M3[Topology Optimization]
-K3 --> L3
-L3 --> N3[Surface Smoothing]
-M3 --> O3[Mesh Simplification]
-N3 --> P3[UV Mapping]
-O3 --> Q3[Geometric Modeling Process]
-P3 --> R3[Geometric Modeling Validation]
-Q3 --> S3[Geometric Modeling Verification]
-R3 --> T3[Geometric Modeling Result]
-S3 --> U3[Geometric Modeling Analysis]
-T3 --> V3[Geometric Modeling Parameters]
-U3 --> W3[Geometric Modeling Output]
-V3 --> X3[Geometric Modeling Analysis]
-W3 --> Y3[Geometric Modeling Final Result]
-X3 --> Z3[Geometric Modeling Complete]
+    N1["Decision problem stated"]
+    N2["Formalize as language"]
+    N3{"Decidable? (seek TM)"}
+    N4["Construct decider TM"]
+    N5{"Halts on all inputs?"}
+    N6["Recognizer only"]
+    N7["Reduce from HALT"]
+    N8{"Reduction valid?"}
+    N9["Refine reduction"]
+    N10["Undecidable (proven)"]
+    N11["Decidable (algorithm)"]
+    N12["Classification result"]
 
-    style A3 fill:#ff6b6b,color:#fff
-    style C3 fill:#ff6b6b,color:#fff
-    style E3 fill:#ff6b6b,color:#fff
-    style B3 fill:#ffd43b,color:#000
-    style D3 fill:#ffd43b,color:#000
-    style F3 fill:#ffd43b,color:#000
-    style G3 fill:#ffd43b,color:#000
-    style H3 fill:#ffd43b,color:#000
-    style I3 fill:#ffd43b,color:#000
-    style J3 fill:#ffd43b,color:#000
-    style K3 fill:#ffd43b,color:#000
-    style L3 fill:#ffd43b,color:#000
-    style M3 fill:#51cf66,color:#fff
-    style N3 fill:#51cf66,color:#fff
-    style O3 fill:#51cf66,color:#fff
-    style P3 fill:#51cf66,color:#fff
-    style Q3 fill:#51cf66,color:#fff
-    style R3 fill:#51cf66,color:#fff
-    style S3 fill:#51cf66,color:#fff
-    style T3 fill:#51cf66,color:#fff
-    style U3 fill:#51cf66,color:#fff
-    style V3 fill:#51cf66,color:#fff
-    style W3 fill:#51cf66,color:#fff
-    style X3 fill:#51cf66,color:#fff
-    style Y3 fill:#51cf66,color:#fff
-    style Z3 fill:#b197fc,color:#fff
+    N1 --> N2
+    N2 --> N3
+    N3 -->|try| N4
+    N4 --> N5
+    N5 -->|yes| N11
+    N5 -->|no| N6
+    N6 --> N12
+    N3 -->|suspect no| N7
+    N7 --> N8
+    N8 -->|no| N9
+    N9 -->|retry| N7
+    N8 -->|yes| N10
+    N10 --> N12
+    N11 --> N12
+
+    style N1 fill:#ff6b6b,color:#fff
+    style N2 fill:#51cf66,color:#fff
+    style N3 fill:#74c0fc,color:#fff
+    style N4 fill:#51cf66,color:#fff
+    style N5 fill:#74c0fc,color:#fff
+    style N6 fill:#51cf66,color:#fff
+    style N7 fill:#51cf66,color:#fff
+    style N8 fill:#74c0fc,color:#fff
+    style N9 fill:#51cf66,color:#fff
+    style N10 fill:#74c0fc,color:#fff
+    style N11 fill:#74c0fc,color:#fff
+    style N12 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Decision problem stated</td><td>Triggers & Inputs</td><td><a href="https://math.mit.edu/~sipser/book.html" target="_blank" title="Introduction to the Theory of Computation (3rd ed.)" style="color:#9b59b6;">Sipser, M. 2012</a></td></tr><tr><td style="font-weight:600;">Formalize as language</td><td>Processing & Operations</td><td><a href="https://math.mit.edu/~sipser/book.html" target="_blank" title="Introduction to the Theory of Computation (3rd ed.)" style="color:#9b59b6;">Sipser, M. 2012</a></td></tr><tr><td style="font-weight:600;">Decidable? (seek TM)</td><td>Intermediates & States</td><td><a href="https://math.mit.edu/~sipser/book.html" target="_blank" title="Introduction to the Theory of Computation (3rd ed.)" style="color:#9b59b6;">Sipser, M. 2012</a></td></tr><tr><td style="font-weight:600;">Construct decider TM</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1112/plms/s2-42.1.230" target="_blank" title="On computable numbers, with an application to the Entscheidungsproblem" style="color:#9b59b6;">Turing, A. M. 1936</a></td></tr><tr><td style="font-weight:600;">Halts on all inputs?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1112/plms/s2-42.1.230" target="_blank" title="On computable numbers, with an application to the Entscheidungsproblem" style="color:#9b59b6;">Turing, A. M. 1936</a></td></tr><tr><td style="font-weight:600;">Recognizer only</td><td>Processing & Operations</td><td><a href="https://math.mit.edu/~sipser/book.html" target="_blank" title="Introduction to the Theory of Computation (3rd ed.)" style="color:#9b59b6;">Sipser, M. 2012</a></td></tr><tr><td style="font-weight:600;">Reduce from HALT</td><td>Processing & Operations</td><td><a href="https://math.mit.edu/~sipser/book.html" target="_blank" title="Introduction to the Theory of Computation (3rd ed.)" style="color:#9b59b6;">Sipser, M. 2012</a></td></tr><tr><td style="font-weight:600;">Reduction valid?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1112/plms/s2-42.1.230" target="_blank" title="On computable numbers, with an application to the Entscheidungsproblem" style="color:#9b59b6;">Turing, A. M. 1936</a></td></tr><tr><td style="font-weight:600;">Refine reduction</td><td>Processing & Operations</td><td><a href="https://math.mit.edu/~sipser/book.html" target="_blank" title="Introduction to the Theory of Computation (3rd ed.)" style="color:#9b59b6;">Sipser, M. 2012</a></td></tr><tr><td style="font-weight:600;">Undecidable (proven)</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1112/plms/s2-42.1.230" target="_blank" title="On computable numbers, with an application to the Entscheidungsproblem" style="color:#9b59b6;">Turing, A. M. 1936</a></td></tr><tr><td style="font-weight:600;">Decidable (algorithm)</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1112/plms/s2-42.1.230" target="_blank" title="On computable numbers, with an application to the Entscheidungsproblem" style="color:#9b59b6;">Turing, A. M. 1936</a></td></tr><tr><td style="font-weight:600;">Classification result</td><td>Products & Outputs</td><td><a href="https://math.mit.edu/~sipser/book.html" target="_blank" title="Introduction to the Theory of Computation (3rd ed.)" style="color:#9b59b6;">Sipser, M. 2012</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -313,12 +337,12 @@ X3 --> Z3[Geometric Modeling Complete]
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 26</li>
-                        <li><strong>Edges:</strong> 21</li>
-                        <li><strong>Conditionals:</strong> 0</li>
-                        <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 1</li>
+                        <li><strong>Nodes:</strong> 12</li>
+                        <li><strong>Edges:</strong> 14</li>
+                        <li><strong>Conditionals:</strong> 3</li>
+                        <li><strong>AND Gates:</strong> 2</li>
+                        <li><strong>OR Gates:</strong> 3</li>
+                        <li><strong>Total Gates:</strong> 5</li>
                     </ul>
                 </div>
                 
@@ -326,7 +350,7 @@ X3 --> Z3[Geometric Modeling Complete]
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>geometric</li><li>modeling</li>
+                        <li>decidability</li><li>halting problem</li><li>Turing machine</li><li>undecidable</li><li>reduction</li>
                     </ul>
                 </div>
                 
@@ -337,43 +361,23 @@ X3 --> Z3[Geometric Modeling Complete]
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>On computable numbers, with an application to the Entscheidungsproblem</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Turing, A. M.
+                            , Proceedings of the London Mathematical Society
+                             (1936)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #9b59b6; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Intrinsic Geometric Modeling</strong>
-                            
-                            , Computer Graphics and Geometric Modeling
-                             (None)
-                            </span>
-                            <br><a href="https://doi.org/10.1007/1-84628-108-3_16" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.1007/1-84628-108-3_16</a>
+                            <br><a href="https://doi.org/10.1112/plms/s2-42.1.230" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.1112/plms/s2-42.1.230</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Approaches to Geometric Modeling</strong>
-                            
-                            , Computer Graphics and Geometric Modeling
-                             (None)
+                            <strong>Introduction to the Theory of Computation (3rd ed.)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Sipser, M.
+                            , Cengage Learning
+                             (2012)
                             </span>
-                            <br><a href="https://doi.org/10.1007/1-84628-108-3_5" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.1007/1-84628-108-3_5</a>
                             
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Local Geometric Modeling Topics</strong>
-                            
-                            , Computer Graphics and Geometric Modeling
-                             (None)
-                            </span>
-                            <br><a href="https://doi.org/10.1007/1-84628-108-3_15" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.1007/1-84628-108-3_15</a>
-                            
+                            <br><a href="https://math.mit.edu/~sipser/book.html" target="_blank" style="color: #9b59b6; font-size: 0.85em;">View Source</a>
                         </li>
                         
                     </ul>

@@ -1,0 +1,30 @@
+{
+  "id": "arxiv_2604.18495v1",
+  "arxiv_id": "2604.18495v1",
+  "title": "Scaling of Quantum Resources for Simulating a Long-Range System",
+  "authors": [
+    "Tanya Keshari",
+    "Debasis Sadhukhan"
+  ],
+  "author_string": "Tanya Keshari, Debasis Sadhukhan",
+  "journal": "arXiv:2604.18495v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We simulate a long-range extended Ising model in one dimension using a hybrid quantum algorithm, namely Variational Quantum Eigensolver (VQE). In this quantum simulation, we investigate how quantum resources scale with system size and interaction strength. Three structure-aware ansatze incorporating nearest-neighbor (NN), next-nearest-neighbor (NNN), and next-next-nearest-neighbor (NNNN) entangling blocks are constructed by mimicking the string operators in the Hamiltonian. We show that energy fidelity alone is not a good indicator for finding the ground state of our model. To overcome this problem, we introduce an additional criterion based on pairwise logarithmic negativity as a more reliable way to find the actual ground state by the VQE. We find that the interaction range parameter alpha primarily governs the minimum number of ansatz layers required, rather than proximity to the quantum critical point. In particular, we show that in the non-local regime (alpha <= 1), the NNN and NNNN ansatze reduce the layer scaling rate by factors of 2.5x and 3.8x relative to NN in all phases, including the critical point. The total number of two-qubit gates required for reliable simulation grows quadratically with system size for all three ansatze. This is consistent with the theoretical prediction, as the number of non-local terms in the Hamiltonian also grows quadratically with the system size. In the local regime, however, the number of required two-qubit gates grows linearly with system size. In contrast, in the quasi-local regime, the required number of two-qubit gates for the quantum simulation is more subtle and depends on the phase of the Hamiltonian.",
+  "categories": [
+    "quant-ph"
+  ],
+  "primary_category": "quant-ph",
+  "comment": "11 pages, 5 figures",
+  "published_date": "2026-04-20T16:44:52Z",
+  "updated_date": "2026-04-20T16:44:52Z",
+  "url": "https://arxiv.org/abs/2604.18495v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.18495v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-22T10:15:48.104509",
+  "category": "physics",
+  "subcategories": [
+    "quant-ph"
+  ]
+}

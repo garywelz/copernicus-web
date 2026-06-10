@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2605.13621v1",
+  "arxiv_id": "2605.13621v1",
+  "title": "WD-FQDet: Multispectral Detection Transformer via Wavelet Decomposition and Frequency-aware Query Learning",
+  "authors": [
+    "Chunjin Yang",
+    "Xiwei Zhang",
+    "Yiming Xiao",
+    "Fanman Meng"
+  ],
+  "author_string": "Chunjin Yang, Xiwei Zhang, Yiming Xiao, Fanman Meng",
+  "journal": "arXiv:2605.13621v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Infrared-visible object detection improves detection performance by combining complementary features from multispectral images. Existing backbone-specific and backbone-shared approaches still suffer from the problems of severe bias of modality-shared features and the insufficiency of modality-specific features. To address these issues, we propose a novel detection framework WD-FQDet that explicitly decouples modality-shared and modality-specific information from infrared and visible modalities in the new view of low- and high-frequency domains, allowing fusion strategies tailored to their frequency characteristics. Specifically, a low-frequency homogeneity alignment module is proposed to align modality-shared features across modalities via a cross-modal attention mechanism, and a high-frequency specificity retention module is proposed to preserve modality-specific features through the multi-scale gradient consistency loss. To reinforce the feature representation in the frequency domain, we propose a hybrid feature enhancement module that incorporates spatial cues. Furthermore, considering that the contributions of homogeneous and modality-specific features to object detection vary across scenarios, we propose a frequency-aware query selection module to dynamically regulate their contributions. Experimental results on the FLIR, LLVIP, and M3FD datasets demonstrate that WD-FQDet achieves state-of-the-art performance across multiple evaluation metrics.",
+  "categories": [
+    "cs.CV"
+  ],
+  "primary_category": "cs.CV",
+  "comment": null,
+  "published_date": "2026-05-13T14:51:05Z",
+  "updated_date": "2026-05-13T14:51:05Z",
+  "url": "https://arxiv.org/abs/2605.13621v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.13621v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-13T22:17:14.552470",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CV"
+  ]
+}

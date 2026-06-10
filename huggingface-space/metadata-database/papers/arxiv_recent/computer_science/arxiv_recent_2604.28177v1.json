@@ -1,0 +1,51 @@
+{
+  "id": "arxiv_2604.28177v1",
+  "arxiv_id": "2604.28177v1",
+  "title": "AEGIS: A Holistic Benchmark for Evaluating Forensic Analysis of AI-Generated Academic Images",
+  "authors": [
+    "Bo Zhang",
+    "Tzu-Yen Ma",
+    "Zichen Tang",
+    "Junpeng Ding",
+    "Zirui Wang",
+    "Yizhuo Zhao",
+    "Peilin Gao",
+    "Zijie Xi",
+    "Zixin Ding",
+    "Haiyang Sun",
+    "Haocheng Gao",
+    "Yuan Liu",
+    "Liangjia Wang",
+    "Yiling Huang",
+    "Yujie Wang",
+    "Yuyue Zhang",
+    "Ronghui Xi",
+    "Yuanze Li",
+    "Jiacheng Liu",
+    "Zhongjun Yang",
+    "Haihong E"
+  ],
+  "author_string": "Bo Zhang, Tzu-Yen Ma, Zichen Tang, Junpeng Ding, Zirui Wang et al.",
+  "journal": "arXiv:2604.28177v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We introduce AEGIS, A holistic benchmark for Evaluating forensic analysis of AI-Generated academic ImageS. Compared to existing benchmarks, AEGIS features three key advances: (1) Domain-Specific Complexity: covering seven academic categories with 39 fine-grained subtypes, exposing intrinsic forensic difficulty, where even GPT-5.1 reaches 48.80% overall performance and expert models achieve only limited localization accuracy (IoU 30.09%); (2) Diverse Forgery Simulations: modeling four prevalent academic forgery strategies across 25 generative models, with 11 yielding average forensic accuracy below 50%, showing that forensics lag behind generative advances; and (3) Multi-Dimensional Forensic Evaluation: jointly assessing detection, reasoning, and localization, revealing complementary strengths between model families, with multimodal large language models (MLLMs) at 84.74% accuracy in textual artifact recognition and expert detectors peaking at 79.54% accuracy in binary authenticity detection. By evaluating 25 leading MLLMs, nine expert models, and one unified multimodal understanding and generation model, AEGIS serves as a diagnostic testbed exposing fundamental limitations in academic image forensics.",
+  "categories": [
+    "cs.CV",
+    "cs.CY"
+  ],
+  "primary_category": "cs.CY",
+  "comment": "Accepted to ACL 2026 Main Conference",
+  "published_date": "2026-04-30T17:56:58Z",
+  "updated_date": "2026-04-30T17:56:58Z",
+  "url": "https://arxiv.org/abs/2604.28177v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.28177v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-30T22:15:39.333546",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CV",
+    "cs.CY"
+  ]
+}

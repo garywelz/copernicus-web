@@ -1,0 +1,30 @@
+{
+  "id": "arxiv_2604.21301v1",
+  "arxiv_id": "2604.21301v1",
+  "title": "Scalable Photonic Neural Networks via Surrogate Scattering-Matrix Inverse Design",
+  "authors": [
+    "Azka Maula Iskandar Muda",
+    "Uğur Teğin"
+  ],
+  "author_string": "Azka Maula Iskandar Muda, Uğur Teğin",
+  "journal": "arXiv:2604.21301v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Inverse-designed nanophotonic media are a promising platform for compact optical neural networks, but training them end to end is expensive because each adjoint iteration couples the full-wave solver to the dataset minibatch, so the number of electromagnetic simulations scales with both the network depth and the batch size. We introduce a two-stage surrogate workflow that decouples task learning from electromagnetic realization. In the first stage, the trainable optical block is represented as a passive complex matrix with bounded singular values and the classification task is solved directly in matrix space at negligible cost. In the second stage, the selected target operator is transferred to a fabrication-aware freeform device through an adjoint problem driven by a Frobenius-norm transmission residual and a reflection penalty, which removes the minibatch dependence from the full-wave loop and yields a smoother loss landscape than intensity-domain cross-entropy. We further introduce a banded-router architecture composed with a fixed evanescent-coupling region, which exploits the bandwidth-additive property of matrix products to realize dense effective operators within a design region roughly half as long as a fully local router would require. The framework is validated on three tasks. On MedMNIST, the realized all-optical classifier reproduces the surrogate accuracy within $0.6$ percentage points after only 20 adjoint epochs. On RSSCN7, the banded router plus evanescent stage improves test accuracy by more than 15 percentage points over a linear readout baseline. A Yin-Yang task confirms that the same framework supports nonlinear decision boundaries. These results indicate that surrogate-guided inverse design is a practical route to training compact photonic processors with simulation budgets orders of magnitude smaller than direct geometry-to-task pipelines.",
+  "categories": [
+    "physics.optics"
+  ],
+  "primary_category": "physics.optics",
+  "comment": "12 pages, 6 figures",
+  "published_date": "2026-04-23T05:35:28Z",
+  "updated_date": "2026-04-23T05:35:28Z",
+  "url": "https://arxiv.org/abs/2604.21301v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.21301v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-27T10:15:42.861451",
+  "category": "physics",
+  "subcategories": [
+    "physics.optics"
+  ]
+}

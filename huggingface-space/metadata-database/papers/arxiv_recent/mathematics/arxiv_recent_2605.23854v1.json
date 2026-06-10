@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2605.23854v1",
+  "arxiv_id": "2605.23854v1",
+  "title": "Entrywise Error Bounds for Spectral Ranking with Semi-Random Adversaries",
+  "authors": [
+    "Dongmin Lee",
+    "Anuran Makur",
+    "Japneet Singh"
+  ],
+  "author_string": "Dongmin Lee, Anuran Makur, Japneet Singh",
+  "journal": "arXiv:2605.23854v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Bradley-Terry-Luce (BTL) model estimation is a well-established strategy to rank a collection of items given a dataset of pairwise comparisons. Although the theoretical performance of BTL estimation methods, such as spectral and maximum likelihood estimation, is well studied in the regime of uniformly sampled graphs, generalizing such results to a wider class of random graphs has proved challenging. In this work, we investigate the entry-wise error of spectral algorithms against a semi-random adversary that can arbitrarily boost the sampling probabilities of certain edges. We find that the performance of the unweighted spectral method is heavily dependent on the spectral properties of the generated graph. Furthermore, we show that asymptotic performance approaching that of uniformly sampled graphs can be recovered by appropriately reweighting the observed edges to counteract the adversary and restore the spectral gap. Finally, we provide numerical simulations that support our theoretical findings.",
+  "categories": [
+    "cs.LG",
+    "math.ST",
+    "stat.ML"
+  ],
+  "primary_category": "stat.ML",
+  "comment": "17 pages, 2 figures, 32nd ACM SIGKDD Conference on Knowledge Discovery and Data Mining V.2",
+  "published_date": "2026-05-22T17:08:07Z",
+  "updated_date": "2026-05-22T17:08:07Z",
+  "url": "https://arxiv.org/abs/2605.23854v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.23854v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-25T10:15:42.725304",
+  "category": "mathematics",
+  "subcategories": [
+    "cs.LG",
+    "math.ST",
+    "stat.ML"
+  ]
+}

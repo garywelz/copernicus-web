@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2605.18214v1",
+  "arxiv_id": "2605.18214v1",
+  "title": "EgoInteract: Synthetic Egocentric Videos Generation for Interaction Understanding and Anticipation",
+  "authors": [
+    "Rosario Leonardi",
+    "Francesco Ragusa",
+    "Daniele Materia",
+    "Alessandro Passanisi",
+    "James Fort",
+    "Jakob Engel",
+    "Giovanni Maria Farinella"
+  ],
+  "author_string": "Rosario Leonardi, Francesco Ragusa, Daniele Materia, Alessandro Passanisi, James Fort et al.",
+  "journal": "arXiv:2605.18214v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Collecting large-scale egocentric video datasets with dense spatial and temporal annotations is costly, slow, and often constrained by environmental biases, privacy constraints, and limited coverage of interaction patterns. While synthetic data has shown strong potential in several vision domains, its use for egocentric perception remains relatively underexplored, especially for tasks requiring temporally coherent human-object interactions. In this work, we introduce EgoInteract, a controllable simulator for egocentric video generation designed to model fine-grained egocentric interactions and their temporal dynamics. The simulator enables precise control over camera, human body and hand motion, object manipulation, and scene composition across diverse environments. Building on this framework, we generate a synthetic egocentric video dataset with dense spatial and temporal annotations for temporal action segmentation, next-active object detection, interaction anticipation, and hand-object interaction detection. We evaluate models trained with simulated data on multiple real-world egocentric benchmarks spanning diverse environments, object categories, and interaction patterns. Results show consistent improvements over strong baselines across tasks and datasets, demonstrating the effectiveness and transferability of our simulation-based approach.",
+  "categories": [
+    "cs.CV"
+  ],
+  "primary_category": "cs.CV",
+  "comment": null,
+  "published_date": "2026-05-18T10:58:56Z",
+  "updated_date": "2026-05-18T10:58:56Z",
+  "url": "https://arxiv.org/abs/2605.18214v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.18214v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-18T22:16:04.718539",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CV"
+  ]
+}

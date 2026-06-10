@@ -1,0 +1,47 @@
+{
+  "id": "biorxiv_10.1101_2025.10.22.683965",
+  "doi": "10.1101/2025.10.22.683965",
+  "title": "Is the whole more than the sum of its parts? Considering global and local features of the connectome improves prediction of individuals and phenotype",
+  "authors": [
+    "Riley, S.",
+    "Cheng, A.",
+    "Wang, Y.-W.",
+    "Shen, X.",
+    "Zhao, Y.",
+    "Holmes, A.",
+    "Constable, R. T.",
+    "Yip, S. W."
+  ],
+  "author_string": "Riley, S., Cheng, A., Wang, Y.-W., Shen, X., Zhao, Y. et al.",
+  "journal": "bioRxiv",
+  "journal_full": "bioRxiv",
+  "year": "2026",
+  "abstract": "Popular methods for analyzing the brains functional connectome examine statistical associations between pairs of atlas-defined brain regions, viewing the strength of these links as independent values. However, edges within a standard connectivity matrix, i.e., correlations between individual regions or nodes, are not independent. They are part of an interconnected system. Here, we propose that consideration of both independent, linear relationships (as in standard approaches such as linear kernel ridge regression and connectome-based predictive modeling) as well as higher order statistical associations - such as tertiary interactions between matrix components and global features of the matrix space - will enhance identification of meaningful individual differences. To test this, we adopt a geometrically grounded measure of similarity that accounts for higher-order local statistical relationships and global interactions, the Wasserstein metric. Results indicate that considering connectivity matrices as representations of their associated Gaussian distributions significantly improves both identification of individuals based on their connectivity matrices (aka,  fingerprinting) and prediction of individual differences in phenotypes such as fluid intelligence and openness to experience. Thus, both pairwise local and global brain connectivity properties encode for meaningful individual differences that relate to phenotypic expressions and should be considered in brain-behavior predictive models.",
+  "keywords": [],
+  "categories": [
+    "neuroscience"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.1101/2025.10.22.683965",
+  "source": "biorxiv",
+  "sources": [
+    "biorxiv"
+  ],
+  "acquired_date": "2026-05-16T22:15:25.140795",
+  "category": "biology",
+  "subcategories": [
+    "neuroscience"
+  ],
+  "published_date": "2026-01-16",
+  "updated_date": "2026-01-16",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "biorxiv",
+  "preprint_version": "3",
+  "preprint_type": "new results",
+  "license": "cc_by_nc_nd",
+  "jatsxml": "https://www.biorxiv.org/content/early/2026/01/16/2025.10.22.683965.source.xml",
+  "published_doi": null,
+  "author_corresponding": "Steven Riley",
+  "author_corresponding_institution": "Department of Psychiatry, Yale School of Medicine"
+}

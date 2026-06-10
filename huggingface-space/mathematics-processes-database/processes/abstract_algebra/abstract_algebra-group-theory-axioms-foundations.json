@@ -1,0 +1,39 @@
+{
+  "id": "abstract_algebra-group-theory-axioms-foundations",
+  "name": "Group Theory — Axioms & Basic Theorems",
+  "category": "mathematics",
+  "subcategory": "abstract_algebra",
+  "subcategory_name": "Abstract Algebra",
+  "description": "First layers of group theory: four axioms (closure, associativity, identity, inverse), then basic theorems with explicit dependencies. Layer 1: uniqueness of identity and inverse, cancellation laws. Layer 2: inverse of inverse, inverse of product, two-sided identity. Layer 3: uniqueness of solutions to ax=b and ya=b, general associativity. Layer 4: power laws aⁿaᵐ=aⁿ⁺ᵐ and (aⁿ)ᵐ=aⁿᵐ. Mirrors Euclid's Elements structure—axioms at base, theorems build in layers.",
+  "mermaid": "graph TD\n    G1[\"G1 Closure\\nab in G for all a b in G\"]\n    G2[\"G2 Associativity\\na bc = ab c\"]\n    G3[\"G3 Identity\\nexists e ea = ae = a\"]\n    G4[\"G4 Inverse\\nfor each a exists a inv aa inv = e\"]\n    T1[\"T1 Uniqueness\\nof identity\"]\n    T2[\"T2 Uniqueness\\nof inverse\"]\n    T3[\"T3 Left cancellation\\nab = ac implies b = c\"]\n    T4[\"T4 Right cancellation\\nba = ca implies b = c\"]\n    T5[\"T5 a inv inv = a\"]\n    T6[\"T6 ab inv = b inv a inv\"]\n    T7[\"T7 Identity two-sided\\nea = a iff ae = a\"]\n    T8[\"T8 ax = b has unique x\"]\n    T9[\"T9 ya = b has unique y\"]\n    T10[\"T10 General associativity\\na1...an well-defined\"]\n    T11[\"T11 Power product\\na^n a^m = a^(n+m)\"]\n    T12[\"T12 Power power\\n(a^n)^m = a^(nm)\"]\n    T13[\"T13 Negative power\\na^(-n) = (a^-1)^n\"]\n    G3 --> T1\n    G4 --> T2\n    G2 --> T3\n    G4 --> T3\n    G2 --> T4\n    G4 --> T4\n    G4 --> T5\n    T2 --> T5\n    G2 --> T6\n    G4 --> T6\n    T2 --> T6\n    G2 --> T7\n    G3 --> T7\n    G4 --> T7\n    G2 --> T8\n    G4 --> T8\n    T3 --> T8\n    G2 --> T9\n    G4 --> T9\n    T4 --> T9\n    G2 --> T10\n    G1 --> T11\n    G2 --> T11\n    T10 --> T11\n    G1 --> T12\n    G2 --> T12\n    T10 --> T12\n    T5 --> T13\n    T6 --> T13\n    T10 --> T13\n    classDef axiom fill:#ff6b6b,color:#fff,stroke:#c0392b\n    classDef definition fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef theorem fill:#51cf66,color:#fff,stroke:#40c057\n    class G1,G2,G3,G4 axiom\n    class T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13 theorem",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

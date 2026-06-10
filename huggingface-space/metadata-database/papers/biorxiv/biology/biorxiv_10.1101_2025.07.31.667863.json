@@ -1,0 +1,45 @@
+{
+  "id": "biorxiv_10.1101_2025.07.31.667863",
+  "doi": "10.1101/2025.07.31.667863",
+  "title": "An absolute quantification atlas of small non-coding RNAs across diverse mammalian tissues and cell lines",
+  "authors": [
+    "Xiao, W.",
+    "Zheng, Y.",
+    "Zhang, H.",
+    "Xu, B.",
+    "Zhang, R.",
+    "Wu, L."
+  ],
+  "author_string": "Xiao, W., Zheng, Y., Zhang, H., Xu, B., Zhang, R. et al.",
+  "journal": "bioRxiv",
+  "journal_full": "bioRxiv",
+  "year": "2026",
+  "abstract": "The low quantitative accuracy of conventional small noncoding RNA sequencing (sncRNA-seq) methods due to extensive ligation bias commonly limits functional investigation of microRNAs (miRNAs) and PIWI-interacting RNAs (piRNAs). Here, we develop 4NBoost, a single-tube sncRNA-seq protocol designed to minimize bias in the estimated absolute quantification of miRNA and piRNA transcripts through the incorporation of quantitative exogenous RNA spike-ins. With 4NBoost, we profile sncRNA expression across 20 murine tissues, 18 macaque tissues, and 24 widely used cell lines, as well as 4 Arabidopsis tissues, to establish a comprehensive quantitative reference atlas. Compared with existing small RNA databases, our data reveal substantial biases in miRNA abundance, strand selection, and tissue-specific expression at both individual and family levels. To further extend its utility, we employ machine learning to model and correct biases in conventional datasets, effectively recovering ground truth transcript abundances. All 4NBoost data and the accompanying bias-correction model are freely available via SmRNAQuant (http://wulg-lab.sibcb.ac.cn/SmRNAQuant/), a web-based repository for exploring sncRNA expression. Together, the 4NBoost, bias-correction model, and SmRNAQuant provide powerful resources to advance sncRNA research.",
+  "keywords": [],
+  "categories": [
+    "genomics"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.1101/2025.07.31.667863",
+  "source": "biorxiv",
+  "sources": [
+    "biorxiv"
+  ],
+  "acquired_date": "2026-05-20T22:15:23.945049",
+  "category": "biology",
+  "subcategories": [
+    "genomics"
+  ],
+  "published_date": "2026-01-20",
+  "updated_date": "2026-01-20",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "biorxiv",
+  "preprint_version": "2",
+  "preprint_type": "new results",
+  "license": "cc_by_nc_nd",
+  "jatsxml": "https://www.biorxiv.org/content/early/2026/01/20/2025.07.31.667863.source.xml",
+  "published_doi": "10.1038/s41467-026-68812-7",
+  "author_corresponding": "Hongdao Zhang",
+  "author_corresponding_institution": "Center for Excellence in Molecular Cell Science, CAS"
+}

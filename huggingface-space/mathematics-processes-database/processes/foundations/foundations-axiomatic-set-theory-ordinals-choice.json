@@ -1,0 +1,39 @@
+{
+  "id": "foundations-axiomatic-set-theory-ordinals-choice",
+  "name": "Axiomatic Set Theory — Ordinals, Cardinals & Choice",
+  "category": "mathematics",
+  "subcategory": "foundations",
+  "subcategory_name": "Foundations",
+  "description": "Well-ordering, ordinals (transitive ∈-well-ordered sets), transfinite induction, cardinals, and equivalence of Axiom of Choice with well-ordering theorem and Zorn's lemma.",
+  "mermaid": "graph TD\n    DefWO[\"Def: Well-ordering\\nlinear order, every subset has min\"]\n    DefOrd[\"Def: Ordinal\\ntransitive, ∈-well-ordered\"]\n    DefCard[\"Def: Cardinal\\n|A| = least ordinal equinumerous\"]\n    T1[\"Thm: Well-Ordering\\nAC ⟺ every set well-orderable\"]\n    T2[\"Thm: Transfinite Induction\\non ordinals\"]\n    T3[\"Thm: Zorn ⟺ AC\\nZorn's lemma equivalent to Choice\"]\n    A10[\"Axiom of Choice\"]\n    A10 --> T1\n    DefWO --> DefOrd\n    DefOrd --> T2\n    DefOrd --> DefCard\n    T1 --> T3\n    classDef axiom fill:#ff6b6b,color:#fff,stroke:#c0392b\n    classDef definition fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef theorem fill:#51cf66,color:#fff,stroke:#40c057\n    class A10 axiom\n    class DefWO,DefOrd,DefCard definition\n    class T1,T2,T3 theorem",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

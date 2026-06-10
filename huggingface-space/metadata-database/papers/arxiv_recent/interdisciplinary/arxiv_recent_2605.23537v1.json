@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2605.23537v1",
+  "arxiv_id": "2605.23537v1",
+  "title": "Concomitant DAG Learning: On the Roles of Noise Adaptivity, Sparsity, and Non-negativity",
+  "authors": [
+    "Gonzalo Mateos",
+    "Samuel Rey",
+    "Hamed Ajorlou",
+    "Mariano Tepper"
+  ],
+  "author_string": "Gonzalo Mateos, Samuel Rey, Hamed Ajorlou, Mariano Tepper",
+  "journal": "arXiv:2605.23537v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Directed acyclic graphs (DAGs) constitute a central modeling tool to enable principled reasoning about cause-effect interactions in complex systems. However, since the causal structure underlying a group of variables is often unknown and interventions may be infeasible or ethically challenging to implement, there is a need to address the task of inferring DAGs from observational data. However, most classical structure identification approaches face two key obstacles: the combinatorial challenge of enforcing acyclicity, which severely limits scalability, and identifiability challenges arising from latent confounding or heterogeneous noise. This tutorial offers an overview of recent signal processing and optimization advances that address these issues by recasting DAG structure learning as a continuous, score-based estimation problem over adjacency matrices. We begin with a didactic introduction to structural equation models and the formulation of causal graph recovery, followed by a historical survey of score-based methods ranging from early combinatorial search schemes and greedy heuristics to modern continuous frameworks that leverage smooth characterizations of acyclicity. Building on this foundation, we describe concomitant DAG estimation methods that jointly infer sparse causal structure and exogenous noise levels, improving robustness under heteroscedasticity and distribution shifts by rendering the estimator noise adaptive. All in all, the tutorial introduces readers to challenges and opportunities for signal processing research at the crossroads of causal inference, high-dimensional statistics, and scalable graph learning, while outlining emerging directions including online, nonlinear, and neural causal discovery.",
+  "categories": [
+    "stat.ML",
+    "eess.SP"
+  ],
+  "primary_category": "eess.SP",
+  "comment": "Submitted to the IEEE Signal Processing Magazine Special Issue: From Signals to Causes: Methodological Advances in Causal Inference. arXiv admin note: text overlap with arXiv:2310.02895",
+  "published_date": "2026-05-22T12:00:00Z",
+  "updated_date": "2026-05-22T12:00:00Z",
+  "url": "https://arxiv.org/abs/2605.23537v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.23537v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-25T10:15:42.726776",
+  "category": "interdisciplinary",
+  "subcategories": [
+    "stat.ML",
+    "eess.SP"
+  ]
+}

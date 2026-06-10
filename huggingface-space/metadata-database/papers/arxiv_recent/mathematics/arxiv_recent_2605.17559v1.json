@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2605.17559v1",
+  "arxiv_id": "2605.17559v1",
+  "title": "Controlling False Discovery in Arbitrarily Structured Hypothesis Spaces via Reproducing Kernels",
+  "authors": [
+    "Binyamin Perets",
+    "Shie Mannor"
+  ],
+  "author_string": "Binyamin Perets, Shie Mannor",
+  "journal": "arXiv:2605.17559v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Large-scale hypothesis testing is central to modern science, where controlling the False Discovery Rate (FDR) has become the standard approach to managing false positives across many simultaneous tests. Hypotheses rarely exist in isolation; they often exhibit structure through proximity, connectivity, or hierarchy. This structure represents both a challenge and an opportunity: while classical methods treat these dependencies as obstacles requiring conservative correction, leveraging them can substantially increase discovery power. Here, we reframe structured FDR control as a regularized learning problem. By optimizing within a suitable Reproducing Kernel Hilbert Space (RKHS), we introduce a framework that unifies continuous domains, graphs, and hierarchies under a single algorithm through kernel choice alone. This formulation enables smooth solutions in place of the piecewise-constant fits of prior methods, principled likelihood-based hyperparameter selection rather than heuristic tuning, and inference at unobserved locations which in turn supports sample-efficient experimental design. Building on this estimator, we provide two decision rules which we prove to control the FDR. We validate our method on two sources: spatial locations derived from high-dimensional real-world datasets, and a differential gene expression task utilizing protein-protein interaction graphs.",
+  "categories": [
+    "stat.ME",
+    "cs.AI",
+    "q-bio.QM",
+    "stat.ML"
+  ],
+  "primary_category": "stat.ML",
+  "comment": "9 pages",
+  "published_date": "2026-05-17T17:42:56Z",
+  "updated_date": "2026-05-17T17:42:56Z",
+  "url": "https://arxiv.org/abs/2605.17559v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.17559v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-25T10:15:35.188382",
+  "category": "mathematics",
+  "subcategories": [
+    "stat.ME",
+    "cs.AI",
+    "q-bio.QM"
+  ]
+}

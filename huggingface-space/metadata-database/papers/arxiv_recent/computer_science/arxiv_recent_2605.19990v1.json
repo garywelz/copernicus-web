@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_2605.19990v1",
+  "arxiv_id": "2605.19990v1",
+  "title": "Minimalist Visual Inertial Odometry",
+  "authors": [
+    "Francesco Pasti",
+    "Jeremy Klotz",
+    "Nicola Bellotto",
+    "Shree K. Nayar"
+  ],
+  "author_string": "Francesco Pasti, Jeremy Klotz, Nicola Bellotto, Shree K. Nayar",
+  "journal": "arXiv:2605.19990v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Visual-Inertial Odometry(VIO), which is critical to mobile robot navigation, uses cameras with a large number of pixels. Capturing and processing camera images requires significant resources. This work presents a minimalist approach to planar odometry, demonstrating that just four visual measurements and an IMU can provide robust motion estimation for differential-drive robots. Our key insight is that four downward-facing photodiodes that sense the world through optical Gabor masks produce signals that encode speed. Based on this, we jointly optimize the mask parameters alongside a Temporal Convolutional Network (TCN) using a physically-grounded simulator. The resulting model decodes speed from just the four measurements produced by the photodiodes. Pairing these estimates with the angular speed from an IMU yields a continuous planar trajectory. We validate our approach with a prototype sensor mounted on a differential drive robot. Across diverse indoor and outdoor terrains, our system closely tracks the reference ground truth without any real-world fine-tuning. Our work shows that minimalist sensing enables efficient and accurate planar odometry.",
+  "categories": [
+    "cs.RO",
+    "cs.CV",
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": "This work has been submitted to the IEEE for possible publication",
+  "published_date": "2026-05-19T15:27:28Z",
+  "updated_date": "2026-05-19T15:27:28Z",
+  "url": "https://arxiv.org/abs/2605.19990v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.19990v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-20T10:16:34.001280",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.RO",
+    "cs.CV",
+    "cs.LG"
+  ]
+}

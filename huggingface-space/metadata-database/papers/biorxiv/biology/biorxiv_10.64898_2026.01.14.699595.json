@@ -1,0 +1,43 @@
+{
+  "id": "biorxiv_10.64898_2026.01.14.699595",
+  "doi": "10.64898/2026.01.14.699595",
+  "title": "AtlasMap: enabling low-cost, map-style exploration of million-cell single-cell atlases",
+  "authors": [
+    "Xu, Z.-G.",
+    "Xue, H.-C.",
+    "Qin, G.",
+    "Wang, J.-W."
+  ],
+  "author_string": "Xu, Z.-G., Xue, H.-C., Qin, G., Wang, J.-W.",
+  "journal": "bioRxiv",
+  "journal_full": "bioRxiv",
+  "year": "2026",
+  "abstract": "Interactive visualization is critical for interpreting single-cell atlases, yet existing web-based tools struggle to handle the growing scale of multimillion-cell datasets, often constrained by browser memory limits and rendering latency. Here, we present AtlasMap, a scalable visualization framework that overcomes these bottlenecks through a multi-resolution, tile-based architecture. Unlike conventional systems that transfer cell-level data to the client, AtlasMap employs an offline preprocessing module to generate quadtree-based spatial aggregations stored in compressed Zarr v3 formats. A high-performance Go backend dynamically renders these summaries as PNG tiles, allowing a lightweight frontend to support fluid pan-and-zoom exploration similar to digital geographic maps. Systematic benchmarking against leading tools (including cellxgene and UCSC Cell Browser) demonstrates that AtlasMap decouples visualization performance from dataset size. While point-based approaches incurred prohibitive client-side memory costs or failed entirely at the 11-million-cell scale, AtlasMap maintained sub-second startup latency and a negligible browser footprint (<5 MB). By shifting computational pressure from the browser to an optimized server-side pipeline, AtlasMap enables accessible, high-fidelity exploration of ultra-scale single-cell datasets on standard hardware.",
+  "keywords": [],
+  "categories": [
+    "bioinformatics"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.64898/2026.01.14.699595",
+  "source": "biorxiv",
+  "sources": [
+    "biorxiv"
+  ],
+  "acquired_date": "2026-05-16T22:15:25.139206",
+  "category": "biology",
+  "subcategories": [
+    "bioinformatics"
+  ],
+  "published_date": "2026-01-16",
+  "updated_date": "2026-01-16",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "biorxiv",
+  "preprint_version": "1",
+  "preprint_type": "new results",
+  "license": "cc_by_nc_nd",
+  "jatsxml": "https://www.biorxiv.org/content/early/2026/01/16//2026.01.14.699595.source.xml",
+  "published_doi": null,
+  "author_corresponding": "Jia-Wei Wang",
+  "author_corresponding_institution": "Key Laboratory of Plant Carbon Capture, CAS Center for Excellence in Molecular Plant Sciences"
+}

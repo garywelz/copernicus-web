@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NMR Spectroscopy - Chemistry Process</title>
+    <title>Free Energy (FEP / TI) - Chemistry Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>NMR Spectroscopy</h1>
+            <h1>Free Energy (FEP / TI)</h1>
             <div class="header-meta">
                 <span class="meta-item">Chemistry</span>
                 <span class="meta-item">Computational Chemistry</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,68 +234,60 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>NMR Spectroscopy process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>Alchemical free-energy methods compute a free-energy difference by coupling two end states through a parameter lambda: simulations at intermediate windows are run until sampling converges, and dU/dlambda or energy differences are integrated to give the free-energy change.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-A3[Magnetic Field] --> B3[NMR Spectroscopy Method]
-C3[Nuclear Sample] --> D3[Radiofrequency Control]
-E3[Detector System] --> F3[Data Collection]
-B3 --> G3[Magnet Setup]
-D3 --> H3[RF Pulse Control]
-F3 --> I3[Signal Processing]
-G3 --> J3[Field Alignment]
-H3 --> K3[Pulse Sequence]
-I3 --> L3[Free Induction Decay]
-J3 --> M3[Nuclear Alignment]
-K3 --> L3
-L3 --> N3[Nuclear Spin Transitions]
-M3 --> O3[Sample Irradiation]
-N3 --> P3[Spin Relaxation]
-O3 --> Q3[Spectroscopic Analysis]
-P3 --> R3[NMR Spectrum]
-Q3 --> S3[Chemical Shift Analysis]
-R3 --> T3[Molecular Structure]
-S3 --> U3[Spin Analysis]
-T3 --> V3[Structure Determination]
-U3 --> W3[Spectroscopic Efficiency]
-V3 --> X3[Molecular Characterization]
-W3 --> Y3[Process Optimization]
-X3 --> Z3[Final NMR Spectrum]
-Y3 --> Z3
+    N1["Two end states (A, B)"]
+    N2["Define coupling λ"]
+    N3["Set up λ windows"]
+    N4["Simulate window λ_i"]
+    N5{"Sampling converged?"}
+    N6["Extend sampling"]
+    N7["Collect dU/dλ or ΔU"]
+    N8{"More windows?"}
+    N9["Next λ window"]
+    N10["Integrate / BAR over λ"]
+    N11["Free energy ΔG"]
 
-    style A3 fill:#ff6b6b,color:#fff
-    style C3 fill:#ff6b6b,color:#fff
-    style E3 fill:#ff6b6b,color:#fff
-    style B3 fill:#ffd43b,color:#000
-    style D3 fill:#ffd43b,color:#000
-    style F3 fill:#ffd43b,color:#000
-    style G3 fill:#ffd43b,color:#000
-    style H3 fill:#ffd43b,color:#000
-    style I3 fill:#ffd43b,color:#000
-    style J3 fill:#ffd43b,color:#000
-    style K3 fill:#ffd43b,color:#000
-    style L3 fill:#ffd43b,color:#000
-    style M3 fill:#51cf66,color:#fff
+    N1 --> N2
+    N2 --> N3
+    N3 --> N4
+    N4 --> N5
+    N5 -->|no| N6
+    N6 -->|more sampling| N4
+    N5 -->|yes| N7
+    N7 --> N8
+    N8 -->|yes| N9
+    N9 -->|next window| N4
+    N8 -->|no| N10
+    N10 --> N11
+
+    style N1 fill:#ff6b6b,color:#fff
+    style N2 fill:#51cf66,color:#fff
     style N3 fill:#51cf66,color:#fff
-    style O3 fill:#51cf66,color:#fff
-    style P3 fill:#51cf66,color:#fff
-    style Q3 fill:#51cf66,color:#fff
-    style R3 fill:#51cf66,color:#fff
-    style S3 fill:#51cf66,color:#fff
-    style T3 fill:#51cf66,color:#fff
-    style U3 fill:#51cf66,color:#fff
-    style V3 fill:#51cf66,color:#fff
-    style W3 fill:#51cf66,color:#fff
-    style X3 fill:#51cf66,color:#fff
-    style Y3 fill:#51cf66,color:#fff
-    style Z3 fill:#b197fc,color:#fff
+    style N4 fill:#51cf66,color:#fff
+    style N5 fill:#74c0fc,color:#fff
+    style N6 fill:#51cf66,color:#fff
+    style N7 fill:#51cf66,color:#fff
+    style N8 fill:#74c0fc,color:#fff
+    style N9 fill:#51cf66,color:#fff
+    style N10 fill:#51cf66,color:#fff
+    style N11 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Two end states (A, B)</td><td>Triggers & Inputs</td><td><a href="https://doi.org/10.1063/1.1740409" target="_blank" title="High-Temperature Equation of State by a Perturbation Method (free-energy perturbation)" style="color:#e74c3c;">Zwanzig, R. W. 1954</a></td></tr><tr><td style="font-weight:600;">Define coupling λ</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1063/1.1749657" target="_blank" title="Statistical Mechanics of Fluid Mixtures (thermodynamic integration)" style="color:#e74c3c;">Kirkwood, J. G. 1935</a></td></tr><tr><td style="font-weight:600;">Set up λ windows</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1063/1.1749657" target="_blank" title="Statistical Mechanics of Fluid Mixtures (thermodynamic integration)" style="color:#e74c3c;">Kirkwood, J. G. 1935</a></td></tr><tr><td style="font-weight:600;">Simulate window λ_i</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1021/jp102971x" target="_blank" title="Good practices in free-energy calculations" style="color:#e74c3c;">Pohorille, A. et al. 2010</a></td></tr><tr><td style="font-weight:600;">Sampling converged?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1021/jp102971x" target="_blank" title="Good practices in free-energy calculations" style="color:#e74c3c;">Pohorille, A. et al. 2010</a></td></tr><tr><td style="font-weight:600;">Extend sampling</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1021/jp102971x" target="_blank" title="Good practices in free-energy calculations" style="color:#e74c3c;">Pohorille, A. et al. 2010</a></td></tr><tr><td style="font-weight:600;">Collect dU/dλ or ΔU</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1063/1.1749657" target="_blank" title="Statistical Mechanics of Fluid Mixtures (thermodynamic integration)" style="color:#e74c3c;">Kirkwood, J. G. 1935</a></td></tr><tr><td style="font-weight:600;">More windows?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1063/1.1740409" target="_blank" title="High-Temperature Equation of State by a Perturbation Method (free-energy perturbation)" style="color:#e74c3c;">Zwanzig, R. W. 1954</a></td></tr><tr><td style="font-weight:600;">Next λ window</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1063/1.1749657" target="_blank" title="Statistical Mechanics of Fluid Mixtures (thermodynamic integration)" style="color:#e74c3c;">Kirkwood, J. G. 1935</a></td></tr><tr><td style="font-weight:600;">Integrate / BAR over λ</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1063/1.1740409" target="_blank" title="High-Temperature Equation of State by a Perturbation Method (free-energy perturbation)" style="color:#e74c3c;">Zwanzig, R. W. 1954</a></td></tr><tr><td style="font-weight:600;">Free energy ΔG</td><td>Products & Outputs</td><td><a href="https://doi.org/10.1063/1.1740409" target="_blank" title="High-Temperature Equation of State by a Perturbation Method (free-energy perturbation)" style="color:#e74c3c;">Zwanzig, R. W. 1954</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -314,12 +333,12 @@ Y3 --> Z3
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 26</li>
-                        <li><strong>Edges:</strong> 22</li>
-                        <li><strong>Conditionals:</strong> 0</li>
+                        <li><strong>Nodes:</strong> 11</li>
+                        <li><strong>Edges:</strong> 12</li>
+                        <li><strong>Conditionals:</strong> 2</li>
                         <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 1</li>
+                        <li><strong>OR Gates:</strong> 2</li>
+                        <li><strong>Total Gates:</strong> 3</li>
                     </ul>
                 </div>
                 
@@ -327,7 +346,7 @@ Y3 --> Z3
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>nmr</li><li>spectroscopy</li>
+                        <li>free energy perturbation</li><li>thermodynamic integration</li><li>alchemical</li><li>lambda windows</li><li>sampling convergence</li>
                     </ul>
                 </div>
                 
@@ -338,42 +357,32 @@ Y3 --> Z3
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Statistical Mechanics of Fluid Mixtures (thermodynamic integration)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Kirkwood, J. G.
+                            , Journal of Chemical Physics
+                             (1935)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Dynamic NMR spectroscopy</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Iggo, Jonathan A.; Luzyanin, Konstantin V.
-                            , NMR Spectroscopy in Inorganic Chemistry
-                             (2020)
-                            </span>
-                            <br><a href="https://doi.org/10.1093/hesc/9780198794851.003.0006" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1093/hesc/9780198794851.003.0006</a>
+                            <br><a href="https://doi.org/10.1063/1.1749657" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1063/1.1749657</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>The Role of NMR Spectroscopy in Understanding How Proteins Fold</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Dobson, C.M.
-                            , Biological NMR Spectroscopy
-                             (1997)
+                            <strong>High-Temperature Equation of State by a Perturbation Method (free-energy perturbation)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Zwanzig, R. W.
+                            , Journal of Chemical Physics
+                             (1954)
                             </span>
-                            <br><a href="https://doi.org/10.1093/oso/9780195094688.003.0014" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1093/oso/9780195094688.003.0014</a>
+                            <br><a href="https://doi.org/10.1063/1.1740409" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1063/1.1740409</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>In-Cell NMR Spectroscopy</strong>
-                            
-                            
-                             (2020)
+                            <strong>Good practices in free-energy calculations</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Pohorille, A.; Jarzynski, C.; Chipot, C.
+                            , Journal of Physical Chemistry B
+                             (2010)
                             </span>
-                            <br><a href="https://doi.org/10.3390/books978-3-03928-255-5" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.3390/books978-3-03928-255-5</a>
+                            <br><a href="https://doi.org/10.1021/jp102971x" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1021/jp102971x</a>
                             
                         </li>
                         

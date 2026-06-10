@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2605.24170v1",
+  "arxiv_id": "2605.24170v1",
+  "title": "Learning dynamical systems with biochemically informed neural ordinary differential equations",
+  "authors": [
+    "Luis L. Fonseca",
+    "Reinhard C. Laubenbacher",
+    "Lucas Böttcher"
+  ],
+  "author_string": "Luis L. Fonseca, Reinhard C. Laubenbacher, Lucas Böttcher",
+  "journal": "arXiv:2605.24170v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Ordinary differential equation models of biochemical reactions are often formulated as stoichiometric systems in which the dynamics arise from a collection of interacting processes. A central challenge is that the functional form of each process is rarely known a priori and may be difficult to infer from data. We propose biochemically informed neural ordinary differential equations (BINODEs), a neural-ODE framework that retains the stoichiometric structure of mechanistic models while representing individual processes by neural networks. In BINODEs, the outputs of neural network processes (NNPs) are mapped to state derivatives through a linear layer analogous to a stoichiometric matrix. This architecture allows biological side information, such as process-specific inputs, sign constraints, and monotonicity assumptions, to be built directly into the model. We characterize the approximation properties of NNPs for several standard biochemical rate laws and show that the proposed framework recovers both trajectories and process-level structure in Monod, Lotka--Volterra, pharmacokinetic, and ultradian endocrine models. These results suggest that BINODEs offer a useful compromise between mechanistic interpretability and data-driven flexibility for modeling partially known biochemical or biological dynamical systems.",
+  "categories": [
+    "math.DS",
+    "cs.LG",
+    "q-bio.QM"
+  ],
+  "primary_category": "q-bio.QM",
+  "comment": "23 pages, 13 figures, 4 tables",
+  "published_date": "2026-05-22T19:43:41Z",
+  "updated_date": "2026-05-22T19:43:41Z",
+  "url": "https://arxiv.org/abs/2605.24170v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.24170v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-26T10:15:35.453809",
+  "category": "biology",
+  "subcategories": [
+    "math.DS",
+    "cs.LG",
+    "q-bio.QM"
+  ]
+}

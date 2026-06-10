@@ -1,0 +1,45 @@
+{
+  "id": "arxiv_2605.10840v2",
+  "arxiv_id": "2605.10840v2",
+  "title": "Clin-JEPA: A Multi-Phase Co-Training Framework for Joint-Embedding Predictive Pretraining on EHR Patient Trajectories",
+  "authors": [
+    "Yixuan Yang",
+    "Mehak Arora",
+    "Ryan Zhang",
+    "Baraa Abed",
+    "Junseob Kim",
+    "Tilendra Choudhary",
+    "Md Hassanuzzaman",
+    "Kevin Zhu",
+    "Ayman Ali",
+    "Chengkun Yang",
+    "Alasdair Edward Gent",
+    "Victor Moas",
+    "Rishikesan Kamaleswaran"
+  ],
+  "author_string": "Yixuan Yang, Mehak Arora, Ryan Zhang, Baraa Abed, Junseob Kim et al.",
+  "journal": "arXiv:2605.10840v2",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We present Clin-JEPA, a multi-phase co-training framework for joint-embedding predictive (JEPA) pretraining on EHR patient trajectories. JEPA architectures have enabled latent-space planning in robotics and high-quality representation learning in vision, but extending the paradigm to EHR data -- to obtain a single backbone that simultaneously forecasts patient trajectories and serves diverse downstream risk-prediction tasks without per-task fine-tuning -- remains an open challenge. Existing JEPA frameworks either discard the predictor after pretraining (I-JEPA, V-JEPA) or train it on a frozen pretrained encoder (V-JEPA 2-AC), leaving the encoder unaware of the rollout signal that the retained predictor must use at inference; co-training the encoder and predictor under a shared JEPA prediction objective would supply this grounding, but naïve co-training is unstable, with representation collapse and online/target drift causing autoregressive rollout to diverge. Clin-JEPA's five-phase pretraining curriculum -- predictor warmup, joint refinement, EMA target alignment, hard sync, and predictor finalization -- addresses each failure mode by phase, stably co-training a Qwen3-8B-based encoder and a 92M-parameter latent trajectory predictor. On MIMIC-IV ICU data, three independent evaluations support the framework: (1) latent $\\ell_1$ rollout drift uniquely converges ($-$15.7%) over 48-hour horizons while baselines and ablations diverge (+3% to +4951%); (2) the encoder learns a clinically discriminative latent geometry (deteriorating-patient cohorts displace 4.83$\\times$ further than stable patients in latent space, vs $\\leq$2.62$\\times$ for baseline encoders); (3) a single backbone outperforms strong tabular and sequence baselines on multi-task downstream evaluation. Clin-JEPA achieves mean AUROC 0.851 on ICareFM EEP and 0.883 on 8 binary risk tasks (+0.038 and +0.041 vs baseline average).",
+  "categories": [
+    "cs.LG",
+    "cs.AI",
+    "q-bio.QM"
+  ],
+  "primary_category": "q-bio.QM",
+  "comment": "17 pages, 4 figures, 8 tables. Code: https://github.com/YeungYathin/Clin-JEPA",
+  "published_date": "2026-05-11T16:54:23Z",
+  "updated_date": "2026-05-12T07:38:53Z",
+  "url": "https://arxiv.org/abs/2605.10840v2",
+  "pdf_url": "https://arxiv.org/pdf/2605.10840v2.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-18T10:15:43.641221",
+  "category": "biology",
+  "subcategories": [
+    "cs.LG",
+    "cs.AI",
+    "q-bio.QM"
+  ]
+}

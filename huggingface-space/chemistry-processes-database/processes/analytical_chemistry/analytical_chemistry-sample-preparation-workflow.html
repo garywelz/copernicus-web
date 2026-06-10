@@ -167,6 +167,33 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
@@ -176,7 +203,7 @@
             <div class="header-meta">
                 <span class="meta-item">Chemistry</span>
                 <span class="meta-item">Analytical Chemistry</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,46 +234,57 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Sample Preparation Workflow process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>Sample preparation turns a raw sample into an analysis-ready solution: take a representative subsample, digest solids or extract/clean up liquids, remove matrix interferences, adjust to the working concentration range, then preserve and label the aliquot.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-N1["Raw Sample"]
-N2["Target Analyte"]
-N3["Containers/Consumables"]
-N4["Choose Path"]
-N5["Homogenize"]
-N6["Extract/Cleanup"]
-N7["Dilute/Derivatize"]
-N8["Prepared Sample"]
-N9["Integrate"]
+    N1["Raw sample"]
+    N2["Representative subsample"]
+    N3{"Solid or liquid?"}
+    N4["Digest / dissolve"]
+    N5["Extract / clean-up (SPE)"]
+    N6{"Interference removed?"}
+    N7["Additional clean-up"]
+    N8["Adjust to working range"]
+    N9["Preserve + label aliquot"]
+    N10["Analysis-ready sample"]
 
-N1 --> N2
-N2 --> N3
-N3 --> N4
-N4 --> N5
-N4 --> N7
-N5 --> N6
-N7 --> N8
-N6 --> N9
-N8 --> N9
-N9 --> N6
+    N1 --> N2
+    N2 --> N3
+    N3 -->|solid| N4
+    N3 -->|liquid| N5
+    N4 --> N5
+    N5 --> N6
+    N6 -->|no| N7
+    N7 -->|repeat| N5
+    N6 -->|yes| N8
+    N8 --> N9
+    N9 --> N10
 
     style N1 fill:#ff6b6b,color:#fff
-    style N2 fill:#ff6b6b,color:#fff
-    style N3 fill:#ffd43b,color:#000
-    style N4 fill:#ffd43b,color:#000
+    style N2 fill:#51cf66,color:#fff
+    style N3 fill:#74c0fc,color:#fff
+    style N4 fill:#51cf66,color:#fff
     style N5 fill:#51cf66,color:#fff
-    style N6 fill:#51cf66,color:#fff
+    style N6 fill:#74c0fc,color:#fff
     style N7 fill:#51cf66,color:#fff
-    style N8 fill:#b197fc,color:#fff
-    style N9 fill:#74c0fc,color:#fff
+    style N8 fill:#51cf66,color:#fff
+    style N9 fill:#51cf66,color:#fff
+    style N10 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Raw sample</td><td>Triggers & Inputs</td><td><a href="https://www.macmillanlearning.com/college/us/product/Quantitative-Chemical-Analysis/p/146413538X" target="_blank" title="Quantitative Chemical Analysis, 9th ed. — Sample Preparation" style="color:#e74c3c;">Harris, D. C. 2015</a></td></tr><tr><td style="font-weight:600;">Representative subsample</td><td>Processing & Operations</td><td><a href="https://www.macmillanlearning.com/college/us/product/Quantitative-Chemical-Analysis/p/146413538X" target="_blank" title="Quantitative Chemical Analysis, 9th ed. — Sample Preparation" style="color:#e74c3c;">Harris, D. C. 2015</a></td></tr><tr><td style="font-weight:600;">Solid or liquid?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1002/0471457817" target="_blank" title="Sample Preparation Techniques in Analytical Chemistry" style="color:#e74c3c;">Mitra, S. (ed.) 2003</a></td></tr><tr><td style="font-weight:600;">Digest / dissolve</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1002/0471457817" target="_blank" title="Sample Preparation Techniques in Analytical Chemistry" style="color:#e74c3c;">Mitra, S. (ed.) 2003</a></td></tr><tr><td style="font-weight:600;">Extract / clean-up (SPE)</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1201/9780367801069" target="_blank" title="Solid-phase extraction: principles, techniques, and applications" style="color:#e74c3c;">Simpson, N. J. K. (ed.) 2000</a></td></tr><tr><td style="font-weight:600;">Interference removed?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1002/0471457817" target="_blank" title="Sample Preparation Techniques in Analytical Chemistry" style="color:#e74c3c;">Mitra, S. (ed.) 2003</a></td></tr><tr><td style="font-weight:600;">Additional clean-up</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1201/9780367801069" target="_blank" title="Solid-phase extraction: principles, techniques, and applications" style="color:#e74c3c;">Simpson, N. J. K. (ed.) 2000</a></td></tr><tr><td style="font-weight:600;">Adjust to working range</td><td>Processing & Operations</td><td><a href="https://www.macmillanlearning.com/college/us/product/Quantitative-Chemical-Analysis/p/146413538X" target="_blank" title="Quantitative Chemical Analysis, 9th ed. — Sample Preparation" style="color:#e74c3c;">Harris, D. C. 2015</a></td></tr><tr><td style="font-weight:600;">Preserve + label aliquot</td><td>Processing & Operations</td><td><a href="https://www.macmillanlearning.com/college/us/product/Quantitative-Chemical-Analysis/p/146413538X" target="_blank" title="Quantitative Chemical Analysis, 9th ed. — Sample Preparation" style="color:#e74c3c;">Harris, D. C. 2015</a></td></tr><tr><td style="font-weight:600;">Analysis-ready sample</td><td>Products & Outputs</td><td><a href="https://www.macmillanlearning.com/college/us/product/Quantitative-Chemical-Analysis/p/146413538X" target="_blank" title="Quantitative Chemical Analysis, 9th ed. — Sample Preparation" style="color:#e74c3c;">Harris, D. C. 2015</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -292,11 +330,11 @@ N9 --> N6
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 9</li>
-                        <li><strong>Edges:</strong> 10</li>
-                        <li><strong>Conditionals:</strong> 0</li>
-                        <li><strong>AND Gates:</strong> 2</li>
-                        <li><strong>OR Gates:</strong> 1</li>
+                        <li><strong>Nodes:</strong> 10</li>
+                        <li><strong>Edges:</strong> 11</li>
+                        <li><strong>Conditionals:</strong> 2</li>
+                        <li><strong>AND Gates:</strong> 1</li>
+                        <li><strong>OR Gates:</strong> 2</li>
                         <li><strong>Total Gates:</strong> 3</li>
                     </ul>
                 </div>
@@ -305,7 +343,7 @@ N9 --> N6
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>sample</li><li>preparation</li><li>workflow</li>
+                        <li>sample preparation</li><li>digestion</li><li>solid-phase extraction</li><li>matrix effect</li><li>clean-up</li>
                     </ul>
                 </div>
                 
@@ -316,42 +354,32 @@ N9 --> N6
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Sample Preparation Techniques in Analytical Chemistry</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Mitra, S. (ed.)
+                            , Wiley-Interscience
+                             (2003)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Figure 4: Overview of the entire workflow from sample preparation to data acquisition.</strong>
-                            
-                            
-                             (None)
-                            </span>
-                            <br><a href="https://doi.org/10.7717/peerj.12471/fig-4" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.7717/peerj.12471/fig-4</a>
+                            <br><a href="https://doi.org/10.1002/0471457817" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1002/0471457817</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Rapid Sample Preparation Workflow for Serum Sample Analysis with Different Mass Spectrometry Acquisition Strategies</strong>
-                            
-                            
-                             (None)
+                            <strong>Quantitative Chemical Analysis, 9th ed. — Sample Preparation</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Harris, D. C.
+                            , W. H. Freeman
+                             (2015)
                             </span>
-                            <br><a href="https://doi.org/10.1021/acs.analchem.0c03985.s001" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1021/acs.analchem.0c03985.s001</a>
                             
+                            <br><a href="https://www.macmillanlearning.com/college/us/product/Quantitative-Chemical-Analysis/p/146413538X" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Rapid Sample Preparation Workflow for Serum Sample Analysis with Different Mass Spectrometry Acquisition Strategies</strong>
-                            
-                            
-                             (None)
+                            <strong>Solid-phase extraction: principles, techniques, and applications</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Simpson, N. J. K. (ed.)
+                            , Marcel Dekker
+                             (2000)
                             </span>
-                            <br><a href="https://doi.org/10.1021/acs.analchem.0c03985.s002" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1021/acs.analchem.0c03985.s002</a>
+                            <br><a href="https://doi.org/10.1201/9780367801069" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1201/9780367801069</a>
                             
                         </li>
                         

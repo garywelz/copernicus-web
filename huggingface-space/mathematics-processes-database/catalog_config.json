@@ -1,0 +1,105 @@
+{
+  "name": "Mathematics Database: Algorithms and Axiomatic Theories",
+  "version": "1.0.0",
+  "created": "2026-01-08",
+  "category": "mathematics",
+  "colorScheme": "5-color",
+  "description": "Algorithms (flowcharts) and axiomatic theories (dependency graphs) visualized using the Programming Framework.",
+  "collectionStats": {
+    "mathematicians": 63,
+    "theorems": 32,
+    "total": 95
+  },
+  "domainHierarchy": {
+    "algebra": {
+      "name": "Algebra",
+      "arxiv": ["math.AC", "math.AG", "math.CT", "math.GR", "math.KT", "math.QA", "math.RA", "math.RT"],
+      "subcategories": [
+        "abstract_algebra",
+        "linear_algebra",
+        "category_theory",
+        "algebraic_geometry",
+        "representation_theory",
+        "commutative_algebra",
+        "k_theory",
+        "quantum_algebra"
+      ]
+    },
+    "analysis": {
+      "name": "Analysis",
+      "arxiv": ["math.AP", "math.CA", "math.CV", "math.DS", "math.FA", "math.NA", "math.OA", "math.SP"],
+      "subcategories": [
+        "calculus_analysis",
+        "complex_analysis",
+        "functional_analysis",
+        "numerical_analysis",
+        "partial_differential_equations",
+        "spectral_theory",
+        "operator_algebras"
+      ]
+    },
+    "geometry_topology": {
+      "name": "Geometry & Topology",
+      "arxiv": ["math.AT", "math.DG", "math.GN", "math.GT", "math.MG", "math.SG"],
+      "subcategories": [
+        "geometry_topology",
+        "differential_geometry",
+        "symplectic_geometry",
+        "metric_geometry"
+      ]
+    },
+    "number_theory": {
+      "name": "Number Theory",
+      "arxiv": ["math.NT"],
+      "subcategories": ["number_theory"]
+    },
+    "discrete_logic": {
+      "name": "Discrete & Logic",
+      "arxiv": ["math.CO", "math.LO"],
+      "subcategories": ["discrete_mathematics", "foundations", "proof_graphs"]
+    },
+    "applied": {
+      "name": "Applied & Other",
+      "arxiv": ["math.GM", "math.IT", "math.MP", "math.OC", "math.PR", "math.ST"],
+      "subcategories": [
+        "bioinformatics",
+        "statistics_probability",
+        "optimization",
+        "information_theory",
+        "mathematical_physics"
+      ]
+    }
+  },
+  "subcategoryToArxiv": {
+    "abstract_algebra": "math.GR",
+    "linear_algebra": "math.RA",
+    "category_theory": "math.CT",
+    "algebraic_geometry": "math.AG",
+    "representation_theory": "math.RT",
+    "commutative_algebra": "math.AC",
+    "k_theory": "math.KT",
+    "quantum_algebra": "math.QA",
+    "calculus_analysis": "math.CA",
+    "complex_analysis": "math.CV",
+    "functional_analysis": "math.FA",
+    "numerical_analysis": "math.NA",
+    "partial_differential_equations": "math.AP",
+    "spectral_theory": "math.SP",
+    "operator_algebras": "math.OA",
+    "geometry_topology": "math.GT",
+    "differential_geometry": "math.DG",
+    "symplectic_geometry": "math.SG",
+    "metric_geometry": "math.MG",
+    "number_theory": "math.NT",
+    "discrete_mathematics": "math.CO",
+    "foundations": "math.LO",
+    "proof_graphs": "math.LO",
+    "bioinformatics": "math.GM",
+    "statistics_probability": "math.ST",
+    "optimization": "math.OC",
+    "information_theory": "math.IT",
+    "mathematical_physics": "math.MP"
+  },
+  "excludeSubcategories": ["graph_type_pilots"],
+  "excludeIds": []
+}

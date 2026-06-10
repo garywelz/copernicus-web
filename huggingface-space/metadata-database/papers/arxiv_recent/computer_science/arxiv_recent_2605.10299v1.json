@@ -1,0 +1,29 @@
+{
+  "id": "arxiv_2605.10299v1",
+  "arxiv_id": "2605.10299v1",
+  "title": "Nearly-Optimal Algorithm for Adversarial Kernelized Bandits",
+  "authors": [
+    "Shogo Iwazaki"
+  ],
+  "author_string": "Shogo Iwazaki",
+  "journal": "arXiv:2605.10299v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "This paper studies kernelized bandits (also known as Gaussian process bandits) in an adversarial environment, where the reward functions in a known reproducing kernel Hilbert space (RKHS) may be adversarially chosen at each round. We show that the exponential-weight algorithm achieves $\\tilde{O}(\\sqrt{T γ_T})$ adversarial regret, where $T$ and $γ_T$ denote the number of total rounds and the maximum information gain, respectively. For squared exponential (SE) and $ν$-Matérn kernels, we also show algorithm-independent lower bounds that guarantee the optimality of our algorithm up to polylogarithmic factors. Furthermore, we present a computationally efficient variant of our algorithm using Nyström approximation while maintaining nearly optimal regret guarantees.",
+  "categories": [
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": "47 pages",
+  "published_date": "2026-05-11T09:56:18Z",
+  "updated_date": "2026-05-11T09:56:18Z",
+  "url": "https://arxiv.org/abs/2605.10299v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.10299v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-11T22:15:37.966989",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.LG"
+  ]
+}

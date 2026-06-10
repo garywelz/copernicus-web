@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2605.02772v1",
+  "arxiv_id": "2605.02772v1",
+  "title": "Linearizing Vision Transformer with Test-Time Training",
+  "authors": [
+    "Yining Li",
+    "Dongchen Han",
+    "Zeyu Liu",
+    "Hanyi Wang",
+    "Yulin Wang",
+    "Gao Huang"
+  ],
+  "author_string": "Yining Li, Dongchen Han, Zeyu Liu, Hanyi Wang, Yulin Wang et al.",
+  "journal": "arXiv:2605.02772v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "While linear-complexity attention mechanisms offer a promising alternative to Softmax attention for overcoming the quadratic bottleneck, training such models from scratch remains prohibitively expensive. Inheriting weights from pretrained Transformers provides an appealing shortcut, yet the fundamental representational gap between Softmax and linear attention prevents effective weight transfer. In this work, we address this conversion challenge from two perspectives: architectural alignment and representational alignment. We identify Test-Time Training (TTT) as a linear-complexity architecture whose two-layer dynamic formulation is structurally aligned with Softmax attention, enabling direct inheritance of pretrained attention weights. To further align representational properties, including key shift-invariance and locality, we introduce key instance normalization and a lightweight locality enhancement module. We validate our approach by linearizing Stable Diffusion 3.5 and introduce SD3.5-T$^5$ (Transformer To Test Time Training). With only 1 hour of fine-tuning on 4$\\times$H20 GPUs, SD3.5-T$^5$ achieves comparable text-to-image quality to the fine-tuned Softmax model, while accelerating inference by 1.32$\\times$ and 1.47$\\times$ at 1K and 2K resolutions.",
+  "categories": [
+    "cs.CV"
+  ],
+  "primary_category": "cs.CV",
+  "comment": "ICML 2026",
+  "published_date": "2026-05-04T16:16:26Z",
+  "updated_date": "2026-05-04T16:16:26Z",
+  "url": "https://arxiv.org/abs/2605.02772v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.02772v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-04T22:15:50.302216",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CV"
+  ]
+}

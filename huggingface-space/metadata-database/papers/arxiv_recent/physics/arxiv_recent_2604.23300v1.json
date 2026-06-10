@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2604.23300v1",
+  "arxiv_id": "2604.23300v1",
+  "title": "Bayesian neural network correction of RANS turbulence models with uncertainty quantification in separated flows",
+  "authors": [
+    "Tyler Buchanan",
+    "Ali Eidi",
+    "Richard P. Dwight"
+  ],
+  "author_string": "Tyler Buchanan, Ali Eidi, Richard P. Dwight",
+  "journal": "arXiv:2604.23300v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Data-driven correction of turbulence models offers a promising route for improving Reynolds-averaged Navier-Stokes (RANS) predictions, but quantifying uncertainty in such corrections and ensuring generalization across flows remain key challenges. This work presents a Bayesian neural network (BNN) framework for uncertainty-aware correction of RANS models. Two complementary correction mechanisms are considered: a turbulent kinetic energy source-term correction (k_deficit) and a tensorial anisotropy correction (b_ij^Delta). Posterior samples of the BNN weights are used to generate ensembles of deterministic correction fields, which are propagated through the RANS solver using a frozen-realization Monte Carlo approach. The framework is trained and evaluated on the periodic hill flow and further assessed on an unseen configuration, the curved backward-facing step. Results show that the k-source term correction alone accurately reproduces turbulent kinetic energy with well-calibrated uncertainty, but has negligible impact on the mean velocity field. In contrast, the inclusion of anisotropy correction leads to substantial improvements in velocity predictions, enabling more accurate representation of separation and recirculation. While these improvements persist qualitatively in the unseen case, reduced accuracy and significant under-coverage are observed, highlighting the challenges of out-of-distribution generalization and uncertainty quantification. Analysis of the results indicates that remaining discrepancies are primarily linked to limitations of the correction formulation and nonlinear propagation effects, rather than the BNN approximation itself. The proposed framework provides a physically consistent approach for propagating epistemic uncertainty in data-driven turbulence corrections and offers a robust pathway toward uncertainty-aware and generalizable RANS modeling.",
+  "categories": [
+    "physics.flu-dyn"
+  ],
+  "primary_category": "physics.flu-dyn",
+  "comment": null,
+  "published_date": "2026-04-25T13:29:18Z",
+  "updated_date": "2026-04-25T13:29:18Z",
+  "url": "https://arxiv.org/abs/2604.23300v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.23300v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-27T22:15:39.099490",
+  "category": "physics",
+  "subcategories": [
+    "physics.flu-dyn"
+  ]
+}

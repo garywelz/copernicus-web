@@ -1,0 +1,29 @@
+{
+  "id": "arxiv_2605.03999v1",
+  "arxiv_id": "2605.03999v1",
+  "title": "RD-ViT: Recurrent-Depth Vision Transformer for Semantic Segmentation with Reduced Data Dependence Extending the Recurrent-Depth Transformer Architecture to Dense Prediction",
+  "authors": [
+    "Renjie He"
+  ],
+  "author_string": "Renjie He",
+  "journal": "arXiv:2605.03999v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Vision Transformers (ViTs) achieve state-of-the-art segmentation accuracy but require large training datasets because each layer has unique parameters that must be learned independently. We present RD-ViT, a Recurrent-Depth Vision Transformer that adapts the Recurrent-Depth Transformer (RDT) architecture to dense prediction tasks, supporting both 2D and 3D inputs. RD-ViT replaces the deep stack of unique transformer blocks with a single shared block looped T times, augmented with LTI-stable state injection for guaranteed convergence, Adaptive Computation Time (ACT) for spatial compute allocation, depth-wise LoRA adaptation, and optional Mixture-of-Experts (MoE) feed-forward networks for category-specific specialization. We evaluate on the ACDC cardiac MRI segmentation benchmark in both 2D slice-level and 3D volumetric settings with exclusively real experiments executed in Google Colab. In 2D, RD-ViT outperforms standard ViT at 10% training data (Dice 0.774 vs 0.762) and at full data (0.882 vs 0.872). In 3D, RD-ViT with MoE achieves Dice 0.812 with 3.0M parameters, reaching 99.4% of standard ViT performance (0.817) at 53% of the parameter count. MoE expert utilization analysis reveals that different experts spontaneously specialize for different cardiac structures (RV, MYO, LV) without explicit routing supervision. ACT halting maps show higher compute allocation at cardiac boundaries, and the mean ponder time decreases from 2.6 to 1.4 iterations during training, demonstrating learned computational efficiency. Depth extrapolation enables inference with more loops than training without degradation. All code, notebooks, and results are publicly released.",
+  "categories": [
+    "cs.CV"
+  ],
+  "primary_category": "cs.CV",
+  "comment": null,
+  "published_date": "2026-05-05T17:21:18Z",
+  "updated_date": "2026-05-05T17:21:18Z",
+  "url": "https://arxiv.org/abs/2605.03999v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.03999v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-06T10:15:40.982206",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CV"
+  ]
+}

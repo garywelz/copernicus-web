@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Composite Materials - Chemistry Process</title>
+    <title>Physisorption vs Chemisorption - Chemistry Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Composite Materials</h1>
+            <h1>Physisorption vs Chemisorption</h1>
             <div class="header-meta">
                 <span class="meta-item">Chemistry</span>
                 <span class="meta-item">Surface Chemistry</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,68 +234,57 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Composite Materials process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>Adsorption on a surface is classified by the interaction: weak van der Waals attraction gives reversible physisorption, while electron sharing gives chemisorption with a chemical bond, which may be activated (with a barrier) or non-activated.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-A5[Matrix Material] --> B5[Composite Materials Method]
-C5[Reinforcement Material] --> D5[Interface Analysis]
-E5[Processing Conditions] --> F5[Composite Formation]
-B5 --> G5[Matrix Preparation]
-D5 --> H5[Interface Characterization]
-F5 --> I5[Processing Optimization]
-G5 --> J5[Matrix Properties]
-H5 --> K5[Interface Properties]
-I5 --> L5[Processing Parameters]
-J5 --> M5[Matrix Formation]
-K5 --> L5
-L5 --> N5[Reinforcement Integration]
-M5 --> O5[Composite Assembly]
-N5 --> P5[Interface Bonding]
-O5 --> Q5[Composite Analysis]
-P5 --> R5[Reinforcement Effects]
-Q5 --> S5[Property Analysis]
-R5 --> T5[Composite Properties]
-S5 --> U5[Interface Parameters]
-T5 --> V5[Property Enhancement]
-U5 --> W5[Composite Efficiency]
-V5 --> X5[Composite Characterization]
-W5 --> Y5[Process Optimization]
-X5 --> Z5[Final Composite Material]
-Y5 --> Z5
+    N1["Adsorbate approaches"]
+    N2{"Interaction strength?"}
+    N3["Weak van der Waals"]
+    N4["Physisorption (reversible)"]
+    N5["Strong: electron sharing"]
+    N6{"Activation barrier?"}
+    N7["Activated chemisorption"]
+    N8["Non-activated"]
+    N9["Chemical bond to surface"]
+    N10["Adsorbed state classified"]
 
-    style A5 fill:#ff6b6b,color:#fff
-    style C5 fill:#ff6b6b,color:#fff
-    style E5 fill:#ff6b6b,color:#fff
-    style B5 fill:#ffd43b,color:#000
-    style D5 fill:#ffd43b,color:#000
-    style F5 fill:#ffd43b,color:#000
-    style G5 fill:#ffd43b,color:#000
-    style H5 fill:#ffd43b,color:#000
-    style I5 fill:#ffd43b,color:#000
-    style J5 fill:#ffd43b,color:#000
-    style K5 fill:#ffd43b,color:#000
-    style L5 fill:#ffd43b,color:#000
-    style M5 fill:#51cf66,color:#fff
+    N1 --> N2
+    N2 -->|weak| N3
+    N3 --> N4
+    N4 --> N10
+    N2 -->|strong| N5
+    N5 --> N6
+    N6 -->|yes| N7
+    N6 -->|no| N8
+    N7 --> N9
+    N8 --> N9
+    N9 --> N10
+
+    style N1 fill:#ff6b6b,color:#fff
+    style N2 fill:#74c0fc,color:#fff
+    style N3 fill:#51cf66,color:#fff
+    style N4 fill:#51cf66,color:#fff
     style N5 fill:#51cf66,color:#fff
-    style O5 fill:#51cf66,color:#fff
-    style P5 fill:#51cf66,color:#fff
-    style Q5 fill:#51cf66,color:#fff
-    style R5 fill:#51cf66,color:#fff
-    style S5 fill:#51cf66,color:#fff
-    style T5 fill:#51cf66,color:#fff
-    style U5 fill:#51cf66,color:#fff
-    style V5 fill:#51cf66,color:#fff
-    style W5 fill:#51cf66,color:#fff
-    style X5 fill:#51cf66,color:#fff
-    style Y5 fill:#51cf66,color:#fff
-    style Z5 fill:#b197fc,color:#fff
+    style N6 fill:#74c0fc,color:#fff
+    style N7 fill:#51cf66,color:#fff
+    style N8 fill:#51cf66,color:#fff
+    style N9 fill:#74c0fc,color:#fff
+    style N10 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Adsorbate approaches</td><td>Triggers & Inputs</td><td><a href="https://www.wiley.com/en-us/Introduction+to+Surface+Chemistry+and+Catalysis%2C+2nd+Edition-p-9780470508237" target="_blank" title="Introduction to Surface Chemistry and Catalysis, 2nd ed. — Adsorption" style="color:#e74c3c;">Somorjai, G. A. et al. 2010</a></td></tr><tr><td style="font-weight:600;">Interaction strength?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1351/goldbook.C01048" target="_blank" title="Gold Book: chemisorption" style="color:#e74c3c;">IUPAC 2019</a></td></tr><tr><td style="font-weight:600;">Weak van der Waals</td><td>Processing & Operations</td><td><a href="https://www.wiley.com/en-us/Introduction+to+Surface+Chemistry+and+Catalysis%2C+2nd+Edition-p-9780470508237" target="_blank" title="Introduction to Surface Chemistry and Catalysis, 2nd ed. — Adsorption" style="color:#e74c3c;">Somorjai, G. A. et al. 2010</a></td></tr><tr><td style="font-weight:600;">Physisorption (reversible)</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1351/goldbook.C01048" target="_blank" title="Gold Book: chemisorption" style="color:#e74c3c;">IUPAC 2019</a></td></tr><tr><td style="font-weight:600;">Strong: electron sharing</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1002/anie.200800480" target="_blank" title="Reactions at solid surfaces: from atoms to complexity (Nobel Lecture)" style="color:#e74c3c;">Ertl, G. 2008</a></td></tr><tr><td style="font-weight:600;">Activation barrier?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1002/anie.200800480" target="_blank" title="Reactions at solid surfaces: from atoms to complexity (Nobel Lecture)" style="color:#e74c3c;">Ertl, G. 2008</a></td></tr><tr><td style="font-weight:600;">Activated chemisorption</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1002/anie.200800480" target="_blank" title="Reactions at solid surfaces: from atoms to complexity (Nobel Lecture)" style="color:#e74c3c;">Ertl, G. 2008</a></td></tr><tr><td style="font-weight:600;">Non-activated</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1002/anie.200800480" target="_blank" title="Reactions at solid surfaces: from atoms to complexity (Nobel Lecture)" style="color:#e74c3c;">Ertl, G. 2008</a></td></tr><tr><td style="font-weight:600;">Chemical bond to surface</td><td>Intermediates & States</td><td><a href="https://www.wiley.com/en-us/Introduction+to+Surface+Chemistry+and+Catalysis%2C+2nd+Edition-p-9780470508237" target="_blank" title="Introduction to Surface Chemistry and Catalysis, 2nd ed. — Adsorption" style="color:#e74c3c;">Somorjai, G. A. et al. 2010</a></td></tr><tr><td style="font-weight:600;">Adsorbed state classified</td><td>Products & Outputs</td><td><a href="https://doi.org/10.1351/goldbook.C01048" target="_blank" title="Gold Book: chemisorption" style="color:#e74c3c;">IUPAC 2019</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -314,12 +330,12 @@ Y5 --> Z5
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 26</li>
-                        <li><strong>Edges:</strong> 22</li>
-                        <li><strong>Conditionals:</strong> 0</li>
-                        <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 1</li>
+                        <li><strong>Nodes:</strong> 10</li>
+                        <li><strong>Edges:</strong> 11</li>
+                        <li><strong>Conditionals:</strong> 2</li>
+                        <li><strong>AND Gates:</strong> 2</li>
+                        <li><strong>OR Gates:</strong> 2</li>
+                        <li><strong>Total Gates:</strong> 4</li>
                     </ul>
                 </div>
                 
@@ -327,7 +343,7 @@ Y5 --> Z5
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>composite</li><li>materials</li>
+                        <li>physisorption</li><li>chemisorption</li><li>van der waals</li><li>activation barrier</li><li>adsorption energy</li>
                     </ul>
                 </div>
                 
@@ -338,42 +354,32 @@ Y5 --> Z5
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Introduction to Surface Chemistry and Catalysis, 2nd ed. — Adsorption</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Somorjai, G. A.; Li, Y.
+                            , Wiley
+                             (2010)
                             </span>
                             
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
+                            <br><a href="https://www.wiley.com/en-us/Introduction+to+Surface+Chemistry+and+Catalysis%2C+2nd+Edition-p-9780470508237" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Composite Materials Series</strong>
-                            
-                            , Composite Materials Series
-                             (1991)
+                            <strong>Reactions at solid surfaces: from atoms to complexity (Nobel Lecture)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Ertl, G.
+                            , Angewandte Chemie International Edition
+                             (2008)
                             </span>
-                            <br><a href="https://doi.org/10.1016/b978-0-444-70507-5.50001-9" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1016/b978-0-444-70507-5.50001-9</a>
-                            
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Composite Materials Series</strong>
-                            
-                            , Composite Materials Series
-                             (1989)
-                            </span>
-                            <br><a href="https://doi.org/10.1016/b978-0-444-87285-2.50001-7" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1016/b978-0-444-87285-2.50001-7</a>
+                            <br><a href="https://doi.org/10.1002/anie.200800480" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1002/anie.200800480</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Composite Functional Materials</strong>
-                            
-                            
-                             (None)
+                            <strong>Gold Book: chemisorption</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">IUPAC
+                            , IUPAC Compendium of Chemical Terminology
+                             (2019)
                             </span>
-                            <br><a href="https://doi.org/10.63823/cfm" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.63823/cfm</a>
+                            <br><a href="https://doi.org/10.1351/goldbook.C01048" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1351/goldbook.C01048</a>
                             
                         </li>
                         

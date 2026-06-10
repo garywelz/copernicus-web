@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_2605.23726v1",
+  "arxiv_id": "2605.23726v1",
+  "title": "Optimal Dimension-Free Sampling for Regularized Classification",
+  "authors": [
+    "Meysam Alishahi",
+    "Alexander Munteanu",
+    "Simon Omlor",
+    "Jeff M. Phillips"
+  ],
+  "author_string": "Meysam Alishahi, Alexander Munteanu, Simon Omlor, Jeff M. Phillips",
+  "journal": "arXiv:2605.23726v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We prove optimal sampling bounds achieving $(1\\pm\\varepsilon)$-relative error for a broad class of Lipschitz continuous classification loss functions under various regularization terms. This includes important functions such as logistic and sigmoid loss, hinge loss, and ReLU loss, as prominent and popular representative examples. In particular, we prove $k^2/\\varepsilon^2$ upper and lower bounds for $\\|\\cdot\\|_2/k$ regularization, and $k/\\varepsilon^2$ upper and lower bounds for $\\|\\cdot\\|_1/k$ regularization. For $\\|\\cdot\\|_2^2/k$ regularization, the sampling complexity depends mainly on a bounded derivative property: if $|g'(x)|\\leq g(x)$, and $g(0)>0$, and $g$ is monotonic or convex, then it admits linear in $k$ sampling complexity; otherwise the general bound is $k^2/\\varepsilon^2$. However, if $g(0)=0$, our results indicate that no dimension-free bounds are possible, and even sublinear bounds are ruled out. All upper bounds are complemented by matching lower bounds up to polylogarithmic terms. Moreover, our work relies conceptually and algorithmically on simple uniform or (squared) norm sampling and hereby improves over recent cubic $k^3/\\varepsilon^2$ sensitivity sampling bounds of (Alishahi and Phillips, ICML'24). This is achieved by refined arguments involving higher moment bounds and empirical process analyses to avoid overcounting that appears in the de-facto standard VC-dimension and sensitivity framework.",
+  "categories": [
+    "cs.LG",
+    "cs.DS",
+    "stat.ML"
+  ],
+  "primary_category": "stat.ML",
+  "comment": null,
+  "published_date": "2026-05-22T15:05:33Z",
+  "updated_date": "2026-05-22T15:05:33Z",
+  "url": "https://arxiv.org/abs/2605.23726v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.23726v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-25T10:15:42.725647",
+  "category": "mathematics",
+  "subcategories": [
+    "cs.LG",
+    "cs.DS",
+    "stat.ML"
+  ]
+}

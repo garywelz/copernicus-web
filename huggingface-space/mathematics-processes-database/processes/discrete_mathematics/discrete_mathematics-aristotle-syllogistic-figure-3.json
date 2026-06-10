@@ -1,0 +1,39 @@
+{
+  "id": "discrete_mathematics-aristotle-syllogistic-figure-3",
+  "name": "Aristotle Syllogistic — Figure 3 Syllogisms",
+  "category": "mathematics",
+  "subcategory": "discrete_mathematics",
+  "subcategory_name": "Discrete Mathematics",
+  "description": "Darapti, Felapton, Disamis, Datisi, Bocardo, Ferison reduced to perfect syllogisms. Shows how imperfect syllogisms reduce to perfect ones via conversion.",
+  "mermaid": "graph TD\n    DefAEIO(\"DefAEIO Categorical forms\")\n    DefFig(\"DefFig Figures 1,2,3\")\n    Iconv(\"Iconv I-conversion\")\n    Aconv(\"Aconv A-conversion\")\n    Barbara(\"Barbara Barbara\")\n    Darii(\"Darii Darii\")\n    Ferio(\"Ferio Ferio\")\n    Darapti(\"Darapti Darapti\")\n    Felapton(\"Felapton Felapton\")\n    Disamis(\"Disamis Disamis\")\n    Datisi(\"Datisi Datisi\")\n    Bocardo(\"Bocardo Bocardo\")\n    Ferison(\"Ferison Ferison\")\n    DefAEIO --> Barbara\n    DefFig --> Barbara\n    DefAEIO --> Darii\n    DefFig --> Darii\n    DefAEIO --> Ferio\n    DefFig --> Ferio\n    Aconv --> Darapti\n    Darii --> Darapti\n    Aconv --> Felapton\n    Ferio --> Felapton\n    Iconv --> Disamis\n    Darii --> Disamis\n    Aconv --> Datisi\n    Darii --> Datisi\n    Barbara --> Bocardo\n    Aconv --> Ferison\n    Ferio --> Ferison\n    classDef axiom fill:#ff6b6b,color:#fff,stroke:#c0392b\n    classDef definition fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef theorem fill:#51cf66,color:#fff,stroke:#40c057\n    class Iconv,Aconv,Barbara,Darii,Ferio axiom\n    class DefAEIO,DefFig definition\n    class Darapti,Felapton,Disamis,Datisi,Bocardo,Ferison theorem",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

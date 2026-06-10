@@ -1,0 +1,32 @@
+[
+  {
+    "id": "classical",
+    "label": "Classical Mechanics",
+    "description": "Newtonian, Lagrangian, Hamiltonian, force, momentum, and energy processes.",
+    "match": ["classical", "newton", "lagrangian", "hamiltonian", "mechanics", "force", "momentum"]
+  },
+  {
+    "id": "quantum-field",
+    "label": "Quantum and Field Theory",
+    "description": "Quantum states, entanglement, wave functions, fields, and particle mechanisms.",
+    "match": ["quantum", "wave function", "entanglement", "higgs", "standard model", "particle", "field"]
+  },
+  {
+    "id": "electromagnetic-optical",
+    "label": "Electromagnetic and Optical",
+    "description": "Electromagnetic waves, induction, Maxwell systems, geometric optics, and wave optics.",
+    "match": ["electromagnetic", "maxwell", "induction", "optics", "wave", "light"]
+  },
+  {
+    "id": "thermal-statistical",
+    "label": "Thermal and Statistical",
+    "description": "Heat engines, entropy, phase transitions, ensembles, and macroscopic regimes.",
+    "match": ["thermodynamic", "statistical", "heat", "entropy", "phase", "thermal"]
+  },
+  {
+    "id": "nuclear-astrophysics",
+    "label": "Nuclear and Astrophysics",
+    "description": "Nuclear transformation, stellar-scale processes, high energy phenomena, and cosmic systems.",
+    "match": ["nuclear", "fusion", "fission", "decay", "astro", "cosmic", "stellar"]
+  }
+]

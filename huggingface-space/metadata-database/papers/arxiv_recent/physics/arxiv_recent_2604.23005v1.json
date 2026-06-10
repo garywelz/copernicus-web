@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_2604.23005v1",
+  "arxiv_id": "2604.23005v1",
+  "title": "Design Principles for Enhanced Quantum Transport with Site-Dependent Noise",
+  "authors": [
+    "Maggie Lawrence",
+    "Elise Wang",
+    "Dvira Segal"
+  ],
+  "author_string": "Maggie Lawrence, Elise Wang, Dvira Segal",
+  "journal": "arXiv:2604.23005v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Environmental noise can enhance transport, an effect known as environmental noise-assisted quantum transport. Most theoretical studies focus on optimizing system parameters under spatially uniform system-environment coupling. Here, instead, we optimize the environmental noise itself by allowing for site-dependent dephasing. We investigate steady-state transport in one-dimensional lattices with either ramped or disordered energy landscapes, considering both short- and long-range coherent tunneling. In the absence of environmental effects, in the thermodynamic limit these systems can exhibit localization, and thus suppressed transport, arising from destructive interference. Using a Lindblad master equation framework, we implement local dephasing optimized to maximize steady-state population flux. We find that for ramp potentials, short-range tunneling favors selective dephasing on alternating sites, whereas long-range tunneling benefits from a dephasing profile that increases with distance from the injection site. In energetically disordered systems, strongly detuned sites require enhanced local dephasing under short-range tunneling to facilitate transport. In all cases, we find that site-optimized dephasing allows higher transport efficiency than uniform dephasing, and it is accompanied by increased spatial delocalization of the steady state. Our results provide microscopic insight into the interplay between coherent dynamics and environmental noise. Dephasing broadens energy levels locally, helping to overcome detuning and destructive interference. More generally, we establish spatially-structured environmental noise as a strategy for controlling both quantum transport and state coherence in open systems.",
+  "categories": [
+    "quant-ph",
+    "cond-mat.dis-nn",
+    "cond-mat.mtrl-sci",
+    "physics.chem-ph"
+  ],
+  "primary_category": "physics.chem-ph",
+  "comment": "23 pages, 18 figures",
+  "published_date": "2026-04-24T20:52:49Z",
+  "updated_date": "2026-04-24T20:52:49Z",
+  "url": "https://arxiv.org/abs/2604.23005v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.23005v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-27T22:15:39.108405",
+  "category": "physics",
+  "subcategories": [
+    "quant-ph",
+    "cond-mat.dis-nn",
+    "cond-mat.mtrl-sci"
+  ]
+}

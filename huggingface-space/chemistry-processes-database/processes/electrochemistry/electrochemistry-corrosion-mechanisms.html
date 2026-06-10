@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Corrosion Mechanisms - Chemistry Process</title>
+    <title>Galvanic Corrosion Mechanism - Chemistry Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Corrosion Mechanisms</h1>
+            <h1>Galvanic Corrosion Mechanism</h1>
             <div class="header-meta">
                 <span class="meta-item">Chemistry</span>
                 <span class="meta-item">Electrochemistry</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,68 +234,59 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Corrosion Mechanisms process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>Electrochemical corrosion couples an anodic metal-dissolution site to a cathodic reduction site through electron flow in the metal and ion flow in the electrolyte; galvanic coupling accelerates attack while a passive oxide film can slow it.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-A3[Metal Surface] --> B3[Corrosion Analysis Method]
-C3[Oxygen Molecules] --> D3[Moisture Content]
-E3[Electrolyte Solution] --> F3[Environmental Factors]
-B3 --> G3[Surface Characterization]
-D3 --> H3[Humidity Control]
-F3 --> I3[Temperature Monitoring]
-G3 --> J3[Oxidation Sites]
-H3 --> K3[Water Adsorption]
-I3 --> L3[Corrosion Rate]
-J3 --> M3[Electron Transfer]
-K3 --> L3
-L3 --> N3[Ion Formation]
-M3 --> O3[Oxide Formation]
-N3 --> P3[Corrosion Reaction]
-O3 --> Q3[Surface Degradation]
-P3 --> R3[Rust Formation]
-Q3 --> S3[Protective Coating]
-R3 --> T3[Corrosion Products]
-S3 --> U3[Inhibition Methods]
-T3 --> V3[Prevention Strategies]
-U3 --> W3[Coating Application]
-V3 --> X3[Performance Evaluation]
-W3 --> Y3[Protection Mechanism]
-X3 --> Z3[Corrosion Prevention]
-Y3 --> Z3
+    N1["Metal in electrolyte"]
+    N2["Anodic: M -> M^n+ + ne−"]
+    N3["Cathodic: O2/H+ reduction"]
+    N4["Electrons flow in metal"]
+    N5["Ions flow in electrolyte"]
+    N6{"Galvanic couple?"}
+    N7["Active metal corrodes fast"]
+    N8{"Passive film forms?"}
+    N9["Oxide slows dissolution"]
+    N10["Degradation / pitting"]
 
-    style A3 fill:#ff6b6b,color:#fff
-    style C3 fill:#ff6b6b,color:#fff
-    style E3 fill:#ff6b6b,color:#fff
-    style B3 fill:#ffd43b,color:#000
-    style D3 fill:#ffd43b,color:#000
-    style F3 fill:#ffd43b,color:#000
-    style G3 fill:#ffd43b,color:#000
-    style H3 fill:#ffd43b,color:#000
-    style I3 fill:#ffd43b,color:#000
-    style J3 fill:#ffd43b,color:#000
-    style K3 fill:#ffd43b,color:#000
-    style L3 fill:#ffd43b,color:#000
-    style M3 fill:#51cf66,color:#fff
+    N1 --> N2
+    N1 --> N3
+    N2 --> N4
+    N4 --> N3
+    N3 --> N5
+    N5 -->|circuit| N2
+    N2 --> N6
+    N6 -->|yes| N7
+    N7 --> N10
+    N6 -->|no| N8
+    N8 -->|yes| N9
+    N9 --> N10
+    N8 -->|no film| N10
+
+    style N1 fill:#ff6b6b,color:#fff
+    style N2 fill:#51cf66,color:#fff
     style N3 fill:#51cf66,color:#fff
-    style O3 fill:#51cf66,color:#fff
-    style P3 fill:#51cf66,color:#fff
-    style Q3 fill:#51cf66,color:#fff
-    style R3 fill:#51cf66,color:#fff
-    style S3 fill:#51cf66,color:#fff
-    style T3 fill:#51cf66,color:#fff
-    style U3 fill:#51cf66,color:#fff
-    style V3 fill:#51cf66,color:#fff
-    style W3 fill:#51cf66,color:#fff
-    style X3 fill:#51cf66,color:#fff
-    style Y3 fill:#51cf66,color:#fff
-    style Z3 fill:#b197fc,color:#fff
+    style N4 fill:#51cf66,color:#fff
+    style N5 fill:#51cf66,color:#fff
+    style N6 fill:#74c0fc,color:#fff
+    style N7 fill:#51cf66,color:#fff
+    style N8 fill:#74c0fc,color:#fff
+    style N9 fill:#51cf66,color:#fff
+    style N10 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Metal in electrolyte</td><td>Triggers & Inputs</td><td><a href="https://doi.org/10.1002/9780470277270" target="_blank" title="Corrosion and Corrosion Control, 4th ed." style="color:#e74c3c;">Revie, R. W. et al. 2008</a></td></tr><tr><td style="font-weight:600;">Anodic: M -> M^n+ + ne−</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1002/9780470277270" target="_blank" title="Corrosion and Corrosion Control, 4th ed." style="color:#e74c3c;">Revie, R. W. et al. 2008</a></td></tr><tr><td style="font-weight:600;">Cathodic: O2/H+ reduction</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1002/9780470277270" target="_blank" title="Corrosion and Corrosion Control, 4th ed." style="color:#e74c3c;">Revie, R. W. et al. 2008</a></td></tr><tr><td style="font-weight:600;">Electrons flow in metal</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1002/9780470277270" target="_blank" title="Corrosion and Corrosion Control, 4th ed." style="color:#e74c3c;">Revie, R. W. et al. 2008</a></td></tr><tr><td style="font-weight:600;">Ions flow in electrolyte</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1002/9780470277270" target="_blank" title="Corrosion and Corrosion Control, 4th ed." style="color:#e74c3c;">Revie, R. W. et al. 2008</a></td></tr><tr><td style="font-weight:600;">Galvanic couple?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1016/S0010-938X(97)00072-7" target="_blank" title="Revised Pourbaix diagrams for iron at 25–300 °C" style="color:#e74c3c;">Beverskog, B. et al. 1996</a></td></tr><tr><td style="font-weight:600;">Active metal corrodes fast</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1016/S0010-938X(97)00072-7" target="_blank" title="Revised Pourbaix diagrams for iron at 25–300 °C" style="color:#e74c3c;">Beverskog, B. et al. 1996</a></td></tr><tr><td style="font-weight:600;">Passive film forms?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1016/S0010-938X(97)00072-7" target="_blank" title="Revised Pourbaix diagrams for iron at 25–300 °C" style="color:#e74c3c;">Beverskog, B. et al. 1996</a></td></tr><tr><td style="font-weight:600;">Oxide slows dissolution</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1016/S0010-938X(97)00072-7" target="_blank" title="Revised Pourbaix diagrams for iron at 25–300 °C" style="color:#e74c3c;">Beverskog, B. et al. 1996</a></td></tr><tr><td style="font-weight:600;">Degradation / pitting</td><td>Products & Outputs</td><td><a href="https://doi.org/10.1002/9780470277270" target="_blank" title="Corrosion and Corrosion Control, 4th ed." style="color:#e74c3c;">Revie, R. W. et al. 2008</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -314,12 +332,12 @@ Y3 --> Z3
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 26</li>
-                        <li><strong>Edges:</strong> 22</li>
-                        <li><strong>Conditionals:</strong> 0</li>
-                        <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 1</li>
+                        <li><strong>Nodes:</strong> 10</li>
+                        <li><strong>Edges:</strong> 13</li>
+                        <li><strong>Conditionals:</strong> 2</li>
+                        <li><strong>AND Gates:</strong> 3</li>
+                        <li><strong>OR Gates:</strong> 4</li>
+                        <li><strong>Total Gates:</strong> 7</li>
                     </ul>
                 </div>
                 
@@ -327,7 +345,7 @@ Y3 --> Z3
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>corrosion</li><li>mechanisms</li>
+                        <li>corrosion</li><li>anodic dissolution</li><li>galvanic couple</li><li>passivation</li><li>pitting</li>
                     </ul>
                 </div>
                 
@@ -338,42 +356,32 @@ Y3 --> Z3
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Corrosion and Corrosion Control, 4th ed.</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Revie, R. W.; Uhlig, H. H.
+                            , Wiley
+                             (2008)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Mechanisms of Pitting Corrosion</strong>
-                            
-                            , Corrosion Mechanisms in Theory and Practice
-                             (2011)
-                            </span>
-                            <br><a href="https://doi.org/10.1201/b11020-11" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1201/b11020-11</a>
+                            <br><a href="https://doi.org/10.1002/9780470277270" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1002/9780470277270</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Stress-Corrosion Cracking Mechanisms</strong>
-                            
-                            , Corrosion Mechanisms in Theory and Practice
-                             (2011)
+                            <strong>Revised Pourbaix diagrams for iron at 25–300 °C</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Beverskog, B.; Puigdomenech, I.
+                            , Corrosion Science
+                             (1996)
                             </span>
-                            <br><a href="https://doi.org/10.1201/b11020-15" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1201/b11020-15</a>
+                            <br><a href="https://doi.org/10.1016/S0010-938X(97)00072-7" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1016/S0010-938X(97)00072-7</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Corrosion Mechanisms</strong>
-                            
-                            , Fundamentals of Corrosion
-                             (2009)
+                            <strong>Gold Book: corrosion</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">IUPAC
+                            , IUPAC Compendium of Chemical Terminology
+                             (2019)
                             </span>
-                            <br><a href="https://doi.org/10.1201/9781420067712-6" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1201/9781420067712-6</a>
+                            <br><a href="https://doi.org/10.1351/goldbook.C01342" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1351/goldbook.C01342</a>
                             
                         </li>
                         

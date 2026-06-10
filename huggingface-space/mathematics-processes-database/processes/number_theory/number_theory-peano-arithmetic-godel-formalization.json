@@ -1,0 +1,39 @@
+{
+  "id": "number_theory-peano-arithmetic-godel-formalization",
+  "name": "Peano Arithmetic & Gödel — Part 5: Formalization & Gödel Numbering",
+  "category": "mathematics",
+  "subcategory": "number_theory",
+  "subcategory_name": "Number Theory",
+  "description": "PA as a first-order theory. Gödel numbering: encoding terms, formulas, and proofs as natural numbers. Primitive recursive functions. Representability in PA: formulas that strongly represent recursive relations.",
+  "mermaid": "graph TD\n    RefPA[\"Ref: PA (Charts 1–3)\"]\n    DefLPA[\"Def: Language L_PA (0, S, +, ·)\"]\n    DefAxPA[\"Def: Axioms of PA (induction schema)\"]\n    DefGodelNum[\"Def: Gödel numbering: #(term), #(formula), #(proof)\"]\n    DefPrimRec[\"Def: Primitive recursive functions\"]\n    LemPrimRec[\"Lem: Gödel numbering is primitive recursive\"]\n    DefNum[\"Def: Numeral n̄ for n ∈ ℕ\"]\n    DefSubst[\"Def: Substitution sub(φ, x, t) = φ(t/x)\"]\n    LemSubstPR[\"Lem: sub is primitive recursive\"]\n    DefRep[\"Def: Strong representability: R(n) ↔ PA ⊢ ρ(n̄)\"]\n    LemRep[\"Lem: Recursive relations are representable in PA\"]\n    DefProof[\"Def: Proof predicate Prf(m,n): m codes proof of formula #n\"]\n    LemProofRep[\"Lem: Prf is representable in PA\"]\n    RefPA --> DefLPA\n    RefPA --> DefAxPA\n    DefLPA --> DefGodelNum\n    DefAxPA --> DefGodelNum\n    DefAxPA --> DefRep\n    DefPrimRec --> LemPrimRec\n    DefGodelNum --> LemPrimRec\n    DefNum --> DefSubst\n    DefSubst --> LemSubstPR\n    LemPrimRec --> LemSubstPR\n    LemPrimRec --> LemRep\n    LemRep --> LemProofRep\n    DefSubst --> LemProofRep\n    DefRep --> LemProofRep\n    classDef definition fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef lemma fill:#74c0fc,color:#fff,stroke:#4dabf7\n    classDef ref fill:#bdc3c7,color:#333,stroke:#95a5a6\n    class RefPA ref\n    class DefLPA,DefAxPA,DefGodelNum,DefPrimRec,DefNum,DefSubst,DefRep,DefProof definition\n    class LemPrimRec,LemSubstPR,LemRep,LemProofRep lemma",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

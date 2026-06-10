@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_2604.23840v1",
+  "arxiv_id": "2604.23840v1",
+  "title": "Probabilistic Spectral Reconstruction of Trans-Neptunian Objects from Sparse Photometry: A Framework for Taxonomy, Survey Optimization, and Outlier Detection",
+  "authors": [
+    "Hsing Wen Lin",
+    "Larissa Markwardt",
+    "Kevin J. Napier",
+    "Fred C. Adams",
+    "Renu Malhotra",
+    "David W. Gerdes"
+  ],
+  "author_string": "Hsing Wen Lin, Larissa Markwardt, Kevin J. Napier, Fred C. Adams, Renu Malhotra et al.",
+  "journal": "arXiv:2604.23840v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Near-infrared (near-IR) spectroscopy provides critical constraints on the surface composition of trans-Neptunian objects (TNOs), but spectroscopic observations remain limited compared to broadband photometry. We develop a probabilistic latent-space framework to quantify how much spectral information is retained in sparse photometric measurements. Using a principal component representation trained on a sample of near-IR spectra, we model the spectral manifold of TNOs and perform Bayesian inference in this reduced space to reconstruct full spectra from photometry while propagating uncertainties. Leave-one-out cross-validation demonstrates that the dominant modes of spectral variability are low-dimensional: 4 to 5 principal components capture the structure relevant for taxonomic classification, while 8-10 components improve spectral reconstruction fidelity and uncertainty calibration. For most objects, the reconstructed spectra achieve empirical credible-interval coverage of 95 percent across wavelength. This suggests the diversity of near-IR spectral shapes is governed by structured, correlated surface processes rather than stochastic variation. Practically, we apply this framework to survey optimization, quantifying the information content of JWST/NIRCam filters to identify optimal configurations (e.g., F090W, F115W, F410M, F460M) for TNO taxonomy. Additionally, we demonstrate the pipeline's capability to detect and reconstruct rare spectral types, such as the peculiar Neptune Trojans 2006 RJ103 and 2011 SO277, by allowing constraining photometry to select low-probability intermediate models from the continuous topological manifold. Ultimately, this framework bridges the gap between sparse photometry and spectroscopy, providing a statistically rigorous tool to map the compositional structure of minor planets in upcoming large-scale surveys.",
+  "categories": [
+    "astro-ph.EP",
+    "astro-ph.IM"
+  ],
+  "primary_category": "astro-ph.IM",
+  "comment": "Accepted for publication in The Astronomical Journal. 25 pages, 13 figures. The generative spectral reconstruction example is publicly available on GitHub at https://github.com/sevenlin123/spectra_reconstructor",
+  "published_date": "2026-04-26T18:54:42Z",
+  "updated_date": "2026-04-26T18:54:42Z",
+  "url": "https://arxiv.org/abs/2604.23840v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.23840v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-27T22:15:30.655119",
+  "category": "physics",
+  "subcategories": [
+    "astro-ph.EP",
+    "astro-ph.IM"
+  ]
+}

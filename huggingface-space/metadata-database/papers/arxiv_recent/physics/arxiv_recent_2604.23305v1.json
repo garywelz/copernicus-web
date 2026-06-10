@@ -1,0 +1,38 @@
+{
+  "id": "arxiv_2604.23305v1",
+  "arxiv_id": "2604.23305v1",
+  "title": "gateau: an observation simulator for ground-based submillimeter astronomy with integral field units and kinetic inductance detectors",
+  "authors": [
+    "A. Moerman",
+    "N. Soshnin",
+    "S. A. Brackenhoff",
+    "S. O. Dabironezare",
+    "K. Karatsu",
+    "L. H. Marting",
+    "S. A. H. de Rooij",
+    "M. Roos",
+    "B. R. Brandl",
+    "A. Endo"
+  ],
+  "author_string": "A. Moerman, N. Soshnin, S. A. Brackenhoff, S. O. Dabironezare, K. Karatsu et al.",
+  "journal": "arXiv:2604.23305v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Submillimeter (submm) integral field units (IFUs) utilising kinetic inductance detectors (KIDs) are a promising instrument architecture for the study of galaxies, galaxy clusters, and the large-scale structure of the Universe. In order to design successful experiments targeting these science cases, several aspects such as instrument design, observation and calibration strategies, and data reduction pipelines must be collectively developed, tested, and optimised. This can be achieved through end-to-end simulations of the experiment, allowing for quantitative assessment of the aforementioned aspects. To this end, we have developed gateau, a modular, flexible, and efficient simulator for submm IFU observations of astronomical sources. The simulator consists of a Python interface, powered by a C/C++ backend that uses CUDA for GPU-acceleration, and is publicly available and fully open-source. gateau simulates observations by taking user input such as an astronomical source, a set of atmospheric screens, a scan pattern, and telescope and instrument parameters. It then propagates the source signal to the detectors. A physically motivated photon-noise model is used to add a white noise component to the received power. Detector noise is added as temporally correlated pink noise. The output is stored in the form of time-ordered datasets. We validated gateau against observations with DESHIMA 2.0, a superconducting, ultra-wideband spectrometer utilising KIDs and on-chip filterbank technology. We show that we can reproduce real observations of the atmosphere and Uranus with gateau simulations. Lastly, we present a use case to show how gateau can simulate long observations in timespans orders of magnitude smaller than the observation time itself, highlighting its applicability and efficiency.",
+  "categories": [
+    "astro-ph.IM"
+  ],
+  "primary_category": "astro-ph.IM",
+  "comment": "13 pages, 8 figures",
+  "published_date": "2026-04-25T13:41:39Z",
+  "updated_date": "2026-04-25T13:41:39Z",
+  "url": "https://arxiv.org/abs/2604.23305v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.23305v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-27T22:15:39.098948",
+  "category": "physics",
+  "subcategories": [
+    "astro-ph.IM"
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2604.18703v1",
+  "arxiv_id": "2604.18703v1",
+  "title": "SAETASS: Solver for Astroparticle Equation of Transport Analysis in Spherical Symmetry",
+  "authors": [
+    "José María García-Morillo",
+    "Stefano Menchiari",
+    "Rubén López-Coto"
+  ],
+  "author_string": "José María García-Morillo, Stefano Menchiari, Rubén López-Coto",
+  "journal": "arXiv:2604.18703v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "In order to model astrophysical environments characterized by radial stratification, such as supernova remnants or expanding superbubbles; correctly understanding the transport of non-thermal particles in astrophysical plasmas is essential. While large-scale Galactic propagation codes exist, they are often optimized for Cartesian or cylindrical geometries and lack the efficiency of one-dimensional spherically symmetric problems. In this work, we present SAETASS (Solver for Astroparticle Equation of Transport Analysis in Spherical Symmetry), a novel, open-source numerical tool designed to solve the time-dependent transport equation for astroparticles. The solver is built upon a conservative finite-volume framework that ensures exact particle conservation and numerical stability. To manage the interplay between diverse physical processes, SAETASS employs a modular operator-splitting architecture. Radial advection and continuous momentum losses are treated using a second-order, shock-capturing MUSCL-Hancock scheme, while the diffusive operator is integrated via an implicit, batched Crank-Nicolson algorithm. This approach allows for the robust handling of steep gradients, spatial discontinuities and regularity conditions at the origin. We rigorously validate the code through a suite of tests for pure advection, diffusion and losses. Finally, we demonstrate the solver's capabilities by modelling cosmic-ray proton transport in a real astrophysical scenario. Our results successfully recover established steady-state limits while revealing relevant pre-equilibrium temporal dynamics across Kolmogorov, Kraichnan and Bohm diffusion regimes. SAETASS provides the community with a lightweight, flexible tool for investigating particle acceleration and propagation in complex, radially dependent astrophysical environments.",
+  "categories": [
+    "astro-ph.HE",
+    "astro-ph.IM"
+  ],
+  "primary_category": "astro-ph.IM",
+  "comment": "38 pages, 17 figures. Submitted to JCAP. SAETASS official repository is available at https://github.com/jmgarciamorillo/SAETASS and the official documentation can be accessed at https://saetass.readthedocs.io/en/latest/",
+  "published_date": "2026-04-20T18:03:07Z",
+  "updated_date": "2026-04-20T18:03:07Z",
+  "url": "https://arxiv.org/abs/2604.18703v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.18703v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-22T10:15:48.102502",
+  "category": "physics",
+  "subcategories": [
+    "astro-ph.HE",
+    "astro-ph.IM"
+  ]
+}

@@ -1,0 +1,228 @@
+{
+  "id": "pathways-p53-dna-damage-response",
+  "name": "p53 DNA Damage Response",
+  "category": "biology",
+  "subcategory": "pathways",
+  "subcategory_name": "Pathways",
+  "description": "p53 DNA-damage response: ATM/ATR phosphorylate p53, disrupting MDM2 binding so p53 accumulates and induces p21-mediated arrest and repair; if damage is irreparable, p53 drives apoptosis, while re-synthesized MDM2 provides negative feedback.",
+  "complexity": {
+    "nodes": 12,
+    "edges": 13,
+    "conditionals": 2,
+    "logicGates": {
+      "orGates": 3,
+      "andGates": 2,
+      "notGates": 0,
+      "total": 5
+    },
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 1
+  },
+  "graphMetrics": {
+    "nodes": 12,
+    "edges": 13,
+    "conditionals": 2,
+    "andGates": 2,
+    "orGates": 3,
+    "notGates": 0,
+    "loops": 1
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "mermaid": "graph TD\n    N1[\"DNA damage\"]\n    N2[\"ATM/ATR activated\"]\n    N3[\"p53 phosphorylated\"]\n    N4[\"MDM2 binding disrupted\"]\n    N5[\"p53 accumulates (tetramer)\"]\n    N6{\"Damage repairable?\"}\n    N7[\"p21 -> cycle arrest\"]\n    N8[\"DNA repair\"]\n    N9{\"Repair successful?\"}\n    N10[\"Resume cycle\"]\n    N11[\"Apoptosis (PUMA/BAX)\"]\n    N12[\"MDM2 re-synthesized\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 --> N4\n    N4 --> N5\n    N5 --> N6\n    N6 -->|yes| N7\n    N7 --> N8\n    N8 --> N9\n    N9 -->|repaired| N10\n    N9 -->|failed| N11\n    N6 -->|severe| N11\n    N5 --> N12\n    N12 -->|degrade p53| N5\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#74c0fc,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#74c0fc,color:#fff\n    style N10 fill:#b197fc,color:#fff\n    style N11 fill:#b197fc,color:#fff\n    style N12 fill:#51cf66,color:#fff",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "DNA damage",
+      "detail": "Genotoxic stress",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N2",
+      "label": "ATM/ATR activated",
+      "detail": "Apical damage-sensing kinases",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N3",
+      "label": "p53 phosphorylated",
+      "detail": "Stabilizing modifications",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N4",
+      "label": "MDM2 binding disrupted",
+      "detail": "p53 escapes degradation",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N5",
+      "label": "p53 accumulates (tetramer)",
+      "detail": "Active transcription factor",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N6",
+      "label": "Damage repairable?",
+      "detail": "Severity determines fate",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N7",
+      "label": "p21 -> cycle arrest",
+      "detail": "Time for repair",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N8",
+      "label": "DNA repair",
+      "detail": "Lesions corrected",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N9",
+      "label": "Repair successful?",
+      "detail": "Outcome check",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N10",
+      "label": "Resume cycle",
+      "detail": "Survival",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N11",
+      "label": "Apoptosis (PUMA/BAX)",
+      "detail": "Eliminate damaged cell",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N12",
+      "label": "MDM2 re-synthesized",
+      "detail": "Negative feedback on p53",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    }
+  ],
+  "sources": [
+    {
+      "title": "p53 in health and disease",
+      "authors": "Vousden, K. H.; Lane, D. P.",
+      "journal": "Nature Reviews Molecular Cell Biology",
+      "year": "2007",
+      "pubmed": "17401423",
+      "doi": "10.1038/nrm2147",
+      "url": "https://doi.org/10.1038/nrm2147"
+    },
+    {
+      "title": "Regulation of p53 in response to DNA damage",
+      "authors": "Lakin, N. D.; Jackson, S. P.",
+      "journal": "Oncogene",
+      "year": "1999",
+      "pubmed": "10602461",
+      "doi": "10.1038/sj.onc.1203015",
+      "url": "https://doi.org/10.1038/sj.onc.1203015"
+    },
+    {
+      "title": "Modes of p53 regulation",
+      "authors": "Kruse, J. P.; Gu, W.",
+      "journal": "Cell",
+      "year": "2009",
+      "pubmed": "19450511",
+      "doi": "10.1016/j.cell.2009.04.037",
+      "url": "https://doi.org/10.1016/j.cell.2009.04.037"
+    }
+  ],
+  "keywords": [
+    "p53",
+    "atm",
+    "mdm2",
+    "p21",
+    "apoptosis"
+  ],
+  "researchEnhancements": {
+    "pilot": true,
+    "model": "research_grade_flowchart",
+    "nodeSemantics": [
+      "trigger",
+      "context",
+      "decision",
+      "operation",
+      "state",
+      "feedback",
+      "observable",
+      "prediction"
+    ],
+    "reviewFocus": [
+      "mechanistic correctness",
+      "decision density",
+      "evidence support",
+      "intervention value"
+    ]
+  },
+  "lastUpdated": "2026-06-01",
+  "verified": false,
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "namedCollections": [
+    "cell-cycle"
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:pathways-p53-dna-damage-response",
+    "graphType": "decision_flowchart",
+    "topologySignature": "eb4f33236f5d578a",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "graphType": "decision_flowchart",
+  "domainContext": "Genome-guardian signaling"
+}

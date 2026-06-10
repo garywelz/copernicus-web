@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Named Collections — Mathematics Database</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 20px; }
+        .container { max-width: 1000px; margin: 0 auto; background: white; border-radius: 15px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); overflow: hidden; padding: 30px; }
+        h1 { color: #2c3e50; margin-bottom: 10px; }
+        p { color: #555; margin-bottom: 25px; line-height: 1.6; }
+        .nav-links { margin-bottom: 20px; }
+        .nav-links a { color: #e67e22; text-decoration: none; margin-right: 20px; font-weight: 500; }
+        .nav-links a:hover { text-decoration: underline; }
+        .section-label { font-size: 0.9em; color: #7f8c8d; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
+        .grid a { display: block; padding: 16px; background: #f8f9fa; border-radius: 10px; color: #2c3e50; text-decoration: none; font-weight: 500; border-left: 4px solid #e67e22; }
+        .grid a:hover { background: #ecf0f1; }
+        .grid a .meta { font-size: 0.8em; color: #95a5a6; margin-top: 4px; }
+        .filter-btn { padding: 8px 16px; border: 2px solid #e67e22; background: white; color: #e67e22; border-radius: 8px; cursor: pointer; font-weight: 500; }
+        .filter-btn:hover { background: #fff8f0; }
+        .filter-btn.active { background: #e67e22; color: white; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="nav-links">
+            <a id="back-link" href="#">← Back to Mathematics Database</a>
+        </div>
+        <script>
+            (function() {
+                const isGCS = window.location.hostname.includes('storage.googleapis.com');
+                const base = isGCS ? 'https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database' : '..';
+                document.getElementById('back-link').href = base + '/mathematics-database-table.html';
+            })();
+        </script>
+        <h1>Named Collections</h1>
+        <p>Browse processes by mathematician or by famous theorem. Each collection links to relevant charts in the database.</p>
+        <div class="filter-bar" style="margin-bottom: 16px; display: flex; gap: 10px; flex-wrap: wrap;">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="math">Mathematicians</button>
+            <button class="filter-btn" data-filter="theorem">Named Theorems</button>
+        </div>
+        <div class="section-label">Mathematicians</div>
+        <div class="grid" id="math-grid">
+            <a href="euclid.html"><span>Euclid</span><span class="meta">c. 300 BCE · 9 charts</span></a>
+            <a href="archimedes.html"><span>Archimedes</span><span class="meta">c. 287–212 BCE · 1 chart</span></a>
+            <a href="eratosthenes.html"><span>Eratosthenes</span><span class="meta">c. 276–194 BCE · 1 chart</span></a>
+            <a href="aristotle.html"><span>Aristotle</span><span class="meta">384–322 BCE · 3 charts</span></a>
+            <a href="fermat.html"><span>Pierre de Fermat</span><span class="meta">1607–1665 · 2 charts</span></a>
+            <a href="euler.html"><span>Leonhard Euler</span><span class="meta">1707–1783 · 2 charts</span></a>
+            <a href="gauss.html"><span>Carl Friedrich Gauss</span><span class="meta">1777–1855 · 3 charts</span></a>
+            <a href="lagrange.html"><span>Joseph-Louis Lagrange</span><span class="meta">1736–1813 · 2 charts</span></a>
+            <a href="laplace.html"><span>Pierre-Simon Laplace</span><span class="meta">1749–1827 · 2 charts</span></a>
+            <a href="bayes.html"><span>Thomas Bayes</span><span class="meta">1701–1761 · 1 chart</span></a>
+            <a href="cauchy.html"><span>Augustin-Louis Cauchy</span><span class="meta">1789–1857 · 3 charts</span></a>
+            <a href="riemann.html"><span>Bernhard Riemann</span><span class="meta">1826–1866 · 3 charts</span></a>
+            <a href="germain.html"><span>Sophie Germain</span><span class="meta">1776–1831 · 3 charts</span></a>
+            <a href="galois.html"><span>Évariste Galois</span><span class="meta">1811–1832 · 3 charts</span></a>
+            <a href="kovalevskaya.html"><span>Sofia Kovalevskaya</span><span class="meta">1850–1891 · 3 charts</span></a>
+            <a href="godel.html"><span>Kurt Gödel</span><span class="meta">1906–1978 · 7 charts</span></a>
+            <a href="peano.html"><span>Giuseppe Peano</span><span class="meta">1858–1932 · 6 charts</span></a>
+            <a href="noether.html"><span>Emmy Noether</span><span class="meta">1882–1935 · 3 charts</span></a>
+            <a href="cartwright.html"><span>Mary Cartwright</span><span class="meta">1900–1998 · 3 charts</span></a>
+            <a href="hilbert.html"><span>David Hilbert</span><span class="meta">1862–1943 · 3 charts</span></a>
+            <a href="kolmogorov.html"><span>Andrey Kolmogorov</span><span class="meta">1903–1987 · 1 chart</span></a>
+            <a href="vonneumann.html"><span>John von Neumann</span><span class="meta">1903–1957 · 3 charts</span></a>
+            <a href="dedekind.html"><span>Richard Dedekind</span><span class="meta">1831–1916 · 2 charts</span></a>
+            <a href="cantor.html"><span>Georg Cantor</span><span class="meta">1845–1918 · 2 charts</span></a>
+            <a href="eilenberg.html"><span>Samuel Eilenberg</span><span class="meta">1913–1998 · 2 charts</span></a>
+            <a href="grothendieck.html"><span>Alexander Grothendieck</span><span class="meta">1928–2014 · 2 charts</span></a>
+            <a href="serre.html"><span>Jean-Pierre Serre</span><span class="meta">1926– · 2 charts</span></a>
+            <a href="sullivan.html"><span>Dennis Sullivan</span><span class="meta">1941– · 4 charts</span></a>
+            <a href="wiles.html"><span>Andrew Wiles</span><span class="meta">1953– · 1 chart</span></a>
+            <a href="tao.html"><span>Terence Tao</span><span class="meta">1975– · 1 chart</span></a>
+            <a href="green.html"><span>Ben Green</span><span class="meta">1977– · 1 chart</span></a>
+            <a href="szemeredi.html"><span>Endre Szemerédi</span><span class="meta">1940– · 1 chart</span></a>
+            <a href="dijkstra.html"><span>Edsger W. Dijkstra</span><span class="meta">1930–2002 · 1 chart</span></a>
+            <a href="prim.html"><span>Robert C. Prim</span><span class="meta">1921– · 1 chart</span></a>
+            <a href="kruskal.html"><span>Joseph Kruskal</span><span class="meta">1928–2010 · 1 chart</span></a>
+            <a href="hoare.html"><span>Tony Hoare</span><span class="meta">1934– · 1 chart</span></a>
+            <a href="simpson.html"><span>Thomas Simpson</span><span class="meta">1710–1761 · 1 chart</span></a>
+            <a href="shannon.html"><span>Claude Shannon</span><span class="meta">1916–2001 · 3 charts</span></a>
+            <a href="rivest.html"><span>Ronald Rivest</span><span class="meta">1947– · 1 chart</span></a>
+            <a href="gelfand.html"><span>Israel Gelfand</span><span class="meta">1913–2009 · 2 charts</span></a>
+            <a href="atyiah.html"><span>Michael Atiyah</span><span class="meta">1929–2019 · 2 charts</span></a>
+            <a href="faltings.html"><span>Gerd Faltings</span><span class="meta">1954– · 2 charts</span></a>
+            <a href="deligne.html"><span>Pierre Deligne</span><span class="meta">1944– · 1 chart</span></a>
+            <a href="scholze.html"><span>Peter Scholze</span><span class="meta">1987– · 2 charts</span></a>
+            <a href="uhlenbeck.html"><span>Karen Uhlenbeck</span><span class="meta">1942– · 4 charts</span></a>
+            <a href="daubechies.html"><span>Ingrid Daubechies</span><span class="meta">1954– · 3 charts</span></a>
+            <a href="mirzakhani.html"><span>Maryam Mirzakhani</span><span class="meta">1977–2017 · 3 charts</span></a>
+            <a href="poincare.html"><span>Henri Poincaré</span><span class="meta">1854–1912 · 2 charts</span></a>
+            <a href="hamilton.html"><span>William Rowan Hamilton</span><span class="meta">1805–1865 · 2 charts</span></a>
+            <a href="poisson.html"><span>Siméon Poisson</span><span class="meta">1781–1840 · 1 chart</span></a>
+            <a href="cartan.html"><span>Élie Cartan</span><span class="meta">1869–1951 · 2 charts</span></a>
+            <a href="thurston.html"><span>William Thurston</span><span class="meta">1946–2012 · 4 charts</span></a>
+            <a href="milnor.html"><span>John Milnor</span><span class="meta">1931– · 5 charts</span></a>
+            <a href="perelman.html"><span>Grigory Perelman</span><span class="meta">1966– · 3 charts</span></a>
+            <a href="newton.html"><span>Isaac Newton</span><span class="meta">1642–1727 · 3 charts</span></a>
+            <a href="julia.html"><span>Gaston Julia</span><span class="meta">1893–1978 · 2 charts</span></a>
+            <a href="fatou.html"><span>Pierre Fatou</span><span class="meta">1878–1929 · 2 charts</span></a>
+            <a href="douady.html"><span>Adrien Douady</span><span class="meta">1935–2006 · 5 charts</span></a>
+            <a href="hubbard.html"><span>John H. Hubbard</span><span class="meta">1945– · 5 charts</span></a>
+            <a href="brouwer.html"><span>Luitzen Egbertus Jan Brouwer</span><span class="meta">1881–1966 · 2 charts</span></a>
+            <a href="ramanujan.html"><span>Srinivasa Ramanujan</span><span class="meta">1887–1920 · 3 charts</span></a>
+            <a href="lebesgue.html"><span>Henri Lebesgue</span><span class="meta">1875–1941 · 3 charts</span></a>
+            <a href="weierstrass.html"><span>Karl Weierstrass</span><span class="meta">1815–1897 · 3 charts</span></a>
+        </div>
+        <div class="section-label" style="margin-top: 25px;">Named Theorems</div>
+        <div class="grid" id="theorem-grid">
+            <a href="theorem-fermat-last.html"><span>Fermat's Last Theorem</span><span class="meta">1 chart</span></a>
+            <a href="theorem-riemann-hypothesis.html"><span>Riemann Hypothesis</span><span class="meta">1 chart</span></a>
+            <a href="theorem-chinese-remainder.html"><span>Chinese Remainder Theorem</span><span class="meta">1 chart</span></a>
+            <a href="theorem-godel-incompleteness.html"><span>Gödel's Incompleteness Theorems</span><span class="meta">2 charts</span></a>
+            <a href="theorem-green-tao.html"><span>Green–Tao Theorem</span><span class="meta">1 chart</span></a>
+            <a href="theorem-szemeredi.html"><span>Szemerédi's Theorem</span><span class="meta">1 chart</span></a>
+            <a href="theorem-bayes.html"><span>Bayes' Theorem</span><span class="meta">1 chart</span></a>
+            <a href="theorem-central-limit.html"><span>Central Limit Theorem</span><span class="meta">1 chart</span></a>
+            <a href="theorem-law-large-numbers.html"><span>Law of Large Numbers</span><span class="meta">1 chart</span></a>
+            <a href="theorem-kolmogorov-axioms.html"><span>Kolmogorov Axioms</span><span class="meta">1 chart</span></a>
+            <a href="theorem-lagrange.html"><span>Lagrange's Theorem (Groups)</span><span class="meta">1 chart</span></a>
+            <a href="theorem-galois-correspondence.html"><span>Galois Correspondence</span><span class="meta">1 chart</span></a>
+            <a href="theorem-cauchy-riemann.html"><span>Cauchy–Riemann Equations</span><span class="meta">1 chart</span></a>
+            <a href="theorem-residue.html"><span>Residue Theorem</span><span class="meta">1 chart</span></a>
+            <a href="theorem-picard.html"><span>Picard Theorems</span><span class="meta">1 chart</span></a>
+            <a href="theorem-darboux.html"><span>Darboux Theorem</span><span class="meta">1 chart</span></a>
+            <a href="theorem-spectral.html"><span>Spectral Theorem</span><span class="meta">3 charts</span></a>
+            <a href="theorem-gns.html"><span>GNS Construction</span><span class="meta">1 chart</span></a>
+            <a href="theorem-sullivan-wandering.html"><span>Sullivan's No Wandering Domains</span><span class="meta">1 chart</span></a>
+            <a href="theorem-markov-chains.html"><span>Markov Chains</span><span class="meta">1 chart</span></a>
+            <a href="theorem-primality-tests.html"><span>Primality Tests</span><span class="meta">3 charts</span></a>
+            <a href="theorem-poincare-conjecture.html"><span>Poincaré Conjecture</span><span class="meta">2 charts</span></a>
+            <a href="theorem-newton-method.html"><span>Newton's Method</span><span class="meta">1 chart</span></a>
+            <a href="theorem-mandelbrot-connectedness.html"><span>Mandelbrot Set Connectedness</span><span class="meta">4 charts</span></a>
+            <a href="theorem-minimal-surfaces.html"><span>Minimal Surfaces Theory</span><span class="meta">3 charts</span></a>
+            <a href="theorem-costas-surface.html"><span>Costa's Surface</span><span class="meta">1 chart</span></a>
+            <a href="theorem-brouwer-fixed-point.html"><span>Brouwer Fixed Point Theorem</span><span class="meta">2 charts</span></a>
+            <a href="theorem-banach-fixed-point.html"><span>Banach Fixed Point Theorem</span><span class="meta">1 chart</span></a>
+            <a href="theorem-stokes.html"><span>Stokes' Theorem</span><span class="meta">1 chart</span></a>
+            <a href="theorem-four-color.html"><span>Four Color Theorem</span><span class="meta">2 charts</span></a>
+            <a href="theorem-jordan-curve.html"><span>Jordan Curve Theorem</span><span class="meta">2 charts</span></a>
+            <a href="theorem-fundamental-theorem-algebra.html"><span>Fundamental Theorem of Algebra</span><span class="meta">2 charts</span></a>
+        </div>
+        <script>
+        (function() {
+            var btns = document.querySelectorAll('.filter-btn');
+            var mathGrid = document.getElementById('math-grid');
+            var thmGrid = document.getElementById('theorem-grid');
+            var mathLabel = document.querySelector('.section-label');
+            var thmLabel = document.querySelectorAll('.section-label')[1];
+            function filter(which) {
+                btns.forEach(function(b) { b.classList.toggle('active', b.dataset.filter === which); });
+                if (which === 'all') {
+                    mathGrid.style.display = '';
+                    thmGrid.style.display = '';
+                    if (mathLabel) mathLabel.style.display = '';
+                    if (thmLabel) thmLabel.style.display = '';
+                } else if (which === 'math') {
+                    mathGrid.style.display = '';
+                    thmGrid.style.display = 'none';
+                    if (mathLabel) mathLabel.style.display = '';
+                    if (thmLabel) thmLabel.style.display = 'none';
+                } else {
+                    mathGrid.style.display = 'none';
+                    thmGrid.style.display = '';
+                    if (mathLabel) mathLabel.style.display = 'none';
+                    if (thmLabel) thmLabel.style.display = '';
+                }
+            }
+            btns.forEach(function(b) {
+                b.addEventListener('click', function() { filter(b.dataset.filter); });
+            });
+        })();
+        </script>
+    </div>
+</body>
+</html>

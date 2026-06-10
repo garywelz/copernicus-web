@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chromatography - Chemistry Process</title>
+    <title>Molecular Docking (Virtual Screening) - Chemistry Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Chromatography</h1>
+            <h1>Molecular Docking (Virtual Screening)</h1>
             <div class="header-meta">
                 <span class="meta-item">Chemistry</span>
                 <span class="meta-item">Computational Chemistry</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,68 +234,60 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Chromatography process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>Molecular docking predicts how ligands bind a target: the receptor is prepared, ligand poses are generated and placed in the binding site, scored for affinity, resampled when poor, ranked, and iterated over a library to shortlist virtual-screening hits.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-A5[Sample Mixture] --> B5[Chromatography Method]
-C5[Stationary Phase] --> D5[Mobile Phase]
-E5[Detector System] --> F5[Data Collection]
-B5 --> G5[Column Preparation]
-D5 --> H5[Flow Control]
-F5 --> I5[Signal Processing]
-G5 --> J5[Column Packing]
-H5 --> K5[Flow Rate]
-I5 --> L5[Retention Time]
-J5 --> M5[Sample Injection]
-K5 --> L5
-L5 --> N5[Separation Process]
-M5 --> O5[Sample Loading]
-N5 --> P5[Chromatographic Separation]
-O5 --> Q5[Analytical Process]
-P5 --> R5[Chromatogram]
-Q5 --> S5[Peak Analysis]
-R5 --> T5[Component Separation]
-S5 --> U5[Retention Analysis]
-T5 --> V5[Component Identification]
-U5 --> W5[Chromatographic Efficiency]
-V5 --> X5[Sample Characterization]
-W5 --> Y5[Process Optimization]
-X5 --> Z5[Final Chromatogram]
-Y5 --> Z5
+    N1["Target + ligand library"]
+    N2["Prepare receptor + grid"]
+    N3["Generate ligand poses"]
+    N4["Place pose in site"]
+    N5["Score binding affinity"]
+    N6{"Clashes / low score?"}
+    N7["Resample pose"]
+    N8["Rank top poses"]
+    N9{"More ligands?"}
+    N10["Next ligand"]
+    N11["Hit shortlist"]
 
-    style A5 fill:#ff6b6b,color:#fff
-    style C5 fill:#ff6b6b,color:#fff
-    style E5 fill:#ff6b6b,color:#fff
-    style B5 fill:#ffd43b,color:#000
-    style D5 fill:#ffd43b,color:#000
-    style F5 fill:#ffd43b,color:#000
-    style G5 fill:#ffd43b,color:#000
-    style H5 fill:#ffd43b,color:#000
-    style I5 fill:#ffd43b,color:#000
-    style J5 fill:#ffd43b,color:#000
-    style K5 fill:#ffd43b,color:#000
-    style L5 fill:#ffd43b,color:#000
-    style M5 fill:#51cf66,color:#fff
+    N1 --> N2
+    N2 --> N3
+    N3 --> N4
+    N4 --> N5
+    N5 --> N6
+    N6 -->|yes| N7
+    N7 -->|resample| N4
+    N6 -->|no| N8
+    N8 --> N9
+    N9 -->|yes| N10
+    N10 -->|dock next| N3
+    N9 -->|no| N11
+
+    style N1 fill:#ff6b6b,color:#fff
+    style N2 fill:#51cf66,color:#fff
+    style N3 fill:#51cf66,color:#fff
+    style N4 fill:#51cf66,color:#fff
     style N5 fill:#51cf66,color:#fff
-    style O5 fill:#51cf66,color:#fff
-    style P5 fill:#51cf66,color:#fff
-    style Q5 fill:#51cf66,color:#fff
-    style R5 fill:#51cf66,color:#fff
-    style S5 fill:#51cf66,color:#fff
-    style T5 fill:#51cf66,color:#fff
-    style U5 fill:#51cf66,color:#fff
-    style V5 fill:#51cf66,color:#fff
-    style W5 fill:#51cf66,color:#fff
-    style X5 fill:#51cf66,color:#fff
-    style Y5 fill:#51cf66,color:#fff
-    style Z5 fill:#b197fc,color:#fff
+    style N6 fill:#74c0fc,color:#fff
+    style N7 fill:#51cf66,color:#fff
+    style N8 fill:#51cf66,color:#fff
+    style N9 fill:#74c0fc,color:#fff
+    style N10 fill:#51cf66,color:#fff
+    style N11 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Target + ligand library</td><td>Triggers & Inputs</td><td><a href="https://doi.org/10.1038/nrd1549" target="_blank" title="Docking and scoring in virtual screening for drug discovery" style="color:#e74c3c;">Kitchen, D. B. et al. 2004</a></td></tr><tr><td style="font-weight:600;">Prepare receptor + grid</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1002/jcc.21334" target="_blank" title="AutoDock Vina: improving the speed and accuracy of docking" style="color:#e74c3c;">Trott, O. et al. 2010</a></td></tr><tr><td style="font-weight:600;">Generate ligand poses</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1006/jmbi.1996.0897" target="_blank" title="Development and validation of a genetic algorithm for flexible docking (GOLD)" style="color:#e74c3c;">Jones, G. et al. 1997</a></td></tr><tr><td style="font-weight:600;">Place pose in site</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1006/jmbi.1996.0897" target="_blank" title="Development and validation of a genetic algorithm for flexible docking (GOLD)" style="color:#e74c3c;">Jones, G. et al. 1997</a></td></tr><tr><td style="font-weight:600;">Score binding affinity</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1038/nrd1549" target="_blank" title="Docking and scoring in virtual screening for drug discovery" style="color:#e74c3c;">Kitchen, D. B. et al. 2004</a></td></tr><tr><td style="font-weight:600;">Clashes / low score?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1006/jmbi.1996.0897" target="_blank" title="Development and validation of a genetic algorithm for flexible docking (GOLD)" style="color:#e74c3c;">Jones, G. et al. 1997</a></td></tr><tr><td style="font-weight:600;">Resample pose</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1006/jmbi.1996.0897" target="_blank" title="Development and validation of a genetic algorithm for flexible docking (GOLD)" style="color:#e74c3c;">Jones, G. et al. 1997</a></td></tr><tr><td style="font-weight:600;">Rank top poses</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1038/nrd1549" target="_blank" title="Docking and scoring in virtual screening for drug discovery" style="color:#e74c3c;">Kitchen, D. B. et al. 2004</a></td></tr><tr><td style="font-weight:600;">More ligands?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1038/nrd1549" target="_blank" title="Docking and scoring in virtual screening for drug discovery" style="color:#e74c3c;">Kitchen, D. B. et al. 2004</a></td></tr><tr><td style="font-weight:600;">Next ligand</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1038/nrd1549" target="_blank" title="Docking and scoring in virtual screening for drug discovery" style="color:#e74c3c;">Kitchen, D. B. et al. 2004</a></td></tr><tr><td style="font-weight:600;">Hit shortlist</td><td>Products & Outputs</td><td><a href="https://doi.org/10.1038/nrd1549" target="_blank" title="Docking and scoring in virtual screening for drug discovery" style="color:#e74c3c;">Kitchen, D. B. et al. 2004</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -314,12 +333,12 @@ Y5 --> Z5
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 26</li>
-                        <li><strong>Edges:</strong> 22</li>
-                        <li><strong>Conditionals:</strong> 0</li>
-                        <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 1</li>
+                        <li><strong>Nodes:</strong> 11</li>
+                        <li><strong>Edges:</strong> 12</li>
+                        <li><strong>Conditionals:</strong> 2</li>
+                        <li><strong>AND Gates:</strong> 2</li>
+                        <li><strong>OR Gates:</strong> 2</li>
+                        <li><strong>Total Gates:</strong> 4</li>
                     </ul>
                 </div>
                 
@@ -327,7 +346,7 @@ Y5 --> Z5
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>chromatography</li>
+                        <li>molecular docking</li><li>virtual screening</li><li>scoring function</li><li>binding pose</li><li>receptor preparation</li>
                     </ul>
                 </div>
                 
@@ -338,42 +357,32 @@ Y5 --> Z5
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Development and validation of a genetic algorithm for flexible docking (GOLD)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Jones, G.; Willett, P.; Glen, R. C.; Leach, A. R.; Taylor, R.
+                            , Journal of Molecular Biology
+                             (1997)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Acknowledgement to Reviewers of Chromatography in 2014</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Chromatography Editorial Office
-                            , Chromatography
-                             (2015)
-                            </span>
-                            <br><a href="https://doi.org/10.3390/chromatography2010019" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.3390/chromatography2010019</a>
+                            <br><a href="https://doi.org/10.1006/jmbi.1996.0897" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1006/jmbi.1996.0897</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Chromatography of Alkaloids - Part B: Gas-Liquid Chromatography and High-Performance Liquid Chromatography</strong>
-                            
-                            , Journal of Chromatography Library
-                             (1984)
+                            <strong>Docking and scoring in virtual screening for drug discovery</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Kitchen, D. B.; Decornez, H.; Furr, J. R.; Bajorath, J.
+                            , Nature Reviews Drug Discovery
+                             (2004)
                             </span>
-                            <br><a href="https://doi.org/10.1016/s0301-4770(08)x6062-2" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1016/s0301-4770(08)x6062-2</a>
+                            <br><a href="https://doi.org/10.1038/nrd1549" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1038/nrd1549</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Microbore Column Chromatography: A Unified Approach to Chromatography</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Yang, Frank J
-                            , Microbore Column Chromatography
-                             (2020)
+                            <strong>AutoDock Vina: improving the speed and accuracy of docking</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Trott, O.; Olson, A. J.
+                            , Journal of Computational Chemistry
+                             (2010)
                             </span>
-                            <br><a href="https://doi.org/10.1201/9781003066088-1" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1201/9781003066088-1</a>
+                            <br><a href="https://doi.org/10.1002/jcc.21334" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1002/jcc.21334</a>
                             
                         </li>
                         

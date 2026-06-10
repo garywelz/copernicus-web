@@ -1,0 +1,30 @@
+{
+  "id": "arxiv_2604.20804v1",
+  "arxiv_id": "2604.20804v1",
+  "title": "Quantum hardware noise learning via differentiable Kraus representation on tensor networks",
+  "authors": [
+    "Ryo Sakai",
+    "Yu Yamashiro"
+  ],
+  "author_string": "Ryo Sakai, Yu Yamashiro",
+  "journal": "arXiv:2604.20804v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We present a method for learning quantum hardware noise from a measurement distribution of a single device experiment. Each noise channel is represented by automatically differentiable Kraus operators obtained from a Stinespring-based parameterization that is completely positive and trace preserving by construction, and circuits are simulated with a matrix product density operator forward model. Independent channels are attached to each native gate type, to each nearest-neighbor crosstalk interaction, and to state preparation and measurement, and all channels are optimized end-to-end against a distance between the simulated and observed measurement distributions. On ibm_fez, a Heron-generation superconducting processor, training on a ripple-carry adder circuit reproduces the device output distribution, and the same learned parameters, applied without retraining, also track the device distribution of an unrelated multiplier circuit, indicating that the method captures intrinsic device characteristics rather than overfitting to the training circuit. A systematic evaluation across a range of benchmark circuits confirms that this generalization is consistent. We further use the learned model to perform an offline feasibility assessment of the quantum approximate optimization algorithm with an error detection scheme, demonstrating the kind of noise-aware prediction the framework is designed to enable.",
+  "categories": [
+    "quant-ph"
+  ],
+  "primary_category": "quant-ph",
+  "comment": "12 pages, 9 figures",
+  "published_date": "2026-04-22T17:35:01Z",
+  "updated_date": "2026-04-22T17:35:01Z",
+  "url": "https://arxiv.org/abs/2604.20804v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.20804v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-25T22:15:44.912538",
+  "category": "physics",
+  "subcategories": [
+    "quant-ph"
+  ]
+}

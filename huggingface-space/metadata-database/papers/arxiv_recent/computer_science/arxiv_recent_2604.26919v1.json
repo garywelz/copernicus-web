@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2604.26919v1",
+  "arxiv_id": "2604.26919v1",
+  "title": "Causal Learning with Neural Assemblies",
+  "authors": [
+    "Evangelia Kopadi",
+    "Dimitris Kalles"
+  ],
+  "author_string": "Evangelia Kopadi, Dimitris Kalles",
+  "journal": "arXiv:2604.26919v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Can Neural Assemblies -- groups of neurons that fire together and strengthen through co-activation -- learn the direction of causal influence between variables? While established as a computationally general substrate for classification, parsing, and planning, neural assemblies have not yet been shown to internalize causal directionality. We demonstrate that the inherent operations of neural assemblies -- projection, local plasticity control, and sparse winner selection -- are sufficient for directional learning. We introduce DIRECT (DIRectional Edge Coupling/Training), a mechanism that co-activates source and target assemblies under an adaptive gain schedule to internalize directed relations. Unlike backpropagation-based methods, DIRECT relies solely on local plasticity, making the resulting causal claims auditable at the mechanism level. Our findings are verified through a dual-readout validation strategy: (i) synaptic-strength asymmetry, measuring the emergent weight gap between forward and reverse links, and (ii) functional propagation overlap, quantifying the reliability of directional signal flow. Across multiple domains, the framework achieves perfect structural recovery under a supervised, known-structure setting. These results establish neural assemblies as an auditable bridge between biologically plausible dynamics and formal causal models, offering an \"explainable by design\" framework where causal claims are traceable to specific neural winners and synaptic asymmetries.",
+  "categories": [
+    "cs.LG",
+    "cs.AI",
+    "cs.NE"
+  ],
+  "primary_category": "cs.NE",
+  "comment": "8 pages, 11 figures",
+  "published_date": "2026-04-29T17:34:33Z",
+  "updated_date": "2026-04-29T17:34:33Z",
+  "url": "https://arxiv.org/abs/2604.26919v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.26919v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-30T10:15:42.516636",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.LG",
+    "cs.AI",
+    "cs.NE"
+  ]
+}

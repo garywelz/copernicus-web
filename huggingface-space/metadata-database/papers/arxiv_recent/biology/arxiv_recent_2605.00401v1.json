@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2605.00401v1",
+  "arxiv_id": "2605.00401v1",
+  "title": "SIMON: Saliency-aware Integrative Multi-view Object-centric Neural Decoding",
+  "authors": [
+    "YuSheng Lin",
+    "Ji-Hwa Tsai",
+    "Chun-Shu Wei"
+  ],
+  "author_string": "YuSheng Lin, Ji-Hwa Tsai, Chun-Shu Wei",
+  "journal": "arXiv:2605.00401v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Recent EEG-to-image retrieval methods leverage pretrained vision encoders and foveation-inspired priors, but typically assume a fixed, center-focused view. This center bias conflicts with content-driven human attention, creating a geometric-semantic dissociation between visual features and EEG responses. We propose SIMON, a saliency-aware multi-view framework for zero-shot EEG-to-image retrieval. SIMON combines foreground segmentation and saliency prediction to select fixation centers via Saliency-Aware Sampling (SAS), then generates foveated views that emphasize informative object regions while suppressing background clutter. On THINGS-EEG, SIMON achieves state-of-the-art performance in both intra-subject and inter-subject settings, reaching an average Top-1 accuracy of 69.7% and 19.6%, respectively, consistently outperforming recent competitive baselines. Analyses across sampling granularity, EEG channel topology, and visual/brain encoder backbones further support the robustness of saliency-aware multi-view integration. Our code and models are publicly available at https://github.com/simonlink666/SIMON.",
+  "categories": [
+    "cs.CV",
+    "q-bio.NC"
+  ],
+  "primary_category": "q-bio.NC",
+  "comment": null,
+  "published_date": "2026-05-01T04:43:24Z",
+  "updated_date": "2026-05-01T04:43:24Z",
+  "url": "https://arxiv.org/abs/2605.00401v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.00401v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-09T22:15:36.918588",
+  "category": "biology",
+  "subcategories": [
+    "cs.CV",
+    "q-bio.NC"
+  ]
+}

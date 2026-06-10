@@ -1,0 +1,40 @@
+{
+  "id": "godel-first-incompleteness",
+  "name": "Gödel First Incompleteness — Proof Graph",
+  "category": "mathematics",
+  "subcategory": "proof_graphs",
+  "subcategory_name": "Proof Graphs",
+  "description": "Diagonalization builds a sentence G that asserts its own unprovability. Structurally this parallels Cantor diagonal arguments: both encode \"apply a transformation derived from a listing to obtain an object off the list / off the naive predicate\".",
+  "mermaid": "flowchart TD\n  T[&quot;Target: Gödel first incompleteness for consistent recursive T extending PA&quot;] --> G[&quot;Given: arithmetization of syntax in T&quot;]\n  T --> A[&quot;Assumption: T is consistent and strong enough for representability&quot;]\n  L1[&quot;Lemma: provability predicate Bew is Sigma1 definable&quot;] --> R[&quot;Assertion: recursive sets are representable in T&quot;]\n  G --> L1\n  N[&quot;Construction: fix Gödel numbering of terms formulas and proofs&quot;] --> D[&quot;Construction: diagonal lemma yields fixed-point sentence G&quot;]\n  R --> N\n  D --> P[&quot;Algorithm capsule: build G by primitive recursive self-substitution on Bew negation code&quot;]\n  P --> E[&quot;Assertion: G is equivalent in T to formal unprovability of G&quot;]\n  E --> F[&quot;Assertion: if T proves G then standard arithmetic is inconsistent with truth of G&quot;]\n  F --> Q[&quot;Contradiction: T consistency forbids T proving G&quot;]\n  Q --> U[&quot;Assertion: G is not provable in T&quot;]\n  U --> W[&quot;Assertion: under soundness G holds in the standard model&quot;]\n  W --> K[&quot;Conclusion: T cannot decide every arithmetic sentence&quot;]",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "proof_graph",
+  "graphType": "proof_graph"
+}

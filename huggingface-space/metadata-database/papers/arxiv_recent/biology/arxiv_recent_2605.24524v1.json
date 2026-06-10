@@ -1,0 +1,37 @@
+{
+  "id": "arxiv_2605.24524v1",
+  "arxiv_id": "2605.24524v1",
+  "title": "What Are We Actually Decoding? Source Attribution for Non-Invasive Brain-to-Language Retrieval",
+  "authors": [
+    "Xinyu Zhang",
+    "Sichao Liu",
+    "Runhao Lu",
+    "Alexandra Woolgar",
+    "Lihui Wang"
+  ],
+  "author_string": "Xinyu Zhang, Sichao Liu, Runhao Lu, Alexandra Woolgar, Lihui Wang",
+  "journal": "arXiv:2605.24524v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "In non-invasive neural language decoding, results can be inflated by sources that are not stimulus-evoked neural evidence: decoder priors, embedding-based metrics, and non-neural structural nuisances such as signal duration. The methodological challenge is therefore attribution: a reported gain is more informative when it can be traced to a specific source. We recast stimulus-locked MEG-to-audio retrieval as an auditing framework that separates apparent performance into three sources - structural shortcuts, window-level stimulus-locked evidence, and cross-window contextual aggregation - and provides a diagnostic for each. Signal-blind Gaussian noise reaches 66.3% Rank@1 (R@1) under variable-length decoding but collapses to near chance once fixed-duration windows and stimulus-identity splits are enforced, isolating structural leakage. Under these controls, fixed-window retrieval recovers measurable MEG-audio discriminability, while an oracle sentence-bucket diagnostic shows that 95.7% of Top-1 errors select the wrong sentence, localising the residual bottleneck to sentence-level competition. We audit this contextual source with Group Context Bias (GCB), an inference-time additive logit bias that pools sentence-consistent evidence across windows while leaving the base retrieval scores and candidate pool fixed. Used as a score-space intervention, GCB makes the contextual source measurable: R@1 shifts from 44% to 52% on Gwilliams and from 22% to 29% on MOUS under the same fixed setting. GCB is auditable under this design: its effect collapses under random-grouping perturbations and vanishes when local evidence is attenuated in MEG or is near chance in EEG, supporting its use as a controlled source-attribution intervention. These results suggest that brain-to-language performance should be source-attributed, not merely reported.",
+  "categories": [
+    "cs.LG",
+    "cs.CL",
+    "q-bio.NC"
+  ],
+  "primary_category": "q-bio.NC",
+  "comment": "35 pages, 7 figures, 25 tables",
+  "published_date": "2026-05-23T11:23:39Z",
+  "updated_date": "2026-05-23T11:23:39Z",
+  "url": "https://arxiv.org/abs/2605.24524v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.24524v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-26T10:15:35.453273",
+  "category": "biology",
+  "subcategories": [
+    "cs.LG",
+    "cs.CL",
+    "q-bio.NC"
+  ]
+}

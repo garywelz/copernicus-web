@@ -1,0 +1,20 @@
+{
+  "discipline": "biology",
+  "databaseDir": "biology-processes-database",
+  "generatedAt": "2026-04-30T16:11:48.875103+00:00",
+  "processCount": 56,
+  "findingCount": 1,
+  "findingCounts": {
+    "supplemental_json": 1
+  },
+  "duplicateMermaidGroups": [],
+  "findingsByProcess": {
+    "taxonomy-domains-of-life": [
+      {
+        "severity": "info",
+        "code": "supplemental_json",
+        "message": "Process comes from JSON outside metadata.json."
+      }
+    ]
+  }
+}

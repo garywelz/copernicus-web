@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2604.20124v1",
+  "arxiv_id": "2604.20124v1",
+  "title": "SPRAY: A smoothed particle radiation hydrodynamics code for modeling high intensity laser-plasma interactions",
+  "authors": [
+    "Min Ki Jung",
+    "Hakhyeon Kim",
+    "Su-San Park",
+    "Eung Soo Kim",
+    "Yong-Su Na",
+    "Sang June Hahn"
+  ],
+  "author_string": "Min Ki Jung, Hakhyeon Kim, Su-San Park, Eung Soo Kim, Yong-Su Na et al.",
+  "journal": "J. Comput. Phys. 508, 113000 (2024)",
+  "journal_ref": "J. Comput. Phys. 508, 113000 (2024)",
+  "year": "2026",
+  "doi": "10.1016/j.jcp.2024.113000",
+  "abstract": "Here we report the development of SPRAY, a massively parallel GPU accelerated, smoothed particle hydrodynamics (SPH)-based, radiation hydrodynamics (RHD) code designed specifically for simulating high intensity laser-plasma interactions. When a target is irradiated by an intense laser, highly complex fluid deformation occurs due to instabilities, which is challenging to study numerically. SPRAY is particle-based, mesh-free, and Lagrangian, which addresses numerical issues that posed difficulties to existing methods. Its SPH formulations for RHD governing equations are tailored toward accurate and reliable simulations of laser-target irradiation phenomena, and are solved via a time-dependent, flux-limited diffusion method. A new laser energy coupling module, which is based on the Wentzel-Kramers-Brillouin (WKB) approximation, is implemented with a totally mesh-free ray-tracing scheme that is applicable for arbitrary geometry and dimensions. The accuracy and reliability of the code are demonstrated with a series of benchmark problems. To the authors' knowledge, this is the first attempt to employ SPH method for simulations of laser-plasma interactions in high energy density physics research. Possible expansions to the code, such as laser beam-beam interaction modeling and more sophisticated multi-group radiation transport are left for future development.",
+  "categories": [
+    "physics.comp-ph"
+  ],
+  "primary_category": "physics.comp-ph",
+  "comment": null,
+  "published_date": "2026-04-22T02:44:30Z",
+  "updated_date": "2026-04-22T02:44:30Z",
+  "url": "https://arxiv.org/abs/2604.20124v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.20124v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-23T10:15:36.219083",
+  "category": "physics",
+  "subcategories": [
+    "physics.comp-ph"
+  ]
+}

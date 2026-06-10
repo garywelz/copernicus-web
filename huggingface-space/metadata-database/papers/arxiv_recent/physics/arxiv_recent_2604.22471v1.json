@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2604.22471v1",
+  "arxiv_id": "2604.22471v1",
+  "title": "Boundary-Aware Stabilizer Scheduling for Distributed Quantum Error Correction",
+  "authors": [
+    "Sanidhya Gupta",
+    "Sanidhay Bhambay",
+    "Narges Alavisamani",
+    "Neil Walton",
+    "Thirupathaiah Vasantam"
+  ],
+  "author_string": "Sanidhya Gupta, Sanidhay Bhambay, Narges Alavisamani, Neil Walton, Thirupathaiah Vasantam",
+  "journal": "arXiv:2604.22471v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Future quantum architectures are expected to be modular, with quantum processors connecting multiple quantum processing units (QPUs) via photonic interconnects. In topological quantum error correction, such as color codes, this creates seam boundaries where parity checks require remote CNOT operations using heralded Bell pairs. These non-local checks are slower and noisier than bulk local checks because entanglement generation is probabilistic, causing data qubits to accumulate idle noise while waiting for remote operations. A natural way to reduce this overhead is to skip some seam measurements; however, doing so makes seam syndrome information stale and can degrade decoding. The central scheduling problem is therefore to determine how frequently seam checks should be measured so as to balance remote-operation and waiting noise against syndrome staleness.   To address this trade-off, we develop a scheduling module that integrates directly into standard syndrome-extraction circuits. We consider two policies: Skip-Seam-$τ$ (SS-$τ$), which measures all bulk checks every round while measuring seam checks once every $τ$ rounds and copying the most recent syndrome in skipped rounds, and Adaptive Skip-$τ$ (AST), which selects $τ$ as a function of code distance and entanglement generation rate (EGR). We evaluate these policies on triangular color codes under circuit-level noise in Stim, including idling errors induced by Bell-pair generation delays. Our simulations show that SS-tau and AST reduce remote-operation overhead and can lower the logical error rate (LER) relative to the Measure-All (MA) baseline. For physical error rate $p = 10^{-3}$, we identify an EGR regime in which both SS-$τ$ and AST exhibit behavior consistent with fault-tolerant scaling, with LER decreasing as code distance increases. Across these regimes, SS-$τ$ and AST outperform MA.",
+  "categories": [
+    "quant-ph"
+  ],
+  "primary_category": "quant-ph",
+  "comment": null,
+  "published_date": "2026-04-24T11:49:07Z",
+  "updated_date": "2026-04-24T11:49:07Z",
+  "url": "https://arxiv.org/abs/2604.22471v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.22471v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-27T10:15:28.444522",
+  "category": "physics",
+  "subcategories": [
+    "quant-ph"
+  ]
+}

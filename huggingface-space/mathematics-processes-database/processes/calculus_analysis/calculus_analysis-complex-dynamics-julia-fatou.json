@@ -1,0 +1,39 @@
+{
+  "id": "calculus_analysis-complex-dynamics-julia-fatou",
+  "name": "Complex Dynamics — Julia & Fatou Sets",
+  "category": "mathematics",
+  "subcategory": "calculus_analysis",
+  "subcategory_name": "Calculus & Analysis",
+  "description": "Iteration of rational maps f: ℂ̂→ℂ̂. Julia set J(f) = closure of repelling periodic points; Fatou set F(f) = ℂ̂ \\ J(f) = domain of normality. Fatou components: connected components of F(f). Classification: attracting, parabolic, Siegel disk, Herman ring. Wandering domain: component whose iterates are all disjoint. Montel's theorem: normality criterion. Foundation for Sullivan's no wandering domain theorem.",
+  "mermaid": "graph TD\n    DefRat[\"Def: Rational map\\nf: ℂ̂→ℂ̂, deg≥2\"]\n    DefNorm[\"Def: Normal family\\nEquicontinuous\"]\n    DefJulia[\"Def: Julia set J(f)\\nClosure repelling periodic\"]\n    DefFatou[\"Def: Fatou set F(f)\\nℂ̂ \\\\ J(f)\"]\n    DefComp[\"Def: Fatou component\\nConnected component of F(f)\"]\n    DefWander[\"Def: Wandering domain\\nIterates disjoint\"]\n    ThmMontel[\"Thm: Montel\\n3 omitted values ⇒ normal\"]\n    ThmClass[\"Thm: Classification\\nAttracting, parabolic, Siegel, Herman\"]\n    LemJNonempty[\"Lem: J(f) nonempty, no interior\"]\n    DefRat --> DefNorm\n    DefNorm --> DefJulia\n    DefJulia --> DefFatou\n    DefFatou --> DefComp\n    DefComp --> DefWander\n    ThmMontel --> DefJulia\n    DefComp --> ThmClass\n    DefJulia --> LemJNonempty\n    classDef definition fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef theorem fill:#51cf66,color:#fff,stroke:#40c057\n    classDef lemma fill:#74c0fc,color:#fff,stroke:#4dabf7\n    class DefRat,DefNorm,DefJulia,DefFatou,DefComp,DefWander definition\n    class ThmMontel,ThmClass theorem\n    class LemJNonempty lemma",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

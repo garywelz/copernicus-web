@@ -1,0 +1,39 @@
+{
+  "id": "mathematical_physics-quantum",
+  "name": "Quantum Mechanics",
+  "category": "mathematics",
+  "subcategory": "mathematical_physics",
+  "subcategory_name": "Mathematical Physics",
+  "description": "Process chart: mathematical_physics-quantum",
+  "mermaid": "graph TD\n    D1[\"Def: State vector\\n|ψ⟩ ∈ H Hilbert\"]\n    D2[\"Def: Observable\\nA = A* self-adj op\"]\n    D3[\"Def: Expectation\\n⟨A⟩ = ⟨ψ|A|ψ⟩\"]\n    D4[\"Def: Commutator [A,B]\\nAB−BA\"]\n    T1[\"Thm: Born rule\\nprob = |⟨φ|ψ⟩|²\"]\n    T2[\"Thm: Heisenberg\\n[A,B] = iℏ{A,B}\"]\n    T3[\"Thm: Uncertainty\\nΔA ΔB ≥ |⟨[A,B]⟩|/2\"]\n    T4[\"Thm: Schrödinger\\niℏ ∂ψ/∂t = Hψ\"]\n    T5[\"Thm: Spectral\\nA = ∫λ dE_λ\"]\n    D1 --> D2\n    D2 --> D3\n    D3 --> D4\n    D1 --> T1\n    D4 --> T2\n    T2 --> T3\n    T4 --> T5\n    classDef definition fill:#b197fc,color:#fff\n    classDef theorem fill:#51cf66,color:#fff\n    class D1,D2,D3,D4 definition\n    class T1,T2,T3,T4,T5 theorem",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

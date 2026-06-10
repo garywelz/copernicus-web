@@ -1,21 +1,23 @@
 {
   "id": "spectroscopy_advanced-chromatography",
-  "name": "Chromatography",
+  "name": "Chromatographic Separation",
   "category": "chemistry",
   "subcategory": "spectroscopy_advanced",
   "subcategory_name": "Spectroscopy Advanced",
-  "description": "Chromatography process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "Chromatography separates a mixture by differential partitioning between a mobile and a stationary phase: components with stronger stationary-phase affinity are retained longer; band broadening (van Deemter) limits resolution, which is tuned by adjusting phase and flow.",
   "complexity": {
-    "nodes": 26,
-    "edges": 22,
-    "conditionals": 0,
+    "nodes": 11,
+    "edges": 12,
+    "conditionals": 2,
     "logicGates": {
-      "orGates": 0,
-      "andGates": 1,
-      "total": 1
+      "orGates": 2,
+      "andGates": 2,
+      "notGates": 0,
+      "total": 4
     },
-    "level": "medium",
-    "detailLevel": "medium"
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 1
   },
   "colorScheme": {
     "red": {
@@ -39,52 +41,159 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nA5[Sample Mixture] --> B5[Chromatography Method]\nC5[Stationary Phase] --> D5[Mobile Phase]\nE5[Detector System] --> F5[Data Collection]\nB5 --> G5[Column Preparation]\nD5 --> H5[Flow Control]\nF5 --> I5[Signal Processing]\nG5 --> J5[Column Packing]\nH5 --> K5[Flow Rate]\nI5 --> L5[Retention Time]\nJ5 --> M5[Sample Injection]\nK5 --> L5\nL5 --> N5[Separation Process]\nM5 --> O5[Sample Loading]\nN5 --> P5[Chromatographic Separation]\nO5 --> Q5[Analytical Process]\nP5 --> R5[Chromatogram]\nQ5 --> S5[Peak Analysis]\nR5 --> T5[Component Separation]\nS5 --> U5[Retention Analysis]\nT5 --> V5[Component Identification]\nU5 --> W5[Chromatographic Efficiency]\nV5 --> X5[Sample Characterization]\nW5 --> Y5[Process Optimization]\nX5 --> Z5[Final Chromatogram]\nY5 --> Z5\n\n    style A5 fill:#ff6b6b,color:#fff\n    style C5 fill:#ff6b6b,color:#fff\n    style E5 fill:#ff6b6b,color:#fff\n    style B5 fill:#ffd43b,color:#000\n    style D5 fill:#ffd43b,color:#000\n    style F5 fill:#ffd43b,color:#000\n    style G5 fill:#ffd43b,color:#000\n    style H5 fill:#ffd43b,color:#000\n    style I5 fill:#ffd43b,color:#000\n    style J5 fill:#ffd43b,color:#000\n    style K5 fill:#ffd43b,color:#000\n    style L5 fill:#ffd43b,color:#000\n    style M5 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style O5 fill:#51cf66,color:#fff\n    style P5 fill:#51cf66,color:#fff\n    style Q5 fill:#51cf66,color:#fff\n    style R5 fill:#51cf66,color:#fff\n    style S5 fill:#51cf66,color:#fff\n    style T5 fill:#51cf66,color:#fff\n    style U5 fill:#51cf66,color:#fff\n    style V5 fill:#51cf66,color:#fff\n    style W5 fill:#51cf66,color:#fff\n    style X5 fill:#51cf66,color:#fff\n    style Y5 fill:#51cf66,color:#fff\n    style Z5 fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"Mixture injected\"]\n    N2[\"Carried by mobile phase\"]\n    N3[\"Partition w/ stationary phase\"]\n    N4{\"Stronger affinity?\"}\n    N5[\"Retained longer\"]\n    N6[\"Elutes later\"]\n    N7[\"Weak affinity: elutes early\"]\n    N8[\"Band broadening\"]\n    N9{\"Peaks resolved?\"}\n    N10[\"Adjust phase / flow\"]\n    N11[\"Separated components\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 --> N4\n    N4 -->|strong| N5\n    N5 --> N6\n    N4 -->|weak| N7\n    N6 --> N8\n    N7 --> N8\n    N8 --> N9\n    N9 -->|no| N10\n    N10 -->|re-run| N2\n    N9 -->|yes| N11\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#74c0fc,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#74c0fc,color:#fff\n    style N10 fill:#51cf66,color:#fff\n    style N11 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "title": "Longitudinal diffusion and resistance to mass transfer (van Deemter equation)",
+      "authors": "van Deemter, J. J.; Zuiderweg, F. J.; Klinkenberg, A.",
+      "journal": "Chemical Engineering Science",
+      "year": "1956",
+      "doi": "10.1016/0009-2509(56)80003-1",
+      "url": "https://doi.org/10.1016/0009-2509(56)80003-1"
+    },
+    {
+      "title": "A new form of chromatogram employing two liquid phases (partition chromatography)",
+      "authors": "Martin, A. J. P.; Synge, R. L. M.",
+      "journal": "Biochemical Journal",
+      "year": "1941",
+      "doi": "10.1042/bj0351358",
+      "url": "https://doi.org/10.1042/bj0351358"
+    },
+    {
+      "title": "Principles of Instrumental Analysis, 7th ed. — Introduction to Chromatography",
+      "authors": "Skoog, D. A.; Holler, F. J.; Crouch, S. R.",
+      "journal": "Cengage Learning",
+      "year": "2018",
       "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: Chromatography. Created using the Programming Framework methodology."
-    },
-    {
-      "title": "Acknowledgement to Reviewers of Chromatography in 2014",
-      "authors": "Chromatography Editorial Office",
-      "journal": "Chromatography",
-      "year": "2015",
-      "pubmed": null,
-      "doi": "10.3390/chromatography2010019",
-      "url": "https://doi.org/10.3390/chromatography2010019"
-    },
-    {
-      "title": "Chromatography of Alkaloids - Part B: Gas-Liquid Chromatography and High-Performance Liquid Chromatography",
-      "authors": "",
-      "journal": "Journal of Chromatography Library",
-      "year": "1984",
-      "pubmed": null,
-      "doi": "10.1016/s0301-4770(08)x6062-2",
-      "url": "https://doi.org/10.1016/s0301-4770(08)x6062-2"
-    },
-    {
-      "title": "Chromatography of alkaloids, part a: Thin-layer chromatography (journal of chromatography library, vol. 23A)",
-      "authors": "",
-      "journal": "Journal of Chromatography A",
-      "year": "1983",
-      "pubmed": null,
-      "doi": "10.1016/s0021-9673(01)88026-2",
-      "url": "https://doi.org/10.1016/s0021-9673(01)88026-2"
+      "url": "https://www.cengage.com/c/principles-of-instrumental-analysis-7e-skoog/9781305577213/"
     }
   ],
   "keywords": [
-    "chromatography"
+    "chromatography",
+    "partition",
+    "retention",
+    "van deemter",
+    "resolution"
   ],
   "relatedProcesses": [],
   "created": "2026-01-08",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Mixture injected",
+      "detail": "Sample on column",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 1
+    },
+    {
+      "id": "N2",
+      "label": "Carried by mobile phase",
+      "detail": "Gas or liquid eluent",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N3",
+      "label": "Partition w/ stationary phase",
+      "detail": "Repeated equilibria",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N4",
+      "label": "Stronger affinity?",
+      "detail": "Distribution constant",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N5",
+      "label": "Retained longer",
+      "detail": "Higher retention time",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N6",
+      "label": "Elutes later",
+      "detail": "Late peak",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N7",
+      "label": "Weak affinity: elutes early",
+      "detail": "Low retention",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N8",
+      "label": "Band broadening",
+      "detail": "van Deemter contributions",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N9",
+      "label": "Peaks resolved?",
+      "detail": "Resolution criterion",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 2
+    },
+    {
+      "id": "N10",
+      "label": "Adjust phase / flow",
+      "detail": "Optimize conditions",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N11",
+      "label": "Separated components",
+      "detail": "Baseline separation",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 1
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:spectroscopy_advanced-chromatography",
+    "graphType": "cyclic_pathway",
+    "topologySignature": "03c8de60bda40800",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "namedCollections": [
+    "spectroscopy"
+  ],
+  "graphMetrics": {
+    "nodes": 11,
+    "edges": 12,
+    "conditionals": 2,
+    "andGates": 2,
+    "orGates": 2,
+    "notGates": 0,
+    "loops": 1
+  },
+  "graphType": "cyclic_pathway",
+  "domainContext": "Separation science"
 }

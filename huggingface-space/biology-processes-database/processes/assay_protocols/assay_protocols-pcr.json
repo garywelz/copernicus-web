@@ -1,0 +1,207 @@
+{
+  "id": "assay_protocols-pcr",
+  "name": "PCR Protocol",
+  "category": "biology",
+  "subcategory": "assay_protocols",
+  "subcategory_name": "Assay / Lab Protocols",
+  "description": "Polymerase chain reaction: thermostable-polymerase amplification of a target DNA sequence through repeated denaturation, primer annealing, and extension, with a gel size check before the product is accepted.",
+  "keywords": [
+    "pcr",
+    "amplification",
+    "taq polymerase",
+    "thermal cycling",
+    "primers"
+  ],
+  "namedCollections": [
+    "lab-protocols"
+  ],
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "complexity": {
+    "nodes": 12,
+    "edges": 13,
+    "conditionals": 2,
+    "logicGates": {
+      "orGates": 2,
+      "andGates": 2,
+      "notGates": 0,
+      "total": 4
+    },
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 2
+  },
+  "graphMetrics": {
+    "nodes": 12,
+    "edges": 13,
+    "conditionals": 2,
+    "andGates": 2,
+    "orGates": 2,
+    "notGates": 0,
+    "loops": 2
+  },
+  "mermaid": "graph TD\n    N1[\"Template DNA\"]\n    N2[\"Forward + reverse primers\"]\n    N3[\"dNTPs, Taq, Mg2+ buffer\"]\n    N4[\"Assemble mix on ice\"]\n    N5[\"Initial denaturation 95C\"]\n    N6[\"Denature 94C\"]\n    N7[\"Anneal primers ~55C\"]\n    N8[\"Extend at 72C (Taq)\"]\n    N9{\"Cycles complete?\"}\n    N10[\"Final extension 72C\"]\n    N11{\"Correct amplicon size?\"}\n    N12[\"Amplified target DNA\"]\n\n    N1 --> N4\n    N2 --> N4\n    N3 --> N4\n    N4 --> N5\n    N5 --> N6\n    N6 --> N7\n    N7 --> N8\n    N8 --> N9\n    N9 -->|no| N6\n    N9 -->|yes| N10\n    N10 --> N11\n    N11 -->|optimize| N4\n    N11 -->|yes| N12\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#ff6b6b,color:#fff\n    style N3 fill:#ffd43b,color:#000\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#74c0fc,color:#fff\n    style N10 fill:#51cf66,color:#fff\n    style N11 fill:#74c0fc,color:#fff\n    style N12 fill:#b197fc,color:#fff",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Template DNA",
+      "detail": "Target DNA template containing the sequence to amplify",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N2",
+      "label": "Forward + reverse primers",
+      "detail": "Oligonucleotide primer pair flanking the target",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 1
+    },
+    {
+      "id": "N3",
+      "label": "dNTPs, Taq, Mg2+ buffer",
+      "detail": "Reaction components: dNTPs, thermostable Taq polymerase, Mg2+ buffer",
+      "type": "process",
+      "role": "Structures & Objects",
+      "sourceRef": 0
+    },
+    {
+      "id": "N4",
+      "label": "Assemble mix on ice",
+      "detail": "Combine template, primers, and master mix on ice",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N5",
+      "label": "Initial denaturation 95C",
+      "detail": "Initial denaturation to separate template strands",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N6",
+      "label": "Denature 94C",
+      "detail": "Per-cycle strand denaturation",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N7",
+      "label": "Anneal primers ~55C",
+      "detail": "Primers anneal to complementary sequences near the target Tm",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N8",
+      "label": "Extend at 72C (Taq)",
+      "detail": "Taq polymerase extends primers 5'->3'",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N9",
+      "label": "Cycles complete?",
+      "detail": "Have all (~25-35) thermal cycles run?",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N10",
+      "label": "Final extension 72C",
+      "detail": "Final extension to complete partial products",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N11",
+      "label": "Correct amplicon size?",
+      "detail": "Agarose gel check: single band at expected size",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 2
+    },
+    {
+      "id": "N12",
+      "label": "Amplified target DNA",
+      "detail": "Purified, correctly sized amplicon",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 0
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:assay_protocols-pcr",
+    "graphType": "algorithm_flowchart",
+    "topologySignature": "e1685d5a42568903",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "pending",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "lastUpdated": "2026-06-01",
+  "verified": false,
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "sources": [
+    {
+      "title": "Primer-directed enzymatic amplification of DNA with a thermostable DNA polymerase",
+      "authors": "Saiki, R. K.; Gelfand, D. H.; Stoffel, S.; Scharf, S. J.; Higuchi, R.; Horn, G. T.; Mullis, K. B.; Erlich, H. A.",
+      "journal": "Science",
+      "year": "1988",
+      "pubmed": "2448875",
+      "doi": "10.1126/science.2448875",
+      "url": "https://doi.org/10.1126/science.2448875"
+    },
+    {
+      "title": "Specific synthesis of DNA in vitro via a polymerase-catalyzed chain reaction",
+      "authors": "Mullis, K. B.; Faloona, F. A.",
+      "journal": "Methods in Enzymology",
+      "year": "1987",
+      "pubmed": "3431465",
+      "doi": "10.1016/0076-6879(87)55023-6",
+      "url": "https://doi.org/10.1016/0076-6879(87)55023-6"
+    },
+    {
+      "title": "Molecular Cloning: A Laboratory Manual (3rd ed.)",
+      "authors": "Sambrook, J.; Russell, D. W.",
+      "journal": "Cold Spring Harbor Laboratory Press",
+      "year": "2001",
+      "doi": null,
+      "url": "https://www.worldcat.org/oclc/45458336"
+    }
+  ],
+  "graphType": "algorithm_flowchart",
+  "domainContext": "Nucleic-acid amplification protocol"
+}

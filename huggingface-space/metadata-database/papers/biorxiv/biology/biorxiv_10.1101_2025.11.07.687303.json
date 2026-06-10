@@ -1,0 +1,43 @@
+{
+  "id": "biorxiv_10.1101_2025.11.07.687303",
+  "doi": "10.1101/2025.11.07.687303",
+  "title": "HapBridge: A Methylation-Guided Approach for Correcting Switch Errors and Bridging Phased Blocks in Long-Read Phasing",
+  "authors": [
+    "Chen, H.",
+    "Nie, F.",
+    "Luo, F.",
+    "Wang, J."
+  ],
+  "author_string": "Chen, H., Nie, F., Luo, F., Wang, J.",
+  "journal": "bioRxiv",
+  "journal_full": "bioRxiv",
+  "year": "2026",
+  "abstract": "Long-read sequencing has substantially advanced haplotype phasing yet continues to face challenges in low-heterozygosity regions and switch errors caused by read noise. DNA methylation exhibits haplotype-specific patterns, providing complementary linkage information, but existing phasing algorithms have not fully leveraged these signals owing to their variability. Here, we present Hap-Bridge, a methylation-guided phasing framework that enhances single-nucleotide variant (SNV)-based phasing by detecting and correcting switch errors and bridging adjacent phased blocks. Evaluations on Oxford Nanopore R9/R10 and PacBio HiFi datasets show that HapBridge reduces switch errors by 3.07-18.72% and improves N50 length by 5.84-68.61% compared with Meth-Phaser, achieving higher phasing accuracy and contiguity. These results demonstrate that integrating methylation with sequence variation can provide a robust and intrinsic linkage signal that effectively improves haplotype continuity in long-read sequencing. HapBridge is publicly available at GitHub https://github.com/Humonex/HapBridge.",
+  "keywords": [],
+  "categories": [
+    "bioinformatics"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.1101/2025.11.07.687303",
+  "source": "biorxiv",
+  "sources": [
+    "biorxiv"
+  ],
+  "acquired_date": "2026-05-10T22:15:23.380946",
+  "category": "biology",
+  "subcategories": [
+    "bioinformatics"
+  ],
+  "published_date": "2026-01-10",
+  "updated_date": "2026-01-10",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "biorxiv",
+  "preprint_version": "4",
+  "preprint_type": "new results",
+  "license": "cc_no",
+  "jatsxml": "https://www.biorxiv.org/content/early/2026/01/10/2025.11.07.687303.source.xml",
+  "published_doi": null,
+  "author_corresponding": "Jianxin Wang",
+  "author_corresponding_institution": "School of Computer Science and Engineering, Central South University, Changsha, 410083, China; Xiangjiang Laboratory, Changsha, 410205, China;Hunan Provincial K"
+}

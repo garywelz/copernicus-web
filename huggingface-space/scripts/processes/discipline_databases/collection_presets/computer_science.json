@@ -1,0 +1,32 @@
+[
+  {
+    "id": "algorithmic-complexity",
+    "label": "Algorithms and Complexity",
+    "description": "Graph algorithms, dynamic programming, sorting, trees, complexity, and formal analysis.",
+    "match": ["algorithm", "complexity", "dynamic programming", "graph", "sorting", "tree", "automata", "verification"]
+  },
+  {
+    "id": "systems-runtime",
+    "label": "Systems and Runtime",
+    "description": "Operating systems, memory, containers, scheduling, filesystems, and runtime behavior.",
+    "match": ["system", "memory", "scheduling", "file system", "container", "runtime", "paging", "journaling"]
+  },
+  {
+    "id": "networks-distributed",
+    "label": "Networks and Distributed Systems",
+    "description": "DNS, routing, congestion control, load balancing, database transactions, and distributed behavior.",
+    "match": ["network", "tcp", "routing", "dns", "load balancing", "transaction", "query", "database"]
+  },
+  {
+    "id": "security-reliability",
+    "label": "Security and Reliability",
+    "description": "Authentication, authorization, PKI, intrusion detection, secure updates, and threat response.",
+    "match": ["security", "authentication", "authorization", "pki", "intrusion", "secure", "incident"]
+  },
+  {
+    "id": "ml-software",
+    "label": "Machine Learning and Software Engineering",
+    "description": "Model training, validation, feature engineering, CI, QA, requirements, and review workflows.",
+    "match": ["machine learning", "model", "feature", "neural", "nlp", "software", "ci", "quality", "requirements", "code review"]
+  }
+]

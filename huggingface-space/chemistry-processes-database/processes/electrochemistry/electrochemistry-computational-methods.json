@@ -1,21 +1,23 @@
 {
   "id": "electrochemistry-computational-methods",
-  "name": "Computational Methods",
+  "name": "Computational Electrochemistry (DFT)",
   "category": "chemistry",
   "subcategory": "electrochemistry",
   "subcategory_name": "Electrochemistry",
-  "description": "Computational Methods process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "Computational electrocatalysis models an electrode reaction with DFT and the computational hydrogen electrode: intermediate energies build a potential-dependent free-energy diagram, identifying the potential-determining step and theoretical overpotential to screen catalysts.",
   "complexity": {
-    "nodes": 26,
-    "edges": 22,
-    "conditionals": 0,
+    "nodes": 11,
+    "edges": 11,
+    "conditionals": 1,
     "logicGates": {
-      "orGates": 0,
+      "orGates": 1,
       "andGates": 1,
-      "total": 1
+      "notGates": 0,
+      "total": 2
     },
-    "level": "medium",
-    "detailLevel": "medium"
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 1
   },
   "colorScheme": {
     "red": {
@@ -39,53 +41,159 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nA3[Molecular System] --> B3[Computational Method Selection]\nC3[Quantum Theory] --> D3[Algorithm Implementation]\nE3[Computational Resources] --> F3[Calculation Setup]\nB3 --> G3[Method Selection]\nD3 --> H3[Algorithm Development]\nF3 --> I3[Resource Allocation]\nG3 --> J3[DFT Selection]\nH3 --> K3[Code Implementation]\nI3 --> L3[Computational Parameters]\nJ3 --> M3[Functional Selection]\nK3 --> L3\nL3 --> N3[Calculation Execution]\nM3 --> O3[Electronic Structure]\nN3 --> P3[Quantum Calculation]\nO3 --> Q3[Computational Analysis]\nP3 --> R3[Energy Calculation]\nQ3 --> S3[Property Analysis]\nR3 --> T3[Molecular Properties]\nS3 --> U3[Accuracy Assessment]\nT3 --> V3[Property Validation]\nU3 --> W3[Computational Efficiency]\nV3 --> X3[Result Characterization]\nW3 --> Y3[Process Optimization]\nX3 --> Z3[Final Computational Results]\nY3 --> Z3\n\n    style A3 fill:#ff6b6b,color:#fff\n    style C3 fill:#ff6b6b,color:#fff\n    style E3 fill:#ff6b6b,color:#fff\n    style B3 fill:#ffd43b,color:#000\n    style D3 fill:#ffd43b,color:#000\n    style F3 fill:#ffd43b,color:#000\n    style G3 fill:#ffd43b,color:#000\n    style H3 fill:#ffd43b,color:#000\n    style I3 fill:#ffd43b,color:#000\n    style J3 fill:#ffd43b,color:#000\n    style K3 fill:#ffd43b,color:#000\n    style L3 fill:#ffd43b,color:#000\n    style M3 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style O3 fill:#51cf66,color:#fff\n    style P3 fill:#51cf66,color:#fff\n    style Q3 fill:#51cf66,color:#fff\n    style R3 fill:#51cf66,color:#fff\n    style S3 fill:#51cf66,color:#fff\n    style T3 fill:#51cf66,color:#fff\n    style U3 fill:#51cf66,color:#fff\n    style V3 fill:#51cf66,color:#fff\n    style W3 fill:#51cf66,color:#fff\n    style X3 fill:#51cf66,color:#fff\n    style Y3 fill:#51cf66,color:#fff\n    style Z3 fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"Electrode reaction of interest\"]\n    N2[\"Build slab + adsorbate model\"]\n    N3[\"Computational H electrode\"]\n    N4[\"DFT energies of intermediates\"]\n    N5[\"Apply −eU potential shift\"]\n    N6[\"Free-energy diagram vs U\"]\n    N7{\"Potential-determining step?\"}\n    N8[\"Identify limiting step\"]\n    N9[\"Theoretical overpotential\"]\n    N10[\"Screen new catalyst\"]\n    N11[\"Activity prediction\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 --> N4\n    N4 --> N5\n    N5 --> N6\n    N6 --> N7\n    N7 --> N8\n    N8 --> N9\n    N9 --> N10\n    N10 -->|new model| N2\n    N9 --> N11\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#74c0fc,color:#fff\n    style N7 fill:#74c0fc,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#51cf66,color:#fff\n    style N10 fill:#51cf66,color:#fff\n    style N11 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
-      "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: Computational Methods. Created using the Programming Framework methodology."
+      "title": "Origin of the overpotential for oxygen reduction at a fuel-cell cathode (CHE model)",
+      "authors": "Nørskov, J. K.; et al.",
+      "journal": "Journal of Physical Chemistry B",
+      "year": "2004",
+      "doi": "10.1021/jp047349j",
+      "url": "https://doi.org/10.1021/jp047349j"
     },
     {
-      "title": "Computational and Mathematical Methods",
-      "authors": "",
-      "journal": "",
-      "year": "None",
-      "pubmed": null,
-      "doi": "10.1155/cmm",
-      "url": "https://doi.org/10.1155/cmm"
+      "title": "Towards the computational design of solid catalysts",
+      "authors": "Nørskov, J. K.; Bligaard, T.; Rossmeisl, J.; Christensen, C. H.",
+      "journal": "Nature Chemistry",
+      "year": "2009",
+      "doi": "10.1038/nchem.121",
+      "url": "https://doi.org/10.1038/nchem.121"
     },
     {
-      "title": "Dynamics Methods",
-      "authors": "Harvey, Jeremy",
-      "journal": "Computational Chemistry",
-      "year": "2018",
-      "pubmed": null,
-      "doi": "10.1093/hesc/9780198755500.003.0006",
-      "url": "https://doi.org/10.1093/hesc/9780198755500.003.0006"
-    },
-    {
-      "title": "Journal of Computational Methods in Physics",
-      "authors": "",
-      "journal": "",
-      "year": "None",
-      "pubmed": null,
-      "doi": "10.1155/4181",
-      "url": "https://doi.org/10.1155/4181"
+      "title": "Toward an atomic-scale understanding of electrochemical interface structure and dynamics",
+      "authors": "Magnussen, O. M.; Groß, A.",
+      "journal": "Journal of the American Chemical Society",
+      "year": "2019",
+      "doi": "10.1021/jacs.8b10723",
+      "url": "https://doi.org/10.1021/jacs.8b10723"
     }
   ],
   "keywords": [
-    "computational",
-    "methods"
+    "density functional theory",
+    "computational hydrogen electrode",
+    "free-energy diagram",
+    "overpotential",
+    "catalyst screening"
   ],
   "relatedProcesses": [],
   "created": "2026-01-08",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Electrode reaction of interest",
+      "detail": "Target electrocatalytic step",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N2",
+      "label": "Build slab + adsorbate model",
+      "detail": "Periodic surface model",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N3",
+      "label": "Computational H electrode",
+      "detail": "Reference proton-electron pair",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N4",
+      "label": "DFT energies of intermediates",
+      "detail": "Adsorption free energies",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N5",
+      "label": "Apply −eU potential shift",
+      "detail": "Potential dependence",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N6",
+      "label": "Free-energy diagram vs U",
+      "detail": "Step energetics",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N7",
+      "label": "Potential-determining step?",
+      "detail": "Largest uphill step",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N8",
+      "label": "Identify limiting step",
+      "detail": "Bottleneck reaction",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N9",
+      "label": "Theoretical overpotential",
+      "detail": "From the limiting step",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N10",
+      "label": "Screen new catalyst",
+      "detail": "Vary composition / descriptor",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N11",
+      "label": "Activity prediction",
+      "detail": "Ranked candidates",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 1
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:electrochemistry-computational-methods",
+    "graphType": "cyclic_pathway",
+    "topologySignature": "713e27c6e9313944",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "namedCollections": [
+    "electrochemistry"
+  ],
+  "graphMetrics": {
+    "nodes": 11,
+    "edges": 11,
+    "conditionals": 1,
+    "andGates": 1,
+    "orGates": 1,
+    "notGates": 0,
+    "loops": 1
+  },
+  "graphType": "cyclic_pathway",
+  "domainContext": "Computational electrocatalysis"
 }

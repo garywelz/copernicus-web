@@ -1,0 +1,59 @@
+{
+  "id": "medrxiv_10.64898_2026.01.12.26343904",
+  "doi": "10.64898/2026.01.12.26343904",
+  "title": "Evaluating MRI harmonisation methods with multicentre data from the Psy-ShareD consortium: A comparative analysis",
+  "authors": [
+    "Zurita, M.",
+    "Easmin, R.",
+    "Lawrie, S.",
+    "Whalley, H. C.",
+    "Stolicyn, A.",
+    "Garrison, J. R.",
+    "Murray, G. K.",
+    "Wu, S.-C. J.",
+    "Takahashi, T.",
+    "Pontillo, G.",
+    "Iasevoli, F.",
+    "Mehta, U.",
+    "Upthegrove, R.",
+    "Frangou, S.",
+    "Evans, S.",
+    "Kumari, V.",
+    "Rogers, J.",
+    "Kempton, M.",
+    "Allen, P.",
+    "ShareD, P."
+  ],
+  "author_string": "Zurita, M., Easmin, R., Lawrie, S., Whalley, H. C., Stolicyn, A. et al.",
+  "journal": "medRxiv",
+  "journal_full": "medRxiv",
+  "year": "2026",
+  "abstract": "Combining multi-site MRI datasets increases statistical power and model generalisability but may be hindered by variability between sites. Harmonisation methods aim to remove potentially confounding variance while preserving biologically meaningful signals. However, this can be challenging, as each T1-weighted image reflects both scanner properties (e.g., field strength, sequence parameters) and individual biological characteristics (e.g., age, sex, ethno-cultural background, and pathology). Two image-based (HACA3, IGUANe) and two feature-based (neuroHarmonize, neuroCombat) harmonisation methods were assessed using T1-weighted brain imaging data from the Psy-ShareD database; 564 participants (295 schizophrenia, 269 controls) from seven studies acquired across 5 sites from the Psy-ShareD database. We trained several models to classify sites, schizophrenia diagnosis, age, and symptom levels. Site-classification accuracy was high for unharmonised data (90.1%) and for HACA3 (92.2%), slightly reduced with IGUANe (86.6%), and near chance for feature-based methods (4.2% neuroHarmonize; 1.8% neuroCombat), indicating effective bias removal. We fitted several models predicting biological signals including diagnosis, age, and symptom levels across different harmonisation methods. In most cases, classification with harmonised data performed at least as well as with unharmonised data. Generally, feature-based methods best remove site-related variance, but image-based approaches remain a promising avenue for preserving individual biological differences. This work provides practical guidance for selecting harmonisation strategies in multi-site psychiatric neuroimaging, depending on whether the priority is bias reduction or preservation of subject-level variability.",
+  "keywords": [],
+  "categories": [
+    "psychiatry and clinical psychology"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.64898/2026.01.12.26343904",
+  "source": "medrxiv",
+  "sources": [
+    "medrxiv"
+  ],
+  "acquired_date": "2026-05-13T22:15:24.461233",
+  "category": "biology",
+  "subcategories": [
+    "psychiatry and clinical psychology"
+  ],
+  "published_date": "2026-01-13",
+  "updated_date": "2026-01-13",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "medrxiv",
+  "preprint_version": "1",
+  "preprint_type": "PUBLISHAHEADOFPRINT",
+  "license": "cc_by",
+  "jatsxml": "https://www.medrxiv.org/content/early/2026/01/13//2026.01.12.26343904.source.xml",
+  "published_doi": null,
+  "author_corresponding": "Paul Allen",
+  "author_corresponding_institution": "1.\tDepartment of Neuroimaging, Institute of Psychiatry, Psychology and Neuroscience, King's College London, UK & 13.\tWILL chair PSY team, Centre LilNCog, INSERM"
+}

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hash Table Operations - Computer Science Process</title>
+    <title>Hash Table Operations (Open Addressing) - Computer Science Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Hash Table Operations</h1>
+            <h1>Hash Table Operations (Open Addressing)</h1>
             <div class="header-meta">
                 <span class="meta-item">Computer Science</span>
                 <span class="meta-item">Algorithms & Data Structures</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,51 +234,60 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Hash Table Operations process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>A hash table stores key-value pairs by hashing the key to a bucket index; with open addressing, collisions are resolved by probing successive slots until an empty one is found, and when the load factor grows too large the table is resized and all keys are rehashed, keeping average insert and lookup at O(1).</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-N1["Key + Hash Function"]
-N2["Operation (get/put/delete)"]
-N3["Bucket Array"]
-N4["Choose Approach"]
-N5["Collision Strategy"]
-N6["Compute Hash/Index"]
-N7["Probe/Chain Walk"]
-N8["Update Entry"]
-N9["Integrate Results"]
-N10["Resize/Rehash (if needed)"]
-N11["Return Value/Status"]
+    N1["Key-value pair to store"]
+    N2["Compute hash h(key)"]
+    N3["Map to bucket index"]
+    N4{"Slot occupied?"}
+    N5["Probe next slot"]
+    N6["Insert at empty slot"]
+    N7{"Load factor too high?"}
+    N8["Resize + rehash all"]
+    N9["Lookup: hash + probe"]
+    N10["O(1) average access"]
+    N11["Hash table state"]
 
-N1 --> N2
-N2 --> N3
-N3 --> N4
-N4 --> N5
-N4 --> N7
-N5 --> N6
-N7 --> N8
-N6 --> N9
-N8 --> N9
-N9 --> N10
-N10 --> N11
+    N1 --> N2
+    N2 --> N3
+    N3 --> N4
+    N4 -->|yes| N5
+    N5 -->|next| N4
+    N4 -->|no| N6
+    N6 --> N7
+    N7 -->|yes| N8
+    N8 -->|rehash| N2
+    N7 -->|no| N9
+    N9 --> N10
+    N10 --> N11
 
     style N1 fill:#ff6b6b,color:#fff
-    style N2 fill:#ff6b6b,color:#fff
-    style N3 fill:#ffd43b,color:#000
-    style N4 fill:#ffd43b,color:#000
-    style N5 fill:#ffd43b,color:#000
+    style N2 fill:#51cf66,color:#fff
+    style N3 fill:#51cf66,color:#fff
+    style N4 fill:#74c0fc,color:#fff
+    style N5 fill:#51cf66,color:#fff
     style N6 fill:#51cf66,color:#fff
-    style N7 fill:#51cf66,color:#fff
+    style N7 fill:#74c0fc,color:#fff
     style N8 fill:#51cf66,color:#fff
-    style N9 fill:#74c0fc,color:#fff
+    style N9 fill:#51cf66,color:#fff
     style N10 fill:#74c0fc,color:#fff
     style N11 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Key-value pair to store</td><td>Triggers & Inputs</td><td><a href="https://mitpress.mit.edu/9780262046305/introduction-to-algorithms/" target="_blank" title="Introduction to Algorithms (4th ed.)" style="color:#9b59b6;">Cormen, T. H. et al. 2022</a></td></tr><tr><td style="font-weight:600;">Compute hash h(key)</td><td>Processing & Operations</td><td><a href="https://www-cs-faculty.stanford.edu/~knuth/taocp.html" target="_blank" title="The Art of Computer Programming, Vol. 3: Sorting and Searching (2nd ed.)" style="color:#9b59b6;">Knuth, D. E. 1998</a></td></tr><tr><td style="font-weight:600;">Map to bucket index</td><td>Processing & Operations</td><td><a href="https://www-cs-faculty.stanford.edu/~knuth/taocp.html" target="_blank" title="The Art of Computer Programming, Vol. 3: Sorting and Searching (2nd ed.)" style="color:#9b59b6;">Knuth, D. E. 1998</a></td></tr><tr><td style="font-weight:600;">Slot occupied?</td><td>Intermediates & States</td><td><a href="https://www-cs-faculty.stanford.edu/~knuth/taocp.html" target="_blank" title="The Art of Computer Programming, Vol. 3: Sorting and Searching (2nd ed.)" style="color:#9b59b6;">Knuth, D. E. 1998</a></td></tr><tr><td style="font-weight:600;">Probe next slot</td><td>Processing & Operations</td><td><a href="https://www-cs-faculty.stanford.edu/~knuth/taocp.html" target="_blank" title="The Art of Computer Programming, Vol. 3: Sorting and Searching (2nd ed.)" style="color:#9b59b6;">Knuth, D. E. 1998</a></td></tr><tr><td style="font-weight:600;">Insert at empty slot</td><td>Processing & Operations</td><td><a href="https://mitpress.mit.edu/9780262046305/introduction-to-algorithms/" target="_blank" title="Introduction to Algorithms (4th ed.)" style="color:#9b59b6;">Cormen, T. H. et al. 2022</a></td></tr><tr><td style="font-weight:600;">Load factor too high?</td><td>Intermediates & States</td><td><a href="https://mitpress.mit.edu/9780262046305/introduction-to-algorithms/" target="_blank" title="Introduction to Algorithms (4th ed.)" style="color:#9b59b6;">Cormen, T. H. et al. 2022</a></td></tr><tr><td style="font-weight:600;">Resize + rehash all</td><td>Processing & Operations</td><td><a href="https://www-cs-faculty.stanford.edu/~knuth/taocp.html" target="_blank" title="The Art of Computer Programming, Vol. 3: Sorting and Searching (2nd ed.)" style="color:#9b59b6;">Knuth, D. E. 1998</a></td></tr><tr><td style="font-weight:600;">Lookup: hash + probe</td><td>Processing & Operations</td><td><a href="https://mitpress.mit.edu/9780262046305/introduction-to-algorithms/" target="_blank" title="Introduction to Algorithms (4th ed.)" style="color:#9b59b6;">Cormen, T. H. et al. 2022</a></td></tr><tr><td style="font-weight:600;">O(1) average access</td><td>Intermediates & States</td><td><a href="https://mitpress.mit.edu/9780262046305/introduction-to-algorithms/" target="_blank" title="Introduction to Algorithms (4th ed.)" style="color:#9b59b6;">Cormen, T. H. et al. 2022</a></td></tr><tr><td style="font-weight:600;">Hash table state</td><td>Products & Outputs</td><td><a href="https://www-cs-faculty.stanford.edu/~knuth/taocp.html" target="_blank" title="The Art of Computer Programming, Vol. 3: Sorting and Searching (2nd ed.)" style="color:#9b59b6;">Knuth, D. E. 1998</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -298,11 +334,11 @@ N10 --> N11
                     <h3>Process Statistics</h3>
                     <ul>
                         <li><strong>Nodes:</strong> 11</li>
-                        <li><strong>Edges:</strong> 11</li>
-                        <li><strong>Conditionals:</strong> 0</li>
-                        <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 1</li>
-                        <li><strong>Total Gates:</strong> 2</li>
+                        <li><strong>Edges:</strong> 12</li>
+                        <li><strong>Conditionals:</strong> 2</li>
+                        <li><strong>AND Gates:</strong> 2</li>
+                        <li><strong>OR Gates:</strong> 2</li>
+                        <li><strong>Total Gates:</strong> 4</li>
                     </ul>
                 </div>
                 
@@ -310,7 +346,7 @@ N10 --> N11
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>hash</li><li>table</li><li>operations</li>
+                        <li>hash table</li><li>open addressing</li><li>collision resolution</li><li>load factor</li><li>rehashing</li>
                     </ul>
                 </div>
                 
@@ -321,43 +357,23 @@ N10 --> N11
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>The Art of Computer Programming, Vol. 3: Sorting and Searching (2nd ed.)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Knuth, D. E.
+                            , Addison-Wesley
+                             (1998)
                             </span>
                             
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #9b59b6; font-size: 0.85em;">View Source</a>
+                            <br><a href="https://www-cs-faculty.stanford.edu/~knuth/taocp.html" target="_blank" style="color: #9b59b6; font-size: 0.85em;">View Source</a>
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Distributed Hash Table</strong>
-                            
-                            , SpringerReference
-                             (None)
+                            <strong>Introduction to Algorithms (4th ed.)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Cormen, T. H.; Leiserson, C. E.; Rivest, R. L.; Stein, C.
+                            , MIT Press
+                             (2022)
                             </span>
-                            <br><a href="https://doi.org/10.1007/springerreference_64148" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.1007/springerreference_64148</a>
                             
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>hash-table search</strong>
-                            
-                            , SpringerReference
-                             (None)
-                            </span>
-                            <br><a href="https://doi.org/10.1007/springerreference_15658" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.1007/springerreference_15658</a>
-                            
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Table 6: Impact of hash layer, hash code length and loss function on model performance.</strong>
-                            
-                            
-                             (None)
-                            </span>
-                            <br><a href="https://doi.org/10.7717/peerjcs.2545/table-6" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.7717/peerjcs.2545/table-6</a>
-                            
+                            <br><a href="https://mitpress.mit.edu/9780262046305/introduction-to-algorithms/" target="_blank" style="color: #9b59b6; font-size: 0.85em;">View Source</a>
                         </li>
                         
                     </ul>

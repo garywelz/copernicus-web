@@ -1,0 +1,43 @@
+{
+  "id": "arxiv_2605.08060v1",
+  "arxiv_id": "2605.08060v1",
+  "title": "The Memory Curse: How Expanded Recall Erodes Cooperative Intent in LLM Agents",
+  "authors": [
+    "Jiayuan Liu",
+    "Tianqin Li",
+    "Shiyi Du",
+    "Xin Luo",
+    "Haoxuan Zeng",
+    "Emanuel Tewolde",
+    "Tai Sing Lee",
+    "Tonghan Wang",
+    "Carl Kingsford",
+    "Vincent Conitzer"
+  ],
+  "author_string": "Jiayuan Liu, Tianqin Li, Shiyi Du, Xin Luo, Haoxuan Zeng et al.",
+  "journal": "arXiv:2605.08060v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Context window expansion is often treated as a straightforward capability upgrade for LLMs, but we find it systematically fails in multi-agent social dilemmas. Across 7 LLMs and 4 games over 500 rounds, expanding accessible history degrades cooperation in 18 of 28 model--game settings, a pattern we term the memory curse. We isolate the underlying mechanism through three analyses. First, lexical analysis of 378,000 reasoning traces associates this breakdown with eroding forward-looking intent rather than rising paranoia. We validate this using targeted fine-tuning as a cognitive probe: a LoRA adapter trained exclusively on forward-looking traces mitigates the decay and transfers zero-shot to distinct games. Second, memory sanitization holds prompt length fixed while replacing visible history with synthetic cooperative records, which restores cooperation substantially, proving the trigger is memory content, not length alone. Finally, ablating explicit Chain-of-Thought reasoning often reduces the collapse, showing that deliberation paradoxically amplifies the memory curse. Together, these results recast memory as an active determinant of multi-agent behavior: longer recall can either destabilize or support cooperation depending on the reasoning patterns it elicits.",
+  "categories": [
+    "cs.CL",
+    "cs.AI",
+    "cs.GT",
+    "cs.MA"
+  ],
+  "primary_category": "cs.MA",
+  "comment": null,
+  "published_date": "2026-05-08T17:47:13Z",
+  "updated_date": "2026-05-08T17:47:13Z",
+  "url": "https://arxiv.org/abs/2605.08060v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.08060v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-10T22:17:15.396358",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CL",
+    "cs.AI",
+    "cs.GT"
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "id": "number_theory-miller-rabin",
+  "name": "Miller–Rabin Primality Test",
+  "category": "mathematics",
+  "subcategory": "number_theory",
+  "subcategory_name": "Number Theory",
+  "description": "Stronger than Fermat: write n−1 = 2^r·d (d odd). For each witness a, check a^d mod n and a^(2^j·d) for j=0..r−1. If a^d ≡ ±1 or some a^(2^j·d) ≡ −1, n is strong probable prime. Else composite. No Carmichael failures; error prob ≤ 4^−k for k rounds. O(k log³ n). Used in practice (OpenSSL, etc.).",
+  "mermaid": "graph TD\n    A[\"Input: n, rounds k\"]\n    B[\"n even/small? → composite/trivial\"]\n    C[\"Write n−1 = 2^r · d\"]\n    D[\"Pick witness a\"]\n    E[\"Compute a^d, a^2d, ..., a^n−1 mod n\"]\n    F{\"Strong pseudoprime\\ncondition?\"}\n    G[\"Composite\"]\n    H[\"Probably prime\"]\n    A --> B\n    B --> C\n    C --> D\n    D --> E\n    E --> F\n    F -->|No| G\n    F -->|Yes| H\n    classDef red fill:#ff6b6b,color:#fff\n    classDef green fill:#51cf66,color:#fff\n    classDef lavender fill:#e6e6fa,color:#333\n    class A red\n    class B,C,D,E,H green\n    class F lavender\n    class G red",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "algorithm"
+}

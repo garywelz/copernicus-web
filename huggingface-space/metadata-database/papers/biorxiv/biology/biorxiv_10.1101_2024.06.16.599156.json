@@ -1,0 +1,43 @@
+{
+  "id": "biorxiv_10.1101_2024.06.16.599156",
+  "doi": "10.1101/2024.06.16.599156",
+  "title": "Improving the Robustness of Phylogenetic Independent Contrasts: Addressing Abrupt Evolutionary Shifts with Outlier- and Distribution-Guided Correlation",
+  "authors": [
+    "Chen, Z.-L.",
+    "Huang, R.",
+    "Guo, H.-J.",
+    "Niu, D.-K."
+  ],
+  "author_string": "Chen, Z.-L., Huang, R., Guo, H.-J., Niu, D.-K.",
+  "journal": "bioRxiv",
+  "journal_full": "bioRxiv",
+  "year": "2026",
+  "abstract": "Traditional phylogenetically aware correlation methods perform well under gradual evolutionary processes. However, abrupt evolutionary shifts--or macroevolutionary jumps, characteristic of punctuated evolution--can produce extreme phylogenetically independent contrasts (PIC), leading to inflated false positives or increased false negatives in trait correlation analyses. We introduce O(D)GC (Outlier-and Distribution-Guided Correlation), a flexible workflow that identifies outliers in PICs using a distribution-free boxplot criterion and applies Spearman correlation whenever influential outliers are detected. If no outliers are detected, Pearson correlation is used--automatically for large datasets (n [&ge;] 30), or guided by normality testing in smaller samples. We systematically compared PIC-O(D)GC with five widely applied phylogenetic correlation methods--PIC-Pearson, PIC-MM, PGLS (phylogenetic generalized least squares), MR-PMM (multi-response phylogenetic mixed model), and Corphylo--on 322,000 simulated datasets spanning five evolutionary scenarios (two shift settings: single-trait shifts and dual-trait co-directional jumps; and three no-shift gradual evolution settings), including both fixed-depth and randomly located shifts, tested across 11 shift or noise gradients, three tree sizes (16, 128, 256 tips), and both balanced and random topologies. Overall, PIC-O(D)GC achieved error rates comparable to--or noticeably higher than--those of PIC-MM, while yielding substantially lower error rates than most alternative methods. Under no-shift conditions, it retained power similar to other methods.\n\nAnalyses of three empirical datasets likewise showed that PIC-O(D)GC and PIC-MM corrected shift-induced distortions that misled conventional methods. Moreover, PIC-O(D)GC offers a conceptually simple framework and incurs markedly lower computational cost. By design, its correlation-only output provides less mechanistic detail than regression-based approaches like PGLS. However, when paired with PIC diagnostics, this outlier-guided strategy highlights evolutionary jumps, distinguishes coupled from decoupled shifts, and--via clade partitioning or tip pruning--recovers background correlations, offering biologically informative insights into how punctuated events interact with gradual trends in trait evolution.",
+  "keywords": [],
+  "categories": [
+    "evolutionary biology"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.1101/2024.06.16.599156",
+  "source": "biorxiv",
+  "sources": [
+    "biorxiv"
+  ],
+  "acquired_date": "2026-05-16T22:15:25.141549",
+  "category": "biology",
+  "subcategories": [
+    "evolutionary biology"
+  ],
+  "published_date": "2026-01-16",
+  "updated_date": "2026-01-16",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "biorxiv",
+  "preprint_version": "4",
+  "preprint_type": "new results",
+  "license": "cc_by",
+  "jatsxml": "https://www.biorxiv.org/content/early/2026/01/16/2024.06.16.599156.source.xml",
+  "published_doi": "10.1093/sysbio/syag024",
+  "author_corresponding": "Deng-Ke Niu",
+  "author_corresponding_institution": "Beijing Normal University"
+}

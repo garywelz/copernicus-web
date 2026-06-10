@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UV-Vis Spectroscopy - Chemistry Process</title>
+    <title>QM/MM Multiscale Modeling - Chemistry Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>UV-Vis Spectroscopy</h1>
+            <h1>QM/MM Multiscale Modeling</h1>
             <div class="header-meta">
                 <span class="meta-item">Chemistry</span>
                 <span class="meta-item">Computational Chemistry</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,68 +234,60 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>UV-Vis Spectroscopy process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>QM/MM partitions a large system into a small quantum region treated with electronic structure and a classical force-field environment; link atoms handle the boundary and electrostatic embedding couples the regions, enabling reactions in enzymes or solution.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-A1[Light Source] --> B1[UV-Vis Spectroscopy Method]
-C1[Sample Solution] --> D1[Wavelength Control]
-E1[Detector System] --> F1[Data Collection]
-B1 --> G1[Monochromator Setup]
-D1 --> H1[Wavelength Selection]
-F1 --> I1[Signal Processing]
-G1 --> J1[Light Dispersion]
-H1 --> K1[Wavelength Range]
-I1 --> L1[Absorbance Measurement]
-J1 --> M1[Light Transmission]
-K1 --> L1
-L1 --> N1[Electronic Transitions]
-M1 --> O1[Sample Irradiation]
-N1 --> P1[Absorption Process]
-O1 --> Q1[Spectroscopic Analysis]
-P1 --> R1[Absorbance Spectrum]
-Q1 --> S1[Peak Analysis]
-R1 --> T1[Concentration Determination]
-S1 --> U1[Beer's Law Analysis]
-T1 --> V1[Concentration Calculation]
-U1 --> W1[Spectroscopic Efficiency]
-V1 --> X1[Sample Characterization]
-W1 --> Y1[Process Optimization]
-X1 --> Z1[Final Absorption Spectrum]
-Y1 --> Z1
+    N1["Large system"]
+    N2["Partition QM vs MM"]
+    N3{"Reactive site in QM?"}
+    N4["Expand QM region"]
+    N5["Treat boundary (link atoms)"]
+    N6["QM electronic structure"]
+    N7["MM force-field environment"]
+    N8["Couple QM–MM (embedding)"]
+    N9["Energy + forces combined"]
+    N10["Optimize / run dynamics"]
+    N11["Multiscale property"]
 
-    style A1 fill:#ff6b6b,color:#fff
-    style C1 fill:#ff6b6b,color:#fff
-    style E1 fill:#ff6b6b,color:#fff
-    style B1 fill:#ffd43b,color:#000
-    style D1 fill:#ffd43b,color:#000
-    style F1 fill:#ffd43b,color:#000
-    style G1 fill:#ffd43b,color:#000
-    style H1 fill:#ffd43b,color:#000
-    style I1 fill:#ffd43b,color:#000
-    style J1 fill:#ffd43b,color:#000
-    style K1 fill:#ffd43b,color:#000
-    style L1 fill:#ffd43b,color:#000
-    style M1 fill:#51cf66,color:#fff
-    style N1 fill:#51cf66,color:#fff
-    style O1 fill:#51cf66,color:#fff
-    style P1 fill:#51cf66,color:#fff
-    style Q1 fill:#51cf66,color:#fff
-    style R1 fill:#51cf66,color:#fff
-    style S1 fill:#51cf66,color:#fff
-    style T1 fill:#51cf66,color:#fff
-    style U1 fill:#51cf66,color:#fff
-    style V1 fill:#51cf66,color:#fff
-    style W1 fill:#51cf66,color:#fff
-    style X1 fill:#51cf66,color:#fff
-    style Y1 fill:#51cf66,color:#fff
-    style Z1 fill:#b197fc,color:#fff
+    N1 --> N2
+    N2 --> N3
+    N3 -->|no| N4
+    N4 -->|repartition| N2
+    N3 -->|yes| N5
+    N5 --> N6
+    N5 --> N7
+    N6 --> N8
+    N7 --> N8
+    N8 --> N9
+    N9 --> N10
+    N10 --> N11
+
+    style N1 fill:#ff6b6b,color:#fff
+    style N2 fill:#51cf66,color:#fff
+    style N3 fill:#74c0fc,color:#fff
+    style N4 fill:#51cf66,color:#fff
+    style N5 fill:#51cf66,color:#fff
+    style N6 fill:#51cf66,color:#fff
+    style N7 fill:#51cf66,color:#fff
+    style N8 fill:#51cf66,color:#fff
+    style N9 fill:#74c0fc,color:#fff
+    style N10 fill:#51cf66,color:#fff
+    style N11 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Large system</td><td>Triggers & Inputs</td><td><a href="https://doi.org/10.1016/0022-2836(76)90311-9" target="_blank" title="Theoretical studies of enzymic reactions (QM/MM)" style="color:#e74c3c;">Warshel, A. et al. 1976</a></td></tr><tr><td style="font-weight:600;">Partition QM vs MM</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1002/anie.200802019" target="_blank" title="QM/MM methods for biomolecular systems" style="color:#e74c3c;">Senn, H. M. et al. 2009</a></td></tr><tr><td style="font-weight:600;">Reactive site in QM?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1002/anie.200802019" target="_blank" title="QM/MM methods for biomolecular systems" style="color:#e74c3c;">Senn, H. M. et al. 2009</a></td></tr><tr><td style="font-weight:600;">Expand QM region</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1002/anie.200802019" target="_blank" title="QM/MM methods for biomolecular systems" style="color:#e74c3c;">Senn, H. M. et al. 2009</a></td></tr><tr><td style="font-weight:600;">Treat boundary (link atoms)</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1002/anie.200802019" target="_blank" title="QM/MM methods for biomolecular systems" style="color:#e74c3c;">Senn, H. M. et al. 2009</a></td></tr><tr><td style="font-weight:600;">QM electronic structure</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1016/0022-2836(76)90311-9" target="_blank" title="Theoretical studies of enzymic reactions (QM/MM)" style="color:#e74c3c;">Warshel, A. et al. 1976</a></td></tr><tr><td style="font-weight:600;">MM force-field environment</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1016/0022-2836(76)90311-9" target="_blank" title="Theoretical studies of enzymic reactions (QM/MM)" style="color:#e74c3c;">Warshel, A. et al. 1976</a></td></tr><tr><td style="font-weight:600;">Couple QM–MM (embedding)</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1002/anie.200802019" target="_blank" title="QM/MM methods for biomolecular systems" style="color:#e74c3c;">Senn, H. M. et al. 2009</a></td></tr><tr><td style="font-weight:600;">Energy + forces combined</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1016/0022-2836(76)90311-9" target="_blank" title="Theoretical studies of enzymic reactions (QM/MM)" style="color:#e74c3c;">Warshel, A. et al. 1976</a></td></tr><tr><td style="font-weight:600;">Optimize / run dynamics</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1002/anie.201403689" target="_blank" title="Multiscale modeling of biological functions: from enzymes to molecular machines (Nobel Lecture)" style="color:#e74c3c;">Warshel, A. 2014</a></td></tr><tr><td style="font-weight:600;">Multiscale property</td><td>Products & Outputs</td><td><a href="https://doi.org/10.1002/anie.201403689" target="_blank" title="Multiscale modeling of biological functions: from enzymes to molecular machines (Nobel Lecture)" style="color:#e74c3c;">Warshel, A. 2014</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -314,12 +333,12 @@ Y1 --> Z1
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 26</li>
-                        <li><strong>Edges:</strong> 22</li>
-                        <li><strong>Conditionals:</strong> 0</li>
-                        <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 1</li>
+                        <li><strong>Nodes:</strong> 11</li>
+                        <li><strong>Edges:</strong> 12</li>
+                        <li><strong>Conditionals:</strong> 1</li>
+                        <li><strong>AND Gates:</strong> 2</li>
+                        <li><strong>OR Gates:</strong> 2</li>
+                        <li><strong>Total Gates:</strong> 4</li>
                     </ul>
                 </div>
                 
@@ -327,7 +346,7 @@ Y1 --> Z1
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>uv</li><li>vis</li><li>spectroscopy</li>
+                        <li>qm/mm</li><li>multiscale</li><li>embedding</li><li>link atoms</li><li>enzyme reaction</li>
                     </ul>
                 </div>
                 
@@ -338,42 +357,32 @@ Y1 --> Z1
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Theoretical studies of enzymic reactions (QM/MM)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Warshel, A.; Levitt, M.
+                            , Journal of Molecular Biology
+                             (1976)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Analytical Applications of UV-VIS Spectroscopy</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Perkampus, Heinz-Helmut
-                            , UV-VIS Spectroscopy and Its Applications
-                             (1992)
-                            </span>
-                            <br><a href="https://doi.org/10.1007/978-3-642-77477-5_4" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1007/978-3-642-77477-5_4</a>
+                            <br><a href="https://doi.org/10.1016/0022-2836(76)90311-9" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1016/0022-2836(76)90311-9</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Recent Developments in UV-VIS Spectroscopy</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Perkampus, Heinz-Helmut
-                            , UV-VIS Spectroscopy and Its Applications
-                             (1992)
+                            <strong>QM/MM methods for biomolecular systems</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Senn, H. M.; Thiel, W.
+                            , Angewandte Chemie International Edition
+                             (2009)
                             </span>
-                            <br><a href="https://doi.org/10.1007/978-3-642-77477-5_5" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1007/978-3-642-77477-5_5</a>
+                            <br><a href="https://doi.org/10.1002/anie.200802019" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1002/anie.200802019</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Applikationsbroschüre zur UV/Vis und UV/Vis/NIR-Spektroskopie / Application brochure on UV/Vis and UV/Vis/NIR spectroscopy</strong>
-                            
-                            , Tenside Surfactants Detergents
-                             (1995)
+                            <strong>Multiscale modeling of biological functions: from enzymes to molecular machines (Nobel Lecture)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Warshel, A.
+                            , Angewandte Chemie International Edition
+                             (2014)
                             </span>
-                            <br><a href="https://doi.org/10.1515/tsd-1995-320317" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1515/tsd-1995-320317</a>
+                            <br><a href="https://doi.org/10.1002/anie.201403689" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1002/anie.201403689</a>
                             
                         </li>
                         

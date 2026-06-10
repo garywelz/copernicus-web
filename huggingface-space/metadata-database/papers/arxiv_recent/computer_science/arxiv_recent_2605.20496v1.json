@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2605.20496v1",
+  "arxiv_id": "2605.20496v1",
+  "title": "Platonic Representations in the Human Brain: Unsupervised Recovery of Universal Geometry",
+  "authors": [
+    "Pablo Marcos-Manchón",
+    "Rishi Jha",
+    "Lluís Fuentemilla"
+  ],
+  "author_string": "Pablo Marcos-Manchón, Rishi Jha, Lluís Fuentemilla",
+  "journal": "arXiv:2605.20496v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "The Strong Platonic Representation Hypothesis suggests that representational convergence in artificial neural networks can be harnessed constructively: embeddings can be translated across models through a universal latent space without paired data. We ask whether an analogous geometry can be recovered across human brains. Using fMRI data from the Natural Scenes Dataset, we propose a self-supervised encoder that learns subject-specific embeddings from brain data alone by exploiting repeated stimulus presentations. We show that these independently learned spaces can be translated across subjects using unsupervised orthogonal rotations, without paired cross-subject samples or intermediate model representations. Synchronizing pairwise rotations into a single shared latent space further improves cross-subject retrieval, indicating that subject-specific spaces are mutually compatible with a common coordinate system. These results provide evidence for a shared neural geometry in the human visual cortex: subject-specific fMRI representations are approximately isometric across individuals and can be translated through purely geometric transformations.",
+  "categories": [
+    "q-bio.NC",
+    "cs.CV"
+  ],
+  "primary_category": "cs.CV",
+  "comment": "Code available at https://github.com/memory-formation/platonic-representations-fmri",
+  "published_date": "2026-05-19T21:04:15Z",
+  "updated_date": "2026-05-19T21:04:15Z",
+  "url": "https://arxiv.org/abs/2605.20496v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.20496v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-26T10:15:35.457283",
+  "category": "computer_science",
+  "subcategories": [
+    "q-bio.NC",
+    "cs.CV"
+  ]
+}

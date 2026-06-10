@@ -1,0 +1,39 @@
+{
+  "id": "partial_differential_equations-wellposed",
+  "name": "Well-Posedness",
+  "category": "mathematics",
+  "subcategory": "partial_differential_equations",
+  "subcategory_name": "Partial Differential Equations",
+  "description": "Hadamard: existence, uniqueness, continuous dependence. Cauchy–Kowalevski. Energy estimates. Lax–Milgram.",
+  "mermaid": "graph TD\n    D1[\"Def: Well-posed\\n exist, unique, cont dep\"]\n    D2[\"Def: Cauchy problem\\ninit data on surface\"]\n    D3[\"Def: Ill-posed\\nviolates Hadamard\"]\n    D4[\"Def: Energy estimate\\n‖u‖ ≤ C‖data‖\"]\n    T1[\"Thm: Cauchy–Kowalevski\\nanalytic ⇒ analytic soln\"]\n    T2[\"Thm: Hadamard ex\\nLaplace Cauchy ill-posed\"]\n    T3[\"Thm: Energy est\\nparab/hyp stability\"]\n    T4[\"Thm: Lax–Milgram\\nelliptic in Hilbert\"]\n    T5[\"Thm: Semigroup\\n evolution well-posed\"]\n    D1 --> T4\n    D2 --> T1\n    D3 --> T2\n    D4 --> T3\n    T3 --> D1\n    T4 --> D1\n    T5 --> D1\n    classDef definition fill:#b197fc,color:#fff\n    classDef theorem fill:#51cf66,color:#fff\n    class D1,D2,D3,D4 definition\n    class T1,T2,T3,T4,T5 theorem",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

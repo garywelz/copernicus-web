@@ -1,0 +1,30 @@
+{
+  "id": "arxiv_2604.22887v1",
+  "arxiv_id": "2604.22887v1",
+  "title": "StackFeat: a convergent algorithm for optimal predictor selection in genomic data",
+  "authors": [
+    "Akbar Yermekov",
+    "D. A. Herrera-Martí"
+  ],
+  "author_string": "Akbar Yermekov, D. A. Herrera-Martí",
+  "journal": "arXiv:2604.22887v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "In high-dimensional genomic data, the curse of dimensionality (d >> n) and limited sampling make feature selection inherently unstable - a critical barrier to biomarker discovery. We introduce StackFeat, an iterative algorithm that accumulates two statistics across repeated cross-validation: signed coefficients (measuring effect strength and direction) and selection frequencies (estimating selection probability). Only features ranking highly by both criteria are retained. On a COVID-19 miRNA dataset (GSE240888), StackFeat identified a stable 5-miRNA signature from 332 features (98.5% reduction), achieving AUC 0.922, significantly outperforming the benchmark 9-gene set (AUC 0.907, p = 0.0016). The signature includes hsa-miR-150-5p, a marker implicated in both COVID-19 survival and Dengue infection. This dual-criterion approach provides convergence guarantees absent in single-criterion methods, enabling discovery of known biomarkers, novel candidates, and previously unknown relationships.   Keywords: marker selection, feature selection, bioinformatics, dimensionality reduction, robust algorithm, stacking, miRNA, COVID-19",
+  "categories": [
+    "q-bio.OT"
+  ],
+  "primary_category": "q-bio.OT",
+  "comment": "10 pages. Presented at 16th International Conference on Bioscience, Biochemistry and Bioinformatics (ICBBB Kobe 2026)",
+  "published_date": "2026-04-24T09:00:28Z",
+  "updated_date": "2026-04-24T09:00:28Z",
+  "url": "https://arxiv.org/abs/2604.22887v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.22887v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-04T10:15:36.487477",
+  "category": "biology",
+  "subcategories": [
+    "q-bio.OT"
+  ]
+}

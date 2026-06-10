@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2605.02789v1",
+  "arxiv_id": "2605.02789v1",
+  "title": "FunFuzz: An LLM-Powered Evolutionary Fuzzing Framework",
+  "authors": [
+    "Mario Rodríguez Béjar",
+    "B. Romera-Paredes",
+    "Jose L. Hernández-Ramos"
+  ],
+  "author_string": "Mario Rodríguez Béjar, B. Romera-Paredes, Jose L. Hernández-Ramos",
+  "journal": "arXiv:2605.02789v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Modern fuzzers increasingly use Large Language Models (LLMs) to generate structured inputs, but LLM-driven fuzzing is sensitive to prompt initialization and sampling variance, which can reduce exploration efficiency and lead to redundant inputs. We present FunFuzz, a multi-island evolutionary fuzzing framework that runs several isolated searches in parallel and periodically migrates high-value candidates to maintain diversity. FunFuzz derives initial generation prompts from documentation and initializes islands with topic-specific instructions, then continuously adapts prompts using feedback-guided selection. During fuzzing, candidates are prioritized by incremental compiler coverage, while compiler-internal failure signals are used to identify crash-inducing inputs. We evaluate FunFuzz on compiler fuzzing, where inputs are source programs and success is measured by compiler coverage and unique compiler-internal failures. Across repeated 24-hour campaigns on GCC and Clang, FunFuzz achieves higher compiler coverage than previous LLM-driven baselines and discovers more unique failure-triggering inputs.",
+  "categories": [
+    "cs.CR",
+    "cs.CL"
+  ],
+  "primary_category": "cs.CL",
+  "comment": "19 pages, 12 figures, 12 tables",
+  "published_date": "2026-05-04T16:30:47Z",
+  "updated_date": "2026-05-04T16:30:47Z",
+  "url": "https://arxiv.org/abs/2605.02789v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.02789v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-05T10:15:47.087467",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CR",
+    "cs.CL"
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "id": "statistics_probability-law-of-large-numbers",
+  "name": "Law of Large Numbers — Mathematics Process",
+  "category": "mathematics",
+  "subcategory": "statistics_probability",
+  "subcategory_name": "Statistics & Probability",
+  "description": "Sample average converges to expectation. Weak LLN (convergence in probability); Strong LLN (almost sure). Foundation for frequentist inference.",
+  "mermaid": "graph TD\n    D1[\"Def: Expectation E(X)\\n∫ X dP\"]\n    D2[\"Def: Conv in probability\\nXₙ →ᵖ X\"]\n    D3[\"Def: Almost sure conv\\nXₙ → X a.s.\"]\n    T1[\"Thm: Weak LLN\\nSₙ/n →ᵖ μ\\ni.i.d. finite mean\"]\n    T2[\"Thm: Strong LLN\\nKolmogorov\\nSₙ/n → μ a.s.\\ni.i.d. finite var\"]\n    T3[\"Thm: Etemadi LLN\\nSₙ/n → μ a.s.\\nequal marginal dist\"]\n    T4[\"Thm: Ergodic theorem\\nBirkhoff: time avg → space avg\"]\n    L1[\"Lemma: Borel–Cantelli\"]\n    D1 --> T1\n    D1 --> T2\n    D2 --> T1\n    D3 --> T2\n    D1 --> T3\n    D3 --> T3\n    T2 --> T4\n    L1 --> T2\n    classDef definition fill:#b197fc,color:#fff\n    classDef theorem fill:#51cf66,color:#fff\n    classDef lemma fill:#74c0fc,color:#fff\n    class D1,D2,D3 definition\n    class T1,T2,T3,T4 theorem\n    class L1 lemma",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

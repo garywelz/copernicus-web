@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2604.18872v1",
+  "arxiv_id": "2604.18872v1",
+  "title": "Meeting times on graphs in near-cubic time",
+  "authors": [
+    "Alex McAvoy"
+  ],
+  "author_string": "Alex McAvoy",
+  "journal": "arXiv:2604.18872v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "The expected meeting time of two random walkers on an undirected graph of size $N$, where at each time step one walker moves and the process stops when they collide, satisfies a system of $\\binom{N}{2}$ linear equations. Naïvely, solving this system takes $O\\left(N^{6}\\right)$ operations. However, this system of linear equations has nice structure in that it is almost a Sylvester equation, with the obstruction being a diagonal absorption constraint. We give a simple algorithm for solving this system that exploits this structure, leading to $O\\left(N^{4}\\right)$ operations and $Θ\\left(N^{2}\\right)$ space for exact computation of all $\\binom{N}{2}$ meeting times. While this practical method uses only standard dense linear algebra, it can be improved (in theory) to $O\\left(N^{3}\\log^{2}N\\right)$ operations by exploiting the Cauchy structure of the diagonal correction. We generalize this result slightly to cover the Poisson equation for the absorbing \"lazy\" pair walk with an arbitrary source, which can be solved at the same cost, with $O\\left(N^{3}\\right)$ per additional source on the same graph. We conclude with applications to evolutionary dynamics, giving improved algorithms for calculating fixation probabilities and mean trait frequencies.",
+  "categories": [
+    "q-bio.PE",
+    "cs.DS"
+  ],
+  "primary_category": "cs.DS",
+  "comment": "11 pages",
+  "published_date": "2026-04-20T21:53:06Z",
+  "updated_date": "2026-04-20T21:53:06Z",
+  "url": "https://arxiv.org/abs/2604.18872v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.18872v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-29T10:15:37.219118",
+  "category": "computer_science",
+  "subcategories": [
+    "q-bio.PE",
+    "cs.DS"
+  ]
+}

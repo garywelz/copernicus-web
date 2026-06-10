@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reaction Mechanisms - Chemistry Process</title>
+    <title>Elementary Steps & Rate-Determining Step - Chemistry Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Reaction Mechanisms</h1>
+            <h1>Elementary Steps & Rate-Determining Step</h1>
             <div class="header-meta">
                 <span class="meta-item">Chemistry</span>
                 <span class="meta-item">Kinetics</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,68 +234,57 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Reaction Mechanisms process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>Build a mechanism from elementary steps and intermediates, derive the rate law either from a clear rate-determining step or via the steady-state approximation, and accept the mechanism only if its predicted rate law matches experiment.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-A1[Reactant Molecules] --> B1[Reaction Mechanism Method]
-C1[Energy Barrier] --> D1[Transition State Analysis]
-E1[Reaction Conditions] --> F1[Temperature Control]
-B1 --> G1[Mechanism Elucidation]
-D1 --> H1[Barrier Height]
-F1 --> I1[Thermal Energy]
-G1 --> J1[Elementary Steps]
-H1 --> K1[Activation Energy]
-I1 --> L1[Energy Distribution]
-J1 --> M1[Step Identification]
-K1 --> L1
-L1 --> N1[Energy Transfer]
-M1 --> O1[Intermediate Formation]
-N1 --> P1[Reaction Progress]
-O1 --> Q1[Mechanistic Analysis]
-P1 --> R1[Product Formation]
-Q1 --> S1[Step Kinetics]
-R1 --> T1[Mechanism Validation]
-S1 --> U1[Rate Determination]
-T1 --> V1[Mechanism Confirmation]
-U1 --> W1[Kinetic Analysis]
-V1 --> X1[Mechanism Characterization]
-W1 --> Y1[Process Optimization]
-X1 --> Z1[Final Reaction Mechanism]
-Y1 --> Z1
+    N1["Overall reaction"]
+    N2["Propose elementary steps"]
+    N3["Identify intermediates"]
+    N4{"Clear slow step?"}
+    N5["Rate law from RDS"]
+    N6["Steady-state approximation"]
+    N7["Derive rate law"]
+    N8{"Matches experiment?"}
+    N9["Revise mechanism"]
+    N10["Accepted mechanism"]
 
-    style A1 fill:#ff6b6b,color:#fff
-    style C1 fill:#ff6b6b,color:#fff
-    style E1 fill:#ff6b6b,color:#fff
-    style B1 fill:#ffd43b,color:#000
-    style D1 fill:#ffd43b,color:#000
-    style F1 fill:#ffd43b,color:#000
-    style G1 fill:#ffd43b,color:#000
-    style H1 fill:#ffd43b,color:#000
-    style I1 fill:#ffd43b,color:#000
-    style J1 fill:#ffd43b,color:#000
-    style K1 fill:#ffd43b,color:#000
-    style L1 fill:#ffd43b,color:#000
-    style M1 fill:#51cf66,color:#fff
-    style N1 fill:#51cf66,color:#fff
-    style O1 fill:#51cf66,color:#fff
-    style P1 fill:#51cf66,color:#fff
-    style Q1 fill:#51cf66,color:#fff
-    style R1 fill:#51cf66,color:#fff
-    style S1 fill:#51cf66,color:#fff
-    style T1 fill:#51cf66,color:#fff
-    style U1 fill:#51cf66,color:#fff
-    style V1 fill:#51cf66,color:#fff
-    style W1 fill:#51cf66,color:#fff
-    style X1 fill:#51cf66,color:#fff
-    style Y1 fill:#51cf66,color:#fff
-    style Z1 fill:#b197fc,color:#fff
+    N1 --> N2
+    N2 --> N3
+    N3 --> N4
+    N4 -->|yes| N5
+    N4 -->|no| N6
+    N6 --> N7
+    N5 --> N8
+    N7 --> N8
+    N8 -->|no| N9
+    N9 -->|iterate| N2
+    N8 -->|yes| N10
+
+    style N1 fill:#ff6b6b,color:#fff
+    style N2 fill:#51cf66,color:#fff
+    style N3 fill:#74c0fc,color:#fff
+    style N4 fill:#74c0fc,color:#fff
+    style N5 fill:#51cf66,color:#fff
+    style N6 fill:#51cf66,color:#fff
+    style N7 fill:#51cf66,color:#fff
+    style N8 fill:#74c0fc,color:#fff
+    style N9 fill:#51cf66,color:#fff
+    style N10 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Overall reaction</td><td>Triggers & Inputs</td><td><a href="https://search.worldcat.org/title/14905898" target="_blank" title="Chemical Kinetics, 3rd ed. — Reaction Mechanisms" style="color:#e74c3c;">Laidler, K. J. 1987</a></td></tr><tr><td style="font-weight:600;">Propose elementary steps</td><td>Processing & Operations</td><td><a href="https://search.worldcat.org/title/14905898" target="_blank" title="Chemical Kinetics, 3rd ed. — Reaction Mechanisms" style="color:#e74c3c;">Laidler, K. J. 1987</a></td></tr><tr><td style="font-weight:600;">Identify intermediates</td><td>Intermediates & States</td><td><a href="https://search.worldcat.org/title/14905898" target="_blank" title="Chemical Kinetics, 3rd ed. — Reaction Mechanisms" style="color:#e74c3c;">Laidler, K. J. 1987</a></td></tr><tr><td style="font-weight:600;">Clear slow step?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1351/goldbook.R05139" target="_blank" title="Gold Book: rate-determining step" style="color:#e74c3c;">IUPAC 2019</a></td></tr><tr><td style="font-weight:600;">Rate law from RDS</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1351/goldbook.R05139" target="_blank" title="Gold Book: rate-determining step" style="color:#e74c3c;">IUPAC 2019</a></td></tr><tr><td style="font-weight:600;">Steady-state approximation</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1351/goldbook.S05962" target="_blank" title="Gold Book: steady-state approximation" style="color:#e74c3c;">IUPAC 2019</a></td></tr><tr><td style="font-weight:600;">Derive rate law</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1351/goldbook.S05962" target="_blank" title="Gold Book: steady-state approximation" style="color:#e74c3c;">IUPAC 2019</a></td></tr><tr><td style="font-weight:600;">Matches experiment?</td><td>Intermediates & States</td><td><a href="https://search.worldcat.org/title/14905898" target="_blank" title="Chemical Kinetics, 3rd ed. — Reaction Mechanisms" style="color:#e74c3c;">Laidler, K. J. 1987</a></td></tr><tr><td style="font-weight:600;">Revise mechanism</td><td>Processing & Operations</td><td><a href="https://search.worldcat.org/title/14905898" target="_blank" title="Chemical Kinetics, 3rd ed. — Reaction Mechanisms" style="color:#e74c3c;">Laidler, K. J. 1987</a></td></tr><tr><td style="font-weight:600;">Accepted mechanism</td><td>Products & Outputs</td><td><a href="https://search.worldcat.org/title/14905898" target="_blank" title="Chemical Kinetics, 3rd ed. — Reaction Mechanisms" style="color:#e74c3c;">Laidler, K. J. 1987</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -314,12 +330,12 @@ Y1 --> Z1
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 26</li>
-                        <li><strong>Edges:</strong> 22</li>
-                        <li><strong>Conditionals:</strong> 0</li>
-                        <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 1</li>
+                        <li><strong>Nodes:</strong> 10</li>
+                        <li><strong>Edges:</strong> 11</li>
+                        <li><strong>Conditionals:</strong> 2</li>
+                        <li><strong>AND Gates:</strong> 2</li>
+                        <li><strong>OR Gates:</strong> 2</li>
+                        <li><strong>Total Gates:</strong> 4</li>
                     </ul>
                 </div>
                 
@@ -327,7 +343,7 @@ Y1 --> Z1
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>reaction</li><li>mechanisms</li>
+                        <li>elementary step</li><li>rate-determining step</li><li>steady-state approximation</li><li>intermediate</li><li>mechanism</li>
                     </ul>
                 </div>
                 
@@ -338,42 +354,32 @@ Y1 --> Z1
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Chemical Kinetics, 3rd ed. — Reaction Mechanisms</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Laidler, K. J.
+                            , Harper & Row
+                             (1987)
                             </span>
                             
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
+                            <br><a href="https://search.worldcat.org/title/14905898" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Reaction Mechanisms of Organometallic Systems</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Jordan, Robert B.
-                            , Reaction Mechanisms of Inorganic and Organometallic Systems
-                             (2007)
+                            <strong>Gold Book: rate-determining step</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">IUPAC
+                            , IUPAC Compendium of Chemical Terminology
+                             (2019)
                             </span>
-                            <br><a href="https://doi.org/10.1093/oso/9780195301007.003.0007" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1093/oso/9780195301007.003.0007</a>
-                            
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Frontmatter</strong>
-                            
-                            , Organic Reaction Mechanisms Series
-                             (None)
-                            </span>
-                            <br><a href="https://doi.org/10.1002/9780470318874.fmatter" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1002/9780470318874.fmatter</a>
+                            <br><a href="https://doi.org/10.1351/goldbook.R05139" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1351/goldbook.R05139</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Frontmatter</strong>
-                            
-                            , Organic Reaction Mechanisms Series
-                             (None)
+                            <strong>Gold Book: steady-state approximation</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">IUPAC
+                            , IUPAC Compendium of Chemical Terminology
+                             (2019)
                             </span>
-                            <br><a href="https://doi.org/10.1002/9780470066775.fmatter" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1002/9780470066775.fmatter</a>
+                            <br><a href="https://doi.org/10.1351/goldbook.S05962" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1351/goldbook.S05962</a>
                             
                         </li>
                         

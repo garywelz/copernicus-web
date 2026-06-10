@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2605.24520v1",
+  "arxiv_id": "2605.24520v1",
+  "title": "AnnotateMissense: a genome-wide annotation and benchmarking framework for missense pathogenicity prediction",
+  "authors": [
+    "Muhammad Muneeb",
+    "David B. Ascher"
+  ],
+  "author_string": "Muhammad Muneeb, David B. Ascher",
+  "journal": "arXiv:2605.24520v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Missense variant interpretation remains challenging because pathogenicity depends on heterogeneous evidence from population frequency, evolutionary conservation, transcript context, amino acid substitution severity, prior pathogenicity predictors and protein-language-model-derived features. We present AnnotateMissense, a scalable annotation, benchmarking and genome-wide prediction framework for missense variant interpretation. AnnotateMissense integrates hg38 missense variants derived from dbNSFP v5.1 with ANNOVAR annotations, dbNSFP transcript/protein descriptors, AlphaMissense scores, ESM-derived features, conservation metrics, population-frequency variables, established pathogenicity predictors and engineered amino acid/codon-context features. Using 132,714 ClinVar-labelled missense variants, we benchmarked machine-learning and deep-learning models under controlled feature configurations. The full 303-feature benchmark set achieved the strongest performance with XGBoost, reaching mean MCC = 0.9411 and ROC-AUC = 0.9950 across stratified five-fold cross-validation. Restricted naive and location-oriented feature sets achieved lower best MCC values of 0.4989 and 0.5113, respectively. Circularity-controlled ablations showed that removing prior-predictor, population-frequency and clinically overlapping evidence reduced performance, whereas excluding AlphaMissense and ESM-derived features alone had minimal effect. Temporal ClinVar validation on newly observed pathogenic/benign variants achieved MCC = 0.7613, accuracy = 0.8798 and F1-score = 0.8750. The final model was applied to 90,643,830 hg38 missense variants to generate AnnotateMissense pathogenicity scores and binary prediction labels. Code and outputs are available at https://github.com/MuhammadMuneeb007/CAGI7_Annotate_All_Missense and https://doi.org/10.5281/zenodo.19981867.",
+  "categories": [
+    "q-bio.GN",
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": null,
+  "published_date": "2026-05-23T11:15:53Z",
+  "updated_date": "2026-05-23T11:15:53Z",
+  "url": "https://arxiv.org/abs/2605.24520v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.24520v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-26T10:15:35.453424",
+  "category": "computer_science",
+  "subcategories": [
+    "q-bio.GN",
+    "cs.LG"
+  ]
+}

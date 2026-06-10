@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2605.15938v1",
+  "arxiv_id": "2605.15938v1",
+  "title": "Clock-state olfactory search in turbulent flows using Q-learning: The geometry of plume recovery",
+  "authors": [
+    "Marco Rando",
+    "Robin A. Heinonen",
+    "Yujia Qi",
+    "Agnese Seminara"
+  ],
+  "author_string": "Marco Rando, Robin A. Heinonen, Yujia Qi, Agnese Seminara",
+  "journal": "arXiv:2605.15938v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Finding an odor source in a turbulent flow requires effectively leveraging the history of olfactory observations into a robust navigation strategy. In this work, we use tabular Q-learning to train an olfactory search agent with a minimal memory of past observations: only a running clock since the last whiff. This agent learns an interpretable strategy to recover the plume which combines well-known behaviors observed in insects: surging, casting, and a return downwind. While achieving good performance on data from direct numerical simulations of turbulence, the agent is limited by an inability to adapt its strategy to the local intermittency level; we show that providing more flexibility improves robustness.",
+  "categories": [
+    "physics.bio-ph",
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": "15 pages, 13 figures, 1 table",
+  "published_date": "2026-05-15T13:19:26Z",
+  "updated_date": "2026-05-15T13:19:26Z",
+  "url": "https://arxiv.org/abs/2605.15938v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.15938v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-18T10:15:54.223121",
+  "category": "computer_science",
+  "subcategories": [
+    "physics.bio-ph",
+    "cs.LG"
+  ]
+}

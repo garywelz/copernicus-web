@@ -1,0 +1,37 @@
+{
+  "id": "arxiv_2605.00511v1",
+  "arxiv_id": "2605.00511v1",
+  "title": "Pre-CAT: A web-based, graphical user-interface toolbox for preclinical CEST-MRI data processing and analysis",
+  "authors": [
+    "Jonah Weigand-Whittier",
+    "Samuel Rubin",
+    "Cindy Ayala",
+    "Mark Velasquez",
+    "Nikita Vladimirov",
+    "Hadas Avraham",
+    "Or Perlman",
+    "M. Roselle Abraham",
+    "Moriel H. Vandsburger"
+  ],
+  "author_string": "Jonah Weigand-Whittier, Samuel Rubin, Cindy Ayala, Mark Velasquez, Nikita Vladimirov et al.",
+  "journal": "arXiv:2605.00511v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Purpose: As interest in CEST-MRI grows, particularly in the preclinical setting, the necessity for standardized and easy-to-use acquisition and data analysis pipelines has become apparent. While vendors have increasingly introduced support for CEST acquisitions on both clinical and preclinical hardware, image post-processing and analysis pipelines remain siloed based on privately developed code. We aim to develop an easy-to-use, open-source graphical user interface toolbox for preclinical CEST-MRI data analysis (Preclinical CEST-MRI Analysis Tool; Pre-CAT), supporting multiple acquisition types, organ systems, and CEST contrast mechanisms. Methods: Pre-CAT was developed in Python and utilizes the Numpy, Scipy, and Matplotlib libraries for data analysis and plotting. Inbuilt data processing steps include image loading, reconstruction, post-processing, and segmentation. Pre-CAT also supports data analysis for QUESP, CEST-MRF, and field mapping experiments using consensus protocols and methods. Pre-CAT's web interface and GUI were developed using Streamlit, an open-source Python framework. Pre-CAT is hosted and accessible online and can be downloaded for local installation to complete the data analysis pipeline in roughly one minute using modern hardware. Results: Pre-CAT analysis pipelines for Z-spectroscopy, CEST-MRF, and quantitative CEST (QUESP/QUEST) are demonstrated. Conclusion: With the introduction of Pre-CAT, we aim to standardize the preclinical CEST-MRI data analysis pipeline, fostering collaboration across research sites and reducing methodological redundancy. Pre-CAT is open-source and relatively modular, encouraging the addition of new methods and protocols.",
+  "categories": [
+    "physics.med-ph"
+  ],
+  "primary_category": "physics.med-ph",
+  "comment": null,
+  "published_date": "2026-05-01T08:38:43Z",
+  "updated_date": "2026-05-01T08:38:43Z",
+  "url": "https://arxiv.org/abs/2605.00511v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.00511v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-04T10:15:47.169417",
+  "category": "physics",
+  "subcategories": [
+    "physics.med-ph"
+  ]
+}

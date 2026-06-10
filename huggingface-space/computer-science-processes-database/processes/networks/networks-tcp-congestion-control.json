@@ -4,18 +4,20 @@
   "category": "computer_science",
   "subcategory": "networks",
   "subcategory_name": "Computer Networks",
-  "description": "TCP Congestion Control process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "TCP congestion control regulates the sending rate via a congestion window: it begins in slow start with exponential growth, switches to linear congestion avoidance at the slow-start threshold, and on loss reacts differently to triple duplicate ACKs (fast retransmit and recovery) versus a timeout (reset window), seeking steady throughput.",
   "complexity": {
     "nodes": 11,
-    "edges": 11,
-    "conditionals": 0,
+    "edges": 13,
+    "conditionals": 3,
     "logicGates": {
-      "orGates": 1,
-      "andGates": 1,
-      "total": 2
+      "orGates": 3,
+      "andGates": 3,
+      "notGates": 0,
+      "total": 6
     },
-    "level": "medium",
-    "detailLevel": "medium"
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 2
   },
   "colorScheme": {
     "red": {
@@ -39,54 +41,169 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nN1[\"TCP Connection\"]\nN2[\"ACK/Loss Signals\"]\nN3[\"cwnd + ssthresh\"]\nN4[\"Choose Approach\"]\nN5[\"RTT Estimator\"]\nN6[\"Slow Start\"]\nN7[\"Congestion Avoidance\"]\nN8[\"Fast Recovery\"]\nN9[\"Integrate Results\"]\nN10[\"Stable Throughput\"]\nN11[\"Adaptive Send Rate\"]\n\nN1 --> N2\nN2 --> N3\nN3 --> N4\nN4 --> N5\nN4 --> N7\nN5 --> N6\nN7 --> N8\nN6 --> N9\nN8 --> N9\nN9 --> N10\nN10 --> N11\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#ff6b6b,color:#fff\n    style N3 fill:#ffd43b,color:#000\n    style N4 fill:#ffd43b,color:#000\n    style N5 fill:#ffd43b,color:#000\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#74c0fc,color:#fff\n    style N10 fill:#74c0fc,color:#fff\n    style N11 fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"TCP connection up\"]\n    N2[\"Slow start: cwnd=1\"]\n    N3[\"Exponential cwnd growth\"]\n    N4{\"Reached ssthresh?\"}\n    N5[\"Congestion avoidance\"]\n    N6{\"Packet loss detected?\"}\n    N7{\"Dup-ACK or timeout?\"}\n    N8[\"Fast retransmit/recovery\"]\n    N9[\"Timeout: reset cwnd\"]\n    N10[\"Adjust window\"]\n    N11[\"Steady throughput\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 --> N4\n    N4 -->|no| N3\n    N4 -->|yes| N5\n    N5 --> N6\n    N6 -->|no| N5\n    N6 -->|yes| N7\n    N7 -->|dup-ack| N8\n    N7 -->|timeout| N9\n    N8 --> N10\n    N9 --> N10\n    N10 --> N11\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#74c0fc,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#74c0fc,color:#fff\n    style N7 fill:#74c0fc,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#51cf66,color:#fff\n    style N10 fill:#74c0fc,color:#fff\n    style N11 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
-      "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: TCP Congestion Control. Created using the Programming Framework methodology."
+      "title": "Congestion avoidance and control",
+      "authors": "Jacobson, V.",
+      "journal": "ACM SIGCOMM Computer Communication Review",
+      "year": "1988",
+      "doi": "10.1145/52325.52356",
+      "url": "https://doi.org/10.1145/52325.52356"
     },
     {
-      "title": "Profile for Datagram Congestion Control Protocol (DCCP) Congestion Control ID 2: TCP-like Congestion Control",
-      "authors": "Floyd, S.; Kohler, E.",
-      "journal": "",
-      "year": "2006",
-      "pubmed": null,
-      "doi": "10.17487/rfc4341",
-      "url": "https://doi.org/10.17487/rfc4341"
-    },
-    {
-      "title": "Enhanced TCP Friendly Congestion Control Protocol",
-      "authors": "A., Jennifer Cecilia Rana",
-      "journal": "International Journal of Computer Theory and Engineering",
-      "year": "2014",
-      "pubmed": null,
-      "doi": "10.7763/ijcte.2014.v6.833",
-      "url": "https://doi.org/10.7763/ijcte.2014.v6.833"
-    },
-    {
-      "title": "Congestion Issues and TCP",
-      "authors": "Houmkozlis, Christos N.; Rovithakis, George A.",
-      "journal": "End-to-End Adaptive Congestion Control in TCP/IP Networks",
-      "year": "2017",
-      "pubmed": null,
-      "doi": "10.1201/b11870-4",
-      "url": "https://doi.org/10.1201/b11870-4"
+      "title": "TCP Congestion Control (RFC 5681)",
+      "authors": "Allman, M.; Paxson, V.; Blanton, E.",
+      "journal": "IETF",
+      "year": "2009",
+      "doi": "10.17487/RFC5681",
+      "url": "https://doi.org/10.17487/RFC5681"
     }
   ],
   "keywords": [
-    "tcp",
-    "congestion",
-    "control"
+    "TCP congestion control",
+    "slow start",
+    "congestion avoidance",
+    "fast retransmit",
+    "AIMD"
   ],
   "relatedProcesses": [],
   "created": "2026-01-15",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations.\nCurated Mermaid applied (citations preserved)."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "graphMetrics": {
+    "nodes": 11,
+    "edges": 13,
+    "conditionals": 3,
+    "andGates": 3,
+    "orGates": 3,
+    "notGates": 0,
+    "loops": 2
+  },
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "TCP connection up",
+      "detail": "Handshake done",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 1
+    },
+    {
+      "id": "N2",
+      "label": "Slow start: cwnd=1",
+      "detail": "Probe capacity",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N3",
+      "label": "Exponential cwnd growth",
+      "detail": "Double per RTT",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N4",
+      "label": "Reached ssthresh?",
+      "detail": "Threshold crossed",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N5",
+      "label": "Congestion avoidance",
+      "detail": "Additive increase",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N6",
+      "label": "Packet loss detected?",
+      "detail": "Signal of congestion",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N7",
+      "label": "Dup-ACK or timeout?",
+      "detail": "Loss type",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N8",
+      "label": "Fast retransmit/recovery",
+      "detail": "Halve cwnd",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N9",
+      "label": "Timeout: reset cwnd",
+      "detail": "Back to slow start",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N10",
+      "label": "Adjust window",
+      "detail": "New cwnd/ssthresh",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N11",
+      "label": "Steady throughput",
+      "detail": "AIMD sawtooth",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 0
+    }
+  ],
+  "researchEnhancements": {
+    "pilot": true,
+    "model": "research_grade_flowchart",
+    "nodeSemantics": [
+      "trigger",
+      "context",
+      "decision",
+      "operation",
+      "state",
+      "feedback",
+      "observable",
+      "prediction"
+    ],
+    "reviewFocus": [
+      "mechanistic correctness",
+      "decision density",
+      "evidence support",
+      "intervention value"
+    ]
+  },
+  "namedCollections": [],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:networks-tcp-congestion-control",
+    "graphType": "decision_flowchart",
+    "topologySignature": "3b30ef40f591b1a0",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "graphType": "decision_flowchart",
+  "domainContext": "Computer networks"
 }

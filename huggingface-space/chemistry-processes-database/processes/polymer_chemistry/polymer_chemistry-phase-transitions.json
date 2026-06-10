@@ -1,21 +1,23 @@
 {
   "id": "polymer_chemistry-phase-transitions",
-  "name": "Phase Transitions",
+  "name": "Glass Transition in Polymers",
   "category": "chemistry",
   "subcategory": "polymer_chemistry",
   "subcategory_name": "Polymer Chemistry",
-  "description": "Phase Transitions process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "On cooling an amorphous polymer, free volume contracts until, below the glass transition temperature, segmental motion freezes and the material becomes a rigid glass; cooling rate and plasticizer content shift the observed Tg.",
   "complexity": {
-    "nodes": 26,
-    "edges": 22,
-    "conditionals": 0,
+    "nodes": 8,
+    "edges": 8,
+    "conditionals": 1,
     "logicGates": {
-      "orGates": 0,
+      "orGates": 1,
       "andGates": 1,
-      "total": 1
+      "notGates": 0,
+      "total": 2
     },
     "level": "medium",
-    "detailLevel": "medium"
+    "detailLevel": "source_grounded",
+    "loops": 1
   },
   "colorScheme": {
     "red": {
@@ -39,53 +41,135 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nA1[Initial Phase] --> B1[Phase Transition Method]\nC1[Temperature Control] --> D1[Pressure Regulation]\nE1[Energy Input] --> F1[System Monitoring]\nB1 --> G1[Phase Analysis]\nD1 --> H1[Pressure Control]\nF1 --> I1[Temperature Monitoring]\nG1 --> J1[Phase Identification]\nH1 --> K1[Pressure Adjustment]\nI1 --> L1[Heat Transfer]\nJ1 --> M1[Phase Boundary]\nK1 --> L1\nL1 --> N1[Energy Absorption]\nM1 --> O1[Molecular Reorganization]\nN1 --> P1[Phase Change Process]\nO1 --> Q1[Transition Kinetics]\nP1 --> R1[New Phase Formation]\nQ1 --> S1[Transition Rate]\nR1 --> T1[Phase Stability]\nS1 --> U1[Kinetic Analysis]\nT1 --> V1[Stability Assessment]\nU1 --> W1[Transition Efficiency]\nV1 --> X1[Phase Characterization]\nW1 --> Y1[Process Optimization]\nX1 --> Z1[Final Phase State]\nY1 --> Z1\n\n    style A1 fill:#ff6b6b,color:#fff\n    style C1 fill:#ff6b6b,color:#fff\n    style E1 fill:#ff6b6b,color:#fff\n    style B1 fill:#ffd43b,color:#000\n    style D1 fill:#ffd43b,color:#000\n    style F1 fill:#ffd43b,color:#000\n    style G1 fill:#ffd43b,color:#000\n    style H1 fill:#ffd43b,color:#000\n    style I1 fill:#ffd43b,color:#000\n    style J1 fill:#ffd43b,color:#000\n    style K1 fill:#ffd43b,color:#000\n    style L1 fill:#ffd43b,color:#000\n    style M1 fill:#51cf66,color:#fff\n    style N1 fill:#51cf66,color:#fff\n    style O1 fill:#51cf66,color:#fff\n    style P1 fill:#51cf66,color:#fff\n    style Q1 fill:#51cf66,color:#fff\n    style R1 fill:#51cf66,color:#fff\n    style S1 fill:#51cf66,color:#fff\n    style T1 fill:#51cf66,color:#fff\n    style U1 fill:#51cf66,color:#fff\n    style V1 fill:#51cf66,color:#fff\n    style W1 fill:#51cf66,color:#fff\n    style X1 fill:#51cf66,color:#fff\n    style Y1 fill:#51cf66,color:#fff\n    style Z1 fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"Amorphous polymer melt\"]\n    N2[\"Cool the polymer\"]\n    N3[\"Free volume decreases\"]\n    N4{\"Below Tg?\"}\n    N5[\"Segmental motion frozen\"]\n    N6[\"Glassy, brittle solid\"]\n    N7[\"Rubbery / mobile state\"]\n    N8[\"Plasticizer / rate shifts Tg\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 --> N4\n    N4 -->|yes| N5\n    N5 --> N6\n    N4 -->|no| N7\n    N7 --> N8\n    N8 -->|modifies| N3\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#74c0fc,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#b197fc,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#51cf66,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
-      "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: Phase Transitions. Created using the Programming Framework methodology."
+      "title": "Nature of the glass transition and the glassy state",
+      "authors": "Gibbs, J. H.; DiMarzio, E. A.",
+      "journal": "Journal of Chemical Physics",
+      "year": "1958",
+      "doi": "10.1063/1.1744141",
+      "url": "https://doi.org/10.1063/1.1744141"
     },
     {
-      "title": "Classical phase transitions",
-      "authors": "",
-      "journal": "Quantum Phase Transitions",
-      "year": "2011",
-      "pubmed": null,
-      "doi": "10.1017/cbo9780511973765.005",
-      "url": "https://doi.org/10.1017/cbo9780511973765.005"
+      "title": "Principles of Polymerization, 4th ed. — Polymer properties (Tg)",
+      "authors": "Odian, G.",
+      "journal": "Wiley-Interscience",
+      "year": "2004",
+      "doi": "10.1002/047147875X",
+      "url": "https://doi.org/10.1002/047147875X"
     },
     {
-      "title": "Phase transitions of Dirac fermions",
-      "authors": "",
-      "journal": "Quantum Phase Transitions",
-      "year": "2011",
-      "pubmed": null,
-      "doi": "10.1017/cbo9780511973765.019",
-      "url": "https://doi.org/10.1017/cbo9780511973765.019"
-    },
-    {
-      "title": "A review of: “Structural Phase Transitions I”",
-      "authors": "",
-      "journal": "Phase Transitions",
-      "year": "1981",
-      "pubmed": null,
-      "doi": "10.1080/01411598108241317",
-      "url": "https://doi.org/10.1080/01411598108241317"
+      "title": "The temperature dependence of relaxation mechanisms (WLF equation)",
+      "authors": "Williams, M. L.; Landel, R. F.; Ferry, J. D.",
+      "journal": "Journal of the American Chemical Society",
+      "year": "1955",
+      "doi": "10.1021/ja01619a008",
+      "url": "https://doi.org/10.1021/ja01619a008"
     }
   ],
   "keywords": [
-    "phase",
-    "transitions"
+    "glass transition",
+    "free volume",
+    "segmental motion",
+    "plasticizer",
+    "amorphous polymer"
   ],
   "relatedProcesses": [],
   "created": "2026-01-08",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Amorphous polymer melt",
+      "detail": "Above Tg, chains mobile",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 1
+    },
+    {
+      "id": "N2",
+      "label": "Cool the polymer",
+      "detail": "Reduce temperature",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N3",
+      "label": "Free volume decreases",
+      "detail": "Less room for chain motion",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N4",
+      "label": "Below Tg?",
+      "detail": "Compare to glass transition temperature",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N5",
+      "label": "Segmental motion frozen",
+      "detail": "Cooperative motion arrested",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N6",
+      "label": "Glassy, brittle solid",
+      "detail": "Rigid amorphous state",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 1
+    },
+    {
+      "id": "N7",
+      "label": "Rubbery / mobile state",
+      "detail": "Above Tg, viscoelastic",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N8",
+      "label": "Plasticizer / rate shifts Tg",
+      "detail": "Additives and kinetics move Tg",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:polymer_chemistry-phase-transitions",
+    "graphType": "mechanism_flowchart",
+    "topologySignature": "d77f888392b000e6",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "namedCollections": [
+    "polymer-chemistry"
+  ],
+  "graphMetrics": {
+    "nodes": 8,
+    "edges": 8,
+    "conditionals": 1,
+    "andGates": 1,
+    "orGates": 1,
+    "notGates": 0,
+    "loops": 1
+  },
+  "graphType": "mechanism_flowchart",
+  "domainContext": "Polymer physics"
 }

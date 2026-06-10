@@ -2,53 +2,55 @@
   "acquired_date": "2026-01-08T00:00:00Z",
   "category": "physics",
   "colorScheme": {
-    "blue": {
-      "category": "Intermediates & States",
-      "hex": "#74c0fc"
-    },
-    "green": {
-      "category": "Processing & Operations",
-      "hex": "#51cf66"
-    },
     "red": {
-      "category": "Triggers & Inputs",
-      "hex": "#ff6b6b"
-    },
-    "violet": {
-      "category": "Products & Outputs",
-      "hex": "#b197fc"
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
     },
     "yellow": {
-      "category": "Structures & Objects",
-      "hex": "#ffd43b"
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
     }
   },
   "complexity": {
-    "conditionals": 0,
-    "detailLevel": "medium",
-    "edges": 24,
-    "level": "medium",
+    "nodes": 11,
+    "edges": 11,
+    "conditionals": 1,
     "logicGates": {
+      "orGates": 1,
       "andGates": 1,
-      "orGates": 0,
-      "total": 1
+      "notGates": 0,
+      "total": 2
     },
-    "nodes": 26
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 0
   },
   "created": "2026-01-08",
-  "description": "Nuclear Fusion Process. This nuclear physics process visualization demonstrates nuclear fusion and plasma physics. The flowchart shows fusion inputs and high temperatures, nuclear fusion methods and plasma states, nuclear fusion operations and fusion reactions, intermediate results, and final nuclear fusion outputs.",
-  "id": "process_physics_nuclear-fusion",
+  "description": "Lattice vibrations quantized as phonons set a crystal's heat capacity: normal modes have a dispersion that the Debye model approximates as linear up to a cutoff frequency; integrating the phonon density of states gives a specific heat scaling as T-cubed at low temperature and approaching the Dulong-Petit value at high temperature.",
+  "id": "solid_state-nuclear-fusion",
   "keywords": [
-    "fusion",
-    "nuclear",
-    "physics",
-    "state",
-    "solid"
+    "phonons",
+    "Debye model",
+    "specific heat",
+    "lattice vibrations",
+    "Dulong-Petit"
   ],
-  "lastUpdated": "2026-01-08",
-  "mermaid": "graph TD\nA2[Fusion Fuel] --> B2[Nuclear Fusion Method]\nC2[High Temperature] --> D2[Plasma State]\nE2[Fusion Reaction] --> F2[Nuclear Fusion Analysis]\nB2 --> G2[Deuterium Tritium]\nD2 --> H2[Thermonuclear Fusion]\nF2 --> I2[Fusion Energy]\nG2 --> J2[Fusion Cross Section]\nH2 --> K2[Fusion Rate]\nI2 --> L2[Fusion Power]\nJ2 --> M2[Fusion Yield]\nK2 --> L2\nL2 --> N2[Fusion Efficiency]\nM2 --> O2[Fusion Plasma]\nN2 --> P2[Fusion Confinement]\nO2 --> Q2[Nuclear Fusion Process]\nP2 --> R2[Nuclear Fusion Validation]\nQ2 --> S2[Nuclear Fusion Verification]\nR2 --> T2[Nuclear Fusion Result]\nS2 --> U2[Nuclear Fusion Analysis]\nT2 --> V2[Nuclear Fusion Parameters]\nU2 --> W2[Nuclear Fusion Output]\nV2 --> X2[Nuclear Fusion Analysis]\nW2 --> Y2[Nuclear Fusion Final Result]\nX2 --> Z2[Nuclear Fusion Complete]\n\n    style A2 fill:#ff6b6b,color:#fff\n    style C2 fill:#ff6b6b,color:#fff\n    style E2 fill:#ff6b6b,color:#fff\n    style B2 fill:#ffd43b,color:#000\n    style D2 fill:#ffd43b,color:#000\n    style F2 fill:#ffd43b,color:#000\n    style G2 fill:#ffd43b,color:#000\n    style H2 fill:#ffd43b,color:#000\n    style I2 fill:#ffd43b,color:#000\n    style J2 fill:#ffd43b,color:#000\n    style K2 fill:#ffd43b,color:#000\n    style L2 fill:#ffd43b,color:#000\n    style M2 fill:#51cf66,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style O2 fill:#51cf66,color:#fff\n    style P2 fill:#51cf66,color:#fff\n    style Q2 fill:#51cf66,color:#fff\n    style R2 fill:#51cf66,color:#fff\n    style S2 fill:#51cf66,color:#fff\n    style T2 fill:#51cf66,color:#fff\n    style U2 fill:#51cf66,color:#fff\n    style V2 fill:#51cf66,color:#fff\n    style W2 fill:#51cf66,color:#fff\n    style X2 fill:#51cf66,color:#fff\n    style Y2 fill:#51cf66,color:#fff\n    style Z2 fill:#b197fc,color:#fff",
-  "name": "Nuclear Fusion",
-  "notes": "Converted from physics batch HTML. Process number: 2.",
+  "lastUpdated": "2026-06-01",
+  "mermaid": "graph TD\n    N1[\"Crystal lattice of atoms\"]\n    N2[\"Atoms vibrate about equil.\"]\n    N3[\"Quantize: phonons\"]\n    N4[\"Dispersion omega(k)\"]\n    N5[\"Debye approximation\"]\n    N6[\"Linear omega = v_s k\"]\n    N7[\"Debye cutoff + temp\"]\n    N8{\"T below Debye temp?\"}\n    N9[\"Low-T: C ~ T^3\"]\n    N10[\"High-T: Dulong-Petit\"]\n    N11[\"Heat capacity C(T)\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 --> N4\n    N4 --> N5\n    N5 --> N6\n    N6 --> N7\n    N7 --> N8\n    N8 -->|yes| N9\n    N8 -->|no| N10\n    N9 --> N11\n    N10 --> N11\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#74c0fc,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#74c0fc,color:#fff\n    style N8 fill:#74c0fc,color:#fff\n    style N9 fill:#51cf66,color:#fff\n    style N10 fill:#51cf66,color:#fff\n    style N11 fill:#b197fc,color:#fff",
+  "name": "Phonons & Debye Heat Capacity",
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
   "relatedProcesses": [],
   "related_papers": [
     "crossref_10_1103_PhysRev_55_434",
@@ -61,43 +63,19 @@
   "source": "programming_framework",
   "sources": [
     {
-      "authors": "Welz, G.",
-      "doi": null,
-      "journal": "CopernicusAI Knowledge Engine",
-      "notes": "Chemistry process visualization: Nuclear Fusion. Created using the Programming Framework methodology for process analysis and visualization.",
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
-      "year": "2025"
+      "title": "Zur Theorie der spezifischen Warmen",
+      "authors": "Debye, P.",
+      "journal": "Annalen der Physik",
+      "year": "1912",
+      "doi": "10.1002/andp.19123441404",
+      "url": "https://doi.org/10.1002/andp.19123441404"
     },
     {
-      "authors": "Bethe, H.A.",
-      "doi": "10.1103/PhysRev.55.434",
-      "journal": "Phys. Rev.",
-      "paper_id": "crossref_10_1103_PhysRev_55_434",
-      "pubmed": null,
-      "title": "Energy Production in Stars",
-      "url": "https://doi.org/10.1103/PhysRev.55.434",
-      "year": "1939"
-    },
-    {
-      "authors": "Post, R.F.",
-      "doi": "10.1103/RevModPhys.28.338",
-      "journal": "Rev. Mod. Phys.",
-      "paper_id": "crossref_10_1103_RevModPhys_28_338",
-      "pubmed": null,
-      "title": "Controlled Thermonuclear Reactions",
-      "url": "https://doi.org/10.1103/RevModPhys.28.338",
-      "year": "1956"
-    },
-    {
-      "authors": "Freidberg, J.P., Meade, D.M., Mikkelsen, D.R., Sugiyama, L.E.",
-      "doi": "10.1103/RevModPhys.77.1043",
-      "journal": "Rev. Mod. Phys.",
-      "paper_id": "crossref_10_1103_RevModPhys_77_1043",
-      "pubmed": null,
-      "title": "Magnetic fusion energy: From experiment to power plants",
-      "url": "https://doi.org/10.1103/RevModPhys.77.1043",
-      "year": "2005"
+      "title": "Introduction to Solid State Physics (8th ed.)",
+      "authors": "Kittel, C.",
+      "journal": "Wiley",
+      "year": "2005",
+      "url": "https://www.wiley.com/en-us/Introduction+to+Solid+State+Physics%2C+8th+Edition-p-9780471415268"
     }
   ],
   "subcategories": [
@@ -105,5 +83,119 @@
   ],
   "subcategory": "solid_state",
   "subcategory_name": "Solid State Physics",
-  "verified": false
+  "verified": false,
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Crystal lattice of atoms",
+      "detail": "Coupled oscillators",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 1
+    },
+    {
+      "id": "N2",
+      "label": "Atoms vibrate about equil.",
+      "detail": "Harmonic approximation",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N3",
+      "label": "Quantize: phonons",
+      "detail": "Vibrational quanta",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N4",
+      "label": "Dispersion omega(k)",
+      "detail": "Mode frequencies",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N5",
+      "label": "Debye approximation",
+      "detail": "Continuum elastic",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N6",
+      "label": "Linear omega = v_s k",
+      "detail": "Sound-speed slope",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N7",
+      "label": "Debye cutoff + temp",
+      "detail": "omega_D, Theta_D",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N8",
+      "label": "T below Debye temp?",
+      "detail": "Compare to Theta_D",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N9",
+      "label": "Low-T: C ~ T^3",
+      "detail": "Debye T-cubed law",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N10",
+      "label": "High-T: Dulong-Petit",
+      "detail": "C -> 3N kB",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N11",
+      "label": "Heat capacity C(T)",
+      "detail": "Full curve",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 0
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:solid_state-nuclear-fusion",
+    "graphType": "decision_flowchart",
+    "topologySignature": "109d9567288900a9",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "namedCollections": [],
+  "graphMetrics": {
+    "nodes": 11,
+    "edges": 11,
+    "conditionals": 1,
+    "andGates": 1,
+    "orGates": 1,
+    "notGates": 0,
+    "loops": 0
+  },
+  "graphType": "decision_flowchart",
+  "domainContext": "Solid-state physics / lattice dynamics"
 }

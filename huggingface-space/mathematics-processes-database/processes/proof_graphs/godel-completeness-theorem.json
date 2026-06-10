@@ -1,0 +1,40 @@
+{
+  "id": "godel-completeness-theorem",
+  "name": "Gödel Completeness Theorem — Proof Graph",
+  "category": "mathematics",
+  "subcategory": "proof_graphs",
+  "subcategory_name": "Proof Graphs",
+  "description": "Semantic completeness of first-order logic: every sentence that is true in all models of a consistent theory is provable. The algorithm capsule is the Henkin witness-scheduling step that keeps consistency while closing existentials.",
+  "mermaid": "flowchart TD\n  T0[&quot;Target: completeness of first-order logic&quot;] --> G0[&quot;Given: deduction relation and semantic consequence for FOL&quot;]\n  T0 --> A0[&quot;Assumption: theory T is syntactically consistent&quot;]\n  A0 --> C0[&quot;Construction: enumerate formulas of the language of T&quot;]\n  C0 --> C1[&quot;Construction: adjoin Henkin witnesses for existential formulas&quot;]\n  C1 --> P0[&quot;Algorithm capsule: build witness-adjunction schedule preserving finite satisfiability&quot;]\n  P0 --> A1[&quot;Assertion: the Henkin precursor H remains consistent&quot;]\n  A1 --> C2[&quot;Construction: extend H to a complete maximal consistent theory T star&quot;]\n  C2 --> C3[&quot;Construction: form the Henkin term model M from closed terms modulo equality of T star&quot;]\n  C3 --> L0[&quot;Lemma: for sentences sli, T star proves sli iff M models sli&quot;]\n  L0 --> A2[&quot;Assertion: M models every formula proved by T star&quot;]\n  G0 --> S0[&quot;Given: soundness of the Hilbert-style or natural deduction calculus&quot;]\n  S0 --> A3[&quot;Assertion: theorems of T are true in every model of T&quot;]\n  A2 --> A4[&quot;Assertion: if T semantically entails phi then phi is in T star closing&quot;]\n  A3 --> A4\n  A4 --> CO[&quot;Conclusion: every semantically valid consequence is formally provable from T&quot;]",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "proof_graph",
+  "graphType": "proof_graph"
+}

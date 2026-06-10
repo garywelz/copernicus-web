@@ -4,18 +4,20 @@
   "category": "chemistry",
   "subcategory": "spectroscopy_advanced",
   "subcategory_name": "Advanced Spectroscopy & Analysis",
-  "description": "X-ray Diffraction Analysis process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "X-ray diffraction probes crystal structure: X-rays scatter off lattice planes and interfere constructively only when Bragg's law is satisfied, producing peaks versus 2-theta that are indexed and refined (e.g. Rietveld) to determine the unit cell and phase.",
   "complexity": {
-    "nodes": 9,
+    "nodes": 10,
     "edges": 10,
-    "conditionals": 0,
+    "conditionals": 1,
     "logicGates": {
       "orGates": 1,
-      "andGates": 2,
-      "total": 3
+      "andGates": 1,
+      "notGates": 0,
+      "total": 2
     },
-    "level": "medium",
-    "detailLevel": "medium"
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 0
   },
   "colorScheme": {
     "red": {
@@ -39,55 +41,151 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nN1[\"Sample\"]\nN2[\"Instrument Configuration\"]\nN3[\"Acquire Spectrum/Pattern\"]\nN4[\"Choose Path\"]\nN5[\"Preprocess (baseline/noise)\"]\nN6[\"Peak/Feature Extraction\"]\nN7[\"Assign/Interpret\"]\nN8[\"Spectroscopic Conclusion\"]\nN9[\"Integrate\"]\n\nN1 --> N2\nN2 --> N3\nN3 --> N4\nN4 --> N5\nN4 --> N7\nN5 --> N6\nN7 --> N8\nN6 --> N9\nN8 --> N9\nN9 --> N6\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#ffd43b,color:#000\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#ffd43b,color:#000\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#74c0fc,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#b197fc,color:#fff\n    style N9 fill:#74c0fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"Crystalline sample\"]\n    N2[\"Irradiate with X-rays\"]\n    N3[\"Scatter off lattice planes\"]\n    N4{\"Bragg: nλ = 2d sinθ?\"}\n    N5[\"Out of phase: no peak\"]\n    N6[\"Diffraction peak\"]\n    N7[\"Record pattern vs 2θ\"]\n    N8[\"Index reflections\"]\n    N9[\"Refine structure (Rietveld)\"]\n    N10[\"Crystal structure / phase\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 --> N4\n    N4 -->|no| N5\n    N4 -->|yes| N6\n    N5 --> N7\n    N6 --> N7\n    N7 --> N8\n    N8 --> N9\n    N9 --> N10\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#74c0fc,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#74c0fc,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#51cf66,color:#fff\n    style N10 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "title": "The reflection of X-rays by crystals (Bragg's law)",
+      "authors": "Bragg, W. H.; Bragg, W. L.",
+      "journal": "Proceedings of the Royal Society A",
+      "year": "1913",
+      "doi": "10.1098/rspa.1913.0040",
+      "url": "https://doi.org/10.1098/rspa.1913.0040"
+    },
+    {
+      "title": "A profile refinement method for nuclear and magnetic structures (Rietveld)",
+      "authors": "Rietveld, H. M.",
+      "journal": "Journal of Applied Crystallography",
+      "year": "1969",
+      "doi": "10.1107/S0021889869006558",
+      "url": "https://doi.org/10.1107/S0021889869006558"
+    },
+    {
+      "title": "Elements of X-Ray Diffraction, 3rd ed.",
+      "authors": "Cullity, B. D.; Stock, S. R.",
+      "journal": "Pearson",
+      "year": "2001",
       "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: X-ray Diffraction Analysis. Created using the Programming Framework methodology."
-    },
-    {
-      "title": "Figure 7: X-ray diffraction analysis.",
-      "authors": "",
-      "journal": "",
-      "year": "None",
-      "pubmed": null,
-      "doi": "10.7717/peerj.5237/fig-7",
-      "url": "https://doi.org/10.7717/peerj.5237/fig-7"
-    },
-    {
-      "title": "X-ray diffraction analysis of the CsStefin-1",
-      "authors": "Jang, S.B.; Park, S.Y.",
-      "journal": "Worldwide Protein Data Bank",
-      "year": "2018",
-      "pubmed": null,
-      "doi": "10.2210/pdb5zc1/pdb",
-      "url": "https://doi.org/10.2210/pdb5zc1/pdb"
-    },
-    {
-      "title": "The Practice of Diffraction Analysis",
-      "authors": "",
-      "journal": "Industrial Applications of X-Ray Diffraction",
-      "year": "1999",
-      "pubmed": null,
-      "doi": "10.1201/b16940-5",
-      "url": "https://doi.org/10.1201/b16940-5"
+      "url": "https://www.pearson.com/en-us/subject-catalog/p/elements-of-x-ray-diffraction/P200000003441"
     }
   ],
   "keywords": [
-    "x",
-    "ray",
-    "diffraction",
-    "analysis"
+    "x-ray diffraction",
+    "bragg's law",
+    "lattice planes",
+    "indexing",
+    "rietveld refinement"
   ],
   "relatedProcesses": [],
   "created": "2026-01-15",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations.\nCurated Mermaid applied (citations preserved)."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "namedCollections": [
+    "spectroscopy"
+  ],
+  "graphMetrics": {
+    "nodes": 10,
+    "edges": 10,
+    "conditionals": 1,
+    "andGates": 1,
+    "orGates": 1,
+    "notGates": 0,
+    "loops": 0
+  },
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Crystalline sample",
+      "detail": "Powder or single crystal",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 2
+    },
+    {
+      "id": "N2",
+      "label": "Irradiate with X-rays",
+      "detail": "Monochromatic beam",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N3",
+      "label": "Scatter off lattice planes",
+      "detail": "Interference of waves",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N4",
+      "label": "Bragg: nλ = 2d sinθ?",
+      "detail": "Constructive condition",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N5",
+      "label": "Out of phase: no peak",
+      "detail": "Destructive interference",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N6",
+      "label": "Diffraction peak",
+      "detail": "Constructive reflection",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N7",
+      "label": "Record pattern vs 2θ",
+      "detail": "Diffractogram",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 2
+    },
+    {
+      "id": "N8",
+      "label": "Index reflections",
+      "detail": "Assign (hkl)",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N9",
+      "label": "Refine structure (Rietveld)",
+      "detail": "Fit the full pattern",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N10",
+      "label": "Crystal structure / phase",
+      "detail": "Unit cell, phase ID",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 1
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:spectroscopy_advanced-x-ray-diffraction-analysis",
+    "graphType": "decision_flowchart",
+    "topologySignature": "9ff1ed666a61e93e",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "graphType": "decision_flowchart",
+  "domainContext": "Crystallography"
 }

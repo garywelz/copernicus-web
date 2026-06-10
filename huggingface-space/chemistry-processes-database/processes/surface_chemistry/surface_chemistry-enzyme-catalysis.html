@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enzyme Catalysis - Chemistry Process</title>
+    <title>Self-Assembled Monolayers (SAMs) - Chemistry Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Enzyme Catalysis</h1>
+            <h1>Self-Assembled Monolayers (SAMs)</h1>
             <div class="header-meta">
                 <span class="meta-item">Chemistry</span>
                 <span class="meta-item">Surface Chemistry</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,68 +234,56 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Enzyme Catalysis process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>Self-assembled monolayers form when amphiphilic molecules chemisorb through their headgroups onto a surface (e.g. thiols on gold) and then order via tail-tail van der Waals packing; coverage builds with time and annealing removes defects to yield a functional monolayer.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-A3[Substrate Molecules] --> B3[Enzyme Catalysis Method]
-C3[Enzyme Protein] --> D3[Active Site Analysis]
-E3[Reaction Buffer] --> F3[Temperature Control]
-B3 --> G3[Enzyme Purification]
-D3 --> H3[Site Characterization]
-F3 --> I3[pH Regulation]
-G3 --> J3[Conformation Analysis]
-H3 --> K3[Binding Affinity]
-I3 --> L3[Optimal Conditions]
-J3 --> M3[Substrate Binding]
-K3 --> L3
-L3 --> N3[Enzyme-Substrate Complex]
-M3 --> O3[Conformational Change]
-N3 --> P3[Catalytic Reaction]
-O3 --> Q3[Enzymatic Activity]
-P3 --> R3[Product Formation]
-Q3 --> S3[Reaction Rate]
-R3 --> T3[Product Release]
-S3 --> U3[Turnover Number]
-T3 --> V3[Product Analysis]
-U3 --> W3[Enzyme Performance]
-V3 --> X3[Conversion Efficiency]
-W3 --> Y3[Optimization Process]
-X3 --> Z3[Enzymatic Efficiency]
-Y3 --> Z3
+    N1["Substrate + amphiphile"]
+    N2["Headgroup binds surface"]
+    N3["Chemisorption (thiol–Au)"]
+    N4["Molecules pack / order"]
+    N5{"Coverage high?"}
+    N6["More adsorption time"]
+    N7["Tail packing (vdW)"]
+    N8["Ordered monolayer"]
+    N9["Anneal out defects"]
+    N10["Functional SAM"]
 
-    style A3 fill:#ff6b6b,color:#fff
-    style C3 fill:#ff6b6b,color:#fff
-    style E3 fill:#ff6b6b,color:#fff
-    style B3 fill:#ffd43b,color:#000
-    style D3 fill:#ffd43b,color:#000
-    style F3 fill:#ffd43b,color:#000
-    style G3 fill:#ffd43b,color:#000
-    style H3 fill:#ffd43b,color:#000
-    style I3 fill:#ffd43b,color:#000
-    style J3 fill:#ffd43b,color:#000
-    style K3 fill:#ffd43b,color:#000
-    style L3 fill:#ffd43b,color:#000
-    style M3 fill:#51cf66,color:#fff
+    N1 --> N2
+    N2 --> N3
+    N3 --> N4
+    N4 --> N5
+    N5 -->|no| N6
+    N6 -->|continue| N2
+    N5 -->|yes| N7
+    N7 --> N8
+    N8 --> N9
+    N9 --> N10
+
+    style N1 fill:#ff6b6b,color:#fff
+    style N2 fill:#51cf66,color:#fff
     style N3 fill:#51cf66,color:#fff
-    style O3 fill:#51cf66,color:#fff
-    style P3 fill:#51cf66,color:#fff
-    style Q3 fill:#51cf66,color:#fff
-    style R3 fill:#51cf66,color:#fff
-    style S3 fill:#51cf66,color:#fff
-    style T3 fill:#51cf66,color:#fff
-    style U3 fill:#51cf66,color:#fff
-    style V3 fill:#51cf66,color:#fff
-    style W3 fill:#51cf66,color:#fff
-    style X3 fill:#51cf66,color:#fff
-    style Y3 fill:#51cf66,color:#fff
-    style Z3 fill:#b197fc,color:#fff
+    style N4 fill:#51cf66,color:#fff
+    style N5 fill:#74c0fc,color:#fff
+    style N6 fill:#51cf66,color:#fff
+    style N7 fill:#51cf66,color:#fff
+    style N8 fill:#74c0fc,color:#fff
+    style N9 fill:#51cf66,color:#fff
+    style N10 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Substrate + amphiphile</td><td>Triggers & Inputs</td><td><a href="https://doi.org/10.1021/cr0300789" target="_blank" title="Self-assembled monolayers of thiolates on metals as a form of nanotechnology" style="color:#e74c3c;">Love, J. C. et al. 2005</a></td></tr><tr><td style="font-weight:600;">Headgroup binds surface</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1021/ja00352a020" target="_blank" title="Adsorption of bifunctional organic disulfides on gold surfaces" style="color:#e74c3c;">Nuzzo, R. G. et al. 1983</a></td></tr><tr><td style="font-weight:600;">Chemisorption (thiol–Au)</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1021/ja00352a020" target="_blank" title="Adsorption of bifunctional organic disulfides on gold surfaces" style="color:#e74c3c;">Nuzzo, R. G. et al. 1983</a></td></tr><tr><td style="font-weight:600;">Molecules pack / order</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1016/S0079-6816(00)00024-1" target="_blank" title="Formation and structure of self-assembled monolayers" style="color:#e74c3c;">Schreiber, F. 2000</a></td></tr><tr><td style="font-weight:600;">Coverage high?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1016/S0079-6816(00)00024-1" target="_blank" title="Formation and structure of self-assembled monolayers" style="color:#e74c3c;">Schreiber, F. 2000</a></td></tr><tr><td style="font-weight:600;">More adsorption time</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1016/S0079-6816(00)00024-1" target="_blank" title="Formation and structure of self-assembled monolayers" style="color:#e74c3c;">Schreiber, F. 2000</a></td></tr><tr><td style="font-weight:600;">Tail packing (vdW)</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1021/cr0300789" target="_blank" title="Self-assembled monolayers of thiolates on metals as a form of nanotechnology" style="color:#e74c3c;">Love, J. C. et al. 2005</a></td></tr><tr><td style="font-weight:600;">Ordered monolayer</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1021/cr0300789" target="_blank" title="Self-assembled monolayers of thiolates on metals as a form of nanotechnology" style="color:#e74c3c;">Love, J. C. et al. 2005</a></td></tr><tr><td style="font-weight:600;">Anneal out defects</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1016/S0079-6816(00)00024-1" target="_blank" title="Formation and structure of self-assembled monolayers" style="color:#e74c3c;">Schreiber, F. 2000</a></td></tr><tr><td style="font-weight:600;">Functional SAM</td><td>Products & Outputs</td><td><a href="https://doi.org/10.1021/cr0300789" target="_blank" title="Self-assembled monolayers of thiolates on metals as a form of nanotechnology" style="color:#e74c3c;">Love, J. C. et al. 2005</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -314,12 +329,12 @@ Y3 --> Z3
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 26</li>
-                        <li><strong>Edges:</strong> 22</li>
-                        <li><strong>Conditionals:</strong> 0</li>
+                        <li><strong>Nodes:</strong> 10</li>
+                        <li><strong>Edges:</strong> 10</li>
+                        <li><strong>Conditionals:</strong> 1</li>
                         <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 1</li>
+                        <li><strong>OR Gates:</strong> 1</li>
+                        <li><strong>Total Gates:</strong> 2</li>
                     </ul>
                 </div>
                 
@@ -327,7 +342,7 @@ Y3 --> Z3
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>enzyme</li><li>catalysis</li>
+                        <li>self-assembled monolayer</li><li>thiol-gold</li><li>chemisorption</li><li>ordering</li><li>van der waals</li>
                     </ul>
                 </div>
                 
@@ -338,42 +353,32 @@ Y3 --> Z3
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Adsorption of bifunctional organic disulfides on gold surfaces</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Nuzzo, R. G.; Allara, D. L.
+                            , Journal of the American Chemical Society
+                             (1983)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Areas Related to Enzyme Catalysis</strong>
-                            
-                            , New Trends in Enzyme Catalysis and Biomimetic Chemical Reactions
-                             (None)
-                            </span>
-                            <br><a href="https://doi.org/10.1007/0-306-48110-3_5" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1007/0-306-48110-3_5</a>
+                            <br><a href="https://doi.org/10.1021/ja00352a020" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1021/ja00352a020</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Elementary Steps in Enzyme Catalysis</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Hammes, Gordon G.
-                            , Enzyme Catalysis and Regulation
-                             (1982)
+                            <strong>Self-assembled monolayers of thiolates on metals as a form of nanotechnology</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Love, J. C.; Estroff, L. A.; Kriebel, J. K.; Nuzzo, R. G.; Whitesides, G. M.
+                            , Chemical Reviews
+                             (2005)
                             </span>
-                            <br><a href="https://doi.org/10.1016/b978-0-12-321960-2.50010-x" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1016/b978-0-12-321960-2.50010-x</a>
+                            <br><a href="https://doi.org/10.1021/cr0300789" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1021/cr0300789</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Enzyme Catalysis: An Overview from Physics</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Careri, Giorgio
-                            , The Enzyme Catalysis Process
-                             (1989)
+                            <strong>Formation and structure of self-assembled monolayers</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Schreiber, F.
+                            , Progress in Surface Science
+                             (2000)
                             </span>
-                            <br><a href="https://doi.org/10.1007/978-1-4757-1607-8_1" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1007/978-1-4757-1607-8_1</a>
+                            <br><a href="https://doi.org/10.1016/S0079-6816(00)00024-1" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1016/S0079-6816(00)00024-1</a>
                             
                         </li>
                         

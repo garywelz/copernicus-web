@@ -1,0 +1,39 @@
+{
+  "id": "optimization-linear",
+  "name": "Linear Programming",
+  "category": "mathematics",
+  "subcategory": "optimization",
+  "subcategory_name": "Optimization",
+  "description": "max c·x, Ax≤b. Feasible region, vertices.",
+  "mermaid": "graph TD\n    D1[\"Def: LP std form\\nmax c·x, Ax≤b, x≥0\"]\n    D2[\"Def: Feasible region\\npolyhedron P\"]\n    D3[\"Def: Vertex\\nbasic feasible sol\"]\n    D4[\"Def: Slack variables\\nAx+s=b\"]\n    T1[\"Thm: Opt at vertex\\nif bounded, opt at vert\"]\n    T2[\"Thm: Duality\\nmax c·x ⟺ min b·y\"]\n    T3[\"Thm: Strong duality\\nif both feasible\"]\n    T4[\"Thm: Farkas lemma\\nAx≤b feasible iff...\"]\n    T5[\"Thm: Complementary slack\\nx*,y* opt ⟺ ...\"]\n    D1 --> D2\n    D2 --> D3\n    D3 --> T1\n    D1 --> T2\n    T2 --> T3\n    T3 --> T5\n    classDef definition fill:#b197fc,color:#fff\n    classDef theorem fill:#51cf66,color:#fff\n    class D1,D2,D3,D4 definition\n    class T1,T2,T3,T4,T5 theorem",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2604.19690v1",
+  "arxiv_id": "2604.19690v1",
+  "title": "Is the `Known' Enough? An Integrated Machine Learning Framework for Eclipsing Binary Classification and Parameter Estimation Based on Well-Characterized Systems",
+  "authors": [
+    "Burak Ulaş"
+  ],
+  "author_string": "Burak Ulaş",
+  "journal": "arXiv:2604.19690v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "This study presents a multi-task machine learning framework for simultaneous morphology classification and physical parameter estimation of eclipsing binaries using photometric light curves. We train Random Forest and XGBoost ensemble models on 845 of 995 well-characterized systems comprising three morphological configurations by extracting 51 domain-specific features from each phase-folded light. To assess generalization, 15% of systems were withheld as an independent test set before any model training. On this held-out set, the XGBoost model yields $R^2$ values of 0.88 for the effective temperature ratio, 0.91 for the primary surface potential, 0.92 for the secondary surface potential, 0.89 for inclination, and 0.77 for the mass ratio. Morphology classification achieves 95.4% accuracy on the cross-validation set with per-class F1 scores exceeding 0.90, while the held-out test set confirms generalization with 90.7% accuracy. We present a catalog of estimated physical parameters and classifications for these systems, identifying thousands of high-confidence candidates. Morphological classifications are independently validated against the OGLE Online Catalog of Variable Stars (OCVS), achieving a contact recall of 0.99 across 104692 matched systems. The model's generalization capability is validated by cross-matching predictions with independent Kepler catalogs, achieving 77% classification accuracy and recovering physical parameters with systematic deviations consistent with known selection biases, third-light dilution, and methodological differences between photometric and spectroscopic approaches. This work confirms that machine learning ensembles, when coupled with physics guided post-processing, can effectively bridge the gap between massive photometric surveys and detailed astrophysical characterization.",
+  "categories": [
+    "astro-ph.SR",
+    "astro-ph.IM"
+  ],
+  "primary_category": "astro-ph.IM",
+  "comment": "Accepted for publication in Publications of the Astronomical Society of the Pacific (PASP). IOP Publishing Ltd is not responsible for any errors or omissions in this version of the manuscript or any version derived from it",
+  "published_date": "2026-04-21T17:12:27Z",
+  "updated_date": "2026-04-21T17:12:27Z",
+  "url": "https://arxiv.org/abs/2604.19690v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.19690v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-23T10:15:40.084488",
+  "category": "physics",
+  "subcategories": [
+    "astro-ph.SR",
+    "astro-ph.IM"
+  ]
+}

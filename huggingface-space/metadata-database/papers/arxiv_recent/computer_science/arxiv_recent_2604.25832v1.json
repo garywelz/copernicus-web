@@ -1,0 +1,30 @@
+{
+  "id": "arxiv_2604.25832v1",
+  "arxiv_id": "2604.25832v1",
+  "title": "TrialCalibre: A Fully Automated Causal Engine for RCT Benchmarking and Observational Trial Calibration",
+  "authors": [
+    "Amir Habibdoust",
+    "Xing Song"
+  ],
+  "author_string": "Amir Habibdoust, Xing Song",
+  "journal": "Proceedings of the 42nd International Conference on Machine Learning, Vancouver, Canada. PMLR 267, 2025. Copyright 2025 by the author(s)",
+  "journal_ref": "Proceedings of the 42nd International Conference on Machine Learning, Vancouver, Canada. PMLR 267, 2025. Copyright 2025 by the author(s)",
+  "year": "2026",
+  "doi": null,
+  "abstract": "Real-world evidence (RWE) studies that emulate target trials increasingly inform regulatory and clinical decisions, yet residual, hard-to-quantify biases still limit their credibility. The recently proposed BenchExCal framework addresses this challenge via a two-stage Benchmark, Expand, Calibrate process, which first compares an observational emulation against an existing randomized controlled trial (RCT), then uses observed divergence to calibrate a second emulation for a new indication causal effect estimation. While methodologically powerful, BenchExCal is resource intensive and difficult to scale. We introduce TrialCalibre, a conceptualized multiagent system designed to automate and scale the BenchExCal workflow. Our framework features specialized agents such as the Orchestrator, Protocol Design, Data Synthesis, Clinical Validation, and Quantitative Calibration Agents that coordi-nate the the overall process. TrialCalibre incorpo-rates agent learning (e.g., RLHF) and knowledge blackboards to support adaptive, auditable, and transparent causal effect estimation.",
+  "categories": [
+    "cs.AI"
+  ],
+  "primary_category": "cs.AI",
+  "comment": "5 pages , 2 figures",
+  "published_date": "2026-04-28T16:39:13Z",
+  "updated_date": "2026-04-28T16:39:13Z",
+  "url": "https://arxiv.org/abs/2604.25832v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.25832v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-29T10:15:41.141430",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.AI"
+  ]
+}

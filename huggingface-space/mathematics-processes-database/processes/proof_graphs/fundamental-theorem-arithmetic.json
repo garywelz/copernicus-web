@@ -1,0 +1,40 @@
+{
+  "id": "fundamental-theorem-arithmetic",
+  "name": "Fundamental Theorem of Arithmetic - Proof Graph Pilot",
+  "category": "mathematics",
+  "subcategory": "proof_graphs",
+  "subcategory_name": "Proof Graphs",
+  "description": "This is the pilot's final, more complicated theorem. It tests whether proof graphs can show nested structure without becoming unreadable: existence, uniqueness, induction, Euclid's lemma, and a factorization procedure all appear in one theorem.",
+  "mermaid": "flowchart TD\n  theorem[&quot;Target: every integer greater than 1 has a unique prime factorization&quot;] --> split[&quot;Branch: prove existence and uniqueness&quot;]\n\n  subgraph existenceBranch [Existence Branch]\n    nGreaterOne[&quot;Given: n greater than 1&quot;] --> primeCase{&quot;Is n prime?&quot;}\n    defPrime[&quot;Definition: prime number&quot;] --> primeCase\n    primeCase -->|&quot;yes&quot;| nItself[&quot;Assertion: n is a one-factor prime product&quot;]\n    primeCase -->|&quot;no&quot;| composite[&quot;Assertion: n is composite&quot;]\n    defComposite[&quot;Definition: composite number&quot;] --> composite\n    composite --> factorsAB[&quot;Construction: n equals a times b with 1 less than a,b less than n&quot;]\n    strongInduction[&quot;Strong induction hypothesis: smaller integers have prime factorizations&quot;] --> factorA[&quot;Assertion: a has a prime factorization&quot;]\n    strongInduction --> factorB[&quot;Assertion: b has a prime factorization&quot;]\n    factorsAB --> factorA\n    factorsAB --> factorB\n    factorA --> combineFactors[&quot;Inference: combine prime factors of a and b&quot;]\n    factorB --> combineFactors\n    combineFactors --> existenceConclusion[&quot;Conclusion: n has a prime factorization&quot;]\n    nItself --> existenceConclusion\n  end\n\n  subgraph uniquenessBranch [Uniqueness Branch]\n    twoFacts[&quot;Assume: n has two prime factorizations&quot;] --> equation[&quot;Assertion: p1...pk equals q1...qm&quot;]\n    equation --> p1DividesProduct[&quot;Assertion: p1 divides q1...qm&quot;]\n    euclidLemma[&quot;Euclid&#x27;s lemma: prime dividing product divides some factor&quot;] --> p1DividesSomeQ[&quot;Assertion: p1 divides qj for some j&quot;]\n    p1DividesProduct --> p1DividesSomeQ\n    p1Prime[&quot;Definition: qj is prime&quot;] --> p1EqualsQj[&quot;Assertion: p1 equals qj&quot;]\n    p1DividesSomeQ --> p1EqualsQj\n    p1EqualsQj --> cancelEqualPrime[&quot;Inference: cancel matching prime factor&quot;]\n    cancellation[&quot;Cancellation law for integers&quot;] --> cancelEqualPrime\n    cancelEqualPrime --> reduceEquation[&quot;Assertion: remaining products are equal&quot;]\n    reduceEquation --> repeatArgument[&quot;Inference: repeat by induction on number of factors&quot;]\n    repeatArgument --> sameMultiset[&quot;Conclusion: the two lists contain the same primes up to order&quot;]\n  end\n\n  split --> nGreaterOne\n  split --> twoFacts\n  existenceConclusion --> theoremConclusion[&quot;Conclusion: existence and uniqueness both hold&quot;]\n  sameMultiset --> theoremConclusion\n\n%% additional_graph\n\nflowchart LR\n  inputN[&quot;Input: integer n greater than 1&quot;] --> testPrime{&quot;Is n prime?&quot;}\n  testPrime -->|&quot;yes&quot;| outputN[&quot;Output: list containing n&quot;]\n  testPrime -->|&quot;no&quot;| findDivisor[&quot;Find divisor d with 1 less than d less than n&quot;]\n  findDivisor --> quotient[&quot;Set e equal to n divided by d&quot;]\n  quotient --> recurseD[&quot;Factor d recursively&quot;]\n  quotient --> recurseE[&quot;Factor e recursively&quot;]\n  recurseD --> concatenate[&quot;Concatenate the two factor lists&quot;]\n  recurseE --> concatenate\n  concatenate --> outputFactors[&quot;Output: prime factor list for n&quot;]\n\n%% additional_graph\n\nflowchart TD\n  primeP[&quot;Given: p is prime&quot;] --> dividesAB[&quot;Given: p divides a times b&quot;]\n  notDividesA[&quot;Assume: p does not divide a&quot;] --> coprimePA[&quot;Assertion: gcd of p and a equals 1&quot;]\n  primeP --> coprimePA\n  bezout[&quot;Bezout identity or Euclidean lemma precursor&quot;] --> linearCombo[&quot;Assertion: xp plus ya equals 1&quot;]\n  coprimePA --> linearCombo\n  linearCombo --> multiplyByB[&quot;Inference: multiply equation by b&quot;]\n  dividesAB --> pDividesYAB[&quot;Assertion: p divides y times a times b&quot;]\n  multiplyByB --> pDividesB[&quot;Assertion: p divides b&quot;]\n  pDividesYAB --> pDividesB\n  pDividesB --> lemmaConclusion[&quot;Conclusion: p divides a or p divides b&quot;]",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "proof_graph",
+  "graphType": "proof_graph"
+}

@@ -1,0 +1,50 @@
+{
+  "id": "biorxiv_10.1101_2025.04.10.648034",
+  "doi": "10.1101/2025.04.10.648034",
+  "title": "Benchmarking single cell transcriptome matching methods for incremental growth of cell atlases",
+  "authors": [
+    "Hu, J.",
+    "Peng, B.",
+    "Pankajam, A. V.",
+    "Xu, B.",
+    "Deshpande, V. A.",
+    "Bueckle, A. D.",
+    "Herr, B. W.",
+    "Borner, K.",
+    "Dupont, C. L.",
+    "Scheuermann, R. H.",
+    "Zhang, Y."
+  ],
+  "author_string": "Hu, J., Peng, B., Pankajam, A. V., Xu, B., Deshpande, V. A. et al.",
+  "journal": "bioRxiv",
+  "journal_full": "bioRxiv",
+  "year": "2026",
+  "abstract": "BackgroundThe advancement of single cell technologies has driven significant progress in constructing a multiscale, pan-organ Human Reference Atlas for healthy human cells. Many multi-faceted cell atlases for different organs, species, and diseases now exist, though challenges remain in harmonizing cell types and unifying nomenclature among respective cell atlases. Multiple machine learning and artificial intelligence methods, including models pre-trained on large-scale cell atlas datasets, are publicly available for single cell community users to computationally map their cell clusters to the cell atlases.\n\nResultsThis study benchmarks seven computational tools for cell type matching and label transfer - Azimuth, CellTypist, CellHint, FR-Match, scArches, scPred, and singleR - in ten organ systems. Using healthy lung as an exemplary organ, when matching the well-annotated cell types in two atlases - the Human Lung Cell Atlas (HLCA) and the LungMAP Single-Cell Reference (CellRef), variations in the matching accuracy were observed, especially in rare cell types, underlining the need for a consensus strategy using a selective set of computational methods. In the meta-analysis, the benchmarked methods were used to incrementally integrate 61 cell types from HLCA and 48 from CellRef, resulting in a cell meta-atlas of 41 matched, 20 HLCA-, and 7 CellRef-specific cell types. Similar approach revealed 25 matched cell types existed in two independent kidney atlases. Generalizability of the benchmarking performances were further demonstrated in a variety of organ systems.\n\nConclusionThis study reveals complementing strengths of the benchmarked methods and presents a framework for incremental growth of cell types in cell atlases.",
+  "keywords": [],
+  "categories": [
+    "bioinformatics"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.1101/2025.04.10.648034",
+  "source": "biorxiv",
+  "sources": [
+    "biorxiv"
+  ],
+  "acquired_date": "2026-04-28T12:02:16.097432",
+  "category": "biology",
+  "subcategories": [
+    "bioinformatics"
+  ],
+  "published_date": "2026-03-29",
+  "updated_date": "2026-03-29",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "biorxiv",
+  "preprint_version": "2",
+  "preprint_type": "new results",
+  "license": "cc_by_nc_nd",
+  "jatsxml": "https://www.biorxiv.org/content/early/2026/03/29/2025.04.10.648034.source.xml",
+  "published_doi": null,
+  "author_corresponding": "Yun Zhang",
+  "author_corresponding_institution": "National Library of Medicine, National Institutes of Health"
+}

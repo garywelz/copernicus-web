@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Temperature Effects - Chemistry Process</title>
+    <title>Hit-to-Lead ADMET Optimization - Chemistry Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Temperature Effects</h1>
+            <h1>Hit-to-Lead ADMET Optimization</h1>
             <div class="header-meta">
                 <span class="meta-item">Chemistry</span>
                 <span class="meta-item">Medicinal Chemistry</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,68 +234,57 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Temperature Effects process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>Hit-to-lead progression: confirm and triage hits, assess potency, profile ADMET, and iteratively modify structure to satisfy drug-likeness, improve solubility and metabolic stability, and clear toxicity flags before nominating a lead series.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-A2[Thermal Energy] --> B2[Temperature Effect Method]
-C2[Reaction System] --> D2[Temperature Control]
-E2[Kinetic Parameters] --> F2[Arrhenius Analysis]
-B2 --> G2[Temperature Setup]
-D2 --> H2[Thermal Regulation]
-F2 --> I2[Parameter Analysis]
-G2 --> J2[Temperature Range]
-H2 --> K2[Heat Transfer]
-I2 --> L2[Arrhenius Plot]
-J2 --> M2[Energy Distribution]
-K2 --> L2
-L2 --> N2[Activation Energy]
-M2 --> O2[Molecular Motion]
-N2 --> P2[Temperature Dependence]
-O2 --> Q2[Kinetic Analysis]
-P2 --> R2[Rate Changes]
-Q2 --> S2[Energy Analysis]
-R2 --> T2[Temperature Optimization]
-S2 --> U2[Arrhenius Parameters]
-T2 --> V2[Optimal Temperature]
-U2 --> W2[Temperature Efficiency]
-V2 --> X2[Temperature Characterization]
-W2 --> Y2[Process Optimization]
-X2 --> Z2[Final Temperature Conditions]
-Y2 --> Z2
+    N1["Screening hits"]
+    N2["Confirm + triage hits"]
+    N3["Assess potency"]
+    N4["ADMET profiling"]
+    N5{"Drug-likeness OK?"}
+    N6["Modify structure"]
+    N7["Solubility / stability"]
+    N8{"Toxicity flags?"}
+    N9["Redesign / deprioritize"]
+    N10["Lead series nominated"]
 
-    style A2 fill:#ff6b6b,color:#fff
-    style C2 fill:#ff6b6b,color:#fff
-    style E2 fill:#ff6b6b,color:#fff
-    style B2 fill:#ffd43b,color:#000
-    style D2 fill:#ffd43b,color:#000
-    style F2 fill:#ffd43b,color:#000
-    style G2 fill:#ffd43b,color:#000
-    style H2 fill:#ffd43b,color:#000
-    style I2 fill:#ffd43b,color:#000
-    style J2 fill:#ffd43b,color:#000
-    style K2 fill:#ffd43b,color:#000
-    style L2 fill:#ffd43b,color:#000
-    style M2 fill:#51cf66,color:#fff
+    N1 --> N2
+    N2 --> N3
+    N3 --> N4
+    N4 --> N5
+    N5 -->|no| N6
+    N6 -->|re-test| N3
+    N5 -->|yes| N7
+    N7 --> N8
+    N8 -->|yes| N9
+    N9 -->|iterate| N3
+    N8 -->|clean| N10
+
+    style N1 fill:#ff6b6b,color:#fff
     style N2 fill:#51cf66,color:#fff
-    style O2 fill:#51cf66,color:#fff
-    style P2 fill:#51cf66,color:#fff
-    style Q2 fill:#51cf66,color:#fff
-    style R2 fill:#51cf66,color:#fff
-    style S2 fill:#51cf66,color:#fff
-    style T2 fill:#51cf66,color:#fff
-    style U2 fill:#51cf66,color:#fff
-    style V2 fill:#51cf66,color:#fff
-    style W2 fill:#51cf66,color:#fff
-    style X2 fill:#51cf66,color:#fff
-    style Y2 fill:#51cf66,color:#fff
-    style Z2 fill:#b197fc,color:#fff
+    style N3 fill:#51cf66,color:#fff
+    style N4 fill:#51cf66,color:#fff
+    style N5 fill:#74c0fc,color:#fff
+    style N6 fill:#51cf66,color:#fff
+    style N7 fill:#51cf66,color:#fff
+    style N8 fill:#74c0fc,color:#fff
+    style N9 fill:#51cf66,color:#fff
+    style N10 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Screening hits</td><td>Triggers & Inputs</td><td><a href="https://doi.org/10.1111/j.1476-5381.2010.01127.x" target="_blank" title="Principles of early drug discovery" style="color:#e74c3c;">Hughes, J. P. et al. 2011</a></td></tr><tr><td style="font-weight:600;">Confirm + triage hits</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1111/j.1476-5381.2010.01127.x" target="_blank" title="Principles of early drug discovery" style="color:#e74c3c;">Hughes, J. P. et al. 2011</a></td></tr><tr><td style="font-weight:600;">Assess potency</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1111/j.1476-5381.2010.01127.x" target="_blank" title="Principles of early drug discovery" style="color:#e74c3c;">Hughes, J. P. et al. 2011</a></td></tr><tr><td style="font-weight:600;">ADMET profiling</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1038/nrd2796" target="_blank" title="The influence of lead discovery strategies on the properties of drug candidates" style="color:#e74c3c;">Keserű, G. M. et al. 2009</a></td></tr><tr><td style="font-weight:600;">Drug-likeness OK?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1016/S0169-409X(00)00129-0" target="_blank" title="Experimental and computational approaches to estimate solubility and permeability (Rule of Five)" style="color:#e74c3c;">Lipinski, C. A. et al. 2001</a></td></tr><tr><td style="font-weight:600;">Modify structure</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1038/nrd2796" target="_blank" title="The influence of lead discovery strategies on the properties of drug candidates" style="color:#e74c3c;">Keserű, G. M. et al. 2009</a></td></tr><tr><td style="font-weight:600;">Solubility / stability</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1038/nrd2796" target="_blank" title="The influence of lead discovery strategies on the properties of drug candidates" style="color:#e74c3c;">Keserű, G. M. et al. 2009</a></td></tr><tr><td style="font-weight:600;">Toxicity flags?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1038/nrd2796" target="_blank" title="The influence of lead discovery strategies on the properties of drug candidates" style="color:#e74c3c;">Keserű, G. M. et al. 2009</a></td></tr><tr><td style="font-weight:600;">Redesign / deprioritize</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1111/j.1476-5381.2010.01127.x" target="_blank" title="Principles of early drug discovery" style="color:#e74c3c;">Hughes, J. P. et al. 2011</a></td></tr><tr><td style="font-weight:600;">Lead series nominated</td><td>Products & Outputs</td><td><a href="https://doi.org/10.1111/j.1476-5381.2010.01127.x" target="_blank" title="Principles of early drug discovery" style="color:#e74c3c;">Hughes, J. P. et al. 2011</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -314,12 +330,12 @@ Y2 --> Z2
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 26</li>
-                        <li><strong>Edges:</strong> 22</li>
-                        <li><strong>Conditionals:</strong> 0</li>
+                        <li><strong>Nodes:</strong> 10</li>
+                        <li><strong>Edges:</strong> 11</li>
+                        <li><strong>Conditionals:</strong> 2</li>
                         <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 1</li>
+                        <li><strong>OR Gates:</strong> 2</li>
+                        <li><strong>Total Gates:</strong> 3</li>
                     </ul>
                 </div>
                 
@@ -327,7 +343,7 @@ Y2 --> Z2
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>temperature</li><li>effects</li>
+                        <li>hit-to-lead</li><li>admet</li><li>lipinski</li><li>drug-likeness</li><li>metabolic stability</li>
                     </ul>
                 </div>
                 
@@ -338,42 +354,32 @@ Y2 --> Z2
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Experimental and computational approaches to estimate solubility and permeability (Rule of Five)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Lipinski, C. A.; Lombardo, F.; Dominy, B. W.; Feeney, P. J.
+                            , Advanced Drug Delivery Reviews
+                             (2001)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Effects of Temperature on the Biology of Spodoptera litura Fab.</strong>
-                            
-                            
-                             (None)
-                            </span>
-                            <br><a href="https://doi.org/10.59852/tpe-a278v7i6" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.59852/tpe-a278v7i6</a>
+                            <br><a href="https://doi.org/10.1016/S0169-409X(00)00129-0" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1016/S0169-409X(00)00129-0</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Temperature Effects in Semiconductors</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Wolpert, David; Ampadu, Paul
-                            , Managing Temperature Effects in Nanoscale Adaptive Systems
+                            <strong>Principles of early drug discovery</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Hughes, J. P.; Rees, S.; Kalindjian, S. B.; Philpott, K. L.
+                            , British Journal of Pharmacology
                              (2011)
                             </span>
-                            <br><a href="https://doi.org/10.1007/978-1-4614-0748-5_2" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1007/978-1-4614-0748-5_2</a>
+                            <br><a href="https://doi.org/10.1111/j.1476-5381.2010.01127.x" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1111/j.1476-5381.2010.01127.x</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Temperature Effects in Soil</strong>
-                            
-                            , SpringerReference
-                             (None)
+                            <strong>The influence of lead discovery strategies on the properties of drug candidates</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Keserű, G. M.; Makara, G. M.
+                            , Nature Reviews Drug Discovery
+                             (2009)
                             </span>
-                            <br><a href="https://doi.org/10.1007/springerreference_224068" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1007/springerreference_224068</a>
+                            <br><a href="https://doi.org/10.1038/nrd2796" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1038/nrd2796</a>
                             
                         </li>
                         

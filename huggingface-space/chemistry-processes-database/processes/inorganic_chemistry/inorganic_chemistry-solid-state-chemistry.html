@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Solid State Chemistry - Chemistry Process</title>
+    <title>Born–Haber Cycle - Chemistry Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Solid State Chemistry</h1>
+            <h1>Born–Haber Cycle</h1>
             <div class="header-meta">
                 <span class="meta-item">Chemistry</span>
                 <span class="meta-item">Inorganic Chemistry</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,67 +234,56 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Solid State Chemistry process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>The Born-Haber cycle applies Hess's law to ionic-solid formation, summing atomization, ionization, electron affinity and lattice enthalpy; comparing the cycle's predicted formation enthalpy with experiment lets one solve for or validate the lattice energy.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-A3[Crystal Structure] --> B3[Solid State Method]
-C3[Lattice Parameters] --> D3[Defect Analysis]
-E3[Phase Transition] --> F3[Solid State Analysis]
-B3 --> G3[X Ray Diffraction]
-D3 --> H3[Electron Microscopy]
-F3 --> I3[Thermal Analysis]
-G3 --> J3[Bragg's Law]
-H3 --> K3[Defect Characterization]
-I3 --> L3[Phase Diagram]
-J3 --> M3[Crystal Symmetry]
-K3 --> L3
-L3 --> N3[Thermodynamic Stability]
-M3 --> O3[Electronic Properties]
-N3 --> P3[Magnetic Properties]
-O3 --> Q3[Solid State Chemistry Process]
-P3 --> R3[Solid State Validation]
-Q3 --> S3[Solid State Verification]
-R3 --> T3[Solid State Result]
-S3 --> U3[Solid State Analysis]
-T3 --> V3[Solid State Parameters]
-U3 --> W3[Solid State Output]
-V3 --> X3[Solid State Analysis]
-W3 --> Y3[Solid State Final Result]
-X3 --> Z3[Solid State Chemistry Complete]
+    N1["Target ionic solid MX"]
+    N2["Atomize metal (ΔH_sub)"]
+    N3["Ionize metal (IE)"]
+    N4["Atomize + EA of X"]
+    N5["Lattice enthalpy U"]
+    N6["Sum via Hess's law"]
+    N7["Compute ΔHf"]
+    N8{"Matches experiment?"}
+    N9["Refine lattice / EA"]
+    N10["Validated energetics"]
 
-    style A3 fill:#ff6b6b,color:#fff
-    style C3 fill:#ff6b6b,color:#fff
-    style E3 fill:#ff6b6b,color:#fff
-    style B3 fill:#ffd43b,color:#000
-    style D3 fill:#ffd43b,color:#000
-    style F3 fill:#ffd43b,color:#000
-    style G3 fill:#ffd43b,color:#000
-    style H3 fill:#ffd43b,color:#000
-    style I3 fill:#ffd43b,color:#000
-    style J3 fill:#ffd43b,color:#000
-    style K3 fill:#ffd43b,color:#000
-    style L3 fill:#ffd43b,color:#000
-    style M3 fill:#51cf66,color:#fff
+    N1 --> N2
+    N2 --> N3
+    N3 --> N4
+    N4 --> N5
+    N5 --> N6
+    N6 --> N7
+    N7 --> N8
+    N8 -->|no| N9
+    N9 -->|re-evaluate| N5
+    N8 -->|yes| N10
+
+    style N1 fill:#ff6b6b,color:#fff
+    style N2 fill:#51cf66,color:#fff
     style N3 fill:#51cf66,color:#fff
-    style O3 fill:#51cf66,color:#fff
-    style P3 fill:#51cf66,color:#fff
-    style Q3 fill:#51cf66,color:#fff
-    style R3 fill:#51cf66,color:#fff
-    style S3 fill:#51cf66,color:#fff
-    style T3 fill:#51cf66,color:#fff
-    style U3 fill:#51cf66,color:#fff
-    style V3 fill:#51cf66,color:#fff
-    style W3 fill:#51cf66,color:#fff
-    style X3 fill:#51cf66,color:#fff
-    style Y3 fill:#51cf66,color:#fff
-    style Z3 fill:#b197fc,color:#fff
+    style N4 fill:#51cf66,color:#fff
+    style N5 fill:#51cf66,color:#fff
+    style N6 fill:#51cf66,color:#fff
+    style N7 fill:#51cf66,color:#fff
+    style N8 fill:#74c0fc,color:#fff
+    style N9 fill:#51cf66,color:#fff
+    style N10 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Target ionic solid MX</td><td>Triggers & Inputs</td><td><a href="https://www.pearson.com/en-gb/subject-catalog/p/inorganic-chemistry/P200000005860" target="_blank" title="Inorganic Chemistry, 6th ed. — Lattice Energy and the Born–Haber Cycle" style="color:#e74c3c;">Housecroft, C. E. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Atomize metal (ΔH_sub)</td><td>Processing & Operations</td><td><a href="https://www.pearson.com/en-gb/subject-catalog/p/inorganic-chemistry/P200000005860" target="_blank" title="Inorganic Chemistry, 6th ed. — Lattice Energy and the Born–Haber Cycle" style="color:#e74c3c;">Housecroft, C. E. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Ionize metal (IE)</td><td>Processing & Operations</td><td><a href="https://global.oup.com/ukhe/product/atkins-physical-chemistry-9780198769866" target="_blank" title="Physical Chemistry, 11th ed. — The Born–Haber Cycle" style="color:#e74c3c;">Atkins, P. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Atomize + EA of X</td><td>Processing & Operations</td><td><a href="https://global.oup.com/ukhe/product/atkins-physical-chemistry-9780198769866" target="_blank" title="Physical Chemistry, 11th ed. — The Born–Haber Cycle" style="color:#e74c3c;">Atkins, P. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Lattice enthalpy U</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1351/goldbook.L03488" target="_blank" title="Gold Book: lattice energy" style="color:#e74c3c;">IUPAC 2019</a></td></tr><tr><td style="font-weight:600;">Sum via Hess's law</td><td>Processing & Operations</td><td><a href="https://www.pearson.com/en-gb/subject-catalog/p/inorganic-chemistry/P200000005860" target="_blank" title="Inorganic Chemistry, 6th ed. — Lattice Energy and the Born–Haber Cycle" style="color:#e74c3c;">Housecroft, C. E. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Compute ΔHf</td><td>Processing & Operations</td><td><a href="https://global.oup.com/ukhe/product/atkins-physical-chemistry-9780198769866" target="_blank" title="Physical Chemistry, 11th ed. — The Born–Haber Cycle" style="color:#e74c3c;">Atkins, P. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Matches experiment?</td><td>Intermediates & States</td><td><a href="https://www.pearson.com/en-gb/subject-catalog/p/inorganic-chemistry/P200000005860" target="_blank" title="Inorganic Chemistry, 6th ed. — Lattice Energy and the Born–Haber Cycle" style="color:#e74c3c;">Housecroft, C. E. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Refine lattice / EA</td><td>Processing & Operations</td><td><a href="https://global.oup.com/ukhe/product/atkins-physical-chemistry-9780198769866" target="_blank" title="Physical Chemistry, 11th ed. — The Born–Haber Cycle" style="color:#e74c3c;">Atkins, P. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Validated energetics</td><td>Products & Outputs</td><td><a href="https://doi.org/10.1351/goldbook.L03488" target="_blank" title="Gold Book: lattice energy" style="color:#e74c3c;">IUPAC 2019</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -313,12 +329,12 @@ X3 --> Z3[Solid State Chemistry Complete]
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 26</li>
-                        <li><strong>Edges:</strong> 21</li>
-                        <li><strong>Conditionals:</strong> 0</li>
+                        <li><strong>Nodes:</strong> 10</li>
+                        <li><strong>Edges:</strong> 10</li>
+                        <li><strong>Conditionals:</strong> 1</li>
                         <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 1</li>
+                        <li><strong>OR Gates:</strong> 1</li>
+                        <li><strong>Total Gates:</strong> 2</li>
                     </ul>
                 </div>
                 
@@ -326,7 +342,7 @@ X3 --> Z3[Solid State Chemistry Complete]
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>solid</li><li>state</li><li>chemistry</li>
+                        <li>born-haber cycle</li><li>lattice enthalpy</li><li>ionization energy</li><li>electron affinity</li><li>hess's law</li>
                     </ul>
                 </div>
                 
@@ -337,42 +353,32 @@ X3 --> Z3[Solid State Chemistry Complete]
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Inorganic Chemistry, 6th ed. — Lattice Energy and the Born–Haber Cycle</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Housecroft, C. E.; Sharpe, A. G.
+                            , Pearson
+                             (2018)
                             </span>
                             
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
+                            <br><a href="https://www.pearson.com/en-gb/subject-catalog/p/inorganic-chemistry/P200000005860" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Basic solid state chemistry</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Wold, Aaron
-                            , Journal of Solid State Chemistry
-                             (1989)
+                            <strong>Physical Chemistry, 11th ed. — The Born–Haber Cycle</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Atkins, P.; de Paula, J.; Keeler, J.
+                            , Oxford University Press
+                             (2018)
                             </span>
-                            <br><a href="https://doi.org/10.1016/0022-4596(89)90241-7" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1016/0022-4596(89)90241-7</a>
                             
+                            <br><a href="https://global.oup.com/ukhe/product/atkins-physical-chemistry-9780198769866" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Keywords for progress in solid state chemistry</strong>
-                            
-                            , Progress in Solid State Chemistry
-                             (1998)
+                            <strong>Gold Book: lattice energy</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">IUPAC
+                            , IUPAC Compendium of Chemical Terminology
+                             (2019)
                             </span>
-                            <br><a href="https://doi.org/10.1016/s0079-6786(97)82936-6" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1016/s0079-6786(97)82936-6</a>
-                            
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Keywords for progress in solid state chemistry</strong>
-                            
-                            , Progress in Solid State Chemistry
-                             (1998)
-                            </span>
-                            <br><a href="https://doi.org/10.1016/s0079-6786(98)90002-4" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1016/s0079-6786(98)90002-4</a>
+                            <br><a href="https://doi.org/10.1351/goldbook.L03488" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1351/goldbook.L03488</a>
                             
                         </li>
                         

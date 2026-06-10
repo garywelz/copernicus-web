@@ -1,0 +1,37 @@
+{
+  "id": "arxiv_2604.18817v1",
+  "arxiv_id": "2604.18817v1",
+  "title": "Nonuniform Iterative Phasing Framework and Sampling Requirements for 3D Dynamical Inversion from Coherent Surface Scattering Imaging",
+  "authors": [
+    "Jeffrey J. Donatelli",
+    "Miaoqi Chu",
+    "Zixi Hu",
+    "Zhang Jiang",
+    "Nicholas Schwarz",
+    "Jin Wang",
+    "James A. Sethian"
+  ],
+  "author_string": "Jeffrey J. Donatelli, Miaoqi Chu, Zixi Hu, Zhang Jiang, Nicholas Schwarz et al.",
+  "journal": "arXiv:2604.18817v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Coherent surface scattering imaging (CSSI) is an emerging experimental technique uniquely suited to probing the structure of thin nanostructures. In these experiments, a specimen is placed on a substrate, and a series of X-ray diffraction patterns is collected at grazing incidence angles as the specimen is rotated. However, reconstructing the specimen's 3D structure from the data is challenging due to dynamical scattering effects induced by the experimental geometry and the lack of direct phase measurements. Specifically, the data involves nonuniformly sampled Fourier-transform values of the specimen density, and failure to effectively address this nonuniformity can lead to errors or degraded performance. Here we introduce a mathematical inversion framework that combines iterative-projection-based phasing techniques with new fast nonuniform Fourier inversion methods to efficiently reconstruct isolated 3D structures from their CSSI rotation-series data. We also analyze the theoretical properties of CSSI reconstruction to derive requirements on experimental parameters and characterize solution uniqueness. We validate our approach using CSSI data simulated from a conical Siemens star and a porous medium, demonstrating that high-resolution 3D structures can be reconstructed even in the presence of significant dynamical scattering, from data collected at as few as one or two incident angles. More broadly, the presented nonuniform reconstruction framework provides a foundation for solving challenging generalizations of the phase problem in which measurements involve nonlinear combinations of nonuniformly sampled Fourier values.",
+  "categories": [
+    "physics.comp-ph",
+    "math.NA"
+  ],
+  "primary_category": "math.NA",
+  "comment": "Main text: 47 pages, 31 figures. Supplemental material: 22 pages, 3 figures",
+  "published_date": "2026-04-20T20:36:47Z",
+  "updated_date": "2026-04-20T20:36:47Z",
+  "url": "https://arxiv.org/abs/2604.18817v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.18817v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-22T10:15:44.050065",
+  "category": "mathematics",
+  "subcategories": [
+    "physics.comp-ph",
+    "math.NA"
+  ]
+}

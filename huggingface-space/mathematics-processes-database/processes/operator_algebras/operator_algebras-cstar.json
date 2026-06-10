@@ -1,0 +1,39 @@
+{
+  "id": "operator_algebras-cstar",
+  "name": "C*-Algebras",
+  "category": "mathematics",
+  "subcategory": "operator_algebras",
+  "subcategory_name": "Operator Algebras",
+  "description": "Banach *-algebra with ‖x*x‖=‖x‖². Gelfand–Naimark.",
+  "mermaid": "graph TD\n    D1[\"Def: C*-algebra\\nBanach *-alg, ‖x*x‖=‖x‖²\"]\n    D2[\"Def: Commutative C*\\nA ≅ C₀(X) locally compact\"]\n    D3[\"Def: Positive element\\nx ≥ 0 iff x = a*a\"]\n    D4[\"Def: State\\nω linear, ω(1)=1, ω(x*x)≥0\"]\n    T1[\"Thm: Gelfand–Naimark\\nA↪B(H) isometry\"]\n    T2[\"Thm: GNS\\nstate → cyclic rep\"]\n    T3[\"Thm: Spectrum\\nσ(x) compact in C\"]\n    T4[\"Thm: Continuous f.calc\\nf(x) well-defined\"]\n    T5[\"Thm: Spectral radius\\nr(x)=‖x‖ for normal\"]\n    D1 --> D2\n    D1 --> D3\n    D3 --> D4\n    D4 --> T2\n    D1 --> T1\n    D1 --> T3\n    T3 --> T4\n    T3 --> T5\n    classDef definition fill:#b197fc,color:#fff\n    classDef theorem fill:#51cf66,color:#fff\n    class D1,D2,D3,D4 definition\n    class T1,T2,T3,T4,T5 theorem",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

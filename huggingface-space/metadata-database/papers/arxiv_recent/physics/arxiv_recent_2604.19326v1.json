@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2604.19326v1",
+  "arxiv_id": "2604.19326v1",
+  "title": "Experimental Demonstration of SDRL Controller for TS Wave Suppression with DBD Actuator",
+  "authors": [
+    "Babak Mohammadikalakoo",
+    "Sergio Garcia Villasol",
+    "Gabriele Salomone",
+    "Marios Kotsonis",
+    "Nguyen Anh Khoa Doan"
+  ],
+  "author_string": "Babak Mohammadikalakoo, Sergio Garcia Villasol, Gabriele Salomone, Marios Kotsonis, Nguyen Anh Khoa Doan",
+  "journal": "arXiv:2604.19326v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "An experimental wind-tunnel implementation of a model-free single-step deep reinforcement learning (SDRL) controller is presented for TS wave suppression in a flat plate boundary layer. The controller is deployed in a feedforward layout. The arrangement comprises an upstream reference microphone, a downstream error microphone, and a DBD plasma actuator located between them. The controller updates its policy online from the measured error signal and, in real time, adjusts the coefficients of a finite-impulse-response (FIR) filter that maps the reference signal to the actuation command. TS waves are artificially introduced by a second, upstream-located DBD trigger actuator identical in specification to the control actuator. The trigger actuator is driven with single-frequency, multi-frequency, or broadband white-noise inputs depending on the control cases. Experiments were carried out in an anechoic wind tunnel facility using flush-mounted pressure microphones for sensing and controller feedback, together with two-component planar particle image velocimetry~(PIV) for flow-field verification. The controller performance is assessed via second-order statistics of the error signal and the spectral attenuation of the TS wave content. Across all tested scenarios, the SDRL-based controller consistently reduces the downstream disturbance level and exhibits robustness to moderate variations in freestream velocity and in the incoming TS wave disturbance spectrum. These results provide an experimental step toward adaptable, data-driven TS wave suppression with compact sensing and actuation, supporting practical strategies for boundary layer transition delay.",
+  "categories": [
+    "physics.flu-dyn"
+  ],
+  "primary_category": "physics.flu-dyn",
+  "comment": "33 pages, 17 figures",
+  "published_date": "2026-04-21T10:48:13Z",
+  "updated_date": "2026-04-21T10:48:13Z",
+  "url": "https://arxiv.org/abs/2604.19326v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.19326v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-23T10:15:44.421648",
+  "category": "physics",
+  "subcategories": [
+    "physics.flu-dyn"
+  ]
+}

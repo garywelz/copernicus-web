@@ -1,0 +1,39 @@
+{
+  "id": "number_theory-chinese-remainder-theorem",
+  "name": "Chinese Remainder Theorem",
+  "category": "mathematics",
+  "subcategory": "number_theory",
+  "subcategory_name": "Number Theory",
+  "description": "Chinese Remainder Theorem: If m₁,…,mₖ are pairwise coprime, the system x ≡ a₁ (mod m₁), …, x ≡ aₖ (mod mₖ) has a unique solution modulo M = m₁⋯mₖ.",
+  "mermaid": "graph TD\n    DefCong[\"Def: Congruence\\na ≡ b mod m\"]\n    DefCoprime[\"Def: Pairwise coprime\\ngcd(mᵢ,mⱼ)=1 for i≠j\"]\n    DefSys[\"Def: System of congruences\\nx ≡ aᵢ mod mᵢ\"]\n    ThmCRT[\"Thm: CRT\\nUnique solution mod M\"]\n    LemExist[\"Lem: Existence\\nConstruction via Mᵢ, yᵢ\"]\n    LemUniq[\"Lem: Uniqueness\\nTwo solutions ≡ mod M\"]\n    AlgEE[\"Alg: Extended Euclidean\\nCompute yᵢ: Mᵢyᵢ ≡ 1 mod mᵢ\"]\n    AlgEE --> LemExist\n    DefCong --> DefSys\n    DefCoprime --> ThmCRT\n    DefSys --> ThmCRT\n    LemExist --> ThmCRT\n    LemUniq --> ThmCRT\n    classDef definition fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef theorem fill:#51cf66,color:#fff,stroke:#40c057\n    classDef lemma fill:#74c0fc,color:#fff,stroke:#4dabf7\n    class DefCong,DefCoprime,DefSys definition\n    class ThmCRT theorem\n    class LemExist,LemUniq lemma",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

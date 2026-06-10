@@ -1,0 +1,61 @@
+{
+  "id": "number_theory-extended-euclidean",
+  "name": "Extended Euclidean Algorithm",
+  "category": "mathematics",
+  "subcategory": "number_theory",
+  "subcategory_name": "Number Theory",
+  "description": "Find GCD of a,b and Bézout coefficients h,j such that gcd = ha + jb. Used for modular inverses. O(log min(a,b)).",
+  "mermaid": "graph TD\n    A1[\"Positive integers\\na, b\"]\n    B1[\"Initialize r s t = a 1 0\\nr' s' t' = b 0 1\"]\n    D1{\"r' equals 0?\"}\n    C1[\"q = r div r'\\nUpdate r s t and r' s' t'\"]\n    F1[\"Return gcd = r\\nBézout coeffs s t\"]\n    A1 --> B1\n    B1 --> D1\n    D1 -->|Yes| F1\n    D1 -->|No| C1\n    C1 --> D1\n    classDef red fill:#ff6b6b,color:#fff,stroke:#c0392b\n    classDef yellow fill:#ffd43b,color:#000,stroke:#f59f00\n    classDef green fill:#51cf66,color:#fff,stroke:#40c057\n    classDef lightblue fill:#74c0fc,color:#fff,stroke:#4dabf7\n    classDef violet fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef lavender fill:#e6e6fa,color:#333,stroke:#b19cd9\n    class A1 red\n    class B1 yellow\n    class C1 green\n    class F1 violet\n    class D1 lavender",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [
+    "extended Euclidean",
+    "GCD",
+    "Bézout",
+    "modular inverse",
+    "NIST DADS",
+    "number theory"
+  ],
+  "sources": [
+    {
+      "title": "NIST DADS",
+      "url": "https://xlinux.nist.gov/dads/HTML/extendEuclid.html"
+    },
+    {
+      "title": "Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Extended_Euclidean_algorithm"
+    }
+  ],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "complexity": {
+    "level": "medium",
+    "nodes": 6,
+    "edges": 6,
+    "conditionals": 1
+  },
+  "processType": "algorithm"
+}

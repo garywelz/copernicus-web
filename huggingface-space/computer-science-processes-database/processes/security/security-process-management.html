@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Process Management - Computer Science Process</title>
+    <title>Diffie-Hellman Key Exchange - Computer Science Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Process Management</h1>
+            <h1>Diffie-Hellman Key Exchange</h1>
             <div class="header-meta">
                 <span class="meta-item">Computer Science</span>
                 <span class="meta-item">Security & Cryptography</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,67 +234,62 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Process Management process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>Diffie-Hellman lets two parties derive a shared secret over a public channel: they agree on public parameters, each picks a private exponent and exchanges its public power, then both compute the same shared value; because passive eavesdroppers cannot, but active attackers can, the exchange must be authenticated to resist man-in-the-middle.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-A1[Process Creation] --> B1[Process Management Method]
-C1[Process Scheduling] --> D1[Context Switching]
-E1[Process Synchronization] --> F1[Process Management Analysis]
-B1 --> G1[Round Robin Scheduling]
-D1 --> H1[Priority Scheduling]
-F1 --> I1[Multilevel Queue]
-G1 --> J1[Time Quantum]
-H1 --> K1[Process Priority]
-I1 --> L1[Queue Management]
-J1 --> M1[CPU Allocation]
-K1 --> L1
-L1 --> N1[Process State]
-M1 --> O1[Inter Process Communication]
-N1 --> P1[Deadlock Prevention]
-O1 --> Q1[Process Management Process]
-P1 --> R1[Process Management Validation]
-Q1 --> S1[Process Management Verification]
-R1 --> T1[Process Management Result]
-S1 --> U1[Process Management Analysis]
-T1 --> V1[Process Management Parameters]
-U1 --> W1[Process Management Output]
-V1 --> X1[Process Management Analysis]
-W1 --> Y1[Process Management Final Result]
-X1 --> Z1[Process Management Complete]
+    N1["No shared key"]
+    N2["Agree params (p,g)"]
+    N3["Pick secrets a,b"]
+    N4["Compute g^a, g^b"]
+    N5["Exchange public vals"]
+    N6{"MITM possible?"}
+    N7["Authenticate (sign)"]
+    N8["Compute g^ab"]
+    N9{"Keys match?"}
+    N10["Abort (tampering)"]
+    N11["Derive session key"]
+    N12["Shared secret set"]
 
-    style A1 fill:#ff6b6b,color:#fff
-    style C1 fill:#ff6b6b,color:#fff
-    style E1 fill:#ff6b6b,color:#fff
-    style B1 fill:#ffd43b,color:#000
-    style D1 fill:#ffd43b,color:#000
-    style F1 fill:#ffd43b,color:#000
-    style G1 fill:#ffd43b,color:#000
-    style H1 fill:#ffd43b,color:#000
-    style I1 fill:#ffd43b,color:#000
-    style J1 fill:#ffd43b,color:#000
-    style K1 fill:#ffd43b,color:#000
-    style L1 fill:#ffd43b,color:#000
-    style M1 fill:#51cf66,color:#fff
-    style N1 fill:#51cf66,color:#fff
-    style O1 fill:#51cf66,color:#fff
-    style P1 fill:#51cf66,color:#fff
-    style Q1 fill:#51cf66,color:#fff
-    style R1 fill:#51cf66,color:#fff
-    style S1 fill:#51cf66,color:#fff
-    style T1 fill:#51cf66,color:#fff
-    style U1 fill:#51cf66,color:#fff
-    style V1 fill:#51cf66,color:#fff
-    style W1 fill:#51cf66,color:#fff
-    style X1 fill:#51cf66,color:#fff
-    style Y1 fill:#51cf66,color:#fff
-    style Z1 fill:#b197fc,color:#fff
+    N1 --> N2
+    N2 --> N3
+    N3 --> N4
+    N4 --> N5
+    N5 --> N6
+    N6 -->|yes| N7
+    N7 --> N8
+    N6 -->|no| N8
+    N8 --> N9
+    N9 -->|no| N10
+    N9 -->|yes| N11
+    N11 --> N12
+
+    style N1 fill:#ff6b6b,color:#fff
+    style N2 fill:#51cf66,color:#fff
+    style N3 fill:#51cf66,color:#fff
+    style N4 fill:#51cf66,color:#fff
+    style N5 fill:#51cf66,color:#fff
+    style N6 fill:#74c0fc,color:#fff
+    style N7 fill:#51cf66,color:#fff
+    style N8 fill:#74c0fc,color:#fff
+    style N9 fill:#74c0fc,color:#fff
+    style N10 fill:#51cf66,color:#fff
+    style N11 fill:#51cf66,color:#fff
+    style N12 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">No shared key</td><td>Triggers & Inputs</td><td><a href="https://doi.org/10.1109/TIT.1976.1055638" target="_blank" title="New directions in cryptography" style="color:#9b59b6;">Diffie, W. et al. 1976</a></td></tr><tr><td style="font-weight:600;">Agree params (p,g)</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1109/TIT.1976.1055638" target="_blank" title="New directions in cryptography" style="color:#9b59b6;">Diffie, W. et al. 1976</a></td></tr><tr><td style="font-weight:600;">Pick secrets a,b</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1109/TIT.1976.1055638" target="_blank" title="New directions in cryptography" style="color:#9b59b6;">Diffie, W. et al. 1976</a></td></tr><tr><td style="font-weight:600;">Compute g^a, g^b</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1109/TIT.1976.1055638" target="_blank" title="New directions in cryptography" style="color:#9b59b6;">Diffie, W. et al. 1976</a></td></tr><tr><td style="font-weight:600;">Exchange public vals</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1109/TIT.1976.1055638" target="_blank" title="New directions in cryptography" style="color:#9b59b6;">Diffie, W. et al. 1976</a></td></tr><tr><td style="font-weight:600;">MITM possible?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1145/359460.359473" target="_blank" title="Secure communications over insecure channels" style="color:#9b59b6;">Merkle, R. C. 1978</a></td></tr><tr><td style="font-weight:600;">Authenticate (sign)</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1145/359460.359473" target="_blank" title="Secure communications over insecure channels" style="color:#9b59b6;">Merkle, R. C. 1978</a></td></tr><tr><td style="font-weight:600;">Compute g^ab</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1109/TIT.1976.1055638" target="_blank" title="New directions in cryptography" style="color:#9b59b6;">Diffie, W. et al. 1976</a></td></tr><tr><td style="font-weight:600;">Keys match?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1109/TIT.1976.1055638" target="_blank" title="New directions in cryptography" style="color:#9b59b6;">Diffie, W. et al. 1976</a></td></tr><tr><td style="font-weight:600;">Abort (tampering)</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1145/359460.359473" target="_blank" title="Secure communications over insecure channels" style="color:#9b59b6;">Merkle, R. C. 1978</a></td></tr><tr><td style="font-weight:600;">Derive session key</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1109/TIT.1976.1055638" target="_blank" title="New directions in cryptography" style="color:#9b59b6;">Diffie, W. et al. 1976</a></td></tr><tr><td style="font-weight:600;">Shared secret set</td><td>Products & Outputs</td><td><a href="https://doi.org/10.1109/TIT.1976.1055638" target="_blank" title="New directions in cryptography" style="color:#9b59b6;">Diffie, W. et al. 1976</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -313,12 +335,12 @@ X1 --> Z1[Process Management Complete]
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 26</li>
-                        <li><strong>Edges:</strong> 21</li>
-                        <li><strong>Conditionals:</strong> 0</li>
+                        <li><strong>Nodes:</strong> 12</li>
+                        <li><strong>Edges:</strong> 12</li>
+                        <li><strong>Conditionals:</strong> 2</li>
                         <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 1</li>
+                        <li><strong>OR Gates:</strong> 2</li>
+                        <li><strong>Total Gates:</strong> 3</li>
                     </ul>
                 </div>
                 
@@ -326,7 +348,7 @@ X1 --> Z1[Process Management Complete]
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>process</li><li>management</li>
+                        <li>Diffie-Hellman</li><li>key exchange</li><li>shared secret</li><li>discrete logarithm</li><li>man-in-the-middle</li>
                     </ul>
                 </div>
                 
@@ -337,42 +359,22 @@ X1 --> Z1[Process Management Complete]
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>New directions in cryptography</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Diffie, W.; Hellman, M. E.
+                            , IEEE Transactions on Information Theory
+                             (1976)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #9b59b6; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Process Management</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Phusavat, Kongkiti
-                            , Process Management
-                             (2010)
-                            </span>
-                            <br><a href="https://doi.org/10.5772/8448" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.5772/8448</a>
+                            <br><a href="https://doi.org/10.1109/TIT.1976.1055638" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.1109/TIT.1976.1055638</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Business Process Management Architectures</strong>
-                            
-                            , Business Process Management
-                             (None)
+                            <strong>Secure communications over insecure channels</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Merkle, R. C.
+                            , Communications of the ACM
+                             (1978)
                             </span>
-                            <br><a href="https://doi.org/10.1007/978-3-540-73522-9_7" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.1007/978-3-540-73522-9_7</a>
-                            
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Process Safety Management Systems</strong>
-                            
-                            , Process Systems Engineering
-                             (2005)
-                            </span>
-                            <br><a href="https://doi.org/10.1016/s1874-5970(05)80013-x" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.1016/s1874-5970(05)80013-x</a>
+                            <br><a href="https://doi.org/10.1145/359460.359473" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.1145/359460.359473</a>
                             
                         </li>
                         

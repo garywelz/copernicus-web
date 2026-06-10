@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2604.18846v1",
+  "arxiv_id": "2604.18846v1",
+  "title": "Trainability Beyond Linearity in Variational Quantum Objectives",
+  "authors": [
+    "Gordon Ma",
+    "Xiufan Li"
+  ],
+  "author_string": "Gordon Ma, Xiufan Li",
+  "journal": "arXiv:2604.18846v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Barren-plateau results have established exponential gradient suppression as a widely cited obstacle to the scalability of variational quantum algorithms. When and whether these results extend to a given objective has been addressed through loss-specific arguments, but a general structural characterization has remained open. We show that the objective itself admits a fixed-observable representation if and only if the loss is affine in the measured statistics, thereby identifying the exact boundary of the standard concentration-based proof template. Existing transfer results for non-affine losses achieve this reduction under additional assumptions; our characterization implies that such a reduction is not structurally available for a class of non-affine objectives, placing them outside the automatic reach of the existing proof template. Beyond the affine regime, a chain-rule decomposition reveals three governing factors -- model responsivity, loss-side signal, and transmittance -- and induces a loss-class dichotomy: bounded-gradient losses inherit suppression, while amplification-capable losses can in principle counteract it. In the exponentially wide setting, both classes fail, but for different structural reasons. When the interface is instead designed at polynomial width -- exposing coarse-grained statistics rather than individual bitstring probabilities -- the exponential-dimensional obstruction is relaxed and the dichotomy plays a genuine role. In a numerical demonstration on a charge-conserving quantum system, the amplification-capable objective produces resolved gradients several orders of magnitude larger than affine and inheriting baselines at comparable shot budgets. Over the tested interval, its scaling trend is statistically distinguished from the exponential trend of both alternatives. The boundary is affine; what lies beyond it is a representation-design problem.",
+  "categories": [
+    "quant-ph",
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": "28 pages, 6 figures",
+  "published_date": "2026-04-20T21:12:10Z",
+  "updated_date": "2026-04-20T21:12:10Z",
+  "url": "https://arxiv.org/abs/2604.18846v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.18846v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-22T10:15:44.049298",
+  "category": "computer_science",
+  "subcategories": [
+    "quant-ph",
+    "cs.LG"
+  ]
+}

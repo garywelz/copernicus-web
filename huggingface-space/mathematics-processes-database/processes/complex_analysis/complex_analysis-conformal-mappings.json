@@ -1,0 +1,39 @@
+{
+  "id": "complex_analysis-conformal-mappings",
+  "name": "Conformal Mappings & Riemann Surfaces",
+  "category": "mathematics",
+  "subcategory": "complex_analysis",
+  "subcategory_name": "Complex Analysis",
+  "description": "Conformal = angle-preserving. Riemann mapping theorem (simply connected → disc). Uniformization. Riemann surfaces as one-dimensional complex manifolds.",
+  "mermaid": "graph TD\n    D1[\"Def: Conformal map\\npreserves angles\\nf'(z)≠0\"]\n    D2[\"Def: Riemann surface\\n1-dim C-manifold\"]\n    D3[\"Def: Genus g\\n topological invariant\"]\n    T1[\"Thm: Riemann mapping\\nsimply connected Ω≠ℂ\\n⇒ Ω ≅ 𝔻\"]\n    T2[\"Thm: Uniformization\\nRiemann surf ⇒ ℂ̂,ℂ,𝔻\"]\n    T3[\"Thm: Measurable RMT\\nμ on 𝕊¹ ⇒ exists f:𝔻→Ω\"]\n    T4[\"Thm: Koebe 1/4\\nunivalent f, f(0)=0\\n⇒ f(𝔻)⊃B(0,|f'(0)|/4)\"]\n    T5[\"Thm: Carathéodory\\nextension to boundary\"]\n    D1 --> T1\n    D2 --> T2\n    D3 --> T2\n    T1 --> T3\n    T1 --> T4\n    T1 --> T5\n    classDef definition fill:#b197fc,color:#fff\n    classDef theorem fill:#51cf66,color:#fff\n    class D1,D2,D3 definition\n    class T1,T2,T3,T4,T5 theorem",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

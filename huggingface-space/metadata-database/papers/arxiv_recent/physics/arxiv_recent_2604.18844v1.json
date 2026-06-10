@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2604.18844v1",
+  "arxiv_id": "2604.18844v1",
+  "title": "Pulsar Selection Criteria and Performance Evaluation of Autonomous X-ray Pulsar Navigation Systems",
+  "authors": [
+    "Sui Chen",
+    "Emilie Parent",
+    "Nanda Rea",
+    "Francesco Topputo"
+  ],
+  "author_string": "Sui Chen, Emilie Parent, Nanda Rea, Francesco Topputo",
+  "journal": "arXiv:2604.18844v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Current space missions primarily depend on Earth-based Guidance, Navigation, and Control (GNC) systems involving human-in-the-loop operations. X-ray pulsar-based navigation offers a promising alternative by using the very precise periodic X-ray emissions from pulsars for fully autonomous state estimation. This study presents a comprehensive analysis of pulsar selection criteria that significantly influence overall navigation performance. Observational data from the NICER mission is used to derive realistic estimates of measurement noise. Key mission-level constraints, including pulsed flux, pulsar visibility, geometric configuration, and long-term timing stability, are integrated into the pulsar selection process, addressing limitations of existing studies. An extended Kalman filter (EKF) is used for onboard spacecraft state estimation. The proposed system is evaluated in two scenarios: a Low Earth Orbit (LEO) satellite at 600 km altitude and an interplanetary transfer from Earth to Jupiter. Simulation results show that including the Crab pulsar yields position errors below 7 km in LEO and 20 km during interplanetary transfer with an instrument effective area of 200~cm$^2$; however, the Crab's limited timing stability leads to filter divergence after 20 days without timing model updates. In contrast, more stable pulsars enable long-term autonomy but with reduced accuracy. These results highlight the trade-offs involved in pulsar selection for autonomous navigation and the need to balance competing objectives. Overall, this study demonstrates the feasibility of X-ray pulsar-based navigation and marks a key step towards fully autonomous spacecraft operations.",
+  "categories": [
+    "astro-ph.IM",
+    "astro-ph.HE"
+  ],
+  "primary_category": "astro-ph.HE",
+  "comment": "68 pages, 26 figures, 6 tables; Article accepted for publication in Acta Astronautica",
+  "published_date": "2026-04-20T21:10:22Z",
+  "updated_date": "2026-04-20T21:10:22Z",
+  "url": "https://arxiv.org/abs/2604.18844v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.18844v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-22T10:15:44.049438",
+  "category": "physics",
+  "subcategories": [
+    "astro-ph.IM",
+    "astro-ph.HE"
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2604.21035v1",
+  "arxiv_id": "2604.21035v1",
+  "title": "Masked-Token Prediction for Anomaly Detection at the Large Hadron Collider",
+  "authors": [
+    "Ambre Visive",
+    "Roberto Ruiz de Austri",
+    "Polina Moskvitina",
+    "Clara Nellist",
+    "Sascha Caron"
+  ],
+  "author_string": "Ambre Visive, Roberto Ruiz de Austri, Polina Moskvitina, Clara Nellist, Sascha Caron",
+  "journal": "arXiv:2604.21035v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Anomaly detection in High Energy Physics requires identifying rare signals against overwhelming backgrounds, without prior knowledge of the signal. We present the first application of masked-token prediction, a technique from Large Language Models, to this problem. A lightweight encoder architecture trained solely on background events captures the structure of Standard Model (SM) physics; at inference, sequences deviating from this learned structure are flagged as anomalous. We evaluate the approach on searches for four-top-quark production and supersymmetric gluino pair production, both featuring top-rich final states with substantial missing transverse energy, covering SM and beyond the Standard Model (BSM) scenarios. Strong performance on the four-top signature, which closely resembles background, demonstrates the method's sensitivity to subtle deviations. We further show that the tokenization strategy significantly impacts performance: deep-learned tokenization via vector-quantized variational autoencoders (VQ-VAE) outperforms look-up table tokenization. Comparison with established anomaly detection baselines confirms robustness. These results highlight the potential of token-based collider data representations combined with transformer architectures for new-physics discovery. Once trained on SM background, the model transfers across different BSM searches, enabling scalable, model-independent anomaly detection at reduced computational cost.",
+  "categories": [
+    "hep-ph",
+    "hep-ex"
+  ],
+  "primary_category": "hep-ex",
+  "comment": "11 pages, 30 figures",
+  "published_date": "2026-04-22T19:29:41Z",
+  "updated_date": "2026-04-22T19:29:41Z",
+  "url": "https://arxiv.org/abs/2604.21035v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.21035v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-25T22:15:44.910907",
+  "category": "physics",
+  "subcategories": [
+    "hep-ph",
+    "hep-ex"
+  ]
+}

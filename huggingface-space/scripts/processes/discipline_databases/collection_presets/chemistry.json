@@ -1,0 +1,32 @@
+[
+  {
+    "id": "reaction-mechanisms",
+    "label": "Reaction Mechanisms",
+    "description": "Bond formation, bond breaking, catalytic cycles, and mechanistic transformations.",
+    "match": ["reaction", "coupling", "condensation", "esterification", "grignard", "substitution", "mechanism", "catalysis"]
+  },
+  {
+    "id": "measurement-analysis",
+    "label": "Measurement and Analysis",
+    "description": "Analytical chemistry, chromatography, spectroscopy, calibration, and validation.",
+    "match": ["analytical", "chromatography", "spectroscopy", "calibration", "analysis", "quality", "nmr", "raman", "x-ray", "mass"]
+  },
+  {
+    "id": "materials-surface",
+    "label": "Materials and Surfaces",
+    "description": "Materials synthesis, surfaces, nanomaterials, deposition, adsorption, and defects.",
+    "match": ["materials", "surface", "thin film", "sol-gel", "nanomaterials", "adsorption", "defects", "crystal"]
+  },
+  {
+    "id": "thermo-kinetics",
+    "label": "Thermodynamics and Kinetics",
+    "description": "Free energy, equilibrium, chemical potential, rates, and Arrhenius behavior.",
+    "match": ["thermo", "kinetic", "gibbs", "entropy", "equilibrium", "arrhenius", "rate", "potential"]
+  },
+  {
+    "id": "computational-quantum",
+    "label": "Computational and Quantum Chemistry",
+    "description": "Quantum calculations, DFT, molecular dynamics, orbitals, and reaction pathways.",
+    "match": ["quantum", "computational", "dft", "density functional", "molecular dynamics", "orbitals", "electronic"]
+  }
+]

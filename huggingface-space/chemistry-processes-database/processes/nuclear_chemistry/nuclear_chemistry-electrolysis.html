@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Electrolysis - Chemistry Process</title>
+    <title>Radioisotope Production (Neutron Activation) - Chemistry Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Electrolysis</h1>
+            <h1>Radioisotope Production (Neutron Activation)</h1>
             <div class="header-meta">
                 <span class="meta-item">Chemistry</span>
                 <span class="meta-item">Nuclear Chemistry</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,68 +234,57 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Electrolysis process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>Neutron activation produces radioisotopes by irradiating a stable target so it captures neutrons via (n,γ) to form a radioactive nuclide; after sufficient activity is reached, the product is chemically separated, purified and used as a tracer or radiopharmaceutical.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-A5[Electrolyte Solution] --> B5[Electrolysis Method]
-C5[Electrodes] --> D5[Power Source]
-E5[Reaction Vessel] --> F5[Temperature Control]
-B5 --> G5[Solution Preparation]
-D5 --> H5[Voltage Application]
-F5 --> I5[Heat Management]
-G5 --> J5[Concentration Setup]
-H5 --> K5[Current Flow]
-I5 --> L5[Thermal Regulation]
-J5 --> M5[Ion Separation]
-K5 --> L5
-L5 --> N5[Electrochemical Reaction]
-M5 --> O5[Oxidation Process]
-N5 --> P5[Reduction Process]
-O5 --> Q5[Gas Evolution]
-P5 --> R5[Product Formation]
-Q5 --> S5[Collection System]
-R5 --> T5[Separation Process]
-S5 --> U5[Gas Purification]
-T5 --> V5[Product Recovery]
-U5 --> W5[Quality Control]
-V5 --> X5[Yield Calculation]
-W5 --> Y5[Process Optimization]
-X5 --> Z5[Final Products]
-Y5 --> Z5
+    N1["Stable target isotope"]
+    N2["Irradiate in reactor flux"]
+    N3["Neutron capture (n,γ)"]
+    N4["Radioactive product"]
+    N5{"Sufficient activity?"}
+    N6["Continue irradiation"]
+    N7["Radiochemical separation"]
+    N8["Purify + quality control"]
+    N9["Decays with t½"]
+    N10["Tracer / radiopharmaceutical"]
 
-    style A5 fill:#ff6b6b,color:#fff
-    style C5 fill:#ff6b6b,color:#fff
-    style E5 fill:#ff6b6b,color:#fff
-    style B5 fill:#ffd43b,color:#000
-    style D5 fill:#ffd43b,color:#000
-    style F5 fill:#ffd43b,color:#000
-    style G5 fill:#ffd43b,color:#000
-    style H5 fill:#ffd43b,color:#000
-    style I5 fill:#ffd43b,color:#000
-    style J5 fill:#ffd43b,color:#000
-    style K5 fill:#ffd43b,color:#000
-    style L5 fill:#ffd43b,color:#000
-    style M5 fill:#51cf66,color:#fff
-    style N5 fill:#51cf66,color:#fff
-    style O5 fill:#51cf66,color:#fff
-    style P5 fill:#51cf66,color:#fff
-    style Q5 fill:#51cf66,color:#fff
-    style R5 fill:#51cf66,color:#fff
-    style S5 fill:#51cf66,color:#fff
-    style T5 fill:#51cf66,color:#fff
-    style U5 fill:#51cf66,color:#fff
-    style V5 fill:#51cf66,color:#fff
-    style W5 fill:#51cf66,color:#fff
-    style X5 fill:#51cf66,color:#fff
-    style Y5 fill:#51cf66,color:#fff
-    style Z5 fill:#b197fc,color:#fff
+    N1 --> N2
+    N2 --> N3
+    N3 --> N4
+    N4 --> N5
+    N5 -->|no| N6
+    N6 -->|more flux| N2
+    N5 -->|yes| N7
+    N7 --> N8
+    N8 --> N10
+    N4 --> N9
+    N9 --> N10
+
+    style N1 fill:#ff6b6b,color:#fff
+    style N2 fill:#51cf66,color:#fff
+    style N3 fill:#51cf66,color:#fff
+    style N4 fill:#51cf66,color:#fff
+    style N5 fill:#74c0fc,color:#fff
+    style N6 fill:#51cf66,color:#fff
+    style N7 fill:#51cf66,color:#fff
+    style N8 fill:#51cf66,color:#fff
+    style N9 fill:#51cf66,color:#fff
+    style N10 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Stable target isotope</td><td>Triggers & Inputs</td><td><a href="https://doi.org/10.1016/C2009-0-30414-6" target="_blank" title="Chemistry of the Elements, 2nd ed. — Production of the Elements / Radiochemistry" style="color:#e74c3c;">Greenwood, N. N. et al. 1997</a></td></tr><tr><td style="font-weight:600;">Irradiate in reactor flux</td><td>Processing & Operations</td><td><a href="https://www.iaea.org/publications/6407/manual-for-reactor-produced-radioisotopes" target="_blank" title="Manual for reactor produced radioisotopes (IAEA-TECDOC-1340)" style="color:#e74c3c;">International Atomic Energy Agency 2003</a></td></tr><tr><td style="font-weight:600;">Neutron capture (n,γ)</td><td>Processing & Operations</td><td><a href="https://www.wiley.com/en-us/Introductory+Nuclear+Physics-p-9780471805533" target="_blank" title="Introductory Nuclear Physics — Neutron Reactions" style="color:#e74c3c;">Krane, K. S. 1987</a></td></tr><tr><td style="font-weight:600;">Radioactive product</td><td>Processing & Operations</td><td><a href="https://www.iaea.org/publications/6407/manual-for-reactor-produced-radioisotopes" target="_blank" title="Manual for reactor produced radioisotopes (IAEA-TECDOC-1340)" style="color:#e74c3c;">International Atomic Energy Agency 2003</a></td></tr><tr><td style="font-weight:600;">Sufficient activity?</td><td>Intermediates & States</td><td><a href="https://www.iaea.org/publications/6407/manual-for-reactor-produced-radioisotopes" target="_blank" title="Manual for reactor produced radioisotopes (IAEA-TECDOC-1340)" style="color:#e74c3c;">International Atomic Energy Agency 2003</a></td></tr><tr><td style="font-weight:600;">Continue irradiation</td><td>Processing & Operations</td><td><a href="https://www.iaea.org/publications/6407/manual-for-reactor-produced-radioisotopes" target="_blank" title="Manual for reactor produced radioisotopes (IAEA-TECDOC-1340)" style="color:#e74c3c;">International Atomic Energy Agency 2003</a></td></tr><tr><td style="font-weight:600;">Radiochemical separation</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1016/C2009-0-30414-6" target="_blank" title="Chemistry of the Elements, 2nd ed. — Production of the Elements / Radiochemistry" style="color:#e74c3c;">Greenwood, N. N. et al. 1997</a></td></tr><tr><td style="font-weight:600;">Purify + quality control</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1016/C2009-0-30414-6" target="_blank" title="Chemistry of the Elements, 2nd ed. — Production of the Elements / Radiochemistry" style="color:#e74c3c;">Greenwood, N. N. et al. 1997</a></td></tr><tr><td style="font-weight:600;">Decays with t½</td><td>Processing & Operations</td><td><a href="https://www.wiley.com/en-us/Introductory+Nuclear+Physics-p-9780471805533" target="_blank" title="Introductory Nuclear Physics — Neutron Reactions" style="color:#e74c3c;">Krane, K. S. 1987</a></td></tr><tr><td style="font-weight:600;">Tracer / radiopharmaceutical</td><td>Products & Outputs</td><td><a href="https://doi.org/10.1016/C2009-0-30414-6" target="_blank" title="Chemistry of the Elements, 2nd ed. — Production of the Elements / Radiochemistry" style="color:#e74c3c;">Greenwood, N. N. et al. 1997</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -314,12 +330,12 @@ Y5 --> Z5
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 26</li>
-                        <li><strong>Edges:</strong> 22</li>
-                        <li><strong>Conditionals:</strong> 0</li>
-                        <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 1</li>
+                        <li><strong>Nodes:</strong> 10</li>
+                        <li><strong>Edges:</strong> 11</li>
+                        <li><strong>Conditionals:</strong> 1</li>
+                        <li><strong>AND Gates:</strong> 2</li>
+                        <li><strong>OR Gates:</strong> 2</li>
+                        <li><strong>Total Gates:</strong> 4</li>
                     </ul>
                 </div>
                 
@@ -327,7 +343,7 @@ Y5 --> Z5
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>electrolysis</li>
+                        <li>neutron activation</li><li>radioisotope production</li><li>neutron capture</li><li>radiopharmaceutical</li><li>specific activity</li>
                     </ul>
                 </div>
                 
@@ -338,43 +354,33 @@ Y5 --> Z5
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Manual for reactor produced radioisotopes (IAEA-TECDOC-1340)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">International Atomic Energy Agency
+                            , IAEA
+                             (2003)
                             </span>
                             
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
+                            <br><a href="https://www.iaea.org/publications/6407/manual-for-reactor-produced-radioisotopes" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Marine Electrolysis for Building Materials and Environmental Restoration</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">J., Thomas
-                            , Electrolysis
-                             (2012)
+                            <strong>Chemistry of the Elements, 2nd ed. — Production of the Elements / Radiochemistry</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Greenwood, N. N.; Earnshaw, A.
+                            , Butterworth-Heinemann
+                             (1997)
                             </span>
-                            <br><a href="https://doi.org/10.5772/48783" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.5772/48783</a>
-                            
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Alkaline Electrolysis with Skeletal Ni Catalysts</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Fernandez, A.M.; Cano, U.
-                            , Electrolysis
-                             (2012)
-                            </span>
-                            <br><a href="https://doi.org/10.5772/50617" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.5772/50617</a>
+                            <br><a href="https://doi.org/10.1016/C2009-0-30414-6" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1016/C2009-0-30414-6</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Electrolysis for Ozone Water Production</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Okada, Fumio; Nay, Kazunari
-                            , Electrolysis
-                             (2012)
+                            <strong>Introductory Nuclear Physics — Neutron Reactions</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Krane, K. S.
+                            , Wiley
+                             (1987)
                             </span>
-                            <br><a href="https://doi.org/10.5772/51945" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.5772/51945</a>
                             
+                            <br><a href="https://www.wiley.com/en-us/Introductory+Nuclear+Physics-p-9780471805533" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
                         </li>
                         
                     </ul>

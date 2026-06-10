@@ -1,0 +1,93 @@
+[
+  {
+    "id": "quantum-field",
+    "label": "Quantum and Field Theory",
+    "description": "Quantum states, entanglement, wave functions, fields, and particle mechanisms.",
+    "processIds": [
+      "astrophysics-higgs-mechanism",
+      "astrophysics-particle-collision",
+      "astrophysics-standard-model",
+      "electromagnetism-quantum-computing",
+      "electromagnetism-quantum-entanglement",
+      "electromagnetism-wave-function",
+      "optics-quantum-optics",
+      "quantum_mechanics-electromagnetic-induction",
+      "quantum_mechanics-electromagnetic-wave",
+      "quantum_mechanics-maxwells-equations"
+    ]
+  },
+  {
+    "id": "classical",
+    "label": "Classical Mechanics",
+    "description": "Newtonian, Lagrangian, Hamiltonian, force, momentum, and energy processes.",
+    "processIds": [
+      "classical_mechanics-hamiltonian-mechanics",
+      "classical_mechanics-lagrangian-mechanics",
+      "classical_mechanics-newtonian-dynamics",
+      "electromagnetism-wave-function",
+      "quantum_mechanics-electromagnetic-induction",
+      "quantum_mechanics-electromagnetic-wave",
+      "quantum_mechanics-maxwells-equations",
+      "thermodynamics_statistical-entropy",
+      "thermodynamics_statistical-phase-transition"
+    ]
+  },
+  {
+    "id": "electromagnetic-optical",
+    "label": "Electromagnetic and Optical",
+    "description": "Electromagnetic waves, induction, Maxwell systems, geometric optics, and wave optics.",
+    "processIds": [
+      "astrophysics-higgs-mechanism",
+      "electromagnetism-quantum-computing",
+      "electromagnetism-wave-function",
+      "optics-geometric-optics",
+      "optics-quantum-optics",
+      "optics-wave-optics",
+      "quantum_mechanics-electromagnetic-induction",
+      "quantum_mechanics-electromagnetic-wave",
+      "solid_state-nuclear-decay"
+    ]
+  },
+  {
+    "id": "thermal-statistical",
+    "label": "Thermal and Statistical",
+    "description": "Heat engines, entropy, phase transitions, ensembles, and macroscopic regimes.",
+    "processIds": [
+      "classical_mechanics-hamiltonian-mechanics",
+      "state-transition-matter-phases",
+      "optics-quantum-optics",
+      "solid_state-nuclear-fusion",
+      "thermodynamics_statistical-entropy",
+      "thermodynamics_statistical-heat-engine",
+      "thermodynamics_statistical-phase-transition"
+    ]
+  },
+  {
+    "id": "nuclear-astrophysics",
+    "label": "Nuclear and Astrophysics",
+    "description": "Nuclear transformation, stellar-scale processes, high energy phenomena, and cosmic systems.",
+    "processIds": [
+      "astrophysics-particle-collision",
+      "astrophysics-standard-model",
+      "solid_state-nuclear-decay",
+      "solid_state-nuclear-fission",
+      "solid_state-nuclear-fusion"
+    ]
+  },
+  {
+    "id": "graph-type-pilots",
+    "label": "Graph Type Pilots",
+    "description": "Existing collection from metadata.",
+    "processIds": [
+      "state-transition-matter-phases"
+    ]
+  },
+  {
+    "id": "state-transition",
+    "label": "State Transition",
+    "description": "Existing collection from metadata.",
+    "processIds": [
+      "state-transition-matter-phases"
+    ]
+  }
+]

@@ -1,0 +1,215 @@
+{
+  "id": "assay_protocols-elisa",
+  "name": "ELISA",
+  "category": "biology",
+  "subcategory": "assay_protocols",
+  "subcategory_name": "Assay / Lab Protocols",
+  "description": "Sandwich enzyme-linked immunosorbent assay: a plate-bound capture antibody traps the analyte, an enzyme-conjugated detection antibody and substrate generate colour, and absorbance is read against a cutoff to call the result.",
+  "keywords": [
+    "elisa",
+    "immunoassay",
+    "antibody",
+    "absorbance",
+    "antigen"
+  ],
+  "namedCollections": [
+    "lab-protocols"
+  ],
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "complexity": {
+    "nodes": 13,
+    "edges": 12,
+    "conditionals": 1,
+    "logicGates": {
+      "orGates": 1,
+      "andGates": 2,
+      "notGates": 0,
+      "total": 3
+    },
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 0
+  },
+  "graphMetrics": {
+    "nodes": 13,
+    "edges": 12,
+    "conditionals": 1,
+    "andGates": 2,
+    "orGates": 1,
+    "notGates": 0,
+    "loops": 0
+  },
+  "mermaid": "graph TD\n    N1[\"Capture antibody\"]\n    N2[\"Sample antigen\"]\n    N3[\"Microtiter plate\"]\n    N4[\"Coat plate, 4C overnight\"]\n    N5[\"Block with BSA\"]\n    N6[\"Add sample; incubate\"]\n    N7[\"Wash unbound\"]\n    N8[\"Enzyme-conj. detection Ab\"]\n    N9[\"Wash; add TMB substrate\"]\n    N10[\"Stop; read OD450\"]\n    N11{\"OD above cutoff?\"}\n    N12[\"Analyte quantified\"]\n    N13[\"Reported negative\"]\n\n    N1 --> N4\n    N3 --> N4\n    N4 --> N5\n    N5 --> N6\n    N2 --> N6\n    N6 --> N7\n    N7 --> N8\n    N8 --> N9\n    N9 --> N10\n    N10 --> N11\n    N11 -->|yes| N12\n    N11 -->|no| N13\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#ff6b6b,color:#fff\n    style N3 fill:#ffd43b,color:#000\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#51cf66,color:#fff\n    style N10 fill:#74c0fc,color:#fff\n    style N11 fill:#74c0fc,color:#fff\n    style N12 fill:#b197fc,color:#fff\n    style N13 fill:#b197fc,color:#fff",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Capture antibody",
+      "detail": "Antibody specific to the target analyte, used to coat the plate",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N2",
+      "label": "Sample antigen",
+      "detail": "Specimen containing the analyte to quantify",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 1
+    },
+    {
+      "id": "N3",
+      "label": "Microtiter plate",
+      "detail": "96-well polystyrene plate as solid phase",
+      "type": "process",
+      "role": "Structures & Objects",
+      "sourceRef": 2
+    },
+    {
+      "id": "N4",
+      "label": "Coat plate, 4C overnight",
+      "detail": "Adsorb capture antibody to wells overnight at 4C",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N5",
+      "label": "Block with BSA",
+      "detail": "Block remaining binding sites to reduce background",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N6",
+      "label": "Add sample; incubate",
+      "detail": "Analyte binds captured antibody",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N7",
+      "label": "Wash unbound",
+      "detail": "Remove unbound material",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N8",
+      "label": "Enzyme-conj. detection Ab",
+      "detail": "Add enzyme-labeled detection antibody; incubate",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N9",
+      "label": "Wash; add TMB substrate",
+      "detail": "Wash, then add chromogenic substrate; enzyme develops colour",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N10",
+      "label": "Stop; read OD450",
+      "detail": "Stop reaction; measure absorbance at 450 nm",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N11",
+      "label": "OD above cutoff?",
+      "detail": "Compare signal to standard-curve cutoff",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N12",
+      "label": "Analyte quantified",
+      "detail": "Positive: analyte concentration read from standard curve",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N13",
+      "label": "Reported negative",
+      "detail": "Signal below cutoff: analyte not detected",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 1
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:assay_protocols-elisa",
+    "graphType": "algorithm_flowchart",
+    "topologySignature": "13d0ca52d22bdb5d",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "pending",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "lastUpdated": "2026-06-01",
+  "verified": false,
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "sources": [
+    {
+      "title": "Enzyme-linked immunosorbent assay (ELISA). Quantitative assay of immunoglobulin G",
+      "authors": "Engvall, E.; Perlmann, P.",
+      "journal": "Immunochemistry",
+      "year": "1971",
+      "pubmed": "5135623",
+      "doi": "10.1016/0019-2791(71)90454-X",
+      "url": "https://doi.org/10.1016/0019-2791(71)90454-X"
+    },
+    {
+      "title": "Enzyme immunoassay (EIA)/enzyme-linked immunosorbent assay (ELISA)",
+      "authors": "Lequin, R. M.",
+      "journal": "Clinical Chemistry",
+      "year": "2005",
+      "pubmed": "16179424",
+      "doi": "10.1373/clinchem.2005.051532",
+      "url": "https://doi.org/10.1373/clinchem.2005.051532"
+    },
+    {
+      "title": "The ELISA Guidebook (Methods in Molecular Biology, vol. 516)",
+      "authors": "Crowther, J. R.",
+      "journal": "Humana Press",
+      "year": "2009",
+      "doi": "10.1007/978-1-60327-254-4",
+      "url": "https://doi.org/10.1007/978-1-60327-254-4"
+    }
+  ],
+  "graphType": "algorithm_flowchart",
+  "domainContext": "Immunoassay protocol"
+}

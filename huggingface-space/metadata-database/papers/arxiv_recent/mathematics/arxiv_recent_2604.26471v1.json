@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2604.26471v1",
+  "arxiv_id": "2604.26471v1",
+  "title": "A simple strategy for valid inference in target trial emulations",
+  "authors": [
+    "Mats Julius Stensrud"
+  ],
+  "author_string": "Mats Julius Stensrud",
+  "journal": "arXiv:2604.26471v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Target trial emulation has improved comparative effectiveness research by making the causal question, assumptions, and analysis plan explicit. However, target trial protocols are usually developed iteratively. After examining the data, investigators revise the protocol to reflect which target trials the observational data can realistically support. While this iterative procedure is part of normal scientific practice, it raises concerns about selective choices and invalid statistical inference. A simple procedure can address these concerns. This procedure is based on sample splitting. In the initial split, investigators explore the data to define a target trial protocol. When these choices are made, the target trial protocol is implemented on the second split. Although the investigators made data-informed choices to select the target trial protocol, the inference has the usual coverage guarantees. The procedure is created to mirror how trialists move from pilot studies to a phase 3 trial. First, they use data from pilots and early-phase trials to learn and decide on a final protocol. Then they implement this protocol and analyze a new set of data in a phase 3 trial.",
+  "categories": [
+    "stat.ME",
+    "stat.AP"
+  ],
+  "primary_category": "stat.AP",
+  "comment": "This is a short, non-technical manuscript that outlines how valid inference can be ensured in target trials, using existing ideas for sample splitting",
+  "published_date": "2026-04-29T09:28:12Z",
+  "updated_date": "2026-04-29T09:28:12Z",
+  "url": "https://arxiv.org/abs/2604.26471v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.26471v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-30T10:15:46.068473",
+  "category": "mathematics",
+  "subcategories": [
+    "stat.ME",
+    "stat.AP"
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "id": "medrxiv_10.64898_2026.01.24.26344772",
+  "doi": "10.64898/2026.01.24.26344772",
+  "title": "Early Dementia Diagnosis in Older Adults through Machine Learning: A Cross-Sectional fMRI Data Analysis",
+  "authors": [
+    "Mostafa, F.",
+    "Sharma, K.",
+    "Khan, H."
+  ],
+  "author_string": "Mostafa, F., Sharma, K., Khan, H.",
+  "journal": "medRxiv",
+  "journal_full": "medRxiv",
+  "year": "2026",
+  "abstract": "BackgroundDementia risk stratifications and diagnosis can significantly improve care planning and patient outcomes while delaying progression. Machine learning algorithms can identify patterns in clinical and neuroimaging data that may aid in the early-stage detection of dementia risk factors.\n\nObjectiveTo evaluate the performance of the ensemble machine learning pipeline for classifying dementia status utilizing demographic, clinical, and imaging features, and to identify the most predictive variables contributing to model accuracy.\n\nMethodsA cross-sectional study analyzed 373 MRI scans from 150 subjects aged 60-98 years. Variables included cognitive scores (MMSE, CDR), volumetric brain measures (eTIV, nWBV, ASF), demographic features (age, gender, education), and socioeconomic status. After preprocessing and imputing missing values with random forests, tree-based variable selection was performed, and the dataset was split into training and test sets, with 5-fold cross-validation used for model validation. An ensemble of 8 machine learning models was used to classify patients as demented or non-demented.\n\nResultsModel performance was assessed using the area under the receiver operating characteristic (ROC) curve (AUC), accuracy, sensitivity, specificity, precision, F1 score, and Matthews Correlation Coefficient (MCC). Random Forest achieved the highest AUC (0.963), while MLP demonstrated the highest accuracy (94.6%), F1-score (0.943), and MCC (0.893). CDR, MMSE, and ASF were identified as the top predictors. Performance was robust across folds in 5-fold CV, and feature importance analyses supported clinical relevance.\n\nConclusionsEnsemble ML approaches offer high predictive performance in dementia classification. ML frameworks have the potential to be integrated into diagnostic support tools, enabling more accurate and earlier detection of dementia using clinical and imaging data.",
+  "keywords": [],
+  "categories": [
+    "health informatics"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.64898/2026.01.24.26344772",
+  "source": "medrxiv",
+  "sources": [
+    "medrxiv"
+  ],
+  "acquired_date": "2026-05-26T10:15:22.891589",
+  "category": "biology",
+  "subcategories": [
+    "health informatics"
+  ],
+  "published_date": "2026-01-26",
+  "updated_date": "2026-01-26",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "medrxiv",
+  "preprint_version": "1",
+  "preprint_type": "PUBLISHAHEADOFPRINT",
+  "license": "cc_by_nc_nd",
+  "jatsxml": "https://www.medrxiv.org/content/early/2026/01/26//2026.01.24.26344772.source.xml",
+  "published_doi": null,
+  "author_corresponding": "Fahad Mostafa",
+  "author_corresponding_institution": "Arizona State University"
+}

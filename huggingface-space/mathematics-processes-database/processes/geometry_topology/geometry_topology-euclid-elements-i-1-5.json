@@ -1,0 +1,45 @@
+{
+  "acquired_date": "2026-03-15T00:00:00Z",
+  "category": "mathematics",
+  "colorScheme": {
+    "blue": { "category": "Intermediates & States", "hex": "#74c0fc" },
+    "green": { "category": "Processing & Operations", "hex": "#51cf66" },
+    "red": { "category": "Triggers & Inputs", "hex": "#ff6b6b" },
+    "violet": { "category": "Products & Outputs", "hex": "#b197fc" },
+    "yellow": { "category": "Structures & Objects", "hex": "#ffd43b" }
+  },
+  "complexity": {
+    "conditionals": 0,
+    "detailLevel": "medium",
+    "edges": 16,
+    "level": "medium",
+    "logicGates": { "andGates": 0, "orGates": 0, "total": 0 },
+    "nodes": 12
+  },
+  "created": "2026-03-15",
+  "description": "Dependency graph showing how the first five propositions of Euclid's Elements depend on postulates (P1–P3), common notions (CN1, CN3, CN4, CN5), and each other. Demonstrates the axiomatic structure of Euclidean geometry: postulates (red), common notions (purple), and propositions (teal) with their logical dependencies.",
+  "id": "geometry_topology-euclid-elements-i-1-5",
+  "keywords": ["Euclid", "Elements", "axioms", "postulates", "propositions", "geometry", "foundations", "dependency graph"],
+  "lastUpdated": "2026-03-15",
+  "mermaid": "graph TD\n    P1[\"Post. 1\\nDraw a straight line\\nbetween two points\"]\n    P2[\"Post. 2\\nExtend a straight line\\ncontinuously\"]\n    P3[\"Post. 3\\nDraw a circle with given\\ncenter and radius\"]\n    CN1[\"CN 1\\nThings equal to the same\\nthing are equal to each other\"]\n    CN3[\"CN 3\\nIf equals subtracted from\\nequals, remainders are equal\"]\n    CN4[\"CN 4\\nThings coinciding with\\none another are equal\"]\n    CN5[\"CN 5\\nThe whole is greater\\nthan the part\"]\n    Prop1[\"Prop. I.1\\nConstruct an equilateral\\ntriangle on a given line\"]\n    Prop2[\"Prop. I.2\\nPlace a line segment equal\\nto a given segment at a point\"]\n    Prop3[\"Prop. I.3\\nCut off from the greater of\\ntwo lines a segment equal to the less\"]\n    Prop4[\"Prop. I.4\\nSAS Congruence:\\ntwo triangles with two equal sides\\nand included angle are congruent\"]\n    Prop5[\"Prop. I.5\\nBase angles of an\\nisosceles triangle are equal\"]\n    P1 --> Prop1\n    P3 --> Prop1\n    Prop1 --> Prop2\n    P1 --> Prop2\n    P2 --> Prop2\n    P3 --> Prop2\n    Prop2 --> Prop3\n    P3 --> Prop3\n    CN4 --> Prop4\n    CN5 --> Prop4\n    Prop1 --> Prop5\n    P1 --> Prop5\n    P2 --> Prop5\n    CN1 --> Prop5\n    CN3 --> Prop5\n    Prop4 --> Prop5\n    classDef postulate fill:#e74c3c,color:#fff,stroke:#c0392b\n    classDef commonnotion fill:#9b59b6,color:#fff,stroke:#8e44ad\n    classDef proposition fill:#1abc9c,color:#fff,stroke:#16a085\n    class P1,P2,P3 postulate\n    class CN1,CN3,CN4,CN5 commonnotion\n    class Prop1,Prop2,Prop3,Prop4,Prop5 proposition",
+  "name": "Euclid's Elements Book I — Propositions 1–5",
+  "notes": "Dependency graph of Euclid's Elements Book I, Propositions 1–5. Uses custom color scheme: postulates (red), common notions (purple), propositions (teal).",
+  "relatedProcesses": ["geometry_topology-euclid-elements-book-i"],
+  "related_processes": ["geometry_topology-euclid-elements-book-i"],
+  "related_papers": [],
+  "related_podcasts": [],
+  "related_videos": [],
+  "source": "programming_framework",
+  "sources": [
+    {
+      "authors": "Welz, G.",
+      "title": "Programming Framework: A Universal Process Visualization Methodology",
+      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "year": "2025"
+    }
+  ],
+  "subcategories": ["geometry_topology"],
+  "subcategory": "geometry_topology",
+  "subcategory_name": "Geometry & Topology",
+  "verified": false
+}

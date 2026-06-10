@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bioinformatics Collection - Mathematics Process</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 20px; }
+        .container { max-width: 900px; margin: 0 auto; background: white; border-radius: 15px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); overflow: hidden; padding: 30px; }
+        h1 { color: #2c3e50; margin-bottom: 15px; }
+        p { color: #555; margin-bottom: 25px; line-height: 1.6; }
+        .nav-links { margin-bottom: 20px; }
+        .nav-links a { color: #e67e22; text-decoration: none; margin-right: 20px; font-weight: 500; }
+        .nav-links a:hover { text-decoration: underline; }
+        .sections { display: grid; gap: 15px; }
+        .sections a { display: block; padding: 20px; background: #f8f9fa; border-radius: 10px; color: #2c3e50; text-decoration: none; font-weight: 500; border-left: 4px solid #27ae60; }
+        .sections a:hover { background: #ecf0f1; }
+        .section-label { font-size: 0.85em; color: #7f8c8d; margin-top: 5px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="nav-links">
+            <a id="back-link" href="#">← Back to Mathematics Database</a>
+            <a href="https://www.hunter.cuny.edu/" target="_blank">Hunter College (CUNY)</a>
+            <a href="https://www.gc.cuny.edu/" target="_blank">CUNY Graduate Center</a>
+        </div>
+        <script>
+            (function() {
+                document.getElementById('back-link').href = window.location.hostname.includes('storage.googleapis.com')
+                    ? 'https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/mathematics-database-table.html'
+                    : '../../mathematics-database-table.html';
+            })();
+        </script>
+        <h1>Bioinformatics Collection</h1>
+        <p>Algorithm flowcharts and dependency charts for core bioinformatics methods: sequence alignment, BLAST, hidden Markov models, phylogenetic tree construction. Relevant for computational biology, genomics, and metagenomics. Curated with Konstantine Krampis (CUNY Graduate Center, Hunter College) in mind.</p>
+        <div class="sections">
+            <a href="bioinformatics-sequence-alignment-nw-sw.html">Sequence Alignment — Needleman-Wunsch & Smith-Waterman <span class="section-label">Dynamic programming for global and local alignment</span></a>
+            <a href="bioinformatics-blast-algorithm.html">BLAST Algorithm <span class="section-label">Seed-and-extend heuristic for database search</span></a>
+            <a href="bioinformatics-hmm-sequence-analysis.html">Hidden Markov Models for Sequence Analysis <span class="section-label">Profile HMM, Viterbi, Forward-Backward, Baum-Welch</span></a>
+            <a href="bioinformatics-phylogenetic-trees.html">Phylogenetic Tree Construction <span class="section-label">UPGMA, Neighbor-Joining, distance-based methods</span></a>
+        </div>
+    </div>
+</body>
+</html>

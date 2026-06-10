@@ -1,0 +1,50 @@
+{
+  "id": "medrxiv_10.64898_2025.12.31.25343151",
+  "doi": "10.64898/2025.12.31.25343151",
+  "title": "Harness Behavioural Analysis for Unpacking the Bio-Interpretability of Pathology Foundation Models",
+  "authors": [
+    "Hu, Y.",
+    "Batchkala, G.",
+    "Gaitskell, K.",
+    "Domingo, E.",
+    "Li, B.",
+    "Zhang, T.",
+    "Li, Z.",
+    "Friedrich, M.",
+    "Woodcock, D.",
+    "Verrill, C.",
+    "Rittscher, J."
+  ],
+  "author_string": "Hu, Y., Batchkala, G., Gaitskell, K., Domingo, E., Li, B. et al.",
+  "journal": "medRxiv",
+  "journal_full": "medRxiv",
+  "year": "2026",
+  "abstract": "Computational-pathology foundation models (PFMs) have demonstrated remarkable accuracy in a wide range of whole-slide image (WSI) analyses, yet their morphological reasoning and potential biases remain opaque. Here we introduce an attention-shift monitoring framework that tracks tissue-level attention influx and efflux before and after fine-tuning a slide-level aggregator. We apply our interpretable framework across five clinically relevant tasks (lymph-node metastasis detection, lung-cancer subtyping, ovarian-cancer drug-response prediction, colorectal-cancer molecular classification and Marsh grading of colitis). We compare two market-validated PFMs, UNI and prov-GigaPath, using dynamically pooled, compressed embeddings under identical running conditions. Although both models achieve comparable ROC-AUC and balanced-accuracy scores, their attention-shift trajectories diverge sharply: each exhibits broad attention efflux from most tissue regions and highly concentrated, yet minimally overlapping, influx into distinct phenotypic zones. The attention heterogeneity in zero-shot mode and inconsistency of post-tuning attention shifts indicate that the presentation of interpretability depends primarily on each models intrinsic feature priors rather than on accuracy or fine-tuning. Our findings uncover a systemic stability gap in PFM interpretability, masked by high performance metrics, and underscore the need for richer explanation tools, bias-monitoring protocols and diversified pre-training strategies to ensure safe clinical deployment.",
+  "keywords": [],
+  "categories": [
+    "pathology"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.64898/2025.12.31.25343151",
+  "source": "medrxiv",
+  "sources": [
+    "medrxiv"
+  ],
+  "acquired_date": "2026-05-09T22:15:26.084324",
+  "category": "biology",
+  "subcategories": [
+    "pathology"
+  ],
+  "published_date": "2026-01-09",
+  "updated_date": "2026-01-09",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "medrxiv",
+  "preprint_version": "2",
+  "preprint_type": "PUBLISHAHEADOFPRINT",
+  "license": "cc_by",
+  "jatsxml": "https://www.medrxiv.org/content/early/2026/01/09//2025.12.31.25343151.source.xml",
+  "published_doi": null,
+  "author_corresponding": "Yang Hu",
+  "author_corresponding_institution": "University of Oxford, University of Leicester"
+}

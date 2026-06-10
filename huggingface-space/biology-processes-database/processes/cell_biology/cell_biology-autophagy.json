@@ -1,0 +1,209 @@
+{
+  "id": "cell_biology-autophagy",
+  "name": "Autophagy",
+  "category": "biology",
+  "subcategory": "cell_biology",
+  "subcategory_name": "Cell Biology",
+  "description": "Macroautophagy: starvation-driven, mTORC1-gated formation of a double-membrane autophagosome that engulfs cytoplasmic cargo and fuses with the lysosome for degradation and nutrient recycling.",
+  "keywords": [
+    "autophagy",
+    "mtorc1",
+    "ulk1",
+    "lc3",
+    "autophagosome",
+    "lysosome"
+  ],
+  "namedCollections": [
+    "cell-biology"
+  ],
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "complexity": {
+    "nodes": 12,
+    "edges": 13,
+    "conditionals": 1,
+    "logicGates": {
+      "orGates": 1,
+      "andGates": 2,
+      "notGates": 0,
+      "total": 3
+    },
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 2
+  },
+  "graphMetrics": {
+    "nodes": 12,
+    "edges": 13,
+    "conditionals": 1,
+    "andGates": 2,
+    "orGates": 1,
+    "notGates": 0,
+    "loops": 2
+  },
+  "mermaid": "graph TD\n    N1[\"Nutrient starvation\"]\n    N2[\"mTORC1 inhibited\"]\n    N3[\"ULK1 complex activated\"]\n    N4[\"PI3KC3-Beclin1: PI3P\"]\n    N5[\"ATG9 membrane delivery\"]\n    N6[\"LC3-I to LC3-II (PE)\"]\n    N7[\"p62 binds ubiq. cargo\"]\n    N8[\"Phagophore closes\"]\n    N9[\"Autophagosome formed\"]\n    N10{\"Fuse with lysosome?\"}\n    N11[\"Autolysosome degrades cargo\"]\n    N12[\"Recycled amino acids/lipids\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 --> N4\n    N4 --> N5\n    N5 --> N6\n    N6 --> N7\n    N7 --> N8\n    N8 --> N9\n    N9 --> N10\n    N10 -->|yes| N11\n    N10 -->|mature| N9\n    N11 --> N12\n    N12 -->|nutrients| N2\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#ff6b6b,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#ffd43b,color:#000\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#74c0fc,color:#fff\n    style N9 fill:#74c0fc,color:#fff\n    style N10 fill:#74c0fc,color:#fff\n    style N11 fill:#51cf66,color:#fff\n    style N12 fill:#b197fc,color:#fff",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Nutrient starvation",
+      "detail": "Amino-acid/energy deprivation triggers autophagy",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N2",
+      "label": "mTORC1 inhibited",
+      "detail": "mTORC1 inactivation de-represses autophagy initiation",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N3",
+      "label": "ULK1 complex activated",
+      "detail": "ULK1-ATG13-FIP200 complex initiates the pathway",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N4",
+      "label": "PI3KC3-Beclin1: PI3P",
+      "detail": "Class III PI3K/Beclin-1 generates PI3P to nucleate the phagophore",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N5",
+      "label": "ATG9 membrane delivery",
+      "detail": "ATG9 vesicles supply lipid to the growing phagophore",
+      "type": "process",
+      "role": "Structures & Objects",
+      "sourceRef": 1
+    },
+    {
+      "id": "N6",
+      "label": "LC3-I to LC3-II (PE)",
+      "detail": "ATG12-ATG5-ATG16L1 conjugates LC3 to phosphatidylethanolamine",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N7",
+      "label": "p62 binds ubiq. cargo",
+      "detail": "p62/SQSTM1 bridges ubiquitinated cargo to LC3-II",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N8",
+      "label": "Phagophore closes",
+      "detail": "Membrane elongates and seals around cargo",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N9",
+      "label": "Autophagosome formed",
+      "detail": "Completed double-membrane autophagosome",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N10",
+      "label": "Fuse with lysosome?",
+      "detail": "Autophagosome-lysosome fusion checkpoint",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 2
+    },
+    {
+      "id": "N11",
+      "label": "Autolysosome degrades cargo",
+      "detail": "Lysosomal hydrolases degrade the enclosed contents",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N12",
+      "label": "Recycled amino acids/lipids",
+      "detail": "Breakdown products returned to the cytosol",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 0
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:cell_biology-autophagy",
+    "graphType": "mechanism_flowchart",
+    "topologySignature": "a97a96177e84d595",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "pending",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "lastUpdated": "2026-06-01",
+  "verified": false,
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "sources": [
+    {
+      "title": "Autophagy: renovation of cells and tissues",
+      "authors": "Mizushima, N.; Komatsu, M.",
+      "journal": "Cell",
+      "year": "2011",
+      "pubmed": "22078875",
+      "doi": "10.1016/j.cell.2011.10.026",
+      "url": "https://doi.org/10.1016/j.cell.2011.10.026"
+    },
+    {
+      "title": "Mechanisms governing autophagosome biogenesis",
+      "authors": "Nakatogawa, H.",
+      "journal": "Nature Reviews Molecular Cell Biology",
+      "year": "2020",
+      "pubmed": "32382020",
+      "doi": "10.1038/s41580-020-0241-0",
+      "url": "https://doi.org/10.1038/s41580-020-0241-0"
+    },
+    {
+      "title": "Autophagy fights disease through cellular self-digestion",
+      "authors": "Mizushima, N.; Levine, B.; Cuervo, A. M.; Klionsky, D. J.",
+      "journal": "Nature",
+      "year": "2008",
+      "pubmed": "18305538",
+      "doi": "10.1038/nature06639",
+      "url": "https://doi.org/10.1038/nature06639"
+    }
+  ],
+  "graphType": "mechanism_flowchart",
+  "domainContext": "Cellular degradation pathway"
+}

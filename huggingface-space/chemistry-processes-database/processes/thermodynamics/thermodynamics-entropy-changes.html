@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Entropy Changes - Chemistry Process</title>
+    <title>Entropy Change & the Second Law - Chemistry Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,12 +167,39 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Entropy Changes</h1>
+            <h1>Entropy Change & the Second Law</h1>
             <div class="header-meta">
                 <span class="meta-item">Chemistry</span>
                 <span class="meta-item">Thermodynamics</span>
@@ -207,68 +234,53 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Entropy Changes process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>Compute the entropy change of a process via a reversible path, add the surroundings' entropy change, and use the sign of the total entropy of the universe to judge whether the process is spontaneous, reversible, or impossible.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-A5[Initial System] --> B5[Entropy Analysis Method]
-C5[Energy Distribution] --> D5[State Characterization]
-E5[Process Conditions] --> F5[Temperature Control]
-B5 --> G5[System Analysis]
-D5 --> H5[State Monitoring]
-F5 --> I5[Thermal Control]
-G5 --> J5[Initial Entropy]
-H5 --> K5[State Analysis]
-I5 --> L5[Temperature Regulation]
-J5 --> M5[Process Initiation]
-K5 --> L5
-L5 --> N5[Energy Redistribution]
-M5 --> O5[Disorder Changes]
-N5 --> P5[Entropy Process]
-O5 --> Q5[State Evolution]
-P5 --> R5[Entropy Change]
-Q5 --> S5[Disorder Measurement]
-R5 --> T5[System Evolution]
-S5 --> U5[Entropy Analysis]
-T5 --> V5[Evolution Assessment]
-U5 --> W5[Entropy Efficiency]
-V5 --> X5[Final State Characterization]
-W5 --> Y5[Process Optimization]
-X5 --> Z5[Final Entropy State]
-Y5 --> Z5
+    N1["Process of interest"]
+    N2["Construct reversible path"]
+    N3["ΔS_sys = ∫ dq_rev/T"]
+    N4["ΔS_surroundings = −q/T"]
+    N5["ΔS_univ = ΔS_sys + ΔS_surr"]
+    N6{"ΔS_univ sign?"}
+    N7["> 0: spontaneous"]
+    N8["= 0: reversible"]
+    N9["< 0: impossible"]
 
-    style A5 fill:#ff6b6b,color:#fff
-    style C5 fill:#ff6b6b,color:#fff
-    style E5 fill:#ff6b6b,color:#fff
-    style B5 fill:#ffd43b,color:#000
-    style D5 fill:#ffd43b,color:#000
-    style F5 fill:#ffd43b,color:#000
-    style G5 fill:#ffd43b,color:#000
-    style H5 fill:#ffd43b,color:#000
-    style I5 fill:#ffd43b,color:#000
-    style J5 fill:#ffd43b,color:#000
-    style K5 fill:#ffd43b,color:#000
-    style L5 fill:#ffd43b,color:#000
-    style M5 fill:#51cf66,color:#fff
-    style N5 fill:#51cf66,color:#fff
-    style O5 fill:#51cf66,color:#fff
-    style P5 fill:#51cf66,color:#fff
-    style Q5 fill:#51cf66,color:#fff
-    style R5 fill:#51cf66,color:#fff
-    style S5 fill:#51cf66,color:#fff
-    style T5 fill:#51cf66,color:#fff
-    style U5 fill:#51cf66,color:#fff
-    style V5 fill:#51cf66,color:#fff
-    style W5 fill:#51cf66,color:#fff
-    style X5 fill:#51cf66,color:#fff
-    style Y5 fill:#51cf66,color:#fff
-    style Z5 fill:#b197fc,color:#fff
+    N1 --> N2
+    N2 --> N3
+    N1 --> N4
+    N3 --> N5
+    N4 --> N5
+    N5 --> N6
+    N6 -->|> 0| N7
+    N6 -->|= 0| N8
+    N6 -->|< 0| N9
+
+    style N1 fill:#ff6b6b,color:#fff
+    style N2 fill:#51cf66,color:#fff
+    style N3 fill:#51cf66,color:#fff
+    style N4 fill:#51cf66,color:#fff
+    style N5 fill:#74c0fc,color:#fff
+    style N6 fill:#74c0fc,color:#fff
+    style N7 fill:#b197fc,color:#fff
+    style N8 fill:#b197fc,color:#fff
+    style N9 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Process of interest</td><td>Triggers & Inputs</td><td><a href="https://global.oup.com/ukhe/product/atkins-physical-chemistry-9780198769866" target="_blank" title="Physical Chemistry, 11th ed. — Entropy and the Second Law" style="color:#e74c3c;">Atkins, P. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Construct reversible path</td><td>Processing & Operations</td><td><a href="https://global.oup.com/ukhe/product/atkins-physical-chemistry-9780198769866" target="_blank" title="Physical Chemistry, 11th ed. — Entropy and the Second Law" style="color:#e74c3c;">Atkins, P. et al. 2018</a></td></tr><tr><td style="font-weight:600;">ΔS_sys = ∫ dq_rev/T</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1002/andp.18652010702" target="_blank" title="Reflections on the Motive Power of Heat (Clausius formulation, reprint)" style="color:#e74c3c;">Clausius, R. 1865</a></td></tr><tr><td style="font-weight:600;">ΔS_surroundings = −q/T</td><td>Processing & Operations</td><td><a href="https://global.oup.com/ukhe/product/atkins-physical-chemistry-9780198769866" target="_blank" title="Physical Chemistry, 11th ed. — Entropy and the Second Law" style="color:#e74c3c;">Atkins, P. et al. 2018</a></td></tr><tr><td style="font-weight:600;">ΔS_univ = ΔS_sys + ΔS_surr</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1002/andp.18652010702" target="_blank" title="Reflections on the Motive Power of Heat (Clausius formulation, reprint)" style="color:#e74c3c;">Clausius, R. 1865</a></td></tr><tr><td style="font-weight:600;">ΔS_univ sign?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1351/goldbook.E02149" target="_blank" title="Gold Book: entropy, S" style="color:#e74c3c;">IUPAC 2019</a></td></tr><tr><td style="font-weight:600;">> 0: spontaneous</td><td>Products & Outputs</td><td><a href="https://doi.org/10.1351/goldbook.E02149" target="_blank" title="Gold Book: entropy, S" style="color:#e74c3c;">IUPAC 2019</a></td></tr><tr><td style="font-weight:600;">= 0: reversible</td><td>Products & Outputs</td><td><a href="https://doi.org/10.1351/goldbook.E02149" target="_blank" title="Gold Book: entropy, S" style="color:#e74c3c;">IUPAC 2019</a></td></tr><tr><td style="font-weight:600;">< 0: impossible</td><td>Products & Outputs</td><td><a href="https://doi.org/10.1351/goldbook.E02149" target="_blank" title="Gold Book: entropy, S" style="color:#e74c3c;">IUPAC 2019</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -314,12 +326,12 @@ Y5 --> Z5
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 26</li>
-                        <li><strong>Edges:</strong> 22</li>
-                        <li><strong>Conditionals:</strong> 0</li>
+                        <li><strong>Nodes:</strong> 9</li>
+                        <li><strong>Edges:</strong> 9</li>
+                        <li><strong>Conditionals:</strong> 1</li>
                         <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 1</li>
+                        <li><strong>OR Gates:</strong> 2</li>
+                        <li><strong>Total Gates:</strong> 3</li>
                     </ul>
                 </div>
                 
@@ -327,7 +339,7 @@ Y5 --> Z5
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>entropy</li><li>changes</li>
+                        <li>entropy</li><li>second law</li><li>reversible path</li><li>clausius</li><li>spontaneity</li>
                     </ul>
                 </div>
                 
@@ -338,42 +350,32 @@ Y5 --> Z5
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Physical Chemistry, 11th ed. — Entropy and the Second Law</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Atkins, P.; de Paula, J.; Keeler, J.
+                            , Oxford University Press
+                             (2018)
                             </span>
                             
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
+                            <br><a href="https://global.oup.com/ukhe/product/atkins-physical-chemistry-9780198769866" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Entropy changes</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Atkins, Peter; Paula, Julio de; Smith, David
-                            , Elements of Physical Chemistry
-                             (2016)
+                            <strong>Gold Book: entropy, S</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">IUPAC
+                            , IUPAC Compendium of Chemical Terminology
+                             (2019)
                             </span>
-                            <br><a href="https://doi.org/10.1093/hesc/9780198727873.003.0014" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1093/hesc/9780198727873.003.0014</a>
-                            
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Entropy changes accompanying specific processes</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Atkins, Peter; de Paula, Julio; Keeler, James
-                            , Atkins’ Physical Chemistry
-                             (2022)
-                            </span>
-                            <br><a href="https://doi.org/10.1093/hesc/9780198847816.003.0013" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1093/hesc/9780198847816.003.0013</a>
+                            <br><a href="https://doi.org/10.1351/goldbook.E02149" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1351/goldbook.E02149</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Wide Range Multiscale Entropy Changes through Development</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Polizzotto, Nicola; Takahashi, Tetsuya; Walker, Christopher; Cho, Raymond
-                            , Entropy
-                             (2015)
+                            <strong>Reflections on the Motive Power of Heat (Clausius formulation, reprint)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Clausius, R.
+                            , Annalen der Physik
+                             (1865)
                             </span>
-                            <br><a href="https://doi.org/10.3390/e18010012" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.3390/e18010012</a>
+                            <br><a href="https://doi.org/10.1002/andp.18652010702" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1002/andp.18652010702</a>
                             
                         </li>
                         

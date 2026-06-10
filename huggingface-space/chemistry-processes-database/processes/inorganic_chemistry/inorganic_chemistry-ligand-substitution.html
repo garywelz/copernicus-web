@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ligand Substitution - Chemistry Process</title>
+    <title>Ligand Substitution Mechanisms - Chemistry Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Ligand Substitution</h1>
+            <h1>Ligand Substitution Mechanisms</h1>
             <div class="header-meta">
                 <span class="meta-item">Chemistry</span>
                 <span class="meta-item">Inorganic Chemistry</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,35 +234,56 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Ligand Substitution process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>Ligand substitution at a metal center proceeds by associative or dissociative pathways distinguished by the rate law: associative paths form a higher-coordinate intermediate by binding the incoming ligand first, while dissociative paths first lose a ligand to a lower-coordinate intermediate.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-N1["Metal Complex"]
-N2["Incoming Ligand"]
-N3["Coordination Sphere"]
-N4["Mechanism Choice (A/D/I)"]
-N5["Substitution Step"]
-N6["New Complex"]
+    N1["ML5X + incoming Y"]
+    N2["Observe rate law"]
+    N3{"Rate depends on [Y]?"}
+    N4["Associative (A/Ia)"]
+    N5["7-coordinate intermediate"]
+    N6["Dissociative (D/Id)"]
+    N7["5-coordinate intermediate"]
+    N8["Y enters vacated site"]
+    N9["Stereochemistry result"]
+    N10["Product ML5Y"]
 
-N1 --> N2
-N2 --> N3
-N3 --> N4
-N4 --> N5
-N5 --> N6
+    N1 --> N2
+    N2 --> N3
+    N3 -->|yes| N4
+    N4 --> N5
+    N3 -->|no| N6
+    N6 --> N7
+    N5 --> N8
+    N7 --> N8
+    N8 --> N9
+    N9 --> N10
 
     style N1 fill:#ff6b6b,color:#fff
-    style N2 fill:#ff6b6b,color:#fff
-    style N3 fill:#ffd43b,color:#000
-    style N4 fill:#ffd43b,color:#000
-    style N5 fill:#51cf66,color:#fff
-    style N6 fill:#b197fc,color:#fff
+    style N2 fill:#51cf66,color:#fff
+    style N3 fill:#74c0fc,color:#fff
+    style N4 fill:#51cf66,color:#fff
+    style N5 fill:#74c0fc,color:#fff
+    style N6 fill:#51cf66,color:#fff
+    style N7 fill:#74c0fc,color:#fff
+    style N8 fill:#51cf66,color:#fff
+    style N9 fill:#51cf66,color:#fff
+    style N10 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">ML5X + incoming Y</td><td>Triggers & Inputs</td><td><a href="https://www.pearson.com/en-gb/subject-catalog/p/inorganic-chemistry/P200000005860" target="_blank" title="Inorganic Chemistry, 6th ed. — Reaction Mechanisms of d-Block Complexes" style="color:#e74c3c;">Housecroft, C. E. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Observe rate law</td><td>Processing & Operations</td><td><a href="https://search.worldcat.org/title/40193029" target="_blank" title="Inorganic Reaction Mechanisms, 2nd ed." style="color:#e74c3c;">Tobe, M. L. et al. 1999</a></td></tr><tr><td style="font-weight:600;">Rate depends on [Y]?</td><td>Intermediates & States</td><td><a href="https://search.worldcat.org/title/40193029" target="_blank" title="Inorganic Reaction Mechanisms, 2nd ed." style="color:#e74c3c;">Tobe, M. L. et al. 1999</a></td></tr><tr><td style="font-weight:600;">Associative (A/Ia)</td><td>Processing & Operations</td><td><a href="https://search.worldcat.org/title/1031840" target="_blank" title="Ligand Substitution Processes" style="color:#e74c3c;">Langford, C. H. et al. 1965</a></td></tr><tr><td style="font-weight:600;">7-coordinate intermediate</td><td>Intermediates & States</td><td><a href="https://search.worldcat.org/title/1031840" target="_blank" title="Ligand Substitution Processes" style="color:#e74c3c;">Langford, C. H. et al. 1965</a></td></tr><tr><td style="font-weight:600;">Dissociative (D/Id)</td><td>Processing & Operations</td><td><a href="https://search.worldcat.org/title/1031840" target="_blank" title="Ligand Substitution Processes" style="color:#e74c3c;">Langford, C. H. et al. 1965</a></td></tr><tr><td style="font-weight:600;">5-coordinate intermediate</td><td>Intermediates & States</td><td><a href="https://search.worldcat.org/title/1031840" target="_blank" title="Ligand Substitution Processes" style="color:#e74c3c;">Langford, C. H. et al. 1965</a></td></tr><tr><td style="font-weight:600;">Y enters vacated site</td><td>Processing & Operations</td><td><a href="https://search.worldcat.org/title/40193029" target="_blank" title="Inorganic Reaction Mechanisms, 2nd ed." style="color:#e74c3c;">Tobe, M. L. et al. 1999</a></td></tr><tr><td style="font-weight:600;">Stereochemistry result</td><td>Processing & Operations</td><td><a href="https://www.pearson.com/en-gb/subject-catalog/p/inorganic-chemistry/P200000005860" target="_blank" title="Inorganic Chemistry, 6th ed. — Reaction Mechanisms of d-Block Complexes" style="color:#e74c3c;">Housecroft, C. E. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Product ML5Y</td><td>Products & Outputs</td><td><a href="https://search.worldcat.org/title/40193029" target="_blank" title="Inorganic Reaction Mechanisms, 2nd ed." style="color:#e74c3c;">Tobe, M. L. et al. 1999</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -281,12 +329,12 @@ N5 --> N6
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 6</li>
-                        <li><strong>Edges:</strong> 5</li>
-                        <li><strong>Conditionals:</strong> 0</li>
-                        <li><strong>AND Gates:</strong> 0</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 0</li>
+                        <li><strong>Nodes:</strong> 10</li>
+                        <li><strong>Edges:</strong> 10</li>
+                        <li><strong>Conditionals:</strong> 1</li>
+                        <li><strong>AND Gates:</strong> 1</li>
+                        <li><strong>OR Gates:</strong> 1</li>
+                        <li><strong>Total Gates:</strong> 2</li>
                     </ul>
                 </div>
                 
@@ -294,7 +342,7 @@ N5 --> N6
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>ligand</li><li>substitution</li>
+                        <li>ligand substitution</li><li>associative</li><li>dissociative</li><li>reaction mechanism</li><li>intermediate</li>
                     </ul>
                 </div>
                 
@@ -305,43 +353,33 @@ N5 --> N6
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Inorganic Reaction Mechanisms, 2nd ed.</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Tobe, M. L.; Burgess, J.
+                            , Longman
+                             (1999)
                             </span>
                             
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
+                            <br><a href="https://search.worldcat.org/title/40193029" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Ligand substitution reactions</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Mingos, D.M.P.
-                            , Essentials of Inorganic Chemistry 2
-                             (1998)
+                            <strong>Ligand Substitution Processes</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Langford, C. H.; Gray, H. B.
+                            , W. A. Benjamin
+                             (1965)
                             </span>
-                            <br><a href="https://doi.org/10.1093/hesc/9780198559184.003.0007" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1093/hesc/9780198559184.003.0007</a>
                             
+                            <br><a href="https://search.worldcat.org/title/1031840" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Ligand Substitution Reactions</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Jordan, Robert B.
-                            , Reaction Mechanisms of Inorganic and Organometallic Systems
-                             (2007)
+                            <strong>Inorganic Chemistry, 6th ed. — Reaction Mechanisms of d-Block Complexes</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Housecroft, C. E.; Sharpe, A. G.
+                            , Pearson
+                             (2018)
                             </span>
-                            <br><a href="https://doi.org/10.1093/oso/9780195301007.003.0005" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1093/oso/9780195301007.003.0005</a>
                             
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Ligand Substitution Reactions</strong>
-                            
-                            , Organometallic Chemistry and Catalysis
-                             (None)
-                            </span>
-                            <br><a href="https://doi.org/10.1007/978-3-540-46129-6_7" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1007/978-3-540-46129-6_7</a>
-                            
+                            <br><a href="https://www.pearson.com/en-gb/subject-catalog/p/inorganic-chemistry/P200000005860" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
                         </li>
                         
                     </ul>

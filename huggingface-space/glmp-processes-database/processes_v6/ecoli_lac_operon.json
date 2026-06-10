@@ -1,0 +1,19 @@
+{
+  "acquired_date": "2025-10-08T00:00:00Z",
+  "category": "Gene Regulation",
+  "created": "2025-10-08",
+  "description": "Lac operon from Abasy Atlas: LacI and CRP regulons, lac promoter, allolactose inducer, and target genes (lacZ, lacY, lacA) with activation/repression edges.",
+  "id": "process_Gene Regulation_lac-operon-abasy",
+  "name": "Lac Operon (Abasy-sourced)",
+  "organism": "E. coli",
+  "source": "Abasy Atlas",
+  "source_version": "v2.2",
+  "version_label": "V6",
+  "notes": "V6 = Abasy only. Lac regulon: LacI/CRP, lac promoter, allolactose; regulon–gene edges from Abasy E. coli network.",
+  "mermaid": "graph TD\n    LACTOSE[Lactose]\n    ALLO[Allolactose]\n    LACI[LacI regulon]\n    CRP[CRP regulon]\n    PROM[lac promoter]\n    LACZ[lacZ]\n    LACY[lacY]\n    LACA[lacA]\n    LACTOSE -->|inducer| ALLO\n    ALLO -->|relieves| LACI\n    LACI -->|repression| PROM\n    CRP -->|activation| PROM\n    CRP -->|activation| LACI\n    PROM --> LACZ\n    PROM --> LACY\n    PROM --> LACA\n    style LACTOSE fill:#e74c3c,color:#fff\n    style ALLO fill:#74c0fc,color:#000\n    style LACI fill:#ffd43b,color:#000\n    style CRP fill:#ffd43b,color:#000\n    style PROM fill:#51cf66,color:#000\n    style LACZ fill:#74c0fc,color:#000\n    style LACY fill:#74c0fc,color:#000\n    style LACA fill:#74c0fc,color:#000",
+  "related_processes": ["ecoli_lac_operon"],
+  "scientificAccuracy": "Abasy Atlas v2.2 E. coli lac regulon; promoter and allolactose from meta-curated network.",
+  "sources": [
+    {"title": "Abasy Atlas", "url": "https://abasy.ccg.unam.mx", "note": "Meta-curated bacterial regulatory networks; lac regulon."}
+  ]
+}

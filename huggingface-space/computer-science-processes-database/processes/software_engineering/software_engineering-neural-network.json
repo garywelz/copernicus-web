@@ -1,21 +1,23 @@
 {
   "id": "software_engineering-neural-network",
-  "name": "Neural Network",
+  "name": "Test-Driven Development (TDD)",
   "category": "computer_science",
   "subcategory": "software_engineering",
   "subcategory_name": "Software Engineering",
-  "description": "Neural Network process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "Test-driven development follows a red-green-refactor cycle: write a failing test that specifies desired behavior, confirm it fails, write the minimal code to make it pass, then refactor while keeping all tests green; the loop repeats per behavior, producing tested, well-factored code.",
   "complexity": {
-    "nodes": 26,
-    "edges": 21,
-    "conditionals": 0,
+    "nodes": 12,
+    "edges": 14,
+    "conditionals": 3,
     "logicGates": {
-      "orGates": 0,
-      "andGates": 1,
-      "total": 1
+      "orGates": 3,
+      "andGates": 3,
+      "notGates": 0,
+      "total": 6
     },
-    "level": "medium",
-    "detailLevel": "medium"
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 3
   },
   "colorScheme": {
     "red": {
@@ -39,53 +41,156 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nA2[Neural Input] --> B2[Neural Network Method]\nC2[Layer Processing] --> D2[Activation Function]\nE2[Backpropagation] --> F2[Neural Network Analysis]\nB2 --> G2[Feedforward Network]\nD2 --> H2[Convolutional Network]\nF2 --> I2[Recurrent Network]\nG2 --> J2[Weight Initialization]\nH2 --> K2[Convolution Operation]\nI2 --> L2[Memory Cell]\nJ2 --> M2[Forward Propagation]\nK2 --> L2\nL2 --> N2[Gradient Descent]\nM2 --> O2[Loss Calculation]\nN2 --> P2[Weight Update]\nO2 --> Q2[Neural Network Process]\nP2 --> R2[Neural Network Validation]\nQ2 --> S2[Neural Network Verification]\nR2 --> T2[Neural Network Result]\nS2 --> U2[Neural Network Analysis]\nT2 --> V2[Neural Network Parameters]\nU2 --> W2[Neural Network Output]\nV2 --> X2[Neural Network Analysis]\nW2 --> Y2[Neural Network Final Result]\nX2 --> Z2[Neural Network Complete]\n\n    style A2 fill:#ff6b6b,color:#fff\n    style C2 fill:#ff6b6b,color:#fff\n    style E2 fill:#ff6b6b,color:#fff\n    style B2 fill:#ffd43b,color:#000\n    style D2 fill:#ffd43b,color:#000\n    style F2 fill:#ffd43b,color:#000\n    style G2 fill:#ffd43b,color:#000\n    style H2 fill:#ffd43b,color:#000\n    style I2 fill:#ffd43b,color:#000\n    style J2 fill:#ffd43b,color:#000\n    style K2 fill:#ffd43b,color:#000\n    style L2 fill:#ffd43b,color:#000\n    style M2 fill:#51cf66,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style O2 fill:#51cf66,color:#fff\n    style P2 fill:#51cf66,color:#fff\n    style Q2 fill:#51cf66,color:#fff\n    style R2 fill:#51cf66,color:#fff\n    style S2 fill:#51cf66,color:#fff\n    style T2 fill:#51cf66,color:#fff\n    style U2 fill:#51cf66,color:#fff\n    style V2 fill:#51cf66,color:#fff\n    style W2 fill:#51cf66,color:#fff\n    style X2 fill:#51cf66,color:#fff\n    style Y2 fill:#51cf66,color:#fff\n    style Z2 fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"New feature / behavior\"]\n    N2[\"Write a failing test\"]\n    N3[\"Run test suite\"]\n    N4{\"Fails as expected?\"}\n    N5[\"Fix the test\"]\n    N6[\"Write minimal code\"]\n    N7[\"Run tests again\"]\n    N8{\"All tests pass?\"}\n    N9[\"Adjust implementation\"]\n    N10[\"Refactor cleanly\"]\n    N11{\"Tests still pass?\"}\n    N12[\"Working tested feature\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 --> N4\n    N4 -->|no| N5\n    N5 -->|retry| N3\n    N4 -->|yes| N6\n    N6 --> N7\n    N7 --> N8\n    N8 -->|no| N9\n    N9 -->|rerun| N7\n    N8 -->|yes| N10\n    N10 --> N11\n    N11 -->|no| N9\n    N11 -->|yes| N12\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#74c0fc,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#74c0fc,color:#fff\n    style N9 fill:#51cf66,color:#fff\n    style N10 fill:#51cf66,color:#fff\n    style N11 fill:#74c0fc,color:#fff\n    style N12 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
-      "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: Neural Network. Created using the Programming Framework methodology."
+      "title": "Test-Driven Development: By Example",
+      "authors": "Beck, K.",
+      "journal": "Addison-Wesley",
+      "year": "2002",
+      "url": "https://www.oreilly.com/library/view/test-driven-development/0321146530/"
     },
     {
-      "title": "Performance Comparison of Binarized Neural Network with Convolutional Neural Network",
-      "authors": "Baruah, Lopamudra",
-      "journal": "",
-      "year": "None",
-      "pubmed": null,
-      "doi": "10.37099/mtu.dc.etdr/487",
-      "url": "https://doi.org/10.37099/mtu.dc.etdr/487"
-    },
-    {
-      "title": "SuperHyperGraph Neural Network and Dynamic SuperHyperGraph Neural Network",
-      "authors": "Fujita, Takaaki",
-      "journal": "",
-      "year": "2025",
-      "pubmed": null,
-      "doi": "10.36227/techrxiv.174889082.24174240/v1",
-      "url": "https://doi.org/10.36227/techrxiv.174889082.24174240/v1"
-    },
-    {
-      "title": "ATM network control by neural network",
-      "authors": "Hiramatsu, Atsushi",
-      "journal": "Handbook of Neural Computation",
-      "year": "None",
-      "pubmed": null,
-      "doi": "10.1887/0750303123/b365c99",
-      "url": "https://doi.org/10.1887/0750303123/b365c99"
+      "title": "An initial investigation of test driven development in industry",
+      "authors": "George, B.; Williams, L.",
+      "journal": "ACM Symposium on Applied Computing",
+      "year": "2003",
+      "doi": "10.1145/952532.952753",
+      "url": "https://doi.org/10.1145/952532.952753"
     }
   ],
   "keywords": [
-    "neural",
-    "network"
+    "test-driven development",
+    "red-green-refactor",
+    "unit test",
+    "minimal implementation",
+    "regression"
   ],
   "relatedProcesses": [],
   "created": "2026-01-08",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "New feature / behavior",
+      "detail": "Requirement",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N2",
+      "label": "Write a failing test",
+      "detail": "Specify intent",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N3",
+      "label": "Run test suite",
+      "detail": "Expect red",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N4",
+      "label": "Fails as expected?",
+      "detail": "Test is valid",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N5",
+      "label": "Fix the test",
+      "detail": "Correct spec",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N6",
+      "label": "Write minimal code",
+      "detail": "Just enough",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N7",
+      "label": "Run tests again",
+      "detail": "Seek green",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N8",
+      "label": "All tests pass?",
+      "detail": "Behavior met",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N9",
+      "label": "Adjust implementation",
+      "detail": "Make it pass",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N10",
+      "label": "Refactor cleanly",
+      "detail": "Improve design",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N11",
+      "label": "Tests still pass?",
+      "detail": "No regression",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N12",
+      "label": "Working tested feature",
+      "detail": "Green + clean",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 1
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:software_engineering-neural-network",
+    "graphType": "cyclic_pathway",
+    "topologySignature": "2cbf48b56b8b8a5a",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "namedCollections": [],
+  "graphMetrics": {
+    "nodes": 12,
+    "edges": 14,
+    "conditionals": 3,
+    "andGates": 3,
+    "orGates": 3,
+    "notGates": 0,
+    "loops": 3
+  },
+  "graphType": "cyclic_pathway",
+  "domainContext": "Software engineering"
 }

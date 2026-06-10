@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>K-Theory - Mathematics Process</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 20px; }
+        .container { max-width: 900px; margin: 0 auto; background: white; border-radius: 15px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); overflow: hidden; padding: 30px; }
+        h1 { color: #2c3e50; margin-bottom: 15px; }
+        p { color: #555; margin-bottom: 25px; line-height: 1.6; }
+        .nav-links { margin-bottom: 20px; }
+        .nav-links a { color: #e67e22; text-decoration: none; margin-right: 20px; font-weight: 500; }
+        .sections { display: grid; gap: 15px; }
+        .sections a { display: block; padding: 20px; background: #f8f9fa; border-radius: 10px; color: #2c3e50; text-decoration: none; font-weight: 500; border-left: 4px solid #553c9a; }
+        .sections a:hover { background: #ecf0f1; }
+        .frontier { margin-top: 25px; padding: 20px; background: #faf5ff; border-left: 4px solid #553c9a; border-radius: 0 8px 8px 0; font-size: 0.95em; }
+        .frontier h3 { color: #2c3e50; margin-bottom: 8px; }
+        .frontier a { color: #553c9a; }
+        .recent-frontier { margin-top: 20px; }
+        .recent-frontier h3 { color: #2c3e50; font-size: 1.1em; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 2px solid #ecf0f1; }
+        .frontier-item { display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px; margin-bottom: 8px; border-radius: 8px; background: white; border-left: 4px solid; }
+        .frontier-item.proved { border-left-color: #27ae60; }
+        .frontier-item.conjecture { border-left-color: #e67e22; background: #fff8f0; }
+        .frontier-item .content { flex: 1; }
+        .frontier-item .name { font-weight: 600; color: #2c3e50; margin-bottom: 4px; }
+        .frontier-item .meta { font-size: 0.85em; color: #7f8c8d; }
+        .frontier-item a { font-size: 0.9em; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="nav-links"><a id="back-link" href="#">← Back to Mathematics Database</a><a href="https://arxiv.org/list/math.KT/recent" target="_blank">math.KT (arXiv)</a></div>
+        <script>(function(){document.getElementById('back-link').href=window.location.hostname.includes('storage.googleapis.com')?'https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/mathematics-database-table.html':'../../mathematics-database-table.html';})();</script>
+        <h1>K-Theory</h1>
+        <p>Algebraic K-theory, topological K-theory, operator K-theory. Bott periodicity. Vector bundles, Grothendieck groups.</p>
+        <div class="sections">
+            <a href="k_theory-algebraic.html">Algebraic K-Theory</a>
+            <a href="k_theory-topological.html">Topological K-Theory</a>
+            <a href="k_theory-operator.html">Operator K-Theory</a>
+            <a href="k_theory-bott.html">Bott Periodicity</a>
+        </div>
+        <div class="frontier"><h3>🔬 Frontier: math.KT</h3><p>Algebraic K-theory of rings, motivic cohomology, cyclotomic trace. <a href="https://arxiv.org/list/math.KT/recent" target="_blank">math.KT recent</a></p></div>
+        <div class="recent-frontier">
+            <h3>Recent & Frontier</h3>
+            <div class="frontier-item proved">
+                <div class="content"><div class="name">Bott Periodicity</div><div class="meta">K⁻ⁿ ≅ K⁻ⁿ⁻²; 8-fold periodicity</div><a href="k_theory-bott.html">Chart →</a> <a href="https://en.wikipedia.org/wiki/Bott_periodicity_theorem" target="_blank">Wikipedia →</a></div>
+            </div>
+            <div class="frontier-item proved">
+                <div class="content"><div class="name">Index Theorem (Atiyah–Singer)</div><div class="meta">Topological index = analytical index</div><a href="https://en.wikipedia.org/wiki/Atiyah%E2%80%93Singer_index_theorem" target="_blank">Wikipedia →</a></div>
+            </div>
+            <div class="frontier-item conjecture">
+                <div class="content"><div class="name">Quillen–Lichtenbaum</div><div class="meta">Algebraic K-theory and étale cohomology</div><a href="https://en.wikipedia.org/wiki/Quillen%E2%80%93Lichtenbaum_conjecture" target="_blank">Wikipedia →</a></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

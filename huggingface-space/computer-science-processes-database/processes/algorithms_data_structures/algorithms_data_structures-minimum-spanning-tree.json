@@ -1,21 +1,23 @@
 {
   "id": "algorithms_data_structures-minimum-spanning-tree",
-  "name": "Minimum Spanning Tree",
+  "name": "Minimum Spanning Tree (Kruskal / Prim)",
   "category": "computer_science",
   "subcategory": "algorithms_data_structures",
   "subcategory_name": "Algorithms & Data Structures",
-  "description": "Minimum Spanning Tree process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "A minimum spanning tree connects all vertices of a weighted graph with least total edge weight by a greedy rule: Kruskal sorts edges and adds the lightest that does not form a cycle (using union-find), while Prim grows a tree by repeatedly adding the lightest edge leaving it, until every vertex is connected.",
   "complexity": {
     "nodes": 11,
-    "edges": 11,
-    "conditionals": 0,
+    "edges": 13,
+    "conditionals": 3,
     "logicGates": {
-      "orGates": 1,
+      "orGates": 3,
       "andGates": 1,
-      "total": 2
+      "notGates": 0,
+      "total": 4
     },
-    "level": "medium",
-    "detailLevel": "medium"
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 2
   },
   "colorScheme": {
     "red": {
@@ -39,54 +41,149 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nN1[\"Weighted Graph\"]\nN2[\"Edge Weights\"]\nN3[\"Candidate Edges\"]\nN4[\"Choose Approach\"]\nN5[\"DSU / PQ\"]\nN6[\"Select Next Safe Edge\"]\nN7[\"Cycle Check\"]\nN8[\"Add Edge to Tree\"]\nN9[\"Integrate Results\"]\nN10[\"MST Edge Set\"]\nN11[\"MST Total Weight\"]\n\nN1 --> N2\nN2 --> N3\nN3 --> N4\nN4 --> N5\nN4 --> N7\nN5 --> N6\nN7 --> N8\nN6 --> N9\nN8 --> N9\nN9 --> N10\nN10 --> N11\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#ff6b6b,color:#fff\n    style N3 fill:#ffd43b,color:#000\n    style N4 fill:#ffd43b,color:#000\n    style N5 fill:#ffd43b,color:#000\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#74c0fc,color:#fff\n    style N10 fill:#74c0fc,color:#fff\n    style N11 fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"Weighted connected graph\"]\n    N2{\"Greedy strategy?\"}\n    N3[\"Kruskal: sort edges\"]\n    N4[\"Prim: grow from vertex\"]\n    N5[\"Pick min-weight safe edge\"]\n    N6{\"Creates a cycle?\"}\n    N7[\"Reject edge\"]\n    N8[\"Add edge to MST\"]\n    N9[\"Union / extend tree\"]\n    N10{\"All vertices connected?\"}\n    N11[\"Minimum spanning tree\"]\n\n    N1 --> N2\n    N2 -->|kruskal| N3\n    N2 -->|prim| N4\n    N3 --> N5\n    N4 --> N5\n    N5 --> N6\n    N6 -->|yes| N7\n    N7 -->|next edge| N5\n    N6 -->|no| N8\n    N8 --> N9\n    N9 --> N10\n    N10 -->|no| N5\n    N10 -->|yes| N11\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#74c0fc,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#74c0fc,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#74c0fc,color:#fff\n    style N10 fill:#74c0fc,color:#fff\n    style N11 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
-      "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: Minimum Spanning Tree. Created using the Programming Framework methodology."
+      "title": "On the shortest spanning subtree of a graph and the traveling salesman problem",
+      "authors": "Kruskal, J. B.",
+      "journal": "Proceedings of the American Mathematical Society",
+      "year": "1956",
+      "doi": "10.1090/S0002-9939-1956-0078686-7",
+      "url": "https://doi.org/10.1090/S0002-9939-1956-0078686-7"
     },
     {
-      "title": "Minimum spanning tree problem",
-      "authors": "",
-      "journal": "SpringerReference",
-      "year": "None",
-      "pubmed": null,
-      "doi": "10.1007/springerreference_5821",
-      "url": "https://doi.org/10.1007/springerreference_5821"
-    },
-    {
-      "title": "Generalized Minimum Spanning Tree",
-      "authors": "",
-      "journal": "SpringerReference",
-      "year": "None",
-      "pubmed": null,
-      "doi": "10.1007/springerreference_62107",
-      "url": "https://doi.org/10.1007/springerreference_62107"
-    },
-    {
-      "title": "Figure 4: Minimum Spanning Tree (MST).",
-      "authors": "",
-      "journal": "",
-      "year": "None",
-      "pubmed": null,
-      "doi": "10.7717/peerj.15847/fig-4",
-      "url": "https://doi.org/10.7717/peerj.15847/fig-4"
+      "title": "Shortest connection networks and some generalizations",
+      "authors": "Prim, R. C.",
+      "journal": "Bell System Technical Journal",
+      "year": "1957",
+      "doi": "10.1002/j.1538-7305.1957.tb01515.x",
+      "url": "https://doi.org/10.1002/j.1538-7305.1957.tb01515.x"
     }
   ],
   "keywords": [
-    "minimum",
-    "spanning",
-    "tree"
+    "minimum spanning tree",
+    "Kruskal",
+    "Prim",
+    "greedy algorithm",
+    "union-find"
   ],
   "relatedProcesses": [],
   "created": "2026-01-15",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations.\nCurated Mermaid applied (citations preserved)."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "namedCollections": [],
+  "graphMetrics": {
+    "nodes": 11,
+    "edges": 13,
+    "conditionals": 3,
+    "andGates": 1,
+    "orGates": 3,
+    "notGates": 0,
+    "loops": 2
+  },
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Weighted connected graph",
+      "detail": "Edges have weights",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N2",
+      "label": "Greedy strategy?",
+      "detail": "Kruskal or Prim",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N3",
+      "label": "Kruskal: sort edges",
+      "detail": "Ascending weight",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N4",
+      "label": "Prim: grow from vertex",
+      "detail": "Frontier of tree",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N5",
+      "label": "Pick min-weight safe edge",
+      "detail": "Cut property",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N6",
+      "label": "Creates a cycle?",
+      "detail": "Union-find query",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N7",
+      "label": "Reject edge",
+      "detail": "Skip it",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N8",
+      "label": "Add edge to MST",
+      "detail": "Safe edge",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N9",
+      "label": "Union / extend tree",
+      "detail": "Merge components",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N10",
+      "label": "All vertices connected?",
+      "detail": "V-1 edges added",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N11",
+      "label": "Minimum spanning tree",
+      "detail": "Least total weight",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 0
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:algorithms_data_structures-minimum-spanning-tree",
+    "graphType": "decision_flowchart",
+    "topologySignature": "a1ea7b87fc72d9a0",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "graphType": "decision_flowchart",
+  "domainContext": "Graph algorithms"
 }

@@ -1,0 +1,39 @@
+{
+  "id": "calculus_analysis-measurable-riemann-mapping",
+  "name": "Measurable Riemann Mapping Theorem",
+  "category": "mathematics",
+  "subcategory": "calculus_analysis",
+  "subcategory_name": "Calculus & Analysis",
+  "description": "The Measurable Riemann Mapping Theorem (MRMT): For a Beltrami differential μ on ℂ with ‖μ‖∞ < 1, the Beltrami equation ∂̄f = μ ∂f has a unique quasiconformal solution f: ℂ→ℂ fixing 0, 1, ∞. Equivalently: any measurable conformal structure on ℂ̂ is realized by a unique quasiconformal map. Central to Sullivan's no wandering domain proof: deform conformal structure along orbits to produce contradictions.",
+  "mermaid": "graph TD\n    DefBeltrami[\"Def: Beltrami differential μ\\nμ(z) dz̄/dz, ‖μ‖∞<1\"]\n    DefQC[\"Def: Quasiconformal map\\nBounded dilatation K\"]\n    DefBeltramiEq[\"Def: Beltrami equation\\n∂̄f = μ ∂f\"]\n    ThmMRMT[\"Thm: MRMT\\nUnique QC solution fixing 0,1,∞\"]\n    ThmMeasurable[\"Thm: Measurable conformal structure\\nRealized by unique QC map\"]\n    LemExistence[\"Lem: Existence via PDE\\nElliptic regularity\"]\n    LemUniqueness[\"Lem: Uniqueness\\nNormalization\"]\n    DefBeltrami --> DefBeltramiEq\n    DefQC --> ThmMRMT\n    DefBeltramiEq --> LemExistence\n    DefBeltramiEq --> LemUniqueness\n    LemExistence --> ThmMRMT\n    LemUniqueness --> ThmMRMT\n    ThmMRMT --> ThmMeasurable\n    classDef definition fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef theorem fill:#51cf66,color:#fff,stroke:#40c057\n    classDef lemma fill:#74c0fc,color:#fff,stroke:#4dabf7\n    class DefBeltrami,DefQC,DefBeltramiEq definition\n    class ThmMRMT,ThmMeasurable theorem\n    class LemExistence,LemUniqueness lemma",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

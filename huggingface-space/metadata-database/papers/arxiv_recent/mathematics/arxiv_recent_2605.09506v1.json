@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2605.09506v1",
+  "arxiv_id": "2605.09506v1",
+  "title": "Accelerating Bayesian Phylogenetic Inference via Delayed Acceptance Sequential Monte Carlo with Random Forest Surrogates",
+  "authors": [
+    "Wentao Yu",
+    "Shijia Wang"
+  ],
+  "author_string": "Wentao Yu, Shijia Wang",
+  "journal": "arXiv:2605.09506v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "In Bayesian phylogenetics, our goal is to estimate the posterior distribution over phylogenetic trees. Markov chain Monte Carlo methods are widely used to approximate the phylogenetic posterior distributions. For large-scale sequence data, repeated evaluation of the likelihood function incurs a high computational cost. In this article, we propose a machine-learning algorithm with over 35 topological and branch-length features to predict the changes in the likelihood function caused by tree moves (\\eg,~eSPR, stNNI) used in standard MCMC approaches. This algorithm is then used to design a delayed acceptance MCMC kernel, which utilized the predicted surrogate function for preliminary rejection, to accelerate tree space searches. Furthermore, we integrate our proposed MCMC kernel into the sequential Monte Carlo sampler framework. We validate the proposed delayed-acceptance sequential Monte Carlo approach (DA-SMC) on simulation and real data sets. Our delayed acceptance kernel can maintain robust estimation while reduces the number of likelihood evaluations significantly, yielding substantial computational time savings. We develop a Python package that is available at https://github.com/wentYu/DAphyloSMC.",
+  "categories": [
+    "stat.ME",
+    "q-bio.QM",
+    "stat.CO"
+  ],
+  "primary_category": "stat.CO",
+  "comment": null,
+  "published_date": "2026-05-10T12:27:55Z",
+  "updated_date": "2026-05-10T12:27:55Z",
+  "url": "https://arxiv.org/abs/2605.09506v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.09506v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-18T10:15:43.642083",
+  "category": "mathematics",
+  "subcategories": [
+    "stat.ME",
+    "q-bio.QM",
+    "stat.CO"
+  ]
+}

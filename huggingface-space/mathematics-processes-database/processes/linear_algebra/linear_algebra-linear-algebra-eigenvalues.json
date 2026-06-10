@@ -1,0 +1,39 @@
+{
+  "id": "linear_algebra-linear-algebra-eigenvalues",
+  "name": "Linear Algebra — Eigenvalues",
+  "category": "mathematics",
+  "subcategory": "linear_algebra",
+  "subcategory_name": "Linear Algebra",
+  "description": "Eigenvalue λ: Tv = λv for v ≠ 0. Eigenvector, eigenspace. Characteristic polynomial. Diagonalizable: basis of eigenvectors. Jordan canonical form when not diagonalizable.",
+  "mermaid": "graph TD\n    D1[\"Def: Eigenvalue\\nTv = λv, v≠0\"]\n    D2[\"Def: Eigenvector\\nv in E_λ\"]\n    D3[\"Def: Char poly\\np_T = det of T-xI\"]\n    D4[\"Def: Diagonalizable\\nbasis of eigenvecs\"]\n    D5[\"Def: Jordan form\\nblock diagonal\"]\n    T1[\"Thm: λ root of p_T\"]\n    T2[\"Thm: Diag ⟺\\ngeom mult = alg mult\"]\n    T3[\"Thm: Jordan exists\\nover C\"]\n    D1 --> D2\n    D1 --> D3\n    D3 --> T1\n    D2 --> D4\n    D4 --> T2\n    D4 --> D5\n    D5 --> T3\n    classDef definition fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef theorem fill:#51cf66,color:#fff,stroke:#40c057\n    class D1,D2,D3,D4,D5 definition\n    class T1,T2,T3 theorem",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

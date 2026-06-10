@@ -1,0 +1,39 @@
+{
+  "id": "discrete_mathematics-type-theory-typing",
+  "name": "Type Theory — Simply Typed λ-Calculus",
+  "category": "mathematics",
+  "subcategory": "discrete_mathematics",
+  "subcategory_name": "Discrete Mathematics",
+  "description": "Simple types: base types, A→B. Typing judgment Γ ⊢ M : A. Typing rules: var, app, abs. Subject reduction: typable terms reduce to typable terms.",
+  "mermaid": "graph TD\n    D1[\"Def: Simple type\\nbase, A→B\"]\n    D2[\"Def: Context\\nΓ = x1:A1,...\"]\n    D3[\"Def: Typing judgment\\nΓ ⊢ M : A\"]\n    R1[\"Rule: Var\\nx:A in Γ ⇒ Γ⊢x:A\"]\n    R2[\"Rule: App\\nΓ⊢M:A→B Γ⊢N:A ⇒ Γ⊢MN:B\"]\n    R3[\"Rule: Abs\\nΓ,x:A⊢M:B ⇒ Γ⊢λx.M:A→B\"]\n    T1[\"Thm: Subject reduction\\nM→N, Γ⊢M:A ⇒ Γ⊢N:A\"]\n    D1 --> D2\n    D2 --> D3\n    D3 --> R1\n    D3 --> R2\n    D3 --> R3\n    R1 --> T1\n    R2 --> T1\n    R3 --> T1\n    classDef definition fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef axiom fill:#ff6b6b,color:#fff,stroke:#c0392b\n    classDef theorem fill:#51cf66,color:#fff,stroke:#40c057\n    class D1,D2,D3 definition\n    class R1,R2,R3 axiom\n    class T1 theorem",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

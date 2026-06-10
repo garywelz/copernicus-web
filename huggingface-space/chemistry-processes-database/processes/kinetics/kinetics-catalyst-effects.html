@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Catalyst Effects - Chemistry Process</title>
+    <title>Catalysis Lowers Activation Energy - Chemistry Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Catalyst Effects</h1>
+            <h1>Catalysis Lowers Activation Energy</h1>
             <div class="header-meta">
                 <span class="meta-item">Chemistry</span>
                 <span class="meta-item">Kinetics</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,68 +234,57 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Catalyst Effects process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>A catalyst opens an alternative reaction pathway with lower activation energy by binding reactants and stabilizing the transition state, accelerating the rate and being regenerated, without changing the position of equilibrium.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-A4[Catalyst Material] --> B4[Catalyst Effect Method]
-C4[Reaction System] --> D4[Catalyst Loading]
-E4[Rate Enhancement] --> F4[Catalytic Analysis]
-B4 --> G4[Catalyst Preparation]
-D4 --> H4[Loading Optimization]
-F4 --> I4[Activity Measurement]
-G4 --> J4[Catalyst Characterization]
-H4 --> K4[Surface Area]
-I4 --> L4[Turnover Frequency]
-J4 --> M4[Active Sites]
-K4 --> L4
-L4 --> N4[Catalytic Activity]
-M4 --> O4[Reaction Pathway]
-N4 --> P4[Catalyst Kinetics]
-O4 --> Q4[Mechanism Modification]
-P4 --> R4[Rate Enhancement]
-Q4 --> S4[Pathway Analysis]
-R4 --> T4[Catalyst Optimization]
-S4 --> U4[Catalytic Parameters]
-T4 --> V4[Optimal Loading]
-U4 --> W4[Catalyst Efficiency]
-V4 --> X4[Catalyst Characterization]
-W4 --> Y4[Process Optimization]
-X4 --> Z4[Final Catalyst Conditions]
-Y4 --> Z4
+    N1["Slow uncatalyzed reaction"]
+    N2["Introduce catalyst"]
+    N3["Catalyst binds reactant"]
+    N4["Lower-Ea pathway"]
+    N5["Transition state stabilized"]
+    N6["Reaction proceeds faster"]
+    N7["Product forms"]
+    N8{"Catalyst regenerated?"}
+    N9["Catalyst recycles"]
+    N10["Faster rate, same K"]
 
-    style A4 fill:#ff6b6b,color:#fff
-    style C4 fill:#ff6b6b,color:#fff
-    style E4 fill:#ff6b6b,color:#fff
-    style B4 fill:#ffd43b,color:#000
-    style D4 fill:#ffd43b,color:#000
-    style F4 fill:#ffd43b,color:#000
-    style G4 fill:#ffd43b,color:#000
-    style H4 fill:#ffd43b,color:#000
-    style I4 fill:#ffd43b,color:#000
-    style J4 fill:#ffd43b,color:#000
-    style K4 fill:#ffd43b,color:#000
-    style L4 fill:#ffd43b,color:#000
-    style M4 fill:#51cf66,color:#fff
+    N1 --> N2
+    N2 --> N3
+    N3 --> N4
+    N4 --> N5
+    N5 --> N6
+    N6 --> N7
+    N7 --> N10
+    N7 --> N8
+    N8 -->|yes| N9
+    N9 -->|turnover| N3
+    N8 -->|deactivated| N10
+
+    style N1 fill:#ff6b6b,color:#fff
+    style N2 fill:#51cf66,color:#fff
+    style N3 fill:#51cf66,color:#fff
     style N4 fill:#51cf66,color:#fff
-    style O4 fill:#51cf66,color:#fff
-    style P4 fill:#51cf66,color:#fff
-    style Q4 fill:#51cf66,color:#fff
-    style R4 fill:#51cf66,color:#fff
-    style S4 fill:#51cf66,color:#fff
-    style T4 fill:#51cf66,color:#fff
-    style U4 fill:#51cf66,color:#fff
-    style V4 fill:#51cf66,color:#fff
-    style W4 fill:#51cf66,color:#fff
-    style X4 fill:#51cf66,color:#fff
-    style Y4 fill:#51cf66,color:#fff
-    style Z4 fill:#b197fc,color:#fff
+    style N5 fill:#74c0fc,color:#fff
+    style N6 fill:#51cf66,color:#fff
+    style N7 fill:#51cf66,color:#fff
+    style N8 fill:#74c0fc,color:#fff
+    style N9 fill:#51cf66,color:#fff
+    style N10 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Slow uncatalyzed reaction</td><td>Triggers & Inputs</td><td><a href="https://global.oup.com/ukhe/product/atkins-physical-chemistry-9780198769866" target="_blank" title="Physical Chemistry, 11th ed. — Reaction Dynamics and Catalysis" style="color:#e74c3c;">Atkins, P. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Introduce catalyst</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1351/goldbook.C00876" target="_blank" title="Gold Book: catalyst" style="color:#e74c3c;">IUPAC 2019</a></td></tr><tr><td style="font-weight:600;">Catalyst binds reactant</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1351/goldbook.C00876" target="_blank" title="Gold Book: catalyst" style="color:#e74c3c;">IUPAC 2019</a></td></tr><tr><td style="font-weight:600;">Lower-Ea pathway</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1063/1.1749604" target="_blank" title="The activated complex in chemical reactions" style="color:#e74c3c;">Eyring, H. 1935</a></td></tr><tr><td style="font-weight:600;">Transition state stabilized</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1063/1.1749604" target="_blank" title="The activated complex in chemical reactions" style="color:#e74c3c;">Eyring, H. 1935</a></td></tr><tr><td style="font-weight:600;">Reaction proceeds faster</td><td>Processing & Operations</td><td><a href="https://global.oup.com/ukhe/product/atkins-physical-chemistry-9780198769866" target="_blank" title="Physical Chemistry, 11th ed. — Reaction Dynamics and Catalysis" style="color:#e74c3c;">Atkins, P. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Product forms</td><td>Processing & Operations</td><td><a href="https://global.oup.com/ukhe/product/atkins-physical-chemistry-9780198769866" target="_blank" title="Physical Chemistry, 11th ed. — Reaction Dynamics and Catalysis" style="color:#e74c3c;">Atkins, P. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Catalyst regenerated?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1351/goldbook.C00876" target="_blank" title="Gold Book: catalyst" style="color:#e74c3c;">IUPAC 2019</a></td></tr><tr><td style="font-weight:600;">Catalyst recycles</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1351/goldbook.C00876" target="_blank" title="Gold Book: catalyst" style="color:#e74c3c;">IUPAC 2019</a></td></tr><tr><td style="font-weight:600;">Faster rate, same K</td><td>Products & Outputs</td><td><a href="https://global.oup.com/ukhe/product/atkins-physical-chemistry-9780198769866" target="_blank" title="Physical Chemistry, 11th ed. — Reaction Dynamics and Catalysis" style="color:#e74c3c;">Atkins, P. et al. 2018</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -314,12 +330,12 @@ Y4 --> Z4
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 26</li>
-                        <li><strong>Edges:</strong> 22</li>
-                        <li><strong>Conditionals:</strong> 0</li>
-                        <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 1</li>
+                        <li><strong>Nodes:</strong> 10</li>
+                        <li><strong>Edges:</strong> 11</li>
+                        <li><strong>Conditionals:</strong> 1</li>
+                        <li><strong>AND Gates:</strong> 2</li>
+                        <li><strong>OR Gates:</strong> 2</li>
+                        <li><strong>Total Gates:</strong> 4</li>
                     </ul>
                 </div>
                 
@@ -327,7 +343,7 @@ Y4 --> Z4
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>catalyst</li><li>effects</li>
+                        <li>catalyst</li><li>activation energy</li><li>transition state</li><li>turnover</li><li>rate enhancement</li>
                     </ul>
                 </div>
                 
@@ -338,43 +354,33 @@ Y4 --> Z4
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Gold Book: catalyst</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">IUPAC
+                            , IUPAC Compendium of Chemical Terminology
+                             (2019)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Effects of oxygen and catalyst on tetraphenylborate decomposition rate</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Walker, D.D.
-                            
-                             (1999)
-                            </span>
-                            <br><a href="https://doi.org/10.2172/750108" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.2172/750108</a>
+                            <br><a href="https://doi.org/10.1351/goldbook.C00876" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1351/goldbook.C00876</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>The Catalytic Effects of Water and Halogens on the Alteration of Catalyst Surfaces</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Dowden, Dennis A.
-                            , Progress in Catalyst Deactivation
-                             (1982)
+                            <strong>The activated complex in chemical reactions</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Eyring, H.
+                            , Journal of Chemical Physics
+                             (1935)
                             </span>
-                            <br><a href="https://doi.org/10.1007/978-94-009-7597-2_13" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1007/978-94-009-7597-2_13</a>
+                            <br><a href="https://doi.org/10.1063/1.1749604" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1063/1.1749604</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Cracking of heavy oils by combination of hydrogen donor solvent with catalyst. (Part 2). Effects of catalyst on cracking reaction.</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">KUBO, Junichi; YAMASHITA, Tadakazu; KAMIYA, Kohzo; SUZUKI, Kenji; AKIYAMA, Eiji; KATOH, Hiroshi
-                            , Journal of The Japan Petroleum Institute
-                             (1988)
+                            <strong>Physical Chemistry, 11th ed. — Reaction Dynamics and Catalysis</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Atkins, P.; de Paula, J.; Keeler, J.
+                            , Oxford University Press
+                             (2018)
                             </span>
-                            <br><a href="https://doi.org/10.1627/jpi1958.31.203" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1627/jpi1958.31.203</a>
                             
+                            <br><a href="https://global.oup.com/ukhe/product/atkins-physical-chemistry-9780198769866" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
                         </li>
                         
                     </ul>

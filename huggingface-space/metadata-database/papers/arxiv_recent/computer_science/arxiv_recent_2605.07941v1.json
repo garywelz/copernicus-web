@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2605.07941v1",
+  "arxiv_id": "2605.07941v1",
+  "title": "Parameterized Local Search for Vertex Cover: When only the Search Radius is Crucial",
+  "authors": [
+    "Christian Komusiewicz",
+    "Nils Morawietz"
+  ],
+  "author_string": "Christian Komusiewicz, Nils Morawietz",
+  "journal": "arXiv:2605.07941v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "A vertex set $W$ in a graph $G$ is a valid $k$-swap for a vertex cover $S$ of $G$ if $W$ has size at most $k$ and $S'=(S \\setminus W) \\cup (W \\setminus S)$, the symmetric difference of $S$ and $W$, is a vertex cover of $G$. If $|S'| < |S|$, then $W$ is improving. In LS Vertex Cover, one is given a vertex cover $S$ of a graph $G$ and wants to know if there is a valid improving $k$-swap for $S$ in $G$. In applications of LS Vertex Cover, $k$ is a very small parameter that can be set by a user to determine the trade-off between running time and solution quality. Consequently, $k$ can be considered to be a constant. Motivated by this and the fact that LS Vertex Cover is W[1]-hard with respect to $k$, we aim for algorithms with running time $\\ell^{f(k)}\\cdot n^{\\mathcal{O}(1)}$ where $\\ell$ is a structural graph parameter upper-bounded by $n$. We say that such a running time grows mildly with respect to $\\ell$ and strongly with respect to $k$. We obtain algorithms with such a running time for $\\ell$ being the $h$-index of $G$, the treewidth of $G$, or the modular-width of $G$. In addition, we consider a novel parameter, the maximum degree over all quotient graphs in a modular decomposition of $G$. Moreover, we adapt these algorithms to the more general problem where each vertex is assigned a weight and where we want to find a valid $d$-improving $k$-swap, that is, a valid $k$-swap which decreases the weight of the vertex cover by at least $d$.",
+  "categories": [
+    "cs.DS",
+    "cs.DM"
+  ],
+  "primary_category": "cs.DM",
+  "comment": null,
+  "published_date": "2026-05-08T16:10:16Z",
+  "updated_date": "2026-05-08T16:10:16Z",
+  "url": "https://arxiv.org/abs/2605.07941v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.07941v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-10T22:17:15.403165",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.DS",
+    "cs.DM"
+  ]
+}

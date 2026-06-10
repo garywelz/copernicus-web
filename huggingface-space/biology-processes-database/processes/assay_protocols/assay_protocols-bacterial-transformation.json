@@ -1,0 +1,208 @@
+{
+  "id": "assay_protocols-bacterial-transformation",
+  "name": "Bacterial Transformation",
+  "category": "biology",
+  "subcategory": "assay_protocols",
+  "subcategory_name": "Assay / Lab Protocols",
+  "description": "Heat-shock transformation: plasmid DNA is mixed with chemically competent E. coli, a brief 42 C heat shock drives uptake, cells recover and express the resistance marker, and selective plating yields transformed colonies, with a retry loop when no colonies appear.",
+  "keywords": [
+    "transformation",
+    "competent cells",
+    "heat shock",
+    "plasmid",
+    "selection"
+  ],
+  "namedCollections": [
+    "lab-protocols"
+  ],
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "complexity": {
+    "nodes": 12,
+    "edges": 12,
+    "conditionals": 1,
+    "logicGates": {
+      "orGates": 1,
+      "andGates": 2,
+      "notGates": 0,
+      "total": 3
+    },
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 1
+  },
+  "graphMetrics": {
+    "nodes": 12,
+    "edges": 12,
+    "conditionals": 1,
+    "andGates": 2,
+    "orGates": 1,
+    "notGates": 0,
+    "loops": 1
+  },
+  "mermaid": "graph TD\n    N1[\"Competent E. coli\"]\n    N2[\"Plasmid DNA (marker)\"]\n    N3[\"Selective agar + antibiotic\"]\n    N4[\"Mix DNA + cells on ice\"]\n    N5[\"Heat shock 42C, 45s\"]\n    N6[\"Return to ice\"]\n    N7[\"Recover in SOC, 37C 1h\"]\n    N8[\"Plate on selective agar\"]\n    N9[\"Incubate 37C overnight\"]\n    N10{\"Colonies on plate?\"}\n    N11[\"Transformed colonies\"]\n    N12[\"Check competency/DNA\"]\n\n    N1 --> N4\n    N2 --> N4\n    N4 --> N5\n    N5 --> N6\n    N6 --> N7\n    N7 --> N8\n    N3 --> N8\n    N8 --> N9\n    N9 --> N10\n    N10 -->|yes| N11\n    N10 -->|no| N12\n    N12 -->|retry| N4\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#ff6b6b,color:#fff\n    style N3 fill:#ffd43b,color:#000\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#51cf66,color:#fff\n    style N10 fill:#74c0fc,color:#fff\n    style N11 fill:#b197fc,color:#fff\n    style N12 fill:#ffd43b,color:#000",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Competent E. coli",
+      "detail": "Chemically competent E. coli cells",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 1
+    },
+    {
+      "id": "N2",
+      "label": "Plasmid DNA (marker)",
+      "detail": "Plasmid carrying a selectable resistance marker",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N3",
+      "label": "Selective agar + antibiotic",
+      "detail": "Agar plates containing the selection antibiotic",
+      "type": "process",
+      "role": "Structures & Objects",
+      "sourceRef": 0
+    },
+    {
+      "id": "N4",
+      "label": "Mix DNA + cells on ice",
+      "detail": "Combine plasmid with competent cells; incubate on ice",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N5",
+      "label": "Heat shock 42C, 45s",
+      "detail": "Brief 42 C heat shock to promote DNA uptake",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N6",
+      "label": "Return to ice",
+      "detail": "Chill cells immediately after heat shock",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N7",
+      "label": "Recover in SOC, 37C 1h",
+      "detail": "Outgrowth in rich medium to express resistance",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N8",
+      "label": "Plate on selective agar",
+      "detail": "Spread cells on antibiotic plates",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N9",
+      "label": "Incubate 37C overnight",
+      "detail": "Grow colonies overnight",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N10",
+      "label": "Colonies on plate?",
+      "detail": "Did antibiotic-resistant colonies grow?",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N11",
+      "label": "Transformed colonies",
+      "detail": "Colonies carrying the plasmid",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N12",
+      "label": "Check competency/DNA",
+      "detail": "Troubleshoot cell competency and DNA quality",
+      "type": "process",
+      "role": "Structures & Objects",
+      "sourceRef": 1
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:assay_protocols-bacterial-transformation",
+    "graphType": "algorithm_flowchart",
+    "topologySignature": "18f355ac3d41fd97",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "pending",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "lastUpdated": "2026-06-01",
+  "verified": false,
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "sources": [
+    {
+      "title": "Nonchromosomal antibiotic resistance in bacteria: genetic transformation of Escherichia coli by R-factor DNA",
+      "authors": "Cohen, S. N.; Chang, A. C.; Hsu, L.",
+      "journal": "PNAS",
+      "year": "1972",
+      "pubmed": "4559594",
+      "doi": "10.1073/pnas.69.8.2110",
+      "url": "https://doi.org/10.1073/pnas.69.8.2110"
+    },
+    {
+      "title": "Studies on transformation of Escherichia coli with plasmids",
+      "authors": "Hanahan, D.",
+      "journal": "Journal of Molecular Biology",
+      "year": "1983",
+      "pubmed": "6345791",
+      "doi": "10.1016/S0022-2836(83)80284-8",
+      "url": "https://doi.org/10.1016/S0022-2836(83)80284-8"
+    },
+    {
+      "title": "Transformation of plasmid DNA into E. coli using the heat shock method",
+      "authors": "Froger, A.; Hall, J. E.",
+      "journal": "Journal of Visualized Experiments",
+      "year": "2007",
+      "pubmed": "18997900",
+      "doi": "10.3791/253",
+      "url": "https://doi.org/10.3791/253"
+    }
+  ],
+  "graphType": "algorithm_flowchart",
+  "domainContext": "Microbial genetic-transformation protocol"
+}

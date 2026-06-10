@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2604.23405v1",
+  "arxiv_id": "2604.23405v1",
+  "title": "A Single Twist-Angle Selection Method for the Electronic Structure of Bilayer Materials",
+  "authors": [
+    "Ryan A. Baker",
+    "William Z. Van Benschoten",
+    "James J. Shepherd"
+  ],
+  "author_string": "Ryan A. Baker, William Z. Van Benschoten, James J. Shepherd",
+  "journal": "arXiv:2604.23405v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Structure factor twist averaging (sfTA) is a newer method that has been shown to reproduce twist-averaged (TA) CCSD energies for bulk systems at a low computational cost. In this work, we extend this method for the treatment of low-dimensional materials in the form of two variants: paired sfTA and binding sfTA. These variants affect which twist angles are used in the sfTA protocol, as well as how the special twist angle is selected, namely by using the binding structure factor. These changes are meant to incorporate the binding interaction into the twist-angle selection algorithm within sfTA. Both variants are tested on a variety of bilayer systems, and the resulting binding correlation energies are compared to original sfTA results. We show that the variants are able to produce results approaching TA, with binding sfTA producing the most accurate energies. We also use contour plots of the test systems to show that these improvements are most likely caused by a cancellation of errors.",
+  "categories": [
+    "cond-mat.mtrl-sci",
+    "physics.chem-ph",
+    "physics.comp-ph"
+  ],
+  "primary_category": "physics.comp-ph",
+  "comment": "25 pages, 6 figures",
+  "published_date": "2026-04-25T18:50:53Z",
+  "updated_date": "2026-04-25T18:50:53Z",
+  "url": "https://arxiv.org/abs/2604.23405v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.23405v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-27T22:15:34.800036",
+  "category": "physics",
+  "subcategories": [
+    "cond-mat.mtrl-sci",
+    "physics.chem-ph",
+    "physics.comp-ph"
+  ]
+}

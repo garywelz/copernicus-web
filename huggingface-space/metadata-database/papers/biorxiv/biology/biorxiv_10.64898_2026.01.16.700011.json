@@ -1,0 +1,43 @@
+{
+  "id": "biorxiv_10.64898_2026.01.16.700011",
+  "doi": "10.64898/2026.01.16.700011",
+  "title": "Brain-like dynamics in speech representations can emerge through self-supervised learning",
+  "authors": [
+    "Liu, O. D.",
+    "Tang, H.",
+    "Feldman, N. H.",
+    "Goldwater, S."
+  ],
+  "author_string": "Liu, O. D., Tang, H., Feldman, N. H., Goldwater, S.",
+  "journal": "bioRxiv",
+  "journal_full": "bioRxiv",
+  "year": "2026",
+  "abstract": "Speech representations in the human brain do not simply mirror the instantaneous speech signal; rather, they display several properties that are hypothesized to facilitate the integration of speech sounds into words. In particular, neural encodings of speech maintain information that has dissipated from the acoustics, and have also been argued to abstract over variability in how individual speech sounds are produced. Here, we investigate how such characteristics could arise. We introduce a computational framework that uses modern neural network models from speech technology to examine two factors in particular: the learning mechanism and the learning input. We find that self-supervised models trained without lexical or semantic feedback developed temporal dynamics similar to brain representations, regardless of whether they were trained on speech or non-speech audio. In contrast, only models trained on speech learn to abstract over variability due to word position and phonetic context. Overall, our results suggest that domain-general learning mechanisms can lead to several important properties of speech representations, but in some cases require domain-specific input in order to do so.\n\nSignificance StatementUnderstanding speech often feels effortless, but in fact mapping speech sounds into words involves complex computation. Experimental neuroscience has identified key properties in brain signals that may support this computation, but why and how these properties arise is still unclear. We examined these properties in computational models and found that they occurred in models that werent given lexical or semantic feedback, but were trained to predict the acoustics of the speech signal. This suggests such properties can develop from domain-general learning combined with domain-specific input. Moreover, some properties even arose in models that were trained on non-speech audio. Overall, our work illustrates how computational modeling can help reveal the conditions under which neural properties emerge.",
+  "keywords": [],
+  "categories": [
+    "neuroscience"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.64898/2026.01.16.700011",
+  "source": "biorxiv",
+  "sources": [
+    "biorxiv"
+  ],
+  "acquired_date": "2026-05-17T22:15:24.876816",
+  "category": "biology",
+  "subcategories": [
+    "neuroscience"
+  ],
+  "published_date": "2026-01-17",
+  "updated_date": "2026-01-17",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "biorxiv",
+  "preprint_version": "1",
+  "preprint_type": "new results",
+  "license": "cc_by",
+  "jatsxml": "https://www.biorxiv.org/content/early/2026/01/17//2026.01.16.700011.source.xml",
+  "published_doi": null,
+  "author_corresponding": "Oli Danyi Liu",
+  "author_corresponding_institution": "University of Edinburgh"
+}

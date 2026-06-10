@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2605.16145v1",
+  "arxiv_id": "2605.16145v1",
+  "title": "Skew-adaptive conformal prediction",
+  "authors": [
+    "Paulo C. Marques F.",
+    "Helton Graziadei"
+  ],
+  "author_string": "Paulo C. Marques F., Helton Graziadei",
+  "journal": "arXiv:2605.16145v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We develop a skew-adaptive extension of split conformal prediction for regression. The method starts from an asymmetric interval family centered at a point prediction and uses the gauge approach to deduce the conformity score induced by this family. The inverse hyperbolic sine transform of signed scaled residuals provides the training target for an additional predictive model, whose role is to learn how predictive uncertainty should tilt across the feature space. The resulting procedure preserves the finite-sample marginal validity of split conformal prediction under exchangeability, while producing intervals that adapt to both local scale and local skewness. We also develop a calibration-sample-based estimator for comparing the expected relative future width of the skew-adaptive and classical scaled-score intervals. Experiments on a variety of datasets indicate gains in prediction interval efficiency over the scaled-score construction and conformalized quantile regression, and show that the proposed estimator closely matches the corresponding average width ratio observed on the test sample.",
+  "categories": [
+    "stat.ML",
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": "17 pages, 2 figures",
+  "published_date": "2026-05-15T16:26:41Z",
+  "updated_date": "2026-05-15T16:26:41Z",
+  "url": "https://arxiv.org/abs/2605.16145v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.16145v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-18T10:15:50.684768",
+  "category": "computer_science",
+  "subcategories": [
+    "stat.ML",
+    "cs.LG"
+  ]
+}

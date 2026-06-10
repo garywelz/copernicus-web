@@ -1,21 +1,23 @@
 {
   "id": "materials_science-composite-materials",
-  "name": "Composite Materials",
+  "name": "Composite Stiffness (Rule of Mixtures)",
   "category": "chemistry",
   "subcategory": "materials_science",
   "subcategory_name": "Materials Science",
-  "description": "Composite Materials process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "The rule of mixtures predicts the elastic stiffness of a continuous-fiber composite from constituent properties and volume fractions: loading parallel to the fibers obeys the iso-strain Voigt bound while transverse loading obeys the iso-stress Reuss bound, with corrections for fiber orientation giving the effective modulus.",
   "complexity": {
-    "nodes": 26,
-    "edges": 22,
-    "conditionals": 0,
+    "nodes": 9,
+    "edges": 9,
+    "conditionals": 1,
     "logicGates": {
-      "orGates": 0,
+      "orGates": 1,
       "andGates": 1,
-      "total": 1
+      "notGates": 0,
+      "total": 2
     },
     "level": "medium",
-    "detailLevel": "medium"
+    "detailLevel": "source_grounded",
+    "loops": 0
   },
   "colorScheme": {
     "red": {
@@ -39,53 +41,134 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nA5[Matrix Material] --> B5[Composite Materials Method]\nC5[Reinforcement Material] --> D5[Interface Analysis]\nE5[Processing Conditions] --> F5[Composite Formation]\nB5 --> G5[Matrix Preparation]\nD5 --> H5[Interface Characterization]\nF5 --> I5[Processing Optimization]\nG5 --> J5[Matrix Properties]\nH5 --> K5[Interface Properties]\nI5 --> L5[Processing Parameters]\nJ5 --> M5[Matrix Formation]\nK5 --> L5\nL5 --> N5[Reinforcement Integration]\nM5 --> O5[Composite Assembly]\nN5 --> P5[Interface Bonding]\nO5 --> Q5[Composite Analysis]\nP5 --> R5[Reinforcement Effects]\nQ5 --> S5[Property Analysis]\nR5 --> T5[Composite Properties]\nS5 --> U5[Interface Parameters]\nT5 --> V5[Property Enhancement]\nU5 --> W5[Composite Efficiency]\nV5 --> X5[Composite Characterization]\nW5 --> Y5[Process Optimization]\nX5 --> Z5[Final Composite Material]\nY5 --> Z5\n\n    style A5 fill:#ff6b6b,color:#fff\n    style C5 fill:#ff6b6b,color:#fff\n    style E5 fill:#ff6b6b,color:#fff\n    style B5 fill:#ffd43b,color:#000\n    style D5 fill:#ffd43b,color:#000\n    style F5 fill:#ffd43b,color:#000\n    style G5 fill:#ffd43b,color:#000\n    style H5 fill:#ffd43b,color:#000\n    style I5 fill:#ffd43b,color:#000\n    style J5 fill:#ffd43b,color:#000\n    style K5 fill:#ffd43b,color:#000\n    style L5 fill:#ffd43b,color:#000\n    style M5 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style O5 fill:#51cf66,color:#fff\n    style P5 fill:#51cf66,color:#fff\n    style Q5 fill:#51cf66,color:#fff\n    style R5 fill:#51cf66,color:#fff\n    style S5 fill:#51cf66,color:#fff\n    style T5 fill:#51cf66,color:#fff\n    style U5 fill:#51cf66,color:#fff\n    style V5 fill:#51cf66,color:#fff\n    style W5 fill:#51cf66,color:#fff\n    style X5 fill:#51cf66,color:#fff\n    style Y5 fill:#51cf66,color:#fff\n    style Z5 fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"Matrix + fiber properties\"]\n    N2[\"Set volume fractions\"]\n    N3{\"Loading direction?\"}\n    N4[\"Iso-strain (longitudinal)\"]\n    N5[\"Ec = Vf·Ef + Vm·Em\"]\n    N6[\"Iso-stress (transverse)\"]\n    N7[\"1/Ec = Vf/Ef + Vm/Em\"]\n    N8[\"Correct for orientation\"]\n    N9[\"Predicted stiffness\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 -->|longitudinal| N4\n    N4 --> N5\n    N3 -->|transverse| N6\n    N6 --> N7\n    N5 --> N8\n    N7 --> N8\n    N8 --> N9\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#74c0fc,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
-      "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: Composite Materials. Created using the Programming Framework methodology."
+      "title": "An Introduction to Composite Materials (3rd ed.)",
+      "authors": "Hull, D.; Clyne, T. W.",
+      "journal": "Cambridge University Press",
+      "year": "2019",
+      "doi": "10.1017/9781139178600",
+      "url": "https://doi.org/10.1017/9781139178600"
     },
     {
-      "title": "Composite Materials Series",
-      "authors": "",
-      "journal": "Composite Materials Series",
-      "year": "1991",
-      "pubmed": null,
-      "doi": "10.1016/b978-0-444-70507-5.50001-9",
-      "url": "https://doi.org/10.1016/b978-0-444-70507-5.50001-9"
-    },
-    {
-      "title": "Composite Materials Series",
-      "authors": "",
-      "journal": "Composite Materials Series",
-      "year": "1989",
-      "pubmed": null,
-      "doi": "10.1016/b978-0-444-87285-2.50001-7",
-      "url": "https://doi.org/10.1016/b978-0-444-87285-2.50001-7"
-    },
-    {
-      "title": "Composite Functional Materials",
-      "authors": "",
-      "journal": "",
-      "year": "None",
-      "pubmed": null,
-      "doi": "10.63823/cfm",
-      "url": "https://doi.org/10.63823/cfm"
+      "title": "Materials Science and Engineering: An Introduction (10th ed.)",
+      "authors": "Callister, W. D.; Rethwisch, D. G.",
+      "journal": "Wiley",
+      "year": "2018",
+      "url": "https://www.wiley.com/en-us/Materials+Science+and+Engineering%3A+An+Introduction%2C+10th+Edition-p-9781119405498"
     }
   ],
   "keywords": [
-    "composite",
-    "materials"
+    "rule of mixtures",
+    "Voigt bound",
+    "Reuss bound",
+    "iso-strain",
+    "elastic modulus"
   ],
   "relatedProcesses": [],
   "created": "2026-01-08",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Matrix + fiber properties",
+      "detail": "Ef, Em known",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 1
+    },
+    {
+      "id": "N2",
+      "label": "Set volume fractions",
+      "detail": "Vf + Vm = 1",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N3",
+      "label": "Loading direction?",
+      "detail": "Relative to fibers",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N4",
+      "label": "Iso-strain (longitudinal)",
+      "detail": "Voigt limit",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N5",
+      "label": "Ec = Vf·Ef + Vm·Em",
+      "detail": "Upper bound",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N6",
+      "label": "Iso-stress (transverse)",
+      "detail": "Reuss limit",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N7",
+      "label": "1/Ec = Vf/Ef + Vm/Em",
+      "detail": "Lower bound",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N8",
+      "label": "Correct for orientation",
+      "detail": "Efficiency factor",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N9",
+      "label": "Predicted stiffness",
+      "detail": "Effective modulus",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 1
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:materials_science-composite-materials",
+    "graphType": "decision_flowchart",
+    "topologySignature": "8b2fd711635caf43",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "namedCollections": [
+    "materials-science"
+  ],
+  "graphMetrics": {
+    "nodes": 9,
+    "edges": 9,
+    "conditionals": 1,
+    "andGates": 1,
+    "orGates": 1,
+    "notGates": 0,
+    "loops": 0
+  },
+  "graphType": "decision_flowchart",
+  "domainContext": "Materials science / mechanics"
 }

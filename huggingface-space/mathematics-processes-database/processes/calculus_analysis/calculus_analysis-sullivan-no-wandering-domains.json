@@ -1,0 +1,39 @@
+{
+  "id": "calculus_analysis-sullivan-no-wandering-domains",
+  "name": "Sullivan's No Wandering Domain Theorem",
+  "category": "mathematics",
+  "subcategory": "calculus_analysis",
+  "subcategory_name": "Calculus & Analysis",
+  "description": "Sullivan's Theorem (1985): For a rational map f: ℂ̂→ℂ̂ of degree ≥ 2, every Fatou component is eventually periodic. Equivalently: rational maps have no wandering domains. Proof: assume wandering U exists; Baker's lemma ⇒ U eventually simply-connected; deform conformal structure along grand orbit via Beltrami differentials; MRMT yields infinite-dimensional family of conjugate rational maps; contradiction (Rat_d is finite-dimensional).",
+  "mermaid": "graph TD\n    Julia[\"Julia & Fatou sets\"]\n    MRMT[\"Measurable Riemann Mapping\"]\n    DefWander[\"Def: Wandering domain\\nIterates disjoint\"]\n    DefPeriodic[\"Def: Eventually periodic\\nf^n(U)=f^m(U)\"]\n    LemBaker[\"Lem: Baker\\nWandering ⇒ eventually simply-connected\"]\n    ThmNWD[\"Thm: Sullivan\\nNo wandering domains\"]\n    LemDeform[\"Lem: QC deformation\\nBeltrami along grand orbit\"]\n    LemFinDim[\"Lem: Rat_d finite-dimensional\\nZariski open in ℂP^{2d+1}\"]\n    Julia --> DefWander\n    Julia --> DefPeriodic\n    DefWander --> LemBaker\n    LemBaker --> LemDeform\n    MRMT --> LemDeform\n    LemDeform --> ThmNWD\n    LemFinDim --> ThmNWD\n    DefPeriodic --> ThmNWD\n    classDef axiom fill:#ff6b6b,color:#fff,stroke:#c0392b\n    classDef definition fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef theorem fill:#51cf66,color:#fff,stroke:#40c057\n    classDef lemma fill:#74c0fc,color:#fff,stroke:#4dabf7\n    class Julia,MRMT axiom\n    class DefWander,DefPeriodic definition\n    class ThmNWD theorem\n    class LemBaker,LemDeform,LemFinDim lemma",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

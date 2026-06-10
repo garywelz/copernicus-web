@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2605.20149v1",
+  "arxiv_id": "2605.20149v1",
+  "title": "Less Back-and-Forth: A Comparative Study of Structured Prompting",
+  "authors": [
+    "Saurav Ghosh",
+    "Gabriella Polach",
+    "Abdou Sow"
+  ],
+  "author_string": "Saurav Ghosh, Gabriella Polach, Abdou Sow",
+  "journal": "arXiv:2605.20149v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Large language models (LLMs) are widely used for open-ended tasks, but underspecified prompts can lead to low-quality answers and additional interaction. This paper studies whether structured prompt design improves response quality while reducing user effort. We compare three prompt conditions: a raw prompt, a checklist-improved prompt, and a clarifying-question prompt. We evaluate these conditions across four task types--summarization, planning, explanation, and coding--using three LLM systems: ChatGPT, Claude, and Grok. Each output is scored with a unified rubric covering task completion, correctness, compliance, and clarity. Checklist-improved prompts achieved the highest mean rubric score, 7.50 out of 8, compared with 5.67 for raw prompts and 6.67 for clarifying-question prompts. Checklist prompts also produced the best quality-effort tradeoff, using fewer average tokens than both raw and clarifying prompts. These results suggest that a simple prompt checklist can improve LLM responses while reducing unnecessary interaction.",
+  "categories": [
+    "cs.CL",
+    "cs.AI",
+    "cs.HC"
+  ],
+  "primary_category": "cs.HC",
+  "comment": "7 pages, 2 figures, 6 tables",
+  "published_date": "2026-05-19T17:40:14Z",
+  "updated_date": "2026-05-19T17:40:14Z",
+  "url": "https://arxiv.org/abs/2605.20149v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.20149v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-20T10:16:33.995497",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CL",
+    "cs.AI",
+    "cs.HC"
+  ]
+}

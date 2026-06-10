@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2605.20989v1",
+  "arxiv_id": "2605.20989v1",
+  "title": "Modeling Temporal scRNA-seq Data with Latent Gaussian Process and Optimal Transport",
+  "authors": [
+    "Mehmet Yigit Balik",
+    "Harri Lähdesmäki"
+  ],
+  "author_string": "Mehmet Yigit Balik, Harri Lähdesmäki",
+  "journal": "arXiv:2605.20989v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Single-cell RNA sequencing provides insights into gene expression at single-cell resolution, yet inferring temporal processes from these static snapshot measurements remains a fundamental challenge. Current approaches utilizing neural differential equations and flows are sensitive to overfitting and lack careful considerations of biological variability. In this work, we propose a generative framework that models population trends using a latent heteroscedastic Gaussian process (GP) approximated by Hilbert space methods. To address the absence of genuine cell trajectories, we leverage an optimal transport (OT) objective that aligns generated and observed population distributions. Our method explicitly captures biological heterogeneity by incorporating cell-specific latent time and cell type conditioning to disentangle temporal asynchrony and trajectories to different cell types. We demonstrate state-of-the-art performance on complex interpolation and extrapolation benchmarks and introduce a novel gradient-based strategy for inferring perturbation trajectories.",
+  "categories": [
+    "cs.LG",
+    "q-bio.GN"
+  ],
+  "primary_category": "q-bio.GN",
+  "comment": null,
+  "published_date": "2026-05-20T10:24:51Z",
+  "updated_date": "2026-05-20T10:24:51Z",
+  "url": "https://arxiv.org/abs/2605.20989v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.20989v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-26T10:15:35.457002",
+  "category": "biology",
+  "subcategories": [
+    "cs.LG",
+    "q-bio.GN"
+  ]
+}

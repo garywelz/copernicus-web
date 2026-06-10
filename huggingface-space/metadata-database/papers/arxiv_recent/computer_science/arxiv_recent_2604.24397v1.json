@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2604.24397v1",
+  "arxiv_id": "2604.24397v1",
+  "title": "Few-Shot Cross-Device Transfer for Quantum Noise Modeling on Real Hardware",
+  "authors": [
+    "Sahil Al Farib",
+    "Sheikh Redwanul Islam",
+    "Azizur Rahman Anik"
+  ],
+  "author_string": "Sahil Al Farib, Sheikh Redwanul Islam, Azizur Rahman Anik",
+  "journal": "arXiv:2604.24397v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "In the noisy intermediate-scale quantum (NISQ) regime, quantum devices contain hardware-specific noise sources which restrict device-invariant error mitigation strategies. We explore transfer learning approaches to apply noise models learned on one quantum device to a different device with the help of a small amount of data. We create a real-hardware dataset from two IBM quantum devices, ibm_fez (source) and ibm_marrakesh (target), comprising 170 noisy and ideal circuit output distributions, with device calibration features added. We train a residual neural network on the source device to map noisy to ideal outcomes. The zero-shot transfer test shows a KL divergence of 1.6706 (up from 0.3014), establishing device specificity. With K = 20 fine-tuning samples, KL drops to 1.1924 (28.6% improvement over zero-shot), recovering 34.9% of the gap between zero-shot and in-domain KL. Ablation studies reveal that the major cause of mismatches across devices is CX gate error, followed by readout error. The results show quantum noise can be learned and fine-tuned with minimal samples, and provide a plausible approach to cross-device quantum error mitigation.",
+  "categories": [
+    "quant-ph",
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": "9 pages, 8 figures, 8 tables. Submitted to IEEE Quantum Computing and Engineering (QCE) 2026",
+  "published_date": "2026-04-27T12:23:14Z",
+  "updated_date": "2026-04-27T12:23:14Z",
+  "url": "https://arxiv.org/abs/2604.24397v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.24397v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-27T22:15:21.999530",
+  "category": "computer_science",
+  "subcategories": [
+    "quant-ph",
+    "cs.LG"
+  ]
+}

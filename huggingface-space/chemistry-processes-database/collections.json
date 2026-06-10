@@ -1,0 +1,483 @@
+[
+  {
+    "id": "reaction-mechanisms",
+    "label": "Reaction Mechanisms",
+    "description": "Bond formation, bond breaking, catalytic cycles, and mechanistic transformations.",
+    "processIds": [
+      "computational_chemistry-nmr-spectroscopy",
+      "computational_chemistry-uv-vis-spectroscopy",
+      "electrochemistry-computational-methods",
+      "electrochemistry-corrosion-mechanisms",
+      "electrochemistry-electrochemical-cell-design",
+      "electrochemistry-reaction-pathways",
+      "environmental_chemistry-atmospheric-aerosol-formation",
+      "environmental_chemistry-green-chemistry",
+      "influence-catalyst-design",
+      "inorganic_chemistry-catalysis",
+      "inorganic_chemistry-ligand-substitution",
+      "kinetics-catalyst-effects",
+      "kinetics-concentration-effects",
+      "kinetics-reaction-mechanism-elucidation",
+      "kinetics-reaction-mechanisms",
+      "materials_chemistry-sol-gel-synthesis",
+      "materials_chemistry-thin-film-deposition",
+      "medicinal_chemistry-reaction-mechanisms",
+      "nuclear_chemistry-electrochemical-cell-design",
+      "organic_chemistry-aldol-condensation",
+      "organic_chemistry-esterification",
+      "organic_chemistry-grignard-reaction",
+      "organic_chemistry-organic-reaction-mechanisms",
+      "organic_chemistry-organic-synthesis-pathways",
+      "organic_chemistry-suzuki-coupling",
+      "physical_chemistry-chemical-kinetics",
+      "physical_chemistry-reaction-rate-measurement",
+      "physical_chemistry-spectroscopic-line-broadening",
+      "physical_chemistry-thermodynamic-calculations",
+      "polymer_chemistry-chemical-equilibrium",
+      "quantum_chemistry-reaction-pathways",
+      "spectroscopy_advanced-nmr-spectroscopy",
+      "surface_chemistry-adsorption-isotherm-analysis",
+      "surface_chemistry-defects-doping",
+      "surface_chemistry-enzyme-catalysis",
+      "surface_chemistry-heterogeneous-catalysis",
+      "surface_chemistry-heterogeneous-catalyst-screening",
+      "surface_chemistry-zeolite-catalysis",
+      "theoretical_chemistry-enzyme-catalysis",
+      "theoretical_chemistry-heterogeneous-catalysis",
+      "theoretical_chemistry-photocatalysis",
+      "theoretical_chemistry-supported-catalysts",
+      "theoretical_chemistry-zeolite-catalysis",
+      "thermodynamics-chemical-equilibrium",
+      "thermodynamics-gibbs-free-energy-calculation",
+      "thermodynamics-thermochemistry"
+    ]
+  },
+  {
+    "id": "thermo-kinetics",
+    "label": "Thermodynamics and Kinetics",
+    "description": "Free energy, equilibrium, chemical potential, rates, and Arrhenius behavior.",
+    "processIds": [
+      "analytical_chemistry-electrochemical-analysis",
+      "biochemistry-enzyme-kinetics",
+      "electrochemistry-computational-methods",
+      "electrochemistry-cyclic-voltammetry",
+      "electrochemistry-electrochemical-cell-design",
+      "electrochemistry-electrolysis",
+      "electrochemistry-molecular-orbitals",
+      "electrochemistry-reaction-pathways",
+      "electrochemistry-spectroscopic-calculations",
+      "environmental_chemistry-water-chemistry",
+      "inorganic_chemistry-ligand-substitution",
+      "inorganic_chemistry-metal-oxide-formation",
+      "kinetics-arrhenius-analysis",
+      "kinetics-catalyst-effects",
+      "kinetics-concentration-effects",
+      "kinetics-pressure-effects",
+      "kinetics-reaction-mechanism-elucidation",
+      "kinetics-reaction-mechanisms",
+      "materials_chemistry-polymer-chemistry",
+      "materials_chemistry-thin-film-deposition",
+      "organic_chemistry-esterification",
+      "physical_chemistry-chemical-kinetics",
+      "physical_chemistry-phase-diagram-construction",
+      "physical_chemistry-reaction-rate-measurement",
+      "polymer_chemistry-chemical-equilibrium",
+      "polymer_chemistry-entropy-changes",
+      "polymer_chemistry-phase-transitions",
+      "polymer_chemistry-solution-thermodynamics",
+      "quantum_chemistry-density-functional-theory-workflow",
+      "quantum_chemistry-reaction-pathways",
+      "surface_chemistry-adsorption-isotherm-analysis",
+      "surface_chemistry-defects-doping",
+      "theoretical_chemistry-enzyme-catalysis",
+      "theoretical_chemistry-photocatalysis",
+      "thermodynamics-chemical-equilibrium",
+      "thermodynamics-chemical-potential-determination",
+      "thermodynamics-entropy-changes",
+      "thermodynamics-gibbs-free-energy-calculation",
+      "thermodynamics-phase-transitions",
+      "thermodynamics-solution-thermodynamics"
+    ]
+  },
+  {
+    "id": "measurement-analysis",
+    "label": "Measurement and Analysis",
+    "description": "Analytical chemistry, chromatography, spectroscopy, calibration, and validation.",
+    "processIds": [
+      "analytical_chemistry-calibration-curve-construction",
+      "analytical_chemistry-chromatography",
+      "analytical_chemistry-electrochemical-analysis",
+      "analytical_chemistry-quality-control-and-method-validation",
+      "analytical_chemistry-sample-preparation-workflow",
+      "analytical_chemistry-spectroscopy-analysis",
+      "computational_chemistry-chromatography",
+      "computational_chemistry-ir-spectroscopy",
+      "computational_chemistry-mass-spectrometry",
+      "computational_chemistry-nmr-spectroscopy",
+      "computational_chemistry-uv-vis-spectroscopy",
+      "electrochemistry-electronic-transitions",
+      "electrochemistry-spectroscopic-calculations",
+      "environmental_chemistry-atmospheric-aerosol-formation",
+      "environmental_chemistry-green-chemistry",
+      "environmental_chemistry-water-chemistry",
+      "kinetics-arrhenius-analysis",
+      "materials_chemistry-polymer-chemistry",
+      "medicinal_chemistry-catalyst-effects",
+      "nuclear_chemistry-battery-chemistry",
+      "nuclear_chemistry-electroplating",
+      "organic_chemistry-organic-synthesis-pathways",
+      "organic_chemistry-stereochemistry-analysis",
+      "physical_chemistry-spectroscopy-analysis",
+      "quantum_chemistry-spectroscopic-calculations",
+      "spectroscopy_advanced-chromatography",
+      "spectroscopy_advanced-ir-spectroscopy",
+      "spectroscopy_advanced-mass-spectrometry",
+      "spectroscopy_advanced-nmr-spectroscopy",
+      "spectroscopy_advanced-raman-spectroscopy-analysis",
+      "spectroscopy_advanced-uv-vis-spectroscopy",
+      "spectroscopy_advanced-x-ray-diffraction-analysis",
+      "surface_chemistry-adsorption-isotherm-analysis",
+      "surface_chemistry-nanomaterials",
+      "thermodynamics-chemical-potential-determination"
+    ]
+  },
+  {
+    "id": "materials-surface",
+    "label": "Materials and Surfaces",
+    "description": "Materials synthesis, surfaces, nanomaterials, deposition, adsorption, and defects.",
+    "processIds": [
+      "electrochemistry-electrodeposition",
+      "environmental_chemistry-water-treatment-coagulation-flocculation",
+      "influence-catalyst-design",
+      "inorganic_chemistry-coordination-chemistry",
+      "materials_chemistry-composite-materials",
+      "materials_chemistry-nanomaterials",
+      "materials_chemistry-polymer-chemistry",
+      "materials_chemistry-polymerization-process",
+      "materials_chemistry-sol-gel-synthesis",
+      "materials_chemistry-thin-film-deposition",
+      "materials_science-composite-materials",
+      "materials_science-crystal-structure",
+      "materials_science-defects-doping",
+      "materials_science-nanomaterials",
+      "materials_science-polymorphism",
+      "organic_chemistry-organic-synthesis-pathways",
+      "quantum_chemistry-reaction-pathways",
+      "spectroscopy_advanced-x-ray-diffraction-analysis",
+      "surface_chemistry-adsorption-isotherm-analysis",
+      "surface_chemistry-composite-materials",
+      "surface_chemistry-crystal-structure",
+      "surface_chemistry-defects-doping",
+      "surface_chemistry-enzyme-catalysis",
+      "surface_chemistry-heterogeneous-catalysis",
+      "surface_chemistry-heterogeneous-catalyst-screening",
+      "surface_chemistry-nanomaterials",
+      "surface_chemistry-photocatalysis",
+      "surface_chemistry-polymorphism",
+      "surface_chemistry-supported-catalysts",
+      "surface_chemistry-zeolite-catalysis",
+      "theoretical_chemistry-enzyme-catalysis",
+      "theoretical_chemistry-photocatalysis"
+    ]
+  },
+  {
+    "id": "computational-quantum",
+    "label": "Computational and Quantum Chemistry",
+    "description": "Quantum calculations, DFT, molecular dynamics, orbitals, and reaction pathways.",
+    "processIds": [
+      "computational_chemistry-chromatography",
+      "computational_chemistry-ir-spectroscopy",
+      "computational_chemistry-mass-spectrometry",
+      "computational_chemistry-nmr-spectroscopy",
+      "computational_chemistry-uv-vis-spectroscopy",
+      "electrochemistry-computational-methods",
+      "electrochemistry-electronic-transitions",
+      "electrochemistry-molecular-orbitals",
+      "influence-catalyst-design",
+      "inorganic_chemistry-coordination-chemistry",
+      "materials_science-nanomaterials",
+      "quantum_chemistry-computational-methods",
+      "quantum_chemistry-density-functional-theory-workflow",
+      "quantum_chemistry-electronic-transitions",
+      "quantum_chemistry-molecular-dynamics-simulation-setup",
+      "quantum_chemistry-molecular-orbitals",
+      "quantum_chemistry-reaction-pathways",
+      "quantum_chemistry-spectroscopic-calculations",
+      "spectroscopy_advanced-nmr-spectroscopy",
+      "spectroscopy_advanced-uv-vis-spectroscopy",
+      "theoretical_chemistry-photocatalysis"
+    ]
+  },
+  {
+    "id": "electrochemistry",
+    "label": "Electrochemistry",
+    "description": "Existing collection from metadata.",
+    "processIds": [
+      "electrochemistry-battery-chemistry",
+      "electrochemistry-computational-methods",
+      "electrochemistry-corrosion-mechanisms",
+      "electrochemistry-cyclic-voltammetry",
+      "electrochemistry-electrochemical-cell-design",
+      "electrochemistry-electrodeposition",
+      "electrochemistry-electrolysis",
+      "electrochemistry-electronic-transitions",
+      "electrochemistry-electroplating",
+      "electrochemistry-fuel-cell-operation",
+      "electrochemistry-molecular-orbitals",
+      "electrochemistry-reaction-pathways",
+      "electrochemistry-spectroscopic-calculations"
+    ]
+  },
+  {
+    "id": "surface-chemistry",
+    "label": "Surface Chemistry",
+    "description": "Existing collection from metadata.",
+    "processIds": [
+      "surface_chemistry-adsorption-isotherm-analysis",
+      "surface_chemistry-composite-materials",
+      "surface_chemistry-crystal-structure",
+      "surface_chemistry-defects-doping",
+      "surface_chemistry-enzyme-catalysis",
+      "surface_chemistry-heterogeneous-catalysis",
+      "surface_chemistry-heterogeneous-catalyst-screening",
+      "surface_chemistry-nanomaterials",
+      "surface_chemistry-photocatalysis",
+      "surface_chemistry-polymorphism",
+      "surface_chemistry-supported-catalysts",
+      "surface_chemistry-zeolite-catalysis"
+    ]
+  },
+  {
+    "id": "kinetics",
+    "label": "Kinetics",
+    "description": "Existing collection from metadata.",
+    "processIds": [
+      "kinetics-arrhenius-analysis",
+      "kinetics-catalyst-effects",
+      "kinetics-concentration-effects",
+      "kinetics-pressure-effects",
+      "kinetics-reaction-mechanism-elucidation",
+      "kinetics-reaction-mechanisms",
+      "kinetics-temperature-effects"
+    ]
+  },
+  {
+    "id": "organic-chemistry",
+    "label": "Organic Chemistry",
+    "description": "Existing collection from metadata.",
+    "processIds": [
+      "organic_chemistry-aldol-condensation",
+      "organic_chemistry-esterification",
+      "organic_chemistry-grignard-reaction",
+      "organic_chemistry-organic-reaction-mechanisms",
+      "organic_chemistry-organic-synthesis-pathways",
+      "organic_chemistry-stereochemistry-analysis",
+      "organic_chemistry-suzuki-coupling"
+    ]
+  },
+  {
+    "id": "quantum-chemistry",
+    "label": "Quantum Chemistry",
+    "description": "Existing collection from metadata.",
+    "processIds": [
+      "quantum_chemistry-computational-methods",
+      "quantum_chemistry-density-functional-theory-workflow",
+      "quantum_chemistry-electronic-transitions",
+      "quantum_chemistry-molecular-dynamics-simulation-setup",
+      "quantum_chemistry-molecular-orbitals",
+      "quantum_chemistry-reaction-pathways",
+      "quantum_chemistry-spectroscopic-calculations"
+    ]
+  },
+  {
+    "id": "spectroscopy",
+    "label": "Spectroscopy",
+    "description": "Existing collection from metadata.",
+    "processIds": [
+      "spectroscopy_advanced-chromatography",
+      "spectroscopy_advanced-ir-spectroscopy",
+      "spectroscopy_advanced-mass-spectrometry",
+      "spectroscopy_advanced-nmr-spectroscopy",
+      "spectroscopy_advanced-raman-spectroscopy-analysis",
+      "spectroscopy_advanced-uv-vis-spectroscopy",
+      "spectroscopy_advanced-x-ray-diffraction-analysis"
+    ]
+  },
+  {
+    "id": "thermodynamics",
+    "label": "Thermodynamics",
+    "description": "Existing collection from metadata.",
+    "processIds": [
+      "thermodynamics-chemical-equilibrium",
+      "thermodynamics-chemical-potential-determination",
+      "thermodynamics-entropy-changes",
+      "thermodynamics-gibbs-free-energy-calculation",
+      "thermodynamics-phase-transitions",
+      "thermodynamics-solution-thermodynamics",
+      "thermodynamics-thermochemistry"
+    ]
+  },
+  {
+    "id": "analytical-chemistry",
+    "label": "Analytical Chemistry",
+    "description": "Existing collection from metadata.",
+    "processIds": [
+      "analytical_chemistry-calibration-curve-construction",
+      "analytical_chemistry-chromatography",
+      "analytical_chemistry-electrochemical-analysis",
+      "analytical_chemistry-quality-control-and-method-validation",
+      "analytical_chemistry-sample-preparation-workflow",
+      "analytical_chemistry-spectroscopy-analysis"
+    ]
+  },
+  {
+    "id": "environmental-chemistry",
+    "label": "Environmental Chemistry",
+    "description": "Existing collection from metadata.",
+    "processIds": [
+      "environmental_chemistry-atmospheric-aerosol-formation",
+      "environmental_chemistry-atmospheric-chemistry",
+      "environmental_chemistry-green-chemistry",
+      "environmental_chemistry-soil-contaminant-remediation",
+      "environmental_chemistry-water-chemistry",
+      "environmental_chemistry-water-treatment-coagulation-flocculation"
+    ]
+  },
+  {
+    "id": "inorganic-chemistry",
+    "label": "Inorganic Chemistry",
+    "description": "Existing collection from metadata.",
+    "processIds": [
+      "inorganic_chemistry-catalysis",
+      "inorganic_chemistry-coordination-chemistry",
+      "inorganic_chemistry-coordination-complex-synthesis",
+      "inorganic_chemistry-ligand-substitution",
+      "inorganic_chemistry-metal-oxide-formation",
+      "inorganic_chemistry-solid-state-chemistry"
+    ]
+  },
+  {
+    "id": "materials-chemistry",
+    "label": "Materials Chemistry",
+    "description": "Existing collection from metadata.",
+    "processIds": [
+      "materials_chemistry-composite-materials",
+      "materials_chemistry-nanomaterials",
+      "materials_chemistry-polymer-chemistry",
+      "materials_chemistry-polymerization-process",
+      "materials_chemistry-sol-gel-synthesis",
+      "materials_chemistry-thin-film-deposition"
+    ]
+  },
+  {
+    "id": "physical-chemistry",
+    "label": "Physical Chemistry",
+    "description": "Existing collection from metadata.",
+    "processIds": [
+      "physical_chemistry-chemical-kinetics",
+      "physical_chemistry-phase-diagram-construction",
+      "physical_chemistry-reaction-rate-measurement",
+      "physical_chemistry-spectroscopic-line-broadening",
+      "physical_chemistry-spectroscopy-analysis",
+      "physical_chemistry-thermodynamic-calculations"
+    ]
+  },
+  {
+    "id": "computational-chemistry",
+    "label": "Computational Chemistry",
+    "description": "Existing collection from metadata.",
+    "processIds": [
+      "computational_chemistry-chromatography",
+      "computational_chemistry-ir-spectroscopy",
+      "computational_chemistry-mass-spectrometry",
+      "computational_chemistry-nmr-spectroscopy",
+      "computational_chemistry-uv-vis-spectroscopy"
+    ]
+  },
+  {
+    "id": "materials-science",
+    "label": "Materials Science",
+    "description": "Existing collection from metadata.",
+    "processIds": [
+      "materials_science-composite-materials",
+      "materials_science-crystal-structure",
+      "materials_science-defects-doping",
+      "materials_science-nanomaterials",
+      "materials_science-polymorphism"
+    ]
+  },
+  {
+    "id": "medicinal-chemistry",
+    "label": "Medicinal Chemistry",
+    "description": "Existing collection from metadata.",
+    "processIds": [
+      "medicinal_chemistry-catalyst-effects",
+      "medicinal_chemistry-concentration-effects",
+      "medicinal_chemistry-pressure-effects",
+      "medicinal_chemistry-reaction-mechanisms",
+      "medicinal_chemistry-temperature-effects"
+    ]
+  },
+  {
+    "id": "nuclear-chemistry",
+    "label": "Nuclear Chemistry",
+    "description": "Existing collection from metadata.",
+    "processIds": [
+      "nuclear_chemistry-battery-chemistry",
+      "nuclear_chemistry-corrosion-mechanisms",
+      "nuclear_chemistry-electrochemical-cell-design",
+      "nuclear_chemistry-electrolysis",
+      "nuclear_chemistry-electroplating"
+    ]
+  },
+  {
+    "id": "polymer-chemistry",
+    "label": "Polymer Chemistry",
+    "description": "Existing collection from metadata.",
+    "processIds": [
+      "polymer_chemistry-chemical-equilibrium",
+      "polymer_chemistry-entropy-changes",
+      "polymer_chemistry-phase-transitions",
+      "polymer_chemistry-solution-thermodynamics",
+      "polymer_chemistry-thermochemistry"
+    ]
+  },
+  {
+    "id": "theoretical-chemistry",
+    "label": "Theoretical Chemistry",
+    "description": "Existing collection from metadata.",
+    "processIds": [
+      "theoretical_chemistry-enzyme-catalysis",
+      "theoretical_chemistry-heterogeneous-catalysis",
+      "theoretical_chemistry-photocatalysis",
+      "theoretical_chemistry-supported-catalysts",
+      "theoretical_chemistry-zeolite-catalysis"
+    ]
+  },
+  {
+    "id": "biochemistry",
+    "label": "Biochemistry",
+    "description": "Existing collection from metadata.",
+    "processIds": [
+      "biochemistry-enzyme-kinetics",
+      "biochemistry-metabolism",
+      "biochemistry-protein-structure"
+    ]
+  },
+  {
+    "id": "catalysis",
+    "label": "Catalysis",
+    "description": "Existing collection from metadata.",
+    "processIds": [
+      "influence-catalyst-design"
+    ]
+  },
+  {
+    "id": "graph-type-pilots",
+    "label": "Graph Type Pilots",
+    "description": "Existing collection from metadata.",
+    "processIds": [
+      "influence-catalyst-design"
+    ]
+  }
+]

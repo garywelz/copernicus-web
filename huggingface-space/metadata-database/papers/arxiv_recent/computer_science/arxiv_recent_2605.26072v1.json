@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2605.26072v1",
+  "arxiv_id": "2605.26072v1",
+  "title": "Active Query Synthesis for Preference Learning",
+  "authors": [
+    "Namrata Nadagouda",
+    "Nauman Ahad",
+    "Maegan Tucker",
+    "Mark A. Davenport"
+  ],
+  "author_string": "Namrata Nadagouda, Nauman Ahad, Maegan Tucker, Mark A. Davenport",
+  "journal": "arXiv:2605.26072v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Efficient learning of user preferences is crucial for many modern decision making systems but typically requires costly labeled data. Active learning reduces this cost, yet standard methods are computationally expensive due to pool-based evaluation. Further, most methods assume all query feedback is equally reliable, ignoring that pairwise queries between nearly identical or entirely dissimilar items yield ambiguous, low-confidence responses. To address the issue of feedback reliability, we introduce a novel confidence aware response model that explicitly accounts for these ambiguous comparisons. To overcome the computational bottleneck of pool-based evaluation, we propose an active query synthesis framework, Info-Synth that generates optimal queries by maximizing a mutual information-based objective within a continuous space. Moreover, we propose two strategies, Pair M-dist and Pair Opt-dist, that extend Info-Synth to select effective queries even when restricted to finite query pools. We demonstrate our framework's versatility and performance across synthetic preference learning, constrained text summary datasets, and subjective, continuous-space controller gain tuning for a simulated mobile robot.",
+  "categories": [
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": "27 pages, 12 figures",
+  "published_date": "2026-05-25T17:37:58Z",
+  "updated_date": "2026-05-25T17:37:58Z",
+  "url": "https://arxiv.org/abs/2605.26072v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.26072v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-26T10:15:39.095316",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.LG"
+  ]
+}

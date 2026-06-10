@@ -167,6 +167,33 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
@@ -176,7 +203,7 @@
             <div class="header-meta">
                 <span class="meta-item">Chemistry</span>
                 <span class="meta-item">Advanced Spectroscopy & Analysis</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,46 +234,56 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>X-ray Diffraction Analysis process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>X-ray diffraction probes crystal structure: X-rays scatter off lattice planes and interfere constructively only when Bragg's law is satisfied, producing peaks versus 2-theta that are indexed and refined (e.g. Rietveld) to determine the unit cell and phase.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-N1["Sample"]
-N2["Instrument Configuration"]
-N3["Acquire Spectrum/Pattern"]
-N4["Choose Path"]
-N5["Preprocess (baseline/noise)"]
-N6["Peak/Feature Extraction"]
-N7["Assign/Interpret"]
-N8["Spectroscopic Conclusion"]
-N9["Integrate"]
+    N1["Crystalline sample"]
+    N2["Irradiate with X-rays"]
+    N3["Scatter off lattice planes"]
+    N4{"Bragg: nλ = 2d sinθ?"}
+    N5["Out of phase: no peak"]
+    N6["Diffraction peak"]
+    N7["Record pattern vs 2θ"]
+    N8["Index reflections"]
+    N9["Refine structure (Rietveld)"]
+    N10["Crystal structure / phase"]
 
-N1 --> N2
-N2 --> N3
-N3 --> N4
-N4 --> N5
-N4 --> N7
-N5 --> N6
-N7 --> N8
-N6 --> N9
-N8 --> N9
-N9 --> N6
+    N1 --> N2
+    N2 --> N3
+    N3 --> N4
+    N4 -->|no| N5
+    N4 -->|yes| N6
+    N5 --> N7
+    N6 --> N7
+    N7 --> N8
+    N8 --> N9
+    N9 --> N10
 
     style N1 fill:#ff6b6b,color:#fff
-    style N2 fill:#ffd43b,color:#000
+    style N2 fill:#51cf66,color:#fff
     style N3 fill:#51cf66,color:#fff
-    style N4 fill:#ffd43b,color:#000
+    style N4 fill:#74c0fc,color:#fff
     style N5 fill:#51cf66,color:#fff
-    style N6 fill:#74c0fc,color:#fff
-    style N7 fill:#51cf66,color:#fff
-    style N8 fill:#b197fc,color:#fff
-    style N9 fill:#74c0fc,color:#fff
+    style N6 fill:#51cf66,color:#fff
+    style N7 fill:#74c0fc,color:#fff
+    style N8 fill:#51cf66,color:#fff
+    style N9 fill:#51cf66,color:#fff
+    style N10 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Crystalline sample</td><td>Triggers & Inputs</td><td><a href="https://www.pearson.com/en-us/subject-catalog/p/elements-of-x-ray-diffraction/P200000003441" target="_blank" title="Elements of X-Ray Diffraction, 3rd ed." style="color:#e74c3c;">Cullity, B. D. et al. 2001</a></td></tr><tr><td style="font-weight:600;">Irradiate with X-rays</td><td>Processing & Operations</td><td><a href="https://www.pearson.com/en-us/subject-catalog/p/elements-of-x-ray-diffraction/P200000003441" target="_blank" title="Elements of X-Ray Diffraction, 3rd ed." style="color:#e74c3c;">Cullity, B. D. et al. 2001</a></td></tr><tr><td style="font-weight:600;">Scatter off lattice planes</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1098/rspa.1913.0040" target="_blank" title="The reflection of X-rays by crystals (Bragg's law)" style="color:#e74c3c;">Bragg, W. H. et al. 1913</a></td></tr><tr><td style="font-weight:600;">Bragg: nλ = 2d sinθ?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1098/rspa.1913.0040" target="_blank" title="The reflection of X-rays by crystals (Bragg's law)" style="color:#e74c3c;">Bragg, W. H. et al. 1913</a></td></tr><tr><td style="font-weight:600;">Out of phase: no peak</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1098/rspa.1913.0040" target="_blank" title="The reflection of X-rays by crystals (Bragg's law)" style="color:#e74c3c;">Bragg, W. H. et al. 1913</a></td></tr><tr><td style="font-weight:600;">Diffraction peak</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1098/rspa.1913.0040" target="_blank" title="The reflection of X-rays by crystals (Bragg's law)" style="color:#e74c3c;">Bragg, W. H. et al. 1913</a></td></tr><tr><td style="font-weight:600;">Record pattern vs 2θ</td><td>Intermediates & States</td><td><a href="https://www.pearson.com/en-us/subject-catalog/p/elements-of-x-ray-diffraction/P200000003441" target="_blank" title="Elements of X-Ray Diffraction, 3rd ed." style="color:#e74c3c;">Cullity, B. D. et al. 2001</a></td></tr><tr><td style="font-weight:600;">Index reflections</td><td>Processing & Operations</td><td><a href="https://www.pearson.com/en-us/subject-catalog/p/elements-of-x-ray-diffraction/P200000003441" target="_blank" title="Elements of X-Ray Diffraction, 3rd ed." style="color:#e74c3c;">Cullity, B. D. et al. 2001</a></td></tr><tr><td style="font-weight:600;">Refine structure (Rietveld)</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1107/S0021889869006558" target="_blank" title="A profile refinement method for nuclear and magnetic structures (Rietveld)" style="color:#e74c3c;">Rietveld, H. M. 1969</a></td></tr><tr><td style="font-weight:600;">Crystal structure / phase</td><td>Products & Outputs</td><td><a href="https://doi.org/10.1107/S0021889869006558" target="_blank" title="A profile refinement method for nuclear and magnetic structures (Rietveld)" style="color:#e74c3c;">Rietveld, H. M. 1969</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -292,12 +329,12 @@ N9 --> N6
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 9</li>
+                        <li><strong>Nodes:</strong> 10</li>
                         <li><strong>Edges:</strong> 10</li>
-                        <li><strong>Conditionals:</strong> 0</li>
-                        <li><strong>AND Gates:</strong> 2</li>
+                        <li><strong>Conditionals:</strong> 1</li>
+                        <li><strong>AND Gates:</strong> 1</li>
                         <li><strong>OR Gates:</strong> 1</li>
-                        <li><strong>Total Gates:</strong> 3</li>
+                        <li><strong>Total Gates:</strong> 2</li>
                     </ul>
                 </div>
                 
@@ -305,7 +342,7 @@ N9 --> N6
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>x</li><li>ray</li><li>diffraction</li><li>analysis</li>
+                        <li>x-ray diffraction</li><li>bragg's law</li><li>lattice planes</li><li>indexing</li><li>rietveld refinement</li>
                     </ul>
                 </div>
                 
@@ -316,43 +353,33 @@ N9 --> N6
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>The reflection of X-rays by crystals (Bragg's law)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Bragg, W. H.; Bragg, W. L.
+                            , Proceedings of the Royal Society A
+                             (1913)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Figure 7: X-ray diffraction analysis.</strong>
-                            
-                            
-                             (None)
-                            </span>
-                            <br><a href="https://doi.org/10.7717/peerj.5237/fig-7" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.7717/peerj.5237/fig-7</a>
+                            <br><a href="https://doi.org/10.1098/rspa.1913.0040" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1098/rspa.1913.0040</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>X-ray diffraction analysis of the CsStefin-1</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Jang, S.B.; Park, S.Y.
-                            , Worldwide Protein Data Bank
-                             (2018)
+                            <strong>A profile refinement method for nuclear and magnetic structures (Rietveld)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Rietveld, H. M.
+                            , Journal of Applied Crystallography
+                             (1969)
                             </span>
-                            <br><a href="https://doi.org/10.2210/pdb5zc1/pdb" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.2210/pdb5zc1/pdb</a>
+                            <br><a href="https://doi.org/10.1107/S0021889869006558" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1107/S0021889869006558</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>The Practice of Diffraction Analysis</strong>
-                            
-                            , Industrial Applications of X-Ray Diffraction
-                             (1999)
+                            <strong>Elements of X-Ray Diffraction, 3rd ed.</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Cullity, B. D.; Stock, S. R.
+                            , Pearson
+                             (2001)
                             </span>
-                            <br><a href="https://doi.org/10.1201/b16940-5" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1201/b16940-5</a>
                             
+                            <br><a href="https://www.pearson.com/en-us/subject-catalog/p/elements-of-x-ray-diffraction/P200000003441" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
                         </li>
                         
                     </ul>

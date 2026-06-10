@@ -1,0 +1,40 @@
+{
+  "id": "arxiv_2604.23013v1",
+  "arxiv_id": "2604.23013v1",
+  "title": "Integrated Lander-Propulsion-GNC Framework for Autonomous Lunar Powered Descent",
+  "authors": [
+    "Emre Aklan",
+    "Fatih Seker",
+    "Bekir Gencalioglu",
+    "Mehmet Batuhan Kaya",
+    "Yigit Serceoglu",
+    "Furkan Yavuz",
+    "Omer Burak Iskender",
+    "Burak Yaglioglu"
+  ],
+  "author_string": "Emre Aklan, Fatih Seker, Bekir Gencalioglu, Mehmet Batuhan Kaya, Yigit Serceoglu et al.",
+  "journal": "arXiv:2604.23013v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "This paper presents an integrated lander-propulsion-GNC framework for autonomous lunar powered descent. The BUG VTVL test vehicle serves as the reference platform, with the YUNT V0 throttleable bipropellant engine providing variable thrust across a wide operating envelope, integrated with a real-time successive convexification guidance solver. The vehicle design accounts for structural configuration, landing stability, center-of-mass migration, and inertia evolution, while the propulsion architecture defines the throttle ratio, dead-zone behavior, and gimbal authority that constrain the guidance problem. A successive convexification algorithm addresses all nonconvexities; thrust lower bounds, mass depletion coupling, and thruster dead-zone behavior are all handled within a unified second-order cone program solvable in near-real time. Parametric analysis reveals a fundamental coupling between throttle ratio, pointing authority, and surface gravity. Monte Carlo simulations validate guidance robustness, achieving sub-50-meter landing precision under realistic perturbations.",
+  "categories": [
+    "eess.SY",
+    "astro-ph.EP",
+    "astro-ph.IM"
+  ],
+  "primary_category": "astro-ph.IM",
+  "comment": "Accepted at IEEE RAST 2026, 13-15 May, Istanbul, Türkiye. 6 pages. \\c{opyright} 2026 IEEE. Personal use permitted; other uses require IEEE permission",
+  "published_date": "2026-04-24T21:02:17Z",
+  "updated_date": "2026-04-24T21:02:17Z",
+  "url": "https://arxiv.org/abs/2604.23013v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.23013v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-27T22:15:39.107957",
+  "category": "physics",
+  "subcategories": [
+    "eess.SY",
+    "astro-ph.EP",
+    "astro-ph.IM"
+  ]
+}

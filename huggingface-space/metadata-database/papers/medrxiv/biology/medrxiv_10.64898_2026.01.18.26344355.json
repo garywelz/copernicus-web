@@ -1,0 +1,44 @@
+{
+  "id": "medrxiv_10.64898_2026.01.18.26344355",
+  "doi": "10.64898/2026.01.18.26344355",
+  "title": "From Thought to Speech: Integrating a Low-Cost Electroencephalography Device with AI to Decode Neural Language Signals in Amyotrophic Lateral Sclerosis Patients",
+  "authors": [
+    "Debnath, S.",
+    "Chan, C. N.",
+    "Kent, R.",
+    "Kolar, P.",
+    "Kotkowski, E."
+  ],
+  "author_string": "Debnath, S., Chan, C. N., Kent, R., Kolar, P., Kotkowski, E.",
+  "journal": "medRxiv",
+  "journal_full": "medRxiv",
+  "year": "2026",
+  "abstract": "PurposeNearly all amyotrophic lateral sclerosis (ALS) patients develop dysarthria, with many progressing to anarthria and global expressive communication failure despite preserved consciousness. Despite the severity of this communication loss, available augmentative communication technologies remain limited. Brain-computer interface (BCI) technology provides a theoretically compelling approach for decoding speech directly from neural activity. Current BCI technologies are predominantly invasive, relying on surgically implanted microelectrode arrays that constrain feasibility and clinical accessibility. In this proof-of-concept study, we evaluated the feasibility of using a low-cost, noninvasive EEG device to record brain activity during subvocalized word production in patients with ALS and to decode these signals back into word-level outputs using a machine learning approach.\n\nPatients and methodsData were collected from five patients with ALS during subvocalized the words YES, NO, HELP, SUN, and WATER. Data from three participants met inclusion criteria and were analyzed for this report. Data from two participants were excluded due to movement-related artifacts. EEG signals were preprocessed using a Butterworth bandpass filter, after which the dataset was partitioned into training, validation, and testing subsets. A convolutional neural network (CNN) was then trained to decode the EEG features back into their corresponding subvocalized word labels.\n\nResultsA total of 3,819 samples were analyzed, with each sample corresponding to EEG data from a single subvocalized word. Median classification accuracies on the held-out test set for the three ALS participants were 40.17%, 32.95%, and 54.76%, respectively. All accuracies were significantly greater than chance-level performance (20%) under the null hypothesis (p <0.001).\n\nConclusionThese results demonstrate that EEG signal patterns associated with subvocalized words can be detected and decoded using CNN. Collectively, the findings support the feasibility of a non-invasive EEG-based brain-computer interface as a potential communication modality for individuals with ALS and patients with severe physiological speech impairment.",
+  "keywords": [],
+  "categories": [
+    "neurology"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.64898/2026.01.18.26344355",
+  "source": "medrxiv",
+  "sources": [
+    "medrxiv"
+  ],
+  "acquired_date": "2026-05-22T22:15:23.269605",
+  "category": "biology",
+  "subcategories": [
+    "neurology"
+  ],
+  "published_date": "2026-01-22",
+  "updated_date": "2026-01-22",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "medrxiv",
+  "preprint_version": "2",
+  "preprint_type": "PUBLISHAHEADOFPRINT",
+  "license": "cc_by_nc_nd",
+  "jatsxml": "https://www.medrxiv.org/content/early/2026/01/22//2026.01.18.26344355.source.xml",
+  "published_doi": null,
+  "author_corresponding": "Shaumprovo Debnath",
+  "author_corresponding_institution": "University of Texas Health San Antonio"
+}

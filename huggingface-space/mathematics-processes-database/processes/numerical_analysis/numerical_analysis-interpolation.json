@@ -1,0 +1,39 @@
+{
+  "id": "numerical_analysis-interpolation",
+  "name": "Interpolation & Approximation",
+  "category": "mathematics",
+  "subcategory": "numerical_analysis",
+  "subcategory_name": "Numerical Analysis",
+  "description": "Unique polynomial through n+1 points. Lagrange form, Newton divided differences. Error bound. Least squares approximation.",
+  "mermaid": "graph TD\n    D1[\"Def: Lagrange basis\\nLⱼ(xᵢ)=δᵢⱼ\"]\n    D2[\"Def: Divided difference\\nf[x₀,...,xₙ]\"]\n    D3[\"Def: Best approx\\nmin ‖f−p‖\"]\n    T1[\"Thm: Uniqueness\\ndeg ≤ n through n+1 pts\"]\n    T2[\"Thm: Lagrange form\\np = Σ fⱼ Lⱼ\"]\n    T3[\"Thm: Newton form\\np = f[x₀]+...+f[x₀..xₙ]πⱼ\"]\n    T4[\"Thm: Error bound\\nf−p = f⁽ⁿ⁺¹⁾(ξ)π/ⁿ⁺¹!\"]\n    T5[\"Thm: Least squares\\nmin Σ(f−p)² ⇒ normal eqs\"]\n    L1[\"Lemma: Runge phenomenon\"]\n    D1 --> T2\n    D2 --> T3\n    T1 --> T2\n    T2 --> T4\n    T3 --> T4\n    D3 --> T5\n    T4 --> L1\n    classDef definition fill:#b197fc,color:#fff\n    classDef theorem fill:#51cf66,color:#fff\n    classDef lemma fill:#74c0fc,color:#fff\n    class D1,D2,D3 definition\n    class T1,T2,T3,T4,T5 theorem\n    class L1 lemma",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

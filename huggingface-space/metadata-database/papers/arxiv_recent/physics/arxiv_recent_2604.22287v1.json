@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2604.22287v1",
+  "arxiv_id": "2604.22287v1",
+  "title": "Closed Form Relations and Higher-Order Approximations of First and Second Derivatives of the Tangent Operator on SE(3)",
+  "authors": [
+    "Andreas Mueller"
+  ],
+  "author_string": "Andreas Mueller",
+  "journal": "Journal of Applied Mathematics and Mechanics / Zeitschrift für Angewandte Mathematik und Mechanik (ZAMM), 2026",
+  "journal_ref": "Journal of Applied Mathematics and Mechanics / Zeitschrift für Angewandte Mathematik und Mechanik (ZAMM), 2026",
+  "year": "2026",
+  "doi": "10.1002/zamm.70432",
+  "abstract": "The Lie group SE(3) of isometric orientation preserving transformation is used for modeling multibody systems, robots, and Cosserat continua. The use of these models in numerical simulation and optimization schemes necessitates the exponential map, its right-trivialized differential (often referred to as tangent operator), as well as higher derivatives in closed form. The $6\\times 6$ matrix representation of the differential, $\\mathbf{dexp}_{\\mathbf{X}}:se\\left( 3\\right) \\rightarrow se\\left( 3\\right) $ , and its first derivative were reported using a $3\\times 3$ block partitioning. In this paper, the differential, its first and second derivative, as well as the Jacobian and Hessian of the evaluation maps, $\\mathbf{dexp}_{\\mathbf{X}}\\mathbf{Z}$ and $\\mathbf{dexp}_{\\mathbf{X}}^{T}% \\mathbf{Z}$, are reported avoiding the block partitioning. For all of them, higher-order approximations are derived. Besides the compactness, the advantage of the presented closed form relations is their numerical robustness when combined with the local approximation. The formulations are demonstrated for computation of the deformation field and the strain rates of an elastic Cosserat-Simo-Reissner rod.",
+  "categories": [
+    "math.GR",
+    "cs.RO",
+    "math.DG",
+    "math.DS",
+    "physics.comp-ph"
+  ],
+  "primary_category": "physics.comp-ph",
+  "comment": null,
+  "published_date": "2026-04-24T07:04:29Z",
+  "updated_date": "2026-04-24T07:04:29Z",
+  "url": "https://arxiv.org/abs/2604.22287v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.22287v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-27T10:15:28.451745",
+  "category": "physics",
+  "subcategories": [
+    "math.GR",
+    "cs.RO",
+    "math.DG"
+  ]
+}

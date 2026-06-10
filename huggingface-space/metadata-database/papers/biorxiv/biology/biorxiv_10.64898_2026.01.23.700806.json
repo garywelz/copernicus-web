@@ -1,0 +1,50 @@
+{
+  "id": "biorxiv_10.64898_2026.01.23.700806",
+  "doi": "10.64898/2026.01.23.700806",
+  "title": "Surf2Spot: A Surface-Informed Geometry-Aware Model for Predicting Binder and Nanobody Design Hotspots",
+  "authors": [
+    "Zhao, A.",
+    "Li, Y.",
+    "Wu, T.",
+    "Fu, R.",
+    "Wang, Z.",
+    "Xu, Y.",
+    "Han, X.",
+    "Lou, Y.",
+    "Wang, W.",
+    "Yan, J.",
+    "Wang, X."
+  ],
+  "author_string": "Zhao, A., Li, Y., Wu, T., Fu, R., Wang, Z. et al.",
+  "journal": "bioRxiv",
+  "journal_full": "bioRxiv",
+  "year": "2026",
+  "abstract": "Protein-protein interactions (PPIs) and nanobody-antigen interactions (NAIs) play essential roles in cellular function, yet accurate hotspot prediction remains challenging. We present Surf2Spot, a deep learning framework that integrates sequence embeddings, structural features, and protein surface properties to predict interaction hotspots. By jointly modeling structural and physicochemical determinants, Surf2Spot achieves superior performance on curated PPI and NAI datasets, improving F1-scores by 45.9-46.9% and AUPRC by 43.2% over existing methods. Case studies on NbPDS1 and VdPDA1 demonstrate that Surf2Spot accurately recovers experimentally validated hotspots clustered within functional domains. When incorporated into binder design pipelines (RFdiffusion and BindCraft), Surf2Spot-guided designs yielded a 4-fold increase in successful design throughput and enhanced binding affinities compared to baseline strategies. These results establish Surf2Spot as a powerful tool for hotspot discovery and rational protein engineering.",
+  "keywords": [],
+  "categories": [
+    "bioinformatics"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.64898/2026.01.23.700806",
+  "source": "biorxiv",
+  "sources": [
+    "biorxiv"
+  ],
+  "acquired_date": "2026-05-25T22:15:24.333111",
+  "category": "biology",
+  "subcategories": [
+    "bioinformatics"
+  ],
+  "published_date": "2026-01-25",
+  "updated_date": "2026-01-25",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "biorxiv",
+  "preprint_version": "1",
+  "preprint_type": "new results",
+  "license": "cc_no",
+  "jatsxml": "https://www.biorxiv.org/content/early/2026/01/25//2026.01.23.700806.source.xml",
+  "published_doi": null,
+  "author_corresponding": "Xiangfeng Wang",
+  "author_corresponding_institution": "State Key Laboratory of Maize Bio-breeding, National Maize Improvement Center, China Agricultural University, Beijing, China"
+}

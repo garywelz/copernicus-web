@@ -1,0 +1,30 @@
+{
+  "id": "arxiv_2604.23047v1",
+  "arxiv_id": "2604.23047v1",
+  "title": "Benchmarking Open-Source FDK Against Commercial and Iterative Reconstruction Methods for Preclinical Micro-CBCT",
+  "authors": [
+    "Falk L Wiegmann",
+    "Nancy L Ford"
+  ],
+  "author_string": "Falk L Wiegmann, Nancy L Ford",
+  "journal": "arXiv:2604.23047v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Preclinical micro-CT reconstruction involves large projection sizes and volumes that make iterative methods costly - 5x to 50x slower than analytic alternatives on modern GPUs. Whether this cost is justified depends on the imaging task, yet head-to-head comparisons using task-based metrics on identical preclinical data are lacking. We benchmark four reconstruction methods on identical acquisitions from an eXplore CT 120 micro-CT scanner (Trifoil Imaging, USA): an open-source Feldkamp-Davis-Kress (FDK) pipeline, the proprietary vendor software, and two iterative toolboxes at default settings - ASTRA SIRT and TIGRE OS-SART. Using the modulation transfer function (MTF), noise power spectrum (NPS), and non-prewhitening detectability index (NPW d'), we show that single-metric rankings are misleading: the vendor software achieves the highest spatial resolution ($\\mathrm{MTF}_{10} = 2.96$ lp/mm) but fails to reach the Rose criterion ($d'=3$) for 100 HU contrast objects on a half-scan acquisition. ASTRA SIRT, at 5x the computation time of FDK, provides the best low-contrast detectability, while TIGRE OS-SART at 50x the cost offers no additional benefit and exhibits instability across scan protocols. For high-contrast tasks, all methods perform comparably. We release our FDK pipeline as open-source software, providing a fast, transparent, and integrable reconstruction tool for the preclinical micro-CT community.",
+  "categories": [
+    "physics.med-ph"
+  ],
+  "primary_category": "physics.med-ph",
+  "comment": null,
+  "published_date": "2026-04-24T22:14:46Z",
+  "updated_date": "2026-04-24T22:14:46Z",
+  "url": "https://arxiv.org/abs/2604.23047v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.23047v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-27T22:15:39.107153",
+  "category": "physics",
+  "subcategories": [
+    "physics.med-ph"
+  ]
+}

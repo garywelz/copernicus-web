@@ -1,0 +1,55 @@
+{
+  "id": "discrete_mathematics-merge-sort",
+  "name": "Merge Sort",
+  "category": "mathematics",
+  "subcategory": "discrete_mathematics",
+  "subcategory_name": "Discrete Mathematics",
+  "description": "Divide-and-conquer: split, recursively sort halves, merge. O(n log n) stable sort.",
+  "mermaid": "graph TD\n    A1[\"Array A n elements\"]\n    D1{\"Base case?\\nn le 1\"}\n    B1[\"Split A into left and right halves\"]\n    C1[\"MergeSort left\\nMergeSort right\"]\n    C2[\"Merge sorted left and right\\ncompare fronts append smaller\"]\n    F1[\"Return sorted array\"]\n    A1 --> D1\n    D1 -->|Yes| F1\n    D1 -->|No| B1\n    B1 --> C1\n    C1 --> C2\n    C2 --> F1\n    classDef red fill:#ff6b6b,color:#fff,stroke:#c0392b\n    classDef yellow fill:#ffd43b,color:#000,stroke:#f59f00\n    classDef green fill:#51cf66,color:#fff,stroke:#40c057\n    classDef lightblue fill:#74c0fc,color:#fff,stroke:#4dabf7\n    classDef violet fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef lavender fill:#e6e6fa,color:#333,stroke:#b19cd9\n    class A1 red\n    class B1 yellow\n    class C1,C2 green\n    class F1 violet\n    class D1 lavender",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [
+    "merge sort",
+    "divide and conquer",
+    "sorting",
+    "stable sort"
+  ],
+  "sources": [
+    {
+      "title": "Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Merge_sort"
+    }
+  ],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "complexity": {
+    "level": "medium",
+    "nodes": 7,
+    "edges": 7,
+    "conditionals": 1
+  },
+  "processType": "algorithm"
+}

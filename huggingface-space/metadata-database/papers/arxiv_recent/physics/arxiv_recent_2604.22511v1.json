@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2604.22511v1",
+  "arxiv_id": "2604.22511v1",
+  "title": "Optimal sensor placement for the reconstruction of ocean states using differentiable Gumbel-Softmax sampling operator",
+  "authors": [
+    "Oscar Chapron",
+    "Ronan Fablet",
+    "Yann Stéphan"
+  ],
+  "author_string": "Oscar Chapron, Ronan Fablet, Yann Stéphan",
+  "journal": "arXiv:2604.22511v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Accurately reconstructing and forecasting ocean fields from sparse observations is critical for both operational and scientific purposes. Optimizing sensor placement to maximize reconstruction skill remains challenging due to evolving ocean dynamics and practical deployment constraints. Traditional approaches, such as Empirical Orthogonal Functions, greedy search, or Gaussian processes, either assume static observation networks or scale poorly in high-resolution and non-stationary regimes.   We introduce a differentiable adaptive sensor placement framework based on a Gumbel-Softmax sampling operator. Given an ensemble of forecasts or simulations, the method jointly optimizes a probabilistic sampling mask and the reconstruction mapping (e.g., Optimal Interpolation correlation lengths) under strict observation budgets. Numerical experiments are conducted for Sea Surface Height reconstruction in a Gulf Stream region through Observing-System Simulation Experiments using a state-of-the-art high-resolution ocean simulation.   With a sensor budget of only 0.1% (fewer than 100 point-wise observations on a 14°x14° domain) the optimized sampling reduces the reconstruction RMSE by more than half (0.0908 m versus 0.1750 m) and increases explained variance by about 20% (93.1% versus 74.4%) compared with a uniform random strategy. The method remains robust when trained on noisy ensembles with significant spatial displacement (up to 1°), demonstrating practical applicability under forecast uncertainty.   Overall, the framework provides a scalable, budget-aware approach to designing observation networks. Beyond improved skill, it yields interpretable sampling patterns that consistently target energetic regions such as eddies and fronts, offering a transferable tool for adaptive sensing in geophysical systems.",
+  "categories": [
+    "physics.ao-ph"
+  ],
+  "primary_category": "physics.ao-ph",
+  "comment": null,
+  "published_date": "2026-04-24T12:52:06Z",
+  "updated_date": "2026-04-24T12:52:06Z",
+  "url": "https://arxiv.org/abs/2604.22511v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.22511v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-27T10:15:23.659704",
+  "category": "physics",
+  "subcategories": [
+    "physics.ao-ph"
+  ]
+}

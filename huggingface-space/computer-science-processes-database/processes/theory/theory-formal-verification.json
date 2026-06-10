@@ -4,18 +4,20 @@
   "category": "computer_science",
   "subcategory": "theory",
   "subcategory_name": "Theoretical Computer Science",
-  "description": "Formal Verification process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "Formal verification mathematically proves a system meets its specification: a formal model and a property (often in temporal logic) are built, and either model checking explores the state space or theorem proving derives a proof; a failed check yields a counterexample that refines the model until the property is guaranteed.",
   "complexity": {
-    "nodes": 9,
-    "edges": 10,
-    "conditionals": 0,
+    "nodes": 12,
+    "edges": 13,
+    "conditionals": 2,
     "logicGates": {
-      "orGates": 1,
+      "orGates": 2,
       "andGates": 2,
-      "total": 3
+      "notGates": 0,
+      "total": 4
     },
-    "level": "medium",
-    "detailLevel": "medium"
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 1
   },
   "colorScheme": {
     "red": {
@@ -39,53 +41,156 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nN1[\"Specification\"]\nN2[\"Properties\"]\nN3[\"Formal Model\"]\nN4[\"Choose Approach\"]\nN5[\"Proof Artifacts\"]\nN6[\"Model Check/Prove\"]\nN7[\"Counterexamples\"]\nN8[\"Verified Properties\"]\nN9[\"Integrate Results\"]\n\nN1 --> N2\nN2 --> N3\nN3 --> N4\nN4 --> N5\nN4 --> N7\nN5 --> N6\nN7 --> N8\nN6 --> N9\nN8 --> N9\nN9 --> N6\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#ff6b6b,color:#fff\n    style N3 fill:#ffd43b,color:#000\n    style N4 fill:#ffd43b,color:#000\n    style N5 fill:#ffd43b,color:#000\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#74c0fc,color:#fff\n    style N8 fill:#b197fc,color:#fff\n    style N9 fill:#74c0fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"System + specification\"]\n    N2[\"Build formal model\"]\n    N3[\"Express property\"]\n    N4{\"Choose technique\"}\n    N5[\"Model checking\"]\n    N6[\"Theorem proving\"]\n    N7[\"Explore state space\"]\n    N8{\"Property holds?\"}\n    N9[\"Produce counterexample\"]\n    N10[\"Refine model/spec\"]\n    N11[\"Proof / guarantee\"]\n    N12[\"Verified system\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 --> N4\n    N4 -->|model check| N5\n    N4 -->|prove| N6\n    N5 --> N7\n    N6 --> N7\n    N7 --> N8\n    N8 -->|no| N9\n    N9 --> N10\n    N10 -->|refine| N2\n    N8 -->|yes| N11\n    N11 --> N12\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#74c0fc,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#74c0fc,color:#fff\n    style N9 fill:#51cf66,color:#fff\n    style N10 fill:#51cf66,color:#fff\n    style N11 fill:#74c0fc,color:#fff\n    style N12 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
-      "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: Formal Verification. Created using the Programming Framework methodology."
+      "title": "Model checking: algorithmic verification and debugging",
+      "authors": "Clarke, E. M.; Emerson, E. A.; Sifakis, J.",
+      "journal": "Communications of the ACM",
+      "year": "2009",
+      "doi": "10.1145/1592761.1592781",
+      "url": "https://doi.org/10.1145/1592761.1592781"
     },
     {
-      "title": "Formal Methods",
-      "authors": "Garoche, Pierre-Loïc",
-      "journal": "Formal Verification of Control System Software",
-      "year": "2019",
-      "pubmed": null,
-      "doi": "10.23943/princeton/9780691181301.003.0002",
-      "url": "https://doi.org/10.23943/princeton/9780691181301.003.0002"
-    },
-    {
-      "title": "Formal Methods:",
-      "authors": "",
-      "journal": "Formal Verification of Control System Software",
-      "year": "2019",
-      "pubmed": null,
-      "doi": "10.2307/j.ctv80cd4v.4",
-      "url": "https://doi.org/10.2307/j.ctv80cd4v.4"
-    },
-    {
-      "title": "A Roadmap for Formal Property Verification",
-      "authors": "DasGupta, Pallab",
-      "journal": "A Roadmap for Formal Property Verification",
-      "year": "None",
-      "pubmed": null,
-      "doi": "10.1007/978-1-4020-4758-9_8",
-      "url": "https://doi.org/10.1007/978-1-4020-4758-9_8"
+      "title": "Principles of Model Checking",
+      "authors": "Baier, C.; Katoen, J.-P.",
+      "journal": "MIT Press",
+      "year": "2008",
+      "url": "https://mitpress.mit.edu/9780262026499/principles-of-model-checking/"
     }
   ],
   "keywords": [
-    "formal",
-    "verification"
+    "formal verification",
+    "model checking",
+    "theorem proving",
+    "temporal logic",
+    "counterexample"
   ],
   "relatedProcesses": [],
   "created": "2026-01-15",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations.\nCurated Mermaid applied (citations preserved)."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "namedCollections": [],
+  "graphMetrics": {
+    "nodes": 12,
+    "edges": 13,
+    "conditionals": 2,
+    "andGates": 2,
+    "orGates": 2,
+    "notGates": 0,
+    "loops": 1
+  },
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "System + specification",
+      "detail": "What to verify",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N2",
+      "label": "Build formal model",
+      "detail": "Transition system",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N3",
+      "label": "Express property",
+      "detail": "Temporal logic",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N4",
+      "label": "Choose technique",
+      "detail": "Proof method",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N5",
+      "label": "Model checking",
+      "detail": "Automated search",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N6",
+      "label": "Theorem proving",
+      "detail": "Deductive proof",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N7",
+      "label": "Explore state space",
+      "detail": "Reachable states",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N8",
+      "label": "Property holds?",
+      "detail": "Spec satisfied",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N9",
+      "label": "Produce counterexample",
+      "detail": "Violating trace",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N10",
+      "label": "Refine model/spec",
+      "detail": "Fix and retry",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N11",
+      "label": "Proof / guarantee",
+      "detail": "Property proven",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N12",
+      "label": "Verified system",
+      "detail": "Correct by proof",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 0
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:theory-formal-verification",
+    "graphType": "decision_flowchart",
+    "topologySignature": "266e041ea66853e2",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "graphType": "decision_flowchart",
+  "domainContext": "Theory of computation / formal methods"
 }

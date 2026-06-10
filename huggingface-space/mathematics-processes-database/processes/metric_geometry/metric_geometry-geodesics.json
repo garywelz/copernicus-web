@@ -1,0 +1,39 @@
+{
+  "id": "metric_geometry-geodesics",
+  "name": "Geodesics & Length",
+  "category": "mathematics",
+  "subcategory": "metric_geometry",
+  "subcategory_name": "Metric Geometry",
+  "description": "Length space, geodesic, minimal geodesic. Hopf–Rinow. Length metric.",
+  "mermaid": "graph TD\n    D1[\"Def: Length Lγ\\nΣ d(x_i,x_{i+1})\"]\n    D2[\"Def: Length space\\nd=inf Lγ\"]\n    D3[\"Def: Geodesic\\nLγ = d endpoints\"]\n    D4[\"Def: Geodesic space\\nany two joined\"]\n    T1[\"Thm: Hopf–Rinow\\ncompl⇔geod complete\"]\n    T2[\"Thm: Minimizing segment\\nexists in length sp\"]\n    T3[\"Thm: Compact⇒geodesic\"]\n    T4[\"Thm: Convex balls\\nRiemannian\"]\n    T5[\"Thm: Midpoint property\\ncharacterizes geodesic\"]\n    D1 --> D2\n    D2 --> D3\n    D3 --> D4\n    D2 --> T1\n    D3 --> T2\n    T1 --> T3\n    classDef definition fill:#b197fc,color:#fff\n    classDef theorem fill:#51cf66,color:#fff\n    class D1,D2,D3,D4 definition\n    class T1,T2,T3,T4,T5 theorem",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2605.00799v1",
+  "arxiv_id": "2605.00799v1",
+  "title": "GMGaze: MoE-Based Context-Aware Gaze Estimation with CLIP and Multiscale Transformer",
+  "authors": [
+    "Xinyuan Zhao",
+    "Yihang Wu",
+    "Ahmad Chaddad",
+    "Sarah A. Alkhodair",
+    "Reem Kateb"
+  ],
+  "author_string": "Xinyuan Zhao, Yihang Wu, Ahmad Chaddad, Sarah A. Alkhodair, Reem Kateb",
+  "journal": "arXiv:2605.00799v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Gaze estimation methods commonly use facial appearances to predict the direction of a person gaze. However, previous studies show three major challenges with convolutional neural network (CNN)-based, transformer-based, and contrastive language-image pre-training (CLIP)-based methods, including late fusion of image features, lack of factor-aware conditioning, and impractical capacity scaling. To address these challenges, we propose Globally-conditioned Multi-scale Gaze estimation (GMGaze), which leverages a multi-scale transformer architecture. Specifically, the model first introduces semantic prototype conditioning, which modulates the CLIP global image embedding using four learned prototype banks (i.e., illumination, background, head pose and appearance) to generate two complementary context-biased global tokens. These tokens, along with the CLIP patch and CNN tokens, are fused at the first layer. This early unified fusion prevents information loss common in late-stage merging. Finally, each token passes through sparse Mixture-of-Experts modules, providing conditional computational capacity without uniformly increasing dense parameters. For cross-domain adaptation, we incorporate an adversarial domain adaptation technique with a feature separation loss that encourages the two global tokens to remain de-correlated. Experiments using four public benchmarks (MPIIFaceGaze, EYEDIAP, Gaze360, and ETH-XGaze) show that GMGaze achieves mean angular errors of 2.49$^\\circ$, 3.22$^\\circ$, 10.16$^\\circ$, and 1.44$^\\circ$, respectively, outperforming previous baselines in all within-domain settings. In cross-domain evaluations, it provides state-of-the-art (SOTA) results on two standard transfer routes.",
+  "categories": [
+    "cs.CV"
+  ],
+  "primary_category": "cs.CV",
+  "comment": "Accepted in KBS",
+  "published_date": "2026-05-01T17:35:17Z",
+  "updated_date": "2026-05-01T17:35:17Z",
+  "url": "https://arxiv.org/abs/2605.00799v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.00799v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-04T10:15:40.309743",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CV"
+  ]
+}

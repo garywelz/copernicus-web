@@ -1,0 +1,39 @@
+{
+  "id": "geometry_topology-euclid-elements-book-v-props-1-8",
+  "name": "Euclid's Elements Book V — Propositions 1–8",
+  "category": "mathematics",
+  "subcategory": "geometry_topology",
+  "subcategory_name": "Geometry & Topology",
+  "description": "Theory of proportion: multiples, equimultiples, basic ratio properties. Book V does not depend on previous books.",
+  "mermaid": "graph TD\n    Def1[\"Def. V.1\\nPart\"]\n    Def2[\"Def. V.2\\nMultiple\"]\n    Def3[\"Def. V.3\\nRatio\"]\n    Def4[\"Def. V.4\\nSame ratio\"]\n    Def5[\"Def. V.5\\nIn same ratio (Eudoxus)\"]\n    Def6[\"Def. V.6\\nProportional\"]\n    Def7[\"Def. V.7\\nGreater ratio\"]\n    Def8[\"Def. V.8\\nCompound ratio\"]\n    Def9[\"Def. V.9\\nDuplicate ratio\"]\n    Def10[\"Def. V.10\\nTriplicate ratio\"]\n    Def11[\"Def. V.11\\nCorresponding magnitudes\"]\n    Def12[\"Def. V.12\\nAlternate ratio\"]\n    Def13[\"Def. V.13\\nInverse ratio\"]\n    Def14[\"Def. V.14\\nComposition of ratio\"]\n    Def15[\"Def. V.15\\nSeparation of ratio\"]\n    Def16[\"Def. V.16\\nConversion of ratio\"]\n    Def17[\"Def. V.17\\nEx aequali\"]\n    Def18[\"Def. V.18\\nEx aequali perturbed\"]\n    Prop1[\"Prop. V.1\\nSum of multiples\"]\n    Prop2[\"Prop. V.2\\nEquimultiples sum\"]\n    Prop3[\"Prop. V.3\\nEquimultiples of equimultiples\"]\n    Prop4[\"Prop. V.4\\nEquimultiples preserve ratio\"]\n    Prop5[\"Prop. V.5\\nMultiple of difference\"]\n    Prop6[\"Prop. V.6\\nEquimultiples minus equimultiples\"]\n    Prop7[\"Prop. V.7\\nEquals in ratio\"]\n    Prop8[\"Prop. V.8\\nGreater has greater ratio\"]\n    Prop2 --> Prop3\n    Prop3 --> Prop4\n    Prop1 --> Prop5\n    Prop2 --> Prop6\n    Prop1 --> Prop8\n    classDef definition fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef proposition fill:#51cf66,color:#fff,stroke:#40c057\n    class Def1,Def2,Def3,Def4,Def5,Def6,Def7,Def8,Def9,Def10,Def11,Def12,Def13,Def14,Def15,Def16,Def17,Def18 definition\n    class Prop1,Prop2,Prop3,Prop4,Prop5,Prop6,Prop7,Prop8 proposition",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

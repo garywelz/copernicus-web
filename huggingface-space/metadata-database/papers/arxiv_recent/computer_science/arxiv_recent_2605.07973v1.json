@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2605.07973v1",
+  "arxiv_id": "2605.07973v1",
+  "title": "HEART: Hyperspherical Embedding Alignment via Kent-Representation Traversal in Diffusion Models",
+  "authors": [
+    "Arani Roy",
+    "Shristi Das Biswas",
+    "Kaushik Roy"
+  ],
+  "author_string": "Arani Roy, Shristi Das Biswas, Kaushik Roy",
+  "journal": "arXiv:2605.07973v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Text-to-image diffusion models can generate visually stunning images, yet, controlling what appears and how it appears, remains surprisingly difficult, especially when operating solely within the constraints of the text-conditioning space. For example, changing a subject or adjusting an attribute often leads to unintended side effects, such as altered backgrounds or distorted details. This is because most existing text-based control methods treat the embedding space as Euclidean and apply simple linear transformations, which do not reflect how semantic concepts are actually organized. In this work, we take a step back and ask: what is the true geometry of these embeddings? We find that text encoder representations lie on a hypersphere, where concepts are not linear directions but structured, anisotropic distributions better captured by Kent distributions. Building on this insight, we propose HEART, a training-free framework that performs Kent-aware geodesic transformations directly on the hypersphere. By respecting the underlying geometry, HEART enables intuitive and precise edits, such as consistent subject replacement and fine-grained attribute control, while preserving the original scene. Importantly, HEART requires no finetuning, inversion, or optimization, and generalizes across diffusion model architectures. Our results show that a simple shift in perspective, from linear to spherical, can unlock fast, and controllable image generation.",
+  "categories": [
+    "cs.CV"
+  ],
+  "primary_category": "cs.CV",
+  "comment": null,
+  "published_date": "2026-05-08T16:32:44Z",
+  "updated_date": "2026-05-08T16:32:44Z",
+  "url": "https://arxiv.org/abs/2605.07973v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.07973v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-10T22:17:15.401348",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CV"
+  ]
+}

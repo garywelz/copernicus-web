@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2605.17186v1",
+  "arxiv_id": "2605.17186v1",
+  "title": "Solving linear-rate ODE hierarchies (like master equations) using closures and operator splitting",
+  "authors": [
+    "Joshua C Chang"
+  ],
+  "author_string": "Joshua C Chang",
+  "journal": "arXiv:2605.17186v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Countably infinite systems of linear ODEs arise as forward equations for many continuous-time Markov processes. The standard recipe -- truncate to a finite cap N and exponentiate -- pays cubic cost in N and a time-growing boundary-feedback bias. We identify a structural condition on the rates, L_{n+r,n} = alpha_r n + beta_r (\"linear-rate\"), under which the generating function G(z,t) = sum_n x_n(t) z^n satisfies a first-order linear PDE in z, and the method of characteristics yields a composition-multiplier representation G(z,t) = K_t(z) G(Phi_t(z), 0). The Taylor coefficients of Phi_t and K_t on any output window {0,...,N} are determined exactly by a closed lower-triangular polynomial ODE on R^{2(N+1)}, independent of any coefficients above N. Truncation enters only through the support M_0 of the initial law, set independently of N. For binary birth-death the closure collapses to the geometric tail p_n(t) = p_1(t) rho(t)^{n-1} with rho(t) = lambda(1 - e^{-(mu-lambda)t})/(mu - lambda e^{-(mu-lambda)t}). The linear-rate class spans Markov branching with immigration, multi-type branching, matrix-valued telegraph and G/R elongation, and signed or non-stochastic hierarchies. When the generator decomposes as L = A + B with A linear-rate and B non-affine (Schlogl bistable, predator-prey, lattice reaction-diffusion), we pair the closure with Strang splitting on B; Richardson extrapolation lifts the time order to Delta-t^4 at ~3x wall clock. On the Schlogl problem at V=500, N=8,000, the split runs 6.3x faster than dense Pade and 20x faster than sparse Krylov expv. For the stationary regime, a closure-Strang power iteration extends the same machinery to multi-dimensional product-state-space generators where sparse LU hits OOM/OOT or boundary-projection bias at usable caps. Numerical experiments locate where each route wins and where it is dominated by standard tools.",
+  "categories": [
+    "math.NA",
+    "math.DS",
+    "math.PR",
+    "q-bio.QM",
+    "stat.CO"
+  ],
+  "primary_category": "stat.CO",
+  "comment": "An implementation exists at https://github.com/nih-niddk-mbs/StochasticGene.jl",
+  "published_date": "2026-05-16T22:46:15Z",
+  "updated_date": "2026-05-16T22:46:15Z",
+  "url": "https://arxiv.org/abs/2605.17186v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.17186v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-25T10:15:35.188637",
+  "category": "mathematics",
+  "subcategories": [
+    "math.NA",
+    "math.DS",
+    "math.PR"
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2605.13639v1",
+  "arxiv_id": "2605.13639v1",
+  "title": "Achieving $ε^{-2}$ Sample Complexity for Single-Loop Actor-Critic under Minimal Assumptions",
+  "authors": [
+    "Ishaq Hamza",
+    "Zaiwei Chen"
+  ],
+  "author_string": "Ishaq Hamza, Zaiwei Chen",
+  "journal": "arXiv:2605.13639v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "In this paper, we establish last-iterate convergence rates for off-policy actor--critic methods in reinforcement learning. In particular, under a single-loop, single-timescale implementation and a broad class of policy updates, including approximate policy iteration and natural policy gradient methods, we prove the first $\\tilde{\\mathcal{O}}(ε^{-2})$ sample complexity guarantee for finding an $ε$-optimal policy under minimal assumptions, namely, the existence of a policy that induces an irreducible Markov chain. This stands in stark contrast to the existing literature, where an $\\tilde{\\mathcal{O}}(ε^{-2})$ sample complexity is achieved only through nested-loop updates and/or under strong, algorithm-dependent assumptions on the policies, such as uniform mixing and uniform exploration. Technically, to address the challenges posed by the coupled update equations arising from the single-loop implementation, as well as the potentially unbounded iterates induced by off-policy learning, our analysis is based on a coupled Lyapunov drift framework. Specifically, we establish a geometric convergence rate for the actor and an $\\tilde{\\mathcal{O}}(1/T)$ convergence rate for the critic, and combine the two Lyapunov drift inequalities through a cross-domination property. We believe this analytical framework is of independent interest and may be applicable to other coupled iterative algorithms with unbounded",
+  "categories": [
+    "cs.LG",
+    "math.OC",
+    "stat.ML"
+  ],
+  "primary_category": "stat.ML",
+  "comment": null,
+  "published_date": "2026-05-13T15:04:59Z",
+  "updated_date": "2026-05-13T15:04:59Z",
+  "url": "https://arxiv.org/abs/2605.13639v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.13639v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-13T22:17:14.551542",
+  "category": "mathematics",
+  "subcategories": [
+    "cs.LG",
+    "math.OC",
+    "stat.ML"
+  ]
+}

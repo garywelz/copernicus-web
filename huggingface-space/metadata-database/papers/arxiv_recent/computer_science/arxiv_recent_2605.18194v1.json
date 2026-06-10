@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2605.18194v1",
+  "arxiv_id": "2605.18194v1",
+  "title": "Beyond the Cartesian Illusion: Testing Two-Stage Multi-Modal Theory of Mind under Perceptual Bottlenecks",
+  "authors": [
+    "Yajing Zhou",
+    "Xiangyu Kong"
+  ],
+  "author_string": "Yajing Zhou, Xiangyu Kong",
+  "journal": "arXiv:2605.18194v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "While Multi-Modal Large Language Models (MLLMs) demonstrate impressive capabilities in general reasoning, their embodied spatial intelligence remains hampered by a \"Cartesian Illusion\" - a reliance on text-based probability distributions that lack grounded, 3D topological understanding. This limitation is starkly exposed in multi-agent environments, which demand more than just scene perception; they require second-order Theory of Mind (ToM). Specifically, an Agent A must be able to infer Agent B's belief about the environment, governed strictly by Agent B's physical orientation and sensory limitations. In this paper, we probe the limits of two-stage spatial inference in MLLMs through a novel audio-visual task: requiring Agent A to predict Agent B's estimation of A's relative location. To solve this, we propose an Epistemic Sensory Bottleneck module that abandons rigid, rule-based coordinate transformations. Instead, we introduce an Anchor-Based Embodied Spatial Decomposition Chain-of-Thought (CoT). This guides the MLLM through a \"geometric-to-semantic\" projection, forcing it to first establish B's local coordinate system and then dynamically weight visual and auditory modalities based on whether A falls within B's visual frustum. Extensive evaluations reveal that while current MLLMs fundamentally struggle with spatial symmetry and out-of-view ambiguities (establishing a rigorous zero-shot baseline of 42% accuracy), our sensory-bounded reasoning chain robustly outperforms pure egocentric and allocentric baselines. By systematically benchmarking these perceptual bottlenecks, our work exposes the current limits of MLLM spatial reasoning and establishes a foundational paradigm for epistemic, modality-aware inference in Embodied AI.",
+  "categories": [
+    "cs.AI",
+    "cs.CV"
+  ],
+  "primary_category": "cs.CV",
+  "comment": "17 pages, 3 figures",
+  "published_date": "2026-05-18T10:32:56Z",
+  "updated_date": "2026-05-18T10:32:56Z",
+  "url": "https://arxiv.org/abs/2605.18194v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.18194v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-18T22:16:04.719219",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.AI",
+    "cs.CV"
+  ]
+}

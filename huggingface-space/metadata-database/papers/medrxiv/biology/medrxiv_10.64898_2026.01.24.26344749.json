@@ -1,0 +1,43 @@
+{
+  "id": "medrxiv_10.64898_2026.01.24.26344749",
+  "doi": "10.64898/2026.01.24.26344749",
+  "title": "A Hybrid Rule-Based and Deep Learning Framework for Ventilator Waveform Segmentation and Delineation",
+  "authors": [
+    "Deb, S. D.",
+    "Shetty, S.",
+    "Dwivedy, A.",
+    "Agrawal, D. K."
+  ],
+  "author_string": "Deb, S. D., Shetty, S., Dwivedy, A., Agrawal, D. K.",
+  "journal": "medRxiv",
+  "journal_full": "medRxiv",
+  "year": "2026",
+  "abstract": "1Accurate assessment of patient-ventilator interaction is critical for optimizing respiratory support and detecting harmful dyssynchronies linked to adverse outcomes, including ventilator-induced lung injury and prolonged ICU stays. This requires precise, breath-by-breath segmentation and phase delineation of ventilator waveforms, specifically pressure, flow, and volume. Current reliance on manual annotation limits scalability and consistency, particularly given the variability of waveforms across diverse patient conditions and ventilator settings. To address this challenge, we present a fully automated, two-stage hybrid pipeline that integrates a rule-based algorithm with a Deep Learning (DL) model. The rule-based module generates pseudo-labels by detecting steep rises in the pressure derivative for breath segmentation and analyzing zero-crossings in the flow signal for phase delineation. These labels train a modified 1D U-Net enhanced with Bidirectional Long Short-Term Memory (Bi-LSTM), which captures temporal dependencies and improves adaptability to complex waveform morphologies, such as double-triggered ventilator dyssynchrony breaths. The framework was developed using data from adult ICU patients and evaluated on an independently annotated test set. The Bi-LSTM U-Net model achieved a Dice score of 0.9611, surpassing both the rule-based method, which scored 0.9321, and baseline U-Net architectures, which scored 0.9587. The model demonstrated high temporal precision, with inspiration offset and onset errors of 0.004{+/-} 0.013 seconds and 0.013 {+/-}0.028 seconds, respectively. The Bi-LSTM architecture proved particularly effective, reducing inspiration offset errors by 43% and onset errors by 28% compared to the rule-based method and baseline U-Net, while also maintaining low error variability. This hybrid approach provides a scalable, accurate, and fully automated solution for ventilator waveform analysis, enabling enhanced assessment of patient-ventilator synchrony without manual intervention.",
+  "keywords": [],
+  "categories": [
+    "respiratory medicine"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.64898/2026.01.24.26344749",
+  "source": "medrxiv",
+  "sources": [
+    "medrxiv"
+  ],
+  "acquired_date": "2026-05-25T22:15:24.729778",
+  "category": "biology",
+  "subcategories": [
+    "respiratory medicine"
+  ],
+  "published_date": "2026-01-25",
+  "updated_date": "2026-01-25",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "medrxiv",
+  "preprint_version": "1",
+  "preprint_type": "PUBLISHAHEADOFPRINT",
+  "license": "cc_no",
+  "jatsxml": "https://www.medrxiv.org/content/early/2026/01/25//2026.01.24.26344749.source.xml",
+  "published_doi": null,
+  "author_corresponding": "Deepak K Agrawal",
+  "author_corresponding_institution": "Indian Institute of Technology Bombay"
+}

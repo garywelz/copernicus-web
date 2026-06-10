@@ -1,0 +1,40 @@
+{
+  "id": "biorxiv_10.1101_2025.08.11.669530",
+  "doi": "10.1101/2025.08.11.669530",
+  "title": "BATSY4-PRO: An Open-Source Multichannel Ultrasound Recorder for Field Bioacoustics",
+  "authors": [
+    "Umadi, R."
+  ],
+  "author_string": "Umadi, R.",
+  "journal": "bioRxiv",
+  "journal_full": "bioRxiv",
+  "year": "2026",
+  "abstract": "AO_SCPLOWBSTRACTC_SCPLOWO_LIBehavioural studies of acoustic communication in animals--particularly echolocating bats--require lightweight, power-efficient recording systems robust under field conditions. High-frequency multichannel recordings typically use consumer-grade audio interfaces and laptops, limiting portability and reproducibility. Recent advances in embedded microcontrollers and MEMS microphones enable the development of compact, affordable, open-source alternatives, yet such platforms remain underutilised for multichannel ultrasonic research.\nC_LIO_LITo address this gap, I developed BO_SCPLOWATSYC_SCPLOWO_SCPCAP4C_SCPCAP-PO_SCPLOWROC_SCPLOW, a four-channel ultrasonic recorder based on the Teensy 4.1 microcontroller. The system uses WM8782 analogue-to-digital converters for synchronised 192 kHz audio recording to microSD storage. The firmware enables customisation of buffering, triggering, and recording modes and durations. The system weighs under 150 g and operates from a 5 V DC supply for reliable field deployment.\nC_LIO_LIA key feature is real-time heterodyne monitoring via an integrated digital-to-analogue converter, providing audible down-conversion of ultrasonic calls through headphones. This allows researchers to assess activity during deployment and make informed decisions about when to record, thereby improving data relevance and experimental efficiency without additional bat detectors or spectrogram systems.\nC_LIO_LIPerformance was validated using synthetic bat calls and field recordings of free-flying bats. Analysis of 368 echolocation calls yielded a median maximum-channel SNR of 27.3 dB, matching that obtained with a professional-grade audio interface. The four-channel array enabled three-dimensional localisation via time-difference-of-arrival methods. Monte Carlo simulations were used to quantify localisation uncertainty as a function of source position and motion. Within the evaluated near-field region (<4 m), localisation accuracy was governed primarily by array geometry and range. Source velocity did not influence median localisation error; however, increasing flight speed systematically altered the shape of error distributions, increasing the occurrence of larger deviations beyond narrow accuracy thresholds. Together, these results provide practical guidance for selecting array geometry and defining usable operating volumes in experiments involving moving sound sources.\nC_LIO_LIBO_SCPLOWATSYC_SCPLOWO_SCPCAP4C_SCPCAP-PO_SCPLOWROC_SCPLOW provides an accessible platform for multichannel ultrasonic recording in behavioural and ecological research. Through open hardware, documented firmware, and performance characterisation, this system reduces technical barriers and promotes the adoption of spatial acoustic methods in field studies.\nC_LI",
+  "keywords": [],
+  "categories": [
+    "animal behavior and cognition"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.1101/2025.08.11.669530",
+  "source": "biorxiv",
+  "sources": [
+    "biorxiv"
+  ],
+  "acquired_date": "2026-05-22T22:15:22.925157",
+  "category": "biology",
+  "subcategories": [
+    "animal behavior and cognition"
+  ],
+  "published_date": "2026-01-22",
+  "updated_date": "2026-01-22",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "biorxiv",
+  "preprint_version": "2",
+  "preprint_type": "new results",
+  "license": "cc_by_nc_nd",
+  "jatsxml": "https://www.biorxiv.org/content/early/2026/01/22/2025.08.11.669530.source.xml",
+  "published_doi": null,
+  "author_corresponding": "Ravi Umadi",
+  "author_corresponding_institution": "Technical University of Munich"
+}

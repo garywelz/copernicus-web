@@ -1,0 +1,44 @@
+{
+  "id": "biorxiv_10.64898_2026.01.06.697994",
+  "doi": "10.64898/2026.01.06.697994",
+  "title": "PeptideMTR: Scaling SMILES-Based Language Models for Therapeutic Peptide Engineering",
+  "authors": [
+    "Feller, A. L.",
+    "Secor, M.",
+    "Swanson, S.",
+    "Wilke, C. O.",
+    "Deibler, K."
+  ],
+  "author_string": "Feller, A. L., Secor, M., Swanson, S., Wilke, C. O., Deibler, K.",
+  "journal": "bioRxiv",
+  "journal_full": "bioRxiv",
+  "year": "2026",
+  "abstract": "Therapeutic peptides occupy a unique middle ground in drug discovery, offering the high specificity of protein interactions with the chemical diversity of small molecules, yet they currently fall in a computational blind spot. Existing foundation models cannot handle them effectively: protein models are restricted to natural amino acids, while chemical models struggle to process large, polymer-like sequences. This disconnect has forced the field to rely on static chemical descriptors that fail to capture subtle chemical details or on complex multi-embedding pipelines that are custom tailored to specific datasets. To bridge this gap, we present PeptideCLM-2, a suite of chemical language models trained on over 100 million molecules to natively represent complex peptide chemistry. This modeling approach both simplifies the application of machine learning to therapeutic peptides and results in improved performance over alternative approaches for predicting development endpoints including membrane diffusion, tumor homing, and half life.\n\nTOC Graphic\n\nO_FIG O_LINKSMALLFIG WIDTH=200 HEIGHT=111 SRC=\"FIGDIR/small/697994v3_ufig1.gif\" ALT=\"Figure 1\">\nView larger version (51K):\norg.highwire.dtl.DTLVardef@dc1a6aorg.highwire.dtl.DTLVardef@4a3a1borg.highwire.dtl.DTLVardef@12cc7e4org.highwire.dtl.DTLVardef@f75184_HPS_FORMAT_FIGEXP  M_FIG C_FIG",
+  "keywords": [],
+  "categories": [
+    "bioinformatics"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.64898/2026.01.06.697994",
+  "source": "biorxiv",
+  "sources": [
+    "biorxiv"
+  ],
+  "acquired_date": "2026-05-07T22:15:24.999246",
+  "category": "biology",
+  "subcategories": [
+    "bioinformatics"
+  ],
+  "published_date": "2026-01-07",
+  "updated_date": "2026-01-07",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "biorxiv",
+  "preprint_version": "1",
+  "preprint_type": "new results",
+  "license": "cc_by",
+  "jatsxml": "https://www.biorxiv.org/content/early/2026/01/07//2026.01.06.697994.source.xml",
+  "published_doi": null,
+  "author_corresponding": "Aaron L Feller",
+  "author_corresponding_institution": "The University of Texas at Austin; Novo Nordisk"
+}

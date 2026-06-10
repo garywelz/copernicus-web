@@ -1,0 +1,39 @@
+{
+  "id": "statistics_probability-central-limit-theorem",
+  "name": "Central Limit Theorem — Mathematics Process",
+  "category": "mathematics",
+  "subcategory": "statistics_probability",
+  "subcategory_name": "Statistics & Probability",
+  "description": "Sample means converge in distribution to normal. Lindeberg–Lévy (i.i.d.), Lyapunov (non-identically distributed). Foundation for asymptotic inference.",
+  "mermaid": "graph TD\n    D1[\"Def: Convergence in\\ndistribution Xₙ↝X\"]\n    D2[\"Def: i.i.d. sequence\"]\n    D3[\"Def: Standard normal\\nΦ distribution\"]\n    T1[\"Thm: Lindeberg–Lévy\\n√n(Sₙ/n−μ)/σ ↝ N(0,1)\\ni.i.d. finite variance\"]\n    T2[\"Thm: Lyapunov CLT\\nnon-identical, Lyapunov cond\"]\n    T3[\"Thm: Berry–Esseen\\nrate of convergence\"]\n    T4[\"Thm: Multivariate CLT\"]\n    L1[\"Lemma: Char functions\\nφₓₙ(t)→φₓ(t)\"]\n    T5[\"Thm: Delta method\\nθ̂ asymptotically normal\"]\n    D1 --> T1\n    D2 --> T1\n    D3 --> T1\n    D1 --> T2\n    T1 --> T3\n    T1 --> T4\n    T1 --> L1\n    T1 --> T5\n    classDef definition fill:#b197fc,color:#fff\n    classDef theorem fill:#51cf66,color:#fff\n    classDef lemma fill:#74c0fc,color:#fff\n    class D1,D2,D3 definition\n    class T1,T2,T3,T4,T5 theorem\n    class L1 lemma",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

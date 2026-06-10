@@ -1,21 +1,23 @@
 {
   "id": "analytical_chemistry-electrochemical-analysis",
-  "name": "Electrochemical Analysis",
+  "name": "Potentiometry (Ion-Selective Electrode)",
   "category": "chemistry",
   "subcategory": "analytical_chemistry",
   "subcategory_name": "Analytical Chemistry",
-  "description": "Electrochemical Analysis process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "Potentiometry measures an ion's activity at zero current: a selective membrane develops a potential against a reference electrode following the Nernst/Nikolsky equation, and after calibration against standards the measured EMF is converted to concentration.",
   "complexity": {
-    "nodes": 26,
-    "edges": 21,
-    "conditionals": 0,
+    "nodes": 10,
+    "edges": 10,
+    "conditionals": 1,
     "logicGates": {
-      "orGates": 0,
+      "orGates": 1,
       "andGates": 1,
-      "total": 1
+      "notGates": 0,
+      "total": 2
     },
-    "level": "medium",
-    "detailLevel": "medium"
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 0
   },
   "colorScheme": {
     "red": {
@@ -39,53 +41,151 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nA3[Electrode Setup] --> B3[Electrochemical Method]\nC3[Potential Control] --> D3[Current Measurement]\nE3[Solution Analysis] --> F3[Electrochemical Response]\nB3 --> G3[Voltammetry]\nD3 --> H3[Potentiometry]\nF3 --> I3[Conductometry]\nG3 --> J3[Cyclic Voltammetry]\nH3 --> K3[Ion Selective Electrodes]\nI3 --> L3[Conductivity Measurement]\nJ3 --> M3[Potential Sweep]\nK3 --> L3\nL3 --> N3[Ion Concentration]\nM3 --> O3[Current Response]\nN3 --> P3[Calibration Curve]\nO3 --> Q3[Electrochemical Analysis Process]\nP3 --> R3[Electrochemical Validation]\nQ3 --> S3[Electrochemical Verification]\nR3 --> T3[Electrochemical Result]\nS3 --> U3[Electrochemical Analysis]\nT3 --> V3[Electrochemical Parameters]\nU3 --> W3[Electrochemical Output]\nV3 --> X3[Electrochemical Analysis]\nW3 --> Y3[Electrochemical Final Result]\nX3 --> Z3[Electrochemical Analysis Complete]\n\n    style A3 fill:#ff6b6b,color:#fff\n    style C3 fill:#ff6b6b,color:#fff\n    style E3 fill:#ff6b6b,color:#fff\n    style B3 fill:#ffd43b,color:#000\n    style D3 fill:#ffd43b,color:#000\n    style F3 fill:#ffd43b,color:#000\n    style G3 fill:#ffd43b,color:#000\n    style H3 fill:#ffd43b,color:#000\n    style I3 fill:#ffd43b,color:#000\n    style J3 fill:#ffd43b,color:#000\n    style K3 fill:#ffd43b,color:#000\n    style L3 fill:#ffd43b,color:#000\n    style M3 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style O3 fill:#51cf66,color:#fff\n    style P3 fill:#51cf66,color:#fff\n    style Q3 fill:#51cf66,color:#fff\n    style R3 fill:#51cf66,color:#fff\n    style S3 fill:#51cf66,color:#fff\n    style T3 fill:#51cf66,color:#fff\n    style U3 fill:#51cf66,color:#fff\n    style V3 fill:#51cf66,color:#fff\n    style W3 fill:#51cf66,color:#fff\n    style X3 fill:#51cf66,color:#fff\n    style Y3 fill:#51cf66,color:#fff\n    style Z3 fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"Sample solution\"]\n    N2[\"Immerse ISE + reference\"]\n    N3[\"Selective membrane responds\"]\n    N4[\"Membrane potential develops\"]\n    N5[\"Measure cell EMF\"]\n    N6{\"Nernstian response?\"}\n    N7[\"Correct for interferents\"]\n    N8[\"Calibrate vs standards\"]\n    N9[\"EMF -> activity\"]\n    N10[\"Ion concentration\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 --> N4\n    N4 --> N5\n    N5 --> N6\n    N6 -->|no| N7\n    N7 --> N8\n    N6 -->|yes| N8\n    N8 --> N9\n    N9 --> N10\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#74c0fc,color:#fff\n    style N4 fill:#74c0fc,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#74c0fc,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#51cf66,color:#fff\n    style N10 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "title": "Carrier-based ion-selective electrodes and bulk optodes. 1. General characteristics",
+      "authors": "Bühlmann, P.; Pretsch, E.; Bakker, E.",
+      "journal": "Chemical Reviews",
+      "year": "1998",
+      "doi": "10.1021/cr970113+",
+      "url": "https://doi.org/10.1021/cr970113+"
+    },
+    {
+      "title": "Quantitative Chemical Analysis, 9th ed. — Electrode Measurements",
+      "authors": "Harris, D. C.",
+      "journal": "W. H. Freeman",
+      "year": "2015",
       "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: Electrochemical Analysis. Created using the Programming Framework methodology."
+      "url": "https://www.macmillanlearning.com/college/us/product/Quantitative-Chemical-Analysis/p/146413538X"
     },
     {
-      "title": "Forecasting Electrochemical Reactions in an Electrochemical Cell",
-      "authors": "Burgot, Jean-Louis",
-      "journal": "General Analytical Chemistry",
-      "year": "2024",
-      "pubmed": null,
-      "doi": "10.1201/9781003224556-15",
-      "url": "https://doi.org/10.1201/9781003224556-15"
-    },
-    {
-      "title": "Electrochemical Indicators",
-      "authors": "Burgot, Jean-Louis",
-      "journal": "General Analytical Chemistry",
-      "year": "2024",
-      "pubmed": null,
-      "doi": "10.1201/9781003224556-13",
-      "url": "https://doi.org/10.1201/9781003224556-13"
-    },
-    {
-      "title": "Electrochemical Biosensors",
-      "authors": "Burgot, Jean-Louis",
-      "journal": "General Analytical Chemistry",
-      "year": "2024",
-      "pubmed": null,
-      "doi": "10.1201/9781003224556-36",
-      "url": "https://doi.org/10.1201/9781003224556-36"
+      "title": "Principles of Instrumental Analysis, 7th ed. — Potentiometry",
+      "authors": "Skoog, D. A.; Holler, F. J.; Crouch, S. R.",
+      "journal": "Cengage Learning",
+      "year": "2018",
+      "doi": null,
+      "url": "https://www.cengage.com/c/principles-of-instrumental-analysis-7e-skoog/9781305577213/"
     }
   ],
   "keywords": [
-    "electrochemical",
-    "analysis"
+    "potentiometry",
+    "ion-selective electrode",
+    "membrane potential",
+    "nernst",
+    "selectivity"
   ],
   "relatedProcesses": [],
   "created": "2026-01-08",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Sample solution",
+      "detail": "Contains target ion",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 1
+    },
+    {
+      "id": "N2",
+      "label": "Immerse ISE + reference",
+      "detail": "Two-electrode cell",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N3",
+      "label": "Selective membrane responds",
+      "detail": "Ion partitions into membrane",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N4",
+      "label": "Membrane potential develops",
+      "detail": "Phase-boundary potential",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N5",
+      "label": "Measure cell EMF",
+      "detail": "Zero-current potential",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N6",
+      "label": "Nernstian response?",
+      "detail": "Check selectivity/slope",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N7",
+      "label": "Correct for interferents",
+      "detail": "Nikolsky–Eisenman",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N8",
+      "label": "Calibrate vs standards",
+      "detail": "EMF vs log activity",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N9",
+      "label": "EMF -> activity",
+      "detail": "Apply Nernst slope",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N10",
+      "label": "Ion concentration",
+      "detail": "Reported result",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 1
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:analytical_chemistry-electrochemical-analysis",
+    "graphType": "decision_flowchart",
+    "topologySignature": "02bf338bca531464",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "namedCollections": [
+    "analytical-chemistry"
+  ],
+  "graphMetrics": {
+    "nodes": 10,
+    "edges": 10,
+    "conditionals": 1,
+    "andGates": 1,
+    "orGates": 1,
+    "notGates": 0,
+    "loops": 0
+  },
+  "graphType": "decision_flowchart",
+  "domainContext": "Electroanalytical chemistry"
 }

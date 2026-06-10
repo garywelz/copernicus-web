@@ -1,0 +1,30 @@
+{
+  "id": "arxiv_2604.21908v1",
+  "arxiv_id": "2604.21908v1",
+  "title": "Efficient Classical Simulation of Heuristic Peaked Quantum Circuits",
+  "authors": [
+    "David Kremer",
+    "Nicolas Dupuis"
+  ],
+  "author_string": "David Kremer, Nicolas Dupuis",
+  "journal": "arXiv:2604.21908v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Peaked quantum circuits, whose output distribution is sharply concentrated on a single bitstring, have emerged as a promising candidate for verifiable quantum advantage, as the correctness of the quantum output can be checked by simply comparing against the known peak. Recent work by Gharibyan et al. arXiv:2510.25838 claimed heuristic quantum advantage using peaked circuits executed on Quantinuum's 56-qubit H2 processor. These peaked circuits concentrate their output on a single hidden bitstring by training a shallow simulable circuit variationally and inserting an obfuscated permutation to increase the depth to a level that makes classical simulation intractable, with estimated runtimes of years for the largest instances. We show that these circuits can be efficiently simulated classically. We describe a method that efficiently performs a full tensor network contraction, allowing near-exact sampling and extraction of the peaked bitstring. The method exploits the mirrored structure of the circuit and iteratively cancels both halves into a Matrix Product Operator (MPO), and avoids the obfuscated permutation by greedily reducing the MPO bond dimension through a process we call unswapping. The method can fully contract and extract the peak of the largest circuit in approximately one hour on a single GPU, around half the time it took to run on the quantum hardware.",
+  "categories": [
+    "quant-ph"
+  ],
+  "primary_category": "quant-ph",
+  "comment": null,
+  "published_date": "2026-04-23T17:51:50Z",
+  "updated_date": "2026-04-23T17:51:50Z",
+  "url": "https://arxiv.org/abs/2604.21908v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.21908v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-27T10:15:32.961414",
+  "category": "physics",
+  "subcategories": [
+    "quant-ph"
+  ]
+}

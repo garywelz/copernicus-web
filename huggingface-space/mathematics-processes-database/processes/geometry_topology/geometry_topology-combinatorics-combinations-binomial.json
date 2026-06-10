@@ -1,0 +1,39 @@
+{
+  "id": "geometry_topology-combinatorics-combinations-binomial",
+  "name": "Combinatorics — Combinations and Binomial Theorem",
+  "category": "mathematics",
+  "subcategory": "geometry_topology",
+  "subcategory_name": "Geometry & Topology",
+  "description": "Combinations with repetition, binomial theorem, Pascal identity. Shows how counting formulas depend on principles and prior results.",
+  "mermaid": "graph TD\n    DefFact(\"DefFact Factorial\")\n    DefProd(\"DefProd Product principle\")\n    PermNoRep(\"PermNoRep Permutations no rep\")\n    CombNoRep(\"CombNoRep Combinations\")\n    CombRep(\"CombRep Combinations with rep\")\n    BinomThm(\"BinomThm Binomial theorem\")\n    Pascal(\"Pascal Pascal identity\")\n    DefFact --> PermNoRep\n    DefProd --> PermNoRep\n    PermNoRep --> CombNoRep\n    DefFact --> CombNoRep\n    CombNoRep --> CombRep\n    CombNoRep --> BinomThm\n    CombNoRep --> Pascal\n    classDef axiom fill:#ff6b6b,color:#fff,stroke:#c0392b\n    classDef definition fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef theorem fill:#51cf66,color:#fff,stroke:#40c057\n    class DefFact,DefProd definition\n    class PermNoRep,CombNoRep,CombRep,BinomThm,Pascal theorem",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

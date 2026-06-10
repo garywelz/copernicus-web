@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2605.10225v1",
+  "arxiv_id": "2605.10225v1",
+  "title": "Increasing domain asymptotics for covariate-based nonparametric Bayesian intensity estimation with Gaussian and Besov-Laplace priors",
+  "authors": [
+    "Patric Dolmeta",
+    "Matteo Giordano"
+  ],
+  "author_string": "Patric Dolmeta, Matteo Giordano",
+  "journal": "arXiv:2605.10225v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We study the problem of estimating the intensity function of a covariate-driven point process based on observations of the points and covariates over a large window. We consider the nonparametric Bayesian approach, and show that a wide class of Gaussian priors, combined with flexible link functions, achieves minimax-optimal posterior contraction rates in the increasing domain asymptotics and under the assumption that the covariates be ergodic. We also employ Besov-Laplace priors, which are popular in imaging and inverse problems due to their edge-preserving and sparsity-promoting properties. We prove that these yield optimal estimation of spatially inhomogeneous intensities belonging to Besov spaces with low integrability index. These results are based on a general concentration theorem that extends recent findings from the literature. To corroborate the theory, we provide extensive numerical simulations, implementing the considered procedures via suitable posterior sampling schemes. Further, we present two real data analyses motivated by applications in forestry and the environmental sciences.",
+  "categories": [
+    "math.ST",
+    "stat.ME"
+  ],
+  "primary_category": "stat.ME",
+  "comment": null,
+  "published_date": "2026-05-11T09:05:10Z",
+  "updated_date": "2026-05-11T09:05:10Z",
+  "url": "https://arxiv.org/abs/2605.10225v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.10225v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-11T22:15:41.416186",
+  "category": "mathematics",
+  "subcategories": [
+    "math.ST",
+    "stat.ME"
+  ]
+}

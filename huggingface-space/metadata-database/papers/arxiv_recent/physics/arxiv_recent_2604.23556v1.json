@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2604.23556v1",
+  "arxiv_id": "2604.23556v1",
+  "title": "Decoherence Mitigation with Local NOT Gates in Multipartite Systems",
+  "authors": [
+    "Venkat Abhignan",
+    "Raghav Sundararaman",
+    "Shriram Pragash M",
+    "R. Srikanth",
+    "Ashutosh Singh"
+  ],
+  "author_string": "Venkat Abhignan, Raghav Sundararaman, Shriram Pragash M, R. Srikanth, Ashutosh Singh",
+  "journal": "arXiv:2604.23556v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": "10.1103/7cfj-8klm",
+  "abstract": "We study the entanglement dynamics of $n=2,3,4$-qubit Bell- and GHZ-type states under an amplitude-damping channel (ADC). We quantify multipartite entanglement using the genuine multipartite concurrence (GMC) and evaluate its utility through the optimal teleportation fidelity. For $2$-qubit states, we analyze the standard (Bennett) teleportation protocol. For $3$- and $4$-qubit states, we study controlled quantum teleportation (CQT) with one and two \\emph{controllers}, respectively. Entanglement sudden death (ESD) denotes the abrupt, finite-time disappearance of entanglement caused by decoherence in contrast to asymptotic decay. To counteract ESD, we apply local NOT ($\\hatσ_x$) operations on $m$ of the $n$ qubits ($m \\leq n$) and derive analytic formulae, revealing that a single-NOT operation often suffices to alter ESD into asymptotic decay when handling GMC. In contrast, teleportation fidelity can decay more rapidly for single-NOT flipped states, whereas flipping all qubits is more useful for preserving teleportation fidelity in certain regimes, highlighting that the amount of entanglement alone does not guarantee teleportation utility. Remarkably, in the case of GHZ-type states, ADC-evolved mixed biseparable states can be exploited successfully in the CQT protocol. Further, using the GHZ-symmetric parametrization, we map the 2- and 3-qubit ADC-evolved mixed states onto a $(x,y)$ plane, revealing their SLOCC (Stochastic Local Operations and Classical Communication) entanglement classes. We also explicitly check the Bell-CHSH nonlocality hierarchy in the 2-qubit teleportation alongside localizable-entanglement diagnostics for 3-qubit CQT. Our results clarify the distinct roles of global versus localizable bipartite correlations and suggest simple, experimentally accessible unitary controls for preserving useful quantum resources in noisy channels.",
+  "categories": [
+    "quant-ph"
+  ],
+  "primary_category": "quant-ph",
+  "comment": "Phys. Rev. A - Accepted (13 April, 2026)",
+  "published_date": "2026-04-26T06:32:55Z",
+  "updated_date": "2026-04-26T06:32:55Z",
+  "url": "https://arxiv.org/abs/2604.23556v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.23556v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-27T22:15:34.798216",
+  "category": "physics",
+  "subcategories": [
+    "quant-ph"
+  ]
+}

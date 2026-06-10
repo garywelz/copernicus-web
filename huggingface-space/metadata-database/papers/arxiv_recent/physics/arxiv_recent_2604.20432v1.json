@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2604.20432v1",
+  "arxiv_id": "2604.20432v1",
+  "title": "Unitary Realizations of Synchronizing Automata in Quantum Systems",
+  "authors": [
+    "Jȩdrzej Stempin",
+    "Jan Wójcik",
+    "Gabriela Banaszak",
+    "Andrzej Grudka",
+    "Marcin Karczewski",
+    "Paweł Kurzyński",
+    "Antoni Wójcik"
+  ],
+  "author_string": "Jȩdrzej Stempin, Jan Wójcik, Gabriela Banaszak, Andrzej Grudka, Marcin Karczewski et al.",
+  "journal": "arXiv:2604.20432v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We introduce a quantum analogue of a classical synchronizing automaton. In classical case the state of a system evolves according to a set of rules forming an alphabet, and sequences of these rules, called words, govern its evolution. Certain special words, known as synchronizing words, drive the automaton into a predetermined state regardless of its initial configuration. Although such an apparently irreversible process seems incompatible with the unitarity of quantum mechanics, we present a resetting protocol based on quantum synchronizing words by incorporating auxiliary qubits whose states encode the rules of the automaton's alphabet. These qubits interact with the quantum automaton, whose state is encoded in a qudit, via a global unitary operation. When the qubit register is initially prepared in a state corresponding to a synchronizing word, the automaton evolves into a predetermined pure state independent of its initial state, while the qubit register is transformed into a complex, often entangled, state that encodes information about the automaton's original configuration. The resulting entanglement depends on both the rule set and the automaton's initial state, and we show how specific entangled states can be generated within this framework.",
+  "categories": [
+    "quant-ph"
+  ],
+  "primary_category": "quant-ph",
+  "comment": "11 pages, 11 figures, this manuscript is a modified and substantially extended version of arXiv:2504.01106",
+  "published_date": "2026-04-22T10:52:29Z",
+  "updated_date": "2026-04-22T10:52:29Z",
+  "url": "https://arxiv.org/abs/2604.20432v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.20432v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-25T22:15:49.053633",
+  "category": "physics",
+  "subcategories": [
+    "quant-ph"
+  ]
+}

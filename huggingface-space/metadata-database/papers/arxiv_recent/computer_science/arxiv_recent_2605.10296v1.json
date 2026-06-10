@@ -1,0 +1,38 @@
+{
+  "id": "arxiv_2605.10296v1",
+  "arxiv_id": "2605.10296v1",
+  "title": "Qwen Goes Brrr: Off-the-Shelf RAG for Ukrainian Multi-Domain Document Understanding",
+  "authors": [
+    "Anton Bazdyrev",
+    "Ivan Bashtovyi",
+    "Ivan Havlytskyi",
+    "Oleksandr Kharytonov",
+    "Artur Khodakovskyi"
+  ],
+  "author_string": "Anton Bazdyrev, Ivan Bashtovyi, Ivan Havlytskyi, Oleksandr Kharytonov, Artur Khodakovskyi",
+  "journal": "arXiv:2605.10296v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We participated in the Fifth UNLP shared task on multi-domain document understanding, where systems must answer Ukrainian multiple-choice questions from PDF collections and localize the supporting document and page. We propose a retrieval-augmented pipeline built around three ideas: contextual chunking of PDFs, question-aware dense retrieval and reranking conditioned on both the question and answer options, and constrained answer generation from a small set of reranked passages. Our final system uses Qwen3-Embedding-8B for retrieval, a fine-tuned Qwen3-Reranker-8B for passage ranking, and Qwen3-32B for answer selection. On a held-out split, reranking improves Recall@1 from 0.6957 to 0.7935, while using the top-2 reranked passages raises answer accuracy from 0.9348 to 0.9674. Our best leaderboard run reached 0.9452 on the public leaderboard and 0.9598 on the private leaderboard. Our results suggest that, under strict code-competition constraints, preserving document structure and making relevance estimation aware of the answer space are more effective than adding complex downstream heuristics.",
+  "categories": [
+    "cs.CL",
+    "cs.AI",
+    "cs.IR",
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": "Accepted to The Fifth Ukrainian Natural Language Processing Conference (UNLP 2026)",
+  "published_date": "2026-05-11T09:55:28Z",
+  "updated_date": "2026-05-11T09:55:28Z",
+  "url": "https://arxiv.org/abs/2605.10296v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.10296v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-11T22:15:37.967200",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CL",
+    "cs.AI",
+    "cs.IR"
+  ]
+}

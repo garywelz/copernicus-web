@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Adsorption Isotherm Analysis - Chemistry Process</title>
+    <title>Langmuir Adsorption Isotherm - Chemistry Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Adsorption Isotherm Analysis</h1>
+            <h1>Langmuir Adsorption Isotherm</h1>
             <div class="header-meta">
                 <span class="meta-item">Chemistry</span>
                 <span class="meta-item">Surface Chemistry & Catalysis</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,35 +234,56 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Adsorption Isotherm Analysis process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>The Langmuir model treats adsorption as molecules occupying a finite set of equivalent surface sites: molecules that strike an empty site adsorb, adsorption and desorption reach equilibrium, and coverage follows theta = KP/(1+KP), saturating at a monolayer.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-N1["Adsorbent Material"]
-N2["Adsorbate/Pressure"]
-N3["Surface Sites"]
-N4["Measure Uptake"]
-N5["Fit Isotherm Model"]
-N6["Capacity/Parameters"]
+    N1["Gas + solid surface"]
+    N2["Molecule strikes surface"]
+    N3{"Empty site available?"}
+    N4["Bounce off (no adsorption)"]
+    N5["Adsorb on site"]
+    N6["Adsorption = desorption"]
+    N7["θ = KP/(1+KP)"]
+    N8["Monolayer saturates"]
+    N9["Vary P, fit isotherm"]
+    N10["Adsorption parameters"]
 
-N1 --> N2
-N2 --> N3
-N3 --> N4
-N4 --> N5
-N5 --> N6
+    N1 --> N2
+    N2 --> N3
+    N3 -->|no| N4
+    N4 -->|retry| N2
+    N3 -->|yes| N5
+    N5 --> N6
+    N6 --> N7
+    N7 --> N8
+    N8 --> N9
+    N9 --> N10
 
     style N1 fill:#ff6b6b,color:#fff
-    style N2 fill:#ff6b6b,color:#fff
-    style N3 fill:#ffd43b,color:#000
+    style N2 fill:#51cf66,color:#fff
+    style N3 fill:#74c0fc,color:#fff
     style N4 fill:#51cf66,color:#fff
     style N5 fill:#51cf66,color:#fff
-    style N6 fill:#b197fc,color:#fff
+    style N6 fill:#74c0fc,color:#fff
+    style N7 fill:#51cf66,color:#fff
+    style N8 fill:#51cf66,color:#fff
+    style N9 fill:#51cf66,color:#fff
+    style N10 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Gas + solid surface</td><td>Triggers & Inputs</td><td><a href="https://doi.org/10.1021/ja02242a004" target="_blank" title="The adsorption of gases on plane surfaces of glass, mica and platinum" style="color:#e74c3c;">Langmuir, I. 1918</a></td></tr><tr><td style="font-weight:600;">Molecule strikes surface</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1021/ja02242a004" target="_blank" title="The adsorption of gases on plane surfaces of glass, mica and platinum" style="color:#e74c3c;">Langmuir, I. 1918</a></td></tr><tr><td style="font-weight:600;">Empty site available?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1021/ja02242a004" target="_blank" title="The adsorption of gases on plane surfaces of glass, mica and platinum" style="color:#e74c3c;">Langmuir, I. 1918</a></td></tr><tr><td style="font-weight:600;">Bounce off (no adsorption)</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1021/ja02242a004" target="_blank" title="The adsorption of gases on plane surfaces of glass, mica and platinum" style="color:#e74c3c;">Langmuir, I. 1918</a></td></tr><tr><td style="font-weight:600;">Adsorb on site</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1021/ja02242a004" target="_blank" title="The adsorption of gases on plane surfaces of glass, mica and platinum" style="color:#e74c3c;">Langmuir, I. 1918</a></td></tr><tr><td style="font-weight:600;">Adsorption = desorption</td><td>Intermediates & States</td><td><a href="https://www.wiley.com/en-us/Introduction+to+Surface+Chemistry+and+Catalysis%2C+2nd+Edition-p-9780470508237" target="_blank" title="Introduction to Surface Chemistry and Catalysis, 2nd ed." style="color:#e74c3c;">Somorjai, G. A. et al. 2010</a></td></tr><tr><td style="font-weight:600;">θ = KP/(1+KP)</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1021/ja02242a004" target="_blank" title="The adsorption of gases on plane surfaces of glass, mica and platinum" style="color:#e74c3c;">Langmuir, I. 1918</a></td></tr><tr><td style="font-weight:600;">Monolayer saturates</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1351/goldbook.L03442" target="_blank" title="Gold Book: Langmuir adsorption isotherm" style="color:#e74c3c;">IUPAC 2019</a></td></tr><tr><td style="font-weight:600;">Vary P, fit isotherm</td><td>Processing & Operations</td><td><a href="https://www.wiley.com/en-us/Introduction+to+Surface+Chemistry+and+Catalysis%2C+2nd+Edition-p-9780470508237" target="_blank" title="Introduction to Surface Chemistry and Catalysis, 2nd ed." style="color:#e74c3c;">Somorjai, G. A. et al. 2010</a></td></tr><tr><td style="font-weight:600;">Adsorption parameters</td><td>Products & Outputs</td><td><a href="https://www.wiley.com/en-us/Introduction+to+Surface+Chemistry+and+Catalysis%2C+2nd+Edition-p-9780470508237" target="_blank" title="Introduction to Surface Chemistry and Catalysis, 2nd ed." style="color:#e74c3c;">Somorjai, G. A. et al. 2010</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -281,12 +329,12 @@ N5 --> N6
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 6</li>
-                        <li><strong>Edges:</strong> 5</li>
-                        <li><strong>Conditionals:</strong> 0</li>
-                        <li><strong>AND Gates:</strong> 0</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 0</li>
+                        <li><strong>Nodes:</strong> 10</li>
+                        <li><strong>Edges:</strong> 10</li>
+                        <li><strong>Conditionals:</strong> 1</li>
+                        <li><strong>AND Gates:</strong> 1</li>
+                        <li><strong>OR Gates:</strong> 1</li>
+                        <li><strong>Total Gates:</strong> 2</li>
                     </ul>
                 </div>
                 
@@ -294,7 +342,7 @@ N5 --> N6
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>adsorption</li><li>isotherm</li><li>analysis</li>
+                        <li>langmuir isotherm</li><li>adsorption</li><li>surface coverage</li><li>monolayer</li><li>equilibrium</li>
                     </ul>
                 </div>
                 
@@ -305,42 +353,32 @@ N5 --> N6
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>The adsorption of gases on plane surfaces of glass, mica and platinum</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Langmuir, I.
+                            , Journal of the American Chemical Society
+                             (1918)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Figure 8: Adsorption isotherm and adsorption rate of TC.</strong>
-                            
-                            
-                             (None)
-                            </span>
-                            <br><a href="https://doi.org/10.7717/peerj.13030/fig-8" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.7717/peerj.13030/fig-8</a>
+                            <br><a href="https://doi.org/10.1021/ja02242a004" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1021/ja02242a004</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Adsorption isotherm</strong>
-                            
-                            , Physics Subject Headings (PhySH)
-                             (None)
+                            <strong>Introduction to Surface Chemistry and Catalysis, 2nd ed.</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Somorjai, G. A.; Li, Y.
+                            , Wiley
+                             (2010)
                             </span>
-                            <br><a href="https://doi.org/10.29172/020035d3-c88b-49ea-9d53-0df5782a9a28" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.29172/020035d3-c88b-49ea-9d53-0df5782a9a28</a>
                             
+                            <br><a href="https://www.wiley.com/en-us/Introduction+to+Surface+Chemistry+and+Catalysis%2C+2nd+Edition-p-9780470508237" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Extended Short Cycle Time Analysis of Pressure Swing Adsorption with Nonlinear Adsorption Isotherm</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Nakamura, Takuya; Kodama, Akio; Goto, Motonobu; Hirose, Tsutomu
-                            , Adsorption
-                             (2005)
+                            <strong>Gold Book: Langmuir adsorption isotherm</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">IUPAC
+                            , IUPAC Compendium of Chemical Terminology
+                             (2019)
                             </span>
-                            <br><a href="https://doi.org/10.1007/s10450-005-5993-5" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1007/s10450-005-5993-5</a>
+                            <br><a href="https://doi.org/10.1351/goldbook.L03442" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1351/goldbook.L03442</a>
                             
                         </li>
                         

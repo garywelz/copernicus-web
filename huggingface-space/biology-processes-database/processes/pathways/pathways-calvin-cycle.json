@@ -1,0 +1,183 @@
+{
+  "id": "pathways-calvin-cycle",
+  "name": "Calvin Cycle (Light-Independent Reactions)",
+  "category": "biology",
+  "subcategory": "pathways",
+  "subcategory_name": "Pathways",
+  "description": "Calvin cycle: RuBisCO fixes CO2 onto ribulose-1,5-bisphosphate, the 3-phosphoglycerate product is reduced using ATP and NADPH to G3P, and most G3P is used to regenerate RuBP while a fraction is exported to make sugars.",
+  "keywords": [
+    "calvin cycle",
+    "rubisco",
+    "carbon fixation",
+    "rubp",
+    "g3p"
+  ],
+  "namedCollections": [
+    "metabolism"
+  ],
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "complexity": {
+    "nodes": 9,
+    "edges": 9,
+    "conditionals": 1,
+    "logicGates": {
+      "orGates": 1,
+      "andGates": 1,
+      "notGates": 0,
+      "total": 2
+    },
+    "level": "medium",
+    "detailLevel": "source_grounded",
+    "loops": 1
+  },
+  "graphMetrics": {
+    "nodes": 9,
+    "edges": 9,
+    "conditionals": 1,
+    "andGates": 1,
+    "orGates": 1,
+    "notGates": 0,
+    "loops": 1
+  },
+  "mermaid": "graph TD\n    N1[\"CO2 enters stroma\"]\n    N2[\"RuBisCO fixes CO2 to RuBP\"]\n    N3[\"3-phosphoglycerate\"]\n    N4[\"ATP -> 1,3-BPG\"]\n    N5[\"NADPH -> G3P\"]\n    N6{\"Enough G3P to export?\"}\n    N7[\"G3P -> sugars\"]\n    N8[\"Regenerate RuBP (ATP)\"]\n    N9[\"RuBP ready\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 --> N4\n    N4 --> N5\n    N5 --> N6\n    N6 -->|export| N7\n    N6 -->|regenerate| N8\n    N8 --> N9\n    N9 -->|next fixation| N2\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#ffd43b,color:#000\n    style N3 fill:#74c0fc,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#74c0fc,color:#fff\n    style N7 fill:#b197fc,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#51cf66,color:#fff",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "CO2 enters stroma",
+      "detail": "Inorganic carbon substrate",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 1
+    },
+    {
+      "id": "N2",
+      "label": "RuBisCO fixes CO2 to RuBP",
+      "detail": "Carboxylation, committed step",
+      "type": "process",
+      "role": "Structures & Objects",
+      "sourceRef": 0
+    },
+    {
+      "id": "N3",
+      "label": "3-phosphoglycerate",
+      "detail": "First stable product (x2 per CO2)",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N4",
+      "label": "ATP -> 1,3-BPG",
+      "detail": "Phosphorylation",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N5",
+      "label": "NADPH -> G3P",
+      "detail": "Reduction to triose phosphate",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N6",
+      "label": "Enough G3P to export?",
+      "detail": "5 of 6 G3P regenerate RuBP",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 2
+    },
+    {
+      "id": "N7",
+      "label": "G3P -> sugars",
+      "detail": "Net product for biosynthesis",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N8",
+      "label": "Regenerate RuBP (ATP)",
+      "detail": "Rearrangement of carbon skeletons",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N9",
+      "label": "RuBP ready",
+      "detail": "Acceptor restored",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:pathways-calvin-cycle",
+    "graphType": "cyclic_pathway",
+    "topologySignature": "8fa1b954fa522265",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "lastUpdated": "2026-06-01",
+  "verified": false,
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "sources": [
+    {
+      "title": "Biochemistry, 5th ed. — The Calvin Cycle",
+      "authors": "Berg, J. M.; Tymoczko, J. L.; Stryer, L.",
+      "journal": "W. H. Freeman (NCBI Bookshelf, Chapter 20)",
+      "year": "2002",
+      "doi": null,
+      "url": "https://www.ncbi.nlm.nih.gov/books/NBK22344/"
+    },
+    {
+      "title": "The path of carbon in photosynthesis",
+      "authors": "Bassham, J. A.; Benson, A. A.; Calvin, M.",
+      "journal": "Journal of Biological Chemistry",
+      "year": "1950",
+      "pubmed": "14774424",
+      "doi": "10.1016/S0021-9258(19)45228-9",
+      "url": "https://doi.org/10.1016/S0021-9258(19)45228-9"
+    },
+    {
+      "title": "The Calvin cycle revisited",
+      "authors": "Raines, C. A.",
+      "journal": "Photosynthesis Research",
+      "year": "2003",
+      "pubmed": "16245098",
+      "doi": "10.1023/A:1022421515027",
+      "url": "https://doi.org/10.1023/A:1022421515027"
+    }
+  ],
+  "graphType": "cyclic_pathway",
+  "domainContext": "Carbon fixation"
+}

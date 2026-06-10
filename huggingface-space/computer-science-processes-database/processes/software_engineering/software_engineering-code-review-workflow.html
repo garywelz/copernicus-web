@@ -167,6 +167,33 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
@@ -176,7 +203,7 @@
             <div class="header-meta">
                 <span class="meta-item">Computer Science</span>
                 <span class="meta-item">Software Engineering</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,48 +234,57 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Code Review Workflow process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>Code review gates changes into the main branch: an author opens a pull request that triggers CI, reviewers read the diff in context, and any change requests send the author back to revise; once discussions are resolved and the reviewers approve, the change is merged and integrated.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-N1["Pull Request"]
-N2["Change Context"]
-N3["Reviewers"]
-N4["Choose Approach"]
-N5["Diff + Checks"]
-N6["Automated CI"]
-N7["Human Review"]
-N8["Address Feedback"]
-N9["Integrate Results"]
-N10["Merge"]
+    N1["Author opens PR"]
+    N2["CI checks run"]
+    N3["Reviewers assigned"]
+    N4["Read diff + context"]
+    N5{"Change requests?"}
+    N6["Author revises code"]
+    N7{"Approved?"}
+    N8["Resolve discussions"]
+    N9["Merge to main"]
+    N10["Merged + integrated"]
 
-N1 --> N2
-N2 --> N3
-N3 --> N4
-N4 --> N5
-N4 --> N7
-N5 --> N6
-N7 --> N8
-N6 --> N9
-N8 --> N9
-N9 --> N10
+    N1 --> N2
+    N2 --> N3
+    N3 --> N4
+    N4 --> N5
+    N5 -->|yes| N6
+    N6 -->|re-review| N4
+    N5 -->|no| N7
+    N7 -->|no| N8
+    N8 -->|discuss| N4
+    N7 -->|yes| N9
+    N9 --> N10
 
     style N1 fill:#ff6b6b,color:#fff
-    style N2 fill:#ff6b6b,color:#fff
-    style N3 fill:#ffd43b,color:#000
-    style N4 fill:#ffd43b,color:#000
-    style N5 fill:#ffd43b,color:#000
+    style N2 fill:#51cf66,color:#fff
+    style N3 fill:#51cf66,color:#fff
+    style N4 fill:#51cf66,color:#fff
+    style N5 fill:#74c0fc,color:#fff
     style N6 fill:#51cf66,color:#fff
-    style N7 fill:#51cf66,color:#fff
+    style N7 fill:#74c0fc,color:#fff
     style N8 fill:#51cf66,color:#fff
-    style N9 fill:#74c0fc,color:#fff
+    style N9 fill:#51cf66,color:#fff
     style N10 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Author opens PR</td><td>Triggers & Inputs</td><td><a href="https://doi.org/10.1109/ICSE.2013.6606617" target="_blank" title="Expectations, outcomes, and challenges of modern code review" style="color:#9b59b6;">Bacchelli, A. et al. 2013</a></td></tr><tr><td style="font-weight:600;">CI checks run</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1109/ICSE.2013.6606617" target="_blank" title="Expectations, outcomes, and challenges of modern code review" style="color:#9b59b6;">Bacchelli, A. et al. 2013</a></td></tr><tr><td style="font-weight:600;">Reviewers assigned</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1109/ICSE.2013.6606617" target="_blank" title="Expectations, outcomes, and challenges of modern code review" style="color:#9b59b6;">Bacchelli, A. et al. 2013</a></td></tr><tr><td style="font-weight:600;">Read diff + context</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1109/ICSE.2013.6606617" target="_blank" title="Expectations, outcomes, and challenges of modern code review" style="color:#9b59b6;">Bacchelli, A. et al. 2013</a></td></tr><tr><td style="font-weight:600;">Change requests?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1109/ICSE.2013.6606617" target="_blank" title="Expectations, outcomes, and challenges of modern code review" style="color:#9b59b6;">Bacchelli, A. et al. 2013</a></td></tr><tr><td style="font-weight:600;">Author revises code</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1109/ICSE.2013.6606617" target="_blank" title="Expectations, outcomes, and challenges of modern code review" style="color:#9b59b6;">Bacchelli, A. et al. 2013</a></td></tr><tr><td style="font-weight:600;">Approved?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1109/ICSE.2013.6606617" target="_blank" title="Expectations, outcomes, and challenges of modern code review" style="color:#9b59b6;">Bacchelli, A. et al. 2013</a></td></tr><tr><td style="font-weight:600;">Resolve discussions</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1147/sj.153.0182" target="_blank" title="Design and code inspections to reduce errors in program development" style="color:#9b59b6;">Fagan, M. E. 1976</a></td></tr><tr><td style="font-weight:600;">Merge to main</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1109/ICSE.2013.6606617" target="_blank" title="Expectations, outcomes, and challenges of modern code review" style="color:#9b59b6;">Bacchelli, A. et al. 2013</a></td></tr><tr><td style="font-weight:600;">Merged + integrated</td><td>Products & Outputs</td><td><a href="https://doi.org/10.1109/ICSE.2013.6606617" target="_blank" title="Expectations, outcomes, and challenges of modern code review" style="color:#9b59b6;">Bacchelli, A. et al. 2013</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -295,11 +331,11 @@ N9 --> N10
                     <h3>Process Statistics</h3>
                     <ul>
                         <li><strong>Nodes:</strong> 10</li>
-                        <li><strong>Edges:</strong> 10</li>
-                        <li><strong>Conditionals:</strong> 0</li>
+                        <li><strong>Edges:</strong> 11</li>
+                        <li><strong>Conditionals:</strong> 2</li>
                         <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 1</li>
-                        <li><strong>Total Gates:</strong> 2</li>
+                        <li><strong>OR Gates:</strong> 2</li>
+                        <li><strong>Total Gates:</strong> 3</li>
                     </ul>
                 </div>
                 
@@ -307,7 +343,7 @@ N9 --> N10
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>code</li><li>review</li><li>workflow</li>
+                        <li>code review</li><li>pull request</li><li>modern code review</li><li>approval</li><li>merge</li>
                     </ul>
                 </div>
                 
@@ -318,42 +354,22 @@ N9 --> N10
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Expectations, outcomes, and challenges of modern code review</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Bacchelli, A.; Bird, C.
+                            , International Conference on Software Engineering (ICSE)
+                             (2013)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #9b59b6; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Crossref work (10.7287/peerj.preprints.2163v1/supp-5)</strong>
-                            
-                            , Supplemental Information 5: Code review process workflow and structured unit testable code template block diagram
-                             (None)
-                            </span>
-                            <br><a href="https://doi.org/10.7287/peerj.preprints.2163v1/supp-5" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.7287/peerj.preprints.2163v1/supp-5</a>
+                            <br><a href="https://doi.org/10.1109/ICSE.2013.6606617" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.1109/ICSE.2013.6606617</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Crossref work (10.7287/peerj.preprints.2163/supp-5)</strong>
-                            
-                            , Supplemental Information 5: Code review process workflow and structured unit testable code template block diagram
-                             (None)
+                            <strong>Design and code inspections to reduce errors in program development</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Fagan, M. E.
+                            , IBM Systems Journal
+                             (1976)
                             </span>
-                            <br><a href="https://doi.org/10.7287/peerj.preprints.2163/supp-5" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.7287/peerj.preprints.2163/supp-5</a>
-                            
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Supplemental Information 1: Diagram of code workflow.</strong>
-                            
-                            
-                             (None)
-                            </span>
-                            <br><a href="https://doi.org/10.7717/peerj.11298/supp-1" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.7717/peerj.11298/supp-1</a>
+                            <br><a href="https://doi.org/10.1147/sj.153.0182" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.1147/sj.153.0182</a>
                             
                         </li>
                         

@@ -1,0 +1,201 @@
+{
+  "id": "cell_biology-protein-folding-and-chaperone-response",
+  "name": "Protein Folding and Chaperone Response",
+  "category": "biology",
+  "subcategory": "cell_biology",
+  "subcategory_name": "Cell Biology",
+  "description": "Chaperone-assisted protein folding: Hsp70 and chaperonins iteratively fold nascent chains, a heat-shock response replenishes chaperones under stress, and terminally misfolded proteins are routed to degradation.",
+  "keywords": [
+    "protein folding",
+    "chaperone",
+    "hsp70",
+    "chaperonin",
+    "proteostasis",
+    "hsf1"
+  ],
+  "namedCollections": [
+    "cell-biology"
+  ],
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "complexity": {
+    "nodes": 11,
+    "edges": 12,
+    "conditionals": 1,
+    "logicGates": {
+      "orGates": 2,
+      "andGates": 2,
+      "notGates": 0,
+      "total": 4
+    },
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 2
+  },
+  "graphMetrics": {
+    "nodes": 11,
+    "edges": 12,
+    "conditionals": 1,
+    "andGates": 2,
+    "orGates": 2,
+    "notGates": 0,
+    "loops": 2
+  },
+  "mermaid": "graph TD\n    N1[\"Nascent polypeptide\"]\n    N2[\"Hsp70 binds hydrophobic\"]\n    N3[\"ATP-driven fold cycle\"]\n    N4{\"Correctly folded?\"}\n    N5[\"Native functional protein\"]\n    N6[\"Chaperonin (TRiC/GroEL)\"]\n    N7[\"Proteostasis stress sensed\"]\n    N8[\"HSF1 induces chaperones\"]\n    N9[\"Terminally misfolded\"]\n    N10[\"Ubiquitin tag for disposal\"]\n    N11[\"Degraded / aggregates cleared\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 --> N4\n    N4 -->|yes| N5\n    N4 -->|no| N6\n    N6 -->|refold| N3\n    N4 -->|stress| N7\n    N7 --> N8\n    N8 -->|more Hsp| N2\n    N6 -->|fails| N9\n    N9 --> N10\n    N10 --> N11\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#74c0fc,color:#fff\n    style N5 fill:#b197fc,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#74c0fc,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#74c0fc,color:#fff\n    style N10 fill:#51cf66,color:#fff\n    style N11 fill:#b197fc,color:#fff",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Nascent polypeptide",
+      "detail": "Newly synthesized chain emerges from the ribosome",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N2",
+      "label": "Hsp70 binds hydrophobic",
+      "detail": "Hsp70 shields exposed hydrophobic segments",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N3",
+      "label": "ATP-driven fold cycle",
+      "detail": "ATP hydrolysis drives binding/release folding cycles",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N4",
+      "label": "Correctly folded?",
+      "detail": "Native conformation reached?",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N5",
+      "label": "Native functional protein",
+      "detail": "Properly folded, active protein",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N6",
+      "label": "Chaperonin (TRiC/GroEL)",
+      "detail": "Encapsulated folding in a chaperonin chamber",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N7",
+      "label": "Proteostasis stress sensed",
+      "detail": "Accumulating unfolded protein signals stress",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N8",
+      "label": "HSF1 induces chaperones",
+      "detail": "Heat-shock response raises chaperone capacity",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N9",
+      "label": "Terminally misfolded",
+      "detail": "Refolding repeatedly fails",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N10",
+      "label": "Ubiquitin tag for disposal",
+      "detail": "Chaperone-linked E3s mark protein for degradation",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N11",
+      "label": "Degraded / aggregates cleared",
+      "detail": "Removed by proteasome/autophagy",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 2
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:cell_biology-protein-folding-and-chaperone-response",
+    "graphType": "mechanism_flowchart",
+    "topologySignature": "a52a1eb468a7f929",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "pending",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "lastUpdated": "2026-06-01",
+  "verified": false,
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "sources": [
+    {
+      "title": "Molecular chaperones in protein folding and proteostasis",
+      "authors": "Hartl, F. U.; Bracher, A.; Hayer-Hartl, M.",
+      "journal": "Nature",
+      "year": "2011",
+      "pubmed": "21776078",
+      "doi": "10.1038/nature10317",
+      "url": "https://doi.org/10.1038/nature10317"
+    },
+    {
+      "title": "Adapting proteostasis for disease intervention",
+      "authors": "Balch, W. E.; Morimoto, R. I.; Dillin, A.; Kelly, J. W.",
+      "journal": "Science",
+      "year": "2008",
+      "pubmed": "18276881",
+      "doi": "10.1126/science.1141448",
+      "url": "https://doi.org/10.1126/science.1141448"
+    },
+    {
+      "title": "The unfolded protein response: from stress pathway to homeostatic regulation",
+      "authors": "Walter, P.; Ron, D.",
+      "journal": "Science",
+      "year": "2011",
+      "pubmed": "22116877",
+      "doi": "10.1126/science.1209038",
+      "url": "https://doi.org/10.1126/science.1209038"
+    }
+  ],
+  "graphType": "mechanism_flowchart",
+  "domainContext": "Proteostasis pathway"
+}

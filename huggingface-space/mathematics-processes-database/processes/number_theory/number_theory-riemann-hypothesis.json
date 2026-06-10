@@ -1,0 +1,39 @@
+{
+  "id": "number_theory-riemann-hypothesis",
+  "name": "Riemann Hypothesis",
+  "category": "mathematics",
+  "subcategory": "number_theory",
+  "subcategory_name": "Number Theory",
+  "description": "Riemann Hypothesis (1859, open): All non-trivial zeros of the Riemann zeta function ζ(s) lie on the critical line Re(s) = 1/2.",
+  "mermaid": "graph TD\n    DefZeta[\"Def: Riemann zeta\\nζ(s) = Σ n⁻ˢ, Re(s)>1\"]\n    DefCont[\"Def: Analytic continuation\\nζ(s) to ℂ except s=1\"]\n    DefZero[\"Def: Non-trivial zero\\nζ(ρ)=0, 0<Re(ρ)<1\"]\n    DefCrit[\"Def: Critical line\\nRe(s) = 1/2\"]\n    ThmPNT[\"Thm: Prime Number Theorem\\nπ(x) ∼ x/log x\"]\n    ConjRH[\"Conj: Riemann Hypothesis\\nAll zeros on Re(s)=1/2\"]\n    ThmEquiv[\"Thm: RH ⟺ Error in π(x)\\n|π(x)−Li(x)| = O(x^½ log x)\"]\n    DefZeta --> DefCont\n    DefCont --> DefZero\n    DefZero --> ConjRH\n    DefCrit --> ConjRH\n    ThmPNT --> ThmEquiv\n    ConjRH --> ThmEquiv\n    classDef definition fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef theorem fill:#51cf66,color:#fff,stroke:#40c057\n    classDef conjecture fill:#ffd43b,color:#000,stroke:#f59f00\n    class DefZeta,DefCont,DefZero,DefCrit definition\n    class ThmPNT,ThmEquiv theorem\n    class ConjRH conjecture",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

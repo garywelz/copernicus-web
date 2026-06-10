@@ -1,0 +1,39 @@
+{
+  "id": "geometry_topology-euclid-elements-book-iii-props-21-37",
+  "name": "Euclid's Elements Book III — Propositions 21–37",
+  "category": "mathematics",
+  "subcategory": "geometry_topology",
+  "subcategory_name": "Geometry & Topology",
+  "description": "Dependency graph for propositions 21–37. Cyclic quadrilaterals, segments, chord rectangle theorem (III.35 uses Prop II.5), tangent-secant.",
+  "mermaid": "graph TD\n    BookI[\"Book I\\nFoundation\"]\n    PropII5[\"Prop. II.5\\nFrom Book II\"]\n    Def1[\"Def. III.1\\nEqual circles\"]\n    Def2[\"Def. III.2\\nTangent\"]\n    Def3[\"Def. III.3\\nCircles touching\"]\n    Def4[\"Def. III.4\\nEqually distant from center\"]\n    Def5[\"Def. III.5\\nGreater distance\"]\n    Def6[\"Def. III.6\\nSegment of circle\"]\n    Def7[\"Def. III.7\\nAngle of segment\"]\n    Def8[\"Def. III.8\\nAngle in segment\"]\n    Def9[\"Def. III.9\\nAngle stands on circumference\"]\n    Def10[\"Def. III.10\\nSector\"]\n    Def11[\"Def. III.11\\nSimilar segments\"]\n    Prop1[\"Prop. III.1\\nFind center of circle\"]\n    Prop2[\"Prop. III.2\\nChord falls within circle\"]\n    Prop3[\"Prop. III.3\\nDiameter bisects chord at right angles\"]\n    Prop4[\"Prop. III.4\\nNon-diameters do not bisect\"]\n    Prop5[\"Prop. III.5\\nCutting circles do not share center\"]\n    Prop6[\"Prop. III.6\\nTouching circles do not share center\"]\n    Prop7[\"Prop. III.7\\nGreatest/shortest from point on diameter\"]\n    Prop8[\"Prop. III.8\\nLines from point outside circle\"]\n    Prop9[\"Prop. III.9\\nThree equal lines imply center\"]\n    Prop10[\"Prop. III.10\\nCircles cut at most two points\"]\n    Prop11[\"Prop. III.11\\nInternally touching circles\"]\n    Prop12[\"Prop. III.12\\nExternally touching circles\"]\n    Prop13[\"Prop. III.13\\nCircles touch at most one point\"]\n    Prop14[\"Prop. III.14\\nEqual chords equally distant\"]\n    Prop15[\"Prop. III.15\\nDiameter greatest\"]\n    Prop16[\"Prop. III.16\\nTangent at end of diameter\"]\n    Prop17[\"Prop. III.17\\nDraw tangent from point\"]\n    Prop18[\"Prop. III.18\\nRadius to tangent perpendicular\"]\n    Prop19[\"Prop. III.19\\nPerpendicular from contact to center\"]\n    Prop20[\"Prop. III.20\\nAngle at center double angle at circumference\"]\n    Prop21[\"Prop. III.21\\nAngles in same segment equal\"]\n    Prop22[\"Prop. III.22\\nOpposite angles of cyclic quadrilateral\"]\n    Prop23[\"Prop. III.23\\nSame line, two similar unequal segments\"]\n    Prop24[\"Prop. III.24\\nSimilar segments on equal lines equal\"]\n    Prop25[\"Prop. III.25\\nComplete circle from segment\"]\n    Prop26[\"Prop. III.26\\nEqual angles stand on equal arcs\"]\n    Prop27[\"Prop. III.27\\nEqual arcs imply equal angles\"]\n    Prop28[\"Prop. III.28\\nEqual chords cut off equal arcs\"]\n    Prop29[\"Prop. III.29\\nEqual arcs imply equal chords\"]\n    Prop30[\"Prop. III.30\\nBisect given circumference\"]\n    Prop31[\"Prop. III.31\\nAngle in semicircle is right\"]\n    Prop32[\"Prop. III.32\\nTangent-chord angle equals alternate segment\"]\n    Prop33[\"Prop. III.33\\nSegment admitting given angle\"]\n    Prop34[\"Prop. III.34\\nCut off segment admitting angle\"]\n    Prop35[\"Prop. III.35\\nRectangle from chord segments equal\"]\n    Prop36[\"Prop. III.36\\nTangent squared = secant × external\"]\n    Prop37[\"Prop. III.37\\nConverse: tangent if rectangle = square\"]\n    BookI --> Def1\n    BookI --> Def2\n    BookI --> Def3\n    BookI --> Def4\n    BookI --> Def5\n    BookI --> Def6\n    BookI --> Def7\n    BookI --> Def8\n    BookI --> Def9\n    BookI --> Def10\n    BookI --> Def11\n    BookI --> Prop1\n    BookI --> Prop2\n    Prop1 --> Prop2\n    BookI --> Prop3\n    Prop1 --> Prop3\n    BookI --> Prop4\n    Prop3 --> Prop4\n    BookI --> Prop5\n    BookI --> Prop6\n    BookI --> Prop7\n    BookI --> Prop8\n    BookI --> Prop9\n    Prop1 --> Prop9\n    BookI --> Prop10\n    Prop1 --> Prop10\n    BookI --> Prop11\n    BookI --> Prop12\n    BookI --> Prop13\n    BookI --> Prop14\n    Prop3 --> Prop14\n    BookI --> Prop15\n    Prop3 --> Prop15\n    BookI --> Prop16\n    BookI --> Prop17\n    Prop16 --> Prop17\n    BookI --> Prop18\n    Prop1 --> Prop18\n    BookI --> Prop19\n    Prop18 --> Prop19\n    BookI --> Prop20\n    Prop1 --> Prop20\n    BookI --> Prop21\n    Prop20 --> Prop21\n    BookI --> Prop22\n    Prop21 --> Prop22\n    BookI --> Prop23\n    BookI --> Prop24\n    Prop23 --> Prop24\n    BookI --> Prop25\n    BookI --> Prop26\n    BookI --> Prop27\n    Prop26 --> Prop27\n    BookI --> Prop28\n    Prop27 --> Prop28\n    BookI --> Prop29\n    Prop28 --> Prop29\n    BookI --> Prop30\n    BookI --> Prop31\n    Prop20 --> Prop31\n    BookI --> Prop32\n    Prop31 --> Prop32\n    BookI --> Prop33\n    Prop16 --> Prop33\n    Prop32 --> Prop33\n    BookI --> Prop34\n    Prop32 --> Prop34\n    BookI --> Prop35\n    Prop1 --> Prop35\n    Prop3 --> Prop35\n    PropII5 --> Prop35\n    BookI --> Prop36\n    Prop1 --> Prop36\n    Prop18 --> Prop36\n    Prop35 --> Prop36\n    BookI --> Prop37\n    Prop1 --> Prop37\n    Prop16 --> Prop37\n    Prop32 --> Prop37\n    Prop36 --> Prop37\n    classDef foundation fill:#95a5a6,color:#fff,stroke:#7f8c8d\n    classDef definition fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef proposition fill:#51cf66,color:#fff,stroke:#40c057\n    class BookI,PropII5 foundation\n    class Def1,Def2,Def3,Def4,Def5,Def6,Def7,Def8,Def9,Def10,Def11 definition\n    class Prop1,Prop2,Prop3,Prop4,Prop5,Prop6,Prop7,Prop8,Prop9,Prop10,Prop11,Prop12,Prop13,Prop14,Prop15,Prop16,Prop17,Prop18,Prop19,Prop20,Prop21,Prop22,Prop23,Prop24,Prop25,Prop26,Prop27,Prop28,Prop29,Prop30,Prop31,Prop32,Prop33,Prop34,Prop35,Prop36,Prop37 proposition",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

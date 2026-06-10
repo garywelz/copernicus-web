@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2605.18702v1",
+  "arxiv_id": "2605.18702v1",
+  "title": "Distilling Tabular Foundation Models for Structured Health Data",
+  "authors": [
+    "Aditya Tanna",
+    "Nassim Bouarour",
+    "Mohamed Bouadi",
+    "Vinay Kumar Sankarapu",
+    "Pratinav Seth"
+  ],
+  "author_string": "Aditya Tanna, Nassim Bouarour, Mohamed Bouadi, Vinay Kumar Sankarapu, Pratinav Seth",
+  "journal": "arXiv:2605.18702v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Tabular foundation models (TFMs) achieve strong performance on health datasets, but their inference cost and infrastructure requirements limit practical use. We study whether their predictive behavior can be transferred to lightweight tabular models through knowledge distillation. Since in-context TFMs condition on the training set at inference time, naive distillation can introduce context leakage; we address this with stratified out-of-fold teacher labeling. Across $19$ healthcare datasets, $6$ TFM teachers, $4$ student families, and several multi-teacher ensembles, we find that distilled students retain at least $90\\%$ of teacher AUC, outperforming teachers in some cases, while running at least $26\\times$ faster on CPU and preserving calibration and fairness critical for health applications. Moreover, multi-teacher averaging does not consistently improve over the best single teacher. Leakage-aware distillation is thus a viable route for bringing TFM-quality predictions into inference-constrained health settings.",
+  "categories": [
+    "cs.LG",
+    "cs.AI"
+  ],
+  "primary_category": "cs.AI",
+  "comment": null,
+  "published_date": "2026-05-18T17:37:28Z",
+  "updated_date": "2026-05-18T17:37:28Z",
+  "url": "https://arxiv.org/abs/2605.18702v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.18702v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-19T10:15:40.274129",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.LG",
+    "cs.AI"
+  ]
+}

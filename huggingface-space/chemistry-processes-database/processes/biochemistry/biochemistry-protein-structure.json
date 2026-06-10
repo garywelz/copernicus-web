@@ -1,21 +1,23 @@
 {
   "id": "biochemistry-protein-structure",
-  "name": "Protein Structure",
+  "name": "Protein Folding (Anfinsen)",
   "category": "chemistry",
   "subcategory": "biochemistry",
   "subcategory_name": "Biochemistry",
-  "description": "Protein Structure process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "Protein folding builds higher-order structure from the primary sequence: local secondary structure forms, hydrophobic collapse drives a tertiary fold toward the native free-energy minimum down a folding funnel, subunits assemble into quaternary structure, and misfolded chains are refolded with chaperones to reach the functional native state.",
   "complexity": {
-    "nodes": 26,
-    "edges": 21,
-    "conditionals": 0,
+    "nodes": 11,
+    "edges": 12,
+    "conditionals": 2,
     "logicGates": {
-      "orGates": 0,
+      "orGates": 2,
       "andGates": 1,
-      "total": 1
+      "notGates": 0,
+      "total": 3
     },
-    "level": "medium",
-    "detailLevel": "medium"
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 2
   },
   "colorScheme": {
     "red": {
@@ -39,53 +41,151 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nA3[Amino Acid Sequence] --> B3[Protein Structure Method]\nC3[Primary Structure] --> D3[Secondary Structure]\nE3[Tertiary Structure] --> F3[Protein Structure Analysis]\nB3 --> G3[X Ray Crystallography]\nD3 --> H3[NMR Spectroscopy]\nF3 --> I3[Cryo EM]\nG3 --> J3[Alpha Helix]\nH3 --> K3[Beta Sheet]\nI3 --> L3[Protein Folding]\nJ3 --> M3[Disulfide Bonds]\nK3 --> L3\nL3 --> N3[Hydrophobic Core]\nM3 --> O3[Quaternary Structure]\nN3 --> P3[Protein Function]\nO3 --> Q3[Protein Structure Process]\nP3 --> R3[Protein Structure Validation]\nQ3 --> S3[Protein Structure Verification]\nR3 --> T3[Protein Structure Result]\nS3 --> U3[Protein Structure Analysis]\nT3 --> V3[Protein Structure Parameters]\nU3 --> W3[Protein Structure Output]\nV3 --> X3[Protein Structure Analysis]\nW3 --> Y3[Protein Structure Final Result]\nX3 --> Z3[Protein Structure Complete]\n\n    style A3 fill:#ff6b6b,color:#fff\n    style C3 fill:#ff6b6b,color:#fff\n    style E3 fill:#ff6b6b,color:#fff\n    style B3 fill:#ffd43b,color:#000\n    style D3 fill:#ffd43b,color:#000\n    style F3 fill:#ffd43b,color:#000\n    style G3 fill:#ffd43b,color:#000\n    style H3 fill:#ffd43b,color:#000\n    style I3 fill:#ffd43b,color:#000\n    style J3 fill:#ffd43b,color:#000\n    style K3 fill:#ffd43b,color:#000\n    style L3 fill:#ffd43b,color:#000\n    style M3 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style O3 fill:#51cf66,color:#fff\n    style P3 fill:#51cf66,color:#fff\n    style Q3 fill:#51cf66,color:#fff\n    style R3 fill:#51cf66,color:#fff\n    style S3 fill:#51cf66,color:#fff\n    style T3 fill:#51cf66,color:#fff\n    style U3 fill:#51cf66,color:#fff\n    style V3 fill:#51cf66,color:#fff\n    style W3 fill:#51cf66,color:#fff\n    style X3 fill:#51cf66,color:#fff\n    style Y3 fill:#51cf66,color:#fff\n    style Z3 fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"Polypeptide (primary seq)\"]\n    N2[\"Local secondary structure\"]\n    N3[\"Helices / sheets\"]\n    N4[\"Hydrophobic collapse\"]\n    N5[\"Tertiary fold\"]\n    N6{\"Native fold reached?\"}\n    N7[\"Explore folding funnel\"]\n    N8[\"Assemble subunits\"]\n    N9{\"Misfolded / aggregated?\"}\n    N10[\"Chaperone refold\"]\n    N11[\"Functional native protein\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 --> N4\n    N4 --> N5\n    N5 --> N6\n    N6 -->|no| N7\n    N7 -->|re-search| N4\n    N6 -->|yes| N8\n    N8 --> N9\n    N9 -->|yes| N10\n    N10 -->|refold| N4\n    N9 -->|no| N11\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#74c0fc,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#74c0fc,color:#fff\n    style N6 fill:#74c0fc,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#74c0fc,color:#fff\n    style N10 fill:#51cf66,color:#fff\n    style N11 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
-      "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: Protein Structure. Created using the Programming Framework methodology."
+      "title": "Principles that govern the folding of protein chains",
+      "authors": "Anfinsen, C. B.",
+      "journal": "Science",
+      "year": "1973",
+      "doi": "10.1126/science.181.4096.223",
+      "url": "https://doi.org/10.1126/science.181.4096.223"
     },
     {
-      "title": "Protein Structure",
-      "authors": "Lesk, Arthur",
-      "journal": "Protein Science",
-      "year": "2021",
-      "pubmed": null,
-      "doi": "10.1093/hesc/9780198846451.003.0002",
-      "url": "https://doi.org/10.1093/hesc/9780198846451.003.0002"
-    },
-    {
-      "title": "Protein structure",
-      "authors": "Lesk, Arthur M.",
-      "journal": "Introduction to Protein Science",
-      "year": "2016",
-      "pubmed": null,
-      "doi": "10.1093/hesc/9780198716846.003.0002",
-      "url": "https://doi.org/10.1093/hesc/9780198716846.003.0002"
-    },
-    {
-      "title": "Protein structure determination",
-      "authors": "Lesk, Arthur M.",
-      "journal": "Introduction to Protein Science",
-      "year": "2016",
-      "pubmed": null,
-      "doi": "10.1093/hesc/9780198716846.003.0003",
-      "url": "https://doi.org/10.1093/hesc/9780198716846.003.0003"
+      "title": "The protein-folding problem, 50 years on",
+      "authors": "Dill, K. A.; MacCallum, J. L.",
+      "journal": "Science",
+      "year": "2012",
+      "doi": "10.1126/science.1219021",
+      "url": "https://doi.org/10.1126/science.1219021"
     }
   ],
   "keywords": [
-    "protein",
-    "structure"
+    "protein folding",
+    "Anfinsen",
+    "folding funnel",
+    "hydrophobic collapse",
+    "native structure"
   ],
   "relatedProcesses": [],
   "created": "2026-01-08",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Polypeptide (primary seq)",
+      "detail": "Amino acid chain",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N2",
+      "label": "Local secondary structure",
+      "detail": "Backbone H-bonds",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N3",
+      "label": "Helices / sheets",
+      "detail": "Alpha, beta motifs",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N4",
+      "label": "Hydrophobic collapse",
+      "detail": "Bury nonpolar core",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N5",
+      "label": "Tertiary fold",
+      "detail": "3D arrangement",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N6",
+      "label": "Native fold reached?",
+      "detail": "Free-energy minimum",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N7",
+      "label": "Explore folding funnel",
+      "detail": "Search conformations",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N8",
+      "label": "Assemble subunits",
+      "detail": "Quaternary structure",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N9",
+      "label": "Misfolded / aggregated?",
+      "detail": "Off-pathway",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N10",
+      "label": "Chaperone refold",
+      "detail": "Rescue + retry",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N11",
+      "label": "Functional native protein",
+      "detail": "Active conformation",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 0
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:biochemistry-protein-structure",
+    "graphType": "decision_flowchart",
+    "topologySignature": "247a565be6f28d27",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "namedCollections": [
+    "biochemistry"
+  ],
+  "graphMetrics": {
+    "nodes": 11,
+    "edges": 12,
+    "conditionals": 2,
+    "andGates": 1,
+    "orGates": 2,
+    "notGates": 0,
+    "loops": 2
+  },
+  "graphType": "decision_flowchart",
+  "domainContext": "Structural biochemistry"
 }

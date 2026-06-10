@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2605.10275v1",
+  "arxiv_id": "2605.10275v1",
+  "title": "PolarVSR: A Unified Framework and Benchmark for Continuous Space-Time Polarization Video Reconstruction",
+  "authors": [
+    "Chenggong Li",
+    "Yidong Luo",
+    "Junchao Zhang",
+    "Boxin Shi",
+    "Degui Yang"
+  ],
+  "author_string": "Chenggong Li, Yidong Luo, Junchao Zhang, Boxin Shi, Degui Yang",
+  "journal": "arXiv:2605.10275v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Polarimetric imaging captures surface polarization characteristics, such as the Degree of Linear Polarization (DoLP) and the Angle of Polarization (AoP). In mainstream Division of-Focal-Plane (DoFP) color polarization imaging, recovering polarization parameters from captured mosaic arrays remains a challenging inverse problem. Existing DoFP cameras also face hardware bottlenecks and often cannot support high-frame-rate acquisition, limiting polarimetric imaging in dynamic video tasks. These limitations motivate joint spatial and temporal enhancement. To this end, we propose the first space-time polarization video reconstruction architecture. The method jointly models polarization directions in space and time and uses a polarization-aware implicit neural representation for continuous, high-fidelity upsampling. By analyzing temporal variations in polarization parameters, we further introduce a flow-guided polarization variation loss to supervise polarization dynamics. We also establish the first large-scale color DoFP polarization video benchmark to support this research direction. Extensive experiments on this benchmark demonstrate the effectiveness of the method.",
+  "categories": [
+    "cs.CV"
+  ],
+  "primary_category": "cs.CV",
+  "comment": null,
+  "published_date": "2026-05-11T09:33:50Z",
+  "updated_date": "2026-05-11T09:33:50Z",
+  "url": "https://arxiv.org/abs/2605.10275v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.10275v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-11T22:15:37.968915",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CV"
+  ]
+}

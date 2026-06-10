@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_2605.25773v1",
+  "arxiv_id": "2605.25773v1",
+  "title": "Efficient Benchmarking Is Just Feature Selection and Multiple Regression",
+  "authors": [
+    "Sam Bowyer",
+    "Acyr Locatelli",
+    "Kris Cao"
+  ],
+  "author_string": "Sam Bowyer, Acyr Locatelli, Kris Cao",
+  "journal": "arXiv:2605.25773v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Efficient benchmarking techniques aim to lower the computational cost of evaluating LLMs by predicting full benchmark scores using only a subset of a benchmark's questions. By reframing this problem as an instance of multiple regression with feature selection, we find that existing efficient benchmarking methods can be greatly improved by simply using kernel ridge regression at the prediction stage. Additionally, using an information-theoretic feature-selection algorithm called minimum redundancy maximum relevance (mRMR), we can further improve upon these methods by selecting question subsets that will be maximally useful for prediction. Except in very data-poor settings, these approaches consistently achieve smaller prediction errors (in both MAE and RMSE), and greater ranking correlation between predicted and true scores (in both Spearman $ρ$ and Kendall $τ$) across a range of benchmarks using both binary and continuous metrics. Furthermore, mRMR subsampling is much faster than competitor methods (which often involve fitting probabilistic models or running clustering algorithms), and is more likely to select the same questions under different random seeds or training data splits. Tutorial code can be found at https://github.com/sambowyer/mrmr_eval .",
+  "categories": [
+    "stat.ML",
+    "cs.AI",
+    "cs.CL",
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": "36 pages, 27 figures",
+  "published_date": "2026-05-25T12:23:31Z",
+  "updated_date": "2026-05-25T12:23:31Z",
+  "url": "https://arxiv.org/abs/2605.25773v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.25773v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-26T10:15:43.032926",
+  "category": "computer_science",
+  "subcategories": [
+    "stat.ML",
+    "cs.AI",
+    "cs.CL"
+  ]
+}

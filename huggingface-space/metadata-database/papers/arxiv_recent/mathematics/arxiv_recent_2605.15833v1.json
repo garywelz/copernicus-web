@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2605.15833v1",
+  "arxiv_id": "2605.15833v1",
+  "title": "Exploration of $k$-edge-deficient temporal graphs in linear time",
+  "authors": [
+    "Ivan Lahtin",
+    "Viktor Zamaraev"
+  ],
+  "author_string": "Ivan Lahtin, Viktor Zamaraev",
+  "journal": "arXiv:2605.15833v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We study the Temporal Exploration problem, where an agent must visit all vertices of a temporal graph while traversing at most one available edge per time step. Unlike static graphs, which can be explored in linear time, temporal constraints can substantially increase exploration time even when every snapshot of the graph is connected.   To better understand the source of this complexity, we focus on a near-static setting and consider always-connected $k$-edge-deficient temporal graphs, in which each snapshot is connected and differs from a fixed underlying $n$-vertex graph by at most $k$ edges. Although such graphs are structurally close to static graphs, they can still exhibit non-trivial temporal behaviour. Prior work showed that these graphs can be explored in $O(kn \\log n)$ time steps and established a lower bound of $Ω(n \\log k)$, leaving open whether linear-time exploration in $n$ is possible.   We resolve this question by showing that any always-connected $k$-edge-deficient temporal graph admits an exploration schedule of length $O(nk \\log k)$. Moreover, given such a temporal graph, the corresponding exploration schedule can be computed in polynomial time. The obtained bound is linear in the number of vertices up to a factor depending only on $k$, removes the extraneous logarithmic dependence on $n$, and is nearly optimal. In particular, for constant $k$, our result yields an order-optimal $Θ(n)$ exploration time, showing that temporal exploration in this near-static regime essentially retains the linear-time character of static graph traversal.",
+  "categories": [
+    "cs.DS",
+    "cs.DM",
+    "math.CO"
+  ],
+  "primary_category": "math.CO",
+  "comment": null,
+  "published_date": "2026-05-15T10:36:41Z",
+  "updated_date": "2026-05-15T10:36:41Z",
+  "url": "https://arxiv.org/abs/2605.15833v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.15833v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-17T22:17:38.076970",
+  "category": "mathematics",
+  "subcategories": [
+    "cs.DS",
+    "cs.DM",
+    "math.CO"
+  ]
+}

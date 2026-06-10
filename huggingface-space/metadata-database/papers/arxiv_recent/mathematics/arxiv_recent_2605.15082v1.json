@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_2605.15082v1",
+  "arxiv_id": "2605.15082v1",
+  "title": "Average Gradient Outer Product in kernel regression provably recovers the central subspace for multi-index models",
+  "authors": [
+    "Libin Zhu",
+    "Damek Davis",
+    "Dmitriy Drusvyatskiy",
+    "Maryam Fazel"
+  ],
+  "author_string": "Libin Zhu, Damek Davis, Dmitriy Drusvyatskiy, Maryam Fazel",
+  "journal": "arXiv:2605.15082v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We study a prototypical situation when a learned predictor can discover useful low-dimensional structure in data, while using fewer samples than are needed for accurate prediction. Specifically, we consider the problem of recovering a multi-index polynomial $f^*(x)=h(Ux)$, with $U\\in\\mathbb{R}^{r\\times d}$ and $r\\ll d$, from finitely many data/label pairs. Importantly, the target function depends on input $x$ only through the projection onto an unknown $r$-dimensional central subspace. The algorithm we analyze is appealingly simple: fit kernel ridge regression (KRR) to the data and compute the Average Gradient Outer Product (AGOP) from the fitted predictor. Our main results show that under reasonable assumptions the top $r$-dimensional eigenspace of AGOP provably recovers the central subspace, even in regimes when the prediction error remains large. Specifically, if the target function $f^*$ has degree $p^*$, it is known that $n\\asymp d^{p^*}$ samples are necessary for KRR to achieve accurate prediction. In contrast, we show that if a low degree $p$ component of $f^*$ already carries all relevant directions for prediction, subspace recovery occurs in the much lower sample regime $n\\asymp d^{p+δ}$ for any $δ\\in(0,1)$. Our results thus demonstrate a separation between prediction and representation, and provide an explanation for why iterative kernel methods such as Recursive Feature Machines (RFM) can be sample-efficient in practice.",
+  "categories": [
+    "stat.ML",
+    "cs.LG",
+    "math.ST"
+  ],
+  "primary_category": "math.ST",
+  "comment": "95 pages, 12 figures",
+  "published_date": "2026-05-14T17:05:30Z",
+  "updated_date": "2026-05-14T17:05:30Z",
+  "url": "https://arxiv.org/abs/2605.15082v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.15082v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-16T10:15:40.621684",
+  "category": "mathematics",
+  "subcategories": [
+    "stat.ML",
+    "cs.LG",
+    "math.ST"
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "id": "medrxiv_10.64898_2026.01.10.26343831",
+  "doi": "10.64898/2026.01.10.26343831",
+  "title": "Automating the Clinical Interpretation of LDLR, APOB, and PCSK9 Variants: A Web-Based Platform for FH Diagnosis",
+  "authors": [
+    "Gellert-Kristensen, H.",
+    "Eyrich, T. M.",
+    "Stender, S."
+  ],
+  "author_string": "Gellert-Kristensen, H., Eyrich, T. M., Stender, S.",
+  "journal": "medRxiv",
+  "journal_full": "medRxiv",
+  "year": "2026",
+  "abstract": "BackgroundClinical interpretation of LDLR, APOB, and PCSK9 variants is essential for diagnosing familial hypercholesterolemia (FH), yet manual evidence curation is labor-intensive and prone to variability.\n\nMethodsWe developed a web-based platform (https://fh-interpret.shinyapps.io/beta/) to automate the synthesis of multi-dimensional evidence. The tool integrates population frequencies (gnomAD), phenotype associations (UK Biobank), AI-based pathogenicity scores (AlphaMissense), high-throughput functional data from saturation mutagenesis, and established clinical classifications (ClinVar, HGMD).\n\nResultsThe application streamlines the diagnostic workflow by automatically synthesizing: (1) population frequencies from gnomAD to assess variant rarity; (2) statin-adjusted LDL-cholesterol association analyses in [~]470,000 UK Biobank participants; (3) AlphaMissense pathogenicity predictions; (4) functional scores for [~]17,000 LDLR variants quantifying impact on LDL uptake and LDLR cell-surface abundance; (5) existing clinical evidence from ClinVar and HGMD; and (6) identification of pathogenic variants at identical amino acid positions (ACMG PM5). The tool generates narrative evidence summaries to facilitate standardized ACMG/AMP classification.\n\nConclusionsBy providing real-time access to massive-scale genomic, phenotypic, and functional datasets within a single platform, this tool streamlines the FH diagnostic workflow and supports more consistent and efficient clinical variant interpretation.\n\nGraphical Abstract\n\nO_FIG O_LINKSMALLFIG WIDTH=200 HEIGHT=126 SRC=\"FIGDIR/small/26343831v1_ufig1.gif\" ALT=\"Figure 1\">\nView larger version (42K):\norg.highwire.dtl.DTLVardef@a7d316org.highwire.dtl.DTLVardef@1370aborg.highwire.dtl.DTLVardef@49f9faorg.highwire.dtl.DTLVardef@ba936a_HPS_FORMAT_FIGEXP  M_FIG C_FIG",
+  "keywords": [],
+  "categories": [
+    "genetic and genomic medicine"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.64898/2026.01.10.26343831",
+  "source": "medrxiv",
+  "sources": [
+    "medrxiv"
+  ],
+  "acquired_date": "2026-05-13T22:15:24.461111",
+  "category": "biology",
+  "subcategories": [
+    "genetic and genomic medicine"
+  ],
+  "published_date": "2026-01-13",
+  "updated_date": "2026-01-13",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "medrxiv",
+  "preprint_version": "1",
+  "preprint_type": "PUBLISHAHEADOFPRINT",
+  "license": "cc_by",
+  "jatsxml": "https://www.medrxiv.org/content/early/2026/01/13//2026.01.10.26343831.source.xml",
+  "published_doi": null,
+  "author_corresponding": "Stefan Stender",
+  "author_corresponding_institution": "Rigshospitalet"
+}

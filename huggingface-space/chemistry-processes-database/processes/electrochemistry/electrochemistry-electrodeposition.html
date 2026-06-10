@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Electrodeposition - Chemistry Process</title>
+    <title>Electrodeposition: Nucleation & Growth - Chemistry Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Electrodeposition</h1>
+            <h1>Electrodeposition: Nucleation & Growth</h1>
             <div class="header-meta">
                 <span class="meta-item">Chemistry</span>
                 <span class="meta-item">Electrochemistry</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,35 +234,56 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Electrodeposition process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>At an applied overpotential, metal ions are reduced to adatoms that diffuse on the surface; only clusters exceeding a critical size survive to grow, following instantaneous or progressive nucleation before coalescing into a continuous film.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-N1["Metal Ion Solution"]
-N2["Substrate/Cathode"]
-N3["Power Supply"]
-N4["Apply Potential/Current"]
-N5["Nucleation/Growth"]
-N6["Deposited Film/Coating"]
+    N1["Metal ions in solution"]
+    N2["Apply overpotential"]
+    N3["Ion reduced to adatom"]
+    N4["Surface diffusion to site"]
+    N5{"Cluster > critical size?"}
+    N6["Subcritical: dissolves"]
+    N7["Stable nucleus grows"]
+    N8["Instantaneous vs progressive"]
+    N9["Nuclei coalesce"]
+    N10["Continuous deposit"]
 
-N1 --> N2
-N2 --> N3
-N3 --> N4
-N4 --> N5
-N5 --> N6
+    N1 --> N2
+    N2 --> N3
+    N3 --> N4
+    N4 --> N5
+    N5 -->|no| N6
+    N6 -->|redeposit| N3
+    N5 -->|yes| N7
+    N7 --> N8
+    N8 --> N9
+    N9 --> N10
 
     style N1 fill:#ff6b6b,color:#fff
-    style N2 fill:#ff6b6b,color:#fff
-    style N3 fill:#ffd43b,color:#000
+    style N2 fill:#51cf66,color:#fff
+    style N3 fill:#51cf66,color:#fff
     style N4 fill:#51cf66,color:#fff
-    style N5 fill:#51cf66,color:#fff
-    style N6 fill:#b197fc,color:#fff
+    style N5 fill:#74c0fc,color:#fff
+    style N6 fill:#51cf66,color:#fff
+    style N7 fill:#51cf66,color:#fff
+    style N8 fill:#51cf66,color:#fff
+    style N9 fill:#51cf66,color:#fff
+    style N10 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Metal ions in solution</td><td>Triggers & Inputs</td><td><a href="https://doi.org/10.1002/0471712566" target="_blank" title="Fundamentals of Electrochemical Deposition, 2nd ed." style="color:#e74c3c;">Paunovic, M. et al. 2006</a></td></tr><tr><td style="font-weight:600;">Apply overpotential</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1002/9783527614936" target="_blank" title="Electrochemical Phase Formation and Growth" style="color:#e74c3c;">Budevski, E. et al. 1996</a></td></tr><tr><td style="font-weight:600;">Ion reduced to adatom</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1002/0471712566" target="_blank" title="Fundamentals of Electrochemical Deposition, 2nd ed." style="color:#e74c3c;">Paunovic, M. et al. 2006</a></td></tr><tr><td style="font-weight:600;">Surface diffusion to site</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1002/9783527614936" target="_blank" title="Electrochemical Phase Formation and Growth" style="color:#e74c3c;">Budevski, E. et al. 1996</a></td></tr><tr><td style="font-weight:600;">Cluster > critical size?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1002/9783527614936" target="_blank" title="Electrochemical Phase Formation and Growth" style="color:#e74c3c;">Budevski, E. et al. 1996</a></td></tr><tr><td style="font-weight:600;">Subcritical: dissolves</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1002/9783527614936" target="_blank" title="Electrochemical Phase Formation and Growth" style="color:#e74c3c;">Budevski, E. et al. 1996</a></td></tr><tr><td style="font-weight:600;">Stable nucleus grows</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1016/0013-4686(83)85163-9" target="_blank" title="Theory of the potentiostatic current transient (nucleation)" style="color:#e74c3c;">Scharifker, B. et al. 1983</a></td></tr><tr><td style="font-weight:600;">Instantaneous vs progressive</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1016/0013-4686(83)85163-9" target="_blank" title="Theory of the potentiostatic current transient (nucleation)" style="color:#e74c3c;">Scharifker, B. et al. 1983</a></td></tr><tr><td style="font-weight:600;">Nuclei coalesce</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1002/0471712566" target="_blank" title="Fundamentals of Electrochemical Deposition, 2nd ed." style="color:#e74c3c;">Paunovic, M. et al. 2006</a></td></tr><tr><td style="font-weight:600;">Continuous deposit</td><td>Products & Outputs</td><td><a href="https://doi.org/10.1002/0471712566" target="_blank" title="Fundamentals of Electrochemical Deposition, 2nd ed." style="color:#e74c3c;">Paunovic, M. et al. 2006</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -281,12 +329,12 @@ N5 --> N6
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 6</li>
-                        <li><strong>Edges:</strong> 5</li>
-                        <li><strong>Conditionals:</strong> 0</li>
-                        <li><strong>AND Gates:</strong> 0</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 0</li>
+                        <li><strong>Nodes:</strong> 10</li>
+                        <li><strong>Edges:</strong> 10</li>
+                        <li><strong>Conditionals:</strong> 1</li>
+                        <li><strong>AND Gates:</strong> 1</li>
+                        <li><strong>OR Gates:</strong> 1</li>
+                        <li><strong>Total Gates:</strong> 2</li>
                     </ul>
                 </div>
                 
@@ -294,7 +342,7 @@ N5 --> N6
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>electrodeposition</li>
+                        <li>electrodeposition</li><li>nucleation</li><li>overpotential</li><li>adatom</li><li>crystal growth</li>
                     </ul>
                 </div>
                 
@@ -305,42 +353,32 @@ N5 --> N6
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Electrochemical Phase Formation and Growth</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Budevski, E.; Staikov, G.; Lorenz, W. J.
+                            , Wiley-VCH
+                             (1996)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Electrodeposition of Alloys</strong>
-                            
-                            , Electrodeposition of Alloys
-                             (1963)
-                            </span>
-                            <br><a href="https://doi.org/10.1016/b978-1-4831-9808-8.50001-0" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1016/b978-1-4831-9808-8.50001-0</a>
+                            <br><a href="https://doi.org/10.1002/9783527614936" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1002/9783527614936</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Electrodeposition of Alloys: PRINCIPLES and PRACTICE</strong>
-                            
-                            , Electrodeposition of Alloys
-                             (1963)
+                            <strong>Fundamentals of Electrochemical Deposition, 2nd ed.</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Paunovic, M.; Schlesinger, M.
+                            , Wiley
+                             (2006)
                             </span>
-                            <br><a href="https://doi.org/10.1016/b978-1-4831-9807-1.50001-5" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1016/b978-1-4831-9807-1.50001-5</a>
+                            <br><a href="https://doi.org/10.1002/0471712566" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1002/0471712566</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Electrodeposition of alloys III. Electrodeposition and x-ray structure of cobalt-indium alloys (initial studies)</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Sadana, Y.N.; Keskinen, A.E.; Guindon, M.
-                            , Electrodeposition and Surface Treatment
-                             (1975)
+                            <strong>Theory of the potentiostatic current transient (nucleation)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Scharifker, B.; Hills, G.
+                            , Electrochimica Acta
+                             (1983)
                             </span>
-                            <br><a href="https://doi.org/10.1016/0300-9416(75)90037-1" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1016/0300-9416(75)90037-1</a>
+                            <br><a href="https://doi.org/10.1016/0013-4686(83)85163-9" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1016/0013-4686(83)85163-9</a>
                             
                         </li>
                         

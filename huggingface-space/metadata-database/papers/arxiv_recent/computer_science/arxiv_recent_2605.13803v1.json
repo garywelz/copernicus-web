@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2605.13803v1",
+  "arxiv_id": "2605.13803v1",
+  "title": "EvoGround: Self-Evolving Video Agents for Video Temporal Grounding",
+  "authors": [
+    "Minjoon Jung",
+    "Byoung-Tak Zhang",
+    "Lorenzo Torresani"
+  ],
+  "author_string": "Minjoon Jung, Byoung-Tak Zhang, Lorenzo Torresani",
+  "journal": "arXiv:2605.13803v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Video temporal grounding (VTG) takes an untrimmed video and a natural-language query as input and localizes the temporal moment that best matches the query. Existing methods rely on large, task-specific datasets requiring costly manual annotation. We introduce EvoGround, a framework of two coupled self-evolving agents, a proposer and a solver, that learn temporal grounding from raw videos without any human-labeled data. The proposer generates query--moment pairs from raw videos, while the solver learns to ground them and feeds back signals that improve the proposer in return. Through this self-reinforcing reinforcement-learning loop, the two agents are initialized from the same backbone and mutually improve across iterations. Trained on 2.5K unlabeled videos, EvoGround matches or surpasses fully supervised models across multiple VTG benchmarks, while emerging as a state-of-the-art fine-grained video captioner without manual labels.",
+  "categories": [
+    "cs.CV"
+  ],
+  "primary_category": "cs.CV",
+  "comment": "Project page: https://minjoong507.github.io/projects/EvoGround/",
+  "published_date": "2026-05-13T17:25:51Z",
+  "updated_date": "2026-05-13T17:25:51Z",
+  "url": "https://arxiv.org/abs/2605.13803v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.13803v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-13T22:17:00.035565",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CV"
+  ]
+}

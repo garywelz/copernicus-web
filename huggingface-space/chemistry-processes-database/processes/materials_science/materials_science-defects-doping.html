@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Defects & Doping - Chemistry Process</title>
+    <title>Doping & Point Defects - Chemistry Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Defects & Doping</h1>
+            <h1>Doping & Point Defects</h1>
             <div class="header-meta">
                 <span class="meta-item">Chemistry</span>
                 <span class="meta-item">Materials Science</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,68 +234,56 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Defects & Doping process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>Doping a semiconductor introduces substitutional impurities that act as donors or acceptors: thermal ionization releases electrons or holes, charge neutrality is maintained through compensating defects described by Kroger-Vink notation, and the resulting carrier concentration sets the conductivity and type of the doped material.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-A3[Host Material] --> B3[Defect & Doping Method]
-C3[Dopant Species] --> D3[Defect Analysis]
-E3[Doping Conditions] --> F3[Conductivity Control]
-B3 --> G3[Defect Introduction]
-D3 --> H3[Defect Characterization]
-F3 --> I3[Doping Optimization]
-G3 --> J3[Point Defects]
-H3 --> K3[Defect Properties]
-I3 --> L3[Doping Concentration]
-J3 --> M3[Defect Formation]
-K3 --> L3
-L3 --> N3[Conductivity Modification]
-M3 --> O3[Defect Structure]
-N3 --> P3[Electronic Properties]
-O3 --> Q3[Defect Analysis]
-P3 --> R3[Modified Conductivity]
-Q3 --> S3[Property Analysis]
-R3 --> T3[Material Properties]
-S3 --> U3[Defect Parameters]
-T3 --> V3[Property Optimization]
-U3 --> W3[Defect Efficiency]
-V3 --> X3[Material Characterization]
-W3 --> Y3[Process Optimization]
-X3 --> Z3[Final Doped Material]
-Y3 --> Z3
+    N1["Pure semiconductor"]
+    N2["Introduce dopant atoms"]
+    N3{"Donor or acceptor?"}
+    N4["Donor (n-type): extra e-"]
+    N5["Acceptor (p-type): holes"]
+    N6["Ionize at temperature"]
+    N7["Defect balance (Kroger-Vink)"]
+    N8["Carrier concentration set"]
+    N9["Conductivity tuned"]
+    N10["Doped material"]
 
-    style A3 fill:#ff6b6b,color:#fff
-    style C3 fill:#ff6b6b,color:#fff
-    style E3 fill:#ff6b6b,color:#fff
-    style B3 fill:#ffd43b,color:#000
-    style D3 fill:#ffd43b,color:#000
-    style F3 fill:#ffd43b,color:#000
-    style G3 fill:#ffd43b,color:#000
-    style H3 fill:#ffd43b,color:#000
-    style I3 fill:#ffd43b,color:#000
-    style J3 fill:#ffd43b,color:#000
-    style K3 fill:#ffd43b,color:#000
-    style L3 fill:#ffd43b,color:#000
-    style M3 fill:#51cf66,color:#fff
-    style N3 fill:#51cf66,color:#fff
-    style O3 fill:#51cf66,color:#fff
-    style P3 fill:#51cf66,color:#fff
-    style Q3 fill:#51cf66,color:#fff
-    style R3 fill:#51cf66,color:#fff
-    style S3 fill:#51cf66,color:#fff
-    style T3 fill:#51cf66,color:#fff
-    style U3 fill:#51cf66,color:#fff
-    style V3 fill:#51cf66,color:#fff
-    style W3 fill:#51cf66,color:#fff
-    style X3 fill:#51cf66,color:#fff
-    style Y3 fill:#51cf66,color:#fff
-    style Z3 fill:#b197fc,color:#fff
+    N1 --> N2
+    N2 --> N3
+    N3 -->|donor| N4
+    N3 -->|acceptor| N5
+    N4 --> N6
+    N5 --> N6
+    N6 --> N7
+    N7 --> N8
+    N8 --> N9
+    N9 --> N10
+
+    style N1 fill:#ff6b6b,color:#fff
+    style N2 fill:#51cf66,color:#fff
+    style N3 fill:#74c0fc,color:#fff
+    style N4 fill:#51cf66,color:#fff
+    style N5 fill:#51cf66,color:#fff
+    style N6 fill:#51cf66,color:#fff
+    style N7 fill:#51cf66,color:#fff
+    style N8 fill:#74c0fc,color:#fff
+    style N9 fill:#51cf66,color:#fff
+    style N10 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Pure semiconductor</td><td>Triggers & Inputs</td><td><a href="https://doi.org/10.1002/0470068329" target="_blank" title="Physics of Semiconductor Devices (3rd ed.)" style="color:#e74c3c;">Sze, S. M. et al. 2007</a></td></tr><tr><td style="font-weight:600;">Introduce dopant atoms</td><td>Processing & Operations</td><td><a href="https://www.wiley.com/en-us/Materials+Science+and+Engineering%3A+An+Introduction%2C+10th+Edition-p-9781119405498" target="_blank" title="Materials Science and Engineering: An Introduction (10th ed.)" style="color:#e74c3c;">Callister, W. D. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Donor or acceptor?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1002/0470068329" target="_blank" title="Physics of Semiconductor Devices (3rd ed.)" style="color:#e74c3c;">Sze, S. M. et al. 2007</a></td></tr><tr><td style="font-weight:600;">Donor (n-type): extra e-</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1002/0470068329" target="_blank" title="Physics of Semiconductor Devices (3rd ed.)" style="color:#e74c3c;">Sze, S. M. et al. 2007</a></td></tr><tr><td style="font-weight:600;">Acceptor (p-type): holes</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1002/0470068329" target="_blank" title="Physics of Semiconductor Devices (3rd ed.)" style="color:#e74c3c;">Sze, S. M. et al. 2007</a></td></tr><tr><td style="font-weight:600;">Ionize at temperature</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1002/0470068329" target="_blank" title="Physics of Semiconductor Devices (3rd ed.)" style="color:#e74c3c;">Sze, S. M. et al. 2007</a></td></tr><tr><td style="font-weight:600;">Defect balance (Kroger-Vink)</td><td>Processing & Operations</td><td><a href="https://www.wiley.com/en-us/Materials+Science+and+Engineering%3A+An+Introduction%2C+10th+Edition-p-9781119405498" target="_blank" title="Materials Science and Engineering: An Introduction (10th ed.)" style="color:#e74c3c;">Callister, W. D. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Carrier concentration set</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1002/0470068329" target="_blank" title="Physics of Semiconductor Devices (3rd ed.)" style="color:#e74c3c;">Sze, S. M. et al. 2007</a></td></tr><tr><td style="font-weight:600;">Conductivity tuned</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1002/0470068329" target="_blank" title="Physics of Semiconductor Devices (3rd ed.)" style="color:#e74c3c;">Sze, S. M. et al. 2007</a></td></tr><tr><td style="font-weight:600;">Doped material</td><td>Products & Outputs</td><td><a href="https://www.wiley.com/en-us/Materials+Science+and+Engineering%3A+An+Introduction%2C+10th+Edition-p-9781119405498" target="_blank" title="Materials Science and Engineering: An Introduction (10th ed.)" style="color:#e74c3c;">Callister, W. D. et al. 2018</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -314,12 +329,12 @@ Y3 --> Z3
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 26</li>
-                        <li><strong>Edges:</strong> 22</li>
-                        <li><strong>Conditionals:</strong> 0</li>
+                        <li><strong>Nodes:</strong> 10</li>
+                        <li><strong>Edges:</strong> 10</li>
+                        <li><strong>Conditionals:</strong> 1</li>
                         <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 1</li>
+                        <li><strong>OR Gates:</strong> 1</li>
+                        <li><strong>Total Gates:</strong> 2</li>
                     </ul>
                 </div>
                 
@@ -327,7 +342,7 @@ Y3 --> Z3
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>defects</li><li>doping</li>
+                        <li>doping</li><li>point defects</li><li>donor</li><li>acceptor</li><li>Kroger-Vink</li>
                     </ul>
                 </div>
                 
@@ -338,43 +353,23 @@ Y3 --> Z3
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Physics of Semiconductor Devices (3rd ed.)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Sze, S. M.; Ng, K. K.
+                            , Wiley
+                             (2007)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Crossref work (10.1117/12.3054978.bd7f9ae9-428b-ef11-a9a2-00505691c5e1)</strong>
-                            
-                            
-                             (None)
-                            </span>
-                            <br><a href="https://doi.org/10.1117/12.3054978.bd7f9ae9-428b-ef11-a9a2-00505691c5e1" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1117/12.3054978.bd7f9ae9-428b-ef11-a9a2-00505691c5e1</a>
+                            <br><a href="https://doi.org/10.1002/0470068329" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1002/0470068329</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Atomic Defects and Doping of Monolayer NbSe2</strong>
-                            
-                            
-                             (None)
+                            <strong>Materials Science and Engineering: An Introduction (10th ed.)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Callister, W. D.; Rethwisch, D. G.
+                            , Wiley
+                             (2018)
                             </span>
-                            <br><a href="https://doi.org/10.1021/acsnano.6b08036.s001" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1021/acsnano.6b08036.s001</a>
                             
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Atomic Defects and Doping of Monolayer NbSe2</strong>
-                            
-                            
-                             (None)
-                            </span>
-                            <br><a href="https://doi.org/10.1021/acsnano.6b08036.s002" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1021/acsnano.6b08036.s002</a>
-                            
+                            <br><a href="https://www.wiley.com/en-us/Materials+Science+and+Engineering%3A+An+Introduction%2C+10th+Edition-p-9781119405498" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
                         </li>
                         
                     </ul>

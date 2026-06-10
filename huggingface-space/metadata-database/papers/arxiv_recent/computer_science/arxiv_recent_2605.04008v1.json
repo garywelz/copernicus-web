@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2605.04008v1",
+  "arxiv_id": "2605.04008v1",
+  "title": "Enhanced 3D Brain Tumor Segmentation Using Assorted Precision Training",
+  "authors": [
+    "Adwaitt Pandya",
+    "Ozioma C. Oguine",
+    "Harita Bhargava",
+    "Shrikant Zade"
+  ],
+  "author_string": "Adwaitt Pandya, Ozioma C. Oguine, Harita Bhargava, Shrikant Zade",
+  "journal": "arXiv:2605.04008v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": "10.54646/bijiam.2022.10",
+  "abstract": "A brain tumor is a medical disorder faced by individuals of all demographics. Medically, it is described as the spread of non-essential cells close to or throughout the brain. Symptoms of this ailment include headaches, seizures, and sensory changes. This research explores two main categories of brain tumors: benign and malignant. Benign spreads steadily, and malignant expresses growth, making it dangerous. Early identification of brain tumors is a crucial factor for the survival of patients. This research provides a state-of-the-art approach to the early identification of tumors within the brain. We implemented the SegResNet architecture, a widely adopted architecture for three-dimensional segmentation, and trained it using the automatic multi-precision method. We incorporated the dice loss function and dice metric for evaluating the model. We got a dice score of 0.84. For the tumor core, we got a dice score of 0.84; for the whole tumor, 0.90; and for the enhanced tumor, we got a score of 0.79.",
+  "categories": [
+    "cs.CV",
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": "5 pages, 5 figures, 1 table",
+  "published_date": "2026-05-05T17:30:17Z",
+  "updated_date": "2026-05-05T17:30:17Z",
+  "url": "https://arxiv.org/abs/2605.04008v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.04008v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-06T10:15:40.982026",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CV",
+    "cs.LG"
+  ]
+}

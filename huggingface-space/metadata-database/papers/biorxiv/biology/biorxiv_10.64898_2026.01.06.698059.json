@@ -1,0 +1,40 @@
+{
+  "id": "biorxiv_10.64898_2026.01.06.698059",
+  "doi": "10.64898/2026.01.06.698059",
+  "title": "damidBind: an R/Bioconductor package for differential DamID analysis and data exploration",
+  "authors": [
+    "Marshall, O. J."
+  ],
+  "author_string": "Marshall, O. J.",
+  "journal": "bioRxiv",
+  "journal_full": "bioRxiv",
+  "year": "2026",
+  "abstract": "SummaryDamID, and its cell-type specific adaptations, including Targeted DamID (TaDa), Chromatin Accessibility TaDa (CATaDa) and NanoDam, are now widely-adopted as techniques for the genome-wide profiling of DNA binding proteins. Despite this popularity, no software solution exists for identifying differentially bound or accessible loci or transcribed genes between cell types using DamID. The R/Bioconductor package damid-Bind provides these functions, allowing an end-user to move from raw binding profiles to identifying differentially-bound loci in a reproducible, statistically-robust and straightfor-ward workflow.\n\nAvailability and ImplementationdamidBind is open-source and freely available from https://bioconductor.org/packages/damidBind/ and https://github.com/marshall-lab/damid-Bind. The package is implemented in R, and is released under the GPLv3 licence.\n\nContactOwen Marshall (owen.marshall@utas.edu.au)",
+  "keywords": [],
+  "categories": [
+    "bioinformatics"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.64898/2026.01.06.698059",
+  "source": "biorxiv",
+  "sources": [
+    "biorxiv"
+  ],
+  "acquired_date": "2026-05-10T22:15:23.380878",
+  "category": "biology",
+  "subcategories": [
+    "bioinformatics"
+  ],
+  "published_date": "2026-01-10",
+  "updated_date": "2026-01-10",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "biorxiv",
+  "preprint_version": "2",
+  "preprint_type": "new results",
+  "license": "cc_by",
+  "jatsxml": "https://www.biorxiv.org/content/early/2026/01/10//2026.01.06.698059.source.xml",
+  "published_doi": null,
+  "author_corresponding": "Owen J Marshall",
+  "author_corresponding_institution": "University of Tasmania"
+}

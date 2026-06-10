@@ -4,18 +4,20 @@
   "category": "chemistry",
   "subcategory": "spectroscopy_advanced",
   "subcategory_name": "Spectroscopy Advanced",
-  "description": "Mass Spectrometry process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "Mass spectrometry ionizes a sample to molecular and fragment ions, accelerates them into a mass analyzer that separates by mass-to-charge ratio, and detects abundances; identifying the molecular ion and interpreting fragmentation reveals mass and structure.",
   "complexity": {
-    "nodes": 26,
-    "edges": 22,
-    "conditionals": 0,
+    "nodes": 10,
+    "edges": 10,
+    "conditionals": 1,
     "logicGates": {
-      "orGates": 0,
+      "orGates": 1,
       "andGates": 1,
-      "total": 1
+      "notGates": 0,
+      "total": 2
     },
-    "level": "medium",
-    "detailLevel": "medium"
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 1
   },
   "colorScheme": {
     "red": {
@@ -39,53 +41,151 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nA4[Sample Molecules] --> B4[Mass Spectrometry Method]\nC4[Ionization Source] --> D4[Mass Analyzer]\nE4[Detector System] --> F4[Data Collection]\nB4 --> G4[Sample Introduction]\nD4 --> H4[Mass Separation]\nF4 --> I4[Signal Processing]\nG4 --> J4[Sample Vaporization]\nH4 --> K4[Mass-to-Charge Ratio]\nI4 --> L4[Ion Detection]\nJ4 --> M4[Molecular Ionization]\nK4 --> L4\nL4 --> N4[Ion Separation]\nM4 --> O4[Ion Formation]\nN4 --> P4[Mass Analysis]\nO4 --> Q4[Spectroscopic Analysis]\nP4 --> R4[Mass Spectrum]\nQ4 --> S4[Fragmentation Analysis]\nR4 --> T4[Molecular Weight]\nS4 --> U4[Fragmentation Pattern]\nT4 --> V4[Molecular Identification]\nU4 --> W4[Spectroscopic Efficiency]\nV4 --> X4[Molecular Characterization]\nW4 --> Y4[Process Optimization]\nX4 --> Z4[Final Mass Spectrum]\nY4 --> Z4\n\n    style A4 fill:#ff6b6b,color:#fff\n    style C4 fill:#ff6b6b,color:#fff\n    style E4 fill:#ff6b6b,color:#fff\n    style B4 fill:#ffd43b,color:#000\n    style D4 fill:#ffd43b,color:#000\n    style F4 fill:#ffd43b,color:#000\n    style G4 fill:#ffd43b,color:#000\n    style H4 fill:#ffd43b,color:#000\n    style I4 fill:#ffd43b,color:#000\n    style J4 fill:#ffd43b,color:#000\n    style K4 fill:#ffd43b,color:#000\n    style L4 fill:#ffd43b,color:#000\n    style M4 fill:#51cf66,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style O4 fill:#51cf66,color:#fff\n    style P4 fill:#51cf66,color:#fff\n    style Q4 fill:#51cf66,color:#fff\n    style R4 fill:#51cf66,color:#fff\n    style S4 fill:#51cf66,color:#fff\n    style T4 fill:#51cf66,color:#fff\n    style U4 fill:#51cf66,color:#fff\n    style V4 fill:#51cf66,color:#fff\n    style W4 fill:#51cf66,color:#fff\n    style X4 fill:#51cf66,color:#fff\n    style Y4 fill:#51cf66,color:#fff\n    style Z4 fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"Sample introduced\"]\n    N2[\"Ionization (EI / ESI)\"]\n    N3[\"Molecular ion + fragments\"]\n    N4[\"Accelerate into analyzer\"]\n    N5[\"Separate by m/z\"]\n    N6[\"Detect ion abundance\"]\n    N7{\"Molecular ion clear?\"}\n    N8[\"Use soft ionization\"]\n    N9[\"Interpret fragmentation\"]\n    N10[\"Structure / mass\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 --> N4\n    N4 --> N5\n    N5 --> N6\n    N6 --> N7\n    N7 -->|no| N8\n    N8 -->|re-ionize| N2\n    N7 -->|yes| N9\n    N9 --> N10\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#74c0fc,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#74c0fc,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#51cf66,color:#fff\n    style N10 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
-      "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: Mass Spectrometry. Created using the Programming Framework methodology."
-    },
-    {
-      "title": "Tandem mass spectrometry",
-      "authors": "McCullagh, James; Oldham, Neil",
-      "journal": "Mass Spectrometry",
-      "year": "2019",
-      "pubmed": null,
-      "doi": "10.1093/hesc/9780198789048.003.0005",
-      "url": "https://doi.org/10.1093/hesc/9780198789048.003.0005"
-    },
-    {
-      "title": "Mass spectrometry applications",
-      "authors": "McCullagh, James; Oldham, Neil",
-      "journal": "Mass Spectrometry",
-      "year": "2019",
-      "pubmed": null,
-      "doi": "10.1093/hesc/9780198789048.003.0008",
-      "url": "https://doi.org/10.1093/hesc/9780198789048.003.0008"
-    },
-    {
-      "title": "K. Busch, G. Glish and S. Mcluckey. Mass spectrometry/mass spectrometry: Techniques and applications of tandem mass spectrometry, VCH publishing, New York, 1988. Mass Spectrometry/Mass Spectrometry",
-      "authors": "Musselman, Brian D.",
-      "journal": "Biological Mass Spectrometry",
+      "title": "Electrospray ionization for mass spectrometry of large biomolecules",
+      "authors": "Fenn, J. B.; Mann, M.; Meng, C. K.; Wong, S. F.; Whitehouse, C. M.",
+      "journal": "Science",
       "year": "1989",
-      "pubmed": null,
-      "doi": "10.1002/bms.1200181017",
-      "url": "https://doi.org/10.1002/bms.1200181017"
+      "doi": "10.1126/science.2675315",
+      "url": "https://doi.org/10.1126/science.2675315"
+    },
+    {
+      "title": "Mass Spectrometry: Principles and Applications, 3rd ed.",
+      "authors": "de Hoffmann, E.; Stroobant, V.",
+      "journal": "Wiley",
+      "year": "2007",
+      "doi": null,
+      "url": "https://www.wiley.com/en-us/Mass+Spectrometry%3A+Principles+and+Applications%2C+3rd+Edition-p-9780470033104"
+    },
+    {
+      "title": "Principles of Instrumental Analysis, 7th ed. — Molecular Mass Spectrometry",
+      "authors": "Skoog, D. A.; Holler, F. J.; Crouch, S. R.",
+      "journal": "Cengage Learning",
+      "year": "2018",
+      "doi": null,
+      "url": "https://www.cengage.com/c/principles-of-instrumental-analysis-7e-skoog/9781305577213/"
     }
   ],
   "keywords": [
-    "mass",
-    "spectrometry"
+    "mass spectrometry",
+    "ionization",
+    "mass-to-charge",
+    "fragmentation",
+    "molecular ion"
   ],
   "relatedProcesses": [],
   "created": "2026-01-08",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Sample introduced",
+      "detail": "Inlet to source",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 2
+    },
+    {
+      "id": "N2",
+      "label": "Ionization (EI / ESI)",
+      "detail": "Create gas-phase ions",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N3",
+      "label": "Molecular ion + fragments",
+      "detail": "M+• and product ions",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 2
+    },
+    {
+      "id": "N4",
+      "label": "Accelerate into analyzer",
+      "detail": "Electric field",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N5",
+      "label": "Separate by m/z",
+      "detail": "Quadrupole / TOF",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N6",
+      "label": "Detect ion abundance",
+      "detail": "Mass spectrum",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N7",
+      "label": "Molecular ion clear?",
+      "detail": "Find M+ peak",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N8",
+      "label": "Use soft ionization",
+      "detail": "Preserve molecular ion",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N9",
+      "label": "Interpret fragmentation",
+      "detail": "Neutral losses, series",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N10",
+      "label": "Structure / mass",
+      "detail": "Identification",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 1
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:spectroscopy_advanced-mass-spectrometry",
+    "graphType": "cyclic_pathway",
+    "topologySignature": "01ac3b386d81985b",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "namedCollections": [
+    "spectroscopy"
+  ],
+  "graphMetrics": {
+    "nodes": 10,
+    "edges": 10,
+    "conditionals": 1,
+    "andGates": 1,
+    "orGates": 1,
+    "notGates": 0,
+    "loops": 1
+  },
+  "graphType": "cyclic_pathway",
+  "domainContext": "Mass spectrometry"
 }

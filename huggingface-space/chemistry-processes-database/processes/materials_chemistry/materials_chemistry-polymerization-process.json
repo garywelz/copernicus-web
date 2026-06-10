@@ -1,21 +1,23 @@
 {
   "id": "materials_chemistry-polymerization-process",
-  "name": "Polymerization Process",
+  "name": "Emulsion Polymerization",
   "category": "chemistry",
   "subcategory": "materials_chemistry",
   "subcategory_name": "Materials Chemistry",
-  "description": "Polymerization Process process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "Emulsion polymerization builds polymer inside surfactant micelles dispersed in water: above the critical micelle concentration a water-soluble initiator generates radicals that enter micelles to nucleate particles, monomer diffuses from droplets to feed propagation, and growth continues until droplets are exhausted, yielding a polymer latex.",
   "complexity": {
-    "nodes": 9,
-    "edges": 10,
-    "conditionals": 0,
+    "nodes": 11,
+    "edges": 12,
+    "conditionals": 1,
     "logicGates": {
-      "orGates": 1,
+      "orGates": 2,
       "andGates": 2,
-      "total": 3
+      "notGates": 0,
+      "total": 4
     },
-    "level": "medium",
-    "detailLevel": "medium"
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 1
   },
   "colorScheme": {
     "red": {
@@ -39,53 +41,151 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nN1[\"Monomers\"]\nN2[\"Initiator/Catalyst\"]\nN3[\"Reactor\"]\nN4[\"Choose Path\"]\nN5[\"Initiation\"]\nN6[\"Propagation\"]\nN7[\"Termination\"]\nN8[\"Polymer Product\"]\nN9[\"Integrate\"]\n\nN1 --> N2\nN2 --> N3\nN3 --> N4\nN4 --> N5\nN4 --> N7\nN5 --> N6\nN7 --> N8\nN6 --> N9\nN8 --> N9\nN9 --> N6\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#ff6b6b,color:#fff\n    style N3 fill:#ffd43b,color:#000\n    style N4 fill:#ffd43b,color:#000\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#b197fc,color:#fff\n    style N9 fill:#74c0fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"Monomer + water + surfactant\"]\n    N2[\"Above CMC: micelles form\"]\n    N3[\"Monomer droplets reservoir\"]\n    N4[\"Add aqueous initiator\"]\n    N5[\"Radical enters micelle\"]\n    N6[\"Particle nucleation\"]\n    N7[\"Monomer diffuses from droplets\"]\n    N8[\"Propagate in particles\"]\n    N9{\"Droplets depleted?\"}\n    N10[\"Continue from particle pool\"]\n    N11[\"Polymer latex\"]\n\n    N1 --> N2\n    N2 --> N3\n    N1 --> N4\n    N4 --> N5\n    N3 --> N5\n    N5 --> N6\n    N6 --> N7\n    N7 --> N8\n    N8 --> N9\n    N9 -->|no| N10\n    N10 -->|feed| N8\n    N9 -->|yes| N11\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#74c0fc,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#74c0fc,color:#fff\n    style N10 fill:#51cf66,color:#fff\n    style N11 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
-      "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: Polymerization Process. Created using the Programming Framework methodology."
+      "title": "A general theory of the mechanism of emulsion polymerization",
+      "authors": "Harkins, W. D.",
+      "journal": "Journal of the American Chemical Society",
+      "year": "1947",
+      "doi": "10.1021/ja01200a012",
+      "url": "https://doi.org/10.1021/ja01200a012"
     },
     {
-      "title": "Polycaprolactone and Polyurethane Polymerization Process Modeling in Polymers Plus",
-      "authors": "",
-      "journal": "Step‐Growth Polymerization Process Modeling and Product Design",
-      "year": "2008",
-      "pubmed": null,
-      "doi": "10.1002/9780470292488.ch14",
-      "url": "https://doi.org/10.1002/9780470292488.ch14"
-    },
-    {
-      "title": "Kinetics of foamed polymerization process",
-      "authors": "Potipin, Petcharat",
-      "journal": "",
-      "year": "None",
-      "pubmed": null,
-      "doi": "10.58837/chula.the.1996.2411",
-      "url": "https://doi.org/10.58837/chula.the.1996.2411"
-    },
-    {
-      "title": "Nylon‐6 Bubble‐Gas Polymerization Process Simulation in Polymers Plus",
-      "authors": "",
-      "journal": "Step‐Growth Polymerization Process Modeling and Product Design",
-      "year": "2008",
-      "pubmed": null,
-      "doi": "10.1002/9780470292488.ch13",
-      "url": "https://doi.org/10.1002/9780470292488.ch13"
+      "title": "Kinetics of emulsion polymerization",
+      "authors": "Smith, W. V.; Ewart, R. H.",
+      "journal": "Journal of Chemical Physics",
+      "year": "1948",
+      "doi": "10.1063/1.1746738",
+      "url": "https://doi.org/10.1063/1.1746738"
     }
   ],
   "keywords": [
-    "polymerization",
-    "process"
+    "emulsion polymerization",
+    "micelle",
+    "particle nucleation",
+    "latex",
+    "Smith-Ewart"
   ],
   "relatedProcesses": [],
   "created": "2026-01-15",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations.\nCurated Mermaid applied (citations preserved)."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "namedCollections": [
+    "materials-chemistry"
+  ],
+  "graphMetrics": {
+    "nodes": 11,
+    "edges": 12,
+    "conditionals": 1,
+    "andGates": 2,
+    "orGates": 2,
+    "notGates": 0,
+    "loops": 1
+  },
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Monomer + water + surfactant",
+      "detail": "Emulsified system",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N2",
+      "label": "Above CMC: micelles form",
+      "detail": "Swollen with monomer",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N3",
+      "label": "Monomer droplets reservoir",
+      "detail": "Large droplets persist",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N4",
+      "label": "Add aqueous initiator",
+      "detail": "Generate radicals in water",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N5",
+      "label": "Radical enters micelle",
+      "detail": "Locus of reaction",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N6",
+      "label": "Particle nucleation",
+      "detail": "Micelles become particles",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N7",
+      "label": "Monomer diffuses from droplets",
+      "detail": "Feeds growing particles",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N8",
+      "label": "Propagate in particles",
+      "detail": "Chain growth",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N9",
+      "label": "Droplets depleted?",
+      "detail": "Reservoir exhausted",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N10",
+      "label": "Continue from particle pool",
+      "detail": "Stage III kinetics",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N11",
+      "label": "Polymer latex",
+      "detail": "Colloidal dispersion",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 0
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:materials_chemistry-polymerization-process",
+    "graphType": "decision_flowchart",
+    "topologySignature": "4873614a1db60cb3",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "graphType": "decision_flowchart",
+  "domainContext": "Polymer / materials chemistry"
 }

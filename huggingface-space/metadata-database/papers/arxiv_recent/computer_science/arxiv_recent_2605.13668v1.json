@@ -1,0 +1,30 @@
+{
+  "id": "arxiv_2605.13668v1",
+  "arxiv_id": "2605.13668v1",
+  "title": "Multi-Property Temporal Logic Monitoring",
+  "authors": [
+    "Arınç Demir",
+    "Dogan Ulus"
+  ],
+  "author_string": "Arınç Demir, Dogan Ulus",
+  "journal": "arXiv:2605.13668v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Runtime verification enables checking temporal logic specifications over individual execution traces and offers a scalable alternative to exhaustive formal verification. In practice, systems must satisfy dozens to hundreds of temporal properties simultaneously; however, existing approaches monitor each property in isolation, resulting in redundant computation and limited scalability. In this work, we present an online multi-property monitoring framework that compiles past-time LTL and MTL specifications into a shared directed acyclic graph of subformulas with one output per property. Unlike prior approaches that construct monitors independently, our method extends compositional sequential network-based temporal logic monitor construction to a shared setting, enabling reuse of intermediate results across properties while preserving their individual structure. Central to our approach is a data-oriented execution model based on an arena-allocated, double-buffered layout that stores intermediate results for each subformula in compact, contiguous memory. This design favors spatial locality and enables incremental updates with minimal overhead. Experimental results demonstrate per-property throughput improvements of 2x to 4.5x and 6x to 12x in multi-property configurations compared to conventional single-property monitoring, enabling scalability to large specification sets and deployment in high-performance and resource-constrained systems.",
+  "categories": [
+    "cs.LO"
+  ],
+  "primary_category": "cs.LO",
+  "comment": null,
+  "published_date": "2026-05-13T15:29:38Z",
+  "updated_date": "2026-05-13T15:29:38Z",
+  "url": "https://arxiv.org/abs/2605.13668v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.13668v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-13T22:17:14.550132",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.LO"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "acquired_date": "2025-10-08T00:00:00Z",
+  "category": "Gene Regulation",
+  "created": "2025-10-08",
+  "description": "Ara operon in KEGG style: arabinose metabolism pathway (L-Arabinose → Ribulose → R5P → X5P), transport (araE), and AraC/CRP regulation of araBAD (eco gene IDs).",
+  "id": "process_Gene Regulation_ara-kegg",
+  "name": "Ara Operon (KEGG-sourced)",
+  "organism": "E. coli",
+  "source": "KEGG",
+  "source_version": "2024",
+  "version_label": "V5",
+  "notes": "V5 = KEGG only. KEGG carbohydrate pathway; araE, araBAD (eco:b); AraC/CRP regulatory links.",
+  "mermaid": "graph TD\n    ARAB[L-Arabinose]\n    ARAE[eco:b00734 araE]\n    ARAC[eco:b00736 araC]\n    CRP[eco:b3356 crp]\n    ARABAD[araBAD]\n    ARA_B[eco:b00735 araB]\n    ARA_A[eco:b00737 araA]\n    ARA_D[eco:b00738 araD]\n    RIB[L-Ribulose]\n    R5P[Ribulose-5-P]\n    X5P[Xylulose-5-P]\n    ARAB -->|araE transport| ARAE\n    ARAB -->|inducer| ARAC\n    CRP -->|activate| ARABAD\n    ARAC -->|repress/activate| ARABAD\n    ARABAD --> ARA_B\n    ARABAD --> ARA_A\n    ARABAD --> ARA_D\n    ARAB -->|araA| RIB\n    RIB -->|araB| R5P\n    R5P -->|araD| X5P\n    style ARAB fill:#e74c3c,color:#fff\n    style ARAE fill:#74c0fc,color:#000\n    style ARAC fill:#ffd43b,color:#000\n    style CRP fill:#ffd43b,color:#000\n    style ARABAD fill:#74c0fc,color:#000\n    style ARA_B fill:#74c0fc,color:#000\n    style ARA_A fill:#74c0fc,color:#000\n    style ARA_D fill:#74c0fc,color:#000\n    style RIB fill:#74c0fc,color:#000\n    style R5P fill:#74c0fc,color:#000\n    style X5P fill:#b197fc,color:#000",
+  "related_processes": ["ecoli_ara_operon"],
+  "scientificAccuracy": "KEGG pathway and gene annotations for E. coli ara operon; araE and araBAD pathway.",
+  "sources": [{"title": "KEGG", "url": "https://www.genome.jp/kegg/", "note": "KEGG GENES (eco), arabinose metabolism, araE."}]
+}

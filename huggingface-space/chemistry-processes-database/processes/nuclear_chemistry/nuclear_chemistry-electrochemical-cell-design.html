@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Electrochemical Cell Design - Chemistry Process</title>
+    <title>Nuclear Fission Chain Reaction - Chemistry Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Electrochemical Cell Design</h1>
+            <h1>Nuclear Fission Chain Reaction</h1>
             <div class="header-meta">
                 <span class="meta-item">Chemistry</span>
                 <span class="meta-item">Nuclear Chemistry</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,68 +234,60 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Electrochemical Cell Design process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>A fissile nucleus absorbs a neutron, deforms and splits into fragments, releasing energy and two to three neutrons; whether the chain is self-sustaining depends on neutron moderation and losses, captured by the effective multiplication factor.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-A1[Electrode Materials] --> B1[Cell Design Method]
-C1[Electrolyte Solution] --> D1[Potential Measurement]
-E1[External Circuit] --> F1[Current Control]
-B1 --> G1[Anode Selection]
-D1 --> H1[Voltage Monitoring]
-F1 --> I1[Resistance Optimization]
-G1 --> J1[Oxidation Potential]
-H1 --> K1[Cell Voltage]
-I1 --> L1[Current Density]
-J1 --> M1[Electron Release]
-K1 --> L1
-L1 --> N1[Charge Transfer]
-M1 --> O1[Ion Migration]
-N1 --> P1[Electrochemical Reaction]
-O1 --> Q1[Cell Performance]
-P1 --> R1[Product Formation]
-Q1 --> S1[Efficiency Calculation]
-R1 --> T1[Reaction Products]
-S1 --> U1[Performance Metrics]
-T1 --> V1[Yield Analysis]
-U1 --> W1[Optimization Parameters]
-V1 --> X1[Process Validation]
-W1 --> Y1[Design Refinement]
-X1 --> Z1[Final Cell Configuration]
-Y1 --> Z1
+    N1["Fissile nucleus (U-235)"]
+    N2["Neutron absorbed"]
+    N3["Compound nucleus deforms"]
+    N4["Splits into fragments"]
+    N5["Energy + 2–3 neutrons"]
+    N6{"Neutrons moderated?"}
+    N7["Thermalized: more fission"]
+    N8["Lost or captured"]
+    N9{"k_eff vs 1?"}
+    N10["Critical: sustained chain"]
+    N11["Subcritical: dies out"]
 
-    style A1 fill:#ff6b6b,color:#fff
-    style C1 fill:#ff6b6b,color:#fff
-    style E1 fill:#ff6b6b,color:#fff
-    style B1 fill:#ffd43b,color:#000
-    style D1 fill:#ffd43b,color:#000
-    style F1 fill:#ffd43b,color:#000
-    style G1 fill:#ffd43b,color:#000
-    style H1 fill:#ffd43b,color:#000
-    style I1 fill:#ffd43b,color:#000
-    style J1 fill:#ffd43b,color:#000
-    style K1 fill:#ffd43b,color:#000
-    style L1 fill:#ffd43b,color:#000
-    style M1 fill:#51cf66,color:#fff
-    style N1 fill:#51cf66,color:#fff
-    style O1 fill:#51cf66,color:#fff
-    style P1 fill:#51cf66,color:#fff
-    style Q1 fill:#51cf66,color:#fff
-    style R1 fill:#51cf66,color:#fff
-    style S1 fill:#51cf66,color:#fff
-    style T1 fill:#51cf66,color:#fff
-    style U1 fill:#51cf66,color:#fff
-    style V1 fill:#51cf66,color:#fff
-    style W1 fill:#51cf66,color:#fff
-    style X1 fill:#51cf66,color:#fff
-    style Y1 fill:#51cf66,color:#fff
-    style Z1 fill:#b197fc,color:#fff
+    N1 --> N2
+    N2 --> N3
+    N3 --> N4
+    N4 --> N5
+    N5 --> N6
+    N6 -->|yes| N7
+    N6 -->|no| N8
+    N7 --> N9
+    N8 --> N9
+    N9 -->|k ≥ 1| N10
+    N10 -->|sustains| N2
+    N9 -->|k < 1| N11
+
+    style N1 fill:#ff6b6b,color:#fff
+    style N2 fill:#51cf66,color:#fff
+    style N3 fill:#51cf66,color:#fff
+    style N4 fill:#51cf66,color:#fff
+    style N5 fill:#51cf66,color:#fff
+    style N6 fill:#74c0fc,color:#fff
+    style N7 fill:#51cf66,color:#fff
+    style N8 fill:#51cf66,color:#fff
+    style N9 fill:#74c0fc,color:#fff
+    style N10 fill:#b197fc,color:#fff
+    style N11 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Fissile nucleus (U-235)</td><td>Triggers & Inputs</td><td><a href="https://doi.org/10.1038/143239a0" target="_blank" title="Disintegration of uranium by neutrons: a new type of nuclear reaction" style="color:#e74c3c;">Meitner, L. et al. 1939</a></td></tr><tr><td style="font-weight:600;">Neutron absorbed</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1038/143239a0" target="_blank" title="Disintegration of uranium by neutrons: a new type of nuclear reaction" style="color:#e74c3c;">Meitner, L. et al. 1939</a></td></tr><tr><td style="font-weight:600;">Compound nucleus deforms</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1038/143239a0" target="_blank" title="Disintegration of uranium by neutrons: a new type of nuclear reaction" style="color:#e74c3c;">Meitner, L. et al. 1939</a></td></tr><tr><td style="font-weight:600;">Splits into fragments</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1007/BF01488241" target="_blank" title="Über den Nachweis und das Verhalten der bei der Bestrahlung des Urans entstehenden Erdalkalimetalle" style="color:#e74c3c;">Hahn, O. et al. 1939</a></td></tr><tr><td style="font-weight:600;">Energy + 2–3 neutrons</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1038/143239a0" target="_blank" title="Disintegration of uranium by neutrons: a new type of nuclear reaction" style="color:#e74c3c;">Meitner, L. et al. 1939</a></td></tr><tr><td style="font-weight:600;">Neutrons moderated?</td><td>Intermediates & States</td><td><a href="https://www.wiley.com/en-us/Introductory+Nuclear+Physics-p-9780471805533" target="_blank" title="Introductory Nuclear Physics — Nuclear Fission" style="color:#e74c3c;">Krane, K. S. 1987</a></td></tr><tr><td style="font-weight:600;">Thermalized: more fission</td><td>Processing & Operations</td><td><a href="https://www.wiley.com/en-us/Introductory+Nuclear+Physics-p-9780471805533" target="_blank" title="Introductory Nuclear Physics — Nuclear Fission" style="color:#e74c3c;">Krane, K. S. 1987</a></td></tr><tr><td style="font-weight:600;">Lost or captured</td><td>Processing & Operations</td><td><a href="https://www.wiley.com/en-us/Introductory+Nuclear+Physics-p-9780471805533" target="_blank" title="Introductory Nuclear Physics — Nuclear Fission" style="color:#e74c3c;">Krane, K. S. 1987</a></td></tr><tr><td style="font-weight:600;">k_eff vs 1?</td><td>Intermediates & States</td><td><a href="https://www.wiley.com/en-us/Introductory+Nuclear+Physics-p-9780471805533" target="_blank" title="Introductory Nuclear Physics — Nuclear Fission" style="color:#e74c3c;">Krane, K. S. 1987</a></td></tr><tr><td style="font-weight:600;">Critical: sustained chain</td><td>Products & Outputs</td><td><a href="https://www.wiley.com/en-us/Introductory+Nuclear+Physics-p-9780471805533" target="_blank" title="Introductory Nuclear Physics — Nuclear Fission" style="color:#e74c3c;">Krane, K. S. 1987</a></td></tr><tr><td style="font-weight:600;">Subcritical: dies out</td><td>Products & Outputs</td><td><a href="https://www.wiley.com/en-us/Introductory+Nuclear+Physics-p-9780471805533" target="_blank" title="Introductory Nuclear Physics — Nuclear Fission" style="color:#e74c3c;">Krane, K. S. 1987</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -314,12 +333,12 @@ Y1 --> Z1
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 26</li>
-                        <li><strong>Edges:</strong> 22</li>
-                        <li><strong>Conditionals:</strong> 0</li>
-                        <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 1</li>
+                        <li><strong>Nodes:</strong> 11</li>
+                        <li><strong>Edges:</strong> 12</li>
+                        <li><strong>Conditionals:</strong> 2</li>
+                        <li><strong>AND Gates:</strong> 2</li>
+                        <li><strong>OR Gates:</strong> 2</li>
+                        <li><strong>Total Gates:</strong> 4</li>
                     </ul>
                 </div>
                 
@@ -327,7 +346,7 @@ Y1 --> Z1
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>electrochemical</li><li>cell</li><li>design</li>
+                        <li>nuclear fission</li><li>chain reaction</li><li>criticality</li><li>moderator</li><li>multiplication factor</li>
                     </ul>
                 </div>
                 
@@ -338,43 +357,33 @@ Y1 --> Z1
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Disintegration of uranium by neutrons: a new type of nuclear reaction</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Meitner, L.; Frisch, O. R.
+                            , Nature
+                             (1939)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Hydraulic Modelling As An Aid To Electrochemical Cell Design</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Wardle, Ian
-                            , Electrochemical Cell Design
-                             (1984)
-                            </span>
-                            <br><a href="https://doi.org/10.1007/978-1-4613-2795-0_5" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1007/978-1-4613-2795-0_5</a>
+                            <br><a href="https://doi.org/10.1038/143239a0" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1038/143239a0</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Design And Development Of Electrochemical Chlor-Alkali Cells</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Chatterjee, S. N.
-                            , Electrochemical Cell Design
-                             (1984)
+                            <strong>Über den Nachweis und das Verhalten der bei der Bestrahlung des Urans entstehenden Erdalkalimetalle</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Hahn, O.; Strassmann, F.
+                            , Naturwissenschaften
+                             (1939)
                             </span>
-                            <br><a href="https://doi.org/10.1007/978-1-4613-2795-0_1" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1007/978-1-4613-2795-0_1</a>
+                            <br><a href="https://doi.org/10.1007/BF01488241" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1007/BF01488241</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Design of EC Modularized Electrochemical Cells</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Bjareklint, A.; Carlsson, L.; Sandegren, B.
-                            , Electrochemical Cell Design
-                             (1984)
+                            <strong>Introductory Nuclear Physics — Nuclear Fission</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Krane, K. S.
+                            , Wiley
+                             (1987)
                             </span>
-                            <br><a href="https://doi.org/10.1007/978-1-4613-2795-0_10" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1007/978-1-4613-2795-0_10</a>
                             
+                            <br><a href="https://www.wiley.com/en-us/Introductory+Nuclear+Physics-p-9780471805533" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
                         </li>
                         
                     </ul>

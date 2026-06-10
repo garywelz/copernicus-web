@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Graph Traversal - Computer Science Process</title>
+    <title>Graph Traversal (BFS / DFS) - Computer Science Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Graph Traversal</h1>
+            <h1>Graph Traversal (BFS / DFS)</h1>
             <div class="header-meta">
                 <span class="meta-item">Computer Science</span>
                 <span class="meta-item">Algorithms & Data Structures</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,54 +234,60 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Graph Traversal process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>Graph traversal visits every reachable vertex from a start node using a worklist: breadth-first search uses a FIFO queue to explore level by level, depth-first search uses a LIFO stack to dive deep first; vertices are marked visited to avoid revisiting, and traversal ends when the container is empty.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-N1["Graph (V,E)"]
-N2["Start Node(s)"]
-N3["Visited Set"]
-N4["Choose Approach"]
-N5["Frontier (Stack/Queue)"]
-N6["Pop Next Node"]
-N7["Mark Visited"]
-N8["Process Node"]
-N9["Integrate Results"]
-N10["Push Unvisited Neighbors"]
-N11["Traversal Order/Tree"]
-N12["Traversal Output"]
+    N1["Graph + start vertex"]
+    N2["Mark start visited"]
+    N3{"BFS or DFS?"}
+    N4["BFS: enqueue (queue)"]
+    N5["DFS: push (stack)"]
+    N6["Remove next vertex"]
+    N7["Visit unvisited neighbors"]
+    N8{"Container empty?"}
+    N9["Add neighbor to container"]
+    N10["All reachable visited"]
+    N11["Traversal order"]
 
-N1 --> N2
-N2 --> N3
-N3 --> N4
-N4 --> N5
-N4 --> N7
-N5 --> N6
-N7 --> N8
-N6 --> N9
-N8 --> N9
-N9 --> N10
-N10 --> N11
-N11 --> N12
+    N1 --> N2
+    N2 --> N3
+    N3 -->|bfs| N4
+    N3 -->|dfs| N5
+    N4 --> N6
+    N5 --> N6
+    N6 --> N7
+    N7 --> N8
+    N8 -->|no| N9
+    N9 -->|continue| N6
+    N8 -->|yes| N10
+    N10 --> N11
 
     style N1 fill:#ff6b6b,color:#fff
-    style N2 fill:#ff6b6b,color:#fff
-    style N3 fill:#ffd43b,color:#000
-    style N4 fill:#ffd43b,color:#000
-    style N5 fill:#ffd43b,color:#000
+    style N2 fill:#51cf66,color:#fff
+    style N3 fill:#74c0fc,color:#fff
+    style N4 fill:#51cf66,color:#fff
+    style N5 fill:#51cf66,color:#fff
     style N6 fill:#51cf66,color:#fff
     style N7 fill:#51cf66,color:#fff
-    style N8 fill:#51cf66,color:#fff
-    style N9 fill:#74c0fc,color:#fff
-    style N10 fill:#51cf66,color:#fff
-    style N11 fill:#74c0fc,color:#fff
-    style N12 fill:#b197fc,color:#fff
+    style N8 fill:#74c0fc,color:#fff
+    style N9 fill:#51cf66,color:#fff
+    style N10 fill:#74c0fc,color:#fff
+    style N11 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Graph + start vertex</td><td>Triggers & Inputs</td><td><a href="https://mitpress.mit.edu/9780262046305/introduction-to-algorithms/" target="_blank" title="Introduction to Algorithms (4th ed.)" style="color:#9b59b6;">Cormen, T. H. et al. 2022</a></td></tr><tr><td style="font-weight:600;">Mark start visited</td><td>Processing & Operations</td><td><a href="https://mitpress.mit.edu/9780262046305/introduction-to-algorithms/" target="_blank" title="Introduction to Algorithms (4th ed.)" style="color:#9b59b6;">Cormen, T. H. et al. 2022</a></td></tr><tr><td style="font-weight:600;">BFS or DFS?</td><td>Intermediates & States</td><td><a href="https://algs4.cs.princeton.edu/home/" target="_blank" title="Algorithms (4th ed.)" style="color:#9b59b6;">Sedgewick, R. et al. 2011</a></td></tr><tr><td style="font-weight:600;">BFS: enqueue (queue)</td><td>Processing & Operations</td><td><a href="https://mitpress.mit.edu/9780262046305/introduction-to-algorithms/" target="_blank" title="Introduction to Algorithms (4th ed.)" style="color:#9b59b6;">Cormen, T. H. et al. 2022</a></td></tr><tr><td style="font-weight:600;">DFS: push (stack)</td><td>Processing & Operations</td><td><a href="https://mitpress.mit.edu/9780262046305/introduction-to-algorithms/" target="_blank" title="Introduction to Algorithms (4th ed.)" style="color:#9b59b6;">Cormen, T. H. et al. 2022</a></td></tr><tr><td style="font-weight:600;">Remove next vertex</td><td>Processing & Operations</td><td><a href="https://algs4.cs.princeton.edu/home/" target="_blank" title="Algorithms (4th ed.)" style="color:#9b59b6;">Sedgewick, R. et al. 2011</a></td></tr><tr><td style="font-weight:600;">Visit unvisited neighbors</td><td>Processing & Operations</td><td><a href="https://mitpress.mit.edu/9780262046305/introduction-to-algorithms/" target="_blank" title="Introduction to Algorithms (4th ed.)" style="color:#9b59b6;">Cormen, T. H. et al. 2022</a></td></tr><tr><td style="font-weight:600;">Container empty?</td><td>Intermediates & States</td><td><a href="https://mitpress.mit.edu/9780262046305/introduction-to-algorithms/" target="_blank" title="Introduction to Algorithms (4th ed.)" style="color:#9b59b6;">Cormen, T. H. et al. 2022</a></td></tr><tr><td style="font-weight:600;">Add neighbor to container</td><td>Processing & Operations</td><td><a href="https://algs4.cs.princeton.edu/home/" target="_blank" title="Algorithms (4th ed.)" style="color:#9b59b6;">Sedgewick, R. et al. 2011</a></td></tr><tr><td style="font-weight:600;">All reachable visited</td><td>Intermediates & States</td><td><a href="https://mitpress.mit.edu/9780262046305/introduction-to-algorithms/" target="_blank" title="Introduction to Algorithms (4th ed.)" style="color:#9b59b6;">Cormen, T. H. et al. 2022</a></td></tr><tr><td style="font-weight:600;">Traversal order</td><td>Products & Outputs</td><td><a href="https://algs4.cs.princeton.edu/home/" target="_blank" title="Algorithms (4th ed.)" style="color:#9b59b6;">Sedgewick, R. et al. 2011</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -300,12 +333,12 @@ N11 --> N12
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 12</li>
+                        <li><strong>Nodes:</strong> 11</li>
                         <li><strong>Edges:</strong> 12</li>
-                        <li><strong>Conditionals:</strong> 0</li>
+                        <li><strong>Conditionals:</strong> 2</li>
                         <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 1</li>
-                        <li><strong>Total Gates:</strong> 2</li>
+                        <li><strong>OR Gates:</strong> 2</li>
+                        <li><strong>Total Gates:</strong> 3</li>
                     </ul>
                 </div>
                 
@@ -313,7 +346,7 @@ N11 --> N12
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>graph</li><li>traversal</li>
+                        <li>graph traversal</li><li>breadth-first search</li><li>depth-first search</li><li>queue</li><li>stack</li>
                     </ul>
                 </div>
                 
@@ -324,43 +357,23 @@ N11 --> N12
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Introduction to Algorithms (4th ed.)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Cormen, T. H.; Leiserson, C. E.; Rivest, R. L.; Stein, C.
+                            , MIT Press
+                             (2022)
                             </span>
                             
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #9b59b6; font-size: 0.85em;">View Source</a>
+                            <br><a href="https://mitpress.mit.edu/9780262046305/introduction-to-algorithms/" target="_blank" style="color: #9b59b6; font-size: 0.85em;">View Source</a>
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>UNIVERSAL TRAVERSAL SEQUENCES, GRAPH TRAVERSAL AND GRAPH IDENTIFICATION</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Richards, Dana; Swart, Charles
-                            , Combinatorics on Words
-                             (1983)
+                            <strong>Algorithms (4th ed.)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Sedgewick, R.; Wayne, K.
+                            , Addison-Wesley
+                             (2011)
                             </span>
-                            <br><a href="https://doi.org/10.1016/b978-0-12-198820-3.50025-5" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.1016/b978-0-12-198820-3.50025-5</a>
                             
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Exploring graph traversal algorithms in graph-based molecular generation</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Mercado, Rocío; Bjerrum, Esben; Engkvist, Ola
-                            
-                             (2021)
-                            </span>
-                            <br><a href="https://doi.org/10.26434/chemrxiv-2021-5c5l1" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.26434/chemrxiv-2021-5c5l1</a>
-                            
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Exploring Graph Traversal Algorithms in Graph-Based Molecular Generation</strong>
-                            
-                            
-                             (None)
-                            </span>
-                            <br><a href="https://doi.org/10.1021/acs.jcim.1c00777.s001" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.1021/acs.jcim.1c00777.s001</a>
-                            
+                            <br><a href="https://algs4.cs.princeton.edu/home/" target="_blank" style="color: #9b59b6; font-size: 0.85em;">View Source</a>
                         </li>
                         
                     </ul>

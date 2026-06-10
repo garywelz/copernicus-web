@@ -1,0 +1,39 @@
+{
+  "id": "discrete_mathematics-type-theory-normalization",
+  "name": "Type Theory — Normalization",
+  "category": "mathematics",
+  "subcategory": "discrete_mathematics",
+  "subcategory_name": "Discrete Mathematics",
+  "description": "Normal form: no β-redex. Strong normalization: every typable term reduces to normal form. Curry-Howard: types as propositions, terms as proofs.",
+  "mermaid": "graph TD\n    D1[\"Def: Normal form\\nno β-redex\"]\n    D2[\"Def: Weakly normalizing\\nsome red to nf\"]\n    D3[\"Def: Strongly normalizing\\nall red to nf\"]\n    D4[\"Def: Curry-Howard\\nA type = A prop\"]\n    T1[\"Thm: STLC strongly\\nnormalizing\"]\n    T2[\"Thm: Proof = term\\nProp = type\"]\n    D1 --> D2\n    D2 --> D3\n    D3 --> T1\n    D4 --> T2\n    T1 --> T2\n    classDef definition fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef theorem fill:#51cf66,color:#fff,stroke:#40c057\n    class D1,D2,D3,D4 definition\n    class T1,T2 theorem",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

@@ -1,0 +1,17 @@
+{
+  "acquired_date": "2025-10-08T00:00:00Z",
+  "category": "Gene Regulation",
+  "created": "2025-10-08",
+  "description": "Ara operon from Abasy Atlas: AraC/CRP regulons, transport (araE), genes (araB, araA, araD, araC), and L-arabinose pathway (Ribulose, R5P, X5P).",
+  "id": "process_Gene Regulation_ara-abasy",
+  "name": "Ara Operon (Abasy-sourced)",
+  "organism": "E. coli",
+  "source": "Abasy Atlas",
+  "source_version": "v2.2",
+  "version_label": "V6",
+  "notes": "V6 = Abasy only. AraC and CRP regulons; araE, araBAD, araC; pathway from meta-curated network.",
+  "mermaid": "graph TD\n    ARAB[L-Arabinose]\n    ARAE[araE]\n    ARAC[AraC regulon]\n    CRP[CRP regulon]\n    ARA_B[araB]\n    ARA_A[araA]\n    ARA_D[araD]\n    ARAC2[araC]\n    RIB[L-Ribulose]\n    R5P[Ribulose-5-P]\n    X5P[Xylulose-5-P]\n    ARAB -->|transport| ARAE\n    ARAB -->|inducer| ARAC\n    ARAC -->|repression/activation| ARA_B\n    ARAC -->|repression/activation| ARA_A\n    ARAC -->|repression/activation| ARA_D\n    ARAC -->|activation| ARAC2\n    CRP -->|activation| ARA_B\n    CRP -->|activation| ARA_A\n    CRP -->|activation| ARA_D\n    ARA_A -->|isomerase| RIB\n    ARAB --> RIB\n    ARA_B -->|kinase| R5P\n    RIB --> R5P\n    ARA_D -->|epimerase| X5P\n    R5P --> X5P\n    style ARAB fill:#e74c3c,color:#fff\n    style ARAE fill:#74c0fc,color:#000\n    style ARAC fill:#ffd43b,color:#000\n    style CRP fill:#ffd43b,color:#000\n    style ARA_B fill:#74c0fc,color:#000\n    style ARA_A fill:#74c0fc,color:#000\n    style ARA_D fill:#74c0fc,color:#000\n    style ARAC2 fill:#74c0fc,color:#000\n    style RIB fill:#74c0fc,color:#000\n    style R5P fill:#74c0fc,color:#000\n    style X5P fill:#b197fc,color:#000",
+  "related_processes": ["ecoli_ara_operon"],
+  "scientificAccuracy": "From Abasy Atlas v2.2 E. coli regulatory network; ara regulon, araE, pathway.",
+  "sources": [{"title": "Abasy Atlas", "url": "https://abasy.ccg.unam.mx", "note": "Meta-curated bacterial regulatory networks; ara system."}]
+}

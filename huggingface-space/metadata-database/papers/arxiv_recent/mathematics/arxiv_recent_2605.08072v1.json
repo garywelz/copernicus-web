@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_2605.08072v1",
+  "arxiv_id": "2605.08072v1",
+  "title": "A Note on Non-Negative $L_1$-Approximating Polynomials",
+  "authors": [
+    "Jane H. Lee",
+    "Anay Mehrotra",
+    "Manolis Zampetakis"
+  ],
+  "author_string": "Jane H. Lee, Anay Mehrotra, Manolis Zampetakis",
+  "journal": "arXiv:2605.08072v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "$L_1$-Approximating polynomials, i.e., polynomials that approximate indicator functions in $L_1$-norm under certain distributions, are widely used in computational learning theory. We study the existence of \\textit{non-negative} $L_1$-approximating polynomials with respect to Gaussian distributions. This is a stronger requirement than $L_1$-approximation but weaker than sandwiching polynomials (which themselves have many applications). These non-negative approximating polynomials have recently found uses in smoothed learning from positive-only examples.   In this short note, we prove that every class of sets with Gaussian surface area (GSA) at most $Γ$ under the standard Gaussian admits degree-$k$ non-negative polynomials that $\\eps$-approximate its indicator functions in $L_1$-norm, for $k=\\tilde{O}(Γ^2/\\varepsilon^2)$. Equivalently, finite GSA implies $L_1$-approximation with the stronger pointwise guarantee that the approximating polynomial has range contained in $[0,\\infty)$. Up to a constant-factor, this matches the degree of the best currently known Gaussian $L_1$-approximation degree bound without the non-negativity constraint.",
+  "categories": [
+    "stat.ML",
+    "cs.DS",
+    "cs.LG",
+    "math.ST"
+  ],
+  "primary_category": "math.ST",
+  "comment": null,
+  "published_date": "2026-05-08T17:55:39Z",
+  "updated_date": "2026-05-08T17:55:39Z",
+  "url": "https://arxiv.org/abs/2605.08072v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.08072v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-10T22:17:15.395440",
+  "category": "mathematics",
+  "subcategories": [
+    "stat.ML",
+    "cs.DS",
+    "cs.LG"
+  ]
+}

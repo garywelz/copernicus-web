@@ -1,0 +1,39 @@
+{
+  "id": "number_theory-fermat-primality",
+  "name": "Fermat Primality Test",
+  "category": "mathematics",
+  "subcategory": "number_theory",
+  "subcategory_name": "Number Theory",
+  "description": "Fermat's Little Theorem: If p is prime and a not divisible by p, then a^(p−1) ≡ 1 (mod p). The test: pick random a; compute a^(n−1) mod n. If ≠ 1, n is composite. If = 1, n may be prime (or a Fermat pseudoprime). Probabilistic; fails for Carmichael numbers. Time O(k log² n) for k iterations.",
+  "mermaid": "graph TD\n    A[\"Input: n, iterations k\"]\n    B[\"n ≤ 1 or even? → composite\"]\n    C[\"Pick random a in 2..n-2\"]\n    D{\"a^n−1 mod n = 1?\"}\n    E[\"Composite (certain)\"]\n    F[\"Probably prime\\n(repeat k times)\"]\n    A --> B\n    B --> C\n    C --> D\n    D -->|No| E\n    D -->|Yes| F\n    classDef red fill:#ff6b6b,color:#fff\n    classDef green fill:#51cf66,color:#fff\n    classDef lavender fill:#e6e6fa,color:#333\n    class A red\n    class B,C,F green\n    class D lavender\n    class E red",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "algorithm"
+}

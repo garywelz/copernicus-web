@@ -1,0 +1,42 @@
+{
+  "id": "medrxiv_10.64898_2026.01.13.26343927",
+  "doi": "10.64898/2026.01.13.26343927",
+  "title": "Predicting Continuous Cognitive Decline: The Generalizability of a Multimodal Machine Learning Approach Including Structural MRI and Non-Brain Data",
+  "authors": [
+    "Hueppi, R. M.",
+    "Langer, N.",
+    "Vieira, B. H."
+  ],
+  "author_string": "Hueppi, R. M., Langer, N., Vieira, B. H.",
+  "journal": "medRxiv",
+  "journal_full": "medRxiv",
+  "year": "2026",
+  "abstract": "Aging is often accompanied by cognitive decline, but the extent, timing, and severity of this process is subject to large inter-individual variability. Predicting cognitive decline along a continuum, encompassing healthy age-related decline, mild cognitive impairment, and dementia, allows for more precise individual-level predictions. Previous work has demonstrated that machine learning (ML) models combining risk factors, clinical, neuropsychological, and structural magnetic resonance imaging (MRI) data can predict continuous cognitive decline. However, generalizability across independent datasets has rarely been evaluated. This study aimed to replicate previous findings using an independent dataset and to assess the models generalizability across acquisition sites. Multi-target random forest regression models were employed to predict annual rates of decline of the Clinical Dementia Rating Scale Sum of Boxes (CDR-SOB) and the Mini-Mental State Examination (MMSE). Results showed that adding structural MRI data to non-brain data enhanced model performance in the large-scale novel ADNI (N = 1237) cohort, as previously attested for OASIS-3 (N = 662). Further, detectable reductions in performance were measured when models were tested across datasets compared to within datasets. This performance degradation was not explained by distributional shifts of the target variables. Additionally, models trained on the most important features of the respective training set achieved nearly identical performance as those trained on all features when tested externally, suggesting high redundancy among predictors. In summary, multimodal ML models predicting continuous cognitive decline generalize partially to unseen cohorts, with statistically significant performance degradation, whereas unimodal models trained on structural MRI features do not.",
+  "keywords": [],
+  "categories": [
+    "neurology"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.64898/2026.01.13.26343927",
+  "source": "medrxiv",
+  "sources": [
+    "medrxiv"
+  ],
+  "acquired_date": "2026-05-15T22:15:24.597639",
+  "category": "biology",
+  "subcategories": [
+    "neurology"
+  ],
+  "published_date": "2026-01-15",
+  "updated_date": "2026-01-15",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "medrxiv",
+  "preprint_version": "1",
+  "preprint_type": "PUBLISHAHEADOFPRINT",
+  "license": "cc_by_nd",
+  "jatsxml": "https://www.medrxiv.org/content/early/2026/01/15//2026.01.13.26343927.source.xml",
+  "published_doi": null,
+  "author_corresponding": "Bruno Hebling Vieira",
+  "author_corresponding_institution": "University of Zurich"
+}

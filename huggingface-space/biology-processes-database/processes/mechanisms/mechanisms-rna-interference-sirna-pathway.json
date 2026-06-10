@@ -1,0 +1,185 @@
+{
+  "id": "mechanisms-rna-interference-sirna-pathway",
+  "name": "RNA Interference / siRNA Pathway",
+  "category": "biology",
+  "subcategory": "mechanisms",
+  "subcategory_name": "Mechanisms",
+  "description": "RNA interference: Dicer cleaves long double-stranded RNA into siRNAs that load into Argonaute/RISC; the passenger strand is discarded and the guide strand directs Ago2-catalyzed slicing of complementary mRNA, silencing the gene.",
+  "keywords": [
+    "rna interference",
+    "sirna",
+    "dicer",
+    "risc",
+    "argonaute",
+    "silencing"
+  ],
+  "namedCollections": [
+    "gene-expression"
+  ],
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "complexity": {
+    "nodes": 9,
+    "edges": 9,
+    "conditionals": 1,
+    "logicGates": {
+      "orGates": 1,
+      "andGates": 1,
+      "notGates": 0,
+      "total": 2
+    },
+    "level": "medium",
+    "detailLevel": "source_grounded",
+    "loops": 1
+  },
+  "graphMetrics": {
+    "nodes": 9,
+    "edges": 9,
+    "conditionals": 1,
+    "andGates": 1,
+    "orGates": 1,
+    "notGates": 0,
+    "loops": 1
+  },
+  "mermaid": "graph TD\n    N1[\"Long dsRNA\"]\n    N2[\"Dicer cleaves to siRNA\"]\n    N3[\"siRNA duplex (~21 nt)\"]\n    N4[\"Load into RISC (Ago)\"]\n    N5[\"Passenger strand discarded\"]\n    N6[\"Guide scans mRNA\"]\n    N7{\"Complementary target?\"}\n    N8[\"Ago2 slices mRNA\"]\n    N9[\"mRNA degraded; silenced\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 --> N4\n    N4 --> N5\n    N5 --> N6\n    N6 --> N7\n    N7 -->|no| N6\n    N7 -->|yes| N8\n    N8 --> N9\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#74c0fc,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#74c0fc,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#b197fc,color:#fff",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Long dsRNA",
+      "detail": "Double-stranded RNA trigger",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N2",
+      "label": "Dicer cleaves to siRNA",
+      "detail": "Dicer processes dsRNA into short duplexes",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N3",
+      "label": "siRNA duplex (~21 nt)",
+      "detail": "Small interfering RNA duplex",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 2
+    },
+    {
+      "id": "N4",
+      "label": "Load into RISC (Ago)",
+      "detail": "Argonaute-containing RISC loading",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N5",
+      "label": "Passenger strand discarded",
+      "detail": "RISC retains the guide strand",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N6",
+      "label": "Guide scans mRNA",
+      "detail": "Guide strand searches for targets",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N7",
+      "label": "Complementary target?",
+      "detail": "Sufficient guide-mRNA complementarity?",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 2
+    },
+    {
+      "id": "N8",
+      "label": "Ago2 slices mRNA",
+      "detail": "Endonucleolytic cleavage of target",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N9",
+      "label": "mRNA degraded; silenced",
+      "detail": "Target destroyed, gene silenced",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 0
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:mechanisms-rna-interference-sirna-pathway",
+    "graphType": "mechanism_flowchart",
+    "topologySignature": "a00f52bf4db798f2",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "lastUpdated": "2026-06-01",
+  "verified": false,
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "sources": [
+    {
+      "title": "Potent and specific genetic interference by double-stranded RNA in Caenorhabditis elegans",
+      "authors": "Fire, A.; Xu, S.; Montgomery, M. K.; Kostas, S. A.; Driver, S. E.; Mello, C. C.",
+      "journal": "Nature",
+      "year": "1998",
+      "pubmed": "9486653",
+      "doi": "10.1038/35888",
+      "url": "https://doi.org/10.1038/35888"
+    },
+    {
+      "title": "An RNA-directed nuclease mediates post-transcriptional gene silencing in Drosophila cells",
+      "authors": "Hammond, S. M.; Bernstein, E.; Beach, D.; Hannon, G. J.",
+      "journal": "Nature",
+      "year": "2000",
+      "pubmed": "10746727",
+      "doi": "10.1038/35005107",
+      "url": "https://doi.org/10.1038/35005107"
+    },
+    {
+      "title": "Molecular mechanisms of RNA interference",
+      "authors": "Wilson, R. C.; Doudna, J. A.",
+      "journal": "Annual Review of Biophysics",
+      "year": "2013",
+      "pubmed": "23654304",
+      "doi": "10.1146/annurev-biophys-083012-130404",
+      "url": "https://doi.org/10.1146/annurev-biophys-083012-130404"
+    }
+  ],
+  "graphType": "mechanism_flowchart",
+  "domainContext": "Post-transcriptional gene silencing"
+}

@@ -1,21 +1,23 @@
 {
   "id": "analytical_chemistry-quality-control-and-method-validation",
-  "name": "Quality Control and Method Validation",
+  "name": "Method Validation (QC)",
   "category": "chemistry",
   "subcategory": "analytical_chemistry",
   "subcategory_name": "Analytical Chemistry",
-  "description": "Quality Control and Method Validation process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "Validating an analytical method demonstrates fitness for purpose by establishing specificity, linearity and range, accuracy and precision, and detection/quantitation limits; failing criteria trigger method adjustment, and robustness plus system suitability finalize validation.",
   "complexity": {
-    "nodes": 6,
-    "edges": 5,
-    "conditionals": 0,
+    "nodes": 10,
+    "edges": 10,
+    "conditionals": 1,
     "logicGates": {
-      "orGates": 0,
-      "andGates": 0,
-      "total": 0
+      "orGates": 1,
+      "andGates": 1,
+      "notGates": 0,
+      "total": 2
     },
-    "level": "medium",
-    "detailLevel": "medium"
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 1
   },
   "colorScheme": {
     "red": {
@@ -39,56 +41,151 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nN1[\"Candidate Method\"]\nN2[\"QC Samples\"]\nN3[\"Acceptance Criteria\"]\nN4[\"Accuracy/Precision\"]\nN5[\"Robustness/Linearity\"]\nN6[\"Validated Method\"]\n\nN1 --> N2\nN2 --> N3\nN3 --> N4\nN4 --> N5\nN5 --> N6\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#ff6b6b,color:#fff\n    style N3 fill:#ffd43b,color:#000\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"Analytical method\"]\n    N2[\"Define parameters\"]\n    N3[\"Assess specificity\"]\n    N4[\"Linearity + range\"]\n    N5[\"Accuracy + precision\"]\n    N6[\"LOD / LOQ\"]\n    N7{\"Criteria met?\"}\n    N8[\"Adjust method\"]\n    N9[\"Robustness + suitability\"]\n    N10[\"Validated method\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 --> N4\n    N4 --> N5\n    N5 --> N6\n    N6 --> N7\n    N7 -->|no| N8\n    N8 -->|revalidate| N2\n    N7 -->|yes| N9\n    N9 --> N10\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#74c0fc,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#51cf66,color:#fff\n    style N10 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "title": "ICH Q2(R1): Validation of Analytical Procedures: Text and Methodology",
+      "authors": "International Council for Harmonisation",
+      "journal": "ICH Harmonised Tripartite Guideline",
+      "year": "2005",
       "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: Quality Control and Method Validation. Created using the Programming Framework methodology."
+      "url": "https://database.ich.org/sites/default/files/Q2%28R1%29%20Guideline.pdf"
     },
     {
-      "title": "Analytical Method Validation as the First Step in Drug Quality Control",
-      "authors": "Mennickent, Sigrid; de Diego, Marta",
-      "journal": "Quality Management and Quality Control - New Trends and Developments",
-      "year": "2019",
-      "pubmed": null,
-      "doi": "10.5772/intechopen.82826",
-      "url": "https://doi.org/10.5772/intechopen.82826"
+      "title": "The Fitness for Purpose of Analytical Methods (Eurachem Guide), 2nd ed.",
+      "authors": "Magnusson, B.; Örnemark, U. (eds.)",
+      "journal": "Eurachem",
+      "year": "2014",
+      "doi": null,
+      "url": "https://www.eurachem.org/index.php/publications/guides/mv"
     },
     {
-      "title": "Method Validation",
-      "authors": "Konieczka, Piotr",
-      "journal": "Quality Assurance and Quality Control in the Analytical Chemical Laboratory",
-      "year": "2025",
-      "pubmed": null,
-      "doi": "10.1201/9781003504627-9",
-      "url": "https://doi.org/10.1201/9781003504627-9"
-    },
-    {
-      "title": "Quantitative Analysis—Method Validation-Quality Control",
-      "authors": "",
-      "journal": "High Performance Liquid Chromatography in Phytochemical Analysis",
-      "year": "2010",
-      "pubmed": null,
-      "doi": "10.1201/b10320-19",
-      "url": "https://doi.org/10.1201/b10320-19"
+      "title": "Quantitative Chemical Analysis, 9th ed. — Quality Assurance and Calibration",
+      "authors": "Harris, D. C.",
+      "journal": "W. H. Freeman",
+      "year": "2015",
+      "doi": null,
+      "url": "https://www.macmillanlearning.com/college/us/product/Quantitative-Chemical-Analysis/p/146413538X"
     }
   ],
   "keywords": [
-    "quality",
-    "control",
-    "and",
-    "method",
-    "validation"
+    "method validation",
+    "specificity",
+    "accuracy precision",
+    "LOD LOQ",
+    "robustness"
   ],
   "relatedProcesses": [],
   "created": "2026-01-15",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations.\nCurated Mermaid applied (citations preserved)."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "namedCollections": [
+    "analytical-chemistry"
+  ],
+  "graphMetrics": {
+    "nodes": 10,
+    "edges": 10,
+    "conditionals": 1,
+    "andGates": 1,
+    "orGates": 1,
+    "notGates": 0,
+    "loops": 1
+  },
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Analytical method",
+      "detail": "Procedure to validate",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N2",
+      "label": "Define parameters",
+      "detail": "Validation plan",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N3",
+      "label": "Assess specificity",
+      "detail": "Resolve analyte from matrix",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N4",
+      "label": "Linearity + range",
+      "detail": "Calibration behavior",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N5",
+      "label": "Accuracy + precision",
+      "detail": "Recovery and repeatability",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N6",
+      "label": "LOD / LOQ",
+      "detail": "Detection limits",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N7",
+      "label": "Criteria met?",
+      "detail": "Acceptance thresholds",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N8",
+      "label": "Adjust method",
+      "detail": "Modify and revalidate",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N9",
+      "label": "Robustness + suitability",
+      "detail": "Stress and system checks",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N10",
+      "label": "Validated method",
+      "detail": "Fit for purpose",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 2
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:analytical_chemistry-quality-control-and-method-validation",
+    "graphType": "cyclic_pathway",
+    "topologySignature": "395b157be6c6132b",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "graphType": "cyclic_pathway",
+  "domainContext": "Method validation"
 }

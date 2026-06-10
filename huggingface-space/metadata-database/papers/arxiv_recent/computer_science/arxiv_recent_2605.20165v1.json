@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2605.20165v1",
+  "arxiv_id": "2605.20165v1",
+  "title": "CaMo: Camera Motion Grounded Evaluation and Training for Vision-Language Models",
+  "authors": [
+    "Hsiang-Wei Huang",
+    "Junbin Lu",
+    "Kuang-Ming Chen",
+    "Jianxu Shangguan",
+    "Cheng-Yen Yang",
+    "Jenq-Neng Hwang"
+  ],
+  "author_string": "Hsiang-Wei Huang, Junbin Lu, Kuang-Ming Chen, Jianxu Shangguan, Cheng-Yen Yang et al.",
+  "journal": "arXiv:2605.20165v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Vision-Language Models (VLMs) achieve strong performance on spatial question answering benchmarks, yet it remains unclear whether such gains reflect genuine spatial intelligence. We show that existing spatial VLMs lack basic camera motion understanding, a key component of spatial cognition. We propose the Spatial Narrative Score (SNS), an evaluation framework that requires VLMs to generate explicit spatial narratives capturing both scene semantics and camera motion, followed by reasoning with a frozen proxy LLM. Under SNS, state-of-the-art spatial VLMs exhibit significant performance degradation despite high direct question answering accuracy. To address this gap, we introduce CaMo, a camera motion grounded VLM that achieves consistent performance across SNS evaluation and direct spatial question answering accuracy. Our results highlight the importance of explicit spatial narrative externalization for evaluating VLMs with transferable 3D spatial understanding. Our code, data, and model is available at https://github.com/hsiangwei0903/CaMo",
+  "categories": [
+    "cs.CV"
+  ],
+  "primary_category": "cs.CV",
+  "comment": "Code and model available at https://github.com/hsiangwei0903/CaMo",
+  "published_date": "2026-05-19T17:50:25Z",
+  "updated_date": "2026-05-19T17:50:25Z",
+  "url": "https://arxiv.org/abs/2605.20165v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.20165v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-20T10:16:33.994548",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CV"
+  ]
+}

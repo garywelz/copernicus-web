@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2605.12341v1",
+  "arxiv_id": "2605.12341v1",
+  "title": "Multi-Variable Conformal Prediction: Optimizing Prediction Sets without Data Splitting",
+  "authors": [
+    "Laura Lützow",
+    "Simone Garatti",
+    "Marco C. Campi",
+    "Lars Lindemann",
+    "Matthias Althoff"
+  ],
+  "author_string": "Laura Lützow, Simone Garatti, Marco C. Campi, Lars Lindemann, Matthias Althoff",
+  "journal": "arXiv:2605.12341v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Conformal prediction constructs prediction sets with finite-sample coverage guarantees, but its calibration stage is structurally constrained to a scalar score function and a single threshold variable - forcing shapes of prediction sets to be fixed before calibration, typically through data splitting. We introduce multi-variable conformal prediction (MCP), a framework that extends conformal prediction to vector-valued score functions with multiple simultaneous calibration variables. Building on scenario theory as a principled framework for certifying data-driven decisions, MCP unifies prediction set design and calibration into a single optimization problem, eliminating data splitting without sacrificing coverage guarantees. We propose two computationally efficient variants: RemMCP, grounded in constrained optimization with constraint removal, which admits a clean generalization of split conformal prediction; and RelMCP, based on iterative optimization with constraint relaxation, which supports non-convex score functions at the cost of possibly greater conservatism. Through numerical experiments on ellipsoidal and multi-modal prediction sets, we demonstrate that RemMCP and RelMCP consistently meet the target coverage with prediction set sizes smaller than or comparable to those of baselines with data split, while considerably reducing variance across calibration runs - a direct consequence of using all available data for shape optimization and calibration simultaneously.",
+  "categories": [
+    "stat.ML",
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": null,
+  "published_date": "2026-05-12T16:19:51Z",
+  "updated_date": "2026-05-12T16:19:51Z",
+  "url": "https://arxiv.org/abs/2605.12341v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.12341v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-13T10:15:43.131851",
+  "category": "computer_science",
+  "subcategories": [
+    "stat.ML",
+    "cs.LG"
+  ]
+}

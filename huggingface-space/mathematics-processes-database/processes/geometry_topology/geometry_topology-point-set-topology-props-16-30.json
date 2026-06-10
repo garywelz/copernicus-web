@@ -1,0 +1,39 @@
+{
+  "id": "geometry_topology-point-set-topology-props-16-30",
+  "name": "Point-Set Topology — Part 2: Continuity & Compactness",
+  "category": "mathematics",
+  "subcategory": "geometry_topology",
+  "subcategory_name": "Geometry & Topology",
+  "description": "Continuity, homeomorphisms, compactness, and key theorems. Depends on Part 1 (axioms & definitions).",
+  "mermaid": "graph TD\n    DefCont[\"Def: f continuous iff preimage of open is open\"]\n    DefContClosed[\"Def: f continuous iff preimage of closed is closed\"]\n    DefHomeo[\"Def: Homeomorphism\"]\n    ThmContEquiv[\"Thm: Open and closed char. of continuity equivalent\"]\n    ThmCompose[\"Thm: Composition of continuous is continuous\"]\n    DefCompact[\"Def: Compact: every open cover has finite subcover\"]\n    DefSeqCompact[\"Def: Sequentially compact\"]\n    ThmCompactSeq[\"Thm: In metric space, compact ⇔ sequentially compact\"]\n    ThmContCompact[\"Thm: Continuous image of compact is compact\"]\n    RefHausdorff[\"Hausdorff (Part 3)\"]\n    ThmCompactClosed[\"Thm: Compact subset of Hausdorff is closed\"]\n    CorClosedCompact[\"Cor: Closed subset of compact is compact\"]\n    ThmHeineBorel[\"Thm: Heine-Borel: compact in R^n ⇔ closed and bounded\"]\n    LemProdCompact[\"Lem: Finite product of compact is compact\"]\n    ThmExtreme[\"Thm: Continuous f: K→R, K compact, attains max and min\"]\n    RefOpen[\"Open set (Part 1)\"]\n    RefClosed[\"Closed set (Part 1)\"]\n    RefOpen --> DefCont\n    RefClosed --> DefContClosed\n    DefCont --> ThmContEquiv\n    DefContClosed --> ThmContEquiv\n    DefCont --> DefHomeo\n    DefCont --> ThmCompose\n    DefCompact --> ThmContCompact\n    RefHausdorff --> ThmCompactClosed\n    DefCompact --> ThmCompactClosed\n    DefCompact --> CorClosedCompact\n    DefCompact --> LemProdCompact\n    ThmCompactClosed --> CorClosedCompact\n    DefCompact --> ThmHeineBorel\n    ThmContCompact --> ThmExtreme\n    DefSeqCompact --> ThmCompactSeq\n    DefCompact --> ThmCompactSeq\n    classDef definition fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef lemma fill:#74c0fc,color:#fff,stroke:#4dabf7\n    classDef theorem fill:#51cf66,color:#fff,stroke:#40c057\n    classDef corollary fill:#1abc9c,color:#fff,stroke:#16a085\n    classDef ref fill:#bdc3c7,color:#333,stroke:#95a5a6\n    class RefOpen,RefClosed,RefHausdorff ref\n    class DefCont,DefContClosed,DefHomeo,DefCompact,DefSeqCompact definition\n    class LemProdCompact lemma\n    class ThmContEquiv,ThmCompose,ThmCompactSeq,ThmContCompact,ThmCompactClosed,ThmHeineBorel,ThmExtreme theorem\n    class CorClosedCompact corollary",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

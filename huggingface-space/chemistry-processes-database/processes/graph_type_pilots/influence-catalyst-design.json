@@ -1,0 +1,183 @@
+{
+  "id": "influence-catalyst-design",
+  "name": "Catalyst Design Influence Network",
+  "graphType": "influence_network",
+  "category": "Catalysis",
+  "subcategory": "graph_type_pilots",
+  "subcategory_name": "Graph Type Pilots",
+  "domainContext": "Computational catalysis",
+  "complexity": {
+    "nodes": 10,
+    "edges": 12,
+    "conditionals": 1,
+    "logicGates": {
+      "orGates": 3,
+      "andGates": 2,
+      "notGates": 0,
+      "total": 5
+    },
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 1
+  },
+  "namedCollections": [
+    "graph-type-pilots",
+    "catalysis"
+  ],
+  "graphMetrics": {
+    "nodes": 10,
+    "edges": 12,
+    "conditionals": 1,
+    "andGates": 2,
+    "orGates": 3,
+    "notGates": 0,
+    "loops": 1
+  },
+  "metricSource": "metadata",
+  "mermaid": "graph TD\n    N1[\"Active-site structure\"]\n    N2[\"d-band center\"]\n    N3[\"Adsorption energy\"]\n    N4[\"Scaling relations\"]\n    N5[\"Activation barrier\"]\n    N6[\"Turnover frequency\"]\n    N7{\"Sabatier optimum?\"}\n    N8[\"Selectivity + stability\"]\n    N9[\"Tune composition/support\"]\n    N10[\"Catalyst performance\"]\n\n    N1 -->|sets| N2\n    N2 -->|shifts| N3\n    N3 --> N4\n    N4 -->|predicts| N5\n    N5 -->|-| N6\n    N6 --> N7\n    N7 -->|no| N9\n    N9 -->|redesign| N1\n    N7 -->|yes| N8\n    N3 -->|affects| N8\n    N8 --> N10\n    N6 -->|+| N10\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#74c0fc,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#74c0fc,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#74c0fc,color:#fff\n    style N8 fill:#74c0fc,color:#fff\n    style N9 fill:#51cf66,color:#fff\n    style N10 fill:#b197fc,color:#fff",
+  "description": "Computational catalyst design links structure to performance through reactivity descriptors: the active-site structure sets the d-band center, which shifts adsorption energy; linear scaling relations tie adsorption energy to activation barriers and turnover frequency, and the Sabatier principle predicts an optimal intermediate binding that, balanced against selectivity and stability, determines overall catalyst performance.",
+  "sources": [
+    {
+      "title": "Towards the computational design of solid catalysts",
+      "authors": "Norskov, J. K.; Bligaard, T.; Rossmeisl, J.; Christensen, C. H.",
+      "journal": "Nature Chemistry",
+      "year": "2009",
+      "doi": "10.1038/nchem.121",
+      "url": "https://doi.org/10.1038/nchem.121"
+    },
+    {
+      "title": "From the Sabatier principle to a predictive theory of transition-metal heterogeneous catalysis",
+      "authors": "Medford, A. J.; et al.",
+      "journal": "Journal of Catalysis",
+      "year": "2015",
+      "doi": "10.1016/j.jcat.2014.12.033",
+      "url": "https://doi.org/10.1016/j.jcat.2014.12.033"
+    }
+  ],
+  "lastUpdated": "2026-06-01",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Active-site structure",
+      "detail": "Composition + facet",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N2",
+      "label": "d-band center",
+      "detail": "Electronic descriptor",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N3",
+      "label": "Adsorption energy",
+      "detail": "Binding strength",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N4",
+      "label": "Scaling relations",
+      "detail": "BEP correlations",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N5",
+      "label": "Activation barrier",
+      "detail": "Rate-limiting TS",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N6",
+      "label": "Turnover frequency",
+      "detail": "Activity metric",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N7",
+      "label": "Sabatier optimum?",
+      "detail": "Volcano peak",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N8",
+      "label": "Selectivity + stability",
+      "detail": "Competing factors",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N9",
+      "label": "Tune composition/support",
+      "detail": "Shift descriptor",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N10",
+      "label": "Catalyst performance",
+      "detail": "Design outcome",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 0
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:influence-catalyst-design",
+    "graphType": "influence_network",
+    "topologySignature": "a38ffe0582d8a825",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "verified": false,
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "keywords": [
+    "Sabatier principle",
+    "volcano plot",
+    "d-band center",
+    "scaling relations",
+    "reactivity descriptor"
+  ]
+}

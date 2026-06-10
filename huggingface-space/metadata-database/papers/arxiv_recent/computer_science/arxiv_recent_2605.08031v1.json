@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2605.08031v1",
+  "arxiv_id": "2605.08031v1",
+  "title": "Object Hallucination-Free Reinforcement Unlearning for Vision-Language Models",
+  "authors": [
+    "Kaidi Jia",
+    "Yujie Lin",
+    "Chengyi Yang",
+    "Jiayao Ma",
+    "Jinsong Su"
+  ],
+  "author_string": "Kaidi Jia, Yujie Lin, Chengyi Yang, Jiayao Ma, Jinsong Su",
+  "journal": "arXiv:2605.08031v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Vision-language models (VLMs) raise growing concerns about privacy, copyright, and bias, motivating machine unlearning to remove sensitive knowledge. However, existing methods primarily fine-tune the language decoder, leading to superficial forgetting that fails to erase underlying visual representations and often introduces object hallucination. We propose HFRU, a reinforcement unlearning framework that operates on the vision encoder for deep semantic removal. Our two-stage approach combines alignment disruption with GRPO-based optimization using a composite reward, including an abstraction reward that encourages semantically valid substitutions and mitigates hallucinations. Experiments on object recognition and face identity tasks show that HFRU achieves over 98% forgetting and retention performance, while introducing negligible object hallucination, significantly outperforming prior methods.Our code and implementation details are available at https://github.com/XMUDeepLIT/HFRU.",
+  "categories": [
+    "cs.CV"
+  ],
+  "primary_category": "cs.CV",
+  "comment": null,
+  "published_date": "2026-05-08T17:19:53Z",
+  "updated_date": "2026-05-08T17:19:53Z",
+  "url": "https://arxiv.org/abs/2605.08031v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.08031v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-10T22:17:15.397927",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CV"
+  ]
+}

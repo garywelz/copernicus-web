@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2605.07439v1",
+  "arxiv_id": "2605.07439v1",
+  "title": "CA-DEL: An Open Multi-Target, Multi-Modal Benchmark for Learning from DNA-Encoded Library Screens",
+  "authors": [
+    "Mutian He",
+    "Hanqun Cao",
+    "Cheng Tan",
+    "Zijun Gao",
+    "Xiaojun Yao",
+    "Chunbin Gu",
+    "Pheng-Ann Heng"
+  ],
+  "author_string": "Mutian He, Hanqun Cao, Cheng Tan, Zijun Gao, Xiaojun Yao et al.",
+  "journal": "arXiv:2605.07439v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "The success of machine learning in drug discovery hinges on learning the relationship between a chemical structure and its biological activity. While DNA-Encoded Library (DEL) technology can generate the massive datasets required for this task, its primary signal -- sequencing read counts -- is an indirect and often noisy proxy for true molecular binding affinity. To address the scarcity of public benchmarks for developing robust models that can overcome this data challenge, we introduce CA-DEL, a multi-dimensional public benchmark featuring screens against three homologous carbonic anhydrase isoforms. While recent benchmarks like KinDEL have introduced 3D poses for kinase targets, CA-DEL distinguishes itself by focusing on the selectivity challenge among homologous Carbonic Anhydrase isoforms (CAII, CAIX, CAXII). Unlike benchmarks relying solely on noisy enrichment scores, CA-DEL integrates a rigorous validation set of experimentally determined binding affinities ($K_i$) from ChEMBL, establishing a critical Sim-to-Real evaluation paradigm: training on noisy DEL screens and testing on high-fidelity biophysical data.",
+  "categories": [
+    "q-bio.BM"
+  ],
+  "primary_category": "q-bio.BM",
+  "comment": null,
+  "published_date": "2026-05-08T08:42:30Z",
+  "updated_date": "2026-05-08T08:42:30Z",
+  "url": "https://arxiv.org/abs/2605.07439v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.07439v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-13T10:15:35.802937",
+  "category": "biology",
+  "subcategories": [
+    "q-bio.BM"
+  ]
+}

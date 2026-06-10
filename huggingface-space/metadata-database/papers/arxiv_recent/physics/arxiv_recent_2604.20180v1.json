@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2604.20180v1",
+  "arxiv_id": "2604.20180v1",
+  "title": "Tensor network surrogate models for variational quantum computation",
+  "authors": [
+    "Ryo Watanabe",
+    "Dries Sels",
+    "Joseph Tindall"
+  ],
+  "author_string": "Ryo Watanabe, Dries Sels, Joseph Tindall",
+  "journal": "arXiv:2604.20180v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We adopt a two-dimensional tensor-network (TN) ansatz to simulate variational quantum algorithms on two-dimensional qubit architectures, demonstrating its capability to accurately simulate deep circuits through the Quantum Approximate Optimization Algorithm (QAOA) applied to Ising spin-glass problems on heavy-hexagonal and square lattices. For heavy-hexagonal problems with up to three-body interactions, parameters trained on small instances and transferred to systems an order of magnitude larger improve the sampled energy distribution only up to intermediate depths, indicating a fundamental limit of parameter concentration as a transfer strategy. By extending the training itself with TN simulations on larger system sizes, we avoid local minima and obtain lower-energy samples. Analyses of entanglement growth and importance sampling show that the simulation remains classically feasible with moderate bond dimension. We find that parameter concentration also persists on square lattices, albeit at substantially higher computational cost to perform reliable sampling. Overall, our TN framework not only provides an efficient and controlled framework for benchmarking variational quantum algorithms on two-dimensional lattices, but also serves as an effective surrogate model for training variational algorithms.",
+  "categories": [
+    "quant-ph"
+  ],
+  "primary_category": "quant-ph",
+  "comment": "12 pages, 9 figures",
+  "published_date": "2026-04-22T04:53:39Z",
+  "updated_date": "2026-04-22T04:53:39Z",
+  "url": "https://arxiv.org/abs/2604.20180v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.20180v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-23T10:15:36.217597",
+  "category": "physics",
+  "subcategories": [
+    "quant-ph"
+  ]
+}

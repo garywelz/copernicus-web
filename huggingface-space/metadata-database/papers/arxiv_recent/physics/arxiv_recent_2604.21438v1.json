@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2604.21438v1",
+  "arxiv_id": "2604.21438v1",
+  "title": "SFUMATO#: a GPU accelerated code for Self-Gravitational Radiation Hydrodynamics Simulation with Adaptive Mesh Refinement",
+  "authors": [
+    "Hajime Fukushima",
+    "Tomoaki Matsumoto"
+  ],
+  "author_string": "Hajime Fukushima, Tomoaki Matsumoto",
+  "journal": "arXiv:2604.21438v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We present a new implementation of the SFUMATO code, called SFUMATO#, for solving self-gravitational radiation hydrodynamics problems using adaptive mesh refinement (AMR) with the CUDA/HIP programming frameworks. The code incorporates a multigrid solver for self-gravity, radiation transfer with M1 closure and reduced speed of light approximation, non-equilibrium chemistry, thermal evolution, and sink particle schemes. We develop new non-equilibrium chemistry and thermal solvers based on a linearized implicit method, whose accuracy is validated through a series of test problems by comparison with solutions obtained using the Newton-Raphson method. By incorporating the heat capacity of dust grains, the dust temperature can be evolved without iterative energy-balance calculations. From the perspective of computational cost, we demonstrate that adopting an increased pseudo dust heat capacity accelerates the chemistry solver while preserving accuracy, even when the value is increased by up to three orders of magnitude relative to the realistic value. In addition, we perform a suite of test problems to confirm the validity of the other components of our implementation. The code supports multi-GPU execution via MPI-based parallelization. We measure the strong-scaling performance of the hydrodynamics and self-gravity solvers on both uniform and AMR grids, as well as the overall code performance using a giant molecular cloud simulation. We find that the computational cost of the self-gravity solver increases with the number of MPI processes, indicating that efficient parallel performance is achieved only when the number of devices is chosen such that the cost of the self-gravity solver remains comparable to that of the other components.",
+  "categories": [
+    "astro-ph.GA",
+    "astro-ph.IM",
+    "astro-ph.SR"
+  ],
+  "primary_category": "astro-ph.SR",
+  "comment": "23 pages, 23 figures, accepted for publication in PASJ",
+  "published_date": "2026-04-23T08:52:51Z",
+  "updated_date": "2026-04-23T08:52:51Z",
+  "url": "https://arxiv.org/abs/2604.21438v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.21438v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-27T10:15:42.858695",
+  "category": "physics",
+  "subcategories": [
+    "astro-ph.GA",
+    "astro-ph.IM",
+    "astro-ph.SR"
+  ]
+}

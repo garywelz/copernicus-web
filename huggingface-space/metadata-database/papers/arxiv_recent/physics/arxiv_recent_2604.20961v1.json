@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2604.20961v1",
+  "arxiv_id": "2604.20961v1",
+  "title": "Ansätz Expressivity and Optimization in Variational Quantum Simulations of Transverse-field Ising Model Across System Sizes",
+  "authors": [
+    "Ashutosh P. Tripathi",
+    "Nilmani Mathur",
+    "Vikram Tripathi"
+  ],
+  "author_string": "Ashutosh P. Tripathi, Nilmani Mathur, Vikram Tripathi",
+  "journal": "arXiv:2604.20961v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We explore the application of the Variational Quantum Eigensolver (VQE) to investigate the ground state properties, particularly the entanglement entropy, of the Transverse Field Ising Model (TFIM) in one, two, and three dimensions, considering systems of up to 27 spins. By benchmarking VQE results against exact diagonalization and analyzing the entanglement properties across different system sizes and geometries, we assess the algorithm's effectiveness in capturing critical phenomena. Using results of TFIM, we also investigate how VQE's expressivity and optimization influence the simulation of highly entangled quantum states. We employ different ansätze: the hardware-efficient EfficientSU2 from Qiskit, the physics-inspired Hamiltonian Variational ansätz (HVA) and HVA with symmetry breaking, and benchmark their performance using energy variance, entanglement entropy, spin correlations, and magnetization. We further discuss the implications for scaling these methods to larger quantum systems.",
+  "categories": [
+    "quant-ph",
+    "cond-mat.stat-mech",
+    "hep-lat"
+  ],
+  "primary_category": "hep-lat",
+  "comment": "26 pages, 11 figures, 2 tables",
+  "published_date": "2026-04-22T18:00:11Z",
+  "updated_date": "2026-04-22T18:00:11Z",
+  "url": "https://arxiv.org/abs/2604.20961v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.20961v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-25T22:15:44.911781",
+  "category": "physics",
+  "subcategories": [
+    "quant-ph",
+    "cond-mat.stat-mech",
+    "hep-lat"
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2604.18322v1",
+  "arxiv_id": "2604.18322v1",
+  "title": "Uncertainty-aware phase fraction prediction and active-learning-guided out-of-domain discovery of refractory multi-principal element alloys",
+  "authors": [
+    "A. K. Shargh",
+    "C. D. Stiles",
+    "J. A. El-Awady"
+  ],
+  "author_string": "A. K. Shargh, C. D. Stiles, J. A. El-Awady",
+  "journal": "arXiv:2604.18322v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Refractory multi-principal element alloys (RMPEAs) represent a novel class of alloys characterized by an extensive compositional design space and the potential for exceptional mechanical performance under extreme conditions. While accurate phase stability prediction is essential for their robust design, existing machine learning approaches rely on deterministic mappings from composition-derived features to phase labels, neglecting the uncertainty inherent in such predictions. In this study, we present a deep learning framework based on Mixture Density Networks (MDNs) to predict phase fractions in RMPEAs and quantify the associated aleatoric uncertainty across a wide temperature range. By training separate models for up to six constituent phases of RMPEAs using CALPHAD derived data, our approach achieves high predictive accuracy while capturing the probabilistic nature of phase formation. To address epistemic uncertainty arising from incomplete knowledge of the most informative features, we perform a perturbation-based feature importance analysis and identify a minimally sufficient input set that maintains both predictive performance and uncertainty calibration. Finally, we propose an uncertainty-based active learning strategy to discover novel RMPEAs with the target phase incorporating previously unseen elements, while investigating the exploration-exploitation trade-off in model-guided discovery. Our uncertainty-aware framework has the potential to accelerate and improve the reliability of discovering novel high-performance alloys and is broadly applicable.",
+  "categories": [
+    "cond-mat.mtrl-sci"
+  ],
+  "primary_category": "cond-mat.mtrl-sci",
+  "comment": null,
+  "published_date": "2026-04-20T14:21:27Z",
+  "updated_date": "2026-04-20T14:21:27Z",
+  "url": "https://arxiv.org/abs/2604.18322v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.18322v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-22T10:15:52.070482",
+  "category": "physics",
+  "subcategories": [
+    "cond-mat.mtrl-sci"
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2605.20185v1",
+  "arxiv_id": "2605.20185v1",
+  "title": "PiG-Avatar: Hierarchical Neural-Field-Guided Gaussian Avatars",
+  "authors": [
+    "Julian Kaltheuner",
+    "Jan Spindler",
+    "Sina Kitz",
+    "Patrick Stotko",
+    "Reinhard Klein"
+  ],
+  "author_string": "Julian Kaltheuner, Jan Spindler, Sina Kitz, Patrick Stotko, Reinhard Klein",
+  "journal": "arXiv:2605.20185v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Existing Gaussian avatar methods typically parameterize geometry on a body-template surface, which entangles the avatar's representation space with the template's deformation space and limits the capture of layered, off-body, and non-rigid clothing geometry. We present PiG-Avatar, which addresses this limitation by using the parametric body model solely for kinematic transport, while representing the avatar as Gaussians anchored in a volumetric canonical space governed by a continuous neural field. This decouples representation from template topology, avoiding the geometric constraints of surface-based parameterizations. Kinematic coherence is maintained through 3D barycentric anchor transport, which guides motion without constraining geometry and allows anchors to deviate freely from the template surface, yielding dense, stable temporal surface correspondences by construction. To make this unconstrained formulation tractable, we introduce dual-level spatially coherent optimization, combining Sobolev-preconditioned neural-field updates with a novel KNN-based preconditioning of canonical anchor geometry. Together, these mechanisms induce an emergent self-organization of anchor density: anchors migrate toward regions of high curvature, appearance variation, and non-coherent motion without explicit heuristics. As a result, complex clothing geometry and layered surfaces emerge as natural, high-fidelity outputs. This single representation further supports hierarchical reconstruction across multiple levels of detail, with coarse-level supervision propagating to finer levels through the shared field and coupled anchor graph. On established benchmarks featuring subjects with complex clothing and challenging non-rigid motion, PiG-Avatar achieves state-of-the-art rendering quality, generalizes robustly to imperfect body model initialization, and renders in real time across all detail levels.",
+  "categories": [
+    "cs.GR",
+    "cs.CV"
+  ],
+  "primary_category": "cs.CV",
+  "comment": null,
+  "published_date": "2026-05-19T17:59:54Z",
+  "updated_date": "2026-05-19T17:59:54Z",
+  "url": "https://arxiv.org/abs/2605.20185v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.20185v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-20T10:16:33.992500",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.GR",
+    "cs.CV"
+  ]
+}

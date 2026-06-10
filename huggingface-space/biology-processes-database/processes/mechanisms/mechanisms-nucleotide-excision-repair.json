@@ -1,0 +1,200 @@
+{
+  "id": "mechanisms-nucleotide-excision-repair",
+  "name": "Nucleotide Excision Repair",
+  "category": "biology",
+  "subcategory": "mechanisms",
+  "subcategory_name": "Mechanisms",
+  "description": "Nucleotide excision repair: bulky DNA lesions are recognized by global-genome (XPC) or transcription-coupled sensing, TFIIH opens the helix, the damage is verified, dual incision excises a short oligonucleotide, and the gap is filled and ligated.",
+  "keywords": [
+    "nucleotide excision repair",
+    "xpc",
+    "tfiih",
+    "dual incision",
+    "uv lesion"
+  ],
+  "namedCollections": [
+    "gene-expression"
+  ],
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "complexity": {
+    "nodes": 11,
+    "edges": 11,
+    "conditionals": 1,
+    "logicGates": {
+      "orGates": 1,
+      "andGates": 1,
+      "notGates": 0,
+      "total": 2
+    },
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 0
+  },
+  "graphMetrics": {
+    "nodes": 11,
+    "edges": 11,
+    "conditionals": 1,
+    "andGates": 1,
+    "orGates": 1,
+    "notGates": 0,
+    "loops": 0
+  },
+  "mermaid": "graph TD\n    N1[\"Bulky DNA lesion (UV)\"]\n    N2{\"Recognition route?\"}\n    N3[\"XPC detects distortion\"]\n    N4[\"Stalled RNA pol signals\"]\n    N5[\"TFIIH unwinds lesion\"]\n    N6[\"XPA/RPA verify damage\"]\n    N7[\"XPF + XPG dual incision\"]\n    N8[\"Excise ~24-32 nt oligo\"]\n    N9[\"Gap-filling synthesis\"]\n    N10[\"Ligation\"]\n    N11[\"Repaired DNA\"]\n\n    N1 --> N2\n    N2 -->|GG-NER| N3\n    N2 -->|TC-NER| N4\n    N3 --> N5\n    N4 --> N5\n    N5 --> N6\n    N6 --> N7\n    N7 --> N8\n    N8 --> N9\n    N9 --> N10\n    N10 --> N11\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#74c0fc,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#51cf66,color:#fff\n    style N10 fill:#51cf66,color:#fff\n    style N11 fill:#b197fc,color:#fff",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Bulky DNA lesion (UV)",
+      "detail": "Helix-distorting lesion",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N2",
+      "label": "Recognition route?",
+      "detail": "Global-genome vs transcription-coupled NER",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N3",
+      "label": "XPC detects distortion",
+      "detail": "GG-NER damage sensor",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N4",
+      "label": "Stalled RNA pol signals",
+      "detail": "TC-NER triggered at lesions blocking transcription",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N5",
+      "label": "TFIIH unwinds lesion",
+      "detail": "Helicases open DNA around the damage",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N6",
+      "label": "XPA/RPA verify damage",
+      "detail": "Damage verification and positioning",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N7",
+      "label": "XPF + XPG dual incision",
+      "detail": "Endonucleases bracket the lesion",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N8",
+      "label": "Excise ~24-32 nt oligo",
+      "detail": "Damaged segment removed",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N9",
+      "label": "Gap-filling synthesis",
+      "detail": "DNA polymerase fills the gap",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N10",
+      "label": "Ligation",
+      "detail": "Ligase seals the patch",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N11",
+      "label": "Repaired DNA",
+      "detail": "Restored duplex",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 0
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:mechanisms-nucleotide-excision-repair",
+    "graphType": "mechanism_flowchart",
+    "topologySignature": "baacb0c4a359bb42",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "lastUpdated": "2026-06-01",
+  "verified": false,
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "sources": [
+    {
+      "title": "Understanding nucleotide excision repair and its roles in cancer and ageing",
+      "authors": "Marteijn, J. A.; Lans, H.; Vermeulen, W.; Hoeijmakers, J. H.",
+      "journal": "Nature Reviews Molecular Cell Biology",
+      "year": "2014",
+      "pubmed": "24905631",
+      "doi": "10.1038/nrm3822",
+      "url": "https://doi.org/10.1038/nrm3822"
+    },
+    {
+      "title": "Nucleotide excision repair in eukaryotes",
+      "authors": "Schärer, O. D.",
+      "journal": "Cold Spring Harbor Perspectives in Biology",
+      "year": "2013",
+      "pubmed": "24086042",
+      "doi": "10.1101/cshperspect.a012609",
+      "url": "https://doi.org/10.1101/cshperspect.a012609"
+    },
+    {
+      "title": "Molecular mechanisms of mammalian global genome nucleotide excision repair",
+      "authors": "Gillet, L. C.; Schärer, O. D.",
+      "journal": "Chemical Reviews",
+      "year": "2006",
+      "pubmed": "16464012",
+      "doi": "10.1021/cr040483f",
+      "url": "https://doi.org/10.1021/cr040483f"
+    }
+  ],
+  "graphType": "mechanism_flowchart",
+  "domainContext": "DNA damage repair"
+}

@@ -1,0 +1,39 @@
+{
+  "id": "arxiv_2605.20692v1",
+  "arxiv_id": "2605.20692v1",
+  "title": "Inferring infectiousness: a joint model of the within-host viral kinetics of SARS-CoV-2",
+  "authors": [
+    "Christopher B. Boyer",
+    "Stephen M. Kissler",
+    "Seran Hakki",
+    "Jakob Jonnerby",
+    "Ajit Lalvani",
+    "Marc Lipsitch"
+  ],
+  "author_string": "Christopher B. Boyer, Stephen M. Kissler, Seran Hakki, Jakob Jonnerby, Ajit Lalvani et al.",
+  "journal": "arXiv:2605.20692v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "During an infectious disease outbreak, providing accurate answers to policy questions about transmission requires a detailed model of the natural history of infectiousness. Unfortunately, direct measures of infectiousness are generally unavailable. Instead, we often rely on indirect proxies, such as viral load measured by PCR or antigen tests, viral culture to detect replication-competent virus, or symptom onset, each of which reflects different aspects of viral dynamics or host response. However, these proxies vary in terms of the ease of collection, scalability, and their relationship to viral shedding and therefore underlying infectiousness. Here, we use data from five prospective, densely sampled cohorts with longitudinal data on multiple proxies of viral shedding for approximately 2,000 infections to develop a Bayesian joint model for the within-host viral kinetics of SARS-CoV-2 infection. Modeling the joint distribution allows us to infer the trajectory of infectious virus shedding -- the most direct correlate of infectiousness -- for individuals who contribute only PCR data, and to compute derived quantities that are inaccessible from any single proxy alone. These include the population-level probability and expected duration of ongoing infectiousness as a function of time since diagnosis, stratified by variant, vaccination status, and infection history; the residual risk of releasing an individual from isolation; and personalized, real-time estimates of infectiousness that are sequentially updated as new test results become available.",
+  "categories": [
+    "stat.ME",
+    "q-bio.PE",
+    "q-bio.QM",
+    "stat.AP"
+  ],
+  "primary_category": "stat.AP",
+  "comment": null,
+  "published_date": "2026-05-20T04:39:53Z",
+  "updated_date": "2026-05-20T04:39:53Z",
+  "url": "https://arxiv.org/abs/2605.20692v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.20692v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-26T10:15:35.457169",
+  "category": "mathematics",
+  "subcategories": [
+    "stat.ME",
+    "q-bio.PE",
+    "q-bio.QM"
+  ]
+}

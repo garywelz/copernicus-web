@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2605.06612v1",
+  "arxiv_id": "2605.06612v1",
+  "title": "Online Bayesian Calibration under Gradual and Abrupt System Changes",
+  "authors": [
+    "Yang Xu",
+    "Chiwoo Park"
+  ],
+  "author_string": "Yang Xu, Chiwoo Park",
+  "journal": "arXiv:2605.06612v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Bayesian model calibration is central to digital twins and computer experiments, as it aligns model outputs with field observations by estimating calibration parameters and correcting systematic model bias. Classical Bayesian calibration introduces latent parameters and a discrepancy function to model bias, but suffers from parameter--discrepancy confounding and is typically formulated as an offline procedure under a stationary data-generating assumption. These limitations are restrictive in modern digital twin applications, where systems evolve over time and may exhibit gradual drift and abrupt regime shifts. While data assimilation methods enable sequential updates, they generally do not explicitly model systematic bias and are less effective under abrupt changes. We propose Bayesian Recursive Projected Calibration (BRPC), an online Bayesian calibration framework for streaming data under simulator mismatch and nonstationarity. BRPC extends projected calibration to the online setting by separating a discrepancy-free particle update for calibration parameters from a conditional Gaussian process update for discrepancy, preserving identifiability while enabling bias-aware adaptation under gradual system evolution. To handle abrupt changes, BRPC is integrated with restart mechanisms that detect regime shifts and reset the calibration process. We establish theoretical guarantees for both components, including tracking performance under gradual evolution and false-alarm and detection behavior for restart mechanisms. Empirical studies on synthetic and plant-simulation benchmarks show that BRPC improves calibration accuracy under gradual changes, while restart-augmented BRPC further improves robustness and predictive performance under abrupt regime shifts compared to sliding-window Bayesian calibration and data assimilation baselines.",
+  "categories": [
+    "cs.LG",
+    "cs.ET",
+    "stat.ML"
+  ],
+  "primary_category": "stat.ML",
+  "comment": null,
+  "published_date": "2026-05-07T17:29:18Z",
+  "updated_date": "2026-05-07T17:29:18Z",
+  "url": "https://arxiv.org/abs/2605.06612v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.06612v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-09T22:15:44.049730",
+  "category": "mathematics",
+  "subcategories": [
+    "cs.LG",
+    "cs.ET",
+    "stat.ML"
+  ]
+}

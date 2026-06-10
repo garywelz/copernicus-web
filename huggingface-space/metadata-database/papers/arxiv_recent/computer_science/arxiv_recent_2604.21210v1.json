@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2604.21210v1",
+  "arxiv_id": "2604.21210v1",
+  "title": "The Feedback Hamiltonian is the Score Function: A Diffusion-Model Framework for Quantum Trajectory Reversal",
+  "authors": [
+    "Sagar Dubey",
+    "Alan John"
+  ],
+  "author_string": "Sagar Dubey, Alan John",
+  "journal": "arXiv:2604.21210v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "In continuously monitored quantum systems, the feedback protocol of García-Pintos, Liu, and Gorshkov reshapes the arrow of time: a Hamiltonian $H_{\\mathrm{meas}} = r A / τ$ applied with gain $X$ tilts the distribution of measurement trajectories, with $X < -2$ producing statistically time-reversed outcomes. Why this specific Hamiltonian achieves reversal, and how the mechanism relates to score-based diffusion models in machine learning, has remained unexplained.   We compute the functional derivative of the log path probability of the quantum trajectory distribution directly in density-matrix space. Combining Girsanov's theorem applied to the measurement record, Fréchet differentiation on the Banach space of trace-class operators, and Kähler geometry on the pure-state projective manifold, we prove that $δ\\log P_F / δρ= r A / τ= H_{\\mathrm{meas}}$. The García-Pintos feedback Hamiltonian is the score function of the quantum trajectory distribution -- exactly the object Anderson's reverse-time diffusion theorem requires for trajectory reversal. The identification extends to multi-qubit systems with independent measurement channels, where the score is a sum of local operators.   Two consequences follow. First, the feedback gain $X$ generates a continuous one-parameter family of path measures (for feedback-active Hamiltonians with $[H, A] \\neq 0$), with $X = -2$ recovering the backward process in leading-order linearization -- a structure absent from classical diffusion, where reversal is binary. Second, the score identification enables machine learning (ML) score estimation methods -- denoising score matching, sliced score matching -- to replace the analytic formula when its idealizations (unit efficiency, zero delay, Gaussian noise) fail in real experiments.",
+  "categories": [
+    "quant-ph",
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": "14 pages",
+  "published_date": "2026-04-23T02:02:13Z",
+  "updated_date": "2026-04-23T02:02:13Z",
+  "url": "https://arxiv.org/abs/2604.21210v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.21210v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-26T10:16:12.593072",
+  "category": "computer_science",
+  "subcategories": [
+    "quant-ph",
+    "cs.LG"
+  ]
+}

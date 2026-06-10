@@ -1,21 +1,23 @@
 {
   "id": "machine_learning-project-management",
-  "name": "Project Management",
+  "name": "Support Vector Machine (SVM)",
   "category": "computer_science",
   "subcategory": "machine_learning",
   "subcategory_name": "Machine Learning",
-  "description": "Project Management process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "A support vector machine classifies by finding the maximum-margin hyperplane: data is mapped into a feature space, and if not linearly separable a kernel implicitly lifts it higher; solving the dual quadratic program identifies the support vectors that define the boundary, with a soft margin allowing controlled violations.",
   "complexity": {
-    "nodes": 26,
-    "edges": 21,
-    "conditionals": 0,
+    "nodes": 11,
+    "edges": 12,
+    "conditionals": 2,
     "logicGates": {
-      "orGates": 0,
-      "andGates": 1,
-      "total": 1
+      "orGates": 2,
+      "andGates": 2,
+      "notGates": 0,
+      "total": 4
     },
-    "level": "medium",
-    "detailLevel": "medium"
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 0
   },
   "colorScheme": {
     "red": {
@@ -39,53 +41,149 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nA3[Project Initiation] --> B3[Project Management Method]\nC3[Resource Allocation] --> D3[Team Coordination]\nE3[Progress Monitoring] --> F3[Project Management Analysis]\nB3 --> G3[Scrum Framework]\nD3 --> H3[Kanban System]\nF3 --> I3[Traditional PM]\nG3 --> J3[Sprint Management]\nH3 --> K3[Workflow Optimization]\nI3 --> L3[Gantt Charts]\nJ3 --> M3[Task Prioritization]\nK3 --> L3\nL3 --> N3[Milestone Tracking]\nM3 --> O3[Risk Management]\nN3 --> P3[Stakeholder Communication]\nO3 --> Q3[Project Management Process]\nP3 --> R3[Project Management Validation]\nQ3 --> S3[Project Management Verification]\nR3 --> T3[Project Management Result]\nS3 --> U3[Project Management Analysis]\nT3 --> V3[Project Management Parameters]\nU3 --> W3[Project Management Output]\nV3 --> X3[Project Management Analysis]\nW3 --> Y3[Project Management Final Result]\nX3 --> Z3[Project Management Complete]\n\n    style A3 fill:#ff6b6b,color:#fff\n    style C3 fill:#ff6b6b,color:#fff\n    style E3 fill:#ff6b6b,color:#fff\n    style B3 fill:#ffd43b,color:#000\n    style D3 fill:#ffd43b,color:#000\n    style F3 fill:#ffd43b,color:#000\n    style G3 fill:#ffd43b,color:#000\n    style H3 fill:#ffd43b,color:#000\n    style I3 fill:#ffd43b,color:#000\n    style J3 fill:#ffd43b,color:#000\n    style K3 fill:#ffd43b,color:#000\n    style L3 fill:#ffd43b,color:#000\n    style M3 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style O3 fill:#51cf66,color:#fff\n    style P3 fill:#51cf66,color:#fff\n    style Q3 fill:#51cf66,color:#fff\n    style R3 fill:#51cf66,color:#fff\n    style S3 fill:#51cf66,color:#fff\n    style T3 fill:#51cf66,color:#fff\n    style U3 fill:#51cf66,color:#fff\n    style V3 fill:#51cf66,color:#fff\n    style W3 fill:#51cf66,color:#fff\n    style X3 fill:#51cf66,color:#fff\n    style Y3 fill:#51cf66,color:#fff\n    style Z3 fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"Labeled training data\"]\n    N2[\"Map to feature space\"]\n    N3{\"Linearly separable?\"}\n    N4[\"Apply kernel trick\"]\n    N5[\"Maximize margin\"]\n    N6[\"Solve QP (dual)\"]\n    N7[\"Identify support vectors\"]\n    N8{\"Soft margin (slack C)?\"}\n    N9[\"Allow margin violations\"]\n    N10[\"Decision boundary set\"]\n    N11[\"SVM classifier\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 -->|no| N4\n    N4 --> N5\n    N3 -->|yes| N5\n    N5 --> N6\n    N6 --> N7\n    N7 --> N8\n    N8 -->|yes| N9\n    N9 --> N10\n    N8 -->|no| N10\n    N10 --> N11\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#74c0fc,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#74c0fc,color:#fff\n    style N8 fill:#74c0fc,color:#fff\n    style N9 fill:#51cf66,color:#fff\n    style N10 fill:#51cf66,color:#fff\n    style N11 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
-      "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: Project Management. Created using the Programming Framework methodology."
+      "title": "Support-vector networks",
+      "authors": "Cortes, C.; Vapnik, V.",
+      "journal": "Machine Learning",
+      "year": "1995",
+      "doi": "10.1007/BF00994018",
+      "url": "https://doi.org/10.1007/BF00994018"
     },
     {
-      "title": "Project management: Project Management",
-      "authors": "Citeladze, David",
-      "journal": "",
-      "year": "2023",
-      "pubmed": null,
-      "doi": "10.12737/1859087",
-      "url": "https://doi.org/10.12737/1859087"
-    },
-    {
-      "title": "Project management",
-      "authors": "",
-      "journal": "",
-      "year": "None",
-      "pubmed": null,
-      "doi": "10.3403/01970881u",
-      "url": "https://doi.org/10.3403/01970881u"
-    },
-    {
-      "title": "Project management",
-      "authors": "",
-      "journal": "",
-      "year": "None",
-      "pubmed": null,
-      "doi": "10.3403/01970881",
-      "url": "https://doi.org/10.3403/01970881"
+      "title": "A training algorithm for optimal margin classifiers",
+      "authors": "Boser, B. E.; Guyon, I. M.; Vapnik, V. N.",
+      "journal": "Workshop on Computational Learning Theory",
+      "year": "1992",
+      "doi": "10.1145/130385.130401",
+      "url": "https://doi.org/10.1145/130385.130401"
     }
   ],
   "keywords": [
-    "project",
-    "management"
+    "support vector machine",
+    "maximum margin",
+    "kernel trick",
+    "support vectors",
+    "soft margin"
   ],
   "relatedProcesses": [],
   "created": "2026-01-08",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Labeled training data",
+      "detail": "Two classes",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N2",
+      "label": "Map to feature space",
+      "detail": "Represent points",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N3",
+      "label": "Linearly separable?",
+      "detail": "In current space",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N4",
+      "label": "Apply kernel trick",
+      "detail": "Implicit lift",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N5",
+      "label": "Maximize margin",
+      "detail": "Widest gap",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N6",
+      "label": "Solve QP (dual)",
+      "detail": "Convex optimization",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N7",
+      "label": "Identify support vectors",
+      "detail": "Boundary points",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N8",
+      "label": "Soft margin (slack C)?",
+      "detail": "Noisy data",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N9",
+      "label": "Allow margin violations",
+      "detail": "Penalty C",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N10",
+      "label": "Decision boundary set",
+      "detail": "Hyperplane fixed",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N11",
+      "label": "SVM classifier",
+      "detail": "Predicts new points",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 0
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:machine_learning-project-management",
+    "graphType": "decision_flowchart",
+    "topologySignature": "03e0c5db57f988d9",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "namedCollections": [],
+  "graphMetrics": {
+    "nodes": 11,
+    "edges": 12,
+    "conditionals": 2,
+    "andGates": 2,
+    "orGates": 2,
+    "notGates": 0,
+    "loops": 0
+  },
+  "graphType": "decision_flowchart",
+  "domainContext": "Supervised machine learning"
 }

@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2605.07925v1",
+  "arxiv_id": "2605.07925v1",
+  "title": "How Value Induction Reshapes LLM Behaviour",
+  "authors": [
+    "Arnav Arora",
+    "Natalie Schluter",
+    "Katherine Metcalf",
+    "Maartje ter Hoeve"
+  ],
+  "author_string": "Arnav Arora, Natalie Schluter, Katherine Metcalf, Maartje ter Hoeve",
+  "journal": "arXiv:2605.07925v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Conversational Large Language Models are post-trained on language that expresses specific behavioural traits, such as curiosity, open-mindedness, and empathy, and values, such as helpfulness, harmlessness, and honesty. This is done to increase utility, ensure safety, and improve the experience of the people interacting with the model. However, values are complex and inter-related -- inducing one could modify behaviour on another. Further, inducing certain values can make models more addictive or sycophantic through language used in the generations, with a potential detrimental effect on the user. We investigate these and other unintended effects of value induction into models. We fine-tune models using curated value subsets of existing preference datasets, measuring the impact of value induction on expression of other values, model safety, anthropomorphic language, and various QA benchmarks. We find that (i) inducing values leads to expression of other related, and sometimes contrastive values, (ii) inducing positive values increases safety, and (iii) all values increase anthropomorphic language use, making models more validating and sycophantic.",
+  "categories": [
+    "cs.CL"
+  ],
+  "primary_category": "cs.CL",
+  "comment": "Accepted to Findings of ACL 2026",
+  "published_date": "2026-05-08T15:58:42Z",
+  "updated_date": "2026-05-08T15:58:42Z",
+  "url": "https://arxiv.org/abs/2605.07925v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.07925v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-10T22:17:15.404112",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CL"
+  ]
+}

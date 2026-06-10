@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stereochemistry Analysis - Chemistry Process</title>
+    <title>R/S Stereochemistry Assignment - Chemistry Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Stereochemistry Analysis</h1>
+            <h1>R/S Stereochemistry Assignment</h1>
             <div class="header-meta">
                 <span class="meta-item">Chemistry</span>
                 <span class="meta-item">Organic Chemistry</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,61 +234,58 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Stereochemistry Analysis process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>Assign absolute configuration with the Cahn-Ingold-Prelog rules: locate each stereocenter, rank its four substituents by priority, orient the lowest priority away, and read 1->2->3 as clockwise (R) or counterclockwise (S), iterating over all centers.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-A3[Molecular Structure] --> B3[Stereocenter Identification]
-C3[Chirality Analysis] --> D3[Configuration Assignment]
-E3[Optical Activity] --> F3[Stereoisomer Analysis]
-B3 --> G3[Chiral Centers]
-D3 --> H3[R S Configuration]
-F3 --> I3[Enantiomer Analysis]
-G3 --> J3[Diastereomer Analysis]
-H3 --> K3[Absolute Configuration]
-I3 --> L3[Optical Rotation]
-J3 --> M3[Conformational Analysis]
-K3 --> L3
-L3 --> N3[Racemic Mixtures]
-M3 --> O3[Conformational Isomers]
-N3 --> P3[Resolution Methods]
-O3 --> Q3[Stereochemistry Result]
-P3 --> R3[Chiral Resolution]
-Q3 --> S3[Stereochemistry Validation]
-R3 --> T3[Stereochemistry Output]
-S3 --> U3[Stereochemistry Analysis]
-T3 --> V3[Stereochemistry Final Result]
-U3 --> W3[Stereochemistry Analysis Complete]
+    N1["Chiral molecule"]
+    N2["Locate a stereocenter"]
+    N3["Rank substituents (CIP)"]
+    N4{"Lowest priority in back?"}
+    N5["Reorient / swap + invert"]
+    N6{"1->2->3 clockwise?"}
+    N7["Assign R"]
+    N8["Assign S"]
+    N9{"More stereocenters?"}
+    N10["Full descriptor"]
 
-    style A3 fill:#ff6b6b,color:#fff
-    style C3 fill:#ff6b6b,color:#fff
-    style E3 fill:#ff6b6b,color:#fff
-    style B3 fill:#ffd43b,color:#000
-    style D3 fill:#ffd43b,color:#000
-    style F3 fill:#ffd43b,color:#000
-    style G3 fill:#ffd43b,color:#000
-    style H3 fill:#ffd43b,color:#000
-    style I3 fill:#ffd43b,color:#000
-    style J3 fill:#ffd43b,color:#000
-    style K3 fill:#ffd43b,color:#000
-    style L3 fill:#ffd43b,color:#000
-    style M3 fill:#51cf66,color:#fff
+    N1 --> N2
+    N2 --> N3
+    N3 --> N4
+    N4 -->|no| N5
+    N5 --> N6
+    N4 -->|yes| N6
+    N6 -->|cw| N7
+    N6 -->|ccw| N8
+    N7 --> N9
+    N8 --> N9
+    N9 -->|next center| N2
+    N9 -->|done| N10
+
+    style N1 fill:#ff6b6b,color:#fff
+    style N2 fill:#51cf66,color:#fff
     style N3 fill:#51cf66,color:#fff
-    style O3 fill:#51cf66,color:#fff
-    style P3 fill:#51cf66,color:#fff
-    style Q3 fill:#51cf66,color:#fff
-    style R3 fill:#51cf66,color:#fff
-    style S3 fill:#51cf66,color:#fff
-    style T3 fill:#51cf66,color:#fff
-    style U3 fill:#51cf66,color:#fff
-    style V3 fill:#51cf66,color:#fff
-    style W3 fill:#b197fc,color:#fff
+    style N4 fill:#74c0fc,color:#fff
+    style N5 fill:#51cf66,color:#fff
+    style N6 fill:#74c0fc,color:#fff
+    style N7 fill:#51cf66,color:#fff
+    style N8 fill:#51cf66,color:#fff
+    style N9 fill:#74c0fc,color:#fff
+    style N10 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Chiral molecule</td><td>Triggers & Inputs</td><td><a href="https://global.oup.com/academic/product/organic-chemistry-9780199270293" target="_blank" title="Organic Chemistry, 2nd ed. — Stereochemistry" style="color:#e74c3c;">Clayden, J. et al. 2012</a></td></tr><tr><td style="font-weight:600;">Locate a stereocenter</td><td>Processing & Operations</td><td><a href="https://global.oup.com/academic/product/organic-chemistry-9780199270293" target="_blank" title="Organic Chemistry, 2nd ed. — Stereochemistry" style="color:#e74c3c;">Clayden, J. et al. 2012</a></td></tr><tr><td style="font-weight:600;">Rank substituents (CIP)</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1002/anie.196603851" target="_blank" title="Specification of molecular chirality (CIP rules)" style="color:#e74c3c;">Cahn, R. S. et al. 1966</a></td></tr><tr><td style="font-weight:600;">Lowest priority in back?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1002/anie.196603851" target="_blank" title="Specification of molecular chirality (CIP rules)" style="color:#e74c3c;">Cahn, R. S. et al. 1966</a></td></tr><tr><td style="font-weight:600;">Reorient / swap + invert</td><td>Processing & Operations</td><td><a href="https://global.oup.com/academic/product/organic-chemistry-9780199270293" target="_blank" title="Organic Chemistry, 2nd ed. — Stereochemistry" style="color:#e74c3c;">Clayden, J. et al. 2012</a></td></tr><tr><td style="font-weight:600;">1->2->3 clockwise?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1002/anie.196603851" target="_blank" title="Specification of molecular chirality (CIP rules)" style="color:#e74c3c;">Cahn, R. S. et al. 1966</a></td></tr><tr><td style="font-weight:600;">Assign R</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1002/anie.196603851" target="_blank" title="Specification of molecular chirality (CIP rules)" style="color:#e74c3c;">Cahn, R. S. et al. 1966</a></td></tr><tr><td style="font-weight:600;">Assign S</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1002/anie.196603851" target="_blank" title="Specification of molecular chirality (CIP rules)" style="color:#e74c3c;">Cahn, R. S. et al. 1966</a></td></tr><tr><td style="font-weight:600;">More stereocenters?</td><td>Intermediates & States</td><td><a href="https://global.oup.com/academic/product/organic-chemistry-9780199270293" target="_blank" title="Organic Chemistry, 2nd ed. — Stereochemistry" style="color:#e74c3c;">Clayden, J. et al. 2012</a></td></tr><tr><td style="font-weight:600;">Full descriptor</td><td>Products & Outputs</td><td><a href="https://global.oup.com/academic/product/organic-chemistry-9780199270293" target="_blank" title="Organic Chemistry, 2nd ed. — Stereochemistry" style="color:#e74c3c;">Clayden, J. et al. 2012</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -307,12 +331,12 @@ U3 --> W3[Stereochemistry Analysis Complete]
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 23</li>
-                        <li><strong>Edges:</strong> 18</li>
-                        <li><strong>Conditionals:</strong> 0</li>
-                        <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 1</li>
+                        <li><strong>Nodes:</strong> 10</li>
+                        <li><strong>Edges:</strong> 12</li>
+                        <li><strong>Conditionals:</strong> 3</li>
+                        <li><strong>AND Gates:</strong> 3</li>
+                        <li><strong>OR Gates:</strong> 3</li>
+                        <li><strong>Total Gates:</strong> 6</li>
                     </ul>
                 </div>
                 
@@ -320,7 +344,7 @@ U3 --> W3[Stereochemistry Analysis Complete]
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>stereochemistry</li><li>analysis</li>
+                        <li>stereochemistry</li><li>cahn-ingold-prelog</li><li>absolute configuration</li><li>chirality</li><li>R/S</li>
                     </ul>
                 </div>
                 
@@ -331,42 +355,32 @@ U3 --> W3[Stereochemistry Analysis Complete]
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Specification of molecular chirality (CIP rules)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Cahn, R. S.; Ingold, C.; Prelog, V.
+                            , Angewandte Chemie International Edition
+                             (1966)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Guide to Stereochemistry Concepts and Analysis of Reaction Stereochemistry as Applied to Electrophilic Addition</strong>
-                            
-                            , Survival Guide to Organic Chemistry
-                             (2016)
-                            </span>
-                            <br><a href="https://doi.org/10.1201/9781315380186-20" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1201/9781315380186-20</a>
+                            <br><a href="https://doi.org/10.1002/anie.196603851" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1002/anie.196603851</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Conformational Analysis</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Moss, G.P.
-                            , IUPAC Standards Online
-                             (2016)
+                            <strong>Organic Chemistry, 2nd ed. — Stereochemistry</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Clayden, J.; Greeves, N.; Warren, S.
+                            , Oxford University Press
+                             (2012)
                             </span>
-                            <br><a href="https://doi.org/10.1515/iupac.68.3370" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1515/iupac.68.3370</a>
                             
+                            <br><a href="https://global.oup.com/academic/product/organic-chemistry-9780199270293" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>The Torsion Angle Concept in Conformational Analysis</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Bucourt, Robert
-                            , Topics in Stereochemistry
-                             (1974)
+                            <strong>Gold Book: Cahn–Ingold–Prelog (CIP) priority</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">IUPAC
+                            , IUPAC Compendium of Chemical Terminology
+                             (2019)
                             </span>
-                            <br><a href="https://doi.org/10.1002/9780470147177.ch2" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1002/9780470147177.ch2</a>
+                            <br><a href="https://doi.org/10.1351/goldbook.C00772" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1351/goldbook.C00772</a>
                             
                         </li>
                         

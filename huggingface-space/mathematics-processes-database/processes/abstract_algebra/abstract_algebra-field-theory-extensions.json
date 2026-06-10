@@ -1,0 +1,39 @@
+{
+  "id": "abstract_algebra-field-theory-extensions",
+  "name": "Field Theory — Fields & Extensions",
+  "category": "mathematics",
+  "subcategory": "abstract_algebra",
+  "subcategory_name": "Abstract Algebra",
+  "description": "Field: commutative ring with unity where every nonzero element is a unit. Extension K/F: F subfield of K. Degree [K:F]. Finite extension, algebraic extension, transcendental element.",
+  "mermaid": "graph TD\n    D1[\"Def: Field\\ncomm ring, K* group\"]\n    D2[\"Def: Extension K/F\\nF subfield of K\"]\n    D3[\"Def: Degree [K:F]\\ndim_F K\"]\n    D4[\"Def: Algebraic α\\nroot of poly over F\"]\n    D5[\"Def: Transcendental\\nnot algebraic\"]\n    T1[\"Thm: Tower law\\n[K:F]=[K:E][E:F]\"]\n    T2[\"Thm: F(α) ≅ F[x]/m_α\\nm_α min poly\"]\n    D1 --> D2\n    D2 --> D3\n    D2 --> D4\n    D4 --> D5\n    D3 --> T1\n    D4 --> T2\n    classDef definition fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef theorem fill:#51cf66,color:#fff,stroke:#40c057\n    class D1,D2,D3,D4,D5 definition\n    class T1,T2 theorem",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

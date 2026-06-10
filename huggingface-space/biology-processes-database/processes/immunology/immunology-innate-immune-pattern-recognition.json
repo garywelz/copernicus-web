@@ -1,0 +1,193 @@
+{
+  "id": "immunology-innate-immune-pattern-recognition",
+  "name": "Innate Immune Pattern Recognition",
+  "category": "biology",
+  "subcategory": "immunology",
+  "subcategory_name": "Immunology",
+  "description": "Pattern recognition: PRRs detect microbial PAMPs, and surface vs endosomal receptors recruit MyD88 or TRIF adaptors, activating NF-kB and IRF transcription factors to induce cytokines and type I interferons.",
+  "keywords": [
+    "pattern recognition",
+    "toll-like receptor",
+    "myd88",
+    "trif",
+    "nf-kb",
+    "interferon"
+  ],
+  "namedCollections": [
+    "signaling-cell-fate"
+  ],
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "complexity": {
+    "nodes": 10,
+    "edges": 10,
+    "conditionals": 1,
+    "logicGates": {
+      "orGates": 1,
+      "andGates": 1,
+      "notGates": 0,
+      "total": 2
+    },
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 0
+  },
+  "graphMetrics": {
+    "nodes": 10,
+    "edges": 10,
+    "conditionals": 1,
+    "andGates": 1,
+    "orGates": 1,
+    "notGates": 0,
+    "loops": 0
+  },
+  "mermaid": "graph TD\n    N1[\"Microbial PAMP\"]\n    N2[\"PRR engagement (TLR/RLR)\"]\n    N3{\"Receptor location?\"}\n    N4[\"Surface TLR4: MyD88\"]\n    N5[\"Endosomal TLR3/7/9: TRIF\"]\n    N6[\"IRAK/TRAF6 -> IKK\"]\n    N7[\"NF-kB to nucleus\"]\n    N8[\"IRF3/7 activated\"]\n    N9[\"Cytokines + type I IFN\"]\n    N10[\"Antimicrobial inflammation\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 -->|surface| N4\n    N3 -->|endosomal| N5\n    N4 --> N6\n    N6 --> N7\n    N5 --> N8\n    N7 --> N9\n    N8 --> N9\n    N9 --> N10\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#ffd43b,color:#000\n    style N3 fill:#74c0fc,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#51cf66,color:#fff\n    style N10 fill:#b197fc,color:#fff",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Microbial PAMP",
+      "detail": "Conserved microbial molecule (LPS, dsRNA, CpG)",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N2",
+      "label": "PRR engagement (TLR/RLR)",
+      "detail": "Pattern-recognition receptor binds the PAMP",
+      "type": "process",
+      "role": "Structures & Objects",
+      "sourceRef": 0
+    },
+    {
+      "id": "N3",
+      "label": "Receptor location?",
+      "detail": "Cell-surface vs endosomal receptor determines adaptor",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N4",
+      "label": "Surface TLR4: MyD88",
+      "detail": "Surface TLRs recruit the MyD88 adaptor",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N5",
+      "label": "Endosomal TLR3/7/9: TRIF",
+      "detail": "Endosomal TLRs signal via TRIF/MyD88",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N6",
+      "label": "IRAK/TRAF6 -> IKK",
+      "detail": "Adaptor complex activates the IKK kinase",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N7",
+      "label": "NF-kB to nucleus",
+      "detail": "NF-kB translocates and drives transcription",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N8",
+      "label": "IRF3/7 activated",
+      "detail": "Interferon regulatory factors activated",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N9",
+      "label": "Cytokines + type I IFN",
+      "detail": "Pro-inflammatory cytokines and interferons induced",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N10",
+      "label": "Antimicrobial inflammation",
+      "detail": "Inflammatory and antiviral response",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 2
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:immunology-innate-immune-pattern-recognition",
+    "graphType": "decision_flowchart",
+    "topologySignature": "be9f799c82e48122",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "pending",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "lastUpdated": "2026-06-01",
+  "verified": false,
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "sources": [
+    {
+      "title": "Pattern recognition receptors and inflammation",
+      "authors": "Takeuchi, O.; Akira, S.",
+      "journal": "Cell",
+      "year": "2010",
+      "pubmed": "20303872",
+      "doi": "10.1016/j.cell.2010.01.022",
+      "url": "https://doi.org/10.1016/j.cell.2010.01.022"
+    },
+    {
+      "title": "The role of pattern-recognition receptors in innate immunity: update on Toll-like receptors",
+      "authors": "Kawai, T.; Akira, S.",
+      "journal": "Nature Immunology",
+      "year": "2010",
+      "pubmed": "20404851",
+      "doi": "10.1038/ni.1863",
+      "url": "https://doi.org/10.1038/ni.1863"
+    },
+    {
+      "title": "Innate immune pattern recognition: a cell biological perspective",
+      "authors": "Brubaker, S. W.; Bonham, K. S.; Zanoni, I.; Kagan, J. C.",
+      "journal": "Annual Review of Immunology",
+      "year": "2015",
+      "pubmed": "25581309",
+      "doi": "10.1146/annurev-immunol-032414-112240",
+      "url": "https://doi.org/10.1146/annurev-immunol-032414-112240"
+    }
+  ],
+  "graphType": "decision_flowchart",
+  "domainContext": "Innate immune signaling"
+}

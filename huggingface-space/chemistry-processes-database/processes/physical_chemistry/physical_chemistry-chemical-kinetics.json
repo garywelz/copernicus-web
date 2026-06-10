@@ -1,21 +1,23 @@
 {
   "id": "physical_chemistry-chemical-kinetics",
-  "name": "Chemical Kinetics",
+  "name": "Rate Law by Initial Rates",
   "category": "chemistry",
   "subcategory": "physical_chemistry",
   "subcategory_name": "Physical Chemistry",
-  "description": "Chemical Kinetics process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "The method of initial rates determines a rate law empirically: a series of experiments varies one reactant concentration at a time while measuring the initial rate, the order in each reactant is read from how the rate scales, and once all orders are known the overall rate law is assembled and the rate constant is fitted.",
   "complexity": {
-    "nodes": 26,
-    "edges": 21,
-    "conditionals": 0,
+    "nodes": 10,
+    "edges": 10,
+    "conditionals": 1,
     "logicGates": {
-      "orGates": 0,
+      "orGates": 1,
       "andGates": 1,
-      "total": 1
+      "notGates": 0,
+      "total": 2
     },
-    "level": "medium",
-    "detailLevel": "medium"
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 1
   },
   "colorScheme": {
     "red": {
@@ -39,53 +41,141 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nA2[Reaction System] --> B2[Rate Law Determination]\nC2[Concentration Analysis] --> D2[Reaction Order]\nE2[Temperature Effects] --> F2[Activation Energy]\nB2 --> G2[Rate Constant k]\nD2 --> H2[Zero Order Reaction]\nF2 --> I2[Arrhenius Equation]\nG2 --> J2[First Order Reaction]\nH2 --> K2[Second Order Reaction]\nI2 --> L2[Activation Energy Calculation]\nJ2 --> M2[Rate Expression]\nK2 --> L2\nL2 --> N2[Collision Theory]\nM2 --> O2[Transition State Theory]\nN2 --> P2[Reaction Mechanism]\nO2 --> Q2[Kinetic Analysis]\nP2 --> R2[Elementary Steps]\nQ2 --> S2[Rate Determining Step]\nR2 --> T2[Chemical Kinetics Result]\nS2 --> U2[Kinetic Validation]\nT2 --> V2[Kinetic Parameters]\nU2 --> W2[Chemical Kinetics Output]\nV2 --> X2[Chemical Kinetics Analysis]\nW2 --> Y2[Chemical Kinetics Final Result]\nX2 --> Z2[Chemical Kinetics Analysis Complete]\n\n    style A2 fill:#ff6b6b,color:#fff\n    style C2 fill:#ff6b6b,color:#fff\n    style E2 fill:#ff6b6b,color:#fff\n    style B2 fill:#ffd43b,color:#000\n    style D2 fill:#ffd43b,color:#000\n    style F2 fill:#ffd43b,color:#000\n    style G2 fill:#ffd43b,color:#000\n    style H2 fill:#ffd43b,color:#000\n    style I2 fill:#ffd43b,color:#000\n    style J2 fill:#ffd43b,color:#000\n    style K2 fill:#ffd43b,color:#000\n    style L2 fill:#ffd43b,color:#000\n    style M2 fill:#51cf66,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style O2 fill:#51cf66,color:#fff\n    style P2 fill:#51cf66,color:#fff\n    style Q2 fill:#51cf66,color:#fff\n    style R2 fill:#51cf66,color:#fff\n    style S2 fill:#51cf66,color:#fff\n    style T2 fill:#51cf66,color:#fff\n    style U2 fill:#51cf66,color:#fff\n    style V2 fill:#51cf66,color:#fff\n    style W2 fill:#51cf66,color:#fff\n    style X2 fill:#51cf66,color:#fff\n    style Y2 fill:#51cf66,color:#fff\n    style Z2 fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"Reaction of interest\"]\n    N2[\"Vary one [A], hold rest\"]\n    N3[\"Measure initial rate\"]\n    N4[\"Rate vs [A] dependence\"]\n    N5[\"Determine order in A\"]\n    N6{\"All reactants done?\"}\n    N7[\"Vary next reactant\"]\n    N8[\"Assemble rate law\"]\n    N9[\"Fit rate constant k\"]\n    N10[\"Validated rate law\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 --> N4\n    N4 --> N5\n    N5 --> N6\n    N6 -->|no| N7\n    N7 -->|next| N2\n    N6 -->|yes| N8\n    N8 --> N9\n    N9 --> N10\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#74c0fc,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#74c0fc,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#51cf66,color:#fff\n    style N10 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
-      "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: Chemical Kinetics. Created using the Programming Framework methodology."
+      "title": "Atkins' Physical Chemistry (11th ed.)",
+      "authors": "Atkins, P.; de Paula, J.; Keeler, J.",
+      "journal": "Oxford University Press",
+      "year": "2018",
+      "url": "https://global.oup.com/academic/product/atkins-physical-chemistry-9780198769866"
     },
     {
-      "title": "Comprehensive Chemical Kinetics",
-      "authors": "",
-      "journal": "Comprehensive Chemical Kinetics",
-      "year": "1969",
-      "pubmed": null,
-      "doi": "10.1016/b978-0-444-40674-3.50004-3",
-      "url": "https://doi.org/10.1016/b978-0-444-40674-3.50004-3"
-    },
-    {
-      "title": "Comprehensive Chemical Kinetics",
-      "authors": "",
-      "journal": "Comprehensive Chemical Kinetics",
-      "year": "1969",
-      "pubmed": null,
-      "doi": "10.1016/b978-0-444-40674-3.50001-8",
-      "url": "https://doi.org/10.1016/b978-0-444-40674-3.50001-8"
-    },
-    {
-      "title": "Comprehensive Chemical Kinetics",
-      "authors": "",
-      "journal": "Comprehensive Chemical Kinetics",
-      "year": "1992",
-      "pubmed": null,
-      "doi": "10.1016/s0069-8040(08)70212-7",
-      "url": "https://doi.org/10.1016/s0069-8040(08)70212-7"
+      "title": "Chemical Kinetics and Reaction Mechanisms (2nd ed.)",
+      "authors": "Espenson, J. H.",
+      "journal": "McGraw-Hill",
+      "year": "1995",
+      "url": "https://www.mheducation.com/highered/product/chemical-kinetics-reaction-mechanisms-espenson.html"
     }
   ],
   "keywords": [
-    "chemical",
+    "initial rates",
+    "rate law",
+    "reaction order",
+    "rate constant",
     "kinetics"
   ],
   "relatedProcesses": [],
   "created": "2026-01-08",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Reaction of interest",
+      "detail": "Reactants A, B...",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N2",
+      "label": "Vary one [A], hold rest",
+      "detail": "Experiment series",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N3",
+      "label": "Measure initial rate",
+      "detail": "t -> 0 slope",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N4",
+      "label": "Rate vs [A] dependence",
+      "detail": "Scaling pattern",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N5",
+      "label": "Determine order in A",
+      "detail": "Exponent found",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N6",
+      "label": "All reactants done?",
+      "detail": "Each order known",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N7",
+      "label": "Vary next reactant",
+      "detail": "Repeat series",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N8",
+      "label": "Assemble rate law",
+      "detail": "Combine orders",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N9",
+      "label": "Fit rate constant k",
+      "detail": "From data",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N10",
+      "label": "Validated rate law",
+      "detail": "r = k[A]^m[B]^n",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 0
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:physical_chemistry-chemical-kinetics",
+    "graphType": "decision_flowchart",
+    "topologySignature": "d14c92ce0646df4d",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "namedCollections": [
+    "physical-chemistry"
+  ],
+  "graphMetrics": {
+    "nodes": 10,
+    "edges": 10,
+    "conditionals": 1,
+    "andGates": 1,
+    "orGates": 1,
+    "notGates": 0,
+    "loops": 1
+  },
+  "graphType": "decision_flowchart",
+  "domainContext": "Chemical kinetics"
 }

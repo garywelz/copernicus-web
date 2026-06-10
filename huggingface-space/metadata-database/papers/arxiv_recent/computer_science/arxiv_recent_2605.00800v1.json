@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2605.00800v1",
+  "arxiv_id": "2605.00800v1",
+  "title": "Generating Statistical Charts with Validation-Driven LLM Workflows",
+  "authors": [
+    "Pavlin G. Poličar",
+    "Andraž Pevcin",
+    "Blaž Zupan"
+  ],
+  "author_string": "Pavlin G. Poličar, Andraž Pevcin, Blaž Zupan",
+  "journal": "arXiv:2605.00800v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Generating diverse, readable statistical charts from tabular data remains challenging for LLMs, as many failures become apparent after rendering and are not detectable from data or code alone. Existing chart datasets also rarely provide fully aligned artifacts, such as executable code, dataset context, and question-answer pairs. We present a structured LLM-based workflow that decomposes chart generation into dataset screening, plot proposal, code synthesis, rendering, validation-driven refinement, description generation, and question-answer generation. By incorporating rendered-output validation, the workflow addresses visualization-specific failure modes such as readability and semantic mismatch. It treats chart generation as an inspectable process rather than a one-shot prompt-to-code task, retaining each chart with its code, dataset context, description, and question-answer pairs. Applied to UCI datasets, the workflow produces 1,500 charts from 74 datasets, spanning 24 chart families and paired with 30,003 question-answer pairs. We evaluate 16 multimodal LLMs (MLLMs) on these chart-question pairs. The results show that chart-syntax questions are nearly saturated, while value extraction, comparison, and reasoning remain more challenging, illustrating the workflow's utility for diagnostic studies of chart-grounded multimodal reasoning.",
+  "categories": [
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": null,
+  "published_date": "2026-05-01T17:39:00Z",
+  "updated_date": "2026-05-01T17:39:00Z",
+  "url": "https://arxiv.org/abs/2605.00800v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.00800v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-04T10:15:40.309584",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.LG"
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "id": "number_theory-peano-arithmetic-paris-hydra",
+  "name": "Peano Arithmetic & Paris — Part 11: Hydra Game",
+  "category": "mathematics",
+  "subcategory": "number_theory",
+  "subcategory_name": "Number Theory",
+  "description": "Hercules-Hydra game: Hydra is a rooted finite tree; Hercules chops a leaf; Hydra grows n copies of the subtree above the chopped node's parent (n = distance from root). Hercules always wins, but termination is unprovable in PA. Proof: assign ordinals to trees; each move strictly decreases ordinal; requires ε₀ induction.",
+  "mermaid": "graph TD\n    DefHydra[\"Def: Hydra = rooted finite tree; heads = leaves\"]\n    DefMove[\"Def: Move: chop leaf; parent node grows n copies of subtree above it\"]\n    DefOrdTree[\"Def: Ordinal assignment: tree T ↦ ω^T₁ + ω^T₂ + ... (Cantor normal form)\"]\n    LemOrdDec[\"Lem: Each move strictly decreases tree ordinal\"]\n    LemWellFound[\"Lem: Ordinals well-founded ⇒ no infinite descending chain\"]\n    ThmHercules[\"Thm: Hercules always wins (any strategy)\"]\n    RefGoodstein[\"Ref: Goodstein / Indicators (Part 10)\"]\n    LemHydraEps0[\"Lem: Hydra termination equivalent to ε₀ well-founded\"]\n    LemEps0PA[\"Lem: PA ⊬ ε₀ well-founded\"]\n    ThmHydraUnprov[\"Thm: Kirby-Paris: Hydra termination unprovable in PA\"]\n    CorHydraProv[\"Cor: Provable in PA + TI(ε₀) or ACA₀\"]\n    DefHydra --> DefMove\n    DefMove --> DefOrdTree\n    DefOrdTree --> LemOrdDec\n    LemOrdDec --> LemWellFound\n    LemWellFound --> ThmHercules\n    RefGoodstein --> LemHydraEps0\n    ThmHercules --> LemHydraEps0\n    LemHydraEps0 --> ThmHydraUnprov\n    LemEps0PA --> ThmHydraUnprov\n    ThmHydraUnprov --> CorHydraProv\n    classDef definition fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef lemma fill:#74c0fc,color:#fff,stroke:#4dabf7\n    classDef theorem fill:#51cf66,color:#fff,stroke:#40c057\n    classDef corollary fill:#1abc9c,color:#fff,stroke:#16a085\n    classDef ref fill:#bdc3c7,color:#333,stroke:#95a5a6\n    class RefGoodstein ref\n    class DefHydra,DefMove,DefOrdTree definition\n    class LemOrdDec,LemWellFound,LemHydraEps0,LemEps0PA lemma\n    class ThmHercules,ThmHydraUnprov theorem\n    class CorHydraProv corollary",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

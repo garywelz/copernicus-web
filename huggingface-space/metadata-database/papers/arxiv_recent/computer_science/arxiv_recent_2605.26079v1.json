@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2605.26079v1",
+  "arxiv_id": "2605.26079v1",
+  "title": "Automated Benchmark Auditing for AI Agents and Large Language Models",
+  "authors": [
+    "Junlin Wang",
+    "Federico Bianchi",
+    "Shang Zhu",
+    "Fan Nie",
+    "Yongchan Kwon",
+    "Bhuwan Dhingra",
+    "James Zou"
+  ],
+  "author_string": "Junlin Wang, Federico Bianchi, Shang Zhu, Fan Nie, Yongchan Kwon et al.",
+  "journal": "arXiv:2605.26079v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Modern AI benchmarks operate at a complexity that outpaces traditional verification methods. Tasks authored by domain experts often contain implicit assumptions, incomplete environment specifications, and brittle evaluation logic that human annotation cannot reliably catch. We introduce Auto Benchmark Audit (ABA), an agentic framework that systematically audits individual benchmark tasks, uncovering issues such as hidden environment dependencies, specification gaps, and limited grading logic. We run ABA on a collection of frontier LLM benchmarks and previous NeurIPS publications, totaling 168 benchmarks across nine domains. Across this corpus, ABA identifies critical issues including ambiguous task design, execution environment conflicts, and incorrect ground truths in over 25.7% of the evaluated tasks. The precision of these automated audits is validated by expert review and independent third-party reports such as upstream PRs. Crucially, we demonstrate that these problematic tasks severely distorts capability assessments for agents and LLMs: filtering out these tasks with issues shifts model rankings and increases average performance on SWE-bench Verified and Terminal-Bench 2 by 9.9% and 9.6%, respectively. We release the agentic tool and all task annotations to support the future development of frontier benchmarks.",
+  "categories": [
+    "cs.CL"
+  ],
+  "primary_category": "cs.CL",
+  "comment": null,
+  "published_date": "2026-05-25T17:44:21Z",
+  "updated_date": "2026-05-25T17:44:21Z",
+  "url": "https://arxiv.org/abs/2605.26079v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.26079v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-26T10:15:39.094987",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CL"
+  ]
+}

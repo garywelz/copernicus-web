@@ -1,21 +1,23 @@
 {
   "id": "biochemistry-enzyme-kinetics",
-  "name": "Enzyme Kinetics",
+  "name": "Michaelis-Menten Enzyme Kinetics",
   "category": "chemistry",
   "subcategory": "biochemistry",
   "subcategory_name": "Biochemistry",
-  "description": "Enzyme Kinetics process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "Michaelis-Menten kinetics models an enzyme binding substrate into an ES complex that turns over to product; under the steady-state assumption that [ES] is constant, the rate becomes v = Vmax[S]/(Km+[S]), and varying substrate concentration lets Km and Vmax be fitted from the saturation curve.",
   "complexity": {
-    "nodes": 26,
-    "edges": 21,
-    "conditionals": 0,
+    "nodes": 10,
+    "edges": 10,
+    "conditionals": 1,
     "logicGates": {
-      "orGates": 0,
+      "orGates": 1,
       "andGates": 1,
-      "total": 1
+      "notGates": 0,
+      "total": 2
     },
-    "level": "medium",
-    "detailLevel": "medium"
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 1
   },
   "colorScheme": {
     "red": {
@@ -39,53 +41,143 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nA1[Substrate Binding] --> B1[Enzyme Method]\nC1[Active Site] --> D1[Enzyme Substrate Complex]\nE1[Catalytic Reaction] --> F1[Enzyme Kinetics Analysis]\nB1 --> G1[Michaelis Menten]\nD1 --> H1[Lock and Key Model]\nF1 --> I1[Induced Fit Model]\nG1 --> J1[Km Determination]\nH1 --> K1[Substrate Specificity]\nI1 --> L1[Conformational Change]\nJ1 --> M1[Vmax Calculation]\nK1 --> L1\nL1 --> N1[Transition State]\nM1 --> O1[Turnover Number]\nN1 --> P1[Product Formation]\nO1 --> Q1[Enzyme Kinetics Process]\nP1 --> R1[Enzyme Kinetics Validation]\nQ1 --> S1[Enzyme Kinetics Verification]\nR1 --> T1[Enzyme Kinetics Result]\nS1 --> U1[Enzyme Kinetics Analysis]\nT1 --> V1[Enzyme Kinetics Parameters]\nU1 --> W1[Enzyme Kinetics Output]\nV1 --> X1[Enzyme Kinetics Analysis]\nW1 --> Y1[Enzyme Kinetics Final Result]\nX1 --> Z1[Enzyme Kinetics Complete]\n\n    style A1 fill:#ff6b6b,color:#fff\n    style C1 fill:#ff6b6b,color:#fff\n    style E1 fill:#ff6b6b,color:#fff\n    style B1 fill:#ffd43b,color:#000\n    style D1 fill:#ffd43b,color:#000\n    style F1 fill:#ffd43b,color:#000\n    style G1 fill:#ffd43b,color:#000\n    style H1 fill:#ffd43b,color:#000\n    style I1 fill:#ffd43b,color:#000\n    style J1 fill:#ffd43b,color:#000\n    style K1 fill:#ffd43b,color:#000\n    style L1 fill:#ffd43b,color:#000\n    style M1 fill:#51cf66,color:#fff\n    style N1 fill:#51cf66,color:#fff\n    style O1 fill:#51cf66,color:#fff\n    style P1 fill:#51cf66,color:#fff\n    style Q1 fill:#51cf66,color:#fff\n    style R1 fill:#51cf66,color:#fff\n    style S1 fill:#51cf66,color:#fff\n    style T1 fill:#51cf66,color:#fff\n    style U1 fill:#51cf66,color:#fff\n    style V1 fill:#51cf66,color:#fff\n    style W1 fill:#51cf66,color:#fff\n    style X1 fill:#51cf66,color:#fff\n    style Y1 fill:#51cf66,color:#fff\n    style Z1 fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"Enzyme + substrate\"]\n    N2[\"Form ES (E+S <=> ES)\"]\n    N3[\"ES complex\"]\n    N4{\"Steady state assumed?\"}\n    N5[\"Pre-steady-state regime\"]\n    N6[\"d[ES]/dt ~ 0\"]\n    N7[\"Catalysis ES -> E + P\"]\n    N8[\"v = Vmax[S]/(Km+[S])\"]\n    N9[\"Vary [S], fit Km/Vmax\"]\n    N10[\"Kinetic parameters\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 --> N4\n    N4 -->|no| N5\n    N5 -->|relax| N2\n    N4 -->|yes| N6\n    N6 --> N7\n    N7 --> N8\n    N8 --> N9\n    N9 --> N10\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#74c0fc,color:#fff\n    style N4 fill:#74c0fc,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#51cf66,color:#fff\n    style N10 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
-      "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: Enzyme Kinetics. Created using the Programming Framework methodology."
+      "title": "The original Michaelis constant: translation of the 1913 Michaelis-Menten paper",
+      "authors": "Johnson, K. A.; Goody, R. S.",
+      "journal": "Biochemistry",
+      "year": "2011",
+      "doi": "10.1021/bi201284u",
+      "url": "https://doi.org/10.1021/bi201284u"
     },
     {
-      "title": "Analysis of multi-reactant enzyme kinetics",
-      "authors": "",
-      "journal": "Enzyme Kinetics",
-      "year": "1994",
-      "pubmed": null,
-      "doi": "10.1017/cbo9780511608438.007",
-      "url": "https://doi.org/10.1017/cbo9780511608438.007"
-    },
-    {
-      "title": "Analysis of non-hyperbolic enzyme kinetics",
-      "authors": "",
-      "journal": "Enzyme Kinetics",
-      "year": "1994",
-      "pubmed": null,
-      "doi": "10.1017/cbo9780511608438.013",
-      "url": "https://doi.org/10.1017/cbo9780511608438.013"
-    },
-    {
-      "title": "The causes of non-hyperbolic enzyme kinetics",
-      "authors": "",
-      "journal": "Enzyme Kinetics",
-      "year": "1994",
-      "pubmed": null,
-      "doi": "10.1017/cbo9780511608438.012",
-      "url": "https://doi.org/10.1017/cbo9780511608438.012"
+      "title": "A note on the kinetics of enzyme action",
+      "authors": "Briggs, G. E.; Haldane, J. B. S.",
+      "journal": "Biochemical Journal",
+      "year": "1925",
+      "doi": "10.1042/bj0190338",
+      "url": "https://doi.org/10.1042/bj0190338"
     }
   ],
   "keywords": [
-    "enzyme",
-    "kinetics"
+    "Michaelis-Menten",
+    "enzyme kinetics",
+    "steady state",
+    "Km",
+    "Vmax"
   ],
   "relatedProcesses": [],
   "created": "2026-01-08",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Enzyme + substrate",
+      "detail": "E and S in solution",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N2",
+      "label": "Form ES (E+S <=> ES)",
+      "detail": "Binding step",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N3",
+      "label": "ES complex",
+      "detail": "Enzyme-substrate",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N4",
+      "label": "Steady state assumed?",
+      "detail": "[ES] approx constant",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N5",
+      "label": "Pre-steady-state regime",
+      "detail": "Transient buildup",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N6",
+      "label": "d[ES]/dt ~ 0",
+      "detail": "Briggs-Haldane",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N7",
+      "label": "Catalysis ES -> E + P",
+      "detail": "Turnover kcat",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N8",
+      "label": "v = Vmax[S]/(Km+[S])",
+      "detail": "Rate equation",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N9",
+      "label": "Vary [S], fit Km/Vmax",
+      "detail": "Saturation curve",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N10",
+      "label": "Kinetic parameters",
+      "detail": "Km, Vmax, kcat",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 0
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:biochemistry-enzyme-kinetics",
+    "graphType": "decision_flowchart",
+    "topologySignature": "20f6811bf270a547",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "namedCollections": [
+    "biochemistry"
+  ],
+  "graphMetrics": {
+    "nodes": 10,
+    "edges": 10,
+    "conditionals": 1,
+    "andGates": 1,
+    "orGates": 1,
+    "notGates": 0,
+    "loops": 1
+  },
+  "graphType": "decision_flowchart",
+  "domainContext": "Enzyme kinetics"
 }

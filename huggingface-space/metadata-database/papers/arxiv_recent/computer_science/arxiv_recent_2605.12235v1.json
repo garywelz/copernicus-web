@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2605.12235v1",
+  "arxiv_id": "2605.12235v1",
+  "title": "Optimal Policy Learning under Budget and Coverage Constraints",
+  "authors": [
+    "Giovanni Cerulli"
+  ],
+  "author_string": "Giovanni Cerulli",
+  "journal": "arXiv:2605.12235v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We study optimal policy learning under combined budget and minimum coverage constraints. We show that the problem admits a knapsack-type structure and that the optimal policy can be characterized by an affine threshold rule involving both budget and coverage shadow prices. We establish that the linear programming relaxation of the combinatorial solution has an O(1) integrality gap, implying asymptotic equivalence with the optimal discrete allocation. Building on this result, we analyze two implementable approaches: a Greedy-Lagrangian (GLC) and a rank-and-cut (RC) algorithm. We show that the GLC closely approximates the optimal solution and achieves near-optimal performance in finite samples. By contrast, RC is approximately optimal whenever the coverage constraint is slack or costs are homogeneous, while misallocation arises only when cost heterogeneity interacts with a binding coverage constraint. Monte Carlo evidence supports these findings.",
+  "categories": [
+    "stat.ML",
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": null,
+  "published_date": "2026-05-12T15:06:55Z",
+  "updated_date": "2026-05-12T15:06:55Z",
+  "url": "https://arxiv.org/abs/2605.12235v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.12235v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-13T10:15:43.132052",
+  "category": "computer_science",
+  "subcategories": [
+    "stat.ML",
+    "cs.LG"
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "id": "medrxiv_10.64898_2026.01.21.26344587",
+  "doi": "10.64898/2026.01.21.26344587",
+  "title": "Separation-like irregularity and sample size optimism in high-discrimination logistic prediction models",
+  "authors": [
+    "Liu, Z.",
+    "Liang, Y.",
+    "Wang, L. S.",
+    "Yu, J.",
+    "Liu, J."
+  ],
+  "author_string": "Liu, Z., Liang, Y., Wang, L. S., Yu, J., Liu, J.",
+  "journal": "medRxiv",
+  "journal_full": "medRxiv",
+  "year": "2026",
+  "abstract": "Closed-form minimum sample size criteria for developing logistic prediction models, such as the Riley framework implemented in pmsampsize, are widely used but may become optimistic when anticipated discrimination is high. We conducted a Monte Carlo simulation study to compare the formula-based recommended development sample size, nRiley, with an empirical required sample size, nreq, defined by out-of-sample calibration-slope stability under repeated development sampling. Scenarios fixed the candidate parameter dimension at p = 10 and crossed predictor distribution (normal, standardized skewed continuous, binary), signal density (dense versus sparse), prevalence ({phi} [isin] {0.05, 0.10, 0.20}), and target discrimination (AUCtarget [isin] {0.70, 0.75, 0.80, 0.85, 0.90}), with intercept and signal strength calibrated to match targets. We defined nreq as the smallest n such that [E] (bn) [&ge;] 0.90 and Pr(bn < 0.80) [&le;] 0.20, where bn is the truth-based logit-scale calibration slope evaluated on a large fixed validation covariate set. At moderate discrimination, nRiley approximated nreq, but as discrimination increased the formula increasingly underestimated the sample size required for calibration stability, with large deficits at AUCtarget = 0.90. Separation-like behavior (extreme fitted risks and linear predictors) at n = nRiley became common in high-discrimination settings despite nominal convergence, providing a plausible mechanism for formula optimism. These findings support augmenting formula-based planning with targeted simulation stress tests and instability diagnostics when high discrimination is anticipated.",
+  "keywords": [],
+  "categories": [
+    "health informatics"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.64898/2026.01.21.26344587",
+  "source": "medrxiv",
+  "sources": [
+    "medrxiv"
+  ],
+  "acquired_date": "2026-05-23T22:15:22.545013",
+  "category": "biology",
+  "subcategories": [
+    "health informatics"
+  ],
+  "published_date": "2026-01-23",
+  "updated_date": "2026-01-23",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "medrxiv",
+  "preprint_version": "1",
+  "preprint_type": "PUBLISHAHEADOFPRINT",
+  "license": "cc_by",
+  "jatsxml": "https://www.medrxiv.org/content/early/2026/01/23//2026.01.21.26344587.source.xml",
+  "published_doi": null,
+  "author_corresponding": "Louis Shuo Wang",
+  "author_corresponding_institution": "The University of Tennessee Knoxville Department of Mathematics"
+}

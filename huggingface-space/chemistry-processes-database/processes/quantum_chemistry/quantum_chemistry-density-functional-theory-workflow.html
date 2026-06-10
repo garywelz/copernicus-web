@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Density Functional Theory Workflow - Chemistry Process</title>
+    <title>Kohn–Sham DFT Workflow - Chemistry Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Density Functional Theory Workflow</h1>
+            <h1>Kohn–Sham DFT Workflow</h1>
             <div class="header-meta">
                 <span class="meta-item">Chemistry</span>
                 <span class="meta-item">Quantum Chemistry</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,35 +234,59 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Density Functional Theory Workflow process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>Kohn–Sham DFT recasts the interacting electron problem as non-interacting electrons in an effective potential: after choosing an exchange-correlation functional and basis, the density is iterated through the KS equations until self-consistency, then properties are computed.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-N1["Molecular Hamiltonian Setup"]
-N2["Basis Set/Representation"]
-N3["Electronic Structure Method"]
-N4["Solve Schrödinger Equation (approx.)"]
-N5["Wavefunction/Density"]
-N6["Energies/Orbitals/Properties"]
+    N1["System + nuclei"]
+    N2{"Choose functional + basis"}
+    N3["LDA / GGA / hybrid"]
+    N4["Initial electron density"]
+    N5["Build KS potential"]
+    N6["Solve KS equations"]
+    N7["New density"]
+    N8{"SCF converged?"}
+    N9["Mix densities, iterate"]
+    N10["Ground-state density + E"]
+    N11["Compute properties"]
 
-N1 --> N2
-N2 --> N3
-N3 --> N4
-N4 --> N5
-N5 --> N6
+    N1 --> N2
+    N2 --> N3
+    N3 --> N4
+    N4 --> N5
+    N5 --> N6
+    N6 --> N7
+    N7 --> N8
+    N8 -->|no| N9
+    N9 -->|iterate| N5
+    N8 -->|yes| N10
+    N10 --> N11
 
     style N1 fill:#ff6b6b,color:#fff
-    style N2 fill:#ffd43b,color:#000
-    style N3 fill:#ffd43b,color:#000
+    style N2 fill:#74c0fc,color:#fff
+    style N3 fill:#51cf66,color:#fff
     style N4 fill:#51cf66,color:#fff
-    style N5 fill:#74c0fc,color:#fff
-    style N6 fill:#b197fc,color:#fff
+    style N5 fill:#51cf66,color:#fff
+    style N6 fill:#51cf66,color:#fff
+    style N7 fill:#74c0fc,color:#fff
+    style N8 fill:#74c0fc,color:#fff
+    style N9 fill:#51cf66,color:#fff
+    style N10 fill:#51cf66,color:#fff
+    style N11 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">System + nuclei</td><td>Triggers & Inputs</td><td><a href="https://doi.org/10.1103/PhysRev.136.B864" target="_blank" title="Inhomogeneous Electron Gas" style="color:#e74c3c;">Hohenberg, P. et al. 1964</a></td></tr><tr><td style="font-weight:600;">Choose functional + basis</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1063/1.464913" target="_blank" title="Density-functional thermochemistry. III. The role of exact exchange (B3LYP)" style="color:#e74c3c;">Becke, A. D. 1993</a></td></tr><tr><td style="font-weight:600;">LDA / GGA / hybrid</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1063/1.464913" target="_blank" title="Density-functional thermochemistry. III. The role of exact exchange (B3LYP)" style="color:#e74c3c;">Becke, A. D. 1993</a></td></tr><tr><td style="font-weight:600;">Initial electron density</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1103/PhysRev.140.A1133" target="_blank" title="Self-Consistent Equations Including Exchange and Correlation Effects" style="color:#e74c3c;">Kohn, W. et al. 1965</a></td></tr><tr><td style="font-weight:600;">Build KS potential</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1103/PhysRev.140.A1133" target="_blank" title="Self-Consistent Equations Including Exchange and Correlation Effects" style="color:#e74c3c;">Kohn, W. et al. 1965</a></td></tr><tr><td style="font-weight:600;">Solve KS equations</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1103/PhysRev.140.A1133" target="_blank" title="Self-Consistent Equations Including Exchange and Correlation Effects" style="color:#e74c3c;">Kohn, W. et al. 1965</a></td></tr><tr><td style="font-weight:600;">New density</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1103/PhysRev.140.A1133" target="_blank" title="Self-Consistent Equations Including Exchange and Correlation Effects" style="color:#e74c3c;">Kohn, W. et al. 1965</a></td></tr><tr><td style="font-weight:600;">SCF converged?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1103/PhysRev.140.A1133" target="_blank" title="Self-Consistent Equations Including Exchange and Correlation Effects" style="color:#e74c3c;">Kohn, W. et al. 1965</a></td></tr><tr><td style="font-weight:600;">Mix densities, iterate</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1103/PhysRev.140.A1133" target="_blank" title="Self-Consistent Equations Including Exchange and Correlation Effects" style="color:#e74c3c;">Kohn, W. et al. 1965</a></td></tr><tr><td style="font-weight:600;">Ground-state density + E</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1103/PhysRev.136.B864" target="_blank" title="Inhomogeneous Electron Gas" style="color:#e74c3c;">Hohenberg, P. et al. 1964</a></td></tr><tr><td style="font-weight:600;">Compute properties</td><td>Products & Outputs</td><td><a href="https://doi.org/10.1063/1.464913" target="_blank" title="Density-functional thermochemistry. III. The role of exact exchange (B3LYP)" style="color:#e74c3c;">Becke, A. D. 1993</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -281,12 +332,12 @@ N5 --> N6
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 6</li>
-                        <li><strong>Edges:</strong> 5</li>
-                        <li><strong>Conditionals:</strong> 0</li>
-                        <li><strong>AND Gates:</strong> 0</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 0</li>
+                        <li><strong>Nodes:</strong> 11</li>
+                        <li><strong>Edges:</strong> 11</li>
+                        <li><strong>Conditionals:</strong> 2</li>
+                        <li><strong>AND Gates:</strong> 1</li>
+                        <li><strong>OR Gates:</strong> 1</li>
+                        <li><strong>Total Gates:</strong> 2</li>
                     </ul>
                 </div>
                 
@@ -294,7 +345,7 @@ N5 --> N6
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>density</li><li>functional</li><li>theory</li><li>workflow</li>
+                        <li>density functional theory</li><li>kohn-sham</li><li>exchange-correlation</li><li>self-consistent field</li><li>electron density</li>
                     </ul>
                 </div>
                 
@@ -305,42 +356,32 @@ N5 --> N6
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Inhomogeneous Electron Gas</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Hohenberg, P.; Kohn, W.
+                            , Physical Review
+                             (1964)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Physical Interpretation of Kohn–Sham Density Functional Theory via Quantal Density Functional Theory</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Sahni, Viraht
-                            , Quantal Density Functional Theory
-                             (2016)
-                            </span>
-                            <br><a href="https://doi.org/10.1007/978-3-662-49842-2_5" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1007/978-3-662-49842-2_5</a>
+                            <br><a href="https://doi.org/10.1103/PhysRev.136.B864" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1103/PhysRev.136.B864</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>MC25: An Accurate Meta Pair-Density Functional for Multiconfiguration Pair-Density Functional Theory and Linearized Pair-Density Functional Theory</strong>
-                            
-                            
-                             (None)
+                            <strong>Self-Consistent Equations Including Exchange and Correlation Effects</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Kohn, W.; Sham, L. J.
+                            , Physical Review
+                             (1965)
                             </span>
-                            <br><a href="https://doi.org/10.1021/acs.jctc.5c01321.s001" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1021/acs.jctc.5c01321.s001</a>
+                            <br><a href="https://doi.org/10.1103/PhysRev.140.A1133" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1103/PhysRev.140.A1133</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Role of Density Functional Theory in “Ribocomputing Devices”</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Srivastava, Ruby
-                            , Density Functional Theory
-                             (2019)
+                            <strong>Density-functional thermochemistry. III. The role of exact exchange (B3LYP)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Becke, A. D.
+                            , Journal of Chemical Physics
+                             (1993)
                             </span>
-                            <br><a href="https://doi.org/10.5772/intechopen.80491" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.5772/intechopen.80491</a>
+                            <br><a href="https://doi.org/10.1063/1.464913" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1063/1.464913</a>
                             
                         </li>
                         

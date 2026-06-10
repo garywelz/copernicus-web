@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2604.23382v1",
+  "arxiv_id": "2604.23382v1",
+  "title": "Non-unitary extension of Grover's search algorithm",
+  "authors": [
+    "V. N. A. Lula-Rocha",
+    "M. A. S. Trindade"
+  ],
+  "author_string": "V. N. A. Lula-Rocha, M. A. S. Trindade",
+  "journal": "arXiv:2604.23382v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We have developed a non-unitary extension of Grover's search algorithm by changing the hidden geometry of Hilbert space carried by diffusion operator. Our algorithm finds the solution for search problem by performing a unique bigger rotation rather than small rotations in order polynomial times in the size $N$ of search space. We analyze the complexity of implementing the non-unitary operation and we observed that the price paid by performing this rotation is due the normalization. In Kraus operator approach we need $O(N)$ repetition of the algorithm to have a chance of measuring a solution in a post-selection, this is no better than the classical solution. However, the quantum singular value transform in addition with block encoding and Chebyshev polynomial approximation, we got complexity $O(\\sqrt{N})$ and reach the Grover's bound with an extra resource of one single qubit, compared with the standard Grover's algorithm.",
+  "categories": [
+    "quant-ph",
+    "math-ph"
+  ],
+  "primary_category": "math-ph",
+  "comment": null,
+  "published_date": "2026-04-25T17:13:50Z",
+  "updated_date": "2026-04-25T17:13:50Z",
+  "url": "https://arxiv.org/abs/2604.23382v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.23382v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-27T22:15:34.800370",
+  "category": "physics",
+  "subcategories": [
+    "quant-ph",
+    "math-ph"
+  ]
+}

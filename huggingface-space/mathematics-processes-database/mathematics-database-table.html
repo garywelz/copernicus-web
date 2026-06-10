@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mathematics Database: Algorithms, Axiomatic Theories, and Proofs</title>
+    <title>Mathematics Database: Algorithms, Axiomatic Theories &amp; Proof Graphs</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -101,9 +101,9 @@
         .section-header.axiomatic {
             background: #9b59b6;
         }
-
-        .section-header.proofs {
-            background: #0f766e;
+        
+        .section-header.proof-graph {
+            background: #1abc9c;
         }
         
         .section-header:first-of-type {
@@ -355,12 +355,6 @@
             width: 48%;
             min-width: 280px;
         }
-
-        .category-box.three-category .col {
-            width: 31%;
-            min-width: 240px;
-            margin-right: 2%;
-        }
         
         .category-box .col ul {
             margin: 0;
@@ -519,6 +513,10 @@
             background: #f3e5f5;
             color: #9b59b6;
         }
+        .search-result-item .type-badge.proofgraph {
+            background: #d5f4e6;
+            color: #16a085;
+        }
         .search-no-results {
             padding: 14px;
             color: #7f8c8d;
@@ -529,14 +527,14 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>🔢 Algorithms, Axiomatic Theories, and Proofs</h1>
-            <p>A unified, diagrammatic representation of mathematical structure—algorithms as flowcharts, axiomatic systems as dependency graphs, and proofs as color-coded proof graphs</p>
+            <h1>🔢 Algorithms, Axiomatic Theories &amp; Proof Graphs</h1>
+            <p>A unified, diagrammatic representation of mathematical structure—algorithms as flowcharts, axiomatic systems as dependency graphs, proofs as role-labeled graphs</p>
             <button class="refresh-btn" onclick="loadData()">🔄 Refresh Data</button>
         </div>
         
         <div id="loading" class="loading">
             <h3>Loading database...</h3>
-            <p>Fetching algorithms, axiomatic theories, and proof graph pilots</p>
+            <p>Fetching algorithms and axiomatic theories from metadata</p>
         </div>
         
         <div id="error" class="error" style="display: none;">
@@ -546,7 +544,7 @@
         
         <div id="content" style="display: none;">
             <div class="conceptual-framing">
-                <strong>What is this?</strong> In this framework, algorithms, axiomatic theories, and proofs are represented as graphs, allowing procedural and logical structures to be studied within a unified formalism. Using Mermaid Markdown, we model computation (flowcharts), theory-level dependency (axiom–definition–theorem), and proof-level justification as related graph objects—enabling inspection, versioning, and machine-readable representation.
+                <strong>What is this?</strong> In this framework, both algorithms and axiomatic theories are represented as graphs, allowing procedural and logical structures to be studied within a unified formalism. Using Mermaid Markdown, we model computation (flowcharts) and logical dependency (axiom–definition–theorem) as the same type of object—enabling inspection, versioning, and machine-readable representation.
             </div>
 
             <div class="start-here" style="background: linear-gradient(135deg, #f3e5f5 0%, #e8eaf6 100%); border: 1px solid #ce93d8;">
@@ -564,8 +562,8 @@
                 </div>
             </div>
             
-            <div class="category-box three-category">
-                <h3>Three categories, one representation</h3>
+            <div class="category-box">
+                <h3>Two categories, one representation</h3>
                 <div class="col">
                     <strong>Algorithms (Process Flow)</strong>
                     <ul>
@@ -586,16 +584,6 @@
                         <li>…</li>
                     </ul>
                 </div>
-                <div class="col">
-                    <strong>Proofs (Proof-Level Graphs)</strong>
-                    <ul>
-                        <li>Euclid Book I pilot proofs</li>
-                        <li>Infinitely many primes</li>
-                        <li>Pythagorean proof comparison</li>
-                        <li>Cantor diagonal arguments</li>
-                        <li>Fundamental theorem of arithmetic</li>
-                    </ul>
-                </div>
             </div>
             
             <div class="start-here">
@@ -608,7 +596,6 @@
                 <div class="start-here-links">
                     <a id="start-whole-map" href="#" target="_blank">🗺️ Whole of Mathematics — Interactive UI</a>
                     <a id="collections-link" href="collections/index.html">👤 Named Collections (Mathematicians & Theorems)</a>
-                    <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/proof-graphs/index.html" target="_blank" rel="noopener noreferrer">Proof Graph Pilot</a>
                 </div>
             </div>
             
@@ -620,7 +607,7 @@
                 <div class="table-header">
                     <h2>📊 Database Table</h2>
                     <p style="margin: 10px 0 0 0; opacity: 0.8; font-size: 0.9em;">
-                        💡 Click any name to view its interactive flowchart, dependency graph, or color-coded proof graph
+                        💡 Click any name to view its interactive flowchart or dependency graph
                     </p>
                 </div>
                 
@@ -665,73 +652,23 @@
                         <!-- Axiomatic theories populated here -->
                     </tbody>
                 </table>
-
-                <div class="section-header proofs">🧾 Proofs — Color-Coded Proof Graphs</div>
-                <p style="margin: 10px 0 5px 0; color: #7f8c8d; font-size: 0.9em;">Proof-level dependency graphs with node colors for source, assumption, construction, assertion, inference, algorithm, contradiction, and conclusion roles</p>
-                <table id="proofsTable" class="section-table">
+                
+                <div class="section-header proof-graph">🔬 Proof Graphs — Logical structure (eight-role vocabulary)</div>
+                <p style="margin: 10px 0 5px 0; color: #7f8c8d; font-size: 0.9em;">Justificatory graphs with source, assumption, construction, assertion, inference, algorithm capsule, contradiction, and conclusion roles. Pages live under <code>proof-graphs/</code>.</p>
+                <table id="proofGraphsTable" class="section-table">
                     <thead>
                         <tr>
-                            <th onclick="sortTable('proofs', 0)">Name ↕</th>
-                            <th onclick="sortTable('proofs', 1)">Family ↕</th>
-                            <th onclick="sortTable('proofs', 2)">Graph Kind ↕</th>
-                            <th onclick="sortTable('proofs', 3)">Complexity ↕</th>
-                            <th onclick="sortTable('proofs', 4)">Nodes ↕</th>
-                            <th onclick="sortTable('proofs', 5)">Edges ↕</th>
-                            <th onclick="sortTable('proofs', 6)">Temporary Assumptions ↕</th>
-                            <th onclick="sortTable('proofs', 7)">Algorithm Capsules ↕</th>
+                            <th onclick="sortTable('proofGraphs', 0)">Name ↕</th>
+                            <th onclick="sortTable('proofGraphs', 1)">Subcategory ↕</th>
+                            <th onclick="sortTable('proofGraphs', 2)">Complexity ↕</th>
+                            <th onclick="sortTable('proofGraphs', 3)">Nodes ↕</th>
+                            <th onclick="sortTable('proofGraphs', 4)">Edges ↕</th>
+                            <th onclick="sortTable('proofGraphs', 5)">Capsules ↕</th>
+                            <th onclick="sortTable('proofGraphs', 6)">Temp asms ↕</th>
+                            <th onclick="sortTable('proofGraphs', 7)">Frontier ↕</th>
                         </tr>
                     </thead>
-                    <tbody id="proofsBody">
-                        <tr>
-                            <td class="process-name"><a href="proof-graphs/euclid-book-i-pilot.html" target="_blank">Euclid Book I Pilot Proofs</a></td>
-                            <td><span class="subcategory">Geometry / Euclid</span></td>
-                            <td>hybrid + dependency</td>
-                            <td><span class="complexity medium">medium</span></td>
-                            <td class="number">41</td>
-                            <td class="number">48</td>
-                            <td>none; superposition caveat</td>
-                            <td>compass-and-straightedge construction pattern</td>
-                        </tr>
-                        <tr>
-                            <td class="process-name"><a href="proof-graphs/infinitely-many-primes.html" target="_blank">Infinitely Many Primes</a></td>
-                            <td><span class="subcategory">Number Theory</span></td>
-                            <td>hybrid</td>
-                            <td><span class="complexity medium">medium</span></td>
-                            <td class="number">14</td>
-                            <td class="number">17</td>
-                            <td>contradiction</td>
-                            <td>product-plus-one construction</td>
-                        </tr>
-                        <tr>
-                            <td class="process-name"><a href="proof-graphs/pythagorean-comparison.html" target="_blank">Pythagorean Theorem Proof Comparison</a></td>
-                            <td><span class="subcategory">Geometry / Comparison</span></td>
-                            <td>dependency + hybrid</td>
-                            <td><span class="complexity medium">medium</span></td>
-                            <td class="number">33</td>
-                            <td class="number">39</td>
-                            <td>none</td>
-                            <td>geometric rearrangement routine</td>
-                        </tr>
-                        <tr>
-                            <td class="process-name"><a href="proof-graphs/fundamental-theorem-arithmetic.html" target="_blank">Fundamental Theorem of Arithmetic</a></td>
-                            <td><span class="subcategory">Number Theory</span></td>
-                            <td>hybrid</td>
-                            <td><span class="complexity high">high</span></td>
-                            <td class="number">27</td>
-                            <td class="number">34</td>
-                            <td>induction and contradiction</td>
-                            <td>recursive factorization search</td>
-                        </tr>
-                        <tr>
-                            <td class="process-name"><a href="proof-graphs/cantor-diagonal-proofs.html" target="_blank">Cantor Diagonal Proofs</a></td>
-                            <td><span class="subcategory">Set Theory / Diagonalization</span></td>
-                            <td>hybrid family</td>
-                            <td><span class="complexity high">high</span></td>
-                            <td class="number">39</td>
-                            <td class="number">46</td>
-                            <td>contradiction; enumeration assumptions</td>
-                            <td>diagonal subset, grid enumeration, anti-diagonal real</td>
-                        </tr>
+                    <tbody id="proofGraphsBody">
                     </tbody>
                 </table>
             </div>
@@ -740,7 +677,7 @@
                 <h3>What This Enables</h3>
                 <ul>
                     <li>Compare mathematical systems by graph structure</li>
-                    <li>Measure complexity of algorithms, axiomatic systems, and individual proofs</li>
+                    <li>Measure complexity of proofs or algorithms</li>
                     <li>Identify reusable substructures across domains</li>
                     <li>Provide machine-readable representations for AI-assisted mathematics</li>
                 </ul>
@@ -749,8 +686,8 @@
             <div class="why-matters">
                 <h3>Why This Approach Matters</h3>
                 <ul>
-                    <li>Makes mathematical structure <strong>inspectable</strong>—procedures, theory-level dependencies, and proof-level justifications visible as graphs</li>
-                    <li>Bridges <strong>computation and proof</strong>—algorithms, axiomatic systems, and proof graphs share the same diagrammatic representation</li>
+                    <li>Makes mathematical structure <strong>inspectable</strong>—procedures and logical dependencies visible as graphs</li>
+                    <li>Bridges <strong>computation and proof</strong>—algorithms and axiomatic systems share the same diagrammatic representation</li>
                     <li>Enables <strong>machine-readable</strong> math representations (Mermaid is text-based, versionable, composable)</li>
                     <li>Potential use in education, formal verification, and AI reasoning systems</li>
                 </ul>
@@ -814,68 +751,12 @@
             : (window.location.hostname.includes('huggingface.co'))
             ? './mathematics-processes-database/metadata.json'
             : './metadata.json';
-        let currentSortColumn = { algorithms: -1, axiomatic: -1, proofs: -1 };
-        let sortDirection = { algorithms: 1, axiomatic: 1, proofs: 1 };
+        let currentSortColumn = { algorithms: -1, axiomatic: -1, proofGraphs: -1 };
+        let sortDirection = { algorithms: 1, axiomatic: 1, proofGraphs: 1 };
         let processes = [];
         let algorithms = [];
         let axiomatic = [];
-        const proofGraphs = [
-            {
-                name: 'Euclid Book I Pilot Proofs',
-                family: 'Geometry / Euclid',
-                graphKind: 'hybrid + dependency',
-                complexity: 'medium',
-                nodes: 41,
-                edges: 48,
-                temporaryAssumptions: 'none; superposition caveat',
-                algorithmCapsules: 'compass-and-straightedge construction pattern',
-                url: 'proof-graphs/euclid-book-i-pilot.html'
-            },
-            {
-                name: 'Infinitely Many Primes',
-                family: 'Number Theory',
-                graphKind: 'hybrid',
-                complexity: 'medium',
-                nodes: 14,
-                edges: 17,
-                temporaryAssumptions: 'contradiction',
-                algorithmCapsules: 'product-plus-one construction',
-                url: 'proof-graphs/infinitely-many-primes.html'
-            },
-            {
-                name: 'Pythagorean Theorem Proof Comparison',
-                family: 'Geometry / Comparison',
-                graphKind: 'dependency + hybrid',
-                complexity: 'medium',
-                nodes: 33,
-                edges: 39,
-                temporaryAssumptions: 'none',
-                algorithmCapsules: 'geometric rearrangement routine',
-                url: 'proof-graphs/pythagorean-comparison.html'
-            },
-            {
-                name: 'Fundamental Theorem of Arithmetic',
-                family: 'Number Theory',
-                graphKind: 'hybrid',
-                complexity: 'high',
-                nodes: 27,
-                edges: 34,
-                temporaryAssumptions: 'induction and contradiction',
-                algorithmCapsules: 'recursive factorization search',
-                url: 'proof-graphs/fundamental-theorem-arithmetic.html'
-            },
-            {
-                name: 'Cantor Diagonal Proofs',
-                family: 'Set Theory / Diagonalization',
-                graphKind: 'hybrid family',
-                complexity: 'high',
-                nodes: 39,
-                edges: 46,
-                temporaryAssumptions: 'contradiction; enumeration assumptions',
-                algorithmCapsules: 'diagonal subset, grid enumeration, anti-diagonal real',
-                url: 'proof-graphs/cantor-diagonal-proofs.html'
-            }
-        ];
+        let proofGraphs = [];
         const DOMAIN_ORDER = ['algebra', 'analysis', 'geometry_topology', 'number_theory', 'discrete_logic', 'applied'];
         const DOMAIN_NAMES = { algebra: 'Algebra', analysis: 'Analysis', geometry_topology: 'Geometry & Topology',
             number_theory: 'Number Theory', discrete_logic: 'Discrete & Logic', applied: 'Applied & Other' };
@@ -908,17 +789,14 @@
                 processes = data.processes || [];
                 algorithms = processes.filter(p => (p.processType || 'algorithm') === 'algorithm');
                 axiomatic = processes.filter(p => p.processType === 'axiomatic_theory');
+                proofGraphs = processes.filter(p => p.processType === 'proof_graph');
                 populateData(data);
                 
                 document.getElementById('loading').style.display = 'none';
                 document.getElementById('content').style.display = 'block';
                 
                 // Set Start Here link based on hosting
-                const procBase = window.location.hostname.includes('storage.googleapis.com')
-                    ? 'https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/processes'
-                    : (window.location.hostname.includes('huggingface.co'))
-                    ? './mathematics-processes-database/processes'
-                    : './processes';
+                const procBase = viewerBases().processes;
                 const wholeMapUrl = window.location.hostname.includes('storage.googleapis.com')
                     ? 'https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/whole-of-mathematics.html'
                     : (window.location.hostname.includes('huggingface.co'))
@@ -934,7 +812,7 @@
                 if (collEl) collEl.href = collUrl;
                 
                 // Wire up search
-                setupSearch(procBase);
+                setupSearch();
                 
             } catch (error) {
                 console.error('❌ Error loading data:', error);
@@ -950,12 +828,26 @@
             }
         }
         
-        function getProcessUrl(process, procBase) {
+        function viewerBases() {
             const isGCS = window.location.hostname.includes('storage.googleapis.com');
-            return procBase + '/' + (process.subcategory || '') + '/' + (process.id || process.subcategory + '-' + process.name.toLowerCase().replace(/\s+/g, '-')) + '.html';
+            const isHF = window.location.hostname.includes('huggingface.co');
+            const bucket = 'https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database';
+            return {
+                processes: isGCS ? bucket + '/processes' : (isHF ? './mathematics-processes-database/processes' : './processes'),
+                proofGraphs: isGCS ? bucket + '/proof-graphs' : (isHF ? './mathematics-processes-database/proof-graphs' : './proof-graphs'),
+            };
         }
         
-        function setupSearch(procBase) {
+        function getProcessUrl(process) {
+            const b = viewerBases();
+            if (process.processType === 'proof_graph') {
+                const fname = process.proofGraphHtml || (process.id + '.html');
+                return b.proofGraphs + '/' + fname;
+            }
+            return b.processes + '/' + (process.subcategory || '') + '/' + (process.id || process.subcategory + '-' + process.name.toLowerCase().replace(/\s+/g, '-')) + '.html';
+        }
+        
+        function setupSearch() {
             const input = document.getElementById('searchInput');
             const resultsEl = document.getElementById('searchResults');
             if (!input || !resultsEl) return;
@@ -968,37 +860,26 @@
                     return;
                 }
                 const tokens = q.split(/\s+/).filter(Boolean);
-                const processMatches = processes.filter(p => {
+                const matches = processes.filter(p => {
                     const name = (p.name || '').toLowerCase();
                     const subcat = (p.subcategory_name || p.subcategory || '').toLowerCase();
                     const colls = (p.namedCollections || []).join(' ').toLowerCase().replace(/theorem-/g, '');
                     const searchable = name + ' ' + subcat + ' ' + colls;
                     return tokens.every(t => searchable.includes(t));
-                }).map(p => ({ kind: 'process', item: p }));
-                const proofMatches = proofGraphs.filter(p => {
-                    const searchable = `${p.name} ${p.family} ${p.graphKind} ${p.temporaryAssumptions} ${p.algorithmCapsules}`.toLowerCase();
-                    return tokens.every(t => searchable.includes(t));
-                }).map(p => ({ kind: 'proof', item: p }));
-                const matches = processMatches.concat(proofMatches).slice(0, 12);
+                }).slice(0, 12);
                 
                 resultsEl.innerHTML = '';
                 if (matches.length === 0) {
                     resultsEl.innerHTML = '<div class="search-no-results">No matches found. Try another term.</div>';
                 } else {
-                    matches.forEach(match => {
+                    matches.forEach(p => {
                         const a = document.createElement('a');
                         a.className = 'search-result-item';
+                        a.href = getProcessUrl(p);
                         a.target = '_blank';
-                        if (match.kind === 'proof') {
-                            const p = match.item;
-                            a.href = getProofUrl(p);
-                            a.innerHTML = `<span class="name">${escapeHtml(p.name)}</span><span class="type-badge axiomatic">Proof</span><div class="meta">${escapeHtml(p.family)}</div>`;
-                        } else {
-                            const p = match.item;
-                            a.href = getProcessUrl(p, procBase);
-                            const typeClass = (p.processType === 'axiomatic_theory') ? 'axiomatic' : '';
-                            a.innerHTML = `<span class="name">${escapeHtml(p.name)}</span><span class="type-badge ${typeClass}">${p.processType === 'axiomatic_theory' ? 'Axiomatic' : 'Algorithm'}</span><div class="meta">${escapeHtml(p.subcategory_name || p.subcategory)}</div>`;
-                        }
+                        const typeClass = (p.processType === 'axiomatic_theory') ? 'axiomatic' : (p.processType === 'proof_graph') ? 'proofgraph' : '';
+                        const typeLabel = p.processType === 'axiomatic_theory' ? 'Axiomatic' : (p.processType === 'proof_graph' ? 'Proof graph' : 'Algorithm');
+                        a.innerHTML = `<span class="name">${escapeHtml(p.name)}</span><span class="type-badge ${typeClass}">${typeLabel}</span><div class="meta">${escapeHtml(p.subcategory_name || p.subcategory)}</div>`;
                         resultsEl.appendChild(a);
                     });
                 }
@@ -1064,6 +945,7 @@
             const subcatCount = Object.keys(data.subcategoryCounts || {}).filter(k => (data.subcategoryCounts[k] || 0) > 0).length;
             const collStats = data.collectionStats || {};
             const collTotal = collStats.total || (collStats.mathematicians || 0) + (collStats.theorems || 0);
+            const pgCount = proofGraphs.length;
             document.getElementById('statsGrid').innerHTML = `
                 <div class="stat-card">
                     <div class="stat-number">${algCount}</div>
@@ -1074,12 +956,12 @@
                     <div class="stat-label">Axiomatic Theories — axiom–theorem dependency graphs</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-number">${proofGraphs.length}</div>
-                    <div class="stat-label">Proof Graph Pilots — color-coded proof-level diagrams</div>
+                    <div class="stat-number">${pgCount}</div>
+                    <div class="stat-label">Proof graphs — eight-role justificatory structure</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-number">${subcatCount}</div>
-                    <div class="stat-label">Subcategories (e.g. Number Theory, Geometry & Topology)</div>
+                    <div class="stat-label">Subcategories (e.g. Number Theory, Foundations)</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-number">${collTotal || '—'}</div>
@@ -1124,11 +1006,23 @@
                     axiomaticBody.appendChild(row);
                 });
             });
-
-            // Populate proof graph pilot table
-            const proofsBody = document.getElementById('proofsBody');
-            proofsBody.innerHTML = '';
-            proofGraphs.forEach(p => proofsBody.appendChild(createProofRow(p)));
+            
+            const proofGraphsBody = document.getElementById('proofGraphsBody');
+            proofGraphsBody.innerHTML = '';
+            const pgGroups = groupByDomain(proofGraphs);
+            const pgCols = 8;
+            DOMAIN_ORDER.forEach((domainId, idx) => {
+                const items = pgGroups[domainId];
+                if (!items || items.length === 0) return;
+                if (idx > 0) proofGraphsBody.appendChild(createDomainBreakRow(pgCols));
+                const domainName = (dh[domainId] && dh[domainId].name) || domainId;
+                proofGraphsBody.appendChild(createDomainHeaderRow(domainId, domainName, 'proofGraphs', pgCols));
+                items.forEach(p => {
+                    const row = createProofGraphRow(p);
+                    row.dataset.domain = getDomain(p);
+                    proofGraphsBody.appendChild(row);
+                });
+            });
             
             // Populate breakdown
             const breakdown = {};
@@ -1168,38 +1062,9 @@
             document.getElementById('breakdownGrid').innerHTML = breakdownHTML;
         }
         
-        function getProofUrl(proof) {
-            return window.location.hostname.includes('storage.googleapis.com')
-                ? `https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/${proof.url}`
-                : proof.url;
-        }
-
-        function createProofRow(proof) {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td class="process-name">
-                    <a href="${getProofUrl(proof)}" target="_blank">${proof.name}</a>
-                </td>
-                <td><span class="subcategory">${proof.family}</span></td>
-                <td>${proof.graphKind}</td>
-                <td><span class="complexity ${proof.complexity}">${proof.complexity}</span></td>
-                <td class="number">${proof.nodes}</td>
-                <td class="number">${proof.edges}</td>
-                <td>${proof.temporaryAssumptions}</td>
-                <td>${proof.algorithmCapsules}</td>
-            `;
-            return row;
-        }
-        
         function createProcessRow(process) {
             const row = document.createElement('tr');
-            const isGCS = window.location.hostname.includes('storage.googleapis.com');
-            const isHF = window.location.hostname.includes('huggingface.co');
-            const viewerUrl = isGCS 
-                ? `https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/processes/${process.subcategory}/${process.id}.html`
-                : (isHF)
-                ? `./mathematics-processes-database/processes/${process.subcategory}/${process.id}.html`
-                : `./processes/${process.subcategory}/${process.id}.html`;
+            const viewerUrl = getProcessUrl(process);
             row.innerHTML = `
                 <td class="process-name">
                     <a href="${viewerUrl}" target="_blank">${process.name}</a>
@@ -1217,13 +1082,7 @@
         
         function createAxiomaticRow(process) {
             const row = document.createElement('tr');
-            const isGCS = window.location.hostname.includes('storage.googleapis.com');
-            const isHF = window.location.hostname.includes('huggingface.co');
-            const viewerUrl = isGCS 
-                ? `https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/processes/${process.subcategory}/${process.id}.html`
-                : (isHF)
-                ? `./mathematics-processes-database/processes/${process.subcategory}/${process.id}.html`
-                : `./processes/${process.subcategory}/${process.id}.html`;
+            const viewerUrl = getProcessUrl(process);
             const na = (v) => (v !== undefined && v !== null && v !== '') ? v : '—';
             row.innerHTML = `
                 <td class="process-name">
@@ -1242,8 +1101,29 @@
             return row;
         }
         
+        function createProofGraphRow(process) {
+            const row = document.createElement('tr');
+            const viewerUrl = getProcessUrl(process);
+            const cap = (process.algorithm_capsules !== undefined && process.algorithm_capsules !== null) ? process.algorithm_capsules : '—';
+            const ta = (process.temporary_assumptions !== undefined && process.temporary_assumptions !== null) ? process.temporary_assumptions : '—';
+            const fr = process.frontier ? 'yes' : '—';
+            row.innerHTML = `
+                <td class="process-name">
+                    <a href="${viewerUrl}" target="_blank">${process.name}</a>
+                </td>
+                <td><span class="subcategory">${process.subcategory_name || process.subcategory}</span></td>
+                <td><span class="complexity ${process.complexity}">${process.complexity}</span></td>
+                <td class="number">${process.nodes}</td>
+                <td class="number">${process.edges}</td>
+                <td class="number">${cap}</td>
+                <td class="number">${ta}</td>
+                <td class="number">${fr}</td>
+            `;
+            return row;
+        }
+        
         function sortTable(section, column) {
-            const tbodyId = section === 'algorithms' ? 'algorithmsBody' : (section === 'axiomatic' ? 'axiomaticBody' : 'proofsBody');
+            const tbodyId = section === 'algorithms' ? 'algorithmsBody' : (section === 'axiomatic' ? 'axiomaticBody' : 'proofGraphsBody');
             const tbody = document.getElementById(tbodyId);
             const colCount = section === 'algorithms' ? 8 : (section === 'axiomatic' ? 10 : 8);
             const tableType = section;
@@ -1274,12 +1154,6 @@
                 return aText.localeCompare(bText) * dir;
             });
             
-            if (section === 'proofs') {
-                tbody.innerHTML = '';
-                dataRows.forEach(row => tbody.appendChild(row));
-                return;
-            }
-
             // Group sorted rows by domain
             const byDomain = {};
             dataRows.forEach(row => {

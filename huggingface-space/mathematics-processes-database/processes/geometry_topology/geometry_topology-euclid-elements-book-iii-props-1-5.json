@@ -1,0 +1,39 @@
+{
+  "id": "geometry_topology-euclid-elements-book-iii-props-1-5",
+  "name": "Euclid's Elements Book III — Propositions 1–5",
+  "category": "mathematics",
+  "subcategory": "geometry_topology",
+  "subcategory_name": "Geometry & Topology",
+  "description": "Dependency graph for definitions and propositions 1–5 of Book III. Theory of circles: center, chords, diameters. All depend on Book I.",
+  "mermaid": "graph TD\n    BookI[\"Book I\\nFoundation\"]\n    PropII5[\"Prop. II.5\\nFrom Book II\"]\n    Def1[\"Def. III.1\\nEqual circles\"]\n    Def2[\"Def. III.2\\nTangent\"]\n    Def3[\"Def. III.3\\nCircles touching\"]\n    Def4[\"Def. III.4\\nEqually distant from center\"]\n    Def5[\"Def. III.5\\nGreater distance\"]\n    Def6[\"Def. III.6\\nSegment of circle\"]\n    Def7[\"Def. III.7\\nAngle of segment\"]\n    Def8[\"Def. III.8\\nAngle in segment\"]\n    Def9[\"Def. III.9\\nAngle stands on circumference\"]\n    Def10[\"Def. III.10\\nSector\"]\n    Def11[\"Def. III.11\\nSimilar segments\"]\n    Prop1[\"Prop. III.1\\nFind center of circle\"]\n    Prop2[\"Prop. III.2\\nChord falls within circle\"]\n    Prop3[\"Prop. III.3\\nDiameter bisects chord at right angles\"]\n    Prop4[\"Prop. III.4\\nNon-diameters do not bisect\"]\n    Prop5[\"Prop. III.5\\nCutting circles do not share center\"]\n    BookI --> Def1\n    BookI --> Def2\n    BookI --> Def3\n    BookI --> Def4\n    BookI --> Def5\n    BookI --> Def6\n    BookI --> Def7\n    BookI --> Def8\n    BookI --> Def9\n    BookI --> Def10\n    BookI --> Def11\n    BookI --> Prop1\n    BookI --> Prop2\n    Prop1 --> Prop2\n    BookI --> Prop3\n    Prop1 --> Prop3\n    BookI --> Prop4\n    Prop3 --> Prop4\n    BookI --> Prop5\n    classDef foundation fill:#95a5a6,color:#fff,stroke:#7f8c8d\n    classDef definition fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef proposition fill:#51cf66,color:#fff,stroke:#40c057\n    class BookI,PropII5 foundation\n    class Def1,Def2,Def3,Def4,Def5,Def6,Def7,Def8,Def9,Def10,Def11 definition\n    class Prop1,Prop2,Prop3,Prop4,Prop5 proposition",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

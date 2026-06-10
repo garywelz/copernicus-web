@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2605.20138v1",
+  "arxiv_id": "2605.20138v1",
+  "title": "Hamilton--Jacobi Reachability for Spacecraft Collision Avoidance",
+  "authors": [
+    "Larry Hui",
+    "Jordan Kam",
+    "William Su",
+    "Jianshu Zhou"
+  ],
+  "author_string": "Larry Hui, Jordan Kam, William Su, Jianshu Zhou",
+  "journal": "arXiv:2605.20138v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "This article presents a Hamilton--Jacobi (HJ) reachability framework for a two--satellite collision avoidance problem operating in the same circular orbit, where relative motion is modeled in the radial--tangential--normal (RTN) frame using planar Hill--Clohessy--Wiltshire (HCW) dynamics. We define the target state space as unsafe relative configurations in the orbit plane corresponding to minimum separation requirements consistent with Federal Communications Commission (FCC) orbital standards. The interaction between spacecraft is formulated as a zero--sum differential game, where Player 1 is the controlled satellite and Player 2 is modeled as a bounded adversarial disturbance with unknown intent. We present the HJ formulation and compute backward reachable sets that characterize relative states from which collision cannot be avoided under worst-case disturbances, while states outside this set admit provably collision-free trajectories. These reachable sets are integrated with supervisory hybrid control logic to determine when evasive maneuvers must be initiated, enabling mathematically grounded safety guarantees for scalability.",
+  "categories": [
+    "cs.RO",
+    "eess.SY"
+  ],
+  "primary_category": "eess.SY",
+  "comment": "Accepted to the 20th IEEE International Conference on Control & Automation (IEEE ICCA 2026). 6 pages, 4 figures",
+  "published_date": "2026-05-19T17:22:16Z",
+  "updated_date": "2026-05-19T17:22:16Z",
+  "url": "https://arxiv.org/abs/2605.20138v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.20138v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-20T10:16:33.996201",
+  "category": "interdisciplinary",
+  "subcategories": [
+    "cs.RO",
+    "eess.SY"
+  ]
+}

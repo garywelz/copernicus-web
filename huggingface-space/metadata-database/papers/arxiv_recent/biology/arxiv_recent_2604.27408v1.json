@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2604.27408v1",
+  "arxiv_id": "2604.27408v1",
+  "title": "Personalizing Cancer Models under Data Scarcity via Parameter Decomposition",
+  "authors": [
+    "Logan Rose",
+    "Jonathan Martinez",
+    "Juho Kim",
+    "Jing Qin",
+    "Boris Aguilar",
+    "David Murrugarra"
+  ],
+  "author_string": "Logan Rose, Jonathan Martinez, Juho Kim, Jing Qin, Boris Aguilar et al.",
+  "journal": "arXiv:2604.27408v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Personalized cancer modeling for clinical applications requires robust and efficient parameter calibration, particularly in settings with limited patient data. This need is especially critical for medical digital twins (MDTs), which are virtual representations of disease continuously updated using longitudinal patient measurements. In this work, we propose a novel parameter personalization framework for dynamical cancer models under data scarcity. Our approach decomposes selected model parameters into a common component, shared across patients, and a personalized component, which is patient-specific and can be updated as new data become available. The common component captures population-level structure and is estimated once, providing an informed prior that enables rapid and accurate personalization. We demonstrate the effectiveness of this framework using synthetic data generated from canonical dynamical systems, such as logistic growth models with optimized treatment interventions. Our results show that parameter decomposition significantly improves calibration performance in limited-data regimes, facilitating fast and reliable personalization and supporting the development of patient-specific cancer models and MDTs.",
+  "categories": [
+    "q-bio.OT"
+  ],
+  "primary_category": "q-bio.OT",
+  "comment": null,
+  "published_date": "2026-04-30T04:18:58Z",
+  "updated_date": "2026-04-30T04:18:58Z",
+  "url": "https://arxiv.org/abs/2604.27408v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.27408v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-07T10:15:37.172529",
+  "category": "biology",
+  "subcategories": [
+    "q-bio.OT"
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "id": "metric_geometry-hyperbolic",
+  "name": "Hyperbolic Geometry",
+  "category": "mathematics",
+  "subcategory": "metric_geometry",
+  "subcategory_name": "Metric Geometry",
+  "description": "ℍⁿ, Poincaré model. Constant curvature −1. Isometries PSL(2,ℝ). Mostow rigidity.",
+  "mermaid": "graph TD\n    D1[\"Def: ℍⁿ hyperbolic\\ncurv −1\"]\n    D2[\"Def: Poincaré disk\\nconformal model\"]\n    D3[\"Def: Geodesic\\ncircle orth to ∂\"]\n    D4[\"Def: Isom ℍ²\\nPSL2ℝ\"]\n    T1[\"Thm: Upper half-plane\\nℍ² ≅ disk\"]\n    T2[\"Thm: Geodesics\\nsemicircles, vert lines\"]\n    T3[\"Thm: Area triangle\\nπ−angle sum\"]\n    T4[\"Thm: Mostow rigidity\\nclosed hyp n≥3\"]\n    T5[\"Thm: Margulis lemma\\nthick-thin decomp\"]\n    D1 --> T1\n    D2 --> T1\n    D3 --> T2\n    D4 --> T4\n    T1 --> T3\n    T4 --> T5\n    classDef definition fill:#b197fc,color:#fff\n    classDef theorem fill:#51cf66,color:#fff\n    class D1,D2,D3,D4 definition\n    class T1,T2,T3,T4,T5 theorem",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

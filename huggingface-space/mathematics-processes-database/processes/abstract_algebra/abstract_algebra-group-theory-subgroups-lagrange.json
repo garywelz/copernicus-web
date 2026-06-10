@@ -1,0 +1,39 @@
+{
+  "id": "abstract_algebra-group-theory-subgroups-lagrange",
+  "name": "Group Theory — Subgroups & Lagrange",
+  "category": "mathematics",
+  "subcategory": "abstract_algebra",
+  "subcategory_name": "Abstract Algebra",
+  "description": "Subgroup theory with layered dependencies. Definitions: subgroup, coset, index, order of element and group. Subgroup criterion (closed under product and inverse) and one-step criterion (nonempty, ab⁻¹∈H). Intersection of subgroups is subgroup. Cosets partition G; cosets have equal size. Lagrange's theorem: |H| divides |G|. Corollaries: |G|=|G:H||H|; order of element divides |G|; groups of prime order are cyclic.",
+  "mermaid": "graph TD\n    DefSub[\"Def Subgroup\\nH subset G, H group under same op\"]\n    DefCoset[\"Def Coset\\naH = ah : h in H\"]\n    DefIndex[\"Def Index\\nG:H = number of left cosets\"]\n    DefOrdEl[\"Def Order of element\\nord a = smallest n with a^n = e\"]\n    DefOrdGr[\"Def Order of group\\nG = number of elements\"]\n    Crit1[\"Subgroup criterion 1\\nH nonempty closed under product and inverse\"]\n    Crit2[\"Subgroup criterion 2\\nH nonempty, a b inv in H for a b in H\"]\n    T1[\"T1 Intersection of subgroups\\nis subgroup\"]\n    T2[\"T2 Cosets partition G\\ndistinct cosets disjoint\"]\n    T3[\"T3 Coset size\\naH = H for all a\"]\n    Lag[\"Lagrange\\nH subgroup implies H divides G\"]\n    Cor1[\"Cor 1 G = G:H H\"]\n    Cor2[\"Cor 2 ord a divides G\"]\n    Cor3[\"Cor 3 G prime implies G cyclic\"]\n    DefSub --> Crit1\n    DefSub --> Crit2\n    Crit2 --> Crit1\n    DefSub --> T1\n    DefSub --> DefCoset\n    DefSub --> DefIndex\n    DefSub --> DefOrdGr\n    DefCoset --> T2\n    DefCoset --> T3\n    T2 --> Lag\n    T3 --> Lag\n    DefIndex --> Lag\n    DefOrdGr --> Lag\n    Lag --> Cor1\n    DefIndex --> Cor1\n    Lag --> Cor2\n    DefOrdEl --> Cor2\n    Cor2 --> Cor3\n    Lag --> Cor3\n    classDef axiom fill:#ff6b6b,color:#fff,stroke:#c0392b\n    classDef definition fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef theorem fill:#51cf66,color:#fff,stroke:#40c057\n    class DefSub,DefCoset,DefIndex,DefOrdEl,DefOrdGr definition\n    class Crit1,Crit2,T1,T2,T3,Lag,Cor1,Cor2,Cor3 theorem",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

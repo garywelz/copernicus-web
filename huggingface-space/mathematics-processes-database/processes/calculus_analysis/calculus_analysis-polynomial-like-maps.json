@@ -1,0 +1,39 @@
+{
+  "id": "calculus_analysis-polynomial-like-maps",
+  "name": "Polynomial-like Maps & Straightening",
+  "category": "mathematics",
+  "subcategory": "calculus_analysis",
+  "subcategory_name": "Calculus & Analysis",
+  "description": "Polynomial-like map: f: U → V with U ⋐ V, f proper, degree d. Douady-Hubbard straightening theorem: every quadratic-like map is hybrid equivalent to a unique f_c(z) = z² + c. Straightening map χ: c ↦ parameter of equivalent quadratic. For quadratic-like, χ continuous ⇒ M contains infinitely many small copies of itself (renormalization). Explains self-similarity of M. Douady rabbit: filled Julia set with threefold symmetry.",
+  "mermaid": "graph TD\n    DH[\"Douady-Hubbard Connected\"]\n    Quad[\"Quadratic Julia & Mandelbrot\"]\n    DefPL[\"Def: Polynomial-like f: U→V\\nU ⋐ V, proper, deg d\"]\n    DefQuadLike[\"Def: Quadratic-like\\ndegree 2\"]\n    DefHybrid[\"Def: Hybrid equivalence\\nQC conjugate, conformal on K\"]\n    ThmStraight[\"Thm: Straightening\\nQuad-like ~ unique f_c\"]\n    DefChi[\"Def: Straightening map χ\\nc = χ(f)\"]\n    ThmCont[\"Thm: χ continuous\\nFor quadratic-like\"]\n    ThmSmall[\"Thm: M has small copies\\nInfinitely many mini-Mandelbrots\"]\n    DH --> DefPL\n    Quad --> DefPL\n    DefPL --> DefQuadLike\n    DefQuadLike --> DefHybrid\n    DefHybrid --> ThmStraight\n    ThmStraight --> DefChi\n    DefChi --> ThmCont\n    ThmCont --> ThmSmall\n    classDef axiom fill:#ff6b6b,color:#fff,stroke:#c0392b\n    classDef definition fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef theorem fill:#51cf66,color:#fff,stroke:#40c057\n    class DH,Quad axiom\n    class DefPL,DefQuadLike,DefHybrid,DefChi definition\n    class ThmStraight,ThmCont,ThmSmall theorem",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

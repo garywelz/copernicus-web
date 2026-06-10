@@ -1,0 +1,40 @@
+{
+  "id": "medrxiv_10.64898_2025.12.23.25342933",
+  "doi": "10.64898/2025.12.23.25342933",
+  "title": "AWS Trainium vs NVIDIA CUDA for Medical Image Classification: A Comprehensive Benchmark on ChestX-ray14",
+  "authors": [
+    "Fisher, G. R."
+  ],
+  "author_string": "Fisher, G. R.",
+  "journal": "medRxiv",
+  "journal_full": "medRxiv",
+  "year": "2025",
+  "abstract": "We present a rigorous benchmark comparing AWS Trainium (trn1 instances) and NVIDIA CUDA (g5 instances with A10G GPUs) for training convolutional neural networks on medical image classification. Using the NIH ChestX-ray14 dataset with 112,120 chest radiographs and 14 thoracic disease labels, we evaluate ResNet-50 and ConvNeXt architectures across both platforms. Our key findings are threefold: (1) Trainium achieves virtually identical accuracy to CUDA for compatible architectures (ConvNeXt-Pico: F1=0.8007 vs 0.8027, {Delta}=0.25%), (2) modern CNN architectures using depthwise convolutions and LayerNorm (ConvNeXt-Tiny and larger) fail to compile or load on Trainium due to hardware constraints, and (3) Trainium is 3-5 x more expensive than CUDA for CNN training even with correct instance sizing. We document the substantial porting effort required, including four critical XLA-specific code modifications, and provide guidance for practitioners considering Trainium for computer vision workloads.",
+  "keywords": [],
+  "categories": [
+    "radiology and imaging"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.64898/2025.12.23.25342933",
+  "source": "medrxiv",
+  "sources": [
+    "medrxiv"
+  ],
+  "acquired_date": "2026-04-29T22:15:24.902108",
+  "category": "biology",
+  "subcategories": [
+    "radiology and imaging"
+  ],
+  "published_date": "2025-12-30",
+  "updated_date": "2025-12-30",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "medrxiv",
+  "preprint_version": "1",
+  "preprint_type": "PUBLISHAHEADOFPRINT",
+  "license": "cc_by",
+  "jatsxml": "https://www.medrxiv.org/content/early/2025/12/30//2025.12.23.25342933.source.xml",
+  "published_doi": null,
+  "author_corresponding": "George Ross Fisher IV",
+  "author_corresponding_institution": "Independent Researcher"
+}

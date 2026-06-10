@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2605.14647v1",
+  "arxiv_id": "2605.14647v1",
+  "title": "Multiscale Topological Inference for Marked Point Processes via Euler Characteristic Envelopes",
+  "authors": [
+    "Matthias Eckardt",
+    "Mehdi Moradi"
+  ],
+  "author_string": "Matthias Eckardt, Mehdi Moradi",
+  "journal": "arXiv:2605.14647v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "The statistical analysis of marked point processes requires disentangling complex spatial arrangements from attribute-dependent interactions. While classical summary statistics are effective for second-order dependencies, they frequently fail to capture higher-order topological structures and non-linear interactions between marks and space. In this work, we propose a novel multiscale topological inference framework for marked point processes by integrating mark-weighted filtrations with Euler Characteristic envelopes. We redefine the underlying metric space using an exponential mark-weighted distance, which modulates connectivity based on attribute similarity, effectively accelerating the merger of connected components among homophilic neighbors. To ensure rigorous statistical inference, we apply non-parametric global envelope tests to the resulting Euler Characteristic Curves, allowing for formal hypothesis testing against the null model of random labeling. Furthermore, we introduce a local decomposition of the topological signal via Z-scores at the critical filtration scale to identify and localize structural hubs and topological barriers. Systematic simulations across various scenarios demonstrate the framework's high specificity and sensitivity to attribute-space dependencies while remaining robust against purely geometric effects. This methodology provides a comprehensive and interpretable toolkit for identifying, quantifying, and localizing complex structural dependencies in marked spatial data, bridging the gap between topological data analysis and classical point process statistics.",
+  "categories": [
+    "stat.ME",
+    "stat.AP"
+  ],
+  "primary_category": "stat.AP",
+  "comment": null,
+  "published_date": "2026-05-14T10:05:25Z",
+  "updated_date": "2026-05-14T10:05:25Z",
+  "url": "https://arxiv.org/abs/2605.14647v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.14647v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-16T10:15:40.624077",
+  "category": "mathematics",
+  "subcategories": [
+    "stat.ME",
+    "stat.AP"
+  ]
+}

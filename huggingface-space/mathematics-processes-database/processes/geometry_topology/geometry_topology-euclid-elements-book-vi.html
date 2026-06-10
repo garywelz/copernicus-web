@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Euclid's Elements Book VI - Mathematics Process</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 20px; }
+        .container { max-width: 900px; margin: 0 auto; background: white; border-radius: 15px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); overflow: hidden; padding: 30px; }
+        h1 { color: #2c3e50; margin-bottom: 15px; }
+        p { color: #555; margin-bottom: 25px; line-height: 1.6; }
+        .nav-links { margin-bottom: 20px; }
+        .nav-links a { color: #e67e22; text-decoration: none; margin-right: 20px; font-weight: 500; }
+        .nav-links a:hover { text-decoration: underline; }
+        .sections { display: grid; gap: 15px; }
+        .sections a { display: block; padding: 20px; background: #f8f9fa; border-radius: 10px; color: #2c3e50; text-decoration: none; font-weight: 500; border-left: 4px solid #e67e22; }
+        .sections a:hover { background: #ecf0f1; }
+        .chart-meta { font-size: 0.9em; color: #7f8c8d; margin-top: 4px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="nav-links">
+            <a id="back-link" href="#">← Back to Mathematics Database</a>
+            <a id="euclid-index-link" href="#">Euclid's Elements (all books)</a>
+            <a href="https://mathcs.clarku.edu/~djoyce/java/elements/bookVI/bookVI.html" target="_blank">Euclid's Elements Book VI (Joyce)</a>
+        </div>
+        <script>
+            (function() {
+                const base = window.location.hostname.includes('storage.googleapis.com')
+                    ? 'https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database'
+                    : '../..';
+                document.getElementById('back-link').href = base + '/mathematics-database-table.html';
+                document.getElementById('euclid-index-link').href = base + '/processes/geometry_topology/geometry_topology-euclid-elements.html';
+            })();
+        </script>
+        <h1>Euclid's Elements Book VI</h1>
+        <p>Similar figures. 4 definitions, 33 propositions. Depends on Book I and Book V. VI.1 (triangles under same height) is basis for most. VI.33 uses proportion def directly.</p>
+        <div class="sections">
+            <a href="geometry_topology-euclid-elements-book-vi-props-1-11.html">Propositions 1–11 <span class="chart-meta">Similar triangles, proportionals</span></a>
+            <a href="geometry_topology-euclid-elements-book-vi-props-12-22.html">Propositions 12–22 <span class="chart-meta">Reciprocally proportional, duplicate ratio</span></a>
+            <a href="geometry_topology-euclid-elements-book-vi-props-23-33.html">Propositions 23–33 <span class="chart-meta">Application of areas, extreme and mean ratio</span></a>
+        </div>
+    </div>
+</body>
+</html>

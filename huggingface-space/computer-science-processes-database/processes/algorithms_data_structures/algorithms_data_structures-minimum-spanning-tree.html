@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minimum Spanning Tree - Computer Science Process</title>
+    <title>Minimum Spanning Tree (Kruskal / Prim) - Computer Science Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Minimum Spanning Tree</h1>
+            <h1>Minimum Spanning Tree (Kruskal / Prim)</h1>
             <div class="header-meta">
                 <span class="meta-item">Computer Science</span>
                 <span class="meta-item">Algorithms & Data Structures</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,43 +234,45 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Minimum Spanning Tree process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>A minimum spanning tree connects all vertices of a weighted graph with least total edge weight by a greedy rule: Kruskal sorts edges and adds the lightest that does not form a cycle (using union-find), while Prim grows a tree by repeatedly adding the lightest edge leaving it, until every vertex is connected.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-N1["Weighted Graph"]
-N2["Edge Weights"]
-N3["Candidate Edges"]
-N4["Choose Approach"]
-N5["DSU / PQ"]
-N6["Select Next Safe Edge"]
-N7["Cycle Check"]
-N8["Add Edge to Tree"]
-N9["Integrate Results"]
-N10["MST Edge Set"]
-N11["MST Total Weight"]
+    N1["Weighted connected graph"]
+    N2{"Greedy strategy?"}
+    N3["Kruskal: sort edges"]
+    N4["Prim: grow from vertex"]
+    N5["Pick min-weight safe edge"]
+    N6{"Creates a cycle?"}
+    N7["Reject edge"]
+    N8["Add edge to MST"]
+    N9["Union / extend tree"]
+    N10{"All vertices connected?"}
+    N11["Minimum spanning tree"]
 
-N1 --> N2
-N2 --> N3
-N3 --> N4
-N4 --> N5
-N4 --> N7
-N5 --> N6
-N7 --> N8
-N6 --> N9
-N8 --> N9
-N9 --> N10
-N10 --> N11
+    N1 --> N2
+    N2 -->|kruskal| N3
+    N2 -->|prim| N4
+    N3 --> N5
+    N4 --> N5
+    N5 --> N6
+    N6 -->|yes| N7
+    N7 -->|next edge| N5
+    N6 -->|no| N8
+    N8 --> N9
+    N9 --> N10
+    N10 -->|no| N5
+    N10 -->|yes| N11
 
     style N1 fill:#ff6b6b,color:#fff
-    style N2 fill:#ff6b6b,color:#fff
-    style N3 fill:#ffd43b,color:#000
-    style N4 fill:#ffd43b,color:#000
-    style N5 fill:#ffd43b,color:#000
-    style N6 fill:#51cf66,color:#fff
+    style N2 fill:#74c0fc,color:#fff
+    style N3 fill:#51cf66,color:#fff
+    style N4 fill:#51cf66,color:#fff
+    style N5 fill:#51cf66,color:#fff
+    style N6 fill:#74c0fc,color:#fff
     style N7 fill:#51cf66,color:#fff
     style N8 fill:#51cf66,color:#fff
     style N9 fill:#74c0fc,color:#fff
@@ -252,6 +281,14 @@ N10 --> N11
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Weighted connected graph</td><td>Triggers & Inputs</td><td><a href="https://doi.org/10.1090/S0002-9939-1956-0078686-7" target="_blank" title="On the shortest spanning subtree of a graph and the traveling salesman problem" style="color:#9b59b6;">Kruskal, J. B. 1956</a></td></tr><tr><td style="font-weight:600;">Greedy strategy?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1090/S0002-9939-1956-0078686-7" target="_blank" title="On the shortest spanning subtree of a graph and the traveling salesman problem" style="color:#9b59b6;">Kruskal, J. B. 1956</a></td></tr><tr><td style="font-weight:600;">Kruskal: sort edges</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1090/S0002-9939-1956-0078686-7" target="_blank" title="On the shortest spanning subtree of a graph and the traveling salesman problem" style="color:#9b59b6;">Kruskal, J. B. 1956</a></td></tr><tr><td style="font-weight:600;">Prim: grow from vertex</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1002/j.1538-7305.1957.tb01515.x" target="_blank" title="Shortest connection networks and some generalizations" style="color:#9b59b6;">Prim, R. C. 1957</a></td></tr><tr><td style="font-weight:600;">Pick min-weight safe edge</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1002/j.1538-7305.1957.tb01515.x" target="_blank" title="Shortest connection networks and some generalizations" style="color:#9b59b6;">Prim, R. C. 1957</a></td></tr><tr><td style="font-weight:600;">Creates a cycle?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1090/S0002-9939-1956-0078686-7" target="_blank" title="On the shortest spanning subtree of a graph and the traveling salesman problem" style="color:#9b59b6;">Kruskal, J. B. 1956</a></td></tr><tr><td style="font-weight:600;">Reject edge</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1090/S0002-9939-1956-0078686-7" target="_blank" title="On the shortest spanning subtree of a graph and the traveling salesman problem" style="color:#9b59b6;">Kruskal, J. B. 1956</a></td></tr><tr><td style="font-weight:600;">Add edge to MST</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1002/j.1538-7305.1957.tb01515.x" target="_blank" title="Shortest connection networks and some generalizations" style="color:#9b59b6;">Prim, R. C. 1957</a></td></tr><tr><td style="font-weight:600;">Union / extend tree</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1090/S0002-9939-1956-0078686-7" target="_blank" title="On the shortest spanning subtree of a graph and the traveling salesman problem" style="color:#9b59b6;">Kruskal, J. B. 1956</a></td></tr><tr><td style="font-weight:600;">All vertices connected?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1002/j.1538-7305.1957.tb01515.x" target="_blank" title="Shortest connection networks and some generalizations" style="color:#9b59b6;">Prim, R. C. 1957</a></td></tr><tr><td style="font-weight:600;">Minimum spanning tree</td><td>Products & Outputs</td><td><a href="https://doi.org/10.1090/S0002-9939-1956-0078686-7" target="_blank" title="On the shortest spanning subtree of a graph and the traveling salesman problem" style="color:#9b59b6;">Kruskal, J. B. 1956</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -298,11 +335,11 @@ N10 --> N11
                     <h3>Process Statistics</h3>
                     <ul>
                         <li><strong>Nodes:</strong> 11</li>
-                        <li><strong>Edges:</strong> 11</li>
-                        <li><strong>Conditionals:</strong> 0</li>
+                        <li><strong>Edges:</strong> 13</li>
+                        <li><strong>Conditionals:</strong> 3</li>
                         <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 1</li>
-                        <li><strong>Total Gates:</strong> 2</li>
+                        <li><strong>OR Gates:</strong> 3</li>
+                        <li><strong>Total Gates:</strong> 4</li>
                     </ul>
                 </div>
                 
@@ -310,7 +347,7 @@ N10 --> N11
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>minimum</li><li>spanning</li><li>tree</li>
+                        <li>minimum spanning tree</li><li>Kruskal</li><li>Prim</li><li>greedy algorithm</li><li>union-find</li>
                     </ul>
                 </div>
                 
@@ -321,42 +358,22 @@ N10 --> N11
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>On the shortest spanning subtree of a graph and the traveling salesman problem</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Kruskal, J. B.
+                            , Proceedings of the American Mathematical Society
+                             (1956)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #9b59b6; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Minimum spanning tree problem</strong>
-                            
-                            , SpringerReference
-                             (None)
-                            </span>
-                            <br><a href="https://doi.org/10.1007/springerreference_5821" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.1007/springerreference_5821</a>
+                            <br><a href="https://doi.org/10.1090/S0002-9939-1956-0078686-7" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.1090/S0002-9939-1956-0078686-7</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Generalized Minimum Spanning Tree</strong>
-                            
-                            , SpringerReference
-                             (None)
+                            <strong>Shortest connection networks and some generalizations</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Prim, R. C.
+                            , Bell System Technical Journal
+                             (1957)
                             </span>
-                            <br><a href="https://doi.org/10.1007/springerreference_62107" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.1007/springerreference_62107</a>
-                            
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Figure 4: Minimum Spanning Tree (MST).</strong>
-                            
-                            
-                             (None)
-                            </span>
-                            <br><a href="https://doi.org/10.7717/peerj.15847/fig-4" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.7717/peerj.15847/fig-4</a>
+                            <br><a href="https://doi.org/10.1002/j.1538-7305.1957.tb01515.x" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.1002/j.1538-7305.1957.tb01515.x</a>
                             
                         </li>
                         

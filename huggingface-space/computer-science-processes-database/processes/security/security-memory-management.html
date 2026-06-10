@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Memory Management - Computer Science Process</title>
+    <title>Buffer Overflow Exploit & Defense - Computer Science Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Memory Management</h1>
+            <h1>Buffer Overflow Exploit & Defense</h1>
             <div class="header-meta">
                 <span class="meta-item">Computer Science</span>
                 <span class="meta-item">Security & Cryptography</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,67 +234,63 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Memory Management process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>A buffer overflow occurs when unchecked input is copied past a buffer's bounds, overwriting the return address to redirect control flow to attacker code; modern defenses such as stack canaries, ASLR, and non-executable memory detect or block the attack, while proper bounds checking rejects the input outright.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-A2[Memory Allocation] --> B2[Memory Management Method]
-C2[Virtual Memory] --> D2[Page Management]
-E2[Memory Protection] --> F2[Memory Management Analysis]
-B2 --> G2[Paging System]
-D2 --> H2[Segmentation]
-F2 --> I2[Memory Mapping]
-G2 --> J2[Page Replacement]
-H2 --> K2[Address Translation]
-I2 --> L2[Memory Access]
-J2 --> M2[Cache Management]
-K2 --> L2
-L2 --> N2[Memory Fragmentation]
-M2 --> O2[Memory Optimization]
-N2 --> P2[Garbage Collection]
-O2 --> Q2[Memory Management Process]
-P2 --> R2[Memory Management Validation]
-Q2 --> S2[Memory Management Verification]
-R2 --> T2[Memory Management Result]
-S2 --> U2[Memory Management Analysis]
-T2 --> V2[Memory Management Parameters]
-U2 --> W2[Memory Management Output]
-V2 --> X2[Memory Management Analysis]
-W2 --> Y2[Memory Management Final Result]
-X2 --> Z2[Memory Management Complete]
+    N1["Program reads input"]
+    N2["Copy to fixed buffer"]
+    N3{"Bounds checked?"}
+    N4["Reject oversized input"]
+    N5["Overflow buffer"]
+    N6["Overwrite return addr"]
+    N7{"Defenses enabled?"}
+    N8["Stack canary detects"]
+    N9["ASLR + NX block"]
+    N10["Abort safely"]
+    N11["Hijack control flow"]
+    N12["Prevented vs success"]
 
-    style A2 fill:#ff6b6b,color:#fff
-    style C2 fill:#ff6b6b,color:#fff
-    style E2 fill:#ff6b6b,color:#fff
-    style B2 fill:#ffd43b,color:#000
-    style D2 fill:#ffd43b,color:#000
-    style F2 fill:#ffd43b,color:#000
-    style G2 fill:#ffd43b,color:#000
-    style H2 fill:#ffd43b,color:#000
-    style I2 fill:#ffd43b,color:#000
-    style J2 fill:#ffd43b,color:#000
-    style K2 fill:#ffd43b,color:#000
-    style L2 fill:#ffd43b,color:#000
-    style M2 fill:#51cf66,color:#fff
+    N1 --> N2
+    N2 --> N3
+    N3 -->|yes| N4
+    N4 --> N12
+    N3 -->|no| N5
+    N5 --> N6
+    N6 --> N7
+    N7 -->|yes| N8
+    N8 --> N9
+    N9 --> N10
+    N10 --> N12
+    N7 -->|no| N11
+    N11 --> N12
+
+    style N1 fill:#ff6b6b,color:#fff
     style N2 fill:#51cf66,color:#fff
-    style O2 fill:#51cf66,color:#fff
-    style P2 fill:#51cf66,color:#fff
-    style Q2 fill:#51cf66,color:#fff
-    style R2 fill:#51cf66,color:#fff
-    style S2 fill:#51cf66,color:#fff
-    style T2 fill:#51cf66,color:#fff
-    style U2 fill:#51cf66,color:#fff
-    style V2 fill:#51cf66,color:#fff
-    style W2 fill:#51cf66,color:#fff
-    style X2 fill:#51cf66,color:#fff
-    style Y2 fill:#51cf66,color:#fff
-    style Z2 fill:#b197fc,color:#fff
+    style N3 fill:#74c0fc,color:#fff
+    style N4 fill:#51cf66,color:#fff
+    style N5 fill:#51cf66,color:#fff
+    style N6 fill:#51cf66,color:#fff
+    style N7 fill:#74c0fc,color:#fff
+    style N8 fill:#51cf66,color:#fff
+    style N9 fill:#51cf66,color:#fff
+    style N10 fill:#51cf66,color:#fff
+    style N11 fill:#51cf66,color:#fff
+    style N12 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Program reads input</td><td>Triggers & Inputs</td><td><a href="http://phrack.org/issues/49/14.html" target="_blank" title="Smashing the stack for fun and profit" style="color:#9b59b6;">Aleph One (Levy, E.) 1996</a></td></tr><tr><td style="font-weight:600;">Copy to fixed buffer</td><td>Processing & Operations</td><td><a href="http://phrack.org/issues/49/14.html" target="_blank" title="Smashing the stack for fun and profit" style="color:#9b59b6;">Aleph One (Levy, E.) 1996</a></td></tr><tr><td style="font-weight:600;">Bounds checked?</td><td>Intermediates & States</td><td><a href="https://www.usenix.org/legacy/publications/library/proceedings/sec98/full_papers/cowan/cowan.pdf" target="_blank" title="StackGuard: automatic adaptive detection and prevention of buffer-overflow attacks" style="color:#9b59b6;">Cowan, C. et al. 1998</a></td></tr><tr><td style="font-weight:600;">Reject oversized input</td><td>Processing & Operations</td><td><a href="https://www.usenix.org/legacy/publications/library/proceedings/sec98/full_papers/cowan/cowan.pdf" target="_blank" title="StackGuard: automatic adaptive detection and prevention of buffer-overflow attacks" style="color:#9b59b6;">Cowan, C. et al. 1998</a></td></tr><tr><td style="font-weight:600;">Overflow buffer</td><td>Processing & Operations</td><td><a href="http://phrack.org/issues/49/14.html" target="_blank" title="Smashing the stack for fun and profit" style="color:#9b59b6;">Aleph One (Levy, E.) 1996</a></td></tr><tr><td style="font-weight:600;">Overwrite return addr</td><td>Processing & Operations</td><td><a href="http://phrack.org/issues/49/14.html" target="_blank" title="Smashing the stack for fun and profit" style="color:#9b59b6;">Aleph One (Levy, E.) 1996</a></td></tr><tr><td style="font-weight:600;">Defenses enabled?</td><td>Intermediates & States</td><td><a href="https://www.usenix.org/legacy/publications/library/proceedings/sec98/full_papers/cowan/cowan.pdf" target="_blank" title="StackGuard: automatic adaptive detection and prevention of buffer-overflow attacks" style="color:#9b59b6;">Cowan, C. et al. 1998</a></td></tr><tr><td style="font-weight:600;">Stack canary detects</td><td>Processing & Operations</td><td><a href="https://www.usenix.org/legacy/publications/library/proceedings/sec98/full_papers/cowan/cowan.pdf" target="_blank" title="StackGuard: automatic adaptive detection and prevention of buffer-overflow attacks" style="color:#9b59b6;">Cowan, C. et al. 1998</a></td></tr><tr><td style="font-weight:600;">ASLR + NX block</td><td>Processing & Operations</td><td><a href="https://www.usenix.org/legacy/publications/library/proceedings/sec98/full_papers/cowan/cowan.pdf" target="_blank" title="StackGuard: automatic adaptive detection and prevention of buffer-overflow attacks" style="color:#9b59b6;">Cowan, C. et al. 1998</a></td></tr><tr><td style="font-weight:600;">Abort safely</td><td>Processing & Operations</td><td><a href="https://www.usenix.org/legacy/publications/library/proceedings/sec98/full_papers/cowan/cowan.pdf" target="_blank" title="StackGuard: automatic adaptive detection and prevention of buffer-overflow attacks" style="color:#9b59b6;">Cowan, C. et al. 1998</a></td></tr><tr><td style="font-weight:600;">Hijack control flow</td><td>Processing & Operations</td><td><a href="http://phrack.org/issues/49/14.html" target="_blank" title="Smashing the stack for fun and profit" style="color:#9b59b6;">Aleph One (Levy, E.) 1996</a></td></tr><tr><td style="font-weight:600;">Prevented vs success</td><td>Products & Outputs</td><td><a href="https://www.usenix.org/legacy/publications/library/proceedings/sec98/full_papers/cowan/cowan.pdf" target="_blank" title="StackGuard: automatic adaptive detection and prevention of buffer-overflow attacks" style="color:#9b59b6;">Cowan, C. et al. 1998</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -313,12 +336,12 @@ X2 --> Z2[Memory Management Complete]
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 26</li>
-                        <li><strong>Edges:</strong> 21</li>
-                        <li><strong>Conditionals:</strong> 0</li>
+                        <li><strong>Nodes:</strong> 12</li>
+                        <li><strong>Edges:</strong> 13</li>
+                        <li><strong>Conditionals:</strong> 2</li>
                         <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 1</li>
+                        <li><strong>OR Gates:</strong> 2</li>
+                        <li><strong>Total Gates:</strong> 3</li>
                     </ul>
                 </div>
                 
@@ -326,7 +349,7 @@ X2 --> Z2[Memory Management Complete]
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>memory</li><li>management</li>
+                        <li>buffer overflow</li><li>stack smashing</li><li>stack canary</li><li>ASLR</li><li>control-flow hijack</li>
                     </ul>
                 </div>
                 
@@ -337,43 +360,23 @@ X2 --> Z2[Memory Management Complete]
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Smashing the stack for fun and profit</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Aleph One (Levy, E.)
+                            , Phrack Magazine
+                             (1996)
                             </span>
                             
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #9b59b6; font-size: 0.85em;">View Source</a>
+                            <br><a href="http://phrack.org/issues/49/14.html" target="_blank" style="color: #9b59b6; font-size: 0.85em;">View Source</a>
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>memory management</strong>
-                            
-                            , SpringerReference
-                             (None)
+                            <strong>StackGuard: automatic adaptive detection and prevention of buffer-overflow attacks</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Cowan, C.; Pu, C.; Maier, D.; et al.
+                            , USENIX Security Symposium
+                             (1998)
                             </span>
-                            <br><a href="https://doi.org/10.1007/springerreference_18731" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.1007/springerreference_18731</a>
                             
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Memory management for parallel tasks in shared memory</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Langendoen, K. G.; Muller, H. L.; Vree, W. G.
-                            , Lecture Notes in Computer Science
-                             (None)
-                            </span>
-                            <br><a href="https://doi.org/10.1007/bfb0017189" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.1007/bfb0017189</a>
-                            
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Optimized dynamic memory management techniques for heterogeneous memory systems</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Κατσαραγάκης, Εμμανουήλ
-                            
-                             (None)
-                            </span>
-                            <br><a href="https://doi.org/10.12681/eadd/58575" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.12681/eadd/58575</a>
-                            
+                            <br><a href="https://www.usenix.org/legacy/publications/library/proceedings/sec98/full_papers/cowan/cowan.pdf" target="_blank" style="color: #9b59b6; font-size: 0.85em;">View Source</a>
                         </li>
                         
                     </ul>

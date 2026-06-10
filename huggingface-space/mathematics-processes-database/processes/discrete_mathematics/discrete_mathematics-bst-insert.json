@@ -1,0 +1,55 @@
+{
+  "id": "discrete_mathematics-bst-insert",
+  "name": "Binary Search Tree Insert",
+  "category": "mathematics",
+  "subcategory": "discrete_mathematics",
+  "subcategory_name": "Discrete Mathematics",
+  "description": "Insert key into BST preserving order. Recursive: left if smaller, right if larger. O(h).",
+  "mermaid": "graph TD\n    A1[\"BST root\\nKey k\"]\n    D1{\"root null?\"}\n    B1[\"Return new node k\"]\n    D2{\"k less than root key?\"}\n    C1[\"root.left = Insert root.left k\"]\n    C2[\"root.right = Insert root.right k\"]\n    F1[\"Return root\"]\n    A1 --> D1\n    D1 -->|Yes| B1\n    D1 -->|No| D2\n    B1 --> F1\n    D2 -->|Yes: sequential AND| C1\n    D2 -->|No: sequential AND| C2\n    C1 --> F1\n    C2 --> F1\n    classDef red fill:#ff6b6b,color:#fff,stroke:#c0392b\n    classDef yellow fill:#ffd43b,color:#000,stroke:#f59f00\n    classDef green fill:#51cf66,color:#fff,stroke:#40c057\n    classDef lightblue fill:#74c0fc,color:#fff,stroke:#4dabf7\n    classDef violet fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef lavender fill:#e6e6fa,color:#333,stroke:#b19cd9\n    class A1 red\n    class B1,C1,C2 green\n    class F1 violet\n    class D1,D2 lavender",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [
+    "binary search tree",
+    "BST",
+    "insert",
+    "tree"
+  ],
+  "sources": [
+    {
+      "title": "Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Binary_search_tree"
+    }
+  ],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "complexity": {
+    "level": "medium",
+    "nodes": 8,
+    "edges": 9,
+    "conditionals": 2
+  },
+  "processType": "algorithm"
+}

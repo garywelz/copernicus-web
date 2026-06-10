@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Electrochemical Analysis - Chemistry Process</title>
+    <title>Potentiometry (Ion-Selective Electrode) - Chemistry Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Electrochemical Analysis</h1>
+            <h1>Potentiometry (Ion-Selective Electrode)</h1>
             <div class="header-meta">
                 <span class="meta-item">Chemistry</span>
                 <span class="meta-item">Analytical Chemistry</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,67 +234,56 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Electrochemical Analysis process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>Potentiometry measures an ion's activity at zero current: a selective membrane develops a potential against a reference electrode following the Nernst/Nikolsky equation, and after calibration against standards the measured EMF is converted to concentration.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-A3[Electrode Setup] --> B3[Electrochemical Method]
-C3[Potential Control] --> D3[Current Measurement]
-E3[Solution Analysis] --> F3[Electrochemical Response]
-B3 --> G3[Voltammetry]
-D3 --> H3[Potentiometry]
-F3 --> I3[Conductometry]
-G3 --> J3[Cyclic Voltammetry]
-H3 --> K3[Ion Selective Electrodes]
-I3 --> L3[Conductivity Measurement]
-J3 --> M3[Potential Sweep]
-K3 --> L3
-L3 --> N3[Ion Concentration]
-M3 --> O3[Current Response]
-N3 --> P3[Calibration Curve]
-O3 --> Q3[Electrochemical Analysis Process]
-P3 --> R3[Electrochemical Validation]
-Q3 --> S3[Electrochemical Verification]
-R3 --> T3[Electrochemical Result]
-S3 --> U3[Electrochemical Analysis]
-T3 --> V3[Electrochemical Parameters]
-U3 --> W3[Electrochemical Output]
-V3 --> X3[Electrochemical Analysis]
-W3 --> Y3[Electrochemical Final Result]
-X3 --> Z3[Electrochemical Analysis Complete]
+    N1["Sample solution"]
+    N2["Immerse ISE + reference"]
+    N3["Selective membrane responds"]
+    N4["Membrane potential develops"]
+    N5["Measure cell EMF"]
+    N6{"Nernstian response?"}
+    N7["Correct for interferents"]
+    N8["Calibrate vs standards"]
+    N9["EMF -> activity"]
+    N10["Ion concentration"]
 
-    style A3 fill:#ff6b6b,color:#fff
-    style C3 fill:#ff6b6b,color:#fff
-    style E3 fill:#ff6b6b,color:#fff
-    style B3 fill:#ffd43b,color:#000
-    style D3 fill:#ffd43b,color:#000
-    style F3 fill:#ffd43b,color:#000
-    style G3 fill:#ffd43b,color:#000
-    style H3 fill:#ffd43b,color:#000
-    style I3 fill:#ffd43b,color:#000
-    style J3 fill:#ffd43b,color:#000
-    style K3 fill:#ffd43b,color:#000
-    style L3 fill:#ffd43b,color:#000
-    style M3 fill:#51cf66,color:#fff
-    style N3 fill:#51cf66,color:#fff
-    style O3 fill:#51cf66,color:#fff
-    style P3 fill:#51cf66,color:#fff
-    style Q3 fill:#51cf66,color:#fff
-    style R3 fill:#51cf66,color:#fff
-    style S3 fill:#51cf66,color:#fff
-    style T3 fill:#51cf66,color:#fff
-    style U3 fill:#51cf66,color:#fff
-    style V3 fill:#51cf66,color:#fff
-    style W3 fill:#51cf66,color:#fff
-    style X3 fill:#51cf66,color:#fff
-    style Y3 fill:#51cf66,color:#fff
-    style Z3 fill:#b197fc,color:#fff
+    N1 --> N2
+    N2 --> N3
+    N3 --> N4
+    N4 --> N5
+    N5 --> N6
+    N6 -->|no| N7
+    N7 --> N8
+    N6 -->|yes| N8
+    N8 --> N9
+    N9 --> N10
+
+    style N1 fill:#ff6b6b,color:#fff
+    style N2 fill:#51cf66,color:#fff
+    style N3 fill:#74c0fc,color:#fff
+    style N4 fill:#74c0fc,color:#fff
+    style N5 fill:#51cf66,color:#fff
+    style N6 fill:#74c0fc,color:#fff
+    style N7 fill:#51cf66,color:#fff
+    style N8 fill:#51cf66,color:#fff
+    style N9 fill:#51cf66,color:#fff
+    style N10 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Sample solution</td><td>Triggers & Inputs</td><td><a href="https://www.macmillanlearning.com/college/us/product/Quantitative-Chemical-Analysis/p/146413538X" target="_blank" title="Quantitative Chemical Analysis, 9th ed. — Electrode Measurements" style="color:#e74c3c;">Harris, D. C. 2015</a></td></tr><tr><td style="font-weight:600;">Immerse ISE + reference</td><td>Processing & Operations</td><td><a href="https://www.cengage.com/c/principles-of-instrumental-analysis-7e-skoog/9781305577213/" target="_blank" title="Principles of Instrumental Analysis, 7th ed. — Potentiometry" style="color:#e74c3c;">Skoog, D. A. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Selective membrane responds</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1021/cr970113+" target="_blank" title="Carrier-based ion-selective electrodes and bulk optodes. 1. General characteristics" style="color:#e74c3c;">Bühlmann, P. et al. 1998</a></td></tr><tr><td style="font-weight:600;">Membrane potential develops</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1021/cr970113+" target="_blank" title="Carrier-based ion-selective electrodes and bulk optodes. 1. General characteristics" style="color:#e74c3c;">Bühlmann, P. et al. 1998</a></td></tr><tr><td style="font-weight:600;">Measure cell EMF</td><td>Processing & Operations</td><td><a href="https://www.cengage.com/c/principles-of-instrumental-analysis-7e-skoog/9781305577213/" target="_blank" title="Principles of Instrumental Analysis, 7th ed. — Potentiometry" style="color:#e74c3c;">Skoog, D. A. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Nernstian response?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1021/cr970113+" target="_blank" title="Carrier-based ion-selective electrodes and bulk optodes. 1. General characteristics" style="color:#e74c3c;">Bühlmann, P. et al. 1998</a></td></tr><tr><td style="font-weight:600;">Correct for interferents</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1021/cr970113+" target="_blank" title="Carrier-based ion-selective electrodes and bulk optodes. 1. General characteristics" style="color:#e74c3c;">Bühlmann, P. et al. 1998</a></td></tr><tr><td style="font-weight:600;">Calibrate vs standards</td><td>Processing & Operations</td><td><a href="https://www.cengage.com/c/principles-of-instrumental-analysis-7e-skoog/9781305577213/" target="_blank" title="Principles of Instrumental Analysis, 7th ed. — Potentiometry" style="color:#e74c3c;">Skoog, D. A. et al. 2018</a></td></tr><tr><td style="font-weight:600;">EMF -> activity</td><td>Processing & Operations</td><td><a href="https://www.macmillanlearning.com/college/us/product/Quantitative-Chemical-Analysis/p/146413538X" target="_blank" title="Quantitative Chemical Analysis, 9th ed. — Electrode Measurements" style="color:#e74c3c;">Harris, D. C. 2015</a></td></tr><tr><td style="font-weight:600;">Ion concentration</td><td>Products & Outputs</td><td><a href="https://www.macmillanlearning.com/college/us/product/Quantitative-Chemical-Analysis/p/146413538X" target="_blank" title="Quantitative Chemical Analysis, 9th ed. — Electrode Measurements" style="color:#e74c3c;">Harris, D. C. 2015</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -313,12 +329,12 @@ X3 --> Z3[Electrochemical Analysis Complete]
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 26</li>
-                        <li><strong>Edges:</strong> 21</li>
-                        <li><strong>Conditionals:</strong> 0</li>
+                        <li><strong>Nodes:</strong> 10</li>
+                        <li><strong>Edges:</strong> 10</li>
+                        <li><strong>Conditionals:</strong> 1</li>
                         <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 1</li>
+                        <li><strong>OR Gates:</strong> 1</li>
+                        <li><strong>Total Gates:</strong> 2</li>
                     </ul>
                 </div>
                 
@@ -326,7 +342,7 @@ X3 --> Z3[Electrochemical Analysis Complete]
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>electrochemical</li><li>analysis</li>
+                        <li>potentiometry</li><li>ion-selective electrode</li><li>membrane potential</li><li>nernst</li><li>selectivity</li>
                     </ul>
                 </div>
                 
@@ -337,43 +353,33 @@ X3 --> Z3[Electrochemical Analysis Complete]
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Carrier-based ion-selective electrodes and bulk optodes. 1. General characteristics</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Bühlmann, P.; Pretsch, E.; Bakker, E.
+                            , Chemical Reviews
+                             (1998)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Forecasting Electrochemical Reactions in an Electrochemical Cell</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Burgot, Jean-Louis
-                            , General Analytical Chemistry
-                             (2024)
-                            </span>
-                            <br><a href="https://doi.org/10.1201/9781003224556-15" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1201/9781003224556-15</a>
+                            <br><a href="https://doi.org/10.1021/cr970113+" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1021/cr970113+</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Electrochemical Indicators</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Burgot, Jean-Louis
-                            , General Analytical Chemistry
-                             (2024)
+                            <strong>Quantitative Chemical Analysis, 9th ed. — Electrode Measurements</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Harris, D. C.
+                            , W. H. Freeman
+                             (2015)
                             </span>
-                            <br><a href="https://doi.org/10.1201/9781003224556-13" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1201/9781003224556-13</a>
                             
+                            <br><a href="https://www.macmillanlearning.com/college/us/product/Quantitative-Chemical-Analysis/p/146413538X" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Electrochemical Biosensors</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Burgot, Jean-Louis
-                            , General Analytical Chemistry
-                             (2024)
+                            <strong>Principles of Instrumental Analysis, 7th ed. — Potentiometry</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Skoog, D. A.; Holler, F. J.; Crouch, S. R.
+                            , Cengage Learning
+                             (2018)
                             </span>
-                            <br><a href="https://doi.org/10.1201/9781003224556-36" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1201/9781003224556-36</a>
                             
+                            <br><a href="https://www.cengage.com/c/principles-of-instrumental-analysis-7e-skoog/9781305577213/" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
                         </li>
                         
                     </ul>

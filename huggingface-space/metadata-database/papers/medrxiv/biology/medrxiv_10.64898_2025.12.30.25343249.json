@@ -1,0 +1,50 @@
+{
+  "id": "medrxiv_10.64898_2025.12.30.25343249",
+  "doi": "10.64898/2025.12.30.25343249",
+  "title": "Accelerated electrocardiographic aging of the heart as a risk determinant for atrial fibrillation: A Mendelian randomization study",
+  "authors": [
+    "CHO, S.",
+    "You, S. C.",
+    "Hwang, T.",
+    "Park, H.",
+    "Kim, D.",
+    "Kim, T.-H.",
+    "Uhm, J.-S.",
+    "Pak, H.-N.",
+    "Yang, P.-S.",
+    "Yu, H. T.",
+    "Joung, B."
+  ],
+  "author_string": "CHO, S., You, S. C., Hwang, T., Park, H., Kim, D. et al.",
+  "journal": "medRxiv",
+  "journal_full": "medRxiv",
+  "year": "2025",
+  "abstract": "BackgroundArtificial intelligence (AI)-derived electrocardiographic aging (ECG-aging) has been found to be associated with the risk of atrial fibrillation (AF).\n\nObjectivesWe aimed to assess the causal association between the discrepancy in AI-predicted electrocardiographic age and chronological age (AI-ECG age gap) and AF risk.\n\nMethodsWe analyzed 12-lead ECGs in UK Biobank to derive the AI-ECG age gap using our latest AI-based age prediction model. Associations between measured ECG-aging and genetically predicted ECG-aging based on a genetic risk score (GRS) were evaluated in relation to AF using multivariable regression and Mendelian randomization (MR). MR analyses incorporated GRS-based individual-level data and summary-level genome-wide association study (GWAS) data from large external consortia, with causal estimates obtained using inverse-variance weighting and complementary sensitivity methods. Mediation MR was additionally performed to assess intermediary causal pathways.\n\nResultsEach 1-SD increase in the AI-ECG age gap was associated with an increased risk of AF in observational analyses (HR 1.43 [95% CI, 1.29-1.59]) and GRS-based MR (OR 1.06 [95% CI, 1.01-1.12]). Two-sample MR analyses in two large, independent GWAS datasets replicated these findings (OR 1.13 [95% CI, 1.02-1.25] in both), with multiple sensitivity analyses confirming robustness. Bidirectional MR suggested potential reverse causation from AF to ECG-aging. Non-linear MR demonstrated a consistent positive association across the AI-ECG age gap spectrum. Mediation MR further identified heart failure as a key intermediary, accounting for approximately 70% of the total causal effect of ECG-aging on AF.\n\nConclusionThis study provides genetic evidence supporting a causal association between ECG-aging and the risk of AF. These findings highlight ECG-aging as a causally relevant and clinically informative biomarker for AF that may help identify individuals at increased risk.",
+  "keywords": [],
+  "categories": [
+    "cardiovascular medicine"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.64898/2025.12.30.25343249",
+  "source": "medrxiv",
+  "sources": [
+    "medrxiv"
+  ],
+  "acquired_date": "2026-04-30T22:15:24.580781",
+  "category": "biology",
+  "subcategories": [
+    "cardiovascular medicine"
+  ],
+  "published_date": "2025-12-31",
+  "updated_date": "2025-12-31",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "medrxiv",
+  "preprint_version": "1",
+  "preprint_type": "PUBLISHAHEADOFPRINT",
+  "license": "cc_by_nc_nd",
+  "jatsxml": "https://www.medrxiv.org/content/early/2025/12/31//2025.12.30.25343249.source.xml",
+  "published_doi": null,
+  "author_corresponding": "Boyoung Joung",
+  "author_corresponding_institution": "Yonsei University College of Medicine"
+}

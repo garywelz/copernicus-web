@@ -1,0 +1,46 @@
+{
+  "id": "medrxiv_10.64898_2026.01.21.26344382",
+  "doi": "10.64898/2026.01.21.26344382",
+  "title": "Freezing Prediction Horizon: Quantifying Advanced Warning for Predicting Freezing of Gait in Parkinson's Disease",
+  "authors": [
+    "Li, M.",
+    "Shi, B.",
+    "Tay, A.",
+    "Au, W. L.",
+    "Tan, D. M. L.",
+    "Chia, N. S. Y.",
+    "Yen, S.-C."
+  ],
+  "author_string": "Li, M., Shi, B., Tay, A., Au, W. L., Tan, D. M. L. et al.",
+  "journal": "medRxiv",
+  "journal_full": "medRxiv",
+  "year": "2026",
+  "abstract": "Freezing of gait (FoG) prediction is clinically meaningful only when warnings arrive sufficiently early for subsequent action. Therefore, we adopt a Freezing Prediction Horizon (FPH) evaluation that reports prediction performance as a function of the warning horizon before onset, making the lead-time versus reliability trade-off explicit. Within this protocol, we develop a Transformer-based predictor with a progressive self-paced learning strategy and evaluate it on a 55-patient clinical dataset and two public datasets. The horizon-performance curves show that Macro-F1 remains stable up to approximately 2.5 seconds before FoG onset in our dataset, after which a gradual decline is observed. This horizon-based characterization replaces single, fixed ahead-of-onset windows with a continuous method that summarizes achievable advanced time at specified accuracy levels. In this way, it offers a principled basis for setting targets in real-time implementationslinking algorithmic early-warning capacity to the lead times that practical systems may require-while remaining compatible with conventional metrics. By centering evaluation on FPH, this study clarifies how far in advance FoG can be predicted with confidence, and it positions horizon-based assessment as a reproducible complement to standard reporting for future work on deployable FoG prediction. Ultimately, quantifying advance warning is a prerequisite for prevention-oriented use, by indicating whether sufficient time can be reserved for cueing prior to onset.",
+  "keywords": [],
+  "categories": [
+    "neurology"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.64898/2026.01.21.26344382",
+  "source": "medrxiv",
+  "sources": [
+    "medrxiv"
+  ],
+  "acquired_date": "2026-05-22T22:15:23.270183",
+  "category": "biology",
+  "subcategories": [
+    "neurology"
+  ],
+  "published_date": "2026-01-22",
+  "updated_date": "2026-01-22",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "medrxiv",
+  "preprint_version": "1",
+  "preprint_type": "PUBLISHAHEADOFPRINT",
+  "license": "cc_by_nc_nd",
+  "jatsxml": "https://www.medrxiv.org/content/early/2026/01/22//2026.01.21.26344382.source.xml",
+  "published_doi": null,
+  "author_corresponding": "Shih-Cheng Yen",
+  "author_corresponding_institution": "National University of Singapore"
+}

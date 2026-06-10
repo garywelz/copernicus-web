@@ -1,0 +1,39 @@
+{
+  "id": "calculus_analysis-real-analysis-differentiation",
+  "name": "Real Analysis — Differentiation",
+  "category": "mathematics",
+  "subcategory": "calculus_analysis",
+  "subcategory_name": "Calculus & Analysis",
+  "description": "Derivative f'(a) = lim (f(x)-f(a))/(x-a). Chain rule, product rule. Rolle's theorem, Mean Value Theorem. Taylor expansion with remainder.",
+  "mermaid": "graph TD\n    D1[\"Def: Derivative\\nf' a = lim diff quot\"]\n    D2[\"Def: Differentiable\\nf' exists\"]\n    T1[\"Thm: Chain rule\\n(f∘g)' = f'∘g · g'\"]\n    T2[\"Thm: Product rule\\nfg' = f'g + fg'\"]\n    T3[\"Thm: Rolle\\nf cont diff, f a = f b ⇒ f' c = 0\"]\n    T4[\"Thm: MVT\\nf b - f a = f' c b - a\"]\n    T5[\"Thm: Taylor\\nf = P_n + R_n\"]\n    D1 --> D2\n    D1 --> T1\n    D1 --> T2\n    D2 --> T3\n    T3 --> T4\n    D1 --> T5\n    classDef definition fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef theorem fill:#51cf66,color:#fff,stroke:#40c057\n    class D1,D2 definition\n    class T1,T2,T3,T4,T5 theorem",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

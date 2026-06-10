@@ -1,0 +1,39 @@
+{
+  "id": "discrete_mathematics-aristotle-syllogistic-foundations-perfect",
+  "name": "Aristotle Syllogistic — Foundations and Perfect Syllogisms",
+  "category": "mathematics",
+  "subcategory": "discrete_mathematics",
+  "subcategory_name": "Discrete Mathematics",
+  "description": "Categorical forms, figures, conversion rules, and the four perfect syllogisms (Barbara, Celarent, Darii, Ferio). Shows how imperfect syllogisms reduce to perfect ones via conversion.",
+  "mermaid": "graph TD\n    DefAEIO(\"DefAEIO Categorical forms\")\n    DefFig(\"DefFig Figures 1,2,3\")\n    Econv(\"Econv E-conversion\")\n    Iconv(\"Iconv I-conversion\")\n    Aconv(\"Aconv A-conversion\")\n    Barbara(\"Barbara Barbara\")\n    Celarent(\"Celarent Celarent\")\n    Darii(\"Darii Darii\")\n    Ferio(\"Ferio Ferio\")\n    DefAEIO --> Barbara\n    DefFig --> Barbara\n    DefAEIO --> Celarent\n    DefFig --> Celarent\n    DefAEIO --> Darii\n    DefFig --> Darii\n    DefAEIO --> Ferio\n    DefFig --> Ferio\n    classDef axiom fill:#ff6b6b,color:#fff,stroke:#c0392b\n    classDef definition fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef theorem fill:#51cf66,color:#fff,stroke:#40c057\n    class Econv,Iconv,Aconv,Barbara,Celarent,Darii,Ferio axiom\n    class DefAEIO,DefFig definition",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

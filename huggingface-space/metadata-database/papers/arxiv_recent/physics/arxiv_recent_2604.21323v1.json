@@ -1,0 +1,29 @@
+{
+  "id": "arxiv_2604.21323v1",
+  "arxiv_id": "2604.21323v1",
+  "title": "Sufficient support size of measurements for quantum estimation",
+  "authors": [
+    "Koichi Yamagata"
+  ],
+  "author_string": "Koichi Yamagata",
+  "journal": "arXiv:2604.21323v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "In quantum estimation for a $d$-parameter family of density operators on a finite-dimensional Hilbert space $\\mathcal{H}$, an estimator is specified by a pair $\\left(M,\\hatθ\\right)$, where $M$ is a POVM with a finite outcome set $Ω$ and $\\hatθ:Ω\\to\\mathbb{R}^{d}$ is a classical estimator map. Since the number of outcomes $\\left|Ω\\right|$ is a priori unbounded, the space of admissible POVMs is vast, which makes the search for optimal estimators difficult. In this paper, for the minimization of the weighted trace of the mean squared error among locally unbiased estimators, we prove that it suffices to consider POVMs with at most $\\left({\\rm dim}\\,\\mathcal{H}\\right)^{2}+d(d+1)/2-1$ outcomes, and that an optimal measurement can be chosen to be rank-one. For the minimization of the average weighted trace of the mean squared error in Bayesian estimation, we show that it suffices to consider POVMs with at most $\\left( {\\rm dim}\\, \\mathcal{H}\\right)^{2}$outcomes, and again an optimal POVM can be taken to be rank-one. Furthermore, when the model admits a real sufficient subalgebra, we show that the $\\left( {\\rm dim}\\, \\mathcal{H} \\right)^{2}$ term in the above support-size bounds can be reduced in both the locally unbiased and Bayesian settings. These bounds substantially reduce the search space for optimal measurements and justify restricting numerical optimization to rank-one POVMs with finitely many outcomes.",
+  "categories": [
+    "quant-ph"
+  ],
+  "primary_category": "quant-ph",
+  "comment": null,
+  "published_date": "2026-04-23T06:26:07Z",
+  "updated_date": "2026-04-23T06:26:07Z",
+  "url": "https://arxiv.org/abs/2604.21323v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.21323v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-27T10:15:42.861135",
+  "category": "physics",
+  "subcategories": [
+    "quant-ph"
+  ]
+}

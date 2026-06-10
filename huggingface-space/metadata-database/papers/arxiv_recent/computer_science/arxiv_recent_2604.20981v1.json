@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2604.20981v1",
+  "arxiv_id": "2604.20981v1",
+  "title": "PanGuide3D: Cohort-Robust Pancreas Tumor Segmentation via Probabilistic Pancreas Conditioning and a Transformer Bottleneck",
+  "authors": [
+    "Sunny Joy Ma",
+    "Xiang Ma"
+  ],
+  "author_string": "Sunny Joy Ma, Xiang Ma",
+  "journal": "arXiv:2604.20981v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Pancreatic tumor segmentation in contrast-enhanced computed tomography (CT) is clinically important yet technically challenging: lesions are often small, heterogeneous, and easily confused with surrounding soft tissue, and models that perform well on one cohort frequently degrade under cohort shift. Our goal is to improve cross-cohort generalization while keeping the model architecture simple, efficient, and practical for 3D CT segmentation. We introduce PanGuide3D, a cohort-robust architecture with a shared 3D encoder, a pancreas decoder that predicts a probabilistic pancreas map, and a tumor decoder that is explicitly conditioned on this pancreas probability at multiple scales via differentiable soft gating. To capture long-range context under distribution shift, we further add a lightweight Transformer bottleneck in the U-Net bottleneck representation. We evaluate cohort transfer by training on the PanTS (Pancreatic Tumor Segmentation) cohort and testing both in-cohort (PanTS) and out-of-cohort on MSD (Medical Segmentation Decathlon) Task07 Pancreas, using matched preprocessing and training protocols across strong baselines. We collect voxel-level segmentation metrics, patient-level tumor detection, subgroup analyses by tumor size and anatomical location, volume-conditioned performance analyses, and calibration measurements to assess reliability. Across the evaluated models, PanGuide3D achieves the best overall tumor performance and shows improved cross-cohort generalization, particularly for small tumors and challenging anatomical locations, while reducing anatomically implausible false positives. These findings support probabilistic anatomical conditioning as a practical strategy for improving cross-cohort robustness in an end-to-end model and suggest potential utility for contouring support, treatment planning, and multi-institutional studies.",
+  "categories": [
+    "q-bio.QM",
+    "cs.CV",
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": null,
+  "published_date": "2026-04-22T18:10:01Z",
+  "updated_date": "2026-04-22T18:10:01Z",
+  "url": "https://arxiv.org/abs/2604.20981v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.20981v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-30T10:15:38.348731",
+  "category": "computer_science",
+  "subcategories": [
+    "q-bio.QM",
+    "cs.CV",
+    "cs.LG"
+  ]
+}

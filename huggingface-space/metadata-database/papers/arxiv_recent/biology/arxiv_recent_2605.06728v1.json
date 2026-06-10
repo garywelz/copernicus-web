@@ -1,0 +1,39 @@
+{
+  "id": "arxiv_2605.06728v1",
+  "arxiv_id": "2605.06728v1",
+  "title": "OmicsLM: A Multimodal Large Language Model for Multi-Sample Omics Reasoning",
+  "authors": [
+    "Maciej Sypetkowski",
+    "Joanna Krawczyk",
+    "Łukasz Smoliński",
+    "Remigiusz Kinas",
+    "Przemysław Pietrzak",
+    "Tomasz Jetka",
+    "Rafał Powalski"
+  ],
+  "author_string": "Maciej Sypetkowski, Joanna Krawczyk, Łukasz Smoliński, Remigiusz Kinas, Przemysław Pietrzak et al.",
+  "journal": "arXiv:2605.06728v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Interpreting transcriptomic data is one of the most common analytical tasks in modern biology. Yet most current models either consume expression profiles without producing natural-language biological explanations, or reason in language without direct access to quantitative omics measurements. We introduce OmicsLM, a multimodal LLM that connects quantitative omics profiles with natural-language biological tasks. OmicsLM represents each transcriptomic profile as a compact continuous representation within the LLM context. This interface preserves quantitative expression signal while allowing natural-language instructions, explicit gene mentions, and multiple interleaved biological samples to be processed together in one model context. We train OmicsLM on more than 5.5 million instruction-following examples spanning over 70 task types, combining continuous transcriptomic inputs, experimental data rendered through diverse language templates, and free-text biological knowledge and question-answering data. This mixture covers cell type annotation, perturbation prediction, clinical prediction, pathway reasoning, and open-ended biological question answering. Existing benchmarks evaluate either profile-level prediction or text-only biological QA, leaving language-guided, multi-sample reasoning over real expression profiles unmeasured. To close this gap, we introduce GEO-OmicsQA, a benchmark for multi-sample biological question answering built from real Gene Expression Omnibus (GEO) studies. We demonstrate that OmicsLM can use expression profiles directly and perform comparably to specialized omics models on profile-level tasks, while outperforming both omics-specialized models and general LLMs on language-guided biological reasoning over expression data.",
+  "categories": [
+    "q-bio.GN",
+    "cs.AI",
+    "q-bio.CB"
+  ],
+  "primary_category": "q-bio.CB",
+  "comment": "13 pages (main text), 14 pages (appendix), 1 figure, 10 tables",
+  "published_date": "2026-05-07T11:27:11Z",
+  "updated_date": "2026-05-07T11:27:11Z",
+  "url": "https://arxiv.org/abs/2605.06728v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.06728v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-13T10:15:35.804736",
+  "category": "biology",
+  "subcategories": [
+    "q-bio.GN",
+    "cs.AI",
+    "q-bio.CB"
+  ]
+}

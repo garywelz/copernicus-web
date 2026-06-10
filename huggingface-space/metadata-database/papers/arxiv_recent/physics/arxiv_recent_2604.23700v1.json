@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2604.23700v1",
+  "arxiv_id": "2604.23700v1",
+  "title": "Quantum Circuit Cutting: Complexity and Optimization",
+  "authors": [
+    "Yuval Idan",
+    "Eitan Zahavi",
+    "Elad Mentovich",
+    "Eliahu Cohen",
+    "Shmuel Zaks"
+  ],
+  "author_string": "Yuval Idan, Eitan Zahavi, Elad Mentovich, Eliahu Cohen, Shmuel Zaks",
+  "journal": "arXiv:2604.23700v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "The current noisy intermediate-scale quantum (NISQ) era is characterized by substantial errors and noise, which limit the practical feasibility of deep, many-qubit circuits. To address these constraints, quantum circuit cutting has emerged as a promising tool. Recently, there has been significant research on methods for performing such cutting effectively. In this work, the duality between quantum circuits and classical graphs - specifically, directed acyclic graphs (dags) - is leveraged to analyze the complexity of finding an optimal circuit-cutting configuration that minimizes the number of cuts. After developing a rigorous graph-theoretic framework, the complexity of identifying cut locations that partition a given quantum circuit into smaller fragments is characterized. The corresponding graph-combinatorial task is then defined, and the resulting partition problem is shown to be NP-complete. Furthermore, even a simplified version of the problem, restricted to circuits composed only of one- and two-qubit gates, is shown to be NP-complete. Finally, based on these constraints, an algorithm grounded in satisfiability modulo theories (SMT) is proposed to find optimal cuts when the number of qubits per partition is bounded. This work therefore provides a complexity-theoretic characterization of cut placement and a practical solver for bounded-size decompositions.",
+  "categories": [
+    "quant-ph"
+  ],
+  "primary_category": "quant-ph",
+  "comment": "20 pages, 10 figures, comments are welcome",
+  "published_date": "2026-04-26T13:30:16Z",
+  "updated_date": "2026-04-26T13:30:16Z",
+  "url": "https://arxiv.org/abs/2604.23700v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.23700v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-27T22:15:34.796806",
+  "category": "physics",
+  "subcategories": [
+    "quant-ph"
+  ]
+}

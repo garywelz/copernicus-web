@@ -1,0 +1,39 @@
+{
+  "id": "foundations-axiomatic-set-theory-ad",
+  "name": "Axiomatic Set Theory — Axiom of Determinacy",
+  "category": "mathematics",
+  "subcategory": "foundations",
+  "subcategory_name": "Foundations",
+  "description": "Axiom of Determinacy (AD): every set of reals is determined (infinite two-player games). AD contradicts AC in full ZFC; AD holds in L(ℝ) under large cardinals. AD implies regularity properties (all sets Lebesgue measurable, etc.). Connections to descriptive set theory and large cardinals.",
+  "mermaid": "graph TD\n    ZFC[\"ZFC\\n(Charts 1–3)\"]\n    DefGame[\"Def: Infinite game\\nω^ω, payoff set A\"]\n    DefStrat[\"Def: Strategy\\nσ: ω^ω → ω\"]\n    DefDet[\"Def: Determined\\nA has winning strategy\"]\n    DefAD[\"Def: AD\\nAll A⊆ω^ω determined\"]\n    T1[\"Thm: AD ⊨ ¬AC\\nAD contradicts full AC\"]\n    T2[\"Thm: AD ⊨ all sets measurable\\nRegularity\"]\n    T3[\"Thm: AD ⊨ perfect set property\\nUncountable has perfect subset\"]\n    T4[\"Thm: Con(ZF+AD) needs large cardinals\\nL(ℝ) under Woodin\"]\n    DefLC[\"Def: Large cardinals\\nMeasurable, Woodin\"]\n    T5[\"Thm: ZF+AD consistent\\nif ZFC + large cardinals\"]\n\n    ZFC --> DefGame\n    DefGame --> DefStrat\n    DefStrat --> DefDet\n    DefDet --> DefAD\n    DefAD --> T1\n    DefAD --> T2\n    DefAD --> T3\n    ZFC --> DefLC\n    DefLC --> T4\n    DefAD --> T4\n    T4 --> T5\n    classDef axiom fill:#ff6b6b,color:#fff,stroke:#c0392b\n    classDef definition fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef theorem fill:#51cf66,color:#fff,stroke:#40c057\n    class ZFC axiom\n    class DefGame,DefStrat,DefDet,DefAD,DefLC definition\n    class T1,T2,T3,T4,T5 theorem",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

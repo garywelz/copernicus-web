@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Euclid's Elements - Mathematics Process</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 20px; }
+        .container { max-width: 900px; margin: 0 auto; background: white; border-radius: 15px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); overflow: hidden; padding: 30px; }
+        h1 { color: #2c3e50; margin-bottom: 15px; }
+        p { color: #555; margin-bottom: 25px; line-height: 1.6; }
+        .nav-links { margin-bottom: 20px; }
+        .nav-links a { color: #e67e22; text-decoration: none; margin-right: 20px; font-weight: 500; }
+        .nav-links a:hover { text-decoration: underline; }
+        .sections { display: grid; gap: 15px; }
+        .sections a { display: block; padding: 20px; background: #f8f9fa; border-radius: 10px; color: #2c3e50; text-decoration: none; font-weight: 500; border-left: 4px solid #e67e22; }
+        .sections a:hover { background: #ecf0f1; }
+        .book-meta { font-size: 0.9em; color: #7f8c8d; margin-top: 4px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="nav-links">
+            <a id="back-link" href="#">← Back to Mathematics Database</a>
+            <a href="https://mathcs.clarku.edu/~djoyce/java/elements/elements.html" target="_blank">Euclid's Elements (Joyce)</a>
+        </div>
+        <script>
+            (function() {
+                const backLink = document.getElementById('back-link');
+                backLink.href = window.location.hostname.includes('storage.googleapis.com')
+                    ? 'https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/mathematics-database-table.html'
+                    : '../../mathematics-database-table.html';
+            })();
+        </script>
+        <h1>Euclid's Elements</h1>
+        <p>All thirteen books of Euclidean geometry. Dependency graphs show how propositions depend on definitions, postulates, common notions, and prior propositions. Cross-book references (Book I, Book II, etc.) are shown explicitly.</p>
+        <div class="sections">
+            <a href="geometry_topology-euclid-elements-book-i.html">Book I — Fundamentals of plane geometry <span class="book-meta">48 propositions; defs, postulates, common notions</span></a>
+            <a href="geometry_topology-euclid-elements-book-ii.html">Book II — Geometric algebra <span class="book-meta">14 propositions; rectangles, squares</span></a>
+            <a href="geometry_topology-euclid-elements-book-iii.html">Book III — Theory of circles <span class="book-meta">37 propositions; 11 definitions</span></a>
+            <a href="geometry_topology-euclid-elements-book-iv.html">Book IV — Inscribed and circumscribed figures <span class="book-meta">16 propositions; triangle, square, pentagon, hexagon, 15-gon</span></a>
+            <a href="geometry_topology-euclid-elements-book-v.html">Book V — Theory of proportions <span class="book-meta">25 propositions; 18 definitions</span></a>
+            <a href="geometry_topology-euclid-elements-book-vi.html">Book VI — Similar figures <span class="book-meta">33 propositions; 4 definitions</span></a>
+            <a href="geometry_topology-euclid-elements-book-vii.html">Book VII — Number theory <span class="book-meta">39 propositions; 22 definitions</span></a>
+            <a href="geometry_topology-euclid-elements-book-viii.html">Book VIII — Continued proportions <span class="book-meta">27 propositions; uses Book VII defs</span></a>
+            <a href="geometry_topology-euclid-elements-book-ix.html">Book IX — Number theory <span class="book-meta">36 propositions; primes, perfect numbers</span></a>
+            <a href="geometry_topology-euclid-elements-book-x.html">Book X — Incommensurables <span class="book-meta">115 propositions; 16 definitions; binomials, apotomes</span></a>
+            <a href="geometry_topology-euclid-elements-book-xi.html">Book XI — Solid geometry <span class="book-meta">39 propositions; 28 definitions; planes, parallelepipeds</span></a>
+            <a href="geometry_topology-euclid-elements-book-xii.html">Book XII — Measurement of figures <span class="book-meta">18 propositions; circles, pyramids, cones, spheres</span></a>
+            <a href="geometry_topology-euclid-elements-book-xiii.html">Book XIII — Regular solids <span class="book-meta">18 propositions; five Platonic solids</span></a>
+        </div>
+    </div>
+</body>
+</html>

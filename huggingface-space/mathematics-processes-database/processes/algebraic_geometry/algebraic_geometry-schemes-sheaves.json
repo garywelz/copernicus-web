@@ -1,0 +1,39 @@
+{
+  "id": "algebraic_geometry-schemes-sheaves",
+  "name": "Schemes & Sheaves",
+  "category": "mathematics",
+  "subcategory": "algebraic_geometry",
+  "subcategory_name": "Algebraic Geometry",
+  "description": "Sheaves on spaces. Spec(R), affine schemes. Locally ringed spaces. Scheme = locally affine. Structure sheaf Oₓ.",
+  "mermaid": "graph TD\n    D1[\"Def: Presheaf\\nF: Opens→Ab\"]\n    D2[\"Def: Sheaf\\nglue + unique\"]\n    D3[\"Def: Spec R\\nprime ideals + topol\"]\n    D4[\"Def: Affine scheme\\nSpec R, Õₘ\"]\n    T1[\"Thm: Stalk Oₓ\\nlocal ring\"]\n    T2[\"Thm: ΓSpecR Õₘ ≅ R\"]\n    T3[\"Thm: Scheme\\nlocally affine\"]\n    T4[\"Thm: Morphism\\nring hom → cont map\"]\n    T5[\"Thm: Proj S\\nprojective scheme\"]\n    D1 --> D2\n    D3 --> D4\n    D2 --> T3\n    D4 --> T1\n    D4 --> T2\n    D4 --> T3\n    T3 --> T4\n    T3 --> T5\n    classDef definition fill:#b197fc,color:#fff\n    classDef theorem fill:#51cf66,color:#fff\n    class D1,D2,D3,D4 definition\n    class T1,T2,T3,T4,T5 theorem",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

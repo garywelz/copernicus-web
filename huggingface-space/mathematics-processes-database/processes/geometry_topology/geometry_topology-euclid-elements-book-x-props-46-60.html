@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Euclid's Elements Book X — Propositions 46-60 - Mathematics Process</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 20px; }
+        .container { max-width: 1600px; margin: 0 auto; background: white; border-radius: 15px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); overflow: hidden; }
+        .header { background: linear-gradient(135deg, #e67e22 0%, #e67e22dd 100%); color: white; padding: 30px; }
+        .header h1 { margin: 0 0 10px 0; font-size: 2em; font-weight: 300; }
+        .header-meta { display: flex; flex-wrap: wrap; gap: 15px; margin-top: 15px; font-size: 0.9em; opacity: 0.9; }
+        .meta-item { background: rgba(255,255,255,0.2); padding: 5px 12px; border-radius: 20px; }
+        .nav-links { padding: 15px 30px; background: #f8f9fa; border-bottom: 1px solid #ecf0f1; }
+        .nav-links a { color: #e67e22; text-decoration: none; margin-right: 20px; font-weight: 500; }
+        .nav-links a:hover { text-decoration: underline; }
+        .content { padding: 30px; }
+        .description { margin-bottom: 30px; }
+        .flowchart-container { margin: 30px 0; }
+        .flowchart-container h2 { color: #2c3e50; margin-bottom: 15px; }
+        .mermaid { background: white; padding: 20px; border-radius: 10px; border: 1px solid #ecf0f1; overflow-x: auto; overflow-y: auto; min-height: 400px; }
+        .color-legend { background: #f8f9fa; padding: 20px; border-radius: 10px; margin: 30px 0; }
+        .color-legend h3 { color: #2c3e50; margin-bottom: 15px; }
+        .color-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; }
+        .color-item { display: flex; align-items: center; gap: 10px; padding: 10px; background: white; border-radius: 5px; }
+        .color-box { width: 30px; height: 30px; border-radius: 4px; border: 1px solid #ddd; }
+        .info-section { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 30px; }
+        .info-card { background: #f8f9fa; padding: 20px; border-radius: 10px; }
+        .info-card h3 { color: #2c3e50; margin-bottom: 15px; }
+        .info-card ul { list-style: none; padding: 0; }
+        .info-card li { padding: 8px 0; border-bottom: 1px solid #ecf0f1; }
+        .info-card li:last-child { border-bottom: none; }
+
+        .attribution-wrap { position: relative; }
+        .attribution-trigger { cursor: help; background: rgba(255,255,255,0.2) !important; }
+        .attribution-popover { display: none; position: absolute; top: 100%; left: 0; margin-top: 4px; background: #2c3e50; color: #ecf0f1; padding: 14px 18px; border-radius: 10px; box-shadow: 0 6px 20px rgba(0,0,0,0.25); min-width: 300px; z-index: 100; font-size: 0.85em; line-height: 1.5; }
+        .attribution-popover::before { content: ''; position: absolute; bottom: 100%; left: 0; right: 0; height: 12px; }
+        .attribution-popover strong { color: #fff; }
+        .attribution-popover a { color: #3498db; }
+        .attribution-wrap:hover .attribution-popover, .attribution-wrap:focus-within .attribution-popover { display: block; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Euclid's Elements Book X — Propositions 46-60</h1>
+            <div class="header-meta">
+                <span class="meta-item">Mathematics</span>
+                <span class="meta-item">Incommensurables</span>
+                <span class="meta-item">Source: Euclid's Elements</span>
+                <span class="meta-item attribution-wrap"><span class="attribution-trigger meta-item" tabindex="0">Cite</span><div class="attribution-popover"><strong>Primary:</strong> Euclid (c. 300 BCE)<br><strong>Publication:</strong> Euclid's Elements, Book X<br><strong>Year:</strong> c. 300 BCE<br><strong>URL:</strong> <a href="https://mathcs.clarku.edu/~djoyce/java/elements/bookX/bookX.html" target="_blank">Joyce (Clark)</a></div></span>
+            </div>
+        </div>
+        <div class="nav-links">
+            <a id="back-link" href="#">← Back to Mathematics Database</a>
+            <a id="euclid-index-link" href="#">Euclid's Elements (all books)</a>
+            <a id="book-index-link" href="#">Euclid Book X Index</a>
+            <a href="https://mathcs.clarku.edu/~djoyce/java/elements/bookX/bookX.html" target="_blank">Euclid's Elements Book X (Joyce)</a>
+            <a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank">Programming Framework</a>
+        </div>
+        <script>
+            (function() {
+                const hostname = window.location.hostname;
+                const base = hostname.includes('storage.googleapis.com')
+                    ? 'https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database'
+                    : '../..';
+                document.getElementById('back-link').href = base + '/mathematics-database-table.html';
+                document.getElementById('euclid-index-link').href = base + '/processes/geometry_topology/geometry_topology-euclid-elements.html';
+                document.getElementById('book-index-link').href = base + '/processes/geometry_topology/geometry_topology-euclid-elements-book-x.html';
+            })();
+        </script>
+        <div class="content">
+            <div class="description">
+                <h2>Description</h2>
+                <p>Find binomials, area by rational</p>
+                <p style="margin-top:10px;"><em>Source: <a href="https://mathcs.clarku.edu/~djoyce/java/elements/bookX/bookX.html" target="_blank">Euclid's Elements, Book X</a> (David E. Joyce, Clark University)</em></p>
+            </div>
+            <div class="flowchart-container">
+                <h2>Dependency Flowchart</h2>
+                <div class="mermaid">graph TD
+    BookI["Book I\nFoundation"]
+    BookV["Book V\nFoundation"]
+    BookVI["Book VI\nFoundation"]
+    Prop1["Prop. X.1\nAntenaresis for magnitudes"]
+    Prop2["Prop. X.2\nIncommensurable criterion"]
+    Prop3["Prop. X.3\nGCM of two commensurable"]
+    Prop4["Prop. X.4\nGCM of three commensurable"]
+    Prop5["Prop. X.5\nCommensurable: number ratio"]
+    Prop6["Prop. X.6\nNumber ratio: commensurable"]
+    Prop7["Prop. X.7\nIncommensurable: no number ratio"]
+    Prop8["Prop. X.8\nNo number ratio: incommensurable"]
+    Prop9["Prop. X.9\nSquares: commensurable iff square ratio"]
+    Prop10["Prop. X.10\nFind incommensurable lines"]
+    Prop11["Prop. X.11\nProportion preserves commensurability"]
+    Prop12["Prop. X.12\nCommensurable with same"]
+    Prop13["Prop. X.13\nCommensurable: incommensurable partner"]
+    Prop14["Prop. X.14\nSquare difference, sum of squares"]
+    Prop15["Prop. X.15\nCommensurable sum"]
+    Prop16["Prop. X.16\nIncommensurable sum"]
+    Prop17["Prop. X.17\nParallelogram falling short"]
+    Prop18["Prop. X.18\nParallelogram: incommensurable parts"]
+    Prop19["Prop. X.19\nRational rectangle from rational"]
+    Prop20["Prop. X.20\nRational area on rational"]
+    Prop21["Prop. X.21\nMedial: rational in square only"]
+    Prop22["Prop. X.22\nMedial applied to rational"]
+    Prop23["Prop. X.23\nCommensurable with medial"]
+    Prop24["Prop. X.24\nMedial rectangle: commensurable length"]
+    Prop25["Prop. X.25\nMedial: square only"]
+    Prop26["Prop. X.26\nMedial minus medial"]
+    Prop27["Prop. X.27\nFind medial in square only, rational rect"]
+    Prop28["Prop. X.28\nFind medial in square only, medial rect"]
+    Prop29["Prop. X.29\nFind rational in square only, commensurable diff"]
+    Prop30["Prop. X.30\nFind rational in square only, incommensurable diff"]
+    Prop31["Prop. X.31\nFind medial, rational rect, commensurable diff"]
+    Prop32["Prop. X.32\nFind medial, medial rect, commensurable diff"]
+    Prop33["Prop. X.33\nFind incommensurable: rational sum, medial rect"]
+    Prop34["Prop. X.34\nFind incommensurable: medial sum, rational rect"]
+    Prop35["Prop. X.35\nFind incommensurable: both medial"]
+    Prop36["Prop. X.36\nBinomial defined"]
+    Prop37["Prop. X.37\nFirst bimedial defined"]
+    Prop38["Prop. X.38\nSecond bimedial defined"]
+    Prop39["Prop. X.39\nMajor defined"]
+    Prop40["Prop. X.40\nSide of rational plus medial"]
+    Prop41["Prop. X.41\nSide of sum of two medial"]
+    Prop42["Prop. X.42\nBinomial: unique division"]
+    Prop43["Prop. X.43\nFirst bimedial: unique division"]
+    Prop44["Prop. X.44\nSecond bimedial: unique division"]
+    Prop45["Prop. X.45\nMajor: unique division"]
+    Prop46["Prop. X.46\nSide rational+medial: unique division"]
+    Prop47["Prop. X.47\nSide two medial: unique division"]
+    Prop48["Prop. X.48\nFind first binomial"]
+    Prop49["Prop. X.49\nFind second binomial"]
+    Prop50["Prop. X.50\nFind third binomial"]
+    Prop51["Prop. X.51\nFind fourth binomial"]
+    Prop52["Prop. X.52\nFind fifth binomial"]
+    Prop53["Prop. X.53\nFind sixth binomial"]
+    Prop54["Prop. X.54\nRational × first binomial"]
+    Prop55["Prop. X.55\nRational × second binomial"]
+    Prop56["Prop. X.56\nRational × third binomial"]
+    Prop57["Prop. X.57\nRational × fourth binomial"]
+    Prop58["Prop. X.58\nRational × fifth binomial"]
+    Prop59["Prop. X.59\nRational × sixth binomial"]
+    Prop60["Prop. X.60\nSquare on binomial"]
+    BookI --&gt; Prop1
+    BookV --&gt; Prop1
+    BookVI --&gt; Prop1
+    BookI --&gt; Prop2
+    BookV --&gt; Prop2
+    BookVI --&gt; Prop2
+    BookI --&gt; Prop3
+    BookV --&gt; Prop3
+    BookVI --&gt; Prop3
+    BookI --&gt; Prop4
+    BookV --&gt; Prop4
+    BookVI --&gt; Prop4
+    BookI --&gt; Prop5
+    BookV --&gt; Prop5
+    BookVI --&gt; Prop5
+    BookI --&gt; Prop6
+    BookV --&gt; Prop6
+    BookVI --&gt; Prop6
+    BookI --&gt; Prop7
+    BookV --&gt; Prop7
+    BookVI --&gt; Prop7
+    BookI --&gt; Prop8
+    BookV --&gt; Prop8
+    BookVI --&gt; Prop8
+    BookI --&gt; Prop9
+    BookV --&gt; Prop9
+    BookVI --&gt; Prop9
+    BookI --&gt; Prop10
+    BookV --&gt; Prop10
+    BookVI --&gt; Prop10
+    BookI --&gt; Prop11
+    BookV --&gt; Prop11
+    BookVI --&gt; Prop11
+    BookI --&gt; Prop12
+    BookV --&gt; Prop12
+    BookVI --&gt; Prop12
+    BookI --&gt; Prop13
+    BookV --&gt; Prop13
+    BookVI --&gt; Prop13
+    BookI --&gt; Prop14
+    BookV --&gt; Prop14
+    BookVI --&gt; Prop14
+    BookI --&gt; Prop15
+    BookV --&gt; Prop15
+    BookVI --&gt; Prop15
+    BookI --&gt; Prop16
+    BookV --&gt; Prop16
+    BookVI --&gt; Prop16
+    BookI --&gt; Prop17
+    BookV --&gt; Prop17
+    BookVI --&gt; Prop17
+    BookI --&gt; Prop18
+    BookV --&gt; Prop18
+    BookVI --&gt; Prop18
+    BookI --&gt; Prop19
+    BookV --&gt; Prop19
+    BookVI --&gt; Prop19
+    BookI --&gt; Prop20
+    BookV --&gt; Prop20
+    BookVI --&gt; Prop20
+    BookI --&gt; Prop21
+    BookV --&gt; Prop21
+    BookVI --&gt; Prop21
+    BookI --&gt; Prop22
+    BookV --&gt; Prop22
+    BookVI --&gt; Prop22
+    BookI --&gt; Prop23
+    BookV --&gt; Prop23
+    BookVI --&gt; Prop23
+    BookI --&gt; Prop24
+    BookV --&gt; Prop24
+    BookVI --&gt; Prop24
+    BookI --&gt; Prop25
+    BookV --&gt; Prop25
+    BookVI --&gt; Prop25
+    BookI --&gt; Prop26
+    BookV --&gt; Prop26
+    BookVI --&gt; Prop26
+    BookI --&gt; Prop27
+    BookV --&gt; Prop27
+    BookVI --&gt; Prop27
+    BookI --&gt; Prop28
+    BookV --&gt; Prop28
+    BookVI --&gt; Prop28
+    BookI --&gt; Prop29
+    BookV --&gt; Prop29
+    BookVI --&gt; Prop29
+    BookI --&gt; Prop30
+    BookV --&gt; Prop30
+    BookVI --&gt; Prop30
+    BookI --&gt; Prop31
+    BookV --&gt; Prop31
+    BookVI --&gt; Prop31
+    BookI --&gt; Prop32
+    BookV --&gt; Prop32
+    BookVI --&gt; Prop32
+    BookI --&gt; Prop33
+    BookV --&gt; Prop33
+    BookVI --&gt; Prop33
+    BookI --&gt; Prop34
+    BookV --&gt; Prop34
+    BookVI --&gt; Prop34
+    BookI --&gt; Prop35
+    BookV --&gt; Prop35
+    BookVI --&gt; Prop35
+    BookI --&gt; Prop36
+    BookV --&gt; Prop36
+    BookVI --&gt; Prop36
+    BookI --&gt; Prop37
+    BookV --&gt; Prop37
+    BookVI --&gt; Prop37
+    BookI --&gt; Prop38
+    BookV --&gt; Prop38
+    BookVI --&gt; Prop38
+    BookI --&gt; Prop39
+    BookV --&gt; Prop39
+    BookVI --&gt; Prop39
+    BookI --&gt; Prop40
+    BookV --&gt; Prop40
+    BookVI --&gt; Prop40
+    BookI --&gt; Prop41
+    BookV --&gt; Prop41
+    BookVI --&gt; Prop41
+    BookI --&gt; Prop42
+    BookV --&gt; Prop42
+    BookVI --&gt; Prop42
+    BookI --&gt; Prop43
+    BookV --&gt; Prop43
+    BookVI --&gt; Prop43
+    BookI --&gt; Prop44
+    BookV --&gt; Prop44
+    BookVI --&gt; Prop44
+    BookI --&gt; Prop45
+    BookV --&gt; Prop45
+    BookVI --&gt; Prop45
+    BookI --&gt; Prop46
+    BookV --&gt; Prop46
+    BookVI --&gt; Prop46
+    BookI --&gt; Prop47
+    BookV --&gt; Prop47
+    BookVI --&gt; Prop47
+    BookI --&gt; Prop48
+    BookV --&gt; Prop48
+    BookVI --&gt; Prop48
+    BookI --&gt; Prop49
+    BookV --&gt; Prop49
+    BookVI --&gt; Prop49
+    BookI --&gt; Prop50
+    BookV --&gt; Prop50
+    BookVI --&gt; Prop50
+    BookI --&gt; Prop51
+    BookV --&gt; Prop51
+    BookVI --&gt; Prop51
+    BookI --&gt; Prop52
+    BookV --&gt; Prop52
+    BookVI --&gt; Prop52
+    BookI --&gt; Prop53
+    BookV --&gt; Prop53
+    BookVI --&gt; Prop53
+    BookI --&gt; Prop54
+    BookV --&gt; Prop54
+    BookVI --&gt; Prop54
+    BookI --&gt; Prop55
+    BookV --&gt; Prop55
+    BookVI --&gt; Prop55
+    BookI --&gt; Prop56
+    BookV --&gt; Prop56
+    BookVI --&gt; Prop56
+    BookI --&gt; Prop57
+    BookV --&gt; Prop57
+    BookVI --&gt; Prop57
+    BookI --&gt; Prop58
+    BookV --&gt; Prop58
+    BookVI --&gt; Prop58
+    BookI --&gt; Prop59
+    BookV --&gt; Prop59
+    BookVI --&gt; Prop59
+    BookI --&gt; Prop60
+    BookV --&gt; Prop60
+    BookVI --&gt; Prop60
+    classDef foundation fill:#95a5a6,color:#fff,stroke:#7f8c8d
+    classDef proposition fill:#51cf66,color:#fff,stroke:#40c057
+    class BookI,BookV,BookVI foundation
+    class Prop1,Prop2,Prop3,Prop4,Prop5,Prop6,Prop7,Prop8,Prop9,Prop10,Prop11,Prop12,Prop13,Prop14,Prop15,Prop16,Prop17,Prop18,Prop19,Prop20,Prop21,Prop22,Prop23,Prop24,Prop25,Prop26,Prop27,Prop28,Prop29,Prop30,Prop31,Prop32,Prop33,Prop34,Prop35,Prop36,Prop37,Prop38,Prop39,Prop40,Prop41,Prop42,Prop43,Prop44,Prop45,Prop46,Prop47,Prop48,Prop49,Prop50,Prop51,Prop52,Prop53,Prop54,Prop55,Prop56,Prop57,Prop58,Prop59,Prop60 proposition</div>
+            </div>
+            <div class="color-legend">
+                <h3>Color Scheme</h3>
+                <div class="color-grid">
+                    <div class="color-item"><div class="color-box" style="background:#95a5a6"></div><div><strong>Gray</strong><br><small>Book I, V, VI (foundation)</small></div></div>
+                    <div class="color-item"><div class="color-box" style="background:#1abc9c"></div><div><strong>Teal</strong><br><small>Propositions</small></div></div>
+                </div>
+            </div>
+            <div class="info-section">
+                <div class="info-card">
+                    <h3>Statistics</h3>
+                    <ul>
+                        <li><strong>Nodes:</strong> 63</li>
+                        <li><strong>Edges:</strong> 180</li>
+                    </ul>
+                </div>
+                <div class="info-card">
+                    <h3>Keywords</h3>
+                    <ul>
+                        <li>Euclid</li><li>Elements</li><li>Book X</li><li>incommensurable</li><li>binomial</li><li>apotome</li><li>medial</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        mermaid.initialize({ startOnLoad: true, theme: 'default', flowchart: { useMaxWidth: false, htmlLabels: true, curve: 'linear', nodeSpacing: 40, rankSpacing: 40, padding: 20 }, themeVariables: { fontSize: '14px', fontFamily: 'Segoe UI, Arial, sans-serif' } });
+    </script>
+</body>
+</html>

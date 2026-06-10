@@ -1,0 +1,39 @@
+{
+  "id": "arxiv_2605.19352v1",
+  "arxiv_id": "2605.19352v1",
+  "title": "Brain alignment of reasoning and action representations from vision-language and action models during naturalistic gameplay",
+  "authors": [
+    "Subba Reddy Oota",
+    "Anant Khandelwal",
+    "Khushbu Pahwa",
+    "Satya Sai Srinath Namburi",
+    "Tanmoy Chakraborty",
+    "Bapi S. Raju",
+    "Manish Gupta"
+  ],
+  "author_string": "Subba Reddy Oota, Anant Khandelwal, Khushbu Pahwa, Satya Sai Srinath Namburi, Tanmoy Chakraborty et al.",
+  "journal": "arXiv:2605.19352v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Understanding how humans and artificial intelligence systems predict and plan by interacting with their environment is a fundamental challenge at the intersection of neuroscience and machine learning. Most brain-encoding studies focus on aligning artificial models with brain activity during language comprehension or passive visual processing, while interactive brain-alignment studies have to date been largely limited to reinforcement-learning (RL) agents and theory-based models. To address this gap, we study brain alignment of representative models from two foundation-model families, namely vision-language models (VLMs) and large-action models (LAMs), using fMRI recordings from participants playing naturalistic Atari-style video games. Specifically, we examine how action-focused and reasoning-focused prompts shape model's internal representations and align with fMRI brain activity. First, we find that both VLMs and LAMs exhibit significantly exhibit voxel-wise encoding performance than RL baselines, with the advantage holding even under matched feature dimensionality. Second, prompt-driven gains scale with the cortical processing hierarchy: the largest improvements appear in frontal-parietal and motor-planning regions, while early visual cortex gains roughly half as much. Third, variance partitioning reveals a qualitatively different representational organization: VLM is prompt-symmetric (12.5% unique action vs. 13.6% unique reasoning), whereas LAM is prompt-asymmetric (27% unique action vs. -5% unique reasoning), with the asymmetry strongest in frontal-motor cortex. Together, these results demonstrate that action-specialized fine-tuning reorganizes multimodal representations toward action-relevant neural computations even when whole-brain prediction accuracy is statistically equivalent between VLM and LAM.",
+  "categories": [
+    "q-bio.NC",
+    "cs.AI",
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": "21 pages, 11 figures",
+  "published_date": "2026-05-19T04:40:14Z",
+  "updated_date": "2026-05-19T04:40:14Z",
+  "url": "https://arxiv.org/abs/2605.19352v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.19352v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-26T10:15:35.457925",
+  "category": "computer_science",
+  "subcategories": [
+    "q-bio.NC",
+    "cs.AI",
+    "cs.LG"
+  ]
+}

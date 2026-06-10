@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2604.19076v1",
+  "arxiv_id": "2604.19076v1",
+  "title": "Towards Automated Selection of Quantum Encoding Circuits via Meta-Learning",
+  "authors": [
+    "Dao Duy Tung",
+    "Nguyen Quoc Chuong",
+    "Vu Tuan Hai",
+    "Le Bin Ho",
+    "Lan Nguyen Tran"
+  ],
+  "author_string": "Dao Duy Tung, Nguyen Quoc Chuong, Vu Tuan Hai, Le Bin Ho, Lan Nguyen Tran",
+  "journal": "arXiv:2604.19076v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "In recent years, quantum kernel methods have shown promising applications on near-term quantum devices. However, selecting an appropriate encoding circuit for a given dataset requires costly evaluation of multiple candidates, formulated as a meta-learning problem. In this paper, we propose an automated recommender that utilizes the intrinsic characteristics of datasets to predict the optimal circuit without any quantum evaluation. Nine candidates are assessed alongside 24 classical complexity metrics serving as features, evaluated through two training approaches with four configurations, along with 14 machine learning models. Both approaches achieve Top-3 accuracy of up to 85.7% in identifying the best-performing encoding circuit, and demonstrate that classical data complexity metrics provide sufficient predictive signal for circuit selection.",
+  "categories": [
+    "quant-ph"
+  ],
+  "primary_category": "quant-ph",
+  "comment": "22 pages, 4 figures. This paper is submitted to Quantum Machine Intelligence",
+  "published_date": "2026-04-21T04:37:38Z",
+  "updated_date": "2026-04-21T04:37:38Z",
+  "url": "https://arxiv.org/abs/2604.19076v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.19076v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-22T10:15:40.967623",
+  "category": "physics",
+  "subcategories": [
+    "quant-ph"
+  ]
+}

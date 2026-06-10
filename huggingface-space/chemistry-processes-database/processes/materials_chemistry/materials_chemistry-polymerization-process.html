@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Polymerization Process - Chemistry Process</title>
+    <title>Emulsion Polymerization - Chemistry Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Polymerization Process</h1>
+            <h1>Emulsion Polymerization</h1>
             <div class="header-meta">
                 <span class="meta-item">Chemistry</span>
                 <span class="meta-item">Materials Chemistry</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,46 +234,60 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Polymerization Process process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>Emulsion polymerization builds polymer inside surfactant micelles dispersed in water: above the critical micelle concentration a water-soluble initiator generates radicals that enter micelles to nucleate particles, monomer diffuses from droplets to feed propagation, and growth continues until droplets are exhausted, yielding a polymer latex.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-N1["Monomers"]
-N2["Initiator/Catalyst"]
-N3["Reactor"]
-N4["Choose Path"]
-N5["Initiation"]
-N6["Propagation"]
-N7["Termination"]
-N8["Polymer Product"]
-N9["Integrate"]
+    N1["Monomer + water + surfactant"]
+    N2["Above CMC: micelles form"]
+    N3["Monomer droplets reservoir"]
+    N4["Add aqueous initiator"]
+    N5["Radical enters micelle"]
+    N6["Particle nucleation"]
+    N7["Monomer diffuses from droplets"]
+    N8["Propagate in particles"]
+    N9{"Droplets depleted?"}
+    N10["Continue from particle pool"]
+    N11["Polymer latex"]
 
-N1 --> N2
-N2 --> N3
-N3 --> N4
-N4 --> N5
-N4 --> N7
-N5 --> N6
-N7 --> N8
-N6 --> N9
-N8 --> N9
-N9 --> N6
+    N1 --> N2
+    N2 --> N3
+    N1 --> N4
+    N4 --> N5
+    N3 --> N5
+    N5 --> N6
+    N6 --> N7
+    N7 --> N8
+    N8 --> N9
+    N9 -->|no| N10
+    N10 -->|feed| N8
+    N9 -->|yes| N11
 
     style N1 fill:#ff6b6b,color:#fff
-    style N2 fill:#ff6b6b,color:#fff
-    style N3 fill:#ffd43b,color:#000
-    style N4 fill:#ffd43b,color:#000
+    style N2 fill:#51cf66,color:#fff
+    style N3 fill:#74c0fc,color:#fff
+    style N4 fill:#51cf66,color:#fff
     style N5 fill:#51cf66,color:#fff
     style N6 fill:#51cf66,color:#fff
     style N7 fill:#51cf66,color:#fff
-    style N8 fill:#b197fc,color:#fff
+    style N8 fill:#51cf66,color:#fff
     style N9 fill:#74c0fc,color:#fff
+    style N10 fill:#51cf66,color:#fff
+    style N11 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Monomer + water + surfactant</td><td>Triggers & Inputs</td><td><a href="https://doi.org/10.1021/ja01200a012" target="_blank" title="A general theory of the mechanism of emulsion polymerization" style="color:#e74c3c;">Harkins, W. D. 1947</a></td></tr><tr><td style="font-weight:600;">Above CMC: micelles form</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1021/ja01200a012" target="_blank" title="A general theory of the mechanism of emulsion polymerization" style="color:#e74c3c;">Harkins, W. D. 1947</a></td></tr><tr><td style="font-weight:600;">Monomer droplets reservoir</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1021/ja01200a012" target="_blank" title="A general theory of the mechanism of emulsion polymerization" style="color:#e74c3c;">Harkins, W. D. 1947</a></td></tr><tr><td style="font-weight:600;">Add aqueous initiator</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1063/1.1746738" target="_blank" title="Kinetics of emulsion polymerization" style="color:#e74c3c;">Smith, W. V. et al. 1948</a></td></tr><tr><td style="font-weight:600;">Radical enters micelle</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1063/1.1746738" target="_blank" title="Kinetics of emulsion polymerization" style="color:#e74c3c;">Smith, W. V. et al. 1948</a></td></tr><tr><td style="font-weight:600;">Particle nucleation</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1021/ja01200a012" target="_blank" title="A general theory of the mechanism of emulsion polymerization" style="color:#e74c3c;">Harkins, W. D. 1947</a></td></tr><tr><td style="font-weight:600;">Monomer diffuses from droplets</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1021/ja01200a012" target="_blank" title="A general theory of the mechanism of emulsion polymerization" style="color:#e74c3c;">Harkins, W. D. 1947</a></td></tr><tr><td style="font-weight:600;">Propagate in particles</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1063/1.1746738" target="_blank" title="Kinetics of emulsion polymerization" style="color:#e74c3c;">Smith, W. V. et al. 1948</a></td></tr><tr><td style="font-weight:600;">Droplets depleted?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1021/ja01200a012" target="_blank" title="A general theory of the mechanism of emulsion polymerization" style="color:#e74c3c;">Harkins, W. D. 1947</a></td></tr><tr><td style="font-weight:600;">Continue from particle pool</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1063/1.1746738" target="_blank" title="Kinetics of emulsion polymerization" style="color:#e74c3c;">Smith, W. V. et al. 1948</a></td></tr><tr><td style="font-weight:600;">Polymer latex</td><td>Products & Outputs</td><td><a href="https://doi.org/10.1021/ja01200a012" target="_blank" title="A general theory of the mechanism of emulsion polymerization" style="color:#e74c3c;">Harkins, W. D. 1947</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -292,12 +333,12 @@ N9 --> N6
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 9</li>
-                        <li><strong>Edges:</strong> 10</li>
-                        <li><strong>Conditionals:</strong> 0</li>
+                        <li><strong>Nodes:</strong> 11</li>
+                        <li><strong>Edges:</strong> 12</li>
+                        <li><strong>Conditionals:</strong> 1</li>
                         <li><strong>AND Gates:</strong> 2</li>
-                        <li><strong>OR Gates:</strong> 1</li>
-                        <li><strong>Total Gates:</strong> 3</li>
+                        <li><strong>OR Gates:</strong> 2</li>
+                        <li><strong>Total Gates:</strong> 4</li>
                     </ul>
                 </div>
                 
@@ -305,7 +346,7 @@ N9 --> N6
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>polymerization</li><li>process</li>
+                        <li>emulsion polymerization</li><li>micelle</li><li>particle nucleation</li><li>latex</li><li>Smith-Ewart</li>
                     </ul>
                 </div>
                 
@@ -316,42 +357,22 @@ N9 --> N6
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>A general theory of the mechanism of emulsion polymerization</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Harkins, W. D.
+                            , Journal of the American Chemical Society
+                             (1947)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Polycaprolactone and Polyurethane Polymerization Process Modeling in Polymers Plus</strong>
-                            
-                            , Step‐Growth Polymerization Process Modeling and Product Design
-                             (2008)
-                            </span>
-                            <br><a href="https://doi.org/10.1002/9780470292488.ch14" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1002/9780470292488.ch14</a>
+                            <br><a href="https://doi.org/10.1021/ja01200a012" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1021/ja01200a012</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Kinetics of foamed polymerization process</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Potipin, Petcharat
-                            
-                             (None)
+                            <strong>Kinetics of emulsion polymerization</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Smith, W. V.; Ewart, R. H.
+                            , Journal of Chemical Physics
+                             (1948)
                             </span>
-                            <br><a href="https://doi.org/10.58837/chula.the.1996.2411" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.58837/chula.the.1996.2411</a>
-                            
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Nylon‐6 Bubble‐Gas Polymerization Process Simulation in Polymers Plus</strong>
-                            
-                            , Step‐Growth Polymerization Process Modeling and Product Design
-                             (2008)
-                            </span>
-                            <br><a href="https://doi.org/10.1002/9780470292488.ch13" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1002/9780470292488.ch13</a>
+                            <br><a href="https://doi.org/10.1063/1.1746738" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1063/1.1746738</a>
                             
                         </li>
                         

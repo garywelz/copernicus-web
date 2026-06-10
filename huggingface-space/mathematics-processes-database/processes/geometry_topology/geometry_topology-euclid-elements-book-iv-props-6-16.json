@@ -1,0 +1,39 @@
+{
+  "id": "geometry_topology-euclid-elements-book-iv-props-6-16",
+  "name": "Euclid's Elements Book IV — Propositions 6–16",
+  "category": "mathematics",
+  "subcategory": "geometry_topology",
+  "subcategory_name": "Geometry & Topology",
+  "description": "Dependency graph for propositions 6–16. Square, pentagon (IV.10 uses Prop II.11), hexagon, 15-gon. IV.11←IV.2,IV.10; IV.16←IV.1,IV.2,IV.11.",
+  "mermaid": "graph TD\n    BookI[\"Book I\\nFoundation\"]\n    BookIII[\"Book III\\nFoundation\"]\n    PropII11[\"Prop. II.11\\nFrom Book II\"]\n    Def1[\"Def. IV.1\\nInscribe in circle\"]\n    Def2[\"Def. IV.2\\nCircumscribe about circle\"]\n    Def3[\"Def. IV.3\\nInscribe circle in figure\"]\n    Def4[\"Def. IV.4\\nCircumscribe circle about figure\"]\n    Def5[\"Def. IV.5\\nInscribe in figure\"]\n    Def6[\"Def. IV.6\\nCircumscribe about figure\"]\n    Def7[\"Def. IV.7\\nInscribe line in circle\"]\n    Prop1[\"Prop. IV.1\\nFit line in circle\"]\n    Prop2[\"Prop. IV.2\\nInscribe triangle in circle\"]\n    Prop3[\"Prop. IV.3\\nCircumscribe triangle about circle\"]\n    Prop4[\"Prop. IV.4\\nInscribe circle in triangle\"]\n    Prop5[\"Prop. IV.5\\nCircumscribe circle about triangle\"]\n    Prop6[\"Prop. IV.6\\nInscribe square in circle\"]\n    Prop7[\"Prop. IV.7\\nCircumscribe square about circle\"]\n    Prop8[\"Prop. IV.8\\nInscribe circle in square\"]\n    Prop9[\"Prop. IV.9\\nCircumscribe circle about square\"]\n    Prop10[\"Prop. IV.10\\nIsosceles triangle, base angles double\"]\n    Prop11[\"Prop. IV.11\\nInscribe pentagon in circle\"]\n    Prop12[\"Prop. IV.12\\nCircumscribe pentagon about circle\"]\n    Prop13[\"Prop. IV.13\\nInscribe circle in pentagon\"]\n    Prop14[\"Prop. IV.14\\nCircumscribe circle about pentagon\"]\n    Prop15[\"Prop. IV.15\\nInscribe hexagon in circle\"]\n    Prop16[\"Prop. IV.16\\nInscribe 15-gon in circle\"]\n    BookI --> Def1\n    BookIII --> Def1\n    BookI --> Def2\n    BookIII --> Def2\n    BookI --> Def3\n    BookIII --> Def3\n    BookI --> Def4\n    BookIII --> Def4\n    BookI --> Def5\n    BookIII --> Def5\n    BookI --> Def6\n    BookIII --> Def6\n    BookI --> Def7\n    BookIII --> Def7\n    BookI --> Prop1\n    BookIII --> Prop1\n    BookI --> Prop2\n    BookIII --> Prop2\n    BookI --> Prop3\n    BookIII --> Prop3\n    BookI --> Prop4\n    BookIII --> Prop4\n    BookI --> Prop5\n    BookIII --> Prop5\n    BookI --> Prop6\n    BookIII --> Prop6\n    Prop1 --> Prop6\n    BookI --> Prop7\n    BookIII --> Prop7\n    Prop6 --> Prop7\n    BookI --> Prop8\n    BookIII --> Prop8\n    Prop7 --> Prop8\n    BookI --> Prop9\n    BookIII --> Prop9\n    Prop8 --> Prop9\n    BookI --> Prop10\n    BookIII --> Prop10\n    Prop1 --> Prop10\n    Prop5 --> Prop10\n    PropII11 --> Prop10\n    BookI --> Prop11\n    BookIII --> Prop11\n    Prop2 --> Prop11\n    Prop10 --> Prop11\n    BookI --> Prop12\n    BookIII --> Prop12\n    Prop11 --> Prop12\n    BookI --> Prop13\n    BookIII --> Prop13\n    Prop11 --> Prop13\n    BookI --> Prop14\n    BookIII --> Prop14\n    Prop11 --> Prop14\n    BookI --> Prop15\n    BookIII --> Prop15\n    Prop1 --> Prop15\n    BookI --> Prop16\n    BookIII --> Prop16\n    Prop1 --> Prop16\n    Prop2 --> Prop16\n    Prop11 --> Prop16\n    classDef foundation fill:#95a5a6,color:#fff,stroke:#7f8c8d\n    classDef definition fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef proposition fill:#51cf66,color:#fff,stroke:#40c057\n    class BookI,BookIII,PropII11 foundation\n    class Def1,Def2,Def3,Def4,Def5,Def6,Def7 definition\n    class Prop1,Prop2,Prop3,Prop4,Prop5,Prop6,Prop7,Prop8,Prop9,Prop10,Prop11,Prop12,Prop13,Prop14,Prop15,Prop16 proposition",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

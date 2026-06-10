@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Network Protocol - Computer Science Process</title>
+    <title>Deadlock Avoidance (Banker's Algorithm) - Computer Science Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Network Protocol</h1>
+            <h1>Deadlock Avoidance (Banker's Algorithm)</h1>
             <div class="header-meta">
                 <span class="meta-item">Computer Science</span>
                 <span class="meta-item">Systems & Architecture</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,67 +234,64 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Network Protocol process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>The Banker's algorithm grants resource requests only if the system stays in a safe state: a request is tentatively allocated, then the safety algorithm seeks an ordering in which every process can finish; if such a sequence exists the request is granted, otherwise the tentative allocation is rolled back and denied.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-A1[Data Transmission] --> B1[Network Protocol Method]
-C1[Packet Formation] --> D1[Protocol Stack]
-E1[Routing Process] --> F1[Network Protocol Analysis]
-B1 --> G1[TCP IP Protocol]
-D1 --> H1[OSI Model]
-F1 --> I1[Network Layer]
-G1 --> J1[Connection Establishment]
-H1 --> K1[Data Encapsulation]
-I1 --> L1[Packet Forwarding]
-J1 --> M1[Reliable Delivery]
-K1 --> L1
-L1 --> N1[Error Detection]
-M1 --> O1[Flow Control]
-N1 --> P1[Congestion Control]
-O1 --> Q1[Network Protocol Process]
-P1 --> R1[Network Protocol Validation]
-Q1 --> S1[Network Protocol Verification]
-R1 --> T1[Network Protocol Result]
-S1 --> U1[Network Protocol Analysis]
-T1 --> V1[Network Protocol Parameters]
-U1 --> W1[Network Protocol Output]
-V1 --> X1[Network Protocol Analysis]
-W1 --> Y1[Network Protocol Final Result]
-X1 --> Z1[Network Protocol Complete]
+    N1["Request resources"]
+    N2{"Resources available?"}
+    N3["Block / wait"]
+    N4["Tentatively allocate"]
+    N5["Run safety algorithm"]
+    N6["Find finishable proc"]
+    N7["Release its resources"]
+    N8{"All can finish?"}
+    N9{"Safe state?"}
+    N10["Grant request"]
+    N11["Roll back (deny)"]
+    N12["Deadlock-free alloc"]
 
-    style A1 fill:#ff6b6b,color:#fff
-    style C1 fill:#ff6b6b,color:#fff
-    style E1 fill:#ff6b6b,color:#fff
-    style B1 fill:#ffd43b,color:#000
-    style D1 fill:#ffd43b,color:#000
-    style F1 fill:#ffd43b,color:#000
-    style G1 fill:#ffd43b,color:#000
-    style H1 fill:#ffd43b,color:#000
-    style I1 fill:#ffd43b,color:#000
-    style J1 fill:#ffd43b,color:#000
-    style K1 fill:#ffd43b,color:#000
-    style L1 fill:#ffd43b,color:#000
-    style M1 fill:#51cf66,color:#fff
-    style N1 fill:#51cf66,color:#fff
-    style O1 fill:#51cf66,color:#fff
-    style P1 fill:#51cf66,color:#fff
-    style Q1 fill:#51cf66,color:#fff
-    style R1 fill:#51cf66,color:#fff
-    style S1 fill:#51cf66,color:#fff
-    style T1 fill:#51cf66,color:#fff
-    style U1 fill:#51cf66,color:#fff
-    style V1 fill:#51cf66,color:#fff
-    style W1 fill:#51cf66,color:#fff
-    style X1 fill:#51cf66,color:#fff
-    style Y1 fill:#51cf66,color:#fff
-    style Z1 fill:#b197fc,color:#fff
+    N1 --> N2
+    N2 -->|no| N3
+    N3 -->|wait| N2
+    N2 -->|yes| N4
+    N4 --> N5
+    N5 --> N6
+    N6 --> N7
+    N7 --> N8
+    N8 -->|no| N6
+    N8 -->|yes| N9
+    N9 -->|safe| N10
+    N9 -->|unsafe| N11
+    N10 --> N12
+    N11 --> N12
+
+    style N1 fill:#ff6b6b,color:#fff
+    style N2 fill:#74c0fc,color:#fff
+    style N3 fill:#51cf66,color:#fff
+    style N4 fill:#51cf66,color:#fff
+    style N5 fill:#51cf66,color:#fff
+    style N6 fill:#51cf66,color:#fff
+    style N7 fill:#51cf66,color:#fff
+    style N8 fill:#74c0fc,color:#fff
+    style N9 fill:#74c0fc,color:#fff
+    style N10 fill:#51cf66,color:#fff
+    style N11 fill:#51cf66,color:#fff
+    style N12 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Request resources</td><td>Triggers & Inputs</td><td><a href="https://www.os-book.com/OS10/" target="_blank" title="Operating System Concepts (10th ed.)" style="color:#9b59b6;">Silberschatz, A. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Resources available?</td><td>Intermediates & States</td><td><a href="https://www.os-book.com/OS10/" target="_blank" title="Operating System Concepts (10th ed.)" style="color:#9b59b6;">Silberschatz, A. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Block / wait</td><td>Processing & Operations</td><td><a href="https://www.os-book.com/OS10/" target="_blank" title="Operating System Concepts (10th ed.)" style="color:#9b59b6;">Silberschatz, A. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Tentatively allocate</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1145/363095.363143" target="_blank" title="Prevention of system deadlocks" style="color:#9b59b6;">Habermann, A. N. 1969</a></td></tr><tr><td style="font-weight:600;">Run safety algorithm</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1145/363095.363143" target="_blank" title="Prevention of system deadlocks" style="color:#9b59b6;">Habermann, A. N. 1969</a></td></tr><tr><td style="font-weight:600;">Find finishable proc</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1145/363095.363143" target="_blank" title="Prevention of system deadlocks" style="color:#9b59b6;">Habermann, A. N. 1969</a></td></tr><tr><td style="font-weight:600;">Release its resources</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1145/363095.363143" target="_blank" title="Prevention of system deadlocks" style="color:#9b59b6;">Habermann, A. N. 1969</a></td></tr><tr><td style="font-weight:600;">All can finish?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1145/363095.363143" target="_blank" title="Prevention of system deadlocks" style="color:#9b59b6;">Habermann, A. N. 1969</a></td></tr><tr><td style="font-weight:600;">Safe state?</td><td>Intermediates & States</td><td><a href="https://www.os-book.com/OS10/" target="_blank" title="Operating System Concepts (10th ed.)" style="color:#9b59b6;">Silberschatz, A. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Grant request</td><td>Processing & Operations</td><td><a href="https://www.os-book.com/OS10/" target="_blank" title="Operating System Concepts (10th ed.)" style="color:#9b59b6;">Silberschatz, A. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Roll back (deny)</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1145/363095.363143" target="_blank" title="Prevention of system deadlocks" style="color:#9b59b6;">Habermann, A. N. 1969</a></td></tr><tr><td style="font-weight:600;">Deadlock-free alloc</td><td>Products & Outputs</td><td><a href="https://doi.org/10.1145/363095.363143" target="_blank" title="Prevention of system deadlocks" style="color:#9b59b6;">Habermann, A. N. 1969</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -313,12 +337,12 @@ X1 --> Z1[Network Protocol Complete]
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 26</li>
-                        <li><strong>Edges:</strong> 21</li>
-                        <li><strong>Conditionals:</strong> 0</li>
-                        <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 1</li>
+                        <li><strong>Nodes:</strong> 12</li>
+                        <li><strong>Edges:</strong> 14</li>
+                        <li><strong>Conditionals:</strong> 3</li>
+                        <li><strong>AND Gates:</strong> 3</li>
+                        <li><strong>OR Gates:</strong> 3</li>
+                        <li><strong>Total Gates:</strong> 6</li>
                     </ul>
                 </div>
                 
@@ -326,7 +350,7 @@ X1 --> Z1[Network Protocol Complete]
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>network</li><li>protocol</li>
+                        <li>deadlock avoidance</li><li>Banker's algorithm</li><li>safe state</li><li>resource allocation</li><li>safety algorithm</li>
                     </ul>
                 </div>
                 
@@ -337,43 +361,23 @@ X1 --> Z1[Network Protocol Complete]
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Prevention of system deadlocks</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Habermann, A. N.
+                            , Communications of the ACM
+                             (1969)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #9b59b6; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>network management protocol</strong>
-                            
-                            , SpringerReference
-                             (None)
-                            </span>
-                            <br><a href="https://doi.org/10.1007/springerreference_19655" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.1007/springerreference_19655</a>
+                            <br><a href="https://doi.org/10.1145/363095.363143" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.1145/363095.363143</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Information technology. Protocol for providing the connectionless-mode network service</strong>
-                            
-                            
-                             (None)
+                            <strong>Operating System Concepts (10th ed.)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Silberschatz, A.; Galvin, P. B.; Gagne, G.
+                            , Wiley
+                             (2018)
                             </span>
-                            <br><a href="https://doi.org/10.3403/00501816u" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.3403/00501816u</a>
                             
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Information technology. Protocol for providing the connectionless-mode network service</strong>
-                            
-                            
-                             (None)
-                            </span>
-                            <br><a href="https://doi.org/10.3403/01584433" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.3403/01584433</a>
-                            
+                            <br><a href="https://www.os-book.com/OS10/" target="_blank" style="color: #9b59b6; font-size: 0.85em;">View Source</a>
                         </li>
                         
                     </ul>

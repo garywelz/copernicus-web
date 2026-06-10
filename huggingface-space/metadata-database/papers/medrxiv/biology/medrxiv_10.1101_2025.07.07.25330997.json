@@ -1,0 +1,54 @@
+{
+  "id": "medrxiv_10.1101_2025.07.07.25330997",
+  "doi": "10.1101/2025.07.07.25330997",
+  "title": "Towards real-world molecular pathology diagnosis of cancer with cross-modal AI",
+  "authors": [
+    "Wang, X.",
+    "Wang, Y.",
+    "Hu, W.",
+    "Zhang, Y.",
+    "Zhang, X.",
+    "Lu, C.",
+    "Hu, J.",
+    "Yan, Z.",
+    "Liu, X.",
+    "Duan, H.",
+    "Mou, Y.",
+    "Jiang, T.",
+    "Briggs, M.",
+    "Price, S.",
+    "Li, C."
+  ],
+  "author_string": "Wang, X., Wang, Y., Hu, W., Zhang, Y., Zhang, X. et al.",
+  "journal": "medRxiv",
+  "journal_full": "medRxiv",
+  "year": "2026",
+  "abstract": "Accurate integration of histological and molecular features is central to modern cancer diagnostics, but it is often hampered by resource-intensive parallel workflows, limited tissues, and increased diagnostic complexity. We present CAMPaS (Cross-modal AI for Integrated Molecular Pathology Diagnosis and Stratification), a clinical AI prototype that addresses challenges in real-world translation of jointly predicting glioma histology, molecular markers, and WHO 2021 integrative diagnoses from hematoxylin and eosin-stained slides. Trained and validated on 3,367 patients (6,043 slides) across eight cohorts (six retrospective, two prospective), CAMPaS achieved high diagnostic performance (AUC 0.895-0.916 in training; 0.946-0.955 in prospective cohorts) and generalized robustly across diverse settings. Its interpretable cross-modal predictions aligned with histopathological annotations and genomic profiles, revealing biologically coherent features. CAMPaS identified histological features for molecular markers, and its clinical utility was validated for enhancing real-world clinical diagnostics. Crucially, CAMPaS stratifies prognosis and treatment response, offering a scalable and biologically grounded solution to accelerate precision oncology.",
+  "keywords": [],
+  "categories": [
+    "oncology"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.1101/2025.07.07.25330997",
+  "source": "medrxiv",
+  "sources": [
+    "medrxiv"
+  ],
+  "acquired_date": "2026-05-09T22:15:26.084299",
+  "category": "biology",
+  "subcategories": [
+    "oncology"
+  ],
+  "published_date": "2026-01-09",
+  "updated_date": "2026-01-09",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "medrxiv",
+  "preprint_version": "2",
+  "preprint_type": "PUBLISHAHEADOFPRINT",
+  "license": "cc_by_nc",
+  "jatsxml": "https://www.medrxiv.org/content/early/2026/01/09/2025.07.07.25330997.source.xml",
+  "published_doi": null,
+  "author_corresponding": "Chao Li",
+  "author_corresponding_institution": "Department of Clinical Neurosciences, University of Cambridge, UK"
+}

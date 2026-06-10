@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2605.13810v1",
+  "arxiv_id": "2605.13810v1",
+  "title": "Provable Quantization with Randomized Hadamard Transform",
+  "authors": [
+    "Ying Feng",
+    "Piotr Indyk",
+    "Michael Kapralov",
+    "Dmitry Krachun",
+    "Boris Prokhorov"
+  ],
+  "author_string": "Ying Feng, Piotr Indyk, Michael Kapralov, Dmitry Krachun, Boris Prokhorov",
+  "journal": "arXiv:2605.13810v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Vector quantization via random projection followed by scalar quantization is a fundamental primitive in machine learning, with applications ranging from similarity search to federated learning and KV cache compression. While dense random rotations yield clean theoretical guarantees, they require $Θ(d^2)$ time. The randomized Hadamard transform $HD$ reduces this cost to $O(d \\log d)$, but its discrete structure complicates analysis and leads to weaker or purely empirical compression guarantees.   In this work, we study a variant of this approach: dithered quantization with a single randomized Hadamard transform. Specifically, the quantizer applies $HD$ to the input vector and subtracts a random scalar offset before quantizing, injecting additional randomness at negligible cost. We prove that this approach is unbiased and provides mean squared error bounds that asymptotically match those achievable with truly random rotation matrices. In particular, we prove that a dithered version of TurboQuant achieves mean squared error $\\bigl(π\\sqrt{3}/2 + o(1)\\bigr) \\cdot 4^{-b}$ at $b$ bits per coordinate, where the $o(1)$ term vanishes uniformly over all unit vectors and all dimensions as the number of quantization levels grows.",
+  "categories": [
+    "cs.LG",
+    "cs.DS"
+  ],
+  "primary_category": "cs.DS",
+  "comment": null,
+  "published_date": "2026-05-13T17:38:18Z",
+  "updated_date": "2026-05-13T17:38:18Z",
+  "url": "https://arxiv.org/abs/2605.13810v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.13810v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-13T22:17:00.035428",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.LG",
+    "cs.DS"
+  ]
+}

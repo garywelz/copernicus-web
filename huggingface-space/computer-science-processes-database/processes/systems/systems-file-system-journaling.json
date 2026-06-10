@@ -4,18 +4,20 @@
   "category": "computer_science",
   "subcategory": "systems",
   "subcategory_name": "Systems & Architecture",
-  "description": "File System Journaling process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "Journaling keeps a file system consistent across crashes: before changing the file system, the intended updates are written to a journal and committed durably, after which the changes are checkpointed to their final locations; if a crash occurs before checkpointing, recovery replays the committed journal entries.",
   "complexity": {
-    "nodes": 10,
-    "edges": 10,
-    "conditionals": 0,
+    "nodes": 12,
+    "edges": 13,
+    "conditionals": 2,
     "logicGates": {
-      "orGates": 1,
-      "andGates": 1,
-      "total": 2
+      "orGates": 2,
+      "andGates": 2,
+      "notGates": 0,
+      "total": 4
     },
-    "level": "medium",
-    "detailLevel": "medium"
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 1
   },
   "colorScheme": {
     "red": {
@@ -39,54 +41,155 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nN1[\"Write Operation\"]\nN2[\"Crash Risk\"]\nN3[\"Journal\"]\nN4[\"Choose Approach\"]\nN5[\"Metadata Blocks\"]\nN6[\"Log Intent\"]\nN7[\"Apply Updates\"]\nN8[\"Recovery Replay\"]\nN9[\"Integrate Results\"]\nN10[\"Consistent FS\"]\n\nN1 --> N2\nN2 --> N3\nN3 --> N4\nN4 --> N5\nN4 --> N7\nN5 --> N6\nN7 --> N8\nN6 --> N9\nN8 --> N9\nN9 --> N10\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#ff6b6b,color:#fff\n    style N3 fill:#ffd43b,color:#000\n    style N4 fill:#ffd43b,color:#000\n    style N5 fill:#ffd43b,color:#000\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#74c0fc,color:#fff\n    style N9 fill:#74c0fc,color:#fff\n    style N10 fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"File operation request\"]\n    N2[\"Begin transaction\"]\n    N3[\"Write intent to journal\"]\n    N4[\"Commit to journal\"]\n    N5{\"Journal durable?\"}\n    N6[\"Retry / abort\"]\n    N7[\"Checkpoint to FS\"]\n    N8[\"Update metadata+data\"]\n    N9[\"Mark entry done\"]\n    N10{\"Crash before checkpoint?\"}\n    N11[\"Replay on recovery\"]\n    N12[\"Consistent file system\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 --> N4\n    N4 --> N5\n    N5 -->|no| N6\n    N6 -->|retry| N3\n    N5 -->|yes| N7\n    N7 --> N8\n    N8 --> N9\n    N9 --> N10\n    N10 -->|yes| N11\n    N11 --> N12\n    N10 -->|no| N12\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#74c0fc,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#51cf66,color:#fff\n    style N10 fill:#74c0fc,color:#fff\n    style N11 fill:#51cf66,color:#fff\n    style N12 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
-      "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: File System Journaling. Created using the Programming Framework methodology."
+      "title": "Analysis and evolution of journaling file systems",
+      "authors": "Prabhakaran, V.; Arpaci-Dusseau, A. C.; Arpaci-Dusseau, R. H.",
+      "journal": "USENIX Annual Technical Conference",
+      "year": "2005",
+      "url": "https://www.usenix.org/legacy/event/usenix05/tech/general/prabhakaran.html"
     },
     {
-      "title": "VM aware journaling: improving journaling file system performance in virtualization environments",
-      "authors": "Huang, Ting‐Chang; Chang, Da‐Wei",
-      "journal": "Software: Practice and Experience",
-      "year": "2012",
-      "pubmed": null,
-      "doi": "10.1002/spe.1069",
-      "url": "https://doi.org/10.1002/spe.1069"
-    },
-    {
-      "title": "The Structure and Implementation of Journaling File System on Embedded System",
-      "authors": "Ge, Qianqian; Zhu, Yiwei",
-      "journal": "2008 International Seminar on Future BioMedical Information Engineering",
-      "year": "2008",
-      "pubmed": null,
-      "doi": "10.1109/fbie.2008.74",
-      "url": "https://doi.org/10.1109/fbie.2008.74"
-    },
-    {
-      "title": "Design and Implementation of a Remote-Based Journaling File System",
-      "authors": "Wang, Jun; Huang, Ge",
-      "journal": "Advanced Materials Research",
-      "year": "2013",
-      "pubmed": null,
-      "doi": "10.4028/www.scientific.net/amr.664.1050",
-      "url": "https://doi.org/10.4028/www.scientific.net/amr.664.1050"
+      "title": "Operating System Concepts (10th ed.)",
+      "authors": "Silberschatz, A.; Galvin, P. B.; Gagne, G.",
+      "journal": "Wiley",
+      "year": "2018",
+      "url": "https://www.os-book.com/OS10/"
     }
   ],
   "keywords": [
-    "file",
-    "system",
-    "journaling"
+    "journaling file system",
+    "write-ahead log",
+    "commit",
+    "checkpoint",
+    "crash recovery"
   ],
   "relatedProcesses": [],
   "created": "2026-01-15",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations.\nCurated Mermaid applied (citations preserved)."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "namedCollections": [],
+  "graphMetrics": {
+    "nodes": 12,
+    "edges": 13,
+    "conditionals": 2,
+    "andGates": 2,
+    "orGates": 2,
+    "notGates": 0,
+    "loops": 1
+  },
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "File operation request",
+      "detail": "Mutation needed",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 1
+    },
+    {
+      "id": "N2",
+      "label": "Begin transaction",
+      "detail": "Group updates",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N3",
+      "label": "Write intent to journal",
+      "detail": "Log blocks first",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N4",
+      "label": "Commit to journal",
+      "detail": "Commit record",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N5",
+      "label": "Journal durable?",
+      "detail": "Flushed to disk",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N6",
+      "label": "Retry / abort",
+      "detail": "Ensure persistence",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N7",
+      "label": "Checkpoint to FS",
+      "detail": "Apply in place",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N8",
+      "label": "Update metadata+data",
+      "detail": "Final locations",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N9",
+      "label": "Mark entry done",
+      "detail": "Free journal space",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N10",
+      "label": "Crash before checkpoint?",
+      "detail": "Failure timing",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N11",
+      "label": "Replay on recovery",
+      "detail": "Redo committed",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N12",
+      "label": "Consistent file system",
+      "detail": "No corruption",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 1
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:systems-file-system-journaling",
+    "graphType": "decision_flowchart",
+    "topologySignature": "3a781c85291686cf",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "graphType": "decision_flowchart",
+  "domainContext": "Operating systems"
 }

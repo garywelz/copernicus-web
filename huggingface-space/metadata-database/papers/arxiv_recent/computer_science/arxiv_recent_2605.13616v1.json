@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2605.13616v1",
+  "arxiv_id": "2605.13616v1",
+  "title": "Scalable Deductive Verification of Data-Level Parallel Programs",
+  "authors": [
+    "Lars B. van den Haak",
+    "Anton Wijs",
+    "Marieke Huisman"
+  ],
+  "author_string": "Lars B. van den Haak, Anton Wijs, Marieke Huisman",
+  "journal": "arXiv:2605.13616v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "This paper introduces several techniques that improve the scalability of the deductive verification of data-level programs working on arrays and matrices. First of all, we introduce a technique to rewrite expressions with (nested) quantifiers, so suitable triggers can be generated for these expressions. We have proven this rewrite technique correct in a theorem prover. Second, we make reasoning about potentially overlapping arrays easier, by providing specification constructs to indicate and verify that two arrays are not aliases, or that they are immutable, so they can be modelled as mathematical sequences. All our techniques are implemented in the VerCors program verifier. We illustrate how our techniques improve scalability through a large number of experiments. Using our techniques on a set of typical GPU kernels, we achieve a reduction of verification time by, on average, a factor of 9, with outliers being up to 150 times faster. Additionally, applying these techniques to earlier experiments and an earlier case study of a radio telescope pipeline permitted the verification of results which were previously unobtainable and significantly reduced the verification time.",
+  "categories": [
+    "cs.SE"
+  ],
+  "primary_category": "cs.SE",
+  "comment": "24 pages, 2 figures, 4 listings, 2 tables, to be published in CAV 2026",
+  "published_date": "2026-05-13T14:45:49Z",
+  "updated_date": "2026-05-13T14:45:49Z",
+  "url": "https://arxiv.org/abs/2605.13616v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.13616v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-13T22:17:14.552768",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.SE"
+  ]
+}

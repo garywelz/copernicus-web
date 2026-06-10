@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Electromagnetic Induction - Physics Process</title>
+    <title>Time-Independent Schrodinger Equation - Physics Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Electromagnetic Induction</h1>
+            <h1>Time-Independent Schrodinger Equation</h1>
             <div class="header-meta">
                 <span class="meta-item">Physics</span>
                 <span class="meta-item">Quantum Mechanics</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,67 +234,60 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Electromagnetic Induction Process. This electromagnetism process visualization demonstrates electromagnetic induction and power generation. The flowchart shows flux inputs and conductor motion, electromagnetic induction methods and flux changes, electromagnetic induction operations and induced currents, intermediate results, and final electromagnetic induction outputs.</p>
+                <p>Solving the time-independent Schrodinger equation for a particle in a potential gives stationary states: writing H psi = E psi and distinguishing bound from scattering states, boundary conditions impose a quantization condition that selects discrete energy eigenvalues with normalizable eigenfunctions.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-A3[Magnetic Flux] --> B3[Electromagnetic Induction Method]
-C3[Conductor Motion] --> D3[Flux Change]
-E3[Induced Current] --> F3[Electromagnetic Induction Analysis]
-B3 --> G3[Faraday's Law]
-D3 --> H3[Lenz's Law]
-F3 --> I3[Induction Coil]
-G3 --> J3[EMF Generation]
-H3 --> K3[Current Direction]
-I3 --> L3[Induction Loop]
-J3 --> M3[Voltage Induction]
-K3 --> L3
-L3 --> N3[Current Flow]
-M3 --> O3[Power Generation]
-N3 --> P3[Energy Transfer]
-O3 --> Q3[Electromagnetic Induction Process]
-P3 --> R3[Electromagnetic Induction Validation]
-Q3 --> S3[Electromagnetic Induction Verification]
-R3 --> T3[Electromagnetic Induction Result]
-S3 --> U3[Electromagnetic Induction Analysis]
-T3 --> V3[Electromagnetic Induction Parameters]
-U3 --> W3[Electromagnetic Induction Output]
-V3 --> X3[Electromagnetic Induction Analysis]
-W3 --> Y3[Electromagnetic Induction Final Result]
-X3 --> Z3[Electromagnetic Induction Complete]
+    N1["Particle in potential V(x)"]
+    N2["Write H psi = E psi"]
+    N3{"Bound or scattering?"}
+    N4["Scattering: continuum E"]
+    N5["Bound: normalizable psi"]
+    N6["Apply boundary conditions"]
+    N7["Quantization condition"]
+    N8["Discrete energy levels"]
+    N9{"Eigenfunctions valid?"}
+    N10["Re-normalize psi"]
+    N11["Stationary states"]
 
-    style A3 fill:#ff6b6b,color:#fff
-    style C3 fill:#ff6b6b,color:#fff
-    style E3 fill:#ff6b6b,color:#fff
-    style B3 fill:#ffd43b,color:#000
-    style D3 fill:#ffd43b,color:#000
-    style F3 fill:#ffd43b,color:#000
-    style G3 fill:#ffd43b,color:#000
-    style H3 fill:#ffd43b,color:#000
-    style I3 fill:#ffd43b,color:#000
-    style J3 fill:#ffd43b,color:#000
-    style K3 fill:#ffd43b,color:#000
-    style L3 fill:#ffd43b,color:#000
-    style M3 fill:#51cf66,color:#fff
-    style N3 fill:#51cf66,color:#fff
-    style O3 fill:#51cf66,color:#fff
-    style P3 fill:#51cf66,color:#fff
-    style Q3 fill:#51cf66,color:#fff
-    style R3 fill:#51cf66,color:#fff
-    style S3 fill:#51cf66,color:#fff
-    style T3 fill:#51cf66,color:#fff
-    style U3 fill:#51cf66,color:#fff
-    style V3 fill:#51cf66,color:#fff
-    style W3 fill:#51cf66,color:#fff
-    style X3 fill:#51cf66,color:#fff
-    style Y3 fill:#51cf66,color:#fff
-    style Z3 fill:#b197fc,color:#fff
+    N1 --> N2
+    N2 --> N3
+    N3 -->|scattering| N4
+    N4 --> N6
+    N3 -->|bound| N5
+    N5 --> N6
+    N6 --> N7
+    N7 --> N8
+    N8 --> N9
+    N9 -->|no| N10
+    N10 -->|refine| N6
+    N9 -->|yes| N11
+
+    style N1 fill:#ff6b6b,color:#fff
+    style N2 fill:#51cf66,color:#fff
+    style N3 fill:#74c0fc,color:#fff
+    style N4 fill:#51cf66,color:#fff
+    style N5 fill:#51cf66,color:#fff
+    style N6 fill:#51cf66,color:#fff
+    style N7 fill:#74c0fc,color:#fff
+    style N8 fill:#51cf66,color:#fff
+    style N9 fill:#74c0fc,color:#fff
+    style N10 fill:#51cf66,color:#fff
+    style N11 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Particle in potential V(x)</td><td>Triggers & Inputs</td><td><a href="https://doi.org/10.1017/9781316995433" target="_blank" title="Introduction to Quantum Mechanics (3rd ed.)" style="color:#3498db;">Griffiths, D. J. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Write H psi = E psi</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1103/PhysRev.28.1049" target="_blank" title="An undulatory theory of the mechanics of atoms and molecules" style="color:#3498db;">Schrodinger, E. 1926</a></td></tr><tr><td style="font-weight:600;">Bound or scattering?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1017/9781316995433" target="_blank" title="Introduction to Quantum Mechanics (3rd ed.)" style="color:#3498db;">Griffiths, D. J. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Scattering: continuum E</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1017/9781316995433" target="_blank" title="Introduction to Quantum Mechanics (3rd ed.)" style="color:#3498db;">Griffiths, D. J. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Bound: normalizable psi</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1017/9781316995433" target="_blank" title="Introduction to Quantum Mechanics (3rd ed.)" style="color:#3498db;">Griffiths, D. J. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Apply boundary conditions</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1103/PhysRev.28.1049" target="_blank" title="An undulatory theory of the mechanics of atoms and molecules" style="color:#3498db;">Schrodinger, E. 1926</a></td></tr><tr><td style="font-weight:600;">Quantization condition</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1103/PhysRev.28.1049" target="_blank" title="An undulatory theory of the mechanics of atoms and molecules" style="color:#3498db;">Schrodinger, E. 1926</a></td></tr><tr><td style="font-weight:600;">Discrete energy levels</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1103/PhysRev.28.1049" target="_blank" title="An undulatory theory of the mechanics of atoms and molecules" style="color:#3498db;">Schrodinger, E. 1926</a></td></tr><tr><td style="font-weight:600;">Eigenfunctions valid?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1017/9781316995433" target="_blank" title="Introduction to Quantum Mechanics (3rd ed.)" style="color:#3498db;">Griffiths, D. J. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Re-normalize psi</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1017/9781316995433" target="_blank" title="Introduction to Quantum Mechanics (3rd ed.)" style="color:#3498db;">Griffiths, D. J. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Stationary states</td><td>Products & Outputs</td><td><a href="https://doi.org/10.1103/PhysRev.28.1049" target="_blank" title="An undulatory theory of the mechanics of atoms and molecules" style="color:#3498db;">Schrodinger, E. 1926</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -313,12 +333,12 @@ X3 --> Z3[Electromagnetic Induction Complete]
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 26</li>
-                        <li><strong>Edges:</strong> 24</li>
-                        <li><strong>Conditionals:</strong> 0</li>
+                        <li><strong>Nodes:</strong> 11</li>
+                        <li><strong>Edges:</strong> 12</li>
+                        <li><strong>Conditionals:</strong> 2</li>
                         <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 1</li>
+                        <li><strong>OR Gates:</strong> 2</li>
+                        <li><strong>Total Gates:</strong> 3</li>
                     </ul>
                 </div>
                 
@@ -326,7 +346,7 @@ X3 --> Z3[Electromagnetic Induction Complete]
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>mechanics</li><li>induction</li><li>quantum</li><li>electromagnetic</li>
+                        <li>Schrodinger equation</li><li>stationary states</li><li>energy quantization</li><li>eigenfunctions</li><li>bound states</li>
                     </ul>
                 </div>
                 
@@ -337,32 +357,22 @@ X3 --> Z3[Electromagnetic Induction Complete]
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>An undulatory theory of the mechanics of atoms and molecules</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Schrodinger, E.
+                            , Physical Review
+                             (1926)
                             </span>
+                            <br><a href="https://doi.org/10.1103/PhysRev.28.1049" target="_blank" style="color: #3498db; font-size: 0.85em;">DOI: 10.1103/PhysRev.28.1049</a>
                             
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #3498db; font-size: 0.85em;">View Source</a>
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Electromagnetic response of topological materials</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Armitage, NP, Fradkin, E, van der Heijden, GAF
-                            , Rev. Mod. Phys.
+                            <strong>Introduction to Quantum Mechanics (3rd ed.)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Griffiths, D. J.; Schroeter, D. F.
+                            , Cambridge University Press
                              (2018)
                             </span>
-                            <br><a href="https://doi.org/10.1103/RevModPhys.90.015002" target="_blank" style="color: #3498db; font-size: 0.85em;">DOI: 10.1103/RevModPhys.90.015002</a>
-                            
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Metamaterials: Fundamentals and applications</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Zheludev, NI, Kivshar, YS
-                            , Rev. Mod. Phys.
-                             (2010)
-                            </span>
-                            <br><a href="https://doi.org/10.1103/RevModPhys.82.1.395" target="_blank" style="color: #3498db; font-size: 0.85em;">DOI: 10.1103/RevModPhys.82.1.395</a>
+                            <br><a href="https://doi.org/10.1017/9781316995433" target="_blank" style="color: #3498db; font-size: 0.85em;">DOI: 10.1017/9781316995433</a>
                             
                         </li>
                         

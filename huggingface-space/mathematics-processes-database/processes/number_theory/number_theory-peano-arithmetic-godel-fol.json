@@ -1,0 +1,39 @@
+{
+  "id": "number_theory-peano-arithmetic-godel-fol",
+  "name": "Peano Arithmetic & Gödel — Part 4: First-Order Logic",
+  "category": "mathematics",
+  "subcategory": "number_theory",
+  "subcategory_name": "Number Theory",
+  "description": "First-order logic: syntax (terms, formulas), semantics (structures, interpretations), satisfaction relation, and deductive system. Prerequisites for Gödel's Completeness Theorem.",
+  "mermaid": "graph TD\n    DefLang[\"Def: Language L (symbols, arities)\"]\n    DefTerm[\"Def: Term (variables, constants, function symbols)\"]\n    DefForm[\"Def: Formula (atomic, ¬, ∧, ∨, →, ∀, ∃)\"]\n    DefStruct[\"Def: Structure M = (domain, interpretations)\"]\n    DefAssign[\"Def: Variable assignment s: Var → |M|\"]\n    DefSat[\"Def: Satisfaction M ⊨ φ[s]\"]\n    DefValid[\"Def: Validity: φ true in all models\"]\n    DefDed[\"Def: Deductive system (axioms, MP, Gen)\"]\n    DefProv[\"Def: Provability T ⊢ φ\"]\n    LemSatComp[\"Lem: Satisfaction for compound formulas\"]\n    LemSubst[\"Lem: Substitution lemma M ⊨ φ[t/x][s] iff M ⊨ φ[s(x|t^M)]\"]\n    ThmSoundness[\"Thm: Soundness: T ⊢ φ ⇒ T ⊨ φ\"]\n    DefLang --> DefTerm\n    DefLang --> DefForm\n    DefTerm --> DefForm\n    DefStruct --> DefAssign\n    DefAssign --> DefSat\n    DefForm --> DefSat\n    DefSat --> DefValid\n    DefSat --> LemSatComp\n    LemSatComp --> LemSubst\n    DefDed --> DefProv\n    DefSat --> ThmSoundness\n    DefProv --> ThmSoundness\n    LemSubst --> ThmSoundness\n    classDef definition fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef lemma fill:#74c0fc,color:#fff,stroke:#4dabf7\n    classDef theorem fill:#51cf66,color:#fff,stroke:#40c057\n    class DefLang,DefTerm,DefForm,DefStruct,DefAssign,DefSat,DefValid,DefDed,DefProv definition\n    class LemSatComp,LemSubst lemma\n    class ThmSoundness theorem",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

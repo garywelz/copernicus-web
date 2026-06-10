@@ -1,6 +1,6 @@
 {
-  "name": "Daily Paper Scout - Top Journals & Recent Popular Papers",
-  "description": "Daily automated collection of recent, popular papers from top journals across all disciplines",
+  "name": "Daily Paper Scout - Biology-Weighted Recent Papers",
+  "description": "Automated collection of recent papers weighted toward biology while preserving cross-disciplinary coverage",
   "schedule": {
     "frequency": "daily",
     "time": "02:00",
@@ -47,7 +47,7 @@
     },
     "arxiv": {
       "enabled": true,
-      "priority": 2,
+      "priority": 3,
       "queries": [
         {
           "name": "Recent Physics",
@@ -83,9 +83,14 @@
         }
       ]
     },
-    "nasa_ads": {
+    "biorxiv_medrxiv": {
       "enabled": true,
-      "priority": 3,
+      "priority": 2,
+      "description": "Recent biology and medicine preprints from BioRxiv/MedRxiv; marked preprint=true and peer_reviewed=false."
+    },
+    "nasa_ads": {
+      "enabled": false,
+      "priority": 4,
       "queries": [
         {
           "name": "Recent Astronomy & Astrophysics",
@@ -97,9 +102,18 @@
     }
   },
   "limits": {
-    "papers_per_source_per_day": 200,
-    "total_papers_per_day": 500,
+    "papers_per_source_per_run": 750,
+    "total_papers_per_run": 1000,
+    "source_weights": {
+      "pubmed": 0.6,
+      "biorxiv_medrxiv": 0.25,
+      "arxiv": 0.15
+    },
     "rate_limit_buffer": 0.5
+  },
+  "agent_ralph": {
+    "description": "Ralph Wiggum / scheduler: run run_daily_scout_with_ingest.sh on the cron schedule. papers_per_source_per_run caps each source; total_papers_per_run is split by source_weights.",
+    "wrapper_script": "scripts/acquire_papers/run_daily_scout_with_ingest.sh"
   },
   "output": {
     "directory": "metadata-database/papers/daily_scout",

@@ -1,0 +1,183 @@
+{
+  "id": "pathways-pentose-phosphate-pathway",
+  "name": "Pentose Phosphate Pathway",
+  "category": "biology",
+  "subcategory": "pathways",
+  "subcategory_name": "Pathways",
+  "description": "Pentose phosphate pathway: glucose-6-phosphate enters the oxidative branch (G6PD, rate-limiting) to generate NADPH and ribose precursors, and the non-oxidative branch interconverts sugars to balance NADPH versus ribose-5-phosphate demand.",
+  "keywords": [
+    "pentose phosphate",
+    "g6pd",
+    "nadph",
+    "ribose-5-phosphate",
+    "transketolase"
+  ],
+  "namedCollections": [
+    "metabolism"
+  ],
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "complexity": {
+    "nodes": 9,
+    "edges": 8,
+    "conditionals": 1,
+    "logicGates": {
+      "orGates": 1,
+      "andGates": 0,
+      "notGates": 0,
+      "total": 1
+    },
+    "level": "medium",
+    "detailLevel": "source_grounded",
+    "loops": 0
+  },
+  "graphMetrics": {
+    "nodes": 9,
+    "edges": 8,
+    "conditionals": 1,
+    "andGates": 0,
+    "orGates": 1,
+    "notGates": 0,
+    "loops": 0
+  },
+  "mermaid": "graph TD\n    N1[\"Glucose-6-phosphate\"]\n    N2[\"G6PD: oxidative branch\"]\n    N3[\"6-PG -> Ru5P (NADPH, CO2)\"]\n    N4{\"Cell's dominant need?\"}\n    N5[\"Ribose-5-phosphate made\"]\n    N6[\"Nucleotide synthesis\"]\n    N7[\"Non-oxidative branch\"]\n    N8[\"Convert to glycolytic intermediat…\"]\n    N9[\"Feed glycolysis\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 --> N4\n    N4 -->|ribose| N5\n    N5 --> N6\n    N4 -->|NADPH only| N7\n    N7 --> N8\n    N8 --> N9\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#ffd43b,color:#000\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#74c0fc,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#b197fc,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#b197fc,color:#fff",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Glucose-6-phosphate",
+      "detail": "Shared entry with glycolysis",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N2",
+      "label": "G6PD: oxidative branch",
+      "detail": "Rate-limiting, produces NADPH",
+      "type": "process",
+      "role": "Structures & Objects",
+      "sourceRef": 1
+    },
+    {
+      "id": "N3",
+      "label": "6-PG -> Ru5P (NADPH, CO2)",
+      "detail": "Second NADPH and decarboxylation",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N4",
+      "label": "Cell's dominant need?",
+      "detail": "NADPH vs ribose demand",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 2
+    },
+    {
+      "id": "N5",
+      "label": "Ribose-5-phosphate made",
+      "detail": "Isomerization for nucleotides",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N6",
+      "label": "Nucleotide synthesis",
+      "detail": "Ribose into nucleic acids",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 2
+    },
+    {
+      "id": "N7",
+      "label": "Non-oxidative branch",
+      "detail": "Transketolase/transaldolase",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N8",
+      "label": "Convert to glycolytic intermediat…",
+      "detail": "F6P and G3P produced",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N9",
+      "label": "Feed glycolysis",
+      "detail": "Carbon returns to central metabolism",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 1
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:pathways-pentose-phosphate-pathway",
+    "graphType": "decision_flowchart",
+    "topologySignature": "f63013b4663f20de",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "lastUpdated": "2026-06-01",
+  "verified": false,
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "sources": [
+    {
+      "title": "Biochemistry, 5th ed. — The Pentose Phosphate Pathway",
+      "authors": "Berg, J. M.; Tymoczko, J. L.; Stryer, L.",
+      "journal": "W. H. Freeman (NCBI Bookshelf, Chapter 20)",
+      "year": "2002",
+      "doi": null,
+      "url": "https://www.ncbi.nlm.nih.gov/books/NBK22467/"
+    },
+    {
+      "title": "The return of metabolism: biochemistry and physiology of the pentose phosphate pathway",
+      "authors": "Stincone, A.; et al.",
+      "journal": "Biological Reviews",
+      "year": "2015",
+      "pubmed": "25243985",
+      "doi": "10.1111/brv.12140",
+      "url": "https://doi.org/10.1111/brv.12140"
+    },
+    {
+      "title": "The pentose phosphate pathway and cancer",
+      "authors": "Patra, K. C.; Hay, N.",
+      "journal": "Trends in Biochemical Sciences",
+      "year": "2014",
+      "pubmed": "25037503",
+      "doi": "10.1016/j.tibs.2014.06.005",
+      "url": "https://doi.org/10.1016/j.tibs.2014.06.005"
+    }
+  ],
+  "graphType": "decision_flowchart",
+  "domainContext": "NADPH and ribose supply"
+}

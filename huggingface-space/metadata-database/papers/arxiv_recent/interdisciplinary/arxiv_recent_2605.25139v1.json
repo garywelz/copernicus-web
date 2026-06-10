@@ -1,0 +1,38 @@
+{
+  "id": "arxiv_2605.25139v1",
+  "arxiv_id": "2605.25139v1",
+  "title": "Hybrid Full Waveform Inversion Assisted by Rytov Approximation for Musculoskeletal Ultrasound Computed Tomography",
+  "authors": [
+    "Yifei Sun",
+    "Yubing Li",
+    "Chang Su",
+    "Lekang Jiang",
+    "Xiangwei Lu",
+    "Ligang Cui",
+    "He Sun",
+    "Weijun Lin"
+  ],
+  "author_string": "Yifei Sun, Yubing Li, Chang Su, Lekang Jiang, Xiangwei Lu et al.",
+  "journal": "arXiv:2605.25139v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Ultrasound computed tomography is emerging as a promising safe and accessible modality for soft-tissue medical imaging, with full waveform inversion playing a key role in unlocking its full potential for high-resolution, quantitative reconstructions. Frequency domain full waveform inversion (FDFWI) for reconstructing spatial maps of acoustic properties in the musculoskeletal system is highly sensitive to the quality of low-frequency signals, making the final imaging outcome vulnerable to issues such as inappropriate initial models and strong scatterings related to bones. To address these challenges, we propose a hybrid full waveform inversion (HFWI) algorithm that incorporates a traveltime inversion algorithm based on the generalized Rytov approximation into the FDFWI framework. This hybrid strategy enhances early-stage inversion quality and substantially reduces sensitivity to the initial model, all while maintaining computational efficiency. Importantly, HFWI achieves results comparable to those obtained using well-constructed initial models, without incurring extra computational cost, thus enabling accurate imaging under realistic, bandwidth-limited conditions. In addition, we introduce a near real-time strategy to update first-arrival traveltimes based on forward-scattered phase variations without requiring extra wavefield simulations. Numerical simulations, as well as \\textit{in vitro} and \\textit{in vivo} experiments confirm the robustness and efficiency of the proposed approach. HFWI also shows promise to extend to more complex scenarios of musculoskeletal parametric reconstruction.",
+  "categories": [
+    "physics.med-ph",
+    "eess.IV"
+  ],
+  "primary_category": "eess.IV",
+  "comment": "13 pages, 18 figures; supplementary material included as ancillary file",
+  "published_date": "2026-05-24T15:36:53Z",
+  "updated_date": "2026-05-24T15:36:53Z",
+  "url": "https://arxiv.org/abs/2605.25139v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.25139v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-26T10:15:46.973568",
+  "category": "interdisciplinary",
+  "subcategories": [
+    "physics.med-ph",
+    "eess.IV"
+  ]
+}

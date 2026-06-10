@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_2605.06647v1",
+  "arxiv_id": "2605.06647v1",
+  "title": "Superintelligent Retrieval Agent: The Next Frontier of Information Retrieval",
+  "authors": [
+    "Zeyu Yang",
+    "Qi Ma",
+    "Jason Chen",
+    "Anshumali Shrivastava"
+  ],
+  "author_string": "Zeyu Yang, Qi Ma, Jason Chen, Anshumali Shrivastava",
+  "journal": "arXiv:2605.06647v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Retrieval-augmented agents are increasingly the interface to large organizational knowledge bases, yet most still treat retrieval as a black box: they issue exploratory queries, inspect returned snippets, and iteratively reformulate until useful evidence emerges. This approach resembles how a newcomer searches an unfamiliar database rather than how an expert navigates it with strong priors about terminology and likely evidence, and results in unnecessary retrieval rounds, increased latency, and poor recall.   We introduce \\textit{SuperIntelligent Retrieval Agent} (SIRA), which defines \\emph{superintelligence} in retrieval as the ability to compress multi-round exploratory search into a single corpus-discriminative retrieval action. SIRA does not merely ask what terms are relevant to the query; it asks which terms are likely to separate the desired evidence from corpus-level confusers. On the corpus side, an LLM enriches each document offline with missing search vocabulary; on the query side, it predicts evidence vocabulary omitted by the query; and document-frequency statistics as a tool call to filter proposed terms that are absent, overly common, or unlikely to create retrieval margin. The final retrieval step is a single weighted BM25 call combining the original query with the validated expansion.   Across ten BEIR benchmarks and downstream question-answering tasks, SIRA achieves the significantly superior performance outperforming dense retrievers and state-of-the-art multi-round agentic baselines, demonstrating that one well-formed lexical query, guided by LLM cognition and lightweight corpus statistics, can exceed substantially more expensive multi-round search while remaining interpretable, training-free, and efficient.",
+  "categories": [
+    "cs.IR",
+    "cs.AI",
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": null,
+  "published_date": "2026-05-07T17:54:29Z",
+  "updated_date": "2026-05-07T17:54:29Z",
+  "url": "https://arxiv.org/abs/2605.06647v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.06647v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-09T22:15:40.549694",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.IR",
+    "cs.AI",
+    "cs.LG"
+  ]
+}

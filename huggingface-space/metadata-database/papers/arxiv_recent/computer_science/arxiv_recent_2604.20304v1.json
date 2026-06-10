@@ -1,0 +1,40 @@
+{
+  "id": "arxiv_2604.20304v1",
+  "arxiv_id": "2604.20304v1",
+  "title": "LLM-guided phase diagram construction through high-throughput experimentation",
+  "authors": [
+    "Ryo Tamura",
+    "Haruhiko Morito",
+    "Yuna Oikawa",
+    "Guillaume Deffrennes",
+    "Shoichi Matsuda",
+    "Naruki Yoshikawa",
+    "Tomoaki Takayama",
+    "Taichi Abe",
+    "Koji Tsuda",
+    "Kei Terayama"
+  ],
+  "author_string": "Ryo Tamura, Haruhiko Morito, Yuna Oikawa, Guillaume Deffrennes, Shoichi Matsuda et al.",
+  "journal": "arXiv:2604.20304v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Constructing phase diagrams for multicomponent alloys requires extensive experimental measurements and is a time-consuming task. Here we investigate whether large language models (LLMs) can guide experimental planning for phase diagram construction. In our framework, a general-purpose LLM serves as the experimental planner, suggesting compositions for measurement at each cycle in a closed loop with high-throughput synthesis and X-ray diffraction phase identification. Using this framework, we experimentally constructed the ternary phase diagram of the Co-Al-Ge system at 900 degree C through iterative synthesis and characterization. We compared two strategies that differ in how the initial compositions are selected: one uses predictions from a domain-specific LLM trained on phase diagram data (aLLoyM), while the other relies solely on the general-purpose LLM. The two strategies exhibited complementary strengths. aLLoyM directed the initial measurements toward compositionally complex regions in the interior of the ternary diagram, enabling the earliest discovery of all three novel phases that form only in the ternary system. In contrast, the general-purpose LLM adopted a textbook-like approach which efficiently identified a larger number of phases in fewer cycles. In addition, a simulated benchmark comparing the LLM against conventional machine learning confirmed that the LLM achieves more efficient exploration. The results demonstrate that LLMs have high potential as experimental planners for phase diagram construction.",
+  "categories": [
+    "cond-mat.mtrl-sci",
+    "cs.AI"
+  ],
+  "primary_category": "cs.AI",
+  "comment": "39 pages",
+  "published_date": "2026-04-22T08:04:46Z",
+  "updated_date": "2026-04-22T08:04:46Z",
+  "url": "https://arxiv.org/abs/2604.20304v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.20304v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-23T10:15:31.466875",
+  "category": "computer_science",
+  "subcategories": [
+    "cond-mat.mtrl-sci",
+    "cs.AI"
+  ]
+}

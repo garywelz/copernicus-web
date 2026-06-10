@@ -1,0 +1,39 @@
+{
+  "id": "spectral_theory-spectrum",
+  "name": "Spectrum & Resolvent",
+  "category": "mathematics",
+  "subcategory": "spectral_theory",
+  "subcategory_name": "Spectral Theory",
+  "description": "σ(T) spectrum, ρ(T) resolvent set. R_λ=(T−λI)⁻¹. Spectral radius r(T)=lim ‖Tⁿ‖^{1/n}.",
+  "mermaid": "graph TD\n    D1[\"Def: σT spectrum\\nT−λ not invertible\"]\n    D2[\"Def: Resolvent ρT\\nℂ∖σT\"]\n    D3[\"Def: R_λ = T−λ⁻¹\\nresolvent op\"]\n    D4[\"Def: Spectral radius\\nrT = sup|λ|\"]\n    T1[\"Thm: σT closed\\nnonempty if dim<∞\"]\n    T2[\"Thm: rT = lim ‖Tⁿ‖¹/ⁿ\"]\n    T3[\"Thm: Gelfand\\nrT = sup spec\"]\n    T4[\"Thm: Resolvent analytic\\non ρT\"]\n    T5[\"Thm: Neumann series\\n‖T‖<1⇒(I−T)⁻¹\"]\n    D1 --> T1\n    D2 --> D3\n    D3 --> T4\n    D4 --> T2\n    T2 --> T3\n    T4 --> T5\n    classDef definition fill:#b197fc,color:#fff\n    classDef theorem fill:#51cf66,color:#fff\n    class D1,D2,D3,D4 definition\n    class T1,T2,T3,T4,T5 theorem",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2605.13897v1",
+  "arxiv_id": "2605.13897v1",
+  "title": "Attention-Based Multimodal Survival Prediction with Cross-Modal Bilinear Fusion",
+  "authors": [
+    "Hassan Keshvarikhojasteh",
+    "Josien P. W. Pluim",
+    "Mitko Veta"
+  ],
+  "author_string": "Hassan Keshvarikhojasteh, Josien P. W. Pluim, Mitko Veta",
+  "journal": "arXiv:2605.13897v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We propose a novel multimodal deep learning framework for patient-level survival prediction, which integrates whole-slide histology features, RNA-seq expression profiles, and clinical variables. Our architecture combines an ABMIL module~\\cite{ilse2018attention} for slide-level representation with feedforward encoders for RNA and clinical data. These embeddings are then integrated through low-rank bilinear cross-modal fusion~\\cite{liu2018efficient} to model conditional interactions across modalities while controlling parameter growth. The model outputs continuous risk scores that are subsequently mapped to survival times using a nonparametric calibration procedure based on the Kaplan--Meier estimator~\\cite{kaplan1958nonparametric}. By decomposing multimodal reasoning into independent pairwise interactions, the proposed fusion design promotes structural interpretability and parameter efficiency compared with full tensor and hierarchical fusion strategies. Experiments on the CHIMERA challenge dataset demonstrate improved predictive performance over concatenation-based baselines and competitive generalization on hidden evaluation cohorts. These results indicate that the proposed framework is a promising approach for multimodal survival prediction in HR-NMIBC. The implementation is publicly available at https://github.com/hassancpu/ChimeraChallenge2025_Task_3.",
+  "categories": [
+    "q-bio.QM",
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": null,
+  "published_date": "2026-05-12T13:09:25Z",
+  "updated_date": "2026-05-12T13:09:25Z",
+  "url": "https://arxiv.org/abs/2605.13897v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.13897v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-19T10:15:36.795396",
+  "category": "computer_science",
+  "subcategories": [
+    "q-bio.QM",
+    "cs.LG"
+  ]
+}

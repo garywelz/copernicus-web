@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2604.25439v1",
+  "arxiv_id": "2604.25439v1",
+  "title": "Training cell stress patterns in 3D cellular packings",
+  "authors": [
+    "Shabeeb Ameen",
+    "Tao Zhang",
+    "J. M. Schwarz"
+  ],
+  "author_string": "Shabeeb Ameen, Tao Zhang, J. M. Schwarz",
+  "journal": "arXiv:2604.25439v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "The task of learning patterns is typically associated with systems that update parameters on fixed architectures, such as neural networks, where learning proceeds through continuous optimization. Here, we demonstrate that pattern learning can also emerge in reconfigurable cellular tissue, where both mechanical parameters and network topology evolve. Using a three-dimensional vertex model, we show that cellular packings can be trained to realize prescribed cell stress patterns through a contrastive learning algorithm to update hidden-cell shape indices. We find that learning is intrinsically collective, requiring coordinated, system-wide parameter adjustments, with learnability governed by an interplay between mechanical state, capacity, and training protocol. In particular, the rigidity of the tissue controls an effective exploration-exploitation tradeoff: fluid-like regimes enhance exploration through cellular rearrangements, while rigid regimes constrain dynamics and favor exploitation of existing configurations. These rearrangements introduce discontinuous learning dynamics, enabling the system to transition between distinct local minima in the cost function landscape. As the ratio of target cells to the total number cells in the packing or constraint load increases, learning becomes slower, more heterogeneous, and increasingly dependent on rare rearrangements that allow escape from geometrically constrained states. Finally, training cells in sequence, in contrast to parallel protocols, provides an alternative route that can be more robust but generally takes longer to train for the constraint loads studied. These results suggest a learning phase diagram governed by constraint load, cell packing rigidity, and training protocol. By enabling the training of localized internal states, this work positions tissues not only as adaptive materials, but as nonconventional AI platforms.",
+  "categories": [
+    "cond-mat.dis-nn",
+    "cond-mat.soft"
+  ],
+  "primary_category": "cond-mat.soft",
+  "comment": "19 pages, 10 figures",
+  "published_date": "2026-04-28T09:47:34Z",
+  "updated_date": "2026-04-28T09:47:34Z",
+  "url": "https://arxiv.org/abs/2604.25439v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.25439v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-29T10:15:49.471243",
+  "category": "physics",
+  "subcategories": [
+    "cond-mat.dis-nn",
+    "cond-mat.soft"
+  ]
+}

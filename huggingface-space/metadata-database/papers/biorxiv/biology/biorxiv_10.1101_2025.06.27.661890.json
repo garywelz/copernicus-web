@@ -1,0 +1,41 @@
+{
+  "id": "biorxiv_10.1101_2025.06.27.661890",
+  "doi": "10.1101/2025.06.27.661890",
+  "title": "Power Pixels: a turnkey pipeline for processing of Neuropixel recordings",
+  "authors": [
+    "Meijer, G. T.",
+    "Battaglia, F. P."
+  ],
+  "author_string": "Meijer, G. T., Battaglia, F. P.",
+  "journal": "bioRxiv",
+  "journal_full": "bioRxiv",
+  "year": "2026",
+  "abstract": "There are many open-source tools available for the processing of neuronal data acquired using Neuropixels probes. Each of these tools, focuses on a part of the process from raw data to single neuron activity. For example, SpikeInterface is an incredibly useful Python module for pre-processing and spike sorting of individual recordings. However, there are more steps in between raw data and spikes, such as synchronization of spike times between probes and histological reconstruction of probe insertions. Therefore, we developed Power Pixels, combining the functionality of several packages into one integrated pipeline, which may be run in any lab workflow. It includes pre-processing, spike sorting, neuron-level quality control metrics, synchronization between multiple probes, compression of raw data, and ephys-to-histology alignment. Integrating all these steps into one pipeline greatly simplifies Neuropixels data processing, especially for novel users who might struggle to find their way around all the available code and tools.\n\n\n\nO_FIG O_LINKSMALLFIG WIDTH=200 HEIGHT=181 SRC=\"FIGDIR/small/661890v6_ufig1.gif\" ALT=\"Figure 1\">\nView larger version (50K):\norg.highwire.dtl.DTLVardef@91f8b2org.highwire.dtl.DTLVardef@15e9c92org.highwire.dtl.DTLVardef@794868org.highwire.dtl.DTLVardef@80d867_HPS_FORMAT_FIGEXP  M_FIG C_FIG",
+  "keywords": [],
+  "categories": [
+    "neuroscience"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.1101/2025.06.27.661890",
+  "source": "biorxiv",
+  "sources": [
+    "biorxiv"
+  ],
+  "acquired_date": "2026-05-15T22:15:24.333605",
+  "category": "biology",
+  "subcategories": [
+    "neuroscience"
+  ],
+  "published_date": "2026-01-15",
+  "updated_date": "2026-01-15",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "biorxiv",
+  "preprint_version": "5",
+  "preprint_type": "new results",
+  "license": "cc_by_nc",
+  "jatsxml": "https://www.biorxiv.org/content/early/2026/01/15/2025.06.27.661890.source.xml",
+  "published_doi": "10.24072/pcjournal.679",
+  "author_corresponding": "Guido T Meijer",
+  "author_corresponding_institution": "Radboud University"
+}

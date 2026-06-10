@@ -167,6 +167,33 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
@@ -176,7 +203,7 @@
             <div class="header-meta">
                 <span class="meta-item">Chemistry</span>
                 <span class="meta-item">Inorganic Chemistry</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,35 +234,60 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Coordination Complex Synthesis process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>Synthesizing a coordination complex selects solvent and conditions so ligands displace labile aqua/halide ligands; the chelate effect favors stable polydentate products, and the target geometry/isomer is reached by tuning stoichiometry or templating before crystallization.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-N1["Metal Salt"]
-N2["Ligands"]
-N3["Solvent/Atmosphere"]
-N4["Complexation Reaction"]
-N5["Purify/Crystallize"]
-N6["Characterized Complex"]
+    N1["Metal salt + ligand"]
+    N2["Choose solvent + conditions"]
+    N3["Ligand displaces aqua/halide"]
+    N4{"Chelate effect favors?"}
+    N5["Polydentate: chelate"]
+    N6["Monodentate: stepwise"]
+    N7{"Right geometry/isomer?"}
+    N8["Tune stoichiometry/template"]
+    N9["Crystallize product"]
+    N10["Characterize (XRD/UV-Vis)"]
+    N11["Isolated complex"]
 
-N1 --> N2
-N2 --> N3
-N3 --> N4
-N4 --> N5
-N5 --> N6
+    N1 --> N2
+    N2 --> N3
+    N3 --> N4
+    N4 -->|yes| N5
+    N4 -->|no| N6
+    N5 --> N7
+    N6 --> N7
+    N7 -->|no| N8
+    N8 -->|retry| N3
+    N7 -->|yes| N9
+    N9 --> N10
+    N10 --> N11
 
     style N1 fill:#ff6b6b,color:#fff
-    style N2 fill:#ff6b6b,color:#fff
-    style N3 fill:#ffd43b,color:#000
-    style N4 fill:#51cf66,color:#fff
+    style N2 fill:#51cf66,color:#fff
+    style N3 fill:#51cf66,color:#fff
+    style N4 fill:#74c0fc,color:#fff
     style N5 fill:#51cf66,color:#fff
-    style N6 fill:#b197fc,color:#fff
+    style N6 fill:#51cf66,color:#fff
+    style N7 fill:#74c0fc,color:#fff
+    style N8 fill:#51cf66,color:#fff
+    style N9 fill:#51cf66,color:#fff
+    style N10 fill:#51cf66,color:#fff
+    style N11 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Metal salt + ligand</td><td>Triggers & Inputs</td><td><a href="https://www.pearson.com/en-gb/subject-catalog/p/inorganic-chemistry/P200000005860" target="_blank" title="Inorganic Chemistry, 6th ed. — Synthesis of Coordination Compounds" style="color:#e74c3c;">Housecroft, C. E. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Choose solvent + conditions</td><td>Processing & Operations</td><td><a href="https://www.pearson.com/en-gb/subject-catalog/p/inorganic-chemistry/P200000005860" target="_blank" title="Inorganic Chemistry, 6th ed. — Synthesis of Coordination Compounds" style="color:#e74c3c;">Housecroft, C. E. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Ligand displaces aqua/halide</td><td>Processing & Operations</td><td><a href="https://www.pearson.com/en-gb/subject-catalog/p/inorganic-chemistry/P200000005860" target="_blank" title="Inorganic Chemistry, 6th ed. — Synthesis of Coordination Compounds" style="color:#e74c3c;">Housecroft, C. E. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Chelate effect favors?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1016/S0898-8838(08)60026-6" target="_blank" title="The chelate, macrocyclic and cryptate effects" style="color:#e74c3c;">Lindoy, L. F. 1998</a></td></tr><tr><td style="font-weight:600;">Polydentate: chelate</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1016/S0898-8838(08)60026-6" target="_blank" title="The chelate, macrocyclic and cryptate effects" style="color:#e74c3c;">Lindoy, L. F. 1998</a></td></tr><tr><td style="font-weight:600;">Monodentate: stepwise</td><td>Processing & Operations</td><td><a href="https://www.pearson.com/en-gb/subject-catalog/p/inorganic-chemistry/P200000005860" target="_blank" title="Inorganic Chemistry, 6th ed. — Synthesis of Coordination Compounds" style="color:#e74c3c;">Housecroft, C. E. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Right geometry/isomer?</td><td>Intermediates & States</td><td><a href="https://www.pearson.com/en-gb/subject-catalog/p/inorganic-chemistry/P200000005860" target="_blank" title="Inorganic Chemistry, 6th ed. — Synthesis of Coordination Compounds" style="color:#e74c3c;">Housecroft, C. E. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Tune stoichiometry/template</td><td>Processing & Operations</td><td><a href="https://www.pearson.com/en-gb/subject-catalog/p/inorganic-chemistry/P200000005860" target="_blank" title="Inorganic Chemistry, 6th ed. — Synthesis of Coordination Compounds" style="color:#e74c3c;">Housecroft, C. E. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Crystallize product</td><td>Processing & Operations</td><td><a href="https://www.pearson.com/en-gb/subject-catalog/p/inorganic-chemistry/P200000005860" target="_blank" title="Inorganic Chemistry, 6th ed. — Synthesis of Coordination Compounds" style="color:#e74c3c;">Housecroft, C. E. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Characterize (XRD/UV-Vis)</td><td>Processing & Operations</td><td><a href="https://www.pearson.com/en-gb/subject-catalog/p/inorganic-chemistry/P200000005860" target="_blank" title="Inorganic Chemistry, 6th ed. — Synthesis of Coordination Compounds" style="color:#e74c3c;">Housecroft, C. E. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Isolated complex</td><td>Products & Outputs</td><td><a href="https://www.pearson.com/en-gb/subject-catalog/p/inorganic-chemistry/P200000005860" target="_blank" title="Inorganic Chemistry, 6th ed. — Synthesis of Coordination Compounds" style="color:#e74c3c;">Housecroft, C. E. et al. 2018</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -281,12 +333,12 @@ N5 --> N6
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 6</li>
-                        <li><strong>Edges:</strong> 5</li>
-                        <li><strong>Conditionals:</strong> 0</li>
-                        <li><strong>AND Gates:</strong> 0</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 0</li>
+                        <li><strong>Nodes:</strong> 11</li>
+                        <li><strong>Edges:</strong> 12</li>
+                        <li><strong>Conditionals:</strong> 2</li>
+                        <li><strong>AND Gates:</strong> 2</li>
+                        <li><strong>OR Gates:</strong> 2</li>
+                        <li><strong>Total Gates:</strong> 4</li>
                     </ul>
                 </div>
                 
@@ -294,7 +346,7 @@ N5 --> N6
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>coordination</li><li>complex</li><li>synthesis</li>
+                        <li>coordination complex</li><li>chelate effect</li><li>ligand</li><li>isomer</li><li>crystallization</li>
                     </ul>
                 </div>
                 
@@ -305,42 +357,32 @@ N5 --> N6
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Inorganic Chemistry, 6th ed. — Synthesis of Coordination Compounds</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Housecroft, C. E.; Sharpe, A. G.
+                            , Pearson
+                             (2018)
                             </span>
                             
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
+                            <br><a href="https://www.pearson.com/en-gb/subject-catalog/p/inorganic-chemistry/P200000005860" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Ruthenium pincer complexes: Ligand design and complex synthesis</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Younus, Hussein A.; Ahmad, Nazir; Su, Wei; Verpoort, Francis
-                            , Coordination Chemistry Reviews
-                             (2014)
+                            <strong>The chelate, macrocyclic and cryptate effects</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Lindoy, L. F.
+                            , Advances in Inorganic Chemistry
+                             (1998)
                             </span>
-                            <br><a href="https://doi.org/10.1016/j.ccr.2014.06.016" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1016/j.ccr.2014.06.016</a>
-                            
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>SYNTHESIS OF A SILVER(III) DIETHYLDITHIOCARBAMATO COMPLEX</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Abedini, M.; Farnia, M.; Kahani, A.
-                            , Journal of Coordination Chemistry
-                             (2000)
-                            </span>
-                            <br><a href="https://doi.org/10.1080/00958970008054922" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1080/00958970008054922</a>
+                            <br><a href="https://doi.org/10.1016/S0898-8838(08)60026-6" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1016/S0898-8838(08)60026-6</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Synthesis and characterization of a dysprosium complex with strong photoluminescence</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Chen, Wentong; Yao, Zhongliang
-                            , Journal of Coordination Chemistry
-                             (2011)
+                            <strong>Gold Book: chelation</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">IUPAC
+                            , IUPAC Compendium of Chemical Terminology
+                             (2019)
                             </span>
-                            <br><a href="https://doi.org/10.1080/00958972.2011.560937" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1080/00958972.2011.560937</a>
+                            <br><a href="https://doi.org/10.1351/goldbook.C01012" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1351/goldbook.C01012</a>
                             
                         </li>
                         

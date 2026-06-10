@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2604.20384v1",
+  "arxiv_id": "2604.20384v1",
+  "title": "Hessian-vector products for tensor networks via recursive tangent-state propagation",
+  "authors": [
+    "Isabel Nha Minh Le",
+    "Roeland Wiersema",
+    "Christian B. Mendl"
+  ],
+  "author_string": "Isabel Nha Minh Le, Roeland Wiersema, Christian B. Mendl",
+  "journal": "arXiv:2604.20384v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Optimizing tensor networks with standard first-order methods often leads to slow convergence and entrapment in local minima. Although second-order optimization offers enhanced robustness, explicitly constructing the full Hessian matrix is computationally prohibitive for large-scale systems. In this work, we bypass this bottleneck by introducing an analytical Hessian-vector product kernel designed for arbitrary compositions of linear maps. This two-pass algorithm leverages recursive tangent-state propagation with a bounded virtual bond dimension to guarantee scalability. We demonstrate the practical utility of this kernel by integrating it into a Riemannian trust-region framework for quantum circuit compression. Evaluated on time-evolution circuits for various spin chains, our second-order approach achieves up to a four-order-of-magnitude improvement in fidelity over naive Trotterization, while delivering significantly smoother, faster convergence than conventional first-order methods such as Riemannian ADAM.",
+  "categories": [
+    "quant-ph",
+    "physics.comp-ph"
+  ],
+  "primary_category": "physics.comp-ph",
+  "comment": "12 pages + 10 pages appendix, 5 figures + 2 figures in the appendix",
+  "published_date": "2026-04-22T09:38:08Z",
+  "updated_date": "2026-04-22T09:38:08Z",
+  "url": "https://arxiv.org/abs/2604.20384v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.20384v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-25T22:15:49.053976",
+  "category": "physics",
+  "subcategories": [
+    "quant-ph",
+    "physics.comp-ph"
+  ]
+}

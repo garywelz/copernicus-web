@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Devaney Hairs & Cantor Bouquets - Mathematics Process</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 20px; }
+        .container { max-width: 1600px; margin: 0 auto; background: white; border-radius: 15px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); overflow: hidden; }
+        .header { background: linear-gradient(135deg, #e67e22 0%, #e67e22dd 100%); color: white; padding: 30px; }
+        .header h1 { margin: 0 0 10px 0; font-size: 2em; font-weight: 300; }
+        .header-meta { display: flex; flex-wrap: wrap; gap: 15px; margin-top: 15px; font-size: 0.9em; opacity: 0.9; }
+        .meta-item { background: rgba(255,255,255,0.2); padding: 5px 12px; border-radius: 20px; }
+        .nav-links { padding: 15px 30px; background: #f8f9fa; border-bottom: 1px solid #ecf0f1; }
+        .nav-links a { color: #e67e22; text-decoration: none; margin-right: 20px; font-weight: 500; }
+        .nav-links a:hover { text-decoration: underline; }
+        .content { padding: 30px; }
+        .description { margin-bottom: 30px; }
+        .flowchart-container { margin: 30px 0; }
+        .mermaid { background: white; padding: 20px; border-radius: 10px; border: 1px solid #ecf0f1; overflow-x: auto; overflow-y: auto; min-height: 500px; }
+        .color-legend { background: #f8f9fa; padding: 20px; border-radius: 10px; margin: 30px 0; }
+        .color-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; }
+        .color-item { display: flex; align-items: center; gap: 10px; padding: 10px; background: white; border-radius: 5px; }
+        .color-box { width: 30px; height: 30px; border-radius: 4px; border: 1px solid #ddd; }
+        .info-card { background: #f8f9fa; padding: 20px; border-radius: 10px; margin-top: 30px; }
+        .info-card h3 { color: #2c3e50; margin-bottom: 15px; }
+        .info-card ul { list-style: none; padding: 0; }
+        .info-card li { padding: 8px 0; border-bottom: 1px solid #ecf0f1; }
+
+        .attribution-wrap { position: relative; }
+        .attribution-trigger { cursor: help; background: rgba(255,255,255,0.2) !important; }
+        .attribution-popover { display: none; position: absolute; top: 100%; left: 0; margin-top: 4px; background: #2c3e50; color: #ecf0f1; padding: 14px 18px; border-radius: 10px; box-shadow: 0 6px 20px rgba(0,0,0,0.25); min-width: 300px; z-index: 100; font-size: 0.85em; line-height: 1.5; }
+        .attribution-popover::before { content: ''; position: absolute; bottom: 100%; left: 0; right: 0; height: 12px; }
+        .attribution-popover strong { color: #fff; }
+        .attribution-popover a { color: #3498db; }
+        .attribution-wrap:hover .attribution-popover, .attribution-wrap:focus-within .attribution-popover { display: block; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Devaney Hairs & Cantor Bouquets</h1>
+            <div class="header-meta">
+                <span class="meta-item">Mathematics</span>
+                <span class="meta-item">Calculus & Analysis</span>
+                <span class="meta-item">Source: Devaney (1980s)</span>
+                <span class="meta-item attribution-wrap"><span class="attribution-trigger meta-item" tabindex="0">Cite</span><div class="attribution-popover"><strong>Primary:</strong> Devaney, Karpińska<br><strong>Publication:</strong> Hairs and Cantor bouquets<br><strong>Year:</strong> 1980s+<br><strong>URL:</strong> <a href="https://en.wikipedia.org/wiki/Cantor_bouquet" target="_blank">Wikipedia</a></div></span>
+            </div>
+        </div>
+        <div class="nav-links">
+            <a id="back-link" href="#">← Back to Mathematics Database</a>
+            <a id="julia-link" href="#">← Julia & Fatou Sets</a>
+            <a id="symbolic-link" href="#">← Symbolic Dynamics</a>
+            <a id="sierp-link" href="#">Sierpinski Curves →</a>
+            <a href="https://en.wikipedia.org/wiki/Julia_set" target="_blank">Wikipedia</a>
+        </div>
+        <script>
+            (function() {
+                const base = window.location.hostname.includes('storage.googleapis.com')
+                    ? 'https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database'
+                    : '../..';
+                document.getElementById('back-link').href = base + '/mathematics-database-table.html';
+                document.getElementById('julia-link').href = base + '/processes/calculus_analysis/calculus_analysis-complex-dynamics-julia-fatou.html';
+                document.getElementById('symbolic-link').href = base + '/processes/calculus_analysis/calculus_analysis-symbolic-dynamics.html';
+                document.getElementById('sierp-link').href = base + '/processes/calculus_analysis/calculus_analysis-sierpinski-curve-julia.html';
+            })();
+        </script>
+        <div class="content">
+            <div class="description">
+                <h2>Description</h2>
+                <p>Devaney hairs: arcs in Julia sets of transcendental entire functions (e.g. exponential E_a(z)=a·exp(z), 0&lt;a&lt;1/e). A hair is a simple curve from a finite endpoint to infinity; iterates preserve this structure. Cantor bouquet: Julia set of such exponentials; uncountably many hairs; homeomorphic to a straight brush. When attracting cycle has period &gt; 1, hairs can pinch; kneading invariant determines connectivity. Devaney pioneered the study of these structures.</p>
+                <p style="margin-top:10px;"><em>Source: Devaney; <a href="https://en.wikipedia.org/wiki/Julia_set" target="_blank">Wikipedia</a></em></p>
+            </div>
+            <div class="flowchart-container">
+                <h2>Dependency Flowchart</h2>
+                <div class="mermaid">graph TD
+    Julia["Julia and Fatou sets"]
+    DefExp["Def: Exponential map E_a(z) = a·exp(z)"]
+    DefTrans["Def: Transcendental entire\nEssential singularity at infinity"]
+    DefHair["Def: Devaney hair\nArc: endpoint to infinity, f-invariant"]
+    DefBouquet["Def: Cantor bouquet\nUncountably many hairs"]
+    ThmStruct["Thm: J(E_a) Cantor bouquet\nFor 0 less than a less than 1/e"]
+    DefBrush["Def: Straight brush\nTopological model for bouquet"]
+    ThmHomeo["Thm: J ambiently homeo to straight brush"]
+    LemKnead["Lem: Kneading invariant\nDetermines pinched hairs when period greater than 1"]
+    Julia --> DefExp
+    DefExp --> DefTrans
+    DefTrans --> DefHair
+    DefHair --> DefBouquet
+    DefBouquet --> ThmStruct
+    ThmStruct --> DefBrush
+    DefBrush --> ThmHomeo
+    ThmStruct --> LemKnead
+    classDef axiom fill:#ff6b6b,color:#fff,stroke:#c0392b
+    classDef definition fill:#b197fc,color:#fff,stroke:#9775fa
+    classDef theorem fill:#51cf66,color:#fff,stroke:#40c057
+    classDef lemma fill:#74c0fc,color:#fff,stroke:#4dabf7
+    class Julia axiom
+    class DefExp,DefTrans,DefHair,DefBouquet,DefBrush definition
+    class ThmStruct,ThmHomeo theorem
+    class LemKnead lemma</div>
+            </div>
+            <div class="color-legend"><h3>Color Scheme</h3>
+                <div class="color-grid">
+                    <div class="color-item"><div class="color-box" style="background:#e74c3c"></div><div><strong>Red</strong> Prerequisite</div></div>
+                    <div class="color-item"><div class="color-box" style="background:#3498db"></div><div><strong>Blue</strong> Definitions</div></div>
+                    <div class="color-item"><div class="color-box" style="background:#1abc9c"></div><div><strong>Teal</strong> Theorems</div></div>
+                    <div class="color-item"><div class="color-box" style="background:#9b59b6"></div><div><strong>Purple</strong> Lemmas</div></div>
+                </div>
+            </div>
+            <div class="info-card">
+                <h3>Process Statistics</h3>
+                <ul>
+                    <li><strong>Nodes:</strong> 9</li>
+                    <li><strong>Edges:</strong> 11</li>
+                    <li><strong>Axioms:</strong> 1</li>
+                    <li><strong>Definitions:</strong> 5</li>
+                    <li><strong>Lemmas:</strong> 1</li>
+                    <li><strong>Theorems:</strong> 2</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script>mermaid.initialize({ startOnLoad: true, theme: 'default', flowchart: { useMaxWidth: true, htmlLabels: true, curve: 'linear', nodeSpacing: 25, rankSpacing: 90, padding: 20 } });</script>
+</body>
+</html>

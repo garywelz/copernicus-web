@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Electronic Transitions - Chemistry Process</title>
+    <title>Electrochemical Impedance Spectroscopy - Chemistry Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Electronic Transitions</h1>
+            <h1>Electrochemical Impedance Spectroscopy</h1>
             <div class="header-meta">
                 <span class="meta-item">Chemistry</span>
                 <span class="meta-item">Electrochemistry</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,68 +234,59 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Electronic Transitions process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>EIS applies a small AC perturbation across a range of frequencies, measures the complex impedance, and fits Nyquist/Bode data to an equivalent circuit to extract charge-transfer resistance, double-layer capacitance and diffusional (Warburg) behavior.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-A2[Ground State] --> B2[Electronic Transition Method]
-C2[Excited States] --> D2[Energy Level Analysis]
-E2[Photon Energy] --> F2[Transition Calculation]
-B2 --> G2[State Preparation]
-D2 --> H2[Energy Level Calculation]
-F2 --> I2[Transition Probability]
-G2 --> J2[Initial State]
-H2 --> K2[Energy Differences]
-I2 --> L2[Selection Rules]
-J2 --> M2[State Characterization]
-K2 --> L2
-L2 --> N2[Transition Analysis]
-M2 --> O2[State Transitions]
-N2 --> P2[Electronic Excitation]
-O2 --> Q2[Quantum Analysis]
-P2 --> R2[Excited State Formation]
-Q2 --> S2[Transition Analysis]
-R2 --> T2[State Properties]
-S2 --> U2[Transition Probability]
-T2 --> V2[Property Calculation]
-U2 --> W2[Quantum Efficiency]
-V2 --> X2[State Characterization]
-W2 --> Y2[Process Optimization]
-X2 --> Z2[Final Electronic States]
-Y2 --> Z2
+    N1["Cell at steady state"]
+    N2["Apply small AC signal"]
+    N3["Sweep frequency"]
+    N4["Measure response + phase"]
+    N5["Compute impedance Z(ω)"]
+    N6["Nyquist / Bode plots"]
+    N7["Fit equivalent circuit"]
+    N8{"Good fit?"}
+    N9["Revise circuit model"]
+    N10["Extract Rct, Cdl, Warburg"]
+    N11["Kinetic + transport data"]
 
-    style A2 fill:#ff6b6b,color:#fff
-    style C2 fill:#ff6b6b,color:#fff
-    style E2 fill:#ff6b6b,color:#fff
-    style B2 fill:#ffd43b,color:#000
-    style D2 fill:#ffd43b,color:#000
-    style F2 fill:#ffd43b,color:#000
-    style G2 fill:#ffd43b,color:#000
-    style H2 fill:#ffd43b,color:#000
-    style I2 fill:#ffd43b,color:#000
-    style J2 fill:#ffd43b,color:#000
-    style K2 fill:#ffd43b,color:#000
-    style L2 fill:#ffd43b,color:#000
-    style M2 fill:#51cf66,color:#fff
+    N1 --> N2
+    N2 --> N3
+    N3 --> N4
+    N4 --> N5
+    N5 --> N6
+    N6 --> N7
+    N7 --> N8
+    N8 -->|no| N9
+    N9 -->|refit| N7
+    N8 -->|yes| N10
+    N10 --> N11
+
+    style N1 fill:#ff6b6b,color:#fff
     style N2 fill:#51cf66,color:#fff
-    style O2 fill:#51cf66,color:#fff
-    style P2 fill:#51cf66,color:#fff
-    style Q2 fill:#51cf66,color:#fff
-    style R2 fill:#51cf66,color:#fff
-    style S2 fill:#51cf66,color:#fff
-    style T2 fill:#51cf66,color:#fff
-    style U2 fill:#51cf66,color:#fff
-    style V2 fill:#51cf66,color:#fff
-    style W2 fill:#51cf66,color:#fff
-    style X2 fill:#51cf66,color:#fff
-    style Y2 fill:#51cf66,color:#fff
-    style Z2 fill:#b197fc,color:#fff
+    style N3 fill:#51cf66,color:#fff
+    style N4 fill:#51cf66,color:#fff
+    style N5 fill:#51cf66,color:#fff
+    style N6 fill:#74c0fc,color:#fff
+    style N7 fill:#51cf66,color:#fff
+    style N8 fill:#74c0fc,color:#fff
+    style N9 fill:#51cf66,color:#fff
+    style N10 fill:#51cf66,color:#fff
+    style N11 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Cell at steady state</td><td>Triggers & Inputs</td><td><a href="https://doi.org/10.1007/978-1-4614-8933-7" target="_blank" title="Electrochemical Impedance Spectroscopy and its Applications" style="color:#e74c3c;">Lasia, A. 2014</a></td></tr><tr><td style="font-weight:600;">Apply small AC signal</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1007/978-1-4614-8933-7" target="_blank" title="Electrochemical Impedance Spectroscopy and its Applications" style="color:#e74c3c;">Lasia, A. 2014</a></td></tr><tr><td style="font-weight:600;">Sweep frequency</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1002/9781119363682" target="_blank" title="Electrochemical Impedance Spectroscopy, 2nd ed." style="color:#e74c3c;">Orazem, M. E. et al. 2017</a></td></tr><tr><td style="font-weight:600;">Measure response + phase</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1007/978-1-4614-8933-7" target="_blank" title="Electrochemical Impedance Spectroscopy and its Applications" style="color:#e74c3c;">Lasia, A. 2014</a></td></tr><tr><td style="font-weight:600;">Compute impedance Z(ω)</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1007/978-1-4614-8933-7" target="_blank" title="Electrochemical Impedance Spectroscopy and its Applications" style="color:#e74c3c;">Lasia, A. 2014</a></td></tr><tr><td style="font-weight:600;">Nyquist / Bode plots</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1002/9781119363682" target="_blank" title="Electrochemical Impedance Spectroscopy, 2nd ed." style="color:#e74c3c;">Orazem, M. E. et al. 2017</a></td></tr><tr><td style="font-weight:600;">Fit equivalent circuit</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1016/j.electacta.2005.02.107" target="_blank" title="Reflections on impedance spectroscopy" style="color:#e74c3c;">Macdonald, D. D. 2006</a></td></tr><tr><td style="font-weight:600;">Good fit?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1016/j.electacta.2005.02.107" target="_blank" title="Reflections on impedance spectroscopy" style="color:#e74c3c;">Macdonald, D. D. 2006</a></td></tr><tr><td style="font-weight:600;">Revise circuit model</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1016/j.electacta.2005.02.107" target="_blank" title="Reflections on impedance spectroscopy" style="color:#e74c3c;">Macdonald, D. D. 2006</a></td></tr><tr><td style="font-weight:600;">Extract Rct, Cdl, Warburg</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1007/978-1-4614-8933-7" target="_blank" title="Electrochemical Impedance Spectroscopy and its Applications" style="color:#e74c3c;">Lasia, A. 2014</a></td></tr><tr><td style="font-weight:600;">Kinetic + transport data</td><td>Products & Outputs</td><td><a href="https://doi.org/10.1002/9781119363682" target="_blank" title="Electrochemical Impedance Spectroscopy, 2nd ed." style="color:#e74c3c;">Orazem, M. E. et al. 2017</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -314,12 +332,12 @@ Y2 --> Z2
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 26</li>
-                        <li><strong>Edges:</strong> 22</li>
-                        <li><strong>Conditionals:</strong> 0</li>
+                        <li><strong>Nodes:</strong> 11</li>
+                        <li><strong>Edges:</strong> 11</li>
+                        <li><strong>Conditionals:</strong> 1</li>
                         <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 1</li>
+                        <li><strong>OR Gates:</strong> 1</li>
+                        <li><strong>Total Gates:</strong> 2</li>
                     </ul>
                 </div>
                 
@@ -327,7 +345,7 @@ Y2 --> Z2
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>electronic</li><li>transitions</li>
+                        <li>impedance spectroscopy</li><li>equivalent circuit</li><li>nyquist plot</li><li>charge-transfer resistance</li><li>warburg</li>
                     </ul>
                 </div>
                 
@@ -338,42 +356,32 @@ Y2 --> Z2
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
-                            </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Molecular electronic transitions</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Atkins, Peter; Friedman, Ronald
-                            , Molecular Quantum Mechanics
-                             (2010)
-                            </span>
-                            <br><a href="https://doi.org/10.1093/hesc/9780199541423.003.0011" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1093/hesc/9780199541423.003.0011</a>
-                            
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Magnetic and electronic phase transitions</strong>
-                            
-                            , Phase Transitions in Materials
+                            <strong>Electrochemical Impedance Spectroscopy and its Applications</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Lasia, A.
+                            , Springer
                              (2014)
                             </span>
-                            <br><a href="https://doi.org/10.1017/cbo9781107589865.021" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1017/cbo9781107589865.021</a>
+                            <br><a href="https://doi.org/10.1007/978-1-4614-8933-7" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1007/978-1-4614-8933-7</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Electronic Transitions in Metals and Insulator-Metal Transitions</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Drickamer, H. G.; Frank, C. W.
-                            , Electronic Transitions and the High Pressure Chemistry and Physics of Solids
-                             (1973)
+                            <strong>Electrochemical Impedance Spectroscopy, 2nd ed.</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Orazem, M. E.; Tribollet, B.
+                            , Wiley
+                             (2017)
                             </span>
-                            <br><a href="https://doi.org/10.1007/978-94-011-6896-0_7" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1007/978-94-011-6896-0_7</a>
+                            <br><a href="https://doi.org/10.1002/9781119363682" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1002/9781119363682</a>
+                            
+                        </li>
+                        
+                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
+                            <strong>Reflections on impedance spectroscopy</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Macdonald, D. D.
+                            , Electrochimica Acta
+                             (2006)
+                            </span>
+                            <br><a href="https://doi.org/10.1016/j.electacta.2005.02.107" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1016/j.electacta.2005.02.107</a>
                             
                         </li>
                         

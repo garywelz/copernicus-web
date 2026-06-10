@@ -1,0 +1,39 @@
+{
+  "id": "calculus_analysis-devaney-chaos-definition",
+  "name": "Devaney's Definition of Chaos",
+  "category": "mathematics",
+  "subcategory": "calculus_analysis",
+  "subcategory_name": "Calculus & Analysis",
+  "description": "Devaney's definition of chaos: a continuous map f: X → X on a metric space is chaotic if (1) topologically transitive: for any open U, V there exists k with f^k(U) ∩ V nonempty; (2) dense periodic points: Per(f) is dense; (3) sensitive dependence: ∃δ > 0 such that for every x and neighborhood N, ∃y ∈ N, n ≥ 0 with d(f^n(x), f^n(y)) > δ. Banks et al. (1992): (1) and (2) imply (3), so sensitive dependence is redundant. Accessible definition avoiding measure theory.",
+  "mermaid": "graph TD\n    DefTrans[\"Def: Topological transitivity\\nf^k(U) ∩ V ≠ ∅ for open U,V\"]\n    DefDense[\"Def: Dense periodic points\\nPer(f) dense in X\"]\n    DefSens[\"Def: Sensitive dependence\\n∃δ, ∀x,N ∃y∈N,n: d(f^n(x),f^n(y))>δ\"]\n    DefChaos[\"Def: Devaney chaos\\nTransitive + dense periodic + sensitive\"]\n    ThmBanks[\"Thm: Banks et al. 1992\\nTransitive + dense periodic ⇒ sensitive\"]\n    ThmRedund[\"Thm: Sensitivity redundant\\nTwo conditions suffice\"]\n    ExLogistic[\"Ex: Logistic map μ=4\\nChaotic on [0,1]\"]\n    ExShift[\"Ex: Shift map σ\\nChaotic on Σ\"]\n    DefTrans --> DefChaos\n    DefDense --> DefChaos\n    DefSens --> DefChaos\n    DefTrans --> ThmBanks\n    DefDense --> ThmBanks\n    ThmBanks --> ThmRedund\n    DefChaos --> ExLogistic\n    DefChaos --> ExShift\n    classDef definition fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef theorem fill:#51cf66,color:#fff,stroke:#40c057\n    classDef example fill:#16a085,color:#fff,stroke:#0e6655\n    class DefTrans,DefDense,DefSens,DefChaos definition\n    class ThmBanks,ThmRedund theorem\n    class ExLogistic,ExShift example",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

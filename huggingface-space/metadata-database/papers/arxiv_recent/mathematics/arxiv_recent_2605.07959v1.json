@@ -1,0 +1,37 @@
+{
+  "id": "arxiv_2605.07959v1",
+  "arxiv_id": "2605.07959v1",
+  "title": "Convergent Stochastic Training of Attention and Understanding LoRA",
+  "authors": [
+    "Zhengkai Sun",
+    "Dibyakanti Kumar",
+    "Alejandro F Frangi",
+    "Anirbit Mukherjee",
+    "Mingfei Sun"
+  ],
+  "author_string": "Zhengkai Sun, Dibyakanti Kumar, Alejandro F Frangi, Anirbit Mukherjee, Mingfei Sun",
+  "journal": "arXiv:2605.07959v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Transformers have revolutionized machine learning and deploying attention layers in the model is increasingly standard across a myriad of applications. Further, for large models, it is common to implement Low Rank Adaptation (LoRA), whereby a factorized parameterization of them is trained, to achieve a surprisingly beneficial accuracy-size trade-off. In this work, via a unified framework we rigorously establish trainability of such models under stochastic methods. We prove that for any mild regularization, the empirical regression loss on a attention layer and LoRA on a shallow neural net, both induce Poincaré inequality for the corresponding Gibbs' measure. Then it follows via invoking recent results that a certain SDE, which mimics the SGD, minimizes the corresponding losses. In both the cases, our first-of-its-kind results of trainability on attention and nets, do not rely on any assumptions on the data or the size of the architecture.",
+  "categories": [
+    "cs.LG",
+    "math.FA",
+    "math.PR"
+  ],
+  "primary_category": "math.PR",
+  "comment": null,
+  "published_date": "2026-05-08T16:22:08Z",
+  "updated_date": "2026-05-08T16:22:08Z",
+  "url": "https://arxiv.org/abs/2605.07959v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.07959v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-10T22:17:15.402426",
+  "category": "mathematics",
+  "subcategories": [
+    "cs.LG",
+    "math.FA",
+    "math.PR"
+  ]
+}

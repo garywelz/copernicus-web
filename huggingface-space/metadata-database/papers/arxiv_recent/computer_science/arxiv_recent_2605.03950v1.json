@@ -1,0 +1,30 @@
+{
+  "id": "arxiv_2605.03950v1",
+  "arxiv_id": "2605.03950v1",
+  "title": "UnAC: Adaptive Visual Prompting with Abstraction and Stepwise Checking for Complex Multimodal Reasoning",
+  "authors": [
+    "Yifan Wang",
+    "Yun Fu"
+  ],
+  "author_string": "Yifan Wang, Yun Fu",
+  "journal": "arXiv:2605.03950v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Although recent LMMs have become much stronger at visual perception, they remain unreliable on problems that require multi-step reasoning over visual evidence. In this paper, we present UnAC (Understanding, Abstracting, and Checking), a multimodal prompting method that strengthens reasoning for complex multimodal tasks in LMMs (e.g., GPT-4o, Gemini 1.5, and GPT-4V). To improve image understanding and capture fine details, we propose an adaptive visual prompting strategy that enables LMMs to focus on salient regions. We further design an image-abstraction prompt to effectively extract key information from images. In addition, we introduce a gradual self-checking scheme that improves reasoning by verifying each decomposed subquestion and its answer. Extensive experiments on three public benchmarks-MathVista, MM-Vet, and MMMU.",
+  "categories": [
+    "cs.CV"
+  ],
+  "primary_category": "cs.CV",
+  "comment": null,
+  "published_date": "2026-05-05T16:36:58Z",
+  "updated_date": "2026-05-05T16:36:58Z",
+  "url": "https://arxiv.org/abs/2605.03950v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.03950v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-06T10:15:40.983289",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CV"
+  ]
+}

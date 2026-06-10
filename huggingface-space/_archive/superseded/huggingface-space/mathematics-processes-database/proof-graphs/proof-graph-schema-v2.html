@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Proof Graph Schema v2 - Proof Graph Pilot</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #0f172a;
+      --panel: #111827;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --accent: #60a5fa;
+      --border: #334155;
+      --code-bg: #020617;
+    }
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg: #f8fafc;
+        --panel: #ffffff;
+        --text: #111827;
+        --muted: #4b5563;
+        --accent: #2563eb;
+        --border: #d1d5db;
+        --code-bg: #f1f5f9;
+      }
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    main {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 36px 20px 64px;
+    }
+    article {
+      border: 1px solid var(--border);
+      background: var(--panel);
+      border-radius: 14px;
+      padding: 28px;
+    }
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 18px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+    nav a, a { color: var(--accent); }
+    h1 { margin-top: 0; font-size: 2rem; line-height: 1.2; }
+    h2 { margin-top: 2rem; border-top: 1px solid var(--border); padding-top: 1.2rem; }
+    h3 { margin-top: 1.6rem; }
+    p, li { color: var(--text); }
+    ul, ol { padding-left: 1.35rem; }
+    code {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 0.05rem 0.25rem;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: 0.92em;
+    }
+    pre {
+      overflow-x: auto;
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+    }
+    pre code { background: transparent; border: 0; padding: 0; }
+    .mermaid {
+      background: #ffffff;
+      color: #111827;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      margin: 18px 0;
+      padding: 18px;
+      overflow-x: auto;
+    }
+    .mermaid svg { max-width: 100%; height: auto; }
+    .proof-legend {
+      margin-top: 28px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      background: color-mix(in srgb, var(--panel) 88%, var(--accent));
+    }
+    .proof-legend h2 {
+      border-top: 0;
+      margin: 0 0 12px;
+      padding-top: 0;
+      font-size: 1.05rem;
+    }
+    .proof-legend-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 10px 14px;
+    }
+    .proof-legend-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text);
+      font-size: 0.92rem;
+    }
+    .proof-legend-swatch {
+      width: 18px;
+      height: 18px;
+      border-radius: 5px;
+      border: 2px solid currentColor;
+      flex: 0 0 auto;
+    }
+    .legend-source { background: #f2c879; color: #7a4f12; }
+    .legend-assumption { background: #c084fc; color: #6d28d9; }
+    .legend-construction { background: #8fbc5a; color: #3f6212; }
+    .legend-assertion { background: #8ecae6; color: #25637a; }
+    .legend-inference { background: #f4a261; color: #9a3412; }
+    .legend-algorithm { background: #818cf8; color: #3730a3; }
+    .legend-contradiction { background: #ef4444; color: #991b1b; }
+    .legend-conclusion { background: #2dd4bf; color: #0f766e; }
+    .source-note {
+      margin-top: 32px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+</style>
+</head>
+<body>
+  <main>
+    <nav>
+      <a href="index.html">Proof Graph Pilot</a>
+      <span>/</span>
+      <a href="../mathematics-database-table.html">Mathematics Database</a>
+      <span>/</span>
+      <a href="proof-graph-schema-v2.md">View Markdown source</a>
+    </nav>
+    <article>
+<h1>Proof Graph Schema v2</h1>
+<p>This schema revises the first Proof Graph Pilot schema after comparing proof graphs with algorithm flowcharts and axiomatic theory dependency graphs.</p>
+<h2>Core Principle</h2>
+<p>Use three related graph grammars:</p>
+<ul>
+<li><strong>Algorithm graph:</strong> operational control flow.</li>
+<li><strong>Axiomatic theory graph:</strong> structural dependency among primitives, axioms, definitions, and theorems.</li>
+<li><strong>Proof graph:</strong> derivational justification from sources to conclusion, with optional algorithm capsules.</li>
+</ul>
+<p>A proof graph is not simply a flowchart and not simply a theorem dependency graph. It is a derivational object that may combine axiomatic dependencies, constructive steps, case analysis, contradiction, induction, and procedural subroutines.</p>
+<h2>Node Types</h2>
+<ul>
+<li><code>Source</code>: axiom, postulate, common notion, definition, prior theorem, or given condition.</li>
+<li><code>Assumption</code>: temporary hypothesis introduced for contradiction, induction, case analysis, or conditional proof.</li>
+<li><code>Construction</code>: geometric, arithmetic, algebraic, set-theoretic, or combinatorial object introduced during the proof.</li>
+<li><code>Assertion</code>: claim established inside the proof.</li>
+<li><code>Inference</code>: named reasoning move such as substitution, congruence, divisibility, equality transfer, area comparison, or contradiction.</li>
+<li><code>Branch</code>: case split, question node, existence/uniqueness split, or fork in the proof argument.</li>
+<li><code>Join</code>: explicit multi-premise node where several dependencies jointly license the next step.</li>
+<li><code>AlgorithmCapsule</code>: procedure invoked by the proof and better represented by a nested flowchart.</li>
+<li><code>Contradiction</code>: impossible state or inconsistency produced from assumptions.</li>
+<li><code>Discharge</code>: closure of a temporary assumption, contradiction, case split, or induction schema.</li>
+<li><code>Conclusion</code>: theorem statement or sub-conclusion established by the proof.</li>
+</ul>
+<h2>Edge Types</h2>
+<ul>
+<li><code>depends_on</code>: target requires source.</li>
+<li><code>derives</code>: source claim licenses target claim.</li>
+<li><code>constructs</code>: source operation introduces target object.</li>
+<li><code>instantiates</code>: general theorem, axiom, or definition is applied to a specific object.</li>
+<li><code>branches_to</code>: proof splits into cases, questions, or subgoals.</li>
+<li><code>joins</code>: multiple premises jointly license one step.</li>
+<li><code>invokes_algorithm</code>: proof calls a procedural subroutine.</li>
+<li><code>returns_object</code>: algorithm capsule returns a constructed object or witness.</li>
+<li><code>discharges</code>: assumption, case split, contradiction, or induction schema is closed.</li>
+<li><code>reuses</code>: prior theorem or lemma is reused in a later part of the proof.</li>
+</ul>
+<h2>Visual Encoding</h2>
+<p>Recommended Mermaid shapes:</p>
+<ul>
+<li><code>source[&quot;Source: ...&quot;]</code>: rounded or styled source node.</li>
+<li><code>assertion[&quot;Assertion: ...&quot;]</code>: ordinary rectangle.</li>
+<li><code>construction[/&quot;Construction: ...&quot;/]</code>: construction/object node when Mermaid support is acceptable; otherwise rectangle plus color.</li>
+<li><code>branch{&quot;Question or case split?&quot;}</code>: diamond.</li>
+<li><code>algorithm([&quot;Algorithm capsule: ...&quot;])</code>: stadium/capsule.</li>
+<li><code>contradiction[&quot;Contradiction: ...&quot;]</code>: red/oxblood role style.</li>
+<li><code>conclusion[&quot;Conclusion: ...&quot;]</code>: heavy border or conclusion style.</li>
+</ul>
+<p>Recommended edge styles:</p>
+<ul>
+<li>Solid arrows for ordinary dependency and derivation.</li>
+<li>Dashed arrows for <code>invokes_algorithm</code>.</li>
+<li>Dotted arrows for <code>discharges</code>.</li>
+<li>Labels for case branches, returned objects, and theorem instantiations.</li>
+</ul>
+<h2>Proof-Specific Color Palette</h2>
+<p>This palette is intentionally distinct from the GLMP/programming-framework five-color process palette.</p>
+<ul>
+<li><code>Source</code>: amber fill <code>#f2c879</code>, brown stroke <code>#7a4f12</code>; given, axiom, definition, lemma, or prior theorem.</li>
+<li><code>Assumption</code>: violet fill <code>#c084fc</code>, violet stroke <code>#6d28d9</code>; temporary hypothesis.</li>
+<li><code>Construction</code>: moss fill <code>#8fbc5a</code>, olive stroke <code>#3f6212</code>; introduced object or witness.</li>
+<li><code>Assertion</code>: steel fill <code>#8ecae6</code>, steel stroke <code>#25637a</code>; established claim.</li>
+<li><code>Inference / Branch</code>: copper fill <code>#f4a261</code>, rust stroke <code>#9a3412</code>; proof move, case split, or question.</li>
+<li><code>Algorithm</code>: indigo fill <code>#818cf8</code>, indigo stroke <code>#3730a3</code>; procedure invoked by the proof.</li>
+<li><code>Contradiction</code>: crimson fill <code>#ef4444</code>, dark crimson stroke <code>#991b1b</code>; contradiction or impossible branch.</li>
+<li><code>Conclusion / Discharge</code>: teal fill <code>#2dd4bf</code>, dark teal stroke <code>#0f766e</code>; final conclusion or closure of assumption.</li>
+</ul>
+<p>Each proof page should include a local legend for this palette. The mathematics database table should not display a global graph color legend because each graph family has its own visual language.</p>
+<h2>Mermaid Convention</h2>
+<p>Use <code>flowchart TD</code> for proof dependency graphs and <code>flowchart LR</code> for algorithm capsules.</p>
+<p>Prefix node labels with their proof role:</p>
+<ul>
+<li><code>Given:</code></li>
+<li><code>Definition:</code></li>
+<li><code>Postulate:</code></li>
+<li><code>Assumption:</code></li>
+<li><code>Construction:</code></li>
+<li><code>Assertion:</code></li>
+<li><code>Inference:</code></li>
+<li><code>Algorithm capsule:</code></li>
+<li><code>Contradiction:</code></li>
+<li><code>Discharge assumption:</code></li>
+<li><code>Conclusion:</code></li>
+</ul>
+<p>The current builder can color many nodes from these prefixes automatically. Manual class assignments may still be useful for ambiguous cases.</p>
+<h2>Complexity Measures</h2>
+<p>Record both graph-size and proof-structure measures:</p>
+<ul>
+<li><code>node_count</code></li>
+<li><code>edge_count</code></li>
+<li><code>depth</code></li>
+<li><code>source_count</code></li>
+<li><code>assumption_count</code></li>
+<li><code>construction_count</code></li>
+<li><code>branch_count</code></li>
+<li><code>join_count</code></li>
+<li><code>algorithm_capsule_count</code></li>
+<li><code>contradiction_count</code></li>
+<li><code>discharge_count</code></li>
+<li><code>reused_source_count</code></li>
+</ul>
+<p>For hybrid proofs, measure the top-level proof graph separately from algorithm capsules. This avoids confusing proof depth with procedural runtime complexity.</p>
+<h2>Loop Policy</h2>
+<p>Visible proof graphs should usually be acyclic. If a loop appears, classify it:</p>
+<ul>
+<li><code>induction_schema</code></li>
+<li><code>recursive_algorithm</code></li>
+<li><code>diagonal_construction</code></li>
+<li><code>self_reference</code></li>
+<li><code>theorem_reuse</code></li>
+</ul>
+<p>Only <code>recursive_algorithm</code> should normally be drawn as an algorithmic loop. Induction and diagonalization should be represented as named proof schema or construction nodes, not as ordinary feedback arrows.</p>
+<h2>Hybrid Pattern</h2>
+<pre class="mermaid">flowchart TD
+  source[&quot;Source: definition or theorem&quot;] --&gt; needObject[&quot;Assertion: proof requires a witness&quot;]
+  needObject -. &quot;invokes_algorithm&quot; .-&gt; algorithm([&quot;Algorithm capsule: construct witness&quot;])
+  algorithm -. &quot;returns_object&quot; .-&gt; witness[/&quot;Construction: witness object&quot;/]
+  witness --&gt; conclusion[&quot;Conclusion: theorem follows&quot;]</pre>
+<p>The top-level proof graph shows why the algorithm is needed. The algorithm capsule can expand separately to show how the procedure works.</p>
+      <section class="proof-legend" aria-label="Proof graph color legend">
+        <h2>Proof Graph Color Legend</h2>
+        <div class="proof-legend-grid">
+          <div class="proof-legend-item"><span class="proof-legend-swatch legend-source"></span><span>Amber: source / given / definition / lemma</span></div>
+          <div class="proof-legend-item"><span class="proof-legend-swatch legend-assumption"></span><span>Violet: assumption or temporary hypothesis</span></div>
+          <div class="proof-legend-item"><span class="proof-legend-swatch legend-construction"></span><span>Moss: construction or introduced object</span></div>
+          <div class="proof-legend-item"><span class="proof-legend-swatch legend-assertion"></span><span>Steel: assertion established in the proof</span></div>
+          <div class="proof-legend-item"><span class="proof-legend-swatch legend-inference"></span><span>Copper: inference, branch, or proof move</span></div>
+          <div class="proof-legend-item"><span class="proof-legend-swatch legend-algorithm"></span><span>Indigo: algorithm or procedural step</span></div>
+          <div class="proof-legend-item"><span class="proof-legend-swatch legend-contradiction"></span><span>Crimson: contradiction</span></div>
+          <div class="proof-legend-item"><span class="proof-legend-swatch legend-conclusion"></span><span>Teal: discharge or final conclusion</span></div>
+        </div>
+      </section>
+      <p class="source-note">Rendered from <code>proof-graph-schema-v2.md</code>. Mermaid diagrams are rendered in the browser from the source graph blocks.</p>
+    </article>
+  </main>
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+
+    const roleStyles = `
+classDef proofSource fill:#f2c879,stroke:#7a4f12,color:#0f172a,stroke-width:2px;
+classDef proofAssumption fill:#c084fc,stroke:#6d28d9,color:#0f172a,stroke-width:2px;
+classDef proofConstruction fill:#8fbc5a,stroke:#3f6212,color:#0f172a,stroke-width:2px;
+classDef proofAssertion fill:#8ecae6,stroke:#25637a,color:#0f172a,stroke-width:2px;
+classDef proofInference fill:#f4a261,stroke:#9a3412,color:#0f172a,stroke-width:2px;
+classDef proofAlgorithm fill:#818cf8,stroke:#3730a3,color:#0f172a,stroke-width:2px;
+classDef proofContradiction fill:#ef4444,stroke:#991b1b,color:#ffffff,stroke-width:3px;
+classDef proofConclusion fill:#2dd4bf,stroke:#0f766e,color:#0f172a,stroke-width:3px;
+classDef proofNeutral fill:#f8fafc,stroke:#64748b,color:#0f172a,stroke-width:1.5px;
+`;
+
+    const roleRules = [
+      ['proofConclusion', /^(Conclusion:|Discharge assumption:|Discharge:)/i],
+      ['proofContradiction', /^Contradiction:/i],
+      ['proofAssumption', /^(Assumption:|Assume:|Methodological assumption:)/i],
+      ['proofAlgorithm', /^(Algorithm capsule:|Input:|Output:|Start |Set |For each |Read |Choose output|Put |List |Skip |Increase |Arrange |Make |Find |Factor |Concatenate|Multiply )/i],
+      ['proofConstruction', /^Construction:/i],
+      ['proofAssertion', /^Assertion:/i],
+      ['proofInference', /^(Inference:|Branch:|Join:)/i],
+      ['proofSource', /^(Given:|Definition|Postulate|Common Notion|Euclid |Lemma:|Arithmetic fact:|Strong induction|Cancellation law|Bezout)/i]
+    ];
+
+    function classify(label, shape) {
+      const normalized = label.trim().replace(/\s+/g, ' ');
+      if (shape === '{') return 'proofInference';
+      if (/^Target:/i.test(normalized)) return 'proofConclusion';
+      for (const [role, pattern] of roleRules) {
+        if (pattern.test(normalized)) return role;
+      }
+      return 'proofNeutral';
+    }
+
+    function addRoleClasses(source) {
+      if (source.includes('classDef proofSource')) return source;
+      const assignments = new Map();
+      const nodePattern = /(?:^|\s)([A-Za-z][\w-]*)\s*(?:\[\s*"([^"]+)"\s*\]|\{\s*"([^"]+)"\s*\}|\(\s*"([^"]+)"\s*\)|\(\[\s*"([^"]+)"\s*\]\)|\[\[\s*"([^"]+)"\s*\]\]|\[\/\s*"([^"]+)"\s*\/\]|\(\(\s*"([^"]+)"\s*\)\))/gm;
+      let match;
+      while ((match = nodePattern.exec(source)) !== null) {
+        const nodeId = match[1];
+        const label = match.slice(2).find(Boolean);
+        const shape = match[3] ? '{' : '';
+        assignments.set(nodeId, classify(label, shape));
+      }
+      const classLines = Array.from(assignments.entries()).map(([nodeId, role]) => `class ${nodeId} ${role};`);
+      if (classLines.length === 0) return `${source}\n${roleStyles}`;
+      return `${source}\n${roleStyles}\n${classLines.join('\n')}`;
+    }
+
+    document.querySelectorAll('pre.mermaid').forEach((block) => {
+      block.textContent = addRoleClasses(block.textContent);
+    });
+
+    mermaid.initialize({
+      startOnLoad: false,
+      securityLevel: 'loose',
+      theme: 'base',
+      themeVariables: {
+        background: '#ffffff',
+        primaryColor: '#f8fafc',
+        primaryTextColor: '#0f172a',
+        primaryBorderColor: '#64748b',
+        lineColor: '#475569',
+        fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif'
+      },
+      flowchart: {
+        htmlLabels: true,
+        curve: 'basis',
+        nodeSpacing: 42,
+        rankSpacing: 58
+      }
+    });
+    await mermaid.run({ querySelector: 'pre.mermaid' });
+  </script>
+</body>
+</html>

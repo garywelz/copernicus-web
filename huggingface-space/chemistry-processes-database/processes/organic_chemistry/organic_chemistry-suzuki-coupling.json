@@ -1,21 +1,23 @@
 {
   "id": "organic_chemistry-suzuki-coupling",
-  "name": "Suzuki Coupling",
+  "name": "Suzuki–Miyaura Coupling",
   "category": "chemistry",
   "subcategory": "organic_chemistry",
   "subcategory_name": "Organic Chemistry",
-  "description": "Suzuki Coupling process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "The palladium-catalyzed Suzuki–Miyaura coupling joins an aryl halide and an organoboron compound through a catalytic cycle of oxidative addition, base-assisted transmetalation, and reductive elimination, regenerating the Pd(0) catalyst each turn.",
   "complexity": {
-    "nodes": 9,
+    "nodes": 10,
     "edges": 10,
     "conditionals": 0,
     "logicGates": {
       "orGates": 1,
-      "andGates": 2,
-      "total": 3
+      "andGates": 1,
+      "notGates": 0,
+      "total": 2
     },
-    "level": "medium",
-    "detailLevel": "medium"
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 1
   },
   "colorScheme": {
     "red": {
@@ -39,53 +41,171 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nN1[\"Aryl/Vinyl Halide\"]\nN2[\"Boronic Acid/Ester\"]\nN3[\"Pd Catalyst + Base\"]\nN4[\"Choose Path\"]\nN5[\"Oxidative Addition\"]\nN6[\"Transmetalation\"]\nN7[\"Reductive Elimination\"]\nN8[\"Biaryl Product\"]\nN9[\"Integrate\"]\n\nN1 --> N2\nN2 --> N3\nN3 --> N4\nN4 --> N5\nN4 --> N7\nN5 --> N6\nN7 --> N8\nN6 --> N9\nN8 --> N9\nN9 --> N6\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#ff6b6b,color:#fff\n    style N3 fill:#ffd43b,color:#000\n    style N4 fill:#ffd43b,color:#000\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#b197fc,color:#fff\n    style N9 fill:#74c0fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"Aryl halide + boronic acid\"]\n    N2[\"Pd(0) catalyst\"]\n    N3[\"Oxidative addition of Ar–X\"]\n    N4[\"Base activates boronate\"]\n    N5[\"Transmetalation\"]\n    N6[\"Ar–Pd(II)–Ar′ complex\"]\n    N7[\"Reductive elimination\"]\n    N8[\"Biaryl product released\"]\n    N9[\"Pd(0) regenerated\"]\n    N10[\"Coupled product\"]\n\n    N1 --> N3\n    N2 --> N3\n    N3 --> N4\n    N4 --> N5\n    N5 --> N6\n    N6 --> N7\n    N7 --> N8\n    N7 --> N9\n    N9 -->|next turn| N3\n    N8 --> N10\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#74c0fc,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#51cf66,color:#fff\n    style N10 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
-      "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: Suzuki Coupling. Created using the Programming Framework methodology."
+      "title": "Palladium-catalyzed cross-coupling reactions of organoboron compounds",
+      "authors": "Miyaura, N.; Suzuki, A.",
+      "journal": "Chemical Reviews",
+      "year": "1995",
+      "doi": "10.1021/cr00039a007",
+      "url": "https://doi.org/10.1021/cr00039a007"
     },
     {
-      "title": "Suzuki Coupling",
-      "authors": "",
-      "journal": "Comprehensive Organic Name Reactions and Reagents",
-      "year": "2010",
-      "pubmed": null,
-      "doi": "10.1002/9780470638859.conrr614",
-      "url": "https://doi.org/10.1002/9780470638859.conrr614"
+      "title": "Cross-coupling reactions of organoboranes: an easy way to construct C–C bonds (Nobel Lecture)",
+      "authors": "Suzuki, A.",
+      "journal": "Angewandte Chemie International Edition",
+      "year": "2011",
+      "doi": "10.1002/anie.201101379",
+      "url": "https://doi.org/10.1002/anie.201101379"
     },
     {
-      "title": "Organoborane Coupling Reactions (Suzuki Coupling)",
-      "authors": "Suzuki, Akira",
-      "journal": "ChemInform",
-      "year": "2005",
-      "pubmed": null,
-      "doi": "10.1002/chin.200516248",
-      "url": "https://doi.org/10.1002/chin.200516248"
-    },
-    {
-      "title": "Suzuki coupling",
-      "authors": "",
-      "journal": "Name Reactions",
-      "year": "None",
-      "pubmed": null,
-      "doi": "10.1007/3-540-30031-7_262",
-      "url": "https://doi.org/10.1007/3-540-30031-7_262"
+      "title": "A new stereospecific cross-coupling by the palladium-catalyzed reaction of 1-alkenylboranes",
+      "authors": "Miyaura, N.; Yamada, K.; Suzuki, A.",
+      "journal": "Tetrahedron Letters",
+      "year": "1979",
+      "doi": "10.1016/S0040-4039(01)95429-2",
+      "url": "https://doi.org/10.1016/S0040-4039(01)95429-2"
     }
   ],
   "keywords": [
-    "suzuki",
-    "coupling"
+    "suzuki coupling",
+    "palladium catalysis",
+    "oxidative addition",
+    "transmetalation",
+    "reductive elimination"
   ],
   "relatedProcesses": [],
   "created": "2026-01-15",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations.\nCurated Mermaid applied (citations preserved)."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "graphMetrics": {
+    "nodes": 10,
+    "edges": 10,
+    "conditionals": 0,
+    "andGates": 1,
+    "orGates": 1,
+    "notGates": 0,
+    "loops": 1
+  },
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Aryl halide + boronic acid",
+      "detail": "Coupling partners + base",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N2",
+      "label": "Pd(0) catalyst",
+      "detail": "Active low-valent palladium",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N3",
+      "label": "Oxidative addition of Ar–X",
+      "detail": "Ar–Pd(II)–X formed",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N4",
+      "label": "Base activates boronate",
+      "detail": "Forms nucleophilic boronate",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N5",
+      "label": "Transmetalation",
+      "detail": "Aryl transfers to Pd",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N6",
+      "label": "Ar–Pd(II)–Ar′ complex",
+      "detail": "Diorganopalladium intermediate",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N7",
+      "label": "Reductive elimination",
+      "detail": "Forms C–C bond",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N8",
+      "label": "Biaryl product released",
+      "detail": "Coupled product",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N9",
+      "label": "Pd(0) regenerated",
+      "detail": "Catalyst re-enters cycle",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N10",
+      "label": "Coupled product",
+      "detail": "Isolated biaryl",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 2
+    }
+  ],
+  "researchEnhancements": {
+    "pilot": true,
+    "model": "research_grade_flowchart",
+    "nodeSemantics": [
+      "trigger",
+      "context",
+      "decision",
+      "operation",
+      "state",
+      "feedback",
+      "observable",
+      "prediction"
+    ],
+    "reviewFocus": [
+      "mechanistic correctness",
+      "decision density",
+      "evidence support",
+      "intervention value"
+    ]
+  },
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:organic_chemistry-suzuki-coupling",
+    "graphType": "cyclic_pathway",
+    "topologySignature": "bbda36bde084299f",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "namedCollections": [
+    "organic-chemistry"
+  ],
+  "graphType": "cyclic_pathway",
+  "domainContext": "Cross-coupling catalysis"
 }

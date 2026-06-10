@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2604.22994v1",
+  "arxiv_id": "2604.22994v1",
+  "title": "KilonovaSCORER: Prior-Predictive Scoring of Kilonovae for Real-Time Multimessenger Follow-Up",
+  "authors": [
+    "P. Darc",
+    "C. D. Kilpatrick"
+  ],
+  "author_string": "P. Darc, C. D. Kilpatrick",
+  "journal": "arXiv:2604.22994v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Real-time ranking of optical transient candidates during gravitational-wave (GW) and multimessenger follow-up is challenging when only sparse early-time, multi-band photometry is available.We present \\texttt{KilonovaSCORER}, an open-source framework for scoring and ranking in this regime. It quantifies the consistency of each candidate with a physically motivated kilonova model grid in absolute magnitude space using two complementary per-observation metrics, $P_{\\mathrm{tail},\\mathrm{KNe}}$ and $P_{\\mathrm{near},\\mathrm{KNe}}$. These are aggregated into a cumulative ranking score via inverse-variance weighting in logit space, naturally accounting for heterogeneous observational uncertainties across bands and epochs. A sequential Approximate Bayesian Computation (ABC) diagnostic tracks photometric consistency across epochs, penalizing candidates whose temporal evolution is incompatible with kilonova expectations. We validate the framework on AT\\,2017gfo and SN\\,2025ulz, and test it against supernova simulations under a realistic Rubin/LSST Target-of-Opportunity strategy. The framework recovers kilonova candidates with high confidence while ruling out supernova contaminants within five days of the gravitational-wave trigger. In our LSST ToO simulations, median cumulative scores for thermonuclear and core-collapse supernova contaminants fall to zero by $3$--$4$\\,d post-trigger, whereas kilonova medians remain $\\gtrsim 0.4$. \\texttt{KilonovaSCORER} supports real-time workflows for ToO teams and LSST alert brokers, integrates with follow-up coordination platforms such as the Tool for Rapid Object Vetting and Examination, and is publicly available at https://github.com/phelipedarc/KilonovaSCORER/tree/main.",
+  "categories": [
+    "astro-ph.IM",
+    "astro-ph.HE"
+  ],
+  "primary_category": "astro-ph.HE",
+  "comment": null,
+  "published_date": "2026-04-24T20:20:29Z",
+  "updated_date": "2026-04-24T20:20:29Z",
+  "url": "https://arxiv.org/abs/2604.22994v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.22994v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-27T22:15:39.108791",
+  "category": "physics",
+  "subcategories": [
+    "astro-ph.IM",
+    "astro-ph.HE"
+  ]
+}

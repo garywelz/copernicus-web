@@ -1,21 +1,23 @@
 {
   "id": "security-file-system",
-  "name": "File System",
+  "name": "Role-Based Access Control (RBAC)",
   "category": "computer_science",
   "subcategory": "security",
   "subcategory_name": "Security & Cryptography",
-  "description": "File System process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "RBAC grants permissions through roles rather than to users directly: an authenticated subject's assigned roles are activated in a session, and a requested operation is allowed only if some active role carries the permission and no separation-of-duty constraint is violated; every decision is logged for audit.",
   "complexity": {
-    "nodes": 26,
-    "edges": 21,
-    "conditionals": 0,
+    "nodes": 12,
+    "edges": 13,
+    "conditionals": 2,
     "logicGates": {
-      "orGates": 0,
+      "orGates": 2,
       "andGates": 1,
-      "total": 1
+      "notGates": 0,
+      "total": 3
     },
-    "level": "medium",
-    "detailLevel": "medium"
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 0
   },
   "colorScheme": {
     "red": {
@@ -39,53 +41,156 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nA3[File Operations] --> B3[File System Method]\nC3[Directory Management] --> D3[Storage Allocation]\nE3[File Access Control] --> F3[File System Analysis]\nB3 --> G3[Hierarchical Structure]\nD3 --> H3[Block Allocation]\nF3 --> I3[File Permissions]\nG3 --> J3[Path Resolution]\nH3 --> K3[Space Management]\nI3 --> L3[Access Rights]\nJ3 --> M3[File Organization]\nK3 --> L3\nL3 --> N3[Security Enforcement]\nM3 --> O3[File System Optimization]\nN3 --> P3[Backup Recovery]\nO3 --> Q3[File System Process]\nP3 --> R3[File System Validation]\nQ3 --> S3[File System Verification]\nR3 --> T3[File System Result]\nS3 --> U3[File System Analysis]\nT3 --> V3[File System Parameters]\nU3 --> W3[File System Output]\nV3 --> X3[File System Analysis]\nW3 --> Y3[File System Final Result]\nX3 --> Z3[File System Complete]\n\n    style A3 fill:#ff6b6b,color:#fff\n    style C3 fill:#ff6b6b,color:#fff\n    style E3 fill:#ff6b6b,color:#fff\n    style B3 fill:#ffd43b,color:#000\n    style D3 fill:#ffd43b,color:#000\n    style F3 fill:#ffd43b,color:#000\n    style G3 fill:#ffd43b,color:#000\n    style H3 fill:#ffd43b,color:#000\n    style I3 fill:#ffd43b,color:#000\n    style J3 fill:#ffd43b,color:#000\n    style K3 fill:#ffd43b,color:#000\n    style L3 fill:#ffd43b,color:#000\n    style M3 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style O3 fill:#51cf66,color:#fff\n    style P3 fill:#51cf66,color:#fff\n    style Q3 fill:#51cf66,color:#fff\n    style R3 fill:#51cf66,color:#fff\n    style S3 fill:#51cf66,color:#fff\n    style T3 fill:#51cf66,color:#fff\n    style U3 fill:#51cf66,color:#fff\n    style V3 fill:#51cf66,color:#fff\n    style W3 fill:#51cf66,color:#fff\n    style X3 fill:#51cf66,color:#fff\n    style Y3 fill:#51cf66,color:#fff\n    style Z3 fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"Request operation\"]\n    N2[\"Authenticate subject\"]\n    N3[\"Look up roles\"]\n    N4[\"Activate session roles\"]\n    N5{\"Roles grant perm?\"}\n    N6[\"Deny operation\"]\n    N7[\"Check SoD constraints\"]\n    N8{\"Constraint violated?\"}\n    N9[\"Block (conflict)\"]\n    N10[\"Permit operation\"]\n    N11[\"Log decision\"]\n    N12[\"Enforced policy\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 --> N4\n    N4 --> N5\n    N5 -->|no| N6\n    N6 --> N11\n    N5 -->|yes| N7\n    N7 --> N8\n    N8 -->|yes| N9\n    N9 --> N11\n    N8 -->|no| N10\n    N10 --> N11\n    N11 --> N12\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#74c0fc,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#74c0fc,color:#fff\n    style N9 fill:#51cf66,color:#fff\n    style N10 fill:#51cf66,color:#fff\n    style N11 fill:#51cf66,color:#fff\n    style N12 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
-      "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: File System. Created using the Programming Framework methodology."
+      "title": "Role-based access control models",
+      "authors": "Sandhu, R. S.; Coyne, E. J.; Feinstein, H. L.; Youman, C. E.",
+      "journal": "IEEE Computer",
+      "year": "1996",
+      "doi": "10.1109/2.485845",
+      "url": "https://doi.org/10.1109/2.485845"
     },
     {
-      "title": "The Btrfs File System",
-      "authors": "",
-      "journal": "File System Forensics",
-      "year": "2025",
-      "pubmed": null,
-      "doi": "10.1002/9781394289820.ch11",
-      "url": "https://doi.org/10.1002/9781394289820.ch11"
-    },
-    {
-      "title": "The\n            <scp>APFS</scp>\n            File System",
-      "authors": "",
-      "journal": "File System Forensics",
-      "year": "2025",
-      "pubmed": null,
-      "doi": "10.1002/9781394289820.ch13",
-      "url": "https://doi.org/10.1002/9781394289820.ch13"
-    },
-    {
-      "title": "file system",
-      "authors": "",
-      "journal": "SpringerReference",
-      "year": "None",
-      "pubmed": null,
-      "doi": "10.1007/springerreference_14546",
-      "url": "https://doi.org/10.1007/springerreference_14546"
+      "title": "Role-based access controls",
+      "authors": "Ferraiolo, D. F.; Kuhn, D. R.",
+      "journal": "15th National Computer Security Conference (NIST)",
+      "year": "1992",
+      "url": "https://csrc.nist.gov/CSRC/media/Publications/conference-paper/1992/10/13/proceedings-15th-national-computer-security-conference-1992/documents/1992-15th-NCSC-proceedings-vol-2.pdf"
     }
   ],
   "keywords": [
-    "file",
-    "system"
+    "role-based access control",
+    "RBAC",
+    "permissions",
+    "separation of duty",
+    "least privilege"
   ],
   "relatedProcesses": [],
   "created": "2026-01-08",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Request operation",
+      "detail": "Subject acts",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N2",
+      "label": "Authenticate subject",
+      "detail": "Establish identity",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N3",
+      "label": "Look up roles",
+      "detail": "Assigned roles",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N4",
+      "label": "Activate session roles",
+      "detail": "Subset enabled",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N5",
+      "label": "Roles grant perm?",
+      "detail": "Role-permission",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N6",
+      "label": "Deny operation",
+      "detail": "No matching role",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N7",
+      "label": "Check SoD constraints",
+      "detail": "Conflicting roles",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N8",
+      "label": "Constraint violated?",
+      "detail": "Mutual exclusion",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N9",
+      "label": "Block (conflict)",
+      "detail": "Policy breach",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N10",
+      "label": "Permit operation",
+      "detail": "Authorized",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N11",
+      "label": "Log decision",
+      "detail": "Audit trail",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N12",
+      "label": "Enforced policy",
+      "detail": "Least privilege",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 0
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:security-file-system",
+    "graphType": "decision_flowchart",
+    "topologySignature": "c6379d800f70f829",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "namedCollections": [],
+  "graphMetrics": {
+    "nodes": 12,
+    "edges": 13,
+    "conditionals": 2,
+    "andGates": 1,
+    "orGates": 2,
+    "notGates": 0,
+    "loops": 0
+  },
+  "graphType": "decision_flowchart",
+  "domainContext": "Security"
 }

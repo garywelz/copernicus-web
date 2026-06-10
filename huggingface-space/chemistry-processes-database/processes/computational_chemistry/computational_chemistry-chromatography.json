@@ -1,21 +1,23 @@
 {
   "id": "computational_chemistry-chromatography",
-  "name": "Chromatography",
+  "name": "Molecular Docking (Virtual Screening)",
   "category": "chemistry",
   "subcategory": "computational_chemistry",
   "subcategory_name": "Computational Chemistry",
-  "description": "Chromatography process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "Molecular docking predicts how ligands bind a target: the receptor is prepared, ligand poses are generated and placed in the binding site, scored for affinity, resampled when poor, ranked, and iterated over a library to shortlist virtual-screening hits.",
   "complexity": {
-    "nodes": 26,
-    "edges": 22,
-    "conditionals": 0,
+    "nodes": 11,
+    "edges": 12,
+    "conditionals": 2,
     "logicGates": {
-      "orGates": 0,
-      "andGates": 1,
-      "total": 1
+      "orGates": 2,
+      "andGates": 2,
+      "notGates": 0,
+      "total": 4
     },
-    "level": "medium",
-    "detailLevel": "medium"
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 2
   },
   "colorScheme": {
     "red": {
@@ -39,52 +41,159 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nA5[Sample Mixture] --> B5[Chromatography Method]\nC5[Stationary Phase] --> D5[Mobile Phase]\nE5[Detector System] --> F5[Data Collection]\nB5 --> G5[Column Preparation]\nD5 --> H5[Flow Control]\nF5 --> I5[Signal Processing]\nG5 --> J5[Column Packing]\nH5 --> K5[Flow Rate]\nI5 --> L5[Retention Time]\nJ5 --> M5[Sample Injection]\nK5 --> L5\nL5 --> N5[Separation Process]\nM5 --> O5[Sample Loading]\nN5 --> P5[Chromatographic Separation]\nO5 --> Q5[Analytical Process]\nP5 --> R5[Chromatogram]\nQ5 --> S5[Peak Analysis]\nR5 --> T5[Component Separation]\nS5 --> U5[Retention Analysis]\nT5 --> V5[Component Identification]\nU5 --> W5[Chromatographic Efficiency]\nV5 --> X5[Sample Characterization]\nW5 --> Y5[Process Optimization]\nX5 --> Z5[Final Chromatogram]\nY5 --> Z5\n\n    style A5 fill:#ff6b6b,color:#fff\n    style C5 fill:#ff6b6b,color:#fff\n    style E5 fill:#ff6b6b,color:#fff\n    style B5 fill:#ffd43b,color:#000\n    style D5 fill:#ffd43b,color:#000\n    style F5 fill:#ffd43b,color:#000\n    style G5 fill:#ffd43b,color:#000\n    style H5 fill:#ffd43b,color:#000\n    style I5 fill:#ffd43b,color:#000\n    style J5 fill:#ffd43b,color:#000\n    style K5 fill:#ffd43b,color:#000\n    style L5 fill:#ffd43b,color:#000\n    style M5 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style O5 fill:#51cf66,color:#fff\n    style P5 fill:#51cf66,color:#fff\n    style Q5 fill:#51cf66,color:#fff\n    style R5 fill:#51cf66,color:#fff\n    style S5 fill:#51cf66,color:#fff\n    style T5 fill:#51cf66,color:#fff\n    style U5 fill:#51cf66,color:#fff\n    style V5 fill:#51cf66,color:#fff\n    style W5 fill:#51cf66,color:#fff\n    style X5 fill:#51cf66,color:#fff\n    style Y5 fill:#51cf66,color:#fff\n    style Z5 fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"Target + ligand library\"]\n    N2[\"Prepare receptor + grid\"]\n    N3[\"Generate ligand poses\"]\n    N4[\"Place pose in site\"]\n    N5[\"Score binding affinity\"]\n    N6{\"Clashes / low score?\"}\n    N7[\"Resample pose\"]\n    N8[\"Rank top poses\"]\n    N9{\"More ligands?\"}\n    N10[\"Next ligand\"]\n    N11[\"Hit shortlist\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 --> N4\n    N4 --> N5\n    N5 --> N6\n    N6 -->|yes| N7\n    N7 -->|resample| N4\n    N6 -->|no| N8\n    N8 --> N9\n    N9 -->|yes| N10\n    N10 -->|dock next| N3\n    N9 -->|no| N11\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#74c0fc,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#74c0fc,color:#fff\n    style N10 fill:#51cf66,color:#fff\n    style N11 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
-      "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: Chromatography. Created using the Programming Framework methodology."
+      "title": "Development and validation of a genetic algorithm for flexible docking (GOLD)",
+      "authors": "Jones, G.; Willett, P.; Glen, R. C.; Leach, A. R.; Taylor, R.",
+      "journal": "Journal of Molecular Biology",
+      "year": "1997",
+      "doi": "10.1006/jmbi.1996.0897",
+      "url": "https://doi.org/10.1006/jmbi.1996.0897"
     },
     {
-      "title": "Acknowledgement to Reviewers of Chromatography in 2014",
-      "authors": "Chromatography Editorial Office",
-      "journal": "Chromatography",
-      "year": "2015",
-      "pubmed": null,
-      "doi": "10.3390/chromatography2010019",
-      "url": "https://doi.org/10.3390/chromatography2010019"
+      "title": "Docking and scoring in virtual screening for drug discovery",
+      "authors": "Kitchen, D. B.; Decornez, H.; Furr, J. R.; Bajorath, J.",
+      "journal": "Nature Reviews Drug Discovery",
+      "year": "2004",
+      "doi": "10.1038/nrd1549",
+      "url": "https://doi.org/10.1038/nrd1549"
     },
     {
-      "title": "Chromatography of Alkaloids - Part B: Gas-Liquid Chromatography and High-Performance Liquid Chromatography",
-      "authors": "",
-      "journal": "Journal of Chromatography Library",
-      "year": "1984",
-      "pubmed": null,
-      "doi": "10.1016/s0301-4770(08)x6062-2",
-      "url": "https://doi.org/10.1016/s0301-4770(08)x6062-2"
-    },
-    {
-      "title": "Microbore Column Chromatography: A Unified Approach to Chromatography",
-      "authors": "Yang, Frank J",
-      "journal": "Microbore Column Chromatography",
-      "year": "2020",
-      "pubmed": null,
-      "doi": "10.1201/9781003066088-1",
-      "url": "https://doi.org/10.1201/9781003066088-1"
+      "title": "AutoDock Vina: improving the speed and accuracy of docking",
+      "authors": "Trott, O.; Olson, A. J.",
+      "journal": "Journal of Computational Chemistry",
+      "year": "2010",
+      "doi": "10.1002/jcc.21334",
+      "url": "https://doi.org/10.1002/jcc.21334"
     }
   ],
   "keywords": [
-    "chromatography"
+    "molecular docking",
+    "virtual screening",
+    "scoring function",
+    "binding pose",
+    "receptor preparation"
   ],
   "relatedProcesses": [],
   "created": "2026-01-08",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Target + ligand library",
+      "detail": "Structure and compounds",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 1
+    },
+    {
+      "id": "N2",
+      "label": "Prepare receptor + grid",
+      "detail": "Protonate, define site",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N3",
+      "label": "Generate ligand poses",
+      "detail": "Conformers/orientations",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N4",
+      "label": "Place pose in site",
+      "detail": "Sample binding geometry",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N5",
+      "label": "Score binding affinity",
+      "detail": "Scoring function",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N6",
+      "label": "Clashes / low score?",
+      "detail": "Pose quality check",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N7",
+      "label": "Resample pose",
+      "detail": "Search again",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N8",
+      "label": "Rank top poses",
+      "detail": "Best per ligand",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N9",
+      "label": "More ligands?",
+      "detail": "Iterate the library",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N10",
+      "label": "Next ligand",
+      "detail": "Advance the screen",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N11",
+      "label": "Hit shortlist",
+      "detail": "Candidates for assay",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 1
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:computational_chemistry-chromatography",
+    "graphType": "cyclic_pathway",
+    "topologySignature": "e790a6a29b5d8c8e",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "namedCollections": [
+    "computational-chemistry"
+  ],
+  "graphMetrics": {
+    "nodes": 11,
+    "edges": 12,
+    "conditionals": 2,
+    "andGates": 2,
+    "orGates": 2,
+    "notGates": 0,
+    "loops": 2
+  },
+  "graphType": "cyclic_pathway",
+  "domainContext": "Structure-based virtual screening"
 }

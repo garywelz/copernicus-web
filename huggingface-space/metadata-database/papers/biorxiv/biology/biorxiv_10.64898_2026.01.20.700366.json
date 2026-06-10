@@ -1,0 +1,43 @@
+{
+  "id": "biorxiv_10.64898_2026.01.20.700366",
+  "doi": "10.64898/2026.01.20.700366",
+  "title": "JanusX: an integrated and high-performance platform for scalable genome-wide association studies and genomic selection",
+  "authors": [
+    "Fu, J.",
+    "Jia, A.",
+    "Wang, H.",
+    "Liu, H.-J."
+  ],
+  "author_string": "Fu, J., Jia, A., Wang, H., Liu, H.-J.",
+  "journal": "bioRxiv",
+  "journal_full": "bioRxiv",
+  "year": "2026",
+  "abstract": "The exponential growth of genomic data presents significant computational challenges for population genetics and genomic breeding. Here, we present JanusX, a unified and user-friendly platform integrating essential workflows for population genetics, including Genome-Wide Association Studies (GWAS) and Genomic Selection (GS), into a single framework. JanusX significantly reduces memory overhead and computational time by restructuring the Linear Mixed Model (LMM) algorithms and implementing chunk-based streaming with multi-core parallel computing. Benchmarking with large-scale real data and simulations demonstrates that both the GWAS and GS modules of JanusX achieve superior computational efficiency and scalability compared to traditional software while maintaining high statistical concordance. Coupled with a dedicated visualization interface for result exploration, JanusX offers a robust, high-performance solution for complex genomic and genetic analyses.",
+  "keywords": [],
+  "categories": [
+    "bioinformatics"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.64898/2026.01.20.700366",
+  "source": "biorxiv",
+  "sources": [
+    "biorxiv"
+  ],
+  "acquired_date": "2026-05-23T22:15:22.052277",
+  "category": "biology",
+  "subcategories": [
+    "bioinformatics"
+  ],
+  "published_date": "2026-01-23",
+  "updated_date": "2026-01-23",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "biorxiv",
+  "preprint_version": "1",
+  "preprint_type": "new results",
+  "license": "cc_by_nc",
+  "jatsxml": "https://www.biorxiv.org/content/early/2026/01/23//2026.01.20.700366.source.xml",
+  "published_doi": null,
+  "author_corresponding": "Hai-Jun Liu",
+  "author_corresponding_institution": "Yazhouwan National Laboratory"
+}

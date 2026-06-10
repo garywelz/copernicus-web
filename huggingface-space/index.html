@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CopernicusAI - Research-Driven Podcast Generation Platform</title>
+    <title>CopernicusAI</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .gradient-bg {
@@ -48,7 +48,7 @@
         <div class="bg-white rounded-xl shadow-lg p-8 mb-8 border-l-4 border-purple-600">
             <h2 class="text-2xl font-bold text-gray-900 mb-4">📋 Summary</h2>
             <p class="text-lg text-gray-700 leading-relaxed mb-3">
-                <strong>CopernicusAI</strong> is an operational research platform that synthesizes scientific literature from 250+ million papers into AI-generated podcasts, integrates with a knowledge graph of 23,246 indexed papers, and provides collaborative tools for research discovery. The system demonstrates production-ready multi-source research synthesis with full citation tracking and evidence-based content generation requiring minimum 3 research sources per episode.
+                <strong>CopernicusAI</strong> is an operational research platform that synthesizes scientific literature from 250+ million papers into AI-generated podcasts, integrates with a knowledge graph of <span id="kstat-summary-papers">23,246</span> indexed papers, and provides collaborative tools for research discovery. The system demonstrates production-ready multi-source research synthesis with full citation tracking and evidence-based content generation requiring minimum 3 research sources per episode.
             </p>
             <p class="text-gray-600">
                 The platform includes a fully operational Research Tools Dashboard (deployed December 2025) with interactive knowledge graph visualization, vector search, and RAG capabilities, enabling researchers to explore, query, and synthesize scientific knowledge across disciplines.
@@ -224,25 +224,28 @@
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
             <div class="bg-white rounded-lg shadow-md p-6 text-center">
-                <div class="stat-number mb-2">23,246</div>
+                <div class="stat-number mb-2" id="kstat-papers">23,246</div>
                 <div class="text-gray-600 font-semibold">Research Papers</div>
-                <div class="text-sm text-gray-500 mt-1">Indexed in Knowledge Engine (As of January 2025)</div>
+                <div class="text-sm text-gray-500 mt-1">Indexed in Knowledge Engine (Firestore)</div>
             </div>
             <div class="bg-white rounded-lg shadow-md p-6 text-center">
-                <div class="stat-number mb-2">314</div>
-                <div class="text-gray-600 font-semibold">Processes</div>
-                <div class="text-sm text-gray-500 mt-1">Visualized across 6 databases (As of January 2025)</div>
+                <div class="stat-number mb-2" id="kstat-processes">314</div>
+                <div class="text-gray-600 font-semibold">Process charts (PF)</div>
+                <div class="text-sm text-gray-500 mt-1" id="kstat-processes-sub">Loading…</div>
             </div>
             <div class="bg-white rounded-lg shadow-md p-6 text-center">
-                <div class="stat-number mb-2">753</div>
+                <div class="stat-number mb-2" id="kstat-videos">753</div>
                 <div class="text-gray-600 font-semibold">Videos</div>
-                <div class="text-sm text-gray-500 mt-1">Science videos indexed (As of January 2025)</div>
+                <div class="text-sm text-gray-500 mt-1">Science videos indexed (published count)</div>
             </div>
             <div class="bg-white rounded-lg shadow-md p-6 text-center">
-                <div class="stat-number mb-2">79</div>
+                <div class="stat-number mb-2" id="kstat-podcasts">79</div>
                 <div class="text-gray-600 font-semibold">Podcasts</div>
-                <div class="text-sm text-gray-500 mt-1">Generated across 5 disciplines (As of January 2025)</div>
+                <div class="text-sm text-gray-500 mt-1">Generated across 5 disciplines</div>
             </div>
+        </div>
+        <div id="kstat-bloc" class="text-center max-w-3xl mx-auto text-sm text-gray-600 leading-relaxed" aria-live="polite">
+            <p class="mb-0" id="kstat-asof">Loading live counts from knowledge-engine-status.json…</p>
         </div>
     </section>
 
@@ -547,7 +550,7 @@
                 <div class="bg-yellow-50 rounded-lg p-6 border-l-4 border-yellow-400">
                     <h3 class="text-xl font-semibold text-gray-900 mb-4">Current Limitations</h3>
                     <ul class="text-sm text-gray-700 space-y-2">
-                        <li>• <strong>Discipline Coverage:</strong> Currently indexing 23,246 papers across multiple disciplines; expansion to additional disciplines in progress</li>
+                        <li>• <strong>Discipline Coverage:</strong> Currently indexing <span id="kstat-text-discipline">23,246</span> papers across multiple disciplines; expansion to additional disciplines in progress</li>
                         <li>• <strong>Source Bias:</strong> Coverage depends on database API availability and open access policies</li>
                         <li>• <strong>LLM Accuracy:</strong> Content generation relies on LLM accuracy; multi-source validation mitigates but doesn't eliminate errors</li>
                         <li>• <strong>Real-Time Updates:</strong> Knowledge graph updates require manual or scheduled processing cycles</li>
@@ -638,7 +641,7 @@
                     <h3 class="text-lg font-semibold text-gray-900 mb-3">⚙️ Technical Achievements</h3>
                     <ul class="text-sm text-gray-700 space-y-2">
                         <li>• <strong>250+ Million Papers:</strong> Accessible via 8+ integrated academic databases</li>
-                        <li>• <strong>79 Episodes:</strong> Generated across 5 scientific disciplines</li>
+                        <li>• <strong><span id="kstat-text-episodes-n">79</span> Episodes:</strong> Generated across 5 scientific disciplines</li>
                         <li>• <strong>Production Deployment:</strong> Live platform with operational API and RSS distribution</li>
                         <li>• <strong>Scalable Architecture:</strong> Serverless microservices on Google Cloud</li>
                     </ul>
@@ -720,7 +723,7 @@
                 <ul class="text-gray-700 space-y-2">
                     <li>• <strong>Hugging Face Spaces:</strong> All components accessible at <a href="https://huggingface.co/garywelz" target="_blank" class="text-blue-600 hover:underline">https://huggingface.co/garywelz</a> (opens in new tab)</li>
                     <li>• <strong>Process Flowcharts (GLMP):</strong> JSON files stored in Google Cloud Storage, accessible via <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-database-table.html" target="_blank" class="text-blue-600 hover:underline">GLMP Database Table</a> (opens in new tab)</li>
-                    <li>• <strong>Research Paper Metadata:</strong> 23,246 indexed papers with metadata accessible through Research Tools Dashboard</li>
+                    <li>• <strong>Research Paper Metadata:</strong> <span id="kstat-text-data">23,246</span> indexed papers with metadata accessible through Research Tools Dashboard</li>
                     <li>• <strong>API Documentation:</strong> RESTful API endpoints available for programmatic access (see API Documentation section)</li>
                 </ul>
             </div>
@@ -839,7 +842,7 @@
                     <div class="bg-green-50 rounded-lg p-4 mb-4">
                         <h4 class="font-semibold text-gray-800 mb-2">✅ Research Tools Dashboard (Implemented)</h4>
                         <p class="text-sm text-gray-700 mb-2">
-                            Fully operational web interface with knowledge graph visualization (23,246 papers), vector search, RAG queries, and content browsing.
+                            Fully operational web interface with knowledge graph visualization (<span id="kstat-text-kg">23,246</span> papers), vector search, RAG queries, and content browsing.
                         </p>
                         <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/copernicusai-public-reviewer.html" 
                            target="_blank" rel="noopener noreferrer"
@@ -984,6 +987,100 @@
             </div>
         </div>
     </section>
+
+    <script>
+    (function () {
+        var STATUS_BASE = 'https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/knowledge-engine-status.json';
+        var API_BASE = 'https://copernicus-podcast-api-phzp4ie2sq-uc.a.run.app';
+        function fmt(n) {
+            return typeof n === 'number' ? n.toLocaleString() : String(n);
+        }
+        function setText(id, text) {
+            var el = document.getElementById(id);
+            if (el) el.textContent = text;
+        }
+        function statusUrlBusted() {
+            return STATUS_BASE + (STATUS_BASE.indexOf('?') >= 0 ? '&' : '?') + 'cb=' + Date.now();
+        }
+        function safeJson(r) {
+            if (!r || !r.ok) return Promise.resolve(null);
+            return r.json().catch(function () { return null; });
+        }
+        function renderFooter(s, st) {
+            var asof = s && s.last_updated ? new Date(s.last_updated) : null;
+            var asofStr = asof && !isNaN(asof.getTime())
+                ? asof.toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'short' })
+                : '';
+            var line1 = (s && s.count_source)
+                ? ((asofStr ? 'Counts as of ' + asofStr + '. ' : '') + 'Source: ' + s.count_source + ' (knowledge-engine-status.json on GCS).')
+                : (asofStr ? 'Counts as of ' + asofStr + '.' : 'Live counts from knowledge-engine-status.json.');
+            var p1 = document.getElementById('kstat-asof');
+            if (p1) p1.textContent = line1;
+
+            var emb = (st && st.papers_with_embedding != null) ? st.papers_with_embedding
+                : (s && s.papers_with_embedding != null) ? s.papers_with_embedding : null;
+            var pct = (st && st.papers_embedding_coverage_percent != null) ? st.papers_embedding_coverage_percent
+                : (s && s.papers_embedding_coverage_percent != null) ? s.papers_embedding_coverage_percent : null;
+
+            var wrap = document.getElementById('kstat-bloc');
+            if (!wrap) return;
+            var oldCallout = document.getElementById('kstat-embed-callout');
+            if (oldCallout) oldCallout.remove();
+
+            var p2 = document.createElement('p');
+            p2.id = 'kstat-embed-callout';
+            p2.setAttribute('role', 'status');
+            p2.className = 'mt-3 text-base font-medium text-violet-900 bg-violet-50 border-2 border-violet-200 rounded-lg px-4 py-3 shadow-sm';
+            if (emb != null) {
+                p2.textContent = 'Papers with vector embeddings: ' + fmt(emb) +
+                    (pct != null ? ' (' + pct + '% of metadata catalog). ' : '. ') +
+                    'Not every catalog record is embedded; coverage increases as the embedding pipeline runs.';
+            } else {
+                p2.className = 'mt-3 text-sm text-amber-900 bg-amber-50 border border-amber-200 rounded-lg px-3 py-2';
+                p2.textContent = 'Embedding coverage: not in status JSON. Ensure knowledge-engine-status.json was published with papers_with_embedding (see scripts/publish_knowledge_engine_status.sh).';
+            }
+            wrap.appendChild(p2);
+        }
+        function apply(s) {
+            if (!s || typeof s !== 'object') return;
+            if (s.papers != null) {
+                setText('kstat-papers', fmt(s.papers));
+                setText('kstat-summary-papers', fmt(s.papers));
+                setText('kstat-text-discipline', fmt(s.papers));
+                setText('kstat-text-data', fmt(s.papers));
+                setText('kstat-text-kg', fmt(s.papers));
+            }
+            if (s.process_databases && s.process_databases.sum != null) {
+                setText('kstat-processes', fmt(s.process_databases.sum));
+                setText('kstat-processes-sub', 'Sum of 6 GCS metadata families. Firestore GLMP: ' + (s.processes != null ? fmt(s.processes) : '—') + '.');
+            } else {
+                if (s.processes != null) setText('kstat-processes', fmt(s.processes));
+                setText('kstat-processes-sub', 'Visualized across 6 databases (re-publish status JSON for PF sum).');
+            }
+            if (s.videos != null) setText('kstat-videos', fmt(s.videos));
+            if (s.podcasts != null) {
+                setText('kstat-podcasts', fmt(s.podcasts));
+                setText('kstat-text-episodes-n', fmt(s.podcasts));
+            }
+        }
+        function fail(e) {
+            setText('kstat-asof', 'Live stats unavailable. Open a normal browser with JS enabled, or see knowledge-engine-status.json on GCS. ' + (e && e.message ? '(' + e.message + ')' : ''));
+        }
+        fetch(statusUrlBusted(), { cache: 'no-store', mode: 'cors' })
+            .then(function (r) { if (!r.ok) throw new Error('status JSON HTTP ' + r.status); return safeJson(r); })
+            .then(function (s) {
+                if (!s) throw new Error('empty status JSON');
+                return fetch(API_BASE + '/api/content/stats', { cache: 'no-store', mode: 'cors' })
+                    .then(safeJson)
+                    .then(function (st) { return { s: s, st: st }; });
+            })
+            .then(function (o) {
+                apply(o.s);
+                renderFooter(o.s, o.st);
+            })
+            .catch(fail);
+    })();
+    </script>
 
     <!-- Footer -->
     <footer class="gradient-bg text-white py-8 mt-12">

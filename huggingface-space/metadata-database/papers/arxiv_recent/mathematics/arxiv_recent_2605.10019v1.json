@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_2605.10019v1",
+  "arxiv_id": "2605.10019v1",
+  "title": "The two clocks and the innovation window: When and how generative models learn rules",
+  "authors": [
+    "Binxu Wang",
+    "Emma Lucia Byrnes Finn",
+    "Bingbin Liu"
+  ],
+  "author_string": "Binxu Wang, Emma Lucia Byrnes Finn, Bingbin Liu",
+  "journal": "arXiv:2605.10019v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Generative models trained on finite data face a fundamental tension: their score-matching or next-token objective converges to the empirical training distribution rather than the population distribution we seek to learn. Using rule-valid synthetic tasks, we trace this tension across two training timescales: $τ_{\\mathrm{rule}}$, the step at which generations first become rule-valid, and $τ_{\\mathrm{mem}}$, the step at which models begin reproducing training samples. Focusing on parity and extending to other binary rules and combinatorial puzzles, we characterize how these two clocks, $τ_{\\mathrm{rule}}$ and $τ_{\\mathrm{mem}}$, depend on key aspects of the learning setup. Specifically, we show that $τ_{\\mathrm{rule}}$ increases with rule complexity and decreases with model capacity, while $τ_{\\mathrm{mem}}$ is approximately invariant to the rule and scales nearly linearly with dataset size $N$. We define the \\emph{innovation window} as the interval $[τ_{\\mathrm{rule}}, τ_{\\mathrm{mem}}]$. This window widens with increasing $N$ and narrows with rule complexity, and may vanish entirely when $τ_{\\mathrm{rule}} \\geq τ_{\\mathrm{mem}}$. The same two-clock structure arises in both diffusion (DiT) and autoregressive (GPT) models, with architecture-dependent offsets. Dissecting the learned score of DiT models reveals a corresponding evolution of the optimization landscapes, where rule-valid samples' basins expand substantially around $τ_{\\mathrm{rule}}$, while training samples' basins begin to dominate around $τ_{\\mathrm{mem}}$. Together, these results yield a unified and predictive account of when and how generative models exhibit genuine innovation.",
+  "categories": [
+    "cs.LG",
+    "cs.AI",
+    "cs.CC",
+    "stat.ML"
+  ],
+  "primary_category": "stat.ML",
+  "comment": "48 pages, 28 figures. Earlier versions are presented in NeurIPS2025 SPIGM workshop as oral presentation https://openreview.net/forum?id=LjqX8OhPPi",
+  "published_date": "2026-05-11T05:44:18Z",
+  "updated_date": "2026-05-11T05:44:18Z",
+  "url": "https://arxiv.org/abs/2605.10019v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.10019v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-11T22:15:41.417098",
+  "category": "mathematics",
+  "subcategories": [
+    "cs.LG",
+    "cs.AI",
+    "cs.CC"
+  ]
+}

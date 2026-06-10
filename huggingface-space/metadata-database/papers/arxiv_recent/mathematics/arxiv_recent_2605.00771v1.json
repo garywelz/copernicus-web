@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2605.00771v1",
+  "arxiv_id": "2605.00771v1",
+  "title": "Penalized Likelihood for Dyadic Network Formation Models with Degree Heterogeneity",
+  "authors": [
+    "Zizhong Yan",
+    "Jingrong Li",
+    "Yi Zhang"
+  ],
+  "author_string": "Zizhong Yan, Jingrong Li, Yi Zhang",
+  "journal": "arXiv:2605.00771v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Estimating network formation models with degree heterogeneity raises two problems in empirical networks. First, agents that send no links, receive no links, or link to all remaining agents can make the fixed-effects MLE fail to exist. Trimming these agents changes the estimation sample and induces selection bias. Second, the incidental-parameter problem biases common parameters and average partial effects. We resolve both issues through a penalized likelihood approach. Our leading specification is a directed network model with reciprocity, nesting the standard undirected and non-reciprocal directed models. The penalty guarantees finite-sample existence and yields bias corrections for coefficients and partial effects. We establish asymptotic results without imposing compactness on the fixed-effects. Allowing the fixed effects to diverge at a logarithmic rate, our asymptotic framework accommodates the degree sparsity ubiquitous in large empirical networks. A global trade application demonstrates that our estimator avoids selection bias and recovers robust parameters where conventional methods fail.",
+  "categories": [
+    "econ.EM",
+    "math.ST"
+  ],
+  "primary_category": "math.ST",
+  "comment": null,
+  "published_date": "2026-05-01T16:35:11Z",
+  "updated_date": "2026-05-01T16:35:11Z",
+  "url": "https://arxiv.org/abs/2605.00771v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.00771v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-04T10:15:43.779434",
+  "category": "mathematics",
+  "subcategories": [
+    "econ.EM",
+    "math.ST"
+  ]
+}

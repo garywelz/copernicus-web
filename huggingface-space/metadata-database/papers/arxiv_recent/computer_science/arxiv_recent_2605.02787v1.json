@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2605.02787v1",
+  "arxiv_id": "2605.02787v1",
+  "title": "Static Analysis of Recursive SHACL",
+  "authors": [
+    "Anouk Oudshoorn",
+    "Magdalena Ortiz",
+    "Mantas Simkus"
+  ],
+  "author_string": "Anouk Oudshoorn, Magdalena Ortiz, Mantas Simkus",
+  "journal": "arXiv:2605.02787v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "SHACL (Shapes Constraint Language) expresses constraints on RDF data by means of so-called shapes. Its central service is validation: verifying whether a data graph complies with a SHACL document. But so far, there are no static analysis services to compare documents. In this paper, we study the following problem: decide whether all graphs that validate one SHACL document also validate another. Unlike previous works that have considered the implication of shape expressions only, we consider documents comprising (recursive) shape definitions and targets. We show that implication (a.k.a. containment) is undecidable under the supported and the stable model semantics, even for the fragment that uses the description logic ALCIO for shape expressions. Under the well-founded semantics, in surprising contrast, it is decidable in single exponential time. Our key technical contribution is a translation of SHACL under the well-founded semantics into the full hybrid mu-calculus, revealing a novel link between well-founded models and a fixed point modal logic, and a worst-case optimal automata-based decision procedure.",
+  "categories": [
+    "cs.LO",
+    "cs.AI"
+  ],
+  "primary_category": "cs.AI",
+  "comment": "17 pages, 5 figures, long version of work to be published in the proceedings of KR 2026",
+  "published_date": "2026-05-04T16:29:29Z",
+  "updated_date": "2026-05-04T16:29:29Z",
+  "url": "https://arxiv.org/abs/2605.02787v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.02787v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-05T10:15:47.087546",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.LO",
+    "cs.AI"
+  ]
+}

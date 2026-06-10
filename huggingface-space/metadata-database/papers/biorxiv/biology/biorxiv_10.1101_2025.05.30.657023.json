@@ -1,0 +1,42 @@
+{
+  "id": "biorxiv_10.1101_2025.05.30.657023",
+  "doi": "10.1101/2025.05.30.657023",
+  "title": "New idtracker.ai: rethinking multi-animal tracking as a representation learning problem to increase accuracy and reduce tracking times",
+  "authors": [
+    "Torrents, J.",
+    "Costa, T.",
+    "de Polavieja, G. G."
+  ],
+  "author_string": "Torrents, J., Costa, T., de Polavieja, G. G.",
+  "journal": "bioRxiv",
+  "journal_full": "bioRxiv",
+  "year": "2026",
+  "abstract": "idTracker and idtracker.ai approach multi-animal tracking from video as an image classification problem. For this classification, both rely on segments of video where all animals are visible to extract images and their identity labels. When these segments are too short, tracking can become slow and inaccurate and, if they are absent, tracking is impossible. Here, we introduce a new idtracker.ai that reframes multi-animal tracking as a representation learning problem rather than a classification task. Specifically, we apply contrastive learning to image pairs that, based on video structure, are known to belong to the same or different identities. This approach maps animal images into a representation space where they cluster by animal identity. As a result, the new idtracker.ai eliminates the need for video segments with all animals visible, is more accurate, and tracks up to 700 times faster.",
+  "keywords": [],
+  "categories": [
+    "animal behavior and cognition"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.1101/2025.05.30.657023",
+  "source": "biorxiv",
+  "sources": [
+    "biorxiv"
+  ],
+  "acquired_date": "2026-05-06T22:15:23.724134",
+  "category": "biology",
+  "subcategories": [
+    "animal behavior and cognition"
+  ],
+  "published_date": "2026-01-06",
+  "updated_date": "2026-01-06",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "biorxiv",
+  "preprint_version": "3",
+  "preprint_type": "new results",
+  "license": "cc_by",
+  "jatsxml": "https://www.biorxiv.org/content/early/2026/01/06/2025.05.30.657023.source.xml",
+  "published_doi": null,
+  "author_corresponding": "Gonzalo G de Polavieja",
+  "author_corresponding_institution": "Champalimaud Foundation"
+}

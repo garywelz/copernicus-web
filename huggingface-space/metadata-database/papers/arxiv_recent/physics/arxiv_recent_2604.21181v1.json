@@ -1,0 +1,29 @@
+{
+  "id": "arxiv_2604.21181v1",
+  "arxiv_id": "2604.21181v1",
+  "title": "A High-Order Nodal Galerkin Formulation for the Müller Equation: Bypassing Divergence Conformity via Kernel Cancellation",
+  "authors": [
+    "Yao Luo"
+  ],
+  "author_string": "Yao Luo",
+  "journal": "arXiv:2604.21181v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "The Müller boundary integral equation for penetrable electromagnetic scattering is conventionally discretized using divergence-conforming basis functions, a restriction inherited from the PMCHWT framework. This paper demonstrates that this constraint can be bypassed. The double-gradient operator in the Müller formulation acts on the kernel difference $\\varphi_a - \\varphi_i$, so that the $\\mathcal{O}(R^{-3})$ hypersingularity cancels identically, reducing the operators to weakly singular $\\mathcal{O}(R^{-1})$ kernels. Exploiting this cancellation, we develop a nodal, high-order Galerkin formulation using $\\mathrm{P}_2$ isoparametric shape functions on curved manifolds. The surface vector field is constructed via a metric-weighted orthonormal tangent frame. The singular integrals are evaluated by Sauter--Schwab quadrature, and a Morton-ordered Block Jacobi preconditioner is introduced. By capturing the dominant near-field interactions within geometrically clustered diagonal blocks, it yields robust, superlinear GMRES convergence under extreme material and geometric parameters. Validation against semi-analytical EBCM references confirms high-order spatial accuracy and optical-theorem satisfaction to high precision.",
+  "categories": [
+    "physics.comp-ph"
+  ],
+  "primary_category": "physics.comp-ph",
+  "comment": "23 pages, 10 figures",
+  "published_date": "2026-04-23T00:58:18Z",
+  "updated_date": "2026-04-23T00:58:18Z",
+  "url": "https://arxiv.org/abs/2604.21181v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.21181v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-26T10:16:12.593513",
+  "category": "physics",
+  "subcategories": [
+    "physics.comp-ph"
+  ]
+}

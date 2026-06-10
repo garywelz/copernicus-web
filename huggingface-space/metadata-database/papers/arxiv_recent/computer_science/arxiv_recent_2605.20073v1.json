@@ -1,0 +1,37 @@
+{
+  "id": "arxiv_2605.20073v1",
+  "arxiv_id": "2605.20073v1",
+  "title": "X-Ray cardiac angiographic vessel segmentation based on pixel classification using machine learning and region growing",
+  "authors": [
+    "E O Rodrigues",
+    "L O Rodrigues",
+    "J J Lima",
+    "D Casanova",
+    "F Favarim",
+    "E R Dosciatti",
+    "V Pegorini",
+    "L S N Oliveira",
+    "F F C Morais"
+  ],
+  "author_string": "E O Rodrigues, L O Rodrigues, J J Lima, D Casanova, F Favarim et al.",
+  "journal": "Biomedical Physics & Engineering Express 2021",
+  "journal_ref": "Biomedical Physics & Engineering Express 2021",
+  "year": "2026",
+  "doi": "10.1088/2057-1976/ac13ba",
+  "abstract": "This work proposes a pixel-classification approach for vessel segmentation in x-ray angiograms. The proposal uses textural features such as anisotropic diffusion, features based on the Hessian matrix, mathematical morphology and statistics. These features are extracted from the neighborhood of each pixel. The approach also uses the ELEMENT methodology, which consists of creating a pixel-classification controlled by region-growing where the result of the classification affects further classifications of pixels. The Random Forests classifier is used to predict whether the pixel belongs to the vessel structure. The approach achieved the best accuracy in the literature (95.48%) outperforming unsupervised state-of-the-art approaches.",
+  "categories": [
+    "cs.CV"
+  ],
+  "primary_category": "cs.CV",
+  "comment": null,
+  "published_date": "2026-05-19T16:27:45Z",
+  "updated_date": "2026-05-19T16:27:45Z",
+  "url": "https://arxiv.org/abs/2605.20073v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.20073v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-20T10:16:33.998511",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CV"
+  ]
+}

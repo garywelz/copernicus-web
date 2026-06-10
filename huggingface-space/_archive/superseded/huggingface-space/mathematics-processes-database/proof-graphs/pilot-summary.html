@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Proof Graph Pilot Summary - Proof Graph Pilot</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #0f172a;
+      --panel: #111827;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --accent: #60a5fa;
+      --border: #334155;
+      --code-bg: #020617;
+    }
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg: #f8fafc;
+        --panel: #ffffff;
+        --text: #111827;
+        --muted: #4b5563;
+        --accent: #2563eb;
+        --border: #d1d5db;
+        --code-bg: #f1f5f9;
+      }
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    main {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 36px 20px 64px;
+    }
+    article {
+      border: 1px solid var(--border);
+      background: var(--panel);
+      border-radius: 14px;
+      padding: 28px;
+    }
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 18px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+    nav a, a { color: var(--accent); }
+    h1 { margin-top: 0; font-size: 2rem; line-height: 1.2; }
+    h2 { margin-top: 2rem; border-top: 1px solid var(--border); padding-top: 1.2rem; }
+    h3 { margin-top: 1.6rem; }
+    p, li { color: var(--text); }
+    ul, ol { padding-left: 1.35rem; }
+    code {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 0.05rem 0.25rem;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: 0.92em;
+    }
+    pre {
+      overflow-x: auto;
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+    }
+    pre code { background: transparent; border: 0; padding: 0; }
+    .mermaid {
+      background: #ffffff;
+      color: #111827;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      margin: 18px 0;
+      padding: 18px;
+      overflow-x: auto;
+    }
+    .mermaid svg { max-width: 100%; height: auto; }
+    .proof-legend {
+      margin-top: 28px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      background: color-mix(in srgb, var(--panel) 88%, var(--accent));
+    }
+    .proof-legend h2 {
+      border-top: 0;
+      margin: 0 0 12px;
+      padding-top: 0;
+      font-size: 1.05rem;
+    }
+    .proof-legend-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 10px 14px;
+    }
+    .proof-legend-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text);
+      font-size: 0.92rem;
+    }
+    .proof-legend-swatch {
+      width: 18px;
+      height: 18px;
+      border-radius: 5px;
+      border: 2px solid currentColor;
+      flex: 0 0 auto;
+    }
+    .legend-source { background: #f2c879; color: #7a4f12; }
+    .legend-assumption { background: #c084fc; color: #6d28d9; }
+    .legend-construction { background: #8fbc5a; color: #3f6212; }
+    .legend-assertion { background: #8ecae6; color: #25637a; }
+    .legend-inference { background: #f4a261; color: #9a3412; }
+    .legend-algorithm { background: #818cf8; color: #3730a3; }
+    .legend-contradiction { background: #ef4444; color: #991b1b; }
+    .legend-conclusion { background: #2dd4bf; color: #0f766e; }
+    .source-note {
+      margin-top: 32px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+</style>
+</head>
+<body>
+  <main>
+    <nav>
+      <a href="index.html">Proof Graph Pilot</a>
+      <span>/</span>
+      <a href="../mathematics-database-table.html">Mathematics Database</a>
+      <span>/</span>
+      <a href="pilot-summary.md">View Markdown source</a>
+    </nav>
+    <article>
+<h1>Proof Graph Pilot Summary</h1>
+<p>This pilot defines proof graphs as a proof-level layer for the Mathematics Database. The database can keep its current distinction between algorithm flowcharts and axiomatic dependency graphs while adding drill-down proof graphs for individual theorems.</p>
+<h2>Pilot Artifacts</h2>
+<ul>
+<li><code>schema.md</code>: node types, edge types, metadata, Mermaid conventions, and complexity measures.</li>
+<li><code>euclid-book-i-pilot.md</code>: proof graphs for Euclid Book I propositions 1, 4, and 5.</li>
+<li><code>infinitely-many-primes.md</code>: Euclid-style proof of infinitely many primes with a product-plus-one algorithm capsule.</li>
+<li><code>pythagorean-comparison.md</code>: Euclid I.47 and an area rearrangement proof of the Pythagorean theorem.</li>
+<li><code>fundamental-theorem-arithmetic.md</code>: a larger hybrid graph for existence and uniqueness of prime factorization.</li>
+<li><code>cantor-diagonal-proofs.md</code>: three diagonal-structure examples: power sets, rationals countability, and reals uncountability.</li>
+</ul>
+<h2>Selected Proof Set</h2>
+<p>The pilot uses ten proof artifacts plus one optional Pythagorean extension:</p>
+<p>1. Euclid I.1, equilateral triangle construction. 2. Euclid I.4, side-angle-side congruence with superposition caveat. 3. Euclid I.5, base angles of an isosceles triangle. 4. Infinitely many primes. 5. Pythagorean theorem, Euclid I.47. 6. Pythagorean theorem, area rearrangement proof. 7. Fundamental Theorem of Arithmetic. 8. Cantor&#x27;s theorem: <code>|P(S)| &gt; |S|</code>. 9. Countability of the rationals by diagonal enumeration. 10. Uncountability of the reals by anti-diagonal construction. 11. Optional later extension: Pythagorean theorem via similar triangles.</p>
+<h2>Scope Recommendation</h2>
+<p>Proof graphs should be added as drill-down views attached to theorem nodes, not as a completely separate top-level database category.</p>
+<p>The current database categories are already clear:</p>
+<ul>
+<li>algorithms are process flowcharts;</li>
+<li>axiomatic theories are theorem-level dependency graphs.</li>
+</ul>
+<p>Proof graphs are more granular than both. They belong under theorem entries as expandable views because two proofs of the same theorem can have radically different graph structures. The Pythagorean comparison is the strongest evidence: the theorem node is the same, but Euclid I.47 and the rearrangement proof have different dependency signatures.</p>
+<h2>Display Model</h2>
+<p>Recommended display hierarchy:</p>
+<pre class="mermaid">flowchart TD
+  theory[&quot;Axiomatic theory: Euclid Book I or Number Theory&quot;] --&gt; theorem[&quot;Theorem node&quot;]
+  theorem --&gt; proofList[&quot;Available proof graphs&quot;]
+  proofList --&gt; proofA[&quot;Proof A: dependency graph&quot;]
+  proofList --&gt; proofB[&quot;Proof B: alternate proof graph&quot;]
+  proofA --&gt; capsulesA[&quot;Expandable algorithm or lemma capsules&quot;]
+  proofB --&gt; capsulesB[&quot;Expandable algorithm or lemma capsules&quot;]</pre>
+<p>Each theorem can have:</p>
+<ul>
+<li>one canonical proof graph;</li>
+<li>alternate proof graphs;</li>
+<li>expandable lemma nodes;</li>
+<li>expandable algorithm capsules;</li>
+<li>complexity metadata for comparison.</li>
+</ul>
+<h2>Logical Design Rules</h2>
+<ul>
+<li>Use proof graphs to show justification, not chronology alone.</li>
+<li>Use flowcharts only when the proof invokes a repeatable procedure or constructive algorithm.</li>
+<li>Mark temporary assumptions visibly and show where they are discharged.</li>
+<li>Mark historical or formal caveats directly in the graph metadata.</li>
+<li>Do not encode every algebraic simplification unless it changes the logical structure.</li>
+</ul>
+<h2>Complexity Snapshot</h2>
+<ul>
+<li>Euclid I.1: small construction-dependency hybrid; good first example.</li>
+<li>Euclid I.4: small dependency graph with historical-method caveat.</li>
+<li>Euclid I.5: medium dependency graph demonstrating prior theorem reuse.</li>
+<li>Infinitely many primes: compact contradiction graph with a simple algorithm capsule.</li>
+<li>Pythagorean, Euclid I.47: larger theorem-dependency graph.</li>
+<li>Pythagorean, rearrangement: compact invariant and area-conservation graph.</li>
+<li>Fundamental Theorem of Arithmetic: larger hybrid graph with induction, contradiction, lemma dependency, and algorithm capsule.</li>
+<li>Cantor power set theorem: compact anti-diagonal contradiction graph.</li>
+<li>Rationals countable: diagonal traversal used as an enumeration algorithm, not a contradiction.</li>
+<li>Reals uncountable: anti-diagonal digit construction refuting a proposed sequence.</li>
+</ul>
+<h2>Second-Phase Candidates</h2>
+<p>Cantor&#x27;s diagonal proofs point naturally toward paradox and metatheorem graphs, but those should be treated as a second pilot family. They introduce self-reference, syntax, semantic truth, and model-theoretic notions that require more careful node typing.</p>
+<p>Good candidates:</p>
+<ul>
+<li>Russell&#x27;s paradox: the set <code>R = {x | x notin x}</code> and the contradiction <code>R in R iff R notin R</code>.</li>
+<li>Liar paradox: semantic self-reference and the instability of an unrestricted truth predicate.</li>
+<li>Godel completeness theorem: a precursor metatheorem graph relating syntactic consistency, models, and semantic entailment.</li>
+<li>Godel incompleteness theorem: arithmetization, provability, the diagonal lemma, and an undecidable sentence.</li>
+</ul>
+<h2>Implementation Notes for the Database</h2>
+<p>Add proof graph metadata to theorem entries using a nested structure:</p>
+<p>``<code>json { &quot;theorem_id&quot;: &quot;pythagorean-theorem&quot;, &quot;proofs&quot;: [ { &quot;proof_id&quot;: &quot;pythagorean-euclid-i-47&quot;, &quot;title&quot;: &quot;Euclid I.47&quot;, &quot;graph_kind&quot;: &quot;dependency&quot;, &quot;source_version&quot;: &quot;Euclid Book I, Proposition 47, dependency-level paraphrase&quot;, &quot;mermaid_path&quot;: &quot;proof-graphs/pythagorean-comparison.md#proof-a-euclid-book-i-proposition-47&quot;, &quot;node_count&quot;: 18, &quot;edge_count&quot;: 22, &quot;algorithm_capsules&quot;: [] }, { &quot;proof_id&quot;: &quot;pythagorean-area-rearrangement&quot;, &quot;title&quot;: &quot;Area rearrangement proof&quot;, &quot;graph_kind&quot;: &quot;hybrid&quot;, &quot;source_version&quot;: &quot;Standard four-triangle dissection proof&quot;, &quot;mermaid_path&quot;: &quot;proof-graphs/pythagorean-comparison.md#proof-b-rearrangement-area-proof&quot;, &quot;node_count&quot;: 15, &quot;edge_count&quot;: 17, &quot;algorithm_capsules&quot;: [&quot;rearrangement-procedure&quot;] } ] } </code>``</p>
+<h2>Next Step</h2>
+<p>The next practical step is to convert these Markdown pilot artifacts into the database&#x27;s preferred metadata format and add one theorem page with proof tabs. The best first integration target is still the Pythagorean theorem because it immediately demonstrates why theorem-level dependencies and proof-level graphs are different. The best second integration target is the Cantor diagonal family because it shows one reusable proof pattern appearing in enumeration, power set, and uncountability arguments.</p>
+      <section class="proof-legend" aria-label="Proof graph color legend">
+        <h2>Proof Graph Color Legend</h2>
+        <div class="proof-legend-grid">
+          <div class="proof-legend-item"><span class="proof-legend-swatch legend-source"></span><span>Amber: source / given / definition / lemma</span></div>
+          <div class="proof-legend-item"><span class="proof-legend-swatch legend-assumption"></span><span>Violet: assumption or temporary hypothesis</span></div>
+          <div class="proof-legend-item"><span class="proof-legend-swatch legend-construction"></span><span>Moss: construction or introduced object</span></div>
+          <div class="proof-legend-item"><span class="proof-legend-swatch legend-assertion"></span><span>Steel: assertion established in the proof</span></div>
+          <div class="proof-legend-item"><span class="proof-legend-swatch legend-inference"></span><span>Copper: inference, branch, or proof move</span></div>
+          <div class="proof-legend-item"><span class="proof-legend-swatch legend-algorithm"></span><span>Indigo: algorithm or procedural step</span></div>
+          <div class="proof-legend-item"><span class="proof-legend-swatch legend-contradiction"></span><span>Crimson: contradiction</span></div>
+          <div class="proof-legend-item"><span class="proof-legend-swatch legend-conclusion"></span><span>Teal: discharge or final conclusion</span></div>
+        </div>
+      </section>
+      <p class="source-note">Rendered from <code>pilot-summary.md</code>. Mermaid diagrams are rendered in the browser from the source graph blocks.</p>
+    </article>
+  </main>
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+
+    const roleStyles = `
+classDef proofSource fill:#f2c879,stroke:#7a4f12,color:#0f172a,stroke-width:2px;
+classDef proofAssumption fill:#c084fc,stroke:#6d28d9,color:#0f172a,stroke-width:2px;
+classDef proofConstruction fill:#8fbc5a,stroke:#3f6212,color:#0f172a,stroke-width:2px;
+classDef proofAssertion fill:#8ecae6,stroke:#25637a,color:#0f172a,stroke-width:2px;
+classDef proofInference fill:#f4a261,stroke:#9a3412,color:#0f172a,stroke-width:2px;
+classDef proofAlgorithm fill:#818cf8,stroke:#3730a3,color:#0f172a,stroke-width:2px;
+classDef proofContradiction fill:#ef4444,stroke:#991b1b,color:#ffffff,stroke-width:3px;
+classDef proofConclusion fill:#2dd4bf,stroke:#0f766e,color:#0f172a,stroke-width:3px;
+classDef proofNeutral fill:#f8fafc,stroke:#64748b,color:#0f172a,stroke-width:1.5px;
+`;
+
+    const roleRules = [
+      ['proofConclusion', /^(Conclusion:|Discharge assumption:|Discharge:)/i],
+      ['proofContradiction', /^Contradiction:/i],
+      ['proofAssumption', /^(Assumption:|Assume:|Methodological assumption:)/i],
+      ['proofAlgorithm', /^(Algorithm capsule:|Input:|Output:|Start |Set |For each |Read |Choose output|Put |List |Skip |Increase |Arrange |Make |Find |Factor |Concatenate|Multiply )/i],
+      ['proofConstruction', /^Construction:/i],
+      ['proofAssertion', /^Assertion:/i],
+      ['proofInference', /^(Inference:|Branch:|Join:)/i],
+      ['proofSource', /^(Given:|Definition|Postulate|Common Notion|Euclid |Lemma:|Arithmetic fact:|Strong induction|Cancellation law|Bezout)/i]
+    ];
+
+    function classify(label, shape) {
+      const normalized = label.trim().replace(/\s+/g, ' ');
+      if (shape === '{') return 'proofInference';
+      if (/^Target:/i.test(normalized)) return 'proofConclusion';
+      for (const [role, pattern] of roleRules) {
+        if (pattern.test(normalized)) return role;
+      }
+      return 'proofNeutral';
+    }
+
+    function addRoleClasses(source) {
+      if (source.includes('classDef proofSource')) return source;
+      const assignments = new Map();
+      const nodePattern = /(?:^|\s)([A-Za-z][\w-]*)\s*(?:\[\s*"([^"]+)"\s*\]|\{\s*"([^"]+)"\s*\}|\(\s*"([^"]+)"\s*\)|\(\[\s*"([^"]+)"\s*\]\)|\[\[\s*"([^"]+)"\s*\]\]|\[\/\s*"([^"]+)"\s*\/\]|\(\(\s*"([^"]+)"\s*\)\))/gm;
+      let match;
+      while ((match = nodePattern.exec(source)) !== null) {
+        const nodeId = match[1];
+        const label = match.slice(2).find(Boolean);
+        const shape = match[3] ? '{' : '';
+        assignments.set(nodeId, classify(label, shape));
+      }
+      const classLines = Array.from(assignments.entries()).map(([nodeId, role]) => `class ${nodeId} ${role};`);
+      if (classLines.length === 0) return `${source}\n${roleStyles}`;
+      return `${source}\n${roleStyles}\n${classLines.join('\n')}`;
+    }
+
+    document.querySelectorAll('pre.mermaid').forEach((block) => {
+      block.textContent = addRoleClasses(block.textContent);
+    });
+
+    mermaid.initialize({
+      startOnLoad: false,
+      securityLevel: 'loose',
+      theme: 'base',
+      themeVariables: {
+        background: '#ffffff',
+        primaryColor: '#f8fafc',
+        primaryTextColor: '#0f172a',
+        primaryBorderColor: '#64748b',
+        lineColor: '#475569',
+        fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif'
+      },
+      flowchart: {
+        htmlLabels: true,
+        curve: 'basis',
+        nodeSpacing: 42,
+        rankSpacing: 58
+      }
+    });
+    await mermaid.run({ querySelector: 'pre.mermaid' });
+  </script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+{
+  "id": "arxiv_2605.17899v1",
+  "arxiv_id": "2605.17899v1",
+  "title": "DCFold: Efficient Protein Structure Generation with Single Forward Pass",
+  "authors": [
+    "Zhe Zhang",
+    "Yuanning Feng",
+    "Yuxuan Song",
+    "Keyue Qiu",
+    "Hao Zhou",
+    "Wei-Ying Ma"
+  ],
+  "author_string": "Zhe Zhang, Yuanning Feng, Yuxuan Song, Keyue Qiu, Hao Zhou et al.",
+  "journal": "arXiv:2605.17899v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "AlphaFold3 introduces a diffusion-based architecture that elevates protein structure prediction to all-atom resolution with improved accuracy. This state-of-the-art performance has established AlphaFold3 as a foundation model for diverse generation and design tasks. However, its iterative design substantially increases inference time, limiting practical deployment in downstream settings such as virtual screening and protein design. We propose DCFold, a single-step generative model that attains AlphaFold3-level accuracy. Our Dual Consistency training framework, which incorporates a novel Temporal Geodesic Matching (TGM) scheduler, enables DCFold to achieve a 15x acceleration in inference while maintaining predictive fidelity. We validate its effectiveness across both structure prediction and binder design benchmarks.",
+  "categories": [
+    "cs.LG",
+    "cs.AI",
+    "q-bio.QM"
+  ],
+  "primary_category": "q-bio.QM",
+  "comment": null,
+  "published_date": "2026-05-18T06:05:56Z",
+  "updated_date": "2026-05-18T06:05:56Z",
+  "url": "https://arxiv.org/abs/2605.17899v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.17899v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-25T10:15:35.188317",
+  "category": "biology",
+  "subcategories": [
+    "cs.LG",
+    "cs.AI",
+    "q-bio.QM"
+  ]
+}

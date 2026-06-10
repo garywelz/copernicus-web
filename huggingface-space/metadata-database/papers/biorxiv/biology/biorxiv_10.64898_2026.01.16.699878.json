@@ -1,0 +1,42 @@
+{
+  "id": "biorxiv_10.64898_2026.01.16.699878",
+  "doi": "10.64898/2026.01.16.699878",
+  "title": "MR Spectroscopy without Water Suppression using the Gradient Impulse Response Function",
+  "authors": [
+    "Bacon, J. B.",
+    "Jezzard, P.",
+    "Clarke, W. T."
+  ],
+  "author_string": "Bacon, J. B., Jezzard, P., Clarke, W. T.",
+  "journal": "bioRxiv",
+  "journal_full": "bioRxiv",
+  "year": "2026",
+  "abstract": "PurposeNon-water-suppressed proton spectroscopy, 1H-MRS, is desirable, as retaining the strong water resonance can facilitate automated online data corrections, internal concentration referencing, and monitoring of line narrowing effects in functional MRS. Removal of the water suppression module can also mitigate magnetization transfer effects and slightly reduce the minimum achievable TR and total RF power deposition. However, water suppression is typically considered essential due to eddy current-induced antisymmetric sidebands on the water resonance that distort the spectral baseline and obscure metabolite signals.\n\nTheory and MethodsThe Gradient Impulse Response Function (GIRF) was used to predict time-dependent magnetic field perturbations during the FID that generate the artefactual sidebands. The GIRF was measured in a one-time calibration, independent of spectroscopy acquisitions, enabling post-processing correction of the sidebands without sequence modification or additional dedicated hardware. GIRF-corrected non-water-suppressed single-voxel-spectroscopy (SVS) was compared to otherwise identical water-suppressed acquisitions in eight participants at 3T using semi-LASER and MEGA-PRESS sequences.\n\nResultsAcross participants, GIRF correction reduced sideband amplitudes to levels comparable with the spectral baseline, enabling recovery of the underlying metabolite signals. Systematic increases in quantified metabolite concentrations were observed relative to water-suppressed acquisitions, consistent with water-suppression-induced magnetization transfer effects. Total creatine exhibited the largest increase, with enhancement ratios of 1.069{+/-}0.039 for MEGA-PRESS and 1.535{+/-}0.160 for semi-LASER acquisitions.\n\nConclusionGradient-induced artefactual sidebands in non-water-suppressed MR spectroscopy can be effectively corrected using the GIRF to predict time-dependent magnetic field perturbations during the FID. In principle, the approach extends to other SVS sequences and field strengths following appropriate GIRF calibration.",
+  "keywords": [],
+  "categories": [
+    "bioengineering"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.64898/2026.01.16.699878",
+  "source": "biorxiv",
+  "sources": [
+    "biorxiv"
+  ],
+  "acquired_date": "2026-05-20T22:15:23.944585",
+  "category": "biology",
+  "subcategories": [
+    "bioengineering"
+  ],
+  "published_date": "2026-01-20",
+  "updated_date": "2026-01-20",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "biorxiv",
+  "preprint_version": "1",
+  "preprint_type": "new results",
+  "license": "cc_by",
+  "jatsxml": "https://www.biorxiv.org/content/early/2026/01/20//2026.01.16.699878.source.xml",
+  "published_doi": null,
+  "author_corresponding": "William T Clarke",
+  "author_corresponding_institution": "Oxford Centre for Integrative Neuroimaging, FMRIB, Nuffield Department of Clinical Neurosciences, University of Oxford"
+}

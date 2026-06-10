@@ -1,0 +1,3346 @@
+{
+  "generatedAt": "2026-04-30T16:11:42.193836+00:00",
+  "databases": {
+    "biology": {
+      "databaseDir": "biology-processes-database",
+      "jsonCount": 56,
+      "htmlCount": 56,
+      "htmlWithoutJsonCount": 0,
+      "htmlWithoutJson": [],
+      "categoryCounts": {
+        "already-upgraded": 56
+      },
+      "duplicateMermaidGroups": [],
+      "entries": [
+        {
+          "path": "processes/assay_protocols/assay_protocols-agarose-gel.json",
+          "id": "assay_protocols-agarose-gel",
+          "name": "Agarose Gel Electrophoresis",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "5d90a030e9300aca"
+        },
+        {
+          "path": "processes/assay_protocols/assay_protocols-bacterial-transformation.json",
+          "id": "assay_protocols-bacterial-transformation",
+          "name": "Bacterial Transformation",
+          "nodes": 24,
+          "edges": 29,
+          "conditionals": 4,
+          "styleLines": 24,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "d359b5e785e08d8f"
+        },
+        {
+          "path": "processes/assay_protocols/assay_protocols-dna-extraction.json",
+          "id": "assay_protocols-dna-extraction",
+          "name": "DNA Extraction (Phenol–Chloroform)",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "dd2ce76c31061f82"
+        },
+        {
+          "path": "processes/assay_protocols/assay_protocols-elisa.json",
+          "id": "assay_protocols-elisa",
+          "name": "ELISA",
+          "nodes": 22,
+          "edges": 25,
+          "conditionals": 4,
+          "styleLines": 22,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "037882dcfaf7c5a4"
+        },
+        {
+          "path": "processes/assay_protocols/assay_protocols-pcr.json",
+          "id": "assay_protocols-pcr",
+          "name": "PCR Protocol",
+          "nodes": 24,
+          "edges": 29,
+          "conditionals": 4,
+          "styleLines": 24,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "c50c965fe894d0c8"
+        },
+        {
+          "path": "processes/assay_protocols/assay_protocols-western-blot.json",
+          "id": "assay_protocols-western-blot",
+          "name": "Western Blot",
+          "nodes": 22,
+          "edges": 25,
+          "conditionals": 4,
+          "styleLines": 22,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "5c4f172e6f6794f2"
+        },
+        {
+          "path": "processes/cell_biology/cell_biology-autophagy.json",
+          "id": "cell_biology-autophagy",
+          "name": "Autophagy",
+          "nodes": 24,
+          "edges": 29,
+          "conditionals": 4,
+          "styleLines": 24,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "0d3a63d58fc1a084"
+        },
+        {
+          "path": "processes/cell_biology/cell_biology-protein-folding-and-chaperone-response.json",
+          "id": "cell_biology-protein-folding-and-chaperone-response",
+          "name": "Protein Folding and Chaperone Response",
+          "nodes": 24,
+          "edges": 29,
+          "conditionals": 4,
+          "styleLines": 24,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "b406bdd86f91b6e7"
+        },
+        {
+          "path": "processes/cell_biology/cell_biology-ubiquitin-proteasome-degradation.json",
+          "id": "cell_biology-ubiquitin-proteasome-degradation",
+          "name": "Ubiquitin-Proteasome Degradation",
+          "nodes": 24,
+          "edges": 29,
+          "conditionals": 4,
+          "styleLines": 24,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "b5361ce687044698"
+        },
+        {
+          "path": "processes/development/development-cell-differentiation.json",
+          "id": "development-cell-differentiation",
+          "name": "Cell Differentiation",
+          "nodes": 22,
+          "edges": 25,
+          "conditionals": 4,
+          "styleLines": 22,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "8ceb657a3e54d950"
+        },
+        {
+          "path": "processes/development/development-circadian-clock-regulation.json",
+          "id": "development-circadian-clock-regulation",
+          "name": "Circadian Clock Regulation",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "d594532b2d9a70a8"
+        },
+        {
+          "path": "processes/development/development-epithelial-mesenchymal-transition.json",
+          "id": "development-epithelial-mesenchymal-transition",
+          "name": "Epithelial-Mesenchymal Transition",
+          "nodes": 24,
+          "edges": 29,
+          "conditionals": 4,
+          "styleLines": 24,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "886cdb53248aad31"
+        },
+        {
+          "path": "processes/development/development-morphogen-gradient-patterning.json",
+          "id": "development-morphogen-gradient-patterning",
+          "name": "Morphogen Gradient Patterning",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "b74ccda1d7856fd1"
+        },
+        {
+          "path": "processes/development/development-plant-hormone-auxin-signaling.json",
+          "id": "development-plant-hormone-auxin-signaling",
+          "name": "Plant Hormone Auxin Signaling",
+          "nodes": 24,
+          "edges": 29,
+          "conditionals": 4,
+          "styleLines": 24,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "6abfd3bc42d8f12e"
+        },
+        {
+          "path": "processes/graph_type_pilots/taxonomy-domains-of-life.json",
+          "id": "taxonomy-domains-of-life",
+          "name": "Domains of Life Taxonomy",
+          "nodes": 7,
+          "edges": 6,
+          "conditionals": 0,
+          "styleLines": 0,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "03e95ae44ead2c9a"
+        },
+        {
+          "path": "processes/immunology/immunology-antigen-processing-and-mhc-presentation.json",
+          "id": "immunology-antigen-processing-and-mhc-presentation",
+          "name": "Antigen Processing and MHC Presentation",
+          "nodes": 22,
+          "edges": 25,
+          "conditionals": 4,
+          "styleLines": 22,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "80dcc5c928e1d495"
+        },
+        {
+          "path": "processes/immunology/immunology-b-cell-activation-and-antibody-production.json",
+          "id": "immunology-b-cell-activation-and-antibody-production",
+          "name": "B Cell Activation and Antibody Production",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "4e7a9779e737454a"
+        },
+        {
+          "path": "processes/immunology/immunology-complement-cascade.json",
+          "id": "immunology-complement-cascade",
+          "name": "Complement Cascade",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "c61fe3f94aabf87a"
+        },
+        {
+          "path": "processes/immunology/immunology-inflammasome-activation.json",
+          "id": "immunology-inflammasome-activation",
+          "name": "Inflammasome Activation",
+          "nodes": 24,
+          "edges": 29,
+          "conditionals": 4,
+          "styleLines": 24,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "e5ed8e7ee68b19c8"
+        },
+        {
+          "path": "processes/immunology/immunology-innate-immune-pattern-recognition.json",
+          "id": "immunology-innate-immune-pattern-recognition",
+          "name": "Innate Immune Pattern Recognition",
+          "nodes": 25,
+          "edges": 31,
+          "conditionals": 4,
+          "styleLines": 25,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "c1746459888e4bad"
+        },
+        {
+          "path": "processes/immunology/immunology-t-cell-receptor-activation.json",
+          "id": "immunology-t-cell-receptor-activation",
+          "name": "T Cell Receptor Activation",
+          "nodes": 22,
+          "edges": 25,
+          "conditionals": 4,
+          "styleLines": 22,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "bb72113bbb8788fc"
+        },
+        {
+          "path": "processes/mechanisms/mechanisms-central-dogma.json",
+          "id": "mechanisms-central-dogma",
+          "name": "Central Dogma (Transcription → Translation)",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "efd87b8204b2663e"
+        },
+        {
+          "path": "processes/mechanisms/mechanisms-crispr-cas9.json",
+          "id": "mechanisms-crispr-cas9",
+          "name": "CRISPR–Cas9 Mechanism",
+          "nodes": 22,
+          "edges": 25,
+          "conditionals": 4,
+          "styleLines": 22,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "65f5a4f540c0268c"
+        },
+        {
+          "path": "processes/mechanisms/mechanisms-dna-replication.json",
+          "id": "mechanisms-dna-replication",
+          "name": "DNA Replication (Leading and Lagging Strands)",
+          "nodes": 22,
+          "edges": 25,
+          "conditionals": 4,
+          "styleLines": 22,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "19c0a89f5f619bd4"
+        },
+        {
+          "path": "processes/mechanisms/mechanisms-feedback-inhibition.json",
+          "id": "mechanisms-feedback-inhibition",
+          "name": "Feedback Inhibition (e.g., ATCase)",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "fdb3a93c8ac7b0a4"
+        },
+        {
+          "path": "processes/mechanisms/mechanisms-homologous-recombination-repair.json",
+          "id": "mechanisms-homologous-recombination-repair",
+          "name": "Homologous Recombination Repair",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "1f433e4a6e981cf6"
+        },
+        {
+          "path": "processes/mechanisms/mechanisms-mrna-splicing.json",
+          "id": "mechanisms-mrna-splicing",
+          "name": "mRNA Splicing",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "e20bdbc4fedb0f83"
+        },
+        {
+          "path": "processes/mechanisms/mechanisms-nucleotide-excision-repair.json",
+          "id": "mechanisms-nucleotide-excision-repair",
+          "name": "Nucleotide Excision Repair",
+          "nodes": 22,
+          "edges": 25,
+          "conditionals": 4,
+          "styleLines": 22,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "325167ce188b7511"
+        },
+        {
+          "path": "processes/mechanisms/mechanisms-riboswitch-regulation.json",
+          "id": "mechanisms-riboswitch-regulation",
+          "name": "Riboswitch Regulation (TPP)",
+          "nodes": 24,
+          "edges": 29,
+          "conditionals": 4,
+          "styleLines": 24,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "dd115f88acd54c50"
+        },
+        {
+          "path": "processes/mechanisms/mechanisms-rna-interference-sirna-pathway.json",
+          "id": "mechanisms-rna-interference-sirna-pathway",
+          "name": "RNA Interference / siRNA Pathway",
+          "nodes": 22,
+          "edges": 25,
+          "conditionals": 4,
+          "styleLines": 22,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "26a2d4bd9f62d7c8"
+        },
+        {
+          "path": "processes/mechanisms/mechanisms-transcription-initiation-in-eukaryotes.json",
+          "id": "mechanisms-transcription-initiation-in-eukaryotes",
+          "name": "Transcription Initiation in Eukaryotes",
+          "nodes": 22,
+          "edges": 25,
+          "conditionals": 4,
+          "styleLines": 22,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "cd356fd21579c32d"
+        },
+        {
+          "path": "processes/mechanisms/mechanisms-translation-initiation.json",
+          "id": "mechanisms-translation-initiation",
+          "name": "Translation Initiation",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "d37bcd6dc4bb0496"
+        },
+        {
+          "path": "processes/mechanisms/mechanisms-trp-operon.json",
+          "id": "mechanisms-trp-operon",
+          "name": "Trp Operon (Attenuation)",
+          "nodes": 24,
+          "edges": 29,
+          "conditionals": 4,
+          "styleLines": 24,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "5176837d039169e2"
+        },
+        {
+          "path": "processes/pathways/pathways-apoptosis.json",
+          "id": "pathways-apoptosis",
+          "name": "Apoptosis Pathway",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "0b5ab4af9efe05f7"
+        },
+        {
+          "path": "processes/pathways/pathways-calvin-cycle.json",
+          "id": "pathways-calvin-cycle",
+          "name": "Calvin Cycle (Light-Independent Reactions)",
+          "nodes": 25,
+          "edges": 31,
+          "conditionals": 4,
+          "styleLines": 25,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "3476f40fe4f1b24b"
+        },
+        {
+          "path": "processes/pathways/pathways-cell-cycle.json",
+          "id": "pathways-cell-cycle",
+          "name": "Cell Cycle (G1–S–G2–M)",
+          "nodes": 22,
+          "edges": 25,
+          "conditionals": 4,
+          "styleLines": 22,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "90ee659afef923a7"
+        },
+        {
+          "path": "processes/pathways/pathways-fatty-acid-beta-oxidation.json",
+          "id": "pathways-fatty-acid-beta-oxidation",
+          "name": "Fatty Acid Beta-Oxidation",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "4c3a73eaa4655aa6"
+        },
+        {
+          "path": "processes/pathways/pathways-fatty-acid-synthesis.json",
+          "id": "pathways-fatty-acid-synthesis",
+          "name": "Fatty Acid Synthesis",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "4771ad12171894eb"
+        },
+        {
+          "path": "processes/pathways/pathways-fermentation-lactate-and-ethanol-branches.json",
+          "id": "pathways-fermentation-lactate-and-ethanol-branches",
+          "name": "Fermentation: Lactate and Ethanol Branches",
+          "nodes": 22,
+          "edges": 25,
+          "conditionals": 4,
+          "styleLines": 22,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "404d0a32eb4301b0"
+        },
+        {
+          "path": "processes/pathways/pathways-gluconeogenesis.json",
+          "id": "pathways-gluconeogenesis",
+          "name": "Gluconeogenesis",
+          "nodes": 24,
+          "edges": 29,
+          "conditionals": 4,
+          "styleLines": 24,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "1978fe111e4a2a4b"
+        },
+        {
+          "path": "processes/pathways/pathways-glycolysis.json",
+          "id": "pathways-glycolysis",
+          "name": "Glycolysis",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "653b03713c35e6fb"
+        },
+        {
+          "path": "processes/pathways/pathways-gpcr-signaling.json",
+          "id": "pathways-gpcr-signaling",
+          "name": "GPCR Signaling",
+          "nodes": 22,
+          "edges": 25,
+          "conditionals": 4,
+          "styleLines": 22,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "0cc46cd6c53d63aa"
+        },
+        {
+          "path": "processes/pathways/pathways-insulin-signaling.json",
+          "id": "pathways-insulin-signaling",
+          "name": "Insulin Signaling Pathway",
+          "nodes": 22,
+          "edges": 25,
+          "conditionals": 4,
+          "styleLines": 22,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "5462ec626ddc7b5c"
+        },
+        {
+          "path": "processes/pathways/pathways-jak-stat-signaling.json",
+          "id": "pathways-jak-stat-signaling",
+          "name": "JAK-STAT Signaling",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "82d4604cdcd20a87"
+        },
+        {
+          "path": "processes/pathways/pathways-krebs-cycle.json",
+          "id": "pathways-krebs-cycle",
+          "name": "Krebs Cycle (Citric Acid Cycle)",
+          "nodes": 22,
+          "edges": 25,
+          "conditionals": 4,
+          "styleLines": 22,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "68088063344c9331"
+        },
+        {
+          "path": "processes/pathways/pathways-mapk-signaling.json",
+          "id": "pathways-mapk-signaling",
+          "name": "MAPK Signaling Cascade",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "68a1f555574b67f2"
+        },
+        {
+          "path": "processes/pathways/pathways-necroptosis.json",
+          "id": "pathways-necroptosis",
+          "name": "Necroptosis",
+          "nodes": 24,
+          "edges": 29,
+          "conditionals": 4,
+          "styleLines": 24,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "475d5b937727df16"
+        },
+        {
+          "path": "processes/pathways/pathways-nf-kb-inflammatory-signaling.json",
+          "id": "pathways-nf-kb-inflammatory-signaling",
+          "name": "NF-kB Inflammatory Signaling",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "ee8813fc932a19ed"
+        },
+        {
+          "path": "processes/pathways/pathways-nitrogen-fixation.json",
+          "id": "pathways-nitrogen-fixation",
+          "name": "Nitrogen Fixation",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "6120f42dffc4a750"
+        },
+        {
+          "path": "processes/pathways/pathways-notch-signaling.json",
+          "id": "pathways-notch-signaling",
+          "name": "Notch Signaling",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "dfd74091c5aebe0f"
+        },
+        {
+          "path": "processes/pathways/pathways-oxidative-phosphorylation.json",
+          "id": "pathways-oxidative-phosphorylation",
+          "name": "Oxidative Phosphorylation",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "c2a09b130f7abedb"
+        },
+        {
+          "path": "processes/pathways/pathways-p53-dna-damage-response.json",
+          "id": "pathways-p53-dna-damage-response",
+          "name": "p53 DNA Damage Response",
+          "nodes": 22,
+          "edges": 25,
+          "conditionals": 4,
+          "styleLines": 22,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "1bb1d8d3a61acfd6"
+        },
+        {
+          "path": "processes/pathways/pathways-pentose-phosphate-pathway.json",
+          "id": "pathways-pentose-phosphate-pathway",
+          "name": "Pentose Phosphate Pathway",
+          "nodes": 24,
+          "edges": 29,
+          "conditionals": 4,
+          "styleLines": 24,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "a3bd34de70061adf"
+        },
+        {
+          "path": "processes/pathways/pathways-photosynthesis-light-reactions.json",
+          "id": "pathways-photosynthesis-light-reactions",
+          "name": "Photosynthesis Light Reactions",
+          "nodes": 22,
+          "edges": 25,
+          "conditionals": 4,
+          "styleLines": 22,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "28dfc9815f15fdcf"
+        },
+        {
+          "path": "processes/pathways/pathways-urea-cycle.json",
+          "id": "pathways-urea-cycle",
+          "name": "Urea Cycle",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "8da86149a77a69d5"
+        },
+        {
+          "path": "processes/pathways/pathways-wnt-beta-catenin-signaling.json",
+          "id": "pathways-wnt-beta-catenin-signaling",
+          "name": "Wnt / Beta-Catenin Signaling",
+          "nodes": 24,
+          "edges": 29,
+          "conditionals": 4,
+          "styleLines": 24,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "8408573fe5ed2754"
+        }
+      ]
+    },
+    "chemistry": {
+      "databaseDir": "chemistry-processes-database",
+      "jsonCount": 124,
+      "htmlCount": 124,
+      "htmlWithoutJsonCount": 0,
+      "htmlWithoutJson": [],
+      "categoryCounts": {
+        "already-upgraded": 124
+      },
+      "duplicateMermaidGroups": [],
+      "entries": [
+        {
+          "path": "processes/analytical_chemistry/analytical_chemistry-calibration-curve-construction.json",
+          "id": "analytical_chemistry-calibration-curve-construction",
+          "name": "Calibration Curve Construction",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "a33218431a2caea6"
+        },
+        {
+          "path": "processes/analytical_chemistry/analytical_chemistry-chromatography.json",
+          "id": "analytical_chemistry-chromatography",
+          "name": "Chromatography",
+          "nodes": 24,
+          "edges": 29,
+          "conditionals": 4,
+          "styleLines": 24,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "881d0299290fd611"
+        },
+        {
+          "path": "processes/analytical_chemistry/analytical_chemistry-electrochemical-analysis.json",
+          "id": "analytical_chemistry-electrochemical-analysis",
+          "name": "Electrochemical Analysis",
+          "nodes": 24,
+          "edges": 29,
+          "conditionals": 4,
+          "styleLines": 24,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "0a715b847f9ef036"
+        },
+        {
+          "path": "processes/analytical_chemistry/analytical_chemistry-quality-control-and-method-validation.json",
+          "id": "analytical_chemistry-quality-control-and-method-validation",
+          "name": "Quality Control and Method Validation",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "8ed087799a366f35"
+        },
+        {
+          "path": "processes/analytical_chemistry/analytical_chemistry-sample-preparation-workflow.json",
+          "id": "analytical_chemistry-sample-preparation-workflow",
+          "name": "Sample Preparation Workflow",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "6c20a7885c1bf445"
+        },
+        {
+          "path": "processes/analytical_chemistry/analytical_chemistry-spectroscopy-analysis.json",
+          "id": "analytical_chemistry-spectroscopy-analysis",
+          "name": "Spectroscopy Analysis",
+          "nodes": 22,
+          "edges": 25,
+          "conditionals": 4,
+          "styleLines": 22,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "1f5c0b6eafc71baa"
+        },
+        {
+          "path": "processes/biochemistry/biochemistry-enzyme-kinetics.json",
+          "id": "biochemistry-enzyme-kinetics",
+          "name": "Enzyme Kinetics",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "20543bc37c49fe53"
+        },
+        {
+          "path": "processes/biochemistry/biochemistry-metabolism.json",
+          "id": "biochemistry-metabolism",
+          "name": "Metabolism",
+          "nodes": 25,
+          "edges": 31,
+          "conditionals": 4,
+          "styleLines": 25,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "9bf07e93403df302"
+        },
+        {
+          "path": "processes/biochemistry/biochemistry-protein-structure.json",
+          "id": "biochemistry-protein-structure",
+          "name": "Protein Structure",
+          "nodes": 22,
+          "edges": 25,
+          "conditionals": 4,
+          "styleLines": 22,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "ef7e3b292a6ea5ae"
+        },
+        {
+          "path": "processes/computational_chemistry/computational_chemistry-chromatography.json",
+          "id": "computational_chemistry-chromatography",
+          "name": "Chromatography",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "78ba1e1b07115fc6"
+        },
+        {
+          "path": "processes/computational_chemistry/computational_chemistry-ir-spectroscopy.json",
+          "id": "computational_chemistry-ir-spectroscopy",
+          "name": "IR Spectroscopy",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "ddb0128d124fc873"
+        },
+        {
+          "path": "processes/computational_chemistry/computational_chemistry-mass-spectrometry.json",
+          "id": "computational_chemistry-mass-spectrometry",
+          "name": "Mass Spectrometry",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "a6a0f7f9024883e0"
+        },
+        {
+          "path": "processes/computational_chemistry/computational_chemistry-nmr-spectroscopy.json",
+          "id": "computational_chemistry-nmr-spectroscopy",
+          "name": "NMR Spectroscopy",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "9c3e94d39343ca49"
+        },
+        {
+          "path": "processes/computational_chemistry/computational_chemistry-uv-vis-spectroscopy.json",
+          "id": "computational_chemistry-uv-vis-spectroscopy",
+          "name": "UV-Vis Spectroscopy",
+          "nodes": 24,
+          "edges": 29,
+          "conditionals": 4,
+          "styleLines": 24,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "f728389269a65f2c"
+        },
+        {
+          "path": "processes/electrochemistry/electrochemistry-battery-chemistry.json",
+          "id": "electrochemistry-battery-chemistry",
+          "name": "Battery Chemistry",
+          "nodes": 22,
+          "edges": 25,
+          "conditionals": 4,
+          "styleLines": 22,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "6a7a61d28ebc8a0a"
+        },
+        {
+          "path": "processes/electrochemistry/electrochemistry-computational-methods.json",
+          "id": "electrochemistry-computational-methods",
+          "name": "Computational Methods",
+          "nodes": 22,
+          "edges": 25,
+          "conditionals": 4,
+          "styleLines": 22,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "16ee0fc5d0d0a2a8"
+        },
+        {
+          "path": "processes/electrochemistry/electrochemistry-corrosion-mechanisms.json",
+          "id": "electrochemistry-corrosion-mechanisms",
+          "name": "Corrosion Mechanisms",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "9507815089169693"
+        },
+        {
+          "path": "processes/electrochemistry/electrochemistry-cyclic-voltammetry.json",
+          "id": "electrochemistry-cyclic-voltammetry",
+          "name": "Cyclic Voltammetry",
+          "nodes": 24,
+          "edges": 29,
+          "conditionals": 4,
+          "styleLines": 24,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "1cea6eded52733bd"
+        },
+        {
+          "path": "processes/electrochemistry/electrochemistry-electrochemical-cell-design.json",
+          "id": "electrochemistry-electrochemical-cell-design",
+          "name": "Electrochemical Cell Design",
+          "nodes": 22,
+          "edges": 25,
+          "conditionals": 4,
+          "styleLines": 22,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "f69b161bdf52060f"
+        },
+        {
+          "path": "processes/electrochemistry/electrochemistry-electrodeposition.json",
+          "id": "electrochemistry-electrodeposition",
+          "name": "Electrodeposition",
+          "nodes": 24,
+          "edges": 29,
+          "conditionals": 4,
+          "styleLines": 24,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "da2fa25361226506"
+        },
+        {
+          "path": "processes/electrochemistry/electrochemistry-electrolysis.json",
+          "id": "electrochemistry-electrolysis",
+          "name": "Electrolysis",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "20cf199825d11e9d"
+        },
+        {
+          "path": "processes/electrochemistry/electrochemistry-electronic-transitions.json",
+          "id": "electrochemistry-electronic-transitions",
+          "name": "Electronic Transitions",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "8fe29d30727fd90d"
+        },
+        {
+          "path": "processes/electrochemistry/electrochemistry-electroplating.json",
+          "id": "electrochemistry-electroplating",
+          "name": "Electroplating",
+          "nodes": 22,
+          "edges": 25,
+          "conditionals": 4,
+          "styleLines": 22,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "ffcda6f6ddee3114"
+        },
+        {
+          "path": "processes/electrochemistry/electrochemistry-fuel-cell-operation.json",
+          "id": "electrochemistry-fuel-cell-operation",
+          "name": "Fuel Cell Operation",
+          "nodes": 22,
+          "edges": 25,
+          "conditionals": 4,
+          "styleLines": 22,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "12f91524a5573d9f"
+        },
+        {
+          "path": "processes/electrochemistry/electrochemistry-molecular-orbitals.json",
+          "id": "electrochemistry-molecular-orbitals",
+          "name": "Molecular Orbitals",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "81e7f6d86a078ed8"
+        },
+        {
+          "path": "processes/electrochemistry/electrochemistry-reaction-pathways.json",
+          "id": "electrochemistry-reaction-pathways",
+          "name": "Reaction Pathways",
+          "nodes": 22,
+          "edges": 25,
+          "conditionals": 4,
+          "styleLines": 22,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "4efc9541f2c89eb9"
+        },
+        {
+          "path": "processes/electrochemistry/electrochemistry-spectroscopic-calculations.json",
+          "id": "electrochemistry-spectroscopic-calculations",
+          "name": "Spectroscopic Calculations",
+          "nodes": 22,
+          "edges": 25,
+          "conditionals": 4,
+          "styleLines": 22,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "98c4af0350c86d15"
+        },
+        {
+          "path": "processes/environmental_chemistry/environmental_chemistry-atmospheric-aerosol-formation.json",
+          "id": "environmental_chemistry-atmospheric-aerosol-formation",
+          "name": "Atmospheric Aerosol Formation",
+          "nodes": 24,
+          "edges": 29,
+          "conditionals": 4,
+          "styleLines": 24,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "9583102d33e531ed"
+        },
+        {
+          "path": "processes/environmental_chemistry/environmental_chemistry-atmospheric-chemistry.json",
+          "id": "environmental_chemistry-atmospheric-chemistry",
+          "name": "Atmospheric Chemistry",
+          "nodes": 24,
+          "edges": 29,
+          "conditionals": 4,
+          "styleLines": 24,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "a5bb5faa2cf20374"
+        },
+        {
+          "path": "processes/environmental_chemistry/environmental_chemistry-green-chemistry.json",
+          "id": "environmental_chemistry-green-chemistry",
+          "name": "Green Chemistry",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "18a961c3d086990a"
+        },
+        {
+          "path": "processes/environmental_chemistry/environmental_chemistry-soil-contaminant-remediation.json",
+          "id": "environmental_chemistry-soil-contaminant-remediation",
+          "name": "Soil Contaminant Remediation",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "eaaa5f4af2ba270d"
+        },
+        {
+          "path": "processes/environmental_chemistry/environmental_chemistry-water-chemistry.json",
+          "id": "environmental_chemistry-water-chemistry",
+          "name": "Water Chemistry",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "a58709eece3dd807"
+        },
+        {
+          "path": "processes/environmental_chemistry/environmental_chemistry-water-treatment-coagulation-flocculation.json",
+          "id": "environmental_chemistry-water-treatment-coagulation-flocculation",
+          "name": "Water Treatment (Coagulation-Flocculation)",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "7a0cd95123bdefd3"
+        },
+        {
+          "path": "processes/graph_type_pilots/influence-catalyst-design.json",
+          "id": "influence-catalyst-design",
+          "name": "Catalyst Design Influence Network",
+          "nodes": 8,
+          "edges": 7,
+          "conditionals": 0,
+          "styleLines": 0,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "64c1f396fcac7f9e"
+        },
+        {
+          "path": "processes/inorganic_chemistry/inorganic_chemistry-catalysis.json",
+          "id": "inorganic_chemistry-catalysis",
+          "name": "Catalysis",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "94e94410d0294fa5"
+        },
+        {
+          "path": "processes/inorganic_chemistry/inorganic_chemistry-coordination-chemistry.json",
+          "id": "inorganic_chemistry-coordination-chemistry",
+          "name": "Coordination Chemistry",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "7e2b8928416bfcdf"
+        },
+        {
+          "path": "processes/inorganic_chemistry/inorganic_chemistry-coordination-complex-synthesis.json",
+          "id": "inorganic_chemistry-coordination-complex-synthesis",
+          "name": "Coordination Complex Synthesis",
+          "nodes": 24,
+          "edges": 29,
+          "conditionals": 4,
+          "styleLines": 24,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "0d630dc697642cd5"
+        },
+        {
+          "path": "processes/inorganic_chemistry/inorganic_chemistry-ligand-substitution.json",
+          "id": "inorganic_chemistry-ligand-substitution",
+          "name": "Ligand Substitution",
+          "nodes": 22,
+          "edges": 25,
+          "conditionals": 4,
+          "styleLines": 22,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "1e84fe82ceee3663"
+        },
+        {
+          "path": "processes/inorganic_chemistry/inorganic_chemistry-metal-oxide-formation.json",
+          "id": "inorganic_chemistry-metal-oxide-formation",
+          "name": "Metal Oxide Formation",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "736c7ab62946e034"
+        },
+        {
+          "path": "processes/inorganic_chemistry/inorganic_chemistry-solid-state-chemistry.json",
+          "id": "inorganic_chemistry-solid-state-chemistry",
+          "name": "Solid State Chemistry",
+          "nodes": 22,
+          "edges": 25,
+          "conditionals": 4,
+          "styleLines": 22,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "dd70a329012fa4a6"
+        },
+        {
+          "path": "processes/kinetics/kinetics-arrhenius-analysis.json",
+          "id": "kinetics-arrhenius-analysis",
+          "name": "Arrhenius Analysis",
+          "nodes": 22,
+          "edges": 25,
+          "conditionals": 4,
+          "styleLines": 22,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "e88a68aba42cfd3c"
+        },
+        {
+          "path": "processes/kinetics/kinetics-catalyst-effects.json",
+          "id": "kinetics-catalyst-effects",
+          "name": "Catalyst Effects",
+          "nodes": 24,
+          "edges": 29,
+          "conditionals": 4,
+          "styleLines": 24,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "0accefa8e9cbd310"
+        },
+        {
+          "path": "processes/kinetics/kinetics-concentration-effects.json",
+          "id": "kinetics-concentration-effects",
+          "name": "Concentration Effects",
+          "nodes": 25,
+          "edges": 31,
+          "conditionals": 4,
+          "styleLines": 25,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "5393677255bef8eb"
+        },
+        {
+          "path": "processes/kinetics/kinetics-pressure-effects.json",
+          "id": "kinetics-pressure-effects",
+          "name": "Pressure Effects",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "69616aa554f5ef28"
+        },
+        {
+          "path": "processes/kinetics/kinetics-reaction-mechanism-elucidation.json",
+          "id": "kinetics-reaction-mechanism-elucidation",
+          "name": "Reaction Mechanism Elucidation",
+          "nodes": 22,
+          "edges": 25,
+          "conditionals": 4,
+          "styleLines": 22,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "6bab795b242b15e7"
+        },
+        {
+          "path": "processes/kinetics/kinetics-reaction-mechanisms.json",
+          "id": "kinetics-reaction-mechanisms",
+          "name": "Reaction Mechanisms",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "3c130d0914216c1c"
+        },
+        {
+          "path": "processes/kinetics/kinetics-temperature-effects.json",
+          "id": "kinetics-temperature-effects",
+          "name": "Temperature Effects",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "db91b1a048799fd2"
+        },
+        {
+          "path": "processes/materials_chemistry/materials_chemistry-composite-materials.json",
+          "id": "materials_chemistry-composite-materials",
+          "name": "Composite Materials",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "3866883881959f76"
+        },
+        {
+          "path": "processes/materials_chemistry/materials_chemistry-nanomaterials.json",
+          "id": "materials_chemistry-nanomaterials",
+          "name": "Nanomaterials",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "525dd3a7fbba31c5"
+        },
+        {
+          "path": "processes/materials_chemistry/materials_chemistry-polymer-chemistry.json",
+          "id": "materials_chemistry-polymer-chemistry",
+          "name": "Polymer Chemistry",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "45519ce090e38614"
+        },
+        {
+          "path": "processes/materials_chemistry/materials_chemistry-polymerization-process.json",
+          "id": "materials_chemistry-polymerization-process",
+          "name": "Polymerization Process",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "7c63108af15b5b5d"
+        },
+        {
+          "path": "processes/materials_chemistry/materials_chemistry-sol-gel-synthesis.json",
+          "id": "materials_chemistry-sol-gel-synthesis",
+          "name": "Sol-Gel Synthesis",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "c2cc9617031e220d"
+        },
+        {
+          "path": "processes/materials_chemistry/materials_chemistry-thin-film-deposition.json",
+          "id": "materials_chemistry-thin-film-deposition",
+          "name": "Thin Film Deposition",
+          "nodes": 24,
+          "edges": 29,
+          "conditionals": 4,
+          "styleLines": 24,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "057eaa86f253b5c2"
+        },
+        {
+          "path": "processes/materials_science/materials_science-composite-materials.json",
+          "id": "materials_science-composite-materials",
+          "name": "Composite Materials",
+          "nodes": 24,
+          "edges": 29,
+          "conditionals": 4,
+          "styleLines": 24,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "ecbaf13d23c4c263"
+        },
+        {
+          "path": "processes/materials_science/materials_science-crystal-structure.json",
+          "id": "materials_science-crystal-structure",
+          "name": "Crystal Structure",
+          "nodes": 22,
+          "edges": 25,
+          "conditionals": 4,
+          "styleLines": 22,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "ef1ec15f5ceb0e91"
+        },
+        {
+          "path": "processes/materials_science/materials_science-defects-doping.json",
+          "id": "materials_science-defects-doping",
+          "name": "Defects & Doping",
+          "nodes": 24,
+          "edges": 29,
+          "conditionals": 4,
+          "styleLines": 24,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "5023d8c200902c7e"
+        },
+        {
+          "path": "processes/materials_science/materials_science-nanomaterials.json",
+          "id": "materials_science-nanomaterials",
+          "name": "Nanomaterials",
+          "nodes": 22,
+          "edges": 25,
+          "conditionals": 4,
+          "styleLines": 22,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "cc6589d32eb5b559"
+        },
+        {
+          "path": "processes/materials_science/materials_science-polymorphism.json",
+          "id": "materials_science-polymorphism",
+          "name": "Polymorphism",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "5befc3389eece732"
+        },
+        {
+          "path": "processes/medicinal_chemistry/medicinal_chemistry-catalyst-effects.json",
+          "id": "medicinal_chemistry-catalyst-effects",
+          "name": "Catalyst Effects",
+          "nodes": 22,
+          "edges": 25,
+          "conditionals": 4,
+          "styleLines": 22,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "47ca89819ef58c71"
+        },
+        {
+          "path": "processes/medicinal_chemistry/medicinal_chemistry-concentration-effects.json",
+          "id": "medicinal_chemistry-concentration-effects",
+          "name": "Concentration Effects",
+          "nodes": 22,
+          "edges": 25,
+          "conditionals": 4,
+          "styleLines": 22,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "dfd360151c42613e"
+        },
+        {
+          "path": "processes/medicinal_chemistry/medicinal_chemistry-pressure-effects.json",
+          "id": "medicinal_chemistry-pressure-effects",
+          "name": "Pressure Effects",
+          "nodes": 24,
+          "edges": 29,
+          "conditionals": 4,
+          "styleLines": 24,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "27c03f4b1a890c44"
+        },
+        {
+          "path": "processes/medicinal_chemistry/medicinal_chemistry-reaction-mechanisms.json",
+          "id": "medicinal_chemistry-reaction-mechanisms",
+          "name": "Reaction Mechanisms",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "49b7908f65b1641d"
+        },
+        {
+          "path": "processes/medicinal_chemistry/medicinal_chemistry-temperature-effects.json",
+          "id": "medicinal_chemistry-temperature-effects",
+          "name": "Temperature Effects",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "9bfb56799eb649a2"
+        },
+        {
+          "path": "processes/nuclear_chemistry/nuclear_chemistry-battery-chemistry.json",
+          "id": "nuclear_chemistry-battery-chemistry",
+          "name": "Battery Chemistry",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "0dfe5e13a5dfdd8b"
+        },
+        {
+          "path": "processes/nuclear_chemistry/nuclear_chemistry-corrosion-mechanisms.json",
+          "id": "nuclear_chemistry-corrosion-mechanisms",
+          "name": "Corrosion Mechanisms",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "f41e5e7baf7722f9"
+        },
+        {
+          "path": "processes/nuclear_chemistry/nuclear_chemistry-electrochemical-cell-design.json",
+          "id": "nuclear_chemistry-electrochemical-cell-design",
+          "name": "Electrochemical Cell Design",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "89f35f65bec6984e"
+        },
+        {
+          "path": "processes/nuclear_chemistry/nuclear_chemistry-electrolysis.json",
+          "id": "nuclear_chemistry-electrolysis",
+          "name": "Electrolysis",
+          "nodes": 22,
+          "edges": 25,
+          "conditionals": 4,
+          "styleLines": 22,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "ce60bb647c7f8726"
+        },
+        {
+          "path": "processes/nuclear_chemistry/nuclear_chemistry-electroplating.json",
+          "id": "nuclear_chemistry-electroplating",
+          "name": "Electroplating",
+          "nodes": 22,
+          "edges": 25,
+          "conditionals": 4,
+          "styleLines": 22,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "5a0849f6bce37ce1"
+        },
+        {
+          "path": "processes/organic_chemistry/organic_chemistry-aldol-condensation.json",
+          "id": "organic_chemistry-aldol-condensation",
+          "name": "Aldol Condensation",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "004a0e6ede0a4d60"
+        },
+        {
+          "path": "processes/organic_chemistry/organic_chemistry-esterification.json",
+          "id": "organic_chemistry-esterification",
+          "name": "Esterification",
+          "nodes": 22,
+          "edges": 25,
+          "conditionals": 4,
+          "styleLines": 22,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "6575f507a3097935"
+        },
+        {
+          "path": "processes/organic_chemistry/organic_chemistry-grignard-reaction.json",
+          "id": "organic_chemistry-grignard-reaction",
+          "name": "Grignard Reaction",
+          "nodes": 22,
+          "edges": 25,
+          "conditionals": 4,
+          "styleLines": 22,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "460c0b5869914556"
+        },
+        {
+          "path": "processes/organic_chemistry/organic_chemistry-organic-reaction-mechanisms.json",
+          "id": "organic_chemistry-organic-reaction-mechanisms",
+          "name": "Organic Reaction Mechanisms",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "aadfe27c5490c6aa"
+        },
+        {
+          "path": "processes/organic_chemistry/organic_chemistry-organic-synthesis-pathways.json",
+          "id": "organic_chemistry-organic-synthesis-pathways",
+          "name": "Organic Synthesis Pathways",
+          "nodes": 22,
+          "edges": 25,
+          "conditionals": 4,
+          "styleLines": 22,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "0cdae4ff9804014e"
+        },
+        {
+          "path": "processes/organic_chemistry/organic_chemistry-stereochemistry-analysis.json",
+          "id": "organic_chemistry-stereochemistry-analysis",
+          "name": "Stereochemistry Analysis",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "852f46b756cac4c7"
+        },
+        {
+          "path": "processes/organic_chemistry/organic_chemistry-suzuki-coupling.json",
+          "id": "organic_chemistry-suzuki-coupling",
+          "name": "Suzuki Coupling",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "cc32deedc369cde3"
+        },
+        {
+          "path": "processes/physical_chemistry/physical_chemistry-chemical-kinetics.json",
+          "id": "physical_chemistry-chemical-kinetics",
+          "name": "Chemical Kinetics",
+          "nodes": 24,
+          "edges": 29,
+          "conditionals": 4,
+          "styleLines": 24,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "46db201557798d1c"
+        },
+        {
+          "path": "processes/physical_chemistry/physical_chemistry-phase-diagram-construction.json",
+          "id": "physical_chemistry-phase-diagram-construction",
+          "name": "Phase Diagram Construction",
+          "nodes": 24,
+          "edges": 29,
+          "conditionals": 4,
+          "styleLines": 24,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "e1728650be1e65dc"
+        },
+        {
+          "path": "processes/physical_chemistry/physical_chemistry-reaction-rate-measurement.json",
+          "id": "physical_chemistry-reaction-rate-measurement",
+          "name": "Reaction Rate Measurement",
+          "nodes": 24,
+          "edges": 29,
+          "conditionals": 4,
+          "styleLines": 24,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "8f25cd4ea64adf73"
+        },
+        {
+          "path": "processes/physical_chemistry/physical_chemistry-spectroscopic-line-broadening.json",
+          "id": "physical_chemistry-spectroscopic-line-broadening",
+          "name": "Spectroscopic Line Broadening",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "927b37d00f861f2a"
+        },
+        {
+          "path": "processes/physical_chemistry/physical_chemistry-spectroscopy-analysis.json",
+          "id": "physical_chemistry-spectroscopy-analysis",
+          "name": "Spectroscopy Analysis",
+          "nodes": 22,
+          "edges": 25,
+          "conditionals": 4,
+          "styleLines": 22,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "2e094887584ad9e4"
+        },
+        {
+          "path": "processes/physical_chemistry/physical_chemistry-thermodynamic-calculations.json",
+          "id": "physical_chemistry-thermodynamic-calculations",
+          "name": "Thermodynamic Calculations",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "409e2f773fdf645e"
+        },
+        {
+          "path": "processes/polymer_chemistry/polymer_chemistry-chemical-equilibrium.json",
+          "id": "polymer_chemistry-chemical-equilibrium",
+          "name": "Chemical Equilibrium",
+          "nodes": 22,
+          "edges": 25,
+          "conditionals": 4,
+          "styleLines": 22,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "e4de9632b45d5ed6"
+        },
+        {
+          "path": "processes/polymer_chemistry/polymer_chemistry-entropy-changes.json",
+          "id": "polymer_chemistry-entropy-changes",
+          "name": "Entropy Changes",
+          "nodes": 24,
+          "edges": 29,
+          "conditionals": 4,
+          "styleLines": 24,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "27b5fec0206a529f"
+        },
+        {
+          "path": "processes/polymer_chemistry/polymer_chemistry-phase-transitions.json",
+          "id": "polymer_chemistry-phase-transitions",
+          "name": "Phase Transitions",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "e5fa047569155980"
+        },
+        {
+          "path": "processes/polymer_chemistry/polymer_chemistry-solution-thermodynamics.json",
+          "id": "polymer_chemistry-solution-thermodynamics",
+          "name": "Solution Thermodynamics",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "9929947823316732"
+        },
+        {
+          "path": "processes/polymer_chemistry/polymer_chemistry-thermochemistry.json",
+          "id": "polymer_chemistry-thermochemistry",
+          "name": "Thermochemistry",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "73b18b6ea04f7437"
+        },
+        {
+          "path": "processes/quantum_chemistry/quantum_chemistry-computational-methods.json",
+          "id": "quantum_chemistry-computational-methods",
+          "name": "Computational Methods",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "556052d7cd8ed01c"
+        },
+        {
+          "path": "processes/quantum_chemistry/quantum_chemistry-density-functional-theory-workflow.json",
+          "id": "quantum_chemistry-density-functional-theory-workflow",
+          "name": "Density Functional Theory Workflow",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "e45747c0e88664ee"
+        },
+        {
+          "path": "processes/quantum_chemistry/quantum_chemistry-electronic-transitions.json",
+          "id": "quantum_chemistry-electronic-transitions",
+          "name": "Electronic Transitions",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "2b5f965bd929c6ee"
+        },
+        {
+          "path": "processes/quantum_chemistry/quantum_chemistry-molecular-dynamics-simulation-setup.json",
+          "id": "quantum_chemistry-molecular-dynamics-simulation-setup",
+          "name": "Molecular Dynamics Simulation Setup",
+          "nodes": 22,
+          "edges": 25,
+          "conditionals": 4,
+          "styleLines": 22,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "4191b50a2aa2f24f"
+        },
+        {
+          "path": "processes/quantum_chemistry/quantum_chemistry-molecular-orbitals.json",
+          "id": "quantum_chemistry-molecular-orbitals",
+          "name": "Molecular Orbitals",
+          "nodes": 22,
+          "edges": 25,
+          "conditionals": 4,
+          "styleLines": 22,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "89019c69b7cd27e1"
+        },
+        {
+          "path": "processes/quantum_chemistry/quantum_chemistry-reaction-pathways.json",
+          "id": "quantum_chemistry-reaction-pathways",
+          "name": "Reaction Pathways",
+          "nodes": 24,
+          "edges": 29,
+          "conditionals": 4,
+          "styleLines": 24,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "fc91324002995247"
+        },
+        {
+          "path": "processes/quantum_chemistry/quantum_chemistry-spectroscopic-calculations.json",
+          "id": "quantum_chemistry-spectroscopic-calculations",
+          "name": "Spectroscopic Calculations",
+          "nodes": 22,
+          "edges": 25,
+          "conditionals": 4,
+          "styleLines": 22,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "ced557c3658fb5b8"
+        },
+        {
+          "path": "processes/spectroscopy_advanced/spectroscopy_advanced-chromatography.json",
+          "id": "spectroscopy_advanced-chromatography",
+          "name": "Chromatography",
+          "nodes": 22,
+          "edges": 25,
+          "conditionals": 4,
+          "styleLines": 22,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "cde4d4dd5182adc2"
+        },
+        {
+          "path": "processes/spectroscopy_advanced/spectroscopy_advanced-ir-spectroscopy.json",
+          "id": "spectroscopy_advanced-ir-spectroscopy",
+          "name": "IR Spectroscopy",
+          "nodes": 24,
+          "edges": 29,
+          "conditionals": 4,
+          "styleLines": 24,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "4742ded90acc912f"
+        },
+        {
+          "path": "processes/spectroscopy_advanced/spectroscopy_advanced-mass-spectrometry.json",
+          "id": "spectroscopy_advanced-mass-spectrometry",
+          "name": "Mass Spectrometry",
+          "nodes": 22,
+          "edges": 25,
+          "conditionals": 4,
+          "styleLines": 22,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "72c40226b906638a"
+        },
+        {
+          "path": "processes/spectroscopy_advanced/spectroscopy_advanced-nmr-spectroscopy.json",
+          "id": "spectroscopy_advanced-nmr-spectroscopy",
+          "name": "NMR Spectroscopy",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "60f0ea20d649ac7a"
+        },
+        {
+          "path": "processes/spectroscopy_advanced/spectroscopy_advanced-raman-spectroscopy-analysis.json",
+          "id": "spectroscopy_advanced-raman-spectroscopy-analysis",
+          "name": "Raman Spectroscopy Analysis",
+          "nodes": 22,
+          "edges": 25,
+          "conditionals": 4,
+          "styleLines": 22,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "bee6efcbd8117daf"
+        },
+        {
+          "path": "processes/spectroscopy_advanced/spectroscopy_advanced-uv-vis-spectroscopy.json",
+          "id": "spectroscopy_advanced-uv-vis-spectroscopy",
+          "name": "UV-Vis Spectroscopy",
+          "nodes": 24,
+          "edges": 29,
+          "conditionals": 4,
+          "styleLines": 24,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "f5d41a42a42249c1"
+        },
+        {
+          "path": "processes/spectroscopy_advanced/spectroscopy_advanced-x-ray-diffraction-analysis.json",
+          "id": "spectroscopy_advanced-x-ray-diffraction-analysis",
+          "name": "X-ray Diffraction Analysis",
+          "nodes": 24,
+          "edges": 29,
+          "conditionals": 4,
+          "styleLines": 24,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "1fd8edd3ee8a5efa"
+        },
+        {
+          "path": "processes/surface_chemistry/surface_chemistry-adsorption-isotherm-analysis.json",
+          "id": "surface_chemistry-adsorption-isotherm-analysis",
+          "name": "Adsorption Isotherm Analysis",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "e1645e77f4c0f3b8"
+        },
+        {
+          "path": "processes/surface_chemistry/surface_chemistry-composite-materials.json",
+          "id": "surface_chemistry-composite-materials",
+          "name": "Composite Materials",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "82393b0723b72f6e"
+        },
+        {
+          "path": "processes/surface_chemistry/surface_chemistry-crystal-structure.json",
+          "id": "surface_chemistry-crystal-structure",
+          "name": "Crystal Structure",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "b2a356d2dd7934b8"
+        },
+        {
+          "path": "processes/surface_chemistry/surface_chemistry-defects-doping.json",
+          "id": "surface_chemistry-defects-doping",
+          "name": "Defects & Doping",
+          "nodes": 24,
+          "edges": 29,
+          "conditionals": 4,
+          "styleLines": 24,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "dc87986d37266c4d"
+        },
+        {
+          "path": "processes/surface_chemistry/surface_chemistry-enzyme-catalysis.json",
+          "id": "surface_chemistry-enzyme-catalysis",
+          "name": "Enzyme Catalysis",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "43e020dcc85f16ff"
+        },
+        {
+          "path": "processes/surface_chemistry/surface_chemistry-heterogeneous-catalysis.json",
+          "id": "surface_chemistry-heterogeneous-catalysis",
+          "name": "Heterogeneous Catalysis",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "3a50c3bb1ac204cb"
+        },
+        {
+          "path": "processes/surface_chemistry/surface_chemistry-heterogeneous-catalyst-screening.json",
+          "id": "surface_chemistry-heterogeneous-catalyst-screening",
+          "name": "Heterogeneous Catalyst Screening",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "1eb43322caae2070"
+        },
+        {
+          "path": "processes/surface_chemistry/surface_chemistry-nanomaterials.json",
+          "id": "surface_chemistry-nanomaterials",
+          "name": "Nanomaterials",
+          "nodes": 22,
+          "edges": 25,
+          "conditionals": 4,
+          "styleLines": 22,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "e56d16b5aa5216a5"
+        },
+        {
+          "path": "processes/surface_chemistry/surface_chemistry-photocatalysis.json",
+          "id": "surface_chemistry-photocatalysis",
+          "name": "Photocatalysis",
+          "nodes": 24,
+          "edges": 29,
+          "conditionals": 4,
+          "styleLines": 24,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "79eb143201aa1840"
+        },
+        {
+          "path": "processes/surface_chemistry/surface_chemistry-polymorphism.json",
+          "id": "surface_chemistry-polymorphism",
+          "name": "Polymorphism",
+          "nodes": 22,
+          "edges": 25,
+          "conditionals": 4,
+          "styleLines": 22,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "9836c58df55342b1"
+        },
+        {
+          "path": "processes/surface_chemistry/surface_chemistry-supported-catalysts.json",
+          "id": "surface_chemistry-supported-catalysts",
+          "name": "Supported Catalysts",
+          "nodes": 22,
+          "edges": 25,
+          "conditionals": 4,
+          "styleLines": 22,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "abe9c40f2ef98086"
+        },
+        {
+          "path": "processes/surface_chemistry/surface_chemistry-zeolite-catalysis.json",
+          "id": "surface_chemistry-zeolite-catalysis",
+          "name": "Zeolite Catalysis",
+          "nodes": 22,
+          "edges": 25,
+          "conditionals": 4,
+          "styleLines": 22,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "587e25b4ba9de866"
+        },
+        {
+          "path": "processes/theoretical_chemistry/theoretical_chemistry-enzyme-catalysis.json",
+          "id": "theoretical_chemistry-enzyme-catalysis",
+          "name": "Enzyme Catalysis",
+          "nodes": 22,
+          "edges": 25,
+          "conditionals": 4,
+          "styleLines": 22,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "f6bc19d527a1be3e"
+        },
+        {
+          "path": "processes/theoretical_chemistry/theoretical_chemistry-heterogeneous-catalysis.json",
+          "id": "theoretical_chemistry-heterogeneous-catalysis",
+          "name": "Heterogeneous Catalysis",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "dad580441c370ba7"
+        },
+        {
+          "path": "processes/theoretical_chemistry/theoretical_chemistry-photocatalysis.json",
+          "id": "theoretical_chemistry-photocatalysis",
+          "name": "Photocatalysis",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "925c3f01dc0aac45"
+        },
+        {
+          "path": "processes/theoretical_chemistry/theoretical_chemistry-supported-catalysts.json",
+          "id": "theoretical_chemistry-supported-catalysts",
+          "name": "Supported Catalysts",
+          "nodes": 24,
+          "edges": 29,
+          "conditionals": 4,
+          "styleLines": 24,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "03b360d0760da4ae"
+        },
+        {
+          "path": "processes/theoretical_chemistry/theoretical_chemistry-zeolite-catalysis.json",
+          "id": "theoretical_chemistry-zeolite-catalysis",
+          "name": "Zeolite Catalysis",
+          "nodes": 22,
+          "edges": 25,
+          "conditionals": 4,
+          "styleLines": 22,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "1d481bbe602ecd8b"
+        },
+        {
+          "path": "processes/thermodynamics/thermodynamics-chemical-equilibrium.json",
+          "id": "thermodynamics-chemical-equilibrium",
+          "name": "Chemical Equilibrium",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "cdee14c0b00e9481"
+        },
+        {
+          "path": "processes/thermodynamics/thermodynamics-chemical-potential-determination.json",
+          "id": "thermodynamics-chemical-potential-determination",
+          "name": "Chemical Potential Determination",
+          "nodes": 24,
+          "edges": 29,
+          "conditionals": 4,
+          "styleLines": 24,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "049074d7fb08081c"
+        },
+        {
+          "path": "processes/thermodynamics/thermodynamics-entropy-changes.json",
+          "id": "thermodynamics-entropy-changes",
+          "name": "Entropy Changes",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "ae8bababec068f56"
+        },
+        {
+          "path": "processes/thermodynamics/thermodynamics-gibbs-free-energy-calculation.json",
+          "id": "thermodynamics-gibbs-free-energy-calculation",
+          "name": "Gibbs Free Energy Calculation",
+          "nodes": 22,
+          "edges": 25,
+          "conditionals": 4,
+          "styleLines": 22,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "7f1ef8428a6a03c0"
+        },
+        {
+          "path": "processes/thermodynamics/thermodynamics-phase-transitions.json",
+          "id": "thermodynamics-phase-transitions",
+          "name": "Phase Transitions",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "55210e603dd96cae"
+        },
+        {
+          "path": "processes/thermodynamics/thermodynamics-solution-thermodynamics.json",
+          "id": "thermodynamics-solution-thermodynamics",
+          "name": "Solution Thermodynamics",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "1b2bbc1052611417"
+        },
+        {
+          "path": "processes/thermodynamics/thermodynamics-thermochemistry.json",
+          "id": "thermodynamics-thermochemistry",
+          "name": "Thermochemistry",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "a22a073569b070e0"
+        }
+      ]
+    },
+    "computer_science": {
+      "databaseDir": "computer-science-processes-database",
+      "jsonCount": 51,
+      "htmlCount": 51,
+      "htmlWithoutJsonCount": 0,
+      "htmlWithoutJson": [],
+      "categoryCounts": {
+        "already-upgraded": 51
+      },
+      "duplicateMermaidGroups": [],
+      "entries": [
+        {
+          "path": "processes/algorithms_data_structures/algorithms_data_structures-balanced-search-trees.json",
+          "id": "algorithms_data_structures-balanced-search-trees",
+          "name": "Balanced Search Trees",
+          "nodes": 22,
+          "edges": 25,
+          "conditionals": 4,
+          "styleLines": 22,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "e42862a581141df8"
+        },
+        {
+          "path": "processes/algorithms_data_structures/algorithms_data_structures-dynamic-programming.json",
+          "id": "algorithms_data_structures-dynamic-programming",
+          "name": "Dynamic Programming",
+          "nodes": 22,
+          "edges": 25,
+          "conditionals": 4,
+          "styleLines": 22,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "c2db5df7313563d2"
+        },
+        {
+          "path": "processes/algorithms_data_structures/algorithms_data_structures-graph-algorithms.json",
+          "id": "algorithms_data_structures-graph-algorithms",
+          "name": "Graph Algorithms",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "8c34cb5da2780252"
+        },
+        {
+          "path": "processes/algorithms_data_structures/algorithms_data_structures-graph-traversal.json",
+          "id": "algorithms_data_structures-graph-traversal",
+          "name": "Graph Traversal",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "a1a90f1f64ecfb0e"
+        },
+        {
+          "path": "processes/algorithms_data_structures/algorithms_data_structures-hash-table-operations.json",
+          "id": "algorithms_data_structures-hash-table-operations",
+          "name": "Hash Table Operations",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "e4683e6d11042b75"
+        },
+        {
+          "path": "processes/algorithms_data_structures/algorithms_data_structures-minimum-spanning-tree.json",
+          "id": "algorithms_data_structures-minimum-spanning-tree",
+          "name": "Minimum Spanning Tree",
+          "nodes": 24,
+          "edges": 29,
+          "conditionals": 4,
+          "styleLines": 24,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "a52e4972b3444d17"
+        },
+        {
+          "path": "processes/algorithms_data_structures/algorithms_data_structures-shortest-path-algorithms.json",
+          "id": "algorithms_data_structures-shortest-path-algorithms",
+          "name": "Shortest Path Algorithms",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "6ce428a5fd203759"
+        },
+        {
+          "path": "processes/algorithms_data_structures/algorithms_data_structures-sorting-algorithms.json",
+          "id": "algorithms_data_structures-sorting-algorithms",
+          "name": "Sorting Algorithms",
+          "nodes": 22,
+          "edges": 25,
+          "conditionals": 4,
+          "styleLines": 22,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "2352dfa0fa878a20"
+        },
+        {
+          "path": "processes/graph_type_pilots/dependency-web-service-stack.json",
+          "id": "dependency-web-service-stack",
+          "name": "Web Service Stack Dependency Graph",
+          "nodes": 9,
+          "edges": 8,
+          "conditionals": 0,
+          "styleLines": 0,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "068ba21bf52573da"
+        },
+        {
+          "path": "processes/machine_learning/machine_learning-feature-engineering-pipeline.json",
+          "id": "machine_learning-feature-engineering-pipeline",
+          "name": "Feature Engineering Pipeline",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "d8a47b96bde4df0a"
+        },
+        {
+          "path": "processes/machine_learning/machine_learning-hyperparameter-optimization.json",
+          "id": "machine_learning-hyperparameter-optimization",
+          "name": "Hyperparameter Optimization",
+          "nodes": 22,
+          "edges": 25,
+          "conditionals": 4,
+          "styleLines": 22,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "5c55d7b8755547c6"
+        },
+        {
+          "path": "processes/machine_learning/machine_learning-model-evaluation-and-validation.json",
+          "id": "machine_learning-model-evaluation-and-validation",
+          "name": "Model Evaluation and Validation",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "ec655ca16be62379"
+        },
+        {
+          "path": "processes/machine_learning/machine_learning-model-training-pipeline.json",
+          "id": "machine_learning-model-training-pipeline",
+          "name": "Model Training Pipeline",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "96d74fb41498cec1"
+        },
+        {
+          "path": "processes/machine_learning/machine_learning-project-management.json",
+          "id": "machine_learning-project-management",
+          "name": "Project Management",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "ba7db79db1751279"
+        },
+        {
+          "path": "processes/machine_learning/machine_learning-quality-assurance.json",
+          "id": "machine_learning-quality-assurance",
+          "name": "Quality Assurance",
+          "nodes": 24,
+          "edges": 29,
+          "conditionals": 4,
+          "styleLines": 24,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "c280cf891dbcae37"
+        },
+        {
+          "path": "processes/machine_learning/machine_learning-software-development-lifecycle.json",
+          "id": "machine_learning-software-development-lifecycle",
+          "name": "Software Development Lifecycle",
+          "nodes": 24,
+          "edges": 29,
+          "conditionals": 4,
+          "styleLines": 24,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "aeec7435935fd7f2"
+        },
+        {
+          "path": "processes/networks/networks-database-design.json",
+          "id": "networks-database-design",
+          "name": "Database Design",
+          "nodes": 24,
+          "edges": 29,
+          "conditionals": 4,
+          "styleLines": 24,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "efd5dd01e59296f2"
+        },
+        {
+          "path": "processes/networks/networks-dns-resolution.json",
+          "id": "networks-dns-resolution",
+          "name": "DNS Resolution",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "fd2852ff0f17bfd6"
+        },
+        {
+          "path": "processes/networks/networks-load-balancing.json",
+          "id": "networks-load-balancing",
+          "name": "Load Balancing",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "521777d81ee3eb77"
+        },
+        {
+          "path": "processes/networks/networks-query-processing.json",
+          "id": "networks-query-processing",
+          "name": "Query Processing",
+          "nodes": 24,
+          "edges": 29,
+          "conditionals": 4,
+          "styleLines": 24,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "abeef5571f4c0304"
+        },
+        {
+          "path": "processes/networks/networks-routing-protocol-operation.json",
+          "id": "networks-routing-protocol-operation",
+          "name": "Routing Protocol Operation",
+          "nodes": 22,
+          "edges": 25,
+          "conditionals": 4,
+          "styleLines": 22,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "5a6118361466fcf7"
+        },
+        {
+          "path": "processes/networks/networks-tcp-congestion-control.json",
+          "id": "networks-tcp-congestion-control",
+          "name": "TCP Congestion Control",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "dc46ce6b457098b0"
+        },
+        {
+          "path": "processes/networks/networks-transaction-management.json",
+          "id": "networks-transaction-management",
+          "name": "Transaction Management",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "0608b4df6d07f799"
+        },
+        {
+          "path": "processes/security/security-authentication-and-authorization.json",
+          "id": "security-authentication-and-authorization",
+          "name": "Authentication and Authorization",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "8a6bfcbfc39afe54"
+        },
+        {
+          "path": "processes/security/security-file-system.json",
+          "id": "security-file-system",
+          "name": "File System",
+          "nodes": 24,
+          "edges": 29,
+          "conditionals": 4,
+          "styleLines": 24,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "55c2441221139fc6"
+        },
+        {
+          "path": "processes/security/security-intrusion-detection.json",
+          "id": "security-intrusion-detection",
+          "name": "Intrusion Detection",
+          "nodes": 24,
+          "edges": 29,
+          "conditionals": 4,
+          "styleLines": 24,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "4f67db7abf4bc1de"
+        },
+        {
+          "path": "processes/security/security-memory-management.json",
+          "id": "security-memory-management",
+          "name": "Memory Management",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "af15d9f358b62d86"
+        },
+        {
+          "path": "processes/security/security-process-management.json",
+          "id": "security-process-management",
+          "name": "Process Management",
+          "nodes": 22,
+          "edges": 25,
+          "conditionals": 4,
+          "styleLines": 22,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "36c6fed065057495"
+        },
+        {
+          "path": "processes/security/security-public-key-infrastructure-pki.json",
+          "id": "security-public-key-infrastructure-pki",
+          "name": "Public Key Infrastructure (PKI)",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "b5bcbef0d8cf3c7f"
+        },
+        {
+          "path": "processes/security/security-secure-software-update.json",
+          "id": "security-secure-software-update",
+          "name": "Secure Software Update",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "ea12340e8af5be08"
+        },
+        {
+          "path": "processes/software_engineering/software_engineering-code-review-workflow.json",
+          "id": "software_engineering-code-review-workflow",
+          "name": "Code Review Workflow",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "19fd13fc10a43f31"
+        },
+        {
+          "path": "processes/software_engineering/software_engineering-continuous-integration-pipeline.json",
+          "id": "software_engineering-continuous-integration-pipeline",
+          "name": "Continuous Integration Pipeline",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "1f7e9069ba3bbefa"
+        },
+        {
+          "path": "processes/software_engineering/software_engineering-incident-response.json",
+          "id": "software_engineering-incident-response",
+          "name": "Incident Response",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "3284736dc7fb2d23"
+        },
+        {
+          "path": "processes/software_engineering/software_engineering-machine-learning.json",
+          "id": "software_engineering-machine-learning",
+          "name": "Machine Learning",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "4be9e02ac0ab4f25"
+        },
+        {
+          "path": "processes/software_engineering/software_engineering-natural-language-processing.json",
+          "id": "software_engineering-natural-language-processing",
+          "name": "Natural Language Processing",
+          "nodes": 22,
+          "edges": 25,
+          "conditionals": 4,
+          "styleLines": 22,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "ef6a37a7a12b2caa"
+        },
+        {
+          "path": "processes/software_engineering/software_engineering-neural-network.json",
+          "id": "software_engineering-neural-network",
+          "name": "Neural Network",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "7266badbc073fd5c"
+        },
+        {
+          "path": "processes/software_engineering/software_engineering-requirements-engineering.json",
+          "id": "software_engineering-requirements-engineering",
+          "name": "Requirements Engineering",
+          "nodes": 22,
+          "edges": 25,
+          "conditionals": 4,
+          "styleLines": 22,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "a1d7da66761e558b"
+        },
+        {
+          "path": "processes/systems/systems-container-orchestration.json",
+          "id": "systems-container-orchestration",
+          "name": "Container Orchestration",
+          "nodes": 22,
+          "edges": 25,
+          "conditionals": 4,
+          "styleLines": 22,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "5ce2c7df8b28477d"
+        },
+        {
+          "path": "processes/systems/systems-file-system-journaling.json",
+          "id": "systems-file-system-journaling",
+          "name": "File System Journaling",
+          "nodes": 22,
+          "edges": 25,
+          "conditionals": 4,
+          "styleLines": 22,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "bc9dbc4cf4e3f290"
+        },
+        {
+          "path": "processes/systems/systems-network-performance.json",
+          "id": "systems-network-performance",
+          "name": "Network Performance",
+          "nodes": 24,
+          "edges": 29,
+          "conditionals": 4,
+          "styleLines": 24,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "6923c1cb7c4bf30a"
+        },
+        {
+          "path": "processes/systems/systems-network-protocol.json",
+          "id": "systems-network-protocol",
+          "name": "Network Protocol",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "f9d0594ef1c30520"
+        },
+        {
+          "path": "processes/systems/systems-network-security.json",
+          "id": "systems-network-security",
+          "name": "Network Security",
+          "nodes": 24,
+          "edges": 29,
+          "conditionals": 4,
+          "styleLines": 24,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "a78d064ad6db70b9"
+        },
+        {
+          "path": "processes/systems/systems-process-scheduling.json",
+          "id": "systems-process-scheduling",
+          "name": "Process Scheduling",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "aa2ee18ca936d5fa"
+        },
+        {
+          "path": "processes/systems/systems-virtual-memory-paging.json",
+          "id": "systems-virtual-memory-paging",
+          "name": "Virtual Memory Paging",
+          "nodes": 22,
+          "edges": 25,
+          "conditionals": 4,
+          "styleLines": 22,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "754d3387ab8af366"
+        },
+        {
+          "path": "processes/theory/theory-animation.json",
+          "id": "theory-animation",
+          "name": "Animation",
+          "nodes": 25,
+          "edges": 31,
+          "conditionals": 4,
+          "styleLines": 25,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "c137703f0335b734"
+        },
+        {
+          "path": "processes/theory/theory-automata-construction.json",
+          "id": "theory-automata-construction",
+          "name": "Automata Construction",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "db474ce6c2797edb"
+        },
+        {
+          "path": "processes/theory/theory-computational-complexity-analysis.json",
+          "id": "theory-computational-complexity-analysis",
+          "name": "Computational Complexity Analysis",
+          "nodes": 22,
+          "edges": 25,
+          "conditionals": 4,
+          "styleLines": 22,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "79cded39f8863fbf"
+        },
+        {
+          "path": "processes/theory/theory-formal-verification.json",
+          "id": "theory-formal-verification",
+          "name": "Formal Verification",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "ff2d3d52ea1caefb"
+        },
+        {
+          "path": "processes/theory/theory-geometric-modeling.json",
+          "id": "theory-geometric-modeling",
+          "name": "Geometric Modeling",
+          "nodes": 24,
+          "edges": 29,
+          "conditionals": 4,
+          "styleLines": 24,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "e9bf949af5ca6172"
+        },
+        {
+          "path": "processes/theory/theory-rendering.json",
+          "id": "theory-rendering",
+          "name": "Rendering",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "9fc2ea197c30b99c"
+        },
+        {
+          "path": "processes/theory/theory-type-system-checking.json",
+          "id": "theory-type-system-checking",
+          "name": "Type System Checking",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "0281542f76d20c09"
+        }
+      ]
+    },
+    "physics": {
+      "databaseDir": "physics-processes-database",
+      "jsonCount": 22,
+      "htmlCount": 22,
+      "htmlWithoutJsonCount": 0,
+      "htmlWithoutJson": [],
+      "categoryCounts": {
+        "already-upgraded": 22
+      },
+      "duplicateMermaidGroups": [],
+      "entries": [
+        {
+          "path": "processes/astrophysics/astrophysics-higgs-mechanism.json",
+          "id": "astrophysics-higgs-mechanism",
+          "name": "Higgs Mechanism",
+          "nodes": 22,
+          "edges": 25,
+          "conditionals": 4,
+          "styleLines": 22,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "6635282e470fa55e"
+        },
+        {
+          "path": "processes/astrophysics/astrophysics-particle-collision.json",
+          "id": "astrophysics-particle-collision",
+          "name": "Particle Collision",
+          "nodes": 22,
+          "edges": 25,
+          "conditionals": 4,
+          "styleLines": 22,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "68901eb82fbe5bfd"
+        },
+        {
+          "path": "processes/astrophysics/astrophysics-standard-model.json",
+          "id": "astrophysics-standard-model",
+          "name": "Standard Model",
+          "nodes": 25,
+          "edges": 31,
+          "conditionals": 4,
+          "styleLines": 25,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "d7795dacd9464e17"
+        },
+        {
+          "path": "processes/classical_mechanics/classical_mechanics-hamiltonian-mechanics.json",
+          "id": "classical_mechanics-hamiltonian-mechanics",
+          "name": "Hamiltonian Mechanics",
+          "nodes": 24,
+          "edges": 29,
+          "conditionals": 4,
+          "styleLines": 24,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "d3fea59ada28cc37"
+        },
+        {
+          "path": "processes/classical_mechanics/classical_mechanics-lagrangian-mechanics.json",
+          "id": "classical_mechanics-lagrangian-mechanics",
+          "name": "Lagrangian Mechanics",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "2aae9c2f7a6bc719"
+        },
+        {
+          "path": "processes/classical_mechanics/classical_mechanics-newtonian-dynamics.json",
+          "id": "classical_mechanics-newtonian-dynamics",
+          "name": "Newtonian Dynamics",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "ec3ae42ec387da03"
+        },
+        {
+          "path": "processes/electromagnetism/electromagnetism-quantum-computing.json",
+          "id": "electromagnetism-quantum-computing",
+          "name": "Quantum Computing",
+          "nodes": 24,
+          "edges": 29,
+          "conditionals": 4,
+          "styleLines": 24,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "7df56910a94684de"
+        },
+        {
+          "path": "processes/electromagnetism/electromagnetism-quantum-entanglement.json",
+          "id": "electromagnetism-quantum-entanglement",
+          "name": "Quantum Entanglement",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "7812ebbffd19b631"
+        },
+        {
+          "path": "processes/electromagnetism/electromagnetism-wave-function.json",
+          "id": "electromagnetism-wave-function",
+          "name": "Wave Function",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "d8f6144ff1d8f10f"
+        },
+        {
+          "path": "processes/graph_type_pilots/state-transition-matter-phases.json",
+          "id": "state-transition-matter-phases",
+          "name": "Matter Phase State Transition",
+          "nodes": 4,
+          "edges": 7,
+          "conditionals": 0,
+          "styleLines": 0,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "13d4620bff0b0e89"
+        },
+        {
+          "path": "processes/optics/optics-geometric-optics.json",
+          "id": "optics-geometric-optics",
+          "name": "Geometric Optics",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "cb05f017a0128f67"
+        },
+        {
+          "path": "processes/optics/optics-quantum-optics.json",
+          "id": "optics-quantum-optics",
+          "name": "Quantum Optics",
+          "nodes": 24,
+          "edges": 29,
+          "conditionals": 4,
+          "styleLines": 24,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "fb2cce80c32e7c25"
+        },
+        {
+          "path": "processes/optics/optics-wave-optics.json",
+          "id": "optics-wave-optics",
+          "name": "Wave Optics",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "180f30b6debb2820"
+        },
+        {
+          "path": "processes/quantum_mechanics/quantum_mechanics-electromagnetic-induction.json",
+          "id": "quantum_mechanics-electromagnetic-induction",
+          "name": "Electromagnetic Induction",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "c44a90edd729092f"
+        },
+        {
+          "path": "processes/quantum_mechanics/quantum_mechanics-electromagnetic-wave.json",
+          "id": "quantum_mechanics-electromagnetic-wave",
+          "name": "Electromagnetic Wave",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "9a88a53fd1e890f3"
+        },
+        {
+          "path": "processes/quantum_mechanics/quantum_mechanics-maxwells-equations.json",
+          "id": "quantum_mechanics-maxwells-equations",
+          "name": "Maxwell's Equations",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "11ac635d208ba8f5"
+        },
+        {
+          "path": "processes/solid_state/solid_state-nuclear-decay.json",
+          "id": "solid_state-nuclear-decay",
+          "name": "Nuclear Decay",
+          "nodes": 22,
+          "edges": 25,
+          "conditionals": 4,
+          "styleLines": 22,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "dfda6e651b8f7e57"
+        },
+        {
+          "path": "processes/solid_state/solid_state-nuclear-fission.json",
+          "id": "solid_state-nuclear-fission",
+          "name": "Nuclear Fission",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "689eb575cdec5604"
+        },
+        {
+          "path": "processes/solid_state/solid_state-nuclear-fusion.json",
+          "id": "solid_state-nuclear-fusion",
+          "name": "Nuclear Fusion",
+          "nodes": 22,
+          "edges": 25,
+          "conditionals": 4,
+          "styleLines": 22,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "2319a94ca22d9d67"
+        },
+        {
+          "path": "processes/thermodynamics_statistical/thermodynamics_statistical-entropy.json",
+          "id": "thermodynamics_statistical-entropy",
+          "name": "Entropy",
+          "nodes": 23,
+          "edges": 27,
+          "conditionals": 4,
+          "styleLines": 23,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "b0fb100a4c76c5f3"
+        },
+        {
+          "path": "processes/thermodynamics_statistical/thermodynamics_statistical-heat-engine.json",
+          "id": "thermodynamics_statistical-heat-engine",
+          "name": "Heat Engine",
+          "nodes": 25,
+          "edges": 31,
+          "conditionals": 4,
+          "styleLines": 25,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "22739db1bfcfe642"
+        },
+        {
+          "path": "processes/thermodynamics_statistical/thermodynamics_statistical-phase-transition.json",
+          "id": "thermodynamics_statistical-phase-transition",
+          "name": "Phase Transition",
+          "nodes": 24,
+          "edges": 29,
+          "conditionals": 4,
+          "styleLines": 24,
+          "categories": [
+            "already-upgraded"
+          ],
+          "hash": "d2237cb331ce5a26"
+        }
+      ]
+    }
+  }
+}

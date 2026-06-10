@@ -1,4 +1,4 @@
-d{
+{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "CopernicusAI Knowledge Engine - Paper Metadata Schema",
   "description": "Unified metadata schema for research papers supporting NSF Objective 2: Unified Multi-Modal Metadata Representation",
@@ -76,7 +76,7 @@ d{
     },
     "source": {
       "type": "string",
-      "enum": ["pubmed", "arxiv", "nasa_ads", "crossref"],
+      "enum": ["pubmed", "arxiv", "biorxiv", "medrxiv", "nasa_ads", "crossref"],
       "description": "Source database identifier"
     },
     "sources": {

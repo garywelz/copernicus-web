@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2604.26517v1",
+  "arxiv_id": "2604.26517v1",
+  "title": "MTCurv: Deep learning for direct microtubule curvature mapping in noisy fluorescence microscopy images",
+  "authors": [
+    "Achraf Ait Laydi",
+    "Sidi Mohamed Sid'El Moctar",
+    "Yousef El Mourabit",
+    "Hélène Bouvrais"
+  ],
+  "author_string": "Achraf Ait Laydi, Sidi Mohamed Sid'El Moctar, Yousef El Mourabit, Hélène Bouvrais",
+  "journal": "arXiv:2604.26517v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Accurate quantification of the geometry of curvilinear biological structures is essential for understanding cellular mechanics and disease-related morphological alterations. Microtubule curvature is a key descriptor of filament rigidity and mechanical perturbations. However, reliable curvature extraction from fluorescence microscopy images remains challenging due to noise, low contrast, and partial filament visibility. Existing approaches rely on segmentation pipelines with pre or post-processing, which are highly sensitive to segmentation errors and often fail under adverse imaging conditions. In this work, we propose MTCurv, a deep learning framework for direct, segmenta-tion-free regression of microtubule curvature maps from noisy microscopy images. Leveraging a synthetic dataset with pixel-wise curvature annotations, we reformulated curvature estimation as a regression problem and adapted an attention-based residual U-Net. To reduce hallucinations and enforce spatial coherence, we introduced a gradient-aware loss combining Mean Squared Error with a gradient consistency term. Beyond model and loss design, we evaluated commonly used regression and image quality metrics, revealing that many perceptual and blind metrics are poorly suited for curvature estimation. Correlation-based metrics, particularly Spearman correlation, emerged as more reliable indicators of curvature prediction quality. Experiments on two datasets of increasing difficulty demonstrated that MTCurv accurately recovers local microtubule curvatures, even in the presence of background fluorescence. Ablation studies highlighted the contribution of both residual encoding and attention-based decoding. Overall, this work provides a practical tool for filament curvature analysis and methodological insights for geometry-aware regression in biomedical imaging. Datasets and code are made available.",
+  "categories": [
+    "cs.CV",
+    "q-bio.CB"
+  ],
+  "primary_category": "q-bio.CB",
+  "comment": "Accepted for presentation at the International Conference on Pattern Recognition (ICPR) 2026",
+  "published_date": "2026-04-29T10:32:50Z",
+  "updated_date": "2026-04-29T10:32:50Z",
+  "url": "https://arxiv.org/abs/2604.26517v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.26517v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-06T10:15:36.873941",
+  "category": "biology",
+  "subcategories": [
+    "cs.CV",
+    "q-bio.CB"
+  ]
+}

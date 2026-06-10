@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Andrey Kolmogorov — Named Collection</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 20px; }
+        .container { max-width: 900px; margin: 0 auto; background: white; border-radius: 15px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); overflow: hidden; padding: 30px; }
+        h1 { color: #2c3e50; margin-bottom: 10px; }
+        .subtitle { color: #7f8c8d; font-size: 1em; margin-bottom: 15px; }
+        p { color: #555; margin-bottom: 25px; line-height: 1.6; }
+        .nav-links { margin-bottom: 20px; }
+        .nav-links a { color: #e67e22; text-decoration: none; margin-right: 20px; font-weight: 500; }
+        .nav-links a:hover { text-decoration: underline; }
+        .section-label { font-size: 0.9em; color: #7f8c8d; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .sections { display: grid; gap: 15px; margin-bottom: 25px; }
+        .sections a { display: block; padding: 20px; background: #f8f9fa; border-radius: 10px; color: #2c3e50; text-decoration: none; font-weight: 500; border-left: 4px solid #27ae60; }
+        .sections a:hover { background: #ecf0f1; }
+        .empty-note { color: #95a5a6; font-style: italic; padding: 15px; background: #fafafa; border-radius: 8px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="nav-links">
+            <a id="back-link" href="#">← Back to Mathematics Database</a>
+            <a id="collections-link" href="index.html">All Collections</a>
+        </div>
+        <script>
+            (function() {
+                const isGCS = window.location.hostname.includes('storage.googleapis.com');
+                const isHF = window.location.hostname.includes('huggingface.co');
+                const base = isGCS ? 'https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database' : (isHF ? '..' : '..');
+                document.getElementById('back-link').href = base + '/mathematics-database-table.html';
+                document.getElementById('collections-link').href = isGCS ? base + '/collections/index.html' : 'index.html';
+            })();
+        </script>
+        <h1>Andrey Kolmogorov</h1>
+        <div class="subtitle">1903–1987</div>
+        <p>Axiomatic probability; algorithmic complexity.</p>
+        <div class="section-label">Charts</div>
+        <div class="sections">
+            <a href="../processes/statistics_probability/statistics_probability-kolmogorov-axioms.html">Kolmogorov Axioms</a>

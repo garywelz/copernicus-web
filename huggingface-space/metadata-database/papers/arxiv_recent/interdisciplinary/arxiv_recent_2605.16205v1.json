@@ -1,0 +1,40 @@
+{
+  "id": "arxiv_2605.16205v1",
+  "arxiv_id": "2605.16205v1",
+  "title": "Context, Reasoning, and Hierarchy: A Cost-Performance Study of Compound LLM Agent Design in an Adversarial POMDP",
+  "authors": [
+    "Igor Bogdanov",
+    "Chung-Horng Lung",
+    "Thomas Kunz",
+    "Jie Gao",
+    "Adrian Taylor",
+    "Marzia Zaman"
+  ],
+  "author_string": "Igor Bogdanov, Chung-Horng Lung, Thomas Kunz, Jie Gao, Adrian Taylor et al.",
+  "journal": "arXiv:2605.16205v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": "10.1145/3786335.3813149",
+  "abstract": "Deploying compound LLM agents in adversarial, partially observable sequential environments requires navigating several design dimensions: (1) what the agent sees, (2) how it reasons, and (3) how tasks are decomposed across components. Yet practitioners lack guidance on which design choices improve performance versus merely increase inference costs. We present a controlled study of compound LLM agent design in CybORG CAGE-2, a cyber defense environment modeled as a Partially Observable Markov Decision Process (POMDP). Reward is non-positive, so all configurations operate in a failure-mitigation mode. Our evaluation spans five model families, six models, and twelve configurations (3,475 episodes) with token-level cost accounting. We vary context representation (raw observations vs. a deterministic state-tracking layer with compressed history), deliberation (self-questioning, self-critique, and self-improvement tools, with optional chain-of-thought prompting), and hierarchical decomposition (monolithic ReAct vs. delegation to specialized sub-agents). We find that: (1) Programmatic state abstraction delivers the largest returns per token spent (RPTS), improving mean return by up to 76% over raw observations. (2) Distributing deliberation tools across a hierarchy degrades performance relative to hierarchy alone for all five model families, reaching up to 3.4$\\times$ worse mean return while using 1.8-2.7$\\times$ more tokens. We call this destructive pattern a deliberation cascade. (3) Hierarchical decomposition without deliberation achieves the best absolute performance for most models, and context engineering is generally more cost-effective than deliberation. These findings suggest a design principle for structured adversarial POMDPs: invest in programmatic infrastructure and clean task decomposition rather than deeper per-agent reasoning, as these strategies can interfere when combined.",
+  "categories": [
+    "cs.AI",
+    "cs.CL",
+    "cs.LG",
+    "cs.MA",
+    "eess.SY"
+  ],
+  "primary_category": "eess.SY",
+  "comment": null,
+  "published_date": "2026-05-15T17:23:08Z",
+  "updated_date": "2026-05-15T17:23:08Z",
+  "url": "https://arxiv.org/abs/2605.16205v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.16205v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-18T10:15:47.146299",
+  "category": "interdisciplinary",
+  "subcategories": [
+    "cs.AI",
+    "cs.CL",
+    "cs.LG"
+  ]
+}

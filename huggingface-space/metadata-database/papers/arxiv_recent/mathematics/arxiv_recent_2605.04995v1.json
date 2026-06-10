@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2605.04995v1",
+  "arxiv_id": "2605.04995v1",
+  "title": "Adaptivity Under Realizability Constraints: Comparing In-Context and Agentic Learning",
+  "authors": [
+    "Anastasis Kratsios",
+    "A. Martina Neuman",
+    "Philipp Petersen"
+  ],
+  "author_string": "Anastasis Kratsios, A. Martina Neuman, Philipp Petersen",
+  "journal": "arXiv:2605.04995v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We compare in-context learning with fixed queries and agentic learning with adaptive queries for uniform approximation of task families. We consider two settings: an unrestricted regime, where querying and approximation are arbitrary functions, and a realizable regime, where we require these operations to be implemented by ReLU neural networks. In both settings, adaptivity never hinders approximation performance. However, this advantage can change when one passes from the unrestricted regime to the realizable regime. We identify four distinct approximation scenarios, each witnessed by an explicit task family: (a) no advantage of adaptivity; (b) an advantage in the unrestricted regime that persists under ReLU realizability; (c) an advantage that arises only under realizability; and (d) an advantage that disappears under realizability. This demonstrates that representational constraints interact profoundly with the effect of adaptivity.",
+  "categories": [
+    "cs.LG",
+    "math.ST",
+    "stat.ML"
+  ],
+  "primary_category": "stat.ML",
+  "comment": null,
+  "published_date": "2026-05-06T14:53:55Z",
+  "updated_date": "2026-05-06T14:53:55Z",
+  "url": "https://arxiv.org/abs/2605.04995v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.04995v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-07T10:15:46.982545",
+  "category": "mathematics",
+  "subcategories": [
+    "cs.LG",
+    "math.ST",
+    "stat.ML"
+  ]
+}

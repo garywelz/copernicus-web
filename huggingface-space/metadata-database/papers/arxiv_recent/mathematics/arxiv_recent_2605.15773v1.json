@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2605.15773v1",
+  "arxiv_id": "2605.15773v1",
+  "title": "Arc-disjoint Steiner Cycles in Digraphs",
+  "authors": [
+    "Jie Bai",
+    "Yuefang Sun",
+    "Chuchu Wang",
+    "Shanshan Yu"
+  ],
+  "author_string": "Jie Bai, Yuefang Sun, Chuchu Wang, Shanshan Yu",
+  "journal": "arXiv:2605.15773v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Let $D=(V(D), A(D))$ be a digraph of order $n$ and let $S\\subseteq V(D)$ with $2\\leq |S|\\leq n$. A directed cycle $C$ of $D$ is called a directed $S$-Steiner cycle (or, an $S$-cycle for short) if $S\\subseteq V(C)$. Steiner cycles have applications in reliable designs for telecommunication and transportation networks. Two $S$-cycles are called arc-disjoint if they have no common arcs. We use $λ_{S}^{c}(D)$ to denote the maximum number of pairwise arc-disjoint $S$-cycles in $D$. The directed cycle $k$-arc-connectivity of $D$ is defined as $$λ_{k}^{c} (D)=\\min\\left \\{ λ_{S}^{c}(D)\\mid S\\subseteq V(D),\\left | S \\right | =k,2\\le k\\le n \\right \\}.$$   In this paper, we determine the complexity for $λ_{S}^{c} (D)$ on Eulerian digraphs, planar digraphs and symmetric digraphs. We also obtain exact values of $λ_{k}^{c} (D)$ on complete digraphs, complete bipartite digraphs and regular complete multipartite digraphs.",
+  "categories": [
+    "math.CO"
+  ],
+  "primary_category": "math.CO",
+  "comment": null,
+  "published_date": "2026-05-15T09:27:57Z",
+  "updated_date": "2026-05-15T09:27:57Z",
+  "url": "https://arxiv.org/abs/2605.15773v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.15773v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-17T22:17:38.078017",
+  "category": "mathematics",
+  "subcategories": [
+    "math.CO"
+  ]
+}

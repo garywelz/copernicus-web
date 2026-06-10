@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2604.22008v1",
+  "arxiv_id": "2604.22008v1",
+  "title": "Building an inertia dynamometer with vocational students: a low-budget apparatus for teaching rotational dynamics",
+  "authors": [
+    "Stylianos A. Tsilioukas"
+  ],
+  "author_string": "Stylianos A. Tsilioukas",
+  "journal": "arXiv:2604.22008v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We report the design, construction, and classroom use of a low-cost inertia dynamometer, built as a year-long project-based learning (PBL) activity with adult students at a Greek Evening Vocational High School (EPAL). The apparatus consists of a machined steel drum of calculated moment of inertia $I = 0.6507~\\mathrm{kg\\,m^2}$, mounted on a student-welded frame and instrumented with a green-laser / light-dependent resistor (LDR) optical interrupter. The analogue output is sampled at 44.1\\,kHz by the microphone input of a laptop computer, which is used as an opportunistic analogue-to-digital converter; torque and power curves are then reconstructed in software from the inter-pulse intervals via $τ= Iα$ and $P = τω$. The drum's moment of inertia is cross-checked by an inclined-plane rolling experiment. A wide-open-throttle test with a 50\\,cc scooter reproduces the expected flat-power / falling-torque signature of a continuously variable transmission in the low-to-moderate RPM range; the LDR's millisecond-scale recovery time imposes an upper bandwidth limit that provides an unplanned but pedagogically rich lesson in sensor physics. The project integrated industrial-lathe fabrication, arc welding, analogue electronics, and numerical differentiation into a single coherent workflow. We describe the apparatus, the physics, the signal-processing pipeline (for which MATLAB and Python/Octave code are provided as supplementary material), and reflect on the pedagogical outcomes for a student population traditionally disengaged from abstract physics.",
+  "categories": [
+    "physics.ed-ph",
+    "physics.soc-ph"
+  ],
+  "primary_category": "physics.soc-ph",
+  "comment": "8 pages, 12 figures, github link",
+  "published_date": "2026-04-23T18:55:18Z",
+  "updated_date": "2026-04-23T18:55:18Z",
+  "url": "https://arxiv.org/abs/2604.22008v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.22008v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-27T10:15:32.954258",
+  "category": "physics",
+  "subcategories": [
+    "physics.ed-ph",
+    "physics.soc-ph"
+  ]
+}

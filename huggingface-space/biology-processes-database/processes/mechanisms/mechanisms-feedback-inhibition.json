@@ -1,0 +1,184 @@
+{
+  "id": "mechanisms-feedback-inhibition",
+  "name": "Feedback Inhibition (e.g., ATCase)",
+  "category": "biology",
+  "subcategory": "mechanisms",
+  "subcategory_name": "Mechanisms",
+  "description": "Feedback inhibition: the end product of a biosynthetic pathway binds an allosteric site on the first committed enzyme (e.g., ATCase), shifting it to a low-activity state and reducing flux when product is abundant.",
+  "keywords": [
+    "feedback inhibition",
+    "allosteric",
+    "atcase",
+    "rate-limiting",
+    "end product"
+  ],
+  "namedCollections": [
+    "metabolism"
+  ],
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "complexity": {
+    "nodes": 9,
+    "edges": 10,
+    "conditionals": 1,
+    "logicGates": {
+      "orGates": 1,
+      "andGates": 1,
+      "notGates": 0,
+      "total": 2
+    },
+    "level": "medium",
+    "detailLevel": "source_grounded",
+    "loops": 2
+  },
+  "graphMetrics": {
+    "nodes": 9,
+    "edges": 10,
+    "conditionals": 1,
+    "andGates": 1,
+    "orGates": 1,
+    "notGates": 0,
+    "loops": 2
+  },
+  "mermaid": "graph TD\n    N1[\"Substrate enters pathway\"]\n    N2[\"First committed enzyme\"]\n    N3[\"Catalyze rate-limiting step\"]\n    N4[\"Intermediate metabolites\"]\n    N5[\"End product synthesized\"]\n    N6{\"End product abundant?\"}\n    N7[\"Binds allosteric site\"]\n    N8[\"Enzyme T-state; activity down\"]\n    N9[\"Flux reduced (feedback)\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 --> N4\n    N4 --> N5\n    N5 --> N6\n    N6 -->|yes| N7\n    N7 --> N8\n    N8 --> N9\n    N9 -->|inhibit| N3\n    N6 -->|no: flux on| N3\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#ffd43b,color:#000\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#74c0fc,color:#fff\n    style N5 fill:#b197fc,color:#fff\n    style N6 fill:#74c0fc,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#51cf66,color:#fff",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Substrate enters pathway",
+      "detail": "Starting metabolite",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N2",
+      "label": "First committed enzyme",
+      "detail": "Regulatory enzyme (e.g., ATCase)",
+      "type": "process",
+      "role": "Structures & Objects",
+      "sourceRef": 2
+    },
+    {
+      "id": "N3",
+      "label": "Catalyze rate-limiting step",
+      "detail": "Committed, flux-controlling reaction",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N4",
+      "label": "Intermediate metabolites",
+      "detail": "Pathway intermediates",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N5",
+      "label": "End product synthesized",
+      "detail": "Final biosynthetic product",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N6",
+      "label": "End product abundant?",
+      "detail": "Is product above the set point?",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N7",
+      "label": "Binds allosteric site",
+      "detail": "Product binds a regulatory site",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N8",
+      "label": "Enzyme T-state; activity down",
+      "detail": "Allosteric shift lowers activity",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N9",
+      "label": "Flux reduced (feedback)",
+      "detail": "Pathway throughput decreases",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:mechanisms-feedback-inhibition",
+    "graphType": "mechanism_flowchart",
+    "topologySignature": "ccad95c6c8f13684",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "lastUpdated": "2026-06-01",
+  "verified": false,
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "sources": [
+    {
+      "title": "Evidence for a negative-feedback mechanism in the biosynthesis of isoleucine",
+      "authors": "Umbarger, H. E.",
+      "journal": "Science",
+      "year": "1956",
+      "pubmed": "13324101",
+      "doi": "10.1126/science.123.3202.848",
+      "url": "https://doi.org/10.1126/science.123.3202.848"
+    },
+    {
+      "title": "On the nature of allosteric transitions: a plausible model",
+      "authors": "Monod, J.; Wyman, J.; Changeux, J. P.",
+      "journal": "Journal of Molecular Biology",
+      "year": "1965",
+      "pubmed": "14343300",
+      "doi": "10.1016/S0022-2836(65)80285-6",
+      "url": "https://doi.org/10.1016/S0022-2836(65)80285-6"
+    },
+    {
+      "title": "The enzymology of control by feedback inhibition",
+      "authors": "Gerhart, J. C.; Pardee, A. B.",
+      "journal": "Journal of Biological Chemistry",
+      "year": "1962",
+      "pubmed": "13898874",
+      "doi": "10.1016/S0021-9258(18)97500-7",
+      "url": "https://doi.org/10.1016/S0021-9258(18)97500-7"
+    }
+  ],
+  "graphType": "mechanism_flowchart",
+  "domainContext": "Allosteric metabolic control"
+}

@@ -1,0 +1,39 @@
+{
+  "id": "geometry_topology-euclid-elements-book-xiii-props-10-18",
+  "name": "Euclid's Elements Book XIII — Propositions 10-18",
+  "category": "mathematics",
+  "subcategory": "geometry_topology",
+  "subcategory_name": "Geometry & Topology",
+  "description": "Process chart: geometry_topology-euclid-elements-book-xiii-props-10-18",
+  "mermaid": "graph TD\n    BookI[\"Book I\\nFoundation\"]\n    BookIV[\"Book IV\\nFoundation\"]\n    BookVI[\"Book VI\\nFoundation\"]\n    BookX[\"Book X\\nFoundation\"]\n    BookXI[\"Book XI\\nFoundation\"]\n    Prop1[\"Prop. XIII.1\\nExtreme and mean: square on greater\"]\n    Prop2[\"Prop. XIII.2\\nSquare five times: extreme and mean\"]\n    Prop3[\"Prop. XIII.3\\nExtreme and mean: sum of segments\"]\n    Prop4[\"Prop. XIII.4\\nExtreme and mean: sum of squares\"]\n    Prop5[\"Prop. XIII.5\\nExtreme and mean: add greater\"]\n    Prop6[\"Prop. XIII.6\\nRational cut: apotome\"]\n    Prop7[\"Prop. XIII.7\\nEquilateral pentagon: three angles\"]\n    Prop8[\"Prop. XIII.8\\nPentagon: diagonals in extreme and mean\"]\n    Prop9[\"Prop. XIII.9\\nHexagon + decagon: extreme and mean\"]\n    Prop10[\"Prop. XIII.10\\nPentagon: square equals hexagon + decagon\"]\n    Prop11[\"Prop. XIII.11\\nPentagon in rational circle: minor\"]\n    Prop12[\"Prop. XIII.12\\nEquilateral triangle: side triple radius\"]\n    Prop13[\"Prop. XIII.13\\nConstruct tetrahedron in sphere\"]\n    Prop14[\"Prop. XIII.14\\nConstruct octahedron in sphere\"]\n    Prop15[\"Prop. XIII.15\\nConstruct cube in sphere\"]\n    Prop16[\"Prop. XIII.16\\nConstruct icosahedron in sphere\"]\n    Prop17[\"Prop. XIII.17\\nConstruct dodecahedron in sphere\"]\n    Prop18[\"Prop. XIII.18\\nCompare five regular solids\"]\n    BookI --> Prop1\n    BookIV --> Prop1\n    BookVI --> Prop1\n    BookX --> Prop1\n    BookXI --> Prop1\n    BookI --> Prop2\n    BookIV --> Prop2\n    BookVI --> Prop2\n    BookX --> Prop2\n    BookXI --> Prop2\n    BookI --> Prop3\n    BookIV --> Prop3\n    BookVI --> Prop3\n    BookX --> Prop3\n    BookXI --> Prop3\n    BookI --> Prop4\n    BookIV --> Prop4\n    BookVI --> Prop4\n    BookX --> Prop4\n    BookXI --> Prop4\n    BookI --> Prop5\n    BookIV --> Prop5\n    BookVI --> Prop5\n    BookX --> Prop5\n    BookXI --> Prop5\n    BookI --> Prop6\n    BookIV --> Prop6\n    BookVI --> Prop6\n    BookX --> Prop6\n    BookXI --> Prop6\n    BookI --> Prop7\n    BookIV --> Prop7\n    BookVI --> Prop7\n    BookX --> Prop7\n    BookXI --> Prop7\n    BookI --> Prop8\n    BookIV --> Prop8\n    BookVI --> Prop8\n    BookX --> Prop8\n    BookXI --> Prop8\n    BookI --> Prop9\n    BookIV --> Prop9\n    BookVI --> Prop9\n    BookX --> Prop9\n    BookXI --> Prop9\n    BookI --> Prop10\n    BookIV --> Prop10\n    BookVI --> Prop10\n    BookX --> Prop10\n    BookXI --> Prop10\n    BookI --> Prop11\n    BookIV --> Prop11\n    BookVI --> Prop11\n    BookX --> Prop11\n    BookXI --> Prop11\n    BookI --> Prop12\n    BookIV --> Prop12\n    BookVI --> Prop12\n    BookX --> Prop12\n    BookXI --> Prop12\n    BookI --> Prop13\n    BookIV --> Prop13\n    BookVI --> Prop13\n    BookX --> Prop13\n    BookXI --> Prop13\n    BookI --> Prop14\n    BookIV --> Prop14\n    BookVI --> Prop14\n    BookX --> Prop14\n    BookXI --> Prop14\n    BookI --> Prop15\n    BookIV --> Prop15\n    BookVI --> Prop15\n    BookX --> Prop15\n    BookXI --> Prop15\n    BookI --> Prop16\n    BookIV --> Prop16\n    BookVI --> Prop16\n    BookX --> Prop16\n    BookXI --> Prop16\n    BookI --> Prop17\n    BookIV --> Prop17\n    BookVI --> Prop17\n    BookX --> Prop17\n    BookXI --> Prop17\n    BookI --> Prop18\n    BookIV --> Prop18\n    BookVI --> Prop18\n    BookX --> Prop18\n    BookXI --> Prop18\n    classDef foundation fill:#95a5a6,color:#fff,stroke:#7f8c8d\n    classDef proposition fill:#51cf66,color:#fff,stroke:#40c057\n    class BookI,BookIV,BookVI,BookX,BookXI foundation\n    class Prop1,Prop2,Prop3,Prop4,Prop5,Prop6,Prop7,Prop8,Prop9,Prop10,Prop11,Prop12,Prop13,Prop14,Prop15,Prop16,Prop17,Prop18 proposition",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "algorithm"
+}

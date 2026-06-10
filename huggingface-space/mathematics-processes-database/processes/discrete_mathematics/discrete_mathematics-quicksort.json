@@ -1,0 +1,55 @@
+{
+  "id": "discrete_mathematics-quicksort",
+  "name": "Quicksort",
+  "category": "mathematics",
+  "subcategory": "discrete_mathematics",
+  "subcategory_name": "Discrete Mathematics",
+  "description": "Divide-and-conquer in-place sort. Partition around pivot, recurse. O(n log n) avg, O(n²) worst.",
+  "mermaid": "graph TD\n    A1[\"Array A lo hi\"]\n    D1{\"Base case?\\nlo ge hi\"}\n    B1[\"Pick pivot p\\nPartition A around p\"]\n    C1[\"Quicksort A lo p-1\\nQuicksort A p+1 hi\"]\n    F1[\"Return in-place sorted\"]\n    A1 --> D1\n    D1 -->|Yes| F1\n    D1 -->|No| B1\n    B1 --> C1\n    C1 --> F1\n    classDef red fill:#ff6b6b,color:#fff,stroke:#c0392b\n    classDef yellow fill:#ffd43b,color:#000,stroke:#f59f00\n    classDef green fill:#51cf66,color:#fff,stroke:#40c057\n    classDef lightblue fill:#74c0fc,color:#fff,stroke:#4dabf7\n    classDef violet fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef lavender fill:#e6e6fa,color:#333,stroke:#b19cd9\n    class A1 red\n    class B1 yellow\n    class C1 green\n    class F1 violet\n    class D1 lavender",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [
+    "quicksort",
+    "divide and conquer",
+    "sorting",
+    "partition"
+  ],
+  "sources": [
+    {
+      "title": "Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Quicksort"
+    }
+  ],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "complexity": {
+    "level": "medium",
+    "nodes": 6,
+    "edges": 6,
+    "conditionals": 1
+  },
+  "processType": "algorithm"
+}

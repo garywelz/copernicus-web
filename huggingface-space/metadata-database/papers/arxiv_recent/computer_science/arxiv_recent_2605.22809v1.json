@@ -1,0 +1,43 @@
+{
+  "id": "arxiv_2605.22809v1",
+  "arxiv_id": "2605.22809v1",
+  "title": "Sensor2Sensor: Cross-Embodiment Sensor Conversion for Autonomous Driving",
+  "authors": [
+    "Jiahao Wang",
+    "Bo Sun",
+    "Yijing Bai",
+    "Vincent Casser",
+    "Songyou Peng",
+    "Zehao Zhu",
+    "Meng-Li Shih",
+    "Xander Masotto",
+    "Shih-Yang Su",
+    "Kanaad V Parvate",
+    "Tiancheng Ge",
+    "Linn Bieske",
+    "Dragomir Anguelov",
+    "Mingxing Tan",
+    "Chiyu Max Jiang"
+  ],
+  "author_string": "Jiahao Wang, Bo Sun, Yijing Bai, Vincent Casser, Songyou Peng et al.",
+  "journal": "arXiv:2605.22809v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Robust training and validation of Autonomous Driving Systems (ADS) require massive, diverse datasets. Proprietary data collected by Autonomous Vehicle (AV) fleets, while high-fidelity, are limited in scale, diversity of sensor configurations, as well as geographic and long-tail-behavioral coverage. In contrast, in-the-wild data from sources like dashcams offers immense scale and diversity, capturing critical long-tail scenarios and novel environments. However, this unstructured, in-the-wild video data is incompatible with ADS expecting structured, multi-modal sensor inputs for validation and training. To bridge this data gap, we propose Sensor2Sensor, a novel generative modeling paradigm that translates in-the-wild monocular dashcam videos into a high-fidelity, multi-modal sensor suite (AV logs) comprising multi-view camera images and LiDAR point clouds. A core challenge is the lack of paired training data. We address this by converting real AV logs into dashcam-style videos via 4D Gaussian Splatting (4DGS) reconstruction and novel-view rendering. Sensor2Sensor then utilizes a diffusion architecture to perform the generative conversion. We perform comprehensive quantitative evaluations on the fidelity and realism of the generated sensor data. We demonstrate Sensor2Sensor's practical utility by converting challenging in-the-wild internet and dashcam footage into realistic, multi-modal data formats, further unlocking vast external data sources for AV development.",
+  "categories": [
+    "cs.CV"
+  ],
+  "primary_category": "cs.CV",
+  "comment": "Accepted by CVPR 2026",
+  "published_date": "2026-05-21T17:57:17Z",
+  "updated_date": "2026-05-21T17:57:17Z",
+  "url": "https://arxiv.org/abs/2605.22809v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.22809v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-24T10:15:38.640970",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CV"
+  ]
+}

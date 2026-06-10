@@ -1,0 +1,176 @@
+{
+  "id": "mechanisms-riboswitch-regulation",
+  "name": "Riboswitch Regulation (TPP)",
+  "category": "biology",
+  "subcategory": "mechanisms",
+  "subcategory_name": "Mechanisms",
+  "description": "TPP riboswitch: an aptamer in the mRNA leader senses thiamine pyrophosphate; ligand binding refolds the expression platform into a terminator/sequestering structure that switches the downstream gene off, while the ligand-free form keeps it on.",
+  "keywords": [
+    "riboswitch",
+    "tpp",
+    "aptamer",
+    "terminator",
+    "gene regulation"
+  ],
+  "namedCollections": [
+    "gene-expression"
+  ],
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "complexity": {
+    "nodes": 8,
+    "edges": 7,
+    "conditionals": 1,
+    "logicGates": {
+      "orGates": 1,
+      "andGates": 0,
+      "notGates": 0,
+      "total": 1
+    },
+    "level": "medium",
+    "detailLevel": "source_grounded",
+    "loops": 0
+  },
+  "graphMetrics": {
+    "nodes": 8,
+    "edges": 7,
+    "conditionals": 1,
+    "andGates": 0,
+    "orGates": 1,
+    "notGates": 0,
+    "loops": 0
+  },
+  "mermaid": "graph TD\n    N1[\"Nascent mRNA w/ aptamer\"]\n    N2{\"TPP metabolite present?\"}\n    N3[\"TPP binds aptamer\"]\n    N4[\"Expression platform refolds\"]\n    N5[\"Terminator hairpin forms\"]\n    N6[\"Gene expression OFF\"]\n    N7[\"Anti-terminator default\"]\n    N8[\"Gene expression ON\"]\n\n    N1 --> N2\n    N2 -->|TPP high| N3\n    N3 --> N4\n    N4 --> N5\n    N5 --> N6\n    N2 -->|TPP low| N7\n    N7 --> N8\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#74c0fc,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#b197fc,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#b197fc,color:#fff",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Nascent mRNA w/ aptamer",
+      "detail": "Leader RNA bearing a TPP aptamer",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 1
+    },
+    {
+      "id": "N2",
+      "label": "TPP metabolite present?",
+      "detail": "Is thiamine pyrophosphate abundant?",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N3",
+      "label": "TPP binds aptamer",
+      "detail": "Ligand binds the sensing domain",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N4",
+      "label": "Expression platform refolds",
+      "detail": "Conformational switch in the leader",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N5",
+      "label": "Terminator hairpin forms",
+      "detail": "Sequestered RBS / terminator",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N6",
+      "label": "Gene expression OFF",
+      "detail": "Downstream gene repressed",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N7",
+      "label": "Anti-terminator default",
+      "detail": "Ligand-free permissive fold",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N8",
+      "label": "Gene expression ON",
+      "detail": "Downstream gene expressed",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 2
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:mechanisms-riboswitch-regulation",
+    "graphType": "decision_flowchart",
+    "topologySignature": "f1a1e682e86ede7c",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "lastUpdated": "2026-06-01",
+  "verified": false,
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "sources": [
+    {
+      "title": "Thiamine derivatives bind messenger RNAs directly to regulate bacterial gene expression",
+      "authors": "Winkler, W.; Nahvi, A.; Breaker, R. R.",
+      "journal": "Nature",
+      "year": "2002",
+      "pubmed": "12410317",
+      "doi": "10.1038/nature01145",
+      "url": "https://doi.org/10.1038/nature01145"
+    },
+    {
+      "title": "Sensing small molecules by nascent RNA: a mechanism to control transcription in bacteria",
+      "authors": "Mironov, A. S.; Gusarov, I.; Rafikov, R.; Lopez, L. E.; Shatalin, K.; Kreneva, R. A.; Perumov, D. A.; Nudler, E.",
+      "journal": "Cell",
+      "year": "2002",
+      "pubmed": "12464182",
+      "doi": "10.1016/S0092-8674(02)01134-0",
+      "url": "https://doi.org/10.1016/S0092-8674(02)01134-0"
+    },
+    {
+      "title": "A decade of riboswitches",
+      "authors": "Serganov, A.; Nudler, E.",
+      "journal": "Cell",
+      "year": "2013",
+      "pubmed": "23332744",
+      "doi": "10.1016/j.cell.2012.12.024",
+      "url": "https://doi.org/10.1016/j.cell.2012.12.024"
+    }
+  ],
+  "graphType": "decision_flowchart",
+  "domainContext": "RNA-based gene regulation"
+}

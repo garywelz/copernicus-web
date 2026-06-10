@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2604.21972v1",
+  "arxiv_id": "2604.21972v1",
+  "title": "Matchotter: An Automated Tool for Dimensional Reduction at Finite Temperature",
+  "authors": [
+    "Javier Fuentes-Martín",
+    "Javier López Miras",
+    "Adrián Moreno-Sánchez"
+  ],
+  "author_string": "Javier Fuentes-Martín, Javier López Miras, Adrián Moreno-Sánchez",
+  "journal": "arXiv:2604.21972v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "At finite temperature, the decoupling of heavy Matsubara modes allows a four-dimensional quantum field theory to be matched onto a purely spatial, three-dimensional effective field theory (EFT). This dimensional reduction is a crucial prerequisite for the precise computation of thermal observables, most prominently those related to cosmological phase transitions. In this work, we present Matchotter -- a dedicated finite-temperature module natively integrated into the Matchete package -- which automates this matching process up to one-loop order for generic Lagrangians. By adapting modern functional matching techniques to the finite-temperature formalism, Matchotter efficiently extracts the low-energy EFT directly from the thermal path integral. Furthermore, the module fully automates supersoft matching, where the temporal gauge bosons, which acquire a Debye mass during the dimensional reduction process, are integrated out. We outline the underlying architecture of the program and demonstrate its capabilities across a range of models, including the Standard Model Effective Field Theory (SMEFT).",
+  "categories": [
+    "hep-ph"
+  ],
+  "primary_category": "hep-ph",
+  "comment": "23 pages, 1 figure, 1 table",
+  "published_date": "2026-04-23T18:00:01Z",
+  "updated_date": "2026-04-23T18:00:01Z",
+  "url": "https://arxiv.org/abs/2604.21972v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.21972v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-27T10:15:32.960722",
+  "category": "physics",
+  "subcategories": [
+    "hep-ph"
+  ]
+}

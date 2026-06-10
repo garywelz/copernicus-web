@@ -1,0 +1,39 @@
+{
+  "id": "geometry_topology-algebraic-topology-props-1-15",
+  "name": "Algebraic Topology — Part 1: Homological Algebra",
+  "category": "mathematics",
+  "subcategory": "geometry_topology",
+  "subcategory_name": "Geometry & Topology",
+  "description": "Chain complexes, boundary operators, homology, exact sequences, Snake Lemma, Five Lemma. Prerequisites: abelian groups.",
+  "mermaid": "graph TD\n    RefAbGrp[\"Abelian groups\"]\n    DefChain[\"Def: Chain complex (C_n, ∂_n)\"]\n    DefBoundary[\"Def: Boundary operator ∂: C_n → C_{n-1}\"]\n    LemBoundSq[\"Lem: ∂² = 0\"]\n    DefCycles[\"Def: Cycles Z_n = ker ∂_n\"]\n    DefBoundaries[\"Def: Boundaries B_n = im ∂_{n+1}\"]\n    LemBSubZ[\"Lem: B_n ⊆ Z_n\"]\n    DefHomology[\"Def: Homology H_n = Z_n / B_n\"]\n    DefExact[\"Def: Exact sequence: im = ker\"]\n    DefShortExact[\"Def: Short exact sequence 0→A→B→C→0\"]\n    LemSnake[\"Lem: Snake Lemma\"]\n    LemFive[\"Lem: Five Lemma\"]\n    ThmLongExact[\"Thm: Short exact of chains ⇒ long exact in homology\"]\n    DefChainMap[\"Def: Chain map: commutes with ∂\"]\n    ThmChainMapHom[\"Thm: Chain map induces homomorphism on homology\"]\n    DefHomotopy[\"Def: Chain homotopy\"]\n    ThmHomotopyInv[\"Thm: Homotopic chain maps induce same H_* map\"]\n    RefAbGrp --> DefChain\n    DefChain --> DefBoundary\n    DefBoundary --> LemBoundSq\n    DefBoundary --> DefCycles\n    DefBoundary --> DefBoundaries\n    LemBoundSq --> LemBSubZ\n    DefCycles --> DefHomology\n    DefBoundaries --> DefHomology\n    LemBSubZ --> DefHomology\n    DefExact --> DefShortExact\n    DefShortExact --> LemSnake\n    DefShortExact --> LemFive\n    DefShortExact --> ThmLongExact\n    DefChain --> DefChainMap\n    DefHomology --> ThmChainMapHom\n    DefChainMap --> ThmChainMapHom\n    DefChainMap --> DefHomotopy\n    DefHomotopy --> ThmHomotopyInv\n    classDef ref fill:#bdc3c7,color:#333,stroke:#95a5a6\n    classDef definition fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef lemma fill:#74c0fc,color:#fff,stroke:#4dabf7\n    classDef theorem fill:#51cf66,color:#fff,stroke:#40c057\n    class RefAbGrp ref\n    class DefChain,DefBoundary,DefCycles,DefBoundaries,DefHomology,DefExact,DefShortExact,DefChainMap,DefHomotopy definition\n    class LemBoundSq,LemBSubZ,LemSnake,LemFive lemma\n    class ThmLongExact,ThmChainMapHom,ThmHomotopyInv theorem",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

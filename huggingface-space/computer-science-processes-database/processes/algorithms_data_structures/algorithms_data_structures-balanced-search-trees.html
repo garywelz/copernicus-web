@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Balanced Search Trees - Computer Science Process</title>
+    <title>Balanced Search Trees (Rotations) - Computer Science Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Balanced Search Trees</h1>
+            <h1>Balanced Search Trees (Rotations)</h1>
             <div class="header-meta">
                 <span class="meta-item">Computer Science</span>
                 <span class="meta-item">Algorithms & Data Structures</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,57 +234,64 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Balanced Search Trees process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>Self-balancing search trees keep operations at O(log n) by restoring a balance invariant after each insertion: a standard BST insert is followed by checking the height or color invariant, and when it is violated, single or double rotations and recoloring are applied up the path until the tree property is restored.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-N1["Keys + Comparison Function"]
-N2["Insert/Delete/Search Request"]
-N3["Balanced BST Invariant"]
-N4["Choose Approach"]
-N5["Tree Node Structure"]
-N6["Traverse to Target Position"]
-N7["Apply Update (insert/delete)"]
-N8["Update Heights/Colors"]
-N9["Integrate Results"]
-N10["Detect Imbalance Case"]
-N11["Rotation/Recoloring"]
-N12["Restore Invariant"]
-N13["Return Updated Root"]
+    N1["Insert key into BST"]
+    N2["Standard BST insert"]
+    N3["Update height / color"]
+    N4{"Balance violated?"}
+    N5["Detect rotation case"]
+    N6{"Single or double?"}
+    N7["Single rotation"]
+    N8["Double rotation"]
+    N9["Recolor / fix up"]
+    N10["Rebalance ancestors"]
+    N11{"Property restored?"}
+    N12["Balanced tree O(log n)"]
 
-N1 --> N2
-N2 --> N3
-N3 --> N4
-N4 --> N5
-N4 --> N7
-N5 --> N6
-N7 --> N8
-N6 --> N9
-N8 --> N9
-N9 --> N10
-N10 --> N11
-N11 --> N12
-N12 --> N13
+    N1 --> N2
+    N2 --> N3
+    N3 --> N4
+    N4 -->|no| N12
+    N4 -->|yes| N5
+    N5 --> N6
+    N6 -->|single| N7
+    N6 -->|double| N8
+    N7 --> N9
+    N8 --> N9
+    N9 --> N10
+    N10 --> N11
+    N11 -->|no| N5
+    N11 -->|yes| N12
 
     style N1 fill:#ff6b6b,color:#fff
-    style N2 fill:#ff6b6b,color:#fff
-    style N3 fill:#ffd43b,color:#000
-    style N4 fill:#ffd43b,color:#000
-    style N5 fill:#ffd43b,color:#000
-    style N6 fill:#51cf66,color:#fff
+    style N2 fill:#51cf66,color:#fff
+    style N3 fill:#51cf66,color:#fff
+    style N4 fill:#74c0fc,color:#fff
+    style N5 fill:#51cf66,color:#fff
+    style N6 fill:#74c0fc,color:#fff
     style N7 fill:#51cf66,color:#fff
-    style N8 fill:#74c0fc,color:#fff
-    style N9 fill:#74c0fc,color:#fff
+    style N8 fill:#51cf66,color:#fff
+    style N9 fill:#51cf66,color:#fff
     style N10 fill:#51cf66,color:#fff
-    style N11 fill:#51cf66,color:#fff
-    style N12 fill:#74c0fc,color:#fff
-    style N13 fill:#b197fc,color:#fff
+    style N11 fill:#74c0fc,color:#fff
+    style N12 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Insert key into BST</td><td>Triggers & Inputs</td><td><a href="https://mitpress.mit.edu/9780262046305/introduction-to-algorithms/" target="_blank" title="Introduction to Algorithms (4th ed.)" style="color:#9b59b6;">Cormen, T. H. et al. 2022</a></td></tr><tr><td style="font-weight:600;">Standard BST insert</td><td>Processing & Operations</td><td><a href="https://mitpress.mit.edu/9780262046305/introduction-to-algorithms/" target="_blank" title="Introduction to Algorithms (4th ed.)" style="color:#9b59b6;">Cormen, T. H. et al. 2022</a></td></tr><tr><td style="font-weight:600;">Update height / color</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1109/SFCS.1978.3" target="_blank" title="A dichromatic framework for balanced trees" style="color:#9b59b6;">Guibas, L. J. et al. 1978</a></td></tr><tr><td style="font-weight:600;">Balance violated?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1109/SFCS.1978.3" target="_blank" title="A dichromatic framework for balanced trees" style="color:#9b59b6;">Guibas, L. J. et al. 1978</a></td></tr><tr><td style="font-weight:600;">Detect rotation case</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1109/SFCS.1978.3" target="_blank" title="A dichromatic framework for balanced trees" style="color:#9b59b6;">Guibas, L. J. et al. 1978</a></td></tr><tr><td style="font-weight:600;">Single or double?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1109/SFCS.1978.3" target="_blank" title="A dichromatic framework for balanced trees" style="color:#9b59b6;">Guibas, L. J. et al. 1978</a></td></tr><tr><td style="font-weight:600;">Single rotation</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1109/SFCS.1978.3" target="_blank" title="A dichromatic framework for balanced trees" style="color:#9b59b6;">Guibas, L. J. et al. 1978</a></td></tr><tr><td style="font-weight:600;">Double rotation</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1109/SFCS.1978.3" target="_blank" title="A dichromatic framework for balanced trees" style="color:#9b59b6;">Guibas, L. J. et al. 1978</a></td></tr><tr><td style="font-weight:600;">Recolor / fix up</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1109/SFCS.1978.3" target="_blank" title="A dichromatic framework for balanced trees" style="color:#9b59b6;">Guibas, L. J. et al. 1978</a></td></tr><tr><td style="font-weight:600;">Rebalance ancestors</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1109/SFCS.1978.3" target="_blank" title="A dichromatic framework for balanced trees" style="color:#9b59b6;">Guibas, L. J. et al. 1978</a></td></tr><tr><td style="font-weight:600;">Property restored?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1109/SFCS.1978.3" target="_blank" title="A dichromatic framework for balanced trees" style="color:#9b59b6;">Guibas, L. J. et al. 1978</a></td></tr><tr><td style="font-weight:600;">Balanced tree O(log n)</td><td>Products & Outputs</td><td><a href="https://mitpress.mit.edu/9780262046305/introduction-to-algorithms/" target="_blank" title="Introduction to Algorithms (4th ed.)" style="color:#9b59b6;">Cormen, T. H. et al. 2022</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -303,12 +337,12 @@ N12 --> N13
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 13</li>
-                        <li><strong>Edges:</strong> 13</li>
-                        <li><strong>Conditionals:</strong> 0</li>
-                        <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 1</li>
-                        <li><strong>Total Gates:</strong> 2</li>
+                        <li><strong>Nodes:</strong> 12</li>
+                        <li><strong>Edges:</strong> 14</li>
+                        <li><strong>Conditionals:</strong> 3</li>
+                        <li><strong>AND Gates:</strong> 3</li>
+                        <li><strong>OR Gates:</strong> 3</li>
+                        <li><strong>Total Gates:</strong> 6</li>
                     </ul>
                 </div>
                 
@@ -316,7 +350,7 @@ N12 --> N13
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>balanced</li><li>search</li><li>trees</li>
+                        <li>balanced search tree</li><li>red-black tree</li><li>AVL tree</li><li>rotation</li><li>logarithmic height</li>
                     </ul>
                 </div>
                 
@@ -327,43 +361,23 @@ N12 --> N13
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>A dichromatic framework for balanced trees</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Guibas, L. J.; Sedgewick, R.
+                            , 19th Annual Symposium on Foundations of Computer Science
+                             (1978)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #9b59b6; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Balanced Search Trees</strong>
-                            
-                            , Advanced Data Structures
-                             (2008)
-                            </span>
-                            <br><a href="https://doi.org/10.1017/cbo9780511800191.004" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.1017/cbo9780511800191.004</a>
+                            <br><a href="https://doi.org/10.1109/SFCS.1978.3" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.1109/SFCS.1978.3</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Balanced Binary Search Trees</strong>
-                            
-                            , Handbook of Data Structures and Applications
-                             (2004)
+                            <strong>Introduction to Algorithms (4th ed.)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Cormen, T. H.; Leiserson, C. E.; Rivest, R. L.; Stein, C.
+                            , MIT Press
+                             (2022)
                             </span>
-                            <br><a href="https://doi.org/10.1201/9781420035179-20" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.1201/9781420035179-20</a>
                             
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>A new class of balanced search trees : half-balanced binary search tress</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Olivié, H. J.
-                            , RAIRO. Informatique théorique
-                             (1982)
-                            </span>
-                            <br><a href="https://doi.org/10.1051/ita/1982160100511" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.1051/ita/1982160100511</a>
-                            
+                            <br><a href="https://mitpress.mit.edu/9780262046305/introduction-to-algorithms/" target="_blank" style="color: #9b59b6; font-size: 0.85em;">View Source</a>
                         </li>
                         
                     </ul>

@@ -1,0 +1,40 @@
+{
+  "id": "arxiv_2604.24561v1",
+  "arxiv_id": "2604.24561v1",
+  "title": "Remotely programming the weights of a spintronic neural network by a radiofrequency broadcast signal",
+  "authors": [
+    "M. Menshawy",
+    "D. Sanz-Hernández",
+    "L. Mazza",
+    "V. Puliafito",
+    "G. Finocchio",
+    "A. Jenkins",
+    "R. Ferreira",
+    "L. Benetti",
+    "J. Grollier",
+    "F. A. Mizrahi"
+  ],
+  "author_string": "M. Menshawy, D. Sanz-Hernández, L. Mazza, V. Puliafito, G. Finocchio et al.",
+  "journal": "arXiv:2604.24561v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Selectively programming large number of non-volatile synaptic weights without compromising scalability is a key challenge for in-memory computing. Here, we demonstrate remote programming of synaptic weights in series-connected chains of 11 vortex-based magnetic tunnel junctions using broadcast radiofrequency signals applied through a shared strip line. The programming relies on frequency-selective reversal of the vortex-core polarity and therefore does not require individual access lines or selector devices. By reconfiguring the binary states of these chains, we reshape the weighted sums they perform on frequency-multiplexed RF inputs. Using a 22-synapse network composed of two such chains, we remotely reconfigure the same hardware to perform two distinct tasks: handwritten-digit classification and drone RF-signature identification. The digit-optimized configuration reaches 94.91 +/- 0.26% accuracy on handwritten digits but only 13.17 +/- 0.47% on drone RF signatures, whereas the drone-optimized configuration reaches 97.33 +/- 0.62% on drones but only 47.59 +/- 1.5% on digits. Broadcast RF programming thus provides a compact and scalable route to rapidly reconfigurable spintronic neuromorphic hardware.",
+  "categories": [
+    "cs.ET",
+    "cond-mat.mes-hall"
+  ],
+  "primary_category": "cond-mat.mes-hall",
+  "comment": "8 pages, 3 figures",
+  "published_date": "2026-04-27T14:49:18Z",
+  "updated_date": "2026-04-27T14:49:18Z",
+  "url": "https://arxiv.org/abs/2604.24561v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.24561v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-27T22:15:21.996340",
+  "category": "physics",
+  "subcategories": [
+    "cs.ET",
+    "cond-mat.mes-hall"
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "id": "arxiv_2604.20599v1",
+  "arxiv_id": "2604.20599v1",
+  "title": "Distributed Quantum Optimization for Large-Scale Higher-Order Problems with Dense Interactions",
+  "authors": [
+    "Seongmin Kim",
+    "Vincent R. Pascuzzi",
+    "Travis S. Humble",
+    "Thomas Beck",
+    "Sanghyo Hwang",
+    "Tengfei Luo",
+    "Eungkyu Lee",
+    "In-Saeng Suh"
+  ],
+  "author_string": "Seongmin Kim, Vincent R. Pascuzzi, Travis S. Humble, Thomas Beck, Sanghyo Hwang et al.",
+  "journal": "arXiv:2604.20599v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Many real-world problems are naturally formulated as higher-order optimization (HUBO) tasks involving dense, multi-variable interactions, which are challenging to solve with classical methods. Quantum optimization offers a promising route, but hardware constraints and limitations to quadratic formulations have hampered their practicality. Here, we develop a distributed quantum optimization framework (DQOF) for dense, large-scale HUBO problems. DQOF assigns quantum circuits a central role in directly capturing higher-order interactions, while high-performance computing orchestrates large-scale parallelism and coordination. A clustering strategy enables wide quantum circuits without increasing depth, allowing efficient execution on near-term quantum hardware. We demonstrate high-quality solutions for HUBOs up to 500 variables within 170 seconds, significantly outperforming conventional approaches in solution quality and scalability. Applied to optical metamaterial design, DQOF efficiently discovers high-performance structures and shows that higher-order interactions are important for practical optimization problems. These results establish DQOF as a practical and scalable computational paradigm for large-scale scientific optimization.",
+  "categories": [
+    "quant-ph",
+    "cs.CE",
+    "cs.DC"
+  ],
+  "primary_category": "cs.DC",
+  "comment": "4 figures, 15 supplementary figures",
+  "published_date": "2026-04-22T14:15:20Z",
+  "updated_date": "2026-04-22T14:15:20Z",
+  "url": "https://arxiv.org/abs/2604.20599v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.20599v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-25T22:15:49.051315",
+  "category": "computer_science",
+  "subcategories": [
+    "quant-ph",
+    "cs.CE",
+    "cs.DC"
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "id": "discrete_mathematics-proof-theory-cut-elimination",
+  "name": "Proof Theory — Cut Elimination",
+  "category": "mathematics",
+  "subcategory": "discrete_mathematics",
+  "subcategory_name": "Discrete Mathematics",
+  "description": "Hauptsatz (Gentzen): every LK-proof has cut-free proof. Subformula property: cut-free proof uses only subformulas of end-sequent. Consistency follows.",
+  "mermaid": "graph TD\n    D1[\"Def: Cut-free proof\\nno cut rule\"]\n    D2[\"Def: Subformula\\nof formula\"]\n    T1[\"Thm: Hauptsatz\\ncut eliminable\"]\n    T2[\"Thm: Subformula prop\\ncut-free uses subformulas\"]\n    T3[\"Thm: Consistency\\nnot ⊢ ⊥\"]\n    T1 --> D1\n    T1 --> T2\n    D2 --> T2\n    T2 --> T3\n    classDef definition fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef theorem fill:#51cf66,color:#fff,stroke:#40c057\n    class D1,D2 definition\n    class T1,T2,T3 theorem",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

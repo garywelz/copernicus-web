@@ -1,0 +1,107 @@
+{
+  "generatedAt": "2026-04-30T16:11:49.023790+00:00",
+  "reports": [
+    {
+      "discipline": "biology",
+      "databaseDir": "biology-processes-database",
+      "generatedAt": "2026-04-30T16:11:48.875103+00:00",
+      "processCount": 56,
+      "findingCount": 1,
+      "findingCounts": {
+        "supplemental_json": 1
+      },
+      "duplicateMermaidGroups": [],
+      "findingsByProcess": {
+        "taxonomy-domains-of-life": [
+          {
+            "severity": "info",
+            "code": "supplemental_json",
+            "message": "Process comes from JSON outside metadata.json."
+          }
+        ]
+      }
+    },
+    {
+      "discipline": "chemistry",
+      "databaseDir": "chemistry-processes-database",
+      "generatedAt": "2026-04-30T16:11:48.970623+00:00",
+      "processCount": 124,
+      "findingCount": 1,
+      "findingCounts": {
+        "supplemental_json": 1
+      },
+      "duplicateMermaidGroups": [],
+      "findingsByProcess": {
+        "influence-catalyst-design": [
+          {
+            "severity": "info",
+            "code": "supplemental_json",
+            "message": "Process comes from JSON outside metadata.json."
+          }
+        ]
+      }
+    },
+    {
+      "discipline": "physics",
+      "databaseDir": "physics-processes-database",
+      "generatedAt": "2026-04-30T16:11:48.986341+00:00",
+      "processCount": 22,
+      "findingCount": 4,
+      "findingCounts": {
+        "physics_domain_drift": 3,
+        "supplemental_json": 1
+      },
+      "duplicateMermaidGroups": [],
+      "findingsByProcess": {
+        "solid_state-nuclear-decay": [
+          {
+            "severity": "medium",
+            "code": "physics_domain_drift",
+            "message": "Nuclear topic appears under solid_state."
+          }
+        ],
+        "solid_state-nuclear-fission": [
+          {
+            "severity": "medium",
+            "code": "physics_domain_drift",
+            "message": "Nuclear topic appears under solid_state."
+          }
+        ],
+        "solid_state-nuclear-fusion": [
+          {
+            "severity": "medium",
+            "code": "physics_domain_drift",
+            "message": "Nuclear topic appears under solid_state."
+          }
+        ],
+        "state-transition-matter-phases": [
+          {
+            "severity": "info",
+            "code": "supplemental_json",
+            "message": "Process comes from JSON outside metadata.json."
+          }
+        ]
+      }
+    },
+    {
+      "discipline": "computer_science",
+      "databaseDir": "computer-science-processes-database",
+      "generatedAt": "2026-04-30T16:11:49.023671+00:00",
+      "processCount": 51,
+      "findingCount": 1,
+      "findingCounts": {
+        "supplemental_json": 1
+      },
+      "duplicateMermaidGroups": [],
+      "findingsByProcess": {
+        "dependency-web-service-stack": [
+          {
+            "severity": "info",
+            "code": "supplemental_json",
+            "message": "Process comes from JSON outside metadata.json."
+          }
+        ]
+      }
+    }
+  ]
+}

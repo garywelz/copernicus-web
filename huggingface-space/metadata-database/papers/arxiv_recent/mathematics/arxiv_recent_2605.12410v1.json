@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_2605.12410v1",
+  "arxiv_id": "2605.12410v1",
+  "title": "Model-based Bootstrap of Controlled Markov Chains",
+  "authors": [
+    "Ziwei Su",
+    "Imon Banerjee",
+    "Diego Klabjan"
+  ],
+  "author_string": "Ziwei Su, Imon Banerjee, Diego Klabjan",
+  "journal": "arXiv:2605.12410v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We propose and analyze a model-based bootstrap for transition kernels in finite controlled Markov chains (CMCs) with possibly nonstationary or history-dependent control policies, a setting that arises naturally in offline reinforcement learning (RL) when the behavior policy generating the data is unknown. We establish distributional consistency of the bootstrap transition estimator in both a single long-chain regime and the episodic offline RL regime. The key technical tools are a novel bootstrap law of large numbers (LLN) for the visitation counts and a novel use of the martingale central limit theorem (CLT) for the bootstrap transition increments. We extend bootstrap distributional consistency to the downstream targets of offline policy evaluation (OPE) and optimal policy recovery (OPR) via the delta method by verifying Hadamard differentiability of the Bellman operators, yielding asymptotically valid confidence intervals for value and $Q$-functions. Experiments on the RiverSwim problem show that the proposed bootstrap confidence intervals (CIs), especially the percentile CIs, outperform the episodic bootstrap and plug-in CLT CIs, and are often close to nominal ($50\\%$, $90\\%$, $95\\%$) coverage, while the baselines are poorly calibrated at small sample sizes and short episode lengths.",
+  "categories": [
+    "stat.ML",
+    "cs.LG",
+    "math.OC",
+    "math.ST"
+  ],
+  "primary_category": "math.ST",
+  "comment": "45 pages, 7 figures, 19 tables",
+  "published_date": "2026-05-12T17:05:59Z",
+  "updated_date": "2026-05-12T17:05:59Z",
+  "url": "https://arxiv.org/abs/2605.12410v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.12410v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-13T10:15:43.131814",
+  "category": "mathematics",
+  "subcategories": [
+    "stat.ML",
+    "cs.LG",
+    "math.OC"
+  ]
+}

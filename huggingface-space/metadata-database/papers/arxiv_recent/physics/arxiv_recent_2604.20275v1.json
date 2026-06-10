@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2604.20275v1",
+  "arxiv_id": "2604.20275v1",
+  "title": "A Lightning-Fast Three-Flavor Neutrino Oscillation Calculator in Constant-Density Matter with Built-In Uncertainty Propagation",
+  "authors": [
+    "Aaryan Chaulagain",
+    "Daya Nidhi Chhatkuli",
+    "Anju Dhakal"
+  ],
+  "author_string": "Aaryan Chaulagain, Daya Nidhi Chhatkuli, Anju Dhakal",
+  "journal": "arXiv:2604.20275v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Neutrino oscillation experiments are entering an era of precision, requiring both fast calculations and reliable uncertainty estimates. We present a compact three-flavor oscillation calculator for constant-density matter, built on analytic perturbative formulas and validated against established series expansions. Using the NuFIT 6.0 global-fit covariance matrix, the tool incorporates up-to-date parameter values and correlations. It accurately computes appearance and disappearance probabilities over 0.3-5 GeV at a 295 km baseline, offering two computation modes: exact Hamiltonian diagonalization for high-fidelity results, and a faster perturbative approximation that runs roughly 27x quicker. A hybrid scheme handles the MSW resonance region, combining speed with accuracy. Uncertainties can be propagated via Monte Carlo sampling or a fast linearized approach, producing reliable confidence bands. The implementation preserves unitarity, reproduces vacuum and resonance limits, and captures high-energy suppression effects. This calculator provides a fast, reliable framework for parameter scans, phenomenological studies, and sensitivity estimates for current and future long-baseline experiments like Hyper-Kamiokande and DUNE.",
+  "categories": [
+    "hep-ph"
+  ],
+  "primary_category": "hep-ph",
+  "comment": "16 pages, 5 figures",
+  "published_date": "2026-04-22T07:23:54Z",
+  "updated_date": "2026-04-22T07:23:54Z",
+  "url": "https://arxiv.org/abs/2604.20275v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.20275v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-23T10:15:31.467091",
+  "category": "physics",
+  "subcategories": [
+    "hep-ph"
+  ]
+}

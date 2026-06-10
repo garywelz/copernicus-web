@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hubbard & Douady — Mandelbrot Set - Mathematics Process</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 20px; }
+        .container { max-width: 900px; margin: 0 auto; background: white; border-radius: 15px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); overflow: hidden; padding: 30px; }
+        h1 { color: #2c3e50; margin-bottom: 15px; }
+        p { color: #555; margin-bottom: 25px; line-height: 1.6; }
+        .nav-links { margin-bottom: 20px; }
+        .nav-links a { color: #e67e22; text-decoration: none; margin-right: 20px; font-weight: 500; }
+        .nav-links a:hover { text-decoration: underline; }
+        .sections { display: grid; gap: 15px; }
+        .sections a { display: block; padding: 20px; background: #f8f9fa; border-radius: 10px; color: #2c3e50; text-decoration: none; font-weight: 500; border-left: 4px solid #d35400; }
+        .sections a:hover { background: #ecf0f1; }
+        .section-label { font-size: 0.85em; color: #7f8c8d; margin-top: 5px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="nav-links">
+            <a id="back-link" href="#">← Back to Mathematics Database</a>
+            <a href="https://math.cornell.edu/people/john-hubbard" target="_blank">John Hubbard (Cornell)</a>
+            <a href="https://en.wikipedia.org/wiki/Adrien_Douady" target="_blank">Adrien Douady</a>
+        </div>
+        <script>
+            (function() {
+                document.getElementById('back-link').href = window.location.hostname.includes('storage.googleapis.com')
+                    ? 'https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/mathematics-database-table.html'
+                    : '../../mathematics-database-table.html';
+            })();
+        </script>
+        <h1>Hubbard & Douady — Mandelbrot Set</h1>
+        <p>Dependency charts related to the work of John H. Hubbard (Cornell) and Adrien Douady on the Mandelbrot set: quadratic Julia sets, Böttcher coordinate, connectedness proof, polynomial-like maps and straightening. Douady coined the name "Mandelbrot set."</p>
+        <div class="sections">
+            <a href="calculus_analysis-quadratic-julia-mandelbrot.html">Quadratic Julia Sets & Mandelbrot Set <span class="section-label">f_c(z)=z²+c, filled Julia K_c, M = {c : 0 ∈ K_c}</span></a>
+            <a href="calculus_analysis-boettcher-external-rays.html">Böttcher Coordinate & External Rays <span class="section-label">Conjugation near infinity, equipotentials, external rays</span></a>
+            <a href="calculus_analysis-douady-hubbard-mandelbrot-connected.html">Douady-Hubbard: Mandelbrot Set Connected <span class="section-label">φ map, biholomorphism, M connected (1981-82)</span></a>
+            <a href="calculus_analysis-polynomial-like-maps.html">Polynomial-like Maps & Straightening <span class="section-label">Straightening theorem, small copies of M (1985)</span></a>
+        </div>
+    </div>
+</body>
+</html>

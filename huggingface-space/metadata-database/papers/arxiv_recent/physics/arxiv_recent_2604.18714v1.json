@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_2604.18714v1",
+  "arxiv_id": "2604.18714v1",
+  "title": "Efficient Routing of Quantum LDPC Codes on Programmable 2D Toric Architectures",
+  "authors": [
+    "Kun Liu",
+    "Takahiro Tsunoda",
+    "Sophia H. Xue",
+    "Evan McKinney",
+    "Zeyuan Zhou",
+    "Shifan Xu",
+    "Robert J. Schoelkopf",
+    "Yongshan Ding"
+  ],
+  "author_string": "Kun Liu, Takahiro Tsunoda, Sophia H. Xue, Evan McKinney, Zeyuan Zhou et al.",
+  "journal": "arXiv:2604.18714v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Quantum low-density parity-check codes are promising candidates towards scalable fault-tolerant quantum computation. Among these, bivariate bicycle (BB) codes offer superior encoding rates and large code distance compared to surface codes. However, their requirement on long-range stabilizer measurements poses significant challenges for implementation on realistic hardware with limited connectivity, such as superconducting circuit platforms. In this work, we introduce a novel hardware-software co-design that leverages a programmable communication network architecture to address these limitations. Our approach utilizes a 2D toric network of oscillators as a flexible communication fabric linking qubits at each site. Such architecture significantly reduces the number of long-range couplers required from $O(n)$ to $O(\\sqrt{n})$. Dual-rail qubits, along with native gates including Swap-Wait-Swap gates and beamsplitter SWAPs, ensure that long-range two-qubit gates can be executed with high fidelity and low latency. To further enhance performance, our qubit layout and routing algorithm utilize symmetries of the codes and enable maximum parallelism for long-range two-qubit gates, maintaining a low syndrome extraction cycle duration and scalability over the code length. We perform circuit-level simulation with realistic noise modeling based on experimental hardware parameters, observing an logical error rate per logical qubit per cycle of 3.06\\% for $[[18, 4, 4]]$ BB code, 2.6$\\times$ less than the existing experimental result. These findings provide a practical roadmap and identify key technological advancements needed to achieve low-overhead fault-tolerant quantum computing at scale.",
+  "categories": [
+    "quant-ph"
+  ],
+  "primary_category": "quant-ph",
+  "comment": null,
+  "published_date": "2026-04-20T18:14:28Z",
+  "updated_date": "2026-04-20T18:14:28Z",
+  "url": "https://arxiv.org/abs/2604.18714v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.18714v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-22T10:15:48.102211",
+  "category": "physics",
+  "subcategories": [
+    "quant-ph"
+  ]
+}

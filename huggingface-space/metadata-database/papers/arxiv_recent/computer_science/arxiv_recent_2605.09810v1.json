@@ -1,0 +1,37 @@
+{
+  "id": "arxiv_2605.09810v1",
+  "arxiv_id": "2605.09810v1",
+  "title": "TD3B: Transition-Directed Discrete Diffusion for Allosteric Binder Generation",
+  "authors": [
+    "Hanqun Cao",
+    "Aastha Pal",
+    "Sophia Tang",
+    "Yinuo Zhang",
+    "Jingjie Zhang",
+    "Pheng Ann Heng",
+    "Pranam Chatterjee"
+  ],
+  "author_string": "Hanqun Cao, Aastha Pal, Sophia Tang, Yinuo Zhang, Jingjie Zhang et al.",
+  "journal": "arXiv:2605.09810v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Protein function is often controlled by ligands that bias the direction of state transitions, such as agonists and antagonists, rather than stabilizing a single conformation. This is especially important for clinically relevant G protein-coupled receptors (GPCRs), where therapeutic efficacy depends on functional directionality. Structure-based design methods optimize binding to static conformations and cannot represent non-reversible, directional effects or systematically distinguish agonist from antagonist behavior. To address this gap, we introduce Transition-Directed Discrete Diffusion for Allosteric Binder Design (TD3B), a sequence-based generative framework that designs binders with specified agonist or antagonist behavior via a directional transition control objective. TD3B combines a target-aware Direction Oracle, a soft binding-affinity gate, and amortized fine-tuning of a pre-trained discrete diffusion model, enabling targeted agonist and antagonist generation decoupled from binding affinity and unattainable by equilibrium-based or inference-only guidance baselines. The code and checkpoints are available at https://huggingface.co/ChatterjeeLab/TD3B.",
+  "categories": [
+    "q-bio.BM",
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": "Published as a Spotlight at ICML 2026 (Proceedings of the 43rd International Conference on Machine Learning, Seoul, South Korea)",
+  "published_date": "2026-05-10T23:17:06Z",
+  "updated_date": "2026-05-10T23:17:06Z",
+  "url": "https://arxiv.org/abs/2605.09810v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.09810v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-18T10:15:43.641775",
+  "category": "computer_science",
+  "subcategories": [
+    "q-bio.BM",
+    "cs.LG"
+  ]
+}

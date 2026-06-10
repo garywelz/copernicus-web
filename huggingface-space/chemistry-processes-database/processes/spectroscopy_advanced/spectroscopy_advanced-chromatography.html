@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chromatography - Chemistry Process</title>
+    <title>Chromatographic Separation - Chemistry Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Chromatography</h1>
+            <h1>Chromatographic Separation</h1>
             <div class="header-meta">
                 <span class="meta-item">Chemistry</span>
                 <span class="meta-item">Spectroscopy Advanced</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,68 +234,60 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Chromatography process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>Chromatography separates a mixture by differential partitioning between a mobile and a stationary phase: components with stronger stationary-phase affinity are retained longer; band broadening (van Deemter) limits resolution, which is tuned by adjusting phase and flow.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-A5[Sample Mixture] --> B5[Chromatography Method]
-C5[Stationary Phase] --> D5[Mobile Phase]
-E5[Detector System] --> F5[Data Collection]
-B5 --> G5[Column Preparation]
-D5 --> H5[Flow Control]
-F5 --> I5[Signal Processing]
-G5 --> J5[Column Packing]
-H5 --> K5[Flow Rate]
-I5 --> L5[Retention Time]
-J5 --> M5[Sample Injection]
-K5 --> L5
-L5 --> N5[Separation Process]
-M5 --> O5[Sample Loading]
-N5 --> P5[Chromatographic Separation]
-O5 --> Q5[Analytical Process]
-P5 --> R5[Chromatogram]
-Q5 --> S5[Peak Analysis]
-R5 --> T5[Component Separation]
-S5 --> U5[Retention Analysis]
-T5 --> V5[Component Identification]
-U5 --> W5[Chromatographic Efficiency]
-V5 --> X5[Sample Characterization]
-W5 --> Y5[Process Optimization]
-X5 --> Z5[Final Chromatogram]
-Y5 --> Z5
+    N1["Mixture injected"]
+    N2["Carried by mobile phase"]
+    N3["Partition w/ stationary phase"]
+    N4{"Stronger affinity?"}
+    N5["Retained longer"]
+    N6["Elutes later"]
+    N7["Weak affinity: elutes early"]
+    N8["Band broadening"]
+    N9{"Peaks resolved?"}
+    N10["Adjust phase / flow"]
+    N11["Separated components"]
 
-    style A5 fill:#ff6b6b,color:#fff
-    style C5 fill:#ff6b6b,color:#fff
-    style E5 fill:#ff6b6b,color:#fff
-    style B5 fill:#ffd43b,color:#000
-    style D5 fill:#ffd43b,color:#000
-    style F5 fill:#ffd43b,color:#000
-    style G5 fill:#ffd43b,color:#000
-    style H5 fill:#ffd43b,color:#000
-    style I5 fill:#ffd43b,color:#000
-    style J5 fill:#ffd43b,color:#000
-    style K5 fill:#ffd43b,color:#000
-    style L5 fill:#ffd43b,color:#000
-    style M5 fill:#51cf66,color:#fff
+    N1 --> N2
+    N2 --> N3
+    N3 --> N4
+    N4 -->|strong| N5
+    N5 --> N6
+    N4 -->|weak| N7
+    N6 --> N8
+    N7 --> N8
+    N8 --> N9
+    N9 -->|no| N10
+    N10 -->|re-run| N2
+    N9 -->|yes| N11
+
+    style N1 fill:#ff6b6b,color:#fff
+    style N2 fill:#51cf66,color:#fff
+    style N3 fill:#51cf66,color:#fff
+    style N4 fill:#74c0fc,color:#fff
     style N5 fill:#51cf66,color:#fff
-    style O5 fill:#51cf66,color:#fff
-    style P5 fill:#51cf66,color:#fff
-    style Q5 fill:#51cf66,color:#fff
-    style R5 fill:#51cf66,color:#fff
-    style S5 fill:#51cf66,color:#fff
-    style T5 fill:#51cf66,color:#fff
-    style U5 fill:#51cf66,color:#fff
-    style V5 fill:#51cf66,color:#fff
-    style W5 fill:#51cf66,color:#fff
-    style X5 fill:#51cf66,color:#fff
-    style Y5 fill:#51cf66,color:#fff
-    style Z5 fill:#b197fc,color:#fff
+    style N6 fill:#51cf66,color:#fff
+    style N7 fill:#51cf66,color:#fff
+    style N8 fill:#51cf66,color:#fff
+    style N9 fill:#74c0fc,color:#fff
+    style N10 fill:#51cf66,color:#fff
+    style N11 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Mixture injected</td><td>Triggers & Inputs</td><td><a href="https://doi.org/10.1042/bj0351358" target="_blank" title="A new form of chromatogram employing two liquid phases (partition chromatography)" style="color:#e74c3c;">Martin, A. J. P. et al. 1941</a></td></tr><tr><td style="font-weight:600;">Carried by mobile phase</td><td>Processing & Operations</td><td><a href="https://www.cengage.com/c/principles-of-instrumental-analysis-7e-skoog/9781305577213/" target="_blank" title="Principles of Instrumental Analysis, 7th ed. — Introduction to Chromatography" style="color:#e74c3c;">Skoog, D. A. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Partition w/ stationary phase</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1042/bj0351358" target="_blank" title="A new form of chromatogram employing two liquid phases (partition chromatography)" style="color:#e74c3c;">Martin, A. J. P. et al. 1941</a></td></tr><tr><td style="font-weight:600;">Stronger affinity?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1042/bj0351358" target="_blank" title="A new form of chromatogram employing two liquid phases (partition chromatography)" style="color:#e74c3c;">Martin, A. J. P. et al. 1941</a></td></tr><tr><td style="font-weight:600;">Retained longer</td><td>Processing & Operations</td><td><a href="https://www.cengage.com/c/principles-of-instrumental-analysis-7e-skoog/9781305577213/" target="_blank" title="Principles of Instrumental Analysis, 7th ed. — Introduction to Chromatography" style="color:#e74c3c;">Skoog, D. A. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Elutes later</td><td>Processing & Operations</td><td><a href="https://www.cengage.com/c/principles-of-instrumental-analysis-7e-skoog/9781305577213/" target="_blank" title="Principles of Instrumental Analysis, 7th ed. — Introduction to Chromatography" style="color:#e74c3c;">Skoog, D. A. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Weak affinity: elutes early</td><td>Processing & Operations</td><td><a href="https://www.cengage.com/c/principles-of-instrumental-analysis-7e-skoog/9781305577213/" target="_blank" title="Principles of Instrumental Analysis, 7th ed. — Introduction to Chromatography" style="color:#e74c3c;">Skoog, D. A. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Band broadening</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1016/0009-2509(56)80003-1" target="_blank" title="Longitudinal diffusion and resistance to mass transfer (van Deemter equation)" style="color:#e74c3c;">van Deemter, J. J. et al. 1956</a></td></tr><tr><td style="font-weight:600;">Peaks resolved?</td><td>Intermediates & States</td><td><a href="https://www.cengage.com/c/principles-of-instrumental-analysis-7e-skoog/9781305577213/" target="_blank" title="Principles of Instrumental Analysis, 7th ed. — Introduction to Chromatography" style="color:#e74c3c;">Skoog, D. A. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Adjust phase / flow</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1016/0009-2509(56)80003-1" target="_blank" title="Longitudinal diffusion and resistance to mass transfer (van Deemter equation)" style="color:#e74c3c;">van Deemter, J. J. et al. 1956</a></td></tr><tr><td style="font-weight:600;">Separated components</td><td>Products & Outputs</td><td><a href="https://doi.org/10.1042/bj0351358" target="_blank" title="A new form of chromatogram employing two liquid phases (partition chromatography)" style="color:#e74c3c;">Martin, A. J. P. et al. 1941</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -314,12 +333,12 @@ Y5 --> Z5
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 26</li>
-                        <li><strong>Edges:</strong> 22</li>
-                        <li><strong>Conditionals:</strong> 0</li>
-                        <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 1</li>
+                        <li><strong>Nodes:</strong> 11</li>
+                        <li><strong>Edges:</strong> 12</li>
+                        <li><strong>Conditionals:</strong> 2</li>
+                        <li><strong>AND Gates:</strong> 2</li>
+                        <li><strong>OR Gates:</strong> 2</li>
+                        <li><strong>Total Gates:</strong> 4</li>
                     </ul>
                 </div>
                 
@@ -327,7 +346,7 @@ Y5 --> Z5
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>chromatography</li>
+                        <li>chromatography</li><li>partition</li><li>retention</li><li>van deemter</li><li>resolution</li>
                     </ul>
                 </div>
                 
@@ -338,43 +357,33 @@ Y5 --> Z5
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Longitudinal diffusion and resistance to mass transfer (van Deemter equation)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">van Deemter, J. J.; Zuiderweg, F. J.; Klinkenberg, A.
+                            , Chemical Engineering Science
+                             (1956)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Acknowledgement to Reviewers of Chromatography in 2014</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Chromatography Editorial Office
-                            , Chromatography
-                             (2015)
-                            </span>
-                            <br><a href="https://doi.org/10.3390/chromatography2010019" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.3390/chromatography2010019</a>
+                            <br><a href="https://doi.org/10.1016/0009-2509(56)80003-1" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1016/0009-2509(56)80003-1</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Chromatography of Alkaloids - Part B: Gas-Liquid Chromatography and High-Performance Liquid Chromatography</strong>
-                            
-                            , Journal of Chromatography Library
-                             (1984)
+                            <strong>A new form of chromatogram employing two liquid phases (partition chromatography)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Martin, A. J. P.; Synge, R. L. M.
+                            , Biochemical Journal
+                             (1941)
                             </span>
-                            <br><a href="https://doi.org/10.1016/s0301-4770(08)x6062-2" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1016/s0301-4770(08)x6062-2</a>
+                            <br><a href="https://doi.org/10.1042/bj0351358" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1042/bj0351358</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Chromatography of alkaloids, part a: Thin-layer chromatography (journal of chromatography library, vol. 23A)</strong>
-                            
-                            , Journal of Chromatography A
-                             (1983)
+                            <strong>Principles of Instrumental Analysis, 7th ed. — Introduction to Chromatography</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Skoog, D. A.; Holler, F. J.; Crouch, S. R.
+                            , Cengage Learning
+                             (2018)
                             </span>
-                            <br><a href="https://doi.org/10.1016/s0021-9673(01)88026-2" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1016/s0021-9673(01)88026-2</a>
                             
+                            <br><a href="https://www.cengage.com/c/principles-of-instrumental-analysis-7e-skoog/9781305577213/" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
                         </li>
                         
                     </ul>

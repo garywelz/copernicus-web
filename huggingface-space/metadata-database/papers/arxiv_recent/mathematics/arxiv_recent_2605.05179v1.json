@@ -1,0 +1,38 @@
+{
+  "id": "arxiv_2605.05179v1",
+  "arxiv_id": "2605.05179v1",
+  "title": "Estimating the expected output of wide random MLPs more efficiently than sampling",
+  "authors": [
+    "Wilson Wu",
+    "Victor Lecomte",
+    "Michael Winer",
+    "George Robinson",
+    "Jacob Hilton",
+    "Paul Christiano"
+  ],
+  "author_string": "Wilson Wu, Victor Lecomte, Michael Winer, George Robinson, Jacob Hilton et al.",
+  "journal": "arXiv:2605.05179v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "By far the most common way to estimate an expected loss in machine learning is to draw samples, compute the loss on each one, and take the empirical average. However, sampling is not necessarily optimal. Given an MLP at initialization, we show how to estimate its expected output over Gaussian inputs without running samples through the network at all. Instead, we produce approximate representations of the distributions of activations at each layer, leveraging tools such as cumulants and Hermite expansions. We show both theoretically and empirically that for sufficiently wide networks, our estimator achieves a target mean squared error using substantially fewer FLOPs than Monte Carlo sampling. We find moreover that our methods perform particularly well at estimating the probabilities of rare events, and additionally demonstrate how they can be used for model training. Together, these findings suggest a path to producing models with a greatly reduced probability of catastrophic tail risks.",
+  "categories": [
+    "cs.LG",
+    "cond-mat.dis-nn",
+    "stat.ML"
+  ],
+  "primary_category": "stat.ML",
+  "comment": "68 pages. Code is available at https://github.com/alignment-research-center/mlp_cumulant_propagation",
+  "published_date": "2026-05-06T17:46:12Z",
+  "updated_date": "2026-05-06T17:46:12Z",
+  "url": "https://arxiv.org/abs/2605.05179v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.05179v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-07T10:15:46.981614",
+  "category": "mathematics",
+  "subcategories": [
+    "cs.LG",
+    "cond-mat.dis-nn",
+    "stat.ML"
+  ]
+}

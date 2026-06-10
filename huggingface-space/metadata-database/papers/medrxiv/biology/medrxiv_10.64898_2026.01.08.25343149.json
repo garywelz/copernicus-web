@@ -1,0 +1,45 @@
+{
+  "id": "medrxiv_10.64898_2026.01.08.25343149",
+  "doi": "10.64898/2026.01.08.25343149",
+  "title": "A novel plasma proteomic signature predicts long-term incident heart failure risk among persons living with HIV",
+  "authors": [
+    "Shakil, S. S.",
+    "Grogan, T.",
+    "So-Armah, K.",
+    "Ganz, P. S.",
+    "Freiberg, M. S.",
+    "Hsue, P. Y."
+  ],
+  "author_string": "Shakil, S. S., Grogan, T., So-Armah, K., Ganz, P. S., Freiberg, M. S. et al.",
+  "journal": "medRxiv",
+  "journal_full": "medRxiv",
+  "year": "2026",
+  "abstract": "BackgroundPersons with HIV (PWH) have an increased risk of heart failure compared with the general population despite effective viral suppression. No methods currently exist to predict heart failure risk in PWH. We sought to develop a proteomics-based risk model of incident heart failure in a longitudinal cohort of PWH in the Veterans Aging Cohort Study Biomarker Cohort.\n\nMethodsWe characterized the baseline plasma proteome of 1,398 PWH using the SomaScan 4.0 aptamer-based platform. We incorporated traditional risk factors, HIV-specific variables, and inflammatory/coagulation markers into Cox proportional hazards models of incident heart failure. For protein risk models, we used least absolute shrinkage and selection operator (LASSO) regression with 10-fold cross-validation to identify the optimal set of predictors. Model performance was evaluated using Harrells Concordance Index (C-index).\n\nResultsAmong 1,398 PWH, 240 (17.1%) developed incident heart failure over 13.1 years of median follow-up. The sample was randomly divided 2:1 into training (n = 932) and test (n = 466) sets. In the training set, 4,248 proteins were screened, identifying 227 significant markers (Bonferroni-corrected p-value <1E-5); 108 of these were validated in the test set (Bonferroni-corrected p <2E-4) and included as candidate predictors in downstream LASSO models. Using LASSO-Cox regression, we identified a subset of predictor proteins alone and in combination with clinical and laboratory risk factors. Among the clinical risk factor models, individual traditional risk factors in combination with HIV disease markers (CD4+ T-cell count, viral load) exhibited the best predictive performance (C-index 0.656 [95% confidence interval 0.591 - 0.720]). Addition of circulating inflammatory and coagulation markers (soluble CD-14, interleukin-6, D-dimer) did not substantially improve performance (C-index 0.657 [0.594 - 0.720]). By contrast, a protein-only model incorporating 8 markers achieved an improved C-index of 0.725 [0.597 - 0.825]; proteins vs clinical model, p = 0.033), while the addition of CD4+ count and viral load performed similarly (C-index 0.715 [0.587 - 0.816]).\n\nConclusionAn 8-protein signature demonstrated superior predictive performance for long-term incident heart failure risk among PWH compared with baseline traditional risk factors and inflammatory markers. These findings highlight the potential of a proteomics-based approach for risk stratification in this population, which provides additive value beyond traditional or HIV-specific clinical risk factors.",
+  "keywords": [],
+  "categories": [
+    "cardiovascular medicine"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.64898/2026.01.08.25343149",
+  "source": "medrxiv",
+  "sources": [
+    "medrxiv"
+  ],
+  "acquired_date": "2026-05-11T22:15:22.896604",
+  "category": "biology",
+  "subcategories": [
+    "cardiovascular medicine"
+  ],
+  "published_date": "2026-01-11",
+  "updated_date": "2026-01-11",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "medrxiv",
+  "preprint_version": "1",
+  "preprint_type": "PUBLISHAHEADOFPRINT",
+  "license": "cc_by_nc_nd",
+  "jatsxml": "https://www.medrxiv.org/content/early/2026/01/11//2026.01.08.25343149.source.xml",
+  "published_doi": null,
+  "author_corresponding": "Saate S Shakil",
+  "author_corresponding_institution": "University of California Los Angeles"
+}

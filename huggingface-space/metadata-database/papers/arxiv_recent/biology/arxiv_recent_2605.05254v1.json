@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2605.05254v1",
+  "arxiv_id": "2605.05254v1",
+  "title": "Modularity Emerges from Action-Functional Constraints in Marine Metabolic Networks: A Biology-Scale Validation of the Network-Weighted Action Principle",
+  "authors": [
+    "Martin G. Frasch"
+  ],
+  "author_string": "Martin G. Frasch",
+  "journal": "arXiv:2605.05254v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Biological systems operate under simultaneous energetic and informational constraints, yet direct evidence that such constraints shape real metabolic networks is limited. The Network-Weighted Action Principle predicts that networks under these constraints should organize toward high modularity. We tested this prediction in marine microbiome metabolic networks reconstructed from Tara Oceans metagenomes using two complementary approaches. Composite metrics of protein-deployment efficiency and functional-repertoire complexity (n=10) failed under causal-inference diagnostics, with apparent structure dominated by shared-component bias. In contrast, network modularity (n=7) was high (Q ~ 0.987), but this value was shown to arise from sparsity alone. The biologically meaningful signal is the excess over null models: modularity exceeded configuration-model, label-permutation, and bipartite-incidence nulls by Delta Q ~ 0.15-0.40 (p < 0.001), with the largest effect under the bipartite-incidence control. Fine-grained communities recovered by the network partition are not arbitrary: 25% recur across samples, and the most consistent modules map to known functional units, including enzyme subunits, biosynthetic sequences, and transporter complexes. Together, these results show that modularity excess - rather than absolute modularity - is the appropriate signature of biological organization, and that such excess is consistent with cost-minimization principles operating at the scale of natural metabolic networks.",
+  "categories": [
+    "q-bio.MN",
+    "q-bio.QM"
+  ],
+  "primary_category": "q-bio.QM",
+  "comment": "49 pp, 10 figs. Companion papers: Frasch 2026a (J Physiol, DOI:10.1113/JP290762), 2026b (arXiv:2603.16951), 2026c (arXiv:2604.24805). Code: https://github.com/martinfrasch/tara-modularity",
+  "published_date": "2026-05-05T22:19:35Z",
+  "updated_date": "2026-05-05T22:19:35Z",
+  "url": "https://arxiv.org/abs/2605.05254v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.05254v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-12T10:15:35.496244",
+  "category": "biology",
+  "subcategories": [
+    "q-bio.MN",
+    "q-bio.QM"
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2605.02462v1",
+  "arxiv_id": "2605.02462v1",
+  "title": "Black-box optimization of noisy functions with unknown smoothness",
+  "authors": [
+    "Jean-Bastien Grill",
+    "Michal Valko",
+    "Rémi Munos"
+  ],
+  "author_string": "Jean-Bastien Grill, Michal Valko, Rémi Munos",
+  "journal": "arXiv:2605.02462v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We study the problem of black-box optimization of a function f of any dimension, given function evaluations perturbed by noise. The function is assumed to be locally smooth around one of its global optima, but this smoothness is unknown. Our contribution is an adaptive optimization algorithm, POO or parallel optimistic optimization, that is able to deal with this setting. POO performs almost as well as the best known algorithms requiring the knowledge of the smoothness. Furthermore, POO works for a larger class of functions than what was previously considered, especially for functions that are difficult to optimize, in a very precise sense. We provide a finite-time analysis of POO's performance, which shows that its error after n evaluations is at most a factor of sqrt(ln n) away from the error of the best known optimization algorithms using the knowledge of the smoothness.",
+  "categories": [
+    "stat.ML",
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": "Published in Neural Information Processing Systems (NeurIPS 2015)",
+  "published_date": "2026-05-04T11:04:31Z",
+  "updated_date": "2026-05-04T11:04:31Z",
+  "url": "https://arxiv.org/abs/2605.02462v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.02462v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-05T10:15:50.911519",
+  "category": "computer_science",
+  "subcategories": [
+    "stat.ML",
+    "cs.LG"
+  ]
+}

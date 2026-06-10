@@ -1,0 +1,39 @@
+{
+  "id": "arxiv_2605.25388v1",
+  "arxiv_id": "2605.25388v1",
+  "title": "ViroBench: Benchmarking Nucleotide Foundation Models on Viral Genomics Tasks",
+  "authors": [
+    "Dongxin Ye",
+    "Fang Hu",
+    "Han Hu",
+    "Shu Hu",
+    "Yang Tan",
+    "Wanli Ouyang",
+    "Stan Z. Li",
+    "Jie Cui",
+    "Nanqing Dong"
+  ],
+  "author_string": "Dongxin Ye, Fang Hu, Han Hu, Shu Hu, Yang Tan et al.",
+  "journal": "arXiv:2605.25388v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": "10.1145/3770855.3819057",
+  "abstract": "Nucleotide sequences constitute the fundamental genetic basis of biological systems, rendering viral genomic analysis critical for biomedical advancement. Despite progress in biological foundation models, specifically nucleotide foundation models (NFMs), the field lacks a unified standard for viral genomics to facilitate community development and enforce biosecurity constraints. To address this, we introduce ViroBench, the first comprehensive and large-scale benchmark specifically designed for NFMs in viral settings. ViroBench evaluates models across two critical dimensions: biological understanding and latent biosecurity risk, covering 18 diverse scenarios within 4 task types. Extensive evaluation of 66 NFMs across diverse architectures yields three critical conclusions. Firstly, NFMs exhibit a performance degradation in biological understanding under phylogenetic and temporal shifts, indicating weak extrapolation capabilities. Secondly, generation tasks reveal a decoupling between statistical likelihood and biological functional validity, posing latent biosecurity risks. Thirdly, controlled ablation studies reveal that taxonomic diversity in pretraining data outweighs parameter scale. Specifically, a lightweight baseline trained on diverse data achieves a 67.5% performance gain over its original model. Overall, ViroBench provides interpretable, diagnostic evaluations and a reproducible measurement framework for future research on viral nucleotide foundation models. The datasets and code are publicly available at https://github.com/QIANJINYDX/ViroBench.",
+  "categories": [
+    "cs.LG",
+    "q-bio.QM"
+  ],
+  "primary_category": "q-bio.QM",
+  "comment": "42 pages,15 figures",
+  "published_date": "2026-05-25T03:31:46Z",
+  "updated_date": "2026-05-25T03:31:46Z",
+  "url": "https://arxiv.org/abs/2605.25388v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.25388v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-26T10:15:35.451999",
+  "category": "biology",
+  "subcategories": [
+    "cs.LG",
+    "q-bio.QM"
+  ]
+}

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Software Development Lifecycle - Computer Science Process</title>
+    <title>Backpropagation Training - Computer Science Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Software Development Lifecycle</h1>
+            <h1>Backpropagation Training</h1>
             <div class="header-meta">
                 <span class="meta-item">Computer Science</span>
                 <span class="meta-item">Machine Learning</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,67 +234,63 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Software Development Lifecycle process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>Backpropagation trains a neural network by gradient descent: a forward pass computes the output and loss, then the loss gradient is propagated backward layer by layer via the chain rule to obtain per-parameter gradients; weights are updated and the cycle repeats over the data until the loss converges.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-A1[Requirements Analysis] --> B1[Software Development Method]
-C1[System Design] --> D1[Architecture Planning]
-E1[Implementation Phase] --> F1[Software Development Analysis]
-B1 --> G1[Waterfall Model]
-D1 --> H1[Agile Methodology]
-F1 --> I1[Spiral Model]
-G1 --> J1[Requirements Gathering]
-H1 --> K1[Sprint Planning]
-I1 --> L1[Risk Analysis]
-J1 --> M1[System Specification]
-K1 --> L1
-L1 --> N1[Prototype Development]
-M1 --> O1[Design Implementation]
-N1 --> P1[Testing Integration]
-O1 --> Q1[Software Development Lifecycle Process]
-P1 --> R1[Software Development Validation]
-Q1 --> S1[Software Development Verification]
-R1 --> T1[Software Development Result]
-S1 --> U1[Software Development Analysis]
-T1 --> V1[Software Development Parameters]
-U1 --> W1[Software Development Output]
-V1 --> X1[Software Development Analysis]
-W1 --> Y1[Software Development Final Result]
-X1 --> Z1[Software Development Lifecycle Complete]
+    N1["Neural network + loss"]
+    N2["Forward pass per layer"]
+    N3["Compute output + loss"]
+    N4["Loss gradient at output"]
+    N5["Apply chain rule back"]
+    N6["Gradients per layer"]
+    N7{"More layers upstream?"}
+    N8["Propagate to prev layer"]
+    N9["Update weights (GD)"]
+    N10{"Converged / max epochs?"}
+    N11["Repeat forward pass"]
+    N12["Trained weights"]
 
-    style A1 fill:#ff6b6b,color:#fff
-    style C1 fill:#ff6b6b,color:#fff
-    style E1 fill:#ff6b6b,color:#fff
-    style B1 fill:#ffd43b,color:#000
-    style D1 fill:#ffd43b,color:#000
-    style F1 fill:#ffd43b,color:#000
-    style G1 fill:#ffd43b,color:#000
-    style H1 fill:#ffd43b,color:#000
-    style I1 fill:#ffd43b,color:#000
-    style J1 fill:#ffd43b,color:#000
-    style K1 fill:#ffd43b,color:#000
-    style L1 fill:#ffd43b,color:#000
-    style M1 fill:#51cf66,color:#fff
-    style N1 fill:#51cf66,color:#fff
-    style O1 fill:#51cf66,color:#fff
-    style P1 fill:#51cf66,color:#fff
-    style Q1 fill:#51cf66,color:#fff
-    style R1 fill:#51cf66,color:#fff
-    style S1 fill:#51cf66,color:#fff
-    style T1 fill:#51cf66,color:#fff
-    style U1 fill:#51cf66,color:#fff
-    style V1 fill:#51cf66,color:#fff
-    style W1 fill:#51cf66,color:#fff
-    style X1 fill:#51cf66,color:#fff
-    style Y1 fill:#51cf66,color:#fff
-    style Z1 fill:#b197fc,color:#fff
+    N1 --> N2
+    N2 --> N3
+    N3 --> N4
+    N4 --> N5
+    N5 --> N6
+    N6 --> N7
+    N7 -->|yes| N8
+    N8 -->|continue| N5
+    N7 -->|no| N9
+    N9 --> N10
+    N10 -->|no| N11
+    N11 -->|epoch| N2
+    N10 -->|yes| N12
+
+    style N1 fill:#ff6b6b,color:#fff
+    style N2 fill:#51cf66,color:#fff
+    style N3 fill:#74c0fc,color:#fff
+    style N4 fill:#51cf66,color:#fff
+    style N5 fill:#51cf66,color:#fff
+    style N6 fill:#74c0fc,color:#fff
+    style N7 fill:#74c0fc,color:#fff
+    style N8 fill:#51cf66,color:#fff
+    style N9 fill:#51cf66,color:#fff
+    style N10 fill:#74c0fc,color:#fff
+    style N11 fill:#51cf66,color:#fff
+    style N12 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Neural network + loss</td><td>Triggers & Inputs</td><td><a href="https://www.deeplearningbook.org/" target="_blank" title="Deep Learning" style="color:#9b59b6;">Goodfellow, I. et al. 2016</a></td></tr><tr><td style="font-weight:600;">Forward pass per layer</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1038/323533a0" target="_blank" title="Learning representations by back-propagating errors" style="color:#9b59b6;">Rumelhart, D. E. et al. 1986</a></td></tr><tr><td style="font-weight:600;">Compute output + loss</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1038/323533a0" target="_blank" title="Learning representations by back-propagating errors" style="color:#9b59b6;">Rumelhart, D. E. et al. 1986</a></td></tr><tr><td style="font-weight:600;">Loss gradient at output</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1038/323533a0" target="_blank" title="Learning representations by back-propagating errors" style="color:#9b59b6;">Rumelhart, D. E. et al. 1986</a></td></tr><tr><td style="font-weight:600;">Apply chain rule back</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1038/323533a0" target="_blank" title="Learning representations by back-propagating errors" style="color:#9b59b6;">Rumelhart, D. E. et al. 1986</a></td></tr><tr><td style="font-weight:600;">Gradients per layer</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1038/323533a0" target="_blank" title="Learning representations by back-propagating errors" style="color:#9b59b6;">Rumelhart, D. E. et al. 1986</a></td></tr><tr><td style="font-weight:600;">More layers upstream?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1038/323533a0" target="_blank" title="Learning representations by back-propagating errors" style="color:#9b59b6;">Rumelhart, D. E. et al. 1986</a></td></tr><tr><td style="font-weight:600;">Propagate to prev layer</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1038/323533a0" target="_blank" title="Learning representations by back-propagating errors" style="color:#9b59b6;">Rumelhart, D. E. et al. 1986</a></td></tr><tr><td style="font-weight:600;">Update weights (GD)</td><td>Processing & Operations</td><td><a href="https://www.deeplearningbook.org/" target="_blank" title="Deep Learning" style="color:#9b59b6;">Goodfellow, I. et al. 2016</a></td></tr><tr><td style="font-weight:600;">Converged / max epochs?</td><td>Intermediates & States</td><td><a href="https://www.deeplearningbook.org/" target="_blank" title="Deep Learning" style="color:#9b59b6;">Goodfellow, I. et al. 2016</a></td></tr><tr><td style="font-weight:600;">Repeat forward pass</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1038/323533a0" target="_blank" title="Learning representations by back-propagating errors" style="color:#9b59b6;">Rumelhart, D. E. et al. 1986</a></td></tr><tr><td style="font-weight:600;">Trained weights</td><td>Products & Outputs</td><td><a href="https://www.deeplearningbook.org/" target="_blank" title="Deep Learning" style="color:#9b59b6;">Goodfellow, I. et al. 2016</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -313,12 +336,12 @@ X1 --> Z1[Software Development Lifecycle Complete]
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 26</li>
-                        <li><strong>Edges:</strong> 21</li>
-                        <li><strong>Conditionals:</strong> 0</li>
-                        <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 1</li>
+                        <li><strong>Nodes:</strong> 12</li>
+                        <li><strong>Edges:</strong> 13</li>
+                        <li><strong>Conditionals:</strong> 2</li>
+                        <li><strong>AND Gates:</strong> 2</li>
+                        <li><strong>OR Gates:</strong> 2</li>
+                        <li><strong>Total Gates:</strong> 4</li>
                     </ul>
                 </div>
                 
@@ -326,7 +349,7 @@ X1 --> Z1[Software Development Lifecycle Complete]
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>software</li><li>development</li><li>lifecycle</li>
+                        <li>backpropagation</li><li>chain rule</li><li>gradient descent</li><li>neural network</li><li>loss gradient</li>
                     </ul>
                 </div>
                 
@@ -337,43 +360,23 @@ X1 --> Z1[Software Development Lifecycle Complete]
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Learning representations by back-propagating errors</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Rumelhart, D. E.; Hinton, G. E.; Williams, R. J.
+                            , Nature
+                             (1986)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #9b59b6; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Adherence to Secure Software Development Lifecycle</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Omar, Alaa’; Alsadeh, Ahmad; Nawahdah, Mamoun
-                            , Proceedings of the 17th International Conference on Software Technologies
-                             (2022)
-                            </span>
-                            <br><a href="https://doi.org/10.5220/0011263700003266" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.5220/0011263700003266</a>
+                            <br><a href="https://doi.org/10.1038/323533a0" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.1038/323533a0</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Introduction to Security in the Automotive Software Development Lifecycle</strong>
-                            
-                            , Building Secure Cars
-                             (2021)
+                            <strong>Deep Learning</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Goodfellow, I.; Bengio, Y.; Courville, A.
+                            , MIT Press
+                             (2016)
                             </span>
-                            <br><a href="https://doi.org/10.1002/9781119710783.ch2" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.1002/9781119710783.ch2</a>
                             
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Need for Automated Security Solutions in the Automotive Software Development Lifecycle</strong>
-                            
-                            , Building Secure Cars
-                             (2021)
-                            </span>
-                            <br><a href="https://doi.org/10.1002/9781119710783.ch4" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.1002/9781119710783.ch4</a>
-                            
+                            <br><a href="https://www.deeplearningbook.org/" target="_blank" style="color: #9b59b6; font-size: 0.85em;">View Source</a>
                         </li>
                         
                     </ul>

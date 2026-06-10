@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2605.20064v1",
+  "arxiv_id": "2605.20064v1",
+  "title": "Cardiac fat segmentation using computed tomography and an image-to-image conditional generative adversarial neural network",
+  "authors": [
+    "Guilherme Santos da Silva",
+    "Dalcimar Casanova",
+    "Jefferson Tales Oliva",
+    "Erick Oliveira Rodrigues"
+  ],
+  "author_string": "Guilherme Santos da Silva, Dalcimar Casanova, Jefferson Tales Oliva, Erick Oliveira Rodrigues",
+  "journal": "Medical Engineering & Physics 2024",
+  "journal_ref": "Medical Engineering & Physics 2024",
+  "year": "2026",
+  "doi": "10.1016/j.medengphy.2024.104104",
+  "abstract": "In recent years, research has highlighted the association between increased adipose tissue surrounding the human heart and elevated susceptibility to cardiovascular diseases such as atrial fibrillation and coronary heart disease. However, the manual segmentation of these fat deposits has not been widely implemented in clinical practice due to the substantial workload it entails for medical professionals and the associated costs. Consequently, the demand for more precise and time-efficient quantitative analysis has driven the emergence of novel computational methods for fat segmentation. This study presents a novel deep learning-based methodology that offers autonomous segmentation and quantification of two distinct types of cardiac fat deposits. The proposed approach leverages the pix2pix network, a generative conditional adversarial network primarily designed for image-to-image translation tasks. By applying this network architecture, we aim to investigate its efficacy in tackling the specific challenge of cardiac fat segmentation, despite not being originally tailored for this purpose. The two types of fat deposits of interest in this study are referred to as epicardial and mediastinal fats, which are spatially separated by the pericardium. The experimental results demonstrated an average accuracy of 99.08% and f1-score 98.73 for the segmentation of the epicardial fat and 97.90% of accuracy and f1-score of 98.40 for the mediastinal fat. These findings represent the high precision and overlap agreement achieved by the proposed methodology. In comparison to existing studies, our approach exhibited superior performance in terms of f1-score and run time, enabling the images to be segmented in real time.",
+  "categories": [
+    "cs.CV"
+  ],
+  "primary_category": "cs.CV",
+  "comment": null,
+  "published_date": "2026-05-19T16:20:24Z",
+  "updated_date": "2026-05-19T16:20:24Z",
+  "url": "https://arxiv.org/abs/2605.20064v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.20064v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-20T10:16:33.998983",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CV"
+  ]
+}

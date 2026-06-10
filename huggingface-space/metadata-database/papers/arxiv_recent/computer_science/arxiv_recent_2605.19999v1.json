@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_2605.19999v1",
+  "arxiv_id": "2605.19999v1",
+  "title": "LLM Benchmark Datasets Should Be Contamination-Resistant",
+  "authors": [
+    "Ali Al-Lawati",
+    "Jason Lucas",
+    "Dongwon Lee",
+    "Suhang Wang"
+  ],
+  "author_string": "Ali Al-Lawati, Jason Lucas, Dongwon Lee, Suhang Wang",
+  "journal": "arXiv:2605.19999v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Benchmark datasets are critical for reproducible, reliable, and discriminative evaluation of LLMs. However, recent studies reveal that many benchmark datasets are included in pretraining corpora, i.e., $\\textit{contaminated}$, which diminishes their value as reliable measures of model generalization. In this paper, we argue that benchmark datasets should be $\\textit{contamination-resistant}$, i.e., $\\textit{unlearnable}$, but support $\\textit{inference}$. To accomplish this, we first highlight the wide prevalence of benchmark dataset contamination and outline the properties of contamination-resistant datasets. Second, we highlight how the asymmetry between the inference and training pipelines in the Transformer architecture can be leveraged to support contamination-resistance. Third, we outline mathematical advancements to make these datasets interoperable across various LLM architectures. Based on the above, we call on the community to ensure the reliability of LLM benchmarking by: (i) advancing novel contamination-resistant methodologies, (ii) developing supporting methods and platforms, and (iii) adopting contamination-resistant benchmarks into existing evaluation pipelines.",
+  "categories": [
+    "cs.LG",
+    "cs.AI",
+    "cs.CR"
+  ],
+  "primary_category": "cs.CR",
+  "comment": "Accepted to ICML 2026 Position Paper Track",
+  "published_date": "2026-05-19T15:33:16Z",
+  "updated_date": "2026-05-19T15:33:16Z",
+  "url": "https://arxiv.org/abs/2605.19999v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.19999v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-20T10:16:34.001115",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.LG",
+    "cs.AI",
+    "cs.CR"
+  ]
+}

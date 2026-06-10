@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2605.00751v1",
+  "arxiv_id": "2605.00751v1",
+  "title": "NonZero: Interaction-Guided Exploration for Multi-Agent Monte Carlo Tree Search",
+  "authors": [
+    "Sizhe Tang",
+    "Zuyuan Zhang",
+    "Mahdi Imani",
+    "Tian Lan"
+  ],
+  "author_string": "Sizhe Tang, Zuyuan Zhang, Mahdi Imani, Tian Lan",
+  "journal": "arXiv:2605.00751v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Monte Carlo Tree Search (MCTS) scales poorly in cooperative multi-agent domains because expansion must consider an exponentially large set of joint actions, severely limiting exploration under realistic search budgets. We propose NonZero, which keeps multi-agent MCTS tractable by running surrogate-guided selection over a low-dimensional nonlinear representation using an interaction-guided proposal rule, instead of directly exploring the full joint-action space. Our exploration uses an interaction score: single-agent deviations are ranked by predicted gain, while two-agent deviations are scored by a mixed-difference measure that reveals coordination benefits even when no single agent can improve alone. We formalize candidate proposal as a bandit problem over local deviations and derive a proposal rule, NonZero, with a sublinear local-regret guarantee for reaching approximate graph-local optima without enumerating the joint-action space. Empirically, NonZero improves sample efficiency and final performance on MatGame, SMAC, and SMACv2 relative to strong model-based and model-free baselines under matched search budgets.",
+  "categories": [
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": "Accepted by ICML 2026 as Spotlight",
+  "published_date": "2026-05-01T16:02:58Z",
+  "updated_date": "2026-05-01T16:02:58Z",
+  "url": "https://arxiv.org/abs/2605.00751v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.00751v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-04T10:15:40.313675",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.LG"
+  ]
+}

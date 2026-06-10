@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2605.26112v1",
+  "arxiv_id": "2605.26112v1",
+  "title": "From Model Scaling to System Scaling: Scaling the Harness in Agentic AI",
+  "authors": [
+    "Shangding Gu"
+  ],
+  "author_string": "Shangding Gu",
+  "journal": "arXiv:2605.26112v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "This paper studies the next major bottleneck in agentic AI as system scaling, not only model scaling: the design of auditable, persistent, modular, and verifiable architectures around foundation models. We refer to this shift as scaling the harness: treating the structured execution layer around a foundation model as a first-class object of design, evaluation, and optimization. Although recent large language models enable agents to use tools, retrieve information, maintain memory, and execute long-horizon workflows, evaluation remains largely model-centric, often reducing agents to final-task success while treating memory, retrieval, tool use, orchestration, verification, and governance as secondary implementation details. This framing is increasingly inadequate because agent performance emerges from the interaction among the foundation model, memory substrate, context constructor, skill-routing layer, orchestration loop, and verification-and-governance layer. Together, these components form the agent harness, which translates model capability into long-horizon agent behavior. We study scaling the harness through three core bottlenecks: context governance, trustworthy memory, and dynamic skill routing, together with the orchestration and governance mechanisms that coordinate and constrain them. We further outline a research agenda for harness-level benchmarks that go beyond one-shot task success to measure trajectory quality, memory hygiene, context efficiency, communication fidelity, verification cost, and safe evolution over time. To make the discussion concrete, we develop CheetahClaws: https://github.com/SafeRL-Lab/cheetahclaws, a Python-native reference harness, and compare it with Claude Code and OpenClaw. Our main claim is that future progress in agentic AI will depend as much on system design as on stronger foundation models.",
+  "categories": [
+    "cs.AI",
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": null,
+  "published_date": "2026-05-25T17:59:36Z",
+  "updated_date": "2026-05-25T17:59:36Z",
+  "url": "https://arxiv.org/abs/2605.26112v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.26112v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-26T10:15:39.093019",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.AI",
+    "cs.LG"
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "id": "geometry_topology-euclid-elements-book-iv-props-1-5",
+  "name": "Euclid's Elements Book IV — Propositions 1–5",
+  "category": "mathematics",
+  "subcategory": "geometry_topology",
+  "subcategory_name": "Geometry & Topology",
+  "description": "Dependency graph for definitions and propositions 1–5. Inscribe/circumscribe triangle and circle. All depend on Book I and Book III.",
+  "mermaid": "graph TD\n    BookI[\"Book I\\nFoundation\"]\n    BookIII[\"Book III\\nFoundation\"]\n    PropII11[\"Prop. II.11\\nFrom Book II\"]\n    Def1[\"Def. IV.1\\nInscribe in circle\"]\n    Def2[\"Def. IV.2\\nCircumscribe about circle\"]\n    Def3[\"Def. IV.3\\nInscribe circle in figure\"]\n    Def4[\"Def. IV.4\\nCircumscribe circle about figure\"]\n    Def5[\"Def. IV.5\\nInscribe in figure\"]\n    Def6[\"Def. IV.6\\nCircumscribe about figure\"]\n    Def7[\"Def. IV.7\\nInscribe line in circle\"]\n    Prop1[\"Prop. IV.1\\nFit line in circle\"]\n    Prop2[\"Prop. IV.2\\nInscribe triangle in circle\"]\n    Prop3[\"Prop. IV.3\\nCircumscribe triangle about circle\"]\n    Prop4[\"Prop. IV.4\\nInscribe circle in triangle\"]\n    Prop5[\"Prop. IV.5\\nCircumscribe circle about triangle\"]\n    BookI --> Def1\n    BookIII --> Def1\n    BookI --> Def2\n    BookIII --> Def2\n    BookI --> Def3\n    BookIII --> Def3\n    BookI --> Def4\n    BookIII --> Def4\n    BookI --> Def5\n    BookIII --> Def5\n    BookI --> Def6\n    BookIII --> Def6\n    BookI --> Def7\n    BookIII --> Def7\n    BookI --> Prop1\n    BookIII --> Prop1\n    BookI --> Prop2\n    BookIII --> Prop2\n    BookI --> Prop3\n    BookIII --> Prop3\n    BookI --> Prop4\n    BookIII --> Prop4\n    BookI --> Prop5\n    BookIII --> Prop5\n    classDef foundation fill:#95a5a6,color:#fff,stroke:#7f8c8d\n    classDef definition fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef proposition fill:#51cf66,color:#fff,stroke:#40c057\n    class BookI,BookIII,PropII11 foundation\n    class Def1,Def2,Def3,Def4,Def5,Def6,Def7 definition\n    class Prop1,Prop2,Prop3,Prop4,Prop5 proposition",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

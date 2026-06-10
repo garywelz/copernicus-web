@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_2605.00764v1",
+  "arxiv_id": "2605.00764v1",
+  "title": "Modeling Subjective Urban Perception with Human Gaze",
+  "authors": [
+    "Lin Che",
+    "Xi Wang",
+    "Marc Pollefeys",
+    "Konrad Schindler",
+    "Martin Raubal",
+    "Peter Kiefer"
+  ],
+  "author_string": "Lin Che, Xi Wang, Marc Pollefeys, Konrad Schindler, Martin Raubal et al.",
+  "journal": "arXiv:2605.00764v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Urban perception describes how people subjectively evaluate urban environments, shaping how cities are experienced and understood. Existing computational approaches primarily model urban perception directly from street view images, but largely ignore the human perceptual process through which such judgments are formed. In this paper, we introduce Place Pulse-Gaze, an urban perception dataset that augments street view images with synchronized eye-tracking recordings and individual perception labels. Based on this dataset, we propose a Gaze-Guided Urban Perception Framework to study how gaze behavior contributes to the modeling of subjective urban perception. The framework systematically investigates three complementary settings: gaze-only modeling, gaze fusion with explicit semantic scene representations, and gaze fusion with implicit richer visual representations. Experiments show that gaze alone already carries useful predictive signals for subjective urban perception, and that integrating gaze with scene representations further improves prediction under both semantic and richer visual representations. Overall, our findings highlight the importance of incorporating human perceptual processes into urban scene understanding and open a direction for gaze-guided multimodal urban computing.",
+  "categories": [
+    "cs.CV",
+    "cs.HC"
+  ],
+  "primary_category": "cs.HC",
+  "comment": null,
+  "published_date": "2026-05-01T16:25:13Z",
+  "updated_date": "2026-05-01T16:25:13Z",
+  "url": "https://arxiv.org/abs/2605.00764v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.00764v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-04T10:15:40.313080",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CV",
+    "cs.HC"
+  ]
+}

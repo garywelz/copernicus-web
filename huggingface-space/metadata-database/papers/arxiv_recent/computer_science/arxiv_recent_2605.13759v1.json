@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2605.13759v1",
+  "arxiv_id": "2605.13759v1",
+  "title": "Fast and effective algorithms for fair clustering at scale",
+  "authors": [
+    "Claudio Mantuano",
+    "Manuel Kammermann",
+    "Philipp Baumann"
+  ],
+  "author_string": "Claudio Mantuano, Manuel Kammermann, Philipp Baumann",
+  "journal": "arXiv:2605.13759v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Clustering is an unsupervised machine learning task that consists of identifying groups of similar objects. It has numerous applications and is increasingly used in fairness-sensitive domains where objects represent individuals, such as customers, employees, or students. We address a fair clustering problem in which objects belong to protected groups. The problem consists of partitioning the objects into a predefined number of clusters while attaining a user-defined target level of fairness, meaning that each protected group is sufficiently represented in each cluster. The objective is to minimize the clustering cost, defined as the sum of squared Euclidean distances between the objects and the centers of their clusters. Since clustering cost and fairness are generally in conflict, managing the trade-off between them is essential in practical applications. Existing methods provide limited control over this trade-off and either fail to scale to large datasets or, when they scale, produce low-quality solutions. We propose a general framework for fair clustering that provides precise control over the cost-fairness trade-off and introduce three heuristics based on it. The first heuristic focuses on solution quality and the flexibility to incorporate additional constraints, the second improves scalability while retaining high solution quality, and the third is designed for maximum scalability, producing solutions for instances with millions of objects in seconds. The proposed heuristics outperform existing approaches in comprehensive numerical experiments on benchmark datasets. The source code of our heuristics and instructions for reproducing the experiments are publicly available on GitHub.",
+  "categories": [
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": null,
+  "published_date": "2026-05-13T16:40:07Z",
+  "updated_date": "2026-05-13T16:40:07Z",
+  "url": "https://arxiv.org/abs/2605.13759v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.13759v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-13T22:17:00.036712",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.LG"
+  ]
+}

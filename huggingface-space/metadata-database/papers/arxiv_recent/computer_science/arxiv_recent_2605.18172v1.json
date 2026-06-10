@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2605.18172v1",
+  "arxiv_id": "2605.18172v1",
+  "title": "Visualizing the Invisible: Generative Visual Grounding Empowers Universal EEG Understanding in MLLMs",
+  "authors": [
+    "Junyu Pan",
+    "Yansen Wang",
+    "Enze Zhang",
+    "Baoliang Lu",
+    "Weilong Zheng",
+    "Dongsheng Li"
+  ],
+  "author_string": "Junyu Pan, Yansen Wang, Enze Zhang, Baoliang Lu, Weilong Zheng et al.",
+  "journal": "arXiv:2605.18172v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Leveraging the universal representations of pre-trained LLMs and MLLMs offers a promising path toward brain foundation models. However, visually-evoked EEG datasets remain scarce, leading existing methods to align neural signals mainly with abstract text, a lossy translation that may discard fine-grained perceptual information encoded in brain activity. We propose Generative Visual Grounding (GVG), a framework that visualizes the invisible by using an EEG-to-image generative model as a visual translator. Instead of forcing EEG into text alone, GVG hallucinates instance-specific proxy images for non-visual EEG, providing structured visual contexts that allow MLLMs to exploit their visual priors for clinical-state interpretation. We validate this idea on two MLLM backbones, GVG-X-Omni and GVG-Janus. Image-only alignment is already competitive: the lightweight GVG-X-Omni matches 1.7B-parameter text-aligned baselines while tuning only 170M parameters on a frozen 7B backbone. We further extend GVG-Janus with trimodal Image+Text alignment, where text supplies categorical semantic anchors and visual proxies enrich neural representations with perceptual details. Experiments show consistent gains in EEG understanding and visual generation, suggesting visual proxy grounding as an effective complement to textual alignment.",
+  "categories": [
+    "cs.AI"
+  ],
+  "primary_category": "cs.AI",
+  "comment": null,
+  "published_date": "2026-05-18T10:15:40Z",
+  "updated_date": "2026-05-18T10:15:40Z",
+  "url": "https://arxiv.org/abs/2605.18172v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.18172v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-18T22:16:04.720592",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.AI"
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2604.20519v1",
+  "arxiv_id": "2604.20519v1",
+  "title": "Node-reduction through Joint Optimization of Input and Readout Layers in Photonic Reservoir Equalization",
+  "authors": [
+    "Ruben Van Assche",
+    "Sarah Masaad",
+    "Peter Bienstman"
+  ],
+  "author_string": "Ruben Van Assche, Sarah Masaad, Peter Bienstman",
+  "journal": "arXiv:2604.20519v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Photonic reservoir computing is a machine learning paradigm in which a recurrent neural network remains fixed while only the output weights are trained. This makes it a well-suited approach for high-speed signal equalisation in optical communication systems, offering a trainable, low-power, and low-complexity solution. However, achieving strong performance typically requires relatively large network sizes, as learning is confined to the output layer. To address this, we investigate the role of trainable input mappings alongside conventional output weight optimisation. Across a range of short- and mid-reach IM/DD transmission scenarios, reaching up to 200 km for a 28 GBd NRZ signal, improvements of over two orders of magnitude in BER are achieved. This enables halving the network size while maintaining comparable performance. Furthermore, we show that this approach effectively extends the memory of the reservoir, resulting in over three orders of magnitude improvement in memory-intensive tasks. These results also show that starting at 16 nodes a performance of at least one to two magnitudes better than both a complexity matched FFE and a Volterra filter of second order are reached.",
+  "categories": [
+    "physics.optics"
+  ],
+  "primary_category": "physics.optics",
+  "comment": null,
+  "published_date": "2026-04-22T13:00:24Z",
+  "updated_date": "2026-04-22T13:00:24Z",
+  "url": "https://arxiv.org/abs/2604.20519v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.20519v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-25T22:15:49.052172",
+  "category": "physics",
+  "subcategories": [
+    "physics.optics"
+  ]
+}

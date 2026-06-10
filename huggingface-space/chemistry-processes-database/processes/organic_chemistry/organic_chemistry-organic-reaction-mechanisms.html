@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Organic Reaction Mechanisms - Chemistry Process</title>
+    <title>Nucleophilic Substitution: SN1 vs SN2 - Chemistry Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Organic Reaction Mechanisms</h1>
+            <h1>Nucleophilic Substitution: SN1 vs SN2</h1>
             <div class="header-meta">
                 <span class="meta-item">Chemistry</span>
                 <span class="meta-item">Organic Chemistry</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,73 +234,58 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Organic Reaction Mechanisms process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>Whether an aliphatic nucleophilic substitution follows SN1 or SN2 depends mainly on substrate class: methyl/primary substrates favor concerted backside SN2 with inversion, tertiary favor stepwise SN1 via a carbocation with racemization, and secondary depend on conditions.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-A1[Reactant Molecules] --> B1[Reaction Type Classification]
-C1[Electron Flow Analysis] --> D1[Mechanism Determination]
-E1[Energy Profile] --> F1[Transition State Analysis]
-B1 --> G1[Nucleophilic Substitution]
-D1 --> H1[SN1 Mechanism]
-F1 --> I1[SN2 Mechanism]
-G1 --> J1[Electrophilic Addition]
-H1 --> K1[Carbocation Formation]
-I1 --> L1[Backside Attack]
-J1 --> M1[Elimination Reactions]
-K1 --> N1[Carbocation Stability]
-L1 --> O1[Stereochemistry Analysis]
-M1 --> P1[E1 Elimination]
-N1 --> O1
-O1 --> Q1[E2 Elimination]
-P1 --> R1[Radical Reactions]
-Q1 --> S1[Concerted Mechanism]
-R1 --> T1[Radical Initiation]
-S1 --> U1[Radical Propagation]
-T1 --> V1[Radical Termination]
-U1 --> W1[Organic Reaction Result]
-V1 --> X1[Reaction Mechanism Analysis]
-W1 --> Y1[Mechanism Validation]
-X1 --> Z1[Organic Reaction Output]
-Y1 --> AA1[Organic Reaction Analysis]
-Z1 --> BB1[Organic Reaction Final Result]
-AA1 --> CC1[Organic Reaction Analysis Complete]
+    N1["R–LG + nucleophile"]
+    N2{"Substrate class?"}
+    N3["Methyl/1°: SN2"]
+    N4["3°: SN1"]
+    N5["2°: depends on conditions"]
+    N6["SN2: backside attack"]
+    N7["Inversion of config"]
+    N8["SN1: ionize to R+"]
+    N9["Racemization"]
+    N10["Substituted product"]
 
-    style A1 fill:#ff6b6b,color:#fff
-    style C1 fill:#ff6b6b,color:#fff
-    style E1 fill:#ff6b6b,color:#fff
-    style B1 fill:#ffd43b,color:#000
-    style D1 fill:#ffd43b,color:#000
-    style F1 fill:#ffd43b,color:#000
-    style G1 fill:#ffd43b,color:#000
-    style H1 fill:#ffd43b,color:#000
-    style I1 fill:#ffd43b,color:#000
-    style J1 fill:#ffd43b,color:#000
-    style K1 fill:#ffd43b,color:#000
-    style L1 fill:#ffd43b,color:#000
-    style M1 fill:#51cf66,color:#fff
-    style N1 fill:#51cf66,color:#fff
-    style O1 fill:#51cf66,color:#fff
-    style P1 fill:#51cf66,color:#fff
-    style Q1 fill:#51cf66,color:#fff
-    style R1 fill:#51cf66,color:#fff
-    style S1 fill:#51cf66,color:#fff
-    style T1 fill:#51cf66,color:#fff
-    style U1 fill:#51cf66,color:#fff
-    style V1 fill:#51cf66,color:#fff
-    style W1 fill:#51cf66,color:#fff
-    style X1 fill:#51cf66,color:#fff
-    style Y1 fill:#51cf66,color:#fff
-    style Z1 fill:#51cf66,color:#fff
-    style AA1 fill:#51cf66,color:#fff
-    style BB1 fill:#51cf66,color:#fff
-    style CC1 fill:#b197fc,color:#fff
+    N1 --> N2
+    N2 -->|1°| N3
+    N2 -->|3°| N4
+    N2 -->|2°| N5
+    N3 --> N6
+    N5 --> N6
+    N6 --> N7
+    N4 --> N8
+    N5 --> N8
+    N8 --> N9
+    N7 --> N10
+    N9 --> N10
+
+    style N1 fill:#ff6b6b,color:#fff
+    style N2 fill:#74c0fc,color:#fff
+    style N3 fill:#51cf66,color:#fff
+    style N4 fill:#51cf66,color:#fff
+    style N5 fill:#51cf66,color:#fff
+    style N6 fill:#51cf66,color:#fff
+    style N7 fill:#74c0fc,color:#fff
+    style N8 fill:#51cf66,color:#fff
+    style N9 fill:#74c0fc,color:#fff
+    style N10 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">R–LG + nucleophile</td><td>Triggers & Inputs</td><td><a href="https://global.oup.com/academic/product/organic-chemistry-9780199270293" target="_blank" title="Organic Chemistry, 2nd ed. — Nucleophilic substitution at saturated carbon" style="color:#e74c3c;">Clayden, J. et al. 2012</a></td></tr><tr><td style="font-weight:600;">Substrate class?</td><td>Intermediates & States</td><td><a href="https://global.oup.com/academic/product/organic-chemistry-9780199270293" target="_blank" title="Organic Chemistry, 2nd ed. — Nucleophilic substitution at saturated carbon" style="color:#e74c3c;">Clayden, J. et al. 2012</a></td></tr><tr><td style="font-weight:600;">Methyl/1°: SN2</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1039/jr9350000244" target="_blank" title="Mechanism of substitution at a saturated carbon atom (SN1/SN2)" style="color:#e74c3c;">Hughes, E. D. et al. 1935</a></td></tr><tr><td style="font-weight:600;">3°: SN1</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1039/jr9350000244" target="_blank" title="Mechanism of substitution at a saturated carbon atom (SN1/SN2)" style="color:#e74c3c;">Hughes, E. D. et al. 1935</a></td></tr><tr><td style="font-weight:600;">2°: depends on conditions</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1039/jr9350000244" target="_blank" title="Mechanism of substitution at a saturated carbon atom (SN1/SN2)" style="color:#e74c3c;">Hughes, E. D. et al. 1935</a></td></tr><tr><td style="font-weight:600;">SN2: backside attack</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1039/jr9350000244" target="_blank" title="Mechanism of substitution at a saturated carbon atom (SN1/SN2)" style="color:#e74c3c;">Hughes, E. D. et al. 1935</a></td></tr><tr><td style="font-weight:600;">Inversion of config</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1039/jr9350000244" target="_blank" title="Mechanism of substitution at a saturated carbon atom (SN1/SN2)" style="color:#e74c3c;">Hughes, E. D. et al. 1935</a></td></tr><tr><td style="font-weight:600;">SN1: ionize to R+</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1039/jr9350000244" target="_blank" title="Mechanism of substitution at a saturated carbon atom (SN1/SN2)" style="color:#e74c3c;">Hughes, E. D. et al. 1935</a></td></tr><tr><td style="font-weight:600;">Racemization</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1039/jr9350000244" target="_blank" title="Mechanism of substitution at a saturated carbon atom (SN1/SN2)" style="color:#e74c3c;">Hughes, E. D. et al. 1935</a></td></tr><tr><td style="font-weight:600;">Substituted product</td><td>Products & Outputs</td><td><a href="https://doi.org/10.1351/goldbook.S05765" target="_blank" title="Gold Book: SN1 / SN2 reaction" style="color:#e74c3c;">IUPAC 2019</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -319,12 +331,12 @@ AA1 --> CC1[Organic Reaction Analysis Complete]
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 29</li>
-                        <li><strong>Edges:</strong> 24</li>
-                        <li><strong>Conditionals:</strong> 0</li>
-                        <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 1</li>
+                        <li><strong>Nodes:</strong> 10</li>
+                        <li><strong>Edges:</strong> 12</li>
+                        <li><strong>Conditionals:</strong> 1</li>
+                        <li><strong>AND Gates:</strong> 3</li>
+                        <li><strong>OR Gates:</strong> 2</li>
+                        <li><strong>Total Gates:</strong> 5</li>
                     </ul>
                 </div>
                 
@@ -332,7 +344,7 @@ AA1 --> CC1[Organic Reaction Analysis Complete]
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>organic</li><li>reaction</li><li>mechanisms</li>
+                        <li>nucleophilic substitution</li><li>sn1</li><li>sn2</li><li>carbocation</li><li>inversion</li>
                     </ul>
                 </div>
                 
@@ -343,42 +355,32 @@ AA1 --> CC1[Organic Reaction Analysis Complete]
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Mechanism of substitution at a saturated carbon atom (SN1/SN2)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Hughes, E. D.; Ingold, C. K.
+                            , Journal of the Chemical Society
+                             (1935)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Frontmatter</strong>
-                            
-                            , Organic Reaction Mechanisms Series
-                             (None)
-                            </span>
-                            <br><a href="https://doi.org/10.1002/9780470066966.fmatter" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1002/9780470066966.fmatter</a>
+                            <br><a href="https://doi.org/10.1039/jr9350000244" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1039/jr9350000244</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Frontmatter</strong>
-                            
-                            , Organic Reaction Mechanisms Series
-                             (None)
+                            <strong>Organic Chemistry, 2nd ed. — Nucleophilic substitution at saturated carbon</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Clayden, J.; Greeves, N.; Warren, S.
+                            , Oxford University Press
+                             (2012)
                             </span>
-                            <br><a href="https://doi.org/10.1002/9780470067062.fmatter" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1002/9780470067062.fmatter</a>
                             
+                            <br><a href="https://global.oup.com/academic/product/organic-chemistry-9780199270293" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Frontmatter</strong>
-                            
-                            , Organic Reaction Mechanisms Series
-                             (None)
+                            <strong>Gold Book: SN1 / SN2 reaction</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">IUPAC
+                            , IUPAC Compendium of Chemical Terminology
+                             (2019)
                             </span>
-                            <br><a href="https://doi.org/10.1002/9780470066775.fmatter" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1002/9780470066775.fmatter</a>
+                            <br><a href="https://doi.org/10.1351/goldbook.S05765" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1351/goldbook.S05765</a>
                             
                         </li>
                         

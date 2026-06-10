@@ -1,0 +1,29 @@
+{
+  "id": "arxiv_2604.21656v1",
+  "arxiv_id": "2604.21656v1",
+  "title": "Speed-oriented quantum circuit backend",
+  "authors": [
+    "Sören Wilkening"
+  ],
+  "author_string": "Sören Wilkening",
+  "journal": "arXiv:2604.21656v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We present a new software package for efficient quantum circuit generation, designed to achieve optimal runtime performance. Despite being in an early stage of development, our implementation demonstrates significant advantages over existing tools. Using the quantum Fourier transform (QFT) as a benchmark, we show that our backend can generate circuits for systems with up to 2000 qubits faster than widely used frameworks such as Qiskit and Q#. This improvement is particularly relevant for applications where classical preprocessing time, including circuit generation, must be minimized to not diminish any potential quantum advantage - for example, in combinatorial optimization tasks. Additionally, our software provides high-level primitives for bit- and integer-level manipulations, offering a simplified interface for integration with high-level quantum programming languages.",
+  "categories": [
+    "quant-ph"
+  ],
+  "primary_category": "quant-ph",
+  "comment": "7 pages, 5 figures",
+  "published_date": "2026-04-23T13:19:34Z",
+  "updated_date": "2026-04-23T13:19:34Z",
+  "url": "https://arxiv.org/abs/2604.21656v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.21656v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-27T10:15:37.398529",
+  "category": "physics",
+  "subcategories": [
+    "quant-ph"
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2605.19976v1",
+  "arxiv_id": "2605.19976v1",
+  "title": "RECIPE: Procedural Planning via Grounding in Instructional Video",
+  "authors": [
+    "Luigi Seminara",
+    "Antonino Furnari",
+    "Lorenzo Torresani"
+  ],
+  "author_string": "Luigi Seminara, Antonino Furnari, Lorenzo Torresani",
+  "journal": "arXiv:2605.19976v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Visual planning asks a model to generate the remaining steps of a procedure in natural language given a partial video context and a goal. Progress on this task is bottlenecked by annotation: clean labeled datasets are small, domain-narrow, and encode a single execution trajectory per example, even though many valid orderings exist. Large-scale instructional video corpora offer orders of magnitude more procedural content, but supervised fine-tuning on pseudo-labels from their noisy ASR narrations propagates segmentation and alignment errors and stays single-trajectory. We identify a key asymmetry: extracting clean step labels from noisy video is hard, but verifying whether a generated step sequence is temporally grounded in ASR transcripts is cheap and scales to millions of videos via precomputed text embeddings. We exploit this asymmetry in RECIPE, which uses grounding quality as a reward for GRPO, turning the noisy corpus into a verifier rather than a label source. The framework applies uniformly to two planner input configurations (Socratic, with a textual history extracted by a frozen VLM, and Video, consuming video tokens directly) and to annotated and weakly supervised regimes. We evaluate on 7 procedural benchmarks using a reference-based LLM-as-judge protocol scoring plans across 6 procedural criteria. RECIPE-RL improves over the base checkpoint at all scales (0.5B, 3B, 7B) and every benchmark, with macro-accuracy gains of +7 to +8 points in-domain and up to +16 points zero-shot. It outperforms supervised fine-tuning on both annotated and pseudo-labeled plans (the latter degrades the base) and remains robust without human annotations. Used as the proposal stage of a prior propose-assess-search planner, it improves over the strongest zero-shot baseline at every horizon on Visual Planning for Assistance, and on COIN it preserves the generation diversity that SFT collapses.",
+  "categories": [
+    "cs.CV"
+  ],
+  "primary_category": "cs.CV",
+  "comment": null,
+  "published_date": "2026-05-19T15:20:39Z",
+  "updated_date": "2026-05-19T15:20:39Z",
+  "url": "https://arxiv.org/abs/2605.19976v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.19976v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-20T10:16:34.001663",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CV"
+  ]
+}

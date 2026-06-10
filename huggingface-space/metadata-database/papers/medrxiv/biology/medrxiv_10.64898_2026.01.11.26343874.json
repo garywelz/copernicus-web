@@ -1,0 +1,42 @@
+{
+  "id": "medrxiv_10.64898_2026.01.11.26343874",
+  "doi": "10.64898/2026.01.11.26343874",
+  "title": "Onco-Seg: Adapting Promptable Concept Segmentation for Multi-Modal Medical Imaging",
+  "authors": [
+    "Makani, A.",
+    "Agrawal, A.",
+    "Agrawal, A."
+  ],
+  "author_string": "Makani, A., Agrawal, A., Agrawal, A.",
+  "journal": "medRxiv",
+  "journal_full": "medRxiv",
+  "year": "2026",
+  "abstract": "Medical image segmentation remains a critical bottleneck in clinical workflows, from diagnostic radiology to radiation oncology treatment planning. We present Onco-Seg, a medical imaging adaptation of Metas Segment Anything Model 3 (SAM3) that leverages promptable concept segmentation for automated tumor and organ delineation across multiple imaging modalities. Unlike previous SAM adaptations limited to single modalities, Onco-Seg introduces a unified framework supporting CT, MRI, ultrasound, dermoscopy, and endoscopy through modality-specific preprocessing and parameter-efficient fine-tuning with Low-Rank Adaptation (LoRA). We train on 35 datasets comprising over 98,000 cases across 8 imaging modalities using sequential checkpoint chaining on a 4-GPU distributed training infrastructure. We evaluate Onco-Seg on 12 benchmark datasets spanning breast, liver, prostate, lung, skin, and gastrointestinal pathologies, achieving strong performance on breast ultrasound (Dice: 0.752{+/-}0.24), polyp segmentation (Dice: 0.714{+/-}0.32), and liver CT (Dice: 0.641{+/-}0.12). We further propose two clinical deployment patterns: an interactive \"sidecar\" for diagnostic radiology and a \"silent assistant\" for automated radiation oncology contouring. We release an open-source napari plugin enabling interactive segmentation with DICOM-RT export for radiation oncology workflows. Code and models are available at https://github.com/inventcures/onco-segment.",
+  "keywords": [],
+  "categories": [
+    "oncology"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.64898/2026.01.11.26343874",
+  "source": "medrxiv",
+  "sources": [
+    "medrxiv"
+  ],
+  "acquired_date": "2026-05-17T22:15:25.454807",
+  "category": "biology",
+  "subcategories": [
+    "oncology"
+  ],
+  "published_date": "2026-01-17",
+  "updated_date": "2026-01-17",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "medrxiv",
+  "preprint_version": "2",
+  "preprint_type": "PUBLISHAHEADOFPRINT",
+  "license": "cc_by_nc_nd",
+  "jatsxml": "https://www.medrxiv.org/content/early/2026/01/17//2026.01.11.26343874.source.xml",
+  "published_doi": null,
+  "author_corresponding": "Ashish Makani",
+  "author_corresponding_institution": "Ashoka University"
+}

@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2604.24244v1",
+  "arxiv_id": "2604.24244v1",
+  "title": "A Particle Multi-Relaxation Bhatnagar-Gross-Krook Method for Rarefied Monatomic Gas Mixtures",
+  "authors": [
+    "Inchan Kim",
+    "Joonbeom Kim",
+    "Woonghwi Park",
+    "Eunji Jun"
+  ],
+  "author_string": "Inchan Kim, Joonbeom Kim, Woonghwi Park, Eunji Jun",
+  "journal": "arXiv:2604.24244v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Kinetic models based on the Bhatnagar-Gross-Krook (BGK) framework provide an efficient alternative to the Boltzmann equation for rarefied gas flows; however, existing formulations for gas mixtures remain limited in representing pair-dependent relaxation processes and recovering correct Navier-Stokes-Fourier (NSF) transport behavior. A particle-based unified BGK (UBGK) model for monatomic gas mixtures is developed by extending the single-species UBGK framework to a multi-relaxation formulation. The model preserves the pairwise interaction structure of the mixture Boltzmann equation, enabling independent species-pair relaxations for an arbitrary number of species. The relaxation properties of the mixture UBGK model are determined by matching the production terms to those of the Boltzmann equation, ensuring correct NSF-level transport behavior. The model is implemented within the particle framework and validated against DSMC using four benchmark cases: homogeneous relaxation, Poiseuille flow, Couette flow, and hypersonic flow around a cylinder. The results demonstrate that the mixture UBGK model captures species-specific non-equilibrium effects, including species-dependent differences in velocity and temperature, across a range of mole fractions and Knudsen numbers in good agreement with DSMC. Furthermore, cost and accuracy analyses show that the mixture UBGK model becomes more efficient than DSMC at sufficiently large time step sizes, but its first-order accuracy suggests further improvement through higher-order schemes.",
+  "categories": [
+    "physics.flu-dyn"
+  ],
+  "primary_category": "physics.flu-dyn",
+  "comment": null,
+  "published_date": "2026-04-27T09:54:44Z",
+  "updated_date": "2026-04-27T09:54:44Z",
+  "url": "https://arxiv.org/abs/2604.24244v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.24244v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-27T22:15:26.528337",
+  "category": "physics",
+  "subcategories": [
+    "physics.flu-dyn"
+  ]
+}

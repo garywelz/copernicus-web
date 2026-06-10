@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2605.16184v1",
+  "arxiv_id": "2605.16184v1",
+  "title": "Runtime-Orchestrated Second-Order Optimization for Scalable LLM Training",
+  "authors": [
+    "Yishun Lu",
+    "Junhao Zhang",
+    "Zeyu Yang",
+    "Wes Armour"
+  ],
+  "author_string": "Yishun Lu, Junhao Zhang, Zeyu Yang, Wes Armour",
+  "journal": "arXiv:2605.16184v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Second-order methods offer an attractive path toward more sample-efficient LLM training, but their practical use is often blocked by the systems cost of maintaining and updating large matrix-based optimizer states. We introduce \\textbf{Asteria}, a runtime system designed to remove this bottleneck by separating second-order optimization logic from the critical GPU training path. Rather than keeping all preconditioner state on the accelerator, Asteria dynamically distributes optimizer state across GPU memory, CPU memory, and optional NVMe storage according to architectural constraints and runtime pressure. It further uses training hooks to prepare shadow states in advance, allowing expensive inverse-root computations to proceed asynchronously on the host while GPU computation continues. For distributed training, Asteria employs a bounded-staleness protocol that limits synchronization frequency while preserving optimizer effectiveness through topology-aware coordination.   We evaluate Asteria on both memory-constrained and distributed training settings. On a DGX Spark platform with a single GB10 GPU and 128GB unified memory, Asteria supports second-order training for a 1B-parameter language model. On multi-node GH200 systems, it lowers visible optimizer overhead, reduces recurring latency spikes, accelerates convergence in wall-clock time, and maintains the optimization advantages of SOAP and KL-Shampoo in a 7B-parameter language model. Our results suggest that second-order LLM training can be made practical not by simplifying the optimizer alone, but by rethinking how optimizer state, background computation, and distributed synchronization are managed at the runtime level.",
+  "categories": [
+    "cs.DC",
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": null,
+  "published_date": "2026-05-15T17:03:55Z",
+  "updated_date": "2026-05-15T17:03:55Z",
+  "url": "https://arxiv.org/abs/2605.16184v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.16184v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-18T10:15:47.147069",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.DC",
+    "cs.LG"
+  ]
+}

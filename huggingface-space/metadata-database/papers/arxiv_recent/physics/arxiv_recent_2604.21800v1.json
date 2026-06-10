@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_2604.21800v1",
+  "arxiv_id": "2604.21800v1",
+  "title": "Variance Geometry of Exact Pauli-Detecting Codes: Continuous Landscapes Beyond Stabilizers",
+  "authors": [
+    "Arunaday Gupta",
+    "Baisong Sun",
+    "Xi He",
+    "Bei Zeng"
+  ],
+  "author_string": "Arunaday Gupta, Baisong Sun, Xi He, Bei Zeng",
+  "journal": "arXiv:2604.21800v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Exact quantum codes detecting a prescribed set of Pauli errors are approached through algebraic constructions--stabilizer, codeword-stabilized, permutation-invariant, topological, and related families. Geometrically, exact Pauli detection is governed by joint higher-rank numerical ranges of these Pauli operators, whose structure for rank $\\geq 2$ is largely uncharted. From this viewpoint, we show that such codes often form connected continuous families rather than collections of disjoint solution regions. These families are characterized by a single scalar derived from the Knill-Laflamme conditions: denoted $λ^*$, it is the Euclidean norm of the signature vector of Pauli expectation values on the maximally mixed code state, and provides a one-parameter summary of the code's joint Pauli variance profile. Within these continuous landscapes, stabilizer codes occupy only discrete, measure-zero subsets of the attainable $λ^*$-spectrum, exposing a largely unexplored continuum of genuinely nonadditive exact codes. We establish this picture by analyzing the geometry of higher-rank operator compressions, and extend it to symmetry-restricted settings where cyclic and permutation symmetries are imposed on both the error model and the code projector. Small-system cases reveal interval, singleton, and empty regimes through eigenvalue interlacing and symmetry-sector decompositions; larger systems are treated numerically via Stiefel-manifold optimization and symmetry-adapted parameterizations. In every unrestricted and symmetry-compatible case analyzed, the attainable $λ^*$-spectrum forms a single closed interval whenever nonempty--although a general proof remains open. These results place stabilizer, symmetric, and nonadditive code families within a unified higher-rank variance framework, suggesting a continuous geometric perspective on the landscape of exact quantum codes.",
+  "categories": [
+    "quant-ph",
+    "cs.IT",
+    "math-ph"
+  ],
+  "primary_category": "math-ph",
+  "comment": "30 pages, 1 figure",
+  "published_date": "2026-04-23T15:59:05Z",
+  "updated_date": "2026-04-23T15:59:05Z",
+  "url": "https://arxiv.org/abs/2604.21800v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.21800v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-27T10:15:37.392762",
+  "category": "physics",
+  "subcategories": [
+    "quant-ph",
+    "cs.IT",
+    "math-ph"
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2605.07608v1",
+  "arxiv_id": "2605.07608v1",
+  "title": "GoForth: Language Models for RNA Design under Structure, Sequence, and Coding Constraints",
+  "authors": [
+    "Michael Lindsey"
+  ],
+  "author_string": "Michael Lindsey",
+  "journal": "arXiv:2605.07608v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "RNA inverse sequence design has broad biological and engineering applications, but computational methods for practical design queries remain limited. Such queries may impose several constraints at once, including target folds or motifs, fixed bases, and coding restrictions, while leaving arbitrary sequence and structure in unspecified regions. Because these constraints may permit many acceptable sequences, we study RNA design as a conditional generative modeling problem. The basic object is a conditional law over RNA sequences given a user-specified condition, with full inverse folding as a special case. We introduce GoForth, a forward-trained RNA language model that conditions on structure, sequence, and coding targets. The formulation separates three ingredients that are often entangled in RNA design: a sequence prior, a forward folding sampler, and a reward or likelihood oracle. We train encoder-decoder models on witnessed folds rather than on outputs from an inverse-design teacher and validate our methodology on full inverse-folding benchmarks, as well as tasks involving constraints on structure, sequence, and coding. The resulting models achieve fast and high-quality candidate generation for mixed RNA design specifications. Moreover they furnish useful semantic embeddings of design tasks and a robust learned notion of designability.",
+  "categories": [
+    "q-bio.QM",
+    "q-bio.BM"
+  ],
+  "primary_category": "q-bio.BM",
+  "comment": null,
+  "published_date": "2026-05-08T11:33:59Z",
+  "updated_date": "2026-05-08T11:33:59Z",
+  "url": "https://arxiv.org/abs/2605.07608v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.07608v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-13T10:15:35.802703",
+  "category": "biology",
+  "subcategories": [
+    "q-bio.QM",
+    "q-bio.BM"
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2604.20373v1",
+  "arxiv_id": "2604.20373v1",
+  "title": "Neuro-evolutionary stochastic architectures in gauge-covariant neural fields",
+  "authors": [
+    "Rodrigo Carmo Terin"
+  ],
+  "author_string": "Rodrigo Carmo Terin",
+  "journal": "arXiv:2604.20373v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We extend our gauge-covariant stochastic neural-field framework by promoting architecture-level parameters to slow stochastic variables evolving in function space. Our effective theory is formulated in terms of classical commuting fields and provides symmetry-constrained diagnostics of marginality and finite-width effects through the maximal Lyapunov exponent, the amplification factor, and dressed spectral kernels. On top of this dynamics, we introduce a Markovian evolutionary scheme compatible with the local $U(1)$ structure of the effective model. By using a minimal implementation, the genotype is reduced to the weight-variance parameter $σ_w^2$, and the fitness functional combines spectral agreement, marginal stability, and a symmetry-constrained critical anchor. Comparing three evolutionary models, we find that only the fully symmetry-constrained Ginibre $U(1)$ version robustly approaches a narrow near-marginal regime and reproduces the predicted low-frequency finite-width spectral behavior. These results support the use of symmetry-guided effective stability diagnostics as practical principles for stochastic architecture search in controlled settings.",
+  "categories": [
+    "cs.NE",
+    "hep-th",
+    "nlin.AO"
+  ],
+  "primary_category": "nlin.AO",
+  "comment": "12 pages, 9 figures",
+  "published_date": "2026-04-22T09:15:38Z",
+  "updated_date": "2026-04-22T09:15:38Z",
+  "url": "https://arxiv.org/abs/2604.20373v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.20373v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-25T22:15:49.054057",
+  "category": "interdisciplinary",
+  "subcategories": [
+    "cs.NE",
+    "hep-th",
+    "nlin.AO"
+  ]
+}

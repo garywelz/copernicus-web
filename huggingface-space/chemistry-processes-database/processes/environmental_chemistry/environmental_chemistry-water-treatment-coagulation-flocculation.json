@@ -1,21 +1,23 @@
 {
   "id": "environmental_chemistry-water-treatment-coagulation-flocculation",
-  "name": "Water Treatment (Coagulation-Flocculation)",
+  "name": "Coagulation-Flocculation Treatment",
   "category": "chemistry",
   "subcategory": "environmental_chemistry",
   "subcategory_name": "Environmental Chemistry",
-  "description": "Water Treatment (Coagulation-Flocculation) process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "Coagulation-flocculation clarifies turbid water: a metal-salt coagulant is rapidly mixed to neutralize colloid surface charge and destabilize particles, then slow mixing promotes collisions that grow flocs; if flocs are large enough they settle out, otherwise aids are added and mixing continues before sedimentation yields clarified water.",
   "complexity": {
-    "nodes": 9,
-    "edges": 10,
-    "conditionals": 0,
+    "nodes": 11,
+    "edges": 11,
+    "conditionals": 1,
     "logicGates": {
       "orGates": 1,
-      "andGates": 2,
-      "total": 3
+      "andGates": 1,
+      "notGates": 0,
+      "total": 2
     },
-    "level": "medium",
-    "detailLevel": "medium"
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 1
   },
   "colorScheme": {
     "red": {
@@ -39,55 +41,151 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nN1[\"Raw Water\"]\nN2[\"Coagulant Dose\"]\nN3[\"Mixing Basin\"]\nN4[\"Choose Path\"]\nN5[\"Coagulation\"]\nN6[\"Floc Growth\"]\nN7[\"Settling/Filtration\"]\nN8[\"Treated Water\"]\nN9[\"Integrate\"]\n\nN1 --> N2\nN2 --> N3\nN3 --> N4\nN4 --> N5\nN4 --> N7\nN5 --> N6\nN7 --> N8\nN6 --> N9\nN8 --> N9\nN9 --> N6\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#ff6b6b,color:#fff\n    style N3 fill:#ffd43b,color:#000\n    style N4 fill:#ffd43b,color:#000\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#74c0fc,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#b197fc,color:#fff\n    style N9 fill:#74c0fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"Turbid water (colloids)\"]\n    N2[\"Add coagulant (Al/Fe salt)\"]\n    N3[\"Rapid mix / dispersion\"]\n    N4[\"Charge neutralization\"]\n    N5[\"Destabilized colloids\"]\n    N6[\"Slow mix (flocculation)\"]\n    N7[\"Floc growth by collisions\"]\n    N8{\"Floc large + settleable?\"}\n    N9[\"Add flocculant aid\"]\n    N10[\"Sedimentation\"]\n    N11[\"Clarified water\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 --> N4\n    N4 --> N5\n    N5 --> N6\n    N6 --> N7\n    N7 --> N8\n    N8 -->|no| N9\n    N9 -->|more mixing| N6\n    N8 -->|yes| N10\n    N10 --> N11\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#74c0fc,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#74c0fc,color:#fff\n    style N9 fill:#51cf66,color:#fff\n    style N10 fill:#51cf66,color:#fff\n    style N11 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
-      "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: Water Treatment (Coagulation-Flocculation). Created using the Programming Framework methodology."
+      "title": "Coagulation and Flocculation in Water and Wastewater Treatment (3rd ed.)",
+      "authors": "Bratby, J.",
+      "journal": "IWA Publishing",
+      "year": "2016",
+      "doi": "10.2166/9781780407500",
+      "url": "https://doi.org/10.2166/9781780407500"
     },
     {
-      "title": "84Chapter 3 Process of drinking water treatment using coagulation/flocculation method",
-      "authors": "",
-      "journal": "Coagulation and Flocculation",
-      "year": "2025",
-      "pubmed": null,
-      "doi": "10.1515/9783111246765-003",
-      "url": "https://doi.org/10.1515/9783111246765-003"
-    },
-    {
-      "title": "Hybrid process : hydrocyclone, coagulation flocculation and flotation in water treatment process",
-      "authors": "Siangsanun, Vorasiri",
-      "journal": "",
-      "year": "None",
-      "pubmed": null,
-      "doi": "10.58837/chula.the.2009.1650",
-      "url": "https://doi.org/10.58837/chula.the.2009.1650"
-    },
-    {
-      "title": "Hybrid process : hydrocyclone, coagulation, flocculation and floatation in water treatment process",
-      "authors": "Bamrungsri, Pradipat",
-      "journal": "",
-      "year": "None",
-      "pubmed": null,
-      "doi": "10.58837/chula.the.2007.2028",
-      "url": "https://doi.org/10.58837/chula.the.2007.2028"
+      "title": "MWH's Water Treatment: Principles and Design (3rd ed.)",
+      "authors": "Crittenden, J. C.; et al.",
+      "journal": "Wiley",
+      "year": "2012",
+      "doi": "10.1002/9781118131473",
+      "url": "https://doi.org/10.1002/9781118131473"
     }
   ],
   "keywords": [
-    "water",
-    "treatment",
     "coagulation",
-    "flocculation"
+    "flocculation",
+    "charge neutralization",
+    "floc",
+    "sedimentation"
   ],
   "relatedProcesses": [],
   "created": "2026-01-15",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations.\nCurated Mermaid applied (citations preserved)."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "namedCollections": [
+    "environmental-chemistry"
+  ],
+  "graphMetrics": {
+    "nodes": 11,
+    "edges": 11,
+    "conditionals": 1,
+    "andGates": 1,
+    "orGates": 1,
+    "notGates": 0,
+    "loops": 1
+  },
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Turbid water (colloids)",
+      "detail": "Stable suspension",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 1
+    },
+    {
+      "id": "N2",
+      "label": "Add coagulant (Al/Fe salt)",
+      "detail": "Hydrolyzing metal",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N3",
+      "label": "Rapid mix / dispersion",
+      "detail": "Fast distribution",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N4",
+      "label": "Charge neutralization",
+      "detail": "Compress double layer",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N5",
+      "label": "Destabilized colloids",
+      "detail": "Ready to aggregate",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N6",
+      "label": "Slow mix (flocculation)",
+      "detail": "Gentle stirring",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N7",
+      "label": "Floc growth by collisions",
+      "detail": "Aggregate larger",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N8",
+      "label": "Floc large + settleable?",
+      "detail": "Size / density",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N9",
+      "label": "Add flocculant aid",
+      "detail": "Polymer bridging",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N10",
+      "label": "Sedimentation",
+      "detail": "Gravity settling",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N11",
+      "label": "Clarified water",
+      "detail": "Low turbidity",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 0
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:environmental_chemistry-water-treatment-coagulation-flocculation",
+    "graphType": "decision_flowchart",
+    "topologySignature": "42094a392706c601",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "graphType": "decision_flowchart",
+  "domainContext": "Water treatment engineering"
 }

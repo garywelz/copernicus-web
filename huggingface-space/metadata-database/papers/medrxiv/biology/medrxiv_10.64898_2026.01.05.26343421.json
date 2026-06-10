@@ -1,0 +1,46 @@
+{
+  "id": "medrxiv_10.64898_2026.01.05.26343421",
+  "doi": "10.64898/2026.01.05.26343421",
+  "title": "Integrating perturbational screens, eQTL, and GWAS data identifies mediating genes for complex traits",
+  "authors": [
+    "Lu, Z.",
+    "Ding, Y.",
+    "LaPierre, N.",
+    "Wang, L.",
+    "Yao, D.",
+    "Mancuso, N.",
+    "Gusev, A."
+  ],
+  "author_string": "Lu, Z., Ding, Y., LaPierre, N., Wang, L., Yao, D. et al.",
+  "journal": "medRxiv",
+  "journal_full": "medRxiv",
+  "year": "2026",
+  "abstract": "Most current GWAS-eQTL approaches prioritize genes whose mediating effects on complex traits act through cis-regulation, while trans-acting genes remain largely underexplored. Recent perturbational screening technology provides a novel approach to quantifying trans-effects between gene pairs, but its integration with GWAS data remains largely unexamined. We introduce Mr. PEG, a novel framework that integrates perturbational screens, eQTL, and GWAS summary data to identify mediating genes of complex traits. Integrating gene-to-gene effects estimated from perturbational screens and GWAS data across 40 complex traits, Mr. PEG identifies a total of 546 significant mediating genes. These genes are more constrained than background genes and enriched for Gene Ontology terms related to immune response and cellular signaling. Compared to genes identified by GWAS and Mendelian randomization-based approaches, Mr. PEG genes exhibit longer average lengths across enhancers and stronger coexpression. Mr. PEG effects learned from common non-coding variants are associated with rare coding burden effects, highlighting its ability to capture disease-relevant mechanisms missed by approaches focused only on cis-eQTLs. We also highlight a case in which Mr. PEG uniquely identifies PTGS2 as a mediating gene for gout, suggesting potential opportunities for drug repurposing. Our findings demonstrate the value of integrating trans-effects informed by experimental perturbation screens and population-scale GWAS and eQTL data to identify disease-relevant mediating genes beyond individual GWAS loci.",
+  "keywords": [],
+  "categories": [
+    "genetic and genomic medicine"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.64898/2026.01.05.26343421",
+  "source": "medrxiv",
+  "sources": [
+    "medrxiv"
+  ],
+  "acquired_date": "2026-05-05T22:15:25.968801",
+  "category": "biology",
+  "subcategories": [
+    "genetic and genomic medicine"
+  ],
+  "published_date": "2026-01-05",
+  "updated_date": "2026-01-05",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "medrxiv",
+  "preprint_version": "1",
+  "preprint_type": "PUBLISHAHEADOFPRINT",
+  "license": "cc_by_nc_nd",
+  "jatsxml": "https://www.medrxiv.org/content/early/2026/01/05//2026.01.05.26343421.source.xml",
+  "published_doi": null,
+  "author_corresponding": "Alexander Gusev",
+  "author_corresponding_institution": "Dana-Farber Cancer Institute"
+}

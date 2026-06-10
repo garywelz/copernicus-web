@@ -1,0 +1,3612 @@
+{
+  "nodes": [
+    {
+      "id": "root",
+      "name": "Mathematics",
+      "level": 0,
+      "type": "root"
+    },
+    {
+      "id": "algebra",
+      "name": "Algebra",
+      "level": 1,
+      "type": "domain",
+      "arxiv": [
+        "math.AC",
+        "math.AG",
+        "math.CT",
+        "math.GR",
+        "math.KT",
+        "math.QA",
+        "math.RA",
+        "math.RT"
+      ],
+      "processCount": 43
+    },
+    {
+      "id": "analysis",
+      "name": "Analysis",
+      "level": 1,
+      "type": "domain",
+      "arxiv": [
+        "math.AP",
+        "math.CA",
+        "math.CV",
+        "math.DS",
+        "math.FA",
+        "math.NA",
+        "math.OA",
+        "math.SP"
+      ],
+      "processCount": 53
+    },
+    {
+      "id": "geometry_topology",
+      "name": "Geometry & Topology",
+      "level": 1,
+      "type": "domain",
+      "arxiv": [
+        "math.AT",
+        "math.DG",
+        "math.GN",
+        "math.GT",
+        "math.MG",
+        "math.SG"
+      ],
+      "processCount": 50
+    },
+    {
+      "id": "number_theory",
+      "name": "Number Theory",
+      "level": 1,
+      "type": "domain",
+      "arxiv": [
+        "math.NT"
+      ],
+      "processCount": 20
+    },
+    {
+      "id": "discrete_logic",
+      "name": "Discrete & Logic",
+      "level": 1,
+      "type": "domain",
+      "arxiv": [
+        "math.CO",
+        "math.LO"
+      ],
+      "processCount": 33
+    },
+    {
+      "id": "applied",
+      "name": "Applied & Other",
+      "level": 1,
+      "type": "domain",
+      "arxiv": [
+        "math.GM",
+        "math.IT",
+        "math.MP",
+        "math.OC",
+        "math.PR",
+        "math.ST"
+      ],
+      "processCount": 26
+    },
+    {
+      "id": "foundations",
+      "name": "Foundations",
+      "level": 2,
+      "type": "subcategory",
+      "domain": "discrete_logic",
+      "processCount": 11
+    },
+    {
+      "id": "category_theory",
+      "name": "Category Theory",
+      "level": 2,
+      "type": "subcategory",
+      "domain": "algebra",
+      "processCount": 4
+    },
+    {
+      "id": "algebraic_geometry",
+      "name": "Algebraic Geometry",
+      "level": 2,
+      "type": "subcategory",
+      "domain": "algebra",
+      "processCount": 5
+    },
+    {
+      "id": "representation_theory",
+      "name": "Representation Theory",
+      "level": 2,
+      "type": "subcategory",
+      "domain": "algebra",
+      "processCount": 6
+    },
+    {
+      "id": "commutative_algebra",
+      "name": "Commutative Algebra",
+      "level": 2,
+      "type": "subcategory",
+      "domain": "algebra",
+      "processCount": 5
+    },
+    {
+      "id": "partial_differential_equations",
+      "name": "Partial Differential Equations",
+      "level": 2,
+      "type": "subcategory",
+      "domain": "analysis",
+      "processCount": 5
+    },
+    {
+      "id": "differential_geometry",
+      "name": "Differential Geometry",
+      "level": 2,
+      "type": "subcategory",
+      "domain": "geometry_topology",
+      "processCount": 6
+    },
+    {
+      "id": "spectral_theory",
+      "name": "Spectral Theory",
+      "level": 2,
+      "type": "subcategory",
+      "domain": "analysis",
+      "processCount": 5
+    },
+    {
+      "id": "symplectic_geometry",
+      "name": "Symplectic Geometry",
+      "level": 2,
+      "type": "subcategory",
+      "domain": "geometry_topology",
+      "processCount": 5
+    },
+    {
+      "id": "metric_geometry",
+      "name": "Metric Geometry",
+      "level": 2,
+      "type": "subcategory",
+      "domain": "geometry_topology",
+      "processCount": 5
+    },
+    {
+      "id": "operator_algebras",
+      "name": "Operator Algebras",
+      "level": 2,
+      "type": "subcategory",
+      "domain": "analysis",
+      "processCount": 5
+    },
+    {
+      "id": "k_theory",
+      "name": "K Theory",
+      "level": 2,
+      "type": "subcategory",
+      "domain": "algebra",
+      "processCount": 5
+    },
+    {
+      "id": "quantum_algebra",
+      "name": "Quantum Algebra",
+      "level": 2,
+      "type": "subcategory",
+      "domain": "algebra",
+      "processCount": 5
+    },
+    {
+      "id": "optimization",
+      "name": "Optimization",
+      "level": 2,
+      "type": "subcategory",
+      "domain": "applied",
+      "processCount": 5
+    },
+    {
+      "id": "information_theory",
+      "name": "Information Theory",
+      "level": 2,
+      "type": "subcategory",
+      "domain": "applied",
+      "processCount": 5
+    },
+    {
+      "id": "mathematical_physics",
+      "name": "Mathematical Physics",
+      "level": 2,
+      "type": "subcategory",
+      "domain": "applied",
+      "processCount": 5
+    },
+    {
+      "id": "abstract_algebra",
+      "name": "Abstract Algebra",
+      "level": 2,
+      "type": "subcategory",
+      "domain": "algebra",
+      "processCount": 9
+    },
+    {
+      "id": "calculus_analysis",
+      "name": "Calculus Analysis",
+      "level": 2,
+      "type": "subcategory",
+      "domain": "analysis",
+      "processCount": 20
+    },
+    {
+      "id": "linear_algebra",
+      "name": "Linear Algebra",
+      "level": 2,
+      "type": "subcategory",
+      "domain": "algebra",
+      "processCount": 4
+    },
+    {
+      "id": "discrete_mathematics",
+      "name": "Discrete Mathematics",
+      "level": 2,
+      "type": "subcategory",
+      "domain": "discrete_logic",
+      "processCount": 22
+    },
+    {
+      "id": "bioinformatics",
+      "name": "Bioinformatics",
+      "level": 2,
+      "type": "subcategory",
+      "domain": "applied",
+      "processCount": 5
+    },
+    {
+      "id": "statistics_probability",
+      "name": "Statistics Probability",
+      "level": 2,
+      "type": "subcategory",
+      "domain": "applied",
+      "processCount": 6
+    },
+    {
+      "id": "complex_analysis",
+      "name": "Complex Analysis",
+      "level": 2,
+      "type": "subcategory",
+      "domain": "analysis",
+      "processCount": 6
+    },
+    {
+      "id": "functional_analysis",
+      "name": "Functional Analysis",
+      "level": 2,
+      "type": "subcategory",
+      "domain": "analysis",
+      "processCount": 6
+    },
+    {
+      "id": "numerical_analysis",
+      "name": "Numerical Analysis",
+      "level": 2,
+      "type": "subcategory",
+      "domain": "analysis",
+      "processCount": 6
+    },
+    {
+      "id": "foundations-axiomatic-set-theory",
+      "name": "Axiomatic Set Theory (ZFC)",
+      "level": 3,
+      "type": "process",
+      "processId": "foundations-axiomatic-set-theory",
+      "subcategory": "foundations",
+      "domain": "discrete_logic",
+      "processType": "axiomatic_theory",
+      "url": "processes/foundations/foundations-axiomatic-set-theory.html"
+    },
+    {
+      "id": "foundations-axiomatic-set-theory-axioms-basic",
+      "name": "Axiomatic Set Theory — ZFC Axioms & Basic Notions",
+      "level": 3,
+      "type": "process",
+      "processId": "foundations-axiomatic-set-theory-axioms-basic",
+      "subcategory": "foundations",
+      "domain": "discrete_logic",
+      "processType": "axiomatic_theory",
+      "url": "processes/foundations/foundations-axiomatic-set-theory-axioms-basic.html"
+    },
+    {
+      "id": "foundations-axiomatic-set-theory-definitions-derived",
+      "name": "Axiomatic Set Theory — Definitions: Ordered Pair, Relation, Function",
+      "level": 3,
+      "type": "process",
+      "processId": "foundations-axiomatic-set-theory-definitions-derived",
+      "subcategory": "foundations",
+      "domain": "discrete_logic",
+      "processType": "axiomatic_theory",
+      "url": "processes/foundations/foundations-axiomatic-set-theory-definitions-derived.html"
+    },
+    {
+      "id": "foundations-axiomatic-set-theory-ordinals-choice",
+      "name": "Axiomatic Set Theory — Ordinals, Cardinals & Choice",
+      "level": 3,
+      "type": "process",
+      "processId": "foundations-axiomatic-set-theory-ordinals-choice",
+      "subcategory": "foundations",
+      "domain": "discrete_logic",
+      "processType": "axiomatic_theory",
+      "url": "processes/foundations/foundations-axiomatic-set-theory-ordinals-choice.html"
+    },
+    {
+      "id": "foundations-axiomatic-set-theory-cantor-cardinality",
+      "name": "Axiomatic Set Theory — Cantor & Cardinality",
+      "level": 3,
+      "type": "process",
+      "processId": "foundations-axiomatic-set-theory-cantor-cardinality",
+      "subcategory": "foundations",
+      "domain": "discrete_logic",
+      "processType": "axiomatic_theory",
+      "url": "processes/foundations/foundations-axiomatic-set-theory-cantor-cardinality.html"
+    },
+    {
+      "id": "foundations-axiomatic-set-theory-ch-continuum",
+      "name": "Axiomatic Set Theory — Continuum Hypothesis & Independence",
+      "level": 3,
+      "type": "process",
+      "processId": "foundations-axiomatic-set-theory-ch-continuum",
+      "subcategory": "foundations",
+      "domain": "discrete_logic",
+      "processType": "axiomatic_theory",
+      "url": "processes/foundations/foundations-axiomatic-set-theory-ch-continuum.html"
+    },
+    {
+      "id": "foundations-axiomatic-set-theory-forcing",
+      "name": "Axiomatic Set Theory — Forcing",
+      "level": 3,
+      "type": "process",
+      "processId": "foundations-axiomatic-set-theory-forcing",
+      "subcategory": "foundations",
+      "domain": "discrete_logic",
+      "processType": "axiomatic_theory",
+      "url": "processes/foundations/foundations-axiomatic-set-theory-forcing.html"
+    },
+    {
+      "id": "foundations-axiomatic-set-theory-ad",
+      "name": "Axiomatic Set Theory — Axiom of Determinacy",
+      "level": 3,
+      "type": "process",
+      "processId": "foundations-axiomatic-set-theory-ad",
+      "subcategory": "foundations",
+      "domain": "discrete_logic",
+      "processType": "axiomatic_theory",
+      "url": "processes/foundations/foundations-axiomatic-set-theory-ad.html"
+    },
+    {
+      "id": "category_theory-category-theory",
+      "name": "Category Theory",
+      "level": 3,
+      "type": "process",
+      "processId": "category_theory-category-theory",
+      "subcategory": "category_theory",
+      "domain": "algebra",
+      "processType": "axiomatic_theory",
+      "url": "processes/category_theory/category_theory-category-theory.html"
+    },
+    {
+      "id": "category_theory-category-theory-foundations",
+      "name": "Category Theory — Categories, Morphisms & Functors",
+      "level": 3,
+      "type": "process",
+      "processId": "category_theory-category-theory-foundations",
+      "subcategory": "category_theory",
+      "domain": "algebra",
+      "processType": "axiomatic_theory",
+      "url": "processes/category_theory/category_theory-category-theory-foundations.html"
+    },
+    {
+      "id": "category_theory-category-theory-natural-transformations",
+      "name": "Category Theory — Natural Transformations & Equivalences",
+      "level": 3,
+      "type": "process",
+      "processId": "category_theory-category-theory-natural-transformations",
+      "subcategory": "category_theory",
+      "domain": "algebra",
+      "processType": "axiomatic_theory",
+      "url": "processes/category_theory/category_theory-category-theory-natural-transformations.html"
+    },
+    {
+      "id": "category_theory-category-theory-limits-adjunctions",
+      "name": "Category Theory — Limits, Colimits & Adjunctions",
+      "level": 3,
+      "type": "process",
+      "processId": "category_theory-category-theory-limits-adjunctions",
+      "subcategory": "category_theory",
+      "domain": "algebra",
+      "processType": "axiomatic_theory",
+      "url": "processes/category_theory/category_theory-category-theory-limits-adjunctions.html"
+    },
+    {
+      "id": "algebraic_geometry-affine-projective",
+      "name": "Algebraic Geometry — Affine & Projective Varieties",
+      "level": 3,
+      "type": "process",
+      "processId": "algebraic_geometry-affine-projective",
+      "subcategory": "algebraic_geometry",
+      "domain": "algebra",
+      "processType": "axiomatic_theory",
+      "url": "processes/algebraic_geometry/algebraic_geometry-affine-projective.html"
+    },
+    {
+      "id": "algebraic_geometry-schemes-sheaves",
+      "name": "Algebraic Geometry — Schemes & Sheaves",
+      "level": 3,
+      "type": "process",
+      "processId": "algebraic_geometry-schemes-sheaves",
+      "subcategory": "algebraic_geometry",
+      "domain": "algebra",
+      "processType": "axiomatic_theory",
+      "url": "processes/algebraic_geometry/algebraic_geometry-schemes-sheaves.html"
+    },
+    {
+      "id": "algebraic_geometry-morphisms-rational",
+      "name": "Algebraic Geometry — Morphisms & Rational Maps",
+      "level": 3,
+      "type": "process",
+      "processId": "algebraic_geometry-morphisms-rational",
+      "subcategory": "algebraic_geometry",
+      "domain": "algebra",
+      "processType": "axiomatic_theory",
+      "url": "processes/algebraic_geometry/algebraic_geometry-morphisms-rational.html"
+    },
+    {
+      "id": "algebraic_geometry-cohomology",
+      "name": "Algebraic Geometry — Sheaf Cohomology",
+      "level": 3,
+      "type": "process",
+      "processId": "algebraic_geometry-cohomology",
+      "subcategory": "algebraic_geometry",
+      "domain": "algebra",
+      "processType": "axiomatic_theory",
+      "url": "processes/algebraic_geometry/algebraic_geometry-cohomology.html"
+    },
+    {
+      "id": "representation_theory-group-reps",
+      "name": "Representation Theory — Group Representations",
+      "level": 3,
+      "type": "process",
+      "processId": "representation_theory-group-reps",
+      "subcategory": "representation_theory",
+      "domain": "algebra",
+      "processType": "axiomatic_theory",
+      "url": "processes/representation_theory/representation_theory-group-reps.html"
+    },
+    {
+      "id": "representation_theory-characters",
+      "name": "Representation Theory — Characters",
+      "level": 3,
+      "type": "process",
+      "processId": "representation_theory-characters",
+      "subcategory": "representation_theory",
+      "domain": "algebra",
+      "processType": "axiomatic_theory",
+      "url": "processes/representation_theory/representation_theory-characters.html"
+    },
+    {
+      "id": "representation_theory-lie-algebras",
+      "name": "Representation Theory — Lie Algebras & sl₂",
+      "level": 3,
+      "type": "process",
+      "processId": "representation_theory-lie-algebras",
+      "subcategory": "representation_theory",
+      "domain": "algebra",
+      "processType": "axiomatic_theory",
+      "url": "processes/representation_theory/representation_theory-lie-algebras.html"
+    },
+    {
+      "id": "representation_theory-schur-weyl",
+      "name": "Representation Theory — Schur–Weyl Duality",
+      "level": 3,
+      "type": "process",
+      "processId": "representation_theory-schur-weyl",
+      "subcategory": "representation_theory",
+      "domain": "algebra",
+      "processType": "axiomatic_theory",
+      "url": "processes/representation_theory/representation_theory-schur-weyl.html"
+    },
+    {
+      "id": "representation_theory-induced-restricted",
+      "name": "Representation Theory — Induced & Restricted Reps",
+      "level": 3,
+      "type": "process",
+      "processId": "representation_theory-induced-restricted",
+      "subcategory": "representation_theory",
+      "domain": "algebra",
+      "processType": "axiomatic_theory",
+      "url": "processes/representation_theory/representation_theory-induced-restricted.html"
+    },
+    {
+      "id": "commutative_algebra-noetherian",
+      "name": "Commutative Algebra — Noetherian Rings",
+      "level": 3,
+      "type": "process",
+      "processId": "commutative_algebra-noetherian",
+      "subcategory": "commutative_algebra",
+      "domain": "algebra",
+      "processType": "axiomatic_theory",
+      "url": "processes/commutative_algebra/commutative_algebra-noetherian.html"
+    },
+    {
+      "id": "commutative_algebra-localization",
+      "name": "Commutative Algebra — Localization",
+      "level": 3,
+      "type": "process",
+      "processId": "commutative_algebra-localization",
+      "subcategory": "commutative_algebra",
+      "domain": "algebra",
+      "processType": "axiomatic_theory",
+      "url": "processes/commutative_algebra/commutative_algebra-localization.html"
+    },
+    {
+      "id": "commutative_algebra-primary-decomp",
+      "name": "Commutative Algebra — Primary Decomposition",
+      "level": 3,
+      "type": "process",
+      "processId": "commutative_algebra-primary-decomp",
+      "subcategory": "commutative_algebra",
+      "domain": "algebra",
+      "processType": "axiomatic_theory",
+      "url": "processes/commutative_algebra/commutative_algebra-primary-decomp.html"
+    },
+    {
+      "id": "commutative_algebra-dimension",
+      "name": "Commutative Algebra — Dimension Theory",
+      "level": 3,
+      "type": "process",
+      "processId": "commutative_algebra-dimension",
+      "subcategory": "commutative_algebra",
+      "domain": "algebra",
+      "processType": "axiomatic_theory",
+      "url": "processes/commutative_algebra/commutative_algebra-dimension.html"
+    },
+    {
+      "id": "partial_differential_equations-classical",
+      "name": "PDEs — Laplace, Heat, Wave",
+      "level": 3,
+      "type": "process",
+      "processId": "partial_differential_equations-classical",
+      "subcategory": "partial_differential_equations",
+      "domain": "analysis",
+      "processType": "axiomatic_theory",
+      "url": "processes/partial_differential_equations/partial_differential_equations-classical.html"
+    },
+    {
+      "id": "partial_differential_equations-wellposed",
+      "name": "PDEs — Well-Posedness",
+      "level": 3,
+      "type": "process",
+      "processId": "partial_differential_equations-wellposed",
+      "subcategory": "partial_differential_equations",
+      "domain": "analysis",
+      "processType": "axiomatic_theory",
+      "url": "processes/partial_differential_equations/partial_differential_equations-wellposed.html"
+    },
+    {
+      "id": "partial_differential_equations-sobolev",
+      "name": "PDEs — Sobolev Spaces",
+      "level": 3,
+      "type": "process",
+      "processId": "partial_differential_equations-sobolev",
+      "subcategory": "partial_differential_equations",
+      "domain": "analysis",
+      "processType": "axiomatic_theory",
+      "url": "processes/partial_differential_equations/partial_differential_equations-sobolev.html"
+    },
+    {
+      "id": "partial_differential_equations-maximum",
+      "name": "PDEs — Maximum Principles",
+      "level": 3,
+      "type": "process",
+      "processId": "partial_differential_equations-maximum",
+      "subcategory": "partial_differential_equations",
+      "domain": "analysis",
+      "processType": "axiomatic_theory",
+      "url": "processes/partial_differential_equations/partial_differential_equations-maximum.html"
+    },
+    {
+      "id": "differential_geometry-manifolds",
+      "name": "Differential Geometry — Manifolds & Tangent Spaces",
+      "level": 3,
+      "type": "process",
+      "processId": "differential_geometry-manifolds",
+      "subcategory": "differential_geometry",
+      "domain": "geometry_topology",
+      "processType": "axiomatic_theory",
+      "url": "processes/differential_geometry/differential_geometry-manifolds.html"
+    },
+    {
+      "id": "differential_geometry-riemannian",
+      "name": "Differential Geometry — Riemannian Metric & Curvature",
+      "level": 3,
+      "type": "process",
+      "processId": "differential_geometry-riemannian",
+      "subcategory": "differential_geometry",
+      "domain": "geometry_topology",
+      "processType": "axiomatic_theory",
+      "url": "processes/differential_geometry/differential_geometry-riemannian.html"
+    },
+    {
+      "id": "differential_geometry-connections",
+      "name": "Differential Geometry — Connections & Geodesics",
+      "level": 3,
+      "type": "process",
+      "processId": "differential_geometry-connections",
+      "subcategory": "differential_geometry",
+      "domain": "geometry_topology",
+      "processType": "axiomatic_theory",
+      "url": "processes/differential_geometry/differential_geometry-connections.html"
+    },
+    {
+      "id": "differential_geometry-forms",
+      "name": "Differential Geometry — Differential Forms",
+      "level": 3,
+      "type": "process",
+      "processId": "differential_geometry-forms",
+      "subcategory": "differential_geometry",
+      "domain": "geometry_topology",
+      "processType": "axiomatic_theory",
+      "url": "processes/differential_geometry/differential_geometry-forms.html"
+    },
+    {
+      "id": "differential_geometry-minimal-surfaces",
+      "name": "Differential Geometry — Minimal Surfaces",
+      "level": 3,
+      "type": "process",
+      "processId": "differential_geometry-minimal-surfaces",
+      "subcategory": "differential_geometry",
+      "domain": "geometry_topology",
+      "processType": "axiomatic_theory",
+      "url": "processes/differential_geometry/differential_geometry-minimal-surfaces.html"
+    },
+    {
+      "id": "spectral_theory-spectrum",
+      "name": "Spectral Theory — Spectrum & Resolvent",
+      "level": 3,
+      "type": "process",
+      "processId": "spectral_theory-spectrum",
+      "subcategory": "spectral_theory",
+      "domain": "analysis",
+      "processType": "axiomatic_theory",
+      "url": "processes/spectral_theory/spectral_theory-spectrum.html"
+    },
+    {
+      "id": "spectral_theory-selfadjoint",
+      "name": "Spectral Theory — Self-Adjoint Operators",
+      "level": 3,
+      "type": "process",
+      "processId": "spectral_theory-selfadjoint",
+      "subcategory": "spectral_theory",
+      "domain": "analysis",
+      "processType": "axiomatic_theory",
+      "url": "processes/spectral_theory/spectral_theory-selfadjoint.html"
+    },
+    {
+      "id": "spectral_theory-compact",
+      "name": "Spectral Theory — Compact Operators",
+      "level": 3,
+      "type": "process",
+      "processId": "spectral_theory-compact",
+      "subcategory": "spectral_theory",
+      "domain": "analysis",
+      "processType": "axiomatic_theory",
+      "url": "processes/spectral_theory/spectral_theory-compact.html"
+    },
+    {
+      "id": "spectral_theory-schrodinger",
+      "name": "Spectral Theory — Schrödinger Operators",
+      "level": 3,
+      "type": "process",
+      "processId": "spectral_theory-schrodinger",
+      "subcategory": "spectral_theory",
+      "domain": "analysis",
+      "processType": "axiomatic_theory",
+      "url": "processes/spectral_theory/spectral_theory-schrodinger.html"
+    },
+    {
+      "id": "symplectic_geometry-form",
+      "name": "Symplectic Geometry — Symplectic Form",
+      "level": 3,
+      "type": "process",
+      "processId": "symplectic_geometry-form",
+      "subcategory": "symplectic_geometry",
+      "domain": "geometry_topology",
+      "processType": "axiomatic_theory",
+      "url": "processes/symplectic_geometry/symplectic_geometry-form.html"
+    },
+    {
+      "id": "symplectic_geometry-hamiltonian",
+      "name": "Symplectic Geometry — Hamiltonian Vector Fields",
+      "level": 3,
+      "type": "process",
+      "processId": "symplectic_geometry-hamiltonian",
+      "subcategory": "symplectic_geometry",
+      "domain": "geometry_topology",
+      "processType": "axiomatic_theory",
+      "url": "processes/symplectic_geometry/symplectic_geometry-hamiltonian.html"
+    },
+    {
+      "id": "symplectic_geometry-darboux",
+      "name": "Symplectic Geometry — Darboux Theorem",
+      "level": 3,
+      "type": "process",
+      "processId": "symplectic_geometry-darboux",
+      "subcategory": "symplectic_geometry",
+      "domain": "geometry_topology",
+      "processType": "axiomatic_theory",
+      "url": "processes/symplectic_geometry/symplectic_geometry-darboux.html"
+    },
+    {
+      "id": "symplectic_geometry-poisson",
+      "name": "Symplectic Geometry — Poisson Bracket",
+      "level": 3,
+      "type": "process",
+      "processId": "symplectic_geometry-poisson",
+      "subcategory": "symplectic_geometry",
+      "domain": "geometry_topology",
+      "processType": "axiomatic_theory",
+      "url": "processes/symplectic_geometry/symplectic_geometry-poisson.html"
+    },
+    {
+      "id": "metric_geometry-metric-spaces",
+      "name": "Metric Geometry — Metric Spaces",
+      "level": 3,
+      "type": "process",
+      "processId": "metric_geometry-metric-spaces",
+      "subcategory": "metric_geometry",
+      "domain": "geometry_topology",
+      "processType": "axiomatic_theory",
+      "url": "processes/metric_geometry/metric_geometry-metric-spaces.html"
+    },
+    {
+      "id": "metric_geometry-geodesics",
+      "name": "Metric Geometry — Geodesics & Length",
+      "level": 3,
+      "type": "process",
+      "processId": "metric_geometry-geodesics",
+      "subcategory": "metric_geometry",
+      "domain": "geometry_topology",
+      "processType": "axiomatic_theory",
+      "url": "processes/metric_geometry/metric_geometry-geodesics.html"
+    },
+    {
+      "id": "metric_geometry-curvature",
+      "name": "Metric Geometry — Curvature",
+      "level": 3,
+      "type": "process",
+      "processId": "metric_geometry-curvature",
+      "subcategory": "metric_geometry",
+      "domain": "geometry_topology",
+      "processType": "axiomatic_theory",
+      "url": "processes/metric_geometry/metric_geometry-curvature.html"
+    },
+    {
+      "id": "metric_geometry-hyperbolic",
+      "name": "Metric Geometry — Hyperbolic Geometry",
+      "level": 3,
+      "type": "process",
+      "processId": "metric_geometry-hyperbolic",
+      "subcategory": "metric_geometry",
+      "domain": "geometry_topology",
+      "processType": "axiomatic_theory",
+      "url": "processes/metric_geometry/metric_geometry-hyperbolic.html"
+    },
+    {
+      "id": "operator_algebras-cstar",
+      "name": "Operator Algebras — C*-Algebras",
+      "level": 3,
+      "type": "process",
+      "processId": "operator_algebras-cstar",
+      "subcategory": "operator_algebras",
+      "domain": "analysis",
+      "processType": "axiomatic_theory",
+      "url": "processes/operator_algebras/operator_algebras-cstar.html"
+    },
+    {
+      "id": "operator_algebras-vonneumann",
+      "name": "Operator Algebras — Von Neumann Algebras",
+      "level": 3,
+      "type": "process",
+      "processId": "operator_algebras-vonneumann",
+      "subcategory": "operator_algebras",
+      "domain": "analysis",
+      "processType": "axiomatic_theory",
+      "url": "processes/operator_algebras/operator_algebras-vonneumann.html"
+    },
+    {
+      "id": "operator_algebras-gns",
+      "name": "Operator Algebras — GNS Construction",
+      "level": 3,
+      "type": "process",
+      "processId": "operator_algebras-gns",
+      "subcategory": "operator_algebras",
+      "domain": "analysis",
+      "processType": "axiomatic_theory",
+      "url": "processes/operator_algebras/operator_algebras-gns.html"
+    },
+    {
+      "id": "operator_algebras-spectral",
+      "name": "Operator Algebras — Spectral Theory for C*-Algebras",
+      "level": 3,
+      "type": "process",
+      "processId": "operator_algebras-spectral",
+      "subcategory": "operator_algebras",
+      "domain": "analysis",
+      "processType": "axiomatic_theory",
+      "url": "processes/operator_algebras/operator_algebras-spectral.html"
+    },
+    {
+      "id": "k_theory-algebraic",
+      "name": "K-Theory — Algebraic K-Theory",
+      "level": 3,
+      "type": "process",
+      "processId": "k_theory-algebraic",
+      "subcategory": "k_theory",
+      "domain": "algebra",
+      "processType": "axiomatic_theory",
+      "url": "processes/k_theory/k_theory-algebraic.html"
+    },
+    {
+      "id": "k_theory-topological",
+      "name": "K-Theory — Topological K-Theory",
+      "level": 3,
+      "type": "process",
+      "processId": "k_theory-topological",
+      "subcategory": "k_theory",
+      "domain": "algebra",
+      "processType": "axiomatic_theory",
+      "url": "processes/k_theory/k_theory-topological.html"
+    },
+    {
+      "id": "k_theory-operator",
+      "name": "K-Theory — Operator K-Theory",
+      "level": 3,
+      "type": "process",
+      "processId": "k_theory-operator",
+      "subcategory": "k_theory",
+      "domain": "algebra",
+      "processType": "axiomatic_theory",
+      "url": "processes/k_theory/k_theory-operator.html"
+    },
+    {
+      "id": "k_theory-bott",
+      "name": "K-Theory — Bott Periodicity",
+      "level": 3,
+      "type": "process",
+      "processId": "k_theory-bott",
+      "subcategory": "k_theory",
+      "domain": "algebra",
+      "processType": "axiomatic_theory",
+      "url": "processes/k_theory/k_theory-bott.html"
+    },
+    {
+      "id": "quantum_algebra-groups",
+      "name": "Quantum Algebra — Quantum Groups",
+      "level": 3,
+      "type": "process",
+      "processId": "quantum_algebra-groups",
+      "subcategory": "quantum_algebra",
+      "domain": "algebra",
+      "processType": "axiomatic_theory",
+      "url": "processes/quantum_algebra/quantum_algebra-groups.html"
+    },
+    {
+      "id": "quantum_algebra-hopf",
+      "name": "Quantum Algebra — Hopf Algebras",
+      "level": 3,
+      "type": "process",
+      "processId": "quantum_algebra-hopf",
+      "subcategory": "quantum_algebra",
+      "domain": "algebra",
+      "processType": "axiomatic_theory",
+      "url": "processes/quantum_algebra/quantum_algebra-hopf.html"
+    },
+    {
+      "id": "quantum_algebra-operads",
+      "name": "Quantum Algebra — Operads",
+      "level": 3,
+      "type": "process",
+      "processId": "quantum_algebra-operads",
+      "subcategory": "quantum_algebra",
+      "domain": "algebra",
+      "processType": "axiomatic_theory",
+      "url": "processes/quantum_algebra/quantum_algebra-operads.html"
+    },
+    {
+      "id": "quantum_algebra-yangbaxter",
+      "name": "Quantum Algebra — Yang–Baxter Equation",
+      "level": 3,
+      "type": "process",
+      "processId": "quantum_algebra-yangbaxter",
+      "subcategory": "quantum_algebra",
+      "domain": "algebra",
+      "processType": "axiomatic_theory",
+      "url": "processes/quantum_algebra/quantum_algebra-yangbaxter.html"
+    },
+    {
+      "id": "optimization-linear",
+      "name": "Optimization — Linear Programming",
+      "level": 3,
+      "type": "process",
+      "processId": "optimization-linear",
+      "subcategory": "optimization",
+      "domain": "applied",
+      "processType": "axiomatic_theory",
+      "url": "processes/optimization/optimization-linear.html"
+    },
+    {
+      "id": "optimization-simplex",
+      "name": "Optimization — Simplex Method",
+      "level": 3,
+      "type": "process",
+      "processId": "optimization-simplex",
+      "subcategory": "optimization",
+      "domain": "applied",
+      "processType": "algorithm",
+      "url": "processes/optimization/optimization-simplex.html"
+    },
+    {
+      "id": "optimization-duality",
+      "name": "Optimization — Duality",
+      "level": 3,
+      "type": "process",
+      "processId": "optimization-duality",
+      "subcategory": "optimization",
+      "domain": "applied",
+      "processType": "axiomatic_theory",
+      "url": "processes/optimization/optimization-duality.html"
+    },
+    {
+      "id": "optimization-control",
+      "name": "Optimization — Optimal Control",
+      "level": 3,
+      "type": "process",
+      "processId": "optimization-control",
+      "subcategory": "optimization",
+      "domain": "applied",
+      "processType": "axiomatic_theory",
+      "url": "processes/optimization/optimization-control.html"
+    },
+    {
+      "id": "information_theory-entropy",
+      "name": "Information Theory — Entropy",
+      "level": 3,
+      "type": "process",
+      "processId": "information_theory-entropy",
+      "subcategory": "information_theory",
+      "domain": "applied",
+      "processType": "axiomatic_theory",
+      "url": "processes/information_theory/information_theory-entropy.html"
+    },
+    {
+      "id": "information_theory-channel",
+      "name": "Information Theory — Channel Capacity",
+      "level": 3,
+      "type": "process",
+      "processId": "information_theory-channel",
+      "subcategory": "information_theory",
+      "domain": "applied",
+      "processType": "axiomatic_theory",
+      "url": "processes/information_theory/information_theory-channel.html"
+    },
+    {
+      "id": "information_theory-coding",
+      "name": "Information Theory — Source & Channel Coding",
+      "level": 3,
+      "type": "process",
+      "processId": "information_theory-coding",
+      "subcategory": "information_theory",
+      "domain": "applied",
+      "processType": "axiomatic_theory",
+      "url": "processes/information_theory/information_theory-coding.html"
+    },
+    {
+      "id": "information_theory-rate",
+      "name": "Information Theory — Rate-Distortion",
+      "level": 3,
+      "type": "process",
+      "processId": "information_theory-rate",
+      "subcategory": "information_theory",
+      "domain": "applied",
+      "processType": "axiomatic_theory",
+      "url": "processes/information_theory/information_theory-rate.html"
+    },
+    {
+      "id": "mathematical_physics-classical",
+      "name": "Mathematical Physics — Lagrangian & Hamiltonian",
+      "level": 3,
+      "type": "process",
+      "processId": "mathematical_physics-classical",
+      "subcategory": "mathematical_physics",
+      "domain": "applied",
+      "processType": "axiomatic_theory",
+      "url": "processes/mathematical_physics/mathematical_physics-classical.html"
+    },
+    {
+      "id": "mathematical_physics-quantum",
+      "name": "Mathematical Physics — Quantum Mechanics",
+      "level": 3,
+      "type": "process",
+      "processId": "mathematical_physics-quantum",
+      "subcategory": "mathematical_physics",
+      "domain": "applied",
+      "processType": "axiomatic_theory",
+      "url": "processes/mathematical_physics/mathematical_physics-quantum.html"
+    },
+    {
+      "id": "mathematical_physics-field",
+      "name": "Mathematical Physics — Field Theory",
+      "level": 3,
+      "type": "process",
+      "processId": "mathematical_physics-field",
+      "subcategory": "mathematical_physics",
+      "domain": "applied",
+      "processType": "axiomatic_theory",
+      "url": "processes/mathematical_physics/mathematical_physics-field.html"
+    },
+    {
+      "id": "mathematical_physics-statmech",
+      "name": "Mathematical Physics — Statistical Mechanics",
+      "level": 3,
+      "type": "process",
+      "processId": "mathematical_physics-statmech",
+      "subcategory": "mathematical_physics",
+      "domain": "applied",
+      "processType": "axiomatic_theory",
+      "url": "processes/mathematical_physics/mathematical_physics-statmech.html"
+    },
+    {
+      "id": "abstract_algebra-ring-theory",
+      "name": "Ring Theory",
+      "level": 3,
+      "type": "process",
+      "processId": "abstract_algebra-ring-theory",
+      "subcategory": "abstract_algebra",
+      "domain": "algebra",
+      "processType": "axiomatic_theory",
+      "url": "processes/abstract_algebra/abstract_algebra-ring-theory.html"
+    },
+    {
+      "id": "abstract_algebra-ring-theory-axioms-units",
+      "name": "Ring Theory — Ring Axioms & Units",
+      "level": 3,
+      "type": "process",
+      "processId": "abstract_algebra-ring-theory-axioms-units",
+      "subcategory": "abstract_algebra",
+      "domain": "algebra",
+      "processType": "axiomatic_theory",
+      "url": "processes/abstract_algebra/abstract_algebra-ring-theory-axioms-units.html"
+    },
+    {
+      "id": "abstract_algebra-ring-theory-ideals-quotients",
+      "name": "Ring Theory — Ideals & Quotient Rings",
+      "level": 3,
+      "type": "process",
+      "processId": "abstract_algebra-ring-theory-ideals-quotients",
+      "subcategory": "abstract_algebra",
+      "domain": "algebra",
+      "processType": "axiomatic_theory",
+      "url": "processes/abstract_algebra/abstract_algebra-ring-theory-ideals-quotients.html"
+    },
+    {
+      "id": "abstract_algebra-ring-theory-prime-maximal",
+      "name": "Ring Theory — Prime & Maximal Ideals",
+      "level": 3,
+      "type": "process",
+      "processId": "abstract_algebra-ring-theory-prime-maximal",
+      "subcategory": "abstract_algebra",
+      "domain": "algebra",
+      "processType": "axiomatic_theory",
+      "url": "processes/abstract_algebra/abstract_algebra-ring-theory-prime-maximal.html"
+    },
+    {
+      "id": "abstract_algebra-field-theory",
+      "name": "Field Theory & Galois Theory",
+      "level": 3,
+      "type": "process",
+      "processId": "abstract_algebra-field-theory",
+      "subcategory": "abstract_algebra",
+      "domain": "algebra",
+      "processType": "axiomatic_theory",
+      "url": "processes/abstract_algebra/abstract_algebra-field-theory.html"
+    },
+    {
+      "id": "abstract_algebra-field-theory-extensions",
+      "name": "Field Theory — Fields & Extensions",
+      "level": 3,
+      "type": "process",
+      "processId": "abstract_algebra-field-theory-extensions",
+      "subcategory": "abstract_algebra",
+      "domain": "algebra",
+      "processType": "axiomatic_theory",
+      "url": "processes/abstract_algebra/abstract_algebra-field-theory-extensions.html"
+    },
+    {
+      "id": "abstract_algebra-field-theory-splitting",
+      "name": "Field Theory — Algebraic Closure & Splitting Fields",
+      "level": 3,
+      "type": "process",
+      "processId": "abstract_algebra-field-theory-splitting",
+      "subcategory": "abstract_algebra",
+      "domain": "algebra",
+      "processType": "axiomatic_theory",
+      "url": "processes/abstract_algebra/abstract_algebra-field-theory-splitting.html"
+    },
+    {
+      "id": "abstract_algebra-field-theory-galois",
+      "name": "Field Theory — Galois Extensions & Fundamental Theorem",
+      "level": 3,
+      "type": "process",
+      "processId": "abstract_algebra-field-theory-galois",
+      "subcategory": "abstract_algebra",
+      "domain": "algebra",
+      "processType": "axiomatic_theory",
+      "url": "processes/abstract_algebra/abstract_algebra-field-theory-galois.html"
+    },
+    {
+      "id": "calculus_analysis-real-analysis",
+      "name": "Real Analysis",
+      "level": 3,
+      "type": "process",
+      "processId": "calculus_analysis-real-analysis",
+      "subcategory": "calculus_analysis",
+      "domain": "analysis",
+      "processType": "axiomatic_theory",
+      "url": "processes/calculus_analysis/calculus_analysis-real-analysis.html"
+    },
+    {
+      "id": "calculus_analysis-real-analysis-completeness",
+      "name": "Real Analysis — Ordered Field & Completeness",
+      "level": 3,
+      "type": "process",
+      "processId": "calculus_analysis-real-analysis-completeness",
+      "subcategory": "calculus_analysis",
+      "domain": "analysis",
+      "processType": "axiomatic_theory",
+      "url": "processes/calculus_analysis/calculus_analysis-real-analysis-completeness.html"
+    },
+    {
+      "id": "calculus_analysis-real-analysis-limits-continuity",
+      "name": "Real Analysis — Sequences, Limits & Continuity",
+      "level": 3,
+      "type": "process",
+      "processId": "calculus_analysis-real-analysis-limits-continuity",
+      "subcategory": "calculus_analysis",
+      "domain": "analysis",
+      "processType": "axiomatic_theory",
+      "url": "processes/calculus_analysis/calculus_analysis-real-analysis-limits-continuity.html"
+    },
+    {
+      "id": "calculus_analysis-real-analysis-differentiation",
+      "name": "Real Analysis — Differentiation",
+      "level": 3,
+      "type": "process",
+      "processId": "calculus_analysis-real-analysis-differentiation",
+      "subcategory": "calculus_analysis",
+      "domain": "analysis",
+      "processType": "axiomatic_theory",
+      "url": "processes/calculus_analysis/calculus_analysis-real-analysis-differentiation.html"
+    },
+    {
+      "id": "linear_algebra-linear-algebra",
+      "name": "Linear Algebra",
+      "level": 3,
+      "type": "process",
+      "processId": "linear_algebra-linear-algebra",
+      "subcategory": "linear_algebra",
+      "domain": "algebra",
+      "processType": "axiomatic_theory",
+      "url": "processes/linear_algebra/linear_algebra-linear-algebra.html"
+    },
+    {
+      "id": "linear_algebra-linear-algebra-vector-spaces",
+      "name": "Linear Algebra — Vector Spaces & Bases",
+      "level": 3,
+      "type": "process",
+      "processId": "linear_algebra-linear-algebra-vector-spaces",
+      "subcategory": "linear_algebra",
+      "domain": "algebra",
+      "processType": "axiomatic_theory",
+      "url": "processes/linear_algebra/linear_algebra-linear-algebra-vector-spaces.html"
+    },
+    {
+      "id": "linear_algebra-linear-algebra-linear-maps",
+      "name": "Linear Algebra — Linear Maps",
+      "level": 3,
+      "type": "process",
+      "processId": "linear_algebra-linear-algebra-linear-maps",
+      "subcategory": "linear_algebra",
+      "domain": "algebra",
+      "processType": "axiomatic_theory",
+      "url": "processes/linear_algebra/linear_algebra-linear-algebra-linear-maps.html"
+    },
+    {
+      "id": "linear_algebra-linear-algebra-eigenvalues",
+      "name": "Linear Algebra — Eigenvalues & Diagonalization",
+      "level": 3,
+      "type": "process",
+      "processId": "linear_algebra-linear-algebra-eigenvalues",
+      "subcategory": "linear_algebra",
+      "domain": "algebra",
+      "processType": "axiomatic_theory",
+      "url": "processes/linear_algebra/linear_algebra-linear-algebra-eigenvalues.html"
+    },
+    {
+      "id": "discrete_mathematics-type-theory",
+      "name": "Type Theory & λ-Calculus",
+      "level": 3,
+      "type": "process",
+      "processId": "discrete_mathematics-type-theory",
+      "subcategory": "discrete_mathematics",
+      "domain": "discrete_logic",
+      "processType": "axiomatic_theory",
+      "url": "processes/discrete_mathematics/discrete_mathematics-type-theory.html"
+    },
+    {
+      "id": "discrete_mathematics-type-theory-lambda",
+      "name": "Type Theory — Untyped λ-Calculus",
+      "level": 3,
+      "type": "process",
+      "processId": "discrete_mathematics-type-theory-lambda",
+      "subcategory": "discrete_mathematics",
+      "domain": "discrete_logic",
+      "processType": "axiomatic_theory",
+      "url": "processes/discrete_mathematics/discrete_mathematics-type-theory-lambda.html"
+    },
+    {
+      "id": "discrete_mathematics-type-theory-typing",
+      "name": "Type Theory — Simply Typed λ-Calculus",
+      "level": 3,
+      "type": "process",
+      "processId": "discrete_mathematics-type-theory-typing",
+      "subcategory": "discrete_mathematics",
+      "domain": "discrete_logic",
+      "processType": "axiomatic_theory",
+      "url": "processes/discrete_mathematics/discrete_mathematics-type-theory-typing.html"
+    },
+    {
+      "id": "discrete_mathematics-type-theory-normalization",
+      "name": "Type Theory — Normalization & Curry-Howard",
+      "level": 3,
+      "type": "process",
+      "processId": "discrete_mathematics-type-theory-normalization",
+      "subcategory": "discrete_mathematics",
+      "domain": "discrete_logic",
+      "processType": "axiomatic_theory",
+      "url": "processes/discrete_mathematics/discrete_mathematics-type-theory-normalization.html"
+    },
+    {
+      "id": "discrete_mathematics-model-theory",
+      "name": "Model Theory",
+      "level": 3,
+      "type": "process",
+      "processId": "discrete_mathematics-model-theory",
+      "subcategory": "discrete_mathematics",
+      "domain": "discrete_logic",
+      "processType": "axiomatic_theory",
+      "url": "processes/discrete_mathematics/discrete_mathematics-model-theory.html"
+    },
+    {
+      "id": "discrete_mathematics-model-theory-structures",
+      "name": "Model Theory — Languages & Structures",
+      "level": 3,
+      "type": "process",
+      "processId": "discrete_mathematics-model-theory-structures",
+      "subcategory": "discrete_mathematics",
+      "domain": "discrete_logic",
+      "processType": "axiomatic_theory",
+      "url": "processes/discrete_mathematics/discrete_mathematics-model-theory-structures.html"
+    },
+    {
+      "id": "discrete_mathematics-model-theory-elementary",
+      "name": "Model Theory — Elementary Equivalence",
+      "level": 3,
+      "type": "process",
+      "processId": "discrete_mathematics-model-theory-elementary",
+      "subcategory": "discrete_mathematics",
+      "domain": "discrete_logic",
+      "processType": "axiomatic_theory",
+      "url": "processes/discrete_mathematics/discrete_mathematics-model-theory-elementary.html"
+    },
+    {
+      "id": "discrete_mathematics-model-theory-compactness",
+      "name": "Model Theory — Compactness & Löwenheim-Skolem",
+      "level": 3,
+      "type": "process",
+      "processId": "discrete_mathematics-model-theory-compactness",
+      "subcategory": "discrete_mathematics",
+      "domain": "discrete_logic",
+      "processType": "axiomatic_theory",
+      "url": "processes/discrete_mathematics/discrete_mathematics-model-theory-compactness.html"
+    },
+    {
+      "id": "discrete_mathematics-proof-theory",
+      "name": "Proof Theory",
+      "level": 3,
+      "type": "process",
+      "processId": "discrete_mathematics-proof-theory",
+      "subcategory": "discrete_mathematics",
+      "domain": "discrete_logic",
+      "processType": "axiomatic_theory",
+      "url": "processes/discrete_mathematics/discrete_mathematics-proof-theory.html"
+    },
+    {
+      "id": "discrete_mathematics-proof-theory-sequents",
+      "name": "Proof Theory — Sequent Calculus",
+      "level": 3,
+      "type": "process",
+      "processId": "discrete_mathematics-proof-theory-sequents",
+      "subcategory": "discrete_mathematics",
+      "domain": "discrete_logic",
+      "processType": "axiomatic_theory",
+      "url": "processes/discrete_mathematics/discrete_mathematics-proof-theory-sequents.html"
+    },
+    {
+      "id": "discrete_mathematics-proof-theory-cut-elimination",
+      "name": "Proof Theory — Cut Elimination",
+      "level": 3,
+      "type": "process",
+      "processId": "discrete_mathematics-proof-theory-cut-elimination",
+      "subcategory": "discrete_mathematics",
+      "domain": "discrete_logic",
+      "processType": "axiomatic_theory",
+      "url": "processes/discrete_mathematics/discrete_mathematics-proof-theory-cut-elimination.html"
+    },
+    {
+      "id": "discrete_mathematics-proof-theory-normalization",
+      "name": "Proof Theory — Normalization",
+      "level": 3,
+      "type": "process",
+      "processId": "discrete_mathematics-proof-theory-normalization",
+      "subcategory": "discrete_mathematics",
+      "domain": "discrete_logic",
+      "processType": "axiomatic_theory",
+      "url": "processes/discrete_mathematics/discrete_mathematics-proof-theory-normalization.html"
+    },
+    {
+      "id": "abstract_algebra-group-theory",
+      "name": "Group Theory",
+      "level": 3,
+      "type": "process",
+      "processId": "abstract_algebra-group-theory",
+      "subcategory": "abstract_algebra",
+      "domain": "algebra",
+      "processType": "axiomatic_theory",
+      "url": "processes/abstract_algebra/abstract_algebra-group-theory.html"
+    },
+    {
+      "id": "calculus_analysis-simpsons-rule",
+      "name": "Simpson's Rule",
+      "level": 3,
+      "type": "process",
+      "processId": "calculus_analysis-simpsons-rule",
+      "subcategory": "calculus_analysis",
+      "domain": "analysis",
+      "processType": "algorithm",
+      "url": "processes/calculus_analysis/calculus_analysis-simpsons-rule.html"
+    },
+    {
+      "id": "calculus_analysis-bisection-method",
+      "name": "Bisection Method",
+      "level": 3,
+      "type": "process",
+      "processId": "calculus_analysis-bisection-method",
+      "subcategory": "calculus_analysis",
+      "domain": "analysis",
+      "processType": "algorithm",
+      "url": "processes/calculus_analysis/calculus_analysis-bisection-method.html"
+    },
+    {
+      "id": "discrete_mathematics-parallel-and-example",
+      "name": "Merge Two Sorted Arrays (Parallel AND Example)",
+      "level": 3,
+      "type": "process",
+      "processId": "discrete_mathematics-parallel-and-example",
+      "subcategory": "discrete_mathematics",
+      "domain": "discrete_logic",
+      "processType": "algorithm",
+      "url": "processes/discrete_mathematics/discrete_mathematics-parallel-and-example.html"
+    },
+    {
+      "id": "discrete_mathematics-rsa-algorithm",
+      "name": "RSA Algorithm",
+      "level": 3,
+      "type": "process",
+      "processId": "discrete_mathematics-rsa-algorithm",
+      "subcategory": "discrete_mathematics",
+      "domain": "discrete_logic",
+      "processType": "algorithm",
+      "url": "processes/discrete_mathematics/discrete_mathematics-rsa-algorithm.html"
+    },
+    {
+      "id": "discrete_mathematics-aes-algorithm",
+      "name": "AES Algorithm",
+      "level": 3,
+      "type": "process",
+      "processId": "discrete_mathematics-aes-algorithm",
+      "subcategory": "discrete_mathematics",
+      "domain": "discrete_logic",
+      "processType": "algorithm",
+      "url": "processes/discrete_mathematics/discrete_mathematics-aes-algorithm.html"
+    },
+    {
+      "id": "discrete_mathematics-merge-sort",
+      "name": "Merge Sort",
+      "level": 3,
+      "type": "process",
+      "processId": "discrete_mathematics-merge-sort",
+      "subcategory": "discrete_mathematics",
+      "domain": "discrete_logic",
+      "processType": "algorithm",
+      "url": "processes/discrete_mathematics/discrete_mathematics-merge-sort.html"
+    },
+    {
+      "id": "discrete_mathematics-quicksort",
+      "name": "Quicksort",
+      "level": 3,
+      "type": "process",
+      "processId": "discrete_mathematics-quicksort",
+      "subcategory": "discrete_mathematics",
+      "domain": "discrete_logic",
+      "processType": "algorithm",
+      "url": "processes/discrete_mathematics/discrete_mathematics-quicksort.html"
+    },
+    {
+      "id": "discrete_mathematics-bst-insert",
+      "name": "Binary Search Tree Insert",
+      "level": 3,
+      "type": "process",
+      "processId": "discrete_mathematics-bst-insert",
+      "subcategory": "discrete_mathematics",
+      "domain": "discrete_logic",
+      "processType": "algorithm",
+      "url": "processes/discrete_mathematics/discrete_mathematics-bst-insert.html"
+    },
+    {
+      "id": "discrete_mathematics-numerical-methods",
+      "name": "Newton-Raphson Method",
+      "level": 3,
+      "type": "process",
+      "processId": "discrete_mathematics-numerical-methods",
+      "subcategory": "discrete_mathematics",
+      "domain": "discrete_logic",
+      "processType": "algorithm",
+      "url": "processes/discrete_mathematics/discrete_mathematics-numerical-methods.html"
+    },
+    {
+      "id": "discrete_mathematics-propositional-logic",
+      "name": "Propositional Logic",
+      "level": 3,
+      "type": "process",
+      "processId": "discrete_mathematics-propositional-logic",
+      "subcategory": "discrete_mathematics",
+      "domain": "discrete_logic",
+      "processType": "axiomatic_theory",
+      "url": "processes/discrete_mathematics/discrete_mathematics-propositional-logic.html"
+    },
+    {
+      "id": "discrete_mathematics-aristotle-syllogistic",
+      "name": "Aristotle Syllogistic",
+      "level": 3,
+      "type": "process",
+      "processId": "discrete_mathematics-aristotle-syllogistic",
+      "subcategory": "discrete_mathematics",
+      "domain": "discrete_logic",
+      "processType": "axiomatic_theory",
+      "url": "processes/discrete_mathematics/discrete_mathematics-aristotle-syllogistic.html"
+    },
+    {
+      "id": "discrete_mathematics-binary-search",
+      "name": "Binary Search",
+      "level": 3,
+      "type": "process",
+      "processId": "discrete_mathematics-binary-search",
+      "subcategory": "discrete_mathematics",
+      "domain": "discrete_logic",
+      "processType": "algorithm",
+      "url": "processes/discrete_mathematics/discrete_mathematics-binary-search.html"
+    },
+    {
+      "id": "geometry_topology-euclid-elements",
+      "name": "Euclid's Elements",
+      "level": 3,
+      "type": "process",
+      "processId": "geometry_topology-euclid-elements",
+      "subcategory": "geometry_topology",
+      "domain": "geometry_topology",
+      "processType": "axiomatic_theory",
+      "url": "processes/geometry_topology/geometry_topology-euclid-elements.html"
+    },
+    {
+      "id": "geometry_topology-euclid-elements-book-i",
+      "name": "Euclid's Elements — Book I (Plane Geometry)",
+      "level": 3,
+      "type": "process",
+      "processId": "geometry_topology-euclid-elements-book-i",
+      "subcategory": "geometry_topology",
+      "domain": "geometry_topology",
+      "processType": "axiomatic_theory",
+      "url": "processes/geometry_topology/geometry_topology-euclid-elements-book-i.html"
+    },
+    {
+      "id": "geometry_topology-euclid-elements-book-ii",
+      "name": "Euclid's Elements — Book II (Geometric Algebra)",
+      "level": 3,
+      "type": "process",
+      "processId": "geometry_topology-euclid-elements-book-ii",
+      "subcategory": "geometry_topology",
+      "domain": "geometry_topology",
+      "processType": "axiomatic_theory",
+      "url": "processes/geometry_topology/geometry_topology-euclid-elements-book-ii.html"
+    },
+    {
+      "id": "geometry_topology-euclid-elements-book-iii",
+      "name": "Euclid's Elements — Book III (Circles)",
+      "level": 3,
+      "type": "process",
+      "processId": "geometry_topology-euclid-elements-book-iii",
+      "subcategory": "geometry_topology",
+      "domain": "geometry_topology",
+      "processType": "axiomatic_theory",
+      "url": "processes/geometry_topology/geometry_topology-euclid-elements-book-iii.html"
+    },
+    {
+      "id": "geometry_topology-euclid-elements-book-iv",
+      "name": "Euclid's Elements — Book IV (Inscribed Figures)",
+      "level": 3,
+      "type": "process",
+      "processId": "geometry_topology-euclid-elements-book-iv",
+      "subcategory": "geometry_topology",
+      "domain": "geometry_topology",
+      "processType": "axiomatic_theory",
+      "url": "processes/geometry_topology/geometry_topology-euclid-elements-book-iv.html"
+    },
+    {
+      "id": "geometry_topology-euclid-elements-book-v",
+      "name": "Euclid's Elements — Book V (Proportions)",
+      "level": 3,
+      "type": "process",
+      "processId": "geometry_topology-euclid-elements-book-v",
+      "subcategory": "geometry_topology",
+      "domain": "geometry_topology",
+      "processType": "axiomatic_theory",
+      "url": "processes/geometry_topology/geometry_topology-euclid-elements-book-v.html"
+    },
+    {
+      "id": "geometry_topology-euclid-elements-book-vi",
+      "name": "Euclid's Elements — Book VI (Similar Figures)",
+      "level": 3,
+      "type": "process",
+      "processId": "geometry_topology-euclid-elements-book-vi",
+      "subcategory": "geometry_topology",
+      "domain": "geometry_topology",
+      "processType": "axiomatic_theory",
+      "url": "processes/geometry_topology/geometry_topology-euclid-elements-book-vi.html"
+    },
+    {
+      "id": "geometry_topology-euclid-elements-book-vii",
+      "name": "Euclid's Elements — Book VII (Number Theory)",
+      "level": 3,
+      "type": "process",
+      "processId": "geometry_topology-euclid-elements-book-vii",
+      "subcategory": "geometry_topology",
+      "domain": "geometry_topology",
+      "processType": "axiomatic_theory",
+      "url": "processes/geometry_topology/geometry_topology-euclid-elements-book-vii.html"
+    },
+    {
+      "id": "geometry_topology-euclid-elements-book-viii",
+      "name": "Euclid's Elements — Book VIII (Continued Proportions)",
+      "level": 3,
+      "type": "process",
+      "processId": "geometry_topology-euclid-elements-book-viii",
+      "subcategory": "geometry_topology",
+      "domain": "geometry_topology",
+      "processType": "axiomatic_theory",
+      "url": "processes/geometry_topology/geometry_topology-euclid-elements-book-viii.html"
+    },
+    {
+      "id": "geometry_topology-euclid-elements-book-ix",
+      "name": "Euclid's Elements — Book IX (Number Theory)",
+      "level": 3,
+      "type": "process",
+      "processId": "geometry_topology-euclid-elements-book-ix",
+      "subcategory": "geometry_topology",
+      "domain": "geometry_topology",
+      "processType": "axiomatic_theory",
+      "url": "processes/geometry_topology/geometry_topology-euclid-elements-book-ix.html"
+    },
+    {
+      "id": "geometry_topology-euclid-elements-book-x",
+      "name": "Euclid's Elements — Book X (Incommensurables)",
+      "level": 3,
+      "type": "process",
+      "processId": "geometry_topology-euclid-elements-book-x",
+      "subcategory": "geometry_topology",
+      "domain": "geometry_topology",
+      "processType": "axiomatic_theory",
+      "url": "processes/geometry_topology/geometry_topology-euclid-elements-book-x.html"
+    },
+    {
+      "id": "geometry_topology-euclid-elements-book-xi",
+      "name": "Euclid's Elements — Book XI (Solid Geometry)",
+      "level": 3,
+      "type": "process",
+      "processId": "geometry_topology-euclid-elements-book-xi",
+      "subcategory": "geometry_topology",
+      "domain": "geometry_topology",
+      "processType": "axiomatic_theory",
+      "url": "processes/geometry_topology/geometry_topology-euclid-elements-book-xi.html"
+    },
+    {
+      "id": "geometry_topology-euclid-elements-book-xii",
+      "name": "Euclid's Elements — Book XII (Measurement of Figures)",
+      "level": 3,
+      "type": "process",
+      "processId": "geometry_topology-euclid-elements-book-xii",
+      "subcategory": "geometry_topology",
+      "domain": "geometry_topology",
+      "processType": "axiomatic_theory",
+      "url": "processes/geometry_topology/geometry_topology-euclid-elements-book-xii.html"
+    },
+    {
+      "id": "geometry_topology-euclid-elements-book-xiii",
+      "name": "Euclid's Elements — Book XIII (Regular Solids)",
+      "level": 3,
+      "type": "process",
+      "processId": "geometry_topology-euclid-elements-book-xiii",
+      "subcategory": "geometry_topology",
+      "domain": "geometry_topology",
+      "processType": "axiomatic_theory",
+      "url": "processes/geometry_topology/geometry_topology-euclid-elements-book-xiii.html"
+    },
+    {
+      "id": "geometry_topology-combinatorics",
+      "name": "Combinatorics",
+      "level": 3,
+      "type": "process",
+      "processId": "geometry_topology-combinatorics",
+      "subcategory": "geometry_topology",
+      "domain": "geometry_topology",
+      "processType": "axiomatic_theory",
+      "url": "processes/geometry_topology/geometry_topology-combinatorics.html"
+    },
+    {
+      "id": "geometry_topology-sullivan-collection",
+      "name": "Dennis Sullivan Collection",
+      "level": 3,
+      "type": "process",
+      "processId": "geometry_topology-sullivan-collection",
+      "subcategory": "geometry_topology",
+      "domain": "geometry_topology",
+      "processType": "axiomatic_theory",
+      "url": "processes/geometry_topology/geometry_topology-sullivan-collection.html"
+    },
+    {
+      "id": "geometry_topology-de-rham-cohomology",
+      "name": "De Rham Cohomology",
+      "level": 3,
+      "type": "process",
+      "processId": "geometry_topology-de-rham-cohomology",
+      "subcategory": "geometry_topology",
+      "domain": "geometry_topology",
+      "processType": "axiomatic_theory",
+      "url": "processes/geometry_topology/geometry_topology-de-rham-cohomology.html"
+    },
+    {
+      "id": "geometry_topology-homotopy-theory-basics",
+      "name": "Homotopy Theory Basics",
+      "level": 3,
+      "type": "process",
+      "processId": "geometry_topology-homotopy-theory-basics",
+      "subcategory": "geometry_topology",
+      "domain": "geometry_topology",
+      "processType": "axiomatic_theory",
+      "url": "processes/geometry_topology/geometry_topology-homotopy-theory-basics.html"
+    },
+    {
+      "id": "geometry_topology-sullivan-minimal-models",
+      "name": "Sullivan Minimal Models & Rational Homotopy",
+      "level": 3,
+      "type": "process",
+      "processId": "geometry_topology-sullivan-minimal-models",
+      "subcategory": "geometry_topology",
+      "domain": "geometry_topology",
+      "processType": "axiomatic_theory",
+      "url": "processes/geometry_topology/geometry_topology-sullivan-minimal-models.html"
+    },
+    {
+      "id": "geometry_topology-string-topology",
+      "name": "String Topology",
+      "level": 3,
+      "type": "process",
+      "processId": "geometry_topology-string-topology",
+      "subcategory": "geometry_topology",
+      "domain": "geometry_topology",
+      "processType": "axiomatic_theory",
+      "url": "processes/geometry_topology/geometry_topology-string-topology.html"
+    },
+    {
+      "id": "calculus_analysis-complex-dynamics-julia-fatou",
+      "name": "Complex Dynamics — Julia & Fatou Sets",
+      "level": 3,
+      "type": "process",
+      "processId": "calculus_analysis-complex-dynamics-julia-fatou",
+      "subcategory": "calculus_analysis",
+      "domain": "analysis",
+      "processType": "axiomatic_theory",
+      "url": "processes/calculus_analysis/calculus_analysis-complex-dynamics-julia-fatou.html"
+    },
+    {
+      "id": "calculus_analysis-measurable-riemann-mapping",
+      "name": "Measurable Riemann Mapping Theorem",
+      "level": 3,
+      "type": "process",
+      "processId": "calculus_analysis-measurable-riemann-mapping",
+      "subcategory": "calculus_analysis",
+      "domain": "analysis",
+      "processType": "axiomatic_theory",
+      "url": "processes/calculus_analysis/calculus_analysis-measurable-riemann-mapping.html"
+    },
+    {
+      "id": "calculus_analysis-sullivan-no-wandering-domains",
+      "name": "Sullivan's No Wandering Domain Theorem",
+      "level": 3,
+      "type": "process",
+      "processId": "calculus_analysis-sullivan-no-wandering-domains",
+      "subcategory": "calculus_analysis",
+      "domain": "analysis",
+      "processType": "axiomatic_theory",
+      "url": "processes/calculus_analysis/calculus_analysis-sullivan-no-wandering-domains.html"
+    },
+    {
+      "id": "calculus_analysis-sullivan-dictionary",
+      "name": "Sullivan Dictionary",
+      "level": 3,
+      "type": "process",
+      "processId": "calculus_analysis-sullivan-dictionary",
+      "subcategory": "calculus_analysis",
+      "domain": "analysis",
+      "processType": "axiomatic_theory",
+      "url": "processes/calculus_analysis/calculus_analysis-sullivan-dictionary.html"
+    },
+    {
+      "id": "calculus_analysis-hubbard-douady-collection",
+      "name": "Hubbard & Douady — Mandelbrot Set",
+      "level": 3,
+      "type": "process",
+      "processId": "calculus_analysis-hubbard-douady-collection",
+      "subcategory": "calculus_analysis",
+      "domain": "analysis",
+      "processType": "axiomatic_theory",
+      "url": "processes/calculus_analysis/calculus_analysis-hubbard-douady-collection.html"
+    },
+    {
+      "id": "calculus_analysis-quadratic-julia-mandelbrot",
+      "name": "Quadratic Julia Sets & Mandelbrot Set",
+      "level": 3,
+      "type": "process",
+      "processId": "calculus_analysis-quadratic-julia-mandelbrot",
+      "subcategory": "calculus_analysis",
+      "domain": "analysis",
+      "processType": "axiomatic_theory",
+      "url": "processes/calculus_analysis/calculus_analysis-quadratic-julia-mandelbrot.html"
+    },
+    {
+      "id": "calculus_analysis-boettcher-external-rays",
+      "name": "Böttcher Coordinate & External Rays",
+      "level": 3,
+      "type": "process",
+      "processId": "calculus_analysis-boettcher-external-rays",
+      "subcategory": "calculus_analysis",
+      "domain": "analysis",
+      "processType": "axiomatic_theory",
+      "url": "processes/calculus_analysis/calculus_analysis-boettcher-external-rays.html"
+    },
+    {
+      "id": "calculus_analysis-douady-hubbard-mandelbrot-connected",
+      "name": "Douady-Hubbard: Mandelbrot Set Connected",
+      "level": 3,
+      "type": "process",
+      "processId": "calculus_analysis-douady-hubbard-mandelbrot-connected",
+      "subcategory": "calculus_analysis",
+      "domain": "analysis",
+      "processType": "axiomatic_theory",
+      "url": "processes/calculus_analysis/calculus_analysis-douady-hubbard-mandelbrot-connected.html"
+    },
+    {
+      "id": "calculus_analysis-polynomial-like-maps",
+      "name": "Polynomial-like Maps & Straightening",
+      "level": 3,
+      "type": "process",
+      "processId": "calculus_analysis-polynomial-like-maps",
+      "subcategory": "calculus_analysis",
+      "domain": "analysis",
+      "processType": "axiomatic_theory",
+      "url": "processes/calculus_analysis/calculus_analysis-polynomial-like-maps.html"
+    },
+    {
+      "id": "calculus_analysis-devaney-collection",
+      "name": "Robert L. Devaney Collection",
+      "level": 3,
+      "type": "process",
+      "processId": "calculus_analysis-devaney-collection",
+      "subcategory": "calculus_analysis",
+      "domain": "analysis",
+      "processType": "axiomatic_theory",
+      "url": "processes/calculus_analysis/calculus_analysis-devaney-collection.html"
+    },
+    {
+      "id": "calculus_analysis-devaney-chaos-definition",
+      "name": "Devaney's Definition of Chaos",
+      "level": 3,
+      "type": "process",
+      "processId": "calculus_analysis-devaney-chaos-definition",
+      "subcategory": "calculus_analysis",
+      "domain": "analysis",
+      "processType": "axiomatic_theory",
+      "url": "processes/calculus_analysis/calculus_analysis-devaney-chaos-definition.html"
+    },
+    {
+      "id": "calculus_analysis-symbolic-dynamics",
+      "name": "Symbolic Dynamics & Shift Spaces",
+      "level": 3,
+      "type": "process",
+      "processId": "calculus_analysis-symbolic-dynamics",
+      "subcategory": "calculus_analysis",
+      "domain": "analysis",
+      "processType": "axiomatic_theory",
+      "url": "processes/calculus_analysis/calculus_analysis-symbolic-dynamics.html"
+    },
+    {
+      "id": "calculus_analysis-devaney-hairs-cantor-bouquet",
+      "name": "Devaney Hairs & Cantor Bouquets",
+      "level": 3,
+      "type": "process",
+      "processId": "calculus_analysis-devaney-hairs-cantor-bouquet",
+      "subcategory": "calculus_analysis",
+      "domain": "analysis",
+      "processType": "axiomatic_theory",
+      "url": "processes/calculus_analysis/calculus_analysis-devaney-hairs-cantor-bouquet.html"
+    },
+    {
+      "id": "calculus_analysis-sierpinski-curve-julia",
+      "name": "Sierpinski Curve Julia Sets",
+      "level": 3,
+      "type": "process",
+      "processId": "calculus_analysis-sierpinski-curve-julia",
+      "subcategory": "calculus_analysis",
+      "domain": "analysis",
+      "processType": "axiomatic_theory",
+      "url": "processes/calculus_analysis/calculus_analysis-sierpinski-curve-julia.html"
+    },
+    {
+      "id": "bioinformatics-collection",
+      "name": "Bioinformatics Collection",
+      "level": 3,
+      "type": "process",
+      "processId": "bioinformatics-collection",
+      "subcategory": "bioinformatics",
+      "domain": "applied",
+      "processType": "axiomatic_theory",
+      "url": "processes/bioinformatics/bioinformatics-collection.html"
+    },
+    {
+      "id": "bioinformatics-sequence-alignment-nw-sw",
+      "name": "Sequence Alignment — Needleman-Wunsch & Smith-Waterman",
+      "level": 3,
+      "type": "process",
+      "processId": "bioinformatics-sequence-alignment-nw-sw",
+      "subcategory": "bioinformatics",
+      "domain": "applied",
+      "processType": "algorithm",
+      "url": "processes/bioinformatics/bioinformatics-sequence-alignment-nw-sw.html"
+    },
+    {
+      "id": "bioinformatics-blast-algorithm",
+      "name": "BLAST Algorithm",
+      "level": 3,
+      "type": "process",
+      "processId": "bioinformatics-blast-algorithm",
+      "subcategory": "bioinformatics",
+      "domain": "applied",
+      "processType": "algorithm",
+      "url": "processes/bioinformatics/bioinformatics-blast-algorithm.html"
+    },
+    {
+      "id": "bioinformatics-hmm-sequence-analysis",
+      "name": "Hidden Markov Models for Sequence Analysis",
+      "level": 3,
+      "type": "process",
+      "processId": "bioinformatics-hmm-sequence-analysis",
+      "subcategory": "bioinformatics",
+      "domain": "applied",
+      "processType": "axiomatic_theory",
+      "url": "processes/bioinformatics/bioinformatics-hmm-sequence-analysis.html"
+    },
+    {
+      "id": "bioinformatics-phylogenetic-trees",
+      "name": "Phylogenetic Tree Construction",
+      "level": 3,
+      "type": "process",
+      "processId": "bioinformatics-phylogenetic-trees",
+      "subcategory": "bioinformatics",
+      "domain": "applied",
+      "processType": "axiomatic_theory",
+      "url": "processes/bioinformatics/bioinformatics-phylogenetic-trees.html"
+    },
+    {
+      "id": "statistics_probability-kolmogorov-axioms",
+      "name": "Statistics & Probability — Kolmogorov Axioms",
+      "level": 3,
+      "type": "process",
+      "processId": "statistics_probability-kolmogorov-axioms",
+      "subcategory": "statistics_probability",
+      "domain": "applied",
+      "processType": "axiomatic_theory",
+      "url": "processes/statistics_probability/statistics_probability-kolmogorov-axioms.html"
+    },
+    {
+      "id": "statistics_probability-bayes-theorem",
+      "name": "Statistics & Probability — Bayes' Theorem",
+      "level": 3,
+      "type": "process",
+      "processId": "statistics_probability-bayes-theorem",
+      "subcategory": "statistics_probability",
+      "domain": "applied",
+      "processType": "axiomatic_theory",
+      "url": "processes/statistics_probability/statistics_probability-bayes-theorem.html"
+    },
+    {
+      "id": "statistics_probability-central-limit-theorem",
+      "name": "Statistics & Probability — Central Limit Theorem",
+      "level": 3,
+      "type": "process",
+      "processId": "statistics_probability-central-limit-theorem",
+      "subcategory": "statistics_probability",
+      "domain": "applied",
+      "processType": "axiomatic_theory",
+      "url": "processes/statistics_probability/statistics_probability-central-limit-theorem.html"
+    },
+    {
+      "id": "statistics_probability-law-of-large-numbers",
+      "name": "Statistics & Probability — Law of Large Numbers",
+      "level": 3,
+      "type": "process",
+      "processId": "statistics_probability-law-of-large-numbers",
+      "subcategory": "statistics_probability",
+      "domain": "applied",
+      "processType": "axiomatic_theory",
+      "url": "processes/statistics_probability/statistics_probability-law-of-large-numbers.html"
+    },
+    {
+      "id": "statistics_probability-markov-chains",
+      "name": "Statistics & Probability — Markov Chains",
+      "level": 3,
+      "type": "process",
+      "processId": "statistics_probability-markov-chains",
+      "subcategory": "statistics_probability",
+      "domain": "applied",
+      "processType": "axiomatic_theory",
+      "url": "processes/statistics_probability/statistics_probability-markov-chains.html"
+    },
+    {
+      "id": "complex_analysis-analytic-cauchy-riemann",
+      "name": "Complex Analysis — Analytic Functions & Cauchy–Riemann",
+      "level": 3,
+      "type": "process",
+      "processId": "complex_analysis-analytic-cauchy-riemann",
+      "subcategory": "complex_analysis",
+      "domain": "analysis",
+      "processType": "axiomatic_theory",
+      "url": "processes/complex_analysis/complex_analysis-analytic-cauchy-riemann.html"
+    },
+    {
+      "id": "complex_analysis-cauchy-residue",
+      "name": "Complex Analysis — Cauchy Integral & Residue Calculus",
+      "level": 3,
+      "type": "process",
+      "processId": "complex_analysis-cauchy-residue",
+      "subcategory": "complex_analysis",
+      "domain": "analysis",
+      "processType": "axiomatic_theory",
+      "url": "processes/complex_analysis/complex_analysis-cauchy-residue.html"
+    },
+    {
+      "id": "complex_analysis-conformal-mappings",
+      "name": "Complex Analysis — Conformal Mappings & Riemann Surfaces",
+      "level": 3,
+      "type": "process",
+      "processId": "complex_analysis-conformal-mappings",
+      "subcategory": "complex_analysis",
+      "domain": "analysis",
+      "processType": "axiomatic_theory",
+      "url": "processes/complex_analysis/complex_analysis-conformal-mappings.html"
+    },
+    {
+      "id": "complex_analysis-entire-picard",
+      "name": "Complex Analysis — Entire Functions & Picard Theorems",
+      "level": 3,
+      "type": "process",
+      "processId": "complex_analysis-entire-picard",
+      "subcategory": "complex_analysis",
+      "domain": "analysis",
+      "processType": "axiomatic_theory",
+      "url": "processes/complex_analysis/complex_analysis-entire-picard.html"
+    },
+    {
+      "id": "complex_analysis-singularities-laurent",
+      "name": "Complex Analysis — Singularities & Laurent Series",
+      "level": 3,
+      "type": "process",
+      "processId": "complex_analysis-singularities-laurent",
+      "subcategory": "complex_analysis",
+      "domain": "analysis",
+      "processType": "axiomatic_theory",
+      "url": "processes/complex_analysis/complex_analysis-singularities-laurent.html"
+    },
+    {
+      "id": "functional_analysis-banach-spaces",
+      "name": "Functional Analysis — Banach Spaces",
+      "level": 3,
+      "type": "process",
+      "processId": "functional_analysis-banach-spaces",
+      "subcategory": "functional_analysis",
+      "domain": "analysis",
+      "processType": "axiomatic_theory",
+      "url": "processes/functional_analysis/functional_analysis-banach-spaces.html"
+    },
+    {
+      "id": "functional_analysis-hilbert-spaces",
+      "name": "Functional Analysis — Hilbert Spaces",
+      "level": 3,
+      "type": "process",
+      "processId": "functional_analysis-hilbert-spaces",
+      "subcategory": "functional_analysis",
+      "domain": "analysis",
+      "processType": "axiomatic_theory",
+      "url": "processes/functional_analysis/functional_analysis-hilbert-spaces.html"
+    },
+    {
+      "id": "functional_analysis-distributions",
+      "name": "Functional Analysis — Distributions",
+      "level": 3,
+      "type": "process",
+      "processId": "functional_analysis-distributions",
+      "subcategory": "functional_analysis",
+      "domain": "analysis",
+      "processType": "axiomatic_theory",
+      "url": "processes/functional_analysis/functional_analysis-distributions.html"
+    },
+    {
+      "id": "functional_analysis-bounded-operators",
+      "name": "Functional Analysis — Bounded Operators",
+      "level": 3,
+      "type": "process",
+      "processId": "functional_analysis-bounded-operators",
+      "subcategory": "functional_analysis",
+      "domain": "analysis",
+      "processType": "axiomatic_theory",
+      "url": "processes/functional_analysis/functional_analysis-bounded-operators.html"
+    },
+    {
+      "id": "functional_analysis-compact-spectral",
+      "name": "Functional Analysis — Compact Operators & Spectral Theory",
+      "level": 3,
+      "type": "process",
+      "processId": "functional_analysis-compact-spectral",
+      "subcategory": "functional_analysis",
+      "domain": "analysis",
+      "processType": "axiomatic_theory",
+      "url": "processes/functional_analysis/functional_analysis-compact-spectral.html"
+    },
+    {
+      "id": "numerical_analysis-quadrature",
+      "name": "Numerical Analysis — Quadrature",
+      "level": 3,
+      "type": "process",
+      "processId": "numerical_analysis-quadrature",
+      "subcategory": "numerical_analysis",
+      "domain": "analysis",
+      "processType": "axiomatic_theory",
+      "url": "processes/numerical_analysis/numerical_analysis-quadrature.html"
+    },
+    {
+      "id": "numerical_analysis-ode-solvers",
+      "name": "Numerical Analysis — ODE Solvers",
+      "level": 3,
+      "type": "process",
+      "processId": "numerical_analysis-ode-solvers",
+      "subcategory": "numerical_analysis",
+      "domain": "analysis",
+      "processType": "axiomatic_theory",
+      "url": "processes/numerical_analysis/numerical_analysis-ode-solvers.html"
+    },
+    {
+      "id": "numerical_analysis-linear-direct",
+      "name": "Numerical Analysis — Linear Systems Direct",
+      "level": 3,
+      "type": "process",
+      "processId": "numerical_analysis-linear-direct",
+      "subcategory": "numerical_analysis",
+      "domain": "analysis",
+      "processType": "axiomatic_theory",
+      "url": "processes/numerical_analysis/numerical_analysis-linear-direct.html"
+    },
+    {
+      "id": "numerical_analysis-iterative",
+      "name": "Numerical Analysis — Iterative Methods",
+      "level": 3,
+      "type": "process",
+      "processId": "numerical_analysis-iterative",
+      "subcategory": "numerical_analysis",
+      "domain": "analysis",
+      "processType": "axiomatic_theory",
+      "url": "processes/numerical_analysis/numerical_analysis-iterative.html"
+    },
+    {
+      "id": "numerical_analysis-interpolation",
+      "name": "Numerical Analysis — Interpolation",
+      "level": 3,
+      "type": "process",
+      "processId": "numerical_analysis-interpolation",
+      "subcategory": "numerical_analysis",
+      "domain": "analysis",
+      "processType": "axiomatic_theory",
+      "url": "processes/numerical_analysis/numerical_analysis-interpolation.html"
+    },
+    {
+      "id": "geometry_topology-point-set-topology-props-1-15",
+      "name": "Point-Set Topology — Part 1: Axioms & Definitions",
+      "level": 3,
+      "type": "process",
+      "processId": "geometry_topology-point-set-topology-props-1-15",
+      "subcategory": "geometry_topology",
+      "domain": "geometry_topology",
+      "processType": "axiomatic_theory",
+      "url": "processes/geometry_topology/geometry_topology-point-set-topology-props-1-15.html"
+    },
+    {
+      "id": "geometry_topology-point-set-topology-props-16-30",
+      "name": "Point-Set Topology — Part 2: Continuity & Compactness",
+      "level": 3,
+      "type": "process",
+      "processId": "geometry_topology-point-set-topology-props-16-30",
+      "subcategory": "geometry_topology",
+      "domain": "geometry_topology",
+      "processType": "axiomatic_theory",
+      "url": "processes/geometry_topology/geometry_topology-point-set-topology-props-16-30.html"
+    },
+    {
+      "id": "geometry_topology-point-set-topology-props-31-45",
+      "name": "Point-Set Topology — Part 3: Connectedness & Separation",
+      "level": 3,
+      "type": "process",
+      "processId": "geometry_topology-point-set-topology-props-31-45",
+      "subcategory": "geometry_topology",
+      "domain": "geometry_topology",
+      "processType": "axiomatic_theory",
+      "url": "processes/geometry_topology/geometry_topology-point-set-topology-props-31-45.html"
+    },
+    {
+      "id": "geometry_topology-point-set-topology-props-46-60",
+      "name": "Point-Set Topology — Part 4: Countability & Metrization",
+      "level": 3,
+      "type": "process",
+      "processId": "geometry_topology-point-set-topology-props-46-60",
+      "subcategory": "geometry_topology",
+      "domain": "geometry_topology",
+      "processType": "axiomatic_theory",
+      "url": "processes/geometry_topology/geometry_topology-point-set-topology-props-46-60.html"
+    },
+    {
+      "id": "geometry_topology-algebraic-topology-props-1-15",
+      "name": "Algebraic Topology — Part 1: Homological Algebra",
+      "level": 3,
+      "type": "process",
+      "processId": "geometry_topology-algebraic-topology-props-1-15",
+      "subcategory": "geometry_topology",
+      "domain": "geometry_topology",
+      "processType": "axiomatic_theory",
+      "url": "processes/geometry_topology/geometry_topology-algebraic-topology-props-1-15.html"
+    },
+    {
+      "id": "geometry_topology-algebraic-topology-props-16-30",
+      "name": "Algebraic Topology — Part 2: Simplicial Homology",
+      "level": 3,
+      "type": "process",
+      "processId": "geometry_topology-algebraic-topology-props-16-30",
+      "subcategory": "geometry_topology",
+      "domain": "geometry_topology",
+      "processType": "axiomatic_theory",
+      "url": "processes/geometry_topology/geometry_topology-algebraic-topology-props-16-30.html"
+    },
+    {
+      "id": "geometry_topology-algebraic-topology-props-31-45",
+      "name": "Algebraic Topology — Part 3: Homology Theory",
+      "level": 3,
+      "type": "process",
+      "processId": "geometry_topology-algebraic-topology-props-31-45",
+      "subcategory": "geometry_topology",
+      "domain": "geometry_topology",
+      "processType": "axiomatic_theory",
+      "url": "processes/geometry_topology/geometry_topology-algebraic-topology-props-31-45.html"
+    },
+    {
+      "id": "geometry_topology-algebraic-topology-props-46-60",
+      "name": "Algebraic Topology — Part 4: Persistent Homology & TDA",
+      "level": 3,
+      "type": "process",
+      "processId": "geometry_topology-algebraic-topology-props-46-60",
+      "subcategory": "geometry_topology",
+      "domain": "geometry_topology",
+      "processType": "axiomatic_theory",
+      "url": "processes/geometry_topology/geometry_topology-algebraic-topology-props-46-60.html"
+    },
+    {
+      "id": "geometry_topology-dijkstra-algorithm",
+      "name": "Dijkstra's Algorithm",
+      "level": 3,
+      "type": "process",
+      "processId": "geometry_topology-dijkstra-algorithm",
+      "subcategory": "geometry_topology",
+      "domain": "geometry_topology",
+      "processType": "algorithm",
+      "url": "processes/geometry_topology/geometry_topology-dijkstra-algorithm.html"
+    },
+    {
+      "id": "geometry_topology-kruskal-algorithm",
+      "name": "Kruskal's Algorithm",
+      "level": 3,
+      "type": "process",
+      "processId": "geometry_topology-kruskal-algorithm",
+      "subcategory": "geometry_topology",
+      "domain": "geometry_topology",
+      "processType": "algorithm",
+      "url": "processes/geometry_topology/geometry_topology-kruskal-algorithm.html"
+    },
+    {
+      "id": "geometry_topology-prim-algorithm",
+      "name": "Prim's Algorithm",
+      "level": 3,
+      "type": "process",
+      "processId": "geometry_topology-prim-algorithm",
+      "subcategory": "geometry_topology",
+      "domain": "geometry_topology",
+      "processType": "algorithm",
+      "url": "processes/geometry_topology/geometry_topology-prim-algorithm.html"
+    },
+    {
+      "id": "geometry_topology-breadth-first-search",
+      "name": "Breadth-First Search",
+      "level": 3,
+      "type": "process",
+      "processId": "geometry_topology-breadth-first-search",
+      "subcategory": "geometry_topology",
+      "domain": "geometry_topology",
+      "processType": "algorithm",
+      "url": "processes/geometry_topology/geometry_topology-breadth-first-search.html"
+    },
+    {
+      "id": "number_theory-extended-euclidean",
+      "name": "Extended Euclidean Algorithm",
+      "level": 3,
+      "type": "process",
+      "processId": "number_theory-extended-euclidean",
+      "subcategory": "number_theory",
+      "domain": "number_theory",
+      "processType": "algorithm",
+      "url": "processes/number_theory/number_theory-extended-euclidean.html"
+    },
+    {
+      "id": "number_theory-sieve-of-eratosthenes",
+      "name": "Sieve of Eratosthenes",
+      "level": 3,
+      "type": "process",
+      "processId": "number_theory-sieve-of-eratosthenes",
+      "subcategory": "number_theory",
+      "domain": "number_theory",
+      "processType": "algorithm",
+      "url": "processes/number_theory/number_theory-sieve-of-eratosthenes.html"
+    },
+    {
+      "id": "number_theory-fermat-primality",
+      "name": "Fermat Primality Test",
+      "level": 3,
+      "type": "process",
+      "processId": "number_theory-fermat-primality",
+      "subcategory": "number_theory",
+      "domain": "number_theory",
+      "processType": "algorithm",
+      "url": "processes/number_theory/number_theory-fermat-primality.html"
+    },
+    {
+      "id": "number_theory-miller-rabin",
+      "name": "Miller–Rabin Primality Test",
+      "level": 3,
+      "type": "process",
+      "processId": "number_theory-miller-rabin",
+      "subcategory": "number_theory",
+      "domain": "number_theory",
+      "processType": "algorithm",
+      "url": "processes/number_theory/number_theory-miller-rabin.html"
+    },
+    {
+      "id": "number_theory-aks-primality",
+      "name": "AKS Primality Test",
+      "level": 3,
+      "type": "process",
+      "processId": "number_theory-aks-primality",
+      "subcategory": "number_theory",
+      "domain": "number_theory",
+      "processType": "algorithm",
+      "url": "processes/number_theory/number_theory-aks-primality.html"
+    },
+    {
+      "id": "number_theory-szemeredi-theorem",
+      "name": "Szemerédi's Theorem",
+      "level": 3,
+      "type": "process",
+      "processId": "number_theory-szemeredi-theorem",
+      "subcategory": "number_theory",
+      "domain": "number_theory",
+      "processType": "axiomatic_theory",
+      "url": "processes/number_theory/number_theory-szemeredi-theorem.html"
+    },
+    {
+      "id": "number_theory-green-tao-theorem",
+      "name": "Green-Tao Theorem",
+      "level": 3,
+      "type": "process",
+      "processId": "number_theory-green-tao-theorem",
+      "subcategory": "number_theory",
+      "domain": "number_theory",
+      "processType": "axiomatic_theory",
+      "url": "processes/number_theory/number_theory-green-tao-theorem.html"
+    },
+    {
+      "id": "number_theory-peano-arithmetic",
+      "name": "Peano Arithmetic",
+      "level": 3,
+      "type": "process",
+      "processId": "number_theory-peano-arithmetic",
+      "subcategory": "number_theory",
+      "domain": "number_theory",
+      "processType": "axiomatic_theory",
+      "url": "processes/number_theory/number_theory-peano-arithmetic.html"
+    },
+    {
+      "id": "number_theory-peano-arithmetic-godel-fol",
+      "name": "Peano & Gödel — Part 4: First-Order Logic",
+      "level": 3,
+      "type": "process",
+      "processId": "number_theory-peano-arithmetic-godel-fol",
+      "subcategory": "number_theory",
+      "domain": "number_theory",
+      "processType": "axiomatic_theory",
+      "url": "processes/number_theory/number_theory-peano-arithmetic-godel-fol.html"
+    },
+    {
+      "id": "number_theory-peano-arithmetic-godel-formalization",
+      "name": "Peano & Gödel — Part 5: Formalization & Gödel Numbering",
+      "level": 3,
+      "type": "process",
+      "processId": "number_theory-peano-arithmetic-godel-formalization",
+      "subcategory": "number_theory",
+      "domain": "number_theory",
+      "processType": "axiomatic_theory",
+      "url": "processes/number_theory/number_theory-peano-arithmetic-godel-formalization.html"
+    },
+    {
+      "id": "number_theory-peano-arithmetic-godel-completeness",
+      "name": "Peano & Gödel — Part 6: Completeness Theorem",
+      "level": 3,
+      "type": "process",
+      "processId": "number_theory-peano-arithmetic-godel-completeness",
+      "subcategory": "number_theory",
+      "domain": "number_theory",
+      "processType": "axiomatic_theory",
+      "url": "processes/number_theory/number_theory-peano-arithmetic-godel-completeness.html"
+    },
+    {
+      "id": "number_theory-peano-arithmetic-godel-incompleteness-1",
+      "name": "Peano & Gödel — Part 7: First Incompleteness Theorem",
+      "level": 3,
+      "type": "process",
+      "processId": "number_theory-peano-arithmetic-godel-incompleteness-1",
+      "subcategory": "number_theory",
+      "domain": "number_theory",
+      "processType": "axiomatic_theory",
+      "url": "processes/number_theory/number_theory-peano-arithmetic-godel-incompleteness-1.html"
+    },
+    {
+      "id": "number_theory-peano-arithmetic-godel-incompleteness-2",
+      "name": "Peano & Gödel — Part 8: Second Incompleteness Theorem",
+      "level": 3,
+      "type": "process",
+      "processId": "number_theory-peano-arithmetic-godel-incompleteness-2",
+      "subcategory": "number_theory",
+      "domain": "number_theory",
+      "processType": "axiomatic_theory",
+      "url": "processes/number_theory/number_theory-peano-arithmetic-godel-incompleteness-2.html"
+    },
+    {
+      "id": "number_theory-peano-arithmetic-paris-harrington",
+      "name": "Peano & Paris — Part 9: Paris-Harrington Theorem",
+      "level": 3,
+      "type": "process",
+      "processId": "number_theory-peano-arithmetic-paris-harrington",
+      "subcategory": "number_theory",
+      "domain": "number_theory",
+      "processType": "axiomatic_theory",
+      "url": "processes/number_theory/number_theory-peano-arithmetic-paris-harrington.html"
+    },
+    {
+      "id": "number_theory-peano-arithmetic-paris-goodstein",
+      "name": "Peano & Paris — Part 10: Goodstein & Kirby-Paris Indicators",
+      "level": 3,
+      "type": "process",
+      "processId": "number_theory-peano-arithmetic-paris-goodstein",
+      "subcategory": "number_theory",
+      "domain": "number_theory",
+      "processType": "axiomatic_theory",
+      "url": "processes/number_theory/number_theory-peano-arithmetic-paris-goodstein.html"
+    },
+    {
+      "id": "number_theory-peano-arithmetic-paris-hydra",
+      "name": "Peano & Paris — Part 11: Hydra Game",
+      "level": 3,
+      "type": "process",
+      "processId": "number_theory-peano-arithmetic-paris-hydra",
+      "subcategory": "number_theory",
+      "domain": "number_theory",
+      "processType": "axiomatic_theory",
+      "url": "processes/number_theory/number_theory-peano-arithmetic-paris-hydra.html"
+    },
+    {
+      "id": "number_theory-godel-numbering-algorithm",
+      "name": "Gödel Numbering (arithmetization of syntax)",
+      "level": 3,
+      "type": "process",
+      "processId": "number_theory-godel-numbering-algorithm",
+      "subcategory": "number_theory",
+      "domain": "number_theory",
+      "processType": "algorithm",
+      "url": "processes/number_theory/number_theory-godel-numbering-algorithm.html"
+    },
+    {
+      "id": "geometry_topology-proof-euclid-book-i-pilot",
+      "name": "Euclid Book I (pilot proof bundle)",
+      "level": 3,
+      "type": "process",
+      "processId": "geometry_topology-proof-euclid-book-i-pilot",
+      "subcategory": "geometry_topology",
+      "domain": "geometry_topology",
+      "processType": "proof_graph",
+      "url": "processes/geometry_topology/geometry_topology-proof-euclid-book-i-pilot.html"
+    },
+    {
+      "id": "number_theory-proof-infinitely-many-primes",
+      "name": "Infinitely Many Primes (Euclid)",
+      "level": 3,
+      "type": "process",
+      "processId": "number_theory-proof-infinitely-many-primes",
+      "subcategory": "number_theory",
+      "domain": "number_theory",
+      "processType": "proof_graph",
+      "url": "processes/number_theory/number_theory-proof-infinitely-many-primes.html"
+    },
+    {
+      "id": "foundations-proof-cantor-diagonal-proofs",
+      "name": "Cantor Diagonal Proofs (bundle)",
+      "level": 3,
+      "type": "process",
+      "processId": "foundations-proof-cantor-diagonal-proofs",
+      "subcategory": "foundations",
+      "domain": "discrete_logic",
+      "processType": "proof_graph",
+      "url": "processes/foundations/foundations-proof-cantor-diagonal-proofs.html"
+    },
+    {
+      "id": "number_theory-proof-fundamental-theorem-arithmetic",
+      "name": "Fundamental Theorem of Arithmetic (proof graph)",
+      "level": 3,
+      "type": "process",
+      "processId": "number_theory-proof-fundamental-theorem-arithmetic",
+      "subcategory": "number_theory",
+      "domain": "number_theory",
+      "processType": "proof_graph",
+      "url": "processes/number_theory/number_theory-proof-fundamental-theorem-arithmetic.html"
+    },
+    {
+      "id": "geometry_topology-proof-pythagorean-comparison",
+      "name": "Pythagorean Theorem (proof comparison)",
+      "level": 3,
+      "type": "process",
+      "processId": "geometry_topology-proof-pythagorean-comparison",
+      "subcategory": "geometry_topology",
+      "domain": "geometry_topology",
+      "processType": "proof_graph",
+      "url": "processes/geometry_topology/geometry_topology-proof-pythagorean-comparison.html"
+    },
+    {
+      "id": "foundations-proof-godel-completeness-theorem",
+      "name": "Gödel Completeness Theorem (proof graph)",
+      "level": 3,
+      "type": "process",
+      "processId": "foundations-proof-godel-completeness-theorem",
+      "subcategory": "foundations",
+      "domain": "discrete_logic",
+      "processType": "proof_graph",
+      "url": "processes/foundations/foundations-proof-godel-completeness-theorem.html"
+    },
+    {
+      "id": "foundations-proof-godel-first-incompleteness",
+      "name": "Gödel First Incompleteness (proof graph)",
+      "level": 3,
+      "type": "process",
+      "processId": "foundations-proof-godel-first-incompleteness",
+      "subcategory": "foundations",
+      "domain": "discrete_logic",
+      "processType": "proof_graph",
+      "url": "processes/foundations/foundations-proof-godel-first-incompleteness.html"
+    },
+    {
+      "id": "number_theory-proof-kirby-paris-goodstein",
+      "name": "Kirby–Paris / Goodstein Independence (frontier proof graph)",
+      "level": 3,
+      "type": "process",
+      "processId": "number_theory-proof-kirby-paris-goodstein",
+      "subcategory": "number_theory",
+      "domain": "number_theory",
+      "processType": "proof_graph",
+      "url": "processes/number_theory/number_theory-proof-kirby-paris-goodstein.html"
+    }
+  ],
+  "links": [
+    {
+      "source": "root",
+      "target": "algebra"
+    },
+    {
+      "source": "root",
+      "target": "analysis"
+    },
+    {
+      "source": "root",
+      "target": "geometry_topology"
+    },
+    {
+      "source": "root",
+      "target": "number_theory"
+    },
+    {
+      "source": "root",
+      "target": "discrete_logic"
+    },
+    {
+      "source": "root",
+      "target": "applied"
+    },
+    {
+      "source": "discrete_logic",
+      "target": "foundations"
+    },
+    {
+      "source": "algebra",
+      "target": "category_theory"
+    },
+    {
+      "source": "algebra",
+      "target": "algebraic_geometry"
+    },
+    {
+      "source": "algebra",
+      "target": "representation_theory"
+    },
+    {
+      "source": "algebra",
+      "target": "commutative_algebra"
+    },
+    {
+      "source": "analysis",
+      "target": "partial_differential_equations"
+    },
+    {
+      "source": "geometry_topology",
+      "target": "differential_geometry"
+    },
+    {
+      "source": "analysis",
+      "target": "spectral_theory"
+    },
+    {
+      "source": "geometry_topology",
+      "target": "symplectic_geometry"
+    },
+    {
+      "source": "geometry_topology",
+      "target": "metric_geometry"
+    },
+    {
+      "source": "analysis",
+      "target": "operator_algebras"
+    },
+    {
+      "source": "algebra",
+      "target": "k_theory"
+    },
+    {
+      "source": "algebra",
+      "target": "quantum_algebra"
+    },
+    {
+      "source": "applied",
+      "target": "optimization"
+    },
+    {
+      "source": "applied",
+      "target": "information_theory"
+    },
+    {
+      "source": "applied",
+      "target": "mathematical_physics"
+    },
+    {
+      "source": "algebra",
+      "target": "abstract_algebra"
+    },
+    {
+      "source": "analysis",
+      "target": "calculus_analysis"
+    },
+    {
+      "source": "algebra",
+      "target": "linear_algebra"
+    },
+    {
+      "source": "discrete_logic",
+      "target": "discrete_mathematics"
+    },
+    {
+      "source": "geometry_topology",
+      "target": "geometry_topology"
+    },
+    {
+      "source": "applied",
+      "target": "bioinformatics"
+    },
+    {
+      "source": "applied",
+      "target": "statistics_probability"
+    },
+    {
+      "source": "analysis",
+      "target": "complex_analysis"
+    },
+    {
+      "source": "analysis",
+      "target": "functional_analysis"
+    },
+    {
+      "source": "analysis",
+      "target": "numerical_analysis"
+    },
+    {
+      "source": "number_theory",
+      "target": "number_theory"
+    },
+    {
+      "source": "foundations",
+      "target": "foundations-axiomatic-set-theory"
+    },
+    {
+      "source": "foundations",
+      "target": "foundations-axiomatic-set-theory-axioms-basic"
+    },
+    {
+      "source": "foundations",
+      "target": "foundations-axiomatic-set-theory-definitions-derived"
+    },
+    {
+      "source": "foundations",
+      "target": "foundations-axiomatic-set-theory-ordinals-choice"
+    },
+    {
+      "source": "foundations",
+      "target": "foundations-axiomatic-set-theory-cantor-cardinality"
+    },
+    {
+      "source": "foundations",
+      "target": "foundations-axiomatic-set-theory-ch-continuum"
+    },
+    {
+      "source": "foundations",
+      "target": "foundations-axiomatic-set-theory-forcing"
+    },
+    {
+      "source": "foundations",
+      "target": "foundations-axiomatic-set-theory-ad"
+    },
+    {
+      "source": "category_theory",
+      "target": "category_theory-category-theory"
+    },
+    {
+      "source": "category_theory",
+      "target": "category_theory-category-theory-foundations"
+    },
+    {
+      "source": "category_theory",
+      "target": "category_theory-category-theory-natural-transformations"
+    },
+    {
+      "source": "category_theory",
+      "target": "category_theory-category-theory-limits-adjunctions"
+    },
+    {
+      "source": "algebraic_geometry",
+      "target": "algebraic_geometry"
+    },
+    {
+      "source": "algebraic_geometry",
+      "target": "algebraic_geometry-affine-projective"
+    },
+    {
+      "source": "algebraic_geometry",
+      "target": "algebraic_geometry-schemes-sheaves"
+    },
+    {
+      "source": "algebraic_geometry",
+      "target": "algebraic_geometry-morphisms-rational"
+    },
+    {
+      "source": "algebraic_geometry",
+      "target": "algebraic_geometry-cohomology"
+    },
+    {
+      "source": "representation_theory",
+      "target": "representation_theory"
+    },
+    {
+      "source": "representation_theory",
+      "target": "representation_theory-group-reps"
+    },
+    {
+      "source": "representation_theory",
+      "target": "representation_theory-characters"
+    },
+    {
+      "source": "representation_theory",
+      "target": "representation_theory-lie-algebras"
+    },
+    {
+      "source": "representation_theory",
+      "target": "representation_theory-schur-weyl"
+    },
+    {
+      "source": "representation_theory",
+      "target": "representation_theory-induced-restricted"
+    },
+    {
+      "source": "commutative_algebra",
+      "target": "commutative_algebra"
+    },
+    {
+      "source": "commutative_algebra",
+      "target": "commutative_algebra-noetherian"
+    },
+    {
+      "source": "commutative_algebra",
+      "target": "commutative_algebra-localization"
+    },
+    {
+      "source": "commutative_algebra",
+      "target": "commutative_algebra-primary-decomp"
+    },
+    {
+      "source": "commutative_algebra",
+      "target": "commutative_algebra-dimension"
+    },
+    {
+      "source": "partial_differential_equations",
+      "target": "partial_differential_equations"
+    },
+    {
+      "source": "partial_differential_equations",
+      "target": "partial_differential_equations-classical"
+    },
+    {
+      "source": "partial_differential_equations",
+      "target": "partial_differential_equations-wellposed"
+    },
+    {
+      "source": "partial_differential_equations",
+      "target": "partial_differential_equations-sobolev"
+    },
+    {
+      "source": "partial_differential_equations",
+      "target": "partial_differential_equations-maximum"
+    },
+    {
+      "source": "differential_geometry",
+      "target": "differential_geometry"
+    },
+    {
+      "source": "differential_geometry",
+      "target": "differential_geometry-manifolds"
+    },
+    {
+      "source": "differential_geometry",
+      "target": "differential_geometry-riemannian"
+    },
+    {
+      "source": "differential_geometry",
+      "target": "differential_geometry-connections"
+    },
+    {
+      "source": "differential_geometry",
+      "target": "differential_geometry-forms"
+    },
+    {
+      "source": "differential_geometry",
+      "target": "differential_geometry-minimal-surfaces"
+    },
+    {
+      "source": "spectral_theory",
+      "target": "spectral_theory"
+    },
+    {
+      "source": "spectral_theory",
+      "target": "spectral_theory-spectrum"
+    },
+    {
+      "source": "spectral_theory",
+      "target": "spectral_theory-selfadjoint"
+    },
+    {
+      "source": "spectral_theory",
+      "target": "spectral_theory-compact"
+    },
+    {
+      "source": "spectral_theory",
+      "target": "spectral_theory-schrodinger"
+    },
+    {
+      "source": "symplectic_geometry",
+      "target": "symplectic_geometry"
+    },
+    {
+      "source": "symplectic_geometry",
+      "target": "symplectic_geometry-form"
+    },
+    {
+      "source": "symplectic_geometry",
+      "target": "symplectic_geometry-hamiltonian"
+    },
+    {
+      "source": "symplectic_geometry",
+      "target": "symplectic_geometry-darboux"
+    },
+    {
+      "source": "symplectic_geometry",
+      "target": "symplectic_geometry-poisson"
+    },
+    {
+      "source": "metric_geometry",
+      "target": "metric_geometry"
+    },
+    {
+      "source": "metric_geometry",
+      "target": "metric_geometry-metric-spaces"
+    },
+    {
+      "source": "metric_geometry",
+      "target": "metric_geometry-geodesics"
+    },
+    {
+      "source": "metric_geometry",
+      "target": "metric_geometry-curvature"
+    },
+    {
+      "source": "metric_geometry",
+      "target": "metric_geometry-hyperbolic"
+    },
+    {
+      "source": "operator_algebras",
+      "target": "operator_algebras"
+    },
+    {
+      "source": "operator_algebras",
+      "target": "operator_algebras-cstar"
+    },
+    {
+      "source": "operator_algebras",
+      "target": "operator_algebras-vonneumann"
+    },
+    {
+      "source": "operator_algebras",
+      "target": "operator_algebras-gns"
+    },
+    {
+      "source": "operator_algebras",
+      "target": "operator_algebras-spectral"
+    },
+    {
+      "source": "k_theory",
+      "target": "k_theory"
+    },
+    {
+      "source": "k_theory",
+      "target": "k_theory-algebraic"
+    },
+    {
+      "source": "k_theory",
+      "target": "k_theory-topological"
+    },
+    {
+      "source": "k_theory",
+      "target": "k_theory-operator"
+    },
+    {
+      "source": "k_theory",
+      "target": "k_theory-bott"
+    },
+    {
+      "source": "quantum_algebra",
+      "target": "quantum_algebra"
+    },
+    {
+      "source": "quantum_algebra",
+      "target": "quantum_algebra-groups"
+    },
+    {
+      "source": "quantum_algebra",
+      "target": "quantum_algebra-hopf"
+    },
+    {
+      "source": "quantum_algebra",
+      "target": "quantum_algebra-operads"
+    },
+    {
+      "source": "quantum_algebra",
+      "target": "quantum_algebra-yangbaxter"
+    },
+    {
+      "source": "optimization",
+      "target": "optimization"
+    },
+    {
+      "source": "optimization",
+      "target": "optimization-linear"
+    },
+    {
+      "source": "optimization",
+      "target": "optimization-simplex"
+    },
+    {
+      "source": "optimization",
+      "target": "optimization-duality"
+    },
+    {
+      "source": "optimization",
+      "target": "optimization-control"
+    },
+    {
+      "source": "information_theory",
+      "target": "information_theory"
+    },
+    {
+      "source": "information_theory",
+      "target": "information_theory-entropy"
+    },
+    {
+      "source": "information_theory",
+      "target": "information_theory-channel"
+    },
+    {
+      "source": "information_theory",
+      "target": "information_theory-coding"
+    },
+    {
+      "source": "information_theory",
+      "target": "information_theory-rate"
+    },
+    {
+      "source": "mathematical_physics",
+      "target": "mathematical_physics"
+    },
+    {
+      "source": "mathematical_physics",
+      "target": "mathematical_physics-classical"
+    },
+    {
+      "source": "mathematical_physics",
+      "target": "mathematical_physics-quantum"
+    },
+    {
+      "source": "mathematical_physics",
+      "target": "mathematical_physics-field"
+    },
+    {
+      "source": "mathematical_physics",
+      "target": "mathematical_physics-statmech"
+    },
+    {
+      "source": "abstract_algebra",
+      "target": "abstract_algebra-ring-theory"
+    },
+    {
+      "source": "abstract_algebra",
+      "target": "abstract_algebra-ring-theory-axioms-units"
+    },
+    {
+      "source": "abstract_algebra",
+      "target": "abstract_algebra-ring-theory-ideals-quotients"
+    },
+    {
+      "source": "abstract_algebra",
+      "target": "abstract_algebra-ring-theory-prime-maximal"
+    },
+    {
+      "source": "abstract_algebra",
+      "target": "abstract_algebra-field-theory"
+    },
+    {
+      "source": "abstract_algebra",
+      "target": "abstract_algebra-field-theory-extensions"
+    },
+    {
+      "source": "abstract_algebra",
+      "target": "abstract_algebra-field-theory-splitting"
+    },
+    {
+      "source": "abstract_algebra",
+      "target": "abstract_algebra-field-theory-galois"
+    },
+    {
+      "source": "calculus_analysis",
+      "target": "calculus_analysis-real-analysis"
+    },
+    {
+      "source": "calculus_analysis",
+      "target": "calculus_analysis-real-analysis-completeness"
+    },
+    {
+      "source": "calculus_analysis",
+      "target": "calculus_analysis-real-analysis-limits-continuity"
+    },
+    {
+      "source": "calculus_analysis",
+      "target": "calculus_analysis-real-analysis-differentiation"
+    },
+    {
+      "source": "linear_algebra",
+      "target": "linear_algebra-linear-algebra"
+    },
+    {
+      "source": "linear_algebra",
+      "target": "linear_algebra-linear-algebra-vector-spaces"
+    },
+    {
+      "source": "linear_algebra",
+      "target": "linear_algebra-linear-algebra-linear-maps"
+    },
+    {
+      "source": "linear_algebra",
+      "target": "linear_algebra-linear-algebra-eigenvalues"
+    },
+    {
+      "source": "discrete_mathematics",
+      "target": "discrete_mathematics-type-theory"
+    },
+    {
+      "source": "discrete_mathematics",
+      "target": "discrete_mathematics-type-theory-lambda"
+    },
+    {
+      "source": "discrete_mathematics",
+      "target": "discrete_mathematics-type-theory-typing"
+    },
+    {
+      "source": "discrete_mathematics",
+      "target": "discrete_mathematics-type-theory-normalization"
+    },
+    {
+      "source": "discrete_mathematics",
+      "target": "discrete_mathematics-model-theory"
+    },
+    {
+      "source": "discrete_mathematics",
+      "target": "discrete_mathematics-model-theory-structures"
+    },
+    {
+      "source": "discrete_mathematics",
+      "target": "discrete_mathematics-model-theory-elementary"
+    },
+    {
+      "source": "discrete_mathematics",
+      "target": "discrete_mathematics-model-theory-compactness"
+    },
+    {
+      "source": "discrete_mathematics",
+      "target": "discrete_mathematics-proof-theory"
+    },
+    {
+      "source": "discrete_mathematics",
+      "target": "discrete_mathematics-proof-theory-sequents"
+    },
+    {
+      "source": "discrete_mathematics",
+      "target": "discrete_mathematics-proof-theory-cut-elimination"
+    },
+    {
+      "source": "discrete_mathematics",
+      "target": "discrete_mathematics-proof-theory-normalization"
+    },
+    {
+      "source": "abstract_algebra",
+      "target": "abstract_algebra-group-theory"
+    },
+    {
+      "source": "calculus_analysis",
+      "target": "calculus_analysis-simpsons-rule"
+    },
+    {
+      "source": "calculus_analysis",
+      "target": "calculus_analysis-bisection-method"
+    },
+    {
+      "source": "discrete_mathematics",
+      "target": "discrete_mathematics-parallel-and-example"
+    },
+    {
+      "source": "discrete_mathematics",
+      "target": "discrete_mathematics-rsa-algorithm"
+    },
+    {
+      "source": "discrete_mathematics",
+      "target": "discrete_mathematics-aes-algorithm"
+    },
+    {
+      "source": "discrete_mathematics",
+      "target": "discrete_mathematics-merge-sort"
+    },
+    {
+      "source": "discrete_mathematics",
+      "target": "discrete_mathematics-quicksort"
+    },
+    {
+      "source": "discrete_mathematics",
+      "target": "discrete_mathematics-bst-insert"
+    },
+    {
+      "source": "discrete_mathematics",
+      "target": "discrete_mathematics-numerical-methods"
+    },
+    {
+      "source": "discrete_mathematics",
+      "target": "discrete_mathematics-propositional-logic"
+    },
+    {
+      "source": "discrete_mathematics",
+      "target": "discrete_mathematics-aristotle-syllogistic"
+    },
+    {
+      "source": "discrete_mathematics",
+      "target": "discrete_mathematics-binary-search"
+    },
+    {
+      "source": "geometry_topology",
+      "target": "geometry_topology-euclid-elements"
+    },
+    {
+      "source": "geometry_topology",
+      "target": "geometry_topology-euclid-elements-book-i"
+    },
+    {
+      "source": "geometry_topology",
+      "target": "geometry_topology-euclid-elements-book-ii"
+    },
+    {
+      "source": "geometry_topology",
+      "target": "geometry_topology-euclid-elements-book-iii"
+    },
+    {
+      "source": "geometry_topology",
+      "target": "geometry_topology-euclid-elements-book-iv"
+    },
+    {
+      "source": "geometry_topology",
+      "target": "geometry_topology-euclid-elements-book-v"
+    },
+    {
+      "source": "geometry_topology",
+      "target": "geometry_topology-euclid-elements-book-vi"
+    },
+    {
+      "source": "geometry_topology",
+      "target": "geometry_topology-euclid-elements-book-vii"
+    },
+    {
+      "source": "geometry_topology",
+      "target": "geometry_topology-euclid-elements-book-viii"
+    },
+    {
+      "source": "geometry_topology",
+      "target": "geometry_topology-euclid-elements-book-ix"
+    },
+    {
+      "source": "geometry_topology",
+      "target": "geometry_topology-euclid-elements-book-x"
+    },
+    {
+      "source": "geometry_topology",
+      "target": "geometry_topology-euclid-elements-book-xi"
+    },
+    {
+      "source": "geometry_topology",
+      "target": "geometry_topology-euclid-elements-book-xii"
+    },
+    {
+      "source": "geometry_topology",
+      "target": "geometry_topology-euclid-elements-book-xiii"
+    },
+    {
+      "source": "geometry_topology",
+      "target": "geometry_topology-combinatorics"
+    },
+    {
+      "source": "geometry_topology",
+      "target": "geometry_topology-sullivan-collection"
+    },
+    {
+      "source": "geometry_topology",
+      "target": "geometry_topology-de-rham-cohomology"
+    },
+    {
+      "source": "geometry_topology",
+      "target": "geometry_topology-homotopy-theory-basics"
+    },
+    {
+      "source": "geometry_topology",
+      "target": "geometry_topology-sullivan-minimal-models"
+    },
+    {
+      "source": "geometry_topology",
+      "target": "geometry_topology-string-topology"
+    },
+    {
+      "source": "calculus_analysis",
+      "target": "calculus_analysis-complex-dynamics-julia-fatou"
+    },
+    {
+      "source": "calculus_analysis",
+      "target": "calculus_analysis-measurable-riemann-mapping"
+    },
+    {
+      "source": "calculus_analysis",
+      "target": "calculus_analysis-sullivan-no-wandering-domains"
+    },
+    {
+      "source": "calculus_analysis",
+      "target": "calculus_analysis-sullivan-dictionary"
+    },
+    {
+      "source": "calculus_analysis",
+      "target": "calculus_analysis-hubbard-douady-collection"
+    },
+    {
+      "source": "calculus_analysis",
+      "target": "calculus_analysis-quadratic-julia-mandelbrot"
+    },
+    {
+      "source": "calculus_analysis",
+      "target": "calculus_analysis-boettcher-external-rays"
+    },
+    {
+      "source": "calculus_analysis",
+      "target": "calculus_analysis-douady-hubbard-mandelbrot-connected"
+    },
+    {
+      "source": "calculus_analysis",
+      "target": "calculus_analysis-polynomial-like-maps"
+    },
+    {
+      "source": "calculus_analysis",
+      "target": "calculus_analysis-devaney-collection"
+    },
+    {
+      "source": "calculus_analysis",
+      "target": "calculus_analysis-devaney-chaos-definition"
+    },
+    {
+      "source": "calculus_analysis",
+      "target": "calculus_analysis-symbolic-dynamics"
+    },
+    {
+      "source": "calculus_analysis",
+      "target": "calculus_analysis-devaney-hairs-cantor-bouquet"
+    },
+    {
+      "source": "calculus_analysis",
+      "target": "calculus_analysis-sierpinski-curve-julia"
+    },
+    {
+      "source": "bioinformatics",
+      "target": "bioinformatics-collection"
+    },
+    {
+      "source": "bioinformatics",
+      "target": "bioinformatics-sequence-alignment-nw-sw"
+    },
+    {
+      "source": "bioinformatics",
+      "target": "bioinformatics-blast-algorithm"
+    },
+    {
+      "source": "bioinformatics",
+      "target": "bioinformatics-hmm-sequence-analysis"
+    },
+    {
+      "source": "bioinformatics",
+      "target": "bioinformatics-phylogenetic-trees"
+    },
+    {
+      "source": "statistics_probability",
+      "target": "statistics_probability"
+    },
+    {
+      "source": "statistics_probability",
+      "target": "statistics_probability-kolmogorov-axioms"
+    },
+    {
+      "source": "statistics_probability",
+      "target": "statistics_probability-bayes-theorem"
+    },
+    {
+      "source": "statistics_probability",
+      "target": "statistics_probability-central-limit-theorem"
+    },
+    {
+      "source": "statistics_probability",
+      "target": "statistics_probability-law-of-large-numbers"
+    },
+    {
+      "source": "statistics_probability",
+      "target": "statistics_probability-markov-chains"
+    },
+    {
+      "source": "complex_analysis",
+      "target": "complex_analysis"
+    },
+    {
+      "source": "complex_analysis",
+      "target": "complex_analysis-analytic-cauchy-riemann"
+    },
+    {
+      "source": "complex_analysis",
+      "target": "complex_analysis-cauchy-residue"
+    },
+    {
+      "source": "complex_analysis",
+      "target": "complex_analysis-conformal-mappings"
+    },
+    {
+      "source": "complex_analysis",
+      "target": "complex_analysis-entire-picard"
+    },
+    {
+      "source": "complex_analysis",
+      "target": "complex_analysis-singularities-laurent"
+    },
+    {
+      "source": "functional_analysis",
+      "target": "functional_analysis"
+    },
+    {
+      "source": "functional_analysis",
+      "target": "functional_analysis-banach-spaces"
+    },
+    {
+      "source": "functional_analysis",
+      "target": "functional_analysis-hilbert-spaces"
+    },
+    {
+      "source": "functional_analysis",
+      "target": "functional_analysis-distributions"
+    },
+    {
+      "source": "functional_analysis",
+      "target": "functional_analysis-bounded-operators"
+    },
+    {
+      "source": "functional_analysis",
+      "target": "functional_analysis-compact-spectral"
+    },
+    {
+      "source": "numerical_analysis",
+      "target": "numerical_analysis"
+    },
+    {
+      "source": "numerical_analysis",
+      "target": "numerical_analysis-quadrature"
+    },
+    {
+      "source": "numerical_analysis",
+      "target": "numerical_analysis-ode-solvers"
+    },
+    {
+      "source": "numerical_analysis",
+      "target": "numerical_analysis-linear-direct"
+    },
+    {
+      "source": "numerical_analysis",
+      "target": "numerical_analysis-iterative"
+    },
+    {
+      "source": "numerical_analysis",
+      "target": "numerical_analysis-interpolation"
+    },
+    {
+      "source": "geometry_topology",
+      "target": "geometry_topology-point-set-topology-props-1-15"
+    },
+    {
+      "source": "geometry_topology",
+      "target": "geometry_topology-point-set-topology-props-16-30"
+    },
+    {
+      "source": "geometry_topology",
+      "target": "geometry_topology-point-set-topology-props-31-45"
+    },
+    {
+      "source": "geometry_topology",
+      "target": "geometry_topology-point-set-topology-props-46-60"
+    },
+    {
+      "source": "geometry_topology",
+      "target": "geometry_topology-algebraic-topology-props-1-15"
+    },
+    {
+      "source": "geometry_topology",
+      "target": "geometry_topology-algebraic-topology-props-16-30"
+    },
+    {
+      "source": "geometry_topology",
+      "target": "geometry_topology-algebraic-topology-props-31-45"
+    },
+    {
+      "source": "geometry_topology",
+      "target": "geometry_topology-algebraic-topology-props-46-60"
+    },
+    {
+      "source": "geometry_topology",
+      "target": "geometry_topology-dijkstra-algorithm"
+    },
+    {
+      "source": "geometry_topology",
+      "target": "geometry_topology-kruskal-algorithm"
+    },
+    {
+      "source": "geometry_topology",
+      "target": "geometry_topology-prim-algorithm"
+    },
+    {
+      "source": "geometry_topology",
+      "target": "geometry_topology-breadth-first-search"
+    },
+    {
+      "source": "number_theory",
+      "target": "number_theory-extended-euclidean"
+    },
+    {
+      "source": "number_theory",
+      "target": "number_theory-sieve-of-eratosthenes"
+    },
+    {
+      "source": "number_theory",
+      "target": "number_theory-fermat-primality"
+    },
+    {
+      "source": "number_theory",
+      "target": "number_theory-miller-rabin"
+    },
+    {
+      "source": "number_theory",
+      "target": "number_theory-aks-primality"
+    },
+    {
+      "source": "number_theory",
+      "target": "number_theory-szemeredi-theorem"
+    },
+    {
+      "source": "number_theory",
+      "target": "number_theory-green-tao-theorem"
+    },
+    {
+      "source": "number_theory",
+      "target": "number_theory-peano-arithmetic"
+    },
+    {
+      "source": "number_theory",
+      "target": "number_theory-peano-arithmetic-godel-fol"
+    },
+    {
+      "source": "number_theory",
+      "target": "number_theory-peano-arithmetic-godel-formalization"
+    },
+    {
+      "source": "number_theory",
+      "target": "number_theory-peano-arithmetic-godel-completeness"
+    },
+    {
+      "source": "number_theory",
+      "target": "number_theory-peano-arithmetic-godel-incompleteness-1"
+    },
+    {
+      "source": "number_theory",
+      "target": "number_theory-peano-arithmetic-godel-incompleteness-2"
+    },
+    {
+      "source": "number_theory",
+      "target": "number_theory-peano-arithmetic-paris-harrington"
+    },
+    {
+      "source": "number_theory",
+      "target": "number_theory-peano-arithmetic-paris-goodstein"
+    },
+    {
+      "source": "number_theory",
+      "target": "number_theory-peano-arithmetic-paris-hydra"
+    },
+    {
+      "source": "number_theory",
+      "target": "number_theory-godel-numbering-algorithm"
+    },
+    {
+      "source": "geometry_topology",
+      "target": "geometry_topology-proof-euclid-book-i-pilot"
+    },
+    {
+      "source": "number_theory",
+      "target": "number_theory-proof-infinitely-many-primes"
+    },
+    {
+      "source": "foundations",
+      "target": "foundations-proof-cantor-diagonal-proofs"
+    },
+    {
+      "source": "number_theory",
+      "target": "number_theory-proof-fundamental-theorem-arithmetic"
+    },
+    {
+      "source": "geometry_topology",
+      "target": "geometry_topology-proof-pythagorean-comparison"
+    },
+    {
+      "source": "foundations",
+      "target": "foundations-proof-godel-completeness-theorem"
+    },
+    {
+      "source": "foundations",
+      "target": "foundations-proof-godel-first-incompleteness"
+    },
+    {
+      "source": "number_theory",
+      "target": "number_theory-proof-kirby-paris-goodstein"
+    }
+  ],
+  "meta": {
+    "generatedAt": "2026-05-07T15:03:12.558Z",
+    "totalNodes": 239,
+    "totalLinks": 258,
+    "totalProcesses": 225
+  }
+}

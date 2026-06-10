@@ -1,0 +1,39 @@
+{
+  "id": "geometry_topology-euclid-elements-book-x-props-1-15",
+  "name": "Euclid's Elements Book X — Propositions 1-15",
+  "category": "mathematics",
+  "subcategory": "geometry_topology",
+  "subcategory_name": "Geometry & Topology",
+  "description": "Commensurable, incommensurable, GCM, ratio, squares",
+  "mermaid": "graph TD\n    BookI[\"Book I\\nFoundation\"]\n    BookV[\"Book V\\nFoundation\"]\n    BookVI[\"Book VI\\nFoundation\"]\n    Prop1[\"Prop. X.1\\nAntenaresis for magnitudes\"]\n    Prop2[\"Prop. X.2\\nIncommensurable criterion\"]\n    Prop3[\"Prop. X.3\\nGCM of two commensurable\"]\n    Prop4[\"Prop. X.4\\nGCM of three commensurable\"]\n    Prop5[\"Prop. X.5\\nCommensurable: number ratio\"]\n    Prop6[\"Prop. X.6\\nNumber ratio: commensurable\"]\n    Prop7[\"Prop. X.7\\nIncommensurable: no number ratio\"]\n    Prop8[\"Prop. X.8\\nNo number ratio: incommensurable\"]\n    Prop9[\"Prop. X.9\\nSquares: commensurable iff square ratio\"]\n    Prop10[\"Prop. X.10\\nFind incommensurable lines\"]\n    Prop11[\"Prop. X.11\\nProportion preserves commensurability\"]\n    Prop12[\"Prop. X.12\\nCommensurable with same\"]\n    Prop13[\"Prop. X.13\\nCommensurable: incommensurable partner\"]\n    Prop14[\"Prop. X.14\\nSquare difference, sum of squares\"]\n    Prop15[\"Prop. X.15\\nCommensurable sum\"]\n    BookI --> Prop1\n    BookV --> Prop1\n    BookVI --> Prop1\n    BookI --> Prop2\n    BookV --> Prop2\n    BookVI --> Prop2\n    BookI --> Prop3\n    BookV --> Prop3\n    BookVI --> Prop3\n    BookI --> Prop4\n    BookV --> Prop4\n    BookVI --> Prop4\n    BookI --> Prop5\n    BookV --> Prop5\n    BookVI --> Prop5\n    BookI --> Prop6\n    BookV --> Prop6\n    BookVI --> Prop6\n    BookI --> Prop7\n    BookV --> Prop7\n    BookVI --> Prop7\n    BookI --> Prop8\n    BookV --> Prop8\n    BookVI --> Prop8\n    BookI --> Prop9\n    BookV --> Prop9\n    BookVI --> Prop9\n    BookI --> Prop10\n    BookV --> Prop10\n    BookVI --> Prop10\n    BookI --> Prop11\n    BookV --> Prop11\n    BookVI --> Prop11\n    BookI --> Prop12\n    BookV --> Prop12\n    BookVI --> Prop12\n    BookI --> Prop13\n    BookV --> Prop13\n    BookVI --> Prop13\n    BookI --> Prop14\n    BookV --> Prop14\n    BookVI --> Prop14\n    BookI --> Prop15\n    BookV --> Prop15\n    BookVI --> Prop15\n    classDef foundation fill:#95a5a6,color:#fff,stroke:#7f8c8d\n    classDef proposition fill:#51cf66,color:#fff,stroke:#40c057\n    class BookI,BookV,BookVI foundation\n    class Prop1,Prop2,Prop3,Prop4,Prop5,Prop6,Prop7,Prop8,Prop9,Prop10,Prop11,Prop12,Prop13,Prop14,Prop15 proposition",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "algorithm"
+}

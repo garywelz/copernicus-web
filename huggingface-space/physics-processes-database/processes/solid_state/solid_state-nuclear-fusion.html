@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nuclear Fusion - Physics Process</title>
+    <title>Phonons & Debye Heat Capacity - Physics Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Nuclear Fusion</h1>
+            <h1>Phonons & Debye Heat Capacity</h1>
             <div class="header-meta">
                 <span class="meta-item">Physics</span>
                 <span class="meta-item">Solid State Physics</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,67 +234,59 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Nuclear Fusion Process. This nuclear physics process visualization demonstrates nuclear fusion and plasma physics. The flowchart shows fusion inputs and high temperatures, nuclear fusion methods and plasma states, nuclear fusion operations and fusion reactions, intermediate results, and final nuclear fusion outputs.</p>
+                <p>Lattice vibrations quantized as phonons set a crystal's heat capacity: normal modes have a dispersion that the Debye model approximates as linear up to a cutoff frequency; integrating the phonon density of states gives a specific heat scaling as T-cubed at low temperature and approaching the Dulong-Petit value at high temperature.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-A2[Fusion Fuel] --> B2[Nuclear Fusion Method]
-C2[High Temperature] --> D2[Plasma State]
-E2[Fusion Reaction] --> F2[Nuclear Fusion Analysis]
-B2 --> G2[Deuterium Tritium]
-D2 --> H2[Thermonuclear Fusion]
-F2 --> I2[Fusion Energy]
-G2 --> J2[Fusion Cross Section]
-H2 --> K2[Fusion Rate]
-I2 --> L2[Fusion Power]
-J2 --> M2[Fusion Yield]
-K2 --> L2
-L2 --> N2[Fusion Efficiency]
-M2 --> O2[Fusion Plasma]
-N2 --> P2[Fusion Confinement]
-O2 --> Q2[Nuclear Fusion Process]
-P2 --> R2[Nuclear Fusion Validation]
-Q2 --> S2[Nuclear Fusion Verification]
-R2 --> T2[Nuclear Fusion Result]
-S2 --> U2[Nuclear Fusion Analysis]
-T2 --> V2[Nuclear Fusion Parameters]
-U2 --> W2[Nuclear Fusion Output]
-V2 --> X2[Nuclear Fusion Analysis]
-W2 --> Y2[Nuclear Fusion Final Result]
-X2 --> Z2[Nuclear Fusion Complete]
+    N1["Crystal lattice of atoms"]
+    N2["Atoms vibrate about equil."]
+    N3["Quantize: phonons"]
+    N4["Dispersion omega(k)"]
+    N5["Debye approximation"]
+    N6["Linear omega = v_s k"]
+    N7["Debye cutoff + temp"]
+    N8{"T below Debye temp?"}
+    N9["Low-T: C ~ T^3"]
+    N10["High-T: Dulong-Petit"]
+    N11["Heat capacity C(T)"]
 
-    style A2 fill:#ff6b6b,color:#fff
-    style C2 fill:#ff6b6b,color:#fff
-    style E2 fill:#ff6b6b,color:#fff
-    style B2 fill:#ffd43b,color:#000
-    style D2 fill:#ffd43b,color:#000
-    style F2 fill:#ffd43b,color:#000
-    style G2 fill:#ffd43b,color:#000
-    style H2 fill:#ffd43b,color:#000
-    style I2 fill:#ffd43b,color:#000
-    style J2 fill:#ffd43b,color:#000
-    style K2 fill:#ffd43b,color:#000
-    style L2 fill:#ffd43b,color:#000
-    style M2 fill:#51cf66,color:#fff
+    N1 --> N2
+    N2 --> N3
+    N3 --> N4
+    N4 --> N5
+    N5 --> N6
+    N6 --> N7
+    N7 --> N8
+    N8 -->|yes| N9
+    N8 -->|no| N10
+    N9 --> N11
+    N10 --> N11
+
+    style N1 fill:#ff6b6b,color:#fff
     style N2 fill:#51cf66,color:#fff
-    style O2 fill:#51cf66,color:#fff
-    style P2 fill:#51cf66,color:#fff
-    style Q2 fill:#51cf66,color:#fff
-    style R2 fill:#51cf66,color:#fff
-    style S2 fill:#51cf66,color:#fff
-    style T2 fill:#51cf66,color:#fff
-    style U2 fill:#51cf66,color:#fff
-    style V2 fill:#51cf66,color:#fff
-    style W2 fill:#51cf66,color:#fff
-    style X2 fill:#51cf66,color:#fff
-    style Y2 fill:#51cf66,color:#fff
-    style Z2 fill:#b197fc,color:#fff
+    style N3 fill:#74c0fc,color:#fff
+    style N4 fill:#51cf66,color:#fff
+    style N5 fill:#51cf66,color:#fff
+    style N6 fill:#51cf66,color:#fff
+    style N7 fill:#74c0fc,color:#fff
+    style N8 fill:#74c0fc,color:#fff
+    style N9 fill:#51cf66,color:#fff
+    style N10 fill:#51cf66,color:#fff
+    style N11 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Crystal lattice of atoms</td><td>Triggers & Inputs</td><td><a href="https://www.wiley.com/en-us/Introduction+to+Solid+State+Physics%2C+8th+Edition-p-9780471415268" target="_blank" title="Introduction to Solid State Physics (8th ed.)" style="color:#3498db;">Kittel, C. 2005</a></td></tr><tr><td style="font-weight:600;">Atoms vibrate about equil.</td><td>Processing & Operations</td><td><a href="https://www.wiley.com/en-us/Introduction+to+Solid+State+Physics%2C+8th+Edition-p-9780471415268" target="_blank" title="Introduction to Solid State Physics (8th ed.)" style="color:#3498db;">Kittel, C. 2005</a></td></tr><tr><td style="font-weight:600;">Quantize: phonons</td><td>Intermediates & States</td><td><a href="https://www.wiley.com/en-us/Introduction+to+Solid+State+Physics%2C+8th+Edition-p-9780471415268" target="_blank" title="Introduction to Solid State Physics (8th ed.)" style="color:#3498db;">Kittel, C. 2005</a></td></tr><tr><td style="font-weight:600;">Dispersion omega(k)</td><td>Processing & Operations</td><td><a href="https://www.wiley.com/en-us/Introduction+to+Solid+State+Physics%2C+8th+Edition-p-9780471415268" target="_blank" title="Introduction to Solid State Physics (8th ed.)" style="color:#3498db;">Kittel, C. 2005</a></td></tr><tr><td style="font-weight:600;">Debye approximation</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1002/andp.19123441404" target="_blank" title="Zur Theorie der spezifischen Warmen" style="color:#3498db;">Debye, P. 1912</a></td></tr><tr><td style="font-weight:600;">Linear omega = v_s k</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1002/andp.19123441404" target="_blank" title="Zur Theorie der spezifischen Warmen" style="color:#3498db;">Debye, P. 1912</a></td></tr><tr><td style="font-weight:600;">Debye cutoff + temp</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1002/andp.19123441404" target="_blank" title="Zur Theorie der spezifischen Warmen" style="color:#3498db;">Debye, P. 1912</a></td></tr><tr><td style="font-weight:600;">T below Debye temp?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1002/andp.19123441404" target="_blank" title="Zur Theorie der spezifischen Warmen" style="color:#3498db;">Debye, P. 1912</a></td></tr><tr><td style="font-weight:600;">Low-T: C ~ T^3</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1002/andp.19123441404" target="_blank" title="Zur Theorie der spezifischen Warmen" style="color:#3498db;">Debye, P. 1912</a></td></tr><tr><td style="font-weight:600;">High-T: Dulong-Petit</td><td>Processing & Operations</td><td><a href="https://www.wiley.com/en-us/Introduction+to+Solid+State+Physics%2C+8th+Edition-p-9780471415268" target="_blank" title="Introduction to Solid State Physics (8th ed.)" style="color:#3498db;">Kittel, C. 2005</a></td></tr><tr><td style="font-weight:600;">Heat capacity C(T)</td><td>Products & Outputs</td><td><a href="https://doi.org/10.1002/andp.19123441404" target="_blank" title="Zur Theorie der spezifischen Warmen" style="color:#3498db;">Debye, P. 1912</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -313,12 +332,12 @@ X2 --> Z2[Nuclear Fusion Complete]
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 26</li>
-                        <li><strong>Edges:</strong> 24</li>
-                        <li><strong>Conditionals:</strong> 0</li>
+                        <li><strong>Nodes:</strong> 11</li>
+                        <li><strong>Edges:</strong> 11</li>
+                        <li><strong>Conditionals:</strong> 1</li>
                         <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 1</li>
+                        <li><strong>OR Gates:</strong> 1</li>
+                        <li><strong>Total Gates:</strong> 2</li>
                     </ul>
                 </div>
                 
@@ -326,7 +345,7 @@ X2 --> Z2[Nuclear Fusion Complete]
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>fusion</li><li>nuclear</li><li>physics</li><li>state</li><li>solid</li>
+                        <li>phonons</li><li>Debye model</li><li>specific heat</li><li>lattice vibrations</li><li>Dulong-Petit</li>
                     </ul>
                 </div>
                 
@@ -337,43 +356,23 @@ X2 --> Z2[Nuclear Fusion Complete]
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Zur Theorie der spezifischen Warmen</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Debye, P.
+                            , Annalen der Physik
+                             (1912)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #3498db; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Energy Production in Stars</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Bethe, H.A.
-                            , Phys. Rev.
-                             (1939)
-                            </span>
-                            <br><a href="https://doi.org/10.1103/PhysRev.55.434" target="_blank" style="color: #3498db; font-size: 0.85em;">DOI: 10.1103/PhysRev.55.434</a>
+                            <br><a href="https://doi.org/10.1002/andp.19123441404" target="_blank" style="color: #3498db; font-size: 0.85em;">DOI: 10.1002/andp.19123441404</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Controlled Thermonuclear Reactions</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Post, R.F.
-                            , Rev. Mod. Phys.
-                             (1956)
-                            </span>
-                            <br><a href="https://doi.org/10.1103/RevModPhys.28.338" target="_blank" style="color: #3498db; font-size: 0.85em;">DOI: 10.1103/RevModPhys.28.338</a>
-                            
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Magnetic fusion energy: From experiment to power plants</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Freidberg, J.P., Meade, D.M., Mikkelsen, D.R., Sugiyama, L.E.
-                            , Rev. Mod. Phys.
+                            <strong>Introduction to Solid State Physics (8th ed.)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Kittel, C.
+                            , Wiley
                              (2005)
                             </span>
-                            <br><a href="https://doi.org/10.1103/RevModPhys.77.1043" target="_blank" style="color: #3498db; font-size: 0.85em;">DOI: 10.1103/RevModPhys.77.1043</a>
                             
+                            <br><a href="https://www.wiley.com/en-us/Introduction+to+Solid+State+Physics%2C+8th+Edition-p-9780471415268" target="_blank" style="color: #3498db; font-size: 0.85em;">View Source</a>
                         </li>
                         
                     </ul>

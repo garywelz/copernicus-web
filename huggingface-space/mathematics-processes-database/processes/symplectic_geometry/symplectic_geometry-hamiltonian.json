@@ -1,0 +1,39 @@
+{
+  "id": "symplectic_geometry-hamiltonian",
+  "name": "Hamiltonian Vector Fields",
+  "category": "mathematics",
+  "subcategory": "symplectic_geometry",
+  "subcategory_name": "Symplectic Geometry",
+  "description": "X_H: ι_{X_H}ω=dH. Hamiltonian flow preserves ω. Liouville: phase vol preserved.",
+  "mermaid": "graph TD\n    D1[\"Def: X_H\\nι_{X_H}ω = dH\"]\n    D2[\"Def: Hamiltonian flow\\nφ_t^H\"]\n    D3[\"Def: Symplectic map\\nφ*ω = ω\"]\n    D4[\"Def: Poisson bracket\\n{f,g} = ω(X_f,X_g)\"]\n    T1[\"Thm: φ_t*ω = ω\\nflow preserves ω\"]\n    T2[\"Thm: Liouville\\nvol preserved\"]\n    T3[\"Thm: d/dt f∘φ_t = {H,f}\"]\n    T4[\"Thm: Arnold–Liouville\\nint sys action-angle\"]\n    T5[\"Thm: Noether\\nsymm⇒conserved\"]\n    D1 --> D2\n    D2 --> T1\n    D3 --> T1\n    D4 --> T3\n    T1 --> T2\n    T3 --> T5\n    classDef definition fill:#b197fc,color:#fff\n    classDef theorem fill:#51cf66,color:#fff\n    class D1,D2,D3,D4 definition\n    class T1,T2,T3,T4,T5 theorem",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

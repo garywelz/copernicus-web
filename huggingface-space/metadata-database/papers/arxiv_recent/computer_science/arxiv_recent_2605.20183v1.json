@@ -1,0 +1,51 @@
+{
+  "id": "arxiv_2605.20183v1",
+  "arxiv_id": "2605.20183v1",
+  "title": "MSAVBench: Towards Comprehensive and Reliable Evaluation of Multi-Shot Audio-Video Generation",
+  "authors": [
+    "Yujie Wei",
+    "Yujin Han",
+    "Zhekai Chen",
+    "Yongming Li",
+    "Kaixun Jiang",
+    "Zhihang Liu",
+    "Quanhao Li",
+    "Zhiwu Qing",
+    "Xiang Wang",
+    "Zhen Xing",
+    "Ruihang Chu",
+    "Lingyi Hong",
+    "Yefei He",
+    "Junjie Zhou",
+    "Junqiu Yu",
+    "Yang Shi",
+    "Difan Zou",
+    "Kai Zhu",
+    "Shiwei Zhang",
+    "Yingya Zhang",
+    "Yu Liu",
+    "Xihui Liu",
+    "Hongming Shan"
+  ],
+  "author_string": "Yujie Wei, Yujin Han, Zhekai Chen, Yongming Li, Kaixun Jiang et al.",
+  "journal": "arXiv:2605.20183v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Video generation is rapidly evolving from single-shot synthesis to complex multi-shot audio-video (MSAV) narratives to meet real-world demands. However, evaluating such frontier models remains a fundamental challenge. Existing benchmarks are limited in scope and data diversity, and rely on rigid evaluation pipelines, preventing systematic and reliable assessment of modern MSAV models. To bridge these gaps, we introduce MSAVBench, the first comprehensive benchmark and adaptive hybrid evaluation framework for multi-shot audio-video generation. Our benchmark spans four key dimensions, video, audio, shot, and reference, covering diverse task settings, varying shot counts of up to 15, and challenging non-realistic scenarios. Our evaluation framework improves robustness through an adaptive self-correction mechanism for shot segmentation, instance-wise rubrics for subjective metrics, and tool-grounded evidence extraction for complex judgments. Furthermore, MSAVBench achieves high alignment with human judgments, reaching a Spearman rank correlation of 91.5%. Our systematic evaluation of 19 state-of-the-art closed- and open-source models shows that current systems still struggle with director-level control and fine-grained audio-visual synchronization, while modular or agentic generation pipelines offer a promising path toward narrowing the gap between open- and closed-source models. We will release the benchmark data and evaluation code to facilitate future research.",
+  "categories": [
+    "cs.CV"
+  ],
+  "primary_category": "cs.CV",
+  "comment": null,
+  "published_date": "2026-05-19T17:59:33Z",
+  "updated_date": "2026-05-19T17:59:33Z",
+  "url": "https://arxiv.org/abs/2605.20183v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.20183v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-20T10:16:33.992807",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CV"
+  ]
+}

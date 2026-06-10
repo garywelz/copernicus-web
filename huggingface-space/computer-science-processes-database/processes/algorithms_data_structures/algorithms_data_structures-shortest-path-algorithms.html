@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shortest Path Algorithms - Computer Science Process</title>
+    <title>Shortest Path (Dijkstra) - Computer Science Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Shortest Path Algorithms</h1>
+            <h1>Shortest Path (Dijkstra)</h1>
             <div class="header-meta">
                 <span class="meta-item">Computer Science</span>
                 <span class="meta-item">Algorithms & Data Structures</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,54 +234,60 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Shortest Path Algorithms process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>Dijkstra's algorithm finds shortest paths from a source in a graph with non-negative weights: distances start at infinity except the source, and a priority queue repeatedly extracts the closest unfinalized vertex, finalizes it, and relaxes its outgoing edges, updating tentative distances until the queue is empty and the shortest-path tree is complete.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-N1["Graph + Weights"]
-N2["Source/Target"]
-N3["Distance Array"]
-N4["Choose Approach"]
-N5["Priority Queue"]
-N6["Initialize dist(source)=0"]
-N7["Extract-Min Node"]
-N8["Relax Outgoing Edges"]
-N9["Integrate Results"]
-N10["Update Dist/Parents"]
-N11["Reconstruct Path"]
-N12["Shortest Path + Cost"]
+    N1["Weighted graph (non-neg)"]
+    N2["Init dist: src=0, rest=inf"]
+    N3["Priority queue of vertices"]
+    N4["Extract min-dist vertex u"]
+    N5["Mark u finalized"]
+    N6["Relax each edge (u,v)"]
+    N7{"dist[u]+w < dist[v]?"}
+    N8["Update dist[v], parent"]
+    N9{"Queue empty?"}
+    N10["Back to extract-min"]
+    N11["Shortest-path tree"]
 
-N1 --> N2
-N2 --> N3
-N3 --> N4
-N4 --> N5
-N4 --> N7
-N5 --> N6
-N7 --> N8
-N6 --> N9
-N8 --> N9
-N9 --> N10
-N10 --> N11
-N11 --> N12
+    N1 --> N2
+    N2 --> N3
+    N3 --> N4
+    N4 --> N5
+    N5 --> N6
+    N6 --> N7
+    N7 -->|yes| N8
+    N8 --> N9
+    N7 -->|no| N9
+    N9 -->|no| N10
+    N10 -->|loop| N4
+    N9 -->|yes| N11
 
     style N1 fill:#ff6b6b,color:#fff
-    style N2 fill:#ff6b6b,color:#fff
-    style N3 fill:#ffd43b,color:#000
-    style N4 fill:#ffd43b,color:#000
-    style N5 fill:#ffd43b,color:#000
+    style N2 fill:#51cf66,color:#fff
+    style N3 fill:#51cf66,color:#fff
+    style N4 fill:#51cf66,color:#fff
+    style N5 fill:#74c0fc,color:#fff
     style N6 fill:#51cf66,color:#fff
-    style N7 fill:#51cf66,color:#fff
+    style N7 fill:#74c0fc,color:#fff
     style N8 fill:#51cf66,color:#fff
     style N9 fill:#74c0fc,color:#fff
-    style N10 fill:#74c0fc,color:#fff
-    style N11 fill:#51cf66,color:#fff
-    style N12 fill:#b197fc,color:#fff
+    style N10 fill:#51cf66,color:#fff
+    style N11 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Weighted graph (non-neg)</td><td>Triggers & Inputs</td><td><a href="https://doi.org/10.1007/BF01386390" target="_blank" title="A note on two problems in connexion with graphs" style="color:#9b59b6;">Dijkstra, E. W. 1959</a></td></tr><tr><td style="font-weight:600;">Init dist: src=0, rest=inf</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1007/BF01386390" target="_blank" title="A note on two problems in connexion with graphs" style="color:#9b59b6;">Dijkstra, E. W. 1959</a></td></tr><tr><td style="font-weight:600;">Priority queue of vertices</td><td>Processing & Operations</td><td><a href="https://mitpress.mit.edu/9780262046305/introduction-to-algorithms/" target="_blank" title="Introduction to Algorithms (4th ed.)" style="color:#9b59b6;">Cormen, T. H. et al. 2022</a></td></tr><tr><td style="font-weight:600;">Extract min-dist vertex u</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1007/BF01386390" target="_blank" title="A note on two problems in connexion with graphs" style="color:#9b59b6;">Dijkstra, E. W. 1959</a></td></tr><tr><td style="font-weight:600;">Mark u finalized</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1007/BF01386390" target="_blank" title="A note on two problems in connexion with graphs" style="color:#9b59b6;">Dijkstra, E. W. 1959</a></td></tr><tr><td style="font-weight:600;">Relax each edge (u,v)</td><td>Processing & Operations</td><td><a href="https://mitpress.mit.edu/9780262046305/introduction-to-algorithms/" target="_blank" title="Introduction to Algorithms (4th ed.)" style="color:#9b59b6;">Cormen, T. H. et al. 2022</a></td></tr><tr><td style="font-weight:600;">dist[u]+w < dist[v]?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1007/BF01386390" target="_blank" title="A note on two problems in connexion with graphs" style="color:#9b59b6;">Dijkstra, E. W. 1959</a></td></tr><tr><td style="font-weight:600;">Update dist[v], parent</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1007/BF01386390" target="_blank" title="A note on two problems in connexion with graphs" style="color:#9b59b6;">Dijkstra, E. W. 1959</a></td></tr><tr><td style="font-weight:600;">Queue empty?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1007/BF01386390" target="_blank" title="A note on two problems in connexion with graphs" style="color:#9b59b6;">Dijkstra, E. W. 1959</a></td></tr><tr><td style="font-weight:600;">Back to extract-min</td><td>Processing & Operations</td><td><a href="https://mitpress.mit.edu/9780262046305/introduction-to-algorithms/" target="_blank" title="Introduction to Algorithms (4th ed.)" style="color:#9b59b6;">Cormen, T. H. et al. 2022</a></td></tr><tr><td style="font-weight:600;">Shortest-path tree</td><td>Products & Outputs</td><td><a href="https://doi.org/10.1007/BF01386390" target="_blank" title="A note on two problems in connexion with graphs" style="color:#9b59b6;">Dijkstra, E. W. 1959</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -300,12 +333,12 @@ N11 --> N12
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 12</li>
+                        <li><strong>Nodes:</strong> 11</li>
                         <li><strong>Edges:</strong> 12</li>
-                        <li><strong>Conditionals:</strong> 0</li>
-                        <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 1</li>
-                        <li><strong>Total Gates:</strong> 2</li>
+                        <li><strong>Conditionals:</strong> 2</li>
+                        <li><strong>AND Gates:</strong> 2</li>
+                        <li><strong>OR Gates:</strong> 2</li>
+                        <li><strong>Total Gates:</strong> 4</li>
                     </ul>
                 </div>
                 
@@ -313,7 +346,7 @@ N11 --> N12
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>shortest</li><li>path</li><li>algorithms</li>
+                        <li>Dijkstra's algorithm</li><li>shortest path</li><li>priority queue</li><li>edge relaxation</li><li>greedy</li>
                     </ul>
                 </div>
                 
@@ -324,43 +357,23 @@ N11 --> N12
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>A note on two problems in connexion with graphs</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Dijkstra, E. W.
+                            , Numerische Mathematik
+                             (1959)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #9b59b6; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Shortest Path Tree Algorithms, SPT</strong>
-                            
-                            , SpringerReference
-                             (None)
-                            </span>
-                            <br><a href="https://doi.org/10.1007/springerreference_72683" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.1007/springerreference_72683</a>
+                            <br><a href="https://doi.org/10.1007/BF01386390" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.1007/BF01386390</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Preliminaries: Shortest Path Algorithms</strong>
-                            
-                            , Network Flow Algorithms
-                             (2019)
+                            <strong>Introduction to Algorithms (4th ed.)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Cormen, T. H.; Leiserson, C. E.; Rivest, R. L.; Stein, C.
+                            , MIT Press
+                             (2022)
                             </span>
-                            <br><a href="https://doi.org/10.1017/9781316888568.003" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.1017/9781316888568.003</a>
                             
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Robust Shortest Path Problem: Models and Solution Algorithms</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Shahabi, Mehrdad
-                            
-                             (None)
-                            </span>
-                            <br><a href="https://doi.org/10.33915/etd.6609" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.33915/etd.6609</a>
-                            
+                            <br><a href="https://mitpress.mit.edu/9780262046305/introduction-to-algorithms/" target="_blank" style="color: #9b59b6; font-size: 0.85em;">View Source</a>
                         </li>
                         
                     </ul>

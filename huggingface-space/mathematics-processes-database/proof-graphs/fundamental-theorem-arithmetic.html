@@ -117,14 +117,14 @@
       border: 2px solid currentColor;
       flex: 0 0 auto;
     }
-    .legend-source { background: #e0f2fe; color: #0369a1; }
-    .legend-assumption { background: #fef3c7; color: #b45309; }
-    .legend-construction { background: #dcfce7; color: #15803d; }
-    .legend-assertion { background: #ede9fe; color: #7c3aed; }
-    .legend-inference { background: #fce7f3; color: #be185d; }
-    .legend-algorithm { background: #e0e7ff; color: #4338ca; }
-    .legend-contradiction { background: #fee2e2; color: #dc2626; }
-    .legend-conclusion { background: #ccfbf1; color: #0f766e; }
+    .legend-source { background: #f2c879; color: #7a4f12; }
+    .legend-assumption { background: #c084fc; color: #6d28d9; }
+    .legend-construction { background: #8fbc5a; color: #3f6212; }
+    .legend-assertion { background: #8ecae6; color: #25637a; }
+    .legend-inference { background: #f4a261; color: #9a3412; }
+    .legend-algorithm { background: #818cf8; color: #3730a3; }
+    .legend-contradiction { background: #ef4444; color: #991b1b; }
+    .legend-conclusion { background: #2dd4bf; color: #0f766e; }
     .source-note {
       margin-top: 32px;
       color: var(--muted);
@@ -226,14 +226,14 @@
       <section class="proof-legend" aria-label="Proof graph color legend">
         <h2>Proof Graph Color Legend</h2>
         <div class="proof-legend-grid">
-          <div class="proof-legend-item"><span class="proof-legend-swatch legend-source"></span><span>Source / given / definition / lemma</span></div>
-          <div class="proof-legend-item"><span class="proof-legend-swatch legend-assumption"></span><span>Assumption or temporary hypothesis</span></div>
-          <div class="proof-legend-item"><span class="proof-legend-swatch legend-construction"></span><span>Construction or introduced object</span></div>
-          <div class="proof-legend-item"><span class="proof-legend-swatch legend-assertion"></span><span>Assertion established in the proof</span></div>
-          <div class="proof-legend-item"><span class="proof-legend-swatch legend-inference"></span><span>Inference, branch, or proof move</span></div>
-          <div class="proof-legend-item"><span class="proof-legend-swatch legend-algorithm"></span><span>Algorithm or procedural step</span></div>
-          <div class="proof-legend-item"><span class="proof-legend-swatch legend-contradiction"></span><span>Contradiction</span></div>
-          <div class="proof-legend-item"><span class="proof-legend-swatch legend-conclusion"></span><span>Discharge or final conclusion</span></div>
+          <div class="proof-legend-item"><span class="proof-legend-swatch legend-source"></span><span>Amber: source / given / definition / lemma</span></div>
+          <div class="proof-legend-item"><span class="proof-legend-swatch legend-assumption"></span><span>Violet: assumption or temporary hypothesis</span></div>
+          <div class="proof-legend-item"><span class="proof-legend-swatch legend-construction"></span><span>Moss: construction or introduced object</span></div>
+          <div class="proof-legend-item"><span class="proof-legend-swatch legend-assertion"></span><span>Steel: assertion established in the proof</span></div>
+          <div class="proof-legend-item"><span class="proof-legend-swatch legend-inference"></span><span>Copper: inference, branch, or proof move</span></div>
+          <div class="proof-legend-item"><span class="proof-legend-swatch legend-algorithm"></span><span>Indigo: algorithm or procedural step</span></div>
+          <div class="proof-legend-item"><span class="proof-legend-swatch legend-contradiction"></span><span>Crimson: contradiction</span></div>
+          <div class="proof-legend-item"><span class="proof-legend-swatch legend-conclusion"></span><span>Teal: discharge or final conclusion</span></div>
         </div>
       </section>
       <p class="source-note">Rendered from <code>fundamental-theorem-arithmetic.md</code>. Mermaid diagrams are rendered in the browser from the source graph blocks.</p>
@@ -243,14 +243,14 @@
     import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
 
     const roleStyles = `
-classDef proofSource fill:#e0f2fe,stroke:#0369a1,color:#0f172a,stroke-width:2px;
-classDef proofAssumption fill:#fef3c7,stroke:#b45309,color:#0f172a,stroke-width:2px;
-classDef proofConstruction fill:#dcfce7,stroke:#15803d,color:#0f172a,stroke-width:2px;
-classDef proofAssertion fill:#ede9fe,stroke:#7c3aed,color:#0f172a,stroke-width:2px;
-classDef proofInference fill:#fce7f3,stroke:#be185d,color:#0f172a,stroke-width:2px;
-classDef proofAlgorithm fill:#e0e7ff,stroke:#4338ca,color:#0f172a,stroke-width:2px;
-classDef proofContradiction fill:#fee2e2,stroke:#dc2626,color:#0f172a,stroke-width:3px;
-classDef proofConclusion fill:#ccfbf1,stroke:#0f766e,color:#0f172a,stroke-width:3px;
+classDef proofSource fill:#f2c879,stroke:#7a4f12,color:#0f172a,stroke-width:2px;
+classDef proofAssumption fill:#c084fc,stroke:#6d28d9,color:#0f172a,stroke-width:2px;
+classDef proofConstruction fill:#8fbc5a,stroke:#3f6212,color:#0f172a,stroke-width:2px;
+classDef proofAssertion fill:#8ecae6,stroke:#25637a,color:#0f172a,stroke-width:2px;
+classDef proofInference fill:#f4a261,stroke:#9a3412,color:#0f172a,stroke-width:2px;
+classDef proofAlgorithm fill:#818cf8,stroke:#3730a3,color:#0f172a,stroke-width:2px;
+classDef proofContradiction fill:#ef4444,stroke:#991b1b,color:#ffffff,stroke-width:3px;
+classDef proofConclusion fill:#2dd4bf,stroke:#0f766e,color:#0f172a,stroke-width:3px;
 classDef proofNeutral fill:#f8fafc,stroke:#64748b,color:#0f172a,stroke-width:1.5px;
 `;
 
@@ -261,7 +261,7 @@ classDef proofNeutral fill:#f8fafc,stroke:#64748b,color:#0f172a,stroke-width:1.5
       ['proofAlgorithm', /^(Algorithm capsule:|Input:|Output:|Start |Set |For each |Read |Choose output|Put |List |Skip |Increase |Arrange |Make |Find |Factor |Concatenate|Multiply )/i],
       ['proofConstruction', /^Construction:/i],
       ['proofAssertion', /^Assertion:/i],
-      ['proofInference', /^(Inference:|Branch:)/i],
+      ['proofInference', /^(Inference:|Branch:|Join:)/i],
       ['proofSource', /^(Given:|Definition|Postulate|Common Notion|Euclid |Lemma:|Arithmetic fact:|Strong induction|Cancellation law|Bezout)/i]
     ];
 
@@ -278,10 +278,12 @@ classDef proofNeutral fill:#f8fafc,stroke:#64748b,color:#0f172a,stroke-width:1.5
     function addRoleClasses(source) {
       if (source.includes('classDef proofSource')) return source;
       const assignments = new Map();
-      const nodePattern = /(?:^|\s)([A-Za-z][\w-]*)\s*([\[{])"([^"]+)"/gm;
+      const nodePattern = /(?:^|\s)([A-Za-z][\w-]*)\s*(?:\[\s*"([^"]+)"\s*\]|\{\s*"([^"]+)"\s*\}|\(\s*"([^"]+)"\s*\)|\(\[\s*"([^"]+)"\s*\]\)|\[\[\s*"([^"]+)"\s*\]\]|\[\/\s*"([^"]+)"\s*\/\]|\(\(\s*"([^"]+)"\s*\)\))/gm;
       let match;
       while ((match = nodePattern.exec(source)) !== null) {
-        const [, nodeId, shape, label] = match;
+        const nodeId = match[1];
+        const label = match.slice(2).find(Boolean);
+        const shape = match[3] ? '{' : '';
         assignments.set(nodeId, classify(label, shape));
       }
       const classLines = Array.from(assignments.entries()).map(([nodeId, role]) => `class ${nodeId} ${role};`);

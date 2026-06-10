@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Supported Catalysts - Chemistry Process</title>
+    <title>Rayleigh–Schrödinger Perturbation Theory - Chemistry Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Supported Catalysts</h1>
+            <h1>Rayleigh–Schrödinger Perturbation Theory</h1>
             <div class="header-meta">
                 <span class="meta-item">Chemistry</span>
                 <span class="meta-item">Theoretical Chemistry</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,68 +234,56 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Supported Catalysts process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>Perturbation theory treats a Hamiltonian as a solvable reference plus a small perturbation, expanding the energy and wavefunction in powers of the coupling; first- and second-order corrections (as in Møller–Plesset MP2) improve the energy when the series converges.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-A5[Metal Precursors] --> B5[Supported Catalyst Method]
-C5[Support Material] --> D5[Surface Area Analysis]
-E5[Reaction Conditions] --> F5[Temperature Control]
-B5 --> G5[Support Preparation]
-D5 --> H5[Pore Volume]
-F5 --> I5[Pressure Regulation]
-G5 --> J5[Surface Modification]
-H5 --> K5[Active Site Density]
-I5 --> L5[Reaction Pressure]
-J5 --> M5[Metal Deposition]
-K5 --> L5
-L5 --> N5[Catalyst Activation]
-M5 --> O5[Particle Formation]
-N5 --> P5[Surface Reaction]
-O5 --> Q5[Catalytic Activity]
-P5 --> R5[Product Formation]
-Q5 --> S5[Reaction Rate]
-R5 --> T5[Product Desorption]
-S5 --> U5[Turnover Frequency]
-T5 --> V5[Product Analysis]
-U5 --> W5[Catalyst Performance]
-V5 --> X5[Conversion Yield]
-W5 --> Y5[Stability Testing]
-X5 --> Z5[Supported Catalyst Efficiency]
-Y5 --> Z5
+    N1["H = H0 + λV"]
+    N2["Known H0 eigenstates"]
+    N3["Expand in powers of λ"]
+    N4["First order ⟨0|V|0⟩"]
+    N5["Second-order sum"]
+    N6{"Series converging?"}
+    N7["Diverges (strong V)"]
+    N8["Switch to variational"]
+    N9["Sum corrections (MP2)"]
+    N10["Improved energy"]
 
-    style A5 fill:#ff6b6b,color:#fff
-    style C5 fill:#ff6b6b,color:#fff
-    style E5 fill:#ff6b6b,color:#fff
-    style B5 fill:#ffd43b,color:#000
-    style D5 fill:#ffd43b,color:#000
-    style F5 fill:#ffd43b,color:#000
-    style G5 fill:#ffd43b,color:#000
-    style H5 fill:#ffd43b,color:#000
-    style I5 fill:#ffd43b,color:#000
-    style J5 fill:#ffd43b,color:#000
-    style K5 fill:#ffd43b,color:#000
-    style L5 fill:#ffd43b,color:#000
-    style M5 fill:#51cf66,color:#fff
+    N1 --> N2
+    N2 --> N3
+    N3 --> N4
+    N4 --> N5
+    N5 --> N6
+    N6 -->|no| N7
+    N7 --> N8
+    N8 --> N10
+    N6 -->|yes| N9
+    N9 --> N10
+
+    style N1 fill:#ff6b6b,color:#fff
+    style N2 fill:#51cf66,color:#fff
+    style N3 fill:#51cf66,color:#fff
+    style N4 fill:#51cf66,color:#fff
     style N5 fill:#51cf66,color:#fff
-    style O5 fill:#51cf66,color:#fff
-    style P5 fill:#51cf66,color:#fff
-    style Q5 fill:#51cf66,color:#fff
-    style R5 fill:#51cf66,color:#fff
-    style S5 fill:#51cf66,color:#fff
-    style T5 fill:#51cf66,color:#fff
-    style U5 fill:#51cf66,color:#fff
-    style V5 fill:#51cf66,color:#fff
-    style W5 fill:#51cf66,color:#fff
-    style X5 fill:#51cf66,color:#fff
-    style Y5 fill:#51cf66,color:#fff
-    style Z5 fill:#b197fc,color:#fff
+    style N6 fill:#74c0fc,color:#fff
+    style N7 fill:#51cf66,color:#fff
+    style N8 fill:#51cf66,color:#fff
+    style N9 fill:#51cf66,color:#fff
+    style N10 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">H = H0 + λV</td><td>Triggers & Inputs</td><td><a href="https://www.pearson.com/en-us/subject-catalog/p/quantum-chemistry/P200000003505" target="_blank" title="Quantum Chemistry, 7th ed. — Perturbation Theory" style="color:#e74c3c;">Levine, I. N. 2014</a></td></tr><tr><td style="font-weight:600;">Known H0 eigenstates</td><td>Processing & Operations</td><td><a href="https://www.pearson.com/en-us/subject-catalog/p/quantum-chemistry/P200000003505" target="_blank" title="Quantum Chemistry, 7th ed. — Perturbation Theory" style="color:#e74c3c;">Levine, I. N. 2014</a></td></tr><tr><td style="font-weight:600;">Expand in powers of λ</td><td>Processing & Operations</td><td><a href="https://www.pearson.com/en-us/subject-catalog/p/quantum-chemistry/P200000003505" target="_blank" title="Quantum Chemistry, 7th ed. — Perturbation Theory" style="color:#e74c3c;">Levine, I. N. 2014</a></td></tr><tr><td style="font-weight:600;">First order ⟨0|V|0⟩</td><td>Processing & Operations</td><td><a href="https://www.pearson.com/en-us/subject-catalog/p/quantum-chemistry/P200000003505" target="_blank" title="Quantum Chemistry, 7th ed. — Perturbation Theory" style="color:#e74c3c;">Levine, I. N. 2014</a></td></tr><tr><td style="font-weight:600;">Second-order sum</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1103/PhysRev.46.618" target="_blank" title="Note on an approximation treatment for many-electron systems (Møller–Plesset)" style="color:#e74c3c;">Møller, C. et al. 1934</a></td></tr><tr><td style="font-weight:600;">Series converging?</td><td>Intermediates & States</td><td><a href="https://store.doverpublications.com/products/9780486691862" target="_blank" title="Modern Quantum Chemistry — Many-Body Perturbation Theory" style="color:#e74c3c;">Szabo, A. et al. 1996</a></td></tr><tr><td style="font-weight:600;">Diverges (strong V)</td><td>Processing & Operations</td><td><a href="https://store.doverpublications.com/products/9780486691862" target="_blank" title="Modern Quantum Chemistry — Many-Body Perturbation Theory" style="color:#e74c3c;">Szabo, A. et al. 1996</a></td></tr><tr><td style="font-weight:600;">Switch to variational</td><td>Processing & Operations</td><td><a href="https://store.doverpublications.com/products/9780486691862" target="_blank" title="Modern Quantum Chemistry — Many-Body Perturbation Theory" style="color:#e74c3c;">Szabo, A. et al. 1996</a></td></tr><tr><td style="font-weight:600;">Sum corrections (MP2)</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1103/PhysRev.46.618" target="_blank" title="Note on an approximation treatment for many-electron systems (Møller–Plesset)" style="color:#e74c3c;">Møller, C. et al. 1934</a></td></tr><tr><td style="font-weight:600;">Improved energy</td><td>Products & Outputs</td><td><a href="https://www.pearson.com/en-us/subject-catalog/p/quantum-chemistry/P200000003505" target="_blank" title="Quantum Chemistry, 7th ed. — Perturbation Theory" style="color:#e74c3c;">Levine, I. N. 2014</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -314,12 +329,12 @@ Y5 --> Z5
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 26</li>
-                        <li><strong>Edges:</strong> 22</li>
-                        <li><strong>Conditionals:</strong> 0</li>
+                        <li><strong>Nodes:</strong> 10</li>
+                        <li><strong>Edges:</strong> 10</li>
+                        <li><strong>Conditionals:</strong> 1</li>
                         <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 1</li>
+                        <li><strong>OR Gates:</strong> 1</li>
+                        <li><strong>Total Gates:</strong> 2</li>
                     </ul>
                 </div>
                 
@@ -327,7 +342,7 @@ Y5 --> Z5
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>supported</li><li>catalysts</li>
+                        <li>perturbation theory</li><li>moller-plesset</li><li>energy correction</li><li>series expansion</li><li>reference hamiltonian</li>
                     </ul>
                 </div>
                 
@@ -338,43 +353,33 @@ Y5 --> Z5
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Note on an approximation treatment for many-electron systems (Møller–Plesset)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Møller, C.; Plesset, M. S.
+                            , Physical Review
+                             (1934)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Carbon-Supported Catalysts</strong>
-                            
-                            , Carbons and Carbon-Supported Catalysts in Hydroprocessing
-                             (2008)
-                            </span>
-                            <br><a href="https://doi.org/10.1039/9781847558411-00048" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1039/9781847558411-00048</a>
+                            <br><a href="https://doi.org/10.1103/PhysRev.46.618" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1103/PhysRev.46.618</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Alkaloid-supported Catalysts</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Kumari, Poonam; Kumar Meena, Rajesh; Fageria, Pragati
-                            , Polymer Supported Organic Catalysts
-                             (2024)
+                            <strong>Quantum Chemistry, 7th ed. — Perturbation Theory</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Levine, I. N.
+                            , Pearson
+                             (2014)
                             </span>
-                            <br><a href="https://doi.org/10.1201/9781003039785-5" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1201/9781003039785-5</a>
                             
+                            <br><a href="https://www.pearson.com/en-us/subject-catalog/p/quantum-chemistry/P200000003505" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Peptide-supported Catalysts: Synthesis and Applications</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Rajput, Anupama; Rajput, Prachika; Samanta, Srikanta
-                            , Polymer Supported Organic Catalysts
-                             (2024)
+                            <strong>Modern Quantum Chemistry — Many-Body Perturbation Theory</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Szabo, A.; Ostlund, N. S.
+                            , Dover Publications
+                             (1996)
                             </span>
-                            <br><a href="https://doi.org/10.1201/9781003039785-2" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1201/9781003039785-2</a>
                             
+                            <br><a href="https://store.doverpublications.com/products/9780486691862" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
                         </li>
                         
                     </ul>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Molecular Orbitals - Chemistry Process</title>
+    <title>Pourbaix (E–pH) Diagram Construction - Chemistry Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Molecular Orbitals</h1>
+            <h1>Pourbaix (E–pH) Diagram Construction</h1>
             <div class="header-meta">
                 <span class="meta-item">Chemistry</span>
                 <span class="meta-item">Electrochemistry</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,68 +234,57 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Molecular Orbitals process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>A Pourbaix diagram maps the thermodynamically stable species of an element in water as a function of potential and pH: redox-only equilibria give horizontal lines, acid-base equilibria vertical lines, and combined proton-electron equilibria sloped Nernst lines.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-A1[Atomic Orbitals] --> B1[Molecular Orbital Method]
-C1[Electronic Structure] --> D1[Wave Function Analysis]
-E1[Energy Levels] --> F1[Computational Setup]
-B1 --> G1[Orbital Combination]
-D1 --> H1[Wave Function Calculation]
-F1 --> I1[Basis Set Selection]
-G1 --> J1[Linear Combination]
-H1 --> K1[Schrödinger Equation]
-I1 --> L1[Computational Parameters]
-J1 --> M1[Orbital Formation]
-K1 --> L1
-L1 --> N1[Energy Calculation]
-M1 --> O1[Bonding Orbitals]
-N1 --> P1[Quantum Calculation]
-O1 --> Q1[Electronic Structure]
-P1 --> R1[Antibonding Orbitals]
-Q1 --> S1[Orbital Analysis]
-R1 --> T1[Molecular Properties]
-S1 --> U1[Energy Level Analysis]
-T1 --> V1[Property Calculation]
-U1 --> W1[Quantum Efficiency]
-V1 --> X1[Molecular Characterization]
-W1 --> Y1[Process Optimization]
-X1 --> Z1[Final Molecular Orbitals]
-Y1 --> Z1
+    N1["Element + water system"]
+    N2["List species + redox states"]
+    N3["Write half-reactions"]
+    N4{"Reaction type?"}
+    N5["pH + redox: sloped line"]
+    N6["Redox only: horizontal"]
+    N7["Acid-base only: vertical"]
+    N8["Assemble E–pH regions"]
+    N9["Immunity / corrosion / passive"]
+    N10["Predict stable phase"]
 
-    style A1 fill:#ff6b6b,color:#fff
-    style C1 fill:#ff6b6b,color:#fff
-    style E1 fill:#ff6b6b,color:#fff
-    style B1 fill:#ffd43b,color:#000
-    style D1 fill:#ffd43b,color:#000
-    style F1 fill:#ffd43b,color:#000
-    style G1 fill:#ffd43b,color:#000
-    style H1 fill:#ffd43b,color:#000
-    style I1 fill:#ffd43b,color:#000
-    style J1 fill:#ffd43b,color:#000
-    style K1 fill:#ffd43b,color:#000
-    style L1 fill:#ffd43b,color:#000
-    style M1 fill:#51cf66,color:#fff
-    style N1 fill:#51cf66,color:#fff
-    style O1 fill:#51cf66,color:#fff
-    style P1 fill:#51cf66,color:#fff
-    style Q1 fill:#51cf66,color:#fff
-    style R1 fill:#51cf66,color:#fff
-    style S1 fill:#51cf66,color:#fff
-    style T1 fill:#51cf66,color:#fff
-    style U1 fill:#51cf66,color:#fff
-    style V1 fill:#51cf66,color:#fff
-    style W1 fill:#51cf66,color:#fff
-    style X1 fill:#51cf66,color:#fff
-    style Y1 fill:#51cf66,color:#fff
-    style Z1 fill:#b197fc,color:#fff
+    N1 --> N2
+    N2 --> N3
+    N3 --> N4
+    N4 -->|H+ & e−| N5
+    N4 -->|e− only| N6
+    N4 -->|H+ only| N7
+    N5 --> N8
+    N6 --> N8
+    N7 --> N8
+    N8 --> N9
+    N9 --> N10
+
+    style N1 fill:#ff6b6b,color:#fff
+    style N2 fill:#51cf66,color:#fff
+    style N3 fill:#51cf66,color:#fff
+    style N4 fill:#74c0fc,color:#fff
+    style N5 fill:#51cf66,color:#fff
+    style N6 fill:#51cf66,color:#fff
+    style N7 fill:#51cf66,color:#fff
+    style N8 fill:#51cf66,color:#fff
+    style N9 fill:#74c0fc,color:#fff
+    style N10 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Element + water system</td><td>Triggers & Inputs</td><td><a href="https://search.worldcat.org/title/1119839" target="_blank" title="Atlas of Electrochemical Equilibria in Aqueous Solutions" style="color:#e74c3c;">Pourbaix, M. 1974</a></td></tr><tr><td style="font-weight:600;">List species + redox states</td><td>Processing & Operations</td><td><a href="https://search.worldcat.org/title/1119839" target="_blank" title="Atlas of Electrochemical Equilibria in Aqueous Solutions" style="color:#e74c3c;">Pourbaix, M. 1974</a></td></tr><tr><td style="font-weight:600;">Write half-reactions</td><td>Processing & Operations</td><td><a href="https://global.oup.com/ukhe/product/atkins-physical-chemistry-9780198769866" target="_blank" title="Physical Chemistry, 11th ed. — Equilibrium Electrochemistry" style="color:#e74c3c;">Atkins, P. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Reaction type?</td><td>Intermediates & States</td><td><a href="https://global.oup.com/ukhe/product/atkins-physical-chemistry-9780198769866" target="_blank" title="Physical Chemistry, 11th ed. — Equilibrium Electrochemistry" style="color:#e74c3c;">Atkins, P. et al. 2018</a></td></tr><tr><td style="font-weight:600;">pH + redox: sloped line</td><td>Processing & Operations</td><td><a href="https://global.oup.com/ukhe/product/atkins-physical-chemistry-9780198769866" target="_blank" title="Physical Chemistry, 11th ed. — Equilibrium Electrochemistry" style="color:#e74c3c;">Atkins, P. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Redox only: horizontal</td><td>Processing & Operations</td><td><a href="https://global.oup.com/ukhe/product/atkins-physical-chemistry-9780198769866" target="_blank" title="Physical Chemistry, 11th ed. — Equilibrium Electrochemistry" style="color:#e74c3c;">Atkins, P. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Acid-base only: vertical</td><td>Processing & Operations</td><td><a href="https://global.oup.com/ukhe/product/atkins-physical-chemistry-9780198769866" target="_blank" title="Physical Chemistry, 11th ed. — Equilibrium Electrochemistry" style="color:#e74c3c;">Atkins, P. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Assemble E–pH regions</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1016/S0010-938X(97)00072-7" target="_blank" title="Revised Pourbaix diagrams for iron at 25–300 °C" style="color:#e74c3c;">Beverskog, B. et al. 1996</a></td></tr><tr><td style="font-weight:600;">Immunity / corrosion / passive</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1016/S0010-938X(97)00072-7" target="_blank" title="Revised Pourbaix diagrams for iron at 25–300 °C" style="color:#e74c3c;">Beverskog, B. et al. 1996</a></td></tr><tr><td style="font-weight:600;">Predict stable phase</td><td>Products & Outputs</td><td><a href="https://search.worldcat.org/title/1119839" target="_blank" title="Atlas of Electrochemical Equilibria in Aqueous Solutions" style="color:#e74c3c;">Pourbaix, M. 1974</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -314,12 +330,12 @@ Y1 --> Z1
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 26</li>
-                        <li><strong>Edges:</strong> 22</li>
-                        <li><strong>Conditionals:</strong> 0</li>
+                        <li><strong>Nodes:</strong> 10</li>
+                        <li><strong>Edges:</strong> 11</li>
+                        <li><strong>Conditionals:</strong> 1</li>
                         <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 1</li>
+                        <li><strong>OR Gates:</strong> 1</li>
+                        <li><strong>Total Gates:</strong> 2</li>
                     </ul>
                 </div>
                 
@@ -327,7 +343,7 @@ Y1 --> Z1
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>molecular</li><li>orbitals</li>
+                        <li>pourbaix diagram</li><li>potential-ph</li><li>passivation</li><li>immunity</li><li>nernst</li>
                     </ul>
                 </div>
                 
@@ -338,43 +354,33 @@ Y1 --> Z1
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Atlas of Electrochemical Equilibria in Aqueous Solutions</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Pourbaix, M.
+                            , NACE International
+                             (1974)
                             </span>
                             
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
+                            <br><a href="https://search.worldcat.org/title/1119839" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Hybrid Orbitals, Symmetry Orbitals And Molecular Orbitals</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Rakshit, S.C.
-                            , Atomic &amp; Molecular Symmetry Groups and Chemistry
-                             (2021)
+                            <strong>Revised Pourbaix diagrams for iron at 25–300 °C</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Beverskog, B.; Puigdomenech, I.
+                            , Corrosion Science
+                             (1996)
                             </span>
-                            <br><a href="https://doi.org/10.1201/9781003208266-9" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1201/9781003208266-9</a>
-                            
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Hückel Molecular Orbitals HMO</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Heilbronner; Straub
-                            , Hückel Molecular Orbitals HMO
-                             (1966)
-                            </span>
-                            <br><a href="https://doi.org/10.1007/978-3-642-94963-0_1" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1007/978-3-642-94963-0_1</a>
+                            <br><a href="https://doi.org/10.1016/S0010-938X(97)00072-7" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1016/S0010-938X(97)00072-7</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Molecular orbitals</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Green, N. J. B.
-                            , Quantum Mechanics 1
-                             (1997)
+                            <strong>Physical Chemistry, 11th ed. — Equilibrium Electrochemistry</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Atkins, P.; de Paula, J.; Keeler, J.
+                            , Oxford University Press
+                             (2018)
                             </span>
-                            <br><a href="https://doi.org/10.1093/hesc/9780198557616.003.0007" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1093/hesc/9780198557616.003.0007</a>
                             
+                            <br><a href="https://global.oup.com/ukhe/product/atkins-physical-chemistry-9780198769866" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
                         </li>
                         
                     </ul>

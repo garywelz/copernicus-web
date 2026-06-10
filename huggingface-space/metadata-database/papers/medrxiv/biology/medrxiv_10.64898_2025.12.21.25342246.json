@@ -1,0 +1,45 @@
+{
+  "id": "medrxiv_10.64898_2025.12.21.25342246",
+  "doi": "10.64898/2025.12.21.25342246",
+  "title": "CrosSplice: A Pipeline for Identifying Rare Splice-Site Creating Variants from Cross-Tissue Transcriptome Data",
+  "authors": [
+    "Yano, Y.",
+    "Okada, A.",
+    "Ono, M.",
+    "Mateos, R. N.",
+    "Nakayama, T.",
+    "Shiraishi, Y."
+  ],
+  "author_string": "Yano, Y., Okada, A., Ono, M., Mateos, R. N., Nakayama, T. et al.",
+  "journal": "medRxiv",
+  "journal_full": "medRxiv",
+  "year": "2025",
+  "abstract": "BackgroundDespite their profound impact on patients lives, most rare and intractable diseases still lack established treatments. Genomic variants that disrupt normal splicing by creating novel splice sites (splice-site creating variants, SSCVs) substantially contribute to the pathogenesis of those conditions. Deep intronic SSCVs are particularly amenable to antisense oligonucleotide (ASO)-mediated splice modulation, yet many of them remain undetected by conventional genomic analyses. Existing approaches to identify SSCVs, including splicing quantitative trait loci (sQTL) analyses and machine learning-based methods, each show limitations in sensitivity or accuracy, hindering the comprehensive identification of clinically actionable SSCVs.\n\nMethodsWe developed CrosSplice, a novel pipeline that integrates machine learning-based predictions with statistical association testing to robustly identify SSCVs. By leveraging cross-tissue transcriptome data and aggregating splicing signals across multiple tissues, CrosSplice enables comprehensive detection of SSCVs, including rare and tissue-specific variants often missed by conventional methods.\n\nResultsApplying CrosSplice to the GTEx dataset (8,656 transcriptomes of 54 tissues from 479 postmortem donors), we identified 1,743 significant SSCVs, 65% of which were deep intronic. Among these, 185 SSCVs were listed in ClinVar, including five pathogenic or likely pathogenic variants. CrosSplice also discovered a novel deep intronic SSCV in PLA2G6, the gene responsible for infantile neuroaxonal dystrophy. We experimentally confirmed that ASOs successfully corrected the aberrant splicing pattern induced by this variant.\n\nConclusionCrosSplice substantially extends the detectable landscape of SSCVs by capturing rare and tissue-specific variants, uncovering pathogenic and therapeutically actionable SSCVs that are frequently overlooked by existing methods. The resulting SSCV catalogue provides a platform for systematic discovery of ASO targets and advances opportunities for precision therapies in rare and intractable diseases.",
+  "keywords": [],
+  "categories": [
+    "genetic and genomic medicine"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.64898/2025.12.21.25342246",
+  "source": "medrxiv",
+  "sources": [
+    "medrxiv"
+  ],
+  "acquired_date": "2026-04-28T22:15:24.795334",
+  "category": "biology",
+  "subcategories": [
+    "genetic and genomic medicine"
+  ],
+  "published_date": "2025-12-29",
+  "updated_date": "2025-12-29",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "medrxiv",
+  "preprint_version": "1",
+  "preprint_type": "PUBLISHAHEADOFPRINT",
+  "license": "cc_no",
+  "jatsxml": "https://www.medrxiv.org/content/early/2025/12/29//2025.12.21.25342246.source.xml",
+  "published_doi": null,
+  "author_corresponding": "Yuichi Shiraishi",
+  "author_corresponding_institution": "National Cancer Center Research Institute"
+}

@@ -1,0 +1,39 @@
+{
+  "id": "bioinformatics-hmm-sequence-analysis",
+  "name": "Hidden Markov Models for Sequence Analysis",
+  "category": "mathematics",
+  "subcategory": "bioinformatics",
+  "subcategory_name": "Bioinformatics",
+  "description": "HMM: states (hidden), observations (nucleotides/amino acids), transition P(s'|s), emission P(o|s). Profile HMM: Match, Insert, Delete states for multiple alignment. Viterbi: most likely state path given observations; DP recurrence. Forward-Backward: posterior P(state|obs); Forward/Backward algorithms. Baum-Welch: EM for parameter estimation. Applications: gene finding, protein families (HMMER), CpG islands, sequence alignment.",
+  "mermaid": "graph TD\n    DefHMM[\"Def: HMM\\nStates S, observations O\"]\n    DefTrans[\"Def: Transition P(s'|s)\\nState dynamics\"]\n    DefEmit[\"Def: Emission P(o|s)\\nObservation model\"]\n    DefProfile[\"Def: Profile HMM\\nMatch, Insert, Delete states\"]\n    AlgViterbi[\"Alg: Viterbi\\nMost likely state path\"]\n    AlgFwd[\"Alg: Forward\\nP(obs up to t)\"]\n    AlgBwd[\"Alg: Backward\\nP(obs from t+1)\"]\n    AlgBW[\"Alg: Baum-Welch\\nEM parameter estimation\"]\n    ThmDecode[\"Thm: Decoding\\nViterbi solves argmax path\"]\n    DefHMM --> DefTrans\n    DefHMM --> DefEmit\n    DefTrans --> DefProfile\n    DefEmit --> DefProfile\n    DefProfile --> AlgViterbi\n    DefProfile --> AlgFwd\n    DefProfile --> AlgBwd\n    AlgFwd --> AlgBW\n    AlgBwd --> AlgBW\n    AlgViterbi --> ThmDecode\n    classDef definition fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef theorem fill:#51cf66,color:#fff,stroke:#40c057\n    classDef algorithm fill:#27ae60,color:#fff,stroke:#1e8449\n    class DefHMM,DefTrans,DefEmit,DefProfile definition\n    class ThmDecode theorem\n    class AlgViterbi,AlgFwd,AlgBwd,AlgBW algorithm",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

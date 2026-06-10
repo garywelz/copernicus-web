@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2605.23871v1",
+  "arxiv_id": "2605.23871v1",
+  "title": "Move on Muon : A Hamiltonian probability gradient flow perspective of Muon optimizer",
+  "authors": [
+    "Aratrika Mustafi",
+    "Soumya Mukherjee",
+    "Bharath K. Sriperumbudur"
+  ],
+  "author_string": "Aratrika Mustafi, Soumya Mukherjee, Bharath K. Sriperumbudur",
+  "journal": "arXiv:2605.23871v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We develop a gradient flow on the space of probability measures defined on matrix-valued parameters induced by regularized Muon, an analytically smoothed version of the idealized Muon optimizer. The key observation is that the regularized orthogonalization map is the gradient of a smooth Fenchel-dual smoothing of the nuclear norm. This identifies the (regularized) Muon update as a mirror/prox step in the update variable, with momentum acting as the dual coordinate. We use this structure to lift Muon from a single matrix parameter to finite-particle probability objectives of the form $J(ρ)=R\\left(\\int F d ρ\\right)$, a setting motivated by mean-field descriptions of neural-network training, and derive the inertial continuous-time limit. Using this structure, we derive the finite-particle continuous-time limit under the inertial scaling of step size and momentum, and then pass to a phase-space mean-field equation over probability laws on parameter-momentum pairs. The resulting flow can be shown to be a damped Hamiltonian probability dynamics whose kinetic energy is induced by the regularized Muon mirror potential. We prove an exact Hamiltonian dissipation identity, showing that the Hamiltonian energy decreases monotonically. While the target objective itself need not be monotone along the inertial Muon dynamics, under additional gradient-dominance, bounded-momentum, and curvature/alignment assumptions, we obtain continuous and discrete-time exponential convergence rates for the objective gap. We also study the well-posedness of the mean-field limit equation and establish propagation of chaos guarantees for the interacting particle system. Finally, we extend the formulation to Hilbert-valued feature maps on product matrix spaces, yielding a blockwise Muon probability flow applicable to smooth transformer mixture-of-experts models.",
+  "categories": [
+    "stat.ML",
+    "cs.LG",
+    "math.ST"
+  ],
+  "primary_category": "math.ST",
+  "comment": null,
+  "published_date": "2026-05-22T17:28:53Z",
+  "updated_date": "2026-05-22T17:28:53Z",
+  "url": "https://arxiv.org/abs/2605.23871v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.23871v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-25T10:15:42.724978",
+  "category": "mathematics",
+  "subcategories": [
+    "stat.ML",
+    "cs.LG",
+    "math.ST"
+  ]
+}

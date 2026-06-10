@@ -1,0 +1,39 @@
+{
+  "id": "arxiv_2605.13692v1",
+  "arxiv_id": "2605.13692v1",
+  "title": "Polyhedral Instability Governs Regret in Online Learning",
+  "authors": [
+    "Yuetai Li",
+    "Fengqing Jiang",
+    "Yichen Feng",
+    "Kaiyuan Zheng",
+    "Luyao Niu",
+    "Bhaskar Ramasubramanian",
+    "Basel Alomair",
+    "Linda Bushnell",
+    "Radha Poovendran"
+  ],
+  "author_string": "Yuetai Li, Fengqing Jiang, Yichen Feng, Kaiyuan Zheng, Luyao Niu et al.",
+  "journal": "arXiv:2605.13692v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Many online decision problems over combinatorial actions are addressed via convex relaxations, leading to online convex optimization with piecewise linear objectives and induced polyhedral structure. We show that regret in such problems is governed by \\emph{polyhedral instability}: the number of changes of the active region. Under full information feedback and fixed partition assumptions, if $\\mathrm{RS}_T$ denotes the number of region switches and $V_{\\max}$ the maximum number of vertices per region, we prove $\\Regret_T= Θ(\\sqrt{(1+\\mathrm{RS}_T)\\,T\\,\\log V_{\\max}})$ interpolating between experts-like and dimension-dependent OCO rates. For online submodular--concave games under Lovász convexification, this reduces to the permutation-switch count $\\mathrm{SC}_T$, yielding the matching rate $\\Regret_T= Θ(\\sqrt{(1+\\mathrm{SC}_T)\\,T\\,\\log n})$. Experiments on synthetic and real combinatorial problems (shortest path, influence maximization) validate the predicted scaling and indicate that low-instability regimes can arise in practice without explicit enumeration of actions.",
+  "categories": [
+    "cs.LG",
+    "cs.CC"
+  ],
+  "primary_category": "cs.CC",
+  "comment": null,
+  "published_date": "2026-05-13T15:45:44Z",
+  "updated_date": "2026-05-13T15:45:44Z",
+  "url": "https://arxiv.org/abs/2605.13692v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.13692v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-13T22:17:00.038046",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.LG",
+    "cs.CC"
+  ]
+}

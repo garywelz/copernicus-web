@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2604.18531v1",
+  "arxiv_id": "2604.18531v1",
+  "title": "AtomTwin.jl: a physics-native digital twin framework for neutral-atom quantum processors",
+  "authors": [
+    "Shannon Whitlock"
+  ],
+  "author_string": "Shannon Whitlock",
+  "journal": "arXiv:2604.18531v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "AtomTwin$.$jl is an open-source Julia package for developing and simulating quantum protocols, hardware configurations and building digital twins for neutral-atom quantum processors and related atomic quantum devices. AtomTwin operates between mathematical models and physical devices; modeling atoms, optical tweezers, laser fields, atomic motion, interactions, and noise processes natively from physical geometry and parameters, without requiring users to define Hamiltonians manually. The package provides hardware-level instruction sequences, high-performance solvers for coupled quantum and classical dynamics, and a ready-to-use model for ytterbium-171 atoms in an extensible framework designed to accommodate a greater variety of atomic species and hardware components in the future. This paper describes the software architecture, performance benchmarks against existing toolboxes, and a demonstrated end-to-end application: preparation of a logical Bell state in the $[[4,2,2]]$ error-detecting code with four $^{171}$Yb atoms in moveable tweezers.",
+  "categories": [
+    "quant-ph",
+    "physics.atom-ph"
+  ],
+  "primary_category": "physics.atom-ph",
+  "comment": "Julia package: https://github.com/aQCess/AtomTwin.jl",
+  "published_date": "2026-04-20T17:26:46Z",
+  "updated_date": "2026-04-20T17:26:46Z",
+  "url": "https://arxiv.org/abs/2604.18531v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.18531v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-22T10:15:48.103932",
+  "category": "physics",
+  "subcategories": [
+    "quant-ph",
+    "physics.atom-ph"
+  ]
+}

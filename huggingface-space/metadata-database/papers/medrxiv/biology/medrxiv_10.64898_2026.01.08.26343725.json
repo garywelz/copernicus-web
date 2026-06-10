@@ -1,0 +1,46 @@
+{
+  "id": "medrxiv_10.64898_2026.01.08.26343725",
+  "doi": "10.64898/2026.01.08.26343725",
+  "title": "Phecoder: semantic retrieval for auditing and expanding ICD-based phenotypes in EHR biobanks",
+  "authors": [
+    "Bennett, J. J. R.",
+    "Tomasi, S.",
+    "Gupta, S.",
+    "VA Million Veteran Program,",
+    "Voloudakis, G.",
+    "Roussos, P.",
+    "Burstein, D."
+  ],
+  "author_string": "Bennett, J. J. R., Tomasi, S., Gupta, S., VA Million Veteran Program,, Voloudakis, G. et al.",
+  "journal": "medRxiv",
+  "journal_full": "medRxiv",
+  "year": "2026",
+  "abstract": "BackgroundElectronic health record (EHR)-based phenotyping underpins genome-wide association studies, yet current ICD-code phenotypes rely heavily on manually curated lists such as Phecodes. These definitions are labour-intensive to maintain, inherently subjective, and may omit clinically relevant diagnostic codes, reducing study power. Advances in text embedding models offer an opportunity to automate and standardize ICD-based phenotype construction.\n\nMethodsWe developed Phecoder, an ensemble of pre-trained text embedding models that rank ICD codes by similarity from free-text phenotype descriptions. Nine embedding models and multiple unsupervised ensemble rank-fusion methods were evaluated against 1,125 PhecodeX phenotypes. Retrieval performance was assessed using recall and average precision at top-100 (R@100, AP@100). Expert clinical review of six neuropsychiatric phenotypes was undertaken to identify relevant ICD codes absent from PhecodeX. Cohort sizes under these new definitions were compared with PhecodeX across sex and ancestry strata in the Million Veteran Program (MVP).\n\nFindingsAmong individual models, Qwen3-Embedding-4B achieved the highest median recall (R@100 = 0.86). Ensemble rank-fusion further improved R@100 by 3%, and median AP@100 by 8%. Expert review confirmed that Phecoder retrieved additional clinically relevant ICD codes beyond PhecodeX across all six neuropsychiatric case studies. Median potential case expansion increased by 200%, with 700% increases for bipolar disorder and 2000% increase for eating disorders.\n\nInterpretationManually defining ICD phenotypes has been critiqued as subjective, potentially yielding overly restrictive definitions that miss relevant codes. To address this issue, Phecoder algorithmically identifies relevant codes for ICD-based phenotyping. Phecoder extracts relevant ICD codes to expand the potential case pool across different demographic groups. Phecoder is easily applicable to future ICD-code releases and across different ICD coding versions that are used in different countries. Taken together, Phecoder has the potential to improve reproducibility in EHR data research.\n\nFundingThis research was supported by the Department of Veterans Affairs MVP (MVP-000, MVP-076 and MVP-096). The MVP is supported by the Office of Research and Development, Department of Veterans Affairs. The authors thank the MVP staff, researchers, and volunteers, who have contributed to MVP, and especially who previously served their country in the military and now generously agreed to enroll in the study (see mvp.va.gov for more information). The contents do not represent the views of the U.S. Department of Veterans Affairs or the United States Government.\n\nThis study was supported by the Veterans Affairs Merit grants: BX006500 (to D.B.) and BX004189 (to P.R.). This work was supported by the National Institutes of Health (NIH): R01MH125246 (to P.R.), R01AG078657 (to G.V.), R01AG067025 (to P.R.), and U24AG087563 (to P.R.).\n\nResearch in contextO_ST_ABSEvidence before this studyC_ST_ABSPhecodes are curated groupings of ICD-9 and ICD-10 diagnostic codes designed to create clinically meaningful phenotypes for large-scale research using electronic health records. They provide a standardized, reproducible way to map tens of thousands of ICD codes into interpretable disease concepts, and they are widely used in genome-wide association studies, phenome-wide association studies, and disease prediction models. PhecodeX, released in 2023, is the most recent update to this framework. It restructures the original catalogue to make full use of ICD-10 granularity and introduces more than 1,700 new phenotypes across a broad range of clinical domains. Phecodes have become foundational tools for EHR-linked biobanks, enabling harmonized phenotyping across institutions and cohorts.\n\nA major barrier to the continued development and updating of Phecodes is their reliance on slow, manual curation, which is inherently subjective. As a result, it is difficult to ensure complete capture of all clinically relevant ICD codes; particularly for conditions with diffuse presentations, heterogeneous coding practices, or evolving diagnostic criteria.\n\nThus, some studies using predefined ICD-based phenotypes have reported unexpectedly low sensitivity, reinforcing the concern that curated code lists may miss substantial numbers of true cases.\n\nAdded value of this studyThis study introduces Phecoder, a semantic retrieval framework that streamlines ICD-based phenotyping by ranking codes according to their similarity to any free-text phenotype description. This approach replaces static, manually curated lists with a flexible workflow in which phenotype definitions can be rapidly generated, audited, and refined simply by adjusting the input text. Phecoder therefore supports the continuous development of more comprehensive and responsive phenotype mappings.\n\nWe provide the first systematic benchmark of text embedding models for ICD-level phenotyping, evaluating nine encoders and several unsupervised ensemble methods against 1,125 PhecodeX phenotypes. Leveraging existing curated mappings as a reference standard, we show that a score-level ensemble improves retrieval performance over individual models and achieves perfect median recall for mental health phenotypes. Phecoder also identifies clinically relevant ICD codes beyond PhecodeX.\n\nExpert review of six neuropsychiatric case studies confirms the clinical relevance of these additional codes, and their incorporation exposes sizable untapped patient cohorts in the Million Veteran Program.\n\nImplications of all the available evidenceTogether with existing use of Phecodes in major biobanks, these findings show that curated phenotype systems remain indispensable but benefit from scalable, transparent tools that support their maintenance and evolution. Phecoder enables continuous auditing and expansion of ICD-based phenotype definitions, and improves cohort completeness across demographic groups. Consequently, we anticipate that Phecoder will facilitate improved reproducibility across demographic groups in scientific research.",
+  "keywords": [],
+  "categories": [
+    "health informatics"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.64898/2026.01.08.26343725",
+  "source": "medrxiv",
+  "sources": [
+    "medrxiv"
+  ],
+  "acquired_date": "2026-05-11T22:15:22.897410",
+  "category": "biology",
+  "subcategories": [
+    "health informatics"
+  ],
+  "published_date": "2026-01-11",
+  "updated_date": "2026-01-11",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "medrxiv",
+  "preprint_version": "1",
+  "preprint_type": "PUBLISHAHEADOFPRINT",
+  "license": "cc_by",
+  "jatsxml": "https://www.medrxiv.org/content/early/2026/01/11//2026.01.08.26343725.source.xml",
+  "published_doi": null,
+  "author_corresponding": "David Burstein",
+  "author_corresponding_institution": "Icahn School of Medicine at Mount Sinai"
+}

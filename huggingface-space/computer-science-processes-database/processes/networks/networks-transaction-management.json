@@ -1,21 +1,23 @@
 {
   "id": "networks-transaction-management",
-  "name": "Transaction Management",
+  "name": "Network Address Translation (NAT)",
   "category": "computer_science",
   "subcategory": "networks",
   "subcategory_name": "Computer Networks",
-  "description": "Transaction Management process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "Network address translation lets many private hosts share public addresses: the NAT gateway rewrites the source address and port of outbound packets and records the mapping, and for inbound packets it looks up that mapping to rewrite the destination back to the private host, dropping packets with no matching entry.",
   "complexity": {
-    "nodes": 26,
-    "edges": 21,
-    "conditionals": 0,
+    "nodes": 11,
+    "edges": 11,
+    "conditionals": 2,
     "logicGates": {
-      "orGates": 0,
+      "orGates": 2,
       "andGates": 1,
-      "total": 1
+      "notGates": 0,
+      "total": 3
     },
-    "level": "medium",
-    "detailLevel": "medium"
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 0
   },
   "colorScheme": {
     "red": {
@@ -39,53 +41,148 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nA3[Transaction Initiation] --> B3[Transaction Management Method]\nC3[Concurrency Control] --> D3[Lock Management]\nE3[Recovery Process] --> F3[Transaction Management Analysis]\nB3 --> G3[ACID Properties]\nD3 --> H3[Two Phase Locking]\nF3 --> I3[Deadlock Detection]\nG3 --> J3[Atomicity Enforcement]\nH3 --> K3[Consistency Checking]\nI3 --> L3[Isolation Management]\nJ3 --> M3[Durability Guarantee]\nK3 --> L3\nL3 --> N3[Serializability]\nM3 --> O3[Checkpoint Process]\nN3 --> P3[Log Management]\nO3 --> Q3[Transaction Management Process]\nP3 --> R3[Transaction Management Validation]\nQ3 --> S3[Transaction Management Verification]\nR3 --> T3[Transaction Management Result]\nS3 --> U3[Transaction Management Analysis]\nT3 --> V3[Transaction Management Parameters]\nU3 --> W3[Transaction Management Output]\nV3 --> X3[Transaction Management Analysis]\nW3 --> Y3[Transaction Management Final Result]\nX3 --> Z3[Transaction Management Complete]\n\n    style A3 fill:#ff6b6b,color:#fff\n    style C3 fill:#ff6b6b,color:#fff\n    style E3 fill:#ff6b6b,color:#fff\n    style B3 fill:#ffd43b,color:#000\n    style D3 fill:#ffd43b,color:#000\n    style F3 fill:#ffd43b,color:#000\n    style G3 fill:#ffd43b,color:#000\n    style H3 fill:#ffd43b,color:#000\n    style I3 fill:#ffd43b,color:#000\n    style J3 fill:#ffd43b,color:#000\n    style K3 fill:#ffd43b,color:#000\n    style L3 fill:#ffd43b,color:#000\n    style M3 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style O3 fill:#51cf66,color:#fff\n    style P3 fill:#51cf66,color:#fff\n    style Q3 fill:#51cf66,color:#fff\n    style R3 fill:#51cf66,color:#fff\n    style S3 fill:#51cf66,color:#fff\n    style T3 fill:#51cf66,color:#fff\n    style U3 fill:#51cf66,color:#fff\n    style V3 fill:#51cf66,color:#fff\n    style W3 fill:#51cf66,color:#fff\n    style X3 fill:#51cf66,color:#fff\n    style Y3 fill:#51cf66,color:#fff\n    style Z3 fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"Host sends packet\"]\n    N2[\"NAT gateway intercepts\"]\n    N3{\"Outbound or inbound?\"}\n    N4[\"Rewrite source IP:port\"]\n    N5[\"Store mapping in table\"]\n    N6[\"Send to public Internet\"]\n    N7[\"Lookup mapping (inbound)\"]\n    N8{\"Mapping found?\"}\n    N9[\"Drop packet\"]\n    N10[\"Rewrite dest to private\"]\n    N11[\"Packet delivered\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 -->|outbound| N4\n    N4 --> N5\n    N5 --> N6\n    N6 --> N11\n    N3 -->|inbound| N7\n    N7 --> N8\n    N8 -->|no| N9\n    N8 -->|yes| N10\n    N10 --> N11\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#74c0fc,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#74c0fc,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#74c0fc,color:#fff\n    style N9 fill:#51cf66,color:#fff\n    style N10 fill:#51cf66,color:#fff\n    style N11 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
-      "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: Transaction Management. Created using the Programming Framework methodology."
+      "title": "Traditional IP Network Address Translator (Traditional NAT) (RFC 3022)",
+      "authors": "Srisuresh, P.; Egevang, K.",
+      "journal": "IETF",
+      "year": "2001",
+      "doi": "10.17487/RFC3022",
+      "url": "https://doi.org/10.17487/RFC3022"
     },
     {
-      "title": "Transaction Management and Database Resources",
-      "authors": "Chorafas, Dimitris N.",
-      "journal": "Transaction Management",
-      "year": "1998",
-      "pubmed": null,
-      "doi": "10.1057/9780230376533_12",
-      "url": "https://doi.org/10.1057/9780230376533_12"
-    },
-    {
-      "title": "Transaction Management",
-      "authors": "",
-      "journal": "SpringerReference",
-      "year": "None",
-      "pubmed": null,
-      "doi": "10.1007/springerreference_63868",
-      "url": "https://doi.org/10.1007/springerreference_63868"
-    },
-    {
-      "title": "Can We Improve Transaction-Oriented Database Management?",
-      "authors": "Chorafas, Dimitris N.",
-      "journal": "Transaction Management",
-      "year": "1998",
-      "pubmed": null,
-      "doi": "10.1057/9780230376533_13",
-      "url": "https://doi.org/10.1057/9780230376533_13"
+      "title": "Computer Networks (5th ed.)",
+      "authors": "Tanenbaum, A. S.; Wetherall, D. J.",
+      "journal": "Pearson",
+      "year": "2011",
+      "url": "https://www.pearson.com/en-us/subject-catalog/p/computer-networks/P200000003188"
     }
   ],
   "keywords": [
-    "transaction",
-    "management"
+    "NAT",
+    "address translation",
+    "port mapping",
+    "private addressing",
+    "gateway"
   ],
   "relatedProcesses": [],
   "created": "2026-01-08",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Host sends packet",
+      "detail": "Private source IP",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 1
+    },
+    {
+      "id": "N2",
+      "label": "NAT gateway intercepts",
+      "detail": "At network edge",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N3",
+      "label": "Outbound or inbound?",
+      "detail": "Traffic direction",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N4",
+      "label": "Rewrite source IP:port",
+      "detail": "To public address",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N5",
+      "label": "Store mapping in table",
+      "detail": "Private <-> public",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N6",
+      "label": "Send to public Internet",
+      "detail": "Forward out",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N7",
+      "label": "Lookup mapping (inbound)",
+      "detail": "Match table entry",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N8",
+      "label": "Mapping found?",
+      "detail": "Known session",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N9",
+      "label": "Drop packet",
+      "detail": "Unsolicited",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N10",
+      "label": "Rewrite dest to private",
+      "detail": "Restore host addr",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N11",
+      "label": "Packet delivered",
+      "detail": "To correct host",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 0
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:networks-transaction-management",
+    "graphType": "decision_flowchart",
+    "topologySignature": "be2e3c69e116e2ed",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "namedCollections": [],
+  "graphMetrics": {
+    "nodes": 11,
+    "edges": 11,
+    "conditionals": 2,
+    "andGates": 1,
+    "orGates": 2,
+    "notGates": 0,
+    "loops": 0
+  },
+  "graphType": "decision_flowchart",
+  "domainContext": "Computer networks"
 }

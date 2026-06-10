@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2605.13775v1",
+  "arxiv_id": "2605.13775v1",
+  "title": "RoboEvolve: Co-Evolving Planner-Simulator for Robotic Manipulation with Limited Data",
+  "authors": [
+    "Harold Haodong Chen",
+    "Sirui Chen",
+    "Yingjie Xu",
+    "Wenhang Ge",
+    "Ying-Cong Chen"
+  ],
+  "author_string": "Harold Haodong Chen, Sirui Chen, Yingjie Xu, Wenhang Ge, Ying-Cong Chen",
+  "journal": "arXiv:2605.13775v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "The scalability of robotic manipulation is fundamentally bottlenecked by the scarcity of task-aligned physical interaction data. While vision-language models (VLMs) and video generation models (VGMs) hold promise for autonomous data synthesis, they suffer from semantic-spatial misalignment and physical hallucinations, respectively. To bridge this gap, we introduce RoboEvolve, a novel framework that couples a VLM planner and a VGM simulator into a mutually reinforcing co-evolutionary loop. Operating purely on unlabeled seed images, RoboEvolve leverages a cognitive-inspired dual-phase mechanism: (i) daytime exploration fosters physically grounded behavioral discovery through a semantic-controlled multi-granular reward, and (ii) nighttime consolidation mines \"near-miss\" failures to stabilize policy optimization. Guided by an autonomous progressive curriculum, the system naturally scales from simple atomic actions to complex tasks. Extensive experiments demonstrate that RoboEvolve (I) achieves superior effectiveness, elevating base planners by 30 absolute points and amplifying simulator success by 48% on average; (II) exhibits extreme data efficiency, surpassing fully supervised baselines with merely 500 unlabeled seeds--a 50x reduction; and (III) demonstrates robust continual learning without catastrophic forgetting.",
+  "categories": [
+    "cs.RO",
+    "cs.CV"
+  ],
+  "primary_category": "cs.CV",
+  "comment": "On-going work",
+  "published_date": "2026-05-13T16:54:36Z",
+  "updated_date": "2026-05-13T16:54:36Z",
+  "url": "https://arxiv.org/abs/2605.13775v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.13775v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-13T22:17:00.036323",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.RO",
+    "cs.CV"
+  ]
+}

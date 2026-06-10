@@ -1,0 +1,38 @@
+{
+  "id": "arxiv_2604.22048v1",
+  "arxiv_id": "2604.22048v1",
+  "title": "Differentiable Forward Modeling for Efficient and Accurate Shear Inference",
+  "authors": [
+    "Ismael Mendoza",
+    "Axel Guinot",
+    "Matthew R. Becker",
+    "Camille Avestruz",
+    "Jean-Eric Campagne",
+    "Natalia Porqueres",
+    "Michael Schneider",
+    "Eleni Tsaprazi"
+  ],
+  "author_string": "Ismael Mendoza, Axel Guinot, Matthew R. Becker, Camille Avestruz, Jean-Eric Campagne et al.",
+  "journal": "arXiv:2604.22048v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Forthcoming Stage-IV dark energy optical surveys, such as LSST, have the ambitious goal of measuring cosmological parameters at sub-percent precision. Realizing their full scientific potential requires very precise measurement of the cosmic shear signal and control of corresponding systematics. In this work, we present a modern implementation of the Bayesian shear inference framework in Schneider et al. (2014), in the case that the PSF and sky background are known. This framework automatically propagates the pixel-noise measurement error from each galaxy into the final shear estimate, and thus requires no external calibration to handle noise bias. As a first application of this new implementation, we infer the cosmic shear posterior from simulated images consisting of isolated exponential galaxies with LSST-like levels of shape and pixel noise. In this simplified scenario, we estimate the absolute multiplicative bias $|m|$ of our approach to be below $0.9 \\times 10^{-3} \\, [3σ]$ when the intrinsic distribution of galaxy properties is known, and below $1.3 \\times 10^{-3}\\, [3σ]$ when these distributions are inferred alongside shear. Both results are within the LSST requirement of $|m| < 2 \\times10^{-3}$. Additionally, we make progress towards the algorithm's computational feasibility in the context of modern wide-field surveys, where billions of galaxies must be processed, by leveraging differentiable forward models of galaxies, gradient-based samplers, and GPUs. Our final galaxy-fitting MCMC produces $300$ effective samples of galaxy properties in $0.45$ seconds per galaxy using a single A100 GPU. In the future, we seek to generalize our algorithm to handle selection, detection, and model shear biases so it can be applied to real survey data.",
+  "categories": [
+    "astro-ph.IM",
+    "astro-ph.CO"
+  ],
+  "primary_category": "astro-ph.CO",
+  "comment": "18 pages, 7 figures, 2 tables, to be submitted to The Open Journal of Astrophysics",
+  "published_date": "2026-04-23T20:07:12Z",
+  "updated_date": "2026-04-23T20:07:12Z",
+  "url": "https://arxiv.org/abs/2604.22048v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.22048v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-27T10:15:32.952428",
+  "category": "physics",
+  "subcategories": [
+    "astro-ph.IM",
+    "astro-ph.CO"
+  ]
+}

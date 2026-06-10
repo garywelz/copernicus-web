@@ -1,0 +1,29 @@
+{
+  "id": "arxiv_2604.21791v1",
+  "arxiv_id": "2604.21791v1",
+  "title": "Rigorous Security Proofs for Practical Quantum Key Distribution",
+  "authors": [
+    "Devashish Tupkary"
+  ],
+  "author_string": "Devashish Tupkary",
+  "journal": "arXiv:2604.21791v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "This thesis is concerned with rigorous security analyses of practical Quantum Key Distribution (QKD) protocols, using a variety of modern proof techniques. The main results are as follows. First, we establish a security proof for variable-length QKD protocols against IID collective attacks, and extend this result to coherent attacks using the postselection technique. In doing so, we resolve a long-standing flaw in the application of the postselection technique to QKD, thereby placing it on a rigorous mathematical footing. Second, we develop a method to bound phase error rates in entropic uncertainty relation-based and phase error rate-based proofs, using only the observed statistics of the protocol, even when detectors are imperfect and only approximately characterized. This removes a key assumption of identical detector behaviour and enables these techniques to be applied in realistic settings. Third, we present a very general security analysis based on the marginal-constrained entropy accumulation theorem. The resulting framework can be readily adapted to practical imperfections and side channels, and is suitable for certification efforts. Finally, we show that the security of QKD protocols under realistic authentication assumptions can be reduced to the standard idealized setting, where authentication is assumed to behave honestly, with only minor protocol modifications. A distinctive feature of this thesis is its unified presentation of several major QKD security proof frameworks using consistent protocol descriptions and notation. Consequently, this thesis is intended not only as a collection of new technical results, but also as a useful reference for understanding rigorous security analysis in quantum key distribution.",
+  "categories": [
+    "quant-ph"
+  ],
+  "primary_category": "quant-ph",
+  "comment": "PhD thesis. Based on arXiv:2601.18035, arXiv:2601.17960, arXiv:2408.17349, arXiv:2403.11851, arXiv:2311.01600",
+  "published_date": "2026-04-23T15:48:02Z",
+  "updated_date": "2026-04-23T15:48:02Z",
+  "url": "https://arxiv.org/abs/2604.21791v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.21791v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-27T10:15:37.393078",
+  "category": "physics",
+  "subcategories": [
+    "quant-ph"
+  ]
+}

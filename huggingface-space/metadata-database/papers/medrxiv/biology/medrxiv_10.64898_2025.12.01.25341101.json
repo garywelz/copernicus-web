@@ -1,0 +1,44 @@
+{
+  "id": "medrxiv_10.64898_2025.12.01.25341101",
+  "doi": "10.64898/2025.12.01.25341101",
+  "title": "From Dental to Medical Imaging: Translational 8 μm Pixel Size, Low-dose and Ultra-High-Definition X-ray Detector for Microfocus Clinical Applications",
+  "authors": [
+    "Uzbelger Feldman, D.",
+    "Simons, E.",
+    "Turchetta, R.",
+    "Bofill-Petit, A.",
+    "Raible, R. J."
+  ],
+  "author_string": "Uzbelger Feldman, D., Simons, E., Turchetta, R., Bofill-Petit, A., Raible, R. J.",
+  "journal": "medRxiv",
+  "journal_full": "medRxiv",
+  "year": "2026",
+  "abstract": "BackgroundAccurate radiology disease detection relies on high-resolution, low-dose imaging, yet current systems frequently fail to identify small lesions early enough to alter prognosis while minimizing radiation exposure. This occurs because existing detector architectures cannot maintain high quantum efficiency at small pixel sizes without increasing radiation output. Radiography (70-100 {micro}m), mammography (50-100 {micro}m), CT (250-500 {micro}m), and cone-beam CT (80 {micro}m) detectors are constrained by pixel size, resulting in limited modulation transfer function (MTF), noise power spectrum (NPS), and relative detective quantum efficiency (rDQE). These limitations contribute to 56% of diagnostic errors and require higher milliampere (mA) settings. The objective of this study was to compare a novel CMOS size-2 intraoral X-ray detector prototype with DR, mammography, CT, and CBCT detectors in terms of dose efficiency and spatial resolution (lp/mm), and to evaluate the feasibility of ultra-high-resolution, low-dose X-ray imaging for medical radiology applications.\n\nMethodsWe developed and evaluated a complementary metal-oxide semiconductor (CMOS) size-2 intraoral dental and small-field detector prototype comprising a novel back-illuminated (BI) pixel architecture and microlenses (M) to reduce pixel size to 8 {micro}m, enabling low-dose acquisition. MTF, NPS, and rDQE were benchmarked against published data for radiography, mammography, CT, and CBCT in terms of dose efficiency and spatial resolution in line pairs per millimeter (lp/mm). A microfocus X-ray source was used at 70 kVp, 0.3 mA, 20 {micro}m focal spot, 5 cm source-to-detector distance, and 0.25 s exposure time.\n\nResultsThe delivered dose rate during prototype acquisitions was 83.6 mGy/s at a 5 cm source-to-detector distance, corresponding to an air kerma of 20.9 mGy per image for a 0.25 s exposure (0.075 mAs). Inverse-square scaling indicates that incident air kerma would decrease at typical clinical distances once exposure settings are adjusted to maintain signal and image quality. These measurements therefore demonstrated that, at 0.3 mA and a short geometry, the 8 {micro}m BI-M design improved image resolution to 30 lp/mm, exceeding the 5-10 lp/mm limits of existing modalities, while operating at a radiation output several-fold lower in mAs than current systems, providing dose-efficiency headroom for future clinical configurations. Additional system-level analysis demonstrated that microlenses further improved the measured system MTF across clinically relevant spatial frequencies under scintillator-coupled, low-dose imaging conditions.\n\nConclusionAlthough originally developed for intraoral imaging, the novel 8 {micro}m BI prototype detectors pixel architecture, combined with microlenses and a microfocus X-ray source, enabled higher dose efficiency and spatial resolution compared with radiography, mammography, CT, and CBCT detectors. It surpassed MTF, NPS, and rDQE performance at a lower dose, highlighting its potential for early-stage disease detection with reduced radiation burden in microfocus clinical applications. The 8 {micro}m BI-M pixel architecture broke the traditional dose-resolution trade-off by preserving quantum efficiency at small pixel size and enabling microfocus-based clinical imaging at low mA. These technological improvements are particularly relevant for cancer detection, pediatric imaging, and thin-anatomy applications.",
+  "keywords": [],
+  "categories": [
+    "radiology and imaging"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.64898/2025.12.01.25341101",
+  "source": "medrxiv",
+  "sources": [
+    "medrxiv"
+  ],
+  "acquired_date": "2026-05-21T22:15:25.664366",
+  "category": "biology",
+  "subcategories": [
+    "radiology and imaging"
+  ],
+  "published_date": "2026-01-21",
+  "updated_date": "2026-01-21",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "medrxiv",
+  "preprint_version": "4",
+  "preprint_type": "PUBLISHAHEADOFPRINT",
+  "license": "cc_by_nc_nd",
+  "jatsxml": "https://www.medrxiv.org/content/early/2026/01/21//2025.12.01.25341101.source.xml",
+  "published_doi": null,
+  "author_corresponding": "Daniel Uzbelger Feldman",
+  "author_corresponding_institution": "Real Time Imaging Technologies, LLC"
+}

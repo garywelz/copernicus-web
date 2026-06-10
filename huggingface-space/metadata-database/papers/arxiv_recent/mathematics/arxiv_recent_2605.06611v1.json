@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_2605.06611v1",
+  "arxiv_id": "2605.06611v1",
+  "title": "The Structural Origin of Attention Sink: Variance Discrepancy, Super Neurons, and Dimension Disparity",
+  "authors": [
+    "Siquan Li",
+    "Kaiqi Jiang",
+    "Jiacheng Sun",
+    "Tianyang Hu"
+  ],
+  "author_string": "Siquan Li, Kaiqi Jiang, Jiacheng Sun, Tianyang Hu",
+  "journal": "arXiv:2605.06611v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Despite the prevalence of the attention sink phenomenon in Large Language Models (LLMs), where initial tokens disproportionately monopolize attention scores, its structural origins remain elusive. This work provides a \\textit{mechanistic explanation} for this phenomenon. First, we trace its root to the value aggregation process inherent in self-attention, which induces a systematic variance discrepancy. We further demonstrate that this discrepancy is drastically amplified by the activation of super neurons within Feed-Forward Network (FFN) layers. Specifically, the channel-sparse down-projections trigger a dimension disparity of the first-token representation, necessitating the formation of attention sinks as a structural anchor. Then, we validate this causal chain through two controlled interventions: (i) isolating the aggregation effect via attention mask modifications and (ii) amplifying the variance of targeted token representations. Both interventions can replicate attention sinks at arbitrary positions. Our mechanistic understanding offers a foundation for the systematic control of sink formation. Finally, as a proof of concept, we propose \\textit{head-wise RMSNorm}, an architectural modification that stabilizes value aggregation outputs during pre-training. Our experiments demonstrate that restoring statistical parity across positions significantly accelerates convergence.",
+  "categories": [
+    "cs.LG",
+    "cs.AI",
+    "stat.ML"
+  ],
+  "primary_category": "stat.ML",
+  "comment": "Accepted to ICML 2026",
+  "published_date": "2026-05-07T17:28:55Z",
+  "updated_date": "2026-05-07T17:28:55Z",
+  "url": "https://arxiv.org/abs/2605.06611v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.06611v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-09T22:15:44.049804",
+  "category": "mathematics",
+  "subcategories": [
+    "cs.LG",
+    "cs.AI",
+    "stat.ML"
+  ]
+}

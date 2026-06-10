@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2605.02693v1",
+  "arxiv_id": "2605.02693v1",
+  "title": "Random-Effects Algorithm for Random Objects in Metric Spaces",
+  "authors": [
+    "Marcos Matabuena",
+    "Mateo Cámara"
+  ],
+  "author_string": "Marcos Matabuena, Mateo Cámara",
+  "journal": "arXiv:2605.02693v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Across many scientific disciplines, multiple observations are collected from the same experimental units, and in modern datasets these observations often arise as non-Euclidean random objects. In such settings, the incorporation of random effects is a critical modeling step for efficient estimation and personalized prediction. Although mixed-effects models are well established for scalar outcomes and, more recently, for functional data in Hilbert spaces, general random-effects frameworks for objects in metric spaces remain underdeveloped. In this paper, we propose a nonlinear Fréchet-based algorithm for random-effects modeling of arbitrary random objects defined on a metric space. Using M-estimation theory, we establish conditions under which the proposed metric-space prediction target is consistently estimated under a working random-effects formulation. We then evaluate the empirical performance of the proposed method using both synthetic data and digital health datasets that require practical tools for analyzing random objects in metric spaces, such as multivariate probability distributions and random graphs. We show that, although our method is developed beyond Hilbert spaces, it can outperform existing Hilbert space-based methods.",
+  "categories": [
+    "stat.ML",
+    "cs.LG",
+    "stat.ME"
+  ],
+  "primary_category": "stat.ME",
+  "comment": null,
+  "published_date": "2026-05-04T15:05:43Z",
+  "updated_date": "2026-05-04T15:05:43Z",
+  "url": "https://arxiv.org/abs/2605.02693v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.02693v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-05T10:15:50.910762",
+  "category": "mathematics",
+  "subcategories": [
+    "stat.ML",
+    "cs.LG",
+    "stat.ME"
+  ]
+}

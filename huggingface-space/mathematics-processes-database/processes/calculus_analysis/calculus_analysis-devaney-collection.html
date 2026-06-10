@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robert L. Devaney Collection - Mathematics Process</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 20px; }
+        .container { max-width: 900px; margin: 0 auto; background: white; border-radius: 15px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); overflow: hidden; padding: 30px; }
+        h1 { color: #2c3e50; margin-bottom: 15px; }
+        p { color: #555; margin-bottom: 25px; line-height: 1.6; }
+        .nav-links { margin-bottom: 20px; }
+        .nav-links a { color: #e67e22; text-decoration: none; margin-right: 20px; font-weight: 500; }
+        .nav-links a:hover { text-decoration: underline; }
+        .sections { display: grid; gap: 15px; }
+        .sections a { display: block; padding: 20px; background: #f8f9fa; border-radius: 10px; color: #2c3e50; text-decoration: none; font-weight: 500; border-left: 4px solid #16a085; }
+        .sections a:hover { background: #ecf0f1; }
+        .section-label { font-size: 0.85em; color: #7f8c8d; margin-top: 5px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="nav-links">
+            <a id="back-link" href="#">← Back to Mathematics Database</a>
+            <a href="https://math.bu.edu/people/bob/" target="_blank">Robert L. Devaney (Boston U)</a>
+        </div>
+        <script>
+            (function() {
+                document.getElementById('back-link').href = window.location.hostname.includes('storage.googleapis.com')
+                    ? 'https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/mathematics-database-table.html'
+                    : '../../mathematics-database-table.html';
+            })();
+        </script>
+        <h1>Robert L. Devaney Collection</h1>
+        <p>Dependency charts related to the work of Robert L. Devaney (Boston University, 1948–2025): chaos definition, symbolic dynamics, Devaney hairs, Cantor bouquets, Sierpinski curve Julia sets. Devaney was Feld Family Professor of Teaching Excellence and author of <i>An Introduction to Chaotic Dynamical Systems</i>.</p>
+        <div class="sections">
+            <a href="calculus_analysis-devaney-chaos-definition.html">Devaney's Definition of Chaos <span class="section-label">Topological transitivity, dense periodic points, sensitive dependence; Banks redundancy</span></a>
+            <a href="calculus_analysis-symbolic-dynamics.html">Symbolic Dynamics & Shift Spaces <span class="section-label">Full shift, subshift of finite type, Smale horseshoe, logistic map</span></a>
+            <a href="calculus_analysis-devaney-hairs-cantor-bouquet.html">Devaney Hairs & Cantor Bouquets <span class="section-label">Exponential maps, Julia set structure, straight brush</span></a>
+            <a href="calculus_analysis-sierpinski-curve-julia.html">Sierpinski Curve Julia Sets <span class="section-label">Rational maps, indecomposable continua, Cantor sets of curves</span></a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,37 @@
+{
+  "id": "arxiv_2604.28186v1",
+  "arxiv_id": "2604.28186v1",
+  "title": "Computing Equilibrium beyond Unilateral Deviation",
+  "authors": [
+    "Mingyang Liu",
+    "Gabriele Farina",
+    "Asuman Ozdaglar"
+  ],
+  "author_string": "Mingyang Liu, Gabriele Farina, Asuman Ozdaglar",
+  "journal": "arXiv:2604.28186v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Most familiar equilibrium concepts, such as Nash and correlated equilibrium, guarantee only that no single player can improve their utility by deviating unilaterally. They offer no guarantees against profitable coordinated deviations by coalitions. Although the literature proposes solution concepts that provide stability against multilateral deviations (\\emph{e.g.}, strong Nash and coalition-proof equilibrium), these generally fail to exist. In this paper, we study an alternative solution concept that minimizes coalitional deviation incentives, rather than requiring them to vanish, and is therefore guaranteed to exist. Specifically, we focus on minimizing the average gain of a deviating coalition, and extend the framework to weighted-average and maximum-within-coalition gains. In contrast, the minimum-gain analogue is shown to be computationally intractable. For the average-gain and maximum-gain objectives, we prove a lower bound on the complexity of computing such an equilibrium and present an algorithm that matches this bound. Finally, we use our framework to solve the \\emph{Exploitability Welfare Frontier} (EWF), the maximum attainable social welfare subject to a given exploitability (the maximum gain over all unilateral deviations).",
+  "categories": [
+    "cs.GT",
+    "cs.AI",
+    "cs.CC",
+    "cs.LG",
+    "econ.TH"
+  ],
+  "primary_category": "econ.TH",
+  "comment": null,
+  "published_date": "2026-04-30T17:59:07Z",
+  "updated_date": "2026-04-30T17:59:07Z",
+  "url": "https://arxiv.org/abs/2604.28186v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.28186v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-30T22:15:39.333007",
+  "category": "interdisciplinary",
+  "subcategories": [
+    "cs.GT",
+    "cs.AI",
+    "cs.CC"
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2605.26097v1",
+  "arxiv_id": "2605.26097v1",
+  "title": "Forgetting in Language Models: Capacity, Optimization, and Self-Generated Replay",
+  "authors": [
+    "Martin Marek",
+    "Dongkyu Cho",
+    "Shikai Qiu",
+    "Rumi Chunara",
+    "Pavel Izmailov",
+    "Andrew Gordon Wilson"
+  ],
+  "author_string": "Martin Marek, Dongkyu Cho, Shikai Qiu, Rumi Chunara, Pavel Izmailov et al.",
+  "journal": "arXiv:2605.26097v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Models trained on a new task typically degrade on prior tasks, a phenomenon known as forgetting. Traditionally, mitigating forgetting has required replaying stored exemplars from prior tasks, which is often impractical. By contrast, language models can sample from their own training distribution, and we show that these self-generated samples serve as effective replay data, nearly eliminating forgetting. We find that forgetting nonetheless persists when the model has little remaining capacity: models pretrained close to saturation cannot absorb new information without overwriting prior knowledge. When capacity is not the limiting factor, low learning rates reduce forgetting but require substantially more training steps. Replay breaks this tradeoff, enabling fast, high-learning-rate finetuning without forgetting.",
+  "categories": [
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": null,
+  "published_date": "2026-05-25T17:54:34Z",
+  "updated_date": "2026-05-25T17:54:34Z",
+  "url": "https://arxiv.org/abs/2605.26097v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.26097v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-26T10:15:39.094213",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.LG"
+  ]
+}

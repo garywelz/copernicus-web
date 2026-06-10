@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2604.18014v1",
+  "arxiv_id": "2604.18014v1",
+  "title": "Exponential quantum space advantage for Shannon entropy estimation in data streams",
+  "authors": [
+    "Weijun Feng",
+    "Yongzhen Xu",
+    "Lvzhou Li",
+    "Gongde Guo",
+    "Song Lin"
+  ],
+  "author_string": "Weijun Feng, Yongzhen Xu, Lvzhou Li, Gongde Guo, Song Lin",
+  "journal": "arXiv:2604.18014v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Near-term quantum devices with limited qubits motivate the study of space-bounded quantum computation in the data stream model. We show that Shannon entropy estimation exhibits an exponential separation between quantum and classical space complexity in this setting. Technically, we develop a two-stage quantum streaming algorithm based on a quantum procedure with an explicitly constructed oracle derived from the streaming input. This algorithm achieves logarithmic space complexity in the accuracy parameter, whereas any classical streaming algorithm requires polynomial space. In sharp contrast, existing results for Shannon entropy estimation in the quantum query model achieve only a quadratic speedup. Our work establishes a natural problem with practical applications in computer networking that admits an exponential quantum space advantage, revealing a fundamental gap between quantum query complexity and streaming space complexity.",
+  "categories": [
+    "quant-ph"
+  ],
+  "primary_category": "quant-ph",
+  "comment": null,
+  "published_date": "2026-04-20T09:37:19Z",
+  "updated_date": "2026-04-20T09:37:19Z",
+  "url": "https://arxiv.org/abs/2604.18014v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.18014v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-21T19:54:42.958923",
+  "category": "physics",
+  "subcategories": [
+    "quant-ph"
+  ]
+}

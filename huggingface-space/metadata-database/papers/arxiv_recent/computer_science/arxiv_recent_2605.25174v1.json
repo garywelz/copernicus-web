@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2605.25174v1",
+  "arxiv_id": "2605.25174v1",
+  "title": "Growing a Neural Network in Breadth, Depth, and Time",
+  "authors": [
+    "Eivinas Butkus",
+    "Kedar Garzón Gupta",
+    "Nikolaus Kriegeskorte"
+  ],
+  "author_string": "Eivinas Butkus, Kedar Garzón Gupta, Nikolaus Kriegeskorte",
+  "journal": "arXiv:2605.25174v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Spatial and temporal resource constraints are critical for both biological and artificial intelligent systems. Here we define differentiable cost terms for breadth, depth, and time within a recurrent convolutional neural network conceived as a finite subset of an infinite lattice. We optimize these costs jointly with task errors via backpropagation. We set different pressures on breadth, depth, and time, which leads to diverse computational graphs emerging organically through training. We find that all three resources can be traded off against each other to achieve a given level of accuracy. Networks grow in all three dimensions with task complexity and spontaneously take more recurrent steps when inputs are occluded. Surprisingly, time used by the model correlates with human reaction times in an object recognition task. Our framework provides a normative account of how resource constraints shape neural architectures, connecting to questions about brain design in neuroscience, and may help illuminate the diversity of neural solutions found in nature.",
+  "categories": [
+    "q-bio.NC",
+    "cs.LG",
+    "cs.NE"
+  ],
+  "primary_category": "cs.NE",
+  "comment": null,
+  "published_date": "2026-05-24T17:11:05Z",
+  "updated_date": "2026-05-24T17:11:05Z",
+  "url": "https://arxiv.org/abs/2605.25174v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.25174v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-26T10:15:35.452542",
+  "category": "computer_science",
+  "subcategories": [
+    "q-bio.NC",
+    "cs.LG",
+    "cs.NE"
+  ]
+}

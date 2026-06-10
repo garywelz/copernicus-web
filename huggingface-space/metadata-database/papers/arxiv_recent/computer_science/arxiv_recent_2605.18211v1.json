@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_2605.18211v1",
+  "arxiv_id": "2605.18211v1",
+  "title": "Leveraging Graph Structure in Seq2Seq Models for Knowledge Graph Link Prediction",
+  "authors": [
+    "Luu Huu Phuc",
+    "Ratan Bahadur Thapa",
+    "Mojtaba Nayyeri",
+    "Jingcheng Wu",
+    "Evgeny Kharlamov",
+    "Steffen Staab"
+  ],
+  "author_string": "Luu Huu Phuc, Ratan Bahadur Thapa, Mojtaba Nayyeri, Jingcheng Wu, Evgeny Kharlamov et al.",
+  "journal": "arXiv:2605.18211v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We introduce Graph-Augmented Sequence-to-Sequence (GA-S2S), a novel framework that integrates a T5-small encoder-decoder with a Relational Graph Attention Network (RGAT) to improve link prediction in knowledge graphs. While existing Seq2Seq models rely solely on surface-level textual descriptions of entities and relations and at best, flatten the neighborhoods of a query entity into a single linear sequence, thereby discarding the inherent graph structure, GA-S2S jointly encodes both textual features and the full $k$-hop subgraph topology surrounding the query entity. By integrating raw encoder outputs with RGAT's relation-aware embeddings, our model captures and leverages richer multi-hop relational patterns and textual information. Our preliminary experiments on the CoDEx dataset demonstrate that GA-S2S outperforms competitive Seq2Seq-based baseline models, achieving up to a 19\\% relative gain in link prediction accuracy.",
+  "categories": [
+    "cs.CL",
+    "cs.AI"
+  ],
+  "primary_category": "cs.AI",
+  "comment": "9 pages, 1 figure, 2 tables. Preprint of a paper accepted at the 5th Workshop on LLM-Integrated Knowledge Graph Generation from Text (TEXT2KG), co-located with ESWC 2026, May 10--14, 2026, Dubrovnik, Croatia",
+  "published_date": "2026-05-18T10:56:14Z",
+  "updated_date": "2026-05-18T10:56:14Z",
+  "url": "https://arxiv.org/abs/2605.18211v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.18211v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-18T22:16:04.718642",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CL",
+    "cs.AI"
+  ]
+}

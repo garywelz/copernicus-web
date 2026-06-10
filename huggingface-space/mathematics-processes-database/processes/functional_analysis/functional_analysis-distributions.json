@@ -1,0 +1,39 @@
+{
+  "id": "functional_analysis-distributions",
+  "name": "Distributions — Mathematics Process",
+  "category": "mathematics",
+  "subcategory": "functional_analysis",
+  "subcategory_name": "Functional Analysis",
+  "description": "𝒟(Ω) = test functions (smooth, compact support). 𝒟'(Ω) = distributions = linear continuous on 𝒟. Every distribution has derivatives.",
+  "mermaid": "graph TD\n    D1[\"Def: 𝒟Ω = C_c^∞\\ntest functions\"]\n    D2[\"Def: Distribution T\\nT: 𝒟→ℂ linear continuous\"]\n    D3[\"Def: Derivative ∂ᵅT\\n⟨∂ᵅT,φ⟩ = (-1)^|α|⟨T,∂ᵅφ⟩\"]\n    D4[\"Def: Support supp T\"]\n    D5[\"Def: Convolution T*φ\"]\n    T1[\"Thm: L^1_loc ⊂ 𝒟'\"]\n    T2[\"Thm: δ (Dirac)\\nis distribution\"]\n    T3[\"Thm: Every T has\\nall derivatives\"]\n    T4[\"Thm: Sobolev embed\\nW^{k,p} ⊂ C^m\"]\n    T5[\"Thm: Fourier transform\\n𝒮' → 𝒮'\"]\n    D1 --> D2\n    D2 --> D3\n    D3 --> T3\n    D1 --> T1\n    T2 --> D2\n    T3 --> T4\n    T3 --> T5\n    classDef definition fill:#b197fc,color:#fff\n    classDef theorem fill:#51cf66,color:#fff\n    class D1,D2,D3,D4,D5 definition\n    class T1,T2,T3,T4,T5 theorem",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

@@ -1,0 +1,37 @@
+{
+  "id": "arxiv_2605.07931v1",
+  "arxiv_id": "2605.07931v1",
+  "title": "One Token Per Frame: Reconsidering Visual Bandwidth in World Models for VLA Policy",
+  "authors": [
+    "Zuojin Tang",
+    "Shengchao Yuan",
+    "Xiaoxin Bai",
+    "Zhiyuan Jin",
+    "De Ma",
+    "Gang Pan",
+    "Bin Liu"
+  ],
+  "author_string": "Zuojin Tang, Shengchao Yuan, Xiaoxin Bai, Zhiyuan Jin, De Ma et al.",
+  "journal": "arXiv:2605.07931v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Vision-language-action (VLA) models increasingly rely on auxiliary world modules to plan over long horizons, yet how such modules should be parameterized on top of a pretrained VLA remains an open design question. Existing world-model-augmented VLAs typically pass the per-frame visual stream into the world module at high visual bandwidth and treat its rollout as a side product of action prediction; under a constrained adaptation budget on a frozen backbone, this leaves both the per-frame representation and the latent action coupling under-examined. We introduce OneWM-VLA, which compresses each view into a single semantic token per frame through an Adaptive Attention Pooling, and produces the resulting latent stream and the action trajectory under a single flow-matching objective rather than connecting them through a separate decoder. Empirically, we find that per-frame visual bandwidth can be reduced to a single token without compromising long-horizon performance under our setup. Trained with 14.71M LoRA parameters on a $π_0$ (2B) backbone, OneWM-VLA improves the average success rate from 47.9% to 61.3% on MetaWorld~MT50, reaches 95.6% on LIBERO-Long (vs.85.2% for $π_0$), and reaches 60.0% on the long-horizon deformable task Fold Cloth on a real Piper arm (vs.20.0% for $π_0$).",
+  "categories": [
+    "cs.CV",
+    "cs.AI"
+  ],
+  "primary_category": "cs.AI",
+  "comment": null,
+  "published_date": "2026-05-08T16:04:43Z",
+  "updated_date": "2026-05-08T16:04:43Z",
+  "url": "https://arxiv.org/abs/2605.07931v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.07931v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-10T22:17:15.403829",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CV",
+    "cs.AI"
+  ]
+}

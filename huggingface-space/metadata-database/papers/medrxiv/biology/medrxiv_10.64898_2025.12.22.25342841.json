@@ -1,0 +1,41 @@
+{
+  "id": "medrxiv_10.64898_2025.12.22.25342841",
+  "doi": "10.64898/2025.12.22.25342841",
+  "title": "Leveraging Limited Testing Data for Early Detection of Emerging Infectious Disease Outbreaks",
+  "authors": [
+    "Zapf, A. J.",
+    "Lipsitch, M."
+  ],
+  "author_string": "Zapf, A. J., Lipsitch, M.",
+  "journal": "medRxiv",
+  "journal_full": "medRxiv",
+  "year": "2025",
+  "abstract": "Early during emerging infectious disease outbreaks, case-based surveillance is constrained by limited test availability, diagnostic delays, and low clinical suspicion. Novel pathogens that mimic symptoms of established conditions may generate detectable outbreak signals in routine testing data, as infected individuals seek testing for known conditions and test negative. We developed analytic and simulation frameworks using Poisson and negative binomial models to evaluate whether total and negative testing volumes for a clinically similar (\"mimicking\") condition can provide timely outbreak warning. We systematically assessed detection performance across variations in baseline test counts, epidemic growth rates, testing probability among cases, detection threshold stringency, and overdispersion. Detection thresholds based on negative tests consistently outperformed total test thresholds, achieving earlier detection with approximately one-third fewer cumulative cases while maintaining comparable false positive rates. However, reliable detection required stringent conditions: high testing probability among epidemic cases, low baseline test volumes, and low overdispersion. When testing probability fell below 5%, epidemic size estimates provided little practical information; above 30%, precision markedly improved. These findings support prioritizing access to disaggregated test result data but caution that this detection approach is best positioned as a resource-efficient complement within integrated surveillance portfolios rather than a standalone early warning system.",
+  "keywords": [],
+  "categories": [
+    "infectious diseases"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.64898/2025.12.22.25342841",
+  "source": "medrxiv",
+  "sources": [
+    "medrxiv"
+  ],
+  "acquired_date": "2026-04-28T22:15:24.795360",
+  "category": "biology",
+  "subcategories": [
+    "infectious diseases"
+  ],
+  "published_date": "2025-12-29",
+  "updated_date": "2025-12-29",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "medrxiv",
+  "preprint_version": "1",
+  "preprint_type": "PUBLISHAHEADOFPRINT",
+  "license": "cc_by",
+  "jatsxml": "https://www.medrxiv.org/content/early/2025/12/29//2025.12.22.25342841.source.xml",
+  "published_doi": null,
+  "author_corresponding": "Alexander John Zapf",
+  "author_corresponding_institution": "Harvard T.H. Chan School of Public Health"
+}

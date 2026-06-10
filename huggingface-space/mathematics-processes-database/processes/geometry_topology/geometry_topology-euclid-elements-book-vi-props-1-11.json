@@ -1,0 +1,39 @@
+{
+  "id": "geometry_topology-euclid-elements-book-vi-props-1-11",
+  "name": "Euclid's Elements Book VI — Propositions 1–11",
+  "category": "mathematics",
+  "subcategory": "geometry_topology",
+  "subcategory_name": "Geometry & Topology",
+  "description": "Similar triangles: same height, parallel cuts, equiangular, third proportional. VI.1 is basis. Depends on Book I and Book V.",
+  "mermaid": "graph TD\n    BookI[\"Book I\\nFoundation\"]\n    BookV[\"Book V\\nFoundation\"]\n    Def1[\"Def. VI.1\\nSimilar rectilinear\"]\n    Def2[\"Def. VI.2\\nReciprocally proportional\"]\n    Def3[\"Def. VI.3\\nMean proportional\"]\n    Def4[\"Def. VI.4\\nDuplicate ratio\"]\n    Prop1[\"Prop. VI.1\\nTriangles under same height\"]\n    Prop2[\"Prop. VI.2\\nParallel cuts sides proportionally\"]\n    Prop3[\"Prop. VI.3\\nAngle bisector divides base\"]\n    Prop4[\"Prop. VI.4\\nEquiangular: sides proportional\"]\n    Prop5[\"Prop. VI.5\\nSides proportional: equiangular\"]\n    Prop6[\"Prop. VI.6\\nOne angle equal, sides proportional\"]\n    Prop7[\"Prop. VI.7\\nOne angle equal, other sides proportional\"]\n    Prop8[\"Prop. VI.8\\nAltitude in right triangle\"]\n    Prop9[\"Prop. VI.9\\nCut off prescribed part\"]\n    Prop10[\"Prop. VI.10\\nCut line similarly\"]\n    Prop11[\"Prop. VI.11\\nThird proportional\"]\n    BookI --> Def1\n    BookV --> Def1\n    BookI --> Def2\n    BookV --> Def2\n    BookI --> Def3\n    BookV --> Def3\n    BookI --> Def4\n    BookV --> Def4\n    BookI --> Prop1\n    BookV --> Prop1\n    BookI --> Prop2\n    BookV --> Prop2\n    Prop1 --> Prop2\n    BookI --> Prop3\n    BookV --> Prop3\n    Prop1 --> Prop3\n    BookI --> Prop4\n    BookV --> Prop4\n    Prop1 --> Prop4\n    BookI --> Prop5\n    BookV --> Prop5\n    Prop1 --> Prop5\n    BookI --> Prop6\n    BookV --> Prop6\n    Prop1 --> Prop6\n    BookI --> Prop7\n    BookV --> Prop7\n    Prop1 --> Prop7\n    BookI --> Prop8\n    BookV --> Prop8\n    Prop1 --> Prop8\n    BookI --> Prop9\n    BookV --> Prop9\n    Prop1 --> Prop9\n    BookI --> Prop10\n    BookV --> Prop10\n    Prop1 --> Prop10\n    BookI --> Prop11\n    BookV --> Prop11\n    Prop1 --> Prop11\n    classDef foundation fill:#95a5a6,color:#fff,stroke:#7f8c8d\n    classDef definition fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef proposition fill:#51cf66,color:#fff,stroke:#40c057\n    class BookI,BookV foundation\n    class Def1,Def2,Def3,Def4 definition\n    class Prop1,Prop2,Prop3,Prop4,Prop5,Prop6,Prop7,Prop8,Prop9,Prop10,Prop11 proposition",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

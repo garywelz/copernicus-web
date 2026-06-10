@@ -1,0 +1,39 @@
+{
+  "id": "calculus_analysis-symbolic-dynamics",
+  "name": "Symbolic Dynamics & Shift Spaces",
+  "category": "mathematics",
+  "subcategory": "calculus_analysis",
+  "subcategory_name": "Calculus & Analysis",
+  "description": "Symbolic dynamics: represent dynamics by sequences. Full shift Σ = {0,1}^ℕ or Σ_n = {0,...,n-1}^ℕ; shift map σ(s₀s₁s₂...) = (s₁s₂s₃...). Subshift of finite type (SFT): forbidden blocks. Devaney's textbook uses symbolic dynamics to analyze chaos. Smale's horseshoe: hyperbolic invariant set conjugate to shift on two symbols. Connection: logistic map at μ=4 semiconjugate to shift; quadratic maps admit symbolic coding.",
+  "mermaid": "graph TD\n    Chaos[\"Devaney Chaos\"]\n    DefShift[\"Def: Full shift Σ\\nSequences s = s₀s₁s₂...\"]\n    DefSigma[\"Def: Shift map σ\\nσ(s) = s₁s₂s₃...\"]\n    DefSFT[\"Def: Subshift of finite type\\nForbidden blocks\"]\n    ThmShiftChaos[\"Thm: σ on Σ is chaotic\\nTransitive, dense periodic, sensitive\"]\n    ThmHorseshoe[\"Thm: Smale horseshoe\\nHyperbolic set ~ shift on 2 symbols\"]\n    ThmLogistic[\"Thm: Logistic μ=4\\nSemiconjugate to shift\"]\n    LemCoding[\"Lem: Symbolic coding\\nItineraries for quadratic maps\"]\n    Chaos --> DefShift\n    DefShift --> DefSigma\n    DefSigma --> DefSFT\n    DefSigma --> ThmShiftChaos\n    ThmHorseshoe --> ThmShiftChaos\n    ThmLogistic --> LemCoding\n    DefSigma --> ThmLogistic\n    classDef axiom fill:#ff6b6b,color:#fff,stroke:#c0392b\n    classDef definition fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef theorem fill:#51cf66,color:#fff,stroke:#40c057\n    classDef lemma fill:#74c0fc,color:#fff,stroke:#4dabf7\n    class Chaos axiom\n    class DefShift,DefSigma,DefSFT definition\n    class ThmShiftChaos,ThmHorseshoe,ThmLogistic theorem\n    class LemCoding lemma",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

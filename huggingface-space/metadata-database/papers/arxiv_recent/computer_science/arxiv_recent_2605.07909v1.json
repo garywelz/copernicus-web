@@ -1,0 +1,30 @@
+{
+  "id": "arxiv_2605.07909v1",
+  "arxiv_id": "2605.07909v1",
+  "title": "Evaluating Design Conformance Through Trace Comparison",
+  "authors": [
+    "Reid Anderson",
+    "Hassan Reza"
+  ],
+  "author_string": "Reid Anderson, Hassan Reza",
+  "journal": "arXiv:2605.07909v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "The design of a system and its implementation are two tasks often carried out by different individuals on a development team, and can occur weeks or months apart. This creates a potential for divergence between real behavior and the designed model that an implementation is intended to match. Particularly as time passes and individuals who were present for the original conception of the design leave, a system can lose coherence and drift from intended design principles. Even with a robust system design, more is needed to ensure that the key implementation details match the design and that adherence to a particular strategy is not lost over time. This paper proposes an approach to address that concern for distributed systems using conformance checking, a methodology borrowed from process mining. Distributed traces produced by instrumented applications are evaluated for conformance by comparison to design traces. The resulting conformance percentage is a quantitative metric that can be tracked over time to determine how closely a concrete implementation corresponds to the key attributes of the expected design model. This analysis is done using the dominant industry standard, OpenTelemetry, and so should apply to a wide range of distributed systems.",
+  "categories": [
+    "cs.SE"
+  ],
+  "primary_category": "cs.SE",
+  "comment": "6 pages, 2 figures, 2 tables",
+  "published_date": "2026-05-08T15:48:03Z",
+  "updated_date": "2026-05-08T15:48:03Z",
+  "url": "https://arxiv.org/abs/2605.07909v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.07909v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-10T22:17:27.081274",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.SE"
+  ]
+}

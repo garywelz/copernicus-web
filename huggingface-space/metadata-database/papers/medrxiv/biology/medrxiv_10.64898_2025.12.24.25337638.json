@@ -1,0 +1,53 @@
+{
+  "id": "medrxiv_10.64898_2025.12.24.25337638",
+  "doi": "10.64898/2025.12.24.25337638",
+  "title": "Automated Burn Detection from Images Using Deep Learning Models: The Role of AI in the Triage of Burn Injuries",
+  "authors": [
+    "Durgude, A.",
+    "Soni, N.",
+    "Raghuwanshi, K. C.",
+    "Awasthi, S.",
+    "Uniyal, K.",
+    "Yadav, S.",
+    "Kakani, A.",
+    "Kesharwani, P.",
+    "Mago, V.",
+    "Vathulaya, M.",
+    "Rao, N.",
+    "Chattopadhyay, D.",
+    "Kapoor, A.",
+    "Bhimsaria, D."
+  ],
+  "author_string": "Durgude, A., Soni, N., Raghuwanshi, K. C., Awasthi, S., Uniyal, K. et al.",
+  "journal": "medRxiv",
+  "journal_full": "medRxiv",
+  "year": "2025",
+  "abstract": "Burn injuries are a significant concern in developing countries due to limited infrastructure, and treating them remains a major challenge. The manual assessment of burn severity is subjective and depends, to a large extent, on individual expertise. Artificial intelligence can automate this task with greater accuracy and improved predictions, which can assist healthcare professionals in making more informed decisions while triaging burn injuries. This study established a model pipeline for detecting burn injuries in images using multiple deep learning models, including U-Net, DenseNet, ResNet, VGG, EfficientNet, and transfer learning with the Segment Anything Model2 (SAM2). The problem statement was divided into two stages: 1) removing the background and 2) burn skin segmentation. ResNet50, used as an encoder with a U-Net decoder, performs better for the background removal task, achieving an accuracy of 0.9757 and an intersection over union (Jaccard index) of 0.9480. DenseNet169, used as an encoder with a U-Net decoder, performs well in burn skin segmentation, achieving an accuracy of 0.9662 and an intersection over Union of 0.8504. The dataset collected during the project is available for download to facilitate further research and advancements (Link to dataset: https://geninfo.iitr.ac.in/projects). TBSA was estimated from predicted burn masks using scale-based calibration",
+  "keywords": [],
+  "categories": [
+    "health informatics"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.64898/2025.12.24.25337638",
+  "source": "medrxiv",
+  "sources": [
+    "medrxiv"
+  ],
+  "acquired_date": "2026-04-30T22:15:24.581175",
+  "category": "biology",
+  "subcategories": [
+    "health informatics"
+  ],
+  "published_date": "2025-12-31",
+  "updated_date": "2025-12-31",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "medrxiv",
+  "preprint_version": "1",
+  "preprint_type": "PUBLISHAHEADOFPRINT",
+  "license": "cc_no",
+  "jatsxml": "https://www.medrxiv.org/content/early/2025/12/31//2025.12.24.25337638.source.xml",
+  "published_doi": null,
+  "author_corresponding": "Devesh Bhimsaria",
+  "author_corresponding_institution": "Indian Institute of Technology, Roorkee"
+}

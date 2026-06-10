@@ -1,0 +1,45 @@
+{
+  "id": "biorxiv_10.64898_2026.01.16.699955",
+  "doi": "10.64898/2026.01.16.699955",
+  "title": "A fast and simple algorithm for accurate spike detection in HD-MEA recordings",
+  "authors": [
+    "Zegers Delgado, J. A.",
+    "Renegar, N.",
+    "Pathirage, K.",
+    "Horiuchi, T. K.",
+    "Abshire, P. A.",
+    "Araneda, R. C."
+  ],
+  "author_string": "Zegers Delgado, J. A., Renegar, N., Pathirage, K., Horiuchi, T. K., Abshire, P. A. et al.",
+  "journal": "bioRxiv",
+  "journal_full": "bioRxiv",
+  "year": "2026",
+  "abstract": "BackgroundHigh density microelectrode arrays provide a strong platform to study individual neuronal activity and neuronal network dynamics. However, the analysis of high volume and complex data present several challenges. Common spike detection methods based on Root-Mean-Square (RMS) threshold crossing underestimate the number of spikes during neuronal bursting, which frequently occurs in neuronal cultures. In addition, the detection of action potentials by multiple electrodes makes spikes sorting a computationally expensive task.\n\nNew MethodWe optimized a previously described detection method, based on the scaled median of absolute deviations (MED) that is more accurate during high rates of neuronal firing. In addition, we added a step to de-duplicate (DP) spikes recorded on multiple electrodes, which enhanced the accuracy of MED. The combined method of detection and de-duplication (DP-MED) is less computationally expensive and easier to implement than popular sorting alternatives like Kilosort-4.\n\nResults and ConclusionsDuring burst periods, the MED-based method detected over half of spikes that were undetected by the RMS-based method. To evaluate the performance of DP-MED, we simulated data that emulates neuronal activity recorded with HD-MEA. Across increasing firing rates, DP-MED shows more precision than Kilosort-4 but is slightly less accurate. After inducing high firing rate in cortical cultures with pharmacological stimulation, DP-MED detected a similar number of spikes than Kilosort-4, however, the analysis in Kilosort-4 was 40-fold more time-consuming. These results highlight the effectiveness of the DP-MED method in the context of drug screening using HD-MEAs.",
+  "keywords": [],
+  "categories": [
+    "neuroscience"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.64898/2026.01.16.699955",
+  "source": "biorxiv",
+  "sources": [
+    "biorxiv"
+  ],
+  "acquired_date": "2026-05-22T22:15:22.924855",
+  "category": "biology",
+  "subcategories": [
+    "neuroscience"
+  ],
+  "published_date": "2026-01-22",
+  "updated_date": "2026-01-22",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "biorxiv",
+  "preprint_version": "1",
+  "preprint_type": "new results",
+  "license": "cc_no",
+  "jatsxml": "https://www.biorxiv.org/content/early/2026/01/22//2026.01.16.699955.source.xml",
+  "published_doi": "10.1016/j.jneumeth.2026.110750",
+  "author_corresponding": "Ricardo C Araneda",
+  "author_corresponding_institution": "University of Maryland, College Park"
+}

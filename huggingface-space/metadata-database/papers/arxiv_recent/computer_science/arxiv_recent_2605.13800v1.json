@@ -1,0 +1,30 @@
+{
+  "id": "arxiv_2605.13800v1",
+  "arxiv_id": "2605.13800v1",
+  "title": "Low-Cost Arborescence Under Edge Faults",
+  "authors": [
+    "Dipan Dey",
+    "Telikepalli Kavitha"
+  ],
+  "author_string": "Dipan Dey, Telikepalli Kavitha",
+  "journal": "arXiv:2605.13800v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Our input is a directed graph $G = (V,E)$ on $n$ vertices and $m$ edges with a designated root vertex $r$ and a function $cost: E \\rightarrow \\mathbb{R}_{\\geq 0}$. The problem is to maintain a min-cost arborescence in $G$ in the presence of edge faults (a single fault at a time). Edge faults are transient and once the faulty edge is repaired, the original min-cost arborescence $\\mathcal{T}$ is restored. Whenever an edge fault happens, we need to update $\\mathcal{T}$ to a min-cost arborescence in $G-f$, where $f$ is the faulty edge. Since computing a min-cost arborescence in $G - f$ takes $O(m + n\\log n)$ time, we seek to construct a sparse subgraph $H$ in a preprocessing step such that in the event of any edge $f$ failing, it suffices to compute a min-cost arborescence in $H - f$ in order to find a low-cost arborescence in $G - f$.   In the unweighted setting, this is the fault-tolerant subgraph problem for single-source {\\em reachability}. Baswana, Choudhary, and Roditty (SICOMP, 2018) showed a $k$-fault tolerant reachability subgraph of size $O(2^kn)$, where $k$ is the number of edge faults. We show a simple polynomial-time algorithm to construct a subgraph $H$ of size $O(n^{3/2})$ such that, for any $f \\in E$, a min-cost arborescence in $H-f$ is a 2-approximation of a min-cost arborescence in $G-f$. Thus whenever an edge fault happens, we can find a 2-approximate min-cost arborescence in $G-f$ in $O(n^{3/2})$ time.   Our second problem is in the matroid setting. The input is a matroid $M = (E, {\\cal I})$ with a function $cost: E \\rightarrow \\mathbb{R}$. The problem is to compute a sparse $S \\subseteq E$ (called a $k$-fault tolerant preserver) such that for any $F \\subseteq E$ with $|F| \\le k$, the matroid $M|(S\\setminus F)$ contains a min-cost basis of $M|(E\\setminus F)$. We show a tight bound of $k.rank(E)$ on the size of a $k$-fault tolerant preserver.",
+  "categories": [
+    "cs.DS"
+  ],
+  "primary_category": "cs.DS",
+  "comment": null,
+  "published_date": "2026-05-13T17:21:08Z",
+  "updated_date": "2026-05-13T17:21:08Z",
+  "url": "https://arxiv.org/abs/2605.13800v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.13800v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-13T22:17:00.035644",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.DS"
+  ]
+}

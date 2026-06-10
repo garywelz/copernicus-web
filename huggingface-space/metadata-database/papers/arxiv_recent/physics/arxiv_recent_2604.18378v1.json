@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2604.18378v1",
+  "arxiv_id": "2604.18378v1",
+  "title": "Fourth-order galaxy-galaxy-lensing: Theoretical framework and direct estimation",
+  "authors": [
+    "Jonathan Oel",
+    "Lucas Porth",
+    "Peter Schneider",
+    "Elena Silvestre-Rosello"
+  ],
+  "author_string": "Jonathan Oel, Lucas Porth, Peter Schneider, Elena Silvestre-Rosello",
+  "journal": "arXiv:2604.18378v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Traditional galaxy-galaxy lensing is a well-established method of probing the statistical properties of the Universe's matter and galaxy distribution. However, this measure does not carry all the statistical information, provided the matter and galaxy distribution contain non-Gaussian features. In order to study these non-Gaussianities, it is necessary to consider higher-order statistical measures. The aim of this work is to extend the analytical basis describing the statistical correlations between galaxies and shear to the fourth order, with special emphasis on the associated aperture statistics. In order to include fourth-order statistics in future analysis of the relation between mass and galaxies, we further investigate whether we can expect to detect these statistics from observations of stage IV surveys. We define the four-point correlation function (4PCF) between the shear and the positions of triplets of foreground galaxies and derive its relation to the respective trispectrum. We convert the 4PCF to aperture statistics and derive the analytical form of the respective filter function, which we then implement in a numerical integration pipeline. Furthermore, we develop a direct estimator that allows us to measure galaxy-mass aperture moments of arbitrary order on pixelized data using a Fast-Fourier-Transform (FFT) algorithm. We show that the corresponding aperture measure $\\langle\\mathcal{N}^3 M_\\mathrm{ap}\\rangle$ can be calculated with sub-percent accuracy on relevant aperture scales, $θ$, by means of numerical integration. Furthermore, we apply the FFT-based direct estimator to a mock catalog with a realistic stage IV survey setup on a sky area of $2000~\\mathrm{deg}^2$, and detect the connected part of the aperture statistics $\\langle\\mathcal{N}^3 M_\\mathrm{ap}\\rangle(θ)$ with a signal-to-noise ratio of roughly nine on small aperture scales.",
+  "categories": [
+    "astro-ph.CO"
+  ],
+  "primary_category": "astro-ph.CO",
+  "comment": "Submitted to A&A. 19 pages, 9 figures",
+  "published_date": "2026-04-20T15:04:01Z",
+  "updated_date": "2026-04-20T15:04:01Z",
+  "url": "https://arxiv.org/abs/2604.18378v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.18378v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-22T10:15:52.069906",
+  "category": "physics",
+  "subcategories": [
+    "astro-ph.CO"
+  ]
+}

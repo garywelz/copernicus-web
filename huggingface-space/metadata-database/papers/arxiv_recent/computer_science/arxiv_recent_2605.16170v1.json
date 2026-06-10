@@ -1,0 +1,30 @@
+{
+  "id": "arxiv_2605.16170v1",
+  "arxiv_id": "2605.16170v1",
+  "title": "BAPR: Bayesian amnesic piecewise-robust reinforcement learning for non-stationary continuous control",
+  "authors": [
+    "Yifan Zhang",
+    "Liang Zheng"
+  ],
+  "author_string": "Yifan Zhang, Liang Zheng",
+  "journal": "arXiv:2605.16170v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Real-world control systems frequently operate under \\emph{piecewise stationary} conditions, where dynamics remain stable for extended periods before undergoing abrupt regime changes. Standard robust RL methods face a fundamental dilemma: a globally conservative policy wastes performance during stable periods, while a locally adaptive policy risks catastrophic failure when the regime changes undetected.   We propose \\textbf{BAPR} (Bayesian Amnesic Piecewise-Robust SAC), which unifies Bayesian Online Change Detection (BOCD) with robust ensemble RL. The BAPR operator -- a convex combination of mode-conditional Bellman operators weighted by a frozen belief distribution -- is a $γ$-contraction. A complementary counterexample, machine-verified in Lean~4, establishes a \\emph{sharp boundary}: when beliefs depend on the Q-function, the contraction factor becomes $γ+ λΔ$ (where $Δ$ is the mode reward gap), and contraction fails exactly when $γ+ λΔ\\geq 1$. We derive a \\emph{component-wise} formal error budget for the abstract operator -- every component machine-verified -- bounding post-switch recovery; the budget applies to the abstract mode-mixture operator and inherits to the implemented shared-critic algorithm only through the frozen-parameter design intuition. All results are formally verified with no \\texttt{sorry} (1,145 lines across 3 Lean~4 files, 22 machine-verified theorems). BOCD drives an adaptive conservatism mechanism: the policy becomes maximally conservative after detected change-points and smoothly relaxes as confidence grows, with detection delay $O(\\log(1/δ))$. A context-conditioning module trained via RMDM loss provides mode-aware representations from simulator-provided mode IDs at training time and requires no mode labels at deployment.",
+  "categories": [
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": null,
+  "published_date": "2026-05-15T16:49:05Z",
+  "updated_date": "2026-05-15T16:49:05Z",
+  "url": "https://arxiv.org/abs/2605.16170v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.16170v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-18T10:15:47.147731",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.LG"
+  ]
+}

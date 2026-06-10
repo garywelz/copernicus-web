@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2604.19855v1",
+  "arxiv_id": "2604.19855v1",
+  "title": "Toward designing workload-aware Surface Code Architectures",
+  "authors": [
+    "Archisman Ghosh",
+    "Avimita Chatterjee",
+    "Swaroop Ghosh"
+  ],
+  "author_string": "Archisman Ghosh, Avimita Chatterjee, Swaroop Ghosh",
+  "journal": "arXiv:2604.19855v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Practical quantum advantage is expected to depend on fault-tolerant quantum computing, although the architectural overhead needed to support fault tolerance is still extremely high. Prior FTQC designs generally emphasize either fast logical-qubit accessibility at the cost of significant qubit overhead, or high logical-qubit density at the cost of added workload latency. We propose an architecture that balances these competing objectives by placing surface-code patches around an ancilla-centric region, which yields nearly uniform ancilla access for all data qubits. Building on this design, we introduce a new workload-driven placement method that uses the $T$-gate profile of an application to determine an effective floorplan. We further provide a reconfigurable optimization for reducing the latency of $Y$-gate measurements on a per-workload basis. To improve flexibility, we also study concurrent execution of multiple programs on the same architecture. Numerical evaluation indicates that our approach keeps cycles per instruction near the optimal regime while reducing the number of required data tiles by up to $\\sim21\\%$, and achieves up to $\\sim90\\%$ efficiency when running 10 programs concurrently.",
+  "categories": [
+    "quant-ph",
+    "cs.AR"
+  ],
+  "primary_category": "cs.AR",
+  "comment": "14 pages, 10 figures",
+  "published_date": "2026-04-21T17:06:43Z",
+  "updated_date": "2026-04-21T17:06:43Z",
+  "url": "https://arxiv.org/abs/2604.19855v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.19855v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-23T10:15:40.084805",
+  "category": "computer_science",
+  "subcategories": [
+    "quant-ph",
+    "cs.AR"
+  ]
+}

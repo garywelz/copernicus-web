@@ -167,6 +167,33 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
@@ -176,7 +203,7 @@
             <div class="header-meta">
                 <span class="meta-item">Physics</span>
                 <span class="meta-item">Classical Mechanics</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,67 +234,59 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Hamiltonian Mechanics Process. This classical mechanics process visualization demonstrates phase space dynamics and canonical transformations. The flowchart shows phase space and canonical variables, Hamiltonian methods and transformations, canonical operations and perturbation theory, intermediate results, and final Hamiltonian mechanics outputs.</p>
+                <p>Hamiltonian mechanics recasts dynamics in phase space: conjugate momenta are defined from the Lagrangian and a Legendre transform builds the Hamiltonian H(q,p,t); when time does not appear explicitly H is the conserved energy, and Hamilton's canonical equations give first-order flow of position and momentum.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-A3[Phase Space] --> B3[Canonical Variables]
-C3[Legendre Transform] --> D3[Hamiltonian Function]
-E3[Poisson Brackets] --> F3[Canonical Equations]
-B3 --> G3[Position Momentum Pairs]
-D3 --> H3[H equals T plus V]
-F3 --> I3[Hamilton Equations]
-G3 --> J3[Canonical Transformations]
-H3 --> K3[Energy Conservation]
-I3 --> L3[Phase Space Evolution]
-J3 --> M3[Action Angle Variables]
-K3 --> L3
-L3 --> N3[Liouville Theorem]
-M3 --> O3[Integrable Systems]
-N3 --> P3[Phase Space Volume]
-O3 --> Q3[Hamiltonian Mechanics Process]
-P3 --> R3[Chaotic Dynamics]
-Q3 --> S3[Canonical Perturbation Theory]
-R3 --> T3[Hamiltonian Mechanics Result]
-S3 --> U3[Adiabatic Invariants]
-T3 --> V3[Canonical Quantization]
-U3 --> W3[Hamiltonian Mechanics Output]
-V3 --> X3[Hamiltonian Mechanics Analysis]
-W3 --> Y3[Hamiltonian Mechanics Final Result]
-X3 --> Z3[Hamiltonian Mechanics Analysis Complete]
+    N1["Start from Lagrangian"]
+    N2["Define conjugate momenta"]
+    N3["Legendre transform"]
+    N4["Hamiltonian H(q,p,t)"]
+    N5{"H = total energy?"}
+    N6["Time-indep: H conserved"]
+    N7["Explicit time dependence"]
+    N8["Hamilton's equations"]
+    N9["qdot=dH/dp, pdot=-dH/dq"]
+    N10["Evolve in phase space"]
+    N11["Phase-space trajectory"]
 
-    style A3 fill:#ff6b6b,color:#fff
-    style C3 fill:#ff6b6b,color:#fff
-    style E3 fill:#ff6b6b,color:#fff
-    style B3 fill:#ffd43b,color:#000
-    style D3 fill:#ffd43b,color:#000
-    style F3 fill:#ffd43b,color:#000
-    style G3 fill:#ffd43b,color:#000
-    style H3 fill:#ffd43b,color:#000
-    style I3 fill:#ffd43b,color:#000
-    style J3 fill:#ffd43b,color:#000
-    style K3 fill:#ffd43b,color:#000
-    style L3 fill:#ffd43b,color:#000
-    style M3 fill:#51cf66,color:#fff
+    N1 --> N2
+    N2 --> N3
+    N3 --> N4
+    N4 --> N5
+    N5 -->|yes| N6
+    N5 -->|no| N7
+    N6 --> N8
+    N7 --> N8
+    N8 --> N9
+    N9 --> N10
+    N10 --> N11
+
+    style N1 fill:#ff6b6b,color:#fff
+    style N2 fill:#51cf66,color:#fff
     style N3 fill:#51cf66,color:#fff
-    style O3 fill:#51cf66,color:#fff
-    style P3 fill:#51cf66,color:#fff
-    style Q3 fill:#51cf66,color:#fff
-    style R3 fill:#51cf66,color:#fff
-    style S3 fill:#51cf66,color:#fff
-    style T3 fill:#51cf66,color:#fff
-    style U3 fill:#51cf66,color:#fff
-    style V3 fill:#51cf66,color:#fff
-    style W3 fill:#51cf66,color:#fff
-    style X3 fill:#51cf66,color:#fff
-    style Y3 fill:#51cf66,color:#fff
-    style Z3 fill:#b197fc,color:#fff
+    style N4 fill:#74c0fc,color:#fff
+    style N5 fill:#74c0fc,color:#fff
+    style N6 fill:#51cf66,color:#fff
+    style N7 fill:#51cf66,color:#fff
+    style N8 fill:#51cf66,color:#fff
+    style N9 fill:#51cf66,color:#fff
+    style N10 fill:#51cf66,color:#fff
+    style N11 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Start from Lagrangian</td><td>Triggers & Inputs</td><td><a href="https://www.elsevier.com/books/mechanics/landau/978-0-7506-2896-9" target="_blank" title="Mechanics (3rd ed., Course of Theoretical Physics Vol. 1)" style="color:#3498db;">Landau, L. D. et al. 1976</a></td></tr><tr><td style="font-weight:600;">Define conjugate momenta</td><td>Processing & Operations</td><td><a href="https://www.elsevier.com/books/mechanics/landau/978-0-7506-2896-9" target="_blank" title="Mechanics (3rd ed., Course of Theoretical Physics Vol. 1)" style="color:#3498db;">Landau, L. D. et al. 1976</a></td></tr><tr><td style="font-weight:600;">Legendre transform</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1098/rstl.1834.0017" target="_blank" title="On a general method in dynamics" style="color:#3498db;">Hamilton, W. R. 1834</a></td></tr><tr><td style="font-weight:600;">Hamiltonian H(q,p,t)</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1098/rstl.1834.0017" target="_blank" title="On a general method in dynamics" style="color:#3498db;">Hamilton, W. R. 1834</a></td></tr><tr><td style="font-weight:600;">H = total energy?</td><td>Intermediates & States</td><td><a href="https://www.elsevier.com/books/mechanics/landau/978-0-7506-2896-9" target="_blank" title="Mechanics (3rd ed., Course of Theoretical Physics Vol. 1)" style="color:#3498db;">Landau, L. D. et al. 1976</a></td></tr><tr><td style="font-weight:600;">Time-indep: H conserved</td><td>Processing & Operations</td><td><a href="https://www.elsevier.com/books/mechanics/landau/978-0-7506-2896-9" target="_blank" title="Mechanics (3rd ed., Course of Theoretical Physics Vol. 1)" style="color:#3498db;">Landau, L. D. et al. 1976</a></td></tr><tr><td style="font-weight:600;">Explicit time dependence</td><td>Processing & Operations</td><td><a href="https://www.elsevier.com/books/mechanics/landau/978-0-7506-2896-9" target="_blank" title="Mechanics (3rd ed., Course of Theoretical Physics Vol. 1)" style="color:#3498db;">Landau, L. D. et al. 1976</a></td></tr><tr><td style="font-weight:600;">Hamilton's equations</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1098/rstl.1834.0017" target="_blank" title="On a general method in dynamics" style="color:#3498db;">Hamilton, W. R. 1834</a></td></tr><tr><td style="font-weight:600;">qdot=dH/dp, pdot=-dH/dq</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1098/rstl.1834.0017" target="_blank" title="On a general method in dynamics" style="color:#3498db;">Hamilton, W. R. 1834</a></td></tr><tr><td style="font-weight:600;">Evolve in phase space</td><td>Processing & Operations</td><td><a href="https://www.elsevier.com/books/mechanics/landau/978-0-7506-2896-9" target="_blank" title="Mechanics (3rd ed., Course of Theoretical Physics Vol. 1)" style="color:#3498db;">Landau, L. D. et al. 1976</a></td></tr><tr><td style="font-weight:600;">Phase-space trajectory</td><td>Products & Outputs</td><td><a href="https://doi.org/10.1098/rstl.1834.0017" target="_blank" title="On a general method in dynamics" style="color:#3498db;">Hamilton, W. R. 1834</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -313,12 +332,12 @@ X3 --> Z3[Hamiltonian Mechanics Analysis Complete]
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 26</li>
-                        <li><strong>Edges:</strong> 24</li>
-                        <li><strong>Conditionals:</strong> 0</li>
+                        <li><strong>Nodes:</strong> 11</li>
+                        <li><strong>Edges:</strong> 11</li>
+                        <li><strong>Conditionals:</strong> 1</li>
                         <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 1</li>
+                        <li><strong>OR Gates:</strong> 1</li>
+                        <li><strong>Total Gates:</strong> 2</li>
                     </ul>
                 </div>
                 
@@ -326,7 +345,7 @@ X3 --> Z3[Hamiltonian Mechanics Analysis Complete]
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>hamiltonian</li><li>mechanics</li><li>classical</li>
+                        <li>Hamiltonian mechanics</li><li>phase space</li><li>Legendre transform</li><li>canonical equations</li><li>conjugate momentum</li>
                     </ul>
                 </div>
                 
@@ -337,43 +356,23 @@ X3 --> Z3[Hamiltonian Mechanics Analysis Complete]
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>On a general method in dynamics</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Hamilton, W. R.
+                            , Philosophical Transactions of the Royal Society
+                             (1834)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #3498db; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Relativistic Hamiltonian dynamics</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Dirac, P. A. M.
-                            , Rev Mod Phys
-                             (1949)
-                            </span>
-                            <br><a href="https://doi.org/10.1103/RevModPhys.21.392" target="_blank" style="color: #3498db; font-size: 0.85em;">DOI: 10.1103/RevModPhys.21.392</a>
+                            <br><a href="https://doi.org/10.1098/rstl.1834.0017" target="_blank" style="color: #3498db; font-size: 0.85em;">DOI: 10.1098/rstl.1834.0017</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Chaos in classical and quantum mechanics</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Zaslavsky, G. M.
-                            , Rev Mod Phys
-                             (2004)
+                            <strong>Mechanics (3rd ed., Course of Theoretical Physics Vol. 1)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Landau, L. D.; Lifshitz, E. M.
+                            , Butterworth-Heinemann
+                             (1976)
                             </span>
-                            <br><a href="https://doi.org/10.1103/RevModPhys.76.575" target="_blank" style="color: #3498db; font-size: 0.85em;">DOI: 10.1103/RevModPhys.76.575</a>
                             
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Nonlinear dynamics and chaos: Where do we go from here?</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Ott, E.
-                            , Rev Mod Phys
-                             (2013)
-                            </span>
-                            <br><a href="https://doi.org/10.1103/RevModPhys.85.1435" target="_blank" style="color: #3498db; font-size: 0.85em;">DOI: 10.1103/RevModPhys.85.1435</a>
-                            
+                            <br><a href="https://www.elsevier.com/books/mechanics/landau/978-0-7506-2896-9" target="_blank" style="color: #3498db; font-size: 0.85em;">View Source</a>
                         </li>
                         
                     </ul>

@@ -1,0 +1,39 @@
+{
+  "id": "geometry_topology-algebraic-topology-props-31-45",
+  "name": "Algebraic Topology — Part 3: Homology Theory",
+  "category": "mathematics",
+  "subcategory": "geometry_topology",
+  "subcategory_name": "Geometry & Topology",
+  "description": "Eilenberg-Steenrod axioms, long exact sequence of pair, excision, Mayer-Vietoris, CW complexes. Depends on Parts 1–2.",
+  "mermaid": "graph TD\n    RefLongExact[\"Long exact (Part 1)\"]\n    RefSimpHom[\"Simplicial homology (Part 2)\"]\n    DefESA[\"Def: Eilenberg-Steenrod axioms\"]\n    AxHomotopy[\"Ax: Homotopy invariance\"]\n    AxExact[\"Ax: Long exact sequence of pair\"]\n    AxExcision[\"Ax: Excision\"]\n    AxDimension[\"Ax: Dimension\"]\n    ThmPair[\"Thm: Long exact sequence of pair (X,A)\"]\n    ThmExcision[\"Thm: Excision\"]\n    ThmMayerViet[\"Thm: Mayer-Vietoris sequence\"]\n    DefCW[\"Def: CW complex\"]\n    DefCell[\"Def: Cell attachment\"]\n    ThmCWHom[\"Thm: Cellular homology for CW\"]\n    CorSphere[\"Cor: H_k(S^n) = Z if k=0,n else 0\"]\n    ThmBrouwer[\"Thm: Brouwer fixed point\"]\n    LemSuspension[\"Lem: Suspension isomorphism\"]\n    ThmKunneth[\"Thm: Künneth formula\"]\n    RefLongExact --> ThmPair\n    RefSimpHom --> DefESA\n    DefESA --> AxHomotopy\n    DefESA --> AxExact\n    DefESA --> AxExcision\n    DefESA --> AxDimension\n    AxExact --> ThmPair\n    AxExcision --> ThmExcision\n    ThmPair --> ThmMayerViet\n    ThmExcision --> ThmMayerViet\n    DefCW --> DefCell\n    DefCell --> ThmCWHom\n    ThmCWHom --> CorSphere\n    CorSphere --> ThmBrouwer\n    ThmPair --> LemSuspension\n    ThmPair --> ThmKunneth\n    classDef ref fill:#bdc3c7,color:#333,stroke:#95a5a6\n    classDef definition fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef axiom fill:#ff6b6b,color:#fff,stroke:#c0392b\n    classDef lemma fill:#74c0fc,color:#fff,stroke:#4dabf7\n    classDef theorem fill:#51cf66,color:#fff,stroke:#40c057\n    classDef corollary fill:#1abc9c,color:#fff,stroke:#16a085\n    class RefLongExact,RefSimpHom ref\n    class DefESA,DefCW,DefCell definition\n    class AxHomotopy,AxExact,AxExcision,AxDimension axiom\n    class LemSuspension lemma\n    class ThmPair,ThmExcision,ThmMayerViet,ThmCWHom,ThmBrouwer,ThmKunneth theorem\n    class CorSphere corollary",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

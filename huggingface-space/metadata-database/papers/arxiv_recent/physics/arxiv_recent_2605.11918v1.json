@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2605.11918v1",
+  "arxiv_id": "2605.11918v1",
+  "title": "Towards digital phantoms: emulating scattering with a spatial light modulator",
+  "authors": [
+    "Kelsey Everts",
+    "Cade Peters",
+    "Andrew Forbes"
+  ],
+  "author_string": "Kelsey Everts, Cade Peters, Andrew Forbes",
+  "journal": "arXiv:2605.11918v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "The distortion of light's degrees of freedom when passing through complex random media is of great interest across a diversity of fields, e.g., scattering in biological studies. Emulating such media in a controlled laboratory setting conventionally relies on real-world physical samples (e.g., white paint), inhomogeneous mixtures with embedded scatterers, or biological tissue-mimicking phantoms. Such methods, while effective in certain contexts, are not without complexity and limitations: the exact medium properties are challenging to control and often require laborious preparation, external characterisation techniques, are not easily reproducible between studies and cannot be matched precisely by numerical simulations. Here, we propose a simple all-digital implementation of random scattering which can be readily implemented on any setup capable of producing digital holograms. Our approach employs binary random phase masks encoded onto a spatial light modulator which perturbs the input beam's phase and amplitude. We highlight two methods to precisely tune distortion strengths which show excellent agreement between simulated and measured results. We demonstrate distortion strengths comparable to real-world scattering samples and illustrate two example applications to emulate scattering of scalar and vectorial structured light. Finally we showcase the versatility of this toolkit for emulating various amplitude and phase profiles and suggest several easy to implement alternative modalities accessible with this method. This digital phantom circumvents many of the practical challenges of physical samples, making it ideally suited for applications at the intersection of structured light, biological imaging and optical communications.",
+  "categories": [
+    "physics.optics",
+    "physics.bio-ph"
+  ],
+  "primary_category": "physics.bio-ph",
+  "comment": null,
+  "published_date": "2026-05-12T10:32:08Z",
+  "updated_date": "2026-05-12T10:32:08Z",
+  "url": "https://arxiv.org/abs/2605.11918v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.11918v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-13T10:15:46.701625",
+  "category": "physics",
+  "subcategories": [
+    "physics.optics",
+    "physics.bio-ph"
+  ]
+}

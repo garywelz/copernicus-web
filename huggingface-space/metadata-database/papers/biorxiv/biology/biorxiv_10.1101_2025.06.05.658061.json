@@ -1,0 +1,44 @@
+{
+  "id": "biorxiv_10.1101_2025.06.05.658061",
+  "doi": "10.1101/2025.06.05.658061",
+  "title": "Sequence-based deep learning model for annotating lytic polysaccharide monooxygenase families",
+  "authors": [
+    "Ramesh, S. D.",
+    "Arulselvan, K. S.",
+    "Saravanan, V.",
+    "Pulavendran, P.",
+    "Yennamalli, R. M."
+  ],
+  "author_string": "Ramesh, S. D., Arulselvan, K. S., Saravanan, V., Pulavendran, P., Yennamalli, R. M.",
+  "journal": "bioRxiv",
+  "journal_full": "bioRxiv",
+  "year": "2026",
+  "abstract": "Lytic polysaccharide monooxygenases (LPMOs) are crucial enzymes that enhance the breakdown of polysaccharides, especially for biofuel production. Current computational tools for LPMO annotation are limited to a few families, leaving many unexplored. Here, we introduce PreDSLpmo v2.0, a deep learning-based tool that classifies and annotates the fast growing numbers of LPMOs across eight families using a curated dataset comprising over 30,000 LPMO sequences. To capture the compositional, physicochemical, and structural properties of these sequences, we extracted features using Python (iFeature) as well as R-based pipelines, generating over 13500 descriptors per sequence. Ensemble feature selection was used to identify significant features for binary and multiclass classification. To address data imbalance, we maintained a 1:1 ratio for all positive and negative sets during training and validation. A range of machine learning models were systematically trained and evaluated. An independent dataset was used to estimate the performance of the trained models. The multiclass Bi-LSTM model demonstrated the highest accuracy, robustness, and generalizability, outperforming feature-based approaches. We compared the performance of the model with Pfam, dbCAN3, and BlastP searches against the UniProtKB/swissprot database. The F1-score shows that the models predicted LPMO sequences are accurate. The reliability of predictions by Bi-LSTM model is comparable to that of dbCAN3 and often better, as confirmed by Pfam domain annotation and SignalP. The model, now deployed as a web server (https://predlpmo.in) for high-throughput, sequence-based functional annotation of LPMOs, provides a scalable and reliable solution for enzyme discovery in bioenergy and industrial biotechnology.",
+  "keywords": [],
+  "categories": [
+    "bioinformatics"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.1101/2025.06.05.658061",
+  "source": "biorxiv",
+  "sources": [
+    "biorxiv"
+  ],
+  "acquired_date": "2026-05-12T22:15:24.942232",
+  "category": "biology",
+  "subcategories": [
+    "bioinformatics"
+  ],
+  "published_date": "2026-01-12",
+  "updated_date": "2026-01-12",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "biorxiv",
+  "preprint_version": "2",
+  "preprint_type": "new results",
+  "license": "cc_by_nc_nd",
+  "jatsxml": "https://www.biorxiv.org/content/early/2026/01/12/2025.06.05.658061.source.xml",
+  "published_doi": null,
+  "author_corresponding": "Ragothaman M Yennamalli",
+  "author_corresponding_institution": "SASTRA Deemed to be University"
+}

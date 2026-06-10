@@ -1,0 +1,37 @@
+{
+  "id": "arxiv_2605.20150v1",
+  "arxiv_id": "2605.20150v1",
+  "title": "TideGS: Scalable Training of Over One Billion 3D Gaussian Splatting Primitives via Out-of-Core Optimization",
+  "authors": [
+    "Chonghao Zhong",
+    "Linfeng Shi",
+    "Hua Chen",
+    "Tiecheng Sun",
+    "Hao Zhao",
+    "Binhang Yuan",
+    "Chaojian Li"
+  ],
+  "author_string": "Chonghao Zhong, Linfeng Shi, Hua Chen, Tiecheng Sun, Hao Zhao et al.",
+  "journal": "arXiv:2605.20150v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Training 3D Gaussian Splatting (3DGS) at billion-primitive scale is fundamentally memory-bound: each Gaussian primitive carries a large attribute vector, and the aggregate parameter table quickly exceeds GPU capacity, limiting prior systems to tens of millions of Gaussians on commodity single-GPU hardware. We observe that 3DGS training is inherently sparse and trajectory-conditioned: each iteration activates only the Gaussians visible from the current camera batch, so GPU memory can serve as a working-set cache rather than a persistent parameter store. Building on this insight, we introduce TideGS, an out-of-core training framework that manages parameters across an SSD-CPU-GPU hierarchy via three synergistic techniques: block-virtualized geometry for SSD-aligned spatial locality, a hierarchical asynchronous pipeline to overlap I/O with computation, and trajectory-adaptive differential streaming that transfers only incremental working-set deltas between iterations. Experiments show that TideGS enables training with over one billion Gaussians on a single 24 GB GPU while achieving the best reconstruction quality among evaluated single-GPU baselines on large-scale scenes, scaling beyond prior out-of-core baselines (e.g., approximately 100M Gaussians) and standard in-memory training (e.g., approximately 11M Gaussians).",
+  "categories": [
+    "cs.CV",
+    "cs.PF"
+  ],
+  "primary_category": "cs.PF",
+  "comment": "Accepted to ICML 2026 as Spotlight. Website: https://sponge-lab.github.io/TideGS",
+  "published_date": "2026-05-19T17:40:59Z",
+  "updated_date": "2026-05-19T17:40:59Z",
+  "url": "https://arxiv.org/abs/2605.20150v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.20150v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-20T10:16:33.995378",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CV",
+    "cs.PF"
+  ]
+}

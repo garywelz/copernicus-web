@@ -4,18 +4,20 @@
   "category": "computer_science",
   "subcategory": "networks",
   "subcategory_name": "Computer Networks",
-  "description": "DNS Resolution process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "DNS resolution maps a hostname to an IP address through a hierarchy: the resolver first checks its cache, and on a miss queries the root server, which refers it to the TLD server and then to the authoritative name server that returns the record; the answer is cached with its TTL before being returned.",
   "complexity": {
-    "nodes": 10,
-    "edges": 10,
-    "conditionals": 0,
+    "nodes": 11,
+    "edges": 11,
+    "conditionals": 1,
     "logicGates": {
       "orGates": 1,
       "andGates": 1,
+      "notGates": 0,
       "total": 2
     },
-    "level": "medium",
-    "detailLevel": "medium"
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 0
   },
   "colorScheme": {
     "red": {
@@ -39,53 +41,149 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nN1[\"Client Query\"]\nN2[\"Domain Name\"]\nN3[\"Resolver Cache\"]\nN4[\"Choose Approach\"]\nN5[\"Recursive Resolver\"]\nN6[\"Check Cache\"]\nN7[\"Query Root/TLD/Auth\"]\nN8[\"DNS Response\"]\nN9[\"Integrate Results\"]\nN10[\"Return IP Address\"]\n\nN1 --> N2\nN2 --> N3\nN3 --> N4\nN4 --> N5\nN4 --> N7\nN5 --> N6\nN7 --> N8\nN6 --> N9\nN8 --> N9\nN9 --> N10\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#ff6b6b,color:#fff\n    style N3 fill:#ffd43b,color:#000\n    style N4 fill:#ffd43b,color:#000\n    style N5 fill:#ffd43b,color:#000\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#74c0fc,color:#fff\n    style N9 fill:#74c0fc,color:#fff\n    style N10 fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"App requests hostname\"]\n    N2[\"Check local cache\"]\n    N3{\"Cached + valid TTL?\"}\n    N4[\"Return cached IP\"]\n    N5[\"Query recursive resolver\"]\n    N6[\"Resolver asks root\"]\n    N7[\"Referral to TLD server\"]\n    N8[\"TLD -> authoritative NS\"]\n    N9[\"Authoritative answers\"]\n    N10[\"Cache with TTL\"]\n    N11[\"Resolved IP address\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 -->|yes| N4\n    N4 --> N11\n    N3 -->|no| N5\n    N5 --> N6\n    N6 --> N7\n    N7 --> N8\n    N8 --> N9\n    N9 --> N10\n    N10 --> N11\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#74c0fc,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#74c0fc,color:#fff\n    style N10 fill:#51cf66,color:#fff\n    style N11 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
-      "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: DNS Resolution. Created using the Programming Framework methodology."
+      "title": "Domain Names - Concepts and Facilities (RFC 1034)",
+      "authors": "Mockapetris, P.",
+      "journal": "IETF",
+      "year": "1987",
+      "doi": "10.17487/RFC1034",
+      "url": "https://doi.org/10.17487/RFC1034"
     },
     {
-      "title": "Selecting Labels for Use with Conventional DNS and Other Resolution Systems in DNS-Based Service Discovery",
-      "authors": "Sullivan, A.",
-      "journal": "",
-      "year": "2017",
-      "pubmed": null,
-      "doi": "10.17487/rfc8222",
-      "url": "https://doi.org/10.17487/rfc8222"
-    },
-    {
-      "title": "Observed DNS Resolution Misbehavior",
-      "authors": "Larson, M.; Barber, P.",
-      "journal": "",
-      "year": "2006",
-      "pubmed": null,
-      "doi": "10.17487/rfc4697",
-      "url": "https://doi.org/10.17487/rfc4697"
-    },
-    {
-      "title": "Figure 5: Typical procedure for DGA DNS resolution.",
-      "authors": "",
-      "journal": "",
-      "year": "None",
-      "pubmed": null,
-      "doi": "10.7717/peerj-cs.640/fig-5",
-      "url": "https://doi.org/10.7717/peerj-cs.640/fig-5"
+      "title": "Development of the Domain Name System",
+      "authors": "Mockapetris, P. V.; Dunlap, K. J.",
+      "journal": "ACM SIGCOMM Computer Communication Review",
+      "year": "1988",
+      "doi": "10.1145/52325.52338",
+      "url": "https://doi.org/10.1145/52325.52338"
     }
   ],
   "keywords": [
-    "dns",
-    "resolution"
+    "DNS",
+    "name resolution",
+    "recursive resolver",
+    "authoritative server",
+    "TTL caching"
   ],
   "relatedProcesses": [],
   "created": "2026-01-15",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations.\nCurated Mermaid applied (citations preserved)."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "namedCollections": [],
+  "graphMetrics": {
+    "nodes": 11,
+    "edges": 11,
+    "conditionals": 1,
+    "andGates": 1,
+    "orGates": 1,
+    "notGates": 0,
+    "loops": 0
+  },
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "App requests hostname",
+      "detail": "Resolve a name",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N2",
+      "label": "Check local cache",
+      "detail": "Recent lookups",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N3",
+      "label": "Cached + valid TTL?",
+      "detail": "Not expired",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N4",
+      "label": "Return cached IP",
+      "detail": "Fast path",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N5",
+      "label": "Query recursive resolver",
+      "detail": "Delegate lookup",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N6",
+      "label": "Resolver asks root",
+      "detail": "Top of hierarchy",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N7",
+      "label": "Referral to TLD server",
+      "detail": ".com, .org, etc.",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N8",
+      "label": "TLD -> authoritative NS",
+      "detail": "Zone delegation",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N9",
+      "label": "Authoritative answers",
+      "detail": "Returns A/AAAA",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N10",
+      "label": "Cache with TTL",
+      "detail": "Store for reuse",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N11",
+      "label": "Resolved IP address",
+      "detail": "Returned to app",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 0
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:networks-dns-resolution",
+    "graphType": "decision_flowchart",
+    "topologySignature": "5f5e95e6c0431ed5",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "graphType": "decision_flowchart",
+  "domainContext": "Computer networks"
 }

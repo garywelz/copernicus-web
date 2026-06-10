@@ -1,0 +1,39 @@
+{
+  "id": "foundations-axiomatic-set-theory-axioms-basic",
+  "name": "Axiomatic Set Theory — ZFC Axioms",
+  "category": "mathematics",
+  "subcategory": "foundations",
+  "subcategory_name": "Foundations",
+  "description": "ZFC axioms and foundational definitions. Extensionality (sets equal iff same members); Null Set; Pairing; Power Set; Union; Infinity; Separation (subset formation); Replacement; Foundation (no ∈-chains); Choice. Arrows mean \"depends on\".",
+  "mermaid": "graph TD\n    A1[\"A1 Extensionality\\nx=y iff same members\"]\n    A2[\"A2 Null Set\\n∃x ∀y y∉x\"]\n    A3[\"A3 Pairing\\n∀x∀y ∃z z=x,y\"]\n    A4[\"A4 Power Set\\n∀x ∃y y=𝒫x\"]\n    A5[\"A5 Union\\n∀x ∃y y=⋃x\"]\n    A6[\"A6 Infinity\\n∃ω inductive set\"]\n    A7[\"A7 Separation\\nsubset by formula\"]\n    A8[\"A8 Replacement\\nimage of set is set\"]\n    A9[\"A9 Foundation\\nno ∈-descending chain\"]\n    A10[\"A10 Choice\\nselector for disjoint family\"]\n    Def1[\"Def: ∅ unique\\nempty set\"]\n    Def2[\"Def: ⊆\\nsubset\"]\n    Def3[\"Def: ∪ ∩\\nunion, intersection\"]\n    T1[\"Thm: ∅ unique\"]\n    T2[\"Thm: {a,b} unique\"]\n    A1 --> T1\n    A2 --> T1\n    T1 --> Def1\n    A1 --> Def2\n    A3 --> T2\n    A1 --> T2\n    T2 --> Def3\n    A5 --> Def3\n    A7 --> Def3\n    classDef axiom fill:#ff6b6b,color:#fff,stroke:#c0392b\n    classDef definition fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef theorem fill:#51cf66,color:#fff,stroke:#40c057\n    class A1,A2,A3,A4,A5,A6,A7,A8,A9,A10 axiom\n    class Def1,Def2,Def3 definition\n    class T1,T2 theorem",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

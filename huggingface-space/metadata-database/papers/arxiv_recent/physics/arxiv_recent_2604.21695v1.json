@@ -1,0 +1,45 @@
+{
+  "id": "arxiv_2604.21695v1",
+  "arxiv_id": "2604.21695v1",
+  "title": "Lagrange: Operating Italy's First Publicly-Accessible Quantum Computer for Research and Education",
+  "authors": [
+    "Paolo Viviani",
+    "Fabrizio Bertone",
+    "Giacomo Vitali",
+    "Emanuele Dri",
+    "Federico Stirano",
+    "Giuseppe Caragnano",
+    "Francesco Lubrano",
+    "Antonino Nespola",
+    "Olivier Terzo",
+    "Matteo Cocuzza",
+    "Bartolomeo Montrucchio",
+    "Giovanna Turvani",
+    "Gianluca Bertaina",
+    "Marco Coisson",
+    "Davide Calonico",
+    "Fabrizio Pirri",
+    "Pietro Asinari"
+  ],
+  "author_string": "Paolo Viviani, Fabrizio Bertone, Giacomo Vitali, Emanuele Dri, Federico Stirano et al.",
+  "journal": "arXiv:2604.21695v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We describe the design, implementation, and nine-month operational experience of the software management stack for Lagrange, an IQM Spark five-qubit superconducting quantum computer jointly acquired by LINKS Foundation, Politecnico di Torino and the Italian National Institute of Metrological Research (INRiM), and managed by LINKS. Lagrange is, to our knowledge, the first quantum computer in Italy that is fully operational and accessible to students and researchers from multiple institutions under formal service agreements, and to the general public under commercial agreements. When installed in mid-2025, the IQM Spark hardware was delivered by the vendor with authentication only: no billing, project management or fair usage enforcement were provided. We developed a modular middleware layer that filled that gap without modifying any vendor client software, by intercepting API calls through a proxy that enforces project-based budgets, reservation-aware authorisation, and per-user fairness policies. The middleware adopts a plugin architecture that cleanly separates vendor-specific logic from site-specific policies, enabling reuse across different quantum hardware backends and deployment contexts. Since entering production in September 2025, the system has processed over 240,000 quantum jobs totalling more than 1 week of QPU execution time, with greater than 98% uptime. Notably, students at Politecnico di Torino regularly use the machine during both lectures and formal examinations -- a practice we believe to be unique in Europe. We report on the system architecture, the operational lessons learned, and the infrastructure choices that made this deployment possible.",
+  "categories": [
+    "quant-ph"
+  ],
+  "primary_category": "quant-ph",
+  "comment": "9 pages, 2 figures",
+  "published_date": "2026-04-23T14:03:44Z",
+  "updated_date": "2026-04-23T14:03:44Z",
+  "url": "https://arxiv.org/abs/2604.21695v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.21695v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-27T10:15:37.397407",
+  "category": "physics",
+  "subcategories": [
+    "quant-ph"
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2604.23710v1",
+  "arxiv_id": "2604.23710v1",
+  "title": "Reduced-order modelling of parametrized unsteady Navier-Stokes equations and application to flow around cylinders with periodic changing boundary conditions",
+  "authors": [
+    "Shan Ding",
+    "Yongfu Tian",
+    "Rui Yang"
+  ],
+  "author_string": "Shan Ding, Yongfu Tian, Rui Yang",
+  "journal": "arXiv:2604.23710v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Computational fluid dynamics (CFD) simulations play an important role in engineering science and applications, however, it is not applicable for problems requiring a large number of repeated calculations. Accordingly, many reduced-order modelling techniques are developed to reduce computational costs, improve the efficiency, and have achieved significant progress. At present, most studies focus on reconstructing the flow field throughout the parameter space of the snapshots within a fixed time window. However, the prediction problem has always been challenging, especially for unsteady flow. In this work, a reduced-order model (ROM) based on proper orthogonal decomposition (POD) and radial basis function (RBF) is presented and applied to the prediction problem of an unsteady flow with periodic changing boundary conditions. The method is validated by a numerical case of three-dimensional unsteady flow around cylinders with time-varying inlet velocity. This method is demonstrated to be quite accurate and efficient, reducing the CPU time by more than 99% with an accuracy loss less than 5.2% for predictions.",
+  "categories": [
+    "physics.flu-dyn"
+  ],
+  "primary_category": "physics.flu-dyn",
+  "comment": "26 pages, 12 figures, 1 tables. Submitted to Computers and Mathematics with Applications",
+  "published_date": "2026-04-26T13:45:02Z",
+  "updated_date": "2026-04-26T13:45:02Z",
+  "url": "https://arxiv.org/abs/2604.23710v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.23710v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-27T22:15:30.657215",
+  "category": "physics",
+  "subcategories": [
+    "physics.flu-dyn"
+  ]
+}

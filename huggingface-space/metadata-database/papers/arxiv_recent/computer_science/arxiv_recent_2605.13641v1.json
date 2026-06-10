@@ -1,0 +1,38 @@
+{
+  "id": "arxiv_2605.13641v1",
+  "arxiv_id": "2605.13641v1",
+  "title": "Multi-Objective and Mixed-Reward Reinforcement Learning via Reward-Decorrelated Policy Optimization",
+  "authors": [
+    "Yang Bai",
+    "Kaiyuan Liu",
+    "Ziyuan Zhuang",
+    "Jiahong Zhou",
+    "Rongxiang Weng",
+    "Xin Chen",
+    "Jingang Wang",
+    "Xunliang Cai"
+  ],
+  "author_string": "Yang Bai, Kaiyuan Liu, Ziyuan Zhuang, Jiahong Zhou, Rongxiang Weng et al.",
+  "journal": "arXiv:2605.13641v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Complex reinforcement learning environments frequently employ multi-task and mixed-reward formulations. In these settings, heterogeneous reward distributions and correlated reward dimensions often destabilize the construction of scalar advantages. To address these challenges, we propose Reward-Decorrelated Policy Optimization (RDPO), a reward-processing method designed to explicitly target both failure modes. RDPO first utilizes Magnitude-Aware Quantile normalization to stabilize prompt-level advantage allocation across binary, fractional, and continuous rewards. It then applies Mahalanobis whitening within each active reward subspace to mitigate correlation redundancy prior to aggregation. When applied during the post-training of LongCat-Flash, RDPO enhances instruction following, writing quality, and robustness to hard prompts while remaining broadly competitive on reasoning and coding evaluations.",
+  "categories": [
+    "cs.LG",
+    "cs.CL"
+  ],
+  "primary_category": "cs.CL",
+  "comment": null,
+  "published_date": "2026-05-13T15:05:18Z",
+  "updated_date": "2026-05-13T15:05:18Z",
+  "url": "https://arxiv.org/abs/2605.13641v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.13641v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-13T22:17:14.551458",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.LG",
+    "cs.CL"
+  ]
+}

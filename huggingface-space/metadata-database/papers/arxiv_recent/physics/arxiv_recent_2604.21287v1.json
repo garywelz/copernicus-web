@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2604.21287v1",
+  "arxiv_id": "2604.21287v1",
+  "title": "StabilizerBench: A Benchmark for AI-Assisted Quantum Error Correction Circuit Synthesis",
+  "authors": [
+    "Andres Paz",
+    "Christian Tarta",
+    "Cordelia Yuqiao Li",
+    "Mayee Sun",
+    "Sarju Patel",
+    "Sylvie Lausier"
+  ],
+  "author_string": "Andres Paz, Christian Tarta, Cordelia Yuqiao Li, Mayee Sun, Sarju Patel et al.",
+  "journal": "arXiv:2604.21287v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "As quantum hardware scales toward fault tolerant operation, the demand for correct quantum error correction (QEC) circuits far outpaces manual design capacity. AI agents offer a promising path to automating this synthesis, yet no benchmark exists to measure their progress on the specialized task of generating QEC circuits. We introduce StabilizerBench, a benchmark suite of 192 stabilizer codes spanning 12 families, 4-196 qubits, and distances 2-21, organized into three tasks of increasing difficulty: state preparation circuit generation, circuit optimization under semantic constraints, and fault tolerant circuit synthesis. Although motivated by QEC, stabilizer circuits exercise core competencies required for general quantum programming, including gate decomposition, qubit routing, and semantic preserving transformations, while admitting efficient verification via the Gottesman Knill theorem, enabling the benchmark to scale to large codes without the exponential cost of full unitary comparison. We define a unified generator weighted scoring system with two tiers: a capability score measuring breadth of success and a quality score capturing circuit merit. We also introduce continuous fault tolerance and optimization metrics that grade error resilience and circuit improvements beyond binary pass or fail. Following the design of classical benchmarks such as SWE-bench, StabilizerBench specifies inputs, verification oracles, and scoring but leaves prompts and agent strategies open. We evaluate three frontier AI agents and find the benchmark discriminates across models and tasks with substantial headroom for improvement.",
+  "categories": [
+    "quant-ph"
+  ],
+  "primary_category": "quant-ph",
+  "comment": null,
+  "published_date": "2026-04-23T05:04:28Z",
+  "updated_date": "2026-04-23T05:04:28Z",
+  "url": "https://arxiv.org/abs/2604.21287v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.21287v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-27T10:15:42.861814",
+  "category": "physics",
+  "subcategories": [
+    "quant-ph"
+  ]
+}

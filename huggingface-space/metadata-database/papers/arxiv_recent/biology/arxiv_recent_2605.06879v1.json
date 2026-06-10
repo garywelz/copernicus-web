@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2605.06879v1",
+  "arxiv_id": "2605.06879v1",
+  "title": "Better Protein Function Prediction by Modeling Survivorship Bias",
+  "authors": [
+    "Zhongmou Chao",
+    "Poompol Buathong",
+    "Ekaterina Selivanovitch",
+    "Susan Daniel",
+    "Peter I. Frazier"
+  ],
+  "author_string": "Zhongmou Chao, Poompol Buathong, Ekaterina Selivanovitch, Susan Daniel, Peter I. Frazier",
+  "journal": "arXiv:2605.06879v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Protein sequence data from nature exhibits survivorship bias: we only observe data from those organisms that survive and reproduce, while non-functional protein mutations are eliminated by natural selection. Thus, predicting whether a protein sequence is functional often requires learning from positive examples alone. While positive-unlabeled (PU) learning frameworks offer a generic solution to this problem, existing PU methods ignore the evolutionary processes that shape sequence observability and cause survivorship bias. Consider a sequence that is one mutation away from a commonly-observed protein variant in a well-surveilled organism. If the sequence were functional, it would likely be observed. If it is not observed, this suggests non-functionality. In contrast, sequences that are unlikely to arise through mutation may be missing simply because they never arose. Thus, these two kinds of missing sequences should be treated differently when training models. In this work, we propose Evo-PU, a PU learning framework that uses a scientific understanding of nucleotide mutation to model survivorship bias for well-surveilled single-organism sequence data. On three prediction tasks using single-organism uniform-coverage surveillance data -- predicting results from held-out influenza and respiratory syncytial virus (RSV) mutagenesis studies, and predicting future SARS-CoV-2 variants -- Evo-PU outperforms standard PU learning, one-class classification (OCC), and protein language models (PLMs). On prediction tasks from multi-organism ProteinGym datasets with more heterogeneous surveillance coverage, we identify opportunities to generalize our approach.",
+  "categories": [
+    "cs.LG",
+    "q-bio.QM"
+  ],
+  "primary_category": "q-bio.QM",
+  "comment": "29 pages, 12 figures, 3 tables",
+  "published_date": "2026-05-07T19:26:38Z",
+  "updated_date": "2026-05-07T19:26:38Z",
+  "url": "https://arxiv.org/abs/2605.06879v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.06879v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-13T10:15:35.803591",
+  "category": "biology",
+  "subcategories": [
+    "cs.LG",
+    "q-bio.QM"
+  ]
+}

@@ -1,21 +1,23 @@
 {
   "id": "organic_chemistry-organic-reaction-mechanisms",
-  "name": "Organic Reaction Mechanisms",
+  "name": "Nucleophilic Substitution: SN1 vs SN2",
   "category": "chemistry",
   "subcategory": "organic_chemistry",
   "subcategory_name": "Organic Chemistry",
-  "description": "Organic Reaction Mechanisms process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "Whether an aliphatic nucleophilic substitution follows SN1 or SN2 depends mainly on substrate class: methyl/primary substrates favor concerted backside SN2 with inversion, tertiary favor stepwise SN1 via a carbocation with racemization, and secondary depend on conditions.",
   "complexity": {
-    "nodes": 29,
-    "edges": 24,
-    "conditionals": 0,
+    "nodes": 10,
+    "edges": 12,
+    "conditionals": 1,
     "logicGates": {
-      "orGates": 0,
-      "andGates": 1,
-      "total": 1
+      "orGates": 2,
+      "andGates": 3,
+      "notGates": 0,
+      "total": 5
     },
-    "level": "medium",
-    "detailLevel": "medium"
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 0
   },
   "colorScheme": {
     "red": {
@@ -39,54 +41,151 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nA1[Reactant Molecules] --> B1[Reaction Type Classification]\nC1[Electron Flow Analysis] --> D1[Mechanism Determination]\nE1[Energy Profile] --> F1[Transition State Analysis]\nB1 --> G1[Nucleophilic Substitution]\nD1 --> H1[SN1 Mechanism]\nF1 --> I1[SN2 Mechanism]\nG1 --> J1[Electrophilic Addition]\nH1 --> K1[Carbocation Formation]\nI1 --> L1[Backside Attack]\nJ1 --> M1[Elimination Reactions]\nK1 --> N1[Carbocation Stability]\nL1 --> O1[Stereochemistry Analysis]\nM1 --> P1[E1 Elimination]\nN1 --> O1\nO1 --> Q1[E2 Elimination]\nP1 --> R1[Radical Reactions]\nQ1 --> S1[Concerted Mechanism]\nR1 --> T1[Radical Initiation]\nS1 --> U1[Radical Propagation]\nT1 --> V1[Radical Termination]\nU1 --> W1[Organic Reaction Result]\nV1 --> X1[Reaction Mechanism Analysis]\nW1 --> Y1[Mechanism Validation]\nX1 --> Z1[Organic Reaction Output]\nY1 --> AA1[Organic Reaction Analysis]\nZ1 --> BB1[Organic Reaction Final Result]\nAA1 --> CC1[Organic Reaction Analysis Complete]\n\n    style A1 fill:#ff6b6b,color:#fff\n    style C1 fill:#ff6b6b,color:#fff\n    style E1 fill:#ff6b6b,color:#fff\n    style B1 fill:#ffd43b,color:#000\n    style D1 fill:#ffd43b,color:#000\n    style F1 fill:#ffd43b,color:#000\n    style G1 fill:#ffd43b,color:#000\n    style H1 fill:#ffd43b,color:#000\n    style I1 fill:#ffd43b,color:#000\n    style J1 fill:#ffd43b,color:#000\n    style K1 fill:#ffd43b,color:#000\n    style L1 fill:#ffd43b,color:#000\n    style M1 fill:#51cf66,color:#fff\n    style N1 fill:#51cf66,color:#fff\n    style O1 fill:#51cf66,color:#fff\n    style P1 fill:#51cf66,color:#fff\n    style Q1 fill:#51cf66,color:#fff\n    style R1 fill:#51cf66,color:#fff\n    style S1 fill:#51cf66,color:#fff\n    style T1 fill:#51cf66,color:#fff\n    style U1 fill:#51cf66,color:#fff\n    style V1 fill:#51cf66,color:#fff\n    style W1 fill:#51cf66,color:#fff\n    style X1 fill:#51cf66,color:#fff\n    style Y1 fill:#51cf66,color:#fff\n    style Z1 fill:#51cf66,color:#fff\n    style AA1 fill:#51cf66,color:#fff\n    style BB1 fill:#51cf66,color:#fff\n    style CC1 fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"R–LG + nucleophile\"]\n    N2{\"Substrate class?\"}\n    N3[\"Methyl/1°: SN2\"]\n    N4[\"3°: SN1\"]\n    N5[\"2°: depends on conditions\"]\n    N6[\"SN2: backside attack\"]\n    N7[\"Inversion of config\"]\n    N8[\"SN1: ionize to R+\"]\n    N9[\"Racemization\"]\n    N10[\"Substituted product\"]\n\n    N1 --> N2\n    N2 -->|1°| N3\n    N2 -->|3°| N4\n    N2 -->|2°| N5\n    N3 --> N6\n    N5 --> N6\n    N6 --> N7\n    N4 --> N8\n    N5 --> N8\n    N8 --> N9\n    N7 --> N10\n    N9 --> N10\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#74c0fc,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#74c0fc,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#74c0fc,color:#fff\n    style N10 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "title": "Mechanism of substitution at a saturated carbon atom (SN1/SN2)",
+      "authors": "Hughes, E. D.; Ingold, C. K.",
+      "journal": "Journal of the Chemical Society",
+      "year": "1935",
+      "doi": "10.1039/jr9350000244",
+      "url": "https://doi.org/10.1039/jr9350000244"
+    },
+    {
+      "title": "Organic Chemistry, 2nd ed. — Nucleophilic substitution at saturated carbon",
+      "authors": "Clayden, J.; Greeves, N.; Warren, S.",
+      "journal": "Oxford University Press",
+      "year": "2012",
       "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: Organic Reaction Mechanisms. Created using the Programming Framework methodology."
+      "url": "https://global.oup.com/academic/product/organic-chemistry-9780199270293"
     },
     {
-      "title": "Frontmatter",
-      "authors": "",
-      "journal": "Organic Reaction Mechanisms Series",
-      "year": "None",
-      "pubmed": null,
-      "doi": "10.1002/9780470066966.fmatter",
-      "url": "https://doi.org/10.1002/9780470066966.fmatter"
-    },
-    {
-      "title": "Frontmatter",
-      "authors": "",
-      "journal": "Organic Reaction Mechanisms Series",
-      "year": "None",
-      "pubmed": null,
-      "doi": "10.1002/9780470067062.fmatter",
-      "url": "https://doi.org/10.1002/9780470067062.fmatter"
-    },
-    {
-      "title": "Frontmatter",
-      "authors": "",
-      "journal": "Organic Reaction Mechanisms Series",
-      "year": "None",
-      "pubmed": null,
-      "doi": "10.1002/9780470066775.fmatter",
-      "url": "https://doi.org/10.1002/9780470066775.fmatter"
+      "title": "Gold Book: SN1 / SN2 reaction",
+      "authors": "IUPAC",
+      "journal": "IUPAC Compendium of Chemical Terminology",
+      "year": "2019",
+      "doi": "10.1351/goldbook.S05765",
+      "url": "https://goldbook.iupac.org/terms/view/S05765"
     }
   ],
   "keywords": [
-    "organic",
-    "reaction",
-    "mechanisms"
+    "nucleophilic substitution",
+    "sn1",
+    "sn2",
+    "carbocation",
+    "inversion"
   ],
   "relatedProcesses": [],
   "created": "2026-01-08",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "R–LG + nucleophile",
+      "detail": "Substrate and nucleophile",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 1
+    },
+    {
+      "id": "N2",
+      "label": "Substrate class?",
+      "detail": "Degree of substitution",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N3",
+      "label": "Methyl/1°: SN2",
+      "detail": "Steric access favors concerted",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N4",
+      "label": "3°: SN1",
+      "detail": "Stable carbocation",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N5",
+      "label": "2°: depends on conditions",
+      "detail": "Solvent, nucleophile strength",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N6",
+      "label": "SN2: backside attack",
+      "detail": "Single concerted step",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N7",
+      "label": "Inversion of config",
+      "detail": "Walden inversion",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N8",
+      "label": "SN1: ionize to R+",
+      "detail": "Rate-determining ionization",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N9",
+      "label": "Racemization",
+      "detail": "Planar carbocation",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N10",
+      "label": "Substituted product",
+      "detail": "Nu replaces LG",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 2
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:organic_chemistry-organic-reaction-mechanisms",
+    "graphType": "decision_flowchart",
+    "topologySignature": "9054f6d21cbb5b90",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "namedCollections": [
+    "organic-chemistry"
+  ],
+  "graphMetrics": {
+    "nodes": 10,
+    "edges": 12,
+    "conditionals": 1,
+    "andGates": 3,
+    "orGates": 2,
+    "notGates": 0,
+    "loops": 0
+  },
+  "graphType": "decision_flowchart",
+  "domainContext": "Reaction mechanism"
 }

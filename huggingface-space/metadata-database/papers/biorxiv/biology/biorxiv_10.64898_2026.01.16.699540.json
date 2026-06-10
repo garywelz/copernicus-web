@@ -1,0 +1,41 @@
+{
+  "id": "biorxiv_10.64898_2026.01.16.699540",
+  "doi": "10.64898/2026.01.16.699540",
+  "title": "Robust Trachea Segmentation from CT Imaging Using Fully Automated and Prompt-Based Models",
+  "authors": [
+    "Toulkeridou, E.",
+    "Panayides, A."
+  ],
+  "author_string": "Toulkeridou, E., Panayides, A.",
+  "journal": "bioRxiv",
+  "journal_full": "bioRxiv",
+  "year": "2026",
+  "abstract": "Accurate trachea segmentation from computed tomography (CT) is a prerequisite for image-guided airway assessment, toward precision tracheostomy planning and safe endotracheal tube placement. Trachea-specific delineation remains challenging due to elongated geometry, small cross-sectional area, partial-volume effects, motion-trigerred artifacts, and heterogeneous surrounding tissues. Here, we study two complementary segmentation paradigms: a fully automated, self-configuring baseline (nnU-Net) and a prompt-conditioned foundation model (Med-SAM) derived from the Segment Anything Model (SAM). We evaluate both approaches on two heterogeneous regimes: (i) a spatially consistent volumetric dataset (AeroPath) and (ii) a large-scale, slice-based dataset without reliable volumetric continuity (OSIC). We further propose a hybrid inference strategy that enables fully automated prompting by deriving bounding-box prompts for MedSAM from coarse nnU-Net predictions. Results show that dataset structure critically influences reliability, interpretability, and deployment feasibility: volumetric continuity benefits fully automatic segmentation, while prompt-conditioned inference improves ROI-constrained interpretability in slice-based settings but introduces prompt sensitivity. We discuss limitations and outline clinically grounded evaluation and EHR integration directions for precision airway management.",
+  "keywords": [],
+  "categories": [
+    "bioengineering"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.64898/2026.01.16.699540",
+  "source": "biorxiv",
+  "sources": [
+    "biorxiv"
+  ],
+  "acquired_date": "2026-05-20T22:15:23.944438",
+  "category": "biology",
+  "subcategories": [
+    "bioengineering"
+  ],
+  "published_date": "2026-01-20",
+  "updated_date": "2026-01-20",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "biorxiv",
+  "preprint_version": "1",
+  "preprint_type": "new results",
+  "license": "cc_no",
+  "jatsxml": "https://www.biorxiv.org/content/early/2026/01/20//2026.01.16.699540.source.xml",
+  "published_doi": null,
+  "author_corresponding": "Evropi Toulkeridou",
+  "author_corresponding_institution": "CYENS, Center of Excellency, Cyprus"
+}

@@ -4,18 +4,20 @@
   "category": "computer_science",
   "subcategory": "theory",
   "subcategory_name": "Theoretical Computer Science",
-  "description": "Computational Complexity Analysis process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "Complexity analysis bounds the resources an algorithm uses as input grows: basic operations are counted as a function of n, the relevant case (worst or average) is chosen, and the dominant term gives an asymptotic class; the analysis is refined until a tight bound is established and expressed in Big-O, Theta, or Omega notation.",
   "complexity": {
-    "nodes": 9,
-    "edges": 10,
-    "conditionals": 0,
+    "nodes": 11,
+    "edges": 12,
+    "conditionals": 2,
     "logicGates": {
-      "orGates": 1,
-      "andGates": 2,
+      "orGates": 2,
+      "andGates": 1,
+      "notGates": 0,
       "total": 3
     },
-    "level": "medium",
-    "detailLevel": "medium"
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 1
   },
   "colorScheme": {
     "red": {
@@ -39,54 +41,147 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nN1[\"Algorithm\"]\nN2[\"Input Size n\"]\nN3[\"Cost Model\"]\nN4[\"Choose Approach\"]\nN5[\"Dominant Ops\"]\nN6[\"Count Steps\"]\nN7[\"Solve Asymptotics\"]\nN8[\"Big-O Bound\"]\nN9[\"Integrate Results\"]\n\nN1 --> N2\nN2 --> N3\nN3 --> N4\nN4 --> N5\nN4 --> N7\nN5 --> N6\nN7 --> N8\nN6 --> N9\nN8 --> N9\nN9 --> N6\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#ff6b6b,color:#fff\n    style N3 fill:#ffd43b,color:#000\n    style N4 fill:#ffd43b,color:#000\n    style N5 fill:#ffd43b,color:#000\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#b197fc,color:#fff\n    style N9 fill:#74c0fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"Algorithm + input model\"]\n    N2[\"Count basic operations\"]\n    N3[\"Express as f(n)\"]\n    N4{\"Worst or average case?\"}\n    N5[\"Worst-case bound\"]\n    N6[\"Average-case analysis\"]\n    N7[\"Find asymptotic class\"]\n    N8{\"Tight bound?\"}\n    N9[\"Refine analysis\"]\n    N10[\"Big-O / Theta / Omega\"]\n    N11[\"Complexity class\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 --> N4\n    N4 -->|worst| N5\n    N4 -->|average| N6\n    N5 --> N7\n    N6 --> N7\n    N7 --> N8\n    N8 -->|no| N9\n    N9 -->|redo| N7\n    N8 -->|yes| N10\n    N10 --> N11\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#74c0fc,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#74c0fc,color:#fff\n    style N9 fill:#51cf66,color:#fff\n    style N10 fill:#74c0fc,color:#fff\n    style N11 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
-      "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: Computational Complexity Analysis. Created using the Programming Framework methodology."
+      "title": "Introduction to the Theory of Computation (3rd ed.)",
+      "authors": "Sipser, M.",
+      "journal": "Cengage Learning",
+      "year": "2012",
+      "url": "https://math.mit.edu/~sipser/book.html"
     },
     {
-      "title": "Figure 10: Computational complexity analysis.",
-      "authors": "",
-      "journal": "",
-      "year": "None",
-      "pubmed": null,
-      "doi": "10.7717/peerjcs.2067/fig-10",
-      "url": "https://doi.org/10.7717/peerjcs.2067/fig-10"
-    },
-    {
-      "title": "4. Computational Text Analysis: Findings",
-      "authors": "",
-      "journal": "Computational Text Analysis and Reading Comprehension Exam Complexity",
-      "year": "None",
-      "pubmed": null,
-      "doi": "10.3726/978-3-653-04944-2/17",
-      "url": "https://doi.org/10.3726/978-3-653-04944-2/17"
-    },
-    {
-      "title": "Figure 14: Computational complexity analysis chart.",
-      "authors": "",
-      "journal": "",
-      "year": "None",
-      "pubmed": null,
-      "doi": "10.7717/peerj-cs.2930/fig-14",
-      "url": "https://doi.org/10.7717/peerj-cs.2930/fig-14"
+      "title": "Introduction to Algorithms (4th ed.)",
+      "authors": "Cormen, T. H.; Leiserson, C. E.; Rivest, R. L.; Stein, C.",
+      "journal": "MIT Press",
+      "year": "2022",
+      "url": "https://mitpress.mit.edu/9780262046305/introduction-to-algorithms/"
     }
   ],
   "keywords": [
-    "computational",
-    "complexity",
-    "analysis"
+    "computational complexity",
+    "asymptotic analysis",
+    "Big-O notation",
+    "worst case",
+    "time complexity"
   ],
   "relatedProcesses": [],
   "created": "2026-01-15",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations.\nCurated Mermaid applied (citations preserved)."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "namedCollections": [],
+  "graphMetrics": {
+    "nodes": 11,
+    "edges": 12,
+    "conditionals": 2,
+    "andGates": 1,
+    "orGates": 2,
+    "notGates": 0,
+    "loops": 1
+  },
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Algorithm + input model",
+      "detail": "Cost model fixed",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 1
+    },
+    {
+      "id": "N2",
+      "label": "Count basic operations",
+      "detail": "Per input size",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N3",
+      "label": "Express as f(n)",
+      "detail": "Running time",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N4",
+      "label": "Worst or average case?",
+      "detail": "Analysis regime",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N5",
+      "label": "Worst-case bound",
+      "detail": "Max over inputs",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N6",
+      "label": "Average-case analysis",
+      "detail": "Expected cost",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N7",
+      "label": "Find asymptotic class",
+      "detail": "Dominant term",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N8",
+      "label": "Tight bound?",
+      "detail": "Upper = lower",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N9",
+      "label": "Refine analysis",
+      "detail": "Sharper estimate",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N10",
+      "label": "Big-O / Theta / Omega",
+      "detail": "Formal bound",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N11",
+      "label": "Complexity class",
+      "detail": "Resource profile",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 0
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:theory-computational-complexity-analysis",
+    "graphType": "decision_flowchart",
+    "topologySignature": "860acdd0cdbf9e4f",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "graphType": "decision_flowchart",
+  "domainContext": "Theory of computation"
 }

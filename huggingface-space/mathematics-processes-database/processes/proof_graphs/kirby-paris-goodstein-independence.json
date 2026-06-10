@@ -1,0 +1,40 @@
+{
+  "id": "kirby-paris-goodstein-independence",
+  "name": "Kirby–Paris / Goodstein — Proof Graph (frontier)",
+  "category": "mathematics",
+  "subcategory": "proof_graphs",
+  "subcategory_name": "Proof Graphs",
+  "description": "Companion axiomatic charts: \"Peano & Paris — Part 10: Goodstein & Kirby–Paris Indicators\" in the main database.",
+  "mermaid": "flowchart TD\n  TG[&quot;Target: Goodstein theorem is independent of PA yet true in N&quot;] --> HG[&quot;Given: Goodstein game on hereditary base-k numerals&quot;]\n  HG --> AG[&quot;Assertion: every Goodstein sequence reaches zero&quot;]\n  AG --> BG[&quot;Construction: hereditary base-k expansion at each stage&quot;]\n  BG --> SG[&quot;Algorithm capsule: reweight bases subtract one and rewrite&quot;]\n  SG --> OG[&quot;Construction: attach countable ordinal below epsilon zero to each term&quot;]\n  OG --> WG[&quot;Lemma: each Goodstein step strictly lowers the ordinal&quot;]\n  WG --> TG0[&quot;Assertion: well-founded descent forces termination in strong systems&quot;]\n  TG0 --> MG[&quot;Inference: meta-level Kirby-Paris show this termination is not PA-provable&quot;]\n  MG --> CG[&quot;Conclusion: independence of Goodstein from PA&quot;]",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "proof_graph",
+  "graphType": "proof_graph"
+}

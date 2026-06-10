@@ -1,0 +1,48 @@
+{
+  "id": "medrxiv_10.1101_2021.06.10.21258550",
+  "doi": "10.1101/2021.06.10.21258550",
+  "title": "Ultrafast topological data analysis reveals pandemic-scale dynamics of convergent evolution",
+  "authors": [
+    "Bleher, M.",
+    "Hahn, L.",
+    "Neumann, M.",
+    "Ardern, Z.",
+    "Patino-Galindo, J. A.",
+    "Carriere, M.",
+    "Bauer, U.",
+    "Rabadan, R.",
+    "Ott, A."
+  ],
+  "author_string": "Bleher, M., Hahn, L., Neumann, M., Ardern, Z., Patino-Galindo, J. A. et al.",
+  "journal": "medRxiv",
+  "journal_full": "medRxiv",
+  "year": "2026",
+  "abstract": "Genome variants which re-occur independently across evolutionary lineages are key molecular signatures of adaptation. Inferring the dynamics of such genetic changes from pandemic-scale genomic datasets is now possible, which opens up unprecedented insight into evolutionary processes. However, existing approaches depend on the construction of accurate phylogenetic trees, which remains challenging at scale. Here we present EVOtRec, an organism-agnostic, fast and scalable Topological Data Analysis approach that enables the inference of convergently evolving genomic variants over time directly from topological patterns in the dataset, without requiring the construction of a phylogenetic tree. Using data from both simulations and published experiments, we show that EVOtRec can robustly identify variants under positive selection and performs orders of magnitude faster than state-of-the-art phylogeny-based approaches, with comparable results. We apply EVOtRec to three large viral genome datasets: SARS-CoV-2, influenza virus A subtype H5N1 and HIV-1. We identify key convergent genome variants and demonstrate how EVOtRec facilitates the real-time tracking of high fitness variants in large datasets with millions of genomes, including effects modulated by varying genomic backgrounds. We envision our Topological Data Analysis approach as a new framework for efficient comparative genomics.",
+  "keywords": [],
+  "categories": [
+    "epidemiology"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.1101/2021.06.10.21258550",
+  "source": "medrxiv",
+  "sources": [
+    "medrxiv"
+  ],
+  "acquired_date": "2026-05-24T22:15:24.713336",
+  "category": "biology",
+  "subcategories": [
+    "epidemiology"
+  ],
+  "published_date": "2026-01-24",
+  "updated_date": "2026-01-24",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "medrxiv",
+  "preprint_version": "4",
+  "preprint_type": "PUBLISHAHEADOFPRINT",
+  "license": "cc_by_nc_nd",
+  "jatsxml": "https://www.medrxiv.org/content/early/2026/01/24/2021.06.10.21258550.source.xml",
+  "published_doi": null,
+  "author_corresponding": "Andreas Ott",
+  "author_corresponding_institution": "Mathematics Department, Karlsruhe Institute of Technology, Karlsruhe, Germany"
+}

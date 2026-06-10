@@ -1,0 +1,17 @@
+{
+  "acquired_date": "2025-10-08T00:00:00Z",
+  "category": "DNA Repair",
+  "created": "2025-10-08",
+  "description": "SOS response in KEGG style: DNA repair pathway, LexA/RecA, and LexA-regulated gene orthologs (eco:b) for recA, lexA, uvrA-D, recN, sulA, umuDC, dinB, dinI, polB, ruvA/B, ssb.",
+  "id": "process_DNA Repair_sos-kegg",
+  "name": "SOS Response (KEGG-sourced)",
+  "organism": "E. coli",
+  "source": "KEGG",
+  "source_version": "2024",
+  "version_label": "V5",
+  "notes": "V5 = KEGG only. DNA repair pathway and LexA regulon genes from KEGG GENES (eco) and pathway maps.",
+  "mermaid": "graph TD\n    DAMAGE[DNA damage]\n    LEXA[eco:b4043 lexA]\n    RECA[eco:b2699 recA]\n    DAMAGE -->|induces| RECA\n    RECA -->|cleavage| LEXA\n    LEXA -->|represses| RECA_G[eco:b2699 recA]\n    LEXA -->|represses| LEXA_G[eco:b4043 lexA]\n    LEXA -->|represses| UVRA[eco:b2698 uvrA]\n    LEXA -->|represses| UVRB[eco:b0779 uvrB]\n    LEXA -->|represses| UVRC[eco:b2697 uvrC]\n    LEXA -->|represses| UVRD[eco:b3813 uvrD]\n    LEXA -->|represses| RECN[eco:b2616 recN]\n    LEXA -->|represses| SULA[eco:b0958 sulA]\n    LEXA -->|represses| UMUDC[eco:b2612 umuDC]\n    LEXA -->|represses| DINB[eco:b0231 dinB]\n    LEXA -->|represses| DINI[eco:b1061 dinI]\n    LEXA -->|represses| POLB[eco:b2300 polB]\n    LEXA -->|represses| RUVA[eco:b1861 ruvA]\n    LEXA -->|represses| RUVB[eco:b1860 ruvB]\n    LEXA -->|represses| SSB[eco:b3855 ssb]\n    style DAMAGE fill:#e74c3c,color:#fff\n    style LEXA fill:#ffd43b,color:#000\n    style RECA fill:#ffd43b,color:#000\n    style RECA_G fill:#74c0fc,color:#000\n    style LEXA_G fill:#74c0fc,color:#000\n    style UVRA fill:#74c0fc,color:#000\n    style UVRB fill:#74c0fc,color:#000\n    style UVRC fill:#74c0fc,color:#000\n    style UVRD fill:#74c0fc,color:#000\n    style RECN fill:#74c0fc,color:#000\n    style SULA fill:#74c0fc,color:#000\n    style UMUDC fill:#74c0fc,color:#000\n    style DINB fill:#74c0fc,color:#000\n    style DINI fill:#74c0fc,color:#000\n    style POLB fill:#74c0fc,color:#000\n    style RUVA fill:#74c0fc,color:#000\n    style RUVB fill:#74c0fc,color:#000\n    style SSB fill:#74c0fc,color:#000",
+  "related_processes": ["ecoli_sos_response"],
+  "scientificAccuracy": "KEGG pathway and gene annotations for E. coli SOS; eco:b IDs from KEGG GENES.",
+  "sources": [{"title": "KEGG", "url": "https://www.genome.jp/kegg/", "note": "KEGG GENES (eco), DNA repair pathway, LexA regulon."}]
+}

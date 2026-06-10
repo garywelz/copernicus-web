@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Propositional Logic - Mathematics Process</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #8e44ad 0%, #3498db 100%); min-height: 100vh; padding: 20px; }
+        .container { max-width: 900px; margin: 0 auto; background: white; border-radius: 15px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); overflow: hidden; padding: 30px; }
+        h1 { color: #2c3e50; margin-bottom: 15px; }
+        p { color: #555; margin-bottom: 25px; line-height: 1.6; }
+        .nav-links { margin-bottom: 20px; }
+        .nav-links a { color: #e67e22; text-decoration: none; margin-right: 20px; font-weight: 500; }
+        .nav-links a:hover { text-decoration: underline; }
+        .sections { display: grid; gap: 15px; }
+        .sections a { display: block; padding: 20px; background: #f8f9fa; border-radius: 10px; color: #2c3e50; text-decoration: none; font-weight: 500; border-left: 4px solid #8e44ad; }
+        .sections a:hover { background: #ecf0f1; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="nav-links">
+            <a id="back-link" href="#">← Back to Mathematics Database</a>
+            <a href="https://en.wikipedia.org/wiki/Propositional_calculus" target="_blank">Propositional Calculus (Wikipedia)</a>
+        </div>
+        <script>
+            (function() {
+                const backLink = document.getElementById('back-link');
+                backLink.href = window.location.hostname.includes('storage.googleapis.com')
+                    ? 'https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/mathematics-database-table.html'
+                    : '../../mathematics-database-table.html';
+            })();
+        </script>
+        <h1>Propositional Logic</h1>
+        <p>Hilbert-style axiomatic development of classical propositional logic. Three axioms (Łukasiewicz P2), modus ponens, definitions of disjunction, conjunction, biconditional, and key theorems. Split into three views.</p>
+        <div class="sections">
+            <a href="discrete_mathematics-propositional-logic-axioms-implication.html">Chart 1 — Axioms & Implication</a>
+            <a href="discrete_mathematics-propositional-logic-definitions-connectives.html">Chart 2 — Definitions & Connectives</a>
+            <a href="discrete_mathematics-propositional-logic-tautologies-metalogic.html">Chart 3 — Tautologies & Metalogic</a>
+        </div>
+    </div>
+</body>
+</html>

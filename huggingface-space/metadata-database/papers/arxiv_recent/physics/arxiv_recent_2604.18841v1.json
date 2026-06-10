@@ -1,0 +1,30 @@
+{
+  "id": "arxiv_2604.18841v1",
+  "arxiv_id": "2604.18841v1",
+  "title": "QuIC: A Training-Free Quantum Graph Embedding from Ideal Analysis to Practical Hardware Evaluation",
+  "authors": [
+    "Luke Miller",
+    "Yugyung Lee"
+  ],
+  "author_string": "Luke Miller, Yugyung Lee",
+  "journal": "arXiv:2604.18841v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We introduce QuIC, a training-free quantum graph embedding that maps graphs to sorted output distributions via a fixed parameterized circuit. In the ideal one-repetition setting, we prove that the resulting sorted distribution is permutation-invariant and injective on labeled graphs under an irrational-angle condition, yielding completeness on isomorphism classes for the ideal one-repetition exact-arithmetic embedding. We then use those ideal structural properties to motivate a practical embedding pipeline and study how much of that behavior survives under finite-shot estimation, truncation, realistic noise, transpilation, and hardware execution. The sorted distribution concentrates discriminative signal in a compact head, making fixed-length head truncation an effective practical operating point in the tested regimes. Under noise-model simulation, all tested graph pairs satisfied the study's operational separation criterion, including strongly regular graph pairs that are standard 2-WL stress tests and CFI families used as hard instances for fixed-k WL methods. A hardware study comprising 14,800 transpiled circuits across 37 CFI families on IBM Heron (ibm_fez, 156 qubits), including paired one- and two-repetition evaluations, reports empirical separation up to 66 qubits for the tested families under the reported execution protocol, identifies a device-dependent depth limit near 210-250 layers, and characterizes the current practical boundary of the method under the reported execution protocol.",
+  "categories": [
+    "quant-ph"
+  ],
+  "primary_category": "quant-ph",
+  "comment": "18 pages, 6 figures, 9 tables",
+  "published_date": "2026-04-20T21:09:12Z",
+  "updated_date": "2026-04-20T21:09:12Z",
+  "url": "https://arxiv.org/abs/2604.18841v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.18841v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-22T10:15:44.049569",
+  "category": "physics",
+  "subcategories": [
+    "quant-ph"
+  ]
+}

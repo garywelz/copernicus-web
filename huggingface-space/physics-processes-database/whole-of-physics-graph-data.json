@@ -1,0 +1,1799 @@
+{
+  "meta": {
+    "title": "Whole of Physics",
+    "discipline": "physics",
+    "displayName": "Physics",
+    "summary": "Physics is best treated as a regime/theory map over scales, governing laws, observables, and processes.",
+    "primaryVariant": "regime_theory_map",
+    "tableFile": "physics-database-table.html",
+    "generatedFrom": "scripts/processes/discipline_databases/generate_whole_discipline_maps.py",
+    "modelsCompared": {
+      "force": "Best for exploratory browsing and cross-links.",
+      "radial": "Best for hierarchy comprehension and compact coverage.",
+      "layered": "Best for prerequisites, regimes, stacks, and conceptual direction."
+    },
+    "topicScaleExtensions": [
+      {
+        "id": "glmp_style_process_corpus",
+        "label": "GLMP-style process corpus",
+        "model": "process family map plus influence network",
+        "description": "Use the same map machinery for dense curated process corpora where each node opens a Mermaid process diagram."
+      },
+      {
+        "id": "physical_universe",
+        "label": "Physical universe",
+        "model": "scale/regime map",
+        "description": "Organize subatomic, atomic, molecular, planetary, stellar, galactic, and cosmological scales with theory links."
+      },
+      {
+        "id": "subatomic_standard_model",
+        "label": "Subatomic structures",
+        "model": "particle/interaction bipartite graph",
+        "description": "Connect particles, fields, interactions, symmetries, conservation laws, and experimental processes."
+      }
+    ]
+  },
+  "variants": [
+    {
+      "id": "taxonomy",
+      "label": "Branch Taxonomy",
+      "layout": "radial",
+      "description": "Root-to-branch-to-process hierarchy. Useful as a coverage map and familiar table-of-contents view.",
+      "recommendation": "secondary",
+      "rubric": {
+        "subjectFidelity": 3,
+        "navigability": 5,
+        "crossLinks": 2,
+        "pedagogy": 4,
+        "extensibility": 4,
+        "total": 18,
+        "notes": "First-pass heuristic score for physics; revise after visual inspection."
+      },
+      "nodes": [
+        {
+          "id": "root",
+          "name": "Whole of Physics",
+          "type": "root",
+          "level": 0,
+          "description": "Models, regimes, laws, observables, and physical mechanisms."
+        },
+        {
+          "id": "subcategory:astrophysics",
+          "name": "Astrophysics",
+          "type": "subcategory",
+          "level": 1,
+          "processCount": 3,
+          "description": "Generated from the existing process database subcategory."
+        },
+        {
+          "id": "subcategory:classical_mechanics",
+          "name": "Classical Mechanics",
+          "type": "subcategory",
+          "level": 1,
+          "processCount": 3,
+          "description": "Generated from the existing process database subcategory."
+        },
+        {
+          "id": "subcategory:electromagnetism",
+          "name": "Electromagnetism",
+          "type": "subcategory",
+          "level": 1,
+          "processCount": 3,
+          "description": "Generated from the existing process database subcategory."
+        },
+        {
+          "id": "subcategory:optics",
+          "name": "Optics",
+          "type": "subcategory",
+          "level": 1,
+          "processCount": 3,
+          "description": "Generated from the existing process database subcategory."
+        },
+        {
+          "id": "subcategory:quantum_mechanics",
+          "name": "Quantum Mechanics",
+          "type": "subcategory",
+          "level": 1,
+          "processCount": 3,
+          "description": "Generated from the existing process database subcategory."
+        },
+        {
+          "id": "subcategory:solid_state",
+          "name": "Solid State Physics",
+          "type": "subcategory",
+          "level": 1,
+          "processCount": 3,
+          "description": "Generated from the existing process database subcategory."
+        },
+        {
+          "id": "subcategory:thermodynamics_statistical",
+          "name": "Thermodynamics & Statistical Physics",
+          "type": "subcategory",
+          "level": 1,
+          "processCount": 3,
+          "description": "Generated from the existing process database subcategory."
+        },
+        {
+          "id": "subcategory:graph_type_pilots",
+          "name": "Graph Type Pilots",
+          "type": "subcategory",
+          "level": 1,
+          "processCount": 1,
+          "description": "Generated from the existing process database subcategory."
+        },
+        {
+          "id": "process:astrophysics-higgs-mechanism",
+          "name": "Big Bang Nucleosynthesis",
+          "type": "process",
+          "level": 3,
+          "processId": "astrophysics-higgs-mechanism",
+          "url": "processes/astrophysics/astrophysics-higgs-mechanism.html",
+          "subcategory": "astrophysics",
+          "category": "Astrophysics",
+          "graphType": "decision_flowchart",
+          "nodes": 10,
+          "edges": 10,
+          "description": "Big Bang nucleosynthesis forms the light elements in the first minutes: as the universe expands and cools, the neutron-to-proton ratio freezes out, and once photons are too cool to photodissociate deuterium the bottleneck clears and nucleons fuse to helium-4 with trace deuterium and lithium, fixing the primordial abundances."
+        },
+        {
+          "id": "process:astrophysics-particle-collision",
+          "name": "Stellar Collapse & Chandrasekhar Limit",
+          "type": "process",
+          "level": 3,
+          "processId": "astrophysics-particle-collision",
+          "url": "processes/astrophysics/astrophysics-particle-collision.html",
+          "subcategory": "astrophysics",
+          "category": "Astrophysics",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 12,
+          "description": "When a star exhausts its core fuel, the core contracts until electron degeneracy pressure resists gravity: below the Chandrasekhar mass of about 1.4 solar masses it settles as a white dwarf, but above it degeneracy fails and the core collapses, ending as a neutron star halted by neutron degeneracy or, if too massive, a black hole."
+        },
+        {
+          "id": "process:astrophysics-standard-model",
+          "name": "Stellar Nucleosynthesis (pp-chain)",
+          "type": "process",
+          "level": 3,
+          "processId": "astrophysics-standard-model",
+          "url": "processes/astrophysics/astrophysics-standard-model.html",
+          "subcategory": "astrophysics",
+          "category": "Astrophysics",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 11,
+          "description": "A protostar becomes a main-sequence star through hydrogen fusion: gravitational contraction heats the core until the proton-proton chain ignites, fusing hydrogen to helium-4 and releasing energy by mass defect; the resulting radiation pressure balances gravity, establishing hydrostatic equilibrium."
+        },
+        {
+          "id": "process:classical_mechanics-hamiltonian-mechanics",
+          "name": "Hamiltonian Mechanics",
+          "type": "process",
+          "level": 3,
+          "processId": "classical_mechanics-hamiltonian-mechanics",
+          "url": "processes/classical_mechanics/classical_mechanics-hamiltonian-mechanics.html",
+          "subcategory": "classical_mechanics",
+          "category": "Classical Mechanics",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 11,
+          "description": "Hamiltonian mechanics recasts dynamics in phase space: conjugate momenta are defined from the Lagrangian and a Legendre transform builds the Hamiltonian H(q,p,t); when time does not appear explicitly H is the conserved energy, and Hamilton's canonical equations give first-order flow of position and momentum."
+        },
+        {
+          "id": "process:classical_mechanics-lagrangian-mechanics",
+          "name": "Lagrangian Mechanics",
+          "type": "process",
+          "level": 3,
+          "processId": "classical_mechanics-lagrangian-mechanics",
+          "url": "processes/classical_mechanics/classical_mechanics-lagrangian-mechanics.html",
+          "subcategory": "classical_mechanics",
+          "category": "Classical Mechanics",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 11,
+          "description": "Lagrangian mechanics derives equations of motion from a scalar: generalized coordinates are chosen, the Lagrangian L = T - V is formed, holonomic constraints reduce the degrees of freedom, and the Euler-Lagrange equations following from the principle of stationary action yield the equations of motion to be solved."
+        },
+        {
+          "id": "process:classical_mechanics-newtonian-dynamics",
+          "name": "Newtonian Dynamics",
+          "type": "process",
+          "level": 3,
+          "processId": "classical_mechanics-newtonian-dynamics",
+          "url": "processes/classical_mechanics/classical_mechanics-newtonian-dynamics.html",
+          "subcategory": "classical_mechanics",
+          "category": "Classical Mechanics",
+          "graphType": "decision_flowchart",
+          "nodes": 10,
+          "edges": 10,
+          "description": "Newtonian dynamics solves motion from forces: free-body diagrams identify every force on each body, a coordinate system is chosen, and Newton's second law F = ma is written per body; constraint forces are added as needed, giving equations of motion that integrate to the trajectory x(t) and velocity v(t)."
+        },
+        {
+          "id": "process:electromagnetism-quantum-computing",
+          "name": "Maxwell's Equations to EM Waves",
+          "type": "process",
+          "level": 3,
+          "processId": "electromagnetism-quantum-computing",
+          "url": "processes/electromagnetism/electromagnetism-quantum-computing.html",
+          "subcategory": "electromagnetism",
+          "category": "Electromagnetism",
+          "graphType": "decision_flowchart",
+          "nodes": 10,
+          "edges": 10,
+          "description": "Maxwell's equations predict electromagnetic waves: in a source-free region, taking the curl of Faraday's law and substituting the Ampere-Maxwell law yields a wave equation for the fields; a transverse plane-wave solution propagates at speed c = 1/sqrt(mu*eps) with E, B, and the wavevector mutually perpendicular."
+        },
+        {
+          "id": "process:electromagnetism-quantum-entanglement",
+          "name": "Electrostatic Boundary-Value Problem",
+          "type": "process",
+          "level": 3,
+          "processId": "electromagnetism-quantum-entanglement",
+          "url": "processes/electromagnetism/electromagnetism-quantum-entanglement.html",
+          "subcategory": "electromagnetism",
+          "category": "Electromagnetism",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 12,
+          "description": "Electrostatic boundary-value problems find the potential in a region from charges and conductor boundaries: Poisson's equation holds where charge is present and Laplace's equation elsewhere; applying boundary conditions, and exploiting symmetry via separation of variables or the method of images, gives the potential whose gradient is the field."
+        },
+        {
+          "id": "process:electromagnetism-wave-function",
+          "name": "Electromagnetic Induction (Faraday's Law)",
+          "type": "process",
+          "level": 3,
+          "processId": "electromagnetism-wave-function",
+          "url": "processes/electromagnetism/electromagnetism-wave-function.html",
+          "subcategory": "electromagnetism",
+          "category": "Electromagnetism",
+          "graphType": "decision_flowchart",
+          "nodes": 10,
+          "edges": 10,
+          "description": "Faraday's law of induction relates a changing magnetic flux through a circuit to an induced electromotive force: the flux is defined as the surface integral of B, and when it changes in time an EMF equal to minus its rate of change drives a current whose direction, set by Lenz's law, opposes the change."
+        },
+        {
+          "id": "process:state-transition-matter-phases",
+          "name": "States of Matter Transitions",
+          "type": "process",
+          "level": 3,
+          "processId": "state-transition-matter-phases",
+          "url": "processes/graph_type_pilots/state-transition-matter-phases.html",
+          "subcategory": "graph_type_pilots",
+          "category": "Graph Type Pilots",
+          "graphType": "state_transition",
+          "nodes": 10,
+          "edges": 11,
+          "description": "The states of matter form a transition diagram driven by temperature and pressure: adding energy carries a substance from solid to liquid to gas and then to plasma through melting, vaporization, and ionization, while removing energy reverses these transitions; the equilibrium phase is fixed by position on the pressure-temperature diagram."
+        },
+        {
+          "id": "process:optics-geometric-optics",
+          "name": "Geometric Optics (Ray Tracing)",
+          "type": "process",
+          "level": 3,
+          "processId": "optics-geometric-optics",
+          "url": "processes/optics/optics-geometric-optics.html",
+          "subcategory": "optics",
+          "category": "Optics",
+          "graphType": "decision_flowchart",
+          "nodes": 10,
+          "edges": 11,
+          "description": "Geometric optics treats light as rays governed by reflection and refraction: principal rays are traced through a mirror or lens, the law of reflection or Snell's law sets ray directions, and the thin-lens/mirror equation locates the image, classifying it as real or virtual with a magnification from the object and image distances."
+        },
+        {
+          "id": "process:optics-quantum-optics",
+          "name": "Quantum Optics (Photon Statistics)",
+          "type": "process",
+          "level": 3,
+          "processId": "optics-quantum-optics",
+          "url": "processes/optics/optics-quantum-optics.html",
+          "subcategory": "optics",
+          "category": "Optics",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 13,
+          "description": "Quantum optics quantizes the electromagnetic field into photon number states and characterizes light by photon statistics: a Hanbury Brown-Twiss setup measures the second-order correlation g2(0), distinguishing coherent, thermal, and single-photon sources, where antibunching with g2(0) < 1 signals genuinely nonclassical light."
+        },
+        {
+          "id": "process:optics-wave-optics",
+          "name": "Wave Optics (Interference & Diffraction)",
+          "type": "process",
+          "level": 3,
+          "processId": "optics-wave-optics",
+          "url": "processes/optics/optics-wave-optics.html",
+          "subcategory": "optics",
+          "category": "Optics",
+          "graphType": "decision_flowchart",
+          "nodes": 10,
+          "edges": 10,
+          "description": "Wave optics explains interference and diffraction through the Huygens-Fresnel principle: each point on a wavefront emits secondary wavelets whose amplitudes superpose, and the path difference between contributions decides constructive versus destructive interference, producing the characteristic fringe intensity pattern set by wavelength and aperture geometry."
+        },
+        {
+          "id": "process:quantum_mechanics-electromagnetic-induction",
+          "name": "Time-Independent Schrodinger Equation",
+          "type": "process",
+          "level": 3,
+          "processId": "quantum_mechanics-electromagnetic-induction",
+          "url": "processes/quantum_mechanics/quantum_mechanics-electromagnetic-induction.html",
+          "subcategory": "quantum_mechanics",
+          "category": "Quantum Mechanics",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 12,
+          "description": "Solving the time-independent Schrodinger equation for a particle in a potential gives stationary states: writing H psi = E psi and distinguishing bound from scattering states, boundary conditions impose a quantization condition that selects discrete energy eigenvalues with normalizable eigenfunctions."
+        },
+        {
+          "id": "process:quantum_mechanics-electromagnetic-wave",
+          "name": "Quantum Tunneling Through a Barrier",
+          "type": "process",
+          "level": 3,
+          "processId": "quantum_mechanics-electromagnetic-wave",
+          "url": "processes/quantum_mechanics/quantum_mechanics-electromagnetic-wave.html",
+          "subcategory": "quantum_mechanics",
+          "category": "Quantum Mechanics",
+          "graphType": "decision_flowchart",
+          "nodes": 10,
+          "edges": 10,
+          "description": "Quantum tunneling lets a particle with energy below a potential barrier cross it: the wavefunction is solved piecewise in the three regions, decaying exponentially inside the barrier, and matching the function and its derivative at the walls yields a transmission amplitude with probability T approximately exp(-2*kappa*L)."
+        },
+        {
+          "id": "process:quantum_mechanics-maxwells-equations",
+          "name": "Quantum Harmonic Oscillator",
+          "type": "process",
+          "level": 3,
+          "processId": "quantum_mechanics-maxwells-equations",
+          "url": "processes/quantum_mechanics/quantum_mechanics-maxwells-equations.html",
+          "subcategory": "quantum_mechanics",
+          "category": "Quantum Mechanics",
+          "graphType": "cyclic_pathway",
+          "nodes": 10,
+          "edges": 10,
+          "description": "The quantum harmonic oscillator is solved algebraically with ladder operators: rewriting the Hamiltonian in terms of a and a-dagger whose commutator is one gives H = hbar*omega(a-dagger a + 1/2); the ground state is annihilated by a, and repeated raising builds the equally spaced spectrum E_n = hbar*omega(n + 1/2)."
+        },
+        {
+          "id": "process:solid_state-nuclear-decay",
+          "name": "Electronic Band Structure (Bloch)",
+          "type": "process",
+          "level": 3,
+          "processId": "solid_state-nuclear-decay",
+          "url": "processes/solid_state/solid_state-nuclear-decay.html",
+          "subcategory": "solid_state",
+          "category": "Solid State Physics",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 11,
+          "description": "Band structure follows from electrons in a periodic crystal potential: Bloch's theorem writes eigenstates as a plane wave times a lattice-periodic function, solving within the first Brillouin zone produces allowed bands separated by gaps at the zone boundaries, and filling states to the Fermi level classifies the solid as metal, semiconductor, or insulator."
+        },
+        {
+          "id": "process:solid_state-nuclear-fission",
+          "name": "BCS Superconductivity (Cooper Pairing)",
+          "type": "process",
+          "level": 3,
+          "processId": "solid_state-nuclear-fission",
+          "url": "processes/solid_state/solid_state-nuclear-fission.html",
+          "subcategory": "solid_state",
+          "category": "Solid State Physics",
+          "graphType": "decision_flowchart",
+          "nodes": 10,
+          "edges": 10,
+          "description": "BCS theory explains superconductivity below a critical temperature: a phonon-mediated attraction between electrons, when it overcomes Coulomb repulsion near the Fermi surface, binds them into Cooper pairs that condense into a coherent ground state; an energy gap opens, producing zero resistance and the Meissner effect."
+        },
+        {
+          "id": "process:solid_state-nuclear-fusion",
+          "name": "Phonons & Debye Heat Capacity",
+          "type": "process",
+          "level": 3,
+          "processId": "solid_state-nuclear-fusion",
+          "url": "processes/solid_state/solid_state-nuclear-fusion.html",
+          "subcategory": "solid_state",
+          "category": "Solid State Physics",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 11,
+          "description": "Lattice vibrations quantized as phonons set a crystal's heat capacity: normal modes have a dispersion that the Debye model approximates as linear up to a cutoff frequency; integrating the phonon density of states gives a specific heat scaling as T-cubed at low temperature and approaching the Dulong-Petit value at high temperature."
+        },
+        {
+          "id": "process:thermodynamics_statistical-entropy",
+          "name": "Statistical Entropy (Boltzmann)",
+          "type": "process",
+          "level": 3,
+          "processId": "thermodynamics_statistical-entropy",
+          "url": "processes/thermodynamics_statistical/thermodynamics_statistical-entropy.html",
+          "subcategory": "thermodynamics_statistical",
+          "category": "Thermodynamics & Statistical Physics",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 11,
+          "description": "Statistical mechanics defines entropy by counting microstates: for an isolated system the multiplicity of microstates consistent with the macrostate gives Boltzmann's S = k ln(Omega); maximizing entropy subject to constraints selects the most probable macrostate, defines temperature through 1/T = dS/dE, and yields the second law dS >= 0."
+        },
+        {
+          "id": "process:thermodynamics_statistical-heat-engine",
+          "name": "Carnot Heat Engine",
+          "type": "process",
+          "level": 3,
+          "processId": "thermodynamics_statistical-heat-engine",
+          "url": "processes/thermodynamics_statistical/thermodynamics_statistical-heat-engine.html",
+          "subcategory": "thermodynamics_statistical",
+          "category": "Thermodynamics & Statistical Physics",
+          "graphType": "cyclic_pathway",
+          "nodes": 11,
+          "edges": 11,
+          "description": "The Carnot engine sets the maximum efficiency of any heat engine: a working substance runs a reversible cycle of isothermal expansion absorbing heat from the hot reservoir, adiabatic expansion, isothermal compression rejecting heat to the cold reservoir, and adiabatic compression, giving efficiency eta = 1 - Tc/Th."
+        },
+        {
+          "id": "process:thermodynamics_statistical-phase-transition",
+          "name": "Ising Model Phase Transition",
+          "type": "process",
+          "level": 3,
+          "processId": "thermodynamics_statistical-phase-transition",
+          "url": "processes/thermodynamics_statistical/thermodynamics_statistical-phase-transition.html",
+          "subcategory": "thermodynamics_statistical",
+          "category": "Thermodynamics & Statistical Physics",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 11,
+          "description": "The Ising model captures a continuous phase transition: from the spin Hamiltonian the partition function gives the free energy and the magnetization order parameter; below the critical temperature the system spontaneously breaks symmetry into an ordered phase, with critical exponents describing behavior near Tc."
+        }
+      ],
+      "links": [
+        {
+          "source": "root",
+          "target": "subcategory:astrophysics",
+          "type": "contains"
+        },
+        {
+          "source": "root",
+          "target": "subcategory:classical_mechanics",
+          "type": "contains"
+        },
+        {
+          "source": "root",
+          "target": "subcategory:electromagnetism",
+          "type": "contains"
+        },
+        {
+          "source": "root",
+          "target": "subcategory:optics",
+          "type": "contains"
+        },
+        {
+          "source": "root",
+          "target": "subcategory:quantum_mechanics",
+          "type": "contains"
+        },
+        {
+          "source": "root",
+          "target": "subcategory:solid_state",
+          "type": "contains"
+        },
+        {
+          "source": "root",
+          "target": "subcategory:thermodynamics_statistical",
+          "type": "contains"
+        },
+        {
+          "source": "root",
+          "target": "subcategory:graph_type_pilots",
+          "type": "contains"
+        },
+        {
+          "source": "subcategory:astrophysics",
+          "target": "process:astrophysics-higgs-mechanism",
+          "type": "contains"
+        },
+        {
+          "source": "subcategory:astrophysics",
+          "target": "process:astrophysics-particle-collision",
+          "type": "contains"
+        },
+        {
+          "source": "subcategory:astrophysics",
+          "target": "process:astrophysics-standard-model",
+          "type": "contains"
+        },
+        {
+          "source": "subcategory:classical_mechanics",
+          "target": "process:classical_mechanics-hamiltonian-mechanics",
+          "type": "contains"
+        },
+        {
+          "source": "subcategory:classical_mechanics",
+          "target": "process:classical_mechanics-lagrangian-mechanics",
+          "type": "contains"
+        },
+        {
+          "source": "subcategory:classical_mechanics",
+          "target": "process:classical_mechanics-newtonian-dynamics",
+          "type": "contains"
+        },
+        {
+          "source": "subcategory:electromagnetism",
+          "target": "process:electromagnetism-quantum-computing",
+          "type": "contains"
+        },
+        {
+          "source": "subcategory:electromagnetism",
+          "target": "process:electromagnetism-quantum-entanglement",
+          "type": "contains"
+        },
+        {
+          "source": "subcategory:electromagnetism",
+          "target": "process:electromagnetism-wave-function",
+          "type": "contains"
+        },
+        {
+          "source": "subcategory:graph_type_pilots",
+          "target": "process:state-transition-matter-phases",
+          "type": "contains"
+        },
+        {
+          "source": "subcategory:optics",
+          "target": "process:optics-geometric-optics",
+          "type": "contains"
+        },
+        {
+          "source": "subcategory:optics",
+          "target": "process:optics-quantum-optics",
+          "type": "contains"
+        },
+        {
+          "source": "subcategory:optics",
+          "target": "process:optics-wave-optics",
+          "type": "contains"
+        },
+        {
+          "source": "subcategory:quantum_mechanics",
+          "target": "process:quantum_mechanics-electromagnetic-induction",
+          "type": "contains"
+        },
+        {
+          "source": "subcategory:quantum_mechanics",
+          "target": "process:quantum_mechanics-electromagnetic-wave",
+          "type": "contains"
+        },
+        {
+          "source": "subcategory:quantum_mechanics",
+          "target": "process:quantum_mechanics-maxwells-equations",
+          "type": "contains"
+        },
+        {
+          "source": "subcategory:solid_state",
+          "target": "process:solid_state-nuclear-decay",
+          "type": "contains"
+        },
+        {
+          "source": "subcategory:solid_state",
+          "target": "process:solid_state-nuclear-fission",
+          "type": "contains"
+        },
+        {
+          "source": "subcategory:solid_state",
+          "target": "process:solid_state-nuclear-fusion",
+          "type": "contains"
+        },
+        {
+          "source": "subcategory:thermodynamics_statistical",
+          "target": "process:thermodynamics_statistical-entropy",
+          "type": "contains"
+        },
+        {
+          "source": "subcategory:thermodynamics_statistical",
+          "target": "process:thermodynamics_statistical-heat-engine",
+          "type": "contains"
+        },
+        {
+          "source": "subcategory:thermodynamics_statistical",
+          "target": "process:thermodynamics_statistical-phase-transition",
+          "type": "contains"
+        }
+      ]
+    },
+    {
+      "id": "lens",
+      "label": "Curated Lens Map",
+      "layout": "force",
+      "description": "Uses collection presets as conceptual lenses, letting processes appear under task-oriented groupings.",
+      "recommendation": "candidate",
+      "rubric": {
+        "subjectFidelity": 4,
+        "navigability": 4,
+        "crossLinks": 4,
+        "pedagogy": 4,
+        "extensibility": 5,
+        "total": 21,
+        "notes": "First-pass heuristic score for physics; revise after visual inspection."
+      },
+      "nodes": [
+        {
+          "id": "root",
+          "name": "Whole of Physics",
+          "type": "root",
+          "level": 0,
+          "description": "Models, regimes, laws, observables, and physical mechanisms."
+        },
+        {
+          "id": "collection:quantum-field",
+          "name": "Quantum and Field Theory",
+          "type": "collection",
+          "level": 1,
+          "processCount": 10,
+          "description": "Quantum states, entanglement, wave functions, fields, and particle mechanisms."
+        },
+        {
+          "id": "process:astrophysics-higgs-mechanism",
+          "name": "Big Bang Nucleosynthesis",
+          "type": "process",
+          "level": 3,
+          "processId": "astrophysics-higgs-mechanism",
+          "url": "processes/astrophysics/astrophysics-higgs-mechanism.html",
+          "subcategory": "astrophysics",
+          "category": "Astrophysics",
+          "graphType": "decision_flowchart",
+          "nodes": 10,
+          "edges": 10,
+          "description": "Big Bang nucleosynthesis forms the light elements in the first minutes: as the universe expands and cools, the neutron-to-proton ratio freezes out, and once photons are too cool to photodissociate deuterium the bottleneck clears and nucleons fuse to helium-4 with trace deuterium and lithium, fixing the primordial abundances."
+        },
+        {
+          "id": "process:astrophysics-particle-collision",
+          "name": "Stellar Collapse & Chandrasekhar Limit",
+          "type": "process",
+          "level": 3,
+          "processId": "astrophysics-particle-collision",
+          "url": "processes/astrophysics/astrophysics-particle-collision.html",
+          "subcategory": "astrophysics",
+          "category": "Astrophysics",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 12,
+          "description": "When a star exhausts its core fuel, the core contracts until electron degeneracy pressure resists gravity: below the Chandrasekhar mass of about 1.4 solar masses it settles as a white dwarf, but above it degeneracy fails and the core collapses, ending as a neutron star halted by neutron degeneracy or, if too massive, a black hole."
+        },
+        {
+          "id": "process:astrophysics-standard-model",
+          "name": "Stellar Nucleosynthesis (pp-chain)",
+          "type": "process",
+          "level": 3,
+          "processId": "astrophysics-standard-model",
+          "url": "processes/astrophysics/astrophysics-standard-model.html",
+          "subcategory": "astrophysics",
+          "category": "Astrophysics",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 11,
+          "description": "A protostar becomes a main-sequence star through hydrogen fusion: gravitational contraction heats the core until the proton-proton chain ignites, fusing hydrogen to helium-4 and releasing energy by mass defect; the resulting radiation pressure balances gravity, establishing hydrostatic equilibrium."
+        },
+        {
+          "id": "process:electromagnetism-quantum-computing",
+          "name": "Maxwell's Equations to EM Waves",
+          "type": "process",
+          "level": 3,
+          "processId": "electromagnetism-quantum-computing",
+          "url": "processes/electromagnetism/electromagnetism-quantum-computing.html",
+          "subcategory": "electromagnetism",
+          "category": "Electromagnetism",
+          "graphType": "decision_flowchart",
+          "nodes": 10,
+          "edges": 10,
+          "description": "Maxwell's equations predict electromagnetic waves: in a source-free region, taking the curl of Faraday's law and substituting the Ampere-Maxwell law yields a wave equation for the fields; a transverse plane-wave solution propagates at speed c = 1/sqrt(mu*eps) with E, B, and the wavevector mutually perpendicular."
+        },
+        {
+          "id": "process:electromagnetism-quantum-entanglement",
+          "name": "Electrostatic Boundary-Value Problem",
+          "type": "process",
+          "level": 3,
+          "processId": "electromagnetism-quantum-entanglement",
+          "url": "processes/electromagnetism/electromagnetism-quantum-entanglement.html",
+          "subcategory": "electromagnetism",
+          "category": "Electromagnetism",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 12,
+          "description": "Electrostatic boundary-value problems find the potential in a region from charges and conductor boundaries: Poisson's equation holds where charge is present and Laplace's equation elsewhere; applying boundary conditions, and exploiting symmetry via separation of variables or the method of images, gives the potential whose gradient is the field."
+        },
+        {
+          "id": "process:electromagnetism-wave-function",
+          "name": "Electromagnetic Induction (Faraday's Law)",
+          "type": "process",
+          "level": 3,
+          "processId": "electromagnetism-wave-function",
+          "url": "processes/electromagnetism/electromagnetism-wave-function.html",
+          "subcategory": "electromagnetism",
+          "category": "Electromagnetism",
+          "graphType": "decision_flowchart",
+          "nodes": 10,
+          "edges": 10,
+          "description": "Faraday's law of induction relates a changing magnetic flux through a circuit to an induced electromotive force: the flux is defined as the surface integral of B, and when it changes in time an EMF equal to minus its rate of change drives a current whose direction, set by Lenz's law, opposes the change."
+        },
+        {
+          "id": "process:optics-quantum-optics",
+          "name": "Quantum Optics (Photon Statistics)",
+          "type": "process",
+          "level": 3,
+          "processId": "optics-quantum-optics",
+          "url": "processes/optics/optics-quantum-optics.html",
+          "subcategory": "optics",
+          "category": "Optics",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 13,
+          "description": "Quantum optics quantizes the electromagnetic field into photon number states and characterizes light by photon statistics: a Hanbury Brown-Twiss setup measures the second-order correlation g2(0), distinguishing coherent, thermal, and single-photon sources, where antibunching with g2(0) < 1 signals genuinely nonclassical light."
+        },
+        {
+          "id": "process:quantum_mechanics-electromagnetic-induction",
+          "name": "Time-Independent Schrodinger Equation",
+          "type": "process",
+          "level": 3,
+          "processId": "quantum_mechanics-electromagnetic-induction",
+          "url": "processes/quantum_mechanics/quantum_mechanics-electromagnetic-induction.html",
+          "subcategory": "quantum_mechanics",
+          "category": "Quantum Mechanics",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 12,
+          "description": "Solving the time-independent Schrodinger equation for a particle in a potential gives stationary states: writing H psi = E psi and distinguishing bound from scattering states, boundary conditions impose a quantization condition that selects discrete energy eigenvalues with normalizable eigenfunctions."
+        },
+        {
+          "id": "process:quantum_mechanics-electromagnetic-wave",
+          "name": "Quantum Tunneling Through a Barrier",
+          "type": "process",
+          "level": 3,
+          "processId": "quantum_mechanics-electromagnetic-wave",
+          "url": "processes/quantum_mechanics/quantum_mechanics-electromagnetic-wave.html",
+          "subcategory": "quantum_mechanics",
+          "category": "Quantum Mechanics",
+          "graphType": "decision_flowchart",
+          "nodes": 10,
+          "edges": 10,
+          "description": "Quantum tunneling lets a particle with energy below a potential barrier cross it: the wavefunction is solved piecewise in the three regions, decaying exponentially inside the barrier, and matching the function and its derivative at the walls yields a transmission amplitude with probability T approximately exp(-2*kappa*L)."
+        },
+        {
+          "id": "process:quantum_mechanics-maxwells-equations",
+          "name": "Quantum Harmonic Oscillator",
+          "type": "process",
+          "level": 3,
+          "processId": "quantum_mechanics-maxwells-equations",
+          "url": "processes/quantum_mechanics/quantum_mechanics-maxwells-equations.html",
+          "subcategory": "quantum_mechanics",
+          "category": "Quantum Mechanics",
+          "graphType": "cyclic_pathway",
+          "nodes": 10,
+          "edges": 10,
+          "description": "The quantum harmonic oscillator is solved algebraically with ladder operators: rewriting the Hamiltonian in terms of a and a-dagger whose commutator is one gives H = hbar*omega(a-dagger a + 1/2); the ground state is annihilated by a, and repeated raising builds the equally spaced spectrum E_n = hbar*omega(n + 1/2)."
+        },
+        {
+          "id": "collection:classical",
+          "name": "Classical Mechanics",
+          "type": "collection",
+          "level": 1,
+          "processCount": 9,
+          "description": "Newtonian, Lagrangian, Hamiltonian, force, momentum, and energy processes."
+        },
+        {
+          "id": "process:classical_mechanics-hamiltonian-mechanics",
+          "name": "Hamiltonian Mechanics",
+          "type": "process",
+          "level": 3,
+          "processId": "classical_mechanics-hamiltonian-mechanics",
+          "url": "processes/classical_mechanics/classical_mechanics-hamiltonian-mechanics.html",
+          "subcategory": "classical_mechanics",
+          "category": "Classical Mechanics",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 11,
+          "description": "Hamiltonian mechanics recasts dynamics in phase space: conjugate momenta are defined from the Lagrangian and a Legendre transform builds the Hamiltonian H(q,p,t); when time does not appear explicitly H is the conserved energy, and Hamilton's canonical equations give first-order flow of position and momentum."
+        },
+        {
+          "id": "process:classical_mechanics-lagrangian-mechanics",
+          "name": "Lagrangian Mechanics",
+          "type": "process",
+          "level": 3,
+          "processId": "classical_mechanics-lagrangian-mechanics",
+          "url": "processes/classical_mechanics/classical_mechanics-lagrangian-mechanics.html",
+          "subcategory": "classical_mechanics",
+          "category": "Classical Mechanics",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 11,
+          "description": "Lagrangian mechanics derives equations of motion from a scalar: generalized coordinates are chosen, the Lagrangian L = T - V is formed, holonomic constraints reduce the degrees of freedom, and the Euler-Lagrange equations following from the principle of stationary action yield the equations of motion to be solved."
+        },
+        {
+          "id": "process:classical_mechanics-newtonian-dynamics",
+          "name": "Newtonian Dynamics",
+          "type": "process",
+          "level": 3,
+          "processId": "classical_mechanics-newtonian-dynamics",
+          "url": "processes/classical_mechanics/classical_mechanics-newtonian-dynamics.html",
+          "subcategory": "classical_mechanics",
+          "category": "Classical Mechanics",
+          "graphType": "decision_flowchart",
+          "nodes": 10,
+          "edges": 10,
+          "description": "Newtonian dynamics solves motion from forces: free-body diagrams identify every force on each body, a coordinate system is chosen, and Newton's second law F = ma is written per body; constraint forces are added as needed, giving equations of motion that integrate to the trajectory x(t) and velocity v(t)."
+        },
+        {
+          "id": "process:thermodynamics_statistical-entropy",
+          "name": "Statistical Entropy (Boltzmann)",
+          "type": "process",
+          "level": 3,
+          "processId": "thermodynamics_statistical-entropy",
+          "url": "processes/thermodynamics_statistical/thermodynamics_statistical-entropy.html",
+          "subcategory": "thermodynamics_statistical",
+          "category": "Thermodynamics & Statistical Physics",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 11,
+          "description": "Statistical mechanics defines entropy by counting microstates: for an isolated system the multiplicity of microstates consistent with the macrostate gives Boltzmann's S = k ln(Omega); maximizing entropy subject to constraints selects the most probable macrostate, defines temperature through 1/T = dS/dE, and yields the second law dS >= 0."
+        },
+        {
+          "id": "process:thermodynamics_statistical-phase-transition",
+          "name": "Ising Model Phase Transition",
+          "type": "process",
+          "level": 3,
+          "processId": "thermodynamics_statistical-phase-transition",
+          "url": "processes/thermodynamics_statistical/thermodynamics_statistical-phase-transition.html",
+          "subcategory": "thermodynamics_statistical",
+          "category": "Thermodynamics & Statistical Physics",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 11,
+          "description": "The Ising model captures a continuous phase transition: from the spin Hamiltonian the partition function gives the free energy and the magnetization order parameter; below the critical temperature the system spontaneously breaks symmetry into an ordered phase, with critical exponents describing behavior near Tc."
+        },
+        {
+          "id": "collection:electromagnetic-optical",
+          "name": "Electromagnetic and Optical",
+          "type": "collection",
+          "level": 1,
+          "processCount": 9,
+          "description": "Electromagnetic waves, induction, Maxwell systems, geometric optics, and wave optics."
+        },
+        {
+          "id": "process:optics-geometric-optics",
+          "name": "Geometric Optics (Ray Tracing)",
+          "type": "process",
+          "level": 3,
+          "processId": "optics-geometric-optics",
+          "url": "processes/optics/optics-geometric-optics.html",
+          "subcategory": "optics",
+          "category": "Optics",
+          "graphType": "decision_flowchart",
+          "nodes": 10,
+          "edges": 11,
+          "description": "Geometric optics treats light as rays governed by reflection and refraction: principal rays are traced through a mirror or lens, the law of reflection or Snell's law sets ray directions, and the thin-lens/mirror equation locates the image, classifying it as real or virtual with a magnification from the object and image distances."
+        },
+        {
+          "id": "process:optics-wave-optics",
+          "name": "Wave Optics (Interference & Diffraction)",
+          "type": "process",
+          "level": 3,
+          "processId": "optics-wave-optics",
+          "url": "processes/optics/optics-wave-optics.html",
+          "subcategory": "optics",
+          "category": "Optics",
+          "graphType": "decision_flowchart",
+          "nodes": 10,
+          "edges": 10,
+          "description": "Wave optics explains interference and diffraction through the Huygens-Fresnel principle: each point on a wavefront emits secondary wavelets whose amplitudes superpose, and the path difference between contributions decides constructive versus destructive interference, producing the characteristic fringe intensity pattern set by wavelength and aperture geometry."
+        },
+        {
+          "id": "process:solid_state-nuclear-decay",
+          "name": "Electronic Band Structure (Bloch)",
+          "type": "process",
+          "level": 3,
+          "processId": "solid_state-nuclear-decay",
+          "url": "processes/solid_state/solid_state-nuclear-decay.html",
+          "subcategory": "solid_state",
+          "category": "Solid State Physics",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 11,
+          "description": "Band structure follows from electrons in a periodic crystal potential: Bloch's theorem writes eigenstates as a plane wave times a lattice-periodic function, solving within the first Brillouin zone produces allowed bands separated by gaps at the zone boundaries, and filling states to the Fermi level classifies the solid as metal, semiconductor, or insulator."
+        },
+        {
+          "id": "collection:thermal-statistical",
+          "name": "Thermal and Statistical",
+          "type": "collection",
+          "level": 1,
+          "processCount": 7,
+          "description": "Heat engines, entropy, phase transitions, ensembles, and macroscopic regimes."
+        },
+        {
+          "id": "process:state-transition-matter-phases",
+          "name": "States of Matter Transitions",
+          "type": "process",
+          "level": 3,
+          "processId": "state-transition-matter-phases",
+          "url": "processes/graph_type_pilots/state-transition-matter-phases.html",
+          "subcategory": "graph_type_pilots",
+          "category": "Graph Type Pilots",
+          "graphType": "state_transition",
+          "nodes": 10,
+          "edges": 11,
+          "description": "The states of matter form a transition diagram driven by temperature and pressure: adding energy carries a substance from solid to liquid to gas and then to plasma through melting, vaporization, and ionization, while removing energy reverses these transitions; the equilibrium phase is fixed by position on the pressure-temperature diagram."
+        },
+        {
+          "id": "process:solid_state-nuclear-fusion",
+          "name": "Phonons & Debye Heat Capacity",
+          "type": "process",
+          "level": 3,
+          "processId": "solid_state-nuclear-fusion",
+          "url": "processes/solid_state/solid_state-nuclear-fusion.html",
+          "subcategory": "solid_state",
+          "category": "Solid State Physics",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 11,
+          "description": "Lattice vibrations quantized as phonons set a crystal's heat capacity: normal modes have a dispersion that the Debye model approximates as linear up to a cutoff frequency; integrating the phonon density of states gives a specific heat scaling as T-cubed at low temperature and approaching the Dulong-Petit value at high temperature."
+        },
+        {
+          "id": "process:thermodynamics_statistical-heat-engine",
+          "name": "Carnot Heat Engine",
+          "type": "process",
+          "level": 3,
+          "processId": "thermodynamics_statistical-heat-engine",
+          "url": "processes/thermodynamics_statistical/thermodynamics_statistical-heat-engine.html",
+          "subcategory": "thermodynamics_statistical",
+          "category": "Thermodynamics & Statistical Physics",
+          "graphType": "cyclic_pathway",
+          "nodes": 11,
+          "edges": 11,
+          "description": "The Carnot engine sets the maximum efficiency of any heat engine: a working substance runs a reversible cycle of isothermal expansion absorbing heat from the hot reservoir, adiabatic expansion, isothermal compression rejecting heat to the cold reservoir, and adiabatic compression, giving efficiency eta = 1 - Tc/Th."
+        },
+        {
+          "id": "collection:nuclear-astrophysics",
+          "name": "Nuclear and Astrophysics",
+          "type": "collection",
+          "level": 1,
+          "processCount": 5,
+          "description": "Nuclear transformation, stellar-scale processes, high energy phenomena, and cosmic systems."
+        },
+        {
+          "id": "process:solid_state-nuclear-fission",
+          "name": "BCS Superconductivity (Cooper Pairing)",
+          "type": "process",
+          "level": 3,
+          "processId": "solid_state-nuclear-fission",
+          "url": "processes/solid_state/solid_state-nuclear-fission.html",
+          "subcategory": "solid_state",
+          "category": "Solid State Physics",
+          "graphType": "decision_flowchart",
+          "nodes": 10,
+          "edges": 10,
+          "description": "BCS theory explains superconductivity below a critical temperature: a phonon-mediated attraction between electrons, when it overcomes Coulomb repulsion near the Fermi surface, binds them into Cooper pairs that condense into a coherent ground state; an energy gap opens, producing zero resistance and the Meissner effect."
+        },
+        {
+          "id": "collection:graph-type-pilots",
+          "name": "Graph Type Pilots",
+          "type": "collection",
+          "level": 1,
+          "processCount": 1,
+          "description": "Existing collection from metadata."
+        },
+        {
+          "id": "collection:state-transition",
+          "name": "State Transition",
+          "type": "collection",
+          "level": 1,
+          "processCount": 1,
+          "description": "Existing collection from metadata."
+        }
+      ],
+      "links": [
+        {
+          "source": "root",
+          "target": "collection:quantum-field",
+          "type": "contains"
+        },
+        {
+          "source": "collection:quantum-field",
+          "target": "process:astrophysics-higgs-mechanism",
+          "type": "lens"
+        },
+        {
+          "source": "collection:quantum-field",
+          "target": "process:astrophysics-particle-collision",
+          "type": "lens"
+        },
+        {
+          "source": "collection:quantum-field",
+          "target": "process:astrophysics-standard-model",
+          "type": "lens"
+        },
+        {
+          "source": "collection:quantum-field",
+          "target": "process:electromagnetism-quantum-computing",
+          "type": "lens"
+        },
+        {
+          "source": "collection:quantum-field",
+          "target": "process:electromagnetism-quantum-entanglement",
+          "type": "lens"
+        },
+        {
+          "source": "collection:quantum-field",
+          "target": "process:electromagnetism-wave-function",
+          "type": "lens"
+        },
+        {
+          "source": "collection:quantum-field",
+          "target": "process:optics-quantum-optics",
+          "type": "lens"
+        },
+        {
+          "source": "collection:quantum-field",
+          "target": "process:quantum_mechanics-electromagnetic-induction",
+          "type": "lens"
+        },
+        {
+          "source": "collection:quantum-field",
+          "target": "process:quantum_mechanics-electromagnetic-wave",
+          "type": "lens"
+        },
+        {
+          "source": "collection:quantum-field",
+          "target": "process:quantum_mechanics-maxwells-equations",
+          "type": "lens"
+        },
+        {
+          "source": "root",
+          "target": "collection:classical",
+          "type": "contains"
+        },
+        {
+          "source": "collection:classical",
+          "target": "process:classical_mechanics-hamiltonian-mechanics",
+          "type": "lens"
+        },
+        {
+          "source": "collection:classical",
+          "target": "process:classical_mechanics-lagrangian-mechanics",
+          "type": "lens"
+        },
+        {
+          "source": "collection:classical",
+          "target": "process:classical_mechanics-newtonian-dynamics",
+          "type": "lens"
+        },
+        {
+          "source": "collection:classical",
+          "target": "process:electromagnetism-wave-function",
+          "type": "lens"
+        },
+        {
+          "source": "collection:classical",
+          "target": "process:quantum_mechanics-electromagnetic-induction",
+          "type": "lens"
+        },
+        {
+          "source": "collection:classical",
+          "target": "process:quantum_mechanics-electromagnetic-wave",
+          "type": "lens"
+        },
+        {
+          "source": "collection:classical",
+          "target": "process:quantum_mechanics-maxwells-equations",
+          "type": "lens"
+        },
+        {
+          "source": "collection:classical",
+          "target": "process:thermodynamics_statistical-entropy",
+          "type": "lens"
+        },
+        {
+          "source": "collection:classical",
+          "target": "process:thermodynamics_statistical-phase-transition",
+          "type": "lens"
+        },
+        {
+          "source": "root",
+          "target": "collection:electromagnetic-optical",
+          "type": "contains"
+        },
+        {
+          "source": "collection:electromagnetic-optical",
+          "target": "process:astrophysics-higgs-mechanism",
+          "type": "lens"
+        },
+        {
+          "source": "collection:electromagnetic-optical",
+          "target": "process:electromagnetism-quantum-computing",
+          "type": "lens"
+        },
+        {
+          "source": "collection:electromagnetic-optical",
+          "target": "process:electromagnetism-wave-function",
+          "type": "lens"
+        },
+        {
+          "source": "collection:electromagnetic-optical",
+          "target": "process:optics-geometric-optics",
+          "type": "lens"
+        },
+        {
+          "source": "collection:electromagnetic-optical",
+          "target": "process:optics-quantum-optics",
+          "type": "lens"
+        },
+        {
+          "source": "collection:electromagnetic-optical",
+          "target": "process:optics-wave-optics",
+          "type": "lens"
+        },
+        {
+          "source": "collection:electromagnetic-optical",
+          "target": "process:quantum_mechanics-electromagnetic-induction",
+          "type": "lens"
+        },
+        {
+          "source": "collection:electromagnetic-optical",
+          "target": "process:quantum_mechanics-electromagnetic-wave",
+          "type": "lens"
+        },
+        {
+          "source": "collection:electromagnetic-optical",
+          "target": "process:solid_state-nuclear-decay",
+          "type": "lens"
+        },
+        {
+          "source": "root",
+          "target": "collection:thermal-statistical",
+          "type": "contains"
+        },
+        {
+          "source": "collection:thermal-statistical",
+          "target": "process:classical_mechanics-hamiltonian-mechanics",
+          "type": "lens"
+        },
+        {
+          "source": "collection:thermal-statistical",
+          "target": "process:state-transition-matter-phases",
+          "type": "lens"
+        },
+        {
+          "source": "collection:thermal-statistical",
+          "target": "process:optics-quantum-optics",
+          "type": "lens"
+        },
+        {
+          "source": "collection:thermal-statistical",
+          "target": "process:solid_state-nuclear-fusion",
+          "type": "lens"
+        },
+        {
+          "source": "collection:thermal-statistical",
+          "target": "process:thermodynamics_statistical-entropy",
+          "type": "lens"
+        },
+        {
+          "source": "collection:thermal-statistical",
+          "target": "process:thermodynamics_statistical-heat-engine",
+          "type": "lens"
+        },
+        {
+          "source": "collection:thermal-statistical",
+          "target": "process:thermodynamics_statistical-phase-transition",
+          "type": "lens"
+        },
+        {
+          "source": "root",
+          "target": "collection:nuclear-astrophysics",
+          "type": "contains"
+        },
+        {
+          "source": "collection:nuclear-astrophysics",
+          "target": "process:astrophysics-particle-collision",
+          "type": "lens"
+        },
+        {
+          "source": "collection:nuclear-astrophysics",
+          "target": "process:astrophysics-standard-model",
+          "type": "lens"
+        },
+        {
+          "source": "collection:nuclear-astrophysics",
+          "target": "process:solid_state-nuclear-decay",
+          "type": "lens"
+        },
+        {
+          "source": "collection:nuclear-astrophysics",
+          "target": "process:solid_state-nuclear-fission",
+          "type": "lens"
+        },
+        {
+          "source": "collection:nuclear-astrophysics",
+          "target": "process:solid_state-nuclear-fusion",
+          "type": "lens"
+        },
+        {
+          "source": "root",
+          "target": "collection:graph-type-pilots",
+          "type": "contains"
+        },
+        {
+          "source": "collection:graph-type-pilots",
+          "target": "process:state-transition-matter-phases",
+          "type": "lens"
+        },
+        {
+          "source": "root",
+          "target": "collection:state-transition",
+          "type": "contains"
+        },
+        {
+          "source": "collection:state-transition",
+          "target": "process:state-transition-matter-phases",
+          "type": "lens"
+        }
+      ]
+    },
+    {
+      "id": "regime_theory_map",
+      "label": "Regime / Theory Map",
+      "layout": "layered",
+      "description": "Organizes processes by physical regime and governing theory instead of a simple folder taxonomy.",
+      "recommendation": "primary",
+      "rubric": {
+        "subjectFidelity": 5,
+        "navigability": 4,
+        "crossLinks": 5,
+        "pedagogy": 5,
+        "extensibility": 5,
+        "total": 24,
+        "notes": "First-pass heuristic score for physics; revise after visual inspection."
+      },
+      "nodes": [
+        {
+          "id": "root",
+          "name": "Whole of Physics",
+          "type": "root",
+          "level": 0,
+          "description": "Models, regimes, laws, observables, and physical mechanisms."
+        },
+        {
+          "id": "family:classical_macro",
+          "name": "Classical and Macroscopic",
+          "type": "family",
+          "level": 1,
+          "processCount": 13,
+          "description": "Newtonian, Lagrangian, Hamiltonian, fluids, waves, and macroscopic mechanics."
+        },
+        {
+          "id": "family:electromagnetic_optical",
+          "name": "Electromagnetic and Optical",
+          "type": "family",
+          "level": 1,
+          "processCount": 4,
+          "description": "Maxwell systems, induction, light, optics, and electromagnetic waves."
+        },
+        {
+          "id": "family:thermal_statistical",
+          "name": "Thermal and Statistical",
+          "type": "family",
+          "level": 1,
+          "processCount": 3,
+          "description": "Heat, entropy, phase transitions, ensembles, and thermodynamic regimes."
+        },
+        {
+          "id": "family:quantum_fields",
+          "name": "Quantum, Particles, and Fields",
+          "type": "family",
+          "level": 1,
+          "processCount": 1,
+          "description": "Quantum states, fields, particles, symmetry, and high-energy processes."
+        },
+        {
+          "id": "family:cosmic_nuclear",
+          "name": "Nuclear and Cosmic",
+          "type": "family",
+          "level": 1,
+          "processCount": 1,
+          "description": "Nuclear transformations, stellar processes, astrophysical systems, and cosmology."
+        },
+        {
+          "id": "process:astrophysics-higgs-mechanism",
+          "name": "Big Bang Nucleosynthesis",
+          "type": "process",
+          "level": 3,
+          "processId": "astrophysics-higgs-mechanism",
+          "url": "processes/astrophysics/astrophysics-higgs-mechanism.html",
+          "subcategory": "astrophysics",
+          "category": "Astrophysics",
+          "graphType": "decision_flowchart",
+          "nodes": 10,
+          "edges": 10,
+          "description": "Big Bang nucleosynthesis forms the light elements in the first minutes: as the universe expands and cools, the neutron-to-proton ratio freezes out, and once photons are too cool to photodissociate deuterium the bottleneck clears and nucleons fuse to helium-4 with trace deuterium and lithium, fixing the primordial abundances.",
+          "familyId": "electromagnetic_optical"
+        },
+        {
+          "id": "process:astrophysics-particle-collision",
+          "name": "Stellar Collapse & Chandrasekhar Limit",
+          "type": "process",
+          "level": 3,
+          "processId": "astrophysics-particle-collision",
+          "url": "processes/astrophysics/astrophysics-particle-collision.html",
+          "subcategory": "astrophysics",
+          "category": "Astrophysics",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 12,
+          "description": "When a star exhausts its core fuel, the core contracts until electron degeneracy pressure resists gravity: below the Chandrasekhar mass of about 1.4 solar masses it settles as a white dwarf, but above it degeneracy fails and the core collapses, ending as a neutron star halted by neutron degeneracy or, if too massive, a black hole.",
+          "familyId": "quantum_fields"
+        },
+        {
+          "id": "process:astrophysics-standard-model",
+          "name": "Stellar Nucleosynthesis (pp-chain)",
+          "type": "process",
+          "level": 3,
+          "processId": "astrophysics-standard-model",
+          "url": "processes/astrophysics/astrophysics-standard-model.html",
+          "subcategory": "astrophysics",
+          "category": "Astrophysics",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 11,
+          "description": "A protostar becomes a main-sequence star through hydrogen fusion: gravitational contraction heats the core until the proton-proton chain ignites, fusing hydrogen to helium-4 and releasing energy by mass defect; the resulting radiation pressure balances gravity, establishing hydrostatic equilibrium.",
+          "familyId": "thermal_statistical"
+        },
+        {
+          "id": "process:classical_mechanics-hamiltonian-mechanics",
+          "name": "Hamiltonian Mechanics",
+          "type": "process",
+          "level": 3,
+          "processId": "classical_mechanics-hamiltonian-mechanics",
+          "url": "processes/classical_mechanics/classical_mechanics-hamiltonian-mechanics.html",
+          "subcategory": "classical_mechanics",
+          "category": "Classical Mechanics",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 11,
+          "description": "Hamiltonian mechanics recasts dynamics in phase space: conjugate momenta are defined from the Lagrangian and a Legendre transform builds the Hamiltonian H(q,p,t); when time does not appear explicitly H is the conserved energy, and Hamilton's canonical equations give first-order flow of position and momentum.",
+          "familyId": "classical_macro"
+        },
+        {
+          "id": "process:classical_mechanics-lagrangian-mechanics",
+          "name": "Lagrangian Mechanics",
+          "type": "process",
+          "level": 3,
+          "processId": "classical_mechanics-lagrangian-mechanics",
+          "url": "processes/classical_mechanics/classical_mechanics-lagrangian-mechanics.html",
+          "subcategory": "classical_mechanics",
+          "category": "Classical Mechanics",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 11,
+          "description": "Lagrangian mechanics derives equations of motion from a scalar: generalized coordinates are chosen, the Lagrangian L = T - V is formed, holonomic constraints reduce the degrees of freedom, and the Euler-Lagrange equations following from the principle of stationary action yield the equations of motion to be solved.",
+          "familyId": "classical_macro"
+        },
+        {
+          "id": "process:classical_mechanics-newtonian-dynamics",
+          "name": "Newtonian Dynamics",
+          "type": "process",
+          "level": 3,
+          "processId": "classical_mechanics-newtonian-dynamics",
+          "url": "processes/classical_mechanics/classical_mechanics-newtonian-dynamics.html",
+          "subcategory": "classical_mechanics",
+          "category": "Classical Mechanics",
+          "graphType": "decision_flowchart",
+          "nodes": 10,
+          "edges": 10,
+          "description": "Newtonian dynamics solves motion from forces: free-body diagrams identify every force on each body, a coordinate system is chosen, and Newton's second law F = ma is written per body; constraint forces are added as needed, giving equations of motion that integrate to the trajectory x(t) and velocity v(t).",
+          "familyId": "classical_macro"
+        },
+        {
+          "id": "process:electromagnetism-quantum-computing",
+          "name": "Maxwell's Equations to EM Waves",
+          "type": "process",
+          "level": 3,
+          "processId": "electromagnetism-quantum-computing",
+          "url": "processes/electromagnetism/electromagnetism-quantum-computing.html",
+          "subcategory": "electromagnetism",
+          "category": "Electromagnetism",
+          "graphType": "decision_flowchart",
+          "nodes": 10,
+          "edges": 10,
+          "description": "Maxwell's equations predict electromagnetic waves: in a source-free region, taking the curl of Faraday's law and substituting the Ampere-Maxwell law yields a wave equation for the fields; a transverse plane-wave solution propagates at speed c = 1/sqrt(mu*eps) with E, B, and the wavevector mutually perpendicular.",
+          "familyId": "classical_macro"
+        },
+        {
+          "id": "process:electromagnetism-quantum-entanglement",
+          "name": "Electrostatic Boundary-Value Problem",
+          "type": "process",
+          "level": 3,
+          "processId": "electromagnetism-quantum-entanglement",
+          "url": "processes/electromagnetism/electromagnetism-quantum-entanglement.html",
+          "subcategory": "electromagnetism",
+          "category": "Electromagnetism",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 12,
+          "description": "Electrostatic boundary-value problems find the potential in a region from charges and conductor boundaries: Poisson's equation holds where charge is present and Laplace's equation elsewhere; applying boundary conditions, and exploiting symmetry via separation of variables or the method of images, gives the potential whose gradient is the field.",
+          "familyId": "classical_macro"
+        },
+        {
+          "id": "process:electromagnetism-wave-function",
+          "name": "Electromagnetic Induction (Faraday's Law)",
+          "type": "process",
+          "level": 3,
+          "processId": "electromagnetism-wave-function",
+          "url": "processes/electromagnetism/electromagnetism-wave-function.html",
+          "subcategory": "electromagnetism",
+          "category": "Electromagnetism",
+          "graphType": "decision_flowchart",
+          "nodes": 10,
+          "edges": 10,
+          "description": "Faraday's law of induction relates a changing magnetic flux through a circuit to an induced electromotive force: the flux is defined as the surface integral of B, and when it changes in time an EMF equal to minus its rate of change drives a current whose direction, set by Lenz's law, opposes the change.",
+          "familyId": "classical_macro"
+        },
+        {
+          "id": "process:state-transition-matter-phases",
+          "name": "States of Matter Transitions",
+          "type": "process",
+          "level": 3,
+          "processId": "state-transition-matter-phases",
+          "url": "processes/graph_type_pilots/state-transition-matter-phases.html",
+          "subcategory": "graph_type_pilots",
+          "category": "Graph Type Pilots",
+          "graphType": "state_transition",
+          "nodes": 10,
+          "edges": 11,
+          "description": "The states of matter form a transition diagram driven by temperature and pressure: adding energy carries a substance from solid to liquid to gas and then to plasma through melting, vaporization, and ionization, while removing energy reverses these transitions; the equilibrium phase is fixed by position on the pressure-temperature diagram.",
+          "familyId": "thermal_statistical"
+        },
+        {
+          "id": "process:optics-geometric-optics",
+          "name": "Geometric Optics (Ray Tracing)",
+          "type": "process",
+          "level": 3,
+          "processId": "optics-geometric-optics",
+          "url": "processes/optics/optics-geometric-optics.html",
+          "subcategory": "optics",
+          "category": "Optics",
+          "graphType": "decision_flowchart",
+          "nodes": 10,
+          "edges": 11,
+          "description": "Geometric optics treats light as rays governed by reflection and refraction: principal rays are traced through a mirror or lens, the law of reflection or Snell's law sets ray directions, and the thin-lens/mirror equation locates the image, classifying it as real or virtual with a magnification from the object and image distances.",
+          "familyId": "electromagnetic_optical"
+        },
+        {
+          "id": "process:optics-quantum-optics",
+          "name": "Quantum Optics (Photon Statistics)",
+          "type": "process",
+          "level": 3,
+          "processId": "optics-quantum-optics",
+          "url": "processes/optics/optics-quantum-optics.html",
+          "subcategory": "optics",
+          "category": "Optics",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 13,
+          "description": "Quantum optics quantizes the electromagnetic field into photon number states and characterizes light by photon statistics: a Hanbury Brown-Twiss setup measures the second-order correlation g2(0), distinguishing coherent, thermal, and single-photon sources, where antibunching with g2(0) < 1 signals genuinely nonclassical light.",
+          "familyId": "classical_macro"
+        },
+        {
+          "id": "process:optics-wave-optics",
+          "name": "Wave Optics (Interference & Diffraction)",
+          "type": "process",
+          "level": 3,
+          "processId": "optics-wave-optics",
+          "url": "processes/optics/optics-wave-optics.html",
+          "subcategory": "optics",
+          "category": "Optics",
+          "graphType": "decision_flowchart",
+          "nodes": 10,
+          "edges": 10,
+          "description": "Wave optics explains interference and diffraction through the Huygens-Fresnel principle: each point on a wavefront emits secondary wavelets whose amplitudes superpose, and the path difference between contributions decides constructive versus destructive interference, producing the characteristic fringe intensity pattern set by wavelength and aperture geometry.",
+          "familyId": "electromagnetic_optical"
+        },
+        {
+          "id": "process:quantum_mechanics-electromagnetic-induction",
+          "name": "Time-Independent Schrodinger Equation",
+          "type": "process",
+          "level": 3,
+          "processId": "quantum_mechanics-electromagnetic-induction",
+          "url": "processes/quantum_mechanics/quantum_mechanics-electromagnetic-induction.html",
+          "subcategory": "quantum_mechanics",
+          "category": "Quantum Mechanics",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 12,
+          "description": "Solving the time-independent Schrodinger equation for a particle in a potential gives stationary states: writing H psi = E psi and distinguishing bound from scattering states, boundary conditions impose a quantization condition that selects discrete energy eigenvalues with normalizable eigenfunctions.",
+          "familyId": "classical_macro"
+        },
+        {
+          "id": "process:quantum_mechanics-electromagnetic-wave",
+          "name": "Quantum Tunneling Through a Barrier",
+          "type": "process",
+          "level": 3,
+          "processId": "quantum_mechanics-electromagnetic-wave",
+          "url": "processes/quantum_mechanics/quantum_mechanics-electromagnetic-wave.html",
+          "subcategory": "quantum_mechanics",
+          "category": "Quantum Mechanics",
+          "graphType": "decision_flowchart",
+          "nodes": 10,
+          "edges": 10,
+          "description": "Quantum tunneling lets a particle with energy below a potential barrier cross it: the wavefunction is solved piecewise in the three regions, decaying exponentially inside the barrier, and matching the function and its derivative at the walls yields a transmission amplitude with probability T approximately exp(-2*kappa*L).",
+          "familyId": "classical_macro"
+        },
+        {
+          "id": "process:quantum_mechanics-maxwells-equations",
+          "name": "Quantum Harmonic Oscillator",
+          "type": "process",
+          "level": 3,
+          "processId": "quantum_mechanics-maxwells-equations",
+          "url": "processes/quantum_mechanics/quantum_mechanics-maxwells-equations.html",
+          "subcategory": "quantum_mechanics",
+          "category": "Quantum Mechanics",
+          "graphType": "cyclic_pathway",
+          "nodes": 10,
+          "edges": 10,
+          "description": "The quantum harmonic oscillator is solved algebraically with ladder operators: rewriting the Hamiltonian in terms of a and a-dagger whose commutator is one gives H = hbar*omega(a-dagger a + 1/2); the ground state is annihilated by a, and repeated raising builds the equally spaced spectrum E_n = hbar*omega(n + 1/2).",
+          "familyId": "classical_macro"
+        },
+        {
+          "id": "process:solid_state-nuclear-decay",
+          "name": "Electronic Band Structure (Bloch)",
+          "type": "process",
+          "level": 3,
+          "processId": "solid_state-nuclear-decay",
+          "url": "processes/solid_state/solid_state-nuclear-decay.html",
+          "subcategory": "solid_state",
+          "category": "Solid State Physics",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 11,
+          "description": "Band structure follows from electrons in a periodic crystal potential: Bloch's theorem writes eigenstates as a plane wave times a lattice-periodic function, solving within the first Brillouin zone produces allowed bands separated by gaps at the zone boundaries, and filling states to the Fermi level classifies the solid as metal, semiconductor, or insulator.",
+          "familyId": "electromagnetic_optical"
+        },
+        {
+          "id": "process:solid_state-nuclear-fission",
+          "name": "BCS Superconductivity (Cooper Pairing)",
+          "type": "process",
+          "level": 3,
+          "processId": "solid_state-nuclear-fission",
+          "url": "processes/solid_state/solid_state-nuclear-fission.html",
+          "subcategory": "solid_state",
+          "category": "Solid State Physics",
+          "graphType": "decision_flowchart",
+          "nodes": 10,
+          "edges": 10,
+          "description": "BCS theory explains superconductivity below a critical temperature: a phonon-mediated attraction between electrons, when it overcomes Coulomb repulsion near the Fermi surface, binds them into Cooper pairs that condense into a coherent ground state; an energy gap opens, producing zero resistance and the Meissner effect.",
+          "familyId": "cosmic_nuclear"
+        },
+        {
+          "id": "process:solid_state-nuclear-fusion",
+          "name": "Phonons & Debye Heat Capacity",
+          "type": "process",
+          "level": 3,
+          "processId": "solid_state-nuclear-fusion",
+          "url": "processes/solid_state/solid_state-nuclear-fusion.html",
+          "subcategory": "solid_state",
+          "category": "Solid State Physics",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 11,
+          "description": "Lattice vibrations quantized as phonons set a crystal's heat capacity: normal modes have a dispersion that the Debye model approximates as linear up to a cutoff frequency; integrating the phonon density of states gives a specific heat scaling as T-cubed at low temperature and approaching the Dulong-Petit value at high temperature.",
+          "familyId": "thermal_statistical"
+        },
+        {
+          "id": "process:thermodynamics_statistical-entropy",
+          "name": "Statistical Entropy (Boltzmann)",
+          "type": "process",
+          "level": 3,
+          "processId": "thermodynamics_statistical-entropy",
+          "url": "processes/thermodynamics_statistical/thermodynamics_statistical-entropy.html",
+          "subcategory": "thermodynamics_statistical",
+          "category": "Thermodynamics & Statistical Physics",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 11,
+          "description": "Statistical mechanics defines entropy by counting microstates: for an isolated system the multiplicity of microstates consistent with the macrostate gives Boltzmann's S = k ln(Omega); maximizing entropy subject to constraints selects the most probable macrostate, defines temperature through 1/T = dS/dE, and yields the second law dS >= 0.",
+          "familyId": "classical_macro"
+        },
+        {
+          "id": "process:thermodynamics_statistical-heat-engine",
+          "name": "Carnot Heat Engine",
+          "type": "process",
+          "level": 3,
+          "processId": "thermodynamics_statistical-heat-engine",
+          "url": "processes/thermodynamics_statistical/thermodynamics_statistical-heat-engine.html",
+          "subcategory": "thermodynamics_statistical",
+          "category": "Thermodynamics & Statistical Physics",
+          "graphType": "cyclic_pathway",
+          "nodes": 11,
+          "edges": 11,
+          "description": "The Carnot engine sets the maximum efficiency of any heat engine: a working substance runs a reversible cycle of isothermal expansion absorbing heat from the hot reservoir, adiabatic expansion, isothermal compression rejecting heat to the cold reservoir, and adiabatic compression, giving efficiency eta = 1 - Tc/Th.",
+          "familyId": "classical_macro"
+        },
+        {
+          "id": "process:thermodynamics_statistical-phase-transition",
+          "name": "Ising Model Phase Transition",
+          "type": "process",
+          "level": 3,
+          "processId": "thermodynamics_statistical-phase-transition",
+          "url": "processes/thermodynamics_statistical/thermodynamics_statistical-phase-transition.html",
+          "subcategory": "thermodynamics_statistical",
+          "category": "Thermodynamics & Statistical Physics",
+          "graphType": "decision_flowchart",
+          "nodes": 11,
+          "edges": 11,
+          "description": "The Ising model captures a continuous phase transition: from the spin Hamiltonian the partition function gives the free energy and the magnetization order parameter; below the critical temperature the system spontaneously breaks symmetry into an ordered phase, with critical exponents describing behavior near Tc.",
+          "familyId": "classical_macro"
+        }
+      ],
+      "links": [
+        {
+          "source": "root",
+          "target": "family:classical_macro",
+          "type": "contains"
+        },
+        {
+          "source": "root",
+          "target": "family:electromagnetic_optical",
+          "type": "contains"
+        },
+        {
+          "source": "root",
+          "target": "family:thermal_statistical",
+          "type": "contains"
+        },
+        {
+          "source": "root",
+          "target": "family:quantum_fields",
+          "type": "contains"
+        },
+        {
+          "source": "root",
+          "target": "family:cosmic_nuclear",
+          "type": "contains"
+        },
+        {
+          "source": "family:electromagnetic_optical",
+          "target": "process:astrophysics-higgs-mechanism",
+          "type": "classified_as"
+        },
+        {
+          "source": "family:quantum_fields",
+          "target": "process:astrophysics-particle-collision",
+          "type": "classified_as"
+        },
+        {
+          "source": "family:thermal_statistical",
+          "target": "process:astrophysics-standard-model",
+          "type": "classified_as"
+        },
+        {
+          "source": "family:classical_macro",
+          "target": "process:classical_mechanics-hamiltonian-mechanics",
+          "type": "classified_as"
+        },
+        {
+          "source": "family:classical_macro",
+          "target": "process:classical_mechanics-lagrangian-mechanics",
+          "type": "classified_as"
+        },
+        {
+          "source": "family:classical_macro",
+          "target": "process:classical_mechanics-newtonian-dynamics",
+          "type": "classified_as"
+        },
+        {
+          "source": "family:classical_macro",
+          "target": "process:electromagnetism-quantum-computing",
+          "type": "classified_as"
+        },
+        {
+          "source": "family:classical_macro",
+          "target": "process:electromagnetism-quantum-entanglement",
+          "type": "classified_as"
+        },
+        {
+          "source": "family:classical_macro",
+          "target": "process:electromagnetism-wave-function",
+          "type": "classified_as"
+        },
+        {
+          "source": "family:thermal_statistical",
+          "target": "process:state-transition-matter-phases",
+          "type": "classified_as"
+        },
+        {
+          "source": "family:electromagnetic_optical",
+          "target": "process:optics-geometric-optics",
+          "type": "classified_as"
+        },
+        {
+          "source": "family:classical_macro",
+          "target": "process:optics-quantum-optics",
+          "type": "classified_as"
+        },
+        {
+          "source": "family:electromagnetic_optical",
+          "target": "process:optics-wave-optics",
+          "type": "classified_as"
+        },
+        {
+          "source": "family:classical_macro",
+          "target": "process:quantum_mechanics-electromagnetic-induction",
+          "type": "classified_as"
+        },
+        {
+          "source": "family:classical_macro",
+          "target": "process:quantum_mechanics-electromagnetic-wave",
+          "type": "classified_as"
+        },
+        {
+          "source": "family:classical_macro",
+          "target": "process:quantum_mechanics-maxwells-equations",
+          "type": "classified_as"
+        },
+        {
+          "source": "family:electromagnetic_optical",
+          "target": "process:solid_state-nuclear-decay",
+          "type": "classified_as"
+        },
+        {
+          "source": "family:cosmic_nuclear",
+          "target": "process:solid_state-nuclear-fission",
+          "type": "classified_as"
+        },
+        {
+          "source": "family:thermal_statistical",
+          "target": "process:solid_state-nuclear-fusion",
+          "type": "classified_as"
+        },
+        {
+          "source": "family:classical_macro",
+          "target": "process:thermodynamics_statistical-entropy",
+          "type": "classified_as"
+        },
+        {
+          "source": "family:classical_macro",
+          "target": "process:thermodynamics_statistical-heat-engine",
+          "type": "classified_as"
+        },
+        {
+          "source": "family:classical_macro",
+          "target": "process:thermodynamics_statistical-phase-transition",
+          "type": "classified_as"
+        }
+      ]
+    }
+  ],
+  "variantSummaries": [
+    {
+      "id": "taxonomy",
+      "label": "Branch Taxonomy",
+      "layout": "radial",
+      "recommendation": "secondary",
+      "nodes": 31,
+      "links": 30,
+      "nodeTypes": {
+        "process": 22,
+        "root": 1,
+        "subcategory": 8
+      },
+      "rubricTotal": 18
+    },
+    {
+      "id": "lens",
+      "label": "Curated Lens Map",
+      "layout": "force",
+      "recommendation": "candidate",
+      "nodes": 30,
+      "links": 49,
+      "nodeTypes": {
+        "collection": 7,
+        "process": 22,
+        "root": 1
+      },
+      "rubricTotal": 21
+    },
+    {
+      "id": "regime_theory_map",
+      "label": "Regime / Theory Map",
+      "layout": "layered",
+      "recommendation": "primary",
+      "nodes": 28,
+      "links": 27,
+      "nodeTypes": {
+        "family": 5,
+        "process": 22,
+        "root": 1
+      },
+      "rubricTotal": 24
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "id": "biorxiv_10.1101_2025.10.16.682920",
+  "doi": "10.1101/2025.10.16.682920",
+  "title": "Lattice Instability Drives Formation of Protofilament Clusters at the Microtubule Plus End Tips",
+  "authors": [
+    "Xue, W.",
+    "Wu, J.",
+    "Bidone, T.",
+    "Voth, G. A."
+  ],
+  "author_string": "Xue, W., Wu, J., Bidone, T., Voth, G. A.",
+  "journal": "bioRxiv",
+  "journal_full": "bioRxiv",
+  "year": "2026",
+  "abstract": "Microtubules (MTs) are dynamic cytoskeletal filaments composed of - and {beta}-tubulin protein dimers. They are crucial for maintaining cell structure, facilitating intracellular transport, and ensuring proper chromosome segregation among other things. These biological functions are influenced by the dynamic instability of the MT plus-end tip. Recent simulations have discovered formation of protofilament (PF) clusters at the MT plus-end tip, but reliable extrapolation of PF cluster dynamics and detailed microscopic mechanism are yet to be developed to understand their behavior thoroughly. In this work, we have constructed, from \"bottom up\", a relatively high resolution coarse-grained (CG) molecular dynamics (MD) model for tubulins with 20 CG sites per tubulin monomer, performed extensive CG MD simulations on MT lattices with 8 and 40 layers of heterodimers, and conducted comprehensive atomistic-level analysis. Our findings demonstrate that, in both GTP and GDP states, PF clusters are stable up to tens of microseconds of CG MD simulation time during spontaneous outward bending relaxation. PF clustering is initiated by longitudinal relaxation, stabilized by residual lateral interaction in the PF clusters. This process is thermodynamically driven by intrinsic lattice instability. In longer microtubules, this instability accumulates and further facilitates PF bending and clustering at the plus-end tip, but it can also be released via lattice curvature and supertwist. GDP-MTs form more PF clusters than GTP-MT on average and undergo more lateral cleavage and faster bending relaxation due to weaker lateral interactions, which facilitates MT catastrophe. GTP-MT forms flatter and more rigid PF clusters that favor nucleotide addition. Our findings highlight the critical role of lattice instability in microtubule dynamics and offer new insights on the conformational variability of MT plus-end tips.\n\nSIGNIFICANCEThe dynamical structure and behavior of microtubule (MT) plus-end tips remains an important topic in structural and computational biophysics. For the recently discovered protofilament clusters at MT plus-end tips, this study provides a mechanism for their formation through comprehensive analyses of tubulin-tubulin interaction interfaces in all-atom simulations of complete MT lattices. This study also makes long-time predictions for the dynamics of PF clusters through a coarse-grained model for the tubulin heterodimers to extend the effective simulation time and system size, while preserving key details of the lateral and longitudinal interaction interfaces. The findings deepen understanding of the life cycle of PF clusters, while adding new insight on microtubule dynamics and the role of lattice destabilization.",
+  "keywords": [],
+  "categories": [
+    "biophysics"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.1101/2025.10.16.682920",
+  "source": "biorxiv",
+  "sources": [
+    "biorxiv"
+  ],
+  "acquired_date": "2026-05-24T22:15:24.126688",
+  "category": "biology",
+  "subcategories": [
+    "biophysics"
+  ],
+  "published_date": "2026-01-24",
+  "updated_date": "2026-01-24",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "biorxiv",
+  "preprint_version": "3",
+  "preprint_type": "new results",
+  "license": "cc_by_nc_nd",
+  "jatsxml": "https://www.biorxiv.org/content/early/2026/01/24/2025.10.16.682920.source.xml",
+  "published_doi": "10.1016/j.bpj.2026.02.013",
+  "author_corresponding": "Gregory A Voth",
+  "author_corresponding_institution": "University of Chicago"
+}

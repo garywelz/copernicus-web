@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2605.05197v1",
+  "arxiv_id": "2605.05197v1",
+  "title": "Implicit Representations of Grammaticality in Language Models",
+  "authors": [
+    "Yingshan Susan Wang",
+    "Linlu Qiu",
+    "Zhaofeng Wu",
+    "Roger P. Levy",
+    "Yoon Kim"
+  ],
+  "author_string": "Yingshan Susan Wang, Linlu Qiu, Zhaofeng Wu, Roger P. Levy, Yoon Kim",
+  "journal": "arXiv:2605.05197v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Grammaticality and likelihood are distinct notions in human language. Pretrained language models (LMs), which are probabilistic models of language fitted to maximize corpus likelihood, generate grammatically well-formed text and discriminate well between grammatical and ungrammatical sentences in tightly controlled minimal pairs. However, their string probabilities do not sharply discriminate between grammatical and ungrammatical sentences overall. But do LMs implicitly acquire a grammaticality distinction distinct from string probability? We explore this question through studying internal representations of LMs, by training a linear probe on a dataset of grammatical and (synthetic) ungrammatical sentences obtained by applying perturbations to a naturalistic text corpus. We find that this simple grammaticality probe generalizes to human-curated grammaticality judgment benchmarks and outperforms LM probability-based grammaticality judgments. When applied to semantic plausibility benchmarks, in which both members of a minimal pair are grammatical and differ in only plausibility, the probe however performs worse than string probability. The English-trained probe also exhibits nontrivial cross-lingual generalization, outperforming string probabilities on grammaticality benchmarks in numerous other languages. Additionally, probe scores correlate only weakly with string probabilities. These results collectively suggest that LMs acquire to some extent an implicit grammaticality distinction within their hidden layers.",
+  "categories": [
+    "cs.CL"
+  ],
+  "primary_category": "cs.CL",
+  "comment": null,
+  "published_date": "2026-05-06T17:57:31Z",
+  "updated_date": "2026-05-06T17:57:31Z",
+  "url": "https://arxiv.org/abs/2605.05197v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.05197v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-07T10:15:41.350994",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CL"
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "id": "arxiv_2605.06304v1",
+  "arxiv_id": "2605.06304v1",
+  "title": "A multi-scale information geometry reveals the structure of mutual information in neural populations",
+  "authors": [
+    "Simone Azeglio",
+    "Steeve Laquitaine",
+    "Ulisse Ferrari",
+    "Matthew Chalk"
+  ],
+  "author_string": "Simone Azeglio, Steeve Laquitaine, Ulisse Ferrari, Matthew Chalk",
+  "journal": "arXiv:2605.06304v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Understanding how neural population responses represent sensory information is a central problem in systems neuroscience. One approach is to define a representational geometry on stimulus space in which distances reflect how reliably stimuli can be distinguished from neural activity. However, different constructions of these distances can lead to qualitatively different conclusions about the neural code. Here, we show that a unique Riemannian representational geometry emerges from first principles governing how distances contract as stimulus resolution is lost through coarse-graining. This results in a multi-scale extension of the Fisher information metric, capturing encoding structure from fine stimulus details to coarse global distinctions. The resulting geometry is exactly related to the mutual information encoded by the population: well encoded stimulus directions - those contributing more to mutual information - are expanded, whereas poorly encoded directions are contracted. The metric tensor can be estimated using diffusion models, making the framework practical for large neural populations and high-dimensional stimuli. Applied to visual cortical responses to natural images, the eigenvectors of the metric tensor identify stimulus variations that contribute most to information transmission, yielding interpretable features that are robust to modelling choices. Together, these results provide a principled, information-theoretic framework for characterising neural population codes.",
+  "categories": [
+    "q-bio.NC"
+  ],
+  "primary_category": "q-bio.NC",
+  "comment": null,
+  "published_date": "2026-05-07T14:07:43Z",
+  "updated_date": "2026-05-07T14:07:43Z",
+  "url": "https://arxiv.org/abs/2605.06304v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.06304v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-13T10:15:35.804159",
+  "category": "biology",
+  "subcategories": [
+    "q-bio.NC"
+  ]
+}

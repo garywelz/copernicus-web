@@ -1,0 +1,30 @@
+{
+  "id": "arxiv_2604.22011v1",
+  "arxiv_id": "2604.22011v1",
+  "title": "Lagrangian Proper Orthogonal Decomposition",
+  "authors": [
+    "Ron Shnapp",
+    "Stefano Brizzolara"
+  ],
+  "author_string": "Ron Shnapp, Stefano Brizzolara",
+  "journal": "arXiv:2604.22011v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We introduce a modal representation for Lagrangian trajectories in turbulence, termed Lagrangian Proper Orthogonal Decomposition (LPOD). An ensemble of particle trajectories is used to construct velocity time series, which are normalized independently for each trajectory to isolate fluctuations. Principal Component Analysis is then applied to the resulting dataset, with temporal instances defining the feature space. The method is tested on trajectories from both direct numerical simulations of homogeneous isotropic turbulence and three-dimensional particle-tracking experiments, showing that the leading modes exhibit similar structures and energy distributions in both cases. Truncated reconstructions are obtained by combining modes and coefficients, rescaling the fluctuations, and integrating in time. For trajectories of the order of the integral time scale, single-particle dispersion and curvature statistics are accurately reproduced using a limited number of modes (c.a. 10), whereas capturing the tails of acceleration distributions requires a larger set (c.a. 30-60). Longer trajectories require progressively more modes for accurate reconstruction. These results suggest a possible route to data-driven generation of synthetic particle trajectories via stochastic sampling of the modal Lagrangian dynamics.",
+  "categories": [
+    "physics.flu-dyn"
+  ],
+  "primary_category": "physics.flu-dyn",
+  "comment": null,
+  "published_date": "2026-04-23T19:01:21Z",
+  "updated_date": "2026-04-23T19:01:21Z",
+  "url": "https://arxiv.org/abs/2604.22011v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.22011v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-27T10:15:32.954005",
+  "category": "physics",
+  "subcategories": [
+    "physics.flu-dyn"
+  ]
+}

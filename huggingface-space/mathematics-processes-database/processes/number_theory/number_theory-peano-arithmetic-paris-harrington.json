@@ -1,0 +1,39 @@
+{
+  "id": "number_theory-peano-arithmetic-paris-harrington",
+  "name": "Peano Arithmetic & Paris — Part 9: Paris-Harrington Theorem",
+  "category": "mathematics",
+  "subcategory": "number_theory",
+  "subcategory_name": "Number Theory",
+  "description": "The Paris-Harrington theorem: a strengthened finite Ramsey theorem is true but unprovable in PA. The key: every k-coloring of [N]^n has a homogeneous subset Y with |Y| ≥ min(Y) (relatively large). Proof: PA ⊢ PH ⟹ Con(PA); by Gödel's Second Incompleteness, PA ⊬ Con(PA), so PA ⊬ PH.",
+  "mermaid": "graph TD\n    RefSecondIncomp[\"Ref: Second Incompleteness (Part 8)\"]\n    DefFinRamsey[\"Def: Finite Ramsey: R(n,k,m) = least N s.t. every k-coloring of [N]^n has homogeneous m-set\"]\n    DefRelLarge[\"Def: Y relatively large iff |Y| ≥ min(Y)\"]\n    DefPH[\"Def: PH(n,k,m): strengthened Ramsey with relatively large homogeneous set\"]\n    LemFinRamseyPA[\"Lem: Finite Ramsey theorem provable in PA\"]\n    LemPHFromInf[\"Lem: PH follows from infinite Ramsey (compactness) or transfinite induction\"]\n    LemPHTrue[\"Lem: PH is true in standard model ℕ\"]\n    LemPHImplCon[\"Lem: PA ⊢ PH(n,k,m) ⟹ Con(PA); formalized proof\"]\n    ThmParisHarrington[\"Thm: Paris-Harrington: PH unprovable in PA\"]\n    CorPHProvable[\"Cor: PH provable in ACA₀, ZFC, or transfinite induction\"]\n    CorPHFast[\"Cor: PH Ramsey function grows faster than any PA-provably total function\"]\n    RefSecondIncomp --> LemPHImplCon\n    RefSecondIncomp --> ThmParisHarrington\n    DefFinRamsey --> DefPH\n    DefRelLarge --> DefPH\n    DefPH --> LemFinRamseyPA\n    DefPH --> LemPHFromInf\n    LemPHFromInf --> LemPHTrue\n    LemPHTrue --> LemPHImplCon\n    LemPHImplCon --> ThmParisHarrington\n    ThmParisHarrington --> CorPHProvable\n    ThmParisHarrington --> CorPHFast\n    classDef definition fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef lemma fill:#74c0fc,color:#fff,stroke:#4dabf7\n    classDef theorem fill:#51cf66,color:#fff,stroke:#40c057\n    classDef corollary fill:#1abc9c,color:#fff,stroke:#16a085\n    classDef ref fill:#bdc3c7,color:#333,stroke:#95a5a6\n    class RefSecondIncomp ref\n    class DefFinRamsey,DefRelLarge,DefPH definition\n    class LemFinRamseyPA,LemPHFromInf,LemPHTrue,LemPHImplCon lemma\n    class ThmParisHarrington theorem\n    class CorPHProvable,CorPHFast corollary",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

@@ -1,0 +1,41 @@
+{
+  "id": "arxiv_2604.27646v1",
+  "arxiv_id": "2604.27646v1",
+  "title": "Benchmarking virtual cell models for in-the-wild perturbation response",
+  "authors": [
+    "Xinjie Mao",
+    "Songming Zhang",
+    "Qianhong Wen",
+    "Xiangyu Wen",
+    "Kedu Jin",
+    "Hao Wu",
+    "Shuizhou Chen",
+    "Yuqiang Li",
+    "Lei Bai",
+    "Qi Liu",
+    "Ning Ding",
+    "Siqi Sun",
+    "Zhangyang Gao"
+  ],
+  "author_string": "Xinjie Mao, Songming Zhang, Qianhong Wen, Xiangyu Wen, Kedu Jin et al.",
+  "journal": "arXiv:2604.27646v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Virtual cell (VC) models aim to predict cellular responses to any perturbations in silico and have emerged as a promising approach for drug discovery and precision medicine. Yet, a clear gap still remains: while models routinely reported impressive results on standard benchmarks, it is unclear whether their predictions are truly meaningful in practice. This is mainly due to limitations in current evaluation setups, which are often overly simplified or inconsistent, and do not reflect the complexity and variability of real biological systems. Here, we introduce a standardized and modular benchmarking framework for virtual cell prediction. Our framework evaluates diverse models under in-the-wild challenging scenarios, including unseen cell contexts, unseen perturbations, and cross-dataset generalization, which better reflect practical applications. Our analysis shows that model performance is highly context-dependent and shaped by task design and evaluation criteria. In commonly used setups, performance is often overestimated, and naive dataset aggregation can even reduce performance. When evaluated under more strict conditions, model performance drops markedly, indicating limited robustness to shifts across cellular contexts. In unseen perturbation settings, models including simple linear approaches capture global transcriptional trends but fail to recover fine-grained perturbation-specific effects. In addition, different evaluation metrics focus on different biological properties, leading to substantially different model rankings. Together, our framework provides a more reliable and biologically grounded evaluation, offering clearer guidance for applying virtual cell models in real scenarios.",
+  "categories": [
+    "q-bio.CB"
+  ],
+  "primary_category": "q-bio.CB",
+  "comment": null,
+  "published_date": "2026-04-30T09:40:23Z",
+  "updated_date": "2026-04-30T09:40:23Z",
+  "url": "https://arxiv.org/abs/2604.27646v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.27646v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-07T10:15:37.172292",
+  "category": "biology",
+  "subcategories": [
+    "q-bio.CB"
+  ]
+}

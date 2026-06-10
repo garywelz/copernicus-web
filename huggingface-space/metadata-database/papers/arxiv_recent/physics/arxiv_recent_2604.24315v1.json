@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2604.24315v1",
+  "arxiv_id": "2604.24315v1",
+  "title": "Thermal instability in coronal loops: linking eigenvalue spectra to time-dependent evolution",
+  "authors": [
+    "Adrian Kelly",
+    "Rony Keppens",
+    "Jordi De Jonghe"
+  ],
+  "author_string": "Adrian Kelly, Rony Keppens, Jordi De Jonghe",
+  "journal": "arXiv:2604.24315v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Cool, dense condensations such as coronal rain and prominences suggest that coronal plasma can undergo runaway radiative cooling. Connecting this behaviour to linear thermal modes requires us to fully understand the deeper connection between eigenvalue spectra and actual time-dependent evolution. We aim to clarify this intricate link for a simplified, coronal-only model of a stratified coronal loop by combining spectral, linear initial-value, and nonlinear simulations of the same loop setup. We study waves and instabilities, as well as temporal evolutions for a 1D hydrostatic, thermally balanced loop with optically thin radiation and prescribed heating. The non-adiabatic spectrum is computed with our open-source Legolas code. We demonstrate our newly developed boundary value-initial value solver Legolas-IVP, where linear evolutions are performed for controlled perturbations, and fully equivalent nonlinear runs are carried out with MPI-AMRVAC. The spectrum contains discrete acoustic modes and a thermally unstable branch including a thermal continuum. Linear initial-value experiments with isochoric, isobaric, and isentropic pulses highlight how the polarisation of the eigenmodes demonstrates physically consistent behaviour expected from the eigenspectrum. Even in the linear stage, thermal imbalance drives siphon-like flows toward the cooling region. Growth rates from Legolas-IVP agree with spectral predictions and are reproduced in MPI-AMRVAC, which follows the condensation through runaway cooling to chromospheric temperatures, with the cool dense blob sliding under gravity toward the loop footpoint. The spectral-linear-nonlinear investigation demonstrates a direct link between thermal eigenmodes and condensation dynamics, providing a basis for extending to fully 3D MHD models.",
+  "categories": [
+    "astro-ph.SR"
+  ],
+  "primary_category": "astro-ph.SR",
+  "comment": "15 pages, 14 figures. Accepted for publication in Astronomy and Astrophysics (A&A)",
+  "published_date": "2026-04-27T11:05:43Z",
+  "updated_date": "2026-04-27T11:05:43Z",
+  "url": "https://arxiv.org/abs/2604.24315v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.24315v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-27T22:15:26.519372",
+  "category": "physics",
+  "subcategories": [
+    "astro-ph.SR"
+  ]
+}

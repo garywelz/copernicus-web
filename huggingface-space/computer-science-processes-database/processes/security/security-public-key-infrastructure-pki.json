@@ -4,18 +4,20 @@
   "category": "computer_science",
   "subcategory": "security",
   "subcategory_name": "Security & Cryptography",
-  "description": "Public Key Infrastructure (PKI) process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "PKI binds identities to public keys through trusted certificate authorities: an entity generates a key pair and certificate signing request, the CA validates its identity and signs a certificate that chains to a trusted root; relying parties later verify the signature chain and revocation status before trusting it.",
   "complexity": {
-    "nodes": 9,
-    "edges": 10,
-    "conditionals": 0,
+    "nodes": 12,
+    "edges": 12,
+    "conditionals": 2,
     "logicGates": {
-      "orGates": 1,
-      "andGates": 2,
+      "orGates": 2,
+      "andGates": 1,
+      "notGates": 0,
       "total": 3
     },
-    "level": "medium",
-    "detailLevel": "medium"
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 1
   },
   "colorScheme": {
     "red": {
@@ -39,55 +41,157 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nN1[\"Identity Claim\"]\nN2[\"Key Pair\"]\nN3[\"Certificate Authority\"]\nN4[\"Choose Approach\"]\nN5[\"Certificate Store\"]\nN6[\"Create CSR\"]\nN7[\"Issue/Validate Cert\"]\nN8[\"Trusted Identity\"]\nN9[\"Integrate Results\"]\n\nN1 --> N2\nN2 --> N3\nN3 --> N4\nN4 --> N5\nN4 --> N7\nN5 --> N6\nN7 --> N8\nN6 --> N9\nN8 --> N9\nN9 --> N6\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#ff6b6b,color:#fff\n    style N3 fill:#ffd43b,color:#000\n    style N4 fill:#ffd43b,color:#000\n    style N5 fill:#ffd43b,color:#000\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#b197fc,color:#fff\n    style N9 fill:#74c0fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"Needs certificate\"]\n    N2[\"Generate key pair\"]\n    N3[\"Create CSR\"]\n    N4[\"Submit to CA\"]\n    N5[\"CA validates identity\"]\n    N6{\"Validation passes?\"}\n    N7[\"Reject request\"]\n    N8[\"CA signs certificate\"]\n    N9[\"Distribute + chain\"]\n    N10[\"Relying party verifies\"]\n    N11{\"Valid + not revoked?\"}\n    N12[\"Trusted channel\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 --> N4\n    N4 --> N5\n    N5 --> N6\n    N6 -->|no| N7\n    N6 -->|yes| N8\n    N8 --> N9\n    N9 --> N10\n    N10 --> N11\n    N11 -->|no| N7\n    N11 -->|yes| N12\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#74c0fc,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#51cf66,color:#fff\n    style N10 fill:#51cf66,color:#fff\n    style N11 fill:#74c0fc,color:#fff\n    style N12 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
-      "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: Public Key Infrastructure (PKI). Created using the Programming Framework methodology."
+      "title": "Internet X.509 Public Key Infrastructure Certificate and CRL Profile (RFC 5280)",
+      "authors": "Cooper, D.; Santesson, S.; Farrell, S.; et al.",
+      "journal": "IETF",
+      "year": "2008",
+      "doi": "10.17487/RFC5280",
+      "url": "https://doi.org/10.17487/RFC5280"
     },
     {
-      "title": "Health informatics. Public key infrastructure",
-      "authors": "",
-      "journal": "",
-      "year": "None",
-      "pubmed": null,
-      "doi": "10.3403/30327466u",
-      "url": "https://doi.org/10.3403/30327466u"
-    },
-    {
-      "title": "Health informatics. Public key infrastructure",
-      "authors": "",
-      "journal": "",
-      "year": "None",
-      "pubmed": null,
-      "doi": "10.3403/30327466",
-      "url": "https://doi.org/10.3403/30327466"
-    },
-    {
-      "title": "Biometrics and public key infrastructure",
-      "authors": "Ashbourn, Julian",
-      "journal": "PKI Implementation and Infrastructures",
-      "year": "2023",
-      "pubmed": null,
-      "doi": "10.1201/9781003360674-6",
-      "url": "https://doi.org/10.1201/9781003360674-6"
+      "title": "New directions in cryptography",
+      "authors": "Diffie, W.; Hellman, M. E.",
+      "journal": "IEEE Transactions on Information Theory",
+      "year": "1976",
+      "doi": "10.1109/TIT.1976.1055638",
+      "url": "https://doi.org/10.1109/TIT.1976.1055638"
     }
   ],
   "keywords": [
-    "public",
-    "key",
-    "infrastructure",
-    "pki"
+    "public key infrastructure",
+    "certificate authority",
+    "X.509",
+    "chain of trust",
+    "revocation"
   ],
   "relatedProcesses": [],
   "created": "2026-01-15",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations.\nCurated Mermaid applied (citations preserved)."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "namedCollections": [],
+  "graphMetrics": {
+    "nodes": 12,
+    "edges": 12,
+    "conditionals": 2,
+    "andGates": 1,
+    "orGates": 2,
+    "notGates": 0,
+    "loops": 1
+  },
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Needs certificate",
+      "detail": "Entity identity",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N2",
+      "label": "Generate key pair",
+      "detail": "Public + private",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N3",
+      "label": "Create CSR",
+      "detail": "Sign request",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N4",
+      "label": "Submit to CA",
+      "detail": "Registration",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N5",
+      "label": "CA validates identity",
+      "detail": "Vet subject",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N6",
+      "label": "Validation passes?",
+      "detail": "Identity proven",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N7",
+      "label": "Reject request",
+      "detail": "No certificate",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N8",
+      "label": "CA signs certificate",
+      "detail": "Bind key+name",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N9",
+      "label": "Distribute + chain",
+      "detail": "To trusted root",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N10",
+      "label": "Relying party verifies",
+      "detail": "Check signature",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N11",
+      "label": "Valid + not revoked?",
+      "detail": "CRL/OCSP check",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N12",
+      "label": "Trusted channel",
+      "detail": "Authenticated key",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 1
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:security-public-key-infrastructure-pki",
+    "graphType": "decision_flowchart",
+    "topologySignature": "0fbcac1aff8bf506",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "graphType": "decision_flowchart",
+  "domainContext": "Security / cryptography"
 }

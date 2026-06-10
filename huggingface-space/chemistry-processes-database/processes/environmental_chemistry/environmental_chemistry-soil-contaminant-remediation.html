@@ -167,6 +167,33 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
@@ -176,7 +203,7 @@
             <div class="header-meta">
                 <span class="meta-item">Chemistry</span>
                 <span class="meta-item">Environmental Chemistry</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,35 +234,60 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Soil Contaminant Remediation process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>Remediating contaminated soil begins with site assessment to map the contaminant and plume, then branches by whether the contaminant is dissolved or sorbed: dissolved plumes are pumped and treated while sorbed contaminants are mobilized or degraded in situ, with treatment iterated until concentrations fall below cleanup targets.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-N1["Contaminated Soil"]
-N2["Contaminant Profile"]
-N3["Remediation Strategy"]
-N4["Apply Treatment"]
-N5["Monitor Outcomes"]
-N6["Remediated Soil"]
+    N1["Contaminated site"]
+    N2["Site assessment + sampling"]
+    N3["Identify contaminant + plume"]
+    N4{"Sorbed or dissolved?"}
+    N5["Dissolved: pump-and-treat"]
+    N6["Sorbed: in-situ method"]
+    N7["Mobilize / degrade"]
+    N8["Treat extracted water"]
+    N9{"Below cleanup target?"}
+    N10["Continue / add reagent"]
+    N11["Remediated soil"]
 
-N1 --> N2
-N2 --> N3
-N3 --> N4
-N4 --> N5
-N5 --> N6
+    N1 --> N2
+    N2 --> N3
+    N3 --> N4
+    N4 -->|dissolved| N5
+    N4 -->|sorbed| N6
+    N5 --> N8
+    N6 --> N7
+    N7 --> N8
+    N8 --> N9
+    N9 -->|no| N10
+    N10 -->|repeat| N7
+    N9 -->|yes| N11
 
     style N1 fill:#ff6b6b,color:#fff
-    style N2 fill:#ff6b6b,color:#fff
-    style N3 fill:#ffd43b,color:#000
-    style N4 fill:#51cf66,color:#fff
-    style N5 fill:#74c0fc,color:#fff
-    style N6 fill:#b197fc,color:#fff
+    style N2 fill:#51cf66,color:#fff
+    style N3 fill:#74c0fc,color:#fff
+    style N4 fill:#74c0fc,color:#fff
+    style N5 fill:#51cf66,color:#fff
+    style N6 fill:#51cf66,color:#fff
+    style N7 fill:#51cf66,color:#fff
+    style N8 fill:#51cf66,color:#fff
+    style N9 fill:#74c0fc,color:#fff
+    style N10 fill:#51cf66,color:#fff
+    style N11 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Contaminated site</td><td>Triggers & Inputs</td><td><a href="https://doi.org/10.1016/j.jenvman.2004.02.003" target="_blank" title="An overview and analysis of site remediation technologies" style="color:#e74c3c;">Khan, F. I. et al. 2004</a></td></tr><tr><td style="font-weight:600;">Site assessment + sampling</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1016/j.jenvman.2004.02.003" target="_blank" title="An overview and analysis of site remediation technologies" style="color:#e74c3c;">Khan, F. I. et al. 2004</a></td></tr><tr><td style="font-weight:600;">Identify contaminant + plume</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1002/9781118767443" target="_blank" title="Environmental Organic Chemistry (3rd ed.)" style="color:#e74c3c;">Schwarzenbach, R. P. et al. 2016</a></td></tr><tr><td style="font-weight:600;">Sorbed or dissolved?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1002/9781118767443" target="_blank" title="Environmental Organic Chemistry (3rd ed.)" style="color:#e74c3c;">Schwarzenbach, R. P. et al. 2016</a></td></tr><tr><td style="font-weight:600;">Dissolved: pump-and-treat</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1016/j.jenvman.2004.02.003" target="_blank" title="An overview and analysis of site remediation technologies" style="color:#e74c3c;">Khan, F. I. et al. 2004</a></td></tr><tr><td style="font-weight:600;">Sorbed: in-situ method</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1016/j.jenvman.2004.02.003" target="_blank" title="An overview and analysis of site remediation technologies" style="color:#e74c3c;">Khan, F. I. et al. 2004</a></td></tr><tr><td style="font-weight:600;">Mobilize / degrade</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1002/9781118767443" target="_blank" title="Environmental Organic Chemistry (3rd ed.)" style="color:#e74c3c;">Schwarzenbach, R. P. et al. 2016</a></td></tr><tr><td style="font-weight:600;">Treat extracted water</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1016/j.jenvman.2004.02.003" target="_blank" title="An overview and analysis of site remediation technologies" style="color:#e74c3c;">Khan, F. I. et al. 2004</a></td></tr><tr><td style="font-weight:600;">Below cleanup target?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1016/j.jenvman.2004.02.003" target="_blank" title="An overview and analysis of site remediation technologies" style="color:#e74c3c;">Khan, F. I. et al. 2004</a></td></tr><tr><td style="font-weight:600;">Continue / add reagent</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1016/j.jenvman.2004.02.003" target="_blank" title="An overview and analysis of site remediation technologies" style="color:#e74c3c;">Khan, F. I. et al. 2004</a></td></tr><tr><td style="font-weight:600;">Remediated soil</td><td>Products & Outputs</td><td><a href="https://doi.org/10.1002/9781118767443" target="_blank" title="Environmental Organic Chemistry (3rd ed.)" style="color:#e74c3c;">Schwarzenbach, R. P. et al. 2016</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -281,12 +333,12 @@ N5 --> N6
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 6</li>
-                        <li><strong>Edges:</strong> 5</li>
-                        <li><strong>Conditionals:</strong> 0</li>
-                        <li><strong>AND Gates:</strong> 0</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 0</li>
+                        <li><strong>Nodes:</strong> 11</li>
+                        <li><strong>Edges:</strong> 12</li>
+                        <li><strong>Conditionals:</strong> 2</li>
+                        <li><strong>AND Gates:</strong> 2</li>
+                        <li><strong>OR Gates:</strong> 2</li>
+                        <li><strong>Total Gates:</strong> 4</li>
                     </ul>
                 </div>
                 
@@ -294,7 +346,7 @@ N5 --> N6
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>soil</li><li>contaminant</li><li>remediation</li>
+                        <li>soil remediation</li><li>pump-and-treat</li><li>in-situ</li><li>contaminant plume</li><li>sorption</li>
                     </ul>
                 </div>
                 
@@ -305,42 +357,22 @@ N5 --> N6
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>An overview and analysis of site remediation technologies</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Khan, F. I.; Husain, T.; Hejazi, R.
+                            , Journal of Environmental Management
+                             (2004)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Nanomaterials for soil contaminant remediation</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Wu, Ting; Hou, Jie; White, Jason C.; Lin, Daohui
-                            , Nano-Enabled Sustainable and Precision Agriculture
-                             (2023)
-                            </span>
-                            <br><a href="https://doi.org/10.1016/b978-0-323-91233-4.00017-x" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1016/b978-0-323-91233-4.00017-x</a>
+                            <br><a href="https://doi.org/10.1016/j.jenvman.2004.02.003" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1016/j.jenvman.2004.02.003</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Surfactant enhanced remediation of soil columns contaminated by residual tetrachloroethylene</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Pennell, Kurt D; Jin, Minquan; Abriola, Linda M; Pope, Gary A
-                            , Journal of Contaminant Hydrology
-                             (1994)
+                            <strong>Environmental Organic Chemistry (3rd ed.)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Schwarzenbach, R. P.; Gschwend, P. M.; Imboden, D. M.
+                            , Wiley
+                             (2016)
                             </span>
-                            <br><a href="https://doi.org/10.1016/0169-7722(94)90071-x" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1016/0169-7722(94)90071-x</a>
-                            
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Column study of Cr(VI) removal by cationic hydrogel for in-situ remediation of contaminated groundwater and soil</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Tang, Samuel C.N.; Yin, Ke; Lo, Irene M.C.
-                            , Journal of Contaminant Hydrology
-                             (2011)
-                            </span>
-                            <br><a href="https://doi.org/10.1016/j.jconhyd.2011.04.005" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1016/j.jconhyd.2011.04.005</a>
+                            <br><a href="https://doi.org/10.1002/9781118767443" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1002/9781118767443</a>
                             
                         </li>
                         

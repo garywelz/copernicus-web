@@ -1,0 +1,49 @@
+{
+  "id": "medrxiv_10.64898_2025.12.26.25343063",
+  "doi": "10.64898/2025.12.26.25343063",
+  "title": "Evaluating and Validating an Artificial Intelligence Model for Automated Electroencephalogram Analysis: Implications for Clinical Practice",
+  "authors": [
+    "Khoja, A.",
+    "Alyazidi, A.",
+    "Ayash, L.",
+    "AIshehriy, F.",
+    "Alsubaie, R.",
+    "Muthaffar, O.",
+    "Bamaga, A.",
+    "Abbas, G.",
+    "Tayeb, H.",
+    "Alzahrany, M."
+  ],
+  "author_string": "Khoja, A., Alyazidi, A., Ayash, L., AIshehriy, F., Alsubaie, R. et al.",
+  "journal": "medRxiv",
+  "journal_full": "medRxiv",
+  "year": "2025",
+  "abstract": "BackgroundEpilepsy affects around 50 million people worldwide and remains a major diagnostic challenge, particularly in resource-limited settings. Electroencephalography (EEG) is essential for diagnosis but relies heavily on expert interpretation, often limited by workforce shortages. Artificial intelligence (AI) offers a promising solution to automate EEG interpretation, enhance diagnostic accuracy, and improving diagnostic efficiency.\n\nMethodsThis retrospective diagnostic validation study was conducted to evaluate the performance of an AI-based system for automated EEG interpretation. A total of 649 EEG recordings from patients aged 1-91 years were analyzed, with expert neurophysiologist interpretations serving as the reference standard. The AI model, developed using a deep learning architecture, was trained to classify EEGs as normal or abnormal and to further categorize findings into epileptiform-focal, epileptiform-generalized, non-epileptiform-focal, and non-epileptiform-diffuse. Performance metrics included sensitivity, specificity, accuracy, area under the ROC curve (AUC), and Cohens kappa coefficient for agreement.\n\nResultsThe model achieved an overall diagnostic accuracy of 93.8% (95% CI: 90.9-96.0) and an AUC of 0.94, demonstrating strong discriminative ability. Sensitivity for abnormal EEG detection was 99.0%, with specificity of 89.7%, PPV of 98.7%, and NPV of 90.0%. Agreement with expert interpretations was {kappa} = 0.87 (p < 0.001), indicating almost perfect concordance. The model maintained robust performance across clinical contexts, with false positives (5.5%) exceeding false negatives (0.5%), reflecting a safety-oriented error profile suited for screening. No statistically significant impact of artifact presence, sleep state, or EEG type was observed on classification accuracy.\n\nConclusionsThe model demonstrated high diagnostic accuracy and near-perfect agreement with expert interpreters, highlighting its potential as a clinical decision-support tool for EEG triage and preliminary screening. Integration into real-world workflows could help alleviate workforce shortages, reduce diagnostic delays, and improve early epilepsy detection--particularly in underserved regions. Further refinement, including enhanced artifact handling and diverse dataset validation, will be essential for clinical deployment.",
+  "keywords": [],
+  "categories": [
+    "neurology"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.64898/2025.12.26.25343063",
+  "source": "medrxiv",
+  "sources": [
+    "medrxiv"
+  ],
+  "acquired_date": "2026-04-28T22:15:24.795307",
+  "category": "biology",
+  "subcategories": [
+    "neurology"
+  ],
+  "published_date": "2025-12-29",
+  "updated_date": "2025-12-29",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "medrxiv",
+  "preprint_version": "1",
+  "preprint_type": "PUBLISHAHEADOFPRINT",
+  "license": "cc_no",
+  "jatsxml": "https://www.medrxiv.org/content/early/2025/12/29//2025.12.26.25343063.source.xml",
+  "published_doi": null,
+  "author_corresponding": "Anas Alyazidi",
+  "author_corresponding_institution": "King Abdulaziz University"
+}

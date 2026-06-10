@@ -1,0 +1,39 @@
+{
+  "id": "category_theory-category-theory-limits-adjunctions",
+  "name": "Category Theory — Limits & Adjunctions",
+  "category": "mathematics",
+  "subcategory": "category_theory",
+  "subcategory_name": "Category Theory",
+  "description": "Limit: universal cone over diagram. Product, equalizer, pullback. Colimit: universal cocone. Coproduct, coequalizer, pushout. Adjunction: F ⊣ G with unit η and counit ε.",
+  "mermaid": "graph TD\n    D1[\"Def: Cone\\nover diagram J\"]\n    D2[\"Def: Limit\\nuniversal cone\"]\n    D3[\"Def: Product\\nA×B with π₁ π₂\"]\n    D4[\"Def: Coproduct\\nA+B with ι₁ ι₂\"]\n    D5[\"Def: Adjunction\\nF ⊣ G, η, ε\"]\n    T1[\"Thm: Product unique\\nup to iso\"]\n    T2[\"Thm: Hom F-,- ≅ Hom -,-G\"]\n    D1 --> D2\n    D2 --> D3\n    D2 --> D4\n    D3 --> T1\n    D5 --> T2\n    classDef definition fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef theorem fill:#51cf66,color:#fff,stroke:#40c057\n    class D1,D2,D3,D4,D5 definition\n    class T1,T2 theorem",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

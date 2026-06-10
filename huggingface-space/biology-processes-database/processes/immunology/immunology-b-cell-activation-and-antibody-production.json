@@ -1,0 +1,201 @@
+{
+  "id": "immunology-b-cell-activation-and-antibody-production",
+  "name": "B Cell Activation and Antibody Production",
+  "category": "biology",
+  "subcategory": "immunology",
+  "subcategory_name": "Immunology",
+  "description": "B-cell activation: antigen-engaged B cells either get T-cell help and enter germinal centers for affinity maturation and class switching, or mount a rapid T-independent IgM response, producing antibody-secreting plasma cells.",
+  "keywords": [
+    "b cell",
+    "germinal center",
+    "somatic hypermutation",
+    "class switch",
+    "plasma cell",
+    "antibody"
+  ],
+  "namedCollections": [
+    "signaling-cell-fate"
+  ],
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "complexity": {
+    "nodes": 11,
+    "edges": 12,
+    "conditionals": 2,
+    "logicGates": {
+      "orGates": 2,
+      "andGates": 2,
+      "notGates": 0,
+      "total": 4
+    },
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 2
+  },
+  "graphMetrics": {
+    "nodes": 11,
+    "edges": 12,
+    "conditionals": 2,
+    "andGates": 2,
+    "orGates": 2,
+    "notGates": 0,
+    "loops": 2
+  },
+  "mermaid": "graph TD\n    N1[\"Antigen binds BCR\"]\n    N2{\"T-dependent antigen?\"}\n    N3[\"Present Ag on MHC II to Tfh\"]\n    N4[\"CD40L + cytokine help\"]\n    N5[\"Germinal center proliferation\"]\n    N6[\"Somatic hypermutation\"]\n    N7{\"High BCR affinity?\"}\n    N8[\"Class switch recombination\"]\n    N9[\"Plasma + memory B cells\"]\n    N10[\"Secreted antibodies\"]\n    N11[\"T-independent plasmablast\"]\n\n    N1 --> N2\n    N2 -->|yes| N3\n    N3 --> N4\n    N4 --> N5\n    N5 --> N6\n    N6 --> N7\n    N7 -->|low: recycle| N5\n    N7 -->|high| N8\n    N8 --> N9\n    N9 --> N10\n    N2 -->|no| N11\n    N11 --> N10\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#74c0fc,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#74c0fc,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#51cf66,color:#fff\n    style N10 fill:#b197fc,color:#fff\n    style N11 fill:#51cf66,color:#fff",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Antigen binds BCR",
+      "detail": "B-cell receptor engages antigen",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 1
+    },
+    {
+      "id": "N2",
+      "label": "T-dependent antigen?",
+      "detail": "Protein (TD) vs polysaccharide (TI) antigen",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N3",
+      "label": "Present Ag on MHC II to Tfh",
+      "detail": "B cell presents antigen to follicular helper T cells",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N4",
+      "label": "CD40L + cytokine help",
+      "detail": "Tfh deliver CD40L and cytokine co-stimulation",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N5",
+      "label": "Germinal center proliferation",
+      "detail": "Clonal expansion in the germinal center",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N6",
+      "label": "Somatic hypermutation",
+      "detail": "AID-driven mutation of V regions",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N7",
+      "label": "High BCR affinity?",
+      "detail": "Affinity-based selection by limiting antigen",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N8",
+      "label": "Class switch recombination",
+      "detail": "Isotype switch to IgG/IgA/IgE",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N9",
+      "label": "Plasma + memory B cells",
+      "detail": "Differentiation into effector and memory cells",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N10",
+      "label": "Secreted antibodies",
+      "detail": "High-affinity class-switched antibodies",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 2
+    },
+    {
+      "id": "N11",
+      "label": "T-independent plasmablast",
+      "detail": "Rapid extrafollicular IgM response",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:immunology-b-cell-activation-and-antibody-production",
+    "graphType": "decision_flowchart",
+    "topologySignature": "b275ac68b4a40dc5",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "pending",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "lastUpdated": "2026-06-01",
+  "verified": false,
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "sources": [
+    {
+      "title": "Germinal centers",
+      "authors": "Victora, G. D.; Nussenzweig, M. C.",
+      "journal": "Annual Review of Immunology",
+      "year": "2012",
+      "pubmed": "22224772",
+      "doi": "10.1146/annurev-immunol-020711-075032",
+      "url": "https://doi.org/10.1146/annurev-immunol-020711-075032"
+    },
+    {
+      "title": "Dynamics of B cells in germinal centres",
+      "authors": "De Silva, N. S.; Klein, U.",
+      "journal": "Nature Reviews Immunology",
+      "year": "2015",
+      "pubmed": "25721931",
+      "doi": "10.1038/nri3804",
+      "url": "https://doi.org/10.1038/nri3804"
+    },
+    {
+      "title": "Memory B cells",
+      "authors": "Kurosaki, T.; Kometani, K.; Ise, W.",
+      "journal": "Nature Reviews Immunology",
+      "year": "2015",
+      "pubmed": "25716098",
+      "doi": "10.1038/nri3802",
+      "url": "https://doi.org/10.1038/nri3802"
+    }
+  ],
+  "graphType": "decision_flowchart",
+  "domainContext": "Humoral immune response"
+}

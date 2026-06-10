@@ -1,0 +1,43 @@
+{
+  "id": "arxiv_2604.18111v1",
+  "arxiv_id": "2604.18111v1",
+  "title": "Smokescreen: A Python package for data vector blinding and encryption in cosmological analyses",
+  "authors": [
+    "Arthur Loureiro",
+    "Jessica Muir",
+    "Jonathan Blazek",
+    "Nora Elisa Chisari",
+    "Pedro H. Costa Ribeiro",
+    "Christos Georgiou",
+    "C. Danielle Leonard",
+    "Bruno Moraes",
+    "Marc Paterno",
+    "Nikolina Šarčević",
+    "Tilman Tröster",
+    "Sandro D. P. Vitenti",
+    "the LSST Dark Energy Science Collaboration"
+  ],
+  "author_string": "Arthur Loureiro, Jessica Muir, Jonathan Blazek, Nora Elisa Chisari, Pedro H. Costa Ribeiro et al.",
+  "journal": "arXiv:2604.18111v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Smokescreen is an open-source Python library for data-vector concealment (blinding) in cosmological analyses. Data-vector blinding works by applying cosmology-dependent shifts to the observed data vector, moving it away from the true cosmological signal without affecting its statistical properties, so that analysts cannot infer the true result until the analysis is frozen and the blinding is lifted. The package computes these shifts using Firecrown likelihoods applied to data vectors stored in the SACC format, ensuring that the theoretical model used for blinding is identical to that used for inference whilst remaining agnostic to the specific observable being blinded. To prevent accidental unblinding, the original SACC file, containing the true cosmology, is encrypted. Although developed for the Vera C. Rubin Observatory Legacy Survey of Space and Time (LSST), Smokescreen is applicable to any experiment using Firecrown likelihoods and the SACC data format.",
+  "categories": [
+    "astro-ph.IM",
+    "astro-ph.CO"
+  ],
+  "primary_category": "astro-ph.CO",
+  "comment": "9 pages, 3 figures, to be submitted to JOSS",
+  "published_date": "2026-04-20T11:27:42Z",
+  "updated_date": "2026-04-20T11:27:42Z",
+  "url": "https://arxiv.org/abs/2604.18111v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.18111v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-22T10:15:52.072415",
+  "category": "physics",
+  "subcategories": [
+    "astro-ph.IM",
+    "astro-ph.CO"
+  ]
+}

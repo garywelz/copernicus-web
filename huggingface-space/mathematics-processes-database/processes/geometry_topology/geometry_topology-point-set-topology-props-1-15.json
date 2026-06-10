@@ -1,0 +1,39 @@
+{
+  "id": "geometry_topology-point-set-topology-props-1-15",
+  "name": "Point-Set Topology — Axioms & Basic Definitions",
+  "category": "mathematics",
+  "subcategory": "geometry_topology",
+  "subcategory_name": "Geometry & Topology",
+  "description": "Open set axioms, topological space, and basic definitions. Arrows mean \"depends on\".",
+  "mermaid": "graph TD\n    O1[\"O1: ∅ and X ∈ τ\"]\n    O2[\"O2: Union of any collection in τ is in τ\"]\n    O3[\"O3: Finite intersection in τ is in τ\"]\n    DefSpace[\"Def: Topological space (X, τ)\"]\n    DefOpen[\"Def: Open set U ∈ τ\"]\n    DefClosed[\"Def: Closed set: complement of open\"]\n    DefNbhd[\"Def: Neighborhood of x\"]\n    DefInt[\"Def: Interior int(A)\"]\n    DefClosure[\"Def: Closure cl(A)\"]\n    DefBoundary[\"Def: Boundary ∂A = cl(A) ∩ cl(X∖A)\"]\n    LemUnion[\"Lem: Union of opens is open\"]\n    LemFinInt[\"Lem: Finite intersection of opens is open\"]\n    ThmCompClosed[\"Thm: Complement of open is closed\"]\n    CorIntOpen[\"Cor: int(A) is open\"]\n    CorClClosed[\"Cor: cl(A) is closed\"]\n    LemNbhdOpen[\"Lem: N nbhd of x iff ∃ open U with x ∈ U ⊆ N\"]\n    O1 --> DefSpace\n    O2 --> DefSpace\n    O3 --> DefSpace\n    DefSpace --> DefOpen\n    DefSpace --> DefClosed\n    O2 --> LemUnion\n    O3 --> LemFinInt\n    DefOpen --> ThmCompClosed\n    DefClosed --> ThmCompClosed\n    DefOpen --> DefNbhd\n    DefOpen --> DefInt\n    DefClosed --> DefClosure\n    DefInt --> DefBoundary\n    DefClosure --> DefBoundary\n    DefOpen --> CorIntOpen\n    DefClosed --> CorClClosed\n    DefNbhd --> LemNbhdOpen\n    DefOpen --> LemNbhdOpen\n    classDef axiom fill:#ff6b6b,color:#fff,stroke:#c0392b\n    classDef definition fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef lemma fill:#74c0fc,color:#fff,stroke:#4dabf7\n    classDef theorem fill:#51cf66,color:#fff,stroke:#40c057\n    classDef corollary fill:#1abc9c,color:#fff,stroke:#16a085\n    class O1,O2,O3 axiom\n    class DefSpace,DefOpen,DefClosed,DefNbhd,DefInt,DefClosure,DefBoundary definition\n    class LemUnion,LemFinInt,LemNbhdOpen lemma\n    class ThmCompClosed theorem\n    class CorIntOpen,CorClClosed corollary",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

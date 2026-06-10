@@ -4,18 +4,20 @@
   "category": "computer_science",
   "subcategory": "theory",
   "subcategory_name": "Theoretical Computer Science",
-  "description": "Type System Checking process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "A type checker proves a program respects its type discipline: it traverses the syntax tree under a typing environment, inferring or looking up types and applying typing rules to each construct; type variables are unified, incompatibilities raise type errors, and a program with no errors is certified well-typed.",
   "complexity": {
-    "nodes": 9,
-    "edges": 10,
-    "conditionals": 0,
+    "nodes": 12,
+    "edges": 14,
+    "conditionals": 3,
     "logicGates": {
-      "orGates": 1,
-      "andGates": 2,
-      "total": 3
+      "orGates": 3,
+      "andGates": 3,
+      "notGates": 0,
+      "total": 6
     },
-    "level": "medium",
-    "detailLevel": "medium"
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 2
   },
   "colorScheme": {
     "red": {
@@ -39,54 +41,156 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nN1[\"Source Program\"]\nN2[\"Type Annotations\"]\nN3[\"AST\"]\nN4[\"Choose Approach\"]\nN5[\"Type Environment\"]\nN6[\"Infer + Unify\"]\nN7[\"Type Errors/Proof\"]\nN8[\"Well-Typed Program\"]\nN9[\"Integrate Results\"]\n\nN1 --> N2\nN2 --> N3\nN3 --> N4\nN4 --> N5\nN4 --> N7\nN5 --> N6\nN7 --> N8\nN6 --> N9\nN8 --> N9\nN9 --> N6\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#ff6b6b,color:#fff\n    style N3 fill:#ffd43b,color:#000\n    style N4 fill:#ffd43b,color:#000\n    style N5 fill:#ffd43b,color:#000\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#74c0fc,color:#fff\n    style N8 fill:#b197fc,color:#fff\n    style N9 fill:#74c0fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"Program AST\"]\n    N2[\"Build type environment\"]\n    N3[\"Traverse expression\"]\n    N4[\"Infer / look up types\"]\n    N5[\"Apply typing rules\"]\n    N6{\"Types compatible?\"}\n    N7[\"Report type error\"]\n    N8[\"Unify type variables\"]\n    N9{\"Unification succeeds?\"}\n    N10{\"More expressions?\"}\n    N11[\"Next subexpression\"]\n    N12[\"Well-typed program\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 --> N4\n    N4 --> N5\n    N5 --> N6\n    N6 -->|no| N7\n    N7 -->|reject| N12\n    N6 -->|yes| N8\n    N8 --> N9\n    N9 -->|no| N7\n    N9 -->|yes| N10\n    N10 -->|yes| N11\n    N11 -->|loop| N3\n    N10 -->|no| N12\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#74c0fc,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#74c0fc,color:#fff\n    style N10 fill:#74c0fc,color:#fff\n    style N11 fill:#51cf66,color:#fff\n    style N12 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
-      "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: Type System Checking. Created using the Programming Framework methodology."
+      "title": "A theory of type polymorphism in programming",
+      "authors": "Milner, R.",
+      "journal": "Journal of Computer and System Sciences",
+      "year": "1978",
+      "doi": "10.1016/0022-0000(78)90014-4",
+      "url": "https://doi.org/10.1016/0022-0000(78)90014-4"
     },
     {
-      "title": "rtype: A strong type system for R",
-      "authors": "",
-      "journal": "CRAN: Contributed Packages",
-      "year": "2014",
-      "pubmed": null,
-      "doi": "10.32614/cran.package.rtype",
-      "url": "https://doi.org/10.32614/cran.package.rtype"
-    },
-    {
-      "title": "Combining type-checking with model-checking for system verification",
-      "authors": "Ren, Zhiqiang; Xi, Hongwei",
-      "journal": "2016 ACM/IEEE International Conference on Formal Methods and Models for System Design (MEMOCODE)",
-      "year": "2016",
-      "pubmed": null,
-      "doi": "10.1109/memcod.2016.7797745",
-      "url": "https://doi.org/10.1109/memcod.2016.7797745"
-    },
-    {
-      "title": "Secure System Composition and Type Checking using Cryptographic Proofs [Slides]",
-      "authors": "Barrack, Daniel",
-      "journal": "",
-      "year": "2021",
-      "pubmed": null,
-      "doi": "10.2172/1808809",
-      "url": "https://doi.org/10.2172/1808809"
+      "title": "Types and Programming Languages",
+      "authors": "Pierce, B. C.",
+      "journal": "MIT Press",
+      "year": "2002",
+      "url": "https://www.cis.upenn.edu/~bcpierce/tapl/"
     }
   ],
   "keywords": [
-    "type",
-    "system",
-    "checking"
+    "type system",
+    "type checking",
+    "type inference",
+    "unification",
+    "typing rules"
   ],
   "relatedProcesses": [],
   "created": "2026-01-15",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations.\nCurated Mermaid applied (citations preserved)."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "namedCollections": [],
+  "graphMetrics": {
+    "nodes": 12,
+    "edges": 14,
+    "conditionals": 3,
+    "andGates": 3,
+    "orGates": 3,
+    "notGates": 0,
+    "loops": 2
+  },
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Program AST",
+      "detail": "Parsed syntax",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 1
+    },
+    {
+      "id": "N2",
+      "label": "Build type environment",
+      "detail": "Bindings in scope",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N3",
+      "label": "Traverse expression",
+      "detail": "Visit node",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N4",
+      "label": "Infer / look up types",
+      "detail": "Subterm types",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N5",
+      "label": "Apply typing rules",
+      "detail": "Judgment",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N6",
+      "label": "Types compatible?",
+      "detail": "Rule premises met",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N7",
+      "label": "Report type error",
+      "detail": "Reject program",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N8",
+      "label": "Unify type variables",
+      "detail": "Solve constraints",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N9",
+      "label": "Unification succeeds?",
+      "detail": "Consistent types",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N10",
+      "label": "More expressions?",
+      "detail": "AST remaining",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N11",
+      "label": "Next subexpression",
+      "detail": "Continue walk",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N12",
+      "label": "Well-typed program",
+      "detail": "Type-safe",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 1
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:theory-type-system-checking",
+    "graphType": "decision_flowchart",
+    "topologySignature": "8e4ca7069e8c24fa",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "graphType": "decision_flowchart",
+  "domainContext": "Programming language theory"
 }

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Solution Thermodynamics - Chemistry Process</title>
+    <title>Flory–Huggins Solution Theory - Chemistry Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,12 +167,39 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Solution Thermodynamics</h1>
+            <h1>Flory–Huggins Solution Theory</h1>
             <div class="header-meta">
                 <span class="meta-item">Chemistry</span>
                 <span class="meta-item">Polymer Chemistry</span>
@@ -207,68 +234,53 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Solution Thermodynamics process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>Flory–Huggins lattice theory combines a small combinatorial entropy of mixing for long chains with an enthalpic χ interaction parameter; the resulting free energy predicts miscibility or phase separation of polymer solutions.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-A2[Solvent Molecules] --> B2[Solution Thermodynamics Method]
-C2[Solute Particles] --> D2[Concentration Control]
-E2[Temperature System] --> F2[Pressure Environment]
-B2 --> G2[Solution Preparation]
-D2 --> H2[Concentration Analysis]
-F2 --> I2[Environmental Control]
-G2 --> J2[Mixing Process]
-H2 --> K2[Concentration Measurement]
-I2 --> L2[Pressure Monitoring]
-J2 --> M2[Solvation Process]
-K2 --> L2
-L2 --> N2[Solution Formation]
-M2 --> O2[Intermolecular Interactions]
-N2 --> P2[Solution Thermodynamics]
-O2 --> Q2[Colligative Properties]
-P2 --> R2[Thermodynamic Properties]
-Q2 --> S2[Property Measurement]
-R2 --> T2[Solution Behavior]
-S2 --> U2[Property Analysis]
-T2 --> V2[Behavior Prediction]
-U2 --> W2[Thermodynamic Efficiency]
-V2 --> X2[Solution Characterization]
-W2 --> Y2[Process Optimization]
-X2 --> Z2[Final Solution State]
-Y2 --> Z2
+    N1["Polymer + solvent"]
+    N2["Lattice model: place chains"]
+    N3["Entropy of mixing (small)"]
+    N4["Enthalpy via χ parameter"]
+    N5["ΔG_mix with χφ₁φ₂"]
+    N6{"χ below critical?"}
+    N7["Miscible: single phase"]
+    N8["Phase separation (binodal)"]
+    N9["Coexisting phases"]
 
-    style A2 fill:#ff6b6b,color:#fff
-    style C2 fill:#ff6b6b,color:#fff
-    style E2 fill:#ff6b6b,color:#fff
-    style B2 fill:#ffd43b,color:#000
-    style D2 fill:#ffd43b,color:#000
-    style F2 fill:#ffd43b,color:#000
-    style G2 fill:#ffd43b,color:#000
-    style H2 fill:#ffd43b,color:#000
-    style I2 fill:#ffd43b,color:#000
-    style J2 fill:#ffd43b,color:#000
-    style K2 fill:#ffd43b,color:#000
-    style L2 fill:#ffd43b,color:#000
-    style M2 fill:#51cf66,color:#fff
+    N1 --> N2
+    N2 --> N3
+    N1 --> N4
+    N3 --> N5
+    N4 --> N5
+    N5 --> N6
+    N6 -->|yes| N7
+    N6 -->|no| N8
+    N8 --> N9
+
+    style N1 fill:#ff6b6b,color:#fff
     style N2 fill:#51cf66,color:#fff
-    style O2 fill:#51cf66,color:#fff
-    style P2 fill:#51cf66,color:#fff
-    style Q2 fill:#51cf66,color:#fff
-    style R2 fill:#51cf66,color:#fff
-    style S2 fill:#51cf66,color:#fff
-    style T2 fill:#51cf66,color:#fff
-    style U2 fill:#51cf66,color:#fff
-    style V2 fill:#51cf66,color:#fff
-    style W2 fill:#51cf66,color:#fff
-    style X2 fill:#51cf66,color:#fff
-    style Y2 fill:#51cf66,color:#fff
-    style Z2 fill:#b197fc,color:#fff
+    style N3 fill:#51cf66,color:#fff
+    style N4 fill:#51cf66,color:#fff
+    style N5 fill:#51cf66,color:#fff
+    style N6 fill:#74c0fc,color:#fff
+    style N7 fill:#b197fc,color:#fff
+    style N8 fill:#51cf66,color:#fff
+    style N9 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Polymer + solvent</td><td>Triggers & Inputs</td><td><a href="https://doi.org/10.1063/1.1723621" target="_blank" title="Thermodynamics of high polymer solutions" style="color:#e74c3c;">Flory, P. J. 1942</a></td></tr><tr><td style="font-weight:600;">Lattice model: place chains</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1021/j150415a018" target="_blank" title="Some properties of solutions of long-chain compounds" style="color:#e74c3c;">Huggins, M. L. 1942</a></td></tr><tr><td style="font-weight:600;">Entropy of mixing (small)</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1063/1.1723621" target="_blank" title="Thermodynamics of high polymer solutions" style="color:#e74c3c;">Flory, P. J. 1942</a></td></tr><tr><td style="font-weight:600;">Enthalpy via χ parameter</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1021/j150415a018" target="_blank" title="Some properties of solutions of long-chain compounds" style="color:#e74c3c;">Huggins, M. L. 1942</a></td></tr><tr><td style="font-weight:600;">ΔG_mix with χφ₁φ₂</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1063/1.1723621" target="_blank" title="Thermodynamics of high polymer solutions" style="color:#e74c3c;">Flory, P. J. 1942</a></td></tr><tr><td style="font-weight:600;">χ below critical?</td><td>Intermediates & States</td><td><a href="https://www.cornellpress.cornell.edu/book/9780801401343/principles-of-polymer-chemistry/" target="_blank" title="Principles of Polymer Chemistry — Polymer Solutions" style="color:#e74c3c;">Flory, P. J. 1953</a></td></tr><tr><td style="font-weight:600;">Miscible: single phase</td><td>Products & Outputs</td><td><a href="https://www.cornellpress.cornell.edu/book/9780801401343/principles-of-polymer-chemistry/" target="_blank" title="Principles of Polymer Chemistry — Polymer Solutions" style="color:#e74c3c;">Flory, P. J. 1953</a></td></tr><tr><td style="font-weight:600;">Phase separation (binodal)</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1063/1.1723621" target="_blank" title="Thermodynamics of high polymer solutions" style="color:#e74c3c;">Flory, P. J. 1942</a></td></tr><tr><td style="font-weight:600;">Coexisting phases</td><td>Products & Outputs</td><td><a href="https://www.cornellpress.cornell.edu/book/9780801401343/principles-of-polymer-chemistry/" target="_blank" title="Principles of Polymer Chemistry — Polymer Solutions" style="color:#e74c3c;">Flory, P. J. 1953</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -314,12 +326,12 @@ Y2 --> Z2
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 26</li>
-                        <li><strong>Edges:</strong> 22</li>
-                        <li><strong>Conditionals:</strong> 0</li>
+                        <li><strong>Nodes:</strong> 9</li>
+                        <li><strong>Edges:</strong> 9</li>
+                        <li><strong>Conditionals:</strong> 1</li>
                         <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 1</li>
+                        <li><strong>OR Gates:</strong> 2</li>
+                        <li><strong>Total Gates:</strong> 3</li>
                     </ul>
                 </div>
                 
@@ -327,7 +339,7 @@ Y2 --> Z2
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>solution</li><li>thermodynamics</li>
+                        <li>flory-huggins</li><li>chi parameter</li><li>lattice model</li><li>miscibility</li><li>phase separation</li>
                     </ul>
                 </div>
                 
@@ -338,43 +350,33 @@ Y2 --> Z2
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Thermodynamics of high polymer solutions</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Flory, P. J.
+                            , Journal of Chemical Physics
+                             (1942)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Fundamentals of Polymer Solution Thermodynamics</strong>
-                            
-                            , Handbook of Polymer Solution Thermodynamics
-                             (1993)
-                            </span>
-                            <br><a href="https://doi.org/10.1002/9780470938232.ch2" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1002/9780470938232.ch2</a>
+                            <br><a href="https://doi.org/10.1063/1.1723621" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1063/1.1723621</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>2. Thermodynamics of Solid Solution- Aqueous Solution Systems</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Prieto, Manuel
-                            , Thermodynamics and Kinetics of Water-Rock Interaction
-                             (2009)
+                            <strong>Some properties of solutions of long-chain compounds</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Huggins, M. L.
+                            , Journal of Physical Chemistry
+                             (1942)
                             </span>
-                            <br><a href="https://doi.org/10.1515/9781501508462-004" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1515/9781501508462-004</a>
+                            <br><a href="https://doi.org/10.1021/j150415a018" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1021/j150415a018</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>SOLUTION THERMODYNAMICS</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Lee, Lloyd L.
-                            , Molecular Thermodynamics of Nonideal Fluids
-                             (1988)
+                            <strong>Principles of Polymer Chemistry — Polymer Solutions</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Flory, P. J.
+                            , Cornell University Press
+                             (1953)
                             </span>
-                            <br><a href="https://doi.org/10.1016/b978-0-409-90088-0.50014-x" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1016/b978-0-409-90088-0.50014-x</a>
                             
+                            <br><a href="https://www.cornellpress.cornell.edu/book/9780801401343/principles-of-polymer-chemistry/" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
                         </li>
                         
                     </ul>

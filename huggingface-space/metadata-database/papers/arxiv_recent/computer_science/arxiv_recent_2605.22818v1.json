@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2605.22818v1",
+  "arxiv_id": "2605.22818v1",
+  "title": "MotiMotion: Motion-Controlled Video Generation with Visual Reasoning",
+  "authors": [
+    "Lee Hsin-Ying",
+    "Hanwen Jiang",
+    "Yiqun Mei",
+    "Jing Shi",
+    "Ming-Hsuan Yang",
+    "Zhixin Shu"
+  ],
+  "author_string": "Lee Hsin-Ying, Hanwen Jiang, Yiqun Mei, Jing Shi, Ming-Hsuan Yang et al.",
+  "journal": "arXiv:2605.22818v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Current motion-controlled image-to-video generation models rigidly follow user-provided trajectories that are often sparse, imprecise, and causally incomplete. Such reliance often yields unnatural or implausible outcomes, especially by missing secondary causal consequences. To address this, we introduce MotiMotion, a novel framework that reformulates motion control as a reasoning-then-generation problem. To encourage causally grounded and commonsense-consistent interactions, we leverage a training-free vision-language reasoner to refine image-space coordinates of primary trajectories and to hallucinate plausible secondary motions. To further improve motion naturalness, we propose a confidence-aware control scheme that modulates guidance strength, enabling the model to closely follow high-confidence plans while correcting artifacts under low-confidence inputs with its internal generative priors. To support systematic evaluation, we curate a new image-to-video benchmark, MotiBench, consisting of interaction-centric scenes where new events are triggered by motion. Both VLM-based evaluation and a human study on MotiBench demonstrate that MotiMotion produces videos with more plausible object behaviors and interaction, and is preferred over existing approaches.",
+  "categories": [
+    "cs.CV"
+  ],
+  "primary_category": "cs.CV",
+  "comment": "ICML 2026. Project page: https://motimotion.github.io/",
+  "published_date": "2026-05-21T17:59:36Z",
+  "updated_date": "2026-05-21T17:59:36Z",
+  "url": "https://arxiv.org/abs/2605.22818v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.22818v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-24T10:15:38.640714",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CV"
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2605.26070v1",
+  "arxiv_id": "2605.26070v1",
+  "title": "WhoSaidIt: Human-LLM Collaborative Annotation for Text-Based Multilingual Speaker-Attribute Classification",
+  "authors": [
+    "Lingyu Gao",
+    "Will Monroe",
+    "David Smith",
+    "Meghan Jemison",
+    "Jackie Lee"
+  ],
+  "author_string": "Lingyu Gao, Will Monroe, David Smith, Meghan Jemison, Jackie Lee",
+  "journal": "arXiv:2605.26070v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Annotating speaker attributes from text is inherently ambiguous, particularly in multilingual settings where demographic and social cues are implicit and culturally variable. We propose a human-large language model (LLM) collaborative re-annotation framework for stabilizing multilingual speaker-attribute labels under practical resource constraints. Starting from a noisy corpus, we use LLMs to surface recurring annotation rationales through iterative interaction with experts, and apply disagreement-focused sampling for targeted re-annotation. Using this framework, we construct WhoSaidIt, a multilingual dataset covering nine speaker-attribute labels. We quantify divergence between original and revised annotations, benchmark recent LLMs, and analyze the effect of explicit rationales on model behavior. Our results reveal substantial cross-lingual differences in annotation decisions and demonstrate both the strengths and limitations of LLMs in speaker-attribute classification.",
+  "categories": [
+    "cs.CL"
+  ],
+  "primary_category": "cs.CL",
+  "comment": "16 pages in total",
+  "published_date": "2026-05-25T17:37:45Z",
+  "updated_date": "2026-05-25T17:37:45Z",
+  "url": "https://arxiv.org/abs/2605.26070v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.26070v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-26T10:15:39.095414",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CL"
+  ]
+}

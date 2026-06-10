@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2605.02806v1",
+  "arxiv_id": "2605.02806v1",
+  "title": "Statistical Inference of Day-to-Day Traffic Dynamics",
+  "authors": [
+    "Minghui Wu",
+    "Yafeng Yin",
+    "Jerome P. Lynch",
+    "Zhichen Liu"
+  ],
+  "author_string": "Minghui Wu, Yafeng Yin, Jerome P. Lynch, Zhichen Liu",
+  "journal": "arXiv:2605.02806v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Day-to-day traffic dynamics are widely used to model flow evolution due to travelers' learning and adjustment behavior, yet empirical analysis of these models often relies on descriptive calibration with limited inferential content. This paper develops a statistical inference framework for day-to-day route choice dynamics based on a stochastic individual-level adjustment model. The framework enables uncertainty quantification and formal inference for behavioral parameters from trajectory data. We establish identifiability and consistency under mild conditions, and extend the framework to accommodate demand variation, user heterogeneity through a hierarchical structure, and anonymized observability caused by privacy constraints on trajectory data. Simulation studies demonstrate good finite-sample performance, calibrated uncertainty, and robustness to model misspecification. Empirical analyses of controlled laboratory experiments and real-world trajectory data from Ann Arbor, Michigan, show that the framework can generate novel behavioral insights across settings: it reveals the inadequacy of a purely inter-day learning model once en-route information is introduced, recovers systematic behavioral differences across participant types, and uncovers meaningful day-to-day learning together with substantial demand variation in real-world commuting behavior.",
+  "categories": [
+    "math.OC",
+    "math.ST"
+  ],
+  "primary_category": "math.ST",
+  "comment": null,
+  "published_date": "2026-05-04T16:45:34Z",
+  "updated_date": "2026-05-04T16:45:34Z",
+  "url": "https://arxiv.org/abs/2605.02806v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.02806v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-05T10:15:50.910253",
+  "category": "mathematics",
+  "subcategories": [
+    "math.OC",
+    "math.ST"
+  ]
+}

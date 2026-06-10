@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arrhenius Analysis - Chemistry Process</title>
+    <title>Arrhenius Plot for Activation Energy - Chemistry Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Arrhenius Analysis</h1>
+            <h1>Arrhenius Plot for Activation Energy</h1>
             <div class="header-meta">
                 <span class="meta-item">Chemistry</span>
                 <span class="meta-item">Kinetic Processes</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,32 +234,56 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Arrhenius Analysis process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>Extract the activation energy and pre-exponential factor by measuring rate constants at several temperatures, linearizing the Arrhenius equation as ln k versus 1/T, and reading the activation energy from the slope and the pre-factor from the intercept.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-N1["Rate Constants vs Temperature"]
-N2["Temperature Range"]
-N3["Arrhenius Model"]
-N4["Fit ln(k) vs 1/T"]
-N5["Ea + A Parameters"]
+    N1["Rate constants at many T"]
+    N2["k = A e^(−Ea/RT)"]
+    N3["Linearize: ln k vs 1/T"]
+    N4["Plot the data"]
+    N5{"Plot linear?"}
+    N6["Single Arrhenius regime"]
+    N7["Non-Arrhenius curvature"]
+    N8["Slope = −Ea/R"]
+    N9["Intercept = ln A"]
+    N10["Report Ea and A"]
 
-N1 --> N2
-N2 --> N3
-N3 --> N4
-N4 --> N5
+    N1 --> N2
+    N2 --> N3
+    N3 --> N4
+    N4 --> N5
+    N5 -->|yes| N6
+    N6 --> N8
+    N5 -->|no| N7
+    N7 --> N8
+    N8 --> N9
+    N9 --> N10
 
     style N1 fill:#ff6b6b,color:#fff
-    style N2 fill:#ff6b6b,color:#fff
-    style N3 fill:#ffd43b,color:#000
+    style N2 fill:#51cf66,color:#fff
+    style N3 fill:#51cf66,color:#fff
     style N4 fill:#51cf66,color:#fff
-    style N5 fill:#b197fc,color:#fff
+    style N5 fill:#74c0fc,color:#fff
+    style N6 fill:#51cf66,color:#fff
+    style N7 fill:#51cf66,color:#fff
+    style N8 fill:#51cf66,color:#fff
+    style N9 fill:#51cf66,color:#fff
+    style N10 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Rate constants at many T</td><td>Triggers & Inputs</td><td><a href="https://global.oup.com/ukhe/product/atkins-physical-chemistry-9780198769866" target="_blank" title="Physical Chemistry, 11th ed. — Temperature Dependence of Reaction Rates" style="color:#e74c3c;">Atkins, P. et al. 2018</a></td></tr><tr><td style="font-weight:600;">k = A e^(−Ea/RT)</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1515/zpch-1889-0416" target="_blank" title="Über die Reaktionsgeschwindigkeit bei der Inversion von Rohrzucker durch Säuren" style="color:#e74c3c;">Arrhenius, S. 1889</a></td></tr><tr><td style="font-weight:600;">Linearize: ln k vs 1/T</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1351/goldbook.A00446" target="_blank" title="Gold Book: Arrhenius equation" style="color:#e74c3c;">IUPAC 2019</a></td></tr><tr><td style="font-weight:600;">Plot the data</td><td>Processing & Operations</td><td><a href="https://global.oup.com/ukhe/product/atkins-physical-chemistry-9780198769866" target="_blank" title="Physical Chemistry, 11th ed. — Temperature Dependence of Reaction Rates" style="color:#e74c3c;">Atkins, P. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Plot linear?</td><td>Intermediates & States</td><td><a href="https://global.oup.com/ukhe/product/atkins-physical-chemistry-9780198769866" target="_blank" title="Physical Chemistry, 11th ed. — Temperature Dependence of Reaction Rates" style="color:#e74c3c;">Atkins, P. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Single Arrhenius regime</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1351/goldbook.A00446" target="_blank" title="Gold Book: Arrhenius equation" style="color:#e74c3c;">IUPAC 2019</a></td></tr><tr><td style="font-weight:600;">Non-Arrhenius curvature</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1515/zpch-1889-0416" target="_blank" title="Über die Reaktionsgeschwindigkeit bei der Inversion von Rohrzucker durch Säuren" style="color:#e74c3c;">Arrhenius, S. 1889</a></td></tr><tr><td style="font-weight:600;">Slope = −Ea/R</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1515/zpch-1889-0416" target="_blank" title="Über die Reaktionsgeschwindigkeit bei der Inversion von Rohrzucker durch Säuren" style="color:#e74c3c;">Arrhenius, S. 1889</a></td></tr><tr><td style="font-weight:600;">Intercept = ln A</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1515/zpch-1889-0416" target="_blank" title="Über die Reaktionsgeschwindigkeit bei der Inversion von Rohrzucker durch Säuren" style="color:#e74c3c;">Arrhenius, S. 1889</a></td></tr><tr><td style="font-weight:600;">Report Ea and A</td><td>Products & Outputs</td><td><a href="https://doi.org/10.1351/goldbook.A00446" target="_blank" title="Gold Book: Arrhenius equation" style="color:#e74c3c;">IUPAC 2019</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -278,12 +329,12 @@ N4 --> N5
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 5</li>
-                        <li><strong>Edges:</strong> 4</li>
-                        <li><strong>Conditionals:</strong> 0</li>
-                        <li><strong>AND Gates:</strong> 0</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 0</li>
+                        <li><strong>Nodes:</strong> 10</li>
+                        <li><strong>Edges:</strong> 10</li>
+                        <li><strong>Conditionals:</strong> 1</li>
+                        <li><strong>AND Gates:</strong> 1</li>
+                        <li><strong>OR Gates:</strong> 1</li>
+                        <li><strong>Total Gates:</strong> 2</li>
                     </ul>
                 </div>
                 
@@ -291,7 +342,7 @@ N4 --> N5
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>arrhenius</li><li>analysis</li>
+                        <li>arrhenius equation</li><li>activation energy</li><li>pre-exponential factor</li><li>linearization</li><li>rate constant</li>
                     </ul>
                 </div>
                 
@@ -302,43 +353,33 @@ N4 --> N5
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Über die Reaktionsgeschwindigkeit bei der Inversion von Rohrzucker durch Säuren</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Arrhenius, S.
+                            , Zeitschrift für physikalische Chemie
+                             (1889)
                             </span>
+                            <br><a href="https://doi.org/10.1515/zpch-1889-0416" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1515/zpch-1889-0416</a>
                             
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Analysis and characterization of the transition from the Arrhenius to non-Arrhenius structural relaxation in fragile glass-forming liquids</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Ikeda, Masahiro; Aniya, Masaru
-                            , Journal of Thermal Analysis and Calorimetry
+                            <strong>Gold Book: Arrhenius equation</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">IUPAC
+                            , IUPAC Compendium of Chemical Terminology
+                             (2019)
+                            </span>
+                            <br><a href="https://doi.org/10.1351/goldbook.A00446" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1351/goldbook.A00446</a>
+                            
+                        </li>
+                        
+                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
+                            <strong>Physical Chemistry, 11th ed. — Temperature Dependence of Reaction Rates</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Atkins, P.; de Paula, J.; Keeler, J.
+                            , Oxford University Press
                              (2018)
                             </span>
-                            <br><a href="https://doi.org/10.1007/s10973-018-6976-6" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1007/s10973-018-6976-6</a>
                             
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Arrhenius</strong>
-                            
-                            , SpringerReference
-                             (None)
-                            </span>
-                            <br><a href="https://doi.org/10.1007/springerreference_221605" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1007/springerreference_221605</a>
-                            
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Arrhenius Equation</strong>
-                            
-                            , SpringerReference
-                             (None)
-                            </span>
-                            <br><a href="https://doi.org/10.1007/springerreference_206910" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1007/springerreference_206910</a>
-                            
+                            <br><a href="https://global.oup.com/ukhe/product/atkins-physical-chemistry-9780198769866" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
                         </li>
                         
                     </ul>

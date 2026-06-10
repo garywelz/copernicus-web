@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2605.02777v1",
+  "arxiv_id": "2605.02777v1",
+  "title": "A decoupled diffusion planner that adapts to changing cost limits by using cost-conditioned generation for safety and reward gradients for performance",
+  "authors": [
+    "Rufeng Chen",
+    "Zhaofan Zhang",
+    "Zhejiang Yang",
+    "Hechang Chen",
+    "Sihong Xie"
+  ],
+  "author_string": "Rufeng Chen, Zhaofan Zhang, Zhejiang Yang, Hechang Chen, Sihong Xie",
+  "journal": "arXiv:2605.02777v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Offline safe reinforcement learning often requires policies to adapt at deployment time to safety budgets that vary across episodes or change within a single episode. While diffusion-based planners enable flexible trajectory generation, existing guidance schemes often treat reward improvement and constraint satisfaction as competing gradient objectives, which can lead to unreliable safety compliance under cost limits. We reinterpret adaptive safe trajectory generation as sampling from a constrained trajectory distribution, where the budget restricts the trajectory region, and reward shapes preferences within that region. This perspective motivates Safe Decoupled Guidance Diffusion (SDGD), which conditions classifier-free guidance on the cost limit to bias sampling toward trajectories satisfying the specified limit, while using reward-gradient guidance to refine trajectories for higher return. Because direct reward guidance can increase return while also steering samples toward trajectories with higher cumulative cost, we introduce Feasible Trajectory Relabeling (FTR) to reshape reward targets and discourage such directions. We further provide a first-order sampling-time analysis showing that FTR suppresses reward-induced cost drift under a prefix-restorative alignment condition. Extensive evaluations on the DSRL benchmark show that SDGD achieves the strongest safety compliance among baselines, satisfying the constraint on 94.7% of tasks (36/38), while obtaining the highest reward among safe methods on 21 tasks.",
+  "categories": [
+    "cs.LG",
+    "cs.AI"
+  ],
+  "primary_category": "cs.AI",
+  "comment": null,
+  "published_date": "2026-05-04T16:19:42Z",
+  "updated_date": "2026-05-04T16:19:42Z",
+  "url": "https://arxiv.org/abs/2605.02777v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.02777v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-05T10:15:47.088046",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.LG",
+    "cs.AI"
+  ]
+}

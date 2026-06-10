@@ -167,6 +167,33 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
@@ -176,7 +203,7 @@
             <div class="header-meta">
                 <span class="meta-item">Computer Science</span>
                 <span class="meta-item">Security & Cryptography</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,46 +234,62 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Public Key Infrastructure (PKI) process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>PKI binds identities to public keys through trusted certificate authorities: an entity generates a key pair and certificate signing request, the CA validates its identity and signs a certificate that chains to a trusted root; relying parties later verify the signature chain and revocation status before trusting it.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-N1["Identity Claim"]
-N2["Key Pair"]
-N3["Certificate Authority"]
-N4["Choose Approach"]
-N5["Certificate Store"]
-N6["Create CSR"]
-N7["Issue/Validate Cert"]
-N8["Trusted Identity"]
-N9["Integrate Results"]
+    N1["Needs certificate"]
+    N2["Generate key pair"]
+    N3["Create CSR"]
+    N4["Submit to CA"]
+    N5["CA validates identity"]
+    N6{"Validation passes?"}
+    N7["Reject request"]
+    N8["CA signs certificate"]
+    N9["Distribute + chain"]
+    N10["Relying party verifies"]
+    N11{"Valid + not revoked?"}
+    N12["Trusted channel"]
 
-N1 --> N2
-N2 --> N3
-N3 --> N4
-N4 --> N5
-N4 --> N7
-N5 --> N6
-N7 --> N8
-N6 --> N9
-N8 --> N9
-N9 --> N6
+    N1 --> N2
+    N2 --> N3
+    N3 --> N4
+    N4 --> N5
+    N5 --> N6
+    N6 -->|no| N7
+    N6 -->|yes| N8
+    N8 --> N9
+    N9 --> N10
+    N10 --> N11
+    N11 -->|no| N7
+    N11 -->|yes| N12
 
     style N1 fill:#ff6b6b,color:#fff
-    style N2 fill:#ff6b6b,color:#fff
-    style N3 fill:#ffd43b,color:#000
-    style N4 fill:#ffd43b,color:#000
-    style N5 fill:#ffd43b,color:#000
-    style N6 fill:#51cf66,color:#fff
+    style N2 fill:#51cf66,color:#fff
+    style N3 fill:#51cf66,color:#fff
+    style N4 fill:#51cf66,color:#fff
+    style N5 fill:#51cf66,color:#fff
+    style N6 fill:#74c0fc,color:#fff
     style N7 fill:#51cf66,color:#fff
-    style N8 fill:#b197fc,color:#fff
-    style N9 fill:#74c0fc,color:#fff
+    style N8 fill:#51cf66,color:#fff
+    style N9 fill:#51cf66,color:#fff
+    style N10 fill:#51cf66,color:#fff
+    style N11 fill:#74c0fc,color:#fff
+    style N12 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Needs certificate</td><td>Triggers & Inputs</td><td><a href="https://doi.org/10.17487/RFC5280" target="_blank" title="Internet X.509 Public Key Infrastructure Certificate and CRL Profile (RFC 5280)" style="color:#9b59b6;">Cooper, D. et al. 2008</a></td></tr><tr><td style="font-weight:600;">Generate key pair</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1109/TIT.1976.1055638" target="_blank" title="New directions in cryptography" style="color:#9b59b6;">Diffie, W. et al. 1976</a></td></tr><tr><td style="font-weight:600;">Create CSR</td><td>Processing & Operations</td><td><a href="https://doi.org/10.17487/RFC5280" target="_blank" title="Internet X.509 Public Key Infrastructure Certificate and CRL Profile (RFC 5280)" style="color:#9b59b6;">Cooper, D. et al. 2008</a></td></tr><tr><td style="font-weight:600;">Submit to CA</td><td>Processing & Operations</td><td><a href="https://doi.org/10.17487/RFC5280" target="_blank" title="Internet X.509 Public Key Infrastructure Certificate and CRL Profile (RFC 5280)" style="color:#9b59b6;">Cooper, D. et al. 2008</a></td></tr><tr><td style="font-weight:600;">CA validates identity</td><td>Processing & Operations</td><td><a href="https://doi.org/10.17487/RFC5280" target="_blank" title="Internet X.509 Public Key Infrastructure Certificate and CRL Profile (RFC 5280)" style="color:#9b59b6;">Cooper, D. et al. 2008</a></td></tr><tr><td style="font-weight:600;">Validation passes?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.17487/RFC5280" target="_blank" title="Internet X.509 Public Key Infrastructure Certificate and CRL Profile (RFC 5280)" style="color:#9b59b6;">Cooper, D. et al. 2008</a></td></tr><tr><td style="font-weight:600;">Reject request</td><td>Processing & Operations</td><td><a href="https://doi.org/10.17487/RFC5280" target="_blank" title="Internet X.509 Public Key Infrastructure Certificate and CRL Profile (RFC 5280)" style="color:#9b59b6;">Cooper, D. et al. 2008</a></td></tr><tr><td style="font-weight:600;">CA signs certificate</td><td>Processing & Operations</td><td><a href="https://doi.org/10.17487/RFC5280" target="_blank" title="Internet X.509 Public Key Infrastructure Certificate and CRL Profile (RFC 5280)" style="color:#9b59b6;">Cooper, D. et al. 2008</a></td></tr><tr><td style="font-weight:600;">Distribute + chain</td><td>Processing & Operations</td><td><a href="https://doi.org/10.17487/RFC5280" target="_blank" title="Internet X.509 Public Key Infrastructure Certificate and CRL Profile (RFC 5280)" style="color:#9b59b6;">Cooper, D. et al. 2008</a></td></tr><tr><td style="font-weight:600;">Relying party verifies</td><td>Processing & Operations</td><td><a href="https://doi.org/10.17487/RFC5280" target="_blank" title="Internet X.509 Public Key Infrastructure Certificate and CRL Profile (RFC 5280)" style="color:#9b59b6;">Cooper, D. et al. 2008</a></td></tr><tr><td style="font-weight:600;">Valid + not revoked?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.17487/RFC5280" target="_blank" title="Internet X.509 Public Key Infrastructure Certificate and CRL Profile (RFC 5280)" style="color:#9b59b6;">Cooper, D. et al. 2008</a></td></tr><tr><td style="font-weight:600;">Trusted channel</td><td>Products & Outputs</td><td><a href="https://doi.org/10.1109/TIT.1976.1055638" target="_blank" title="New directions in cryptography" style="color:#9b59b6;">Diffie, W. et al. 1976</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -292,11 +335,11 @@ N9 --> N6
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 9</li>
-                        <li><strong>Edges:</strong> 10</li>
-                        <li><strong>Conditionals:</strong> 0</li>
-                        <li><strong>AND Gates:</strong> 2</li>
-                        <li><strong>OR Gates:</strong> 1</li>
+                        <li><strong>Nodes:</strong> 12</li>
+                        <li><strong>Edges:</strong> 12</li>
+                        <li><strong>Conditionals:</strong> 2</li>
+                        <li><strong>AND Gates:</strong> 1</li>
+                        <li><strong>OR Gates:</strong> 2</li>
                         <li><strong>Total Gates:</strong> 3</li>
                     </ul>
                 </div>
@@ -305,7 +348,7 @@ N9 --> N6
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>public</li><li>key</li><li>infrastructure</li><li>pki</li>
+                        <li>public key infrastructure</li><li>certificate authority</li><li>X.509</li><li>chain of trust</li><li>revocation</li>
                     </ul>
                 </div>
                 
@@ -316,42 +359,22 @@ N9 --> N6
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Internet X.509 Public Key Infrastructure Certificate and CRL Profile (RFC 5280)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Cooper, D.; Santesson, S.; Farrell, S.; et al.
+                            , IETF
+                             (2008)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #9b59b6; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Health informatics. Public key infrastructure</strong>
-                            
-                            
-                             (None)
-                            </span>
-                            <br><a href="https://doi.org/10.3403/30327466u" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.3403/30327466u</a>
+                            <br><a href="https://doi.org/10.17487/RFC5280" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.17487/RFC5280</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Health informatics. Public key infrastructure</strong>
-                            
-                            
-                             (None)
+                            <strong>New directions in cryptography</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Diffie, W.; Hellman, M. E.
+                            , IEEE Transactions on Information Theory
+                             (1976)
                             </span>
-                            <br><a href="https://doi.org/10.3403/30327466" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.3403/30327466</a>
-                            
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Biometrics and public key infrastructure</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Ashbourn, Julian
-                            , PKI Implementation and Infrastructures
-                             (2023)
-                            </span>
-                            <br><a href="https://doi.org/10.1201/9781003360674-6" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.1201/9781003360674-6</a>
+                            <br><a href="https://doi.org/10.1109/TIT.1976.1055638" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.1109/TIT.1976.1055638</a>
                             
                         </li>
                         

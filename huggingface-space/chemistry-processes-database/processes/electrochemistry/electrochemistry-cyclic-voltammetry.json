@@ -4,18 +4,20 @@
   "category": "chemistry",
   "subcategory": "electrochemistry",
   "subcategory_name": "Electrochemistry",
-  "description": "Cyclic Voltammetry process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "Cyclic voltammetry sweeps the electrode potential forward and back at a three-electrode cell, producing diffusion-limited current peaks; peak separation and scan-rate dependence reveal reversibility, redox potentials, electron count and kinetics.",
   "complexity": {
-    "nodes": 6,
-    "edges": 5,
-    "conditionals": 0,
+    "nodes": 10,
+    "edges": 11,
+    "conditionals": 1,
     "logicGates": {
-      "orGates": 0,
-      "andGates": 0,
-      "total": 0
+      "orGates": 2,
+      "andGates": 2,
+      "notGates": 0,
+      "total": 4
     },
-    "level": "medium",
-    "detailLevel": "medium"
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 1
   },
   "colorScheme": {
     "red": {
@@ -39,53 +41,171 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nN1[\"Analyte + Electrolyte\"]\nN2[\"Working/Ref/Counter Electrodes\"]\nN3[\"Potentiostat\"]\nN4[\"Potential Sweep\"]\nN5[\"Measure Current\"]\nN6[\"Voltammogram\"]\n\nN1 --> N2\nN2 --> N3\nN3 --> N4\nN4 --> N5\nN5 --> N6\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#ff6b6b,color:#fff\n    style N3 fill:#ffd43b,color:#000\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"Analyte + 3-electrode cell\"]\n    N2[\"Sweep potential linearly\"]\n    N3[\"Faradaic reaction occurs\"]\n    N4[\"Diffusion-limited peak\"]\n    N5[\"Reverse the scan\"]\n    N6{\"Reverse peak seen?\"}\n    N7[\"Reversible: ΔEp ≈ 59/n mV\"]\n    N8[\"Quasi/irreversible\"]\n    N9[\"Extract E1/2, n, kinetics\"]\n    N10[\"Redox + mechanistic data\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 --> N4\n    N4 --> N5\n    N5 --> N6\n    N6 -->|yes| N7\n    N6 -->|no| N8\n    N7 --> N9\n    N8 --> N9\n    N9 --> N10\n    N9 -->|vary scan rate| N2\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#74c0fc,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#74c0fc,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#51cf66,color:#fff\n    style N10 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "title": "Theory of stationary electrode polarography (CV theory)",
+      "authors": "Nicholson, R. S.; Shain, I.",
+      "journal": "Analytical Chemistry",
+      "year": "1964",
+      "doi": "10.1021/ac60214a047",
+      "url": "https://doi.org/10.1021/ac60214a047"
+    },
+    {
+      "title": "A practical beginner's guide to cyclic voltammetry",
+      "authors": "Elgrishi, N.; et al.",
+      "journal": "Journal of Chemical Education",
+      "year": "2018",
+      "doi": "10.1021/acs.jchemed.7b00361",
+      "url": "https://doi.org/10.1021/acs.jchemed.7b00361"
+    },
+    {
+      "title": "Electrochemical Methods: Fundamentals and Applications, 3rd ed.",
+      "authors": "Bard, A. J.; Faulkner, L. R.; White, H. S.",
+      "journal": "Wiley",
+      "year": "2022",
       "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: Cyclic Voltammetry. Created using the Programming Framework methodology."
-    },
-    {
-      "title": "Cyclic Voltammetry of Phthalocyanines",
-      "authors": "Sakamoto, Keiichi",
-      "journal": "Voltammetry",
-      "year": "2019",
-      "pubmed": null,
-      "doi": "10.5772/intechopen.81392",
-      "url": "https://doi.org/10.5772/intechopen.81392"
-    },
-    {
-      "title": "Cyclic Voltammetry and Its Applications",
-      "authors": "Chooto, Pipat",
-      "journal": "Voltammetry",
-      "year": "2019",
-      "pubmed": null,
-      "doi": "10.5772/intechopen.83451",
-      "url": "https://doi.org/10.5772/intechopen.83451"
-    },
-    {
-      "title": "Cyclic Voltammetry at Macroelectrodes",
-      "authors": "",
-      "journal": "Understanding Voltammetry",
-      "year": "2025",
-      "pubmed": null,
-      "doi": "10.1142/9781800615984_0004",
-      "url": "https://doi.org/10.1142/9781800615984_0004"
+      "url": "https://www.wiley.com/en-us/Electrochemical+Methods%3A+Fundamentals+and+Applications%2C+3rd+Edition-p-9781119334064"
     }
   ],
   "keywords": [
-    "cyclic",
-    "voltammetry"
+    "cyclic voltammetry",
+    "peak separation",
+    "reversibility",
+    "scan rate",
+    "diffusion"
   ],
   "relatedProcesses": [],
   "created": "2026-01-15",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations.\nCurated Mermaid applied (citations preserved)."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "graphMetrics": {
+    "nodes": 10,
+    "edges": 11,
+    "conditionals": 1,
+    "andGates": 2,
+    "orGates": 2,
+    "notGates": 0,
+    "loops": 1
+  },
+  "researchEnhancements": {
+    "pilot": true,
+    "model": "research_grade_flowchart",
+    "nodeSemantics": [
+      "trigger",
+      "context",
+      "decision",
+      "operation",
+      "state",
+      "feedback",
+      "observable",
+      "prediction"
+    ],
+    "reviewFocus": [
+      "mechanistic correctness",
+      "decision density",
+      "evidence support",
+      "intervention value"
+    ]
+  },
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Analyte + 3-electrode cell",
+      "detail": "Working, reference, counter",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 2
+    },
+    {
+      "id": "N2",
+      "label": "Sweep potential linearly",
+      "detail": "Forward scan at set rate",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N3",
+      "label": "Faradaic reaction occurs",
+      "detail": "Oxidation/reduction at electrode",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N4",
+      "label": "Diffusion-limited peak",
+      "detail": "Current peak then decay",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N5",
+      "label": "Reverse the scan",
+      "detail": "Return sweep",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N6",
+      "label": "Reverse peak seen?",
+      "detail": "Is the couple reversible?",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N7",
+      "label": "Reversible: ΔEp ≈ 59/n mV",
+      "detail": "Fast electron transfer",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N8",
+      "label": "Quasi/irreversible",
+      "detail": "Sluggish kinetics or follow-up",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N9",
+      "label": "Extract E1/2, n, kinetics",
+      "detail": "From peaks and scan rate",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N10",
+      "label": "Redox + mechanistic data",
+      "detail": "Thermodynamics and kinetics",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 1
+    }
+  ],
+  "namedCollections": [
+    "electrochemistry"
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:electrochemistry-cyclic-voltammetry",
+    "graphType": "cyclic_pathway",
+    "topologySignature": "185780dbb85b4699",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "graphType": "cyclic_pathway",
+  "domainContext": "Electroanalytical technique"
 }

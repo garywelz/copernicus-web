@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2604.23127v1",
+  "arxiv_id": "2604.23127v1",
+  "title": "A Dynamic Learning Observatory Reveals the Rapid Salinization of Satkhira, Bangladesh",
+  "authors": [
+    "Showmitra Kumar Sarkar",
+    "Sai Ravela"
+  ],
+  "author_string": "Showmitra Kumar Sarkar, Sai Ravela",
+  "journal": "arXiv:2604.23127v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Soil salinity is a major environmental challenge in coastal Bangladesh, threatening agricultural productivity and local livelihoods. This study develops a machine-learning-based framework to predict and map soil salinity in Satkhira district by integrating field observations with Landsat-derived spectral indices. A total of 205 soil samples collected during 2024-2025 were used to train an Extreme Gradient Boosting (XGBoost) model, and predictions were further improved using a Generalized Additive Model (GAM). Spatial cross-validation was applied to reduce autocorrelation bias, and bootstrap resampling was used to quantify prediction uncertainty. The results show strong spatial variability of soil salinity, with higher concentrations in the southern and central coastal regions and lower levels in the northern inland areas. Vegetation indices, particularly NDVI, along with salinity-related spectral indicators, were identified as key predictors. 10-year-window peak-exposure maps generated for 2014-2023 reveal recurrent high-salinity zones and a persistent, expanding footprint of moderate-to-high salinity exposure across the central parts of the district. Uncertainty analysis indicates higher variability in coastal zones and improved prediction stability when multi-year datasets are combined. The proposed framework provides a robust and scalable approach for long-term monitoring of soil salinity. It supports climate-resilient agriculture, land-use planning, and evidence-based decision-making in coastal Bangladesh.",
+  "categories": [
+    "physics.geo-ph",
+    "cs.LG",
+    "stat.AP"
+  ],
+  "primary_category": "stat.AP",
+  "comment": null,
+  "published_date": "2026-04-25T03:49:04Z",
+  "updated_date": "2026-04-25T03:49:04Z",
+  "url": "https://arxiv.org/abs/2604.23127v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.23127v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-27T22:15:39.104404",
+  "category": "mathematics",
+  "subcategories": [
+    "physics.geo-ph",
+    "cs.LG",
+    "stat.AP"
+  ]
+}

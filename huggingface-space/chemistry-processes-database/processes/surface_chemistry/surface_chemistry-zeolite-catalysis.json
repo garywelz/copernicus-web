@@ -1,21 +1,23 @@
 {
   "id": "surface_chemistry-zeolite-catalysis",
-  "name": "Zeolite Catalysis",
+  "name": "Zeolite Shape-Selective Catalysis",
   "category": "chemistry",
   "subcategory": "surface_chemistry",
   "subcategory_name": "Surface Chemistry",
-  "description": "Zeolite Catalysis process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "Zeolites impose shape selectivity through their micropores: reactants must fit the aperture to reach Brønsted acid sites, the transition state must fit the cavity, and only products that can exit are released, giving reactant, transition-state and product selectivity.",
   "complexity": {
-    "nodes": 26,
-    "edges": 22,
-    "conditionals": 0,
+    "nodes": 11,
+    "edges": 12,
+    "conditionals": 3,
     "logicGates": {
-      "orGates": 0,
-      "andGates": 1,
-      "total": 1
+      "orGates": 3,
+      "andGates": 2,
+      "notGates": 0,
+      "total": 5
     },
-    "level": "medium",
-    "detailLevel": "medium"
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 2
   },
   "colorScheme": {
     "red": {
@@ -39,53 +41,159 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nA4[Reactant Molecules] --> B4[Zeolite Catalysis Method]\nC4[Zeolite Framework] --> D4[Pore Structure Analysis]\nE4[Reaction Conditions] --> F4[Temperature Control]\nB4 --> G4[Zeolite Synthesis]\nD4 --> H4[Pore Size Distribution]\nF4 --> I4[Pressure Regulation]\nG4 --> J4[Framework Assembly]\nH4 --> K4[Channel Geometry]\nI4 --> L4[Reaction Pressure]\nJ4 --> M4[Active Site Creation]\nK4 --> L4\nL4 --> N4[Molecular Sieving]\nM4 --> O4[Reactant Diffusion]\nN4 --> P4[Shape-Selective Reaction]\nO4 --> Q4[Catalytic Activity]\nP4 --> R4[Product Formation]\nQ4 --> S4[Reaction Selectivity]\nR4 --> T4[Product Diffusion]\nS4 --> U4[Selectivity Analysis]\nT4 --> V4[Product Collection]\nU4 --> W4[Catalyst Performance]\nV4 --> X4[Conversion Yield]\nW4 --> Y4[Process Optimization]\nX4 --> Z4[Shape-Selective Efficiency]\nY4 --> Z4\n\n    style A4 fill:#ff6b6b,color:#fff\n    style C4 fill:#ff6b6b,color:#fff\n    style E4 fill:#ff6b6b,color:#fff\n    style B4 fill:#ffd43b,color:#000\n    style D4 fill:#ffd43b,color:#000\n    style F4 fill:#ffd43b,color:#000\n    style G4 fill:#ffd43b,color:#000\n    style H4 fill:#ffd43b,color:#000\n    style I4 fill:#ffd43b,color:#000\n    style J4 fill:#ffd43b,color:#000\n    style K4 fill:#ffd43b,color:#000\n    style L4 fill:#ffd43b,color:#000\n    style M4 fill:#51cf66,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style O4 fill:#51cf66,color:#fff\n    style P4 fill:#51cf66,color:#fff\n    style Q4 fill:#51cf66,color:#fff\n    style R4 fill:#51cf66,color:#fff\n    style S4 fill:#51cf66,color:#fff\n    style T4 fill:#51cf66,color:#fff\n    style U4 fill:#51cf66,color:#fff\n    style V4 fill:#51cf66,color:#fff\n    style W4 fill:#51cf66,color:#fff\n    style X4 fill:#51cf66,color:#fff\n    style Y4 fill:#51cf66,color:#fff\n    style Z4 fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"Reactant mixture\"]\n    N2[\"Diffuse into micropores\"]\n    N3{\"Reactant fits aperture?\"}\n    N4[\"Reactant excluded\"]\n    N5[\"Reach acid site\"]\n    N6[\"Carbocation TS\"]\n    N7{\"TS fits cavity?\"}\n    N8[\"TS-selectivity limits\"]\n    N9{\"Product fits to exit?\"}\n    N10[\"Retained / isomerizes\"]\n    N11[\"Shape-selective product\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 -->|no| N4\n    N3 -->|yes| N5\n    N5 --> N6\n    N6 --> N7\n    N7 -->|no| N8\n    N8 -->|alt path| N5\n    N7 -->|yes| N9\n    N9 -->|no| N10\n    N10 -->|re-react| N6\n    N9 -->|yes| N11\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#74c0fc,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#74c0fc,color:#fff\n    style N7 fill:#74c0fc,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#74c0fc,color:#fff\n    style N10 fill:#51cf66,color:#fff\n    style N11 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
-      "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: Zeolite Catalysis. Created using the Programming Framework methodology."
+      "title": "Inorganic solid acids and their use in acid-catalyzed hydrocarbon reactions",
+      "authors": "Corma, A.",
+      "journal": "Chemical Reviews",
+      "year": "1995",
+      "doi": "10.1021/cr00035a013",
+      "url": "https://doi.org/10.1021/cr00035a013"
     },
     {
-      "title": "Acid Zeolite Catalysis",
-      "authors": "Bhatia, Subhash",
-      "journal": "Zeolite Catalysis: Principles and Applications",
-      "year": "2020",
-      "pubmed": null,
-      "doi": "10.1201/9781003068389-6",
-      "url": "https://doi.org/10.1201/9781003068389-6"
+      "title": "Ordered porous materials for emerging applications",
+      "authors": "Davis, M. E.",
+      "journal": "Nature",
+      "year": "2002",
+      "doi": "10.1038/nature00785",
+      "url": "https://doi.org/10.1038/nature00785"
     },
     {
-      "title": "Zeolite Catalysis",
-      "authors": "",
-      "journal": "",
-      "year": "2016",
-      "pubmed": null,
-      "doi": "10.3390/books978-3-03842-265-5",
-      "url": "https://doi.org/10.3390/books978-3-03842-265-5"
-    },
-    {
-      "title": "Zeolite catalysis",
-      "authors": "",
-      "journal": "Applied Catalysis",
-      "year": "1991",
-      "pubmed": null,
-      "doi": "10.1016/0166-9834(91)85066-5",
-      "url": "https://doi.org/10.1016/0166-9834(91)85066-5"
+      "title": "Molecular shape-selective catalysis",
+      "authors": "Weisz, P. B.",
+      "journal": "Pure and Applied Chemistry",
+      "year": "1980",
+      "doi": "10.1351/pac198052092091",
+      "url": "https://doi.org/10.1351/pac198052092091"
     }
   ],
   "keywords": [
     "zeolite",
-    "catalysis"
+    "shape selectivity",
+    "bronsted acid site",
+    "micropore",
+    "transition state"
   ],
   "relatedProcesses": [],
   "created": "2026-01-08",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Reactant mixture",
+      "detail": "Feed molecules",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N2",
+      "label": "Diffuse into micropores",
+      "detail": "Enter the framework",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N3",
+      "label": "Reactant fits aperture?",
+      "detail": "Reactant selectivity",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 2
+    },
+    {
+      "id": "N4",
+      "label": "Reactant excluded",
+      "detail": "Too large to enter",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N5",
+      "label": "Reach acid site",
+      "detail": "Brønsted proton transfer",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N6",
+      "label": "Carbocation TS",
+      "detail": "Confined transition state",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N7",
+      "label": "TS fits cavity?",
+      "detail": "Transition-state selectivity",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 2
+    },
+    {
+      "id": "N8",
+      "label": "TS-selectivity limits",
+      "detail": "Bulky pathway suppressed",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 2
+    },
+    {
+      "id": "N9",
+      "label": "Product fits to exit?",
+      "detail": "Product selectivity",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 2
+    },
+    {
+      "id": "N10",
+      "label": "Retained / isomerizes",
+      "detail": "Bulky product trapped",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N11",
+      "label": "Shape-selective product",
+      "detail": "Diffuses out",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 0
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:surface_chemistry-zeolite-catalysis",
+    "graphType": "cyclic_pathway",
+    "topologySignature": "b96542ce5ff0703c",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "namedCollections": [
+    "surface-chemistry"
+  ],
+  "graphMetrics": {
+    "nodes": 11,
+    "edges": 12,
+    "conditionals": 3,
+    "andGates": 2,
+    "orGates": 3,
+    "notGates": 0,
+    "loops": 2
+  },
+  "graphType": "cyclic_pathway",
+  "domainContext": "Zeolite catalysis"
 }

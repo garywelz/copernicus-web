@@ -1,0 +1,35 @@
+{
+  "id": "arxiv_2604.20284v1",
+  "arxiv_id": "2604.20284v1",
+  "title": "Hamiltonian simulation for 3D elastic wave equations in homogeneous elastic media",
+  "authors": [
+    "Kosuke Nakanishi",
+    "Hiroshi Yano",
+    "Yuki Sato"
+  ],
+  "author_string": "Kosuke Nakanishi, Hiroshi Yano, Yuki Sato",
+  "journal": "arXiv:2604.20284v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "We present an explicit quantum circuit construction for Hamiltonian simulation of a first-order velocity--stress formulation of the three-dimensional elastic wave equation in homogeneous isotropic media. Previous studies have shown how elastic wave equations can be cast into forms amenable to Hamiltonian simulation, but they typically rely on black box Hamiltonian access assumptions, making gate complexity estimation difficult. Starting from the first-order velocity--stress formulation, we discretize the system by finite differences, transform it into Schrödinger form, and exploit the separation between the component register and the spatial register to decompose the Hamiltonian into structured tensor product terms. This yields explicit implementations of first-order and second-order Trotter formulas for the resulting time evolution operator. We derive corresponding error bounds and constant sensitive qubit and CNOT complexity estimates in terms of the discretization parameter, simulation time, target accuracy, and material parameters. Numerical experiments validate the proposed framework through comparisons with the exact time evolution and reconstructed physical fields.",
+  "categories": [
+    "quant-ph",
+    "cs.CE",
+    "math.NA"
+  ],
+  "primary_category": "math.NA",
+  "comment": "23 pages, 3 figures",
+  "published_date": "2026-04-22T07:30:56Z",
+  "updated_date": "2026-04-22T07:30:56Z",
+  "url": "https://arxiv.org/abs/2604.20284v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.20284v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-23T10:15:31.467000",
+  "category": "mathematics",
+  "subcategories": [
+    "quant-ph",
+    "cs.CE",
+    "math.NA"
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "id": "biorxiv_10.64898_2025.12.22.695879",
+  "doi": "10.64898/2025.12.22.695879",
+  "title": "Limitations of non-mechanistic methods for characterizing pathogen-pathogen interactions: A simulation study",
+  "authors": [
+    "Kramer, S. C.",
+    "Pirikahu, S.",
+    "Kussmaul, C.",
+    "Opatowski, L.",
+    "Domenech de Celles, M."
+  ],
+  "author_string": "Kramer, S. C., Pirikahu, S., Kussmaul, C., Opatowski, L., Domenech de Celles, M.",
+  "journal": "bioRxiv",
+  "journal_full": "bioRxiv",
+  "year": "2026",
+  "abstract": "Pathogen-pathogen interactions occur when infection with one pathogen influences ones chance of infection or disease due to another. Increasingly, evidence suggests that interactions are a common feature of infectious disease epidemiology. However, due to both the nonlinearities and stochasticity inherent to infectious disease transmission, and the frequency of confounding (e.g., by shared seasonal forcing), simple, purely statistical methods for characterizing interactions may be prone to failure. Here, we perform a simulation study to evaluate several more complex non-mechanistic approaches for inferring causality from time series data: generalized additive models (GAMs), Granger causality, transfer entropy, and convergent cross-mapping (CCM). Specifically, we use a two-pathogen mechanistic transmission model, calibrated to produce dynamics resembling outbreaks of influenza and respiratory syncytial virus (RSV), to generate synthetic datasets with a range of values for interaction strength and duration. We then apply each method to all synthetic datasets. We find that Granger causality, transfer entropy, and CCM all fail to consistently infer whether data contain signal of an interaction; in particular, methods tend to incorrectly identify interactions where none are modeled (average sensitivity = 80.6%, 92.1%, 72.1%, respectively; average specificity = 31.0%, 33.3%, 33.1%). Furthermore, we find little to no association between point estimates from each method and true interaction strength. In contrast, GAMs infer the existence of interactions more accurately than the other methods (sensitivity = 85.2%, specificity = 72.5%), and consistently yield larger point estimates for stronger interactions. However, their practical utility is limited by an inability to evaluate interaction asymmetry (i.e., whether the effect of pathogen A on pathogen B is identical to that of B on A). Overall performance patterns were similar when methods were applied to two real-world datasets from Hong Kong and Canada. We conclude that accurately and comprehensively characterizing pathogen-pathogen interactions based on outbreak data remains a significant challenge. For this reason, it is critical that any proposed methods be rigorously evaluated before being used to draw conclusions about interactions.\n\nAuthor SummaryPathogen-pathogen interactions occur when infection with one pathogen either increases or decreases a persons risk of infection or illness due to a second, distinct pathogen. Because interactions affect several common human pathogens, including influenza and SARS-CoV-2, a better understanding of interactions could improve epidemic control. However, past work has shown that simple methods commonly used to study interactions can lead to inaccurate conclusions. Here, we tested four methods frequently used in other fields, including ecology and neuroscience, to see whether they may also be useful for identifying interactions. Specifically, we tested each method using simulated outbreak data generated from a mathematical model. We found that most methods struggled to correctly determine whether an interaction effect was present; in particular, methods often falsely identified interactions when none occurred. Although one of the tested methods, generalized additive models, performed comparatively well at identifying interactions, it provided relatively little additional information about the interactions. Because pathogen-pathogen interactions are so challenging to study, it is important that researchers rigorously test methods before applying them to interactions, so as not to publish potentially misleading results. More broadly, a complete understanding of interactions will likely require a variety of approaches, including both laboratory and modeling studies.",
+  "keywords": [],
+  "categories": [
+    "ecology"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.64898/2025.12.22.695879",
+  "source": "biorxiv",
+  "sources": [
+    "biorxiv"
+  ],
+  "acquired_date": "2026-05-05T22:15:25.110545",
+  "category": "biology",
+  "subcategories": [
+    "ecology"
+  ],
+  "published_date": "2026-01-05",
+  "updated_date": "2026-01-05",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "biorxiv",
+  "preprint_version": "2",
+  "preprint_type": "new results",
+  "license": "cc_by",
+  "jatsxml": "https://www.biorxiv.org/content/early/2026/01/05//2025.12.22.695879.source.xml",
+  "published_doi": null,
+  "author_corresponding": "Sarah  C. Kramer",
+  "author_corresponding_institution": "Max-Planck-Institute for Infection Biology: Max-Planck-Institut fur Infektionsbiologie"
+}

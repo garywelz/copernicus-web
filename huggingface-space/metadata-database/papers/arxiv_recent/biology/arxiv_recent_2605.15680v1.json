@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2605.15680v1",
+  "arxiv_id": "2605.15680v1",
+  "title": "Few-Shot Large Language Models for Actionable Triage Categorization of Online Patient Inquiries",
+  "authors": [
+    "Liqi Zhou",
+    "Jiafu Li"
+  ],
+  "author_string": "Liqi Zhou, Jiafu Li",
+  "journal": "arXiv:2605.15680v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Online patient inquiries are often informal, incomplete, and written before professional assessment, yet they must still be routed to an appropriate level of clinical follow-up. We study this as a four-class actionable triage task -- self-care, schedule-visit, urgent-clinician-review, or emergency-referral, and ask whether prompted large language models (LLMs) can support such routing under low-resource labeling conditions. Using the public HealthCareMagic-100K corpus, we construct a 300-example human calibrated gold evaluation set, a 700-example auto-labeled silver training set, and a 40-example few-shot pool. We compare Term Frequency-Inverse Document Frequency (TF-IDF) and Bidirectional Encoder Representations from Transformers for Biomedical Text Mining (BioBERT) baselines train on silver labels against six prompted LLMs under 0-shot, 4-shot, and 12-shot conditions respectively. Accordingly, we evaluate with macro-$F_1$ alongside safety-aware metrics, including emergency-recall, under-triage rate, and severe under-triage rate. The strongest LLM (Claude Haiku 4.5, 12-shot) reaches macro-$F_1$ 0.475, exceeding the best supervised baseline (BioBERT, 0.378) on point estimate, with overlapping confidence intervals. Few-shot prompting and two-model agreement help in label-dependent ways: self-care agreement is reliable, urgent-clinician-review is not. We conclude that LLMs can support triage prioritization and selective human review, but not autonomous deployment.",
+  "categories": [
+    "cs.CL",
+    "cs.LG",
+    "q-bio.QM"
+  ],
+  "primary_category": "q-bio.QM",
+  "comment": "4 figures, 19 tables, 23 pages (including appendix and reference)",
+  "published_date": "2026-05-15T07:02:17Z",
+  "updated_date": "2026-05-15T07:02:17Z",
+  "url": "https://arxiv.org/abs/2605.15680v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.15680v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-20T22:16:04.374082",
+  "category": "biology",
+  "subcategories": [
+    "cs.CL",
+    "cs.LG",
+    "q-bio.QM"
+  ]
+}

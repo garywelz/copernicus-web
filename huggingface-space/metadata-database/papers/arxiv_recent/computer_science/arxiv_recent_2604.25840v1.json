@@ -1,0 +1,37 @@
+{
+  "id": "arxiv_2604.25840v1",
+  "arxiv_id": "2604.25840v1",
+  "title": "PSI-Bench: Towards Clinically Grounded and Interpretable Evaluation of Depression Patient Simulators",
+  "authors": [
+    "Nguyen Khoi Hoang",
+    "Shuhaib Mehri",
+    "Tse-An Hsu",
+    "Yi-Jyun Sun",
+    "Quynh Xuan Nguyen Truong",
+    "Khoa D Doan",
+    "Dilek Hakkani-Tür"
+  ],
+  "author_string": "Nguyen Khoi Hoang, Shuhaib Mehri, Tse-An Hsu, Yi-Jyun Sun, Quynh Xuan Nguyen Truong et al.",
+  "journal": "arXiv:2604.25840v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Patient simulators are gaining traction in mental health training by providing scalable exposure to complex and sensitive patient interactions. Simulating depressed patients is particularly challenging, as safety constraints and high patient variability complicate simulations and underscore the need for simulators that capture diverse and realistic patient behaviors. However, existing evaluations heavily rely on LLM-judges with poorly specified prompts and do not assess behavioral diversity. We introduce PSI-Bench, an automatic evaluation framework that provides interpretable, clinically grounded diagnostics of depression patient simulator behavior across turn-, dialogue-, and population-level dimensions. Using PSI-Bench, we benchmark seven LLMs across two simulator frameworks and find that simulators produce overly long, lexically diverse responses, show reduced variability, resolve emotions too quickly, and follow a uniform negative-to-positive trajectory. We also show that the simulation framework has a larger impact on fidelity than the model scale. Results from a human study demonstrate that our benchmark is strongly aligned with expert judgments. Our work reveals key limitations of current depression patient simulators and provides an interpretable, extensible benchmark to guide future simulator design and evaluation.",
+  "categories": [
+    "cs.CL",
+    "cs.AI"
+  ],
+  "primary_category": "cs.AI",
+  "comment": null,
+  "published_date": "2026-04-28T16:46:25Z",
+  "updated_date": "2026-04-28T16:46:25Z",
+  "url": "https://arxiv.org/abs/2604.25840v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.25840v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-29T10:15:41.141322",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CL",
+    "cs.AI"
+  ]
+}

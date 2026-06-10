@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Entropy Changes - Chemistry Process</title>
+    <title>Entropic Rubber Elasticity - Chemistry Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,12 +167,39 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Entropy Changes</h1>
+            <h1>Entropic Rubber Elasticity</h1>
             <div class="header-meta">
                 <span class="meta-item">Chemistry</span>
                 <span class="meta-item">Polymer Chemistry</span>
@@ -207,68 +234,53 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Entropy Changes process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>In a cross-linked elastomer the restoring force is entropic: stretching extends network chains and lowers their conformational entropy, so the chains recoil when released, a behavior captured by the statistical theory of rubber elasticity.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-A5[Initial System] --> B5[Entropy Analysis Method]
-C5[Energy Distribution] --> D5[State Characterization]
-E5[Process Conditions] --> F5[Temperature Control]
-B5 --> G5[System Analysis]
-D5 --> H5[State Monitoring]
-F5 --> I5[Thermal Control]
-G5 --> J5[Initial Entropy]
-H5 --> K5[State Analysis]
-I5 --> L5[Temperature Regulation]
-J5 --> M5[Process Initiation]
-K5 --> L5
-L5 --> N5[Energy Redistribution]
-M5 --> O5[Disorder Changes]
-N5 --> P5[Entropy Process]
-O5 --> Q5[State Evolution]
-P5 --> R5[Entropy Change]
-Q5 --> S5[Disorder Measurement]
-R5 --> T5[System Evolution]
-S5 --> U5[Entropy Analysis]
-T5 --> V5[Evolution Assessment]
-U5 --> W5[Entropy Efficiency]
-V5 --> X5[Final State Characterization]
-W5 --> Y5[Process Optimization]
-X5 --> Z5[Final Entropy State]
-Y5 --> Z5
+    N1["Cross-linked elastomer"]
+    N2["Apply stretching force"]
+    N3["Chains extend"]
+    N4["Conformational entropy drops"]
+    N5["Entropic restoring force"]
+    N6{"Release the load?"}
+    N7["Chains recoil to coil"]
+    N8["Original shape recovered"]
+    N9["Stress–strain (statistical)"]
 
-    style A5 fill:#ff6b6b,color:#fff
-    style C5 fill:#ff6b6b,color:#fff
-    style E5 fill:#ff6b6b,color:#fff
-    style B5 fill:#ffd43b,color:#000
-    style D5 fill:#ffd43b,color:#000
-    style F5 fill:#ffd43b,color:#000
-    style G5 fill:#ffd43b,color:#000
-    style H5 fill:#ffd43b,color:#000
-    style I5 fill:#ffd43b,color:#000
-    style J5 fill:#ffd43b,color:#000
-    style K5 fill:#ffd43b,color:#000
-    style L5 fill:#ffd43b,color:#000
-    style M5 fill:#51cf66,color:#fff
+    N1 --> N2
+    N2 --> N3
+    N3 --> N4
+    N4 --> N5
+    N5 --> N6
+    N6 -->|release| N7
+    N7 --> N8
+    N6 -->|hold load| N9
+    N9 -->|sustained| N5
+
+    style N1 fill:#ff6b6b,color:#fff
+    style N2 fill:#51cf66,color:#fff
+    style N3 fill:#51cf66,color:#fff
+    style N4 fill:#74c0fc,color:#fff
     style N5 fill:#51cf66,color:#fff
-    style O5 fill:#51cf66,color:#fff
-    style P5 fill:#51cf66,color:#fff
-    style Q5 fill:#51cf66,color:#fff
-    style R5 fill:#51cf66,color:#fff
-    style S5 fill:#51cf66,color:#fff
-    style T5 fill:#51cf66,color:#fff
-    style U5 fill:#51cf66,color:#fff
-    style V5 fill:#51cf66,color:#fff
-    style W5 fill:#51cf66,color:#fff
-    style X5 fill:#51cf66,color:#fff
-    style Y5 fill:#51cf66,color:#fff
-    style Z5 fill:#b197fc,color:#fff
+    style N6 fill:#74c0fc,color:#fff
+    style N7 fill:#51cf66,color:#fff
+    style N8 fill:#b197fc,color:#fff
+    style N9 fill:#51cf66,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Cross-linked elastomer</td><td>Triggers & Inputs</td><td><a href="https://global.oup.com/academic/product/the-physics-of-rubber-elasticity-9780198570271" target="_blank" title="The Physics of Rubber Elasticity, 3rd ed." style="color:#e74c3c;">Treloar, L. R. G. 1975</a></td></tr><tr><td style="font-weight:600;">Apply stretching force</td><td>Processing & Operations</td><td><a href="https://global.oup.com/academic/product/the-physics-of-rubber-elasticity-9780198570271" target="_blank" title="The Physics of Rubber Elasticity, 3rd ed." style="color:#e74c3c;">Treloar, L. R. G. 1975</a></td></tr><tr><td style="font-weight:600;">Chains extend</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1063/1.1723792" target="_blank" title="Statistical mechanics of cross-linked polymer networks" style="color:#e74c3c;">Flory, P. J. et al. 1943</a></td></tr><tr><td style="font-weight:600;">Conformational entropy drops</td><td>Intermediates & States</td><td><a href="https://global.oup.com/academic/product/the-physics-of-rubber-elasticity-9780198570271" target="_blank" title="The Physics of Rubber Elasticity, 3rd ed." style="color:#e74c3c;">Treloar, L. R. G. 1975</a></td></tr><tr><td style="font-weight:600;">Entropic restoring force</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1063/1.1723792" target="_blank" title="Statistical mechanics of cross-linked polymer networks" style="color:#e74c3c;">Flory, P. J. et al. 1943</a></td></tr><tr><td style="font-weight:600;">Release the load?</td><td>Intermediates & States</td><td><a href="https://global.oup.com/academic/product/the-physics-of-rubber-elasticity-9780198570271" target="_blank" title="The Physics of Rubber Elasticity, 3rd ed." style="color:#e74c3c;">Treloar, L. R. G. 1975</a></td></tr><tr><td style="font-weight:600;">Chains recoil to coil</td><td>Processing & Operations</td><td><a href="https://www.cornellpress.cornell.edu/book/9780801401343/principles-of-polymer-chemistry/" target="_blank" title="Principles of Polymer Chemistry — Rubber Elasticity" style="color:#e74c3c;">Flory, P. J. 1953</a></td></tr><tr><td style="font-weight:600;">Original shape recovered</td><td>Products & Outputs</td><td><a href="https://global.oup.com/academic/product/the-physics-of-rubber-elasticity-9780198570271" target="_blank" title="The Physics of Rubber Elasticity, 3rd ed." style="color:#e74c3c;">Treloar, L. R. G. 1975</a></td></tr><tr><td style="font-weight:600;">Stress–strain (statistical)</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1063/1.1723792" target="_blank" title="Statistical mechanics of cross-linked polymer networks" style="color:#e74c3c;">Flory, P. J. et al. 1943</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -314,12 +326,12 @@ Y5 --> Z5
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 26</li>
-                        <li><strong>Edges:</strong> 22</li>
-                        <li><strong>Conditionals:</strong> 0</li>
+                        <li><strong>Nodes:</strong> 9</li>
+                        <li><strong>Edges:</strong> 9</li>
+                        <li><strong>Conditionals:</strong> 1</li>
                         <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 1</li>
+                        <li><strong>OR Gates:</strong> 1</li>
+                        <li><strong>Total Gates:</strong> 2</li>
                     </ul>
                 </div>
                 
@@ -327,7 +339,7 @@ Y5 --> Z5
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>entropy</li><li>changes</li>
+                        <li>rubber elasticity</li><li>conformational entropy</li><li>cross-link</li><li>entropic force</li><li>network</li>
                     </ul>
                 </div>
                 
@@ -338,43 +350,33 @@ Y5 --> Z5
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>The Physics of Rubber Elasticity, 3rd ed.</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Treloar, L. R. G.
+                            , Oxford University Press
+                             (1975)
                             </span>
                             
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
+                            <br><a href="https://global.oup.com/academic/product/the-physics-of-rubber-elasticity-9780198570271" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Entropy changes</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Atkins, Peter; Paula, Julio de; Smith, David
-                            , Elements of Physical Chemistry
-                             (2016)
+                            <strong>Statistical mechanics of cross-linked polymer networks</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Flory, P. J.; Rehner, J.
+                            , Journal of Chemical Physics
+                             (1943)
                             </span>
-                            <br><a href="https://doi.org/10.1093/hesc/9780198727873.003.0014" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1093/hesc/9780198727873.003.0014</a>
-                            
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Entropy changes accompanying specific processes</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Atkins, Peter; de Paula, Julio; Keeler, James
-                            , Atkins’ Physical Chemistry
-                             (2022)
-                            </span>
-                            <br><a href="https://doi.org/10.1093/hesc/9780198847816.003.0013" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1093/hesc/9780198847816.003.0013</a>
+                            <br><a href="https://doi.org/10.1063/1.1723792" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1063/1.1723792</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Wide Range Multiscale Entropy Changes through Development</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Polizzotto, Nicola; Takahashi, Tetsuya; Walker, Christopher; Cho, Raymond
-                            , Entropy
-                             (2015)
+                            <strong>Principles of Polymer Chemistry — Rubber Elasticity</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Flory, P. J.
+                            , Cornell University Press
+                             (1953)
                             </span>
-                            <br><a href="https://doi.org/10.3390/e18010012" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.3390/e18010012</a>
                             
+                            <br><a href="https://www.cornellpress.cornell.edu/book/9780801401343/principles-of-polymer-chemistry/" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
                         </li>
                         
                     </ul>

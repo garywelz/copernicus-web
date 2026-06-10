@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Battery Chemistry - Chemistry Process</title>
+    <title>Radiocarbon Dating - Chemistry Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Battery Chemistry</h1>
+            <h1>Radiocarbon Dating</h1>
             <div class="header-meta">
                 <span class="meta-item">Chemistry</span>
                 <span class="meta-item">Nuclear Chemistry</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,68 +234,56 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Battery Chemistry process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>Radiocarbon dating exploits the fixed atmospheric 14C/12C ratio in living tissue: when an organism dies, uptake stops and 14C decays with a 5730-year half-life, so measuring the residual 14C and calibrating against tree-ring records yields a calendar age.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-A2[Lithium Ions] --> B2[Battery Design Method]
-C2[Electrode Materials] --> D2[Electrolyte Selection]
-E2[Separator Membrane] --> F2[Cell Assembly]
-B2 --> G2[Anode Material]
-D2 --> H2[Ion Conductivity]
-F2 --> I2[Safety Features]
-G2 --> J2[Lithium Storage]
-H2 --> K2[Ion Transport]
-I2 --> L2[Thermal Management]
-J2 --> M2[Intercalation Process]
-K2 --> L2
-L2 --> N2[Charge Transfer]
-M2 --> O2[Electron Flow]
-N2 --> P2[Electrochemical Reaction]
-O2 --> Q2[Energy Storage]
-P2 --> R2[Voltage Generation]
-Q2 --> S2[Capacity Measurement]
-R2 --> T2[Power Output]
-S2 --> U2[Performance Testing]
-T2 --> V2[Cycle Life Analysis]
-U2 --> W2[Efficiency Calculation]
-V2 --> X2[Degradation Study]
-W2 --> Y2[Optimization Process]
-X2 --> Z2[Final Battery Design]
-Y2 --> Z2
+    N1["Organism dies"]
+    N2["14C uptake stops"]
+    N3["Initial 14C/12C known"]
+    N4["14C decays (t½ 5730 yr)"]
+    N5["Measure remaining 14C"]
+    N6["t = (1/λ) ln(N0/N)"]
+    N7{"Within ~50,000 yr?"}
+    N8["Calibrate vs IntCal curve"]
+    N9["Beyond range: lower bound"]
+    N10["Calendar age"]
 
-    style A2 fill:#ff6b6b,color:#fff
-    style C2 fill:#ff6b6b,color:#fff
-    style E2 fill:#ff6b6b,color:#fff
-    style B2 fill:#ffd43b,color:#000
-    style D2 fill:#ffd43b,color:#000
-    style F2 fill:#ffd43b,color:#000
-    style G2 fill:#ffd43b,color:#000
-    style H2 fill:#ffd43b,color:#000
-    style I2 fill:#ffd43b,color:#000
-    style J2 fill:#ffd43b,color:#000
-    style K2 fill:#ffd43b,color:#000
-    style L2 fill:#ffd43b,color:#000
-    style M2 fill:#51cf66,color:#fff
+    N1 --> N2
+    N2 --> N3
+    N3 --> N4
+    N4 --> N5
+    N5 --> N6
+    N6 --> N7
+    N7 -->|yes| N8
+    N8 --> N10
+    N7 -->|too old| N9
+    N9 --> N10
+
+    style N1 fill:#ff6b6b,color:#fff
     style N2 fill:#51cf66,color:#fff
-    style O2 fill:#51cf66,color:#fff
-    style P2 fill:#51cf66,color:#fff
-    style Q2 fill:#51cf66,color:#fff
-    style R2 fill:#51cf66,color:#fff
-    style S2 fill:#51cf66,color:#fff
-    style T2 fill:#51cf66,color:#fff
-    style U2 fill:#51cf66,color:#fff
-    style V2 fill:#51cf66,color:#fff
-    style W2 fill:#51cf66,color:#fff
-    style X2 fill:#51cf66,color:#fff
-    style Y2 fill:#51cf66,color:#fff
-    style Z2 fill:#b197fc,color:#fff
+    style N3 fill:#74c0fc,color:#fff
+    style N4 fill:#51cf66,color:#fff
+    style N5 fill:#51cf66,color:#fff
+    style N6 fill:#51cf66,color:#fff
+    style N7 fill:#74c0fc,color:#fff
+    style N8 fill:#51cf66,color:#fff
+    style N9 fill:#51cf66,color:#fff
+    style N10 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Organism dies</td><td>Triggers & Inputs</td><td><a href="https://doi.org/10.1126/science.109.2827.227" target="_blank" title="Age determination by radiocarbon content: world-wide assay of natural radiocarbon" style="color:#e74c3c;">Libby, W. F. et al. 1949</a></td></tr><tr><td style="font-weight:600;">14C uptake stops</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1126/science.109.2827.227" target="_blank" title="Age determination by radiocarbon content: world-wide assay of natural radiocarbon" style="color:#e74c3c;">Libby, W. F. et al. 1949</a></td></tr><tr><td style="font-weight:600;">Initial 14C/12C known</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1126/science.109.2827.227" target="_blank" title="Age determination by radiocarbon content: world-wide assay of natural radiocarbon" style="color:#e74c3c;">Libby, W. F. et al. 1949</a></td></tr><tr><td style="font-weight:600;">14C decays (t½ 5730 yr)</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1126/science.110.2869.678" target="_blank" title="Age determinations by radiocarbon content: checks with samples of known age" style="color:#e74c3c;">Arnold, J. R. et al. 1949</a></td></tr><tr><td style="font-weight:600;">Measure remaining 14C</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1017/RDC.2020.41" target="_blank" title="The IntCal20 Northern Hemisphere radiocarbon age calibration curve (0–55 cal kBP)" style="color:#e74c3c;">Reimer, P. J. et al. 2020</a></td></tr><tr><td style="font-weight:600;">t = (1/λ) ln(N0/N)</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1126/science.110.2869.678" target="_blank" title="Age determinations by radiocarbon content: checks with samples of known age" style="color:#e74c3c;">Arnold, J. R. et al. 1949</a></td></tr><tr><td style="font-weight:600;">Within ~50,000 yr?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1017/RDC.2020.41" target="_blank" title="The IntCal20 Northern Hemisphere radiocarbon age calibration curve (0–55 cal kBP)" style="color:#e74c3c;">Reimer, P. J. et al. 2020</a></td></tr><tr><td style="font-weight:600;">Calibrate vs IntCal curve</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1017/RDC.2020.41" target="_blank" title="The IntCal20 Northern Hemisphere radiocarbon age calibration curve (0–55 cal kBP)" style="color:#e74c3c;">Reimer, P. J. et al. 2020</a></td></tr><tr><td style="font-weight:600;">Beyond range: lower bound</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1017/RDC.2020.41" target="_blank" title="The IntCal20 Northern Hemisphere radiocarbon age calibration curve (0–55 cal kBP)" style="color:#e74c3c;">Reimer, P. J. et al. 2020</a></td></tr><tr><td style="font-weight:600;">Calendar age</td><td>Products & Outputs</td><td><a href="https://doi.org/10.1017/RDC.2020.41" target="_blank" title="The IntCal20 Northern Hemisphere radiocarbon age calibration curve (0–55 cal kBP)" style="color:#e74c3c;">Reimer, P. J. et al. 2020</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -314,12 +329,12 @@ Y2 --> Z2
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 26</li>
-                        <li><strong>Edges:</strong> 22</li>
-                        <li><strong>Conditionals:</strong> 0</li>
+                        <li><strong>Nodes:</strong> 10</li>
+                        <li><strong>Edges:</strong> 10</li>
+                        <li><strong>Conditionals:</strong> 1</li>
                         <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 1</li>
+                        <li><strong>OR Gates:</strong> 1</li>
+                        <li><strong>Total Gates:</strong> 2</li>
                     </ul>
                 </div>
                 
@@ -327,7 +342,7 @@ Y2 --> Z2
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>battery</li><li>chemistry</li>
+                        <li>radiocarbon dating</li><li>carbon-14</li><li>half-life</li><li>AMS</li><li>calibration</li>
                     </ul>
                 </div>
                 
@@ -338,42 +353,32 @@ Y2 --> Z2
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Age determination by radiocarbon content: world-wide assay of natural radiocarbon</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Libby, W. F.; Anderson, E. C.; Arnold, J. R.
+                            , Science
+                             (1949)
                             </span>
-                            
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Primary battery recycling in Europe</strong>
-                            
-                            , Industrial Chemistry Library
-                             (2001)
-                            </span>
-                            <br><a href="https://doi.org/10.1016/s0926-9614(01)80009-5" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1016/s0926-9614(01)80009-5</a>
+                            <br><a href="https://doi.org/10.1126/science.109.2827.227" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1126/science.109.2827.227</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Recycling the lithium battery</strong>
-                            
-                            , Industrial Chemistry Library
-                             (2001)
+                            <strong>Age determinations by radiocarbon content: checks with samples of known age</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Arnold, J. R.; Libby, W. F.
+                            , Science
+                             (1949)
                             </span>
-                            <br><a href="https://doi.org/10.1016/s0926-9614(01)80011-3" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1016/s0926-9614(01)80011-3</a>
+                            <br><a href="https://doi.org/10.1126/science.110.2869.678" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1126/science.110.2869.678</a>
                             
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Battery collection and recycling in Japan</strong>
-                            
-                            , Industrial Chemistry Library
-                             (2001)
+                            <strong>The IntCal20 Northern Hemisphere radiocarbon age calibration curve (0–55 cal kBP)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Reimer, P. J.; et al.
+                            , Radiocarbon
+                             (2020)
                             </span>
-                            <br><a href="https://doi.org/10.1016/s0926-9614(01)80005-8" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1016/s0926-9614(01)80005-8</a>
+                            <br><a href="https://doi.org/10.1017/RDC.2020.41" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1017/RDC.2020.41</a>
                             
                         </li>
                         

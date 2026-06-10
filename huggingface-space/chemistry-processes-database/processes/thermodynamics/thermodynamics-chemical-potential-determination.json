@@ -1,21 +1,23 @@
 {
   "id": "thermodynamics-chemical-potential-determination",
-  "name": "Chemical Potential Determination",
+  "name": "Chemical Potential & Phase Equilibrium",
   "category": "chemistry",
   "subcategory": "thermodynamics",
   "subcategory_name": "Thermodynamic Processes",
-  "description": "Chemical Potential Determination process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "Express each species' chemical potential as a function of activity, then drive multiphase systems toward equilibrium by transferring matter down the chemical-potential gradient until the potential of every component is equal in all phases.",
   "complexity": {
-    "nodes": 5,
-    "edges": 4,
-    "conditionals": 0,
+    "nodes": 8,
+    "edges": 9,
+    "conditionals": 2,
     "logicGates": {
-      "orGates": 0,
-      "andGates": 0,
-      "total": 0
+      "orGates": 2,
+      "andGates": 2,
+      "notGates": 0,
+      "total": 4
     },
     "level": "medium",
-    "detailLevel": "medium"
+    "detailLevel": "source_grounded",
+    "loops": 1
   },
   "colorScheme": {
     "red": {
@@ -39,54 +41,135 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nN1[\"System Composition\"]\nN2[\"T,P Conditions\"]\nN3[\"Equation of State/Model\"]\nN4[\"Compute μ (chemical potential)\"]\nN5[\"μ Values/Activities\"]\n\nN1 --> N2\nN2 --> N3\nN3 --> N4\nN4 --> N5\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#ff6b6b,color:#fff\n    style N3 fill:#ffd43b,color:#000\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"Species in a phase\"]\n    N2[\"μ = μ° + RT ln a\"]\n    N3[\"Determine activity a\"]\n    N4{\"More than one phase?\"}\n    N5{\"μ equal in all phases?\"}\n    N6[\"Transfer down gradient\"]\n    N7[\"Compositions update\"]\n    N8[\"Phase equilibrium\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 --> N4\n    N4 -->|single phase| N8\n    N4 -->|multiphase| N5\n    N5 -->|no| N6\n    N6 --> N7\n    N7 -->|recheck| N5\n    N5 -->|yes| N8\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#74c0fc,color:#fff\n    style N5 fill:#74c0fc,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
+      "title": "Physical Chemistry, 11th ed. — The Chemical Potential of Mixtures",
+      "authors": "Atkins, P.; de Paula, J.; Keeler, J.",
+      "journal": "Oxford University Press",
+      "year": "2018",
       "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: Chemical Potential Determination. Created using the Programming Framework methodology."
+      "url": "https://global.oup.com/ukhe/product/atkins-physical-chemistry-9780198769866"
     },
     {
-      "title": "Leather. Chemical tests. Determination of chromium (VI) and the reductive potential for chromium tanning agents",
-      "authors": "",
-      "journal": "",
-      "year": "None",
-      "pubmed": null,
-      "doi": "10.3403/30283359",
-      "url": "https://doi.org/10.3403/30283359"
+      "title": "Gold Book: chemical potential, μ",
+      "authors": "IUPAC",
+      "journal": "IUPAC Compendium of Chemical Terminology",
+      "year": "2019",
+      "doi": "10.1351/goldbook.C01032",
+      "url": "https://goldbook.iupac.org/terms/view/C01032"
     },
     {
-      "title": "Leather. Chemical tests. Determination of chromium (VI) and the reductive potential for chromium tanning agents",
-      "authors": "",
-      "journal": "",
-      "year": "None",
-      "pubmed": null,
-      "doi": "10.3403/30283359u",
-      "url": "https://doi.org/10.3403/30283359u"
-    },
-    {
-      "title": "The determination of Kihara potential parameters from gas hydrate data.",
-      "authors": "",
-      "journal": "Chemical Engineering Science",
-      "year": "1994",
-      "pubmed": null,
-      "doi": "10.1016/0009-2509(74)85072-4",
-      "url": "https://doi.org/10.1016/0009-2509(74)85072-4"
+      "title": "On the Equilibrium of Heterogeneous Substances",
+      "authors": "Gibbs, J. W.",
+      "journal": "Transactions of the Connecticut Academy of Arts and Sciences",
+      "year": "1878",
+      "doi": "10.2475/ajs.s3-16.96.441",
+      "url": "https://doi.org/10.2475/ajs.s3-16.96.441"
     }
   ],
   "keywords": [
-    "chemical",
-    "potential",
-    "determination"
+    "chemical potential",
+    "activity",
+    "phase equilibrium",
+    "mass transfer",
+    "partial molar"
   ],
   "relatedProcesses": [],
   "created": "2026-01-15",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations.\nCurated Mermaid applied (citations preserved)."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Species in a phase",
+      "detail": "Component of interest",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 0
+    },
+    {
+      "id": "N2",
+      "label": "μ = μ° + RT ln a",
+      "detail": "Potential from activity",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N3",
+      "label": "Determine activity a",
+      "detail": "Measure or model a",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N4",
+      "label": "More than one phase?",
+      "detail": "Single vs multiphase system",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N5",
+      "label": "μ equal in all phases?",
+      "detail": "Equilibrium condition",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 2
+    },
+    {
+      "id": "N6",
+      "label": "Transfer down gradient",
+      "detail": "Matter moves to lower μ",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N7",
+      "label": "Compositions update",
+      "detail": "Activities change with amounts",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N8",
+      "label": "Phase equilibrium",
+      "detail": "μ uniform across phases",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 2
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:thermodynamics-chemical-potential-determination",
+    "graphType": "cyclic_pathway",
+    "topologySignature": "eee2f1967b269abc",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "namedCollections": [
+    "thermodynamics"
+  ],
+  "graphMetrics": {
+    "nodes": 8,
+    "edges": 9,
+    "conditionals": 2,
+    "andGates": 2,
+    "orGates": 2,
+    "notGates": 0,
+    "loops": 1
+  },
+  "graphType": "cyclic_pathway",
+  "domainContext": "Multiphase equilibrium"
 }

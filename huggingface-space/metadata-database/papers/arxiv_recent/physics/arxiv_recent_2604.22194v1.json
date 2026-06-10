@@ -1,0 +1,30 @@
+{
+  "id": "arxiv_2604.22194v1",
+  "arxiv_id": "2604.22194v1",
+  "title": "Qubit-Scalable CVRP via Lagrangian Knapsack Decomposition and Noise-Aware Quantum Execution",
+  "authors": [
+    "Monit Sharma",
+    "Hoong Chuin Lau"
+  ],
+  "author_string": "Monit Sharma, Hoong Chuin Lau",
+  "journal": "arXiv:2604.22194v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Hybrid quantum optimization for vehicle routing faces a practical bottleneck: direct QUBO encodings of CVRP quickly exceed near-term qubit and gate budgets, while quantum evaluations are expensive, noise-limited, and sensitive to backend and circuit configuration. We address this gap with an end-to-end decomposition pipeline that converts CVRP into bounded-width quantum subproblems and treats quantum execution as a decision problem within the optimization loop. Starting from a Fisher--Jaikumar assignment linearization, we apply Lagrangian relaxation to dualize customer-assignment couplers, yielding independent per-vehicle knapsack subproblems that admit QUBO/Ising evaluation. To replace brittle subgradient tuning, we learn a multiplier-update controller using expert-guided pretraining followed by reinforcement-learning fine-tuning, with rewards based on execution-realized progress and route reconstruction. We also introduce a constrained contextual bandit as a hardware-aware execution layer that selects backend and circuit configuration with feasibility screening, enabling adaptation across heterogeneous noisy resources and parallel multi-QPU scheduling. Computational results on multiple CVRPLIB families show that the decomposition yields stable bounded-width subproblems across instance sizes, learned multiplier updates improve end-to-end routing quality relative to classical subgradient control under matched budgets, and hardware-mode configuration reduces median optimality gaps relative to static execution choices in our test set. We do not claim quantum advantage. Instead, the contribution is a practical end-to-end framework for scaling hybrid quantum CVRP optimization through OR decomposition, learning-augmented dual control, and adaptive hardware-aware execution.",
+  "categories": [
+    "quant-ph"
+  ],
+  "primary_category": "quant-ph",
+  "comment": "37 pages, 12 figures, 9 tables",
+  "published_date": "2026-04-24T03:46:25Z",
+  "updated_date": "2026-04-24T03:46:25Z",
+  "url": "https://arxiv.org/abs/2604.22194v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.22194v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-27T10:15:28.454174",
+  "category": "physics",
+  "subcategories": [
+    "quant-ph"
+  ]
+}

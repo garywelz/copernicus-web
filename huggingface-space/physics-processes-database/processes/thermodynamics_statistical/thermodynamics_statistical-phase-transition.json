@@ -2,53 +2,55 @@
   "acquired_date": "2026-01-08T00:00:00Z",
   "category": "physics",
   "colorScheme": {
-    "blue": {
-      "category": "Intermediates & States",
-      "hex": "#74c0fc"
-    },
-    "green": {
-      "category": "Processing & Operations",
-      "hex": "#51cf66"
-    },
     "red": {
-      "category": "Triggers & Inputs",
-      "hex": "#ff6b6b"
-    },
-    "violet": {
-      "category": "Products & Outputs",
-      "hex": "#b197fc"
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
     },
     "yellow": {
-      "category": "Structures & Objects",
-      "hex": "#ffd43b"
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
     }
   },
   "complexity": {
-    "conditionals": 0,
-    "detailLevel": "medium",
-    "edges": 24,
-    "level": "medium",
+    "nodes": 11,
+    "edges": 11,
+    "conditionals": 1,
     "logicGates": {
+      "orGates": 1,
       "andGates": 1,
-      "orGates": 0,
-      "total": 1
+      "notGates": 0,
+      "total": 2
     },
-    "nodes": 26
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 0
   },
   "created": "2026-01-08",
-  "description": "Phase Transition Process. This thermodynamics process visualization demonstrates phase transitions and critical phenomena. The flowchart shows phase inputs and temperature changes, phase transition methods and critical points, phase transition operations and order parameters, intermediate results, and final phase transition outputs.",
-  "id": "process_physics_phase-transition",
+  "description": "The Ising model captures a continuous phase transition: from the spin Hamiltonian the partition function gives the free energy and the magnetization order parameter; below the critical temperature the system spontaneously breaks symmetry into an ordered phase, with critical exponents describing behavior near Tc.",
+  "id": "thermodynamics_statistical-phase-transition",
   "keywords": [
-    "statistical",
-    "thermodynamics",
-    "phase",
-    "physics",
-    "transition"
+    "Ising model",
+    "phase transition",
+    "order parameter",
+    "spontaneous symmetry breaking",
+    "critical exponents"
   ],
-  "lastUpdated": "2026-01-08",
-  "mermaid": "graph TD\nA3[Phase State] --> B3[Phase Transition Method]\nC3[Temperature Change] --> D3[Critical Point]\nE3[Order Parameter] --> F3[Phase Transition Analysis]\nB3 --> G3[First Order Transition]\nD3 --> H3[Second Order Transition]\nF3 --> I3[Critical Phenomena]\nG3 --> J3[Latent Heat]\nH3 --> K3[Order Parameter]\nI3 --> L3[Scaling Behavior]\nJ3 --> M3[Phase Coexistence]\nK3 --> L3\nL3 --> N3[Critical Exponents]\nM3 --> O3[Phase Diagram]\nN3 --> P3[Universality Class]\nO3 --> Q3[Phase Transition Process]\nP3 --> R3[Phase Transition Validation]\nQ3 --> S3[Phase Transition Verification]\nR3 --> T3[Phase Transition Result]\nS3 --> U3[Phase Transition Analysis]\nT3 --> V3[Phase Transition Parameters]\nU3 --> W3[Phase Transition Output]\nV3 --> X3[Phase Transition Analysis]\nW3 --> Y3[Phase Transition Final Result]\nX3 --> Z3[Phase Transition Complete]\n\n    style A3 fill:#ff6b6b,color:#fff\n    style C3 fill:#ff6b6b,color:#fff\n    style E3 fill:#ff6b6b,color:#fff\n    style B3 fill:#ffd43b,color:#000\n    style D3 fill:#ffd43b,color:#000\n    style F3 fill:#ffd43b,color:#000\n    style G3 fill:#ffd43b,color:#000\n    style H3 fill:#ffd43b,color:#000\n    style I3 fill:#ffd43b,color:#000\n    style J3 fill:#ffd43b,color:#000\n    style K3 fill:#ffd43b,color:#000\n    style L3 fill:#ffd43b,color:#000\n    style M3 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style O3 fill:#51cf66,color:#fff\n    style P3 fill:#51cf66,color:#fff\n    style Q3 fill:#51cf66,color:#fff\n    style R3 fill:#51cf66,color:#fff\n    style S3 fill:#51cf66,color:#fff\n    style T3 fill:#51cf66,color:#fff\n    style U3 fill:#51cf66,color:#fff\n    style V3 fill:#51cf66,color:#fff\n    style W3 fill:#51cf66,color:#fff\n    style X3 fill:#51cf66,color:#fff\n    style Y3 fill:#51cf66,color:#fff\n    style Z3 fill:#b197fc,color:#fff",
-  "name": "Phase Transition",
-  "notes": "Converted from physics batch HTML. Process number: 3.",
+  "lastUpdated": "2026-06-01",
+  "mermaid": "graph TD\n    N1[\"Many interacting spins\"]\n    N2[\"Ising Hamiltonian\"]\n    N3[\"Compute partition function\"]\n    N4[\"Free energy F=-kT ln Z\"]\n    N5[\"Order parameter m\"]\n    N6{\"Below critical temp Tc?\"}\n    N7[\"Disordered: m = 0\"]\n    N8[\"Ordered: m != 0\"]\n    N9[\"Symmetry breaking\"]\n    N10[\"Critical exponents near Tc\"]\n    N11[\"Phase transition described\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 --> N4\n    N4 --> N5\n    N5 --> N6\n    N6 -->|no| N7\n    N6 -->|yes| N8\n    N7 --> N11\n    N8 --> N9\n    N9 --> N10\n    N10 --> N11\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style N4 fill:#74c0fc,color:#fff\n    style N5 fill:#51cf66,color:#fff\n    style N6 fill:#74c0fc,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#51cf66,color:#fff\n    style N9 fill:#74c0fc,color:#fff\n    style N10 fill:#51cf66,color:#fff\n    style N11 fill:#b197fc,color:#fff",
+  "name": "Ising Model Phase Transition",
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
   "relatedProcesses": [],
   "related_papers": [
     "crossref_10_1103_RevModPhys_47_773",
@@ -61,43 +63,20 @@
   "source": "programming_framework",
   "sources": [
     {
-      "authors": "Welz, G.",
-      "doi": null,
-      "journal": "CopernicusAI Knowledge Engine",
-      "notes": "Chemistry process visualization: Phase Transition. Created using the Programming Framework methodology for process analysis and visualization.",
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
-      "year": "2025"
+      "title": "Crystal statistics. I. A two-dimensional model with an order-disorder transition",
+      "authors": "Onsager, L.",
+      "journal": "Physical Review",
+      "year": "1944",
+      "doi": "10.1103/PhysRev.65.117",
+      "url": "https://doi.org/10.1103/PhysRev.65.117"
     },
     {
-      "authors": "Wilson, K. G.",
-      "doi": "10.1103/RevModPhys.47.773",
-      "journal": "Rev. Mod. Phys.",
-      "paper_id": "crossref_10_1103_RevModPhys_47_773",
-      "pubmed": null,
-      "title": "The Renormalization Group: Critical Phenomena and the Kondo Problem",
-      "url": "https://doi.org/10.1103/RevModPhys.47.773",
-      "year": "1975"
-    },
-    {
-      "authors": "Fisher, M. E.",
-      "doi": "10.1103/RevModPhys.55.805",
-      "journal": "Rev. Mod. Phys.",
-      "paper_id": "crossref_10_1103_RevModPhys_55_805",
-      "pubmed": null,
-      "title": "Renormalization Group Theory of Critical Phenomena",
-      "url": "https://doi.org/10.1103/RevModPhys.55.805",
-      "year": "1983"
-    },
-    {
-      "authors": "Binder, K.",
-      "doi": "10.1103/RevModPhys.87.867",
-      "journal": "Rev. Mod. Phys.",
-      "paper_id": "crossref_10_1103_RevModPhys_87_867",
-      "pubmed": null,
-      "title": "Computational studies of phase transitions and critical phenomena: From classical to quantum systems",
-      "url": "https://doi.org/10.1103/RevModPhys.87.867",
-      "year": "2015"
+      "title": "Beitrag zur Theorie des Ferromagnetismus",
+      "authors": "Ising, E.",
+      "journal": "Zeitschrift fur Physik",
+      "year": "1925",
+      "doi": "10.1007/BF02980577",
+      "url": "https://doi.org/10.1007/BF02980577"
     }
   ],
   "subcategories": [
@@ -105,5 +84,139 @@
   ],
   "subcategory": "thermodynamics_statistical",
   "subcategory_name": "Thermodynamics & Statistical Physics",
-  "verified": false
+  "verified": false,
+  "graphMetrics": {
+    "nodes": 11,
+    "edges": 11,
+    "conditionals": 1,
+    "andGates": 1,
+    "orGates": 1,
+    "notGates": 0,
+    "loops": 0
+  },
+  "researchEnhancements": {
+    "pilot": true,
+    "model": "research_grade_flowchart",
+    "nodeSemantics": [
+      "trigger",
+      "context",
+      "decision",
+      "operation",
+      "state",
+      "feedback",
+      "observable",
+      "prediction"
+    ],
+    "reviewFocus": [
+      "mechanistic correctness",
+      "decision density",
+      "evidence support",
+      "intervention value"
+    ]
+  },
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Many interacting spins",
+      "detail": "Lattice of +/-1",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 1
+    },
+    {
+      "id": "N2",
+      "label": "Ising Hamiltonian",
+      "detail": "Nearest-neighbor J",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N3",
+      "label": "Compute partition function",
+      "detail": "Sum over states",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N4",
+      "label": "Free energy F=-kT ln Z",
+      "detail": "Thermodynamic potential",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N5",
+      "label": "Order parameter m",
+      "detail": "Net magnetization",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N6",
+      "label": "Below critical temp Tc?",
+      "detail": "Compare T to Tc",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N7",
+      "label": "Disordered: m = 0",
+      "detail": "Paramagnetic",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N8",
+      "label": "Ordered: m != 0",
+      "detail": "Ferromagnetic",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N9",
+      "label": "Symmetry breaking",
+      "detail": "Pick a direction",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N10",
+      "label": "Critical exponents near Tc",
+      "detail": "Universality",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N11",
+      "label": "Phase transition described",
+      "detail": "Order vs disorder",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 1
+    }
+  ],
+  "namedCollections": [],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:thermodynamics_statistical-phase-transition",
+    "graphType": "decision_flowchart",
+    "topologySignature": "f5dceea3b779456c",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "graphType": "decision_flowchart",
+  "domainContext": "Statistical mechanics / critical phenomena"
 }

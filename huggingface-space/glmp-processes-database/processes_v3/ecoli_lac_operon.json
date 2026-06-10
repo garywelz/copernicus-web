@@ -1,0 +1,19 @@
+{
+  "acquired_date": "2025-10-08T00:00:00Z",
+  "category": "Gene Regulation",
+  "created": "2025-10-08",
+  "description": "Lac operon regulatory network derived from RegulonDB (v13), with promoter/operator (lacP, lacO), allolactose, and feedback: LacI represses lac promoter; CRP activates; allolactose relieves LacI; LacZ forms allolactose and hydrolyzes lactose.",
+  "id": "process_Gene Regulation_lac-operon-regulation",
+  "name": "Lac Operon (RegulonDB-sourced)",
+  "organism": "E. coli",
+  "source": "RegulonDB",
+  "source_version": "v13",
+  "version_label": "V3",
+  "notes": "V3 = RegulonDB + feedback. RegulonDB edges: LacI/CRP–lacZ/Y/A/lacI. Enriched with lac promoter/operator, allolactose formation (LacZ), inducer relief of LacI, LacZ hydrolysis feedback.",
+  "mermaid": "graph TD\n    LACTOSE[Lactose]\n    CAMP[cAMP]\n    LACI[lacI]\n    CRP[CRP]\n    ALLO[Allolactose]\n    PROM[lac promoter / lacO]\n    LACZ[lacZ]\n    LACY[lacY]\n    LACA[lacA]\n    GLU[Glucose + Galactose]\n    LACTOSE -->|LacY transport| LACY\n    LACY -->|intracellular| LACTOSE\n    LACTOSE -->|LacZ isomerase| ALLO\n    ALLO -->|relieves repression| LACI\n    CAMP -->|activates| CRP\n    LACI -->|represses| PROM\n    CRP -->|activates| PROM\n    CRP -->|activates| LACI\n    PROM --> LACZ\n    PROM --> LACY\n    PROM --> LACA\n    LACZ -->|hydrolysis| GLU\n    LACZ -->|depletes| LACTOSE\n    style LACTOSE fill:#e74c3c,color:#fff\n    style CAMP fill:#e74c3c,color:#fff\n    style LACI fill:#ffd43b,color:#000\n    style CRP fill:#ffd43b,color:#000\n    style ALLO fill:#74c0fc,color:#000\n    style PROM fill:#51cf66,color:#000\n    style LACZ fill:#74c0fc,color:#000\n    style LACY fill:#74c0fc,color:#000\n    style LACA fill:#74c0fc,color:#000\n    style GLU fill:#b197fc,color:#fff",
+  "related_processes": ["ecoli_lac_operon"],
+  "scientificAccuracy": "RegulonDB (v13) regulator–gene edges; lac promoter/operator and allolactose feedback from literature and RegulonDB binding-site annotations.",
+  "sources": [
+    {"title": "RegulonDB", "url": "https://regulondb.ccg.unam.mx", "note": "E. coli lac regulator–gene and promoter/operator; feedback from literature."}
+  ]
+}

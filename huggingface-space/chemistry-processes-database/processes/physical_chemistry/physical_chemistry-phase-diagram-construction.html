@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Phase Diagram Construction - Chemistry Process</title>
+    <title>Phase Diagram (Gibbs Phase Rule) - Chemistry Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Phase Diagram Construction</h1>
+            <h1>Phase Diagram (Gibbs Phase Rule)</h1>
             <div class="header-meta">
                 <span class="meta-item">Chemistry</span>
                 <span class="meta-item">Physical Chemistry</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,46 +234,56 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Phase Diagram Construction process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>A phase diagram is constructed from the Gibbs phase rule F = C - P + 2, which fixes the degrees of freedom: single-phase regions and the boundaries between them are mapped on temperature-composition axes, the lever rule gives phase amounts inside two-phase regions, and invariant points complete the diagram.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-N1["System + Components"]
-N2["T/P Range"]
-N3["Equilibrium Measurements"]
-N4["Choose Path"]
-N5["Identify Phase Regions"]
-N6["Locate Phase Boundaries"]
-N7["Critical/Triple Points"]
-N8["Phase Diagram"]
-N9["Integrate"]
+    N1["System: components C"]
+    N2["Apply F = C - P + 2"]
+    N3["Choose axes (T, comp)"]
+    N4["Map single-phase regions"]
+    N5["Locate phase boundaries"]
+    N6{"In two-phase region?"}
+    N7["Apply lever rule"]
+    N8["Mark invariant points"]
+    N9["Assemble phase diagram"]
+    N10["Predict phases vs T,x"]
 
-N1 --> N2
-N2 --> N3
-N3 --> N4
-N4 --> N5
-N4 --> N7
-N5 --> N6
-N7 --> N8
-N6 --> N9
-N8 --> N9
-N9 --> N6
+    N1 --> N2
+    N2 --> N3
+    N3 --> N4
+    N4 --> N5
+    N5 --> N6
+    N6 -->|yes| N7
+    N7 --> N9
+    N6 -->|no| N8
+    N8 --> N9
+    N9 --> N10
 
     style N1 fill:#ff6b6b,color:#fff
-    style N2 fill:#ff6b6b,color:#fff
-    style N3 fill:#ffd43b,color:#000
-    style N4 fill:#ffd43b,color:#000
+    style N2 fill:#51cf66,color:#fff
+    style N3 fill:#51cf66,color:#fff
+    style N4 fill:#51cf66,color:#fff
     style N5 fill:#51cf66,color:#fff
-    style N6 fill:#51cf66,color:#fff
-    style N7 fill:#74c0fc,color:#fff
-    style N8 fill:#b197fc,color:#fff
-    style N9 fill:#74c0fc,color:#fff
+    style N6 fill:#74c0fc,color:#fff
+    style N7 fill:#51cf66,color:#fff
+    style N8 fill:#74c0fc,color:#fff
+    style N9 fill:#51cf66,color:#fff
+    style N10 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">System: components C</td><td>Triggers & Inputs</td><td><a href="https://global.oup.com/academic/product/atkins-physical-chemistry-9780198769866" target="_blank" title="Atkins' Physical Chemistry (11th ed.)" style="color:#e74c3c;">Atkins, P. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Apply F = C - P + 2</td><td>Processing & Operations</td><td><a href="https://global.oup.com/academic/product/atkins-physical-chemistry-9780198769866" target="_blank" title="Atkins' Physical Chemistry (11th ed.)" style="color:#e74c3c;">Atkins, P. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Choose axes (T, comp)</td><td>Processing & Operations</td><td><a href="https://www.wiley.com/en-us/Materials+Science+and+Engineering%3A+An+Introduction%2C+10th+Edition-p-9781119405498" target="_blank" title="Materials Science and Engineering: An Introduction (10th ed.)" style="color:#e74c3c;">Callister, W. D. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Map single-phase regions</td><td>Processing & Operations</td><td><a href="https://www.wiley.com/en-us/Materials+Science+and+Engineering%3A+An+Introduction%2C+10th+Edition-p-9781119405498" target="_blank" title="Materials Science and Engineering: An Introduction (10th ed.)" style="color:#e74c3c;">Callister, W. D. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Locate phase boundaries</td><td>Processing & Operations</td><td><a href="https://global.oup.com/academic/product/atkins-physical-chemistry-9780198769866" target="_blank" title="Atkins' Physical Chemistry (11th ed.)" style="color:#e74c3c;">Atkins, P. et al. 2018</a></td></tr><tr><td style="font-weight:600;">In two-phase region?</td><td>Intermediates & States</td><td><a href="https://www.wiley.com/en-us/Materials+Science+and+Engineering%3A+An+Introduction%2C+10th+Edition-p-9781119405498" target="_blank" title="Materials Science and Engineering: An Introduction (10th ed.)" style="color:#e74c3c;">Callister, W. D. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Apply lever rule</td><td>Processing & Operations</td><td><a href="https://www.wiley.com/en-us/Materials+Science+and+Engineering%3A+An+Introduction%2C+10th+Edition-p-9781119405498" target="_blank" title="Materials Science and Engineering: An Introduction (10th ed.)" style="color:#e74c3c;">Callister, W. D. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Mark invariant points</td><td>Intermediates & States</td><td><a href="https://www.wiley.com/en-us/Materials+Science+and+Engineering%3A+An+Introduction%2C+10th+Edition-p-9781119405498" target="_blank" title="Materials Science and Engineering: An Introduction (10th ed.)" style="color:#e74c3c;">Callister, W. D. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Assemble phase diagram</td><td>Processing & Operations</td><td><a href="https://global.oup.com/academic/product/atkins-physical-chemistry-9780198769866" target="_blank" title="Atkins' Physical Chemistry (11th ed.)" style="color:#e74c3c;">Atkins, P. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Predict phases vs T,x</td><td>Products & Outputs</td><td><a href="https://global.oup.com/academic/product/atkins-physical-chemistry-9780198769866" target="_blank" title="Atkins' Physical Chemistry (11th ed.)" style="color:#e74c3c;">Atkins, P. et al. 2018</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -292,12 +329,12 @@ N9 --> N6
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 9</li>
+                        <li><strong>Nodes:</strong> 10</li>
                         <li><strong>Edges:</strong> 10</li>
-                        <li><strong>Conditionals:</strong> 0</li>
-                        <li><strong>AND Gates:</strong> 2</li>
+                        <li><strong>Conditionals:</strong> 1</li>
+                        <li><strong>AND Gates:</strong> 1</li>
                         <li><strong>OR Gates:</strong> 1</li>
-                        <li><strong>Total Gates:</strong> 3</li>
+                        <li><strong>Total Gates:</strong> 2</li>
                     </ul>
                 </div>
                 
@@ -305,7 +342,7 @@ N9 --> N6
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>phase</li><li>diagram</li><li>construction</li>
+                        <li>phase diagram</li><li>Gibbs phase rule</li><li>lever rule</li><li>two-phase region</li><li>invariant point</li>
                     </ul>
                 </div>
                 
@@ -316,43 +353,23 @@ N9 --> N6
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Atkins' Physical Chemistry (11th ed.)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Atkins, P.; de Paula, J.; Keeler, J.
+                            , Oxford University Press
+                             (2018)
                             </span>
                             
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
+                            <br><a href="https://global.oup.com/academic/product/atkins-physical-chemistry-9780198769866" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Pseudoternary phase diagram construction v1</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Okonogi, Siriporn
-                            
-                             (2017)
+                            <strong>Materials Science and Engineering: An Introduction (10th ed.)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Callister, W. D.; Rethwisch, D. G.
+                            , Wiley
+                             (2018)
                             </span>
-                            <br><a href="https://doi.org/10.17504/protocols.io.jyccpsw" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.17504/protocols.io.jyccpsw</a>
                             
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Construction of Structural Phase Diagram of LaGa1-xMgxO3-.DELTA. by Using Various Diffraction Measurements and Thermal Analyses-Effect of Long Period Anti-Phase Domain Structure on Phase Diagram-</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">OHZEKI, Takeshi; OGATA, Yoichiro; TSUDA, Kenji; HASHIMOTO, Takuya
-                            , Electrochemistry
-                             (2009)
-                            </span>
-                            <br><a href="https://doi.org/10.5796/electrochemistry.77.169" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.5796/electrochemistry.77.169</a>
-                            
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>3.4.2.1 Construction of an electronic phase diagram</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Goodenough, J. B.; Longo, M.
-                            , Landolt-Börnstein - Group III Condensed Matter
-                             (None)
-                            </span>
-                            <br><a href="https://doi.org/10.1007/10201420_65" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1007/10201420_65</a>
-                            
+                            <br><a href="https://www.wiley.com/en-us/Materials+Science+and+Engineering%3A+An+Introduction%2C+10th+Edition-p-9781119405498" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
                         </li>
                         
                     </ul>

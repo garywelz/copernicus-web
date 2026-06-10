@@ -1,0 +1,45 @@
+{
+  "id": "biorxiv_10.64898_2025.11.28.691099",
+  "doi": "10.64898/2025.11.28.691099",
+  "title": "Machine learning for integrative multi-omics clustering and feature gene identification",
+  "authors": [
+    "Zhang, Y.",
+    "Liu, L.",
+    "Liu, Z.",
+    "Liu, Q.",
+    "Ma, L.",
+    "Zhang, Z."
+  ],
+  "author_string": "Zhang, Y., Liu, L., Liu, Z., Liu, Q., Ma, L. et al.",
+  "journal": "bioRxiv",
+  "journal_full": "bioRxiv",
+  "year": "2026",
+  "abstract": "Multi-omics integrative analysis is pivotal for elucidating complex molecular mechanisms and biological processes, yet remains challenging due to the high dimensionality and heterogeneity of multi-omics data. Here we describe MIA, a machine learning framework for multi-omics integrative analysis. Unlike existing algorithms that rely on two-dimensional representations, MIA employs a three-dimensional tensor representation coupled with tensor decomposition, Fuzzy C-Means, and an enhanced random forest model to jointly enable accurate sample stratification and feature discovery. Benchmarking on simulated datasets demonstrates that MIA achieves higher accuracy in both clustering and feature identification by comparison with extant algorithms. Application to TCGA datasets further shows the ability of MIA to stratify samples and identify features associated with significantly clinical outcomes. Notably, as applied to glioblastoma, MIA is capable to detect three previously uncharacterized subtypes with distinct prognostic profiles and uncover critical feature genes linked to glioblastoma subtyping and therapeutic response. Collectively, these results establish MIA as a generalizable computational framework for multi-omics integrative analysis, enabling systematic molecular subtyping and significant feature discovery across complex biological systems.",
+  "keywords": [],
+  "categories": [
+    "bioinformatics"
+  ],
+  "citation_count": null,
+  "url": "https://doi.org/10.64898/2025.11.28.691099",
+  "source": "biorxiv",
+  "sources": [
+    "biorxiv"
+  ],
+  "acquired_date": "2026-05-09T22:15:25.772798",
+  "category": "biology",
+  "subcategories": [
+    "bioinformatics"
+  ],
+  "published_date": "2026-01-09",
+  "updated_date": "2026-01-09",
+  "preprint": true,
+  "peer_reviewed": false,
+  "preprint_server": "biorxiv",
+  "preprint_version": "2",
+  "preprint_type": "new results",
+  "license": "cc_no",
+  "jatsxml": "https://www.biorxiv.org/content/early/2026/01/09//2025.11.28.691099.source.xml",
+  "published_doi": null,
+  "author_corresponding": "Zhang Zhang",
+  "author_corresponding_institution": "China National Center for Bioinformation; Beijing Institute of Genomics, Chinese Academy of Sciences"
+}

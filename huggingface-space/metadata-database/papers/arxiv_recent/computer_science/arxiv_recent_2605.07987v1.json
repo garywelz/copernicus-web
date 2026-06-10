@@ -1,0 +1,36 @@
+{
+  "id": "arxiv_2605.07987v1",
+  "arxiv_id": "2605.07987v1",
+  "title": "Uncertainty Quantification for Cardiac Shape Reconstruction with Deep Signed Distance Functions via MCMC methods",
+  "authors": [
+    "Jan Verhülsdonk",
+    "Thomas Grandits",
+    "Francisco Sahli Costabal",
+    "Thomas Beiert",
+    "Simone Pezzuto",
+    "Alexander Effland"
+  ],
+  "author_string": "Jan Verhülsdonk, Thomas Grandits, Francisco Sahli Costabal, Thomas Beiert, Simone Pezzuto et al.",
+  "journal": "arXiv:2605.07987v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Atlas-based approaches allow high-quality, patient-specific shape reconstructions of cardiac anatomy from sparse and/or noisy data such as point clouds. However, these methods are mainly prior-driven, so the impact of uncertainty can be large, limiting their clinical reliability. We propose a probabilistic framework for uncertainty-aware cardiac shape reconstruction that combines Deep Signed Distance Functions (DeepSDFs) with Markov Chain Monte Carlo (MCMC) sampling. Cardiac geometries are modeled implicitly as zero-level sets of a neural network conditioned on learned latent codes, enabling multi-surface reconstruction of the left and right ventricles. By interpreting the reconstruction loss as a log-likelihood, we perform Bayesian inference in the latent space to obtain both maximum a posteriori (MAP) and posterior-sampled reconstructions. Experiments on a public cardiac dataset show that our approach produces accurate reconstructions and well-calibrated uncertainty estimates.",
+  "categories": [
+    "eess.IV",
+    "cs.CV"
+  ],
+  "primary_category": "cs.CV",
+  "comment": null,
+  "published_date": "2026-05-08T16:45:11Z",
+  "updated_date": "2026-05-08T16:45:11Z",
+  "url": "https://arxiv.org/abs/2605.07987v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.07987v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-10T22:17:15.400496",
+  "category": "computer_science",
+  "subcategories": [
+    "eess.IV",
+    "cs.CV"
+  ]
+}

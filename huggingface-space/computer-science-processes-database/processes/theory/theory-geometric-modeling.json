@@ -1,21 +1,23 @@
 {
   "id": "theory-geometric-modeling",
-  "name": "Geometric Modeling",
+  "name": "Decidability & the Halting Problem",
   "category": "computer_science",
   "subcategory": "theory",
   "subcategory_name": "Theoretical Computer Science",
-  "description": "Geometric Modeling process visualization. This process flowchart outlines key steps, checks, and outputs.",
+  "description": "A problem is decidable if a Turing machine halts with the correct answer on every input: after formalizing the problem as a language, one either constructs a total decider or, failing that, reduces the halting problem to it; a valid reduction proves undecidability, as Turing showed the halting problem itself is undecidable.",
   "complexity": {
-    "nodes": 26,
-    "edges": 21,
-    "conditionals": 0,
+    "nodes": 12,
+    "edges": 14,
+    "conditionals": 3,
     "logicGates": {
-      "orGates": 0,
-      "andGates": 1,
-      "total": 1
+      "orGates": 3,
+      "andGates": 2,
+      "notGates": 0,
+      "total": 5
     },
-    "level": "medium",
-    "detailLevel": "medium"
+    "level": "high",
+    "detailLevel": "source_grounded",
+    "loops": 1
   },
   "colorScheme": {
     "red": {
@@ -39,53 +41,156 @@
       "category": "Products & Outputs"
     }
   },
-  "mermaid": "graph TD\nA3[Geometric Input] --> B3[Geometric Modeling Method]\nC3[Shape Definition] --> D3[Surface Generation]\nE3[Mesh Processing] --> F3[Geometric Modeling Analysis]\nB3 --> G3[Polygonal Modeling]\nD3 --> H3[NURBS Modeling]\nF3 --> I3[Subdivision Surface]\nG3 --> J3[Vertex Manipulation]\nH3 --> K3[Control Point Editing]\nI3 --> L3[Subdivision Algorithm]\nJ3 --> M3[Topology Optimization]\nK3 --> L3\nL3 --> N3[Surface Smoothing]\nM3 --> O3[Mesh Simplification]\nN3 --> P3[UV Mapping]\nO3 --> Q3[Geometric Modeling Process]\nP3 --> R3[Geometric Modeling Validation]\nQ3 --> S3[Geometric Modeling Verification]\nR3 --> T3[Geometric Modeling Result]\nS3 --> U3[Geometric Modeling Analysis]\nT3 --> V3[Geometric Modeling Parameters]\nU3 --> W3[Geometric Modeling Output]\nV3 --> X3[Geometric Modeling Analysis]\nW3 --> Y3[Geometric Modeling Final Result]\nX3 --> Z3[Geometric Modeling Complete]\n\n    style A3 fill:#ff6b6b,color:#fff\n    style C3 fill:#ff6b6b,color:#fff\n    style E3 fill:#ff6b6b,color:#fff\n    style B3 fill:#ffd43b,color:#000\n    style D3 fill:#ffd43b,color:#000\n    style F3 fill:#ffd43b,color:#000\n    style G3 fill:#ffd43b,color:#000\n    style H3 fill:#ffd43b,color:#000\n    style I3 fill:#ffd43b,color:#000\n    style J3 fill:#ffd43b,color:#000\n    style K3 fill:#ffd43b,color:#000\n    style L3 fill:#ffd43b,color:#000\n    style M3 fill:#51cf66,color:#fff\n    style N3 fill:#51cf66,color:#fff\n    style O3 fill:#51cf66,color:#fff\n    style P3 fill:#51cf66,color:#fff\n    style Q3 fill:#51cf66,color:#fff\n    style R3 fill:#51cf66,color:#fff\n    style S3 fill:#51cf66,color:#fff\n    style T3 fill:#51cf66,color:#fff\n    style U3 fill:#51cf66,color:#fff\n    style V3 fill:#51cf66,color:#fff\n    style W3 fill:#51cf66,color:#fff\n    style X3 fill:#51cf66,color:#fff\n    style Y3 fill:#51cf66,color:#fff\n    style Z3 fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    N1[\"Decision problem stated\"]\n    N2[\"Formalize as language\"]\n    N3{\"Decidable? (seek TM)\"}\n    N4[\"Construct decider TM\"]\n    N5{\"Halts on all inputs?\"}\n    N6[\"Recognizer only\"]\n    N7[\"Reduce from HALT\"]\n    N8{\"Reduction valid?\"}\n    N9[\"Refine reduction\"]\n    N10[\"Undecidable (proven)\"]\n    N11[\"Decidable (algorithm)\"]\n    N12[\"Classification result\"]\n\n    N1 --> N2\n    N2 --> N3\n    N3 -->|try| N4\n    N4 --> N5\n    N5 -->|yes| N11\n    N5 -->|no| N6\n    N6 --> N12\n    N3 -->|suspect no| N7\n    N7 --> N8\n    N8 -->|no| N9\n    N9 -->|retry| N7\n    N8 -->|yes| N10\n    N10 --> N12\n    N11 --> N12\n\n    style N1 fill:#ff6b6b,color:#fff\n    style N2 fill:#51cf66,color:#fff\n    style N3 fill:#74c0fc,color:#fff\n    style N4 fill:#51cf66,color:#fff\n    style N5 fill:#74c0fc,color:#fff\n    style N6 fill:#51cf66,color:#fff\n    style N7 fill:#51cf66,color:#fff\n    style N8 fill:#74c0fc,color:#fff\n    style N9 fill:#51cf66,color:#fff\n    style N10 fill:#74c0fc,color:#fff\n    style N11 fill:#74c0fc,color:#fff\n    style N12 fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Programming Framework: A Universal Process Visualization Methodology",
-      "authors": "Welz, G.",
-      "journal": "CopernicusAI Knowledge Engine",
-      "year": "2025",
-      "url": "https://huggingface.co/spaces/garywelz/programming_framework",
-      "doi": null,
-      "pubmed": null,
-      "notes": "Process visualization: Geometric Modeling. Created using the Programming Framework methodology."
+      "title": "On computable numbers, with an application to the Entscheidungsproblem",
+      "authors": "Turing, A. M.",
+      "journal": "Proceedings of the London Mathematical Society",
+      "year": "1936",
+      "doi": "10.1112/plms/s2-42.1.230",
+      "url": "https://doi.org/10.1112/plms/s2-42.1.230"
     },
     {
-      "title": "Intrinsic Geometric Modeling",
-      "authors": "",
-      "journal": "Computer Graphics and Geometric Modeling",
-      "year": "None",
-      "pubmed": null,
-      "doi": "10.1007/1-84628-108-3_16",
-      "url": "https://doi.org/10.1007/1-84628-108-3_16"
-    },
-    {
-      "title": "Approaches to Geometric Modeling",
-      "authors": "",
-      "journal": "Computer Graphics and Geometric Modeling",
-      "year": "None",
-      "pubmed": null,
-      "doi": "10.1007/1-84628-108-3_5",
-      "url": "https://doi.org/10.1007/1-84628-108-3_5"
-    },
-    {
-      "title": "Local Geometric Modeling Topics",
-      "authors": "",
-      "journal": "Computer Graphics and Geometric Modeling",
-      "year": "None",
-      "pubmed": null,
-      "doi": "10.1007/1-84628-108-3_15",
-      "url": "https://doi.org/10.1007/1-84628-108-3_15"
+      "title": "Introduction to the Theory of Computation (3rd ed.)",
+      "authors": "Sipser, M.",
+      "journal": "Cengage Learning",
+      "year": "2012",
+      "url": "https://math.mit.edu/~sipser/book.html"
     }
   ],
   "keywords": [
-    "geometric",
-    "modeling"
+    "decidability",
+    "halting problem",
+    "Turing machine",
+    "undecidable",
+    "reduction"
   ],
   "relatedProcesses": [],
   "created": "2026-01-08",
-  "lastUpdated": "2026-01-15",
+  "lastUpdated": "2026-06-01",
   "verified": false,
-  "notes": "Auto-generated process (template flowchart) with Crossref citations."
+  "notes": "Source-grounded extraction (v2): node content derived from cited protocol literature with per-node provenance; topology reflects the actual procedure.",
+  "nodeDetails": [
+    {
+      "id": "N1",
+      "label": "Decision problem stated",
+      "detail": "Yes/no question",
+      "type": "process",
+      "role": "Triggers & Inputs",
+      "sourceRef": 1
+    },
+    {
+      "id": "N2",
+      "label": "Formalize as language",
+      "detail": "Set of strings",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N3",
+      "label": "Decidable? (seek TM)",
+      "detail": "Algorithm sought",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 1
+    },
+    {
+      "id": "N4",
+      "label": "Construct decider TM",
+      "detail": "Always halts",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 0
+    },
+    {
+      "id": "N5",
+      "label": "Halts on all inputs?",
+      "detail": "Total function",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N6",
+      "label": "Recognizer only",
+      "detail": "Semi-decidable",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N7",
+      "label": "Reduce from HALT",
+      "detail": "Map known undecidable",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N8",
+      "label": "Reduction valid?",
+      "detail": "Preserves answer",
+      "type": "decision",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N9",
+      "label": "Refine reduction",
+      "detail": "Fix mapping",
+      "type": "process",
+      "role": "Processing & Operations",
+      "sourceRef": 1
+    },
+    {
+      "id": "N10",
+      "label": "Undecidable (proven)",
+      "detail": "No decider exists",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N11",
+      "label": "Decidable (algorithm)",
+      "detail": "Decider found",
+      "type": "process",
+      "role": "Intermediates & States",
+      "sourceRef": 0
+    },
+    {
+      "id": "N12",
+      "label": "Classification result",
+      "detail": "Decidability verdict",
+      "type": "process",
+      "role": "Products & Outputs",
+      "sourceRef": 1
+    }
+  ],
+  "flowchartStandard": {
+    "name": "source_grounded_extraction_v2",
+    "applied": "2026-06-01",
+    "curationStatus": "source_grounded",
+    "basis": "source_extraction:theory-geometric-modeling",
+    "graphType": "decision_flowchart",
+    "topologySignature": "fabcbd5133d60e34",
+    "extractionModel": "manual",
+    "extractionDate": "2026-06-01",
+    "reviewer": "",
+    "sourceGrounding": "Nodes, decisions, branches, and loops were extracted from the cited sources; each node carries a sourceRef to its supporting citation. Awaiting human spot-check before verified=true."
+  },
+  "namedCollections": [],
+  "graphMetrics": {
+    "nodes": 12,
+    "edges": 14,
+    "conditionals": 3,
+    "andGates": 2,
+    "orGates": 3,
+    "notGates": 0,
+    "loops": 1
+  },
+  "graphType": "decision_flowchart",
+  "domainContext": "Computability theory"
 }

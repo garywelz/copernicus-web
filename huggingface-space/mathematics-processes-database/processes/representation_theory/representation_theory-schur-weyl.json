@@ -1,0 +1,39 @@
+{
+  "id": "representation_theory-schur-weyl",
+  "name": "Schur–Weyl Duality",
+  "category": "mathematics",
+  "subcategory": "representation_theory",
+  "subcategory_name": "Representation Theory",
+  "description": "V⊗ⁿ as Sₙ×GL(V)-module. Schur functor S^λ. Duality: End_Sₙ(V⊗ⁿ) = span of GL(V). Decomposition V⊗ⁿ ≅ ⊕ S^λ(V)⊗S^λ.",
+  "mermaid": "graph TD\n    D1[\"Def: Tensor power\\nV⊗ⁿ Sₙ action\"]\n    D2[\"Def: Schur module\\nS^λ V\"]\n    D3[\"Def: Partition λ\\nYoung diagram\"]\n    T1[\"Thm: Dual actions\\nSₙ and GL commute\"]\n    T2[\"Thm: V⊗ⁿ ≅\\n⊕ S^λV⊗S^λ\"]\n    T3[\"Thm: S^λ irrep of GL\\nif dim V ≥ λ₁\"]\n    T4[\"Thm: S^λ irrep of Sₙ\\nSpecht module\"]\n    T5[\"Thm: Pieri rule\\nS^λ⊗Sⁿ = ⊕ S^μ\"]\n    D1 --> T1\n    D2 --> D3\n    D1 --> T2\n    T2 --> T3\n    T2 --> T4\n    T2 --> T5\n    classDef definition fill:#b197fc,color:#fff\n    classDef theorem fill:#51cf66,color:#fff\n    class D1,D2,D3 definition\n    class T1,T2,T3,T4,T5 theorem",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

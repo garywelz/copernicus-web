@@ -1,0 +1,39 @@
+{
+  "id": "calculus_analysis-douady-hubbard-mandelbrot-connected",
+  "name": "Douady-Hubbard: Mandelbrot Set Connected",
+  "category": "mathematics",
+  "subcategory": "calculus_analysis",
+  "subcategory_name": "Calculus & Analysis",
+  "description": "Douady-Hubbard Theorem (1981-82): The Mandelbrot set M is connected. Proof: Construct φ from complement of M to complement of closed unit disk by φ(c) = lim (f_cⁿ(c))^(1/2ⁿ) (Böttcher coordinate in parameter space). Show φ is analytic (Böttcher-Fatou), proper, open, surjective, injective (argument principle). Then φ is biholomorphism so complement of M is simply connected so M is connected. Orsay Notes document the full theory.",
+  "mermaid": "graph TD\n    Bott[\"Böttcher and External Rays\"]\n    DefPhi[\"Def: Douady-Hubbard map φ\"]\n    LemAnalytic[\"Lem: φ analytic on complement of M\"]\n    LemProper[\"Lem: φ proper\"]\n    LemOpen[\"Lem: φ open\"]\n    LemSurj[\"Lem: φ surjective onto complement of disk\"]\n    LemInj[\"Lem: φ injective Argument principle\"]\n    ThmConn[\"Thm: M connected φ biholo implies complement simply conn\"]\n    ThmSimp[\"Thm: M simply connected Carathéodory later\"]\n    Bott --> DefPhi\n    DefPhi --> LemAnalytic\n    LemAnalytic --> LemProper\n    LemAnalytic --> LemOpen\n    LemAnalytic --> LemSurj\n    LemAnalytic --> LemInj\n    LemInj --> ThmConn\n    LemSurj --> ThmConn\n    LemOpen --> ThmConn\n    ThmConn --> ThmSimp\n    classDef axiom fill:#ff6b6b,color:#fff,stroke:#c0392b\n    classDef definition fill:#b197fc,color:#fff,stroke:#9775fa\n    classDef theorem fill:#51cf66,color:#fff,stroke:#40c057\n    classDef lemma fill:#74c0fc,color:#fff,stroke:#4dabf7\n    class Bott axiom\n    class DefPhi definition\n    class ThmConn,ThmSimp theorem\n    class LemAnalytic,LemProper,LemOpen,LemSurj,LemInj lemma",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

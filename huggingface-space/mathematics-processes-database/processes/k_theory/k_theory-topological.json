@@ -1,0 +1,39 @@
+{
+  "id": "k_theory-topological",
+  "name": "Topological K-Theory",
+  "category": "mathematics",
+  "subcategory": "k_theory",
+  "subcategory_name": "K-Theory",
+  "description": "Process chart: k_theory-topological",
+  "mermaid": "graph TD\n    D1[\"Def: Vector bundle\\nE→X, locally trivial\"]\n    D2[\"Def: K⁰(X)\\nGrothendieck of bundles\"]\n    D3[\"Def: K⁻¹(X)\\nK⁰(ΣX) suspension\"]\n    D4[\"Def: Reduced K̃\\nK̃⁰ = coker K⁰(pt)→K⁰(X)\"]\n    T1[\"Thm: K⁰(X) ring\\n⊕,⊗ on bundles\"]\n    T2[\"Thm: Swan\\nbundles ↔ proj C(X)-mods\"]\n    T3[\"Thm: Bott periodicity\\nK⁻ⁿ≅K⁻ⁿ⁻²\"]\n    T4[\"Thm: Thom isomorphism\\nK(E)≅K(X) for spin^c\"]\n    T5[\"Thm: Atiyah–Hirzebruch\\nspectral sequence\"]\n    D1 --> D2\n    D2 --> D3\n    D3 --> D4\n    D2 --> T1\n    T1 --> T2\n    D3 --> T3\n    T3 --> T4\n    classDef definition fill:#b197fc,color:#fff\n    classDef theorem fill:#51cf66,color:#fff\n    class D1,D2,D3,D4 definition\n    class T1,T2,T3,T4,T5 theorem",
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs"
+    }
+  },
+  "keywords": [],
+  "sources": [],
+  "relatedProcesses": [],
+  "created": "2026-06-05",
+  "lastUpdated": "2026-06-05",
+  "verified": true,
+  "flowchartStandard": "GLMP_6color",
+  "processType": "axiomatic_theory"
+}

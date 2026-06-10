@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2605.08066v1",
+  "arxiv_id": "2605.08066v1",
+  "title": "Covert Signaling for Communication and Sensing over the Bosonic Channels",
+  "authors": [
+    "Tianrui Tan",
+    "Evan J. D. Anderson",
+    "Michael S. Bullock",
+    "Boulat A. Bash"
+  ],
+  "author_string": "Tianrui Tan, Evan J. D. Anderson, Michael S. Bullock, Boulat A. Bash",
+  "journal": "arXiv:2605.08066v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Preventing signal detection in communication and active sensing requires careful control of transmission power. In fact, the square-root laws (SRL) for covert classical and quantum communication and sensing prescribe that the average output power per channel use scales as $1/\\sqrt{n}$ for $n$ channel uses. Two strategies for achieving this are diffuse and sparse signaling. The former transmits signals with power decaying as $1/\\sqrt{n}$ on all $n$ channel uses, which is convenient for mathematical analysis. The latter transmits constant-power signals rarely, on approximately $\\sqrt{n}$ out of $n$ channel uses, while remaining silent on the others. This offers significant practical advantages in compatibility with modern digital transmitters. Here, we study sparse signaling over lossy thermal-noise bosonic channels, which describe quantumly many practical channels (including optical, microwave, and radio-frequency). We characterize the input signal state that minimizes detectability. We find an unintuitive optimal quantum state structure: a mixture of just two consecutive photon-number states. In particular, in the low-brightness regime, the optimal signal state is a mixture of vacuum and a single photon. Since these states are generally suboptimal for both communication and active sensing, we explore the resulting trade-off and identify input-power thresholds for transitions between optimizing for covertness vs. performance in communication and sensing tasks.",
+  "categories": [
+    "quant-ph",
+    "cs.IT"
+  ],
+  "primary_category": "cs.IT",
+  "comment": "15 pages, 4 figures, draft, comments welcome",
+  "published_date": "2026-05-08T17:52:18Z",
+  "updated_date": "2026-05-08T17:52:18Z",
+  "url": "https://arxiv.org/abs/2605.08066v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.08066v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-10T22:17:15.395888",
+  "category": "computer_science",
+  "subcategories": [
+    "quant-ph",
+    "cs.IT"
+  ]
+}

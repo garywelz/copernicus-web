@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2604.26866v1",
+  "arxiv_id": "2604.26866v1",
+  "title": "MoRFI: Monotonic Sparse Autoencoder Feature Identification",
+  "authors": [
+    "Dimitris Dimakopoulos",
+    "Shay B. Cohen",
+    "Ioannis Konstas"
+  ],
+  "author_string": "Dimitris Dimakopoulos, Shay B. Cohen, Ioannis Konstas",
+  "journal": "arXiv:2604.26866v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Large language models (LLMs) acquire most of their factual knowledge during the pre-training stage, through next token prediction. Subsequent stages of post-training often introduce new facts outwith the parametric knowledge, giving rise to hallucinations. While it has been demonstrated that supervised fine-tuning (SFT) on new knowledge may exacerbate the problem, the underlying mechanisms are still poorly understood. We conduct a controlled fine-tuning experiment, focusing on closed-book QA, and find latent directions that causally contribute to hallucinations. Specifically, we fine-tune Llama 3.1 8B, Gemma 2 9B and Mistral 7B v03 on seven distinct single QA datasets, controlling for the percentage of new knowledge and number of training epochs. By measuring performance on the test set, we validate that incrementally introducing new knowledge increases hallucinations, with the effect being more pronounced with prolonged training. We leverage pre-trained sparse autoencoders (SAEs) to analyze residual stream activations across various checkpoints for each model and propose Monotonic Relationship Feature Identification (MoRFI) for capturing causally relevant latents. MoRFI filters SAE features that respond monotonically to controlled fine-tuning data mixtures of a target property. Our findings show that exposure to unknown facts disrupts the model's ability to retrieve stored knowledge along a set of directions in the residual stream. Our pipeline reliably discovers them across distinct models, recovering knowledge through single-latent interventions.",
+  "categories": [
+    "cs.CL",
+    "cs.LG"
+  ],
+  "primary_category": "cs.LG",
+  "comment": null,
+  "published_date": "2026-04-29T16:32:57Z",
+  "updated_date": "2026-04-29T16:32:57Z",
+  "url": "https://arxiv.org/abs/2604.26866v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.26866v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-30T10:15:42.517708",
+  "category": "computer_science",
+  "subcategories": [
+    "cs.CL",
+    "cs.LG"
+  ]
+}

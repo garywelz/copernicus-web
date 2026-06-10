@@ -1,0 +1,34 @@
+{
+  "id": "arxiv_2604.24439v1",
+  "arxiv_id": "2604.24439v1",
+  "title": "Stable fluid-rigid body interaction algorithm using the direct-forcing immersed boundary method (DF-IBM)",
+  "authors": [
+    "E. Farah",
+    "A. Ouahsine",
+    "P. G. Verdin",
+    "B. Kaoui"
+  ],
+  "author_string": "E. Farah, A. Ouahsine, P. G. Verdin, B. Kaoui",
+  "journal": "Journal of Fluids and Structures 142, 104496 (2026)",
+  "journal_ref": "Journal of Fluids and Structures 142, 104496 (2026)",
+  "year": "2026",
+  "doi": "10.1016/j.jfluidstructs.2025.104496",
+  "abstract": "The direct-forcing immersed boundary method (DF-IBM) algorithm previously developed by the authors is extended by coupling the Navier-Stokes equations with the Newton-Euler equations for rigid body dynamics within the DF-IBM framework. This coupling broadens the applicability of the previous development, from stationary or prescribed motion to flow-induced (free) motion cases. To address fluid-rigid body interactions under a partitioned approach, an implicit coupling algorithm is developed to handle strongly coupled interface conditions. Stability and convergence issues, particularly stemming from critical solid-fluid density ratios and from the rigid body approximation of internal mass effects in rotational dynamics, are mitigated using a fixed relaxation technique for the rigid body kinematics to ensure numerical robustness. Additionally, the proposed algorithm leverages the previously developed DF-IBM formulation and the predictor-corrector strategy of the pressure implicit with splitting of operators (PISO) algorithm by omitting the momentum predictor step and the costly corrector loops from the implicit iterations. The method is validated against several benchmark cases, demonstrating robustness, stability, and efficiency in capturing complex fluid-rigid body interactions across a range of challenging scenarios.",
+  "categories": [
+    "physics.flu-dyn",
+    "physics.comp-ph"
+  ],
+  "primary_category": "physics.comp-ph",
+  "comment": "38 pages, 25 figures",
+  "published_date": "2026-04-27T13:04:08Z",
+  "updated_date": "2026-04-27T13:04:08Z",
+  "url": "https://arxiv.org/abs/2604.24439v1",
+  "pdf_url": "https://arxiv.org/pdf/2604.24439v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-04-27T22:15:21.998313",
+  "category": "physics",
+  "subcategories": [
+    "physics.flu-dyn",
+    "physics.comp-ph"
+  ]
+}

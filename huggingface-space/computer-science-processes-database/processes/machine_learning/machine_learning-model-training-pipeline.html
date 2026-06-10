@@ -167,6 +167,33 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
@@ -176,7 +203,7 @@
             <div class="header-meta">
                 <span class="meta-item">Computer Science</span>
                 <span class="meta-item">Machine Learning</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,51 +234,60 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Model Training Pipeline process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>A model training pipeline manages the end-to-end fit: data is split into train, validation, and test, parameters initialized, and the model trained over mini-batches while monitoring training and validation loss; regularization counters overfitting and the best checkpoint is kept once validation converges, yielding the trained model.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-N1["Training Data"]
-N2["Loss Function"]
-N3["Model Architecture"]
-N4["Choose Approach"]
-N5["Optimizer Config"]
-N6["Forward Pass"]
-N7["Backpropagation"]
-N8["Optimizer Step"]
-N9["Integrate Results"]
-N10["Checkpoint State"]
-N11["Trained Model"]
+    N1["Training data + model"]
+    N2["Split train/val/test"]
+    N3["Initialize parameters"]
+    N4["Train on mini-batches"]
+    N5["Compute training loss"]
+    N6["Evaluate on validation"]
+    N7{"Overfitting?"}
+    N8["Regularize / augment"]
+    N9{"Converged?"}
+    N10["Checkpoint best model"]
+    N11["Trained model"]
 
-N1 --> N2
-N2 --> N3
-N3 --> N4
-N4 --> N5
-N4 --> N7
-N5 --> N6
-N7 --> N8
-N6 --> N9
-N8 --> N9
-N9 --> N10
-N10 --> N11
+    N1 --> N2
+    N2 --> N3
+    N3 --> N4
+    N4 --> N5
+    N5 --> N6
+    N6 --> N7
+    N7 -->|yes| N8
+    N8 -->|retrain| N4
+    N7 -->|no| N9
+    N9 -->|no| N4
+    N9 -->|yes| N10
+    N10 --> N11
 
     style N1 fill:#ff6b6b,color:#fff
-    style N2 fill:#ff6b6b,color:#fff
-    style N3 fill:#ffd43b,color:#000
-    style N4 fill:#ffd43b,color:#000
-    style N5 fill:#ffd43b,color:#000
+    style N2 fill:#51cf66,color:#fff
+    style N3 fill:#51cf66,color:#fff
+    style N4 fill:#51cf66,color:#fff
+    style N5 fill:#74c0fc,color:#fff
     style N6 fill:#51cf66,color:#fff
-    style N7 fill:#51cf66,color:#fff
+    style N7 fill:#74c0fc,color:#fff
     style N8 fill:#51cf66,color:#fff
     style N9 fill:#74c0fc,color:#fff
-    style N10 fill:#74c0fc,color:#fff
+    style N10 fill:#51cf66,color:#fff
     style N11 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Training data + model</td><td>Triggers & Inputs</td><td><a href="https://www.deeplearningbook.org/" target="_blank" title="Deep Learning" style="color:#9b59b6;">Goodfellow, I. et al. 2016</a></td></tr><tr><td style="font-weight:600;">Split train/val/test</td><td>Processing & Operations</td><td><a href="https://www.oreilly.com/library/view/hands-on-machine-learning/9781492032632/" target="_blank" title="Hands-On Machine Learning with Scikit-Learn, Keras, and TensorFlow (2nd ed.)" style="color:#9b59b6;">Geron, A. 2019</a></td></tr><tr><td style="font-weight:600;">Initialize parameters</td><td>Processing & Operations</td><td><a href="https://www.deeplearningbook.org/" target="_blank" title="Deep Learning" style="color:#9b59b6;">Goodfellow, I. et al. 2016</a></td></tr><tr><td style="font-weight:600;">Train on mini-batches</td><td>Processing & Operations</td><td><a href="https://www.deeplearningbook.org/" target="_blank" title="Deep Learning" style="color:#9b59b6;">Goodfellow, I. et al. 2016</a></td></tr><tr><td style="font-weight:600;">Compute training loss</td><td>Intermediates & States</td><td><a href="https://www.deeplearningbook.org/" target="_blank" title="Deep Learning" style="color:#9b59b6;">Goodfellow, I. et al. 2016</a></td></tr><tr><td style="font-weight:600;">Evaluate on validation</td><td>Processing & Operations</td><td><a href="https://www.oreilly.com/library/view/hands-on-machine-learning/9781492032632/" target="_blank" title="Hands-On Machine Learning with Scikit-Learn, Keras, and TensorFlow (2nd ed.)" style="color:#9b59b6;">Geron, A. 2019</a></td></tr><tr><td style="font-weight:600;">Overfitting?</td><td>Intermediates & States</td><td><a href="https://www.deeplearningbook.org/" target="_blank" title="Deep Learning" style="color:#9b59b6;">Goodfellow, I. et al. 2016</a></td></tr><tr><td style="font-weight:600;">Regularize / augment</td><td>Processing & Operations</td><td><a href="https://www.deeplearningbook.org/" target="_blank" title="Deep Learning" style="color:#9b59b6;">Goodfellow, I. et al. 2016</a></td></tr><tr><td style="font-weight:600;">Converged?</td><td>Intermediates & States</td><td><a href="https://www.oreilly.com/library/view/hands-on-machine-learning/9781492032632/" target="_blank" title="Hands-On Machine Learning with Scikit-Learn, Keras, and TensorFlow (2nd ed.)" style="color:#9b59b6;">Geron, A. 2019</a></td></tr><tr><td style="font-weight:600;">Checkpoint best model</td><td>Processing & Operations</td><td><a href="https://www.oreilly.com/library/view/hands-on-machine-learning/9781492032632/" target="_blank" title="Hands-On Machine Learning with Scikit-Learn, Keras, and TensorFlow (2nd ed.)" style="color:#9b59b6;">Geron, A. 2019</a></td></tr><tr><td style="font-weight:600;">Trained model</td><td>Products & Outputs</td><td><a href="https://www.deeplearningbook.org/" target="_blank" title="Deep Learning" style="color:#9b59b6;">Goodfellow, I. et al. 2016</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -298,11 +334,11 @@ N10 --> N11
                     <h3>Process Statistics</h3>
                     <ul>
                         <li><strong>Nodes:</strong> 11</li>
-                        <li><strong>Edges:</strong> 11</li>
-                        <li><strong>Conditionals:</strong> 0</li>
+                        <li><strong>Edges:</strong> 12</li>
+                        <li><strong>Conditionals:</strong> 2</li>
                         <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 1</li>
-                        <li><strong>Total Gates:</strong> 2</li>
+                        <li><strong>OR Gates:</strong> 2</li>
+                        <li><strong>Total Gates:</strong> 3</li>
                     </ul>
                 </div>
                 
@@ -310,7 +346,7 @@ N10 --> N11
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>model</li><li>training</li><li>pipeline</li>
+                        <li>training pipeline</li><li>train-validation split</li><li>overfitting</li><li>regularization</li><li>checkpointing</li>
                     </ul>
                 </div>
                 
@@ -321,43 +357,23 @@ N10 --> N11
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Deep Learning</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Goodfellow, I.; Bengio, Y.; Courville, A.
+                            , MIT Press
+                             (2016)
                             </span>
                             
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #9b59b6; font-size: 0.85em;">View Source</a>
+                            <br><a href="https://www.deeplearningbook.org/" target="_blank" style="color: #9b59b6; font-size: 0.85em;">View Source</a>
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Figure 1: Classification model flowchart and training pipeline.</strong>
-                            
-                            
-                             (None)
+                            <strong>Hands-On Machine Learning with Scikit-Learn, Keras, and TensorFlow (2nd ed.)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Geron, A.
+                            , O'Reilly Media
+                             (2019)
                             </span>
-                            <br><a href="https://doi.org/10.7717/peerj.18391/fig-1" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.7717/peerj.18391/fig-1</a>
                             
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Figure 8: Different model performance using cleaning pipeline 0 on training data (Airbnb).</strong>
-                            
-                            
-                             (None)
-                            </span>
-                            <br><a href="https://doi.org/10.7717/peerj-cs.2793/fig-8" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.7717/peerj-cs.2793/fig-8</a>
-                            
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>The Beacon Training Model for Schools</strong>
-                            
-                            
-                             (2024)
-                            </span>
-                            <br><a href="https://doi.org/10.4135/9781529687996" target="_blank" style="color: #9b59b6; font-size: 0.85em;">DOI: 10.4135/9781529687996</a>
-                            
+                            <br><a href="https://www.oreilly.com/library/view/hands-on-machine-learning/9781492032632/" target="_blank" style="color: #9b59b6; font-size: 0.85em;">View Source</a>
                         </li>
                         
                     </ul>

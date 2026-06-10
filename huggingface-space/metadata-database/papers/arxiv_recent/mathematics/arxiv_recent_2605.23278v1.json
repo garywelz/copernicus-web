@@ -1,0 +1,31 @@
+{
+  "id": "arxiv_2605.23278v1",
+  "arxiv_id": "2605.23278v1",
+  "title": "When Is Next-Token Prediction Useful? Marginalization, Ergodicity, Mixture Identifiability, Local Sufficiency, RAG, Tools, and Programming",
+  "authors": [
+    "Francesco Corielli"
+  ],
+  "author_string": "Francesco Corielli",
+  "journal": "arXiv:2605.23278v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Language models trained on observed sequences are often described as learning the conditional distribution of the next token given previous tokens. This description is only conditionally correct. A model trained on realized token trajectories does not observe full conditional laws; it receives sampled continuations. Moreover, real language generation is conditioned not only on previous words but also on non-textual circumstances: facts, events, intentions, goals, beliefs, social context, and task-specific constraints. This paper distinguishes three objects that are often conflated: the full conditional language process conditioned on latent circumstances, the marginal text-only process obtained by integrating those circumstances out, and the model-induced distribution learned from finite observed corpora.   The paper argues that interpreting model training as estimating the marginal text-only law requires strong assumptions of stationarity, representativeness, and ergodicity, assumptions that are standard in statistical estimation but problematic when applied to heterogeneous language corpora. Even if these assumptions hold, the marginal text-only law is useful only when the observed prefix is an approximately sufficient statistic for the latent circumstances relevant to continuation. In information-theoretic terms, usefulness requires that the residual conditional mutual information between the next token and the omitted circumstances, given the observed text, be small.   The paper then extends this argument to heterogeneous training corpora.   Finally, the paper interprets Retrieval Augmented Generation (RAG) and tool use as conditional sufficiency devices.",
+  "categories": [
+    "cs.CL",
+    "stat.ML"
+  ],
+  "primary_category": "stat.ML",
+  "comment": null,
+  "published_date": "2026-05-22T06:34:17Z",
+  "updated_date": "2026-05-22T06:34:17Z",
+  "url": "https://arxiv.org/abs/2605.23278v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.23278v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-25T10:15:42.727023",
+  "category": "mathematics",
+  "subcategories": [
+    "cs.CL",
+    "stat.ML"
+  ]
+}

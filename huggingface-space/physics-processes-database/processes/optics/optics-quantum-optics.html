@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quantum Optics - Physics Process</title>
+    <title>Quantum Optics (Photon Statistics) - Physics Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Quantum Optics</h1>
+            <h1>Quantum Optics (Photon Statistics)</h1>
             <div class="header-meta">
                 <span class="meta-item">Physics</span>
                 <span class="meta-item">Optics</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,67 +234,61 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Quantum Optics Process. This optics process visualization demonstrates quantum optics and photon statistics. The flowchart shows photon inputs and photon detection, quantum optics methods and quantum interference, quantum optics operations and photon statistics, intermediate results, and final quantum optics outputs.</p>
+                <p>Quantum optics quantizes the electromagnetic field into photon number states and characterizes light by photon statistics: a Hanbury Brown-Twiss setup measures the second-order correlation g2(0), distinguishing coherent, thermal, and single-photon sources, where antibunching with g2(0) < 1 signals genuinely nonclassical light.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-A3[Photon State] --> B3[Quantum Optics Method]
-C3[Photon Detection] --> D3[Quantum Interference]
-E3[Photon Statistics] --> F3[Quantum Optics Analysis]
-B3 --> G3[Single Photon Source]
-D3 --> H3[Photon Correlation]
-F3 --> I3[Quantum Entanglement]
-G3 --> J3[Photon Counting]
-H3 --> K3[Coincidence Detection]
-I3 --> L3[Bell State]
-J3 --> M3[Photon Statistics]
-K3 --> L3
-L3 --> N3[Quantum Coherence]
-M3 --> O3[Photon Number State]
-N3 --> P3[Quantum Superposition]
-O3 --> Q3[Quantum Optics Process]
-P3 --> R3[Quantum Optics Validation]
-Q3 --> S3[Quantum Optics Verification]
-R3 --> T3[Quantum Optics Result]
-S3 --> U3[Quantum Optics Analysis]
-T3 --> V3[Quantum Optics Parameters]
-U3 --> W3[Quantum Optics Output]
-V3 --> X3[Quantum Optics Analysis]
-W3 --> Y3[Quantum Optics Final Result]
-X3 --> Z3[Quantum Optics Complete]
+    N1["Quantize EM field"]
+    N2["Photon number states |n>"]
+    N3{"Choose light source"}
+    N4["Coherent state (laser)"]
+    N5["Single-photon source"]
+    N6["Thermal source"]
+    N7["Hanbury Brown-Twiss"]
+    N8["Measure g2(0)"]
+    N9{"g2(0) < 1?"}
+    N10["Antibunched: nonclassical"]
+    N11["Photon statistics result"]
 
-    style A3 fill:#ff6b6b,color:#fff
-    style C3 fill:#ff6b6b,color:#fff
-    style E3 fill:#ff6b6b,color:#fff
-    style B3 fill:#ffd43b,color:#000
-    style D3 fill:#ffd43b,color:#000
-    style F3 fill:#ffd43b,color:#000
-    style G3 fill:#ffd43b,color:#000
-    style H3 fill:#ffd43b,color:#000
-    style I3 fill:#ffd43b,color:#000
-    style J3 fill:#ffd43b,color:#000
-    style K3 fill:#ffd43b,color:#000
-    style L3 fill:#ffd43b,color:#000
-    style M3 fill:#51cf66,color:#fff
-    style N3 fill:#51cf66,color:#fff
-    style O3 fill:#51cf66,color:#fff
-    style P3 fill:#51cf66,color:#fff
-    style Q3 fill:#51cf66,color:#fff
-    style R3 fill:#51cf66,color:#fff
-    style S3 fill:#51cf66,color:#fff
-    style T3 fill:#51cf66,color:#fff
-    style U3 fill:#51cf66,color:#fff
-    style V3 fill:#51cf66,color:#fff
-    style W3 fill:#51cf66,color:#fff
-    style X3 fill:#51cf66,color:#fff
-    style Y3 fill:#51cf66,color:#fff
-    style Z3 fill:#b197fc,color:#fff
+    N1 --> N2
+    N2 --> N3
+    N3 -->|coherent| N4
+    N3 -->|single| N5
+    N3 -->|thermal| N6
+    N4 --> N7
+    N5 --> N7
+    N6 --> N7
+    N7 --> N8
+    N8 --> N9
+    N9 -->|yes| N10
+    N10 --> N11
+    N9 -->|no| N11
+
+    style N1 fill:#ff6b6b,color:#fff
+    style N2 fill:#51cf66,color:#fff
+    style N3 fill:#74c0fc,color:#fff
+    style N4 fill:#51cf66,color:#fff
+    style N5 fill:#51cf66,color:#fff
+    style N6 fill:#51cf66,color:#fff
+    style N7 fill:#51cf66,color:#fff
+    style N8 fill:#74c0fc,color:#fff
+    style N9 fill:#74c0fc,color:#fff
+    style N10 fill:#51cf66,color:#fff
+    style N11 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Quantize EM field</td><td>Triggers & Inputs</td><td><a href="https://doi.org/10.1103/PhysRev.130.2529" target="_blank" title="The quantum theory of optical coherence" style="color:#3498db;">Glauber, R. J. 1963</a></td></tr><tr><td style="font-weight:600;">Photon number states |n></td><td>Processing & Operations</td><td><a href="https://doi.org/10.1103/PhysRev.130.2529" target="_blank" title="The quantum theory of optical coherence" style="color:#3498db;">Glauber, R. J. 1963</a></td></tr><tr><td style="font-weight:600;">Choose light source</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1103/PhysRev.130.2529" target="_blank" title="The quantum theory of optical coherence" style="color:#3498db;">Glauber, R. J. 1963</a></td></tr><tr><td style="font-weight:600;">Coherent state (laser)</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1103/PhysRev.130.2529" target="_blank" title="The quantum theory of optical coherence" style="color:#3498db;">Glauber, R. J. 1963</a></td></tr><tr><td style="font-weight:600;">Single-photon source</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1038/178058a0" target="_blank" title="Correlation between photons in two coherent beams of light" style="color:#3498db;">Hanbury Brown, R. et al. 1956</a></td></tr><tr><td style="font-weight:600;">Thermal source</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1038/178058a0" target="_blank" title="Correlation between photons in two coherent beams of light" style="color:#3498db;">Hanbury Brown, R. et al. 1956</a></td></tr><tr><td style="font-weight:600;">Hanbury Brown-Twiss</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1038/178058a0" target="_blank" title="Correlation between photons in two coherent beams of light" style="color:#3498db;">Hanbury Brown, R. et al. 1956</a></td></tr><tr><td style="font-weight:600;">Measure g2(0)</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1103/PhysRev.130.2529" target="_blank" title="The quantum theory of optical coherence" style="color:#3498db;">Glauber, R. J. 1963</a></td></tr><tr><td style="font-weight:600;">g2(0) < 1?</td><td>Intermediates & States</td><td><a href="https://doi.org/10.1103/PhysRev.130.2529" target="_blank" title="The quantum theory of optical coherence" style="color:#3498db;">Glauber, R. J. 1963</a></td></tr><tr><td style="font-weight:600;">Antibunched: nonclassical</td><td>Processing & Operations</td><td><a href="https://doi.org/10.1103/PhysRev.130.2529" target="_blank" title="The quantum theory of optical coherence" style="color:#3498db;">Glauber, R. J. 1963</a></td></tr><tr><td style="font-weight:600;">Photon statistics result</td><td>Products & Outputs</td><td><a href="https://doi.org/10.1038/178058a0" target="_blank" title="Correlation between photons in two coherent beams of light" style="color:#3498db;">Hanbury Brown, R. et al. 1956</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -313,12 +334,12 @@ X3 --> Z3[Quantum Optics Complete]
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 26</li>
-                        <li><strong>Edges:</strong> 24</li>
-                        <li><strong>Conditionals:</strong> 0</li>
-                        <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 1</li>
+                        <li><strong>Nodes:</strong> 11</li>
+                        <li><strong>Edges:</strong> 13</li>
+                        <li><strong>Conditionals:</strong> 2</li>
+                        <li><strong>AND Gates:</strong> 2</li>
+                        <li><strong>OR Gates:</strong> 2</li>
+                        <li><strong>Total Gates:</strong> 4</li>
                     </ul>
                 </div>
                 
@@ -326,7 +347,7 @@ X3 --> Z3[Quantum Optics Complete]
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>optics</li><li>quantum</li>
+                        <li>quantum optics</li><li>photon statistics</li><li>Hanbury Brown-Twiss</li><li>antibunching</li><li>second-order coherence</li>
                     </ul>
                 </div>
                 
@@ -337,42 +358,22 @@ X3 --> Z3[Quantum Optics Complete]
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Correlation between photons in two coherent beams of light</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Hanbury Brown, R.; Twiss, R. Q.
+                            , Nature
+                             (1956)
                             </span>
+                            <br><a href="https://doi.org/10.1038/178058a0" target="_blank" style="color: #3498db; font-size: 0.85em;">DOI: 10.1038/178058a0</a>
                             
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #3498db; font-size: 0.85em;">View Source</a>
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Coherent and incoherent states of the radiation field</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Glauber, R.J.
-                            , Phys. Rev.
+                            <strong>The quantum theory of optical coherence</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Glauber, R. J.
+                            , Physical Review
                              (1963)
                             </span>
-                            <br><a href="https://doi.org/10.1103/PhysRev.131.2766" target="_blank" style="color: #3498db; font-size: 0.85em;">DOI: 10.1103/PhysRev.131.2766</a>
-                            
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Exploring the quantum: atoms, cavities, and photons</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Haroche, S.; Raimond, J.M.
-                            , Rev. Mod. Phys.
-                             (2006)
-                            </span>
-                            <br><a href="https://doi.org/10.1103/RevModPhys.78.559" target="_blank" style="color: #3498db; font-size: 0.85em;">DOI: 10.1103/RevModPhys.78.559</a>
-                            
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Measurement of subpicosecond time intervals between two photons by interference</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Hong, C.K.; Ou, Z.Y.; Mandel, L.
-                            , Phys. Rev. Lett.
-                             (1987)
-                            </span>
-                            <br><a href="https://doi.org/10.1103/PhysRevLett.59.2044" target="_blank" style="color: #3498db; font-size: 0.85em;">DOI: 10.1103/PhysRevLett.59.2044</a>
+                            <br><a href="https://doi.org/10.1103/PhysRev.130.2529" target="_blank" style="color: #3498db; font-size: 0.85em;">DOI: 10.1103/PhysRev.130.2529</a>
                             
                         </li>
                         

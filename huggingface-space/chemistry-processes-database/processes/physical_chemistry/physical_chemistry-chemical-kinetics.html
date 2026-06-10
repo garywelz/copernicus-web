@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chemical Kinetics - Chemistry Process</title>
+    <title>Rate Law by Initial Rates - Chemistry Process</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         * {
@@ -167,16 +167,43 @@
         .info-card li:last-child {
             border-bottom: none;
         }
+        
+        .provenance {
+            margin: 30px 0;
+        }
+        
+        .provenance h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .provenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        
+        .provenance-table th, .provenance-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        
+        .provenance-table th {
+            background: #f8f9fa;
+            color: #334155;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Chemical Kinetics</h1>
+            <h1>Rate Law by Initial Rates</h1>
             <div class="header-meta">
                 <span class="meta-item">Chemistry</span>
                 <span class="meta-item">Physical Chemistry</span>
-                <span class="meta-item">Complexity: medium</span>
+                <span class="meta-item">Complexity: high</span>
             </div>
         </div>
         
@@ -207,67 +234,56 @@
         <div class="content">
             <div class="description">
                 <h2>Description</h2>
-                <p>Chemical Kinetics process visualization. This process flowchart outlines key steps, checks, and outputs.</p>
+                <p>The method of initial rates determines a rate law empirically: a series of experiments varies one reactant concentration at a time while measuring the initial rate, the order in each reactant is read from how the rate scales, and once all orders are known the overall rate law is assembled and the rate constant is fitted.</p>
             </div>
             
             <div class="flowchart-container">
                 <h2>Process Flowchart</h2>
                 <div class="mermaid">
 graph TD
-A2[Reaction System] --> B2[Rate Law Determination]
-C2[Concentration Analysis] --> D2[Reaction Order]
-E2[Temperature Effects] --> F2[Activation Energy]
-B2 --> G2[Rate Constant k]
-D2 --> H2[Zero Order Reaction]
-F2 --> I2[Arrhenius Equation]
-G2 --> J2[First Order Reaction]
-H2 --> K2[Second Order Reaction]
-I2 --> L2[Activation Energy Calculation]
-J2 --> M2[Rate Expression]
-K2 --> L2
-L2 --> N2[Collision Theory]
-M2 --> O2[Transition State Theory]
-N2 --> P2[Reaction Mechanism]
-O2 --> Q2[Kinetic Analysis]
-P2 --> R2[Elementary Steps]
-Q2 --> S2[Rate Determining Step]
-R2 --> T2[Chemical Kinetics Result]
-S2 --> U2[Kinetic Validation]
-T2 --> V2[Kinetic Parameters]
-U2 --> W2[Chemical Kinetics Output]
-V2 --> X2[Chemical Kinetics Analysis]
-W2 --> Y2[Chemical Kinetics Final Result]
-X2 --> Z2[Chemical Kinetics Analysis Complete]
+    N1["Reaction of interest"]
+    N2["Vary one [A], hold rest"]
+    N3["Measure initial rate"]
+    N4["Rate vs [A] dependence"]
+    N5["Determine order in A"]
+    N6{"All reactants done?"}
+    N7["Vary next reactant"]
+    N8["Assemble rate law"]
+    N9["Fit rate constant k"]
+    N10["Validated rate law"]
 
-    style A2 fill:#ff6b6b,color:#fff
-    style C2 fill:#ff6b6b,color:#fff
-    style E2 fill:#ff6b6b,color:#fff
-    style B2 fill:#ffd43b,color:#000
-    style D2 fill:#ffd43b,color:#000
-    style F2 fill:#ffd43b,color:#000
-    style G2 fill:#ffd43b,color:#000
-    style H2 fill:#ffd43b,color:#000
-    style I2 fill:#ffd43b,color:#000
-    style J2 fill:#ffd43b,color:#000
-    style K2 fill:#ffd43b,color:#000
-    style L2 fill:#ffd43b,color:#000
-    style M2 fill:#51cf66,color:#fff
+    N1 --> N2
+    N2 --> N3
+    N3 --> N4
+    N4 --> N5
+    N5 --> N6
+    N6 -->|no| N7
+    N7 -->|next| N2
+    N6 -->|yes| N8
+    N8 --> N9
+    N9 --> N10
+
+    style N1 fill:#ff6b6b,color:#fff
     style N2 fill:#51cf66,color:#fff
-    style O2 fill:#51cf66,color:#fff
-    style P2 fill:#51cf66,color:#fff
-    style Q2 fill:#51cf66,color:#fff
-    style R2 fill:#51cf66,color:#fff
-    style S2 fill:#51cf66,color:#fff
-    style T2 fill:#51cf66,color:#fff
-    style U2 fill:#51cf66,color:#fff
-    style V2 fill:#51cf66,color:#fff
-    style W2 fill:#51cf66,color:#fff
-    style X2 fill:#51cf66,color:#fff
-    style Y2 fill:#51cf66,color:#fff
-    style Z2 fill:#b197fc,color:#fff
+    style N3 fill:#51cf66,color:#fff
+    style N4 fill:#74c0fc,color:#fff
+    style N5 fill:#51cf66,color:#fff
+    style N6 fill:#74c0fc,color:#fff
+    style N7 fill:#51cf66,color:#fff
+    style N8 fill:#51cf66,color:#fff
+    style N9 fill:#51cf66,color:#fff
+    style N10 fill:#b197fc,color:#fff
                 </div>
             </div>
             
+            <div class="provenance">
+                <h2>Node provenance</h2>
+                <p style="color:#666; margin-bottom:12px;">Each step below is grounded in a cited source (hover a citation for the full title).</p>
+                <table class="provenance-table">
+                    <thead><tr><th>Step</th><th>Role</th><th>Source</th></tr></thead>
+                    <tbody><tr><td style="font-weight:600;">Reaction of interest</td><td>Triggers & Inputs</td><td><a href="https://global.oup.com/academic/product/atkins-physical-chemistry-9780198769866" target="_blank" title="Atkins' Physical Chemistry (11th ed.)" style="color:#e74c3c;">Atkins, P. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Vary one [A], hold rest</td><td>Processing & Operations</td><td><a href="https://www.mheducation.com/highered/product/chemical-kinetics-reaction-mechanisms-espenson.html" target="_blank" title="Chemical Kinetics and Reaction Mechanisms (2nd ed.)" style="color:#e74c3c;">Espenson, J. H. 1995</a></td></tr><tr><td style="font-weight:600;">Measure initial rate</td><td>Processing & Operations</td><td><a href="https://global.oup.com/academic/product/atkins-physical-chemistry-9780198769866" target="_blank" title="Atkins' Physical Chemistry (11th ed.)" style="color:#e74c3c;">Atkins, P. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Rate vs [A] dependence</td><td>Intermediates & States</td><td><a href="https://global.oup.com/academic/product/atkins-physical-chemistry-9780198769866" target="_blank" title="Atkins' Physical Chemistry (11th ed.)" style="color:#e74c3c;">Atkins, P. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Determine order in A</td><td>Processing & Operations</td><td><a href="https://www.mheducation.com/highered/product/chemical-kinetics-reaction-mechanisms-espenson.html" target="_blank" title="Chemical Kinetics and Reaction Mechanisms (2nd ed.)" style="color:#e74c3c;">Espenson, J. H. 1995</a></td></tr><tr><td style="font-weight:600;">All reactants done?</td><td>Intermediates & States</td><td><a href="https://global.oup.com/academic/product/atkins-physical-chemistry-9780198769866" target="_blank" title="Atkins' Physical Chemistry (11th ed.)" style="color:#e74c3c;">Atkins, P. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Vary next reactant</td><td>Processing & Operations</td><td><a href="https://www.mheducation.com/highered/product/chemical-kinetics-reaction-mechanisms-espenson.html" target="_blank" title="Chemical Kinetics and Reaction Mechanisms (2nd ed.)" style="color:#e74c3c;">Espenson, J. H. 1995</a></td></tr><tr><td style="font-weight:600;">Assemble rate law</td><td>Processing & Operations</td><td><a href="https://global.oup.com/academic/product/atkins-physical-chemistry-9780198769866" target="_blank" title="Atkins' Physical Chemistry (11th ed.)" style="color:#e74c3c;">Atkins, P. et al. 2018</a></td></tr><tr><td style="font-weight:600;">Fit rate constant k</td><td>Processing & Operations</td><td><a href="https://www.mheducation.com/highered/product/chemical-kinetics-reaction-mechanisms-espenson.html" target="_blank" title="Chemical Kinetics and Reaction Mechanisms (2nd ed.)" style="color:#e74c3c;">Espenson, J. H. 1995</a></td></tr><tr><td style="font-weight:600;">Validated rate law</td><td>Products & Outputs</td><td><a href="https://global.oup.com/academic/product/atkins-physical-chemistry-9780198769866" target="_blank" title="Atkins' Physical Chemistry (11th ed.)" style="color:#e74c3c;">Atkins, P. et al. 2018</a></td></tr></tbody>
+                </table>
+            </div>
             <div class="color-legend">
                 <h3>🎨 Color Scheme (5-Color System)</h3>
                 <div class="color-grid">
@@ -313,12 +329,12 @@ X2 --> Z2[Chemical Kinetics Analysis Complete]
                 <div class="info-card">
                     <h3>Process Statistics</h3>
                     <ul>
-                        <li><strong>Nodes:</strong> 26</li>
-                        <li><strong>Edges:</strong> 21</li>
-                        <li><strong>Conditionals:</strong> 0</li>
+                        <li><strong>Nodes:</strong> 10</li>
+                        <li><strong>Edges:</strong> 10</li>
+                        <li><strong>Conditionals:</strong> 1</li>
                         <li><strong>AND Gates:</strong> 1</li>
-                        <li><strong>OR Gates:</strong> 0</li>
-                        <li><strong>Total Gates:</strong> 1</li>
+                        <li><strong>OR Gates:</strong> 1</li>
+                        <li><strong>Total Gates:</strong> 2</li>
                     </ul>
                 </div>
                 
@@ -326,7 +342,7 @@ X2 --> Z2[Chemical Kinetics Analysis Complete]
                 <div class="info-card">
                     <h3>Keywords</h3>
                     <ul>
-                        <li>chemical</li><li>kinetics</li>
+                        <li>initial rates</li><li>rate law</li><li>reaction order</li><li>rate constant</li><li>kinetics</li>
                     </ul>
                 </div>
                 
@@ -337,43 +353,23 @@ X2 --> Z2[Chemical Kinetics Analysis Complete]
                     <ul style="list-style: none; padding: 0;">
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Programming Framework: A Universal Process Visualization Methodology</strong>
-                            <br><span style="font-size: 0.9em; color: #666;">Welz, G.
-                            , CopernicusAI Knowledge Engine
-                             (2025)
+                            <strong>Atkins' Physical Chemistry (11th ed.)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Atkins, P.; de Paula, J.; Keeler, J.
+                            , Oxford University Press
+                             (2018)
                             </span>
                             
-                            <br><a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
+                            <br><a href="https://global.oup.com/academic/product/atkins-physical-chemistry-9780198769866" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
                         </li>
                         
                         <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Comprehensive Chemical Kinetics</strong>
-                            
-                            , Comprehensive Chemical Kinetics
-                             (1969)
+                            <strong>Chemical Kinetics and Reaction Mechanisms (2nd ed.)</strong>
+                            <br><span style="font-size: 0.9em; color: #666;">Espenson, J. H.
+                            , McGraw-Hill
+                             (1995)
                             </span>
-                            <br><a href="https://doi.org/10.1016/b978-0-444-40674-3.50004-3" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1016/b978-0-444-40674-3.50004-3</a>
                             
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Comprehensive Chemical Kinetics</strong>
-                            
-                            , Comprehensive Chemical Kinetics
-                             (1969)
-                            </span>
-                            <br><a href="https://doi.org/10.1016/b978-0-444-40674-3.50001-8" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1016/b978-0-444-40674-3.50001-8</a>
-                            
-                        </li>
-                        
-                        <li style="margin-bottom: 12px; padding: 8px; background: #ffffff; border-radius: 4px;">
-                            <strong>Comprehensive Chemical Kinetics</strong>
-                            
-                            , Comprehensive Chemical Kinetics
-                             (1992)
-                            </span>
-                            <br><a href="https://doi.org/10.1016/s0069-8040(08)70212-7" target="_blank" style="color: #e74c3c; font-size: 0.85em;">DOI: 10.1016/s0069-8040(08)70212-7</a>
-                            
+                            <br><a href="https://www.mheducation.com/highered/product/chemical-kinetics-reaction-mechanisms-espenson.html" target="_blank" style="color: #e74c3c; font-size: 0.85em;">View Source</a>
                         </li>
                         
                     </ul>

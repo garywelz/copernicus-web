@@ -1,0 +1,33 @@
+{
+  "id": "arxiv_2605.22968v1",
+  "arxiv_id": "2605.22968v1",
+  "title": "Uncertainty-aware classification and triage of structural heart disease using electrocardiography and echocardiography metrics",
+  "authors": [
+    "Mitchel J. Colebank"
+  ],
+  "author_string": "Mitchel J. Colebank",
+  "journal": "arXiv:2605.22968v1",
+  "journal_ref": null,
+  "year": "2026",
+  "doi": null,
+  "abstract": "Machine learning methods provide a methodological innovation that can help screen for cardiovascular disease through noninvasive and readily available measurement modalities. Recent investments in using electrocardiogram (ECG) data to screen for structural heart disease (SHD) are one example, where ECGs provide a low-cost, available modality for screening. This has led to the EchoNext dataset, a paired ECG-echocardiogram data repository for testing new methods of SHD detection. However, relatively few studies have investigated how more probabilistic classification through Bayesian inference may improve uncertainty quantification in this setting. Moreover, few studies have considered how triage systems can be developed to alleviate healthcare bottlenecks, such as the review of data from underserved, rural clinics by expert sonographers for SHD assessment. In this study, we leverage existing ECG-echocardiogram data to compare frequentist and Bayesian neural network classifiers. We show that the Bayesian approach is comparable or better than frequentist methods in SHD classification, and that they have a more robust uncertainty quantification attached to them. We provide an example of how this uncertainty-aware classification scheme can be used for screening SHD, providing a proof-of-concept for how machine learning can help with triage in getting individuals expert sonographer input when SHD is highly likely or measurements are highly uncertain.",
+  "categories": [
+    "q-bio.QM",
+    "cs.LG",
+    "stat.ML"
+  ],
+  "primary_category": "stat.ML",
+  "comment": "15 pages, 5 figures",
+  "published_date": "2026-05-21T18:55:12Z",
+  "updated_date": "2026-05-21T18:55:12Z",
+  "url": "https://arxiv.org/abs/2605.22968v1",
+  "pdf_url": "https://arxiv.org/pdf/2605.22968v1.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-05-26T10:15:35.455134",
+  "category": "mathematics",
+  "subcategories": [
+    "q-bio.QM",
+    "cs.LG",
+    "stat.ML"
+  ]
+}
