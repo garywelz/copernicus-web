@@ -1,4 +1,4 @@
-eir.# CopernicusAI Software Handoff — Cursor Agent
+# CopernicusAI Software Handoff — Cursor Agent
 **Date:** 2026-06-07  
 **Repo:** `~/copernicus-web-public`  
 **For:** Cursor agent continuing infrastructure work
