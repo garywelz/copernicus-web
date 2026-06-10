@@ -429,7 +429,7 @@ Until next time, keep questioning, keep exploring, and keep pushing the boundari
 
     async def _call_google_ai(self, prompt: str, max_tokens: int = 1000) -> str:
         """Call Google AI API with structured prompts"""
-        url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent"
+        url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent"
         
         headers = {
             "Content-Type": "application/json",

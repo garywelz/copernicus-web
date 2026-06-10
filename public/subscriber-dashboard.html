@@ -363,16 +363,22 @@
                                               x-text="podcast.status"></span>
                                         
                                         <template x-if="podcast.status === 'completed' && podcast.result">
-                                            <div class="flex space-x-2">
-                                                <a :href="podcast.result.audio_url" target="_blank" 
+                                            <div class="flex flex-wrap gap-x-3 gap-y-1 items-center">
+                                                <a :href="podcast.result.audio_url" target="_blank" rel="noopener noreferrer"
                                                    class="text-blue-600 hover:text-blue-500 text-sm">🎧 Listen</a>
-                                                <a :href="podcast.result.description_url" target="_blank" 
+                                                <a :href="podcast.result.description_url" target="_blank" rel="noopener noreferrer"
                                                    class="text-blue-600 hover:text-blue-500 text-sm">📄 Description</a>
-                                                <a :href="podcast.result.transcript_url" target="_blank" 
+                                                <a :href="podcast.result.transcript_url" target="_blank" rel="noopener noreferrer"
                                                    class="text-blue-600 hover:text-blue-500 text-sm">📝 Transcript</a>
                                                 <template x-if="podcast.result.thumbnail_url">
-                                                    <a :href="podcast.result.thumbnail_url" target="_blank" 
+                                                    <a :href="podcast.result.thumbnail_url" target="_blank" rel="noopener noreferrer"
                                                        class="text-blue-600 hover:text-blue-500 text-sm">🖼️ Thumbnail</a>
+                                                </template>
+                                                <template x-for="(imgUrl, idx) in (podcast.result.episode_images || []).filter(Boolean)" :key="imgUrl + '-' + idx">
+                                                    <a :href="imgUrl" target="_blank" rel="noopener noreferrer"
+                                                       class="text-blue-600 hover:text-blue-500 text-sm">
+                                                        🎬 Still <span x-text="idx + 1"></span>
+                                                    </a>
                                                 </template>
                                             </div>
                                         </template>

@@ -64,6 +64,14 @@ except ImportError:
     vertexai = None
     VERTEX_AI_AVAILABLE = False
 
+# OpenAI chat imports
+try:
+    from openai import OpenAI
+    OPENAI_AVAILABLE = True
+except ImportError:
+    OpenAI = None
+    OPENAI_AVAILABLE = False
+
 
 class RAGService:
     """
@@ -77,34 +85,92 @@ class RAGService:
     
     def __init__(self):
         """Initialize RAG service with embedding and LLM clients."""
-        # Embeddings are optional for RAG in "Vertex-off" mode (we do retrieval-only).
         self.embedding_service = None
-        if not VERTEX_AI_DISABLED:
-            try:
-                self.embedding_service = get_embedding_service()
-            except Exception as e:
-                structured_logger.warning(f"Embedding service unavailable for RAG: {e}")
-        
-        # Initialize Vertex AI client (reuse existing setup)
-        if VERTEX_AI_AVAILABLE and (not VERTEX_AI_DISABLED):
+        try:
+            self.embedding_service = get_embedding_service()
+        except Exception as e:
+            structured_logger.warning(f"Embedding service unavailable for RAG: {e}")
+
+        self.openai_client = None
+        self.model = None  # Vertex GenerativeModel when used
+        self.model_name = "none"
+        self.llm_provider: Optional[str] = None
+
+        rag_provider = os.getenv("RAG_PROVIDER", "").strip().lower()
+
+        # OpenAI chat (preferred when key is available — same provider as embeddings)
+        if rag_provider in ("", "openai", "auto") and OPENAI_AVAILABLE:
+            from services.llm_providers.secret_manager_helpers import get_openai_api_key
+            api_key = get_openai_api_key()
+            if api_key:
+                try:
+                    self.openai_client = OpenAI(api_key=api_key)
+                    self.model_name = os.getenv("OPENAI_RAG_MODEL", "gpt-4o-mini")
+                    self.llm_provider = "openai"
+                    structured_logger.info(
+                        "RAG LLM initialized with OpenAI",
+                        model=self.model_name,
+                    )
+                except Exception as e:
+                    structured_logger.warning(f"Failed to initialize OpenAI for RAG: {e}")
+
+        # Vertex AI fallback when OpenAI is unavailable
+        if (
+            self.llm_provider is None
+            and rag_provider in ("", "vertex_ai", "vertex", "auto")
+            and VERTEX_AI_AVAILABLE
+            and not VERTEX_AI_DISABLED
+        ):
             try:
                 GCP_PROJECT_ID = os.getenv("GCP_PROJECT_ID", "regal-scholar-453620-r7")
                 VERTEX_AI_REGION = os.getenv("GCP_REGION", "us-central1")
-                
-                # Initialize Vertex AI
                 vertexai.init(project=GCP_PROJECT_ID, location=VERTEX_AI_REGION)
-                
-                # Use GenerativeModel from vertexai
                 from vertexai.generative_models import GenerativeModel
-                self.model = GenerativeModel("gemini-2.0-flash-exp")
-                self.model_name = "gemini-2.0-flash-exp"
-                structured_logger.info("RAG service initialized with Vertex AI")
+                self.model = GenerativeModel("gemini-2.5-flash")
+                self.model_name = "gemini-2.5-flash"
+                self.llm_provider = "vertex"
+                structured_logger.info("RAG LLM initialized with Vertex AI (fallback)")
             except Exception as e:
                 structured_logger.warning(f"Failed to initialize Vertex AI for RAG: {e}")
                 self.model = None
-        else:
-            self.model = None
-            structured_logger.warning("Vertex AI not available for RAG (disabled or missing deps)")
+
+        if self.llm_provider is None:
+            structured_logger.warning(
+                "No LLM available for RAG generation (retrieval-only mode)"
+            )
+
+    @property
+    def llm_available(self) -> bool:
+        return self.openai_client is not None or self.model is not None
+
+    def _generate_answer(self, prompt: str) -> str:
+        """Generate an answer using OpenAI chat or Vertex Gemini."""
+        if self.openai_client:
+            response = self.openai_client.chat.completions.create(
+                model=self.model_name,
+                messages=[
+                    {
+                        "role": "system",
+                        "content": "You are a helpful scientific research assistant.",
+                    },
+                    {"role": "user", "content": prompt},
+                ],
+                temperature=0.2,
+                max_tokens=1024,
+            )
+            return (response.choices[0].message.content or "").strip()
+
+        if self.model:
+            response = self.model.generate_content(
+                prompt,
+                generation_config={
+                    "temperature": 0.2,
+                    "max_output_tokens": 1024,
+                },
+            )
+            return response.text
+
+        raise RuntimeError("No LLM configured for RAG generation")
     
     async def answer_question(
         self,
@@ -140,6 +206,14 @@ class RAGService:
             # If we have a focused explanation request (e.g., paper or concept node),
             # bias retrieval toward that specific item while still allowing neighbors.
             search_query = question
+            if focus_id and mode in ("paper_explanation", "concept_explanation"):
+                search_query = f"{question} {focus_id}"
+
+            if content_types is None:
+                content_types = [
+                    "papers", "podcasts", "glmp", "math", "chemistry",
+                    "physics", "computer_science", "biology",
+                ]
 
             search_result = await search_semantic(
                 query=search_query,
@@ -307,16 +381,34 @@ class RAGService:
                 })
                 citation_number += 1
 
+            # Process biology processes (if available)
+            for process in search_data.get("biology_processes", [])[:max_context_items]:
+                title = process.get("title") or process.get("name", "Untitled Process")
+                description = process.get("description", "")
+                process_id = process.get("process_id") or process.get("id", "")
+                similarity = process.get("similarity_score", 0)
+                context_parts.append(
+                    f"[{citation_number}] Biology Process: {title}\n"
+                    f"Description: {description[:500] if description else 'No description available'}"
+                )
+                citations.append({
+                    "number": citation_number,
+                    "type": "biology_process",
+                    "title": title,
+                    "process_id": process_id,
+                    "similarity_score": round(similarity, 3)
+                })
+                citation_number += 1
+
             sources = citations if include_sources else []
 
-            # Vertex-off: return retrieval-only response (snippets + citations) instead of failing.
-            if not self.model:
+            # No LLM: return retrieval-only response (snippets + citations) instead of failing.
+            if not self.llm_available:
                 tokens = _tokenize(question)
                 if not citations:
                     answer = (
                         "I couldn't find relevant information in the knowledge base to answer this question.\n\n"
-                        "Note: Vertex AI is currently disabled, so the system is running in **Keyword Retrieval mode** "
-                        "(no embeddings + no LLM answer generation)."
+                        "Note: No chat model is configured, so the system is running in retrieval-only mode."
                     )
                 else:
                     bullets: List[str] = []
@@ -326,7 +418,7 @@ class RAGService:
                         snippet = _extract_snippet(chunk, tokens)
                         bullets.append(f"- [{c.get('number')}] {c.get('title')}: {snippet}")
                     answer = (
-                        "Vertex AI is disabled, so I can’t generate a synthesized answer.\n"
+                        "No chat model is configured, so I can't generate a synthesized answer.\n"
                         "Here are the most relevant items I found (with excerpts):\n\n"
                         + "\n".join(bullets)
                     )
@@ -338,6 +430,7 @@ class RAGService:
                     "sources": sources,
                     "metadata": {
                         "model": "none",
+                        "llm_provider": None,
                         "generated_at": datetime.utcnow().isoformat(),
                         "retrieval_method": retrieval_method,
                         "context_items_used": len(sources),
@@ -379,17 +472,8 @@ Answer (with citations):"""
                                   question=question[:100],
                                   context_items=len(context_parts))
             
-            # Generate response using Vertex AI GenerativeModel
-            response = self.model.generate_content(
-                prompt,
-                generation_config={
-                    "temperature": 0.2,
-                    "max_output_tokens": 1024
-                }
-            )
-            
-            answer_text = response.text
-            
+            answer_text = self._generate_answer(prompt)
+
             # Step 5: Format response
             result = {
                 "question": question,
@@ -402,6 +486,7 @@ Answer (with citations):"""
                     "context_items_used": len(context_parts),
                     "retrieval_method": retrieval_method,
                     "model": self.model_name,
+                    "llm_provider": self.llm_provider,
                     "generated_at": datetime.utcnow().isoformat()
                 }
             }

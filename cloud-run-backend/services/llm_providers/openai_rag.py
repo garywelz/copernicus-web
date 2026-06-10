@@ -25,12 +25,12 @@ logger = logging.getLogger(__name__)
 class OpenAIRAGService(BaseRAGService):
     """RAG service using OpenAI."""
     
-    def __init__(self, model: str = "gpt-3.5-turbo"):
+    def __init__(self, model: str = "gpt-4o-mini"):
         """
         Initialize OpenAI RAG service.
         
         Args:
-            model: Model name (gpt-3.5-turbo recommended for cost, gpt-4-turbo for quality)
+            model: Model name (gpt-4o-mini recommended for cost/quality, gpt-4o for higher quality)
         """
         if not OPENAI_AVAILABLE:
             raise ImportError(

@@ -12,6 +12,40 @@ import { useEffect, useRef, useState, startTransition } from 'react'
 // API base URL - adjust for production
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://copernicus-podcast-api-phzp4ie2sq-uc.a.run.app'
 
+type ContentTypesState = {
+  papers: boolean
+  processes: boolean
+  videos: boolean
+  podcasts: boolean
+}
+
+type DisciplinesState = {
+  biology: boolean
+  chemistry: boolean
+  physics: boolean
+  mathematics: boolean
+  computer_science: boolean
+  interdisciplinary: boolean
+}
+
+type SourcesState = {
+  pubmed: boolean
+  arxiv: boolean
+  nasa_ads: boolean
+  crossref: boolean
+  youtube: boolean
+  rss: boolean
+}
+
+type MapFilterOverrides = {
+  contentTypes?: ContentTypesState
+  disciplines?: DisciplinesState
+  sources?: SourcesState
+  dateRange?: { start: string; end: string }
+  keywordSearch?: string
+  maxPapers?: number
+}
+
 export default function KnowledgeMapView() {
   const containerRef = useRef<HTMLDivElement>(null)
   const [loading, setLoading] = useState(false) // Start as false - user clicks "Reload Map" to load
@@ -140,12 +174,45 @@ export default function KnowledgeMapView() {
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [contentTypes, disciplines, sources, dateRange, keywordSearch, maxPapers, nodeSizeBy, colorBy])
+  }, [contentTypes, disciplines, sources, dateRange, maxPapers, nodeSizeBy, colorBy])
   
   // Note: We don't auto-reload on filter changes - user clicks "Reload Map" button
   // This prevents too many API calls while user is adjusting filters
 
-  const loadKnowledgeMap = async () => {
+  const runQuickExample = (overrides: MapFilterOverrides) => {
+    const nextContentTypes = overrides.contentTypes ?? contentTypes
+    const nextDisciplines = overrides.disciplines ?? disciplines
+    const nextSources = overrides.sources ?? sources
+    const nextDateRange = overrides.dateRange ?? dateRange
+    const nextKeyword = overrides.keywordSearch ?? keywordSearch
+    const nextMaxPapers = overrides.maxPapers ?? maxPapers
+
+    setContentTypes(nextContentTypes)
+    setDisciplines(nextDisciplines)
+    setSources(nextSources)
+    setDateRange(nextDateRange)
+    setKeywordSearch(nextKeyword)
+    if (overrides.maxPapers !== undefined) {
+      setMaxPapers(nextMaxPapers)
+    }
+
+    void loadKnowledgeMap({
+      contentTypes: nextContentTypes,
+      disciplines: nextDisciplines,
+      sources: nextSources,
+      dateRange: nextDateRange,
+      keywordSearch: nextKeyword,
+      maxPapers: nextMaxPapers,
+    })
+  }
+
+  const loadKnowledgeMap = async (overrides?: MapFilterOverrides) => {
+    const activeContentTypes = overrides?.contentTypes ?? contentTypes
+    const activeDisciplines = overrides?.disciplines ?? disciplines
+    const activeSources = overrides?.sources ?? sources
+    const activeDateRange = overrides?.dateRange ?? dateRange
+    const activeKeywordSearch = overrides?.keywordSearch ?? keywordSearch
+    const activeMaxPapers = overrides?.maxPapers ?? maxPapers
     // Ensure we're on the client side
     if (typeof window === 'undefined') {
       console.warn('loadKnowledgeMap called on server side, skipping')
@@ -218,7 +285,7 @@ export default function KnowledgeMapView() {
 
       // Fetch graph data with filters
       const params = new URLSearchParams({
-        max_papers: maxPapers.toString(),
+        max_papers: activeMaxPapers.toString(),
         include_concepts: includeConcepts.toString(),
         include_similarity: includeSimilarity.toString(),
         include_categories: includeCategories.toString(),
@@ -226,13 +293,13 @@ export default function KnowledgeMapView() {
       })
 
       // Add content type filters
-      if (contentTypes.papers) params.append('content_types', 'papers')
-      if (contentTypes.processes) params.append('content_types', 'processes')
-      if (contentTypes.videos) params.append('content_types', 'videos')
-      if (contentTypes.podcasts) params.append('content_types', 'podcasts')
+      if (activeContentTypes.papers) params.append('content_types', 'papers')
+      if (activeContentTypes.processes) params.append('content_types', 'processes')
+      if (activeContentTypes.videos) params.append('content_types', 'videos')
+      if (activeContentTypes.podcasts) params.append('content_types', 'podcasts')
 
       // Add discipline filters
-      const selectedDisciplines = Object.entries(disciplines)
+      const selectedDisciplines = Object.entries(activeDisciplines)
         .filter(([_, selected]) => selected)
         .map(([key, _]) => key)
       if (selectedDisciplines.length > 0) {
@@ -240,7 +307,7 @@ export default function KnowledgeMapView() {
       }
 
       // Add source filters
-      const selectedSources = Object.entries(sources)
+      const selectedSources = Object.entries(activeSources)
         .filter(([_, selected]) => selected)
         .map(([key, _]) => key)
       if (selectedSources.length > 0) {
@@ -248,12 +315,11 @@ export default function KnowledgeMapView() {
       }
 
       // Add date range
-      if (dateRange.start) params.append('date_start', dateRange.start)
-      if (dateRange.end) params.append('date_end', dateRange.end)
+      if (activeDateRange.start) params.append('date_start', activeDateRange.start)
+      if (activeDateRange.end) params.append('date_end', activeDateRange.end)
 
-      // Add keyword search (backend may not support this yet, but include for future)
-      if (keywordSearch.trim()) {
-        params.append('keyword', keywordSearch.trim())
+      if (activeKeywordSearch.trim()) {
+        params.append('keyword', activeKeywordSearch.trim())
       }
 
       // Add visualization options
@@ -261,16 +327,16 @@ export default function KnowledgeMapView() {
       params.append('color_by', colorBy)
 
       // Force rebuild if any filters are active (ensures we get fresh data matching filters)
-      const hasFilters = selectedDisciplines.length > 0 || selectedSources.length > 0 || 
-                         dateRange.start || dateRange.end || keywordSearch.trim()
+      const hasFilters = selectedDisciplines.length > 0 || selectedSources.length > 0 ||
+                         activeDateRange.start || activeDateRange.end || activeKeywordSearch.trim()
       params.append('force_rebuild', hasFilters ? 'true' : 'false')
 
       const url = `${API_BASE_URL}/api/knowledge-map/graph?${params}`
       console.log('Fetching from:', url)
       
-      // Add timeout to prevent hanging (30 seconds)
+      // Graph builds can take 60–90s on first load with filters; allow enough time.
       const controller = new AbortController()
-      const timeoutId = setTimeout(() => controller.abort(), 30000)
+      const timeoutId = setTimeout(() => controller.abort(), 120000)
       
       const response = await fetch(url, { signal: controller.signal })
       clearTimeout(timeoutId)
@@ -557,9 +623,11 @@ export default function KnowledgeMapView() {
 
           const params = new URLSearchParams({
             question,
-            max_context_items: '5',
-            content_types: 'papers', // bias toward papers for map explanations
+            max_context_items: '8',
+            mode,
+            content_types: 'papers,podcasts,glmp,math,chemistry,physics,computer_science,biology',
           })
+          params.set('focus_id', nodeId)
 
           const url = `${API_BASE_URL}/api/rag/answer?${params.toString()}`
           console.log('Fetching node explanation from:', url)
@@ -624,7 +692,7 @@ export default function KnowledgeMapView() {
       
       // Check if it's a timeout
       if (err.name === 'AbortError') {
-        setError('Request timed out after 30 seconds. The API is building the graph (this can take a while on first load). Try again in a few minutes or reduce "Max Papers" to 10.')
+        setError('Request timed out after 2 minutes. Try a Quick Example, reduce "Max Papers" to 10, or use a keyword to speed up retrieval.')
       } else {
         setError(`${errorMessage}. Check browser console (F12) for details. API: ${API_BASE_URL}`)
       }
@@ -645,6 +713,16 @@ export default function KnowledgeMapView() {
     } else {
       console.warn('Cannot reset view - map not loaded yet')
     }
+  }
+
+  const runUserSearch = () => {
+    const query = keywordSearch.trim()
+    if (!query) {
+      setError('Enter a topic, question, or keyword phrase to build a knowledge map.')
+      return
+    }
+    setError(null)
+    void loadKnowledgeMap({ keywordSearch: query })
   }
 
   const clearHighlights = () => {
@@ -669,7 +747,7 @@ export default function KnowledgeMapView() {
           <div>
             <h3 className="text-sm font-semibold text-blue-900">📖 How to Use the Knowledge Map</h3>
             <p className="text-xs text-blue-700 mt-1">
-              Select content types, apply filters, and customize the visualization below
+              Search for a topic, then refine with optional filters below
             </p>
           </div>
           <button
@@ -681,18 +759,57 @@ export default function KnowledgeMapView() {
         </div>
         {showInstructions && (
           <div className="mt-4 text-sm text-blue-800 space-y-2">
-            <p><strong>1. Select Content Types:</strong> Choose which types of content to visualize (Papers, Processes, Videos, Podcasts)</p>
-            <p><strong>2. Apply Filters:</strong> Filter by discipline, date range, keywords, or source</p>
-            <p><strong>3. Customize Visualization:</strong> Adjust node size, color coding, and what connections to show</p>
-            <p><strong>4. Interact:</strong> Click nodes to see details, drag to pan, scroll to zoom</p>
-            <p><strong>5. Reload:</strong> Click "Reload Map" after changing filters to update the visualization</p>
+            <p><strong>1. Search:</strong> Enter a topic in the search box and click Build Map (or press Enter)</p>
+            <p><strong>2. Refine (optional):</strong> Narrow by discipline, date range, or source below</p>
+            <p><strong>3. Interact:</strong> Click a paper node for an AI explanation; drag to pan, scroll to zoom</p>
+            <p><strong>4. Reload:</strong> After changing filters, click Reload Map to refresh</p>
           </div>
         )}
       </div>
 
       {/* Enhanced Controls Panel */}
       <div className="bg-white rounded-lg shadow p-6">
-        <h2 className="text-lg font-semibold text-gray-900 mb-4">Selection & Filters</h2>
+        <h2 className="text-lg font-semibold text-gray-900 mb-4">Search & Filters</h2>
+
+        {/* Primary search — drives vector retrieval for the map */}
+        <div className="mb-6 p-4 bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-lg">
+          <label htmlFor="knowledge-map-search" className="block text-sm font-semibold text-gray-900 mb-2">
+            Search the Knowledge Map
+          </label>
+          <p className="text-xs text-gray-600 mb-3">
+            Describe a topic or question. We retrieve related papers and lay them out as an interactive graph.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-2">
+            <input
+              id="knowledge-map-search"
+              type="text"
+              value={keywordSearch}
+              onChange={(e) => setKeywordSearch(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  e.preventDefault()
+                  runUserSearch()
+                }
+              }}
+              placeholder="e.g. nilpotent groups, CRISPR gene editing, mitochondrial respiration..."
+              className="flex-1 px-4 py-3 text-sm border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            />
+            <button
+              type="button"
+              onClick={runUserSearch}
+              disabled={loading}
+              className="px-6 py-3 bg-blue-600 text-white text-sm font-semibold rounded-lg hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors whitespace-nowrap"
+            >
+              {loading ? 'Building…' : 'Build Map'}
+            </button>
+          </div>
+          {keywordSearch.trim() && stats.nodes > 0 && !loading && (
+            <p className="text-xs text-green-700 mt-2">
+              Showing map for: <span className="font-medium">&ldquo;{keywordSearch.trim()}&rdquo;</span>
+              {' '}({stats.papers} papers, {stats.concepts} concepts)
+            </p>
+          )}
+        </div>
         
         {/* Quick Examples - curated to return results reliably */}
         <div className="mb-6 bg-blue-50 border border-blue-200 rounded-lg p-4">
@@ -703,34 +820,30 @@ export default function KnowledgeMapView() {
             <p className="text-xs font-medium text-blue-800 mb-1">📐 Mathematics:</p>
             <div className="flex flex-wrap gap-2">
               <button
-                onClick={() => {
-                  setContentTypes({ papers: true, processes: false, videos: false, podcasts: false })
-                  setDisciplines({ biology: false, chemistry: false, physics: false, mathematics: true, computer_science: false, interdisciplinary: false })
-                  setSources({ pubmed: false, arxiv: true, nasa_ads: false, crossref: true, youtube: false, rss: false })
-                  const end = new Date().toISOString().split('T')[0]
-                  const start = new Date(new Date().setFullYear(new Date().getFullYear() - 5)).toISOString().split('T')[0]
-                  setDateRange({ start, end })
-                  setKeywordSearch('nilpotent group')
-                  setTimeout(() => loadKnowledgeMap(), 100)
-                }}
+                onClick={() => runQuickExample({
+                  contentTypes: { papers: true, processes: false, videos: false, podcasts: false },
+                  disciplines: { biology: false, chemistry: false, physics: false, mathematics: true, computer_science: false, interdisciplinary: false },
+                  sources: { pubmed: false, arxiv: false, nasa_ads: false, crossref: false, youtube: false, rss: false },
+                  dateRange: { start: '', end: '' },
+                  keywordSearch: 'nilpotent group',
+                  maxPapers: 10,
+                })}
                 className="text-xs px-3 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
               >
-                Nilpotent Groups (Math Papers, last 5 years)
+                Nilpotent Groups (Math)
               </button>
               <button
-                onClick={() => {
-                  setContentTypes({ papers: true, processes: false, videos: false, podcasts: false })
-                  setDisciplines({ biology: false, chemistry: false, physics: false, mathematics: true, computer_science: false, interdisciplinary: false })
-                  setSources({ pubmed: false, arxiv: false, nasa_ads: false, crossref: true, youtube: false, rss: false })
-                  const end = new Date().toISOString().split('T')[0]
-                  const start = new Date(new Date().setFullYear(new Date().getFullYear() - 10)).toISOString().split('T')[0]
-                  setDateRange({ start, end })
-                  setKeywordSearch('spectral sequence')
-                  setTimeout(() => loadKnowledgeMap(), 100)
-                }}
+                onClick={() => runQuickExample({
+                  contentTypes: { papers: true, processes: false, videos: false, podcasts: false },
+                  disciplines: { biology: false, chemistry: false, physics: false, mathematics: true, computer_science: false, interdisciplinary: false },
+                  sources: { pubmed: false, arxiv: false, nasa_ads: false, crossref: false, youtube: false, rss: false },
+                  dateRange: { start: '', end: '' },
+                  keywordSearch: 'spectral sequence',
+                  maxPapers: 10,
+                })}
                 className="text-xs px-3 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
               >
-                Spectral Sequences (Crossref, last 10 years)
+                Spectral Sequences (Math)
               </button>
             </div>
           </div>
@@ -739,34 +852,30 @@ export default function KnowledgeMapView() {
             <p className="text-xs font-medium text-blue-800 mb-1">🧬 Biology:</p>
             <div className="flex flex-wrap gap-2">
               <button
-                onClick={() => {
-                  setContentTypes({ papers: true, processes: false, videos: false, podcasts: false })
-                  setDisciplines({ biology: true, chemistry: false, physics: false, mathematics: false, computer_science: false, interdisciplinary: false })
-                  setSources({ pubmed: true, arxiv: false, nasa_ads: false, crossref: true, youtube: false, rss: false })
-                  const end = new Date().toISOString().split('T')[0]
-                  const start = new Date(new Date().setFullYear(new Date().getFullYear() - 10)).toISOString().split('T')[0]
-                  setDateRange({ start, end })
-                  setKeywordSearch('aerobic respiration')
-                  setTimeout(() => loadKnowledgeMap(), 100)
-                }}
+                onClick={() => runQuickExample({
+                  contentTypes: { papers: true, processes: false, videos: false, podcasts: false },
+                  disciplines: { biology: true, chemistry: false, physics: false, mathematics: false, computer_science: false, interdisciplinary: false },
+                  sources: { pubmed: false, arxiv: false, nasa_ads: false, crossref: false, youtube: false, rss: false },
+                  dateRange: { start: '', end: '' },
+                  keywordSearch: 'aerobic respiration mitochondria',
+                  maxPapers: 10,
+                })}
                 className="text-xs px-3 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
               >
-                Aerobic Respiration (Bio papers, last 10 years)
+                Aerobic Respiration (Biology)
               </button>
               <button
-                onClick={() => {
-                  setContentTypes({ papers: true, processes: false, videos: false, podcasts: false })
-                  setDisciplines({ biology: true, chemistry: false, physics: false, mathematics: false, computer_science: false, interdisciplinary: false })
-                  setSources({ pubmed: true, arxiv: false, nasa_ads: false, crossref: true, youtube: false, rss: false })
-                  const end = new Date().toISOString().split('T')[0]
-                  const start = new Date(new Date().setFullYear(new Date().getFullYear() - 15)).toISOString().split('T')[0]
-                  setDateRange({ start, end })
-                  setKeywordSearch('acid resistance')
-                  setTimeout(() => loadKnowledgeMap(), 100)
-                }}
+                onClick={() => runQuickExample({
+                  contentTypes: { papers: true, processes: false, videos: false, podcasts: false },
+                  disciplines: { biology: true, chemistry: false, physics: false, mathematics: false, computer_science: false, interdisciplinary: false },
+                  sources: { pubmed: false, arxiv: false, nasa_ads: false, crossref: false, youtube: false, rss: false },
+                  dateRange: { start: '', end: '' },
+                  keywordSearch: 'glutamate acid resistance Escherichia coli',
+                  maxPapers: 10,
+                })}
                 className="text-xs px-3 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
               >
-                Acid Resistance (Bio papers, last 15 years)
+                Acid Resistance (Biology)
               </button>
             </div>
           </div>
@@ -873,10 +982,10 @@ export default function KnowledgeMapView() {
             </div>
           </div>
 
-          {/* Date Range & Keyword */}
+          {/* Date Range */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              Date Range
+              Date Range (optional)
             </label>
             <div className="space-y-2">
               <input
@@ -922,16 +1031,6 @@ export default function KnowledgeMapView() {
                 </button>
               </div>
             </div>
-            <label className="block text-sm font-medium text-gray-700 mb-2 mt-4">
-              Keyword Search
-            </label>
-            <input
-              type="text"
-              value={keywordSearch}
-              onChange={(e) => setKeywordSearch(e.target.value)}
-              placeholder="Search titles, abstracts..."
-              className="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-blue-500"
-            />
           </div>
         </div>
 
@@ -1106,7 +1205,7 @@ export default function KnowledgeMapView() {
 
         <div className="lg:col-span-2 bg-white rounded-lg shadow p-4">
           <h3 className="text-sm font-semibold text-gray-700 mb-2">
-            🧠 Node Explanation (Claude / GPT via RAG)
+            🧠 Node Explanation (OpenAI RAG)
           </h3>
           {!selectedNode && (
             <p className="text-xs text-gray-500">

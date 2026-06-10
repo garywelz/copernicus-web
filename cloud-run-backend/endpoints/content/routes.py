@@ -35,9 +35,72 @@ def _extract_count_value(count_result) -> int:
         return 0
 
 
+@router.get("/stats")
+async def content_stats():
+    """
+    Public totals plus how many `research_papers` documents have a text embedding
+    (uses `embedding_model` set by the auto-embedding pipeline; see utils/auto_embedding.py).
+    """
+    if not db:
+        raise HTTPException(status_code=503, detail="Database not available")
+
+    papers_ref = db.collection("research_papers")
+    try:
+        count_result = papers_ref.count().get()
+        papers_total = _extract_count_value(count_result)
+    except Exception as e:
+        structured_logger.warning("content_stats: failed total count", error=str(e))
+        papers_total = 0
+
+    papers_with_embedding = 0
+    count_note = None
+    try:
+        from google.cloud.firestore_v1.base_query import FieldFilter  # type: ignore
+
+        # String field written whenever Vector(embedding) is stored (avoids vector inequality quirks).
+        q = papers_ref.where(filter=FieldFilter("embedding_model", ">", ""))
+        emb_res = q.count().get()
+        papers_with_embedding = _extract_count_value(emb_res)
+    except Exception as e:
+        count_note = (
+            "Could not count papers with embeddings (index or permissions). "
+            f"Error: {str(e)[:200]}"
+        )
+        structured_logger.warning("content_stats: embedding count failed", error=str(e))
+
+    coverage = None
+    if papers_total and papers_with_embedding is not None:
+        try:
+            coverage = round(100.0 * float(papers_with_embedding) / float(papers_total), 2)
+        except Exception:
+            coverage = None
+
+    return {
+        "papers_total": papers_total,
+        "papers_with_embedding": papers_with_embedding,
+        "papers_embedding_coverage_percent": coverage,
+        "count_method": "Documents with non-empty embedding_model in research_papers (see auto_embedding).",
+        "note": count_note,
+    }
+
+
+PROCESS_FAMILY_COLLECTIONS = {
+    "glmp": "glmp_processes",
+    "math": "math_processes",
+    "chemistry": "chemistry_processes",
+    "physics": "physics_processes",
+    "computer_science": "computer_science_processes",
+    "biology": "biology_processes",
+}
+
+
 @router.get("/browse")
 async def browse_content(
-    content_type: str = Query(..., description="Content type: papers, podcasts, or processes"),
+    content_type: str = Query(..., description="Content type: papers, podcasts, processes, or videos"),
+    process_family: Optional[str] = Query(
+        None,
+        description="For processes: glmp, math, chemistry, physics, computer_science, biology (default glmp)",
+    ),
     page: int = Query(1, ge=1, description="Page number"),
     limit: int = Query(20, ge=1, le=100, description="Items per page")
 ):
@@ -135,33 +198,54 @@ async def browse_content(
                 })
         
         elif content_type == "processes":
-            # Get GLMP processes from Firestore
-            processes_ref = db.collection('glmp_processes')
+            family = (process_family or "glmp").strip().lower()
+            collection = PROCESS_FAMILY_COLLECTIONS.get(family)
+            if not collection:
+                raise HTTPException(
+                    status_code=400,
+                    detail=f"Invalid process_family: {family}. Use: {', '.join(PROCESS_FAMILY_COLLECTIONS)}",
+                )
+            processes_ref = db.collection(collection)
             try:
                 count_result = processes_ref.count().get()
                 total = _extract_count_value(count_result)
             except Exception as e:
                 structured_logger.warning("Failed to count processes", error=str(e))
                 total = 0
-            
-            query = processes_ref.order_by('name').limit(limit).offset((page - 1) * limit)
-            processes = query.stream()
-            
-            for process in processes:
-                process_data = process.to_dict()
+
+            try:
+                from google.cloud import firestore  # type: ignore
+                query = processes_ref.order_by("name", direction=firestore.Query.ASCENDING)
+            except Exception:
+                query = processes_ref.order_by("title")
+            query = query.limit(limit).offset((page - 1) * limit)
+
+            for process in query.stream():
+                process_data = process.to_dict() or {}
+                title = process_data.get("name") or process_data.get("title") or "Untitled"
                 items.append({
-                    'id': process.id,
-                    'title': process_data.get('name', 'Untitled'),
-                    'type': 'process',
-                    'description': process_data.get('description', '')[:200] if process_data.get('description') else '',
-                    'metadata': {
-                        'discipline': process_data.get('discipline'),
-                        'category': process_data.get('category')
-                    }
+                    "id": process.id,
+                    "title": title,
+                    "type": "process",
+                    "description": (process_data.get("description") or "")[:200],
+                    "metadata": {
+                        "process_family": family,
+                        "category": process_data.get("category"),
+                        "subcategory": process_data.get("subcategory"),
+                    },
                 })
-        
+
+        elif content_type == "videos":
+            raise HTTPException(
+                status_code=501,
+                detail="Video browse uses GCS catalog: videos-catalog.json (753 videos). Firestore sync pending.",
+            )
+
         else:
-            raise HTTPException(status_code=400, detail=f"Invalid content type: {content_type}. Must be papers, podcasts, or processes")
+            raise HTTPException(
+                status_code=400,
+                detail="Invalid content_type. Use: papers, podcasts, processes, videos",
+            )
         
         return {
             'content_type': content_type,

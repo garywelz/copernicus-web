@@ -25,6 +25,7 @@ from mcp_server.config import (
     COLLECTION_CHEMISTRY_PROCESSES,
     COLLECTION_PHYSICS_PROCESSES,
     COLLECTION_COMPUTER_SCIENCE_PROCESSES,
+    COLLECTION_BIOLOGY_PROCESSES,
     DEFAULT_QUERY_LIMIT,
     MAX_QUERY_LIMIT
 )
@@ -64,6 +65,19 @@ def _tokenize_query(query: str) -> List[str]:
     # Keep short tokens only if they're meaningful (e.g., "ph", "ai" are ambiguous)
     filtered = [t for t in tokens if (t not in _STOPWORDS) and (len(t) >= 3)]
     return filtered or tokens  # fallback to raw tokens if everything was filtered out
+
+
+def _search_results_total(results: dict) -> int:
+    return (
+        len(results.get("papers", []))
+        + len(results.get("podcasts", []))
+        + len(results.get("glmp_processes", []))
+        + len(results.get("math_processes", []))
+        + len(results.get("chemistry_processes", []))
+        + len(results.get("physics_processes", []))
+        + len(results.get("computer_science_processes", []))
+        + len(results.get("biology_processes", []))
+    )
 
 
 def _score_text(tokens: List[str], title: str, body: str) -> float:
@@ -162,6 +176,7 @@ def _keyword_fallback_search(
         "chemistry_processes": [],
         "physics_processes": [],
         "computer_science_processes": [],
+        "biology_processes": [],
     }
 
     def _top_k(scored: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
@@ -312,6 +327,15 @@ def _keyword_fallback_search(
             body_fields=["description", "category", "subcategory", "entities", "keywords"]
         )
 
+    # Biology processes
+    if "biology" in content_types:
+        results["biology_processes"] = _keyword_processes(
+            COLLECTION_BIOLOGY_PROCESSES,
+            "biology_processes",
+            title_fields=["title", "name"],
+            body_fields=["description", "category", "subcategory", "entities", "keywords"]
+        )
+
     return results
 
 
@@ -344,21 +368,22 @@ async def search_semantic(
         
         # Default to all content types if not specified
         if not content_types:
-            content_types = ["papers", "podcasts", "glmp", "math", "chemistry", "physics", "computer_science"]
+            content_types = [
+                "papers", "podcasts", "glmp", "math", "chemistry",
+                "physics", "computer_science", "biology",
+            ]
         
         # Initialize services
         db = get_firestore_client()
 
-        # If Vertex/embeddings are disabled, skip vector search entirely and go keyword-first.
+        # Query embedding: OpenAI (preferred) or Vertex via embedding_factory — not gated on DISABLE_VERTEX_AI.
         query_embedding = None
-        if not VERTEX_AI_DISABLED:
-            try:
-                embedding_service = get_embedding_service()
-                # Generate query embedding
-                query_embedding = embedding_service.embed_text(query)
-            except Exception as e:
-                logger.warning(f"Embedding generation unavailable; using keyword search only: {e}")
-                query_embedding = None
+        try:
+            embedding_service = get_embedding_service()
+            query_embedding = embedding_service.embed_text(query)
+        except Exception as e:
+            logger.warning(f"Embedding generation unavailable; using keyword search only: {e}")
+            query_embedding = None
         
         results = {
             "query": query,
@@ -370,6 +395,7 @@ async def search_semantic(
             "chemistry_processes": [],
             "physics_processes": [],
             "computer_science_processes": [],
+            "biology_processes": [],
             "search_method": "vector_semantic" if query_embedding is not None else "keyword_only"
         }
 
@@ -392,10 +418,8 @@ async def search_semantic(
                     "chemistry_processes": len(results["chemistry_processes"]),
                     "physics_processes": len(results["physics_processes"]),
                     "computer_science_processes": len(results["computer_science_processes"]),
-                    "total": (len(results["papers"]) + len(results["podcasts"]) +
-                              len(results["glmp_processes"]) + len(results["math_processes"]) +
-                              len(results["chemistry_processes"]) + len(results["physics_processes"]) +
-                              len(results["computer_science_processes"]))
+                    "biology_processes": len(results["biology_processes"]),
+                    "total": _search_results_total(results),
                 }
                 return json.dumps(results, indent=2)
             except Exception as e:
@@ -632,6 +656,32 @@ async def search_semantic(
                 logger.warning(f"Vector search for computer science processes failed: {e}")
                 results["computer_science_processes"] = []
         
+        # Search biology processes using vector search
+        if "biology" in content_types:
+            try:
+                bio_ref = db.collection(COLLECTION_BIOLOGY_PROCESSES)
+                vector_query = bio_ref.find_nearest(
+                    vector_field="embedding",
+                    query_vector=Vector(query_embedding),
+                    limit=limit,
+                    distance_measure=DistanceMeasure.COSINE,
+                    distance_threshold=distance_threshold
+                )
+                for doc in vector_query.stream():
+                    bio_data = doc.to_dict()
+                    bio_data["process_id"] = doc.id
+                    bio_data["similarity_score"] = 1.0 - bio_data.get("distance", 1.0)
+                    bio_data.pop("embedding", None)
+                    if "mermaid_code" in bio_data and len(str(bio_data["mermaid_code"])) > 500:
+                        bio_data["has_mermaid"] = True
+                        bio_data.pop("mermaid_code", None)
+                    bio_data = _serialize_firestore_value(bio_data)
+                    results["biology_processes"].append(bio_data)
+                logger.info(f"Found {len(results['biology_processes'])} biology processes via vector search")
+            except Exception as e:
+                logger.warning(f"Vector search for biology processes failed: {e}")
+                results["biology_processes"] = []
+
         # Add summary counts
         results["counts"] = {
             "papers": len(results["papers"]),
@@ -641,10 +691,8 @@ async def search_semantic(
             "chemistry_processes": len(results["chemistry_processes"]),
             "physics_processes": len(results["physics_processes"]),
             "computer_science_processes": len(results["computer_science_processes"]),
-            "total": (len(results["papers"]) + len(results["podcasts"]) + 
-                     len(results["glmp_processes"]) + len(results["math_processes"]) +
-                     len(results["chemistry_processes"]) + len(results["physics_processes"]) +
-                     len(results["computer_science_processes"]))
+            "biology_processes": len(results["biology_processes"]),
+            "total": _search_results_total(results),
         }
 
         # If vector search yields nothing (common when embeddings aren't present),
@@ -668,10 +716,8 @@ async def search_semantic(
                     "chemistry_processes": len(results["chemistry_processes"]),
                     "physics_processes": len(results["physics_processes"]),
                     "computer_science_processes": len(results["computer_science_processes"]),
-                    "total": (len(results["papers"]) + len(results["podcasts"]) +
-                              len(results["glmp_processes"]) + len(results["math_processes"]) +
-                              len(results["chemistry_processes"]) + len(results["physics_processes"]) +
-                              len(results["computer_science_processes"]))
+                    "biology_processes": len(results["biology_processes"]),
+                    "total": _search_results_total(results),
                 }
                 logger.info(
                     "Vector search returned 0 results; keyword fallback used",

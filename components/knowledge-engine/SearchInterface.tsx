@@ -8,8 +8,7 @@
 'use client'
 
 import { useState } from 'react'
-
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://copernicus-podcast-api-phzp4ie2sq-uc.a.run.app'
+import { API_BASE_URL, ALL_PROCESS_CONTENT_TYPES } from './constants'
 
 type SearchResult = {
   id: string
@@ -20,6 +19,15 @@ type SearchResult = {
   similarity_score?: number
   type: 'paper' | 'podcast' | 'process'
 }
+
+// Normalize titles/abstracts that may contain simple HTML or LaTeX markers
+const normalizeText = (text: string): string =>
+  text
+    // Strip basic HTML tags like <i>Escherichia coli</i>
+    .replace(/<[^>]+>/g, '')
+    // Unwrap inline LaTeX-style $...$ markers
+    .replace(/\$([^$]+)\$/g, '$1')
+    .replace(/\$/g, '')
 
 export default function SearchInterface() {
   const [query, setQuery] = useState('')
@@ -50,7 +58,7 @@ export default function SearchInterface() {
       const types: string[] = []
       if (contentTypes.papers) types.push('papers')
       if (contentTypes.podcasts) types.push('podcasts')
-      if (contentTypes.processes) types.push('glmp', 'math', 'chemistry', 'physics', 'computer_science')
+      if (contentTypes.processes) types.push(...ALL_PROCESS_CONTENT_TYPES)
 
       if (types.length > 0) {
         params.append('content_types', types.join(','))
@@ -93,11 +101,20 @@ export default function SearchInterface() {
         })
       }
 
-      if (data.glmp_processes) {
-        data.glmp_processes.forEach((process: any) => {
+      const processBuckets = [
+        'glmp_processes',
+        'math_processes',
+        'chemistry_processes',
+        'physics_processes',
+        'computer_science_processes',
+        'biology_processes',
+      ] as const
+      for (const bucket of processBuckets) {
+        const list = data[bucket] || []
+        list.forEach((process: any) => {
           allResults.push({
             id: process.process_id || process.id,
-            title: process.title || 'Untitled Process',
+            title: process.title || process.name || 'Untitled Process',
             abstract: process.description,
             similarity_score: process.similarity_score,
             type: 'process',
@@ -144,8 +161,8 @@ export default function SearchInterface() {
               </>
             ) : (
               <>
-                <strong>Vector Search Status:</strong> Vector search requires content to have embeddings. Content exists in the database, but embeddings may still be missing.
-                <strong> Use the Browse tab to see available content.</strong>
+                <strong>Vector Search:</strong> Semantic search across papers, podcasts, and six process families
+                (OpenAI embeddings). Keyword mode is used when the query embedding service is unavailable.
               </>
             )}
           </p>
@@ -206,7 +223,7 @@ export default function SearchInterface() {
                     onChange={(e) => setContentTypes({ ...contentTypes, processes: e.target.checked })}
                     className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
                   />
-                  <span className="text-sm text-gray-700">Processes</span>
+                  <span className="text-sm text-gray-700">Processes (all 6 families)</span>
                 </label>
               </div>
             </div>
@@ -248,7 +265,7 @@ export default function SearchInterface() {
                 <div className="flex items-start justify-between mb-2">
                   <div className="flex-1">
                     <h4 className="text-lg font-medium text-gray-900">
-                      {result.title.replace(/\$([^$]+)\$/g, '$1').replace(/\$/g, '')}
+                      {normalizeText(result.title)}
                     </h4>
                     <div className="flex items-center space-x-2 mt-1">
                       <span className="text-xs px-2 py-1 bg-blue-100 text-blue-800 rounded">
@@ -264,7 +281,7 @@ export default function SearchInterface() {
                 </div>
                 {result.abstract && (
                   <p className="text-sm text-gray-600 mt-2 line-clamp-3">
-                    {result.abstract}
+                    {normalizeText(result.abstract)}
                   </p>
                 )}
                 {result.authors && result.authors.length > 0 && (

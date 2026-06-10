@@ -641,7 +641,9 @@ async def generate_content_google_api(request: PodcastRequest, google_key: str) 
 
 async def generate_podcast_from_analysis(paper: ResearchPaper, analysis: PaperAnalysis, request: PodcastRequest, api_key: str) -> dict:
     """Generate character-driven podcast content from research paper analysis"""
-    client = google_genai_client.Client(api_key=api_key)
+    # Use google.generativeai directly for Google AI API (not the unified client)
+    import google.generativeai as genai
+    genai.configure(api_key=api_key)
     
     # Get Copernicus character configuration
     character = get_copernicus_character()
@@ -768,27 +770,41 @@ IMPORTANT: Do NOT include a "## Episode Overview" header. Start directly with 1-
     try:
         structured_logger.info("Generating podcast script from research analysis",
                               paper_title=paper.title[:50] if paper and paper.title else None)
-        # Try Gemini 3.0 first, fallback to 2.5 if not available
-        model_name = 'models/gemini-3.0-flash'
-        try:
-            response_obj = client.models.generate_content(
-                model=model_name,
-                contents=prompt
-            )
-        except Exception as e:
-            error_msg = str(e).lower()
-            if "not found" in error_msg or "does not exist" in error_msg:
-                structured_logger.info("Gemini 3.0 not available, falling back to 2.5")
-                model_name = 'models/gemini-2.5-flash'
-                response_obj = client.models.generate_content(
-                    model=model_name,
-                    contents=prompt
-                )
-            else:
-                raise
+        # Use Google AI API format (without models/ prefix) with fallback chain
+        # Only use stable 2.5 models - gemini-1.5-flash may not be available
+        fallback_models = ['gemini-2.5-flash', 'gemini-2.5-pro']
+        response_obj = None
+        model_name = None
+        last_error = None
         
-        if response_obj and response_obj.text:
-            content = _extract_json_from_response(response_obj.text)
+        for model in fallback_models:
+            try:
+                structured_logger.info("Trying Google AI API model", model=model, paper_title=paper.title[:50] if paper and paper.title else None)
+                model_name = model
+                # Use google.generativeai.GenerativeModel (not client.models.generate_content)
+                generative_model = genai.GenerativeModel(model)
+                response_obj = generative_model.generate_content(prompt)
+                structured_logger.info("Google AI API successful", model=model, paper_title=paper.title[:50] if paper and paper.title else None)
+                break
+            except Exception as e:
+                last_error = e
+                error_msg = str(e).lower()
+                structured_logger.warning("Google AI API model failed, trying next",
+                                        model=model,
+                                        error=str(e),
+                                        paper_title=paper.title[:50] if paper and paper.title else None)
+                if "not found" in error_msg or "does not exist" in error_msg or "404" in error_msg:
+                    continue  # Try next model
+                else:
+                    raise  # Re-raise if it's not a "model not found" error
+        
+        if not response_obj:
+            raise last_error or Exception("All Google AI API models failed")
+        
+        # Extract text from response (google.generativeai returns response with .text attribute)
+        response_text = response_obj.text if hasattr(response_obj, 'text') else str(response_obj)
+        if response_text:
+            content = _extract_json_from_response(response_text)
             structured_logger.info("Research-driven podcast content generated successfully",
                                   model=model_name)
             return content
@@ -804,7 +820,9 @@ IMPORTANT: Do NOT include a "## Episode Overview" header. Start directly with 1-
 
 async def generate_topic_research_content(request: PodcastRequest, api_key: str) -> dict:
     """Generate character-driven research content for a topic without specific paper"""
-    client = google_genai_client.Client(api_key=api_key)
+    # Use google.generativeai directly for Google AI API (not the unified client)
+    import google.generativeai as genai
+    genai.configure(api_key=api_key)
     
     # Get Copernicus character configuration
     character = get_copernicus_character()
@@ -912,28 +930,41 @@ After generating the main content, create a detailed description following this 
     try:
         structured_logger.info("Generating topic-based research content with Gemini",
                               topic=request.topic)
-        # Try Gemini 3.0 first, fallback to 2.5 if not available
-        model_name = 'models/gemini-3.0-flash'
-        try:
-            response_obj = client.models.generate_content(
-                model=model_name,
-                contents=prompt
-            )
-        except Exception as e:
-            error_msg = str(e).lower()
-            if "not found" in error_msg or "does not exist" in error_msg:
-                structured_logger.info("Gemini 3.0 not available, falling back to 2.5",
-                                      topic=request.topic)
-                model_name = 'models/gemini-2.5-flash'
-                response_obj = client.models.generate_content(
-                    model=model_name,
-                    contents=prompt
-                )
-            else:
-                raise
+        # Use Google AI API format (without models/ prefix) with fallback chain
+        # Only use stable 2.5 models - gemini-1.5-flash may not be available
+        fallback_models = ['gemini-2.5-flash', 'gemini-2.5-pro']
+        response_obj = None
+        model_name = None
+        last_error = None
         
-        if response_obj and response_obj.text:
-            content = _extract_json_from_response(response_obj.text)
+        for model in fallback_models:
+            try:
+                structured_logger.info("Trying Google AI API model", model=model, topic=request.topic)
+                model_name = model
+                # Use google.generativeai.GenerativeModel (not client.models.generate_content)
+                generative_model = genai.GenerativeModel(model)
+                response_obj = generative_model.generate_content(prompt)
+                structured_logger.info("Google AI API successful", model=model, topic=request.topic)
+                break
+            except Exception as e:
+                last_error = e
+                error_msg = str(e).lower()
+                structured_logger.warning("Google AI API model failed, trying next",
+                                        model=model,
+                                        error=str(e),
+                                        topic=request.topic)
+                if "not found" in error_msg or "does not exist" in error_msg or "404" in error_msg:
+                    continue  # Try next model
+                else:
+                    raise  # Re-raise if it's not a "model not found" error
+        
+        if not response_obj:
+            raise last_error or Exception("All Google AI API models failed")
+        
+        # Extract text from response (google.generativeai returns response with .text attribute)
+        response_text = response_obj.text if hasattr(response_obj, 'text') else str(response_obj)
+        if response_text:
+            content = _extract_json_from_response(response_text)
             
             # Apply content fixes
             if 'script' in content:
@@ -2253,20 +2284,20 @@ Please provide:
 
 Format your response as JSON with keys: key_findings (array), summary (string), entities (object with arrays for genes, proteins, equations, methods, organisms)"""
 
-        # Use available AI model
-        model_used = "gemini-2.0-flash"
+        # Use available AI model (updated to gemini-2.5-flash - gemini-2.0 deprecated June 1, 2026)
+        model_used = "gemini-2.5-flash"
         response_text = ""
         
         if vertex_ai_model:
             response = vertex_ai_model.models.generate_content(
-                model='models/gemini-2.0-flash',
+                model='models/gemini-2.5-flash',
                 contents=prompt
             )
             response_text = response.text
         elif get_google_api_key():
             import google.generativeai as genai
             genai.configure(api_key=get_google_api_key())
-            model = genai.GenerativeModel('gemini-2.0-flash')
+            model = genai.GenerativeModel('gemini-2.5-flash')
             response = model.generate_content(prompt)
             response_text = response.text
         else:

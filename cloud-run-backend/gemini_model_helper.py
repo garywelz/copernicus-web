@@ -5,12 +5,12 @@ Tries Gemini 3.0 first, then falls back to 2.5, then 2.0, then 1.5.
 from typing import Optional, List
 
 # Model priority order (best to worst)
+# Updated: Removed gemini-2.0 models (deprecated June 1, 2026)
 GEMINI_MODEL_PRIORITY = [
     'models/gemini-3.0-flash',
     'models/gemini-3.0-pro',
     'models/gemini-2.5-flash',
-    'models/gemini-2.0-flash-exp',
-    'models/gemini-1.5-flash',
+    'models/gemini-2.5-pro',
 ]
 
 # Fallback models for different contexts
@@ -18,21 +18,21 @@ PODCAST_GENERATION_MODELS = [
     'models/gemini-3.0-flash',
     'models/gemini-3.0-pro',
     'models/gemini-2.5-flash',
-    'models/gemini-2.0-flash-exp',
+    'models/gemini-2.5-pro',
 ]
 
 RESEARCH_CONTEXT_MODELS = [
     'models/gemini-3.0-flash',
     'models/gemini-3.0-pro',
     'models/gemini-2.5-flash',
-    'models/gemini-2.0-flash-exp',
+    'models/gemini-2.5-pro',
 ]
 
 PAPER_ANALYSIS_MODELS = [
     'models/gemini-3.0-pro',
     'models/gemini-3.0-flash',
     'models/gemini-2.5-flash',
-    'gemini-pro',  # Older format
+    'models/gemini-2.5-pro',
 ]
 
 def get_best_available_model(model_list: Optional[List[str]] = None) -> str:

@@ -68,7 +68,9 @@ export default function KnowledgeEnginePage() {
           <div className="flex justify-between items-center py-4">
             <div>
               <h1 className="text-2xl font-bold text-gray-900">CopernicusAI Knowledge Engine: Research Tools</h1>
-              <p className="text-sm text-gray-600">Explore research papers, concepts, and relationships</p>
+              <p className="text-sm text-gray-600">
+                Papers, podcasts, videos, and 594 process charts across six scientific families
+              </p>
             </div>
           </div>
         </div>

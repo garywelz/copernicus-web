@@ -165,7 +165,7 @@ async def test_rag():
     ]
     
     rag_service = get_rag_service()
-    if not rag_service.model:
+    if not rag_service.llm_available:
         print("   ⚠️  RAG service LLM client not available")
         return []
     

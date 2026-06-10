@@ -86,7 +86,12 @@ async def analyze_paper_with_gemini(paper: ResearchPaper, options: AnalyzeOption
     
     # Configure Gemini
     genai.configure(api_key=api_key)
-    model = genai.GenerativeModel('gemini-pro')
+    # Use stable 2.5 models - gemini-1.5-flash may not be available
+    try:
+        model = genai.GenerativeModel('gemini-2.5-flash')
+    except Exception:
+        # Fallback to gemini-2.5-pro if flash not available
+        model = genai.GenerativeModel('gemini-2.5-pro')
     
     # Create comprehensive analysis prompt
     prompt = f"""

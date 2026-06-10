@@ -12,7 +12,8 @@ class EnhancedContentGenerator:
     
     def __init__(self, character_config: Optional[CharacterConfig] = None):
         self.character = character_config or CharacterConfig()
-        self.model = GenerativeModel('gemini-1.5-flash')
+        # Use stable 2.5 models - gemini-1.5-flash may not be available
+        self.model = GenerativeModel('gemini-2.5-flash')
         
     async def generate_character_driven_content(self, request_data: Dict) -> Dict:
         """Generate content using character-driven approach"""

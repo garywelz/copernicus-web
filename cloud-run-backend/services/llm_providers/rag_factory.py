@@ -3,7 +3,7 @@ RAG Service Factory
 
 Automatically selects the best available RAG provider based on:
 1. RAG_PROVIDER environment variable (if set)
-2. API key availability (prioritizes Claude > OpenAI > Vertex AI)
+2. API key availability (prioritizes OpenAI > Claude > Vertex AI)
 """
 
 import os
@@ -19,8 +19,8 @@ def get_rag_service():
     Get RAG service instance, automatically selecting the best available provider.
     
     Priority order:
-    1. Anthropic Claude (if ANTHROPIC_API_KEY is set) - good quality/cost balance
-    2. OpenAI (if OPENAI_API_KEY is set) - cheaper option
+    1. OpenAI (if OPENAI_API_KEY is set) - matches embedding provider
+    2. Anthropic Claude (if ANTHROPIC_API_KEY is set) - alternative
     3. Vertex AI (if available and not disabled) - fallback
     
     Returns:
@@ -32,22 +32,8 @@ def get_rag_service():
     # Check for explicit provider selection
     provider = os.getenv("RAG_PROVIDER", "").strip().lower()
     
-    # Try Anthropic Claude first (good quality/cost balance)
-    if provider in ("", "anthropic", "claude", "auto"):
-        # Check environment or Secret Manager
-        from services.llm_providers.secret_manager_helpers import get_anthropic_api_key
-        if get_anthropic_api_key():
-            try:
-                from services.llm_providers.claude_rag import ClaudeRAGService
-                service = ClaudeRAGService()
-                structured_logger.info("Using Claude RAG service")
-                return service
-            except Exception as e:
-                logger.warning(f"Failed to initialize Claude RAG: {e}")
-    
-    # Try OpenAI second (cheaper)
+    # Try OpenAI first (same provider as embeddings)
     if provider in ("", "openai", "auto"):
-        # Check environment or Secret Manager
         from services.llm_providers.secret_manager_helpers import get_openai_api_key
         if get_openai_api_key():
             try:
@@ -57,6 +43,18 @@ def get_rag_service():
                 return service
             except Exception as e:
                 logger.warning(f"Failed to initialize OpenAI RAG: {e}")
+
+    # Try Anthropic Claude second
+    if provider in ("", "anthropic", "claude", "auto"):
+        from services.llm_providers.secret_manager_helpers import get_anthropic_api_key
+        if get_anthropic_api_key():
+            try:
+                from services.llm_providers.claude_rag import ClaudeRAGService
+                service = ClaudeRAGService()
+                structured_logger.info("Using Claude RAG service")
+                return service
+            except Exception as e:
+                logger.warning(f"Failed to initialize Claude RAG: {e}")
     
     # Fallback to Vertex AI (if not disabled)
     if provider in ("", "vertex_ai", "vertex", "auto"):

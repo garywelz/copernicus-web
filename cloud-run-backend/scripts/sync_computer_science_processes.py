@@ -28,7 +28,7 @@ logger = logging.getLogger(__name__)
 
 # GCS Configuration
 GCS_BUCKET_NAME = os.getenv("GCS_BUCKET_NAME", "regal-scholar-453620-r7-podcast-storage")
-COMPUTER_SCIENCE_PROCESSES_BUCKET_PATH = "computer_science-processes-database"
+COMPUTER_SCIENCE_PROCESSES_BUCKET_PATH = "computer-science-processes-database"
 
 
 def create_text_for_computer_science_process(process_data: Dict[str, Any]) -> str:

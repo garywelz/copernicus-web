@@ -2,323 +2,253 @@
 """
 Sync Mathematics Processes from Google Cloud Storage to Firestore
 
-Reads mathematics process JSON files from GCS, generates embeddings,
-and syncs them to CopernicusAI Firestore for vector search.
+Reads canonical JSON from mathematics-processes-database/processes/ on GCS
+and syncs to CopernicusAI Firestore (math_processes).
+
+Embeddings: use backfill_embeddings.py --collection math_processes (OpenAI 1536d).
+This script does not write Vertex embeddings to avoid mixed vector spaces.
 """
 
 import sys
 import os
 from pathlib import Path
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Dict, Any, Optional, List
 import json
 import re
 
-# Add parent directory to path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from google.cloud import firestore
 from google.cloud import storage
-from google.cloud.firestore_v1.vector import Vector
-from services.embedding_service import get_embedding_service
-from utils.logging import structured_logger
 import logging
 
 logger = logging.getLogger(__name__)
 
-# GCS Configuration
 GCS_BUCKET_NAME = os.getenv("GCS_BUCKET_NAME", "regal-scholar-453620-r7-podcast-storage")
-MATH_PROCESSES_BUCKET_PATH = "math-processes-database"
+MATH_PROCESSES_BUCKET_PATH = "mathematics-processes-database"
+PROCESSES_PREFIX = f"{MATH_PROCESSES_BUCKET_PATH}/processes/"
+
+SKIP_JSON_NAMES = {
+    "metadata.json",
+    "process-index.json",
+    "catalog_config.json",
+    "index.json",
+}
 
 
 def create_text_for_math_process(process_data: Dict[str, Any]) -> str:
-    """Create text representation of math process for embedding."""
+    """Text for embedding (also used by vector_search.create_text_for_math)."""
     parts = []
-    
-    # Title
-    title = process_data.get('title', '')
-    if title:
-        parts.append(title)
-    
-    # Description
-    description = process_data.get('description', '')
-    if description:
-        parts.append(description)
-    
-    # Category and subcategory
-    category = process_data.get('category', '')
-    subcategory = process_data.get('subcategory', '')
-    if category:
-        parts.append(f"Category: {category}")
-    if subcategory:
-        parts.append(f"Subcategory: {subcategory}")
-    
-    # Entities
-    entities = process_data.get('entities', [])
-    if entities and isinstance(entities, list):
-        parts.append("Entities: " + ", ".join(entities[:20]))  # First 20 entities
-    
-    # Extract text from Mermaid diagram (node labels)
-    mermaid = process_data.get('mermaid', '')
+    for field in ("name", "title", "description"):
+        val = process_data.get(field, "")
+        if val:
+            parts.append(str(val))
+    for field in ("category", "subcategory", "subcategory_name"):
+        val = process_data.get(field, "")
+        if val:
+            parts.append(f"{field}: {val}")
+    keywords = process_data.get("keywords") or []
+    if keywords:
+        parts.append("Keywords: " + ", ".join(keywords[:20]))
+    mermaid = process_data.get("mermaid") or process_data.get("mermaid_code") or ""
     if mermaid:
-        # Extract node labels from Mermaid syntax
-        # Look for patterns like "A[Label]" or "A(Label)" or "A{Label}"
-        node_pattern = r'[A-Za-z0-9_]+[\[\(\{]([^\]]+)[\]\)\}]'
+        node_pattern = r'[A-Za-z0-9_]+[\[\(\{]([^\]\)\}]+)[\]\)\}]'
         nodes = re.findall(node_pattern, mermaid)
         if nodes:
-            # Add first 30 node labels
             parts.append("Process steps: " + ", ".join(nodes[:30]))
-    
     return "\n".join(parts)
 
 
-def convert_math_to_firestore_format(process_data: Dict[str, Any], process_id: str, file_path: str) -> Dict[str, Any]:
-    """Convert math process data to Firestore format."""
+def convert_math_to_firestore_format(
+    process_data: Dict[str, Any], process_id: str, file_path: str
+) -> Dict[str, Any]:
+    """Map JSON-canonical schema to Firestore math_processes document."""
+    name = process_data.get("name") or process_data.get("title") or process_id
+    complexity = process_data.get("complexity") or {}
+    if isinstance(complexity, dict):
+        level = complexity.get("level", "medium")
+    else:
+        level = str(complexity)
+
     return {
         "process_id": process_id,
-        "title": process_data.get('title', process_id),
-        "description": process_data.get('description', ''),
-        "category": process_data.get('category', 'mathematics'),
-        "subcategory": process_data.get('subcategory', 'general'),
-        "mermaid_code": process_data.get('mermaid', ''),
-        "entities": process_data.get('entities', []),
+        "id": process_data.get("id", process_id),
+        "name": name,
+        "title": name,
+        "description": process_data.get("description", ""),
+        "category": process_data.get("category", "mathematics"),
+        "subcategory": process_data.get("subcategory", "general"),
+        "subcategory_name": process_data.get("subcategory_name", ""),
+        "processType": process_data.get("processType", "algorithm"),
+        "mermaid": process_data.get("mermaid", ""),
+        "mermaid_code": process_data.get("mermaid", ""),
+        "keywords": process_data.get("keywords", []),
+        "sources": process_data.get("sources", []),
         "metadata": {
-            "source": process_data.get('metadata', {}).get('source', 'programming_framework'),
-            "color_scheme": process_data.get('metadata', {}).get('color_scheme', 'discipline_based'),
-            "node_count": process_data.get('metadata', {}).get('node_count', 0),
-            "complexity": process_data.get('metadata', {}).get('complexity', 'medium'),
+            "source": "json_canonical",
             "file_path": file_path,
-            "gcs_url": f"gs://{GCS_BUCKET_NAME}/{file_path}"
+            "gcs_url": f"gs://{GCS_BUCKET_NAME}/{file_path}",
+            "complexity": level,
+            "verified": process_data.get("verified", True),
+            "flowchartStandard": process_data.get("flowchartStandard", "GLMP_6color"),
         },
-        "created_at": datetime.utcnow().isoformat(),
-        "updated_at": datetime.utcnow().isoformat(),
+        "created_at": process_data.get("created", datetime.now(timezone.utc).isoformat()),
+        "updated_at": datetime.now(timezone.utc).isoformat(),
     }
 
 
 def list_math_process_files(bucket_name: str, bucket_path: str) -> List[str]:
-    """List all math process JSON files in GCS."""
+    """List process JSON files under processes/ only."""
     client = storage.Client()
     bucket = client.bucket(bucket_name)
-    
+    prefix = f"{bucket_path.rstrip('/')}/processes/"
+
     files = []
-    prefix = bucket_path.rstrip('/') + '/'
-    
     for blob in bucket.list_blobs(prefix=prefix):
-        if blob.name.endswith('.json') and blob.name != f"{prefix}index.json":
-            files.append(blob.name)
-    
-    return files
+        if not blob.name.endswith(".json"):
+            continue
+        base = blob.name.rsplit("/", 1)[-1]
+        if base in SKIP_JSON_NAMES:
+            continue
+        files.append(blob.name)
+    return sorted(files)
 
 
 def get_math_process_file(bucket_name: str, file_path: str) -> Optional[Dict[str, Any]]:
-    """Get math process JSON file from GCS."""
     try:
         client = storage.Client()
         bucket = client.bucket(bucket_name)
         blob = bucket.blob(file_path)
-        
         if not blob.exists():
             return None
-        
-        content = blob.download_as_text()
-        return json.loads(content)
+        return json.loads(blob.download_as_text())
     except Exception as e:
-        logger.error(f"Failed to load math process from {file_path}: {e}")
+        logger.error("Failed to load math process from %s: %s", file_path, e)
         return None
+
+
+def process_id_from_blob(file_path: str, process_data: Dict[str, Any]) -> str:
+    if process_data.get("id"):
+        return process_data["id"]
+    rel = file_path.replace(PROCESSES_PREFIX, "").replace(".json", "")
+    return rel.replace("/", "-")
 
 
 def sync_math_processes(
     dry_run: bool = False,
     limit: Optional[int] = None,
-    skip_existing: bool = True
+    skip_existing: bool = True,
 ) -> Dict[str, Any]:
-    """
-    Sync mathematics processes from GCS to Firestore.
-    
-    Args:
-        dry_run: If True, don't actually write to Firestore
-        limit: Maximum number of processes to sync (None for all)
-        skip_existing: Skip processes that already exist in Firestore
-    
-    Returns:
-        Dictionary with sync statistics
-    """
     stats = {
         "total_in_gcs": 0,
         "already_in_firestore": 0,
         "synced": 0,
+        "updated": 0,
         "failed": 0,
-        "with_embeddings": 0,
-        "errors": []
+        "errors": [],
     }
-    
-    # Initialize Firestore client
-    try:
-        gcp_project_id = os.getenv("GCP_PROJECT_ID", "regal-scholar-453620-r7")
-        firestore_db = firestore.Client(project=gcp_project_id, database="copernicusai")
-        print(f"✅ Connected to Firestore (project: {gcp_project_id}, database: copernicusai)")
-    except Exception as e:
-        print(f"❌ Failed to initialize Firestore: {e}")
-        sys.exit(1)
-    
-    # Get embedding service
-    try:
-        embedding_service = get_embedding_service()
-        embedding_available = True
-    except Exception as e:
-        logger.warning(f"Embedding service not available: {e}")
-        embedding_service = None
-        embedding_available = False
-        print("⚠️  Embedding service not available. Processes will be synced without embeddings.")
-    
-    try:
-        # Get all math process files from GCS
-        print("📋 Fetching mathematics processes from Google Cloud Storage...")
-        all_files = list_math_process_files(GCS_BUCKET_NAME, MATH_PROCESSES_BUCKET_PATH)
-        
-        if limit:
-            all_files = all_files[:limit]
-        
-        stats["total_in_gcs"] = len(all_files)
-        
-        print(f"\n📊 Found {stats['total_in_gcs']} mathematics processes in GCS")
-        print(f"   Dry run: {dry_run}")
-        print(f"   Limit: {limit or 'None (all)'}")
-        print(f"   Skip existing: {skip_existing}\n")
-        
-        # Check existing processes in Firestore
-        firestore_math_ref = firestore_db.collection('math_processes')
-        existing_process_ids = set()
-        
-        if skip_existing:
-            print("🔍 Checking existing processes in Firestore...")
-            for doc in firestore_math_ref.stream():
-                existing_process_ids.add(doc.id)
-            print(f"   Found {len(existing_process_ids)} existing processes\n")
-        
-        # Sync each process
-        for i, file_path in enumerate(all_files, 1):
-            try:
-                # Extract process ID from file path
-                # Format: math-processes-database/subcategory/process-id.json
-                process_id = file_path.replace(MATH_PROCESSES_BUCKET_PATH + "/", "").replace(".json", "")
-                # Clean process_id for Firestore (replace slashes with hyphens)
-                process_id = process_id.replace("/", "-")
-                
-                # Skip if already exists
-                if skip_existing and process_id in existing_process_ids:
-                    stats["already_in_firestore"] += 1
-                    if i % 10 == 0:
-                        print(f"   Progress: {i}/{len(all_files)} (skipped {stats['already_in_firestore']} existing)")
-                    continue
-                
-                # Get process data from GCS
-                process_data = get_math_process_file(GCS_BUCKET_NAME, file_path)
-                if not process_data:
-                    stats["failed"] += 1
-                    error_msg = f"Could not load process from {file_path}"
-                    stats["errors"].append(error_msg)
-                    logger.warning(error_msg)
-                    continue
-                
-                # Convert to Firestore format
-                math_doc = convert_math_to_firestore_format(process_data, process_id, file_path)
-                
-                # Generate embedding
-                has_embedding = False
-                if embedding_available and embedding_service:
-                    try:
-                        text = create_text_for_math_process(process_data)
-                        if text:
-                            embedding = embedding_service.embed_text(text)
-                            if embedding:
-                                # Convert to Vector type for Firestore vector search
-                                math_doc["embedding"] = Vector(embedding)
-                                math_doc["embedding_model"] = "text-embedding-004"
-                                math_doc["embedding_updated"] = datetime.utcnow().isoformat()
-                                has_embedding = True
-                                stats["with_embeddings"] += 1
-                    except Exception as e:
-                        logger.warning(f"Failed to generate embedding for {process_id}: {e}")
-                        stats["errors"].append(f"{process_id}: embedding generation failed")
-                
-                # Write to Firestore
-                if not dry_run:
-                    firestore_math_ref.document(process_id).set(math_doc)
-                
-                stats["synced"] += 1
-                
-                # Progress reporting
-                if i % 5 == 0 or i == len(all_files):
-                    status = "✅" if has_embedding else "⚠️"
-                    print(f"   {status} Progress: {i}/{len(all_files)} "
-                          f"(synced: {stats['synced']}, "
-                          f"embeddings: {stats['with_embeddings']}, "
-                          f"failed: {stats['failed']})")
-                
-            except Exception as e:
+
+    gcp_project_id = os.getenv("GCP_PROJECT_ID", "regal-scholar-453620-r7")
+    firestore_db = firestore.Client(project=gcp_project_id, database="copernicusai")
+    print(f"✅ Connected to Firestore (project: {gcp_project_id}, database: copernicusai)")
+
+    print("📋 Fetching mathematics processes from GCS...")
+    print(f"   Bucket path: {MATH_PROCESSES_BUCKET_PATH}/processes/")
+    all_files = list_math_process_files(GCS_BUCKET_NAME, MATH_PROCESSES_BUCKET_PATH)
+    if limit:
+        all_files = all_files[:limit]
+    stats["total_in_gcs"] = len(all_files)
+
+    print(f"\n📊 Found {stats['total_in_gcs']} process JSON files in GCS")
+    print(f"   Dry run: {dry_run}")
+    print(f"   Skip existing: {skip_existing}\n")
+
+    firestore_math_ref = firestore_db.collection("math_processes")
+    existing_process_ids: set[str] = set()
+    if skip_existing:
+        print("🔍 Checking existing processes in Firestore...")
+        for doc in firestore_math_ref.stream():
+            existing_process_ids.add(doc.id)
+        print(f"   Found {len(existing_process_ids)} existing documents\n")
+
+    for i, file_path in enumerate(all_files, 1):
+        try:
+            process_data = get_math_process_file(GCS_BUCKET_NAME, file_path)
+            if not process_data:
                 stats["failed"] += 1
-                error_msg = f"Error syncing {file_path}: {str(e)}"
-                stats["errors"].append(error_msg)
-                logger.error(error_msg, exc_info=True)
-                if len(stats["errors"]) <= 5:
-                    print(f"   ❌ Error: {error_msg}")
-        
-        # Final summary
-        print("\n" + "="*70)
-        print("  SYNC COMPLETE")
-        print("="*70)
-        print(f"\n📊 Summary:")
-        print(f"   Total in GCS: {stats['total_in_gcs']}")
-        print(f"   Already in Firestore: {stats['already_in_firestore']}")
-        print(f"   Synced: {stats['synced']}")
-        print(f"   With embeddings: {stats['with_embeddings']}")
-        print(f"   Failed: {stats['failed']}")
-        
-        if stats["errors"]:
-            print(f"\n⚠️  Errors ({len(stats['errors'])}):")
-            for error in stats["errors"][:10]:  # Show first 10 errors
-                print(f"   - {error}")
-            if len(stats["errors"]) > 10:
-                print(f"   ... and {len(stats['errors']) - 10} more errors")
-        
-        if dry_run:
-            print("\n⚠️  This was a dry run. No changes were made to Firestore.")
-        
-        return stats
-        
-    except Exception as e:
-        print(f"\n❌ Fatal error: {e}")
-        import traceback
-        traceback.print_exc()
-        raise
+                stats["errors"].append(f"Could not load {file_path}")
+                continue
+
+            process_id = process_id_from_blob(file_path, process_data)
+            exists = process_id in existing_process_ids
+
+            if skip_existing and exists:
+                stats["already_in_firestore"] += 1
+                if i % 25 == 0:
+                    print(f"   Progress: {i}/{len(all_files)} (skipped {stats['already_in_firestore']} existing)")
+                continue
+
+            math_doc = convert_math_to_firestore_format(process_data, process_id, file_path)
+            if not dry_run:
+                firestore_math_ref.document(process_id).set(math_doc, merge=True)
+
+            stats["synced"] += 1
+            if exists:
+                stats["updated"] += 1
+
+            if i % 25 == 0 or i == len(all_files):
+                print(f"   ✅ Progress: {i}/{len(all_files)} (synced: {stats['synced']})")
+
+        except Exception as e:
+            stats["failed"] += 1
+            stats["errors"].append(f"{file_path}: {e}")
+            logger.error("Error syncing %s", file_path, exc_info=True)
+
+    print("\n" + "=" * 70)
+    print("  SYNC COMPLETE")
+    print("=" * 70)
+    print(f"   Total in GCS:           {stats['total_in_gcs']}")
+    print(f"   Already in Firestore:   {stats['already_in_firestore']}")
+    print(f"   Synced (new+updated):   {stats['synced']}")
+    print(f"   Failed:                 {stats['failed']}")
+    if stats["errors"]:
+        print(f"\n⚠️  Errors ({len(stats['errors'])}):")
+        for error in stats["errors"][:10]:
+            print(f"   - {error}")
+    if dry_run:
+        print("\n⚠️  Dry run — no Firestore writes.")
+    else:
+        print("\n💡 Run: python backfill_embeddings.py --collection math_processes --run-all")
+
+    return stats
 
 
-def main():
-    """Main function."""
+def main() -> int:
     import argparse
-    
-    parser = argparse.ArgumentParser(description="Sync mathematics processes from GCS to Firestore")
-    parser.add_argument("--dry-run", action="store_true", help="Don't actually write to Firestore")
-    parser.add_argument("--limit", type=int, help="Maximum number of processes to sync")
-    parser.add_argument("--no-skip-existing", action="store_true", help="Re-sync existing processes")
-    
+
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--dry-run", action="store_true")
+    parser.add_argument("--limit", type=int)
+    parser.add_argument(
+        "--no-skip-existing",
+        action="store_true",
+        help="Re-sync all processes (merge update)",
+    )
     args = parser.parse_args()
-    
-    print("="*70)
+
+    print("=" * 70)
     print("  SYNC MATHEMATICS PROCESSES TO FIRESTORE")
-    print("="*70)
+    print("=" * 70)
     print()
-    
+
     stats = sync_math_processes(
         dry_run=args.dry_run,
         limit=args.limit,
-        skip_existing=not args.no_skip_existing
+        skip_existing=not args.no_skip_existing,
     )
-    
     return 0 if stats["failed"] == 0 else 1
 
 
 if __name__ == "__main__":
     sys.exit(main())
-

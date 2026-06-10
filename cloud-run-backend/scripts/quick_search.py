@@ -89,7 +89,7 @@ async def quick_rag(question: str):
     """Quick RAG question answering."""
     rag_service = get_rag_service()
     
-    if not rag_service.model:
+    if not rag_service.llm_available:
         print("❌ RAG service not available")
         return
     

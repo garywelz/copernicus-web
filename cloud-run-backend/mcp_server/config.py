@@ -25,6 +25,7 @@ COLLECTION_MATH_PROCESSES = "math_processes"
 COLLECTION_CHEMISTRY_PROCESSES = "chemistry_processes"
 COLLECTION_PHYSICS_PROCESSES = "physics_processes"
 COLLECTION_COMPUTER_SCIENCE_PROCESSES = "computer_science_processes"
+COLLECTION_BIOLOGY_PROCESSES = "biology_processes"
 
 # Query Limits
 DEFAULT_QUERY_LIMIT = 10
@@ -32,7 +33,7 @@ MAX_QUERY_LIMIT = 100
 
 # Google Cloud Storage Configuration
 GCS_BUCKET_NAME = os.getenv("GCP_AUDIO_BUCKET", "regal-scholar-453620-r7-podcast-storage")
-GLMP_BUCKET_PATH = os.getenv("GLMP_BUCKET_PATH", "glmp/")
+GLMP_BUCKET_PATH = os.getenv("GLMP_BUCKET_PATH", "glmp-v2/processes")
 
 # MCP Server Metadata
 MCP_SERVER_NAME = "copernicusai-knowledge-engine"

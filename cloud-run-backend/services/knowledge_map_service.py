@@ -36,6 +36,47 @@ _STOPWORDS = {
 }
 
 
+DISCIPLINE_ALIASES: Dict[str, Set[str]] = {
+    "mathematics": {"mathematics", "math", "maths"},
+    "computer_science": {"computer_science", "cs", "computer science", "computing"},
+    "biology": {"biology", "bio", "life_sciences", "life sciences"},
+    "chemistry": {"chemistry", "chem"},
+    "physics": {"physics"},
+    "interdisciplinary": {"interdisciplinary", "general", "other"},
+}
+
+
+def _normalize_source(value: str) -> str:
+    return (value or "").strip().lower().replace("-", "_")
+
+
+def _discipline_matches(paper_discipline: Optional[str], requested: List[str]) -> bool:
+    if not requested:
+        return True
+    if not paper_discipline or not isinstance(paper_discipline, str):
+        return False
+    paper_lower = paper_discipline.strip().lower()
+    for disc in requested:
+        disc_lower = disc.strip().lower()
+        aliases = DISCIPLINE_ALIASES.get(disc_lower, {disc_lower})
+        if paper_lower in aliases:
+            return True
+    return False
+
+
+def _sources_match(paper_sources: Any, requested: List[str]) -> bool:
+    if not requested:
+        return True
+    if not isinstance(paper_sources, list):
+        paper_sources = [paper_sources] if paper_sources else []
+    normalized_paper_sources = {_normalize_source(str(s)) for s in paper_sources if s}
+    for req in requested:
+        req_norm = _normalize_source(req)
+        if any(req_norm in ps or ps in req_norm for ps in normalized_paper_sources):
+            return True
+    return False
+
+
 def _tokenize_text(text: str) -> List[str]:
     tokens = [t for t in re.split(r"[^a-zA-Z0-9]+", (text or "").lower()) if t]
     out: List[str] = []
@@ -87,6 +128,162 @@ class KnowledgeMapService:
         self.nodes = {}
         self.edges = []
         structured_logger.info("Cleared knowledge map cache")
+
+    def _paper_passes_date_filters(
+        self,
+        paper_data: Dict[str, Any],
+        date_start: Optional[str],
+        date_end: Optional[str],
+    ) -> bool:
+        if date_start:
+            paper_date = paper_data.get('published_at') or paper_data.get('published_date') or paper_data.get('year')
+            if paper_date:
+                try:
+                    if hasattr(paper_date, 'timestamp'):
+                        paper_dt = datetime.fromtimestamp(paper_date.timestamp())
+                        start_dt = datetime.fromisoformat(date_start)
+                        if paper_dt.date() < start_dt.date():
+                            return False
+                    elif isinstance(paper_date, datetime):
+                        start_dt = datetime.fromisoformat(date_start)
+                        if paper_date.date() < start_dt.date():
+                            return False
+                    elif isinstance(paper_date, str):
+                        date_str = paper_date.split('T')[0]
+                        paper_dt = datetime.fromisoformat(date_str)
+                        start_dt = datetime.fromisoformat(date_start)
+                        if paper_dt < start_dt:
+                            return False
+                    elif isinstance(paper_date, int) and paper_date > 2000:
+                        start_year = int(date_start.split('-')[0])
+                        if paper_date < start_year:
+                            return False
+                except (ValueError, AttributeError, TypeError):
+                    pass
+
+        if date_end:
+            paper_date = paper_data.get('published_at') or paper_data.get('published_date') or paper_data.get('year')
+            if paper_date:
+                try:
+                    if hasattr(paper_date, 'timestamp'):
+                        paper_dt = datetime.fromtimestamp(paper_date.timestamp())
+                        end_dt = datetime.fromisoformat(date_end)
+                        if paper_dt.date() > end_dt.date():
+                            return False
+                    elif isinstance(paper_date, datetime):
+                        end_dt = datetime.fromisoformat(date_end)
+                        if paper_date.date() > end_dt.date():
+                            return False
+                    elif isinstance(paper_date, str):
+                        date_str = paper_date.split('T')[0]
+                        paper_dt = datetime.fromisoformat(date_str)
+                        end_dt = datetime.fromisoformat(date_end)
+                        if paper_dt > end_dt:
+                            return False
+                    elif isinstance(paper_date, int) and paper_date > 2000:
+                        end_year = int(date_end.split('-')[0])
+                        if paper_date > end_year:
+                            return False
+                except (ValueError, AttributeError, TypeError):
+                    pass
+        return True
+
+    def _paper_passes_keyword_filter(self, paper_data: Dict[str, Any], keyword: str) -> bool:
+        keyword_lower = keyword.lower().strip()
+        keyword_tokens = keyword_lower.replace('-', ' ').split()
+        keyword_joined = ''.join(keyword_tokens)
+
+        title = (paper_data.get('title') or '').lower()
+        abstract = (paper_data.get('abstract') or '').lower()
+        keywords_list = paper_data.get('keywords', [])
+        if isinstance(keywords_list, list):
+            kw_text = ' '.join(str(k) for k in keywords_list).lower()
+        else:
+            kw_text = str(keywords_list or '').lower()
+        all_text = f"{title} {abstract} {kw_text}"
+
+        keyword_matched = (
+            keyword_lower in all_text
+            or keyword_joined in all_text
+            or all(token in all_text for token in keyword_tokens if len(token) > 2)
+            or any(token in all_text for token in keyword_tokens if len(token) > 3)
+        )
+        if 'covid' in keyword_lower or 'corona' in keyword_lower:
+            covid_variants = ['covid', 'covid-19', 'coronavirus', 'corona virus', 'sars-cov']
+            keyword_matched = keyword_matched or any(var in all_text for var in covid_variants)
+        return keyword_matched
+
+    def _paper_passes_filters(
+        self,
+        paper_data: Dict[str, Any],
+        disciplines: Optional[List[str]] = None,
+        sources: Optional[List[str]] = None,
+        date_start: Optional[str] = None,
+        date_end: Optional[str] = None,
+        keyword: Optional[str] = None,
+        require_keyword_match: bool = True,
+    ) -> bool:
+        if disciplines and not _discipline_matches(paper_data.get('discipline'), disciplines):
+            return False
+        if sources and not _sources_match(paper_data.get('sources'), sources):
+            return False
+        if not self._paper_passes_date_filters(paper_data, date_start, date_end):
+            return False
+        if keyword and require_keyword_match and not self._paper_passes_keyword_filter(paper_data, keyword):
+            return False
+        return True
+
+    async def _seed_papers_by_vector(
+        self,
+        keyword: str,
+        max_papers: int,
+        disciplines: Optional[List[str]] = None,
+        sources: Optional[List[str]] = None,
+        date_start: Optional[str] = None,
+        date_end: Optional[str] = None,
+    ) -> List[Dict[str, Any]]:
+        """Fast path: semantic search seed instead of scanning thousands of Firestore docs."""
+        try:
+            embedding_service = get_embedding_service()
+            query_embedding = embedding_service.embed_text(keyword)
+            papers_ref = self.db.collection('research_papers')
+            seed_limit = min(max(max_papers * 8, 40), 200)
+            vector_query = papers_ref.find_nearest(
+                vector_field='embedding',
+                query_vector=Vector(query_embedding),
+                limit=seed_limit,
+                distance_measure=DistanceMeasure.COSINE,
+                distance_threshold=0.85,
+            )
+
+            papers: List[Dict[str, Any]] = []
+            for doc in vector_query.stream():
+                paper_data = doc.to_dict()
+                paper_data['paper_id'] = doc.id
+                paper_data.pop('embedding', None)
+                if self._paper_passes_filters(
+                    paper_data,
+                    disciplines=disciplines,
+                    sources=sources,
+                    date_start=date_start,
+                    date_end=date_end,
+                    keyword=None,
+                    require_keyword_match=False,
+                ):
+                    papers.append(paper_data)
+                if len(papers) >= max_papers:
+                    break
+
+            structured_logger.info(
+                "Vector keyword seed for knowledge map",
+                keyword=keyword[:80],
+                seed_limit=seed_limit,
+                matched=len(papers),
+            )
+            return papers
+        except Exception as e:
+            structured_logger.warning("Vector keyword seed failed; falling back to scan", error=str(e))
+            return []
     
     async def extract_citation_relationships(
         self,
@@ -418,7 +615,8 @@ class KnowledgeMapService:
                 if not vertexai.is_initialized():
                     vertexai.init(project=project_id, location=region)
                 
-                model = GenerativeModel("gemini-2.0-flash-exp")
+                # Updated to gemini-2.5-flash (gemini-2.0 models deprecated June 1, 2026)
+                model = GenerativeModel("gemini-2.5-flash")
                 
                 papers_to_extract = papers
                 if max_papers_for_llm:
@@ -615,14 +813,31 @@ Only return the JSON array, no other text."""
         # is requested) to avoid composite index requirements, since we want to order by recency.
         single_source_filter = False
 
+        target_count = max_papers or 10
         has_filters = any([disciplines, sources, date_start, date_end, keyword])
-        # Heuristic: when any filter is present, sample a large window so the user doesn't get 0
-        # just because the first N documents didn't match.
+
+        papers: List[Dict[str, Any]] = []
+        if keyword and keyword.strip():
+            papers = await self._seed_papers_by_vector(
+                keyword=keyword.strip(),
+                max_papers=target_count,
+                disciplines=disciplines,
+                sources=sources,
+                date_start=date_start,
+                date_end=date_end,
+            )
+
+        # Heuristic: when filters are present, sample a larger window — unless vector seed
+        # already filled the graph (avoids scanning 20k docs on every sample query).
         candidate_limit = None
-        if max_papers:
-            candidate_limit = 20000 if has_filters else max_papers
+        if len(papers) >= target_count:
+            candidate_limit = 0
+        elif has_filters:
+            candidate_limit = 3000 if keyword else 8000
+        elif max_papers:
+            candidate_limit = max_papers
         else:
-            candidate_limit = 20000 if has_filters else 1000
+            candidate_limit = 1000
 
         # Prefer a deterministic, recent-first sample.
         # If ordering fails due to inconsistent field types, fall back to unordered sampling.
@@ -637,10 +852,10 @@ Only return the JSON array, no other text."""
         structured_logger.info(
             "Sampling papers for knowledge map build",
             candidate_limit=candidate_limit,
+            vector_seed_count=len(papers),
             ordered_by_updated_at=isinstance(getattr(papers_query, "_orders", None), list)  # best-effort debug
         )
         
-        papers = []
         filter_stats = {
             'total_fetched': 0,
             'after_source': 0,
@@ -655,15 +870,23 @@ Only return the JSON array, no other text."""
         sample_fetched: List[Dict[str, Any]] = []
         
         # Stream and filter in one pass to avoid loading huge docs into memory.
-        try:
-            stream_iter = papers_query.stream()
-        except Exception as e:
-            structured_logger.warning("Paper sampling query failed; falling back to unordered sampling", error=str(e))
-            stream_iter = papers_ref.limit(candidate_limit).stream() if candidate_limit else papers_ref.stream()
+        if candidate_limit and len(papers) < target_count:
+            try:
+                stream_iter = papers_query.stream()
+            except Exception as e:
+                structured_logger.warning("Paper sampling query failed; falling back to unordered sampling", error=str(e))
+                stream_iter = papers_ref.limit(candidate_limit).stream() if candidate_limit else papers_ref.stream()
+        else:
+            stream_iter = iter([])
+
+        seen_ids = {p.get('paper_id') for p in papers if p.get('paper_id')}
 
         for doc in stream_iter:
             paper_data = doc.to_dict()
             paper_data['paper_id'] = doc.id
+            paper_data.pop('embedding', None)
+            if paper_data['paper_id'] in seen_ids:
+                continue
             filter_stats['total_fetched'] += 1
 
             # Collect some debug signals
@@ -686,133 +909,26 @@ Only return the JSON array, no other text."""
                     "title": (paper_data.get("title") or "")[:80],
                 })
 
-            # Apply all filters in memory (avoids composite index requirements)
-            # Source filter - database has 'sources' as array
-            if sources and (len(sources) > 1 or not single_source_filter):
-                paper_sources = paper_data.get('sources') or []
-                if not isinstance(paper_sources, list):
-                    paper_sources = [paper_sources] if paper_sources else []
-                # Check if any of the requested sources is in the paper's sources array
-                if not any(req_source in paper_sources for req_source in sources):
-                    continue
+            if not self._paper_passes_filters(
+                paper_data,
+                disciplines=disciplines,
+                sources=sources if (sources and (len(sources) > 1 or not single_source_filter)) else None,
+                date_start=date_start,
+                date_end=date_end,
+                keyword=keyword,
+            ):
+                continue
+
             filter_stats['after_source'] += 1
-            
-            # Discipline filter - database has 'discipline' as singular field
-            if disciplines:
-                paper_discipline = paper_data.get('discipline')
-                # Normalize to lowercase for comparison
-                if paper_discipline and isinstance(paper_discipline, str):
-                    paper_discipline_lower = paper_discipline.lower()
-                    if not any(disc.lower() == paper_discipline_lower for disc in disciplines):
-                        continue
-                elif not paper_discipline:
-                    # Skip papers without discipline if filter is set
-                    continue
             filter_stats['after_discipline'] += 1
-            
-            # Date filters - database has 'published_at' as timestamp
-            date_passed = True
-            if date_start:
-                paper_date = paper_data.get('published_at') or paper_data.get('published_date') or paper_data.get('year')
-                if paper_date:
-                    # Try to parse date properly
-                    try:
-                        # Handle Firestore Timestamp
-                        if hasattr(paper_date, 'timestamp'):
-                            paper_dt = datetime.fromtimestamp(paper_date.timestamp())
-                            start_dt = datetime.fromisoformat(date_start)
-                            if paper_dt.date() < start_dt.date():
-                                date_passed = False
-                        elif isinstance(paper_date, datetime):
-                            start_dt = datetime.fromisoformat(date_start)
-                            if paper_date.date() < start_dt.date():
-                                date_passed = False
-                        elif isinstance(paper_date, str):
-                            # Handle ISO format (YYYY-MM-DD or YYYY-MM-DDTHH:MM:SS)
-                            date_str = paper_date.split('T')[0]  # Remove time if present
-                            paper_dt = datetime.fromisoformat(date_str)
-                            start_dt = datetime.fromisoformat(date_start)
-                            if paper_dt < start_dt:
-                                date_passed = False
-                        elif isinstance(paper_date, int):
-                            # Year only or timestamp
-                            if paper_date > 2000:  # Assume year
-                                start_year = int(date_start.split('-')[0])
-                                if paper_date < start_year:
-                                    date_passed = False
-                    except (ValueError, AttributeError, TypeError) as e:
-                        structured_logger.debug(f"Date parsing error for {paper_date}: {e}")
-                        # Skip date filter if we can't parse
-                        pass
-                if not date_passed:
-                    continue
-            
-            if date_end:
-                paper_date = paper_data.get('published_at') or paper_data.get('published_date') or paper_data.get('year')
-                if paper_date:
-                    try:
-                        # Handle Firestore Timestamp
-                        if hasattr(paper_date, 'timestamp'):
-                            paper_dt = datetime.fromtimestamp(paper_date.timestamp())
-                            end_dt = datetime.fromisoformat(date_end)
-                            if paper_dt.date() > end_dt.date():
-                                date_passed = False
-                        elif isinstance(paper_date, datetime):
-                            end_dt = datetime.fromisoformat(date_end)
-                            if paper_date.date() > end_dt.date():
-                                date_passed = False
-                        elif isinstance(paper_date, str):
-                            date_str = paper_date.split('T')[0]
-                            paper_dt = datetime.fromisoformat(date_str)
-                            end_dt = datetime.fromisoformat(date_end)
-                            if paper_dt > end_dt:
-                                date_passed = False
-                        elif isinstance(paper_date, int):
-                            if paper_date > 2000:  # Assume year
-                                end_year = int(date_end.split('-')[0])
-                                if paper_date > end_year:
-                                    date_passed = False
-                    except (ValueError, AttributeError, TypeError) as e:
-                        structured_logger.debug(f"Date parsing error for {paper_date}: {e}")
-                        # Skip date filter if we can't parse
-                        pass
-                if not date_passed:
-                    continue
             filter_stats['after_date'] += 1
-            
-            # Keyword search (improved - tokenize and handle variations)
-            if keyword:
-                keyword_lower = keyword.lower().strip()
-                # Tokenize keyword (split on spaces/hyphens)
-                keyword_tokens = keyword_lower.replace('-', ' ').split()
-                keyword_joined = ''.join(keyword_tokens)  # For "corona virus" -> "coronavirus"
-                
-                title = (paper_data.get('title') or '').lower()
-                abstract = (paper_data.get('abstract') or '').lower()
-                keywords_list = ' '.join(paper_data.get('keywords', [])).lower()
-                all_text = f"{title} {abstract} {keywords_list}"
-                
-                # Check for exact match, tokenized match, and common variations
-                keyword_matched = (
-                    keyword_lower in all_text or  # "corona virus"
-                    keyword_joined in all_text or  # "coronavirus"
-                    any(token in all_text for token in keyword_tokens if len(token) > 3)  # Any significant token
-                )
-                
-                # Handle common COVID-19 variations
-                if 'covid' in keyword_lower or 'corona' in keyword_lower:
-                    covid_variants = ['covid', 'covid-19', 'coronavirus', 'corona virus', 'sars-cov']
-                    keyword_matched = keyword_matched or any(var in all_text for var in covid_variants)
-                
-                if not keyword_matched:
-                    continue
             filter_stats['after_keyword'] += 1
-            
+
             papers.append(paper_data)
+            seen_ids.add(paper_data['paper_id'])
             filter_stats['final'] += 1
-            
-            # Apply max_papers limit after filtering
-            if max_papers and len(papers) >= max_papers:
+
+            if len(papers) >= target_count:
                 break
 
         structured_logger.info(f"Distinct sources in sampled papers: {sorted(distinct_sources_set)}")
@@ -867,13 +983,10 @@ Only return the JSON array, no other text."""
             structured_logger.info(f"Extracted {len(author_rels)} author co-authorship relationships")
         
         if include_similarity:
-            similarity_rels = self.extract_concept_relationships(papers)
-            edges.extend(similarity_rels)
-            structured_logger.info(f"Extracted {len(similarity_rels)} similarity relationships")
-            if not similarity_rels:
-                kw_sim_rels = self.extract_keyword_similarity_relationships(papers)
-                edges.extend(kw_sim_rels)
-                structured_logger.info(f"Extracted {len(kw_sim_rels)} keyword-overlap similarity relationships")
+            # Keyword overlap is fast; per-paper vector queries are too slow for interactive maps.
+            kw_sim_rels = self.extract_keyword_similarity_relationships(papers)
+            edges.extend(kw_sim_rels)
+            structured_logger.info(f"Extracted {len(kw_sim_rels)} keyword-overlap similarity relationships")
         
         # Extract citation relationships (including Semantic Scholar if enabled)
         citation_rels = await self.extract_citation_relationships(

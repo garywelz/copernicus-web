@@ -197,8 +197,12 @@ class ComprehensiveResearchPipeline:
             # Map query to ArXiv categories for better results
             category_filter = self._map_to_arxiv_category(query)
             
-            # Build search query - try category-specific first, then general
-            if category_filter:
+            # Build search query - TDA gets phrase search to avoid PDE/physics false matches
+            query_lower = query.lower()
+            if "topological data analysis" in query_lower or " tda " in query_lower or query_lower.strip() == "tda":
+                # Phrase search + related terms for TDA (persistent homology, Mapper are core TDA methods)
+                search_query = 'all:"Topological Data Analysis" OR all:"persistent homology" OR all:"topological data analysis"'
+            elif category_filter:
                 search_query = f"cat:{category_filter}+AND+({query})"
             else:
                 # General search across all fields
@@ -245,6 +249,10 @@ class ComprehensiveResearchPipeline:
     def _map_to_arxiv_category(self, query: str) -> str:
         """Map search query to ArXiv category for better results"""
         query_lower = query.lower()
+        
+        # Topological Data Analysis - must come BEFORE generic "analysis" (math.AP = PDEs is wrong for TDA)
+        if "topological data analysis" in query_lower or " tda " in query_lower or query_lower.strip() == "tda":
+            return ""  # No category filter - search all for exact phrase match (TDA papers span cs.LG, stat.ML, math.AT)
         
         # Mathematics categories
         if "number theory" in query_lower or "diophantine" in query_lower or "arithmetic" in query_lower:
@@ -652,6 +660,10 @@ class ComprehensiveResearchPipeline:
 
     async def _rank_and_score_sources(self, sources: List[ResearchSource], subject: str) -> List[ResearchSource]:
         """Rank and score research sources by relevance"""
+        subject_lower = subject.lower()
+        # For TDA topics, also match on core terminology to boost actual TDA papers
+        tda_terms = ["topological data analysis", "tda", "persistent homology", "mapper algorithm", "simplicial complex"]
+        is_tda_topic = "topological data analysis" in subject_lower or " tda " in subject_lower or subject_lower.strip() == "tda"
         
         # Calculate relevance scores
         for source in sources:
@@ -661,12 +673,20 @@ class ComprehensiveResearchPipeline:
             score += self.source_weights.get(source.source, 0.5)
             
             # Title relevance
-            if subject.lower() in source.title.lower():
+            if subject_lower in source.title.lower():
                 score += 0.3
             
             # Abstract relevance
-            if source.abstract and subject.lower() in source.abstract.lower():
+            if source.abstract and subject_lower in source.abstract.lower():
                 score += 0.2
+            
+            # TDA-specific: boost papers that actually discuss TDA (avoid physics/astronomy false matches)
+            if is_tda_topic and source.abstract:
+                abstract_lower = (source.title + " " + (source.abstract or "")).lower()
+                for term in tda_terms:
+                    if term in abstract_lower:
+                        score += 0.25  # Strong boost for topic-relevant papers
+                        break
             
             # Citation count bonus (if available)
             if source.citations and source.citations > 0:

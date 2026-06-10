@@ -8,8 +8,7 @@
 'use client'
 
 import { useState } from 'react'
-
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://copernicus-podcast-api-phzp4ie2sq-uc.a.run.app'
+import { API_BASE_URL, DEFAULT_SEARCH_CONTENT_TYPES } from './constants'
 
 type Citation = {
   number: number
@@ -34,7 +33,15 @@ export default function RAGInterface() {
   const [maxContextItems, setMaxContextItems] = useState(5)
   const retrievalMethod = response?.metadata?.retrieval_method as string | undefined
   const modelName = response?.metadata?.model as string | undefined
+  const llmProvider = response?.metadata?.llm_provider as string | undefined
   const isKeywordMode = (retrievalMethod || '').includes('keyword') || (modelName || '') === 'none'
+  const llmLabel = llmProvider === 'openai'
+    ? 'OpenAI'
+    : llmProvider === 'vertex'
+      ? 'Gemini'
+      : modelName && modelName !== 'none'
+        ? modelName
+        : 'LLM'
 
   const handleAsk = async () => {
     if (!question.trim()) return
@@ -46,6 +53,7 @@ export default function RAGInterface() {
       const params = new URLSearchParams({
         question: question,
         max_context_items: maxContextItems.toString(),
+        content_types: DEFAULT_SEARCH_CONTENT_TYPES.join(','),
       })
 
       const response = await fetch(`${API_BASE_URL}/api/rag/answer?${params}`)
@@ -75,7 +83,7 @@ export default function RAGInterface() {
     }
   }
 
-  // These are tuned to return results in retrieval-only mode (Vertex AI disabled)
+  // Example questions that work well with vector retrieval + synthesis
   const exampleQuestions = [
     'What is the glutamate-dependent acid resistance system in Escherichia coli, and what genes are involved?',
     'Explain aerobic respiration in mitochondria, including the electron transport chain and ATP synthase.',
@@ -99,13 +107,11 @@ export default function RAGInterface() {
           <p className={`text-sm ${isKeywordMode ? 'text-yellow-900' : 'text-blue-800'}`}>
             {isKeywordMode ? (
               <>
-                <strong>Status:</strong> Vertex/LLM is currently unavailable, so we’re returning a retrieval-based response (citations + excerpts) instead of a generated answer.
-                <strong> Use the Browse tab</strong> to see what content is available.
+                <strong>Retrieval mode:</strong> LLM generation is unavailable; showing cited excerpts from vector/keyword search across papers, podcasts, and process charts.
               </>
             ) : (
               <>
-                <strong>RAG Status:</strong> RAG requires content to have vector embeddings.
-                <strong> Use the Browse tab</strong> to see available content.
+                <strong>RAG:</strong> Retrieves context from all six process families plus papers and podcasts, then synthesizes an answer with {llmLabel}.
               </>
             )}
           </p>
@@ -249,6 +255,9 @@ export default function RAGInterface() {
               <div className="text-xs text-gray-600 space-y-1">
                 <p>Context Items Used: {response.metadata.context_items_used || 0}</p>
                 <p>Model: {response.metadata.model || 'N/A'}</p>
+                {response.metadata.llm_provider && (
+                  <p>Provider: {response.metadata.llm_provider}</p>
+                )}
                 {response.metadata.retrieval_method && (
                   <p>Retrieval Method: {response.metadata.retrieval_method}</p>
                 )}
