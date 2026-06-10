@@ -8,8 +8,8 @@
   "corpus_sha256": "3dd5e019fca5f8e823bd71020a80c534b2e1a9e7199272b27c0b13da40ee8065",
   "corpus_document_count": 59499,
   "corpus_gcs_uri": "gs://regal-scholar-453620-r7-podcast-storage/research_data/snapshots/research_papers_20260526.jsonl.gz",
-  "openai_embedding_model": "",
-  "openai_embedding_dims": "",
+  "openai_embedding_model": "text-embedding-3-small",
+  "openai_embedding_dims": "1536",
   "vertex_embeddings_model": "deferred",
   "vertex_index_or_endpoint": "deferred",
   "eval_archive_doi": "10.5281/zenodo.18463303",
@@ -32,5 +32,24 @@
     "meta_partial.json",
     "research_papers_20260526.jsonl.gz",
     "manifest.json"
-  ]
+  ],
+  "table4_dense_openai": {
+    "mean_ndcg_at_10": 0.8281015692743673,
+    "mean_precision_at_10": 0.5166666666666667,
+    "median_reciprocal_rank": 1.0,
+    "queries_no_relevant_in_top10": 0,
+    "unjudged_top10_hits": 0,
+    "n_queries": 30
+  },
+  "runtime_dense": "local",
+  "judgments_pool": "expanded_union_lexical_dense_558",
+  "judgments_rows": 558,
+  "table4_lexical_expanded_pool": {
+    "mean_ndcg_at_10": 0.5446508637138755,
+    "mean_precision_at_10": 0.3233333333333333,
+    "median_reciprocal_rank": 0.5,
+    "queries_no_relevant_in_top10": 8,
+    "unjudged_top10_hits": 0,
+    "n_queries": 30
+  }
 }

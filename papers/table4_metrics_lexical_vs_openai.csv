@@ -1,0 +1,5 @@
+metric,lexical_tf_idf_expanded_pool,dense_openai_expanded_pool,lexical_tf_idf_frozen_original_pool
+Mean nDCG@10,0.5446508637138755,0.8281015692743673,0.5446508637138755
+Mean Precision@10,0.3233333333333333,0.5166666666666667,0.3233333333333333
+Median Reciprocal Rank,0.5,1.0,0.5
+Queries with no relevant in top-10,8.0,0.0,8.0

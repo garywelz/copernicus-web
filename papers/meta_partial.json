@@ -1,0 +1,16 @@
+{
+  "run_id": "pilot-draft",
+  "utc_iso": "2026-05-27T21:51:18.008123+00:00",
+  "runtime": "colab",
+  "python_seed": 42,
+  "eval_git_commit": "77ebbe92a908edfd77bfb0c207e04164d43016f5",
+  "corpus_description": "Firestore database copernicusai, collection research_papers; export 2026-05-26 minimal JSONL gzip (research_papers_20260526.jsonl.gz); n=59499 documents",
+  "corpus_sha256": "3dd5e019fca5f8e823bd71020a80c534b2e1a9e7199272b27c0b13da40ee8065",
+  "corpus_document_count": 59499,
+  "corpus_gcs_uri": "gs://regal-scholar-453620-r7-podcast-storage/research_data/snapshots/research_papers_20260526.jsonl.gz",
+  "openai_embedding_model": "",
+  "openai_embedding_dims": "",
+  "vertex_embeddings_model": "deferred",
+  "vertex_index_or_endpoint": "deferred",
+  "eval_archive_doi": "10.5281/zenodo.18463303"
+}

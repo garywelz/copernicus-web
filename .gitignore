@@ -35,6 +35,9 @@ node_modules/
 **/eggs/
 **/.eggs/
 **/lib/
+# Next.js app lib (not Python site-packages)
+!/lib/
+!/lib/**
 **/lib64/
 **/parts/
 **/sdist/
@@ -70,3 +73,33 @@ node_modules/
 
 # Documentation (optional - can commit if desired)
 # *.md
+
+# Papers: evaluation blobs & PDF build artifacts (canonical copies on Zenodo)
+papers/openai_doc_embeddings.npz
+papers/openai_doc_embeddings.partial.npz
+papers/dense_track_a_bundle_*.zip
+papers/fig_*_*.png
+papers/fig_*_*.mmd
+papers/pdf_header_*.tex
+papers/knowledge_engine_vision_revised_pdfbuild_*.md
+papers/knowledge_engine_vision_revised_build_*.md
+papers/puppeteer-config-pdf_*.json
+papers/puppeteer-config_*.json
+papers/.venv-pdf/
+
+# Windows WSL metadata
+*:Zone.Identifier
+
+# Evaluation corpus (Zenodo canonical)
+papers/research_papers_20260526.jsonl.gz
+
+# Local caches & Office temp
+papers/.cache/
+papers/~$*
+
+# PDF outputs (Zenodo v6 has canonical PDF)
+papers/knowledge_engine_vision_revised*.pdf
+
+# Root-level embedding scratch
+embedding_checkpoint.json
+venv_embeddings/

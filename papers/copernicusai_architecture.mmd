@@ -1,76 +1,54 @@
 flowchart TD
-    A[Academic Databases<br/>PubMed, arXiv, NASA ADS] --> B[Ingest Data]
-    C[Literature Sources<br/>Textbooks, Reviews] --> B
-    D[Educational Content<br/>Videos, Transcripts] --> B
-    
-    B --> E{Data Type?}
-    E -->|Papers| F[Extract Entities<br/>via LLM]
-    E -->|Process Descriptions| G[Extract Process Logic<br/>via LLM]
-    E -->|Media| H[Process Media<br/>Transcribe, Parse]
-    
-    F --> I[Paper Metadata<br/>Structured JSON]
-    G --> J[Process Flowcharts<br/>Mermaid Format]
-    H --> K[Podcast Transcripts<br/>Structured Text]
-    
-    I --> L[Paper Metadata DB]
-    J --> M[Process Flowchart DB]
-    K --> N[Podcast Transcript DB]
-    
-    L --> O[Calculate Similarities]
-    M --> P[Recognize Patterns]
-    L --> Q[Discover Connections]
-    M --> R[Validate Processes]
-    
-    O --> S{Query Type?}
-    P --> S
-    Q --> S
-    R --> S
-    
-    S -->|MCP Query| U[MCP Server<br/>AI Assistant Access]
-    S -->|RAG Query| V[RAG System]
-    S -->|API Query| W[API Endpoint]
-    S -->|Vector Search| AA[Vector Search]
-    S -->|Knowledge Graph| BB[Knowledge Graph]
-    S -->|Web Interface| T[Web Interface]
-    
-    U --> X[Knowledge Output<br/>Papers, Processes, Insights]
-    V --> X
-    W --> X
-    T --> X
-    AA --> X
-    BB --> X
-    
-    Y[Character Specification<br/>copernicus.character.json] -.influences.-> F
-    Y -.influences.-> G
-    Y -.influences.-> Q
-    Y -.influences.-> U
-    
-    style A fill:#ff6b6b,color:#fff
-    style C fill:#ff6b6b,color:#fff
-    style D fill:#ff6b6b,color:#fff
-    style B fill:#51cf66,color:#fff
-    style E fill:#74c0fc,color:#fff
-    style F fill:#51cf66,color:#fff
-    style G fill:#51cf66,color:#fff
-    style H fill:#51cf66,color:#fff
-    style I fill:#ffd43b,color:#000
-    style J fill:#ffd43b,color:#000
-    style K fill:#ffd43b,color:#000
-    style L fill:#ffd43b,color:#000
-    style M fill:#ffd43b,color:#000
-    style N fill:#ffd43b,color:#000
-    style O fill:#51cf66,color:#fff
-    style P fill:#51cf66,color:#fff
-    style Q fill:#51cf66,color:#fff
-    style R fill:#51cf66,color:#fff
-    style S fill:#74c0fc,color:#fff
-    style T fill:#51cf66,color:#fff
-    style U fill:#51cf66,color:#fff
-    style V fill:#51cf66,color:#fff
-    style W fill:#51cf66,color:#fff
-    style AA fill:#51cf66,color:#fff
-    style BB fill:#51cf66,color:#fff
-    style X fill:#b197fc,color:#fff
-    style Y fill:#ffd43b,color:#000
+    subgraph IN["Inputs"]
+        A1["Scholarly feeds<br/>arXiv · PubMed · NASA ADS"]
+        A2["Process prose<br/>Programming Framework pipeline"]
+        A3["Media catalogs<br/>videos · podcasts"]
+    end
 
+    B["Ingestion & digestion<br/>adapters · schema validation · publish manifests"]
 
+    subgraph ST["Structured storage"]
+        F1["Firestore research_papers<br/>59,499 docs · 1536d embeddings"]
+        F2["Firestore process families ×6<br/>594 JSON-canonical charts"]
+        F3["GCS JSON catalogs<br/>metadata · process-index"]
+    end
+
+    subgraph PR["Processing"]
+        E1["OpenAI text-embedding-3-small"]
+        E2["Vector search · knowledge graph"]
+        E3["gpt-4o-mini RAG synthesis"]
+    end
+
+    Q{"Query route"}
+
+    subgraph OUT["Outputs"]
+        U1["Knowledge Engine dashboard<br/>Map · Search · Ask · Browse · Stats"]
+        U2["FastAPI backend · MCP server"]
+    end
+
+    A1 --> B
+    A2 --> B
+    A3 --> B
+    B --> F1
+    B --> F2
+    B --> F3
+    F1 --> E1
+    F2 --> E1
+    F3 --> E1
+    E1 --> E2 --> E3 --> Q
+    Q -->|Web UI| U1
+    Q -->|API / MCP| U2
+
+    style A1 fill:#E69F00,color:#000
+    style A2 fill:#E69F00,color:#000
+    style A3 fill:#E69F00,color:#000
+    style B fill:#009E73,color:#fff
+    style F1 fill:#F0E442,color:#000
+    style F2 fill:#F0E442,color:#000
+    style F3 fill:#F0E442,color:#000
+    style E1 fill:#009E73,color:#fff
+    style E2 fill:#009E73,color:#fff
+    style E3 fill:#009E73,color:#fff
+    style Q fill:#56B4E9,color:#000
+    style U1 fill:#CC79A7,color:#000
+    style U2 fill:#CC79A7,color:#000
