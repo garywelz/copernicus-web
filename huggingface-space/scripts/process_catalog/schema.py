@@ -77,7 +77,10 @@ def normalize_process(
     out.setdefault("verified", True)
     out.setdefault("flowchartStandard", "GLMP_6color")
     if "complexity" not in out or not isinstance(out["complexity"], dict):
-        out["complexity"] = {"level": "medium", "nodes": 0, "edges": 0, "conditionals": 0}
+        # No zeroed counts here: zeros would override the metrics derived
+        # from the Mermaid source in index_row_from_process().
+        level = out.get("complexity") if isinstance(out.get("complexity"), str) else "medium"
+        out["complexity"] = {"level": level or "medium"}
     if not out.get("processType"):
         out["processType"] = infer_process_type(out)
     return out

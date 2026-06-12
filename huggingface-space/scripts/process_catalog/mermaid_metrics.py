@@ -66,8 +66,11 @@ def index_row_from_process(doc: dict[str, Any]) -> dict[str, Any]:
     complexity = doc.get("complexity") or {}
     if isinstance(complexity, dict):
         for key in ("nodes", "edges", "conditionals", "loops", "andGates", "orGates", "notGates"):
-            if complexity.get(key) is not None:
-                metrics[key] = complexity[key]
+            value = complexity.get(key)
+            # A zero in curated complexity must not stomp a nonzero count
+            # measured from the Mermaid source.
+            if value is not None and not (value == 0 and metrics.get(key, 0) > 0):
+                metrics[key] = value
         if complexity.get("level"):
             metrics["level"] = complexity["level"]
 
@@ -106,4 +109,15 @@ def index_row_from_process(doc: dict[str, Any]) -> dict[str, Any]:
         "notGates": metrics["notGates"],
         "totalGates": metrics["andGates"] + metrics["orGates"] + metrics["notGates"],
     }
+    # Table-viewer columns: proof-graph link/counts and named collections.
+    # Only carried when present on the canonical document.
+    for key in (
+        "proofGraphHtml",
+        "algorithm_capsules",
+        "temporary_assumptions",
+        "frontier",
+        "namedCollections",
+    ):
+        if doc.get(key) is not None:
+            row[key] = doc[key]
     return row

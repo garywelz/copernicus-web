@@ -102,9 +102,12 @@ def extract_mermaid(content: str) -> str | None:
 
 
 def metadata_process_row(row: dict[str, Any]) -> dict[str, Any]:
-    return {
+    out = {
         "id": row["id"],
         "name": row["name"],
+        # processType drives the table viewer's three-way categorization
+        # (algorithm / axiomatic_theory / proof_graph); never drop it.
+        "processType": row["processType"],
         "subcategory": row["subcategory"],
         "subcategory_name": row["subcategory_name"],
         "complexity": row["complexity"],
@@ -120,6 +123,21 @@ def metadata_process_row(row: dict[str, Any]) -> dict[str, Any]:
         "verified": True,
         "curationStatus": "json_canonical",
     }
+    # Axiomatic-theory table columns.
+    for key in ("axioms", "definitions", "lemmas", "theorems", "corollaries"):
+        if row.get(key):
+            out[key] = row[key]
+    # Proof-graph table columns and link target.
+    for key in (
+        "proofGraphHtml",
+        "algorithm_capsules",
+        "temporary_assumptions",
+        "frontier",
+        "namedCollections",
+    ):
+        if row.get(key) is not None:
+            out[key] = row[key]
+    return out
 
 
 def publish_database(db_name: str, *, write_json_files: bool = True, enrich_html: bool = True) -> dict[str, Any]:
@@ -181,6 +199,15 @@ def publish_database(db_name: str, *, write_json_files: bool = True, enrich_html
 
     metadata = dict(catalog)
     metadata["processes"] = [metadata_process_row(r) for r in index_rows]
+
+    # Sanity guard: the June 2026 regression published a manifest where most
+    # entries had zeroed counts and no processType, breaking the live table.
+    zeroed = sum(1 for r in index_rows if not r["nodes"] or not r["edges"])
+    if index_rows and zeroed > max(2, len(index_rows) // 10):
+        raise SystemExit(
+            f"refusing to publish: {zeroed}/{len(index_rows)} entries have zero "
+            "node/edge counts; check complexity defaults and mermaid extraction"
+        )
 
     if write_json_files:
         for path, doc in loaded:
