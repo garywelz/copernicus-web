@@ -292,6 +292,7 @@ def parse_pubmed_record(record: Dict) -> Optional[Dict]:
             "source": "pubmed",
             "acquired_date": datetime.now().isoformat(),
             "category": "biology",
+            "discipline": "biology",
             "subcategories": []
         }
         
@@ -327,35 +328,57 @@ def save_papers(papers: List[Dict], output_dir: Path, batch_num: int = 0):
                 "acquired_date": datetime.now().isoformat()
             }, f, indent=2, ensure_ascii=False)
 
-def acquire_recent_papers(target_count: int = 15000):
-    """Acquire recent papers (2020-2025)."""
+def load_config_queries(config_path: Optional[str]) -> Optional[List[Dict]]:
+    if not config_path:
+        return None
+    path = Path(config_path)
+    if not path.exists():
+        print(f"  ⚠️  Config queries file not found: {path}")
+        return None
+    with open(path, encoding="utf-8") as f:
+        data = json.load(f)
+    if isinstance(data, list):
+        return sorted(data, key=lambda q: q.get("priority", 99))
+    return None
+
+
+def acquire_recent_papers(target_count: int = 15000, config_queries_path: Optional[str] = None):
+    """Acquire recent papers (2020-2026)."""
     print("\n" + "=" * 60)
-    print("Acquiring Recent Papers (2020-2025)")
+    print("Acquiring Recent Papers (2020-2026)")
     print("=" * 60)
     
-    # Queries for different biology subfields
-    queries = [
-        ("molecular biology[MeSH] OR genetics[MeSH]", 2500),
-        ("biochemistry[MeSH] OR metabolism[MeSH]", 2500),
-        ("cell biology[MeSH] OR developmental biology[MeSH]", 2500),
-        ("immunology[MeSH] OR immunology", 2500),
-        ("neuroscience[MeSH] OR neurobiology", 2000),
-        ("ecology[MeSH] OR evolution[MeSH]", 1500),
-        ("microbiology[MeSH] OR bacteriology", 1000),
-    ]
+    config_queries = load_config_queries(config_queries_path)
+    if config_queries:
+        print(f"  Using {len(config_queries)} queries from config file")
+        query_defs = config_queries
+    else:
+        query_defs = [
+            {"query": "molecular biology[MeSH] OR genetics[MeSH]", "max_results": 2500, "mindate": "2020/01/01", "maxdate": "2026/12/31"},
+            {"query": "biochemistry[MeSH] OR metabolism[MeSH]", "max_results": 2500, "mindate": "2020/01/01", "maxdate": "2026/12/31"},
+            {"query": "cell biology[MeSH] OR developmental biology[MeSH]", "max_results": 2500, "mindate": "2020/01/01", "maxdate": "2026/12/31"},
+            {"query": "immunology[MeSH] OR immunology", "max_results": 2500, "mindate": "2020/01/01", "maxdate": "2026/12/31"},
+            {"query": "neuroscience[MeSH] OR neurobiology", "max_results": 2000, "mindate": "2020/01/01", "maxdate": "2026/12/31"},
+            {"query": "ecology[MeSH] OR evolution[MeSH]", "max_results": 1500, "mindate": "2020/01/01", "maxdate": "2026/12/31"},
+            {"query": "microbiology[MeSH] OR bacteriology", "max_results": 1000, "mindate": "2020/01/01", "maxdate": "2026/12/31"},
+        ]
     
     all_papers = []
     total_acquired = 0
     
-    for query, count in queries:
+    for qdef in query_defs:
         if total_acquired >= target_count:
             break
         
         remaining = target_count - total_acquired
-        query_target = min(count, remaining)
+        query_target = min(int(qdef.get("max_results", remaining)), remaining)
+        query = qdef["query"]
+        mindate = qdef.get("mindate", "2020/01/01")
+        maxdate = qdef.get("maxdate", "2026/12/31")
+        name = qdef.get("name", query[:60])
         
-        print(f"\nQuery: {query}")
-        pmids = search_pubmed(query, query_target, mindate="2020/01/01", maxdate="2025/12/31")
+        print(f"\nQuery ({name}): {query[:80]}...")
+        pmids = search_pubmed(query, query_target, mindate=mindate, maxdate=maxdate)
         
         if pmids:
             papers = fetch_pubmed_details(pmids)
@@ -420,8 +443,9 @@ def main():
     import argparse
     
     parser = argparse.ArgumentParser(description="Acquire papers from PubMed")
-    parser.add_argument("--recent", type=int, default=15000, help="Number of recent papers (2020-2025)")
+    parser.add_argument("--recent", type=int, default=15000, help="Number of recent papers (2020-2026)")
     parser.add_argument("--classic", type=int, default=15000, help="Number of classic papers (1950-2019)")
+    parser.add_argument("--config-queries", type=str, default=None, help="JSON file with pubmed_queries list")
     parser.add_argument("--test", action="store_true", help="Test mode: acquire only 10 papers")
     args = parser.parse_args()
     
@@ -440,7 +464,7 @@ def main():
     
     if args.test:
         print("\n🧪 TEST MODE: Acquiring 10 papers...")
-        pmids = search_pubmed("molecular biology[MeSH]", 10, mindate="2020/01/01", maxdate="2025/12/31")
+        pmids = search_pubmed("molecular biology[MeSH]", 10, mindate="2020/01/01", maxdate="2026/12/31")
         if pmids:
             papers = fetch_pubmed_details(pmids)
             save_papers(papers, OUTPUT_DIR / "test", batch_num=1)
@@ -448,17 +472,19 @@ def main():
         return
     
     # Acquire recent papers
-    recent_count = acquire_recent_papers(args.recent)
+    recent_count = acquire_recent_papers(args.recent, args.config_queries)
     
-    # Acquire classic papers
-    classic_count = acquire_classic_papers(args.classic)
+    classic_count = 0
+    if args.classic > 0:
+        classic_count = acquire_classic_papers(args.classic)
     
     # Summary
     print("\n" + "=" * 60)
     print("Acquisition Complete")
     print("=" * 60)
-    print(f"Recent papers (2020-2025): {recent_count:,}")
-    print(f"Classic papers (1950-2019): {classic_count:,}")
+    print(f"Recent papers (2020-2026): {recent_count:,}")
+    if args.classic > 0:
+        print(f"Classic papers (1950-2019): {classic_count:,}")
     print(f"Total papers acquired: {recent_count + classic_count:,}")
     print(f"\nPapers saved to: {OUTPUT_DIR}")
     print("=" * 60)

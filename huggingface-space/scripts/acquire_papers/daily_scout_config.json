@@ -1,123 +1,177 @@
 {
-  "name": "Daily Paper Scout - Biology-Weighted Recent Papers",
-  "description": "Automated collection of recent papers weighted toward biology while preserving cross-disciplinary coverage",
-  "schedule": {
-    "frequency": "daily",
-    "time": "02:00",
-    "timezone": "UTC"
+  "version": "2.0",
+  "last_updated": "2026-06-29",
+  "description": "GLMP-focused scout configuration — biology, regulatory circuits, computational genomics",
+
+  "volume": {
+    "total_papers_per_run": 1000,
+    "papers_per_source_per_run": 750
   },
+
+  "source_weights": {
+    "pubmed": 0.50,
+    "biorxiv_medrxiv": 0.35,
+    "arxiv": 0.15
+  },
+
+  "pubmed_queries": [
+    {
+      "name": "Gene Regulation Core",
+      "query": "transcription factor[MeSH] OR gene regulation[MeSH] OR promoter regions[MeSH]",
+      "max_results": 500,
+      "mindate": "2020/01/01",
+      "maxdate": "2026/12/31",
+      "discipline": "biology",
+      "priority": 1
+    },
+    {
+      "name": "Regulatory Circuits and Operons",
+      "query": "gene regulatory network[MeSH] OR regulatory circuit OR operon[MeSH] OR bistable switch gene",
+      "max_results": 300,
+      "mindate": "2020/01/01",
+      "maxdate": "2026/12/31",
+      "discipline": "biology",
+      "priority": 1
+    },
+    {
+      "name": "Single Cell Genomics",
+      "query": "single-cell RNA-seq[MeSH] OR scRNA-seq OR RNA velocity OR single cell sequencing OR Perturb-seq",
+      "max_results": 300,
+      "mindate": "2021/01/01",
+      "maxdate": "2026/12/31",
+      "discipline": "biology",
+      "priority": 2
+    },
+    {
+      "name": "Synthetic Biology",
+      "query": "synthetic biology[MeSH] OR genetic circuit design OR logic gate gene expression",
+      "max_results": 200,
+      "mindate": "2016/01/01",
+      "maxdate": "2026/12/31",
+      "discipline": "biology",
+      "priority": 2
+    },
+    {
+      "name": "Computational Biology Methods",
+      "query": "FIMO OR MEME suite OR motif scanning OR ChIP-seq[MeSH] OR ATAC-seq OR transcription factor binding site prediction",
+      "max_results": 200,
+      "mindate": "2018/01/01",
+      "maxdate": "2026/12/31",
+      "discipline": "biology",
+      "priority": 2
+    },
+    {
+      "name": "High Impact Biology Journals",
+      "query": "(Nature[JOUR] OR Science[JOUR] OR Cell[JOUR] OR Nature Genetics[JOUR] OR Nature Methods[JOUR] OR Genome Research[JOUR] OR Nucleic Acids Research[JOUR]) AND (gene regulation OR regulatory network OR transcription factor OR genomics)",
+      "max_results": 300,
+      "mindate": "2020/01/01",
+      "maxdate": "2026/12/31",
+      "discipline": "biology",
+      "priority": 1
+    },
+    {
+      "name": "DNA Binding and Motifs",
+      "query": "DNA binding motif[MeSH] OR JASPAR OR position weight matrix OR transcription factor binding specificity",
+      "max_results": 200,
+      "mindate": "2015/01/01",
+      "maxdate": "2026/12/31",
+      "discipline": "biology",
+      "priority": 1
+    },
+    {
+      "name": "Key Labs and Authors",
+      "query": "Voigt CA[Author] OR Weissman JS[Author] OR Regev A[Author] OR Yanofsky C[Author] OR Schleif R[Author] OR Stormo GD[Author]",
+      "max_results": 200,
+      "mindate": "2010/01/01",
+      "maxdate": "2026/12/31",
+      "discipline": "biology",
+      "priority": 1
+    },
+    {
+      "name": "Cancer Regulatory Circuits",
+      "query": "cancer gene regulation[MeSH] OR oncogene transcription factor OR tumor suppressor regulatory OR K562 gene expression OR MYC regulatory circuit",
+      "max_results": 200,
+      "mindate": "2020/01/01",
+      "maxdate": "2026/12/31",
+      "discipline": "biology",
+      "priority": 3
+    },
+    {
+      "name": "Microbiology and Prokaryotic Regulation",
+      "query": "E. coli gene regulation OR bacterial transcription regulation OR prokaryotic regulatory circuit OR operon regulation bacteria",
+      "max_results": 200,
+      "mindate": "2015/01/01",
+      "maxdate": "2026/12/31",
+      "discipline": "biology",
+      "priority": 1
+    }
+  ],
+
+  "arxiv_queries": [
+    {
+      "name": "Quantitative Biology — Genomics and Molecular Networks",
+      "categories": ["q-bio.GN", "q-bio.MN"],
+      "days_back": 14,
+      "share": 0.40,
+      "discipline": "biology"
+    },
+    {
+      "name": "Quantitative Biology — Cell Behavior and Biophysics",
+      "categories": ["q-bio.CB", "q-bio.BM", "q-bio.QM"],
+      "days_back": 14,
+      "share": 0.30,
+      "discipline": "biology"
+    },
+    {
+      "name": "ML and AI Applied to Biology",
+      "categories": ["cs.LG", "cs.NE"],
+      "keyword_filter": "biology OR genomics OR gene OR regulatory OR protein OR DNA OR RNA",
+      "days_back": 7,
+      "share": 0.20,
+      "discipline": "biology"
+    },
+    {
+      "name": "Quantitative Biology — Populations and Evolution",
+      "categories": ["q-bio.PE", "q-bio.NC"],
+      "days_back": 14,
+      "share": 0.10,
+      "discipline": "biology"
+    }
+  ],
+
+  "biorxiv_config": {
+    "biorxiv_share": 0.95,
+    "medrxiv_share": 0.05,
+    "lookback_days": 30,
+    "subject_categories": [
+      "genomics",
+      "systems biology",
+      "synthetic biology",
+      "molecular biology",
+      "bioinformatics",
+      "genetics",
+      "cell biology",
+      "microbiology"
+    ]
+  },
+
+  "discipline_tag": "biology",
+
   "sources": {
     "pubmed": {
       "enabled": true,
-      "priority": 1,
-      "queries": [
-        {
-          "name": "Recent Nature Papers",
-          "query": "(Nature[JOUR] OR Nature Medicine[JOUR] OR Nature Biotechnology[JOUR] OR Nature Genetics[JOUR]) AND (\"2025\"[PDAT] OR \"2024\"[PDAT])",
-          "sort": "pub_date",
-          "max_results": 50,
-          "mindate": "2024/12/01",
-          "maxdate": "2025/12/31"
-        },
-        {
-          "name": "Recent Science Papers",
-          "query": "Science[JOUR] AND (\"2025\"[PDAT] OR \"2024\"[PDAT])",
-          "sort": "pub_date",
-          "max_results": 50,
-          "mindate": "2024/12/01",
-          "maxdate": "2025/12/31"
-        },
-        {
-          "name": "Recent Cell Papers",
-          "query": "(Cell[JOUR] OR Cell Reports[JOUR] OR Cell Systems[JOUR]) AND (\"2025\"[PDAT] OR \"2024\"[PDAT])",
-          "sort": "pub_date",
-          "max_results": 50,
-          "mindate": "2024/12/01",
-          "maxdate": "2025/12/31"
-        },
-        {
-          "name": "High-Impact Recent Biology",
-          "query": "(biomedical OR molecular biology OR genomics OR proteomics) AND (\"2025\"[PDAT] OR \"2024\"[PDAT])",
-          "sort": "relevance",
-          "max_results": 30,
-          "mindate": "2024/12/01",
-          "maxdate": "2025/12/31"
-        }
-      ]
+      "use_config_queries": true
     },
     "arxiv": {
       "enabled": true,
-      "priority": 3,
-      "queries": [
-        {
-          "name": "Recent Physics",
-          "categories": ["physics:astro-ph", "physics:cond-mat", "physics:quant-ph"],
-          "max_results": 50,
-          "sortBy": "submittedDate",
-          "sortOrder": "descending",
-          "days_back": 7
-        },
-        {
-          "name": "Recent Computer Science",
-          "categories": ["cs.AI", "cs.LG", "cs.CV", "cs.CL"],
-          "max_results": 50,
-          "sortBy": "submittedDate",
-          "sortOrder": "descending",
-          "days_back": 7
-        },
-        {
-          "name": "Recent Math",
-          "categories": ["math.AP", "math.DS", "math.OC", "math.ST"],
-          "max_results": 30,
-          "sortBy": "submittedDate",
-          "sortOrder": "descending",
-          "days_back": 7
-        },
-        {
-          "name": "Quantitative Biology",
-          "categories": ["q-bio.BM", "q-bio.CB", "q-bio.GN", "q-bio.NC"],
-          "max_results": 30,
-          "sortBy": "submittedDate",
-          "sortOrder": "descending",
-          "days_back": 7
-        }
-      ]
+      "use_config_queries": true
     },
     "biorxiv_medrxiv": {
       "enabled": true,
-      "priority": 2,
-      "description": "Recent biology and medicine preprints from BioRxiv/MedRxiv; marked preprint=true and peer_reviewed=false."
+      "use_config_queries": true
     },
     "nasa_ads": {
-      "enabled": false,
-      "priority": 4,
-      "queries": [
-        {
-          "name": "Recent Astronomy & Astrophysics",
-          "query": "year:2025 OR year:2024",
-          "max_results": 30,
-          "sort": "date desc"
-        }
-      ]
+      "enabled": false
     }
-  },
-  "limits": {
-    "papers_per_source_per_run": 750,
-    "total_papers_per_run": 1000,
-    "source_weights": {
-      "pubmed": 0.6,
-      "biorxiv_medrxiv": 0.25,
-      "arxiv": 0.15
-    },
-    "rate_limit_buffer": 0.5
-  },
-  "agent_ralph": {
-    "description": "Ralph Wiggum / scheduler: run run_daily_scout_with_ingest.sh on the cron schedule. papers_per_source_per_run caps each source; total_papers_per_run is split by source_weights.",
-    "wrapper_script": "scripts/acquire_papers/run_daily_scout_with_ingest.sh"
-  },
-  "output": {
-    "directory": "metadata-database/papers/daily_scout",
-    "organize_by": "date",
-    "deduplicate": true
   }
 }

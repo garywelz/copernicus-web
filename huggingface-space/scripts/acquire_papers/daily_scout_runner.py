@@ -20,11 +20,14 @@ from pathlib import Path
 from datetime import datetime, timedelta
 from typing import Dict, List, Optional
 
-# Configuration
-BASE_DIR = Path("/home/gdubs/copernicus-web-public/huggingface-space")
-CONFIG_FILE = BASE_DIR / "scripts" / "acquire_papers" / "daily_scout_config.json"
+# Configuration — resolve repo-relative path (works on Jetson and local dev)
+_SCRIPT_DIR = Path(__file__).resolve().parent
+BASE_DIR = _SCRIPT_DIR.parent.parent
+CONFIG_FILE = _SCRIPT_DIR / "daily_scout_config.json"
 LOG_DIR = BASE_DIR / "paper_acquisition_logs" / "daily_scout"
+QUERY_DIR = _SCRIPT_DIR / ".scout_query_cache"
 LOG_DIR.mkdir(parents=True, exist_ok=True)
+QUERY_DIR.mkdir(parents=True, exist_ok=True)
 
 def load_config(config_path: Path) -> Dict:
     """Load configuration from JSON file."""
@@ -35,16 +38,42 @@ def load_config(config_path: Path) -> Dict:
     with open(config_path, 'r') as f:
         return json.load(f)
 
-def run_pubmed_recent(log_file: Path, count: int = 100) -> bool:
+
+def write_scout_query_files(config: Dict) -> Dict[str, Optional[Path]]:
+    """
+    Write per-source query JSON files for batch scripts to read.
+    Temp-file approach keeps batch scripts decoupled from config schema changes.
+    """
+    paths: Dict[str, Optional[Path]] = {
+        "pubmed": None,
+        "arxiv": None,
+        "biorxiv_medrxiv": None,
+    }
+    if config.get("pubmed_queries"):
+        pubmed_path = QUERY_DIR / "scout_pubmed_queries.json"
+        pubmed_path.write_text(json.dumps(config["pubmed_queries"], indent=2), encoding="utf-8")
+        paths["pubmed"] = pubmed_path
+    if config.get("arxiv_queries"):
+        arxiv_path = QUERY_DIR / "scout_arxiv_queries.json"
+        arxiv_path.write_text(json.dumps(config["arxiv_queries"], indent=2), encoding="utf-8")
+        paths["arxiv"] = arxiv_path
+    if config.get("biorxiv_config"):
+        biorxiv_path = QUERY_DIR / "scout_biorxiv_config.json"
+        biorxiv_path.write_text(json.dumps(config["biorxiv_config"], indent=2), encoding="utf-8")
+        paths["biorxiv_medrxiv"] = biorxiv_path
+    return paths
+
+
+def run_pubmed_recent(log_file: Path, count: int = 100, config_queries: Optional[Path] = None) -> bool:
     """Run PubMed acquisition for recent papers."""
-    # Use existing script with --recent flag (small batch for daily collection)
-    # Pass --classic 0 to prevent acquiring classic papers
     cmd = [
         'python3',
-        str(BASE_DIR / 'scripts' / 'acquire_papers' / 'acquire_pubmed_batch.py'),
-        '--recent', str(count),  # Small daily batch
-        '--classic', '0',  # Don't acquire classic papers in daily scout
+        str(_SCRIPT_DIR / 'acquire_pubmed_batch.py'),
+        '--recent', str(count),
+        '--classic', '0',
     ]
+    if config_queries:
+        cmd.extend(['--config-queries', str(config_queries)])
     
     print(f"  Running PubMed recent papers acquisition")
     print(f"    Target: {count} recent papers")
@@ -69,16 +98,16 @@ def run_pubmed_recent(log_file: Path, count: int = 100) -> bool:
         print(f"    ❌ Error: {e}")
         return False
 
-def run_arxiv_recent(log_file: Path, count: int = 100) -> bool:
+def run_arxiv_recent(log_file: Path, count: int = 100, config_queries: Optional[Path] = None) -> bool:
     """Run arXiv acquisition for recent papers."""
-    # Use existing script with --recent flag (small batch for daily collection)
-    # Pass --classic 0 to prevent acquiring classic papers
     cmd = [
         'python3',
-        str(BASE_DIR / 'scripts' / 'acquire_papers' / 'acquire_arxiv_batch.py'),
-        '--recent', str(count),  # Small daily batch
-        '--classic', '0',  # Don't acquire classic papers in daily scout
+        str(_SCRIPT_DIR / 'acquire_arxiv_batch.py'),
+        '--recent', str(count),
+        '--classic', '0',
     ]
+    if config_queries:
+        cmd.extend(['--config-queries', str(config_queries)])
     
     print(f"  Running arXiv recent papers acquisition")
     print(f"    Target: {count} recent papers")
@@ -100,13 +129,15 @@ def run_arxiv_recent(log_file: Path, count: int = 100) -> bool:
         print(f"    ❌ Error: {e}")
         return False
 
-def run_biorxiv_medrxiv_recent(log_file: Path, count: int = 100) -> bool:
+def run_biorxiv_medrxiv_recent(log_file: Path, count: int = 100, config_queries: Optional[Path] = None) -> bool:
     """Run BioRxiv/MedRxiv acquisition for recent preprints."""
     cmd = [
         'python3',
-        str(BASE_DIR / 'scripts' / 'acquire_papers' / 'acquire_biorxiv_medrxiv_batch.py'),
+        str(_SCRIPT_DIR / 'acquire_biorxiv_medrxiv_batch.py'),
         '--recent', str(count),
     ]
+    if config_queries:
+        cmd.extend(['--config-queries', str(config_queries)])
     
     print(f"  Running BioRxiv/MedRxiv recent preprint acquisition")
     print(f"    Target: {count} recent preprints")
@@ -135,7 +166,7 @@ def run_nasa_ads_recent(log_file: Path, count: int = 100) -> bool:
     """Run NASA ADS acquisition (requires NASA_ADS_API_TOKEN or Secret Manager)."""
     cmd = [
         'python3',
-        str(BASE_DIR / 'scripts' / 'acquire_papers' / 'acquire_nasa_ads_batch.py'),
+        str(_SCRIPT_DIR / 'acquire_nasa_ads_batch.py'),
         '--count', str(count),
     ]
     print(f"  Running NASA ADS paper acquisition")
@@ -179,11 +210,15 @@ def run_daily_scout(config: Dict) -> Dict:
         key=lambda x: x[1].get('priority', 999)
     )
     
-    # Get per-run limits from config. The same runner can be scheduled more than once per day.
-    limits = config.get('limits', {})
-    base_per_source = int(limits.get('papers_per_source_per_run', limits.get('papers_per_source_per_day', 100)))
-    total_cap = limits.get('total_papers_per_run', limits.get('total_papers_per_day'))
-    source_weights = limits.get('source_weights', {})
+    query_paths = write_scout_query_files(config)
+    if any(query_paths.values()):
+        print("📋 Config queries written to:", QUERY_DIR)
+
+    # Per-run limits — v2 config uses top-level volume + source_weights
+    volume = config.get('volume', config.get('limits', {}))
+    base_per_source = int(volume.get('papers_per_source_per_run', volume.get('papers_per_source_per_day', 750)))
+    total_cap = volume.get('total_papers_per_run', volume.get('total_papers_per_day', 1000))
+    source_weights = config.get('source_weights', volume.get('source_weights', {}))
     n_sources = len(sources)
     source_targets = {}
     if total_cap is not None and n_sources > 0 and source_weights:
@@ -227,12 +262,15 @@ def run_daily_scout(config: Dict) -> Dict:
         
         log_file = LOG_DIR / f"{source_name}_{datetime.now().strftime('%Y%m%d')}.log"
         
+        use_config = source_config.get('use_config_queries', True)
+        qpath = query_paths.get(source_name) if use_config else None
+
         if source_name == 'pubmed':
-            success = run_pubmed_recent(log_file, papers_for_source)
+            success = run_pubmed_recent(log_file, papers_for_source, qpath)
         elif source_name == 'biorxiv_medrxiv':
-            success = run_biorxiv_medrxiv_recent(log_file, papers_for_source)
+            success = run_biorxiv_medrxiv_recent(log_file, papers_for_source, qpath)
         elif source_name == 'arxiv':
-            success = run_arxiv_recent(log_file, papers_for_source)
+            success = run_arxiv_recent(log_file, papers_for_source, qpath)
         elif source_name == 'nasa_ads':
             success = run_nasa_ads_recent(log_file, papers_for_source)
         else:

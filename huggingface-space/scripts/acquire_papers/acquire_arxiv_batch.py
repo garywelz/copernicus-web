@@ -13,7 +13,7 @@ import time
 import xml.etree.ElementTree as ET
 from pathlib import Path
 from typing import Dict, List, Optional
-from datetime import datetime
+from datetime import datetime, date, timedelta
 import sys
 import urllib.request
 import urllib.parse
@@ -201,7 +201,8 @@ def parse_arxiv_entry(entry: ET.Element, ns: Dict) -> Optional[Dict]:
             "pdf_url": f"https://arxiv.org/pdf/{arxiv_id}.pdf",
             "source": "arxiv",
             "acquired_date": datetime.now().isoformat(),
-            "category": category,
+            "category": "biology",
+            "discipline": "biology",
             "subcategories": categories[:3] if categories else []
         }
         
@@ -314,54 +315,91 @@ def save_papers(papers: List[Dict], output_dir: Path, batch_name: str = "arxiv")
             with open(filepath, 'w', encoding='utf-8') as f:
                 json.dump(paper, f, indent=2, ensure_ascii=False)
 
-def acquire_recent_papers(target_count: int = 5000):
-    """Acquire recent papers (2023-2025)."""
+def load_config_queries(config_path: Optional[str]) -> Optional[List[Dict]]:
+    if not config_path:
+        return None
+    path = Path(config_path)
+    if not path.exists():
+        print(f"  ⚠️  Config queries file not found: {path}")
+        return None
+    with open(path, encoding="utf-8") as f:
+        data = json.load(f)
+    return data if isinstance(data, list) else None
+
+
+def build_arxiv_query(categories: List[str], days_back: int = 14, keyword_filter: Optional[str] = None) -> str:
+    cat_query = " OR ".join(f"cat:{c}" for c in categories)
+    end = date.today()
+    start = end - timedelta(days=days_back)
+    date_filter = f"submittedDate:[{start.strftime('%Y%m%d')}* TO {end.strftime('%Y%m%d')}*]"
+    base = f"({cat_query})"
+    if keyword_filter:
+        kw_terms = [t.strip() for t in keyword_filter.replace(" OR ", "|").split("|") if t.strip()]
+        kw_query = " OR ".join(f"all:{term}" for term in kw_terms)
+        base = f"{base} AND ({kw_query})"
+    return f"{base} AND {date_filter}"
+
+
+def acquire_recent_papers(target_count: int = 5000, config_queries_path: Optional[str] = None):
+    """Acquire recent q-bio / ML-for-biology papers only — no math/CS overflow."""
     print("\n" + "=" * 60)
-    print("Acquiring Recent arXiv Papers (2023-2025)")
+    print("Acquiring Recent arXiv Papers (biology-focused)")
     print("=" * 60)
     
-    # Queries for different categories
-    # Note: arXiv API doesn't support date range syntax, so we use simple category queries
-    # and sort by submittedDate descending to get the most recent papers
-    # arXiv category prefixes:
-    # - physics: astro-ph.*, cond-mat.*, hep-*, nucl-*, gr-qc, physics.*, quant-ph, math-ph
-    # - math: math.*
-    # - cs: cs.*
-    # - biology: q-bio.*
-    q_bio_target = max(1, int(target_count * 0.60))
-    cs_target = max(1, int(target_count * 0.20))
-    stats_target = max(1, int(target_count * 0.10))
-    bio_physics_target = max(1, target_count - q_bio_target - cs_target - stats_target)
-    queries = [
-        ("cat:q-bio.*", "biology", q_bio_target),
-        ("(cat:cs.AI OR cat:cs.LG OR cat:cs.CL OR cat:cs.CV)", "computer_science", cs_target),
-        ("(cat:stat.ML OR cat:stat.AP OR cat:math.ST)", "mathematics", stats_target),
-        ("(cat:physics.bio-ph OR cat:physics.med-ph OR cat:cond-mat.soft)", "physics", bio_physics_target),
-        ("cat:cs.*", "computer_science", target_count),
-        ("cat:math.*", "mathematics", target_count),
-        ("(cat:astro-ph.* OR cat:cond-mat.* OR cat:gr-qc OR cat:hep-ph OR cat:hep-th OR cat:hep-ex OR cat:hep-lat OR cat:nucl-ex OR cat:nucl-th OR cat:physics.* OR cat:quant-ph OR cat:math-ph)", "physics", target_count),
-    ]
+    config_queries = load_config_queries(config_queries_path)
+    if config_queries:
+        print(f"  Using {len(config_queries)} queries from config file")
+        query_plan = []
+        for qdef in config_queries:
+            share = float(qdef.get("share", 0.25))
+            count = max(1, int(target_count * share))
+            query = build_arxiv_query(
+                qdef.get("categories", ["q-bio.GN"]),
+                int(qdef.get("days_back", 14)),
+                qdef.get("keyword_filter"),
+            )
+            query_plan.append((query, qdef.get("name", "config query"), count))
+    else:
+        q_bio_target = max(1, int(target_count * 0.60))
+        cs_target = max(1, int(target_count * 0.20))
+        bio_physics_target = max(1, target_count - q_bio_target - cs_target)
+        query_plan = [
+            (build_arxiv_query(["q-bio.GN", "q-bio.MN", "q-bio.CB", "q-bio.BM"], 14), "q-bio core", q_bio_target),
+            (build_arxiv_query(["cs.LG", "cs.NE"], 7, "biology OR genomics OR gene OR regulatory"), "ML for biology", cs_target),
+            (build_arxiv_query(["q-bio.QM", "q-bio.PE", "q-bio.NC"], 14), "q-bio extended", bio_physics_target),
+        ]
     
     all_papers = []
+    seen_ids = set()
     total_acquired = 0
     
-    for query, category, count in queries:
+    for query, name, count in query_plan:
         if total_acquired >= target_count:
             break
         
         remaining = target_count - total_acquired
         query_target = min(count, remaining)
         
-        print(f"\nQuery: {query}")
+        print(f"\nQuery ({name}): {query[:100]}...")
         papers = fetch_arxiv_papers(query, query_target, sort_by="submittedDate", sort_order="descending")
         
-        all_papers.extend(papers)
-        total_acquired += len(papers)
-        print(f"  ✅ Acquired {len(papers)} papers (Total: {total_acquired}/{target_count})")
+        for paper in papers:
+            arxiv_id = paper.get("arxiv_id") or paper.get("id")
+            if arxiv_id in seen_ids:
+                continue
+            seen_ids.add(arxiv_id)
+            paper["category"] = "biology"
+            paper["discipline"] = "biology"
+            all_papers.append(paper)
+        
+        total_acquired = len(all_papers)
+        print(f"  ✅ Acquired {len(papers)} papers (unique total: {total_acquired}/{target_count})")
         
         time.sleep(DELAY_BETWEEN_QUERIES)
     
-    # Save all papers
+    if total_acquired < target_count:
+        print(f"  ℹ️  Stopped at {total_acquired}/{target_count} — no math/CS overflow categories used.")
+    
     print(f"\n💾 Saving {len(all_papers)} recent papers...")
     save_papers(all_papers, OUTPUT_DIR / "arxiv_recent", batch_name="arxiv_recent")
     
@@ -416,8 +454,9 @@ def main():
     import argparse
     
     parser = argparse.ArgumentParser(description="Acquire papers from arXiv")
-    parser.add_argument("--recent", type=int, default=5000, help="Number of recent papers (2023-2025)")
+    parser.add_argument("--recent", type=int, default=5000, help="Number of recent biology-focused papers")
     parser.add_argument("--classic", type=int, default=5000, help="Number of classic papers (pre-2023)")
+    parser.add_argument("--config-queries", type=str, default=None, help="JSON file with arxiv_queries list")
     parser.add_argument("--test", action="store_true", help="Test mode: acquire only 10 papers")
     args = parser.parse_args()
     
@@ -429,23 +468,24 @@ def main():
     
     if args.test:
         print("\n🧪 TEST MODE: Acquiring 10 papers...")
-        papers = fetch_arxiv_papers("cat:quant-ph", 10, sort_by="submittedDate", sort_order="descending")
+        papers = fetch_arxiv_papers("cat:q-bio.GN", 10, sort_by="submittedDate", sort_order="descending")
         save_papers(papers, OUTPUT_DIR / "arxiv_test", batch_name="arxiv_test")
         print(f"\n✅ Test complete: Acquired {len(papers)} papers")
         return
     
     # Acquire recent papers
-    recent_count = acquire_recent_papers(args.recent)
+    recent_count = acquire_recent_papers(args.recent, args.config_queries)
     
-    # Acquire classic papers
-    classic_count = acquire_classic_papers(args.classic)
+    classic_count = 0
+    if args.classic > 0:
+        classic_count = acquire_classic_papers(args.classic)
     
-    # Summary
     print("\n" + "=" * 60)
     print("Acquisition Complete")
     print("=" * 60)
-    print(f"Recent papers (2023-2025): {recent_count:,}")
-    print(f"Classic papers (pre-2023): {classic_count:,}")
+    print(f"Recent papers (biology-focused): {recent_count:,}")
+    if args.classic > 0:
+        print(f"Classic papers (pre-2023): {classic_count:,}")
     print(f"Total papers acquired: {recent_count + classic_count:,}")
     print(f"\nPapers saved to: {OUTPUT_DIR}")
     print("=" * 60)

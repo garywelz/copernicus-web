@@ -24,9 +24,39 @@ PAGE_SIZE = 100
 DELAY_BETWEEN_REQUESTS = 1.0
 
 SERVER_WEIGHTS = {
-    "biorxiv": 0.75,
-    "medrxiv": 0.25,
+    "biorxiv": 0.95,
+    "medrxiv": 0.05,
 }
+
+
+def load_biorxiv_config(config_path: Optional[str]) -> Dict:
+    defaults = {
+        "biorxiv_share": 0.95,
+        "medrxiv_share": 0.05,
+        "lookback_days": 30,
+        "subject_categories": [],
+    }
+    if not config_path:
+        return defaults
+    path = Path(config_path)
+    if not path.exists():
+        print(f"  ⚠️  Config file not found: {path}")
+        return defaults
+    with open(path, encoding="utf-8") as f:
+        data = json.load(f)
+    if isinstance(data, dict):
+        defaults.update(data)
+    return defaults
+
+
+def _matches_subject_category(record: Dict, allowed: List[str]) -> bool:
+    if not allowed:
+        return True
+    category = (record.get("category") or "").strip().lower()
+    if not category:
+        return True
+    allowed_lower = [a.lower() for a in allowed]
+    return any(a in category or category in a for a in allowed_lower)
 
 
 def _safe_id(value: str) -> str:
@@ -114,7 +144,8 @@ def parse_record(record: Dict) -> Optional[Dict]:
         "source": server,
         "sources": [server],
         "acquired_date": datetime.now().isoformat(),
-        "category": "biology" if server == "biorxiv" else "biology",
+        "category": "biology",
+        "discipline": "biology",
         "subcategories": [record.get("category")] if record.get("category") else [],
         "published_date": posted_date or None,
         "updated_date": posted_date or None,
@@ -146,31 +177,43 @@ def save_papers(papers: List[Dict]) -> None:
                 json.dump(paper, f, indent=2, ensure_ascii=False)
 
 
-def acquire_recent_papers(target_count: int, lookback_days: int) -> int:
+def acquire_recent_papers(
+    target_count: int,
+    lookback_days: int,
+    server_weights: Optional[Dict[str, float]] = None,
+    subject_categories: Optional[List[str]] = None,
+) -> int:
     print("\n" + "=" * 60)
     print("BioRxiv/MedRxiv Preprint Acquisition")
     print("=" * 60)
 
+    weights = server_weights or SERVER_WEIGHTS
     all_papers: List[Dict] = []
     seen_ids = set()
-    total_weight = sum(SERVER_WEIGHTS.values())
+    total_weight = sum(weights.values())
 
-    for server, weight in SERVER_WEIGHTS.items():
+    for server, weight in weights.items():
         server_target = max(1, round(target_count * weight / total_weight))
         remaining = target_count - len(all_papers)
         if remaining <= 0:
             break
         server_target = min(server_target, remaining)
 
-        print(f"\nServer: {server} (target {server_target})")
-        records = fetch_server_records(server, server_target, lookback_days)
+        print(f"\nServer: {server} (target {server_target}, lookback {lookback_days}d)")
+        records = fetch_server_records(server, server_target * 3, lookback_days)
+        accepted = 0
         for record in records:
+            if accepted >= server_target:
+                break
+            if not _matches_subject_category(record, subject_categories or []):
+                continue
             paper = parse_record(record)
             if not paper or paper["id"] in seen_ids:
                 continue
             seen_ids.add(paper["id"])
             all_papers.append(paper)
-        print(f"  Acquired {len(records)} raw records; total parsed: {len(all_papers)}/{target_count}")
+            accepted += 1
+        print(f"  Acquired {accepted} filtered records; total parsed: {len(all_papers)}/{target_count}")
 
     print(f"\nSaving {len(all_papers)} BioRxiv/MedRxiv preprints...")
     save_papers(all_papers)
@@ -180,10 +223,24 @@ def acquire_recent_papers(target_count: int, lookback_days: int) -> int:
 def main() -> int:
     parser = argparse.ArgumentParser(description="Acquire recent BioRxiv/MedRxiv preprints")
     parser.add_argument("--recent", type=int, default=250, help="Number of recent preprints")
-    parser.add_argument("--lookback-days", type=int, default=120, help="Date-window lookback for API queries")
+    parser.add_argument("--lookback-days", type=int, default=30, help="Date-window lookback for API queries")
+    parser.add_argument("--config-queries", type=str, default=None, help="JSON file with biorxiv_config object")
     args = parser.parse_args()
 
-    acquired = acquire_recent_papers(args.recent, args.lookback_days)
+    bcfg = load_biorxiv_config(args.config_queries)
+    lookback = int(bcfg.get("lookback_days", args.lookback_days))
+    weights = {
+        "biorxiv": float(bcfg.get("biorxiv_share", 0.95)),
+        "medrxiv": float(bcfg.get("medrxiv_share", 0.05)),
+    }
+    subject_categories = bcfg.get("subject_categories") or []
+
+    acquired = acquire_recent_papers(
+        args.recent,
+        lookback,
+        server_weights=weights,
+        subject_categories=subject_categories,
+    )
     print("\n" + "=" * 60)
     print("Acquisition Complete")
     print("=" * 60)
