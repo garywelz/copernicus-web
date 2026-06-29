@@ -29,6 +29,14 @@ QUERY_DIR = _SCRIPT_DIR / ".scout_query_cache"
 LOG_DIR.mkdir(parents=True, exist_ok=True)
 QUERY_DIR.mkdir(parents=True, exist_ok=True)
 
+
+def python_bin() -> str:
+    """Prefer paper_acquisition_venv on Jetson/WSL; fall back to system python3."""
+    venv_python = BASE_DIR / "paper_acquisition_venv" / "bin" / "python3"
+    if venv_python.exists():
+        return str(venv_python)
+    return "python3"
+
 def load_config(config_path: Path) -> Dict:
     """Load configuration from JSON file."""
     if not config_path.exists():
@@ -67,7 +75,7 @@ def write_scout_query_files(config: Dict) -> Dict[str, Optional[Path]]:
 def run_pubmed_recent(log_file: Path, count: int = 100, config_queries: Optional[Path] = None) -> bool:
     """Run PubMed acquisition for recent papers."""
     cmd = [
-        'python3',
+        python_bin(),
         str(_SCRIPT_DIR / 'acquire_pubmed_batch.py'),
         '--recent', str(count),
         '--classic', '0',
@@ -101,7 +109,7 @@ def run_pubmed_recent(log_file: Path, count: int = 100, config_queries: Optional
 def run_arxiv_recent(log_file: Path, count: int = 100, config_queries: Optional[Path] = None) -> bool:
     """Run arXiv acquisition for recent papers."""
     cmd = [
-        'python3',
+        python_bin(),
         str(_SCRIPT_DIR / 'acquire_arxiv_batch.py'),
         '--recent', str(count),
         '--classic', '0',
@@ -132,7 +140,7 @@ def run_arxiv_recent(log_file: Path, count: int = 100, config_queries: Optional[
 def run_biorxiv_medrxiv_recent(log_file: Path, count: int = 100, config_queries: Optional[Path] = None) -> bool:
     """Run BioRxiv/MedRxiv acquisition for recent preprints."""
     cmd = [
-        'python3',
+        python_bin(),
         str(_SCRIPT_DIR / 'acquire_biorxiv_medrxiv_batch.py'),
         '--recent', str(count),
     ]
@@ -165,7 +173,7 @@ def run_biorxiv_medrxiv_recent(log_file: Path, count: int = 100, config_queries:
 def run_nasa_ads_recent(log_file: Path, count: int = 100) -> bool:
     """Run NASA ADS acquisition (requires NASA_ADS_API_TOKEN or Secret Manager)."""
     cmd = [
-        'python3',
+        python_bin(),
         str(_SCRIPT_DIR / 'acquire_nasa_ads_batch.py'),
         '--count', str(count),
     ]
@@ -323,14 +331,7 @@ def main():
     # Load configuration
     config = load_config(Path(args.config))
     
-    # Activate virtual environment if available
-    venv_python = BASE_DIR / 'paper_acquisition_venv' / 'bin' / 'python3'
-    if venv_python.exists():
-        # If running in venv, use venv python
-        # For now, assume we're already in the right environment
-        pass
-    
-    # Run the scout
+    # venv is selected automatically via python_bin() for subprocess calls
     if args.source:
         # Filter to single source
         config['sources'] = {args.source: config['sources'].get(args.source, {})}
