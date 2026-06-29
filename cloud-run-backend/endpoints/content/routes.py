@@ -126,14 +126,7 @@ async def browse_content(
                 structured_logger.warning("Failed to count papers", error=str(e))
                 total = 0
             
-            # Prefer a stable "newest-ish" ordering so newly ingested content appears early.
-            # Fall back to title ordering if updated_at is missing/unindexed.
-            try:
-                from google.cloud import firestore  # type: ignore
-                query = papers_ref.order_by('updated_at', direction=firestore.Query.DESCENDING)
-            except Exception:
-                query = papers_ref.order_by('title')
-            query = query.limit(limit).offset((page - 1) * limit)
+            query = papers_ref.order_by('__name__').limit(limit).offset((page - 1) * limit)
             papers = query.stream()
             
             for paper in papers:
