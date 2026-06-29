@@ -126,7 +126,12 @@ async def browse_content(
                 structured_logger.warning("Failed to count papers", error=str(e))
                 total = 0
             
-            query = papers_ref.order_by('__name__').limit(limit).offset((page - 1) * limit)
+            from google.cloud import firestore as _fs
+            query = papers_ref.order_by(
+                'updated_at', direction=_fs.Query.DESCENDING
+            ).order_by(
+                '__name__', direction=_fs.Query.ASCENDING
+            ).limit(limit).offset((page - 1) * limit)
             papers = query.stream()
             
             for paper in papers:
