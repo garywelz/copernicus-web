@@ -467,6 +467,17 @@
             el.style.display = 'block';
         }
 
+        function paperExternalUrl(paper) {
+            if (paper.doi) return `https://doi.org/${paper.doi}`;
+            if (paper.pmid) return `https://pubmed.ncbi.nlm.nih.gov/${paper.pmid}`;
+            if (paper.arxiv_id) {
+                const id = String(paper.arxiv_id).replace(/^arxiv:/i, '');
+                return `https://arxiv.org/abs/${id}`;
+            }
+            if (paper.url) return paper.url;
+            return null;
+        }
+
         function _paperFromBrowseItem(item) {
             const md = item.metadata || {};
             return {
@@ -479,6 +490,7 @@
                 source: item.source || (item.sources ? item.sources[0] : '') || '',
                 doi: item.doi || null,
                 pmid: item.pmid || null,
+                arxiv_id: item.arxiv_id || null,
                 url: item.url || null,
                 category: item.discipline || '',
                 keywords: item.keywords || [],
@@ -519,6 +531,7 @@
                 source: (Array.isArray(p.sources) && p.sources.length ? p.sources[0] : p.source) || '',
                 doi: p.doi || null,
                 pmid: p.pmid || null,
+                arxiv_id: p.arxiv_id || null,
                 url: p.url || null,
                 category: p.discipline || '',
                 keywords: p.keywords || [],
@@ -684,10 +697,19 @@
         function renderTable() {
             const tbody = document.getElementById('papersTableBody');
             tbody.innerHTML = '';
-            
-            const start = (currentPage - 1) * itemsPerPage;
-            const end = start + itemsPerPage;
-            const pagePapers = filteredPapers.slice(start, end);
+
+            let pagePapers;
+            let totalPages;
+            if (isSearchMode) {
+                const start = (currentPage - 1) * itemsPerPage;
+                const end = start + itemsPerPage;
+                pagePapers = filteredPapers.slice(start, end);
+                totalPages = Math.ceil(filteredPapers.length / itemsPerPage) || 1;
+            } else {
+                // Browse mode: API already returned this page's rows.
+                pagePapers = filteredPapers;
+                totalPages = totalPagesServer || 1;
+            }
             
             pagePapers.forEach(paper => {
                 const row = document.createElement('tr');
@@ -699,41 +721,37 @@
                 const source = paper.source || 'unknown';
                 const abstract = paper.abstract || '';
                 const abstractPreview = abstract.length > 200 ? abstract.substring(0, 200) + '...' : abstract;
-                
-                // Build URL
-                let url = '#';
-                if (paper.doi) {
-                    url = `https://doi.org/${paper.doi}`;
-                } else if (paper.url) {
-                    url = paper.url;
-                } else if (paper.pmid) {
-                    url = `https://pubmed.ncbi.nlm.nih.gov/${paper.pmid}`;
+                const externalUrl = paperExternalUrl(paper);
+                const titleCell = externalUrl
+                    ? `<a href="${externalUrl}" target="_blank" rel="noopener noreferrer">${title}</a>`
+                    : title;
+                const linkParts = [];
+                if (paper.doi) linkParts.push(`<a href="https://doi.org/${paper.doi}" target="_blank" rel="noopener noreferrer" title="DOI">DOI</a>`);
+                if (paper.pmid) linkParts.push(`<a href="https://pubmed.ncbi.nlm.nih.gov/${paper.pmid}" target="_blank" rel="noopener noreferrer" title="PubMed">PubMed</a>`);
+                if (paper.arxiv_id) {
+                    const arxivUrl = paperExternalUrl(paper);
+                    linkParts.push(`<a href="${arxivUrl}" target="_blank" rel="noopener noreferrer" title="arXiv">arXiv</a>`);
+                } else if (paper.url && !paper.doi && !paper.pmid) {
+                    linkParts.push(`<a href="${paper.url}" target="_blank" rel="noopener noreferrer">Link</a>`);
                 }
                 
                 row.innerHTML = `
-                    <td class="paper-title">
-                        <a href="${url}" target="_blank">${title}</a>
-                    </td>
+                    <td class="paper-title">${titleCell}</td>
                     <td class="authors">${authors}</td>
                     <td class="journal">${journal}</td>
                     <td class="year">${year}</td>
                     <td><span class="source-badge source-${source}">${source}</span></td>
                     <td class="abstract-preview">${abstractPreview}</td>
-                    <td>
-                        ${paper.doi ? `<a href="https://doi.org/${paper.doi}" target="_blank" title="DOI">DOI</a>` : ''}
-                        ${paper.pmid ? `<a href="https://pubmed.ncbi.nlm.nih.gov/${paper.pmid}" target="_blank" title="PubMed">PubMed</a>` : ''}
-                        ${paper.url && !paper.doi && !paper.pmid ? `<a href="${paper.url}" target="_blank">Link</a>` : ''}
-                    </td>
+                    <td>${linkParts.join(' ')}</td>
                 `;
                 
                 tbody.appendChild(row);
             });
             
             // Update pagination
-            const totalPages = Math.ceil(filteredPapers.length / itemsPerPage) || 1;
             const modeLabel = isSearchMode ? 'Search results' : 'Browse';
             document.getElementById('pageInfo').textContent =
-                `${modeLabel}: Page ${currentPage} of ${totalPages} (${filteredPapers.length.toLocaleString()} papers shown)` +
+                `${modeLabel}: Page ${currentPage} of ${totalPages} (${pagePapers.length.toLocaleString()} papers shown)` +
                 (isSearchMode ? '' : ` • Total in DB: ${(totalPapersServer || 0).toLocaleString()}`);
             document.getElementById('prevBtn').disabled = currentPage === 1;
             document.getElementById('nextBtn').disabled = currentPage >= totalPages;
