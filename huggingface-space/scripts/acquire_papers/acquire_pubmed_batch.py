@@ -302,21 +302,38 @@ def parse_pubmed_record(record: Dict) -> Optional[Dict]:
         print(f"    ⚠️  Error parsing record: {e}")
         return None
 
-def save_papers(papers: List[Dict], output_dir: Path, batch_num: int = 0):
-    """Save papers to JSON files in the output directory."""
+def _empty_save_stats() -> Dict[str, int]:
+    return {"fetched": 0, "saved": 0, "new_files": 0, "updated_files": 0}
+
+
+def _merge_save_stats(total: Dict[str, int], part: Dict[str, int]) -> Dict[str, int]:
+    for key in total:
+        total[key] += part.get(key, 0)
+    return total
+
+
+def save_papers(papers: List[Dict], output_dir: Path, batch_num: int = 0) -> Dict[str, int]:
+    """Save papers to JSON files. Returns fetched/new/updated counts."""
     output_dir.mkdir(parents=True, exist_ok=True)
-    
-    # Save individual papers
+    stats = _empty_save_stats()
+    stats["fetched"] = len(papers)
+
     for paper in papers:
         if not paper.get("pmid"):
             continue
-        
+
         filename = f"pubmed_{paper['pmid']}.json"
         filepath = output_dir / filename
-        
+
+        if filepath.exists():
+            stats["updated_files"] += 1
+        else:
+            stats["new_files"] += 1
+        stats["saved"] += 1
+
         with open(filepath, 'w', encoding='utf-8') as f:
             json.dump(paper, f, indent=2, ensure_ascii=False)
-    
+
     # Save batch summary
     if batch_num > 0:
         batch_file = output_dir / f"batch_{batch_num:04d}.json"
@@ -327,6 +344,16 @@ def save_papers(papers: List[Dict], output_dir: Path, batch_num: int = 0):
                 "pmids": [p["pmid"] for p in papers if p.get("pmid")],
                 "acquired_date": datetime.now().isoformat()
             }, f, indent=2, ensure_ascii=False)
+
+    return stats
+
+
+def _print_save_summary(stats: Dict[str, int]) -> None:
+    print(
+        f"  📊 Save summary: fetched={stats['fetched']}  "
+        f"new_json={stats['new_files']}  "
+        f"updated_json={stats['updated_files']}"
+    )
 
 def load_config_queries(config_path: Optional[str]) -> Optional[List[Dict]]:
     if not config_path:
@@ -390,9 +417,10 @@ def acquire_recent_papers(target_count: int = 15000, config_queries_path: Option
     
     # Save all papers
     print(f"\n💾 Saving {len(all_papers)} recent papers...")
-    save_papers(all_papers, OUTPUT_DIR / "recent", batch_num=1)
-    
-    return len(all_papers)
+    save_stats = save_papers(all_papers, OUTPUT_DIR / "recent", batch_num=1)
+    _print_save_summary(save_stats)
+
+    return len(all_papers), save_stats
 
 def acquire_classic_papers(target_count: int = 15000):
     """Acquire classic/foundational papers (1950-2019)."""
@@ -434,9 +462,10 @@ def acquire_classic_papers(target_count: int = 15000):
     
     # Save all papers
     print(f"\n💾 Saving {len(all_papers)} classic papers...")
-    save_papers(all_papers, OUTPUT_DIR / "classic", batch_num=1)
-    
-    return len(all_papers)
+    save_stats = save_papers(all_papers, OUTPUT_DIR / "classic", batch_num=1)
+    _print_save_summary(save_stats)
+
+    return len(all_papers), save_stats
 
 def main():
     """Main function to run paper acquisition."""
@@ -467,17 +496,27 @@ def main():
         pmids = search_pubmed("molecular biology[MeSH]", 10, mindate="2020/01/01", maxdate="2026/12/31")
         if pmids:
             papers = fetch_pubmed_details(pmids)
-            save_papers(papers, OUTPUT_DIR / "test", batch_num=1)
+            save_stats = save_papers(papers, OUTPUT_DIR / "test", batch_num=1)
+            _print_save_summary(save_stats)
             print(f"\n✅ Test complete: Acquired {len(papers)} papers")
+            print(
+                f"SCOUT_STATS fetched={save_stats['fetched']} "
+                f"new_json={save_stats['new_files']} "
+                f"updated_json={save_stats['updated_files']}"
+            )
         return
-    
+
     # Acquire recent papers
-    recent_count = acquire_recent_papers(args.recent, args.config_queries)
-    
+    recent_count, save_stats = acquire_recent_papers(args.recent, args.config_queries)
+    total_stats = dict(save_stats)
+
     classic_count = 0
     if args.classic > 0:
-        classic_count = acquire_classic_papers(args.classic)
-    
+        classic_count, classic_stats = acquire_classic_papers(args.classic)
+        _merge_save_stats(total_stats, classic_stats)
+
+    total_fetched = recent_count + classic_count
+
     # Summary
     print("\n" + "=" * 60)
     print("Acquisition Complete")
@@ -485,9 +524,15 @@ def main():
     print(f"Recent papers (2020-2026): {recent_count:,}")
     if args.classic > 0:
         print(f"Classic papers (1950-2019): {classic_count:,}")
-    print(f"Total papers acquired: {recent_count + classic_count:,}")
+    print(f"Total papers acquired: {total_fetched:,}")
+    _print_save_summary(total_stats)
     print(f"\nPapers saved to: {OUTPUT_DIR}")
     print("=" * 60)
+    print(
+        f"SCOUT_STATS fetched={total_stats['fetched']} "
+        f"new_json={total_stats['new_files']} "
+        f"updated_json={total_stats['updated_files']}"
+    )
 
 if __name__ == "__main__":
     main()

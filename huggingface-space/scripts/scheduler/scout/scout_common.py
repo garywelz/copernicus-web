@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import subprocess
 import sys
 from datetime import datetime, timezone
@@ -225,6 +226,18 @@ def acquire_command(
     return cmd
 
 
+def parse_acquire_log_stats(log_file: Path) -> int:
+    """Return fetched count from SCOUT_STATS line in acquire log, or 0."""
+    if not log_file.exists():
+        return 0
+    try:
+        text = log_file.read_text(encoding="utf-8")
+        matches = re.findall(r"SCOUT_STATS fetched=(\d+)", text)
+        return int(matches[-1]) if matches else 0
+    except (OSError, ValueError):
+        return 0
+
+
 def run_subprocess(cmd: List[str], log_file: Path, cwd: Path, timeout: int = 3600) -> int:
     log_file.parent.mkdir(parents=True, exist_ok=True)
     with open(log_file, "a", encoding="utf-8") as log:
@@ -319,6 +332,7 @@ def run_scout(
             return 0
 
         rc = run_subprocess(cmd, log_file, HUGGINGFACE_SPACE_DIR)
+        fetched_count = parse_acquire_log_stats(log_file)
         if rc != 0:
             write_status(
                 job_id,
@@ -360,7 +374,10 @@ def run_scout(
         write_status(job_id, "success", doc_count=doc_delta, start_time=start, end_time=iso_now())
 
         with open(split_log, "a", encoding="utf-8") as sl:
-            sl.write(f"{iso_now()} {job_id} success doc_delta={doc_delta}\n")
+            sl.write(
+                f"{iso_now()} {job_id} success "
+                f"doc_delta={doc_delta} fetched={fetched_count}\n"
+            )
 
         return 0
 
