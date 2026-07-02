@@ -14,7 +14,7 @@ import urllib.parse
 import urllib.request
 from datetime import date, datetime, timedelta
 from pathlib import Path
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, Tuple
 
 
 BASE_DIR = Path("/home/gdubs/copernicus-web-public/huggingface-space")
@@ -162,7 +162,14 @@ def parse_record(record: Dict) -> Optional[Dict]:
     }
 
 
-def save_papers(papers: List[Dict]) -> None:
+def _empty_save_stats() -> Dict[str, int]:
+    return {"fetched": 0, "saved": 0, "new_files": 0, "updated_files": 0}
+
+
+def save_papers(papers: List[Dict]) -> Dict[str, int]:
+    stats = _empty_save_stats()
+    stats["fetched"] = len(papers)
+
     by_server: Dict[str, List[Dict]] = {}
     for paper in papers:
         server = paper.get("preprint_server") or paper.get("source") or "preprint"
@@ -173,8 +180,16 @@ def save_papers(papers: List[Dict]) -> None:
         output_dir.mkdir(parents=True, exist_ok=True)
         for paper in server_papers:
             filename = f"{paper['id']}.json"
-            with open(output_dir / filename, "w", encoding="utf-8") as f:
+            filepath = output_dir / filename
+            if filepath.exists():
+                stats["updated_files"] += 1
+            else:
+                stats["new_files"] += 1
+            stats["saved"] += 1
+            with open(filepath, "w", encoding="utf-8") as f:
                 json.dump(paper, f, indent=2, ensure_ascii=False)
+
+    return stats
 
 
 def acquire_recent_papers(
@@ -182,7 +197,7 @@ def acquire_recent_papers(
     lookback_days: int,
     server_weights: Optional[Dict[str, float]] = None,
     subject_categories: Optional[List[str]] = None,
-) -> int:
+) -> Tuple[int, Dict[str, int]]:
     print("\n" + "=" * 60)
     print("BioRxiv/MedRxiv Preprint Acquisition")
     print("=" * 60)
@@ -216,8 +231,8 @@ def acquire_recent_papers(
         print(f"  Acquired {accepted} filtered records; total parsed: {len(all_papers)}/{target_count}")
 
     print(f"\nSaving {len(all_papers)} BioRxiv/MedRxiv preprints...")
-    save_papers(all_papers)
-    return len(all_papers)
+    save_stats = save_papers(all_papers)
+    return len(all_papers), save_stats
 
 
 def main() -> int:
@@ -235,7 +250,7 @@ def main() -> int:
     }
     subject_categories = bcfg.get("subject_categories") or []
 
-    acquired = acquire_recent_papers(
+    acquired, save_stats = acquire_recent_papers(
         args.recent,
         lookback,
         server_weights=weights,
@@ -245,7 +260,18 @@ def main() -> int:
     print("Acquisition Complete")
     print("=" * 60)
     print(f"Total preprints acquired: {acquired}")
+    print(
+        f"  📊 Save summary: fetched={save_stats['fetched']}  "
+        f"new_json={save_stats['new_files']}  "
+        f"updated_json={save_stats['updated_files']}"
+    )
     print(f"Papers saved to: {OUTPUT_DIR}")
+    print("=" * 60)
+    print(
+        f"SCOUT_STATS fetched={save_stats['fetched']} "
+        f"new_json={save_stats['new_files']} "
+        f"updated_json={save_stats['updated_files']}"
+    )
     return 0
 
 
