@@ -9,6 +9,9 @@
         .gradient-bg {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
+        .header-bg {
+            background: #2d6e4a;
+        }
         .card-hover {
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
@@ -27,28 +30,58 @@
 </head>
 <body class="bg-gray-50">
     <!-- Header -->
-    <header class="gradient-bg text-white">
+    <header class="header-bg text-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
             <div class="text-center">
-                <div class="text-6xl mb-4">🔬</div>
-                <h1 class="text-5xl font-bold mb-4">CopernicusAI</h1>
-                <p class="text-xl opacity-90 mb-6">Knowledge Engine for Scientific Discovery</p>
-                <p class="text-lg opacity-75 max-w-4xl mx-auto">
-                    A collaborative research platform that transforms cutting-edge scientific research into accessible, 
-                    multi-format tools for collective knowledge exploration. These are research instruments—like microscopes 
-                    for observing the collective knowledge of humanity—enabling hypothesis formation, testing, and discovery 
-                    across scientific disciplines.
+                <p class="text-sm uppercase tracking-widest opacity-80 mb-3">CopernicusAI · Gary Welz · CUNY Graduate Center</p>
+                <h1 class="text-4xl sm:text-5xl font-bold mb-4">62,000+ biology papers, indexed and searchable</h1>
+                <p class="text-lg sm:text-xl opacity-90 max-w-4xl mx-auto">
+                    A computational knowledge engine focused on regulatory biology, computational genomics, and
+                    AI-assisted biological discovery. Growing daily.
                 </p>
             </div>
         </div>
     </header>
+
+    <!-- Key Statistics (moved above the fold) -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-4">
+            <div class="bg-white rounded-lg shadow-md p-6 text-center">
+                <div class="stat-number mb-2" id="kstat-papers">62,312</div>
+                <div class="text-gray-600 font-semibold">Research Papers</div>
+                <div class="text-sm text-gray-500 mt-1">Indexed in Knowledge Engine (Firestore)</div>
+            </div>
+            <div class="bg-white rounded-lg shadow-md p-6 text-center">
+                <div class="stat-number mb-2" id="kstat-processes">314</div>
+                <div class="text-gray-600 font-semibold">Process charts (PF)</div>
+                <div class="text-sm text-gray-500 mt-1" id="kstat-processes-sub">Loading…</div>
+            </div>
+            <div class="bg-white rounded-lg shadow-md p-6 text-center">
+                <div class="stat-number mb-2" id="kstat-videos">753</div>
+                <div class="text-gray-600 font-semibold">Videos</div>
+                <div class="text-sm text-gray-500 mt-1">Science videos indexed (published count)</div>
+            </div>
+            <div class="bg-white rounded-lg shadow-md p-6 text-center">
+                <div class="stat-number mb-2" id="kstat-podcasts">79</div>
+                <div class="text-gray-600 font-semibold">Podcasts</div>
+                <div class="text-sm text-gray-500 mt-1">Generated across 5 disciplines</div>
+            </div>
+        </div>
+        <div id="kstat-bloc" class="text-center max-w-3xl mx-auto text-sm text-gray-600 leading-relaxed" aria-live="polite">
+            <p class="mb-0" id="kstat-asof">Loading live counts from knowledge-engine-status.json…</p>
+        </div>
+        <p class="text-center text-sm text-gray-600 mt-3">
+            Part of the GLMP research program —
+            <a href="https://huggingface.co/spaces/garywelz/glmp" target="_blank" rel="noopener noreferrer" class="text-green-700 hover:underline font-medium">github.com/garywelz/glmp</a>
+        </p>
+    </section>
 
     <!-- Abstract/Summary -->
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div class="bg-white rounded-xl shadow-lg p-8 mb-8 border-l-4 border-purple-600">
             <h2 class="text-2xl font-bold text-gray-900 mb-4">📋 Summary</h2>
             <p class="text-lg text-gray-700 leading-relaxed mb-3">
-                <strong>CopernicusAI</strong> is an operational research platform that synthesizes scientific literature from 250+ million papers into AI-generated podcasts, integrates with a knowledge graph of <span id="kstat-summary-papers">23,246</span> indexed papers, and provides collaborative tools for research discovery. The system demonstrates production-ready multi-source research synthesis with full citation tracking and evidence-based content generation requiring minimum 3 research sources per episode.
+                <strong>CopernicusAI</strong> is an operational research platform that synthesizes scientific literature from 250+ million papers into AI-generated podcasts, integrates with a knowledge graph of <span id="kstat-summary-papers">62,312</span> indexed papers, and provides collaborative tools for research discovery. The system demonstrates production-ready multi-source research synthesis with full citation tracking and evidence-based content generation requiring minimum 3 research sources per episode.
             </p>
             <p class="text-gray-600">
                 The platform includes a fully operational Research Tools Dashboard (deployed December 2025) with interactive knowledge graph visualization, vector search, and RAG capabilities, enabling researchers to explore, query, and synthesize scientific knowledge across disciplines.
@@ -140,22 +173,18 @@
         </div>
     </section>
 
-    <!-- Mission & Vision -->
+    <!-- Mission & Methodology (condensed) -->
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
-            <h2 class="text-3xl font-bold text-gray-900 mb-4">🎯 Mission & Vision</h2>
-            <p class="text-lg text-gray-700 leading-relaxed mb-4">
-                Inspired by Nicolaus Copernicus who challenged accepted knowledge with evidence and rigorous analysis, 
-                <strong>CopernicusAI</strong> creates collaborative research tools that enable collective participation in 
-                scientific discovery. These platforms are instruments for exploring humanity's collective knowledge—tools for 
-                hypothesis formation, testing, and collaborative research, not just educational content.
-            </p>
-            <p class="text-gray-600">
-                Just as a microscope enables observation of the microscopic world, CopernicusAI tools enable observation and 
-                exploration of humanity's collective knowledge. Subscribers collaborate to prompt, generate, and refine research 
-                content—sharing discoveries publicly or keeping them private. As large language models (LLMs) and AI systems 
-                gain unprecedented knowledge, CopernicusAI provides the infrastructure for human-AI collaborative knowledge 
-                exploration, with evidence-based truth-seeking as our guiding principle.
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">🎯 Mission & Methodology</h2>
+            <p class="text-lg text-gray-700 leading-relaxed">
+                Inspired by Nicolaus Copernicus's evidence-based challenge to accepted knowledge, CopernicusAI builds
+                instruments for observing humanity's collective scientific knowledge — synthesizing a growing index of
+                research papers, biological process flowcharts (GLMP), and AI-generated podcast briefings into a single
+                queryable knowledge graph. Every generated briefing draws on a minimum of three validated academic
+                sources, with automated citation extraction, quality scoring, and paradigm-shift detection applied
+                throughout. Full methodology, validation criteria, and API access are documented in the API
+                Documentation section below.
             </p>
         </div>
     </section>
@@ -217,35 +246,6 @@
                     <a href="https://copernicus-frontend-phzp4ie2sq-uc.a.run.app/knowledge-engine" target="_blank" rel="noopener noreferrer" class="text-xs text-blue-600 hover:underline">Live System →</a>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- Key Statistics -->
-    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-            <div class="bg-white rounded-lg shadow-md p-6 text-center">
-                <div class="stat-number mb-2" id="kstat-papers">23,246</div>
-                <div class="text-gray-600 font-semibold">Research Papers</div>
-                <div class="text-sm text-gray-500 mt-1">Indexed in Knowledge Engine (Firestore)</div>
-            </div>
-            <div class="bg-white rounded-lg shadow-md p-6 text-center">
-                <div class="stat-number mb-2" id="kstat-processes">314</div>
-                <div class="text-gray-600 font-semibold">Process charts (PF)</div>
-                <div class="text-sm text-gray-500 mt-1" id="kstat-processes-sub">Loading…</div>
-            </div>
-            <div class="bg-white rounded-lg shadow-md p-6 text-center">
-                <div class="stat-number mb-2" id="kstat-videos">753</div>
-                <div class="text-gray-600 font-semibold">Videos</div>
-                <div class="text-sm text-gray-500 mt-1">Science videos indexed (published count)</div>
-            </div>
-            <div class="bg-white rounded-lg shadow-md p-6 text-center">
-                <div class="stat-number mb-2" id="kstat-podcasts">79</div>
-                <div class="text-gray-600 font-semibold">Podcasts</div>
-                <div class="text-sm text-gray-500 mt-1">Generated across 5 disciplines</div>
-            </div>
-        </div>
-        <div id="kstat-bloc" class="text-center max-w-3xl mx-auto text-sm text-gray-600 leading-relaxed" aria-live="polite">
-            <p class="mb-0" id="kstat-asof">Loading live counts from knowledge-engine-status.json…</p>
         </div>
     </section>
 
@@ -433,68 +433,6 @@
         </div>
     </section>
 
-    <!-- Methodological Details -->
-    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
-            <h2 class="text-3xl font-bold text-gray-900 mb-6">🔬 Methodology & System Design</h2>
-            
-            <div class="grid md:grid-cols-2 gap-6 mb-6">
-                <div class="bg-blue-50 rounded-lg p-6">
-                    <h3 class="text-xl font-semibold text-gray-900 mb-4">Multi-Source Validation Process</h3>
-                    <p class="text-gray-700 mb-3">
-                        The system requires a <strong>minimum of 3 research sources</strong> per podcast episode. Each source is:
-                    </p>
-                    <ul class="text-sm text-gray-700 space-y-2">
-                        <li>• Retrieved from authoritative academic databases (PubMed, arXiv, NASA ADS, etc.)</li>
-                        <li>• Validated for authenticity and publication status</li>
-                        <li>• Scored for quality and relevance to the research topic</li>
-                        <li>• Cross-referenced to verify consistency and eliminate conflicting information</li>
-                        <li>• Processed through parallel API queries for comprehensive coverage</li>
-                    </ul>
-                </div>
-                
-                <div class="bg-green-50 rounded-lg p-6">
-                    <h3 class="text-xl font-semibold text-gray-900 mb-4">Quality Assurance Mechanisms</h3>
-                    <ul class="text-sm text-gray-700 space-y-2">
-                        <li>• <strong>Source Verification:</strong> Automated checking of DOI, arXiv IDs, and publication metadata</li>
-                        <li>• <strong>Relevance Scoring:</strong> LLM-based assessment of paper relevance to query</li>
-                        <li>• <strong>Paradigm Shift Detection:</strong> Identification of revolutionary vs. incremental research</li>
-                        <li>• <strong>Citation Extraction:</strong> Automatic extraction and formatting of citations</li>
-                        <li>• <strong>Content Validation:</strong> Multi-model verification (Gemini, GPT-4, Claude) for accuracy</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="bg-purple-50 rounded-lg p-6 mb-6">
-                <h3 class="text-xl font-semibold text-gray-900 mb-4">Citation Extraction & Verification</h3>
-                <p class="text-gray-700 mb-3">
-                    The system automatically extracts and formats citations from research papers:
-                </p>
-                <ul class="text-sm text-gray-700 space-y-2">
-                    <li>• DOI resolution and metadata enrichment</li>
-                    <li>• arXiv ID parsing and preprint identification</li>
-                    <li>• Author, title, and publication information extraction</li>
-                    <li>• Cross-reference linking between related papers</li>
-                    <li>• Citation network analysis for relationship mapping</li>
-                </ul>
-            </div>
-            
-            <div class="bg-orange-50 rounded-lg p-6">
-                <h3 class="text-xl font-semibold text-gray-900 mb-4">Paradigm Shift Detection Implementation</h3>
-                <p class="text-gray-700 mb-3">
-                    The system uses LLM analysis to identify paradigm-shifting research by:
-                </p>
-                <ul class="text-sm text-gray-700 space-y-2">
-                    <li>• Analyzing citation patterns and impact metrics</li>
-                    <li>• Detecting novel methodologies or breakthrough discoveries</li>
-                    <li>• Comparing against established knowledge frameworks</li>
-                    <li>• Identifying interdisciplinary connections and cross-domain insights</li>
-                    <li>• Flagging research that challenges existing paradigms</li>
-                </ul>
-            </div>
-        </div>
-    </section>
-
     <!-- Technology Stack -->
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div class="bg-white rounded-xl shadow-lg p-8">
@@ -550,7 +488,7 @@
                 <div class="bg-yellow-50 rounded-lg p-6 border-l-4 border-yellow-400">
                     <h3 class="text-xl font-semibold text-gray-900 mb-4">Current Limitations</h3>
                     <ul class="text-sm text-gray-700 space-y-2">
-                        <li>• <strong>Discipline Coverage:</strong> Currently indexing <span id="kstat-text-discipline">23,246</span> papers across multiple disciplines; expansion to additional disciplines in progress</li>
+                        <li>• <strong>Discipline Coverage:</strong> Currently indexing <span id="kstat-text-discipline">62,312</span> papers across multiple disciplines; expansion to additional disciplines in progress</li>
                         <li>• <strong>Source Bias:</strong> Coverage depends on database API availability and open access policies</li>
                         <li>• <strong>LLM Accuracy:</strong> Content generation relies on LLM accuracy; multi-source validation mitigates but doesn't eliminate errors</li>
                         <li>• <strong>Real-Time Updates:</strong> Knowledge graph updates require manual or scheduled processing cycles</li>
@@ -723,7 +661,7 @@
                 <ul class="text-gray-700 space-y-2">
                     <li>• <strong>Hugging Face Spaces:</strong> All components accessible at <a href="https://huggingface.co/garywelz" target="_blank" class="text-blue-600 hover:underline">https://huggingface.co/garywelz</a> (opens in new tab)</li>
                     <li>• <strong>Process Flowcharts (GLMP):</strong> JSON files stored in Google Cloud Storage, accessible via <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-database-table.html" target="_blank" class="text-blue-600 hover:underline">GLMP Database Table</a> (opens in new tab)</li>
-                    <li>• <strong>Research Paper Metadata:</strong> <span id="kstat-text-data">23,246</span> indexed papers with metadata accessible through Research Tools Dashboard</li>
+                    <li>• <strong>Research Paper Metadata:</strong> <span id="kstat-text-data">62,312</span> indexed papers with metadata accessible through Research Tools Dashboard</li>
                     <li>• <strong>API Documentation:</strong> RESTful API endpoints available for programmatic access (see API Documentation section)</li>
                 </ul>
             </div>
@@ -842,7 +780,7 @@
                     <div class="bg-green-50 rounded-lg p-4 mb-4">
                         <h4 class="font-semibold text-gray-800 mb-2">✅ Research Tools Dashboard (Implemented)</h4>
                         <p class="text-sm text-gray-700 mb-2">
-                            Fully operational web interface with knowledge graph visualization (<span id="kstat-text-kg">23,246</span> papers), vector search, RAG queries, and content browsing.
+                            Fully operational web interface with knowledge graph visualization (<span id="kstat-text-kg">62,312</span> papers), vector search, RAG queries, and content browsing.
                         </p>
                         <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/copernicusai-public-reviewer.html" 
                            target="_blank" rel="noopener noreferrer"
@@ -1087,6 +1025,11 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <p class="text-lg font-semibold mb-2">CopernicusAI - Advancing Scientific Knowledge</p>
             <p class="text-sm opacity-75">Built with Google Cloud, Gemini AI, OpenAI, Anthropic Claude, and ElevenLabs</p>
+            <p class="text-sm opacity-75 mt-2">
+                ORCID: <a href="https://orcid.org/0009-0005-7806-0892" target="_blank" rel="noopener noreferrer" class="hover:underline">0009-0005-7806-0892</a>
+                &nbsp;·&nbsp;
+                Methods paper: <a href="https://doi.org/10.5281/zenodo.20831780" target="_blank" rel="noopener noreferrer" class="hover:underline">doi.org/10.5281/zenodo.20831780</a>
+            </p>
             <p class="text-xs opacity-50 mt-4">&copy; 2025 CopernicusAI. All rights reserved.</p>
         </div>
     </footer>
