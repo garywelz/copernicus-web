@@ -105,3 +105,18 @@ papers/knowledge_engine_vision_revised*.pdf
 # Root-level embedding scratch
 embedding_checkpoint.json
 venv_embeddings/
+
+# Legacy repo audit clones (read-only, never committed)
+_audit/
+
+# Scout / status runtime (Jetson worker; untrack via git rm --cached in Phase 2)
+huggingface-space/metadata-database/papers/
+huggingface-space/knowledge-engine-status.json
+huggingface-space/paper_acquisition_venv/
+huggingface-space/paper_acquisition_logs/
+huggingface-space/scripts/acquire_papers/.scout_query_cache/
+
+# Local secrets / scratch (never commit)
+SECRET_ROTATION_MAP.md
+*_backup_*.json
+corpus_audit_results.json
