@@ -1,23 +1,31 @@
 # Stub leak — Phase 1–2 findings
 
-**Date:** 2026-07-17 (revised after Claude Chat + diff review)  
-**Status:** Diagnostic complete. Gate draft revised (observe-first, GCS logs, stable fingerprint). **Not committed.** No live cleanup.  
+**Date:** 2026-07-17 (revised after Claude Chat + landing + deploy-probe writeup)  
+**Status:** Diagnostic complete. Gate on `main` (`940970a4b`, observe-first). **Deploy not yet proven.** No live cleanup.  
 **Artefacts:**  
 - `C:\Users\garyw\exports\stub_leak_phase12_20260717.json`  
 - `C:\Users\garyw\exports\stub_leak_phase12_20260717_rows.jsonl`  
 - Probe: `papers/_stub_leak_phase12_probe.py`  
-- Gate draft: `cloud-run-backend/scripts/ingest_papers_from_metadata_json.py`  
+- Gate: `cloud-run-backend/scripts/ingest_papers_from_metadata_json.py`  
 - Stability test: `cloud-run-backend/scripts/test_ingest_papers_id_stability.py`  
+- Deploy checklist: `papers/STUB_GATE_PR_DRAFT_NOTES_2026-07-17.md` § Deploy probe  
 
 ---
 
-## Critical path: restore Jetson SSH
+## Critical path: prove the executed path (Yoga-only first)
 
-**This is the highest-value open item — not a limits footnote.**
+**“Landed on `main`” and “fixed” are not the same sentence.**
 
-Committing the gate to `main` does **not** stop the leak. Production runs on Jetson via AM/PM `scout_ingest.sh`. SSH from Yoga is currently `Connection refused`. Until SSH works and the script is synced, the corpus keeps accruing **quadratically** at **10:30 and 20:15 America/New_York** regardless of git.
+Production cron calls Jetson’s `scout_ingest.sh` (10:30 / 20:15 ET). That entrypoint is **not in the repo**. Two failure shapes:
 
-**Blocked after gate ships (still):** *What upstream path adds ~4 new unidentifiable payloads per day?* That needs Jetson logs/JSON. The observe-mode reject log on **GCS** keeps the signal readable off-box once the script is actually running there.
+1. It calls a tree that has pulled `main` (wrapper + Python) → new code runs.  
+2. It calls an older Python path *outside* that tree → **deploy is a silent no-op**. `main` looks fixed; the corpus keeps accruing ~97/day and climbing.
+
+Sharper than “sync the workers”: `sync_to_jetson.sh` only `scp`s `scheduler/scout/*.py`. It does **not** ship `ingest_metadata_to_firestore.sh` or `ingest_papers_from_metadata_json.py`. So the pinned reject-log args on `main` are inert until the wrapper reaches the box some other way (full-tree `git pull`, or extend the sync script). Hardcoded `_DEFAULT_REJECT_GCS_PREFIX` still makes GCS Signal A work **if** the new Python runs.
+
+Same defect class as the leak: an unreviewable / partially shipped ingest chain. When SSH returns: version `scout_ingest.sh`, put the wrapper on the sync path, and confirm the gate Python is on the executed path.
+
+**You do not need SSH to resolve “is new code running?”** After the next PM run (≥ 20:15 ET), check GCS + daily stub creates from Yoga (ADC). See § Deploy probe below.
 
 ---
 
@@ -102,20 +110,40 @@ Matches production cron in `huggingface-space/scripts/scheduler/SCOUT_ARCHITECTU
 
 ---
 
-## Gate draft (revised — still not committed)
+## Deploy probe (Yoga-only — do this before anything else)
 
-See `papers/STUB_GATE_PR_DRAFT_NOTES_2026-07-17.md` and the four-check table there.
+Landed code is its own instrument. Old code cannot write reject objects under
+`gs://regal-scholar-453620-r7-podcast-storage/research_data/ingest_rejects/`.
+Stable ids mean `--skip-existing` should collapse remints even in **observe** mode
+(no enforce needed for stub mint rate to fall).
 
-Defaults: `--stub-gate-mode observe`; full payload → local JSONL + `gs://…/research_data/ingest_rejects/`; sha256 after stripping `acquired_date` etc.; conjunctive predicate; stability test green.
+| GCS reject object (after 10:30 + 20:15 ET) | New stubs/day | Reading |
+|---|---|---|
+| appears | ~0 | New code running. Gate live; remint leak stopped. |
+| appears | still ~97+ | New code running **and** a **second writer** still minting stubs. Do not rationalize this away. |
+| absent | ~0 | Suspicious — scout may not have run. Check before celebrating. |
+| absent | ~97+ | Old code. Gate Python never reached the executed path. |
+
+**Sync-gap footnote:** GCS appears, but local reject log is at the *guessed* (`hfs_guess`) path rather than the pinned wrapper path → new Python ran, wrapper did not. Note it; don’t shrug.
+
+**When:** first check after the next full day of cron (both AM and PM), before enforce/cleanup/SSH rabbit holes.
+
+---
+
+## Gate on main
+
+See `papers/STUB_GATE_PR_DRAFT_NOTES_2026-07-17.md`.
+
+Defaults: `--stub-gate-mode observe`; day JSONL append + per-run GCS; sha256 of minimal identity core; conjunctive predicate; stability test green. Wrapper pins `--reject-log` / `--reject-gcs-uri`.
 
 ---
 
 ## Ask for Gary
 
-1. Read the **current** diff (not the first draft).  
-2. Restore Jetson SSH (critical path).  
-3. Then commit → sync → observe 2 days → flip `enforce` → cleanup last.
+1. **Tomorrow after 20:15 ET:** run the deploy probe (GCS + stub creates/day; note guessed vs pinned local log if SSH allows a peek).  
+2. Restore Jetson SSH; version `scout_ingest.sh`; extend `sync_to_jetson.sh` to ship the ingest wrapper (and confirm gate Python is on the executed path).  
+3. Only then: observe day-log ~97 → flip `enforce` → cleanup last (before/after `n`).
 
 ---
 
-*H-remint confirmed; SSH is the critical path; gate draft awaits your read of the revised diff.*
+*H-remint confirmed; deploy not yet proven; unversioned cron entrypoint is the deeper structural finding.*

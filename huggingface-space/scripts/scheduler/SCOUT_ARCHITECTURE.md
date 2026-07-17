@@ -32,10 +32,27 @@ Logs: `/media/sdcard/logs/scout_*_{am,pm}.log` and per-run logs under `paper_acq
 
 | Location | Role |
 |----------|------|
-| `huggingface-space/scripts/scheduler/scout/` | **Git source of truth** (version controlled) |
+| `huggingface-space/scripts/scheduler/scout/` | **Git source of truth** for scout workers (`*.py`) |
 | `/media/sdcard/scheduler/scout/` | **Live production copy** on Jetson — outside git |
+| `scout_ingest.sh` (Jetson cron) | **Not in the repo as of 2026-07-17** — unversioned entrypoint |
 
-After changing files in the repo, **sync to the Jetson**:
+`sync_to_jetson.sh` is a **narrow worker sync**: `scp scheduler/scout/*.py` only.
+It does **not** ship:
+
+- `scripts/ingest_metadata_to_firestore.sh` (pinned `--reject-log` / `--reject-gcs-uri` on `main`)
+- `cloud-run-backend/scripts/ingest_papers_from_metadata_json.py` (the stub gate itself)
+
+Those only reach production if Jetson’s `copernicus-web` tree is updated some other way
+(e.g. `git pull`), or if `scout_ingest.sh` points elsewhere. Pinning on `main` is
+inert until the wrapper is on the executed path; GCS reject upload can still fire from
+hardcoded defaults **if** the new Python runs.
+
+**Structural risk:** partial ship → “fixed on `main`, unfixed in production” indefinitely.
+When SSH is restored: (1) bring `scout_ingest.sh` into this repo, (2) **add the ingest
+wrapper to `sync_to_jetson.sh`’s shipped set**, (3) confirm the gate Python is what
+cron actually invokes.
+
+After changing scout worker files in the repo, **sync to the Jetson**:
 
 ```bash
 bash huggingface-space/scripts/scheduler/scout/sync_to_jetson.sh
@@ -47,6 +64,11 @@ Or manually:
 scp huggingface-space/scripts/scheduler/scout/*.py gary@192.168.1.222:/media/sdcard/scheduler/scout/
 ssh gary@192.168.1.222 "rm -rf /media/sdcard/scheduler/scout/__pycache__"
 ```
+
+**Deploy proof (no SSH):** after AM+PM ingest, reject objects under
+`gs://…/research_data/ingest_rejects/` prove new ingest code ran; stub creates/day
+should fall to ~0 under stable ids even in observe mode. See
+`papers/STUB_GATE_PR_DRAFT_NOTES_2026-07-17.md`.
 
 ## How config queries reach batch scripts
 
