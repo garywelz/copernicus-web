@@ -26,6 +26,20 @@ const PROCESS_FAMILIES = [
   { id: 'biology', label: 'Biology' },
 ] as const
 
+/** Interactive Mermaid viewer (GLMP only). Other families have table DBs, not this viewer. */
+const GLMP_VIEWER_BASE =
+  'https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-v2/viewer/index.html'
+
+/** Safe chart_id for ?process= (allows e.g. ecoli_e._coli_acid_resistance). */
+function isUsableGlmpChartId(id: string | undefined): id is string {
+  if (!id || !id.trim()) return false
+  return /^[A-Za-z][A-Za-z0-9_.-]*$/.test(id)
+}
+
+function glmpViewerUrl(chartId: string): string {
+  return `${GLMP_VIEWER_BASE}?process=${encodeURIComponent(chartId)}`
+}
+
 export default function ContentBrowser() {
   const [contentType, setContentType] = useState<BrowseType>('papers')
   const [processFamily, setProcessFamily] = useState('math')
@@ -152,13 +166,30 @@ export default function ContentBrowser() {
 
         {!loading && items.length > 0 && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {items.map((item) => (
+            {items.map((item) => {
+              const titleText = item.title.replace(/\$([^$]+)\$/g, '$1').replace(/\$/g, '')
+              const linkGlmp =
+                item.type === 'process' &&
+                item.metadata?.process_family === 'glmp' &&
+                isUsableGlmpChartId(item.id)
+              return (
               <div
                 key={item.id}
                 className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow"
               >
                 <h3 className="font-medium text-gray-900 mb-2">
-                  {item.title.replace(/\$([^$]+)\$/g, '$1').replace(/\$/g, '')}
+                  {linkGlmp ? (
+                    <a
+                      href={glmpViewerUrl(item.id)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-700 hover:underline"
+                    >
+                      {titleText}
+                    </a>
+                  ) : (
+                    titleText
+                  )}
                 </h3>
                 {item.description && (
                   <p className="text-sm text-gray-600 line-clamp-3">{item.description}</p>
@@ -168,7 +199,8 @@ export default function ContentBrowser() {
                   {item.metadata?.process_family ? ` · ${item.metadata.process_family}` : ''}
                 </span>
               </div>
-            ))}
+              )
+            })}
           </div>
         )}
 
