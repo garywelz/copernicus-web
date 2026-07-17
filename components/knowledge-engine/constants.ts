@@ -30,3 +30,7 @@ export const PROCESS_DATABASE_LINKS = [
   { key: 'computer_science', label: 'Computer Science', href: 'https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/computer-science-processes-database/computer-science-database-table.html' },
   { key: 'biology', label: 'Biology', href: 'https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/biology-processes-database/biology-database-table.html' },
 ] as const
+
+/** Public papers table (GCS); same family as PROCESS_DATABASE_LINKS. */
+export const PAPERS_DATABASE_TABLE_HREF =
+  'https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/papers-database-table.html'

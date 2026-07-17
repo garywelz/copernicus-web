@@ -4,14 +4,18 @@
 
 'use client'
 
-import { useState, useEffect } from 'react'
-import { API_BASE_URL, PROCESS_DATABASE_LINKS } from './constants'
+import { useState, useEffect, useMemo } from 'react'
+import { API_BASE_URL, PAPERS_DATABASE_TABLE_HREF, PROCESS_DATABASE_LINKS } from './constants'
 
 type ContentItem = {
   id: string
   title: string
   type: 'paper' | 'podcast' | 'process'
   description?: string
+  doi?: string | null
+  pmid?: string | null
+  arxiv_id?: string | null
+  url?: string | null
   metadata?: { process_family?: string; category?: string }
 }
 
@@ -33,6 +37,36 @@ const GLMP_VIEWER_BASE =
 /** Canonical public episode page (matches podcast-database-table + episode_link). */
 const PODCAST_EPISODE_BASE = 'https://copernicusai.fyi/episodes'
 
+function hasText(v: string | null | undefined): v is string {
+  if (v == null) return false
+  const s = String(v).trim()
+  return Boolean(s) && s.toLowerCase() !== 'none' && s.toLowerCase() !== 'null'
+}
+
+function isUntitledPaper(item: ContentItem): boolean {
+  const t = (item.title || '').trim()
+  return !t || t === 'Untitled'
+}
+
+/** Same priority as papers-database-table.html paperExternalUrl. */
+function paperExternalUrl(item: ContentItem): string | null {
+  if (hasText(item.doi)) {
+    const doi = item.doi.replace(/^https?:\/\/(dx\.)?doi\.org\//i, '')
+    return `https://doi.org/${encodeURI(doi)}`
+  }
+  if (hasText(item.pmid)) {
+    return `https://pubmed.ncbi.nlm.nih.gov/${encodeURIComponent(item.pmid)}`
+  }
+  if (hasText(item.arxiv_id)) {
+    const id = item.arxiv_id.replace(/^arxiv:/i, '')
+    return `https://arxiv.org/abs/${encodeURIComponent(id)}`
+  }
+  if (hasText(item.url) && /^https?:\/\//i.test(item.url)) {
+    return item.url
+  }
+  return null
+}
+
 /** Safe chart_id for ?process= (allows e.g. ecoli_e._coli_acid_resistance). */
 function isUsableGlmpChartId(id: string | undefined): id is string {
   if (!id || !id.trim()) return false
@@ -53,6 +87,23 @@ function podcastEpisodeUrl(episodeId: string): string {
   return `${PODCAST_EPISODE_BASE}/${encodeURIComponent(episodeId)}`
 }
 
+function titleHrefFor(item: ContentItem): string | null {
+  if (
+    item.type === 'process' &&
+    item.metadata?.process_family === 'glmp' &&
+    isUsableGlmpChartId(item.id)
+  ) {
+    return glmpViewerUrl(item.id)
+  }
+  if (item.type === 'podcast' && isUsablePodcastId(item.id)) {
+    return podcastEpisodeUrl(item.id)
+  }
+  if (item.type === 'paper') {
+    return paperExternalUrl(item)
+  }
+  return null
+}
+
 export default function ContentBrowser() {
   const [contentType, setContentType] = useState<BrowseType>('papers')
   const [processFamily, setProcessFamily] = useState('math')
@@ -60,7 +111,8 @@ export default function ContentBrowser() {
   const [items, setItems] = useState<ContentItem[]>([])
   const [total, setTotal] = useState(0)
   const [page, setPage] = useState(1)
-  const limit = 20
+  /** Papers over-fetch so hiding Untitled stubs still leaves a usable card grid. */
+  const limit = contentType === 'papers' ? 50 : 20
 
   useEffect(() => {
     loadContent()
@@ -92,6 +144,17 @@ export default function ContentBrowser() {
       setLoading(false)
     }
   }
+
+  const { visibleItems, hiddenStubCount } = useMemo(() => {
+    if (contentType !== 'papers') {
+      return { visibleItems: items, hiddenStubCount: 0 }
+    }
+    const visible = items.filter((it) => !isUntitledPaper(it))
+    return {
+      visibleItems: visible,
+      hiddenStubCount: items.length - visible.length,
+    }
+  }, [contentType, items])
 
   return (
     <div className="space-y-4">
@@ -140,6 +203,24 @@ export default function ContentBrowser() {
 
         <p className="text-sm text-gray-500 mb-4">
           {total > 0 ? `${total.toLocaleString()} items` : 'No items loaded'}
+          {contentType === 'papers' && (
+            <>
+              {' · '}
+              <a
+                href={PAPERS_DATABASE_TABLE_HREF}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:underline"
+              >
+                Open full database table
+              </a>
+              {hiddenStubCount > 0 && (
+                <span className="text-gray-400">
+                  {` · ${hiddenStubCount} untitled stub${hiddenStubCount === 1 ? '' : 's'} hidden on this page`}
+                </span>
+              )}
+            </>
+          )}
           {contentType === 'processes' && (
             <>
               {' · '}
@@ -173,52 +254,46 @@ export default function ContentBrowser() {
           </div>
         )}
 
-        {!loading && items.length === 0 && (
-          <div className="text-center py-12 text-gray-500">No items found.</div>
+        {!loading && visibleItems.length === 0 && (
+          <div className="text-center py-12 text-gray-500">
+            {hiddenStubCount > 0
+              ? 'No titled papers on this page (untitled stubs hidden). Try Next.'
+              : 'No items found.'}
+          </div>
         )}
 
-        {!loading && items.length > 0 && (
+        {!loading && visibleItems.length > 0 && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {items.map((item) => {
+            {visibleItems.map((item) => {
               const titleText = item.title.replace(/\$([^$]+)\$/g, '$1').replace(/\$/g, '')
-              const linkGlmp =
-                item.type === 'process' &&
-                item.metadata?.process_family === 'glmp' &&
-                isUsableGlmpChartId(item.id)
-              const linkPodcast =
-                item.type === 'podcast' && isUsablePodcastId(item.id)
-              const titleHref = linkGlmp
-                ? glmpViewerUrl(item.id)
-                : linkPodcast
-                  ? podcastEpisodeUrl(item.id)
-                  : null
+              const titleHref = titleHrefFor(item)
               return (
-              <div
-                key={item.id}
-                className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow"
-              >
-                <h3 className="font-medium text-gray-900 mb-2">
-                  {titleHref ? (
-                    <a
-                      href={titleHref}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-blue-700 hover:underline"
-                    >
-                      {titleText}
-                    </a>
-                  ) : (
-                    titleText
+                <div
+                  key={item.id}
+                  className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow"
+                >
+                  <h3 className="font-medium text-gray-900 mb-2">
+                    {titleHref ? (
+                      <a
+                        href={titleHref}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-700 hover:underline"
+                      >
+                        {titleText}
+                      </a>
+                    ) : (
+                      titleText
+                    )}
+                  </h3>
+                  {item.description && (
+                    <p className="text-sm text-gray-600 line-clamp-3">{item.description}</p>
                   )}
-                </h3>
-                {item.description && (
-                  <p className="text-sm text-gray-600 line-clamp-3">{item.description}</p>
-                )}
-                <span className="inline-block mt-2 text-xs px-2 py-1 bg-blue-100 text-blue-800 rounded">
-                  {item.type}
-                  {item.metadata?.process_family ? ` · ${item.metadata.process_family}` : ''}
-                </span>
-              </div>
+                  <span className="inline-block mt-2 text-xs px-2 py-1 bg-blue-100 text-blue-800 rounded">
+                    {item.type}
+                    {item.metadata?.process_family ? ` · ${item.metadata.process_family}` : ''}
+                  </span>
+                </div>
               )
             })}
           </div>
