@@ -14,11 +14,14 @@ Design goals:
 - Vertex-free (no embeddings, no Gemini calls)
 - Batch writes (up to 500 ops per commit)
 - Safe to re-run (skip-existing by default)
+- Stub gate: observe (log-only) then enforce; every hit logged with full payload
+- Stable last-resort ids via sha256(fingerprint of source payload), never Python hash()
 """
 
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import os
 import re
@@ -30,9 +33,40 @@ from typing import Any, Dict, Iterable, List, Optional, Tuple
 from google.cloud import firestore
 from google.api_core.exceptions import AlreadyExists
 
+# Minimal identity core for last-resort ids — fail CLOSED.
+# Hash identity of the paper, not the record's current enrichment state.
+# Mutable knowledge (abstract, categories, sources, urls, journal_*) must NOT
+# enter the fingerprint or enrichment re-mints duplicates.
+_DEFAULT_REJECT_GCS_PREFIX = (
+    "gs://regal-scholar-453620-r7-podcast-storage/research_data/ingest_rejects"
+)
+
 
 def _now_iso() -> str:
     return datetime.now(timezone.utc).replace(microsecond=0).isoformat()
+
+
+def _utc_date_stamp() -> str:
+    return datetime.now(timezone.utc).strftime("%Y%m%d")
+
+
+def _utc_run_stamp() -> str:
+    return datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+
+
+def _as_text(value: Any) -> str:
+    if value is None:
+        return ""
+    if isinstance(value, str):
+        return value
+    return str(value)
+
+
+def _count_jsonl_lines(path: Path) -> int:
+    if not path.exists():
+        return 0
+    with path.open("r", encoding="utf-8") as fh:
+        return sum(1 for line in fh if line.strip())
 
 
 def _env(name: str, default: str) -> str:
@@ -46,6 +80,130 @@ def _normalize_doi(doi: Optional[str]) -> Optional[str]:
     d = doi.strip().lower()
     d = re.sub(r"^(doi:|https?://(dx\.)?doi\.org/)", "", d).strip()
     return d or None
+
+
+def _normalize_title(title: Optional[str]) -> str:
+    """Collapse whitespace/case/trailing punctuation so source variants share an id."""
+    if not title:
+        return ""
+    t = str(title).strip().lower()
+    t = re.sub(r"\s+", " ", t)
+    t = t.rstrip(".;:!,")
+    # Strip common LaTeX wrappers that vary by source
+    t = re.sub(r"[{}$\\]", "", t)
+    return t.strip()
+
+
+def _first_author_surname(paper: Dict[str, Any]) -> str:
+    """First author surname only — not the full ordered authors list."""
+    authors = paper.get("authors")
+    if isinstance(authors, str) and authors.strip():
+        authors = [authors]
+    if isinstance(authors, list) and authors:
+        first = str(authors[0] or "").strip()
+        if first:
+            # "Surname, Given" or "Given Surname"
+            if "," in first:
+                return first.split(",", 1)[0].strip().lower()
+            parts = first.split()
+            return (parts[-1] if parts else first).strip().lower()
+    author_string = str(paper.get("author_string") or "").strip()
+    if author_string:
+        # "A, B et al." → first segment
+        first = author_string.split(",")[0].strip()
+        parts = first.split()
+        return (parts[-1] if parts else first).lower()
+    return ""
+
+
+def _identity_year(paper: Dict[str, Any]) -> str:
+    year = str(paper.get("year") or "").strip()
+    if re.fullmatch(r"\d{4}", year):
+        return year
+    pub = str(paper.get("published_date") or "").strip()
+    m = re.match(r"(\d{4})", pub)
+    return m.group(1) if m else ""
+
+
+def _fingerprint_paper(paper: Dict[str, Any]) -> Dict[str, Any]:
+    """
+    Minimal identity core (+ native ids when present).
+    Enrichment fields (abstract, categories, sources, urls, journal_*) excluded.
+    """
+    out: Dict[str, Any] = {}
+    title = _normalize_title(paper.get("title") if isinstance(paper.get("title"), str) else str(paper.get("title") or ""))
+    if title:
+        out["title"] = title
+    surname = _first_author_surname(paper)
+    if surname:
+        out["first_author_surname"] = surname
+    year = _identity_year(paper)
+    if year:
+        out["year"] = year
+    doi = _normalize_doi(paper.get("doi") or paper.get("DOI"))
+    if doi:
+        out["doi"] = doi
+    pmid = str(paper.get("pmid") or "").strip()
+    if pmid:
+        out["pmid"] = pmid
+    arxiv = str(paper.get("arxiv_id") or paper.get("arxivId") or "").strip()
+    if arxiv:
+        out["arxiv_id"] = arxiv.replace("/", "_")
+    bibcode = str(paper.get("bibcode") or "").strip()
+    if bibcode:
+        out["bibcode"] = bibcode
+    return out
+
+
+def _canonical_identity_payload(paper: Dict[str, Any]) -> bytes:
+    """Deterministic bytes over the minimal identity core (no list-order traps)."""
+    return json.dumps(
+        _fingerprint_paper(paper),
+        sort_keys=True,
+        default=str,
+        ensure_ascii=False,
+        separators=(",", ":"),
+    ).encode("utf-8")
+
+
+def _payload_sha256_hex(paper: Dict[str, Any]) -> str:
+    return hashlib.sha256(_canonical_identity_payload(paper)).hexdigest()
+
+
+def _reject_stub_reason(paper: Dict[str, Any]) -> Optional[str]:
+    """
+    Conjunctive gate: (empty or Untitled title) AND (no DOI/PMID/arXiv/bibcode).
+    Title-less but identifiable records survive. Titled experiment rows survive.
+    """
+    title = _as_text(paper.get("title")).strip()
+    bad_title = (not title) or title.lower() == "untitled"
+    has_doi = bool(_normalize_doi(paper.get("doi") or paper.get("DOI")))
+    has_pmid = bool(_as_text(paper.get("pmid")).strip())
+    has_arxiv = bool(
+        _as_text(paper.get("arxiv_id") or paper.get("arxivId")).strip()
+    )
+    has_bibcode = bool(_as_text(paper.get("bibcode")).strip())
+    if bad_title and not (has_doi or has_pmid or has_arxiv or has_bibcode):
+        return "empty_or_untitled_title_and_no_identifier"
+    return None
+
+
+def _upload_reject_log_gcs(local_path: Path, gcs_uri: str) -> Optional[str]:
+    """Best-effort upload so reject evidence is readable off-Jetson. Returns error or None."""
+    if not local_path.exists() or local_path.stat().st_size == 0:
+        return "empty_or_missing_local_reject_log"
+    try:
+        from google.cloud import storage  # type: ignore
+
+        if not gcs_uri.startswith("gs://"):
+            return f"invalid_gcs_uri:{gcs_uri}"
+        _, _, rest = gcs_uri.partition("gs://")
+        bucket_name, _, blob_name = rest.partition("/")
+        client = storage.Client(project=_env("GOOGLE_CLOUD_PROJECT", "regal-scholar-453620-r7"))
+        client.bucket(bucket_name).blob(blob_name).upload_from_filename(str(local_path))
+        return None
+    except Exception as e:
+        return f"{type(e).__name__}: {e}"
 
 
 def _parse_acquired_date(paper: Dict[str, Any]) -> Optional[str]:
@@ -110,12 +268,12 @@ def _doc_id_for_paper(paper: Dict[str, Any]) -> str:
     bibcode = paper.get("bibcode")
     if bibcode:
         return f"nasa_ads_{bibcode}"
-    # fallback to provided id if safe
+    # fallback to provided id if safe (but not a prior unstable paper_<hash> id)
     pid = str(paper.get("id") or "").strip()
-    if pid and "/" not in pid:
+    if pid and "/" not in pid and not re.fullmatch(r"paper_\d+", pid):
         return pid
-    # last resort
-    return f"paper_{abs(hash(json.dumps(paper, sort_keys=True, default=str)))}"
+    # last resort: sha256 of minimal identity core (title/author/year + ids)
+    return f"paper_{_payload_sha256_hex(paper)[:32]}"
 
 
 def _to_firestore_paper(paper: Dict[str, Any], filepath: Path) -> Dict[str, Any]:
@@ -206,6 +364,38 @@ def main() -> int:
         action="store_true",
         help="If set, and --checkpoint-file exists, skip files up to and including the checkpoint path.",
     )
+    parser.add_argument(
+        "--stub-gate-mode",
+        choices=("observe", "enforce", "off"),
+        default="observe",
+        help=(
+            "observe=log hits but still write (default; validate ~97/day via day reject log); "
+            "enforce=block writes; off=disable gate"
+        ),
+    )
+    parser.add_argument(
+        "--reject-log",
+        default="",
+        help=(
+            "Local JSONL for every gate hit (full payload; append across AM/PM). "
+            "Prefer explicit path from ingest_metadata_to_firestore.sh. "
+            "Fallback guess: <root>/../../paper_acquisition_logs/daily_scout/ingest_rejects_YYYYMMDD.jsonl"
+        ),
+    )
+    parser.add_argument(
+        "--reject-gcs-uri",
+        default="",
+        help=(
+            "GCS object URI for THIS RUN's reject JSONL (append-only naming; readable off-Jetson). "
+            f"Prefer explicit URI from ingest_metadata_to_firestore.sh. "
+            f"Fallback: {_DEFAULT_REJECT_GCS_PREFIX}/YYYYMMDD/ingest_rejects_<runstamp>.jsonl"
+        ),
+    )
+    parser.add_argument(
+        "--no-reject-gcs",
+        action="store_true",
+        help="Skip GCS upload of reject log (local only; not recommended).",
+    )
     args = parser.parse_args()
 
     root = Path(args.root).expanduser().resolve()
@@ -218,6 +408,30 @@ def main() -> int:
     skip_first = max(0, int(args.skip_first))
     checkpoint_file = Path(args.checkpoint_file).expanduser().resolve() if args.checkpoint_file else None
     resume_from_checkpoint = bool(args.resume_from_checkpoint)
+    stub_gate_mode = str(args.stub_gate_mode)
+
+    # Prefer explicit --reject-log / --reject-gcs-uri from ingest_metadata_to_firestore.sh.
+    # Inferred defaults are a last resort and can land elsewhere if --root is not
+    # exactly .../metadata-database/papers.
+    stamp = _utc_date_stamp()
+    run_stamp = _utc_run_stamp()
+    reject_log_inferred = False
+    if args.reject_log:
+        reject_log_path = Path(args.reject_log).expanduser().resolve()
+    else:
+        reject_log_inferred = True
+        # .../metadata-database/papers -> .../paper_acquisition_logs/daily_scout/
+        hfs_guess = root.parent.parent
+        reject_dir = hfs_guess / "paper_acquisition_logs" / "daily_scout"
+        reject_log_path = reject_dir / f"ingest_rejects_{stamp}.jsonl"
+
+    if args.reject_gcs_uri:
+        reject_gcs_uri = args.reject_gcs_uri.strip()
+    else:
+        # Per-run object name: PM cannot overwrite AM evidence.
+        reject_gcs_uri = (
+            f"{_DEFAULT_REJECT_GCS_PREFIX}/{stamp}/ingest_rejects_{run_stamp}.jsonl"
+        )
 
     project_id = _env("GCP_PROJECT_ID", _env("GOOGLE_CLOUD_PROJECT", "regal-scholar-453620-r7"))
     firestore_db_name = _env("FIRESTORE_DATABASE", "copernicusai")
@@ -256,24 +470,108 @@ def main() -> int:
     print(f"Collection:      research_papers")
     print(f"Dry run:         {bool(args.dry_run)}")
     print(f"Skip existing:   {bool(skip_existing)}")
+    print(f"Stub gate mode:  {stub_gate_mode}")
+    print(f"Reject log:      {reject_log_path}")
+    if reject_log_inferred:
+        print(
+            "⚠️  Reject log path was inferred from --root; pin --reject-log "
+            "(and --reject-gcs-uri) in ingest_metadata_to_firestore.sh so AM/PM "
+            "share one daily file."
+        )
+    print(f"Reject GCS:      {reject_gcs_uri if not args.no_reject_gcs else '(disabled)'}")
     print(f"Checkpoint file: {str(checkpoint_file) if checkpoint_file else '(none)'}")
     print(f"Batch size:      {batch_size}")
     print("============================================================")
 
     prepared: List[Tuple[str, Dict[str, Any], str]] = []
     load_failed = 0
-    for fp in files:
-        try:
-            paper = json.loads(fp.read_text(encoding="utf-8"))
-        except Exception as e:
-            load_failed += 1
-            if load_failed <= 5:
-                print(f"⚠️  Failed to read {fp}: {e}")
-            continue
-        doc_id = _doc_id_for_paper(paper)
-        prepared.append((doc_id, _to_firestore_paper(paper, fp), str(fp)))
+    gate_hits = 0
+    gate_enforced = 0
+    reject_reasons: Dict[str, int] = {}
+    run_reject_lines: List[str] = []
+    reject_log_path.parent.mkdir(parents=True, exist_ok=True)
+    reject_fh = reject_log_path.open("a", encoding="utf-8")
 
-    print(f"Prepared: {len(prepared)} docs (failed to load: {load_failed})")
+    try:
+        for fp in files:
+            try:
+                paper = json.loads(fp.read_text(encoding="utf-8"))
+            except Exception as e:
+                load_failed += 1
+                if load_failed <= 5:
+                    print(f"⚠️  Failed to read {fp}: {e}")
+                continue
+            if not isinstance(paper, dict):
+                load_failed += 1
+                if load_failed <= 5:
+                    print(f"⚠️  Skipping non-object JSON {fp}: {type(paper).__name__}")
+                continue
+
+            reason = None
+            if stub_gate_mode != "off":
+                reason = _reject_stub_reason(paper)
+            if reason:
+                gate_hits += 1
+                reject_reasons[reason] = reject_reasons.get(reason, 0) + 1
+                action = "observe_would_reject" if stub_gate_mode == "observe" else "rejected"
+                line = (
+                    json.dumps(
+                        {
+                            "ts_utc": _now_iso(),
+                            "gate_mode": stub_gate_mode,
+                            "action": action,
+                            "reason": reason,
+                            "path": str(fp),
+                            "payload_sha256": _payload_sha256_hex(paper),
+                            "doc_id_if_written": _doc_id_for_paper(paper),
+                            "source": paper.get("source") or paper.get("sources"),
+                            "title": paper.get("title"),
+                            "keys": sorted(paper.keys()),
+                            "paper": paper,
+                        },
+                        ensure_ascii=False,
+                        default=str,
+                    )
+                    + "\n"
+                )
+                reject_fh.write(line)
+                run_reject_lines.append(line)
+                if stub_gate_mode == "enforce":
+                    gate_enforced += 1
+                    continue
+                # observe: fall through and still write
+
+            doc_id = _doc_id_for_paper(paper)
+            prepared.append((doc_id, _to_firestore_paper(paper, fp), str(fp)))
+    finally:
+        reject_fh.close()
+
+    day_log_lines = _count_jsonl_lines(reject_log_path)
+    print(
+        f"Prepared: {len(prepared)} docs "
+        f"(failed to load: {load_failed}, gate_hits_this_run: {gate_hits}, "
+        f"gate_hits_day_log: {day_log_lines}, gate_enforced: {gate_enforced})"
+    )
+    if reject_reasons:
+        print(f"Gate hit reasons: {reject_reasons}")
+    print(f"Reject log appended: {reject_log_path}")
+    if not args.no_reject_gcs:
+        if run_reject_lines:
+            run_reject_path = reject_log_path.with_name(
+                f"{reject_log_path.stem}_run_{run_stamp}{reject_log_path.suffix}"
+            )
+            run_reject_path.write_text("".join(run_reject_lines), encoding="utf-8")
+            gcs_err = _upload_reject_log_gcs(run_reject_path, reject_gcs_uri)
+            if gcs_err:
+                print(
+                    f"⚠️  Reject GCS upload failed ({gcs_err}); "
+                    f"local day log retained at {reject_log_path}; "
+                    f"run slice at {run_reject_path}"
+                )
+            else:
+                print(f"Reject log uploaded (this run): {reject_gcs_uri}")
+        else:
+            print("Reject GCS: skipped (no gate hits this run)")
 
     written = 0
     skipped = 0
@@ -349,7 +647,22 @@ def main() -> int:
     print("============================================================")
     print(f"Would write: {written}" if args.dry_run else f"Wrote:       {written}")
     print(f"Skipped:     {skipped}")
+    print(
+        f"Gate hits (this run): {gate_hits} "
+        f"(enforced blocks: {gate_enforced}, mode={stub_gate_mode})"
+    )
+    print(f"Gate hits (day log lines, AM+PM): {day_log_lines}")
     print(f"Failed:      {failed}")
+    if gate_hits or day_log_lines:
+        print(f"Reject log:  {reject_log_path}")
+        if not args.no_reject_gcs and run_reject_lines:
+            print(f"Reject GCS:  {reject_gcs_uri}")
+        print(
+            "NOTE: Compare gate_hits_day_log (append across both 10:30 and 20:15 ET "
+            "runs) to the remint clock (~97 tomorrow, ~101 next day if +4/day holds). "
+            "This-run gate_hits resets each process and is often ~half the daily total. "
+            "Persistently rising day-log hits after enforce → upstream still leaking."
+        )
     return 0
 
 
