@@ -30,14 +30,27 @@ const PROCESS_FAMILIES = [
 const GLMP_VIEWER_BASE =
   'https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-v2/viewer/index.html'
 
+/** Canonical public episode page (matches podcast-database-table + episode_link). */
+const PODCAST_EPISODE_BASE = 'https://copernicusai.fyi/episodes'
+
 /** Safe chart_id for ?process= (allows e.g. ecoli_e._coli_acid_resistance). */
 function isUsableGlmpChartId(id: string | undefined): id is string {
   if (!id || !id.trim()) return false
   return /^[A-Za-z][A-Za-z0-9_.-]*$/.test(id)
 }
 
+/** Safe episode_id / slug (e.g. ever-phys-250034, news-bio-28032025). */
+function isUsablePodcastId(id: string | undefined): id is string {
+  if (!id || !id.trim()) return false
+  return /^[A-Za-z][A-Za-z0-9_.-]*$/.test(id)
+}
+
 function glmpViewerUrl(chartId: string): string {
   return `${GLMP_VIEWER_BASE}?process=${encodeURIComponent(chartId)}`
+}
+
+function podcastEpisodeUrl(episodeId: string): string {
+  return `${PODCAST_EPISODE_BASE}/${encodeURIComponent(episodeId)}`
 }
 
 export default function ContentBrowser() {
@@ -172,15 +185,22 @@ export default function ContentBrowser() {
                 item.type === 'process' &&
                 item.metadata?.process_family === 'glmp' &&
                 isUsableGlmpChartId(item.id)
+              const linkPodcast =
+                item.type === 'podcast' && isUsablePodcastId(item.id)
+              const titleHref = linkGlmp
+                ? glmpViewerUrl(item.id)
+                : linkPodcast
+                  ? podcastEpisodeUrl(item.id)
+                  : null
               return (
               <div
                 key={item.id}
                 className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow"
               >
                 <h3 className="font-medium text-gray-900 mb-2">
-                  {linkGlmp ? (
+                  {titleHref ? (
                     <a
-                      href={glmpViewerUrl(item.id)}
+                      href={titleHref}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-blue-700 hover:underline"
