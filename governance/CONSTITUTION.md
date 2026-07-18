@@ -80,7 +80,43 @@ Do **not** default to a Mermaid flowchart because it is the method most used so
 far. The Programming Framework is method #1, not the only method. If no cataloged
 method fits, say so plainly (a marked limit) rather than forcing a poor fit.
 
-## 7. Companion documents (shared)
+## 7. Naming & Terms
+
+*Pins two recurring ambiguities so no future reader conflates levels.*
+
+**Programming Framework vs. Methods & Tools**
+- **Programming Framework = method #1** — the Mermaid / Boolean-logic point of
+  view (Methods Catalog `#1 — Programming Framework`, `governance/METHODS_CATALOG.md:27`).
+  It is a point of view, not a dogma or theory (§6 above; `governance/METHODS_CATALOG.md:39-40`).
+- **Methods & Tools = the open layer** that Programming Framework is one entry
+  in — the engine-side capability (§1, §2 above) that stays open to other
+  representation methods as they move from `candidate` to `populated`
+  (`governance/METHODS_CATALOG.md:44-86`).
+- **Homes:** repo `progframe` and the Hugging Face Space **"The Programming
+  Framework"** (`huggingface-space/programming-framework/README.md:2`) are that
+  *method's* home — `CLAUDE.md:37` maps Space `programming_framework` to repo
+  `progframe`. **Never use "Programming Framework" to mean the layer** — use
+  "Methods & Tools" for that.
+
+**Knowledge Engine / Core vs. the "CopernicusAI" Space**
+- **Knowledge Engine / Core = the umbrella** — repo `copernicus-web`
+  (`CLAUDE.md:35`) plus its `cloud-run-backend/` path, which is not a separate
+  repo (`governance/RESOURCE_MANIFEST.md:28`).
+- **`copernicus-web` is the core monorepo**, not merely a website — its own
+  README undersells it ("A Next.js website that displays podcast episodes from
+  Spotify...", `README.md:1,3`), while the tree it actually holds spans the
+  Knowledge Engine backend, the governance docs, and every discipline
+  database's static assets.
+- **The "CopernicusAI" Hugging Face Space = the podcast application only** —
+  one output of the engine, not the umbrella. Confirmed by its own copy:
+  "CopernicusAI Podcast Generation — Synthesis & distribution platform for
+  AI-powered research briefing podcast generation" (`huggingface-space/index.html:209-210`).
+- **Core's scope spans `copernicus-web` plus the CopernicusAI (podcast) and
+  Research Paper Metadata Database Spaces** — per `SUITE_GOVERNANCE_TODO.md:29-34`
+  (Gary's framing, recorded here as the working definition; Space URLs at
+  `governance/RESOURCE_MANIFEST.md:16,19`).
+
+## 8. Companion documents (shared)
 
 - **Methods Catalog** — the register of representation methods and what each one
   renders well or distorts.
