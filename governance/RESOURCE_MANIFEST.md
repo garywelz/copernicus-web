@@ -63,9 +63,9 @@ the same record is not necessarily an error.*
 |---|---|
 | CopernicusAI knowledge-engine paper | 10.5281/zenodo.18463303 |
 | Programming Framework companion paper | 10.5281/zenodo.18463441 |
-| GLMP methods paper | 10.5281/zenodo.20831781 ⚠️ verify concept vs version — `nsf-proposal/Gary_Welz_Resume.md:48-49` cites `20831780` for a related paper |
+| GLMP methods paper | 10.5281/zenodo.20831780 — confirmed on the Zenodo record as the **concept DOI** ("Cite all versions"); `20831781` is the version-1.4 DOI for the same paper, not a different work |
 | Proofs-as-graphs (math) paper | 10.5281/zenodo.20510603 (`nsf-proposal/Gary_Welz_Resume.md:51-52`) |
-| Citable eval corpus (May freeze) | ⟨FILL IN⟩ — no Zenodo DOI found in this repo. GCS mirror is known: `gs://regal-scholar-453620-r7-podcast-storage/research_data/snapshots/research_papers_20260526.jsonl.gz` (`papers/meta_partial.json:10`) |
+| Citable eval corpus (May freeze) | No Zenodo deposit exists — corpus lives at the GCS mirror only: `gs://regal-scholar-453620-r7-podcast-storage/research_data/snapshots/research_papers_20260526.jsonl.gz` (`papers/meta_partial.json:10`) |
 
 ## Identity
 
