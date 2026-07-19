@@ -42,7 +42,7 @@ fi
 echo "==> Ingest to Firestore"
 echo "    project=$GOOGLE_CLOUD_PROJECT  database=$FIRESTORE_DATABASE"
 echo "    root=$ROOT_PAPERS"
-echo "    stub_gate_mode=observe"
+echo "    stub_gate_mode=enforce"
 echo "    reject_log=$REJECT_LOG"
 echo "    reject_gcs=$REJECT_GCS_URI"
 echo ""
@@ -56,7 +56,7 @@ done
 python3 scripts/ingest_papers_from_metadata_json.py \
   --root "$ROOT_PAPERS" \
   --skip-existing \
-  --stub-gate-mode observe \
+  --stub-gate-mode enforce \
   --reject-log "$REJECT_LOG" \
   --reject-gcs-uri "$REJECT_GCS_URI" \
   "${EXTRA[@]}"
