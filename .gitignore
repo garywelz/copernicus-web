@@ -109,6 +109,9 @@ venv_embeddings/
 # Legacy repo audit clones (read-only, never committed)
 _audit/
 
+# Husk-sweep export/delete artifacts (JSONL + vectors) — local only, never committed
+_sweep_work/
+
 # Scout / status runtime (Jetson worker; untrack via git rm --cached in Phase 2)
 huggingface-space/metadata-database/papers/
 huggingface-space/knowledge-engine-status.json
