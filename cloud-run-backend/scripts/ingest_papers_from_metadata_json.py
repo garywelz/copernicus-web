@@ -21,6 +21,7 @@ Design goals:
 from __future__ import annotations
 
 import argparse
+import fnmatch
 import hashlib
 import json
 import os
@@ -321,6 +322,12 @@ def _to_firestore_paper(paper: Dict[str, Any], filepath: Path) -> Dict[str, Any]
 def _iter_json_files(root: Path, include_glob: str) -> Iterable[Path]:
     # Use rglob but allow filtering by glob
     for p in root.rglob("*.json"):
+        # Manifest side-cars (batch_*.json) are acquisition summaries, not
+        # papers — written by acquire_pubmed_batch.py into the same tree.
+        # Excluded here so the per-paper loop never considers them; the stub
+        # gate remains the enforce-mode backstop for anything else.
+        if fnmatch.fnmatch(p.name, "batch_*.json"):
+            continue
         if include_glob and not p.match(include_glob):
             continue
         yield p
