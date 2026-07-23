@@ -1,14 +1,17 @@
 #!/usr/bin/env python3
 """
-Backfill OpenAI embeddings for research_papers missing embedding_model.
+Backfill OpenAI embeddings for Firestore collections missing embedding_model.
 
-Amended plan 2026-07-22 (Core GO): match production space —
+Amended plan 2026-07-22 (Core GO) + episodes parameterization 2026-07-23:
   model  text-embedding-3-small
   dims   1536
   field  embedding (Firestore Vector) + embedding_model
 
-Provenance (measured): scout biology pubmed_*/biorxiv_* that landed without
-an ingest-time embed pass. Not GLMP hand-delivery.
+Collections (``--collection``):
+  research_papers  — empty embedding_model AND title != Untitled
+                     (Untitled clause is husk-sweep residue; papers only)
+  episodes         — empty embedding_model alone; text via create_text_for_podcast
+                     (accepts description OR description_markdown)
 
 Modes (primary actions; combine --pin with nothing else, or pin then run):
   --pin           Predicate census → write manifest.json (+ README) under --out-dir
@@ -17,12 +20,12 @@ Modes (primary actions; combine --pin with nothing else, or pin then run):
   --run           Embed all remaining pending IDs from manifest (writes)
 
 Idempotency: per-doc re-check of embedding_model at write time (skip if set).
-Hard-stop if returned vector length != 1536 or response model does not match
-text-embedding-3-small. Do NOT pass dimensions= to the API (match corpus request).
+Hard-stop (StructuralError) if returned vector length != 1536 or response model
+does not match text-embedding-3-small. Do NOT pass dimensions= to the API
+(match corpus request). Structural errors bypass the transient retry loop.
 
-DO NOT use utils.auto_embedding.add_embedding_to_paper_data — it hardcodes
-embedding_model='text-embedding-004' even when the factory returns OpenAI.
-Reuse create_text_for_paper only (same input text as production retrieval).
+Reuse create_text_for_* only — not add_embedding_to_* helpers (those are
+non-blocking write-path wrappers; this tool owns API gates + checkpointing).
 
 Operator notes:
   - Mid-run abort on structural errors (dim/model/empty response) is expected
@@ -30,18 +33,24 @@ Operator notes:
     bounded retries with backoff, then hard-stop.
   - Re-pin after a checkpoint: if pinned_at_utc changes, delete/move
     checkpoint.json or use a fresh --out-dir (hard-stop otherwise).
+  - Episodes pilot: prefer ``--pilot 5`` then a live find_nearest proof before
+    remainder — count coverage alone is not enough.
 
 Env:
   GOOGLE_CLOUD_PROJECT   default regal-scholar-453620-r7
   FIRESTORE_DATABASE     default copernicusai
   OPENAI_API_KEY         optional; else Secret Manager secret openai-api-key
 
-Usage (Yoga, backend venv, tracked commit after Gary go):
+Usage (Yoga, system Python 3.12 + ADC; tracked commit after Gary go):
   cd cloud-run-backend
-  python scripts/backfill_research_paper_embeddings.py --pin --out-dir ../_sweep_work/embed_backfill_20260722
-  python scripts/backfill_research_paper_embeddings.py --dry-run --out-dir ...
-  python scripts/backfill_research_paper_embeddings.py --pilot 20 --out-dir ...
-  python scripts/backfill_research_paper_embeddings.py --run --out-dir ... --batch-size 100
+  python scripts/backfill_research_paper_embeddings.py --collection episodes \\
+    --pin --out-dir ../_sweep_work/embed_episodes_20260723
+  python scripts/backfill_research_paper_embeddings.py --collection episodes \\
+    --dry-run --out-dir ...
+  python scripts/backfill_research_paper_embeddings.py --collection episodes \\
+    --pilot 5 --out-dir ...
+  python scripts/backfill_research_paper_embeddings.py --collection episodes \\
+    --run --out-dir ... --batch-size 50
 """
 
 from __future__ import annotations
@@ -51,9 +60,10 @@ import json
 import os
 import sys
 import time
+from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Sequence, Tuple
+from typing import Any, Callable, Dict, List, Optional, Sequence, Tuple
 
 from google.cloud import firestore
 from google.cloud.firestore_v1.vector import Vector
@@ -68,19 +78,19 @@ try:
 except ImportError:
     secretmanager = None
 
-# cloud-run-backend on sys.path for create_text_for_paper
+# cloud-run-backend on sys.path for create_text_for_*
 _BACKEND_ROOT = Path(__file__).resolve().parent.parent
 if str(_BACKEND_ROOT) not in sys.path:
     sys.path.insert(0, str(_BACKEND_ROOT))
 
-# Text construction only — NEVER import/use add_embedding_to_paper_data here.
-# That helper hardcodes embedding_model='text-embedding-004' even when OpenAI
-# is the active factory provider; using it would mislabel 1536d vectors.
-from utils.auto_embedding import create_text_for_paper  # noqa: E402
+from utils.auto_embedding import (  # noqa: E402
+    create_text_for_paper,
+    create_text_for_podcast,
+)
 
 DEFAULT_PROJECT = "regal-scholar-453620-r7"
 DEFAULT_DATABASE = "copernicusai"
-COLLECTION = "research_papers"
+DEFAULT_COLLECTION = "research_papers"
 EMBEDDING_MODEL = "text-embedding-3-small"
 EMBEDDING_DIMENSIONS = 1536
 MANIFEST_NAME = "manifest.json"
@@ -88,6 +98,56 @@ CHECKPOINT_NAME = "checkpoint.json"
 README_NAME = "README.md"
 TRANSIENT_RETRIES = 3
 TRANSIENT_BACKOFF_S = 2.0
+
+TextBuilder = Callable[[Dict[str, Any]], str]
+SelectFn = Callable[[Dict[str, Any], str], bool]
+
+
+class StructuralError(RuntimeError):
+    """
+    Fail-fast structural fault: wrong dim/model, empty API payload, pin mismatch.
+
+    Must bypass the transient-API retry loop and terminate the run. Do not wrap
+    rate-limits / 5xx / timeouts in this type.
+    """
+
+
+@dataclass(frozen=True)
+class CollectionProfile:
+    name: str
+    text_builder: TextBuilder
+    select: SelectFn
+    predicate_label: str
+
+
+def _select_papers(data: Dict[str, Any], _doc_id: str) -> bool:
+    if not _model_empty(data):
+        return False
+    title = str(data.get("title") or "").strip()
+    if title.lower() == "untitled":
+        return False
+    return True
+
+
+def _select_episodes(data: Dict[str, Any], _doc_id: str) -> bool:
+    # Episodes: no Untitled husk clause — that guard is papers/husk-sweep residue.
+    return _model_empty(data)
+
+
+PROFILES: Dict[str, CollectionProfile] = {
+    "research_papers": CollectionProfile(
+        name="research_papers",
+        text_builder=create_text_for_paper,
+        select=_select_papers,
+        predicate_label="embedding_model empty/missing AND title != Untitled",
+    ),
+    "episodes": CollectionProfile(
+        name="episodes",
+        text_builder=create_text_for_podcast,
+        select=_select_episodes,
+        predicate_label="embedding_model empty/missing",
+    ),
+}
 
 
 def _utcnow() -> str:
@@ -161,17 +221,89 @@ def _is_transient_api_error(exc: BaseException) -> bool:
     return False
 
 
-def pin_unembedded(db: firestore.Client, out_dir: Path) -> int:
-    """Predicate census: empty embedding_model, title != Untitled. Write manifest."""
-    out_dir.mkdir(parents=True, exist_ok=True)
-    col = db.collection(COLLECTION)
-    ids: List[str] = []
-    pubmed = 0
-    biorxiv = 0
-    other = 0
+def _id_prefix(doc_id: str) -> str:
+    if "_" in doc_id:
+        return doc_id.split("_", 1)[0]
+    if "-" in doc_id:
+        return doc_id.split("-", 1)[0]
+    return "other"
+
+
+def _build_provenance(
+    profile: CollectionProfile,
+    *,
+    ids: Sequence[str],
+    scanned: List[Tuple[str, Dict[str, Any]]],
+    total_scanned: int,
+    untitled_skipped: int,
+) -> Dict[str, Any]:
+    """Collection-specific pin metadata — no paper-only fields on episodes."""
     created_min: Optional[str] = None
     created_max: Optional[str] = None
-    with_abstract = 0
+    for _doc_id, data in scanned:
+        ca = _created_at_iso(data.get("created_at") or data.get("generated_at"))
+        if ca:
+            if created_min is None or ca < created_min:
+                created_min = ca
+            if created_max is None or ca > created_max:
+                created_max = ca
+
+    prefix_counts: Dict[str, int] = {}
+    for doc_id in ids:
+        p = _id_prefix(doc_id)
+        prefix_counts[p] = prefix_counts.get(p, 0) + 1
+
+    base: Dict[str, Any] = {
+        "id_prefix_counts": dict(sorted(prefix_counts.items())),
+        "corpus_scanned": total_scanned,
+        "created_at_min": created_min,
+        "created_at_max": created_max,
+    }
+
+    if profile.name == "research_papers":
+        with_abstract = sum(
+            1 for _i, d in scanned if str(d.get("abstract") or "").strip()
+        )
+        base.update(
+            {
+                "with_abstract": with_abstract,
+                "untitled_skipped": untitled_skipped,
+                "note": (
+                    "Scout biology ingest without embed pass (measured 2026-07-22); "
+                    "not GLMP flowchart hand-delivery."
+                ),
+            }
+        )
+    elif profile.name == "episodes":
+        with_script = sum(1 for _i, d in scanned if str(d.get("script") or "").strip())
+        with_desc_md = sum(
+            1 for _i, d in scanned if str(d.get("description_markdown") or "").strip()
+        )
+        with_job_id = sum(1 for _i, d in scanned if str(d.get("job_id") or "").strip())
+        base.update(
+            {
+                "with_script": with_script,
+                "with_description_markdown": with_desc_md,
+                "with_job_id": with_job_id,
+                "note": (
+                    "Episodes catalog had 0 embeddings while find_nearest targets "
+                    "episodes; podcast_jobs held stranded vectors (2026-07-23)."
+                ),
+            }
+        )
+    return base
+
+
+def pin_unembedded(
+    db: firestore.Client,
+    out_dir: Path,
+    profile: CollectionProfile,
+) -> int:
+    """Predicate census for the selected collection. Write manifest."""
+    out_dir.mkdir(parents=True, exist_ok=True)
+    col = db.collection(profile.name)
+    ids: List[str] = []
+    scanned_hits: List[Tuple[str, Dict[str, Any]]] = []
     untitled_skipped = 0
 
     # Full-collection scan is intentional: Firestore cannot query "field missing".
@@ -188,53 +320,36 @@ def pin_unembedded(db: firestore.Client, out_dir: Path) -> int:
         for snap in docs:
             total_scanned += 1
             data = snap.to_dict() or {}
-            if not _model_empty(data):
-                continue
-            title = str(data.get("title") or "").strip()
-            if title.lower() == "untitled":
-                untitled_skipped += 1
+            # Track Untitled skips only for papers (predicate residue accounting).
+            if profile.name == "research_papers":
+                if _model_empty(data):
+                    title = str(data.get("title") or "").strip()
+                    if title.lower() == "untitled":
+                        untitled_skipped += 1
+            if not profile.select(data, snap.id):
                 continue
             ids.append(snap.id)
-            if snap.id.startswith("pubmed_"):
-                pubmed += 1
-            elif snap.id.startswith("biorxiv_"):
-                biorxiv += 1
-            else:
-                other += 1
-            if str(data.get("abstract") or "").strip():
-                with_abstract += 1
-            ca = _created_at_iso(data.get("created_at"))
-            if ca:
-                if created_min is None or ca < created_min:
-                    created_min = ca
-                if created_max is None or ca > created_max:
-                    created_max = ca
+            scanned_hits.append((snap.id, data))
         last = docs[-1]
 
     ids.sort()
     pinned_at = _utcnow()
+    provenance = _build_provenance(
+        profile,
+        ids=ids,
+        scanned=scanned_hits,
+        total_scanned=total_scanned,
+        untitled_skipped=untitled_skipped,
+    )
     manifest = {
         "pinned_at_utc": pinned_at,
-        "collection": COLLECTION,
+        "collection": profile.name,
         "project": os.environ.get("GOOGLE_CLOUD_PROJECT", DEFAULT_PROJECT),
         "database": os.environ.get("FIRESTORE_DATABASE", DEFAULT_DATABASE),
-        "predicate": "embedding_model empty/missing AND title != Untitled",
+        "predicate": profile.predicate_label,
         "n": len(ids),
         "ids": ids,
-        "provenance": {
-            "pubmed_prefix": pubmed,
-            "biorxiv_prefix": biorxiv,
-            "other_prefix": other,
-            "with_abstract": with_abstract,
-            "untitled_skipped": untitled_skipped,
-            "created_at_min": created_min,
-            "created_at_max": created_max,
-            "corpus_scanned": total_scanned,
-            "note": (
-                "Scout biology ingest without embed pass (measured 2026-07-22); "
-                "not GLMP flowchart hand-delivery."
-            ),
-        },
+        "provenance": provenance,
         "target_model": EMBEDDING_MODEL,
         "target_dimensions": EMBEDDING_DIMENSIONS,
     }
@@ -251,32 +366,35 @@ def pin_unembedded(db: firestore.Client, out_dir: Path) -> int:
             "Move/delete the checkpoint or use a fresh --out-dir after re-pin.\n"
         )
 
-    readme = f"""# Research-paper embedding backfill pin
+    prov_lines = "\n".join(f"- {k}: {v}" for k, v in provenance.items())
+    readme = f"""# Embedding backfill pin — `{profile.name}`
 
 - Pinned at (UTC): {pinned_at}
 - n: **{len(ids)}**
 - Model/dims: `{EMBEDDING_MODEL}` / {EMBEDDING_DIMENSIONS}
-- Predicate: empty `embedding_model`, title ≠ Untitled
-- Provenance: pubmed={pubmed}, biorxiv={biorxiv}, other={other}; abstracts={with_abstract}/{len(ids)}
-- created_at range: {created_min} → {created_max}
+- Predicate: {profile.predicate_label}
+- Provenance:
+{prov_lines}
 {ck_note}
 ## Sequence
 
 1. `--dry-run` (no writes)
-2. `--pilot 20` after Gary pilot-go
-3. `--run` after Gary remainder-go
-4. Re-census + scientific_queries probe (separate / sweep script)
+2. `--pilot N` (episodes: start with 5, then live find_nearest proof)
+3. `--run` after remainder-go
+4. Re-census + findability probe (not count alone)
 
 Rerun-safe: per-doc skip if `embedding_model` already set.
 
-Abort behavior: structural errors (wrong dim/model, empty API response) hard-stop
-immediately. Transient API errors (429/5xx/timeout) retry a few times with backoff,
-then hard-stop. Rerun is safe either way.
+Abort behavior: StructuralError (wrong dim/model, empty API response) hard-stops
+immediately and bypasses retries. Transient API errors (429/5xx/timeout) retry a
+few times with backoff, then hard-stop. Rerun is safe either way.
 """
     (out_dir / README_NAME).write_text(readme, encoding="utf-8")
-    print(f"Pinned n={len(ids)} → {manifest_path}")
-    print(f"Provenance: pubmed={pubmed} biorxiv={biorxiv} other={other}")
-    print(f"Corpus scanned: {total_scanned}; untitled skipped: {untitled_skipped}")
+    print(f"Pinned n={len(ids)} collection={profile.name} → {manifest_path}")
+    print(f"Predicate: {profile.predicate_label}")
+    print(f"Corpus scanned: {total_scanned}")
+    if profile.name == "research_papers":
+        print(f"Untitled skipped: {untitled_skipped}")
     if ck_path.is_file():
         print(
             f"WARNING: existing {CHECKPOINT_NAME} left in place — "
@@ -341,7 +459,7 @@ def pending_ids(manifest: Dict[str, Any], out_dir: Path) -> List[str]:
         ck_pin = ck.get("manifest_pinned_at_utc")
         man_pin = manifest.get("pinned_at_utc")
         if ck_pin != man_pin:
-            raise ValueError(
+            raise StructuralError(
                 "HARD STOP: checkpoint belongs to a different pin "
                 f"({ck_pin!r} != {man_pin!r}). "
                 "Move/delete checkpoint.json or use a fresh --out-dir."
@@ -362,6 +480,8 @@ def embed_one(
 
     Do not pass dimensions= — corpus vectors were requested without reduction;
     native 1536 must match that request path. Post-hoc len() assert catches surprises.
+
+    StructuralError bypasses the transient retry loop (isinstance check below).
     """
     last_exc: Optional[BaseException] = None
     for attempt in range(1, TRANSIENT_RETRIES + 1):
@@ -370,20 +490,20 @@ def embed_one(
             response = client.embeddings.create(model=EMBEDDING_MODEL, input=text)
             data = getattr(response, "data", None) or []
             if len(data) != 1:
-                raise RuntimeError(
+                raise StructuralError(
                     f"HARD STOP: expected 1 embedding in response, got {len(data)}"
                 )
             returned_model = str(getattr(response, "model", "") or "")
             # startswith: OpenAI may return dated variants; genuine mismatches still trip.
             if not returned_model.startswith(EMBEDDING_MODEL):
-                raise RuntimeError(
+                raise StructuralError(
                     f"HARD STOP: response model {returned_model!r} does not match "
                     f"requested {EMBEDDING_MODEL!r}"
                 )
             vec = list(data[0].embedding)
             # Dimension gate BEFORE any Firestore write (caller must not write on raise).
             if len(vec) != EMBEDDING_DIMENSIONS:
-                raise RuntimeError(
+                raise StructuralError(
                     f"HARD STOP: unexpected dimension {len(vec)} "
                     f"(expected {EMBEDDING_DIMENSIONS})"
                 )
@@ -394,11 +514,11 @@ def embed_one(
             if not tokens:
                 tokens = _estimate_tokens(text)
             return vec, tokens
+        except StructuralError:
+            # Structural faults never retry — re-raise immediately.
+            raise
         except Exception as exc:
             last_exc = exc
-            # Structural HARD STOP messages: never retry.
-            if "HARD STOP" in str(exc):
-                raise
             if _is_transient_api_error(exc) and attempt < TRANSIENT_RETRIES:
                 wait = TRANSIENT_BACKOFF_S * attempt
                 print(
@@ -418,6 +538,7 @@ def process_ids(
     out_dir: Path,
     work_ids: Sequence[str],
     queue_ids: Sequence[str],
+    profile: CollectionProfile,
     *,
     manifest_pinned_at_utc: str,
     write: bool,
@@ -428,9 +549,9 @@ def process_ids(
     Process work_ids (pilot slice or full run).
 
     queue_ids is the full pending queue used for checkpoint remainder so a
-    --pilot 20 leaves the other ~385 IDs in remaining_ids.
+    --pilot N leaves the other IDs in remaining_ids.
     """
-    col = db.collection(COLLECTION)
+    col = db.collection(profile.name)
     work = list(work_ids)
     queue = list(queue_ids)
     completed: List[str] = []
@@ -448,7 +569,7 @@ def process_ids(
         tokens_total = int(ck.get("tokens_total") or 0)
 
     print(
-        f"Mode: {'WRITE' if write else 'DRY-RUN'} | "
+        f"Mode: {'WRITE' if write else 'DRY-RUN'} | collection={profile.name} | "
         f"work={len(work)} queue={len(queue)} batch_size={batch_size}"
     )
 
@@ -487,7 +608,7 @@ def process_ids(
                     continue
 
                 data = snap.to_dict() or {}
-                # Per-doc re-check (husk-sweep idempotency): skip if already embedded.
+                # Per-doc re-check (idempotency): skip if already embedded.
                 if not _model_empty(data):
                     existing = str(data.get("embedding_model") or "").strip()
                     print(f"  SKIP already set embedding_model={existing!r} {doc_id}")
@@ -495,10 +616,8 @@ def process_ids(
                     processed_this_run += 1
                     continue
 
-                text = create_text_for_paper(data)
+                text = profile.text_builder(data)
                 if text is None or not str(text).strip():
-                    # Census said all 405 have abstracts; if this fires, skip + continue
-                    # so the operator is not stuck hand-editing checkpoint JSON.
                     print(f"  SKIP empty embed text {doc_id}")
                     skipped.append(doc_id)
                     processed_this_run += 1
@@ -517,7 +636,7 @@ def process_ids(
                 vec, tokens = embed_one(client, text)
                 # Re-assert immediately before write (per-vector, not post-batch).
                 if len(vec) != EMBEDDING_DIMENSIONS:
-                    raise RuntimeError(
+                    raise StructuralError(
                         f"HARD STOP: pre-write dim {len(vec)} != {EMBEDDING_DIMENSIONS}"
                     )
                 ref.update(
@@ -567,6 +686,7 @@ def process_ids(
     rem = _remainder()
     print("=" * 60)
     print("BACKFILL RUN COMPLETE")
+    print(f"collection={profile.name}")
     print(f"completed={len(completed)} skipped={len(skipped)} failed={len(failed)}")
     print(f"remaining={len(rem)} tokens_total={tokens_total}")
     print("=" * 60)
@@ -577,9 +697,15 @@ def process_ids(
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
+        "--collection",
+        default=DEFAULT_COLLECTION,
+        choices=sorted(PROFILES.keys()),
+        help=f"Firestore collection to backfill (default: {DEFAULT_COLLECTION})",
+    )
+    parser.add_argument(
         "--out-dir",
         required=True,
-        help="Working dir for manifest.json / checkpoint.json (e.g. _sweep_work/embed_backfill_YYYYMMDD)",
+        help="Working dir for manifest.json / checkpoint.json",
     )
     parser.add_argument("--pin", action="store_true", help="Census + write pinned manifest")
     parser.add_argument("--dry-run", action="store_true", help="Plan only; no API, no writes")
@@ -588,7 +714,7 @@ def main() -> int:
         type=int,
         default=0,
         metavar="N",
-        help="Embed first N pending IDs from manifest (writes)",
+        help="Embed first N pending IDs from manifest (writes); episodes: prefer 5",
     )
     parser.add_argument("--run", action="store_true", help="Embed all remaining pending IDs")
     parser.add_argument(
@@ -620,11 +746,12 @@ def main() -> int:
         )
         return 2
 
+    profile = PROFILES[args.collection]
     out_dir = Path(args.out_dir).expanduser().resolve()
     db = _client()
 
     if args.pin:
-        return pin_unembedded(db, out_dir)
+        return pin_unembedded(db, out_dir, profile)
 
     try:
         manifest = load_manifest(out_dir)
@@ -632,8 +759,18 @@ def main() -> int:
         print(f"HARD STOP: {_safe_exc(exc)}", file=sys.stderr)
         return 2
 
+    man_coll = str(manifest.get("collection") or DEFAULT_COLLECTION)
+    if man_coll != profile.name:
+        print(
+            f"HARD STOP: --collection={profile.name!r} but manifest collection="
+            f"{man_coll!r} (re-pin or pass matching --collection)",
+            file=sys.stderr,
+        )
+        return 2
+
     print(
-        f"Manifest n={manifest['n']} pinned_at={manifest.get('pinned_at_utc')} "
+        f"Manifest n={manifest['n']} collection={man_coll} "
+        f"pinned_at={manifest.get('pinned_at_utc')} "
         f"target={manifest.get('target_model')}@{manifest.get('target_dimensions')}"
     )
     if manifest.get("target_model") != EMBEDDING_MODEL:
@@ -650,7 +787,7 @@ def main() -> int:
 
     try:
         queue = pending_ids(manifest, out_dir)
-    except ValueError as exc:
+    except StructuralError as exc:
         print(str(exc), file=sys.stderr)
         return 2
 
@@ -666,6 +803,7 @@ def main() -> int:
             out_dir,
             work,
             queue,
+            profile,
             manifest_pinned_at_utc=pin_at,
             write=False,
             batch_size=max(1, int(args.batch_size)),
@@ -694,6 +832,7 @@ def main() -> int:
         out_dir,
         work,
         queue,
+        profile,
         manifest_pinned_at_utc=pin_at,
         write=True,
         batch_size=max(1, int(args.batch_size)),

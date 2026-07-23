@@ -62,17 +62,32 @@ def create_text_for_paper(paper_data: Dict[str, Any]) -> str:
 
 
 def create_text_for_podcast(podcast_data: Dict[str, Any]) -> str:
-    """Create text representation of podcast for embedding."""
+    """Create text representation of podcast/episode for embedding.
+
+    Accepts both schemas:
+      - podcast_jobs: ``result.description`` (and optional top-level ``description``)
+      - episodes: ``description_markdown`` (promote renames; plain ``description`` is empty)
+
+    Prefer description / description_markdown from ``result`` then top-level so one
+    helper works for both collections without silently title-only embeddings.
+    """
     parts = []
     
     # Get title from result or top level
     result = podcast_data.get('result', {})
+    if not isinstance(result, dict):
+        result = {}
     title = result.get('title') or podcast_data.get('title')
     if title:
         parts.append(title)
     
-    # Get description
-    description = result.get('description') or podcast_data.get('description')
+    # Description: jobs use ``description``; episodes use ``description_markdown``.
+    description = (
+        result.get('description')
+        or podcast_data.get('description')
+        or result.get('description_markdown')
+        or podcast_data.get('description_markdown')
+    )
     if description:
         parts.append(description)
     
