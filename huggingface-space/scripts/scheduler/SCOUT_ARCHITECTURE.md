@@ -111,6 +111,12 @@ It does **not** ship (those reach production via `git pull` of the Jetson tree):
 or ingest fails rc 127), (3) `sync_to_jetson.sh`, (4) keep 10:40/10:45 until AM
 validates, (5) then remove those cron lines.
 
+**Wrapper install path:** `sync_to_jetson.sh` copies `scout_ingest.sh` from the
+Jetson HFS git tree into `/media/sdcard/scheduler/scout/` — it does **not** scp
+the `.sh` from the calling machine. A Windows CRLF scp makes bash reject the
+file (`unexpected end of file`); discovered on the 2026-07-23 cutover and fixed
+in the sync script.
+
 After changing scout worker files in the repo, **sync to the Jetson**:
 
 ```bash
