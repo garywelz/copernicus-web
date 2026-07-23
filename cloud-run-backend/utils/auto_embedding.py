@@ -15,6 +15,24 @@ from utils.logging import structured_logger
 logger = logging.getLogger(__name__)
 
 
+def resolve_embedding_model_name(embedding_service: Any) -> str:
+    """
+    Label stored embeddings with the service's real model name.
+
+    Fail loudly if no usable name is exposed — never default to a literal like
+    text-embedding-004 (that silent wrong default is the bug this module had).
+    Do not fall back to ``.model``: on the legacy Vertex EmbeddingService that
+    attribute is a TextEmbeddingModel instance, not a string.
+    """
+    name = getattr(embedding_service, "model_name", None)
+    if isinstance(name, str) and name.strip():
+        return name.strip()
+    raise ValueError(
+        f"Embedding service {type(embedding_service).__name__} exposes no "
+        "model_name; refusing to label embedding with a guessed default"
+    )
+
+
 def create_text_for_paper(paper_data: Dict[str, Any]) -> str:
     """Create text representation of paper for embedding."""
     parts = []
@@ -129,7 +147,14 @@ async def generate_and_store_embedding(
         # Generate embedding
         embedding_service = get_embedding_service()
         embedding = embedding_service.embed_text(text)
-        
+        model_name = resolve_embedding_model_name(embedding_service)
+        expected_dim = getattr(embedding_service, "dimension", None)
+        if expected_dim is not None and len(embedding) != expected_dim:
+            raise ValueError(
+                f"Embedding dimension mismatch: got {len(embedding)}, "
+                f"service reports {expected_dim} ({model_name})"
+            )
+
         # Store embedding in Firestore (as Vector type for vector search)
         from mcp_server.utils.firestore_client import get_firestore_client
         from google.cloud.firestore_v1.vector import Vector
@@ -138,7 +163,7 @@ async def generate_and_store_embedding(
         
         doc_ref.update({
             'embedding': Vector(embedding),  # Convert to Vector type for Firestore
-            'embedding_model': 'text-embedding-004',
+            'embedding_model': model_name,
             'embedding_updated': datetime.utcnow().isoformat()
         })
         
@@ -179,11 +204,18 @@ def add_embedding_to_paper_data(paper_data: Dict[str, Any]) -> Dict[str, Any]:
         
         embedding_service = get_embedding_service()
         embedding = embedding_service.embed_text(text)
-        
+        model_name = resolve_embedding_model_name(embedding_service)
+        expected_dim = getattr(embedding_service, "dimension", None)
+        if expected_dim is not None and len(embedding) != expected_dim:
+            raise ValueError(
+                f"Embedding dimension mismatch: got {len(embedding)}, "
+                f"service reports {expected_dim} ({model_name})"
+            )
+
         # Store as Vector type for Firestore vector search
         from google.cloud.firestore_v1.vector import Vector
         paper_data['embedding'] = Vector(embedding)
-        paper_data['embedding_model'] = 'text-embedding-004'
+        paper_data['embedding_model'] = model_name
         paper_data['embedding_updated'] = datetime.utcnow().isoformat()
         
         return paper_data
@@ -213,11 +245,18 @@ def add_embedding_to_podcast_data(podcast_data: Dict[str, Any]) -> Dict[str, Any
         
         embedding_service = get_embedding_service()
         embedding = embedding_service.embed_text(text)
-        
+        model_name = resolve_embedding_model_name(embedding_service)
+        expected_dim = getattr(embedding_service, "dimension", None)
+        if expected_dim is not None and len(embedding) != expected_dim:
+            raise ValueError(
+                f"Embedding dimension mismatch: got {len(embedding)}, "
+                f"service reports {expected_dim} ({model_name})"
+            )
+
         # Store as Vector type for Firestore vector search
         from google.cloud.firestore_v1.vector import Vector
         podcast_data['embedding'] = Vector(embedding)
-        podcast_data['embedding_model'] = 'text-embedding-004'
+        podcast_data['embedding_model'] = model_name
         podcast_data['embedding_updated'] = datetime.utcnow().isoformat()
         
         return podcast_data

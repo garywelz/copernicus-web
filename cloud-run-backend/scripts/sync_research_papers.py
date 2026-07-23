@@ -178,7 +178,13 @@ def sync_papers(
                             
                             if embedding:
                                 paper_data['embedding'] = Vector(embedding)
-                                paper_data['embedding_model'] = getattr(embedding_service, 'model_name', 'text-embedding-004')
+                                model_name = getattr(embedding_service, "model_name", None)
+                                if not (isinstance(model_name, str) and model_name.strip()):
+                                    raise ValueError(
+                                        f"Embedding service {type(embedding_service).__name__} "
+                                        "exposes no model_name; refusing to label with a guessed default"
+                                    )
+                                paper_data['embedding_model'] = model_name.strip()
                                 paper_data['embedding_updated'] = datetime.utcnow().isoformat()
                                 has_embedding = True
                     except Exception as e:
