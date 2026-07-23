@@ -1,4 +1,7 @@
 #!/bin/bash
+# SUPERSEDED — do not install on Jetson once scout_ingest.sh chains
+# run_post_ingest_hooks.sh. Historical reference only (old 10:45 clock slot).
+#
 # Append a 10:45 AM (America/New_York) cron job: publish knowledge-engine-status.json to GCS.
 # Requires the same CRON_TZ=America/New_York line in crontab as the 10:10/10:15 block (vixie: applies to following lines).
 # If you have no CRON_TZ, add one line: CRON_TZ=America/New_York  before the 10:45 line (see crontab -e).

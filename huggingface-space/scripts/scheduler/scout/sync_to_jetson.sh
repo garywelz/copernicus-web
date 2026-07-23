@@ -7,7 +7,12 @@ JETSON="${JETSON:-gary@192.168.1.222}"
 REMOTE_DIR="/media/sdcard/scheduler/scout"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-echo "Syncing scout workers to ${JETSON}:${REMOTE_DIR}"
+echo "Syncing scout workers + ingest wrapper to ${JETSON}:${REMOTE_DIR}"
 scp "${SCRIPT_DIR}"/*.py "${JETSON}:${REMOTE_DIR}/"
-ssh "${JETSON}" "rm -rf ${REMOTE_DIR}/__pycache__ && echo 'Cleared __pycache__; deployed:' && ls -la ${REMOTE_DIR}/*.py"
+# Versioned ingest entrypoint (post-ingest hooks live under HFS; pull that first).
+if [ -f "${SCRIPT_DIR}/scout_ingest.sh" ]; then
+  scp "${SCRIPT_DIR}/scout_ingest.sh" "${JETSON}:${REMOTE_DIR}/"
+  ssh "${JETSON}" "chmod +x ${REMOTE_DIR}/scout_ingest.sh"
+fi
+ssh "${JETSON}" "rm -rf ${REMOTE_DIR}/__pycache__ && echo 'Cleared __pycache__; deployed:' && ls -la ${REMOTE_DIR}/*.py ${REMOTE_DIR}/scout_ingest.sh"
 echo "Done."

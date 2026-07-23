@@ -1,4 +1,8 @@
 #!/bin/bash
+# SUPERSEDED — do not install on Jetson once scout_ingest.sh chains
+# run_post_ingest_hooks.sh (status publish + MASTER_TODO after ingest success).
+# Kept only as historical reference for the old clock-guessed 10:40 slot.
+#
 # Append a 10:40 AM (America/New_York) cron job: publish knowledge-engine-status.json to GCS.
 # Runs after 10:30 AM ingest, before 10:45 AM MASTER_TODO read.
 # Requires the same CRON_TZ=America/New_York line in crontab as the 10:10/10:15 block (vixie: applies to following lines).
