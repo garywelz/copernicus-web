@@ -74,6 +74,15 @@ Hook bodies keep prior destinations: `status_publish_cron.log`, `master_todo_cro
 
 Partial ship of (3) before (2) is the dangerous failure mode. Keeping cron through
 (5) turns cutover into a step: a failed chain still gets the clocked publish.
+
+**Cutover asymmetry (durable).** The AM cycle has a standalone publish cron
+(10:40/10:45) that can serve as a fallback during cutovers; the PM cycle (20:15)
+has never had one. Any change to the post-ingest chain that ships during the day
+is validated first by PM, unprotected. PM chain failure means no evening publish —
+status quo prior to `cee1928ef`, not a regression — but it is not covered the way
+AM is. Ship risky chain changes in the morning if you want the AM safety net to
+catch them first.
+
 ### Rollback (ordering fix)
 
 1. Revert the wrapper/hooks commit (or restore the prior one-line `exec` wrapper
