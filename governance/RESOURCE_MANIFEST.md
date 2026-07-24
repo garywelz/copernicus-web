@@ -64,7 +64,7 @@ the same record is not necessarily an error.*
 | CopernicusAI knowledge-engine paper | 10.5281/zenodo.18463303 |
 | Programming Framework companion paper | 10.5281/zenodo.18463441 |
 | GLMP methods paper | 10.5281/zenodo.20831780 — confirmed on the Zenodo record as the **concept DOI** ("Cite all versions"); `20831781` is the version-1.4 DOI for the same paper, not a different work |
-| Proofs-as-graphs (math) paper | 10.5281/zenodo.20510603 (`nsf-proposal/Gary_Welz_Resume.md:51-52`) |
+| Proofs-as-graphs (math) paper | 10.5281/zenodo.20510602 — confirmed via the Zenodo API as the **concept DOI** (`conceptrecid: 20510602`), currently resolving to v2.0 "Proof Graphs and Algorithm Capsules: A Corpus Study of Diagonalization Proofs from Cantor to Gödel to Goodstein". `20510603` is the superseded v1.0 DOI (`is_last: false`), cited under an earlier title in `nsf-proposal/Gary_Welz_Resume.md:51-52` — that citation is stale, not this manifest |
 | Citable eval corpus (May freeze) | No Zenodo deposit exists — corpus lives at the GCS mirror only: `gs://regal-scholar-453620-r7-podcast-storage/research_data/snapshots/research_papers_20260526.jsonl.gz` (`papers/meta_partial.json:10`) |
 
 ## Identity
