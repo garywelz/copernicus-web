@@ -13,11 +13,16 @@ Collections (``--collection``):
   episodes         — empty embedding_model alone; text via create_text_for_podcast
                      (accepts description OR description_markdown)
 
-Modes (primary actions; combine --pin with nothing else, or pin then run):
+Modes (exactly one):
   --pin           Predicate census → write manifest.json (+ README) under --out-dir
   --dry-run       Walk pinned IDs; report would-embed / would-skip; no API, no writes
   --pilot N       Embed first N still-pending IDs from manifest (writes)
   --run           Embed all remaining pending IDs from manifest (writes)
+  --auto          Unattended gap fill: live census (no manifest/pin/checkpoint),
+                  embed via shared process_one_doc. Cap with --max-docs
+                  (default 500). Append dated JSONL under --log-dir
+                  (default /media/sdcard/logs). Exit 0 success/idle, 2 hard-stop,
+                  3 refuse over cap (no writes).
 
 Idempotency: per-doc re-check of embedding_model at write time (skip if set).
 Hard-stop (StructuralError) if returned vector length != 1536 or response model
@@ -26,6 +31,8 @@ does not match text-embedding-3-small. Do NOT pass dimensions= to the API
 
 Reuse create_text_for_* only — not add_embedding_to_* helpers (those are
 non-blocking write-path wrappers; this tool owns API gates + checkpointing).
+Per-doc embed+write is shared (process_one_doc) by process_ids and --auto
+so safety gates cannot drift.
 
 Operator notes:
   - Mid-run abort on structural errors (dim/model/empty response) is expected
@@ -35,6 +42,8 @@ Operator notes:
     checkpoint.json or use a fresh --out-dir (hard-stop otherwise).
   - Episodes pilot: prefer ``--pilot 5`` then a live find_nearest proof before
     remainder — count coverage alone is not enough.
+  - Cron: pin ``--collection research_papers --auto`` explicitly. Hook is
+    non-blocking (status_publish still runs if embed fails).
 
 Env:
   GOOGLE_CLOUD_PROJECT   default regal-scholar-453620-r7
@@ -51,6 +60,8 @@ Usage (Yoga, system Python 3.12 + ADC; tracked commit after Gary go):
     --pilot 5 --out-dir ...
   python scripts/backfill_research_paper_embeddings.py --collection episodes \\
     --run --out-dir ... --batch-size 50
+  python scripts/backfill_research_paper_embeddings.py \\
+    --collection research_papers --auto --max-docs 500
 """
 
 from __future__ import annotations
@@ -98,9 +109,21 @@ CHECKPOINT_NAME = "checkpoint.json"
 README_NAME = "README.md"
 TRANSIENT_RETRIES = 3
 TRANSIENT_BACKOFF_S = 2.0
+DEFAULT_LOG_DIR = "/media/sdcard/logs"
+DEFAULT_MAX_DOCS = 500
 
 TextBuilder = Callable[[Dict[str, Any]], str]
 SelectFn = Callable[[Dict[str, Any], str], bool]
+
+
+@dataclass(frozen=True)
+class DocEmbedResult:
+    """Outcome of process_one_doc (gates shared by process_ids and --auto)."""
+
+    outcome: str  # skipped_* | would_embed | completed
+    tokens: int = 0
+    est_tokens: int = 0
+    detail: str = ""
 
 
 class StructuralError(RuntimeError):
@@ -118,9 +141,13 @@ class CollectionProfile:
     text_builder: TextBuilder
     select: SelectFn
     predicate_label: str
+    # Fields needed by select() for --auto live census. Projection avoids
+    # shipping 1536-float vectors (~GB/scan) to the Jetson for a two-field gate.
+    census_fields: Tuple[str, ...]
 
 
 def _select_papers(data: Dict[str, Any], _doc_id: str) -> bool:
+    # Works on projected dicts: missing embedding_model → empty; missing title → "".
     if not _model_empty(data):
         return False
     title = str(data.get("title") or "").strip()
@@ -140,12 +167,14 @@ PROFILES: Dict[str, CollectionProfile] = {
         text_builder=create_text_for_paper,
         select=_select_papers,
         predicate_label="embedding_model empty/missing AND title != Untitled",
+        census_fields=("embedding_model", "title"),
     ),
     "episodes": CollectionProfile(
         name="episodes",
         text_builder=create_text_for_podcast,
         select=_select_episodes,
         predicate_label="embedding_model empty/missing",
+        census_fields=("embedding_model",),
     ),
 }
 
@@ -299,7 +328,13 @@ def pin_unembedded(
     out_dir: Path,
     profile: CollectionProfile,
 ) -> int:
-    """Predicate census for the selected collection. Write manifest."""
+    """Predicate census for the selected collection. Write manifest.
+
+    Reads full documents (not a field projection) so provenance can count
+    abstracts/scripts/etc. Paginated, so it will not hit the unbounded-stream
+    timeout — but each page still ships vectors. Run from the Yoga 9i (ADC),
+    not the Jetson; for Jetson gap-fill use --auto (projected census).
+    """
     out_dir.mkdir(parents=True, exist_ok=True)
     col = db.collection(profile.name)
     ids: List[str] = []
@@ -532,6 +567,77 @@ def embed_one(
     raise last_exc
 
 
+def process_one_doc(
+    col: Any,
+    client: Optional[Any],
+    profile: CollectionProfile,
+    doc_id: str,
+    *,
+    write: bool,
+    sleep_s: float,
+) -> DocEmbedResult:
+    """
+    Shared per-doc path for process_ids and --auto.
+
+    Gates (must not drift between callers):
+      - per-doc embedding_model re-check (skip if set)
+      - empty text skip
+      - embed_one: no dimensions=, single-input, response-model assert,
+        1536 assert, StructuralError bypasses retry
+      - pre-write 1536 re-assert
+      - write embedding + embedding_model + embedding_updated
+
+    Raises StructuralError / exhausted transient errors on hard-stop.
+    """
+    ref = col.document(doc_id)
+    snap = ref.get()
+    if not snap.exists:
+        print(f"  SKIP missing doc {doc_id}")
+        return DocEmbedResult(outcome="skipped_missing", detail="missing")
+
+    data = snap.to_dict() or {}
+    # Per-doc re-check (idempotency): skip if already embedded.
+    if not _model_empty(data):
+        existing = str(data.get("embedding_model") or "").strip()
+        print(f"  SKIP already set embedding_model={existing!r} {doc_id}")
+        return DocEmbedResult(
+            outcome="skipped_already", detail=f"embedding_model={existing}"
+        )
+
+    text = profile.text_builder(data)
+    if text is None or not str(text).strip():
+        print(f"  SKIP empty embed text {doc_id}")
+        return DocEmbedResult(outcome="skipped_empty_text", detail="empty_text")
+
+    text = str(text)
+    est = _estimate_tokens(text)
+
+    if not write:
+        print(f"  WOULD-EMBED {doc_id} chars={len(text)} est_tokens≈{est}")
+        return DocEmbedResult(outcome="would_embed", est_tokens=est)
+
+    assert client is not None
+    vec, tokens = embed_one(client, text)
+    # Re-assert immediately before write (per-vector, not post-batch).
+    if len(vec) != EMBEDDING_DIMENSIONS:
+        raise StructuralError(
+            f"HARD STOP: pre-write dim {len(vec)} != {EMBEDDING_DIMENSIONS}"
+        )
+    ref.update(
+        {
+            "embedding": Vector(vec),
+            "embedding_model": EMBEDDING_MODEL,
+            "embedding_updated": _utcnow(),
+        }
+    )
+    print(
+        f"  OK {doc_id} dims={len(vec)} model={EMBEDDING_MODEL} tokens={tokens}"
+    )
+    if sleep_s > 0:
+        time.sleep(sleep_s)
+    return DocEmbedResult(outcome="completed", tokens=tokens, est_tokens=est)
+
+
 def process_ids(
     db: firestore.Client,
     client: Optional[Any],
@@ -599,64 +705,25 @@ def process_ids(
 
         for doc_id in batch:
             try:
-                ref = col.document(doc_id)
-                snap = ref.get()
-                if not snap.exists:
-                    print(f"  SKIP missing doc {doc_id}")
-                    skipped.append(doc_id)
-                    processed_this_run += 1
-                    continue
-
-                data = snap.to_dict() or {}
-                # Per-doc re-check (idempotency): skip if already embedded.
-                if not _model_empty(data):
-                    existing = str(data.get("embedding_model") or "").strip()
-                    print(f"  SKIP already set embedding_model={existing!r} {doc_id}")
-                    skipped.append(doc_id)
-                    processed_this_run += 1
-                    continue
-
-                text = profile.text_builder(data)
-                if text is None or not str(text).strip():
-                    print(f"  SKIP empty embed text {doc_id}")
-                    skipped.append(doc_id)
-                    processed_this_run += 1
-                    continue
-
-                text = str(text)
-                est = _estimate_tokens(text)
-                est_tokens += est
-
-                if not write:
-                    print(f"  WOULD-EMBED {doc_id} chars={len(text)} est_tokens≈{est}")
-                    processed_this_run += 1
-                    continue
-
-                assert client is not None
-                vec, tokens = embed_one(client, text)
-                # Re-assert immediately before write (per-vector, not post-batch).
-                if len(vec) != EMBEDDING_DIMENSIONS:
-                    raise StructuralError(
-                        f"HARD STOP: pre-write dim {len(vec)} != {EMBEDDING_DIMENSIONS}"
-                    )
-                ref.update(
-                    {
-                        "embedding": Vector(vec),
-                        "embedding_model": EMBEDDING_MODEL,
-                        "embedding_updated": _utcnow(),
-                    }
+                result = process_one_doc(
+                    col,
+                    client,
+                    profile,
+                    doc_id,
+                    write=write,
+                    sleep_s=sleep_s if write else 0.0,
                 )
-                tokens_total += tokens
-                completed.append(doc_id)
-                if doc_id in failed:
-                    failed.remove(doc_id)
+                if result.outcome == "completed":
+                    tokens_total += result.tokens
+                    completed.append(doc_id)
+                    if doc_id in failed:
+                        failed.remove(doc_id)
+                elif result.outcome == "would_embed":
+                    est_tokens += result.est_tokens
+                else:
+                    skipped.append(doc_id)
+                    est_tokens += result.est_tokens
                 processed_this_run += 1
-                print(
-                    f"  OK {doc_id} dims={len(vec)} model={EMBEDDING_MODEL} "
-                    f"tokens={tokens}"
-                )
-                if sleep_s > 0:
-                    time.sleep(sleep_s)
             except Exception as exc:
                 if not write:
                     raise
@@ -691,7 +758,191 @@ def process_ids(
     print(f"remaining={len(rem)} tokens_total={tokens_total}")
     print("=" * 60)
     # Remaining > 0 is normal after --pilot; only failures are errors.
+    # Human-gated pilot/run keeps exit 1 for non-empty failed (historical).
+    # --auto uses exit 2 via run_auto (see that path).
     return 1 if failed else 0
+
+
+def census_unembedded(
+    db: firestore.Client, profile: CollectionProfile
+) -> Tuple[List[str], float]:
+    """Live full-collection scan; returns (matching ids, scan_seconds).
+
+    Uses a field projection (profile.census_fields) so vectors / large text
+    are not pulled into RAM. select() must tolerate missing projected keys.
+    Paginated like pin_unembedded — a single unbounded stream of full docs
+    can hit Firestore query timeouts on this corpus.
+    """
+    t0 = time.monotonic()
+    ids: List[str] = []
+    col = db.collection(profile.name)
+    fields = list(profile.census_fields)
+    # Full scan intentional: Firestore cannot query "field missing".
+    # Projection: only the fields the predicate needs (never the Vector).
+    last = None
+    while True:
+        q = col.select(fields).order_by("__name__").limit(500)
+        if last is not None:
+            q = q.start_after(last)
+        docs = list(q.stream())
+        if not docs:
+            break
+        for snap in docs:
+            data = snap.to_dict() or {}
+            if profile.select(data, snap.id):
+                ids.append(snap.id)
+        last = docs[-1]
+    return ids, time.monotonic() - t0
+
+
+def _append_auto_run_log(log_dir: Path, record: Dict[str, Any]) -> Path:
+    log_dir.mkdir(parents=True, exist_ok=True)
+    day = datetime.now(timezone.utc).strftime("%Y%m%d")
+    path = log_dir / f"embed_auto_{day}.jsonl"
+    with path.open("a", encoding="utf-8") as fh:
+        fh.write(json.dumps(record, sort_keys=True) + "\n")
+    return path
+
+
+def _openai_client_or_exit() -> Tuple[Optional[Any], int]:
+    """Build OpenAI client. Returns (client, 0) or (None, 2) on config hard-stop.
+
+    Exit code 2 matches the --auto / suite hard-stop contract (not 1).
+    """
+    if OpenAI is None:
+        print("ERROR: openai package not installed", file=sys.stderr)
+        return None, 2
+    api_key = get_openai_api_key()
+    if not api_key:
+        print(
+            "ERROR: OPENAI_API_KEY not in env or Secret Manager (openai-api-key)",
+            file=sys.stderr,
+        )
+        return None, 2
+    # Pass key only into the client — do not mirror into os.environ (traceback leak risk).
+    # Never print api_key, client, or response objects.
+    print("OpenAI API key: found via env or Secret Manager")
+    client = OpenAI(api_key=api_key)
+    del api_key
+    return client, 0
+
+
+def run_auto(
+    db: firestore.Client,
+    profile: CollectionProfile,
+    *,
+    max_docs: int,
+    log_dir: Path,
+    sleep_s: float,
+) -> int:
+    """
+    Unattended gap fill. No manifest, pin, or checkpoint — the gap is the state.
+
+    Exit: 0 success/idle, 2 structural/transient-after-retry/config, 3 over cap.
+    """
+    t_run0 = time.monotonic()
+    print(
+        f"Mode: AUTO | collection={profile.name} | max_docs={max_docs} | "
+        f"predicate={profile.predicate_label} | "
+        f"census_fields={list(profile.census_fields)}"
+    )
+    ids, scan_s = census_unembedded(db, profile)
+    n = len(ids)
+    print(f"Auto census: n={n} scan_seconds={scan_s:.2f}")
+
+    if n == 0:
+        record = {
+            "event": "nothing_to_do",
+            "utc": _utcnow(),
+            "collection": profile.name,
+            "n": 0,
+            "scan_seconds": round(scan_s, 3),
+            "duration_seconds": round(time.monotonic() - t_run0, 3),
+            "max_docs": max_docs,
+        }
+        path = _append_auto_run_log(log_dir, record)
+        print(f"nothing_to_do → {path}")
+        return 0
+
+    if n > max_docs:
+        record = {
+            "event": "refuse_over_cap",
+            "utc": _utcnow(),
+            "collection": profile.name,
+            "n": n,
+            "max_docs": max_docs,
+            "scan_seconds": round(scan_s, 3),
+            "duration_seconds": round(time.monotonic() - t_run0, 3),
+            "writes": False,
+        }
+        path = _append_auto_run_log(log_dir, record)
+        print(
+            f"REFUSE: n={n} > max_docs={max_docs}; no writes. log={path}",
+            file=sys.stderr,
+        )
+        return 3
+
+    client, key_rc = _openai_client_or_exit()
+    if key_rc != 0:
+        return key_rc
+
+    col = db.collection(profile.name)
+    completed: List[str] = []
+    skipped_ids_by_outcome: Dict[str, List[str]] = {}
+    failed: List[str] = []
+    tokens_total = 0
+    hard_stop_exc: Optional[str] = None
+
+    for doc_id in ids:
+        try:
+            result = process_one_doc(
+                col, client, profile, doc_id, write=True, sleep_s=sleep_s
+            )
+            if result.outcome == "completed":
+                completed.append(doc_id)
+                tokens_total += result.tokens
+            else:
+                skipped_ids_by_outcome.setdefault(result.outcome, []).append(doc_id)
+        except Exception as exc:
+            failed.append(doc_id)
+            hard_stop_exc = _safe_exc(exc)
+            print(f"  FAIL {doc_id} — {hard_stop_exc}")
+            print("HARD STOP after failure (auto).", file=sys.stderr)
+            break
+
+    skipped_counts = {
+        outcome: len(ids_) for outcome, ids_ in sorted(skipped_ids_by_outcome.items())
+    }
+    n_skipped = sum(skipped_counts.values())
+    duration_s = time.monotonic() - t_run0
+    record = {
+        "event": "hard_stop" if failed else "complete",
+        "utc": _utcnow(),
+        "collection": profile.name,
+        "n_selected": n,
+        "max_docs": max_docs,
+        "scan_seconds": round(scan_s, 3),
+        "duration_seconds": round(duration_s, 3),
+        "completed_ids": completed,
+        "skipped_counts": skipped_counts,
+        "skipped_ids_by_outcome": skipped_ids_by_outcome,
+        "failed_ids": failed,
+        "tokens_total": tokens_total,
+        "error": hard_stop_exc,
+    }
+    path = _append_auto_run_log(log_dir, record)
+    print("=" * 60)
+    print("AUTO RUN COMPLETE" if not failed else "AUTO RUN HARD STOP")
+    print(f"collection={profile.name}")
+    print(
+        f"completed={len(completed)} skipped={n_skipped} "
+        f"skipped_counts={skipped_counts} failed={len(failed)} "
+        f"tokens_total={tokens_total} duration_s={duration_s:.2f}"
+    )
+    print(f"log={path}")
+    print("=" * 60)
+    # Auto: structural, transient-after-retry, or config → 2 (not 1).
+    return 2 if failed else 0
 
 
 def main() -> int:
@@ -704,8 +955,8 @@ def main() -> int:
     )
     parser.add_argument(
         "--out-dir",
-        required=True,
-        help="Working dir for manifest.json / checkpoint.json",
+        default=None,
+        help="Working dir for manifest.json / checkpoint.json (required except --auto)",
     )
     parser.add_argument("--pin", action="store_true", help="Census + write pinned manifest")
     parser.add_argument("--dry-run", action="store_true", help="Plan only; no API, no writes")
@@ -717,6 +968,22 @@ def main() -> int:
         help="Embed first N pending IDs from manifest (writes); episodes: prefer 5",
     )
     parser.add_argument("--run", action="store_true", help="Embed all remaining pending IDs")
+    parser.add_argument(
+        "--auto",
+        action="store_true",
+        help="Unattended gap fill (live census; no manifest/pin/checkpoint)",
+    )
+    parser.add_argument(
+        "--max-docs",
+        type=int,
+        default=DEFAULT_MAX_DOCS,
+        help=f"--auto refuse threshold (default {DEFAULT_MAX_DOCS}); exit 3 if over",
+    )
+    parser.add_argument(
+        "--log-dir",
+        default=DEFAULT_LOG_DIR,
+        help=f"--auto dated JSONL directory (default {DEFAULT_LOG_DIR})",
+    )
     parser.add_argument(
         "--batch-size",
         type=int,
@@ -737,18 +1004,38 @@ def main() -> int:
             bool(args.dry_run),
             bool(args.pilot and args.pilot > 0),
             bool(args.run),
+            bool(args.auto),
         ]
     )
     if modes != 1:
         print(
-            "ERROR: choose exactly one of --pin | --dry-run | --pilot N | --run",
+            "ERROR: choose exactly one of "
+            "--pin | --dry-run | --pilot N | --run | --auto",
             file=sys.stderr,
         )
         return 2
 
     profile = PROFILES[args.collection]
-    out_dir = Path(args.out_dir).expanduser().resolve()
     db = _client()
+
+    if args.auto:
+        log_dir = Path(args.log_dir).expanduser().resolve()
+        return run_auto(
+            db,
+            profile,
+            max_docs=max(1, int(args.max_docs)),
+            log_dir=log_dir,
+            sleep_s=max(0.0, float(args.sleep)),
+        )
+
+    if not args.out_dir:
+        print(
+            "ERROR: --out-dir is required for --pin | --dry-run | --pilot | --run",
+            file=sys.stderr,
+        )
+        return 2
+
+    out_dir = Path(args.out_dir).expanduser().resolve()
 
     if args.pin:
         return pin_unembedded(db, out_dir, profile)
@@ -810,21 +1097,9 @@ def main() -> int:
             sleep_s=0.0,
         )
 
-    if OpenAI is None:
-        print("ERROR: openai package not installed", file=sys.stderr)
-        return 1
-    api_key = get_openai_api_key()
-    if not api_key:
-        print(
-            "ERROR: OPENAI_API_KEY not in env or Secret Manager (openai-api-key)",
-            file=sys.stderr,
-        )
-        return 1
-    # Pass key only into the client — do not mirror into os.environ (traceback leak risk).
-    # Never print api_key, client, or response objects.
-    print("OpenAI API key: found via env or Secret Manager")
-    client = OpenAI(api_key=api_key)
-    del api_key
+    client, key_rc = _openai_client_or_exit()
+    if key_rc != 0:
+        return key_rc
 
     return process_ids(
         db,
@@ -842,3 +1117,4 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+
