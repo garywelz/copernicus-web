@@ -24,7 +24,7 @@ and cron/pipeline work. When a task looks like Cursor's, say so rather than forc
    (`regal-scholar-453620-r7-podcast-storage`). Repos hold code, static HTML/CSS/JS, and
    configs only.
 3. **GitHub (`garywelz`) is the source of truth.**
-4. **Naming is kebab-case** (hyphens), e.g. `mathematics-database`. Known legacy
+4. **Naming is kebab-case** (hyphens), e.g. `sciencevideodb`. Known legacy
    exceptions: `progframe` / the `programming_framework` Space.
 5. **`shadow` (Shadow of Lillya) is out of scope** — a creative-writing project, never
    touched as science-suite work.
@@ -37,7 +37,7 @@ and cron/pipeline work. When a task looks like Cursor's, say so rather than forc
 | `programming_framework` | `progframe` (generator/tooling for the discipline databases) |
 | `sciencevideodb` | `sciencevideodb` |
 | `metadata-database` | `metadata-database` (public face = GCS table `papers-database-table.html`) |
-| `mathematics-database` | `mathematics-database` |
+| `atap` | `atap` |
 | `biology-database` | `biology-database` (Space not yet created) |
 | `chemistry-database` | `chemistry-database` (Space not yet created) |
 | `computer-science-database` | `computer-science-database` (Space not yet created) |

@@ -4,7 +4,7 @@ This file tracks two active threads that have shared one Cursor chat.
 
 ## Proof Graph Pilot
 
-Goal: Publish and improve the Proof Graph Pilot as part of the Mathematics Database site.
+Goal: Publish and improve the Proof Graph Pilot as part of the ATAP site.
 
 Current status:
 

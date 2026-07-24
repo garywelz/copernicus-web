@@ -16,6 +16,7 @@ the pointer here once; fetch live with a plain (non-cache-busted) request.*
 | CopernicusAI (Knowledge Engine) | https://huggingface.co/spaces/garywelz/copernicusai |
 | Programming Framework | https://huggingface.co/spaces/garywelz/programming_framework |
 | GLMP | https://huggingface.co/spaces/garywelz/glmp |
+| ATAP (Axiomatic Theories, Algorithms and Proofs) | https://huggingface.co/spaces/garywelz/atap — renamed 2026-07-23 from `mathematics-database`; old URL redirects but is no longer canonical |
 | Metadata Database | https://huggingface.co/spaces/garywelz/metadata_database |
 | Science Video DB | https://huggingface.co/spaces/garywelz/sciencevideodb |
 
@@ -25,9 +26,10 @@ the pointer here once; fetch live with a plain (non-cache-busted) request.*
 |---|---|
 | Owner | https://github.com/garywelz |
 | GLMP repo | https://github.com/garywelz/glmp |
+| ATAP repo | https://github.com/garywelz/atap — renamed 2026-07-23 from `mathematics-database`; sibling of the GLMP repo (both are engines, not nested under a discipline), not part of "Other suite repos" below. Old URL redirects but is no longer canonical |
 | Cloud-run backend | Not a separate repo — path `cloud-run-backend/` inside `copernicus-web` (no nested `.git`/submodule; e.g. `cloud-run-backend/main.py`, `cloud-run-backend/endpoints/content/routes.py`) |
 | GLMP GitHub Pages | https://garywelz.github.io/glmp |
-| Other suite repos | https://github.com/garywelz/progframe · https://github.com/garywelz/sciencevideodb · https://github.com/garywelz/metadata-database · https://github.com/garywelz/mathematics-database (repo names per `CLAUDE.md:35-44`; not independently confirmed to exist on GitHub). **Planned — not yet live:** `biology-database`, `chemistry-database`, `computer-science-database`, `physics-database` — `CLAUDE.md:41-44` marks their Spaces "not yet created" |
+| Other suite repos | https://github.com/garywelz/progframe · https://github.com/garywelz/sciencevideodb · https://github.com/garywelz/metadata-database (repo names per `CLAUDE.md:35-44`; not independently confirmed to exist on GitHub). **Planned — not yet live:** `biology-database`, `chemistry-database`, `computer-science-database`, `physics-database` — `CLAUDE.md:41-44` marks their Spaces "not yet created" |
 
 ## Cloud (records of truth)
 
