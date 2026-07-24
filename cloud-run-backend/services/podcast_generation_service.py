@@ -2800,6 +2800,12 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
             # - podcast_jobs: Complete generation history (all podcasts ever created)
             # - episodes: Public catalog (auto-promoted, can be unpromoted if needed)
             try:
+                # Carry the embedding already computed onto update_data forward into
+                # the episode doc -- it would otherwise land only on podcast_jobs.
+                # Empty dict if missing or wrong-dimension; never blocks promote.
+                from utils.auto_embedding import extract_valid_embedding_fields
+                episode_embedding_fields = extract_valid_embedding_fields(update_data)
+
                 episode_service.upsert_episode_document(
                     job_id,
                     subscriber_id,
@@ -2814,6 +2820,7 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
                         "duration": request.duration,
                         "canonical_filename": canonical_filename,
                         "generated_at": generated_timestamp,
+                        **episode_embedding_fields,
                     },
                     metadata_extended,
                     engagement_metrics,

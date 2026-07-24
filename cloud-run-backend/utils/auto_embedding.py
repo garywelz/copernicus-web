@@ -243,6 +243,52 @@ def add_embedding_to_paper_data(paper_data: Dict[str, Any]) -> Dict[str, Any]:
         return paper_data  # Return original data if embedding fails
 
 
+# episodes has a 1536d vector index; podcast_jobs still carries some legacy
+# 768d vectors (Vertex AI era), so a dimension mismatch is a live possibility,
+# not hypothetical -- never carry a wrong-dimension vector into episodes.
+EPISODE_EMBEDDING_DIMENSION = 1536
+
+
+def extract_valid_embedding_fields(source: Dict[str, Any]) -> Dict[str, Any]:
+    """
+    Pull embedding/embedding_model/embedding_updated out of a source dict
+    (e.g. a podcast_jobs update payload or full job document) for carrying
+    forward into an episode doc.
+
+    Returns {} if there is no embedding, if it isn't dimensioned for the
+    episodes 1536d index, or if embedding_model is missing/empty -- never
+    raises, never blocks the caller. A wrong-dimension vector on an episode
+    doc is worse than no vector at all; an unlabeled one defeats the
+    backfill tool's "embedding_model empty" predicate, causing needless
+    re-embeds of already-embedded episodes.
+    """
+    embedding = source.get("embedding")
+    if embedding is None:
+        return {}
+    try:
+        dimension = len(embedding)
+    except TypeError:
+        return {}
+    if dimension != EPISODE_EMBEDDING_DIMENSION:
+        structured_logger.warning(
+            "Skipping embedding carry-forward to episode doc: wrong dimension",
+            got_dimension=dimension,
+            expected_dimension=EPISODE_EMBEDDING_DIMENSION,
+        )
+        return {}
+    embedding_model = source.get("embedding_model")
+    if not embedding_model or not str(embedding_model).strip():
+        structured_logger.warning(
+            "Skipping embedding carry-forward to episode doc: missing embedding_model",
+        )
+        return {}
+    return {
+        "embedding": embedding,
+        "embedding_model": embedding_model,
+        "embedding_updated": source.get("embedding_updated"),
+    }
+
+
 def add_embedding_to_podcast_data(podcast_data: Dict[str, Any]) -> Dict[str, Any]:
     """
     Add embedding to podcast data dictionary (for batch operations).

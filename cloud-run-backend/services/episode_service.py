@@ -275,6 +275,15 @@ class EpisodeService:
             },
         }
 
+        # Only set embedding fields when a valid one is present this call. This is
+        # a merge=True upsert (see upsert_episode_document) -- unconditionally
+        # writing embedding=None here would null out a good embedding already on
+        # an existing episode doc if a re-promote happens to run without one.
+        if result_data.get("embedding") is not None:
+            episode_doc["embedding"] = result_data["embedding"]
+            episode_doc["embedding_model"] = result_data.get("embedding_model")
+            episode_doc["embedding_updated"] = result_data.get("embedding_updated")
+
         return episode_doc
     
     @classmethod
@@ -327,6 +336,11 @@ class EpisodeService:
         result_data = job_payload.get("result") or {}
         if not result_data:
             return
+        # embedding/embedding_model/embedding_updated live at the top level of
+        # the podcast_jobs doc, not under result -- merge them in here or this
+        # path strands them exactly like the auto-promote path did.
+        from utils.auto_embedding import extract_valid_embedding_fields
+        result_data = {**result_data, **extract_valid_embedding_fields(job_payload)}
         request_data = job_payload.get("request") or {}
         metadata_extended = job_payload.get("metadata_extended") or {}
         engagement_metrics = job_payload.get("engagement_metrics") or {}
