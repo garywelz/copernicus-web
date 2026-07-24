@@ -39,10 +39,13 @@ and cron/pipeline work. When a task looks like Cursor's, say so rather than forc
 | `sciencevideodb` | `sciencevideodb` |
 | `metadata_database` | `metadata-database` (public face = GCS table `papers-database-table.html`; repo≠Space naming exception, like `progframe`/`programming_framework`) |
 | `atap` | `atap` |
-| `biology-database` | `biology-database` (Space not yet created) |
-| `chemistry-database` | `chemistry-database` (Space not yet created) |
-| `computer-science-database` | `computer-science-database` (Space not yet created) |
-| `physics-database` | `physics-database` (Space not yet created) |
+
+**Engines vs. everything else:** `glmp` and `atap` are the suite's only two *engines* —
+each has a frontier and a `research_focus.json`. Everything else above is
+infrastructure, a browse/search surface, or Methods & Tools output — not a third or
+fourth engine. Biology/chemistry/computer-science/physics are not engines — the four
+discipline collections are Programming Framework demonstration corpus. No standalone
+repos or Spaces — see `huggingface-space/DISCIPLINE_DATABASES_PLAN.md`.
 
 ## Reporting
 When you finish a task, report in four sections:

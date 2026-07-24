@@ -1,21 +1,35 @@
-# Plan: 5 Discipline Flowchart Databases
+# Plan: 4 Methods & Tools Demonstration Collections
 
 **Status:** Planning Phase - On Back Burner  
-**Date:** January 2025  
-**Goal:** Create 5 comprehensive flowchart databases (one per discipline) with ~50 processes each, organized into 5+ subcategories
+**Date:** January 2025 (reframed 2026-07-24)  
+**Goal:** Create 4 discipline flowchart collections (one per discipline) with ~50 processes each, organized into 5+ subcategories — demonstration evidence that the Programming Framework generalizes, not standalone databases
 
 ---
 
 ## Overview
 
-Create 5 discipline-specific flowchart databases modeled after the GLMP structure:
-1. **Biology Database** (separate from GLMP, GLMP will be associated with it)
-2. **Chemistry Database**
-3. **Computer Science Database**
-4. **Mathematics Database**
-5. **Physics Database**
+**These are Methods & Tools demonstration corpus, not engines.** They are worked
+examples of applying Mermaid Markdown + LLMs to visualize process structure in
+text documents — evidence that the Programming Framework's representation
+generalizes across fields. None of them has a frontier, a researcher, or a
+`research_focus.json`; that is what distinguishes an engine (GLMP, ATAP) from a
+demonstration collection.
 
-Each database will:
+Create 4 discipline-specific flowchart collections, each populated using the
+Programming Framework:
+1. **Biology** — a demonstration collection; distinct from and does not
+   subsume GLMP, which is its own research engine with a frontier and a
+   `research_focus.json`
+2. **Chemistry**
+3. **Computer Science**
+4. **Physics**
+
+(Mathematics/ATAP is not part of this plan. ATAP is a research knowledge
+engine at the same level as GLMP — its own frontier, its own
+`research_focus.json` — not a discipline demonstration collection. See
+`governance/RESOURCE_MANIFEST.md` and `garywelz/atap`.)
+
+Each collection will:
 - Contain ~50 processes with individual JSON files
 - Be organized into 5+ subcategories
 - Include Mermaid flowchart syntax in each JSON
@@ -29,7 +43,10 @@ Each database will:
 
 **GCS Location:** `gs://regal-scholar-453620-r7-podcast-storage/biology-processes-database/`  
 **Database Table:** `biology-database-table.html`  
-**Note:** This is a new comprehensive biology database. GLMP will be associated with it but represents a specialized subset.
+**Note:** This is a Methods & Tools demonstration collection, independent of GLMP.
+GLMP is its own research engine (a frontier + `research_focus.json`, not a
+specialized subset of this collection) — the two are related only in that both
+draw on the Programming Framework's representation method.
 
 ### Subcategories & Processes (50 total)
 
@@ -233,76 +250,15 @@ Each database will:
 
 ---
 
-## 4. 🔢 Mathematics Database (~50 processes)
-
-**GCS Location:** `gs://regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/`  
-**Database Table:** `mathematics-database-table.html`
-
-### Subcategories & Processes (50 total)
-
-#### 4.1 Calculus & Analysis (10 processes)
-1. Limit Calculation Process
-2. Derivative Computation
-3. Integration by Parts
-4. Integration by Substitution
-5. Partial Differentiation
-6. Multiple Integration
-7. Series Convergence Testing
-8. Taylor Series Expansion
-9. Fourier Transform
-10. Laplace Transform
-
-#### 4.2 Linear Algebra (10 processes)
-11. Matrix Multiplication
-12. Gaussian Elimination
-13. LU Decomposition
-14. Eigenvalue/Eigenvector Calculation
-15. Matrix Diagonalization
-16. QR Decomposition
-17. Singular Value Decomposition
-18. Vector Space Basis Finding
-19. Linear Transformation
-20. Solving Linear Systems
-
-#### 4.3 Discrete Mathematics (10 processes)
-21. Proof by Induction
-22. Proof by Contradiction
-23. Proof by Contrapositive
-24. Set Operations
-25. Graph Theory Algorithms
-26. Combinatorics (Permutations/Combinations)
-27. Recurrence Relation Solving
-28. Logic Proof Construction
-29. Boolean Algebra Simplification
-30. Number Theory Proofs
-
-#### 4.4 Numerical Methods (10 processes)
-31. Root Finding (Newton's Method)
-32. Numerical Integration (Simpson's Rule)
-33. Numerical Differentiation
-34. Solving Differential Equations Numerically
-35. Interpolation Methods
-36. Regression Analysis
-37. Optimization Algorithms
-38. Monte Carlo Methods
-39. Finite Difference Methods
-40. Finite Element Method
-
-#### 4.5 Probability & Statistics (10 processes)
-41. Probability Distribution Calculations
-42. Hypothesis Testing
-43. Confidence Interval Construction
-44. Regression Analysis
-45. Bayesian Inference
-46. Markov Chain Analysis
-47. Statistical Significance Testing
-48. ANOVA Process
-49. Chi-Square Testing
-50. Maximum Likelihood Estimation
+*(Mathematics was originally planned here as Section 4 — the 50-process,
+5-subcategory scheme was never implemented and is archived at
+`glmp/archive/mathematics-50-processes-2025-01.md` for provenance. Math/ATAP is
+now its own research engine, `garywelz/atap`, not a demonstration collection in
+this plan.)*
 
 ---
 
-## 5. ⚛️ Physics Database (~50 processes)
+## 4. ⚛️ Physics Database (~50 processes)
 
 **GCS Location:** `gs://regal-scholar-453620-r7-podcast-storage/physics-processes-database/`  
 **Database Table:** `physics-database-table.html`
@@ -439,7 +395,6 @@ gs://regal-scholar-453620-r7-podcast-storage/
 │   ├── metadata.json
 │   └── chemistry-database-table.html
 ├── computer-science-processes-database/
-├── mathematics-processes-database/
 └── physics-processes-database/
 ```
 
