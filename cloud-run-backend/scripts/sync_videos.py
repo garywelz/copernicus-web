@@ -18,6 +18,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from google.cloud import firestore
 from services.embedding_service import get_embedding_service
+from utils.auto_embedding import resolve_embedding_model_name
 from utils.logging import structured_logger
 import logging
 
@@ -270,7 +271,7 @@ def sync_videos(
                                 # Convert to Vector type for Firestore vector search
                                 from google.cloud.firestore_v1.vector import Vector
                                 video_data["embedding"] = Vector(embedding)
-                                video_data["embedding_model"] = "text-embedding-004"
+                                video_data["embedding_model"] = resolve_embedding_model_name(embedding_service)
                                 video_data["embedding_updated"] = datetime.utcnow().isoformat()
                                 has_embedding = True
                                 stats["with_embeddings"] += 1

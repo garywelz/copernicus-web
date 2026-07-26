@@ -21,6 +21,7 @@ from google.cloud import firestore
 from google.cloud import storage
 from google.cloud.firestore_v1.vector import Vector
 from services.embedding_service import get_embedding_service
+from utils.auto_embedding import resolve_embedding_model_name
 from utils.logging import structured_logger
 import logging
 
@@ -231,7 +232,7 @@ def sync_physics_processes(
                             embedding = embedding_service.embed_text(text)
                             if embedding:
                                 physics_doc["embedding"] = Vector(embedding)
-                                physics_doc["embedding_model"] = "text-embedding-004"
+                                physics_doc["embedding_model"] = resolve_embedding_model_name(embedding_service)
                                 physics_doc["embedding_updated"] = datetime.utcnow().isoformat()
                                 has_embedding = True
                                 stats["with_embeddings"] += 1

@@ -17,6 +17,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from google.cloud import firestore
 from services.embedding_service import get_embedding_service
+from utils.auto_embedding import resolve_embedding_model_name
 from mcp_server.utils.gcs_client import list_glmp_files, get_glmp_file
 from mcp_server.config import GCS_BUCKET_NAME, GLMP_BUCKET_PATH
 from utils.logging import structured_logger
@@ -253,7 +254,7 @@ def sync_glmp_processes(
                                 # Convert to Vector type for Firestore vector search
                                 from google.cloud.firestore_v1.vector import Vector
                                 glmp_doc["embedding"] = Vector(embedding)
-                                glmp_doc["embedding_model"] = "text-embedding-004"
+                                glmp_doc["embedding_model"] = resolve_embedding_model_name(embedding_service)
                                 glmp_doc["embedding_updated"] = datetime.utcnow().isoformat()
                                 has_embedding = True
                                 stats["with_embeddings"] += 1
