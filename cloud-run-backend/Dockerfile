@@ -1,5 +1,12 @@
 # Use Python 3.11 slim image for optimal performance
-FROM python:3.11-slim
+# Pinned to the digest revision copernicus-podcast-api-00244-lj6 (2026-07-24)
+# actually pulled -- confirmed via that build's Cloud Build log ("Digest:
+# sha256:db3ff2e1..."), not a fresh/different resolution of the floating tag.
+# The 2026-07-24 deploy silently carried a Python patch bump alongside an
+# unrelated code change; pinning stops that from happening unnoticed again.
+# Bump deliberately (new digest + note here) when a base-image update is
+# actually intended.
+FROM python:3.11-slim@sha256:db3ff2e1800a8581e2c48a27c3995339d47bdf046da21c7627accd3d51053a93
 
 # Set environment variables
 ENV PYTHONUNBUFFERED=1
