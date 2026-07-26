@@ -53,7 +53,15 @@ the pointer here once; fetch live with a plain (non-cache-busted) request.*
 | Metadata database | https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/papers-database-table.html (`components/knowledge-engine/constants.ts:35-36`) |
 | Science video DB | https://huggingface.co/spaces/garywelz/sciencevideodb (`docs/planning/CONTENT_INGESTION_PLAN.md:66-67`) — same Space already listed above; no separate query endpoint found in this repo |
 | Mermaid chart collection | https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-v2/glmp-database-table.html (`components/knowledge-engine/constants.ts:26`) |
-| Podcast collection (~90) | `GET https://copernicus-podcast-api-phzp4ie2sq-uc.a.run.app/api/content/browse?content_type=podcasts` (`components/knowledge-engine/constants.ts:4`; `cloud-run-backend/endpoints/content/routes.py:15,97-99`) |
+
+*The podcast collection is not listed here — it's an engine-authored output, not a
+gathered-external input. See **Products** below.*
+
+## Products (engine-authored outputs)
+
+| Product | Access pointer |
+|---|---|
+| CopernicusAI podcast collection (~90) | `GET https://copernicus-podcast-api-phzp4ie2sq-uc.a.run.app/api/content/browse?content_type=podcasts` (`components/knowledge-engine/constants.ts:4`; `cloud-run-backend/endpoints/content/routes.py:15,97-99`) — this is its authored home; the same endpoint is also where it's registered into Resources for downstream consumption (`governance/SUITE_REORG_PLAN.md` §1, "Products → Resources") |
 
 ## Zenodo (DOIs)
 
