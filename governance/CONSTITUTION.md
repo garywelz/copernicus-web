@@ -111,10 +111,17 @@ method fits, say so plainly (a marked limit) rather than forcing a poor fit.
   one output of the engine, not the umbrella. Confirmed by its own copy:
   "CopernicusAI Podcast Generation — Synthesis & distribution platform for
   AI-powered research briefing podcast generation" (`huggingface-space/index.html:209-210`).
-- **Core's scope spans `copernicus-web` plus the CopernicusAI (podcast) and
-  Research Paper Metadata Database Spaces** — per `SUITE_GOVERNANCE_TODO.md:29-34`
-  (Gary's framing, recorded here as the working definition; Space URLs at
-  `governance/RESOURCE_MANIFEST.md:16,19`).
+- **Core is the umbrella's infrastructure, not everything built on it.** The
+  CopernicusAI Space is the podcast *generator* — production infrastructure
+  any engine could call on, which is what makes it Core (`governance/
+  SUITE_REORG_PLAN.md` §1) — but Core-as-infrastructure is not the same claim
+  as being the umbrella, established above. Two things easy to fold into
+  "Core's scope" are not Core: the **podcast collection** the Space produces
+  is a **Product**, and the **Research Paper Metadata Database** is a
+  **Resource** (Space URLs for both at `governance/RESOURCE_MANIFEST.md:16,19`).
+  This supersedes the earlier reading of `SUITE_GOVERNANCE_TODO.md:29-34` as
+  putting all three under "Core's scope"; see `SUITE_REORG_PLAN.md` §1 for
+  what distinguishes them.
 
 ## 8. Companion documents (shared)
 
