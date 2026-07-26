@@ -44,14 +44,43 @@ Disciplines remain a valid taxonomy for **outputs** (podcasts shelved by
 discipline, because listeners browse that way) but not an architecture for
 **engines**.
 
-### The four destinations
+### The six categories
 
-| Destination | Holds | Test |
+The test that separates the two most-confused pairs:
+- **Resources vs. Products** — Resources are *inputs the engine consumes*
+  (gathered externally); Products are *outputs the engine creates* (authored
+  within). Different claim types: Resources carry a citation/provenance claim,
+  Products carry an authorship/honesty claim, and the honesty guardrail applies
+  hardest to Products.
+- **Methods & Tools vs. Core** — Methods & Tools answers *"how do we understand
+  this?"* (a method is a way of seeing; a tool applies a method). Core answers
+  *"how do we make and serve things?"* A generator is a making-machine, not an
+  understanding-method — it is Core infrastructure, not a Method or Tool.
+
+| Category | Holds | Test |
 |---|---|---|
-| **Knowledge Engine Core** (umbrella) | Shared plumbing every engine uses: corpus, embeddings, retrieval, ingest, cron, status | "Would every engine need this?" |
-| **Engine projects** (GLMP, ATAP, future) | Per-vehicle: focus file, frontier, scout vein, domain graphs, project papers | "Does one `research_focus.json` cover it?" |
-| **Methods & Tools** | The Programming Framework, the Methods Catalog, and the discipline flowchart collections as demonstration that the method generalizes | "Is this about *how* to represent, not *what* was found?" |
-| **Resources** | Substrate engines consume: sciencevideodb, research-paper metadata database, CopernicusAI podcast collection | "Do engines read from it rather than own it?" |
+| **Knowledge Engine Core** (umbrella) | Shared plumbing and production infrastructure every engine uses: corpus, embeddings, retrieval, ingest, cron, status — **and the generators** (podcast, video, image/graph rendering: MatPlotLib, Mathematica, DALL-E, etc.) | "Would every engine need this?" |
+| **Engine projects** (GLMP, ATAP, future) | Per-vehicle: focus file, frontier, scout vein, domain graphs, domain instruments (e.g. GLMP's DNA decoder), project papers | "Does one `research_focus.json` cover it?" |
+| **Methods & Tools** | The Programming Framework (method), the tools that apply it (text→graph converter), the Methods Catalog, and the discipline flowchart collections as demonstration that the method generalizes | "Is this about *how* to understand, not *what* was made?" |
+| **Resources** | External inputs the engine consumes: sciencevideodb, research-paper metadata database, other externally-gathered collections | "Do engines read from it, and did it come from outside?" |
+| **Products** | Engine-authored outputs: CopernicusAI podcast collection, original papers (human-in-the-loop), videos, and output forms not yet imagined | "Did the engine author it?" |
+
+**Two lifecycles connect these categories** (arrows, not merges):
+- **Products → Resources.** A product the engine authored today (a podcast) can
+  be substrate the engine ingests tomorrow — but it enters that second life *as
+  a resource*, by being registered into a Resources collection, not by leaving
+  Products. Its authored home stays Products; its consumable role is a
+  registration. This is the engine's "read your own instruments" mode (Part 2,
+  mode 2) made concrete: Products is what mode 2 reads from.
+- **Domain instrument → shared method.** When an engine's instrument (GLMP's
+  DNA decoder) embodies a general method, the *method* is extracted to Methods &
+  Tools while the *instrument* stays in the engine — exactly as the Programming
+  Framework generalizes while ATAP's proof-graphs stay in ATAP. Generalizing is
+  not "move the instrument"; it is "extract the method, leave the instrument."
+
+**Products organized by output form** (podcast / paper / video / …) as a
+dimension, so a fourth form drops in without restructuring. Do not hard-code
+three.
 
 **Claude Projects are flat** — the nesting is conceptual, enforced by the
 Constitution copy each project's knowledge base carries, not by a folder tree.
@@ -84,6 +113,8 @@ what gets built, not as decoration.
 2. **Read your own instruments** — query/compute over the suite's own artifacts.
    This is the Copernican operation mechanized: same data, new reference frame.
    Made available as a standing property of the brief, not a declared field.
+   The collection mode 2 reads from is Products — the engine's own authored
+   outputs, queryable as substrate.
 3. **Hand over the wheel** — the frontier, where the engine must not pretend.
 
 **Telescope, not oracle:** the engine makes vantage points cheap to try; the
@@ -104,10 +135,21 @@ demonstrations into peer rows; the 50-process mathematics scheme archived
 (`glmp/archive/mathematics-50-processes-2025-01.md`) rather than deleted.
 
 Open:
-- **Create the Resources Claude Project** (holds sciencevideodb, metadata
-  database, podcast collection). Manual.
-- **Create the ATAP Claude Project.** Manual. Seeds with the three governance
-  files.
+- The ATAP, Methods & Tools, GLMP, and Core projects **already exist** (predate
+  the reorg; created ~Jul 18, ATAP ~Jul 23). They do NOT yet carry the
+  fetch-live governance header or current scope notes.
+- **Create the Resources project** (new) — holds sciencevideodb,
+  research-paper metadata database.
+- **Create the Products project** (new — this session's addition).
+- **Add the fetch-live header to all projects** so each reads canonical
+  governance from GitHub rather than stale uploads. This is the highest-value
+  item: it stops any project from drifting, which is the record-of-truth
+  discipline applied to the projects themselves.
+- **Retitle ATAP** to include the acronym ("ATAP — Axiomatic Theories,
+  Algorithms and Proofs") and **update its scope note** from the current
+  library description to the engine framing.
+- **Reclassify the CopernicusAI podcast collection** from Resources to
+  Products (its authored home), registered into Resources for consumption.
 - **sciencevideodb Gradio vestige** — `app.py` + `requirements.txt` present but
   `sdk: static`; the app is inert. Small cleanup.
 
@@ -239,11 +281,14 @@ Recorded because they were learned the hard way and should bind future work:
 
 1. **Commit this plan** to `copernicus-web/governance/` so the record of truth
    stops being a conversation.
-2. **Add the Part 5 findability check** to the queue — the one durable fix the
+2. **Create the Resources and Products projects; add the fetch-live header to
+   all projects; retitle and re-scope ATAP.** (Manual, web app — not
+   agent-doable.)
+3. **Add the Part 5 findability check** to the queue — the one durable fix the
    month's work implies but never scheduled.
-3. **ATAP focus file** — Gary's edit + commit (small, unblocks ATAP's brief).
-4. **Git-history depth check** (unblocks Part 2 migration planning).
-5. Then, in whatever order suits: remaining `sync_*` hardcodes, TSV provenance
+4. **ATAP focus file** — Gary's edit + commit (small, unblocks ATAP's brief).
+5. **Git-history depth check** (unblocks Part 2 migration planning).
+6. Then, in whatever order suits: remaining `sync_*` hardcodes, TSV provenance
    diagnostic, venv untracking, IAM narrowing (alert only — it can break the
    Jetson).
 
