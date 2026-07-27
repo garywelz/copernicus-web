@@ -55,6 +55,14 @@ Truth lives in the stack, not in chat and not in uploaded snapshots:
   Resource Pointer Manifest and fetch live over trusting an uploaded copy.
 - **Verify live objects with plain fetches — no cache-busters** — because a
   cache-busted read doesn't represent what collaborators actually see.
+- **Known limitation — unlocatable auth enforcement:** the `copernicus-api`
+  endpoint enforces token-based auth (rejects with "No token provided" /
+  "Authentication failed"), but the enforcing code is not locatable in any
+  suite repo or in Secret Manager (verified 2026-07-26). Production
+  access-control for this endpoint therefore lives outside the
+  version-controlled record of truth. Tracked in `GLMP_MASTER_TODO.md`
+  (finding, `fe9b337`); resolution — locating and version-controlling the
+  enforcement, or replacing it — is deferred, not scheduled.
 
 ## 5. How Claude operates in this suite
 
