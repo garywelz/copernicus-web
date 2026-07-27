@@ -20,6 +20,7 @@ from datetime import datetime
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from services.embedding_service import get_embedding_service
+from utils.auto_embedding import resolve_embedding_model_name
 from mcp_server.utils.firestore_client import get_firestore_client
 from google.cloud.firestore_v1.vector import Vector
 from mcp_server.config import (
@@ -150,7 +151,7 @@ async def index_papers(limit: Optional[int] = None, dry_run: bool = False) -> in
             batch.update(paper_ref, {
                 # IMPORTANT: store as Firestore Vector type for vector search.
                 'embedding': Vector(embedding),
-                'embedding_model': getattr(embedding_service, "model_name", "text-embedding-004"),
+                'embedding_model': resolve_embedding_model_name(embedding_service),
                 'embedding_updated': datetime.utcnow().isoformat()
             })
             
@@ -238,7 +239,7 @@ async def index_glmp_processes(limit: Optional[int] = None, dry_run: bool = Fals
                 continue
             batch.update(ref, {
                 "embedding": Vector(embedding),
-                "embedding_model": getattr(embedding_service, "model_name", "text-embedding-004"),
+                "embedding_model": resolve_embedding_model_name(embedding_service),
                 "embedding_updated": datetime.utcnow().isoformat(),
             })
             indexed_count += 1
@@ -341,7 +342,7 @@ async def index_podcasts(limit: Optional[int] = None, dry_run: bool = False) -> 
             
             batch.update(podcast_ref, {
                 'embedding': Vector(embedding),
-                'embedding_model': getattr(embedding_service, "model_name", "text-embedding-004"),
+                'embedding_model': resolve_embedding_model_name(embedding_service),
                 'embedding_updated': datetime.utcnow().isoformat()
             })
             
