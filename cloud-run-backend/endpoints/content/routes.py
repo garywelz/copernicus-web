@@ -86,7 +86,7 @@ async def content_stats():
 
 PROCESS_FAMILY_COLLECTIONS = {
     "glmp": "glmp_processes",
-    "math": "math_processes",
+    "math": "atap_graphs",
     "chemistry": "chemistry_processes",
     "physics": "physics_processes",
     "computer_science": "computer_science_processes",

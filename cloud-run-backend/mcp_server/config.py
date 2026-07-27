@@ -21,7 +21,11 @@ COLLECTION_PAPERS = "research_papers"
 COLLECTION_PODCASTS = "episodes"
 COLLECTION_EPISODES = "episodes"  # Alias for COLLECTION_PODCASTS
 COLLECTION_GLMP_PROCESSES = "glmp_processes"
-COLLECTION_MATH_PROCESSES = "math_processes"
+# Value only, name unchanged: math_processes was migrated to atap_graphs
+# (2026-07-27). Renaming this identifier would touch every import site
+# (vector_search.py x4, index_existing_content.py) for no functional gain;
+# every consumer reads the current collection through this constant already.
+COLLECTION_MATH_PROCESSES = "atap_graphs"
 COLLECTION_CHEMISTRY_PROCESSES = "chemistry_processes"
 COLLECTION_PHYSICS_PROCESSES = "physics_processes"
 COLLECTION_COMPUTER_SCIENCE_PROCESSES = "computer_science_processes"
