@@ -3,10 +3,14 @@
 Sync Mathematics Processes from Google Cloud Storage to Firestore
 
 Reads canonical JSON from mathematics-processes-database/processes/ on GCS
-and syncs to CopernicusAI Firestore (math_processes).
+and syncs to CopernicusAI Firestore (atap_graphs). GCS source path is
+unchanged by the math_processes -> atap_graphs Firestore rename; only the
+collection name below moved.
 
-Embeddings: use backfill_embeddings.py --collection math_processes (OpenAI 1536d).
-This script does not write Vertex embeddings to avoid mixed vector spaces.
+Embeddings are generated inline via the standard embedding-service factory
+(OpenAI text-embedding-3-small, 1536d) and labeled via
+resolve_embedding_model_name (fail-loud, no hardcoded default) -- the same
+pattern used by sync_glmp_processes.py and its siblings.
 """
 
 import sys
@@ -21,6 +25,9 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from google.cloud import firestore
 from google.cloud import storage
+from google.cloud.firestore_v1.vector import Vector
+from services.embedding_service import get_embedding_service
+from utils.auto_embedding import resolve_embedding_model_name
 import logging
 
 logger = logging.getLogger(__name__)
@@ -28,6 +35,7 @@ logger = logging.getLogger(__name__)
 GCS_BUCKET_NAME = os.getenv("GCS_BUCKET_NAME", "regal-scholar-453620-r7-podcast-storage")
 MATH_PROCESSES_BUCKET_PATH = "mathematics-processes-database"
 PROCESSES_PREFIX = f"{MATH_PROCESSES_BUCKET_PATH}/processes/"
+ATAP_GRAPHS_COLLECTION = "atap_graphs"
 
 SKIP_JSON_NAMES = {
     "metadata.json",
@@ -63,7 +71,7 @@ def create_text_for_math_process(process_data: Dict[str, Any]) -> str:
 def convert_math_to_firestore_format(
     process_data: Dict[str, Any], process_id: str, file_path: str
 ) -> Dict[str, Any]:
-    """Map JSON-canonical schema to Firestore math_processes document."""
+    """Map JSON-canonical schema to Firestore atap_graphs document."""
     name = process_data.get("name") or process_data.get("title") or process_id
     complexity = process_data.get("complexity") or {}
     if isinstance(complexity, dict):
@@ -145,6 +153,7 @@ def sync_math_processes(
         "already_in_firestore": 0,
         "synced": 0,
         "updated": 0,
+        "with_embeddings": 0,
         "failed": 0,
         "errors": [],
     }
@@ -152,6 +161,11 @@ def sync_math_processes(
     gcp_project_id = os.getenv("GCP_PROJECT_ID", "regal-scholar-453620-r7")
     firestore_db = firestore.Client(project=gcp_project_id, database="copernicusai")
     print(f"✅ Connected to Firestore (project: {gcp_project_id}, database: copernicusai)")
+
+    # Fail-loud by design: an atap_graphs doc with no vector recreates the exact
+    # defect this sync exists to fix, so a missing/broken embedding service
+    # aborts the run rather than degrading to metadata-only writes.
+    embedding_service = get_embedding_service()
 
     print("📋 Fetching mathematics processes from GCS...")
     print(f"   Bucket path: {MATH_PROCESSES_BUCKET_PATH}/processes/")
@@ -164,7 +178,7 @@ def sync_math_processes(
     print(f"   Dry run: {dry_run}")
     print(f"   Skip existing: {skip_existing}\n")
 
-    firestore_math_ref = firestore_db.collection("math_processes")
+    firestore_math_ref = firestore_db.collection(ATAP_GRAPHS_COLLECTION)
     existing_process_ids: set[str] = set()
     if skip_existing:
         print("🔍 Checking existing processes in Firestore...")
@@ -190,6 +204,22 @@ def sync_math_processes(
                 continue
 
             math_doc = convert_math_to_firestore_format(process_data, process_id, file_path)
+
+            # Fail-loud: no text, a failed/empty embed_text call, or an
+            # unresolvable model label all raise here and fall through to the
+            # outer except below, which records the failure and skips this
+            # doc entirely. A doc is never written without a vector + label.
+            text = create_text_for_math_process(process_data)
+            if not text or not text.strip():
+                raise ValueError(f"No embeddable text for process {process_id}")
+            embedding = embedding_service.embed_text(text)
+            if not embedding:
+                raise ValueError(f"Embedding service returned empty embedding for {process_id}")
+            math_doc["embedding"] = Vector(embedding)
+            math_doc["embedding_model"] = resolve_embedding_model_name(embedding_service)
+            math_doc["embedding_updated"] = datetime.now(timezone.utc).isoformat()
+            stats["with_embeddings"] += 1
+
             if not dry_run:
                 firestore_math_ref.document(process_id).set(math_doc, merge=True)
 
@@ -198,7 +228,7 @@ def sync_math_processes(
                 stats["updated"] += 1
 
             if i % 25 == 0 or i == len(all_files):
-                print(f"   ✅ Progress: {i}/{len(all_files)} (synced: {stats['synced']})")
+                print(f"   ✅ Progress: {i}/{len(all_files)} (synced: {stats['synced']}, embeddings: {stats['with_embeddings']})")
 
         except Exception as e:
             stats["failed"] += 1
@@ -211,6 +241,7 @@ def sync_math_processes(
     print(f"   Total in GCS:           {stats['total_in_gcs']}")
     print(f"   Already in Firestore:   {stats['already_in_firestore']}")
     print(f"   Synced (new+updated):   {stats['synced']}")
+    print(f"   With embeddings:        {stats['with_embeddings']}")
     print(f"   Failed:                 {stats['failed']}")
     if stats["errors"]:
         print(f"\n⚠️  Errors ({len(stats['errors'])}):")
@@ -218,8 +249,6 @@ def sync_math_processes(
             print(f"   - {error}")
     if dry_run:
         print("\n⚠️  Dry run — no Firestore writes.")
-    else:
-        print("\n💡 Run: python backfill_embeddings.py --collection math_processes --run-all")
 
     return stats
 
