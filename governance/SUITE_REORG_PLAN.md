@@ -229,6 +229,23 @@ report.
 
 ## 4. Cross-cutting: collaboration & shared context
 
+- **Collaboration model (Principal Investigator control).** Each Knowledge
+  Engine is owned by a Principal Investigator who writes and manages its
+  backend. This control is structural, not incidental: any PI creating a
+  Knowledge Engine project holds the same authority the GLMP/Core PI holds —
+  they own the record of truth, gate every change, and decide what
+  collaborators may see and do. Collaborators receive read-only views (static
+  GitHub Pages briefs; public repos and Spaces consumed via the
+  clone-the-project fetch-live pattern) and contribute through suggestions
+  (Slack/email) and occasional code pushes accepted through the PI's normal
+  review gate. There is no shared Chat↔Code state, no GitHub Issues/Projects
+  write integration, and no collaborator write access to the record of truth.
+  The collaborator-facing surface is a static, fetchable brief — not an
+  interactive board. This keeps onboarding additive rather than
+  architectural: bringing collaborators aboard points them at read-only
+  surfaces and a suggestion channel; it does not restructure the engine or
+  dilute PI control. The pattern scales to a federation of engines, each
+  PI-owned, rather than one project with helpers.
 - **Records of truth stay in GitHub/GCS/Firestore/Zenodo** (Constitution §4).
   Project knowledge bases hold snapshots that go stale — as the Resource
   Manifest copy did this month.
