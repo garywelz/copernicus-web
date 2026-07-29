@@ -7,7 +7,8 @@
 # Chain shape (insert new stages without reworking callers):
 #   1. embed gap backfill --auto   ← before publish; non-blocking for later hooks
 #   2. status publish
-#   3. MASTER_TODO assembler
+#   3. findability probe           ← timeout-wrapped; must never stall later hooks
+#   4. MASTER_TODO assembler       ← reads the probe's JSON if step 3 wrote one
 #
 # Each hook appends to its existing cron log destination. A failing hook does
 # not skip later hooks; the script exits non-zero if any hook failed.
@@ -54,6 +55,19 @@ run_hook "embed_auto" "$EMBED_LOG" \
 
 run_hook "status_publish" "$STATUS_LOG" \
   bash "${HFS}/scripts/publish_knowledge_engine_status.sh"
+
+# Findability probe: proves retrieval works, not just that data exists.
+# timeout wraps it independently of run_hook (which has no runtime cap of its
+# own) -- a hung endpoint must never stall master_todo below or delay the
+# cron cycle indefinitely. Writes JSON that master_todo reads if present.
+PROBE_PY="${PROBE_PY:-/media/sdcard/copernicus-worker/venv/bin/python}"
+PROBE_SCRIPT="${PROBE_SCRIPT:-/media/sdcard/copernicus-worker/copernicus-web/cloud-run-backend/scripts/findability_probe.py}"
+PROBE_LOG="${PROBE_LOG:-/media/sdcard/logs/findability_probe_cron.log}"
+PROBE_JSON="${PROBE_JSON:-/media/sdcard/status/findability_report.json}"
+mkdir -p "$(dirname "$PROBE_LOG")" "$(dirname "$PROBE_JSON")"
+
+run_hook "findability_probe" "$PROBE_LOG" \
+  timeout 180 "$PROBE_PY" "$PROBE_SCRIPT" --json-out "$PROBE_JSON"
 
 run_hook "master_todo" "$MASTER_TODO_LOG" \
   "$MASTER_TODO_PY" "$MASTER_TODO_SCRIPT"
