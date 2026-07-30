@@ -157,7 +157,7 @@ ANCHORS: Dict[str, List[Dict[str, str]]] = {
     "physics_processes": [
         {
             "query": "why does a changing magnetic field create an electric current",
-            "expected_id": "electromagnetism-wave-function",
+            "expected_id": "electromagnetism-electromagnetic-induction",
         },
     ],
 }
