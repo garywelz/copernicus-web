@@ -94,7 +94,8 @@ catch them first.
 
 ```cron
 # GLMP MASTER_TODO assembler — 10:45 AM ET (after scout ingest)
-45 10 * * * /media/sdcard/venvs/master-todo-cron/bin/python /media/sdcard/glmp-cron/build_master_todo.py >> /media/sdcard/logs/master_todo_cron.log 2>&1
+# Path must be the glmp git checkout (not /media/sdcard/glmp-cron/).
+45 10 * * * /media/sdcard/venvs/master-todo-cron/bin/python /media/sdcard/glmp/scripts/build_master_todo.py >> /media/sdcard/logs/master_todo_cron.log 2>&1
 
 # Copernicus — publish knowledge-engine-status.json to GCS (after AM ingest, before MASTER_TODO) — /home/gdubs/copernicus-web-public/huggingface-space
 40 10 * * * . /home/gary/.config/copernicus/env && GOOGLE_APPLICATION_CREDENTIALS=/home/gary/.config/copernicus/gcp-sa.json cd /home/gdubs/copernicus-web-public/huggingface-space && /home/gdubs/copernicus-web-public/huggingface-space/scripts/publish_knowledge_engine_status.sh >> /home/gdubs/copernicus-web-public/huggingface-space/paper_acquisition_logs/daily_scout/status_publish_cron.log 2>&1

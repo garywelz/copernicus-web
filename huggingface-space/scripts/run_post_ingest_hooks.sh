@@ -19,7 +19,9 @@ HFS="${HFS:-/home/gdubs/copernicus-web-public/huggingface-space}"
 STATUS_LOG="${STATUS_LOG:-${HFS}/paper_acquisition_logs/daily_scout/status_publish_cron.log}"
 MASTER_TODO_LOG="${MASTER_TODO_LOG:-/media/sdcard/logs/master_todo_cron.log}"
 MASTER_TODO_PY="${MASTER_TODO_PY:-/media/sdcard/venvs/master-todo-cron/bin/python}"
-MASTER_TODO_SCRIPT="${MASTER_TODO_SCRIPT:-/media/sdcard/glmp-cron/build_master_todo.py}"
+# Use the glmp git checkout — NOT /media/sdcard/glmp-cron/ (a one-file manual
+# copy that goes stale after every pull unless someone remembers to cp).
+MASTER_TODO_SCRIPT="${MASTER_TODO_SCRIPT:-/media/sdcard/glmp/scripts/build_master_todo.py}"
 
 mkdir -p "$(dirname "$STATUS_LOG")" "$(dirname "$MASTER_TODO_LOG")"
 
