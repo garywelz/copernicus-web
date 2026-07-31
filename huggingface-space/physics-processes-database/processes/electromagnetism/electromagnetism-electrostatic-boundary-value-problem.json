@@ -39,7 +39,7 @@
   },
   "created": "2026-01-08",
   "description": "Electrostatic boundary-value problems find the potential in a region from charges and conductor boundaries: Poisson's equation holds where charge is present and Laplace's equation elsewhere; applying boundary conditions, and exploiting symmetry via separation of variables or the method of images, gives the potential whose gradient is the field.",
-  "id": "electromagnetism-quantum-entanglement",
+  "id": "electromagnetism-electrostatic-boundary-value-problem",
   "keywords": [
     "electrostatics",
     "Laplace equation",
@@ -178,7 +178,7 @@
     "name": "source_grounded_extraction_v2",
     "applied": "2026-06-01",
     "curationStatus": "source_grounded",
-    "basis": "source_extraction:electromagnetism-quantum-entanglement",
+    "basis": "source_extraction:electromagnetism-electrostatic-boundary-value-problem",
     "graphType": "decision_flowchart",
     "topologySignature": "4a6ecd2cbd92e7ce",
     "extractionModel": "manual",

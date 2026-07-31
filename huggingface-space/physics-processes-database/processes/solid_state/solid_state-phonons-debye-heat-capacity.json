@@ -39,7 +39,7 @@
   },
   "created": "2026-01-08",
   "description": "Lattice vibrations quantized as phonons set a crystal's heat capacity: normal modes have a dispersion that the Debye model approximates as linear up to a cutoff frequency; integrating the phonon density of states gives a specific heat scaling as T-cubed at low temperature and approaching the Dulong-Petit value at high temperature.",
-  "id": "solid_state-nuclear-fusion",
+  "id": "solid_state-phonons-debye-heat-capacity",
   "keywords": [
     "phonons",
     "Debye model",
@@ -178,7 +178,7 @@
     "name": "source_grounded_extraction_v2",
     "applied": "2026-06-01",
     "curationStatus": "source_grounded",
-    "basis": "source_extraction:solid_state-nuclear-fusion",
+    "basis": "source_extraction:solid_state-phonons-debye-heat-capacity",
     "graphType": "decision_flowchart",
     "topologySignature": "109d9567288900a9",
     "extractionModel": "manual",

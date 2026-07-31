@@ -39,7 +39,7 @@
   },
   "created": "2026-01-08",
   "description": "When a star exhausts its core fuel, the core contracts until electron degeneracy pressure resists gravity: below the Chandrasekhar mass of about 1.4 solar masses it settles as a white dwarf, but above it degeneracy fails and the core collapses, ending as a neutron star halted by neutron degeneracy or, if too massive, a black hole.",
-  "id": "astrophysics-particle-collision",
+  "id": "astrophysics-stellar-collapse-chandrasekhar-limit",
   "keywords": [
     "Chandrasekhar limit",
     "electron degeneracy",
@@ -179,7 +179,7 @@
     "name": "source_grounded_extraction_v2",
     "applied": "2026-06-01",
     "curationStatus": "source_grounded",
-    "basis": "source_extraction:astrophysics-particle-collision",
+    "basis": "source_extraction:astrophysics-stellar-collapse-chandrasekhar-limit",
     "graphType": "decision_flowchart",
     "topologySignature": "4ad37777b20ccc5d",
     "extractionModel": "manual",

@@ -39,7 +39,7 @@
   },
   "created": "2026-01-08",
   "description": "Faraday's law of induction relates a changing magnetic flux through a circuit to an induced electromotive force: the flux is defined as the surface integral of B, and when it changes in time an EMF equal to minus its rate of change drives a current whose direction, set by Lenz's law, opposes the change.",
-  "id": "electromagnetism-wave-function",
+  "id": "electromagnetism-electromagnetic-induction",
   "keywords": [
     "electromagnetic induction",
     "Faraday's law",
@@ -171,7 +171,7 @@
     "name": "source_grounded_extraction_v2",
     "applied": "2026-06-01",
     "curationStatus": "source_grounded",
-    "basis": "source_extraction:electromagnetism-wave-function",
+    "basis": "source_extraction:electromagnetism-electromagnetic-induction",
     "graphType": "decision_flowchart",
     "topologySignature": "0c466d3f4dde9835",
     "extractionModel": "manual",

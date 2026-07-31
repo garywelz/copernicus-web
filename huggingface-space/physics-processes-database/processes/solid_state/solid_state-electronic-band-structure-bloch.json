@@ -39,7 +39,7 @@
   },
   "created": "2026-01-08",
   "description": "Band structure follows from electrons in a periodic crystal potential: Bloch's theorem writes eigenstates as a plane wave times a lattice-periodic function, solving within the first Brillouin zone produces allowed bands separated by gaps at the zone boundaries, and filling states to the Fermi level classifies the solid as metal, semiconductor, or insulator.",
-  "id": "solid_state-nuclear-decay",
+  "id": "solid_state-electronic-band-structure-bloch",
   "keywords": [
     "band structure",
     "Bloch's theorem",
@@ -178,7 +178,7 @@
     "name": "source_grounded_extraction_v2",
     "applied": "2026-06-01",
     "curationStatus": "source_grounded",
-    "basis": "source_extraction:solid_state-nuclear-decay",
+    "basis": "source_extraction:solid_state-electronic-band-structure-bloch",
     "graphType": "decision_flowchart",
     "topologySignature": "1b778e961b082ddf",
     "extractionModel": "manual",

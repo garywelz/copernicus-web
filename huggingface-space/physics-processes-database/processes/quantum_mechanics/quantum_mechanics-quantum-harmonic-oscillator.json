@@ -39,7 +39,7 @@
   },
   "created": "2026-01-08",
   "description": "The quantum harmonic oscillator is solved algebraically with ladder operators: rewriting the Hamiltonian in terms of a and a-dagger whose commutator is one gives H = hbar*omega(a-dagger a + 1/2); the ground state is annihilated by a, and repeated raising builds the equally spaced spectrum E_n = hbar*omega(n + 1/2).",
-  "id": "quantum_mechanics-maxwells-equations",
+  "id": "quantum_mechanics-quantum-harmonic-oscillator",
   "keywords": [
     "quantum harmonic oscillator",
     "ladder operators",
@@ -170,7 +170,7 @@
     "name": "source_grounded_extraction_v2",
     "applied": "2026-06-01",
     "curationStatus": "source_grounded",
-    "basis": "source_extraction:quantum_mechanics-maxwells-equations",
+    "basis": "source_extraction:quantum_mechanics-quantum-harmonic-oscillator",
     "graphType": "cyclic_pathway",
     "topologySignature": "d158ec5406f22d6e",
     "extractionModel": "manual",

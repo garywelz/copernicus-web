@@ -39,7 +39,7 @@
   },
   "created": "2026-01-08",
   "description": "Maxwell's equations predict electromagnetic waves: in a source-free region, taking the curl of Faraday's law and substituting the Ampere-Maxwell law yields a wave equation for the fields; a transverse plane-wave solution propagates at speed c = 1/sqrt(mu*eps) with E, B, and the wavevector mutually perpendicular.",
-  "id": "electromagnetism-quantum-computing",
+  "id": "electromagnetism-maxwells-equations-to-em-waves",
   "keywords": [
     "Maxwell's equations",
     "electromagnetic wave",
@@ -171,7 +171,7 @@
     "name": "source_grounded_extraction_v2",
     "applied": "2026-06-01",
     "curationStatus": "source_grounded",
-    "basis": "source_extraction:electromagnetism-quantum-computing",
+    "basis": "source_extraction:electromagnetism-maxwells-equations-to-em-waves",
     "graphType": "decision_flowchart",
     "topologySignature": "5bf2e32bb5e7dbf5",
     "extractionModel": "manual",

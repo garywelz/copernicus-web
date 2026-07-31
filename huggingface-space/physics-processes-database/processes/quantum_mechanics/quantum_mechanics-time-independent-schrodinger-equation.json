@@ -39,7 +39,7 @@
   },
   "created": "2026-01-08",
   "description": "Solving the time-independent Schrodinger equation for a particle in a potential gives stationary states: writing H psi = E psi and distinguishing bound from scattering states, boundary conditions impose a quantization condition that selects discrete energy eigenvalues with normalizable eigenfunctions.",
-  "id": "quantum_mechanics-electromagnetic-induction",
+  "id": "quantum_mechanics-time-independent-schrodinger-equation",
   "keywords": [
     "Schrodinger equation",
     "stationary states",
@@ -178,7 +178,7 @@
     "name": "source_grounded_extraction_v2",
     "applied": "2026-06-01",
     "curationStatus": "source_grounded",
-    "basis": "source_extraction:quantum_mechanics-electromagnetic-induction",
+    "basis": "source_extraction:quantum_mechanics-time-independent-schrodinger-equation",
     "graphType": "decision_flowchart",
     "topologySignature": "7687686abf1b17fb",
     "extractionModel": "manual",

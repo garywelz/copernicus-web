@@ -39,7 +39,7 @@
   },
   "created": "2026-01-08",
   "description": "Quantum tunneling lets a particle with energy below a potential barrier cross it: the wavefunction is solved piecewise in the three regions, decaying exponentially inside the barrier, and matching the function and its derivative at the walls yields a transmission amplitude with probability T approximately exp(-2*kappa*L).",
-  "id": "quantum_mechanics-electromagnetic-wave",
+  "id": "quantum_mechanics-quantum-tunneling-through-a-barrier",
   "keywords": [
     "quantum tunneling",
     "potential barrier",
@@ -171,7 +171,7 @@
     "name": "source_grounded_extraction_v2",
     "applied": "2026-06-01",
     "curationStatus": "source_grounded",
-    "basis": "source_extraction:quantum_mechanics-electromagnetic-wave",
+    "basis": "source_extraction:quantum_mechanics-quantum-tunneling-through-a-barrier",
     "graphType": "decision_flowchart",
     "topologySignature": "e300cb1d2750296a",
     "extractionModel": "manual",

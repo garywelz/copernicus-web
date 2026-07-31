@@ -39,7 +39,7 @@
   },
   "created": "2026-01-08",
   "description": "A protostar becomes a main-sequence star through hydrogen fusion: gravitational contraction heats the core until the proton-proton chain ignites, fusing hydrogen to helium-4 and releasing energy by mass defect; the resulting radiation pressure balances gravity, establishing hydrostatic equilibrium.",
-  "id": "astrophysics-standard-model",
+  "id": "astrophysics-stellar-nucleosynthesis-pp-chain",
   "keywords": [
     "stellar nucleosynthesis",
     "proton-proton chain",
@@ -179,7 +179,7 @@
     "name": "source_grounded_extraction_v2",
     "applied": "2026-06-01",
     "curationStatus": "source_grounded",
-    "basis": "source_extraction:astrophysics-standard-model",
+    "basis": "source_extraction:astrophysics-stellar-nucleosynthesis-pp-chain",
     "graphType": "decision_flowchart",
     "topologySignature": "da66650a27f1ecb8",
     "extractionModel": "manual",
