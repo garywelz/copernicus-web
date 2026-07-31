@@ -4,16 +4,16 @@
     "label": "Quantum and Field Theory",
     "description": "Quantum states, entanglement, wave functions, fields, and particle mechanisms.",
     "processIds": [
-      "astrophysics-higgs-mechanism",
-      "astrophysics-particle-collision",
-      "astrophysics-standard-model",
-      "electromagnetism-quantum-computing",
-      "electromagnetism-quantum-entanglement",
-      "electromagnetism-wave-function",
+      "astrophysics-big-bang-nucleosynthesis",
+      "astrophysics-stellar-collapse-chandrasekhar-limit",
+      "astrophysics-stellar-nucleosynthesis-pp-chain",
+      "electromagnetism-maxwells-equations-to-em-waves",
+      "electromagnetism-electrostatic-boundary-value-problem",
+      "electromagnetism-electromagnetic-induction",
       "optics-quantum-optics",
-      "quantum_mechanics-electromagnetic-induction",
-      "quantum_mechanics-electromagnetic-wave",
-      "quantum_mechanics-maxwells-equations"
+      "quantum_mechanics-time-independent-schrodinger-equation",
+      "quantum_mechanics-quantum-tunneling-through-a-barrier",
+      "quantum_mechanics-quantum-harmonic-oscillator"
     ]
   },
   {
@@ -24,10 +24,10 @@
       "classical_mechanics-hamiltonian-mechanics",
       "classical_mechanics-lagrangian-mechanics",
       "classical_mechanics-newtonian-dynamics",
-      "electromagnetism-wave-function",
-      "quantum_mechanics-electromagnetic-induction",
-      "quantum_mechanics-electromagnetic-wave",
-      "quantum_mechanics-maxwells-equations",
+      "electromagnetism-electromagnetic-induction",
+      "quantum_mechanics-time-independent-schrodinger-equation",
+      "quantum_mechanics-quantum-tunneling-through-a-barrier",
+      "quantum_mechanics-quantum-harmonic-oscillator",
       "thermodynamics_statistical-entropy",
       "thermodynamics_statistical-phase-transition"
     ]
@@ -37,15 +37,15 @@
     "label": "Electromagnetic and Optical",
     "description": "Electromagnetic waves, induction, Maxwell systems, geometric optics, and wave optics.",
     "processIds": [
-      "astrophysics-higgs-mechanism",
-      "electromagnetism-quantum-computing",
-      "electromagnetism-wave-function",
+      "astrophysics-big-bang-nucleosynthesis",
+      "electromagnetism-maxwells-equations-to-em-waves",
+      "electromagnetism-electromagnetic-induction",
       "optics-geometric-optics",
       "optics-quantum-optics",
       "optics-wave-optics",
-      "quantum_mechanics-electromagnetic-induction",
-      "quantum_mechanics-electromagnetic-wave",
-      "solid_state-nuclear-decay"
+      "quantum_mechanics-time-independent-schrodinger-equation",
+      "quantum_mechanics-quantum-tunneling-through-a-barrier",
+      "solid_state-electronic-band-structure-bloch"
     ]
   },
   {
@@ -56,7 +56,7 @@
       "classical_mechanics-hamiltonian-mechanics",
       "state-transition-matter-phases",
       "optics-quantum-optics",
-      "solid_state-nuclear-fusion",
+      "solid_state-phonons-debye-heat-capacity",
       "thermodynamics_statistical-entropy",
       "thermodynamics_statistical-heat-engine",
       "thermodynamics_statistical-phase-transition"
@@ -67,11 +67,11 @@
     "label": "Nuclear and Astrophysics",
     "description": "Nuclear transformation, stellar-scale processes, high energy phenomena, and cosmic systems.",
     "processIds": [
-      "astrophysics-particle-collision",
-      "astrophysics-standard-model",
-      "solid_state-nuclear-decay",
-      "solid_state-nuclear-fission",
-      "solid_state-nuclear-fusion"
+      "astrophysics-stellar-collapse-chandrasekhar-limit",
+      "astrophysics-stellar-nucleosynthesis-pp-chain",
+      "solid_state-electronic-band-structure-bloch",
+      "solid_state-bcs-superconductivity-cooper-pairing",
+      "solid_state-phonons-debye-heat-capacity"
     ]
   },
   {

@@ -29,7 +29,7 @@
   },
   "processes": [
     {
-      "id": "astrophysics-higgs-mechanism",
+      "id": "astrophysics-big-bang-nucleosynthesis",
       "name": "Big Bang Nucleosynthesis",
       "processType": "algorithm",
       "subcategory": "astrophysics",
@@ -63,7 +63,7 @@
       "totalGates": 2
     },
     {
-      "id": "astrophysics-particle-collision",
+      "id": "astrophysics-stellar-collapse-chandrasekhar-limit",
       "name": "Stellar Collapse & Chandrasekhar Limit",
       "processType": "algorithm",
       "subcategory": "astrophysics",
@@ -97,7 +97,7 @@
       "totalGates": 3
     },
     {
-      "id": "astrophysics-standard-model",
+      "id": "astrophysics-stellar-nucleosynthesis-pp-chain",
       "name": "Stellar Nucleosynthesis (pp-chain)",
       "processType": "algorithm",
       "subcategory": "astrophysics",
@@ -233,7 +233,7 @@
       "totalGates": 2
     },
     {
-      "id": "electromagnetism-wave-function",
+      "id": "electromagnetism-electromagnetic-induction",
       "name": "Electromagnetic Induction (Faraday's Law)",
       "processType": "algorithm",
       "subcategory": "electromagnetism",
@@ -267,7 +267,7 @@
       "totalGates": 2
     },
     {
-      "id": "electromagnetism-quantum-entanglement",
+      "id": "electromagnetism-electrostatic-boundary-value-problem",
       "name": "Electrostatic Boundary-Value Problem",
       "processType": "algorithm",
       "subcategory": "electromagnetism",
@@ -301,7 +301,7 @@
       "totalGates": 4
     },
     {
-      "id": "electromagnetism-quantum-computing",
+      "id": "electromagnetism-maxwells-equations-to-em-waves",
       "name": "Maxwell's Equations to EM Waves",
       "processType": "algorithm",
       "subcategory": "electromagnetism",
@@ -437,7 +437,7 @@
       "totalGates": 2
     },
     {
-      "id": "quantum_mechanics-maxwells-equations",
+      "id": "quantum_mechanics-quantum-harmonic-oscillator",
       "name": "Quantum Harmonic Oscillator",
       "processType": "algorithm",
       "subcategory": "quantum_mechanics",
@@ -471,7 +471,7 @@
       "totalGates": 2
     },
     {
-      "id": "quantum_mechanics-electromagnetic-wave",
+      "id": "quantum_mechanics-quantum-tunneling-through-a-barrier",
       "name": "Quantum Tunneling Through a Barrier",
       "processType": "algorithm",
       "subcategory": "quantum_mechanics",
@@ -505,7 +505,7 @@
       "totalGates": 2
     },
     {
-      "id": "quantum_mechanics-electromagnetic-induction",
+      "id": "quantum_mechanics-time-independent-schrodinger-equation",
       "name": "Time-Independent Schrodinger Equation",
       "processType": "algorithm",
       "subcategory": "quantum_mechanics",
@@ -539,7 +539,7 @@
       "totalGates": 3
     },
     {
-      "id": "solid_state-nuclear-fission",
+      "id": "solid_state-bcs-superconductivity-cooper-pairing",
       "name": "BCS Superconductivity (Cooper Pairing)",
       "processType": "algorithm",
       "subcategory": "solid_state",
@@ -573,7 +573,7 @@
       "totalGates": 2
     },
     {
-      "id": "solid_state-nuclear-decay",
+      "id": "solid_state-electronic-band-structure-bloch",
       "name": "Electronic Band Structure (Bloch)",
       "processType": "axiomatic_theory",
       "subcategory": "solid_state",
@@ -607,7 +607,7 @@
       "totalGates": 2
     },
     {
-      "id": "solid_state-nuclear-fusion",
+      "id": "solid_state-phonons-debye-heat-capacity",
       "name": "Phonons & Debye Heat Capacity",
       "processType": "algorithm",
       "subcategory": "solid_state",

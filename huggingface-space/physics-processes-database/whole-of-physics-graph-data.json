@@ -122,12 +122,12 @@
           "description": "Generated from the existing process database subcategory."
         },
         {
-          "id": "process:astrophysics-higgs-mechanism",
+          "id": "process:astrophysics-big-bang-nucleosynthesis",
           "name": "Big Bang Nucleosynthesis",
           "type": "process",
           "level": 3,
-          "processId": "astrophysics-higgs-mechanism",
-          "url": "processes/astrophysics/astrophysics-higgs-mechanism.html",
+          "processId": "astrophysics-big-bang-nucleosynthesis",
+          "url": "processes/astrophysics/astrophysics-big-bang-nucleosynthesis.html",
           "subcategory": "astrophysics",
           "category": "Astrophysics",
           "graphType": "decision_flowchart",
@@ -136,12 +136,12 @@
           "description": "Big Bang nucleosynthesis forms the light elements in the first minutes: as the universe expands and cools, the neutron-to-proton ratio freezes out, and once photons are too cool to photodissociate deuterium the bottleneck clears and nucleons fuse to helium-4 with trace deuterium and lithium, fixing the primordial abundances."
         },
         {
-          "id": "process:astrophysics-particle-collision",
+          "id": "process:astrophysics-stellar-collapse-chandrasekhar-limit",
           "name": "Stellar Collapse & Chandrasekhar Limit",
           "type": "process",
           "level": 3,
-          "processId": "astrophysics-particle-collision",
-          "url": "processes/astrophysics/astrophysics-particle-collision.html",
+          "processId": "astrophysics-stellar-collapse-chandrasekhar-limit",
+          "url": "processes/astrophysics/astrophysics-stellar-collapse-chandrasekhar-limit.html",
           "subcategory": "astrophysics",
           "category": "Astrophysics",
           "graphType": "decision_flowchart",
@@ -150,12 +150,12 @@
           "description": "When a star exhausts its core fuel, the core contracts until electron degeneracy pressure resists gravity: below the Chandrasekhar mass of about 1.4 solar masses it settles as a white dwarf, but above it degeneracy fails and the core collapses, ending as a neutron star halted by neutron degeneracy or, if too massive, a black hole."
         },
         {
-          "id": "process:astrophysics-standard-model",
+          "id": "process:astrophysics-stellar-nucleosynthesis-pp-chain",
           "name": "Stellar Nucleosynthesis (pp-chain)",
           "type": "process",
           "level": 3,
-          "processId": "astrophysics-standard-model",
-          "url": "processes/astrophysics/astrophysics-standard-model.html",
+          "processId": "astrophysics-stellar-nucleosynthesis-pp-chain",
+          "url": "processes/astrophysics/astrophysics-stellar-nucleosynthesis-pp-chain.html",
           "subcategory": "astrophysics",
           "category": "Astrophysics",
           "graphType": "decision_flowchart",
@@ -206,12 +206,12 @@
           "description": "Newtonian dynamics solves motion from forces: free-body diagrams identify every force on each body, a coordinate system is chosen, and Newton's second law F = ma is written per body; constraint forces are added as needed, giving equations of motion that integrate to the trajectory x(t) and velocity v(t)."
         },
         {
-          "id": "process:electromagnetism-quantum-computing",
+          "id": "process:electromagnetism-maxwells-equations-to-em-waves",
           "name": "Maxwell's Equations to EM Waves",
           "type": "process",
           "level": 3,
-          "processId": "electromagnetism-quantum-computing",
-          "url": "processes/electromagnetism/electromagnetism-quantum-computing.html",
+          "processId": "electromagnetism-maxwells-equations-to-em-waves",
+          "url": "processes/electromagnetism/electromagnetism-maxwells-equations-to-em-waves.html",
           "subcategory": "electromagnetism",
           "category": "Electromagnetism",
           "graphType": "decision_flowchart",
@@ -220,12 +220,12 @@
           "description": "Maxwell's equations predict electromagnetic waves: in a source-free region, taking the curl of Faraday's law and substituting the Ampere-Maxwell law yields a wave equation for the fields; a transverse plane-wave solution propagates at speed c = 1/sqrt(mu*eps) with E, B, and the wavevector mutually perpendicular."
         },
         {
-          "id": "process:electromagnetism-quantum-entanglement",
+          "id": "process:electromagnetism-electrostatic-boundary-value-problem",
           "name": "Electrostatic Boundary-Value Problem",
           "type": "process",
           "level": 3,
-          "processId": "electromagnetism-quantum-entanglement",
-          "url": "processes/electromagnetism/electromagnetism-quantum-entanglement.html",
+          "processId": "electromagnetism-electrostatic-boundary-value-problem",
+          "url": "processes/electromagnetism/electromagnetism-electrostatic-boundary-value-problem.html",
           "subcategory": "electromagnetism",
           "category": "Electromagnetism",
           "graphType": "decision_flowchart",
@@ -234,12 +234,12 @@
           "description": "Electrostatic boundary-value problems find the potential in a region from charges and conductor boundaries: Poisson's equation holds where charge is present and Laplace's equation elsewhere; applying boundary conditions, and exploiting symmetry via separation of variables or the method of images, gives the potential whose gradient is the field."
         },
         {
-          "id": "process:electromagnetism-wave-function",
+          "id": "process:electromagnetism-electromagnetic-induction",
           "name": "Electromagnetic Induction (Faraday's Law)",
           "type": "process",
           "level": 3,
-          "processId": "electromagnetism-wave-function",
-          "url": "processes/electromagnetism/electromagnetism-wave-function.html",
+          "processId": "electromagnetism-electromagnetic-induction",
+          "url": "processes/electromagnetism/electromagnetism-electromagnetic-induction.html",
           "subcategory": "electromagnetism",
           "category": "Electromagnetism",
           "graphType": "decision_flowchart",
@@ -304,12 +304,12 @@
           "description": "Wave optics explains interference and diffraction through the Huygens-Fresnel principle: each point on a wavefront emits secondary wavelets whose amplitudes superpose, and the path difference between contributions decides constructive versus destructive interference, producing the characteristic fringe intensity pattern set by wavelength and aperture geometry."
         },
         {
-          "id": "process:quantum_mechanics-electromagnetic-induction",
+          "id": "process:quantum_mechanics-time-independent-schrodinger-equation",
           "name": "Time-Independent Schrodinger Equation",
           "type": "process",
           "level": 3,
-          "processId": "quantum_mechanics-electromagnetic-induction",
-          "url": "processes/quantum_mechanics/quantum_mechanics-electromagnetic-induction.html",
+          "processId": "quantum_mechanics-time-independent-schrodinger-equation",
+          "url": "processes/quantum_mechanics/quantum_mechanics-time-independent-schrodinger-equation.html",
           "subcategory": "quantum_mechanics",
           "category": "Quantum Mechanics",
           "graphType": "decision_flowchart",
@@ -318,12 +318,12 @@
           "description": "Solving the time-independent Schrodinger equation for a particle in a potential gives stationary states: writing H psi = E psi and distinguishing bound from scattering states, boundary conditions impose a quantization condition that selects discrete energy eigenvalues with normalizable eigenfunctions."
         },
         {
-          "id": "process:quantum_mechanics-electromagnetic-wave",
+          "id": "process:quantum_mechanics-quantum-tunneling-through-a-barrier",
           "name": "Quantum Tunneling Through a Barrier",
           "type": "process",
           "level": 3,
-          "processId": "quantum_mechanics-electromagnetic-wave",
-          "url": "processes/quantum_mechanics/quantum_mechanics-electromagnetic-wave.html",
+          "processId": "quantum_mechanics-quantum-tunneling-through-a-barrier",
+          "url": "processes/quantum_mechanics/quantum_mechanics-quantum-tunneling-through-a-barrier.html",
           "subcategory": "quantum_mechanics",
           "category": "Quantum Mechanics",
           "graphType": "decision_flowchart",
@@ -332,12 +332,12 @@
           "description": "Quantum tunneling lets a particle with energy below a potential barrier cross it: the wavefunction is solved piecewise in the three regions, decaying exponentially inside the barrier, and matching the function and its derivative at the walls yields a transmission amplitude with probability T approximately exp(-2*kappa*L)."
         },
         {
-          "id": "process:quantum_mechanics-maxwells-equations",
+          "id": "process:quantum_mechanics-quantum-harmonic-oscillator",
           "name": "Quantum Harmonic Oscillator",
           "type": "process",
           "level": 3,
-          "processId": "quantum_mechanics-maxwells-equations",
-          "url": "processes/quantum_mechanics/quantum_mechanics-maxwells-equations.html",
+          "processId": "quantum_mechanics-quantum-harmonic-oscillator",
+          "url": "processes/quantum_mechanics/quantum_mechanics-quantum-harmonic-oscillator.html",
           "subcategory": "quantum_mechanics",
           "category": "Quantum Mechanics",
           "graphType": "cyclic_pathway",
@@ -346,12 +346,12 @@
           "description": "The quantum harmonic oscillator is solved algebraically with ladder operators: rewriting the Hamiltonian in terms of a and a-dagger whose commutator is one gives H = hbar*omega(a-dagger a + 1/2); the ground state is annihilated by a, and repeated raising builds the equally spaced spectrum E_n = hbar*omega(n + 1/2)."
         },
         {
-          "id": "process:solid_state-nuclear-decay",
+          "id": "process:solid_state-electronic-band-structure-bloch",
           "name": "Electronic Band Structure (Bloch)",
           "type": "process",
           "level": 3,
-          "processId": "solid_state-nuclear-decay",
-          "url": "processes/solid_state/solid_state-nuclear-decay.html",
+          "processId": "solid_state-electronic-band-structure-bloch",
+          "url": "processes/solid_state/solid_state-electronic-band-structure-bloch.html",
           "subcategory": "solid_state",
           "category": "Solid State Physics",
           "graphType": "decision_flowchart",
@@ -360,12 +360,12 @@
           "description": "Band structure follows from electrons in a periodic crystal potential: Bloch's theorem writes eigenstates as a plane wave times a lattice-periodic function, solving within the first Brillouin zone produces allowed bands separated by gaps at the zone boundaries, and filling states to the Fermi level classifies the solid as metal, semiconductor, or insulator."
         },
         {
-          "id": "process:solid_state-nuclear-fission",
+          "id": "process:solid_state-bcs-superconductivity-cooper-pairing",
           "name": "BCS Superconductivity (Cooper Pairing)",
           "type": "process",
           "level": 3,
-          "processId": "solid_state-nuclear-fission",
-          "url": "processes/solid_state/solid_state-nuclear-fission.html",
+          "processId": "solid_state-bcs-superconductivity-cooper-pairing",
+          "url": "processes/solid_state/solid_state-bcs-superconductivity-cooper-pairing.html",
           "subcategory": "solid_state",
           "category": "Solid State Physics",
           "graphType": "decision_flowchart",
@@ -374,12 +374,12 @@
           "description": "BCS theory explains superconductivity below a critical temperature: a phonon-mediated attraction between electrons, when it overcomes Coulomb repulsion near the Fermi surface, binds them into Cooper pairs that condense into a coherent ground state; an energy gap opens, producing zero resistance and the Meissner effect."
         },
         {
-          "id": "process:solid_state-nuclear-fusion",
+          "id": "process:solid_state-phonons-debye-heat-capacity",
           "name": "Phonons & Debye Heat Capacity",
           "type": "process",
           "level": 3,
-          "processId": "solid_state-nuclear-fusion",
-          "url": "processes/solid_state/solid_state-nuclear-fusion.html",
+          "processId": "solid_state-phonons-debye-heat-capacity",
+          "url": "processes/solid_state/solid_state-phonons-debye-heat-capacity.html",
           "subcategory": "solid_state",
           "category": "Solid State Physics",
           "graphType": "decision_flowchart",
@@ -473,17 +473,17 @@
         },
         {
           "source": "subcategory:astrophysics",
-          "target": "process:astrophysics-higgs-mechanism",
+          "target": "process:astrophysics-big-bang-nucleosynthesis",
           "type": "contains"
         },
         {
           "source": "subcategory:astrophysics",
-          "target": "process:astrophysics-particle-collision",
+          "target": "process:astrophysics-stellar-collapse-chandrasekhar-limit",
           "type": "contains"
         },
         {
           "source": "subcategory:astrophysics",
-          "target": "process:astrophysics-standard-model",
+          "target": "process:astrophysics-stellar-nucleosynthesis-pp-chain",
           "type": "contains"
         },
         {
@@ -503,17 +503,17 @@
         },
         {
           "source": "subcategory:electromagnetism",
-          "target": "process:electromagnetism-quantum-computing",
+          "target": "process:electromagnetism-maxwells-equations-to-em-waves",
           "type": "contains"
         },
         {
           "source": "subcategory:electromagnetism",
-          "target": "process:electromagnetism-quantum-entanglement",
+          "target": "process:electromagnetism-electrostatic-boundary-value-problem",
           "type": "contains"
         },
         {
           "source": "subcategory:electromagnetism",
-          "target": "process:electromagnetism-wave-function",
+          "target": "process:electromagnetism-electromagnetic-induction",
           "type": "contains"
         },
         {
@@ -538,32 +538,32 @@
         },
         {
           "source": "subcategory:quantum_mechanics",
-          "target": "process:quantum_mechanics-electromagnetic-induction",
+          "target": "process:quantum_mechanics-time-independent-schrodinger-equation",
           "type": "contains"
         },
         {
           "source": "subcategory:quantum_mechanics",
-          "target": "process:quantum_mechanics-electromagnetic-wave",
+          "target": "process:quantum_mechanics-quantum-tunneling-through-a-barrier",
           "type": "contains"
         },
         {
           "source": "subcategory:quantum_mechanics",
-          "target": "process:quantum_mechanics-maxwells-equations",
+          "target": "process:quantum_mechanics-quantum-harmonic-oscillator",
           "type": "contains"
         },
         {
           "source": "subcategory:solid_state",
-          "target": "process:solid_state-nuclear-decay",
+          "target": "process:solid_state-electronic-band-structure-bloch",
           "type": "contains"
         },
         {
           "source": "subcategory:solid_state",
-          "target": "process:solid_state-nuclear-fission",
+          "target": "process:solid_state-bcs-superconductivity-cooper-pairing",
           "type": "contains"
         },
         {
           "source": "subcategory:solid_state",
-          "target": "process:solid_state-nuclear-fusion",
+          "target": "process:solid_state-phonons-debye-heat-capacity",
           "type": "contains"
         },
         {
@@ -615,12 +615,12 @@
           "description": "Quantum states, entanglement, wave functions, fields, and particle mechanisms."
         },
         {
-          "id": "process:astrophysics-higgs-mechanism",
+          "id": "process:astrophysics-big-bang-nucleosynthesis",
           "name": "Big Bang Nucleosynthesis",
           "type": "process",
           "level": 3,
-          "processId": "astrophysics-higgs-mechanism",
-          "url": "processes/astrophysics/astrophysics-higgs-mechanism.html",
+          "processId": "astrophysics-big-bang-nucleosynthesis",
+          "url": "processes/astrophysics/astrophysics-big-bang-nucleosynthesis.html",
           "subcategory": "astrophysics",
           "category": "Astrophysics",
           "graphType": "decision_flowchart",
@@ -629,12 +629,12 @@
           "description": "Big Bang nucleosynthesis forms the light elements in the first minutes: as the universe expands and cools, the neutron-to-proton ratio freezes out, and once photons are too cool to photodissociate deuterium the bottleneck clears and nucleons fuse to helium-4 with trace deuterium and lithium, fixing the primordial abundances."
         },
         {
-          "id": "process:astrophysics-particle-collision",
+          "id": "process:astrophysics-stellar-collapse-chandrasekhar-limit",
           "name": "Stellar Collapse & Chandrasekhar Limit",
           "type": "process",
           "level": 3,
-          "processId": "astrophysics-particle-collision",
-          "url": "processes/astrophysics/astrophysics-particle-collision.html",
+          "processId": "astrophysics-stellar-collapse-chandrasekhar-limit",
+          "url": "processes/astrophysics/astrophysics-stellar-collapse-chandrasekhar-limit.html",
           "subcategory": "astrophysics",
           "category": "Astrophysics",
           "graphType": "decision_flowchart",
@@ -643,12 +643,12 @@
           "description": "When a star exhausts its core fuel, the core contracts until electron degeneracy pressure resists gravity: below the Chandrasekhar mass of about 1.4 solar masses it settles as a white dwarf, but above it degeneracy fails and the core collapses, ending as a neutron star halted by neutron degeneracy or, if too massive, a black hole."
         },
         {
-          "id": "process:astrophysics-standard-model",
+          "id": "process:astrophysics-stellar-nucleosynthesis-pp-chain",
           "name": "Stellar Nucleosynthesis (pp-chain)",
           "type": "process",
           "level": 3,
-          "processId": "astrophysics-standard-model",
-          "url": "processes/astrophysics/astrophysics-standard-model.html",
+          "processId": "astrophysics-stellar-nucleosynthesis-pp-chain",
+          "url": "processes/astrophysics/astrophysics-stellar-nucleosynthesis-pp-chain.html",
           "subcategory": "astrophysics",
           "category": "Astrophysics",
           "graphType": "decision_flowchart",
@@ -657,12 +657,12 @@
           "description": "A protostar becomes a main-sequence star through hydrogen fusion: gravitational contraction heats the core until the proton-proton chain ignites, fusing hydrogen to helium-4 and releasing energy by mass defect; the resulting radiation pressure balances gravity, establishing hydrostatic equilibrium."
         },
         {
-          "id": "process:electromagnetism-quantum-computing",
+          "id": "process:electromagnetism-maxwells-equations-to-em-waves",
           "name": "Maxwell's Equations to EM Waves",
           "type": "process",
           "level": 3,
-          "processId": "electromagnetism-quantum-computing",
-          "url": "processes/electromagnetism/electromagnetism-quantum-computing.html",
+          "processId": "electromagnetism-maxwells-equations-to-em-waves",
+          "url": "processes/electromagnetism/electromagnetism-maxwells-equations-to-em-waves.html",
           "subcategory": "electromagnetism",
           "category": "Electromagnetism",
           "graphType": "decision_flowchart",
@@ -671,12 +671,12 @@
           "description": "Maxwell's equations predict electromagnetic waves: in a source-free region, taking the curl of Faraday's law and substituting the Ampere-Maxwell law yields a wave equation for the fields; a transverse plane-wave solution propagates at speed c = 1/sqrt(mu*eps) with E, B, and the wavevector mutually perpendicular."
         },
         {
-          "id": "process:electromagnetism-quantum-entanglement",
+          "id": "process:electromagnetism-electrostatic-boundary-value-problem",
           "name": "Electrostatic Boundary-Value Problem",
           "type": "process",
           "level": 3,
-          "processId": "electromagnetism-quantum-entanglement",
-          "url": "processes/electromagnetism/electromagnetism-quantum-entanglement.html",
+          "processId": "electromagnetism-electrostatic-boundary-value-problem",
+          "url": "processes/electromagnetism/electromagnetism-electrostatic-boundary-value-problem.html",
           "subcategory": "electromagnetism",
           "category": "Electromagnetism",
           "graphType": "decision_flowchart",
@@ -685,12 +685,12 @@
           "description": "Electrostatic boundary-value problems find the potential in a region from charges and conductor boundaries: Poisson's equation holds where charge is present and Laplace's equation elsewhere; applying boundary conditions, and exploiting symmetry via separation of variables or the method of images, gives the potential whose gradient is the field."
         },
         {
-          "id": "process:electromagnetism-wave-function",
+          "id": "process:electromagnetism-electromagnetic-induction",
           "name": "Electromagnetic Induction (Faraday's Law)",
           "type": "process",
           "level": 3,
-          "processId": "electromagnetism-wave-function",
-          "url": "processes/electromagnetism/electromagnetism-wave-function.html",
+          "processId": "electromagnetism-electromagnetic-induction",
+          "url": "processes/electromagnetism/electromagnetism-electromagnetic-induction.html",
           "subcategory": "electromagnetism",
           "category": "Electromagnetism",
           "graphType": "decision_flowchart",
@@ -713,12 +713,12 @@
           "description": "Quantum optics quantizes the electromagnetic field into photon number states and characterizes light by photon statistics: a Hanbury Brown-Twiss setup measures the second-order correlation g2(0), distinguishing coherent, thermal, and single-photon sources, where antibunching with g2(0) < 1 signals genuinely nonclassical light."
         },
         {
-          "id": "process:quantum_mechanics-electromagnetic-induction",
+          "id": "process:quantum_mechanics-time-independent-schrodinger-equation",
           "name": "Time-Independent Schrodinger Equation",
           "type": "process",
           "level": 3,
-          "processId": "quantum_mechanics-electromagnetic-induction",
-          "url": "processes/quantum_mechanics/quantum_mechanics-electromagnetic-induction.html",
+          "processId": "quantum_mechanics-time-independent-schrodinger-equation",
+          "url": "processes/quantum_mechanics/quantum_mechanics-time-independent-schrodinger-equation.html",
           "subcategory": "quantum_mechanics",
           "category": "Quantum Mechanics",
           "graphType": "decision_flowchart",
@@ -727,12 +727,12 @@
           "description": "Solving the time-independent Schrodinger equation for a particle in a potential gives stationary states: writing H psi = E psi and distinguishing bound from scattering states, boundary conditions impose a quantization condition that selects discrete energy eigenvalues with normalizable eigenfunctions."
         },
         {
-          "id": "process:quantum_mechanics-electromagnetic-wave",
+          "id": "process:quantum_mechanics-quantum-tunneling-through-a-barrier",
           "name": "Quantum Tunneling Through a Barrier",
           "type": "process",
           "level": 3,
-          "processId": "quantum_mechanics-electromagnetic-wave",
-          "url": "processes/quantum_mechanics/quantum_mechanics-electromagnetic-wave.html",
+          "processId": "quantum_mechanics-quantum-tunneling-through-a-barrier",
+          "url": "processes/quantum_mechanics/quantum_mechanics-quantum-tunneling-through-a-barrier.html",
           "subcategory": "quantum_mechanics",
           "category": "Quantum Mechanics",
           "graphType": "decision_flowchart",
@@ -741,12 +741,12 @@
           "description": "Quantum tunneling lets a particle with energy below a potential barrier cross it: the wavefunction is solved piecewise in the three regions, decaying exponentially inside the barrier, and matching the function and its derivative at the walls yields a transmission amplitude with probability T approximately exp(-2*kappa*L)."
         },
         {
-          "id": "process:quantum_mechanics-maxwells-equations",
+          "id": "process:quantum_mechanics-quantum-harmonic-oscillator",
           "name": "Quantum Harmonic Oscillator",
           "type": "process",
           "level": 3,
-          "processId": "quantum_mechanics-maxwells-equations",
-          "url": "processes/quantum_mechanics/quantum_mechanics-maxwells-equations.html",
+          "processId": "quantum_mechanics-quantum-harmonic-oscillator",
+          "url": "processes/quantum_mechanics/quantum_mechanics-quantum-harmonic-oscillator.html",
           "subcategory": "quantum_mechanics",
           "category": "Quantum Mechanics",
           "graphType": "cyclic_pathway",
@@ -869,12 +869,12 @@
           "description": "Wave optics explains interference and diffraction through the Huygens-Fresnel principle: each point on a wavefront emits secondary wavelets whose amplitudes superpose, and the path difference between contributions decides constructive versus destructive interference, producing the characteristic fringe intensity pattern set by wavelength and aperture geometry."
         },
         {
-          "id": "process:solid_state-nuclear-decay",
+          "id": "process:solid_state-electronic-band-structure-bloch",
           "name": "Electronic Band Structure (Bloch)",
           "type": "process",
           "level": 3,
-          "processId": "solid_state-nuclear-decay",
-          "url": "processes/solid_state/solid_state-nuclear-decay.html",
+          "processId": "solid_state-electronic-band-structure-bloch",
+          "url": "processes/solid_state/solid_state-electronic-band-structure-bloch.html",
           "subcategory": "solid_state",
           "category": "Solid State Physics",
           "graphType": "decision_flowchart",
@@ -905,12 +905,12 @@
           "description": "The states of matter form a transition diagram driven by temperature and pressure: adding energy carries a substance from solid to liquid to gas and then to plasma through melting, vaporization, and ionization, while removing energy reverses these transitions; the equilibrium phase is fixed by position on the pressure-temperature diagram."
         },
         {
-          "id": "process:solid_state-nuclear-fusion",
+          "id": "process:solid_state-phonons-debye-heat-capacity",
           "name": "Phonons & Debye Heat Capacity",
           "type": "process",
           "level": 3,
-          "processId": "solid_state-nuclear-fusion",
-          "url": "processes/solid_state/solid_state-nuclear-fusion.html",
+          "processId": "solid_state-phonons-debye-heat-capacity",
+          "url": "processes/solid_state/solid_state-phonons-debye-heat-capacity.html",
           "subcategory": "solid_state",
           "category": "Solid State Physics",
           "graphType": "decision_flowchart",
@@ -941,12 +941,12 @@
           "description": "Nuclear transformation, stellar-scale processes, high energy phenomena, and cosmic systems."
         },
         {
-          "id": "process:solid_state-nuclear-fission",
+          "id": "process:solid_state-bcs-superconductivity-cooper-pairing",
           "name": "BCS Superconductivity (Cooper Pairing)",
           "type": "process",
           "level": 3,
-          "processId": "solid_state-nuclear-fission",
-          "url": "processes/solid_state/solid_state-nuclear-fission.html",
+          "processId": "solid_state-bcs-superconductivity-cooper-pairing",
+          "url": "processes/solid_state/solid_state-bcs-superconductivity-cooper-pairing.html",
           "subcategory": "solid_state",
           "category": "Solid State Physics",
           "graphType": "decision_flowchart",
@@ -979,32 +979,32 @@
         },
         {
           "source": "collection:quantum-field",
-          "target": "process:astrophysics-higgs-mechanism",
+          "target": "process:astrophysics-big-bang-nucleosynthesis",
           "type": "lens"
         },
         {
           "source": "collection:quantum-field",
-          "target": "process:astrophysics-particle-collision",
+          "target": "process:astrophysics-stellar-collapse-chandrasekhar-limit",
           "type": "lens"
         },
         {
           "source": "collection:quantum-field",
-          "target": "process:astrophysics-standard-model",
+          "target": "process:astrophysics-stellar-nucleosynthesis-pp-chain",
           "type": "lens"
         },
         {
           "source": "collection:quantum-field",
-          "target": "process:electromagnetism-quantum-computing",
+          "target": "process:electromagnetism-maxwells-equations-to-em-waves",
           "type": "lens"
         },
         {
           "source": "collection:quantum-field",
-          "target": "process:electromagnetism-quantum-entanglement",
+          "target": "process:electromagnetism-electrostatic-boundary-value-problem",
           "type": "lens"
         },
         {
           "source": "collection:quantum-field",
-          "target": "process:electromagnetism-wave-function",
+          "target": "process:electromagnetism-electromagnetic-induction",
           "type": "lens"
         },
         {
@@ -1014,17 +1014,17 @@
         },
         {
           "source": "collection:quantum-field",
-          "target": "process:quantum_mechanics-electromagnetic-induction",
+          "target": "process:quantum_mechanics-time-independent-schrodinger-equation",
           "type": "lens"
         },
         {
           "source": "collection:quantum-field",
-          "target": "process:quantum_mechanics-electromagnetic-wave",
+          "target": "process:quantum_mechanics-quantum-tunneling-through-a-barrier",
           "type": "lens"
         },
         {
           "source": "collection:quantum-field",
-          "target": "process:quantum_mechanics-maxwells-equations",
+          "target": "process:quantum_mechanics-quantum-harmonic-oscillator",
           "type": "lens"
         },
         {
@@ -1049,22 +1049,22 @@
         },
         {
           "source": "collection:classical",
-          "target": "process:electromagnetism-wave-function",
+          "target": "process:electromagnetism-electromagnetic-induction",
           "type": "lens"
         },
         {
           "source": "collection:classical",
-          "target": "process:quantum_mechanics-electromagnetic-induction",
+          "target": "process:quantum_mechanics-time-independent-schrodinger-equation",
           "type": "lens"
         },
         {
           "source": "collection:classical",
-          "target": "process:quantum_mechanics-electromagnetic-wave",
+          "target": "process:quantum_mechanics-quantum-tunneling-through-a-barrier",
           "type": "lens"
         },
         {
           "source": "collection:classical",
-          "target": "process:quantum_mechanics-maxwells-equations",
+          "target": "process:quantum_mechanics-quantum-harmonic-oscillator",
           "type": "lens"
         },
         {
@@ -1084,17 +1084,17 @@
         },
         {
           "source": "collection:electromagnetic-optical",
-          "target": "process:astrophysics-higgs-mechanism",
+          "target": "process:astrophysics-big-bang-nucleosynthesis",
           "type": "lens"
         },
         {
           "source": "collection:electromagnetic-optical",
-          "target": "process:electromagnetism-quantum-computing",
+          "target": "process:electromagnetism-maxwells-equations-to-em-waves",
           "type": "lens"
         },
         {
           "source": "collection:electromagnetic-optical",
-          "target": "process:electromagnetism-wave-function",
+          "target": "process:electromagnetism-electromagnetic-induction",
           "type": "lens"
         },
         {
@@ -1114,17 +1114,17 @@
         },
         {
           "source": "collection:electromagnetic-optical",
-          "target": "process:quantum_mechanics-electromagnetic-induction",
+          "target": "process:quantum_mechanics-time-independent-schrodinger-equation",
           "type": "lens"
         },
         {
           "source": "collection:electromagnetic-optical",
-          "target": "process:quantum_mechanics-electromagnetic-wave",
+          "target": "process:quantum_mechanics-quantum-tunneling-through-a-barrier",
           "type": "lens"
         },
         {
           "source": "collection:electromagnetic-optical",
-          "target": "process:solid_state-nuclear-decay",
+          "target": "process:solid_state-electronic-band-structure-bloch",
           "type": "lens"
         },
         {
@@ -1149,7 +1149,7 @@
         },
         {
           "source": "collection:thermal-statistical",
-          "target": "process:solid_state-nuclear-fusion",
+          "target": "process:solid_state-phonons-debye-heat-capacity",
           "type": "lens"
         },
         {
@@ -1174,27 +1174,27 @@
         },
         {
           "source": "collection:nuclear-astrophysics",
-          "target": "process:astrophysics-particle-collision",
+          "target": "process:astrophysics-stellar-collapse-chandrasekhar-limit",
           "type": "lens"
         },
         {
           "source": "collection:nuclear-astrophysics",
-          "target": "process:astrophysics-standard-model",
+          "target": "process:astrophysics-stellar-nucleosynthesis-pp-chain",
           "type": "lens"
         },
         {
           "source": "collection:nuclear-astrophysics",
-          "target": "process:solid_state-nuclear-decay",
+          "target": "process:solid_state-electronic-band-structure-bloch",
           "type": "lens"
         },
         {
           "source": "collection:nuclear-astrophysics",
-          "target": "process:solid_state-nuclear-fission",
+          "target": "process:solid_state-bcs-superconductivity-cooper-pairing",
           "type": "lens"
         },
         {
           "source": "collection:nuclear-astrophysics",
-          "target": "process:solid_state-nuclear-fusion",
+          "target": "process:solid_state-phonons-debye-heat-capacity",
           "type": "lens"
         },
         {
@@ -1283,12 +1283,12 @@
           "description": "Nuclear transformations, stellar processes, astrophysical systems, and cosmology."
         },
         {
-          "id": "process:astrophysics-higgs-mechanism",
+          "id": "process:astrophysics-big-bang-nucleosynthesis",
           "name": "Big Bang Nucleosynthesis",
           "type": "process",
           "level": 3,
-          "processId": "astrophysics-higgs-mechanism",
-          "url": "processes/astrophysics/astrophysics-higgs-mechanism.html",
+          "processId": "astrophysics-big-bang-nucleosynthesis",
+          "url": "processes/astrophysics/astrophysics-big-bang-nucleosynthesis.html",
           "subcategory": "astrophysics",
           "category": "Astrophysics",
           "graphType": "decision_flowchart",
@@ -1298,12 +1298,12 @@
           "familyId": "electromagnetic_optical"
         },
         {
-          "id": "process:astrophysics-particle-collision",
+          "id": "process:astrophysics-stellar-collapse-chandrasekhar-limit",
           "name": "Stellar Collapse & Chandrasekhar Limit",
           "type": "process",
           "level": 3,
-          "processId": "astrophysics-particle-collision",
-          "url": "processes/astrophysics/astrophysics-particle-collision.html",
+          "processId": "astrophysics-stellar-collapse-chandrasekhar-limit",
+          "url": "processes/astrophysics/astrophysics-stellar-collapse-chandrasekhar-limit.html",
           "subcategory": "astrophysics",
           "category": "Astrophysics",
           "graphType": "decision_flowchart",
@@ -1313,12 +1313,12 @@
           "familyId": "quantum_fields"
         },
         {
-          "id": "process:astrophysics-standard-model",
+          "id": "process:astrophysics-stellar-nucleosynthesis-pp-chain",
           "name": "Stellar Nucleosynthesis (pp-chain)",
           "type": "process",
           "level": 3,
-          "processId": "astrophysics-standard-model",
-          "url": "processes/astrophysics/astrophysics-standard-model.html",
+          "processId": "astrophysics-stellar-nucleosynthesis-pp-chain",
+          "url": "processes/astrophysics/astrophysics-stellar-nucleosynthesis-pp-chain.html",
           "subcategory": "astrophysics",
           "category": "Astrophysics",
           "graphType": "decision_flowchart",
@@ -1373,12 +1373,12 @@
           "familyId": "classical_macro"
         },
         {
-          "id": "process:electromagnetism-quantum-computing",
+          "id": "process:electromagnetism-maxwells-equations-to-em-waves",
           "name": "Maxwell's Equations to EM Waves",
           "type": "process",
           "level": 3,
-          "processId": "electromagnetism-quantum-computing",
-          "url": "processes/electromagnetism/electromagnetism-quantum-computing.html",
+          "processId": "electromagnetism-maxwells-equations-to-em-waves",
+          "url": "processes/electromagnetism/electromagnetism-maxwells-equations-to-em-waves.html",
           "subcategory": "electromagnetism",
           "category": "Electromagnetism",
           "graphType": "decision_flowchart",
@@ -1388,12 +1388,12 @@
           "familyId": "classical_macro"
         },
         {
-          "id": "process:electromagnetism-quantum-entanglement",
+          "id": "process:electromagnetism-electrostatic-boundary-value-problem",
           "name": "Electrostatic Boundary-Value Problem",
           "type": "process",
           "level": 3,
-          "processId": "electromagnetism-quantum-entanglement",
-          "url": "processes/electromagnetism/electromagnetism-quantum-entanglement.html",
+          "processId": "electromagnetism-electrostatic-boundary-value-problem",
+          "url": "processes/electromagnetism/electromagnetism-electrostatic-boundary-value-problem.html",
           "subcategory": "electromagnetism",
           "category": "Electromagnetism",
           "graphType": "decision_flowchart",
@@ -1403,12 +1403,12 @@
           "familyId": "classical_macro"
         },
         {
-          "id": "process:electromagnetism-wave-function",
+          "id": "process:electromagnetism-electromagnetic-induction",
           "name": "Electromagnetic Induction (Faraday's Law)",
           "type": "process",
           "level": 3,
-          "processId": "electromagnetism-wave-function",
-          "url": "processes/electromagnetism/electromagnetism-wave-function.html",
+          "processId": "electromagnetism-electromagnetic-induction",
+          "url": "processes/electromagnetism/electromagnetism-electromagnetic-induction.html",
           "subcategory": "electromagnetism",
           "category": "Electromagnetism",
           "graphType": "decision_flowchart",
@@ -1478,12 +1478,12 @@
           "familyId": "electromagnetic_optical"
         },
         {
-          "id": "process:quantum_mechanics-electromagnetic-induction",
+          "id": "process:quantum_mechanics-time-independent-schrodinger-equation",
           "name": "Time-Independent Schrodinger Equation",
           "type": "process",
           "level": 3,
-          "processId": "quantum_mechanics-electromagnetic-induction",
-          "url": "processes/quantum_mechanics/quantum_mechanics-electromagnetic-induction.html",
+          "processId": "quantum_mechanics-time-independent-schrodinger-equation",
+          "url": "processes/quantum_mechanics/quantum_mechanics-time-independent-schrodinger-equation.html",
           "subcategory": "quantum_mechanics",
           "category": "Quantum Mechanics",
           "graphType": "decision_flowchart",
@@ -1493,12 +1493,12 @@
           "familyId": "classical_macro"
         },
         {
-          "id": "process:quantum_mechanics-electromagnetic-wave",
+          "id": "process:quantum_mechanics-quantum-tunneling-through-a-barrier",
           "name": "Quantum Tunneling Through a Barrier",
           "type": "process",
           "level": 3,
-          "processId": "quantum_mechanics-electromagnetic-wave",
-          "url": "processes/quantum_mechanics/quantum_mechanics-electromagnetic-wave.html",
+          "processId": "quantum_mechanics-quantum-tunneling-through-a-barrier",
+          "url": "processes/quantum_mechanics/quantum_mechanics-quantum-tunneling-through-a-barrier.html",
           "subcategory": "quantum_mechanics",
           "category": "Quantum Mechanics",
           "graphType": "decision_flowchart",
@@ -1508,12 +1508,12 @@
           "familyId": "classical_macro"
         },
         {
-          "id": "process:quantum_mechanics-maxwells-equations",
+          "id": "process:quantum_mechanics-quantum-harmonic-oscillator",
           "name": "Quantum Harmonic Oscillator",
           "type": "process",
           "level": 3,
-          "processId": "quantum_mechanics-maxwells-equations",
-          "url": "processes/quantum_mechanics/quantum_mechanics-maxwells-equations.html",
+          "processId": "quantum_mechanics-quantum-harmonic-oscillator",
+          "url": "processes/quantum_mechanics/quantum_mechanics-quantum-harmonic-oscillator.html",
           "subcategory": "quantum_mechanics",
           "category": "Quantum Mechanics",
           "graphType": "cyclic_pathway",
@@ -1523,12 +1523,12 @@
           "familyId": "classical_macro"
         },
         {
-          "id": "process:solid_state-nuclear-decay",
+          "id": "process:solid_state-electronic-band-structure-bloch",
           "name": "Electronic Band Structure (Bloch)",
           "type": "process",
           "level": 3,
-          "processId": "solid_state-nuclear-decay",
-          "url": "processes/solid_state/solid_state-nuclear-decay.html",
+          "processId": "solid_state-electronic-band-structure-bloch",
+          "url": "processes/solid_state/solid_state-electronic-band-structure-bloch.html",
           "subcategory": "solid_state",
           "category": "Solid State Physics",
           "graphType": "decision_flowchart",
@@ -1538,12 +1538,12 @@
           "familyId": "electromagnetic_optical"
         },
         {
-          "id": "process:solid_state-nuclear-fission",
+          "id": "process:solid_state-bcs-superconductivity-cooper-pairing",
           "name": "BCS Superconductivity (Cooper Pairing)",
           "type": "process",
           "level": 3,
-          "processId": "solid_state-nuclear-fission",
-          "url": "processes/solid_state/solid_state-nuclear-fission.html",
+          "processId": "solid_state-bcs-superconductivity-cooper-pairing",
+          "url": "processes/solid_state/solid_state-bcs-superconductivity-cooper-pairing.html",
           "subcategory": "solid_state",
           "category": "Solid State Physics",
           "graphType": "decision_flowchart",
@@ -1553,12 +1553,12 @@
           "familyId": "cosmic_nuclear"
         },
         {
-          "id": "process:solid_state-nuclear-fusion",
+          "id": "process:solid_state-phonons-debye-heat-capacity",
           "name": "Phonons & Debye Heat Capacity",
           "type": "process",
           "level": 3,
-          "processId": "solid_state-nuclear-fusion",
-          "url": "processes/solid_state/solid_state-nuclear-fusion.html",
+          "processId": "solid_state-phonons-debye-heat-capacity",
+          "url": "processes/solid_state/solid_state-phonons-debye-heat-capacity.html",
           "subcategory": "solid_state",
           "category": "Solid State Physics",
           "graphType": "decision_flowchart",
@@ -1641,17 +1641,17 @@
         },
         {
           "source": "family:electromagnetic_optical",
-          "target": "process:astrophysics-higgs-mechanism",
+          "target": "process:astrophysics-big-bang-nucleosynthesis",
           "type": "classified_as"
         },
         {
           "source": "family:quantum_fields",
-          "target": "process:astrophysics-particle-collision",
+          "target": "process:astrophysics-stellar-collapse-chandrasekhar-limit",
           "type": "classified_as"
         },
         {
           "source": "family:thermal_statistical",
-          "target": "process:astrophysics-standard-model",
+          "target": "process:astrophysics-stellar-nucleosynthesis-pp-chain",
           "type": "classified_as"
         },
         {
@@ -1671,17 +1671,17 @@
         },
         {
           "source": "family:classical_macro",
-          "target": "process:electromagnetism-quantum-computing",
+          "target": "process:electromagnetism-maxwells-equations-to-em-waves",
           "type": "classified_as"
         },
         {
           "source": "family:classical_macro",
-          "target": "process:electromagnetism-quantum-entanglement",
+          "target": "process:electromagnetism-electrostatic-boundary-value-problem",
           "type": "classified_as"
         },
         {
           "source": "family:classical_macro",
-          "target": "process:electromagnetism-wave-function",
+          "target": "process:electromagnetism-electromagnetic-induction",
           "type": "classified_as"
         },
         {
@@ -1706,32 +1706,32 @@
         },
         {
           "source": "family:classical_macro",
-          "target": "process:quantum_mechanics-electromagnetic-induction",
+          "target": "process:quantum_mechanics-time-independent-schrodinger-equation",
           "type": "classified_as"
         },
         {
           "source": "family:classical_macro",
-          "target": "process:quantum_mechanics-electromagnetic-wave",
+          "target": "process:quantum_mechanics-quantum-tunneling-through-a-barrier",
           "type": "classified_as"
         },
         {
           "source": "family:classical_macro",
-          "target": "process:quantum_mechanics-maxwells-equations",
+          "target": "process:quantum_mechanics-quantum-harmonic-oscillator",
           "type": "classified_as"
         },
         {
           "source": "family:electromagnetic_optical",
-          "target": "process:solid_state-nuclear-decay",
+          "target": "process:solid_state-electronic-band-structure-bloch",
           "type": "classified_as"
         },
         {
           "source": "family:cosmic_nuclear",
-          "target": "process:solid_state-nuclear-fission",
+          "target": "process:solid_state-bcs-superconductivity-cooper-pairing",
           "type": "classified_as"
         },
         {
           "source": "family:thermal_statistical",
-          "target": "process:solid_state-nuclear-fusion",
+          "target": "process:solid_state-phonons-debye-heat-capacity",
           "type": "classified_as"
         },
         {
