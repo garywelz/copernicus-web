@@ -24,6 +24,11 @@ from urllib.request import Request, urlopen
 DEFAULT_API = "https://copernicus-podcast-api-phzp4ie2sq-uc.a.run.app"
 # Public `metadata.json` for each programming-framework process family (GCS; same as database HTML tables).
 GCS_STATUS_BASE = "https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage"
+VIDEOS_METADATA_URL = f"{GCS_STATUS_BASE}/videos-metadata.json"
+# Last-known-good value, used only if the live fetch fails AND no override is
+# set. This is a fallback of last resort, not a source of truth -- it will go
+# stale again if left here long enough, same as the "753" it replaces did.
+VIDEOS_COUNT_FALLBACK = 582
 PROCESS_DATABASE_METADATA: tuple[tuple[str, str], ...] = (
     ("glmp_v2", f"{GCS_STATUS_BASE}/glmp-v2/metadata.json"),
     ("mathematics", f"{GCS_STATUS_BASE}/mathematics-processes-database/metadata.json"),
@@ -103,6 +108,27 @@ def fetch_process_databases_gcs() -> tuple[Optional[Dict[str, int]], Optional[st
     return per, None
 
 
+def _resolve_video_count() -> tuple[int, Optional[str]]:
+    """
+    Video count, in priority order: explicit override (env/--videos, handled
+    by the caller pre-setting KSTATUS_VIDEO_COUNT) > live totalVideos from
+    videos-metadata.json > hardcoded fallback. Returns (count, note) where
+    note is set only when the live fetch was skipped or failed, so callers
+    can surface that the number isn't fresh.
+    """
+    override = os.environ.get("KSTATUS_VIDEO_COUNT")
+    if override is not None:
+        return int(override), f"KSTATUS_VIDEO_COUNT override ({override}), live fetch not attempted."
+    try:
+        data = _fetch_json_url(VIDEOS_METADATA_URL)
+        total = data.get("totalVideos")
+        if isinstance(total, int):
+            return total, None
+        return VIDEOS_COUNT_FALLBACK, "videos-metadata.json fetched but had no totalVideos field; used fallback."
+    except (HTTPError, URLError, TimeoutError, ValueError, OSError) as exc:
+        return VIDEOS_COUNT_FALLBACK, f"videos-metadata.json fetch failed ({exc}); used fallback."
+
+
 def _fetch_content_stats(api_base: str) -> Optional[Dict[str, Any]]:
     """
     /api/content/stats: papers with embedding (embedding_model set in Firestore).
@@ -114,7 +140,7 @@ def _fetch_content_stats(api_base: str) -> Optional[Dict[str, Any]]:
         return json.loads(resp.read().decode("utf-8"))
 
 
-def count_local() -> Dict[str, int]:
+def count_local() -> tuple[Dict[str, int], Optional[str]]:
     papers = len(list((BASE_DIR / "metadata-database" / "papers").rglob("*.json")))
     processes = len(
         [
@@ -123,25 +149,26 @@ def count_local() -> Dict[str, int]:
             if not f.name.endswith(".backup")
         ]
     )
+    videos, videos_note = _resolve_video_count()
     return {
         "papers": papers,
         "processes": processes,
-        "videos": int(os.environ.get("KSTATUS_VIDEO_COUNT", "753")),
+        "videos": videos,
         "podcasts": int(os.environ.get("KSTATUS_PODCAST_COUNT", "79")),
-    }
+    }, videos_note
 
 
-def count_api(api_base: str) -> Dict[str, int]:
+def count_api(api_base: str) -> tuple[Dict[str, int], Optional[str]]:
     papers = _fetch_browse_total(api_base, "papers")
     podcasts = _fetch_browse_total(api_base, "podcasts")
     processes = _fetch_browse_total(api_base, "processes")
-    videos = int(os.environ.get("KSTATUS_VIDEO_COUNT", "753"))
+    videos, videos_note = _resolve_video_count()
     return {
         "papers": papers,
         "processes": processes,
         "videos": videos,
         "podcasts": podcasts,
-    }
+    }, videos_note
 
 
 def build_status(
@@ -150,7 +177,12 @@ def build_status(
     content_stats: Optional[Dict[str, Any]] = None,
     process_databases: Optional[Dict[str, int]] = None,
     process_databases_error: Optional[str] = None,
+    videos_note: Optional[str] = None,
 ) -> Dict[str, Any]:
+    videos_doc = (
+        f"Live from {VIDEOS_METADATA_URL} (`totalVideos`); override with "
+        "KSTATUS_VIDEO_COUNT or --videos."
+    )
     out: Dict[str, Any] = {
         "last_updated": datetime.now().isoformat(),
         "papers": counts["papers"],
@@ -161,7 +193,7 @@ def build_status(
         "count_source": source,
         "notes": {
             "papers_processes_podcasts": "From Cloud Run /api/content/browse when count_source is api (Firestore-backed).",
-            "videos": "Not exposed on browse; use KSTATUS_VIDEO_COUNT or --videos until a videos count endpoint exists.",
+            "videos": videos_doc if not videos_note else f"{videos_doc} {videos_note}",
         },
     }
     if content_stats:
@@ -242,14 +274,16 @@ def main() -> int:
     source_label = args.source
     content_stats: Optional[Dict[str, Any]] = None
     if args.source == "local":
-        counts = count_local()
+        counts, videos_note = count_local()
     else:
         try:
-            counts = count_api(args.api_base)
+            counts, videos_note = count_api(args.api_base)
         except (HTTPError, URLError, json.JSONDecodeError, TimeoutError, OSError) as e:
             print(f"❌ API mode failed ({e}); falling back to local file counts.")
-            counts = count_local()
+            counts, videos_note = count_local()
             source_label = "local_fallback"
+    if videos_note:
+        print(f"⚠️  videos count: {videos_note}")
     if args.source == "api":
         try:
             content_stats = _fetch_content_stats(args.api_base)
@@ -272,6 +306,7 @@ def main() -> int:
         content_stats=content_stats,
         process_databases=process_databases,
         process_databases_error=process_databases_error,
+        videos_note=videos_note,
     )
     out = Path(args.output)
     out.parent.mkdir(parents=True, exist_ok=True)
