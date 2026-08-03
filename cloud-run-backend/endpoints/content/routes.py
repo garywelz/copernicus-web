@@ -101,6 +101,10 @@ async def browse_content(
         None,
         description="For processes: glmp, math, chemistry, physics, computer_science, biology (default glmp)",
     ),
+    discipline: Optional[str] = Query(
+        None,
+        description="For papers: filter by discipline (biology, mathematics, physics, chemistry, computer_science, interdisciplinary)",
+    ),
     page: int = Query(1, ge=1, description="Page number"),
     limit: int = Query(20, ge=1, le=100, description="Items per page")
 ):
@@ -117,21 +121,33 @@ async def browse_content(
         if content_type == "papers":
             # Get papers from Firestore
             papers_ref = db.collection('research_papers')
+            disc = (discipline or "").strip().lower() or None
+            filtered_ref = papers_ref
+            if disc:
+                from google.cloud.firestore_v1.base_query import FieldFilter
+                filtered_ref = papers_ref.where(filter=FieldFilter('discipline', '==', disc))
             # Get total count (approximate for performance)
             try:
-                count_result = papers_ref.count().get()
+                count_result = filtered_ref.count().get()
                 total = _extract_count_value(count_result)
             except Exception as e:
                 # Fallback: estimate from query
                 structured_logger.warning("Failed to count papers", error=str(e))
                 total = 0
-            
+
             from google.cloud import firestore as _fs
-            query = papers_ref.order_by(
-                'updated_at', direction=_fs.Query.DESCENDING
-            ).order_by(
-                '__name__', direction=_fs.Query.ASCENDING
-            ).limit(limit).offset((page - 1) * limit)
+            if disc:
+                # Composite index on (discipline, updated_at, __name__) not guaranteed to
+                # exist -- order by __name__ only when filtering, to avoid requiring one.
+                query = filtered_ref.order_by(
+                    '__name__', direction=_fs.Query.ASCENDING
+                ).limit(limit).offset((page - 1) * limit)
+            else:
+                query = papers_ref.order_by(
+                    'updated_at', direction=_fs.Query.DESCENDING
+                ).order_by(
+                    '__name__', direction=_fs.Query.ASCENDING
+                ).limit(limit).offset((page - 1) * limit)
             papers = query.stream()
             
             for paper in papers:
