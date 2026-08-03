@@ -29,6 +29,13 @@ VIDEOS_METADATA_URL = f"{GCS_STATUS_BASE}/videos-metadata.json"
 # set. This is a fallback of last resort, not a source of truth -- it will go
 # stale again if left here long enough, same as the "753" it replaces did.
 VIDEOS_COUNT_FALLBACK = 582
+# Last-known-good discipline paper counts (Firestore count aggregation,
+# verified 2026-08-03), used only if a live Firestore query isn't available
+# in the environment this script runs in.
+DISCIPLINE_PAPERS_FALLBACK = {
+    "biology": 29184,
+    "mathematics": 17153,
+}
 PROCESS_DATABASE_METADATA: tuple[tuple[str, str], ...] = (
     ("glmp_v2", f"{GCS_STATUS_BASE}/glmp-v2/metadata.json"),
     ("mathematics", f"{GCS_STATUS_BASE}/mathematics-processes-database/metadata.json"),
@@ -129,6 +136,32 @@ def _resolve_video_count() -> tuple[int, Optional[str]]:
         return VIDEOS_COUNT_FALLBACK, f"videos-metadata.json fetch failed ({exc}); used fallback."
 
 
+def fetch_papers_by_discipline(
+    disciplines: tuple[str, ...] = ("biology", "mathematics"),
+) -> tuple[Dict[str, int], Optional[str]]:
+    """
+    Live count of research_papers per discipline via Firestore count
+    aggregation (cheap -- doesn't read full documents). Falls back to
+    last-known-good values if Firestore isn't importable/reachable from
+    wherever this script runs (e.g. a cron venv without the package).
+    """
+    try:
+        from google.cloud import firestore
+        from google.cloud.firestore_v1.base_query import FieldFilter
+    except ImportError as e:
+        return dict(DISCIPLINE_PAPERS_FALLBACK), f"google-cloud-firestore not importable ({e}); used fallback."
+    try:
+        gcp_project_id = os.environ.get("GCP_PROJECT_ID", "regal-scholar-453620-r7")
+        db = firestore.Client(project=gcp_project_id, database="copernicusai")
+        counts: Dict[str, int] = {}
+        for disc in disciplines:
+            q = db.collection("research_papers").where(filter=FieldFilter("discipline", "==", disc))
+            counts[disc] = int(q.count().get()[0][0].value)
+        return counts, None
+    except Exception as e:
+        return dict(DISCIPLINE_PAPERS_FALLBACK), f"Firestore discipline count failed ({e}); used fallback."
+
+
 def _fetch_content_stats(api_base: str) -> Optional[Dict[str, Any]]:
     """
     /api/content/stats: papers with embedding (embedding_model set in Firestore).
@@ -178,6 +211,8 @@ def build_status(
     process_databases: Optional[Dict[str, int]] = None,
     process_databases_error: Optional[str] = None,
     videos_note: Optional[str] = None,
+    papers_by_discipline: Optional[Dict[str, int]] = None,
+    papers_by_discipline_note: Optional[str] = None,
 ) -> Dict[str, Any]:
     videos_doc = (
         f"Live from {VIDEOS_METADATA_URL} (`totalVideos`); override with "
@@ -196,6 +231,10 @@ def build_status(
             "videos": videos_doc if not videos_note else f"{videos_doc} {videos_note}",
         },
     }
+    if papers_by_discipline:
+        out["papers_by_discipline"] = papers_by_discipline
+        disc_doc = "Firestore research_papers count aggregation, per discipline (biology, mathematics)."
+        out["notes"]["papers_by_discipline"] = disc_doc if not papers_by_discipline_note else f"{disc_doc} {papers_by_discipline_note}"
     if content_stats:
         pwe = content_stats.get("papers_with_embedding")
         if pwe is not None:
@@ -300,6 +339,10 @@ def main() -> int:
         if process_databases_error:
             print(f"⚠️  GCS process metadata: {process_databases_error}")
 
+    papers_by_discipline, papers_by_discipline_note = fetch_papers_by_discipline()
+    if papers_by_discipline_note:
+        print(f"⚠️  papers_by_discipline: {papers_by_discipline_note}")
+
     status = build_status(
         counts,
         source_label,
@@ -307,6 +350,8 @@ def main() -> int:
         process_databases=process_databases,
         process_databases_error=process_databases_error,
         videos_note=videos_note,
+        papers_by_discipline=papers_by_discipline,
+        papers_by_discipline_note=papers_by_discipline_note,
     )
     out = Path(args.output)
     out.parent.mkdir(parents=True, exist_ok=True)
