@@ -36,8 +36,8 @@ the pointer here once; fetch live with a plain (non-cache-busted) request.*
 | Resource | ID / URI |
 |---|---|
 | GCP project (quota) | regal-scholar-453620-r7 |
-| GCS bucket(s) | Public: `regal-scholar-453620-r7-podcast-storage` (confirmed, e.g. `cloud-run-backend/canonical_helpers.py:85`, `CLAUDE.md:24`). Private: `regal-scholar-453620-r7-internal` — **user-supplied, not repo-verified**: hosts the GLMP master TODO |
-| Firestore collection | `research_papers`, project `regal-scholar-453620-r7`, database `copernicusai` (`cloud-run-backend/check_sources.py:11-12,15`) |
+| GCS bucket(s) | Public: `regal-scholar-453620-r7-podcast-storage` (confirmed, e.g. `huggingface-space/scripts/generate_status_page.py:26`, `CLAUDE.md:24`). Private: `regal-scholar-453620-r7-internal` — **user-supplied, not repo-verified**: hosts the GLMP master TODO |
+| Firestore collection | `research_papers`, project `regal-scholar-453620-r7`, database `copernicusai` (project + database: `huggingface-space/scripts/media_catalog/export_episodes_catalog.py:26`; collection: `huggingface-space/scripts/export_research_papers_jsonl.py:3,7`) |
 
 ## Status pages
 
