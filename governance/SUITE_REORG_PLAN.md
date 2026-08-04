@@ -10,6 +10,12 @@ disagree, GitHub wins.*
 was previously undocumented — reconstructing it from conversation was the risk
 this file exists to close.*
 
+*Verified against live state 2026-08-04 (Claude Code): five items marked
+"open" below had actually been completed without this file being updated —
+the plan itself had gone stale, the exact "presence is not findability"
+failure Part 5 describes, applied to a planning document. Each is marked
+below with what was checked and how.*
+
 ---
 
 ## 0. Why this document exists
@@ -24,7 +30,9 @@ checked that things *exist* without checking that they are *findable*.** Three
 separate silent failures this month — junk vectors polluting retrieval, papers
 present-but-unembedded, podcast embeddings stranded in the wrong collection —
 all passed every count-based check. Presence is not findability. Detecting that
-class of defect is itself unfinished work (Part 5).
+class of defect is now built and running (Part 5) — including having caught,
+via this exact section going stale without anyone noticing, an instance of the
+same failure applied to this plan itself.
 
 ---
 
@@ -148,10 +156,14 @@ Open:
 - **Retitle ATAP** to include the acronym ("ATAP — Axiomatic Theories,
   Algorithms and Proofs") and **update its scope note** from the current
   library description to the engine framing.
-- **Reclassify the CopernicusAI podcast collection** from Resources to
-  Products (its authored home), registered into Resources for consumption.
-- **sciencevideodb Gradio vestige** — `app.py` + `requirements.txt` present but
-  `sdk: static`; the app is inert. Small cleanup.
+- ~~**Reclassify the CopernicusAI podcast collection** from Resources to
+  Products (its authored home), registered into Resources for consumption.~~
+  — DONE. Confirmed 2026-08-04: `RESOURCE_MANIFEST.md` already lists it under
+  "Products," with a note at the old Resources location pointing there.
+- ~~**sciencevideodb Gradio vestige** — `app.py` + `requirements.txt` present
+  but `sdk: static`; the app is inert. Small cleanup.~~ — DONE (2026-07-30,
+  part of the `sciencevideodb` quality pass, commit `6d452b4`). Confirmed
+  2026-08-04: both files absent from `hf-spaces/sciencevideodb`.
 
 ### Part 2 — Asset migration — **decided, not started**
 
@@ -161,10 +173,13 @@ docs. Conceptual ownership and physical location may differ (e.g. `math_processe
 in Firestore is ATAP data operated by Core).
 
 Blocked on:
-- **Git-history depth check** on `copernicus-web/.../mathematics-processes-database/`
+- ~~**Git-history depth check** on `copernicus-web/.../mathematics-processes-database/`
   (664-file ATAP corpus): substantive history vs. bulk import → decides
-  subtree-split vs. fresh-commit. A provenance defect in
-  `flowchart-source-papers.tsv` this month makes history-preservation matter.
+  subtree-split vs. fresh-commit.~~ — DONE (`glmp` `GLMP_MASTER_TODO.md` item
+  16, 2026-07-30). Zero substantive history found — one bulk-import root
+  commit, nothing to preserve — so the decision is **fresh-commit, not
+  subtree-split**. This unblocks migration *planning*; the migration itself
+  hasn't started (see below).
 
 No content has moved.
 
@@ -199,7 +214,8 @@ The `research_focus.json` spec exists. GLMP's file is committed
 (`9bb8bd9`→edited); ATAP's draft v2 is ready for Gary's hand-edit.
 
 Open:
-- **ATAP focus file** — Gary's ten minutes in the schema, then commit.
+- ~~**ATAP focus file** — Gary's ten minutes in the schema, then commit.~~ —
+  DONE. Confirmed 2026-08-04: committed at `atap/docs/research_focus.json`.
 - **Date-forward scout** — the scout re-samples a fixed multi-year window and
   takes top-N; it does not scan "what's new since yesterday." That's a new
   selection mode (`edat`/posted-date since last run), not a schedule change. It
@@ -212,18 +228,35 @@ Open:
   adjacent ridge (anti-paddock). Depends on the focus file + new query paths.
 - **Production selection** — agent-shaped; not a cron.
 
-### Part 5 — The findability defect class — **instances fixed, detection not built**
+### Part 5 — The findability defect class — **built and running** (was:
+"instances fixed, detection not built" — corrected 2026-08-04, see below)
 
 Three instances found and fixed; both leak sources now close automatically.
-But **nothing would catch the fourth instance.** A findability check — one that
-asks "is this retrievable?" rather than "does this exist?" — does not exist.
+This section originally said nothing would catch a fourth instance and that
+the check "does not exist... not yet on any queue." **That was wrong by the
+time it was checked, not just later** — confirmed 2026-08-04:
 
-This is the durable fix and it is not yet on any queue. Minimum viable version:
-a periodic probe that (a) confirms every embedded collection's live
-`find_nearest` returns sensible hits for a fixed query set, and (b) flags any
-collection where `count(docs)` and `count(findable docs)` diverge. It belongs
-in the nightly chain's verification stage and its output belongs in the morning
-report.
+- The probe exists: `copernicus-web/cloud-run-backend/scripts/findability_probe.py`,
+  commit `403e0b4c0`, "Add findability probe (v1) — Gate 3 proven, not yet
+  integrated."
+- It's integrated, not just built: `glmp/scripts/build_master_todo.py` reads
+  its report into AUTO-STATUS (`glmp` commit `073be02`, `read_findability_status()`
+  following the same `SourceResult` contract as every other reader — missing
+  or malformed input degrades to a stale cell rather than crashing the
+  assembler).
+- It's live in production: `GLMP_MASTER_TODO.md` item 21 records a Gate-3
+  acceptance test against production (14 anchors, no false alarms), an
+  automated overnight render witnessed writing a "### Findability" section
+  into the published doc, and a same-day ALERT that was traced to ground
+  truth rather than assumed benign (item 21's follow-up diagnosis) —
+  confirming the probe surfaces real signal, not noise.
+
+Minimum-viable design as originally specified — (a) confirms every embedded
+collection's live `find_nearest` returns sensible hits for a fixed query set,
+(b) flags any collection where `count(docs)` and `count(findable docs)`
+diverge — matches what got built. **Open, not done:** whether coverage
+extends past the original anchor set as new collections (`atap_graphs`,
+etc.) come online is unverified; that's a scoping question, not a rebuild.
 
 ---
 
@@ -296,18 +329,24 @@ Recorded because they were learned the hard way and should bind future work:
 
 ## 6. Recommended next actions (priority order)
 
-1. **Commit this plan** to `copernicus-web/governance/` so the record of truth
-   stops being a conversation.
+1. ~~**Commit this plan** to `copernicus-web/governance/` so the record of
+   truth stops being a conversation.~~ — DONE (`8d694df1a`).
 2. **Create the Resources and Products projects; add the fetch-live header to
    all projects; retitle and re-scope ATAP.** (Manual, web app — not
-   agent-doable.)
-3. **Add the Part 5 findability check** to the queue — the one durable fix the
-   month's work implies but never scheduled.
-4. **ATAP focus file** — Gary's edit + commit (small, unblocks ATAP's brief).
-5. **Git-history depth check** (unblocks Part 2 migration planning).
-6. Then, in whatever order suits: remaining `sync_*` hardcodes, TSV provenance
-   diagnostic, venv untracking, IAM narrowing (alert only — it can break the
-   Jetson).
+   agent-doable.) **Still open** — no way to verify Claude Project state from
+   a repo checkout.
+3. ~~**Add the Part 5 findability check** to the queue — the one durable fix
+   the month's work implies but never scheduled.~~ — DONE and beyond queued:
+   built, integrated, live in production. See Part 5 above.
+4. ~~**ATAP focus file** — Gary's edit + commit (small, unblocks ATAP's
+   brief).~~ — DONE, `atap/docs/research_focus.json`.
+5. ~~**Git-history depth check** (unblocks Part 2 migration planning).~~ —
+   DONE, decided fresh-commit. Migration itself still not started.
+6. Then, in whatever order suits: ~~remaining `sync_*` hardcodes~~ (done),
+   TSV provenance **diagnostic** (done — the *full re-harvest* it recommends
+   is separately tracked and still open, `GLMP_MASTER_TODO.md` item 25),
+   ~~venv untracking~~ (done), **IAM narrowing** (alert only — it can break the
+   Jetson) — **still open**, `GLMP_MASTER_TODO.md` item 10.
 
 ---
 
