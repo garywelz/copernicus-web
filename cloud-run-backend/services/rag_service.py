@@ -15,8 +15,74 @@ import re
 from services.embedding_service import get_embedding_service
 from mcp_server.tools.vector_search import search_semantic
 from utils.logging import structured_logger
+from config.database import db as firestore_db
 
 logger = logging.getLogger(__name__)
+
+# Collection to check, in order, for a direct focus_id lookup, and the
+# search_data key each one's hit should be filed under (matches the keys
+# search_semantic() already returns, so the existing per-type formatting
+# loops in answer_question() pick it up with no further change).
+_FOCUS_ID_COLLECTIONS = [
+    ("research_papers", "papers"),
+    ("glmp_processes", "glmp_processes"),
+    ("atap_graphs", "math_processes"),
+    ("chemistry_processes", "chemistry_processes"),
+    ("physics_processes", "physics_processes"),
+    ("computer_science_processes", "computer_science_processes"),
+    ("biology_processes", "biology_processes"),
+]
+
+
+def _fetch_focus_document(focus_id: str) -> "tuple[Optional[str], Optional[dict]]":
+    """Direct point lookup by document ID, tried across every content collection.
+
+    Semantic search on a query string with the focus_id appended (the prior
+    behavior) does not reliably surface the specific document being asked
+    about -- an opaque ID like `biorxiv_10.64898_2026.07.02.736007` carries
+    almost no signal to an embedding model next to natural-language question
+    text, so retrieval was effectively still just matching the question alone
+    (found 2026-08-04: a "explain this paper" query surfaced an unrelated
+    paper about what a preprint server is, never the clicked document).
+    A focus_id names one exact document; fetch it directly rather than hope
+    it wins a top-K semantic ranking against its own question text.
+
+    Returns (search_data_key, minimal_field_dict) on the first collection
+    that has the document, or (None, None) if it isn't found anywhere. Only
+    the fields the existing formatting loops in answer_question() actually
+    read are copied out -- not the raw Firestore doc -- so this never has to
+    handle embedding vectors or Firestore-specific types (timestamps, etc.).
+    """
+    for collection_name, search_data_key in _FOCUS_ID_COLLECTIONS:
+        try:
+            snap = firestore_db.collection(collection_name).document(focus_id).get()
+        except Exception as e:
+            structured_logger.warning(
+                f"focus_id lookup failed for collection {collection_name}: {e}"
+            )
+            continue
+        if not snap.exists:
+            continue
+        raw = snap.to_dict() or {}
+        if search_data_key == "papers":
+            doc = {
+                "title": raw.get("title", ""),
+                "abstract": raw.get("abstract", ""),
+                "doi": raw.get("doi", ""),
+                "paper_id": focus_id,
+                "id": focus_id,
+                "similarity_score": 1.0,
+            }
+        else:
+            doc = {
+                "title": raw.get("title") or raw.get("name", ""),
+                "description": raw.get("description", ""),
+                "process_id": focus_id,
+                "id": focus_id,
+                "similarity_score": 1.0,
+            }
+        return search_data_key, doc
+    return None, None
 
 def _env_flag(name: str, default: str = "0") -> bool:
     return (os.getenv(name, default) or "").strip().lower() in {"1", "true", "yes", "y", "on"}
@@ -203,11 +269,11 @@ class RAGService:
                 focus_id=focus_id,
             )
             
-            # If we have a focused explanation request (e.g., paper or concept node),
-            # bias retrieval toward that specific item while still allowing neighbors.
+            # A focus_id names one exact document to explain -- semantic search
+            # still runs on the plain question (to find neighbors/context), but
+            # the focus document itself is fetched directly, not hoped into the
+            # top-K semantic result. See _fetch_focus_document() for why.
             search_query = question
-            if focus_id and mode in ("paper_explanation", "concept_explanation"):
-                search_query = f"{question} {focus_id}"
 
             if content_types is None:
                 content_types = [
@@ -221,9 +287,32 @@ class RAGService:
                 limit=max_context_items,
                 distance_threshold=0.8,  # Slightly more lenient for RAG
             )
-            
+
             search_data = json.loads(search_result)
             retrieval_method = search_data.get("search_method", "vector_semantic")
+
+            if focus_id and mode in ("paper_explanation", "concept_explanation"):
+                focus_key, focus_doc = _fetch_focus_document(focus_id)
+                if focus_doc:
+                    id_field = "paper_id" if focus_key == "papers" else "process_id"
+                    already_present = any(
+                        item.get(id_field) == focus_id or item.get("id") == focus_id
+                        for item in search_data.get(focus_key, [])
+                    )
+                    if not already_present:
+                        search_data.setdefault(focus_key, []).insert(0, focus_doc)
+                    structured_logger.info(
+                        "Focus document resolved via direct lookup",
+                        focus_id=focus_id,
+                        collection_key=focus_key,
+                        already_in_semantic_results=already_present,
+                    )
+                else:
+                    structured_logger.warning(
+                        "focus_id provided but not found in any known collection; "
+                        "falling back to semantic-only retrieval",
+                        focus_id=focus_id,
+                    )
             
             # Step 2: Format context with citations
             context_parts = []
