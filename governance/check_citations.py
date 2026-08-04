@@ -18,6 +18,16 @@ moves files out of the tree.
 
 Exit 0 = clean. Exit 1 = at least one dead citation.
 
+What "clean" does NOT mean
+---------------------------
+This script verifies that pointers resolve, not that the claims they support
+are true. A citation can point at a real file and still be describing that
+file incorrectly. Case in point (2026-08-04): a manifest row claimed a resume
+cited a superseded DOI under an old title -- the citation's path existed, but
+the claim itself was wrong; the resume actually carried the current DOI. Exit
+0 means every pointer in the document landed somewhere real. It says nothing
+about whether what's written next to that pointer is accurate.
+
 Conventions it understands
 --------------------------
 * A citation is a backticked path, optionally with :line or :start-end,
