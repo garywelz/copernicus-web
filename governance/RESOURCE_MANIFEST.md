@@ -7,6 +7,11 @@ the pointer here once; fetch live with a plain (non-cache-busted) request.*
 
 *`⟨FILL IN⟩` marks a canonical URL/ID I don't have — please supply or correct.*
 
+*Last verified against reality: 2026-08-04 — every file-path citation checked
+against current `main` (`governance/check_citations.py`, exit 0), two dead
+citations found and fixed, one further correction (a claimed stale DOI that
+turned out current) caught by direct file inspection, not by the checker.*
+
 ---
 
 ## Hugging Face Spaces

@@ -4,6 +4,10 @@
 base. This is the concrete population of the engine's multimodal-communication
 capability.*
 
+*Last verified against reality: never. See `governance/CONSTITUTION.md`'s header
+for what this line means and why an absent date is left honest rather than
+backfilled.*
+
 ---
 
 ## Purpose

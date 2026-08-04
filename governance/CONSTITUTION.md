@@ -4,6 +4,12 @@
 base holds a copy; when this changes, re-sync the copies. If a Project's uploaded
 copy and the GitHub master disagree, GitHub wins.*
 
+*Last verified against reality: never. "Last edited" (see git history) is not the
+same claim — this line means someone checked this doc's factual assertions
+against live state and confirmed or corrected them, the way `RESOURCE_MANIFEST.md`
+and `SUITE_REORG_PLAN.md` were on 2026-08-04. An absent date here is honest, not
+an oversight to silently backfill.*
+
 ---
 
 ## 1. What this is

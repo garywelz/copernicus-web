@@ -10,11 +10,12 @@ disagree, GitHub wins.*
 was previously undocumented — reconstructing it from conversation was the risk
 this file exists to close.*
 
-*Verified against live state 2026-08-04 (Claude Code): five items marked
+*Last verified against reality: 2026-08-04 (Claude Code) — five items marked
 "open" below had actually been completed without this file being updated —
 the plan itself had gone stale, the exact "presence is not findability"
 failure Part 5 describes, applied to a planning document. Each is marked
-below with what was checked and how.*
+below with what was checked, the commit hash, and the verification date, so
+the next reader inherits the proof rather than re-doing the chase.*
 
 ---
 
@@ -257,6 +258,19 @@ collection's live `find_nearest` returns sensible hits for a fixed query set,
 diverge — matches what got built. **Open, not done:** whether coverage
 extends past the original anchor set as new collections (`atap_graphs`,
 etc.) come online is unverified; that's a scoping question, not a rebuild.
+
+**A second, distinct defect class, worth naming separately.** This section's
+original text wasn't a stale pointer — it was a false claim: it asserted the
+probe "does not exist" when it existed, was committed, and was already wired
+into `glmp`'s AUTO-STATUS. `RESOURCE_MANIFEST.md` had the same failure mode
+the same day, in the opposite direction — a citation that resolved to a real
+file while asserting something about that file's contents (a superseded DOI
+under an old title) that wasn't true. `check_citations.py` catches dead
+pointers; it cannot and does not catch either of these — a claim can be false
+while every citation near it resolves perfectly. Two instances in one day is
+a pattern, not a coincidence: read this doc's "done" markers as claims to
+re-verify when they matter, not as settled once written, this correction pass
+included.
 
 ---
 
