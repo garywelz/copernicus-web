@@ -1,14 +1,16 @@
 # CLAUDE.md — context for Claude Code
 
 This repository is part of **Gary Welz's GLMP + CopernicusAI science suite**. Read this
-before doing anything. For the full picture, read the canonical governance docs (they live
-in the `glmp` repo):
+before doing anything. For the full picture, read the canonical governance docs — some
+live right here in this repo, others in the `glmp` repo:
 
+- **Suite Constitution, Methods Catalog, Resource Manifest, Reorg Plan:**
+  [`governance/`](governance/) — in this repo, at the root.
 - **Agent roles & repo↔Space map:** https://raw.githubusercontent.com/garywelz/glmp/main/docs/AGENT_ROLES.md
 - **Project goals:** https://raw.githubusercontent.com/garywelz/glmp/main/docs/GLMP_GOALS.md
 - **Master to-do:** https://raw.githubusercontent.com/garywelz/glmp/main/docs/GLMP_MASTER_TODO.md
 
-(If this repo *is* `glmp`, those are at `docs/AGENT_ROLES.md`, etc.)
+(If this repo *is* `glmp`, the three glmp-repo links above are at `docs/AGENT_ROLES.md`, etc.)
 
 ## Your role
 You are the **publishing / quality agent (evaluating)**. Your job is self-contained,
