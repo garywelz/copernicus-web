@@ -255,9 +255,20 @@ time it was checked, not just later** — confirmed 2026-08-04:
 Minimum-viable design as originally specified — (a) confirms every embedded
 collection's live `find_nearest` returns sensible hits for a fixed query set,
 (b) flags any collection where `count(docs)` and `count(findable docs)`
-diverge — matches what got built. **Open, not done:** whether coverage
+diverge — matches what got built. ~~**Open, not done:** whether coverage
 extends past the original anchor set as new collections (`atap_graphs`,
-etc.) come online is unverified; that's a scoping question, not a rebuild.
+etc.) come online is unverified.~~ — Also stale, corrected 2026-08-04:
+`atap_graphs` (the plan's own example of an uncertain case) already carries
+real anchor queries ("field extension degree" → `abstract_algebra-field-theory-extensions`,
+"diagonalization" → `cantor-diagonal-proofs`), and so does every other
+current collection — `research_papers`, `glmp_processes`,
+`chemistry_processes`, `physics_processes`, `computer_science_processes`,
+`biology_processes`, `episodes`. Full coverage has existed since close to
+the probe's original commit, not added later. **Genuinely open, not yet
+checked:** whether coverage keeps pace automatically as *new* collections
+are created after this point — nothing currently forces an anchor to be
+added when a collection is; that's a process gap, not a current coverage
+gap.
 
 **A second, distinct defect class, worth naming separately.** This section's
 original text wasn't a stale pointer — it was a false claim: it asserted the
