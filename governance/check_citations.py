@@ -16,7 +16,7 @@ moves files out of the tree.
 
     python3 governance/check_citations.py
 
-Exit 0 = clean. Exit 1 = at least one dead citation.
+Exit 0 = clean. Exit 1 = at least one dead or untracked citation.
 
 What "clean" does NOT mean
 ---------------------------
@@ -32,9 +32,16 @@ Conventions it understands
 --------------------------
 * A citation is a backticked path, optionally with :line or :start-end,
   e.g. `cloud-run-backend/main.py:85` or `components/foo.ts:6-7`.
-* Paths containing "/" must resolve exactly. A bare filename may resolve
-  anywhere in the tree; if it does, that's reported as a WARN (imprecise but
-  not wrong) rather than an error.
+* Paths containing "/" must resolve exactly, AND be tracked by git -- an
+  untracked-but-present file resolves only on the machine that holds it and
+  is dead for every other collaborator, so it gets its own UNTRACKED bucket
+  rather than counting as resolved. (Found 2026-08-04: a citation to an
+  untracked resume passed silently on the machine that had the file, and a
+  fresh clone without it had no way to tell "moved to archive" apart from
+  "never committed" -- the wrong "(archived)" guess that followed from that
+  ambiguity is what prompted this fix.)
+* A bare filename may resolve anywhere in the tracked tree; if it does,
+  that's reported as a WARN (imprecise but not wrong) rather than an error.
 * Names in CROSS_REPO live in sibling repos by design and are skipped.
 * A citation whose surrounding text contains "(archived)" is treated as a
   deliberate pointer to something outside the tree and is skipped. Use this
@@ -77,19 +84,25 @@ ARCHIVED_MARKER = "(archived)"
 
 
 def tracked_files():
-    """Basename -> list of tracked paths. Uses git so ignored dirs stay ignored."""
+    """Return (basename -> [paths], set of tracked paths).
+
+    Uses git rather than the filesystem so that gitignored and untracked files
+    are distinguishable. A citation to an untracked file resolves on the machine
+    that happens to hold it and is dead for every collaborator, so the two cases
+    must not be conflated.
+    """
     out = subprocess.run(
         ["git", "ls-files"], capture_output=True, text=True, check=True
     ).stdout.splitlines()
     index = {}
     for p in out:
         index.setdefault(os.path.basename(p), []).append(p)
-    return index
+    return index, set(out)
 
 
 def check(docs):
-    index = tracked_files()
-    errors, warnings, skipped, ok = [], [], 0, 0
+    index, tracked_set = tracked_files()
+    errors, warnings, untracked, skipped, ok = [], [], [], 0, 0
 
     for doc in docs:
         with open(doc, encoding="utf-8") as fh:
@@ -109,8 +122,10 @@ def check(docs):
                     continue
 
                 if "/" in cited:
-                    if os.path.exists(cited):
+                    if cited in tracked_set:
                         ok += 1
+                    elif os.path.exists(cited):
+                        untracked.append((doc, lineno, cited))
                     else:
                         alt = index.get(base, [])
                         hint = f" (found at {alt[0]})" if alt else ""
@@ -123,7 +138,7 @@ def check(docs):
                     else:
                         errors.append((doc, lineno, cited, ""))
 
-    return errors, warnings, skipped, ok
+    return errors, warnings, untracked, skipped, ok
 
 
 def main():
@@ -132,15 +147,27 @@ def main():
         print("No governance/*.md found. Run from the repo root.", file=sys.stderr)
         return 2
 
-    errors, warnings, skipped, ok = check(docs)
+    errors, warnings, untracked, skipped, ok = check(docs)
 
     print(f"Checked {len(docs)} governance documents.")
-    print(f"  resolved: {ok}   dead: {len(errors)}   imprecise: {len(warnings)}   skipped: {skipped}")
+    print(
+        f"  resolved: {ok}   dead: {len(errors)}   untracked: {len(untracked)}"
+        f"   imprecise: {len(warnings)}   skipped: {skipped}"
+    )
 
     if warnings:
         print("\nIMPRECISE — cited by bare filename, resolves elsewhere in tree:")
         for doc, lineno, cited, found in warnings:
             print(f"  {doc}:{lineno}  `{cited}`  ->  {found}")
+
+    if untracked:
+        print("\nUNTRACKED — file is present locally but not committed:")
+        for doc, lineno, cited in untracked:
+            print(f"  {doc}:{lineno}  `{cited}`")
+        print(
+            "  These resolve on this machine only and are dead for every collaborator.\n"
+            "  Either commit the file, or mark the citation as user-supplied."
+        )
 
     if errors:
         print("\nDEAD — cited path does not exist:")
@@ -153,9 +180,18 @@ def main():
         )
         return 1
 
+    if untracked:
+        # Untracked citations fail too: they resolve only on one machine.
+        # Flip this to `return 0` if you'd rather they warn without blocking.
+        return 1
+
     print("\nAll citations resolve.")
     return 0
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    try:
+        sys.exit(main())
+    except BrokenPipeError:
+        # Tolerate being piped into head/less.
+        os._exit(0)
