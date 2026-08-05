@@ -325,6 +325,14 @@ def _to_firestore_paper(paper: Dict[str, Any], filepath: Path) -> Dict[str, Any]
     for field in ("cited_by", "cited_date", "cited_context", "cited_project"):
         if paper.get(field):
             out[field] = paper[field]
+    # citations (multi-citer list, added same day as the fields above once a
+    # single paper cited more than once in one batch showed why singular
+    # fields alone weren't enough) — same allowlist gap, one layer further
+    # downstream: this would otherwise drop straight back to a single
+    # citation on ingest, undoing the merge just built to prevent exactly
+    # that.
+    if paper.get("citations"):
+        out["citations"] = paper["citations"]
 
     # Remaining metadata_schema.json fields this allowlist never carried
     # through (found 2026-08-05 by diffing this function against the schema
