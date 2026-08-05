@@ -396,6 +396,52 @@ def write_review_queue(output_root: Path, raw_input: str, kind: str, reason: Any
 
 
 # ---------------------------------------------------------------------------
+# Multi-citer merge
+#
+# A paper can be cited more than once — by different people, at different
+# times, for different reasons — and that's the steady state, not an edge
+# case (found concretely on 2026-08-05: 3 of a 32-record batch collided on
+# the same target file and silently overwrote each other's provenance).
+# `citations` is a list of individual citation events; the singular
+# cited_by/cited_date/cited_context/cited_project fields are kept in sync
+# with the latest event only, for any reader that doesn't know about the
+# list yet. This is the shared schema for both places a re-citation can be
+# found: this script's own local-JSON-mirror collisions (handled here) and
+# an already-Firestore-ingested paper (item #45, still unbuilt — should
+# reuse this same `citations` shape when it is).
+# ---------------------------------------------------------------------------
+
+CITATION_EVENT_FIELDS = ("cited_by", "cited_date", "cited_context", "cited_project")
+
+
+def _citation_event(record: Dict[str, Any]) -> Dict[str, Any]:
+    return {k: record[k] for k in CITATION_EVENT_FIELDS if record.get(k)}
+
+
+def merge_citation(new_record: Dict[str, Any], existing: Optional[Dict[str, Any]]) -> Dict[str, Any]:
+    """Combine a freshly-resolved record with whatever's already on disk at
+    its target path (None if nothing's there yet). Never drops an earlier
+    citation event — appends unless it's an exact duplicate (same
+    cited_by/date/context/project, e.g. an accidental re-run)."""
+    new_event = _citation_event(new_record)
+    citations: List[Dict[str, Any]] = list((existing or {}).get("citations") or [])
+
+    if not citations and existing and _citation_event(existing):
+        # Existing file predates this feature — its own singular fields are
+        # citation #1, never previously recorded as a list entry.
+        citations.append(_citation_event(existing))
+
+    if new_event and new_event not in citations:
+        citations.append(new_event)
+
+    merged = dict(new_record)
+    if citations:
+        merged["citations"] = citations
+        merged.update(citations[-1])  # singular fields mirror the latest event
+    return merged
+
+
+# ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
 
@@ -500,8 +546,23 @@ def main() -> int:
     category = record.get("category") or "interdisciplinary"
     out_path = output_root / category / f"researcher_cited_{record['id']}.json"
     out_path.parent.mkdir(parents=True, exist_ok=True)
-    out_path.write_text(json.dumps(record, indent=2, ensure_ascii=False), encoding="utf-8")
-    print(f"\nRESULT: wrote {out_path}")
+
+    existing = None
+    if out_path.exists():
+        try:
+            existing = json.loads(out_path.read_text(encoding="utf-8"))
+        except Exception as e:
+            print(f"\n⚠️  Could not read existing file at {out_path} ({e}); "
+                  "overwriting rather than merging — check it manually.")
+
+    merged = merge_citation(record, existing)
+    out_path.write_text(json.dumps(merged, indent=2, ensure_ascii=False), encoding="utf-8")
+
+    if existing:
+        print(f"\nRESULT: merged into existing {out_path} "
+              f"({len(merged.get('citations', []))} citation(s) on record now)")
+    else:
+        print(f"\nRESULT: wrote {out_path}")
     print("This is a metadata JSON file only — it still needs "
           "cloud-run-backend/scripts/ingest_papers_from_metadata_json.py to reach Firestore.")
     return 0
