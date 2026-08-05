@@ -10,7 +10,11 @@ the pointer here once; fetch live with a plain (non-cache-busted) request.*
 *Last verified against reality: 2026-08-04 — every file-path citation checked
 against current `main` (`governance/check_citations.py`, exit 0), two dead
 citations found and fixed, one further correction (a claimed stale DOI that
-turned out current) caught by direct file inspection, not by the checker.*
+turned out current) caught by direct file inspection, not by the checker.
+The "Scope of a Resource collection" subsection below was added 2026-08-05,
+after this pass — it is not covered by the above check and carries no
+verification claim of its own; flipping this date to cover it would repeat
+the false-claim pattern this field exists to prevent.*
 
 ---
 
@@ -61,6 +65,58 @@ turned out current) caught by direct file inspection, not by the checker.*
 
 *The podcast collection is not listed here — it's an engine-authored output, not a
 gathered-external input. See **Products** below.*
+
+### Scope of a Resource collection
+
+*Proposed 2026-08-05 (Claude Chat), placed here 2026-08-05 — not covered by the
+verification pass dated above; see the note on this document's header.*
+
+A Resource collection is **one researcher's working literature**, not a
+discipline's library.
+
+The collection serving GLMP and ATAP is a single shared corpus, because both are
+Gary Welz's projects and these are his sources. The foundational papers
+demonstrate why: paper-I, paper-II, and paper-III draw on Voevodsky and homotopy
+type theory alongside Shen-Orr's *E. coli* network motifs, Rice's theorem
+alongside the Gardner toggle switch — 73 references across the three (see
+`GLMP_MASTER_TODO.md` item 46 for the independently re-counted figure), mixing
+GLMP and ATAP sources in the same argument. Partitioning by discipline would cut
+those papers in half.
+
+**A different scientist, with different projects, would have a different
+collection.** The collection is indexed to a researcher's programme, not to a
+subject heading. This is what distinguishes a Resource from a database.
+
+**Bounded by relevance, not by volume.** The boundary is topical, not numeric.
+Within the fields the projects work in — molecular genetics and gene regulation
+for GLMP; logic, foundations, graph theory, and proof theory for ATAP — the
+collection aims at depth a working specialist would recognise as adequate: the
+classics through to the frontier. Beyond those fields, the collection does not
+expand by breadth, but it admits work from adjacent disciplines — philosophy,
+computer science, physics — when semantic relationship earns it. That is not a
+tolerated leak in the boundary; it is the point. Embedding-based retrieval is
+what makes this tractable: relevance is measured by meaning rather than by
+subject tag.
+
+**What this rules out:**
+- **Undirected volume targets.** Acquiring *n* papers per run, where *n* is the
+  goal, optimises the wrong thing. A run that acquires many papers against
+  declared research questions and field-coverage gaps is doing its job; a run
+  that acquires papers because a number is the number is not.
+- **Size as an achievement metric.** "~62,900 papers" describes the collection;
+  it does not commend it. On 2026-08-05 the collection held ~62,900 papers and
+  216 of the 217 papers GLMP's own flowcharts cite were absent from it. A
+  collection missing the works its own project depends on is not succeeding at
+  scale, whatever the count.
+- **Discipline as a filter.** A relevance judgment that rejects a paper for
+  being mathematics when the reader is a biologist defeats the collection's
+  purpose.
+
+**The measure:** coverage against what the projects declare they are working on,
+and against what a specialist would expect to find in the field. Both are
+reportable. Neither is a count of documents. See `GLMP_MASTER_TODO.md` item 46
+(the standing acquisition contract, A2) for the mechanism this scope statement
+is meant to constrain.
 
 ## Products (engine-authored outputs)
 
