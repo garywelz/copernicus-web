@@ -48,8 +48,22 @@ CROSSREF_WORKS_URL = "https://api.crossref.org/works"
 CROSSREF_HEADERS = {"User-Agent": "CopernicusAI/1.0 (mailto:gary@copernicusai.fyi)"}
 CROSSREF_MAILTO = "gary@copernicusai.fyi"
 
-DOI_RE = re.compile(r'10\.\d{4,9}/[^\s"<>\]\)]+', re.IGNORECASE)
+DOI_RE = re.compile(r'10\.\d{4,9}/[^\s"<>\]]+', re.IGNORECASE)
 PII_RE = re.compile(r'S\d{4}-?\d{3}[\dXx]\(\d{2}\)\d{5}-?\d')
+
+
+def _trim_doi_match(doi: str) -> str:
+    """Strip trailing prose punctuation, and a trailing ')' only when it has
+    no matching '(' within the match — a real DOI suffix can legitimately
+    contain a balanced parenthesis (e.g. old Elsevier PII-derived DOIs like
+    10.1016/S0022-2836(61)80072-7), but a DOI embedded in a parenthetical
+    aside ("...see 10.1234/abc)") ends with an unmatched one."""
+    doi = doi.rstrip('.,;')
+    while doi.endswith(')') and doi.count('(') < doi.count(')'):
+        doi = doi[:-1].rstrip('.,;')
+    return doi
+
+
 ARXIV_URL_RE = re.compile(r'arxiv\.org/abs/([^\s/?#]+)', re.IGNORECASE)
 ARXIV_BARE_RE = re.compile(r'^(?:arxiv:)?(\d{4}\.\d{4,5})(v\d+)?$', re.IGNORECASE)
 ARXIV_OLD_RE = re.compile(r'^(?:arxiv:)?([a-z-]+(?:\.[A-Z]{2})?/\d{7})(v\d+)?$', re.IGNORECASE)
@@ -91,7 +105,7 @@ def classify(raw: str, id_type_override: Optional[str]) -> Tuple[str, str]:
         override = id_type_override.lower()
         if override == "doi":
             m = DOI_RE.search(raw)
-            return "doi", (m.group(0).rstrip('.,;') if m else raw)
+            return "doi", (_trim_doi_match(m.group(0)) if m else raw)
         return override, raw
 
     m = PMID_URL_RE.search(raw)
@@ -117,7 +131,7 @@ def classify(raw: str, id_type_override: Optional[str]) -> Tuple[str, str]:
 
     m = DOI_RE.search(raw)
     if m:
-        return "doi", m.group(0).rstrip('.,;)')
+        return "doi", _trim_doi_match(m.group(0))
 
     m = PII_RE.search(raw)
     if m:
@@ -150,7 +164,18 @@ def resolve_doi(doi: str, mods: Dict[str, Any]) -> Tuple[Optional[Dict], Optiona
                 if rec:
                     return rec, None
             elif len(collection) > 1:
-                return None, f"ambiguous: {len(collection)} {server} records for {doi}"
+                # A DOI-scoped /details/{server}/{doi}/ query only ever
+                # returns one entry per revision of that same DOI, never a
+                # different paper — "ambiguous" was never the right read
+                # here. Use the latest version's metadata.
+                try:
+                    latest = max(collection, key=lambda c: int(c.get("version") or 0))
+                except (TypeError, ValueError):
+                    latest = collection[-1]
+                rec = biorxiv_mod.parse_record(latest)
+                if rec:
+                    return rec, None
+                return None, f"matched {len(collection)} {server} revisions for {doi} but failed to parse the latest"
         # Not found on either preprint server — fall through to Crossref,
         # since the DOI may have a published (not just preprint) record.
 

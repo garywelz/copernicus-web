@@ -117,7 +117,7 @@ def validate_paper(paper: Dict, schema: Optional[Dict] = None) -> Tuple[bool, Li
             errors.append(f"ID source mismatch: ID starts with '{id_parts[0]}' but source is '{paper['source']}'")
     
     # Validate source
-    valid_sources = ["pubmed", "arxiv", "nasa_ads", "crossref"]
+    valid_sources = ["pubmed", "arxiv", "nasa_ads", "crossref", "biorxiv", "medrxiv"]
     if "source" in paper and paper["source"] not in valid_sources:
         errors.append(f"Invalid source: {paper['source']} (must be one of: {', '.join(valid_sources)})")
     
