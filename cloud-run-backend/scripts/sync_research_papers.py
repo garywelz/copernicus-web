@@ -61,7 +61,7 @@ except ImportError as e:
 
 def convert_paper_to_firestore_format(paper: Paper) -> Dict[str, Any]:
     """Convert PostgreSQL paper model to Firestore format."""
-    return {
+    out: Dict[str, Any] = {
         "paper_id": str(paper.paper_id),
         "arxiv_id": paper.arxiv_id,
         "doi": paper.doi,
@@ -76,6 +76,16 @@ def convert_paper_to_firestore_format(paper: Paper) -> Dict[str, Any]:
         "created_at": datetime.utcnow().isoformat(),
         "discipline": "mathematics" if paper.categories and any(cat.startswith("math.") for cat in paper.categories) else "other",
     }
+
+    # No url/pdf_url was ever set here (found 2026-08-05), even though every
+    # other arXiv acquirer in this codebase (acquire_arxiv_batch.py's
+    # parse_arxiv_entry) derives these from the same arxiv_id. Needs no new
+    # Postgres column — arxiv_id alone is enough.
+    if paper.arxiv_id:
+        out["url"] = f"https://arxiv.org/abs/{paper.arxiv_id}"
+        out["pdf_url"] = f"https://arxiv.org/pdf/{paper.arxiv_id}.pdf"
+
+    return out
 
 
 def sync_papers(
