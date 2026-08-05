@@ -98,6 +98,12 @@ tolerated leak in the boundary; it is the point. Embedding-based retrieval is
 what makes this tractable: relevance is measured by meaning rather than by
 subject tag.
 
+*The mechanism, not just the principle: each project's `docs/research_focus.json`
+declares its own adjacent fields in a `horizons` list (confirmed 2026-08-05 —
+see `huggingface-space/scripts/acquire_papers/A2-standing-acquisition-contract.md`,
+requirement 1). This paragraph states why adjacency is admitted; `horizons` is
+where a project says which adjacency it means.*
+
 **What this rules out:**
 - **Undirected volume targets.** Acquiring *n* papers per run, where *n* is the
   goal, optimises the wrong thing. A run that acquires many papers against

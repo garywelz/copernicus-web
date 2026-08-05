@@ -77,21 +77,34 @@ open question, resolved the same day A2 was filed — see
 
 - **`flagged`** — a curated list of priority seed papers (paper ID + a
   human-written justification note, e.g. "Jacob & Monod 1961 — foundational
-  lac/operon regulation"). Always relevant; treat as always-include, the
-  same way item 25 already used `research_focus.flagged` as a verified
-  retrieval seed.
+  lac/operon regulation"). Always relevant, but **out of A2's scope, not
+  in it** — corrected 2026-08-05, hours after this section was first
+  written, once the consequence of "always-include" actually landed:
+  a curated paper a researcher chose and justified is researcher-cited by
+  another name. It routes through #43's already-proven path (same
+  provenance shape, `citations` merge semantics already shipped and
+  verified on 8 real cases), not through the scout. **A2 should not
+  additionally acquire `flagged` papers itself** — doing so would put a
+  resolved ingest problem back through an unbuilt one. Item 25's earlier
+  use of `research_focus.flagged` as a retrieval seed stands on its own;
+  it doesn't make `flagged`-consumption the scout's job.
 - **`mute`** — a negative filter. Topics that might keyword-match but
   aren't wanted (GLMP: "CRISPR clinical trials"; ATAP: "cryptocurrency",
   "quantum supremacy claims"). Exclude these from acquisition outright.
+  This one *is* A2's scope — a scout ranking/filtering decision, not a
+  researcher-citation.
 - **`frontier`** — drives acquisition, same as `active_questions` (see
   above) — not informational-only, despite reading like framing prose at a
   glance. Its own `terms` field exists for exactly this reason.
 - **`horizons`** — adjacent-field awareness, included at lower priority.
-  Matches this plan's own governance companion
-  (`governance/RESOURCE_MANIFEST.md`'s "Scope of a Resource collection":
-  "admits work from adjacent disciplines... when semantic relationship
-  earns it"). Not core to `active_questions`'/`frontier`'s coverage target,
-  but not excluded either.
+  **This is the concrete mechanism for the adjacency principle in
+  `governance/RESOURCE_MANIFEST.md`'s "Scope of a Resource collection"**
+  ("admits work from adjacent disciplines... when semantic relationship
+  earns it") — not a separate idea that merely resembles it. The
+  governance text states the principle; `horizons` is where a project
+  declares which adjacent fields it means. Not core to
+  `active_questions`'/`frontier`'s coverage target, but not excluded
+  either.
 
 ### 2. Attribute every candidate
 
