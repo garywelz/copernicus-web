@@ -1,6 +1,8 @@
 # #43 — Researcher-cited intake
 
-**Drafted:** 2026-08-05 · **Status:** implemented, dry-run tested, not yet ingested
+**Drafted:** 2026-08-05 · **Status:** implemented, ingested and live-verified;
+one known gap open (re-citation of an already-in-corpus paper — see open
+question 4 below, tracked as GLMP_MASTER_TODO item 45)
 **Parent:** item #37 Part A · **Dependencies:** none
 **Scope:** Engine Core — acquisition, ingestion
 **Serves:** GLMP and ATAP equally
@@ -166,6 +168,40 @@ pending Gary's go.
 network access to Crossref or Cell Press, so the PII → DOI step was untested
 at draft time. It is no longer untested — see above.*
 
+**Ingested and live-verified (2026-08-05), Gary's go given.**
+`researcher_cited_intake.py --write` produced the metadata JSON; `ingest_papers_from_metadata_json.py`
+was run scoped to that single file (an isolated one-file `--root`, not the
+full local mirror — deliberately, to avoid mass-ingesting whatever else sits
+in the local `metadata-database/papers/` checkout). `research_papers/`
+`crossref_10.1016_j.bpj.2022.01.016` confirmed live with correct title/DOI/
+authors/journal.
+
+**FINDING, caught only by checking the live document instead of the ingest
+script's exit code:** none of the five provenance fields reached Firestore.
+`_to_firestore_paper()` in `ingest_papers_from_metadata_json.py` hardcodes an
+explicit allowlist of fields copied from source JSON to the Firestore doc,
+and provenance was never on it — the paper became findable, but *why it
+mattered* was silently dropped at the last step, the exact failure this
+plan's "resolve loudly, never guess" section was written to prevent, just at
+a different stage of the pipeline than the one that section had in mind.
+
+**Follow-up question, asked and checked rather than assumed either way: is
+the allowlist dropping more than provenance?** Yes. Diffed the allowlist
+against `metadata_schema.json`'s 31 properties: `year`, `citation_count`,
+`bibcode`, `issn`, `issue`, `journal_full`, `language`, `page`,
+`published_date`, `publisher`, `updated_date`, `volume`, `author_string`,
+`deduplication_method`, `deduplication_confidence` had no path into
+Firestore at all, for any source, and this predates item #43 entirely.
+Spot-checked 3 real documents each across crossref/pubmed/arxiv/biorxiv
+(`research_papers`, 63,198 docs total) — zero of the 15 fields present on
+any sampled doc — and a corpus-wide count on a non-empty `year` filter
+returned 1 of 63,198. Full details and the fix: `copernicus-web@9a7f524cb`
+(provenance) and `copernicus-web@a92b14c2f` (the other 15 fields), tracked as
+`GLMP_MASTER_TODO.md` item 44. **Not done as part of this fix:** backfilling
+the ~63,197 other already-ingested docs — that needs each doc's original
+source JSON (unclear how many still exist) and is a separate, larger
+decision, not made here.
+
 ## Success criteria
 
 Behavioural, not a count:
@@ -187,13 +223,19 @@ Behavioural, not a count:
 3. **Should intake accept non-papers?** Preprints and datasets resolve; a
    conference talk or a blog post may not. Worth deciding before someone sends
    one rather than after.
-4. **Already-in-corpus re-citations.** If a researcher cites a paper that's
-   already in `research_papers` (caught by this script's dedup check), the
-   paper doesn't need re-ingesting, but the provenance (who/when/why) is still
-   a real signal and today it's simply dropped — the script reports the
-   duplicate and writes nothing. Merging provenance onto an existing Firestore
-   doc is a production write with its own failure modes and wasn't in scope
-   for the front-door script; needs a decision before it's built.
+4. **Already-in-corpus re-citations — promoted to `GLMP_MASTER_TODO.md` item
+   45, not just an open question here.** If a researcher cites a paper
+   that's already in `research_papers` (caught by this script's dedup
+   check), the paper doesn't need re-ingesting, but the provenance
+   (who/when/why) is still a real signal and today it's simply dropped —
+   the script reports the duplicate and writes nothing. Per Claude Chat
+   (2026-08-05): this isn't an edge case, it's the *steady state* as the
+   corpus grows — worth its own tracked item rather than a buried footnote,
+   so item #43 doesn't read as unqualified-DONE. Merging provenance onto an
+   existing Firestore doc is a production write with its own failure modes
+   (concurrent re-citations, append-vs-overwrite, multi-citer docs) and
+   wasn't in scope for the front-door script; needs a decision before it's
+   built.
 5. **`validate_metadata.py`'s `valid_sources` list is stale, found in passing
    (2026-08-05).** It hardcodes `["pubmed", "arxiv", "nasa_ads", "crossref"]`,
    missing `biorxiv`/`medrxiv` — both valid per `metadata_schema.json`'s
