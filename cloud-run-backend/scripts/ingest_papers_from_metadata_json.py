@@ -326,6 +326,22 @@ def _to_firestore_paper(paper: Dict[str, Any], filepath: Path) -> Dict[str, Any]
         if paper.get(field):
             out[field] = paper[field]
 
+    # Remaining metadata_schema.json fields this allowlist never carried
+    # through (found 2026-08-05 by diffing this function against the schema
+    # after the provenance-drop catch above, then spot-checked against live
+    # research_papers docs across crossref/pubmed/arxiv/biorxiv — all four
+    # confirmed missing every one of these on every sampled doc). Additive
+    # only: never overwrites a key already set above (doi/journal/etc. keep
+    # their existing derivation logic), and absent source fields are simply
+    # skipped, so this changes nothing for a record that never had them.
+    for field in (
+        "year", "citation_count", "bibcode", "issn", "issue", "journal_full",
+        "language", "page", "published_date", "publisher", "updated_date",
+        "volume", "author_string", "deduplication_method", "deduplication_confidence",
+    ):
+        if field not in out and paper.get(field) not in (None, ""):
+            out[field] = paper[field]
+
     return out
 
 
