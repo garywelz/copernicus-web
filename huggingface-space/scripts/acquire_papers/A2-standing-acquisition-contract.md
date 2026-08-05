@@ -1,11 +1,13 @@
 # A2 — The standing acquisition contract
 
-**Drafted:** 2026-08-05 · **Status:** proposal, nothing implemented. Filed as
-`GLMP_MASTER_TODO.md` item #46 — see that item for verification of every claim
-below (all four checked against a fresh fetch of both repos; claim 4, the
-reference count, corrected from 83/33 to 73/41) and for the placement decision
-on the companion governance doc, `governance/RESOURCE_MANIFEST.md`'s "Scope of
-a Resource collection" subsection (`copernicus-web@75cb84e56`).
+**Drafted:** 2026-08-05 · **Status:** proposal, nothing implemented, but its
+only blocker (field semantics, see sequencing step 1) is resolved as of the
+same day. Filed as `GLMP_MASTER_TODO.md` item #46 — see that item for
+verification of every claim below (all four checked against a fresh fetch of
+both repos; claim 4, the reference count, corrected from 83/33 to 73/41) and
+for the placement decision on the companion governance doc,
+`governance/RESOURCE_MANIFEST.md`'s "Scope of a Resource collection"
+subsection (`copernicus-web@75cb84e56`).
 **Parent:** item #37 Part A · **Relates to:** #36 (scout tuning), #35 (video)
 **Scope:** Engine Core — this document specifies *what* acquisition must satisfy.
 *How* a scout ranks and queries is method development and belongs to
@@ -60,14 +62,36 @@ the ranking behind it is Methods & Tools' business.
 
 ### 1. Consume the declaration
 
-Read `research_focus.json` from the project it serves. Treat `active_questions[].terms`
-as the acquisition target and `since` as the lower date bound per question.
-No separately maintained query list — a second artifact is a second thing to
-drift, and `daily_scout_config.json` has already drifted from both projects.
+Read `research_focus.json` from the project it serves. Treat
+`active_questions[].terms` **and `frontier[].terms`** as acquisition
+targets, both driving acquisition the same way — `frontier` questions are
+longer-horizon and higher-stakes than `active_questions`, not lower-priority
+or informational-only. Use `since` as the lower date bound per
+`active_questions` entry. No separately maintained query list — a second
+artifact is a second thing to drift, and `daily_scout_config.json` has
+already drifted from both projects.
 
-Honour `mute` and `flagged` as the projects' feedback channel. *(Semantics
-inferred from structure; confirm before implementing — `flagged` currently holds
-paper IDs with notes, e.g. a Jacob & Monod-era PubMed record.)*
+**Field semantics confirmed with Gary, 2026-08-05** (this section's own
+open question, resolved the same day A2 was filed — see
+`GLMP_MASTER_TODO.md` item 46):
+
+- **`flagged`** — a curated list of priority seed papers (paper ID + a
+  human-written justification note, e.g. "Jacob & Monod 1961 — foundational
+  lac/operon regulation"). Always relevant; treat as always-include, the
+  same way item 25 already used `research_focus.flagged` as a verified
+  retrieval seed.
+- **`mute`** — a negative filter. Topics that might keyword-match but
+  aren't wanted (GLMP: "CRISPR clinical trials"; ATAP: "cryptocurrency",
+  "quantum supremacy claims"). Exclude these from acquisition outright.
+- **`frontier`** — drives acquisition, same as `active_questions` (see
+  above) — not informational-only, despite reading like framing prose at a
+  glance. Its own `terms` field exists for exactly this reason.
+- **`horizons`** — adjacent-field awareness, included at lower priority.
+  Matches this plan's own governance companion
+  (`governance/RESOURCE_MANIFEST.md`'s "Scope of a Resource collection":
+  "admits work from adjacent disciplines... when semantic relationship
+  earns it"). Not core to `active_questions`'/`frontier`'s coverage target,
+  but not excluded either.
 
 ### 2. Attribute every candidate
 
@@ -132,8 +156,11 @@ sample before it is trusted to filter acquisition.
 
 ## Sequencing
 
-1. **Confirm `mute` / `flagged` / `frontier` / `horizons` semantics** with Gary.
-   The schema is shared; the meaning is currently inferred.
+1. ~~**Confirm `mute` / `flagged` / `frontier` / `horizons` semantics**~~ —
+   **done, 2026-08-05**, same day as filing. See "1. Consume the
+   declaration" above for the confirmed meanings. This was the only
+   remaining blocker on implementation — nothing else in this contract was
+   waiting on a decision.
 2. **ATAP first.** It has zero acquisition and a written declaration — the
    largest gap and the cleanest test, with no legacy behaviour to preserve.
 3. **Migrate GLMP** from `daily_scout_config.json` to its declaration, with the
