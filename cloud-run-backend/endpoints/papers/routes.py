@@ -214,7 +214,16 @@ async def link_paper_to_podcast(paper_id: str, podcast_id: str):
             used_in_podcasts.append(podcast_id)
             paper_ref.update({
                 'used_in_podcasts': used_in_podcasts,
-                'citation_count': len(used_in_podcasts),
+                # Not 'citation_count' — that field means external bibliometric
+                # citations (Crossref/PubMed/NASA ADS/Semantic Scholar), used
+                # for ranking and the /api/papers/query min_citation_count
+                # filter. This is a distinct signal (how many of our own
+                # podcasts used this paper) and needs its own field so it
+                # doesn't clobber the real value. (Found 2026-08-05: this line
+                # used to write 'citation_count' here; confirmed via a live
+                # Firestore scan that no document had ever actually been
+                # touched by this endpoint, so there was nothing to reconcile.)
+                'podcast_usage_count': len(used_in_podcasts),
                 'updated_at': datetime.utcnow().isoformat()
             })
         
