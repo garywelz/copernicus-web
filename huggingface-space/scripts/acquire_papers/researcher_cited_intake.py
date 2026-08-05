@@ -311,8 +311,10 @@ DISPATCH = {
 # Dedup checks
 # ---------------------------------------------------------------------------
 
-def check_firestore_duplicate(record: Dict[str, Any]) -> Tuple[Optional[str], str]:
-    """Returns (duplicate description or None, status note). Non-fatal on any
+def check_firestore_duplicate(record: Dict[str, Any]) -> Tuple[Optional[Dict[str, Any]], str]:
+    """Returns (dup_info or None, status note). dup_info, when not None, is
+    {"doc_id", "field", "title"} — enough for the caller to act on (merge the
+    citation onto that doc) without a second query. Non-fatal on any
     failure — this is a bonus authoritative check on top of the local-mirror
     dedup tool, not a hard requirement."""
     try:
@@ -339,10 +341,36 @@ def check_firestore_duplicate(record: Dict[str, Any]) -> Tuple[Optional[str], st
             if docs:
                 d = docs[0]
                 title = d.to_dict().get("title", "?")
-                return f"already in research_papers as {d.id!r} (matched on {field}, title: {title!r})", "checked live"
+                return {"doc_id": d.id, "field": field, "title": title}, "checked live"
         return None, "checked live against research_papers — no match"
     except Exception as e:
         return None, f"skipped (Firestore check failed: {type(e).__name__}: {e})"
+
+
+def merge_citation_onto_firestore_doc(doc_id: str, cited_record: Dict[str, Any], write: bool) -> Dict[str, Any]:
+    """A re-citation of a paper already in research_papers — item #45's
+    original open question, no longer speculative once #47's batch actually
+    hit it 8 times. Reuses merge_citation()'s exact logic (same `citations`
+    shape as the local-mirror and fresh-ingest paths), but writes only the
+    provenance fields back via Firestore update() — the paper's real
+    metadata (title/authors/abstract/etc) is never touched.
+    Returns {"citations": [...], "would_write": bool} for the caller to
+    report; the live update only happens when write=True."""
+    from google.cloud import firestore
+    db = firestore.Client(project="regal-scholar-453620-r7", database="copernicusai")
+    doc_ref = db.collection("research_papers").document(doc_id)
+    existing = doc_ref.get().to_dict() or {}
+
+    merged = merge_citation(cited_record, existing)
+    update_fields = {"citations": merged["citations"], "acquisition_channel": merged.get("acquisition_channel")}
+    for f in CITATION_EVENT_FIELDS:
+        if f in merged:
+            update_fields[f] = merged[f]
+
+    if write:
+        doc_ref.update(update_fields)
+
+    return {"citations": merged["citations"], "would_write": not write}
 
 
 SOURCE_TO_LOCAL_DIR = {
@@ -521,7 +549,8 @@ def main() -> int:
     print(f"\n--- Dedup check: Firestore research_papers (live) ---")
     print(f"  {fs_note}")
     if fs_dup:
-        print(f"  DUPLICATE: {fs_dup}")
+        print(f"  DUPLICATE: already in research_papers as {fs_dup['doc_id']!r} "
+              f"(matched on {fs_dup['field']}, title: {fs_dup['title']!r})")
 
     local_dup, local_note = check_local_duplicate(record, output_root, dedup_mod)
     print(f"\n--- Dedup check: local mirror (deduplicate_papers.are_duplicates) ---")
@@ -529,10 +558,29 @@ def main() -> int:
     if local_dup:
         print(f"  DUPLICATE: {local_dup}")
 
-    if fs_dup or local_dup:
-        print("\nRESULT: duplicate — not writing. If this is a re-citation of an "
-              "already-corpus paper, provenance-merge onto the existing doc is out "
-              "of scope for this script (would be a production write); flag for Gary.")
+    if fs_dup:
+        # Item #45: a re-citation of a paper already in the corpus. No
+        # longer speculative once #47's batch actually hit it 8 times —
+        # merge the citation onto the existing doc rather than discard it.
+        merge_result = merge_citation_onto_firestore_doc(fs_dup["doc_id"], record, write=args.write)
+        print(f"\n--- Citation merge onto existing Firestore doc ---")
+        print(f"  {len(merge_result['citations'])} citation(s) on record "
+              f"{'after this merge' if not merge_result['would_write'] else 'would result'}:")
+        for c in merge_result["citations"]:
+            print(f"    - {c.get('cited_context', '')[:90]}")
+        if merge_result["would_write"]:
+            print(f"\nRESULT: dry run — duplicate found, nothing merged. "
+                  f"Re-run with --write to merge this citation onto {fs_dup['doc_id']!r}.")
+            return 0
+        print(f"\nRESULT: merged — citation added to existing doc {fs_dup['doc_id']!r}. "
+              f"The paper's own metadata (title/authors/etc) was not touched.")
+        return 0
+
+    if local_dup:
+        print("\nRESULT: duplicate in the local mirror only (not yet in Firestore) — "
+              "not writing. This script doesn't merge onto local-mirror files; if this "
+              "paper is meant to be ingested, that's a separate acquisition-pipeline "
+              "concern, not a researcher-citation one.")
         return 3
 
     if not is_valid:
