@@ -316,6 +316,16 @@ def _to_firestore_paper(paper: Dict[str, Any], filepath: Path) -> Dict[str, Any]
     # Preserve raw fields for traceability
     out["raw_source_id"] = paper.get("id")
 
+    # Provenance fields (item #43, researcher-cited intake). Additive only —
+    # absent for scout-acquired records, so this never overwrites an existing
+    # key with a blank. Without this, citing-who/when/why was silently
+    # dropped at the one step meant to preserve it.
+    if paper.get("acquisition_channel"):
+        out["acquisition_channel"] = paper["acquisition_channel"]
+    for field in ("cited_by", "cited_date", "cited_context", "cited_project"):
+        if paper.get(field):
+            out[field] = paper[field]
+
     return out
 
 
