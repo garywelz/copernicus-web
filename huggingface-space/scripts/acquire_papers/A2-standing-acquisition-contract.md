@@ -116,6 +116,17 @@ This mirrors #43's provenance fields, which are live and proven:
 `acquisition_channel`, `cited_by`, `cited_context`. A scout-acquired paper
 should be as explicable as a researcher-cited one.
 
+**Calibration note, moved up from "What this leaves to #36" below so it sits
+next to the requirement it actually bears on:** if attribution to a specific
+`q` is ever made by similarity rather than an exact query match, the
+2026-08-05 source-reselection exercise measured a **~40% false-positive
+rate in its highest-confidence tier** using embedding similarity — after a
+single validating case had suggested the method was reliable. The scoring
+mechanism itself is #36's business, not specified here, but this number is
+the calibration data point for whatever #36 builds, and it should travel
+with the requirement, not sit only in the caution below where it's easy to
+miss when actually implementing this one.
+
 ### 3. Route by domain, not by habit
 
 GLMP's sources (PubMed, bioRxiv/medRxiv) will not serve ATAP. Mathematics needs
@@ -176,6 +187,16 @@ sample before it is trusted to filter acquisition.
    waiting on a decision.
 2. **ATAP first.** It has zero acquisition and a written declaration — the
    largest gap and the cleanest test, with no legacy behaviour to preserve.
+   **ATAP's declaration is untested against reality (flagged 2026-08-05,
+   not yet acted on).** Four questions with `terms`, written but never run
+   against a live source. The first thing worth learning when this starts
+   isn't a query-construction question — it's whether these terms return
+   anything usable at all. A question returning nothing is itself a finding
+   about the declaration (terms too narrow, too jargon-specific, wrong
+   source entirely), not just a null result to route past. Pairs naturally
+   with item #48 (218 of 237 ATAP process files have no source citations
+   at all) — same underlying gap, seen from the acquisition side and the
+   corpus side.
 3. **Migrate GLMP** from `daily_scout_config.json` to its declaration, with the
    old config retained until coverage reporting shows the new path is no worse.
 4. **Retire `daily_scout_config.json`** only once (3) holds.
