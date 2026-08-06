@@ -178,7 +178,7 @@ def parse_arxiv_entry(entry: ET.Element, ns: Dict) -> Optional[Dict]:
             comment = comment_elem.text
         
         # Determine discipline from primary category
-        category = determine_discipline(primary_category or categories[0] if categories else "")
+        category = determine_discipline(primary_category or (categories[0] if categories else ""))
         
         # Build paper dictionary
         paper = {
@@ -201,8 +201,8 @@ def parse_arxiv_entry(entry: ET.Element, ns: Dict) -> Optional[Dict]:
             "pdf_url": f"https://arxiv.org/pdf/{arxiv_id}.pdf",
             "source": "arxiv",
             "acquired_date": datetime.now().isoformat(),
-            "category": "biology",
-            "discipline": "biology",
+            "category": category,
+            "discipline": category,
             "subcategories": categories[:3] if categories else []
         }
         

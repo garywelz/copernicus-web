@@ -312,6 +312,8 @@ def _to_firestore_paper(paper: Dict[str, Any], filepath: Path) -> Dict[str, Any]
     if isinstance(subcats, str):
         subcats = [subcats]
     out["categories"] = [c for c in subcats if c]  # for arXiv codes, etc.
+    if paper.get("primary_category"):
+        out["primary_category"] = paper["primary_category"]
 
     # Preserve raw fields for traceability
     out["raw_source_id"] = paper.get("id")
