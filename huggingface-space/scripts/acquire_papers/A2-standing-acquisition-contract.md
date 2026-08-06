@@ -66,10 +66,24 @@ Read `research_focus.json` from the project it serves. Treat
 `active_questions[].terms` **and `frontier[].terms`** as acquisition
 targets, both driving acquisition the same way — `frontier` questions are
 longer-horizon and higher-stakes than `active_questions`, not lower-priority
-or informational-only. Use `since` as the lower date bound per
-`active_questions` entry. No separately maintained query list — a second
+or informational-only. No separately maintained query list — a second
 artifact is a second thing to drift, and `daily_scout_config.json` has
 already drifted from both projects.
+
+**Two acquisition modes, not one — found 2026-08-06 running ATAP's
+declaration against live arXiv (`GLMP_MASTER_TODO.md` item 50).**
+`since` is the lower date bound for **standing acquisition** — the
+ongoing, windowed mode this contract otherwise assumes. It is the wrong
+bound for a project's **first pass**: ATAP's `since` dates predate almost
+none of the relevant literature (windowed counts ran 10–60× smaller than
+unwindowed on nearly every term tested — "diagonalization" 382 all-time
+vs. 7 since `2026-07-01`), so a windowed-only first run would look broken
+when it's actually just working through a backlog nobody ever ingested.
+**A project's first run under this contract should ignore `since`
+entirely** — a one-time historical/frontier sweep — and only switch to
+`since`-bounded standing acquisition once that backlog is caught up.
+Which mode is running should be an explicit, loggable state, not inferred
+from whether `since` happens to be old.
 
 **Field semantics confirmed with Gary, 2026-08-05** (this section's own
 open question, resolved the same day A2 was filed — see
