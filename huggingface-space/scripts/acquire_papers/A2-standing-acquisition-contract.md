@@ -141,6 +141,24 @@ the calibration data point for whatever #36 builds, and it should travel
 with the requirement, not sit only in the caution below where it's easy to
 miss when actually implementing this one.
 
+**Thresholds are per-question or they are not thresholds — found
+2026-08-06, ATAP's first-pass run (`GLMP_MASTER_TODO.md` item 51).**
+Relevance scores from the same scoring mechanism are not comparable
+across questions: one frontier question's entire score range sat below
+another active question's 10th percentile, because the active question
+dominated the sweep (54% of all candidates) and had denser, more
+central literature. A single global cutoff tuned to look reasonable
+against the dominant question would have silently deleted the thin
+question's candidates while looking like ordinary filtering — not a
+visible failure, a quiet one. This is worse precisely where it matters
+most: `frontier` questions are higher-stakes and longer-horizon than
+`active_questions` per requirement 1 above, not lower-priority, so a
+mechanism that disproportionately erases them inverts the contract's
+own priority. **Any pruning against a relevance score must be scored
+and thresholded within each question's own distribution, never pooled
+across questions.** This binds #36's scorer design, not just this
+run's one-off choice not to set a threshold at all.
+
 ### 3. Route by domain, not by habit
 
 GLMP's sources (PubMed, bioRxiv/medRxiv) will not serve ATAP. Mathematics needs

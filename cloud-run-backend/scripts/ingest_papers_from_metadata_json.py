@@ -336,6 +336,17 @@ def _to_firestore_paper(paper: Dict[str, Any], filepath: Path) -> Dict[str, Any]
     if paper.get("citations"):
         out["citations"] = paper["citations"]
 
+    # Scout-acquisition provenance (item #50/A2, ATAP first-pass run,
+    # 2026-08-06) -- same allowlist-gap family as the fields above, caught
+    # before the first scout-acquired batch rather than after. run_id
+    # identifies the acquisition run; acquisition_matches is the per-
+    # question/term/score attribution list (A2 requirement 2: every
+    # candidate must be explicable, not just discipline-tagged).
+    if paper.get("run_id"):
+        out["run_id"] = paper["run_id"]
+    if paper.get("acquisition_matches"):
+        out["acquisition_matches"] = paper["acquisition_matches"]
+
     # Remaining metadata_schema.json fields this allowlist never carried
     # through (found 2026-08-05 by diffing this function against the schema
     # after the provenance-drop catch above, then spot-checked against live
