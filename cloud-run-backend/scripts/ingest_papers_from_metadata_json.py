@@ -324,7 +324,7 @@ def _to_firestore_paper(paper: Dict[str, Any], filepath: Path) -> Dict[str, Any]
     # dropped at the one step meant to preserve it.
     if paper.get("acquisition_channel"):
         out["acquisition_channel"] = paper["acquisition_channel"]
-    for field in ("cited_by", "cited_date", "cited_context", "cited_project"):
+    for field in ("cited_by", "cited_date", "cited_context", "cited_project", "cited_for_question"):
         if paper.get(field):
             out[field] = paper[field]
     # citations (multi-citer list, added same day as the fields above once a

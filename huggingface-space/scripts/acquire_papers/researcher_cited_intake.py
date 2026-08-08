@@ -431,15 +431,22 @@ def write_review_queue(output_root: Path, raw_input: str, kind: str, reason: Any
 # case (found concretely on 2026-08-05: 3 of a 32-record batch collided on
 # the same target file and silently overwrote each other's provenance).
 # `citations` is a list of individual citation events; the singular
-# cited_by/cited_date/cited_context/cited_project fields are kept in sync
-# with the latest event only, for any reader that doesn't know about the
-# list yet. This is the shared schema for both places a re-citation can be
-# found: this script's own local-JSON-mirror collisions (handled here) and
-# an already-Firestore-ingested paper (item #45, still unbuilt — should
-# reuse this same `citations` shape when it is).
+# cited_by/cited_date/cited_context/cited_project/cited_for_question fields
+# are kept in sync with the latest event only, for any reader that doesn't
+# know about the list yet. This is the shared schema for both places a
+# re-citation can be found: this script's own local-JSON-mirror collisions
+# (handled here) and an already-Firestore-ingested paper (item #45, still
+# unbuilt — should reuse this same `citations` shape when it is).
+#
+# cited_for_question was added last (2026-08-08, item 52) specifically
+# because CITATION_EVENT_FIELDS is the one place both the citations[]
+# entries and the top-level field sync read from — a new field left off
+# this tuple would be silently dropped from both, the same allowlist-gap
+# shape as every ingest-side fix this week. Added here first, before any
+# caller exists that could hit the gap.
 # ---------------------------------------------------------------------------
 
-CITATION_EVENT_FIELDS = ("cited_by", "cited_date", "cited_context", "cited_project")
+CITATION_EVENT_FIELDS = ("cited_by", "cited_date", "cited_context", "cited_project", "cited_for_question")
 
 
 def _citation_event(record: Dict[str, Any]) -> Dict[str, Any]:
@@ -484,6 +491,18 @@ def main() -> int:
     parser.add_argument("--cited-context", default="", help="Their words on why/when it came up")
     parser.add_argument("--cited-project", default="", help="Which research project (e.g. 'GLMP')")
     parser.add_argument(
+        "--cited-for-question", default="",
+        help=(
+            "Optional stable question/frontier id from that project's research_focus.json "
+            "(e.g. 'glmp-q1') -- records what the researcher was working on when they cited "
+            "this, nothing more. Leave unset when the citation doesn't clearly map to one "
+            "declared question; a wrong guess reads as signal and is worse than a gap. This "
+            "is NOT a promotion to that question's `seeds` list -- that stays a separate, "
+            "deliberate step (2026-08-08, GLMP_MASTER_TODO.md item 52: auto-promoting here "
+            "would rebuild the exact seed-dilution failure the multi-seed test caught)."
+        ),
+    )
+    parser.add_argument(
         "--id-type", choices=["doi", "pii", "pmid", "arxiv", "bibcode", "freetext"], default=None,
         help="Override automatic input-type detection",
     )
@@ -510,6 +529,8 @@ def main() -> int:
         # lowercase, GLMP's didn't), which silently splits any future
         # group-by on this field.
         "cited_project": args.cited_project.lower() if args.cited_project else args.cited_project,
+        # Optional and honestly nullable -- see the argparse help above.
+        "cited_for_question": args.cited_for_question,
     }
 
     kind, value = classify(args.input, args.id_type)
