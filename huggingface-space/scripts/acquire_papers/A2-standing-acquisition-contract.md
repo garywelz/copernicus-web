@@ -102,11 +102,58 @@ open question, resolved the same day A2 was filed — see
   resolved ingest problem back through an unbuilt one. Item 25's earlier
   use of `research_focus.flagged` as a retrieval seed stands on its own;
   it doesn't make `flagged`-consumption the scout's job.
+  **Amendment, 2026-08-08, from GLMP's retroactive-attribution run
+  (`GLMP_MASTER_TODO.md` item 52) — `flagged` gains a second role: query
+  anchors, not just always-include records.** Scoring the corpus
+  against a `terms`-derived question string hit a real limit: short,
+  ambiguous strings ("CRP") pull in whatever a large biomedical corpus
+  associates with that string's *dominant* meaning, and rewording the
+  question text to spell out the intended meaning made it *worse* (see
+  below) rather than fixing it. Scoring against a flagged paper's own
+  embedding instead — paper-to-paper similarity, not text-to-paper —
+  sidestepped the ambiguity entirely and produced a decisively cleaner
+  candidate set, because the paper's actual content carries no register
+  for the wrong meaning to begin with. **This is a researcher's judgment
+  entering retrieval directly, without the lossy step of describing what
+  they want in words** — `flagged`'s justification note is *why* it's a
+  good anchor; the paper *is* the anchor. Out of scope still: `flagged`
+  papers are not additionally acquired by A2 (per the paragraph above,
+  unchanged). In scope now: `flagged` papers (and other known-relevant
+  seeds — a researcher-cited paper works the same way) can be **used as
+  scoring anchors** for `active_questions`/`frontier` attribution, as an
+  alternative or supplement to embedding the question's own text.
+  **Tested same day, and the fix isn't "combine more seeds":** ran
+  mean/union/intersection across all 6 available seeds (5 flagged +
+  Lents' citation) predicting mean would be cleanest — instead all
+  three combination methods drifted toward a broader "synthetic gene-
+  circuit engineering" theme, off the question's specific target,
+  because only 1 of the 6 seeds was actually about this question;
+  the other 5 are flagged for GLMP's programme generally. **Seed
+  selection has to be per-question**, using only seeds relevant to
+  that specific question — sometimes just one, which is a property of
+  a well-scoped question, not a shortfall. `flagged` papers are
+  project-level judgments, not pre-tagged to a specific
+  `active_questions`/`frontier` entry, so treating the whole list as
+  one combined anchor set dilutes whichever seed was actually on-topic.
+  Whether mean/union/intersection differ *given a correctly-scoped seed
+  set* is still untested and still #36's business — this only rules out
+  "combine everything flagged."
 - **`mute`** — a negative filter. Topics that might keyword-match but
   aren't wanted (GLMP: "CRISPR clinical trials"; ATAP: "cryptocurrency",
   "quantum supremacy claims"). Exclude these from acquisition outright.
   This one *is* A2's scope — a scout ranking/filtering decision, not a
   researcher-citation.
+  **Limit, found 2026-08-08:** `mute` excludes a known-irrelevant
+  *topic*; it does not correct a query that's matching on the wrong
+  *dimension*. Tested directly: muting the specific contaminating
+  cluster a mis-scoped question pulled in (C-reactive protein, for a
+  question meaning cAMP receptor protein) removed that cluster and
+  immediately exposed a different one underneath (generic protein-
+  benchmark/biomarker papers) — same underlying cause, different
+  symptom. If a dimension is producing off-target hits because the
+  scoring text itself is ambiguous or too generic, the fix is a better
+  anchor (see `flagged` above) or better question wording, not a longer
+  `mute` list chasing each new cluster mute reveals.
 - **`frontier`** — drives acquisition, same as `active_questions` (see
   above) — not informational-only, despite reading like framing prose at a
   glance. Its own `terms` field exists for exactly this reason.
