@@ -504,7 +504,12 @@ def main() -> int:
         "cited_by": args.cited_by,
         "cited_date": args.cited_date,
         "cited_context": args.cited_context,
-        "cited_project": args.cited_project,
+        # Lowercased at the source, not left to whatever casing the operator
+        # typed on the command line -- found 2026-08-08 as a 33-vs-4 GLMP/glmp
+        # split (ATAP's own invocations happened to stay consistently
+        # lowercase, GLMP's didn't), which silently splits any future
+        # group-by on this field.
+        "cited_project": args.cited_project.lower() if args.cited_project else args.cited_project,
     }
 
     kind, value = classify(args.input, args.id_type)
