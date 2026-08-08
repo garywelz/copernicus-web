@@ -1,6 +1,21 @@
 # Knowledge Map Filtering - Backend Support Required
 
-## Current Status
+**STALE — dated 2026-08-08, not deleted so the history stays visible.**
+Everything below was true when written but is not true of current `main`:
+the `/api/knowledge-map/graph` endpoint (`endpoints/knowledge_map/routes.py`)
+declares all six filter parameters (`content_types`, `disciplines`,
+`sources`, `date_start`, `date_end`, `keyword`) and passes them to
+`KnowledgeMapService.build_graph()`, which uses them — in-memory filtering
+plus a vector-seeded path when `keyword` is set
+(`services/knowledge_map_service.py:758`). Caught 2026-08-06/07 while
+scoping a project-oriented-attribution design note; see
+`glmp/docs/GLMP_MASTER_TODO.md` item 51/52. The remaining real gap is
+narrower than this note describes: filtering exists on library dimensions
+(discipline, source, date, keyword) but not on "which of a project's
+declared questions does this serve" — a dimension the data doesn't carry
+yet for most of the corpus.
+
+## Current Status (as of the original write-up below — superseded)
 
 The Knowledge Map frontend UI has been enhanced with comprehensive filtering options:
 - Content type selection (Papers, Processes, Videos, Podcasts)
