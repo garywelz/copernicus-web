@@ -138,6 +138,41 @@ open question, resolved the same day A2 was filed — see
   Whether mean/union/intersection differ *given a correctly-scoped seed
   set* is still untested and still #36's business — this only rules out
   "combine everything flagged."
+  **Schema gap this exposed, and the fix, decided 2026-08-08:** neither
+  `flagged` nor `active_questions`/`frontier` had anywhere to record
+  *which question a seed anchors* — `flagged` entries carry only `id`
+  and `note`, no question association, which is exactly why all 6 got
+  combined indiscriminately above. Two ways to close it: a `questions`
+  back-reference on each `flagged` entry, or a `seeds` list on each
+  `active_questions`/`frontier` entry. **Chose the second.** The first
+  needs something stable to reference, and `active_questions` entries
+  have no ID — only free-text `q` — so a back-reference would have to
+  match question text verbatim and silently break on any rewording
+  (which happened to this very question, this same session). A `seeds`
+  list living inside the question object needs no cross-reference at
+  all, and it reads the way the file is actually consumed — one object
+  per question carries its own text, terms, *and* anchors, and the
+  scoring pass reads one object. Added to `research_focus.json`:
+  `active_questions[0].seeds` and `frontier[0].seeds`, populated only
+  with the two evidence-justified papers from this session's own
+  testing (`pubmed_35648826`, explicitly noted as a direct CRP seed;
+  Lents' citation, item 43's original test case, historically tied to
+  "the cAMP-CRP question Lents was working"). Not bulk-populated from
+  the rest of `flagged` — that's the mistake this whole test surfaced.
+  A paper can be both a project-level `flagged` entry and a
+  question-level `seeds` entry (or a `seeds` entry without being
+  `flagged` at all, as Lents' citation is) — the two fields serve
+  different roles and neither implies the other.
+  **Consequence, not a blocker:** active-question-1 now has exactly 2
+  seeds, still short of a meaningful test of mean-vs-union-vs-
+  intersection (that needs a seed set large enough for the methods to
+  actually diverge). **The growth path is already built, not
+  hypothetical:** every paper a researcher cites through #43 while
+  working a specific question is a candidate seed for that question,
+  with the justification already captured in `cited_context`. Closing
+  that loop — #43 recording *which question* a citation was made
+  for, so it can feed straight into that question's `seeds` — is real
+  future work, not built here, and not guessed at either.
 - **`mute`** — a negative filter. Topics that might keyword-match but
   aren't wanted (GLMP: "CRISPR clinical trials"; ATAP: "cryptocurrency",
   "quantum supremacy claims"). Exclude these from acquisition outright.
