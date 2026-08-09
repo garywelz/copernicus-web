@@ -16,6 +16,7 @@ import re
 from google.cloud import firestore
 from google.cloud.firestore_v1.vector import Vector
 from google.cloud.firestore_v1.base_vector_query import DistanceMeasure
+from google.cloud.firestore_v1.base_query import FieldFilter
 
 from services.embedding_service import get_embedding_service
 from mcp_server.config import GCP_PROJECT_ID
@@ -100,6 +101,18 @@ def _question_matches(paper_data: Dict[str, Any], question: Optional[str]) -> bo
     if cited_q and str(cited_q).strip().lower() == q_norm:
         return True
     return False
+
+
+def _cosine_similarity(a: List[float], b: List[float]) -> float:
+    """Plain-Python cosine similarity for in-memory reranking within a small,
+    already question-scoped candidate set (GLMP_MASTER_TODO.md item 53's
+    over-fetch fix) -- no numpy dependency needed at these set sizes."""
+    dot = sum(x * y for x, y in zip(a, b))
+    norm_a = sum(x * x for x in a) ** 0.5
+    norm_b = sum(y * y for y in b) ** 0.5
+    if norm_a == 0.0 or norm_b == 0.0:
+        return 0.0
+    return dot / (norm_a * norm_b)
 
 
 def _tokenize_text(text: str) -> List[str]:
@@ -276,6 +289,55 @@ class KnowledgeMapService:
             embedding_service = get_embedding_service()
             query_embedding = embedding_service.embed_text(keyword)
             papers_ref = self.db.collection('research_papers')
+
+            if question:
+                # Search directly within the question-scoped candidate set rather
+                # than over-fetching a global top-K by raw keyword similarity and
+                # filtering in Python -- same fix and same root cause as
+                # vector_search.py's search_semantic() (GLMP_MASTER_TODO.md item
+                # 53): a fixed seed_limit here never even scaled up for a question
+                # scope, so a legitimately-attributed paper could miss the
+                # candidate pool entirely if it didn't also rank well by raw
+                # literal-keyword similarity.
+                scoped_docs = papers_ref.where(
+                    filter=FieldFilter('question_scope_ids', 'array_contains', question)
+                ).stream()
+
+                scored: List[Tuple[float, Dict[str, Any]]] = []
+                for doc in scoped_docs:
+                    paper_data = doc.to_dict()
+                    embedding = paper_data.get('embedding')
+                    if embedding is None:
+                        continue
+                    similarity = _cosine_similarity(query_embedding, list(embedding))
+                    if (1.0 - similarity) > 0.85:
+                        continue
+                    paper_data['paper_id'] = doc.id
+                    paper_data.pop('embedding', None)
+                    if self._paper_passes_filters(
+                        paper_data,
+                        disciplines=disciplines,
+                        sources=sources,
+                        date_start=date_start,
+                        date_end=date_end,
+                        keyword=None,
+                        require_keyword_match=False,
+                        question=question,
+                    ):
+                        scored.append((similarity, paper_data))
+
+                scored.sort(key=lambda pair: pair[0], reverse=True)
+                papers = [p for _, p in scored[:max_papers]]
+
+                structured_logger.info(
+                    "Scoped vector keyword seed for knowledge map",
+                    keyword=keyword[:80],
+                    question=question,
+                    candidate_pool=len(scored),
+                    matched=len(papers),
+                )
+                return papers
+
             seed_limit = min(max(max_papers * 8, 40), 200)
             vector_query = papers_ref.find_nearest(
                 vector_field='embedding',

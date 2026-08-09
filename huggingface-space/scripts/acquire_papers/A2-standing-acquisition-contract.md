@@ -241,6 +241,22 @@ and thresholded within each question's own distribution, never pooled
 across questions.** This binds #36's scorer design, not just this
 run's one-off choice not to set a threshold at all.
 
+**Every write to `acquisition_matches` (or `cited_for_question`) must also
+merge the same question id into `question_scope_ids` — found 2026-08-09,
+`GLMP_MASTER_TODO.md` item 53's over-fetch fix.** `acquisition_matches` is
+an array of maps; Firestore cannot `array_contains`-query into it, so
+scoped retrieval (`search_semantic()`, `knowledge_map_service`'s
+`_seed_papers_by_vector`) depends on a flat, indexable mirror of exactly
+what's already attributed. This was backfilled once for every doc that
+had it missing (8,475 docs, 2026-08-09) — but a backfill is a snapshot,
+not a guarantee. Any future one-off scoring/write script (the pattern
+every question sweep so far has used) that adds an `acquisition_matches`
+entry without also `ArrayUnion`-merging into `question_scope_ids` quietly
+re-opens the exact bottleneck the backfill just closed for that one
+paper — a *silent* regression, since the paper still shows up correctly
+under `_question_matches()`'s Python-side check, just not under the
+Firestore-side one the fast retrieval path now depends on.
+
 ### 3. Route by domain, not by habit
 
 GLMP's sources (PubMed, bioRxiv/medRxiv) will not serve ATAP. Mathematics needs

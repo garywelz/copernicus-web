@@ -347,6 +347,23 @@ def _to_firestore_paper(paper: Dict[str, Any], filepath: Path) -> Dict[str, Any]
     if paper.get("acquisition_matches"):
         out["acquisition_matches"] = paper["acquisition_matches"]
 
+    # question_scope_ids: flat array mirror of acquisition_matches[].question +
+    # cited_for_question (GLMP_MASTER_TODO.md item 53, over-fetch fix,
+    # 2026-08-09). Firestore can't array-contains query into an array of maps,
+    # so scoped retrieval needs this flat field to find the candidate set
+    # directly instead of over-fetching a global top-K by raw similarity and
+    # filtering in Python -- keep it in sync at every future write path, not
+    # just the one-time backfill, or new attributions silently fall back into
+    # the same bottleneck the backfill just fixed.
+    scope_ids = set()
+    for m in (out.get("acquisition_matches") or []):
+        if isinstance(m, dict) and m.get("question"):
+            scope_ids.add(str(m["question"]))
+    if out.get("cited_for_question"):
+        scope_ids.add(str(out["cited_for_question"]))
+    if scope_ids:
+        out["question_scope_ids"] = sorted(scope_ids)
+
     # Remaining metadata_schema.json fields this allowlist never carried
     # through (found 2026-08-05 by diffing this function against the schema
     # after the provenance-drop catch above, then spot-checked against live

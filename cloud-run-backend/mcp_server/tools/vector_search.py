@@ -14,9 +14,9 @@ import os
 
 from google.cloud.firestore_v1.base_vector_query import DistanceMeasure
 from google.cloud.firestore_v1.vector import Vector
+from google.cloud.firestore_v1.base_query import FieldFilter
 from google.cloud.firestore_v1._helpers import DatetimeWithNanoseconds
 from services.embedding_service import get_embedding_service
-from services.knowledge_map_service import _question_matches
 from mcp_server.utils.firestore_client import get_firestore_client
 from mcp_server.config import (
     COLLECTION_PAPERS,
@@ -45,6 +45,19 @@ def _env_flag(name: str, default: str = "0") -> bool:
     return (os.getenv(name, default) or "").strip().lower() in {"1", "true", "yes", "y", "on"}
 
 VERTEX_AI_DISABLED = _env_flag("DISABLE_VERTEX_AI") or _env_flag("COPERNICUS_DISABLE_VERTEX_AI")
+
+
+def _cosine_similarity(a: List[float], b: List[float]) -> float:
+    """Plain-Python cosine similarity for in-memory reranking within a small,
+    already-scoped candidate set (GLMP_MASTER_TODO.md item 53's over-fetch
+    fix) -- no numpy dependency needed at these set sizes (hundreds to low
+    thousands of vectors)."""
+    dot = sum(x * y for x, y in zip(a, b))
+    norm_a = sum(x * x for x in a) ** 0.5
+    norm_b = sum(y * y for y in b) ** 0.5
+    if norm_a == 0.0 or norm_b == 0.0:
+        return 0.0
+    return dot / (norm_a * norm_b)
 
 
 def _serialize_firestore_value(value: Any) -> Any:
@@ -437,43 +450,71 @@ async def search_semantic(
             try:
                 papers_ref = db.collection(COLLECTION_PAPERS)
 
-                # Firestore's find_nearest can't filter on acquisition_matches
-                # (an array of maps) directly, so when a question scope is
-                # requested, over-fetch a wider candidate window and filter
-                # in Python -- same pattern as knowledge_map_service.py's
-                # in-memory filtering, since the underlying limitation is the
-                # same one (GLMP_MASTER_TODO.md item 53: the glmp-q5 write
-                # displaced a glmp-q1-relevant paper because nothing here
-                # could scope by question at retrieval time).
-                fetch_limit = min(limit * 10, MAX_QUERY_LIMIT) if question else limit
+                if question:
+                    # Search directly within the question-scoped candidate set
+                    # rather than over-fetching a global top-K by raw query-text
+                    # similarity and filtering in Python. The old over-fetch
+                    # pattern let a legitimately-attributed, well-ranked paper
+                    # be entirely absent from the pre-filter pool whenever it
+                    # didn't also rank well by literal text similarity to the
+                    # query -- confirmed severe (not cosmetic) in
+                    # GLMP_MASTER_TODO.md item 53: the glmp-q11 ChIP-seq paper
+                    # ranked 60th of 471 within its own scoped set but wasn't
+                    # in the top 80 of the global candidate pool, so it never
+                    # reached the filter at all. question_scope_ids is a flat
+                    # array field (backfilled from acquisition_matches[].question
+                    # + cited_for_question) that Firestore can array-contains
+                    # query directly, since it can't query into an array of maps.
+                    scoped_docs = papers_ref.where(
+                        filter=FieldFilter("question_scope_ids", "array_contains", question)
+                    ).stream()
 
-                # Use Firestore vector search (find_nearest)
-                # Note: This requires documents to have an 'embedding' field
-                vector_query = papers_ref.find_nearest(
-                    vector_field="embedding",
-                    query_vector=Vector(query_embedding),
-                    limit=fetch_limit,
-                    distance_measure=DistanceMeasure.COSINE,
-                    distance_threshold=distance_threshold
-                )
+                    scored: List[tuple] = []
+                    for doc in scoped_docs:
+                        paper_data = doc.to_dict()
+                        embedding = paper_data.get("embedding")
+                        if embedding is None:
+                            continue
+                        similarity = _cosine_similarity(query_embedding, list(embedding))
+                        if (1.0 - similarity) > distance_threshold:
+                            continue
+                        paper_data["paper_id"] = doc.id
+                        paper_data["similarity_score"] = similarity
+                        paper_data.pop("embedding", None)
+                        paper_data = _serialize_firestore_value(paper_data)
+                        scored.append((similarity, paper_data))
 
-                paper_docs = vector_query.stream()
+                    scored.sort(key=lambda pair: pair[0], reverse=True)
+                    results["papers"] = [p for _, p in scored[:limit]]
 
-                for doc in paper_docs:
-                    paper_data = doc.to_dict()
-                    if question and not _question_matches(paper_data, question):
-                        continue
-                    paper_data["paper_id"] = doc.id
-                    paper_data["similarity_score"] = 1.0 - paper_data.get("distance", 1.0)
-                    # Remove embedding from response (too large)
-                    paper_data.pop("embedding", None)
-                    # Convert Firestore types to JSON-serializable
-                    paper_data = _serialize_firestore_value(paper_data)
-                    results["papers"].append(paper_data)
-                    if len(results["papers"]) >= limit:
-                        break
+                    logger.info(
+                        f"Found {len(results['papers'])} papers via scoped search "
+                        f"(question={question}, candidate_pool={len(scored)})"
+                    )
+                else:
+                    # Use Firestore vector search (find_nearest)
+                    # Note: This requires documents to have an 'embedding' field
+                    vector_query = papers_ref.find_nearest(
+                        vector_field="embedding",
+                        query_vector=Vector(query_embedding),
+                        limit=limit,
+                        distance_measure=DistanceMeasure.COSINE,
+                        distance_threshold=distance_threshold
+                    )
 
-                logger.info(f"Found {len(results['papers'])} papers via vector search")
+                    paper_docs = vector_query.stream()
+
+                    for doc in paper_docs:
+                        paper_data = doc.to_dict()
+                        paper_data["paper_id"] = doc.id
+                        paper_data["similarity_score"] = 1.0 - paper_data.get("distance", 1.0)
+                        # Remove embedding from response (too large)
+                        paper_data.pop("embedding", None)
+                        # Convert Firestore types to JSON-serializable
+                        paper_data = _serialize_firestore_value(paper_data)
+                        results["papers"].append(paper_data)
+
+                    logger.info(f"Found {len(results['papers'])} papers via vector search")
                 
             except Exception as e:
                 logger.warning(f"Vector search for papers failed, may not have embeddings: {e}")

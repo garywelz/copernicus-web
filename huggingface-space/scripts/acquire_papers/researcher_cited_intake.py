@@ -367,6 +367,15 @@ def merge_citation_onto_firestore_doc(doc_id: str, cited_record: Dict[str, Any],
         if f in merged:
             update_fields[f] = merged[f]
 
+    # question_scope_ids: flat array mirror kept in sync at every write path
+    # (GLMP_MASTER_TODO.md item 53, over-fetch fix, 2026-08-09) -- this is an
+    # update() onto a doc that may already carry its own acquisition_matches-
+    # derived scope ids, so ArrayUnion rather than overwrite, and only touched
+    # when this citation actually adds a question.
+    cited_for_question = merged.get("cited_for_question")
+    if cited_for_question:
+        update_fields["question_scope_ids"] = firestore.ArrayUnion([str(cited_for_question)])
+
     if write:
         doc_ref.update(update_fields)
 
