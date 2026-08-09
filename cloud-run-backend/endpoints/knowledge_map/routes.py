@@ -34,7 +34,8 @@ async def get_knowledge_graph(
     sources: Optional[str] = Query(None, description="Comma-separated sources: pubmed,arxiv,nasa_ads,crossref,youtube,rss"),
     date_start: Optional[str] = Query(None, description="Start date (YYYY-MM-DD)"),
     date_end: Optional[str] = Query(None, description="End date (YYYY-MM-DD)"),
-    keyword: Optional[str] = Query(None, description="Keyword search in title/abstract")
+    keyword: Optional[str] = Query(None, description="Keyword search in title/abstract"),
+    question: Optional[str] = Query(None, description="Scope to a declared question/frontier id, e.g. 'glmp-q1' (GLMP_MASTER_TODO.md item 53)")
 ):
     """
     Get the full knowledge graph.
@@ -57,7 +58,8 @@ async def get_knowledge_graph(
             sources_list,
             date_start,
             date_end,
-            keyword
+            keyword,
+            question
         ])
         
         # Always clear cache and rebuild when filters are present or force_rebuild is True
@@ -72,7 +74,8 @@ async def get_knowledge_graph(
                                      'sources': sources_list,
                                      'date_start': date_start,
                                      'date_end': date_end,
-                                     'keyword': keyword
+                                     'keyword': keyword,
+                                     'question': question
                                  })
             service.clear_cache()
         elif service.nodes and len(service.nodes) > 0:
@@ -116,7 +119,8 @@ async def get_knowledge_graph(
             sources=sources_list,
             date_start=date_start,
             date_end=date_end,
-            keyword=keyword
+            keyword=keyword,
+            question=question
         )
         
         if format == "raw":

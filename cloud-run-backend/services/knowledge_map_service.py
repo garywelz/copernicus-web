@@ -77,6 +77,31 @@ def _sources_match(paper_sources: Any, requested: List[str]) -> bool:
     return False
 
 
+def _question_matches(paper_data: Dict[str, Any], question: Optional[str]) -> bool:
+    """Question-scoped filtering (GLMP_MASTER_TODO.md item 53): a paper matches
+    a declared question if it was attributed there by a scoring sweep
+    (`acquisition_matches[].question`, item 51/52's shape) or flagged there by
+    a researcher citation (`cited_for_question`, item 43/#52's shape). Added
+    after a concrete displacement was measured -- a glmp-q5 sweep's volume
+    outranked a glmp-q1-relevant paper for a glmp-q1 query, corpus-wide
+    similarity alone. This filter is what makes a per-question view possible
+    without waiting on the full project-oriented-navigation UI."""
+    if not question:
+        return True
+    q_norm = question.strip().lower()
+    if not q_norm:
+        return True
+    matches = paper_data.get('acquisition_matches')
+    if isinstance(matches, list):
+        for m in matches:
+            if isinstance(m, dict) and str(m.get('question', '')).strip().lower() == q_norm:
+                return True
+    cited_q = paper_data.get('cited_for_question')
+    if cited_q and str(cited_q).strip().lower() == q_norm:
+        return True
+    return False
+
+
 def _tokenize_text(text: str) -> List[str]:
     tokens = [t for t in re.split(r"[^a-zA-Z0-9]+", (text or "").lower()) if t]
     out: List[str] = []
@@ -222,6 +247,7 @@ class KnowledgeMapService:
         date_end: Optional[str] = None,
         keyword: Optional[str] = None,
         require_keyword_match: bool = True,
+        question: Optional[str] = None,
     ) -> bool:
         if disciplines and not _discipline_matches(paper_data.get('discipline'), disciplines):
             return False
@@ -230,6 +256,8 @@ class KnowledgeMapService:
         if not self._paper_passes_date_filters(paper_data, date_start, date_end):
             return False
         if keyword and require_keyword_match and not self._paper_passes_keyword_filter(paper_data, keyword):
+            return False
+        if question and not _question_matches(paper_data, question):
             return False
         return True
 
@@ -241,6 +269,7 @@ class KnowledgeMapService:
         sources: Optional[List[str]] = None,
         date_start: Optional[str] = None,
         date_end: Optional[str] = None,
+        question: Optional[str] = None,
     ) -> List[Dict[str, Any]]:
         """Fast path: semantic search seed instead of scanning thousands of Firestore docs."""
         try:
@@ -269,6 +298,7 @@ class KnowledgeMapService:
                     date_end=date_end,
                     keyword=None,
                     require_keyword_match=False,
+                    question=question,
                 ):
                     papers.append(paper_data)
                 if len(papers) >= max_papers:
@@ -770,11 +800,12 @@ Only return the JSON array, no other text."""
         sources: Optional[List[str]] = None,
         date_start: Optional[str] = None,
         date_end: Optional[str] = None,
-        keyword: Optional[str] = None
+        keyword: Optional[str] = None,
+        question: Optional[str] = None
     ) -> Dict[str, Any]:
         """
         Build the knowledge graph from papers in Firestore.
-        
+
         Args:
             max_papers: Maximum number of papers to include (None for all)
             include_concepts: Extract and include concept nodes
@@ -790,18 +821,21 @@ Only return the JSON array, no other text."""
             date_start: Start date filter (YYYY-MM-DD)
             date_end: End date filter (YYYY-MM-DD)
             keyword: Keyword search in title/abstract
-        
+            question: Scope to a declared question/frontier id (e.g. 'glmp-q1') --
+                matches `acquisition_matches[].question` or `cited_for_question`
+
         Returns:
             Dictionary with nodes and edges
         """
-        structured_logger.info("Building knowledge graph", 
+        structured_logger.info("Building knowledge graph",
                              max_papers=max_papers,
                              content_types=content_types,
                              disciplines=disciplines,
                              sources=sources,
                              date_start=date_start,
                              date_end=date_end,
-                             keyword=keyword)
+                             keyword=keyword,
+                             question=question)
         
         # Fetch papers from Firestore
         # Note: To avoid composite index requirements, we fetch first and filter in memory.
@@ -814,7 +848,7 @@ Only return the JSON array, no other text."""
         single_source_filter = False
 
         target_count = max_papers or 10
-        has_filters = any([disciplines, sources, date_start, date_end, keyword])
+        has_filters = any([disciplines, sources, date_start, date_end, keyword, question])
 
         papers: List[Dict[str, Any]] = []
         if keyword and keyword.strip():
@@ -825,6 +859,7 @@ Only return the JSON array, no other text."""
                 sources=sources,
                 date_start=date_start,
                 date_end=date_end,
+                question=question,
             )
 
         # Heuristic: when filters are present, sample a larger window — unless vector seed
@@ -916,6 +951,7 @@ Only return the JSON array, no other text."""
                 date_start=date_start,
                 date_end=date_end,
                 keyword=keyword,
+                question=question,
             ):
                 continue
 

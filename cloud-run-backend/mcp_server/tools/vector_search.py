@@ -16,6 +16,7 @@ from google.cloud.firestore_v1.base_vector_query import DistanceMeasure
 from google.cloud.firestore_v1.vector import Vector
 from google.cloud.firestore_v1._helpers import DatetimeWithNanoseconds
 from services.embedding_service import get_embedding_service
+from services.knowledge_map_service import _question_matches
 from mcp_server.utils.firestore_client import get_firestore_client
 from mcp_server.config import (
     COLLECTION_PAPERS,
@@ -343,7 +344,8 @@ async def search_semantic(
     query: str,
     content_types: Optional[List[str]] = None,
     limit: int = DEFAULT_QUERY_LIMIT,
-    distance_threshold: float = 0.7
+    distance_threshold: float = 0.7,
+    question: Optional[str] = None
 ) -> str:
     """
     Semantic search across all content using vector embeddings.
@@ -358,7 +360,11 @@ async def search_semantic(
         limit: Maximum results per content type (default: 10, max: 100)
         distance_threshold: Maximum distance for similarity (0.0-1.0, lower = more similar)
                            Default: 0.7 (allows some flexibility)
-    
+        question: Scope papers to a declared question/frontier id (e.g. 'glmp-q1') --
+                  matches acquisition_matches[].question or cited_for_question
+                  (GLMP_MASTER_TODO.md item 53). Papers-only; other content types
+                  are unaffected since this field doesn't exist on them yet.
+
     Returns:
         JSON string with semantically similar content from all specified types
     """
@@ -430,21 +436,33 @@ async def search_semantic(
         if "papers" in content_types:
             try:
                 papers_ref = db.collection(COLLECTION_PAPERS)
-                
+
+                # Firestore's find_nearest can't filter on acquisition_matches
+                # (an array of maps) directly, so when a question scope is
+                # requested, over-fetch a wider candidate window and filter
+                # in Python -- same pattern as knowledge_map_service.py's
+                # in-memory filtering, since the underlying limitation is the
+                # same one (GLMP_MASTER_TODO.md item 53: the glmp-q5 write
+                # displaced a glmp-q1-relevant paper because nothing here
+                # could scope by question at retrieval time).
+                fetch_limit = min(limit * 10, MAX_QUERY_LIMIT) if question else limit
+
                 # Use Firestore vector search (find_nearest)
                 # Note: This requires documents to have an 'embedding' field
                 vector_query = papers_ref.find_nearest(
                     vector_field="embedding",
                     query_vector=Vector(query_embedding),
-                    limit=limit,
+                    limit=fetch_limit,
                     distance_measure=DistanceMeasure.COSINE,
                     distance_threshold=distance_threshold
                 )
-                
+
                 paper_docs = vector_query.stream()
-                
+
                 for doc in paper_docs:
                     paper_data = doc.to_dict()
+                    if question and not _question_matches(paper_data, question):
+                        continue
                     paper_data["paper_id"] = doc.id
                     paper_data["similarity_score"] = 1.0 - paper_data.get("distance", 1.0)
                     # Remove embedding from response (too large)
@@ -452,7 +470,9 @@ async def search_semantic(
                     # Convert Firestore types to JSON-serializable
                     paper_data = _serialize_firestore_value(paper_data)
                     results["papers"].append(paper_data)
-                
+                    if len(results["papers"]) >= limit:
+                        break
+
                 logger.info(f"Found {len(results['papers'])} papers via vector search")
                 
             except Exception as e:

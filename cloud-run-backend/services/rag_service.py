@@ -246,16 +246,23 @@ class RAGService:
         include_sources: bool = True,
         mode: str = "general",
         focus_id: Optional[str] = None,
+        question_scope: Optional[str] = None,
     ) -> Dict[str, Any]:
         """
         Answer a question using RAG (Retrieval-Augmented Generation).
-        
+
         Args:
             question: User's question
             max_context_items: Maximum number of retrieved items to use as context
             content_types: Types of content to search (default: all)
             include_sources: Whether to include source citations
-        
+            question_scope: Scope paper retrieval to a declared question/frontier
+                id (e.g. 'glmp-q1') -- matches acquisition_matches[].question or
+                cited_for_question (GLMP_MASTER_TODO.md item 53). Named
+                `question_scope` rather than reusing `question` to avoid
+                colliding with the user's actual question text, this
+                parameter's neighbor.
+
         Returns:
             Dictionary with answer, citations, sources, and metadata
         """
@@ -286,6 +293,7 @@ class RAGService:
                 content_types=content_types,
                 limit=max_context_items,
                 distance_threshold=0.8,  # Slightly more lenient for RAG
+                question=question_scope,
             )
 
             search_data = json.loads(search_result)

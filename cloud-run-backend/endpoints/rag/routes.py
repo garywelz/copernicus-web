@@ -29,6 +29,10 @@ async def answer_question(
         None,
         description="Optional focus identifier (e.g., paper_id or concept name/id) for explanation modes"
     ),
+    question_scope: Optional[str] = Query(
+        None,
+        description="Scope paper retrieval to a declared question/frontier id, e.g. 'glmp-q1' (GLMP_MASTER_TODO.md item 53)"
+    ),
 ):
     """
     Answer a question using RAG (Retrieval-Augmented Generation).
@@ -52,6 +56,7 @@ async def answer_question(
             include_sources=True,
             mode=mode,
             focus_id=focus_id,
+            question_scope=question_scope,
         )
         
         # Format response for frontend
