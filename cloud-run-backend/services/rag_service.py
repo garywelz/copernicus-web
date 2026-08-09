@@ -531,6 +531,7 @@ class RAGService:
                         "generated_at": datetime.utcnow().isoformat(),
                         "retrieval_method": retrieval_method,
                         "context_items_used": len(sources),
+                        "question_scope_skipped_content_types": search_data.get("question_scope_skipped_content_types", []),
                     },
                 }
             
@@ -544,7 +545,8 @@ class RAGService:
                     "metadata": {
                         "context_items_used": 0,
                         "retrieval_method": retrieval_method,
-                        "model": self.model_name
+                        "model": self.model_name,
+                        "question_scope_skipped_content_types": search_data.get("question_scope_skipped_content_types", []),
                     }
                 }
             
@@ -584,7 +586,8 @@ Answer (with citations):"""
                     "retrieval_method": retrieval_method,
                     "model": self.model_name,
                     "llm_provider": self.llm_provider,
-                    "generated_at": datetime.utcnow().isoformat()
+                    "generated_at": datetime.utcnow().isoformat(),
+                    "question_scope_skipped_content_types": search_data.get("question_scope_skipped_content_types", []),
                 }
             }
             

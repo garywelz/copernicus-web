@@ -374,9 +374,14 @@ async def search_semantic(
         distance_threshold: Maximum distance for similarity (0.0-1.0, lower = more similar)
                            Default: 0.7 (allows some flexibility)
         question: Scope papers to a declared question/frontier id (e.g. 'glmp-q1') --
-                  matches acquisition_matches[].question or cited_for_question
-                  (GLMP_MASTER_TODO.md item 53). Papers-only; other content types
-                  are unaffected since this field doesn't exist on them yet.
+                  matches acquisition_matches[].question, cited_for_question, or
+                  question_scope_ids (GLMP_MASTER_TODO.md item 53). Only "papers"
+                  has this data model. When set, any other requested content type
+                  is skipped rather than returned unscoped -- an early version of
+                  this let unrelated podcast/explainer results crowd a "scoped"
+                  citation list, since nothing there could have matched the scope
+                  either way. Skipped types are reported back in
+                  `question_scope_skipped_content_types`, not silently dropped.
 
     Returns:
         JSON string with semantically similar content from all specified types
@@ -384,14 +389,31 @@ async def search_semantic(
     try:
         # Validate limit
         limit = min(max(1, limit), MAX_QUERY_LIMIT)
-        
+
         # Default to all content types if not specified
         if not content_types:
             content_types = [
                 "papers", "podcasts", "glmp", "math", "chemistry",
                 "physics", "computer_science", "biology",
             ]
-        
+
+        # A question scope only has a data model on papers (acquisition_matches /
+        # cited_for_question / question_scope_ids) -- GLMP_MASTER_TODO.md item 53.
+        # Searching any other content type while scoped would silently return
+        # unscoped raw-similarity results indistinguishable from scoped ones,
+        # which is exactly how unrelated podcast titles crowded a glmp-q11-scoped
+        # RAG answer before this was traced through. Skip those types explicitly
+        # and say so, rather than let them through quietly.
+        question_scope_skipped_content_types: List[str] = []
+        if question:
+            question_scope_skipped_content_types = [ct for ct in content_types if ct != "papers"]
+            if question_scope_skipped_content_types:
+                logger.info(
+                    f"question={question!r} scoped; skipping content types with no "
+                    f"question-scoping data model: {question_scope_skipped_content_types}"
+                )
+                content_types = [ct for ct in content_types if ct == "papers"]
+
         # Initialize services
         db = get_firestore_client()
 
@@ -407,6 +429,7 @@ async def search_semantic(
         results = {
             "query": query,
             "content_types_searched": content_types,
+            "question_scope_skipped_content_types": question_scope_skipped_content_types,
             "papers": [],
             "podcasts": [],
             "glmp_processes": [],
