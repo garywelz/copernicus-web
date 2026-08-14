@@ -37,11 +37,18 @@ def main() -> int:
 
     client = storage.Client.from_service_account_json(str(args.sa_key))
     blob = client.bucket(args.bucket).blob(args.blob)
+    # Status JSON is live-fetched by the glmp Space page (cache: 'no-store'
+    # on the client). That does not bypass GCS's own Cache-Control — a
+    # 1-hour public max-age left the 2026-08-14 papers_by_discipline
+    # restore invisible to the page after a successful upload.
+    blob.cache_control = "public, max-age=60, must-revalidate"
     blob.upload_from_filename(str(args.local), content_type="application/json")
     blob.acl.all().grant_read()
     blob.acl.save()
+    blob.reload()
 
     print(f"✅ Uploaded gs://{args.bucket}/{args.blob} (public read)")
+    print(f"   updated: {blob.updated}  size: {blob.size}  cache: {blob.cache_control}")
     return 0
 
 

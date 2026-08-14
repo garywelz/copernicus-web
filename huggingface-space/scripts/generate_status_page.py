@@ -29,12 +29,14 @@ VIDEOS_METADATA_URL = f"{GCS_STATUS_BASE}/videos-metadata.json"
 # set. This is a fallback of last resort, not a source of truth -- it will go
 # stale again if left here long enough, same as the "753" it replaces did.
 VIDEOS_COUNT_FALLBACK = 582
-# Last-known-good discipline paper counts (Firestore count aggregation,
-# verified 2026-08-03), used only if a live Firestore query isn't available
-# in the environment this script runs in.
+# Last-known-good discipline paper counts (public browse API,
+# verified 2026-08-14), used only if both the API and a direct Firestore
+# query fail. 29,184/17,153 were the 2026-08-03 figures; leaving those
+# in place would republish the exact stale number the glmp Space page
+# currently falls back to.
 DISCIPLINE_PAPERS_FALLBACK = {
-    "biology": 29184,
-    "mathematics": 17153,
+    "biology": 80138,
+    "mathematics": 18321,
 }
 PROCESS_DATABASE_METADATA: tuple[tuple[str, str], ...] = (
     ("glmp_v2", f"{GCS_STATUS_BASE}/glmp-v2/metadata.json"),
@@ -55,8 +57,15 @@ TARGETS = {
 }
 
 
-def _fetch_browse_total(api_base: str, content_type: str) -> int:
-    url = f"{api_base.rstrip('/')}/api/content/browse?content_type={content_type}&page=1&limit=1"
+def _fetch_browse_total(
+    api_base: str, content_type: str, discipline: Optional[str] = None
+) -> int:
+    url = (
+        f"{api_base.rstrip('/')}/api/content/browse"
+        f"?content_type={content_type}&page=1&limit=1"
+    )
+    if discipline:
+        url += f"&discipline={discipline}"
     req = Request(url, headers={"Accept": "application/json"})
     ctx = ssl.create_default_context()
     with urlopen(req, timeout=60, context=ctx) as resp:
@@ -137,29 +146,58 @@ def _resolve_video_count() -> tuple[int, Optional[str]]:
 
 
 def fetch_papers_by_discipline(
+    api_base: str,
     disciplines: tuple[str, ...] = ("biology", "mathematics"),
 ) -> tuple[Dict[str, int], Optional[str]]:
     """
-    Live count of research_papers per discipline via Firestore count
-    aggregation (cheap -- doesn't read full documents). Falls back to
-    last-known-good values if Firestore isn't importable/reachable from
-    wherever this script runs (e.g. a cron venv without the package).
+    Live count of research_papers per discipline.
+
+    Prefer the public browse API (same path as paper totals) so this works
+    from a cron venv that has no google-cloud-firestore. Fall back to a
+    direct Firestore count, then to last-known-good values. Always returns
+    a complete dict so the published JSON cannot silently omit the field
+    the glmp Space page reads.
     """
+    counts: Dict[str, int] = {}
+    api_errors: list[str] = []
+    for disc in disciplines:
+        try:
+            counts[disc] = _fetch_browse_total(api_base, "papers", discipline=disc)
+        except (HTTPError, URLError, json.JSONDecodeError, TimeoutError, OSError, TypeError, ValueError) as e:
+            api_errors.append(f"{disc}: {e!s}")
+    if len(counts) == len(disciplines):
+        return counts, None
+
+    firestore_note: Optional[str] = None
+    missing = [d for d in disciplines if d not in counts]
     try:
         from google.cloud import firestore
         from google.cloud.firestore_v1.base_query import FieldFilter
     except ImportError as e:
-        return dict(DISCIPLINE_PAPERS_FALLBACK), f"google-cloud-firestore not importable ({e}); used fallback."
-    try:
-        gcp_project_id = os.environ.get("GCP_PROJECT_ID", "regal-scholar-453620-r7")
-        db = firestore.Client(project=gcp_project_id, database="copernicusai")
-        counts: Dict[str, int] = {}
-        for disc in disciplines:
-            q = db.collection("research_papers").where(filter=FieldFilter("discipline", "==", disc))
-            counts[disc] = int(q.count().get()[0][0].value)
-        return counts, None
-    except Exception as e:
-        return dict(DISCIPLINE_PAPERS_FALLBACK), f"Firestore discipline count failed ({e}); used fallback."
+        firestore_note = f"google-cloud-firestore not importable ({e})"
+    else:
+        try:
+            gcp_project_id = os.environ.get("GCP_PROJECT_ID", "regal-scholar-453620-r7")
+            db = firestore.Client(project=gcp_project_id, database="copernicusai")
+            for disc in missing:
+                q = db.collection("research_papers").where(filter=FieldFilter("discipline", "==", disc))
+                counts[disc] = int(q.count().get()[0][0].value)
+            missing = [d for d in disciplines if d not in counts]
+        except Exception as e:
+            firestore_note = f"Firestore discipline count failed ({e})"
+
+    used_fallback = []
+    for disc in missing:
+        counts[disc] = DISCIPLINE_PAPERS_FALLBACK[disc]
+        used_fallback.append(disc)
+    parts = []
+    if api_errors:
+        parts.append("browse API failed (" + "; ".join(api_errors) + ")")
+    if firestore_note:
+        parts.append(firestore_note)
+    if used_fallback:
+        parts.append(f"used fallback for {', '.join(used_fallback)}")
+    return counts, "; ".join(parts) if parts else None
 
 
 def _fetch_content_stats(api_base: str) -> Optional[Dict[str, Any]]:
@@ -231,10 +269,15 @@ def build_status(
             "videos": videos_doc if not videos_note else f"{videos_doc} {videos_note}",
         },
     }
-    if papers_by_discipline:
+    if papers_by_discipline is not None:
         out["papers_by_discipline"] = papers_by_discipline
-        disc_doc = "Firestore research_papers count aggregation, per discipline (biology, mathematics)."
-        out["notes"]["papers_by_discipline"] = disc_doc if not papers_by_discipline_note else f"{disc_doc} {papers_by_discipline_note}"
+        disc_doc = (
+            "From Cloud Run /api/content/browse?discipline=… (same count "
+            "aggregation as papers); Firestore count is the fallback."
+        )
+        out["notes"]["papers_by_discipline"] = (
+            disc_doc if not papers_by_discipline_note else f"{disc_doc} {papers_by_discipline_note}"
+        )
     if content_stats:
         pwe = content_stats.get("papers_with_embedding")
         if pwe is not None:
@@ -339,7 +382,7 @@ def main() -> int:
         if process_databases_error:
             print(f"⚠️  GCS process metadata: {process_databases_error}")
 
-    papers_by_discipline, papers_by_discipline_note = fetch_papers_by_discipline()
+    papers_by_discipline, papers_by_discipline_note = fetch_papers_by_discipline(args.api_base)
     if papers_by_discipline_note:
         print(f"⚠️  papers_by_discipline: {papers_by_discipline_note}")
 
@@ -369,6 +412,9 @@ def main() -> int:
         )
     if process_databases and "sum" in process_databases:
         print(f"   process_databases (GCS sum): {process_databases['sum']:,} " f"(see JSON for per-family breakdown)")
+    if papers_by_discipline:
+        parts = ", ".join(f"{k}={v:,}" for k, v in papers_by_discipline.items())
+        print(f"   papers_by_discipline: {parts}")
     return 0
 
 
