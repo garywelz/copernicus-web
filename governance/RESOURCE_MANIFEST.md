@@ -87,6 +87,12 @@ those papers in half.
 collection.** The collection is indexed to a researcher's programme, not to a
 subject heading. This is what distinguishes a Resource from a database.
 
+**Charts are a best current approximation, not a certified result.** A
+biologist review can make a GLMP chart better. It does not verify the
+chart the way a Lean proof verifies a theorem. Acquisition may record
+that a chart currently names a paper; it does not elect a canonical
+source. See A2 requirement 4 (restated 2026-08-15).
+
 **Bounded by relevance, not by volume.** The boundary is topical, not numeric.
 Within the fields the projects work in — molecular genetics and gene regulation
 for GLMP; logic, foundations, graph theory, and proof theory for ATAP — the
@@ -117,6 +123,16 @@ where a project says which adjacency it means.*
 - **Discipline as a filter.** A relevance judgment that rejects a paper for
   being mathematics when the reader is a biologist defeats the collection's
   purpose.
+- **Ungated bibliography ingest.** Pulling every reference from every
+  admitted paper is undirected volume in a new costume: one hop from a few
+  thousand papers is tens of thousands of candidates; a second hop is the
+  million-paper collection this scope statement exists to prevent. A stored
+  reference list is Map metadata, not an acquisition queue. Citation
+  expansion, when used, is one hop from named seed classes (chart sources,
+  flagged and researcher-cited papers, later a small attributed scout
+  slice), capped, never recursive, and is not a change to the daily scout
+  cron. See `huggingface-space/scripts/acquire_papers/A2-standing-acquisition-contract.md`
+  requirement 8 (decided 2026-08-15).
 
 **The measure:** coverage against what the projects declare they are working on,
 and against what a specialist would expect to find in the field. Both are

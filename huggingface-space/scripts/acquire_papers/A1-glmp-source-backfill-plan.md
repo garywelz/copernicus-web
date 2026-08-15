@@ -1,11 +1,16 @@
 # A1 — Backfill the GLMP source papers into the corpus
 
-**Drafted:** 2026-08-05 · **Status:** proposal, nothing executed.
-**Parent:** item #37 Part A · **Blocked, deliberately, until ~2026-09-01** —
-not on a resolver run someone could pick up, but on Prof. Lents' and Me-Me's
-biology review of item #25 (see "The gate" below, corrected 2026-08-05 —
-#25 was reworked hours after this plan was drafted and this section
-originally described the pre-rework version).
+**Drafted:** 2026-08-05 · **Status:** A1.0 resolve+ingest ran 2026-08-15.
+389 harvested; 323 written or merged into `research_papers` (98 new,
+225 already present and attributed); 66 still unresolved (Crossref miss
+and no usable PubMed record). Charts remain a best current
+approximation, not a certified result.
+**Parent:** item #37 Part A · **Was blocked until ~2026-09-01** on Prof.
+Lents' and Me-Me's biology review of item #25. Gary, 2026-08-15: do not
+wait on that calendar; order relative to the citation-expansion pilot
+does not matter. Charts are not "canonical" in any formal sense — a
+biologist review improves the approximation; it does not verify a chart
+the way a Lean proof verifies a theorem. See "What changed 2026-08-15".
 **Scope:** Engine Core — corpus, ingestion, retrieval
 
 *Filed 2026-08-05 alongside A2 (`A2-standing-acquisition-contract.md`, same
@@ -142,17 +147,49 @@ naming should be assumed to have it until shown otherwise.
 #25 doing the re-sourcing properly, or from per-row human confirmation. A1 is
 gated, not merely sequenced.
 
+## What changed 2026-08-15
+
+The September calendar wait is lifted. Charts are the **best current
+approximation** of a process, not a Lean-style verification. #25 (Lents /
+Me-Me) can make that approximation better; it does not certify a chart
+and it does not block A1.0.
+
+What A1.0 records is a file fact: these charts currently *name* this
+paper. It does not rewrite chart `sources`, and it does not promote a
+paper to a formal "canonical source." A mismatched name (flagellar
+assembly → TnpB) stays visible as a current approximation that review
+can improve. Asserting it as verified would be the defect.
+
+The authoritative gap TSV
+(`collaborations/krampis-virtual-cell/copernicus-corpus-gap-report.tsv`)
+is not in this checkout. A1.0 therefore harvests unique DOI/PMID rows
+from in-repo `huggingface-space/glmp-processes-database/processes/*.json`
+`sources` arrays (`a1_harvest_chart_sources.py`). First harvest
+2026-08-15: **389 unique papers** with a DOI or PMID, named by **108**
+charts; 5 papers named by two or more charts. That is a different cut
+than the 208-chart v2 gap list (this checkout has the process JSON
+`sources`, not the TSV). It is enough to start. When the TSV is
+available, the same script can take `--tsv` as a second input without
+changing the ingest rule.
+
 ## Proposed execution
 
 Designed in increments, because attention is the binding constraint in practice
 regardless of what is nominally binding — a single campaign will stall, and a
 stalled campaign leaves the corpus in a half-known state.
 
-**A1.0 — Ingest the ready subset (no #25 dependency).**
-Whatever count #25 confirms as correctly resolved, ingest those first. Even a
-partial pass converts the most-cited charts from ungroundable to groundable.
-Prioritise by number of distinct citations per chart, so the charts researchers
-are most likely to ask about land first.
+**A1.0 — Ingest chart-named papers as candidate evidence (started
+2026-08-15).** Harvest unique DOI/PMID from in-repo process `sources`,
+resolve through the existing acquirers, stamp
+`acquisition_channel: "glmp_chart_source_candidate"` and the chart ids
+that named them, then ingest via
+`ingest_papers_from_metadata_json.py` / `a1_resolve_and_ingest.py`. Do
+**not** rewrite process JSON `sources`. Stamp `named_by_charts` and
+`acquisition_channel: "glmp_chart_source_candidate"`. That is "this
+chart currently names this paper," not a certified source.
+Dedup against the whole corpus; a hit still records the new
+attribution. Prioritise charts with the most distinct citations so the
+ones researchers are most likely to ask about land first.
 
 **A1.1 — Ingest the #25-corrected remainder** as corrections land, in batches,
 rather than waiting for the full set.

@@ -324,6 +324,13 @@ def _to_firestore_paper(paper: Dict[str, Any], filepath: Path) -> Dict[str, Any]
     # dropped at the one step meant to preserve it.
     if paper.get("acquisition_channel"):
         out["acquisition_channel"] = paper["acquisition_channel"]
+    # Chart-named papers (A1.0, 2026-08-15): which current charts list this
+    # paper in `sources`. A file fact, not a certified / canonical source.
+    if paper.get("named_by_charts"):
+        charts = paper["named_by_charts"]
+        if isinstance(charts, str):
+            charts = [charts]
+        out["named_by_charts"] = [c for c in charts if c]
     for field in ("cited_by", "cited_date", "cited_context", "cited_project", "cited_for_question"):
         if paper.get(field):
             out[field] = paper[field]

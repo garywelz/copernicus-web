@@ -8,7 +8,8 @@ both repos; claim 4, the reference count, corrected from 83/33 to 73/41) and
 for the placement decision on the companion governance doc,
 `governance/RESOURCE_MANIFEST.md`'s "Scope of a Resource collection"
 subsection (`copernicus-web@75cb84e56`).
-**Parent:** item #37 Part A · **Relates to:** #36 (scout tuning), #35 (video)
+**Parent:** item #37 Part A · **Relates to:** #36 (scout tuning), #35 (video),
+A1 (chart-source backfill)
 **Scope:** Engine Core — this document specifies *what* acquisition must satisfy.
 *How* a scout ranks and queries is method development and belongs to
 Methods & Tools.
@@ -264,15 +265,23 @@ arXiv `math.LO`, `math.CT`, `cs.LO`, and likely zbMATH or similar. The source
 set is a property of the project, read from its declaration or a per-project
 routing table — not a global weight vector.
 
-### 4. Accumulate evidence; never declare canonical
+### 4. Accumulate evidence; never certify a chart
 
-Per the 2026-08-05 reframe: charts are maps, revisable, and there may never be a
-canonical version. Acquisition therefore **adds candidate evidence** and never
-overwrites a chart's existing sources or elects a canonical one.
+Per the 2026-08-05 reframe, restated 2026-08-15: a GLMP or ATAP chart is
+the **best current approximation** of a process, not a verified result.
+A biologist review (Lents, Me-Me) can make that approximation better. It
+does not certify the chart the way a Lean proof certifies a theorem.
+There is no canonical version to elect.
 
-This is the direct lesson of `pick_canonical_source()`, which took `sources[0]`
-with a DOI and no relevance check, and produced the #25 mess. A scout that
-promotes its own finds to canonical repeats that error at scale.
+Acquisition therefore **adds candidate evidence** and never overwrites a
+chart's existing sources or promotes a paper to a formal "canonical
+source." Recording that a chart currently *names* a paper is a fact
+about the file, not a verification of the chart.
+
+This is the direct lesson of `pick_canonical_source()`, which took
+`sources[0]` with a DOI and no relevance check, and produced the #25
+mess. A scout that promotes its own finds to a certified source repeats
+that error at scale.
 
 ### 5. Deduplicate against the whole corpus
 
@@ -294,6 +303,53 @@ Per run, per project, per question: how many new candidates, how many
 duplicates, how many failed to resolve. A question returning nothing for weeks
 is a finding — either the terms are wrong or the field is quiet, and both are
 worth knowing. A raw total of 1,000 tells you neither.
+
+### 8. Citation expansion is gated, one-hop, never a scout
+
+Decided with Gary 2026-08-15. Motive: bring in papers the authors of
+already-admitted work were likely treating as load-bearing, toward ~75%
+coverage of GLMP targets, without a million tangential papers and without
+an infinite citation regression.
+
+**A paper's bibliography is not an ingest queue.** If `cited_dois` or
+`references` are stored on a record, they are Knowledge Map metadata.
+They do not admit the cited works. The ingest allowlist must not treat
+those fields as an acquisition trigger.
+
+Citation expansion is a **separate intake path**, same family as #43
+(researcher-cited), not a change to the daily PubMed / bioRxiv / arXiv
+cron. Channel: `acquisition_channel: "cited_by_collection"`. Each new
+record carries the parent paper id (and a question id when one is
+known). Production scout cron is not touched for this.
+
+**Seeds, only these classes, in this order:**
+
+1. Papers a GLMP or ATAP chart already names as sources (A1).
+2. `research_focus.json` `flagged` papers and #43 researcher-cited papers.
+3. Later, a small slice of scout papers already attributed to a declared
+   question — never the whole corpus.
+
+**Admission rules:**
+
+- One hop from those seeds. Never expand from a paper this hop just
+  admitted.
+- Keep a candidate if two or more seeds cite it, or if Semantic Scholar
+  marks it `isInfluential` / it is among the most-cited references of
+  that seed.
+- Cap per seed and per batch (pilot: ~50 seeds; a few hundred new
+  papers at most).
+- Deduplicate against the whole corpus. A hit still records the new
+  attribution (requirement 5).
+- Crossref is enough when the seed has a deposited `reference` list.
+  OpenAlex or Semantic Scholar is the fallback when that list is empty
+  (common for PubMed and preprints). Do not call those APIs on every
+  Map or Ask request.
+
+**First coded step after the video backfill:** a ~50-seed pilot
+(flagged + researcher-cited + a few chart sources), reporting
+already-in-corpus / new / rejected by the two-seed or influential
+rule. A1.0 (chart-source papers as candidate evidence) may run in
+parallel; it is not a blocker and does not rewrite chart `sources`.
 
 ## What this leaves to #36
 
@@ -330,6 +386,13 @@ sample before it is trusted to filter acquisition.
 3. **Migrate GLMP** from `daily_scout_config.json` to its declaration, with the
    old config retained until coverage reporting shows the new path is no worse.
 4. **Retire `daily_scout_config.json`** only once (3) holds.
+5. **Citation-expansion 50-seed pilot** after the video backfill —
+   requirement 8. Does not touch scout cron. Does not wait on A1.
+6. **A1.0 in parallel** — ingest papers that current charts name, as
+   candidate evidence. Calendar wait lifted 2026-08-15. #25 can still
+   improve the approximation; it does not certify charts and does not
+   block recording that a chart currently names a paper. See
+   `A1-glmp-source-backfill-plan.md`.
 
 ## Resolved 2026-08-05
 
