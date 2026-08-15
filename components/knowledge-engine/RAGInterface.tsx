@@ -29,6 +29,10 @@ type Citation = {
   url?: string | null
   job_id?: string
   process_id?: string
+  slug?: string
+  episode_link?: string
+  subcategory?: string
+  process_type?: string
 }
 
 type RAGResponse = {
@@ -245,14 +249,18 @@ export default function RAGInterface({ project = null }: { project?: KEProjectId
                   const family = processFamilyFromRagType(citation.type)
                   const href = hrefForKnowledgeItem({
                     type: citation.type,
-                    id: citation.paper_id || citation.job_id || citation.process_id,
+                    id: citation.paper_id || citation.slug || citation.job_id || citation.process_id,
                     doi: citation.doi,
                     pmid: citation.pmid,
                     arxiv_id: citation.arxiv_id,
-                    url: citation.url,
+                    url: citation.episode_link || citation.url,
                     processFamily: family,
-                    jobId: citation.job_id,
+                    jobId: citation.slug || citation.job_id,
                     processId: citation.process_id,
+                    slug: citation.slug,
+                    episodeLink: citation.episode_link,
+                    subcategory: citation.subcategory,
+                    processType: citation.process_type,
                   })
                   const typeLabel = family === 'math' ? 'ATAP process' : citation.type.replace(/_/g, ' ')
                   return (

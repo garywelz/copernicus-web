@@ -23,13 +23,19 @@ type SearchResult = {
   authors?: string[]
   categories?: string[]
   similarity_score?: number
-  type: 'paper' | 'podcast' | 'process'
+  type: 'paper' | 'podcast' | 'process' | 'video'
   doi?: string | null
   pmid?: string | null
   arxiv_id?: string | null
   url?: string | null
   processFamily?: string | null
   jobId?: string | null
+  slug?: string | null
+  episodeLink?: string | null
+  subcategory?: string | null
+  processType?: string | null
+  proofGraphHtml?: string | null
+  youtubeId?: string | null
 }
 
 const normalizeText = (text: string): string =>
@@ -101,14 +107,31 @@ export default function SearchInterface({ project = null }: { project?: KEProjec
 
       if (data.podcasts) {
         data.podcasts.forEach((podcast: any) => {
-          const jobId = podcast.job_id || podcast.id
+          const episodeId = podcast.slug || podcast.episode_id || podcast.job_id || podcast.id
           allResults.push({
-            id: jobId,
+            id: episodeId,
             title: podcast.result?.title || podcast.title || 'Untitled Podcast',
             abstract: podcast.result?.description || podcast.description,
             similarity_score: podcast.similarity_score,
             type: 'podcast',
-            jobId,
+            jobId: episodeId,
+            slug: podcast.slug || episodeId,
+            episodeLink: podcast.episode_link || podcast.url || null,
+            url: podcast.episode_link || podcast.url || null,
+          })
+        })
+      }
+
+      if (data.videos) {
+        data.videos.forEach((video: any) => {
+          allResults.push({
+            id: video.video_id || video.youtube_id || video.id,
+            title: video.title || 'Untitled Video',
+            abstract: video.description,
+            similarity_score: video.similarity_score,
+            type: 'video',
+            url: video.url || null,
+            youtubeId: video.youtube_id || video.youtubeId || null,
           })
         })
       }
@@ -133,6 +156,9 @@ export default function SearchInterface({ project = null }: { project?: KEProjec
             similarity_score: process.similarity_score,
             type: 'process',
             processFamily: family,
+            subcategory: process.subcategory || null,
+            processType: process.processType || process.process_type || null,
+            proofGraphHtml: process.proofGraphHtml || process.proof_graph_html || null,
           })
         })
       }
@@ -279,6 +305,12 @@ export default function SearchInterface({ project = null }: { project?: KEProjec
                 processFamily: result.processFamily,
                 jobId: result.jobId,
                 processId: result.id,
+                slug: result.slug,
+                episodeLink: result.episodeLink,
+                subcategory: result.subcategory,
+                processType: result.processType,
+                proofGraphHtml: result.proofGraphHtml,
+                youtubeId: result.youtubeId,
               })
               const typeLabel = result.processFamily
                 ? `${result.type} · ${result.processFamily === 'math' ? 'ATAP' : result.processFamily}`

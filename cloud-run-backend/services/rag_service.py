@@ -405,6 +405,8 @@ class RAGService:
                     "type": "podcast",
                     "title": title,
                     "job_id": job_id,
+                    "slug": podcast.get("slug") or job_id,
+                    "episode_link": podcast.get("episode_link"),
                     "similarity_score": round(similarity, 3)
                 })
                 citation_number += 1
@@ -426,6 +428,8 @@ class RAGService:
                     "type": "glmp_process",
                     "title": title,
                     "process_id": process_id,
+                    "subcategory": process.get("subcategory"),
+                    "process_type": process.get("processType") or process.get("process_type"),
                     "similarity_score": round(similarity, 3)
                 })
                 citation_number += 1
@@ -447,6 +451,8 @@ class RAGService:
                     "type": "math_process",
                     "title": title,
                     "process_id": process_id,
+                    "subcategory": process.get("subcategory"),
+                    "process_type": process.get("processType") or process.get("process_type"),
                     "similarity_score": round(similarity, 3)
                 })
                 citation_number += 1
@@ -468,6 +474,8 @@ class RAGService:
                     "type": "chemistry_process",
                     "title": title,
                     "process_id": process_id,
+                    "subcategory": process.get("subcategory"),
+                    "process_type": process.get("processType") or process.get("process_type"),
                     "similarity_score": round(similarity, 3)
                 })
                 citation_number += 1
@@ -487,6 +495,8 @@ class RAGService:
                     "type": "physics_process",
                     "title": title,
                     "process_id": process_id,
+                    "subcategory": process.get("subcategory"),
+                    "process_type": process.get("processType") or process.get("process_type"),
                     "similarity_score": round(similarity, 3)
                 })
                 citation_number += 1
@@ -506,6 +516,8 @@ class RAGService:
                     "type": "computer_science_process",
                     "title": title,
                     "process_id": process_id,
+                    "subcategory": process.get("subcategory"),
+                    "process_type": process.get("processType") or process.get("process_type"),
                     "similarity_score": round(similarity, 3)
                 })
                 citation_number += 1
@@ -525,6 +537,8 @@ class RAGService:
                     "type": "biology_process",
                     "title": title,
                     "process_id": process_id,
+                    "subcategory": process.get("subcategory"),
+                    "process_type": process.get("processType") or process.get("process_type"),
                     "similarity_score": round(similarity, 3)
                 })
                 citation_number += 1

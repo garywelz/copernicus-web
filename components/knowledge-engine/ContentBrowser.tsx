@@ -18,13 +18,22 @@ import { hrefForKnowledgeItem } from '@/lib/knowledge-engine-links'
 type ContentItem = {
   id: string
   title: string
-  type: 'paper' | 'podcast' | 'process'
+  type: 'paper' | 'podcast' | 'process' | 'video'
   description?: string
   doi?: string | null
   pmid?: string | null
   arxiv_id?: string | null
   url?: string | null
-  metadata?: { process_family?: string; category?: string }
+  metadata?: {
+    process_family?: string
+    category?: string
+    subcategory?: string
+    processType?: string
+    process_type?: string
+    episode_link?: string
+    slug?: string
+    youtube_id?: string
+  }
 }
 
 type BrowseType = 'papers' | 'podcasts' | 'processes'
@@ -41,10 +50,15 @@ function titleHrefFor(item: ContentItem): string | null {
     doi: item.doi,
     pmid: item.pmid,
     arxiv_id: item.arxiv_id,
-    url: item.url,
+    url: item.url || item.metadata?.episode_link,
     processFamily: item.metadata?.process_family,
     jobId: item.type === 'podcast' ? item.id : null,
     processId: item.type === 'process' ? item.id : null,
+    slug: item.metadata?.slug || (item.type === 'podcast' ? item.id : null),
+    episodeLink: item.metadata?.episode_link,
+    subcategory: item.metadata?.subcategory,
+    processType: item.metadata?.processType || item.metadata?.process_type,
+    youtubeId: item.metadata?.youtube_id,
   })
 }
 

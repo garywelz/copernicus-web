@@ -207,7 +207,9 @@ async def browse_content(
                     'metadata': {
                         'duration': podcast_data.get('duration'),
                         'category': podcast_data.get('category'),
-                        'published': podcast_data.get('published_date')
+                        'published': podcast_data.get('published_date'),
+                        'slug': podcast_data.get('slug') or podcast.id,
+                        'episode_link': podcast_data.get('episode_link'),
                     }
                 })
         
@@ -246,6 +248,7 @@ async def browse_content(
                         "process_family": family,
                         "category": process_data.get("category"),
                         "subcategory": process_data.get("subcategory"),
+                        "processType": process_data.get("processType") or process_data.get("process_type"),
                     },
                 })
 
