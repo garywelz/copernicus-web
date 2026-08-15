@@ -30,6 +30,7 @@ COLLECTION_CHEMISTRY_PROCESSES = "chemistry_processes"
 COLLECTION_PHYSICS_PROCESSES = "physics_processes"
 COLLECTION_COMPUTER_SCIENCE_PROCESSES = "computer_science_processes"
 COLLECTION_BIOLOGY_PROCESSES = "biology_processes"
+COLLECTION_VIDEOS = "science_videos"
 
 # Query Limits
 DEFAULT_QUERY_LIMIT = 10

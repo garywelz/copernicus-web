@@ -63,16 +63,19 @@ async def answer_question(
         if result.get('error'):
             raise HTTPException(status_code=500, detail=result['error'])
         
-        # Convert citations to frontend format
+        # Pass the retrieval citation through intact so the frontend can
+        # resolve a unique file URL (DOI / episode slug / viewer process id).
         citations = []
         if result.get('citations'):
             for i, citation in enumerate(result['citations'], 1):
-                citations.append({
-                    'number': i,
-                    'type': citation.get('type', 'unknown'),
-                    'title': citation.get('title', citation.get('source', 'Unknown')),
-                    'similarity_score': citation.get('similarity_score', citation.get('similarity', citation.get('score')))
-                })
+                row = dict(citation)
+                row['number'] = i
+                row['type'] = citation.get('type', 'unknown')
+                row['title'] = citation.get('title', citation.get('source', 'Unknown'))
+                row['similarity_score'] = citation.get(
+                    'similarity_score', citation.get('similarity', citation.get('score'))
+                )
+                citations.append(row)
         
         return {
             'question': question,

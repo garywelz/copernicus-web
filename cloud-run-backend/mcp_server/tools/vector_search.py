@@ -27,6 +27,7 @@ from mcp_server.config import (
     COLLECTION_PHYSICS_PROCESSES,
     COLLECTION_COMPUTER_SCIENCE_PROCESSES,
     COLLECTION_BIOLOGY_PROCESSES,
+    COLLECTION_VIDEOS,
     DEFAULT_QUERY_LIMIT,
     MAX_QUERY_LIMIT
 )
@@ -91,6 +92,7 @@ def _search_results_total(results: dict) -> int:
         + len(results.get("physics_processes", []))
         + len(results.get("computer_science_processes", []))
         + len(results.get("biology_processes", []))
+        + len(results.get("videos", []))
     )
 
 
@@ -191,6 +193,7 @@ def _keyword_fallback_search(
         "physics_processes": [],
         "computer_science_processes": [],
         "biology_processes": [],
+        "videos": [],
     }
 
     def _top_k(scored: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
@@ -260,6 +263,35 @@ def _keyword_fallback_search(
         except Exception as e:
             logger.warning(f"Keyword fallback for podcasts failed: {e}")
         results["podcasts"] = _top_k(scored)
+
+    if "videos" in content_types:
+        scored = []
+        try:
+            scanned = 0
+            for doc in _stream_candidates(db.collection(COLLECTION_VIDEOS)):
+                d = doc.to_dict() or {}
+                title = d.get("title") or ""
+                desc = d.get("description") or ""
+                transcript = str(d.get("transcript") or "")[:1500]
+                tags = d.get("tags") or []
+                tag_text = " ".join(str(t) for t in tags) if isinstance(tags, list) else str(tags)
+                body = " ".join([desc, transcript, tag_text])
+                score = _score_text(tokens, title, body)
+                if score <= 0:
+                    scanned += 1
+                    continue
+                d["video_id"] = d.get("video_id") or doc.id
+                d.pop("embedding", None)
+                d.pop("transcript", None)
+                d = _serialize_firestore_value(d)
+                d["_kw_score"] = score
+                scored.append(d)
+                scanned += 1
+                if len(scored) >= (limit * 20) and scanned >= min(candidate_limit, 2000):
+                    break
+        except Exception as e:
+            logger.warning(f"Keyword fallback for videos failed: {e}")
+        results["videos"] = _top_k(scored)
 
     def _keyword_processes(collection: str, key: str, title_fields: List[str], body_fields: List[str]) -> List[Dict[str, Any]]:
         scored_local: List[Dict[str, Any]] = []
@@ -393,7 +425,7 @@ async def search_semantic(
         # Default to all content types if not specified
         if not content_types:
             content_types = [
-                "papers", "podcasts", "glmp", "math", "chemistry",
+                "papers", "podcasts", "videos", "glmp", "math", "chemistry",
                 "physics", "computer_science", "biology",
             ]
 
@@ -438,6 +470,7 @@ async def search_semantic(
             "physics_processes": [],
             "computer_science_processes": [],
             "biology_processes": [],
+            "videos": [],
             "search_method": "vector_semantic" if query_embedding is not None else "keyword_only"
         }
 
@@ -461,6 +494,7 @@ async def search_semantic(
                     "physics_processes": len(results["physics_processes"]),
                     "computer_science_processes": len(results["computer_science_processes"]),
                     "biology_processes": len(results["biology_processes"]),
+                    "videos": len(results.get("videos", [])),
                     "total": _search_results_total(results),
                 }
                 return json.dumps(results, indent=2)
@@ -576,6 +610,30 @@ async def search_semantic(
             except Exception as e:
                 logger.warning(f"Vector search for podcasts failed, may not have embeddings: {e}")
                 results["podcasts"] = []
+
+        if "videos" in content_types:
+            try:
+                videos_ref = db.collection(COLLECTION_VIDEOS)
+                vector_query = videos_ref.find_nearest(
+                    vector_field="embedding",
+                    query_vector=Vector(query_embedding),
+                    limit=limit,
+                    distance_measure=DistanceMeasure.COSINE,
+                    distance_threshold=distance_threshold,
+                    distance_result_field="distance",
+                )
+                for doc in vector_query.stream():
+                    video_data = doc.to_dict() or {}
+                    video_data["video_id"] = video_data.get("video_id") or doc.id
+                    video_data["similarity_score"] = 1.0 - video_data.get("distance", 1.0)
+                    video_data.pop("embedding", None)
+                    video_data.pop("transcript", None)
+                    video_data = _serialize_firestore_value(video_data)
+                    results["videos"].append(video_data)
+                logger.info(f"Found {len(results['videos'])} videos via vector search")
+            except Exception as e:
+                logger.warning(f"Vector search for videos failed, may not have embeddings: {e}")
+                results["videos"] = []
         
         # Search GLMP processes using vector search
         if "glmp" in content_types:
@@ -784,6 +842,7 @@ async def search_semantic(
             "physics_processes": len(results["physics_processes"]),
             "computer_science_processes": len(results["computer_science_processes"]),
             "biology_processes": len(results["biology_processes"]),
+            "videos": len(results.get("videos", [])),
             "total": _search_results_total(results),
         }
 
@@ -809,6 +868,7 @@ async def search_semantic(
                     "physics_processes": len(results["physics_processes"]),
                     "computer_science_processes": len(results["computer_science_processes"]),
                     "biology_processes": len(results["biology_processes"]),
+                    "videos": len(results.get("videos", [])),
                     "total": _search_results_total(results),
                 }
                 logger.info(

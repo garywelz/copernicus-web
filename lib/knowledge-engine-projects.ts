@@ -147,11 +147,12 @@ export function isKEProjectId(v: string | null | undefined): v is KEProjectId {
  *  processes to that project's family only; papers stay unscoped until Layer B. */
 export function searchContentTypesForProject(
   project: KEProjectId | null,
-  selected: { papers: boolean; podcasts: boolean; processes: boolean },
+  selected: { papers: boolean; podcasts: boolean; processes: boolean; videos?: boolean },
 ): string[] {
   const types: string[] = []
   if (selected.papers) types.push('papers')
   if (selected.podcasts) types.push('podcasts')
+  if (selected.videos) types.push('videos')
   if (selected.processes) {
     if (project) types.push(KE_PROJECTS[project].processContentType)
     else types.push('glmp', 'math', 'chemistry', 'physics', 'computer_science', 'biology')

@@ -253,10 +253,34 @@ async def browse_content(
                 })
 
         elif content_type == "videos":
-            raise HTTPException(
-                status_code=501,
-                detail="Video browse uses GCS catalog: videos-catalog.json (753 videos). Firestore sync pending.",
-            )
+            videos_ref = db.collection("science_videos")
+            try:
+                count_result = videos_ref.count().get()
+                total = _extract_count_value(count_result)
+            except Exception as e:
+                structured_logger.warning("Failed to count videos", error=str(e))
+                total = 0
+            try:
+                from google.cloud import firestore as _fs_videos  # type: ignore
+                query = videos_ref.order_by("title", direction=_fs_videos.Query.ASCENDING)
+            except Exception:
+                query = videos_ref
+            query = query.limit(limit).offset((page - 1) * limit)
+            for video in query.stream():
+                video_data = video.to_dict() or {}
+                items.append({
+                    "id": video_data.get("video_id") or video.id,
+                    "title": video_data.get("title") or "Untitled",
+                    "type": "video",
+                    "description": (video_data.get("description") or "")[:200],
+                    "url": video_data.get("video_url") or video_data.get("url"),
+                    "metadata": {
+                        "youtube_id": video_data.get("source_id") if video_data.get("source") == "youtube" else video_data.get("youtube_id"),
+                        "source": video_data.get("source"),
+                        "channel_name": video_data.get("channel_name"),
+                        "duration": video_data.get("duration"),
+                    },
+                })
 
         else:
             raise HTTPException(

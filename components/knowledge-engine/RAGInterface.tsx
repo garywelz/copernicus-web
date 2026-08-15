@@ -34,6 +34,8 @@ type Citation = {
   episode_link?: string
   subcategory?: string
   process_type?: string
+  youtube_id?: string
+  video_id?: string
 }
 
 type RAGResponse = {
@@ -89,6 +91,7 @@ export default function RAGInterface({ project = null }: { project?: KEProjectId
         papers: true,
         podcasts: true,
         processes: true,
+        videos: true,
       })
       const params = new URLSearchParams({
         question: question,
@@ -262,6 +265,7 @@ export default function RAGInterface({ project = null }: { project?: KEProjectId
                     episodeLink: citation.episode_link,
                     subcategory: citation.subcategory,
                     processType: citation.process_type,
+                    youtubeId: citation.youtube_id,
                   })
                   const typeLabel = family === 'math' ? 'ATAP process' : citation.type.replace(/_/g, ' ')
                   return (

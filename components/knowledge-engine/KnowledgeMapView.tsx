@@ -63,6 +63,7 @@ type SelectedNode = {
   slug?: string | null
   subcategory?: string | null
   processType?: string | null
+  youtubeId?: string | null
 }
 
 export default function KnowledgeMapView({ project = null }: { project?: KEProjectId | null } = {}) {
@@ -84,7 +85,7 @@ export default function KnowledgeMapView({ project = null }: { project?: KEProje
   const [contentTypes, setContentTypes] = useState({
     papers: true,
     processes: true,
-    videos: false,
+    videos: true,
     podcasts: true,
   })
   const [disciplines, setDisciplines] = useState({
@@ -315,6 +316,7 @@ export default function KnowledgeMapView({ project = null }: { project?: KEProje
         activeContentTypes.papers ? 'papers' : null,
         activeContentTypes.processes ? 'processes' : null,
         activeContentTypes.podcasts ? 'podcasts' : null,
+        activeContentTypes.videos ? 'videos' : null,
       ].filter(Boolean) as string[]
       if (selectedContentTypes.length > 0) {
         params.set('content_types', selectedContentTypes.join(','))
@@ -578,6 +580,22 @@ export default function KnowledgeMapView({ project = null }: { project?: KEProje
             },
           },
           {
+            selector: 'node[type="video"]',
+            style: {
+              'background-color': '#16a085',
+              'label': 'data(label)',
+              'width': 32,
+              'height': 32,
+              'shape': 'octagon',
+              'font-size': '10px',
+              'text-wrap': 'wrap',
+              'text-max-width': '150px',
+              'color': '#2c3e50',
+              'border-width': 2,
+              'border-color': '#117a65',
+            },
+          },
+          {
             selector: 'node[type="podcast"]',
             style: {
               'background-color': '#e67e22',
@@ -669,6 +687,7 @@ export default function KnowledgeMapView({ project = null }: { project?: KEProje
           slug: data.slug || null,
           subcategory: data.subcategory || null,
           processType: data.processType || data.process_type || null,
+          youtubeId: data.youtube_id || data.youtubeId || null,
         })
         setNodeExplanation(null)
         setNodeExplanationError(null)
@@ -692,6 +711,9 @@ export default function KnowledgeMapView({ project = null }: { project?: KEProje
           } else if (nodeType === 'podcast') {
             mode = 'general'
             question = `Summarize this science podcast episode: "${nodeLabel}".`
+          } else if (nodeType === 'video') {
+            mode = 'general'
+            question = `Summarize this science video: "${nodeLabel}". What is the main claim or demonstration?`
           } else {
             mode = 'general'
             question = `Explain the node "${nodeLabel}" in the context of this scientific knowledge graph.`
@@ -703,7 +725,7 @@ export default function KnowledgeMapView({ project = null }: { project?: KEProje
             mode,
             content_types: 'papers,podcasts,glmp,math,chemistry,physics,computer_science,biology',
           })
-          params.set('focus_id', data.process_id || data.slug || nodeId)
+          params.set('focus_id', data.process_id || data.slug || data.video_id || nodeId)
 
           const url = `${API_BASE_URL}/api/rag/answer?${params.toString()}`
           console.log('Fetching node explanation from:', url)
@@ -834,6 +856,7 @@ export default function KnowledgeMapView({ project = null }: { project?: KEProje
         slug: selectedNode.slug,
         subcategory: selectedNode.subcategory,
         processType: selectedNode.processType,
+        youtubeId: selectedNode.youtubeId,
       })
     : null
   const selectedHrefLabel =
@@ -937,7 +960,7 @@ export default function KnowledgeMapView({ project = null }: { project?: KEProje
                   <button
                     key={ex.label}
                     onClick={() => runQuickExample({
-                      contentTypes: { papers: true, processes: true, videos: false, podcasts: true },
+                      contentTypes: { papers: true, processes: true, videos: true, podcasts: true },
                       disciplines: ex.disciplines,
                       sources: { pubmed: false, arxiv: false, nasa_ads: false, crossref: false, youtube: false, rss: false },
                       dateRange: { start: '', end: '' },
@@ -1225,7 +1248,7 @@ export default function KnowledgeMapView({ project = null }: { project?: KEProje
           <button
             onClick={() => {
               console.log('🔄 Reset Filters clicked - clearing all filters')
-              setContentTypes({ papers: true, processes: true, videos: false, podcasts: true })
+              setContentTypes({ papers: true, processes: true, videos: true, podcasts: true })
               setDisciplines({ biology: false, chemistry: false, physics: false, mathematics: false, computer_science: false, interdisciplinary: false })
               setSources({ pubmed: false, arxiv: false, nasa_ads: false, crossref: false, youtube: false, rss: false })
               setDateRange({ start: '', end: '' })

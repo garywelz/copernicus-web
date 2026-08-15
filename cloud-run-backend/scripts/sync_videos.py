@@ -54,8 +54,8 @@ def get_database_url() -> str:
         raise ValueError("SCIENCEVIDDB_DATABASE_URL environment variable not set and Secrets Manager access failed")
 
 
-def get_all_videos(limit: Optional[int] = None) -> List[Dict[str, Any]]:
-    """Get all videos from Science Video Database."""
+def get_all_videos(limit: Optional[int] = None, since_days: Optional[int] = None) -> List[Dict[str, Any]]:
+    """Get videos from Science Video Database, optionally only recent ones."""
     if not PSYCOPG2_AVAILABLE:
         raise ImportError("psycopg2 is required to access Science Video Database")
     
@@ -85,12 +85,17 @@ def get_all_videos(limit: Optional[int] = None) -> List[Dict[str, Any]]:
                     c.channel_id as youtube_channel_id
                 FROM videos v
                 JOIN channels c ON v.channel_id = c.id
-                ORDER BY v.published_at DESC
             """
+            params: List[Any] = []
+            if since_days and since_days > 0:
+                query += " WHERE v.published_at >= NOW() - (%s * INTERVAL '1 day')"
+                params.append(int(since_days))
+            query += " ORDER BY v.published_at DESC"
             if limit:
-                query += f" LIMIT {limit}"
+                query += " LIMIT %s"
+                params.append(int(limit))
             
-            cur.execute(query)
+            cur.execute(query, params)
             videos = [dict(row) for row in cur.fetchall()]
             return videos
     finally:
@@ -170,7 +175,8 @@ def create_text_for_video_embedding(video_data: Dict[str, Any]) -> str:
 def sync_videos(
     dry_run: bool = False,
     limit: Optional[int] = None,
-    skip_existing: bool = True
+    skip_existing: bool = True,
+    since_days: Optional[int] = None,
 ) -> Dict[str, Any]:
     """
     Sync videos from Science Video Database to Firestore.
@@ -217,7 +223,7 @@ def sync_videos(
     try:
         # Get all videos from PostgreSQL
         print("📹 Fetching videos from Science Video Database...")
-        videos = get_all_videos(limit=limit)
+        videos = get_all_videos(limit=limit, since_days=since_days)
         stats["total_in_postgres"] = len(videos)
         
         print(f"\n📊 Found {stats['total_in_postgres']} videos")
@@ -325,6 +331,7 @@ def main():
     parser.add_argument("--limit", type=int, help="Maximum number of videos to sync")
     parser.add_argument("--no-skip-existing", action="store_true", help="Don't skip videos that already exist")
     parser.add_argument("--database-url", type=str, help="Science Video Database URL (or set SCIENCEVIDDB_DATABASE_URL env var)")
+    parser.add_argument("--since-days", type=int, help="Only sync videos published in the last N days (recent-video cron)")
     
     args = parser.parse_args()
     
@@ -345,7 +352,8 @@ def main():
     stats = sync_videos(
         dry_run=args.dry_run,
         limit=args.limit,
-        skip_existing=not args.no_skip_existing
+        skip_existing=not args.no_skip_existing,
+        since_days=args.since_days,
     )
     
     if args.dry_run:

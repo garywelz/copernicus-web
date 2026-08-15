@@ -53,6 +53,7 @@ export default function SearchInterface({ project = null }: { project?: KEProjec
     papers: true,
     podcasts: true,
     processes: true,
+    videos: true,
   })
   const [limit, setLimit] = useState(20)
 
@@ -130,8 +131,8 @@ export default function SearchInterface({ project = null }: { project?: KEProjec
             abstract: video.description,
             similarity_score: video.similarity_score,
             type: 'video',
-            url: video.url || null,
-            youtubeId: video.youtube_id || video.youtubeId || null,
+            url: video.video_url || video.url || null,
+            youtubeId: video.youtube_id || video.source_id || video.youtubeId || null,
           })
         })
       }
@@ -262,6 +263,15 @@ export default function SearchInterface({ project = null }: { project?: KEProjec
                     className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
                   />
                   <span className="text-sm text-gray-700">{processLabel}</span>
+                </label>
+                <label className="flex items-center space-x-2">
+                  <input
+                    type="checkbox"
+                    checked={contentTypes.videos}
+                    onChange={(e) => setContentTypes({ ...contentTypes, videos: e.target.checked })}
+                    className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                  />
+                  <span className="text-sm text-gray-700">Videos</span>
                 </label>
               </div>
             </div>

@@ -33,6 +33,7 @@ _FOCUS_ID_COLLECTIONS = [
     ("physics_processes", "physics_processes"),
     ("computer_science_processes", "computer_science_processes"),
     ("biology_processes", "biology_processes"),
+    ("science_videos", "videos"),
 ]
 
 
@@ -72,6 +73,16 @@ def _fetch_focus_document(focus_id: str) -> "tuple[Optional[str], Optional[dict]
                 "abstract": raw.get("abstract", ""),
                 "doi": raw.get("doi", ""),
                 "paper_id": focus_id,
+                "id": focus_id,
+                "similarity_score": 1.0,
+            }
+        elif search_data_key == "videos":
+            doc = {
+                "title": raw.get("title", ""),
+                "description": raw.get("description", ""),
+                "video_id": raw.get("video_id") or focus_id,
+                "url": raw.get("video_url") or raw.get("url"),
+                "source_id": raw.get("source_id"),
                 "id": focus_id,
                 "similarity_score": 1.0,
             }
@@ -315,7 +326,7 @@ class RAGService:
 
             if content_types is None:
                 content_types = [
-                    "papers", "podcasts", "glmp", "math", "chemistry",
+                    "papers", "podcasts", "videos", "glmp", "math", "chemistry",
                     "physics", "computer_science", "biology",
                 ]
 
@@ -411,6 +422,26 @@ class RAGService:
                     "slug": podcast.get("slug") or job_id,
                     "episode_link": podcast.get("episode_link"),
                     "similarity_score": round(similarity, 3)
+                })
+                citation_number += 1
+
+            for video in search_data.get("videos", [])[:max_context_items]:
+                title = video.get("title", "Untitled Video")
+                description = video.get("description", "")
+                video_id = video.get("video_id") or video.get("id", "")
+                similarity = video.get("similarity_score", 0)
+                context_parts.append(
+                    f"[{citation_number}] Video: {title}\n"
+                    f"Description: {description[:500] if description else 'No description available'}"
+                )
+                citations.append({
+                    "number": citation_number,
+                    "type": "video",
+                    "title": title,
+                    "video_id": video_id,
+                    "url": video.get("video_url") or video.get("url"),
+                    "youtube_id": video.get("source_id") if video.get("source") == "youtube" else video.get("youtube_id"),
+                    "similarity_score": round(similarity, 3),
                 })
                 citation_number += 1
             

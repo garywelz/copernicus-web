@@ -36,7 +36,7 @@ type ContentItem = {
   }
 }
 
-type BrowseType = 'papers' | 'podcasts' | 'processes'
+type BrowseType = 'papers' | 'podcasts' | 'processes' | 'videos'
 
 function isUntitledPaper(item: ContentItem): boolean {
   const t = (item.title || '').trim()
@@ -136,7 +136,7 @@ export default function ContentBrowser({ project = null }: { project?: KEProject
         <h2 className="text-xl font-semibold text-gray-900 mb-4">Browse Content</h2>
 
         <div className="flex flex-wrap gap-2 mb-4">
-          {(['papers', 'podcasts', 'processes'] as const).map((type) => (
+          {(['papers', 'podcasts', 'processes', 'videos'] as const).map((type) => (
             <button
               key={type}
               onClick={() => {

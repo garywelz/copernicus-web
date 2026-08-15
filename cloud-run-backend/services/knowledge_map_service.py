@@ -143,8 +143,10 @@ PROCESS_FAMILY_COLLECTIONS = {
 MAX_PROCESSES_PER_FAMILY = 12
 MAX_PROCESSES_TOTAL = 48
 MAX_PODCASTS = 20
+MAX_VIDEOS = 20
 PROCESS_CANDIDATE_LIMIT = 250
 PODCAST_CANDIDATE_LIMIT = 200
+VIDEO_CANDIDATE_LIMIT = 200
 
 
 def _content_wanted(content_types: Optional[List[str]], kind: str) -> bool:
@@ -968,6 +970,39 @@ Only return the JSON array, no other text."""
             return []
         scored.sort(key=lambda x: (-x[0], x[1]))
         return [row[2] for row in scored[:limit]]
+
+    def _fetch_video_items(
+        self,
+        keyword: Optional[str],
+        limit: int = MAX_VIDEOS,
+    ) -> List[Dict[str, Any]]:
+        """Sample science videos for the map."""
+        scored: List[Tuple[int, str, Dict[str, Any]]] = []
+        try:
+            scanned = 0
+            for doc in self.db.collection("science_videos").limit(VIDEO_CANDIDATE_LIMIT).stream():
+                d = doc.to_dict() or {}
+                d.pop("embedding", None)
+                d.pop("transcript", None)
+                title = d.get("title") or doc.id
+                body = " ".join([
+                    str(d.get("description") or ""),
+                    " ".join(str(t) for t in (d.get("tags") or [])[:12]),
+                ])
+                score = _keyword_overlap_score(keyword, str(title), body)
+                if score <= 0:
+                    scanned += 1
+                    continue
+                d["video_id"] = d.get("video_id") or doc.id
+                scored.append((score, str(title).lower(), d))
+                scanned += 1
+                if scanned >= VIDEO_CANDIDATE_LIMIT:
+                    break
+        except Exception as e:
+            structured_logger.warning("Failed to sample videos for knowledge map", error=str(e))
+            return []
+        scored.sort(key=lambda x: (-x[0], x[1]))
+        return [row[2] for row in scored[:limit]]
     
     async def build_graph(
         self,
@@ -1026,6 +1061,7 @@ Only return the JSON array, no other text."""
         want_papers = _content_wanted(content_types, "papers")
         want_processes = _content_wanted(content_types, "processes")
         want_podcasts = _content_wanted(content_types, "podcasts")
+        want_videos = _content_wanted(content_types, "videos")
         
         # Fetch papers from Firestore
         # Note: To avoid composite index requirements, we fetch first and filter in memory.
@@ -1193,6 +1229,11 @@ Only return the JSON array, no other text."""
         if want_podcasts:
             podcast_items = self._fetch_podcast_items(keyword=keyword, limit=MAX_PODCASTS)
             structured_logger.info(f"Sampled {len(podcast_items)} podcasts for knowledge map")
+
+        video_items: List[Dict[str, Any]] = []
+        if want_videos:
+            video_items = self._fetch_video_items(keyword=keyword, limit=MAX_VIDEOS)
+            structured_logger.info(f"Sampled {len(video_items)} videos for knowledge map")
         
         # Build nodes
         nodes = []
@@ -1274,6 +1315,33 @@ Only return the JSON array, no other text."""
                 "abstract": description,
                 "keywords": [],
             })
+
+        for video in video_items:
+            video_id = video.get("video_id") or video.get("id")
+            if not video_id:
+                continue
+            node_id = f"video:{video_id}"
+            title = video.get("title") or video_id
+            description = video.get("description") or ""
+            url = video.get("video_url") or video.get("url")
+            youtube_id = video.get("source_id") if video.get("source") == "youtube" else video.get("youtube_id")
+            nodes.append({
+                "id": node_id,
+                "type": "video",
+                "label": str(title)[:100],
+                "data": {
+                    "title": title,
+                    "url": url,
+                    "youtube_id": youtube_id,
+                    "video_id": video_id,
+                },
+            })
+            similarity_items.append({
+                "paper_id": node_id,
+                "title": title,
+                "abstract": description,
+                "keywords": video.get("tags") or [],
+            })
         
         # Build edges
         edges = []
@@ -1353,6 +1421,7 @@ Only return the JSON array, no other text."""
                 'concepts': len([n for n in nodes if n['type'] == 'concept']),
                 'processes': len([n for n in nodes if n['type'] == 'process']),
                 'podcasts': len([n for n in nodes if n['type'] == 'podcast']),
+                'videos': len([n for n in nodes if n['type'] == 'video']),
                 'relationships': len(edges),
                 'built_at': datetime.utcnow().isoformat()
             }
