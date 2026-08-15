@@ -7,7 +7,7 @@
 
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import dynamic from 'next/dynamic'
 
 // Dynamically import components with SSR disabled to prevent server-side errors
@@ -51,6 +51,24 @@ type Tab = 'map' | 'search' | 'rag' | 'browse' | 'stats'
 
 export default function KnowledgeEnginePage() {
   const [activeTab, setActiveTab] = useState<Tab>('map')
+  // 692 is the 2026-08-15 verified process_databases.sum (all six families).
+  // Fallback of last resort if the live fetch below fails -- will go stale
+  // again if left here long enough, same as the "594" it replaces did.
+  const [processCount, setProcessCount] = useState<number>(692)
+
+  useEffect(() => {
+    fetch('https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/knowledge-engine-status.json', { cache: 'no-store' })
+      .then((r) => (r.ok ? r.json() : Promise.reject(r.status)))
+      .then((d) => {
+        const sum = d?.process_databases?.sum
+        if (typeof sum === 'number') {
+          setProcessCount(sum)
+        }
+      })
+      .catch(() => {
+        /* keep static fallback value */
+      })
+  }, [])
 
   const tabs = [
     { id: 'map' as Tab, label: 'Knowledge Map', icon: '🗺️' },
@@ -69,7 +87,7 @@ export default function KnowledgeEnginePage() {
             <div>
               <h1 className="text-2xl font-bold text-gray-900">CopernicusAI Knowledge Engine: Research Tools</h1>
               <p className="text-sm text-gray-600">
-                Papers, podcasts, videos, and 594 process charts across six scientific families
+                Papers, podcasts, videos, and {processCount.toLocaleString()} process charts across six scientific families
               </p>
             </div>
           </div>
