@@ -48,6 +48,8 @@ type MapFilterOverrides = {
   maxPapers?: number
 }
 
+const EMPTY_STATS = { nodes: 0, edges: 0, papers: 0, concepts: 0, processes: 0, podcasts: 0 }
+
 type SelectedNode = {
   id: string
   type: string
@@ -71,7 +73,7 @@ export default function KnowledgeMapView({ project = null }: { project?: KEProje
   const [includeConcepts, setIncludeConcepts] = useState(true)
   const [includeSimilarity, setIncludeSimilarity] = useState(true)
   const [includeCategories, setIncludeCategories] = useState(true)
-  const [stats, setStats] = useState({ nodes: 0, edges: 0, papers: 0, concepts: 0 })
+  const [stats, setStats] = useState(EMPTY_STATS)
   const cyRef = useRef<any>(null)
   const [selectedNode, setSelectedNode] = useState<SelectedNode | null>(null)
   const [nodeExplanation, setNodeExplanation] = useState<string | null>(null)
@@ -81,9 +83,9 @@ export default function KnowledgeMapView({ project = null }: { project?: KEProje
   // New filter states
   const [contentTypes, setContentTypes] = useState({
     papers: true,
-    processes: false,
+    processes: true,
     videos: false,
-    podcasts: false,
+    podcasts: true,
   })
   const [disciplines, setDisciplines] = useState({
     biology: false,
@@ -179,7 +181,7 @@ export default function KnowledgeMapView({ project = null }: { project?: KEProje
         }
         
         // Reset stats to indicate filters have changed
-        setStats({ nodes: 0, edges: 0, papers: 0, concepts: 0 })
+        setStats(EMPTY_STATS)
         setError(null)
       } catch (err) {
         console.debug('Error clearing graph on filter change:', err)
@@ -309,11 +311,17 @@ export default function KnowledgeMapView({ project = null }: { project?: KEProje
         format: 'cytoscape',
       })
 
-      // Add content type filters
-      if (activeContentTypes.papers) params.append('content_types', 'papers')
-      if (activeContentTypes.processes) params.append('content_types', 'processes')
-      if (activeContentTypes.videos) params.append('content_types', 'videos')
-      if (activeContentTypes.podcasts) params.append('content_types', 'podcasts')
+      const selectedContentTypes = [
+        activeContentTypes.papers ? 'papers' : null,
+        activeContentTypes.processes ? 'processes' : null,
+        activeContentTypes.podcasts ? 'podcasts' : null,
+      ].filter(Boolean) as string[]
+      if (selectedContentTypes.length > 0) {
+        params.set('content_types', selectedContentTypes.join(','))
+      }
+      if (project && activeContentTypes.processes) {
+        params.set('process_family', KE_PROJECTS[project].processContentType)
+      }
 
       // Add discipline filters
       const selectedDisciplines = Object.entries(activeDisciplines)
@@ -438,9 +446,9 @@ export default function KnowledgeMapView({ project = null }: { project?: KEProje
         setNodeExplanation(null)
         setNodeExplanationError(null)
         startTransition(() => {
-          setStats({ nodes: 0, edges: 0, papers: 0, concepts: 0 })
+          setStats(EMPTY_STATS)
           setLoading(false)
-          setError('No papers found matching your filters. Try broadening your search criteria.')
+          setError('No items found matching your filters. Try broadening your search criteria.')
         })
         return // Exit early - no graph to create
       }
@@ -478,7 +486,7 @@ export default function KnowledgeMapView({ project = null }: { project?: KEProje
       if (elements.length === 0) {
         // Handle empty results gracefully - don't throw error, show message instead
         setLoading(false)
-        setError('No papers found matching your filters. Try broadening your search criteria (remove some filters, use a broader date range, or try different keywords).')
+        setError('No items found matching your filters. Try broadening your search criteria (remove some filters, use a broader date range, or try different keywords).')
         // Clear any existing graph
         if (cyRef.current) {
           try {
@@ -551,6 +559,38 @@ export default function KnowledgeMapView({ project = null }: { project?: KEProje
               'color': '#2c3e50',
               'border-width': 2,
               'border-color': '#c0392b',
+            },
+          },
+          {
+            selector: 'node[type="process"]',
+            style: {
+              'background-color': '#8e44ad',
+              'label': 'data(label)',
+              'width': 32,
+              'height': 32,
+              'shape': 'round-rectangle',
+              'font-size': '10px',
+              'text-wrap': 'wrap',
+              'text-max-width': '150px',
+              'color': '#2c3e50',
+              'border-width': 2,
+              'border-color': '#6c3483',
+            },
+          },
+          {
+            selector: 'node[type="podcast"]',
+            style: {
+              'background-color': '#e67e22',
+              'label': 'data(label)',
+              'width': 32,
+              'height': 32,
+              'shape': 'hexagon',
+              'font-size': '10px',
+              'text-wrap': 'wrap',
+              'text-max-width': '150px',
+              'color': '#2c3e50',
+              'border-width': 2,
+              'border-color': '#ca6f1e',
             },
           },
           {
@@ -646,6 +686,12 @@ export default function KnowledgeMapView({ project = null }: { project?: KEProje
             mode = 'concept_explanation'
             const conceptName = nodeLabel || nodeId.replace('concept:', '')
             question = `Explain the concept "${conceptName}" and how it appears in the context of the mathematics and related research papers in this knowledge graph.`
+          } else if (nodeType === 'process') {
+            mode = 'general'
+            question = `Explain this process chart: "${nodeLabel}". What does it model, and why does it matter?`
+          } else if (nodeType === 'podcast') {
+            mode = 'general'
+            question = `Summarize this science podcast episode: "${nodeLabel}".`
           } else {
             mode = 'general'
             question = `Explain the node "${nodeLabel}" in the context of this scientific knowledge graph.`
@@ -657,7 +703,7 @@ export default function KnowledgeMapView({ project = null }: { project?: KEProje
             mode,
             content_types: 'papers,podcasts,glmp,math,chemistry,physics,computer_science,biology',
           })
-          params.set('focus_id', nodeId)
+          params.set('focus_id', data.process_id || data.slug || nodeId)
 
           const url = `${API_BASE_URL}/api/rag/answer?${params.toString()}`
           console.log('Fetching node explanation from:', url)
@@ -684,6 +730,8 @@ export default function KnowledgeMapView({ project = null }: { project?: KEProje
       const edges = data.edges || []
       const papers = nodes.filter((n: any) => n.data?.type === 'paper').length
       const concepts = nodes.filter((n: any) => n.data?.type === 'concept').length
+      const processes = nodes.filter((n: any) => n.data?.type === 'process').length
+      const podcasts = nodes.filter((n: any) => n.data?.type === 'podcast').length
 
       // Fit the graph to viewport first
       if (cyRef.current) {
@@ -703,6 +751,8 @@ export default function KnowledgeMapView({ project = null }: { project?: KEProje
               edges: edges.length,
               papers,
               concepts,
+              processes,
+              podcasts,
             })
             setLoading(false)
           })
@@ -713,7 +763,9 @@ export default function KnowledgeMapView({ project = null }: { project?: KEProje
         nodes: nodes.length,
         edges: edges.length,
         papers,
-        concepts
+        concepts,
+        processes,
+        podcasts,
       })
     } catch (err: any) {
       console.error('Error loading knowledge map:', err)
@@ -860,7 +912,7 @@ export default function KnowledgeMapView({ project = null }: { project?: KEProje
           {keywordSearch.trim() && stats.nodes > 0 && !loading && (
             <p className="text-xs text-green-700 mt-2">
               Showing map for: <span className="font-medium">&ldquo;{keywordSearch.trim()}&rdquo;</span>
-              {' '}({stats.papers} papers, {stats.concepts} concepts)
+              {' '}({stats.papers} papers, {stats.processes} processes, {stats.podcasts} podcasts, {stats.concepts} concepts)
             </p>
           )}
         </div>
@@ -885,7 +937,7 @@ export default function KnowledgeMapView({ project = null }: { project?: KEProje
                   <button
                     key={ex.label}
                     onClick={() => runQuickExample({
-                      contentTypes: { papers: true, processes: false, videos: false, podcasts: false },
+                      contentTypes: { papers: true, processes: true, videos: false, podcasts: true },
                       disciplines: ex.disciplines,
                       sources: { pubmed: false, arxiv: false, nasa_ads: false, crossref: false, youtube: false, rss: false },
                       dateRange: { start: '', end: '' },
@@ -1173,7 +1225,7 @@ export default function KnowledgeMapView({ project = null }: { project?: KEProje
           <button
             onClick={() => {
               console.log('🔄 Reset Filters clicked - clearing all filters')
-              setContentTypes({ papers: true, processes: false, videos: false, podcasts: false })
+              setContentTypes({ papers: true, processes: true, videos: false, podcasts: true })
               setDisciplines({ biology: false, chemistry: false, physics: false, mathematics: false, computer_science: false, interdisciplinary: false })
               setSources({ pubmed: false, arxiv: false, nasa_ads: false, crossref: false, youtube: false, rss: false })
               setDateRange({ start: '', end: '' })
@@ -1187,7 +1239,7 @@ export default function KnowledgeMapView({ project = null }: { project?: KEProje
                   if (containerRef.current) {
                     containerRef.current.innerHTML = ''
                   }
-                  setStats({ nodes: 0, edges: 0, papers: 0, concepts: 0 })
+                  setStats(EMPTY_STATS)
                 } catch (err) {
                   console.debug('Error clearing graph on reset:', err)
                 }
@@ -1204,7 +1256,7 @@ export default function KnowledgeMapView({ project = null }: { project?: KEProje
       {/* Statistics + Node Explanation */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
         <div className="bg-white rounded-lg shadow p-4">
-          <div className="grid grid-cols-4 gap-4">
+          <div className="grid grid-cols-3 sm:grid-cols-6 gap-3">
             <div className="text-center">
               <div className="text-2xl font-bold text-blue-600">{stats.nodes}</div>
               <div className="text-sm text-gray-600">Nodes</div>
@@ -1214,8 +1266,16 @@ export default function KnowledgeMapView({ project = null }: { project?: KEProje
               <div className="text-sm text-gray-600">Edges</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-purple-600">{stats.papers}</div>
+              <div className="text-2xl font-bold text-blue-500">{stats.papers}</div>
               <div className="text-sm text-gray-600">Papers</div>
+            </div>
+            <div className="text-center">
+              <div className="text-2xl font-bold text-purple-600">{stats.processes}</div>
+              <div className="text-sm text-gray-600">Processes</div>
+            </div>
+            <div className="text-center">
+              <div className="text-2xl font-bold text-orange-500">{stats.podcasts}</div>
+              <div className="text-sm text-gray-600">Podcasts</div>
             </div>
             <div className="text-center">
               <div className="text-2xl font-bold text-red-600">{stats.concepts}</div>
@@ -1230,7 +1290,7 @@ export default function KnowledgeMapView({ project = null }: { project?: KEProje
           </h3>
           {!selectedNode && (
             <p className="text-xs text-gray-500">
-              Click a paper or concept node in the graph to see an AI-generated explanation here.
+              Click a paper, process, podcast, or concept node to see an explanation and its source link.
             </p>
           )}
           {selectedNode && (

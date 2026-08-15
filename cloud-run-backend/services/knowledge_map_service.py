@@ -123,12 +123,46 @@ def _tokenize_text(text: str) -> List[str]:
             continue
         if t.isdigit():
             continue
-        if len(t) < 4:
+        if len(t) < 3:
             continue
         if len(t) > 28:
             continue
         out.append(t)
     return out
+
+
+PROCESS_FAMILY_COLLECTIONS = {
+    "glmp": "glmp_processes",
+    "math": "atap_graphs",
+    "chemistry": "chemistry_processes",
+    "physics": "physics_processes",
+    "computer_science": "computer_science_processes",
+    "biology": "biology_processes",
+}
+
+MAX_PROCESSES_PER_FAMILY = 12
+MAX_PROCESSES_TOTAL = 48
+MAX_PODCASTS = 20
+PROCESS_CANDIDATE_LIMIT = 250
+PODCAST_CANDIDATE_LIMIT = 200
+
+
+def _content_wanted(content_types: Optional[List[str]], kind: str) -> bool:
+    """None/empty content_types means papers-only (the historical default)."""
+    if not content_types:
+        return kind == "papers"
+    wanted = {c.strip().lower() for c in content_types if c}
+    return kind in wanted
+
+
+def _keyword_overlap_score(keyword: Optional[str], title: str, body: str) -> int:
+    if not keyword or not str(keyword).strip():
+        return 1
+    tokens = set(_tokenize_text(keyword))
+    if not tokens:
+        return 1
+    hay = set(_tokenize_text(f"{title} {body}"))
+    return len(tokens & hay)
 
 
 class KnowledgeMapService:
@@ -846,6 +880,94 @@ Only return the JSON array, no other text."""
             'math.MG': 'Metric Geometry',
         }
         return category_map.get(category, category.replace('math.', '').upper())
+
+    def _fetch_process_items(
+        self,
+        process_family: Optional[str],
+        keyword: Optional[str],
+        limit: int = MAX_PROCESSES_TOTAL,
+    ) -> List[Dict[str, Any]]:
+        """Sample process charts for the map. Scoped to one family when set."""
+        family_key = (process_family or "").strip().lower()
+        if family_key and family_key in PROCESS_FAMILY_COLLECTIONS:
+            families = [family_key]
+        else:
+            families = list(PROCESS_FAMILY_COLLECTIONS.keys())
+
+        per_family = max(1, min(MAX_PROCESSES_PER_FAMILY, limit // max(1, len(families))))
+        items: List[Dict[str, Any]] = []
+        for family in families:
+            collection = PROCESS_FAMILY_COLLECTIONS[family]
+            scored: List[Tuple[int, str, Dict[str, Any]]] = []
+            try:
+                scanned = 0
+                for doc in self.db.collection(collection).limit(PROCESS_CANDIDATE_LIMIT).stream():
+                    d = doc.to_dict() or {}
+                    d.pop("embedding", None)
+                    d.pop("mermaid", None)
+                    d.pop("mermaid_code", None)
+                    title = d.get("title") or d.get("name") or doc.id
+                    body = " ".join([
+                        str(d.get("description") or ""),
+                        str(d.get("category") or ""),
+                        str(d.get("subcategory") or ""),
+                    ])
+                    score = _keyword_overlap_score(keyword, str(title), body)
+                    if score <= 0:
+                        scanned += 1
+                        continue
+                    d["process_id"] = doc.id
+                    d["process_family"] = family
+                    scored.append((score, str(title).lower(), d))
+                    scanned += 1
+                    if scanned >= PROCESS_CANDIDATE_LIMIT:
+                        break
+            except Exception as e:
+                structured_logger.warning(
+                    "Failed to sample processes for knowledge map",
+                    family=family,
+                    error=str(e),
+                )
+                continue
+            scored.sort(key=lambda x: (-x[0], x[1]))
+            items.extend([row[2] for row in scored[:per_family]])
+            if len(items) >= limit:
+                break
+        return items[:limit]
+
+    def _fetch_podcast_items(
+        self,
+        keyword: Optional[str],
+        limit: int = MAX_PODCASTS,
+    ) -> List[Dict[str, Any]]:
+        """Sample podcast episodes for the map."""
+        scored: List[Tuple[int, str, Dict[str, Any]]] = []
+        try:
+            scanned = 0
+            for doc in self.db.collection("episodes").limit(PODCAST_CANDIDATE_LIMIT).stream():
+                d = doc.to_dict() or {}
+                d.pop("embedding", None)
+                title = (
+                    d.get("title")
+                    or (d.get("result") or {}).get("title")
+                    or doc.id
+                )
+                body = str(d.get("description") or (d.get("result") or {}).get("description") or "")
+                score = _keyword_overlap_score(keyword, str(title), body)
+                if score <= 0:
+                    scanned += 1
+                    continue
+                d["slug"] = d.get("slug") or doc.id
+                d["job_id"] = doc.id
+                scored.append((score, str(title).lower(), d))
+                scanned += 1
+                if scanned >= PODCAST_CANDIDATE_LIMIT:
+                    break
+        except Exception as e:
+            structured_logger.warning("Failed to sample podcasts for knowledge map", error=str(e))
+            return []
+        scored.sort(key=lambda x: (-x[0], x[1]))
+        return [row[2] for row in scored[:limit]]
     
     async def build_graph(
         self,
@@ -863,7 +985,8 @@ Only return the JSON array, no other text."""
         date_start: Optional[str] = None,
         date_end: Optional[str] = None,
         keyword: Optional[str] = None,
-        question: Optional[str] = None
+        question: Optional[str] = None,
+        process_family: Optional[str] = None,
     ) -> Dict[str, Any]:
         """
         Build the knowledge graph from papers in Firestore.
@@ -897,7 +1020,12 @@ Only return the JSON array, no other text."""
                              date_start=date_start,
                              date_end=date_end,
                              keyword=keyword,
-                             question=question)
+                             question=question,
+                             process_family=process_family)
+
+        want_papers = _content_wanted(content_types, "papers")
+        want_processes = _content_wanted(content_types, "processes")
+        want_podcasts = _content_wanted(content_types, "podcasts")
         
         # Fetch papers from Firestore
         # Note: To avoid composite index requirements, we fetch first and filter in memory.
@@ -913,7 +1041,7 @@ Only return the JSON array, no other text."""
         has_filters = any([disciplines, sources, date_start, date_end, keyword, question])
 
         papers: List[Dict[str, Any]] = []
-        if keyword and keyword.strip():
+        if want_papers and keyword and keyword.strip():
             papers = await self._seed_papers_by_vector(
                 keyword=keyword.strip(),
                 max_papers=target_count,
@@ -927,7 +1055,9 @@ Only return the JSON array, no other text."""
         # Heuristic: when filters are present, sample a larger window — unless vector seed
         # already filled the graph (avoids scanning 20k docs on every sample query).
         candidate_limit = None
-        if len(papers) >= target_count:
+        if not want_papers:
+            candidate_limit = 0
+        elif len(papers) >= target_count:
             candidate_limit = 0
         elif has_filters:
             candidate_limit = 3000 if keyword else 8000
@@ -1049,6 +1179,20 @@ Only return the JSON array, no other text."""
             structured_logger.info(f"Sample final filtered papers: {sample_final}")
         
         structured_logger.info(f"Final filtered papers: {len(papers)}")
+
+        process_items: List[Dict[str, Any]] = []
+        if want_processes:
+            process_items = self._fetch_process_items(
+                process_family=process_family,
+                keyword=keyword,
+                limit=MAX_PROCESSES_TOTAL,
+            )
+            structured_logger.info(f"Sampled {len(process_items)} process charts for knowledge map")
+
+        podcast_items: List[Dict[str, Any]] = []
+        if want_podcasts:
+            podcast_items = self._fetch_podcast_items(keyword=keyword, limit=MAX_PODCASTS)
+            structured_logger.info(f"Sampled {len(podcast_items)} podcasts for knowledge map")
         
         # Build nodes
         nodes = []
@@ -1067,6 +1211,69 @@ Only return the JSON array, no other text."""
                     'url': paper.get('url'),
                 }
             })
+
+        similarity_items: List[Dict[str, Any]] = list(papers)
+        for process in process_items:
+            chart_id = process.get("process_id") or process.get("id")
+            family = process.get("process_family") or "glmp"
+            if not chart_id:
+                continue
+            node_id = f"process:{family}:{chart_id}"
+            title = process.get("title") or process.get("name") or chart_id
+            description = process.get("description") or ""
+            nodes.append({
+                "id": node_id,
+                "type": "process",
+                "label": str(title)[:100],
+                "data": {
+                    "title": title,
+                    "process_family": family,
+                    "process_id": chart_id,
+                    "subcategory": process.get("subcategory"),
+                    "processType": process.get("processType") or process.get("process_type"),
+                    "description": description[:200] if description else "",
+                },
+            })
+            similarity_items.append({
+                "paper_id": node_id,
+                "title": title,
+                "abstract": description,
+                "keywords": process.get("keywords") or [],
+            })
+
+        for podcast in podcast_items:
+            slug = podcast.get("slug") or podcast.get("job_id") or podcast.get("id")
+            if not slug:
+                continue
+            node_id = f"podcast:{slug}"
+            title = (
+                podcast.get("title")
+                or (podcast.get("result") or {}).get("title")
+                or slug
+            )
+            description = (
+                podcast.get("description")
+                or (podcast.get("result") or {}).get("description")
+                or ""
+            )
+            episode_link = podcast.get("episode_link")
+            nodes.append({
+                "id": node_id,
+                "type": "podcast",
+                "label": str(title)[:100],
+                "data": {
+                    "title": title,
+                    "slug": slug,
+                    "episode_link": episode_link,
+                    "url": episode_link,
+                },
+            })
+            similarity_items.append({
+                "paper_id": node_id,
+                "title": title,
+                "abstract": description,
+                "keywords": [],
+            })
         
         # Build edges
         edges = []
@@ -1084,7 +1291,7 @@ Only return the JSON array, no other text."""
         
         if include_similarity:
             # Keyword overlap is fast; per-paper vector queries are too slow for interactive maps.
-            kw_sim_rels = self.extract_keyword_similarity_relationships(papers)
+            kw_sim_rels = self.extract_keyword_similarity_relationships(similarity_items)
             edges.extend(kw_sim_rels)
             structured_logger.info(f"Extracted {len(kw_sim_rels)} keyword-overlap similarity relationships")
         
@@ -1144,6 +1351,8 @@ Only return the JSON array, no other text."""
             'metadata': {
                 'papers': len([n for n in nodes if n['type'] == 'paper']),
                 'concepts': len([n for n in nodes if n['type'] == 'concept']),
+                'processes': len([n for n in nodes if n['type'] == 'process']),
+                'podcasts': len([n for n in nodes if n['type'] == 'podcast']),
                 'relationships': len(edges),
                 'built_at': datetime.utcnow().isoformat()
             }
