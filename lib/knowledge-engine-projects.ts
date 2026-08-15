@@ -44,14 +44,12 @@ export interface KEProjectConfig {
   processContentType: 'glmp' | 'math'
   searchPlaceholder: string
   /**
-   * DRAFT example queries, not a final ship list -- per the plan doc, these
-   * need Gary/team review before being treated as final. GLMP's three below
-   * were tested live against production on 2026-08-15 and are known to
-   * return good, on-topic results (see the Knowledge Engine integration
-   * assessment doc, same date). ATAP's are carried over unchanged from the
-   * original two-example set; nothing new was added for ATAP because it
-   * would mean inventing queries for a corpus without live-testing them
-   * first -- deliberately left for someone who knows ATAP's corpus.
+   * Example queries. GLMP's three were tested live 2026-08-15 (KE
+   * integration assessment). ATAP's three were re-chosen the same day
+   * after Gary named the actual audience (axiomatic theories, algorithms,
+   * proofs — not general mathematics): each keyword was live-tested
+   * against /api/vector-search/semantic and returned cited_project=atap
+   * papers on the matching declared question (atap-q1 or atap-q2).
    */
   quickExamples: KEQuickExample[]
 }
@@ -63,6 +61,14 @@ const NO_DISCIPLINES = {
   mathematics: false,
   computer_science: false,
   interdisciplinary: false,
+}
+
+/** ATAP papers sit in math.LO and cs.LO/cs.PL/cs.DM — mathematics-only
+ *  filters drop the proof-theory hits (discipline=computer_science). */
+const ATAP_DISCIPLINES = {
+  ...NO_DISCIPLINES,
+  mathematics: true,
+  computer_science: true,
 }
 
 export const KE_PROJECTS: Record<KEProjectId, KEProjectConfig> = {
@@ -94,20 +100,26 @@ export const KE_PROJECTS: Record<KEProjectId, KEProjectConfig> = {
   atap: {
     id: 'atap',
     label: 'ATAP',
-    fullName: 'ATAP (mathematics process graphs)',
-    framingLine: "Exploring ATAP's mathematics corpus -- the atap_graphs process family.",
+    fullName: 'Axiomatic Theories, Algorithms and Proofs',
+    framingLine:
+      'Axiomatic Theories, Algorithms and Proofs — for logicians, foundations researchers, proof theorists, and theoretical computer scientists.',
     processContentType: 'math',
-    searchPlaceholder: 'Try: nilpotent groups, spectral sequences...',
+    searchPlaceholder: 'Try: proof nets, Gödel incompleteness, Curry-Howard...',
     quickExamples: [
       {
-        label: 'Nilpotent Groups (ATAP)',
-        keyword: 'nilpotent group',
-        disciplines: { ...NO_DISCIPLINES, mathematics: true },
+        label: 'Proof Nets (ATAP)',
+        keyword: 'proof nets natural deduction',
+        disciplines: ATAP_DISCIPLINES,
       },
       {
-        label: 'Spectral Sequences (ATAP)',
-        keyword: 'spectral sequence',
-        disciplines: { ...NO_DISCIPLINES, mathematics: true },
+        label: 'Gödel Incompleteness (ATAP)',
+        keyword: 'Gödel incompleteness independence',
+        disciplines: ATAP_DISCIPLINES,
+      },
+      {
+        label: 'Curry-Howard (ATAP)',
+        keyword: 'Curry-Howard correspondence proof assistant',
+        disciplines: ATAP_DISCIPLINES,
       },
     ],
   },
