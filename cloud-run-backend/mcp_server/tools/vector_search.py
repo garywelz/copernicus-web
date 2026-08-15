@@ -522,7 +522,8 @@ async def search_semantic(
                         query_vector=Vector(query_embedding),
                         limit=limit,
                         distance_measure=DistanceMeasure.COSINE,
-                        distance_threshold=distance_threshold
+                        distance_threshold=distance_threshold,
+                        distance_result_field="distance"
                     )
 
                     paper_docs = vector_query.stream()
@@ -554,7 +555,8 @@ async def search_semantic(
                     query_vector=Vector(query_embedding),
                     limit=limit,
                     distance_measure=DistanceMeasure.COSINE,
-                    distance_threshold=distance_threshold
+                    distance_threshold=distance_threshold,
+                        distance_result_field="distance"
                 )
                 
                 podcast_docs = vector_query.stream()
@@ -586,7 +588,8 @@ async def search_semantic(
                     query_vector=Vector(query_embedding),
                     limit=limit,
                     distance_measure=DistanceMeasure.COSINE,
-                    distance_threshold=distance_threshold
+                    distance_threshold=distance_threshold,
+                        distance_result_field="distance"
                 )
                 
                 glmp_docs = vector_query.stream()
@@ -622,7 +625,8 @@ async def search_semantic(
                     query_vector=Vector(query_embedding),
                     limit=limit,
                     distance_measure=DistanceMeasure.COSINE,
-                    distance_threshold=distance_threshold
+                    distance_threshold=distance_threshold,
+                        distance_result_field="distance"
                 )
                 
                 math_docs = vector_query.stream()
@@ -656,7 +660,8 @@ async def search_semantic(
                     query_vector=Vector(query_embedding),
                     limit=limit,
                     distance_measure=DistanceMeasure.COSINE,
-                    distance_threshold=distance_threshold
+                    distance_threshold=distance_threshold,
+                        distance_result_field="distance"
                 )
                 
                 chemistry_docs = vector_query.stream()
@@ -687,7 +692,8 @@ async def search_semantic(
                     query_vector=Vector(query_embedding),
                     limit=limit,
                     distance_measure=DistanceMeasure.COSINE,
-                    distance_threshold=distance_threshold
+                    distance_threshold=distance_threshold,
+                        distance_result_field="distance"
                 )
                 
                 physics_docs = vector_query.stream()
@@ -718,7 +724,8 @@ async def search_semantic(
                     query_vector=Vector(query_embedding),
                     limit=limit,
                     distance_measure=DistanceMeasure.COSINE,
-                    distance_threshold=distance_threshold
+                    distance_threshold=distance_threshold,
+                        distance_result_field="distance"
                 )
                 
                 cs_docs = vector_query.stream()
@@ -749,7 +756,8 @@ async def search_semantic(
                     query_vector=Vector(query_embedding),
                     limit=limit,
                     distance_measure=DistanceMeasure.COSINE,
-                    distance_threshold=distance_threshold
+                    distance_threshold=distance_threshold,
+                        distance_result_field="distance"
                 )
                 for doc in vector_query.stream():
                     bio_data = doc.to_dict()
@@ -1038,7 +1046,8 @@ async def find_similar_content(
                 query_vector=Vector(source_embedding),
                 limit=limit,
                 distance_measure=DistanceMeasure.COSINE,
-                distance_threshold=0.8  # Slightly more lenient for similarity
+                distance_threshold=0.8,  # Slightly more lenient for similarity
+                distance_result_field="distance"
             )
             
             for doc in vector_query.stream():
@@ -1065,7 +1074,8 @@ async def find_similar_content(
                 query_vector=Vector(source_embedding),
                 limit=limit,
                 distance_measure=DistanceMeasure.COSINE,
-                distance_threshold=0.8
+                distance_threshold=0.8,
+                distance_result_field="distance"
             )
             
             for doc in vector_query.stream():
@@ -1092,7 +1102,8 @@ async def find_similar_content(
                 query_vector=Vector(source_embedding),
                 limit=limit,
                 distance_measure=DistanceMeasure.COSINE,
-                distance_threshold=0.8
+                distance_threshold=0.8,
+                distance_result_field="distance"
             )
             
             for doc in vector_query.stream():
@@ -1123,7 +1134,8 @@ async def find_similar_content(
                 query_vector=Vector(source_embedding),
                 limit=limit,
                 distance_measure=DistanceMeasure.COSINE,
-                distance_threshold=0.8
+                distance_threshold=0.8,
+                distance_result_field="distance"
             )
             
             for doc in vector_query.stream():

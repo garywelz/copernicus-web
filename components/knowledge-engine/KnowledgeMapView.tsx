@@ -46,6 +46,51 @@ type MapFilterOverrides = {
   maxPapers?: number
 }
 
+type SelectedNode = {
+  id: string
+  type: string
+  label: string
+  doi?: string | null
+  pmid?: string | null
+  arxiv_id?: string | null
+  url?: string | null
+}
+
+function hasText(v: string | null | undefined): v is string {
+  if (v == null) return false
+  const s = String(v).trim()
+  return Boolean(s) && s.toLowerCase() !== 'none' && s.toLowerCase() !== 'null'
+}
+
+/** Same priority as ContentBrowser.paperExternalUrl / papers-database-table.html. */
+function paperExternalUrl(item: {
+  doi?: string | null
+  pmid?: string | null
+  arxiv_id?: string | null
+  url?: string | null
+}): string | null {
+  if (hasText(item.doi)) {
+    const doi = item.doi.replace(/^https?:\/\/(dx\.)?doi\.org\//i, '')
+    return `https://doi.org/${encodeURI(doi)}`
+  }
+  if (hasText(item.pmid)) {
+    return `https://pubmed.ncbi.nlm.nih.gov/${encodeURIComponent(item.pmid)}`
+  }
+  if (hasText(item.arxiv_id)) {
+    const id = item.arxiv_id.replace(/^arxiv:/i, '')
+    return `https://arxiv.org/abs/${encodeURIComponent(id)}`
+  }
+  if (hasText(item.url) && /^https?:\/\//i.test(item.url)) {
+    return item.url
+  }
+  return null
+}
+
+function pmidFromNodeId(id: string): string | null {
+  const m = id.match(/^pubmed_(.+)$/i)
+  return m ? m[1] : null
+}
+
 export default function KnowledgeMapView() {
   const containerRef = useRef<HTMLDivElement>(null)
   const [loading, setLoading] = useState(false) // Start as false - user clicks "Reload Map" to load
@@ -56,7 +101,7 @@ export default function KnowledgeMapView() {
   const [includeCategories, setIncludeCategories] = useState(true)
   const [stats, setStats] = useState({ nodes: 0, edges: 0, papers: 0, concepts: 0 })
   const cyRef = useRef<any>(null)
-  const [selectedNode, setSelectedNode] = useState<{ id: string; type: string; label: string } | null>(null)
+  const [selectedNode, setSelectedNode] = useState<SelectedNode | null>(null)
   const [nodeExplanation, setNodeExplanation] = useState<string | null>(null)
   const [nodeExplanationLoading, setNodeExplanationLoading] = useState(false)
   const [nodeExplanationError, setNodeExplanationError] = useState<string | null>(null)
@@ -599,7 +644,15 @@ export default function KnowledgeMapView() {
           return
         }
 
-        setSelectedNode({ id: nodeId, type: nodeType, label: nodeLabel })
+        setSelectedNode({
+          id: nodeId,
+          type: nodeType,
+          label: nodeLabel,
+          doi: data.doi ?? null,
+          pmid: data.pmid || pmidFromNodeId(String(nodeId)),
+          arxiv_id: data.arxiv_id ?? null,
+          url: data.url ?? null,
+        })
         setNodeExplanation(null)
         setNodeExplanationError(null)
         setNodeExplanationLoading(true)
@@ -1220,6 +1273,16 @@ export default function KnowledgeMapView() {
                     {selectedNode.type === 'paper' ? 'Paper' : selectedNode.type === 'concept' ? 'Concept' : 'Node'}
                   </p>
                   <p className="text-sm font-medium text-gray-800">{selectedNode.label}</p>
+                  {selectedNode.type === 'paper' && paperExternalUrl(selectedNode) && (
+                    <a
+                      href={paperExternalUrl(selectedNode)!}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-xs text-blue-600 hover:underline"
+                    >
+                      Open source paper
+                    </a>
+                  )}
                 </div>
                 <button
                   className="text-xs text-blue-600 hover:underline"
