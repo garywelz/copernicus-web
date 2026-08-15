@@ -9,6 +9,7 @@
 
 import { useState, useEffect } from 'react'
 import dynamic from 'next/dynamic'
+import { KE_PROJECTS, KE_PROJECT_IDS, isKEProjectId, type KEProjectId } from '@/lib/knowledge-engine-projects'
 
 // Dynamically import components with SSR disabled to prevent server-side errors
 const KnowledgeMapView = dynamic(
@@ -55,6 +56,25 @@ export default function KnowledgeEnginePage() {
   // Fallback of last resort if the live fetch below fails -- will go stale
   // again if left here long enough, same as the "594" it replaces did.
   const [processCount, setProcessCount] = useState<number>(692)
+  // GLMP/ATAP toggle, chrome-first v1 (see
+  // docs/open-questions/knowledge-engine-project-toggle-plan-2026-08-15.md,
+  // glmp repo). null/both is the default landing state, deliberately --
+  // a forced pick would hide chemistry/physics/CS/non-GLMP-biology, same
+  // failure shape as the "594" count-honesty bug fixed the same week.
+  const [selectedProject, setSelectedProject] = useState<KEProjectId | null>(null)
+
+  // Read ?project=glmp|atap on first load so a direct link can open scoped
+  // to a project without needing sticky client state. Read-only sync from
+  // URL -> state; does not push URL updates on manual toggle clicks (kept
+  // simple for v1 -- add router-based sync later if deep-linking on every
+  // click turns out to matter).
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    const fromUrl = params.get('project')
+    if (isKEProjectId(fromUrl)) {
+      setSelectedProject(fromUrl)
+    }
+  }, [])
 
   useEffect(() => {
     fetch('https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/knowledge-engine-status.json', { cache: 'no-store' })
@@ -83,12 +103,41 @@ export default function KnowledgeEnginePage() {
       {/* Header */}
       <header className="bg-white shadow-sm border-b sticky top-0 z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-4">
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center py-4 gap-3">
             <div>
               <h1 className="text-2xl font-bold text-gray-900">CopernicusAI Knowledge Engine: Research Tools</h1>
               <p className="text-sm text-gray-600">
                 Papers, podcasts, videos, and {processCount.toLocaleString()} process charts across six scientific families
               </p>
+              {selectedProject && (
+                <p className="text-xs text-blue-700 mt-1">{KE_PROJECTS[selectedProject].framingLine}</p>
+              )}
+            </div>
+            <div className="flex items-center gap-2" role="group" aria-label="Project view">
+              <button
+                onClick={() => setSelectedProject(null)}
+                className={`text-xs px-3 py-1.5 rounded-md border transition-colors ${
+                  selectedProject === null
+                    ? 'bg-gray-800 text-white border-gray-800'
+                    : 'bg-white text-gray-600 border-gray-300 hover:bg-gray-50'
+                }`}
+              >
+                All projects
+              </button>
+              {KE_PROJECT_IDS.map((id) => (
+                <button
+                  key={id}
+                  onClick={() => setSelectedProject(id)}
+                  className={`text-xs px-3 py-1.5 rounded-md border transition-colors ${
+                    selectedProject === id
+                      ? 'bg-blue-600 text-white border-blue-600'
+                      : 'bg-white text-gray-600 border-gray-300 hover:bg-gray-50'
+                  }`}
+                  title={KE_PROJECTS[id].fullName}
+                >
+                  {KE_PROJECTS[id].label}
+                </button>
+              ))}
             </div>
           </div>
         </div>
@@ -118,10 +167,10 @@ export default function KnowledgeEnginePage() {
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {activeTab === 'map' && <KnowledgeMapView />}
-        {activeTab === 'search' && <SearchInterface />}
+        {activeTab === 'map' && <KnowledgeMapView project={selectedProject} />}
+        {activeTab === 'search' && <SearchInterface project={selectedProject} />}
         {activeTab === 'rag' && <RAGInterface />}
-        {activeTab === 'browse' && <ContentBrowser />}
+        {activeTab === 'browse' && <ContentBrowser project={selectedProject} />}
         {activeTab === 'stats' && <StatsDashboard />}
       </main>
     </div>

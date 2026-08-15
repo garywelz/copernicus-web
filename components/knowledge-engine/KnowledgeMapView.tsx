@@ -8,6 +8,7 @@
 'use client'
 
 import { useEffect, useRef, useState, startTransition } from 'react'
+import { KE_PROJECTS, KE_PROJECT_IDS, type KEProjectId } from '@/lib/knowledge-engine-projects'
 
 // API base URL - adjust for production
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://copernicus-podcast-api-phzp4ie2sq-uc.a.run.app'
@@ -91,7 +92,7 @@ function pmidFromNodeId(id: string): string | null {
   return m ? m[1] : null
 }
 
-export default function KnowledgeMapView() {
+export default function KnowledgeMapView({ project = null }: { project?: KEProjectId | null } = {}) {
   const containerRef = useRef<HTMLDivElement>(null)
   const [loading, setLoading] = useState(false) // Start as false - user clicks "Reload Map" to load
   const [error, setError] = useState<string | null>(null)
@@ -864,76 +865,43 @@ export default function KnowledgeMapView() {
           )}
         </div>
         
-        {/* Quick Examples - curated to return results reliably */}
+        {/* Quick Examples - curated to return results reliably.
+            Config-driven (lib/knowledge-engine-projects.ts) so GLMP/ATAP
+            share one source of examples instead of each tab hardcoding its
+            own -- see the 2026-08-15 project-toggle plan. When a project is
+            selected, show only that project's examples; when null (the
+            default), show both, same as the original always-both behavior. */}
         <div className="mb-6 bg-blue-50 border border-blue-200 rounded-lg p-4">
           <h3 className="text-sm font-semibold text-blue-900 mb-2">Quick Examples (Click to try)</h3>
           <p className="text-xs text-blue-700 mb-3">Try this pre-configured filter set that returns results:</p>
-          
-          <div className="mb-3">
-            <p className="text-xs font-medium text-blue-800 mb-1">📐 Mathematics:</p>
-            <div className="flex flex-wrap gap-2">
-              <button
-                onClick={() => runQuickExample({
-                  contentTypes: { papers: true, processes: false, videos: false, podcasts: false },
-                  disciplines: { biology: false, chemistry: false, physics: false, mathematics: true, computer_science: false, interdisciplinary: false },
-                  sources: { pubmed: false, arxiv: false, nasa_ads: false, crossref: false, youtube: false, rss: false },
-                  dateRange: { start: '', end: '' },
-                  keywordSearch: 'nilpotent group',
-                  maxPapers: 10,
-                })}
-                className="text-xs px-3 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
-              >
-                Nilpotent Groups (Math)
-              </button>
-              <button
-                onClick={() => runQuickExample({
-                  contentTypes: { papers: true, processes: false, videos: false, podcasts: false },
-                  disciplines: { biology: false, chemistry: false, physics: false, mathematics: true, computer_science: false, interdisciplinary: false },
-                  sources: { pubmed: false, arxiv: false, nasa_ads: false, crossref: false, youtube: false, rss: false },
-                  dateRange: { start: '', end: '' },
-                  keywordSearch: 'spectral sequence',
-                  maxPapers: 10,
-                })}
-                className="text-xs px-3 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
-              >
-                Spectral Sequences (Math)
-              </button>
-            </div>
-          </div>
 
-          <div className="mb-3">
-            <p className="text-xs font-medium text-blue-800 mb-1">🧬 Biology:</p>
-            <div className="flex flex-wrap gap-2">
-              <button
-                onClick={() => runQuickExample({
-                  contentTypes: { papers: true, processes: false, videos: false, podcasts: false },
-                  disciplines: { biology: true, chemistry: false, physics: false, mathematics: false, computer_science: false, interdisciplinary: false },
-                  sources: { pubmed: false, arxiv: false, nasa_ads: false, crossref: false, youtube: false, rss: false },
-                  dateRange: { start: '', end: '' },
-                  keywordSearch: 'aerobic respiration mitochondria',
-                  maxPapers: 10,
-                })}
-                className="text-xs px-3 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
-              >
-                Aerobic Respiration (Biology)
-              </button>
-              <button
-                onClick={() => runQuickExample({
-                  contentTypes: { papers: true, processes: false, videos: false, podcasts: false },
-                  disciplines: { biology: true, chemistry: false, physics: false, mathematics: false, computer_science: false, interdisciplinary: false },
-                  sources: { pubmed: false, arxiv: false, nasa_ads: false, crossref: false, youtube: false, rss: false },
-                  dateRange: { start: '', end: '' },
-                  keywordSearch: 'glutamate acid resistance Escherichia coli',
-                  maxPapers: 10,
-                })}
-                className="text-xs px-3 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
-              >
-                Acid Resistance (Biology)
-              </button>
+          {(project ? [KE_PROJECTS[project]] : KE_PROJECT_IDS.map((id) => KE_PROJECTS[id])).map((proj) => (
+            <div className="mb-3" key={proj.id}>
+              <p className="text-xs font-medium text-blue-800 mb-1">
+                {proj.id === 'atap' ? '📐' : '🧬'} {proj.label}:
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {proj.quickExamples.map((ex) => (
+                  <button
+                    key={ex.label}
+                    onClick={() => runQuickExample({
+                      contentTypes: { papers: true, processes: false, videos: false, podcasts: false },
+                      disciplines: ex.disciplines,
+                      sources: { pubmed: false, arxiv: false, nasa_ads: false, crossref: false, youtube: false, rss: false },
+                      dateRange: { start: '', end: '' },
+                      keywordSearch: ex.keyword,
+                      maxPapers: 10,
+                    })}
+                    className="text-xs px-3 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+                  >
+                    {ex.label}
+                  </button>
+                ))}
+              </div>
             </div>
-          </div>
+          ))}
         </div>
-        
+
         {/* Content Type Selection */}
         <div className="mb-6">
           <label className="block text-sm font-medium text-gray-700 mb-2">

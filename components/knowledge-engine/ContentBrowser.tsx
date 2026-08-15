@@ -6,6 +6,7 @@
 
 import { useState, useEffect, useMemo } from 'react'
 import { API_BASE_URL, PAPERS_DATABASE_TABLE_HREF, PROCESS_DATABASE_LINKS } from './constants'
+import { KE_PROJECTS, type KEProjectId } from '@/lib/knowledge-engine-projects'
 
 type ContentItem = {
   id: string
@@ -104,9 +105,19 @@ function titleHrefFor(item: ContentItem): string | null {
   return null
 }
 
-export default function ContentBrowser() {
+export default function ContentBrowser({ project = null }: { project?: KEProjectId | null } = {}) {
   const [contentType, setContentType] = useState<BrowseType>('papers')
-  const [processFamily, setProcessFamily] = useState('math')
+  // Default family chip follows the selected project (chrome-level default
+  // only -- the process_family filter and its effect on retrieval already
+  // existed before the toggle; this just picks a sensible starting chip
+  // instead of always defaulting to 'math' regardless of context).
+  const [processFamily, setProcessFamily] = useState<string>(project ? KE_PROJECTS[project].processContentType : 'math')
+
+  useEffect(() => {
+    if (project) {
+      setProcessFamily(KE_PROJECTS[project].processContentType)
+    }
+  }, [project])
   const [loading, setLoading] = useState(false)
   const [items, setItems] = useState<ContentItem[]>([])
   const [total, setTotal] = useState(0)

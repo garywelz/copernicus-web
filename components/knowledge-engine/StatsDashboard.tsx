@@ -117,7 +117,11 @@ export default function StatsDashboard() {
           </div>
           <div className="text-sm text-gray-600 mt-1">Process Charts (6 families)</div>
           <div className="text-xs text-gray-500 mt-1">
-            Firestore GLMP only: {engineStatus?.processes?.toLocaleString() ?? '—'}
+            {/* Sub-breakdown of the total above, not a competing count --
+                worded explicitly after this was misread twice during the
+                2026-08-15 GLMP/ATAP toggle review as if it qualified the
+                6-family number rather than being one family's own count. */}
+            of which GLMP (glmp_processes collection): {engineStatus?.processes?.toLocaleString() ?? '—'}
           </div>
         </div>
       </div>

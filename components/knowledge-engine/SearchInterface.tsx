@@ -9,6 +9,7 @@
 
 import { useState } from 'react'
 import { API_BASE_URL, ALL_PROCESS_CONTENT_TYPES } from './constants'
+import { KE_PROJECTS, type KEProjectId } from '@/lib/knowledge-engine-projects'
 
 type SearchResult = {
   id: string
@@ -29,7 +30,7 @@ const normalizeText = (text: string): string =>
     .replace(/\$([^$]+)\$/g, '$1')
     .replace(/\$/g, '')
 
-export default function SearchInterface() {
+export default function SearchInterface({ project = null }: { project?: KEProjectId | null } = {}) {
   const [query, setQuery] = useState('')
   const [loading, setLoading] = useState(false)
   const [results, setResults] = useState<SearchResult[]>([])
@@ -179,7 +180,7 @@ export default function SearchInterface() {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 onKeyPress={handleKeyPress}
-                placeholder="Try: aerobic respiration, acid resistance (E. coli), amino acid biosynthesis, nilpotent groups..."
+                placeholder={project ? KE_PROJECTS[project].searchPlaceholder : 'Try: aerobic respiration, acid resistance (E. coli), amino acid biosynthesis, nilpotent groups...'}
                 className="flex-1 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
               <button
