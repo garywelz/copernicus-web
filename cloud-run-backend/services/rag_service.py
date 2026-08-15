@@ -12,6 +12,8 @@ from datetime import datetime
 import os
 import re
 
+from google.cloud import firestore
+
 from services.embedding_service import get_embedding_service
 from mcp_server.tools.vector_search import search_semantic
 from utils.logging import structured_logger
@@ -83,6 +85,35 @@ def _fetch_focus_document(focus_id: str) -> "tuple[Optional[str], Optional[dict]
             }
         return search_data_key, doc
     return None, None
+
+
+def _record_focus_fallback(focus_id: str) -> None:
+    """Persist a counter every time a focus_id fails to resolve (item 42,
+    GLMP_MASTER_TODO.md). Item 34's fix logged this case with a
+    structured_logger.warning and nothing else -- fine for a one-off, but if
+    a frontend bug, a renamed ID, or a new content collection not yet in
+    _FOCUS_ID_COLLECTIONS starts causing this regularly, that log line is
+    invisible to anyone not actively reading Cloud Run logs. This makes the
+    rate visible instead: a single counter doc, read into
+    knowledge-engine-status.json by generate_status_page.py, surfaced in
+    glmp's AUTO-STATUS by build_master_todo.py -- same shape as the
+    findability probe (item 21).
+
+    Fail-soft by design: a metrics-write failure must never break the
+    actual RAG response, so this only ever logs on error, never raises.
+    """
+    try:
+        firestore_db.collection("system_metrics").document("rag_focus_fallback").set(
+            {
+                "count": firestore.Increment(1),
+                "last_fired_at": firestore.SERVER_TIMESTAMP,
+                "last_focus_id": focus_id,
+            },
+            merge=True,
+        )
+    except Exception as e:
+        structured_logger.warning(f"Failed to record focus_fallback metric: {e}")
+
 
 def _env_flag(name: str, default: str = "0") -> bool:
     return (os.getenv(name, default) or "").strip().lower() in {"1", "true", "yes", "y", "on"}
@@ -321,6 +352,7 @@ class RAGService:
                         "falling back to semantic-only retrieval",
                         focus_id=focus_id,
                     )
+                    _record_focus_fallback(focus_id)
             
             # Step 2: Format context with citations
             context_parts = []

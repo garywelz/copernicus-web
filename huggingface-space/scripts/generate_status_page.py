@@ -200,6 +200,44 @@ def fetch_papers_by_discipline(
     return counts, "; ".join(parts) if parts else None
 
 
+def fetch_focus_fallback_metric() -> Optional[Dict[str, Any]]:
+    """
+    RAG focus_id silent-fallback counter (item 42, GLMP_MASTER_TODO.md).
+    rag_service.py writes system_metrics/rag_focus_fallback every time a
+    Knowledge Map node click's focus_id fails to resolve against any known
+    collection (item 34's fallback path). No public-API equivalent exists
+    for this (it's an operational counter, not content), so this goes
+    straight to Firestore -- lazy-imported so a cron venv without
+    google-cloud-firestore degrades to omitting the field entirely rather
+    than failing the whole status build.
+
+    Unlike papers_by_discipline, there is no honest last-known-good
+    fallback for an ever-incrementing counter -- a stale count would
+    actively mislead about whether this is currently firing. On any
+    failure this returns None and the field is simply omitted, same as
+    content_stats' existing optional-field pattern in build_status().
+    """
+    try:
+        from google.cloud import firestore
+    except ImportError:
+        return None
+    try:
+        gcp_project_id = os.environ.get("GCP_PROJECT_ID", "regal-scholar-453620-r7")
+        db = firestore.Client(project=gcp_project_id, database="copernicusai")
+        snap = db.collection("system_metrics").document("rag_focus_fallback").get()
+        if not snap.exists:
+            return {"count": 0, "last_fired_at": None, "last_focus_id": None}
+        data = snap.to_dict() or {}
+        last_fired = data.get("last_fired_at")
+        return {
+            "count": int(data.get("count", 0)),
+            "last_fired_at": last_fired.isoformat() if hasattr(last_fired, "isoformat") else last_fired,
+            "last_focus_id": data.get("last_focus_id"),
+        }
+    except Exception:
+        return None
+
+
 def _fetch_content_stats(api_base: str) -> Optional[Dict[str, Any]]:
     """
     /api/content/stats: papers with embedding (embedding_model set in Firestore).
@@ -251,6 +289,7 @@ def build_status(
     videos_note: Optional[str] = None,
     papers_by_discipline: Optional[Dict[str, int]] = None,
     papers_by_discipline_note: Optional[str] = None,
+    focus_fallback: Optional[Dict[str, Any]] = None,
 ) -> Dict[str, Any]:
     videos_doc = (
         f"Live from {VIDEOS_METADATA_URL} (`totalVideos`); override with "
@@ -308,6 +347,15 @@ def build_status(
         )
     if process_databases_error:
         out["notes"]["process_databases_error"] = process_databases_error
+    if focus_fallback is not None:
+        out["rag_focus_fallback"] = focus_fallback
+        out["notes"]["rag_focus_fallback"] = (
+            "Count of Knowledge Map node-explanation requests where focus_id "
+            "did not resolve to any known document (rag_service.py "
+            "_record_focus_fallback, item 42). A rising rate points at a "
+            "frontend sending malformed IDs, a renamed process ID, or a new "
+            "content collection not yet in _FOCUS_ID_COLLECTIONS."
+        )
     out["notes"]["firestore_glmp_vs_glmp_v2_table"] = (
         "`processes` = Firestore collection glmp_processes (document count). The GLMP summary table at "
         "glmp-database-table.html uses glmp-v2/metadata.json (`totalProcesses`, typically 108). The gap to "
@@ -386,6 +434,10 @@ def main() -> int:
     if papers_by_discipline_note:
         print(f"⚠️  papers_by_discipline: {papers_by_discipline_note}")
 
+    focus_fallback = fetch_focus_fallback_metric()
+    if focus_fallback is None:
+        print("⚠️  rag_focus_fallback: Firestore read failed or unavailable; status JSON will omit it.")
+
     status = build_status(
         counts,
         source_label,
@@ -395,6 +447,7 @@ def main() -> int:
         videos_note=videos_note,
         papers_by_discipline=papers_by_discipline,
         papers_by_discipline_note=papers_by_discipline_note,
+        focus_fallback=focus_fallback,
     )
     out = Path(args.output)
     out.parent.mkdir(parents=True, exist_ok=True)
