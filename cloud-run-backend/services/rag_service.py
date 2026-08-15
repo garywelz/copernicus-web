@@ -379,6 +379,9 @@ class RAGService:
                     "title": title,
                     "paper_id": paper_id,
                     "doi": doi,
+                    "pmid": paper.get("pmid"),
+                    "arxiv_id": paper.get("arxiv_id"),
+                    "url": paper.get("url"),
                     "similarity_score": round(similarity, 3)
                 })
                 citation_number += 1

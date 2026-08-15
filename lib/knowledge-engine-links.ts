@@ -12,9 +12,9 @@ export const PODCAST_EPISODE_BASE = 'https://copernicusai.fyi/episodes'
 const GCS_PROCESS_ROOT =
   'https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage'
 
-/** Family table (always a real page). Used when a per-chart HTML path is unknown. */
+/** Family table. Title links never use these — only the Browse "open full table" affordance. */
 export const PROCESS_FAMILY_TABLE_HREF: Record<string, string> = {
-  glmp: `${GCS_PROCESS_ROOT}/glmp-v2/glmp-database-table.html`,
+  glmp: `${GCS_PROCESS_ROOT}/glmp-database-table.html`,
   math: `${GCS_PROCESS_ROOT}/mathematics-processes-database/mathematics-database-table.html`,
   biology: `${GCS_PROCESS_ROOT}/biology-processes-database/biology-database-table.html`,
   chemistry: `${GCS_PROCESS_ROOT}/chemistry-processes-database/chemistry-database-table.html`,
@@ -64,6 +64,13 @@ export function paperExternalUrl(item: {
 export function isUsableChartId(id: string | undefined): id is string {
   if (!id || !id.trim()) return false
   return /^[A-Za-z][A-Za-z0-9_.-]*$/.test(id)
+}
+
+/** Viewer takes ?process= as a query param, so allow ids the path regex rejects. */
+export function isUsableViewerProcessId(id: string | undefined): id is string {
+  if (!hasText(id)) return false
+  if (id.includes('..') || /[\/\\]/.test(id)) return false
+  return id.length <= 200
 }
 
 /** @deprecated use isUsableChartId — kept for existing Map/Browse call sites */
@@ -172,8 +179,8 @@ export function processExternalUrl(item: {
 }): string | null {
   const family = item.processFamily || ''
   const chartId = item.processId || item.id
-  if (family === 'glmp' && isUsableChartId(chartId || undefined)) {
-    return glmpViewerUrl(chartId!)
+  if (family === 'glmp') {
+    return isUsableViewerProcessId(chartId || undefined) ? glmpViewerUrl(chartId!) : null
   }
   const base = PROCESS_CHART_GCS_BASE[family]
   if (base && isUsableChartId(chartId || undefined)) {
@@ -191,7 +198,7 @@ export function processExternalUrl(item: {
       return `${base}/processes/${encodeURIComponent(subcategory)}/${encodeURIComponent(chartId!)}.html`
     }
   }
-  return PROCESS_FAMILY_TABLE_HREF[family] || null
+  return null
 }
 
 export function hrefForKnowledgeItem(item: {

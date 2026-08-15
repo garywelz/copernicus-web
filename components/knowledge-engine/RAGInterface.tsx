@@ -29,6 +29,7 @@ type Citation = {
   url?: string | null
   job_id?: string
   process_id?: string
+  chart_id?: string
   slug?: string
   episode_link?: string
   subcategory?: string
@@ -249,7 +250,7 @@ export default function RAGInterface({ project = null }: { project?: KEProjectId
                   const family = processFamilyFromRagType(citation.type)
                   const href = hrefForKnowledgeItem({
                     type: citation.type,
-                    id: citation.paper_id || citation.slug || citation.job_id || citation.process_id,
+                    id: citation.paper_id || citation.slug || citation.job_id || citation.process_id || citation.chart_id,
                     doi: citation.doi,
                     pmid: citation.pmid,
                     arxiv_id: citation.arxiv_id,

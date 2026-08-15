@@ -47,7 +47,7 @@ export const PAPER_DISCIPLINES = [
 ] as const
 
 export const PROCESS_DATABASE_LINKS = [
-  { key: 'glmp_v2', label: 'GLMP', href: 'https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-v2/glmp-database-table.html' },
+  { key: 'glmp_v2', label: 'GLMP', href: 'https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-database-table.html' },
   { key: 'mathematics', label: 'ATAP', href: 'https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/mathematics-database-table.html' },
   { key: 'biology', label: 'Biology', href: 'https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/biology-processes-database/biology-database-table.html' },
   { key: 'chemistry', label: 'Chemistry', href: 'https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/chemistry-processes-database/chemistry-database-table.html' },

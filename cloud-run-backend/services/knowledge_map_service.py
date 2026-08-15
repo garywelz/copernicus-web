@@ -1063,6 +1063,8 @@ Only return the JSON array, no other text."""
                     'categories': paper.get('categories', []),
                     'arxiv_id': paper.get('arxiv_id'),
                     'doi': paper.get('doi'),
+                    'pmid': paper.get('pmid'),
+                    'url': paper.get('url'),
                 }
             })
         

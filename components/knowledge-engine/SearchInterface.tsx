@@ -148,7 +148,7 @@ export default function SearchInterface({ project = null }: { project?: KEProjec
         const list = data[bucket] || []
         const family = processFamilyFromSearchBucket(bucket)
         list.forEach((process: any) => {
-          const processId = process.process_id || process.id
+          const processId = process.process_id || process.chart_id || process.id
           allResults.push({
             id: processId,
             title: process.title || process.name || 'Untitled Process',

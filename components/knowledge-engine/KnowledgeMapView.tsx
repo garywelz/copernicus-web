@@ -9,7 +9,7 @@
 
 import { useEffect, useRef, useState, startTransition } from 'react'
 import { KE_PROJECTS, KE_PROJECT_IDS, type KEProjectId } from '@/lib/knowledge-engine-projects'
-import { paperExternalUrl, pmidFromNodeId } from '@/lib/knowledge-engine-links'
+import { hrefForKnowledgeItem, pmidFromNodeId } from '@/lib/knowledge-engine-links'
 
 // API base URL - adjust for production
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://copernicus-podcast-api-phzp4ie2sq-uc.a.run.app'
@@ -56,6 +56,11 @@ type SelectedNode = {
   pmid?: string | null
   arxiv_id?: string | null
   url?: string | null
+  processFamily?: string | null
+  processId?: string | null
+  slug?: string | null
+  subcategory?: string | null
+  processType?: string | null
 }
 
 export default function KnowledgeMapView({ project = null }: { project?: KEProjectId | null } = {}) {
@@ -619,6 +624,11 @@ export default function KnowledgeMapView({ project = null }: { project?: KEProje
           pmid: data.pmid || pmidFromNodeId(String(nodeId)),
           arxiv_id: data.arxiv_id ?? null,
           url: data.url ?? null,
+          processFamily: data.process_family || data.processFamily || null,
+          processId: data.process_id || data.processId || null,
+          slug: data.slug || null,
+          subcategory: data.subcategory || null,
+          processType: data.processType || data.process_type || null,
         })
         setNodeExplanation(null)
         setNodeExplanationError(null)
@@ -758,6 +768,30 @@ export default function KnowledgeMapView({ project = null }: { project?: KEProje
       console.warn('Cannot clear highlights - map not loaded yet')
     }
   }
+
+  const selectedHref = selectedNode
+    ? hrefForKnowledgeItem({
+        type: selectedNode.type,
+        id: selectedNode.id,
+        doi: selectedNode.doi,
+        pmid: selectedNode.pmid,
+        arxiv_id: selectedNode.arxiv_id,
+        url: selectedNode.url,
+        processFamily: selectedNode.processFamily,
+        processId: selectedNode.processId || selectedNode.id,
+        slug: selectedNode.slug,
+        subcategory: selectedNode.subcategory,
+        processType: selectedNode.processType,
+      })
+    : null
+  const selectedHrefLabel =
+    selectedNode?.type === 'paper'
+      ? 'Open source paper'
+      : selectedNode?.type === 'podcast'
+        ? 'Open episode'
+        : selectedNode?.type === 'process' || selectedNode?.processFamily
+          ? 'Open chart'
+          : 'Open source'
 
   return (
     <div className="space-y-4">
@@ -1207,14 +1241,14 @@ export default function KnowledgeMapView({ project = null }: { project?: KEProje
                     {selectedNode.type === 'paper' ? 'Paper' : selectedNode.type === 'concept' ? 'Concept' : 'Node'}
                   </p>
                   <p className="text-sm font-medium text-gray-800">{selectedNode.label}</p>
-                  {selectedNode.type === 'paper' && paperExternalUrl(selectedNode) && (
+                  {selectedHref && (
                     <a
-                      href={paperExternalUrl(selectedNode)!}
+                      href={selectedHref}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-xs text-blue-600 hover:underline"
                     >
-                      Open source paper
+                      {selectedHrefLabel}
                     </a>
                   )}
                 </div>
