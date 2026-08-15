@@ -135,6 +135,19 @@ def resolve_doi_encoded(doi: str, parse_crossref_item) -> Tuple[Optional[Dict[st
         return None, f"encoded Crossref failed for {doi}: {e}"
 
 
+def _norm_title(text: Optional[str]) -> str:
+    return "".join(c.lower() for c in (text or "") if c.isalnum())
+
+
+def titles_match(harvest: Optional[str], resolved: Optional[str]) -> bool:
+    """Chart-file PMIDs are often the wrong paper. Require a title overlap
+    before attributing named_by_charts. No harvest title → reject."""
+    a, b = _norm_title(harvest), _norm_title(resolved)
+    if len(a) < 12 or len(b) < 12:
+        return False
+    return a[:28] in b or b[:28] in a
+
+
 def _stamp(record: Dict[str, Any], row: Dict[str, Any], cited_date: str) -> Dict[str, Any]:
     charts = list(row.get("chart_ids") or [])
     out = dict(record)
@@ -145,6 +158,64 @@ def _stamp(record: Dict[str, Any], row: Dict[str, Any], cited_date: str) -> Dict
     out["cited_project"] = CITED_PROJECT
     out["cited_context"] = CITED_CONTEXT
     return out
+
+
+def _repair_mismatches(args) -> int:
+    """Undo named_by_charts written when PubMed PMID != harvest title."""
+    from google.cloud import firestore
+
+    harvest_rows = _load_manifest(args.manifest)
+    by_pmid = {str(r["pmid"]): r for r in harvest_rows if r.get("pmid")}
+    by_doi = {(r.get("doi") or "").lower(): r for r in harvest_rows if r.get("doi")}
+
+    report_path = args.report
+    if not report_path.is_file():
+        report_path = DEFAULT_REPORT.with_name("a1_resolve_ingest_report_retry.jsonl")
+    if not report_path.is_file():
+        print(f"No report to repair: {report_path}", file=sys.stderr)
+        return 2
+
+    db = firestore.Client(project="regal-scholar-453620-r7", database="copernicusai")
+    col = db.collection("research_papers")
+    stripped = 0
+    skipped = 0
+    for line in report_path.read_text(encoding="utf-8").splitlines():
+        rec = json.loads(line)
+        if rec.get("status") not in ("merged", "created"):
+            continue
+        harvest = by_pmid.get(str(rec.get("pmid") or "")) or by_doi.get((rec.get("doi") or "").lower())
+        if harvest and titles_match(harvest.get("title"), rec.get("title")):
+            skipped += 1
+            continue
+        doc_id = rec.get("doc_id")
+        if not doc_id:
+            continue
+        snap = col.document(doc_id).get()
+        if not snap.exists:
+            continue
+        data = snap.to_dict() or {}
+        charts = set(rec.get("named_by_charts") or harvest and harvest.get("chart_ids") or [])
+        remaining = [c for c in (data.get("named_by_charts") or []) if c not in charts]
+        citations = [
+            c for c in (data.get("citations") or [])
+            if not (
+                c.get("cited_by") == CITED_BY
+                and c.get("cited_context") == CITED_CONTEXT
+            )
+        ]
+        update = {
+            "named_by_charts": remaining,
+            "citations": citations,
+            "updated_at": datetime.now(timezone.utc).replace(microsecond=0).isoformat(),
+        }
+        if args.write:
+            col.document(doc_id).update(update)
+            stripped += 1
+        else:
+            stripped += 1
+        print(f"{'STRIP' if args.write else 'would_strip'} {doc_id}  harvest={(harvest or {}).get('title', '')[:50]!r}  resolved={rec.get('title', '')[:50]!r}")
+    print(f"title-ok left in place: {skipped}; mismatch attributions {'stripped' if args.write else 'would strip'}: {stripped}")
+    return 0
 
 
 def _merge_onto_existing(db, col, doc_id: str, record: Dict[str, Any], write: bool) -> str:
@@ -196,7 +267,15 @@ def main() -> int:
         action="store_true",
         help="Only retry rows marked unresolved in --report (reads the previous report first)",
     )
+    parser.add_argument(
+        "--repair-mismatches",
+        action="store_true",
+        help="Strip named_by_charts from docs whose resolved title does not match the harvest title",
+    )
     args = parser.parse_args()
+
+    if args.repair_mismatches:
+        return _repair_mismatches(args)
 
     if not args.manifest.is_file():
         print(f"Manifest missing: {args.manifest}", file=sys.stderr)
@@ -260,6 +339,19 @@ def main() -> int:
                 if record is None:
                     record, err = resolve_pmid_eutils(str(pmid))
                     time.sleep(0.35)
+            if record is not None and not titles_match(row.get("title"), record.get("title")):
+                counts["unresolved"] += 1
+                report_fh.write(json.dumps({
+                    "status": "title_mismatch",
+                    "doi": doi,
+                    "pmid": pmid,
+                    "harvest_title": row.get("title"),
+                    "resolved_title": record.get("title"),
+                    "chart_ids": row.get("chart_ids"),
+                }, ensure_ascii=False) + "\n")
+                print(f"[{i}/{len(rows)}] TITLE MISMATCH {doi or pmid}")
+                record = None
+                continue
             if record is None:
                 counts["unresolved"] += 1
                 report_fh.write(json.dumps({

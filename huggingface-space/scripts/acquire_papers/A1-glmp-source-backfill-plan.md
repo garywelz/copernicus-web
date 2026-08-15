@@ -1,10 +1,14 @@
 # A1 — Backfill the GLMP source papers into the corpus
 
 **Drafted:** 2026-08-05 · **Status:** A1.0 resolve+ingest ran 2026-08-15.
-389 harvested; 323 written or merged into `research_papers` (98 new,
-225 already present and attributed); 66 still unresolved (Crossref miss
-and no usable PubMed record). Charts remain a best current
-approximation, not a certified result.
+389 harvested. First pass: 98 new, 128 merged via DOI. A PMID fallback
+then attached 76 charts to the *wrong* papers (chart-file PMIDs often
+do not match the listed title); those `named_by_charts` stamps were
+stripped the same day. 21 PMID resolves matched titles and were kept.
+66 remain: DOI-only rows Crossref does not return; Biopython cannot
+help without a PMID. Title-overlap is now required before any PMID
+attribution. Charts remain a best current approximation, not a
+certified result.
 **Parent:** item #37 Part A · **Was blocked until ~2026-09-01** on Prof.
 Lents' and Me-Me's biology review of item #25. Gary, 2026-08-15: do not
 wait on that calendar; order relative to the citation-expansion pilot
