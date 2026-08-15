@@ -9,7 +9,9 @@ import {
   API_BASE_URL,
   GCS_STATUS_URL,
   PROCESS_DATABASE_LINKS,
+  PROCESS_FAMILIES,
 } from './constants'
+import { KE_PROJECTS, type KEProjectId } from '@/lib/knowledge-engine-projects'
 
 type EngineStatus = {
   papers?: number
@@ -20,6 +22,7 @@ type EngineStatus = {
   papers_embedding_coverage_percent?: number
   last_updated?: string
   process_databases?: Record<string, number>
+  papers_by_discipline?: Record<string, number>
   notes?: Record<string, string>
 }
 
@@ -32,7 +35,7 @@ type Stats = {
   }
 }
 
-export default function StatsDashboard() {
+export default function StatsDashboard({ project = null }: { project?: KEProjectId | null } = {}) {
   const [loading, setLoading] = useState(true)
   const [engineStatus, setEngineStatus] = useState<EngineStatus | null>(null)
   const [stats, setStats] = useState<Stats>({})
@@ -84,6 +87,10 @@ export default function StatsDashboard() {
 
   const pdb = engineStatus?.process_databases || {}
   const processSum = pdb.sum ?? 0
+  const papersByDiscipline = engineStatus?.papers_by_discipline || {}
+  const highlightStatusKey = project
+    ? PROCESS_FAMILIES.find((f) => f.id === KE_PROJECTS[project].processContentType)?.statusKey
+    : null
 
   return (
     <div className="space-y-6">
@@ -135,7 +142,11 @@ export default function StatsDashboard() {
               href={link.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="border border-gray-200 rounded-lg p-3 hover:border-blue-400 hover:shadow-sm transition"
+              className={`border rounded-lg p-3 hover:border-blue-400 hover:shadow-sm transition ${
+                highlightStatusKey === link.key
+                  ? 'border-blue-500 ring-1 ring-blue-200'
+                  : 'border-gray-200'
+              }`}
             >
               <div className="font-semibold text-gray-900">{link.label}</div>
               <div className="text-2xl font-bold text-purple-600 mt-1">
@@ -146,8 +157,27 @@ export default function StatsDashboard() {
         </div>
         <p className="text-xs text-gray-500 mt-4">
           Total across families: {processSum.toLocaleString()} (excludes graph-type pilots).
-          Math, chemistry, physics, CS, and biology are embedded with OpenAI text-embedding-3-small for vector search.
+          ATAP is the mathematics process-graph family (atap_graphs), not the general mathematics paper corpus.
         </p>
+      </div>
+
+      <div className="bg-white rounded-lg shadow p-6">
+        <h3 className="text-lg font-semibold text-gray-900 mb-4">Papers by discipline</h3>
+        <p className="text-xs text-gray-500 mb-3">
+          Distinct from process charts: Biology papers are not GLMP, and Mathematics papers are not ATAP.
+        </p>
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 text-sm">
+          {(['biology', 'mathematics'] as const).map((disc) => (
+            <div key={disc} className="border border-gray-200 rounded-lg p-3">
+              <div className="font-semibold text-gray-900 capitalize">{disc.replace('_', ' ')}</div>
+              <div className="text-2xl font-bold text-blue-600 mt-1">
+                {typeof papersByDiscipline[disc] === 'number'
+                  ? papersByDiscipline[disc].toLocaleString()
+                  : '—'}
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
 
       {stats.knowledge_map && (

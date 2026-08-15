@@ -169,9 +169,9 @@ export default function KnowledgeEnginePage() {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {activeTab === 'map' && <KnowledgeMapView project={selectedProject} />}
         {activeTab === 'search' && <SearchInterface project={selectedProject} />}
-        {activeTab === 'rag' && <RAGInterface />}
+        {activeTab === 'rag' && <RAGInterface project={selectedProject} />}
         {activeTab === 'browse' && <ContentBrowser project={selectedProject} />}
-        {activeTab === 'stats' && <StatsDashboard />}
+        {activeTab === 'stats' && <StatsDashboard project={selectedProject} />}
       </main>
     </div>
   )

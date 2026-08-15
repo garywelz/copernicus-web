@@ -43,6 +43,8 @@ export interface KEProjectConfig {
   /** content_type key the API expects for this project's process family. */
   processContentType: 'glmp' | 'math'
   searchPlaceholder: string
+  /** Example questions for the Ask tab (same topics as quickExamples). */
+  askExamples: string[]
   /**
    * Example queries. GLMP's three were tested live 2026-08-15 (KE
    * integration assessment). ATAP's three were re-chosen the same day
@@ -79,6 +81,11 @@ export const KE_PROJECTS: Record<KEProjectId, KEProjectConfig> = {
     framingLine: "Exploring GLMP's gene-regulation corpus -- the glmp process family and its scoped papers.",
     processContentType: 'glmp',
     searchPlaceholder: 'Try: CRP activation of transcription, lac operon, catabolite repression...',
+    askExamples: [
+      'How does CRP activate transcription at Class I promoters?',
+      'How is the lac operon regulated in Escherichia coli?',
+      'What is catabolite repression and what role does the cAMP receptor protein play?',
+    ],
     quickExamples: [
       {
         label: 'CRP Activation (GLMP)',
@@ -105,6 +112,11 @@ export const KE_PROJECTS: Record<KEProjectId, KEProjectConfig> = {
       'Axiomatic Theories, Algorithms and Proofs — for logicians, foundations researchers, proof theorists, and theoretical computer scientists.',
     processContentType: 'math',
     searchPlaceholder: 'Try: proof nets, Gödel incompleteness, Curry-Howard...',
+    askExamples: [
+      'What are proof nets, and how do they relate to natural deduction?',
+      'What does Gödel\'s incompleteness theorem say, and why does it matter for foundations?',
+      'What is the Curry-Howard correspondence between proofs and programs?',
+    ],
     quickExamples: [
       {
         label: 'Proof Nets (ATAP)',
@@ -129,4 +141,20 @@ export const KE_PROJECT_IDS: KEProjectId[] = ['glmp', 'atap']
 
 export function isKEProjectId(v: string | null | undefined): v is KEProjectId {
   return v === 'glmp' || v === 'atap'
+}
+
+/** Search/RAG content_types for the current toggle. Project view scopes
+ *  processes to that project's family only; papers stay unscoped until Layer B. */
+export function searchContentTypesForProject(
+  project: KEProjectId | null,
+  selected: { papers: boolean; podcasts: boolean; processes: boolean },
+): string[] {
+  const types: string[] = []
+  if (selected.papers) types.push('papers')
+  if (selected.podcasts) types.push('podcasts')
+  if (selected.processes) {
+    if (project) types.push(KE_PROJECTS[project].processContentType)
+    else types.push('glmp', 'math', 'chemistry', 'physics', 'computer_science', 'biology')
+  }
+  return types
 }

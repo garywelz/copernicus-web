@@ -5,8 +5,15 @@
 'use client'
 
 import { useState, useEffect, useMemo } from 'react'
-import { API_BASE_URL, PAPERS_DATABASE_TABLE_HREF, PROCESS_DATABASE_LINKS } from './constants'
+import {
+  API_BASE_URL,
+  PAPERS_DATABASE_TABLE_HREF,
+  PROCESS_DATABASE_LINKS,
+  PROCESS_FAMILIES,
+  PAPER_DISCIPLINES,
+} from './constants'
 import { KE_PROJECTS, type KEProjectId } from '@/lib/knowledge-engine-projects'
+import { hrefForKnowledgeItem } from '@/lib/knowledge-engine-links'
 
 type ContentItem = {
   id: string
@@ -22,87 +29,23 @@ type ContentItem = {
 
 type BrowseType = 'papers' | 'podcasts' | 'processes'
 
-const PROCESS_FAMILIES = [
-  { id: 'glmp', label: 'GLMP' },
-  { id: 'math', label: 'Mathematics' },
-  { id: 'chemistry', label: 'Chemistry' },
-  { id: 'physics', label: 'Physics' },
-  { id: 'computer_science', label: 'Computer Science' },
-  { id: 'biology', label: 'Biology' },
-] as const
-
-/** Interactive Mermaid viewer (GLMP only). Other families have table DBs, not this viewer. */
-const GLMP_VIEWER_BASE =
-  'https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-v2/viewer/index.html'
-
-/** Canonical public episode page (matches podcast-database-table + episode_link). */
-const PODCAST_EPISODE_BASE = 'https://copernicusai.fyi/episodes'
-
-function hasText(v: string | null | undefined): v is string {
-  if (v == null) return false
-  const s = String(v).trim()
-  return Boolean(s) && s.toLowerCase() !== 'none' && s.toLowerCase() !== 'null'
-}
-
 function isUntitledPaper(item: ContentItem): boolean {
   const t = (item.title || '').trim()
   return !t || t === 'Untitled'
 }
 
-/** Same priority as papers-database-table.html paperExternalUrl. */
-function paperExternalUrl(item: ContentItem): string | null {
-  if (hasText(item.doi)) {
-    const doi = item.doi.replace(/^https?:\/\/(dx\.)?doi\.org\//i, '')
-    return `https://doi.org/${encodeURI(doi)}`
-  }
-  if (hasText(item.pmid)) {
-    return `https://pubmed.ncbi.nlm.nih.gov/${encodeURIComponent(item.pmid)}`
-  }
-  if (hasText(item.arxiv_id)) {
-    const id = item.arxiv_id.replace(/^arxiv:/i, '')
-    return `https://arxiv.org/abs/${encodeURIComponent(id)}`
-  }
-  if (hasText(item.url) && /^https?:\/\//i.test(item.url)) {
-    return item.url
-  }
-  return null
-}
-
-/** Safe chart_id for ?process= (allows e.g. ecoli_e._coli_acid_resistance). */
-function isUsableGlmpChartId(id: string | undefined): id is string {
-  if (!id || !id.trim()) return false
-  return /^[A-Za-z][A-Za-z0-9_.-]*$/.test(id)
-}
-
-/** Safe episode_id / slug (e.g. ever-phys-250034, news-bio-28032025). */
-function isUsablePodcastId(id: string | undefined): id is string {
-  if (!id || !id.trim()) return false
-  return /^[A-Za-z][A-Za-z0-9_.-]*$/.test(id)
-}
-
-function glmpViewerUrl(chartId: string): string {
-  return `${GLMP_VIEWER_BASE}?process=${encodeURIComponent(chartId)}`
-}
-
-function podcastEpisodeUrl(episodeId: string): string {
-  return `${PODCAST_EPISODE_BASE}/${encodeURIComponent(episodeId)}`
-}
-
 function titleHrefFor(item: ContentItem): string | null {
-  if (
-    item.type === 'process' &&
-    item.metadata?.process_family === 'glmp' &&
-    isUsableGlmpChartId(item.id)
-  ) {
-    return glmpViewerUrl(item.id)
-  }
-  if (item.type === 'podcast' && isUsablePodcastId(item.id)) {
-    return podcastEpisodeUrl(item.id)
-  }
-  if (item.type === 'paper') {
-    return paperExternalUrl(item)
-  }
-  return null
+  return hrefForKnowledgeItem({
+    type: item.type,
+    id: item.id,
+    doi: item.doi,
+    pmid: item.pmid,
+    arxiv_id: item.arxiv_id,
+    url: item.url,
+    processFamily: item.metadata?.process_family,
+    jobId: item.type === 'podcast' ? item.id : null,
+    processId: item.type === 'process' ? item.id : null,
+  })
 }
 
 export default function ContentBrowser({ project = null }: { project?: KEProjectId | null } = {}) {
@@ -112,6 +55,9 @@ export default function ContentBrowser({ project = null }: { project?: KEProject
   // existed before the toggle; this just picks a sensible starting chip
   // instead of always defaulting to 'math' regardless of context).
   const [processFamily, setProcessFamily] = useState<string>(project ? KE_PROJECTS[project].processContentType : 'math')
+  /** Paper-discipline chip. Empty = all papers. Mathematics is a paper family,
+   *  distinct from ATAP process charts — same idea as Biology papers vs GLMP. */
+  const [paperDiscipline, setPaperDiscipline] = useState<string>('')
 
   useEffect(() => {
     if (project) {
@@ -127,7 +73,7 @@ export default function ContentBrowser({ project = null }: { project?: KEProject
 
   useEffect(() => {
     loadContent()
-  }, [contentType, processFamily, page])
+  }, [contentType, processFamily, paperDiscipline, page])
 
   const loadContent = async () => {
     setLoading(true)
@@ -139,6 +85,9 @@ export default function ContentBrowser({ project = null }: { project?: KEProject
       })
       if (contentType === 'processes') {
         params.set('process_family', processFamily)
+      }
+      if (contentType === 'papers' && paperDiscipline) {
+        params.set('discipline', paperDiscipline)
       }
 
       const response = await fetch(`${API_BASE_URL}/api/content/browse?${params}`)
@@ -212,6 +161,40 @@ export default function ContentBrowser({ project = null }: { project?: KEProject
           </div>
         )}
 
+        {contentType === 'papers' && (
+          <div className="flex flex-wrap gap-2 mb-4">
+            <button
+              onClick={() => {
+                setPaperDiscipline('')
+                setPage(1)
+              }}
+              className={`px-3 py-1 text-sm rounded-md ${
+                paperDiscipline === ''
+                  ? 'bg-purple-600 text-white'
+                  : 'bg-purple-50 text-purple-800 hover:bg-purple-100'
+              }`}
+            >
+              All disciplines
+            </button>
+            {PAPER_DISCIPLINES.map((d) => (
+              <button
+                key={d.id}
+                onClick={() => {
+                  setPaperDiscipline(d.id)
+                  setPage(1)
+                }}
+                className={`px-3 py-1 text-sm rounded-md ${
+                  paperDiscipline === d.id
+                    ? 'bg-purple-600 text-white'
+                    : 'bg-purple-50 text-purple-800 hover:bg-purple-100'
+                }`}
+              >
+                {d.label}
+              </button>
+            ))}
+          </div>
+        )}
+
         <p className="text-sm text-gray-500 mb-4">
           {total > 0 ? `${total.toLocaleString()} items` : 'No items loaded'}
           {contentType === 'papers' && (
@@ -238,15 +221,8 @@ export default function ContentBrowser({ project = null }: { project?: KEProject
               <a
                 href={
                   PROCESS_DATABASE_LINKS.find((l) => {
-                    const keyMap: Record<string, string> = {
-                      glmp: 'glmp_v2',
-                      math: 'mathematics',
-                      chemistry: 'chemistry',
-                      physics: 'physics',
-                      computer_science: 'computer_science',
-                      biology: 'biology',
-                    }
-                    return l.key === keyMap[processFamily]
+                    const fam = PROCESS_FAMILIES.find((f) => f.id === processFamily)
+                    return fam ? l.key === fam.statusKey : false
                   })?.href
                 }
                 target="_blank"
@@ -302,7 +278,9 @@ export default function ContentBrowser({ project = null }: { project?: KEProject
                   )}
                   <span className="inline-block mt-2 text-xs px-2 py-1 bg-blue-100 text-blue-800 rounded">
                     {item.type}
-                    {item.metadata?.process_family ? ` · ${item.metadata.process_family}` : ''}
+                    {item.metadata?.process_family
+                      ? ` · ${PROCESS_FAMILIES.find((f) => f.id === item.metadata?.process_family)?.label || item.metadata.process_family}`
+                      : ''}
                   </span>
                 </div>
               )

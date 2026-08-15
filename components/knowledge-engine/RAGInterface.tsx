@@ -1,6 +1,6 @@
 /**
  * RAG (Retrieval-Augmented Generation) Interface Component
- * 
+ *
  * Copyright (c) 2025 Gary Welz / CopernicusAI
  * Licensed under MIT License
  */
@@ -8,13 +8,27 @@
 'use client'
 
 import { useState } from 'react'
-import { API_BASE_URL, DEFAULT_SEARCH_CONTENT_TYPES } from './constants'
+import { API_BASE_URL } from './constants'
+import {
+  KE_PROJECTS,
+  KE_PROJECT_IDS,
+  searchContentTypesForProject,
+  type KEProjectId,
+} from '@/lib/knowledge-engine-projects'
+import { hrefForKnowledgeItem, processFamilyFromRagType } from '@/lib/knowledge-engine-links'
 
 type Citation = {
   number: number
   type: string
   title: string
   similarity_score?: number
+  paper_id?: string
+  doi?: string | null
+  pmid?: string | null
+  arxiv_id?: string | null
+  url?: string | null
+  job_id?: string
+  process_id?: string
 }
 
 type RAGResponse = {
@@ -26,7 +40,14 @@ type RAGResponse = {
   error?: string
 }
 
-export default function RAGInterface() {
+const FALLBACK_EXAMPLES = [
+  'What is the glutamate-dependent acid resistance system in Escherichia coli, and what genes are involved?',
+  'Explain aerobic respiration in mitochondria, including the electron transport chain and ATP synthase.',
+  'What are proof nets, and how do they relate to natural deduction?',
+  'What does Gödel\'s incompleteness theorem say, and why does it matter for foundations?',
+]
+
+export default function RAGInterface({ project = null }: { project?: KEProjectId | null } = {}) {
   const [question, setQuestion] = useState('')
   const [loading, setLoading] = useState(false)
   const [response, setResponse] = useState<RAGResponse | null>(null)
@@ -43,6 +64,15 @@ export default function RAGInterface() {
         ? modelName
         : 'LLM'
 
+  const exampleQuestions = project
+    ? KE_PROJECTS[project].askExamples
+    : KE_PROJECT_IDS.flatMap((id) => KE_PROJECTS[id].askExamples).length
+      ? [
+          ...KE_PROJECTS.glmp.askExamples.slice(0, 2),
+          ...KE_PROJECTS.atap.askExamples.slice(0, 2),
+        ]
+      : FALLBACK_EXAMPLES
+
   const handleAsk = async () => {
     if (!question.trim()) return
 
@@ -50,10 +80,15 @@ export default function RAGInterface() {
     setResponse(null)
 
     try {
+      const types = searchContentTypesForProject(project, {
+        papers: true,
+        podcasts: true,
+        processes: true,
+      })
       const params = new URLSearchParams({
         question: question,
         max_context_items: maxContextItems.toString(),
-        content_types: DEFAULT_SEARCH_CONTENT_TYPES.join(','),
+        content_types: types.join(','),
       })
 
       const response = await fetch(`${API_BASE_URL}/api/rag/answer?${params}`)
@@ -83,17 +118,8 @@ export default function RAGInterface() {
     }
   }
 
-  // Example questions that work well with vector retrieval + synthesis
-  const exampleQuestions = [
-    'What is the glutamate-dependent acid resistance system in Escherichia coli, and what genes are involved?',
-    'Explain aerobic respiration in mitochondria, including the electron transport chain and ATP synthase.',
-    'What is amino acid biosynthesis and why is it important in cells?',
-    'What are nilpotent groups? Give the definition and one example.',
-  ]
-
   return (
     <div className="space-y-4">
-      {/* Question Form */}
       <div className="bg-white rounded-lg shadow p-6">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-xl font-semibold text-gray-900">Ask a Question</h2>
@@ -101,8 +127,7 @@ export default function RAGInterface() {
             {isKeywordMode ? 'Keyword Retrieval Mode' : 'Powered by RAG'}
           </span>
         </div>
-        
-        {/* Info Banner */}
+
         <div className={`mb-4 border rounded-md p-3 ${isKeywordMode ? 'bg-yellow-50 border-yellow-200' : 'bg-blue-50 border-blue-200'}`}>
           <p className={`text-sm ${isKeywordMode ? 'text-yellow-900' : 'text-blue-800'}`}>
             {isKeywordMode ? (
@@ -111,12 +136,14 @@ export default function RAGInterface() {
               </>
             ) : (
               <>
-                <strong>RAG:</strong> Retrieves context from all six process families plus papers and podcasts, then synthesizes an answer with {llmLabel}.
+                <strong>RAG:</strong> Retrieves context from{' '}
+                {project ? `${KE_PROJECTS[project].label} process charts` : 'all six process families'}{' '}
+                plus papers and podcasts, then synthesizes an answer with {llmLabel}.
               </>
             )}
           </p>
         </div>
-        
+
         <div className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -126,7 +153,11 @@ export default function RAGInterface() {
               value={question}
               onChange={(e) => setQuestion(e.target.value)}
               onKeyPress={handleKeyPress}
-              placeholder="Ask a question about research papers, concepts, or processes..."
+              placeholder={
+                project
+                  ? KE_PROJECTS[project].searchPlaceholder
+                  : 'Ask a question about research papers, concepts, or processes...'
+              }
               rows={4}
               className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
@@ -157,7 +188,6 @@ export default function RAGInterface() {
         </div>
       </div>
 
-      {/* Example Questions */}
       <div className="bg-white rounded-lg shadow p-6">
         <h3 className="text-sm font-semibold text-gray-700 mb-2">Example Questions</h3>
         <div className="flex flex-wrap gap-2">
@@ -173,7 +203,6 @@ export default function RAGInterface() {
         </div>
       </div>
 
-      {/* Response */}
       {loading && (
         <div className="bg-white rounded-lg shadow p-6">
           <div className="flex items-center space-x-3">
@@ -194,19 +223,11 @@ export default function RAGInterface() {
                   <div className="bg-blue-50 border border-blue-200 rounded p-3 mt-3">
                     <p className="text-sm text-blue-800 font-medium mb-2">Why no results?</p>
                     <p className="text-sm text-blue-700">
-                      The RAG system needs content indexed in the vector database to answer questions. 
-                      We're building our collection - try using the <strong>Browse Content</strong> tab to see available papers and processes, 
+                      The RAG system needs content indexed in the vector database to answer questions.
+                      We&apos;re building our collection - try using the <strong>Browse Content</strong> tab to see available papers and processes,
                       or check back as we add more content daily.
                     </p>
                   </div>
-                  <p className="text-sm text-gray-600 mt-3">
-                    <strong>Suggestions:</strong>
-                  </p>
-                  <ul className="text-sm text-gray-600 mt-1 list-disc list-inside ml-2">
-                    <li>Browse available content using the Browse tab</li>
-                    <li>Try questions about topics you see in the knowledge base</li>
-                    <li>Check back regularly as we add more content</li>
-                  </ul>
                 </div>
               ) : (
                 <p className="text-gray-700 whitespace-pre-wrap">{response.answer}</p>
@@ -220,31 +241,59 @@ export default function RAGInterface() {
                 Citations ({response.citations.length})
               </h3>
               <div className="space-y-3">
-                {response.citations.map((citation) => (
-                  <div
-                    key={citation.number}
-                    className="border border-gray-200 rounded-lg p-4"
-                  >
-                    <div className="flex items-start space-x-2">
-                      <span className="flex-shrink-0 w-6 h-6 bg-blue-100 text-blue-800 rounded-full flex items-center justify-center text-sm font-medium">
-                        {citation.number}
-                      </span>
-                      <div className="flex-1">
-                        <h4 className="font-medium text-gray-900">{citation.title}</h4>
-                        <div className="flex items-center space-x-2 mt-1">
-                          <span className="text-xs px-2 py-1 bg-gray-100 text-gray-700 rounded">
-                            {citation.type}
-                          </span>
-                          {citation.similarity_score && (
-                            <span className="text-xs text-gray-500">
-                              Similarity: {(citation.similarity_score * 100).toFixed(1)}%
+                {response.citations.map((citation) => {
+                  const family = processFamilyFromRagType(citation.type)
+                  const href = hrefForKnowledgeItem({
+                    type: citation.type,
+                    id: citation.paper_id || citation.job_id || citation.process_id,
+                    doi: citation.doi,
+                    pmid: citation.pmid,
+                    arxiv_id: citation.arxiv_id,
+                    url: citation.url,
+                    processFamily: family,
+                    jobId: citation.job_id,
+                    processId: citation.process_id,
+                  })
+                  const typeLabel = family === 'math' ? 'ATAP process' : citation.type.replace(/_/g, ' ')
+                  return (
+                    <div
+                      key={citation.number}
+                      className="border border-gray-200 rounded-lg p-4"
+                    >
+                      <div className="flex items-start space-x-2">
+                        <span className="flex-shrink-0 w-6 h-6 bg-blue-100 text-blue-800 rounded-full flex items-center justify-center text-sm font-medium">
+                          {citation.number}
+                        </span>
+                        <div className="flex-1">
+                          <h4 className="font-medium text-gray-900">
+                            {href ? (
+                              <a
+                                href={href}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-blue-700 hover:underline"
+                              >
+                                {citation.title}
+                              </a>
+                            ) : (
+                              citation.title
+                            )}
+                          </h4>
+                          <div className="flex items-center space-x-2 mt-1">
+                            <span className="text-xs px-2 py-1 bg-gray-100 text-gray-700 rounded">
+                              {typeLabel}
                             </span>
-                          )}
+                            {citation.similarity_score ? (
+                              <span className="text-xs text-gray-500">
+                                Similarity: {(citation.similarity_score * 100).toFixed(1)}%
+                              </span>
+                            ) : null}
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  )
+                })}
               </div>
             </div>
           )}
@@ -272,4 +321,3 @@ export default function RAGInterface() {
     </div>
   )
 }
-

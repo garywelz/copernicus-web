@@ -1,6 +1,6 @@
 /**
  * Search Interface Component
- * 
+ *
  * Copyright (c) 2025 Gary Welz / CopernicusAI
  * Licensed under MIT License
  */
@@ -8,8 +8,13 @@
 'use client'
 
 import { useState } from 'react'
-import { API_BASE_URL, ALL_PROCESS_CONTENT_TYPES } from './constants'
-import { KE_PROJECTS, type KEProjectId } from '@/lib/knowledge-engine-projects'
+import { API_BASE_URL } from './constants'
+import {
+  KE_PROJECTS,
+  searchContentTypesForProject,
+  type KEProjectId,
+} from '@/lib/knowledge-engine-projects'
+import { hrefForKnowledgeItem, processFamilyFromSearchBucket } from '@/lib/knowledge-engine-links'
 
 type SearchResult = {
   id: string
@@ -19,14 +24,17 @@ type SearchResult = {
   categories?: string[]
   similarity_score?: number
   type: 'paper' | 'podcast' | 'process'
+  doi?: string | null
+  pmid?: string | null
+  arxiv_id?: string | null
+  url?: string | null
+  processFamily?: string | null
+  jobId?: string | null
 }
 
-// Normalize titles/abstracts that may contain simple HTML or LaTeX markers
 const normalizeText = (text: string): string =>
   text
-    // Strip basic HTML tags like <i>Escherichia coli</i>
     .replace(/<[^>]+>/g, '')
-    // Unwrap inline LaTeX-style $...$ markers
     .replace(/\$([^$]+)\$/g, '$1')
     .replace(/\$/g, '')
 
@@ -42,6 +50,10 @@ export default function SearchInterface({ project = null }: { project?: KEProjec
   })
   const [limit, setLimit] = useState(20)
 
+  const processLabel = project
+    ? `${KE_PROJECTS[project].label} process charts`
+    : 'Processes (all 6 families)'
+
   const handleSearch = async () => {
     if (!query.trim()) return
 
@@ -54,13 +66,7 @@ export default function SearchInterface({ project = null }: { project?: KEProjec
         query: query,
         limit: limit.toString(),
       })
-
-      // Add content types
-      const types: string[] = []
-      if (contentTypes.papers) types.push('papers')
-      if (contentTypes.podcasts) types.push('podcasts')
-      if (contentTypes.processes) types.push(...ALL_PROCESS_CONTENT_TYPES)
-
+      const types = searchContentTypesForProject(project, contentTypes)
       if (types.length > 0) {
         params.append('content_types', types.join(','))
       }
@@ -72,10 +78,9 @@ export default function SearchInterface({ project = null }: { project?: KEProjec
 
       const data = await response.json()
       setSearchMethod(data.search_method || 'vector_semantic')
-      
-      // Flatten results from all content types
+
       const allResults: SearchResult[] = []
-      
+
       if (data.papers) {
         data.papers.forEach((paper: any) => {
           allResults.push({
@@ -86,18 +91,24 @@ export default function SearchInterface({ project = null }: { project?: KEProjec
             categories: paper.categories,
             similarity_score: paper.similarity_score,
             type: 'paper',
+            doi: paper.doi ?? null,
+            pmid: paper.pmid ?? null,
+            arxiv_id: paper.arxiv_id ?? null,
+            url: paper.url ?? null,
           })
         })
       }
 
       if (data.podcasts) {
         data.podcasts.forEach((podcast: any) => {
+          const jobId = podcast.job_id || podcast.id
           allResults.push({
-            id: podcast.job_id || podcast.id,
+            id: jobId,
             title: podcast.result?.title || podcast.title || 'Untitled Podcast',
             abstract: podcast.result?.description || podcast.description,
             similarity_score: podcast.similarity_score,
             type: 'podcast',
+            jobId,
           })
         })
       }
@@ -112,20 +123,21 @@ export default function SearchInterface({ project = null }: { project?: KEProjec
       ] as const
       for (const bucket of processBuckets) {
         const list = data[bucket] || []
+        const family = processFamilyFromSearchBucket(bucket)
         list.forEach((process: any) => {
+          const processId = process.process_id || process.id
           allResults.push({
-            id: process.process_id || process.id,
+            id: processId,
             title: process.title || process.name || 'Untitled Process',
             abstract: process.description,
             similarity_score: process.similarity_score,
             type: 'process',
+            processFamily: family,
           })
         })
       }
 
-      // Sort by similarity score
       allResults.sort((a, b) => (b.similarity_score || 0) - (a.similarity_score || 0))
-
       setResults(allResults)
     } catch (error: any) {
       console.error('Search error:', error)
@@ -143,7 +155,6 @@ export default function SearchInterface({ project = null }: { project?: KEProjec
 
   return (
     <div className="space-y-4">
-      {/* Search Form */}
       <div className="bg-white rounded-lg shadow p-6">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-xl font-semibold text-gray-900">Semantic Search</h2>
@@ -151,8 +162,7 @@ export default function SearchInterface({ project = null }: { project?: KEProjec
             {searchMethod?.includes('keyword') ? 'Keyword Search Active' : 'Powered by Vector Search'}
           </span>
         </div>
-        
-        {/* Info Banner */}
+
         <div className={`mb-4 border rounded-md p-3 ${searchMethod?.includes('keyword') ? 'bg-yellow-50 border-yellow-200' : 'bg-blue-50 border-blue-200'}`}>
           <p className={`text-sm ${searchMethod?.includes('keyword') ? 'text-yellow-900' : 'text-blue-800'}`}>
             {searchMethod?.includes('keyword') ? (
@@ -162,13 +172,14 @@ export default function SearchInterface({ project = null }: { project?: KEProjec
               </>
             ) : (
               <>
-                <strong>Vector Search:</strong> Semantic search across papers, podcasts, and six process families
+                <strong>Vector Search:</strong> Semantic search across papers, podcasts, and{' '}
+                {project ? `${KE_PROJECTS[project].label} process charts` : 'six process families'}
                 (OpenAI embeddings). Keyword mode is used when the query embedding service is unavailable.
               </>
             )}
           </p>
         </div>
-        
+
         <div className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -180,7 +191,7 @@ export default function SearchInterface({ project = null }: { project?: KEProjec
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 onKeyPress={handleKeyPress}
-                placeholder={project ? KE_PROJECTS[project].searchPlaceholder : 'Try: aerobic respiration, acid resistance (E. coli), amino acid biosynthesis, nilpotent groups...'}
+                placeholder={project ? KE_PROJECTS[project].searchPlaceholder : 'Try: aerobic respiration, acid resistance (E. coli), amino acid biosynthesis, proof nets...'}
                 className="flex-1 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
               <button
@@ -224,7 +235,7 @@ export default function SearchInterface({ project = null }: { project?: KEProjec
                     onChange={(e) => setContentTypes({ ...contentTypes, processes: e.target.checked })}
                     className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
                   />
-                  <span className="text-sm text-gray-700">Processes (all 6 families)</span>
+                  <span className="text-sm text-gray-700">{processLabel}</span>
                 </label>
               </div>
             </div>
@@ -246,7 +257,6 @@ export default function SearchInterface({ project = null }: { project?: KEProjec
         </div>
       </div>
 
-      {/* Results */}
       {results.length > 0 && (
         <div className="bg-white rounded-lg shadow p-6">
           <div className="flex items-center justify-between mb-4">
@@ -258,52 +268,79 @@ export default function SearchInterface({ project = null }: { project?: KEProjec
             </span>
           </div>
           <div className="space-y-4">
-            {results.map((result) => (
-              <div
-                key={result.id}
-                className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow"
-              >
-                <div className="flex items-start justify-between mb-2">
-                  <div className="flex-1">
-                    <h4 className="text-lg font-medium text-gray-900">
-                      {normalizeText(result.title)}
-                    </h4>
-                    <div className="flex items-center space-x-2 mt-1">
-                      <span className="text-xs px-2 py-1 bg-blue-100 text-blue-800 rounded">
-                        {result.type}
-                      </span>
-                      {result.similarity_score && (
-                        <span className="text-xs text-gray-500">
-                          Similarity: {(result.similarity_score * 100).toFixed(1)}%
+            {results.map((result) => {
+              const href = hrefForKnowledgeItem({
+                type: result.type,
+                id: result.id,
+                doi: result.doi,
+                pmid: result.pmid,
+                arxiv_id: result.arxiv_id,
+                url: result.url,
+                processFamily: result.processFamily,
+                jobId: result.jobId,
+                processId: result.id,
+              })
+              const typeLabel = result.processFamily
+                ? `${result.type} · ${result.processFamily === 'math' ? 'ATAP' : result.processFamily}`
+                : result.type
+              return (
+                <div
+                  key={`${result.type}-${result.id}`}
+                  className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow"
+                >
+                  <div className="flex items-start justify-between mb-2">
+                    <div className="flex-1">
+                      <h4 className="text-lg font-medium text-gray-900">
+                        {href ? (
+                          <a
+                            href={href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-700 hover:underline"
+                          >
+                            {normalizeText(result.title)}
+                          </a>
+                        ) : (
+                          normalizeText(result.title)
+                        )}
+                      </h4>
+                      <div className="flex items-center space-x-2 mt-1">
+                        <span className="text-xs px-2 py-1 bg-blue-100 text-blue-800 rounded">
+                          {typeLabel}
                         </span>
-                      )}
+                        {result.similarity_score ? (
+                          <span className="text-xs text-gray-500">
+                            Similarity: {(result.similarity_score * 100).toFixed(1)}%
+                          </span>
+                        ) : null}
+                      </div>
                     </div>
                   </div>
+                  {result.abstract && (
+                    <p className="text-sm text-gray-600 mt-2 line-clamp-3">
+                      {normalizeText(result.abstract)}
+                    </p>
+                  )}
+                  {result.authors && result.authors.length > 0 && (
+                    <p className="text-xs text-gray-500 mt-2">
+                      Authors: {result.authors.join(', ')}
+                    </p>
+                  )}
+                  {result.categories && result.categories.length > 0 && (
+                    <div className="flex flex-wrap gap-1 mt-2">
+                      {result.categories.map((cat, idx) => (
+                        <span
+                          key={idx}
+                          className="text-xs px-2 py-1 bg-gray-100 text-gray-700 rounded"
+                        >
+                          {cat}
+                        </span>
+                      ))}
+                    </div>
+                  )}
                 </div>
-                {result.abstract && (
-                  <p className="text-sm text-gray-600 mt-2 line-clamp-3">
-                    {normalizeText(result.abstract)}
-                  </p>
-                )}
-                {result.authors && result.authors.length > 0 && (
-                  <p className="text-xs text-gray-500 mt-2">
-                    Authors: {result.authors.join(', ')}
-                  </p>
-                )}
-                {result.categories && result.categories.length > 0 && (
-                  <div className="flex flex-wrap gap-1 mt-2">
-                    {result.categories.map((cat, idx) => (
-                      <span
-                        key={idx}
-                        className="text-xs px-2 py-1 bg-gray-100 text-gray-700 rounded"
-                      >
-                        {cat}
-                      </span>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ))}
+              )
+            })}
           </div>
         </div>
       )}
@@ -311,7 +348,7 @@ export default function SearchInterface({ project = null }: { project?: KEProjec
       {!loading && results.length === 0 && query && (
         <div className="bg-white rounded-lg shadow p-6 text-center">
           <div className="text-gray-500 mb-2">
-            <p className="font-medium">No results found for "{query}"</p>
+            <p className="font-medium">No results found for &quot;{query}&quot;</p>
             <p className="text-sm mt-2">Try:</p>
             <ul className="text-sm mt-2 list-disc list-inside text-left max-w-md mx-auto">
               <li>Using different keywords</li>
@@ -324,4 +361,3 @@ export default function SearchInterface({ project = null }: { project?: KEProjec
     </div>
   )
 }
-

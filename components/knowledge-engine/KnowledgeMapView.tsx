@@ -9,6 +9,7 @@
 
 import { useEffect, useRef, useState, startTransition } from 'react'
 import { KE_PROJECTS, KE_PROJECT_IDS, type KEProjectId } from '@/lib/knowledge-engine-projects'
+import { paperExternalUrl, pmidFromNodeId } from '@/lib/knowledge-engine-links'
 
 // API base URL - adjust for production
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://copernicus-podcast-api-phzp4ie2sq-uc.a.run.app'
@@ -55,41 +56,6 @@ type SelectedNode = {
   pmid?: string | null
   arxiv_id?: string | null
   url?: string | null
-}
-
-function hasText(v: string | null | undefined): v is string {
-  if (v == null) return false
-  const s = String(v).trim()
-  return Boolean(s) && s.toLowerCase() !== 'none' && s.toLowerCase() !== 'null'
-}
-
-/** Same priority as ContentBrowser.paperExternalUrl / papers-database-table.html. */
-function paperExternalUrl(item: {
-  doi?: string | null
-  pmid?: string | null
-  arxiv_id?: string | null
-  url?: string | null
-}): string | null {
-  if (hasText(item.doi)) {
-    const doi = item.doi.replace(/^https?:\/\/(dx\.)?doi\.org\//i, '')
-    return `https://doi.org/${encodeURI(doi)}`
-  }
-  if (hasText(item.pmid)) {
-    return `https://pubmed.ncbi.nlm.nih.gov/${encodeURIComponent(item.pmid)}`
-  }
-  if (hasText(item.arxiv_id)) {
-    const id = item.arxiv_id.replace(/^arxiv:/i, '')
-    return `https://arxiv.org/abs/${encodeURIComponent(id)}`
-  }
-  if (hasText(item.url) && /^https?:\/\//i.test(item.url)) {
-    return item.url
-  }
-  return null
-}
-
-function pmidFromNodeId(id: string): string | null {
-  const m = id.match(/^pubmed_(.+)$/i)
-  return m ? m[1] : null
 }
 
 export default function KnowledgeMapView({ project = null }: { project?: KEProjectId | null } = {}) {
