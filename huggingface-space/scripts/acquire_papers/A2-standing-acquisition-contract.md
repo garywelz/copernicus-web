@@ -398,6 +398,22 @@ sample before it is trusted to filter acquisition.
    improve the approximation; it does not certify charts and does not
    block recording that a chart currently names a paper. See
    `A1-glmp-source-backfill-plan.md`.
+7. **Discussion-board harvest** — MathOverflow + BioStars, official
+   APIs only. Harvests paper IDs (DOI / PMID / arXiv) from scoped
+   threads; does not ingest Q&A as papers. Channel
+   `discussion_board`. Production scout cron is not touched. Wrapper
+   `huggingface-space/scripts/scheduler/scout/scout_discussion_boards.sh`.
+   Bioinformatics Stack Exchange is the locked GLMP fallback when
+   BioStars is blocked (decided 2026-08-15). Weekly Jetson cron:
+   Sunday 22:00 America/New_York. **First run 2026-08-15**
+   (`discussion_board_scout.py --write`): 20 MathOverflow threads +
+   20 Bioinformatics SE threads (BioStars Cloudflare-blocked from
+   this host); 24 unique IDs; 21 new papers written, 2 already in
+   the corpus and attributed, 1 unresolved DOI suffix. MathOverflow
+   tags tightened 2026-08-15 after that run: dropped
+   `ct.category-theory`; thread-title keep/drop gate; resolved
+   ATAP paper titles must match logic/type/proof vocabulary so
+   Kervaire / von Neumann / measure-theory noise is not ingested.
 
 ## Resolved 2026-08-05
 

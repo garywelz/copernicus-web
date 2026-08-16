@@ -338,6 +338,13 @@ def _to_firestore_paper(paper: Dict[str, Any], filepath: Path) -> Dict[str, Any]
         if isinstance(parents, str):
             parents = [parents]
         out["parent_paper_ids"] = [p for p in parents if p]
+    # Discussion-board harvest: thread URLs that named this paper ID.
+    # Provenance only — the Q&A itself is not a corpus item.
+    if paper.get("parent_thread_urls"):
+        threads = paper["parent_thread_urls"]
+        if isinstance(threads, str):
+            threads = [threads]
+        out["parent_thread_urls"] = [t for t in threads if t]
     for field in ("cited_by", "cited_date", "cited_context", "cited_project", "cited_for_question"):
         if paper.get(field):
             out[field] = paper[field]

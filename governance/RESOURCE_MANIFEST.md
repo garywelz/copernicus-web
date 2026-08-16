@@ -133,6 +133,11 @@ where a project says which adjacency it means.*
   slice), capped, never recursive, and is not a change to the daily scout
   cron. See `huggingface-space/scripts/acquire_papers/A2-standing-acquisition-contract.md`
   requirement 8 (decided 2026-08-15).
+- **Dumping discussion-board Q&A as papers.** MathOverflow and BioStars
+  are provenance for paper IDs, not a third corpus. Official APIs only;
+  scoped to declared tags/terms; the thread URL is recorded, the post
+  is not ingested as a `research_papers` record. See A2 sequencing
+  step 7 (2026-08-15).
 
 **The measure:** coverage against what the projects declare they are working on,
 and against what a specialist would expect to find in the field. Both are
