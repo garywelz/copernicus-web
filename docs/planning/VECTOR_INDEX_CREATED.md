@@ -93,7 +93,7 @@ answer_with_rag(question="How does DNA replication work?")
 | `research_papers` | ✅ Created | Ready |
 | `podcast_jobs` | ✅ Created | Ready |
 | `glmp_processes` | ✅ Created | Ready |
-| `science_videos` | ⏳ Pending | After sync |
+| `science_videos` | ✅ Created 2026-08-15 (`CICAgLiT6IEK`, 1536 / `text-embedding-3-small`) | Search/Ask need this; Browse/Map do not |
 
 ---
 

@@ -22,7 +22,7 @@ async def semantic_search(
     query: str = Query(..., description="Search query"),
     content_types: Optional[str] = Query(
         None,
-        description="Comma-separated: papers,podcasts,glmp,math,chemistry,physics,computer_science,biology",
+        description="Comma-separated: papers,podcasts,videos,glmp,math,chemistry,physics,computer_science,biology",
     ),
     limit: int = Query(20, ge=1, le=100, description="Maximum results per content type"),
     distance_threshold: float = Query(0.7, ge=0.0, le=1.0, description="Similarity threshold (lower = more similar)")
@@ -61,6 +61,7 @@ async def semantic_search(
             'physics_processes': result.get('physics_processes', []),
             'computer_science_processes': result.get('computer_science_processes', []),
             'biology_processes': result.get('biology_processes', []),
+            'videos': result.get('videos', []),
             'content_types_searched': result.get('content_types_searched', []),
             'search_method': result.get('search_method', 'vector_semantic')
         }
