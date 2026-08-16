@@ -387,7 +387,12 @@ sample before it is trusted to filter acquisition.
    old config retained until coverage reporting shows the new path is no worse.
 4. **Retire `daily_scout_config.json`** only once (3) holds.
 5. **Citation-expansion 50-seed pilot** after the video backfill —
-   requirement 8. Does not touch scout cron. Does not wait on A1.
+   requirement 8. **Ran 2026-08-15**
+   (`citation_expansion_pilot.py`): 50 seeds (33 researcher-cited,
+   17 chart-named); 93 admitted (83 cited by two or more seeds, 10
+   top-cited-in-seed via OpenAlex); 78 new papers written, 14 already
+   in the corpus and attributed, 1 title-mismatch skipped, 0
+   unresolved. Channel `cited_by_collection`. Scout cron not touched.
 6. **A1.0 in parallel** — ingest papers that current charts name, as
    candidate evidence. Calendar wait lifted 2026-08-15. #25 can still
    improve the approximation; it does not certify charts and does not

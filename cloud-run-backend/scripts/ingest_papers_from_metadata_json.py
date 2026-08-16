@@ -331,6 +331,13 @@ def _to_firestore_paper(paper: Dict[str, Any], filepath: Path) -> Dict[str, Any]
         if isinstance(charts, str):
             charts = [charts]
         out["named_by_charts"] = [c for c in charts if c]
+    # One-hop citation expansion (A2 §8): which already-admitted papers
+    # named this work. Not an ingest trigger.
+    if paper.get("parent_paper_ids"):
+        parents = paper["parent_paper_ids"]
+        if isinstance(parents, str):
+            parents = [parents]
+        out["parent_paper_ids"] = [p for p in parents if p]
     for field in ("cited_by", "cited_date", "cited_context", "cited_project", "cited_for_question"):
         if paper.get(field):
             out[field] = paper[field]
