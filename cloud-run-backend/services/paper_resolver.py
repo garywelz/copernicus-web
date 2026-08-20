@@ -37,11 +37,7 @@ Two resolution paths:
 import re
 import json
 from typing import Optional, List, Dict, Any
-
-from google.cloud.firestore_v1.base_query import FieldFilter
-
-from config.database import db
-from mcp_server.tools.vector_search import search_semantic
+from urllib.parse import quote
 
 DOI_URL_RE = re.compile(r"^https?://(dx\.)?doi\.org/(.+)$", re.IGNORECASE)
 DOI_BARE_RE = re.compile(r"^10\.\d{4,9}/\S+$")
@@ -53,6 +49,29 @@ ARXIV_BARE_RE = re.compile(r"^\d{4}\.\d{4,5}(v\d+)?$")
 VALID_PROJECTS = {"glmp", "atap"}
 
 DEFAULT_TEXT_SEARCH_LIMIT = 60  # generous on purpose -- see module docstring
+
+# PodcastRequest.category labels (CustomRequestForm / CATEGORY_SLUG_TO_LABEL).
+_DISCIPLINE_TO_CATEGORY = {
+    "biology": "Biology",
+    "bio": "Biology",
+    "chemistry": "Chemistry",
+    "chem": "Chemistry",
+    "physics": "Physics",
+    "phys": "Physics",
+    "mathematics": "Mathematics",
+    "math": "Mathematics",
+    "computer_science": "Computer Science",
+    "computer science": "Computer Science",
+    "compsci": "Computer Science",
+    "engineering": "Engineering",
+    "medicine": "Medicine",
+}
+
+
+def _firestore_db():
+    """Lazy so unit tests can import this module without a live Firestore client."""
+    from config.database import db
+    return db
 
 
 def _normalize_doi(raw: str) -> str:
@@ -94,6 +113,60 @@ def parse_identifier(query: str) -> Optional[Dict[str, str]]:
     return None
 
 
+def paper_abstract_text(paper: Dict[str, Any]) -> str:
+    """Stripped abstract, or empty string if missing. Generation requires this
+    to be non-empty -- KE papers typically store title+abstract, not full text,
+    and an empty abstract would otherwise fall through to the topic-research path."""
+    return str(paper.get("abstract") or "").strip()
+
+
+def paper_external_url(paper: Dict[str, Any]) -> Optional[str]:
+    """Same priority as lib/knowledge-engine-links.ts paperExternalUrl():
+    doi.org, then PubMed, then arXiv, then an http(s) `url` field."""
+    doi = _normalize_doi(str(paper.get("doi") or ""))
+    if doi:
+        return f"https://doi.org/{quote(doi, safe='/')}"
+    pmid = str(paper.get("pmid") or "").strip()
+    if pmid:
+        return f"https://pubmed.ncbi.nlm.nih.gov/{quote(pmid, safe='')}"
+    arxiv_id = str(paper.get("arxiv_id") or "").strip()
+    if arxiv_id:
+        arxiv_id = re.sub(r"^arxiv:", "", arxiv_id, flags=re.IGNORECASE)
+        return f"https://arxiv.org/abs/{quote(arxiv_id, safe='')}"
+    url = str(paper.get("url") or "").strip()
+    if url.lower().startswith("http://") or url.lower().startswith("https://"):
+        return url
+    return None
+
+
+def podcast_category_for_paper(
+    paper: Dict[str, Any],
+    cited_project: Optional[str] = None,
+) -> str:
+    """Map a KE paper to a podcast category label. Discipline on the paper
+    wins; GLMP-scoped papers with no discipline default to Biology rather
+    than the web-form leftover 'Computer Science'."""
+    raw = str(paper.get("discipline") or paper.get("category") or "").strip().lower()
+    mapped = _DISCIPLINE_TO_CATEGORY.get(raw)
+    if mapped:
+        return mapped
+    if (cited_project or "").lower() == "glmp":
+        return "Biology"
+    return "Computer Science"
+
+
+def is_unambiguous_generation_match(match_type: str, papers: List[Dict[str, Any]]) -> bool:
+    """True only when /generate-podcast-from-paper may proceed from a query.
+    text_search is never enough, even with a single candidate -- the caller
+    must confirm via paper_id. identifier_wrong_project / identifier_not_found
+    are also rejected."""
+    if match_type == "identifier":
+        return bool(papers)
+    if match_type == "exact_title":
+        return len(papers) == 1
+    return False
+
+
 def _paper_matches_project(paper: Dict[str, Any], cited_project: str) -> bool:
     citations = paper.get("citations") or []
     for event in citations:
@@ -105,8 +178,10 @@ def _paper_matches_project(paper: Dict[str, Any], cited_project: str) -> bool:
 def resolve_by_identifier(ident: Dict[str, str]) -> Optional[Dict[str, Any]]:
     """Exact Firestore lookup by doi/pmid/arxiv_id. Returns the matching
     document (with `paper_id` set to the doc id), or None."""
+    db = _firestore_db()
     if not db:
         return None
+    from google.cloud.firestore_v1.base_query import FieldFilter
     field, value = next(iter(ident.items()))
     query = db.collection("research_papers").where(filter=FieldFilter(field, "==", value)).limit(1)
     docs = list(query.stream())
@@ -132,11 +207,13 @@ def resolve_by_exact_title(title: str, cited_project: Optional[str] = None) -> L
     or partial titles still fall through to resolve_by_text. Cheap either
     way: a single indexed equality query, not a collection scan, so this is
     safe to try unconditionally rather than only as an opt-in."""
+    db = _firestore_db()
     if not db:
         return []
     t = title.strip()
     if not t:
         return []
+    from google.cloud.firestore_v1.base_query import FieldFilter
     docs = list(db.collection("research_papers").where(filter=FieldFilter("title", "==", t)).stream())
     papers = []
     for doc in docs:
@@ -151,6 +228,7 @@ def resolve_by_exact_title(title: str, cited_project: Optional[str] = None) -> L
 def get_paper_by_id(paper_id: str) -> Optional[Dict[str, Any]]:
     """Direct doc-id fetch, for the confirm-then-generate step once a
     candidate has already been picked (from resolve_paper's results)."""
+    db = _firestore_db()
     if not db:
         return None
     doc = db.collection("research_papers").document(paper_id).get()
@@ -168,6 +246,7 @@ async def resolve_by_text(
 ) -> List[Dict[str, Any]]:
     """Semantic search, optionally filtered to a GLMP/ATAP project. See
     module docstring for the known scoping limitation of this path."""
+    from mcp_server.tools.vector_search import search_semantic
     result_json = await search_semantic(query=query, content_types=["papers"], limit=limit)
     result = json.loads(result_json)
     papers = result.get("papers", [])

@@ -8,7 +8,14 @@ from datetime import datetime
 from utils.logging import structured_logger
 from config.database import db
 from models.podcast import PodcastRequest, ResolvePaperRequest, GeneratePodcastFromPaperRequest
-from services.paper_resolver import resolve_paper, get_paper_by_id
+from services.paper_resolver import (
+    resolve_paper,
+    get_paper_by_id,
+    paper_abstract_text,
+    paper_external_url,
+    podcast_category_for_paper,
+    is_unambiguous_generation_match,
+)
 
 router = APIRouter()
 
@@ -249,10 +256,7 @@ async def generate_podcast_from_paper(request: GeneratePodcastFromPaperRequest):
             result = await resolve_paper(request.query, cited_project=request.cited_project)
         except ValueError as e:
             raise HTTPException(status_code=400, detail=str(e))
-        unambiguous = result["match_type"] == "identifier" or (
-            result["match_type"] == "exact_title" and len(result["papers"]) == 1
-        )
-        if not unambiguous:
+        if not is_unambiguous_generation_match(result["match_type"], result["papers"]):
             raise HTTPException(
                 status_code=400,
                 detail=(
@@ -265,24 +269,40 @@ async def generate_podcast_from_paper(request: GeneratePodcastFromPaperRequest):
     else:
         raise HTTPException(status_code=400, detail="Must supply paper_id or query.")
 
+    abstract = paper_abstract_text(paper)
+    if not abstract:
+        raise HTTPException(
+            status_code=400,
+            detail=(
+                "Paper has no abstract in the Knowledge Engine, so the paper-analysis "
+                "pipeline cannot run. Pick another paper, or supply paper_content via "
+                "/generate-podcast."
+            ),
+        )
+
+    source_url = paper_external_url(paper)
+    category = (request.category or "").strip() or podcast_category_for_paper(
+        paper, cited_project=request.cited_project
+    )
+
     podcast_request = PodcastRequest(
         topic=paper.get("title") or "",
-        category=request.category,
+        category=category,
         expertise_level=request.expertise_level,
         format_type=request.format_type,
         duration=request.duration,
         voice_style=request.voice_style,
         host_voice_id=request.host_voice_id,
         expert_voice_id=request.expert_voice_id,
-        paper_content=paper.get("abstract") or "",
+        paper_content=abstract,
         paper_title=paper.get("title"),
         paper_authors=paper.get("authors"),
-        paper_abstract=paper.get("abstract"),
+        paper_abstract=abstract,
         paper_doi=paper.get("doi"),
         focus_areas=request.focus_areas,
         include_citations=request.include_citations,
         paradigm_shift_analysis=request.paradigm_shift_analysis,
-        source_links=[paper["paper_id"]] if paper.get("paper_id") else None,
+        source_links=[source_url] if source_url else None,
         additional_instructions=request.additional_instructions,
     )
 

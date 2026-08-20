@@ -43,7 +43,7 @@ class GeneratePodcastFromPaperRequest(BaseModel):
     paper_id: Optional[str] = None
     query: Optional[str] = None
     cited_project: Optional[str] = None
-    category: str = "Computer Science"
+    category: Optional[str] = None  # inferred from the paper when omitted
     expertise_level: str = "intermediate"
     format_type: str = "interview"
     duration: str = "5-10 minutes"
