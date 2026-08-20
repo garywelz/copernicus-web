@@ -8,6 +8,35 @@
 Share this file as-is. New, unrelated topic from the day's GLMP-paper threads — this is the
 CopernicusAI.fyi podcast generation workflow, not the E. coli decoder or the synthesis-paper work.
 
+**Follow-up, same day: Cursor reviewed Phase 1, found three real pre-deploy bugs, Gary approved the
+fix.** Cursor read the resolver, models, routes, generation service, ingest shape, and
+`lib/knowledge-engine-links.ts`, and would not have Cloud Built this as-is:
+
+1. **Empty-abstract silent fallback.** `paper_content = paper.get("abstract") or ""` — an empty
+   abstract is falsy, so the generation service's paper-analysis branch never triggers and the job
+   silently falls through to the generic topic-research path instead. Billed the same either way;
+   just not the episode the caller asked for.
+2. **`source_links` held a Firestore doc id, not a URL.** Episode metadata expects a real link;
+   `crossref_10.1073_pnas.86.4.1183` isn't one.
+3. **Default `category` was still `"Computer Science"`** — a leftover from the old generic web-form
+   model, unfixed in the new paper-driven request. A GLMP paper would get miscategorized unless the
+   caller remembered to override it.
+
+Checked all three directly against the code I'd written — all confirmed real, not nitpicks. Gary
+approved Cursor's proposed four-part patch (reject empty abstract; fix `source_links` via the same
+`paperExternalUrl()` priority order — doi.org, PubMed, arXiv; derive category from
+discipline/`cited_project` instead of the CS default; add unit tests for identifier parsing and the
+unambiguous-generation gate) and told Cursor to go ahead.
+
+**Status as of this note:** Cursor's patch is applied in the shared local `copernicus-web` checkout
+— new helpers `paper_abstract_text()`, `paper_external_url()`, `podcast_category_for_paper()`,
+`is_unambiguous_generation_match()` in `paper_resolver.py`, `category` now `Optional[str] = None`
+("inferred from the paper when omitted") in the request model — **but not yet committed or
+deployed**. Sequencing after that, per Cursor's plan: Cloud Build the deploy, then one real Phase 2
+test (Stormo & Hartzell 1989 by DOI, `cited_project=glmp` — already confirmed to resolve cleanly),
+then Phase 3 UI only once that episode looks right. Not touched or committed by Claude Code — this
+is Cursor's in-progress work in the shared checkout, left alone per the usual convention.
+
 ---
 
 ## What happened
