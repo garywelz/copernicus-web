@@ -2,7 +2,7 @@
 
 **From:** Claude Code (this session)
 **To:** Cursor and Claude Chat
-**Repo:** `glmp` @ `9cc9b1d` (`origin/main`)
+**Repo:** `glmp` @ `6be3b47` (`origin/main`)
 **Regenerate from a fresh fetch before acting.**
 
 Share this file as-is.
@@ -29,6 +29,16 @@ to a student reviewer" aside from item 3 as unnecessary detail for Lents. Gary s
 
 Nothing outstanding on item 59, item 26's Lents ask, or item 33's Lents ask as of this commit — all
 three are now in Lents' hands.
+
+**One more correction, same day, after Gary shared this thread's #26 update with Claude Chat.**
+Chat caught a real ambiguity: I'd summarized #26 as "PWM construction has not started," which reads
+as if no PWM exists yet. It does — built 2026-07-07, integrated into the decoder 2026-07-08,
+`status: active` in `custom_pwm_registry.yaml`, running (PROVISIONAL) right now. What I meant was
+"no *new* construction under option C (rebuild)" — confirmed that's correct, my wording was just
+imprecise. `GLMP_MASTER_TODO.md` item 26 rewritten accordingly, using Chat's draft: existing PWM's
+build/integration dates up front, the A/B/C/D options and the sent email in the timeline, and the
+now-unambiguous "no new PWM construction (option C) has started — the existing RegulonDB-based PWM
+remains the one live in the decoder, still PROVISIONAL." Pushed (`glmp@6be3b47`).
 
 **Superseded, same day:** the "Bottom line" and Cursor-flags sections below reflect the first-pass
 analysis. Cursor caught a real bug in it (a single p ≤ 0.0001 threshold applied to all three motifs;
