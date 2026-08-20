@@ -19,10 +19,16 @@ live send capability yet — the Gmail MCP tool that surfaced requires an explic
 hadn't given, and Lents' actual email address isn't in this thread anywhere (only Gary's own
 `gwelz@gc.cuny.edu` submission address from the validation task brief has come up). Asked Gary
 directly rather than assume either; he chose to send it himself from the finished draft rather than
-connect Gmail. No account access was requested or granted. The draft at
-`papers/lents_email_draft_2026-08-20.md` is final and ready for Gary to send on his own schedule.
+connect Gmail. No account access was requested or granted.
 
-Nothing outstanding on item 59 as of this commit.
+**Sent.** Gary and Claude Chat made two final edits before sending — added the live Knowledge
+Engine link (`.../knowledge-engine`) to the opening paragraph, and dropped the "originally assigned
+to a student reviewer" aside from item 3 as unnecessary detail for Lents. Gary sent that exact text.
+`papers/lents_email_draft_2026-08-20.md` now holds the sent version, marked accordingly
+(`copernicus-web@d97c6b47d`).
+
+Nothing outstanding on item 59, item 26's Lents ask, or item 33's Lents ask as of this commit — all
+three are now in Lents' hands.
 
 **Superseded, same day:** the "Bottom line" and Cursor-flags sections below reflect the first-pass
 analysis. Cursor caught a real bug in it (a single p ≤ 0.0001 threshold applied to all three motifs;
