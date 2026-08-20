@@ -66,6 +66,27 @@ class TestCanonicalServiceLogic:
         assert self.service.extract_category_from_canonical(None) == None
         # Note: "ever-250032" returns "250032" (just extracts 2nd part) - this is expected behavior
     
+    def test_next_evergreen_filename_starts_year_at_0001(self):
+        from services.canonical_service import next_evergreen_filename
+        assert next_evergreen_filename([], "bio", 2026) == "ever-bio-260001"
+        assert next_evergreen_filename(
+            ["ever-bio-250045", "ever-bio-250046"], "bio", 2026
+        ) == "ever-bio-260001"
+
+    def test_next_evergreen_filename_increments_same_year_category(self):
+        from services.canonical_service import next_evergreen_filename
+        assert next_evergreen_filename(
+            ["ever-bio-260001", "ever-bio-260003", "ever-chem-260001"],
+            "bio",
+            2026,
+        ) == "ever-bio-260004"
+
+    def test_parse_evergreen_filename(self):
+        from services.canonical_service import parse_evergreen_filename
+        assert parse_evergreen_filename("ever-bio-260001") == ("bio", "26", 1)
+        assert parse_evergreen_filename("audio/ever-bio-250045.mp3") == ("bio", "25", 45)
+        assert parse_evergreen_filename("news-bio-20250328-0001") is None
+    
     def test_is_canonical_filename_empty(self):
         """Test canonical filename validation with empty/invalid inputs"""
         assert self.service.is_canonical_filename("") == False

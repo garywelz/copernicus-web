@@ -113,6 +113,18 @@ def parse_identifier(query: str) -> Optional[Dict[str, str]]:
     return None
 
 
+def paper_year_text(paper: Dict[str, Any]) -> Optional[str]:
+    """Four-digit publication year from KE paper fields, or None."""
+    y = str(paper.get("year") or "").strip()
+    if re.fullmatch(r"\d{4}", y):
+        return y
+    for key in ("published_date", "publication_date"):
+        m = re.match(r"(\d{4})", str(paper.get(key) or ""))
+        if m:
+            return m.group(1)
+    return None
+
+
 def paper_abstract_text(paper: Dict[str, Any]) -> str:
     """Stripped abstract, or empty string if missing. Generation requires this
     to be non-empty -- KE papers typically store title+abstract, not full text,

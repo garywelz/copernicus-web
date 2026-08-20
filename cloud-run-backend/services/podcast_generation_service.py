@@ -32,7 +32,9 @@ from content_fixes import (
     extract_itunes_summary,
     generate_relevant_hashtags,
     validate_academic_references,
-    clean_placeholder_text_from_description
+    clean_placeholder_text_from_description,
+    sanitize_reference_placeholders,
+    join_description_sections,
 )
 from podcast_research_integrator import PodcastResearchIntegrator, PodcastResearchContext
 
@@ -48,6 +50,31 @@ except ImportError:
 from models.podcast import PodcastRequest
 from utils.logging import structured_logger
 from utils.step_tracking import with_step
+
+
+_CITATION_GROUNDING = """
+**Citation and venue rules (do not violate):**
+- Use the provided source-paper citation as given. Never write DOI: 10.xxxx/xxxx, (Recent), or (Year).
+- If the year is unknown, omit it. Do not invent "Recent".
+- PubMed and arXiv are indexes, not journals. If a journal name is in the citation, say that journal. Never say "published in PubMed" or "published in arXiv".
+- Additional references must include a real DOI (starting with 10.) or a real URL. If you do not have one, omit the DOI field entirely.
+- Do not mention CRISPR, cancer therapy, gene editing, or drug design unless those subjects appear in the source paper itself.
+"""
+
+
+def _research_paper_from_request(request: PodcastRequest) -> ResearchPaper:
+    authors = request.paper_authors or ["Unknown Author"]
+    if isinstance(authors, str):
+        authors = [authors]
+    return ResearchPaper(
+        title=request.paper_title,
+        authors=authors,
+        content=request.paper_content,
+        abstract=request.paper_abstract,
+        doi=request.paper_doi,
+        journal=request.paper_journal,
+        publication_date=request.paper_year,
+    )
 from utils.api_keys import get_google_api_key
 from config.constants import (
     GCP_PROJECT_ID,
@@ -245,13 +272,7 @@ class PodcastGenerationService:
                                   paper_title=request.paper_title[:50] if request.paper_title else None)
             
             # Create ResearchPaper object
-            paper = ResearchPaper(
-                title=request.paper_title,
-                authors=request.paper_authors or ["Unknown Author"],
-                content=request.paper_content,
-                abstract=request.paper_abstract,
-                doi=request.paper_doi
-            )
+            paper = _research_paper_from_request(request)
             
             # Create analysis options
             options = AnalyzeOptions(
@@ -276,13 +297,7 @@ class PodcastGenerationService:
                                   paper_title=request.paper_title[:50] if request.paper_title else None)
             
             # Create ResearchPaper object
-            paper = ResearchPaper(
-                title=request.paper_title,
-                authors=request.paper_authors or ["Unknown Author"],
-                content=request.paper_content,
-                abstract=request.paper_abstract,
-                doi=request.paper_doi
-            )
+            paper = _research_paper_from_request(request)
             
             # Create analysis options
             options = AnalyzeOptions(
@@ -362,6 +377,7 @@ Create a compelling {request.duration} research podcast script based on this pap
 **Paper:** {paper.title}
 **Authors:** {', '.join(paper.authors)}
 **Citation:** {citation}
+{_CITATION_GROUNDING}
 
 **Key Analysis:**
 - Summary: {analysis.summary}
@@ -395,6 +411,7 @@ Create a natural dialogue between HOST, EXPERT, and QUESTIONER that follows this
 - Write as a conversation between speakers with clear speaker labels at the start of each dialogue block
 - Make the conversation flow naturally with proper speaker transitions
 - **Include academic references naturally in conversation** (e.g., "As shown in the Nature Neuroscience study..." or "Research published in NeuroImage demonstrates...")
+- **When naming THIS paper's venue, use the journal in the citation — never "published in PubMed" or "published in arXiv"**
 - **AVOID speaking DOI numbers, publication dates, or technical citation details** - keep references conversational
 - Focus on paradigm-shifting implications and research insights
 - Duration: {request.duration}
@@ -446,7 +463,7 @@ IMPORTANT: Do NOT include a "## Episode Overview" header. Start directly with 1-
 
 ## References
 - {citation}
-- [Additional relevant citations in DOI format - include 3-5 key references with complete DOIs/URLs]
+- Additional citations only when you have a real DOI (10....) or URL. Never write 10.xxxx/xxxx. Never use (Recent) or (Year).
 
 ## Episode Details
 - **Duration**: {request.duration}
@@ -553,6 +570,8 @@ Create a compelling {request.duration} research podcast script analyzing this gr
 **Research Paper Analysis:**
 {paper.title}
 Authors: {', '.join(paper.authors)}
+Citation: {citation}
+{_CITATION_GROUNDING}
 
 **Key Analysis:**
 - Summary: {analysis.summary}
@@ -578,7 +597,7 @@ Create a natural dialogue between HOST, EXPERT, and QUESTIONER that follows this
 - The HOST speaker is "{host_name}" - use this exact name for all HOST speaker labels
 - The EXPERT speaker is "{expert_name}" - use this exact name for all EXPERT speaker labels
 - Write natural dialogue that flows between speakers
-- Include proper academic citations with DOIs where relevant
+- Cite the source paper by journal name from the citation, never as "published in PubMed"
 - Focus on paradigm-shifting implications and research insights
 - Duration: {request.duration}
 - Expertise Level: {request.expertise_level}
@@ -613,7 +632,7 @@ IMPORTANT: Do NOT include a "## Episode Overview" header. Start directly with 1-
 
 ## References
 - {citation}
-- [Additional relevant citations in DOI format - include 3-5 key references with complete DOIs/URLs]
+- Additional citations only when you have a real DOI (10....) or URL. Never write 10.xxxx/xxxx. Never use (Recent) or (Year).
 
 ## Episode Details
 - **Duration**: {request.duration}
@@ -796,9 +815,8 @@ IMPORTANT: Do NOT include a "## Episode Overview" header. Start directly with 3-
 [2-3 paragraphs about emerging research directions, potential breakthroughs on the horizon, long-term implications, unanswered questions, and where this field is heading. Discuss both near-term and long-term possibilities.]
 
 ## References
-- [Author et al. (Year). Title. Journal. DOI: 10.xxxx/xxxx]
-- [Author et al. (Year). Title. Journal. DOI: 10.xxxx/xxxx]
-- [Add 3-5 relevant academic references with proper DOI format]
+- [Author et al. (Year). Title. Journal. DOI: 10.1234/real-doi-only-if-known]
+- Omit the DOI field if you do not have a real DOI. Never write 10.xxxx/xxxx or (Recent).
 
 ## Episode Details
 - **Duration**: {request.duration}
@@ -868,7 +886,7 @@ IMPORTANT: Do NOT include a "## Episode Overview" header. Start directly with 3-
                         request.topic, 
                         request.category, 
                         content.get('title', ''), 
-                        content['description']
+                        ""
                     )
                     
                     # Validate academic references in description
@@ -968,9 +986,8 @@ IMPORTANT: Do NOT include a "## Episode Overview" header. Start directly with 2-
 [Paragraph about emerging research directions, potential breakthroughs, and long-term implications]
 
 ## References
-- [Author et al. (Year). Title. Journal. DOI: 10.xxxx/xxxx]
-- [Author et al. (Year). Title. Journal. DOI: 10.xxxx/xxxx]
-- [Add 3-5 relevant academic references with proper DOI format]
+- [Author et al. (Year). Title. Journal. DOI: 10.1234/real-doi-only-if-known]
+- Omit the DOI field if you do not have a real DOI. Never write 10.xxxx/xxxx or (Recent).
 
 ## Episode Details
 - **Duration**: {request.duration}
@@ -1375,7 +1392,7 @@ In this comprehensive exploration, we'll examine the latest research development
         try:
             from google.cloud import storage
             from google.cloud import firestore
-            from content_fixes import generate_relevant_hashtags, validate_academic_references
+            from content_fixes import generate_relevant_hashtags, validate_academic_references, sanitize_reference_placeholders
             
             # Initialize GCS client
             storage_client = storage.Client()
@@ -1463,7 +1480,7 @@ In this comprehensive exploration, we'll examine the latest research development
                     topic_for_hashtags = topic
                 
                 # Generate context-aware hashtags using title, topic, and description
-                hashtags = generate_relevant_hashtags(topic_for_hashtags, category, title or "", description)
+                hashtags = generate_relevant_hashtags(topic_for_hashtags, category, title or "", "")
                 
                 # Add hashtags section
                 enhanced_description = f"{description}\n\n## Hashtags\n{hashtags}"
@@ -1528,24 +1545,22 @@ In this comprehensive exploration, we'll examine the latest research development
                 
                 # Rebuild description with full references and hashtags
                 main_content_trimmed = '\n\n'.join(trimmed_other)
-                if references_text:
-                    enhanced_description = main_content_trimmed + '\n\n' + references_text
-                else:
-                    enhanced_description = main_content_trimmed
-                
-                if hashtags_text:
-                    enhanced_description += '\n\n' + hashtags_text
-                elif not hashtags_text and not ("## Hashtags" in enhanced_description or "#CopernicusAI" in enhanced_description):
-                    # If hashtags were somehow lost, regenerate them
-                    hashtags = generate_relevant_hashtags(topic_for_hashtags, category, title or "", description)
-                    enhanced_description += f"\n\n## Hashtags\n{hashtags}"
+                enhanced_description = join_description_sections(
+                    main_content_trimmed,
+                    references_text,
+                    hashtags_text,
+                )
+
+                if not hashtags_text and not ("## Hashtags" in enhanced_description or "#CopernicusAI" in enhanced_description):
+                    hashtags = generate_relevant_hashtags(topic_for_hashtags, category, title or "", "")
+                    enhanced_description = join_description_sections(
+                        enhanced_description, f"## Hashtags\n{hashtags}"
+                    )
                 
                 # Final check - if still too long, trim hashtags section more carefully
                 if len(enhanced_description) > MAX_DESCRIPTION_LENGTH:
                     # Keep main content and references, trim hashtags if needed
-                    desc_with_refs = main_content_trimmed
-                    if references_text:
-                        desc_with_refs += '\n\n' + references_text
+                    desc_with_refs = join_description_sections(main_content_trimmed, references_text)
                     
                     hashtags_available_space = MAX_DESCRIPTION_LENGTH - len(desc_with_refs) - len("\n\n## Hashtags\n")
                     if hashtags_available_space > 50:
@@ -1563,15 +1578,20 @@ In this comprehensive exploration, we'll examine the latest research development
                                     else:
                                         break
                                 hashtag_content = '\n'.join(trimmed_hashtags)
-                            enhanced_description = desc_with_refs + f"\n\n## Hashtags\n{hashtag_content}"
+                            enhanced_description = join_description_sections(
+                                desc_with_refs, f"## Hashtags\n{hashtag_content}"
+                            )
                         else:
-                            # Regenerate hashtags if missing
-                            hashtags = generate_relevant_hashtags(topic_for_hashtags, category, title or "", description)
+                            hashtags = generate_relevant_hashtags(topic_for_hashtags, category, title or "", "")
                             hashtag_content = hashtags[:hashtags_available_space] if len(hashtags) > hashtags_available_space else hashtags
-                            enhanced_description = desc_with_refs + f"\n\n## Hashtags\n{hashtag_content}"
+                            enhanced_description = join_description_sections(
+                                desc_with_refs, f"## Hashtags\n{hashtag_content}"
+                            )
                     else:
                         enhanced_description = desc_with_refs
             
+            enhanced_description = sanitize_reference_placeholders(enhanced_description)
+
             # Create description filename
             description_filename = f"{canonical_filename}.md"
             blob = bucket.blob(f"descriptions/{description_filename}")
@@ -1920,6 +1940,25 @@ Mood and Atmosphere: Cutting-edge scientific discovery, innovation, breakthrough
                 json=payload,
                 timeout=60
             )
+
+            if response.status_code != 200:
+                structured_logger.warning(
+                    "DALL-E HD failed, retrying standard quality",
+                    canonical_filename=canonical_filename,
+                    status_code=response.status_code,
+                    error_text=(response.text or "")[:300],
+                )
+                payload["quality"] = "standard"
+                payload["prompt"] = (
+                    f'Scientific visualization for a research podcast about "{topic}". '
+                    "No text, no letters, no labels."
+                )
+                response = requests.post(
+                    "https://api.openai.com/v1/images/generations",
+                    headers=headers,
+                    json=payload,
+                    timeout=60
+                )
             
             if response.status_code == 200:
                 result = response.json()
@@ -2416,7 +2455,7 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
                 request.topic, 
                 request.category, 
                 content.get('title', ''), 
-                content['description']
+                ""
             )
             
             # Check if description already has hashtags and references, if not add them
@@ -2534,6 +2573,9 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
             # Clean placeholder text and limit description length
             content['description'] = clean_placeholder_text_from_description(content['description'])
             content['description'] = limit_description_length(content['description'], 4000)
+            content['description'] = sanitize_reference_placeholders(
+                content['description'], known_year=request.paper_year
+            )
             content['itunes_summary'] = extract_itunes_summary(content['description'])
             
             # Robust validation added here:

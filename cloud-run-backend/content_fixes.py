@@ -357,8 +357,10 @@ def generate_relevant_hashtags(topic: str, category: str, title: str = "", descr
         "condensed matter": "#CondensedMatter",
     }
     
-    # Check for compound terms in topic and description
-    all_text = f"{topic} {title} {description}".lower()
+    # Scan topic + title only. The generated description often invents
+    # downstream applications (CRISPR, cancer) that the source paper never
+    # discussed; tagging those pulls the episode off the paper.
+    all_text = f"{topic} {title}".lower()
     for term, hashtag in compound_terms.items():
         if term.lower() in all_text and hashtag not in topic_specific_hashtags:
             if len(hashtag) <= 21:  # 20 chars + #
@@ -501,19 +503,9 @@ def generate_relevant_hashtags(topic: str, category: str, title: str = "", descr
                     if any(word in combined.lower() for word in meaningful_words):
                         title_compound_hashtags.append(combined)
     
-    # Extract individual significant words from title
+    # Do not turn arbitrary title words into hashtags (#Unraveling, #Life's).
     title_specific_words = []
-    stop_words_title = {'the', 'and', 'for', 'with', 'from', 'about', 'research', 'recent', 
-                       'directions', 'how', 'what', 'why', 'advances', 'breakthroughs', 
-                       'discoveries', 'their', 'that', 'this', 'these', 'unlocking', 'building',
-                       'exploring', 'revolutionizing', 'understanding'}
-    for word in title_words:
-        word_clean = word.lower().strip('.,!?;:()[]')
-        if len(word_clean) > 4 and word_clean not in stop_words_title:
-            hashtag = f"#{word.capitalize()}"
-            if len(hashtag) <= 21 and hashtag not in topic_specific_hashtags:
-                title_specific_words.append(hashtag)
-    
+
     # Check for technical terms in text (prioritize title matches)
     for term, hashtag in technical_term_mapping.items():
         # Prioritize if found in title
@@ -555,50 +547,67 @@ def generate_relevant_hashtags(topic: str, category: str, title: str = "", descr
             seen.add(tag)
             unique_hashtags.append(tag)
     
-    # Ensure we have at least 10 hashtags, up to 15 max
-    while len(unique_hashtags) < 10:
-        unique_hashtags.append("#Research")
-    
-    # Return 10-15 most relevant hashtags
     return " ".join(unique_hashtags[:15])
 
+_PLACEHOLDER_DOI_RE = re.compile(r"DOI:\s*10\.xxxx/xxxx", re.IGNORECASE)
+_SECTION_PLACEHOLDER_DOI_RE = re.compile(r"(?i)section\s+DOI:\s*10\.xxxx/xxxx")
+_RECENT_YEAR_RE = re.compile(r"\(Recent\)", re.IGNORECASE)
+_BARE_YEAR_PLACEHOLDER_RE = re.compile(r"\(Year\)", re.IGNORECASE)
+
+
+def sanitize_reference_placeholders(text: str, known_year: Optional[str] = None) -> str:
+    """Strip invented citation tokens the model copies from prompt examples.
+
+    Never leave `DOI: 10.xxxx/xxxx` or `(Recent)` in reader-facing copy. A real
+    four-digit year, if known, replaces `(Recent)`; otherwise the parenthetical
+    is dropped. Markdown section headers that got concatenated onto truncated
+    prose are put back on their own lines.
+    """
+    if not text:
+        return text
+    text = _SECTION_PLACEHOLDER_DOI_RE.sub("", text)
+    text = _PLACEHOLDER_DOI_RE.sub("", text)
+    text = _BARE_YEAR_PLACEHOLDER_RE.sub("", text)
+    if known_year and re.fullmatch(r"\d{4}", known_year):
+        text = _RECENT_YEAR_RE.sub(f"({known_year})", text)
+    else:
+        text = _RECENT_YEAR_RE.sub("", text)
+    text = re.sub(r"[ \t]+DOI:\s*$", "", text, flags=re.MULTILINE)
+    text = re.sub(r"[^\S\n]{2,}", " ", text)
+    text = re.sub(
+        r"([^\n])(## (?:References|Hashtags|Episode Details|Key Concepts Explored|Research Insights|Practical Applications|Future Directions))",
+        r"\1\n\n\2",
+        text,
+    )
+    text = re.sub(r"\n[ \t]*Hashtags\b", "\n## Hashtags", text)
+    return text
+
+
+def join_description_sections(main: str, *sections: str) -> str:
+    """Join body + References/Hashtags with blank lines so headers never mash."""
+    parts = []
+    if main and main.strip():
+        parts.append(main.rstrip())
+    for section in sections:
+        if section and str(section).strip():
+            parts.append(str(section).strip())
+    return "\n\n".join(parts)
+
+
 def validate_academic_references(references_text: str) -> str:
-    """
-    Validate and improve academic reference formatting
-    Ensures proper APA-style format with DOIs
-    """
+    """Normalize reference lines. Never invent a DOI or a year."""
     if not references_text:
         return references_text
-    
-    # Split into individual references
-    references = [ref.strip() for ref in references_text.split('\n') if ref.strip()]
-    
+
+    references_text = sanitize_reference_placeholders(references_text)
+    references = [ref.strip() for ref in references_text.split("\n") if ref.strip()]
     improved_refs = []
     for ref in references:
-        # Check if it already has proper format
-        if re.search(r'\([0-9]{4}\)\.', ref) and re.search(r'DOI:', ref):
-            improved_refs.append(ref)
+        ref = ref.replace("[", "").replace("]", "").strip()
+        if not ref or ref.lower() in {"section", "section doi:"}:
             continue
-        
-        # Try to improve the format
-        # Look for year pattern
-        year_match = re.search(r'\(([0-9]{4})\)', ref)
-        if year_match:
-            year = year_match.group(1)
-            # Ensure proper formatting
-            if not re.search(r'DOI:', ref):
-                ref += f" DOI: 10.xxxx/xxxx"
-            improved_refs.append(ref)
-        else:
-            # Add placeholder for missing year
-            ref = ref.replace('[', '').replace(']', '')
-            if not re.search(r'\([0-9]{4}\)', ref):
-                ref = ref.replace('(Year)', '(2024)')
-            if not re.search(r'DOI:', ref):
-                ref += f" DOI: 10.xxxx/xxxx"
-            improved_refs.append(ref)
-    
-    return '\n'.join(improved_refs)
+        improved_refs.append(ref)
+    return "\n".join(improved_refs)
 
 def expand_contractions_for_tts(script: str) -> str:
     """
@@ -770,6 +779,8 @@ def limit_description_length(description: str, max_length: int = 4000) -> str:
     """
     if not description:
         return description
+
+    description = sanitize_reference_placeholders(description)
     
     if len(description) <= max_length:
         return description
@@ -834,18 +845,25 @@ def limit_description_length(description: str, max_length: int = 4000) -> str:
             truncated = truncated[:last_space]
         main_content = truncated.rstrip() + '...'
     
-    # Reconstruct with preserved sections
-    result = main_content + preserved_text
+    # Reconstruct with preserved sections — always a blank line before ## headers.
+    result = join_description_sections(
+        main_content, references_section, hashtags_section, episode_details_section
+    )
     
     # Final safety check
     if len(result) > max_length:
         # Last resort: truncate main content more aggressively, but STILL preserve references
         max_main_space = max_length - preserved_length - 10
         if max_main_space > 100:
-            result = main_content[:max_main_space].rstrip() + '...' + preserved_text
+            result = join_description_sections(
+                main_content[:max_main_space].rstrip() + '...',
+                references_section, hashtags_section, episode_details_section
+            )
         else:
-            # Extreme case: preserve references even if it means minimal main content
-            result = main_content[:100] + '...' + preserved_text
+            result = join_description_sections(
+                main_content[:100] + '...',
+                references_section, hashtags_section, episode_details_section
+            )
     
     return result
 

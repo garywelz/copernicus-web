@@ -7,6 +7,7 @@ from datetime import datetime
 
 from utils.logging import structured_logger
 from config.database import db
+from utils.subscriber_helpers import resolve_generation_subscriber_id
 from models.podcast import PodcastRequest, ResolvePaperRequest, GeneratePodcastFromPaperRequest
 from services.paper_resolver import (
     resolve_paper,
@@ -15,6 +16,7 @@ from services.paper_resolver import (
     paper_external_url,
     podcast_category_for_paper,
     is_unambiguous_generation_match,
+    paper_year_text,
 )
 
 router = APIRouter()
@@ -48,12 +50,15 @@ async def generate_podcast(request: PodcastRequest):
     if not db:
         raise HTTPException(status_code=503, detail="Firestore service is unavailable. Cannot create job.")
 
+    subscriber_id = resolve_generation_subscriber_id(None)
     job_data = {
         'job_id': job_id,
         'status': 'pending',
         'created_at': datetime.utcnow().isoformat(),
         'updated_at': datetime.utcnow().isoformat(),
         'request': request.model_dump(),
+        'subscriber_id': subscriber_id,
+        'submitted_to_rss': False,
     }
     
     try:
@@ -61,6 +66,12 @@ async def generate_podcast(request: PodcastRequest):
         structured_logger.info("Job created in Firestore",
                               job_id=job_id,
                               topic=request.topic)
+        subscriber_doc = db.collection('subscribers').document(subscriber_id).get()
+        if subscriber_doc.exists:
+            subscriber_data = subscriber_doc.to_dict() or {}
+            db.collection('subscribers').document(subscriber_id).update({
+                'podcasts_generated': subscriber_data.get('podcasts_generated', 0) + 1
+            })
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to create job in Firestore: {e}")
     
@@ -75,7 +86,9 @@ async def generate_podcast(request: PodcastRequest):
         if not service:
             raise HTTPException(status_code=503, detail="Podcast generation service is not available")
         
-        await service.run_podcast_generation_job(job_id, request, subscriber_id=None)
+        await service.run_podcast_generation_job(
+            job_id, request, subscriber_id=subscriber_id
+        )
         
         # Get final status
         job_doc = db.collection('podcast_jobs').document(job_id).get()
@@ -127,6 +140,7 @@ async def generate_podcast_with_subscriber(
     if not db:
         raise HTTPException(status_code=503, detail="Firestore service is unavailable. Cannot create job.")
 
+    subscriber_id = resolve_generation_subscriber_id(subscriber_id)
     job_data = {
         'job_id': job_id,
         'status': 'pending',
@@ -299,6 +313,8 @@ async def generate_podcast_from_paper(request: GeneratePodcastFromPaperRequest):
         paper_authors=paper.get("authors"),
         paper_abstract=abstract,
         paper_doi=paper.get("doi"),
+        paper_journal=(str(paper.get("journal") or "").strip() or None),
+        paper_year=paper_year_text(paper),
         focus_areas=request.focus_areas,
         include_citations=request.include_citations,
         paradigm_shift_analysis=request.paradigm_shift_analysis,
@@ -314,6 +330,7 @@ async def generate_podcast_from_paper(request: GeneratePodcastFromPaperRequest):
         paper_title=(paper.get("title") or "")[:50],
     )
 
+    subscriber_id = resolve_generation_subscriber_id(request.subscriber_id)
     job_data = {
         "job_id": job_id,
         "status": "pending",
@@ -321,10 +338,18 @@ async def generate_podcast_from_paper(request: GeneratePodcastFromPaperRequest):
         "updated_at": datetime.utcnow().isoformat(),
         "request": podcast_request.model_dump(),
         "source_paper_id": paper.get("paper_id"),
+        "subscriber_id": subscriber_id,
+        "submitted_to_rss": False,
     }
 
     try:
         db.collection("podcast_jobs").document(job_id).set(job_data)
+        subscriber_doc = db.collection("subscribers").document(subscriber_id).get()
+        if subscriber_doc.exists:
+            subscriber_data = subscriber_doc.to_dict() or {}
+            db.collection("subscribers").document(subscriber_id).update({
+                "podcasts_generated": subscriber_data.get("podcasts_generated", 0) + 1
+            })
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to create job in Firestore: {e}")
 
@@ -333,7 +358,7 @@ async def generate_podcast_from_paper(request: GeneratePodcastFromPaperRequest):
         if not service:
             raise HTTPException(status_code=503, detail="Podcast generation service is not available")
 
-        await service.run_podcast_generation_job(job_id, podcast_request, subscriber_id=None)
+        await service.run_podcast_generation_job(job_id, podcast_request, subscriber_id=subscriber_id)
 
         job_doc = db.collection("podcast_jobs").document(job_id).get()
         if job_doc.exists:
@@ -343,8 +368,9 @@ async def generate_podcast_from_paper(request: GeneratePodcastFromPaperRequest):
                 "status": job_data.get("status", "completed"),
                 "result": job_data.get("result"),
                 "source_paper_id": paper.get("paper_id"),
+                "subscriber_id": subscriber_id,
             }
-        return {"job_id": job_id, "status": "completed", "source_paper_id": paper.get("paper_id")}
+        return {"job_id": job_id, "status": "completed", "source_paper_id": paper.get("paper_id"), "subscriber_id": subscriber_id}
 
     except Exception as e:
         structured_logger.error("Paper-sourced podcast generation failed", job_id=job_id, error=str(e))

@@ -3,18 +3,95 @@ Canonical Filename Service
 
 Handles canonical filename generation and validation for podcasts.
 Canonical filenames follow patterns:
-- Feature format: ever-{category}-{6-digit-number} (e.g., ever-bio-250032)
-- News format: news-{category}-{YYYYMMDD}-{4-digit-serial} (e.g., news-bio-20250328-0001)
+- Feature (evergreen): ever-{category}-{YY}{NNNN}
+  YY = last two digits of the creation year, NNNN = 1-based sequence in that
+  category for that year (ever-bio-260001 is the first Biology evergreen of 2026).
+- News: news-{category}-{YYYYMMDD}-{4-digit-serial} (YY + MMDD + serial; e.g., news-bio-20250328-0001)
 """
 
 import re
 import os
-from typing import Optional
+from typing import Optional, List, Tuple
 from datetime import datetime
 
 from utils.logging import structured_logger
 from config.database import db
 from config.constants import GCP_PROJECT_ID
+
+
+EVERGREEN_CATEGORIES = {"bio", "chem", "compsci", "math", "phys", "eng", "med", "psych"}
+
+CATEGORY_TO_SLUG = {
+    "Physics": "phys",
+    "Computer Science": "compsci",
+    "Biology": "bio",
+    "Chemistry": "chem",
+    "Mathematics": "math",
+    "Engineering": "eng",
+    "Medicine": "med",
+    "Psychology": "psych",
+}
+
+EVERGREEN_NAME_RE = re.compile(
+    r"^ever-(bio|chem|compsci|math|phys|eng|med|psych)-(\d{2})(\d{4})$"
+)
+
+
+def category_to_slug(category: Optional[str]) -> str:
+    if category and category in CATEGORY_TO_SLUG:
+        return CATEGORY_TO_SLUG[category]
+    text = str(category or "")
+    if "Physics" in text:
+        return "phys"
+    if "Computer Science" in text:
+        return "compsci"
+    if "Biology" in text:
+        return "bio"
+    if "Chemistry" in text:
+        return "chem"
+    if "Mathematics" in text:
+        return "math"
+    lowered = text.strip().lower()
+    if lowered in EVERGREEN_CATEGORIES:
+        return lowered
+    return "phys"
+
+
+def evergreen_year_yy(now: Optional[datetime] = None) -> str:
+    return f"{(now or datetime.now()).year % 100:02d}"
+
+
+def parse_evergreen_filename(filename: Optional[str]) -> Optional[Tuple[str, str, int]]:
+    """Parse ever-{cat}-{YY}{NNNN}. Returns (category, yy, sequence) or None."""
+    if not filename:
+        return None
+    name = filename.split("/")[-1].replace(".mp3", "").strip()
+    m = EVERGREEN_NAME_RE.match(name)
+    if not m:
+        return None
+    return m.group(1), m.group(2), int(m.group(3))
+
+
+def next_evergreen_filename(
+    existing_names: List[str],
+    category_slug: str,
+    year: Optional[int] = None,
+) -> str:
+    """Next ever-{cat}-{YY}{NNNN} for this category in `year`.
+
+    Names from other years (e.g. ever-bio-250045 in 2026) are ignored, so a
+    2026 Biology episode is 260001 even if 2025-style numbers already exist.
+    """
+    yy = f"{(year if year is not None else datetime.now().year) % 100:02d}"
+    max_seq = 0
+    for name in existing_names:
+        parsed = parse_evergreen_filename(name)
+        if not parsed:
+            continue
+        cat, file_yy, seq = parsed
+        if cat == category_slug and file_yy == yy:
+            max_seq = max(max_seq, seq)
+    return f"ever-{category_slug}-{yy}{max_seq + 1:04d}"
 
 
 class CanonicalService:
@@ -41,98 +118,52 @@ class CanonicalService:
         
         try:
             import requests
-            
-            # Query Firestore for highest episode numbers by category to avoid overwrites
-            category_episodes = {
-                "bio": 250007,       # Start from current max
-                "chem": 0, 
-                "compsci": 0,
-                "math": 0,
-                "phys": 0
-            }
-            
+
+            request_category = category_to_slug(category)
+            year_yy = evergreen_year_yy()
+
+            existing_names: List[str] = []
             try:
-                # Query all completed podcasts from Firestore
                 if db:
-                    podcasts_ref = db.collection('podcast_jobs').where('status', '==', 'completed').stream()
-                    
-                    for podcast_doc in podcasts_ref:
-                        podcast_data = podcast_doc.to_dict()
-                        result = podcast_data.get('result', {})
-                        audio_url = result.get('audio_url', '')
-                        
-                        # Extract filename from audio URL
-                        if 'ever-' in audio_url:
-                            filename = audio_url.split('/')[-1].replace('.mp3', '')
-                            parts = filename.split('-')
-                            if len(parts) >= 3:
-                                cat = parts[1]
-                                try:
-                                    episode_num = int(parts[2])
-                                    if cat in category_episodes:
-                                        category_episodes[cat] = max(category_episodes[cat], episode_num)
-                                except ValueError:
-                                    continue
-                
-                structured_logger.debug("Current max episodes by category",
-                                       category_episodes=category_episodes)
-                
+                    for collection_name in ("podcast_jobs", "episodes"):
+                        for doc in db.collection(collection_name).stream():
+                            data = doc.to_dict() or {}
+                            result = data.get("result") or {}
+                            for candidate in (
+                                result.get("canonical_filename"),
+                                data.get("canonical_filename"),
+                                (result.get("audio_url") or "").split("/")[-1],
+                            ):
+                                if candidate:
+                                    existing_names.append(str(candidate))
+                structured_logger.debug(
+                    "Collected existing canonical names",
+                    count=len(existing_names),
+                    category=request_category,
+                    year_yy=year_yy,
+                )
             except Exception as e:
-                structured_logger.warning("Could not query Firestore for episode numbers, using defaults",
-                                         error=str(e))
-            
-            # Use the category from the request instead of re-classifying
-            # Map the request category to the canonical format
-            category_mapping = {
-                "Physics": "phys",
-                "Computer Science": "compsci", 
-                "Biology": "bio",
-                "Chemistry": "chem",
-                "Mathematics": "math",
-                "Engineering": "eng",
-                "Medicine": "med",
-                "Psychology": "psych"
-            }
-            
-            # Use the category from the request directly
-            if category and category in category_mapping:
-                request_category = category_mapping[category]
-            else:
-                # Direct mapping from common categories
-                if "Physics" in str(category):
-                    request_category = "phys"
-                elif "Computer Science" in str(category):
-                    request_category = "compsci"
-                elif "Biology" in str(category):
-                    request_category = "bio"
-                elif "Chemistry" in str(category):
-                    request_category = "chem"
-                elif "Mathematics" in str(category):
-                    request_category = "math"
-                else:
-                    request_category = "phys"  # Default to physics
-            
-            # Get the next episode number for this category
-            next_episode = category_episodes[request_category] + 1
-            next_episode_str = str(next_episode).zfill(6)  # Pad to 6 digits like 250032
-            
-            # Double-check we're not overwriting by checking GCS directly
+                structured_logger.warning(
+                    "Could not query Firestore for episode numbers",
+                    error=str(e),
+                )
+
             try:
-                gcs_list_url = f"https://storage.googleapis.com/storage/v1/b/{self.gcs_bucket}/o?prefix=audio/ever-{request_category}-{next_episode_str}"
+                gcs_list_url = (
+                    f"https://storage.googleapis.com/storage/v1/b/{self.gcs_bucket}/o"
+                    f"?prefix=audio/ever-{request_category}-{year_yy}"
+                )
                 gcs_response = requests.get(gcs_list_url, timeout=10)
                 if gcs_response.status_code == 200:
-                    gcs_data = gcs_response.json()
-                    if gcs_data.get('items'):
-                        # File already exists, increment further
-                        next_episode += 1
-                        next_episode_str = str(next_episode).zfill(6)
-                        structured_logger.debug("File already exists, incrementing episode number",
-                                               category=request_category,
-                                               new_episode=next_episode_str)
+                    for item in gcs_response.json().get("items") or []:
+                        name = (item.get("name") or "").split("/")[-1]
+                        if name:
+                            existing_names.append(name)
             except Exception as e:
-                structured_logger.warning("Could not verify GCS for episode number",
-                                         episode_str=next_episode_str,
-                                         error=str(e))
+                structured_logger.warning(
+                    "Could not list GCS for evergreen episode numbers",
+                    error=str(e),
+                )
             
             # Generate filename based on format type
             if format_type == "news":
@@ -167,12 +198,15 @@ class CanonicalService:
                     canonical_filename = f"news-{request_category}-{date_str}-0001"
                     structured_logger.debug("Determined NEWS filename (error fallback)", filename=canonical_filename)
             else:
-                # Feature format: ever-{category}-{episode}
-                canonical_filename = f"ever-{request_category}-{next_episode_str}"
-                structured_logger.debug("Determined FEATURE filename",
-                                      filename=canonical_filename,
-                                      category=request_category,
-                                      episode=next_episode)
+                canonical_filename = next_evergreen_filename(
+                    existing_names, request_category, datetime.now().year
+                )
+                structured_logger.debug(
+                    "Determined FEATURE filename",
+                    filename=canonical_filename,
+                    category=request_category,
+                    year_yy=year_yy,
+                )
             
             return canonical_filename
             

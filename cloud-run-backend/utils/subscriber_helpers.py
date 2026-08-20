@@ -3,6 +3,7 @@
 import hashlib
 from typing import Optional
 from config.database import db
+from config.constants import ADMIN_SUBSCRIBER_EMAIL
 from utils.logging import structured_logger
 
 
@@ -32,6 +33,19 @@ def get_subscriber_by_email(email: str):
     return None
 
 
+def resolve_generation_subscriber_id(subscriber_id: Optional[str] = None) -> str:
+    """Use an explicit subscriber, else Gary's admin account (gwelz@gc.cuny.edu).
+
+    System-generated test episodes must not land as 'unknown subscriber'.
+    """
+    if subscriber_id and str(subscriber_id).strip():
+        return str(subscriber_id).strip()
+    doc = get_subscriber_by_email(ADMIN_SUBSCRIBER_EMAIL)
+    if doc:
+        return doc.id
+    return generate_subscriber_id(ADMIN_SUBSCRIBER_EMAIL)
+
+
 def verify_password(plain_password: str, hashed_password: str) -> bool:
     """Verify password (simple implementation - in production use proper hashing)"""
     # Hash the plain password and compare with stored hash
@@ -42,4 +56,3 @@ def hash_password(password: str) -> str:
     """Hash password (simple implementation - in production use proper hashing)"""
     # For now, simple encoding - in production use bcrypt or similar
     return password.encode().hex()
-

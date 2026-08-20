@@ -112,14 +112,54 @@ which the 1989 abstract does not earn. That is the existing
 `gemini_research_enhanced` paper-analysis pipeline running on an abstract, not
 a connector bug.
 
-The job was **auto-promoted** to `episodes` (`promoted_to_episodes: true`). This
-was a live episode, not a dry run. Gary should know it is in the catalog as
-`ever-bio-250045` before anyone points Lents at it.
+The job was **auto-promoted** to `episodes` (`promoted_to_episodes: true`). Gary reviewed
+it live and decided: **leave `ever-bio-250045` published.** Do not unpublish.
+
+## Pre-Phase-3 pipeline cleanup (implemented locally, not deployed)
+
+Gary's sequencing: fix citation accuracy, venue attribution, thumbnail generation, and
+description formatting in `podcast_generation_service.py` / `content_fixes.py` **before**
+Phase 3 UI. `ever-bio-250045` stays as-is; this is forward-looking.
+
+Done in this checkout (40 unit tests):
+
+- Stop inventing `DOI: 10.xxxx/xxxx` and `(Recent)` (`validate_academic_references`,
+  `sanitize_reference_placeholders`).
+- Truncation now inserts a blank line before `## References` / `## Hashtags` instead of
+  mashing `...## References`.
+- Hashtags are generated from topic + title only, so an LLM description that mentions
+  CRISPR/cancer no longer tags those. Arbitrary title words (`#Unraveling`) are dropped.
+- Paper journal + year pass through `PodcastRequest` into `format_citation`, so the
+  prompt can say PNAS rather than "published in PubMed".
+- Paper-analysis prompts forbid placeholder DOIs, invented years, PubMed-as-venue, and
+  upgrading a methods paper into CRISPR/cancer applications.
+- DALL-E: if HD fails, retry standard quality with a shorter prompt before the geometric
+  fallback.
+
+Not deployed until this commit + Cloud Build. Next: one new paper-sourced
+generation to verify, then Phase 3 UI.
+
+## Naming + subscriber
+
+Gary: `ever-bio-250045` should have been `ever-bio-260001` (first 2026 Biology
+evergreen). 2026 episodes were numbered as a continuation of the 2025 six-digit
+counter. **Leave `25xxxx` episodes as historical. No rename or backfill.**
+
+Allocator now uses `ever-{cat}-{YY}{NNNN}` where YY is the **creation year** and
+NNNN is per-category sequence **for that year only**. Other-year names
+(`ever-bio-250045` in 2026) are ignored, so the next Biology evergreen is
+`ever-bio-260001` unless a `26xxxx` bio already exists.
+
+Test/system jobs no longer use `subscriber_id=None`. They resolve to the admin
+subscriber `gwelz@gc.cuny.edu` (account exists in Firestore). Episodes still
+auto-promote as **private** / `submitted_to_rss=False` so Gary can opt into RSS.
+
+News filenames stay `news-{cat}-{YYYYMMDD}-{serial}` (YY + MMDD + serial).
+Confirmed; do not switch news to the evergreen six-digit form.
 
 ## Phase 3 (UI)
 
-Not started. Gated on whether Gary wants a UI in front of this quality bar, or
-wants the paper-analysis script/citations cleaned up first.
+Not started. Stays gated until new post-cleanup episodes look right.
 `components/PodcastGenerator.tsx` is still the wrong shape.
 
 ## Known, accepted limitation (not a bug)

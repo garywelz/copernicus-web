@@ -20,6 +20,8 @@ class PodcastRequest(BaseModel):
     paper_authors: Optional[List[str]] = None
     paper_abstract: Optional[str] = None
     paper_doi: Optional[str] = None
+    paper_journal: Optional[str] = None
+    paper_year: Optional[str] = None
     focus_areas: Optional[List[str]] = None
     include_citations: bool = True
     paradigm_shift_analysis: bool = True
@@ -54,4 +56,5 @@ class GeneratePodcastFromPaperRequest(BaseModel):
     include_citations: bool = True
     paradigm_shift_analysis: bool = True
     additional_instructions: Optional[str] = None
+    subscriber_id: Optional[str] = None  # defaults to admin gwelz@gc.cuny.edu
 

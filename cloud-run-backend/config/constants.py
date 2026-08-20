@@ -53,6 +53,7 @@ EPISODE_COLLECTION_NAME = os.getenv("COPERNICUS_EPISODE_COLLECTION", "episodes")
 # Notification Configuration
 ERROR_NOTIFICATION_EMAIL = os.getenv("ERROR_NOTIFICATION_EMAIL", os.getenv("NOTIFICATION_EMAIL", "garywelz@gmail.com"))
 DEFAULT_SUBSCRIBER_EMAIL = os.getenv("DEFAULT_SUBSCRIBER_EMAIL", "garywelz@gmail.com")
+ADMIN_SUBSCRIBER_EMAIL = os.getenv("ADMIN_SUBSCRIBER_EMAIL", "gwelz@gc.cuny.edu")
 
 # RSS Namespaces
 RSS_NAMESPACES = {
