@@ -26,3 +26,32 @@ class PodcastRequest(BaseModel):
     source_links: Optional[List[str]] = None
     additional_instructions: Optional[str] = None
 
+
+class ResolvePaperRequest(BaseModel):
+    """Preview/lookup step for the Knowledge Engine -> podcast connector.
+    No side effects -- safe to call repeatedly while narrowing a query."""
+    query: str
+    cited_project: Optional[str] = None  # "glmp" or "atap"; None = unscoped
+    limit: int = 60
+
+
+class GeneratePodcastFromPaperRequest(BaseModel):
+    """Generation step. Either `paper_id` (from a prior /resolve-paper call)
+    or a `query` that resolves unambiguously as a DOI/PMID/arXiv identifier
+    -- a free-text query here is rejected; call /resolve-paper first and
+    pass the paper_id of whichever candidate was actually meant."""
+    paper_id: Optional[str] = None
+    query: Optional[str] = None
+    cited_project: Optional[str] = None
+    category: str = "Computer Science"
+    expertise_level: str = "intermediate"
+    format_type: str = "interview"
+    duration: str = "5-10 minutes"
+    voice_style: str = "professional"
+    host_voice_id: Optional[str] = None
+    expert_voice_id: Optional[str] = None
+    focus_areas: Optional[List[str]] = None
+    include_citations: bool = True
+    paradigm_shift_analysis: bool = True
+    additional_instructions: Optional[str] = None
+

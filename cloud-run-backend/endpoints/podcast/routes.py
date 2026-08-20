@@ -7,7 +7,8 @@ from datetime import datetime
 
 from utils.logging import structured_logger
 from config.database import db
-from models.podcast import PodcastRequest
+from models.podcast import PodcastRequest, ResolvePaperRequest, GeneratePodcastFromPaperRequest
+from services.paper_resolver import resolve_paper, get_paper_by_id
 
 router = APIRouter()
 
@@ -178,11 +179,11 @@ async def generate_podcast_with_subscriber(
         return {"job_id": job_id, "status": "completed", "subscriber_id": subscriber_id}
         
     except Exception as e:
-        structured_logger.error("Podcast generation failed", 
+        structured_logger.error("Podcast generation failed",
                               job_id=job_id,
                               subscriber_id=subscriber_id,
                               error=str(e))
-        
+
         # Update job status to failed
         job_ref = db.collection('podcast_jobs').document(job_id)
         job_ref.update({
@@ -190,5 +191,146 @@ async def generate_podcast_with_subscriber(
             'error': str(e),
             'updated_at': datetime.utcnow().isoformat()
         })
-        
+
+        raise HTTPException(status_code=500, detail=f"Podcast generation failed: {str(e)}")
+
+
+def _paper_preview(paper: dict) -> dict:
+    """Trim a Firestore paper doc to what a caller needs to pick a candidate,
+    without shipping the full abstract/embedding/citations payload."""
+    return {
+        "paper_id": paper.get("paper_id"),
+        "title": paper.get("title"),
+        "authors": paper.get("authors"),
+        "doi": paper.get("doi"),
+        "pmid": paper.get("pmid"),
+        "arxiv_id": paper.get("arxiv_id"),
+        "abstract_preview": (paper.get("abstract") or "")[:280],
+    }
+
+
+@router.post("/resolve-paper")
+async def resolve_paper_endpoint(request: ResolvePaperRequest):
+    """Look up a paper in the Knowledge Engine corpus by DOI/PMID/arXiv link,
+    bare identifier, title, or free-text description. No side effects --
+    preview step before /generate-podcast-from-paper. See
+    services/paper_resolver.py for match_type semantics and the known
+    scoping limitation on the free-text path."""
+    try:
+        result = await resolve_paper(
+            request.query, cited_project=request.cited_project, limit=request.limit
+        )
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+    return {
+        "match_type": result["match_type"],
+        "papers": [_paper_preview(p) for p in result["papers"]],
+    }
+
+
+@router.post("/generate-podcast-from-paper")
+async def generate_podcast_from_paper(request: GeneratePodcastFromPaperRequest):
+    """Generate a podcast episode from a specific Knowledge Engine paper.
+    Requires either `paper_id` (from a prior /resolve-paper call) or a
+    `query` that resolves unambiguously as a DOI/PMID/arXiv identifier --
+    a free-text query is rejected here on purpose, to avoid ever generating
+    an episode about a paper the caller didn't explicitly confirm."""
+    if not db:
+        raise HTTPException(status_code=503, detail="Firestore service is unavailable. Cannot create job.")
+
+    paper = None
+    if request.paper_id:
+        paper = get_paper_by_id(request.paper_id)
+        if not paper:
+            raise HTTPException(status_code=404, detail=f"No paper with id {request.paper_id!r}")
+    elif request.query:
+        try:
+            result = await resolve_paper(request.query, cited_project=request.cited_project)
+        except ValueError as e:
+            raise HTTPException(status_code=400, detail=str(e))
+        unambiguous = result["match_type"] == "identifier" or (
+            result["match_type"] == "exact_title" and len(result["papers"]) == 1
+        )
+        if not unambiguous:
+            raise HTTPException(
+                status_code=400,
+                detail=(
+                    f"query did not resolve to a single confirmed paper (match_type="
+                    f"{result['match_type']!r}, {len(result['papers'])} candidate(s)). "
+                    f"Call /resolve-paper first and pass paper_id for the intended candidate."
+                ),
+            )
+        paper = result["papers"][0]
+    else:
+        raise HTTPException(status_code=400, detail="Must supply paper_id or query.")
+
+    podcast_request = PodcastRequest(
+        topic=paper.get("title") or "",
+        category=request.category,
+        expertise_level=request.expertise_level,
+        format_type=request.format_type,
+        duration=request.duration,
+        voice_style=request.voice_style,
+        host_voice_id=request.host_voice_id,
+        expert_voice_id=request.expert_voice_id,
+        paper_content=paper.get("abstract") or "",
+        paper_title=paper.get("title"),
+        paper_authors=paper.get("authors"),
+        paper_abstract=paper.get("abstract"),
+        paper_doi=paper.get("doi"),
+        focus_areas=request.focus_areas,
+        include_citations=request.include_citations,
+        paradigm_shift_analysis=request.paradigm_shift_analysis,
+        source_links=[paper["paper_id"]] if paper.get("paper_id") else None,
+        additional_instructions=request.additional_instructions,
+    )
+
+    job_id = str(uuid.uuid4())
+    structured_logger.info(
+        "New paper-sourced podcast request",
+        job_id=job_id,
+        paper_id=paper.get("paper_id"),
+        paper_title=(paper.get("title") or "")[:50],
+    )
+
+    job_data = {
+        "job_id": job_id,
+        "status": "pending",
+        "created_at": datetime.utcnow().isoformat(),
+        "updated_at": datetime.utcnow().isoformat(),
+        "request": podcast_request.model_dump(),
+        "source_paper_id": paper.get("paper_id"),
+    }
+
+    try:
+        db.collection("podcast_jobs").document(job_id).set(job_data)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to create job in Firestore: {e}")
+
+    try:
+        service = _get_service()
+        if not service:
+            raise HTTPException(status_code=503, detail="Podcast generation service is not available")
+
+        await service.run_podcast_generation_job(job_id, podcast_request, subscriber_id=None)
+
+        job_doc = db.collection("podcast_jobs").document(job_id).get()
+        if job_doc.exists:
+            job_data = job_doc.to_dict()
+            return {
+                "job_id": job_id,
+                "status": job_data.get("status", "completed"),
+                "result": job_data.get("result"),
+                "source_paper_id": paper.get("paper_id"),
+            }
+        return {"job_id": job_id, "status": "completed", "source_paper_id": paper.get("paper_id")}
+
+    except Exception as e:
+        structured_logger.error("Paper-sourced podcast generation failed", job_id=job_id, error=str(e))
+        db.collection("podcast_jobs").document(job_id).update({
+            "status": "failed",
+            "error": str(e),
+            "updated_at": datetime.utcnow().isoformat(),
+        })
         raise HTTPException(status_code=500, detail=f"Podcast generation failed: {str(e)}")
