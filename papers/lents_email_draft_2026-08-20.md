@@ -7,6 +7,15 @@ Section 2 was rebuilt against the authoritative source
 came through corrupted (missing words, broken sentences, wrong candidate count). Reviewed by Claude
 Chat and Claude Code before this version.
 
+**Revision (same day):** section 3 rewritten after Cursor caught a real threshold bug in item 59's
+underlying analysis (a single p ≤ 0.0001 was applied to all three motifs; the decoder's actual
+per-motif locks are LacI 1e-5, CRP 1e-4, TrpR 0.05) and confirmed two other things the analysis had
+flagged as new findings were already documented in the 2026-07-08 B1 re-anchoring notebook. Lac and
+ara are unaffected and still clean; trp's picture changed — see `GLMP_MASTER_TODO.md` item 59 and
+the revised report at
+`glmp/collaborations/krampis-virtual-cell/dna-decoder/docs/crp_lac_ara_trp_regulondb_validation_report.md`
+for full detail.
+
 ---
 
 Subject: CRP PWM sign-off + two smaller things (duplicate-node audit, a computational sanity check)
@@ -45,7 +54,7 @@ For each: is the duplicated label one entity modeled twice (a real defect, hidin
 
 **3. FYI, no action needed — a computational sanity check on lac/ara**
 
-Separately, I ran a computational cross-check of the decoder's CRP/LacI predictions against RegulonDB's experimentally validated binding sites for lac, ara, and trp (this was originally assigned to a student reviewer through the validation program; when that didn't move, I ran it directly). Result: every prediction the decoder makes above its own confidence threshold for lac and ara matches a real RegulonDB site exactly, by sequence — zero false positives. Trp didn't clear the threshold at all, so there's nothing to report there yet. Along the way we found a coordinate-labeling bug — the lac decode file's *reported position numbers* don't line up with RegulonDB's, even though the underlying DNA sequence is exactly right — but that's an engineering fix on our end, not something that needs your time. Mentioning it only so the numbers don't look alarming if you ever open the raw file yourself.
+Separately, I ran a computational cross-check of the decoder's CRP/LacI predictions against RegulonDB's experimentally validated binding sites for lac, ara, and trp (this was originally assigned to a student reviewer through the validation program; when that didn't move, I ran it directly). Result: every prediction the decoder makes above its own confidence threshold for lac and ara matches a real RegulonDB site exactly, by sequence — zero false positives. Trp isn't a clean result, but for a mundane, already-known reason: the DNA window we scanned for trp doesn't actually reach the real TrpR binding sites near the trp promoter — a re-anchoring gap we already had flagged, not something this check discovered — so the trp comparison isn't meaningful yet and I'm not reading anything into it. Along the way we also found a coordinate-labeling bug — the lac decode file's *reported position numbers* don't line up with RegulonDB's, even though the underlying DNA sequence is exactly right — but that's an engineering fix on our end, already tracked, not something that needs your time. Mentioning both only so the numbers don't look alarming if you ever open the raw files yourself.
 
 No rush on any of this. Let me know if a call would be easier, especially on #2 — happy to walk through it live.
 
