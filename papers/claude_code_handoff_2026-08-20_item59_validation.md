@@ -30,6 +30,41 @@ to a student reviewer" aside from item 3 as unnecessary detail for Lents. Gary s
 Nothing outstanding on item 59, item 26's Lents ask, or item 33's Lents ask as of this commit — all
 three are now in Lents' hands.
 
+**Verbal correction, same day (nothing in the repo was wrong — this was said out loud, not
+written).** Gary asked what becomes writable once Lents responds. In answering, Claude Code
+conflated two things that item 59's own written record (`GLMP_MASTER_TODO.md`, `glmp@6be3b47`
+onward) already gets right: **Me-Me's original assignment was the computation track**, not the
+biology track, and **we are not "waiting" on her for it** — we ran the computation track ourselves
+(item 59) after her extended non-response, and separately decided to let her do her own independent
+version later specifically to confirm our results, not as a blocker. The biology track is a
+genuinely separate, different task (annotation review — gate typing, the Class II question,
+quantitative values) with status unknown to this thread; it isn't Me-Me's assignment and shouldn't
+be described as if it were. Gary caught this in conversation; checked the actual master-todo text
+for the same error and it's clean — item 59's own wording already says "separate, still-open biology
+track" without the conflation. No file changes needed, flagging only so Cursor/Chat don't inherit
+the spoken error if it gets relayed.
+
+**What actually becomes writable once Lents responds, per that corrected framing:**
+- **#26**, the real payoff: a clean sign-off moves lac's Class II call from PROVISIONAL to confirmed
+  — a real status change to `CRP_PWM_BIOLOGIST_REVIEW.md` and the decoder's own output. If he flags
+  the training set or the `RDBECOLIRIC06347` holdout as wrong, that's a rebuild trigger (option C),
+  not a write-up yet.
+- **#33** is writable regardless of which way rulings go, because the candidates file
+  (`loop-audit-candidates-2026-08-04.md`) was pre-registered on purpose — filling in the Outcome
+  column lets the doc's own three scoring questions (are the priors calibrated, what's the
+  heuristic's real precision, what's automatable) actually get answered. Small, legitimate methods
+  note on its own.
+- **#59** doesn't change with his answer (it's computational, not something he rules on), but
+  becomes more citable once the *separate*, still-genuinely-open biology track eventually gets done
+  by whoever ends up doing it — together the two tracks would be a complete validation write-up.
+- **Unaffected either way:** the lac coordinate-frame bug and trp re-anchoring gap (items 59/60) are
+  Cursor's decoder-engineering fixes, independent of Lents' biology sign-off.
+- **Honest bottom line, unchanged:** none of this produces a new submittable paper by itself — no
+  standalone CRP PWM paper is drafted yet to attach a sign-off to. It closes out real open items and
+  generates the first biologist-validated evidence the decoder work could eventually cite. The
+  actual next bioRxiv candidate (RPE1 replication, item 60) is a separate K562 thread, independent
+  of Lents entirely.
+
 **One more correction, same day, after Gary shared this thread's #26 update with Claude Chat.**
 Chat caught a real ambiguity: I'd summarized #26 as "PWM construction has not started," which reads
 as if no PWM exists yet. It does — built 2026-07-07, integrated into the decoder 2026-07-08,
