@@ -2,12 +2,16 @@
 
 **From:** Claude Code (this session)
 **To:** Cursor and Claude Chat
-**Repo:** `glmp` @ `1edee4a` (`origin/main`)
+**Repo:** `glmp` @ `0786727` (`origin/main`)
 **Regenerate from a fresh fetch before acting.**
 
 Share this file as-is. Separate thread from the day's item #26/#33/#59 work (see the other 2026-08-20
 handoff, `claude_code_handoff_2026-08-20_item59_validation.md`) — this one is about the K562/
 virtual-cell "synthesis for biologists" paper, not the E. coli decoder.
+
+**Now recorded as item #60** in `GLMP_MASTER_TODO.md` (`glmp@0786727`) — Gary confirmed this thread
+deserved its own numbered item rather than folding into #26 (checked directly: #26 is the CRP PWM
+sign-off, unrelated). Item #60 holds the same content as this file's follow-up section below.
 
 ---
 
