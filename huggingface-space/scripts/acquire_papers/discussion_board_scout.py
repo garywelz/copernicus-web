@@ -36,7 +36,9 @@ SCRIPT_DIR = Path(__file__).resolve().parent
 REPO_ROOT = Path(os.environ.get("COPERNICUS_WEB_ROOT") or SCRIPT_DIR.parents[2])
 A1_PATH = SCRIPT_DIR / "a1_resolve_and_ingest.py"
 INGEST_PATH = REPO_ROOT / "cloud-run-backend" / "scripts" / "ingest_papers_from_metadata_json.py"
-FOCUS_PATH = REPO_ROOT / "research_focus.json"
+# ATAP local scratch — never named research_focus.json at this repo root
+# (that filename is GLMP's live declaration in glmp/docs/).
+FOCUS_PATH = REPO_ROOT / "atap_research_focus.json"
 DEFAULT_REPORT = SCRIPT_DIR / "discussion_board_scout_report.jsonl"
 
 UA = "CopernicusAI/1.0 (mailto:gary@copernicusai.fyi)"

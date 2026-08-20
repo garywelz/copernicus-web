@@ -119,6 +119,12 @@ huggingface-space/paper_acquisition_venv/
 huggingface-space/paper_acquisition_logs/
 huggingface-space/scripts/acquire_papers/.scout_query_cache/
 
+# Engine focus files live in glmp/docs and atap/docs, not this repo root.
+# A root research_focus.json is always the wrong file (2026-08-19 mix-up:
+# ATAP scratch vs GLMP's live declaration). Keep local copies untracked.
+/research_focus.json
+/atap_research_focus.json
+
 # Local secrets / scratch (never commit)
 SECRET_ROTATION_MAP.md
 *_backup_*.json
