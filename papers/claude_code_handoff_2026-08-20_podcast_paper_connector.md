@@ -105,6 +105,34 @@ assumed correct:
 - **Phase 3 (a real UI for Gary/Lents)** — not started. `PodcastGenerator.tsx` is the wrong shape to
   repurpose; something new and small, gated on Phase 2 looking good first.
 
+## Follow-up, same day: Gary reviewed the live episode, wants a pipeline cleanup pass before Phase 3
+
+Gary got the admin dashboard API key (pre-existing infrastructure, `admin-api-key` in Secret
+Manager — unrelated to today's deploy, just needed re-entering since it lives in browser
+localStorage and his had been cleared) and looked at `ever-bio-250045` directly.
+
+**Decision: leave `ever-bio-250045` live, do not unpublish.** Confirmed: it's a working episode,
+true to the topic, not the generic-topic-research fallback. Good sign for the connector itself.
+
+**But two more concrete quality gaps found on top of Cursor's citation/venue findings**, both in the
+same pipeline, worth fixing together rather than as separate passes:
+
+3. **Thumbnail fell back to the generic placeholder** (`ever-bio-250045-fallback-thumb.jpg`,
+   already noted in Cursor's handoff) rather than generating a real one. Worth checking whether
+   `generate_and_upload_thumbnail`/`generate_fallback_thumbnail` in
+   `podcast_generation_service.py` is failing silently on the paper-driven path specifically, or
+   whether it's a more general issue that just happened to surface here.
+4. **The description page renders badly formatted.** Separate issue from thumbnail generation, same
+   general area of the pipeline (`upload_description_to_gcs`) — worth checking what the actual
+   markdown/HTML output looks like versus what the renderer expects.
+
+**Gary's explicit sequencing, confirmed:** clean up the paper-analysis pipeline first — citation
+accuracy, venue attribution (Cursor's items: "published in *pubmed*" instead of the real venue,
+placeholder `DOI: 10.xxxx/xxxx`, mis-dated "(Recent)", unrelated hashtags), plus these two — **then**
+move on to Phase 3 (the UI). Not before. This is squarely pipeline-internals work
+(`podcast_generation_service.py`, 2912 lines, the core generation service) — Cursor's lane, not a
+single-file edit.
+
 ## Known, accepted limitation (not a bug)
 
 The free-text/description path can still miss a real GLMP/ATAP paper if it doesn't rank within the
