@@ -12,7 +12,17 @@ against the live files (thresholds in `custom_pwm_registry.yaml`, trp q-values a
 coordinates in the revised report, precision/recall arithmetic) — all confirmed accurate. Chat also
 caught one remaining stale line: `GLMP_MASTER_TODO.md` item 59 still said the Lents draft's item-3
 paragraph revision was undecided, when it had already been rewritten. Fixed and pushed
-(`glmp@9cc9b1d`). Nothing outstanding on item 59 as of this commit.
+(`glmp@9cc9b1d`).
+
+**Send mechanics, same day:** Gary asked to have the Lents email sent. Claude Code doesn't have a
+live send capability yet — the Gmail MCP tool that surfaced requires an explicit OAuth grant Gary
+hadn't given, and Lents' actual email address isn't in this thread anywhere (only Gary's own
+`gwelz@gc.cuny.edu` submission address from the validation task brief has come up). Asked Gary
+directly rather than assume either; he chose to send it himself from the finished draft rather than
+connect Gmail. No account access was requested or granted. The draft at
+`papers/lents_email_draft_2026-08-20.md` is final and ready for Gary to send on his own schedule.
+
+Nothing outstanding on item 59 as of this commit.
 
 **Superseded, same day:** the "Bottom line" and Cursor-flags sections below reflect the first-pass
 analysis. Cursor caught a real bug in it (a single p ≤ 0.0001 threshold applied to all three motifs;
