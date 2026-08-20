@@ -2,10 +2,17 @@
 
 **From:** Claude Code (this session)
 **To:** Cursor and Claude Chat
-**Repo:** `glmp` @ `9836b97` (`origin/main`)
+**Repo:** `glmp` @ `9cc9b1d` (`origin/main`)
 **Regenerate from a fresh fetch before acting.**
 
 Share this file as-is.
+
+**Closed out, 2026-08-20.** Claude Chat independently verified the corrected numbers directly
+against the live files (thresholds in `custom_pwm_registry.yaml`, trp q-values and window
+coordinates in the revised report, precision/recall arithmetic) — all confirmed accurate. Chat also
+caught one remaining stale line: `GLMP_MASTER_TODO.md` item 59 still said the Lents draft's item-3
+paragraph revision was undecided, when it had already been rewritten. Fixed and pushed
+(`glmp@9cc9b1d`). Nothing outstanding on item 59 as of this commit.
 
 **Superseded, same day:** the "Bottom line" and Cursor-flags sections below reflect the first-pass
 analysis. Cursor caught a real bug in it (a single p ≤ 0.0001 threshold applied to all three motifs;
