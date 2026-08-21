@@ -1825,11 +1825,12 @@ In this comprehensive exploration, we'll examine the latest research development
                 structured_logger.info(
                     "Generating DALL-E 3 thumbnail",
                     canonical_filename=canonical_filename,
+                    model=attempt.get("model"),
                     quality=attempt["quality"],
                     prompt_len=len(attempt["prompt"]),
                 )
                 payload = {
-                    "model": "dall-e-3",
+                    "model": attempt.get("model", "gpt-image-1"),
                     "prompt": attempt["prompt"],
                     "n": 1,
                     "size": "1024x1024",
@@ -1859,17 +1860,23 @@ In this comprehensive exploration, we'll examine the latest research development
                         error_text=last_error,
                     )
                     continue
-                image_url = (response.json().get("data") or [{}])[0].get("url")
-                if not image_url:
-                    last_error = "DALL-E response missing image URL"
-                    continue
-                img_response = requests.get(image_url, timeout=30)
-                if img_response.status_code != 200:
-                    last_error = f"download {img_response.status_code}"
+                item = (response.json().get("data") or [{}])[0]
+                image_bytes = None
+                if item.get("url"):
+                    img_response = requests.get(item["url"], timeout=30)
+                    if img_response.status_code == 200:
+                        image_bytes = img_response.content
+                    else:
+                        last_error = f"download {img_response.status_code}"
+                elif item.get("b64_json"):
+                    import base64
+                    image_bytes = base64.b64decode(item["b64_json"])
+                if not image_bytes:
+                    last_error = last_error or "image response missing url and b64_json"
                     continue
                 thumbnail_filename = f"{canonical_filename}-thumb.jpg"
                 blob = bucket.blob(f"thumbnails/{thumbnail_filename}")
-                blob.upload_from_string(img_response.content, content_type="image/jpeg")
+                blob.upload_from_string(image_bytes, content_type="image/jpeg")
                 blob.make_public()
                 public_url = f"https://storage.googleapis.com/{self.bucket_name}/thumbnails/{thumbnail_filename}"
                 structured_logger.info(
@@ -2012,11 +2019,11 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
                     }
                     
                     payload = {
-                        "model": "dall-e-3",
+                        "model": "gpt-image-1",
                         "prompt": prompt,
                         "n": 1,
-                        "size": "1792x1024",  # Landscape format for display during playback
-                        "quality": "standard",
+                        "size": "1536x1024",
+                        "quality": "medium",
                     }
                     
                     response = requests.post(
@@ -2027,15 +2034,19 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
                     )
                     
                     if response.status_code == 200:
-                        result = response.json()
-                        image_url = result['data'][0]['url']
-                        
-                        # Download and upload to GCS
-                        img_response = requests.get(image_url, timeout=30)
-                        if img_response.status_code == 200:
+                        import base64
+                        item = (response.json().get("data") or [{}])[0]
+                        image_bytes = None
+                        if item.get("url"):
+                            img_response = requests.get(item["url"], timeout=30)
+                            if img_response.status_code == 200:
+                                image_bytes = img_response.content
+                        elif item.get("b64_json"):
+                            image_bytes = base64.b64decode(item["b64_json"])
+                        if image_bytes:
                             image_filename = f"{canonical_filename}-image-{i+1}.jpg"
                             blob = bucket.blob(f"episode-images/{image_filename}")
-                            blob.upload_from_string(img_response.content, content_type="image/jpeg")
+                            blob.upload_from_string(image_bytes, content_type="image/jpeg")
                             blob.make_public()
                             
                             public_url = f"https://storage.googleapis.com/{self.bucket_name}/episode-images/{image_filename}"
@@ -2049,7 +2060,7 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
                             structured_logger.warning("Failed to download episode image",
                                                      canonical_filename=canonical_filename,
                                                      image_number=i+1,
-                                                     status_code=img_response.status_code)
+                                                     status_code=response.status_code)
                     else:
                         structured_logger.warning("DALL-E API error for episode image",
                                                  canonical_filename=canonical_filename,

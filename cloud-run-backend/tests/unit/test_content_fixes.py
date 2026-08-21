@@ -129,7 +129,9 @@ class TestDalleThumbnailAttempts:
         from content_fixes import dalle_thumbnail_attempts
         attempts = dalle_thumbnail_attempts("Stormo 1989", "protein-binding sites")
         assert attempts
-        assert all(a["quality"] == "standard" for a in attempts)
+        assert all(a["quality"] in {"low", "medium", "high"} for a in attempts)
+        assert all(a["model"].startswith("gpt-image") for a in attempts)
+        assert all("dall-e" not in a["model"] for a in attempts)
         assert all("no text" in a["prompt"].lower() for a in attempts)
 
 

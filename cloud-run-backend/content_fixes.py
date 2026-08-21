@@ -702,10 +702,10 @@ def ensure_source_paper_reference(description: str, citation: str) -> str:
 
 
 def dalle_thumbnail_attempts(title: str, topic: str) -> list:
-    """DALL-E 3 payloads to try before the geometric fallback.
+    """Image API payloads to try before the geometric fallback.
 
-    HD plus a long photorealistic prompt is what sent Stormo to fallback-thumb.
-    Standard quality with a short abstract prompt is still a DALL-E original.
+    dall-e-3 is gone on this OpenAI account (`The model 'dall-e-3' does not exist`).
+    Use gpt-image-1 / gpt-image-1-mini with low/medium quality, no style param.
     """
     topic_bit = (topic or title or "scientific research").strip()[:160]
     title_bit = (title or topic_bit).strip()[:120]
@@ -720,8 +720,9 @@ def dalle_thumbnail_attempts(title: str, topic: str) -> list:
         "deep cosmic blue and emerald green, cinematic light, no text, no letters, no labels."
     )
     return [
-        {"quality": "standard", "prompt": compact[:1000]},
-        {"quality": "standard", "prompt": shorter},
+        {"model": "gpt-image-1", "quality": "medium", "prompt": compact[:1000]},
+        {"model": "gpt-image-1", "quality": "low", "prompt": shorter},
+        {"model": "gpt-image-1-mini", "quality": "medium", "prompt": shorter},
     ]
 
 
