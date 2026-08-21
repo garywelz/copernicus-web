@@ -1,0 +1,21 @@
+graph TD
+    A[Lactose in environment] --> B[Lactose transport]
+    B --> G[LacY permease]
+    G --> H[Lactose inside cell]
+    H --> M{Lactose present?}
+    M -->|No| P[Lac repressor active]
+    P --> R[Repressor binds operator]
+    R --> S[Transcription blocked]
+    M -->|Yes| Q[Lac repressor inactive]
+    Q --> T[Repressor leaves operator]
+    T --> U[Operator free]
+    C[Glucose in environment]
+    style M fill:#51cf66,color:#fff
+    style P fill:#51cf66,color:#fff
+    style R fill:#51cf66,color:#fff
+    style S fill:#e74c3c,color:#fff
+    style Q fill:#51cf66,color:#fff
+    style T fill:#51cf66,color:#fff
+    style U fill:#51cf66,color:#fff
+    style H fill:#94a3b8,color:#fff
+    style C fill:#94a3b8,color:#fff

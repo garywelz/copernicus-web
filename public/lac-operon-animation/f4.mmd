@@ -1,0 +1,10 @@
+graph TD
+    U[Operator free] --> AND2{Operator free AND CAP bound?}
+    Z[CAP binds promoter] --> AND2
+    AND2 -->|Yes| FF[Strong transcription]
+    AND2 -->|No| GG[Weak or no transcription]
+    style U fill:#51cf66,color:#fff
+    style Z fill:#51cf66,color:#fff
+    style AND2 fill:#7950f2,color:#fff
+    style FF fill:#51cf66,color:#fff
+    style GG fill:#e74c3c,color:#fff

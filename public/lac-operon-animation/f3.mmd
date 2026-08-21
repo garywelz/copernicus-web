@@ -1,0 +1,20 @@
+graph TD
+    A[Lactose in environment] --> B[Lactose transport]
+    B --> G[LacY permease]
+    G --> H[Lactose inside cell]
+    H --> M{Lactose present?}
+    M -->|Yes| Q[Lac repressor inactive]
+    Q --> T[Repressor leaves operator]
+    T --> U[Operator free]
+    C[Glucose in environment] --> N{Glucose present?}
+    N -->|No| W[High cAMP]
+    W --> X[cAMP-CAP complex]
+    X --> Z[CAP binds promoter]
+    N -->|Yes| V[Low cAMP]
+    style U fill:#94a3b8,color:#fff
+    style C fill:#51cf66,color:#fff
+    style N fill:#51cf66,color:#fff
+    style W fill:#51cf66,color:#fff
+    style X fill:#51cf66,color:#fff
+    style Z fill:#51cf66,color:#fff
+    style V fill:#e74c3c,color:#fff

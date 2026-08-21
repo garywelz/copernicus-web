@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lac operon — self-animating episode</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-50 text-slate-900">
+  <main class="max-w-5xl mx-auto p-6 space-y-4">
+    <p class="text-sm"><a class="text-blue-700 underline" href="/subscriber-dashboard.html">← Dashboard</a></p>
+    <h1 class="text-2xl font-bold" id="title">Lac operon</h1>
+    <p class="text-sm text-slate-600" id="stage">Loading…</p>
+    <img id="frame" alt="Lac operon flowchart frame" class="w-full bg-white rounded-lg border shadow-sm" />
+    <audio id="player" controls class="w-full mt-2"></audio>
+    <p class="text-xs text-slate-500">
+      Frames are successive Mermaid renders of the GLMP lac-operon chart. They advance from cues in the spoken script, not from a separate video file.
+    </p>
+  </main>
+  <script>
+    const params = new URLSearchParams(location.search);
+    const pathMatch = location.pathname.match(/animations\/([^/]+)/);
+    const episode = params.get("episode") || (pathMatch && pathMatch[1]) || "ever-bio-260009";
+    const base = params.get("base") ||
+      "https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/animations/" + episode;
+    const audioEl = document.getElementById("player");
+    const img = document.getElementById("frame");
+    const stage = document.getElementById("stage");
+    const title = document.getElementById("title");
+    let cues = [];
+    fetch(base + "/cues.json?v=" + Date.now())
+      .then(r => r.json())
+      .then(data => {
+        title.textContent = data.title || episode;
+        audioEl.src = data.audio_url;
+        cues = data.cues || [];
+        if (cues[0]) {
+          img.src = cues[0].image;
+          stage.textContent = cues[0].label;
+        }
+      })
+      .catch(err => { stage.textContent = "Could not load cues: " + err; });
+    audioEl.addEventListener("timeupdate", () => {
+      const t = audioEl.currentTime;
+      let current = cues[0];
+      for (const c of cues) {
+        if (t >= c.t) current = c;
+      }
+      if (current && img.src !== current.image) {
+        img.src = current.image;
+        stage.textContent = current.label;
+      }
+    });
+  </script>
+</body>
+</html>
