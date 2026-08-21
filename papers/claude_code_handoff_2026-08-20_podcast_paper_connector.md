@@ -144,6 +144,34 @@ to Cursor's lane than a v1 connector.
 
 ---
 
+## Closing status, evening of 2026-08-20: all three phases shipped, Gary stopped for the night
+
+Cursor's evening handoff (`papers/cursor_handoff_2026-08-20_podcast_paper_connector.md`,
+`copernicus-web@5b3145512`) closes out the day. Full pipeline-cleanup scope from the section above
+— citation accuracy, venue attribution, thumbnails, description formatting — is done and live, not
+just the connector. Confirmed by episode `ever-bio-260008`: real PNAS citation/year (not "published
+in pubmed"), a real generated thumbnail (not the fallback), clean category-matched hashtags (not
+title-fragment or CRISPR/cancer junk). Root causes, briefly: venue was being read from a prompt path
+(`podcast_research_integrator`/`research_pipeline`) that never saw `PodcastRequest.format_citation`;
+hashtags were minted from arbitrary title words; thumbnails failed because `dall-e-3` is retired on
+this OpenAI account and an unrelated `style` param 400'd before that was found — now on `gpt-image-1`.
+Phase 3 UI also shipped: a "Generate from a paper" block on `subscriber-dashboard.html`, GLMP-default
+corpus, DOI/URL path recommended in the copy itself, episodes private until RSS.
+
+**Gary reviewed the new episodes and approved shipping** ("these look good"), then stopped for the
+night. Two decisions Cursor explicitly left open, not made themselves — still open, not decided
+here either:
+- Publish `ever-bio-260008` (or `260005`) as the live Stormo episode, or restore `ever-bio-250045`
+  (still up, still has the old flaws — pubmed venue, fallback thumb, junk hashtags)?
+- Keep `ever-bio-260003`–`260007` as unpublished test episodes (Cursor's recommendation), or clean
+  some up?
+
+Nothing else outstanding on this thread as of tonight. Do not generate more Stormo episodes, publish/
+unpublish anything, or Cloud Build without a new backend change — per Cursor's own explicit stop
+note, still standing until Gary picks up the two decisions above.
+
+---
+
 ## Key paths
 
 - `cloud-run-backend/services/paper_resolver.py` — the resolver, new
