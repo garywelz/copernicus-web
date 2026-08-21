@@ -1834,7 +1834,6 @@ In this comprehensive exploration, we'll examine the latest research development
                     "n": 1,
                     "size": "1024x1024",
                     "quality": attempt["quality"],
-                    "style": "vivid",
                 }
                 try:
                     response = requests.post(
@@ -2018,7 +2017,6 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
                         "n": 1,
                         "size": "1792x1024",  # Landscape format for display during playback
                         "quality": "standard",
-                        "style": "vivid"
                     }
                     
                     response = requests.post(

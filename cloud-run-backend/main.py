@@ -1854,7 +1854,6 @@ Mood and Atmosphere: {mood_description}. Convey the excitement and importance of
             "n": 1,
             "size": "1024x1024",  # Square format required for podcast platforms (DALL-E 3 max square)
             "quality": "hd",
-            "style": "vivid"
         }
         
         response = requests.post(
