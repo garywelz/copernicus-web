@@ -209,9 +209,82 @@
                 </form>
             </div>
 
+            <!-- Generate from a Knowledge Engine paper -->
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-xl font-bold text-gray-900 mb-2">Generate from a paper</h2>
+                <p class="text-sm text-gray-600 mb-4">
+                    Look up a paper already in the Knowledge Engine, confirm the match, then generate.
+                    A DOI, PubMed, or arXiv link is the reliable path. Free-text search can miss a real paper.
+                    The episode is built from the stored abstract, not the full PDF, and stays private until you post it to RSS.
+                </p>
+
+                <form @submit.prevent="resolvePaper()" class="space-y-4">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="md:col-span-2">
+                            <label class="block text-sm font-medium text-gray-700 mb-1">DOI, URL, or title *</label>
+                            <input type="text" x-model="paperForm.query" required
+                                   placeholder="e.g. 10.1073/pnas.86.4.1183 or a paper title"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Corpus</label>
+                            <select x-model="paperForm.cited_project"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <option value="glmp">GLMP</option>
+                                <option value="atap">ATAP</option>
+                                <option value="">All papers</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="submit" :disabled="resolvingPaper || generatingFromPaper"
+                            class="w-full bg-slate-800 hover:bg-slate-900 text-white font-semibold py-3 px-4 rounded-md transition duration-200 disabled:opacity-50">
+                        <span x-show="!resolvingPaper">Look up paper</span>
+                        <span x-show="resolvingPaper">Looking up…</span>
+                    </button>
+                </form>
+
+                <div x-show="paperMatchType" class="mt-4 text-sm text-gray-600">
+                    Match: <span class="font-medium text-gray-900" x-text="paperMatchType"></span>
+                    <span x-show="paperMatches.length"> — <span x-text="paperMatches.length"></span> candidate(s)</span>
+                </div>
+
+                <div x-show="paperMatches.length === 0 && paperLookedUp && !resolvingPaper" class="mt-4 text-sm text-amber-800 bg-amber-50 border border-amber-200 rounded-md p-3">
+                    No Knowledge Engine paper matched that query. Try a DOI or a more specific title.
+                </div>
+
+                <div x-show="paperMatches.length > 0" class="mt-4 space-y-3">
+                    <template x-for="paper in paperMatches" :key="paper.paper_id">
+                        <label class="block border rounded-lg p-4 cursor-pointer hover:border-blue-400"
+                               :class="selectedPaperId === paper.paper_id ? 'border-blue-600 bg-blue-50' : 'border-gray-200'">
+                            <div class="flex items-start gap-3">
+                                <input type="radio" name="selected-paper" class="mt-1"
+                                       :value="paper.paper_id" x-model="selectedPaperId">
+                                <div class="min-w-0">
+                                    <div class="font-semibold text-gray-900" x-text="paper.title || 'Untitled'"></div>
+                                    <div class="text-sm text-gray-600 mt-1" x-text="formatAuthors(paper.authors)"></div>
+                                    <div class="text-xs text-gray-500 mt-1 space-x-2">
+                                        <span x-show="paper.doi" x-text="'DOI ' + paper.doi"></span>
+                                        <span x-show="paper.pmid" x-text="'PMID ' + paper.pmid"></span>
+                                        <span x-show="paper.arxiv_id" x-text="'arXiv ' + paper.arxiv_id"></span>
+                                    </div>
+                                    <p class="text-sm text-gray-700 mt-2" x-text="paper.abstract_preview"></p>
+                                </div>
+                            </div>
+                        </label>
+                    </template>
+
+                    <button type="button" @click="generateFromPaper()"
+                            :disabled="!selectedPaperId || generatingFromPaper || resolvingPaper"
+                            class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-md transition duration-200 disabled:opacity-50">
+                        <span x-show="!generatingFromPaper">Generate episode from this paper</span>
+                        <span x-show="generatingFromPaper">Generating… this usually takes 4–8 minutes</span>
+                    </button>
+                </div>
+            </div>
+
             <!-- Generate Podcast Section -->
             <div class="bg-white rounded-lg shadow-md p-6">
-                <h2 class="text-xl font-bold text-gray-900 mb-4">Generate New Podcast</h2>
+                <h2 class="text-xl font-bold text-gray-900 mb-4">Generate from a topic</h2>
                 
                 <form @submit.prevent="generatePodcast()" class="space-y-4">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -452,6 +525,12 @@
                 loading: false,
                 loadingPodcasts: false,
                 generating: false,
+                resolvingPaper: false,
+                generatingFromPaper: false,
+                paperLookedUp: false,
+                paperMatchType: '',
+                paperMatches: [],
+                selectedPaperId: '',
                 updatingProfile: false,
                 showRegister: false,
                 subscriber: null,
@@ -486,6 +565,10 @@
                     expert_voice_id: 'pNInz6obpgDQGcFmaJgB',
                     instructions: '',
                     sourceUrl: ''
+                },
+                paperForm: {
+                    query: '',
+                    cited_project: 'glmp'
                 },
                 
                 // Initialize
@@ -683,6 +766,114 @@
                     }, 15000); // Poll every 15 seconds
                 },
                 
+                formatAuthors(authors) {
+                    if (!authors) return '';
+                    if (Array.isArray(authors)) {
+                        const names = authors.filter(Boolean);
+                        if (names.length <= 4) return names.join(', ');
+                        return names.slice(0, 4).join(', ') + ' et al.';
+                    }
+                    return String(authors);
+                },
+
+                apiError(data, fallback) {
+                    const d = data && data.detail;
+                    if (typeof d === 'string' && d) return d;
+                    if (Array.isArray(d) && d.length) {
+                        return d.map(item => item.msg || JSON.stringify(item)).join('; ');
+                    }
+                    return (data && (data.error || data.message)) || fallback || 'Request failed';
+                },
+
+                async resolvePaper() {
+                    const query = (this.paperForm.query || '').trim();
+                    if (!query) {
+                        this.showMessage('Enter a DOI, URL, or title first.', 'error');
+                        return;
+                    }
+                    this.resolvingPaper = true;
+                    this.paperLookedUp = false;
+                    this.paperMatches = [];
+                    this.paperMatchType = '';
+                    this.selectedPaperId = '';
+                    try {
+                        const payload = { query };
+                        if (this.paperForm.cited_project) {
+                            payload.cited_project = this.paperForm.cited_project;
+                        }
+                        const response = await fetch(`${this.API_BASE_URL}/resolve-paper`, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(payload)
+                        });
+                        const data = await response.json();
+                        this.paperLookedUp = true;
+                        if (!response.ok) {
+                            this.showMessage(this.apiError(data, 'Paper lookup failed'), 'error');
+                            return;
+                        }
+                        this.paperMatchType = data.match_type || '';
+                        this.paperMatches = data.papers || [];
+                        if (this.paperMatches.length === 1) {
+                            this.selectedPaperId = this.paperMatches[0].paper_id;
+                        }
+                        if (this.paperMatchType === 'text_search' && this.paperMatches.length) {
+                            this.showMessage('Free-text matches are candidates only — confirm the paper before generating.', 'success');
+                        }
+                    } catch (error) {
+                        console.error('Resolve paper error:', error);
+                        this.showMessage('Network error looking up the paper. Please try again.', 'error');
+                    } finally {
+                        this.resolvingPaper = false;
+                    }
+                },
+
+                async generateFromPaper() {
+                    if (!this.selectedPaperId) {
+                        this.showMessage('Select the paper you meant before generating.', 'error');
+                        return;
+                    }
+                    this.generatingFromPaper = true;
+                    try {
+                        const payload = {
+                            paper_id: this.selectedPaperId,
+                            subscriber_id: this.subscriber.subscriber_id,
+                            expertise_level: this.podcastForm.expertise_level || 'intermediate',
+                            duration: this.podcastForm.duration || '5-10 minutes',
+                            host_voice_id: this.podcastForm.host_voice_id,
+                            expert_voice_id: this.podcastForm.expert_voice_id,
+                            additional_instructions: this.podcastForm.instructions || ''
+                        };
+                        if (this.paperForm.cited_project) {
+                            payload.cited_project = this.paperForm.cited_project;
+                        }
+                        const response = await fetch(`${this.API_BASE_URL}/generate-podcast-from-paper`, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(payload)
+                        });
+                        const data = await response.json();
+                        if (response.ok) {
+                            const name = (data.result && data.result.canonical_filename) || data.job_id;
+                            this.showMessage('Episode ready: ' + name + '. It is private until you post it to RSS.', 'success');
+                            this.paperForm = { query: '', cited_project: this.paperForm.cited_project || 'glmp' };
+                            this.paperMatches = [];
+                            this.paperMatchType = '';
+                            this.selectedPaperId = '';
+                            this.paperLookedUp = false;
+                            await this.loadPodcasts();
+                            this.startPollingForPodcasts();
+                        } else {
+                            this.showMessage(this.apiError(data, 'Failed to generate from paper'), 'error');
+                        }
+                    } catch (error) {
+                        console.error('Generate from paper error:', error);
+                        this.showMessage('Network error. The job may still be running — refresh Your Podcasts in a few minutes.', 'error');
+                    } finally {
+                        this.generatingFromPaper = false;
+                    }
+                },
+
                 normalizeSourceUrl(raw) {
                     if (!raw || !String(raw).trim()) return '';
                     let s = String(raw).trim();
