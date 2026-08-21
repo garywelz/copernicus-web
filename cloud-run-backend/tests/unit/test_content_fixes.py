@@ -87,6 +87,50 @@ class TestHashtagsDoNotInventApplications:
         assert "#Unraveling" not in tags
         assert "#Life's" not in tags
         assert "#Biology" in tags
+        assert "#Identifying" not in tags
+        assert "#Protein-binding" not in tags
+        assert "#Protein-bindingSites" not in tags
+        assert "#Paradigm" not in tags
+        assert "#Shift" not in tags
+
+
+class TestRewriteIndexVenues:
+    def test_published_in_pubmed_becomes_journal(self):
+        from content_fixes import rewrite_index_venues
+        out = rewrite_index_venues(
+            "pioneering work published in *pubmed* laid the groundwork.",
+            "Proceedings of the National Academy of Sciences",
+        )
+        assert "pubmed" not in out.lower()
+        assert "Proceedings of the National Academy of Sciences" in out
+
+    def test_reference_dot_pubmed_dropped(self):
+        from content_fixes import rewrite_index_venues, format_research_source_line
+        out = rewrite_index_venues(
+            "* Stormo. Title. pubmed. Available: https://pubmed.ncbi.nlm.nih.gov/2919167/"
+        )
+        assert ". pubmed." not in out.lower()
+        line = format_research_source_line({
+            "authors": ["G D Stormo", "G W Hartzell"],
+            "title": "Identifying protein-binding sites from unaligned DNA fragments.",
+            "journal": "Proceedings of the National Academy of Sciences",
+            "publication_date": "1989",
+            "source": "pubmed",
+            "doi": "10.1073/pnas.86.4.1183",
+        })
+        assert "pubmed" not in line.lower()
+        assert "1989" in line
+        assert "Proceedings of the National Academy of Sciences" in line
+        assert "10.1073/pnas.86.4.1183" in line
+
+
+class TestDalleThumbnailAttempts:
+    def test_standard_quality_first_not_hd(self):
+        from content_fixes import dalle_thumbnail_attempts
+        attempts = dalle_thumbnail_attempts("Stormo 1989", "protein-binding sites")
+        assert attempts
+        assert all(a["quality"] == "standard" for a in attempts)
+        assert all("no text" in a["prompt"].lower() for a in attempts)
 
 
 class TestPaperYearText:

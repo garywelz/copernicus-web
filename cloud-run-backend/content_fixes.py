@@ -306,10 +306,10 @@ def generate_relevant_hashtags(topic: str, category: str, title: str = "", descr
     topic_specific_hashtags = []
     
     # Extract key technical terms from topic
-    topic_lower = topic.lower()
-    topic_words = [w.strip() for w in topic.split() if len(w.strip()) > 2]
-    
-    # Common compound terms in science that make good hashtags
+    # Scan topic + title only. The generated description often invents
+    # downstream applications (CRISPR, cancer) that the source paper never
+    # discussed; tagging those pulls the episode off the paper.
+    all_text = f"{topic} {title}".lower()
     compound_terms = {
         # Chemistry terms
         "supramolecular": "#SupramolecularChemistry",
@@ -366,30 +366,8 @@ def generate_relevant_hashtags(topic: str, category: str, title: str = "", descr
             if len(hashtag) <= 21:  # 20 chars + #
                 topic_specific_hashtags.append(hashtag)
     
-    # Generate hashtags from individual significant words in topic
-    significant_words = []
-    stop_words = {'the', 'and', 'for', 'with', 'from', 'about', 'research', 'recent', 'directions', 
-                  'how', 'what', 'why', 'recent', 'advances', 'breakthroughs', 'discoveries'}
-    
-    for word in topic_words:
-        word_lower = word.lower().strip('.,!?;:')
-        if len(word_lower) > 4 and word_lower not in stop_words:
-            # Create hashtag from word (capitalize appropriately)
-            hashtag = f"#{word.capitalize()}"
-            if len(hashtag) <= 21 and hashtag not in topic_specific_hashtags:
-                significant_words.append(hashtag)
-    
-    # Combine words into compound hashtags where appropriate
-    if len(topic_words) >= 2:
-        # Try to create 2-word compound hashtags
-        for i in range(len(topic_words) - 1):
-            word1 = topic_words[i].strip('.,!?;:')
-            word2 = topic_words[i + 1].strip('.,!?;:')
-            if len(word1) > 3 and len(word2) > 3:
-                compound = f"#{word1.capitalize()}{word2.capitalize()}"
-                if len(compound) <= 21 and compound not in topic_specific_hashtags:
-                    topic_specific_hashtags.append(compound)
-                    break  # Only add one compound from the topic
+    # Do not mint hashtags from arbitrary title/topic words (#Identifying).
+    # Category tags plus matched technical compounds are enough.
     
     # Category-based hashtags (select 1-2 most relevant)
     category_hashtags = {
@@ -492,18 +470,8 @@ def generate_relevant_hashtags(topic: str, category: str, title: str = "", descr
                 hashtag = technical_term_mapping[phrase.lower()]
                 if hashtag not in topic_specific_hashtags and len(hashtag) <= 21:
                     title_compound_hashtags.append(hashtag)
-            # Also create compound hashtag from adjacent title words
-            elif i < len(title_words) - 1:
-                combined = f"#{title_words[i].capitalize()}{title_words[i+1].capitalize()}"
-                if len(combined) <= 21 and combined not in topic_specific_hashtags:
-                    # Only add if it's a meaningful scientific term (not generic)
-                    meaningful_words = {'supramolecular', 'molecular', 'quantum', 'neural', 'graph', 
-                                      'topological', 'federated', 'evolutionary', 'bioinspired',
-                                      'metalloenzyme', 'epigenetic', 'immunotherapy', 'persistent'}
-                    if any(word in combined.lower() for word in meaningful_words):
-                        title_compound_hashtags.append(combined)
     
-    # Do not turn arbitrary title words into hashtags (#Unraveling, #Life's).
+    # Do not turn arbitrary title words into hashtags (#Unraveling, #Identifying).
     title_specific_words = []
 
     # Check for technical terms in text (prioritize title matches)
@@ -523,13 +491,9 @@ def generate_relevant_hashtags(topic: str, category: str, title: str = "", descr
                     break
     
     # Add significant individual words that aren't already covered (prioritize title words)
-    for word in title_specific_words[:4]:  # Add up to 4 title-specific words first
+    for word in title_specific_words[:4]:
         if word not in topic_specific_hashtags and word not in additional_hashtags:
-            additional_hashtags.insert(0, word)  # Insert at beginning
-    
-    for word in significant_words[:2]:  # Then add 2 topic words
-        if word not in topic_specific_hashtags and word not in additional_hashtags:
-            additional_hashtags.append(word)
+            additional_hashtags.insert(0, word)
     
     # Add title compound hashtags at the beginning
     for hashtag in title_compound_hashtags[:3]:
@@ -608,6 +572,158 @@ def validate_academic_references(references_text: str) -> str:
             continue
         improved_refs.append(ref)
     return "\n".join(improved_refs)
+
+
+INDEX_VENUE_NAMES = {
+    "pubmed",
+    "arxiv",
+    "biorxiv",
+    "medrxiv",
+    "pmc",
+    "europe pmc",
+    "google scholar",
+    "nasa ads",
+    "zenodo",
+    "core",
+    "crossref",
+}
+
+_INDEX_PUBLISHED_IN_RE = re.compile(
+    r"(?i)published\s+in\s+\*?(pubmed|arxiv|biorxiv|medrxiv|pmc)\*?"
+)
+_INDEX_DOT_VENUE_RE = re.compile(
+    r"(?i)\.\s*(pubmed|arxiv|biorxiv|medrxiv|pmc)\s*\."
+)
+
+
+def spoken_journal_name(journal: Optional[str]) -> Optional[str]:
+    """Reader/spoken venue. None if missing or an index name."""
+    j = (journal or "").strip()
+    if not j or j.lower() in INDEX_VENUE_NAMES:
+        return None
+    low = j.lower()
+    if low.startswith("proceedings of the national academy"):
+        return "the Proceedings of the National Academy of Sciences"
+    return j
+
+
+def rewrite_index_venues(text: str, journal: Optional[str] = None) -> str:
+    """Stop PubMed/arXiv being spoken or listed as the journal.
+
+    'published in pubmed' becomes 'published in {journal}' when we have a real
+    venue, otherwise just 'published'. Trailing '. pubmed.' / '. arxiv.' in
+    reference lines is dropped so we do not stamp the source paper's journal
+    onto every related paper.
+    """
+    if not text:
+        return text
+    spoken = spoken_journal_name(journal)
+    if spoken:
+        text = _INDEX_PUBLISHED_IN_RE.sub(f"published in {spoken}", text)
+    else:
+        text = _INDEX_PUBLISHED_IN_RE.sub("published", text)
+    text = _INDEX_DOT_VENUE_RE.sub(".", text)
+    return text
+
+
+def format_research_source_line(source) -> str:
+    """One markdown reference line. Never use pubmed/arxiv as the venue."""
+    if isinstance(source, dict):
+        authors = source.get("authors") or []
+        title = (source.get("title") or "").strip()
+        journal = source.get("journal")
+        index_name = source.get("source")
+        doi = source.get("doi")
+        url = source.get("url")
+        pub = source.get("publication_date") or source.get("year") or ""
+    else:
+        authors = getattr(source, "authors", None) or []
+        title = (getattr(source, "title", None) or "").strip()
+        journal = getattr(source, "journal", None)
+        index_name = getattr(source, "source", None)
+        doi = getattr(source, "doi", None)
+        url = getattr(source, "url", None)
+        pub = getattr(source, "publication_date", None) or ""
+
+    if isinstance(authors, str):
+        author_str = authors
+    else:
+        names = [str(a) for a in authors if a]
+        author_str = ", ".join(names[:2]) + (" et al." if len(names) > 2 else "")
+
+    year = ""
+    pub_s = str(pub).strip()
+    if re.match(r"^\d{4}", pub_s):
+        year = pub_s[:4]
+
+    venue = spoken_journal_name(journal)
+    if not venue:
+        venue = None  # omit index names
+
+    line = f"* {author_str}. {title}".strip()
+    if year:
+        line += f" ({year})"
+    if venue:
+        line += f". {venue}"
+    line += "."
+    if doi:
+        line += f" DOI: {doi}"
+    elif url:
+        line += f" Available: {url}"
+    return line
+
+
+def ensure_source_paper_reference(description: str, citation: str) -> str:
+    """Put the KE source-paper citation first in ## References."""
+    if not description:
+        return description
+    citation = (citation or "").strip()
+    if not citation:
+        return description
+    if not citation.startswith(("*", "-", "•")):
+        citation = f"* {citation}"
+
+    if "## References" not in description:
+        return description.rstrip() + "\n\n## References\n" + citation
+
+    before, after = description.split("## References", 1)
+    if "##" in after:
+        refs, rest = after.split("##", 1)
+        tail = "##" + rest
+    else:
+        refs, tail = after, ""
+
+    refs_body = refs.strip()
+    marker = citation.split("DOI:")[-1].strip() if "DOI:" in citation else citation[2:40]
+    if marker and marker in refs_body:
+        # already present; still move a matching line first if needed
+        return description
+    return before + "## References\n" + citation + "\n" + refs_body + ("\n\n" + tail if tail else "")
+
+
+def dalle_thumbnail_attempts(title: str, topic: str) -> list:
+    """DALL-E 3 payloads to try before the geometric fallback.
+
+    HD plus a long photorealistic prompt is what sent Stormo to fallback-thumb.
+    Standard quality with a short abstract prompt is still a DALL-E original.
+    """
+    topic_bit = (topic or title or "scientific research").strip()[:160]
+    title_bit = (title or topic_bit).strip()[:120]
+    compact = (
+        f"Abstract scientific illustration for a research podcast titled '{title_bit}'. "
+        f"Subject: {topic_bit}. Geometric molecular or cellular motifs, cinematic lighting, "
+        "deep blue and emerald, no photorealistic people, no living tissue, no blood, "
+        "no text, no letters, no labels, no watermarks."
+    )
+    shorter = (
+        "Abstract square scientific artwork of a DNA helix and molecular geometry, "
+        "deep cosmic blue and emerald green, cinematic light, no text, no letters, no labels."
+    )
+    return [
+        {"quality": "standard", "prompt": compact[:1000]},
+        {"quality": "standard", "prompt": shorter},
+    ]
+
 
 def expand_contractions_for_tts(script: str) -> str:
     """

@@ -18,6 +18,7 @@ class ResearchSource:
     source: str  # "pubmed", "arxiv", "nasa_ads", "zenodo", etc.
     doi: Optional[str] = None
     citations: Optional[int] = None
+    journal: Optional[str] = None  # real venue; never treat pubmed/arxiv as the journal
     keywords: Optional[List[str]] = None
     relevance_score: Optional[float] = None
 
@@ -730,14 +731,37 @@ class ComprehensiveResearchPipeline:
                 
                 pmid_elem = article.find(".//PMID")
                 pmid = pmid_elem.text if pmid_elem is not None else ""
+
+                journal_elem = article.find(".//Journal/Title")
+                if journal_elem is None or not (journal_elem.text or "").strip():
+                    journal_elem = article.find(".//Journal/ISOAbbreviation")
+                journal = (journal_elem.text or "").strip() if journal_elem is not None else ""
+
+                year = ""
+                year_elem = article.find(".//PubDate/Year")
+                if year_elem is not None and (year_elem.text or "").strip():
+                    year = year_elem.text.strip()[:4]
+                else:
+                    medline = article.find(".//PubDate/MedlineDate")
+                    if medline is not None and medline.text:
+                        m = re.match(r"(\d{4})", medline.text.strip())
+                        if m:
+                            year = m.group(1)
+
+                doi = ""
+                doi_elem = article.find(".//ArticleId[@IdType='doi']")
+                if doi_elem is not None and doi_elem.text:
+                    doi = doi_elem.text.strip()
                 
                 source = ResearchSource(
                     title=title,
                     authors=author_names,
                     abstract=abstract,
                     url=f"https://pubmed.ncbi.nlm.nih.gov/{pmid}/",
-                    publication_date="",
-                    source="pubmed"
+                    publication_date=year,
+                    source="pubmed",
+                    doi=doi or None,
+                    journal=journal or None,
                 )
                 sources.append(source)
         

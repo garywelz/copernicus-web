@@ -35,6 +35,10 @@ from content_fixes import (
     clean_placeholder_text_from_description,
     sanitize_reference_placeholders,
     join_description_sections,
+    rewrite_index_venues,
+    ensure_source_paper_reference,
+    format_research_source_line,
+    dalle_thumbnail_attempts,
 )
 from podcast_research_integrator import PodcastResearchIntegrator, PodcastResearchContext
 
@@ -1069,6 +1073,33 @@ IMPORTANT: Do NOT include a "## Episode Overview" header. Start directly with 2-
         # Strengthen instructions on retries if script was too short
         min_words = calculate_minimum_words_for_duration(request.duration)
         additional_instructions = request.additional_instructions or ""
+        source_citation = ""
+        if request.paper_title:
+            source_citation = format_citation(_research_paper_from_request(request))
+            additional_instructions += f"""
+
+**SOURCE PAPER VENUE:** This episode is about:
+{source_citation}
+Say that journal name in dialogue. Never say "published in PubMed" or "published in arXiv".
+"""
+            from research_pipeline import ResearchSource
+            paper_url = f"https://doi.org/{request.paper_doi}" if request.paper_doi else ""
+            paper_src = ResearchSource(
+                title=request.paper_title,
+                authors=list(request.paper_authors or []),
+                abstract=(request.paper_abstract or "")[:2000],
+                url=paper_url,
+                publication_date=request.paper_year or "",
+                source="journal",
+                doi=request.paper_doi,
+                journal=request.paper_journal,
+            )
+            rest = [
+                s for s in research_context.research_sources
+                if (s.doi or "").lower() != (request.paper_doi or "").lower()
+                and (s.title or "").strip().lower() != request.paper_title.strip().lower()
+            ]
+            research_context.research_sources = [paper_src] + rest
         
         if retry_attempt > 0:
             additional_instructions += f"""
@@ -1089,7 +1120,8 @@ IMPORTANT: Do NOT include a "## Episode Overview" header. Start directly with 2-
             format_type=request.format_type,
             additional_instructions=additional_instructions,
             host_voice_id=request.host_voice_id,
-            expert_voice_id=request.expert_voice_id
+            expert_voice_id=request.expert_voice_id,
+            source_paper_citation=source_citation,
         )
         
         structured_logger.debug("Sending prompt to LLM",
@@ -1328,14 +1360,8 @@ In this comprehensive exploration, we'll examine the latest research development
             
             # References section
             references = "## References\n\n"
-            for i, source in enumerate(research_context.research_sources[:5], 1):
-                authors = ', '.join(source.authors[:2]) + (' et al.' if len(source.authors) > 2 else '')
-                references += f"- {authors}. {source.title}. {source.source}. "
-                if source.doi:
-                    references += f"DOI: {source.doi}"
-                elif source.url:
-                    references += f"Available: {source.url}"
-                references += "\n"
+            for source in research_context.research_sources[:5]:
+                references += format_research_source_line(source) + "\n"
             
             # Combine all sections
             fallback_desc = f"""{opening}
@@ -1420,21 +1446,7 @@ In this comprehensive exploration, we'll examine the latest research development
                             research_summary = job_data.get('research_sources_summary', [])
                             if research_summary:
                                 for source_info in research_summary[:5]:
-                                    title = source_info.get('title', '')
-                                    source_type = source_info.get('source', '')
-                                    doi = source_info.get('doi', '')
-                                    authors_list = source_info.get('authors', [])
-                                    authors = ', '.join(authors_list[:2]) + (' et al.' if len(authors_list) > 2 else '') if authors_list else ''
-                                    if title:
-                                        if authors:
-                                            references_text += f"- {authors}. {title}. {source_type}. "
-                                        else:
-                                            references_text += f"- {title}. {source_type}. "
-                                        if doi:
-                                            references_text += f"DOI: {doi}"
-                                        elif source_info.get('url'):
-                                            references_text += f"Available: {source_info.get('url')}"
-                                        references_text += "\n"
+                                    references_text += format_research_source_line(source_info) + "\n"
                         
                         # Insert references before hashtags if they exist, otherwise at the end
                         if '## Hashtags' in description:
@@ -1803,198 +1815,84 @@ In this comprehensive exploration, we'll examine the latest research development
                                          canonical_filename=canonical_filename)
                 return await self.generate_fallback_thumbnail(canonical_filename, topic)
             
-            # Extract category from canonical filename for more specific visuals
-            # Each discipline has a DISTINCT visual style and color palette
-            category_styles = {
-                "bio": {
-                    "visual_elements": "intricate biological structures, cellular networks, DNA double helices, protein complexes, neural pathways, microscopic organisms, organic cellular membranes, biomolecular interactions, living tissue patterns",
-                    "color_palette": "vibrant greens and blues (nature's palette), with accents of soft purple and warm yellows. Organic, life-affirming colors. Rich emerald greens transitioning to deep ocean blues, with biological purple accents",
-                    "style": "organic and flowing, biomorphic shapes, natural biological patterns, cellular textures, living tissue aesthetics, microscopic world visualization",
-                    "mood": "vital, dynamic, life-sustaining, biological complexity, natural organization"
-                },
-                "chem": {
-                    "visual_elements": "molecular structures, chemical bonds, crystal lattices, reaction pathways, atomic orbitals, electron clouds, molecular models, chemical formulas visualized, periodic table patterns, bond formations",
-                    "color_palette": "cool blues and purples with bright accent colors (reaction energies). Atomic blues, molecular purples, with vibrant orange and yellow energy bursts for reactions. Clean, precise color schemes",
-                    "style": "geometric and precise, molecular symmetry, crystalline structures, atomic precision, clean lines and structured forms, laboratory aesthetics",
-                    "mood": "precise, transformative, energetic reactions, molecular precision, structured complexity"
-                },
-                "compsci": {
-                    "visual_elements": "neural networks, data streams, algorithmic patterns, binary code, circuit patterns, digital networks, code visualizations, data flow diagrams, network topologies, computational graphs, binary matrices",
-                    "color_palette": "digital blues and cyans with electric accents. Neon blues, electric cyan, digital greens, with bright white and electric purple highlights. High-tech, digital aesthetics",
-                    "style": "digital and algorithmic, pixel-perfect, network diagrams, data visualization aesthetics, circuit board patterns, tech-forward design",
-                    "mood": "innovative, computational, data-driven, high-tech, algorithmic precision"
-                },
-                "math": {
-                    "visual_elements": "geometric patterns, fractal structures, mathematical equations visualized, abstract symmetries, topological surfaces, geometric transformations, mathematical proofs visualized, abstract mathematical spaces, geometric constructions, symmetry patterns",
-                    "color_palette": "elegant monochromatic with mathematical accents. Deep purples, rich blues, elegant grays, with precise white and gold mathematical symbols. Clean, abstract, elegant",
-                    "style": "geometric and abstract, perfect symmetry, mathematical elegance, topological beauty, abstract geometric forms, precise mathematical visualization",
-                    "mood": "elegant, abstract, perfectly structured, mathematical beauty, timeless precision"
-                },
-                "phys": {
-                    "visual_elements": "quantum fields, particle interactions, wave functions, electromagnetic fields, cosmic structures, energy patterns, particle accelerations, wave interferences, quantum probability clouds, cosmic phenomena, energy transformations",
-                    "color_palette": "cosmic purples and deep space blues with energetic highlights. Deep space purples, cosmic blues, with bright white energy bursts and golden particle trails. Cosmic and energetic",
-                    "style": "energetic and cosmic, particle effects, wave patterns, quantum field visualizations, cosmic phenomena, energy flows, dynamic motion",
-                    "mood": "energetic, cosmic, fundamental forces, quantum mysteries, universal scale"
-                }
-            }
-            
-            category = None
-            if canonical_filename:
-                parts = canonical_filename.split("-")
-                if len(parts) >= 2:
-                    cat_match = parts[1] if len(parts) > 1 else None
-                    if cat_match in category_styles:
-                        category = cat_match
-            
-            # Get category-specific style
-            if category and category in category_styles:
-                style_config = category_styles[category]
-                visual_elements = style_config["visual_elements"]
-                color_palette = style_config["color_palette"]
-                style_description = style_config["style"]
-                mood_description = style_config["mood"]
-            else:
-                # Default fallback
-                visual_elements = "abstract scientific structures, flowing data streams, particle effects, neural networks, quantum field representations"
-                color_palette = "deep cosmic blues transitioning to vibrant cyan and electric blue, with accents of luminous white and subtle purple"
-                style_description = "modern scientific illustration"
-                mood_description = "cutting-edge scientific discovery"
-            
-            # Extract specific visual concepts from title for more targeted imagery
-            title_keywords = []
-            title_lower = title.lower()
-            
-            # Map title keywords to specific visual concepts
-            visual_keyword_mapping = {
-                "supramolecular": "supramolecular assemblies, molecular self-organization, host-guest complexes, intricate molecular networks",
-                "self-assembly": "self-assembling structures, dynamic molecular organization, spontaneous pattern formation, hierarchical structures",
-                "metalloenzyme": "metallic enzyme active sites, metal-ion coordination complexes, catalytic metal centers, biomolecular metal clusters",
-                "bioinspired": "nature-inspired structures, biomimetic designs, biological patterns, evolutionary design principles",
-                "catalysis": "catalytic reaction mechanisms, active site interactions, molecular transformations, reaction pathways",
-                "graph neural": "neural network graphs, interconnected nodes, data flow patterns, network topology visualizations",
-                "federated learning": "distributed computational networks, privacy-preserving data flows, decentralized learning systems",
-                "quantum sensing": "quantum measurement devices, precision sensors, quantum field detectors, metrology instruments",
-                "topological": "topological structures, geometric transformations, shape classifications, persistent homology representations",
-                "epigenetic": "epigenetic modifications, DNA methylation patterns, chromatin structures, gene expression networks",
-                "immunotherapy": "immune cell interactions, T-cell activation, antibody structures, cancer cell targeting mechanisms",
-                "optimization": "algorithmic optimization paths, gradient flows, search space visualizations, convergence patterns",
-                "persistent homology": "topological persistence diagrams, barcode representations, shape analysis, multi-scale structures"
-            }
-            
-            # Find matching visual concepts from title
-            title_specific_visuals = []
-            for keyword, visuals in visual_keyword_mapping.items():
-                if keyword in title_lower:
-                    title_specific_visuals.append(visuals)
-                    title_keywords.append(keyword)
-            
-            # Combine category visuals with title-specific visuals
-            if title_specific_visuals:
-                specific_visuals = ", ".join(title_specific_visuals[:3])  # Limit to 3 most relevant
-                enhanced_visual_elements = f"{specific_visuals}. Additionally include {visual_elements}"
-            else:
-                enhanced_visual_elements = visual_elements
-            
-            # Create enhanced DALL-E prompt with title-specific details
-            dalle_prompt = f"""Create a breathtaking scientific visualization for a research podcast episode titled "{title}".
-
-The podcast explores: {topic}
-
-Visual Style: Ultra-modern scientific illustration, photorealistic 3D rendering with depth and dimension. Professional digital art with cinematic lighting and dramatic composition.
-
-Key Visual Elements: {enhanced_visual_elements} specifically related to "{title}". Focus on the most distinctive and recognizable visual concepts from the title. Dynamic, flowing compositions that suggest motion and discovery. Include subtle abstract patterns that represent breakthrough thinking and paradigm shifts.
-
-Color Palette: Rich, sophisticated gradients - deep cosmic blues transitioning to vibrant cyan and electric blue, with accents of luminous white and subtle purple. High contrast for maximum visual impact. Professional color grading.
-
-Composition: Square format optimized for podcast platforms. Centered focal point with surrounding elements creating visual flow. Balanced negative space. Depth-of-field effect with foreground elements sharp and background slightly blurred for dimension.
-
-Technical Quality: Ultra-high resolution, crystal-clear detail, professional photography quality. No pixelation or artifacts. Suitable for high-DPI displays and large format printing.
-
-Important: Absolutely NO text, NO words, NO titles, NO labels. Pure visual scientific concept art that tells a story through imagery alone.
-
-Mood and Atmosphere: Cutting-edge scientific discovery, innovation, breakthrough research, future technology, paradigm-shifting insights. Convey the excitement and importance of scientific advancement."""
-            
-            # Generate image with DALL-E 3
-            structured_logger.info("Generating DALL-E 3 thumbnail",
-                                  canonical_filename=canonical_filename,
-                                  topic=topic,
-                                  category=category or "generic")
-            
             headers = {
                 "Authorization": f"Bearer {openai_api_key}",
                 "Content-Type": "application/json"
             }
-            
-            payload = {
-                "model": "dall-e-3",
-                "prompt": dalle_prompt,
-                "n": 1,
-                "size": "1024x1024",  # Square format required for podcast platforms (DALL-E 3 max square)
-                "quality": "hd",
-                "style": "vivid"
-            }
-            
-            response = requests.post(
-                "https://api.openai.com/v1/images/generations",
-                headers=headers,
-                json=payload,
-                timeout=60
-            )
 
-            if response.status_code != 200:
-                structured_logger.warning(
-                    "DALL-E HD failed, retrying standard quality",
+            last_error = None
+            for attempt in dalle_thumbnail_attempts(title, topic):
+                structured_logger.info(
+                    "Generating DALL-E 3 thumbnail",
                     canonical_filename=canonical_filename,
-                    status_code=response.status_code,
-                    error_text=(response.text or "")[:300],
+                    quality=attempt["quality"],
+                    prompt_len=len(attempt["prompt"]),
                 )
-                payload["quality"] = "standard"
-                payload["prompt"] = (
-                    f'Scientific visualization for a research podcast about "{topic}". '
-                    "No text, no letters, no labels."
-                )
-                response = requests.post(
-                    "https://api.openai.com/v1/images/generations",
-                    headers=headers,
-                    json=payload,
-                    timeout=60
-                )
-            
-            if response.status_code == 200:
-                result = response.json()
-                image_url = result['data'][0]['url']
-                
-                # Download the generated image
+                payload = {
+                    "model": "dall-e-3",
+                    "prompt": attempt["prompt"],
+                    "n": 1,
+                    "size": "1024x1024",
+                    "quality": attempt["quality"],
+                    "style": "vivid",
+                }
+                try:
+                    response = requests.post(
+                        "https://api.openai.com/v1/images/generations",
+                        headers=headers,
+                        json=payload,
+                        timeout=90,
+                    )
+                except Exception as e:
+                    last_error = str(e)
+                    structured_logger.warning(
+                        "DALL-E request failed",
+                        canonical_filename=canonical_filename,
+                        error=last_error,
+                    )
+                    continue
+                if response.status_code != 200:
+                    last_error = (response.text or "")[:400]
+                    structured_logger.warning(
+                        "DALL-E API error, trying next prompt",
+                        canonical_filename=canonical_filename,
+                        status_code=response.status_code,
+                        error_text=last_error,
+                    )
+                    continue
+                image_url = (response.json().get("data") or [{}])[0].get("url")
+                if not image_url:
+                    last_error = "DALL-E response missing image URL"
+                    continue
                 img_response = requests.get(image_url, timeout=30)
-                if img_response.status_code == 200:
-                    # Upload to GCS
-                    thumbnail_filename = f"{canonical_filename}-thumb.jpg"
-                    blob = bucket.blob(f"thumbnails/{thumbnail_filename}")
-                    blob.upload_from_string(img_response.content, content_type="image/jpeg")
-                    blob.make_public()
-                    
-                    public_url = f"https://storage.googleapis.com/{self.bucket_name}/thumbnails/{thumbnail_filename}"
-                    structured_logger.info("DALL-E thumbnail uploaded",
-                                         canonical_filename=canonical_filename,
-                                         public_url=public_url)
-                    return public_url
-                else:
-                    structured_logger.warning("Failed to download DALL-E image, using fallback",
-                                             canonical_filename=canonical_filename,
-                                             status_code=img_response.status_code)
-                    return await self.generate_fallback_thumbnail(canonical_filename, topic)
-            else:
-                structured_logger.warning("DALL-E API error, using fallback",
-                                         canonical_filename=canonical_filename,
-                                         status_code=response.status_code,
-                                         error_text=response.text[:200] if response.text else None)
-                return await self.generate_fallback_thumbnail(canonical_filename, topic)
+                if img_response.status_code != 200:
+                    last_error = f"download {img_response.status_code}"
+                    continue
+                thumbnail_filename = f"{canonical_filename}-thumb.jpg"
+                blob = bucket.blob(f"thumbnails/{thumbnail_filename}")
+                blob.upload_from_string(img_response.content, content_type="image/jpeg")
+                blob.make_public()
+                public_url = f"https://storage.googleapis.com/{self.bucket_name}/thumbnails/{thumbnail_filename}"
+                structured_logger.info(
+                    "DALL-E thumbnail uploaded",
+                    canonical_filename=canonical_filename,
+                    public_url=public_url,
+                )
+                return public_url
+
+            structured_logger.warning(
+                "DALL-E thumbnail exhausted attempts, using fallback",
+                canonical_filename=canonical_filename,
+                error=last_error,
+            )
+            return await self.generate_fallback_thumbnail(canonical_filename, topic)
         
         except Exception as e:
             structured_logger.error("Error generating/uploading thumbnail, using fallback",
                                    canonical_filename=canonical_filename,
                                    error=str(e))
             return await self.generate_fallback_thumbnail(canonical_filename, topic)
+
     
     async def generate_episode_images(
         self,
@@ -2119,7 +2017,7 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
                         "prompt": prompt,
                         "n": 1,
                         "size": "1792x1024",  # Landscape format for display during playback
-                        "quality": "hd",
+                        "quality": "standard",
                         "style": "vivid"
                     }
                     
@@ -2283,8 +2181,10 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
                     research_sources_summary.append({
                         'title': source.title,
                         'source': source.source,
+                        'journal': getattr(source, 'journal', None),
                         'doi': source.doi,
                         'url': source.url,
+                        'publication_date': source.publication_date,
                         'authors': source.authors[:3]  # Store first 3 authors
                     })
                 
@@ -2491,13 +2391,7 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
                         elif research_context.research_sources:
                             # Build from research_sources
                             for source in research_context.research_sources[:5]:
-                                authors = ', '.join(source.authors[:2]) + (' et al.' if len(source.authors) > 2 else '')
-                                references_text += f"- {authors}. {source.title}. {source.source}. "
-                                if source.doi:
-                                    references_text += f"DOI: {source.doi}"
-                                elif source.url:
-                                    references_text += f"Available: {source.url}"
-                                references_text += "\n"
+                                references_text += format_research_source_line(source) + "\n"
                             references_added = True
                 except NameError:
                     # research_context not in scope, use fallback
@@ -2527,21 +2421,7 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
                                 research_summary = job_data.get('research_sources_summary', [])
                                 if research_summary:
                                     for source_info in research_summary[:5]:
-                                        title = source_info.get('title', '')
-                                        source_type = source_info.get('source', '')
-                                        doi = source_info.get('doi', '')
-                                        authors_list = source_info.get('authors', [])
-                                        authors = ', '.join(authors_list[:2]) + (' et al.' if len(authors_list) > 2 else '') if authors_list else ''
-                                        if title:
-                                            if authors:
-                                                references_text += f"- {authors}. {title}. {source_type}. "
-                                            else:
-                                                references_text += f"- {title}. {source_type}. "
-                                            if doi:
-                                                references_text += f"DOI: {doi}"
-                                            elif source_info.get('url'):
-                                                references_text += f"Available: {source_info.get('url')}"
-                                            references_text += "\n"
+                                        references_text += format_research_source_line(source_info) + "\n"
                                     references_added = True
                     except Exception as e:
                         structured_logger.error("Could not retrieve research sources from job metadata",
@@ -2576,6 +2456,17 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
             content['description'] = sanitize_reference_placeholders(
                 content['description'], known_year=request.paper_year
             )
+            content['script'] = rewrite_index_venues(
+                content.get('script') or "", request.paper_journal
+            )
+            content['description'] = rewrite_index_venues(
+                content['description'], request.paper_journal
+            )
+            if request.paper_title:
+                content['description'] = ensure_source_paper_reference(
+                    content['description'],
+                    format_citation(_research_paper_from_request(request)),
+                )
             content['itunes_summary'] = extract_itunes_summary(content['description'])
             
             # Robust validation added here:

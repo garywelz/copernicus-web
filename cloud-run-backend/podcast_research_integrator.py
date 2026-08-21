@@ -256,7 +256,8 @@ class PodcastResearchIntegrator:
         format_type: str,
         additional_instructions: str = "",
         host_voice_id: str = None,
-        expert_voice_id: str = None
+        expert_voice_id: str = None,
+        source_paper_citation: str = "",
     ) -> str:
         """
         Build comprehensive 2-speaker prompt with all research context
@@ -287,6 +288,14 @@ class PodcastResearchIntegrator:
         # Build research evidence section
         research_evidence = self._format_research_evidence(research_context)
         
+        source_paper_block = ""
+        if source_paper_citation:
+            source_paper_block = f"""
+**SOURCE PAPER (this episode is about this paper — cite it by journal, not PubMed/arXiv):**
+{source_paper_citation}
+PubMed and arXiv are indexes, not journals. If a journal name is present, say that journal. Never say "published in PubMed" or "published in arXiv".
+"""
+
         prompt = f"""{character_prompt}
 
 ═══════════════════════════════════════════════════════════════
@@ -333,12 +342,14 @@ Your podcast has TWO speakers only:
 - When citing papers, mention: Author names, publication, and title
 - DO NOT read out URLs, DOIs, or long links in the dialogue
 - Instead say: "the link is in the description" or "we'll link to that in the description"
-- Example: "According to Smith and colleagues in Nature, their 2024 study on quantum entanglement—link in the description—found that..."
+- Example: "According to Stormo and Hartzell in the Proceedings of the National Academy of Sciences, their 1989 study—link in the description—found that..."
+- NEVER say "published in PubMed" or "published in arXiv". Those are indexes. Use the journal name from the source list. If no journal is given, name the authors and year only.
 
 ═══════════════════════════════════════════════════════════════
 📚 REAL RESEARCH EVIDENCE (YOU MUST USE THIS)
 ═══════════════════════════════════════════════════════════════
 
+{source_paper_block}
 {research_evidence}
 
 ═══════════════════════════════════════════════════════════════
@@ -412,12 +423,21 @@ If asked about something not in the research, ADAM should acknowledge the gap.
         for i, source in enumerate(context.research_sources[:8], 1):
             evidence.append(f"{i}. **{source.title}**")
             evidence.append(f"   Authors: {', '.join(source.authors[:3])}{'et al.' if len(source.authors) > 3 else ''}")
-            evidence.append(f"   Source: {source.source}")
+            journal = (getattr(source, "journal", None) or "").strip()
+            index_name = (source.source or "").strip().lower()
+            if journal and journal.lower() not in {
+                "pubmed", "arxiv", "biorxiv", "medrxiv", "pmc", "crossref"
+            }:
+                evidence.append(f"   Journal: {journal}")
+            elif index_name not in {"pubmed", "arxiv", "biorxiv", "medrxiv", "pmc"}:
+                evidence.append(f"   Venue: {source.source}")
             if source.doi:
                 evidence.append(f"   DOI: {source.doi}")
             if source.url:
                 evidence.append(f"   URL: {source.url}")
-            evidence.append(f"   Published: {source.publication_date or 'Recent'}")
+            pub = (source.publication_date or "").strip()
+            if pub and pub.lower() not in {"recent", "n.d.", "nd"}:
+                evidence.append(f"   Year: {pub[:4] if pub[:4].isdigit() else pub}")
             evidence.append(f"   Abstract: {source.abstract[:300]}...")
             evidence.append("")
         
