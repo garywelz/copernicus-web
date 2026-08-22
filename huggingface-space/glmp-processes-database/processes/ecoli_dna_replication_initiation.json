@@ -85,7 +85,7 @@
     "ecoli_cell_cycle"
   ],
   "related_papers": [
-    "crossref_10_1074_jbc_R115_662783",
+    "pubmed_26082765",
     "crossref_10_1038_nrmicro2314",
     "crossref_10_1016_0092-8674(87)90221-2",
     "crossref_10_1016_0092-8674(94)90156-2"
@@ -102,15 +102,12 @@
   "sources": [
     {
       "authors": "Leonard AC, Grimwade JE",
-      "doi": "10.1074/jbc.R115.662783",
-      "issue": "44",
-      "journal": "Journal of Biological Chemistry",
-      "note": "Comprehensive review of DnaA-mediated initiation control",
-      "pages": "26358-26365",
-      "paper_id": "crossref_10_1074_jbc_R115_662783",
-      "pmid": "26350459",
-      "title": "Bacterial replication initiation: DnaA protein controls oriC",
-      "volume": "290",
+      "doi": "10.3389/fmicb.2015.00545",
+      "journal": "Frontiers in Microbiology",
+      "note": "Unique Leonard+Grimwade 2015 DnaA paper. Chart JBC title/DOI were garbled (DOI 404).",
+      "paper_id": "pubmed_26082765",
+      "pmid": "26082765",
+      "title": "The orisome: structure and function",
       "year": 2015
     },
     {
@@ -118,11 +115,11 @@
       "doi": "10.1038/nrmicro2314",
       "issue": "3",
       "journal": "Nature Reviews Microbiology",
-      "note": "Modern comprehensive review of DnaA function and regulation",
+      "note": "Official PubMed title for PMID 20157337. Chart previously used an informal DnaA/oriC title.",
       "pages": "163-170",
-      "paper_id": "crossref_10_1038_nrmicro2314",
+      "paper_id": "pubmed_20157337",
       "pmid": "20157337",
-      "title": "The bacterial replication initiator DnaA. DnaA and oriC, the bacterial replication origin",
+      "title": "Regulation of the replication cycle: conserved and diverse regulatory systems for DnaA and oriC",
       "volume": "8",
       "year": 2010
     },
@@ -131,11 +128,11 @@
       "doi": "10.1016/0092-8674(87)90221-2",
       "issue": "2",
       "journal": "Cell",
-      "note": "Classic paper establishing DnaA-ATP requirement",
+      "note": "Official PubMed title for PMID 3036372. Chart previously used an informal timing title.",
       "pages": "259-265",
-      "paper_id": "crossref_10_1016_0092-8674(87)90221-2",
+      "paper_id": "pubmed_3036372",
       "pmid": "3036372",
-      "title": "Timing of DnaA protein-controlled initiation of DNA replication in E. coli",
+      "title": "ATP activates dnaA protein in initiating replication of plasmids bearing the origin of the E. coli chromosome",
       "volume": "50",
       "year": 1987
     },
@@ -154,12 +151,13 @@
     },
     {
       "authors": "Wahle E, Lasken RS, Kornberg A",
+      "doi": "10.1016/s0021-9258(19)81637-x",
       "issue": "5",
       "journal": "Journal of Biological Chemistry",
-      "note": "Mechanism of helicase loading at oriC",
-      "pages": "2463-2468",
+      "note": "Same Wahle/Kornberg 1989 paper as PMID 2536713. Chart title was informal; KE/PubMed title is the dnaB-dnaC complex paper.",
+      "pages": "2469-2475",
       "pmid": "2536713",
-      "title": "DnaB helicase activation: the role of DnaC and DNA",
+      "title": "The dnaB-dnaC replication protein complex of Escherichia coli. II. Role of the complex in mobilizing dnaB functions",
       "volume": "264",
       "year": 1989
     }

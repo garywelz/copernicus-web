@@ -1,0 +1,14 @@
+graph TD
+    C[Glucose in environment] --> D[Glucose transport]
+    D --> E[High glucose]
+    E --> H{Glucose present?}
+    H -->|Yes| I[Mig1 enters nucleus]
+    I --> K[Mig1 binds GAL promoters]
+    K --> M[GAL genes repressed]
+    H -->|No| R[GAL promoters accessible]
+    style C fill:#51cf66,color:#fff
+    style H fill:#ffd600,color:#fff
+    style I fill:#51cf66,color:#fff
+    style K fill:#51cf66,color:#fff
+    style M fill:#e74c3c,color:#fff
+    style R fill:#94a3b8,color:#fff

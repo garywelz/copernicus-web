@@ -87,7 +87,7 @@
     "ecoli_trp_operon"
   ],
   "related_papers": [
-    "crossref_10_1073_pnas_97_14_7643",
+    "pubmed_11102706",
     "crossref_10_1146_annurev_bi_61_070192_001215",
     "crossref_10_1016_0167-4781(93)90196-9",
     "crossref_10_1146_annurev_ge_08_120174_001251"
@@ -104,15 +104,12 @@
   "sources": [
     {
       "authors": "Schleif R",
-      "doi": "10.1073/pnas.97.14.7643",
-      "issue": "14",
-      "journal": "Proceedings of the National Academy of Sciences",
-      "note": "Overview of AraC dual regulation mechanism",
-      "pages": "7643-7644",
-      "paper_id": "crossref_10_1073_pnas_97_14_7643",
-      "pmid": "10899998",
-      "title": "Positive and negative control of the arabinose operon",
-      "volume": "97",
+      "doi": "10.1016/s0168-9525(00)02153-3",
+      "journal": "Trends in Genetics",
+      "note": "AraC dual regulation. Chart previously used a non-existent PNAS DOI and a PMID that belongs to an unrelated hair-cycle paper.",
+      "paper_id": "pubmed_11102706",
+      "pmid": "11102706",
+      "title": "Regulation of the L-arabinose operon of Escherichia coli",
       "year": 2000
     },
     {
@@ -128,27 +125,23 @@
       "year": 1992
     },
     {
-      "authors": "Bustos SA, Schleif RF",
-      "doi": "10.1016/0167-4781(93)90196-9",
-      "issue": "3",
-      "journal": "Biochimica et Biophysica Acta",
-      "note": "Structural basis of AraC function",
-      "pages": "199-206",
-      "paper_id": "crossref_10_1016_0167-4781(93)90196-9",
-      "pmid": "8395888",
-      "title": "AraC protein: a love-hate relationship with DNA",
-      "volume": "1178",
-      "year": 1993
+      "authors": "Schleif R",
+      "doi": "10.1002/bies.10237",
+      "journal": "BioEssays",
+      "note": "Title match for AraC love-hate. Chart year 1993/Bustos/BBA/PMID 8395888 pointed at a different paper.",
+      "paper_id": "pubmed_12596232",
+      "pmid": "12596232",
+      "title": "AraC protein: a love-hate relationship",
+      "year": 2003
     },
     {
       "authors": "Englesberg E, Wilcox G",
       "doi": "10.1146/annurev.ge.08.120174.001251",
       "journal": "Annual Review of Genetics",
-      "note": "Classic comprehensive review",
-      "pages": "219-242",
-      "paper_id": "crossref_10_1146_annurev_ge_08_120174_001251",
-      "pmid": "4613164",
-      "title": "Regulation of the L-arabinose operon of Escherichia coli",
+      "note": "Real ARG 1974 paper is titled Regulation: positive control. PMID 4613164 is a nursery E. coli paper. Second-pass: EuropePMC, Crossref, and Semantic Scholar have no abstract (publisher elided). Leave empty.",
+      "paper_id": "pubmed_4374117",
+      "pmid": "4374117",
+      "title": "Regulation: positive control",
       "volume": "8",
       "year": 1974
     }

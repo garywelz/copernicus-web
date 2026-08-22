@@ -21,6 +21,7 @@ function pickString(value) {
 
 const ANIMATED_PLAYERS = {
   'ever-bio-260009': '/lac-operon-animation/player.html?episode=ever-bio-260009',
+  'ever-bio-260010': '/lac-operon-animation/player.html?episode=ever-bio-260010',
 };
 
 function normalizeApiEpisode(payload = {}, slug) {

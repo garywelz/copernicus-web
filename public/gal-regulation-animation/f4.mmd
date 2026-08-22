@@ -1,0 +1,10 @@
+graph TD
+    R[GAL promoters accessible] --> AND1{No glucose AND Gal80p released?}
+    AD[Gal80p released from Gal4p] --> AND1
+    AND1 -->|Yes| AE[Gal4p activation domain exposed]
+    AND1 -->|No| Y[Basal or no GAL expression]
+    style R fill:#51cf66,color:#fff
+    style AD fill:#51cf66,color:#fff
+    style AND1 fill:#7950f2,color:#fff
+    style AE fill:#51cf66,color:#fff
+    style Y fill:#e74c3c,color:#fff

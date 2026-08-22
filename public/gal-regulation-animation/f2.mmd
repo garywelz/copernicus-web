@@ -1,0 +1,12 @@
+graph TD
+    A[Galactose in environment] --> B[Galactose transport]
+    B --> S[Galactose inside cell]
+    S --> T{Galactose present?}
+    T -->|No| V[Gal80p binds Gal4p]
+    V --> W[Gal4p inhibited]
+    W --> Y[No GAL activation]
+    style A fill:#51cf66,color:#fff
+    style T fill:#ffd600,color:#fff
+    style V fill:#51cf66,color:#fff
+    style W fill:#e74c3c,color:#fff
+    style Y fill:#94a3b8,color:#fff
