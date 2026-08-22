@@ -229,7 +229,7 @@ clean**. Do not treat the rest of GLMP as identity-safe.
 
 264 colliding IDs span **73** `glmp` processes (plus overlapping copernicus-web copies). Same pattern as the nine-chart work: the stored PMID/DOI often names an unrelated article. Examples: biofilm DOI `10.1038/nature04187` resolves to a yeast phosphoproteome paper; ArcA PMID `3054468` resolves to a plasmid-classification paper; arginine-repressor PMID `7854251` resolves to a dehalogenase review.
 
-Two confirmed-only batches on 22 August closed **60** colliding chart rows (20+20 unique retitles and 6+14 leftover strips). **~204 of 264 remain.** Do not mark the goal complete. Skip the original-nine leftovers (Kimata, Sourjik 2004, Xie, Levine, Nurse, Qi/Elion, Englesberg) and leftover strips already recorded below. Do not overwrite a KE doc that belongs to a different paper.
+Three confirmed-only batches on 22 August closed **92** colliding chart rows (20+20+18 unique retitles and 6+14+14 leftover strips). **~172 of 264 remain.** Do not mark the goal complete. Skip already-handled leftovers. Do not overwrite a KE doc that belongs to a different paper or a same-paper Crossref twin.
 
 ---
 
@@ -312,9 +312,42 @@ Keyamura RecN 2009; Dippel+Boos 2005; Jiricny 2006; Clausen DegP 2011; Stephenso
 
 ---
 
+## Confirmed-only batch (22 August 2026, fourth wave)
+
+Same method. 18 unique retitles + 14 leftover strips. GCS three prefixes and Firestore sources-only merge + per-doc re-embed for 26 process IDs. Crossref twins not overwritten.
+
+### Confirmed retitles (18)
+
+| Chart | Old IDs | Confirmed | Ingest | Live |
+|---|---|---|---|---|
+| `yeast_mating_type_switching` Nasmyth 1983 | PMID `6687628` (DOI already official) | PMID `6339953` DOI `10.1038/302670a0` | `pubmed_6339953` | PMID identifier + abstract; DOI = older Crossref twin |
+| `yeast_tor_signaling` Loewith+Hall 2011 | PMID `21376230` | PMID `22174183` DOI `10.1534/genetics.111.133363` | `pubmed_22174183` | identifier + abstract |
+| `yeast_tor_signaling` Magasanik+Kaiser 2002 | PMID `12493358` | PMID `12062797` DOI `10.1016/s0378-1119(02)00558-9` | `pubmed_12062797` | identifier + abstract |
+| `yeast_ubiquitin_proteasome` Finley+Ulrich 2012 | PMID `23151663` | PMID `23028185` DOI `10.1534/genetics.112.140467` | `pubmed_23028185` | identifier + abstract |
+| `celegans_dauer_decision` Hu 2007 | PMID `17988075` (DOI already official) | PMID `17988074` DOI `10.1895/wormbook.1.144.1` | `pubmed_17988074` | identifier + abstract |
+| `ecoli_e._coli_two_component_signaling` Stock 2000 | PMID `10966467` (DOI already official) | PMID `10966457` DOI `10.1146/annurev.biochem.69.1.183` | `pubmed_10966457` | identifier + abstract |
+| `human_tlr4_lps_amplification` Covert 2005 | PMID `16166565` (DOI already official) | PMID `16166516` DOI `10.1126/science.1112304` | `pubmed_16166516` | identifier + abstract |
+| `yeast_vesicle_trafficking` Bonifacino+Glick 2004 | PMID `15109499` | PMID `14744428` DOI `10.1016/s0092-8674(03)01079-1` | `pubmed_14744428` | identifier + abstract |
+| `human_bcl6_gc_fate_switch` Shaffer+Staudt 2000 | PMID `10947831` | PMID `10981963` DOI `10.1016/s1074-7613(00)00020-0` | `pubmed_10981963` | identifier + abstract |
+| `human_foxp3_treg_switch` Josefowicz 2012 | PMID `22278057` (DOI already official) | PMID `22318520` DOI `10.1038/nature10772` | `pubmed_22318520` | identifier + abstract |
+| `ecoli_e._coli_heat_shock_response` Yura 1993 | PMID `8257110` | PMID `7504905` DOI `10.1146/annurev.mi.47.100193.001541` | `pubmed_7504905` | identifier + abstract |
+| `ecoli_e._coli_acid_resistance` Foster 2004 | PMID `15040261` | PMID `15494746` DOI `10.1038/nrmicro1021` | `pubmed_15494746` | PMID identifier + abstract; DOI = older Crossref twin |
+| `yeast_mapk_mating` Dohlman+Thorner 2001 | PMID `11395419` (DOI already official) | PMID `11395421` DOI `10.1146/annurev.biochem.70.1.703` | `pubmed_11395421` | identifier + abstract |
+| `mouse_sox2_oct4_pluripotency` Masui 2007 | PMID `17908933` | PMID `17515932` DOI `10.1038/ncb1589` | `pubmed_17515932` | identifier + abstract |
+| `yeast_mitochondrial_biogenesis` Liao+Butow 1993 | PMID `8218348` | PMID `8422683` DOI `10.1016/0092-8674(93)90050-z` | `pubmed_8422683` | identifier + abstract |
+| `ecoli_fatty_acid_degradation` Clark+Cronan | PMID `15659673` | PMID `26443509` DOI `10.1128/ecosalplus.3.4.4` | `pubmed_26443509` | identifier + abstract |
+| `ecoli_sulfur_metabolism` Kredich | PMID `26443778` | PMID `26443742` DOI `10.1128/ecosalplus.3.6.1.11` | `pubmed_26443742` | identifier + abstract |
+| `yeast_er_stress_response` Mori 2009 | PMID `19762341` (DOI already official) | PMID `19861400` DOI `10.1093/jb/mvp166` | `pubmed_19861400` | identifier + abstract |
+
+### Leftovers stripped this batch
+
+Haber 2012 mating-type; Pfanner 2019; Neupert 2007; 2016 26S proteasome; Wanner 1996 phosphate; Yanofsky 2001 trp; Calame 2008; Werner 2005 NF-kB; Nerlov/Graf 2007 PU.1; Tenen 2004 C/EBP; Ye 1997 C/EBP; Lacombe 2010 SCL; Rymond+Rosbash 1992; Hinnebusch 2005 GCN2.
+
+---
+
 ## Chart JSON / metadata
 
-Nine-chart repairs: copernicus-web `a3c791e71`, glmp `1e879f8`. Second wave: copernicus-web `422dea029` / `1febc208b`, glmp `8a0b8cd` (now on origin). Third-wave chart JSON and this handoff commit next. Live GCS and Firestore sources for the process IDs in waves 2–3 were merged. `chart_repair*.json` stays uncommitted.
+Nine-chart: copernicus-web `a3c791e71`, glmp `1e879f8`. Second wave: CW `422dea029` / `1febc208b`, glmp `8a0b8cd`. Third wave: CW `89af4aa7b`, glmp `41e3bed`. Fourth-wave chart JSON and this handoff commit next. Live GCS and Firestore sources for waves 2–4 were merged. `chart_repair*.json` stays uncommitted.
 
 ---
 
