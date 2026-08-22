@@ -74,7 +74,7 @@
     "scaffold protein",
     "osmoregulation"
   ],
-  "lastUpdated": "2025-10-15",
+  "lastUpdated": "2026-08-22",
   "logicGates": {
     "and": 2,
     "not": 6,
@@ -110,12 +110,12 @@
   "sources": [
     {
       "authors": "Brewster JL, de Valoir T, Dwyer ND, Winter E, Gustin MC",
-      "doi": "10.1126/science.8391169",
-      "journal": "Science",
-      "paper_id": "crossref_10_1126_science_8391169",
-      "pmid": "8391169",
+      "doi": "10.1126/science.7681220",
+      "journal": "Science (New York, N.Y.)",
+      "paper_id": "pubmed_7681220",
+      "pmid": "7681220",
       "relevance": "Discovery of HOG pathway and Hog1 MAPK",
-      "title": "The HOG pathway controls osmotic regulation in yeast",
+      "title": "An osmosensing signal transduction pathway in yeast.",
       "year": 1993
     },
     {
@@ -130,23 +130,24 @@
     },
     {
       "authors": "Posas F, Saito H",
-      "doi": "10.1093/emboj/16.7.1521",
-      "journal": "EMBO J",
-      "paper_id": "crossref_10_1093_emboj_16_7_1521",
-      "pmid": "9184233",
+      "doi": "10.1126/science.276.5319.1702",
+      "journal": "Science (New York, N.Y.)",
+      "paper_id": "pubmed_9180081",
+      "pmid": "9180081",
       "relevance": "Pbs2 as scaffold for Hog1 activation",
-      "title": "The MAPK Hog1 mediates osmotic stress signaling through scaffold protein Pbs2",
+      "title": "Osmotic activation of the HOG MAPK pathway via Ste11p MAPKKK: scaffold role of Pbs2p MAPKK.",
       "year": 1997
     },
     {
       "authors": "Albertyn J, Hohmann S, Thevelein JM, Prior BA",
-      "doi": "10.1128/jb.176.24.7516-7524.1994",
+      "doi": "",
       "journal": "J Bacteriol",
-      "paper_id": "crossref_10_1128_jb_176_24_7516-7524_1994",
-      "pmid": "8002614",
+      "paper_id": "",
+      "pmid": "",
       "relevance": "Glycerol synthesis as major osmoprotective response",
       "title": "Glycerol production in response to hyperosmotic stress involves the HOG pathway",
-      "year": 1994
+      "year": 1994,
+      "note": "Second-pass: Albertyn+Hohmann 1994 has several glycerol/osmotic papers. Identifiers remain stripped."
     }
   ],
   "totalNodes": 94,

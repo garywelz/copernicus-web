@@ -229,7 +229,7 @@ clean**. Do not treat the rest of GLMP as identity-safe.
 
 264 colliding IDs span **73** `glmp` processes (plus overlapping copernicus-web copies). Same pattern as the nine-chart work: the stored PMID/DOI often names an unrelated article. Examples: biofilm DOI `10.1038/nature04187` resolves to a yeast phosphoproteome paper; ArcA PMID `3054468` resolves to a plasmid-classification paper; arginine-repressor PMID `7854251` resolves to a dehalogenase review.
 
-A confirmed-only batch on 22 August closed **26** of those colliding chart rows (20 unique retitles + 6 non-unique leftover strips). **~238 of 264 remain.** Do not mark the goal complete. Skip the original-nine leftovers (Kimata, Sourjik 2004, Xie, Levine, Nurse, Qi/Elion, Englesberg). Do not overwrite a KE doc that belongs to a different paper.
+Two confirmed-only batches on 22 August closed **60** colliding chart rows (20+20 unique retitles and 6+14 leftover strips). **~204 of 264 remain.** Do not mark the goal complete. Skip the original-nine leftovers (Kimata, Sourjik 2004, Xie, Levine, Nurse, Qi/Elion, Englesberg) and leftover strips already recorded below. Do not overwrite a KE doc that belongs to a different paper.
 
 ---
 
@@ -273,18 +273,48 @@ Author + year + topic uniqueness only. Old PMID/DOI ignored as identity. Officia
 | `yeast_nitrogen_metabolism` Cooper 2002 | PMID `12493770` DOI `10.1111/j.1574-6976.2002.tb00614.x` (viral killer) | stripped — several 2002 Cooper nitrogen papers |
 | `human_bcl2_bax_momp` Chipuk & Green 2008 | PMID `18505631` DOI `10.1016/j.jaci.2007.10.026` (allergy immunotherapy) | stripped — several 2008 Chipuk/Green apoptosis papers |
 
-Skipped as likely same-paper / informal-title false positives (not in this batch): Hippo `26544935`; mismatch-repair `15952900` / `8811176`; glycolysis PTS DOI `10.1128/mr.57.3.543-594.1993`; RecA `18497818`; ribosome `17804668`.
+Skipped as likely same-paper / informal-title false positives (not in this batch): Hippo `26544935`; mismatch-repair `15952900` / `8811176`; RecA `18497818`; ribosome `17804668`. Glycolysis PTS was repaired in the third wave.
+
+---
+
+## Confirmed-only batch (22 August 2026, third wave)
+
+Same method. 20 unique retitles + 14 leftover strips. GCS three prefixes and Firestore sources-only merge + per-doc re-embed for 21 process IDs. Old colliding KE docs were not overwritten. Several DOI queries hit older same-paper Crossref twins (`identifier_wrong_project`); PMID path is clean.
+
+### Confirmed retitles (20)
+
+| Chart | Old IDs | Confirmed | Ingest | Live |
+|---|---|---|---|---|
+| `ecoli_base_excision_repair` Mol/Tainer 1999 | PMID `10410796` (DOI already official) | PMID `10410797` DOI `10.1146/annurev.biophys.28.1.101` *DNA repair mechanisms for the recognition and removal of damaged DNA bases.* | `pubmed_10410797` | PMID identifier + abstract; DOI = older Crossref twin |
+| `ecoli_glycolysis` Postma 1993 | PMID `8177168` (DOI already official) | PMID `8246840` DOI `10.1128/mr.57.3.543-594.1993` *Phosphoenolpyruvate:carbohydrate phosphotransferase systems of bacteria.* | `pubmed_8246840` | PMID identifier + abstract; DOI = older Crossref twin |
+| `ecoli_nucleotide_excision_repair` Selby & Sancar 1994 | PMID `7968919` | PMID `7968917` DOI `10.1128/mr.58.3.317-329.1994` | `pubmed_7968917` | identifier + abstract |
+| `ecoli_periplasmic_stress` Rowley 2006 | PMID `16406775` DOI `10.1016/j.mib.2005.12.008` | PMID `16715050` DOI `10.1038/nrmicro1394` *Pushing the envelope…* | `pubmed_16715050` | identifier + abstract |
+| `ecoli_starvation_response` Becker 1999 | PMID `10485858` (DOI already official) | PMID `10339606` DOI `10.1073/pnas.96.11.6439` | `pubmed_10339606` | identifier + abstract |
+| `ecoli_stringent_response` Hauryliuk 2015 | DOI `10.1038/nrmicro3449` (HIV paper); PMID already correct | PMID `25853779` DOI `10.1038/nrmicro3448` *Recent functional insights into the role of (p)ppGpp…* | `pubmed_25853779` | identifier + abstract |
+| `ecoli_transcription_termination` Skordalakes 2003 | PMID `14608371` DOI `10.1038/nature02129` | PMID `12859904` DOI `10.1016/s0092-8674(03)00512-9` | `pubmed_12859904` | identifier + abstract |
+| `ecoli_transcription_termination` Gusarov 1999 | PMID `10617163` DOI `10.1016/s1097-2765(00)80159-4` | PMID `10230402` DOI `10.1016/s1097-2765(00)80477-3` | `pubmed_10230402` | identifier + abstract |
+| `ecoli_transcription_termination` Burns 1995 | PMID `7537109` DOI `10.1021/bi00016a025` | PMID `7761393` DOI `10.1073/pnas.92.11.4738` | `pubmed_7761393` | identifier + abstract |
+| `ecoli_nitrogen_assimilation` Leigh 2007 | PMID `17506685` (DOI already official) | PMID `17506680` DOI `10.1146/annurev.micro.61.080706.093409` | `pubmed_17506680` | PMID identifier + abstract; DOI = older Crossref twin |
+| `ecoli_sigma_factor_competition` Mauri 2014 | PMID `25313164` | PMID `25299042` DOI `10.1371/journal.pcbi.1003845` | `pubmed_25299042` | identifier + abstract |
+| `ecoli_rna_polymerase_recycling` Mauri 2014 | PMID `25081213` | same `25299042` (unique 2014 Mauri+Klumpp paper) | `pubmed_25299042` | identifier + abstract |
+| `ecoli_rna_polymerase_recycling` Mitra 2017 | PMID `28301741` | PMID `28731845` DOI `10.1146/annurev-micro-030117-020432` | `pubmed_28731845` | identifier + abstract |
+| `ecoli_ribosome_assembly` Culver 2003 | PMID `14505815` | PMID `12548626` DOI `10.1002/bip.10221` | `pubmed_12548626` | identifier + abstract |
+| `ecoli_tca_cycle` Sauer 2005 | PMID `16003780` | PMID `16102602` DOI `10.1016/j.femsre.2004.11.002` | `pubmed_16102602` | identifier + abstract |
+| `ecoli_translation_termination` Decatur 2002 | PMID `12127453` | PMID `12114023` DOI `10.1016/s0968-0004(02)02109-6` | `pubmed_12114023` | identifier + abstract |
+| `ecoli_translation_termination` Freistroffer 1997 | PMID `9312005` (DOI already official) | PMID `9233821` DOI `10.1093/emboj/16.13.4126` | `pubmed_9233821` | PMID identifier + abstract; DOI = older Crossref twin |
+| `ecoli_two_component_signaling` Kenney 2012 | PMID `22580561` | PMID `22543870` DOI `10.1038/emboj.2012.99` | `pubmed_22543870` | identifier + abstract |
+| `yeast_hog_pathway` Brewster 1993 | PMID `8391169` (PMID-as-DOI) | PMID `7681220` DOI `10.1126/science.7681220` | `pubmed_7681220` | identifier + abstract |
+| `yeast_hog_pathway` Posas 1997 | PMID `9184233` | PMID `9180081` DOI `10.1126/science.276.5319.1702` | `pubmed_9180081` | identifier + abstract |
+
+### Leftovers stripped this batch
+
+Keyamura RecN 2009; Dippel+Boos 2005; Jiricny 2006; Clausen DegP 2011; Stephenson+Hoch 2002; Friedberg 2005 SOS; Henestrosa 2000 SOS; Little 2003 LexA; Hengge-Aronis 2002 RpoS; Gruer 1997 aconitase; Mizuno 1997 EnvZ; Dean 2011 T3SS; Diepold 2015 T3SS; Albertyn 1994 glycerol/HOG.
 
 ---
 
 ## Chart JSON / metadata
 
-The eight repaired nine-chart JSONs, GAL mermaid, and website-only 260010
-listing are on `copernicus-web` `main` (`a3c791e71`). Matching `sources`
-are on `glmp` `main` (`1e879f8`). This second-wave chart-JSON identity
-batch is local until committed. Live GCS `glmp-v2` / `glmp-processes-database`
-and Firestore `glmp_processes` sources for the 22 process IDs above were
-merged. `chart_repair*.json` metadata stays uncommitted (KE already ingested).
+Nine-chart repairs: copernicus-web `a3c791e71`, glmp `1e879f8`. Second wave: copernicus-web `422dea029` / `1febc208b`, glmp `8a0b8cd` (now on origin). Third-wave chart JSON and this handoff commit next. Live GCS and Firestore sources for the process IDs in waves 2–3 were merged. `chart_repair*.json` stays uncommitted.
 
 ---
 
