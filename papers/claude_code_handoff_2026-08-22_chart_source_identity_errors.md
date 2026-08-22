@@ -5,16 +5,14 @@
 **Repo:** `copernicus-web` (`origin/main`)
 **Regenerate from a fresh fetch before acting.**
 
-Gary called these failures **vitally important to correct**. Chart-side
-identifier repairs for the rows below are in this repo’s process JSON
-(22 August 2026, Cursor). **KE ingest and abstract backfill are still
-Claude Code.** Do not re-introduce the old colliding PMIDs/DOIs.
+Gary called these failures **vitally important to correct**. Chart-row
+repairs and KE ingest for the unique rows are done. **The goal is not
+complete.** Leftover garbled titles and the Englesberg empty abstract
+remain. Do not invent papers or abstracts. Do not retitle Qi/Elion or
+other non-unique leftovers. Do not re-introduce old colliding PMIDs/DOIs.
 
 Continuous with
 `papers/claude_code_handoff_2026-08-21_lac_ingest_and_animating_podcasts.md`.
-The lac handoff already named the Napoli DOI trap. This file is the wider
-pattern: **chart `sources` / PMIDs / DOIs often do not name the paper that
-`/resolve-paper` returns.**
 
 ---
 
@@ -26,190 +24,233 @@ Paper-sourced podcasts and self-animating chart walks need a paper that:
 2. resolves in the Knowledge Engine as that same paper,
 3. has a non-empty abstract (`/generate-podcast-from-paper` 400s otherwise).
 
-Live checks on 22 August 2026 against
-`POST https://copernicus-podcast-api-phzp4ie2sq-uc.a.run.app/resolve-paper`
-showed that several famous charts fail (2) or (3). Some “hits” are **a
-different paper wearing the chart’s PMID or DOI**.
+Chart `sources` / PMIDs / DOIs often did not name the paper that
+`/resolve-paper` returned. Some “hits” were a **different paper wearing
+the chart’s PMID or DOI**.
 
 Do not treat `a1_resolve_ingest_report.jsonl` “created” rows as confirmed
-chart sources. Several Crossref ingest rows attached the wrong article to the
-chart (same DOI collision / garbled citation pattern).
+chart sources.
 
 ---
 
-## Method
+## Method (locked)
 
-For each row below:
+1. Ignore a colliding stored PMID/DOI as identity. Search PubMed /
+   Crossref / EuropePMC by **author + year + title**.
+2. Confirm DOI and PMID separately.
+3. If the KE doc is the wrong paper: **do not overwrite it**. Ingest or
+   re-link the correct paper; fix the chart row.
+4. If the KE doc is the right paper with an empty abstract: backfill a
+   **published** abstract only. Never invent one.
+5. After repair, `/resolve-paper` on the chart DOI/PMID must return that
+   paper, `match_type=identifier`, and (unless no publisher abstract
+   exists) a non-empty `abstract_preview`, scoped `cited_project=glmp`.
 
-1. Resolve the chart’s stored DOI **and** stored PMID separately (unscoped,
-   then `cited_project=glmp`).
-2. Resolve the **real** paper (title + year + venue) via PubMed / Crossref /
-   EuropePMC.
-3. If the KE doc is the wrong paper: **do not overwrite it**. Leave the
-   existing doc; ingest or re-link the correct paper; fix the chart row.
-4. If the KE doc is the right paper with an empty abstract: **backfill
-   abstract only**. Do not duplicate.
-5. After repair, `/resolve-paper` on the chart DOI must return that paper,
-   `match_type=identifier`, non-empty `abstract_preview`, and
-   `cited_project=glmp`.
+**Garbled-citation retitle rule** (same as Walter / Falke / Yura /
+Takeshige / Schleif AraC): if AUTHOR + YEAR + TOPIC uniquely identifies
+one real paper by that lab, retitle the chart source to that paper’s
+official PubMed/Crossref title and attach its confirmed DOI/PMID. Apply
+**only** when uniqueness is clear. If the author-year has multiple
+plausible papers, leave stripped.
 
 Provenance for new ingest:
 
 - `cited_by`: Gary Welz
 - `cited_date`: 2026-08-22
 - `cited_project`: `glmp`
-- `cited_context`: repair chart-source identity so flowchart podcasts can
-  use the paper the chart actually claims
+- `citations[]` event required or resolve returns `identifier_wrong_project`
 
-Use existing intake (`researcher_cited_intake.py` then
-`ingest_papers_from_metadata_json.py`) unless a later #43 path has replaced it.
+Official ingest:
+`cloud-run-backend/scripts/ingest_papers_from_metadata_json.py`
+`--root C:\Users\garyw\copernicus-web\huggingface-space\metadata-database\papers`
+`--include-glob "**/chart_repair*.json"`
+`--no-skip-existing --no-reject-gcs --stub-gate-mode off`
 
 ---
 
-## Confirmed identity failures
+## Live completion audit (22 August 2026)
 
-Checked live. “Chart says” is what is stored on the process JSON. “KE returns”
-is `/resolve-paper` on that identifier.
+Checked live against
+`POST https://copernicus-podcast-api-phzp4ie2sq-uc.a.run.app/resolve-paper`
+with `{"query": "<doi or pmid>", "cited_project": "glmp"}`.
 
-### `ecoli_ara_operon` — Schleif 2000 is not in the KE; chart DOI is fictitious
+**Result:** every remaining DOI/PMID on the nine charts returns
+`match_type=identifier` and the intended paper. No leftover ID still
+resolves to the wrong paper. Leftover garbled-title rows have empty
+DOI/PMID (`NO_ID`). Englesberg is the intended paper with **empty
+abstract**.
 
-| Chart says | Live result |
-|---|---|
-| Schleif, “Positive and negative control of the arabinose operon,” *PNAS* 2000, DOI `10.1073/pnas.97.14.7643`, PMID `10899998`, `paper_id` `crossref_10_1073_pnas_97_14_7643` | DOI: `identifier_not_found` (Crossref 404, EuropePMC 0, PubMed DOI search 0). PMID `10899998`: **hair-cycle automaton paper** (`pubmed_10899998`, DOI `10.1073/pnas.97.15.8328`), not Schleif. |
+### `ecoli_lac_operon`
 
-**Real paper to ingest:** Schleif R (2000). *Regulation of the L-arabinose operon of Escherichia coli.* *Trends in Genetics*. PMID **`11102706`**. DOI **`10.1016/s0168-9525(00)02153-3`**. EuropePMC abstract 667 chars. Not in KE (DOI and PMID both `identifier_not_found`).
-
-Also missing / empty on this chart: Schleif 1992 *DNA looping* is in KE as `pubmed_1497310` with **empty abstract**. Englesberg 1974 DOI resolves as `identifier_wrong_project` to a different “REGULATION: POSITIVE CONTROL” record.
-
-### `ecoli_lac_operon` — Napoli row still garbled (repeat from 21 Aug)
-
-Chart still lists DOI `10.1016/j.str.2005.11.021` / PMID `16531234` as Napoli.
-That DOI is Iengar/Balaram β-helix proteins. PMID `16531234` is titin
-Z1Z2–telethonin. Real Napoli 2006 is *JMB*
-DOI **`10.1016/j.jmb.2005.12.051`**, KE id **`pubmed_16427082`** (abstract
-present). Fix the chart row. Do not ingest Iengar as a lac source.
-
-### `yeast_cell_cycle_control` — Nurse 1997 not in KE; PMID collision
-
-| Chart says | Live result |
-|---|---|
-| Nurse P (1997) “Cyclins and cell cycle checkpoints,” *Science*, DOI `10.1126/science.276.5315.1886`, PMID `9220155` | DOI: `identifier_not_found`. PMID `9220155`: **Enterocytozoon bieneusi probe paper** (`pubmed_9220155`), not Nurse. |
-| DOI `10.1038/nrm1973` as a cell-cycle review | Resolves to “Microprocessor measures up,” not a CDK/cell-cycle paper. |
-
-Ingest the real Nurse 1997 *Science* paper after confirming its current DOI/PMID
-on Crossref/PubMed. Do not attach it to `pubmed_9220155`.
-
-### `yeast_autophagy` — Levine / Mizushima PMIDs are other papers
-
-| Chart says | Live result |
-|---|---|
-| Levine (2021) “Autophagy genes in biology and disease,” PMID `33197221` | Immune-checkpoint inhibitors review (`pubmed_33197221`). |
-| Mizushima (2011) “Molecular mechanism and physiological functions of autophagy,” PMID `21157483` | mTOR / growth-signal review (`pubmed_21157483`, DOI `10.1038/nrm3025`). |
-
-Find the real Levine / Mizushima records, ingest or re-link, fix PMIDs on the
-chart. Autophagy is a high-interest chart; do not leave it pointing at oncology
-reviews.
-
-### `ecoli_dna_replication_initiation` — Leonard 2015 DOI missing; PMID collision
-
-| Chart says | Live result |
-|---|---|
-| Leonard & Grimwade (2015) *JBC*, DOI `10.1074/jbc.R115.662783`, PMID `26350459` | DOI: `identifier_not_found`. PMID `26350459`: *Pseudomonas putida* glucose-metabolism paper, not DnaA/oriC. |
-
-Katayama 2010 (`pubmed_20157337`, DOI `10.1038/nrmicro2314`) **is** in KE with
-an abstract and is a usable source on this chart. Prefer repairing Leonard
-without disturbing Katayama.
-
-### `ecoli_chemotaxis` — Berg / Sourjik PMIDs are other papers
-
-| Chart says | Live result |
-|---|---|
-| Berg (1972) chemotaxis tracking, PMID `4628819` | H₂O₂ / bacterial-spore radiation paper. |
-| Sourjik (2002) receptor sensitivity, PMID `12379844` | SeqA–hemimethylated-DNA structure paper (`pubmed_12379844`). |
-
-Chart `related_papers` is empty; `sources` have no DOIs. Add real DOIs after
-PubMed/Crossref confirmation (Berg & Brown 1972 *Nature* is the usual Berg
-tracking paper — confirm before ingest).
-
-### `ecoli_heat_shock_response` — Horwich DOI collision
-
-| Chart says | Live result |
-|---|---|
-| Horwich & Fenton GroEL review, DOI `10.1038/nrm2636` | Resolves to an unrelated clinical paper (ovarian-cancer lymph-node note). |
-
-Mayer & Bukau 2005 (`pubmed_15770419`) **is** in KE with an abstract and is a
-usable source on this chart.
-
-### `yeast_unfolded_protein_response` — Ire1 PMID collision
-
-| Chart says | Live result |
-|---|---|
-| Ire1p kinase / UPR, PMID `8670867` | v-rel oncogene / T-cell leukemia paper (`pubmed_8670867`). Chart candidate DOI `10.1002/j.1460-2075.1996.tb00682.x` was ingested as that wrong title in `a1_resolve_ingest_report.jsonl`. |
-
-### Abstracts empty on otherwise correct KE hits
-
-These resolve as the intended paper but cannot generate until the abstract is
-backfilled:
-
-| Paper | KE id | Chart |
+| Chart title | IDs | Live |
 |---|---|---|
-| Yanofsky (1981) attenuation | `pubmed_7007895` | `ecoli_trp_operon` |
-| Schleif (1992) DNA looping | `pubmed_1497310` | `ecoli_ara_operon` |
-| Jacob & Monod (1961) | `pubmed_13718526` | `ecoli_lac_operon` (already in 21 Aug handoff) |
+| RegulonDB | none | not a journal paper |
+| Jacob & Monod 1961 *Genetic regulatory mechanisms in the synthesis of proteins* | DOI `10.1016/S0022-2836(61)80072-7` PMID `13718526` → `pubmed_13718526` | identifier + abstract |
+| Müller-Hill 1996 *The lactose operon* | none | book, not a journal paper |
+| Napoli 2006 *Indirect readout… CAP-DNA* | DOI `10.1016/j.jmb.2005.12.051` PMID `16427082` → `pubmed_16427082` | identifier + abstract |
+| Swint-Kruse & Matthews 2009 *Allostery in the LacI/GalR family: variations on a theme* | DOI `10.1016/j.mib.2009.01.009` PMID `19269243` → `pubmed_19269243` | identifier + abstract |
 
-`/resolve-paper` only returns `abstract_preview` (280 chars). A 280-char
-preview means the Firestore `abstract` field is populated. Empty preview /
-missing `abstract` is the generation blocker.
+### `ecoli_ara_operon`
+
+| Chart title | IDs | Live |
+|---|---|---|
+| Schleif 2000 *Regulation of the L-arabinose operon of Escherichia coli* | DOI `10.1016/s0168-9525(00)02153-3` PMID `11102706` → `pubmed_11102706` | identifier + abstract |
+| Schleif 1992 *DNA looping* | DOI `10.1146/annurev.bi.61.070192.001215` PMID `1497310` → `pubmed_1497310` | identifier + abstract |
+| Schleif 2003 *AraC protein: a love-hate relationship* | DOI `10.1002/bies.10237` PMID `12596232` → `pubmed_12596232` | identifier + abstract |
+| Englesberg & Wilcox 1974 *Regulation: positive control* | DOI `10.1146/annurev.ge.08.120174.001251` → `crossref_10.1146_annurev.ge.08.120174.001251`; PMID `4374117` → `pubmed_4374117` | identifier; **abstract empty** (no published abstract — do not invent) |
+
+### `ecoli_chemotaxis`
+
+| Chart title | IDs | Live |
+|---|---|---|
+| Berg & Brown 1972 *Chemotaxis in Escherichia coli analysed by three-dimensional tracking* | DOI `10.1038/239500a0` PMID `4563019` → `pubmed_4563019` | identifier + abstract |
+| Falke et al. 1997 two-component chemotaxis review | DOI `10.1146/annurev.cellbio.13.1.457` PMID `9442881` → `pubmed_9442881` | identifier + abstract |
+| Sourjik 2004 *Chemotaxis* | none | leftover — not unique |
+| Sourjik & Berg 2002 *Receptor sensitivity in bacterial chemotaxis* | DOI `10.1073/pnas.011589998` PMID `11742065` → `pubmed_11742065` | identifier + abstract |
+
+### `ecoli_heat_shock_response`
+
+| Chart title | IDs | Live |
+|---|---|---|
+| Yura, Nagai, Mori 1993 *Regulation of the heat-shock response in bacteria* | DOI `10.1146/annurev.mi.47.100193.001541` PMID `7504905` → `pubmed_7504905` | identifier + abstract |
+| Mayer & Bukau 2005 *Hsp70 chaperones: cellular functions and molecular mechanism* | DOI `10.1007/s00018-004-4464-6` PMID `15770419` → `pubmed_15770419` | identifier + abstract |
+| Hayer-Hartl, Bracher, Hartl 2015 GroEL-GroES | DOI `10.1016/j.tibs.2015.07.009` PMID `26422689` → `pubmed_26422689` | identifier + abstract |
+| Guisbert, Yura, Rhodius, Gross 2008 MMBR convergence review | DOI `10.1128/mmbr.00007-08` PMID `18772288` → `pubmed_18772288` | identifier + abstract |
+
+### `ecoli_dna_replication_initiation`
+
+| Chart title | IDs | Live |
+|---|---|---|
+| Leonard & Grimwade 2015 *The orisome: structure and function* | DOI `10.3389/fmicb.2015.00545` PMID `26082765` → `pubmed_26082765` | identifier + abstract |
+| Katayama et al. 2010 DnaA/oriC regulation | DOI `10.1038/nrmicro2314` PMID `20157337` → `pubmed_20157337` | identifier + abstract |
+| Sekimizu, Bramhill, Kornberg 1987 DnaA-ATP | DOI `10.1016/0092-8674(87)90221-2` PMID `3036372` → `pubmed_3036372` | identifier + abstract |
+| Lu et al. 1994 SeqA | DOI `10.1016/0092-8674(94)90156-2` PMID `8011018` → `pubmed_8011018` | identifier + abstract |
+| Wahle, Lasken, Kornberg 1989 dnaB-dnaC | DOI `10.1016/s0021-9258(19)81637-x` PMID `2536713` → `pubmed_2536713` | identifier + abstract |
+
+### `yeast_autophagy`
+
+| Chart title | IDs | Live |
+|---|---|---|
+| Levine *Autophagy genes in biology and disease* | none | leftover — title owned by Mizushima 2023; do not reassign |
+| Mizushima, Yoshimori, Ohsumi 2011 *The role of Atg proteins in autophagosome formation* | DOI `10.1146/annurev-cellbio-092910-154005` PMID `21801009` → `pubmed_21801009` | identifier + abstract |
+| Xie 2008 *The molecular machinery of autophagy: unanswered questions* | none | leftover — not unique |
+| Takeshige et al. 1992 yeast autophagy induction | DOI `10.1083/jcb.119.2.301` PMID `1400575` → `pubmed_1400575` | identifier + abstract |
+
+### `yeast_cell_cycle_control`
+
+| Chart title | IDs | Live |
+|---|---|---|
+| Nurse 1997 *Cyclins and cell cycle checkpoints* | none | leftover — fictitious Science paper; do not invent |
+| Qi & Elion 2005 *Control of the eukaryotic cell cycle by MAP kinase signaling pathways* | none | leftover — not unique; do not retitle |
+| Morgan 1997 *Cyclin-dependent kinases: engines, clocks, and microprocessors* | DOI `10.1146/annurev.cellbio.13.1.261` PMID `9442875` → `pubmed_9442875` | identifier + abstract |
+| Peters 2006 APC/C | DOI `10.1038/nrm1988` PMID `16896351` → `pubmed_16896351` | identifier + abstract |
+| Musacchio & Salmon 2007 *The spindle-assembly checkpoint in space and time* | DOI `10.1038/nrm2163` PMID `17426725` → `pubmed_17426725` | identifier + abstract |
+
+### `yeast_unfolded_protein_response`
+
+| Chart title | IDs | Live |
+|---|---|---|
+| Walter & Ron 2011 *The unfolded protein response: from stress pathway to homeostatic regulation* | DOI `10.1126/science.1209038` PMID `22116877` → `pubmed_22116877` | identifier + abstract |
+| Kimata 2011 *The unfolded protein response in yeast* | none | leftover — multiple 2011 Kimata papers |
+| Lee et al. 2002 IRE1 / ATF6 / XBP1 | DOI `10.1101/gad.964702` PMID `11850408` → `pubmed_11850408` | identifier + abstract |
+| Shamu & Walter 1996 Ire1 oligomerization/phosphorylation | DOI `10.1002/j.1460-2075.1996.tb00666.x` PMID `8670804` → `pubmed_8670804` | identifier + abstract |
+
+### `yeast_gal_regulation`
+
+| Chart title | IDs | Live |
+|---|---|---|
+| Johnston, Flick, Pexton 1994 GAL glucose repression | DOI `10.1128/mcb.14.6.3834` PMID `8196626` | identifier + abstract (DOI → `crossref_10.1128_mcb.14.6.3834`; PMID → `pubmed_8196626`) |
+| Lohr, Venkov, Zlatanova 1995 GAL network | DOI `10.1096/fasebj.9.9.7601342` PMID `7601342` → `pubmed_7601342` | identifier + abstract |
+| Platt & Reece 1998 Gal4p-Gal80p-Gal3p complex | DOI `10.1093/emboj/17.14.4086` PMID `9670023` → `pubmed_9670023` | identifier + abstract |
+| Sellick, Campbell, Reece 2008 Leloir pathway | DOI `10.1016/S1937-6448(08)01003-4` PMID `18779058` → `pubmed_18779058` | identifier + abstract |
 
 ---
 
-## Charts that already resolve cleanly (do not “fix” these first)
+## Remaining leftovers (leave stripped)
 
-Use these as the positive control when testing the repair pipeline:
+Do **not** attach a nearby paper. Do **not** retitle Qi/Elion.
 
-| Chart | Paper | KE id | DOI |
-|---|---|---|---|
-| `yeast_gal_regulation` | Platt & Reece 1998, *EMBO J* | `pubmed_9670023` | `10.1093/emboj/17.14.4086` |
-| `yeast_gal_regulation` | Sellick, Campbell, Reece 2008 | `pubmed_18779058` | `10.1016/s1937-6448(08)01003-4` |
-| `ecoli_translation_initiation` | Wimberly et al. 2000 *Nature* | `pubmed_11014182` | `10.1038/35030006` |
-| `ecoli_translation_initiation` | Laursen et al. 2005 *MMBR* | `pubmed_15755955` | `10.1128/mmbr.69.1.101-123.2005` |
-| `ecoli_stringent_response` | Potrykus & Cashel 2008 | `pubmed_18454629` | `10.1146/annurev.micro.62.081307.162903` |
-| `ecoli_dna_replication_initiation` | Katayama et al. 2010 | `pubmed_20157337` | `10.1038/nrmicro2314` |
-| `ecoli_heat_shock_response` | Mayer & Bukau 2005 | `pubmed_15770419` | `10.1007/s00018-004-4464-6` |
-| `ecoli_lac_operon` | Napoli 2006 *JMB* (real) | `pubmed_16427082` | `10.1016/j.jmb.2005.12.051` |
+| Row | Why leftover |
+|---|---|
+| Kimata 2011 *The unfolded protein response in yeast* (Methods Enzymol) | Multiple 2011 Kimata/Kohno papers; no chapter with that exact title |
+| Sourjik 2004 *Chemotaxis* (Curr Biol) | Three 2004 Sourjik papers; no Curr Biol primer with that title |
+| Xie 2008 *The molecular machinery of autophagy: unanswered questions* | Multiple Xie/Klionsky 2007–08 papers; JCS title is Klionsky 2005 (Xie not author) |
+| Levine *Autophagy genes in biology and disease* | Exact title is Yamamoto/Zhang/Mizushima 2023 PMID `36635405`. Levine 2019 Cell is a different title. **Do not reassign.** |
+| Nurse 1997 *Cyclins and cell cycle checkpoints* Science | Author+year+title empty; old DOI `10.1126/science.276.5315.1886` was fictitious. **Do not invent.** |
+| Qi & Elion 2005 *Control of the eukaryotic cell cycle by MAP kinase signaling pathways* | Three 2005 Qi+Elion papers; Wilkinson 2000 PMID `11053235` owns the stored longer title. **Do not retitle.** |
+| Englesberg & Wilcox 1974 *Regulation: positive control* | Identity confirmed; **no published abstract** — leave empty |
+| RegulonDB; Müller-Hill 1996 book | Not journal papers |
 
-Cursor is using **GAL + Platt 1998** for the next animated episode. Leave that
-pair untouched.
-
----
-
-## Suggested order for Claude Code
-
-1. **Chart-row repair** for identity collisions (wrong paper behind a PMID/DOI).
-   Highest public-interest charts first: autophagy, cell cycle, chemotaxis,
-   ara/Schleif, lac/Napoli row, UPR.
-2. **Ingest missing real papers** (Schleif 2000 *Trends Genet*; Nurse 1997
-   once DOI/PMID confirmed; real Berg / Mizushima / Levine / Leonard).
-3. **Abstract backfill** for correct empty docs (Yanofsky, Schleif 1992,
-   Jacob & Monod).
-4. **Audit script** that, for every process `sources[]` DOI/PMID, resolves
-   both identifiers and flags title mismatch vs the chart’s stored title.
-   Do not rely on `a1_resolve_ingest_report.jsonl` as ground truth.
-
-### Verify one repaired row
-
-```json
-{"query": "10.1016/s0168-9525(00)02153-3", "cited_project": "glmp"}
-```
-
-Want: Schleif 2000 *Trends Genet*, `match_type=identifier`, non-empty
-`abstract_preview`. Chart `ecoli_ara_operon` source row must use this DOI/PMID,
-not `10.1073/pnas.97.14.7643` / `10899998`.
+Old colliding PMIDs were **left on their original wrong KE docs**. Do not
+reuse: `10899998`, `9220155`, `33197221`, `21157483`, `26350459`,
+`4628819`, `12379844`, `8670867`, `21427764`, `11739403`, `9442869`,
+`1730745`.
 
 ---
 
-## Out of scope for this handoff
+## GAL + Platt episode (already generated — do not regenerate)
+
+Live `GET https://copernicus-podcast-api-phzp4ie2sq-uc.a.run.app/api/episodes/ever-bio-260010`:
+
+| Field | Value |
+|---|---|
+| `episode_id` | `ever-bio-260010` |
+| `title` | Decoding the Yeast Galactose Switch: A Three-Protein Paradigm Shift |
+| paper DOI | `10.1093/emboj/17.14.4086` (Platt & Reece 1998) |
+| paper PMID | not stored on the episode request; KE/chart PMID is `9670023` |
+| `submitted_to_rss` | `false` |
+| `job_id` | `7171f92b-8fc5-4958-b175-81b97fc5c6ab` |
+| Cloud Run `animation_player_url` | **absent** on the episode document |
+
+Local wiring (present, **uncommitted** — do not commit unless Gary asks):
+
+- `public/website-only-episodes.json` lists `ever-bio-260010`
+- `ANIMATED_PLAYERS` in `api/episodes/index.js` and `api/episodes/[episodeId].js` maps it to `/lac-operon-animation/player.html?episode=ever-bio-260010`
+
+Do not touch `ever-bio-260009`. Do not generate Schleif/ara as a podcast.
+
+---
+
+## Chart JSON / metadata still local
+
+Repaired process JSON under
+`huggingface-space/glmp-processes-database/processes/` and
+`chart_repair*.json` metadata are **not committed**. Chart JSON,
+metadata, GAL mermaid, and the website-only listing stay local until
+Gary asks.
+
+---
+
+## Historical collisions (repaired — do not re-open)
+
+These were the original 22 August live failures. They are listed so the
+old IDs are never put back on the charts.
+
+| Chart row then | Old ID / live miss | Now |
+|---|---|---|
+| Schleif 2000 PNAS DOI / PMID `10899998` | DOI 404; PMID was hair-cycle paper | Schleif 2000 *Trends Genet* `11102706` |
+| Napoli 2006 chart DOI `10.1016/j.str.2005.11.021` / PMID `16531234` | Iengar β-helix / titin | Napoli *JMB* `16427082` |
+| Nurse 1997 Science DOI / PMID `9220155` | DOI fictitious; PMID was *E. bieneusi* | IDs stripped; no real Nurse 1997 Science paper |
+| Levine PMID `33197221` | immune-checkpoint review | IDs stripped |
+| Mizushima PMID `21157483` | mTOR review | Mizushima 2011 Atg `21801009` |
+| Leonard 2015 JBC DOI / PMID `26350459` | DOI 404; PMID was *P. putida* | Leonard/Grimwade 2015 orisome `26082765` |
+| Berg PMID `4628819` | spore-radiation paper | Berg & Brown 1972 `4563019` |
+| Sourjik 2002 PMID `12379844` | SeqA structure | Sourjik & Berg 2002 `11742065` |
+| Horwich GroEL DOI `10.1038/nrm2636` | unrelated clinical paper | Hayer-Hartl 2015 `26422689` |
+| Ire1 PMID `8670867` | v-rel / T-cell leukemia | Shamu & Walter 1996 `8670804` |
+| Peters DOI `10.1038/nrm1973` | “Microprocessor measures up” | Peters APC `10.1038/nrm1988` / `16896351` |
+
+---
+
+## Out of scope
 
 - Generating or editing `ever-bio-260009` (landmark; leave as-is).
-- Generating the GAL / Platt episode (Cursor).
+- Regenerating `ever-bio-260010`.
+- Generating Schleif/ara as a podcast.
+- Retitling Qi/Elion or other non-unique leftovers.
+- Inventing a Nurse 1997 *Science* paper.
+- Reassigning the Levine title to Mizushima.
+- Inventing an Englesberg abstract.
 - Re-running the whole A1 harvest.
+- Committing chart JSON, metadata JSON, GAL mermaid, or website-only listing
+  unless Gary asks.
