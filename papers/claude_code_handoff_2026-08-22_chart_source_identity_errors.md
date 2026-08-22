@@ -211,13 +211,35 @@ Do not touch `ever-bio-260009`. Do not generate Schleif/ara as a podcast.
 
 ---
 
-## Chart JSON / metadata still local
+## Whole-collection scan (22 August 2026, live `/resolve-paper`)
 
-Repaired process JSON under
-`huggingface-space/glmp-processes-database/processes/` and
-`chart_repair*.json` metadata are **not committed**. Chart JSON,
-metadata, GAL mermaid, and the website-only listing stay local until
-Gary asks.
+The original nine charts are repaired except leftover garbled titles
+(do not invent). A scan of **all** process `sources[]` IDs is **not
+clean**. Do not treat the rest of GLMP as identity-safe.
+
+| Count | What |
+|---|---|
+| 108 | `copernicus-web` huggingface-space process JSONs |
+| 208 | `glmp` `glmp-v2/processes` JSONs (excluding `_previous_versions`) |
+| 968 | unique DOI/PMID pairs resolved (`cited_project=glmp`) |
+| 293 | identifier match, title compatible with the chart row |
+| 264 | identifier match but live title is a **different paper** |
+| 146 | `identifier_not_found` |
+| 15 | identifier + empty abstract (includes Englesberg; others need published-abstract check, do not invent) |
+
+264 colliding IDs span **73** `glmp` processes (plus overlapping copernicus-web copies). Same pattern as the nine-chart work: the stored PMID/DOI often names an unrelated article. Examples: biofilm DOI `10.1038/nature04187` resolves to a yeast phosphoproteome paper; ArcA PMID `3054468` resolves to a plasmid-classification paper; arginine-repressor PMID `7854251` resolves to a dehalogenase review.
+
+**Not repaired this pass.** Each row still needs author+year uniqueness before a retitle/ingest. Do not overwrite the wrong KE doc. Do not invent leftovers on the original nine charts.
+
+---
+
+## Chart JSON / metadata
+
+The eight repaired nine-chart JSONs, GAL mermaid, and website-only 260010
+listing are on `copernicus-web` `main` (`a3c791e71`). Matching `sources`
+are on `glmp` `main` (`1e879f8`). Live GCS `glmp-v2` and Firestore
+`glmp_processes` sources for those eight were merged. `chart_repair*.json`
+metadata stays uncommitted (KE already ingested).
 
 ---
 
