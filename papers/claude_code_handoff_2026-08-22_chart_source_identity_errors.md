@@ -229,7 +229,7 @@ clean**. Do not treat the rest of GLMP as identity-safe.
 
 264 colliding IDs span **73** `glmp` processes (plus overlapping copernicus-web copies). Same pattern as the nine-chart work: the stored PMID/DOI often names an unrelated article. Examples: biofilm DOI `10.1038/nature04187` resolves to a yeast phosphoproteome paper; ArcA PMID `3054468` resolves to a plasmid-classification paper; arginine-repressor PMID `7854251` resolves to a dehalogenase review.
 
-Confirmed-only batches on 22 August closed **92 + 32 + 28 + 37 + 44 + 30** colliding chart rows across eight waves. **~33 of 264 remain.** Do not mark the goal complete. Skip already-handled leftovers. Do not overwrite a KE doc that belongs to a different paper or a same-paper Crossref twin. Leave the three surplus KE papers alone (Levine 2019 Cell, Mizushima & Komatsu 2011 Cell, Xie & Klionsky 2007 Nat Cell Biol).
+Confirmed-only batches on 22 August closed **92 + 32 + 28 + 37 + 44 + 30 + 45** colliding chart rows across nine waves. **No more unique repairs** remain among IDs that still live-resolve to the wrong paper. What is left is leftover-stripped rows, empty-abstract cases (including Englesberg), and same-paper Crossref twins. Do not mark the goal complete. Skip already-handled leftovers. Do not overwrite a KE doc that belongs to a different paper or a same-paper Crossref twin. Leave the three surplus KE papers alone (Levine 2019 Cell, Mizushima & Komatsu 2011 Cell, Xie & Klionsky 2007 Nat Cell Biol).
 
 ---
 
@@ -502,9 +502,28 @@ Moir 1993 gerB; Cordell 2003 sequestration; Foster 2004 acid resistance; Straus 
 
 ---
 
+## Confirmed-only batch (22 August 2026, ninth wave)
+
+Same method. Live hunt of remaining IDs found 45 mismatches/ID-not-in-EuropePMC. Only two were uniquely confirmable. The rest were leftover-stripped. GCS three prefixes (32 charts). Firestore sources-only merge + per-doc re-embed for the 9 process IDs whose glmp twin was patched; CW-only rows (including both confirmed retitles) were not used to overwrite a previously repaired glmp Firestore source list. Sancar ARG DOI is a same-paper Crossref twin (`identifier_wrong_project`); PMID path is clean and the twin was not overwritten. Nurse/Englesberg chart rows were not touched. Surplus KE papers left alone. Khoroshilova 1997 and Knowles 2009 remain stripped.
+
+### Confirmed retitles (2)
+
+| Chart | Old IDs | Confirmed | Ingest | Live |
+|---|---|---|---|---|
+| `yeast_nucleotide_excision_repair` Sancar 1996 | PMID `8811835`; DOI already official | PMID `8811174` DOI `10.1146/annurev.bi.65.070196.000355` | `pubmed_8811174` | PMID identifier + abstract; DOI = older Crossref twin |
+| `ecoli_peptidoglycan_biosynthesis` Vollmer 2008 | PMID `18410290` DOI `10.1146/annurev.biochem.77.060706.073503` | PMID `18194336` DOI `10.1111/j.1574-6976.2007.00094.x` | `pubmed_18194336` | identifier + abstract |
+
+### Leftovers stripped this batch
+
+Henestrosa 2000 SOS (title is Little & Mount 1982); Maeda 1983 ompR/envZ; Switzer 1989; Greenberg 1969; Schwalm 2022; Fraenkel 1961 G6PD; Sauer 1999 flux; Sonnenschein 2011 PPP; Ghuysen 1991 PBP; Raivio 2001 CpxP; Vogt 2012 Cpx (title is Raivio 1999); Arber 1987; Li 2017 Pst; Wang 2017 PstB; Tai 1996 cysK; Koga 2015 CysB; Kredich 1987 cysteine; Hägerhäll 1996 SDH; Rodnina 1997 EF-G; Merino 2005 trp; Morita 2013; Kenney 2002 OmpR; Pratt 1996 porin; Verma 2018; Carlson 1983 SNF1; Fraenkel 1982 yeast glucose; Jansen 1999 Pasteur; Levin 1993 PKC; Madden 1997 Slt2; Thireos 1984 GCN4; Bardwell 2018; Tate 2002 Gln3; Cui 1996 GLN3; Toda 1988 CYR1; Hong 2007 Sak1; Binda 2009 EGO; Kawahara 1998 Hac1/Hac2; Liao 1991 Rtg; Cox 1999 RecA (chart title is the 1997 chapter); Tollervey 1997; Zeng 2023 FadR; Rusche 2002 silencing pathway; Berg/Stryer Glycolysis textbook.
+
+No more unique repairs among remaining live mismatches.
+
+---
+
 ## Chart JSON / metadata
 
-Nine-chart: copernicus-web `a3c791e71`, glmp `1e879f8`. Second wave: CW `422dea029` / `1febc208b`, glmp `8a0b8cd`. Third wave: CW `89af4aa7b`, glmp `41e3bed`. Fourth wave: CW `254b82bbe`, glmp `d173663`. Fifth wave: CW `8cfdea764`, glmp `2c506ce`. Sixth wave: CW `12c407614`, glmp `f996d68`. Seventh wave: CW `d094b9bec`, glmp `7664b89`. Eighth-wave chart JSON and this handoff commit next. Live GCS and Firestore sources for waves 2–8 were merged. `chart_repair*.json` stays uncommitted. Remaining collisions after this wave: **~33** of the original 264 (row-based; 63 − 16 ID replacements − 14 leftover strips; Georgellis re-attach does not reduce the remainder; scan file is stale).
+Nine-chart: copernicus-web `a3c791e71`, glmp `1e879f8`. Second wave: CW `422dea029` / `1febc208b`, glmp `8a0b8cd`. Third wave: CW `89af4aa7b`, glmp `41e3bed`. Fourth wave: CW `254b82bbe`, glmp `d173663`. Fifth wave: CW `8cfdea764`, glmp `2c506ce`. Sixth wave: CW `12c407614`, glmp `f996d68`. Seventh wave: CW `d094b9bec`, glmp `7664b89`. Eighth wave: CW `4a37a8225`, glmp `e31c9a8`. Ninth-wave chart JSON and this handoff commit next. Live GCS and Firestore sources for waves 2–9 were merged. `chart_repair*.json` stays uncommitted. Remaining unique-repairable collisions: **none**. Remainder is leftover-stripped / empty-abstract / Crossref-twin cases. Do not mark the goal complete.
 
 ---
 
