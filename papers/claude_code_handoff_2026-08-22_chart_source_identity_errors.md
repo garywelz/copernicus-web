@@ -345,9 +345,44 @@ Haber 2012 mating-type; Pfanner 2019; Neupert 2007; 2016 26S proteasome; Wanner 
 
 ---
 
+## Confirmed-only batch (22 August 2026, fifth wave)
+
+Same method. 19 chart-row retitles (18 papers; Kaczanowska patched on both trees) + 9 leftover strips. Previously skipped informal-title rows (RecA, both MMR reviews, Hippo, ribosome Kaczanowska) were unique author+year or same-paper informal vs official, so they were retitled rather than left leftover. Synthetic-circuit charts were included. GCS three prefixes and Firestore sources-only merge + per-doc re-embed for 13 process IDs. Crossref twins not overwritten. Hippo author+year is not unique across the lab’s 2015 papers, but DOI `10.1016/j.cell.2015.10.044` / PMID `26544935` uniquely is the Yu+Zhao+Guan Cell review; kept IDs and retitled.
+
+### Confirmed retitles (19)
+
+| Chart | Old IDs | Confirmed | Ingest | Live |
+|---|---|---|---|---|
+| `ecoli_homologous_recombination` Chen+Pavletich 2008 | DOI `10.1038/nature07003` (Drosophila); PMID already official | PMID `18497818` DOI `10.1038/nature06971` *Mechanism of homologous recombination from the RecA-ssDNA/dsDNA structures.* | `pubmed_18497818` | identifier + abstract |
+| `ecoli_mismatch_repair` Kunkel+Erie 2005 | titles swapped with Modrich; IDs already official | PMID `15952900` DOI `10.1146/annurev.biochem.74.082803.133243` *DNA mismatch repair.* | `pubmed_15952900` | identifier + abstract |
+| `ecoli_mismatch_repair` Modrich+Lahue 1996 | titles swapped with Kunkel; IDs already official | PMID `8811176` DOI `10.1146/annurev.bi.65.070196.000533` *Mismatch repair in replication fidelity…* | `pubmed_8811176` | identifier + abstract |
+| `ecoli_ribosome_assembly` Kaczanowska 2007 | glmp informal title; CW FEMS `17371510` | PMID `17804668` DOI `10.1128/mmbr.00013-07` *Ribosome biogenesis and the translation process in Escherichia coli.* | `pubmed_17804668` | identifier + abstract |
+| `human_hippo_yap` Yu+Guan 2015 | informal title; IDs already official | PMID `26544935` DOI `10.1016/j.cell.2015.10.044` *Hippo Pathway in Organ Size Control…* | `pubmed_26544935` | identifier + abstract |
+| `human_hippo_yap` Zhao+Guan 2007 | official title slightly longer; IDs already official | PMID `17974916` DOI `10.1101/gad.1602907` | `pubmed_17974916` | identifier + abstract |
+| `synthetic_crispra_layered_logic` Gilbert+Qi 2013 | PMID `23890179` (rhinovirus); DOI already official | PMID `23849981` DOI `10.1016/j.cell.2013.06.044` | `pubmed_23849981` | identifier + abstract |
+| `synthetic_crispr_recorder` Farzadfard 2019 | PMID `31302002`; DOI already official | PMID `31442423` DOI `10.1016/j.molcel.2019.07.011` | `pubmed_31442423` | identifier + abstract |
+| `synthetic_crispr_recorder` Farzadfard+Lu 2014 | official title; IDs already official | PMID `25395541` DOI `10.1126/science.1256272` | `pubmed_25395541` | identifier + abstract |
+| `synthetic_dcas9_logic` Gander+Klavins 2017 | PMID `28526819`; DOI already official | PMID `28541304` DOI `10.1038/ncomms15459` | `pubmed_28541304` | identifier + abstract |
+| `synthetic_protease_and_gate` Win+Smolke 2007 | PMID `17715057`; DOI already official | PMID `17709748` DOI `10.1073/pnas.0703961104` | `pubmed_17709748` | identifier + abstract |
+| `synthetic_theophylline_riboswitch` Desai+Gallivan 2004 | PMID `15479073`; DOI already official | PMID `15479078` DOI `10.1021/ja048634j` | `pubmed_15479078` | identifier + abstract |
+| `ecoli_cell_division` Rowlett+Margolin 2015 | PMID `25741323`; DOI already official | PMID `26029202` DOI `10.3389/fmicb.2015.00478` | `pubmed_26029202` | identifier + abstract |
+| `ecoli_cell_division` Meeske+Bernhardt 2016 | PMID `26840489` DOI `10.1038/nature16966` | PMID `27525505` DOI `10.1038/nature19331` | `pubmed_27525505` | identifier + abstract |
+| `ecoli_dna_replication_elongation` Johnson+O'Donnell 2005 | informal title; IDs already official | PMID `15952889` DOI `10.1146/annurev.biochem.73.011303.073859` *Cellular DNA replicases…* | `pubmed_15952889` | identifier + abstract |
+| `ecoli_oxidative_stress_response` Greenberg+Demple 1990 | PMID `2164424`; DOI already official | PMID `1696718` DOI `10.1073/pnas.87.16.6181` | `pubmed_1696718` | identifier + abstract |
+| `ecoli_oxidative_stress_response` Choi+Storz 2001 | PMID `11323133` DOI `…00531-2` | PMID `11301006` DOI `10.1016/s0092-8674(01)00300-2` | `pubmed_11301006` | identifier + abstract |
+| `yeast_mating_response` Brizzio 1996 | PMID `8655580`; DOI already official | PMID `8991086` DOI `10.1083/jcb.135.6.1727` | `pubmed_8991086` | identifier + abstract |
+
+Hippo/Zhao and Farzadfard 2014 are glmp-only charts (no CW twin). Synthetic charts are glmp-only.
+
+### Leftovers stripped this batch
+
+Erickson 2010 FtsZ filament; den Blaauwen 2008 Divisome; McHenry 2011 Pol III; Robinson+van Oijen 2013 replisome; Sauer 2022 nucleosome/replisome; Storz 1990 OxyR; Hidalgo+Demple 1997 SoxR; Bardwell 2004 pheromone; Dohlman 2001 Science pheromone.
+
+---
+
 ## Chart JSON / metadata
 
-Nine-chart: copernicus-web `a3c791e71`, glmp `1e879f8`. Second wave: CW `422dea029` / `1febc208b`, glmp `8a0b8cd`. Third wave: CW `89af4aa7b`, glmp `41e3bed`. Fourth-wave chart JSON and this handoff commit next. Live GCS and Firestore sources for waves 2–4 were merged. `chart_repair*.json` stays uncommitted.
+Nine-chart: copernicus-web `a3c791e71`, glmp `1e879f8`. Second wave: CW `422dea029` / `1febc208b`, glmp `8a0b8cd`. Third wave: CW `89af4aa7b`, glmp `41e3bed`. Fourth wave: CW `254b82bbe`, glmp `d173663`. Fifth-wave chart JSON and this handoff commit next. Live GCS and Firestore sources for waves 2–5 were merged. `chart_repair*.json` stays uncommitted. Remaining collisions after this wave: **~144** of the original 264 (row-based; scan file is stale).
 
 ---
 
