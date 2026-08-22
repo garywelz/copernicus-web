@@ -523,7 +523,33 @@ No more unique repairs among remaining live mismatches.
 
 ## Chart JSON / metadata
 
-Nine-chart: copernicus-web `a3c791e71`, glmp `1e879f8`. Second wave: CW `422dea029` / `1febc208b`, glmp `8a0b8cd`. Third wave: CW `89af4aa7b`, glmp `41e3bed`. Fourth wave: CW `254b82bbe`, glmp `d173663`. Fifth wave: CW `8cfdea764`, glmp `2c506ce`. Sixth wave: CW `12c407614`, glmp `f996d68`. Seventh wave: CW `d094b9bec`, glmp `7664b89`. Eighth wave: CW `4a37a8225`, glmp `e31c9a8`. Ninth-wave chart JSON and this handoff commit next. Live GCS and Firestore sources for waves 2–9 were merged. `chart_repair*.json` stays uncommitted. Remaining unique-repairable collisions: **none**. Remainder is leftover-stripped / empty-abstract / Crossref-twin cases. Do not mark the goal complete.
+Nine-chart: copernicus-web `a3c791e71`, glmp `1e879f8`. Second wave: CW `422dea029` / `1febc208b`, glmp `8a0b8cd`. Third wave: CW `89af4aa7b`, glmp `41e3bed`. Fourth wave: CW `254b82bbe`, glmp `d173663`. Fifth wave: CW `8cfdea764`, glmp `2c506ce`. Sixth wave: CW `12c407614`, glmp `f996d68`. Seventh wave: CW `d094b9bec`, glmp `7664b89`. Eighth wave: CW `4a37a8225`, glmp `e31c9a8`. Ninth-wave chart JSON and this handoff commit next. Live GCS and Firestore sources for waves 2–9 were merged. `chart_repair*.json` stays uncommitted. Remaining unique-repairable collisions: **none**. Remainder is leftover-stripped titles, empty-abstract papers, and leftover informal titles. Do not mark the goal complete.
+
+---
+
+## Ask Claude Code: editorial synopses for remaining empty abstracts
+
+Englesberg 1974 and Nurse 1997 now have Gary-approved editorial synopses on the KE `abstract` field (`abstract_source=editorial_synopsis_not_original_abstract`). EuropePMC and Crossref still have **no published abstract** for the papers below. Same treatment as Englesberg/Nurse/Jacob: write a short editorial synopsis, Gary reviews, then store on the listed Firestore `paper_id` with that `abstract_source` plus an `abstract_note`. Do **not** invent a publisher abstract. Do **not** overwrite a different KE doc.
+
+| Paper | KE id | PMID | DOI |
+|---|---|---|---|
+| Gerhart & Schachman 1965 *Distinct subunits… aspartate transcarbamylase* | `pubmed_5320387` | `5320387` | `10.1021/bi00882a012` |
+| LaPorte 1982 *A protein with kinase and phosphatase activities… TCA cycle* | `pubmed_6292732` | `6292732` | `10.1038/300458a0` |
+| Gibson & Pittard 1968 *Pathways of biosynthesis of aromatic amino acids…* | `pubmed_4884716` | `4884716` | `10.1128/mmbr.32.4_pt_2.465-492.1968` |
+| Staley & Guthrie 1998 *Mechanical devices of the spliceosome…* | `pubmed_9476892` | `9476892` | `10.1016/s0092-8674(00)80925-3` |
+| Kolb 1993 *Transcriptional regulation by cAMP and its receptor protein* | `pubmed_8394684` | `8394684` | `10.1146/annurev.bi.62.070193.003533` |
+| Little & Mount 1982 *The SOS regulatory system of Escherichia coli* | `pubmed_7049397` | `7049397` | `10.1016/0092-8674(82)90085-x` |
+| Cunin et al. 1986 *Biosynthesis and metabolism of arginine in bacteria* | `pubmed_3534538` | `3534538` | `10.1128/mr.50.3.314-352.1986` |
+| Pringle & Hartwell 1981/1988 *Life cycle of the budding yeast…* | `pubmed_3070323` | `3070323` | `10.1128/mr.52.4.536-553.1988` |
+| Ciechanover 1998 *The ubiquitin-proteasome pathway…* | `pubmed_9857172` | `9857172` | `10.1093/emboj/17.24.7151` |
+| Chen & Dubnau 2004 *DNA uptake during bacterial transformation* | `pubmed_15083159` | `15083159` | `10.1038/nrmicro844` |
+| Truglio et al. 2006 *Prokaryotic nucleotide excision repair: the UvrABC system* | `pubmed_16464004` | `16464004` | `10.1021/cr040471u` |
+| Rock & Jackowski 2002 *Forty years of bacterial fatty acid synthesis* | `pubmed_11969206` | `11969206` | `10.1006/bbrc.2001.2022` |
+| Buck et al. 2000 *The bacterial enhancer-dependent sigma(54)* | `pubmed_10894718` | `10894718` | `10.1128/jb.182.15.4129-4136.2000` |
+| Ingledew & Poole 1984 *The respiratory chains of Escherichia coli* | `pubmed_6387427` | `6387427` | `10.1128/mr.48.3.222-271.1984` |
+| Fothergill-Gilmore & Michels 1993 *Evolution of glycolysis* | `pubmed_8426905` | `8426905` | `10.1016/0079-6107(93)90001-z` |
+
+LaPorte `pubmed_6292732` must stay empty until a real synopsis is approved. Do **not** copy from `pubmed_6750117` (ibuprofen paper; old colliding PMID).
 
 ---
 
@@ -536,7 +562,7 @@ old IDs are never put back on the charts.
 |---|---|---|
 | Schleif 2000 PNAS DOI / PMID `10899998` | DOI 404; PMID was hair-cycle paper | Schleif 2000 *Trends Genet* `11102706` |
 | Napoli 2006 chart DOI `10.1016/j.str.2005.11.021` / PMID `16531234` | Iengar β-helix / titin | Napoli *JMB* `16427082` |
-| Nurse 1997 Science DOI / PMID `9220155` | DOI fictitious; PMID was *E. bieneusi* | IDs stripped; no real Nurse 1997 Science paper |
+| Nurse 1997 Science DOI / PMID `9220155` | DOI fictitious; PMID was *E. bieneusi* | Nurse 1997 *Cell* commentary `9428508` + editorial synopsis |
 | Levine PMID `33197221` | immune-checkpoint review | IDs stripped |
 | Mizushima PMID `21157483` | mTOR review | Mizushima 2011 Atg `21801009` |
 | Leonard 2015 JBC DOI / PMID `26350459` | DOI 404; PMID was *P. putida* | Leonard/Grimwade 2015 orisome `26082765` |
@@ -556,7 +582,7 @@ old IDs are never put back on the charts.
 - Retitling Qi/Elion or other non-unique leftovers.
 - Inventing a Nurse 1997 *Science* paper.
 - Reassigning the Levine title to Mizushima.
-- Inventing an Englesberg abstract.
+- Inventing publisher abstracts. Editorial synopses only with Gary's approval (Englesberg and Nurse already applied).
 - Re-running the whole A1 harvest.
 - Committing metadata JSON, GAL mermaid, or website-only listing unless
   Gary asks. Chart-JSON identity corrections in both repos are authorized.
