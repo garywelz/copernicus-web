@@ -229,7 +229,51 @@ clean**. Do not treat the rest of GLMP as identity-safe.
 
 264 colliding IDs span **73** `glmp` processes (plus overlapping copernicus-web copies). Same pattern as the nine-chart work: the stored PMID/DOI often names an unrelated article. Examples: biofilm DOI `10.1038/nature04187` resolves to a yeast phosphoproteome paper; ArcA PMID `3054468` resolves to a plasmid-classification paper; arginine-repressor PMID `7854251` resolves to a dehalogenase review.
 
-**Not repaired this pass.** Each row still needs author+year uniqueness before a retitle/ingest. Do not overwrite the wrong KE doc. Do not invent leftovers on the original nine charts.
+A confirmed-only batch on 22 August closed **26** of those colliding chart rows (20 unique retitles + 6 non-unique leftover strips). **~238 of 264 remain.** Do not mark the goal complete. Skip the original-nine leftovers (Kimata, Sourjik 2004, Xie, Levine, Nurse, Qi/Elion, Englesberg). Do not overwrite a KE doc that belongs to a different paper.
+
+---
+
+## Confirmed-only batch (22 August 2026, second wave)
+
+Author + year + topic uniqueness only. Old PMID/DOI ignored as identity. Official ingest `--include-glob "**/chart_repair*.json" --no-skip-existing`. Chart `sources` updated in both repos when the colliding row existed in both (CW often has a different source list — those unpatched CW files were left alone). GCS: three prefixes. Firestore `glmp_processes`: sources-only `update()` + per-doc re-embed for the 22 process IDs below. Old colliding KE docs were not overwritten.
+
+### Confirmed retitles (20)
+
+| Chart | Old IDs | Confirmed | Ingest | Live `/resolve-paper` |
+|---|---|---|---|---|
+| `ecoli_anaerobic_respiration` Iuchi & Lin 1988 | PMID `3054468` DOI `10.1128/mr.52.4.452-469.1988` | PMID `2964639` DOI `10.1073/pnas.85.6.1888` *arcA (dye), a global regulatory gene…* | `pubmed_2964639` | identifier + abstract (PMID and DOI) |
+| `ecoli_arginine_biosynthesis` Maas 1994 | PMID `7854251` (DOI already correct) | PMID `7854250` DOI `10.1128/mr.58.4.631-640.1994` *The arginine repressor of Escherichia coli.* | `pubmed_7854250` | identifier + abstract |
+| `ecoli_biofilm_formation` Bokranz 2005 | PMID `15640219` | PMID `16278431` DOI `10.1099/jmm.0.46064-0` *Expression of cellulose and curli fimbriae…* | `pubmed_16278431` | identifier + abstract |
+| `ecoli_biofilm_formation` Flemming 2023 | PMID `36864250` (title already official) | PMID `36127518` DOI `10.1038/s41579-022-00791-0` | `pubmed_36127518` | identifier + abstract |
+| `ecoli_catabolite_repression` Busby & Ebright 1999 | PMID `10367881` DOI `10.1016/S0092-8674(00)80764-5` | PMID `10550204` DOI `10.1006/jmbi.1999.3161` *Transcription activation by CAP* | `pubmed_10550204` | identifier + abstract |
+| `ecoli_catabolite_repression` Görke & Stülke 2008 | PMID `18626614` DOI `10.1007/s00203-008-0429-6` | PMID `18628769` DOI `10.1038/nrmicro1932` *Carbon catabolite repression in bacteria…* | `pubmed_18628769` | identifier + abstract |
+| `ecoli_catabolite_repression` Kolb et al. 1993 | PMID `8341589` DOI `10.1093/nar/21.14.3171` | PMID `8394684` DOI `10.1146/annurev.bi.62.070193.003533` *Transcriptional regulation by cAMP and its receptor protein.* | `pubmed_8394684` | identifier; **abstract empty** (none in EuropePMC — do not invent) |
+| `ecoli_dna_damage_checkpoint` Little et al. 1980 | PMID `6449016` (DOI already correct) | PMID `6447873` DOI `10.1073/pnas.77.6.3225` *Cleavage of the E. coli lexA protein by the recA protease.* | `pubmed_6447873` | identifier + abstract |
+| `ecoli_dna_replication_termination` Neylon 2005 | PMID `15686551` DOI `10.1111/j.1365-2958.2005.04473.x` (Bacillus CcpN) | PMID `16148308` DOI `10.1128/mmbr.69.3.501-526.2005` *Replication termination in Escherichia coli…* | `pubmed_16148308` | identifier + abstract |
+| `ecoli_flagellar_assembly` Minamino 2008 | PMID `18950710` (DOI already official paper) | PMID `18848888` DOI `10.1016/j.sbi.2008.09.006` | `pubmed_18848888` | PMID identifier + abstract. DOI hits older `crossref_10.1016_j.sbi.2008.09.006` (`identifier_wrong_project`, empty abstract) — same paper twin, not overwritten |
+| `ecoli_heavy_metal_resistance` Franke 2003 | PMID `12682013` DOI `10.1093/emboj/cdg239` (hair morphogenesis) | PMID `12813074` DOI `10.1128/jb.185.13.3804-3812.2003` *Molecular analysis of … CusCFBA* | `pubmed_12813074` | identifier + abstract |
+| `ecoli_homologous_recombination` Saito 1995 | PMID `7489502` | PMID `7638215` DOI `10.1073/pnas.92.16.7470` *…catalytic center of the RuvC…* | `pubmed_7638215` | identifier + abstract |
+| `ecoli_homologous_recombination` Smith 2012 | PMID `22503770` DOI `10.1016/j.tig.2012.03.002` (CNV review) | PMID `22688812` DOI `10.1128/mmbr.05026-11` *How RecBCD enzyme and Chi promote DNA break repair…* | `pubmed_22688812` | identifier + abstract |
+| `ecoli_sos_lexa` Little & Mount 1982 | PMID `7053433` (DOI already official) | PMID `7049397` DOI `10.1016/0092-8674(82)90085-x` | `pubmed_7049397` | identifier; **abstract empty** (none in EuropePMC — do not invent) |
+| `ecoli_pentose_phosphate_pathway` Stincone 2015 | PMID `25585159` DOI `10.1038/nrm3934` (APC/mitosis) | PMID `25243985` DOI `10.1111/brv.12140` *The return of metabolism… pentose phosphate pathway.* | `pubmed_25243985` | identifier + abstract |
+| `ecoli_phage_defense` Marraffini & Sontheimer 2010 | PMID `20548291` (DOI already official) | PMID `20125085` DOI `10.1038/nrg2749` *CRISPR interference: RNA-directed adaptive immunity…* | `pubmed_20125085` | identifier + abstract |
+| `yeast_chromatin_silencing` Rusche, Kirchmaier, Rine 2003 | PMID `12676795` (DOI already official) | PMID `12676793` DOI `10.1146/annurev.biochem.72.121801.161547` | `pubmed_12676793` | identifier + abstract |
+| `yeast_cell_wall_integrity` Levin 2005 | PMID `16339739` DOI `10.1128/MMBR.69.4.262-291.2005` | PMID `15944456` DOI `10.1128/mmbr.69.2.262-291.2005` *Cell wall integrity signaling in Saccharomyces cerevisiae.* | `pubmed_15944456` | identifier + abstract |
+| `yeast_snf1_pathway` Hedbacker & Carlson 2008 | PMID `18299209` DOI `10.1016/j.bbapap.2008.01.013` (Zic/Gli CD spectra) | PMID `17981722` DOI `10.2741/2854` *SNF1/AMPK pathways in yeast.* | `pubmed_17981722` | identifier + abstract |
+| `yeast_pka_pathway` Thevelein & de Winde 1999 | PMID `10510231` (DOI already official paper) | PMID `10476026` DOI `10.1046/j.1365-2958.1999.01538.x` *Novel sensing mechanisms and targets for the cAMP-protein kinase A pathway…* | `pubmed_10476026` | identifier + abstract |
+
+### Leftovers stripped this batch (author+year not unique)
+
+| Chart | Old IDs | Leftover |
+|---|---|---|
+| `ecoli_pho_regulon` Wanner 1996 | PMID `8752318` DOI `10.1128/jb.178.17.5024-5032.1996` | stripped — several 1996 Wanner phosphate/Pho papers |
+| `ecoli_outer_membrane_assembly` Ricci & Silhavy 2012 | PMID `22889723` DOI `10.1016/j.bbamcr.2012.04.007` (neuron mitochondria) | stripped — three 2012 BAM papers |
+| `ecoli_nucleotide_biosynthesis` Zalkin & Dixon 1992 | PMID `1410045` DOI `10.1016/s0079-6603(08)60364-4` | stripped — not unique |
+| `bacillus_biofilm_formation` Vlamakis et al. 2013 | PMID `23979428` DOI `10.1038/nrmicro3103` | stripped — several 2013 biofilm papers |
+| `yeast_nitrogen_metabolism` Cooper 2002 | PMID `12493770` DOI `10.1111/j.1574-6976.2002.tb00614.x` (viral killer) | stripped — several 2002 Cooper nitrogen papers |
+| `human_bcl2_bax_momp` Chipuk & Green 2008 | PMID `18505631` DOI `10.1016/j.jaci.2007.10.026` (allergy immunotherapy) | stripped — several 2008 Chipuk/Green apoptosis papers |
+
+Skipped as likely same-paper / informal-title false positives (not in this batch): Hippo `26544935`; mismatch-repair `15952900` / `8811176`; glycolysis PTS DOI `10.1128/mr.57.3.543-594.1993`; RecA `18497818`; ribosome `17804668`.
 
 ---
 
@@ -237,9 +281,10 @@ clean**. Do not treat the rest of GLMP as identity-safe.
 
 The eight repaired nine-chart JSONs, GAL mermaid, and website-only 260010
 listing are on `copernicus-web` `main` (`a3c791e71`). Matching `sources`
-are on `glmp` `main` (`1e879f8`). Live GCS `glmp-v2` and Firestore
-`glmp_processes` sources for those eight were merged. `chart_repair*.json`
-metadata stays uncommitted (KE already ingested).
+are on `glmp` `main` (`1e879f8`). This second-wave chart-JSON identity
+batch is local until committed. Live GCS `glmp-v2` / `glmp-processes-database`
+and Firestore `glmp_processes` sources for the 22 process IDs above were
+merged. `chart_repair*.json` metadata stays uncommitted (KE already ingested).
 
 ---
 
@@ -274,5 +319,5 @@ old IDs are never put back on the charts.
 - Reassigning the Levine title to Mizushima.
 - Inventing an Englesberg abstract.
 - Re-running the whole A1 harvest.
-- Committing chart JSON, metadata JSON, GAL mermaid, or website-only listing
-  unless Gary asks.
+- Committing metadata JSON, GAL mermaid, or website-only listing unless
+  Gary asks. Chart-JSON identity corrections in both repos are authorized.
