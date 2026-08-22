@@ -229,7 +229,7 @@ clean**. Do not treat the rest of GLMP as identity-safe.
 
 264 colliding IDs span **73** `glmp` processes (plus overlapping copernicus-web copies). Same pattern as the nine-chart work: the stored PMID/DOI often names an unrelated article. Examples: biofilm DOI `10.1038/nature04187` resolves to a yeast phosphoproteome paper; ArcA PMID `3054468` resolves to a plasmid-classification paper; arginine-repressor PMID `7854251` resolves to a dehalogenase review.
 
-Confirmed-only batches on 22 August closed **92 + 32 + 28 + 37** colliding chart rows across six waves. **~107 of 264 remain.** Do not mark the goal complete. Skip already-handled leftovers. Do not overwrite a KE doc that belongs to a different paper or a same-paper Crossref twin.
+Confirmed-only batches on 22 August closed **92 + 32 + 28 + 37 + 44** colliding chart rows across seven waves. **~63 of 264 remain.** Do not mark the goal complete. Skip already-handled leftovers. Do not overwrite a KE doc that belongs to a different paper or a same-paper Crossref twin. Leave the three surplus KE papers alone (Levine 2019 Cell, Mizushima & Komatsu 2011 Cell, Xie & Klionsky 2007 Nat Cell Biol).
 
 ---
 
@@ -418,9 +418,61 @@ Borisov 2011 respiration; Portnoy 2008 anaerobiosis; Gong 2011 acid resistance; 
 
 ---
 
+## Confirmed-only batch (22 August 2026, seventh wave)
+
+Same method. Prefer remaining IDs that still live-resolve to the wrong paper. 37 chart-row retitles (36 papers; Weixlbaumer patched on both elongation and termination charts) + 14 leftover strips. 7 of the 37 were informal-title keep-ID retitles. GCS three prefixes. Firestore sources-only merge + per-doc re-embed for the 15 process IDs whose glmp twin was patched; CW-only rows were not used to overwrite a previously repaired glmp Firestore source list. Crossref twins not overwritten. Nurse/Englesberg chart rows were not touched. Surplus KE papers (Levine 2019, Mizushima & Komatsu 2011, Xie & Klionsky 2007) left alone.
+
+### Confirmed retitles (37)
+
+| Chart | Old IDs | Confirmed | Ingest | Live |
+|---|---|---|---|---|
+| `ecoli_amino_acid_biosynthesis` Gibson 1968 | PMID `4883395` DOI `10.1128/br.32.4.465-492.1968` | PMID `4884716` DOI `10.1128/mmbr.32.4_pt_2.465-492.1968` | `pubmed_4884716` | identifier; **abstract empty** (none in EuropePMC — do not invent) |
+| `ecoli_heavy_metal_resistance` Brocklehurst 1999 | PMID `10383764` DOI `10.1046/j.1365-2958.1999.01459.x` | PMID `10048032` DOI `10.1046/j.1365-2958.1999.01229.x` | `pubmed_10048032` | identifier + abstract |
+| `ecoli_heavy_metal_resistance` Rensing 2000 | PMID `10716729`; DOI already official | PMID `10639134` DOI `10.1073/pnas.97.2.652` | `pubmed_10639134` | PMID identifier + abstract; DOI = older Crossref twin |
+| `ecoli_pho_regulon` Surin 1985 | PMID `2981804` | PMID `3881386` DOI `10.1128/jb.161.1.189-198.1985` | `pubmed_3881386` | identifier + abstract |
+| `ecoli_translation_elongation` Nissen 2000 | PMID `10926528`; DOI already official | PMID `10937990` DOI `10.1126/science.289.5481.920` | `pubmed_10937990` | PMID identifier + abstract; DOI = older Crossref twin |
+| `yeast_cell_cycle_checkpoints` Weinert 1988 | PMID `3046045` DOI `10.1126/science.3046045` | PMID `3291120` DOI `10.1126/science.3291120` | `pubmed_3291120` | identifier + abstract |
+| `yeast_cell_cycle_checkpoints` Li 1991 | PMID `1716335` DOI `10.1016/0092-8674(91)90013-C` | PMID `1651172` DOI `10.1016/0092-8674(81)90015-5` | `pubmed_1651172` | identifier + abstract |
+| `yeast_er_stress_response` Mori 1993 | PMID `8358788` DOI `10.1016/0092-8674(93)90299-F` | PMID `8358794` DOI `10.1016/0092-8674(93)90521-q` | `pubmed_8358794` | identifier + abstract |
+| `yeast_mapk_mating` Choi 1994 | PMID `7968393` DOI `10.1128/mcb.14.11.7329-7339.1994` | PMID `8062390` DOI `10.1016/0092-8674(94)90427-8` | `pubmed_8062390` | identifier + abstract |
+| `yeast_tor_signaling` Loewith 2002 | PMID `12150915`; DOI already official | PMID `12408816` DOI `10.1016/s1097-2765(02)00636-6` | `pubmed_12408816` | PMID identifier + abstract; DOI = older Crossref twin |
+| `yeast_ribosome_biogenesis` Woolford 2013 | PMID `24204128` DOI `10.1534/genetics.113.151121` | PMID `24190922` DOI `10.1534/genetics.113.153197` | `pubmed_24190922` | identifier + abstract |
+| `yeast_rna_splicing` Staley 1998 | PMID `9529249` DOI `10.1016/s0092-8674(00)81404-9` | PMID `9476892` DOI `10.1016/s0092-8674(00)80925-3` | `pubmed_9476892` | identifier; **abstract empty** (none in EuropePMC — do not invent) |
+| `ecoli_transcription_regulation` Browning 2004 | informal title; IDs already official | PMID `15035009` DOI `10.1038/nrmicro787` | `pubmed_15035009` | identifier + abstract |
+| `human_hsf1_heat_shock` Anckar 2011 | informal title; IDs already official | PMID `21417720` DOI `10.1146/annurev-biochem-060809-095203` | `pubmed_21417720` | identifier + abstract |
+| `ecoli_nucleotide_excision_repair` Sancar 1983 | informal title; IDs already official | PMID `6380755` DOI `10.1016/0092-8674(83)90354-9` | `pubmed_6380755` | identifier + abstract |
+| `ecoli_transcription_regulation` Saecker 2011 | informal title; IDs already official | PMID `21371479` DOI `10.1016/j.jmb.2011.01.018` | `pubmed_21371479` | identifier + abstract |
+| `ecoli_nucleotide_excision_repair` Truglio 2006 | informal title; IDs already official | PMID `16532007` DOI `10.1038/nsmb1072` | `pubmed_16532007` | identifier + abstract |
+| `ecoli_base_excision_repair` Kuo 1992 | informal title; IDs already official | PMID `1411536` DOI `10.1126/science.1411536` | `pubmed_1411536` | identifier + abstract |
+| `ecoli_outer_membrane_assembly` Voulhoux 2003 | PMID `12702812` DOI `10.1126/science.1082531` | PMID `12522254` DOI `10.1126/science.1078973` | `pubmed_12522254` | identifier + abstract |
+| `ecoli_phosphate_transport` Hsieh 2010 | PMID `20554707` DOI `10.1101/cshperspect.a000492` | PMID `20171928` DOI `10.1016/j.mib.2010.01.014` | `pubmed_20171928` | identifier + abstract |
+| `yeast_pka_pathway` Broach 2012 | PMID `23144415` DOI `10.1534/genetics.112.145330` | PMID `22964838` DOI `10.1534/genetics.111.135731` | `pubmed_22964838` | identifier + abstract |
+| `yeast_meiosis_regulation` Vershon 2000 | PMID `10801461`; DOI already official | PMID `10801467` DOI `10.1016/s0955-0674(00)00104-6` | `pubmed_10801467` | identifier + abstract |
+| `yeast_meiosis_regulation` Kassir 2003 | PMID `12722949`; DOI already official | PMID `12722950` DOI `10.1016/s0074-7696(05)24004-4` | `pubmed_12722950` | identifier + abstract |
+| `yeast_rna_splicing` Yan 2015 | PMID `25977550` DOI `10.1126/science.aab3935` | PMID `26292707` DOI `10.1126/science.aac7629` | `pubmed_26292707` | identifier + abstract |
+| `yeast_cell_wall_integrity` Levin 2005 | PMID `16153177` DOI `10.1146/annurev.micro.59.030704.101037` | PMID `15944456` DOI `10.1128/mmbr.69.2.262-291.2005` | `pubmed_15944456` | identifier + abstract |
+| `ecoli_aerobic_respiration` Unden 1997 | PMID `9343358` DOI `10.1146/annurev.micro.51.1.795` | PMID `9230919` DOI `10.1016/s0005-2728(97)00034-0` | `pubmed_9230919` | identifier + abstract |
+| `ecoli_anaerobic_respiration` Leonardo 1996 | PMID `8631678` DOI `10.1128/jb.178.11.3391-3393.1996` | PMID `8830700` DOI `10.1128/jb.178.20.6013-6018.1996` | `pubmed_8830700` | identifier + abstract |
+| `ecoli_mismatch_repair` Warren 2007 | informal title; IDs already official | PMID `17531815` DOI `10.1016/j.molcel.2007.04.018` | `pubmed_17531815` | identifier + abstract |
+| `yeast_dna_replication` Bell 1992 | PMID `1374780`; DOI already official | PMID `1579162` DOI `10.1038/357128a0` | `pubmed_1579162` | identifier + abstract |
+| `yeast_er_stress_response` Cox 1996 | PMID `8898196` DOI `10.1016/S0092-8674(00)80138-1` | PMID `8898193` DOI `10.1016/s0092-8674(00)81360-4` | `pubmed_8898193` | identifier + abstract |
+| `yeast_chromatin_silencing` Imai 2000 | PMID `10688204` DOI `10.1038/35003502` | PMID `10693811` DOI `10.1038/35001622` | `pubmed_10693811` | identifier + abstract |
+| `ecoli_translation_elongation` Weixlbaumer 2008 | PMID `18408881` DOI `10.1038/nature06700` | PMID `18596689` DOI `10.1038/nature07115` | `pubmed_18596689` | identifier + abstract |
+| `ecoli_translation_termination` Weixlbaumer 2008 | same colliding IDs | same `18596689` | `pubmed_18596689` | identifier + abstract |
+| `yeast_snf1_pathway` Hardie 1998 | PMID `9774302` DOI `10.1093/emboj/17.20.5779` | PMID `9759505` DOI `10.1146/annurev.biochem.67.1.821` | `pubmed_9759505` | identifier + abstract |
+| `yeast_nucleotide_excision_repair` Guzder 1994 | PMID `8119565` DOI `10.1016/S0021-9258(17)37493-2` | PMID `8202161` DOI `10.1038/369578a0` | `pubmed_8202161` | identifier + abstract |
+| `ecoli_dna_replication_termination` Duggin 2009 | PMID `19220742` DOI `10.1111/j.1365-2958.2008.06478.x` | PMID `19233209` DOI `10.1016/j.jmb.2009.02.027` | `pubmed_19233209` | identifier + abstract |
+| `yeast_pka_pathway` Toda 1987 | PMID `2820067` DOI `10.1128/MCB.7.4.1371` | PMID `3036373` DOI `10.1016/0092-8674(87)90223-6` | `pubmed_3036373` | identifier + abstract |
+
+### Leftovers stripped this batch
+
+Romero 2011 amyloid biofilm; Vlamakis 2013 genetic architecture; Moir 1990 germination; Setlow 2014 germination; Umbarger 1969; Umbarger 1978 (PMID `354503` occupied by a different KE/EuropePMC record — do not overwrite); Khoroshilova 1997 Science FNR title not found; Georgellis 2001 ArcB/quinone; Grossman 1984 RpoH; Cronan 2004 fatty acid; Elion 1991 FUS3; Yan 2017 spliceosome; Artsimovitch 2000 NusG; Knowles 2009 BamA.
+
+---
+
 ## Chart JSON / metadata
 
-Nine-chart: copernicus-web `a3c791e71`, glmp `1e879f8`. Second wave: CW `422dea029` / `1febc208b`, glmp `8a0b8cd`. Third wave: CW `89af4aa7b`, glmp `41e3bed`. Fourth wave: CW `254b82bbe`, glmp `d173663`. Fifth wave: CW `8cfdea764`, glmp `2c506ce`. Sixth-wave chart JSON and this handoff commit next. Live GCS and Firestore sources for waves 2–6 were merged. `chart_repair*.json` stays uncommitted. Remaining collisions after this wave: **~107** of the original 264 (row-based; scan file is stale).
+Nine-chart: copernicus-web `a3c791e71`, glmp `1e879f8`. Second wave: CW `422dea029` / `1febc208b`, glmp `8a0b8cd`. Third wave: CW `89af4aa7b`, glmp `41e3bed`. Fourth wave: CW `254b82bbe`, glmp `d173663`. Fifth wave: CW `8cfdea764`, glmp `2c506ce`. Sixth wave: CW `12c407614`, glmp `f996d68`. Seventh-wave chart JSON and this handoff commit next. Live GCS and Firestore sources for waves 2–7 were merged. `chart_repair*.json` stays uncommitted. Remaining collisions after this wave: **~63** of the original 264 (row-based; 107 − 30 ID replacements − 14 leftover strips; scan file is stale).
 
 ---
 
