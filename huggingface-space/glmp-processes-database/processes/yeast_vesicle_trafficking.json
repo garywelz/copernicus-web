@@ -66,7 +66,7 @@
     "secretory pathway",
     "Sar1"
   ],
-  "lastUpdated": "2026-01-08",
+  "lastUpdated": "2026-08-22",
   "logicGates": {
     "and": 11,
     "not": 3,
@@ -92,31 +92,32 @@
   "source": "programming_framework",
   "sources": [
     {
-      "title": "COPII coat formation, vesicle budding, and cargo selection",
-      "authors": "Aridor M, Barlowe C, Schekman R.",
-      "journal": "Cell",
+      "title": "Sequential coupling between COPII and COPI vesicle coats in endoplasmic reticulum to Golgi transport.",
+      "authors": "Aridor M, Bannykh SI, Rowe T, Balch WE",
+      "journal": "The Journal of cell biology",
       "year": "1995",
-      "pubmed": "7600570",
-      "doi": "10.1016/0092-8674(95)90123-X",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/7600570"
+      "pubmed": "7490291",
+      "doi": "10.1083/jcb.131.4.875",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/7490291"
     },
     {
       "title": "A budding role for Sar1p: the role of a small GTP-binding protein in ER export",
       "authors": "Nakano A, Schekman R.",
       "journal": "Cell",
       "year": "1989",
-      "pubmed": "2665910",
-      "doi": "10.1016/0092-8674(89)90849-0",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/2665910"
+      "pubmed": "",
+      "doi": "",
+      "url": "",
+      "note": "Second-pass: Nakano 1989 Sar1p title is not uniquely found; stored DOI is a Drosophila numb paper. Identifiers remain stripped."
     },
     {
-      "title": "Organization of the ER-Golgi interface for protein transport",
-      "authors": "Brandizzi F, Barlowe C.",
-      "journal": "Nat Rev Mol Cell Biol",
+      "title": "Organization of the ER-Golgi interface for membrane traffic control.",
+      "authors": "Brandizzi F, Barlowe C",
+      "journal": "Nature reviews. Molecular cell biology",
       "year": "2013",
-      "pubmed": "23743846",
-      "doi": "10.1038/nrm3601",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/23743846"
+      "pubmed": "23698585",
+      "doi": "10.1038/nrm3588",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/23698585"
     }
   ],
   "totalNodes": 80,

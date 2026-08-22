@@ -140,7 +140,7 @@ abstract**.
 
 | Chart title | IDs | Live |
 |---|---|---|
-| Nurse 1997 *Cyclins and cell cycle checkpoints* | none | leftover — fictitious Science paper; do not invent |
+| Nurse 1997 *Checkpoint pathways come of age* | PMID `9428508` DOI `10.1016/s0092-8674(00)80476-6` | closed — Claude Code found the real Cell commentary; editorial synopsis approved; now `identifier` + abstract after `citations[]` glmp tag |
 | Qi & Elion 2005 *Control of the eukaryotic cell cycle by MAP kinase signaling pathways* | none | leftover — not unique; do not retitle |
 | Morgan 1997 *Cyclin-dependent kinases: engines, clocks, and microprocessors* | DOI `10.1146/annurev.cellbio.13.1.261` PMID `9442875` → `pubmed_9442875` | identifier + abstract |
 | Peters 2006 APC/C | DOI `10.1038/nrm1988` PMID `16896351` → `pubmed_16896351` | identifier + abstract |
@@ -176,7 +176,7 @@ Do **not** attach a nearby paper. Do **not** retitle Qi/Elion.
 | Sourjik 2004 *Chemotaxis* (Curr Biol) | Three 2004 Sourjik papers; no Curr Biol primer with that title |
 | Xie 2008 *The molecular machinery of autophagy: unanswered questions* | Multiple Xie/Klionsky 2007–08 papers; JCS title is Klionsky 2005 (Xie not author) |
 | Levine *Autophagy genes in biology and disease* | Exact title is Yamamoto/Zhang/Mizushima 2023 PMID `36635405`. Levine 2019 Cell is a different title. **Do not reassign.** |
-| Nurse 1997 *Cyclins and cell cycle checkpoints* Science | Author+year+title empty; old DOI `10.1126/science.276.5315.1886` was fictitious. **Do not invent.** |
+| Nurse 1997 *Cyclins and cell cycle checkpoints* Science | Closed: real paper is Cell commentary PMID `9428508`. **Do not invent a Science paper.** |
 | Qi & Elion 2005 *Control of the eukaryotic cell cycle by MAP kinase signaling pathways* | Three 2005 Qi+Elion papers; Wilkinson 2000 PMID `11053235` owns the stored longer title. **Do not retitle.** |
 | Englesberg & Wilcox 1974 *Regulation: positive control* | Identity confirmed; **no published abstract** — leave empty |
 | RegulonDB; Müller-Hill 1996 book | Not journal papers |
@@ -229,7 +229,7 @@ clean**. Do not treat the rest of GLMP as identity-safe.
 
 264 colliding IDs span **73** `glmp` processes (plus overlapping copernicus-web copies). Same pattern as the nine-chart work: the stored PMID/DOI often names an unrelated article. Examples: biofilm DOI `10.1038/nature04187` resolves to a yeast phosphoproteome paper; ArcA PMID `3054468` resolves to a plasmid-classification paper; arginine-repressor PMID `7854251` resolves to a dehalogenase review.
 
-Three confirmed-only batches on 22 August closed **92** colliding chart rows (20+20+18 unique retitles and 6+14+14 leftover strips). **~172 of 264 remain.** Do not mark the goal complete. Skip already-handled leftovers. Do not overwrite a KE doc that belongs to a different paper or a same-paper Crossref twin.
+Confirmed-only batches on 22 August closed **92 + 32 + 28 + 37** colliding chart rows across six waves. **~107 of 264 remain.** Do not mark the goal complete. Skip already-handled leftovers. Do not overwrite a KE doc that belongs to a different paper or a same-paper Crossref twin.
 
 ---
 
@@ -380,9 +380,47 @@ Erickson 2010 FtsZ filament; den Blaauwen 2008 Divisome; McHenry 2011 Pol III; R
 
 ---
 
+## Confirmed-only batch (22 August 2026, sixth wave)
+
+Same method. Prefer remaining DOI/CW-tree collisions that still live-resolve to the wrong paper (stale scan used only as a candidate list). 23 unique retitles + 14 leftover strips. GCS three prefixes. Firestore sources-only merge + per-doc re-embed for changed process IDs that exist in the glmp twin; CW-only rows were not used to overwrite a previously repaired glmp Firestore source list. Crossref twins not overwritten. Nurse/Englesberg chart rows were committed, not reverted.
+
+### Confirmed retitles (23)
+
+| Chart | Old IDs | Confirmed | Ingest | Live |
+|---|---|---|---|---|
+| `bacillus_biofilm_formation` Kearns 2005 | PMID `16237402` DOI `10.1038/nature04187` (yeast phosphoproteome) | PMID `15661000` DOI `10.1111/j.1365-2958.2004.04440.x` *A master regulator for biofilm formation by Bacillus subtilis.* | `pubmed_15661000` | identifier + abstract |
+| `ecoli_nucleotide_biosynthesis` Gerhart 1965 | PMID `14324200` DOI `10.1021/bi00882a019` (RNase) | PMID `5320387` DOI `10.1021/bi00882a012` *Distinct subunits for the regulation and catalytic activity of aspartate transcarbamylase.* | `pubmed_5320387` | identifier; **abstract empty** (none in EuropePMC — do not invent) |
+| `ecoli_ribosome_assembly` Shajani 2011 | PMID `21858987` DOI `10.1038/nrm3173` (ubiquitin) | PMID `21529161` DOI `10.1146/annurev-biochem-062608-160432` *Assembly of bacterial ribosomes.* | `pubmed_21529161` | identifier + abstract |
+| `ecoli_sigma_factor_competition` Jishage 2002 | PMID `12169625` DOI `10.1093/emboj/cdf389` (Hodgkin) | PMID `12023304` DOI `10.1101/gad.227902` *Regulation of sigma factor competition by the alarmone ppGpp.* | `pubmed_12023304` | identifier + abstract |
+| `ecoli_transcription_regulation` Gruber 2003 | PMID `12511870` DOI `10.1038/nrm1012` | PMID `14527287` DOI `10.1146/annurev.micro.57.030502.090913` *Multiple sigma subunits and the partitioning of bacterial transcription space.* | `pubmed_14527287` | identifier + abstract |
+| `yeast_dna_replication` Donovan 1997 | PMID `9356470` DOI `10.1073/pnas.94.23.12419` (Grb2) | PMID `9159120` DOI `10.1073/pnas.94.11.5611` *Cdc6p-dependent loading of Mcm proteins onto pre-replicative chromatin in budding yeast.* | `pubmed_9159120` | identifier + abstract |
+| `yeast_mitochondrial_biogenesis` Butow 2004 | PMID `15189150` DOI `10.1146/annurev.biochem.73.011303.073940` (opioid) | PMID `15068799` DOI `10.1016/s1097-2765(04)00179-0` *Mitochondrial signaling: the retrograde response.* | `pubmed_15068799` | identifier + abstract |
+| `yeast_nucleotide_excision_repair` Marteijn 2014 | PMID `24485458` DOI `10.1016/j.cell.2014.01.002` | PMID `24954209` DOI `10.1038/nrm3822` *Understanding nucleotide excision repair and its roles in cancer and ageing.* | `pubmed_24954209` | identifier + abstract |
+| `yeast_snf1_pathway` Hedbacker 2008 | PMID `18195048` DOI `10.2741/2833` | PMID `17981722` DOI `10.2741/2854` *SNF1/AMPK pathways in yeast.* | `pubmed_17981722` | identifier + abstract |
+| `yeast_vesicle_trafficking` Aridor 1995 | PMID `7600570` DOI `10.1016/0092-8674(95)90123-X` (Drosophila MAPK) | PMID `7490291` DOI `10.1083/jcb.131.4.875` *Sequential coupling between COPII and COPI vesicle coats…* | `pubmed_7490291` | identifier + abstract |
+| `yeast_vesicle_trafficking` Brandizzi 2013 | PMID `23743846` DOI `10.1038/nrm3601` (macrodomain) | PMID `23698585` DOI `10.1038/nrm3588` *Organization of the ER-Golgi interface for membrane traffic control.* | `pubmed_23698585` | identifier + abstract |
+| `ecoli_trp_operon` Oxender 1979 | PMID `388431`; DOI already official | PMID `118451` DOI `10.1073/pnas.76.11.5524` *Attenuation in the Escherichia coli tryptophan operon…* | `pubmed_118451` | identifier + abstract |
+| `yeast_ubiquitin_proteasome` Hochstrasser 1996 | informal title; IDs already official | PMID `8982460` DOI `10.1146/annurev.genet.30.1.405` *Ubiquitin-dependent protein degradation.* | `pubmed_8982460` | identifier + abstract |
+| `ecoli_starvation_response` Majdalani 1998 | PMID `9826730`; DOI already official | PMID `9770508` DOI `10.1073/pnas.95.21.12462` *DsrA RNA regulates translation of RpoS message…* | `pubmed_9770508` | identifier + abstract |
+| `ecoli_nitrogen_assimilation` Ninfa 2005 | PMID `15802258`; DOI already official | PMID `15802248` DOI `10.1016/j.mib.2005.02.011` *PII signal transduction proteins…* | `pubmed_15802248` | identifier + abstract |
+| `ecoli_dna_replication_termination` Aussel 2002 | PMID `12068798` DOI `10.1046/j.1365-2958.2002.02962.x` | PMID `11832210` DOI `10.1016/s0092-8674(02)00624-4` *FtsK Is a DNA motor protein that activates chromosome dimer resolution…* | `pubmed_11832210` | identifier + abstract |
+| `ecoli_homologous_recombination` Dillingham 2008 | PMID `18322035` DOI `10.1128/MMBR.00020-07` (HIV) | PMID `19052323` DOI `10.1128/mmbr.00020-08` *RecBCD enzyme and the repair of double-stranded DNA breaks.* | `pubmed_19052323` | identifier + abstract |
+| `ecoli_heavy_metal_resistance` Patzer 1998 | PMID `9422595` DOI `10.1128/jb.180.3.680-689.1998` (archaeal ABC) | PMID `9680209` DOI `10.1046/j.1365-2958.1998.00883.x` *The ZnuABC high-affinity zinc uptake system and its regulator Zur…* | `pubmed_9680209` | identifier + abstract |
+| `ecoli_transcription_elongation` Borukhov 1992 | PMID `1339300` DOI `10.1016/0092-8674(92)90590-4` | PMID `1384037` DOI `10.1073/pnas.89.19.8899` *GreA protein: a transcription elongation factor from Escherichia coli.* | `pubmed_1384037` | identifier + abstract |
+| `ecoli_tca_cycle` LaPorte 1982 | PMID `6750117` (ibuprofen); DOI already official | PMID `6292732` DOI `10.1038/300458a0` *A protein with kinase and phosphatase activities involved in regulation of tricarboxylic acid cycle.* | `pubmed_6292732` | identifier; **abstract empty** (none in EuropePMC — do not invent) |
+| `yeast_dna_replication` Labib 2010 | PMID `19927129` DOI `10.1038/emboj.2009.340` | PMID `20551170` DOI `10.1101/gad.1933010` *How do Cdc7 and cyclin-dependent kinases trigger the initiation of chromosome replication…* | `pubmed_20551170` | identifier + abstract |
+| `ecoli_translation_elongation` Ogle 2001 | PMID `11423924`; DOI already official | PMID `11340196` DOI `10.1126/science.1060612` *Recognition of cognate transfer RNA by the 30S ribosomal subunit.* | `pubmed_11340196` | PMID identifier + abstract; DOI = older Crossref twin |
+| `ecoli_transcription_elongation` Wang+Kornberg 2006 | PMID `16630813` DOI `10.1016/j.cell.2006.03.034` (Dscam) | PMID `17129781` DOI `10.1016/j.cell.2006.11.023` *Structural basis of transcription: role of the trigger loop…* | `pubmed_17129781` | identifier + abstract |
+
+### Leftovers stripped this batch
+
+Borisov 2011 respiration; Portnoy 2008 anaerobiosis; Gong 2011 acid resistance; Narayana 2018 two-component; Clark 1989 mixed-acid; Blangy 1968 (two PFK papers); Hampton 2022 phage defence; Egan 2017 peptidoglycan; Bassler 2019 ribosome biogenesis; Nakano 1989 Sar1p; Wade 2008 sigma subunit; Maeda 1994 HOG; Richet 1991 MalT; Ullmann 1968 catabolite repression.
+
+---
+
 ## Chart JSON / metadata
 
-Nine-chart: copernicus-web `a3c791e71`, glmp `1e879f8`. Second wave: CW `422dea029` / `1febc208b`, glmp `8a0b8cd`. Third wave: CW `89af4aa7b`, glmp `41e3bed`. Fourth wave: CW `254b82bbe`, glmp `d173663`. Fifth-wave chart JSON and this handoff commit next. Live GCS and Firestore sources for waves 2–5 were merged. `chart_repair*.json` stays uncommitted. Remaining collisions after this wave: **~144** of the original 264 (row-based; scan file is stale).
+Nine-chart: copernicus-web `a3c791e71`, glmp `1e879f8`. Second wave: CW `422dea029` / `1febc208b`, glmp `8a0b8cd`. Third wave: CW `89af4aa7b`, glmp `41e3bed`. Fourth wave: CW `254b82bbe`, glmp `d173663`. Fifth wave: CW `8cfdea764`, glmp `2c506ce`. Sixth-wave chart JSON and this handoff commit next. Live GCS and Firestore sources for waves 2–6 were merged. `chart_repair*.json` stays uncommitted. Remaining collisions after this wave: **~107** of the original 264 (row-based; scan file is stale).
 
 ---
 
