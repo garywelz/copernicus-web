@@ -166,6 +166,36 @@
             return categoryKey || 'science';
         }
 
+        function mapPublicEpisode(ep) {
+            return {
+                title: ep.title,
+                category: getCategoryFromEpisode(ep),
+                description: ep.summary || ep.description || '',
+                duration: ep.duration || '5-10 minutes',
+                thumbnailUrl: ep.thumbnail_url || 'https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/images/copernicus-original-portrait-optimized.jpg',
+                audioUrl: ep.audio_url || '',
+                episodeLink: ep.episode_link || `/episodes/${ep.episode_id || ep.slug || ''}`
+            };
+        }
+
+        async function loadWebsiteOnlyEpisodes() {
+            try {
+                const listRes = await fetch('/website-only-episodes.json');
+                if (!listRes.ok) return [];
+                const list = await listRes.json();
+                const ids = (list.episodes || []).map(item => item.episode_id || item).filter(Boolean);
+                const results = await Promise.all(ids.map(async (id) => {
+                    const res = await fetch(`https://copernicus-podcast-api-phzp4ie2sq-uc.a.run.app/api/episodes/${encodeURIComponent(id)}`);
+                    if (!res.ok) return null;
+                    return mapPublicEpisode(await res.json());
+                }));
+                return results.filter(Boolean);
+            } catch (error) {
+                console.warn('Website-only episode list failed:', error);
+                return [];
+            }
+        }
+
         // Fetch and display episodes
         async function loadEpisodes() {
             try {
@@ -179,15 +209,17 @@
                 
                 const data = await response.json();
                 // Transform API response to match expected format
-                allEpisodes = (data.podcasts || []).map(ep => ({
-                    title: ep.title,
-                    category: getCategoryFromEpisode(ep),
-                    description: ep.summary || ep.description || '',
-                    duration: ep.duration || '5-10 minutes',
-                    thumbnailUrl: ep.thumbnail_url || 'https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/images/copernicus-original-portrait-optimized.jpg',
-                    audioUrl: ep.audio_url || '',
-                    episodeLink: ep.episode_link || `/episodes/${ep.episode_id || ep.slug || ''}`
-                }));
+                allEpisodes = (data.podcasts || []).map(ep => mapPublicEpisode(ep));
+
+                // Website-only episodes (not in RSS / Spotify). Merge in front.
+                const websiteOnly = await loadWebsiteOnlyEpisodes();
+                const seen = new Set(allEpisodes.map(ep => ep.episodeLink));
+                for (const extra of websiteOnly) {
+                    if (extra.episodeLink && !seen.has(extra.episodeLink)) {
+                        allEpisodes.unshift(extra);
+                        seen.add(extra.episodeLink);
+                    }
+                }
                 console.log('Loaded episodes:', allEpisodes.length);
                 
                 renderCategoryTabs();

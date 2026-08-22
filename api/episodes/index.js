@@ -20,12 +20,17 @@ function pickString(value) {
   return undefined;
 }
 
+const ANIMATED_PLAYERS = {
+  'ever-bio-260009': '/lac-operon-animation/player.html?episode=ever-bio-260009',
+};
+
 function normalizeApiEpisode(payload = {}, slug) {
   const descriptionMarkdown = payload.description_markdown ?? payload.descriptionMarkdown;
   const descriptionHtml =
     payload.description_html ??
     descriptionMarkdown ??
     '<p>No episode description available.</p>';
+  const resolvedSlug = payload.slug ?? payload.episode_id ?? slug;
 
   return {
     title: payload.title ?? 'Copernicus AI Episode',
@@ -37,7 +42,9 @@ function normalizeApiEpisode(payload = {}, slug) {
     audioUrl: payload.audio_url ?? '',
     imageUrl: payload.thumbnail_url ?? '',
     attribution: payload.creator_attribution ?? '',
-    slug: payload.slug ?? payload.episode_id ?? slug,
+    slug: resolvedSlug,
+    animationPlayerUrl:
+      payload.animation_player_url || ANIMATED_PLAYERS[resolvedSlug] || '',
   };
 }
 
@@ -151,6 +158,7 @@ async function handler(req, res) {
       audioUrl,
       imageUrl,
       attribution,
+      animationPlayerUrl,
     } = episode;
 
     const html = `<!DOCTYPE html>
@@ -186,7 +194,9 @@ async function handler(req, res) {
       footer { padding: 1.75rem 2.5rem; border-top: 1px solid #e5e7eb; background: #f9fafb; font-size: 0.95rem; color: #4b5563; display: flex; flex-wrap: wrap; gap: 1rem; justify-content: space-between; align-items: center; }
       .actions a { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.2rem; border-radius: 999px; text-decoration: none; font-weight: 600; transition: transform 0.15s ease, background 0.15s ease; }
       .actions a.listen { background: #1d4ed8; color: #fff; }
+      .actions a.animate { background: #0f766e; color: #fff; }
       .actions a.download { background: #e0e7ff; color: #1d4ed8; }
+      .animation-note { margin: 0.85rem 0 0; font-size: 0.95rem; color: #4b5563; }
       .actions a:hover { transform: translateY(-2px); }
       @media (max-width: 640px) {
         header, section, footer { padding: 1.8rem; }
@@ -208,12 +218,14 @@ async function handler(req, res) {
       <section>
         ${imageUrl ? `<img class="hero" src="${imageUrl}" alt="${title} artwork" loading="lazy" />` : ''}
         ${audioUrl ? `<audio controls preload="metadata" src="${audioUrl}"></audio>` : ''}
+        ${animationPlayerUrl ? `<p class="animation-note">A flowchart-synced player is available separately: <a href="${animationPlayerUrl}">watch with animated chart</a>.</p>` : ''}
         <article class="description">${descriptionHtml}</article>
       </section>
       <footer>
         <div>Part of the Copernicus AI Podcast</div>
         <div class="actions">
           ${audioUrl ? `<a class="listen" href="${audioUrl}">▶️ Listen</a>` : ''}
+          ${animationPlayerUrl ? `<a class="animate" href="${animationPlayerUrl}">▶ Animated chart</a>` : ''}
           <a class="download" href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/feeds/copernicus-mvp-rss-feed.xml">📡 RSS Feed</a>
         </div>
       </footer>

@@ -21,15 +21,41 @@ from config.constants import (
 router = APIRouter()
 
 
+def _public_podcast_payload(episode) -> dict:
+    data = episode.to_dict() or {}
+    return {
+        'episode_id': episode.id,
+        'title': data.get('title', 'Untitled'),
+        'category': data.get('category', 'Unknown'),
+        'category_slug': data.get('category_slug'),
+        'expertise_level': data.get('request', {}).get('expertise_level', 'intermediate'),
+        'duration': data.get('duration', '5-10 minutes'),
+        'created_at': data.get('generated_at', data.get('created_at', '')),
+        'status': 'published',
+        'creator_attribution': data.get('creator_attribution'),
+        'summary': data.get('summary'),
+        'audio_url': data.get('audio_url'),
+        'thumbnail_url': data.get('thumbnail_url'),
+        'episode_link': data.get('episode_link'),
+        'submitted_to_rss': bool(data.get('submitted_to_rss')),
+        'visible_on_web': bool(data.get('visible_on_web') or data.get('submitted_to_rss')),
+        'animation_player_url': data.get('animation_player_url'),
+    }
+
+
 @router.get("/api/public/podcasts")
 async def get_public_podcasts(category: Optional[str] = None, limit: int = 500):
-    """Get all published podcasts (submitted to RSS) - Public API"""
+    """Get podcasts shown on the public website.
+
+    Includes RSS-published episodes and website-only episodes
+    (`visible_on_web=true`, not necessarily in the Spotify/Apple feed).
+    """
     if not db:
         raise HTTPException(status_code=503, detail="Firestore service is unavailable")
     
     try:
-        query = db.collection(EPISODE_COLLECTION_NAME).where('submitted_to_rss', '==', True)
         category_slug = _category_value_to_slug(category) if category else None
+        query = db.collection(EPISODE_COLLECTION_NAME).where('submitted_to_rss', '==', True)
         if category_slug:
             query = query.where('category_slug', '==', category_slug)
         
@@ -38,29 +64,20 @@ async def get_public_podcasts(category: Optional[str] = None, limit: int = 500):
         
         # Get episodes without ordering (Firestore requires index for filtered + ordered queries)
         # We'll sort in Python instead
-        podcasts_query = query.limit(limit * 2)  # Get extra to account for missing fields
-        podcasts = podcasts_query.stream()
-        
+        seen_ids = set()
         podcast_list = []
-        for episode in podcasts:
-            data = episode.to_dict() or {}
-            data['episode_id'] = episode.id
-            public_podcast = {
-                'episode_id': episode.id,
-                'title': data.get('title', 'Untitled'),
-                'category': data.get('category', 'Unknown'),
-                'category_slug': data.get('category_slug'),
-                'expertise_level': data.get('request', {}).get('expertise_level', 'intermediate'),
-                'duration': data.get('duration', '5-10 minutes'),
-                'created_at': data.get('generated_at', data.get('created_at', '')),
-                'status': 'published',
-                'creator_attribution': data.get('creator_attribution'),
-                'summary': data.get('summary'),
-                'audio_url': data.get('audio_url'),
-                'thumbnail_url': data.get('thumbnail_url'),
-                'episode_link': data.get('episode_link'),
-            }
-            podcast_list.append(public_podcast)
+        for episode in query.limit(limit * 2).stream():
+            seen_ids.add(episode.id)
+            podcast_list.append(_public_podcast_payload(episode))
+
+        # Website-only episodes are public on copernicusai.fyi but not in RSS.
+        web_query = db.collection(EPISODE_COLLECTION_NAME).where('visible_on_web', '==', True)
+        if category_slug:
+            web_query = web_query.where('category_slug', '==', category_slug)
+        for episode in web_query.limit(limit).stream():
+            if episode.id not in seen_ids:
+                seen_ids.add(episode.id)
+                podcast_list.append(_public_podcast_payload(episode))
         
         # Sort by generated_at in Python (descending - newest first)
         def get_sort_key(ep):
