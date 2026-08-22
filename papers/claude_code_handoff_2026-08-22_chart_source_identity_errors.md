@@ -229,7 +229,7 @@ clean**. Do not treat the rest of GLMP as identity-safe.
 
 264 colliding IDs span **73** `glmp` processes (plus overlapping copernicus-web copies). Same pattern as the nine-chart work: the stored PMID/DOI often names an unrelated article. Examples: biofilm DOI `10.1038/nature04187` resolves to a yeast phosphoproteome paper; ArcA PMID `3054468` resolves to a plasmid-classification paper; arginine-repressor PMID `7854251` resolves to a dehalogenase review.
 
-Confirmed-only batches on 22 August closed **92 + 32 + 28 + 37 + 44** colliding chart rows across seven waves. **~63 of 264 remain.** Do not mark the goal complete. Skip already-handled leftovers. Do not overwrite a KE doc that belongs to a different paper or a same-paper Crossref twin. Leave the three surplus KE papers alone (Levine 2019 Cell, Mizushima & Komatsu 2011 Cell, Xie & Klionsky 2007 Nat Cell Biol).
+Confirmed-only batches on 22 August closed **92 + 32 + 28 + 37 + 44 + 30** colliding chart rows across eight waves. **~33 of 264 remain.** Do not mark the goal complete. Skip already-handled leftovers. Do not overwrite a KE doc that belongs to a different paper or a same-paper Crossref twin. Leave the three surplus KE papers alone (Levine 2019 Cell, Mizushima & Komatsu 2011 Cell, Xie & Klionsky 2007 Nat Cell Biol).
 
 ---
 
@@ -466,13 +466,45 @@ Same method. Prefer remaining IDs that still live-resolve to the wrong paper. 37
 
 ### Leftovers stripped this batch
 
-Romero 2011 amyloid biofilm; Vlamakis 2013 genetic architecture; Moir 1990 germination; Setlow 2014 germination; Umbarger 1969; Umbarger 1978 (PMID `354503` occupied by a different KE/EuropePMC record — do not overwrite); Khoroshilova 1997 Science FNR title not found; Georgellis 2001 ArcB/quinone; Grossman 1984 RpoH; Cronan 2004 fatty acid; Elion 1991 FUS3; Yan 2017 spliceosome; Artsimovitch 2000 NusG; Knowles 2009 BamA.
+Romero 2011 amyloid biofilm; Vlamakis 2013 genetic architecture; Moir 1990 germination; Setlow 2014 germination; Umbarger 1969; Umbarger 1978 (PMID `354503` occupied by a different KE/EuropePMC record — do not overwrite); Khoroshilova 1997 Science FNR title not found; Georgellis 2001 ArcB/quinone (re-attached in eighth wave after title uniqueness); Grossman 1984 RpoH; Cronan 2004 fatty acid; Elion 1991 FUS3; Yan 2017 spliceosome; Artsimovitch 2000 NusG; Knowles 2009 BamA.
+
+---
+
+## Confirmed-only batch (22 August 2026, eighth wave)
+
+Same method. Prefer remaining IDs that still live-resolve to the wrong paper. 17 chart-row retitles (16 new ID replacements + Georgellis 2001 re-attach after leftover strip) + 14 leftover strips. Honigberg 2003 junk PMID `12730developer` replaced with official `12730290`. GCS three prefixes (24 charts). Firestore sources-only merge + per-doc re-embed for the 14 process IDs whose glmp twin was patched; CW-only rows were not used to overwrite a previously repaired glmp Firestore source list. Crossref twins not overwritten. Nurse/Englesberg chart rows were not touched. Surplus KE papers (Levine 2019, Mizushima & Komatsu 2011, Xie & Klionsky 2007) left alone. Khoroshilova 1997 and Knowles 2009 BamA re-checked and left stripped.
+
+### Confirmed retitles (17)
+
+| Chart | Old IDs | Confirmed | Ingest | Live |
+|---|---|---|---|---|
+| `yeast_meiosis_regulation` Honigberg 2003 | PMID `12730developer`; DOI already official | PMID `12730290` DOI `10.1242/jcs.00460` | `pubmed_12730290` | identifier + abstract |
+| `ecoli_dna_replication_termination` Zechiedrich 1995 | PMID `7590257`; DOI already official | PMID `7590259` DOI `10.1101/gad.9.22.2859` | `pubmed_7590259` | identifier + abstract |
+| `ecoli_e._coli_acid_resistance` Masuda 2003 | PMID `14526229` DOI `10.1073/pnas.2135011100` | PMID `12694615` DOI `10.1046/j.1365-2958.2003.03477.x` | `pubmed_12694615` | identifier + abstract |
+| `ecoli_e._coli_heat_shock_response` Herman 1995 | PMID `7590236` DOI `10.1101/gad.9.19.2363` | PMID `7724592` DOI `10.1073/pnas.92.8.3516` | `pubmed_7724592` | identifier + abstract |
+| `ecoli_rna_polymerase_recycling` Roberts 2019 | PMID `30971490` DOI `10.1073/pnas.1903846116` | PMID `30978344` DOI `10.1016/j.jmb.2019.04.003` | `pubmed_30978344` | identifier + abstract |
+| `ecoli_transcription_termination` Richardson 2002 | PMID `12177300` DOI `10.1073/pnas.152433099` | PMID `12213656` DOI `10.1016/s0167-4781(02)00456-6` | `pubmed_12213656` | identifier + abstract |
+| `ecoli_translation_termination` Gao 2009 | PMID `19359587` DOI `10.1126/science.1172896` | PMID `19833919` DOI `10.1126/science.1179709` | `pubmed_19833919` | identifier + abstract |
+| `ecoli_trp_operon` Yanofsky 1988 | PMID `3275651` | PMID `3275656` DOI `10.1016/s0021-9258(19)35394-3` | `pubmed_3275656` | identifier + abstract |
+| `ecoli_tryptophan_biosynthesis` Yanofsky 1981 | PMID `7010266`; DOI already official | PMID `7007895` DOI `10.1038/289751a0` | `pubmed_7007895` | identifier + abstract |
+| `ecoli_type_iii_secretion` Kenny 1997 | PMID `9363945` | PMID `9390560` DOI `10.1016/s0092-8674(00)80437-7` | `pubmed_9390560` | identifier + abstract |
+| `yeast_mitochondrial_import` Wiedemann 2017 | PMID `28979213` DOI `10.1038/nrm.2017.71` | PMID `28301740` DOI `10.1146/annurev-biochem-060815-014352` | `pubmed_28301740` | identifier + abstract |
+| `yeast_alcoholic_fermentation` Nielsen 2013 | PMID `24297925` DOI `10.1126/science.1243094` | PMID `23611565` DOI `10.1016/j.copbio.2013.03.023` | `pubmed_23611565` | identifier + abstract |
+| `yeast_gcn4_starvation` Dever 1992 | PMID `1531388` DOI `10.1016/0092-8674(92)90104-5` | PMID `1739968` DOI `10.1016/0092-8674(92)90193-g` | `pubmed_1739968` | identifier + abstract |
+| `yeast_mitochondrial_biogenesis` Forsburg 1989 | PMID `2533230` DOI `10.1101/gad.3.12b.1915` | PMID `2676721` DOI `10.1101/gad.3.8.1166` | `pubmed_2676721` | identifier + abstract |
+| `ecoli_stringent_response` Ross 2013 | PMID `23590490` DOI `10.1146/annurev-micro-092412-155607` | PMID `23623682` DOI `10.1016/j.molcel.2013.03.021` | `pubmed_23623682` | identifier + abstract |
+| `yeast_chromatin_silencing` Rusche 2003 inherit | PMID `12824308` DOI `10.1146/annurev.biochem.72.121801.161453` | PMID `12676793` DOI `10.1146/annurev.biochem.72.121801.161547` | `pubmed_12676793` | identifier + abstract |
+| `ecoli_anaerobic_respiration` Georgellis 2001 | leftover-stripped (was PMID `11422357`) | PMID `11423658` DOI `10.1126/science.1059361` | `pubmed_11423658` | identifier + abstract |
+
+### Leftovers stripped this batch
+
+Moir 1993 gerB; Cordell 2003 sequestration; Foster 2004 acid resistance; Straus 1990 RNAP; Harden 2016 recycling; Gruber 2003 alternative sigma; Kvint 2003 ppGpp/stationary; Rodnina 2009 protein synthesis; Chen 2012 subunit association; Yanofsky 1966 (several trp papers); Hinnebusch 2019 GCN4; Endo 2015 mitochondrial import; Ljungdahl 2015 nitrogen homeostasis; Nunn 1983 fatty-acid oxidation. Khoroshilova 1997 and Knowles 2009 BamA re-checked and remain stripped.
 
 ---
 
 ## Chart JSON / metadata
 
-Nine-chart: copernicus-web `a3c791e71`, glmp `1e879f8`. Second wave: CW `422dea029` / `1febc208b`, glmp `8a0b8cd`. Third wave: CW `89af4aa7b`, glmp `41e3bed`. Fourth wave: CW `254b82bbe`, glmp `d173663`. Fifth wave: CW `8cfdea764`, glmp `2c506ce`. Sixth wave: CW `12c407614`, glmp `f996d68`. Seventh-wave chart JSON and this handoff commit next. Live GCS and Firestore sources for waves 2–7 were merged. `chart_repair*.json` stays uncommitted. Remaining collisions after this wave: **~63** of the original 264 (row-based; 107 − 30 ID replacements − 14 leftover strips; scan file is stale).
+Nine-chart: copernicus-web `a3c791e71`, glmp `1e879f8`. Second wave: CW `422dea029` / `1febc208b`, glmp `8a0b8cd`. Third wave: CW `89af4aa7b`, glmp `41e3bed`. Fourth wave: CW `254b82bbe`, glmp `d173663`. Fifth wave: CW `8cfdea764`, glmp `2c506ce`. Sixth wave: CW `12c407614`, glmp `f996d68`. Seventh wave: CW `d094b9bec`, glmp `7664b89`. Eighth-wave chart JSON and this handoff commit next. Live GCS and Firestore sources for waves 2–8 were merged. `chart_repair*.json` stays uncommitted. Remaining collisions after this wave: **~33** of the original 264 (row-based; 63 − 16 ID replacements − 14 leftover strips; Georgellis re-attach does not reduce the remainder; scan file is stale).
 
 ---
 
