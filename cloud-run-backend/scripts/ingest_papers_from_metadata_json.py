@@ -277,6 +277,38 @@ def _doc_id_for_paper(paper: Dict[str, Any]) -> str:
     return f"paper_{_payload_sha256_hex(paper)[:32]}"
 
 
+_CITATION_EVENT_FIELDS = (
+    "cited_by",
+    "cited_date",
+    "cited_context",
+    "cited_project",
+    "cited_for_question",
+)
+
+
+def _citations_for_ingest(paper: Dict[str, Any]) -> List[Dict[str, Any]]:
+    """Keep an explicit citations[] list, or synthesize one from flat cited_* fields.
+
+    Resolve scopes on citations[].cited_project. Flat cited_project alone is
+    not enough.
+    """
+    existing = paper.get("citations")
+    if isinstance(existing, list) and existing:
+        return [event for event in existing if isinstance(event, dict)]
+    if not paper.get("cited_project"):
+        return []
+    event: Dict[str, Any] = {}
+    for field in _CITATION_EVENT_FIELDS:
+        value = paper.get(field)
+        if not value:
+            continue
+        if field == "cited_project":
+            event[field] = str(value).strip().lower()
+        else:
+            event[field] = value
+    return [event] if event else []
+
+
 def _to_firestore_paper(paper: Dict[str, Any], filepath: Path) -> Dict[str, Any]:
     title = paper.get("title") or "Untitled"
     abstract = paper.get("abstract") or ""
@@ -354,8 +386,14 @@ def _to_firestore_paper(paper: Dict[str, Any], filepath: Path) -> Dict[str, Any]
     # downstream: this would otherwise drop straight back to a single
     # citation on ingest, undoing the merge just built to prevent exactly
     # that.
-    if paper.get("citations"):
-        out["citations"] = paper["citations"]
+    #
+    # researcher_cited_intake.py (and hand-written metadata that follows it)
+    # often writes only the flat cited_* fields. /resolve-paper scopes via
+    # citations[].cited_project, not the flat field — so a missing array
+    # lands as identifier_wrong_project (Nurse, Qi 16105880, Cox 10506835).
+    citations = _citations_for_ingest(paper)
+    if citations:
+        out["citations"] = citations
 
     # Scout-acquisition provenance (item #50/A2, ATAP first-pass run,
     # 2026-08-06) -- same allowlist-gap family as the fields above, caught

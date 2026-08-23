@@ -124,7 +124,38 @@ def main() -> int:
     assert m._reject_stub_reason({"title": "glmp experiment", "source": "glmp_flowchart_experiment"}) is None
     assert m._reject_stub_reason({"title": "Untitled", "doi": "10.1/x"}) is None
 
-    print("OK: cross-process; extra-key; title norm; enrichment-stable; stub collapse; predicate")
+    # 6) Flat cited_* fields must become citations[] so resolve can scope
+    flat = {
+        "title": "MAP kinase pathways.",
+        "pmid": "16105880",
+        "cited_by": "Gary Welz",
+        "cited_date": "2026-08-23",
+        "cited_project": "GLMP",
+        "cited_context": "leftover pick 4a",
+    }
+    mapped = m._to_firestore_paper(flat, Path("biology/researcher_cited_pubmed_16105880.json"))
+    assert mapped.get("cited_project") == "GLMP"
+    cites = mapped.get("citations") or []
+    assert len(cites) == 1, cites
+    assert cites[0].get("cited_project") == "glmp"
+    assert cites[0].get("cited_by") == "Gary Welz"
+    assert cites[0].get("cited_date") == "2026-08-23"
+
+    already = {
+        **flat,
+        "citations": [
+            {"cited_by": "Gary Welz", "cited_date": "2026-08-22", "cited_project": "glmp"},
+            {"cited_by": "Gary Welz", "cited_date": "2026-08-23", "cited_project": "atap"},
+        ],
+    }
+    mapped_keep = m._to_firestore_paper(already, Path("biology/x.json"))
+    assert mapped_keep["citations"] == already["citations"]
+
+    scout = {"title": "Untitled scout", "pmid": "1"}
+    mapped_scout = m._to_firestore_paper(scout, Path("biology/y.json"))
+    assert "citations" not in mapped_scout
+
+    print("OK: cross-process; extra-key; title norm; enrichment-stable; stub collapse; predicate; citations fallback")
     return 0
 
 
