@@ -24,6 +24,7 @@ const ANIMATED_PLAYERS = {
   'ever-bio-260009': '/lac-operon-animation/player.html?episode=ever-bio-260009',
   'ever-bio-260010': '/lac-operon-animation/player.html?episode=ever-bio-260010',
   'ever-math-260001': '/lac-operon-animation/player.html?episode=ever-math-260001',
+  'ever-math-260002': '/lac-operon-animation/player.html?episode=ever-math-260002',
 };
 
 function normalizeApiEpisode(payload = {}, slug) {

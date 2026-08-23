@@ -1,0 +1,12 @@
+flowchart LR
+  inputRows["Input: decimal rows r1, r2, r3, ..."] --> readDigit["Read nth digit of row n"]
+  readDigit --> chooseDifferent["Choose a different output digit"]
+  chooseDifferent --> appendDigit["Append that digit to x"]
+  appendDigit --> moreRows{"Continue to next row?"}
+  moreRows -->|yes| readDigit
+  moreRows -->|indefinitely| outputX["Output: anti-diagonal real x"]
+  style inputRows fill:#ffd43b,color:#333
+  style readDigit fill:#51cf66,color:#fff
+  style chooseDifferent fill:#51cf66,color:#fff
+  style appendDigit fill:#74c0fc,color:#333
+  style outputX fill:#b197fc,color:#fff

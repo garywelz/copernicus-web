@@ -1,0 +1,8 @@
+flowchart TD
+  notInList["x is missing from the assumed complete list"] --> contradiction["Contradiction"]
+  contradiction --> discharge["No sequence lists all reals in (0,1)"]
+  discharge --> conclusion["Conclusion: the reals are uncountable"]
+  style notInList fill:#74c0fc,color:#333
+  style contradiction fill:#ff6b6b,color:#fff
+  style discharge fill:#74c0fc,color:#333
+  style conclusion fill:#b197fc,color:#fff
