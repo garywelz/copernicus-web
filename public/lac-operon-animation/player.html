@@ -7,12 +7,23 @@
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-slate-50 text-slate-900">
+  <!--
+    Shared animated-podcast player (Vercel: /lac-operon-animation/player.html).
+    Chrome + silent credits still are OPT-IN only: cues.json must set
+    "credits": true and/or a last cue with role:"credits" (image credits.png).
+    Existing episodes (ever-math-260001–260006, ever-bio-260009/260010) have
+    neither — do not retrofit them. For new packs, run package_credits.py
+    in this folder before uploading the episode prefix to GCS.
+  -->
   <main class="max-w-5xl mx-auto p-6 space-y-4">
     <p class="text-sm"><a class="text-blue-700 underline" href="/subscriber-dashboard.html">← Dashboard</a></p>
     <h1 class="text-2xl font-bold" id="title">Animated episode</h1>
     <p class="text-sm text-slate-600" id="stage">Loading…</p>
     <img id="frame" alt="Lac operon flowchart frame" class="w-full bg-white rounded-lg border shadow-sm" />
     <audio id="player" controls class="w-full mt-2"></audio>
+    <p id="credits-chrome" hidden class="text-xs text-slate-600 leading-relaxed">
+      CopernicusAI briefing · AI-written script, ElevenLabs voice, human-published. Player code: MIT. Audio, voice, and discussed papers are not.
+    </p>
     <p class="text-xs text-slate-500">
       Frames are successive stills of a GLMP flowchart, plus title cards when present. They advance from cues in the spoken script, not from a separate video file.
     </p>
@@ -27,13 +38,49 @@
     const img = document.getElementById("frame");
     const stage = document.getElementById("stage");
     const title = document.getElementById("title");
+    const chromeEl = document.getElementById("credits-chrome");
     let cues = [];
+
+    function isCreditsCue(c) {
+      if (!c) return false;
+      if (c.role === "credits") return true;
+      const image = String(c.image || "");
+      const name = image.split("?")[0].split("/").pop();
+      return name.toLowerCase() === "credits.png";
+    }
+
+    function episodeOptsInCredits(data) {
+      if (!data) return false;
+      if (data.credits === true) return true;
+      const list = Array.isArray(data.cues) ? data.cues : [];
+      return list.some(isCreditsCue);
+    }
+
+    function showFrame(current) {
+      if (!current) return;
+      if (img.src !== current.image) {
+        img.src = current.image;
+        stage.textContent = current.label;
+      }
+    }
+
+    function cueAt(t) {
+      let current = cues[0];
+      for (const c of cues) {
+        if (t >= c.t) current = c;
+      }
+      return current;
+    }
+
     fetch(base + "/cues.json?v=" + Date.now())
       .then(r => r.json())
       .then(data => {
         title.textContent = data.title || episode;
         audioEl.src = data.audio_url;
         cues = data.cues || [];
+        if (episodeOptsInCredits(data)) {
+          chromeEl.hidden = false;
+        }
         if (cues[0]) {
           img.src = cues[0].image;
           stage.textContent = cues[0].label;
@@ -41,15 +88,11 @@
       })
       .catch(err => { stage.textContent = "Could not load cues: " + err; });
     audioEl.addEventListener("timeupdate", () => {
-      const t = audioEl.currentTime;
-      let current = cues[0];
-      for (const c of cues) {
-        if (t >= c.t) current = c;
-      }
-      if (current && img.src !== current.image) {
-        img.src = current.image;
-        stage.textContent = current.label;
-      }
+      showFrame(cueAt(audioEl.currentTime));
+    });
+    audioEl.addEventListener("ended", () => {
+      const last = cues[cues.length - 1];
+      if (last && isCreditsCue(last)) showFrame(last);
     });
   </script>
 </body>
