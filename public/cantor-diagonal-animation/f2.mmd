@@ -1,0 +1,8 @@
+flowchart TD
+  decimalRows["Decimal rows r1, r2, r3, ..."] --> diagonalDigits["Algorithm: read the nth digit of rn"]
+  diagonalDigits --> constructX["Define x by changing each diagonal digit"]
+  digitRule["Rule: choose a different digit and avoid 9"] --> constructX
+  style decimalRows fill:#ffd43b,color:#333
+  style diagonalDigits fill:#51cf66,color:#fff
+  style constructX fill:#51cf66,color:#fff
+  style digitRule fill:#51cf66,color:#fff

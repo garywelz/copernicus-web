@@ -28,11 +28,32 @@
       "category": "Products & Outputs"
     }
   },
-  "keywords": [],
-  "sources": [],
-  "relatedProcesses": [],
+  "keywords": [
+    "diagonalization",
+    "incompleteness",
+    "fixed point",
+    "Gödel",
+    "Gaifman"
+  ],
+  "sources": [
+    {
+      "authors": "Gaifman H",
+      "doi": "10.1093/jigpal/jzl006",
+      "journal": "Logic Journal of the IGPL",
+      "note": "ATAP atap-q2 / atap-f1. Traces a naming-system/fixed-point account from Cantor to Gödel to Kleene. Attached for the first ATAP animated episode.",
+      "pages": "709-728",
+      "paper_id": "crossref_10.1093_jigpal_jzl006",
+      "title": "Naming and Diagonalization, from Cantor to Gödel to Kleene",
+      "volume": "14",
+      "year": 2006
+    }
+  ],
+  "relatedProcesses": [
+    "cantor-diagonal-proofs",
+    "kirby-paris-goodstein-independence"
+  ],
   "created": "2026-06-05",
-  "lastUpdated": "2026-06-05",
+  "lastUpdated": "2026-08-23",
   "verified": true,
   "flowchartStandard": "GLMP_6color",
   "processType": "proof_graph",
