@@ -13,6 +13,7 @@ import io
 import json
 import time
 from google.cloud import secretmanager
+from content_fixes import apply_tts_pronunciation_hints
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -259,6 +260,10 @@ class ElevenLabsVoiceService:
         
         # Add natural pauses for better speech flow
         text = re.sub(r'([.!?])\s+([A-Z])', r'\1 \2', text)
+
+        # TTS-only name respellings (Gödel → Girdle, Kleene → Klaynee).
+        # Stored scripts/transcripts are not passed through this method.
+        text = apply_tts_pronunciation_hints(text)
         
         return text
     

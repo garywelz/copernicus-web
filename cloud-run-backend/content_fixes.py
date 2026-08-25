@@ -5,6 +5,7 @@ Addresses voice assignment, DOI removal, and category classification
 """
 
 import re
+import unicodedata
 from typing import Dict, List, Optional
 
 def remove_dois_from_script(script: str) -> str:
@@ -724,6 +725,51 @@ def dalle_thumbnail_attempts(title: str, topic: str) -> list:
         {"model": "gpt-image-1", "quality": "low", "prompt": shorter},
         {"model": "gpt-image-1-mini", "quality": "medium", "prompt": shorter},
     ]
+
+
+# TTS-only name respellings. Do NOT run on stored scripts, transcripts, or
+# descriptions — those must keep the scholarly spelling (Gödel / Godel / Kleene).
+# Applied in ElevenLabsVoiceService._preprocess_text_for_natural_speech.
+# Apostrophe class covers ASCII ' and Unicode right single quotation mark.
+_TTS_POSSESSIVE = r"(?:['\u2019]s)?"
+_TTS_PRONUNCIATION_PATTERNS = (
+    # Gödel / Godel / Goedel → English "girdle" (GER-dl / ˈɡɜːrdəl)
+    (re.compile(rf"\bG(?:ö|oe|o)del{_TTS_POSSESSIVE}\b", re.IGNORECASE), "Girdle"),
+    # Kleene → "cleanee" / KLAY-nee / ˈkleɪni
+    (re.compile(rf"\bKleene{_TTS_POSSESSIVE}\b", re.IGNORECASE), "Klaynee"),
+)
+
+
+def apply_tts_pronunciation_hints(text: str) -> str:
+    """Respell names ElevenLabs mispronounces. TTS audio only — not transcripts.
+
+    Gödel/Godel/Goedel → Girdle; Kleene → Klaynee. Possessives are kept
+    (Gödel's → Girdle's). Displayed scripts must still show the original names.
+    """
+    if not text:
+        return text
+
+    text = unicodedata.normalize("NFC", text)
+
+    def _spoken(match: re.Match, alias: str) -> str:
+        original = match.group(0)
+        possessive = ""
+        if original.endswith(("'s", "\u2019s")):
+            possessive = original[-2:]
+            stem = original[:-2]
+        else:
+            stem = original
+        if stem.isupper():
+            spoken = alias.upper()
+        elif stem[:1].islower():
+            spoken = alias.lower()
+        else:
+            spoken = alias
+        return spoken + possessive
+
+    for pattern, alias in _TTS_PRONUNCIATION_PATTERNS:
+        text = pattern.sub(lambda m, spoken=alias: _spoken(m, spoken), text)
+    return text
 
 
 def expand_contractions_for_tts(script: str) -> str:

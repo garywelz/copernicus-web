@@ -135,6 +135,46 @@ class TestDalleThumbnailAttempts:
         assert all("no text" in a["prompt"].lower() for a in attempts)
 
 
+class TestTtsPronunciationHints:
+    def test_godel_and_kleene_respelled_for_tts(self):
+        from content_fixes import apply_tts_pronunciation_hints
+        src = (
+            "Kurt Gödel and Stephen Kleene; also Godel, Goedel, "
+            "Gödel's theorem and Kleene's recursion."
+        )
+        out = apply_tts_pronunciation_hints(src)
+        assert "Gödel" not in out
+        assert "Godel" not in out
+        assert "Goedel" not in out
+        assert "Kleene" not in out
+        assert "Girdle" in out
+        assert "Girdle's" in out
+        assert "Klaynee" in out
+        assert "Klaynee's" in out
+
+    def test_nfd_umlaut_godel_is_respelled(self):
+        from content_fixes import apply_tts_pronunciation_hints
+        nfd = "G" + "o\u0308" + "del met Kleene"
+        out = apply_tts_pronunciation_hints(nfd)
+        assert "Girdle" in out
+        assert "Klaynee" in out
+
+    def test_does_not_touch_unrelated_words(self):
+        from content_fixes import apply_tts_pronunciation_hints
+        src = "Godelian methods and Kleenean algebra stay put."
+        assert apply_tts_pronunciation_hints(src) == src
+
+    def test_apply_content_fixes_keeps_scholarly_spelling(self):
+        from content_fixes import apply_content_fixes
+        script = "HOST: Gödel met Kleene.\nEXPERT: Godel's paper."
+        out = apply_content_fixes(script, "math")
+        assert "Gödel" in out
+        assert "Kleene" in out
+        assert "Godel" in out
+        assert "Girdle" not in out
+        assert "Klaynee" not in out
+
+
 class TestPaperYearText:
     def test_year_field(self):
         assert paper_year_text({"year": "1989"}) == "1989"
