@@ -207,6 +207,7 @@ def main() -> int:
     payload = {
         "last_updated": _now_iso(),
         "total_videos": len(videos),
+        "totalVideos": len(videos),
         "videos": videos,
         "statistics": build_statistics(videos),
     }

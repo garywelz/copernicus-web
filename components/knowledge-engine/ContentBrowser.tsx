@@ -4,13 +4,16 @@
 
 'use client'
 
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect, useMemo, FormEvent } from 'react'
 import {
   API_BASE_URL,
+  BROWSE_QUESTIONS,
+  browseQuestionLabel,
   PAPERS_DATABASE_TABLE_HREF,
+  PAPER_DISCIPLINES,
   PROCESS_DATABASE_LINKS,
   PROCESS_FAMILIES,
-  PAPER_DISCIPLINES,
+  VIDEOS_DATABASE_TABLE_HREF,
 } from './constants'
 import { KE_PROJECTS, type KEProjectId } from '@/lib/knowledge-engine-projects'
 import { hrefForKnowledgeItem } from '@/lib/knowledge-engine-links'
@@ -33,8 +36,12 @@ type ContentItem = {
     episode_link?: string
     slug?: string
     youtube_id?: string
+    channel_name?: string
+    question_scope_ids?: string[]
   }
 }
+
+type FacetRow = { id: string; label?: string; count: number }
 
 type BrowseType = 'papers' | 'podcasts' | 'processes' | 'videos'
 
@@ -69,9 +76,19 @@ export default function ContentBrowser({ project = null }: { project?: KEProject
   // existed before the toggle; this just picks a sensible starting chip
   // instead of always defaulting to 'math' regardless of context).
   const [processFamily, setProcessFamily] = useState<string>(project ? KE_PROJECTS[project].processContentType : 'math')
-  /** Paper-discipline chip. Empty = all papers. Mathematics is a paper family,
+  /** Paper/video-discipline chip. Empty = all. Mathematics is a paper family,
    *  distinct from ATAP process charts — same idea as Biology papers vs GLMP. */
   const [paperDiscipline, setPaperDiscipline] = useState<string>('')
+  const [question, setQuestion] = useState('')
+  const [channel, setChannel] = useState('')
+  const [keywordInput, setKeywordInput] = useState('')
+  const [keyword, setKeyword] = useState('')
+  const [note, setNote] = useState<string | null>(null)
+  const [facets, setFacets] = useState<{
+    disciplines: FacetRow[]
+    channels: FacetRow[]
+    questions: FacetRow[]
+  } | null>(null)
 
   useEffect(() => {
     if (project) {
@@ -81,13 +98,15 @@ export default function ContentBrowser({ project = null }: { project?: KEProject
   const [loading, setLoading] = useState(false)
   const [items, setItems] = useState<ContentItem[]>([])
   const [total, setTotal] = useState(0)
+  const [pages, setPages] = useState(0)
   const [page, setPage] = useState(1)
   /** Papers over-fetch so hiding Untitled stubs still leaves a usable card grid. */
   const limit = contentType === 'papers' ? 50 : 20
+  const catalogFilters = contentType === 'papers' || contentType === 'videos'
 
   useEffect(() => {
     loadContent()
-  }, [contentType, processFamily, paperDiscipline, page])
+  }, [contentType, processFamily, paperDiscipline, question, channel, keyword, page])
 
   const loadContent = async () => {
     setLoading(true)
@@ -100,8 +119,17 @@ export default function ContentBrowser({ project = null }: { project?: KEProject
       if (contentType === 'processes') {
         params.set('process_family', processFamily)
       }
-      if (contentType === 'papers' && paperDiscipline) {
+      if ((contentType === 'papers' || contentType === 'videos') && paperDiscipline) {
         params.set('discipline', paperDiscipline)
+      }
+      if ((contentType === 'papers' || contentType === 'videos') && question) {
+        params.set('question', question)
+      }
+      if ((contentType === 'papers' || contentType === 'videos') && keyword) {
+        params.set('keyword', keyword)
+      }
+      if (contentType === 'videos' && channel) {
+        params.set('channel', channel)
       }
 
       const response = await fetch(`${API_BASE_URL}/api/content/browse?${params}`)
@@ -110,14 +138,47 @@ export default function ContentBrowser({ project = null }: { project?: KEProject
       const data = await response.json()
       setItems(data.items || [])
       setTotal(data.pagination?.total || 0)
+      setPages(data.pagination?.pages || 0)
+      setNote(typeof data.note === 'string' ? data.note : null)
+      setFacets(data.facets || null)
     } catch (error) {
       console.error('Error loading content:', error)
       setItems([])
       setTotal(0)
+      setPages(0)
+      setNote(null)
+      setFacets(null)
     } finally {
       setLoading(false)
     }
   }
+
+  const applyKeyword = (event?: FormEvent) => {
+    event?.preventDefault()
+    const next = keywordInput.trim()
+    setPage(1)
+    setKeyword(next)
+  }
+
+  const resetCatalogFilters = () => {
+    setPaperDiscipline('')
+    setQuestion('')
+    setChannel('')
+    setKeywordInput('')
+    setKeyword('')
+    setPage(1)
+  }
+
+  const questionOptions = useMemo(() => {
+    const known = BROWSE_QUESTIONS.map((q) => q.id)
+    const extra = (facets?.questions || [])
+      .map((row) => row.id)
+      .filter((id) => !known.includes(id as (typeof BROWSE_QUESTIONS)[number]['id']))
+    return [
+      ...BROWSE_QUESTIONS.map((q) => ({ id: q.id, label: q.label })),
+      ...extra.map((id) => ({ id, label: id })),
+    ]
+  }, [facets])
 
   const { visibleItems, hiddenStubCount } = useMemo(() => {
     if (contentType !== 'papers') {
@@ -141,7 +202,7 @@ export default function ContentBrowser({ project = null }: { project?: KEProject
               key={type}
               onClick={() => {
                 setContentType(type)
-                setPage(1)
+                resetCatalogFilters()
               }}
               className={`px-4 py-2 rounded-md transition-colors ${
                 contentType === type
@@ -175,42 +236,127 @@ export default function ContentBrowser({ project = null }: { project?: KEProject
           </div>
         )}
 
-        {contentType === 'papers' && (
-          <div className="flex flex-wrap gap-2 mb-4">
-            <button
-              onClick={() => {
-                setPaperDiscipline('')
-                setPage(1)
-              }}
-              className={`px-3 py-1 text-sm rounded-md ${
-                paperDiscipline === ''
-                  ? 'bg-purple-600 text-white'
-                  : 'bg-purple-50 text-purple-800 hover:bg-purple-100'
-              }`}
-            >
-              All disciplines
-            </button>
-            {PAPER_DISCIPLINES.map((d) => (
+        {catalogFilters && (
+          <div className="space-y-3 mb-4 border border-gray-100 rounded-lg p-4 bg-gray-50">
+            <p className="text-xs text-gray-500">
+              Catalog filters (title/channel/question tags). For meaning search, use the Search tab.
+            </p>
+            <form onSubmit={applyKeyword} className="flex flex-wrap gap-2">
+              <input
+                type="search"
+                value={keywordInput}
+                onChange={(e) => setKeywordInput(e.target.value)}
+                placeholder={
+                  contentType === 'videos'
+                    ? 'Filter by title, channel, or tag…'
+                    : 'Filter by title or abstract…'
+                }
+                className="flex-1 min-w-[16rem] px-3 py-2 text-sm border border-gray-300 rounded-md"
+              />
               <button
-                key={d.id}
+                type="submit"
+                className="px-4 py-2 text-sm bg-blue-600 text-white rounded-md hover:bg-blue-700"
+              >
+                Filter
+              </button>
+              {(keyword || question || channel || paperDiscipline) && (
+                <button
+                  type="button"
+                  onClick={resetCatalogFilters}
+                  className="px-4 py-2 text-sm bg-white border border-gray-300 rounded-md hover:bg-gray-100"
+                >
+                  Clear filters
+                </button>
+              )}
+            </form>
+
+            <div className="flex flex-wrap gap-4">
+              <label className="text-sm text-gray-700">
+                Question
+                <select
+                  value={question}
+                  onChange={(e) => {
+                    setQuestion(e.target.value)
+                    setPage(1)
+                  }}
+                  className="ml-2 px-2 py-1 border border-gray-300 rounded-md bg-white"
+                >
+                  <option value="">All questions</option>
+                  {questionOptions.map((q) => {
+                    const count = facets?.questions?.find((row) => row.id === q.id)?.count
+                    return (
+                      <option key={q.id} value={q.id}>
+                        {q.label}
+                        {typeof count === 'number' ? ` (${count})` : ''}
+                      </option>
+                    )
+                  })}
+                </select>
+              </label>
+              {contentType === 'videos' && (
+                <label className="text-sm text-gray-700">
+                  Channel
+                  <select
+                    value={channel}
+                    onChange={(e) => {
+                      setChannel(e.target.value)
+                      setPage(1)
+                    }}
+                    className="ml-2 px-2 py-1 border border-gray-300 rounded-md bg-white max-w-xs"
+                  >
+                    <option value="">All channels</option>
+                    {(facets?.channels || []).map((row) => (
+                      <option key={row.id} value={row.id}>
+                        {row.label || row.id} ({row.count})
+                      </option>
+                    ))}
+                  </select>
+                </label>
+              )}
+            </div>
+
+            <div className="flex flex-wrap gap-2">
+              <button
                 onClick={() => {
-                  setPaperDiscipline(d.id)
+                  setPaperDiscipline('')
                   setPage(1)
                 }}
                 className={`px-3 py-1 text-sm rounded-md ${
-                  paperDiscipline === d.id
+                  paperDiscipline === ''
                     ? 'bg-purple-600 text-white'
                     : 'bg-purple-50 text-purple-800 hover:bg-purple-100'
                 }`}
               >
-                {d.label}
+                All disciplines
               </button>
-            ))}
+              {PAPER_DISCIPLINES.map((d) => {
+                const count = facets?.disciplines?.find((row) => row.id === d.id)?.count
+                return (
+                  <button
+                    key={d.id}
+                    onClick={() => {
+                      setPaperDiscipline(d.id)
+                      setPage(1)
+                    }}
+                    className={`px-3 py-1 text-sm rounded-md ${
+                      paperDiscipline === d.id
+                        ? 'bg-purple-600 text-white'
+                        : 'bg-purple-50 text-purple-800 hover:bg-purple-100'
+                    }`}
+                  >
+                    {d.label}
+                    {typeof count === 'number' ? ` (${count})` : ''}
+                  </button>
+                )
+              })}
+            </div>
           </div>
         )}
 
         <p className="text-sm text-gray-500 mb-4">
           {total > 0 ? `${total.toLocaleString()} items` : 'No items loaded'}
+          {keyword ? ` · keyword “${keyword}”` : ''}
+          {question ? ` · ${browseQuestionLabel(question)}` : ''}
           {contentType === 'papers' && (
             <>
               {' · '}
@@ -227,6 +373,19 @@ export default function ContentBrowser({ project = null }: { project?: KEProject
                   {` · ${hiddenStubCount} untitled stub${hiddenStubCount === 1 ? '' : 's'} hidden on this page`}
                 </span>
               )}
+            </>
+          )}
+          {contentType === 'videos' && (
+            <>
+              {' · '}
+              <a
+                href={VIDEOS_DATABASE_TABLE_HREF}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:underline"
+              >
+                Open full database table
+              </a>
             </>
           )}
           {contentType === 'processes' && (
@@ -248,6 +407,7 @@ export default function ContentBrowser({ project = null }: { project?: KEProject
             </>
           )}
         </p>
+        {note && <p className="text-xs text-amber-800 mb-4">{note}</p>}
 
         {loading && (
           <div className="flex justify-center py-12">
@@ -287,6 +447,9 @@ export default function ContentBrowser({ project = null }: { project?: KEProject
                       titleText
                     )}
                   </h3>
+                  {item.metadata?.channel_name && (
+                    <p className="text-xs text-gray-500 mb-1">{item.metadata.channel_name}</p>
+                  )}
                   {item.description && (
                     <p className="text-sm text-gray-600 line-clamp-3">{item.description}</p>
                   )}
@@ -296,6 +459,14 @@ export default function ContentBrowser({ project = null }: { project?: KEProject
                       ? ` · ${PROCESS_FAMILIES.find((f) => f.id === item.metadata?.process_family)?.label || item.metadata.process_family}`
                       : ''}
                   </span>
+                  {(item.metadata?.question_scope_ids || []).slice(0, 3).map((qid) => (
+                    <span
+                      key={qid}
+                      className="inline-block mt-2 ml-1 text-xs px-2 py-1 bg-purple-50 text-purple-800 rounded"
+                    >
+                      {qid}
+                    </span>
+                  ))}
                 </div>
               )
             })}
@@ -311,7 +482,10 @@ export default function ContentBrowser({ project = null }: { project?: KEProject
             >
               Previous
             </button>
-            <span className="py-2 text-sm text-gray-600">Page {page}</span>
+            <span className="py-2 text-sm text-gray-600">
+              Page {page}
+              {pages > 0 ? ` of ${pages}` : ''}
+            </span>
             <button
               disabled={page * limit >= total}
               onClick={() => setPage((p) => p + 1)}

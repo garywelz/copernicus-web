@@ -26,19 +26,9 @@ type EngineStatus = {
   notes?: Record<string, string>
 }
 
-type Stats = {
-  knowledge_map?: {
-    nodes: number
-    edges: number
-    papers: number
-    concepts: number
-  }
-}
-
 export default function StatsDashboard({ project = null }: { project?: KEProjectId | null } = {}) {
   const [loading, setLoading] = useState(true)
   const [engineStatus, setEngineStatus] = useState<EngineStatus | null>(null)
-  const [stats, setStats] = useState<Stats>({})
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
@@ -49,18 +39,12 @@ export default function StatsDashboard({ project = null }: { project?: KEProject
     setLoading(true)
     setError(null)
     try {
-      const [statusRes, kmRes] = await Promise.all([
-        fetch(`${GCS_STATUS_URL}?cb=${Date.now()}`),
-        fetch(`${API_BASE_URL}/api/knowledge-map/stats`),
-      ])
+      // Catalog totals only. /api/knowledge-map/stats is a last-built graph
+      // cache (often all zeros before anyone loads a map) and is not a corpus count.
+      const statusRes = await fetch(`${GCS_STATUS_URL}?cb=${Date.now()}`)
 
       if (statusRes.ok) {
         setEngineStatus(await statusRes.json())
-      }
-
-      if (kmRes.ok) {
-        const kmData = await kmRes.json()
-        setStats({ knowledge_map: kmData })
       }
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : 'Failed to load statistics')
@@ -179,30 +163,6 @@ export default function StatsDashboard({ project = null }: { project?: KEProject
           ))}
         </div>
       </div>
-
-      {stats.knowledge_map && (
-        <div className="bg-white rounded-lg shadow p-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Knowledge Map</h3>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div>
-              <div className="text-2xl font-bold text-blue-600">{stats.knowledge_map.nodes}</div>
-              <div className="text-sm text-gray-600">Nodes</div>
-            </div>
-            <div>
-              <div className="text-2xl font-bold text-green-600">{stats.knowledge_map.edges}</div>
-              <div className="text-sm text-gray-600">Edges</div>
-            </div>
-            <div>
-              <div className="text-2xl font-bold text-purple-600">{stats.knowledge_map.papers}</div>
-              <div className="text-sm text-gray-600">Papers on map</div>
-            </div>
-            <div>
-              <div className="text-2xl font-bold text-red-600">{stats.knowledge_map.concepts}</div>
-              <div className="text-sm text-gray-600">Concepts</div>
-            </div>
-          </div>
-        </div>
-      )}
 
       <div className="bg-white rounded-lg shadow p-6 text-sm text-gray-600 space-y-2">
         <div className="flex justify-between">

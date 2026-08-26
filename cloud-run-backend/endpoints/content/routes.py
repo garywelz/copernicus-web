@@ -8,9 +8,20 @@ Licensed under MIT License
 """
 
 from fastapi import APIRouter, HTTPException, Query
-from typing import Optional
+from typing import Any, Dict, List, Optional
 from utils.logging import structured_logger
 from config.database import db
+from content_browse_filters import (
+    PAPER_KEYWORD_SCAN_CAP,
+    PAPER_QUESTION_SCAN_CAP,
+    VIDEO_SCAN_CAP,
+    facet_values,
+    paginate,
+    paper_matches_discipline,
+    paper_matches_keyword,
+    video_matches,
+    video_question_ids,
+)
 
 router = APIRouter(prefix="/api/content", tags=["content"])
 
@@ -94,6 +105,58 @@ PROCESS_FAMILY_COLLECTIONS = {
 }
 
 
+def _paper_item(doc_id: str, paper_data: Dict[str, Any]) -> Dict[str, Any]:
+    sources = paper_data.get("sources") or []
+    if isinstance(sources, str):
+        sources = [sources]
+    source = (sources[0] if sources else None) or paper_data.get("source")
+    published = paper_data.get("published_at") or paper_data.get("published_date")
+    year = None
+    if isinstance(published, str) and len(published) >= 4:
+        year = published[:4]
+    return {
+        "id": doc_id,
+        "title": paper_data.get("title", "Untitled"),
+        "type": "paper",
+        "description": paper_data.get("abstract", "")[:200] if paper_data.get("abstract") else "",
+        "abstract": paper_data.get("abstract", "") or "",
+        "doi": paper_data.get("doi"),
+        "pmid": paper_data.get("pmid"),
+        "arxiv_id": paper_data.get("arxiv_id"),
+        "url": paper_data.get("url"),
+        "journal": paper_data.get("journal") or paper_data.get("journal_full"),
+        "year": year,
+        "source": source,
+        "discipline": paper_data.get("discipline"),
+        "metadata": {
+            "authors": paper_data.get("authors", []),
+            "published": published,
+            "categories": paper_data.get("categories", []),
+            "question_scope_ids": paper_data.get("question_scope_ids") or [],
+        },
+    }
+
+
+def _video_item(video_data: Dict[str, Any], doc_id: str) -> Dict[str, Any]:
+    return {
+        "id": video_data.get("video_id") or doc_id,
+        "title": video_data.get("title") or "Untitled",
+        "type": "video",
+        "description": (video_data.get("description") or "")[:200],
+        "url": video_data.get("video_url") or video_data.get("url"),
+        "metadata": {
+            "youtube_id": video_data.get("source_id")
+            if video_data.get("source") == "youtube"
+            else video_data.get("youtube_id"),
+            "source": video_data.get("source"),
+            "channel_name": video_data.get("channel_name"),
+            "duration": video_data.get("duration"),
+            "disciplines": video_data.get("disciplines") or [],
+            "question_scope_ids": video_question_ids(video_data),
+        },
+    }
+
+
 @router.get("/browse")
 async def browse_content(
     content_type: str = Query(..., description="Content type: papers, podcasts, processes, or videos"),
@@ -103,13 +166,28 @@ async def browse_content(
     ),
     discipline: Optional[str] = Query(
         None,
-        description="For papers: filter by discipline (biology, mathematics, physics, chemistry, computer_science, interdisciplinary)",
+        description="Papers or videos: biology, mathematics, physics, chemistry, computer_science, interdisciplinary",
+    ),
+    question: Optional[str] = Query(
+        None,
+        description="Declared question id (e.g. glmp-q1, atap-q2). Papers: question_scope_ids. Videos: metadata.question_scope_ids.",
+    ),
+    keyword: Optional[str] = Query(
+        None,
+        description="Literal substring filter on title/description (not vector search).",
+    ),
+    channel: Optional[str] = Query(
+        None,
+        description="Videos only: exact channel_name.",
     ),
     page: int = Query(1, ge=1, description="Page number"),
     limit: int = Query(20, ge=1, le=100, description="Items per page")
 ):
     """
     Browse content by type with pagination.
+
+    Optional catalog filters (keyword / question / video channel) slice the
+    inventory. They are not semantic search — use /api/vector-search for that.
     """
     try:
         if not db:
@@ -117,70 +195,127 @@ async def browse_content(
         
         items = []
         total = 0
+        facets = None
+        note = None
+        qid = (question or "").strip() or None
+        kw = (keyword or "").strip() or None
+        chan = (channel or "").strip() or None
         
         if content_type == "papers":
-            # Get papers from Firestore
             papers_ref = db.collection('research_papers')
             disc = (discipline or "").strip().lower() or None
-            filtered_ref = papers_ref
-            if disc:
-                from google.cloud.firestore_v1.base_query import FieldFilter
-                filtered_ref = papers_ref.where(filter=FieldFilter('discipline', '==', disc))
-            # Get total count (approximate for performance)
-            try:
-                count_result = filtered_ref.count().get()
-                total = _extract_count_value(count_result)
-            except Exception as e:
-                # Fallback: estimate from query
-                structured_logger.warning("Failed to count papers", error=str(e))
-                total = 0
-
+            from google.cloud.firestore_v1.base_query import FieldFilter
             from google.cloud import firestore as _fs
-            if disc:
-                # Composite index on (discipline, updated_at, __name__) not guaranteed to
-                # exist -- order by __name__ only when filtering, to avoid requiring one.
-                query = filtered_ref.order_by(
-                    '__name__', direction=_fs.Query.ASCENDING
-                ).limit(limit).offset((page - 1) * limit)
+
+            if qid and not kw and not disc:
+                scoped = papers_ref.where(
+                    filter=FieldFilter("question_scope_ids", "array_contains", qid)
+                )
+                try:
+                    total = _extract_count_value(scoped.count().get())
+                except Exception as e:
+                    structured_logger.warning("Failed to count question-scoped papers", error=str(e))
+                    total = 0
+                try:
+                    query = scoped.order_by(
+                        "__name__", direction=_fs.Query.ASCENDING
+                    ).limit(limit).offset((page - 1) * limit)
+                    for paper in query.stream():
+                        items.append(_paper_item(paper.id, paper.to_dict() or {}))
+                except Exception as e:
+                    structured_logger.warning(
+                        "Question browse pagination failed; falling back to scan",
+                        error=str(e),
+                    )
+                    scanned = []
+                    for i, paper in enumerate(scoped.stream()):
+                        if i >= PAPER_QUESTION_SCAN_CAP:
+                            note = (
+                                f"Question slice truncated at {PAPER_QUESTION_SCAN_CAP} documents."
+                            )
+                            break
+                        data = paper.to_dict() or {}
+                        data.pop("embedding", None)
+                        scanned.append((paper.id, data))
+                    page_rows, total = paginate(scanned, page, limit)
+                    items = [_paper_item(doc_id, data) for doc_id, data in page_rows]
+            elif qid or kw:
+                scanned = []
+                scan_capped = False
+                if qid:
+                    scoped = papers_ref.where(
+                        filter=FieldFilter("question_scope_ids", "array_contains", qid)
+                    )
+                    for i, paper in enumerate(scoped.stream()):
+                        if i >= PAPER_KEYWORD_SCAN_CAP:
+                            scan_capped = True
+                            break
+                        data = paper.to_dict() or {}
+                        data.pop("embedding", None)
+                        scanned.append((paper.id, data))
+                    if scan_capped:
+                        note = (
+                            f"Question + extra filters scanned {PAPER_KEYWORD_SCAN_CAP} "
+                            "papers in this question, not necessarily the full slice."
+                        )
+                else:
+                    filtered_ref = papers_ref
+                    if disc:
+                        filtered_ref = papers_ref.where(
+                            filter=FieldFilter("discipline", "==", disc)
+                        )
+                        query = filtered_ref.order_by(
+                            "__name__", direction=_fs.Query.ASCENDING
+                        ).limit(PAPER_KEYWORD_SCAN_CAP)
+                    else:
+                        query = papers_ref.order_by(
+                            "updated_at", direction=_fs.Query.DESCENDING
+                        ).order_by(
+                            "__name__", direction=_fs.Query.ASCENDING
+                        ).limit(PAPER_KEYWORD_SCAN_CAP)
+                    for paper in query.stream():
+                        data = paper.to_dict() or {}
+                        data.pop("embedding", None)
+                        scanned.append((paper.id, data))
+                    note = (
+                        f"Keyword without a question searches {PAPER_KEYWORD_SCAN_CAP} papers"
+                        + (" in this discipline" if disc else " (most recently updated)")
+                        + ", not the full corpus. Pick a question for a complete slice."
+                    )
+
+                matched = []
+                for doc_id, data in scanned:
+                    if qid and disc and not paper_matches_discipline(data, disc):
+                        continue
+                    if kw and not paper_matches_keyword(data, kw):
+                        continue
+                    matched.append((doc_id, data))
+                matched.sort(key=lambda pair: (pair[1].get("title") or "").lower())
+                page_rows, total = paginate(matched, page, limit)
+                items = [_paper_item(doc_id, data) for doc_id, data in page_rows]
             else:
-                query = papers_ref.order_by(
-                    'updated_at', direction=_fs.Query.DESCENDING
-                ).order_by(
-                    '__name__', direction=_fs.Query.ASCENDING
-                ).limit(limit).offset((page - 1) * limit)
-            papers = query.stream()
-            
-            for paper in papers:
-                paper_data = paper.to_dict()
-                sources = paper_data.get('sources') or []
-                if isinstance(sources, str):
-                    sources = [sources]
-                source = (sources[0] if sources else None) or paper_data.get('source')
-                published = paper_data.get('published_at') or paper_data.get('published_date')
-                year = None
-                if isinstance(published, str) and len(published) >= 4:
-                    year = published[:4]
-                items.append({
-                    'id': paper.id,
-                    'title': paper_data.get('title', 'Untitled'),
-                    'type': 'paper',
-                    'description': paper_data.get('abstract', '')[:200] if paper_data.get('abstract') else '',
-                    # Extra fields for static table UIs (papers-database-table.html)
-                    'abstract': paper_data.get('abstract', '') or '',
-                    'doi': paper_data.get('doi'),
-                    'pmid': paper_data.get('pmid'),
-                    'arxiv_id': paper_data.get('arxiv_id'),
-                    'url': paper_data.get('url'),
-                    'journal': paper_data.get('journal') or paper_data.get('journal_full'),
-                    'year': year,
-                    'source': source,
-                    'discipline': paper_data.get('discipline'),
-                    'metadata': {
-                        'authors': paper_data.get('authors', []),
-                        'published': published,
-                        'categories': paper_data.get('categories', [])
-                    }
-                })
+                filtered_ref = papers_ref
+                if disc:
+                    filtered_ref = papers_ref.where(filter=FieldFilter('discipline', '==', disc))
+                try:
+                    count_result = filtered_ref.count().get()
+                    total = _extract_count_value(count_result)
+                except Exception as e:
+                    structured_logger.warning("Failed to count papers", error=str(e))
+                    total = 0
+
+                if disc:
+                    query = filtered_ref.order_by(
+                        '__name__', direction=_fs.Query.ASCENDING
+                    ).limit(limit).offset((page - 1) * limit)
+                else:
+                    query = papers_ref.order_by(
+                        'updated_at', direction=_fs.Query.DESCENDING
+                    ).order_by(
+                        '__name__', direction=_fs.Query.ASCENDING
+                    ).limit(limit).offset((page - 1) * limit)
+                for paper in query.stream():
+                    items.append(_paper_item(paper.id, paper.to_dict() or {}))
         
         elif content_type == "podcasts":
             # Get podcasts from Firestore
@@ -254,33 +389,39 @@ async def browse_content(
 
         elif content_type == "videos":
             videos_ref = db.collection("science_videos")
-            try:
-                count_result = videos_ref.count().get()
-                total = _extract_count_value(count_result)
-            except Exception as e:
-                structured_logger.warning("Failed to count videos", error=str(e))
-                total = 0
-            try:
-                from google.cloud import firestore as _fs_videos  # type: ignore
-                query = videos_ref.order_by("title", direction=_fs_videos.Query.ASCENDING)
-            except Exception:
-                query = videos_ref
-            query = query.limit(limit).offset((page - 1) * limit)
-            for video in query.stream():
+            scanned_videos: List[Dict[str, Any]] = []
+            video_disc = (discipline or "").strip().lower() or None
+            for i, video in enumerate(videos_ref.stream()):
+                if i >= VIDEO_SCAN_CAP:
+                    note = f"Video catalog truncated at {VIDEO_SCAN_CAP} documents."
+                    break
                 video_data = video.to_dict() or {}
-                items.append({
-                    "id": video_data.get("video_id") or video.id,
-                    "title": video_data.get("title") or "Untitled",
-                    "type": "video",
-                    "description": (video_data.get("description") or "")[:200],
-                    "url": video_data.get("video_url") or video_data.get("url"),
-                    "metadata": {
-                        "youtube_id": video_data.get("source_id") if video_data.get("source") == "youtube" else video_data.get("youtube_id"),
-                        "source": video_data.get("source"),
-                        "channel_name": video_data.get("channel_name"),
-                        "duration": video_data.get("duration"),
-                    },
-                })
+                video_data.pop("embedding", None)
+                video_data.pop("transcript", None)
+                video_data["_doc_id"] = video.id
+                scanned_videos.append(video_data)
+
+            facets = facet_values(
+                scanned_videos,
+                discipline=video_disc,
+                channel=chan,
+                question=qid,
+                keyword=kw,
+            )
+            matched_videos = [
+                d
+                for d in scanned_videos
+                if video_matches(
+                    d,
+                    discipline=video_disc,
+                    channel=chan,
+                    question=qid,
+                    keyword=kw,
+                )
+            ]
+            matched_videos.sort(key=lambda d: (d.get("title") or "").lower())
+            page_rows, total = paginate(matched_videos, page, limit)
+            items = [_video_item(d, d.get("_doc_id") or "") for d in page_rows]
 
         else:
             raise HTTPException(
@@ -288,7 +429,7 @@ async def browse_content(
                 detail="Invalid content_type. Use: papers, podcasts, processes, videos",
             )
         
-        return {
+        payload = {
             'content_type': content_type,
             'items': items,
             'pagination': {
@@ -298,6 +439,11 @@ async def browse_content(
                 'pages': (total + limit - 1) // limit if total > 0 else 0
             }
         }
+        if facets is not None:
+            payload['facets'] = facets
+        if note:
+            payload['note'] = note
+        return payload
     
     except HTTPException:
         raise

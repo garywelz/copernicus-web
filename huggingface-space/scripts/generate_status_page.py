@@ -6,7 +6,8 @@ Modes:
   --source api (default)  Use Cloud Run content API totals (matches papers-database-table / live KE).
   --source local          Count JSON files under huggingface-space (offline; can diverge from Firestore).
 
-Videos: not in /api/content/browse. Set KSTATUS_VIDEO_COUNT or pass --videos N.
+Videos: prefer /api/content/browse?content_type=videos, then videos-metadata.json
+`totalVideos`. Override with KSTATUS_VIDEO_COUNT or --videos N.
 """
 
 from __future__ import annotations
@@ -124,25 +125,40 @@ def fetch_process_databases_gcs() -> tuple[Optional[Dict[str, int]], Optional[st
     return per, None
 
 
-def _resolve_video_count() -> tuple[int, Optional[str]]:
+def _resolve_video_count(api_base: Optional[str] = None) -> tuple[int, Optional[str]]:
     """
-    Video count, in priority order: explicit override (env/--videos, handled
-    by the caller pre-setting KSTATUS_VIDEO_COUNT) > live totalVideos from
-    videos-metadata.json > hardcoded fallback. Returns (count, note) where
-    note is set only when the live fetch was skipped or failed, so callers
-    can surface that the number isn't fresh.
+    Video count, in priority order: explicit override (env/--videos) >
+    live browse API total > videos-metadata.json totalVideos > fallback.
     """
     override = os.environ.get("KSTATUS_VIDEO_COUNT")
     if override is not None:
         return int(override), f"KSTATUS_VIDEO_COUNT override ({override}), live fetch not attempted."
+    if api_base:
+        try:
+            total = _fetch_browse_total(api_base, "videos")
+            if total > 0:
+                return total, None
+        except (HTTPError, URLError, TimeoutError, ValueError, OSError, json.JSONDecodeError) as exc:
+            browse_err = f"browse videos failed ({exc})"
+        else:
+            browse_err = "browse videos returned 0"
+    else:
+        browse_err = None
     try:
         data = _fetch_json_url(VIDEOS_METADATA_URL)
         total = data.get("totalVideos")
         if isinstance(total, int):
-            return total, None
-        return VIDEOS_COUNT_FALLBACK, "videos-metadata.json fetched but had no totalVideos field; used fallback."
+            note = f"{browse_err}; used videos-metadata.json." if browse_err else None
+            return total, note
+        return VIDEOS_COUNT_FALLBACK, (
+            f"{browse_err + '; ' if browse_err else ''}"
+            "videos-metadata.json fetched but had no totalVideos field; used fallback."
+        )
     except (HTTPError, URLError, TimeoutError, ValueError, OSError) as exc:
-        return VIDEOS_COUNT_FALLBACK, f"videos-metadata.json fetch failed ({exc}); used fallback."
+        return VIDEOS_COUNT_FALLBACK, (
+            f"{browse_err + '; ' if browse_err else ''}"
+            f"videos-metadata.json fetch failed ({exc}); used fallback."
+        )
 
 
 def fetch_papers_by_discipline(
@@ -271,7 +287,7 @@ def count_api(api_base: str) -> tuple[Dict[str, int], Optional[str]]:
     papers = _fetch_browse_total(api_base, "papers")
     podcasts = _fetch_browse_total(api_base, "podcasts")
     processes = _fetch_browse_total(api_base, "processes")
-    videos, videos_note = _resolve_video_count()
+    videos, videos_note = _resolve_video_count(api_base)
     return {
         "papers": papers,
         "processes": processes,
@@ -292,7 +308,8 @@ def build_status(
     focus_fallback: Optional[Dict[str, Any]] = None,
 ) -> Dict[str, Any]:
     videos_doc = (
-        f"Live from {VIDEOS_METADATA_URL} (`totalVideos`); override with "
+        "Live from Cloud Run /api/content/browse?content_type=videos, "
+        f"then {VIDEOS_METADATA_URL} (`totalVideos`); override with "
         "KSTATUS_VIDEO_COUNT or --videos."
     )
     out: Dict[str, Any] = {
