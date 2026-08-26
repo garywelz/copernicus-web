@@ -48,7 +48,15 @@ type MapFilterOverrides = {
   maxPapers?: number
 }
 
-const EMPTY_STATS = { nodes: 0, edges: 0, papers: 0, concepts: 0, processes: 0, podcasts: 0 }
+const EMPTY_STATS = { papers: 0, processes: 0, videos: 0, podcasts: 0, concepts: 0 }
+
+const NODE_TYPE_LABEL: Record<string, string> = {
+  paper: 'Paper',
+  process: 'Process',
+  video: 'Video',
+  podcast: 'Podcast',
+  concept: 'Concept',
+}
 
 type SelectedNode = {
   id: string
@@ -753,6 +761,7 @@ export default function KnowledgeMapView({ project = null }: { project?: KEProje
       const papers = nodes.filter((n: any) => n.data?.type === 'paper').length
       const concepts = nodes.filter((n: any) => n.data?.type === 'concept').length
       const processes = nodes.filter((n: any) => n.data?.type === 'process').length
+      const videos = nodes.filter((n: any) => n.data?.type === 'video').length
       const podcasts = nodes.filter((n: any) => n.data?.type === 'podcast').length
 
       // Fit the graph to viewport first
@@ -769,11 +778,10 @@ export default function KnowledgeMapView({ project = null }: { project?: KEProje
           // Double RAF ensures we're after paint
           startTransition(() => {
             setStats({
-              nodes: nodes.length,
-              edges: edges.length,
               papers,
               concepts,
               processes,
+              videos,
               podcasts,
             })
             setLoading(false)
@@ -787,6 +795,7 @@ export default function KnowledgeMapView({ project = null }: { project?: KEProje
         papers,
         concepts,
         processes,
+        videos,
         podcasts,
       })
     } catch (err: any) {
@@ -932,10 +941,10 @@ export default function KnowledgeMapView({ project = null }: { project?: KEProje
               {loading ? 'Building…' : 'Build Map'}
             </button>
           </div>
-          {keywordSearch.trim() && stats.nodes > 0 && !loading && (
+          {keywordSearch.trim() && (stats.papers + stats.processes + stats.videos + stats.podcasts + stats.concepts) > 0 && !loading && (
             <p className="text-xs text-green-700 mt-2">
               Showing map for: <span className="font-medium">&ldquo;{keywordSearch.trim()}&rdquo;</span>
-              {' '}({stats.papers} papers, {stats.processes} processes, {stats.podcasts} podcasts, {stats.concepts} concepts)
+              {' '}({stats.papers} papers, {stats.processes} processes, {stats.videos} videos, {stats.podcasts} podcasts, {stats.concepts} concepts)
             </p>
           )}
         </div>
@@ -1279,15 +1288,7 @@ export default function KnowledgeMapView({ project = null }: { project?: KEProje
       {/* Statistics + Node Explanation */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
         <div className="bg-white rounded-lg shadow p-4">
-          <div className="grid grid-cols-3 sm:grid-cols-6 gap-3">
-            <div className="text-center">
-              <div className="text-2xl font-bold text-blue-600">{stats.nodes}</div>
-              <div className="text-sm text-gray-600">Nodes</div>
-            </div>
-            <div className="text-center">
-              <div className="text-2xl font-bold text-green-600">{stats.edges}</div>
-              <div className="text-sm text-gray-600">Edges</div>
-            </div>
+          <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
             <div className="text-center">
               <div className="text-2xl font-bold text-blue-500">{stats.papers}</div>
               <div className="text-sm text-gray-600">Papers</div>
@@ -1295,6 +1296,10 @@ export default function KnowledgeMapView({ project = null }: { project?: KEProje
             <div className="text-center">
               <div className="text-2xl font-bold text-purple-600">{stats.processes}</div>
               <div className="text-sm text-gray-600">Processes</div>
+            </div>
+            <div className="text-center">
+              <div className="text-2xl font-bold" style={{ color: '#16a085' }}>{stats.videos}</div>
+              <div className="text-sm text-gray-600">Videos</div>
             </div>
             <div className="text-center">
               <div className="text-2xl font-bold text-orange-500">{stats.podcasts}</div>
@@ -1313,7 +1318,7 @@ export default function KnowledgeMapView({ project = null }: { project?: KEProje
           </h3>
           {!selectedNode && (
             <p className="text-xs text-gray-500">
-              Click a paper, process, podcast, or concept node to see an explanation and its source link.
+              Click a paper, process, video, podcast, or concept node to see an explanation and its source link.
             </p>
           )}
           {selectedNode && (
@@ -1321,7 +1326,7 @@ export default function KnowledgeMapView({ project = null }: { project?: KEProje
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-xs text-gray-500 uppercase tracking-wide">
-                    {selectedNode.type === 'paper' ? 'Paper' : selectedNode.type === 'concept' ? 'Concept' : 'Node'}
+                    {NODE_TYPE_LABEL[selectedNode.type] || 'Node'}
                   </p>
                   <p className="text-sm font-medium text-gray-800">{selectedNode.label}</p>
                   {selectedHref && (
@@ -1415,10 +1420,22 @@ export default function KnowledgeMapView({ project = null }: { project?: KEProje
       {/* Legend */}
       <div className="bg-white rounded-lg shadow p-4">
         <h3 className="text-sm font-semibold text-gray-700 mb-2">Legend</h3>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4 text-sm">
           <div className="flex items-center space-x-2">
             <div className="w-4 h-4 bg-blue-500 rounded-full"></div>
             <span>Papers</span>
+          </div>
+          <div className="flex items-center space-x-2">
+            <div className="w-4 h-4 rounded-sm" style={{ backgroundColor: '#8e44ad' }}></div>
+            <span>Processes</span>
+          </div>
+          <div className="flex items-center space-x-2">
+            <div className="w-4 h-4" style={{ backgroundColor: '#16a085', clipPath: 'polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%)' }}></div>
+            <span>Videos</span>
+          </div>
+          <div className="flex items-center space-x-2">
+            <div className="w-4 h-4" style={{ backgroundColor: '#e67e22', clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)' }}></div>
+            <span>Podcasts</span>
           </div>
           <div className="flex items-center space-x-2">
             <div className="w-4 h-4 bg-red-500 transform rotate-45" style={{ width: '16px', height: '16px' }}></div>
