@@ -152,7 +152,7 @@ ANCHORS: Dict[str, List[Dict[str, str]]] = {
     ],
     "episodes": [
         {"query": "gene editing without cutting DNA", "expected_id": "ever-bio-250007"},
-        {"query": "predicting protein shape from sequence", "expected_id": "ever-compsci-250041"},
+        {"query": "AlphaFold2 protein structure prediction", "expected_id": "ever-compsci-250041"},
     ],
     "physics_processes": [
         {

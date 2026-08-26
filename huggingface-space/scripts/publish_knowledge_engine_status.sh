@@ -6,7 +6,8 @@ set -euo pipefail
 BASE="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$BASE"
 
-# Jetson: system python3 is 3.6; master-todo-cron venv has py3.13 + google-cloud-storage
+# Jetson: system python3 is 3.6; master-todo-cron venv has py3.13 + google-cloud-storage + google-cloud-firestore
+# (firestore is required for rag_focus_fallback; omitting it degrades AUTO-STATUS as stale=focus_fallback)
 PYTHON="${PUBLISH_PYTHON:-/media/sdcard/venvs/master-todo-cron/bin/python}"
 export GOOGLE_APPLICATION_CREDENTIALS="${GOOGLE_APPLICATION_CREDENTIALS:-/home/gary/.config/copernicus/gcp-sa.json}"
 
