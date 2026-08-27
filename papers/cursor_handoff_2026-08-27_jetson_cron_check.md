@@ -1,5 +1,14 @@
 # Handoff — 27 August 2026 (check Jetson cron — AUTO-STATUS only, not ingestion)
 
+**RETRACTED, same day.** This ask was based on a duplicate finding —
+`glmp` item 38 (2026-08-03/04) already closed this exact question: the
+git-tracked `AUTO-STATUS` block in `docs/GLMP_MASTER_TODO.md` is frozen
+**by design** (`build_master_todo.py` never overwrites it; live
+self-reporting goes to `/media/sdcard/status/` + GCS instead). No cron
+problem exists. Cursor confirmed directly and pointed at the missed
+item 38; see `glmp@33edab6` for the correction. **No action needed —
+do not check the Jetson cron for this.** Left below for the record only.
+
 **From:** Claude Code
 **To:** Cursor
 **Repos:** `glmp` @ `8d837de` (main, origin)
