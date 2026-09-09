@@ -3,6 +3,8 @@
 # Jetson line (America/New_York), daily after PM paper ingest:
 #   30 21 * * * bash /media/sdcard/scheduler/scout/sync_recent_videos.sh
 # Does not change production PubMed/bioRxiv/arXiv cron.
+# Does not talk to YouTube. Weekly catalog recency (YouTube → Postgres) is
+# sketched, not installed: sciencevideodb/scripts/weekly-channel-recency.sh.
 # ScienceVideoDB secret points at localhost:5433; this wrapper starts
 # Cloud SQL Auth Proxy for that slot if nothing is already listening.
 set -euo pipefail
