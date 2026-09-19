@@ -34,7 +34,7 @@ except ImportError:
 # Configuration
 BASE_DIR = Path("/home/gdubs/copernicus-web-public/huggingface-space")
 OUTPUT_DIR = BASE_DIR / "metadata-database" / "papers" / "biology"
-EMAIL = "gary@copernicusai.fyi"  # Required by Entrez API
+EMAIL = "gwelz@gc.cuny.edu"  # Required by Entrez API
 MAX_RESULTS_PER_QUERY = 10000  # Entrez API limit
 BATCH_SIZE = 100  # Number of papers to fetch at once
 DELAY_BETWEEN_QUERIES = 0.34  # Seconds (NCBI requires < 3 requests/second)

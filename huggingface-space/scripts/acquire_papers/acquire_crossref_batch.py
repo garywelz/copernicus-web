@@ -55,7 +55,7 @@ def search_crossref(query: Optional[str] = None, filter_params: Optional[Dict] =
         # See: https://api.crossref.org/swagger-ui/index.html
         "sort": sort,
         "order": order,
-        "mailto": "gary@copernicusai.fyi"  # Polite use (required by Crossref)
+        "mailto": "gwelz@gc.cuny.edu"  # Polite use (required by Crossref)
     }
     
     if query:
@@ -78,14 +78,14 @@ def search_crossref(query: Optional[str] = None, filter_params: Optional[Dict] =
         
         if REQUESTS_AVAILABLE:
             response = requests.get(CROSSREF_API_URL, params=params, timeout=30, 
-                                  headers={"User-Agent": "CopernicusAI/1.0 (mailto:gary@copernicusai.fyi)"})
+                                  headers={"User-Agent": "CopernicusAI/1.0 (mailto:gwelz@gc.cuny.edu)"})
             response.raise_for_status()
             data = response.json()
         else:
             import urllib.request
             import urllib.parse
             url = f"{CROSSREF_API_URL}?{urllib.parse.urlencode(params)}"
-            req = urllib.request.Request(url, headers={"User-Agent": "CopernicusAI/1.0 (mailto:gary@copernicusai.fyi)"})
+            req = urllib.request.Request(url, headers={"User-Agent": "CopernicusAI/1.0 (mailto:gwelz@gc.cuny.edu)"})
             with urllib.request.urlopen(req, timeout=30) as response:
                 data = json.loads(response.read())
         
@@ -364,7 +364,7 @@ def acquire_by_doi_list(doi_list: List[str]) -> List[Dict]:
             
             if REQUESTS_AVAILABLE:
                 response = requests.get(url, timeout=30,
-                                      headers={"User-Agent": "CopernicusAI/1.0 (mailto:gary@copernicusai.fyi)"})
+                                      headers={"User-Agent": "CopernicusAI/1.0 (mailto:gwelz@gc.cuny.edu)"})
                 if response.status_code == 200:
                     data = response.json()
                     item = data.get("message", {})
@@ -375,7 +375,7 @@ def acquire_by_doi_list(doi_list: List[str]) -> List[Dict]:
                     print(f"  ⚠️  DOI not found: {doi}")
             else:
                 import urllib.request
-                req = urllib.request.Request(url, headers={"User-Agent": "CopernicusAI/1.0 (mailto:gary@copernicusai.fyi)"})
+                req = urllib.request.Request(url, headers={"User-Agent": "CopernicusAI/1.0 (mailto:gwelz@gc.cuny.edu)"})
                 with urllib.request.urlopen(req, timeout=30) as response:
                     data = json.loads(response.read())
                     item = data.get("message", {})

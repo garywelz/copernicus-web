@@ -4,19 +4,30 @@ A2 §8 — one-hop citation-expansion pilot, now config-driven by project.
 
 Seeds: by default, #43 researcher-cited papers then A1 chart-named papers,
 to a cap of 50 (collect_seeds()) -- unchanged GLMP/ATAP behavior. Or pass
---seed-doi-file for an explicit doi,question_ids CSV (load_seed_file()),
-for seeds that don't (yet) exist in Firestore under a matching
-acquisition_channel -- see that function's docstring. Every seed carries a
-direction key, fixed to "references" for now; no forward (citing-papers)
-mode exists yet, and none is planned for broad, highly-cited seeds like
-Zomorodian-Carlsson or Otter et al. (forward expansion from those would
-flood the corpus -- see TDAP_BACKFILL_RECON_2026-09-19.md Q1).
+--seed-doi-file for an explicit doi,question_ids[,title,arxiv_id,admit_policy]
+CSV (load_seed_file()), for seeds that don't (yet) exist in Firestore under
+a matching acquisition_channel -- see that function's docstring. Every seed
+carries a direction key, fixed to "references" for now; no forward
+(citing-papers) mode exists yet, and none is planned for broad, highly-cited
+seeds like Zomorodian-Carlsson or Otter et al. (forward expansion from those
+would flood the corpus -- see TDAP_BACKFILL_RECON_2026-09-19.md Q1).
 
-One hop only, references direction only. A candidate is kept if at least
---min-parents seeds cite it (default 2), or it is among the most-cited
-references of a single seed (OpenAlex cited_by_count, top --top-n-in-seed,
-default 5). A candidate inherits the union of its parents' question_ids.
-Never expand from papers this hop admits.
+Reference lists: Crossref first, OpenAlex fallback, then (only for a seed
+file entry with an arxiv_id, only if both of those came back empty)
+Semantic Scholar by arXiv id -- see semanticscholar_refs_by_arxiv(). Every
+reference's cited_by_count is then backfilled from OpenAlex uniformly
+(_enrich_cited_by_count()), regardless of which of the three sources
+supplied it, so the top-cited-in-seed gate isn't silently blind to
+Crossref-sourced or Semantic-Scholar-sourced seeds.
+
+One hop only, references direction only. Per seed, admit_policy controls
+how its own references are gated: "strict" (default -- unchanged
+GLMP/ATAP behavior) keeps a candidate only if at least --min-parents seeds
+cite it (default 2) or it's among a single seed's most-cited references
+(top --top-n-in-seed, default 5); "all_references" admits every one of
+that seed's resolvable references outright, for a seed whose whole
+bibliography is already on-topic. A candidate inherits the union of its
+parents' question_ids. Never expand from papers this hop admits.
 
 acquisition_channel and cited_project are CLI params (--acquisition-channel,
 --cited-project), defaulting to "cited_by_collection"/"glmp" to preserve
@@ -49,6 +60,7 @@ DEFAULT_REPORT = SCRIPT_DIR / "citation_expansion_pilot_report.jsonl"
 UA = "CopernicusAI/1.0 (mailto:gwelz@gc.cuny.edu)"
 CROSSREF = "https://api.crossref.org/works"
 OPENALEX = "https://api.openalex.org/works"
+SEMANTIC_SCHOLAR = "https://api.semanticscholar.org/graph/v1/paper"
 SEED_CAP = 50
 # PER_SEED_CAP (formerly 8) removed 2026-09-19 (TDAP): the per-seed reference
 # loop already slices to top_n_in_seed candidates before this cap could ever
@@ -106,6 +118,8 @@ def collect_seeds(db, limit: int = SEED_CAP) -> List[Dict[str, Any]]:
             "kind": kind,
             "question_ids": frozenset(),
             "direction": "references",
+            "arxiv_id": data.get("arxiv_id") or None,
+            "admit_policy": "strict",
         })
 
     for snap in col.where("acquisition_channel", "==", "researcher_citation").stream():
@@ -126,13 +140,33 @@ def collect_seeds(db, limit: int = SEED_CAP) -> List[Dict[str, Any]]:
     return seeds[:limit]
 
 
+VALID_ADMIT_POLICIES = ("strict", "all_references")
+
+
 def load_seed_file(path: Path) -> List[Dict[str, Any]]:
     """Explicit seed source (added 2026-09-19 for TDAP): a CSV with columns
     `doi,question_ids` (question_ids is a `|`-separated list of this
-    project's question ids, e.g. "tdap-q1|tdap-q2"; may be empty). Used
-    instead of collect_seeds() when a project's seeds aren't (yet, or ever
-    going to be) tagged with a matching acquisition_channel in Firestore --
-    e.g. six hand-picked TDAP seed papers that predate any TDAP acquisition.
+    project's question ids, e.g. "tdap-q1|tdap-q2"; may be empty), plus
+    optional `title`, `arxiv_id`, and `admit_policy` columns. Used instead
+    of collect_seeds() when a project's seeds aren't (yet, or ever going
+    to be) tagged with a matching acquisition_channel in Firestore -- e.g.
+    hand-picked TDAP seed papers that predate any TDAP acquisition.
+
+    arxiv_id (optional): tried as a third reference-list source, after
+    Crossref and OpenAlex both come back empty by DOI -- see
+    semanticscholar_refs_by_arxiv(). Added 2026-09-19 because two TDAP
+    seeds (SoCG/LIPIcs and ALENEX 2026 papers, neither indexed by DOI on
+    Crossref or OpenAlex) turned out to have real reference lists on
+    Semantic Scholar, but only when queried by arXiv id.
+
+    admit_policy (optional, default "strict"): "strict" keeps this
+    session's existing min-parents/top-N-in-seed gates (unchanged
+    GLMP/ATAP behavior). "all_references" admits every one of this seed's
+    resolvable references outright, no gate -- for a seed whose whole
+    bibliography is already on-topic (2026-09-19, TDAP task 4, Claude
+    Chat review), rather than one gated for a broad, mixed-topic seed
+    like Zomorodian-Carlsson/Otter et al. Any other value is a config
+    error and raises, rather than silently falling back to "strict".
 
     Seeds loaded this way are NOT thereby added to research_papers -- this
     script only ever writes admitted *candidates*, never the seeds
@@ -156,6 +190,12 @@ def load_seed_file(path: Path) -> List[Dict[str, Any]]:
             seen.add(doi)
             raw_qids = (row.get("question_ids") or "").strip()
             question_ids = frozenset(q.strip() for q in raw_qids.split("|") if q.strip())
+            admit_policy = (row.get("admit_policy") or "").strip() or "strict"
+            if admit_policy not in VALID_ADMIT_POLICIES:
+                raise ValueError(
+                    f"{path}: row {doi!r} has admit_policy={admit_policy!r}, "
+                    f"expected one of {VALID_ADMIT_POLICIES} (blank means 'strict')"
+                )
             seeds.append({
                 "doc_id": None,
                 "doi": doi,
@@ -163,19 +203,39 @@ def load_seed_file(path: Path) -> List[Dict[str, Any]]:
                 "kind": "seed_file",
                 "question_ids": question_ids,
                 "direction": "references",
+                "arxiv_id": (row.get("arxiv_id") or "").strip() or None,
+                "admit_policy": admit_policy,
             })
     return seeds
 
 
-def crossref_refs(doi: str) -> List[Dict[str, Any]]:
+def _new_attempt(source: str) -> Dict[str, Any]:
+    return {"source": source, "http_status": None, "ok": False, "error": None}
+
+
+def crossref_refs(doi: str) -> Tuple[List[Dict[str, Any]], Dict[str, Any]]:
+    """Returns (refs, attempt). attempt["ok"] is True iff the request itself
+    succeeded (HTTP 200 + parseable JSON) -- an empty refs list with ok=True
+    is a confirmed real result (this DOI has no deposited reference list on
+    Crossref); an empty refs list with ok=False means the request failed
+    and emptiness is NOT confirmed. Distinguishing these two (2026-09-19,
+    TDAP task 2, Claude Chat review) is the whole point: a prior version's
+    bare `except: return []` made a genuine 429 read identically to a
+    genuine empty result, and that exact failure mode masked a real
+    Semantic Scholar rate-limit as "no references" in the round-2 dry run."""
+    attempt = _new_attempt("crossref")
     url = f"{CROSSREF}/{quote(doi, safe='')}"
     try:
         resp = requests.get(url, timeout=30, headers={"User-Agent": UA})
+        attempt["http_status"] = resp.status_code
         if resp.status_code != 200:
-            return []
+            attempt["error"] = f"HTTP {resp.status_code}"
+            return [], attempt
         refs = (resp.json().get("message") or {}).get("reference") or []
-    except Exception:
-        return []
+        attempt["ok"] = True
+    except Exception as e:
+        attempt["error"] = f"{type(e).__name__}: {e}"
+        return [], attempt
     out = []
     for ref in refs:
         rd = _norm_doi(ref.get("DOI"))
@@ -187,10 +247,18 @@ def crossref_refs(doi: str) -> List[Dict[str, Any]]:
             "cited_by_count": None,
             "source": "crossref",
         })
-    return out
+    return out, attempt
 
 
-def openalex_refs(doi: str) -> List[Dict[str, Any]]:
+def openalex_refs(doi: str) -> Tuple[List[Dict[str, Any]], Dict[str, Any]]:
+    """Returns (refs, attempt) -- see crossref_refs() docstring for the
+    ok/empty distinction this preserves. The initial referenced_works
+    lookup determines attempt["ok"]; per-chunk batch-detail failures are
+    recorded in attempt["batch_errors"] but don't flip ok to False on
+    their own (a batch failure loses some references, it doesn't mean the
+    seed has none -- that's a partial result, not a confirmed-empty one;
+    the count of references actually resolved still reflects in len(out))."""
+    attempt = _new_attempt("openalex")
     try:
         resp = requests.get(
             f"{OPENALEX}/doi:{quote(doi, safe='')}",
@@ -198,12 +266,17 @@ def openalex_refs(doi: str) -> List[Dict[str, Any]]:
             headers={"User-Agent": UA},
             params={"select": "id,doi,referenced_works"},
         )
+        attempt["http_status"] = resp.status_code
         if resp.status_code != 200:
-            return []
+            attempt["error"] = f"HTTP {resp.status_code}"
+            return [], attempt
         ids = (resp.json() or {}).get("referenced_works") or []
-    except Exception:
-        return []
+        attempt["ok"] = True
+    except Exception as e:
+        attempt["error"] = f"{type(e).__name__}: {e}"
+        return [], attempt
     out: List[Dict[str, Any]] = []
+    batch_errors: List[str] = []
     for i in range(0, len(ids), 50):
         chunk = [w.rsplit("/", 1)[-1] for w in ids[i : i + 50]]
         filt = "|".join(chunk)
@@ -219,6 +292,7 @@ def openalex_refs(doi: str) -> List[Dict[str, Any]]:
                 },
             )
             if r.status_code != 200:
+                batch_errors.append(f"batch@{i}: HTTP {r.status_code}")
                 continue
             for item in (r.json() or {}).get("results") or []:
                 rd = _norm_doi(item.get("doi"))
@@ -230,20 +304,164 @@ def openalex_refs(doi: str) -> List[Dict[str, Any]]:
                     "cited_by_count": item.get("cited_by_count"),
                     "source": "openalex",
                 })
+        except Exception as e:
+            batch_errors.append(f"batch@{i}: {type(e).__name__}: {e}")
+            continue
+        time.sleep(0.1)
+    if batch_errors:
+        attempt["batch_errors"] = batch_errors
+    return out, attempt
+
+
+def semanticscholar_refs_by_arxiv(arxiv_id: str) -> Tuple[List[Dict[str, Any]], Dict[str, Any]]:
+    """Third fallback reference source (added 2026-09-19 for TDAP), tried
+    only when a seed has an arxiv_id and both Crossref and OpenAlex (by
+    DOI) came back empty. Semantic Scholar indexes reference lists for some
+    arXiv preprints that neither of those has by DOI -- confirmed live for
+    two TDAP seeds (a SoCG/LIPIcs paper not on Crossref at all, and an
+    ALENEX 2026 paper too recent for either source), 28-32 references each
+    via S2 keyed by arXiv id, versus zero via DOI on any other source.
+    cited_by_count is deliberately left None here (not S2's own
+    citationCount) -- see _enrich_cited_by_count(), which backfills every
+    reference uniformly from OpenAlex regardless of source, so the
+    top-cited-in-seed gate compares apples to apples. Only references with
+    a DOI in externalIds are usable downstream (this pipeline is DOI-keyed
+    throughout), so DOI-less S2 references are dropped, same as
+    crossref_refs()/openalex_refs() already do.
+
+    Returns (refs, attempt) -- see crossref_refs() docstring for the
+    ok/empty distinction. Retries on 429/timeout (up to 3 tries, linear
+    backoff) -- S2's anonymous rate limit is strict and shared per-IP
+    across all callers. A first version of this function had neither the
+    retry nor the ok/error distinction, and its bare `except: return []`
+    made a genuine 429 (this session had hit S2's rate limit manually
+    minutes earlier) read identically to a genuine empty result in the
+    round-2 dry run -- both TDAP seeds this function exists for showed
+    "0 refs" even though the same request succeeded seconds later by
+    hand. Even with retries, a persistent 429 across all 3 attempts still
+    happened once in practice (Nigmetov-Morozov, round-2 dry run) -- an
+    S2 API key would very likely fix that; not obtained here."""
+    attempt = _new_attempt("semanticscholar")
+    refs: List[Dict[str, Any]] = []
+    for try_n in range(3):
+        try:
+            resp = requests.get(
+                f"{SEMANTIC_SCHOLAR}/arXiv:{quote(arxiv_id, safe='')}",
+                timeout=30,
+                headers={"User-Agent": UA},
+                params={"fields": "references.title,references.externalIds"},
+            )
+            attempt["http_status"] = resp.status_code
+            if resp.status_code == 200:
+                refs = (resp.json() or {}).get("references") or []
+                attempt["ok"] = True
+                break
+            if resp.status_code == 429 and try_n < 2:
+                time.sleep(2 * (try_n + 1))
+                continue
+            attempt["error"] = f"HTTP {resp.status_code}"
+            return [], attempt
+        except Exception as e:
+            if try_n < 2:
+                time.sleep(2 * (try_n + 1))
+                continue
+            attempt["error"] = f"{type(e).__name__}: {e}"
+            return [], attempt
+    out: List[Dict[str, Any]] = []
+    for ref in refs:
+        ext = ref.get("externalIds") or {}
+        rd = _norm_doi(ext.get("DOI"))
+        if not rd:
+            continue
+        out.append({
+            "doi": rd,
+            "title": ref.get("title") or "",
+            "cited_by_count": None,
+            "source": "semanticscholar",
+        })
+    return out, attempt
+
+
+def _enrich_cited_by_count(refs: List[Dict[str, Any]]) -> None:
+    """Backfill cited_by_count from OpenAlex for any reference missing it,
+    regardless of which source supplied the reference list (2026-09-19,
+    TDAP task 3, Claude Chat review). Without this, the top-cited-in-seed
+    admit path only ever fires for a seed that happened to resolve via
+    openalex_refs() -- the only source that natively carries citation
+    counts -- which silently starved 3 of 4 productive TDAP seeds of that
+    admission path even though top_n_in_seed was raised to 15 for them.
+    Mutates refs in place. Batched via OpenAlex's doi filter, pipe-OR up to
+    50 DOIs per request (verified live, same pattern openalex_refs()
+    already uses for referenced_works ids)."""
+    missing = [r for r in refs if r.get("cited_by_count") is None]
+    if not missing:
+        return
+    by_doi = {r["doi"]: r for r in missing}
+    dois = list(by_doi.keys())
+    for i in range(0, len(dois), 50):
+        chunk = dois[i : i + 50]
+        filt = "|".join(chunk)
+        try:
+            r = requests.get(
+                OPENALEX,
+                timeout=45,
+                headers={"User-Agent": UA},
+                params={"filter": f"doi:{filt}", "per-page": 50, "select": "doi,cited_by_count"},
+            )
+            if r.status_code != 200:
+                continue
+            for item in (r.json() or {}).get("results") or []:
+                rd = _norm_doi(item.get("doi"))
+                if rd and rd in by_doi:
+                    by_doi[rd]["cited_by_count"] = item.get("cited_by_count")
         except Exception:
             continue
         time.sleep(0.1)
-    return out
 
 
-def fetch_seed_refs(doi: str) -> Tuple[List[Dict[str, Any]], str]:
-    refs = crossref_refs(doi)
+def fetch_seed_refs(
+    doi: str, arxiv_id: Optional[str] = None
+) -> Tuple[List[Dict[str, Any]], str, Dict[str, Any]]:
+    """Returns (refs, source, fetch_status). fetch_status["status"] is one
+    of three states (2026-09-19, TDAP task 2, Claude Chat review) -- never
+    collapsed into a single ambiguous "none" the way source used to be:
+      "ok"    -- got 1+ references from some source.
+      "empty" -- every source actually tried responded successfully (ok=
+                 True) but all confirmed zero references. A real result,
+                 not a failure -- e.g. a thin Crossref record with no
+                 deposited bibliography.
+      "error" -- refs is empty AND at least one tried source failed
+                 (non-200 or exception) -- emptiness is NOT confirmed,
+                 unlike "empty". This is exactly the state a bare
+                 `except: return []` used to make indistinguishable from
+                 "empty", which is what let a real S2 429 read as "no
+                 references" in the round-2 dry run.
+    fetch_status["attempts"] carries every attempt dict tried, in order,
+    for the full report."""
+    attempts: List[Dict[str, Any]] = []
+    refs, a = crossref_refs(doi)
+    attempts.append(a)
     source = "crossref"
     if not refs:
-        refs = openalex_refs(doi)
-        source = "openalex" if refs else "none"
+        refs, a = openalex_refs(doi)
+        attempts.append(a)
+        source = "openalex"
+    if not refs and arxiv_id:
+        refs, a = semanticscholar_refs_by_arxiv(arxiv_id)
+        attempts.append(a)
+        source = "semanticscholar"
+    _enrich_cited_by_count(refs)
     time.sleep(0.35)
-    return refs, source
+
+    if refs:
+        status = "ok"
+    elif all(att["ok"] for att in attempts):
+        status = "empty"
+    else:
+        status = "error"
+    if not refs:
+        source = "none"
+    return refs, source, {"status": status, "attempts": attempts}
 
 
 def admit(
@@ -306,6 +524,34 @@ def admit(
             row["question_ids"] = set(seed_qids.get(seed["doi"], frozenset()))
             keep[rd] = row
 
+    # all_references seeds admit every one of their own resolvable
+    # references outright (2026-09-19, TDAP task 4, Claude Chat review) --
+    # for a seed whose whole bibliography is already on-topic (tdap-q1/q2's
+    # computational-topology seeds), the min-parents/top-N gates built for
+    # a broad, mixed-topic seed like Zomorodian-Carlsson/Otter et al. just
+    # under-yield. Runs after the two gated passes above so it can merge
+    # into an already-kept candidate's parents rather than duplicate it.
+    # Seeds keep "strict" (default, unchanged GLMP/ATAP behavior) unless a
+    # seed file explicitly opts one in -- e.g. tdap-q3's seeds stay strict,
+    # since their bibliographies are mostly non-TDA neuroscience.
+    for seed in seeds:
+        if seed.get("admit_policy") != "all_references":
+            continue
+        for ref in per_seed_refs.get(seed["doi"], []):
+            rd = ref["doi"]
+            if rd in seed_dois:
+                continue
+            if rd in keep:
+                if seed["doi"] not in keep[rd]["parents"]:
+                    keep[rd]["parents"].append(seed["doi"])
+                    keep[rd]["question_ids"] = keep[rd]["question_ids"] | seed_qids.get(seed["doi"], frozenset())
+                continue
+            row = dict(ref)
+            row["parents"] = [seed["doi"]]
+            row["reason"] = "all_references_from_seed"
+            row["question_ids"] = set(seed_qids.get(seed["doi"], frozenset()))
+            keep[rd] = row
+
     rows = list(keep.values())
     rows.sort(key=lambda r: (-len(r["parents"]), -(r.get("cited_by_count") or 0)))
     # JSON-safe from here out: question_ids is built as a set above (union
@@ -351,6 +597,20 @@ def main() -> int:
         help=f"per-seed cap on top-cited-in-seed candidates (default: {TOP_N_IN_SEED}, preserving "
              "prior behavior; TDAP expects to raise this since 6 seeds at top-5 under-yields).",
     )
+    parser.add_argument(
+        "--batch-new-cap", type=int, default=BATCH_NEW_CAP,
+        help=f"max new Firestore documents created in one --write run (default: {BATCH_NEW_CAP}). "
+             "Only matters with --write; a dry run's would_create count is never capped.",
+    )
+    parser.add_argument(
+        "--only-dois-file", type=Path, default=None,
+        help="Restrict processing (report + --write) to admitted candidates whose DOI appears in "
+             "this file (one DOI per line, blank lines and '#'-prefixed lines ignored). Filters "
+             "AFTER admit() -- seed collection and the admit gates still see every seed's full "
+             "reference list, so cited_by_2plus_seeds/top_cited_in_seed decisions are unaffected; "
+             "this only trims what gets resolved/reported/written. For a tiered write (2026-09-19, "
+             "TDAP task 3): write a trusted subset now, hold the rest for later review.",
+    )
     parser.add_argument("--write", action="store_true")
     parser.add_argument("--report", type=Path, default=DEFAULT_REPORT)
     args = parser.parse_args()
@@ -380,17 +640,51 @@ def main() -> int:
 
     per_seed: Dict[str, List[Dict[str, Any]]] = {}
     source_counts = defaultdict(int)
+    seed_fetch_log: List[Dict[str, Any]] = []
+    status_counts = defaultdict(int)
     for i, seed in enumerate(seeds, 1):
-        refs, src = fetch_seed_refs(seed["doi"])
+        refs, src, fetch_status = fetch_seed_refs(seed["doi"], arxiv_id=seed.get("arxiv_id"))
         per_seed[seed["doi"]] = refs
         source_counts[src] += 1
-        print(f"  [{i}/{len(seeds)}] {src:8} {len(refs):3} refs  {seed['doi']}  { (seed.get('title') or '')[:50]}")
+        status_counts[fetch_status["status"]] += 1
+        seed_fetch_log.append({
+            "seed_doi": seed["doi"],
+            "seed_title": seed.get("title"),
+            "status": fetch_status["status"],
+            "final_source": src,
+            "ref_count": len(refs),
+            "attempts": fetch_status["attempts"],
+        })
+        policy_flag = " [all_references]" if seed.get("admit_policy") == "all_references" else ""
+        status_flag = f" ({fetch_status['status']})" if fetch_status["status"] != "ok" else ""
+        print(f"  [{i}/{len(seeds)}] {src:14} {len(refs):3} refs{status_flag}  {seed['doi']}  "
+              f"{(seed.get('title') or '')[:50]}{policy_flag}")
+        if fetch_status["status"] == "error":
+            for att in fetch_status["attempts"]:
+                if not att["ok"]:
+                    print(f"      [error] {att['source']}: http_status={att['http_status']} error={att['error']}")
 
     candidates = admit(seeds, per_seed, top_n_in_seed=args.top_n_in_seed, min_parents=args.min_parents)
     print(f"Admitted after gates: {len(candidates)}  "
           f"(2+ seeds: {sum(1 for c in candidates if c['reason']=='cited_by_2plus_seeds')}, "
-          f"top-in-seed: {sum(1 for c in candidates if c['reason']=='top_cited_in_seed')})")
+          f"top-in-seed: {sum(1 for c in candidates if c['reason']=='top_cited_in_seed')}, "
+          f"all_references: {sum(1 for c in candidates if c['reason']=='all_references_from_seed')})")
     print(f"Ref source by seed: {dict(source_counts)}")
+
+    if args.only_dois_file:
+        with args.only_dois_file.open(encoding="utf-8-sig") as fh:
+            only_dois = {
+                _norm_doi(line) for line in fh
+                if line.strip() and not line.strip().startswith("#")
+            }
+        only_dois.discard(None)
+        before_n = len(candidates)
+        candidates = [c for c in candidates if c["doi"] in only_dois]
+        print(f"--only-dois-file {args.only_dois_file}: {before_n} admitted -> "
+              f"{len(candidates)} selected ({len(only_dois)} DOIs listed)")
+    print(f"Ref fetch status by seed: {dict(status_counts)}"
+          + ("  <-- 'error' means emptiness is NOT confirmed, see per-seed [error] lines above"
+             if status_counts.get("error") else ""))
 
     counts = {
         "seeds": len(seeds),
@@ -415,6 +709,8 @@ def main() -> int:
                 "write": bool(args.write),
                 "seeds": len(seeds),
                 "ref_sources": dict(source_counts),
+                "ref_fetch_status": dict(status_counts),
+                "seed_fetch_log": seed_fetch_log,
             }
         }, ensure_ascii=False) + "\n")
         for i, cand in enumerate(candidates, 1):
@@ -488,7 +784,7 @@ def main() -> int:
                     counts["would_merge"] += 1
                     action = "would_merge"
             else:
-                if new_writes >= BATCH_NEW_CAP:
+                if new_writes >= args.batch_new_cap:
                     counts["new_capped"] += 1
                     action = "capped"
                 elif args.write:
@@ -512,6 +808,7 @@ def main() -> int:
                 "parents": cand["parents"],
                 "question_ids": qids,
                 "cited_by_count": cand.get("cited_by_count"),
+                "source": cand.get("source"),
             }, ensure_ascii=False) + "\n")
             if i % 20 == 0 or i == len(candidates):
                 print(f"  ingest [{i}/{len(candidates)}] {counts}")

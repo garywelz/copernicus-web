@@ -69,7 +69,7 @@ def resolve_pmid_eutils(pmid: str) -> Tuple[Optional[Dict[str, Any]], Optional[s
                 "id": pmid,
                 "retmode": "json",
                 "tool": "CopernicusAI",
-                "email": "gary@copernicusai.fyi",
+                "email": "gwelz@gc.cuny.edu",
             },
             timeout=30,
         )
@@ -122,7 +122,7 @@ def resolve_doi_encoded(doi: str, parse_crossref_item) -> Tuple[Optional[Dict[st
         resp = requests.get(
             url,
             timeout=30,
-            headers={"User-Agent": "CopernicusAI/1.0 (mailto:gary@copernicusai.fyi)"},
+            headers={"User-Agent": "CopernicusAI/1.0 (mailto:gwelz@gc.cuny.edu)"},
         )
         if resp.status_code != 200:
             return None, f"DOI not found via Crossref (encoded): {doi}"

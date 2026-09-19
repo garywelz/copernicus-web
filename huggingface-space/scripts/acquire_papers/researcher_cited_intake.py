@@ -45,8 +45,8 @@ except ImportError:
     requests = None
 
 CROSSREF_WORKS_URL = "https://api.crossref.org/works"
-CROSSREF_HEADERS = {"User-Agent": "CopernicusAI/1.0 (mailto:gary@copernicusai.fyi)"}
-CROSSREF_MAILTO = "gary@copernicusai.fyi"
+CROSSREF_HEADERS = {"User-Agent": "CopernicusAI/1.0 (mailto:gwelz@gc.cuny.edu)"}
+CROSSREF_MAILTO = "gwelz@gc.cuny.edu"
 
 DOI_RE = re.compile(r'10\.\d{4,9}/[^\s"<>\]]+', re.IGNORECASE)
 PII_RE = re.compile(r'S\d{4}-?\d{3}[\dXx]\(\d{2}\)\d{5}-?\d')

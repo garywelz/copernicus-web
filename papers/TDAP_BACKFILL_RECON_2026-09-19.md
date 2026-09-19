@@ -460,3 +460,79 @@ Gary asked for a TDAP number on the Statistics tab; there wasn't one for *any* p
 - **Gary emailed Jordan** the repo link, the live-toggle URL, the three provisional questions, the six seed papers with their draft question mapping, and two onboarding options (a read-only Claude Project, or hands-on Claude Code/Cursor access against the public repo). Correctly frames Mikael Vejdemo-Johansson as Jordan's PhD advisor (not merely a contact), leaving Mikael's role, if any, to Jordan and Mikael to decide.
 - **Current status: waiting on Jordan's (and possibly Mikael's) response.** Nothing is blocked on further engineering work — the full technical path (seed intake → `citation_expansion_pilot.py --write` → embedding backfill) is validated end-to-end via the dry run and ready to execute once the questions/seeds are confirmed. See the "Task 4" and "Correction" sections above for exactly what that sequence would run.
 - No Firestore/GCS writes occurred in this step beyond the already-described production deploys and status-JSON republish earlier in this doc.
+
+---
+
+# Seed provenance resolved; three pilot-script improvements built (2026-09-19)
+
+**Item 1 (seed choices) resolved — the gap was a hand-off gap, not a research gap.** Jordan's original email to Gary named exact titles for the six tdap-q1/q2 seeds ("Perea, Sparse Circular Coordinates via Principal ℤ-Bundles"; "Scoccola et al., Toroidal Coordinates..."). Claude Chat's hand-off to Claude Code relayed authors only ("Perea," "Scoccola et al."), not those titles — so Claude Code independently searched Crossref and picked the same papers Jordan had already named, by title/topic match, without knowing they were already confirmed. **The six seeds stand on Jordan's authority, not on that search** — recorded in `tdap/docs/seed_papers.md` with this provenance. The four tdap-q3 candidates remain Claude Chat's suggestions, DOI-verified, not yet confirmed by Jordan or Mikael.
+
+**Three improvements built to `citation_expansion_pilot.py`, per Claude Chat's review, none committed yet (pending your review of the diff):**
+
+1. **Semantic Scholar by arXiv ID, third fallback source** (`semanticscholar_refs_by_arxiv()`) — tried only when a seed has an `arxiv_id` (new optional seed-file column) and both Crossref and OpenAlex came back empty by DOI. Confirmed live for the two TDAP seeds that needed it: 32 references (Scoccola et al.) and 28 references (Nigmetov–Morozov), versus zero via DOI on either other source.
+2. **`cited_by_count` backfilled from OpenAlex for every reference, regardless of source** (`_enrich_cited_by_count()`) — closes the gap found in the last round: the `top_cited_in_seed` admit path only ever fired for a seed resolved via `openalex_refs()` (the only source that natively carries citation counts), so 3 of 4 productive TDAP seeds structurally couldn't use that path no matter what `--top-n-in-seed` was set to. Batched via OpenAlex's `doi` filter (pipe-OR, verified live to support up to 50 DOIs per request, same pattern `openalex_refs()` already uses).
+3. **Per-seed `admit_policy`** (new optional seed-file column, `strict` default / `all_references`) — `strict` keeps the existing min-parents/top-N gates (unchanged GLMP/ATAP behavior, still the default for every seed unless a seed file opts in). `all_references` admits every one of that seed's resolvable references outright, no gate. Assigned per Claude Chat's domain call: the six tdap-q1/q2 seeds (bibliographies already predominantly computational topology) get `all_references`; the four tdap-q3 candidates (bibliographies mostly non-TDA neuroscience, e.g. Gardner et al.'s) stay `strict`.
+
+**Also**: `--batch-new-cap` is now a CLI param (was a hardcoded `BATCH_NEW_CAP = 200`), doesn't affect dry-run counts (the cap only ever applies inside the `--write` branch — confirmed by re-reading `main()`'s control flow, `new_writes` never increments in a dry run so the cap check is always false), and the report JSONL now includes each candidate's reference `source` (crossref/openalex/semanticscholar) and the admitted-by-`all_references_from_seed` reason, needed for the second dry run's fuller report.
+
+**Verification**: `py_compile` clean. Live-verified the one new external API call this relies on — OpenAlex's `doi` filter does support pipe-OR batching (confirmed with a real 2-DOI request before writing the batching code, not assumed). Not yet run end-to-end — that's the second dry run, next.
+
+**A real bug found by that first end-to-end run, not by review.** The first run of the round-2 dry run (10 seeds, `all_references` on six) completed (175 admitted, 167 would_create) but the seed-fetch log showed `[3/10] none 0 refs` and `[6/10] none 0 refs` — the two seeds the Semantic Scholar fallback exists specifically for. Checked live: `curl` on the exact same S2 endpoint, seconds later, returned HTTP 200 with 32 references. So `semanticscholar_refs_by_arxiv()`'s original silent `except Exception: return []` / `if resp.status_code != 200: return []` had almost certainly swallowed a transient 429 (S2's anonymous rate limit is strict and shared per-IP; this session had already hit one manually testing minutes earlier) as if it meant "no references" — exactly the kind of failure that looks identical to a real empty result unless you check. Fixed: retry with linear backoff (up to 3 attempts) on 429/exception, and a printed warning on final failure instead of silent `[]`. Re-running now with the fix before trusting any of round 2's numbers. This is the second time in this TDAP effort a bug in my own diff was only caught by actually running the code (the first was the `question_ids` JSON-serialization bug in the first dry run) — `py_compile` and code review cannot catch either class of failure.
+
+## Second dry run, final (2026-09-19)
+
+Re-ran after the fix. Semantic Scholar recovered 29 references for Scoccola et al. (close to the 32 found by hand — small run-to-run variance from S2's own index), but Nigmetov–Morozov's S2 call hit a **persistent** 429 that exhausted all 3 retries — genuine rate-limit exhaustion under this run's total request volume, not a bug. Did not chase a third run for one seed's marginal contribution; the numbers below already deliver what was asked for.
+
+**Final counts** (`papers/tdap_citation_expansion_pilot_report_round2_2026-09-19.jsonl`): 198 admitted, **189 would_create**, 1 would_merge, 1 unresolved, 7 title_mismatch.
+
+| Breakdown | |
+|---|---|
+| By reason | `all_references_from_seed` 84, `top_cited_in_seed` 74, `cited_by_2plus_seeds` 32 |
+| By source | crossref 156, semanticscholar 24, openalex 10 |
+| By question | tdap-q2 107, tdap-q3 59, tdap-q1 41 (candidates can carry more than one) |
+| By seed | Otter et al. 96, Gardner et al. 26, Scoccola et al. 24, Kang-Xu-Morozov 23, Rybakken-Baas-Dunn 18, Perea-Harer 14, Zomorodian-Carlsson 12, Perea 10, de Silva et al. 9 |
+
+**The one `would_merge`**, checked live in Firestore: `pubmed_28459448`, "Single-cell topological RNA-seq analysis reveals insights into cellular differentiation and development" — a real, existing GLMP paper (`question_scope_ids: ["glmp-q9"]`, `discipline: biology`), cited by Otter et al.'s survey as an application example. Legitimate overlap, not a bug — the merge path adds `tdap-q2` alongside the existing `glmp-q9` tag via `ArrayUnion`, doesn't touch anything else on the doc.
+
+**Validation**: 183 of 190 pass (`papers/tdap_round2_candidate_validation_2026-09-19.json`). All 7 failures are the same soft 85%-quality-threshold miss as round 1 (textbooks/proceedings entries with no abstract in Crossref) — no structural errors.
+
+**Quality finding, not resolved, needs a decision before `--write`**: Otter et al. alone contributes 96 of 189 candidates (>50%). Chat's stated assumption for the `all_references` policy ("nearly every reference is computational topology") holds well for the other five tdap-q1/q2 seeds (9-24 candidates each, predominantly on-topic in a manual scan) but measurably less well for Otter et al. specifically — it's a deliberately broad "roadmap" survey, and its bibliography includes real non-TDA background material: e.g. "Collective dynamics of 'small-world' networks" (general network science), "Novel Type of Phase Transition in a System of Self-Driven Particles" (a Vicsek flocking-model physics paper), "Generalized Linear Models" and "Finding Groups in Data" (general statistics/clustering texts) — all admitted because Otter's own survey cites them as background/comparison material, not because they're TDA papers. Full title list for spot-check, organized by seed with reason/source/citation-count: `papers/tdap_round2_candidate_titles_2026-09-19.md`.
+
+**`--batch-new-cap` recommendation (task 5)**: default 200 is sufficient for this exact candidate set (189 would need creating) — no change needed to write this specific round. Flagging that it's close (189/200) in case a future round adds more.
+
+**Nothing written** — no `--write`, no Firestore/GCS mutation beyond the read-only Firestore lookup used to verify the `would_merge` record's existing tags.
+
+---
+
+# Limits, recorded per Claude Chat's request (2026-09-19)
+
+1. **Nigmetov–Morozov's references remain unfetched.** Semantic Scholar has them (confirmed manually: 28 refs by arXiv ID), but the round-2 dry run's automated attempt exhausted all 3 retries on a persistent 429 (S2's anonymous rate limit is strict and shared per-IP; this session had already made several manual S2 calls testing the mechanism). An S2 API key (free to request, raises the rate limit substantially) would very likely resolve this — not obtained in this session. Until then, this seed contributes zero expansion candidates, though it's still a valid seed/corpus member in its own right.
+
+2. **`top_cited_in_seed`'s popularity bias is a real, structural limit for interdisciplinary seeds, not just a tuning question.** Ranking a seed's own references by raw `cited_by_count` systematically favors broadly-cited "hub" papers over narrowly-relevant specialized ones, for any seed whose bibliography spans more than one field. Confirmed in the round-2 data: Otter et al.'s (tdap-q2, `all_references` policy) top-cited references include general network-science and statistics classics it cites only as background (e.g. "Collective dynamics of 'small-world' networks," 43,633 citations); the four tdap-q3 candidate seeds' most-cited references skew toward general neuroscience rather than topology specifically, for the same reason. This isn't unique to TDAP — any future seed drawn from an applied/survey paper in any initiative would hit the same bias.
+
+3. **Embedding-similarity relevance scoring is proposed for a future round, not built.** Instead of (or alongside) citation-count ranking, scoring each candidate reference by embedding similarity to the seed's own question text (or to a small set of known-good exemplar papers) would directly address the popularity-bias limit above — it would rank by topical relevance rather than raw citation count, and could apply uniformly regardless of whether a seed's bibliography is narrow or broad. No implementation exists yet; this is a design direction for round three, contingent on Jordan's/Chat's decision on how to handle the Otter et al. and tdap-q3 hold lists.
+
+---
+
+# Regression check found a real, unflagged behavior change for the GLMP default path (2026-09-19)
+
+Chat asked for exactly this check, and it did its job: **default-args GLMP behavior is NOT unchanged.** Compared the pre-change (`528db05c5`, pushed) and current versions, both run with zero flags (`collect_seeds()` default path, no `--write`), via `git stash` on just this one file (isolated the comparison without disturbing any other uncommitted work):
+
+| | before (`528db05c5`) | after (current) |
+|---|---|---|
+| admitted | 115 | 274 |
+| would_create | 27 | 166 |
+| would_merge | 85 | 103 |
+| title_mismatch | 3 | 5 |
+| `cited_by_2plus_seeds` | 97 | 97 |
+| `top_cited_in_seed` | 15 | 172 |
+
+**Root cause, confirmed by diffing the two candidate sets: `cited_by_2plus_seeds` is byte-identical (97/97, unaffected — that rule never touched `cited_by_count`) and every one of the 112 pre-change candidates still appears in the post-change set (0 lost).** The entire jump is 157 *new* `top_cited_in_seed` admissions, caused by `_enrich_cited_by_count()` (task 3, this session) backfilling `cited_by_count` from OpenAlex for every seed's references, including Crossref-resolved GLMP seeds that previously had no `cited_by_count` at all and so could never contribute to the top-cited path. **This is exactly the mechanism task 3 was built to fix — it just wasn't gated to TDAP, and I did not realize until running this check that it changes GLMP's default output too.**
+
+**Correcting an earlier claim**: prior reports in this doc said "all new-flag defaults reproduce prior GLMP behavior exactly." That's true for every CLI argument's default value (`--min-parents 2`, `--top-n-in-seed 5`, `--cited-project glmp`, `--acquisition-channel cited_by_collection` are all unchanged) — but `_enrich_cited_by_count()` isn't behind a flag at all, so the claim was incomplete. Nothing was lost (0 pre-change candidates dropped, purely additive), but it's a real, unflagged expansion of what GLMP's own default runs would admit.
+
+**Not remediated — needs your decision, not mine:**
+- **Option A**: leave it. The change is strictly additive (finds more legitimately-top-cited references GLMP's own seeds already had, previously invisible only because of which source happened to resolve them) — arguably a genuine improvement that should apply everywhere, not just TDAP.
+- **Option B**: gate `_enrich_cited_by_count()` behind a new opt-in flag (e.g. `--enrich-cited-by-count`, default off), restoring byte-for-byte GLMP default parity, with TDAP passing the flag explicitly.
+
+Diagnostic reports kept for evidence: `papers/_regression_before.jsonl`, `papers/_regression_after.jsonl` (both `--write`-free, no Firestore mutation from generating them — read-only seed lookups plus external API calls only).

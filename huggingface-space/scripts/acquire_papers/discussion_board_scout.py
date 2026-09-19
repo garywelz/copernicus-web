@@ -41,7 +41,7 @@ INGEST_PATH = REPO_ROOT / "cloud-run-backend" / "scripts" / "ingest_papers_from_
 FOCUS_PATH = REPO_ROOT / "atap_research_focus.json"
 DEFAULT_REPORT = SCRIPT_DIR / "discussion_board_scout_report.jsonl"
 
-UA = "CopernicusAI/1.0 (mailto:gary@copernicusai.fyi)"
+UA = "CopernicusAI/1.0 (mailto:gwelz@gc.cuny.edu)"
 SE_API = "https://api.stackexchange.com/2.3"
 BIOSTARS = "https://www.biostars.org"
 
