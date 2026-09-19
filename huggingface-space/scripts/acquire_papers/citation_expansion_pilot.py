@@ -96,12 +96,31 @@ def _norm_doi(raw: Optional[str]) -> Optional[str]:
     return d or None
 
 
-def collect_seeds(db, limit: int = SEED_CAP) -> List[Dict[str, Any]]:
-    """Default seed source (unchanged GLMP/ATAP behavior): seeds already
-    living in research_papers under a trusted acquisition_channel. Every
-    seed dict carries question_ids=frozenset() and direction="references"
-    so downstream code (admit()) has one shape regardless of seed source --
-    see load_seed_file() for the alternative, explicit-DOI-list source."""
+def collect_seeds(
+    db, limit: int = SEED_CAP, cited_project: str = DEFAULT_CITED_PROJECT
+) -> List[Dict[str, Any]]:
+    """Default seed source (GLMP/ATAP behavior, now project-scoped): seeds
+    already living in research_papers under a trusted acquisition_channel
+    AND tagged cited_project == cited_project. Every seed dict carries
+    question_ids=frozenset() and direction="references" so downstream code
+    (admit()) has one shape regardless of seed source -- see
+    load_seed_file() for the alternative, explicit-DOI-list source.
+
+    cited_project filter added 2026-09-19 (TDAP round 3, Claude Chat
+    review) -- closes a real cross-project seed leak, verified against
+    the code before fixing: researcher_cited_intake.py hardcodes
+    acquisition_channel="researcher_citation" regardless of which project
+    intake'd the paper, and this function had no project filter at all.
+    Once TDAP's seeds were intake'd, the next default (GLMP) run would
+    have silently expanded from them too. Verified read-only before this
+    change that the filter drops nothing intended: every existing
+    acquisition_channel==researcher_citation doc has cited_project
+    'glmp' (227/229) or 'atap' (2/229 -- a pre-existing cross-project
+    leak this filter also closes, independent of TDAP); every
+    acquisition_channel==glmp_chart_source_candidate doc has
+    cited_project 'glmp' (274/274). Both are plain Firestore
+    equality-on-equality compound queries -- confirmed live, no
+    composite index required."""
     col = db.collection("research_papers")
     seeds: List[Dict[str, Any]] = []
     seen = set()
@@ -122,13 +141,21 @@ def collect_seeds(db, limit: int = SEED_CAP) -> List[Dict[str, Any]]:
             "admit_policy": "strict",
         })
 
-    for snap in col.where("acquisition_channel", "==", "researcher_citation").stream():
+    researcher_q = (
+        col.where("acquisition_channel", "==", "researcher_citation")
+        .where("cited_project", "==", cited_project)
+    )
+    for snap in researcher_q.stream():
         add(snap.id, snap.to_dict() or {}, "researcher_citation")
         if len(seeds) >= limit:
             return seeds[:limit]
 
     chart_rows: List[Tuple[int, str, Dict[str, Any]]] = []
-    for snap in col.where("acquisition_channel", "==", "glmp_chart_source_candidate").stream():
+    chart_q = (
+        col.where("acquisition_channel", "==", "glmp_chart_source_candidate")
+        .where("cited_project", "==", cited_project)
+    )
+    for snap in chart_q.stream():
         data = snap.to_dict() or {}
         n = len(data.get("named_by_charts") or [])
         chart_rows.append((n, snap.id, data))
@@ -420,7 +447,7 @@ def _enrich_cited_by_count(refs: List[Dict[str, Any]]) -> None:
 
 
 def fetch_seed_refs(
-    doi: str, arxiv_id: Optional[str] = None
+    doi: str, arxiv_id: Optional[str] = None, enrich_cited_by_count: bool = False
 ) -> Tuple[List[Dict[str, Any]], str, Dict[str, Any]]:
     """Returns (refs, source, fetch_status). fetch_status["status"] is one
     of three states (2026-09-19, TDAP task 2, Claude Chat review) -- never
@@ -437,7 +464,20 @@ def fetch_seed_refs(
                  "empty", which is what let a real S2 429 read as "no
                  references" in the round-2 dry run.
     fetch_status["attempts"] carries every attempt dict tried, in order,
-    for the full report."""
+    for the full report.
+
+    enrich_cited_by_count (default False, 2026-09-19, TDAP round 3 --
+    Claude Chat review, option B): gates _enrich_cited_by_count(). A
+    regression check against pre-change commit 528db05c5 found that
+    enriching unconditionally (as this session's first version did)
+    changes GLMP's own default-args output too -- top_cited_in_seed
+    admissions jumped 15 -> 172 purely from previously-Crossref-only
+    GLMP seeds gaining a cited_by_count for the first time. That's a
+    real behavior change riding along on TDAP work, and top_cited_in_seed
+    is already recorded (this doc's Limits) as structurally
+    popularity-biased -- not something to silently turn on for GLMP as
+    a side effect. Default False restores byte-for-byte GLMP parity;
+    TDAP passes True explicitly via --enrich-cited-by-count."""
     attempts: List[Dict[str, Any]] = []
     refs, a = crossref_refs(doi)
     attempts.append(a)
@@ -450,7 +490,8 @@ def fetch_seed_refs(
         refs, a = semanticscholar_refs_by_arxiv(arxiv_id)
         attempts.append(a)
         source = "semanticscholar"
-    _enrich_cited_by_count(refs)
+    if enrich_cited_by_count:
+        _enrich_cited_by_count(refs)
     time.sleep(0.35)
 
     if refs:
@@ -598,6 +639,14 @@ def main() -> int:
              "prior behavior; TDAP expects to raise this since 6 seeds at top-5 under-yields).",
     )
     parser.add_argument(
+        "--enrich-cited-by-count", action="store_true",
+        help="Backfill cited_by_count from OpenAlex for every reference regardless of source "
+             "(default: off, preserving prior GLMP behavior exactly -- a regression check found "
+             "enabling this unconditionally changes GLMP's own default output too, since "
+             "top_cited_in_seed already runs for every seed and just does nothing for a reference "
+             "with no count. TDAP passes this flag explicitly; GLMP does not by default).",
+    )
+    parser.add_argument(
         "--batch-new-cap", type=int, default=BATCH_NEW_CAP,
         help=f"max new Firestore documents created in one --write run (default: {BATCH_NEW_CAP}). "
              "Only matters with --write; a dry run's would_create count is never capped.",
@@ -633,7 +682,7 @@ def main() -> int:
         print(f"Seeds: {len(seeds)} (from {args.seed_doi_file}, seed_cap={args.seed_cap})  "
               f"with_question_ids={sum(1 for s in seeds if s['question_ids'])}")
     else:
-        seeds = collect_seeds(db, limit=args.seed_cap)
+        seeds = collect_seeds(db, limit=args.seed_cap, cited_project=args.cited_project)
         print(f"Seeds: {len(seeds)}  "
               f"researcher={sum(1 for s in seeds if s['kind']=='researcher_citation')}  "
               f"chart={sum(1 for s in seeds if s['kind']=='glmp_chart_source_candidate')}")
@@ -643,7 +692,9 @@ def main() -> int:
     seed_fetch_log: List[Dict[str, Any]] = []
     status_counts = defaultdict(int)
     for i, seed in enumerate(seeds, 1):
-        refs, src, fetch_status = fetch_seed_refs(seed["doi"], arxiv_id=seed.get("arxiv_id"))
+        refs, src, fetch_status = fetch_seed_refs(
+            seed["doi"], arxiv_id=seed.get("arxiv_id"), enrich_cited_by_count=args.enrich_cited_by_count
+        )
         per_seed[seed["doi"]] = refs
         source_counts[src] += 1
         status_counts[fetch_status["status"]] += 1

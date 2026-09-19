@@ -536,3 +536,32 @@ Chat asked for exactly this check, and it did its job: **default-args GLMP behav
 - **Option B**: gate `_enrich_cited_by_count()` behind a new opt-in flag (e.g. `--enrich-cited-by-count`, default off), restoring byte-for-byte GLMP default parity, with TDAP passing the flag explicitly.
 
 Diagnostic reports kept for evidence: `papers/_regression_before.jsonl`, `papers/_regression_after.jsonl` (both `--write`-free, no Firestore mutation from generating them — read-only seed lookups plus external API calls only).
+
+---
+
+# Round 3: decision B applied, a real cross-project seed leak found and closed (2026-09-19)
+
+**Decision B applied, per Claude Chat**: `_enrich_cited_by_count()` is now gated behind `--enrich-cited-by-count` (default `False`). Reason, as given: the 157 extra GLMP admissions all arrived via `top_cited_in_seed`, which this doc already records as structurally popularity-biased (see the Limits section above) — that shouldn't get silently enabled for GLMP as a side effect of TDAP work, and TDAP's tier-1 set doesn't depend on it. The ungated version had already reached `main` (`be8c215ec`); fixed forward with a new commit, nothing amended or rewritten.
+
+**Re-ran the regression check with the fix in place.** This time it's genuinely identical, not just close: same seed count (50), same aggregate counts (admitted 115, would_create 27, would_merge 85, title_mismatch 3 — matching the pre-change `528db05c5` baseline exactly), and **the exact set of 112 admitted-candidate DOIs is byte-for-byte identical** between before and after (checked directly, not inferred from counts). `papers/_regression_after_gated.jsonl` added alongside the earlier two diagnostic reports as evidence.
+
+## The seed-leak concern — verified real, fixed
+
+Chat's concern, from re-reading this session's own earlier recon: `researcher_cited_intake.py:570` hardcodes `acquisition_channel: "researcher_citation"` **regardless of `--cited-project`**, and `collect_seeds()` (the pilot's default seed source) queried that channel with **no project filter at all**. Confirmed by reading both files directly — the concern was correct. Practical consequence: once the six TDAP seeds are intake'd, the next default (GLMP) run of the pilot would have silently treated them as GLMP seeds too, expanding from them and tagging results `cited_project: "glmp"`.
+
+**Checked read-only before fixing, exactly as asked**: is a `cited_project == "glmp"` filter safe, or would it drop existing GLMP seeds?
+- `acquisition_channel == "researcher_citation"`: 229 docs total — 227 tagged `cited_project: "glmp"`, 2 tagged `"atap"`, **zero missing/blank/mis-cased**.
+- `acquisition_channel == "glmp_chart_source_candidate"`: 274 docs, **all 274** tagged `cited_project: "glmp"`.
+- A compound Firestore query (`acquisition_channel == X` AND `cited_project == "glmp"`) works with no composite index needed — confirmed live before writing the code, not assumed.
+
+A flat count comparison would have said "safe, zero dropped" — but checking the actual DOI sets `collect_seeds()` returns at the real default `limit=50` (not just aggregate counts) found something more precise: the pre-fix and post-fix 50-seed sets are **not** byte-for-byte identical — 2 DOIs differ. Checked what those 2 are: the 2 seeds removed are exactly the 2 pre-existing `cited_project: "atap"` docs (`10.1093/jigpal/jzl006`, `10.1007/bfb0080769` — both diagonalization/logic papers, clearly ATAP subject matter that had been leaking into GLMP's default seed set **before any TDAP work existed**), and the 2 seeds added in their place are genuine GLMP papers (`10.1126/science.289.5481.920` "The Structural Basis of Ribosome Activity in Peptide Bond Synthesis", `10.1126/science.1088926` "Genetic regulation: the Lac control region") that were previously being crowded out of the 50-seed cap by the leak. **No real GLMP seed is lost — the fix corrects a pre-existing leak in the other direction, one that predates TDAP entirely.**
+
+**Fix applied**: `collect_seeds()` now takes a `cited_project` parameter (both its Firestore queries filter on it), and `main()` passes `args.cited_project` through — the same argument that already controls what gets *written* now also controls what gets *read* as seeds, closing the loop with no new CLI flag needed. Zero effect on TDAP's own seed loading (`--seed-doi-file` is a fully separate code path, untouched).
+
+## Correcting the record
+
+The claim "all new-flag defaults reproduce prior GLMP behavior exactly" is now **actually true**, confirmed by an exact DOI-set diff, not just restated. It was false between the first mention of it and this fix (the `_enrich_cited_by_count()` gap), and the seed-leak this section closes was a **pre-existing bug that predates all TDAP work** — not something introduced this session, just something this session's own recon work happened to surface by reading `researcher_cited_intake.py` and `collect_seeds()` side by side.
+
+## Task 3 — is `citation_expansion_pilot.py` scheduled anywhere?
+
+**Manual-only, as far as anything on this machine can confirm.** Checked: no shell script, YAML, JSON, or crontab file anywhere in the repo references it (`grep` across the whole tree); `SCOUT_ARCHITECTURE.md` and `A2-standing-acquisition-contract.md` both explicitly say "Scout cron not touched"; **Cloud Scheduler's API isn't even enabled** on the GCP project (`gcloud scheduler jobs list` fails with `SERVICE_DISABLED`, not just "no jobs") — ruling out Cloud Scheduler entirely, not just this script's absence from it. **Jetson crontab is unverified** (no SSH access from this machine) — consistent with every other Jetson-state claim in this doc.
