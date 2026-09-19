@@ -11,7 +11,7 @@ import {
   PROCESS_DATABASE_LINKS,
   PROCESS_FAMILIES,
 } from './constants'
-import { KE_PROJECTS, type KEProjectId } from '@/lib/knowledge-engine-projects'
+import { KE_PROJECTS, KE_PROJECT_IDS, type KEProjectId } from '@/lib/knowledge-engine-projects'
 
 type EngineStatus = {
   papers?: number
@@ -23,6 +23,7 @@ type EngineStatus = {
   last_updated?: string
   process_databases?: Record<string, number>
   papers_by_discipline?: Record<string, number>
+  papers_by_initiative?: Record<string, number>
   notes?: Record<string, string>
 }
 
@@ -72,6 +73,7 @@ export default function StatsDashboard({ project = null }: { project?: KEProject
   const pdb = engineStatus?.process_databases || {}
   const processSum = pdb.sum ?? 0
   const papersByDiscipline = engineStatus?.papers_by_discipline || {}
+  const papersByInitiative = engineStatus?.papers_by_initiative || {}
   const highlightStatusKey = project
     ? PROCESS_FAMILIES.find((f) => f.id === KE_PROJECTS[project].processContentType)?.statusKey
     : null
@@ -143,6 +145,28 @@ export default function StatsDashboard({ project = null }: { project?: KEProject
           Total across families: {processSum.toLocaleString()} (excludes graph-type pilots).
           ATAP is the mathematics process-graph family (atap_graphs), not the general mathematics paper corpus.
         </p>
+      </div>
+
+      <div className="bg-white rounded-lg shadow p-6">
+        <h3 className="text-lg font-semibold text-gray-900 mb-4">Papers by initiative</h3>
+        <p className="text-xs text-gray-500 mb-3">
+          Live count of research_papers scoped to each initiative&apos;s declared questions
+          (question_scope_ids) -- distinct from discipline below.
+        </p>
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 text-sm">
+          {KE_PROJECT_IDS.map((id) => (
+            <div key={id} className="border border-gray-200 rounded-lg p-3">
+              <div className="font-semibold text-gray-900">
+                {KE_PROJECTS[id].icon} {KE_PROJECTS[id].label}
+              </div>
+              <div className="text-2xl font-bold text-blue-600 mt-1">
+                {typeof papersByInitiative[id] === 'number'
+                  ? papersByInitiative[id].toLocaleString()
+                  : '—'}
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
 
       <div className="bg-white rounded-lg shadow p-6">

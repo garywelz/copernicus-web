@@ -39,6 +39,19 @@ DISCIPLINE_PAPERS_FALLBACK = {
     "biology": 80138,
     "mathematics": 18321,
 }
+# Snapshot of each initiative's active_questions ids from its own
+# docs/research_focus.json, as of 2026-09-19 (glmp/atap: public repos,
+# fetched live via git during that session; tdap: this project's own repo,
+# which is private, so it cannot be live-fetched the way a public
+# raw.githubusercontent.com URL could be -- kept static here for all three
+# for consistency rather than half-dynamic. Refresh by hand if a project's
+# question list changes; a stale entry undercounts new questions, it does
+# not error.
+INITIATIVE_QUESTION_IDS: Dict[str, tuple[str, ...]] = {
+    "glmp": tuple(f"glmp-q{i}" for i in range(1, 12)),
+    "atap": tuple(f"atap-q{i}" for i in range(1, 5)),
+    "tdap": ("tdap-q1", "tdap-q2", "tdap-q3"),
+}
 PROCESS_DATABASE_METADATA: tuple[tuple[str, str], ...] = (
     ("glmp_v2", f"{GCS_STATUS_BASE}/glmp-v2/metadata.json"),
     ("mathematics", f"{GCS_STATUS_BASE}/mathematics-processes-database/metadata.json"),
@@ -216,6 +229,46 @@ def fetch_papers_by_discipline(
     return counts, "; ".join(parts) if parts else None
 
 
+def fetch_papers_by_initiative(
+    initiative_question_ids: Dict[str, tuple[str, ...]] = INITIATIVE_QUESTION_IDS,
+) -> tuple[Optional[Dict[str, int]], Optional[str]]:
+    """
+    Live count of distinct research_papers per initiative (GLMP/ATAP/TDAP).
+
+    There is no `initiative` field on research_papers (see
+    TDAP_BACKFILL_RECON_2026-09-19.md Q2) -- membership is
+    question_scope_ids. /api/content/browse?question=<id> only counts one
+    question id at a time (array_contains), and a paper can carry more than
+    one question id within the same initiative, so summing per-question
+    browse totals would double-count. This goes straight to Firestore with
+    a single array_contains_any query per initiative instead -- exact,
+    no double-count, at the cost of needing Firestore access (unlike
+    fetch_papers_by_discipline, there's no public-API path for this).
+
+    Unlike papers_by_discipline, there is no honest last-known-good
+    fallback for a brand-new metric (TDAP's true count today is 0, not
+    unknown) -- on failure this returns None and the field is omitted
+    entirely, same reasoning as fetch_focus_fallback_metric().
+    """
+    try:
+        from google.cloud import firestore
+        from google.cloud.firestore_v1.base_query import FieldFilter
+    except ImportError as e:
+        return None, f"google-cloud-firestore not importable ({e})"
+    try:
+        gcp_project_id = os.environ.get("GCP_PROJECT_ID", "regal-scholar-453620-r7")
+        db = firestore.Client(project=gcp_project_id, database="copernicusai")
+        counts: Dict[str, int] = {}
+        for initiative, qids in initiative_question_ids.items():
+            q = db.collection("research_papers").where(
+                filter=FieldFilter("question_scope_ids", "array_contains_any", list(qids))
+            )
+            counts[initiative] = int(q.count().get()[0][0].value)
+        return counts, None
+    except Exception as e:
+        return None, f"Firestore initiative count failed ({e})"
+
+
 def fetch_focus_fallback_metric() -> Optional[Dict[str, Any]]:
     """
     RAG focus_id silent-fallback counter (item 42, GLMP_MASTER_TODO.md).
@@ -305,6 +358,8 @@ def build_status(
     videos_note: Optional[str] = None,
     papers_by_discipline: Optional[Dict[str, int]] = None,
     papers_by_discipline_note: Optional[str] = None,
+    papers_by_initiative: Optional[Dict[str, int]] = None,
+    papers_by_initiative_note: Optional[str] = None,
     focus_fallback: Optional[Dict[str, Any]] = None,
 ) -> Dict[str, Any]:
     videos_doc = (
@@ -334,6 +389,18 @@ def build_status(
         out["notes"]["papers_by_discipline"] = (
             disc_doc if not papers_by_discipline_note else f"{disc_doc} {papers_by_discipline_note}"
         )
+    if papers_by_initiative is not None:
+        out["papers_by_initiative"] = papers_by_initiative
+        out["notes"]["papers_by_initiative"] = (
+            "Live Firestore count of research_papers per initiative (question_scope_ids "
+            "array_contains_any that initiative's declared question ids -- see "
+            "INITIATIVE_QUESTION_IDS in generate_status_page.py). Distinct from "
+            "papers_by_discipline (a paper's science discipline, e.g. biology/mathematics, "
+            "is not the same axis as which initiative's questions it's scoped to)."
+            + (f" {papers_by_initiative_note}" if papers_by_initiative_note else "")
+        )
+    elif papers_by_initiative_note:
+        out["notes"]["papers_by_initiative_error"] = papers_by_initiative_note
     if content_stats:
         pwe = content_stats.get("papers_with_embedding")
         if pwe is not None:
@@ -451,6 +518,10 @@ def main() -> int:
     if papers_by_discipline_note:
         print(f"⚠️  papers_by_discipline: {papers_by_discipline_note}")
 
+    papers_by_initiative, papers_by_initiative_note = fetch_papers_by_initiative()
+    if papers_by_initiative_note:
+        print(f"⚠️  papers_by_initiative: {papers_by_initiative_note}")
+
     focus_fallback = fetch_focus_fallback_metric()
     if focus_fallback is None:
         print("⚠️  rag_focus_fallback: Firestore read failed or unavailable; status JSON will omit it.")
@@ -464,6 +535,8 @@ def main() -> int:
         videos_note=videos_note,
         papers_by_discipline=papers_by_discipline,
         papers_by_discipline_note=papers_by_discipline_note,
+        papers_by_initiative=papers_by_initiative,
+        papers_by_initiative_note=papers_by_initiative_note,
         focus_fallback=focus_fallback,
     )
     out = Path(args.output)
@@ -485,6 +558,9 @@ def main() -> int:
     if papers_by_discipline:
         parts = ", ".join(f"{k}={v:,}" for k, v in papers_by_discipline.items())
         print(f"   papers_by_discipline: {parts}")
+    if papers_by_initiative:
+        parts = ", ".join(f"{k}={v:,}" for k, v in papers_by_initiative.items())
+        print(f"   papers_by_initiative: {parts}")
     return 0
 
 
