@@ -451,3 +451,12 @@ Gary asked for a TDAP number on the Statistics tab; there wasn't one for *any* p
 - **Live result, confirmed on production**: GLMP 45,456, ATAP 2,822, TDAP 0. The GLMP/ATAP numbers are also new information — this dashboard never showed per-initiative paper counts for them before today, only chart-family and discipline counts.
 
 **Limits**: `INITIATIVE_QUESTION_IDS` is a hand-maintained snapshot, not derived from each repo's live `research_focus.json` — it will silently undercount (not error) if a project's question list grows and this constant isn't updated to match. Not verified against a second, independent counting method beyond the live Firestore query itself.
+
+---
+
+# Repo made public; outreach sent to Jordan (2026-09-19)
+
+- **`github.com/garywelz/tdap` flipped from private to public** (Gary's decision, matching GLMP/ATAP's existing posture) so the "Using TDAP inside your own Claude" README pattern (added same day, mirroring `atap`'s) actually works — raw.githubusercontent.com fetches aren't authenticated, so this was blocked while the repo was private. Verified both raw URLs resolve (HTTP 200) after the flip.
+- **Gary emailed Jordan** the repo link, the live-toggle URL, the three provisional questions, the six seed papers with their draft question mapping, and two onboarding options (a read-only Claude Project, or hands-on Claude Code/Cursor access against the public repo). Correctly frames Mikael Vejdemo-Johansson as Jordan's PhD advisor (not merely a contact), leaving Mikael's role, if any, to Jordan and Mikael to decide.
+- **Current status: waiting on Jordan's (and possibly Mikael's) response.** Nothing is blocked on further engineering work — the full technical path (seed intake → `citation_expansion_pilot.py --write` → embedding backfill) is validated end-to-end via the dry run and ready to execute once the questions/seeds are confirmed. See the "Task 4" and "Correction" sections above for exactly what that sequence would run.
+- No Firestore/GCS writes occurred in this step beyond the already-described production deploys and status-JSON republish earlier in this doc.
