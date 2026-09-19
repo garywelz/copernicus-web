@@ -46,7 +46,7 @@ A1_PATH = SCRIPT_DIR / "a1_resolve_and_ingest.py"
 INGEST_PATH = REPO_ROOT / "cloud-run-backend" / "scripts" / "ingest_papers_from_metadata_json.py"
 DEFAULT_REPORT = SCRIPT_DIR / "citation_expansion_pilot_report.jsonl"
 
-UA = "CopernicusAI/1.0 (mailto:gary@copernicusai.fyi)"
+UA = "CopernicusAI/1.0 (mailto:gwelz@gc.cuny.edu)"
 CROSSREF = "https://api.crossref.org/works"
 OPENALEX = "https://api.openalex.org/works"
 SEED_CAP = 50
