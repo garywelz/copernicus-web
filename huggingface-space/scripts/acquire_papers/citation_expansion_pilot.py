@@ -1,19 +1,32 @@
 #!/usr/bin/env python3
 """
-A2 §8 — 50-seed one-hop citation-expansion pilot.
+A2 §8 — one-hop citation-expansion pilot, now config-driven by project.
 
-Seeds: #43 researcher-cited papers, then A1 chart-named papers, to a
-cap of 50. One hop only. A candidate is kept if two or more seeds cite
-it, or it is among the most-cited references of a seed (OpenAlex
-cited_by_count, top 5, cap 8 per seed). Never expand from papers this
-hop admits.
+Seeds: by default, #43 researcher-cited papers then A1 chart-named papers,
+to a cap of 50 (collect_seeds()) -- unchanged GLMP/ATAP behavior. Or pass
+--seed-doi-file for an explicit doi,question_ids CSV (load_seed_file()),
+for seeds that don't (yet) exist in Firestore under a matching
+acquisition_channel -- see that function's docstring. Every seed carries a
+direction key, fixed to "references" for now; no forward (citing-papers)
+mode exists yet, and none is planned for broad, highly-cited seeds like
+Zomorodian-Carlsson or Otter et al. (forward expansion from those would
+flood the corpus -- see TDAP_BACKFILL_RECON_2026-09-19.md Q1).
 
-Channel: cited_by_collection. Production scout cron is not touched.
+One hop only, references direction only. A candidate is kept if at least
+--min-parents seeds cite it (default 2), or it is among the most-cited
+references of a single seed (OpenAlex cited_by_count, top --top-n-in-seed,
+default 5). A candidate inherits the union of its parents' question_ids.
+Never expand from papers this hop admits.
+
+acquisition_channel and cited_project are CLI params (--acquisition-channel,
+--cited-project), defaulting to "cited_by_collection"/"glmp" to preserve
+prior behavior exactly. Production scout cron is not touched.
 """
 
 from __future__ import annotations
 
 import argparse
+import csv
 import importlib.util
 import json
 import sys
@@ -21,7 +34,7 @@ import time
 from collections import defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Optional, Set, Tuple
 from urllib.parse import quote
 
 import requests
@@ -37,8 +50,16 @@ UA = "CopernicusAI/1.0 (mailto:gary@copernicusai.fyi)"
 CROSSREF = "https://api.crossref.org/works"
 OPENALEX = "https://api.openalex.org/works"
 SEED_CAP = 50
-PER_SEED_CAP = 8
+# PER_SEED_CAP (formerly 8) removed 2026-09-19 (TDAP): the per-seed reference
+# loop already slices to top_n_in_seed candidates before this cap could ever
+# apply (dead check since the cap was always looser than the slice) -- see
+# TDAP_BACKFILL_RECON_2026-09-19.md Q4. top_n_in_seed is now the one real
+# per-seed ceiling, and it's a CLI param (--top-n-in-seed) instead of a
+# module constant so each initiative can tune it without editing this file.
 TOP_N_IN_SEED = 5
+DEFAULT_MIN_PARENTS = 2
+DEFAULT_CITED_PROJECT = "glmp"
+DEFAULT_ACQUISITION_CHANNEL = "cited_by_collection"
 BATCH_NEW_CAP = 200
 CITED_CONTEXT = (
     "One-hop citation expansion from a trusted seed (researcher-cited or "
@@ -64,6 +85,11 @@ def _norm_doi(raw: Optional[str]) -> Optional[str]:
 
 
 def collect_seeds(db, limit: int = SEED_CAP) -> List[Dict[str, Any]]:
+    """Default seed source (unchanged GLMP/ATAP behavior): seeds already
+    living in research_papers under a trusted acquisition_channel. Every
+    seed dict carries question_ids=frozenset() and direction="references"
+    so downstream code (admit()) has one shape regardless of seed source --
+    see load_seed_file() for the alternative, explicit-DOI-list source."""
     col = db.collection("research_papers")
     seeds: List[Dict[str, Any]] = []
     seen = set()
@@ -78,6 +104,8 @@ def collect_seeds(db, limit: int = SEED_CAP) -> List[Dict[str, Any]]:
             "doi": doi,
             "title": data.get("title"),
             "kind": kind,
+            "question_ids": frozenset(),
+            "direction": "references",
         })
 
     for snap in col.where("acquisition_channel", "==", "researcher_citation").stream():
@@ -96,6 +124,47 @@ def collect_seeds(db, limit: int = SEED_CAP) -> List[Dict[str, Any]]:
         if len(seeds) >= limit:
             break
     return seeds[:limit]
+
+
+def load_seed_file(path: Path) -> List[Dict[str, Any]]:
+    """Explicit seed source (added 2026-09-19 for TDAP): a CSV with columns
+    `doi,question_ids` (question_ids is a `|`-separated list of this
+    project's question ids, e.g. "tdap-q1|tdap-q2"; may be empty). Used
+    instead of collect_seeds() when a project's seeds aren't (yet, or ever
+    going to be) tagged with a matching acquisition_channel in Firestore --
+    e.g. six hand-picked TDAP seed papers that predate any TDAP acquisition.
+
+    Seeds loaded this way are NOT thereby added to research_papers -- this
+    script only ever writes admitted *candidates*, never the seeds
+    themselves. Seed papers must be intake'd separately (e.g. via
+    researcher_cited_intake.py) if they should also be corpus members.
+    direction is fixed to "references" for every seed loaded here; no
+    forward (citing-papers) mode exists yet (see module docstring)."""
+    seeds: List[Dict[str, Any]] = []
+    seen: Set[str] = set()
+    with path.open(encoding="utf-8-sig", newline="") as fh:
+        reader = csv.DictReader(fh)
+        if reader.fieldnames is None or "doi" not in reader.fieldnames:
+            raise ValueError(f"{path}: expected a CSV header with a 'doi' column, got {reader.fieldnames}")
+        for row in reader:
+            doi = _norm_doi(row.get("doi"))
+            if not doi:
+                continue
+            if doi in seen:
+                print(f"  [seed-file] duplicate DOI skipped: {doi}")
+                continue
+            seen.add(doi)
+            raw_qids = (row.get("question_ids") or "").strip()
+            question_ids = frozenset(q.strip() for q in raw_qids.split("|") if q.strip())
+            seeds.append({
+                "doc_id": None,
+                "doi": doi,
+                "title": (row.get("title") or "").strip() or None,
+                "kind": "seed_file",
+                "question_ids": question_ids,
+                "direction": "references",
+            })
+    return seeds
 
 
 def crossref_refs(doi: str) -> List[Dict[str, Any]]:
@@ -177,8 +246,19 @@ def fetch_seed_refs(doi: str) -> Tuple[List[Dict[str, Any]], str]:
     return refs, source
 
 
-def admit(seeds: List[Dict[str, Any]], per_seed_refs: Dict[str, List[Dict[str, Any]]]) -> List[Dict[str, Any]]:
+def admit(
+    seeds: List[Dict[str, Any]],
+    per_seed_refs: Dict[str, List[Dict[str, Any]]],
+    top_n_in_seed: int = TOP_N_IN_SEED,
+    min_parents: int = DEFAULT_MIN_PARENTS,
+) -> List[Dict[str, Any]]:
     seed_dois = {s["doi"] for s in seeds}
+    # doi -> union of question_ids across every parent seed that named it.
+    # A candidate's question_ids is the union of its parents' questions
+    # (Claude Chat review, 2026-09-19) -- seeds stay in one run rather than
+    # split by question, since the min-parents rule depends on seeing all
+    # seeds together.
+    seed_qids: Dict[str, frozenset] = {s["doi"]: s.get("question_ids") or frozenset() for s in seeds}
     cited_by: Dict[str, List[str]] = defaultdict(list)
     meta: Dict[str, Dict[str, Any]] = {}
     for seed in seeds:
@@ -192,12 +272,19 @@ def admit(seeds: List[Dict[str, Any]], per_seed_refs: Dict[str, List[Dict[str, A
             if prev is None or (ref.get("cited_by_count") or 0) > (prev.get("cited_by_count") or 0):
                 meta[rd] = ref
 
+    def _qids_for(parents: List[str]) -> Set[str]:
+        out: Set[str] = set()
+        for p in parents:
+            out |= seed_qids.get(p, frozenset())
+        return out
+
     keep: Dict[str, Dict[str, Any]] = {}
     for doi, parents in cited_by.items():
-        if len(parents) >= 2:
+        if len(parents) >= min_parents:
             row = dict(meta[doi])
             row["parents"] = parents
             row["reason"] = "cited_by_2plus_seeds"
+            row["question_ids"] = _qids_for(parents)
             keep[doi] = row
 
     for seed in seeds:
@@ -205,24 +292,29 @@ def admit(seeds: List[Dict[str, Any]], per_seed_refs: Dict[str, List[Dict[str, A
             r for r in per_seed_refs.get(seed["doi"], [])
             if r["doi"] not in seed_dois and r.get("cited_by_count") is not None
         ]
-        scored = sorted(refs, key=lambda r: r.get("cited_by_count") or 0, reverse=True)[:TOP_N_IN_SEED]
-        added = 0
+        scored = sorted(refs, key=lambda r: r.get("cited_by_count") or 0, reverse=True)[:top_n_in_seed]
         for ref in scored:
-            if added >= PER_SEED_CAP:
-                break
             rd = ref["doi"]
             if rd in keep:
                 if seed["doi"] not in keep[rd]["parents"]:
                     keep[rd]["parents"].append(seed["doi"])
+                    keep[rd]["question_ids"] = keep[rd]["question_ids"] | seed_qids.get(seed["doi"], frozenset())
                 continue
             row = dict(ref)
             row["parents"] = [seed["doi"]]
             row["reason"] = "top_cited_in_seed"
+            row["question_ids"] = set(seed_qids.get(seed["doi"], frozenset()))
             keep[rd] = row
-            added += 1
 
     rows = list(keep.values())
     rows.sort(key=lambda r: (-len(r["parents"]), -(r.get("cited_by_count") or 0)))
+    # JSON-safe from here out: question_ids is built as a set above (union
+    # arithmetic needs set semantics), but every consumer downstream --
+    # including the "unresolved" report line's **cand spread -- needs a
+    # plain list. Converting once here, at the return boundary, beats
+    # converting at every call site and re-introducing this bug.
+    for row in rows:
+        row["question_ids"] = sorted(row.get("question_ids") or [])
     return rows
 
 
@@ -233,6 +325,32 @@ def main() -> int:
 
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--seed-cap", type=int, default=SEED_CAP)
+    parser.add_argument(
+        "--seed-doi-file", type=Path, default=None,
+        help="CSV with columns doi,question_ids (question_ids '|'-separated, e.g. "
+             "'tdap-q1|tdap-q2', may be empty) -- explicit seed list, replacing the "
+             "default Firestore acquisition_channel query (see load_seed_file()). "
+             "Omit to keep existing GLMP/ATAP behavior (collect_seeds()).",
+    )
+    parser.add_argument(
+        "--cited-project", default=DEFAULT_CITED_PROJECT,
+        help=f"cited_project stamped on every admitted/merged record (default: {DEFAULT_CITED_PROJECT!r}, "
+             "preserving prior behavior).",
+    )
+    parser.add_argument(
+        "--acquisition-channel", default=DEFAULT_ACQUISITION_CHANNEL,
+        help=f"acquisition_channel stamped on newly-created records (default: {DEFAULT_ACQUISITION_CHANNEL!r}, "
+             "preserving prior behavior).",
+    )
+    parser.add_argument(
+        "--min-parents", type=int, default=DEFAULT_MIN_PARENTS,
+        help=f"admit a candidate if at least this many seeds cite it (default: {DEFAULT_MIN_PARENTS}).",
+    )
+    parser.add_argument(
+        "--top-n-in-seed", type=int, default=TOP_N_IN_SEED,
+        help=f"per-seed cap on top-cited-in-seed candidates (default: {TOP_N_IN_SEED}, preserving "
+             "prior behavior; TDAP expects to raise this since 6 seeds at top-5 under-yields).",
+    )
     parser.add_argument("--write", action="store_true")
     parser.add_argument("--report", type=Path, default=DEFAULT_REPORT)
     args = parser.parse_args()
@@ -250,10 +368,15 @@ def main() -> int:
 
     db = firestore.Client(project="regal-scholar-453620-r7", database="copernicusai")
     col = db.collection("research_papers")
-    seeds = collect_seeds(db, limit=args.seed_cap)
-    print(f"Seeds: {len(seeds)}  "
-          f"researcher={sum(1 for s in seeds if s['kind']=='researcher_citation')}  "
-          f"chart={sum(1 for s in seeds if s['kind']=='glmp_chart_source_candidate')}")
+    if args.seed_doi_file:
+        seeds = load_seed_file(args.seed_doi_file)[: args.seed_cap]
+        print(f"Seeds: {len(seeds)} (from {args.seed_doi_file}, seed_cap={args.seed_cap})  "
+              f"with_question_ids={sum(1 for s in seeds if s['question_ids'])}")
+    else:
+        seeds = collect_seeds(db, limit=args.seed_cap)
+        print(f"Seeds: {len(seeds)}  "
+              f"researcher={sum(1 for s in seeds if s['kind']=='researcher_citation')}  "
+              f"chart={sum(1 for s in seeds if s['kind']=='glmp_chart_source_candidate')}")
 
     per_seed: Dict[str, List[Dict[str, Any]]] = {}
     source_counts = defaultdict(int)
@@ -263,7 +386,7 @@ def main() -> int:
         source_counts[src] += 1
         print(f"  [{i}/{len(seeds)}] {src:8} {len(refs):3} refs  {seed['doi']}  { (seed.get('title') or '')[:50]}")
 
-    candidates = admit(seeds, per_seed)
+    candidates = admit(seeds, per_seed, top_n_in_seed=args.top_n_in_seed, min_parents=args.min_parents)
     print(f"Admitted after gates: {len(candidates)}  "
           f"(2+ seeds: {sum(1 for c in candidates if c['reason']=='cited_by_2plus_seeds')}, "
           f"top-in-seed: {sum(1 for c in candidates if c['reason']=='top_cited_in_seed')})")
@@ -314,12 +437,18 @@ def main() -> int:
                     }, ensure_ascii=False) + "\n")
                     continue
 
-            record["acquisition_channel"] = "cited_by_collection"
+            record["acquisition_channel"] = args.acquisition_channel
             record["parent_paper_ids"] = cand["parents"]
             record["cited_by"] = "citation_expansion_pilot"
             record["cited_date"] = cited_date
-            record["cited_project"] = "glmp"
+            record["cited_project"] = args.cited_project
             record["cited_context"] = f"{CITED_CONTEXT} reason={cand['reason']}"
+            # Union of parents' question_ids (Q5 gap closed: the pilot never
+            # set cited_for_question before, so question_scope_ids never
+            # populated -- ingest_papers_from_metadata_json.py's derivation
+            # only understands a single cited_for_question value, not a set,
+            # so it's applied directly here rather than through that field.
+            qids = sorted(cand.get("question_ids") or [])
 
             doc_id = ingest._doc_id_for_paper(record)
             snap = col.document(doc_id).get()
@@ -339,13 +468,15 @@ def main() -> int:
                         "updated_at": datetime.now(timezone.utc).replace(microsecond=0).isoformat(),
                     }
                     if not existing.get("acquisition_channel"):
-                        update["acquisition_channel"] = "cited_by_collection"
+                        update["acquisition_channel"] = args.acquisition_channel
+                    if qids:
+                        update["question_scope_ids"] = firestore.ArrayUnion(qids)
                     citations = list(existing.get("citations") or [])
                     event = {
                         "cited_by": record["cited_by"],
                         "cited_date": cited_date,
                         "cited_context": record["cited_context"],
-                        "cited_project": "glmp",
+                        "cited_project": args.cited_project,
                     }
                     if event not in citations:
                         citations.append(event)
@@ -362,6 +493,8 @@ def main() -> int:
                     action = "capped"
                 elif args.write:
                     doc = ingest._to_firestore_paper(record, Path(f"pilot/{record.get('id')}.json"))
+                    if qids:
+                        doc["question_scope_ids"] = sorted(set(doc.get("question_scope_ids") or []) | set(qids))
                     col.document(doc_id).create(doc)
                     counts["created"] += 1
                     new_writes += 1
@@ -377,6 +510,7 @@ def main() -> int:
                 "title": record.get("title"),
                 "reason": cand["reason"],
                 "parents": cand["parents"],
+                "question_ids": qids,
                 "cited_by_count": cand.get("cited_by_count"),
             }, ensure_ascii=False) + "\n")
             if i % 20 == 0 or i == len(candidates):

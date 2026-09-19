@@ -330,7 +330,8 @@ export default function KnowledgeMapView({ project = null }: { project?: KEProje
         params.set('content_types', selectedContentTypes.join(','))
       }
       if (project && activeContentTypes.processes) {
-        params.set('process_family', KE_PROJECTS[project].processContentType)
+        const pct = KE_PROJECTS[project].processContentType
+        if (pct) params.set('process_family', pct)
       }
 
       // Add discipline filters
@@ -962,7 +963,7 @@ export default function KnowledgeMapView({ project = null }: { project?: KEProje
           {(project ? [KE_PROJECTS[project]] : KE_PROJECT_IDS.map((id) => KE_PROJECTS[id])).map((proj) => (
             <div className="mb-3" key={proj.id}>
               <p className="text-xs font-medium text-blue-800 mb-1">
-                {proj.id === 'atap' ? '📐' : '🧬'} {proj.label}:
+                {proj.icon} {proj.label}:
               </p>
               <div className="flex flex-wrap gap-2">
                 {proj.quickExamples.map((ex) => (

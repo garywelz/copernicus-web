@@ -75,7 +75,7 @@ export default function ContentBrowser({ project = null }: { project?: KEProject
   // only -- the process_family filter and its effect on retrieval already
   // existed before the toggle; this just picks a sensible starting chip
   // instead of always defaulting to 'math' regardless of context).
-  const [processFamily, setProcessFamily] = useState<string>(project ? KE_PROJECTS[project].processContentType : 'math')
+  const [processFamily, setProcessFamily] = useState<string>(project ? (KE_PROJECTS[project].processContentType ?? '') : 'math')
   /** Paper/video-discipline chip. Empty = all. Mathematics is a paper family,
    *  distinct from ATAP process charts — same idea as Biology papers vs GLMP. */
   const [paperDiscipline, setPaperDiscipline] = useState<string>('')
@@ -92,7 +92,7 @@ export default function ContentBrowser({ project = null }: { project?: KEProject
 
   useEffect(() => {
     if (project) {
-      setProcessFamily(KE_PROJECTS[project].processContentType)
+      setProcessFamily(KE_PROJECTS[project].processContentType ?? '')
     }
   }, [project])
   const [loading, setLoading] = useState(false)

@@ -58,8 +58,20 @@ export default function SearchInterface({ project = null }: { project?: KEProjec
   const [limit, setLimit] = useState(20)
 
   const processLabel = project
-    ? `${KE_PROJECTS[project].label} process charts`
+    ? KE_PROJECTS[project].processContentType
+      ? `${KE_PROJECTS[project].label} process charts`
+      : `${KE_PROJECTS[project].label} (no process charts yet)`
     : 'Processes (all 6 families)'
+
+  // Prose clause for the Vector Search description below -- same
+  // processContentType guard as processLabel, but phrased to read cleanly
+  // inline (see recon doc, Task 5 follow-up: this used to say "TDAP process
+  // charts" unconditionally, which doesn't exist).
+  const processClause = project
+    ? KE_PROJECTS[project].processContentType
+      ? `, and ${KE_PROJECTS[project].label} process charts`
+      : ''
+    : ', and six process families'
 
   const handleSearch = async () => {
     if (!query.trim()) return
@@ -199,8 +211,7 @@ export default function SearchInterface({ project = null }: { project?: KEProjec
               </>
             ) : (
               <>
-                <strong>Vector Search:</strong> Semantic search across papers, podcasts, and{' '}
-                {project ? `${KE_PROJECTS[project].label} process charts` : 'six process families'}
+                <strong>Vector Search:</strong> Semantic search across papers, podcasts{processClause}{' '}
                 (OpenAI embeddings). Keyword mode is used when the query embedding service is unavailable.
               </>
             )}

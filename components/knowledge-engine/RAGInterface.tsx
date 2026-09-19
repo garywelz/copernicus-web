@@ -71,13 +71,11 @@ export default function RAGInterface({ project = null }: { project?: KEProjectId
         ? modelName
         : 'LLM'
 
+  const combinedAskExamples = KE_PROJECT_IDS.flatMap((id) => KE_PROJECTS[id].askExamples.slice(0, 2))
   const exampleQuestions = project
     ? KE_PROJECTS[project].askExamples
-    : KE_PROJECT_IDS.flatMap((id) => KE_PROJECTS[id].askExamples).length
-      ? [
-          ...KE_PROJECTS.glmp.askExamples.slice(0, 2),
-          ...KE_PROJECTS.atap.askExamples.slice(0, 2),
-        ]
+    : combinedAskExamples.length
+      ? combinedAskExamples
       : FALLBACK_EXAMPLES
 
   const handleAsk = async () => {
@@ -145,8 +143,12 @@ export default function RAGInterface({ project = null }: { project?: KEProjectId
             ) : (
               <>
                 <strong>RAG:</strong> Retrieves context from{' '}
-                {project ? `${KE_PROJECTS[project].label} process charts` : 'all six process families'}{' '}
-                plus papers and podcasts, then synthesizes an answer with {llmLabel}.
+                {project
+                  ? KE_PROJECTS[project].processContentType
+                    ? `${KE_PROJECTS[project].label} process charts plus `
+                    : ''
+                  : 'all six process families plus '}
+                papers and podcasts, then synthesizes an answer with {llmLabel}.
               </>
             )}
           </p>

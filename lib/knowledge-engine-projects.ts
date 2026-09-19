@@ -19,7 +19,7 @@
  * anywhere else in this codebase.
  */
 
-export type KEProjectId = 'glmp' | 'atap'
+export type KEProjectId = 'glmp' | 'atap' | 'tdap'
 
 export interface KEQuickExample {
   label: string
@@ -37,11 +37,20 @@ export interface KEQuickExample {
 export interface KEProjectConfig {
   id: KEProjectId
   label: string
+  /** Emoji shown next to the project label (Quick Examples list, etc.) --
+   *  config-driven so a 3rd+ project doesn't need a per-component ternary
+   *  that silently falls through (see KnowledgeMapView.tsx's Quick Examples
+   *  header, fixed 2026-09-19 for TDAP). */
+  icon: string
   fullName: string
   /** Short line shown under the page header when this project is selected. */
   framingLine: string
-  /** content_type key the API expects for this project's process family. */
-  processContentType: 'glmp' | 'math'
+  /** content_type key the API expects for this project's process family.
+   *  null when the project has no process/chart family yet -- TDAP v1 is
+   *  metadata-first with no chart family (decision 2026-09-19: charts are
+   *  a deliberately format-agnostic bucket to be filled later, not
+   *  Mermaid-specific like GLMP/ATAP's). */
+  processContentType: 'glmp' | 'math' | null
   searchPlaceholder: string
   /** Example questions for the Ask tab (same topics as quickExamples). */
   askExamples: string[]
@@ -73,10 +82,19 @@ const ATAP_DISCIPLINES = {
   computer_science: true,
 }
 
+/** TDAP papers sit in math.AT/cs.CG/stat.ML/math.DS -- same shape as
+ *  ATAP_DISCIPLINES above, mathematics+CS, not a life-science filter. */
+const TDAP_DISCIPLINES = {
+  ...NO_DISCIPLINES,
+  mathematics: true,
+  computer_science: true,
+}
+
 export const KE_PROJECTS: Record<KEProjectId, KEProjectConfig> = {
   glmp: {
     id: 'glmp',
     label: 'GLMP',
+    icon: '🧬',
     fullName: 'Genome Logic Modeling Project',
     framingLine: "Exploring GLMP's gene-regulation corpus -- the glmp process family and its scoped papers.",
     processContentType: 'glmp',
@@ -107,6 +125,7 @@ export const KE_PROJECTS: Record<KEProjectId, KEProjectConfig> = {
   atap: {
     id: 'atap',
     label: 'ATAP',
+    icon: '📐',
     fullName: 'Axiomatic Theories, Algorithms and Proofs',
     framingLine:
       'Axiomatic Theories, Algorithms and Proofs — for logicians, foundations researchers, proof theorists, and theoretical computer scientists.',
@@ -135,12 +154,47 @@ export const KE_PROJECTS: Record<KEProjectId, KEProjectConfig> = {
       },
     ],
   },
+  tdap: {
+    id: 'tdap',
+    label: 'TDAP',
+    icon: '🍩',
+    fullName: 'Topological Data Analysis Project',
+    framingLine:
+      "Exploring TDAP's persistent cohomology and circular-coordinate corpus -- a new, seed-driven engine, still small.",
+    processContentType: null,
+    searchPlaceholder: 'Try: persistent cohomology, circular coordinates, computing persistent homology...',
+    askExamples: [
+      'How does persistent cohomology recover circular and toroidal coordinates from data?',
+      'What algorithms compute persistent (co)homology at scale, and what are the tradeoffs?',
+      'Where has cyclic or recurrent structure been found in biomedical or physiological data using these methods?',
+    ],
+    // NOT live-tested against /api/vector-search/semantic like GLMP/ATAP's
+    // above -- there is no TDAP corpus yet (2026-09-19: citation-expansion
+    // dry run only, zero papers written). Re-test once real data exists.
+    quickExamples: [
+      {
+        label: 'Circular Coordinates (TDAP)',
+        keyword: 'circular coordinates persistent cohomology',
+        disciplines: TDAP_DISCIPLINES,
+      },
+      {
+        label: 'Persistent Homology Algorithms (TDAP)',
+        keyword: 'computing persistent homology algorithm',
+        disciplines: TDAP_DISCIPLINES,
+      },
+      {
+        label: 'Toroidal Coordinates (TDAP)',
+        keyword: 'toroidal coordinates lattice reduction',
+        disciplines: TDAP_DISCIPLINES,
+      },
+    ],
+  },
 }
 
-export const KE_PROJECT_IDS: KEProjectId[] = ['glmp', 'atap']
+export const KE_PROJECT_IDS: KEProjectId[] = ['glmp', 'atap', 'tdap']
 
 export function isKEProjectId(v: string | null | undefined): v is KEProjectId {
-  return v === 'glmp' || v === 'atap'
+  return v === 'glmp' || v === 'atap' || v === 'tdap'
 }
 
 /** Search/RAG content_types for the current toggle. Project view scopes
@@ -154,8 +208,12 @@ export function searchContentTypesForProject(
   if (selected.podcasts) types.push('podcasts')
   if (selected.videos) types.push('videos')
   if (selected.processes) {
-    if (project) types.push(KE_PROJECTS[project].processContentType)
-    else types.push('glmp', 'math', 'chemistry', 'physics', 'computer_science', 'biology')
+    if (project) {
+      const pct = KE_PROJECTS[project].processContentType
+      if (pct) types.push(pct)
+    } else {
+      types.push('glmp', 'math', 'chemistry', 'physics', 'computer_science', 'biology')
+    }
   }
   return types
 }
