@@ -565,3 +565,27 @@ The claim "all new-flag defaults reproduce prior GLMP behavior exactly" is now *
 ## Task 3 — is `citation_expansion_pilot.py` scheduled anywhere?
 
 **Manual-only, as far as anything on this machine can confirm.** Checked: no shell script, YAML, JSON, or crontab file anywhere in the repo references it (`grep` across the whole tree); `SCOUT_ARCHITECTURE.md` and `A2-standing-acquisition-contract.md` both explicitly say "Scout cron not touched"; **Cloud Scheduler's API isn't even enabled** on the GCP project (`gcloud scheduler jobs list` fails with `SERVICE_DISABLED`, not just "no jobs") — ruling out Cloud Scheduler entirely, not just this script's absence from it. **Jetson crontab is unverified** (no SSH access from this machine) — consistent with every other Jetson-state claim in this doc.
+
+---
+
+# Tier-1 write set v2, per Claude Chat's title review (2026-09-19)
+
+Chat read both v1 title files and found the v1 filter wrong in two directions: (1) the `cited_by_2plus_seeds` rule didn't require a Jordan-named (confirmed) parent, so 16 candidates co-cited only by unconfirmed tdap-q3 seeds had leaked into tier-1; (2) holding all 84 Otter-only references was too blunt — about 74 are core TDA, only 10 are genuinely off-topic background material Otter cites for context.
+
+**Rebuilt from scratch, verified at every step, not just recomputed by arithmetic:**
+- New seed file with only the six Jordan-named seeds (`papers/tdap_seed_dois_tier1_2026-09-19.csv`), all `admit_policy=all_references`.
+- Removed 25 specific DOIs from the old 75-candidate tier-1 (16 q3-only-parent, 6 example-dataset, 3 record-quality) — all 25 confirmed present in the old set before removal (none silently missing). Left 50.
+- Moved 74 of the 84 Otter-only hold candidates into tier-1, keeping 10 held (matched by title, not DOI — one title match required stripping embedded HTML/whitespace from a Crossref record, see limits below). 50 + 74 = **124**.
+- **Actually re-ran the pilot with the new 6-seed file** (not just filtered the old 10-seed report) plus `--only-dois-file` restricted to the 124 target DOIs — this matters because a candidate admitted via `cited_by_2plus_seeds` under the old 10-seed run could have had its 2nd parent be a now-removed tdap-q3 seed, in which case it would NOT be re-admitted from 6 seeds alone. Checked precisely: **all 124 approved DOIs were re-admitted, zero missing, zero extras beyond the list.**
+- **Every candidate's `question_ids` is now confined to `{tdap-q1, tdap-q2}`** — verified directly (0 candidates carry any other tag), since only the six confirmed seeds exist in this run's seed set at all.
+- The GLMP `would_merge` (`10.1038/nbt.3854`) is still a merge, confirmed.
+- **Validation: 121 of 124 pass** (`papers/tdap_tier1_v2_validation_2026-09-19.json`) — the 3 failures are the same recurring soft 85%-quality-threshold miss (textbook/proceedings entries missing an abstract: "Elements of Algebraic Topology," "Foundations of Algebraic Topology," "Advances in Applied and Computational Topology"), no structural errors.
+- Nigmetov–Morozov's Semantic Scholar call hit **another** 429 in this run (now correctly reported as `status: error`, not silently "empty," thanks to round 3's reporting fix) — contributed 0 references this run, consistent with it being flaky under this session's cumulative S2 request volume, not newly broken.
+
+Regenerated files: `papers/tdap_tier1_write_set_v2_2026-09-19.md` (124 candidates + 6 seeds, with DOIs), `papers/tdap_hold_list_v2_2026-09-19.md` (66, with DOIs, grouped: 25 moved-from-tier-1 with Chat's 4 "likely accept" flags — `10.1073/pnas.1506407112`, `10.1167/8.8.11`, `10.1371/journal.pcbi.1002581`, `10.1038/s41593-019-0460-x` — plus the 10 Otter papers staying held, plus the 31 from the four unconfirmed tdap-q3 seeds).
+
+## Limits (this round)
+
+1. **Otter et al.'s biomedical-application papers (e.g. papers applying persistent homology to protein structure, RNA-seq, amorphous solids) inherit `tdap-q2`** (computing persistent homology at scale) purely because that's Otter's own question tag — not because they're specifically about computational scale. Re-taggable later once/if a biomedical question (tdap-q3, once seeded) is confirmed and these are re-reviewed against it.
+2. **Conference/journal pairs are kept as separate records, not deduplicated.** Confirmed in the actual candidate set: "Persistence barcodes for shapes" appears twice — `10.1145/1057432.1057449` and `10.1142/s0218654305000761` (two DOIs, same underlying result, different venues/versions). No merge logic exists for this; both would be written as distinct corpus entries.
+3. **HTML tags and irregular whitespace in some Crossref-sourced titles are not normalized.** Found directly while matching one of Chat's "keep held" titles: the actual stored title is `"The structure of the nervous system of the nematode\n                    <i>Caenorhabditis elegans</i>"` (embedded `<i>` tags and a line break/indentation from Crossref's own XML-to-JSON conversion), not the clean text Chat's title list used. Matching required stripping HTML and collapsing whitespace by hand for this round's title-list regeneration; the underlying `title` field written to Firestore would carry this artifact as-is if written today.
