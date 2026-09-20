@@ -1,0 +1,56 @@
+{
+  "id": "arxiv_2212.07201v2",
+  "arxiv_id": "2212.07201v2",
+  "title": "Toroidal Coordinates: Decorrelating Circular Coordinates With Lattice Reduction",
+  "authors": [
+    "Luis Scoccola",
+    "Hitesh Gakhar",
+    "Johnathan Bush",
+    "Nikolas Schonsheck",
+    "Tatum Rask",
+    "Ling Zhou",
+    "Jose A. Perea"
+  ],
+  "author_string": "Luis Scoccola, Hitesh Gakhar, Johnathan Bush, Nikolas Schonsheck, Tatum Rask et al.",
+  "journal": "arXiv:2212.07201v2",
+  "journal_ref": null,
+  "year": "2022",
+  "doi": null,
+  "abstract": "The circular coordinates algorithm of de Silva, Morozov, and Vejdemo-Johansson takes as input a dataset together with a cohomology class representing a $1$-dimensional hole in the data; the output is a map from the data into the circle that captures this hole, and that is of minimum energy in a suitable sense. However, when applied to several cohomology classes, the output circle-valued maps can be \"geometrically correlated\" even if the chosen cohomology classes are linearly independent. It is shown in the original work that less correlated maps can be obtained with suitable integer linear combinations of the cohomology classes, with the linear combinations being chosen by inspection. In this paper, we identify a formal notion of geometric correlation between circle-valued maps which, in the Riemannian manifold case, corresponds to the Dirichlet form, a bilinear form derived from the Dirichlet energy. We describe a systematic procedure for constructing low energy torus-valued maps on data, starting from a set of linearly independent cohomology classes. We showcase our procedure with computational examples. Our main algorithm is based on the Lenstra--Lenstra--Lovász algorithm from computational number theory.",
+  "categories": [
+    "cs.CG",
+    "cs.LG",
+    "math.AT",
+    "stat.ML"
+  ],
+  "primary_category": "stat.ML",
+  "comment": "24 pages, 12 figures. To appear in proceedings of 39th International Symposium on Computational Geometry",
+  "published_date": "2022-12-14T12:59:25Z",
+  "updated_date": "2023-03-15T20:32:23Z",
+  "url": "https://arxiv.org/abs/2212.07201v2",
+  "pdf_url": "https://arxiv.org/pdf/2212.07201v2.pdf",
+  "source": "arxiv",
+  "acquired_date": "2026-09-19T19:41:27.554161",
+  "category": "mathematics",
+  "discipline": "mathematics",
+  "subcategories": [
+    "cs.CG",
+    "cs.LG",
+    "math.AT"
+  ],
+  "cited_by": "TDAP seed set",
+  "cited_date": "2026-09-19",
+  "cited_context": "TDAP tdap-q1 seed paper, named by Jordan Matuszewski. DOI 10.4230/lipics.socg.2023.57 not on Crossref; intake'd via arXiv id instead.",
+  "cited_project": "tdap",
+  "cited_for_question": "tdap-q1",
+  "acquisition_channel": "researcher_citation",
+  "citations": [
+    {
+      "cited_by": "TDAP seed set",
+      "cited_date": "2026-09-19",
+      "cited_context": "TDAP tdap-q1 seed paper, named by Jordan Matuszewski. DOI 10.4230/lipics.socg.2023.57 not on Crossref; intake'd via arXiv id instead.",
+      "cited_project": "tdap",
+      "cited_for_question": "tdap-q1"
+    }
+  ]
+}

@@ -40,6 +40,7 @@ import argparse
 import csv
 import importlib.util
 import json
+import re
 import sys
 import time
 from collections import defaultdict
@@ -94,6 +95,27 @@ def _norm_doi(raw: Optional[str]) -> Optional[str]:
     d = d.replace("https://dx.doi.org/", "").replace("doi:", "")
     d = d.strip().lower().rstrip(".,;")
     return d or None
+
+
+def _clean_title(title: Optional[str]) -> Optional[str]:
+    """Strip embedded HTML tags and collapse whitespace/newlines in a
+    title (2026-09-19, TDAP tier-1 write pre-flight, Claude Chat review).
+    Some Crossref records carry raw XML-to-JSON artifacts in `title`, e.g.
+    a literal '<i>...</i>' and a line break (found live in this session:
+    "The structure of the nervous system of the nematode\n <i>Caenorhabditis
+    elegans</i>"). Verified empirically against all 124 tier-1 v2 records
+    before applying this: 0 of 124 have their doc_id change as a result
+    (every one of them resolves via Crossref/bioRxiv to a DOI-derived
+    `crossref_<doi>`-style id -- _doc_id_for_paper() never reaches the
+    title-hash fallback for any of them), so this is safe to apply before
+    doc_id computation, not just cosmetic after the fact. Two of the 124
+    actually had something to clean: 10.21105/joss.05791 (embedded '\\n')
+    and 10.2139/ssrn.2903278 (a double space)."""
+    if not isinstance(title, str) or not title:
+        return title
+    t = re.sub(r"<[^>]+>", "", title)
+    t = re.sub(r"\s+", " ", t).strip()
+    return t
 
 
 def collect_seeds(
@@ -772,6 +794,7 @@ def main() -> int:
                 counts["unresolved"] += 1
                 fh.write(json.dumps({"status": "unresolved", **cand, "error": err}, ensure_ascii=False) + "\n")
                 continue
+            record["title"] = _clean_title(record.get("title"))
             if cand.get("title") and not a1.titles_match(cand.get("title"), record.get("title")):
                 # Harvest title from Crossref/OpenAlex can be thin; allow if cand title empty.
                 if len(a1._norm_title(cand.get("title"))) >= 12:
