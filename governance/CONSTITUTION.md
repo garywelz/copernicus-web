@@ -133,9 +133,10 @@ method fits, say so plainly (a marked limit) rather than forcing a poor fit.
   "Core's scope" are not Core: the **podcast collection** the Space produces
   is a **Product**, and the **Research Paper Metadata Database** is a
   **Resource** (Space URLs for both at `governance/RESOURCE_MANIFEST.md:16,19`).
-  This supersedes the earlier reading of `SUITE_GOVERNANCE_TODO.md:29-34` as
-  putting all three under "Core's scope"; see `SUITE_REORG_PLAN.md` §1 for
-  what distinguishes them.
+  This supersedes an earlier reading that put all three under "Core's scope";
+  see `SUITE_REORG_PLAN.md` §1 for what distinguishes them. (The former
+  SUITE_GOVERNANCE_TODO document is retired — absent from this repo and from
+  glmp; suite open-work status is `GLMP_MASTER_TODO.md` in the glmp repo.)
 
 ## 8. Companion documents (shared)
 
