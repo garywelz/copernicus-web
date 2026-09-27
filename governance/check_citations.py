@@ -59,7 +59,8 @@ import subprocess
 CROSS_REPO = {
     "GLMP_MASTER_TODO.md",
     "GLMP_GOALS.md",
-    "SUITE_GOVERNANCE_TODO.md",
+    # SUITE_GOVERNANCE_TODO.md retired — do not re-allow; redirect cites to
+    # SUITE_REORG_PLAN.md §1 (scope) / GLMP_MASTER_TODO.md (open work).
     "GITHUB_HOUSEKEEPING_TODO.md",
     "research_focus.json",
     "flowchart-source-papers.tsv",
