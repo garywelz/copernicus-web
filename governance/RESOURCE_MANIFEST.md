@@ -38,14 +38,14 @@ the false-claim pattern this field exists to prevent.*
 | ATAP repo | https://github.com/garywelz/atap — renamed 2026-07-23 from `mathematics-database`; sibling of the GLMP repo (both are engines, not nested under a discipline), not part of "Other suite repos" below. Old URL redirects but is no longer canonical |
 | Cloud-run backend | Not a separate repo — path `cloud-run-backend/` inside `copernicus-web` (no nested `.git`/submodule; e.g. `cloud-run-backend/main.py`, `cloud-run-backend/endpoints/content/routes.py`) |
 | GLMP GitHub Pages | https://garywelz.github.io/glmp |
-| Other suite repos | https://github.com/garywelz/progframe · https://github.com/garywelz/sciencevideodb · https://github.com/garywelz/metadata-database (repo names per `CLAUDE.md:35-44`; not independently confirmed to exist on GitHub). **Planned — not yet live:** `biology-database`, `chemistry-database`, `computer-science-database`, `physics-database` — `CLAUDE.md:41-44` marks their Spaces "not yet created" |
+| Other suite repos | https://github.com/garywelz/progframe · https://github.com/garywelz/sciencevideodb · https://github.com/garywelz/metadata-database (repo names per the repo↔Space map in `governance/AGENT_ROLES.md`; all three confirmed to exist via `git ls-remote`, 2026-09-25). **Deleted:** `biology-database`, `chemistry-database`, `computer-science-database`, `physics-database` stub repos, per `governance/SUITE_REORG_PLAN.md` Part 1 (not found via `git ls-remote`, 2026-09-25) |
 
 ## Cloud (records of truth)
 
 | Resource | ID / URI |
 |---|---|
 | GCP project (quota) | regal-scholar-453620-r7 |
-| GCS bucket(s) | Public: `regal-scholar-453620-r7-podcast-storage` (confirmed, e.g. `huggingface-space/scripts/generate_status_page.py:26`, `CLAUDE.md:24`). Private: `regal-scholar-453620-r7-internal` — **user-supplied, not repo-verified**: hosts the GLMP master TODO |
+| GCS bucket(s) | Public: `regal-scholar-453620-r7-podcast-storage` (confirmed, e.g. `huggingface-space/scripts/generate_status_page.py:26`; media-in-GCS rule in `governance/AGENT_ROLES.md`, Copernicus consolidation). Private: `regal-scholar-453620-r7-internal` — **user-supplied, not repo-verified**: hosts the GLMP master TODO |
 | Firestore collection | `research_papers`, project `regal-scholar-453620-r7`, database `copernicusai` (project + database: `huggingface-space/scripts/media_catalog/export_episodes_catalog.py:26`; collection: `huggingface-space/scripts/export_research_papers_jsonl.py:3,7`) |
 
 ## Status pages

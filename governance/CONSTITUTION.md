@@ -16,8 +16,10 @@ an oversight to silently backfill.*
 
 The CopernicusAI Knowledge Engine is the conceptual umbrella for the suite. It
 defines the principles, architecture, and ethos that every application inherits.
-GLMP (biology) and Axiomatic Theories, Algorithms & Proofs (mathematics) are
-**research initiatives** — domain applications of the engine. Methods & Tools is
+GLMP (biology), Axiomatic Theories, Algorithms & Proofs (mathematics), and the
+Topological Data Analysis Project, TDAP (topology), are **research initiatives** —
+domain applications of the engine. New initiatives join as hosted or federated
+engines through `governance/ENGINE_ONBOARDING.md`. Methods & Tools is
 an **engine-side capability** — the representations those initiatives draw on.
 
 This umbrella framing is conceptual, not chronological: the work began with GLMP
@@ -77,7 +79,7 @@ Truth lives in the stack, not in chat and not in uploaded snapshots:
 - **Review diffs before committing. Never force-push or rewrite history.**
 - **Treat a clearly marked limit as a finding**, not a failure to paper over
   (the Copernican ethos, applied to engineering).
-- **Agent lanes** follow `AGENT_ROLES.md`: Claude Code owns publishing / HF /
+- **Agent lanes** follow `governance/AGENT_ROLES.md`: Claude Code owns publishing / HF /
   polish; Cursor owns Jetson / SSH and multi-file pipeline work.
 - **When drafting prompts**, use role + task + context: *"You are a [specific
   perspective]. I need this to [what it needs to do]. Here's the situation:
@@ -108,13 +110,13 @@ method fits, say so plainly (a marked limit) rather than forcing a poor fit.
   (`governance/METHODS_CATALOG.md:44-86`).
 - **Homes:** repo `progframe` and the Hugging Face Space **"The Programming
   Framework"** (`huggingface-space/programming-framework/README.md:2`) are that
-  *method's* home — `CLAUDE.md:37` maps Space `programming_framework` to repo
-  `progframe`. **Never use "Programming Framework" to mean the layer** — use
+  *method's* home — the repo↔Space map in `governance/AGENT_ROLES.md` maps Space
+  `programming_framework` to repo `progframe`. **Never use "Programming Framework" to mean the layer** — use
   "Methods & Tools" for that.
 
 **Knowledge Engine / Core vs. the "CopernicusAI" Space**
 - **Knowledge Engine / Core = the umbrella** — repo `copernicus-web`
-  (`CLAUDE.md:35`) plus its `cloud-run-backend/` path, which is not a separate
+  (repo↔Space map, `governance/AGENT_ROLES.md`) plus its `cloud-run-backend/` path, which is not a separate
   repo (`governance/RESOURCE_MANIFEST.md:28`).
 - **`copernicus-web` is the core monorepo**, not merely a website — its own
   README undersells it ("A Next.js website that displays podcast episodes from

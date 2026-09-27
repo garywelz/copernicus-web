@@ -25,7 +25,8 @@ and is the record of truth for every project that inherits from the engine.
 | `tda-analysis/`, `glmp-tda-analysis/` | Topological-data-analysis work over the GLMP flowchart corpus. |
 
 Agent working rules, the repo↔Space map, and the suite's non-negotiables are in
-[`CLAUDE.md`](CLAUDE.md).
+[`governance/AGENT_ROLES.md`](governance/AGENT_ROLES.md); this repo's agent notes are in
+[`AGENTS.md`](AGENTS.md).
 
 ## Related
 

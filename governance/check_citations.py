@@ -57,7 +57,6 @@ import subprocess
 # Files that legitimately live in sibling repos (glmp, atap, sciencevideodb,
 # progframe) rather than in copernicus-web. Cited by bare name on purpose.
 CROSS_REPO = {
-    "AGENT_ROLES.md",
     "GLMP_MASTER_TODO.md",
     "GLMP_GOALS.md",
     "SUITE_GOVERNANCE_TODO.md",
@@ -70,7 +69,7 @@ CROSS_REPO = {
 
 # A citation prefixed with a sibling repo's name points outside this repo by
 # design, e.g. `glmp/archive/foo.md`. Not checkable from here.
-SIBLING_REPOS = ("glmp/", "atap/", "progframe/", "sciencevideodb/", "metadata-database/")
+SIBLING_REPOS = ("glmp/", "atap/", "tdap/", "progframe/", "sciencevideodb/", "metadata-database/")
 
 # This repo's own name used as a prefix is a self-reference; strip it.
 OWN_REPO_PREFIX = "copernicus-web/"
