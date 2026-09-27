@@ -25,12 +25,40 @@ Entry format:
 
 ---
 
+## 003 — 2026-09-27 — `governance-v1.0`; merges to copernicus-web `main` are production deploys
+
+- **From:** Claude Chat (Core project), approved by Gary
+- **Record:** the commit that adds this entry; tag `governance-v1.0` points to its merge
+  into `copernicus-web` `main`.
+- **Affects:** all suite agents; federated engines, which pin to this tag
+- **Summary:**
+  - **First governance release tag.** `governance-v1.0` marks this state of
+    `governance/`: the Constitution, `governance/AGENT_ROLES.md` v2.1, the Methods Catalog,
+    the Resource Manifest, the Reorg Plan, `governance/ENGINE_ONBOARDING.md` v0.3, the
+    project headers, and this bulletin through entry 003. Federated engines fetch
+    governance files at the tag, e.g.
+    https://raw.githubusercontent.com/garywelz/copernicus-web/governance-v1.0/governance/CONSTITUTION.md
+  - **Merges to copernicus-web `main` redeploy the public podcast site.** Found when the
+    PR #10 merge produced production deployments across eight Vercel projects. The
+    project `copernicus-web-public` serves www.copernicusai.fyi. Now stated in this
+    repo's `AGENTS.md`, the repo↔Space map, and the onboarding checklist, which
+    previously said pushing to `main` does not deploy.
+  - **Also on `main` since entry 002:** PR #9 retired the former SUITE_GOVERNANCE_TODO
+    document's citation in Constitution §7.
+- **Waiting on:**
+  - **Gary:** a Vercel inventory — which of the projects across the two Vercel teams are
+    live; whether the Copernicus_AI team is still needed; the `copernicusai.app`
+    certificate failure and its planned redirect to www.copernicusai.fyi; and the
+    `coperncusai.app` registration.
+  - **Federated engines:** none exist yet.
+
 ## 002 — 2026-09-27 — Engine onboarding, federation terms, TDAP in the Constitution
 
 - **From:** Claude Chat (Core project); decisions by Gary, 2026-09-27
-- **Record:** same `copernicus-web` PR as entry 001 — `governance/ENGINE_ONBOARDING.md`
-  v0.2 and Constitution §1 · `tdap` PR — collaborator's name and email removed from
-  `README.md`
+- **Record:** same `copernicus-web` PR as entry 001
+  ([#10](https://github.com/garywelz/copernicus-web/pull/10)) — `governance/ENGINE_ONBOARDING.md`
+  v0.2 and Constitution §1 · `tdap` PR ([#1](https://github.com/garywelz/tdap/pull/1)) —
+  collaborator's name and email removed from `README.md`
 - **Affects:** anyone adding, joining, or leading an engine
 - **Summary:**
   - **Onboarding checklist** for two arrangements: *hosted* (Gary is PI, a collaborator
@@ -54,10 +82,12 @@ Entry format:
 ## 001 — 2026-09-25 — One home for agent governance; Cursor Projects join the suite
 
 - **From:** Claude Chat (Core project), approved by Gary
-- **Record:** `copernicus-web` PR — `governance/AGENT_ROLES.md` v2.0 (moved from `glmp`),
-  citation repoints, `AGENTS.md`, `CLAUDE.md`, this bulletin, `governance/PROJECT_HEADERS.md` ·
-  `glmp` PR — pointer at `glmp/docs/AGENT_ROLES.md`, `AGENTS.md`, `CLAUDE.md` · `atap` and
-  `tdap` PRs — `AGENTS.md`, `CLAUDE.md` *(links to be filled in at merge)*
+- **Record:** `copernicus-web` PR [#10](https://github.com/garywelz/copernicus-web/pull/10) —
+  `governance/AGENT_ROLES.md` v2.0 (moved from `glmp`), citation repoints, `AGENTS.md`,
+  `CLAUDE.md`, this bulletin, `governance/PROJECT_HEADERS.md` · `glmp` PR
+  [#18](https://github.com/garywelz/glmp/pull/18) — pointer at `glmp/docs/AGENT_ROLES.md`,
+  `AGENTS.md`, `CLAUDE.md` · `atap` PR [#1](https://github.com/garywelz/atap/pull/1) and
+  `tdap` PR [#1](https://github.com/garywelz/tdap/pull/1) — `AGENTS.md`, `CLAUDE.md`
 - **Affects:** all suite agents; for collaborators, only that `tdap` gains an `AGENTS.md`
 - **Summary:**
   - `AGENT_ROLES.md` **moved** from `glmp/docs/` to `copernicus-web/governance/`,
