@@ -1,7 +1,7 @@
 # Agent Roles and Division of Labor
 ## CopernicusAI Knowledge Engine suite — every engine, every agent
 
-**Version:** 2.0 — September 25, 2026
+**Version:** 2.1 — September 27, 2026
 **Lives in:** `copernicus-web` repo at `governance/AGENT_ROLES.md` (moved from
 `glmp/docs/AGENT_ROLES.md`; see change log)
 **Read alongside:** the rest of `governance/` — Constitution, Methods Catalog, Resource
@@ -239,7 +239,7 @@ and for the multi-agent workflow. GitHub (`garywelz`) is the source of truth.
 
 | HF Space | GitHub repo | Status / notes |
 |---|---|---|
-| `copernicusai` | `copernicus-web` | **Monorepo.** Root = Eliza-framework AI-agent website (Python, MIT). Static `copernicusai` Space content lives in `copernicus-web/huggingface-space/` (`index.html`, `papers-database-table.html`). Claude Code must target that subfolder, not the root. |
+| `copernicusai` | `copernicus-web` | **Monorepo.** Root = Eliza-framework AI-agent website (Python, MIT). Static `copernicusai` Space content lives in `copernicus-web/huggingface-space/` (`index.html`, `papers-database-table.html`). Claude Code must target that subfolder, not the root. **Merges to `main` deploy production (Vercel):** project `copernicus-web-public` (team "Gary Welz's projects") serves www.copernicusai.fyi, whose domain is registered in the separate Vercel team Copernicus_AI; seven other Vercel projects also build from this repo on every push (inventory pending). |
 | `glmp` | `glmp` | Project home / dashboard (HTML). Exact-name match. |
 | `programming_framework` | `progframe` | Generator/tooling repo for the discipline databases (HTML, MIT). Underscore/legacy naming — see exceptions. Discipline data is migrating out to per-discipline repos. |
 | `sciencevideodb` | `sciencevideodb` | YouTube-filtered science video DB, searchable by transcript (TypeScript). |
@@ -399,6 +399,9 @@ silently.
 ---
 
 ## Change log
+- **v2.1** (2026-09-27) — Recorded in the repo↔Space map that merges to
+  `copernicus-web` `main` are Vercel production deploys of the public podcast site,
+  found when the v2.0 merge redeployed it.
 - **v2.0** (2026-09-25) — **Moved** from `glmp/docs/AGENT_ROLES.md` (last blob there:
   v1.8, `ab3efe6752cd120815c10f81fea0d346a3b238e1`) to `copernicus-web/governance/`,
   since the document governs every engine, not GLMP alone; the old path keeps a pointer.

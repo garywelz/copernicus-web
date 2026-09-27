@@ -40,3 +40,8 @@ to or tighten the shared rules, never loosen their invariants
   `cloud-run-backend/` is a path in this repo, not a separate repo.
 - Deploy-coupled engine content (including ATAP's math processes) stays here per the
   Reorg Plan's Option B, even when an engine owns it conceptually.
+- **A merge to `main` is a production deploy.** Vercel builds this repo on every push
+  (previews on branches, production from `main`). The Vercel project
+  `copernicus-web-public` serves the public podcast site, www.copernicusai.fyi, whose
+  episodes feed the podcast's RSS distribution. Treat every merge to `main` — a
+  documentation-only one included — as publishing.

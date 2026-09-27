@@ -1,6 +1,6 @@
 # Engine Onboarding — adding a Knowledge Engine to the suite
 
-*Canonical home: `copernicus-web/governance/ENGINE_ONBOARDING.md`. Version 0.2
+*Canonical home: `copernicus-web/governance/ENGINE_ONBOARDING.md`. Version 0.3
 (2026-09-27). Distilled from TDAP, the suite's first engine shared with an outside
 researcher; each step records TDAP's status so this file doubles as TDAP's audit.
 §3 and §5 were decided by Gary on 2026-09-27 and bind every engine.*
@@ -114,7 +114,7 @@ Status column is TDAP as of 2026-09-27.
 | Question labels in `BROWSE_QUESTIONS`, `components/knowledge-engine/constants.ts` | **Not done** — no `tdap` entries on `main` |
 | Question ids in `INITIATIVE_QUESTION_IDS`, `huggingface-space/scripts/generate_status_page.py` (hand-maintained: undercounts silently if stale); republish the status JSON | Done |
 | `PROCESS_FAMILY_COLLECTIONS`, in both `cloud-run-backend/endpoints/content/routes.py` and `cloud-run-backend/services/knowledge_map_service.py` — only if the engine has a chart family | N/A — deferred |
-| Frontend deploy via `cloudbuild-frontend.yaml`. There is no CI/CD: pushing to `main` does not deploy | Done |
+| Frontend deploy via `cloudbuild-frontend.yaml` (Cloud Run: manual, no CI/CD). Separately, **every merge to `copernicus-web` `main` is a Vercel production deploy** of the public podcast site — see the repo↔Space map in `governance/AGENT_ROLES.md` | Done |
 
 **Phase 5 — Governance registration**
 
