@@ -25,6 +25,21 @@ Entry format:
 
 ---
 
+## 005 — 2026-09-28 — Hosting inventory; two security changes; podcast feed dates corrected
+
+- **From:** Claude Code and Claude Chat, approved by Gary
+- **Record:** changes made directly in Google Cloud and the podcast feed, not in a repo; each is listed below with the command that reverses it
+- **Affects:** all suite agents, and anything that calls the suite's Cloud Run services
+- **Summary:**
+  - **Hosting inventory (read-only).** Vercel: 32 projects across two teams. Only copernicus-web-public serves real traffic (www.copernicusai.fyi and www.copernicusai.app); copernicusai-site still serves an April 2025 site at copernicusai.org; seven other projects rebuild from copernicus-web on every merge. Google Cloud (one project): 15 Cloud Run services, 6 Cloud Functions, 4 Cloud SQL databases, 14 buckets. Nothing on Google Cloud deploys automatically from GitHub. The live podcast pipeline is copernicus-podcast-api, built from `cloud-run-backend/cloudbuild.yaml`; 11 of the 21 services and functions had no requests in the last 30 days; glmp's `podcast_backend/` was never deployed.
+  - **Security change 1:** copernicus-api no longer accepts unauthenticated calls. It had no requests in 30 days and nothing in any repo calls it. To reverse: `gcloud run services add-iam-policy-binding copernicus-api --region=us-central1 --member=allUsers --role=roles/run.invoker`
+  - **Security change 2:** a long-lived service-account key found in an April 2025 build archive was disabled. No live system used it; the Jetson and Gary's laptop use a different key. To reverse: `gcloud iam service-accounts keys enable 8ee8790b0a4cfecbe671db4c7c7f77aac48d26d3 --iam-account=copernicus-service@regal-scholar-453620-r7.iam.gserviceaccount.com`
+  - **Podcast feed dates corrected.** 37 episodes in the live RSS feed shared a placeholder publication date. Each now carries its audio file's storage timestamp, which is the best available evidence of when the episode was made, not a confirmed publication date. The pre-fix feed is backed up in the podcast storage bucket.
+  - **Placement finding:** podcast tooling added to the glmp repo root (a feed fixer, a troubleshooter, and a guide) belongs with Core in copernicus-web; to move later.
+- **Waiting on:**
+  - **Gary:** the RSS feed address registered in Spotify for Creators, Apple Podcasts Connect, and YouTube Studio (needed before any Vercel project is retired); on or after 2026-10-05, if nothing has broken, approve deleting the disabled key permanently; decisions on the keep / lock down / retire proposal.
+  - **Claude Chat:** draft that proposal across Vercel and Google Cloud, with a reversal for every step.
+
 ## 004 — 2026-09-28 — Setup waits closed; glmp untracked files resolved; glmp PR backlog triaged
 
 - **From:** Claude Code and Claude Chat, approved by Gary
