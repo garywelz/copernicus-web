@@ -25,6 +25,23 @@ Entry format:
 
 ---
 
+## 004 — 2026-09-28 — Setup waits closed; glmp untracked files resolved; glmp PR backlog triaged
+
+- **From:** Claude Code and Claude Chat, approved by Gary
+- **Record:** `glmp` PR #19 (merged) — untracked-file cleanup · `glmp` PRs #2 and #6 — fixed on their branches, open · `glmp` PRs #1, #3, #4, #5, #9, #13 — closed
+- **Affects:** all suite agents
+- **Summary:**
+  - **Entry 001's waits are closed.** The headers from `governance/PROJECT_HEADERS.md` are in all four Cursor Projects and all seven of Gary's Claude Projects, and each Cursor Project passed the `AGENTS.md` canary. Cursor Cloud Agents hold no secrets, at account level or in any of the four environments, so the rule that coordinators cannot write to Core is verified. Cursor's Slack notifications are off.
+  - **Correction:** Cursor has no per-Project spend limits. Its spending limit is account-wide, and it is set. `governance/AGENT_ROLES.md` still says each Project carries its own limit; correction pending.
+  - **glmp's 16 untracked files resolved file by file (PR #19):** 3 archived under dated names, 1 handoff moved to the docs handoff archive, 1 committed in place, 3 deleted as superseded or duplicate, and 6 moved to a private local folder after SHA-256 verification (never committed). The remaining 2, the round-1 blind spot-check sheet and key, stay untracked because the round has not been started (0 of 52 filled); a backup copy is in the private folder.
+  - **glmp PR backlog triaged:** 6 stale, conflicting, or no-op PRs closed. Review of the rest found 7 bugs across 3 PRs. Those in #2 (a future-date regression) and #6 (a broken status endpoint, a roughly 1000× duration error, a missing import, and a frontend/backend field mismatch) were fixed on their branches. #11 has one unfixed finding: its GCS deploy script can fail partway without reporting it. #7 and #10 reviewed clean.
+  - **The Jetson's address changed** from 192.168.1.222 to 192.168.1.223 (DHCP). Live references in glmp scripts and docs, and the hardware row in `governance/AGENT_ROLES.md`, still say .222. A router reservation and a reference update are pending.
+  - **`copernicusai.app`** is attached to the Vercel project copernicus-web-public but fails at TLS from two independent networks, most likely a certificate that was never issued. This is part of the entry-003 Vercel inventory. The `coperncusai.app` named in entry 003 is deliberately misspelled: it is the real name of a separately registered domain.
+  - **Pending correction:** `governance/PROJECT_HEADERS.md` says ATAP's focus file is "not yet committed"; it has existed since July at `atap/docs/research_focus.json`. The ATAP Cursor Project already uses the corrected text.
+- **Waiting on:**
+  - **Gary:** merge or hold glmp #2 and #6; decide on #11's fix; reserve the Jetson's IP on the router; start or retire the round-1 spot-check; the entry-003 Vercel inventory.
+  - **Claude Chat:** fold the pending corrections (spend limit, ATAP focus file, Jetson address) into the Vercel-inventory governance commit.
+
 ## 003 — 2026-09-27 — `governance-v1.0`; merges to copernicus-web `main` are production deploys
 
 - **From:** Claude Chat (Core project), approved by Gary
