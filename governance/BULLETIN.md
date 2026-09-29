@@ -25,6 +25,21 @@ Entry format:
 
 ---
 
+## 006 — 2026-09-28 — Hosting cleanup Phase 1: unused public endpoints closed, redundant builds stopped
+
+- **From:** Claude Code, Vercel's dashboard assistant, and Claude Chat, approved by Gary
+- **Record:** changes made in Google Cloud and Vercel, not in a repo; reversals below
+- **Affects:** all suite agents, and anything that calls the services listed here
+- **Summary:**
+  - **Public access removed from seven items with no real traffic in 30 days.** Cloud Run services copernicus-backend, copernicus-research-backend, copernicus-podcast-generator and research-metadata-api; Cloud Functions generate-podcast and copernicus-podcast-form; and the empty bucket copernicus-filestore. Nothing was deleted. To reverse one service or function: `gcloud run services add-iam-policy-binding NAME --region=us-central1 --member=allUsers --role=roles/run.invoker`. For the bucket: `gsutil iam ch allUsers:roles/storage.objectViewer gs://copernicus-filestore`
+  - **Git disconnected from six Vercel projects** that rebuilt copernicus-web on every merge: copernicus-web, copernicus-web-2025, copernicus-web-8pvc, copernicusai-web-032725, copernicusai-podcast-2025 and copernicus-podcast-web. A merge to copernicus-web main now rebuilds only copernicus-web-public (the live site) and copernicus-rss-web. To reverse: reconnect the repo under the project's Settings → Git.
+  - **Correction to entries 004 and 005:** www.copernicusai.app now serves the site over HTTPS (verified 2026-09-28 evening). The TLS failure seen earlier that day has cleared.
+  - **.app decision:** copernicusai.app now redirects (308) to www.copernicusai.fyi, and www.copernicusai.app serves the same site directly. Vercel does not allow both .app names to redirect to the same target, or to a domain that itself redirects; a redirect rule in `vercel.json` remains available if .fyi should become the only address.
+  - **The watch:** with entry 005's two changes, every unused public Google Cloud endpoint is now closed. A failure that looks like a closed endpoint is the signal that something depended on it; reverse that one item and record it here.
+- **Waiting on:**
+  - **Gary:** the RSS feed addresses registered with Spotify, Apple Podcasts and YouTube (these decide copernicus-rss-web); on or after 2026-10-05, approve Phase 2 if nothing has broken.
+  - **All agents:** report any failure that traces to an item above.
+
 ## 005 — 2026-09-28 — Hosting inventory; two security changes; podcast feed dates corrected
 
 - **From:** Claude Code and Claude Chat, approved by Gary
