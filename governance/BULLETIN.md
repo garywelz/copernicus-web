@@ -25,6 +25,21 @@ Entry format:
 
 ---
 
+## 007 — 2026-09-29 — Podcast feed: distribution confirmed, News series archived, content audited
+
+- **From:** Claude Code, Vercel's dashboard assistant, and Claude Chat, approved by Gary
+- **Record:** this entry's commit, which also adds `docs/archive/NEWS_SERIES_ARCHIVE.md`; the other changes were made in the podcast feed, Firestore, and Vercel
+- **Affects:** all suite agents, and anyone who publishes or edits podcast episodes
+- **Summary:**
+  - **Distribution confirmed.** Spotify, Apple Podcasts and YouTube all read the feed from the podcast storage bucket (feeds/copernicus-mvp-rss-feed.xml). Nothing on Vercel serves the feed, so that one file is the single point of distribution.
+  - **copernicus-rss-web disconnected from Git.** A merge to copernicus-web main now builds only copernicus-web-public. This closes the feed-address item waiting in entries 005 and 006.
+  - **News series archived, not deleted.** The six News items were removed from the feed (a pre-removal backup is in the bucket's feeds/old feeds/ folder), and the five News records in Firestore were hidden from the website by setting submitted_to_rss to false; to reverse, set it back to true. Audio stays in the bucket. Where everything lives, and how to restart the series, is in the archive note.
+  - **ID collision found.** The Firestore document ever-phys-250043 now holds a different episode, "Quantum Computing chip advances", which has never been in the feed. Its title does not match its content (neural network architectures), and its description is truncated and contains boilerplate. It appears on the website only.
+  - **Feed content audit (read-only, before the News removal).** Of 83 items: all 118 cited PubMed IDs and 114 of 115 arXiv IDs are real; the one fabricated arXiv ID was in a News episode now removed; one citation has a truncated title; 34 episodes carry placeholder DOIs; 171 citations shown as "(Recent)" across 14 episodes resolve to real years from 1976 to 2026; 9 episodes contain boilerplate presented as findings. Descriptions live in Firestore (description_markdown) and are copied into the feed, so a fix must go to both. A generator bug inserts the placeholder DOIs.
+- **Waiting on:**
+  - **Gary:** publish, fix, or hide "Quantum Computing chip advances"; approve the description cleanup in Firestore and the feed; approve the generator fix; on or after 2026-10-05, approve Phase 2 if nothing has broken.
+  - **Claude Chat:** prepare the cleanup and generator-fix hand-offs.
+
 ## 006 — 2026-09-28 — Hosting cleanup Phase 1: unused public endpoints closed, redundant builds stopped
 
 - **From:** Claude Code, Vercel's dashboard assistant, and Claude Chat, approved by Gary
