@@ -31,28 +31,25 @@ gcloud services enable cloudbuild.googleapis.com
 gcloud services enable run.googleapis.com
 gcloud services enable containerregistry.googleapis.com
 
-# Build and deploy using Cloud Build
-echo "🏗️  Building and deploying with Cloud Build..."
+# Build using Cloud Build. cloudbuild.yaml builds and pushes the image
+# only -- it does not deploy. See cloud-run-backend/DEPLOY.md.
+echo "🏗️  Building with Cloud Build..."
 gcloud builds submit --config cloudbuild.yaml .
 
-# Get the deployed service URL
-echo "🌐 Getting service URL..."
+# Get the currently live service URL (unaffected by this build -- nothing
+# was deployed)
+echo "🌐 Getting current service URL..."
 SERVICE_URL=$(gcloud run services describe $SERVICE_NAME --region=$REGION --format="value(status.url)")
 
 echo ""
-echo "✅ Deployment completed successfully!"
+echo "✅ Build submitted (build only; this script does not deploy)"
 echo ""
-echo "🎉 Your Copernicus Podcast API is now live at:"
-echo "   $SERVICE_URL"
+echo "🔧 To deploy, follow cloud-run-backend/DEPLOY.md (gated: --no-traffic,"
+echo "   revision diff, smoke test, approval before traffic moves)."
 echo ""
-echo "🔧 Next steps:"
-echo "1. Update your Vercel environment variable:"
-echo "   CLOUD_RUN_URL=$SERVICE_URL"
-echo ""
-echo "2. Test the API health check:"
+echo "Currently live service (unchanged by this build):"
+echo "1. Test the API health check:"
 echo "   curl $SERVICE_URL/health"
 echo ""
-echo "3. View available research sources:"
+echo "2. View available research sources:"
 echo "   curl $SERVICE_URL/research-sources"
-echo ""
-echo "🎙️  Ready to generate your first research podcast!"

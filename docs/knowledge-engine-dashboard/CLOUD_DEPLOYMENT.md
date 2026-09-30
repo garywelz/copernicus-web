@@ -1,5 +1,7 @@
 # Knowledge Engine - Full Google Cloud Deployment Guide
 
+> Deploys of copernicus-podcast-api follow `cloud-run-backend/DEPLOY.md`; since 2026-09-30, `cloudbuild.yaml` builds only.
+
 **Date:** December 30, 2025  
 **Purpose:** Deploy the entire Knowledge Engine to Google Cloud (no local servers required)
 

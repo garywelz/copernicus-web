@@ -25,6 +25,17 @@ Entry format:
 
 ---
 
+## 011 — 2026-09-30 — Jetson address reserved; old deploy paths point to the gated procedure
+
+- **From:** Claude Code and Claude Chat, approved by Gary
+- **Record:** this entry's commit in copernicus-web (`governance/AGENT_ROLES.md` v2.3 and the files listed below), and a glmp PR updating the same address
+- **Affects:** local Cursor and anyone who connects to the Jetson, and anyone who deploys copernicus-podcast-api
+- **Summary:**
+  - **Jetson address.** The Jetson is now at 192.168.1.223, reserved on the router so it will not change again. Updated in the hardware table of `governance/AGENT_ROLES.md` and in the live scripts and current documents of copernicus-web and glmp. Dated handoff records keep the address that was true when they were written.
+  - **Old deploy paths.** `cloud-run-backend/deploy.sh` no longer claims the service is live after a build: it builds only and points to `cloud-run-backend/DEPLOY.md`. The current dashboard deployment documents carry a pointer to the same procedure. Dated status and handoff records are unchanged.
+- **Waiting on:**
+  - **Gary:** merge the glmp address PR; on or after 2026-10-05, approve Phase 2 of the hosting cleanup.
+
 ## 010 — 2026-09-30 — Governance v2.2: standing rules for content, deploys, branches and verification
 
 - **From:** Claude Chat, approved by Gary
