@@ -1,11 +1,12 @@
 #!/bin/bash
 
-# Copernicus Podcast API - Cloud Run Deployment Script
-# This script deploys the comprehensive research podcast generation backend
+# Copernicus Podcast API - Cloud Run Build Script
+# This script builds the comprehensive research podcast generation backend
+# image only; it does not deploy. See cloud-run-backend/DEPLOY.md.
 
 set -e
 
-echo "🚀 Deploying Copernicus Podcast API to Cloud Run..."
+echo "🏗️  Building the Copernicus Podcast API image (build only; deploy with cloud-run-backend/DEPLOY.md)..."
 
 # Configuration
 PROJECT_ID="regal-scholar-453620-r7"
