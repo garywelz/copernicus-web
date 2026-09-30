@@ -34,6 +34,13 @@ class PaperAnalysis:
     interdisciplinary_connections: List[str]
     practical_applications: List[str]
     future_research_directions: List[str]
+    # B5 fix: True only for the generic placeholder object _create_
+    # fallback_analysis() returns when AI processing failed for this
+    # paper. Callers must exclude analysis_failed=True entries from
+    # anything shown to the model or written into a description --
+    # never publish "Research findings require further analysis" or a
+    # paradigm_shift_potential of "unknown" as if they were real content.
+    analysis_failed: bool = False
 
 @dataclass
 class ThemeAnalysis:
@@ -504,7 +511,8 @@ Until next time, keep questioning, keep exploring, and keep pushing the boundari
             paradigm_shift_potential="unknown",
             interdisciplinary_connections=[],
             practical_applications=[],
-            future_research_directions=[]
+            future_research_directions=[],
+            analysis_failed=True,
         )
 
     def _create_fallback_themes(self, topic: str) -> List[ThemeAnalysis]:

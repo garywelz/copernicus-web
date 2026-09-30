@@ -548,6 +548,137 @@ def sanitize_reference_placeholders(text: str, known_year: Optional[str] = None)
     return text
 
 
+def make_reference_links_clickable(text: str) -> str:
+    """Convert reference URLs/DOIs to clickable markdown links. Idempotent
+    (B3 fix): re-running this on already-linked text is a no-op instead of
+    wrapping existing links in another layer, because any fully-formed
+    `[text](url)` link already present is protected before any
+    linkification step runs, and restored unchanged afterward.
+
+    Consolidated from the two byte-for-byte duplicate copies of this
+    function that used to live in services/rss_service.py and
+    services/episode_service.py -- both now call this one, so they can't
+    drift apart again.
+    """
+    if not text or '## References' not in text:
+        return text
+
+    parts = text.split('## References', 1)
+    if len(parts) < 2:
+        return text
+
+    before_refs = parts[0]
+    refs_section = '## References' + parts[1]
+
+    next_section_markers = ['## Hashtags', '## Episode Details']
+    refs_content = refs_section
+    after_refs = ""
+    for marker in next_section_markers:
+        if marker in refs_content:
+            split_parts = refs_content.split(marker, 1)
+            refs_content = split_parts[0]
+            after_refs = marker + split_parts[1]
+            break
+
+    # B3: protect every already-complete markdown link before touching
+    # anything, so linkifying twice is idempotent.
+    existing_links: Dict[str, str] = {}
+
+    def _protect_existing_link(match):
+        token = f"\x00LINK{len(existing_links)}\x00"
+        existing_links[token] = match.group(0)
+        return token
+
+    refs_content = re.sub(r'\[[^\]\n]*\]\([^)\n]*\)', _protect_existing_link, refs_content)
+
+    url_pattern = r'(https?://[^\s\n\)]+)'
+    # B4: a DOI may contain one level of balanced parentheses (e.g.
+    # 10.1016/0022-2836(92)90723-w) -- match those instead of stopping at
+    # the DOI's own internal ")", which used to cut it in half.
+    doi_pattern = r'(10\.\d{4}/(?:[^\s\n()]|\([^\s\n()]*\))+)'
+
+    def replace_available_url(match):
+        url = match.group(1)
+        return f"Available: [{url}]({url})"
+
+    refs_content = re.sub(r'Available:\s*' + url_pattern, replace_available_url, refs_content)
+
+    def replace_doi(match):
+        doi = match.group(1)
+        doi_url = f"https://doi.org/{doi}"
+        return f"DOI: [{doi}]({doi_url})"
+
+    refs_content = re.sub(r'DOI:\s*' + doi_pattern, replace_doi, refs_content)
+
+    # The two steps above just created new [text](url) links (e.g. DOI:
+    # [10.1..(92)90723-w](https://doi.org/10...(92)90723-w)). Protect
+    # those too, in the same pass, before the standalone-URL step below --
+    # otherwise it would find the URL sitting inside the link target it
+    # just created and wrap it in yet another link, corrupting it within
+    # a single call rather than across two.
+    refs_content = re.sub(r'\[[^\]\n]*\]\([^)\n]*\)', _protect_existing_link, refs_content)
+
+    def replace_standalone_url(match):
+        url = match.group(1)
+        return f"[{url}]({url})"
+
+    refs_content = re.sub(url_pattern + r'(?=\s*\n|$|\.)', replace_standalone_url, refs_content)
+
+    # restore protected links, longest token names last-in doesn't matter --
+    # tokens are unique and non-overlapping
+    for token, original in existing_links.items():
+        refs_content = refs_content.replace(token, original)
+
+    return before_refs + refs_content + after_refs
+
+
+class DescriptionValidationError(ValueError):
+    """Raised by validate_description_before_publish. The message names the
+    specific check that failed; callers must let this propagate -- it means
+    publishing must stop, not continue with placeholder-tainted text."""
+
+
+_MALFORMED_PUBMED_RE = re.compile(r"ncbi\.nlm\.nlm\.nih\.gov", re.IGNORECASE)
+_BOILERPLATE_FINDING_RE = re.compile(
+    r"Research findings require further analysis"
+    r"|This finding represents a significant advancement in our understanding, "
+    r"with implications that extend across multiple domains and applications\.",
+    re.IGNORECASE,
+)
+_UNKNOWN_VALUE_RE = re.compile(r":\s*unknown\b", re.IGNORECASE)
+_TEMPLATE_AUTHOR_RE = re.compile(r"\[Author et al\.", re.IGNORECASE)
+_TEMPLATE_EXAMPLE_DOI_RE = re.compile(r"\(Example DOI\)", re.IGNORECASE)
+_NESTED_LINK_PAREN_RE = re.compile(r"\)\)[A-Za-z0-9]")
+_NESTED_LINK_BRACKET_RE = re.compile(r"\[[^\]\n]{1,80}\]\([^)\n]*\]\([^)\n]*\)[^)\n]*\)")
+
+_PUBLISH_CHECKS = [
+    ("placeholder DOI (DOI: 10.xxxx/xxxx)", _PLACEHOLDER_DOI_RE),
+    ('"(Recent)" used as a publication year', _RECENT_YEAR_RE),
+    ("malformed PubMed URL (ncbi.nlm.nlm.nih.gov)", _MALFORMED_PUBMED_RE),
+    ("boilerplate presented as a finding", _BOILERPLATE_FINDING_RE),
+    ("literal 'unknown' value emitted into text", _UNKNOWN_VALUE_RE),
+    ("unfilled template reference ([Author et al....])", _TEMPLATE_AUTHOR_RE),
+    ("unfilled template reference ((Example DOI))", _TEMPLATE_EXAMPLE_DOI_RE),
+    ("nested/duplicated markdown link", _NESTED_LINK_PAREN_RE),
+    ("nested/duplicated markdown link", _NESTED_LINK_BRACKET_RE),
+]
+
+
+def validate_description_before_publish(text: str) -> None:
+    """Pre-publish gate. Call this immediately before writing description
+    text to Firestore or the feed. Raises DescriptionValidationError naming
+    the specific check that failed if any known generator placeholder
+    pattern is still present; returns None (does not modify the text) if it
+    is clean. Never call this to "fix" text -- it only rejects."""
+    if not text:
+        return
+    for label, pattern in _PUBLISH_CHECKS:
+        if pattern.search(text):
+            raise DescriptionValidationError(
+                f"Description validation failed: {label}. Refusing to publish."
+            )
+
+
 def join_description_sections(main: str, *sections: str) -> str:
     """Join body + References/Hashtags with blank lines so headers never mash."""
     parts = []

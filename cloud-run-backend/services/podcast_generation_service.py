@@ -39,6 +39,8 @@ from content_fixes import (
     ensure_source_paper_reference,
     format_research_source_line,
     dalle_thumbnail_attempts,
+    validate_description_before_publish,
+    DescriptionValidationError,
 )
 from podcast_research_integrator import PodcastResearchIntegrator, PodcastResearchContext
 
@@ -1317,8 +1319,17 @@ In this comprehensive exploration, we'll examine the latest research development
             # Research Insights section (2-3 paragraphs)
             insights = "## Research Insights\n\n"
             if research_context.paradigm_shifts:
+                # B5 backstop: paradigm_shifts entries are now filtered at
+                # the source (podcast_research_integrator skips failed
+                # analyses entirely), but guard this interpolation site
+                # too -- never use a paradigm_shifts[0] value that still
+                # looks placeholder-shaped (e.g. "Title: unknown") if one
+                # somehow gets through.
+                first_shift = research_context.paradigm_shifts[0]
+                if re.search(r':\s*unknown\b', first_shift, re.IGNORECASE):
+                    first_shift = 'These shifts represent transformative changes in how we conceptualize and approach key problems.'
                 insights += f"Recent research in {topic} has identified several paradigm shifts that fundamentally alter our understanding of the field. "
-                insights += f"{research_context.paradigm_shifts[0] if research_context.paradigm_shifts else 'These shifts represent transformative changes in how we conceptualize and approach key problems.'} "
+                insights += f"{first_shift} "
                 insights += f"The methodological advances driving these discoveries combine rigorous theoretical frameworks with innovative experimental approaches, enabling researchers to probe deeper into complex systems and uncover previously hidden patterns and mechanisms.\n\n"
             else:
                 insights += f"Current research in {topic} is characterized by methodological innovations that enable unprecedented precision and depth of analysis. "
@@ -2321,9 +2332,18 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
                 
                 if not content:
                     raise Exception("Failed to generate content after all retry attempts")
-                
+
                 content_memory_after = psutil.virtual_memory().percent
-                
+
+                # Pre-publish gate (earliest possible point): refuse to
+                # continue at all -- not to podcast_jobs, not to episodes,
+                # not to the feed -- if the generated description still
+                # contains a known generator placeholder pattern. Raising
+                # here happens before job_ref.update() below, so nothing
+                # gets written anywhere for this job.
+                if isinstance(content, dict):
+                    validate_description_before_publish(content.get('description', ''))
+
                 # CRITICAL: Ensure title exists - use topic as fallback if missing
                 if isinstance(content, dict):
                     if not content.get('title') or not content.get('title', '').strip():
@@ -2779,6 +2799,12 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
                 structured_logger.info("Podcast auto-promoted to episodes collection",
                                       job_id=job_id,
                                       message="ready for RSS")
+            except DescriptionValidationError:
+                # Never treat this as a non-blocking catalog hiccup -- it
+                # means the episode was refused, not just "not promoted
+                # yet". Let it propagate so the job ends up 'failed' with
+                # a message naming the check that failed.
+                raise
             except Exception as catalog_error:
                 structured_logger.warning("Failed to auto-promote episode",
                                          job_id=job_id,

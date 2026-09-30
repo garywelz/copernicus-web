@@ -6,8 +6,12 @@ from content_fixes import (
     limit_description_length,
     join_description_sections,
     generate_relevant_hashtags,
+    make_reference_links_clickable,
+    validate_description_before_publish,
+    DescriptionValidationError,
 )
 from services.paper_resolver import paper_year_text
+import pytest
 
 
 class TestSanitizeReferencePlaceholders:
@@ -173,6 +177,115 @@ class TestTtsPronunciationHints:
         assert "Godel" in out
         assert "Girdle" not in out
         assert "Klaynee" not in out
+
+
+class TestMakeReferenceLinksClickable:
+    def test_idempotent_on_already_linked_urls(self):
+        """B3 fixture: the repeatedly-re-linked URLs from ever-phys-250026
+        (Online Resources bullets), now in their correct single-link form
+        (as R8 fixed them). Running the linkifier a second time on
+        already-linked text must be a no-op -- this is the exact bug that
+        produced the original corruption.
+        """
+        text = (
+            "## References\n"
+            "### Online Resources\n"
+            "- Quantum Computing Report: [https://quantumcomputingreport.com/](https://quantumcomputingreport.com/)\n"
+            "- IBM Quantum Experience: [https://quantum-computing.ibm.com/](https://quantum-computing.ibm.com/)\n"
+            "\n## Hashtags\n#Physics"
+        )
+        once = make_reference_links_clickable(text)
+        twice = make_reference_links_clickable(once)
+        assert once == twice
+        assert "[[" not in once
+        assert "](https://quantumcomputingreport](" not in once
+
+    def test_does_not_truncate_doi_with_parentheses(self):
+        """B4 fixture: the 1992 J. Mol. Biol. DOI (Cardon & Stormo), which
+        contains a literal '(92)'. The old regex stopped at that internal
+        ')' and cut the DOI in half.
+        """
+        text = (
+            "## References\n"
+            "- Cardon, Stormo (1992). Expectation maximization algorithm. "
+            "Journal of molecular biology. DOI: 10.1016/0022-2836(92)90723-w\n"
+        )
+        out = make_reference_links_clickable(text)
+        assert "[10.1016/0022-2836(92)90723-w](https://doi.org/10.1016/0022-2836(92)90723-w)" in out
+        # the old bug's exact broken signature must not appear
+        assert "[10.1016/0022-2836(92]" not in out
+        assert "))90723-w" not in out
+
+    def test_idempotent_on_parenthetical_doi_link(self):
+        """B3 + B4 together: once correctly linked, a DOI-with-parentheses
+        link must also survive a second pass unchanged."""
+        text = "## References\n- DOI: 10.1016/0022-2836(92)90723-w\n"
+        once = make_reference_links_clickable(text)
+        twice = make_reference_links_clickable(once)
+        assert once == twice
+
+
+class TestValidateDescriptionBeforePublish:
+    def test_clean_text_passes(self):
+        text = (
+            "## References\n- Stormo (1989). Title. "
+            "DOI: [10.1073/pnas.86.4.1183](https://doi.org/10.1073/pnas.86.4.1183)\n"
+        )
+        validate_description_before_publish(text)  # must not raise
+
+    def test_empty_text_passes(self):
+        validate_description_before_publish("")
+        validate_description_before_publish(None)
+
+    def test_rejects_placeholder_doi(self):
+        """B1"""
+        with pytest.raises(DescriptionValidationError, match="placeholder DOI"):
+            validate_description_before_publish("- Author (2024). Title. DOI: 10.xxxx/xxxx")
+
+    def test_rejects_recent_placeholder(self):
+        """B2"""
+        with pytest.raises(DescriptionValidationError, match="Recent"):
+            validate_description_before_publish("- Stormo (Recent). Title.")
+
+    def test_rejects_malformed_pubmed_url(self):
+        with pytest.raises(DescriptionValidationError, match="PubMed"):
+            validate_description_before_publish("Available: https://pubmed.ncbi.nlm.nlm.nih.gov/12345/")
+
+    def test_rejects_boilerplate_finding(self):
+        with pytest.raises(DescriptionValidationError, match="boilerplate"):
+            validate_description_before_publish("- Research findings require further analysis")
+
+    def test_rejects_literal_unknown_value(self):
+        """B5"""
+        with pytest.raises(DescriptionValidationError, match="unknown"):
+            validate_description_before_publish(
+                "Deep Reinforcement Learning with Communication: unknown "
+                "The methodological advances driving these discoveries..."
+            )
+
+    def test_does_not_reject_ordinary_prose_use_of_unknown(self):
+        # "remains largely unknown" is normal English, not a placeholder --
+        # must not false-positive on this (it's not colon-prefixed).
+        validate_description_before_publish("Dark matter remains largely unknown to physicists.")
+
+    def test_rejects_unfilled_author_template(self):
+        """B5"""
+        with pytest.raises(DescriptionValidationError, match="Author et al"):
+            validate_description_before_publish("- [Author et al. (2023). Title. DOI: 10.1038/x]")
+
+    def test_rejects_example_doi_template(self):
+        """B5"""
+        with pytest.raises(DescriptionValidationError, match="Example DOI"):
+            validate_description_before_publish(
+                "- Some Title. DOI: [10.1038/x](https://doi.org/10.1038/x) (Example DOI)"
+            )
+
+    def test_rejects_nested_link_from_double_linkification(self):
+        """B3"""
+        with pytest.raises(DescriptionValidationError, match="nested"):
+            validate_description_before_publish(
+                "DOI: [10.1016/0022-2836(92](https://doi.org/10.1016/0022-2836(92))90723-w"
+            )
 
 
 class TestPaperYearText:
