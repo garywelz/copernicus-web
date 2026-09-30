@@ -45,3 +45,7 @@ to or tighten the shared rules, never loosen their invariants
   `copernicus-web-public` serves the public podcast site, www.copernicusai.fyi, whose
   episodes feed the podcast's RSS distribution. Treat every merge to `main` — a
   documentation-only one included — as publishing.
+- **Deploys of `copernicus-podcast-api` (Cloud Run) follow
+  `cloud-run-backend/DEPLOY.md`.** `cloud-run-backend/cloudbuild.yaml` builds and
+  pushes the image only — it does not deploy, and a merge to `main` never touches
+  this service.
