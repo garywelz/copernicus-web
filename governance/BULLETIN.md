@@ -25,6 +25,21 @@ Entry format:
 
 ---
 
+## 009 — 2026-09-30 — Generator fixes deployed to copernicus-podcast-api; gated deploy method
+
+- **From:** Claude Code and Claude Chat, approved by Gary
+- **Record:** copernicus-web PR #17 (merge commit 0b26df4), deployed to Cloud Run on 2026-09-30
+- **Affects:** all suite agents, anyone who generates podcast episodes, and anyone who deploys copernicus-podcast-api
+- **Summary:**
+  - **The five generator bugs from entry 008 are fixed at the source and live.** Placeholder DOIs and "(Recent)" are no longer produced; reference linking is idempotent and handles DOIs containing parentheses; failed AI analyses are excluded instead of emitting "unknown" or boilerplate findings.
+  - **A pre-publish validator now guards every description write.** Before an episode description is written to Firestore or the feed, it is checked for every placeholder pattern found in this week's audits. A failure stops the write, writes nothing, and names the check that failed; the remedy is to regenerate the episode, in line with the content-repair policy in entry 008.
+  - **Deployment.** Image `gcr.io/regal-scholar-453620-r7/copernicus-podcast-api@sha256:335e2690fbd8f5f21575960c00baf091b80ad1da18c8961b2e4e7f471068c2ea`, built from a clean checkout of 0b26df4, now serves 100% of traffic as revision copernicus-podcast-api-00264-sug. A full comparison of revision configurations showed the image as the only change. The episode list served before and after was identical (76 episode IDs), and no errors were logged after the cutover. To roll back: `gcloud run services update-traffic copernicus-podcast-api --region us-central1 --project regal-scholar-453620-r7 --to-revisions=copernicus-podcast-api-00262-kfx=100`. The previous revision and the fixes0930 tag are kept as the rollback path.
+  - **Deploy method for this service.** `cloud-run-backend/cloudbuild.yaml` builds and deploys in one step, sending the new revision straight to 100% of traffic. Deploy this service in gated steps instead: build from a clean checkout of the reviewed commit; deploy by image digest with --no-traffic and a tag, changing only the image; diff the new and old revision configurations; smoke-test the tagged URL against the live one; move traffic only after approval; keep the previous revision for rollback.
+  - **Not yet tested under generation.** All checks were read-only; the first episode generated on the new revision is the fixes' first real test.
+- **Waiting on:**
+  - **Gary:** on or after 2026-10-05, approve Phase 2 of the hosting cleanup, and decide when to delete revision -00262-kfx and the fixes0930 tag.
+  - **Claude Chat:** propose updating `cloud-run-backend/cloudbuild.yaml` so it cannot deploy straight to full traffic.
+
 ## 008 — 2026-09-30 — Podcast descriptions cleaned; five broken episodes deleted; content-repair policy
 
 - **From:** Claude Code and Claude Chat, approved by Gary
