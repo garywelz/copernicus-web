@@ -1,7 +1,7 @@
 # Agent Roles and Division of Labor
 ## CopernicusAI Knowledge Engine suite — every engine, every agent
 
-**Version:** 2.1 — September 27, 2026
+**Version:** 2.2 — September 30, 2026
 **Lives in:** `copernicus-web` repo at `governance/AGENT_ROLES.md` (moved from
 `glmp/docs/AGENT_ROLES.md`; see change log)
 **Read alongside:** the rest of `governance/` — Constitution, Methods Catalog, Resource
@@ -117,7 +117,8 @@ the Cursor / Claude Code boundary above still applies.
   to Slack (Constitution §4). Status goes in the PR or in `governance/BULLETIN.md`.
 - A coordinator's learned context is private to Cursor — no other agent can read it. It
   does not bind anyone until written back to GitHub (see *Shared context contract*).
-- Usage is metered; each Project carries a spend limit set by Gary.
+- Usage is metered. Cursor's spend limit is account-wide, not per Project; Gary sets it
+  in the Cursor dashboard's Spending tab.
 
 ---
 
@@ -180,7 +181,10 @@ live fetch of this file fails.
 4. **Review diffs before committing,** and blob-pin: review blob X, commit blob X,
    verify blob X.
 5. **Verify live objects with plain fetches** (no cache-busters). A clean exit verifies
-   pointers, not claims.
+   pointers, not claims. For a cached public object (the podcast feed is cached for up
+   to an hour), confirm a write with an authenticated read right away, and confirm what
+   the public receives with a plain fetch once the cache has expired; a disagreement
+   inside that window is expected, not a failed write.
 6. **Regenerate anything handed across agents from a fresh fetch** before applying it.
 7. **An empty or surprising result is a claim about the instrument** until the
    instrument is checked.
@@ -192,6 +196,23 @@ live fetch of this file fails.
 12. **Report in four sections:** what I found / what I did / what I'm uncertain about /
     what to discuss with Gary. Cursor Projects put this in the draft PR description.
 13. **`shadow` is out of scope** — never touched as science-suite work.
+14. **Delete a branch once its pull request is merged or closed.** Its commits stay
+    recoverable from the pull request page ("Restore branch"); stray branches are how
+    backlogs accumulate.
+15. **Deploy in gated steps; never straight to full traffic.** Build from a clean
+    checkout of the reviewed commit; deploy by image digest with no traffic and a tag,
+    changing only the image; compare the new revision's configuration with the old one;
+    smoke-test the tagged URL against the live one; move traffic only after Gary
+    approves; keep the previous revision for rollback. For copernicus-podcast-api the
+    procedure is `cloud-run-backend/DEPLOY.md`.
+16. **Broken generated content is deleted, not repaired.** Generated episodes are cheap
+    to recreate and expensive to fix inside the corpus. The agent that finds broken
+    content proposes deletion and does not attempt repair; Gary approves; the deletion
+    follows the archive protocol: (1) back up the feed before every feed write, however
+    small; (2) archive the record and its storage objects to the private internal
+    bucket and verify checksums; (3) remove the item from the feed with a generation
+    precondition; (4) delete only objects that nothing else references; (5) verify on
+    every surface. Archives never go in the public podcast bucket.
 
 ---
 
@@ -399,6 +420,10 @@ silently.
 ---
 
 ## Change log
+- **v2.2** (2026-09-30) — Added session rules 14 (delete branches after merge or close),
+  15 (gated deploys), and 16 (broken generated content is deleted, not repaired, with
+  the archive protocol), making bulletin entries 008 and 009 standing rules; extended
+  rule 5 for cached public objects; corrected Cursor's spend limit to account-wide.
 - **v2.1** (2026-09-27) — Recorded in the repo↔Space map that merges to
   `copernicus-web` `main` are Vercel production deploys of the public podcast site,
   found when the v2.0 merge redeployed it.
