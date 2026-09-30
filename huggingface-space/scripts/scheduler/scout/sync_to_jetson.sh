@@ -8,7 +8,7 @@
 # Windows CRLF transfer breaks bash (`unexpected end of file` / rc from syntax).
 set -euo pipefail
 
-JETSON="${JETSON:-gary@192.168.1.222}"
+JETSON="${JETSON:-gary@192.168.1.223}"
 REMOTE_DIR="/media/sdcard/scheduler/scout"
 HFS_REPO="${HFS_REPO:-/home/gdubs/copernicus-web-public/huggingface-space}"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"

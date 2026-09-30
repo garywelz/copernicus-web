@@ -136,8 +136,8 @@ bash huggingface-space/scripts/scheduler/scout/sync_to_jetson.sh
 Or manually:
 
 ```bash
-scp huggingface-space/scripts/scheduler/scout/*.py gary@192.168.1.222:/media/sdcard/scheduler/scout/
-ssh gary@192.168.1.222 "rm -rf /media/sdcard/scheduler/scout/__pycache__"
+scp huggingface-space/scripts/scheduler/scout/*.py gary@192.168.1.223:/media/sdcard/scheduler/scout/
+ssh gary@192.168.1.223 "rm -rf /media/sdcard/scheduler/scout/__pycache__"
 ```
 
 **Deploy proof (no SSH):** after AM+PM ingest, reject objects under

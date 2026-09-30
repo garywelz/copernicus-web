@@ -1,7 +1,7 @@
 # Agent Roles and Division of Labor
 ## CopernicusAI Knowledge Engine suite — every engine, every agent
 
-**Version:** 2.2 — September 30, 2026
+**Version:** 2.3 — September 30, 2026
 **Lives in:** `copernicus-web` repo at `governance/AGENT_ROLES.md` (moved from
 `glmp/docs/AGENT_ROLES.md`; see change log)
 **Read alongside:** the rest of `governance/` — Constitution, Methods Catalog, Resource
@@ -220,7 +220,7 @@ live fetch of this file fails.
 
 | Hardware | Primary role | What runs there |
 |---|---|---|
-| **Jetson Nano** (`gary@192.168.1.222`) | Edge compute | Scout cron (10:15 AM + 8 PM ET), batch decoder (2 AM ET), FIMO scanning, paper ingest pipeline |
+| **Jetson Nano** (`gary@192.168.1.223`) | Edge compute | Scout cron (10:15 AM + 8 PM ET), batch decoder (2 AM ET), FIMO scanning, paper ingest pipeline |
 | **Yoga 9i** (RTX 5060, 32GB) | Primary workstation | Cursor, Claude Code, all local repos, `gsutil`, `gcloud`, `gh`, git operations |
 | **Yoga 730** | Mobile / secondary | Daily reading, email, remote access to Claude Chat and Cursor via browser. Travel machine. Not used for cron or pipeline work. |
 
@@ -420,6 +420,8 @@ silently.
 ---
 
 ## Change log
+- **v2.3** (2026-09-30) — Jetson address updated to 192.168.1.223, now reserved on the
+  router so it no longer changes.
 - **v2.2** (2026-09-30) — Added session rules 14 (delete branches after merge or close),
   15 (gated deploys), and 16 (broken generated content is deleted, not repaired, with
   the archive protocol), making bulletin entries 008 and 009 standing rules; extended
