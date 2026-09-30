@@ -25,6 +25,21 @@ Entry format:
 
 ---
 
+## 010 — 2026-09-30 — Governance v2.2: standing rules for content, deploys, branches and verification
+
+- **From:** Claude Chat, approved by Gary
+- **Record:** this entry's commit (`governance/AGENT_ROLES.md` v2.2, `governance/PROJECT_HEADERS.md` v1.3) · copernicus-web PR #19 (merged) · glmp PRs #7 and #10 (merged) and #11 (closed)
+- **Affects:** all suite agents
+- **Summary:**
+  - **Standing rules added to `governance/AGENT_ROLES.md`, Session rules:** 14, delete a branch once its pull request is merged or closed; 15, deploy in gated steps, never straight to full traffic; 16, broken generated content is deleted, not repaired, following the archive protocol. Rule 5 now covers cached public objects. This makes the policies announced in entries 008 and 009 permanent.
+  - **Corrections.** Cursor's spend limit is account-wide, not per Project. The ATAP Cursor Project header in `governance/PROJECT_HEADERS.md` now names its focus file, which has existed since July.
+  - **Build safety (copernicus-web PR #19).** `cloud-run-backend/cloudbuild.yaml` now builds and pushes only; the gated procedure is `cloud-run-backend/DEPLOY.md`. The removed deploy step also passed its environment variables as five separate flags, which most likely would have kept only the last one and broken the service on its next deploy.
+  - **glmp backlog cleared.** PRs #7 and #10 were merged; #11 was closed as superseded; 23 stale branches were deleted, their head commits recorded first. glmp now has one branch, main.
+  - **Release.** This state is to be tagged `governance-v1.1`: additions and corrections only, no invariant changed, so federated engines need not act.
+- **Waiting on:**
+  - **Gary:** approve cutting `governance-v1.1` once this merges; add rule 16 to the Products Claude Project's scope note; reserve the Jetson's address on the router (its address correction follows); on or after 2026-10-05, approve Phase 2 of the hosting cleanup.
+  - **Claude Chat:** a small cleanup so `cloud-run-backend/deploy.sh` and the four active documents that describe the old deploy point to `cloud-run-backend/DEPLOY.md`.
+
 ## 009 — 2026-09-30 — Generator fixes deployed to copernicus-podcast-api; gated deploy method
 
 - **From:** Claude Code and Claude Chat, approved by Gary
