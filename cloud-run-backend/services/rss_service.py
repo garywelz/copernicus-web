@@ -22,7 +22,11 @@ from config.constants import (
 )
 from config.database import db
 from utils.logging import structured_logger
-from content_fixes import extract_itunes_summary
+from content_fixes import (
+    extract_itunes_summary,
+    make_reference_links_clickable,
+    validate_description_before_publish,
+)
 
 
 class RSSService:
@@ -162,74 +166,15 @@ class RSSService:
     
     @staticmethod
     def _make_reference_links_clickable(text: str) -> str:
-        """Convert reference URLs to clickable markdown links"""
-        import re
-        
-        if not text or '## References' not in text:
-            return text
-        
-        # Split into parts before and including References
-        parts = text.split('## References', 1)
-        if len(parts) < 2:
-            return text
-        
-        before_refs = parts[0]
-        refs_section = '## References' + parts[1]
-        
-        # Extract references section content (until next section)
-        next_section_markers = ['## Hashtags', '## Episode Details']
-        refs_content = refs_section
-        after_refs = ""
-        
-        for marker in next_section_markers:
-            if marker in refs_content:
-                split_parts = refs_content.split(marker, 1)
-                refs_content = split_parts[0]
-                after_refs = marker + split_parts[1]
-                break
-        
-        # Find URLs in references and convert to markdown links
-        # Pattern: URLs like "https://..." or DOIs like "10.xxxx/xxxx"
-        # Handle formats: "Available: URL" and "DOI: 10.xxxx/xxxx"
-        
-        # Pattern for URLs and DOIs
-        url_pattern = r'(https?://[^\s\n\)]+)'
-        doi_pattern = r'(10\.\d{4}/[^\s\n\)]+)'
-        
-        # Replace "Available: URL" with "Available: [URL](URL)" 
-        def replace_available_url(match):
-            url = match.group(1)
-            # Keep URL as link text, URL as link target
-            return f"Available: [{url}]({url})"
-        
-        refs_content = re.sub(r'Available:\s*' + url_pattern, replace_available_url, refs_content)
-        
-        # Replace "DOI: 10.xxxx/xxxx" with "DOI: [10.xxxx/xxxx](https://doi.org/10.xxxx/xxxx)"
-        def replace_doi(match):
-            doi = match.group(1)
-            doi_url = f"https://doi.org/{doi}"
-            return f"DOI: [{doi}]({doi_url})"
-        
-        refs_content = re.sub(r'DOI:\s*' + doi_pattern, replace_doi, refs_content)
-        
-        # Replace standalone URLs at end of lines (not already in links, not after "Available:" or "DOI:")
-        def replace_standalone_url(match):
-            url = match.group(1)
-            # Get context to check if already processed
-            start_pos = match.start()
-            context_before = refs_content[max(0, start_pos-20):start_pos]
-            
-            # Skip if already in markdown link or after Available:/DOI:
-            if '](' in context_before or 'Available:' in context_before or 'DOI:' in context_before:
-                return url
-            
-            return f"[{url}]({url})"
-        
-        # Replace standalone URLs (not already processed)
-        refs_content = re.sub(url_pattern + r'(?=\s*\n|$|\.)', replace_standalone_url, refs_content)
-        
-        return before_refs + refs_content + after_refs
-    
+        """Convert reference URLs to clickable markdown links.
+
+        Delegates to content_fixes.make_reference_links_clickable, the
+        single shared implementation also used by episode_service.py --
+        this used to be a byte-for-byte duplicate of that function (B3/B4
+        fix: consolidated so the two copies can't drift apart again).
+        """
+        return make_reference_links_clickable(text)
+
     @staticmethod
     def _clean_description_for_spotify(text: str) -> str:
         """Clean description text to remove HTML entities, unwanted symbols, and ensure clean formatting for Spotify."""
@@ -502,6 +447,12 @@ class RSSService:
 
             if submit_to_rss:
                 item_data = cls._build_rss_item_data(podcast_data, subscriber_data, attribution_initials)
+                # Pre-publish gate: refuse to write a feed item whose text
+                # still contains a known generator placeholder pattern.
+                # Raises before any XML is built or uploaded -- the feed is
+                # left completely untouched on failure.
+                validate_description_before_publish(item_data.get("description_plain", ""))
+                validate_description_before_publish(item_data.get("description_html", ""))
                 audio_blob_name = cls._extract_blob_name_from_url(item_data["audio_url"])
                 audio_size = 1
                 if audio_blob_name:

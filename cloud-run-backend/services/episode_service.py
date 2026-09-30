@@ -12,7 +12,12 @@ from config.constants import (
 )
 from config.database import db
 from utils.logging import structured_logger
-from content_fixes import extract_itunes_summary
+from content_fixes import (
+    extract_itunes_summary,
+    make_reference_links_clickable,
+    validate_description_before_publish,
+    DescriptionValidationError,
+)
 
 
 # Episode request snapshot fields
@@ -73,67 +78,15 @@ class EpisodeService:
     
     @staticmethod
     def _make_reference_links_clickable(text: str) -> str:
-        """Convert reference URLs to clickable markdown links"""
-        import re
-        
-        if not text or '## References' not in text:
-            return text
-        
-        # Split into parts before and including References
-        parts = text.split('## References', 1)
-        if len(parts) < 2:
-            return text
-        
-        before_refs = parts[0]
-        refs_section = '## References' + parts[1]
-        
-        # Extract references section content (until next section)
-        next_section_markers = ['## Hashtags', '## Episode Details']
-        refs_content = refs_section
-        after_refs = ""
-        
-        for marker in next_section_markers:
-            if marker in refs_content:
-                split_parts = refs_content.split(marker, 1)
-                refs_content = split_parts[0]
-                after_refs = marker + split_parts[1]
-                break
-        
-        # Find URLs in references and convert to markdown links
-        url_pattern = r'(https?://[^\s\n\)]+)'
-        doi_pattern = r'(10\.\d{4}/[^\s\n\)]+)'
-        
-        # Replace "Available: URL" with "Available: [URL](URL)"
-        def replace_available_url(match):
-            url = match.group(1)
-            return f"Available: [{url}]({url})"
-        
-        refs_content = re.sub(r'Available:\s*' + url_pattern, replace_available_url, refs_content)
-        
-        # Replace "DOI: 10.xxxx/xxxx" with "DOI: [10.xxxx/xxxx](https://doi.org/10.xxxx/xxxx)"
-        def replace_doi(match):
-            doi = match.group(1)
-            doi_url = f"https://doi.org/{doi}"
-            return f"DOI: [{doi}]({doi_url})"
-        
-        refs_content = re.sub(r'DOI:\s*' + doi_pattern, replace_doi, refs_content)
-        
-        # Replace standalone URLs at end of lines
-        def replace_standalone_url(match):
-            url = match.group(1)
-            start_pos = match.start()
-            context_before = refs_content[max(0, start_pos-20):start_pos]
-            
-            # Skip if already in markdown link or after Available:/DOI:
-            if '](' in context_before or 'Available:' in context_before or 'DOI:' in context_before:
-                return url
-            
-            return f"[{url}]({url})"
-        
-        refs_content = re.sub(url_pattern + r'(?=\s*\n|$|\.)', replace_standalone_url, refs_content)
-        
-        return before_refs + refs_content + after_refs
-    
+        """Convert reference URLs to clickable markdown links.
+
+        Delegates to content_fixes.make_reference_links_clickable, the
+        single shared implementation also used by rss_service.py -- this
+        used to be a byte-for-byte duplicate of that function (B3/B4 fix:
+        consolidated so the two copies can't drift apart again).
+        """
+        return make_reference_links_clickable(text)
+
     @staticmethod
     def _markdown_to_html(markdown_text: str) -> str:
         """Convert markdown to HTML, fallback to paragraph-wrapped text on error."""
@@ -315,6 +268,12 @@ class EpisodeService:
                 creator_attribution,
             )
             episode_id = episode_doc["episode_id"]
+            # Pre-publish gate: refuse to write an episode document whose
+            # description still contains a known generator placeholder
+            # pattern. Raises before the Firestore write -- nothing is
+            # persisted on failure.
+            validate_description_before_publish(episode_doc.get("description_markdown", ""))
+            validate_description_before_publish(episode_doc.get("description_html", ""))
             episode_ref = db.collection(EPISODE_COLLECTION_NAME).document(episode_id)
             existing = episode_ref.get()
             if existing.exists:
@@ -324,6 +283,11 @@ class EpisodeService:
             structured_logger.debug("Episode catalog updated",
                                    episode_id=episode_id,
                                    job_id=job_id)
+        except DescriptionValidationError:
+            # Never swallow a validation failure -- it means nothing was
+            # written, and the caller (and the job's error message) must
+            # be able to see exactly which check failed.
+            raise
         except Exception as e:
             structured_logger.error("Failed to upsert episode document",
                                    job_id=job_id,

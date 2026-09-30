@@ -23,6 +23,55 @@ from paper_processor import analyze_paper_with_gemini, ResearchPaper, AnalyzeOpt
 from copernicus_character import get_copernicus_character, get_character_prompt, CopernicusCharacter
 from utils.script_validation import calculate_minimum_words_for_duration
 
+def aggregate_enhanced_analyses(paper_analyses: List["PaperAnalysis"]):
+    """Fold a list of PaperAnalysis into (paradigm_shifts,
+    interdisciplinary_connections, key_findings).
+
+    B5 fix: skips any analysis with analysis_failed=True (the generic
+    placeholder object enhanced_research_service._create_fallback_analysis
+    returns when AI processing failed for that paper) entirely -- none of
+    its placeholder text ("Research findings require further analysis",
+    paradigm_shift_potential="unknown") is allowed to reach the model or
+    a published description.
+    """
+    paradigm_shifts: List[str] = []
+    interdisciplinary_connections: List[str] = []
+    key_findings: List[str] = []
+    for analysis in paper_analyses:
+        if getattr(analysis, "analysis_failed", False):
+            continue
+        if analysis.paradigm_shift_potential not in ["none", "low"]:
+            paradigm_shifts.append(f"{analysis.title}: {analysis.paradigm_shift_potential}")
+        interdisciplinary_connections.extend(analysis.interdisciplinary_connections)
+        key_findings.extend(analysis.key_findings)
+    return paradigm_shifts, interdisciplinary_connections, key_findings
+
+
+def format_real_citation_line(source: ResearchSource) -> Optional[str]:
+    """One line for the 'REAL CITATIONS' evidence block shown to the model.
+
+    B1/B2 fix: never fabricate a DOI or a year. Omit the DOI field
+    entirely when source.doi is empty (falling back to Available: URL,
+    exactly as before) instead of ever writing a placeholder-shaped DOI;
+    omit the year parenthetical entirely when source.publication_date is
+    unknown instead of substituting the literal string "Recent" -- the
+    model was being told to "use these in your script and description",
+    so a literal "(Recent)" here was copied verbatim into published text.
+
+    Returns None (no citation line) when neither a DOI nor a URL is known,
+    matching the original if/elif behavior.
+    """
+    author_str = ', '.join(source.authors[:3]) + ('et al.' if len(source.authors) > 3 else '')
+    year = source.publication_date[:4] if source.publication_date else ''
+    year_part = f" ({year})" if year else ""
+    base = f"{author_str}{year_part}. {source.title}"
+    if source.doi:
+        return f"{base}. DOI: {source.doi}"
+    elif source.url:
+        return f"{base}. Available: {source.url}"
+    return None
+
+
 @dataclass
 class PodcastResearchContext:
     """Complete research context for podcast generation"""
@@ -130,32 +179,25 @@ class PodcastResearchIntegrator:
         # PHASE 4: SYNTHESIS (Extract Paradigm Shifts & Connections)
         print(f"\n🔗 Phase 4: Synthesis & Connection Analysis")
         
-        paradigm_shifts = []
-        interdisciplinary_connections = []
-        key_findings = []
         real_citations = []
-        
-        # From enhanced research service analyses
-        for analysis in paper_analyses:
-            if analysis.paradigm_shift_potential not in ["none", "low"]:
-                paradigm_shifts.append(f"{analysis.title}: {analysis.paradigm_shift_potential}")
-            interdisciplinary_connections.extend(analysis.interdisciplinary_connections)
-            key_findings.extend(analysis.key_findings)
-        
+
+        # From enhanced research service analyses (B5 fix: excludes failed
+        # analyses -- see aggregate_enhanced_analyses's docstring)
+        paradigm_shifts, interdisciplinary_connections, key_findings = \
+            aggregate_enhanced_analyses(paper_analyses)
+
         # From Gemini deep analyses
         for gemini_analysis in gemini_analyses:
             paradigm_shifts.extend(gemini_analysis.paradigm_shifts)
             interdisciplinary_connections.extend(gemini_analysis.interdisciplinary_connections)
             key_findings.extend(gemini_analysis.key_findings)
             real_citations.extend(gemini_analysis.citations)
-        
-        # Add citations from research sources
+
+        # Add citations from research sources (B1/B2 fix: see
+        # format_real_citation_line's docstring).
         for source in research_sources[:10]:
-            if source.doi:
-                citation = f"{', '.join(source.authors[:3])}{'et al.' if len(source.authors) > 3 else ''} ({source.publication_date[:4] if source.publication_date else 'Recent'}). {source.title}. DOI: {source.doi}"
-                real_citations.append(citation)
-            elif source.url:
-                citation = f"{', '.join(source.authors[:3])}{'et al.' if len(source.authors) > 3 else ''} ({source.publication_date[:4] if source.publication_date else 'Recent'}). {source.title}. Available: {source.url}"
+            citation = format_real_citation_line(source)
+            if citation:
                 real_citations.append(citation)
         
         # PHASE 5: QUALITY ASSESSMENT
@@ -399,7 +441,7 @@ groundbreaking research. [Final thought on future implications]
         - Practical applications: 2-3 paragraphs about real-world applications, industry impact, and potential uses
         - Future directions: 2-3 paragraphs about emerging research directions, potential breakthroughs, and long-term implications
         - ## References section (list ALL citations with authors, titles, publications, DOIs/URLs)
-        
+
         CRITICAL: Write a thorough, engaging description that maximizes discoverability. Be detailed and informative while remaining accessible. Ensure the References section is complete.
     ",
     "keywords": ["comma", "separated", "keywords", "from", "research"],
@@ -409,6 +451,16 @@ groundbreaking research. [Final thought on future implications]
 
 **CRITICAL:** Use ONLY the real research provided. DO NOT make up fake references.
 If asked about something not in the research, ADAM should acknowledge the gap.
+
+**Citation rules (do not violate):**
+- Never write "DOI: 10.xxxx/xxxx" or any other placeholder-shaped DOI. If a
+  citation has no real DOI, omit the DOI field entirely -- use Available:
+  with a real URL instead, or omit both if neither is known.
+- Never write "(Recent)" or "(Year)" as a publication year. If the year is
+  unknown, omit the parenthetical entirely rather than inventing one.
+- Never write a reference line as a literal fill-in-the-blank template such
+  as "[Author et al. (Year). Title. DOI: ...]" -- every reference must use
+  real, specific authors, title, and year from the research provided.
 """
         
         return prompt
