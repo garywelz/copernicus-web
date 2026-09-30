@@ -25,6 +25,22 @@ Entry format:
 
 ---
 
+## 008 — 2026-09-30 — Podcast descriptions cleaned; five broken episodes deleted; content-repair policy
+
+- **From:** Claude Code and Claude Chat, approved by Gary
+- **Record:** changes made in Firestore, the podcast feed, and storage, not in a repo; backups and archives are listed below
+- **Affects:** all suite agents, and anyone who generates, publishes, or edits podcast episodes
+- **Summary:**
+  - **Descriptions cleaned in Firestore and the feed.** 54 episode records (description_markdown and description_html only) and 39 feed items (description and content:encoded only). Placeholder DOIs were removed; "(Recent)" was replaced with the real publication year from PubMed or arXiv; malformed PubMed links were fixed; one truncated citation title was completed; boilerplate presented as findings was removed; broken nested links were repaired to one clean link. Verified afterwards: zero remaining on every check, in Firestore and in the live feed. Backups: the Firestore records are in the private internal bucket under archive/pre-cleanup-2026-09-29/, and the feed is in feeds/old feeds/.
+  - **Five broken episodes deleted, each archived first** (record and all storage objects, checksums verified) in the private internal bucket under archive/deleted-episodes/2026-09-29/. One appeared on the website only: "Quantum Computing chip advances" (document ever-phys-250043; its title did not match its content, and it was never in the feed). Four were also in the feed: "CRISPR Epigenome" (corrupted links), "AI-Designed Materials: A Paradigm Shift" (its references were unfilled template text), and two AI episodes, "AI Agents Unleashed" and "AI Revolution: Unlocking Scientific Discovery…" (literal "unknown" in the text). The feed went from 77 to 73 items.
+  - **Policy: broken generated content is deleted, not repaired.** Generated episodes are cheap to recreate and expensive to fix inside the corpus. The agent that finds broken content proposes deletion; Gary approves; the deletion follows the archive protocol: (1) back up the feed before every feed write, however small; (2) archive the record and its storage objects to the private internal bucket and verify checksums; (3) remove the item from the feed with a generation precondition; (4) delete only objects that nothing else references; (5) verify on every surface. Archives never go in the public podcast bucket.
+  - **Verification note.** The public feed URL is cached for up to an hour. Right after a write, confirm the object with an authenticated read; confirm what listeners receive with a plain GET once the cache has expired. A disagreement inside that hour is expected, not a failed write.
+  - **Generator bugs found** (to fix in copernicus-web's cloud-run-backend): placeholder DOIs are inserted; "(Recent)" stands in for years; reference links are re-linked on every regeneration; DOIs containing parentheses are cut short when linked; literal "unknown" values and unfilled template references are emitted. Until these are fixed, regenerating an episode's feed entry can reintroduce broken links.
+  - **Known behaviour.** The feed keeps each episode's text as it was when published, so 30 feed items differ from their current Firestore text. Audits show those items are clean.
+- **Waiting on:**
+  - **Gary:** approve the generator-fix PR; on or after 2026-10-05, approve Phase 2 if nothing has broken.
+  - **Claude Chat:** draft the generator-fix hand-off; add the content-repair policy to `governance/AGENT_ROLES.md` and the Products scope with the pending corrections.
+
 ## 007 — 2026-09-29 — Podcast feed: distribution confirmed, News series archived, content audited
 
 - **From:** Claude Code, Vercel's dashboard assistant, and Claude Chat, approved by Gary
