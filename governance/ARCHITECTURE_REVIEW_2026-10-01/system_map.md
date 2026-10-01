@@ -1,10 +1,11 @@
 # CopernicusAI Suite — System Map (Architecture Review Phase 1)
 
-*Read-only inventory. Status date 2026-10-01. Covers sections 1–4 only; sections
-5–8 (production capacity, experimentation capacity, full auth posture, cost)
-are a follow-up per the task's own stop-and-report instruction. Everything
-below is either a live, one-shot GET-only check or a source-code citation
-(file:line); no number here is inferred. Path note: the task specified
+*Read-only inventory. Status date 2026-10-01. Covers all 8 sections — sections
+1–4 were drafted and opened as a draft PR first, per the task's own
+stop-and-report instruction; sections 5–8 were added in a follow-up pass on
+the same branch/PR, both before any merge. Everything below is either a live,
+one-shot GET-only check or a source-code citation (file:line); no number here
+is inferred. Path note: the task specified
 `governance/ARCHITECTURE_REVIEW_2026-10/01_system_map.md`, which splits the
 date across a directory boundary — almost certainly a stray slash. Normalized
 to `governance/ARCHITECTURE_REVIEW_2026-10-01/system_map.md`; flagging rather
@@ -184,7 +185,141 @@ Two distinct integration paths for the same model family, not one:
 
 ---
 
-## Connection diagram (sections 1–4 only)
+## 5. Production capacity
+
+### Podcast generation
+- **Entry points**: `POST /generate-podcast`, `/generate-podcast-with-subscriber`, `/generate-podcast-from-paper`, and the side-effect-free preview `/resolve-paper` — all `cloud-run-backend/endpoints/podcast/routes.py`.
+- **Models/services**: Gemini (`gemini-2.5-flash`→`gemini-2.5-pro` fallback) for script generation (`services/podcast_generation_service.py`); `gpt-image-1`/`gpt-image-1-mini` for thumbnails; ElevenLabs `eleven_multilingual_v2` for TTS (4 named voices — see §3).
+- **Output**: audio to `gs://regal-scholar-453620-r7-podcast-storage/audio/*.mp3` (public); records in Firestore `episodes` (104 docs) and `podcast_jobs` (77 docs).
+- **Measured volume**: 120 audio files in that prefix, 1.05 GiB total. **The most recently modified audio file is dated 2026-08-23** — over 5 weeks before today. `episodes`' `created_at` field is a non-ISO string ("Tue, 29 Jul 2025 00:00:00 GMT"), so sorting by it lexicographically is unreliable and was not used for this figure; the GCS object-modification timestamp is the more trustworthy instrument here. Flagging, not concluding: this could be a deliberate pause or a real stall in the generation pipeline — worth Gary's eyes, not asserted as broken.
+
+### Process/chart generation (GLMP/ATAP)
+Not a Cloud Run pipeline at all. Per `SUITE_REORG_PLAN.md` §1, charts are authored externally (human+agent dialogue, "a biologist review can make a GLMP chart better"), then synced into Firestore by manual CLI scripts — `cloud-run-backend/scripts/sync_glmp_processes.py` and `sync_math_processes.py` (confirmed: `argparse`-driven, "Sync GLMP processes from GCS to Firestore", run on demand, not cron-scheduled). Served read-only via `GET /api/glmp/processes*`. Output lives in Firestore `glmp_processes` (217), `atap_graphs` (237), plus the Programming-Framework demonstration collections (`chemistry_processes` 124, `computer_science_processes` 72, `biology_processes` 56, `physics_processes` 28). No throughput metric available — this is agent-paced, not metered.
+
+### Video ingestion (sciencevideodb)
+Entry point is in the `sciencevideodb` repo's `packages/ingestion` (TypeScript): fetches each registered channel's uploads via the YouTube Data API, extracts transcripts, generates embeddings. **Important nuance found, not resolved this pass**: `docs/INGESTION.md` states metadata is stored in **PostgreSQL**, and Secret Manager holds a `scienceviddb-database-url` secret confirming a separate Postgres database exists for this engine. Whether the Firestore `science_videos` collection (1,123 docs — matching BULLETIN 013's "live: 1,123" figure) is a sync target of that Postgres store, or an independent/legacy ingestion path, is **not established** — flagged in the Unknowns table below, not asserted either way. Served via the public `scienceviddb-web` Cloud Run service and the `sciencevideodb` HF Space.
+
+### Briefings
+`SUITE_REORG_PLAN.md` Part 4 already states this honestly: "specified, barely built." No daily-brief script was found in this pass either — this confirms the governance doc's own status rather than adding a new finding.
+
+---
+
+## 6. Experimentation capacity
+
+### DNA decoder (GLMP domain instrument)
+Lives in `glmp/collaborations/krampis-virtual-cell/dna-decoder/`. Entry point: `scripts/write_ecoli_decoder_firestore.py`, invoked per `AGENT_ROLES.md` by Jetson cron at 2 AM ET. Reads/writes Firestore collection **`glmp_processes`** — confirmed directly from the script (`db.collection("glmp_processes")...`), correcting an assumption that it would write to the similarly-named `glmp_circuits` collection. **Found, not resolved**: only one log file exists in the repo, `logs/batch_decoder_20260701.log`, dated 2026-07-01 — three months stale as of today. Either the Jetson's cron genuinely hasn't produced a fresh batch since July, or it runs but no longer logs anywhere that syncs into this repo. Can't distinguish from this seat.
+
+### Colab notebooks
+`glmp/k562-empirical-sequel/`: `STATE_K562_Benchmark.ipynb` (v1–v4), `STATE_Rescore_DE20.ipynb`, `rbio_circuit_class_probe.ipynb`, and `STATE_K562_Colab.py` (confirmed live `colab.research.google.com` reference) — K562 cell-line benchmark/rescoring work for GLMP's empirical-sequel line. Run interactively in Google Colab, not on any suite server; reach is whatever that Colab runtime has (its own compute, public internet) — not traced further this pass.
+
+### Jetson Nano (`gary@192.168.1.223`)
+Per `AGENT_ROLES.md`: scout cron (10:15 AM + 8 PM ET), batch decoder (2 AM ET), FIMO scanning, paper ingest pipeline. **UNKNOWN current state** — off-network from this seat, and SSH-to-Jetson is explicitly Cursor's lane, not Claude Code's, per the Cursor/Claude Code boundary in `AGENT_ROLES.md`. What would answer it: Cursor, run locally, checking cron status and recent log output directly on the device.
+
+### Other analysis scripts
+`cloud-run-backend/scripts/audit_research_paper_embeddings.py`, `backfill_research_paper_embeddings.py`, `backfill_glmp_embeddings_v2.py` — manual, one-off scripts run directly against Firestore/OpenAI, not cron-scheduled.
+
+---
+
+## 7. Auth posture
+
+### `copernicus-podcast-api` (the live backend) — every route found in source, 46 total
+
+**GET routes with a declared auth dependency** (`Depends(verify_admin_api_key)`), probed in Phase 0 and again here:
+
+| Route | File:line | Live probe (no key) |
+|---|---|---|
+| `/api/admin/subscribers` | `admin/routes.py:23-24` | 401, no data |
+| `/api/admin/subscribers/{id}/podcasts` | `admin/routes.py:77-80` | 401, no data |
+| `/api/admin/podcasts/catalog` | `admin/routes.py:154-155` | 401, no data |
+| `/api/admin/podcasts/database` | `admin/routes.py:186-187` | 401, no data |
+
+**GET routes with no auth dependency at all** (29 routes; one plain GET each, just now):
+
+| Route | Status | Data returned |
+|---|---|---|
+| `/api/rag/answer?question=...` | 200 | yes |
+| `/api/episodes` | 200 | yes |
+| `/api/episodes/search?q=...` | 200 | yes |
+| `/api/episodes/{id}` | 404 (fake id) | no |
+| `/api/glmp/processes` | 200 | yes |
+| `/api/glmp/processes/{id}` | 404 (fake id) | no |
+| `/api/glmp/processes/{id}/preview` | 404 (fake id) | no |
+| `/api/papers/{id}` | 404 (fake id) | no |
+| `/api/public/podcasts` | 200 | yes |
+| **`/api/subscribers/podcasts/{id}`** | **200** (fake id) | yes (empty list for the fake id — see flag below) |
+| `/api/subscribers/profile/{id}` | 404 (fake id) | no |
+| `/api/test` | 200 | yes |
+| `/api/content/browse` | 200 | yes |
+| `/api/content/stats` | 200 | yes |
+| `/api/knowledge-map/graph` | 200 | yes |
+| `/api/knowledge-map/stats` | 200 | yes |
+| `/api/knowledge-map/subgraph/{id}` | 200 (fake id) | yes |
+| `/api/knowledge-map/query/*` (5 routes: cluster, papers-by-concept, path, related, search) | 200 each | yes each |
+| `/api/vector-search/semantic` | 200 | yes |
+| `/health`, `/test-frontend`, `/status/{id}` | 200, 200, 404 | yes, yes, no |
+
+**Flagging, not exploiting**: `GET /api/subscribers/podcasts/{subscriber_id}` (`subscriber/routes.py:290-291`) and `PUT /api/subscribers/profile/{subscriber_id}` (`:243`) and `DELETE /api/subscribers/podcasts/{podcast_id}` (`:703`) declare **no auth dependency of any kind** — not even the admin key. A fake ID returns an empty/404 result, which is all this review tested (per the task's no-key, no-guessing, one-request rule); it does not rule out that a real subscriber ID would return or let someone modify real subscriber data unauthenticated. Worth Gary's attention before anyone else touches this.
+
+**Non-GET routes — auth dependency declared? (source only, not called):**
+
+| Route | Method | File:line | Auth dependency |
+|---|---|---|---|
+| `/debug/run-content` | POST | `public/debug.py:31-34` | yes, `verify_admin_api_key` |
+| `/debug/watchdog` | POST | `public/debug.py:97-98` | yes, `verify_admin_api_key` |
+| `/generate-podcast` | POST | `podcast/routes.py:36-37` | **no** |
+| `/generate-podcast-with-subscriber` | POST | `podcast/routes.py:121-124` | **no** |
+| `/resolve-paper` | POST | `podcast/routes.py:233` | **no** |
+| `/generate-podcast-from-paper` | POST | `podcast/routes.py:253` | **no** |
+| `/api/papers/upload` | POST | `papers/routes.py:69-70` | **no** |
+| `/api/papers/query` | POST | `papers/routes.py:152` | **no** |
+| `/api/papers/{id}/link-podcast/{id}` | POST | `papers/routes.py:196` | **no** |
+| `/api/subscribers/register` | POST | `subscriber/routes.py:31` | **no** (expected — it's a signup endpoint) |
+| `/api/subscribers/login` | POST | `subscriber/routes.py:111` | **no** (expected — it issues the credential) |
+| `/api/subscribers/profile/{id}` | PUT | `subscriber/routes.py:243` | **no** |
+| `/api/subscribers/podcasts/submit-to-rss` | POST | `subscriber/routes.py:483` | **no** |
+| `/api/subscribers/password-reset-request` | POST | `subscriber/routes.py:641` | **no** (plausibly gated by a mailed token inside the body — not traced this pass) |
+| `/api/subscribers/password-reset` | POST | `subscriber/routes.py:671` | **no** (same caveat) |
+| `/api/subscribers/podcasts/{id}` | DELETE | `subscriber/routes.py:703` | **no** |
+| 3 admin routes called by `admin-dashboard.html` | POST/DELETE | — | **route doesn't exist** (see BULLETIN 012) |
+
+Absence of `Depends(...)` doesn't prove an in-body check doesn't exist (e.g. a token field inside the request body) — this table reports the declared-dependency check the task asked for, not a full code audit of every function body.
+
+### Vercel (`copernicus-web-public`) — a structural finding
+
+`app/api/*/route.ts` (Next.js App Router, 8 files including `user/profile`, `subscription/manage`) **appear to be dead code in production.** `vercel.json` uses the legacy explicit `builds` config — `{"src": "public/**", "use": "@vercel/static"}` and `{"src": "api/**/*.js", "use": "@vercel/node"}` only, no Next.js framework builder. Confirmed live: the homepage's `<title>` matches `public/index.html` byte-for-byte, and a plain GET of all 7 `app/api/*` GET routes returns **404** for every single one, including `/api/auth/session` (a path NextAuth would always answer if it were actually running). The site is served statically from root-level `public/`, plus a handful of real serverless functions in root-level `api/` (`episodes/index.js`, `episodes/[episodeId].js`, `rss-feed.js` — none have auth logic, which is appropriate since they're public podcast-episode reads).
+
+**Why this matters**: `app/api/user/profile/route.ts:61-66` "authenticates" by reading `Authorization: Bearer <value>` and treating `<value>` **literally as the user's email address** — no signature, no session, no verification of any kind (`const email = authHeader.substring(7)`). If this route were ever actually deployed and reachable, anyone could read or create any user's profile by guessing their email. As it stands today it's unreachable (404 live), so this is a dead-code finding, not a live vulnerability — but it's worth fixing or deleting before anyone re-wires the build to include `app/`.
+
+### Hugging Face Spaces
+All 6 are `sdk: static` (§1) — no server-side routes of their own. Their auth posture is whatever Cloud Run API they call client-side, already covered above.
+
+---
+
+## 8. Cost
+
+**Billing: no read access from this seat.** `gcloud billing projects describe` and `gcloud billing accounts list` both fail — the Cloud Billing API has never been enabled on this project (`SERVICE_DISABLED`, not a permissions error on top of an enabled API). I did not enable it (read-only task). `bq ls` returns no datasets — no BigQuery billing export is configured either. **What Gary would need to export by hand**: the Cloud Console's Billing → Reports page for `regal-scholar-453620-r7` (or whichever billing account it's linked to), filtered by service, for the last 3 months — there's no way to get this from the CLI without enabling an API this task was scoped not to touch.
+
+**Paid external APIs in use, by evidence in Secret Manager + code (§3), not billing data:**
+
+| Provider | Secret(s) | Called from |
+|---|---|---|
+| OpenAI | `openai-api-key` | RAG answers (default), image thumbnails, embeddings |
+| Google AI / Vertex AI | `GEMINI_API_KEY`/`gemini-api-key`, `GOOGLE_AI_API_KEY`/`google-ai-api-key`, `vertex-ai-service-account-key` | Podcast scripts, paper preprocessing, RAG fallback, Vertex embeddings |
+| Anthropic | `anthropic-api-key` | `claude_rag.py` provider option (looks unused by default — §3) |
+| ElevenLabs | `elevenlabs-api-key`, `gcp-copernicusai-tts-key` | Podcast TTS |
+| Voyage AI | `voyage-api-key` | Optional embedding provider (cheaper alternative to Vertex, per `main.py:376`'s comment) |
+| NASA ADS | `nasa-ads-token` | `acquire_nasa_ads_batch.py` — but see §4, the secret-name mismatch means this has likely never actually been billed |
+| PubMed (NCBI E-utilities) | `pubmed-api-key` | `acquire_pubmed_batch.py` — raises rate limits, typically free tier |
+| YouTube Data API | `youtube-api-key`, `youtube-client-id/secret` | sciencevideodb ingestion |
+| Twitter/X API | 7 secrets (`twitter-*`) | Not traced this pass — call sites unknown |
+| News API | `news-api-key` | Not traced this pass |
+| Zenodo | `zenodo-api-key` | DOI minting (`RESOURCE_MANIFEST.md`'s Zenodo table) — API itself is free |
+
+No per-provider spend figures are available without the billing export above.
+
+---
+
+## Connection diagram
 
 ```mermaid
 graph LR
@@ -242,11 +377,25 @@ graph LR
     PodAPI --> Voyage_
     GLMPsvcs --> Firestore
     SciVidWeb --> SV
+
+    subgraph Experimentation["Experimentation (off Cloud Run)"]
+        Jetson_["Jetson Nano\nscout/decoder/FIMO cron\n(UNKNOWN current state)"]
+        Colab_["Colab notebooks\nK562 benchmark/rescoring"]
+    end
+    Jetson_ -->|"write_ecoli_decoder_\nfirestore.py"| RP
+    Jetson_ -.->|"only log: 3mo stale"| Jetson_
+
+    subgraph DeadCode["Vercel app/api/* -- NOT in live build"]
+        NextAPI["app/api/user/profile etc.\n(email-as-bearer-token 'auth')"]
+    end
+    Vercel -.->|"vercel.json builds only\npublic/** + root api/**/*.js\n-- 404 live, confirmed"| NextAPI
+
+    AuthGap["3 unauthenticated routes:\nGET/PUT/DELETE\n/api/subscribers/..."] -.->|no Depends| PodAPI
 ```
 
 ---
 
-## Unknowns table (sections 1–4 only)
+## Unknowns table
 
 | Unknown | What would answer it |
 |---|---|
@@ -262,9 +411,16 @@ graph LR
 | Whether `claude_rag.py` (Anthropic) is ever actually selected in production | Runtime trace or Cloud Run logs filtered for `llm_provider=claude` |
 | Jetson cron's actual current state (scout/decoder/FIMO) | SSH to the Jetson (off-network from this seat) |
 | HF Spaces' own backend-API call sites (only `copernicusai` checked) | Read each Space's `index.html`/JS this session didn't get to |
+| Whether podcast generation has genuinely stalled since 2026-08-23, or paused deliberately | Ask Gary; check Jetson/Cloud Run logs for recent `/generate-podcast*` calls |
+| Whether Firestore `science_videos` (1,123 docs) is fed by, or independent of, sciencevideodb's own Postgres store | Read `packages/ingestion`'s write path fully (not done this pass) and/or query the Postgres DB directly |
+| Why the DNA decoder's only log is 3 months stale — cron stopped, or just not logged to this repo path | SSH to the Jetson (Cursor's lane) |
+| Whether a real (non-fake) subscriber ID returns actual personal data from `GET /api/subscribers/podcasts/{id}` or lets `PUT .../profile/{id}` / `DELETE .../podcasts/{id}` modify it unauthenticated | Would require testing with a real ID — explicitly out of scope for this read-only, no-guessing review; flagging for Gary to decide how to verify safely |
+| Whether `app/api/*/route.ts` (including the email-as-bearer-token "auth") was ever live, or has always been dead code since this `vercel.json` was written | `git log` on `vercel.json` vs. `app/api/` to see which came first — not traced this pass |
+| Twitter/X API (7 secrets) and News API call sites | Not traced this pass — grep `cloud-run-backend` and other repos for `twitter-api-key`/`news-api-key` usage |
+| Exact dollar cost per service, last 3 months | Cloud Billing API is disabled on this project — Gary would need to enable it or pull the Billing → Reports page by hand |
 
 ---
 
-*Sections 5–8 (production capacity, experimentation capacity, full auth-posture
-sweep, cost) not yet started — stopping here per the task's own instruction to
-check in before continuing if the work runs long.*
+*All 8 sections now covered. No writes, deploys, publishes, or config changes
+made in the course of this review; the Cloud Scheduler and Cloud Billing APIs
+were found disabled and were deliberately left that way.*
