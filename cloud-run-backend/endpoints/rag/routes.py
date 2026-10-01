@@ -18,7 +18,7 @@ router = APIRouter(prefix="/api/rag", tags=["rag"])
 
 @router.get("/answer")
 async def answer_question(
-    question: str = Query(..., description="Question to answer"),
+    question: str = Query(..., max_length=500, description="Question to answer"),
     max_context_items: int = Query(5, ge=1, le=20, description="Maximum context items to retrieve"),
     content_types: Optional[str] = Query(None, description="Comma-separated content types: papers,podcasts,glmp"),
     mode: Literal["general", "paper_explanation", "concept_explanation"] = Query(
