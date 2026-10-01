@@ -1,6 +1,6 @@
 """Research papers endpoints"""
 
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Depends
 from pydantic import BaseModel
 from typing import Optional, List, Dict, Any
 import uuid
@@ -8,6 +8,7 @@ from datetime import datetime
 import json
 
 from utils.logging import structured_logger
+from utils.auth import verify_admin_api_key
 from config.database import db
 
 router = APIRouter()
@@ -67,7 +68,7 @@ def _get_preprocess_helper():
 
 
 @router.post("/api/papers/upload")
-async def upload_research_paper(paper_request: PaperUploadRequest):
+async def upload_research_paper(paper_request: PaperUploadRequest, admin_auth: bool = Depends(verify_admin_api_key)):
     """Upload and optionally preprocess a research paper"""
     if not db:
         raise HTTPException(status_code=503, detail="Firestore service is unavailable")
@@ -150,7 +151,7 @@ async def get_research_paper(paper_id: str):
 
 
 @router.post("/api/papers/query")
-async def query_research_papers(query: PaperQueryRequest):
+async def query_research_papers(query: PaperQueryRequest, admin_auth: bool = Depends(verify_admin_api_key)):
     """Query research papers by discipline, keywords, etc."""
     if not db:
         raise HTTPException(status_code=503, detail="Firestore service is unavailable")
@@ -194,7 +195,7 @@ async def query_research_papers(query: PaperQueryRequest):
 
 
 @router.post("/api/papers/{paper_id}/link-podcast/{podcast_id}")
-async def link_paper_to_podcast(paper_id: str, podcast_id: str):
+async def link_paper_to_podcast(paper_id: str, podcast_id: str, admin_auth: bool = Depends(verify_admin_api_key)):
     """Link a research paper to a podcast"""
     if not db:
         raise HTTPException(status_code=503, detail="Firestore service is unavailable")

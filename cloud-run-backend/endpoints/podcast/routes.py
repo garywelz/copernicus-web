@@ -1,11 +1,12 @@
 """Podcast generation endpoints"""
 
-from fastapi import APIRouter, HTTPException, Query
+from fastapi import APIRouter, HTTPException, Query, Depends
 from typing import Optional
 import uuid
 from datetime import datetime
 
 from utils.logging import structured_logger
+from utils.auth import verify_admin_api_key
 from config.database import db
 from utils.subscriber_helpers import resolve_generation_subscriber_id
 from models.podcast import PodcastRequest, ResolvePaperRequest, GeneratePodcastFromPaperRequest
@@ -34,7 +35,7 @@ def _get_service():
 
 
 @router.post("/generate-podcast")
-async def generate_podcast(request: PodcastRequest):
+async def generate_podcast(request: PodcastRequest, admin_auth: bool = Depends(verify_admin_api_key)):
     """Generate a new podcast episode"""
     job_id = str(uuid.uuid4())
     
@@ -121,7 +122,8 @@ async def generate_podcast(request: PodcastRequest):
 @router.post("/generate-podcast-with-subscriber")
 async def generate_podcast_with_subscriber(
     request: PodcastRequest,
-    subscriber_id: Optional[str] = Query(None)
+    subscriber_id: Optional[str] = Query(None),
+    admin_auth: bool = Depends(verify_admin_api_key)
 ):
     """Generate podcast with optional subscriber association"""
     job_id = str(uuid.uuid4())
@@ -251,7 +253,7 @@ async def resolve_paper_endpoint(request: ResolvePaperRequest):
 
 
 @router.post("/generate-podcast-from-paper")
-async def generate_podcast_from_paper(request: GeneratePodcastFromPaperRequest):
+async def generate_podcast_from_paper(request: GeneratePodcastFromPaperRequest, admin_auth: bool = Depends(verify_admin_api_key)):
     """Generate a podcast episode from a specific Knowledge Engine paper.
     Requires either `paper_id` (from a prior /resolve-paper call) or a
     `query` that resolves unambiguously as a DOI/PMID/arXiv identifier --
