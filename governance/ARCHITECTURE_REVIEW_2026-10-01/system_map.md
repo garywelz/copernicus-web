@@ -222,6 +222,12 @@ Per `AGENT_ROLES.md`: scout cron (10:15 AM + 8 PM ET), batch decoder (2 AM ET), 
 
 ## 7. Auth posture
 
+**2026-10-01 update:** the unauthenticated subscriber, generation, and papers
+routes and the `copernicus-frontend` `/api/user/profile` route listed below
+were closed by PR #25 (verified live). The tables below are left as
+originally written — the as-found state this review was scoped to measure —
+with this note as the pointer to what changed afterward.
+
 ### `copernicus-podcast-api` (the live backend) — every route found in source, 46 total
 
 **GET routes with a declared auth dependency** (`Depends(verify_admin_api_key)`), probed in Phase 0 and again here:
@@ -284,11 +290,13 @@ Per `AGENT_ROLES.md`: scout cron (10:15 AM + 8 PM ET), batch decoder (2 AM ET), 
 
 Absence of `Depends(...)` doesn't prove an in-body check doesn't exist (e.g. a token field inside the request body) — this table reports the declared-dependency check the task asked for, not a full code audit of every function body.
 
-### Vercel (`copernicus-web-public`) — a structural finding
+### Vercel (`copernicus-web-public`) and `copernicus-frontend` (Cloud Run) — a structural finding, corrected 2026-10-01
 
-`app/api/*/route.ts` (Next.js App Router, 8 files including `user/profile`, `subscription/manage`) **appear to be dead code in production.** `vercel.json` uses the legacy explicit `builds` config — `{"src": "public/**", "use": "@vercel/static"}` and `{"src": "api/**/*.js", "use": "@vercel/node"}` only, no Next.js framework builder. Confirmed live: the homepage's `<title>` matches `public/index.html` byte-for-byte, and a plain GET of all 7 `app/api/*` GET routes returns **404** for every single one, including `/api/auth/session` (a path NextAuth would always answer if it were actually running). The site is served statically from root-level `public/`, plus a handful of real serverless functions in root-level `api/` (`episodes/index.js`, `episodes/[episodeId].js`, `rss-feed.js` — none have auth logic, which is appropriate since they're public podcast-episode reads).
+**Correction**: the Next.js `app/` tree (App Router, including `app/api/*/route.ts`) is **not dead code** — it is live and running on the `copernicus-frontend` Cloud Run service, confirmed by Gary (the `/knowledge-engine` page's Ask Questions tab works there) and independently by this review (`/knowledge-engine` and `/create` both return 200 on that service; `/api/user/profile` returned 401, not 404). The original claim below was based only on the **Vercel** domain (`www.copernicusai.fyi`), where it's accurate: `vercel.json` uses the legacy explicit `builds` config — `{"src": "public/**", "use": "@vercel/static"}` and `{"src": "api/**/*.js", "use": "@vercel/node"}` only, no Next.js framework builder, so the homepage's `<title>` matches `public/index.html` byte-for-byte and every `app/api/*` GET returns 404 **on that domain specifically**. Two separate deployments of overlapping code, excluded from the build in one and live in the other, is itself the finding.
 
-**Why this matters**: `app/api/user/profile/route.ts:61-66` "authenticates" by reading `Authorization: Bearer <value>` and treating `<value>` **literally as the user's email address** — no signature, no session, no verification of any kind (`const email = authHeader.substring(7)`). If this route were ever actually deployed and reachable, anyone could read or create any user's profile by guessing their email. As it stands today it's unreachable (404 live), so this is a dead-code finding, not a live vulnerability — but it's worth fixing or deleting before anyone re-wires the build to include `app/`.
+`app/api/*/route.ts` is 8 files including `user/profile`, `subscription/manage`. The site at `www.copernicusai.fyi` is served statically from root-level `public/`, plus a handful of real serverless functions in root-level `api/` (`episodes/index.js`, `episodes/[episodeId].js`, `rss-feed.js` — none have auth logic, which is appropriate since they're public podcast-episode reads). `copernicus-frontend` serves the full Next.js app, including `RAGInterface.tsx`'s live call to `/api/rag/answer` (§3) and `app/create/page.tsx`'s call to `/api/generate`.
+
+**Why this mattered**: `app/api/user/profile/route.ts:61-66` "authenticated" by reading `Authorization: Bearer <value>` and treating `<value>` **literally as the user's email address** — no signature, no session, no verification of any kind (`const email = authHeader.substring(7)`). Confirmed live and reachable on `copernicus-frontend` (401, not 404) before PR #25 deleted it — see the 2026-10-01 update at the top of this section.
 
 ### Hugging Face Spaces
 All 6 are `sdk: static` (§1) — no server-side routes of their own. Their auth posture is whatever Cloud Run API they call client-side, already covered above.
@@ -385,12 +393,15 @@ graph LR
     Jetson_ -->|"write_ecoli_decoder_\nfirestore.py"| RP
     Jetson_ -.->|"only log: 3mo stale"| Jetson_
 
-    subgraph DeadCode["Vercel app/api/* -- NOT in live build"]
-        NextAPI["app/api/user/profile etc.\n(email-as-bearer-token 'auth')"]
+    CopFrontend["copernicus-frontend (Cloud Run)\nLIVE: full Next.js app/ tree"]
+    subgraph VercelExcluded["Vercel www.copernicusai.fyi -- app/ excluded from THIS build only"]
+        NextAPI["app/api/user/profile etc.\n(email-as-bearer-token 'auth',\nclosed by PR #25, 2026-10-01)"]
     end
-    Vercel -.->|"vercel.json builds only\npublic/** + root api/**/*.js\n-- 404 live, confirmed"| NextAPI
+    Vercel -.->|"vercel.json builds only\npublic/** + root api/**/*.js\n-- 404 on this domain"| NextAPI
+    CopFrontend -->|"RAGInterface.tsx, /create"| PodAPI
+    CopFrontend -.->|"same app/api/* code,\nlive here -- fixed 2026-10-01"| NextAPI
 
-    AuthGap["3 unauthenticated routes:\nGET/PUT/DELETE\n/api/subscribers/..."] -.->|no Depends| PodAPI
+    AuthGap["11 unauthenticated routes:\nGET/PUT/DELETE /api/subscribers/...,\ngenerate-podcast*, papers/*\n-- closed by PR #25, 2026-10-01"] -.->|no Depends, as found| PodAPI
 ```
 
 ---
@@ -415,7 +426,7 @@ graph LR
 | Whether Firestore `science_videos` (1,123 docs) is fed by, or independent of, sciencevideodb's own Postgres store | Read `packages/ingestion`'s write path fully (not done this pass) and/or query the Postgres DB directly |
 | Why the DNA decoder's only log is 3 months stale — cron stopped, or just not logged to this repo path | SSH to the Jetson (Cursor's lane) |
 | Whether a real (non-fake) subscriber ID returns actual personal data from `GET /api/subscribers/podcasts/{id}` or lets `PUT .../profile/{id}` / `DELETE .../podcasts/{id}` modify it unauthenticated | Would require testing with a real ID — explicitly out of scope for this read-only, no-guessing review; flagging for Gary to decide how to verify safely |
-| Whether `app/api/*/route.ts` (including the email-as-bearer-token "auth") was ever live, or has always been dead code since this `vercel.json` was written | `git log` on `vercel.json` vs. `app/api/` to see which came first — not traced this pass |
+| ~~Whether `app/api/*/route.ts` was ever live~~ — **resolved 2026-10-01**: it is live, on `copernicus-frontend`, not dead code; only the Vercel build excludes it. Whether that split (same code, one live deployment, one excluded) was deliberate or an accident of how `vercel.json` and `copernicus-frontend` were set up separately | `git log` on `vercel.json` vs. `copernicus-frontend`'s own deploy history — not traced this pass |
 | Twitter/X API (7 secrets) and News API call sites | Not traced this pass — grep `cloud-run-backend` and other repos for `twitter-api-key`/`news-api-key` usage |
 | Exact dollar cost per service, last 3 months | Cloud Billing API is disabled on this project — Gary would need to enable it or pull the Billing → Reports page by hand |
 
