@@ -25,6 +25,65 @@ Entry format:
 
 ---
 
+## 013 — 2026-10-01 — Proposed amendment: gate direct-to-GCS publishes like Vercel deploys
+- **From:** Claude Chat (Core, architecture review)
+- **Status:** PROPOSED — awaiting Gary (adopt / amend / reject)
+- **What happened:** PR #22 (ATAP card + refreshed fallback counts on knowledge-engine-status.html) was published to the live public bucket before the commit, PR, and Gary's review, so the merge ratified an already-public change instead of gating it. Execution care was good (backup, MD5, generation precondition); the problem is sequence. Cause: this week's gated-deploy rules cover Vercel deploy-on-merge, but nothing covers objects an agent can upload to GCS directly.
+- **Proposed rule** (any reader-facing object in a public GCS bucket — status pages, database tables, feeds):
+  1. Edit the tracked copy on a branch; never edit only the live object.
+  2. Show Gary the diff; wait for approval.
+  3. Merge to main.
+  4. Back up the live object to the private bucket, then publish FROM main with a generation precondition.
+  5. Verify with a plain fetch AND object metadata (generation, MD5). If they disagree, the metadata is authoritative; record the reader-side discrepancy.
+  - Emergency exception: a security or data-exposure fix may publish first, reported to Gary immediately and back-filled with a PR.
+- **Learning:** Claude Chat's web-fetch tool returned the pre-#22 page for hours after the object (Cache-Control: no-cache, max-age=0) had changed. Claude Chat's fetches are a reader-side cross-check, not proof of live state; a source-side metadata check is.
+- **Related, no action until approved:** fallback counts in knowledge-engine-status.html show stale numbers as live when the data fetch fails (label them "snapshot as of <date>" or show "live data unavailable"); link text "700+ Videos" is stale (live: 1,123); TDAP has no public surface and no RESOURCE_MANIFEST row.
+- **Waiting on:** Gary.
+
+## 012 — 2026-10-01 — Architecture review: corpus breakdown, engine scoping, admin-route drift
+
+- **From:** Claude Code (Core lane), read-only review at Gary's request
+- **Record:** no commit for the review itself — this entry is the record
+- **Affects:** anyone relying on engine toggles to scope papers, or on the admin dashboard's RSS/delete buttons
+- **Summary:**
+  - **Corpus total: 119,321** `research_papers` docs, confirmed identical between a
+    Firestore `COUNT()` and the live `/api/content/browse` API. Earlier project docs
+    cited ~62,900; 119,312 was Claude Chat's live API read today, 9 below this
+    session's read minutes later — growth, not a discrepancy.
+  - **The GLMP/ATAP/TDAP toggle is chrome-only** (`lib/knowledge-engine-projects.ts`,
+    by design, not a bug) — it does not filter Search/Ask retrieval. The real
+    engine-scoping field is `question_scope_ids`: GLMP 45,748 docs · ATAP 3,462 ·
+    **TDAP 130** (tags `tdap-q1`/`tdap-q2`). 58.7% of the corpus carries no tag at
+    all. `knowledge-engine-projects.ts`'s own comment ("no TDAP corpus yet... zero
+    papers written", dated 2026-09-19) is stale — 130 papers are tagged as of
+    2026-10-01.
+  - **By discipline**: biology 81,601 · mathematics 18,393 · interdisciplinary
+    7,647 · physics 6,350 · computer_science 4,046 · chemistry 1,264 (20-doc gap
+    deprioritized).
+  - **By source** (not mutually exclusive): pubmed 77,250 · arxiv 26,489 · crossref
+    12,626 · biorxiv 1,907 · medrxiv 1,035 · nasa_ads 0 · pmc 0.
+  - **Duplicates** (full scan): 136 docs across 68 shared DOIs, 64 docs across 32
+    shared arXiv IDs, 0 shared PMIDs. Traced to two independent ingest paths writing
+    the same paper: batch scripts write source-keyed IDs (`arxiv_<id>`,
+    `pubmed_<pmid>`, `crossref_<doi>`); the live `POST /api/papers/upload` endpoint
+    (`endpoints/papers/routes.py:77`) always mints a fresh UUID instead.
+  - **Missing year: 43.8%** (52,279 docs), unchanged after checking every other
+    candidate date field — `publication_date`, `pub_date`, `created`, `date`, and
+    `metadata.published` have never been populated anywhere in this corpus. Only
+    `year`, `published_at`, and `created_at` (an ingest timestamp, not a publication
+    date) exist.
+  - **3 admin endpoints the dashboard still calls don't exist in the backend at
+    all** — `POST`/`DELETE .../podcasts/{id}/rss`, `DELETE .../podcasts/{id}`,
+    `DELETE .../subscribers/{id}` were removed in commit `4fe2cffc3`
+    (2026-02-20, "...and cleanup") along with ~19 other admin routes. Each had
+    `Depends(verify_admin_api_key)` before removal. Not a security gap; the UI
+    buttons are dead.
+- **Waiting on:**
+  - **Gary:** decide whether any of the above (dead admin buttons, the
+    chrome-only toggle, the two-ingest-path duplicates, the uncovered 58.7% of
+    `question_scope_ids`) warrants follow-up work. No fix is proposed here.
+  - **Collaborators:** nobody.
+
 ## 011 — 2026-09-30 — Jetson address reserved; old deploy paths point to the gated procedure
 
 - **From:** Claude Code and Claude Chat, approved by Gary
