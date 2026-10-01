@@ -1,7 +1,7 @@
 # Agent Roles and Division of Labor
 ## CopernicusAI Knowledge Engine suite — every engine, every agent
 
-**Version:** 2.3 — September 30, 2026
+**Version:** 2.4 — October 1, 2026
 **Lives in:** `copernicus-web` repo at `governance/AGENT_ROLES.md` (moved from
 `glmp/docs/AGENT_ROLES.md`; see change log)
 **Read alongside:** the rest of `governance/` — Constitution, Methods Catalog, Resource
@@ -213,6 +213,21 @@ live fetch of this file fails.
     bucket and verify checksums; (3) remove the item from the feed with a generation
     precondition; (4) delete only objects that nothing else references; (5) verify on
     every surface. Archives never go in the public podcast bucket.
+17. **A security finding goes to a private location first.** It reaches a public PR
+    or `governance/BULLETIN.md` entry only after the fix is live, not while the gap is
+    still open — a public repo discloses the finding to anyone the moment it's
+    committed. Report to Gary immediately regardless; "private first" governs where it
+    is written down, not when Gary is told. See `governance/BULLETIN.md` entry 014.
+18. **Any reader-facing object in a public GCS bucket is gated like a Cloud Run
+    deploy** — status pages, database tables, feeds: (1) edit the tracked copy on a
+    branch, never the live object directly; (2) show Gary the diff, wait for approval;
+    (3) merge to `main`; (4) back up the live object to the private bucket, then
+    publish from `main` with a generation precondition; (5) verify with a plain fetch
+    *and* object metadata (generation, MD5) — if they disagree, the metadata is
+    authoritative, and the reader-side discrepancy gets recorded, not papered over.
+    Emergency exception: a security or data-exposure fix may publish first, reported
+    to Gary immediately and back-filled with a PR. See `governance/BULLETIN.md` entry
+    013.
 
 ---
 
@@ -420,6 +435,11 @@ silently.
 ---
 
 ## Change log
+- **v2.4** (2026-10-01) — Added session rules 17 (a security finding goes to a
+  private location first, public only after the fix is live) and 18 (gate
+  direct-to-GCS publishes of reader-facing objects like a Cloud Run deploy, with
+  an emergency exception for security/data-exposure fixes), both adopted by Gary
+  the same day. See `governance/BULLETIN.md` entries 014 and 013.
 - **v2.3** (2026-09-30) — Jetson address updated to 192.168.1.223, now reserved on the
   router so it no longer changes.
 - **v2.2** (2026-09-30) — Added session rules 14 (delete branches after merge or close),
