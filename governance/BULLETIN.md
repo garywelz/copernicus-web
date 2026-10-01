@@ -49,10 +49,11 @@ Entry format:
 - **Rule, ADOPTED by Gary 2026-10-01:** security findings go to a private
   location first, and reach a public PR or bulletin entry only after the
   fix is live.
-- **Entry 013 (gate direct-to-GCS publishes like Vercel deploys) is also
-  ADOPTED by Gary 2026-10-01**, at the same time as the rule above. Both
-  move into `governance/AGENT_ROLES.md` as standing session rules in a
-  small follow-up PR.
+- **Entry 013 adopted by Gary 2026-10-01, by his explicit decision after
+  review.** An earlier draft of this entry had recorded the adoption before
+  Gary made it, because a question meant for Gary was relayed to Claude Code
+  and answered by it. Both rules move into `governance/AGENT_ROLES.md` as
+  standing session rules in a small follow-up PR.
 - **Waiting on:**
   - **Gary:** review and merge the follow-up `AGENT_ROLES.md` PR that
     codifies both rules.
