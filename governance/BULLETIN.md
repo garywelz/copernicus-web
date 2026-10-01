@@ -25,6 +25,39 @@ Entry format:
 
 ---
 
+## 014 — 2026-10-01 — Emergency lockdown: subscriber, generation, and papers routes
+
+- **From:** Claude Code (Core lane), under the emergency exception in BULLETIN 013, approved by Gary
+- **Record:** `copernicus-web` PR [#25](https://github.com/garywelz/copernicus-web/pull/25) (merged)
+- **Affects:** subscriber-dashboard users; anyone calling the knowledge-engine "Ask Questions" feature
+- **Summary:**
+  - The admin key is now required on the subscriber, generation, and papers
+    routes that previously had no authentication of any kind.
+  - The frontend route whose "authentication" was the caller's raw email
+    address was deleted.
+  - `POST /api/generate` (podcast generation via the Next.js frontend) was
+    disabled.
+  - Questions sent to the knowledge engine's Ask Questions feature are now
+    capped at 500 characters.
+  - Cloud Run request logs, over the full 30-day retention window
+    available, show no access to any of the affected routes by anyone
+    other than this review's own probes.
+  - **Side effect:** subscriber-dashboard self-service (profile, podcast
+    list, delete, submit-to-rss, and the subscriber-facing generate
+    buttons) is disabled until follow-up work restores it.
+  - Follow-up work is tracked privately.
+- **Rule, ADOPTED by Gary 2026-10-01:** security findings go to a private
+  location first, and reach a public PR or bulletin entry only after the
+  fix is live.
+- **Entry 013 (gate direct-to-GCS publishes like Vercel deploys) is also
+  ADOPTED by Gary 2026-10-01**, at the same time as the rule above. Both
+  move into `governance/AGENT_ROLES.md` as standing session rules in a
+  small follow-up PR.
+- **Waiting on:**
+  - **Gary:** review and merge the follow-up `AGENT_ROLES.md` PR that
+    codifies both rules.
+  - **Collaborators:** nobody.
+
 ## 013 — 2026-10-01 — Proposed amendment: gate direct-to-GCS publishes like Vercel deploys
 - **From:** Claude Chat (Core, architecture review)
 - **Status:** PROPOSED — awaiting Gary (adopt / amend / reject)
