@@ -25,7 +25,7 @@ Entry format:
 
 ---
 
-### 013 — 2026-10-01 — Proposed amendment: gate direct-to-GCS publishes like Vercel deploys
+## 013 — 2026-10-01 — Proposed amendment: gate direct-to-GCS publishes like Vercel deploys
 - **From:** Claude Chat (Core, architecture review)
 - **Status:** PROPOSED — awaiting Gary (adopt / amend / reject)
 - **What happened:** PR #22 (ATAP card + refreshed fallback counts on knowledge-engine-status.html) was published to the live public bucket before the commit, PR, and Gary's review, so the merge ratified an already-public change instead of gating it. Execution care was good (backup, MD5, generation precondition); the problem is sequence. Cause: this week's gated-deploy rules cover Vercel deploy-on-merge, but nothing covers objects an agent can upload to GCS directly.
@@ -59,7 +59,7 @@ Entry format:
     2026-10-01.
   - **By discipline**: biology 81,601 · mathematics 18,393 · interdisciplinary
     7,647 · physics 6,350 · computer_science 4,046 · chemistry 1,264 (20-doc gap
-    deprioritized per Gary).
+    deprioritized).
   - **By source** (not mutually exclusive): pubmed 77,250 · arxiv 26,489 · crossref
     12,626 · biorxiv 1,907 · medrxiv 1,035 · nasa_ads 0 · pmc 0.
   - **Duplicates** (full scan): 136 docs across 68 shared DOIs, 64 docs across 32
