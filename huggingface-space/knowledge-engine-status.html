@@ -146,6 +146,13 @@
                         </div>
                         <span class="text-gray-400">→</span>
                     </a>
+                    <a href="https://huggingface.co/spaces/garywelz/atap" target="_blank" class="link-card bg-gray-50 rounded-lg p-4 border border-gray-200 flex items-center justify-between">
+                        <div>
+                            <p class="font-medium text-gray-900">ATAP</p>
+                            <p class="text-sm text-gray-600">Axiomatic Theories, Algorithms and Proofs</p>
+                        </div>
+                        <span class="text-gray-400">→</span>
+                    </a>
                     <a href="https://huggingface.co/spaces/garywelz/metadata_database" target="_blank" class="link-card bg-gray-50 rounded-lg p-4 border border-gray-200 flex items-center justify-between">
                         <div>
                             <p class="font-medium text-gray-900">Metadata Database</p>
@@ -246,7 +253,7 @@
                     </a>
                     <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/mathematics-database-table.html" target="_blank" class="link-card bg-gray-50 rounded-lg p-4 border border-gray-200 flex items-center justify-between">
                         <div>
-                            <p class="font-medium text-gray-900">Mathematics Processes</p>
+                            <p class="font-medium text-gray-900">Mathematics Processes (ATAP)</p>
                             <p class="text-sm text-gray-600" id="pd-mathematics">… processes</p>
                         </div>
                         <span class="text-gray-400">→</span>
@@ -336,7 +343,7 @@
                     papers: papers && papers.pagination ? papers.pagination.total : null,
                     processes: processes && processes.pagination ? processes.pagination.total : null,
                     podcasts: podcasts && podcasts.pagination ? podcasts.pagination.total : null,
-                    videos: statusSnap && statusSnap.videos != null ? statusSnap.videos : 753,
+                    videos: statusSnap && statusSnap.videos != null ? statusSnap.videos : 1123,
                     process_databases: statusSnap && statusSnap.process_databases ? statusSnap.process_databases : null,
                     last_updated: statusSnap && statusSnap.last_updated ? statusSnap.last_updated : null,
                 };
@@ -347,10 +354,10 @@
                     updateCounts(data);
                 } catch (e2) {
                     updateCounts({
-                        papers: 23246,
-                        processes: 115,
-                        videos: 753,
-                        podcasts: 79,
+                        papers: 119321,
+                        processes: 217,
+                        videos: 1123,
+                        podcasts: 104,
                     });
                 }
             }
@@ -363,7 +370,7 @@
 
         function updateCounts(data) {
             // Update paper count
-            const paperCount = data.papers != null ? data.papers : 23246;
+            const paperCount = data.papers != null ? data.papers : 119321;
             document.getElementById('paperCount').textContent = paperCount.toLocaleString();
             document.getElementById('paperProgress').style.width = Math.min((paperCount / 100000) * 100, 100) + '%';
 
@@ -371,7 +378,7 @@
             const pd = data.process_databases || null;
             const firestoreGlmp = data.processes != null ? data.processes : null;
             const pfTotal = pd && typeof pd.sum === 'number' ? pd.sum : null;
-            const mainProcess = pfTotal != null ? pfTotal : (firestoreGlmp != null ? firestoreGlmp : 293);
+            const mainProcess = pfTotal != null ? pfTotal : (firestoreGlmp != null ? firestoreGlmp : 692);
             document.getElementById('processCount').textContent = mainProcess.toLocaleString();
             document.getElementById('processProgress').style.width = Math.min((mainProcess / 1000) * 100, 100) + '%';
             if (firestoreGlmp != null && pd && typeof pd.sum === 'number') {
@@ -383,12 +390,12 @@
             }
 
             // Update video count
-            const videoCount = data.videos != null ? data.videos : 753;
+            const videoCount = data.videos != null ? data.videos : 1123;
             document.getElementById('videoCount').textContent = videoCount.toLocaleString();
             document.getElementById('videoProgress').style.width = Math.min((videoCount / 2000) * 100, 100) + '%';
 
             // Update podcast count
-            const podcastCount = data.podcasts != null ? data.podcasts : 79;
+            const podcastCount = data.podcasts != null ? data.podcasts : 104;
             document.getElementById('podcastCount').textContent = podcastCount.toLocaleString();
             document.getElementById('podcastProgress').style.width = Math.min((podcastCount / 500) * 100, 100) + '%';
 
