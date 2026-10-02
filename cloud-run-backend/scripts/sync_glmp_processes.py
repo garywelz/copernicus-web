@@ -306,13 +306,40 @@ def main():
     parser.add_argument("--dry-run", action="store_true", help="Don't actually write to Firestore")
     parser.add_argument("--limit", type=int, help="Maximum number of processes to sync")
     parser.add_argument("--no-skip-existing", action="store_true", help="Don't skip processes that already exist")
-    
+    parser.add_argument(
+        "--i-accept-full-document-replace",
+        action="store_true",
+        help=(
+            "Required alongside --no-skip-existing. This script writes "
+            "with Firestore .set() -- a full document replace, not a "
+            "merge -- so re-syncing a process_id that already exists "
+            "overwrites the whole document, silently discarding any "
+            "field not present in the GCS source JSON (for example, the "
+            "DNA decoder's dna_topology_class/glmp_biological_class/"
+            "decoder_version annotations on the three ecoli operon "
+            "circuits). Pass this flag to confirm that's what you want."
+        ),
+    )
+
     args = parser.parse_args()
-    
+
+    if args.no_skip_existing and not args.i_accept_full_document_replace:
+        print(
+            "\n❌ --no-skip-existing requires --i-accept-full-document-replace.\n"
+            "   This script writes with Firestore .set() -- a full document\n"
+            "   replace, not a merge. Re-syncing an existing process_id\n"
+            "   overwrites the whole document, silently discarding any field\n"
+            "   not present in the GCS source JSON (for example, the DNA\n"
+            "   decoder's annotations on the three ecoli operon circuits).\n"
+            "   Pass --i-accept-full-document-replace to confirm that's what\n"
+            "   you want.\n"
+        )
+        sys.exit(2)
+
     print("="*70)
     print("GLMP PROCESS SYNC: Google Cloud Storage → Firestore")
     print("="*70)
-    
+
     if args.dry_run:
         print("\n⚠️  DRY RUN MODE - No changes will be made to Firestore\n")
     
