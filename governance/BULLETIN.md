@@ -25,6 +25,26 @@ Entry format:
 
 ---
 
+## 015 — 2026-10-02 — Security follow-up to 014 complete
+
+- **From:** Claude Code (Core lane), approved by Gary
+- **Record:** `copernicus-web` PR [#25](https://github.com/garywelz/copernicus-web/pull/25) (merged 2026-10-01), deployed 2026-10-01; and PR [#28](https://github.com/garywelz/copernicus-web/pull/28) (merged 2026-10-02), deployed 2026-10-02 (UTC)
+- **Affects:** subscribers; anyone calling the knowledge-engine "Ask Questions" feature
+- **Summary:**
+  - Subscriber logins now issue a session token in place of entry 014's
+    admin-key-only lockdown.
+  - Passwords move to salted scrypt as each account next logs in.
+  - Podcast generation is limited to allowlisted accounts, each with a
+    monthly quota.
+  - Ask Questions and login are both rate-limited.
+  - The admin key is accepted by header only.
+  - The subscriber dashboard is restored.
+  - Collaborator quotas will be enabled once their accounts are
+    registered.
+- **Waiting on:**
+  - **Gary:** nothing — this closes out entry 014's follow-up.
+  - **Collaborators:** register an account, if and when invited, to receive a quota.
+
 ## 014 — 2026-10-01 — Emergency lockdown: subscriber, generation, and papers routes
 
 - **From:** Claude Code (Core lane), under the emergency exception in BULLETIN 013, approved by Gary
