@@ -1,17 +1,24 @@
 """Subscriber management endpoints"""
 
-from fastapi import APIRouter, HTTPException, Depends
+from fastapi import APIRouter, HTTPException, Depends, Header, Request
 from datetime import datetime
 from typing import Optional
 from google.cloud import firestore
 
 from utils.logging import structured_logger
-from utils.auth import verify_admin_api_key
+from utils.auth import (
+    require_admin_or_subscriber_owner,
+    require_admin_or_podcast_owner,
+)
+from utils.generation_quota import current_month_key
+from utils.rate_limit import check_rate_limit, last_forwarded_ip
 from utils.subscriber_helpers import (
     generate_subscriber_id,
     get_subscriber_by_email,
     verify_password,
-    hash_password
+    hash_password,
+    issue_session_token,
+    verify_session_token,
 )
 from config.database import db
 from config.constants import EPISODE_COLLECTION_NAME
@@ -27,6 +34,8 @@ from services.rss_service import rss_service
 from services.episode_service import episode_service
 
 router = APIRouter()
+
+LOGIN_RATE_LIMIT_PER_HOUR = 10
 
 
 @router.post("/api/subscribers/register")
@@ -110,11 +119,14 @@ async def register_subscriber(registration: SubscriberRegistration):
 
 
 @router.post("/api/subscribers/login")
-async def login_subscriber(login: SubscriberLogin):
+async def login_subscriber(login: SubscriberLogin, request: Request):
     """Authenticate a subscriber"""
+    client_ip = last_forwarded_ip(request.headers.get("x-forwarded-for"))
+    check_rate_limit(db, client_ip, "subscriber_login", limit=LOGIN_RATE_LIMIT_PER_HOUR, window_seconds=3600)
+
     if not db:
         raise HTTPException(status_code=503, detail="Firestore service is unavailable")
-    
+
     structured_logger.info("Login attempt",
                           email=login.email)
     
@@ -130,32 +142,47 @@ async def login_subscriber(login: SubscriberLogin):
                               subscriber_id=subscriber_id)
         
         subscriber_data = subscriber_doc.to_dict()
-        
+
         # Verify authentication method
+        update_fields = {}
         if login.google_id and subscriber_data.get('google_id') == login.google_id:
             # Google OAuth authentication
             pass  # Google ID matches
         elif login.password and subscriber_data.get('password_hash'):
             # Email/password authentication
-            if not verify_password(login.password, subscriber_data['password_hash']):
+            matched, was_legacy = verify_password(login.password, subscriber_data['password_hash'])
+            if not matched:
                 raise HTTPException(status_code=401, detail="Invalid password")
+            if was_legacy:
+                # Security lockdown Step 2: migrate off the old reversible
+                # hex "hash" the moment we see a correct legacy password.
+                update_fields['password_hash'] = hash_password(login.password)
         else:
             raise HTTPException(status_code=401, detail="Invalid authentication method")
-        
-        # Update last login
-        db.collection('subscribers').document(subscriber_id).update({
-            'last_login': datetime.utcnow().isoformat()
-        })
-        
+
+        # Issue a fresh session token. Only its sha256 and an expiry are
+        # stored; the raw token is returned once, here, and never persisted.
+        raw_token, token_hash, token_expires = issue_session_token()
+        update_fields['last_login'] = datetime.utcnow().isoformat()
+        update_fields['session_token_hash'] = token_hash
+        update_fields['session_token_expires'] = token_expires
+        db.collection('subscribers').document(subscriber_id).update(update_fields)
+
         structured_logger.info("Subscriber login successful",
                               email=login.email,
                               subscriber_id=subscriber_id)
-        
+
         return {
             "subscriber_id": subscriber_id,
             "email": subscriber_data['email'],
             "name": subscriber_data['name'],
             "subscription_tier": subscriber_data['subscription_tier'],
+            "session_token": raw_token,
+            "session_token_expires": token_expires,
+            "can_generate": subscriber_data.get('can_generate', False),
+            "monthly_quota": subscriber_data.get('monthly_quota'),
+            "generations_this_month": subscriber_data.get('generations_this_month', 0)
+                if subscriber_data.get('generation_month') == current_month_key() else 0,
             "message": "Login successful"
         }
         
@@ -169,7 +196,7 @@ async def login_subscriber(login: SubscriberLogin):
 
 
 @router.get("/api/subscribers/profile/{subscriber_id}")
-async def get_subscriber_profile(subscriber_id: str, admin_auth: bool = Depends(verify_admin_api_key)):
+async def get_subscriber_profile(subscriber_id: str, auth: dict = Depends(require_admin_or_subscriber_owner)):
     """Get subscriber profile information"""
     if not db:
         raise HTTPException(status_code=503, detail="Firestore service is unavailable")
@@ -242,7 +269,7 @@ async def get_subscriber_profile(subscriber_id: str, admin_auth: bool = Depends(
 
 
 @router.put("/api/subscribers/profile/{subscriber_id}")
-async def update_subscriber_profile(subscriber_id: str, updates: SubscriberProfileUpdate, admin_auth: bool = Depends(verify_admin_api_key)):
+async def update_subscriber_profile(subscriber_id: str, updates: SubscriberProfileUpdate, auth: dict = Depends(require_admin_or_subscriber_owner)):
     """Update subscriber profile information"""
     if not db:
         raise HTTPException(status_code=503, detail="Firestore service is unavailable")
@@ -289,7 +316,7 @@ async def update_subscriber_profile(subscriber_id: str, updates: SubscriberProfi
 
 
 @router.get("/api/subscribers/podcasts/{subscriber_id}")
-async def get_subscriber_podcasts(subscriber_id: str, admin_auth: bool = Depends(verify_admin_api_key)):
+async def get_subscriber_podcasts(subscriber_id: str, auth: dict = Depends(require_admin_or_subscriber_owner)):
     """Get all podcasts generated by a subscriber - queries both podcast_jobs and episodes collections"""
     if not db:
         raise HTTPException(status_code=503, detail="Firestore service is unavailable")
@@ -482,7 +509,11 @@ async def get_subscriber_podcasts(subscriber_id: str, admin_auth: bool = Depends
 
 
 @router.post("/api/subscribers/podcasts/submit-to-rss")
-async def submit_podcast_to_rss(submission: PodcastSubmission, admin_auth: bool = Depends(verify_admin_api_key)):
+async def submit_podcast_to_rss(
+    submission: PodcastSubmission,
+    x_admin_api_key: Optional[str] = Header(None, alias="X-Admin-API-Key"),
+    x_subscriber_token: Optional[str] = Header(None, alias="X-Subscriber-Token"),
+):
     """Submit a podcast to the RSS feed"""
     if not db:
         raise HTTPException(status_code=503, detail="Firestore service is unavailable")
@@ -541,10 +572,12 @@ async def submit_podcast_to_rss(submission: PodcastSubmission, admin_auth: bool 
             raise HTTPException(status_code=404, detail=f"Podcast not found: {submission.podcast_id}")
         
         subscriber_id = podcast_data.get('subscriber_id')
-        
+
         if not subscriber_id:
             raise HTTPException(status_code=400, detail="Podcast not associated with a subscriber")
-        
+
+        require_admin_or_podcast_owner(subscriber_id, x_admin_api_key, x_subscriber_token)
+
         # Ensure episode document exists (use job_id for this)
         episode_service.ensure_episode_document_from_job(job_id, podcast_data)
         canonical = (podcast_data.get('result') or {}).get('canonical_filename') or submission.podcast_id
@@ -702,24 +735,30 @@ async def reset_password(reset_data: PasswordReset):
 
 
 @router.delete("/api/subscribers/podcasts/{podcast_id}")
-async def delete_subscriber_podcast(podcast_id: str, admin_auth: bool = Depends(verify_admin_api_key)):
+async def delete_subscriber_podcast(
+    podcast_id: str,
+    x_admin_api_key: Optional[str] = Header(None, alias="X-Admin-API-Key"),
+    x_subscriber_token: Optional[str] = Header(None, alias="X-Subscriber-Token"),
+):
     """Delete a podcast generated by a subscriber"""
     if not db:
         raise HTTPException(status_code=503, detail="Firestore service is unavailable")
-    
+
     try:
         # Get podcast details to verify it exists
         podcast_doc = db.collection('podcast_jobs').document(podcast_id).get()
         if not podcast_doc.exists:
             raise HTTPException(status_code=404, detail="Podcast not found")
-        
+
         podcast_data = podcast_doc.to_dict()
         subscriber_id = podcast_data.get('subscriber_id')
         canonical = (podcast_data.get('result') or {}).get('canonical_filename')
-        
+
         if not subscriber_id:
             raise HTTPException(status_code=400, detail="Podcast not associated with a subscriber")
-        
+
+        require_admin_or_podcast_owner(subscriber_id, x_admin_api_key, x_subscriber_token)
+
         # Delete the podcast
         db.collection('podcast_jobs').document(podcast_id).delete()
         if canonical:

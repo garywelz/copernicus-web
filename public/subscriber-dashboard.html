@@ -209,13 +209,25 @@
                 </form>
             </div>
 
+            <!-- Generation access (security lockdown Step 2, 2026-10-01):
+                 podcast generation is by invitation. can_generate and
+                 monthly_quota live on the subscriber doc. -->
+            <div x-show="!subscriber?.can_generate" class="bg-white rounded-lg shadow-md p-6 text-sm text-gray-600">
+                Generation is by invitation. If you'd like access, reach out to Gary.
+            </div>
+
             <!-- Generate from a Knowledge Engine paper -->
-            <div class="bg-white rounded-lg shadow-md p-6">
+            <div x-show="subscriber?.can_generate" class="bg-white rounded-lg shadow-md p-6">
                 <h2 class="text-xl font-bold text-gray-900 mb-2">Generate from a paper</h2>
                 <p class="text-sm text-gray-600 mb-4">
                     Look up a paper already in the Knowledge Engine, confirm the match, then generate.
                     A DOI, PubMed, or arXiv link is the reliable path. Free-text search can miss a real paper.
                     The episode is built from the stored abstract, not the full PDF, and stays private until you post it to RSS.
+                </p>
+                <p x-show="subscriber?.monthly_quota !== null && subscriber?.monthly_quota !== undefined"
+                   class="text-xs text-gray-500 mb-4">
+                    <span x-text="Math.max((subscriber?.monthly_quota || 0) - (subscriber?.generations_this_month || 0), 0)"></span>
+                    of <span x-text="subscriber?.monthly_quota"></span> generations left this month.
                 </p>
 
                 <form @submit.prevent="resolvePaper()" class="space-y-4">
@@ -283,7 +295,7 @@
             </div>
 
             <!-- Generate Podcast Section -->
-            <div class="bg-white rounded-lg shadow-md p-6">
+            <div x-show="subscriber?.can_generate" class="bg-white rounded-lg shadow-md p-6">
                 <h2 class="text-xl font-bold text-gray-900 mb-4">Generate from a topic</h2>
                 
                 <form @submit.prevent="generatePodcast()" class="space-y-4">
@@ -849,7 +861,7 @@
                         }
                         const response = await fetch(`${this.API_BASE_URL}/generate-podcast-from-paper`, {
                             method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
+                            headers: this.authHeaders({ 'Content-Type': 'application/json' }),
                             body: JSON.stringify(payload)
                         });
                         const data = await response.json();
@@ -909,7 +921,7 @@
                         
                         const response = await fetch(`${this.API_BASE_URL}/generate-podcast-with-subscriber?subscriber_id=${this.subscriber.subscriber_id}`, {
                             method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
+                            headers: this.authHeaders({ 'Content-Type': 'application/json' }),
                             body: JSON.stringify(requestPayload)
                         });
                         
@@ -933,16 +945,28 @@
                     }
                 },
                 
+                authHeaders(extra = {}) {
+                    // Security lockdown Step 2 (2026-10-01): sent on every
+                    // call to a route that now requires either the admin key
+                    // or a matching subscriber session token.
+                    return {
+                        ...extra,
+                        'X-Subscriber-Token': this.subscriber?.session_token || ''
+                    };
+                },
+
                 async loadPodcasts() {
                     if (!this.authenticated || !this.subscriber?.subscriber_id) {
                         console.error('Cannot load podcasts: not authenticated or missing subscriber_id');
                         return;
                     }
-                    
+
                     this.loadingPodcasts = true;
                     try {
                         console.log('Loading podcasts for subscriber_id:', this.subscriber.subscriber_id);
-                        const response = await fetch(`${this.API_BASE_URL}/api/subscribers/podcasts/${this.subscriber.subscriber_id}`);
+                        const response = await fetch(`${this.API_BASE_URL}/api/subscribers/podcasts/${this.subscriber.subscriber_id}`, {
+                            headers: this.authHeaders()
+                        });
                         const data = await response.json();
                         
                         if (response.ok) {
@@ -964,7 +988,7 @@
                     try {
                         const response = await fetch(`${this.API_BASE_URL}/api/subscribers/podcasts/submit-to-rss`, {
                             method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
+                            headers: this.authHeaders({ 'Content-Type': 'application/json' }),
                             body: JSON.stringify({ podcast_id: podcastId, submit_to_rss: submit })
                         });
                         
@@ -996,7 +1020,7 @@
                     try {
                         const response = await fetch(`${this.API_BASE_URL}/api/subscribers/podcasts/${podcastId}`, {
                             method: 'DELETE',
-                            headers: { 'Content-Type': 'application/json' }
+                            headers: this.authHeaders({ 'Content-Type': 'application/json' })
                         });
                         
                         if (response.ok) {
@@ -1033,7 +1057,7 @@
                         try {
                             const response = await fetch(`${this.API_BASE_URL}/api/subscribers/podcasts/${podcast.podcast_id}`, {
                                 method: 'DELETE',
-                                headers: { 'Content-Type': 'application/json' }
+                                headers: this.authHeaders({ 'Content-Type': 'application/json' })
                             });
                             
                             if (response.ok) {
@@ -1066,13 +1090,24 @@
                     
                     console.log('📥 Loading subscriber profile for:', this.subscriber.subscriber_id);
                     try {
-                        const response = await fetch(`${this.API_BASE_URL}/api/subscribers/profile/${this.subscriber.subscriber_id}`);
+                        const response = await fetch(`${this.API_BASE_URL}/api/subscribers/profile/${this.subscriber.subscriber_id}`, {
+                            headers: this.authHeaders()
+                        });
                         const data = await response.json();
-                        
+
                         if (response.ok) {
                             console.log('✅ Profile loaded successfully');
-                            this.subscriber = data;
-                            localStorage.setItem('subscriber', JSON.stringify(data));
+                            // Merge, don't replace: the profile GET response
+                            // never carries the session token (it's never
+                            // sent back to the client after login), so a
+                            // plain overwrite here would silently log the
+                            // subscriber out of every subsequent call.
+                            this.subscriber = {
+                                ...data,
+                                session_token: this.subscriber.session_token,
+                                session_token_expires: this.subscriber.session_token_expires
+                            };
+                            localStorage.setItem('subscriber', JSON.stringify(this.subscriber));
                         } else {
                             // If profile fetch fails, log error but don't logout
                             // This might happen for new users or if profile endpoint has issues
@@ -1095,9 +1130,11 @@
                     if (!this.authenticated) return;
                     
                     try {
-                        const response = await fetch(`${this.API_BASE_URL}/api/subscribers/profile/${this.subscriber.subscriber_id}`);
+                        const response = await fetch(`${this.API_BASE_URL}/api/subscribers/profile/${this.subscriber.subscriber_id}`, {
+                            headers: this.authHeaders()
+                        });
                         const data = await response.json();
-                        
+
                         if (response.ok) {
                             this.profileForm.display_name = data.display_name || '';
                             this.profileForm.initials = data.initials || '';
@@ -1113,7 +1150,7 @@
                     try {
                         const response = await fetch(`${this.API_BASE_URL}/api/subscribers/profile/${this.subscriber.subscriber_id}`, {
                             method: 'PUT',
-                            headers: { 'Content-Type': 'application/json' },
+                            headers: this.authHeaders({ 'Content-Type': 'application/json' }),
                             body: JSON.stringify(this.profileForm)
                         });
                         
