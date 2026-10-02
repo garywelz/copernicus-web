@@ -25,6 +25,24 @@ Entry format:
 
 ---
 
+## 016 — 2026-10-02 — GLMP decoder output separated from process charts
+
+- **From:** the GLMP lane (local Cursor), with Core review
+- **Record:** `glmp` PR #22 (`run_batch.py` writes `glmp_circuits` only, `decoder_version` from the parser with a `v` prefix; `select_batch.py` reads decode status from `glmp_circuits`) and `copernicus-web` PR [#30](https://github.com/garywelz/copernicus-web/pull/30) (`sync_glmp_processes.py`'s full-replace guard)
+- **Affects:** anyone reading GLMP decoder output or syncing `glmp_processes` from GCS
+- **Summary:**
+  - `glmp_circuits` is now the canonical location for DNA decoder output:
+    18 docs — 17 circuits, including `ecoli_sos_lexa` and `ecoli_sos_reca`
+    kept separate, plus `yeast_gal_bistable_switch`.
+  - `glmp_processes` (217 docs) holds charts only. Decoder keys were
+    stripped from it on 2026-10-02, after a checksummed backup at
+    `gs://regal-scholar-453620-r7-internal/glmp-decoder-split/2026-10-02/`.
+  - Existing circuit records remain at decoder version `v0.2.2`; any
+    newly queued circuit decodes with `v0.2.5`.
+- **Waiting on:**
+  - **Gary:** nothing.
+  - **Collaborators:** nobody.
+
 ## 015 — 2026-10-02 — Security follow-up to 014 complete
 
 - **From:** Claude Code (Core lane), approved by Gary
