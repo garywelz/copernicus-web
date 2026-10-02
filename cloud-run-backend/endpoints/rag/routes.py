@@ -7,17 +7,22 @@ Copyright (c) 2025 Gary Welz / CopernicusAI
 Licensed under MIT License
 """
 
-from fastapi import APIRouter, HTTPException, Query
+from fastapi import APIRouter, HTTPException, Query, Request
 from typing import Optional, List, Literal
 from utils.logging import structured_logger
+from utils.rate_limit import check_rate_limit, last_forwarded_ip
+from config.database import db
 
 from services.rag_service import get_rag_service
 
 router = APIRouter(prefix="/api/rag", tags=["rag"])
 
+RAG_RATE_LIMIT_PER_HOUR = 20
+
 
 @router.get("/answer")
 async def answer_question(
+    request: Request,
     question: str = Query(..., max_length=500, description="Question to answer"),
     max_context_items: int = Query(5, ge=1, le=20, description="Maximum context items to retrieve"),
     content_types: Optional[str] = Query(None, description="Comma-separated content types: papers,podcasts,glmp"),
@@ -36,13 +41,15 @@ async def answer_question(
 ):
     """
     Answer a question using RAG (Retrieval-Augmented Generation).
-    
+
     Uses vector search to retrieve relevant content, then generates an answer
     using an LLM with the retrieved content as context.
     """
+    client_ip = last_forwarded_ip(request.headers.get("x-forwarded-for"))
+    check_rate_limit(db, client_ip, "rag_answer", limit=RAG_RATE_LIMIT_PER_HOUR, window_seconds=3600)
     try:
         rag_service = get_rag_service()
-        
+
         # Parse content types if provided
         content_types_list = None
         if content_types:

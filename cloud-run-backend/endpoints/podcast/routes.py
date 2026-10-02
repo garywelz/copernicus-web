@@ -1,12 +1,12 @@
 """Podcast generation endpoints"""
 
-from fastapi import APIRouter, HTTPException, Query, Depends
+from fastapi import APIRouter, HTTPException, Query, Header
 from typing import Optional
 import uuid
 from datetime import datetime
 
 from utils.logging import structured_logger
-from utils.auth import verify_admin_api_key
+from utils.auth import authorize_generation
 from config.database import db
 from utils.subscriber_helpers import resolve_generation_subscriber_id
 from models.podcast import PodcastRequest, ResolvePaperRequest, GeneratePodcastFromPaperRequest
@@ -35,10 +35,16 @@ def _get_service():
 
 
 @router.post("/generate-podcast")
-async def generate_podcast(request: PodcastRequest, admin_auth: bool = Depends(verify_admin_api_key)):
+async def generate_podcast(
+    request: PodcastRequest,
+    subscriber_id_param: Optional[str] = Query(None, alias="subscriber_id"),
+    x_admin_api_key: Optional[str] = Header(None, alias="X-Admin-API-Key"),
+    x_subscriber_token: Optional[str] = Header(None, alias="X-Subscriber-Token"),
+):
     """Generate a new podcast episode"""
+    authorize_generation(subscriber_id_param, x_admin_api_key, x_subscriber_token)
     job_id = str(uuid.uuid4())
-    
+
     # Enhanced logging for research-driven requests
     paper_info = f" + Paper: {request.paper_title[:30]}..." if request.paper_content else ""
     structured_logger.info("New research podcast request", 
@@ -51,7 +57,7 @@ async def generate_podcast(request: PodcastRequest, admin_auth: bool = Depends(v
     if not db:
         raise HTTPException(status_code=503, detail="Firestore service is unavailable. Cannot create job.")
 
-    subscriber_id = resolve_generation_subscriber_id(None)
+    subscriber_id = resolve_generation_subscriber_id(subscriber_id_param)
     job_data = {
         'job_id': job_id,
         'status': 'pending',
@@ -61,7 +67,7 @@ async def generate_podcast(request: PodcastRequest, admin_auth: bool = Depends(v
         'subscriber_id': subscriber_id,
         'submitted_to_rss': False,
     }
-    
+
     try:
         db.collection('podcast_jobs').document(job_id).set(job_data)
         structured_logger.info("Job created in Firestore",
@@ -123,9 +129,11 @@ async def generate_podcast(request: PodcastRequest, admin_auth: bool = Depends(v
 async def generate_podcast_with_subscriber(
     request: PodcastRequest,
     subscriber_id: Optional[str] = Query(None),
-    admin_auth: bool = Depends(verify_admin_api_key)
+    x_admin_api_key: Optional[str] = Header(None, alias="X-Admin-API-Key"),
+    x_subscriber_token: Optional[str] = Header(None, alias="X-Subscriber-Token"),
 ):
     """Generate podcast with optional subscriber association"""
+    authorize_generation(subscriber_id, x_admin_api_key, x_subscriber_token)
     job_id = str(uuid.uuid4())
     
     # Enhanced logging for research-driven requests
@@ -253,12 +261,17 @@ async def resolve_paper_endpoint(request: ResolvePaperRequest):
 
 
 @router.post("/generate-podcast-from-paper")
-async def generate_podcast_from_paper(request: GeneratePodcastFromPaperRequest, admin_auth: bool = Depends(verify_admin_api_key)):
+async def generate_podcast_from_paper(
+    request: GeneratePodcastFromPaperRequest,
+    x_admin_api_key: Optional[str] = Header(None, alias="X-Admin-API-Key"),
+    x_subscriber_token: Optional[str] = Header(None, alias="X-Subscriber-Token"),
+):
     """Generate a podcast episode from a specific Knowledge Engine paper.
     Requires either `paper_id` (from a prior /resolve-paper call) or a
     `query` that resolves unambiguously as a DOI/PMID/arXiv identifier --
     a free-text query is rejected here on purpose, to avoid ever generating
     an episode about a paper the caller didn't explicitly confirm."""
+    authorize_generation(request.subscriber_id, x_admin_api_key, x_subscriber_token)
     if not db:
         raise HTTPException(status_code=503, detail="Firestore service is unavailable. Cannot create job.")
 
