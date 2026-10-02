@@ -40,7 +40,7 @@ Entry format:
   - Existing circuit records remain at decoder version `v0.2.2`; any
     newly queued circuit decodes with `v0.2.5`.
 - **Waiting on:**
-  - **Gary:** nobody.
+  - **Gary:** nothing.
   - **Collaborators:** nobody.
 
 ## 015 — 2026-10-02 — Security follow-up to 014 complete
