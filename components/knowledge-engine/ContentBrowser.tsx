@@ -15,7 +15,12 @@ import {
   PROCESS_FAMILIES,
   VIDEOS_DATABASE_TABLE_HREF,
 } from './constants'
-import { KE_PROJECTS, type KEProjectId } from '@/lib/knowledge-engine-projects'
+import {
+  KE_PROJECTS,
+  engineParamForProject,
+  scopeLabelForProject,
+  type KEProjectId,
+} from '@/lib/knowledge-engine-projects'
 import { hrefForKnowledgeItem } from '@/lib/knowledge-engine-links'
 
 type ContentItem = {
@@ -104,9 +109,16 @@ export default function ContentBrowser({ project = null }: { project?: KEProject
   const limit = contentType === 'papers' ? 50 : 20
   const catalogFilters = contentType === 'papers' || contentType === 'videos'
 
+  // Papers only -- the `engine` param strictly scopes question_scope_ids on
+  // research_papers and is mutually exclusive with discipline/question/
+  // keyword on the backend (400 if combined). Podcasts/processes/videos
+  // never read `engine` at all, so it's only ever sent for the papers tab.
+  const engineParam = contentType === 'papers' ? engineParamForProject(project) : undefined
+  const papersEngineScoped = contentType === 'papers' && Boolean(engineParam)
+
   useEffect(() => {
     loadContent()
-  }, [contentType, processFamily, paperDiscipline, question, channel, keyword, page])
+  }, [contentType, processFamily, paperDiscipline, question, channel, keyword, page, project])
 
   const loadContent = async () => {
     setLoading(true)
@@ -119,13 +131,16 @@ export default function ContentBrowser({ project = null }: { project?: KEProject
       if (contentType === 'processes') {
         params.set('process_family', processFamily)
       }
-      if ((contentType === 'papers' || contentType === 'videos') && paperDiscipline) {
+      if (engineParam) {
+        params.set('engine', engineParam)
+      }
+      if (!engineParam && (contentType === 'papers' || contentType === 'videos') && paperDiscipline) {
         params.set('discipline', paperDiscipline)
       }
-      if ((contentType === 'papers' || contentType === 'videos') && question) {
+      if (!engineParam && (contentType === 'papers' || contentType === 'videos') && question) {
         params.set('question', question)
       }
-      if ((contentType === 'papers' || contentType === 'videos') && keyword) {
+      if (!engineParam && (contentType === 'papers' || contentType === 'videos') && keyword) {
         params.set('keyword', keyword)
       }
       if (contentType === 'videos' && channel) {
@@ -215,6 +230,14 @@ export default function ContentBrowser({ project = null }: { project?: KEProject
           ))}
         </div>
 
+        <p className="text-sm text-gray-600 mb-4">
+          Searching <span className="font-medium text-gray-900">{scopeLabelForProject(project)}</span>
+          {project && contentType !== 'papers' && (
+            <span className="text-gray-500"> (the engine scope applies to the Papers tab only -- {contentType} isn&apos;t narrowed here)</span>
+          )}
+          .
+        </p>
+
         {contentType === 'processes' && (
           <div className="flex flex-wrap gap-2 mb-4">
             {PROCESS_FAMILIES.map((f) => (
@@ -236,7 +259,17 @@ export default function ContentBrowser({ project = null }: { project?: KEProject
           </div>
         )}
 
-        {catalogFilters && (
+        {catalogFilters && papersEngineScoped && (
+          <div className="mb-4 border border-purple-100 rounded-lg p-4 bg-purple-50">
+            <p className="text-sm text-purple-800">
+              Keyword/question/discipline filters aren&apos;t available while scoped to{' '}
+              <strong>{scopeLabelForProject(project)}</strong> -- the engine scope is already strict.
+              Switch to <strong>All projects</strong> to use these filters.
+            </p>
+          </div>
+        )}
+
+        {catalogFilters && !papersEngineScoped && (
           <div className="space-y-3 mb-4 border border-gray-100 rounded-lg p-4 bg-gray-50">
             <p className="text-xs text-gray-500">
               Catalog filters (title/channel/question tags). For meaning search, use the Search tab.
@@ -417,9 +450,19 @@ export default function ContentBrowser({ project = null }: { project?: KEProject
 
         {!loading && visibleItems.length === 0 && (
           <div className="text-center py-12 text-gray-500">
-            {hiddenStubCount > 0
-              ? 'No titled papers on this page (untitled stubs hidden). Try Next.'
-              : 'No items found.'}
+            {hiddenStubCount > 0 ? (
+              'No titled papers on this page (untitled stubs hidden). Try Next.'
+            ) : papersEngineScoped ? (
+              <>
+                <p className="font-medium">No results in {scopeLabelForProject(project)}.</p>
+                <p className="text-sm mt-2">
+                  Try switching to <strong>All projects</strong> -- this engine&apos;s tagged papers
+                  are a small slice of the full corpus.
+                </p>
+              </>
+            ) : (
+              'No items found.'
+            )}
           </div>
         )}
 

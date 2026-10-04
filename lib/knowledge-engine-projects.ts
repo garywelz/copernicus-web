@@ -4,10 +4,16 @@
  * docs/open-questions/knowledge-engine-project-toggle-plan-2026-08-15.md
  * in the glmp repo for the full plan and the decisions behind this scope).
  *
- * v1 is chrome only: framing copy, Quick Examples, and Search placeholder
- * text change with the selected project. Nothing here changes what
- * Search/Ask Questions actually retrieve -- that's a deliberate, separate,
- * not-yet-made decision (scoped retrieval), not an oversight.
+ * **Updated 2026-10-04 (architecture review Phase 2, gap 1):** v1 was
+ * chrome only -- framing copy, Quick Examples, and Search placeholder
+ * text, with nothing here changing what Search/Ask Questions actually
+ * retrieved. That's no longer true. Browse, Search, and Ask Questions now
+ * send the selected project as an `engine` param (backend: PRs #32/#33),
+ * which strictly scopes paper retrieval to that engine's tagged papers.
+ * "All projects" (project === null) still sends no `engine` param at
+ * all -- fully unscoped, exactly as before. The Knowledge Map is the one
+ * tab still unscoped in this release (see KnowledgeMapView.tsx's own
+ * note to the user when a project is selected there).
  *
  * IMPORTANT: GLMP is not "the biology discipline" and ATAP is not "the
  * mathematics discipline" -- see the plan doc's correction on this. GLMP's
@@ -197,8 +203,28 @@ export function isKEProjectId(v: string | null | undefined): v is KEProjectId {
   return v === 'glmp' || v === 'atap' || v === 'tdap'
 }
 
+/** `engine` query param for Browse/Search/Ask Questions (architecture
+ *  review Phase 2, gap 1, 2026-10-04). Returns the project id itself, or
+ *  undefined for "All projects" -- send no `engine` param at all in that
+ *  case, not an empty string; the backend treats a present-but-empty
+ *  value as "not set" too (config.engine_registry.resolve_engine_tags_or_400),
+ *  but omitting it entirely is the clearer contract from this side. */
+export function engineParamForProject(project: KEProjectId | null): string | undefined {
+  return project ?? undefined
+}
+
+/** Human-readable scope label for the "Searching ___" indicator shown on
+ *  Browse, Search, and Ask Questions. */
+export function scopeLabelForProject(project: KEProjectId | null): string {
+  if (!project) return 'all projects'
+  return `${KE_PROJECTS[project].label} papers`
+}
+
 /** Search/RAG content_types for the current toggle. Project view scopes
- *  processes to that project's family only; papers stay unscoped until Layer B. */
+ *  processes to that project's family only. Papers are now scoped too,
+ *  via the `engine` param built by engineParamForProject() above -- not
+ *  by narrowing content_types, since "papers" stays in this list either
+ *  way; the engine param is what actually restricts which papers. */
 export function searchContentTypesForProject(
   project: KEProjectId | null,
   selected: { papers: boolean; podcasts: boolean; processes: boolean; videos?: boolean },
