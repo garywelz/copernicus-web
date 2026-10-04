@@ -390,14 +390,15 @@ async def search_semantic(
     content_types: Optional[List[str]] = None,
     limit: int = DEFAULT_QUERY_LIMIT,
     distance_threshold: float = 0.7,
-    question: Optional[str] = None
+    question: Optional[str] = None,
+    engine_tags: Optional[List[str]] = None,
 ) -> str:
     """
     Semantic search across all content using vector embeddings.
-    
+
     Uses vector similarity to find content that is semantically similar
     to the query, even if it doesn't contain exact keywords.
-    
+
     Args:
         query: Natural language search query
         content_types: Filter by type (default: all)
@@ -414,6 +415,23 @@ async def search_semantic(
                   citation list, since nothing there could have matched the scope
                   either way. Skipped types are reported back in
                   `question_scope_skipped_content_types`, not silently dropped.
+        engine_tags: Scope papers to one engine's full question_scope_ids tag
+                  list (architecture review Phase 2, gap 1, 2026-10-04) --
+                  already resolved and validated by the caller via
+                  config.engine_registry.resolve_engine_tags_or_400(), not a
+                  raw engine id (this function stays decoupled from the
+                  registry). Mutually exclusive with `question` by the
+                  caller's own validation; if both somehow arrive here,
+                  `engine_tags` takes priority. Unlike `question`, this uses
+                  Firestore's native find_nearest() with an
+                  array_contains_any pre-filter against the composite vector
+                  index (question_scope_ids + embedding), not the
+                  single-tag in-memory cosine-rerank path -- that path
+                  doesn't scale to an engine-sized candidate set (GLMP alone
+                  is ~45,748 papers; see the architecture review's own
+                  latency comparison). Same content-type-skipping behavior
+                  as `question`, since the data model is paper-only either
+                  way.
 
     Returns:
         JSON string with semantically similar content from all specified types
@@ -429,20 +447,22 @@ async def search_semantic(
                 "physics", "computer_science", "biology",
             ]
 
-        # A question scope only has a data model on papers (acquisition_matches /
-        # cited_for_question / question_scope_ids) -- GLMP_MASTER_TODO.md item 53.
-        # Searching any other content type while scoped would silently return
-        # unscoped raw-similarity results indistinguishable from scoped ones,
-        # which is exactly how unrelated podcast titles crowded a glmp-q11-scoped
-        # RAG answer before this was traced through. Skip those types explicitly
-        # and say so, rather than let them through quietly.
+        # A question/engine scope only has a data model on papers
+        # (acquisition_matches / cited_for_question / question_scope_ids) --
+        # GLMP_MASTER_TODO.md item 53. Searching any other content type while
+        # scoped would silently return unscoped raw-similarity results
+        # indistinguishable from scoped ones, which is exactly how unrelated
+        # podcast titles crowded a glmp-q11-scoped RAG answer before this was
+        # traced through. Skip those types explicitly and say so, rather
+        # than let them through quietly.
         question_scope_skipped_content_types: List[str] = []
-        if question:
+        if question or engine_tags:
             question_scope_skipped_content_types = [ct for ct in content_types if ct != "papers"]
             if question_scope_skipped_content_types:
                 logger.info(
-                    f"question={question!r} scoped; skipping content types with no "
-                    f"question-scoping data model: {question_scope_skipped_content_types}"
+                    f"question={question!r} engine_tags={bool(engine_tags)} scoped; "
+                    f"skipping content types with no question-scoping data model: "
+                    f"{question_scope_skipped_content_types}"
                 )
                 content_types = [ct for ct in content_types if ct == "papers"]
 
@@ -507,7 +527,48 @@ async def search_semantic(
             try:
                 papers_ref = db.collection(COLLECTION_PAPERS)
 
-                if question:
+                if engine_tags:
+                    # Architecture review Phase 2, gap 1 (2026-10-04): native
+                    # Firestore vector search with an array_contains_any
+                    # pre-filter, backed by the composite vector index on
+                    # (question_scope_ids, embedding). Deliberately NOT the
+                    # single-tag in-memory-rerank pattern below -- that
+                    # pattern streams every matching document's full
+                    # embedding and reranks in pure Python, which is fine at
+                    # "hundreds to low thousands" of candidates (its own
+                    # original design target) but not at engine scale (GLMP
+                    # alone is ~45,748 papers). Measured live 2026-10-04:
+                    # pre-filtered find_nearest() was faster than the
+                    # unscoped baseline, not slower (median 0.89s GLMP-
+                    # scoped vs 3.66s unscoped, warm connection, 5 runs
+                    # each) -- the index lets Firestore skip the rest of the
+                    # corpus entirely rather than brute-forcing it.
+                    vector_query = papers_ref.where(
+                        filter=FieldFilter("question_scope_ids", "array_contains_any", engine_tags)
+                    ).find_nearest(
+                        vector_field="embedding",
+                        query_vector=Vector(query_embedding),
+                        limit=limit,
+                        distance_measure=DistanceMeasure.COSINE,
+                        distance_threshold=distance_threshold,
+                        distance_result_field="distance",
+                    )
+
+                    paper_docs = vector_query.stream()
+
+                    for doc in paper_docs:
+                        paper_data = doc.to_dict()
+                        paper_data["paper_id"] = doc.id
+                        paper_data["similarity_score"] = 1.0 - paper_data.get("distance", 1.0)
+                        paper_data.pop("embedding", None)
+                        paper_data = _serialize_firestore_value(paper_data)
+                        results["papers"].append(paper_data)
+
+                    logger.info(
+                        f"Found {len(results['papers'])} papers via engine-scoped vector search "
+                        f"({len(engine_tags)} tags)"
+                    )
+                elif question:
                     # Search directly within the question-scoped candidate set
                     # rather than over-fetching a global top-K by raw query-text
                     # similarity and filtering in Python. The old over-fetch

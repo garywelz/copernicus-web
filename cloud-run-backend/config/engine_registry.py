@@ -151,3 +151,43 @@ def find_unregistered_tags(live_distinct_tags: Iterable[str]) -> Set[str]:
     access -- see scripts/check_engine_registry_drift.py for the live
     scan this is meant to be called with."""
     return set(live_distinct_tags) - ALL_REGISTERED_TAGS
+
+
+def resolve_engine_tags_or_400(
+    engine: Optional[str],
+    question: Optional[str] = None,
+) -> Optional[List[str]]:
+    """Shared route-level validation (gap 1, RAG + Search PR, 2026-10-04),
+    applying the exact same rules PR #32 established for Browse:
+    `engine` mutually exclusive with `question` (400 if both given),
+    invalid engine id (400), and an oversized engine's tag list
+    (EngineTagLimitExceeded -> 500, re-raised as an HTTPException here so
+    every caller gets the same clean response instead of re-implementing
+    the try/except).
+
+    Returns None if `engine` is not set (the "All projects" / unscoped
+    case -- callers should take their existing, unchanged code path).
+    Returns the resolved tag list otherwise. Raises fastapi.HTTPException
+    for every rejection case -- call this from a route handler, not from
+    a service/tool layer function that might run outside a FastAPI
+    request (that's why this isn't built into engine_tags() itself).
+    """
+    from fastapi import HTTPException  # local import: keep this module
+                                        # importable without a FastAPI app
+
+    if not engine:
+        return None
+    if question:
+        raise HTTPException(
+            status_code=400,
+            detail="Pass either `engine` or `question`, not both.",
+        )
+    if not is_valid_engine_id(engine):
+        raise HTTPException(
+            status_code=400,
+            detail=f"Invalid engine: {engine!r}. Use one of: {', '.join(ENGINE_IDS)}",
+        )
+    try:
+        return engine_tags(engine)
+    except EngineTagLimitExceeded as e:
+        raise HTTPException(status_code=500, detail=str(e))

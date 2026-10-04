@@ -289,6 +289,7 @@ class RAGService:
         mode: str = "general",
         focus_id: Optional[str] = None,
         question_scope: Optional[str] = None,
+        engine_tags: Optional[List[str]] = None,
     ) -> Dict[str, Any]:
         """
         Answer a question using RAG (Retrieval-Augmented Generation).
@@ -304,6 +305,11 @@ class RAGService:
                 `question_scope` rather than reusing `question` to avoid
                 colliding with the user's actual question text, this
                 parameter's neighbor.
+            engine_tags: Scope paper retrieval to one engine's full tag list
+                (architecture review Phase 2, gap 1, 2026-10-04) -- already
+                resolved and validated by the route via
+                config.engine_registry.resolve_engine_tags_or_400(). Mutually
+                exclusive with question_scope by the route's own validation.
 
         Returns:
             Dictionary with answer, citations, sources, and metadata
@@ -336,6 +342,7 @@ class RAGService:
                 limit=max_context_items,
                 distance_threshold=0.8,  # Slightly more lenient for RAG
                 question=question_scope,
+                engine_tags=engine_tags,
             )
 
             search_data = json.loads(search_result)
