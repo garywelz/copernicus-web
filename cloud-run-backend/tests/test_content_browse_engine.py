@@ -75,3 +75,44 @@ def test_no_engine_param_is_unaffected_all_projects_default():
     assert response.status_code == 200
     # The engine-scoping .where() must never be called when engine is absent.
     mock_db.collection.return_value.where.assert_not_called()
+
+
+# --- PR #32 review, change 2: no silent ignores -----------------------------
+
+def test_engine_and_keyword_together_returns_400_not_silent_ignore():
+    with patch('endpoints.content.routes.db', _mock_scoped_db()):
+        response = client.get(
+            "/api/content/browse",
+            params={"content_type": "papers", "engine": "glmp", "keyword": "CRP"},
+        )
+    assert response.status_code == 400
+    detail = response.json()["detail"].lower()
+    assert "keyword" in detail and "not yet supported" in detail
+
+
+def test_engine_and_discipline_together_returns_400_not_silent_ignore():
+    with patch('endpoints.content.routes.db', _mock_scoped_db()):
+        response = client.get(
+            "/api/content/browse",
+            params={"content_type": "papers", "engine": "glmp", "discipline": "biology"},
+        )
+    assert response.status_code == 400
+    detail = response.json()["detail"].lower()
+    assert "discipline" in detail and "not yet supported" in detail
+
+
+# --- PR #32 review, change 3: oversized engine is a clean 500, not a
+# raw AssertionError ---------------------------------------------------------
+
+def test_oversized_engine_returns_clean_500_not_raw_assertion_error():
+    from config.engine_registry import ENGINE_REGISTRY, ARRAY_CONTAINS_ANY_MAX_VALUES
+    oversized = {
+        "label": "Oversized",
+        "full_name": "Hypothetical oversized engine",
+        "tags": [f"oversized-q{i}" for i in range(ARRAY_CONTAINS_ANY_MAX_VALUES + 1)],
+    }
+    with patch.dict(ENGINE_REGISTRY, {"oversized": oversized}), \
+         patch('endpoints.content.routes.db', _mock_scoped_db()):
+        response = client.get("/api/content/browse", params={"content_type": "papers", "engine": "oversized"})
+    assert response.status_code == 500
+    assert "array_contains_any" in response.json()["detail"]

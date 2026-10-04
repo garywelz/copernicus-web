@@ -1,13 +1,18 @@
 """Unit tests for the engine registry (architecture review Phase 2, gap 1)."""
 import pytest
 
+from unittest.mock import patch
+
 from config.engine_registry import (
     ENGINE_REGISTRY,
     ENGINE_IDS,
+    ALL_REGISTERED_TAGS,
     ARRAY_CONTAINS_ANY_MAX_VALUES,
+    EngineTagLimitExceeded,
     is_valid_engine_id,
     engine_tags,
     engine_label,
+    find_unregistered_tags,
 )
 
 
@@ -70,3 +75,63 @@ def test_no_tag_is_shared_across_two_engines():
     for engine_id in ENGINE_IDS:
         all_tags.extend(engine_tags(engine_id))
     assert len(all_tags) == len(set(all_tags))
+
+
+# --- PR #32 review, change 1: registry drift detection ---------------------
+
+def test_find_unregistered_tags_empty_when_live_matches_registry():
+    assert find_unregistered_tags(ALL_REGISTERED_TAGS) == set()
+
+
+def test_find_unregistered_tags_catches_a_new_question_id():
+    # The exact scenario named in the review: a new question (e.g. a
+    # hypothetical tdap-q3) starts being tagged in production before the
+    # registry is updated to know about it.
+    live = set(ALL_REGISTERED_TAGS) | {"tdap-q3"}
+    assert find_unregistered_tags(live) == {"tdap-q3"}
+
+
+def test_find_unregistered_tags_catches_an_entirely_unknown_prefix():
+    live = set(ALL_REGISTERED_TAGS) | {"newengine-q1"}
+    assert find_unregistered_tags(live) == {"newengine-q1"}
+
+
+def test_find_unregistered_tags_handles_multiple_drifted_tags():
+    live = set(ALL_REGISTERED_TAGS) | {"tdap-q3", "tdap-q4", "atap-q5"}
+    assert find_unregistered_tags(live) == {"tdap-q3", "tdap-q4", "atap-q5"}
+
+
+def test_find_unregistered_tags_ignores_tags_missing_from_live_not_present():
+    # A tag registered but never (yet) seen live is not drift in this
+    # direction -- this check is specifically "live has something the
+    # registry doesn't," not the reverse.
+    live = set(ALL_REGISTERED_TAGS) - {"tdap-q2"}
+    assert find_unregistered_tags(live) == set()
+
+
+# --- PR #32 review, change 3: the 30-value limit is a caught error, not an
+# unhandled assert ------------------------------------------------------
+
+def test_engine_tags_raises_clean_error_past_the_firestore_limit():
+    oversized = {
+        "label": "Oversized",
+        "full_name": "Hypothetical oversized engine",
+        "tags": [f"oversized-q{i}" for i in range(ARRAY_CONTAINS_ANY_MAX_VALUES + 1)],
+    }
+    with patch.dict(ENGINE_REGISTRY, {"oversized": oversized}):
+        with pytest.raises(EngineTagLimitExceeded) as exc_info:
+            engine_tags("oversized")
+        assert exc_info.value.engine_id == "oversized"
+        assert exc_info.value.tag_count == ARRAY_CONTAINS_ANY_MAX_VALUES + 1
+        assert "array_contains_any" in str(exc_info.value)
+
+
+def test_engine_tags_at_exactly_the_limit_does_not_raise():
+    at_limit = {
+        "label": "AtLimit",
+        "full_name": "Hypothetical engine at exactly the limit",
+        "tags": [f"atlimit-q{i}" for i in range(ARRAY_CONTAINS_ANY_MAX_VALUES)],
+    }
+    with patch.dict(ENGINE_REGISTRY, {"atlimit": at_limit}):
+        tags = engine_tags("atlimit")  # must not raise
+        assert len(tags) == ARRAY_CONTAINS_ANY_MAX_VALUES

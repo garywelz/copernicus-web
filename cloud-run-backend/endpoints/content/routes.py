@@ -22,7 +22,7 @@ from content_browse_filters import (
     video_matches,
     video_question_ids,
 )
-from config.engine_registry import is_valid_engine_id, engine_tags, ENGINE_IDS
+from config.engine_registry import is_valid_engine_id, engine_tags, ENGINE_IDS, EngineTagLimitExceeded
 
 router = APIRouter(prefix="/api/content", tags=["content"])
 
@@ -228,6 +228,16 @@ async def browse_content(
                     status_code=400,
                     detail=f"Invalid engine: {eng!r}. Use one of: {', '.join(ENGINE_IDS)}",
                 )
+            if eng and kw:
+                raise HTTPException(
+                    status_code=400,
+                    detail="`keyword` is not yet supported with `engine`. Drop one or the other.",
+                )
+            if eng and disc:
+                raise HTTPException(
+                    status_code=400,
+                    detail="`discipline` is not yet supported with `engine`. Drop one or the other.",
+                )
 
             if eng:
                 # Architecture review Phase 2, gap 1 (2026-10-02): strict
@@ -235,8 +245,17 @@ async def browse_content(
                 # decision). Same array_contains / count / paginate /
                 # fallback-scan shape as the single-question branch below,
                 # generalized to array_contains_any over the engine's tags.
+                # PR #32 review (2026-10-04): engine+keyword and
+                # engine+discipline are explicit 400s above, not silently
+                # ignored -- and an oversized engine's tag list is a clean
+                # 500 naming the cause, not an unhandled AssertionError.
+                try:
+                    tags = engine_tags(eng)
+                except EngineTagLimitExceeded as e:
+                    structured_logger.error("Engine registry misconfigured", error=str(e), engine=eng)
+                    raise HTTPException(status_code=500, detail=str(e))
                 scoped = papers_ref.where(
-                    filter=FieldFilter("question_scope_ids", "array_contains_any", engine_tags(eng))
+                    filter=FieldFilter("question_scope_ids", "array_contains_any", tags)
                 )
                 try:
                     total = _extract_count_value(scoped.count().get())
