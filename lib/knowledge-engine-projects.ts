@@ -175,8 +175,11 @@ export const KE_PROJECTS: Record<KEProjectId, KEProjectConfig> = {
       'Where has cyclic or recurrent structure been found in biomedical or physiological data using these methods?',
     ],
     // NOT live-tested against /api/vector-search/semantic like GLMP/ATAP's
-    // above -- there is no TDAP corpus yet (2026-09-19: citation-expansion
-    // dry run only, zero papers written). Re-test once real data exists.
+    // above. Updated 2026-10-04: this is stale -- as of 2026-10-01, 130
+    // papers are tagged tdap-q1/tdap-q2 (see engine_registry.py's 2-tag
+    // TDAP entry), so the "zero papers" premise from the 2026-09-19 dry
+    // run no longer holds. Still not live-tested the way GLMP/ATAP's
+    // examples were; do that before trusting these three keywords.
     quickExamples: [
       {
         label: 'Circular Coordinates (TDAP)',
