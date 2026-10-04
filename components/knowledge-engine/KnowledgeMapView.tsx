@@ -906,6 +906,16 @@ export default function KnowledgeMapView({ project = null }: { project?: KEProje
         )}
       </div>
 
+      {/* Knowledge Map stays unscoped this release (architecture review
+          Phase 2, gap 1, 2026-10-04) -- Browse/Search/Ask Questions narrow
+          to the selected project via `engine`, this tab does not. */}
+      {project && (
+        <div className="bg-amber-50 border border-amber-200 rounded-lg p-3 text-sm text-amber-800">
+          <strong>Note:</strong> Knowledge Map shows all projects -- the {KE_PROJECTS[project].label} scope
+          applied on Browse, Search, and Ask Questions doesn&apos;t narrow this map yet.
+        </div>
+      )}
+
       {/* Enhanced Controls Panel */}
       <div className="bg-white rounded-lg shadow p-6">
         <h2 className="text-lg font-semibold text-gray-900 mb-4">Search & Filters</h2>

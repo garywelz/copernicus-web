@@ -12,6 +12,8 @@ import { API_BASE_URL } from './constants'
 import {
   KE_PROJECTS,
   searchContentTypesForProject,
+  engineParamForProject,
+  scopeLabelForProject,
   type KEProjectId,
 } from '@/lib/knowledge-engine-projects'
 import { hrefForKnowledgeItem, processFamilyFromSearchBucket } from '@/lib/knowledge-engine-links'
@@ -88,6 +90,10 @@ export default function SearchInterface({ project = null }: { project?: KEProjec
       const types = searchContentTypesForProject(project, contentTypes)
       if (types.length > 0) {
         params.append('content_types', types.join(','))
+      }
+      const engineParam = engineParamForProject(project)
+      if (engineParam) {
+        params.append('engine', engineParam)
       }
 
       const response = await fetch(`${API_BASE_URL}/api/vector-search/semantic?${params}`)
@@ -217,6 +223,10 @@ export default function SearchInterface({ project = null }: { project?: KEProjec
             )}
           </p>
         </div>
+
+        <p className="text-sm text-gray-600 mb-4">
+          Searching <span className="font-medium text-gray-900">{scopeLabelForProject(project)}</span>.
+        </p>
 
         <div className="space-y-4">
           <div>
@@ -401,10 +411,13 @@ export default function SearchInterface({ project = null }: { project?: KEProjec
       {!loading && results.length === 0 && query && (
         <div className="bg-white rounded-lg shadow p-6 text-center">
           <div className="text-gray-500 mb-2">
-            <p className="font-medium">No results found for &quot;{query}&quot;</p>
+            <p className="font-medium">
+              No results found for &quot;{query}&quot; in {scopeLabelForProject(project)}.
+            </p>
             <p className="text-sm mt-2">Try:</p>
             <ul className="text-sm mt-2 list-disc list-inside text-left max-w-md mx-auto">
               <li>Using different keywords</li>
+              {project && <li>Switching to All projects -- this engine&apos;s tagged papers are a small slice of the full corpus</li>}
               <li>Checking if content is indexed in the vector database</li>
               <li>Browsing content directly using the Browse tab</li>
             </ul>

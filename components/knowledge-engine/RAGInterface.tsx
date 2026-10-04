@@ -13,6 +13,8 @@ import {
   KE_PROJECTS,
   KE_PROJECT_IDS,
   searchContentTypesForProject,
+  engineParamForProject,
+  scopeLabelForProject,
   type KEProjectId,
 } from '@/lib/knowledge-engine-projects'
 import { hrefForKnowledgeItem, processFamilyFromRagType } from '@/lib/knowledge-engine-links'
@@ -96,6 +98,10 @@ export default function RAGInterface({ project = null }: { project?: KEProjectId
         max_context_items: maxContextItems.toString(),
         content_types: types.join(','),
       })
+      const engineParam = engineParamForProject(project)
+      if (engineParam) {
+        params.append('engine', engineParam)
+      }
 
       const response = await fetch(`${API_BASE_URL}/api/rag/answer?${params}`)
       if (!response.ok) {
@@ -153,6 +159,10 @@ export default function RAGInterface({ project = null }: { project?: KEProjectId
             )}
           </p>
         </div>
+
+        <p className="text-sm text-gray-600 mb-4">
+          Searching <span className="font-medium text-gray-900">{scopeLabelForProject(project)}</span>.
+        </p>
 
         <div className="space-y-4">
           <div>
@@ -231,10 +241,17 @@ export default function RAGInterface({ project = null }: { project?: KEProjectId
                 <div className="bg-yellow-50 border border-yellow-200 rounded-md p-4">
                   <p className="text-gray-700 whitespace-pre-wrap mb-3">{response.answer}</p>
                   <div className="bg-blue-50 border border-blue-200 rounded p-3 mt-3">
-                    <p className="text-sm text-blue-800 font-medium mb-2">Why no results?</p>
+                    <p className="text-sm text-blue-800 font-medium mb-2">
+                      No results in {scopeLabelForProject(project)}.
+                    </p>
                     <p className="text-sm text-blue-700">
                       The RAG system needs content indexed in the vector database to answer questions.
-                      We&apos;re building our collection - try using the <strong>Browse Content</strong> tab to see available papers and processes,
+                      {project ? (
+                        <> Try switching to <strong>All projects</strong> -- this engine&apos;s tagged papers are a small slice of the full corpus -- </>
+                      ) : (
+                        <> We&apos;re building our collection -- </>
+                      )}
+                      try using the <strong>Browse Content</strong> tab to see available papers and processes,
                       or check back as we add more content daily.
                     </p>
                   </div>
