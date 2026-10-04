@@ -5,7 +5,7 @@
 change, config change or API enablement was made to produce this. The only writes were this file
 (on a branch) and one private note in the internal bucket (see "Filed privately").*
 
-**Filed privately: 2 items** (AGENT_ROLES rule 17). Their rows are left out of the tables and
+**Items filed privately** (AGENT_ROLES rule 17). Their rows are left out of the tables and
 totals below. Each carries its own action, which Gary has been told about separately.
 
 ---
@@ -20,6 +20,7 @@ totals below. Each carries its own action, which Gary has been told about separa
 | Cloud SQL instances | 4 | 2 RETIRE (stop first), 2 KEEP and harden |
 | Buckets | 15 | 4 RETIRE (2 redundant backups whole, 2 build-archive buckets in part), 11 KEEP |
 | Artifact Registry repos (not in the request) | 4 | RETIRE unreferenced and stale images |
+| Data stores: Firestore (17 collections), canonical process JSON, public database tables, internal bucket | see 4I | KEEP only, no action commands |
 | Vercel projects | 32 (10 named in governance, 22 unknown from this seat) | Gary's dashboard only |
 | Pending items | 4 shown | see section 4H |
 
@@ -144,6 +145,11 @@ Both use `scienceviddb-ingestion:latest`, so that image is *in use*, not stale.
 | glmp-db | 76 MB | 1, constant | nothing | cited as holding the dataset in an archived draft, `glmp/docs/archive/old_files/misc_files/glmp_paper_101625_FINAL_CLEAN.txt:339` | ~10 to 12 | **KEEP** | automated daily backups are on (last: 2026-10-04 04:00 UTC, successful); the GLMP lane should confirm whether the paper's claim is live | 1 add deletion protection / CC |
 | scienceviddb-db | 306 MB | 1 to 10 | scienceviddb-web | `sciencevideodb/docs/SCITV_ROADMAP.md:163`, `sciencevideodb/packages/db/` | ~10 to 12 | **KEEP, harden** | the only live database, and it has **no automated backups and no deletion protection** | 1 enable both / CC |
 
+Network settings, read from the instance configuration (no database connection): **no instance
+allows 0.0.0.0/0 or any broad range.** Three have no authorized network at all; `research-metadata-db`
+has the single /32 noted above. All four have a public IPv4 address and accept unencrypted
+connections; tightening that is listed under "not proposed" in section 7.
+
 A constant non-zero connection on `copernicus-db` and `glmp-db` means *something* holds a session
 open. It is not the Cloud Run services (they had no requests). Stopping an instance is a one-command
 test of that, which is why Batch 2 stops before Batch 5 deletes. I did not connect to any database
@@ -209,6 +215,56 @@ the request logs of `copernicus-podcast-api` (page loads from a Vercel deploymen
 | Revision `copernicus-podcast-api-00262-kfx` (entry 009) | 0% traffic; created 2026-08-26 | 12,097 requests in the window, last 2026-09-30 04:51 UTC, i.e. until the 09-30 cutover; image `…@sha256:6aaad70fb52f05d188d4ef19db94fa72b4f865aa218d9fb5421e9e5568b66016` | **RETIRE** | three newer rollback points exist; rolling back to -00262-kfx would bring back the five generator bugs entry 009 fixed | 4, not before 2026-10-11 / CC |
 | Revision `copernicus-podcast-api-00268-muc` | 0% traffic; created 2026-10-02 | 4,603 requests, last 2026-10-04 15:53 UTC; image `…@sha256:b13a822cb20221c6d5c59737b82048022f9508cef3f04d8ea0aa2b15465ba795` | **KEEP** until at least 2026-10-11 | today's backend rollback (entry 017) | none |
 | Revision `copernicus-frontend-00052-zif` | 0% traffic; created 2026-10-01 | 38 requests, last 2026-10-04 16:22 UTC; image `…@sha256:251a05d3741cc8b1a726e4bd5f701ef3f67842d76e1d3e75a21defc2c182ed18` | **KEEP** until at least 2026-10-11 | today's frontend rollback (entry 017) | none |
+### 4I. Data stores: KEEP only, no action commands
+
+Nothing in Batches 1 to 5 reads, writes, deletes or changes the permissions of anything below.
+The one way any of it is touched is add-only: backup copies are written *into* the internal bucket.
+Deleting anything here is not proposed, now or later; a change to any of it would be its own
+proposal under rule 16 (generated content) or rule 18 (public objects).
+
+**Firestore**, database `copernicusai`, the only database on the project: **KEEP only.**
+17 collections, document counts read 2026-10-04:
+
+| Collection | Docs | What it holds |
+|---|---|---|
+| research_papers | 119,400 | the shared paper corpus |
+| science_videos | 1,123 | sciencevideodb's video index |
+| atap_graphs | 237 | ATAP proof-graph corpus |
+| glmp_processes | 217 | GLMP process charts (decoder keys moved out, BULLETIN 016) |
+| chemistry_processes | 124 | Programming Framework demonstration corpus |
+| episodes | 104 | published podcast episode catalog |
+| podcast_jobs | 77 | podcast generation jobs |
+| computer_science_processes | 72 | Programming Framework demonstration corpus |
+| biology_processes | 56 | Programming Framework demonstration corpus |
+| physics_processes | 28 | Programming Framework demonstration corpus |
+| glmp_circuits | 19 | canonical DNA-decoder output (BULLETIN 016) |
+| subscribers | 18 | subscriber accounts; **personal data, not inspected beyond the count** |
+| podcasts | 9 | purpose not disambiguated from `episodes` (system map) |
+| scheduler_status | 8 | heartbeat records for the nightly chain |
+| rate_limits | 5 | new since the 2026-10-01 system map; named for the rate limits added in BULLETIN 015, purpose inferred |
+| users | 2 | purpose not inspected |
+| system_metrics | 1 | purpose not inspected |
+
+**Canonical process JSON**, in `regal-scholar-453620-r7-podcast-storage` (the public bucket), **KEEP only.**
+`glmp-v2/processes` (default `GLMP_BUCKET_PATH`, `cloud-run-backend/mcp_server/config.py:41`; read by
+`cloud-run-backend/scripts/sync_glmp_processes.py:152`) and `mathematics-processes-database/processes/`
+(`cloud-run-backend/scripts/sync_math_processes.py:36-37`) are what the manual sync scripts copy into
+`glmp_processes` and `atap_graphs`. By object count the prefixes are `mathematics-processes-database`
+(679), `glmp-v2` (416), `chemistry-processes-database` (347), `biology-processes-database` (127),
+`glmp-processes-database` (126), `computer-science-processes-database` (112),
+`physics-processes-database` (75), `glmp-archive` (61), `computer_science-processes-database` (22,
+an alternate spelling), `mathematics-dependency-graphs` (3) and `glmp` (4). The link from the
+discipline prefixes to their Firestore collections was not traced this pass.
+
+**Public database tables and status pages**, same bucket, **KEEP only**, and gated by rule 18:
+`papers-database-table.html`, `glmp-database-table.html`, `podcast-database-table.html`,
+`videos-database-table.html`, `podcast-database.html`, `test-database.html`, `GLMP_STATUS.html`,
+`knowledge-engine-status.html`, `knowledge-engine-status.json`, and the RSS feed under `feeds/`.
+
+**Internal bucket**, `regal-scholar-453620-r7-internal`, **KEEP only**: the private archive and
+the destination for every backup in section 5. No command here changes its permissions, lifecycle
+or contents beyond adding copies.
+
 ---
 
 ## 5. Action sheets
@@ -228,7 +284,7 @@ never print them (rule 3). No command here has been run.
 | 1.4 | **scienceviddb-db**: `gcloud sql instances patch scienceviddb-db --project $P --backup-start-time=04:00 --deletion-protection` | none (adds protection) | `gcloud sql instances patch scienceviddb-db --project $P --no-backup --no-deletion-protection` | CC |
 | 1.5 | **glmp-db**: `gcloud sql instances patch glmp-db --project $P --deletion-protection` | none | `gcloud sql instances patch glmp-db --project $P --no-deletion-protection` | CC |
 | 1.6 | **research-metadata-db**: remove its one authorized network entry: `gcloud sql instances patch research-metadata-db --project $P --clear-authorized-networks` | the entry's value is recorded in the private note in the internal bucket | `gcloud sql instances patch research-metadata-db --project $P --authorized-networks=<value from that note>` | CC |
-| 1.7 | **Export the two databases to retire.** First grant each instance's service account write access to the bucket, export, then take the grant back: `SA=$(gcloud sql instances describe INST --project $P --format='value(serviceAccountEmailAddress)')`; `gcloud storage buckets add-iam-policy-binding gs://regal-scholar-453620-r7-internal --member=serviceAccount:$SA --role=roles/storage.objectAdmin`; `gcloud sql export sql INST $I/INST-DB.sql.gz --database=DB --project $P` (`copernicus-db`/`copernicus`, `research-metadata-db`/`research_metadata`); `gcloud storage buckets remove-iam-policy-binding gs://regal-scholar-453620-r7-internal --member=serviceAccount:$SA --role=roles/storage.objectAdmin`. **This is a temporary IAM change on a private bucket, so it needs Gary's explicit OK.** Verify each export's size is plausible and its checksum is stored beside it. | the export is the backup | delete the export objects; the grant is already removed | CC |
+| 1.7 | **Export the two databases to retire, through a scratch bucket so the internal bucket's permissions never change.** `T=gs://regal-scholar-453620-r7-sql-export-tmp`; `gcloud storage buckets create $T --project $P --location=us-central1 --uniform-bucket-level-access --public-access-prevention`; for each `INST`/`DB` (`copernicus-db`/`copernicus`, `research-metadata-db`/`research_metadata`): `SA=$(gcloud sql instances describe INST --project $P --format='value(serviceAccountEmailAddress)')`; `gcloud storage buckets add-iam-policy-binding $T --member=serviceAccount:$SA --role=roles/storage.objectAdmin`; `gcloud sql export sql INST $T/INST-DB.sql.gz --database=DB --project $P`; `gcloud storage cp $T/INST-DB.sql.gz $I/` (an add-only copy); compare the two checksums; then `gcloud storage rm -r $T`. **Creating and deleting a scratch bucket and one temporary grant on it needs Gary's explicit OK.** | the export is the backup | delete the export objects from `$I`; the scratch bucket and its grant are gone with `rm -r` | CC |
 | 1.8 | Prune old Cloud Run revisions on `copernicus-podcast-api` (266 retained) and `copernicus-frontend` (53 retained): list revisions older than the rollback chain and delete them oldest first, **keeping the newest 10 of each, and every revision named in section 4H.** `gcloud run revisions delete REVISION --region us-central1 --project $P --quiet`. Cloud Run refuses to delete a revision that still serves traffic, and any such refusal is listed, not forced. | digest list from 1.3 | redeploy an image from the saved digest list: `gcloud run deploy copernicus-podcast-api --image gcr.io/$P/copernicus-podcast-api@sha256:DIGEST --no-traffic --region us-central1 --project $P` (this creates a new revision under a new name; follow `cloud-run-backend/DEPLOY.md`) | CC |
 
 ### Batch 2: stop, protect (reversible with one command or toggle)
@@ -304,14 +360,14 @@ the Billing export or open Billing → Reports for this project; the Billing API
 
 ## 8. Decisions needed from Gary
 
-1. Approve Batch 1, including the temporary IAM grant in 1.7 (or say to export another way).
+1. Approve Batch 1, including the scratch bucket and temporary grant in 1.7 (or say to export another way).
 2. Approve Batch 2 now, and Batch 3 to follow after seven quiet days (the proposal assumes yes).
 3. The GLMP lane: retire `glmp_process_suggestion`? Is the `glmp-db` claim in the paper draft live?
    Who moves or deletes the `generate-podcast` callers in the glmp root?
 4. Vercel: send the project list for both teams; choose which of the six disconnected projects
    to protect, and which to delete.
 5. Confirm the date for deleting the disabled key (entry 005 said on or after 2026-10-05).
-6. The two privately filed items: separate approvals, given outside this file.
+6. The privately filed items: separate approvals, given outside this file.
 
 *Evidence kept in the session scratchpad only; no secret values were read or printed. Commands
 shown are proposals; none was run.*
