@@ -22,6 +22,7 @@ from content_browse_filters import (
     video_matches,
     video_question_ids,
 )
+from config.engine_registry import is_valid_engine_id, engine_tags, ENGINE_IDS, EngineTagLimitExceeded
 
 router = APIRouter(prefix="/api/content", tags=["content"])
 
@@ -172,6 +173,15 @@ async def browse_content(
         None,
         description="Declared question id (e.g. glmp-q1, atap-q2). Papers: question_scope_ids. Videos: metadata.question_scope_ids.",
     ),
+    engine: Optional[str] = Query(
+        None,
+        description=(
+            "Papers only. Scope strictly to one engine's tagged papers: "
+            "glmp, atap, or tdap (ARCHITECTURE_REVIEW_2026-10-01 gap 1). "
+            "Omit for 'All projects' -- unscoped, unchanged behavior. "
+            "Mutually exclusive with `question` (400 if both given)."
+        ),
+    ),
     keyword: Optional[str] = Query(
         None,
         description="Literal substring filter on title/description (not vector search).",
@@ -204,10 +214,79 @@ async def browse_content(
         if content_type == "papers":
             papers_ref = db.collection('research_papers')
             disc = (discipline or "").strip().lower() or None
+            eng = (engine or "").strip().lower() or None
             from google.cloud.firestore_v1.base_query import FieldFilter
             from google.cloud import firestore as _fs
 
-            if qid and not kw and not disc:
+            if eng and qid:
+                raise HTTPException(
+                    status_code=400,
+                    detail="Pass either `engine` or `question`, not both.",
+                )
+            if eng and not is_valid_engine_id(eng):
+                raise HTTPException(
+                    status_code=400,
+                    detail=f"Invalid engine: {eng!r}. Use one of: {', '.join(ENGINE_IDS)}",
+                )
+            if eng and kw:
+                raise HTTPException(
+                    status_code=400,
+                    detail="`keyword` is not yet supported with `engine`. Drop one or the other.",
+                )
+            if eng and disc:
+                raise HTTPException(
+                    status_code=400,
+                    detail="`discipline` is not yet supported with `engine`. Drop one or the other.",
+                )
+
+            if eng:
+                # Architecture review Phase 2, gap 1 (2026-10-02): strict
+                # engine scope, no "include general corpus" option (Gary's
+                # decision). Same array_contains / count / paginate /
+                # fallback-scan shape as the single-question branch below,
+                # generalized to array_contains_any over the engine's tags.
+                # PR #32 review (2026-10-04): engine+keyword and
+                # engine+discipline are explicit 400s above, not silently
+                # ignored -- and an oversized engine's tag list is a clean
+                # 500 naming the cause, not an unhandled AssertionError.
+                try:
+                    tags = engine_tags(eng)
+                except EngineTagLimitExceeded as e:
+                    structured_logger.error("Engine registry misconfigured", error=str(e), engine=eng)
+                    raise HTTPException(status_code=500, detail=str(e))
+                scoped = papers_ref.where(
+                    filter=FieldFilter("question_scope_ids", "array_contains_any", tags)
+                )
+                try:
+                    total = _extract_count_value(scoped.count().get())
+                except Exception as e:
+                    structured_logger.warning("Failed to count engine-scoped papers", error=str(e), engine=eng)
+                    total = 0
+                try:
+                    query = scoped.order_by(
+                        "__name__", direction=_fs.Query.ASCENDING
+                    ).limit(limit).offset((page - 1) * limit)
+                    for paper in query.stream():
+                        items.append(_paper_item(paper.id, paper.to_dict() or {}))
+                except Exception as e:
+                    structured_logger.warning(
+                        "Engine browse pagination failed; falling back to scan",
+                        error=str(e), engine=eng,
+                    )
+                    scanned = []
+                    for i, paper in enumerate(scoped.stream()):
+                        if i >= PAPER_QUESTION_SCAN_CAP:
+                            note = (
+                                f"Engine slice truncated at {PAPER_QUESTION_SCAN_CAP} documents."
+                            )
+                            break
+                        data = paper.to_dict() or {}
+                        data.pop("embedding", None)
+                        scanned.append((paper.id, data))
+                    page_rows, total = paginate(scanned, page, limit)
+                    items = [_paper_item(doc_id, data) for doc_id, data in page_rows]
+
+            elif qid and not kw and not disc:
                 scoped = papers_ref.where(
                     filter=FieldFilter("question_scope_ids", "array_contains", qid)
                 )
