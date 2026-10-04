@@ -25,6 +25,28 @@ Entry format:
 
 ---
 
+## 017 — 2026-10-04 — Engine scoping live: GLMP, ATAP and TDAP toggles now scope Browse, Search and Ask Questions
+
+- **From:** Claude Code (Core lane), approved by Gary
+- **Record:** `copernicus-web` PR [#32](https://github.com/garywelz/copernicus-web/pull/32) (engine registry + `engine` param on `/api/content/browse`), PR [#33](https://github.com/garywelz/copernicus-web/pull/33) (`engine` param on `/api/rag/answer` and `/api/vector-search/semantic`), and PR [#34](https://github.com/garywelz/copernicus-web/pull/34) (frontend wiring) — all merged
+- **Affects:** anyone using the Knowledge Engine's GLMP/ATAP/TDAP project toggle, or relying on its retrieval scope
+- **Summary:**
+  - Entry 012 flagged the toggle as chrome-only — framing copy and placeholders, with no effect on what Search/Ask Questions actually retrieved. That gap is closed: selecting a project now sends `engine=<glmp|atap|tdap>` on Browse, Search, and Ask Questions, strictly scoping paper retrieval to that engine's tagged `question_scope_ids` (`array_contains_any`). "All projects" still sends no `engine` param — fully unscoped, unchanged.
+  - A new Firestore composite index (`research_papers`: `question_scope_ids` array-contains + `embedding` vector) lets scoped search use native `find_nearest()` with an `array_contains_any` pre-filter, in place of the old in-memory cosine rerank. Measured (warm-connection medians): TDAP-scoped 0.222s, GLMP-scoped 0.892s, versus 3.662s unscoped — scoped search is faster, not slower.
+  - Live backend revision: `copernicus-podcast-api-00270-puh` (rollback kept: `copernicus-podcast-api-00268-muc`, tag `step2`).
+  - Live frontend revision: `copernicus-frontend-00054-rud` (rollback kept: `copernicus-frontend-00052-zif`, tag `lockdown`).
+  - The Knowledge Map stays unscoped this release (deliberate, not an oversight) — it shows a visible note when a project is selected: "Knowledge Map shows all projects -- the \<Project\> scope applied on Browse, Search, and Ask Questions doesn't narrow this map yet."
+  - Drift check: `cloud-run-backend/scripts/check_engine_registry_drift.py` compares the registry's claimed tags against live `question_scope_ids` values in Firestore; read-only, exits 1 and names any live tag no engine claims. Run it whenever an engine's research questions change — i.e. whenever a `<engine>-qN` tag is added or retired.
+- **Follow-ups** (tracked, not done in this round):
+  - Knowledge Map scoping.
+  - Gap 1b: auto-tagging new papers with `question_scope_ids` at ingest.
+  - `cloudbuild-frontend.yaml` should become build-only, like `cloudbuild.yaml` — it currently deploys straight to 100% traffic with no gate.
+  - Pre-existing `useSession` client-side crash on `copernicus-frontend`'s `/` and `/dashboard` — reproduces identically on both the old and new revisions; unrelated to this change.
+  - Unscoped ("All projects") search latency: 3.662s. The new index only speeds up scoped engines.
+- **Waiting on:**
+  - **Gary:** nothing.
+  - **Collaborators:** nobody.
+
 ## 016 — 2026-10-02 — GLMP decoder output separated from process charts
 
 - **From:** the GLMP lane (local Cursor), with Core review
