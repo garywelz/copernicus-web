@@ -3,6 +3,8 @@ import pytest
 
 from unittest.mock import patch
 
+from fastapi import HTTPException
+
 from config.engine_registry import (
     ENGINE_REGISTRY,
     ENGINE_IDS,
@@ -13,6 +15,7 @@ from config.engine_registry import (
     engine_tags,
     engine_label,
     find_unregistered_tags,
+    resolve_engine_tags_or_400,
 )
 
 
@@ -135,3 +138,46 @@ def test_engine_tags_at_exactly_the_limit_does_not_raise():
     with patch.dict(ENGINE_REGISTRY, {"atlimit": at_limit}):
         tags = engine_tags("atlimit")  # must not raise
         assert len(tags) == ARRAY_CONTAINS_ANY_MAX_VALUES
+
+
+# --- resolve_engine_tags_or_400 (RAG + Search PR, 2026-10-04) --------------
+
+def test_resolve_engine_tags_returns_none_when_engine_not_set():
+    assert resolve_engine_tags_or_400(None, None) is None
+    assert resolve_engine_tags_or_400("", None) is None
+
+
+def test_resolve_engine_tags_returns_tags_for_valid_engine():
+    assert resolve_engine_tags_or_400("glmp", None) == engine_tags("glmp")
+
+
+def test_resolve_engine_tags_400_when_both_engine_and_question_given():
+    with pytest.raises(HTTPException) as exc_info:
+        resolve_engine_tags_or_400("glmp", "glmp-q1")
+    assert exc_info.value.status_code == 400
+    assert "either" in exc_info.value.detail.lower()
+
+
+def test_resolve_engine_tags_400_for_invalid_engine_id():
+    with pytest.raises(HTTPException) as exc_info:
+        resolve_engine_tags_or_400("biology", None)
+    assert exc_info.value.status_code == 400
+    assert "Invalid engine" in exc_info.value.detail
+
+
+def test_resolve_engine_tags_500_for_oversized_engine():
+    oversized = {
+        "label": "Oversized",
+        "full_name": "Hypothetical oversized engine",
+        "tags": [f"oversized-q{i}" for i in range(ARRAY_CONTAINS_ANY_MAX_VALUES + 1)],
+    }
+    with patch.dict(ENGINE_REGISTRY, {"oversized": oversized}):
+        with pytest.raises(HTTPException) as exc_info:
+            resolve_engine_tags_or_400("oversized", None)
+        assert exc_info.value.status_code == 500
+        assert "array_contains_any" in exc_info.value.detail
+
+
+def test_resolve_engine_tags_works_for_every_real_engine():
+    for engine_id in ENGINE_IDS:
+        assert resolve_engine_tags_or_400(engine_id, None) == engine_tags(engine_id)

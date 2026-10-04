@@ -12,6 +12,7 @@ from typing import Optional, List, Literal
 from utils.logging import structured_logger
 from utils.rate_limit import check_rate_limit, last_forwarded_ip
 from config.database import db
+from config.engine_registry import resolve_engine_tags_or_400
 
 from services.rag_service import get_rag_service
 
@@ -38,6 +39,15 @@ async def answer_question(
         None,
         description="Scope paper retrieval to a declared question/frontier id, e.g. 'glmp-q1' (GLMP_MASTER_TODO.md item 53)"
     ),
+    engine: Optional[str] = Query(
+        None,
+        description=(
+            "Scope strictly to one engine's tagged papers: glmp, atap, or "
+            "tdap (architecture review Phase 2, gap 1). Omit for unscoped "
+            "retrieval -- unchanged behavior. Mutually exclusive with "
+            "`question_scope` (400 if both given)."
+        ),
+    ),
 ):
     """
     Answer a question using RAG (Retrieval-Augmented Generation).
@@ -47,6 +57,7 @@ async def answer_question(
     """
     client_ip = last_forwarded_ip(request.headers.get("x-forwarded-for"))
     check_rate_limit(db, client_ip, "rag_answer", limit=RAG_RATE_LIMIT_PER_HOUR, window_seconds=3600)
+    engine_tag_list = resolve_engine_tags_or_400(engine, question_scope)
     try:
         rag_service = get_rag_service()
 
@@ -64,6 +75,7 @@ async def answer_question(
             mode=mode,
             focus_id=focus_id,
             question_scope=question_scope,
+            engine_tags=engine_tag_list,
         )
         
         # Format response for frontend
