@@ -5,8 +5,11 @@
 change, config change or API enablement was made to produce this. The only writes were this file
 (on a branch) and one private note in the internal bucket (see "Filed privately").*
 
-**Items filed privately** (AGENT_ROLES rule 17). Their rows are left out of the tables and
-totals below. Each carries its own action, which Gary has been told about separately.
+**Items filed privately** (AGENT_ROLES rule 17). Rows for items whose fix is not yet live are
+left out of the tables and totals below; each carries its own action, which Gary has been told
+about separately. **One item is no longer private:** `glmp-service` was closed to the public on
+2026-10-04 with Gary's approval and is described in BULLETIN entry 018 (PR #37), so it now
+appears below as a retire row.
 
 ---
 
@@ -14,7 +17,7 @@ totals below. Each carries its own action, which Gary has been told about separa
 
 | | Count | Recommendation |
 |---|---|---|
-| Cloud Run services shown (the 6 function-backed services are counted under Cloud Functions) | 8 | 5 RETIRE, 3 KEEP |
+| Cloud Run services shown (the 6 function-backed services are counted under Cloud Functions) | 9 | 6 RETIRE, 3 KEEP |
 | Cloud Functions | 6 | 3 RETIRE, 3 KEEP |
 | Cloud Run jobs (missing from the system map) | 2 | 2 KEEP |
 | Cloud SQL instances | 4 | 2 RETIRE (stop first), 2 KEEP and harden |
@@ -26,7 +29,7 @@ totals below. Each carries its own action, which Gary has been told about separa
 
 **Estimated spend that this proposal touches, about $85 a month, of which about $25 to $40 is
 removable** (section 6 gives the derivation and its caveats). The larger prize is attack surface:
-five closed services, three functions and two databases that nothing calls would stop existing.
+six closed services, three functions and two databases that nothing calls would stop existing.
 
 Nothing in this file is urgent. The privately filed items are, and Gary has been told separately.
 
@@ -36,7 +39,7 @@ Nothing in this file is urgent. The privately filed items are, and Gary has been
 |---|---|---|---|
 | 1 | on approval, from 2026-10-05 | back up configs; harden databases; trim the network entry on one database; prune old Cloud Run revisions | yes, all |
 | 2 | after Batch 1, about 2026-10-06 | stop (not delete) two databases; add Vercel deployment protection to the six disconnected projects | yes, one command or one toggle |
-| 3 | after 7 quiet days on Batch 2, about 2026-10-13 | delete 5 Cloud Run services and 3 functions | yes, from saved config while the image exists |
+| 3 | after 7 quiet days on Batch 2, about 2026-10-13 | delete 6 Cloud Run services and 3 functions | yes, from saved config while the image exists |
 | 4 | not before 2026-10-11 | delete revision -00262-kfx; trim old build archives; delete two redundant backup buckets; delete unreferenced images | partly (7-day undelete on archives; backups recopyable; images need a rebuild) |
 | 5 | after at least 30 days stopped | delete 2 databases; delete the disabled key; delete retired Vercel projects | no, or only by import / recreate |
 
@@ -109,6 +112,7 @@ after Gary approves.
 | copernicus-research-backend | no (closed 09-28) | 0 | none | ~0 | **RETIRE** | same | 3 / CC |
 | copernicus-podcast-generator | no (closed 09-28) | 0 | none | ~0 | **RETIRE** | same; superseded by `cloud-run-backend/` | 3 / CC |
 | research-metadata-api | no (closed 09-28) | 0 | none | ~0 | **RETIRE** | same; its database has no consumer either (4D) | 3 / CC |
+| glmp-service | no (closed 2026-10-04, BULLETIN 018) | 10 in the 30 days, all before the closure | none: only `glmp/glmp-cloud-service/test_service.sh:4` and its own docs; the GLMP lane confirmed no caller, Jetson cron included (glmp#23, `glmp-cloud-service/RETIRED.md`) | ~0 | **RETIRE** | the GLMP lane has marked it retired; nothing calls it; the closure is verified | 3 / CC |
 | copernicus-frontend | yes (intended) | 391 | `huggingface-space/index.html:246,653,791`; `huggingface-space/knowledge-engine-status.html:184` | ~0 | **KEEP** | the Knowledge Engine UI; 53 revisions retained, prune the old ones | 1 / CC |
 | copernicus-podcast-api | yes (intended) | 18,269 | `public/index.html:188,203`; `api/episodes/index.js:9`; `app/episodes/[episodeId]/page.tsx:21`; `huggingface-space/index.html:932` | ~25 (one always-on 2 vCPU / 2 GiB instance) | **KEEP** | the live API; 266 revisions retained, prune the old ones | 1 / CC |
 | scienceviddb-web | yes | 39 (34 successful: crawlers plus a few people) | linked as a live demo: `huggingface-space/README.md:325`, `nsf-proposal/NSF_Biographical_Sketch_Welz.md:85` | ~0 | **KEEP** | documented public demo; its database is live | none |
@@ -278,7 +282,7 @@ never print them (rule 3). No command here has been run.
 
 | # | Action | Backup first | Reversal | Who |
 |---|---|---|---|---|
-| 1.1 | Save the config of each service to retire: for `S` in `copernicus-api copernicus-backend copernicus-research-backend copernicus-podcast-generator research-metadata-api`: `gcloud run services describe $S --region us-central1 --project $P --format=export > $S.yaml && gcloud storage cp $S.yaml $I/$S.yaml` | this is the backup | delete the copies | CC |
+| 1.1 | Save the config of each service to retire: for `S` in `copernicus-api copernicus-backend copernicus-research-backend copernicus-podcast-generator research-metadata-api`: `gcloud run services describe $S --region us-central1 --project $P --format=export > $S.yaml && gcloud storage cp $S.yaml $I/$S.yaml`. **`glmp-service` is already saved** (2026-10-04: `$I/glmp-service.yaml` and `$I/glmp-service-iam-before.json`, size and MD5 verified), so skip it | this is the backup | delete the copies | CC |
 | 1.2 | Save each function to retire (`NAME`, `ENTRY`): copernicus-podcast-form (`main`), generate-podcast (`generate_podcast`), glmp_process_suggestion (`glmp_process_suggestion`): `gcloud functions describe NAME --gen2 --region us-central1 --project $P --format=yaml > NAME.yaml`, then `gcloud storage cp NAME.yaml $I/` and `gcloud storage cp gs://gcf-v2-sources-204731194849-us-central1/NAME/function-source.zip $I/NAME-function-source.zip` | this is the backup | delete the copies | CC |
 | 1.3 | Record the digest list of every image to be removed in Batch 4 (`gcloud artifacts docker images list us-docker.pkg.dev/$P/gcr.io --include-tags --format=csv > images.csv`, then copy to `$I/`) | this is the backup | none needed | CC |
 | 1.4 | **scienceviddb-db**: `gcloud sql instances patch scienceviddb-db --project $P --backup-start-time=04:00 --deletion-protection` | none (adds protection) | `gcloud sql instances patch scienceviddb-db --project $P --no-backup --no-deletion-protection` | CC |
@@ -298,7 +302,7 @@ never print them (rule 3). No command here has been run.
 
 | # | Action | Backup first | Reversal | Who |
 |---|---|---|---|---|
-| 3.1 | `gcloud run services delete S --region us-central1 --project $P` for the five services in 1.1 | 1.1 and the image digests (kept until Batch 4) | `gcloud run services replace $S.yaml --region us-central1 --project $P` after fetching `$I/$S.yaml`; the service URL returns. The service stays closed until an IAM binding is added deliberately. | CC |
+| 3.1 | `gcloud run services delete S --region us-central1 --project $P` for the five services in 1.1 **and for `glmp-service`** (image `…/cloud-run-source-deploy/glmp-service@sha256:2f604b7fc71f813e8b4b15ac8abe69eb5f04f338fa33dc0db300af272316b441`, kept until Batch 4) | 1.1 and the image digests (kept until Batch 4) | `gcloud run services replace $S.yaml --region us-central1 --project $P` after fetching `$I/$S.yaml`; the service URL returns. The service stays closed until an IAM binding is added deliberately. | CC |
 | 3.2 | `gcloud functions delete NAME --gen2 --region us-central1 --project $P` for `copernicus-podcast-form`, `generate-podcast`, `glmp_process_suggestion` | 1.2 | `gcloud functions deploy NAME --gen2 --region us-central1 --project $P --runtime python311 --entry-point ENTRY --trigger-http --no-allow-unauthenticated --source=./unzipped-NAME` (unzip the saved zip; restore environment variables from `NAME.yaml`) | CC, after the GLMP lane OKs `glmp_process_suggestion` and moves the `generate-podcast` callers |
 
 ### Batch 4: storage and images (not before 2026-10-11)
@@ -361,7 +365,7 @@ the Billing export or open Billing → Reports for this project; the Billing API
 ## 8. Decisions needed from Gary
 
 1. Approve Batch 1, including the scratch bucket and temporary grant in 1.7 (or say to export another way).
-2. Approve Batch 2 now, and Batch 3 to follow after seven quiet days (the proposal assumes yes).
+2. Approve Batch 2 now, and Batch 3 to follow after seven quiet days (the proposal assumes yes). Batch 3 now includes deleting `glmp-service`, which the GLMP lane has marked retired (glmp#23).
 3. The GLMP lane: retire `glmp_process_suggestion`? Is the `glmp-db` claim in the paper draft live?
    Who moves or deletes the `generate-podcast` callers in the glmp root?
 4. Vercel: send the project list for both teams; choose which of the six disconnected projects
