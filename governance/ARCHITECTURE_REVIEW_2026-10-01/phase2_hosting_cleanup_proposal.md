@@ -20,16 +20,16 @@ appears below as a retire row.
 | Cloud Run services shown (the 6 function-backed services are counted under Cloud Functions) | 9 | 6 RETIRE, 3 KEEP |
 | Cloud Functions | 6 | 3 RETIRE, 3 KEEP |
 | Cloud Run jobs (missing from the system map) | 2 | 2 KEEP |
-| Cloud SQL instances | 4 | 2 RETIRE (stop first), 2 KEEP and harden |
+| Cloud SQL instances | 4 | 3 RETIRE (export, stop first), 1 KEEP and harden |
 | Buckets | 15 | 4 RETIRE (2 redundant backups whole, 2 build-archive buckets in part), 11 KEEP |
 | Artifact Registry repos (not in the request) | 4 | RETIRE unreferenced and stale images |
 | Data stores: Firestore (17 collections), canonical process JSON, public database tables, internal bucket | see 4I | KEEP only, no action commands |
 | Vercel projects | 32 (10 named in governance, 22 unknown from this seat) | Gary's dashboard only |
 | Pending items | 4 shown | see section 4H |
 
-**Estimated spend that this proposal touches, about $85 a month, of which about $25 to $40 is
+**Estimated spend that this proposal touches, about $85 a month, of which about $35 to $50 is
 removable** (section 6 gives the derivation and its caveats). The larger prize is attack surface:
-six closed services, three functions and two databases that nothing calls would stop existing.
+six closed services, three functions and three databases that nothing calls would stop existing.
 
 Nothing in this file is urgent. The privately filed items are, and Gary has been told separately.
 
@@ -38,10 +38,10 @@ Nothing in this file is urgent. The privately filed items are, and Gary has been
 | Batch | When | What | Reversible? |
 |---|---|---|---|
 | 1 | on approval, from 2026-10-05 | back up configs; harden databases; trim the network entry on one database; prune old Cloud Run revisions | yes, all |
-| 2 | after Batch 1, about 2026-10-06 | stop (not delete) two databases; add Vercel deployment protection to the six disconnected projects | yes, one command or one toggle |
+| 2 | after Batch 1, about 2026-10-06 | stop (not delete) three databases, `glmp-db` after its export; Vercel deployment protection is deferred | yes, one command or one toggle |
 | 3 | after 7 quiet days on Batch 2, about 2026-10-13 | delete 6 Cloud Run services and 1 function (`copernicus-podcast-form`); delete the disabled key (entry 005), not before 2026-10-13. `generate-podcast` and `glmp_process_suggestion` wait for the GLMP lane | yes, from saved config while the image exists; the key deletion is not reversible |
 | 4 | not before 2026-10-11 | delete revision -00262-kfx; trim old build archives; delete two redundant backup buckets; delete unreferenced images | partly (7-day undelete on archives; backups recopyable; images need a rebuild) |
-| 5 | after at least 30 days stopped | delete 2 databases; delete retired Vercel projects (deferred) | no, or only by import / recreate |
+| 5 | after at least 30 days stopped | delete 3 databases; delete retired Vercel projects (deferred) | no, or only by import / recreate |
 
 ---
 
@@ -144,9 +144,9 @@ Both use `scienceviddb-ingestion:latest`, so that image is *in use*, not stale.
 
 | Instance | Data | Connections (daily max, 30 days) | Attached to | Caller in code | ~$/mo | Rec | Reason | Batch / who |
 |---|---|---|---|---|---|---|---|---|
-| copernicus-db | 77 MB used (near empty) | 1 to 2 on `copernicus`, **client unidentified** | copernicus-api (0 requests) | none in code; docs only (`sciencevideodb/docs/INFRASTRUCTURE_INTEGRATION.md:38`) | ~10 to 12 | **RETIRE** (stop first) | no consumer, no backups, no deletion protection | 1 export; 2 stop; 5 delete / CC |
+| copernicus-db | 77 MB used (near empty) | 1 to 2 on `copernicus` (the platform poll, see below) | copernicus-api (0 requests) | none in code; docs only (`sciencevideodb/docs/INFRASTRUCTURE_INTEGRATION.md:38`) | ~10 to 12 | **RETIRE** (stop first) | no consumer, no backups, no deletion protection | 1 export; 2 stop; 5 delete / CC |
 | research-metadata-db | 99 MB | 2, constant | research-metadata-api (0 requests) | none; `glmp/docs/GLMP_MASTER_TODO.md:1643` says no secret or proxy exists anywhere | ~10 to 12 | **LOCK DOWN, then RETIRE** | one authorized network entry (a single /32); no consumer | 1 trim entry; 2 stop; 5 delete / CC |
-| glmp-db | 76 MB | 1, constant | nothing | cited as holding the dataset in an archived draft, `glmp/docs/archive/old_files/misc_files/glmp_paper_101625_FINAL_CLEAN.txt:339` | ~10 to 12 | **KEEP** | automated daily backups are on (last: 2026-10-04 04:00 UTC, successful); the GLMP lane should confirm whether the paper's claim is live | 1 add deletion protection / CC |
+| glmp-db | 76 MB (an empty instance's baseline) | 1, constant (the platform poll, see below) | nothing | cited as holding the dataset in an archived draft, `glmp/docs/archive/old_files/misc_files/glmp_paper_101625_FINAL_CLEAN.txt:339` | ~10 to 12 | **RETIRE** (export, stop, delete) | its `glmp` database holds 0 rows and nothing connects to it; the GLMP data is in Firestore. Daily backups and deletion protection stay on until Batch 5 | 1.7b export; 2 stop; 5 delete / CC |
 | scienceviddb-db | 306 MB | 1 to 10 | scienceviddb-web | `sciencevideodb/docs/SCITV_ROADMAP.md:163`, `sciencevideodb/packages/db/` | ~10 to 12 | **KEEP, harden** | the only live database, and it has **no automated backups and no deletion protection** | 1 enable both / CC |
 
 Network settings, read from the instance configuration (no database connection): **no instance
@@ -154,10 +154,37 @@ allows 0.0.0.0/0 or any broad range.** Three have no authorized network at all; 
 has the single /32 noted above. All four have a public IPv4 address and accept unencrypted
 connections; tightening that is listed under "not proposed" in section 7.
 
-A constant non-zero connection on `copernicus-db` and `glmp-db` means *something* holds a session
-open. It is not the Cloud Run services (they had no requests). Stopping an instance is a one-command
-test of that, which is why Batch 2 stops before Batch 5 deletes. I did not connect to any database
-(that needs credentials from Secret Manager, out of scope here).
+**The constant sessions are a platform poll, not an application.** Every instance shows the same
+pattern: about 5,760 new connections a day to *each* database, one every 15 seconds, identical
+for the application database and for `postgres`. Thirty-day totals, application database and
+`postgres`: `glmp-db` 172,696 and 172,696; `copernicus-db` 172,692 and 172,691;
+`research-metadata-db` 172,692 and 172,691; `scienceviddb-db` 172,946 and 172,695. Beyond that
+baseline the application databases saw 0 to 1 real connections in 30 days on the three instances
+to retire, and about 250 on `scienceviddb-db`, the live one. I did not connect to any database
+(that needs credentials from Secret Manager, out of scope here). Stopping an instance stays the
+test for any client the metrics cannot see, which is why Batch 2 stops before Batch 5 deletes.
+
+**`glmp-db`: what is in it, seen without connecting (Gary's belief: the data now lives in Firestore).**
+
+| What I looked at | Result |
+|---|---|
+| Databases and users (instance metadata) | databases `postgres` and `glmp`; users: the built-in `postgres` and one IAM login (Gary's own). No application user |
+| Wiring | no Secret Manager entry for it (the only database secrets are `copernicus-db-url`, `scienceviddb-database-url` and `cloud-sql-password`); no Cloud Run service or job attaches it; the `glmp_*` functions and `glmp-service` have no database setting (their environment variables are `BUCKET_NAME`, `PROJECT_ID`, `LOG_EXECUTION_ID`) |
+| Rows (Cloud Monitoring `tuple_size`) | `glmp` database: **0 live and 0 dead tuples**. The metric reads real data elsewhere: `scienceviddb` 377,041, `research_metadata` 14,317, `copernicus` 4 |
+| Size | 76.2 MB used on the instance, the baseline of an empty instance (`copernicus-db`, with 7 near-empty tables, uses 76.8 MB) |
+| Connections | 172,696 new in 30 days, equal to the `postgres` database: the platform poll and nothing else |
+| Backups | 7 daily automated backups, 2026-09-29 to 2026-10-05, all successful; their sizes are not visible without a restore |
+| Firestore today | `glmp_processes` 217 documents, `glmp_circuits` 19 |
+| History | instance created 2025-10-14, two days before the paper draft (2025-10-16) that mentions it; the glmp repo's `database_schema_with_logic.sql` (6 tables, last touched 2025-09-12) predates the instance and only an archived inventory refers to it |
+| **Not visible** | table names and row contents (they need a connection); statement counts and application names (Query Insights is off, so those metrics returned no series, which means "not collected", not zero) |
+
+**Conclusion: nothing suggests data exists only in `glmp-db`.** It has zero rows, no application
+user or secret, no connection beyond the platform poll, and the GLMP data is in Firestore. The
+zero-row reading is a statistics gauge, so step 1.7b exports the database first. If the export
+turns out to hold rows, they are compared with `glmp_processes` and `glmp_circuits` before
+anything is stopped. Daily backups keep running until the instance is stopped (a stopped instance
+takes no new backup; the seven existing ones stay until the instance is deleted), and the
+deletion protection set in 1.5 stays until Batch 5.
 
 ### 4E. Buckets
 
@@ -279,7 +306,7 @@ or contents beyond adding copies.
 Conventions. `P=regal-scholar-453620-r7`, region `us-central1`,
 `I=gs://regal-scholar-453620-r7-internal/phase2-2026-10`. Every backup goes to `$I`, a private bucket.
 Config exports (`--format=export`) can contain plaintext environment values: copy them to `$I` and
-never print them (rule 3). No command here has been run.
+never print them (rule 3). Batch 1, steps 1.1 to 1.7, was run on 2026-10-05 with Gary's approval; no other command here has been run.
 
 ### Batch 1: back up, harden, trim, prune (all reversible)
 
@@ -292,13 +319,14 @@ never print them (rule 3). No command here has been run.
 | 1.5 | **glmp-db**: `gcloud sql instances patch glmp-db --project $P --deletion-protection` | none | `gcloud sql instances patch glmp-db --project $P --no-deletion-protection` | CC |
 | 1.6 | **research-metadata-db**: remove its one authorized network entry: `gcloud sql instances patch research-metadata-db --project $P --clear-authorized-networks` | the entry's value is recorded in the private note in the internal bucket | `gcloud sql instances patch research-metadata-db --project $P --authorized-networks=<value from that note>` | CC |
 | 1.7 | **Export the two databases to retire, through a scratch bucket so the internal bucket's permissions never change.** `T=gs://regal-scholar-453620-r7-sql-export-tmp`; `gcloud storage buckets create $T --project $P --location=us-central1 --uniform-bucket-level-access --public-access-prevention`; for each `INST`/`DB` (`copernicus-db`/`copernicus`, `research-metadata-db`/`research_metadata`): `SA=$(gcloud sql instances describe INST --project $P --format='value(serviceAccountEmailAddress)')`; `gcloud storage buckets add-iam-policy-binding $T --member=serviceAccount:$SA --role=roles/storage.objectAdmin`; `gcloud sql export sql INST $T/INST-DB.sql.gz --database=DB --project $P`; `gcloud storage cp $T/INST-DB.sql.gz $I/` (an add-only copy); compare the two checksums; then `gcloud storage rm -r $T`. **Creating and deleting a scratch bucket and one temporary grant on it needs Gary's explicit OK.** | the export is the backup | delete the export objects from `$I`; the scratch bucket and its grant are gone with `rm -r` | CC |
+| 1.7b | **Export `glmp-db`/`glmp` the same way as 1.7** (added 2026-10-05 at Gary's request; it needs Gary's go-ahead because 1.7 was approved for two databases). Create the scratch bucket `T=gs://regal-scholar-453620-r7-sql-export-tmp` as in 1.7; `SA=$(gcloud sql instances describe glmp-db --project $P --format='value(serviceAccountEmailAddress)')`; grant it `roles/storage.objectAdmin` on `$T`; `gcloud sql export sql glmp-db $T/glmp-db-glmp.sql.gz --database=glmp --project $P`; add-only copy to `$I/`; compare checksums; `gcloud storage rm -r $T`. Then count tables and `COPY` blocks in memory (no content printed) and, if any rows exist, compare them with Firestore `glmp_processes` and `glmp_circuits` before Batch 2 | the export is the backup | delete the export object from `$I`; the scratch bucket and its grant are gone with `rm -r` | CC |
 | 1.8 | Prune old Cloud Run revisions on `copernicus-podcast-api` (266 retained) and `copernicus-frontend` (53 retained): list revisions older than the rollback chain and delete them oldest first, **keeping the newest 10 of each, and every revision named in section 4H.** `gcloud run revisions delete REVISION --region us-central1 --project $P --quiet`. Cloud Run refuses to delete a revision that still serves traffic, and any such refusal is listed, not forced. | digest list from 1.3 | redeploy an image from the saved digest list: `gcloud run deploy copernicus-podcast-api --image gcr.io/$P/copernicus-podcast-api@sha256:DIGEST --no-traffic --region us-central1 --project $P` (this creates a new revision under a new name; follow `cloud-run-backend/DEPLOY.md`) | CC |
 
 ### Batch 2: stop, protect (reversible with one command or toggle)
 
 | # | Action | Backup first | Reversal | Who |
 |---|---|---|---|---|
-| 2.1 | Stop `copernicus-db` and `research-metadata-db`: `gcloud sql instances patch INST --project $P --activation-policy=NEVER`. Watch 7 days for any error that names them. Storage is still billed while stopped. | 1.7 | `gcloud sql instances patch INST --project $P --activation-policy=ALWAYS` | CC |
+| 2.1 | Stop `copernicus-db`, `research-metadata-db` and `glmp-db` (the last only after 1.7b): `gcloud sql instances patch INST --project $P --activation-policy=NEVER`. Watch 7 days for any error that names them. Storage is still billed while stopped, and a stopped instance takes no new automated backup (the existing ones stay). | 1.7 and 1.7b | `gcloud sql instances patch INST --project $P --activation-policy=ALWAYS` | CC |
 | 2.2 | For the six git-disconnected Vercel projects: Settings → Deployment Protection → Vercel Authentication on. | note each project's current setting | switch it back off | Gary |
 
 ### Batch 3: delete the silent services and functions (after 7 quiet days on Batch 2)
@@ -323,8 +351,98 @@ never print them (rule 3). No command here has been run.
 
 | # | Action | Backup first | Reversal | Who |
 |---|---|---|---|---|
-| 5.1 | `gcloud sql instances delete INST --project $P` for `copernicus-db` and `research-metadata-db` (remove deletion protection first if it was set) | the 1.7 export, size and checksum re-verified the same day. Note that an instance's own backups are deleted with it | `gcloud sql instances create INST --database-version=POSTGRES_15 --tier=db-f1-micro --region=us-central1 --storage-type=SSD --storage-size=10 --project $P`, then `gcloud sql databases create DB --instance=INST`, then `gcloud sql import sql INST $I/INST-DB.sql.gz --database=DB`. Roles and passwords are not in the export and would have to be recreated. | CC |
+| 5.1 | `gcloud sql instances delete INST --project $P` for `copernicus-db`, `research-metadata-db` and `glmp-db` (remove deletion protection first with `--no-deletion-protection`; `glmp-db` has it from 1.5) | the 1.7 and 1.7b exports, size and checksum re-verified the same day. Note that an instance's own backups are deleted with it | `gcloud sql instances create INST --database-version=POSTGRES_15 --tier=db-f1-micro --region=us-central1 --storage-type=SSD --storage-size=10 --project $P`, then `gcloud sql databases create DB --instance=INST`, then `gcloud sql import sql INST $I/INST-DB.sql.gz --database=DB`. Roles and passwords are not in the export and would have to be recreated. | CC |
 | 5.2 | Delete the Vercel projects chosen in 4G (Dashboard → project → Settings → General → Delete) | export each project's environment variables and domain list from its settings first | re-import the repo as a new project and re-add domains and variables; deployment history is not recoverable | Gary |
+
+### C1. Separate gated change: `copernicus-podcast-api` minimum instances 1 to 0 (proposal; the live service is not changed)
+
+**What and why.** Gary wants the always-on instance dropped, to save about $25 a month. The
+service bills by request (CPU throttled, startup CPU boost already on), so only a *minimum*
+instance bills while idle. With a minimum of 0, an idle instance shuts down after about 15
+minutes and stops billing.
+
+**What the data says** (read-only, 2026-10-05):
+
+| Fact | Value | Source |
+|---|---|---|
+| Container startup, with startup CPU boost already on | p50 29.8 s, p95 72.0 s, p99 74.3 s | Cloud Monitoring `container/startup_latencies`, 30 days, all revisions |
+| Idle gaps over 15 minutes (each would end in a cold start) | 390 in 30 days: **13 a day**, in every hour of the day; median gap 40 min, longest 5.9 h | the 18,275 request-log entries, 2026-09-04 to 2026-10-04 |
+| Warm server-side latency | `/health` about 0.1 s; episode request p50 0.11 s, p95 0.38 s; episode list p50 0.75 s | request logs |
+| Warm time to first byte from this laptop, live service, 3 trials | `/health` 0.19 to 0.27 s; `/api/episodes/<id>` 0.18 to 0.26 s | measured 2026-10-05 |
+| Requests that already took over 20 s | 7 in 30 days (`/api/content/browse`, `/api/vector-search/semantic`, `/api/rag/answer`) | request logs |
+| Who calls it | mostly pages in the public bucket (about 14,900 of 18,300 calls), the Vercel site and the HF Space | request-log referers |
+
+So with a minimum of 0, about 13 requests a day would wait roughly 30 to 70 seconds, if the
+startup metric is representative of a cold start on a request. The callers are pages running in
+visitors' browsers; whether their code gives up before 30 seconds was not checked.
+
+**Savings.** Billable instance time for this service was about 1.77 million instance-seconds in
+the last 7 days (about 2.9 instances running around the clock). Most of that came from tagged
+0%-traffic revisions that carry a minimum instance: a tag keeps such a revision warm and billed.
+The tag removal of 2026-10-04 released three; hourly instance counts now show only `-00268-muc`
+(tag `step2`) and the live `-00270-puh`. This change releases the live revision's warm instance:
+about one instance, roughly $22 to $25 a month at the unverified price in section 6, less request
+time and about 13 cold starts a day. Removing `step2` after the hold is worth about the same
+again.
+
+**Procedure,** following `cloud-run-backend/DEPLOY.md`, with one stated exception: step 4's
+"only the image may differ" becomes "the image is identical and only the minimum-instances
+setting differs".
+
+1. Create a tagged, no-traffic revision with the same image and only that setting changed:
+   `gcloud run services update copernicus-podcast-api --region us-central1 --project $P --min-instances=0 --no-traffic --tag=mininst0`.
+   `services update` patches only what it is given, so the image digest and every other setting
+   carry over (the three flags exist on this command). **This creates a new revision**, numbered
+   after `-00270-puh`. Nothing else changes: traffic stays 100% on `-00270-puh`, and `-00268-muc`
+   keeps its tag at 0%.
+2. Diff it against `-00270-puh` (DEPLOY.md step 4). Only the name, tag, timestamps and
+   `autoscaling.knative.dev/minScale` (1 to 0) may differ.
+3. Smoke-test the tag URL (DEPLOY.md step 5): `/health`, and the sorted list of episode IDs
+   identical to the live service.
+4. Run the cold-start measurement below.
+5. Gary decides from the numbers. If yes, move traffic:
+   `gcloud run services update-traffic copernicus-podcast-api --region us-central1 --project $P --to-revisions=<new revision>=100`.
+   Then DEPLOY.md step 7, plus instance count falling to 0 after 20 idle minutes and request
+   latency over the following days.
+6. Remove the tag when its hold ends (DEPLOY.md step 9):
+   `--remove-tags=mininst0`. Reversal: `--update-tags=mininst0=<new revision>`.
+
+**Interaction with the `-00268-muc` hold (until 2026-10-11).** Creating the revision deletes
+nothing and moves no traffic, so `-00268-muc` stays a valid rollback. After a cutover the
+rollback chain is: new revision, then `-00270-puh` (it still carries the tag `gap1-engine`, which
+keeps it warm, so rolling back to it is instant), then `-00268-muc`. Recommendation: do steps 1
+to 4 (no traffic) once Gary approves, and do step 5 **not before 2026-10-11**, so the hold covers
+the same release unchanged and only one change is in flight at a time. The `step2` tag keeps one
+instance warm on `-00268-muc` until it is removed; rollback by revision name does not need the tag,
+but a rollback to a revision with no warm instance cold-starts for about 30 to 70 seconds. That is
+a decision for Gary (section 8).
+
+**Reversal.** Fast: `gcloud run services update-traffic copernicus-podcast-api --region us-central1 --project $P --to-revisions=copernicus-podcast-api-00270-puh=100`
+(instant while that revision keeps its tag; remove the tag only after the watch period).
+Permanent: `gcloud run services update copernicus-podcast-api --region us-central1 --project $P --min-instances=1 --no-traffic --tag=restore`,
+then route to it.
+
+**Cold-start measurement plan,** on the tagged no-traffic revision. The live service is not touched.
+
+- **Setup.** The revision from step 1. Its tag URL is public but serves the same code as the live
+  service, so it exposes nothing the live service does not.
+- **Idle.** Before each trial, confirm the revision has 0 instances (`container/instance_count`
+  for that revision) and has received no request for at least 20 minutes.
+- **Trials.** Six cold trials, alternating `/health` and an episode request (`GET /api/episodes/<id>`
+  with one fixed real id from the live list): health, episode, health, episode, health, episode.
+  That is 3 per endpoint, at least 20 minutes apart, about 2 hours 10 minutes in all.
+- **Record** for each, from `curl -s -o /dev/null -m 120 -w`: `time_namelookup`, `time_connect`,
+  `time_starttransfer` (time to first byte), `time_total` and `http_code`. Straight after each cold
+  request, one warm request to the *other* endpoint as a within-trial control.
+- **Server side** for the same window: `container/startup_latencies` and the request-log `latency`
+  of those requests.
+- **Baseline.** The warm live numbers above, re-taken (3 trials) at the end to catch drift.
+- **Decision threshold, for Gary to set.** My suggestion: switch only if the cold time to first
+  byte of the episode request is 10 seconds or less in all three trials. The data above predicts
+  it will not be (startup alone is about 30 s with boost already on). If it is not, the choices
+  are to keep a minimum of 1, to accept the cold starts, or to shorten application startup, which
+  is a code change and its own proposal.
+- **Cleanup.** Remove the tag (DEPLOY.md step 9) when the measurement is done.
 
 ---
 
@@ -344,10 +462,15 @@ else scales to zero.
 | Cloud Storage standard | about $0.020 (single region) and $0.026 (US multi-region) per GB-month | about $1.2 for the build archives; pennies for the rest |
 | Cloud Run warm instance, idle rate | about $0.0000025 per vCPU-second and per GiB-second | about $25 for podcast-api, plus request time |
 
-**Total touched: about $85 a month. Removable by this proposal: the two databases (about $20 to
-$24), the build archives (about $1) and part of the images (anywhere from a few dollars to $16)**,
-so about $25 to $40. Treat these as orders of magnitude. To replace them with real numbers, enable
+**Total touched: about $85 a month. Removable by this proposal: the three databases (about $30 to
+$36), the build archives (about $1) and part of the images (anywhere from a few dollars to $16)**,
+so about $35 to $50. The minimum-instance change in section 5 (C1) is separate and not counted here. Treat these as orders of magnitude. To replace them with real numbers, enable
 the Billing export or open Billing → Reports for this project; the Billing API stayed disabled here.
+
+**Warm instances are the largest running cost I can see, and tags drive it.** Billable instance-seconds for
+`copernicus-podcast-api` were about 1.77 million in 7 days, mostly from tagged 0%-traffic revisions that
+carry a minimum instance. Three were released by the tag removal of 2026-10-04; `-00268-muc` (tag `step2`) still holds one.
+Treat any tag on a revision with a minimum instance as a running cost until it is removed (DEPLOY.md step 9).
 
 ---
 
@@ -355,8 +478,9 @@ the Billing export or open Billing → Reports for this project; the Billing API
 
 - **`scienceviddb-db` is the only live database and has no backup and no deletion protection.**
   Batch 1.4 fixes both for pennies.
-- **Constant connections to `copernicus-db` and `glmp-db`** come from something this review could
-  not identify. Batch 2's stop-first order is the test.
+- **The constant sessions on the databases are a platform poll**, one new connection every 15
+  seconds per database on every instance, not an application (see 4D). Batch 2's stop-first order
+  still guards against any client the metrics cannot see.
 - **One backup bucket matters.** 93 files exist only in `…-backup-20250707`; the other two
   backups add nothing beyond it and main. It costs about two cents a month; keep it, or archive the
   93 files to the internal bucket under rule 16 and then retire it.
@@ -375,6 +499,20 @@ Recorded 2026-10-05 from Gary's decisions on this PR.
 4. **Vercel: deferred** until Gary exports the project lists (both teams).
 5. **Disabled key `8ee8790b…` (entry 005): delete together with Batch 3, not before 2026-10-13** (moved from Batch 5 to row 3.3).
 6. The privately filed items: separate approvals, given outside this file.
+
+### Proposed 2026-10-05, awaiting Gary
+
+7. **`glmp-db` to the retire track** (4D, step 1.7b): export through the scratch bucket, stop in
+   Batch 2 with a 7-day watch, delete in Batch 5; its daily backups and deletion protection stay
+   until Batch 5. Evidence: zero rows, no application user or secret, no connection beyond the
+   platform poll. Needs a go-ahead for 1.7b, which is new work beyond the approved 1.7.
+8. **Minimum instances 1 to 0 on `copernicus-podcast-api`** (section 5, C1). The data predicts cold
+   starts of about 30 s, up to 72 s, about 13 times a day. Recommendation: approve steps 1 to 4
+   (a tagged revision with no traffic, then the measurement) and decide on the cutover from the
+   numbers, not before 2026-10-11. Gary sets the threshold.
+9. **The `step2` tag on `-00268-muc`** keeps one instance warm (about $25 a month at the assumed
+   price) until it is removed. Remove it now, accepting that a rollback to `-00268-muc` would then
+   cold-start, or keep it until the hold ends on 2026-10-11?
 
 *Evidence kept in the session scratchpad only; no secret values were read or printed. The
 commands above were proposals; execution is reported in the PR description, not in this file.*
