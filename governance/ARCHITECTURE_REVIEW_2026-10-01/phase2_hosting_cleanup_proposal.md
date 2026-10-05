@@ -39,9 +39,9 @@ Nothing in this file is urgent. The privately filed items are, and Gary has been
 |---|---|---|---|
 | 1 | on approval, from 2026-10-05 | back up configs; harden databases; trim the network entry on one database; prune old Cloud Run revisions | yes, all |
 | 2 | after Batch 1, about 2026-10-06 | stop (not delete) two databases; add Vercel deployment protection to the six disconnected projects | yes, one command or one toggle |
-| 3 | after 7 quiet days on Batch 2, about 2026-10-13 | delete 6 Cloud Run services and 3 functions | yes, from saved config while the image exists |
+| 3 | after 7 quiet days on Batch 2, about 2026-10-13 | delete 6 Cloud Run services and 1 function (`copernicus-podcast-form`); delete the disabled key (entry 005), not before 2026-10-13. `generate-podcast` and `glmp_process_suggestion` wait for the GLMP lane | yes, from saved config while the image exists; the key deletion is not reversible |
 | 4 | not before 2026-10-11 | delete revision -00262-kfx; trim old build archives; delete two redundant backup buckets; delete unreferenced images | partly (7-day undelete on archives; backups recopyable; images need a rebuild) |
-| 5 | after at least 30 days stopped | delete 2 databases; delete the disabled key; delete retired Vercel projects | no, or only by import / recreate |
+| 5 | after at least 30 days stopped | delete 2 databases; delete retired Vercel projects (deferred) | no, or only by import / recreate |
 
 ---
 
@@ -215,7 +215,7 @@ the request logs of `copernicus-podcast-api` (page loads from a Vercel deploymen
 
 | Item | State (verified 2026-10-04) | Evidence | Rec | Reason | Batch / who |
 |---|---|---|---|---|---|
-| Service-account key `8ee8790b0a4cfecbe671db4c7c7f77aac48d26d3` (entry 005) | `disabled: True`, user-managed, created 2025-04-04 | no usage history obtainable (section 2); its ID appears at `governance/BULLETIN.md:276` and nowhere else in governance, the root docs or the glmp docs | **RETIRE** (delete) | entry 005 already says delete after 2026-10-05 if nothing broke; no break reported | 5 / CC |
+| Service-account key `8ee8790b0a4cfecbe671db4c7c7f77aac48d26d3` (entry 005) | `disabled: True`, user-managed, created 2025-04-04 | no usage history obtainable (section 2); its ID appears at `governance/BULLETIN.md:276` and nowhere else in governance, the root docs or the glmp docs | **RETIRE** (delete) | entry 005 already says delete after 2026-10-05 if nothing broke; no break reported; Gary decided 2026-10-05 to delete it with Batch 3 | 3 / CC, not before 2026-10-13 |
 | Revision `copernicus-podcast-api-00262-kfx` (entry 009) | 0% traffic; created 2026-08-26 | 12,097 requests in the window, last 2026-09-30 04:51 UTC, i.e. until the 09-30 cutover; image `…@sha256:6aaad70fb52f05d188d4ef19db94fa72b4f865aa218d9fb5421e9e5568b66016` | **RETIRE** | three newer rollback points exist; rolling back to -00262-kfx would bring back the five generator bugs entry 009 fixed | 4, not before 2026-10-11 / CC |
 | Revision `copernicus-podcast-api-00268-muc` | 0% traffic; created 2026-10-02 | 4,603 requests, last 2026-10-04 15:53 UTC; image `…@sha256:b13a822cb20221c6d5c59737b82048022f9508cef3f04d8ea0aa2b15465ba795` | **KEEP** until at least 2026-10-11 | today's backend rollback (entry 017) | none |
 | Revision `copernicus-frontend-00052-zif` | 0% traffic; created 2026-10-01 | 38 requests, last 2026-10-04 16:22 UTC; image `…@sha256:251a05d3741cc8b1a726e4bd5f701ef3f67842d76e1d3e75a21defc2c182ed18` | **KEEP** until at least 2026-10-11 | today's frontend rollback (entry 017) | none |
@@ -306,7 +306,8 @@ never print them (rule 3). No command here has been run.
 | # | Action | Backup first | Reversal | Who |
 |---|---|---|---|---|
 | 3.1 | `gcloud run services delete S --region us-central1 --project $P` for the five services in 1.1 **and for `glmp-service`** (image `…/cloud-run-source-deploy/glmp-service@sha256:2f604b7fc71f813e8b4b15ac8abe69eb5f04f338fa33dc0db300af272316b441`, kept until Batch 4) | 1.1 and the image digests (kept until Batch 4) | `gcloud run services replace $S.yaml --region us-central1 --project $P` after fetching `$I/$S.yaml`; the service URL returns. The service stays closed until an IAM binding is added deliberately. | CC |
-| 3.2 | `gcloud functions delete NAME --gen2 --region us-central1 --project $P` for `copernicus-podcast-form`, `generate-podcast`, `glmp_process_suggestion` | 1.2 | `gcloud functions deploy NAME --gen2 --region us-central1 --project $P --runtime python311 --entry-point ENTRY --trigger-http --no-allow-unauthenticated --source=./unzipped-NAME` (unzip the saved zip; restore environment variables from `NAME.yaml`) | CC, after the GLMP lane OKs `glmp_process_suggestion` and moves the `generate-podcast` callers |
+| 3.2 | `gcloud functions delete NAME --gen2 --region us-central1 --project $P` for `copernicus-podcast-form` only. **`generate-podcast` and `glmp_process_suggestion` are held out of this batch** until the GLMP lane has archived the `generate-podcast` callers and OKs `glmp_process_suggestion` | 1.2 (all three are saved anyway) | `gcloud functions deploy NAME --gen2 --region us-central1 --project $P --runtime python311 --entry-point ENTRY --trigger-http --no-allow-unauthenticated --source=./unzipped-NAME` (unzip the saved zip; restore environment variables from `NAME.yaml`) | CC |
+| 3.3 | `gcloud iam service-accounts keys delete 8ee8790b0a4cfecbe671db4c7c7f77aac48d26d3 --iam-account=copernicus-service@regal-scholar-453620-r7.iam.gserviceaccount.com` | none possible (no key material is held); the key's ID and creation date are recorded in 4H | **none.** A key cannot be restored after deletion; issue a new one with `gcloud iam service-accounts keys create` and update whatever uses it | CC, not before 2026-10-13, together with 3.1 |
 
 ### Batch 4: storage and images (not before 2026-10-11)
 
@@ -323,8 +324,7 @@ never print them (rule 3). No command here has been run.
 | # | Action | Backup first | Reversal | Who |
 |---|---|---|---|---|
 | 5.1 | `gcloud sql instances delete INST --project $P` for `copernicus-db` and `research-metadata-db` (remove deletion protection first if it was set) | the 1.7 export, size and checksum re-verified the same day. Note that an instance's own backups are deleted with it | `gcloud sql instances create INST --database-version=POSTGRES_15 --tier=db-f1-micro --region=us-central1 --storage-type=SSD --storage-size=10 --project $P`, then `gcloud sql databases create DB --instance=INST`, then `gcloud sql import sql INST $I/INST-DB.sql.gz --database=DB`. Roles and passwords are not in the export and would have to be recreated. | CC |
-| 5.2 | `gcloud iam service-accounts keys delete 8ee8790b0a4cfecbe671db4c7c7f77aac48d26d3 --iam-account=copernicus-service@regal-scholar-453620-r7.iam.gserviceaccount.com` | none possible (no key material is held); the key's ID and creation date are recorded in 4H | **none.** A key cannot be restored after deletion; issue a new one with `gcloud iam service-accounts keys create` and update whatever uses it | CC |
-| 5.3 | Delete the Vercel projects chosen in 4G (Dashboard → project → Settings → General → Delete) | export each project's environment variables and domain list from its settings first | re-import the repo as a new project and re-add domains and variables; deployment history is not recoverable | Gary |
+| 5.2 | Delete the Vercel projects chosen in 4G (Dashboard → project → Settings → General → Delete) | export each project's environment variables and domain list from its settings first | re-import the repo as a new project and re-add domains and variables; deployment history is not recoverable | Gary |
 
 ---
 
@@ -365,16 +365,16 @@ the Billing export or open Billing → Reports for this project; the Billing API
 - **Not proposed here:** tightening Cloud SQL to encrypted-only connections, a lifecycle rule for
   old object versions in `podcast-storage`, and enabling the Billing export. Each is its own change.
 
-## 8. Decisions needed from Gary
+## 8. Decisions
 
-1. Approve Batch 1, including the scratch bucket and temporary grant in 1.7 (or say to export another way).
-2. Approve Batch 2 now, and Batch 3 to follow after seven quiet days (the proposal assumes yes). Batch 3 now includes deleting `glmp-service`, which the GLMP lane has marked retired (glmp#23).
-3. The GLMP lane: retire `glmp_process_suggestion`? Is the `glmp-db` claim in the paper draft live?
-   Who moves or deletes the `generate-podcast` callers in the glmp root?
-4. Vercel: send the project list for both teams; choose which of the six disconnected projects
-   to protect, and which to delete.
-5. Confirm the date for deleting the disabled key (entry 005 said on or after 2026-10-05).
+Recorded 2026-10-05 from Gary's decisions on this PR.
+
+1. **Batch 1: approved**, including the scratch bucket and temporary grant in 1.7.
+2. **Batch 2: approved.** **Batch 3: approved** to follow after 7 quiet days on Batch 2 (about 2026-10-13 at the earliest). It includes deleting `glmp-service`, which the GLMP lane has marked retired (glmp#23).
+3. **GLMP lane items.** The `generate-podcast` callers in the glmp root: the GLMP lane will **archive** them (not move them). `glmp_process_suggestion` awaits the GLMP lane's OK. **Both functions stay out of Batch 3 until then.** Still open: whether the `glmp-db` claim in the paper draft is live.
+4. **Vercel: deferred** until Gary exports the project lists (both teams).
+5. **Disabled key `8ee8790b…` (entry 005): delete together with Batch 3, not before 2026-10-13** (moved from Batch 5 to row 3.3).
 6. The privately filed items: separate approvals, given outside this file.
 
-*Evidence kept in the session scratchpad only; no secret values were read or printed. Commands
-shown are proposals; none was run.*
+*Evidence kept in the session scratchpad only; no secret values were read or printed. The
+commands above were proposals; execution is reported in the PR description, not in this file.*
