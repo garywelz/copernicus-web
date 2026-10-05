@@ -38,6 +38,9 @@ between. Deploy this service by hand, in gated steps, every time.
      --region us-central1 \
      --project regal-scholar-453620-r7
    ```
+   The tag gives the new revision its own URL, and that URL has the
+   service's public access (`governance/AGENT_ROLES.md` rule 18). It is for
+   step 5 only; remove it in step 9.
 
 4. **Diff the new and old revision specs.** Record which revision is
    currently serving traffic before you start. The only acceptable
@@ -77,8 +80,33 @@ between. Deploy this service by hand, in gated steps, every time.
      --region us-central1 --project regal-scholar-453620-r7 \
      --to-revisions=<old-revision>=100
    ```
+   Rollback names the revision. It does not need, and must not rely on, a tag.
+
+9. **Remove the tag when its hold ends.** A tag is a public URL, so a tag
+   left on an old revision keeps that revision reachable. A tag on a
+   revision with minimum instances also keeps that revision warm and
+   billed, which is a second reason to remove tags promptly. List what is
+   there, remove the tag you added in step 3 (and any other that has
+   outlived its purpose), and record any tag you leave in place and why
+   (a tag on the live revision can stay):
+   ```bash
+   gcloud run services describe copernicus-podcast-api \
+     --region us-central1 --project regal-scholar-453620-r7 \
+     --format="value(status.traffic)"
+   gcloud run services update-traffic copernicus-podcast-api \
+     --region us-central1 --project regal-scholar-453620-r7 \
+     --remove-tags=<label>
+   ```
+   Reversal, if the tag was needed after all:
+   ```bash
+   gcloud run services update-traffic copernicus-podcast-api \
+     --region us-central1 --project regal-scholar-453620-r7 \
+     --update-tags=<label>=<revision>
+   ```
+   Removing a tag removes its URL, not the revision; the revision stays as
+   the rollback path.
 
 Clean up the worktree when done: `git worktree remove <path>`.
 
 See `governance/BULLETIN.md` entry 009 for the worked example this
-procedure was extracted from.
+procedure was extracted from, and entry 018 for why step 9 exists.
