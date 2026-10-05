@@ -36,10 +36,11 @@ Entry format:
   - **Fix.** Public access was removed on 2026-10-04 and anonymous requests now get `403` (verified 2026-10-05 00:43 UTC; a first check six seconds after the change still got `200`, because IAM changes take a short time to take effect). No caller in any repo, Hugging Face Space, public page or other service needs it public. The previous policy and configuration are saved in the private internal bucket. To reverse: `gcloud run services add-iam-policy-binding glmp-service --region=us-central1 --member=allUsers --role=roles/run.invoker`.
   - **Revision tags removed** from `copernicus-podcast-api`: `fixes0930`, `test` and `lockdown`. A tag gives a revision its own URL with the service's public access, so revisions older than the lockdown in entry 014 were reachable by URL. Rollback goes by revision name and is unaffected; `step2` (`-00268-muc`) and `gap1-engine` stay. To reverse: `gcloud run services update-traffic copernicus-podcast-api --region us-central1 --update-tags=fixes0930=copernicus-podcast-api-00264-sug,test=copernicus-podcast-api-00097-xal,lockdown=copernicus-podcast-api-00266-nav`.
   - **Correction to entry 009.** It named "revision -00262-kfx and the fixes0930 tag" as the rollback path. The tag was on `-00264-sug`; `-00262-kfx` never carried one. The tag is gone, and rollback is by revision name.
-  - **A redeploy would undo the first fix.** [the build file in the glmp repo's glmp-cloud-service folder](https://github.com/garywelz/glmp/blob/main/glmp-cloud-service/cloudbuild.yaml) and seven documents beside it pass `--allow-unauthenticated`. Do not redeploy `glmp-service` from them until they are changed.
+  - **A redeploy would have undone the first fix, and cannot now.** The glmp repo's build file and seven documents beside it passed `--allow-unauthenticated`. [glmp#23](https://github.com/garywelz/glmp/pull/23) (commit ae1de18) switched them to `--no-allow-unauthenticated` and added a [RETIRED.md](https://github.com/garywelz/glmp/blob/main/glmp-cloud-service/RETIRED.md) note beside the service's code. No Cloud Build triggers exist in the project, so nothing redeploys the service automatically.
 - **Waiting on:**
-  - **Gary:** check OpenAI, OpenRouter and other provider usage since 2025-10 for unexplained spend (the logs cover only 30 days).
-  - **GLMP lane:** remove `--allow-unauthenticated` from that build file and the documents that carry it, or retire the service (nothing calls it).
+  - **Gary:** check OpenAI, OpenRouter and other provider usage since 2025-10 for unexplained spend (the logs cover only 30 days); decide whether to delete `glmp-service` (nothing calls it, and glmp#23 marked it retired).
+  - **GLMP lane:** nothing; glmp#23 is merged.
+  - **Key review:** the Jetson's credential was identified and is not the disabled key.
   - **Collaborators:** nobody.
 
 ## 017 — 2026-10-04 — Engine scoping live: GLMP, ATAP and TDAP toggles now scope Browse, Search and Ask Questions
