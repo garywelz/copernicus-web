@@ -1,7 +1,7 @@
 # Agent Roles and Division of Labor
 ## CopernicusAI Knowledge Engine suite — every engine, every agent
 
-**Version:** 2.4 — October 1, 2026
+**Version:** 2.5 — October 4, 2026
 **Lives in:** `copernicus-web` repo at `governance/AGENT_ROLES.md` (moved from
 `glmp/docs/AGENT_ROLES.md`; see change log)
 **Read alongside:** the rest of `governance/` — Constitution, Methods Catalog, Resource
@@ -218,16 +218,26 @@ live fetch of this file fails.
     still open — a public repo discloses the finding to anyone the moment it's
     committed. Report to Gary immediately regardless; "private first" governs where it
     is written down, not when Gary is told. See `governance/BULLETIN.md` entry 014.
-18. **Any reader-facing object in a public GCS bucket is gated like a Cloud Run
-    deploy** — status pages, database tables, feeds: (1) edit the tracked copy on a
-    branch, never the live object directly; (2) show Gary the diff, wait for approval;
-    (3) merge to `main`; (4) back up the live object to the private bucket, then
-    publish from `main` with a generation precondition; (5) verify with a plain fetch
-    *and* object metadata (generation, MD5) — if they disagree, the metadata is
-    authoritative, and the reader-side discrepancy gets recorded, not papered over.
-    Emergency exception: a security or data-exposure fix may publish first, reported
-    to Gary immediately and back-filled with a PR. See `governance/BULLETIN.md` entry
-    013.
+18. **A change to what the public can reach is gated like a Cloud Run deploy.** This covers
+    (a) any reader-facing object in a public GCS bucket (status pages, database tables,
+    feeds), and (b) Cloud Run access and addressing: an IAM binding on a service (granting or
+    removing `allUsers` or `allAuthenticatedUsers`) and a revision tag (each tag is a URL with
+    the service's own access, so tagging a revision of a public service publishes that
+    revision). Steps: (1) propose it, with the exact command, the backup and the reversal; for
+    a GCS object, edit the tracked copy on a branch and never the live object; (2) show Gary
+    and wait for approval; (3) for a GCS object, merge to `main`; (4) back up first: the live
+    object to the private bucket, or the current IAM policy or traffic-and-tag map saved to the
+    private bucket; then apply with a precondition where the command allows (generation for
+    GCS, etag for IAM); (5) verify: for GCS, a plain fetch *and* object metadata (generation,
+    MD5), and if they disagree the metadata is authoritative; for Cloud Run, read the policy
+    or traffic back, then, for a change meant to close access, make one unauthenticated request
+    after waiting about two minutes and record the status code only, because IAM changes take a
+    short time to take effect (a probe six seconds after a removal on 2026-10-04 still got
+    `200`); (6) remove a tag when its hold ends and list any tag left in place.
+    Emergency exception: a security or data-exposure fix that *narrows* access (removing a
+    grant, removing a tag) may be applied first, reported to Gary in the same turn, and
+    back-filled with a PR or bulletin entry once live (rule 17). Widening access never
+    qualifies. See `governance/BULLETIN.md` entries 013, 014 and 018.
 
 ---
 
@@ -435,6 +445,10 @@ silently.
 ---
 
 ## Change log
+- **v2.5** (2026-10-04) — Rule 18 extended from public GCS objects to Cloud Run IAM
+  bindings and revision tags, with a propagation wait before probing an access removal
+  and an emergency exception limited to changes that narrow access. See
+  `governance/BULLETIN.md` entry 018.
 - **v2.4** (2026-10-01) — Added session rules 17 (a security finding goes to a
   private location first, public only after the fix is live) and 18 (gate
   direct-to-GCS publishes of reader-facing objects like a Cloud Run deploy, with
