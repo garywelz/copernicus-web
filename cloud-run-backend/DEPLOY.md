@@ -83,7 +83,9 @@ between. Deploy this service by hand, in gated steps, every time.
    Rollback names the revision. It does not need, and must not rely on, a tag.
 
 9. **Remove the tag when its hold ends.** A tag is a public URL, so a tag
-   left on an old revision keeps that revision reachable. List what is
+   left on an old revision keeps that revision reachable. A tag on a
+   revision with minimum instances also keeps that revision warm and
+   billed, which is a second reason to remove tags promptly. List what is
    there, remove the tag you added in step 3 (and any other that has
    outlived its purpose), and record any tag you leave in place and why
    (a tag on the live revision can stay):
