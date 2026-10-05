@@ -219,6 +219,9 @@ the request logs of `copernicus-podcast-api` (page loads from a Vercel deploymen
 | Revision `copernicus-podcast-api-00262-kfx` (entry 009) | 0% traffic; created 2026-08-26 | 12,097 requests in the window, last 2026-09-30 04:51 UTC, i.e. until the 09-30 cutover; image `…@sha256:6aaad70fb52f05d188d4ef19db94fa72b4f865aa218d9fb5421e9e5568b66016` | **RETIRE** | three newer rollback points exist; rolling back to -00262-kfx would bring back the five generator bugs entry 009 fixed | 4, not before 2026-10-11 / CC |
 | Revision `copernicus-podcast-api-00268-muc` | 0% traffic; created 2026-10-02 | 4,603 requests, last 2026-10-04 15:53 UTC; image `…@sha256:b13a822cb20221c6d5c59737b82048022f9508cef3f04d8ea0aa2b15465ba795` | **KEEP** until at least 2026-10-11 | today's backend rollback (entry 017) | none |
 | Revision `copernicus-frontend-00052-zif` | 0% traffic; created 2026-10-01 | 38 requests, last 2026-10-04 16:22 UTC; image `…@sha256:251a05d3741cc8b1a726e4bd5f701ef3f67842d76e1d3e75a21defc2c182ed18` | **KEEP** until at least 2026-10-11 | today's frontend rollback (entry 017) | none |
+
+The three stale revision tags on `copernicus-podcast-api` (`fixes0930`, `test` and `lockdown`) were removed on 2026-10-04 per BULLETIN entry 018; rollback goes by revision name, not by tag.
+
 ### 4I. Data stores: KEEP only, no action commands
 
 Nothing in Batches 1 to 5 reads, writes, deletes or changes the permissions of anything below.
