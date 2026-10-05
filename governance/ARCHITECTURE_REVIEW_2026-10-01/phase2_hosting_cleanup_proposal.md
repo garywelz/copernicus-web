@@ -354,7 +354,7 @@ never print them (rule 3). Batch 1, steps 1.1 to 1.7, was run on 2026-10-05 with
 | 5.1 | `gcloud sql instances delete INST --project $P` for `copernicus-db`, `research-metadata-db` and `glmp-db` (remove deletion protection first with `--no-deletion-protection`; `glmp-db` has it from 1.5) | the 1.7 and 1.7b exports, size and checksum re-verified the same day. Note that an instance's own backups are deleted with it | `gcloud sql instances create INST --database-version=POSTGRES_15 --tier=db-f1-micro --region=us-central1 --storage-type=SSD --storage-size=10 --project $P`, then `gcloud sql databases create DB --instance=INST`, then `gcloud sql import sql INST $I/INST-DB.sql.gz --database=DB`. Roles and passwords are not in the export and would have to be recreated. | CC |
 | 5.2 | Delete the Vercel projects chosen in 4G (Dashboard → project → Settings → General → Delete) | export each project's environment variables and domain list from its settings first | re-import the repo as a new project and re-add domains and variables; deployment history is not recoverable | Gary |
 
-### C1. Separate gated change: `copernicus-podcast-api` minimum instances 1 to 0 (proposal; the live service is not changed)
+### C1. Separate gated change: `copernicus-podcast-api` minimum instances 1 to 0 (declined for now, 2026-10-05; kept on file, conditional on faster container startup; the live service is not changed)
 
 **What and why.** Gary wants the always-on instance dropped, to save about $25 a month. The
 service bills by request (CPU throttled, startup CPU boost already on), so only a *minimum*
@@ -500,19 +500,22 @@ Recorded 2026-10-05 from Gary's decisions on this PR.
 5. **Disabled key `8ee8790b…` (entry 005): delete together with Batch 3, not before 2026-10-13** (moved from Batch 5 to row 3.3).
 6. The privately filed items: separate approvals, given outside this file.
 
-### Proposed 2026-10-05, awaiting Gary
+### Decided 2026-10-05 on the later proposals and step 1.8
 
-7. **`glmp-db` to the retire track** (4D, step 1.7b): export through the scratch bucket, stop in
-   Batch 2 with a 7-day watch, delete in Batch 5; its daily backups and deletion protection stay
-   until Batch 5. Evidence: zero rows, no application user or secret, no connection beyond the
-   platform poll. Needs a go-ahead for 1.7b, which is new work beyond the approved 1.7.
-8. **Minimum instances 1 to 0 on `copernicus-podcast-api`** (section 5, C1). The data predicts cold
-   starts of about 30 s, up to 72 s, about 13 times a day. Recommendation: approve steps 1 to 4
-   (a tagged revision with no traffic, then the measurement) and decide on the cutover from the
-   numbers, not before 2026-10-11. Gary sets the threshold.
-9. **The `step2` tag on `-00268-muc`** keeps one instance warm (about $25 a month at the assumed
-   price) until it is removed. Remove it now, accepting that a rollback to `-00268-muc` would then
-   cold-start, or keep it until the hold ends on 2026-10-11?
+1.8. **Step 1.8 approved as listed:** delete the 299 revisions in `revisions-to-delete-1.8.txt`
+   (256 on `copernicus-podcast-api`, 43 on `copernicus-frontend`) one at a time, oldest first,
+   listing any refusal without forcing; afterwards confirm both live revisions, both rollback
+   revisions, `-00262-kfx` and every tagged revision still exist and traffic is unchanged.
+7. **`glmp-db` to the retire track: approved.** Run 1.7b (export by the 1.7 method). If the export
+   holds no table rows, proceed to Batch 2: stop `copernicus-db`, `research-metadata-db` and
+   `glmp-db` together and start one 7-day watch. If it holds any rows, stop, compare them with
+   Firestore `glmp_processes` and `glmp_circuits`, and report before stopping anything. Daily
+   backups and deletion protection stay until Batch 5.
+8. **Minimum instances 1 to 0 on `copernicus-podcast-api` (C1): declined for now**, given cold
+   starts of 30 to 70 seconds. It stays on file as a possible future change, **conditional on
+   faster container startup**. The `mininst0` revision is not created.
+9. **The `step2` tag on `-00268-muc`: keep until 2026-10-11**, then remove it as part of the
+   rollback-hold expiry.
 
 *Evidence kept in the session scratchpad only; no secret values were read or printed. The
 commands above were proposals; execution is reported in the PR description, not in this file.*
