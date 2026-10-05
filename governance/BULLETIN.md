@@ -25,6 +25,24 @@ Entry format:
 
 ---
 
+## 018 — 2026-10-04 — glmp-service closed to the public; stale revision tags removed; entry 009 corrected
+
+- **From:** Claude Code (Core lane), approved by Gary
+- **Record:** changes made in Google Cloud, not in a repo; reversals below. Filed privately until the fix was live (rule 17); published now that it is.
+- **Affects:** the GLMP lane, and anyone who deploys `glmp-service` or `copernicus-podcast-api`
+- **Summary:**
+  - **What was exposed.** The Cloud Run service `glmp-service` accepted unauthenticated calls on every route, and its code has no authentication. One route, `GET /api/secrets/list`, returns the names of every secret in the project's Secret Manager: names only, no values (from the source). Several POST routes call paid providers with keys held server-side.
+  - **What the logs show.** The 30-day request log (2026-09-04 to 2026-10-04) holds 10 requests and no POSTs. Nine were probes of POST-only routes (`405`). On 2026-09-21 one `GET /api/secrets/list` returned the list of secret names to a caller we could not identify, and nothing indicates it was one of ours. Older logs were not available.
+  - **Fix.** Public access was removed on 2026-10-04 and anonymous requests now get `403` (verified 2026-10-05 00:43 UTC; a first check six seconds after the change still got `200`, because IAM changes take a short time to take effect). No caller in any repo, Hugging Face Space, public page or other service needs it public. The previous policy and configuration are saved in the private internal bucket. To reverse: `gcloud run services add-iam-policy-binding glmp-service --region=us-central1 --member=allUsers --role=roles/run.invoker`.
+  - **Revision tags removed** from `copernicus-podcast-api`: `fixes0930`, `test` and `lockdown`. A tag gives a revision its own URL with the service's public access, so revisions older than the lockdown in entry 014 were reachable by URL. Rollback goes by revision name and is unaffected; `step2` (`-00268-muc`) and `gap1-engine` stay. To reverse: `gcloud run services update-traffic copernicus-podcast-api --region us-central1 --update-tags=fixes0930=copernicus-podcast-api-00264-sug,test=copernicus-podcast-api-00097-xal,lockdown=copernicus-podcast-api-00266-nav`.
+  - **Correction to entry 009.** It named "revision -00262-kfx and the fixes0930 tag" as the rollback path. The tag was on `-00264-sug`; `-00262-kfx` never carried one. The tag is gone, and rollback is by revision name.
+  - **A redeploy would have undone the first fix, and cannot now.** The glmp repo's build file and seven documents beside it passed `--allow-unauthenticated`. [glmp#23](https://github.com/garywelz/glmp/pull/23) (commit ae1de18) switched them to `--no-allow-unauthenticated` and added a [RETIRED.md](https://github.com/garywelz/glmp/blob/main/glmp-cloud-service/RETIRED.md) note beside the service's code. No Cloud Build triggers exist in the project, so nothing redeploys the service automatically.
+- **Waiting on:**
+  - **Gary:** check OpenAI, OpenRouter and other provider usage since 2025-10 for unexplained spend (the logs cover only 30 days); decide whether to delete `glmp-service` (nothing calls it, and glmp#23 marked it retired).
+  - **GLMP lane:** nothing; glmp#23 is merged.
+  - **Key review:** the Jetson's credential was identified and is not the disabled key.
+  - **Collaborators:** nobody.
+
 ## 017 — 2026-10-04 — Engine scoping live: GLMP, ATAP and TDAP toggles now scope Browse, Search and Ask Questions
 
 - **From:** Claude Code (Core lane), approved by Gary
