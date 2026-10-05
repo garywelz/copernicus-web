@@ -8,7 +8,7 @@ change, config change or API enablement was made to produce this. The only write
 **Items filed privately** (AGENT_ROLES rule 17). Rows for items whose fix is not yet live are
 left out of the tables and totals below; each carries its own action, which Gary has been told
 about separately. **One item is no longer private:** `glmp-service` was closed to the public on
-2026-10-04 with Gary's approval and is described in BULLETIN entry 018 (PR #37), so it now
+2026-10-04 with Gary's approval and is described in BULLETIN entry 018 (merged in PR #37), so it now
 appears below as a retire row.
 
 ---
