@@ -25,6 +25,25 @@ Entry format:
 
 ---
 
+## 020 — 2026-10-06 — Gap 3 (layers 1-2) design decisions
+
+- **From:** Claude Code (Core lane), decided by Gary 2026-10-06 on review of PR #41
+- **Record:** PR #41 (design proposal, draft), PR #42 (AGENT_ROLES v2.6, draft); builds on entry 019
+- **Affects:** Core, and Methods & Tools (the result-record format); anyone who generates or publishes podcast episodes
+- **Summary:**
+  - **Suspicion reports, not scores.** The checker flags only the spots it doubts, each with evidence, and never produces a pass/fail or a numeric score. Gary's judgment is final.
+  - **The NSF metrics are the floor.** Grounding of at least 90% and citation integrity of at least 95% are reported next to every run as rates beside their targets, with no verdict. The goal is stricter: flag claims whose cited source does not support them.
+  - **Post-publish checking.** The checker runs after an episode is published and never blocks publishing. Version 1 runs on demand from Claude Code; a scheduled Cloud Run job comes only after the evaluation. Both model rosters (low cost and stronger) run on the evaluation.
+  - **Severity ladder, Gary the only approver at every level.** Level 1, a correction note; level 2, a prominent correction note; level 3, withdrawal under the existing delete-not-repair procedure. Levels 1 and 2 are visible, dated additions that leave the original intact. Rule 16 is amended to say so in AGENT_ROLES v2.6 (PR #42).
+  - **Upstream generation fixes, in build order:** (1) full abstracts to the generator instead of 300 characters; (2) references built in code only from papers confirmed to exist in PubMed, arXiv or Crossref, with no LLM-written citation strings; (3) inline citation markers in the script, stripped before audio; (4) every cited paper ingested into `research_papers`. A topic that cannot find enough confirmed sources fails with a clear failure email instead of publishing with unverified references. Each fix is a gated deploy and is measured against a baseline evaluation on the latest 20 public episodes.
+  - **Podcast scripts first, then paper drafts.**
+  - **Email.** Subscribers receive their own "ready" and failure emails once the sender app password is set up. Suspicion reports and sweep emails go only to Gary, by a separate path.
+  - **Shared result record.** The record format in the proposal (section 4.9) is meant for Methods & Tools layer 3 results too; it should be agreed with them before either side builds.
+- **Waiting on:**
+  - **Gary:** merge decisions on PR #41 and PR #42; create the notification sender account and app password; approve the key check (one tiny call per provider key) before any provider spend.
+  - **Methods & Tools:** review the result-record format.
+  - **Core:** the key check, once approved; then the baseline evaluation.
+
 ## 019 — 2026-10-06 — Gap 3 (verification loop) scope split between Core and Methods & Tools
 
 - **From:** Claude Chat (architecture review), decided by Gary 2026-10-05
