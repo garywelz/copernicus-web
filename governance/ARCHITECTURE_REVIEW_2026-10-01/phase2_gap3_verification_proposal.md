@@ -76,6 +76,16 @@ Code, with a Cloud Run job only after the evaluation. **What is still open** is 
 | Generator | add a section on fixing the generator itself, ranked by impact | 12 |
 | Future | note a possible later direction (inline graphics, browser only) | 14 |
 
+**Second round (Gary, 2026-10-06):**
+
+| Topic | Decision | Where |
+|---|---|---|
+| Severity ladder | **accepted**; Gary is the only approver at all three levels. Levels 1-2 are visible, dated additions that leave the original intact; level 3 follows the existing delete-not-repair procedure. The rule 16 amendment is drafted as AGENT_ROLES v2.6 in draft PR #42 | 5.3 |
+| Email routing | subscribers receive **their own** "ready" and failure emails once the app password is set up; suspicion reports and sweep emails go **only to Gary**, by a separate path | 4.10, 13 |
+| Too few confirmed sources | a topic that cannot find enough confirmed sources **fails with a clear failure email** instead of publishing with unverified references | 12.1 |
+| Record | the design decisions are drafted as BULLETIN entry 020 in draft PR #43 | - |
+| Next step | a key check, one tiny call per provider key, **proposed, not run** | 15 |
+
 ---
 
 ## 2. The podcast pipeline today
@@ -347,7 +357,7 @@ A composite index on `subject.id` plus `review.state` supports "open flags for e
    disclaimer, the floor metrics, then the flags grouped by episode, each with its evidence and the three models'
    verdicts.
 2. An email of one line ("12 flags in 5 episodes, report here") through the existing `EmailService`. **Decided
-   2026-10-06: report file plus email.** It needs a Gmail app password stored as a secret and handed to the
+   2026-10-06: report file plus email, sent only to Gary through a path separate from the subscriber emails (section 13).** It needs a Gmail app password stored as a secret and handed to the
    service; the code skips sending without it (`email_service.py:51-53`, `:129-131`). Setup is in section 13.
 3. Later: an admin page (the admin dashboard exists in the public bucket, behind the admin key); a change to a
    public object, so gated by rule 18.
@@ -389,6 +399,10 @@ but it must not become a way around that rule. A ladder for you to confirm:
 | 1, note | a claim is unsupported by the cited source but may be true; or a citation is wrong or unresolved | correction note |
 | 2, prominent note | a claim a listener would rely on is contradicted by its source | note at the top of the description and the feed item |
 | 3, withdraw | the central claim is wrong, or several confirmed problems | proposal to delete under rule 16 (archive, remove from feed, verify), decided by you |
+**Accepted 2026-10-06.** Gary is the only approver at all three levels; an agent proposes and never applies. Levels 1 and 2
+are permitted as visible, dated additions that leave the original script, audio, description and references intact;
+level 3 follows the existing procedure unchanged. The rule 16 amendment is AGENT_ROLES v2.6 (draft PR #42).
+
 Platforms such as Spotify and Apple read the feed on their own schedule and may not refresh old items, so what
 listeners see there is **not under our control** (limit L9).
 
@@ -515,7 +529,7 @@ but the record format already carries the hooks:
 
 ## 10. Open questions for Gary
 1. **Roster:** *Decided 2026-10-06: both rosters on the evaluation; choose afterwards from the numbers.*
-2. **Severity and rule 16:** do you accept the three-level ladder in 5.3, and who decides level 3?
+2. **Severity and rule 16:** *Decided 2026-10-06: ladder accepted; Gary is the only approver at all three levels; amendment in draft PR #42.*
 3. **Notification:** *Decided 2026-10-06: report file plus email; setup in section 13.*
 4. **Where it runs in v1:** *Decided 2026-10-06: on demand from Claude Code; a Cloud Run job only after the evaluation.*
 5. **Provenance at generation time:** store the abstracts, key findings and the origin of each citation in the job
@@ -537,7 +551,7 @@ but the record format already carries the hooks:
 ## 11. Build order (nothing starts before approval)
 | Phase | What | Needs |
 |---|---|---|
-| 0 | Evaluation harness: read-only script, runs steps 0 to 4 on the 20 episodes, writes the report; **nothing in the pipeline changes** | your approval of about $7 of provider spend (both rosters); checking each key works |
+| 0 | Evaluation harness: read-only script, runs steps 0 to 4 on the 20 episodes, writes the report; **nothing in the pipeline changes** | your approval of about $7 of provider spend (both rosters); the key check in section 15 first |
 | 1 | The three collections, indexes and the result writer; the on-demand sweep | the record format agreed with Methods & Tools; answers 1 to 4 |
 | 2 | Correction path: `correction` field, API, page banner, feed rebuild, report link | each a gated change (DEPLOY.md, rule 18); answers 2, 7, 9 |
 | 3 | Generation-time provenance (question 5) | a gated deploy |
@@ -583,7 +597,9 @@ so "retrieved" does not yet mean "a paper confirmed to exist".
 
 **Side effect to accept.** The job already fails fast when fewer than 3 sources are found
 (`services/podcast_generation_service.py:2187`). Confirming sources can push a topic under that line, so some
-generations will fail honestly instead of publishing with unverifiable references.
+generations will fail honestly instead of publishing with unverifiable references. **Accepted 2026-10-06:** such a topic
+fails with a clear failure email (the existing failure path, `email_service.py:120`, which works once section 13 is done)
+that says how many sources were confirmed and how many were needed.
 
 **How it changes the checker.** Step 0 shrinks to a re-check; `citation_unresolved` and `llm_supplied` flags should
 nearly vanish for new episodes, and the citation-integrity floor becomes close to 100% *by construction*, so it turns
@@ -649,10 +665,14 @@ variable, so both the completion email and the failure email return without send
 `:129-131`). Setting it up restores the **"your podcast is ready" email** (`services/podcast_generation_service.py:2822`)
 and the **failure email** (`:2865`) and gives the verification sweep its one-line notification.
 
-**One behavior change to decide first.** The completion email goes to the subscriber who requested the episode
-(`services/podcast_generation_service.py:2139-2154`; the default is `garywelz@gmail.com`). So once this works,
-subscribers' own addresses start receiving "ready" emails. If that is not wanted, say so and the sweep email can use a
-separate path.
+**Decided 2026-10-06: two separate paths.**
+- **Subscribers** receive their own "ready" and failure emails once the password is set up. The completion email goes to
+  the subscriber who requested the episode (`services/podcast_generation_service.py:2139-2154`; the default recipient is
+  in `config/constants.py:54-55`), so subscriber addresses start receiving mail that today is silently skipped.
+- **Suspicion reports and sweep emails go only to Gary.** The sweep does not use the subscriber path: it is a small
+  separate sender that reads the same secret from Claude Code, with a recipient fixed in its own configuration (Gary's
+  work address, kept out of this public file), never taken from an episode or subscriber record. Nothing about a flag
+  can reach a subscriber.
 
 **Recommended: a dedicated sender account.** An app password lets whoever holds it send mail as that account and, for
 Gmail, read its mailbox over IMAP. Use a **new Gmail account made only for notifications**, not your personal one, so a
@@ -704,3 +724,43 @@ and ATAP proof graphs). Each graphic is **checked for agreement with the text it
 framework: the same shared record (4.9) with `subject.kind: "figure"` and `check: "figure_text_agreement"`, and the
 same `review` workflow. **Full video and YouTube are out of scope.** Nothing in sections 4 to 6 has to change to leave
 room for this.
+
+---
+
+## 15. Proposed first execution step: a key check (not run)
+
+**Purpose.** Before any evaluation spend, find out whether each provider key is valid, funded, and allowed to use the
+models in both rosters. Nothing has been called; this section is a proposal for approval.
+
+**What is checked** (one tiny call per model; the keys are the secrets listed in 4.8):
+| # | Call | Proves | Expected cost |
+|---|---|---|---|
+| 0 | `GET` the model list for each of OpenAI (`/v1/models`), Anthropic (`/v1/models`) and Google AI Studio (`/v1beta/models`), and PubMed `esearch` with `retmax=1` | the key is valid and which model IDs it can see; **does not** show it is funded | free |
+| 1 | OpenAI `POST /v1/chat/completions`, model `gpt-4o-mini`, one user message "Reply with the word OK.", `max_tokens: 5` | funded, model allowed (roster A judge and triage) | under $0.00001 |
+| 2 | same call, model `gpt-5.4-mini`, `max_completion_tokens: 32` | roster B judge | under $0.0002 |
+| 3 | same call, model `gpt-5-mini`, `max_completion_tokens: 32` | roster B triage | under $0.0001 |
+| 4 | OpenAI `POST /v1/embeddings`, `text-embedding-3-small`, input "test" | check (b) embeddings | under $0.000001 |
+| 5 | Anthropic `POST /v1/messages`, model `claude-haiku-4-5`, `max_tokens: 8`, same message | funded, roster A judge and extraction | under $0.0001 |
+| 6 | same call, model `claude-sonnet-5-5`, `max_tokens: 8` | roster B judge and extraction | under $0.0002 |
+| 7 | Google AI Studio `POST .../models/gemini-2.5-flash:generateContent`, `maxOutputTokens: 64`, thinking budget 0 | roster A judge | under $0.0002 |
+| 8 | same call, model `gemini-2.5-pro`, `maxOutputTokens: 64` (thinking cannot be switched off, so the cap bounds it) | roster B judge | under $0.001 |
+| 9 | optional: Anthropic call with `claude-3-5-haiku-20241022` (the default in `claude_rag.py:28`) | expected to fail as retired; confirms the "fix first" note in 4.8 | none if it fails |
+
+**Total expected cost: under $0.003; hard ceiling under $0.01** (every call has a token cap, and the prices are those in section 7).
+Both Google key secrets (`GEMINI_API_KEY` and `GOOGLE_AI_API_KEY`) get the free list call in step 0, so we learn which one works.
+
+**How it runs (one small script, Claude Code, from this laptop):**
+- Each key is read from Secret Manager into memory, with the same credential used for earlier reviews; **it is never printed,
+  written to a file, logged, or placed in a command line** (it goes in a request header from inside the script).
+- Output is only: provider, model, HTTP status, a one-word result (`ok`, `invalid_key`, `not_funded`, `model_not_allowed`,
+  `rate_limited`, `error`), the token counts the provider reports, and the provider's error type. Any string that looks like a
+  key is redacted before printing.
+- Nothing else is read or written: no Firestore, no bucket, no configuration. Provider requests carry only the fixed
+  test message, no repo or episode content.
+- **Stops on the first unexpected result** (any 401, 402, 403 or an unexpected 5xx after one retry) and reports; no retry loops.
+- If this laptop's credential cannot read one of the secrets, the script reports that and stops; the fallback is for you to run
+  the same script in Cloud Shell, or to grant access (a change I would propose separately).
+
+**Approval needed:** go-ahead to read the five secrets (`openai-api-key`, `anthropic-api-key`, one or both Google key secrets,
+`pubmed-api-key`) from this laptop and make the calls above. A failure is itself a useful result: it means a roster must change
+before the evaluation.
