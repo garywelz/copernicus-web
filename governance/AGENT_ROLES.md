@@ -1,7 +1,7 @@
 # Agent Roles and Division of Labor
 ## CopernicusAI Knowledge Engine suite — every engine, every agent
 
-**Version:** 2.5 — October 4, 2026
+**Version:** 2.6 — October 6, 2026
 **Lives in:** `copernicus-web` repo at `governance/AGENT_ROLES.md` (moved from
 `glmp/docs/AGENT_ROLES.md`; see change log)
 **Read alongside:** the rest of `governance/` — Constitution, Methods Catalog, Resource
@@ -213,6 +213,22 @@ live fetch of this file fails.
     bucket and verify checksums; (3) remove the item from the feed with a generation
     precondition; (4) delete only objects that nothing else references; (5) verify on
     every surface. Archives never go in the public podcast bucket.
+
+    **Correction notes are not repairs.** A published episode with a confirmed problem that
+    does not warrant deletion may carry a *correction note*: a visible, dated addition on the
+    episode page and in the feed item that says what is wrong and which source or check it
+    comes from. The original script, audio, description and references stay intact; a note
+    is added, never substituted for them. There are two levels. **Level 1** is an ordinary
+    note (a claim the cited source does not support but that may be true, or a wrong or
+    unresolved citation). **Level 2** is a prominent note at the top of the description and
+    the feed item (a claim a listener would rely on that its own source contradicts).
+    **Level 3, withdrawal** (the central claim is wrong, or several problems are confirmed),
+    is deletion and follows the procedure above unchanged. At every level an agent proposes
+    and Gary decides and approves; Gary is the only approver. Writing a note to the page or
+    the feed is a change to a public object, so it is also gated by rule 18, and steps (1)
+    and (5) of the archive protocol apply to it: back up the feed before the write and
+    verify on every surface after. An agent still never edits or rewrites the generated
+    content itself.
 17. **A security finding goes to a private location first.** It reaches a public PR
     or `governance/BULLETIN.md` entry only after the fix is live, not while the gap is
     still open — a public repo discloses the finding to anyone the moment it's
@@ -445,6 +461,11 @@ silently.
 ---
 
 ## Change log
+- **v2.6** (2026-10-06) — Rule 16 gains correction notes: levels 1 and 2 may be added as
+  visible, dated notes that leave the original intact, with Gary as sole approver; level 3
+  (withdrawal) follows the existing delete-not-repair procedure. See
+  `governance/BULLETIN.md` entry 020 and
+  the gap 3 design proposal (PR #41, section 5.3).
 - **v2.5** (2026-10-04) — Rule 18 extended from public GCS objects to Cloud Run IAM
   bindings and revision tags, with a propagation wait before probing an access removal
   and an emergency exception limited to changes that narrow access. See
