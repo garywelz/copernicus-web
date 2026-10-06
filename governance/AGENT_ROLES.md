@@ -441,6 +441,13 @@ silently.
 2. **Copernicus legacy audit** — inventory `Copernicus_AI`, `copernicus-podcast-api`,
    `copernicus_backup`; report live vs. dead vs. worth-keeping before any move/archive.
    Candidate Claude Code read-only test.
+3. **Delete the dead `GEMINI_API_KEY` secret** — a provider key check on 2026-10-06 found it
+   rejected as invalid, while `GOOGLE_AI_API_KEY` works. Do it in the cleanup batches, after
+   confirming no Cloud Run revision still mounts it. No action before then.
+4. **Replace the retired default model in `cloud-run-backend/services/llm_providers/claude_rag.py:28`**
+   — `claude-3-5-haiku-20241022` returns not-found on the Anthropic API (2026-10-06). Change it to
+   a pinned, dated model ID through the gated deploy procedure in `cloud-run-backend/DEPLOY.md`.
+   No action now.
 
 ---
 
