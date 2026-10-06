@@ -1,8 +1,8 @@
 # Gap 3, layers 1 and 2: the verification loop — design proposal
 
 *Core lane (Claude Code), 2026-10-06. For Gary's review before anything is built. **Design only:** no code
-written, no call made to any model provider, no configuration changed; the only writes are this file and its
-draft PR. Decisions: Gary's interview with Claude Chat on 2026-10-06, as relayed to me. Scope split:
+written, no configuration changed; the only writes are this file and its draft PR. After Gary's approval the one
+provider check in section 15 was run on 2026-10-06 (about 20 tiny or free calls, under $0.003). Decisions: Gary's interview with Claude Chat on 2026-10-06, as relayed to me. Scope split:
 `governance/BULLETIN.md` entry 019. Every file:line below was read on 2026-10-06; numbers from the live
 Firestore database were read the same day.*
 
@@ -26,9 +26,9 @@ format** (section 4.9) that Methods & Tools' layer 3 results can use unchanged. 
 adds a correction note to the episode page and the feed. An **evaluation** (section 6) runs the checks on the
 latest 20 public episodes and has you judge a sample of flags.
 
-**Cost** (section 7, labeled estimates): about **$0.04 to $0.28 per episode**, at most about **$6 a month** at 20
+**Cost** (section 7, labeled estimates): about **$0.04 to $0.27 per episode**, at most about **$5.4 a month** at 20
 episodes a month (about 2% of the $250 a month total budget you set in the 2026-10-01 architecture review
-interview), and about **$7 one time** for the evaluation (both rosters: $1.69 plus $5.25).
+interview), and about **$7 one time** for the evaluation (both rosters: $1.69 plus $5.10).
 
 **What I found that shapes the design** (each is sourced in section 2):
 1. **Scripts carry no machine-readable citations.** 0 of 68 stored scripts has an author-year or numbered marker;
@@ -264,18 +264,43 @@ Printed as `grounding (supported) 61% | target 90%`: a number beside its target,
 `services/llm_providers/secret_manager_helpers.py:60,82` and `utils/api_keys.py:12-13`), plus `pubmed-api-key`.
 Models named in code: OpenAI `gpt-4o-mini` (`services/llm_providers/openai_rag.py:28`, RAG default), Anthropic
 `claude-3-5-haiku-20241022` (`services/llm_providers/claude_rag.py:28`), Gemini `gemini-2.5-flash` / `gemini-2.5-pro`
-(system map section 3). **I made no call, so whether each key is valid, funded and allowed these models is
-unknown.** Vertex AI is switched off on the live API (`DISABLE_VERTEX_AI`, `services/rag_service.py:132`), so Gemini here means Google AI Studio.
-**One thing to fix first:** the Anthropic pricing page lists Claude Haiku 3.5 (the model `claude_rag.py` defaults to)
-as retired except on Bedrock and Google Cloud, so that default would fail on the first-party API.
+(system map section 3). Vertex AI is switched off on the live API (`DISABLE_VERTEX_AI`, `services/rag_service.py:132`), so Gemini
+here means Google AI Studio.
 
-**Proposed rosters** (configuration, one model per provider for the three judges):
+**Key check, run 2026-10-06 (section 15):** the OpenAI, Anthropic, PubMed and `GOOGLE_AI_API_KEY` keys are valid and funded and
+allow the models below. **`GEMINI_API_KEY` is rejected as invalid, so the sweep uses `GOOGLE_AI_API_KEY`** (the dead secret is a
+housekeeping item, section 9, L7). The retired `claude_rag.py:28` default returns not-found, as expected.
+
+**Proposed rosters, every model pinned to a dated or versioned ID** (checked against each provider's own model list on
+2026-10-06; the ID is stored in every result record, so a run can be reproduced; an alias such as `gpt-4o-mini` or
+`gemini-pro-latest` is never used):
 | | OpenAI | Anthropic | Google | Claim extraction | Triage |
 |---|---|---|---|---|---|
-| **A, low cost** | `gpt-4o-mini` | `claude-haiku-4-5` | `gemini-2.5-flash` | `claude-haiku-4-5` | `gpt-4o-mini` |
-| **B, stronger** | `gpt-5.4-mini` | `claude-sonnet-5-5` | `gemini-2.5-pro` | `claude-sonnet-5-5` | `gpt-5-mini` |
+| **A, low cost** | `gpt-4o-mini-2024-07-18` | `claude-haiku-4-5-20251001` | `gemini-2.5-flash` | `claude-haiku-4-5-20251001` | `gpt-4o-mini-2024-07-18` |
+| **B, stronger** | `gpt-5.4-mini-2026-03-17` | `claude-sonnet-5-5` | `gemini-3.8-flash` | `claude-sonnet-5-5` | `gpt-5-mini-2025-08-07` |
+Embeddings: `text-embedding-3-small` (the only ID OpenAI lists, and the corpus model).
+
+Notes on the pins. Anthropic lists only the undated `claude-sonnet-5-5` for that model (no dated variant exists), and Google
+lists no dated alias for `gemini-2.5-flash` (version `001`) or `gemini-3.8-flash`; those are the most specific IDs available.
+Providers retire models (Google already closed `gemini-2.5-pro` to new users), so **the key check is re-run immediately before
+the evaluation**, and a pinned ID that has gone is replaced deliberately and noted in the run.
+
+**Why `gemini-3.8-flash` for roster B (the Google model).** The list for this key shows no stable pro-class model: `gemini-2.5-pro`
+is listed but returns 404 ("no longer available to new users"), `gemini-pro-latest` is a moving alias, and the only current pro
+model is `gemini-3.1-pro-preview` (preview). Both candidates answered a capped test call (HTTP 200). I recommend the **stable**
+`gemini-3.8-flash`, because a repeatable evaluation matters more than the pro label. The trade-off is that it is flash-class, so
+roster B is "stronger" through its OpenAI and Anthropic models more than through Google. If you want a pro-class third judge
+anyway, `gemini-3.1-pro-preview` ($2.00 input, $12.00 output per million tokens up to 200k) is the option, with the preview
+caveat noted in the run.
+**Price (ai.google.dev/gemini-api/docs/pricing, fetched 2026-10-06, via a summarizing fetch tool):** `gemini-3.8-flash` is
+**$0.75 input and $3.75 output per million tokens through 2026-12-31, then $1.50 and $7.50 from 2027-01-01** (batch half of
+that); thinking tokens are billed as output. The evaluation falls before the change; after it, roster B costs about $0.205 an
+episode instead of $0.170 (mid case).
+**Implementation note from the key check:** the 3.8 model spent its whole 64-token test cap on thinking and returned no visible
+text. Judge calls must set a generous output cap (at least 1,024 tokens) or the answer comes back empty.
+
 **Decided 2026-10-06:** run **both rosters on the evaluation episodes**, then choose from the numbers (section 6). The
-price difference is about $0.12 an episode.
+price difference is about $0.11 an episode.
 
 **Reuse.** `services/llm_providers/base.py` defines the provider interface (`BaseRAGService`); the sweep needs
 a small `BaseJudgeService` of the same shape with one method, `judge(prompt, schema)`, so the three providers sit
@@ -305,7 +330,7 @@ and suspicion flags through one mechanism. **There is deliberately no numeric sc
   "evidence": [
     {"kind": "source_text", "source_id": "arxiv:2305.01234", "scope": "abstract",
      "retrieved_at": "2026-10-07T09:00:00Z", "quote": "<at most 300 characters>"},
-    {"kind": "model_output", "provider": "openai", "model": "gpt-4o-mini",
+    {"kind": "model_output", "provider": "openai", "model": "gpt-4o-mini-2024-07-18",
      "prompt_id": "SUPPORT@1", "verdict": "not_supported", "output_ref": "gs://.../c07-openai.json"}
   ],
   "limits": ["abstract_only", "attribution_inferred"],
@@ -451,18 +476,22 @@ falls out of check (a).
 page through a summarizing fetch tool, so confirm on the pages before relying on a figure):
 | Model | Input | Output | Source |
 |---|---|---|---|
-| `gpt-4o-mini` | $0.15 | $0.60 | developers.openai.com/api/docs/pricing |
-| `gpt-5-mini` | $0.25 | $2.00 | same |
-| `gpt-5.4-mini` | $0.75 | $4.50 | same |
-| `claude-haiku-4-5` | $1.00 | $5.00 | platform.claude.com/docs/en/about-claude/pricing |
+| `gpt-4o-mini-2024-07-18` | $0.15 | $0.60 | developers.openai.com/api/docs/pricing |
+| `gpt-5-mini-2025-08-07` | $0.25 | $2.00 | same |
+| `gpt-5.4-mini-2026-03-17` | $0.75 | $4.50 | same |
+| `claude-haiku-4-5-20251001` | $1.00 | $5.00 | platform.claude.com/docs/en/about-claude/pricing |
 | `claude-sonnet-5-5` | $2.00 | $10.00 | same; Claude 4.7 and later use a tokenizer that produces about 30% more tokens, applied to this row |
 | `gemini-2.5-flash` | $0.30 | $2.50 | ai.google.dev/gemini-api/docs/pricing |
-| `gemini-2.5-pro` (prompts up to 200k tokens) | $1.25 | $10.00 | same |
+| `gemini-3.8-flash` (stable) | $0.75 | $3.75 | same; through 2026-12-31, then $1.50 / $7.50 from 2027-01-01 |
+| `gemini-3.1-pro-preview` (prompts up to 200k tokens; preview, not in a roster) | $2.00 | $12.00 | same |
+| `gemini-2.5-pro` (no longer available to new users; no longer in a roster) | $1.25 | $10.00 | same |
 | `text-embedding-3-small` | $0.02 | n/a | developers.openai.com/api/docs/pricing |
 All three providers list a **50% batch discount**; the sweep is not time-sensitive, so it could halve every figure
 below. (The OpenAI page `openai.com/api/pricing` returned 403; the figures are from its current docs address.)
 
-**Token model (estimates):** a token is about 0.75 words (Anthropic's rule of thumb); script 1,230 tokens at the 923-word
+**Token model (estimates).** Reasoning models also bill hidden thinking tokens as output; I allow 500 per Google judge call
+(about 8 calls an episode) and 400 per `gpt-5-mini` triage call, since the key check saw 58 to 61 thinking tokens on a trivial prompt.
+**Token model, continued:** a token is about 0.75 words (Anthropic's rule of thumb); script 1,230 tokens at the 923-word
 median; 7 references at about 360 tokens each (an abstract plus metadata); 25 checkable claims; prompts of 400 to 600
 tokens per call; 30% of claims have candidates that need triage. Low case 800-token script, 5 references, 15 claims;
 high case 1,870-token script, 11 references, 40 claims. **Claims per episode is the most uncertain input.**
@@ -470,18 +499,18 @@ high case 1,870-token script, 11 references, 40 claims. **Claims per episode is 
 | Per episode (mid case, tokens in/out about 41k/12.7k) | Roster A | Roster B |
 |---|---|---|
 | claim extraction (1 call) | $0.013 | $0.034 |
-| (a) three anchored judges | $0.027 | $0.088 |
-| (c) three unanchored passes | $0.015 | $0.049 |
-| (b) embeddings + triage | $0.002 | $0.004 |
-| **Total, mid** | **$0.056** | **$0.175** |
-| Low case / high case | $0.035 / $0.090 | $0.108 / $0.279 |
+| (a) three anchored judges | $0.027 | $0.087 |
+| (c) three unanchored passes | $0.015 | $0.039 |
+| (b) embeddings + triage | $0.002 | $0.010 |
+| **Total, mid** | **$0.056** | **$0.170** |
+| Low case / high case | $0.035 / $0.090 | $0.106 / $0.269 |
 
 | Scenario | Roster A | Roster B |
 |---|---|---|
-| 8 episodes a month, mid case | $0.45 | $1.40 |
-| 20 episodes a month, mid case | $1.12 | $3.50 |
-| 20 a month, high case | $1.79 (0.7% of $250) | $5.58 (2.2% of $250) |
-| One-off evaluation (20 episodes + 10 seeded re-runs) | $1.69 | $5.25 |
+| 8 episodes a month, mid case | $0.45 | $1.36 |
+| 20 episodes a month, mid case | $1.12 | $3.40 |
+| 20 a month, high case | $1.79 (0.7% of $250) | $5.38 (2.2% of $250) |
+| One-off evaluation (20 episodes + 10 seeded re-runs) | $1.69 | $5.10 |
 | One paper-draft pass (6,000 words, 60 cited papers, 120 claims; rough) | $0.31 | $0.97 |
 | Re-check of about 15% changed passages in a revision (rough) | $0.05 | $0.15 |
 
@@ -515,7 +544,7 @@ but the record format already carries the hooks:
 | L4 | **Generator and checker see different text.** The generator saw 300 characters plus second-hand analyses; the checker sees the whole abstract. A claim may be supported by the paper yet absent from what the generator saw, which is fine for listeners and noted in the record |
 | L5 | **Check (b) depends on corpus coverage and an uncalibrated similarity floor**; a paper not in the corpus cannot be found |
 | L6 | Crossref often has **no abstract**, so some sources are `metadata_only` and cannot support or refute anything |
-| L7 | **No provider call was made.** Key validity, quotas and model access are unverified; `claude_rag.py`'s default model is retired on the first-party API |
+| L7 | **Keys checked once, on 2026-10-06 (section 15).** Valid and funded then; quotas and rate limits were not tested, and models can be retired. Two housekeeping items follow from it: the secret `GEMINI_API_KEY` is dead (rejected as invalid) and is to be deleted in the cleanup batches, and `claude_rag.py:28` defaults to a retired Anthropic model; both are on the shared open-items list (AGENT_ROLES, draft PR #44) and **nothing was changed** |
 | L8 | **Only 68 of 104 episodes store the script.** The others can only be checked from the GCS transcript, if present (78 transcript objects exist) |
 | L9 | **Platforms may not refresh corrected feed items**, so what Spotify or Apple listeners see is not controllable |
 | L10 | **Post-publish means a listener can hear an error before a flag exists.** Accepted by decision 5 |
@@ -727,10 +756,21 @@ room for this.
 
 ---
 
-## 15. Proposed first execution step: a key check (not run)
+## 15. First execution step: the key check (run 2026-10-06)
 
 **Purpose.** Before any evaluation spend, find out whether each provider key is valid, funded, and allowed to use the
-models in both rosters. Nothing has been called; this section is a proposal for approval.
+models in both rosters. Gary approved it on 2026-10-06 and it was run once; the proposal text follows the result.
+
+**Result.** OpenAI: `gpt-4o-mini`, `gpt-5.4-mini`, `gpt-5-mini` and `text-embedding-3-small` all answered (the embedding was 1,536
+dimensions). Anthropic: `claude-haiku-4-5` and `claude-sonnet-5-5` answered; `claude-3-5-haiku-20241022` returned not-found.
+Google: `GOOGLE_AI_API_KEY` valid (`gemini-2.5-flash` answered); `GEMINI_API_KEY` rejected as invalid; `gemini-2.5-pro` returned
+404 (closed to new users). PubMed: valid. A follow-up on the same day listed the Google, Anthropic and OpenAI models for the
+pins in 4.8 and made two more capped calls: `gemini-3.1-pro-preview` and `gemini-3.8-flash` both answered. Total spend was
+well under $0.003 across all calls. No key was printed, logged or written to disk.
+
+**Observations for the build.** `gpt-5-mini` used its whole 32-token cap on reasoning, so its calls need a larger cap (at least
+512 for triage); `gemini-3.8-flash` did the same at 64 tokens (judge cap at least 1,024). The rows below are the original
+proposal; row 8 was replaced by the follow-up calls above.
 
 **What is checked** (one tiny call per model; the keys are the secrets listed in 4.8):
 | # | Call | Proves | Expected cost |
