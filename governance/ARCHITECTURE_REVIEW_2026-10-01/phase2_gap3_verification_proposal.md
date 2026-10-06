@@ -27,12 +27,14 @@ adds a correction note to the episode page and the feed. An **evaluation** (sect
 latest 20 public episodes and has you judge a sample of flags.
 
 **Cost** (section 7, labeled estimates): about **$0.04 to $0.28 per episode**, at most about **$6 a month** at 20
-episodes a month (about 2% of the $250 you stated), and about **$2 to $5 one time** for the evaluation.
+episodes a month (about 2% of the $250 a month total budget you set in the 2026-10-01 architecture review
+interview), and about **$7 one time** for the evaluation (both rosters: $1.69 plus $5.25).
 
 **What I found that shapes the design** (each is sourced in section 2):
-1. **Scripts carry no inline citations.** 0 of 68 stored scripts has an author-year or numbered marker. References
-   exist only as a list in the description. So which claim rests on which source has to be *inferred*, and that
-   inference is itself a source of error.
+1. **Scripts carry no machine-readable citations.** 0 of 68 stored scripts has an author-year or numbered marker;
+   the prompt asks speakers to attribute in speech (author, journal, title, `podcast_research_integrator.py:383-388`).
+   References exist only as a list in the description, and **the model writes that list** (`:443`). So which claim
+   rests on which source has to be *inferred*, and that inference is itself a source of error.
 2. **The cited papers are mostly not in our corpus, and nothing stores their text.** Of the 7 distinct arXiv IDs
    cited by the 20 most recent episodes (2026-05-10 to 2026-08-23), 0 are in the corpus. The generation job keeps
    titles and links, never abstracts. Check (a) has to fetch the source text itself.
@@ -45,7 +47,11 @@ episodes a month (about 2% of the $250 you stated), and about **$2 to $5 one tim
 5. **Nothing exists for listener feedback.** No report link on the site, no filled `feedback_comments` or
    `user_ratings` in any episode, and the email path is inactive on the live service.
 
-**What I need from you** is in section 10 (twelve questions, the first four decide most of the build).
+**Added on review (2026-10-06).** Section 12 ranks four fixes to the generator itself; the highest-impact one is
+building the References list in code from papers confirmed to exist, which removes LLM-written citations. Section 13
+is the Gmail app-password setup, which also restores the "your podcast is ready" email. Section 14 is a short
+future-direction note. **Decided:** both rosters on the evaluation; report file plus email; v1 on demand from Claude
+Code, with a Cloud Run job only after the evaluation. **What is still open** is in section 10.
 
 ---
 
@@ -58,6 +64,17 @@ episodes a month (about 2% of the $250 you stated), and about **$2 to $5 one tim
 | 3 | Three checks: source support, missing papers, cross-model disagreement; agreement is not proof | 4.4 to 4.6 |
 | 4 | Podcast scripts first; later paper drafts (fetch abstracts outside the corpus; re-check only changed passages; track resolved flags) | scope here; hooks in 8 |
 | 5 | Never block publishing; run after publish; a correction path for a published episode | 4.1 and 5 |
+
+**Further decisions (Gary, 2026-10-06, reviewing this PR):**
+
+| Topic | Decision | Where |
+|---|---|---|
+| Rosters | run **both** rosters A and B on the evaluation; choose afterwards from the numbers | 4.8, 6 |
+| Notification | report file **plus** email; creating the Gmail app password and storing it is in section 13, and the same fix restores the "your podcast is ready" email | 4.10, 13 |
+| Where v1 runs | on demand from Claude Code; a Cloud Run job **only after** the evaluation | 4.10, 11 |
+| Budget | the roughly $250 a month total budget is Gary's decision in the 2026-10-01 architecture review interview | 7 |
+| Generator | add a section on fixing the generator itself, ranked by impact | 12 |
+| Future | note a possible later direction (inline graphics, browser only) | 14 |
 
 ---
 
@@ -89,7 +106,7 @@ Paths are under `cloud-run-backend/` unless stated.
 |---|---|
 | Episode documents | 104; 68 store the full script; 77 are `public`; 73 have `submitted_to_rss` true |
 | Script length (68 scripts) | median 923 words, range 72 to 1,429 |
-| Inline citation markers in scripts | **0 of 68** have author-year (`Smith et al., 2023`) or numbered (`[1]`) markers; 28 use cues like "according to" or "a study"; all 68 name a journal such as Nature or Science |
+| Inline citation markers in scripts | **0 of 68** have author-year (`Smith et al., 2023`) or numbered (`[1]`) markers; 28 use cues like "according to" or "a study"; all 68 name a journal such as Nature or Science, because the prompt asks speakers to give author, journal and title in speech (`podcast_research_integrator.py:383-388`) |
 | References | 67 episodes have a `## References` list; median 7 per episode, maximum 11; 379 reference lines: arXiv 148, PubMed 105, DOI 78 |
 | Reference format | varies. Of the latest 20 public episodes with a script (2025-12-04 to 2026-08-21), 8 have no `References` heading: 3 carry identifiers in another format, 5 carry none or one |
 | Reference reuse | in the 20 most recent episodes (2026-05-10 to 2026-08-23) there are 152 reference lines but only 53 distinct ones; the eight most repeated appear 7 or 8 times |
@@ -156,7 +173,7 @@ Input: the episode's description and, via `job_id`, its `podcast_jobs` record (`
    `llm_supplied` (the Gemini analysis returns citation strings, `podcast_research_integrator.py:194`).
 
 Public APIs have rate limits (arXiv asks for roughly one request every three seconds; I did not re-check current
-limits), which is fine for about 10 references an episode.
+limits), which is fine for about 10 references an episode. (Section 12, fixes 1 and 4, shrink this step for new episodes.)
 
 ### 4.3 Step 1: extract claims and attribute them
 Because scripts have no inline citations, one call per episode produces the checkable claims. Prompt outline
@@ -172,7 +189,7 @@ Because scripts have no inline citations, one call per episode produces the chec
   as `no_source` only when `kind` is `finding` or `number`.
 
 This is the weakest link: a wrong attribution produces a wrong flag or hides a real one. The evaluation measures
-it directly (section 6).
+it directly (section 6). Section 12, fix 3, would replace this step with parsing.
 
 ### 4.4 Check (a): source support
 For each claim with a candidate source, **each judge model separately** sees only: the claim, the source text
@@ -247,7 +264,7 @@ as retired except on Bedrock and Google Cloud, so that default would fail on the
 |---|---|---|---|---|---|
 | **A, low cost** | `gpt-4o-mini` | `claude-haiku-4-5` | `gemini-2.5-flash` | `claude-haiku-4-5` | `gpt-4o-mini` |
 | **B, stronger** | `gpt-5.4-mini` | `claude-sonnet-5-5` | `gemini-2.5-pro` | `claude-sonnet-5-5` | `gpt-5-mini` |
-Recommendation: run **B on the evaluation episodes next to A**, then choose from the numbers (section 6). The
+**Decided 2026-10-06:** run **both rosters on the evaluation episodes**, then choose from the numbers (section 6). The
 price difference is about $0.12 an episode.
 
 **Reuse.** `services/llm_providers/base.py` defines the provider interface (`BaseRAGService`); the sweep needs
@@ -318,8 +335,8 @@ A composite index on `subject.id` plus `review.state` supports "open flags for e
 
 **Where it runs.**
 - **v1:** a script run on demand (`verify_episodes.py --episode ID | --last N`), by Claude Code or you; no new
-  infrastructure. Enough for 4 to 20 episodes a month.
-- **v2:** a Cloud Run **job** that sweeps episodes without a current run, started by hand or a schedule. It needs
+  infrastructure. Enough for 4 to 20 episodes a month. **Decided 2026-10-06: v1 runs on demand from Claude Code.**
+- **v2:** a Cloud Run **job** that sweeps episodes without a current run, started by hand or a schedule. **Decided: only after the evaluation.** It needs
   a **dedicated service account** with only: Firestore access, access to the three provider-key secrets and
   `pubmed-api-key`, and log writing. Cloud Scheduler is not enabled on this project (system map section 2), so the
   schedule is its own approval. The generation job is not extended: `routes.py:85-86` shows background work after
@@ -329,9 +346,9 @@ A composite index on `subject.id` plus `review.state` supports "open flags for e
 1. Each run writes a Markdown report to the private bucket (`verification/reports/<run_id>.md`): the unflagged
    disclaimer, the floor metrics, then the flags grouped by episode, each with its evidence and the three models'
    verdicts.
-2. An email of one line ("12 flags in 5 episodes, report here") through the existing `EmailService`, **if you want
-   it**. It needs a Gmail app password stored as a secret and handed to the service; the code skips sending
-   without it (`email_service.py:51-53`).
+2. An email of one line ("12 flags in 5 episodes, report here") through the existing `EmailService`. **Decided
+   2026-10-06: report file plus email.** It needs a Gmail app password stored as a secret and handed to the
+   service; the code skips sending without it (`email_service.py:51-53`, `:129-131`). Setup is in section 13.
 3. Later: an admin page (the admin dashboard exists in the public bucket, behind the admin key); a change to a
    public object, so gated by rule 18.
 At the start of a session I can read the open flags and tell you what is new.
@@ -405,6 +422,9 @@ listeners see there is **not under our control** (limit L9).
 6. **Decide** (yours): roster, thresholds, and whether (b) and the unanchored pass justify their cost. My suggested
    bar: at least about half of judged flags useful, at most about 10 flags per episode, and seeded recall of at
    least 80%; otherwise change prompts and thresholds before widening.
+7. **Baseline for section 12.** This evaluation runs on episodes made by **today's generator**, so it is the
+   baseline. After each generator fix, a fresh sample of new episodes is checked the same way, and the change in
+   flag rate and useful-flag rate is the measured effect of that fix.
 
 This also tests the observation in finding 4 (off-topic references): the share of reference lines judged unrelated
 falls out of check (a).
@@ -451,7 +471,8 @@ high case 1,870-token script, 11 references, 40 claims. **Claims per episode is 
 | One paper-draft pass (6,000 words, 60 cited papers, 120 claims; rough) | $0.31 | $0.97 |
 | Re-check of about 15% changed passages in a revision (rough) | $0.05 | $0.15 |
 
-**Against the budget.** The $250 a month is the figure in your brief; I found no source for it in the repo.
+**Against the budget.** The roughly $250 a month total budget is Gary's decision in the 2026-10-01 architecture review
+interview (it is not written in the repo).
 Current spend is unknown (the Billing API is disabled, system map section 8), so I cannot say what share of the
 real total this is, only that the check is **at most about 2% of $250**. Not included: Firestore reads
 (about 250 per episode, negligible at any plausible price), the public bibliographic APIs (free), and the Cloud Run
@@ -493,17 +514,17 @@ but the record format already carries the hooks:
 ---
 
 ## 10. Open questions for Gary
-1. **Roster:** A (cheap), B (stronger), or A for routine runs and B for the evaluation comparison? (Recommended: both
-   on the evaluation, then choose.)
+1. **Roster:** *Decided 2026-10-06: both rosters on the evaluation; choose afterwards from the numbers.*
 2. **Severity and rule 16:** do you accept the three-level ladder in 5.3, and who decides level 3?
-3. **Notification:** report file only, or also a one-line email (needs a Gmail app-password secret from you)?
-4. **Where it runs in v1:** on demand from Claude Code (no new infrastructure) or straight to a Cloud Run job with a
-   dedicated service account (new account, new secret grants, and a schedule that needs Cloud Scheduler enabled)?
+3. **Notification:** *Decided 2026-10-06: report file plus email; setup in section 13.*
+4. **Where it runs in v1:** *Decided 2026-10-06: on demand from Claude Code; a Cloud Run job only after the evaluation.*
 5. **Provenance at generation time:** store the abstracts, key findings and the origin of each citation in the job
    record (a small change to the generation path, deployed through the gated `DEPLOY.md` procedure). Recommended; it
-   makes check (a) exact and flags diagnosable.
+   makes check (a) exact and flags diagnosable. *Largely superseded by section 12:* fixes 2 and 4 put the full abstracts in
+   the prompt and in the corpus; what remains is whether to also keep the intermediate analyses.
 6. **Reference relevance:** if the evaluation confirms off-topic references, treat the fix (source selection) as a
-   separate item?
+   separate item? (Section 12, fix 1, removes unverified citations but does not by itself make source *selection*
+   more relevant.)
 7. **Which episodes get feed corrections:** all 77 public ones, or the 73 with `submitted_to_rss`?
 8. **Result-record format (4.9):** Methods & Tools to review before any code writes it; who owns the schema file?
 9. **Listener address** for the "Report a problem" link.
@@ -516,9 +537,170 @@ but the record format already carries the hooks:
 ## 11. Build order (nothing starts before approval)
 | Phase | What | Needs |
 |---|---|---|
-| 0 | Evaluation harness: read-only script, runs steps 0 to 4 on the 20 episodes, writes the report; **nothing in the pipeline changes** | your approval of about $2 to $5 of provider spend; checking each key works |
+| 0 | Evaluation harness: read-only script, runs steps 0 to 4 on the 20 episodes, writes the report; **nothing in the pipeline changes** | your approval of about $7 of provider spend (both rosters); checking each key works |
 | 1 | The three collections, indexes and the result writer; the on-demand sweep | the record format agreed with Methods & Tools; answers 1 to 4 |
 | 2 | Correction path: `correction` field, API, page banner, feed rebuild, report link | each a gated change (DEPLOY.md, rule 18); answers 2, 7, 9 |
 | 3 | Generation-time provenance (question 5) | a gated deploy |
-| 4 | Automation: Cloud Run job, dedicated service account, schedule | question 4; Cloud Scheduler enabled |
+| 4 | Automation: Cloud Run job, dedicated service account, schedule | only after the evaluation (decided); Cloud Scheduler enabled |
 | 5 | Paper drafts (section 8) | after the podcast evaluation |
+| G | Upstream generation v1 (section 12): fixes in the order 2, 1, 3, 4, each a gated deploy, each followed by a fresh evaluation sample | the Phase 0 baseline first; the `DEPLOY.md` procedure |
+| E | Email setup (section 13) | you create the app password and the secret; then one gated revision |
+
+---
+
+## 12. Upstream generation fixes (revised podcast generation, v1)
+
+The checker finds problems after the fact. These four changes make fewer problems in the first place, and each
+makes the checker simpler or stronger. They are **ranked by impact on what listeners get**; the order to *build*
+them is different (below). Effort is my estimate of Claude Code working time including tests and one gated deploy,
+not calendar time. All four are changes to `copernicus-podcast-api`, so each goes through `DEPLOY.md`.
+
+| Rank | Fix | Effort |
+|---|---|---|
+| 1 | References built only from retrieved papers confirmed to exist (PubMed, arXiv, Crossref); no LLM-written citation strings | small to medium, about 1 to 2 days |
+| 2 | The generator receives full abstracts, not 300 characters | very small, about half a day, plus an evaluation re-run |
+| 3 | Inline citation markers in the script, each tied to a claim | medium, about 2 to 3 days |
+| 4 | Every cited paper is ingested into `research_papers` | medium, about 2 to 3 days, plus a one-time backfill |
+
+### 12.1 Fix 1: references only from confirmed papers (highest impact)
+**Why first.** This is the largest integrity risk. Today the model **writes** the References section: the prompt asks for
+it (`podcast_research_integrator.py:443`) and returns a `citations_used` field (`:449`). Separately, citation strings
+written by an LLM are pooled into `real_citations` (`podcast_research_integrator.py:194`, from
+`paper_processor.py:165` and `enhanced_research_service.py:322,411`). Code builds a list only as a fallback when the
+model omitted one (`services/podcast_generation_service.py:2400-2480`). Retrieved sources themselves come from the
+registries (`research_pipeline.py:43-44`), but the pipeline also searches NASA ADS, Zenodo and a news API
+(`research_pipeline.py:288-361`) and accepts user-supplied `source_links` (`podcast_research_integrator.py:103,124`),
+so "retrieved" does not yet mean "a paper confirmed to exist".
+
+**Where to change.**
+- Drop the LLM citations from the pool: `podcast_research_integrator.py:190-194`.
+- Stop asking the model to write References and drop `citations_used`: `:443`, `:449`.
+- Always build the References section in code from retrieved **papers** only, with `format_real_citation_line`
+  (`:50-72`), after a registry lookup that drops anything that does not resolve (a small new function using the PubMed
+  and arXiv endpoints already in `research_pipeline.py:43-44`, plus Crossref for DOIs). Keep news and social-trend
+  sources out of References, or label them as not papers.
+- Replace the fallback block at `services/podcast_generation_service.py:2400-2480`.
+
+**Side effect to accept.** The job already fails fast when fewer than 3 sources are found
+(`services/podcast_generation_service.py:2187`). Confirming sources can push a topic under that line, so some
+generations will fail honestly instead of publishing with unverifiable references.
+
+**How it changes the checker.** Step 0 shrinks to a re-check; `citation_unresolved` and `llm_supplied` flags should
+nearly vanish for new episodes, and the citation-integrity floor becomes close to 100% *by construction*, so it turns
+into a regression test and stops measuring anything. The checker keeps verifying anyway: old episodes, user-supplied
+links and any regression.
+
+### 12.2 Fix 2: full abstracts to the generator
+**Why second.** The generator sees `abstract[:300]` per source (`podcast_research_integrator.py:493`), then fills the
+gaps from second-hand analyses (`:147-177`, which *do* use the full abstract, `:162-163`) or from the model's own
+knowledge. Giving it the whole abstract is the cheapest cut in unsupported claims.
+**Where.** `podcast_research_integrator.py:493` inside `_format_research_evidence` (`:468-524`); keep a cap
+(for example 2,000 characters) so the prompt stays bounded. **Effort:** one line and a cap, about half a day, plus the
+evaluation re-run.
+**Checker.** Limit L4 (generator and checker see different text) disappears, so "the whole abstract does not support
+this" becomes stronger evidence. The flag rate should fall, and the baseline in section 6 (item 7) is how we measure it.
+
+### 12.3 Fix 3: inline citation markers tied to claims
+**Why third.** It does not make the script more correct; it makes it **checkable**. Today attribution is inferred (limit L2).
+With markers it is recorded.
+**Where.**
+- Prompt: the citation style rules (`podcast_research_integrator.py:383-388`) and the output schema (`:433-450`);
+  give each source an ID such as `S3` in `_format_research_evidence` (`:468-494`) and ask for a marker after each
+  claim that rests on a source.
+- **Strip the markers deterministically before anything downstream sees the script**, at
+  `services/podcast_generation_service.py:2338-2345` (after generation, before validation, length counting, the
+  audio call at `:2554` and the transcript at `:2600`). Otherwise `_parse_script_segments`
+  (`elevenlabs_voice_service.py:270`) would read them aloud. Store the marked text as `script_cited` next to the clean
+  `script` (`:2718-2738`).
+**Effort:** about 2 to 3 days: prompt, strip function, new field, tests, and a listening check that no marker is spoken.
+**Checker.** Step 1 attribution becomes parsing, not an LLM call (saves about $0.013 to $0.034 an episode). Check (a)
+tests the generator's own markers, so a wrong marker is itself a flag (`wrong_source`), and an unmarked factual
+sentence is found mechanically. I would still run the independent LLM attribution on a sample to audit the markers.
+
+### 12.4 Fix 4: ingest every cited paper into `research_papers`
+**Why fourth.** It is the enabler more than a correctness fix: the cited paper and its abstract get a permanent,
+deduplicated home, so the source of a claim is always browsable and checkable.
+**Where.** The live upload endpoint mints a random ID (`endpoints/papers/routes.py:78`, written at `:116`), which is how
+the duplicates in BULLETIN 012 arose. The batch script already has deterministic IDs and the document shape
+(`scripts/ingest_papers_from_metadata_json.py:259`, `:312`). Move those two functions into a shared module and call it
+for each cited source right after the research phase (`services/podcast_generation_service.py:2199-2218`), with
+embeddings through `utils/auto_embedding.py` (as at `endpoints/papers/routes.py:105-106`). Add a one-time backfill of
+the papers that old episodes cite.
+**Effort:** about 2 to 3 days plus the backfill.
+**Checker.** Step 0 always finds the source in the corpus under a stable `paper_id`, with no live fetch for new
+episodes; `verification_sources` can point to it; check (b)'s "already cited" exclusion becomes exact. The corpus gains
+about 7 papers an episode (negligible), and the new documents should be tagged like the rest (the BULLETIN 017
+follow-up on tagging at ingest).
+
+### 12.5 Build order, and what stays the same
+**Order to build: 2, 1, 3, 4.** Fix 2 is nearly free and gives an immediate, measurable effect; fix 1 removes the
+integrity risk; fix 3 needs the most care because it touches the audio path; fix 4 is the enabler and can follow. The
+Phase 0 baseline (section 6, item 7) is taken first, and a fresh sample is checked after each fix. Nothing here changes
+the post-publish rule: the checker still never blocks publishing, and the existing pre-publish validator
+(`content_fixes.py:635-679`) stays as it is.
+
+---
+
+## 13. Notification email: the Gmail app password (this also restores the "ready" email)
+
+**Why one setup does two jobs.** `EmailService` sends through Gmail and reads its password from the environment
+variable `NOTIFICATION_EMAIL_PASSWORD` (`email_service.py:35-36`). The live `copernicus-podcast-api` has no such
+variable, so both the completion email and the failure email return without sending (`email_service.py:51-53`,
+`:129-131`). Setting it up restores the **"your podcast is ready" email** (`services/podcast_generation_service.py:2822`)
+and the **failure email** (`:2865`) and gives the verification sweep its one-line notification.
+
+**One behavior change to decide first.** The completion email goes to the subscriber who requested the episode
+(`services/podcast_generation_service.py:2139-2154`; the default is `garywelz@gmail.com`). So once this works,
+subscribers' own addresses start receiving "ready" emails. If that is not wanted, say so and the sweep email can use a
+separate path.
+
+**Recommended: a dedicated sender account.** An app password lets whoever holds it send mail as that account and, for
+Gmail, read its mailbox over IMAP. Use a **new Gmail account made only for notifications**, not your personal one, so a
+leak exposes nothing else. The sender address is set by `NOTIFICATION_EMAIL` (`email_service.py:35`) and used for the
+login (`:109`).
+
+**Steps (you, in a browser and Cloud Shell):**
+1. Create or choose the sender account and turn on **2-Step Verification** for it (Google requires it for app
+   passwords).
+2. Signed in as that account, open `https://myaccount.google.com/apppasswords`, name it "Copernicus notifications" and
+   create it. Google shows a 16-character password **once**; copy it (the spaces are cosmetic).
+3. In Cloud Shell, store it without writing it to a file or your shell history:
+   ```
+   read -s -p "App password: " PW; echo
+   printf '%s' "$PW" | gcloud secrets create notification-email-password \
+     --project regal-scholar-453620-r7 --replication-policy=automatic --data-file=-
+   unset PW
+   ```
+4. Let the service read **that one secret**:
+   ```
+   gcloud secrets add-iam-policy-binding notification-email-password --project regal-scholar-453620-r7 \
+     --member=serviceAccount:$(gcloud run services describe copernicus-podcast-api --region us-central1 \
+       --project regal-scholar-453620-r7 --format='value(spec.template.spec.serviceAccountName)') \
+     --role=roles/secretmanager.secretAccessor
+   ```
+5. Hand it to the service as a **gated revision** (`DEPLOY.md`: image unchanged, only these settings differ; new
+   revision with no traffic and a tag, diff, smoke test, move traffic after approval, remove the tag):
+   ```
+   gcloud run services update copernicus-podcast-api --region us-central1 --project regal-scholar-453620-r7 \
+     --update-secrets=NOTIFICATION_EMAIL_PASSWORD=notification-email-password:latest \
+     --update-env-vars=NOTIFICATION_EMAIL=<the sender address> --no-traffic --tag=email
+   ```
+6. **Test** with one test message sent by a small script (I run it after your go-ahead), so nothing depends on
+   generating an episode.
+7. The sweep, running from Claude Code, reads the same secret with its own credential; nothing more to set up.
+
+**Reverse or revoke.** Delete the app password at the same Google page (instant), and remove the setting with
+`--remove-secrets=NOTIFICATION_EMAIL_PASSWORD` on a new revision. Two limits to check against current Google guidance
+before relying on it: app passwords require 2-Step Verification, and Gmail caps daily sends (the volume here is a few a
+day). Nothing in this section has been done.
+
+---
+
+## 14. Future direction (not part of this proposal)
+An optional later direction: **inline graphics shown only in the browser** (the episode page), never in the audio or
+the feed. A graphic is used **only when it is a necessary illustration** of what is being said, not decoration, and
+the **engine's own validated structures are preferred** over newly generated images (for example GLMP process charts
+and ATAP proof graphs). Each graphic is **checked for agreement with the text it illustrates** as one more check in this
+framework: the same shared record (4.9) with `subject.kind: "figure"` and `check: "figure_text_agreement"`, and the
+same `review` workflow. **Full video and YouTube are out of scope.** Nothing in sections 4 to 6 has to change to leave
+room for this.
