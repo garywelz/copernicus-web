@@ -25,6 +25,25 @@ Entry format:
 
 ---
 
+## 019 — 2026-10-06 — Gap 3 (verification loop) scope split between Core and Methods & Tools
+
+- **From:** Claude Chat (architecture review), decided by Gary 2026-10-05
+- **Record:** this entry; no other repo change
+- **Affects:** Core, and the Methods & Tools project; anyone building verification for the engines (GLMP, ATAP, TDAP)
+- **Summary:**
+  - **Core builds verification layers 1 and 2.**
+    - **Layer 1, faithfulness:** whether generated text (podcast scripts, RAG answers) says what its cited sources say, measured against the NSF proposal targets: grounding of at least 90% and citation integrity of at least 95%.
+    - **Layer 2, cross-checking by independent models:** using the multi-model checking that exists but is switched off.
+  - **Layer 3, domain verification, is method development and belongs to Methods & Tools.**
+    - Lean formalization for ATAP and other mathematics work.
+    - Evo-class and virtual cell models (run on Colab) as computational evidence for GLMP and other biology work.
+    - **Lean results count as verification; model predictions count as evidence, not proof.**
+  - **Core will prepare to receive layer 3 results:** a place to store each verification result, linked to the paper, claim or process document it concerns, and a way to show it in the engines. A shared result-record format should be agreed before either side builds.
+- **Waiting on:**
+  - **Gary:** the gap 3 interview, 2026-10-06.
+  - **Core:** a result-record proposal, after the interview.
+  - **Methods & Tools:** scope a Lean pilot on ATAP material, and an Evo experiment protocol for GLMP.
+
 ## 018 — 2026-10-04 — glmp-service closed to the public; stale revision tags removed; entry 009 corrected
 
 - **From:** Claude Code (Core lane), approved by Gary
