@@ -68,6 +68,15 @@ _CITATION_GROUNDING = """
 """
 
 
+# Gap 3 fix 1: research-phase failures get their own job error_type (keyed by exception class name) so an unreachable
+# registry, an unconfirmable requested paper and a thin topic can be told apart in the job record and the failure email.
+RESEARCH_FAILURE_TYPES = {
+    'InsufficientConfirmedPapers': 'insufficient_confirmed_papers',
+    'RegistryUnavailable': 'registry_unavailable',
+    'PaperNotConfirmed': 'requested_paper_not_confirmed',
+}
+
+
 def _research_paper_from_request(request: PodcastRequest) -> ResearchPaper:
     authors = request.paper_authors or ["Unknown Author"]
     if isinstance(authors, str):
@@ -1077,26 +1086,21 @@ IMPORTANT: Do NOT include a "## Episode Overview" header. Start directly with 2-
         additional_instructions = request.additional_instructions or ""
         source_citation = ""
         if request.paper_title:
-            source_citation = format_citation(_research_paper_from_request(request))
-            additional_instructions += f"""
+            # (venue line is added below from the confirmed registry record)
+            # Gap 3 fix 1 (C3/C4): the requested paper was confirmed in the research phase and is P1 in the confirmed list,
+            # so there is nothing to inject here; its venue line comes from the registry record, not from the request.
+            requested = next((c for c in research_context.confirmed_papers if c.pid == research_context.requested_pid), None)
+            if requested is not None:
+                source_citation = format_citation(ResearchPaper(
+                    title=requested.title, authors=list(requested.authors), content="", abstract=requested.abstract,
+                    doi=requested.ids.get("doi"), publication_date=str(requested.year or ""), journal=requested.venue))
+                additional_instructions = additional_instructions.split("**SOURCE PAPER VENUE:**")[0] + f"""
 
-**SOURCE PAPER VENUE:** This episode is about:
+**SOURCE PAPER VENUE:** This episode is about [P1]:
 {source_citation}
 Say that journal name in dialogue. Never say "published in PubMed" or "published in arXiv".
 """
-            from paper_confirmation import research_source_for_requested_paper
-            # Gap 3 fix 1 (C3): the requested paper must itself be confirmed in its registry by its DOI. Its title,
-            # authors, year, venue and abstract come from that record, not from the request. If it cannot be
-            # confirmed the job fails with a message that says so (PaperNotConfirmed / RegistryUnavailable).
-            paper_src = await research_source_for_requested_paper(
-                request.paper_doi, request.paper_title, journal=request.paper_journal)
-            rest = [
-                s for s in research_context.research_sources
-                if (s.doi or "").lower() != (request.paper_doi or "").lower()
-                and (s.title or "").strip().lower() != request.paper_title.strip().lower()
-            ]
-            research_context.research_sources = [paper_src] + rest
-        
+
         if retry_attempt > 0:
             additional_instructions += f"""
 
@@ -2178,7 +2182,8 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
                         additional_context=request.additional_instructions or "",
                         source_links=request.source_links or [],
                         expertise_level=request.expertise_level,
-                        require_minimum_sources=3  # FAIL FAST if insufficient research
+                        require_minimum_sources=3,  # FAIL FAST unless 3 papers are CONFIRMED in their registry
+                        required_paper=({"doi": request.paper_doi, "title": request.paper_title} if request.paper_title else None),
                     ),
                     timeout=300  # 5 minute timeout for research
                 )
@@ -2221,7 +2226,7 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
                 job_ref.update({
                     'status': 'failed',
                     'error': f"Research failed: {error_msg}",
-                    'error_type': 'insufficient_research',
+                    'error_type': RESEARCH_FAILURE_TYPES.get(type(e).__name__, 'insufficient_research'),
                     'updated_at': datetime.utcnow().isoformat()
                 })
                 

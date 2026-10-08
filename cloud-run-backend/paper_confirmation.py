@@ -36,11 +36,25 @@ class RegistryUnavailable(Exception):
 
     def __init__(self, registries: Sequence[str]):
         self.registries = sorted(set(registries))
-        super().__init__("could not reach: " + ", ".join(self.registries))
+        super().__init__(
+            "Could not reach the paper registries (" + ", ".join(self.registries) + ") to confirm the research papers, "
+            "so no episode was generated. This is usually temporary; please try again later.")
 
 
 class PaperNotConfirmed(Exception):
     """A paper that must be confirmed (a directly requested paper) could not be."""
+
+
+class InsufficientConfirmedPapers(Exception):
+    """Fewer confirmed papers than the minimum. The message says how many were found, confirmed and dropped, and why."""
+
+    def __init__(self, topic: str, found: int, confirmed: int, needed: int, drop_counts: Dict[str, int]):
+        self.topic, self.found, self.confirmed, self.needed, self.drop_counts = topic, found, confirmed, needed, dict(drop_counts)
+        why = ", ".join(f"{n} {r.replace('_', ' ')}" for r, n in sorted(drop_counts.items())) or "none"
+        super().__init__(
+            f"Not enough confirmed research papers for '{topic}': {found} candidate sources were found, {confirmed} were confirmed "
+            f"against PubMed, arXiv or Crossref, and at least {needed} are needed. Dropped candidates: {why}. "
+            "No episode was generated or published.")
 
 
 @dataclass
@@ -330,11 +344,13 @@ def _dedupe_key(ids: Dict[str, Optional[str]]) -> List[str]:
     return keys
 
 
-async def confirm_sources(sources: Sequence[Any], http_get: Optional[HttpGet] = None, max_papers: int = MAX_PAPERS) -> ConfirmationResult:
+async def confirm_sources(sources: Sequence[Any], http_get: Optional[HttpGet] = None, max_papers: int = MAX_PAPERS,
+                          required_first: Optional["ConfirmedPaper"] = None) -> ConfirmationResult:
     """Confirm ranked ResearchSource-like objects (need .title, .url, .doi, .publication_date).
 
     Returns ConfirmationResult; raises RegistryUnavailable if any registry could not be reached after retries.
     Order follows the input (rank) order; P numbers are assigned in that order, up to ``max_papers``.
+    ``required_first`` (an already confirmed, directly requested paper) becomes P1 and any duplicate of it is dropped.
     """
     http_get = http_get or _default_http_get
     bad: List[str] = []
@@ -372,6 +388,10 @@ async def confirm_sources(sources: Sequence[Any], http_get: Optional[HttpGet] = 
 
     confirmed: List[ConfirmedPaper] = []
     seen_keys: set = set()
+    if required_first is not None:
+        required_first = ConfirmedPaper(**{**asdict(required_first), "pid": "P1"})
+        confirmed.append(required_first)
+        seen_keys.update(_dedupe_key(required_first.ids))
     for c in cands:
         s, ids = c["src"], c["ids"]
         title = getattr(s, "title", "") or ""
@@ -436,13 +456,28 @@ async def confirm_requested_paper(doi: Optional[str], title: str, http_get: Opti
     return res.confirmed[0]
 
 
-async def research_source_for_requested_paper(doi: Optional[str], title: str, journal: Optional[str] = None,
-                                              http_get: Optional[HttpGet] = None):
-    """The ResearchSource the generator is given for a directly requested paper: every field comes from the
-    confirmed registry record, never from the request. Raises PaperNotConfirmed or RegistryUnavailable."""
+def as_research_source(c: ConfirmedPaper):
+    """A ResearchSource carrying a confirmed paper's registry fields and its P number, for the rest of the pipeline."""
     from research_pipeline import ResearchSource  # lazy: keeps this module importable on its own
-    c = await confirm_requested_paper(doi, title, http_get=http_get)
     return ResearchSource(
-        title=c.title, authors=list(c.authors), abstract=(c.abstract or "")[:2000], url=c.url,
-        publication_date=str(c.year or ""), source="journal", doi=c.ids.get("doi") or doi, journal=c.venue or journal,
+        title=c.title, authors=list(c.authors), abstract=c.abstract, url=c.url, publication_date=str(c.year or ""),
+        source=c.registry, doi=c.ids.get("doi"), journal=c.venue, pid=c.pid,
     )
+
+
+def format_citation_line(c: ConfirmedPaper) -> str:
+    """One reference line built by code from registry fields only: authors (year). Title. Venue. identifier."""
+    authors = c.authors
+    names = ", ".join(authors[:3]) + (" et al." if len(authors) > 3 else "")
+    parts = [f"{names} ({c.year})." if names and c.year else f"{names}." if names else (f"({c.year})." if c.year else "")]
+    parts.append(c.title.rstrip(".") + ".")
+    if c.venue:
+        parts.append(c.venue.rstrip(".") + ".")
+    if c.ids.get("arxiv"):
+        parts.append(f"arXiv:{c.ids['arxiv']}{c.ids.get('arxiv_version') or ''}.")
+    if c.ids.get("pmid"):
+        parts.append(f"PMID {c.ids['pmid']}.")
+    if c.ids.get("doi"):
+        parts.append(f"DOI: {c.ids['doi']}.")
+    parts.append(c.url)
+    return " ".join(p for p in parts if p)

@@ -407,12 +407,10 @@ Thank you for joining us on this journey through the latest scientific discoveri
 Until next time, keep questioning, keep exploring, and keep pushing the boundaries of knowledge."""
 
     def _extract_citations(self, analyses: List[PaperAnalysis]) -> List[str]:
-        """Extract formatted citations from analyses"""
-        citations = []
-        for analysis in analyses:
-            citation = f"{analysis.title}. {', '.join(analysis.keywords[:3])}."
-            citations.append(citation)
-        return citations
+        """Gap 3 fix 1 (C2): no citation strings are produced here. The old version built "Title. keyword, keyword."
+        lines that looked like citations but were not registry data. This script path has no callers; real reference
+        lists are built by code from confirmed papers (paper_confirmation.format_citation_line)."""
+        return []
 
     def _generate_hashtags(self, topic: str, analyses: List[PaperAnalysis]) -> List[str]:
         """Generate relevant hashtags"""
