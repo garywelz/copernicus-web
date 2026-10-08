@@ -21,6 +21,7 @@ class ResearchSource:
     journal: Optional[str] = None  # real venue; never treat pubmed/arxiv as the journal
     keywords: Optional[List[str]] = None
     relevance_score: Optional[float] = None
+    pid: Optional[str] = None  # P number, set only on a confirmed paper (gap 3 fix 1)
 
 class ComprehensiveResearchPipeline:
     """

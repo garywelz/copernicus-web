@@ -275,17 +275,152 @@ def test_user_link_with_no_identifier_yields_none():
 
 
 # ---------------------------------------------------------------- C3 wiring: user links and the requested paper
-def test_requested_paper_source_takes_every_field_from_the_registry():
-    f = Fake(crossref_map={"10.1000/x1": crossref("Requested Paper Title", "<p>Registry abstract.</p>", 2025)})
-    s = run(pc.research_source_for_requested_paper("10.1000/x1", "Requested Paper Title", journal="Wrong Journal", http_get=f))
-    assert s.title == "Requested Paper Title" and s.abstract == "Registry abstract."
-    assert s.journal == "Journal of Tests"  # the registry venue wins over the request's
-    assert s.publication_date == "2025" and s.doi == "10.1000/x1" and s.source == "journal"
+def test_required_first_becomes_p1_and_its_duplicate_is_dropped():
+    f = Fake(crossref_map={"10.1000/x1": crossref("Requested Paper Title", "<p>A.</p>", 2025)},
+             arxiv=atom(dict(id="2601.00002v1", pub="2026-01-01T00:00:00Z", title="Another paper about things", summary="S.")))
+    req = run(pc.confirm_requested_paper("10.1000/x1", "Requested Paper Title", http_get=f))
+    res = run(pc.confirm_sources([
+        src("Another paper about things", "http://arxiv.org/abs/2601.00002v1", None, "2026"),
+        src("Requested Paper Title", "", "10.1000/X1", "2025")], http_get=f, required_first=req))
+    assert [p.pid for p in res.confirmed] == ["P1", "P2"]
+    assert res.confirmed[0].title == "Requested Paper Title" and res.confirmed[1].ids["arxiv"] == "2601.00002"
+    assert res.drop_counts() == {"duplicate": 1}
 
 
-def test_requested_paper_source_unconfirmable_raises():
+def test_insufficient_confirmed_papers_message_is_clear():
+    e = pc.InsufficientConfirmedPapers("dark matter", 9, 2, 3, {"no_identifier": 5, "not_found": 2})
+    msg = str(e)
+    assert "dark matter" in msg and "9 candidate sources" in msg and "2 were confirmed" in msg and "at least 3" in msg
+    assert "5 no identifier" in msg and "2 not found" in msg and "No episode was generated or published" in msg
+
+
+def test_registry_unavailable_message_is_not_the_too_few_message():
+    msg = str(pc.RegistryUnavailable(["pubmed", "arxiv"]))
+    assert "arxiv, pubmed" in msg and "try again" in msg and "Not enough" not in msg
+
+
+def test_as_research_source_and_citation_line_use_registry_fields_only():
+    f = Fake(arxiv=atom(dict(id="2603.28944v1", pub="2026-03-30T00:00:00Z", title="AI prediction leads people to forgo guaranteed rewards", summary="Abs.")))
+    c = run(pc.confirm_sources([src("AI prediction leads people to forgo guaranteed rewards", "http://arxiv.org/abs/2603.28944v1", None, "2026")], http_get=f)).confirmed[0]
+    rs = pc.as_research_source(c)
+    assert rs.pid == "P1" and rs.title == c.title and rs.abstract == "Abs." and rs.url.endswith("2603.28944v1")
+    line = pc.format_citation_line(c)
+    assert "arXiv:2603.28944v1" in line and "AI prediction leads people to forgo guaranteed rewards." in line
+    assert line.startswith("Ada Lovelace, Alan Turing (2026).") and line.endswith("https://arxiv.org/abs/2603.28944v1")
+
+
+# ---------------------------------------------------------------- integrator (C2, C4, C7) with every outside call faked
+def _integrator(monkeypatch, sources, http):
+    import podcast_research_integrator as pri
+    monkeypatch.setattr(pc, "_default_http_get", http)
+
+    class _Analysis:
+        def __init__(self, title):
+            self.title, self.analysis_failed = title, False
+            self.paradigm_shift_potential, self.interdisciplinary_connections = "high", ["links to physics"]
+            self.technical_complexity = "low"
+            self.key_findings = [f"finding about {title}"]
+
+    class _Gemini:
+        paradigm_shifts, interdisciplinary_connections, key_findings = ["gemini shift"], [], ["gemini finding"]
+        citations = ["FAKE MODEL-WRITTEN CITATION, Nature 1999"]
+
+    async def fake_multi(srcs, complexity=None):
+        return [_Analysis(x.title) for x in srcs]
+
+    async def fake_gemini(paper, options, key):
+        return _Gemini()
+
+    async def fake_search(**kw):
+        return list(sources)
+    it = pri.PodcastResearchIntegrator("fake-key")
+    monkeypatch.setattr(it.research_pipeline, "comprehensive_search", fake_search)
+    monkeypatch.setattr(it.enhanced_research_service, "analyze_multiple_papers", fake_multi)
+    monkeypatch.setattr(pri, "analyze_paper_with_gemini", fake_gemini)
+    return it
+
+
+def _good_http():
+    return Fake(arxiv=atom(*[dict(id=f"2601.0000{i}v1", pub="2026-01-01T00:00:00Z", title=f"Paper number {i} about cells", summary=f"Abstract {i}.") for i in (1, 2, 3)]))
+
+
+def _srcs(n=3, extra=()):
+    out = [src(f"Paper number {i} about cells", f"http://arxiv.org/abs/2601.0000{i}v1", None, "2026") for i in range(1, n + 1)]
+    for s_ in out:
+        s_.authors, s_.abstract, s_.source, s_.journal = ["A One"], "x", "arxiv", None
+    return out + list(extra)
+
+
+def test_integrator_uses_only_confirmed_papers_and_no_model_citations(monkeypatch):
+    junk = src("A talk on YouTube", "https://www.youtube.com/watch?v=1")
+    junk.authors, junk.abstract, junk.source, junk.journal = [], "", "youtube", None
+    it = _integrator(monkeypatch, _srcs(3, [junk]), _good_http())
+    ctx = run(it.comprehensive_research_for_podcast("cells"))
+    assert [s_.pid for s_ in ctx.research_sources] == ["P1", "P2", "P3"]
+    assert [p.pid for p in ctx.confirmed_papers] == ["P1", "P2", "P3"] and ctx.dropped_candidates[0].reason == "no_identifier"
+    joined = " ".join(ctx.real_citations + ctx.key_findings + ctx.paradigm_shifts)
+    assert "FAKE MODEL-WRITTEN" not in joined
+    assert all("arXiv:2601.0000" in c for c in ctx.real_citations) and len(ctx.real_citations) == 3
+    assert any(f.startswith("[P1] ") for f in ctx.key_findings) and "[P1] gemini finding" in ctx.key_findings
+
+
+def test_integrator_fails_early_with_too_few_confirmed_papers(monkeypatch):
+    junk = [src(f"Talk {i}", f"https://www.youtube.com/watch?v={i}") for i in range(4)]
+    for j in junk:
+        j.authors, j.abstract, j.source, j.journal = [], "", "youtube", None
+    it = _integrator(monkeypatch, _srcs(2, junk), _good_http())
+    called = {"n": 0}
+
+    async def boom(*a, **k):
+        called["n"] += 1
+        return []
+    monkeypatch.setattr(it.enhanced_research_service, "analyze_multiple_papers", boom)
+    with pytest.raises(pc.InsufficientConfirmedPapers) as e:
+        run(it.comprehensive_research_for_podcast("cells"))
+    assert e.value.found == 6 and e.value.confirmed == 2 and e.value.drop_counts == {"no_identifier": 4}
+    assert called["n"] == 0  # no analysis, no generation, nothing spent
+
+
+def test_integrator_registry_outage_is_not_reported_as_too_few(monkeypatch):
+    it = _integrator(monkeypatch, _srcs(3), Fake(status={"export.arxiv.org": 503}))
+    with pytest.raises(pc.RegistryUnavailable):
+        run(it.comprehensive_research_for_podcast("cells"))
+
+
+def test_requested_paper_is_p1_in_the_integrator(monkeypatch):
+    http = _good_http()
+    http.crossref_map = {"10.1000/x1": crossref("Requested Paper Title", "<p>Abs.</p>", 2025)}
+    it = _integrator(monkeypatch, _srcs(3), http)
+    ctx = run(it.comprehensive_research_for_podcast("cells", required_paper={"doi": "10.1000/x1", "title": "Requested Paper Title"}))
+    assert ctx.requested_pid == "P1" and ctx.confirmed_papers[0].title == "Requested Paper Title"
+    assert [p.pid for p in ctx.confirmed_papers] == ["P1", "P2", "P3", "P4"]
+
+
+def test_unconfirmable_requested_paper_fails_the_research_phase(monkeypatch):
+    it = _integrator(monkeypatch, _srcs(3), _good_http())
     with pytest.raises(pc.PaperNotConfirmed):
-        run(pc.research_source_for_requested_paper("10.9999/none", "T", http_get=Fake()))
+        run(it.comprehensive_research_for_podcast("cells", required_paper={"doi": "10.9999/none", "title": "Nope"}))
+
+
+def test_prompt_lists_confirmed_papers_and_forbids_others(monkeypatch):
+    it = _integrator(monkeypatch, _srcs(3), _good_http())
+    ctx = run(it.comprehensive_research_for_podcast("cells"))
+    prompt = it.build_2_speaker_research_prompt(ctx, "10 minutes", "interview")
+    for pid in ("[P1]", "[P2]", "[P3]"):
+        assert pid in prompt
+    assert "You may name ONLY the papers in the numbered list" in prompt
+    assert "citations_used" not in prompt and "REAL CITATIONS" not in prompt
+    assert "Stormo" not in prompt  # the old worked example named a real paper that kept reappearing
+    assert "Do NOT write a References section" in prompt
+    assert "Say \"the link is in the description\" ONLY right after naming a paper from the list" in prompt
+
+
+def test_model_written_citations_are_gone_from_the_other_stages():
+    import inspect
+    import paper_processor
+    import enhanced_research_service as ers
+    assert "Properly formatted academic citations" not in inspect.getsource(paper_processor)
+    assert ers.EnhancedResearchService._extract_citations(object(), [object()]) == []
 
 
 def _pipeline():

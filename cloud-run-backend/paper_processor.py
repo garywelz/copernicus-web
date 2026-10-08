@@ -114,7 +114,6 @@ Please provide a comprehensive analysis in the following JSON format:
     "paradigm_shifts": ["Identify paradigm-shifting implications"],
     "interdisciplinary_connections": ["Connections to other scientific fields"],
     "implications": ["Broader implications for science and society"],
-    "citations": ["Properly formatted academic citations with DOIs where possible"],
     "methodology_analysis": "Analysis of research methodology and its innovations",
     "future_research_directions": ["Suggested future research directions"],
     "confidence_score": 0.85
@@ -162,7 +161,7 @@ Maintain academic rigor while highlighting transformative potential.
             paradigm_shifts=analysis_data.get("paradigm_shifts", []),
             interdisciplinary_connections=analysis_data.get("interdisciplinary_connections", []),
             implications=analysis_data.get("implications", []),
-            citations=analysis_data.get("citations", []),
+            citations=[],  # gap 3 fix 1 (C2): never keep a model-written citation string
             methodology_analysis=analysis_data.get("methodology_analysis", ""),
             future_research_directions=analysis_data.get("future_research_directions", []),
             confidence_score=analysis_data.get("confidence_score", 0.8)
