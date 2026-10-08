@@ -578,86 +578,53 @@ class ComprehensiveResearchPipeline:
         return sources
 
     async def _process_user_links(self, links: List[str], subject: str) -> List[ResearchSource]:
-        """Process user-provided research links"""
-        sources = []
-        
+        """Process user-provided research links.
+
+        Gap 3 fix 1 (C3): a link becomes a source only if an identifier (arXiv id, PubMed id or DOI) can be found
+        for it -- in the URL, then in the page's standard metadata -- AND that identifier is confirmed in its
+        registry. Title, authors and abstract come from the registry record. No model writes any metadata here.
+        Links that cannot be confirmed are dropped (and printed, as other errors in this module are).
+        """
+        from paper_confirmation import (
+            confirm_sources, discover_identifiers_in_page, RegistryUnavailable,
+        )
+        sources: List[ResearchSource] = []
+
         for link in links:
             try:
-                # Extract metadata from user links using AI
-                async with aiohttp.ClientSession() as session:
-                    # Fetch page content
-                    async with session.get(link, timeout=10) as response:
-                        if response.status == 200:
-                            content = await response.text()
-                            
-                            # Use AI to extract research metadata
-                            metadata = await self._extract_metadata_with_ai(content, link, subject)
-                            if metadata:
-                                sources.append(metadata)
-            
+                ids = discover_identifiers_in_page(link, "")
+                if not any(ids.values()):
+                    async with aiohttp.ClientSession() as session:
+                        async with session.get(link, timeout=10) as response:
+                            if response.status == 200:
+                                ids = discover_identifiers_in_page(link, (await response.text())[:200000])
+                if not any(ids.values()):
+                    print(f"User link dropped (no identifier found): {link}")
+                    continue
+
+                from types import SimpleNamespace
+                probe = SimpleNamespace(
+                    title="", publication_date="", doi=ids.get("doi"),
+                    url=(f"https://arxiv.org/abs/{ids['arxiv']}{ids['arxiv_version'] or ''}" if ids.get("arxiv")
+                         else f"https://pubmed.ncbi.nlm.nih.gov/{ids['pmid']}/" if ids.get("pmid") else ""),
+                )
+
+                result = await confirm_sources([probe])
+                if not result.confirmed:
+                    print(f"User link dropped ({result.drop_counts()}): {link}")
+                    continue
+                c = result.confirmed[0]
+                sources.append(ResearchSource(
+                    title=c.title, authors=list(c.authors), abstract=c.abstract, url=c.url,
+                    publication_date=str(c.year or ""), source="user_provided",
+                    doi=c.ids.get("doi"), journal=c.venue,
+                ))
+            except RegistryUnavailable:
+                raise
             except Exception as e:
                 print(f"Error processing user link {link}: {e}")
-        
-        return sources
 
-    async def _extract_metadata_with_ai(self, content: str, url: str, subject: str) -> Optional[ResearchSource]:
-        """Use AI to extract research metadata from web content"""
-        try:
-            async with aiohttp.ClientSession() as session:
-                headers = {
-                    "Authorization": f"Bearer {self.openrouter_api_key}",
-                    "Content-Type": "application/json"
-                }
-                
-                # Truncate content to avoid token limits
-                truncated_content = content[:3000]
-                
-                prompt = f"""
-                Extract research metadata from this web content about {subject}:
-                
-                URL: {url}
-                Content: {truncated_content}
-                
-                Return a JSON object with:
-                - title: string
-                - authors: array of strings
-                - abstract: string (summary of main content)
-                - publication_date: string (if available)
-                - keywords: array of strings
-                
-                JSON:"""
-                
-                ai_data = {
-                    "model": "anthropic/claude-3-haiku",
-                    "messages": [{"role": "user", "content": prompt}],
-                    "max_tokens": 300
-                }
-                
-                async with session.post(self.endpoints["openrouter"], 
-                                      headers=headers, json=ai_data) as response:
-                    if response.status == 200:
-                        result = await response.json()
-                        metadata_text = result["choices"][0]["message"]["content"]
-                        
-                        # Parse JSON response
-                        try:
-                            metadata = json.loads(metadata_text)
-                            return ResearchSource(
-                                title=metadata.get("title", ""),
-                                authors=metadata.get("authors", []),
-                                abstract=metadata.get("abstract", ""),
-                                url=url,
-                                publication_date=metadata.get("publication_date", ""),
-                                source="user_provided",
-                                keywords=metadata.get("keywords", [])
-                            )
-                        except json.JSONDecodeError:
-                            pass
-        
-        except Exception as e:
-            print(f"AI metadata extraction error: {e}")
-        
-        return None
+        return sources
 
     async def _rank_and_score_sources(self, sources: List[ResearchSource], subject: str) -> List[ResearchSource]:
         """Rank and score research sources by relevance"""

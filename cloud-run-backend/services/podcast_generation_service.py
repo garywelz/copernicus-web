@@ -1084,18 +1084,12 @@ IMPORTANT: Do NOT include a "## Episode Overview" header. Start directly with 2-
 {source_citation}
 Say that journal name in dialogue. Never say "published in PubMed" or "published in arXiv".
 """
-            from research_pipeline import ResearchSource
-            paper_url = f"https://doi.org/{request.paper_doi}" if request.paper_doi else ""
-            paper_src = ResearchSource(
-                title=request.paper_title,
-                authors=list(request.paper_authors or []),
-                abstract=(request.paper_abstract or "")[:2000],
-                url=paper_url,
-                publication_date=request.paper_year or "",
-                source="journal",
-                doi=request.paper_doi,
-                journal=request.paper_journal,
-            )
+            from paper_confirmation import research_source_for_requested_paper
+            # Gap 3 fix 1 (C3): the requested paper must itself be confirmed in its registry by its DOI. Its title,
+            # authors, year, venue and abstract come from that record, not from the request. If it cannot be
+            # confirmed the job fails with a message that says so (PaperNotConfirmed / RegistryUnavailable).
+            paper_src = await research_source_for_requested_paper(
+                request.paper_doi, request.paper_title, journal=request.paper_journal)
             rest = [
                 s for s in research_context.research_sources
                 if (s.doi or "").lower() != (request.paper_doi or "").lower()
