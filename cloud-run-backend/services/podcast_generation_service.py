@@ -100,6 +100,8 @@ from config.database import db
 from services.episode_service import episode_service
 from services.canonical_service import canonical_service
 from utils.script_validation import validate_script_length, calculate_minimum_words_for_duration
+from named_work_check import check_naming, feedback_text, make_gemini_llm_call, NamingViolationError
+from reference_sections import apply_reference_sections, BUILT_BY as REFERENCES_BUILT_BY
 
 # Retry decorator for upload operations
 def retry_upload(max_retries=3, delay=2):
@@ -1064,7 +1066,8 @@ IMPORTANT: Do NOT include a "## Episode Overview" header. Start directly with 2-
         request: PodcastRequest,
         research_context: PodcastResearchContext,
         google_key: str,
-        retry_attempt: int = 0
+        retry_attempt: int = 0,
+        naming_feedback: str = ""
     ) -> dict:
         """
         Generate 2-speaker podcast content from research context
@@ -1114,6 +1117,10 @@ Say that journal name in dialogue. Never say "published in PubMed" or "published
 - DO NOT generate a short script again - make it longer this time
 """
         
+        if naming_feedback:
+            # Gap 3 fix 1 (C5): the previous attempt named works that are not on the confirmed list.
+            additional_instructions += naming_feedback
+
         prompt = research_integrator.build_2_speaker_research_prompt(
             research_context=research_context,
             duration=request.duration,
@@ -1433,42 +1440,8 @@ In this comprehensive exploration, we'll examine the latest research development
             storage_client = storage.Client()
             bucket = storage_client.bucket("regal-scholar-453620-r7-podcast-storage")
             
-            # CRITICAL: Ensure references section exists - add from job metadata if missing
-            if '## References' not in description and job_id:
-                structured_logger.warning("References missing in upload_description_to_gcs, adding from job metadata",
-                                         job_id=job_id,
-                                         canonical_filename=canonical_filename)
-                try:
-                    db = firestore.Client(project='regal-scholar-453620-r7', database='copernicusai')
-                    job_doc = db.collection('podcast_jobs').document(job_id).get()
-                    if job_doc.exists:
-                        job_data = job_doc.to_dict()
-                        references_text = "\n\n## References\n\n"
-                        
-                        # Try real_citations first
-                        real_citations = job_data.get('real_citations', [])
-                        if real_citations:
-                            for citation in real_citations[:5]:
-                                references_text += f"- {citation}\n"
-                        else:
-                            # Fall back to research_sources_summary
-                            research_summary = job_data.get('research_sources_summary', [])
-                            if research_summary:
-                                for source_info in research_summary[:5]:
-                                    references_text += format_research_source_line(source_info) + "\n"
-                        
-                        # Insert references before hashtags if they exist, otherwise at the end
-                        if '## Hashtags' in description:
-                            desc_parts = description.split('## Hashtags')
-                            description = desc_parts[0].rstrip() + references_text.rstrip() + '\n\n## Hashtags' + ('## Hashtags'.join(desc_parts[1:]) if len(desc_parts) > 1 else '')
-                        else:
-                            description = description.rstrip() + references_text.rstrip()
-                except Exception as e:
-                    structured_logger.error("Could not add references in upload_description_to_gcs",
-                                           job_id=job_id,
-                                           error=str(e))
-                    # Continue without references rather than failing
-            
+            # (Gap 3 fix 1: references are built by code before this point; no fallback is added here.)
+
             # Extract topic from canonical filename for hashtag generation
             filename_parts = canonical_filename.split('-')
             if len(filename_parts) >= 2:
@@ -2096,6 +2069,115 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
                                  error=str(e))
             return []
     
+    async def _generate_checked_content(self, request, research_context, google_key: str, job_id: str):
+        """Generate the script and description, accept them only if they pass the length and naming checks.
+
+        Up to 2 regenerations in total (shared between the too-short retry and the naming retry); violations of the
+        naming check are fed back to the next attempt. Returns (content, naming_result, naming_attempts); raises
+        NamingViolationError / NamingCheckUnavailable if no acceptable script was produced. Nothing is written anywhere."""
+        # Retry loop for content generation - regenerate if script is too short
+        max_retries = 2
+        content = None
+        min_words = calculate_minimum_words_for_duration(request.duration)
+        # Gap 3 fix 1 (C5): the script may name only confirmed papers. The check runs on every accepted
+        # script; violations feed the next attempt, and after the last attempt the episode fails.
+        naming_llm = make_gemini_llm_call(google_key)
+        naming_feedback = ""
+        naming_result = None
+        naming_attempts = []
+        naming_checked = False
+        
+        for attempt in range(max_retries + 1):
+            try:
+                # Generate 2-speaker podcast from research
+                generated_content = await asyncio.wait_for(
+                    self.generate_content_from_research_context(request, research_context, google_key, retry_attempt=attempt, naming_feedback=naming_feedback),
+                    timeout=600  # 10 minute timeout for content generation
+                )
+                
+                # Check if script is long enough
+                script = generated_content.get('script', '') if isinstance(generated_content, dict) else ''
+                word_count = len(script.split()) if script else 0
+                
+                if word_count >= min_words:
+                    naming_result = await check_naming(
+                        script, generated_content.get('description', '') if isinstance(generated_content, dict) else '',
+                        research_context.confirmed_papers, naming_llm)
+                    naming_attempts.append({'attempt': attempt + 1, **naming_result.summary()})
+                    if naming_result.passed:
+                        content = generated_content
+                        naming_checked = True
+                        structured_logger.info(f"Content generation succeeded on attempt {attempt + 1}",
+                                              job_id=job_id,
+                                              word_count=word_count,
+                                              min_required=min_words)
+                        break
+                    structured_logger.warning("Script names works that are not among the confirmed papers",
+                                             job_id=job_id,
+                                             attempt=attempt + 1,
+                                             violations=naming_result.violations)
+                    if attempt < max_retries:
+                        naming_feedback = feedback_text(naming_result, research_context.confirmed_papers)
+                        await asyncio.sleep(2)
+                        continue
+                    raise NamingViolationError(naming_result.violations)
+                else:
+                    if attempt < max_retries:
+                        structured_logger.warning(f"Script too short on attempt {attempt + 1}, retrying with stronger prompt",
+                                                 job_id=job_id,
+                                                 word_count=word_count,
+                                                 min_required=min_words,
+                                                 attempt=attempt + 1,
+                                                 max_retries=max_retries + 1)
+                        await asyncio.sleep(2)  # Brief delay before retry
+                    else:
+                        # Last attempt - use what we have and let validation catch it
+                        content = generated_content
+                        structured_logger.warning("Script too short after all retries, proceeding to validation",
+                                                 job_id=job_id,
+                                                 word_count=word_count,
+                                                 min_required=min_words)
+            
+            except asyncio.TimeoutError:
+                if attempt < max_retries:
+                    structured_logger.warning(f"Content generation timed out on attempt {attempt + 1}, retrying",
+                                             job_id=job_id,
+                                             attempt=attempt + 1)
+                    await asyncio.sleep(2)
+                    continue
+                else:
+                    structured_logger.error("Content generation timed out after all retries", 
+                                           job_id=job_id,
+                                           timeout_seconds=600)
+                    raise Exception("Content generation timed out after 10 minutes")
+            except Exception as e:
+                if attempt < max_retries:
+                    structured_logger.warning(f"Content generation failed on attempt {attempt + 1}, retrying",
+                                             job_id=job_id,
+                                             error=str(e),
+                                             attempt=attempt + 1)
+                    await asyncio.sleep(2)
+                    continue
+                else:
+                    structured_logger.error("Content generation failed after all retries", 
+                                           job_id=job_id,
+                                           error=str(e),
+                                           error_type=type(e).__name__)
+                    raise
+        
+        if not content:
+            raise Exception("Failed to generate content after all retry attempts")
+
+        if not naming_checked:
+            # Last attempt was too short and was kept for validation to judge: it still gets the naming check.
+            naming_result = await check_naming(
+                content.get('script', ''), content.get('description', ''), research_context.confirmed_papers, naming_llm)
+            naming_attempts.append({'attempt': 'final', **naming_result.summary()})
+            if not naming_result.passed:
+                raise NamingViolationError(naming_result.violations)
+
+        return content, naming_result, naming_attempts
+
     async def run_podcast_generation_job(
         self, 
         job_id: str, 
@@ -2204,7 +2286,8 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
                         'doi': source.doi,
                         'url': source.url,
                         'publication_date': source.publication_date,
-                        'authors': source.authors[:3]  # Store first 3 authors
+                        'authors': source.authors[:3],  # Store first 3 authors
+                        'pid': getattr(source, 'pid', None),
                     })
                 
                 job_ref.update({
@@ -2212,7 +2295,9 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
                     'research_quality_score': research_context.research_quality_score,
                     'paradigm_shifts_count': len(research_context.paradigm_shifts),
                     'research_sources_summary': research_sources_summary,
-                    'real_citations': research_context.real_citations[:10],  # Store citations for references
+                    'confirmed_papers': [c.to_dict() for c in research_context.confirmed_papers],
+                    'dropped_candidates': [d.to_dict() for d in research_context.dropped_candidates],
+                    'requested_pid': research_context.requested_pid,
                     'updated_at': datetime.utcnow().isoformat()
                 })
                 
@@ -2261,76 +2346,10 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
                                       research_quality=research_context.research_quality_score,
                                       memory_before=content_memory_before)
                 
-                # Retry loop for content generation - regenerate if script is too short
-                max_retries = 2
-                content = None
-                min_words = calculate_minimum_words_for_duration(request.duration)
-                
-                for attempt in range(max_retries + 1):
-                    try:
-                        # Generate 2-speaker podcast from research
-                        generated_content = await asyncio.wait_for(
-                            self.generate_content_from_research_context(request, research_context, google_key, retry_attempt=attempt),
-                            timeout=600  # 10 minute timeout for content generation
-                        )
-                        
-                        # Check if script is long enough
-                        script = generated_content.get('script', '') if isinstance(generated_content, dict) else ''
-                        word_count = len(script.split()) if script else 0
-                        
-                        if word_count >= min_words:
-                            content = generated_content
-                            structured_logger.info(f"Content generation succeeded on attempt {attempt + 1}",
-                                                  job_id=job_id,
-                                                  word_count=word_count,
-                                                  min_required=min_words)
-                            break
-                        else:
-                            if attempt < max_retries:
-                                structured_logger.warning(f"Script too short on attempt {attempt + 1}, retrying with stronger prompt",
-                                                         job_id=job_id,
-                                                         word_count=word_count,
-                                                         min_required=min_words,
-                                                         attempt=attempt + 1,
-                                                         max_retries=max_retries + 1)
-                                await asyncio.sleep(2)  # Brief delay before retry
-                            else:
-                                # Last attempt - use what we have and let validation catch it
-                                content = generated_content
-                                structured_logger.warning("Script too short after all retries, proceeding to validation",
-                                                         job_id=job_id,
-                                                         word_count=word_count,
-                                                         min_required=min_words)
-                    
-                    except asyncio.TimeoutError:
-                        if attempt < max_retries:
-                            structured_logger.warning(f"Content generation timed out on attempt {attempt + 1}, retrying",
-                                                     job_id=job_id,
-                                                     attempt=attempt + 1)
-                            await asyncio.sleep(2)
-                            continue
-                        else:
-                            structured_logger.error("Content generation timed out after all retries", 
-                                                   job_id=job_id,
-                                                   timeout_seconds=600)
-                            raise Exception("Content generation timed out after 10 minutes")
-                    except Exception as e:
-                        if attempt < max_retries:
-                            structured_logger.warning(f"Content generation failed on attempt {attempt + 1}, retrying",
-                                                     job_id=job_id,
-                                                     error=str(e),
-                                                     attempt=attempt + 1)
-                            await asyncio.sleep(2)
-                            continue
-                        else:
-                            structured_logger.error("Content generation failed after all retries", 
-                                                   job_id=job_id,
-                                                   error=str(e),
-                                                   error_type=type(e).__name__)
-                            raise
-                
-                if not content:
-                    raise Exception("Failed to generate content after all retry attempts")
+                # Generate, check and (if needed) regenerate. Gap 3 fix 1 (C5): the script may name only confirmed
+                # papers; after the allowed regenerations the episode fails (NamingViolationError).
+                content, naming_result, naming_attempts = await self._generate_checked_content(
+                    request, research_context, google_key, job_id)
 
                 content_memory_after = psutil.virtual_memory().percent
 
@@ -2396,88 +2415,15 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
 
 """
             
-            # CRITICAL: Ensure references section exists - add from research_context if missing
-            if '## References' not in content['description']:
-                # References are missing - add them from research_context
-                structured_logger.warning("LLM did not include References section, adding from research context",
-                                         job_id=job_id,
-                                         topic=request.topic)
-                
-                # Build references from research_context (available from research phase)
-                references_text = "\n\n## References\n\n"
-                references_added = False
-                
-                # Try to use research_context directly (it should be in scope)
-                try:
-                    # research_context is defined in the outer scope above
-                    if research_context:
-                        # Use real_citations first (already formatted)
-                        if research_context.real_citations:
-                            for citation in research_context.real_citations[:5]:
-                                references_text += f"- {citation}\n"
-                            references_added = True
-                        elif research_context.research_sources:
-                            # Build from research_sources
-                            for source in research_context.research_sources[:5]:
-                                references_text += format_research_source_line(source) + "\n"
-                            references_added = True
-                except NameError:
-                    # research_context not in scope, use fallback
-                    structured_logger.warning("research_context not in scope, using job metadata",
-                                             job_id=job_id)
-                    pass
-                except Exception as e:
-                    structured_logger.warning("Error accessing research_context, using job metadata",
-                                             job_id=job_id,
-                                             error=str(e))
-                    pass
-                
-                # Fallback: get from job metadata if research_context wasn't accessible
-                if not references_added:
-                    try:
-                        job_doc = db.collection('podcast_jobs').document(job_id).get()
-                        if job_doc.exists:
-                            job_data = job_doc.to_dict()
-                            # Try real_citations first
-                            real_citations = job_data.get('real_citations', [])
-                            if real_citations:
-                                for citation in real_citations[:5]:
-                                    references_text += f"- {citation}\n"
-                                references_added = True
-                            else:
-                                # Fall back to research_sources_summary
-                                research_summary = job_data.get('research_sources_summary', [])
-                                if research_summary:
-                                    for source_info in research_summary[:5]:
-                                        references_text += format_research_source_line(source_info) + "\n"
-                                    references_added = True
-                    except Exception as e:
-                        structured_logger.error("Could not retrieve research sources from job metadata",
-                                               job_id=job_id,
-                                               error=str(e))
-                
-                # Last resort: add warning message
-                if not references_added:
-                    structured_logger.error("CRITICAL: Could not add references - no research data available",
-                                           job_id=job_id)
-                    references_text += "Research references from the sources used for this episode.\n"
-                
-                # Insert references before hashtags if they exist, otherwise at the end
-                if '## Hashtags' in content['description']:
-                    desc_parts = content['description'].split('## Hashtags')
-                    content['description'] = desc_parts[0].rstrip() + references_text.rstrip() + '\n\n## Hashtags' + ('## Hashtags'.join(desc_parts[1:]) if len(desc_parts) > 1 else '')
-                else:
-                    content['description'] = content['description'].rstrip() + references_text.rstrip()
-            
-            # Validate academic references in description if they exist
-            if '## References' in content['description']:
-                # Extract references section
-                desc_parts = content['description'].split('## References')
-                if len(desc_parts) > 1:
-                    ref_section = desc_parts[1].split('##')[0]  # Get content until next section
-                    validated_refs = validate_academic_references(ref_section)
-                    content['description'] = desc_parts[0] + '## References\n' + validated_refs + '\n' + '##'.join(desc_parts[1].split('##')[1:])
-            
+            # Gap 3 fix 1 (C6): References and Further reading are built by code from the confirmed papers. Any
+            # reference section the model wrote anyway is removed first; the two legacy fallbacks that rebuilt
+            # references from model text or from the first five sources are gone.
+            content['description'] = apply_reference_sections(
+                content['description'], research_context.confirmed_papers, naming_result.named_pids, research_context.requested_pid)
+            content['papers'] = [c.to_dict() for c in research_context.confirmed_papers]
+            content['papers_named'] = list(naming_result.named_pids)
+            content['references_built_by'] = REFERENCES_BUILT_BY
+
             # Clean placeholder text and limit description length
             content['description'] = clean_placeholder_text_from_description(content['description'])
             content['description'] = limit_description_length(content['description'], 4000)
@@ -2490,11 +2436,7 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
             content['description'] = rewrite_index_venues(
                 content['description'], request.paper_journal
             )
-            if request.paper_title:
-                content['description'] = ensure_source_paper_reference(
-                    content['description'],
-                    format_citation(_research_paper_from_request(request)),
-                )
+            # (the requested paper is always P1 in References, built from its registry record, so nothing is added here)
             content['itunes_summary'] = extract_itunes_summary(content['description'])
             
             # Robust validation added here:
@@ -2714,6 +2656,8 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
             update_data = {
                 'status': 'completed',
                 'updated_at': datetime.utcnow().isoformat(),
+                'named_work_check': {'attempts': naming_attempts, 'final': 'passed'},
+                'references_built_by': REFERENCES_BUILT_BY,
                 'result': {
                     'title': content.get('title') or request.topic or 'Untitled Podcast',
                     'script': content.get('script', ''),
