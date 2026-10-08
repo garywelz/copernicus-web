@@ -101,6 +101,7 @@ from services.episode_service import episode_service
 from services.canonical_service import canonical_service
 from utils.script_validation import validate_script_length, calculate_minimum_words_for_duration
 from named_work_check import check_naming, feedback_text, make_gemini_llm_call, NamingViolationError
+from failure_notice import describe_failure
 from reference_sections import apply_reference_sections, BUILT_BY as REFERENCES_BUILT_BY
 
 # Retry decorator for upload operations
@@ -2069,6 +2070,96 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
                                  error=str(e))
             return []
     
+    async def _notify_failure(self, exc: BaseException, job_id: str, topic: str, subscriber_email: Optional[str]) -> None:
+        """Gap 3 fix 1 (C8): tell the requester, in plain language and without internals, why no episode was made, and
+        tell the administrator the raw error. One email per distinct address; each send is isolated so a failing
+        email can never mask the job's real failure."""
+        notice = describe_failure(exc)
+        raw = f"{type(exc).__name__}: {exc}"
+        targets = []
+        if subscriber_email:
+            targets.append((subscriber_email, notice["summary"], notice["what_to_do"]))
+        if ERROR_NOTIFICATION_EMAIL and ERROR_NOTIFICATION_EMAIL.lower() != (subscriber_email or "").lower():
+            targets.append((ERROR_NOTIFICATION_EMAIL, raw, notice["what_to_do"]))
+        elif ERROR_NOTIFICATION_EMAIL and targets:
+            # requester and administrator are the same address: send the administrator's detail once
+            targets[0] = (subscriber_email, f"{notice['summary']} [{raw}]", notice["what_to_do"])
+        for address, message, what_to_do in targets:
+            try:
+                await self.email_service.send_podcast_failure_email(
+                    recipient_email=address, job_id=job_id, topic=topic, error_message=message, what_to_do=what_to_do)
+            except Exception as email_error:
+                structured_logger.error("Failed to send failure email notification",
+                                       job_id=job_id, email_error=str(email_error))
+
+    @staticmethod
+    def _description_body(description: str) -> str:
+        """The description text before its first code-built or closing section (References, Further reading, Hashtags, Episode Details)."""
+        cut = len(description)
+        for marker in ("\n## References", "\n## Further reading", "\n## Hashtags", "\n## Episode Details"):
+            i = description.find(marker)
+            if i != -1:
+                cut = min(cut, i)
+        return description[:cut]
+
+    def _finalize_content(self, content: dict, request, research_context, naming_result) -> dict:
+        """Hashtags, code-built reference sections, placeholder cleanup, the 4000-character limit and venue rewrites.
+
+        This is the job's post-generation text processing, moved into a method unchanged (plus measurement) so the
+        sandbox harness runs exactly the code the job runs. Modifies ``content`` in place and returns the measurements
+        of what the length limit removed. Writes nothing anywhere."""
+        # Generate relevant hashtags
+        content['hashtags'] = generate_relevant_hashtags(
+            request.topic, 
+            request.category, 
+            content.get('title', ''), 
+            ""
+        )
+        
+        # Check if description already has hashtags and references, if not add them
+        if '## Hashtags' not in content['description'] and '---' not in content['description']:
+            # Add hashtags and closing message
+            content['description'] += f"""
+
+## Hashtags
+{content['hashtags']}
+
+"""
+        
+        # Gap 3 fix 1 (C6): References and Further reading are built by code from the confirmed papers. Any
+        # reference section the model wrote anyway is removed first; the two legacy fallbacks that rebuilt
+        # references from model text or from the first five sources are gone.
+        content['description'] = apply_reference_sections(
+            content['description'], research_context.confirmed_papers, naming_result.named_pids, research_context.requested_pid)
+        content['papers'] = [c.to_dict() for c in research_context.confirmed_papers]
+        content['papers_named'] = list(naming_result.named_pids)
+        content['references_built_by'] = REFERENCES_BUILT_BY
+
+        # Clean placeholder text and limit description length
+        content['description'] = clean_placeholder_text_from_description(content['description'])
+        _before = content['description']
+        content['description'] = limit_description_length(content['description'], 4000)
+        _after = content['description']
+        limit_metrics = {
+            'description_chars_before_limit': len(_before),
+            'description_chars_after_limit': len(_after),
+            'body_chars_before_limit': len(self._description_body(_before)),
+            'body_chars_after_limit': len(self._description_body(_after)),
+        }
+        limit_metrics['body_chars_removed_by_limit'] = limit_metrics['body_chars_before_limit'] - limit_metrics['body_chars_after_limit']
+        content['description'] = sanitize_reference_placeholders(
+            content['description'], known_year=request.paper_year
+        )
+        content['script'] = rewrite_index_venues(
+            content.get('script') or "", request.paper_journal
+        )
+        content['description'] = rewrite_index_venues(
+            content['description'], request.paper_journal
+        )
+        # (the requested paper is always P1 in References, built from its registry record, so nothing is added here)
+        content['itunes_summary'] = extract_itunes_summary(content['description'])
+        return limit_metrics
+
     async def _generate_checked_content(self, request, research_context, google_key: str, job_id: str):
         """Generate the script and description, accept them only if they pass the length and naming checks.
 
@@ -2086,6 +2177,7 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
         naming_result = None
         naming_attempts = []
         naming_checked = False
+        self._last_naming_attempts = naming_attempts  # same list object: the sandbox harness reads it even when this raises
         
         for attempt in range(max_retries + 1):
             try:
@@ -2315,15 +2407,11 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
                     'updated_at': datetime.utcnow().isoformat()
                 })
                 
-                # Send failure email
+                # Send failure email (C8). The call that used to be here was to send_podcast_ready_email, which EmailService
+                # does not have: it raised AttributeError inside this handler and the job ended up recording that error
+                # instead of the real research failure.
                 if self.email_service:
-                    await self.email_service.send_podcast_ready_email(
-                        to_email=subscriber_email,
-                        podcast_title=f"Research Failed: {request.topic}",
-                        description=f"Unable to find sufficient research sources for '{request.topic}'. {error_msg}",
-                        audio_url="",
-                        error_message=error_msg
-                    )
+                    await self._notify_failure(e, job_id, request.topic, subscriber_email)
                 
                 return  # EXIT - Cannot proceed without research
             
@@ -2397,47 +2485,7 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
             if 'title' not in content or not content.get('title'):
                 raise Exception("Content generation failed - no title produced. Cannot use fake template.")
             
-            # Generate relevant hashtags
-            content['hashtags'] = generate_relevant_hashtags(
-                request.topic, 
-                request.category, 
-                content.get('title', ''), 
-                ""
-            )
-            
-            # Check if description already has hashtags and references, if not add them
-            if '## Hashtags' not in content['description'] and '---' not in content['description']:
-                # Add hashtags and closing message
-                content['description'] += f"""
-
-## Hashtags
-{content['hashtags']}
-
-"""
-            
-            # Gap 3 fix 1 (C6): References and Further reading are built by code from the confirmed papers. Any
-            # reference section the model wrote anyway is removed first; the two legacy fallbacks that rebuilt
-            # references from model text or from the first five sources are gone.
-            content['description'] = apply_reference_sections(
-                content['description'], research_context.confirmed_papers, naming_result.named_pids, research_context.requested_pid)
-            content['papers'] = [c.to_dict() for c in research_context.confirmed_papers]
-            content['papers_named'] = list(naming_result.named_pids)
-            content['references_built_by'] = REFERENCES_BUILT_BY
-
-            # Clean placeholder text and limit description length
-            content['description'] = clean_placeholder_text_from_description(content['description'])
-            content['description'] = limit_description_length(content['description'], 4000)
-            content['description'] = sanitize_reference_placeholders(
-                content['description'], known_year=request.paper_year
-            )
-            content['script'] = rewrite_index_venues(
-                content.get('script') or "", request.paper_journal
-            )
-            content['description'] = rewrite_index_venues(
-                content['description'], request.paper_journal
-            )
-            # (the requested paper is always P1 in References, built from its registry record, so nothing is added here)
-            content['itunes_summary'] = extract_itunes_summary(content['description'])
+            limit_metrics = self._finalize_content(content, request, research_context, naming_result)
             
             # Robust validation added here:
             if (not content or 
@@ -2658,6 +2706,7 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
                 'updated_at': datetime.utcnow().isoformat(),
                 'named_work_check': {'attempts': naming_attempts, 'final': 'passed'},
                 'references_built_by': REFERENCES_BUILT_BY,
+                'description_limit': limit_metrics,  # what the 4000-character limit removed (gap 3 fix 1)
                 'result': {
                     'title': content.get('title') or request.topic or 'Untitled Podcast',
                     'script': content.get('script', ''),
@@ -2803,18 +2852,8 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
                                    error_type=type(e).__name__,
                                    topic=request.topic if request else None)
             
-            # Send failure email notification
-            try:
-                await self.email_service.send_podcast_failure_email(
-                    recipient_email=ERROR_NOTIFICATION_EMAIL,
-                    job_id=job_id,
-                    topic=request.topic if request else "Unknown",
-                    error_message=str(e)
-                )
-            except Exception as email_error:
-                structured_logger.error("Failed to send failure email notification",
-                                       job_id=job_id,
-                                       email_error=str(email_error))
+            # Send failure email notification (C8): the requester gets a plain explanation, the administrator the raw error
+            await self._notify_failure(e, job_id, request.topic if request else "Unknown", subscriber_email)
 
 
 # Create singleton instance

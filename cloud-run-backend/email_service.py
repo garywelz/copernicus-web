@@ -122,9 +122,12 @@ class EmailService:
         recipient_email: str, 
         job_id: str, 
         topic: str, 
-        error_message: str
+        error_message: str,
+        what_to_do: Optional[str] = None
     ) -> bool:
-        """Send email notification when podcast generation fails"""
+        """Send email notification when podcast generation fails.
+
+        ``what_to_do`` replaces the generic advice when given (gap 3 fix 1, C8)."""
         
         if not self.sender_password:
             print("⚠️  Email password not configured. Skipping failure email notification.")
@@ -156,7 +159,7 @@ class EmailService:
                     
                     <div style="background: #fff3cd; padding: 15px; border-radius: 5px; margin-top: 20px;">
                         <p style="margin: 0; color: #856404;">
-                            <strong>⚠️ What to do:</strong> Please try generating the podcast again, or contact support if the issue persists.
+                            <strong>⚠️ What to do:</strong> {what_to_do or 'Please try generating the podcast again, or contact support if the issue persists.'}
                         </p>
                     </div>
                     
