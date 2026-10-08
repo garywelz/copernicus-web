@@ -25,6 +25,32 @@ Entry format:
 
 ---
 
+## 021 — 2026-10-08 — Gap 3 baseline evaluation: results and decisions
+
+- **From:** Claude Code (Core lane), decided by Gary 2026-10-08
+- **Record:** PR #41 (design proposal) and entry 020 (design decisions); the evaluation report is a private working document and is not in the repo
+- **Affects:** Core; Methods & Tools (the result-record format); anyone who generates or publishes podcast episodes
+- **Summary:**
+  - **What was run.** The checks from the design were run once, read-only, on the 20 most recent public episodes that store a script, with both model rosters, plus a seeded-error test. Gary judged 80 items: 60 sampled flags and 20 claims that no claim-level check had flagged. Provider spend was about $3.25 of a $7 ceiling. Nothing was written to any episode, audio, feed, corpus or database document.
+  - **Results, in aggregate.**
+    - **Flags overall:** 45% judged real or minor (26 of 58 decided). The two rosters were the same (45% and 44%). Of the 20 unflagged claims, none was a problem.
+    - **By check:** source support 5%, model disagreement 8%, missing paper 46%, reading the script alone 42%. Three judges agreeing a source did not support a claim did not help.
+    - **What separated good flags from bad:** a flagged claim with **no matched source** was real or minor in 96% of decided cases (24 of 25); a flagged claim **with** a matched source, in 6% (2 of 33). Where a source had been matched, it was the right one in every decided case (47 of 47).
+    - **Floor metrics, measured, not graded:** the stricter grounding measure (a claim supported by its cited source) was about 51% for the adopted roster against the 90% target, and citation integrity was 82% against 95%. Of 124 reference lines, 21 carry no identifier.
+    - **Seeded errors:** the script-alone pass caught 8 of 11 planted errors with roster A's models and 9 of 11 with roster B's; only 11 plants per roster were possible.
+    - **How to read "real":** it mostly meant "this statement needs a source", not "this statement is wrong". No flagged statement was found to be false. The commonest serious pattern was a paper named in the script, with a promise of a link, that is missing from the reference list.
+  - **Decisions.**
+    - **Roster A is adopted.**
+    - **"No matched source" becomes the primary flag.** New checks: a paper named in the script but absent from the reference list, and duplicate references. Per-claim source support and model disagreement are retired in their current form. The missing-paper check runs only on claims with no matched source. The script-alone check stays on all claims; its flags on claims that do have a source are reported only above a confidence threshold, which Core has proposed (the data favours requiring all three models, using roster B's models for that one pass) and Gary has yet to decide.
+    - **Upstream generation fix 1 is approved for design, in an extended form:** the script may name only retrieved, confirmed papers, and the reference list is built from every paper the script names. **Fix 3 (inline citation markers) follows** because the evaluation showed claim-to-source attribution failing (a named paper that is in the list but was not matched to its claim). **Fix 2 (full abstracts to the generator) is deferred:** no evidence of need.
+    - **Gary's ratings of two items stand as recorded;** the attribution failure behind them is recorded as a finding, with no re-judging.
+    - **A reference-title mismatch found by Core's check is one item awaiting Gary's decision under the severity ladder.** Core's analysis shows the reference is correct for the paper version cited (the paper was retitled in a later version), so the check was a false alarm and needs to compare with the cited version.
+  - **Known limits.** Samples are small (per-check samples of 12 to 44 items, 11 seeded plants per roster), so the figures show direction, not precision. Source text is the abstract only. The evaluation judged claims against abstracts, so it cannot say whether a claim is supported by the full paper.
+- **Waiting on:**
+  - **Gary:** the script-alone pass (which models, and the all-three-models threshold) and the reference-title item.
+  - **Core:** design of the extended fix 1, then fix 3 (design only until approved); rewrite and regression-test the source-support prompt; render math and show the full reference list in the next judging package.
+  - **Methods & Tools:** review of the shared result-record format (entry 020), still open.
+
 ## 020 — 2026-10-06 — Gap 3 (layers 1-2) design decisions
 
 - **From:** Claude Code (Core lane), decided by Gary 2026-10-06 on review of PR #41
