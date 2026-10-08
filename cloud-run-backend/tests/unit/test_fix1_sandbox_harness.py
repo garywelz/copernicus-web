@@ -28,7 +28,7 @@ def run_dir(tmp_path_factory):
     topics.write_text(json.dumps([spec(s) for s in SCENARIOS]))
     out, ledger = d / "out", d / "ledger.jsonl"
     p = subprocess.run([sys.executable, HARNESS, "--topics", str(topics), "--out", str(out), "--ledger", str(ledger), "--stub"],
-                       cwd=BACKEND, capture_output=True, text=True, timeout=300)
+                       cwd=BACKEND, capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=300)
     assert p.returncode == 0, p.stdout[-2000:] + p.stderr[-2000:]
     return d, out, ledger, p
 
@@ -76,6 +76,7 @@ def test_a_thin_topic_fails_early_with_the_clear_message(run_dir):
     r = result(out, "thin")
     assert r["outcome"] == "failed_research" and r["kind"] == "InsufficientConfirmedPapers"
     assert "Not enough confirmed research papers" in r["message"] and "at least 3" in r["message"]
+    assert r["research"]["candidates_found"] == 2 and r["research"]["confirmed"] == 2
 
 
 def test_an_unreachable_registry_is_not_reported_as_a_thin_topic(run_dir):
@@ -107,7 +108,7 @@ def test_the_length_limit_removal_is_measured_per_topic(run_dir):
 def test_a_second_run_skips_finished_topics(run_dir):
     d, out, ledger, p = run_dir
     again = subprocess.run([sys.executable, HARNESS, "--topics", str(d / "topics.json"), "--out", str(out), "--ledger", str(ledger), "--stub"],
-                           cwd=BACKEND, capture_output=True, text=True, timeout=300)
+                           cwd=BACKEND, capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=300)
     assert again.returncode == 0 and again.stdout.count("already done, skipped") == len(SCENARIOS)
 
 
