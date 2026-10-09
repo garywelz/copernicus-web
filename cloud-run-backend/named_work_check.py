@@ -93,16 +93,36 @@ def _words(s: str) -> set:
     return {w for w in re.findall(r"[a-z0-9]{4,}", _norm(s))}
 
 
+GROUP_MARKERS = ("collaboration", "consortium", "group", "team")
+
+
+def _name_tokens(s: str) -> set:
+    return {w for w in _norm(s).split() if w not in ("the", "and") and w not in GROUP_MARKERS}
+
+
+def _group_sets(paper: Any) -> List[set]:
+    """Token sets of a paper's group authors ("The LIGO Scientific Collaboration" -> {ligo, scientific}), whose
+    surname-by-last-word would be the useless word "collaboration"."""
+    return [_name_tokens(a) for a in paper.authors if any(m in _norm(a).split() for m in GROUP_MARKERS) and _name_tokens(a)]
+
+
 def match_mention(mention: Dict[str, Any], confirmed: Sequence[Any]) -> Optional[str]:
     """pid of the confirmed paper this mention refers to, or None. Deterministic."""
-    names = {_norm(a).split()[-1] for a in (mention.get("authors") or []) if _norm(a)}
+    names = {_norm(a).split()[-1] for a in (mention.get("authors") or []) if _norm(a)} - set(GROUP_MARKERS)
+    mention_groups = [_name_tokens(a) for a in (mention.get("authors") or []) if _name_tokens(a)]
+    quote_words = set(_norm(mention.get("quote") or "").split())
     tw = _words(" ".join(mention.get("title_words") or []))
     year = mention.get("year")
     for c in confirmed:
-        csur = {_surname(a) for a in c.authors}
+        csur = {_surname(a) for a in c.authors} - set(GROUP_MARKERS)  # a group author's last word is not a surname
+        gsets = _group_sets(c)
         title_overlap = len(tw & _words(c.title))
-        if names & csur:
-            if year is None or c.year is None or abs(int(year) - int(c.year)) <= 1 or title_overlap >= 2:
+        year_ok = year is None or c.year is None or abs(int(year) - int(c.year)) <= 1 or title_overlap >= 2
+        by_surname = bool(names & csur)
+        by_group = any(m and m <= g for m in mention_groups for g in gsets)
+        by_group_in_quote = not names and any(g <= quote_words for g in gsets) and year is not None  # "the BESIII Collaboration's 2026 ..." with no author listed
+        if by_surname or by_group or by_group_in_quote:
+            if year_ok:
                 return c.pid
         elif not names and title_overlap >= 3:
             return c.pid
