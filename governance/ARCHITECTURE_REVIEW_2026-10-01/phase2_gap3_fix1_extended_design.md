@@ -53,7 +53,7 @@ address instead of you.
 | 8 | First real episode after deploy | **Held as private** for Gary's read-through before it is made public (adopted on the recommendation) |
 
 **Deployment prerequisite (recorded):** the Gmail app password must be created and stored (the gap 3 proposal's section 13), and
-`ERROR_NOTIFICATION_EMAIL` must be set explicitly to Gary's address in the same revision (7.5). **Neither blocks the sandbox test,**
+`ERROR_NOTIFICATION_EMAIL` must be set explicitly to **gwelz@gc.cuny.edu** (Gary, 2026-10-08) in the same revision (7.5). **Neither blocks the sandbox test,**
 which sends no email.
 
 ---
@@ -333,7 +333,7 @@ and the next judging package; precedes fix 3.
 - **One setting must be fixed first.** The failure email goes to `ERROR_NOTIFICATION_EMAIL`, which defaults to the environment
   variable `NOTIFICATION_EMAIL` when its own variable is unset (`config/constants.py:54`). Section 13 sets `NOTIFICATION_EMAIL` to
   the **sender** address; unless `ERROR_NOTIFICATION_EMAIL` is set explicitly in the same revision, failure emails would go to the sender.
-  The revision must set `ERROR_NOTIFICATION_EMAIL` explicitly, **to Gary's address (decided 2026-10-08).**
+  The revision must set `ERROR_NOTIFICATION_EMAIL` explicitly, **to gwelz@gc.cuny.edu (decided 2026-10-08).** The code default in `config/constants.py` is deliberately not that address and is not chained to `NOTIFICATION_EMAIL`, so the setting is a deploy-time step on the revision (`--update-env-vars=ERROR_NOTIFICATION_EMAIL=gwelz@gc.cuny.edu`), listed in the deploy checklist beside the app-password secret. It is not needed for the sandbox run.
 - **Neither prerequisite blocks the sandbox test,** which sends no email; both are needed before the gated deploy.
 - **Requester notification** (decided 2026-10-06: subscribers receive their own failure emails) needs C8: the failure path today sends
   only to `ERROR_NOTIFICATION_EMAIL`.
@@ -372,6 +372,6 @@ and the next judging package; precedes fix 3.
 | 1 | Approve this design; answer section 8 | **done 2026-10-08** |
 | 2 | Code C1-C9 and C10 on a branch, draft PR | approval of design |
 | 3 | Sandbox test (6), report | the code; Gary approves the spend (about $2.5, ceiling $4) |
-| 4 | Gmail app password and `ERROR_NOTIFICATION_EMAIL` set to Gary's address (7.5) | Gary creates the password (proposal section 13); needed before the gated deploy, **not** before the sandbox test |
+| 4 | Gmail app password and `ERROR_NOTIFICATION_EMAIL=gwelz@gc.cuny.edu` (7.5) | Gary creates the password (proposal section 13); needed before the gated deploy, **not** before the sandbox test |
 | 5 | Gated deploy, then the first held episode (7) | Gary approves traffic |
 | 6 | Fix 3 (inline markers) design, building on the `P` numbers | after step 5 |
