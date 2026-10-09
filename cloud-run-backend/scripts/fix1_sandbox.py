@@ -162,7 +162,7 @@ async def run_topic(spec: Dict[str, Any], out_dir: str, service, integrator, goo
     except (pc.InsufficientConfirmedPapers, pc.RegistryUnavailable, pc.PaperNotConfirmed) as e:
         res.update(outcome="failed_research", kind=type(e).__name__, message=str(e))
         if isinstance(e, pc.InsufficientConfirmedPapers):
-            res["research"] = {"candidates_found": e.found, "confirmed": e.confirmed, "dropped_counts": e.drop_counts}
+            res["research"] = {"candidates_found": e.found, "confirmed": e.confirmed, "dropped_counts": e.drop_counts, "dropped": e.dropped}
         res["seconds"] = round(time.time() - t0, 1)
         json.dump(res, open(os.path.join(d, "result.json"), "w", encoding="utf-8"), indent=1)
         return res

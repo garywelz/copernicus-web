@@ -48,8 +48,9 @@ class PaperNotConfirmed(Exception):
 class InsufficientConfirmedPapers(Exception):
     """Fewer confirmed papers than the minimum. The message says how many were found, confirmed and dropped, and why."""
 
-    def __init__(self, topic: str, found: int, confirmed: int, needed: int, drop_counts: Dict[str, int]):
+    def __init__(self, topic: str, found: int, confirmed: int, needed: int, drop_counts: Dict[str, int], dropped: Optional[List[Dict[str, Any]]] = None):
         self.topic, self.found, self.confirmed, self.needed, self.drop_counts = topic, found, confirmed, needed, dict(drop_counts)
+        self.dropped = list(dropped or [])  # the dropped candidates with their identifiers and reasons, for the job record
         why = ", ".join(f"{n} {r.replace('_', ' ')}" for r, n in sorted(drop_counts.items())) or "none"
         super().__init__(
             f"Not enough confirmed research papers for '{topic}': {found} candidate sources were found, {confirmed} were confirmed "
@@ -207,7 +208,8 @@ async def _get(http_get: HttpGet, url: str, params: Dict[str, str], registry: st
             last = f"HTTP {status}"
         except Exception as e:  # network error, timeout
             last = type(e).__name__
-        await asyncio.sleep(0 if attempt == HTTP_RETRIES else 0.5 * (attempt + 1))
+        # arXiv asks for about 3 seconds between requests and answers 429 when it is exceeded: wait longer for that
+        await asyncio.sleep(0 if attempt == HTTP_RETRIES else (3.0 if last == "HTTP 429" else 0.5) * (attempt + 1))
     bad.append(registry)
     return None
 

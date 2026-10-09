@@ -487,3 +487,41 @@ def test_user_link_without_identifier_is_dropped_and_no_model_is_used(monkeypatc
 def test_user_link_with_unconfirmable_identifier_is_dropped(monkeypatch):
     monkeypatch.setattr(pc, "_default_http_get", Fake())
     assert run(_pipeline()._process_user_links(["https://doi.org/10.9999/none"], "x")) == []
+
+
+# ---------------------------------------------------------------- stage 5: dropped detail on the exception, longer wait on 429
+def test_insufficient_exception_carries_the_dropped_candidates():
+    dropped = [{"title": "A", "reason": "not_found", "ids": {"doi": "10.5281/zenodo.1"}}]
+    e = pc.InsufficientConfirmedPapers("t", 3, 0, 3, {"not_found": 1}, dropped)
+    assert e.dropped == dropped and pc.InsufficientConfirmedPapers("t", 3, 0, 3, {}).dropped == []
+
+
+def test_integrator_failure_includes_the_dropped_candidates(monkeypatch):
+    zen = src("A Zenodo record", "https://zenodo.org/records/1", "10.5281/zenodo.1")
+    zen.authors, zen.abstract, zen.source, zen.journal = [], "x", "zenodo", None
+    it = _integrator(monkeypatch, [zen], Fake())
+    with pytest.raises(pc.InsufficientConfirmedPapers) as e:
+        run(it.comprehensive_research_for_podcast("cells"))
+    assert e.value.dropped[0]["reason"] == "not_found" and e.value.dropped[0]["ids"]["doi"] == "10.5281/zenodo.1"
+
+
+def test_a_429_waits_longer_than_other_errors(monkeypatch):
+    delays = []
+
+    async def fake_sleep(d):
+        delays.append(d)
+    monkeypatch.setattr(pc.asyncio, "sleep", fake_sleep)
+
+    async def limited(url, params):
+        return 429, ""
+    with pytest.raises(pc.RegistryUnavailable):
+        run(pc.confirm_sources([src("X", "http://arxiv.org/abs/2601.00001v1")], http_get=limited))
+    assert delays == [3.0, 6.0, 0]
+
+    delays.clear()
+
+    async def down(url, params):
+        return 503, ""
+    with pytest.raises(pc.RegistryUnavailable):
+        run(pc.confirm_sources([src("X", "http://arxiv.org/abs/2601.00001v1")], http_get=down))
+    assert delays == [0.5, 1.0, 0]
