@@ -193,3 +193,30 @@ def test_unparseable_answer_keeps_the_start_of_it_for_the_administrator():
 
 def test_prompt_tells_the_model_not_to_emit_latex():
     assert "never put a backslash or LaTeX command in the JSON" in nw.INSTRUCTIONS
+
+
+# ---------------------------------------------------------------- stage 7: group authors (collaborations)
+LHCB = paper("P3", "Search for rare kaon decays", ["LHCb collaboration", "R. Aaij"], 2025)
+BESIII = paper("P4", "Study of eta decays", ["BESIII Collaboration", "M. Ablikim"], 2024)
+LIGO = paper("P5", "Ultralight vector dark matter search", ["The LIGO Scientific Collaboration", "the Virgo Collaboration"], 2024)
+GROUPS = [LHCB, BESIII, LIGO]
+
+
+def test_a_collaboration_named_in_the_script_matches_its_group_author():
+    assert nw.match_mention(m("q", ["LHCb"], 2025), GROUPS) == "P3"
+    assert nw.match_mention(m("q", ["BESIII"], 2024), GROUPS) == "P4"
+    assert nw.match_mention(m("q", ["LIGO Scientific", "Virgo", "KAGRA"], 2024), GROUPS) == "P5"
+
+
+def test_group_match_still_respects_the_year():
+    assert nw.match_mention(m("q", ["LHCb"], 2019), GROUPS) is None
+    assert nw.match_mention(m("q", ["ATLAS"], 2025), GROUPS) is None
+
+
+def test_group_named_only_in_the_quote_matches_with_a_year():
+    assert nw.match_mention(m("the BESIII Collaboration's 2024 study of eta decays", [], 2024), GROUPS) == "P4"
+    assert nw.match_mention(m("the BESIII Collaboration's study of eta decays", [], None), GROUPS) is None  # no year: too loose
+
+
+def test_the_word_collaboration_alone_never_matches():
+    assert nw.match_mention(m("q", ["Collaboration"], 2025), GROUPS) is None
