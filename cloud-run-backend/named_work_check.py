@@ -30,7 +30,8 @@ INSTRUCTIONS = (
     "For each mention return: quote (copied verbatim from the TEXT, at most 200 characters), authors (the surnames as written, "
     "[] if none), year (an integer, or null), title_words (the distinctive words of any title quoted, [] if none).\n"
     "Return JSON: {\"mentions\": [{\"quote\": \"...\", \"authors\": [\"...\"], \"year\": 2025, \"title_words\": []}]}. "
-    "Return {\"mentions\": []} if there are none."
+    "Return {\"mentions\": []} if there are none. In quotes, write any mathematical notation as plain words or leave it out: "
+    "never put a backslash or LaTeX command in the JSON."
 )
 
 LINK_PHRASE = re.compile(r"\b(?:links?|linked)\b[^.?!\n]{0,60}\b(?:description|show notes)\b|\bshow notes\b", re.I)
@@ -38,6 +39,10 @@ LINK_PHRASE = re.compile(r"\b(?:links?|linked)\b[^.?!\n]{0,60}\b(?:description|s
 
 class NamingCheckUnavailable(Exception):
     """The check could not run (model error or unparseable answer). The episode must not be accepted unchecked."""
+
+    def __init__(self, message: str, raw: str = ""):
+        self.raw = (raw or "")[:300]  # start of the model's answer, for the administrator's diagnosis only
+        super().__init__(message)
 
 
 class NamingViolationError(Exception):
@@ -112,6 +117,24 @@ def _locate(text: str, quote: str) -> int:
     return flat.find(q)
 
 
+def _parse(raw: str):
+    """JSON from the model's answer: plain, then with code fences removed, then with stray backslashes (LaTeX in a
+    quoted passage is not a valid JSON escape) doubled. Returns None if nothing parses."""
+    text = re.sub(r"^```(?:json)?\s*|\s*```$", "", (raw or "").strip())
+    for variant in (text, text.replace("\\", "\\\\").replace('\\\\"', '\\"')):
+        try:
+            return json.loads(variant)
+        except Exception:
+            pass
+        i = variant.find("{")
+        if i > 0:
+            try:
+                return json.JSONDecoder().raw_decode(variant[i:])[0]
+            except Exception:
+                pass
+    return None
+
+
 # ---------------------------------------------------------------- the check
 async def _extract(llm_call: LlmCall, label: str, text: str) -> List[Dict[str, Any]]:
     user = f"{INSTRUCTIONS}\n\nTEXT ({label}):\n{text}"
@@ -119,12 +142,10 @@ async def _extract(llm_call: LlmCall, label: str, text: str) -> List[Dict[str, A
         raw = await llm_call(SYSTEM, user)
     except Exception as e:
         raise NamingCheckUnavailable(f"named-work extraction failed: {type(e).__name__}: {e}")
-    try:
-        data = json.loads(re.sub(r"^```(?:json)?\s*|\s*```$", "", (raw or "").strip()))
-        ms = data["mentions"]
-        assert isinstance(ms, list)
-    except Exception:
-        raise NamingCheckUnavailable("named-work extraction returned an unparseable answer")
+    data = _parse(raw)
+    ms = data.get("mentions") if isinstance(data, dict) else None
+    if not isinstance(ms, list):
+        raise NamingCheckUnavailable("named-work extraction returned an unparseable answer", raw)
     out = []
     for m in ms:
         if not isinstance(m, dict) or not (m.get("quote") or "").strip():
@@ -195,7 +216,7 @@ def make_gemini_llm_call(api_key: str, model: str = "gemini-2.5-flash") -> LlmCa
         def run() -> str:
             m = genai.GenerativeModel(model, system_instruction=system)
             r = m.generate_content(user, generation_config=genai.types.GenerationConfig(
-                temperature=0, max_output_tokens=4096, response_mime_type="application/json"))
+                temperature=0, max_output_tokens=8192, response_mime_type="application/json"))
             return r.text
         return await asyncio.to_thread(run)
     return call
