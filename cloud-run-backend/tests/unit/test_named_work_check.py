@@ -239,3 +239,17 @@ def test_a_bare_surname_or_an_initial_still_matches():
 
 def test_initials_written_as_m_f_perutz():
     assert nw.match_mention(m("q", ["M.F. Perutz"], 1976), [paper("P8", "Fundamental research in molecular biology", ["M F Perutz"], 1976)]) == "P8"
+
+
+def test_first_name_in_the_quote_is_used_when_the_model_gives_only_a_surname():
+    # the model returned authors ["Wang"], but the quote says "Song Wang"; the listed Wang is "Qian Wang"
+    listed = [paper("P1", "Neuromorphic devices", ["Yi Lv", "Houpeng Chen", "Qian Wang"], 2022)]
+    assert nw.match_mention(m("Song Wang and team have worked on this", ["Wang"], None), listed) is None
+    assert nw.match_mention(m("Qian Wang and team have worked on this", ["Wang"], None), listed) == "P1"
+    assert nw.match_mention(m("work by Wang and colleagues", ["Wang"], None), listed) == "P1"  # no first name in the quote: surname alone
+
+
+def test_a_word_before_the_surname_that_is_not_a_name_is_ignored():
+    listed = [paper("P1", "Some study", ["Qian Wang"], 2022)]
+    assert nw.match_mention(m("According to Wang and colleagues", ["Wang"], None), listed) == "P1"
+    assert nw.match_mention(m("the study by Wang", ["Wang"], None), listed) == "P1"

@@ -27,7 +27,7 @@ INSTRUCTIONS = (
     "Include the attribution even when no title is given.\n"
     "Do NOT include: well-known theories, laws or people with no specific work attached (for example Einstein's relativity), "
     "institutions, companies, journals named on their own, or the podcast hosts.\n"
-    "For each mention return: quote (copied verbatim from the TEXT, at most 200 characters), authors (the surnames as written, "
+    "For each mention return: quote (copied verbatim from the TEXT, at most 200 characters), authors (the surnames as written, with the first name or initials added when the text gives them, "
     "[] if none), year (an integer, or null), title_words (the distinctive words of any title quoted, [] if none).\n"
     "Return JSON: {\"mentions\": [{\"quote\": \"...\", \"authors\": [\"...\"], \"year\": 2025, \"title_words\": []}]}. "
     "Return {\"mentions\": []} if there are none. In quotes, write any mathematical notation as plain words or leave it out: "
@@ -111,6 +111,26 @@ def _surname_compatible(mention_author: str, listed_author: str) -> bool:
     return True
 
 
+_NOT_A_GIVEN_NAME = set("""and by the of from with in to as at for on according per that this their his her its our then so but also while when
+first second third next now however similarly meanwhile recently today early later we it he she they what where which who how why if because since
+after before during although yet still just even only both each every some any many most other another such like via without within among between
+through these those there here again once further indeed""".split())
+
+
+def _with_given_names(authors: Sequence[str], quote: str) -> List[str]:
+    """The model is asked for surnames; when the quote shows a capitalised first name or initial right before a
+    surname ('Song Wang', 'M.F. Perutz'), put it back so common surnames are not matched to the wrong person."""
+    out = []
+    for a in authors:
+        if len(_norm(a).split()) == 1 and a.strip():
+            m = re.search(r"((?:[A-Z][a-z\-']+|(?:[A-Z]\.\s?)+))\s+" + re.escape(a.strip()) + r"(?![A-Za-z])", quote or "")
+            if m and _norm(m.group(1)).split() and _norm(m.group(1)).split()[0] not in _NOT_A_GIVEN_NAME:
+                out.append(f"{m.group(1)} {a.strip()}")
+                continue
+        out.append(a)
+    return out
+
+
 def _group_sets(paper: Any) -> List[set]:
     """Token sets of a paper's group authors ("The LIGO Scientific Collaboration" -> {ligo, scientific}), whose
     surname-by-last-word would be the useless word "collaboration"."""
@@ -120,6 +140,7 @@ def _group_sets(paper: Any) -> List[set]:
 def match_mention(mention: Dict[str, Any], confirmed: Sequence[Any]) -> Optional[str]:
     """pid of the confirmed paper this mention refers to, or None. Deterministic."""
     names = {_norm(a).split()[-1] for a in (mention.get("authors") or []) if _norm(a)} - set(GROUP_MARKERS)  # empty means no usable author
+    full_names = _with_given_names(mention.get("authors") or [], mention.get("quote") or "")
     mention_groups = [_name_tokens(a) for a in (mention.get("authors") or []) if _name_tokens(a)]
     quote_words = set(_norm(mention.get("quote") or "").split())
     tw = _words(" ".join(mention.get("title_words") or []))
@@ -128,7 +149,7 @@ def match_mention(mention: Dict[str, Any], confirmed: Sequence[Any]) -> Optional
         gsets = _group_sets(c)
         title_overlap = len(tw & _words(c.title))
         year_ok = year is None or c.year is None or abs(int(year) - int(c.year)) <= 1 or title_overlap >= 2
-        by_surname = any(_surname_compatible(ma, la) for ma in (mention.get("authors") or []) for la in c.authors)
+        by_surname = any(_surname_compatible(ma, la) for ma in full_names for la in c.authors)
         by_group = any(m and m <= g for m in mention_groups for g in gsets)
         by_group_in_quote = not names and any(g <= quote_words for g in gsets) and year is not None  # "the BESIII Collaboration's 2026 ..." with no author listed
         if by_surname or by_group or by_group_in_quote:
