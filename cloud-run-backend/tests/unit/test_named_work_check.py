@@ -220,3 +220,22 @@ def test_group_named_only_in_the_quote_matches_with_a_year():
 
 def test_the_word_collaboration_alone_never_matches():
     assert nw.match_mention(m("q", ["Collaboration"], 2025), GROUPS) is None
+
+
+# ---------------------------------------------------------------- stage 8: first names stop a common surname matching the wrong paper
+WANGS = [paper("P6", "Neuromorphic mapping of networks", ["Yi Wang", "Li Zhang"], 2025), paper("P7", "Another study entirely", ["Song Wang"], 2024)]
+
+
+def test_a_different_first_name_does_not_match_a_shared_surname():
+    assert nw.match_mention(m("q", ["Guanrui Wang"], 2025), WANGS) is None
+    assert nw.match_mention(m("q", ["Song Wang"], 2025), WANGS) == "P7"  # same first name, within a year of 2024
+
+
+def test_a_bare_surname_or_an_initial_still_matches():
+    assert nw.match_mention(m("q", ["Wang"], 2025), WANGS) == "P6"
+    assert nw.match_mention(m("q", ["S. Wang"], 2024), WANGS) == "P7"
+    assert nw.match_mention(m("q", ["Y Wang"], 2025), WANGS) == "P6"
+
+
+def test_initials_written_as_m_f_perutz():
+    assert nw.match_mention(m("q", ["M.F. Perutz"], 1976), [paper("P8", "Fundamental research in molecular biology", ["M F Perutz"], 1976)]) == "P8"
