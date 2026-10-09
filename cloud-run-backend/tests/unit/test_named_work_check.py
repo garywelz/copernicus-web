@@ -220,3 +220,36 @@ def test_group_named_only_in_the_quote_matches_with_a_year():
 
 def test_the_word_collaboration_alone_never_matches():
     assert nw.match_mention(m("q", ["Collaboration"], 2025), GROUPS) is None
+
+
+# ---------------------------------------------------------------- stage 8: first names stop a common surname matching the wrong paper
+WANGS = [paper("P6", "Neuromorphic mapping of networks", ["Yi Wang", "Li Zhang"], 2025), paper("P7", "Another study entirely", ["Song Wang"], 2024)]
+
+
+def test_a_different_first_name_does_not_match_a_shared_surname():
+    assert nw.match_mention(m("q", ["Guanrui Wang"], 2025), WANGS) is None
+    assert nw.match_mention(m("q", ["Song Wang"], 2025), WANGS) == "P7"  # same first name, within a year of 2024
+
+
+def test_a_bare_surname_or_an_initial_still_matches():
+    assert nw.match_mention(m("q", ["Wang"], 2025), WANGS) == "P6"
+    assert nw.match_mention(m("q", ["S. Wang"], 2024), WANGS) == "P7"
+    assert nw.match_mention(m("q", ["Y Wang"], 2025), WANGS) == "P6"
+
+
+def test_initials_written_as_m_f_perutz():
+    assert nw.match_mention(m("q", ["M.F. Perutz"], 1976), [paper("P8", "Fundamental research in molecular biology", ["M F Perutz"], 1976)]) == "P8"
+
+
+def test_first_name_in_the_quote_is_used_when_the_model_gives_only_a_surname():
+    # the model returned authors ["Wang"], but the quote says "Song Wang"; the listed Wang is "Qian Wang"
+    listed = [paper("P1", "Neuromorphic devices", ["Yi Lv", "Houpeng Chen", "Qian Wang"], 2022)]
+    assert nw.match_mention(m("Song Wang and team have worked on this", ["Wang"], None), listed) is None
+    assert nw.match_mention(m("Qian Wang and team have worked on this", ["Wang"], None), listed) == "P1"
+    assert nw.match_mention(m("work by Wang and colleagues", ["Wang"], None), listed) == "P1"  # no first name in the quote: surname alone
+
+
+def test_a_word_before_the_surname_that_is_not_a_name_is_ignored():
+    listed = [paper("P1", "Some study", ["Qian Wang"], 2022)]
+    assert nw.match_mention(m("According to Wang and colleagues", ["Wang"], None), listed) == "P1"
+    assert nw.match_mention(m("the study by Wang", ["Wang"], None), listed) == "P1"
