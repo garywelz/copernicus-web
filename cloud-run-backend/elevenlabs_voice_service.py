@@ -237,7 +237,12 @@ class ElevenLabsVoiceService:
         Remove any remaining markup and ensure conversational flow
         """
         import re
-        
+        from speech_text import strip_pn_markers
+
+        # Gap 3 fix 1: the paper labels [P1], [P2] ... are for the model only; without this the bracket cleanup below
+        # would leave "P3" in the text and the voice would read it out.
+        text = strip_pn_markers(text)
+
         # Remove any speaker labels that might have leaked through
         text = re.sub(r'^(HOST|EXPERT|QUESTIONER|CORRESPONDENT):\s*', '', text, flags=re.IGNORECASE)
         text = re.sub(r'^(Matilda|Gary|Bill|Lily|Sarah|Tom|Mary|Bob):\s*', '', text, flags=re.IGNORECASE)

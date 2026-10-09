@@ -103,6 +103,7 @@ from utils.script_validation import validate_script_length, calculate_minimum_wo
 from named_work_check import check_naming, feedback_text, make_gemini_llm_call, NamingViolationError
 from failure_notice import describe_failure
 from reference_sections import apply_reference_sections, BUILT_BY as REFERENCES_BUILT_BY
+from speech_text import strip_pn_markers_counted
 
 # Retry decorator for upload operations
 def retry_upload(max_retries=3, delay=2):
@@ -2108,6 +2109,10 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
         This is the job's post-generation text processing, moved into a method unchanged (plus measurement) so the
         sandbox harness runs exactly the code the job runs. Modifies ``content`` in place and returns the measurements
         of what the length limit removed. Writes nothing anywhere."""
+        # Gap 3 fix 1: the paper labels [P1], [P2] ... are for the model only; remove any that leaked into the spoken
+        # script or the description before anything is stored, spoken or shown.
+        content['script'], _n_script = strip_pn_markers_counted(content.get('script') or "")
+        content['description'], _n_desc = strip_pn_markers_counted(content.get('description') or "")
         # Generate relevant hashtags
         content['hashtags'] = generate_relevant_hashtags(
             request.topic, 
@@ -2158,6 +2163,7 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
         )
         # (the requested paper is always P1 in References, built from its registry record, so nothing is added here)
         content['itunes_summary'] = extract_itunes_summary(content['description'])
+        limit_metrics['pn_markers_removed'] = {'script': _n_script, 'description': _n_desc}
         return limit_metrics
 
     async def _generate_checked_content(self, request, research_context, google_key: str, job_id: str):
