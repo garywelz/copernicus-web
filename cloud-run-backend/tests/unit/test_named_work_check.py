@@ -164,3 +164,32 @@ def test_feedback_text_lists_violations_and_allowed_papers():
 def test_violation_error_message_is_clear():
     msg = str(nw.NamingViolationError([{"kind": "unlisted_work", "where": "script", "quote": "Zorblatt showed", "authors": ["Zorblatt"], "year": 2019}]))
     assert "not among the confirmed papers" in msg and "no episode was published" in msg and "Zorblatt" in msg
+
+
+# ---------------------------------------------------------------- stage 6: LaTeX and other answers that are not strict JSON
+def test_latex_backslashes_in_a_quote_do_not_break_parsing():
+    bs = chr(92)  # a real backslash, as in LaTeX: not a valid JSON escape before the letter a
+
+    async def latex(system, user):
+        return '{"mentions": [{"quote": "the $' + bs + 'alpha$ decay of Zorblatt (2019)", "authors": ["Zorblatt"], "year": 2019, "title_words": []}]}'
+    r = run(nw.check_naming("ADAM: hi", "", CONFIRMED, latex))
+    assert r.violations and r.violations[0]["authors"] == ["Zorblatt"] and (bs + "alpha") in r.violations[0]["quote"]
+
+
+def test_prose_before_the_json_is_tolerated():
+    async def chatty(system, user):
+        return 'Here is the list: {"mentions": []}'
+    assert run(nw.check_naming("ADAM: hi", "", CONFIRMED, chatty)).passed
+
+
+def test_unparseable_answer_keeps_the_start_of_it_for_the_administrator():
+    async def junk(system, user):
+        return "I cannot comply " * 50
+    with pytest.raises(nw.NamingCheckUnavailable) as e:
+        run(nw.check_naming("ADAM: hi", "", CONFIRMED, junk))
+    assert e.value.raw.startswith("I cannot comply") and len(e.value.raw) <= 300
+    assert "I cannot comply" not in str(e.value)  # the message itself stays free of model text
+
+
+def test_prompt_tells_the_model_not_to_emit_latex():
+    assert "never put a backslash or LaTeX command in the JSON" in nw.INSTRUCTIONS
