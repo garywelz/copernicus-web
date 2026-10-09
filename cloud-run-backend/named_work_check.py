@@ -160,6 +160,22 @@ def match_mention(mention: Dict[str, Any], confirmed: Sequence[Any]) -> Optional
     return None
 
 
+def context_around(text: str, quote: str, span: int = 450) -> str:
+    """A few sentences of the checked text around a quoted passage (about 450 characters each side, trimmed to word
+    boundaries), so whoever reviews a flag can read it in place. '' if the quote cannot be found."""
+    flat = re.sub(r"\s+", " ", text or "")
+    q = re.sub(r"\s+", " ", quote or "").strip()[:60]
+    i = flat.find(q) if q else -1
+    if i < 0:
+        return ""
+    a, b = max(0, i - span), min(len(flat), i + len(quote) + span)
+    if a > 0:
+        a = flat.find(" ", a) + 1 or a
+    if b < len(flat):
+        b = flat.rfind(" ", 0, b) if flat.rfind(" ", 0, b) > i else b
+    return flat[a:b].strip()
+
+
 def _locate(text: str, quote: str) -> int:
     q = re.sub(r"\s+", " ", quote or "").strip()[:60]
     if not q:
@@ -236,14 +252,16 @@ async def check_naming(script: str, description: str, confirmed_papers: Sequence
                     unknown_position_matched = True
         elif m["authors"] or m["title_words"]:
             result.violations.append({"kind": "unlisted_work", "where": m["where"], "quote": m["quote"],
-                                      "authors": m["authors"], "year": m["year"]})
+                                      "authors": m["authors"], "year": m["year"],
+                                      "context": context_around(script if m["where"] == "script" else body, m["quote"])})
     result.named_pids = seen_pids
 
     flat = re.sub(r"\s+", " ", script)
     for ph in LINK_PHRASE.finditer(flat):
         near = any(ph.start() - 400 <= p <= ph.end() + 250 for p in matched_positions)
         if not near and not unknown_position_matched:
-            result.violations.append({"kind": "link_phrase_unattached", "where": "script", "quote": ph.group(0)[:200]})
+            result.violations.append({"kind": "link_phrase_unattached", "where": "script", "quote": ph.group(0)[:200],
+                                      "context": flat[max(0, ph.start() - 450): ph.end() + 450].strip()})
     return result
 
 

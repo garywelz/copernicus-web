@@ -253,3 +253,21 @@ def test_a_word_before_the_surname_that_is_not_a_name_is_ignored():
     listed = [paper("P1", "Some study", ["Qian Wang"], 2022)]
     assert nw.match_mention(m("According to Wang and colleagues", ["Wang"], None), listed) == "P1"
     assert nw.match_mention(m("the study by Wang", ["Wang"], None), listed) == "P1"
+
+
+# ---------------------------------------------------------------- stage 9: a flag carries the passage around it
+def test_violations_carry_the_surrounding_text():
+    before = "Some earlier sentence about computing. " * 5
+    after = " And a later sentence about engines. " * 5
+    script = "ADAM: " + before + "Zorblatt and Quux showed in 2019 that engines compute." + after
+    llm = fake_llm({"Zorblatt": [m("Zorblatt and Quux showed in 2019 that engines compute", ["Zorblatt", "Quux"], 2019)]})
+    v = run(nw.check_naming(script, "", CONFIRMED, llm)).violations[0]
+    assert "Zorblatt and Quux showed" in v["context"] and "earlier sentence" in v["context"] and "later sentence" in v["context"]
+    assert 300 < len(v["context"]) < 1100
+
+
+def test_link_phrase_violation_has_context_and_a_missing_quote_gives_none():
+    script = "ADAM: Engines are old. The link is in the description. MATILDA: Great."
+    r = run(nw.check_naming(script, "", CONFIRMED, fake_llm({})))
+    assert "Engines are old" in r.violations[0]["context"]
+    assert nw.context_around("short text", "not present anywhere") == ""
