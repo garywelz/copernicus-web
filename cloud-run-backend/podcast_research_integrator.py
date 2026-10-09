@@ -157,7 +157,8 @@ class PodcastResearchIntegrator:
         confirmation = await confirm_sources(research_sources, required_first=required)
         print(f"   Confirmed {len(confirmation.confirmed)} of {found} candidates; dropped: {confirmation.drop_counts()}")
         if len(confirmation.confirmed) < require_minimum_sources:
-            raise InsufficientConfirmedPapers(topic, found, len(confirmation.confirmed), require_minimum_sources, confirmation.drop_counts())
+            raise InsufficientConfirmedPapers(topic, found, len(confirmation.confirmed), require_minimum_sources, confirmation.drop_counts(),
+                                              [d.to_dict() for d in confirmation.dropped])
         research_sources = [as_research_source(c) for c in confirmation.confirmed]
         pid_by_title = {c.title: c.pid for c in confirmation.confirmed}
 
