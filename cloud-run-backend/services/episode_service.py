@@ -203,6 +203,10 @@ class EpisodeService:
             "description_markdown": description_markdown,
             "description_html": description_html,
             "script": result_data.get("script", ""),
+            # gap 3 fix 1: the confirmed papers, which of them the script names, and who built the lists
+            "papers": result_data.get("papers"),
+            "papers_named": result_data.get("papers_named"),
+            "references_built_by": result_data.get("references_built_by"),
             "duration": result_data.get("duration"),
             "audio_url": result_data.get("audio_url"),
             "thumbnail_url": result_data.get("thumbnail_url") or DEFAULT_ARTWORK_URL,

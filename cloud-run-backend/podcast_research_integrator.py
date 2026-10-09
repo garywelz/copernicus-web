@@ -15,15 +15,18 @@ interdisciplinary connections, rigorous evidence, accessible communication.
 import asyncio
 from typing import List, Dict, Any, Optional
 from datetime import datetime
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 from research_pipeline import ComprehensiveResearchPipeline, ResearchSource
 from enhanced_research_service import EnhancedResearchService, PaperAnalysis
 from paper_processor import analyze_paper_with_gemini, ResearchPaper, AnalyzeOptions, PaperAnalysis as GeminiPaperAnalysis
 from copernicus_character import get_copernicus_character, get_character_prompt, CopernicusCharacter
 from utils.script_validation import calculate_minimum_words_for_duration
+from paper_confirmation import (
+    confirm_sources, confirm_requested_paper, as_research_source, format_citation_line, InsufficientConfirmedPapers,
+)
 
-def aggregate_enhanced_analyses(paper_analyses: List["PaperAnalysis"]):
+def aggregate_enhanced_analyses(paper_analyses: List["PaperAnalysis"], pid_by_title: Optional[Dict[str, str]] = None):
     """Fold a list of PaperAnalysis into (paradigm_shifts,
     interdisciplinary_connections, key_findings).
 
@@ -40,10 +43,13 @@ def aggregate_enhanced_analyses(paper_analyses: List["PaperAnalysis"]):
     for analysis in paper_analyses:
         if getattr(analysis, "analysis_failed", False):
             continue
+        # Gap 3 fix 1 (C4): findings carry the P number of the confirmed paper they came from, so the generator can
+        # name the right paper (and, with fix 3, put a marker on the claim).
+        tag = f"[{pid_by_title[analysis.title]}] " if pid_by_title and analysis.title in pid_by_title else ""
         if analysis.paradigm_shift_potential not in ["none", "low"]:
-            paradigm_shifts.append(f"{analysis.title}: {analysis.paradigm_shift_potential}")
+            paradigm_shifts.append(f"{tag}{analysis.title}: {analysis.paradigm_shift_potential}")
         interdisciplinary_connections.extend(analysis.interdisciplinary_connections)
-        key_findings.extend(analysis.key_findings)
+        key_findings.extend(f"{tag}{f}" for f in analysis.key_findings)
     return paradigm_shifts, interdisciplinary_connections, key_findings
 
 
@@ -84,6 +90,11 @@ class PodcastResearchContext:
     real_citations: List[str]
     research_quality_score: float
     recommended_expertise_level: str
+    # Gap 3 fix 1: the confirmed papers (ConfirmedPaper records, P1..Pn), what was dropped and why, and which one
+    # (if any) is the directly requested paper. research_sources is built from confirmed_papers.
+    confirmed_papers: List[Any] = field(default_factory=list)
+    dropped_candidates: List[Any] = field(default_factory=list)
+    requested_pid: Optional[str] = None
 
 class PodcastResearchIntegrator:
     """
@@ -102,7 +113,8 @@ class PodcastResearchIntegrator:
         additional_context: str = "",
         source_links: List[str] = None,
         expertise_level: str = "intermediate",
-        require_minimum_sources: int = 3
+        require_minimum_sources: int = 3,
+        required_paper: Optional[Dict[str, Any]] = None
     ) -> PodcastResearchContext:
         """
         Perform comprehensive research following Copernicus philosophy:
@@ -134,14 +146,22 @@ class PodcastResearchIntegrator:
         for source_type, count in source_breakdown.items():
             print(f"   - {source_type}: {count}")
         
-        # VALIDATE: Minimum sources required
-        if len(research_sources) < require_minimum_sources:
-            raise Exception(
-                f"Insufficient research for '{topic}': "
-                f"Found {len(research_sources)} sources, need ≥{require_minimum_sources}. "
-                f"Cannot generate authentic Copernicus content without rigorous research base."
-            )
-        
+        # Gap 3 fix 1 (C1/C7): only papers confirmed in their registry by identifier go any further. A directly requested
+        # paper must itself be confirmed (PaperNotConfirmed) and becomes P1. Fewer than ``require_minimum_sources``
+        # confirmed papers fails the episode before any generation (InsufficientConfirmedPapers); an unreachable
+        # registry raises RegistryUnavailable instead, so an outage is not mistaken for a thin topic.
+        required = None
+        if required_paper and required_paper.get("title"):
+            required = await confirm_requested_paper(required_paper.get("doi"), required_paper["title"])
+        found = len(research_sources) + (1 if required else 0)  # candidates found, counting the requested paper
+        confirmation = await confirm_sources(research_sources, required_first=required)
+        print(f"   Confirmed {len(confirmation.confirmed)} of {found} candidates; dropped: {confirmation.drop_counts()}")
+        if len(confirmation.confirmed) < require_minimum_sources:
+            raise InsufficientConfirmedPapers(topic, found, len(confirmation.confirmed), require_minimum_sources, confirmation.drop_counts(),
+                                              [d.to_dict() for d in confirmation.dropped])
+        research_sources = [as_research_source(c) for c in confirmation.confirmed]
+        pid_by_title = {c.title: c.pid for c in confirmation.confirmed}
+
         # PHASE 2: MULTI-PAPER ANALYSIS (Paradigm Shifts & Connections)
         print(f"\n🧠 Phase 2: Multi-Paper Analysis & Synthesis")
         paper_analyses = await self.enhanced_research_service.analyze_multiple_papers(
@@ -154,6 +174,7 @@ class PodcastResearchIntegrator:
         # PHASE 3: DEEP ANALYSIS WITH GEMINI (for top papers)
         print(f"\n🔍 Phase 3: Deep Analysis with Gemini (top 3 papers)")
         gemini_analyses = []
+        gemini_pids = []
         for i, source in enumerate(research_sources[:3]):
             print(f"   Analyzing: {source.title[:60]}...")
             paper = ResearchPaper(
@@ -173,6 +194,7 @@ class PodcastResearchIntegrator:
             try:
                 gemini_analysis = await analyze_paper_with_gemini(paper, options, self.google_api_key)
                 gemini_analyses.append(gemini_analysis)
+                gemini_pids.append(source.pid)
             except Exception as e:
                 print(f"   ⚠️ Gemini analysis failed: {e}")
         
@@ -184,22 +206,19 @@ class PodcastResearchIntegrator:
         # From enhanced research service analyses (B5 fix: excludes failed
         # analyses -- see aggregate_enhanced_analyses's docstring)
         paradigm_shifts, interdisciplinary_connections, key_findings = \
-            aggregate_enhanced_analyses(paper_analyses)
+            aggregate_enhanced_analyses(paper_analyses, pid_by_title)
 
         # From Gemini deep analyses
-        for gemini_analysis in gemini_analyses:
-            paradigm_shifts.extend(gemini_analysis.paradigm_shifts)
+        for gemini_analysis, gpid in zip(gemini_analyses, gemini_pids):
+            paradigm_shifts.extend(f"[{gpid}] {x}" for x in gemini_analysis.paradigm_shifts)
             interdisciplinary_connections.extend(gemini_analysis.interdisciplinary_connections)
-            key_findings.extend(gemini_analysis.key_findings)
-            real_citations.extend(gemini_analysis.citations)
+            key_findings.extend(f"[{gpid}] {x}" for x in gemini_analysis.key_findings)
+            # (C2) gemini_analysis.citations -- model-written citation strings -- are no longer used anywhere.
 
-        # Add citations from research sources (B1/B2 fix: see
-        # format_real_citation_line's docstring).
-        for source in research_sources[:10]:
-            citation = format_real_citation_line(source)
-            if citation:
-                real_citations.append(citation)
-        
+        # (C2) Reference lines are built by code from the confirmed registry records only. This list is the interim
+        # source for the existing description fallback until C6 replaces it with the code-built References section.
+        real_citations = [format_citation_line(c) for c in confirmation.confirmed[:10]]
+
         # PHASE 5: QUALITY ASSESSMENT
         research_quality_score = self._assess_research_quality(
             research_sources, 
@@ -225,6 +244,9 @@ class PodcastResearchIntegrator:
             interdisciplinary_connections=interdisciplinary_connections[:10],
             key_findings=key_findings[:15],
             real_citations=real_citations[:10],
+            confirmed_papers=list(confirmation.confirmed),
+            dropped_candidates=list(confirmation.dropped),
+            requested_pid="P1" if required else None,
             research_quality_score=research_quality_score,
             recommended_expertise_level=recommended_level
         )
@@ -381,10 +403,13 @@ Your podcast has TWO speakers only:
 - **WORD COUNT CHECK: Before submitting, count the words in your script. If it's under {calculate_minimum_words_for_duration(duration)} words, you MUST expand it with more dialogue, examples, and detailed explanations.**
 
 **CITATION STYLE IN DIALOGUE:**
-- When citing papers, mention: Author names, publication, and title
+- You may name ONLY the papers in the numbered list below ([P1], [P2], ...), by their authors and year, in speech.
+  Do NOT name, quote or allude to any other paper, author or study, even if you know it. If the list lacks something you
+  need, say it is outside what was reviewed. Do not name a paper you do not discuss.
+- When you cite a listed paper, mention the first author's surname (and "and colleagues" or the second author), the year and, if the list gives a journal, the journal.
 - DO NOT read out URLs, DOIs, or long links in the dialogue
-- Instead say: "the link is in the description" or "we'll link to that in the description"
-- Example: "According to Stormo and Hartzell in the Proceedings of the National Academy of Sciences, their 1989 study—link in the description—found that..."
+- Say "the link is in the description" ONLY right after naming a paper from the list, never otherwise.
+- Example of the form (use only listed papers): "According to <first author> and colleagues in <journal from the list>, their <year> study—link in the description—found that..."
 - NEVER say "published in PubMed" or "published in arXiv". Those are indexes. Use the journal name from the source list. If no journal is given, name the authors and year only.
 
 ═══════════════════════════════════════════════════════════════
@@ -440,27 +465,22 @@ groundbreaking research. [Final thought on future implications]
         - Research insights: 2-3 paragraphs about current research developments, recent breakthroughs, methodological advances, and what makes this area exciting
         - Practical applications: 2-3 paragraphs about real-world applications, industry impact, and potential uses
         - Future directions: 2-3 paragraphs about emerging research directions, potential breakthroughs, and long-term implications
-        - ## References section (list ALL citations with authors, titles, publications, DOIs/URLs)
+        - Do NOT write a References section or any list of references: it is added for you from the papers you name.
 
-        CRITICAL: Write a thorough, engaging description that maximizes discoverability. Be detailed and informative while remaining accessible. Ensure the References section is complete.
+        CRITICAL: Write a thorough, engaging description that maximizes discoverability. Be detailed and informative while remaining accessible. Do not name any paper that is not in the numbered list.
     ",
     "keywords": ["comma", "separated", "keywords", "from", "research"],
-    "paradigm_shifts_discussed": ["list", "of", "paradigm", "shifts"],
-    "citations_used": ["list", "of", "actual", "DOIs", "or", "URLs", "cited"]
+    "paradigm_shifts_discussed": ["list", "of", "paradigm", "shifts"]
 }}
 
 **CRITICAL:** Use ONLY the real research provided. DO NOT make up fake references.
 If asked about something not in the research, ADAM should acknowledge the gap.
 
-**Citation rules (do not violate):**
-- Never write "DOI: 10.xxxx/xxxx" or any other placeholder-shaped DOI. If a
-  citation has no real DOI, omit the DOI field entirely -- use Available:
-  with a real URL instead, or omit both if neither is known.
-- Never write "(Recent)" or "(Year)" as a publication year. If the year is
-  unknown, omit the parenthetical entirely rather than inventing one.
-- Never write a reference line as a literal fill-in-the-blank template such
-  as "[Author et al. (Year). Title. DOI: ...]" -- every reference must use
-  real, specific authors, title, and year from the research provided.
+**Naming rules (do not violate):**
+- Name only papers from the numbered list; never invent or recall a paper, author or study that is not in it.
+- Never write a DOI, URL or reference line anywhere in the script or description; references are added for you.
+- Never write the labels [P1], [P2], ... anywhere in the script or description: they are for your reference only, and the script is read aloud.
+- Never write "(Recent)" or "(Year)" as a publication year. If the year is unknown, omit it.
 """
         
         return prompt
@@ -471,9 +491,9 @@ If asked about something not in the research, ADAM should acknowledge the gap.
         evidence = []
         
         # Top research sources
-        evidence.append("**PRIMARY RESEARCH SOURCES:**\n")
-        for i, source in enumerate(context.research_sources[:8], 1):
-            evidence.append(f"{i}. **{source.title}**")
+        evidence.append("**CONFIRMED PAPERS YOU MAY NAME (numbered; name no other paper):**\n")
+        for i, source in enumerate(context.research_sources[:12], 1):
+            evidence.append(f"[{getattr(source, 'pid', None) or 'P' + str(i)}] **{source.title}**")
             evidence.append(f"   Authors: {', '.join(source.authors[:3])}{'et al.' if len(source.authors) > 3 else ''}")
             journal = (getattr(source, "journal", None) or "").strip()
             index_name = (source.source or "").strip().lower()
@@ -512,13 +532,6 @@ If asked about something not in the research, ADAM should acknowledge the gap.
             evidence.append("\n**KEY FINDINGS:**")
             for finding in context.key_findings[:10]:
                 evidence.append(f"- {finding}")
-            evidence.append("")
-        
-        # Real citations to use
-        if context.real_citations:
-            evidence.append("\n**REAL CITATIONS (Use these in your script and description):**")
-            for citation in context.real_citations:
-                evidence.append(f"- {citation}")
             evidence.append("")
         
         return "\n".join(evidence)
