@@ -131,6 +131,31 @@ def _with_given_names(authors: Sequence[str], quote: str) -> List[str]:
     return out
 
 
+def _tokens(s: str) -> List[str]:
+    """Name tokens: accents, case and punctuation removed; a comma only separates tokens, so "Liu, Zhiqiang" and
+    "Zhiqiang Liu" give the same tokens."""
+    s = unicodedata.normalize("NFKD", s or "")
+    s = "".join(ch for ch in s if not unicodedata.combining(ch)).lower()
+    return [x for x in re.sub(r"[^a-z0-9]+", " ", s).split() if x]
+
+
+def _token_match(a: str, b: str) -> bool:
+    return a == b or (len(a) == 1 and b.startswith(a)) or (len(b) == 1 and a.startswith(b))
+
+
+def _name_match(mention_author: str, listed_author: str) -> bool:
+    """Order-free name match (handles "Surname, Given", "Given Surname" and compound surnames like "Valadez Huerta").
+    Every token of the mention must match a token of the listed author (a one-letter token matches a token starting with
+    it), and at least one mention word longer than one letter must equal a listed token exactly, so that an initial on the
+    listed side ("R. D. L. Henderson") cannot stand in for a whole surname ("Robert L. Devaney")."""
+    skip = set(GROUP_MARKERS) | {"the", "and"}
+    m = [x for x in _tokens(mention_author) if x not in skip]
+    l = [x for x in _tokens(listed_author) if x not in {"the", "and"}]
+    if not m or not l:
+        return False
+    return all(any(_token_match(a, b) for b in l) for a in m) and any(len(a) > 1 and a in l for a in m)
+
+
 def _group_sets(paper: Any) -> List[set]:
     """Token sets of a paper's group authors ("The LIGO Scientific Collaboration" -> {ligo, scientific}), whose
     surname-by-last-word would be the useless word "collaboration"."""
@@ -149,7 +174,7 @@ def match_mention(mention: Dict[str, Any], confirmed: Sequence[Any]) -> Optional
         gsets = _group_sets(c)
         title_overlap = len(tw & _words(c.title))
         year_ok = year is None or c.year is None or abs(int(year) - int(c.year)) <= 1 or title_overlap >= 2
-        by_surname = any(_surname_compatible(ma, la) for ma in full_names for la in c.authors)
+        by_surname = any(_name_match(ma, la) for ma in full_names for la in c.authors)
         by_group = any(m and m <= g for m in mention_groups for g in gsets)
         by_group_in_quote = not names and any(g <= quote_words for g in gsets) and year is not None  # "the BESIII Collaboration's 2026 ..." with no author listed
         if by_surname or by_group or by_group_in_quote:
