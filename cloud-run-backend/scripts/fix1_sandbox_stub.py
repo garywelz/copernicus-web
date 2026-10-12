@@ -97,7 +97,7 @@ def build_stub(spec: Dict[str, Any]):
     clean = ("ADAM: According to Lovelace and Turing in 2026, neural computation works. The link is in the description. "
              "MATILDA: And Hopper and Dijkstra in 2026 agree. " + _words(min_words + 20))
     bad = clean + " ADAM: Zorblatt and Quux showed in 2019 that it does not."
-    body = "Overview of the episode. " + ("A long paragraph about neural computation and its history. " * (60 if scenario == "long_body" else 5))
+    body = "Overview of the episode. " + ("A long paragraph about neural computation and its history. " * (120 if scenario == "long_body" else 5))
     desc = body + "\n\n## References\n\n- Model Wrote This (2019). Fake Paper. DOI: 10.9/fake\n\n## Hashtags\n#neural #cells\n"
     scripts = {"ok": [clean], "long_body": [clean], "paper_request": [clean], "thin": [clean], "registry_down": [clean],
                "bad_then_good": [bad, clean], "never_good": [bad, bad, bad]}[scenario]

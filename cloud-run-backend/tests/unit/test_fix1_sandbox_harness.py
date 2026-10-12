@@ -50,9 +50,9 @@ def test_ok_topic_builds_references_and_further_reading_by_code(run_dir):
     assert r["outcome"] == "generated" and r["research"]["confirmed"] == 3 and r["regenerations"] == 0 and r["pre_publish_gate"] == "ok"
     final = (out / "ok" / "description_final.md").read_text(encoding="utf-8")
     assert "Model Wrote This" not in final and "MODEL-WRITTEN CITATION" not in final
-    assert final.index("## References") < final.index("## Further reading") < final.index("## Hashtags")
+    assert final.index("## References") < final.index("Further reading: the other papers") < final.index("## Hashtags")
     assert r["named_pids"] == ["P1", "P2"] and r["reference_lines"] == 2 and r["further_reading_lines"] == 1
-    assert "Sandbox paper number 3" in final.split("## Further reading")[1]
+    assert "Sandbox paper number 3" not in final  # Further reading is on the episode web page only
     assert (out / "ok" / "script.txt").exists() and (out / "ok" / "description_raw.md").exists()
 
 
@@ -90,7 +90,7 @@ def test_requested_paper_is_p1_and_listed_first_with_registry_fields(run_dir):
     r = result(out, "paper_request")
     assert r["outcome"] == "generated" and r["research"]["confirmed"] == 4
     final = (out / "paper_request" / "description_final.md").read_text(encoding="utf-8")
-    refs = final.split("## References")[1].split("## Further reading")[0]
+    refs = final.split("## References")[1].split("Further reading:")[0]
     assert refs.index("Requested sandbox paper title") < refs.index("Sandbox paper number 1")
     assert "Journal of Sandbox" in refs and "Wrong Journal" not in final
 
@@ -102,7 +102,7 @@ def test_the_length_limit_removal_is_measured_per_topic(run_dir):
     assert long["body_chars_removed_by_limit"] > 0 and long["description_chars_after_limit"] <= 4100
     assert long["body_chars_before_limit"] > long["body_chars_after_limit"]
     final = (out / "long_body" / "description_final.md").read_text(encoding="utf-8")
-    assert "## References" in final and "## Further reading" in final  # the lists survive the trim
+    assert "## References" in final and "Further reading: the other papers" in final  # references and the pointer survive the trim
 
 
 def test_a_second_run_skips_finished_topics(run_dir):

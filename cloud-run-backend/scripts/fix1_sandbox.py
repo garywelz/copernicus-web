@@ -185,8 +185,9 @@ async def run_topic(spec: Dict[str, Any], out_dir: str, service, integrator, goo
         gate = "ok"
     except DescriptionValidationError as e:
         gate = f"rejected: {e}"
-    refs = content["description"].split("## Further reading")[0].count("\n- ") if "## References" in content["description"] else 0
-    further = content["description"].split("## Further reading")[1].split("## Hashtags")[0].count("\n- ") if "## Further reading" in content["description"] else 0
+    import reference_sections as rs
+    refs = content["description"].split("## References")[1].split("## Hashtags")[0].count("\n- ") if "## References" in content["description"] else 0
+    further = len(rs.further_reading(ctx.confirmed_papers, naming_result.named_pids, ctx.requested_pid))  # shown on the episode web page
     res.update(outcome="generated", naming_attempts=attempts, regenerations=len(attempts) - 1 if attempts else 0,
                named_pids=naming_result.named_pids, limit=metrics, pre_publish_gate=gate,
                script_words=len((content.get("script") or "").split()), reference_lines=refs, further_reading_lines=further,

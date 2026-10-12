@@ -11,7 +11,10 @@ from typing import Any, List, Optional, Sequence
 
 from paper_confirmation import format_citation_line
 
-BUILT_BY = "code@1"
+BUILT_BY = "code@2"
+MAX_TITLE_CHARS = 110
+FURTHER_READING_POINTER = ("*Further reading: the other papers reviewed for this episode are listed on the episode page at "
+                           "www.copernicusai.fyi.*")
 
 _HEADING = re.compile(r"(?im)^(#{1,3})[ \t]*(references|further reading|bibliography|sources|works cited)[ \t]*$")
 _ANY_HEADING = re.compile(r"(?m)^#{1,3}[ \t]+\S")
@@ -35,18 +38,39 @@ def strip_model_reference_sections(description: str) -> str:
     return "".join(out).rstrip() + ("\n" if description and description.endswith("\n") else "")
 
 
-def _line(c: Any, with_venue: bool) -> str:
-    if with_venue:
-        return "- " + format_citation_line(c)
-    venue, c.venue = c.venue, None
-    try:
-        return "- " + format_citation_line(c)
-    finally:
-        c.venue = venue
+def _surname(name: str) -> str:
+    parts = (name or "").replace(",", " ").split()
+    return parts[-1] if parts else ""
+
+
+def compact_line(c: Any) -> str:
+    """One short line per paper for the description: Surname et al. (year). Title. Venue. Identifier.
+    Built from registry fields only; the full citation (all identifiers and the URL) is on the episode web page."""
+    from speech_text import latex_display
+    names = [_surname(a) for a in c.authors if _surname(a)]
+    who = names[0] if len(names) == 1 else f"{names[0]} and {names[1]}" if len(names) == 2 else f"{names[0]} et al." if names else ""
+    title = latex_display(c.title).rstrip(".")
+    if len(title) > MAX_TITLE_CHARS:
+        title = title[:MAX_TITLE_CHARS].rsplit(" ", 1)[0].rstrip(" ,;:") + "\u2026"
+    ids = c.ids or {}
+    ident = (f"arXiv:{ids['arxiv']}{ids.get('arxiv_version') or ''}" if ids.get("arxiv")
+             else f"DOI: {ids['doi']}" if ids.get("doi") else f"PMID {ids['pmid']}" if ids.get("pmid") else "")
+    venue = (c.venue or "").rstrip(".")
+    if len(venue) > 50:
+        venue = venue[:50].rsplit(" ", 1)[0]
+    head = f"{who} ({c.year})." if who and c.year else f"{who}." if who else (f"({c.year})." if c.year else "")
+    return "- " + " ".join(p for p in (head, title + ".", venue + "." if venue else "", ident) if p)
+
+
+def full_line(c: Any) -> str:
+    """The full citation line (all identifiers, venue and URL) for the episode web page."""
+    return "- " + format_citation_line(c)
 
 
 def build_sections(confirmed: Sequence[Any], named_pids: Sequence[str], requested_pid: Optional[str] = None) -> str:
-    """The code-built sections as Markdown ('' if there is nothing to list)."""
+    """The code-built description section as Markdown ('' if there is nothing to list): References, one compact line per paper
+    the script names (and always the requested paper), then one pointer line to the episode page when other confirmed papers
+    were reviewed. The Further reading list itself is shown on the episode web page only (see further_reading)."""
     by_pid = {c.pid: c for c in confirmed}
     ref_order: List[str] = []
     if requested_pid and requested_pid in by_pid:
@@ -54,14 +78,20 @@ def build_sections(confirmed: Sequence[Any], named_pids: Sequence[str], requeste
     for pid in named_pids:
         if pid in by_pid and pid not in ref_order:
             ref_order.append(pid)
-    further = [c for c in confirmed if c.pid not in ref_order]
     parts = []
     if ref_order:
-        parts.append("## References\n\n" + "\n".join(_line(by_pid[p], True) for p in ref_order))
-    if further:
-        parts.append("## Further reading\n\n*Papers reviewed while preparing this episode but not discussed in it.*\n\n" +
-                     "\n".join(_line(c, False) for c in further))
-    return "\n\n".join(parts)
+        parts.append("\n".join(compact_line(by_pid[p]) for p in ref_order))
+    if len(ref_order) < len(by_pid):
+        parts.append(FURTHER_READING_POINTER)
+    if not parts:
+        return ""
+    return ("## References" if ref_order else "## Further reading") + "\n\n" + "\n\n".join(parts)
+
+
+def further_reading(confirmed: Sequence[Any], named_pids: Sequence[str], requested_pid: Optional[str] = None) -> List[Any]:
+    """The confirmed papers that are not in References (not named and not the requested paper), in list order."""
+    listed = set(named_pids) | ({requested_pid} if requested_pid else set())
+    return [c for c in confirmed if c.pid not in listed]
 
 
 def apply_reference_sections(description: str, confirmed: Sequence[Any], named_pids: Sequence[str], requested_pid: Optional[str] = None) -> str:
