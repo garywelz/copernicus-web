@@ -62,6 +62,8 @@ class Fake:
             if doi in self.crossref_map:
                 return 200, self.crossref_map[doi]
             return 404, ""
+        if "api.datacite.org" in url:
+            return 404, ""
         return 500, ""
 
 
