@@ -156,3 +156,15 @@ def test_metering_wraps_the_sdk_call_and_stops_at_the_ceiling(tmp_path, monkeypa
     assert abs(led.spent() - (100 * 0.30 + 75 * 2.50) / 1e6) < 1e-9
     with pytest.raises(h.CeilingReached):
         m.generate_content("x" * 600000, generation_config=genai.types.GenerationConfig(max_output_tokens=20000))
+
+
+def test_the_harness_copy_of_the_gemini_call_sends_the_same_generation_config_as_production():
+    """The harness replaces EnhancedResearchService._call_google_ai with a metered copy. If the copy drifts from the real call
+    (it once lacked thinkingBudget 0), the sandbox tests a different pipeline than the one deployed."""
+    import inspect
+    import enhanced_research_service as ers
+    from pathlib import Path
+    real = inspect.getsource(ers.EnhancedResearchService._call_google_ai)
+    harness = (Path(__file__).resolve().parents[2] / "scripts" / "fix1_sandbox.py").read_text(encoding="utf-8")
+    for needle in ('"thinkingBudget": 0', '"temperature": 0.7', "gemini-2.5-flash:generateContent"):
+        assert needle in real and needle in harness, needle

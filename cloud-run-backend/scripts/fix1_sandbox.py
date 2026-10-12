@@ -113,7 +113,7 @@ def install_metering(ledger: Ledger, tag_ref: Dict[str, str]) -> None:
         ledger.guard("gemini-2.5-flash", int(len(prompt) / 3) + 50, max_tokens + 1024)
         url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent"
         headers = {"Content-Type": "application/json", "x-goog-api-key": self.google_api_key}
-        data = {"contents": [{"parts": [{"text": prompt}]}], "generationConfig": {"maxOutputTokens": max_tokens, "temperature": 0.7}}
+        data = {"contents": [{"parts": [{"text": prompt}]}], "generationConfig": {"maxOutputTokens": max_tokens, "temperature": 0.7, "thinkingConfig": {"thinkingBudget": 0}}}  # must match enhanced_research_service._call_google_ai
         async with aiohttp.ClientSession() as session:
             async with session.post(url, headers=headers, json=data) as response:
                 if response.status != 200:
