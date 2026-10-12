@@ -103,7 +103,7 @@ from utils.script_validation import validate_script_length, calculate_minimum_wo
 from named_work_check import check_naming, feedback_text, make_gemini_llm_call, NamingViolationError
 from failure_notice import describe_failure
 from reference_sections import apply_reference_sections, BUILT_BY as REFERENCES_BUILT_BY
-from speech_text import strip_pn_markers_counted
+from speech_text import strip_pn_markers_counted, speak_text, notation_problems, notation_feedback, UnspeakableNotationError
 
 # Retry decorator for upload operations
 def retry_upload(max_retries=3, delay=2):
@@ -2113,6 +2113,14 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
         # script or the description before anything is stored, spoken or shown.
         content['script'], _n_script = strip_pn_markers_counted(content.get('script') or "")
         content['description'], _n_desc = strip_pn_markers_counted(content.get('description') or "")
+        # Gap 3 fix 1: notation that survived the prompt becomes words (the loop already refused anything the table cannot
+        # convert, so a leftover here is a defect and stops the episode rather than being dropped).
+        content['script'], _bad_s = speak_text(content['script'])
+        _body, _sep, _tail = content['description'].partition("\n## ")
+        _body, _bad_d = speak_text(_body)
+        content['description'] = _body + (_sep + _tail if _sep else "")
+        if _bad_s or _bad_d:
+            raise UnspeakableNotationError(_bad_s + _bad_d)
         # Generate relevant hashtags
         content['hashtags'] = generate_relevant_hashtags(
             request.topic, 
@@ -2202,7 +2210,11 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
                         script, generated_content.get('description', '') if isinstance(generated_content, dict) else '',
                         research_context.confirmed_papers, naming_llm)
                     naming_attempts.append({'attempt': attempt + 1, **naming_result.summary()})
-                    if naming_result.passed:
+                    # Gap 3 fix 1: notation the converter cannot turn into words (unknown LaTeX) is a reason to regenerate, then
+                    # to fail; it is never silently dropped from a script that will be read aloud.
+                    bad_notation = notation_problems(script, generated_content.get('description', '') if isinstance(generated_content, dict) else '')
+                    naming_attempts[-1]['unspeakable_notation'] = bad_notation
+                    if naming_result.passed and not bad_notation:
                         content = generated_content
                         naming_checked = True
                         structured_logger.info(f"Content generation succeeded on attempt {attempt + 1}",
@@ -2210,15 +2222,19 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
                                               word_count=word_count,
                                               min_required=min_words)
                         break
-                    structured_logger.warning("Script names works that are not among the confirmed papers",
+                    structured_logger.warning("Script rejected: unlisted works or unspeakable notation",
                                              job_id=job_id,
                                              attempt=attempt + 1,
-                                             violations=naming_result.violations)
+                                             violations=naming_result.violations,
+                                             unspeakable_notation=bad_notation)
                     if attempt < max_retries:
-                        naming_feedback = feedback_text(naming_result, research_context.confirmed_papers)
+                        naming_feedback = ((feedback_text(naming_result, research_context.confirmed_papers) if not naming_result.passed else "")
+                                           + (notation_feedback(bad_notation) if bad_notation else ""))
                         await asyncio.sleep(2)
                         continue
-                    raise NamingViolationError(naming_result.violations)
+                    if not naming_result.passed:
+                        raise NamingViolationError(naming_result.violations)
+                    raise UnspeakableNotationError(bad_notation)
                 else:
                     if attempt < max_retries:
                         structured_logger.warning(f"Script too short on attempt {attempt + 1}, retrying with stronger prompt",
@@ -2273,6 +2289,9 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
             naming_attempts.append({'attempt': 'final', **naming_result.summary()})
             if not naming_result.passed:
                 raise NamingViolationError(naming_result.violations)
+            final_bad = notation_problems(content.get('script', ''), content.get('description', ''))
+            if final_bad:
+                raise UnspeakableNotationError(final_bad)
 
         return content, naming_result, naming_attempts
 

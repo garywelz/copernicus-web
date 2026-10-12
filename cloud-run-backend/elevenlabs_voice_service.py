@@ -242,6 +242,14 @@ class ElevenLabsVoiceService:
         # Gap 3 fix 1: the paper labels [P1], [P2] ... are for the model only; without this the bracket cleanup below
         # would leave "P3" in the text and the voice would read it out.
         text = strip_pn_markers(text)
+        # Safety net: notation was already turned into words (and anything unknown refused) before the script was stored.
+        # If LaTeX still arrives here, say it in words; if some cannot be converted, keep the words and remove the markup
+        # characters so the voice does not read "dollar" and "backslash".
+        from speech_text import speak_text
+        text, _unknown = speak_text(text)
+        if _unknown:
+            logger.warning(f"Unconvertible notation reached text-to-speech: {_unknown[:5]}")
+            text = re.sub(r"[$\\^_]", " ", text)
 
         # Remove any speaker labels that might have leaked through
         text = re.sub(r'^(HOST|EXPERT|QUESTIONER|CORRESPONDENT):\s*', '', text, flags=re.IGNORECASE)

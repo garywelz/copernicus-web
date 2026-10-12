@@ -480,6 +480,7 @@ If asked about something not in the research, ADAM should acknowledge the gap.
 - Name only papers from the numbered list; never invent or recall a paper, author or study that is not in it.
 - Never write a DOI, URL or reference line anywhere in the script or description; references are added for you.
 - Never write the labels [P1], [P2], ... anywhere in the script or description: they are for your reference only, and the script is read aloud.
+- The script is read aloud, so write every symbol, formula and particle or chemical notation as plain words ("K short", "pi plus", "D sub s plus", "x squared", "10 to the minus 3"). Never use LaTeX, dollar signs or backslashes in the script or the description.
 - Never write "(Recent)" or "(Year)" as a publication year. If the year is unknown, omit it.
 """
         
