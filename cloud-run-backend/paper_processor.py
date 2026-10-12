@@ -4,6 +4,7 @@ Adapted from copernicus_backup/src/services/paperProcessor.ts
 """
 
 import json
+from json_reply import parse_json_reply
 import time
 import hashlib
 from typing import Dict, Any, Optional, List
@@ -143,7 +144,7 @@ Maintain academic rigor while highlighting transformative potential.
         # Parse JSON response
         parse_failed = False
         try:
-            analysis_data = json.loads(response.text)
+            analysis_data = parse_json_reply(response.text)
         except json.JSONDecodeError:
             parse_failed = True
             # If JSON parsing fails, create structured response from text

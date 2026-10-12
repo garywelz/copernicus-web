@@ -10,6 +10,7 @@ Integrates sophisticated patterns from legacy Copernicus architecture:
 import asyncio
 import aiohttp
 import json
+from json_reply import parse_json_reply
 import os
 from typing import Dict, List, Optional, Any, Tuple
 from datetime import datetime, timedelta
@@ -163,7 +164,7 @@ class EnhancedResearchService:
         
         try:
             response = await self._call_google_ai(prompt, max_tokens=1500)
-            analysis_data = json.loads(response)
+            analysis_data = parse_json_reply(response)
             return self._validate_paper_analysis(analysis_data)
         except Exception as e:
             print(f"❌ Paper analysis error: {e}")
@@ -186,7 +187,7 @@ class EnhancedResearchService:
         
         try:
             response = await self._call_google_ai(prompt, max_tokens=1000)
-            connections = json.loads(response)
+            connections = parse_json_reply(response)
             return connections if isinstance(connections, list) else [[] for _ in analyses]
         except Exception as e:
             print(f"❌ Connection analysis error: {e}")
@@ -246,7 +247,7 @@ class EnhancedResearchService:
         
         try:
             response = await self._call_google_ai(prompt, max_tokens=1200)
-            themes_data = json.loads(response)
+            themes_data = parse_json_reply(response)
             
             themes = []
             for theme_data in themes_data.get("themes", []):
@@ -447,7 +448,10 @@ Until next time, keep questioning, keep exploring, and keep pushing the boundari
             }],
             "generationConfig": {
                 "maxOutputTokens": max_tokens,
-                "temperature": 0.7
+                "temperature": 0.7,
+                # gemini-2.5-flash counts its hidden reasoning against maxOutputTokens; with it on, a 1500-token limit cut the
+                # JSON off mid-string (seen 2026-10-12). These calls extract structured text and need no reasoning.
+                "thinkingConfig": {"thinkingBudget": 0}
             }
         }
         
