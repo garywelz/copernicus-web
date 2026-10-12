@@ -163,7 +163,7 @@ class EnhancedResearchService:
         )
         
         try:
-            response = await self._call_google_ai(prompt, max_tokens=1500)
+            response = await self._call_google_ai(prompt, max_tokens=3000)
             analysis_data = parse_json_reply(response)
             return self._validate_paper_analysis(analysis_data)
         except Exception as e:

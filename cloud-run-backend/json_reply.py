@@ -5,6 +5,9 @@ import json
 import re
 
 _FENCE = re.compile(r"^\s*```[a-zA-Z0-9_-]*\s*\n?(.*?)\n?```\s*$", re.DOTALL)
+# A backslash that does not begin a valid JSON escape, or that begins a LaTeX word such as \alpha, \beta or \nu (LaTeX from an
+# abstract copied into a JSON string). Doubled, it reads back as the literal text. Only tried when plain parsing has failed.
+_BAD_BACKSLASH = re.compile(r'\\(?!["\\/]|u[0-9a-fA-F]{4})(?=[A-Za-z]{2,}|[^bfnrtu"\\/])')
 
 
 def parse_json_reply(text: str):
@@ -15,7 +18,10 @@ def parse_json_reply(text: str):
     try:
         return json.loads(t)
     except json.JSONDecodeError:
-        start, end = t.find("{"), t.rfind("}")
-        if start != -1 and end > start:
-            return json.loads(t[start:end + 1])  # raises if the object is still not valid JSON
-        raise
+        pass
+    start, end = t.find("{"), t.rfind("}")
+    body = t[start:end + 1] if start != -1 and end > start else t
+    try:
+        return json.loads(body)
+    except json.JSONDecodeError:
+        return json.loads(_BAD_BACKSLASH.sub(r"\\\\", body))  # raises if the object is still not valid JSON
