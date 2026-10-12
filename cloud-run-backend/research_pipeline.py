@@ -5,7 +5,7 @@ import os
 from typing import Dict, List, Optional, Any
 from datetime import datetime, timedelta
 import xml.etree.ElementTree as ET
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 import re
 
 @dataclass
@@ -22,6 +22,23 @@ class ResearchSource:
     keywords: Optional[List[str]] = None
     relevance_score: Optional[float] = None
     pid: Optional[str] = None  # P number, set only on a confirmed paper (gap 3 fix 1)
+    # The registry's own record (paper_confirmation shape) when this source was parsed straight from an arXiv or PubMed
+    # response, so confirmation can reuse it instead of asking the same registry again. Set only by the two parsers below.
+    registry_record: Optional[Dict[str, Any]] = field(default=None, repr=False, compare=False)
+
+def _registry_records(xml_data: str, kind: str) -> Dict[str, Dict[str, Any]]:
+    """The response parsed the way paper_confirmation parses it, keyed by arXiv id+version or PMID (cached per response)."""
+    cache = _registry_records.__dict__.setdefault("_cache", {})
+    key = (kind, hash(xml_data))
+    if key not in cache:
+        from paper_confirmation import parse_arxiv, parse_pubmed
+        try:
+            cache.clear()
+            cache[key] = (parse_arxiv if kind == "arxiv" else parse_pubmed)(xml_data)
+        except Exception:
+            cache[key] = {}
+    return cache[key]
+
 
 class ComprehensiveResearchPipeline:
     """
@@ -730,6 +747,7 @@ class ComprehensiveResearchPipeline:
                     source="pubmed",
                     doi=doi or None,
                     journal=journal or None,
+                    registry_record=_registry_records(xml_data, "pubmed").get(pmid),
                 )
                 sources.append(source)
         
@@ -758,13 +776,15 @@ class ComprehensiveResearchPipeline:
                 link = entry.find("atom:id", namespace).text
                 published = entry.find("atom:published", namespace).text
                 
+                m = re.search(r"arxiv\.org/abs/(\d{4}\.\d{4,5}v\d+)", link or "")
                 source = ResearchSource(
                     title=title,
                     authors=authors,
                     abstract=summary,
                     url=link,
                     publication_date=published,
-                    source="arxiv"
+                    source="arxiv",
+                    registry_record=_registry_records(xml_data, "arxiv").get(m.group(1)) if m else None,
                 )
                 sources.append(source)
         

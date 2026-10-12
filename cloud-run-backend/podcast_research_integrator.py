@@ -94,6 +94,7 @@ class PodcastResearchContext:
     # (if any) is the directly requested paper. research_sources is built from confirmed_papers.
     confirmed_papers: List[Any] = field(default_factory=list)
     dropped_candidates: List[Any] = field(default_factory=list)
+    confirmation_stats: Dict[str, Any] = field(default_factory=dict)  # registry requests made by confirmation; records reused from search
     requested_pid: Optional[str] = None
 
 class PodcastResearchIntegrator:
@@ -246,6 +247,7 @@ class PodcastResearchIntegrator:
             real_citations=real_citations[:10],
             confirmed_papers=list(confirmation.confirmed),
             dropped_candidates=list(confirmation.dropped),
+            confirmation_stats=dict(getattr(confirmation, "stats", {}) or {}),
             requested_pid="P1" if required else None,
             research_quality_score=research_quality_score,
             recommended_expertise_level=recommended_level
