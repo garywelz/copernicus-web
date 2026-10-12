@@ -375,3 +375,8 @@ and the next judging package; precedes fix 3.
 | 4 | Gmail app password and `ERROR_NOTIFICATION_EMAIL=gwelz@gc.cuny.edu` (7.5) | Gary creates the password (proposal section 13); needed before the gated deploy, **not** before the sandbox test |
 | 5 | Gated deploy, then the first held episode (7) | Gary approves traffic |
 | 6 | Fix 3 (inline markers) design, building on the `P` numbers | after step 5 |
+
+---
+
+## 10. Recorded for v2 (2026-10-12; no change now)
+**Papers without abstracts may be named and listed, marked "title-only".** v1 drops a candidate that has no abstract (decision 3 in section 8). In v2 such a paper may be confirmed by its identifier, named in the script and listed in References, with the line marked title-only. The generator would be given the title and authors but no abstract, and the script would be required to say nothing about the paper's content beyond what the title states. This needs its own check in the naming step (a title-only paper may be named but not described) and a decision on whether it may count toward the minimum number of confirmed papers. Decided by Gary 2026-10-12.
