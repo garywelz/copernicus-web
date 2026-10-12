@@ -527,3 +527,69 @@ def test_a_429_waits_longer_than_other_errors(monkeypatch):
     with pytest.raises(pc.RegistryUnavailable):
         run(pc.confirm_sources([src("X", "http://arxiv.org/abs/2601.00001v1")], http_get=down))
     assert delays == [0.5, 1.0, 0]
+
+
+# ---------------------------------------------------------------- a paper whose analysis failed never reaches the prompt
+def _failing_integrator(monkeypatch, n_papers, fail_enhanced=(), fail_gemini=()):
+    import podcast_research_integrator as pri
+    it = _integrator(monkeypatch, [], Fake())
+    srcs = [src(f"Paper number {i} about cells", f"http://arxiv.org/abs/2601.0000{i}v1") for i in range(1, n_papers + 1)]
+    for s in srcs:
+        s.source, s.authors, s.abstract, s.journal = "arxiv", ["A B"], "x", None
+
+    async def fake_search(**kw):
+        return list(srcs)
+    monkeypatch.setattr(it.research_pipeline, "comprehensive_search", fake_search)
+    monkeypatch.setattr(pc, "_default_http_get", Fake(arxiv=atom(*[dict(id=f"2601.0000{i}v1", pub="2026-01-01T00:00:00Z", title=f"Paper number {i} about cells", summary=f"Abstract {i}.") for i in range(1, n_papers + 1)])))
+
+    class A:
+        def __init__(self, title, failed):
+            self.title, self.analysis_failed = title, failed
+            self.paradigm_shift_potential, self.interdisciplinary_connections = "high", []
+            self.technical_complexity, self.key_findings = "low", [f"finding about {title}"]
+
+    async def multi(rs, complexity=None):
+        return [A(x.title, x.title in fail_enhanced) for x in rs]
+
+    class G:
+        paradigm_shifts, interdisciplinary_connections = [], []
+
+        def __init__(self, failed):
+            self.analysis_failed = failed
+            self.key_findings = ["Analysis generated but not in expected JSON format"] if failed else ["real finding"]
+
+    async def gem(paper, options, key):
+        return G(paper.title in fail_gemini)
+    monkeypatch.setattr(it.enhanced_research_service, "analyze_multiple_papers", multi)
+    monkeypatch.setattr(pri, "analyze_paper_with_gemini", gem)
+    return it
+
+
+def test_a_paper_whose_gemini_analysis_failed_is_dropped_before_the_prompt(monkeypatch):
+    it = _failing_integrator(monkeypatch, 5, fail_gemini={"Paper number 2 about cells"})
+    ctx = run(it.comprehensive_research_for_podcast("cells"))
+    assert [c.pid for c in ctx.confirmed_papers] == ["P1", "P3", "P4", "P5"]
+    assert all("Paper number 2" not in s.title for s in ctx.research_sources) and len(ctx.paper_analyses) == 4
+    assert not any("expected JSON format" in f for f in ctx.key_findings) and not any("[P2]" in f for f in ctx.key_findings)
+    assert [d.reason for d in ctx.dropped_candidates] == ["analysis_failed"]
+    assert "Paper number 2" not in "\n".join(ctx.real_citations)
+
+
+def test_a_paper_whose_enhanced_analysis_failed_is_dropped_too(monkeypatch):
+    it = _failing_integrator(monkeypatch, 5, fail_enhanced={"Paper number 4 about cells"})
+    ctx = run(it.comprehensive_research_for_podcast("cells"))
+    assert "P4" not in [c.pid for c in ctx.confirmed_papers] and len(ctx.confirmed_papers) == 4 == len(ctx.paper_analyses)
+
+
+def test_fewer_than_three_papers_left_fails_through_the_existing_path(monkeypatch):
+    it = _failing_integrator(monkeypatch, 3, fail_gemini={"Paper number 3 about cells"})
+    with pytest.raises(pc.InsufficientConfirmedPapers) as e:
+        run(it.comprehensive_research_for_podcast("cells"))
+    assert e.value.confirmed == 2 and e.value.drop_counts == {"analysis_failed": 1}
+    assert e.value.dropped[0]["reason"] == "analysis_failed"
+
+
+def test_the_fallback_analysis_is_marked_failed():
+    import inspect, paper_processor
+    assert "analysis_failed=parse_failed" in inspect.getsource(paper_processor.analyze_paper_with_gemini)
+    assert paper_processor.PaperAnalysis("s", [], [], [], [], [], "", [], 0.5).analysis_failed is False
