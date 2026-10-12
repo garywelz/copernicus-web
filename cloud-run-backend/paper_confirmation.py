@@ -21,6 +21,7 @@ from typing import Any, Awaitable, Callable, Dict, List, Optional, Sequence, Tup
 MAX_PAPERS = 12
 TITLE_MATCH_MIN = 0.6
 HTTP_TIMEOUT_S = 15
+ARXIV_TIMEOUT_S = 45  # arXiv answers slowly under load (15-30 s seen in the sandbox run); other registries stay at 15
 HTTP_RETRIES = 2  # retries after the first attempt
 
 ARXIV_API = "http://export.arxiv.org/api/query"
@@ -90,6 +91,8 @@ class Dropped:
 class ConfirmationResult:
     confirmed: List[ConfirmedPaper]
     dropped: List[Dropped]
+    # registry requests made by this confirmation, by registry, and how many records were reused from the search stage
+    stats: Dict[str, Any] = field(default_factory=dict)
 
     def drop_counts(self) -> Dict[str, int]:
         out: Dict[str, int] = {}
@@ -189,7 +192,7 @@ def _year(s: Optional[str]) -> Optional[int]:
 # ---------------------------------------------------------------- registry lookups
 async def _default_http_get(url: str, params: Dict[str, str]) -> Tuple[int, str]:
     import aiohttp  # imported lazily so unit tests need no network stack
-    timeout = aiohttp.ClientTimeout(total=HTTP_TIMEOUT_S)
+    timeout = aiohttp.ClientTimeout(total=ARXIV_TIMEOUT_S if "arxiv.org" in url else HTTP_TIMEOUT_S)
     async with aiohttp.ClientSession(timeout=timeout, headers={"User-Agent": "copernicus-podcast-api/paper-confirmation"}) as s:
         async with s.get(url, params=params) as r:
             return r.status, await r.text()
@@ -354,9 +357,16 @@ async def confirm_sources(sources: Sequence[Any], http_get: Optional[HttpGet] = 
     Order follows the input (rank) order; P numbers are assigned in that order, up to ``max_papers``.
     ``required_first`` (an already confirmed, directly requested paper) becomes P1 and any duplicate of it is dropped.
     """
-    http_get = http_get or _default_http_get
+    inner_get = http_get or _default_http_get
+    requests: Dict[str, int] = {}
+
+    async def http_get(url: str, params: Dict[str, str]):  # counts every registry request, retries included
+        reg = "arxiv" if "arxiv.org" in url else "pubmed" if "ncbi.nlm.nih.gov" in url else "crossref" if "crossref" in url else "datacite" if "datacite" in url else "other"
+        requests[reg] = requests.get(reg, 0) + 1
+        return await inner_get(url, params)
     bad: List[str] = []
     dropped: List[Dropped] = []
+    reused = {"arxiv": 0, "pubmed": 0}
     cands: List[Dict[str, Any]] = []
     for s in sources:
         ids = ids_from_fields(getattr(s, "url", None), getattr(s, "doi", None))
@@ -370,7 +380,10 @@ async def confirm_sources(sources: Sequence[Any], http_get: Optional[HttpGet] = 
     pm_ids, seen_pm = [], set()
     for c in cands:
         i = c["ids"]
-        if i["arxiv"]:
+        c["rec"] = _reusable_record(c["src"], i)  # the search stage already holds this registry's own record
+        if c["rec"] is not None:
+            reused["arxiv" if i["arxiv"] else "pubmed"] += 1
+        elif i["arxiv"]:
             k = (i["arxiv"], i["arxiv_version"])
             if k not in seen_ax:
                 seen_ax.add(k); ax_items.append(k)
@@ -398,7 +411,9 @@ async def confirm_sources(sources: Sequence[Any], http_get: Optional[HttpGet] = 
         s, ids = c["src"], c["ids"]
         title = getattr(s, "title", "") or ""
         rec, registry = None, None
-        if ids["arxiv"]:
+        if c["rec"] is not None:
+            rec, registry = c["rec"], "arxiv" if ids["arxiv"] else "pubmed"
+        elif ids["arxiv"]:
             key = ids["arxiv"] + (ids["arxiv_version"] or "")
             rec = ax.get(key) or next((r for k, r in ax.items() if k.startswith(ids["arxiv"])), None)
             registry = "arxiv"
@@ -436,7 +451,23 @@ async def confirm_sources(sources: Sequence[Any], http_get: Optional[HttpGet] = 
             ids=merged, url=rec["url"], abstract=rec["abstract"], registry=registry, confirmed_at=_now(), title_match=round(tm, 2)))
     if bad:
         raise RegistryUnavailable(bad)
-    return ConfirmationResult(confirmed=confirmed, dropped=dropped)
+    return ConfirmationResult(confirmed=confirmed, dropped=dropped, stats={"requests": dict(requests), "reused_from_search": dict(reused)})
+
+
+def _reusable_record(src: Any, ids: Dict[str, Optional[str]]) -> Optional[Dict[str, Any]]:
+    """The registry record the search stage parsed from an arXiv or PubMed response, if it is for exactly this identifier
+    (same arXiv id, and same version when one was given; same PMID). Anything else is looked up again."""
+    rec = getattr(src, "registry_record", None)
+    if not isinstance(rec, dict):
+        return None
+    rids = rec.get("ids") or {}
+    if ids.get("arxiv"):
+        ok = rids.get("arxiv") == ids["arxiv"] and (not ids.get("arxiv_version") or rids.get("arxiv_version") == ids["arxiv_version"])
+    elif ids.get("pmid"):
+        ok = rids.get("pmid") == ids["pmid"]
+    else:
+        ok = False
+    return rec if ok and rec.get("title") else None
 
 
 async def confirm_requested_paper(doi: Optional[str], title: str, http_get: Optional[HttpGet] = None) -> ConfirmedPaper:
