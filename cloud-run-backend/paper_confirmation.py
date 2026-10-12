@@ -26,6 +26,12 @@ HTTP_RETRIES = 2  # retries after the first attempt
 ARXIV_API = "http://export.arxiv.org/api/query"
 EUTILS = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/"
 CROSSREF = "https://api.crossref.org/works/"
+DATACITE = "https://api.datacite.org/dois/"
+ZENODO_DOI_PREFIX = "10.5281/zenodo."
+# Zenodo records are registered with DataCite, not Crossref. Only publication types count as papers (data sets, software,
+# images, posters, presentations and the rest do not). DataCite resourceTypeGeneral -> the label shown in reference lines.
+ZENODO_PUBLICATION_TYPES = {"Preprint": "preprint", "JournalArticle": "journal article", "ConferencePaper": "conference paper",
+                            "Report": "report", "Text": "text"}
 
 # http_get(url, params) -> (status_code, body_text)
 HttpGet = Callable[[str, Dict[str, str]], Awaitable[Tuple[int, str]]]
@@ -297,6 +303,42 @@ def parse_crossref(body: str, doi: str) -> Optional[Dict[str, Any]]:
     }
 
 
+def parse_datacite(body: str, doi: str) -> Optional[Dict[str, Any]]:
+    """A DataCite record (Zenodo). ``excluded_type`` is set when the record is not a publication type; the caller drops it."""
+    import json
+    a = ((json.loads(body) or {}).get("data") or {}).get("attributes") or {}
+    titles = [t.get("title") for t in (a.get("titles") or []) if t.get("title")]
+    if not titles:
+        return None
+    authors = []
+    for c in a.get("creators") or []:
+        fam, giv = _clean(c.get("familyName")), _clean(c.get("givenName"))
+        name = _clean(f"{giv} {fam}") if fam else ""
+        if not name:
+            raw = _clean(c.get("name"))
+            name = _clean(" ".join(reversed([p.strip() for p in raw.split(",", 1)]))) if "," in raw else raw
+        if name:
+            authors.append(name)
+    descs = a.get("descriptions") or []
+    abstract_desc = next((d for d in descs if (d.get("descriptionType") or "").lower() == "abstract"), None)
+    abstract = _clean(re.sub(r"<[^>]+>", " ", (abstract_desc or {}).get("description") or "")) if abstract_desc else ""
+    rtype = (a.get("types") or {}).get("resourceTypeGeneral")
+    label = ZENODO_PUBLICATION_TYPES.get(rtype)
+    year = a.get("publicationYear")
+    return {
+        "title": _clean(titles[0]), "abstract": abstract, "authors": authors,
+        "year": int(year) if isinstance(year, (int, str)) and str(year).isdigit() else None,
+        "venue": f"Zenodo {label}" if label else None,
+        "ids": {"arxiv": None, "arxiv_version": None, "pmid": None, "doi": normalize_doi(a.get("doi")) or doi},
+        "url": f"https://doi.org/{doi}", "excluded_type": None if label else (rtype or "unknown"),
+    }
+
+
+async def fetch_datacite(doi: str, http_get: HttpGet, bad: List[str]) -> Optional[Dict[str, Any]]:
+    body = await _get(http_get, DATACITE + doi, {}, "datacite", bad)
+    return parse_datacite(body, doi) if body else None
+
+
 async def fetch_arxiv(items: List[Tuple[str, Optional[str]]], http_get: HttpGet, bad: List[str]) -> Dict[str, Dict[str, Any]]:
     """One batched request for all arXiv ids; a version is requested when the source gave one."""
     if not items:
@@ -382,7 +424,12 @@ async def confirm_sources(sources: Sequence[Any], http_get: Optional[HttpGet] = 
 
     async def one_doi(doi: str):
         async with sem:
-            return doi, await fetch_crossref(doi, http_get, bad)
+            rec = await fetch_crossref(doi, http_get, bad)
+            if rec is None and doi.startswith(ZENODO_DOI_PREFIX):  # Crossref has no record of Zenodo DOIs; DataCite does
+                rec = await fetch_datacite(doi, http_get, bad)
+                if rec is not None:
+                    rec["registry"] = "datacite"
+            return doi, rec
 
     dois = sorted({c["ids"]["doi"] for c in cands if not c["ids"]["arxiv"] and not c["ids"]["pmid"] and c["ids"]["doi"]})
     ax, pm, cr = await asyncio.gather(ax_task, pm_task, asyncio.gather(*[one_doi(d) for d in dois]))
@@ -405,8 +452,12 @@ async def confirm_sources(sources: Sequence[Any], http_get: Optional[HttpGet] = 
         elif ids["pmid"]:
             rec, registry = pm.get(ids["pmid"]), "pubmed"
         elif ids["doi"]:
-            rec, registry = crd.get(ids["doi"]), "crossref"
-            if rec is not None and not rec["abstract"]:
+            rec = crd.get(ids["doi"])
+            registry = (rec or {}).get("registry", "crossref")
+            if rec is not None and rec.get("excluded_type"):
+                dropped.append(Dropped(title, "not_publication_type", ids))
+                continue
+            if rec is not None and not rec["abstract"] and registry == "crossref":
                 alt = await _pubmed_by_doi(ids["doi"], http_get, bad)
                 if alt is not None and alt["abstract"]:
                     rec, registry = alt, "pubmed"
