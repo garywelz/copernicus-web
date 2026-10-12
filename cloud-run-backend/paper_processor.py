@@ -51,6 +51,9 @@ class PaperAnalysis:
     methodology_analysis: str
     future_research_directions: List[str]
     confidence_score: float
+    # True when the model's answer could not be parsed and the fields hold placeholder text instead of an analysis.
+    # The research integrator drops such a paper before generation (the placeholder must never reach a prompt).
+    analysis_failed: bool = False
 
 def validate_paper(paper: ResearchPaper) -> None:
     """Validates a research paper object"""
@@ -138,9 +141,11 @@ Maintain academic rigor while highlighting transformative potential.
             raise Exception("Empty response from Gemini")
             
         # Parse JSON response
+        parse_failed = False
         try:
             analysis_data = json.loads(response.text)
         except json.JSONDecodeError:
+            parse_failed = True
             # If JSON parsing fails, create structured response from text
             analysis_data = {
                 "summary": response.text[:500],
@@ -164,7 +169,8 @@ Maintain academic rigor while highlighting transformative potential.
             citations=[],  # gap 3 fix 1 (C2): never keep a model-written citation string
             methodology_analysis=analysis_data.get("methodology_analysis", ""),
             future_research_directions=analysis_data.get("future_research_directions", []),
-            confidence_score=analysis_data.get("confidence_score", 0.8)
+            confidence_score=analysis_data.get("confidence_score", 0.8),
+            analysis_failed=parse_failed,
         )
         
         print(f"✅ Paper analysis completed with confidence: {analysis.confidence_score}")

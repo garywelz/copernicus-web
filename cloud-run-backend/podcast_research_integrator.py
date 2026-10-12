@@ -13,7 +13,7 @@ interdisciplinary connections, rigorous evidence, accessible communication.
 """
 
 import asyncio
-from typing import List, Dict, Any, Optional
+from typing import List, Dict, Any, Optional, Set
 from datetime import datetime
 from dataclasses import dataclass, field
 
@@ -24,6 +24,7 @@ from copernicus_character import get_copernicus_character, get_character_prompt,
 from utils.script_validation import calculate_minimum_words_for_duration
 from paper_confirmation import (
     confirm_sources, confirm_requested_paper, as_research_source, format_citation_line, InsufficientConfirmedPapers,
+    PaperNotConfirmed, Dropped,
 )
 
 def aggregate_enhanced_analyses(paper_analyses: List["PaperAnalysis"], pid_by_title: Optional[Dict[str, str]] = None):
@@ -163,6 +164,31 @@ class PodcastResearchIntegrator:
         research_sources = [as_research_source(c) for c in confirmation.confirmed]
         pid_by_title = {c.title: c.pid for c in confirmation.confirmed}
 
+        # A paper whose analysis failed to parse holds only placeholder text. It is dropped here, before any prompt is built
+        # (it stays out of the evidence block, the References and Further reading); if that leaves fewer than the minimum,
+        # the episode fails through the same path as too few confirmed papers.
+        confirmed_list = list(confirmation.confirmed)
+        dropped_list = list(confirmation.dropped)
+
+        def drop_failed(failed_pids: Set[str]) -> None:
+            nonlocal research_sources, confirmed_list
+            if not failed_pids:
+                return
+            if required and "P1" in failed_pids:
+                raise PaperNotConfirmed("The requested paper's analysis could not be parsed, so it cannot be used for this episode.")
+            for c in confirmed_list:
+                if c.pid in failed_pids:
+                    dropped_list.append(Dropped(c.title, "analysis_failed", dict(c.ids or {})))
+            confirmed_list = [c for c in confirmed_list if c.pid not in failed_pids]
+            research_sources = [x for x in research_sources if x.pid not in failed_pids]
+            print(f"   Dropped {len(failed_pids)} paper(s) whose analysis could not be parsed; {len(confirmed_list)} remain")
+            if len(confirmed_list) < require_minimum_sources:
+                counts: Dict[str, int] = {}
+                for d in dropped_list:
+                    counts[d.reason] = counts.get(d.reason, 0) + 1
+                raise InsufficientConfirmedPapers(topic, found, len(confirmed_list), require_minimum_sources, counts,
+                                                  [d.to_dict() for d in dropped_list])
+
         # PHASE 2: MULTI-PAPER ANALYSIS (Paradigm Shifts & Connections)
         print(f"\n🧠 Phase 2: Multi-Paper Analysis & Synthesis")
         paper_analyses = await self.enhanced_research_service.analyze_multiple_papers(
@@ -170,6 +196,12 @@ class PodcastResearchIntegrator:
             complexity=expertise_level
         )
         
+        analysed = research_sources[:10]
+        drop_failed({s.pid for s, a in zip(analysed, paper_analyses) if getattr(a, "analysis_failed", False)})
+        kept = {s.pid for s in research_sources}
+        paper_analyses = [a for s, a in zip(analysed, paper_analyses) if s.pid in kept]
+        analysed = [s for s in analysed if s.pid in kept]
+
         print(f"✅ Analyzed {len(paper_analyses)} papers")
         
         # PHASE 3: DEEP ANALYSIS WITH GEMINI (for top papers)
@@ -199,6 +231,12 @@ class PodcastResearchIntegrator:
             except Exception as e:
                 print(f"   ⚠️ Gemini analysis failed: {e}")
         
+        drop_failed({p for g, p in zip(gemini_analyses, gemini_pids) if getattr(g, "analysis_failed", False)})
+        kept = {s.pid for s in research_sources}
+        paper_analyses = [a for s, a in zip(analysed, paper_analyses) if s.pid in kept]
+        pairs = [(g, p) for g, p in zip(gemini_analyses, gemini_pids) if p in kept]
+        gemini_analyses, gemini_pids = [g for g, _ in pairs], [p for _, p in pairs]
+
         # PHASE 4: SYNTHESIS (Extract Paradigm Shifts & Connections)
         print(f"\n🔗 Phase 4: Synthesis & Connection Analysis")
         
@@ -218,7 +256,7 @@ class PodcastResearchIntegrator:
 
         # (C2) Reference lines are built by code from the confirmed registry records only. This list is the interim
         # source for the existing description fallback until C6 replaces it with the code-built References section.
-        real_citations = [format_citation_line(c) for c in confirmation.confirmed[:10]]
+        real_citations = [format_citation_line(c) for c in confirmed_list[:10]]
 
         # PHASE 5: QUALITY ASSESSMENT
         research_quality_score = self._assess_research_quality(
@@ -245,8 +283,8 @@ class PodcastResearchIntegrator:
             interdisciplinary_connections=interdisciplinary_connections[:10],
             key_findings=key_findings[:15],
             real_citations=real_citations[:10],
-            confirmed_papers=list(confirmation.confirmed),
-            dropped_candidates=list(confirmation.dropped),
+            confirmed_papers=confirmed_list,
+            dropped_candidates=dropped_list,
             confirmation_stats=dict(getattr(confirmation, "stats", {}) or {}),
             requested_pid="P1" if required else None,
             research_quality_score=research_quality_score,
