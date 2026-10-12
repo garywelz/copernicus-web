@@ -194,3 +194,40 @@ def test_episode_document_carries_the_confirmed_papers_fields():
         {"title": "T", "script": "s", "description": "d", "papers": [{"pid": "P1"}], "papers_named": ["P1"], "references_built_by": "code@1"},
         {}, {}, False, None)
     assert doc["papers"] == [{"pid": "P1"}] and doc["papers_named"] == ["P1"] and doc["references_built_by"] == "code@1"
+
+# ---------------------------------------------------------------- gap 3 fix 1: notation that cannot be read aloud
+from speech_text import UnspeakableNotationError
+
+_BS = chr(92)
+
+
+def test_unknown_notation_is_regenerated_with_feedback_then_accepted(monkeypatch):
+    req = PodcastRequest(topic="t")
+    bad = _script(" Lovelace and Turing showed $" + _BS + "oint F$.", req)
+    good = _script(" Lovelace and Turing showed it.", req)
+    service, req, calls = _harness(monkeypatch, [bad, good])
+    content, result, attempts = run(service._generate_checked_content(req, _ctx(), "k", "job1"))
+    assert calls["gen"] == 2 and attempts[0]["unspeakable_notation"] and "oint" in calls["feedback"][1]
+    assert "plain words" in calls["feedback"][1] and attempts[1]["unspeakable_notation"] == [] and "oint" not in content["script"]
+
+
+def test_unknown_notation_that_never_clears_fails_the_episode(monkeypatch):
+    req = PodcastRequest(topic="t")
+    bad = _script(" Lovelace and Turing showed $" + _BS + "oint F$.", req)
+    service, req, calls = _harness(monkeypatch, [bad, bad, bad])
+    with pytest.raises(UnspeakableNotationError):
+        run(service._generate_checked_content(req, _ctx(), "k", "job1"))
+    assert calls["gen"] == 3
+
+
+def test_convertible_notation_passes_the_gate_and_is_spoken_at_finalize(monkeypatch):
+    from named_work_check import NamingResult
+    req = PodcastRequest(topic="t")
+    text = _script(" Lovelace and Turing showed $D_s^+ " + _BS + "to K_S^0 K_L^0 " + _BS + "pi^+$.", req)
+    service, req, calls = _harness(monkeypatch, [text])
+    content, result, attempts = run(service._generate_checked_content(req, _ctx(), "k", "job1"))
+    assert calls["gen"] == 1
+    content["description"] = "Overview of $K_S^0$ decays." + chr(10)*2 + "## Hashtags" + chr(10) + "#a" + chr(10)
+    service._finalize_content(content, req, _ctx(), NamingResult(named_pids=["P1"]))
+    assert "D sub s plus to K short K long pi plus" in content["script"] and "$" not in content["script"]
+    assert content["description"].startswith("Overview of K short decays.")

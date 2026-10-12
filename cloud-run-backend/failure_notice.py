@@ -9,6 +9,7 @@ from typing import Dict, Optional
 
 from paper_confirmation import InsufficientConfirmedPapers, PaperNotConfirmed, RegistryUnavailable
 from named_work_check import NamingCheckUnavailable, NamingViolationError
+from speech_text import UnspeakableNotationError
 
 
 def describe_failure(exc: BaseException) -> Dict[str, Optional[str]]:
@@ -41,6 +42,13 @@ def describe_failure(exc: BaseException) -> Dict[str, Optional[str]]:
             "summary": ("The script kept naming research that is not among the papers we confirmed for this episode, even after being "
                         "asked to rewrite it, so no episode was published."),
             "what_to_do": "Please try again; a different wording of the topic, or links to specific papers, can help.",
+        }
+    if isinstance(exc, UnspeakableNotationError):
+        return {
+            "kind": "unspeakable_notation",
+            "summary": ("The script kept using mathematical notation that cannot be read aloud, even after being asked to rewrite it "
+                        "in words, so no episode was published."),
+            "what_to_do": "Please try again, or choose a less notation-heavy wording of the topic.",
         }
     if isinstance(exc, NamingCheckUnavailable):
         return {

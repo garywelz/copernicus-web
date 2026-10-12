@@ -472,7 +472,8 @@ def format_citation_line(c: ConfirmedPaper) -> str:
     authors = c.authors
     names = ", ".join(authors[:3]) + (" et al." if len(authors) > 3 else "")
     parts = [f"{names} ({c.year})." if names and c.year else f"{names}." if names else (f"({c.year})." if c.year else "")]
-    parts.append(c.title.rstrip(".") + ".")
+    from speech_text import latex_display  # display only: the stored registry title is never changed
+    parts.append(latex_display(c.title).rstrip(".") + ".")
     if c.venue:
         parts.append(c.venue.rstrip(".") + ".")
     if c.ids.get("arxiv"):
