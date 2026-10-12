@@ -461,15 +461,15 @@ groundbreaking research. [Final thought on future implications]
 {{
     "title": "Engaging title closely matching '{research_context.topic}' - should directly reference the topic with compelling wording",
     "script": "Full dialogue script with {host_name.upper()}: and {expert_name.upper()}: labels. **CRITICAL: This script MUST be at least {calculate_minimum_words_for_duration(duration)} words long. Count the words before submitting. If under {calculate_minimum_words_for_duration(duration)} words, expand it with more dialogue, examples, and detailed explanations until it reaches the minimum.**",
-    "description": "Comprehensive episode description (aim for 2500-3500 characters) with:
-        - Opening overview: 3-4 engaging paragraphs introducing the topic, its significance, and why this research matters. Explain broader context, historical background, and implications. NO section header - just start with the content directly.
-        - Key concepts explored: 4-5 detailed bullet points with explanations, implications, and connections
-        - Research insights: 2-3 paragraphs about current research developments, recent breakthroughs, methodological advances, and what makes this area exciting
-        - Practical applications: 2-3 paragraphs about real-world applications, industry impact, and potential uses
-        - Future directions: 2-3 paragraphs about emerging research directions, potential breakthroughs, and long-term implications
+    "description": "Episode description, SHORT: 1500-2200 characters in total (it shares a 4000-character limit with the reference list, so a longer description is cut) with:
+        - Opening overview: 2 engaging paragraphs introducing the topic, its significance, and why this research matters. Explain broader context, historical background, and implications. NO section header - just start with the content directly.
+        - Key concepts explored: 4 bullet points, one or two sentences each
+        - Research insights: 1 paragraph about current research developments, recent breakthroughs, methodological advances, and what makes this area exciting
+        - Practical applications: 1 short paragraph about real-world applications, industry impact, and potential uses
+        - Future directions: 1 short paragraph about emerging research directions, potential breakthroughs, and long-term implications
         - Do NOT write a References section or any list of references: it is added for you from the papers you name.
 
-        CRITICAL: Write a thorough, engaging description that maximizes discoverability. Be detailed and informative while remaining accessible. Do not name any paper that is not in the numbered list.
+        CRITICAL: Write a concise, engaging description that maximizes discoverability. Stay within 2200 characters. Do not name any paper that is not in the numbered list.
     ",
     "keywords": ["comma", "separated", "keywords", "from", "research"],
     "paradigm_shifts_discussed": ["list", "of", "paradigm", "shifts"]

@@ -206,6 +206,7 @@ class EpisodeService:
             # gap 3 fix 1: the confirmed papers, which of them the script names, and who built the lists
             "papers": result_data.get("papers"),
             "papers_named": result_data.get("papers_named"),
+            "requested_pid": result_data.get("requested_pid"),
             "references_built_by": result_data.get("references_built_by"),
             "duration": result_data.get("duration"),
             "audio_url": result_data.get("audio_url"),

@@ -32,21 +32,49 @@ def test_strip_handles_other_headings_and_end_of_text():
     assert out.strip() == "Body"
 
 
-def test_sections_use_only_registry_fields_and_label_further_reading():
+def test_references_are_one_compact_line_per_paper_from_registry_fields():
     md = rs.build_sections(ALL, named_pids=["P3", "P2"], requested_pid="P1")
-    refs, further = md.split("## Further reading")
+    refs = md.split(rs.FURTHER_READING_POINTER)[0]
+    lines = [l for l in refs.splitlines() if l.startswith("- ")]
+    assert len(lines) == 3
     assert refs.index("Requested paper title") < refs.index("Third paper on cells") < refs.index("AI prediction leads")  # requested, then order of mention
-    assert "Journal of Tests" in refs  # venue shown in References
-    assert "arXiv:2603.28944v1" in refs and "PMID 12345678" in refs and "DOI: 10.1/p3" in refs
-    assert "Grace Hopper, Alan Turing, Marie Curie et al. (2023)." in refs
-    assert "Papers reviewed while preparing this episode but not discussed in it." in further
-    assert "Fourth paper unnamed" in further and "Journal of Tests" not in further
-    assert "Requested paper title" not in further and "Third paper on cells" not in further
+    assert lines[0] == "- Lovelace (2025). Requested paper title. Journal of Tests. DOI: 10.1/p1"
+    assert lines[1] == "- Hopper et al. (2023). Third paper on cells. Journal of Tests. DOI: 10.1/p3"
+    assert lines[2] == "- Naito and Shirado (2026). AI prediction leads people to forgo guaranteed rewards. arXiv:2603.28944v1"
+    assert "http" not in refs and all(len(l) < 200 for l in lines)
+
+
+def test_further_reading_is_not_in_the_description_only_one_pointer_line():
+    md = rs.build_sections(ALL, named_pids=["P3", "P2"], requested_pid="P1")
+    assert "## Further reading" not in md and "Fourth paper unnamed" not in md and "Dijkstra" not in md
+    assert md.rstrip().endswith(rs.FURTHER_READING_POINTER) and md.count("Further reading") == 1
+    assert "episode page" in rs.FURTHER_READING_POINTER
+
+
+def test_no_pointer_when_every_confirmed_paper_is_listed():
+    assert rs.FURTHER_READING_POINTER not in rs.build_sections([P1, P2], ["P2"], "P1")
+
+
+def test_further_reading_list_for_the_web_page():
+    assert [c.pid for c in rs.further_reading(ALL, ["P3", "P2"], "P1")] == ["P4"]
+    assert [c.pid for c in rs.further_reading(ALL, [], None)] == ["P1", "P2", "P3", "P4"]
+
+
+def test_long_titles_and_venues_are_shortened_in_compact_lines():
+    long = paper("P9", "Word " * 60, ["A B"], 2024, venue="The Very Long Journal Name " * 5, doi="10.1/z")
+    line = rs.compact_line(long)
+    assert len(line) < 260 and "…" in line
+
+
+def test_zenodo_type_shows_in_the_reference_line():
+    z = paper("P8", "A deposited preprint", ["Grace Hopper"], 2026, venue="Zenodo preprint", doi="10.5281/zenodo.1")
+    assert rs.compact_line(z) == "- Hopper (2026). A deposited preprint. Zenodo preprint. DOI: 10.5281/zenodo.1"
+    assert "Zenodo preprint" in rs.full_line(z)
 
 
 def test_unnamed_papers_never_appear_under_references():
     md = rs.build_sections(ALL, named_pids=["P2"], requested_pid=None)
-    refs = md.split("## Further reading")[0]
+    refs = md.split(rs.FURTHER_READING_POINTER)[0]
     assert "AI prediction leads" in refs and "Fourth paper unnamed" not in refs and "Third paper" not in refs
 
 
@@ -55,9 +83,9 @@ def test_duplicates_in_named_pids_are_listed_once():
     assert md.count("Requested paper title") == 1 and md.count("AI prediction leads") == 1
 
 
-def test_no_named_papers_and_no_request_omits_references_heading():
+def test_no_named_papers_and_no_request_gives_only_the_pointer():
     md = rs.build_sections(ALL, named_pids=[], requested_pid=None)
-    assert "## References" not in md and "## Further reading" in md
+    assert "## References" not in md and md.startswith("## Further reading") and rs.FURTHER_READING_POINTER in md
 
 
 def test_nothing_to_list_returns_empty():
@@ -67,13 +95,13 @@ def test_nothing_to_list_returns_empty():
 def test_apply_inserts_before_hashtags_and_replaces_model_text():
     out = rs.apply_reference_sections(DESC, ALL, ["P2"], "P1")
     assert "Fake Paper" not in out
-    assert out.index("## References") < out.index("## Further reading") < out.index("## Hashtags")
+    assert out.index("## References") < out.index(rs.FURTHER_READING_POINTER) < out.index("## Hashtags")
     assert out.count("## References") == 1 and "#a #b" in out
 
 
 def test_apply_appends_when_there_is_no_hashtag_section():
     out = rs.apply_reference_sections("Opening.\n", ALL, ["P2"], None)
-    assert out.startswith("Opening.") and out.rstrip().endswith("https://doi.org/10.1/p4")
+    assert out.startswith("Opening.") and out.rstrip().endswith(rs.FURTHER_READING_POINTER)
 
 
 def test_apply_is_idempotent():
@@ -94,8 +122,8 @@ def test_survives_the_existing_length_limiter_with_both_sections_intact():
     desc = body + "\n\n## Hashtags\n#a #b\n"
     out = rs.apply_reference_sections(desc, ALL, ["P2", "P3"], "P1")
     limited = limit_description_length(out, 4000)
-    assert "## References" in limited and "## Further reading" in limited and "## Hashtags" in limited
-    for title in ("Requested paper title", "Fourth paper unnamed", "AI prediction leads"):
+    assert "## References" in limited and rs.FURTHER_READING_POINTER in limited and "## Hashtags" in limited
+    for title in ("Requested paper title", "AI prediction leads"):
         assert title in limited
     assert len(limited) <= 4100
 

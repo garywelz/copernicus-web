@@ -26,6 +26,44 @@ const ANIMATED_PLAYERS = {
   'ever-math-260002': '/lac-operon-animation/player.html?episode=ever-math-260002',
 };
 
+function escapeHtml(value) {
+  return String(value ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+// Further reading: confirmed papers that are neither named in the script nor the requested paper. Built from the registry
+// records stored on the episode (papers, papers_named); the description carries only one pointer line to this list.
+function furtherReadingHtml(payload = {}) {
+  const papers = Array.isArray(payload.papers) ? payload.papers : [];
+  const named = new Set(Array.isArray(payload.papers_named) ? payload.papers_named : []);
+  const requested = payload.requested_pid ? String(payload.requested_pid) : null;
+  const items = papers
+    .filter((p) => p && p.pid && !named.has(p.pid) && p.pid !== requested && p.title)
+    .map((p) => {
+      const authors = Array.isArray(p.authors) ? p.authors : [];
+      const who = authors.slice(0, 3).join(', ') + (authors.length > 3 ? ' et al.' : '');
+      const ids = p.ids || {};
+      const ident = ids.arxiv
+        ? `arXiv:${ids.arxiv}${ids.arxiv_version || ''}`
+        : ids.doi
+          ? `DOI: ${ids.doi}`
+          : ids.pmid
+            ? `PMID ${ids.pmid}`
+            : '';
+      const url = typeof p.url === 'string' && /^https?:\/\//.test(p.url) ? p.url : '';
+      const label = [who && p.year ? `${who} (${p.year}).` : who ? `${who}.` : '', `${String(p.title).replace(/\.$/, '')}.`, p.venue ? `${String(p.venue).replace(/\.$/, '')}.` : '', ident]
+        .filter(Boolean)
+        .map(escapeHtml)
+        .join(' ');
+      return `<li>${url ? `<a href="${escapeHtml(url)}" rel="noopener">${label}</a>` : label}</li>`;
+    });
+  if (!items.length) return '';
+  return `<h2>Further reading</h2><p><em>Papers reviewed while preparing this episode but not discussed in it.</em></p><ul>${items.join('')}</ul>`;
+}
+
 function normalizeApiEpisode(payload = {}, slug) {
   const descriptionMarkdown = payload.description_markdown ?? payload.descriptionMarkdown;
   const descriptionHtml =
@@ -48,6 +86,7 @@ function normalizeApiEpisode(payload = {}, slug) {
     slug: resolvedSlug,
     animationPlayerUrl:
       payload.animation_player_url || ANIMATED_PLAYERS[resolvedSlug] || '',
+    furtherReadingHtml: furtherReadingHtml(payload),
   };
 }
 
@@ -162,6 +201,7 @@ async function handler(req, res) {
       episodeImages,
       attribution,
       animationPlayerUrl,
+      furtherReadingHtml: furtherReading = '',
     } = episode;
 
     const html = `<!DOCTYPE html>
@@ -230,7 +270,7 @@ async function handler(req, res) {
             </div>
           </div>
         ` : ''}
-        <article class="description">${descriptionHtml}</article>
+        <article class="description">${descriptionHtml}${furtherReading}</article>
       </section>
       <footer>
         <div>Part of the Copernicus AI Podcast</div>
@@ -254,5 +294,6 @@ async function handler(req, res) {
 }
 
 module.exports = handler;
+module.exports.furtherReadingHtml = furtherReadingHtml;
 
 

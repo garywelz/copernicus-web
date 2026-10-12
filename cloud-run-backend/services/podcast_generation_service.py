@@ -2146,6 +2146,7 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
             content['description'], research_context.confirmed_papers, naming_result.named_pids, research_context.requested_pid)
         content['papers'] = [c.to_dict() for c in research_context.confirmed_papers]
         content['papers_named'] = list(naming_result.named_pids)
+        content['requested_pid'] = research_context.requested_pid
         content['references_built_by'] = REFERENCES_BUILT_BY
 
         # Clean placeholder text and limit description length
