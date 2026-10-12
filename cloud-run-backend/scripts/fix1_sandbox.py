@@ -139,6 +139,22 @@ def load_secrets() -> str:
     return os.environ["GOOGLE_AI_API_KEY"]
 
 
+_HTTP: Dict[str, int] = {}
+
+
+def install_http_counter() -> None:
+    """Count every outgoing aiohttp request by host (search stage and confirmation alike), so a run reports its registry queries."""
+    import aiohttp
+    from urllib.parse import urlparse
+    original = aiohttp.ClientSession._request
+
+    async def counted(self, method, str_or_url, *a, **k):
+        host = urlparse(str(str_or_url)).netloc
+        _HTTP[host] = _HTTP.get(host, 0) + 1
+        return await original(self, method, str_or_url, *a, **k)
+    aiohttp.ClientSession._request = counted
+
+
 def body_len(description: str, service) -> int:
     return len(service._description_body(description))
 
@@ -153,6 +169,7 @@ async def run_topic(spec: Dict[str, Any], out_dir: str, service, integrator, goo
     fields = {k: v for k, v in spec.items() if k in PodcastRequest.model_fields}
     request = PodcastRequest(**fields)
     res: Dict[str, Any] = {"id": tid, "topic": request.topic, "outcome": None, "message": None}
+    _HTTP.clear()
     t0 = time.time()
     try:
         ctx = await asyncio.wait_for(integrator.comprehensive_research_for_podcast(
@@ -160,12 +177,14 @@ async def run_topic(spec: Dict[str, Any], out_dir: str, service, integrator, goo
             expertise_level=request.expertise_level, require_minimum_sources=3,
             required_paper=({"doi": request.paper_doi, "title": request.paper_title} if request.paper_title else None)), timeout=300)
     except (pc.InsufficientConfirmedPapers, pc.RegistryUnavailable, pc.PaperNotConfirmed) as e:
-        res.update(outcome="failed_research", kind=type(e).__name__, message=str(e))
+        res.update(outcome="failed_research", kind=type(e).__name__, message=str(e), http_requests_research=dict(_HTTP))
         if isinstance(e, pc.InsufficientConfirmedPapers):
             res["research"] = {"candidates_found": e.found, "confirmed": e.confirmed, "dropped_counts": e.drop_counts, "dropped": e.dropped}
         res["seconds"] = round(time.time() - t0, 1)
         json.dump(res, open(os.path.join(d, "result.json"), "w", encoding="utf-8"), indent=1)
         return res
+    res["http_requests_research"] = dict(_HTTP)  # search stage + confirmation, by host
+    res["confirmation_stats"] = getattr(ctx, "confirmation_stats", {})
     res["research"] = {"candidates_found": len(ctx.confirmed_papers) + len(ctx.dropped_candidates),
                        "confirmed": len(ctx.confirmed_papers), "dropped_counts": _counts(ctx.dropped_candidates),
                        "confirmed_papers": [c.to_dict() for c in ctx.confirmed_papers], "dropped": [x.to_dict() for x in ctx.dropped_candidates]}
@@ -179,6 +198,12 @@ async def run_topic(spec: Dict[str, Any], out_dir: str, service, integrator, goo
         json.dump(res, open(os.path.join(d, "result.json"), "w", encoding="utf-8"), indent=1)
         return res
     raw_description = content.get("description", "")
+    from speech_text import _SPAN, _STRAY
+    raw_script = content.get("script", "")
+    res["latex"] = {"math_spans_in_script_as_generated": len(_SPAN.findall(raw_script)), "stray_macros_in_script_as_generated": len(_STRAY.findall(raw_script)),
+                    "math_spans_in_description_as_generated": len(_SPAN.findall(raw_description)),
+                    "unspeakable_notation_by_attempt": [a.get("unspeakable_notation") for a in (attempts or [])]}
+    open(os.path.join(d, "script_as_generated.txt"), "w", encoding="utf-8").write(raw_script)
     metrics = service._finalize_content(content, request, ctx, naming_result)
     try:
         validate_description_before_publish(content["description"])
@@ -236,6 +261,7 @@ def main(argv: Optional[List[str]] = None) -> int:
         from fix1_sandbox_stub import build_stub  # noqa
         build = build_stub
     else:
+        install_http_counter()
         build = lambda: build_live(ledger, tag_ref)  # noqa: E731
     results = []
     for spec in specs:
