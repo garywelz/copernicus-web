@@ -59,7 +59,7 @@ def test_year_far_off_but_title_words_match():
 
 def test_accents_and_case_are_ignored():
     assert nw.match_mention(m("q", ["CURIE"], 2024), CONFIRMED) == "P2"
-    assert nw.match_mention(m("q", ["Skłodowska"], 2024), CONFIRMED) is None  # only the last name of a listed author is used
+    assert nw.match_mention(m("q", ["Skłodowska"], 2024), CONFIRMED) == "P2"  # a word of a compound surname counts
 
 
 def test_unknown_author_does_not_match():
@@ -271,3 +271,27 @@ def test_link_phrase_violation_has_context_and_a_missing_quote_gives_none():
     r = run(nw.check_naming(script, "", CONFIRMED, fake_llm({})))
     assert "Engines are old" in r.violations[0]["context"]
     assert nw.context_around("short text", "not present anywhere") == ""
+
+
+# ---- name-order fix: order-free matching, compound surnames, one full surname word must match exactly
+def _listed(*names, year=2023):
+    return [paper("P1", "Some listed paper title", list(names), year)]
+
+
+@pytest.mark.parametrize("mention,listed", [
+    ("Liu, Zhiqiang", "Zhiqiang Liu"), ("Zhiqiang Liu", "Liu, Zhiqiang"), ("Wang Ziming", "Ziming Wang"), ("Valadez Huerta", "Gerardo Valadez Huerta"),
+    ("Huerta", "Gerardo Valadez Huerta"), ("Fu, Xinyu", "Xinyu Fu"), ("Oladyshkin", "Sergey Oladyshkin"), ("S. Oladyshkin", "Sergey Oladyshkin"),
+    ("Abreu", "Jader Abreu"),
+])
+def test_author_name_formats_match(mention, listed):
+    assert nw.match_mention(m("q", [mention], 2023), _listed("Someone Else", listed)) == "P1"
+
+
+def test_an_initial_on_the_listed_side_is_not_enough():
+    # the unlisted "Robert L. Devaney" must still be caught against a listed "R. D. L. Henderson"
+    assert nw.match_mention(m("Robert L. Devaney's 1989 text", ["Robert L. Devaney"], 1989), _listed("R. D. L. Henderson", year=1989)) is None
+    assert nw.match_mention(m("q", ["Devaney"], 1989), _listed("R. D. L. Henderson", year=1989)) is None
+
+
+def test_a_different_person_with_a_common_surname_still_does_not_match():
+    assert nw.match_mention(m("Song Wang's work", ["Song Wang"], 2023), _listed("Qian Wang", "Li Zhang")) is None
