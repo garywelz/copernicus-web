@@ -605,3 +605,22 @@ def test_prompt_demands_honest_focused_dialogue(monkeypatch):
     assert 'Never write "as you put it"' in prompt and "If the evidence is thin" in prompt
     # the hype the old prompt asked for is gone from the questions and the closing line it taught the model
     assert "what makes this research so revolutionary" not in prompt and "What revolutionary changes" not in prompt and "groundbreaking research" not in prompt
+
+
+def test_character_prompt_keeps_the_delta_idea_without_hype():
+    from copernicus_character import get_copernicus_character, get_character_prompt
+    from script_style import banned_phrase_hits
+    p = get_character_prompt(get_copernicus_character())
+    assert "(the delta), stated plainly and only as far as the papers support" in p
+    assert 'revolutionary "delta" thinking' not in p and banned_phrase_hits(p) == []
+
+
+def test_the_research_prompt_asks_for_no_banned_wording_anywhere_except_the_list_that_forbids_it(monkeypatch):
+    from script_style import banned_phrase_hits
+    it = _integrator(monkeypatch, _srcs(3), _good_http())
+    ctx = run(it.comprehensive_research_for_podcast("cells"))
+    prompt = it.build_2_speaker_research_prompt(ctx, "10 minutes", "interview")
+    # the prompt names the banned words exactly twice: in the "never use" list, and as the named examples of overstated certainty
+    kept = [ln for ln in prompt.split("\n") if "Never use these words or phrases" not in ln and "No absolute or certainty claims" not in ln]
+    left = banned_phrase_hits("\n".join(kept))
+    assert [h["matched"] + ": " + h["sentence"] for h in left] == []

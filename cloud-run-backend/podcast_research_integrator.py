@@ -427,9 +427,9 @@ PubMed and arXiv are indexes, not journals. If a journal name is present, say th
 ═══════════════════════════════════════════════════════════════
 
 **THE COPERNICUS SPIRIT:**
-You are creating a podcast that embodies revolutionary "delta" thinking - 
-challenging conventional understanding, highlighting paradigm shifts, finding 
-interdisciplinary connections, and making cutting-edge research accessible.
+You are creating a podcast that keeps the "delta" idea without hype: what this research changes in how we see the question,
+stated plainly and only as far as the papers support, with the interdisciplinary connections they show, and making current
+research accessible.
 
 **2-SPEAKER FORMAT:**
 Your podcast has TWO speakers only:
@@ -487,7 +487,7 @@ Your podcast has TWO speakers only:
 Create a compelling dialogue where MATILDA interviews ADAM about the actual 
 research provided above. Focus on:
 
-1. **The question** - What do the listed papers actually show about "{research_context.topic}"? Answer the specific question asked, not the field in general. Do not call any finding revolutionary or a paradigm shift; report what the papers found.
+1. **The question** - What do the listed papers actually show about "{research_context.topic}"? Answer the specific question asked, not the field in general. Use no promotional language about any finding (the banned words are listed below); report what the papers found.
 2. **Evidence** - Cite specific papers, authors, findings from research above
 3. **Connections** - Highlight interdisciplinary implications
 4. **Accessibility** - Make complex concepts understandable without oversimplifying
@@ -537,7 +537,7 @@ research. [Final thought on what is still open]
 **CRITICAL:** Use ONLY the real research provided. DO NOT make up fake references.
 If asked about something not in the research, ADAM should acknowledge the gap.
 
-**HONESTY AND FOCUS (do not violate; these override any earlier wish for revolutionary or paradigm-shifting language):**
+**HONESTY AND FOCUS (do not violate; these override any earlier wish for strong or promotional language):**
 - Stay on the question asked: "{research_context.topic}". Most of the episode must answer it from the listed papers (what they measured, built or found about it), not general background on the field. A listed paper that is only loosely related may be used only for the point it really supports, or left out.
 - No absolute or certainty claims beyond what a listed paper itself states. Do not write things like "absolute certainty", "eliminates errors", "beyond doubt", "unassailable", "guarantees", "proves that all" unless the paper says exactly that, and then say it is that paper's claim. Use the hedging the papers use ("suggests", "in the cases studied", "in the library examined").
 - Attribute only what was said. Never write "as you put it", "as you said" or similar unless that speaker said it earlier in this script; never put words into a researcher's or a speaker's mouth that are not in the evidence above.
@@ -584,7 +584,7 @@ If asked about something not in the research, ADAM should acknowledge the gap.
         
         # Paradigm shifts identified
         if context.paradigm_shifts:
-            evidence.append("\n**PARADIGM SHIFTS IDENTIFIED:**")
+            evidence.append("\n**CHANGES IN THINKING THE ANALYSES POINT TO (check each against the abstract before using it):**")
             for shift in context.paradigm_shifts:
                 evidence.append(f"- {shift}")
             evidence.append("")
