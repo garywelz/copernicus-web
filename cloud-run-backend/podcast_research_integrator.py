@@ -110,6 +110,9 @@ class PodcastResearchIntegrator:
         self.google_api_key = google_api_key
         self.embed_batch = embed_batch  # relevance gate: texts -> vectors; None means the OpenAI embedding service
         self.research_pipeline = ComprehensiveResearchPipeline()
+        if google_api_key:  # fix 4 (i): a model proposes the focused arXiv queries; without a key the fallback in search_queries is used
+            from named_work_check import make_gemini_llm_call
+            self.research_pipeline.query_llm = make_gemini_llm_call(google_api_key)
         self.enhanced_research_service = EnhancedResearchService(google_api_key)
         self.character = get_copernicus_character()
         
