@@ -485,7 +485,7 @@ Your podcast has TWO speakers only:
 Create a compelling dialogue where MATILDA interviews ADAM about the actual 
 research provided above. Focus on:
 
-1. **Paradigm Shifts** - What revolutionary changes does this research represent?
+1. **The question** - What do the listed papers actually show about "{research_context.topic}"? Answer the specific question asked, not the field in general. Present a paradigm shift only if a listed paper claims one.
 2. **Evidence** - Cite specific papers, authors, findings from research above
 3. **Connections** - Highlight interdisciplinary implications
 4. **Accessibility** - Make complex concepts understandable without oversimplifying
@@ -494,7 +494,7 @@ research provided above. Focus on:
 **DIALOGUE STRUCTURE:**
 
 {host_name.upper()}: Welcome to Copernicus AI: Frontiers of Science. I'm {host_name}, and today 
-we're exploring {research_context.topic}. {expert_name}, what makes this research so revolutionary?
+we're exploring {research_context.topic}. {expert_name}, what do the papers reviewed here tell us about it?
 
 {expert_name.upper()}: Thanks {host_name}. [Cites specific paper from research] This research represents 
 a paradigm shift because [explain using actual findings]...
@@ -506,7 +506,7 @@ a paradigm shift because [explain using actual findings]...
 [Continue natural back-and-forth]
 
 {host_name.upper()}: [Summarizes key insights] Thank you {expert_name} for breaking down this 
-groundbreaking research. [Final thought on future implications]
+research. [Final thought on what is still open]
 
 {expert_name.upper()}: [Brief closing remark]
 
@@ -534,6 +534,12 @@ groundbreaking research. [Final thought on future implications]
 
 **CRITICAL:** Use ONLY the real research provided. DO NOT make up fake references.
 If asked about something not in the research, ADAM should acknowledge the gap.
+
+**HONESTY AND FOCUS (do not violate; these override any earlier wish for revolutionary or paradigm-shifting language):**
+- Stay on the question asked: "{research_context.topic}". Most of the episode must answer it from the listed papers (what they measured, built or found about it), not general background on the field. A listed paper that is only loosely related may be used only for the point it really supports, or left out.
+- No absolute or certainty claims beyond what a listed paper itself states. Do not write things like "absolute certainty", "eliminates errors", "beyond doubt", "unassailable", "guarantees", "proves that all" unless the paper says exactly that, and then say it is that paper's claim. Use the hedging the papers use ("suggests", "in the cases studied", "in the library examined").
+- Attribute only what was said. Never write "as you put it", "as you said" or similar unless that speaker said it earlier in this script; never put words into a researcher's or a speaker's mouth that are not in the evidence above.
+- If the evidence is thin on part of the question, say so plainly ("the papers reviewed here do not measure that") instead of filling the gap.
 
 **Naming rules (do not violate):**
 - Name only papers from the numbered list; never invent or recall a paper, author or study that is not in it.
