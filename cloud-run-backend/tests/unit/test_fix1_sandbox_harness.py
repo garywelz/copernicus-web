@@ -10,7 +10,7 @@ import pytest
 BACKEND = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 HARNESS = os.path.join(BACKEND, "scripts", "fix1_sandbox.py")
 
-SCENARIOS = ["ok", "bad_then_good", "never_good", "thin", "registry_down", "paper_request", "long_body"]
+SCENARIOS = ["ok", "bad_then_good", "never_good", "thin", "registry_down", "paper_request", "long_body", "off_topic"]
 
 
 def spec(scenario):
@@ -168,3 +168,10 @@ def test_the_harness_copy_of_the_gemini_call_sends_the_same_generation_config_as
     harness = (Path(__file__).resolve().parents[2] / "scripts" / "fix1_sandbox.py").read_text(encoding="utf-8")
     for needle in ('"thinkingBudget": 0', '"temperature": 0.7', "gemini-2.5-flash:generateContent"):
         assert needle in real and needle in harness, needle
+
+
+def test_papers_that_are_not_about_the_topic_fail_the_episode_before_generation(run_dir):
+    d, out, ledger, p = run_dir
+    r = result(out, "off_topic")
+    assert r["outcome"] == "failed_research" and "Not enough confirmed research papers" in r["message"] and "off topic" in r["message"]
+    assert not (out / "off_topic" / "script.txt").exists()

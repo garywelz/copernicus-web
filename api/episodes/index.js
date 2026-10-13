@@ -27,6 +27,8 @@ const ANIMATED_PLAYERS = {
   'ever-math-260002': '/lac-operon-animation/player.html?episode=ever-math-260002',
 };
 
+const { furtherReadingHtml } = require('../../lib/further-reading');
+
 function normalizeApiEpisode(payload = {}, slug) {
   const descriptionMarkdown = payload.description_markdown ?? payload.descriptionMarkdown;
   const descriptionHtml =
@@ -48,6 +50,7 @@ function normalizeApiEpisode(payload = {}, slug) {
     slug: resolvedSlug,
     animationPlayerUrl:
       payload.animation_player_url || ANIMATED_PLAYERS[resolvedSlug] || '',
+    furtherReadingHtml: furtherReadingHtml(payload),
   };
 }
 
@@ -162,6 +165,7 @@ async function handler(req, res) {
       imageUrl,
       attribution,
       animationPlayerUrl,
+      furtherReadingHtml: furtherReading = '',
     } = episode;
 
     const html = `<!DOCTYPE html>
@@ -222,7 +226,7 @@ async function handler(req, res) {
         ${imageUrl ? `<img class="hero" src="${imageUrl}" alt="${title} artwork" loading="lazy" />` : ''}
         ${audioUrl ? `<audio controls preload="metadata" src="${audioUrl}"></audio>` : ''}
         ${animationPlayerUrl ? `<p class="animation-note">A flowchart-synced player is available separately: <a href="${animationPlayerUrl}">watch with animated chart</a>.</p>` : ''}
-        <article class="description">${descriptionHtml}</article>
+        <article class="description">${descriptionHtml}${furtherReading}</article>
       </section>
       <footer>
         <div>Part of the Copernicus AI Podcast</div>
@@ -273,6 +277,7 @@ async function handler(req, res) {
 }
 
 module.exports = handler;
+module.exports.furtherReadingHtml = furtherReadingHtml;
 
 
 

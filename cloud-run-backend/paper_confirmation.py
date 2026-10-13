@@ -29,6 +29,7 @@ EUTILS = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/"
 CROSSREF = "https://api.crossref.org/works/"
 DATACITE = "https://api.datacite.org/dois/"
 ZENODO_DOI_PREFIX = "10.5281/zenodo."
+ARXIV_DOI_PREFIX = "10.48550/arxiv."  # arXiv registers its DOIs with DataCite, so a DataCite record confirms an arXiv paper too
 # Zenodo records are registered with DataCite, not Crossref. Only publication types count as papers (data sets, software,
 # images, posters, presentations and the rest do not). DataCite resourceTypeGeneral -> the label shown in reference lines.
 ZENODO_PUBLICATION_TYPES = {"Preprint": "preprint", "JournalArticle": "journal article", "ConferencePaper": "conference paper",
@@ -55,14 +56,17 @@ class PaperNotConfirmed(Exception):
 class InsufficientConfirmedPapers(Exception):
     """Fewer confirmed papers than the minimum. The message says how many were found, confirmed and dropped, and why."""
 
-    def __init__(self, topic: str, found: int, confirmed: int, needed: int, drop_counts: Dict[str, int], dropped: Optional[List[Dict[str, Any]]] = None):
+    def __init__(self, topic: str, found: int, confirmed: int, needed: int, drop_counts: Dict[str, int], dropped: Optional[List[Dict[str, Any]]] = None,
+                 outside_zenodo: Optional[int] = None):
         self.topic, self.found, self.confirmed, self.needed, self.drop_counts = topic, found, confirmed, needed, dict(drop_counts)
+        self.outside_zenodo = outside_zenodo  # kept papers from arXiv, PubMed or Crossref (Zenodo does not count), when checked
         self.dropped = list(dropped or [])  # the dropped candidates with their identifiers and reasons, for the job record
         why = ", ".join(f"{n} {r.replace('_', ' ')}" for r, n in sorted(drop_counts.items())) or "none"
         super().__init__(
             f"Not enough confirmed research papers for '{topic}': {found} candidate sources were found, {confirmed} were confirmed "
             f"against PubMed, arXiv or Crossref, and at least {needed} are needed. Dropped candidates: {why}. "
-            "No episode was generated or published.")
+            + (f"Only {outside_zenodo} of the remaining papers come from arXiv, PubMed or Crossref (Zenodo records do not count toward the minimum). " if outside_zenodo is not None and outside_zenodo < needed else "")
+            + "No episode was generated or published.")
 
 
 @dataclass
@@ -86,8 +90,9 @@ class ConfirmedPaper:
 @dataclass
 class Dropped:
     title: str
-    reason: str  # no_identifier | not_found | identifier_mismatch | no_abstract | duplicate | over_limit
+    reason: str  # no_identifier | not_found | identifier_mismatch | no_abstract | duplicate | over_limit | off_topic | analysis_failed
     ids: Dict[str, Optional[str]] = field(default_factory=dict)
+    score: Optional[float] = None  # similarity to the topic, set only for off_topic
 
     def to_dict(self) -> Dict[str, Any]:
         return asdict(self)
@@ -326,12 +331,13 @@ def parse_datacite(body: str, doi: str) -> Optional[Dict[str, Any]]:
     abstract_desc = next((d for d in descs if (d.get("descriptionType") or "").lower() == "abstract"), None)
     abstract = _clean(re.sub(r"<[^>]+>", " ", (abstract_desc or {}).get("description") or "")) if abstract_desc else ""
     rtype = (a.get("types") or {}).get("resourceTypeGeneral")
-    label = ZENODO_PUBLICATION_TYPES.get(rtype)
+    is_arxiv_doi = doi.lower().startswith(ARXIV_DOI_PREFIX)
+    label = ("preprint" if rtype == "Preprint" else None) if is_arxiv_doi else ZENODO_PUBLICATION_TYPES.get(rtype)
     year = a.get("publicationYear")
     return {
         "title": _clean(titles[0]), "abstract": abstract, "authors": authors,
         "year": int(year) if isinstance(year, (int, str)) and str(year).isdigit() else None,
-        "venue": f"Zenodo {label}" if label else None,
+        "venue": (("arXiv " if is_arxiv_doi else "Zenodo ") + label) if label else None,
         "ids": {"arxiv": None, "arxiv_version": None, "pmid": None, "doi": normalize_doi(a.get("doi")) or doi},
         "url": f"https://doi.org/{doi}", "excluded_type": None if label else (rtype or "unknown"),
     }
@@ -423,6 +429,10 @@ async def confirm_sources(sources: Sequence[Any], http_get: Optional[HttpGet] = 
     for c in cands:
         i = c["ids"]
         c["rec"] = _reusable_record(c["src"], i)  # the search stage already holds this registry's own record
+        # found through the OpenAlex fallback (arXiv unreachable): confirm against DataCite's record of the arXiv DOI instead
+        c["via_datacite"] = bool(i["arxiv"]) and getattr(c["src"], "confirm_via", None) == "datacite" and c["rec"] is None
+        if c["via_datacite"]:
+            continue
         if c["rec"] is not None:
             reused["arxiv" if i["arxiv"] else "pubmed"] += 1
         elif i["arxiv"]:
@@ -445,8 +455,19 @@ async def confirm_sources(sources: Sequence[Any], http_get: Optional[HttpGet] = 
             return doi, rec
 
     dois = sorted({c["ids"]["doi"] for c in cands if not c["ids"]["arxiv"] and not c["ids"]["pmid"] and c["ids"]["doi"]})
-    ax, pm, cr = await asyncio.gather(ax_task, pm_task, asyncio.gather(*[one_doi(d) for d in dois]))
-    crd = dict(cr)
+
+    async def one_arxiv_doi(arxiv_id: str):
+        async with sem:
+            doi = ARXIV_DOI_PREFIX + arxiv_id
+            rec = await fetch_datacite(doi, http_get, bad)
+            if rec is not None:
+                rec["registry"] = "datacite"
+            return arxiv_id, rec
+
+    dc_ids = sorted({c["ids"]["arxiv"] for c in cands if c["via_datacite"]})
+    ax, pm, cr, dc = await asyncio.gather(ax_task, pm_task, asyncio.gather(*[one_doi(d) for d in dois]),
+                                          asyncio.gather(*[one_arxiv_doi(a) for a in dc_ids]))
+    crd, dcd = dict(cr), dict(dc)
 
     confirmed: List[ConfirmedPaper] = []
     seen_keys: set = set()
@@ -460,6 +481,11 @@ async def confirm_sources(sources: Sequence[Any], http_get: Optional[HttpGet] = 
         rec, registry = None, None
         if c["rec"] is not None:
             rec, registry = c["rec"], "arxiv" if ids["arxiv"] else "pubmed"
+        elif c["via_datacite"]:
+            rec, registry = dcd.get(ids["arxiv"]), "datacite"
+            if rec is not None and rec.get("excluded_type"):
+                dropped.append(Dropped(title, "not_publication_type", ids))
+                continue
         elif ids["arxiv"]:
             key = ids["arxiv"] + (ids["arxiv_version"] or "")
             rec = ax.get(key) or next((r for k, r in ax.items() if k.startswith(ids["arxiv"])), None)

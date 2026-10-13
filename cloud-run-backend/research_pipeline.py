@@ -1,4 +1,5 @@
 import asyncio
+import time
 import aiohttp
 import json
 import os
@@ -25,6 +26,9 @@ class ResearchSource:
     # The registry's own record (paper_confirmation shape) when this source was parsed straight from an arXiv or PubMed
     # response, so confirmation can reuse it instead of asking the same registry again. Set only by the two parsers below.
     registry_record: Optional[Dict[str, Any]] = field(default=None, repr=False, compare=False)
+    # "datacite" when the paper was found through the OpenAlex fallback (arXiv unreachable): confirmation then uses DataCite's record
+    # of the paper's arXiv DOI (10.48550/arXiv.<id>) instead of the arXiv API.
+    confirm_via: Optional[str] = field(default=None, repr=False, compare=False)
 
 def _registry_records(xml_data: str, kind: str) -> Dict[str, Dict[str, Any]]:
     """The response parsed the way paper_confirmation parses it, keyed by arXiv id+version or PMID (cached per response)."""
@@ -112,6 +116,7 @@ class ComprehensiveResearchPipeline:
         Perform comprehensive research across all available sources
         """
         
+        from paper_confirmation import RegistryUnavailable
         # Construct search queries
         base_query = f"{subject} {additional_context}".strip()
         
@@ -150,6 +155,8 @@ class ComprehensiveResearchPipeline:
         for result in search_results:
             if isinstance(result, list):
                 all_sources.extend(result)
+            elif isinstance(result, RegistryUnavailable):
+                raise result  # arXiv could not be reached: never carry on with only the other sources
             elif isinstance(result, Exception):
                 print(f"Search error: {result}")
         
@@ -206,65 +213,149 @@ class ComprehensiveResearchPipeline:
         
         return sources
 
-    async def _search_arxiv(self, query: str, depth: str) -> List[ResearchSource]:
-        """Search arXiv for preprint papers - PUBLIC API, no authentication required"""
-        sources = []
-        max_results = {"basic": 5, "comprehensive": 15, "exhaustive": 25}
-        
-        try:
-            # ArXiv is PUBLIC - search directly without OpenRouter
-            # Map query to ArXiv categories for better results
-            category_filter = self._map_to_arxiv_category(query)
-            
-            # Build search query - TDA gets phrase search to avoid PDE/physics false matches
-            query_lower = query.lower()
-            if "topological data analysis" in query_lower or " tda " in query_lower or query_lower.strip() == "tda":
-                # Phrase search + related terms for TDA (persistent homology, Mapper are core TDA methods)
-                search_query = 'all:"Topological Data Analysis" OR all:"persistent homology" OR all:"topological data analysis"'
-            elif category_filter:
-                search_query = f"cat:{category_filter}+AND+({query})"
-            else:
-                # General search across all fields
-                search_query = f"all:{query}"
-            
-            arxiv_params = {
-                "search_query": search_query,
-                "start": 0,
-                "max_results": max_results.get(depth, 15),
-                "sortBy": "relevance",
-                "sortOrder": "descending"
-            }
-            
-            async with aiohttp.ClientSession() as session:
-                async with session.get(self.endpoints["arxiv"], params=arxiv_params) as response:
-                    if response.status == 200:
-                        xml_data = await response.text()
-                        sources = self._parse_arxiv_xml(xml_data)
-                        print(f"✅ ArXiv search found {len(sources)} sources for: {query}")
-                    else:
-                        print(f"⚠️ ArXiv API returned status {response.status}")
-        
-        except Exception as e:
-            print(f"arXiv search error: {e}")
-            # Try simpler search if category search failed
+    # arXiv asks for one request per 3 seconds and answers 429 when a shared address is over its limit. Waits between attempts:
+    ARXIV_RETRY_WAITS = (3.0, 6.0, 12.0)
+    ARXIV_REQUEST_TIMEOUT_S = 45
+    ARXIV_USER_AGENT = "CopernicusAI/1.0 (+https://www.copernicusai.fyi)"
+
+    @staticmethod
+    def _arxiv_search_query(query: str, category_filter: str) -> str:
+        """The arXiv search_query string. Real spaces (the HTTP client encodes them); a literal '+' would be sent as %2B and
+        be part of the query text, which made category searches malformed."""
+        query_lower = query.lower()
+        if "topological data analysis" in query_lower or " tda " in query_lower or query_lower.strip() == "tda":
+            # Phrase search + related terms for TDA (persistent homology, Mapper are core TDA methods)
+            return 'all:"Topological Data Analysis" OR all:"persistent homology" OR all:"topological data analysis"'
+        if category_filter:
+            return f"cat:{category_filter} AND ({query})"
+        return f"all:{query}"
+
+    async def _arxiv_request(self, params: Dict[str, Any]):
+        """One GET to the arXiv API: (status, body text or '', Retry-After header or None). Network errors propagate."""
+        timeout = aiohttp.ClientTimeout(total=self.ARXIV_REQUEST_TIMEOUT_S)
+        async with aiohttp.ClientSession(timeout=timeout, headers={"User-Agent": self.ARXIV_USER_AGENT}) as session:
+            async with session.get(self.endpoints["arxiv"], params=params) as response:
+                text = await response.text() if response.status == 200 else ""
+                return response.status, text, response.headers.get("Retry-After")
+
+    async def _arxiv_get(self, params: Dict[str, Any]) -> str:
+        """arXiv search with retries. Returns the XML on a 200. A 429, any other non-200, a timeout or a connection error is
+        retried after 3, 6 and 12 seconds (a numeric Retry-After header lengthens the wait, up to 30 s); when every attempt
+        fails this raises RegistryUnavailable, so the episode fails with 'try again later' instead of continuing with only
+        the other sources. Every attempt is logged as one line: arxiv_search attempt=N status=S retry_after=R elapsed=E."""
+        from paper_confirmation import RegistryUnavailable
+        attempts = len(self.ARXIV_RETRY_WAITS) + 1
+        for attempt in range(1, attempts + 1):
+            started = time.monotonic()
+            status, text, retry_after, error = None, "", None, None
             try:
-                simple_params = {
-                    "search_query": f"all:{query}",
-                    "start": 0,
-                    "max_results": max_results.get(depth, 15),
-                    "sortBy": "relevance"
-                }
-                async with aiohttp.ClientSession() as session:
-                    async with session.get(self.endpoints["arxiv"], params=simple_params) as response:
-                        if response.status == 200:
-                            xml_data = await response.text()
-                            sources = self._parse_arxiv_xml(xml_data)
-                            print(f"✅ ArXiv fallback search found {len(sources)} sources")
-            except Exception as e2:
-                print(f"ArXiv fallback search also failed: {e2}")
-        
+                status, text, retry_after = await self._arxiv_request(params)
+            except Exception as e:  # timeout, DNS, connection reset
+                error = type(e).__name__
+            print(f"arxiv_search attempt={attempt}/{attempts} status={status if status is not None else error} "
+                  f"retry_after={retry_after} elapsed={time.monotonic() - started:.1f}s")
+            if status == 200:
+                return text
+            if attempt < attempts:
+                wait = self.ARXIV_RETRY_WAITS[attempt - 1]
+                try:
+                    wait = min(max(wait, float(retry_after)), 30.0)
+                except (TypeError, ValueError):
+                    pass
+                await asyncio.sleep(wait)
+        raise RegistryUnavailable(["arxiv"])
+
+    async def _search_arxiv(self, query: str, depth: str) -> List[ResearchSource]:
+        """Search arXiv for preprint papers - PUBLIC API, no authentication required.
+        Raises RegistryUnavailable when arXiv cannot be reached (see _arxiv_get); a 200 with no entries is a real 'no results'."""
+        max_results = {"basic": 5, "comprehensive": 15, "exhaustive": 25}
+        params = {
+            "search_query": self._arxiv_search_query(query, self._map_to_arxiv_category(query)),
+            "start": 0,
+            "max_results": max_results.get(depth, 15),
+            "sortBy": "relevance",
+            "sortOrder": "descending",
+        }
+        from paper_confirmation import RegistryUnavailable
+        try:
+            xml_data = await self._arxiv_get(params)
+        except RegistryUnavailable:
+            # arXiv refused or could not be reached on every attempt (Cloud Run's shared address is rate-limited by arXiv):
+            # search arXiv-hosted works through OpenAlex instead; confirmation then uses DataCite's record of each arXiv DOI.
+            return await self._search_openalex_arxiv(query, depth)
+        sources = self._parse_arxiv_xml(xml_data)
+        print(f"✅ ArXiv search found {len(sources)} sources for: {query}")
         return sources
-    
+
+    OPENALEX_ARXIV_SOURCE = "S4306400194"  # OpenAlex's id for arXiv as a source of works
+    OPENALEX_RETRY_WAITS = (2.0, 4.0)
+    # OpenAlex's "polite pool": requests that carry a contact address get faster, steadier service. This is the project's dedicated
+    # notification mailbox, never a personal address.
+    OPENALEX_MAILTO = "copernicusai.verify@gmail.com"
+    OPENALEX_ARXIV_ID = re.compile(r"10\.48550/arxiv\.(\d{4}\.\d{4,5})(?:v\d+)?$", re.I)
+
+    @staticmethod
+    def _openalex_abstract(inverted: Optional[Dict[str, List[int]]]) -> str:
+        """OpenAlex ships abstracts as {word: [positions]}; put the words back in order."""
+        if not inverted:
+            return ""
+        slots: Dict[int, str] = {}
+        for word, positions in inverted.items():
+            for pos in positions:
+                slots[pos] = word
+        return " ".join(slots[i] for i in sorted(slots))
+
+    async def _openalex_request(self, params: Dict[str, Any]):
+        """One GET to the OpenAlex works API: (status, parsed JSON or None). Network errors propagate."""
+        timeout = aiohttp.ClientTimeout(total=30)
+        async with aiohttp.ClientSession(timeout=timeout, headers={"User-Agent": self.ARXIV_USER_AGENT}) as session:
+            async with session.get("https://api.openalex.org/works", params=params) as response:
+                return response.status, (await response.json() if response.status == 200 else None)
+
+    async def _search_openalex_arxiv(self, query: str, depth: str) -> List[ResearchSource]:
+        """arXiv-hosted works from OpenAlex, as ResearchSource objects flagged for DataCite confirmation. Raises
+        RegistryUnavailable(["arxiv", "openalex"]) when OpenAlex cannot be reached either: never continue with other sources only."""
+        from paper_confirmation import RegistryUnavailable
+        per_page = {"basic": 5, "comprehensive": 15, "exhaustive": 25}.get(depth, 15)
+        params = {"search": query, "filter": f"primary_location.source.id:{self.OPENALEX_ARXIV_SOURCE}", "per-page": per_page, "mailto": self.OPENALEX_MAILTO,
+                  "select": "id,doi,title,publication_year,authorships,abstract_inverted_index"}
+        attempts = len(self.OPENALEX_RETRY_WAITS) + 1
+        data = None
+        for attempt in range(1, attempts + 1):
+            started = time.monotonic()
+            status, error = None, None
+            try:
+                status, data = await self._openalex_request(params)
+            except Exception as e:
+                error = type(e).__name__
+            print(f"openalex_search attempt={attempt}/{attempts} status={status if status is not None else error} "
+                  f"elapsed={time.monotonic() - started:.1f}s")
+            if status == 200:
+                break
+            if attempt < attempts:
+                await asyncio.sleep(self.OPENALEX_RETRY_WAITS[attempt - 1])
+        else:
+            raise RegistryUnavailable(["arxiv", "openalex"])
+        sources: List[ResearchSource] = []
+        for w in (data or {}).get("results") or []:
+            m = self.OPENALEX_ARXIV_ID.search(w.get("doi") or "")
+            title = (w.get("title") or "").strip()
+            if not m or not title:
+                continue
+            arxiv_id = m.group(1)
+            sources.append(ResearchSource(
+                title=title,
+                authors=[a["author"]["display_name"] for a in w.get("authorships") or [] if (a.get("author") or {}).get("display_name")],
+                abstract=self._openalex_abstract(w.get("abstract_inverted_index")),
+                url=f"https://arxiv.org/abs/{arxiv_id}",
+                publication_date=str(w.get("publication_year") or ""),
+                source="arxiv",
+                doi=f"10.48550/arXiv.{arxiv_id}",
+                confirm_via="datacite",
+            ))
+        print(f"✅ OpenAlex (arXiv fallback) found {len(sources)} sources for: {query}")
+        return sources
+
     def _map_to_arxiv_category(self, query: str) -> str:
         """Map search query to ArXiv category for better results"""
         query_lower = query.lower()
@@ -297,9 +388,7 @@ class ComprehensiveResearchPipeline:
         elif "particle" in query_lower or "hep" in query_lower:
             return "hep-th"  # High Energy Physics - Theory
         
-        # General math if math-related but no specific category
-        if any(term in query_lower for term in ["math", "theorem", "proof", "conjecture"]):
-            return "math"  # General mathematics
+        # No filter for general mathematics: 'math' is not an arXiv category, so cat:math matches nothing useful
         
         return ""  # No category filter - search all
 
