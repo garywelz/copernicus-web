@@ -170,6 +170,7 @@ def match_mention(mention: Dict[str, Any], confirmed: Sequence[Any]) -> Optional
     quote_words = set(_norm(mention.get("quote") or "").split())
     tw = _words(" ".join(mention.get("title_words") or []))
     year = mention.get("year")
+    candidates = []  # (paper, title_overlap) for every paper the author and year (or title) fit
     for c in confirmed:
         gsets = _group_sets(c)
         title_overlap = len(tw & _words(c.title))
@@ -179,9 +180,21 @@ def match_mention(mention: Dict[str, Any], confirmed: Sequence[Any]) -> Optional
         by_group_in_quote = not names and any(g <= quote_words for g in gsets) and year is not None  # "the BESIII Collaboration's 2026 ..." with no author listed
         if by_surname or by_group or by_group_in_quote:
             if year_ok:
-                return c.pid
+                candidates.append((c, title_overlap))
         elif not names and title_overlap >= 3:
-            return c.pid
+            candidates.append((c, title_overlap))
+    if not candidates:
+        return None
+    if len(candidates) == 1 or not (year or tw):
+        return candidates[0][0].pid  # one fit, or a bare "Alama's work" that names no specific paper
+    # Several listed works fit the author and year: the title decides, otherwise nothing is matched (fail closed).
+    exact = [x for x in candidates if year is not None and x[0].year is not None and int(x[0].year) == int(year)]
+    pool = exact or candidates
+    if len(pool) == 1:
+        return pool[0][0].pid
+    ranked = sorted(pool, key=lambda x: x[1], reverse=True)
+    if ranked[0][1] >= 2 and ranked[0][1] > ranked[1][1]:
+        return ranked[0][0].pid
     return None
 
 
