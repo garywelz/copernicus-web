@@ -1,4 +1,4 @@
-"""Read a JSON object from a model's reply. Gemini often wraps JSON in a Markdown code fence (```json ... ```) or adds a line of
+"""Read a JSON object or array from a model's reply. Gemini often wraps JSON in a Markdown code fence (```json ... ```) or adds a line of
 prose around it; json.loads on the raw text then fails even though the answer is fine. A reply that is genuinely not JSON
 (or was cut off) still raises, so callers keep their failure handling."""
 import json
@@ -19,7 +19,10 @@ def parse_json_reply(text: str):
         return json.loads(t)
     except json.JSONDecodeError:
         pass
-    start, end = t.find("{"), t.rfind("}")
+    # the outermost object or array, whichever opens first (prose may surround it)
+    opens = [(t.find(o), o, c) for o, c in (("{", "}"), ("[", "]")) if t.find(o) != -1]
+    start, o, c = min(opens) if opens else (-1, "", "")
+    end = t.rfind(c) if c else -1
     body = t[start:end + 1] if start != -1 and end > start else t
     try:
         return json.loads(body)

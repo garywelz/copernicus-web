@@ -75,3 +75,38 @@ def test_the_reply_that_failed_in_the_2026_10_13_verification_run():
     assert BS + "bar{D}" in got["s"] and BS + "pi^+" in got["s"] and BS + "to" in got["s"]   # doubled pairs read back as one backslash
     assert "C" + BS + "!P" in got["s"] and BS + "alpha" in got["s"]                          # lone ones kept as text
     assert "\b" not in got["s"]                                                              # no backspace made from '\bar'
+
+
+def test_a_fenced_array_is_read():
+    assert parse_json_reply(FENCE + 'json\n[["a", "b"], ["c"]]\n' + FENCE) == [["a", "b"], ["c"]]
+    assert parse_json_reply('Connections:\n[["x"]]\nDone.') == [["x"]]
+
+
+def test_an_object_that_contains_an_array_is_still_an_object():
+    assert parse_json_reply('{"a": [1, 2], "b": {"c": 3}}') == {"a": [1, 2], "b": {"c": 3}}
+    assert parse_json_reply('Here:\n{"a": [1, 2]}\nbye') == {"a": [1, 2]}
+
+
+def test_a_truncated_array_still_raises():
+    with pytest.raises(json.JSONDecodeError):
+        parse_json_reply(FENCE + 'json\n[["Paper 3 performs amplitude')
+
+
+def test_connection_analysis_reads_a_fenced_array_and_asks_for_2500_tokens():
+    import asyncio
+    import enhanced_research_service as ers
+    from types import SimpleNamespace as NS
+    svc = ers.EnhancedResearchService("k")
+    seen = {}
+
+    async def fake(prompt, max_tokens=1000):
+        seen["max"] = max_tokens
+        return FENCE + 'json\n[["Paper 1 links to Paper 2"], "a bare string"]\n' + FENCE
+    svc._call_google_ai = fake
+    analyses = [NS(title="t%d" % i, summary="s", key_findings=["f"]) for i in range(2)]
+    loop = asyncio.new_event_loop()
+    try:
+        got = loop.run_until_complete(svc._find_paper_connections(analyses))
+    finally:
+        loop.close()
+    assert got == [["Paper 1 links to Paper 2"], ["a bare string"]] and seen["max"] == 2500
