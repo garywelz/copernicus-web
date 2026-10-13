@@ -26,6 +26,9 @@ class ResearchSource:
     # The registry's own record (paper_confirmation shape) when this source was parsed straight from an arXiv or PubMed
     # response, so confirmation can reuse it instead of asking the same registry again. Set only by the two parsers below.
     registry_record: Optional[Dict[str, Any]] = field(default=None, repr=False, compare=False)
+    # "datacite" when the paper was found through the OpenAlex fallback (arXiv unreachable): confirmation then uses DataCite's record
+    # of the paper's arXiv DOI (10.48550/arXiv.<id>) instead of the arXiv API.
+    confirm_via: Optional[str] = field(default=None, repr=False, compare=False)
 
 def _registry_records(xml_data: str, kind: str) -> Dict[str, Dict[str, Any]]:
     """The response parsed the way paper_confirmation parses it, keyed by arXiv id+version or PMID (cached per response)."""
@@ -273,9 +276,81 @@ class ComprehensiveResearchPipeline:
             "sortBy": "relevance",
             "sortOrder": "descending",
         }
-        xml_data = await self._arxiv_get(params)
+        from paper_confirmation import RegistryUnavailable
+        try:
+            xml_data = await self._arxiv_get(params)
+        except RegistryUnavailable:
+            # arXiv refused or could not be reached on every attempt (Cloud Run's shared address is rate-limited by arXiv):
+            # search arXiv-hosted works through OpenAlex instead; confirmation then uses DataCite's record of each arXiv DOI.
+            return await self._search_openalex_arxiv(query, depth)
         sources = self._parse_arxiv_xml(xml_data)
         print(f"✅ ArXiv search found {len(sources)} sources for: {query}")
+        return sources
+
+    OPENALEX_ARXIV_SOURCE = "S4306400194"  # OpenAlex's id for arXiv as a source of works
+    OPENALEX_RETRY_WAITS = (2.0, 4.0)
+    OPENALEX_ARXIV_ID = re.compile(r"10\.48550/arxiv\.(\d{4}\.\d{4,5})(?:v\d+)?$", re.I)
+
+    @staticmethod
+    def _openalex_abstract(inverted: Optional[Dict[str, List[int]]]) -> str:
+        """OpenAlex ships abstracts as {word: [positions]}; put the words back in order."""
+        if not inverted:
+            return ""
+        slots: Dict[int, str] = {}
+        for word, positions in inverted.items():
+            for pos in positions:
+                slots[pos] = word
+        return " ".join(slots[i] for i in sorted(slots))
+
+    async def _openalex_request(self, params: Dict[str, Any]):
+        """One GET to the OpenAlex works API: (status, parsed JSON or None). Network errors propagate."""
+        timeout = aiohttp.ClientTimeout(total=30)
+        async with aiohttp.ClientSession(timeout=timeout, headers={"User-Agent": self.ARXIV_USER_AGENT}) as session:
+            async with session.get("https://api.openalex.org/works", params=params) as response:
+                return response.status, (await response.json() if response.status == 200 else None)
+
+    async def _search_openalex_arxiv(self, query: str, depth: str) -> List[ResearchSource]:
+        """arXiv-hosted works from OpenAlex, as ResearchSource objects flagged for DataCite confirmation. Raises
+        RegistryUnavailable(["arxiv", "openalex"]) when OpenAlex cannot be reached either: never continue with other sources only."""
+        from paper_confirmation import RegistryUnavailable
+        per_page = {"basic": 5, "comprehensive": 15, "exhaustive": 25}.get(depth, 15)
+        params = {"search": query, "filter": f"primary_location.source.id:{self.OPENALEX_ARXIV_SOURCE}", "per-page": per_page,
+                  "select": "id,doi,title,publication_year,authorships,abstract_inverted_index"}
+        attempts = len(self.OPENALEX_RETRY_WAITS) + 1
+        data = None
+        for attempt in range(1, attempts + 1):
+            started = time.monotonic()
+            status, error = None, None
+            try:
+                status, data = await self._openalex_request(params)
+            except Exception as e:
+                error = type(e).__name__
+            print(f"openalex_search attempt={attempt}/{attempts} status={status if status is not None else error} "
+                  f"elapsed={time.monotonic() - started:.1f}s")
+            if status == 200:
+                break
+            if attempt < attempts:
+                await asyncio.sleep(self.OPENALEX_RETRY_WAITS[attempt - 1])
+        else:
+            raise RegistryUnavailable(["arxiv", "openalex"])
+        sources: List[ResearchSource] = []
+        for w in (data or {}).get("results") or []:
+            m = self.OPENALEX_ARXIV_ID.search(w.get("doi") or "")
+            title = (w.get("title") or "").strip()
+            if not m or not title:
+                continue
+            arxiv_id = m.group(1)
+            sources.append(ResearchSource(
+                title=title,
+                authors=[a["author"]["display_name"] for a in w.get("authorships") or [] if (a.get("author") or {}).get("display_name")],
+                abstract=self._openalex_abstract(w.get("abstract_inverted_index")),
+                url=f"https://arxiv.org/abs/{arxiv_id}",
+                publication_date=str(w.get("publication_year") or ""),
+                source="arxiv",
+                doi=f"10.48550/arXiv.{arxiv_id}",
+                confirm_via="datacite",
+            ))
+        print(f"✅ OpenAlex (arXiv fallback) found {len(sources)} sources for: {query}")
         return sources
 
     def _map_to_arxiv_category(self, query: str) -> str:

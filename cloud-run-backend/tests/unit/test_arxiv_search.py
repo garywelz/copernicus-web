@@ -35,7 +35,10 @@ def pipeline(monkeypatch, replies):
 
     async def fake_sleep(d):
         sleeps.append(d)
+    async def openalex_down(params):  # the OpenAlex fallback (stage d) is down too, and no test may reach the real service
+        return 503, None
     monkeypatch.setattr(p, "_arxiv_request", fake_request)
+    monkeypatch.setattr(p, "_openalex_request", openalex_down)
     monkeypatch.setattr(rp.asyncio, "sleep", fake_sleep)
     return p, sleeps, calls
 
@@ -50,7 +53,7 @@ def test_every_attempt_failing_raises_registry_unavailable(monkeypatch):
     p, sleeps, calls = pipeline(monkeypatch, [(429, "", None)] * 4)
     with pytest.raises(pc.RegistryUnavailable) as e:
         run(p._search_arxiv("proofs", "comprehensive"))
-    assert e.value.registries == ["arxiv"] and sleeps == [3.0, 6.0, 12.0] and len(calls) == 4
+    assert e.value.registries == ["arxiv", "openalex"] and sleeps == [3.0, 6.0, 12.0, 2.0, 4.0] and len(calls) == 4   # arXiv 4 tries, then OpenAlex 3
 
 
 def test_other_statuses_and_network_errors_are_retried_too(monkeypatch):
