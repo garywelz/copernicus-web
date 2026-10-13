@@ -26,7 +26,7 @@ const ANIMATED_PLAYERS = {
   'ever-math-260002': '/lac-operon-animation/player.html?episode=ever-math-260002',
 };
 
-const { furtherReadingHtml } = require('../../lib/further-reading');
+const { furtherReadingHtml } = require('../_lib/further-reading');
 
 function normalizeApiEpisode(payload = {}, slug) {
   const descriptionMarkdown = payload.description_markdown ?? payload.descriptionMarkdown;
