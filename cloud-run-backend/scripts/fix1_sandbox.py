@@ -114,15 +114,37 @@ def install_metering(ledger: Ledger, tag_ref: Dict[str, str]) -> None:
         url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent"
         headers = {"Content-Type": "application/json", "x-goog-api-key": self.google_api_key}
         data = {"contents": [{"parts": [{"text": prompt}]}], "generationConfig": {"maxOutputTokens": max_tokens, "temperature": 0.7, "thinkingConfig": {"thinkingBudget": 0}}}  # must match enhanced_research_service._call_google_ai
-        async with aiohttp.ClientSession() as session:
-            async with session.post(url, headers=headers, json=data) as response:
-                if response.status != 200:
-                    raise Exception(f"Google AI API error: {response.status}")
-                result = await response.json()
-                u = result.get("usageMetadata", {})
-                ledger.record("gemini-2.5-flash", u.get("promptTokenCount", 0), (u.get("candidatesTokenCount") or 0) + (u.get("thoughtsTokenCount") or 0), tag_ref.get("tag", ""))
-                return result["candidates"][0]["content"]["parts"][0]["text"]
+        try:
+            async with aiohttp.ClientSession() as session:
+                async with session.post(url, headers=headers, json=data) as response:
+                    if response.status != 200:
+                        raise Exception(f"Google AI API error: {response.status}")
+                    result = await response.json()
+        except aiohttp.ClientConnectorError as e:
+            if os.environ.get("FIX1_ABORT_ON_CONNECTION_ERROR"):  # a run on a broken network measures nothing
+                print(f"ABORT: connection error to the Gemini API ({e}); stopping the run", flush=True)
+                os._exit(3)
+            raise
+        u = result.get("usageMetadata", {})
+        ledger.record("gemini-2.5-flash", u.get("promptTokenCount", 0), (u.get("candidatesTokenCount") or 0) + (u.get("thoughtsTokenCount") or 0), tag_ref.get("tag", ""))
+        return result["candidates"][0]["content"]["parts"][0]["text"]
     ers.EnhancedResearchService._call_google_ai = metered_rest
+
+    raw_path = os.environ.get("FIX1_RAW_FAILS")  # keep the raw text of every model reply that fails to parse
+    if raw_path:
+        import json_reply
+        import paper_processor
+        real_parse = json_reply.parse_json_reply
+
+        def recording_parse(text):
+            try:
+                return real_parse(text)
+            except Exception as e:
+                with open(raw_path, "a", encoding="utf-8") as f:
+                    f.write(json.dumps({"tag": tag_ref.get("tag", ""), "error": str(e), "raw": text}) + "\n")
+                raise
+        ers.parse_json_reply = recording_parse
+        paper_processor.parse_json_reply = recording_parse
 
 
 def load_secrets() -> str:

@@ -1287,113 +1287,7 @@ Say that journal name in dialogue. Never say "published in PubMed" or "published
             structured_logger.warning("LLM did not generate description field, creating comprehensive fallback",
                                      topic=request.topic)
             
-            # Build comprehensive fallback description (2500-3500 characters target)
-            topic = research_context.topic
-            
-            # Opening paragraphs (3-4 paragraphs, no header)
-            opening = f"""This episode delves deep into {topic}, a rapidly evolving field that stands at the intersection of cutting-edge research and transformative applications. Recent breakthroughs in this area have revealed fundamental insights that challenge our conventional understanding and open new pathways for scientific discovery and technological innovation.
-
-The significance of {topic} extends far beyond its immediate domain, with implications that span multiple disciplines and industries. As researchers continue to push the boundaries of knowledge, we're witnessing paradigm shifts that reshape how we approach complex problems and understand the underlying mechanisms at play.
-
-What makes this research area particularly compelling is its ability to bridge theoretical foundations with practical applications, creating opportunities for real-world impact while advancing our fundamental understanding. The interdisciplinary nature of this work means that discoveries in one field can catalyze breakthroughs in others, creating a rich ecosystem of innovation and discovery.
-
-In this comprehensive exploration, we'll examine the latest research developments, analyze breakthrough findings, and discuss the far-reaching implications for both science and society. Through detailed analysis of recent publications and cutting-edge methodologies, we'll uncover the revolutionary potential of this field and its capacity to transform our approach to complex challenges."""
-            
-            # Key Concepts section
-            key_concepts = "## Key Concepts Explored\n\n"
-            # Filter out placeholder/fallback text that isn't meaningful
-            placeholder_texts = [
-                "research findings require further analysis",
-                "methodology analysis pending",
-                "implications to be determined",
-                "analysis pending",
-                "further analysis required"
-            ]
-            meaningful_findings = [
-                f for f in research_context.key_findings 
-                if f and not any(placeholder.lower() in f.lower() for placeholder in placeholder_texts)
-            ]
-            
-            if meaningful_findings:
-                for i, finding in enumerate(meaningful_findings[:5], 1):
-                    key_concepts += f"- **{finding}**: This finding represents a significant advancement in our understanding, with implications that extend across multiple domains and applications.\n"
-            else:
-                key_concepts += f"- **Recent research developments in {topic}**: Current studies are revealing new insights into fundamental mechanisms and processes that were previously poorly understood.\n"
-                key_concepts += f"- **Paradigm shifts and revolutionary findings**: The field is experiencing transformative changes that challenge existing models and open new research directions.\n"
-                key_concepts += f"- **Interdisciplinary connections**: Research in {topic} is creating bridges between traditionally separate fields, enabling novel approaches and insights.\n"
-                key_concepts += f"- **Practical applications and future directions**: The theoretical advances are finding applications in diverse areas, from technology to medicine to fundamental science.\n"
-            
-            # Research Insights section (2-3 paragraphs)
-            insights = "## Research Insights\n\n"
-            if research_context.paradigm_shifts:
-                # B5 backstop: paradigm_shifts entries are now filtered at
-                # the source (podcast_research_integrator skips failed
-                # analyses entirely), but guard this interpolation site
-                # too -- never use a paradigm_shifts[0] value that still
-                # looks placeholder-shaped (e.g. "Title: unknown") if one
-                # somehow gets through.
-                first_shift = research_context.paradigm_shifts[0]
-                if re.search(r':\s*unknown\b', first_shift, re.IGNORECASE):
-                    first_shift = 'These shifts represent transformative changes in how we conceptualize and approach key problems.'
-                insights += f"Recent research in {topic} has identified several paradigm shifts that fundamentally alter our understanding of the field. "
-                insights += f"{first_shift} "
-                insights += f"The methodological advances driving these discoveries combine rigorous theoretical frameworks with innovative experimental approaches, enabling researchers to probe deeper into complex systems and uncover previously hidden patterns and mechanisms.\n\n"
-            else:
-                insights += f"Current research in {topic} is characterized by methodological innovations that enable unprecedented precision and depth of analysis. "
-                insights += f"Researchers are employing cutting-edge techniques that combine computational modeling, experimental validation, and theoretical frameworks to address fundamental questions. "
-                insights += f"These approaches are revealing new layers of complexity and providing insights that challenge existing paradigms while opening new avenues for investigation.\n\n"
-            
-            insights += f"The significance of these findings extends beyond their immediate domain, with implications for understanding fundamental processes, developing new technologies, and addressing pressing challenges. "
-            insights += f"As the field continues to evolve, we're seeing convergence between different research approaches and the emergence of unified frameworks that can accommodate diverse phenomena and applications."
-            
-            # Practical Applications section (2-3 paragraphs)
-            applications = "## Practical Applications\n\n"
-            applications += f"The research developments in {topic} are finding applications across multiple sectors, demonstrating the practical value of fundamental scientific inquiry. "
-            applications += f"In technology, these advances are enabling new capabilities and improving performance in systems that rely on understanding complex processes and interactions. "
-            applications += f"The insights gained from this research are informing the design of more efficient algorithms, more robust systems, and more effective solutions to real-world problems.\n\n"
-            applications += f"Beyond technology, applications are emerging in fields ranging from healthcare to environmental science to industrial processes. "
-            applications += f"The interdisciplinary nature of this research means that discoveries can be rapidly translated into practical tools and approaches that address pressing societal needs. "
-            applications += f"As our understanding deepens, we can expect to see even more innovative applications that leverage these fundamental insights."
-            
-            # Future Directions section (2-3 paragraphs)
-            future = "## Future Directions\n\n"
-            # Extract future_research_directions from paper_analyses
-            future_directions = []
-            for analysis in research_context.paper_analyses:
-                if hasattr(analysis, 'future_research_directions') and analysis.future_research_directions:
-                    future_directions.extend(analysis.future_research_directions)
-            
-            if future_directions:
-                future += f"Looking ahead, research in {topic} is poised to explore several exciting directions. "
-                future += f"{future_directions[0] if future_directions else 'Future work will likely focus on addressing remaining questions and extending current findings to new contexts.'} "
-                future += f"These directions represent both near-term opportunities for immediate impact and long-term trajectories that could fundamentally reshape the field.\n\n"
-            else:
-                future += f"The future of {topic} research holds tremendous promise, with several emerging directions that could yield transformative insights. "
-                future += f"Researchers are beginning to explore connections between previously separate areas, developing unified frameworks that can accommodate diverse phenomena. "
-                future += f"These efforts are likely to reveal new principles and mechanisms that will guide future research and applications.\n\n"
-            
-            future += f"Long-term implications include the potential for paradigm-shifting discoveries that could open entirely new research areas and applications. "
-            future += f"As methodological capabilities continue to advance and interdisciplinary collaborations deepen, we can expect to see accelerated progress in understanding fundamental mechanisms and developing practical solutions. "
-            future += f"The field is positioned to make significant contributions to both scientific knowledge and societal challenges in the coming years."
-            
-            # References section
-            references = "## References\n\n"
-            for source in research_context.research_sources[:5]:
-                references += format_research_source_line(source) + "\n"
-            
-            # Combine all sections
-            fallback_desc = f"""{opening}
-
-{key_concepts}
-
-{insights}
-
-{applications}
-
-{future}
-
-{references}"""
-            
+            fallback_desc = self._build_fallback_description(research_context)
             content['description'] = fallback_desc
             structured_logger.info("Created comprehensive fallback description",
                                   description_length=len(fallback_desc),
@@ -1414,6 +1308,116 @@ In this comprehensive exploration, we'll examine the latest research development
         
         return content
     
+    @staticmethod
+    def _build_fallback_description(research_context) -> str:
+        """Description used when the model returned none. It must pass validate_description_before_publish (tested)."""
+        topic = research_context.topic
+        
+        # Opening paragraphs (3-4 paragraphs, no header)
+        opening = f"""This episode delves deep into {topic}, a rapidly evolving field that stands at the intersection of cutting-edge research and transformative applications. Recent breakthroughs in this area have revealed fundamental insights that challenge our conventional understanding and open new pathways for scientific discovery and technological innovation.
+
+The significance of {topic} extends far beyond its immediate domain, with implications that span multiple disciplines and industries. As researchers continue to push the boundaries of knowledge, we're witnessing paradigm shifts that reshape how we approach complex problems and understand the underlying mechanisms at play.
+
+What makes this research area particularly compelling is its ability to bridge theoretical foundations with practical applications, creating opportunities for real-world impact while advancing our fundamental understanding. The interdisciplinary nature of this work means that discoveries in one field can catalyze breakthroughs in others, creating a rich ecosystem of innovation and discovery.
+
+In this comprehensive exploration, we'll examine the latest research developments, analyze breakthrough findings, and discuss the far-reaching implications for both science and society. Through detailed analysis of recent publications and cutting-edge methodologies, we'll uncover the revolutionary potential of this field and its capacity to transform our approach to complex challenges."""
+        
+        # Key Concepts section
+        key_concepts = "## Key Concepts Explored\n\n"
+        # Filter out placeholder/fallback text that isn't meaningful
+        placeholder_texts = [
+            "research findings require further analysis",
+            "methodology analysis pending",
+            "implications to be determined",
+            "analysis pending",
+            "further analysis required"
+        ]
+        meaningful_findings = [
+            f for f in research_context.key_findings 
+            if f and not any(placeholder.lower() in f.lower() for placeholder in placeholder_texts)
+        ]
+        
+        if meaningful_findings:
+            for i, finding in enumerate(meaningful_findings[:5], 1):
+                key_concepts += f"- {finding}\n"  # no template sentence: the pre-publish gate rejects it as boilerplate
+        else:
+            key_concepts += f"- **Recent research developments in {topic}**: Current studies are revealing new insights into fundamental mechanisms and processes that were previously poorly understood.\n"
+            key_concepts += f"- **Paradigm shifts and revolutionary findings**: The field is experiencing transformative changes that challenge existing models and open new research directions.\n"
+            key_concepts += f"- **Interdisciplinary connections**: Research in {topic} is creating bridges between traditionally separate fields, enabling novel approaches and insights.\n"
+            key_concepts += f"- **Practical applications and future directions**: The theoretical advances are finding applications in diverse areas, from technology to medicine to fundamental science.\n"
+        
+        # Research Insights section (2-3 paragraphs)
+        insights = "## Research Insights\n\n"
+        if research_context.paradigm_shifts:
+            # B5 backstop: paradigm_shifts entries are now filtered at
+            # the source (podcast_research_integrator skips failed
+            # analyses entirely), but guard this interpolation site
+            # too -- never use a paradigm_shifts[0] value that still
+            # looks placeholder-shaped (e.g. "Title: unknown") if one
+            # somehow gets through.
+            first_shift = research_context.paradigm_shifts[0]
+            if re.search(r':\s*unknown\b', first_shift, re.IGNORECASE):
+                first_shift = 'These shifts represent transformative changes in how we conceptualize and approach key problems.'
+            insights += f"Recent research in {topic} has identified several paradigm shifts that fundamentally alter our understanding of the field. "
+            insights += f"{first_shift} "
+            insights += f"The methodological advances driving these discoveries combine rigorous theoretical frameworks with innovative experimental approaches, enabling researchers to probe deeper into complex systems and uncover previously hidden patterns and mechanisms.\n\n"
+        else:
+            insights += f"Current research in {topic} is characterized by methodological innovations that enable unprecedented precision and depth of analysis. "
+            insights += f"Researchers are employing cutting-edge techniques that combine computational modeling, experimental validation, and theoretical frameworks to address fundamental questions. "
+            insights += f"These approaches are revealing new layers of complexity and providing insights that challenge existing paradigms while opening new avenues for investigation.\n\n"
+        
+        insights += f"The significance of these findings extends beyond their immediate domain, with implications for understanding fundamental processes, developing new technologies, and addressing pressing challenges. "
+        insights += f"As the field continues to evolve, we're seeing convergence between different research approaches and the emergence of unified frameworks that can accommodate diverse phenomena and applications."
+        
+        # Practical Applications section (2-3 paragraphs)
+        applications = "## Practical Applications\n\n"
+        applications += f"The research developments in {topic} are finding applications across multiple sectors, demonstrating the practical value of fundamental scientific inquiry. "
+        applications += f"In technology, these advances are enabling new capabilities and improving performance in systems that rely on understanding complex processes and interactions. "
+        applications += f"The insights gained from this research are informing the design of more efficient algorithms, more robust systems, and more effective solutions to real-world problems.\n\n"
+        applications += f"Beyond technology, applications are emerging in fields ranging from healthcare to environmental science to industrial processes. "
+        applications += f"The interdisciplinary nature of this research means that discoveries can be rapidly translated into practical tools and approaches that address pressing societal needs. "
+        applications += f"As our understanding deepens, we can expect to see even more innovative applications that leverage these fundamental insights."
+        
+        # Future Directions section (2-3 paragraphs)
+        future = "## Future Directions\n\n"
+        # Extract future_research_directions from paper_analyses
+        future_directions = []
+        for analysis in research_context.paper_analyses:
+            if hasattr(analysis, 'future_research_directions') and analysis.future_research_directions:
+                future_directions.extend(analysis.future_research_directions)
+        
+        if future_directions:
+            future += f"Looking ahead, research in {topic} is poised to explore several exciting directions. "
+            future += f"{future_directions[0] if future_directions else 'Future work will likely focus on addressing remaining questions and extending current findings to new contexts.'} "
+            future += f"These directions represent both near-term opportunities for immediate impact and long-term trajectories that could fundamentally reshape the field.\n\n"
+        else:
+            future += f"The future of {topic} research holds tremendous promise, with several emerging directions that could yield transformative insights. "
+            future += f"Researchers are beginning to explore connections between previously separate areas, developing unified frameworks that can accommodate diverse phenomena. "
+            future += f"These efforts are likely to reveal new principles and mechanisms that will guide future research and applications.\n\n"
+        
+        future += f"Long-term implications include the potential for paradigm-shifting discoveries that could open entirely new research areas and applications. "
+        future += f"As methodological capabilities continue to advance and interdisciplinary collaborations deepen, we can expect to see accelerated progress in understanding fundamental mechanisms and developing practical solutions. "
+        future += f"The field is positioned to make significant contributions to both scientific knowledge and societal challenges in the coming years."
+        
+        # References section
+        references = "## References\n\n"
+        for source in research_context.research_sources[:5]:
+            references += format_research_source_line(source) + "\n"
+        
+        # Combine all sections
+        fallback_desc = f"""{opening}
+
+{key_concepts}
+
+{insights}
+
+{applications}
+
+{future}
+
+{references}"""
+        return fallback_desc
+
     async def determine_canonical_filename(
         self, 
         topic: str, 
