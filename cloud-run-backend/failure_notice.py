@@ -12,6 +12,7 @@ from named_work_check import NamingCheckUnavailable, NamingViolationError
 from relevance_gate import RelevanceCheckUnavailable
 from speech_text import UnspeakableNotationError
 from script_style import BannedPhraseError
+from attribution_check import AttributionError, AttributionCheckUnavailable
 
 
 def describe_failure(exc: BaseException) -> Dict[str, Optional[str]]:
@@ -79,6 +80,19 @@ def describe_failure(exc: BaseException) -> Dict[str, Optional[str]]:
             "summary": ("The script kept using overstated or promotional wording (for example 'revolutionary' or 'unprecedented') even after "
                         "being asked to rewrite it in plain terms, so no episode was published."),
             "what_to_do": "Please try again.",
+        }
+    if isinstance(exc, AttributionError):
+        return {
+            "kind": "unsupported_attribution",
+            "summary": ("The script kept attributing claims to research papers that the papers' abstracts do not support, even after being "
+                        "asked to rewrite it, so no episode was published."),
+            "what_to_do": "Please try again.",
+        }
+    if isinstance(exc, AttributionCheckUnavailable):
+        return {
+            "kind": "attribution_check_unavailable",
+            "summary": "The check that makes sure an episode attributes only supported claims to research papers could not run, so no episode was published.",
+            "what_to_do": "This is usually temporary. Please try again later.",
         }
     if isinstance(exc, NamingCheckUnavailable):
         return {
