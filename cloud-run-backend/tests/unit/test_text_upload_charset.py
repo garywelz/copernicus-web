@@ -6,6 +6,14 @@ from pathlib import Path
 from types import SimpleNamespace
 from unittest.mock import MagicMock
 
+def run(coro):
+    loop = asyncio.new_event_loop()      # not asyncio.run: that leaves no current loop and breaks later tests that call get_event_loop()
+    try:
+        return loop.run_until_complete(coro)
+    finally:
+        loop.close()
+
+
 ROOT = Path(__file__).resolve().parents[2]
 FILES = [ROOT / "main.py", ROOT / "services" / "podcast_generation_service.py", ROOT / "services" / "rss_service.py"]
 
@@ -42,7 +50,7 @@ def test_a_transcript_with_em_dashes_is_uploaded_as_utf8_text(monkeypatch):
 
     monkeypatch.setattr(storage, "Client", lambda *a, **k: SimpleNamespace(bucket=lambda n: SimpleNamespace(blob=lambda name: Blob(name))))
     svc = PodcastGenerationService.__new__(PodcastGenerationService)
-    asyncio.run(svc.generate_and_upload_transcript("MATILDA: A map — a graph — of proofs.", "ever-math-000001"))
+    run(svc.generate_and_upload_transcript("MATILDA: A map — a graph — of proofs.", "ever-math-000001"))
     data, ctype = next(v for k, v in uploaded.items() if k.startswith("transcripts/"))
     assert ctype.lower() == "text/markdown; charset=utf-8"
     text = data if isinstance(data, str) else data.decode("utf-8")
