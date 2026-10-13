@@ -41,3 +41,26 @@ def test_the_analysis_callers_use_it_and_thinking_is_off():
     assert "parse_json_reply(response)" in inspect.getsource(ers.EnhancedResearchService._analyze_single_paper)
     assert "parse_json_reply(response.text)" in inspect.getsource(paper_processor.analyze_paper_with_gemini)
     assert '"thinkingBudget": 0' in inspect.getsource(ers.EnhancedResearchService._call_google_ai)
+
+
+BS = chr(92)
+
+
+def test_latex_backslashes_inside_json_strings_are_kept_as_text():
+    raw = '{"summary": "The ' + BS + 'alpha parameter and ' + BS + 'beta decay of ' + BS + 'nu_e with ' + BS + 'frac{1}{2} spin", "n": 1}'
+    got = parse_json_reply(FENCE + "json\n" + raw + "\n" + FENCE)
+    assert got["n"] == 1 and BS + "alpha" in got["summary"] and BS + "beta" in got["summary"] and BS + "frac" in got["summary"]
+
+
+def test_a_lone_backslash_before_a_symbol_is_repaired():
+    got = parse_json_reply('{"a": "cost is 5 ' + BS + '% of ' + BS + '(x' + BS + ')"}')
+    assert BS + "%" in got["a"]
+
+
+def test_valid_escapes_are_untouched():
+    assert parse_json_reply('{"a": "line1' + BS + 'nline2 ' + BS + '"q' + BS + '" ' + BS + BS + ' ok"}')["a"] == "line1\nline2 \"q\" " + BS + " ok"
+
+
+def test_repair_does_not_turn_truncated_json_into_success():
+    with pytest.raises(json.JSONDecodeError):
+        parse_json_reply('{"a": "' + BS + 'alpha cut off')
