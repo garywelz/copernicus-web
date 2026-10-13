@@ -100,12 +100,12 @@ from config.database import db
 from services.episode_service import episode_service
 from services.canonical_service import canonical_service
 from utils.script_validation import (validate_script_length, calculate_minimum_words_for_duration, calculate_maximum_words_for_duration,
-                                     length_feedback, ScriptTooLongError)
+                                     length_feedback, short_feedback, ScriptTooLongError, ScriptTooShortError)
 from named_work_check import check_naming, feedback_text, make_gemini_llm_call, NamingViolationError
 from failure_notice import describe_failure
 from reference_sections import apply_reference_sections, BUILT_BY as REFERENCES_BUILT_BY
 from speech_text import strip_pn_markers_counted, speak_text, notation_problems, notation_feedback, UnspeakableNotationError
-from script_style import banned_phrase_hits, banned_feedback, BannedPhraseError
+from script_style import banned_phrase_hits, banned_feedback, BannedPhraseError, FinalTextCheckError
 from attribution_check import check_attributions, attribution_feedback, AttributionError
 
 # Retry decorator for upload operations
@@ -2182,6 +2182,43 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
         limit_metrics['pn_markers_removed'] = {'script': _n_script, 'description': _n_desc}
         return limit_metrics
 
+    async def _verify_final_text(self, content: dict, request, research_context, google_key: str, job_id: str) -> dict:
+        """Run the post-generation checks again on the final text. They ran on the generated text inside the regeneration loop; the
+        text that is stored and spoken has since been through notation conversion, venue rewriting, reference building and the
+        description limit. Nothing can be regenerated here, so any failure fails the episode. Writes nothing; returns a summary."""
+        script = content.get('script') or ''
+        description = content.get('description') or ''
+        body = self._description_body(description)
+        words = len(script.split())
+        min_words = calculate_minimum_words_for_duration(request.duration)
+        max_words = calculate_maximum_words_for_duration(request.duration)
+        if words > max_words:
+            raise ScriptTooLongError(words, max_words)
+        if words < min_words:
+            raise ScriptTooShortError(words, min_words)
+        bad_notation = notation_problems(script, body)
+        if bad_notation:
+            raise UnspeakableNotationError(bad_notation)
+        banned = banned_phrase_hits(script, description)
+        if banned:
+            raise BannedPhraseError(banned)
+        llm = make_gemini_llm_call(google_key)
+        naming = await check_naming(script, description, research_context.confirmed_papers, llm)
+        if not naming.passed:
+            raise NamingViolationError(naming.violations)
+        unlisted = [pid for pid in naming.named_pids if pid not in (content.get('papers_named') or [])]
+        if unlisted:
+            raise FinalTextCheckError("it names " + ", ".join(unlisted) + " which the reference list was not built for")
+        named = [c for c in research_context.confirmed_papers if c.pid in naming.named_pids]
+        attribution = await check_attributions(script, named, llm)
+        if not attribution.passed:
+            raise AttributionError(attribution.violations)
+        summary = {'words': words, 'min_words': min_words, 'max_words': max_words, 'named_pids': list(naming.named_pids),
+                   'attributions_checked': len(attribution.checked)}
+        content['final_text_checks'] = summary
+        structured_logger.info("Final text checks passed", job_id=job_id, **summary)
+        return summary
+
     async def _generate_checked_content(self, request, research_context, google_key: str, job_id: str):
         """Generate the script and description, accept them only if they pass the length and naming checks.
 
@@ -2271,22 +2308,20 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
                         raise BannedPhraseError(banned)
                     raise AttributionError(attribution.violations)
                 else:
+                    naming_attempts.append({'attempt': attempt + 1, 'too_short': word_count, 'min_words': min_words})
+                    structured_logger.warning(f"Script too short on attempt {attempt + 1}",
+                                             job_id=job_id,
+                                             word_count=word_count,
+                                             min_required=min_words,
+                                             attempt=attempt + 1,
+                                             max_retries=max_retries + 1)
                     if attempt < max_retries:
-                        structured_logger.warning(f"Script too short on attempt {attempt + 1}, retrying with stronger prompt",
-                                                 job_id=job_id,
-                                                 word_count=word_count,
-                                                 min_required=min_words,
-                                                 attempt=attempt + 1,
-                                                 max_retries=max_retries + 1)
+                        naming_feedback = short_feedback(word_count, min_words, max_words)
                         await asyncio.sleep(2)  # Brief delay before retry
                     else:
-                        # Last attempt - use what we have and let validation catch it
-                        content = generated_content
-                        structured_logger.warning("Script too short after all retries, proceeding to validation",
-                                                 job_id=job_id,
-                                                 word_count=word_count,
-                                                 min_required=min_words)
-            
+                        # Never kept and padded: a script that is still short after the allowed regenerations fails the episode.
+                        raise ScriptTooShortError(word_count, min_words)
+
             except asyncio.TimeoutError:
                 if attempt < max_retries:
                     structured_logger.warning(f"Content generation timed out on attempt {attempt + 1}, retrying",
@@ -2316,25 +2351,6 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
         
         if not content:
             raise Exception("Failed to generate content after all retry attempts")
-
-        if not naming_checked:
-            # Last attempt was too short and was kept for validation to judge: it still gets the naming check.
-            naming_result = await check_naming(
-                content.get('script', ''), content.get('description', ''), research_context.confirmed_papers, naming_llm)
-            naming_attempts.append({'attempt': 'final', **naming_result.summary()})
-            if not naming_result.passed:
-                raise NamingViolationError(naming_result.violations)
-            final_bad = notation_problems(content.get('script', ''), content.get('description', ''))
-            if final_bad:
-                raise UnspeakableNotationError(final_bad)
-            final_banned = banned_phrase_hits(content.get('script', ''), content.get('description', ''))
-            if final_banned:
-                raise BannedPhraseError(final_banned)
-            final_attr = await check_attributions(
-                content.get('script', ''), [c for c in research_context.confirmed_papers if c.pid in naming_result.named_pids], naming_llm)
-            naming_attempts[-1]['attribution'] = final_attr.summary()
-            if not final_attr.passed:
-                raise AttributionError(final_attr.violations)
 
         return content, naming_result, naming_attempts
 
@@ -2568,9 +2584,9 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
                 error_detail = f"Invalid content received: {str(content)[:200]}..."
                 raise ValueError(f"Content generation returned empty, incomplete, or placeholder data. Details: {error_detail}")
             
-            # Validate script length matches duration requirement (with auto-extension)
+            # Validate script length matches duration requirement (a script is never padded to reach it)
             script = content.get('script', '')
-            is_valid, error_msg, final_script = validate_script_length(script, request.duration, auto_extend=True)
+            is_valid, error_msg, final_script = validate_script_length(script, request.duration)
             if not is_valid:
                 word_count = len(script.split())
                 structured_logger.error("Script length validation failed",
@@ -2580,17 +2596,10 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
                                        error=error_msg)
                 raise ValueError(f"Script does not meet duration requirement. {error_msg}")
             
-            # Update content with potentially extended script
-            if final_script != script:
-                word_count_before = len(script.split())
-                word_count_after = len(final_script.split())
-                structured_logger.info("Script automatically extended to meet minimum length",
-                                      job_id=job_id,
-                                      words_before=word_count_before,
-                                      words_after=word_count_after,
-                                      words_added=word_count_after - word_count_before)
-                content['script'] = final_script
-            
+            # Fix 4: every post-generation check runs again on the text that is stored and spoken (after notation became words,
+            # venues were rewritten, references were built and the description was limited); nothing is padded or added unchecked.
+            await self._verify_final_text(content, request, research_context, google_key, job_id)
+
             structured_logger.info("Content validation passed",
                                   job_id=job_id,
                                   script_word_count=len(content['script'].split()),

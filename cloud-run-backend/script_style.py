@@ -14,6 +14,15 @@ from typing import Any, Dict, List, Optional
 CONFIG_PATH = Path(__file__).resolve().parent / "config" / "banned_phrases.json"
 
 
+class FinalTextCheckError(Exception):
+    """The checks run again on the text that is stored and spoken found something the checks on the generated text did not."""
+
+    def __init__(self, reason: str):
+        self.reason = reason
+        super().__init__("The final script did not pass the checks that were run again on the text to be published (" + reason +
+                         "), so no episode was published.")
+
+
 class BannedPhraseError(Exception):
     """Raised when the script still uses banned wording after the allowed regenerations."""
 

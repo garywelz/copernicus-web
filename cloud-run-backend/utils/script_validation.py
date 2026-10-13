@@ -56,6 +56,21 @@ def length_feedback(word_count: int, max_words: int, min_words: int) -> str:
             "repetition, general background and restatement; keep the specific findings of the papers you name, and keep to the question asked.\n")
 
 
+def short_feedback(word_count: int, min_words: int, max_words: int) -> str:
+    return (f"\n\n**YOUR PREVIOUS SCRIPT WAS REJECTED because it was too short: {word_count} words, and the minimum is {min_words} words.**\n"
+            f"Rewrite it between {min_words} and {max_words} words by covering what the papers you name actually found in more detail "
+            "(methods, results, limits). Do not pad with general remarks or repetition.\n")
+
+
+class ScriptTooShortError(Exception):
+    """Raised when the script is still under the minimum after the allowed regenerations. Scripts are never padded."""
+
+    def __init__(self, word_count: int, min_words: int):
+        self.word_count, self.min_words = word_count, min_words
+        super().__init__(f"The generated script has {word_count} words, under the minimum of {min_words}, and regeneration did not "
+                         "lengthen it, so no episode was published.")
+
+
 class ScriptTooLongError(Exception):
     """Raised when the script is still over the word cap after the allowed regenerations."""
 
@@ -65,105 +80,21 @@ class ScriptTooLongError(Exception):
                          "under the limit, so no episode was published.")
 
 
-def extend_script_if_close(script: str, min_words: int, word_count: int) -> str:
-    """
-    Automatically extend a script if it's close to the minimum (within 50 words or 10%).
-    Adds a natural conclusion/transition to bring it up to the minimum.
-    
-    Args:
-        script: The podcast script text
-        min_words: Minimum word count required
-        word_count: Current word count
-    
-    Returns:
-        Extended script if close to minimum, original script otherwise
-    """
-    words_needed = min_words - word_count
-    margin = max(50, int(min_words * 0.1))  # 50 words or 10% of minimum, whichever is larger
-    
-    if words_needed > margin or words_needed <= 0:
-        # Too far from minimum or already meets it - don't extend
-        return script
-    
-    # Script is close - extend it with a natural conclusion
-    # Find the last speaker label to determine who should speak
-    lines = script.split('\n')
-    last_speaker = "HOST"
-    for line in reversed(lines):
-        line_upper = line.strip().upper()
-        if line_upper.startswith('HOST:'):
-            last_speaker = "HOST"
-            break
-        elif line_upper.startswith('EXPERT:'):
-            last_speaker = "EXPERT"
-            break
-        elif line_upper.startswith('QUESTIONER:'):
-            last_speaker = "QUESTIONER"
-            break
-    
-    # Create a natural extension based on who last spoke
-    extension = "\n\n"
-    if last_speaker == "HOST":
-        extension += "EXPERT: This is certainly an exciting area with tremendous potential for advancement in the field.\n\n"
-        extension += "HOST: Absolutely. Thank you for sharing these insights with us today. It's clear that this research represents a significant step forward.\n\n"
-    elif last_speaker == "EXPERT":
-        extension += "HOST: Those are fascinating insights. It's remarkable how this work is shaping our understanding and opening new possibilities.\n\n"
-        extension += "QUESTIONER: I think our listeners will really appreciate learning about these developments.\n\n"
-    else:  # QUESTIONER
-        extension += "EXPERT: Exactly. And there's still so much more to explore in this area.\n\n"
-        extension += "HOST: Thank you both for this enlightening discussion. The implications are truly significant.\n\n"
-    
-    extended_script = script + extension
-    
-    # Check if we've added enough words (add more if needed)
-    new_word_count = len(extended_script.split())
-    if new_word_count < min_words:
-        # Add a bit more padding
-        additional = "\n\n" + last_speaker + ": The research continues to evolve, bringing new perspectives and deeper understanding to this important field."
-        extended_script += additional
-    
-    return extended_script
+def validate_script_length(script: str, duration: str) -> Tuple[bool, Optional[str], str]:
+    """Validate that a script meets the minimum word count for the requested duration.
 
+    A script that is too short is never padded (an older version appended unchecked boilerplate sentences to scripts that were close
+    to the minimum); it is regenerated with feedback, and fails if it stays short.
 
-def validate_script_length(script: str, duration: str, auto_extend: bool = True) -> Tuple[bool, Optional[str], str]:
-    """
-    Validate that a script meets the minimum word count for the requested duration.
-    Optionally extends scripts that are close to the minimum.
-    
-    Args:
-        script: The podcast script text
-        duration: Duration string like "5-10 minutes"
-        auto_extend: If True, automatically extend scripts that are close to minimum
-    
-    Returns:
-        Tuple of (is_valid, error_message, final_script)
-        If valid, error_message is None. final_script may be extended if auto_extend=True
-    """
+    Returns (is_valid, error_message, script); the script is returned unchanged."""
     if not script or not isinstance(script, str):
         return False, "Script is empty or not a string", script
-    
-    # Calculate minimum word count
     min_words = calculate_minimum_words_for_duration(duration)
-    
-    # Count words in script (split by whitespace)
     word_count = len(script.split())
-    
-    # If script is close to minimum and auto_extend is enabled, try to extend it
-    if auto_extend and word_count < min_words:
-        margin = max(50, int(min_words * 0.1))  # 50 words or 10% of minimum
-        if (min_words - word_count) <= margin:
-            # Close enough to extend automatically
-            extended_script = extend_script_if_close(script, min_words, word_count)
-            new_word_count = len(extended_script.split())
-            if new_word_count >= min_words:
-                return True, None, extended_script
-    
     if word_count < min_words:
         return False, (
             f"Script is too short: {word_count} words. "
             f"Minimum required: {min_words} words for {duration}. "
             f"Please generate a longer script that fills the full duration."
         ), script
-    
     return True, None, script
-
