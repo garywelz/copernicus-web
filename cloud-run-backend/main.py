@@ -1511,7 +1511,7 @@ async def upload_description_to_gcs(description: str, canonical_filename: str, t
         blob = bucket.blob(f"descriptions/{description_filename}")
         
         # Upload enhanced description as markdown
-        blob.upload_from_string(enhanced_description, content_type="text/markdown")
+        blob.upload_from_string(enhanced_description, content_type="text/markdown; charset=utf-8")
         blob.make_public()
         
         # Return public URL
@@ -1578,7 +1578,7 @@ async def generate_and_upload_transcript(script: str, canonical_filename: str) -
         blob = bucket.blob(f"transcripts/{transcript_filename}")
         
         # Upload transcript as markdown
-        blob.upload_from_string(transcript_content, content_type="text/markdown")
+        blob.upload_from_string(transcript_content, content_type="text/markdown; charset=utf-8")
         blob.make_public()
         
         # Return public URL
