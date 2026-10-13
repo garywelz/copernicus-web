@@ -285,7 +285,48 @@ class ComprehensiveResearchPipeline:
             return await self._search_openalex_arxiv(query, depth)
         sources = self._parse_arxiv_xml(xml_data)
         print(f"✅ ArXiv search found {len(sources)} sources for: {query}")
+        if self.FOCUSED_QUERIES:
+            sources = await self._add_focused_arxiv_results(query, sources)
         return sources
+
+    # Fix 4 (i): the full topic sentence is a poor arXiv query (generic words outrank the one paper that is exactly about the question),
+    # so two or three focused queries of 2-3 distinctive terms run beside it. A model proposes them (self.query_llm, set by the
+    # integrator); without one, search_queries builds them from the topic words. Results are merged and ordered by how many of the
+    # distinctive terms they contain.
+    FOCUSED_QUERIES = True
+    FOCUSED_SPACING_S = 3.0        # arXiv asks for one request per 3 seconds
+    FOCUSED_MAX_RESULTS = 10
+    ARXIV_MAX_AFTER_FOCUS = 20
+    query_llm = None
+    _ARXIV_ID = re.compile(r"arxiv\.org/abs/(\d{4}\.\d{4,5})", re.I)
+
+    def _arxiv_key(self, source) -> str:
+        m = self._ARXIV_ID.search(getattr(source, "url", "") or "")
+        return m.group(1) if m else (getattr(source, "url", "") or getattr(source, "title", ""))
+
+    async def _add_focused_arxiv_results(self, topic: str, sentence_sources: List[ResearchSource]) -> List[ResearchSource]:
+        from paper_confirmation import RegistryUnavailable
+        from search_queries import focused_queries, query_terms, lexical_score
+        queries = await focused_queries(topic, self.query_llm)
+        if not queries:
+            return sentence_sources
+        merged = list(sentence_sources)
+        seen = {self._arxiv_key(s) for s in merged}
+        for q in queries:
+            await asyncio.sleep(self.FOCUSED_SPACING_S)
+            params = {"search_query": q, "start": 0, "max_results": self.FOCUSED_MAX_RESULTS, "sortBy": "relevance", "sortOrder": "descending"}
+            try:
+                found = self._parse_arxiv_xml(await self._arxiv_get(params))
+            except RegistryUnavailable:
+                print(f"arxiv_focused query={q!r} unavailable; skipping the remaining focused queries")
+                break  # arXiv is refusing or slow: do not keep waiting through retries for extras
+            fresh = [s for s in found if self._arxiv_key(s) not in seen]
+            seen.update(self._arxiv_key(s) for s in fresh)
+            merged.extend(fresh)
+            print(f"arxiv_focused query={q!r} results={len(found)} new={len(fresh)}")
+        terms = query_terms(queries)
+        order = sorted(range(len(merged)), key=lambda i: (-lexical_score(merged[i].title, merged[i].abstract, terms), i))
+        return [merged[i] for i in order][:self.ARXIV_MAX_AFTER_FOCUS]
 
     OPENALEX_ARXIV_SOURCE = "S4306400194"  # OpenAlex's id for arXiv as a source of works
     OPENALEX_RETRY_WAITS = (2.0, 4.0)
