@@ -104,7 +104,15 @@ def _harness(monkeypatch, scripts, short_first=False):
         return {"title": "T", "script": text, "description": "Body."}
     monkeypatch.setattr(service, "generate_content_from_research_context", fake_generate)
 
+    calls["attr"] = []   # what the attribution model reports (a list of {quote, pid, verdict, reason}); one list per call, last one repeats
+    calls["attr_calls"] = 0
+
     async def llm(system, user):
+        if "PAPERS:" in user and "SCRIPT:" in user:     # the attribution check (fix 4 b)
+            seq = calls["attr"]
+            calls["attr_calls"] += 1
+            items = seq[min(calls["attr_calls"] - 1, len(seq) - 1)] if seq else []
+            return json.dumps({"attributions": items})
         ms = []
         if "Lovelace" in user:
             ms.append({"quote": "Lovelace and Turing showed", "authors": ["Lovelace", "Turing"], "year": 2025, "title_words": []})
@@ -328,3 +336,77 @@ def test_the_prompt_lists_the_banned_words_from_the_config_and_no_longer_teaches
     assert "banned_phrase_list()" in src and "This research represents" not in src and "a paradigm shift because" not in src
     assert "highlight revolutionary implications" not in src and "Present a paradigm shift only" not in src
     assert "revolutionary" in load_banned_phrases()
+
+
+# ---------------------------------------------------------------- fix 4 (b): unsupported attributions are a reason to regenerate
+from attribution_check import AttributionError
+
+CLAIM = "Lovelace and Turing showed that every machine proves everything."
+
+
+def _unsupported(quote=CLAIM):
+    return [{"quote": quote, "pid": "P1", "verdict": "unsupported", "reason": "The abstract says nothing like this."}]
+
+
+def test_unsupported_attribution_triggers_regeneration_with_the_sentence_quoted_back(monkeypatch):
+    req = PodcastRequest(topic="t")
+    bad, good = _script(" " + CLAIM, req), _script(" Lovelace and Turing showed it.", req)
+    service, req, calls = _harness(monkeypatch, [bad, good])
+    calls["attr"] = [_unsupported(), []]
+    content, result, attempts = run(service._generate_checked_content(req, _ctx(), "k", "job1"))
+    assert calls["gen"] == 2 and content["script"] == good and calls["attr_calls"] == 2
+    assert CLAIM in calls["feedback"][1] and "abstracts do not support" in calls["feedback"][1]
+    assert attempts[0]["attribution"]["unsupported"] == 1 and attempts[1]["attribution"]["unsupported"] == 0
+
+
+def test_attribution_that_never_clears_fails_the_episode(monkeypatch):
+    req = PodcastRequest(topic="t")
+    bad = _script(" " + CLAIM, req)
+    service, req, calls = _harness(monkeypatch, [bad, bad, bad])
+    calls["attr"] = [_unsupported()]
+    with pytest.raises(AttributionError) as e:
+        run(service._generate_checked_content(req, _ctx(), "k", "job1"))
+    assert calls["gen"] == 3 and CLAIM[:40] in str(e.value) and "no episode was published" in str(e.value)
+
+
+def test_a_naming_violation_means_no_attribution_call_that_attempt(monkeypatch):
+    req = PodcastRequest(topic="t")
+    bad, good = _script(" Zorblatt and Quux showed it.", req), _script(" Lovelace and Turing showed it.", req)
+    service, req, calls = _harness(monkeypatch, [bad, good])
+    run(service._generate_checked_content(req, _ctx(), "k", "job1"))
+    assert calls["attr_calls"] == 1                      # only for the attempt whose papers were all listed
+
+
+def test_short_last_attempt_still_gets_the_attribution_check(monkeypatch):
+    req = PodcastRequest(topic="t")
+    short = "Lovelace and Turing showed that every machine proves everything."
+    service, req, calls = _harness(monkeypatch, [short, short, short])
+    calls["attr"] = [_unsupported(short)]
+    with pytest.raises(AttributionError):
+        run(service._generate_checked_content(req, _ctx(), "k", "job1"))
+
+
+def test_attribution_check_unavailable_fails_closed(monkeypatch):
+    from attribution_check import AttributionCheckUnavailable
+    req = PodcastRequest(topic="t")
+    good = _script(" Lovelace and Turing showed it.", req)
+    service, req, calls = _harness(monkeypatch, [good])
+    plain = svc.make_gemini_llm_call("k")
+
+    async def llm(system, user):
+        if "PAPERS:" in user and "SCRIPT:" in user:
+            raise RuntimeError("model down")
+        return json.dumps({"mentions": [{"quote": "Lovelace and Turing showed", "authors": ["Lovelace", "Turing"], "year": 2025, "title_words": []}]})
+    monkeypatch.setattr(svc, "make_gemini_llm_call", lambda key: llm)
+    with pytest.raises(AttributionCheckUnavailable):
+        run(service._generate_checked_content(req, _ctx(), "k", "job1"))
+    assert calls["gen"] == 3
+
+
+def test_failure_notices_for_attribution():
+    from failure_notice import describe_failure
+    from attribution_check import AttributionCheckUnavailable
+    a = describe_failure(AttributionError(_unsupported()))
+    b = describe_failure(AttributionCheckUnavailable("x"))
+    assert a["kind"] == "unsupported_attribution" and "abstracts do not support" in a["summary"] and CLAIM not in a["summary"]
+    assert b["kind"] == "attribution_check_unavailable" and "try again later" in b["what_to_do"]

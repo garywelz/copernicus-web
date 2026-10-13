@@ -105,6 +105,7 @@ from failure_notice import describe_failure
 from reference_sections import apply_reference_sections, BUILT_BY as REFERENCES_BUILT_BY
 from speech_text import strip_pn_markers_counted, speak_text, notation_problems, notation_feedback, UnspeakableNotationError
 from script_style import banned_phrase_hits, banned_feedback, BannedPhraseError
+from attribution_check import check_attributions, attribution_feedback, AttributionError
 
 # Retry decorator for upload operations
 def retry_upload(max_retries=3, delay=2):
@@ -2223,7 +2224,13 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
                     # Fix 4 (a): overstated or promotional wording from the one list in config/banned_phrases.json
                     banned = banned_phrase_hits(script, generated_content.get('description', '') if isinstance(generated_content, dict) else '')
                     naming_attempts[-1]['banned_phrases'] = [{'phrase': h['phrase'], 'matched': h['matched'], 'where': h['where']} for h in banned]
-                    if naming_result.passed and not bad_notation and not banned:
+                    # Fix 4 (b): a claim attributed to a named paper must be supported by that paper's abstract
+                    attribution = None
+                    if naming_result.passed:
+                        named = [c for c in research_context.confirmed_papers if c.pid in naming_result.named_pids]
+                        attribution = await check_attributions(script, named, naming_llm)
+                        naming_attempts[-1]['attribution'] = attribution.summary()
+                    if naming_result.passed and not bad_notation and not banned and attribution.passed:
                         content = generated_content
                         naming_checked = True
                         structured_logger.info(f"Content generation succeeded on attempt {attempt + 1}",
@@ -2236,18 +2243,22 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
                                              attempt=attempt + 1,
                                              violations=naming_result.violations,
                                              unspeakable_notation=bad_notation,
-                                             banned_phrases=[h['matched'] for h in banned])
+                                             banned_phrases=[h['matched'] for h in banned],
+                                             unsupported_attributions=[v['quote'][:160] for v in attribution.violations] if attribution else [])
                     if attempt < max_retries:
                         naming_feedback = ((feedback_text(naming_result, research_context.confirmed_papers) if not naming_result.passed else "")
                                            + (notation_feedback(bad_notation) if bad_notation else "")
-                                           + (banned_feedback(banned) if banned else ""))
+                                           + (banned_feedback(banned) if banned else "")
+                                           + (attribution_feedback(attribution) if attribution and not attribution.passed else ""))
                         await asyncio.sleep(2)
                         continue
                     if not naming_result.passed:
                         raise NamingViolationError(naming_result.violations)
                     if bad_notation:
                         raise UnspeakableNotationError(bad_notation)
-                    raise BannedPhraseError(banned)
+                    if banned:
+                        raise BannedPhraseError(banned)
+                    raise AttributionError(attribution.violations)
                 else:
                     if attempt < max_retries:
                         structured_logger.warning(f"Script too short on attempt {attempt + 1}, retrying with stronger prompt",
@@ -2308,6 +2319,11 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
             final_banned = banned_phrase_hits(content.get('script', ''), content.get('description', ''))
             if final_banned:
                 raise BannedPhraseError(final_banned)
+            final_attr = await check_attributions(
+                content.get('script', ''), [c for c in research_context.confirmed_papers if c.pid in naming_result.named_pids], naming_llm)
+            naming_attempts[-1]['attribution'] = final_attr.summary()
+            if not final_attr.passed:
+                raise AttributionError(final_attr.violations)
 
         return content, naming_result, naming_attempts
 
