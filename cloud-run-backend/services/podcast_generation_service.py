@@ -1597,7 +1597,7 @@ In this comprehensive exploration, we'll examine the latest research development
             blob = bucket.blob(f"descriptions/{description_filename}")
             
             # Upload enhanced description as markdown
-            blob.upload_from_string(enhanced_description, content_type="text/markdown")
+            blob.upload_from_string(enhanced_description, content_type="text/markdown; charset=utf-8")
             blob.make_public()
             
             # Return public URL
@@ -1663,7 +1663,7 @@ In this comprehensive exploration, we'll examine the latest research development
             blob = bucket.blob(f"transcripts/{transcript_filename}")
             
             # Upload transcript as markdown
-            blob.upload_from_string(transcript_content, content_type="text/markdown")
+            blob.upload_from_string(transcript_content, content_type="text/markdown; charset=utf-8")
             blob.make_public()
             
             # Return public URL
