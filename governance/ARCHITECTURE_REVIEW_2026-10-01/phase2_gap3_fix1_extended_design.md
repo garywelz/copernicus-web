@@ -334,6 +334,14 @@ and the next judging package; precedes fix 3.
   variable `NOTIFICATION_EMAIL` when its own variable is unset (`config/constants.py:54`). Section 13 sets `NOTIFICATION_EMAIL` to
   the **sender** address; unless `ERROR_NOTIFICATION_EMAIL` is set explicitly in the same revision, failure emails would go to the sender.
   The revision must set `ERROR_NOTIFICATION_EMAIL` explicitly, **to gwelz@gc.cuny.edu (decided 2026-10-08).** The code default in `config/constants.py` is deliberately not that address and is not chained to `NOTIFICATION_EMAIL`, so the setting is a deploy-time step on the revision (`--update-env-vars=ERROR_NOTIFICATION_EMAIL=gwelz@gc.cuny.edu`), listed in the deploy checklist beside the app-password secret. It is not needed for the sandbox run.
+- **Decided 2026-10-13: the app password is pinned to a secret version, not `latest`.** The sender is the dedicated account
+  `copernicusai.verify@gmail.com`; its app password is the secret `notification-email-password`, version 1. The email-settings
+  revision mounts it as `--update-secrets=NOTIFICATION_EMAIL_PASSWORD=notification-email-password:1`, so a new secret version
+  (for example after a rotation) reaches the service only through a deliberate deploy of a new revision, never silently. The
+  service account (`204731194849-compute@developer.gserviceaccount.com`) reads it through its project-level
+  `roles/secretmanager.secretAccessor`; no per-secret grant exists. Rotation procedure: add a version, then deploy a revision with
+  `:2` (gated as in `DEPLOY.md`), then disable version 1. Settings on that revision: `NOTIFICATION_EMAIL=copernicusai.verify@gmail.com`,
+  `ERROR_NOTIFICATION_EMAIL=gwelz@gc.cuny.edu`.
 - **Neither prerequisite blocks the sandbox test,** which sends no email; both are needed before the gated deploy.
 - **Requester notification** (decided 2026-10-06: subscribers receive their own failure emails) needs C8: the failure path today sends
   only to `ERROR_NOTIFICATION_EMAIL`.
