@@ -34,6 +34,40 @@ def calculate_minimum_words_for_duration(duration: str) -> int:
     return int(minutes * 150 * 0.8)
 
 
+# Speech rate and bumpers measured on the stored episodes (ElevenLabs multi-voice, 15 episodes, 2026-10-13): 119 to 136 words per
+# minute (median 129; 830 to 911 characters per minute), and the intro and outro bumpers add about 14.4 seconds. The cap uses the
+# slowest rate seen, so even a script at the cap stays within the longest requested length.
+SLOWEST_WORDS_PER_MINUTE = 119
+BUMPER_SECONDS = 15
+
+
+def calculate_maximum_words_for_duration(duration: str) -> int:
+    """Most words a script may have for the longest length asked for ("5-10 minutes" -> 10 minutes, bumpers included).
+
+    10 minutes: (600 s - 15 s) / 60 * 119 = 1160 words. A single number "N minutes" is treated as the longest length too; when the
+    existing minimum (150 words per minute, 80 percent) is already higher than that, the cap is the minimum plus 100 words, so the
+    cap never contradicts the minimum."""
+    numbers = re.findall(r"\d+", duration or "")
+    longest = int(numbers[-1]) if numbers else 10
+    cap = int((longest * 60 - BUMPER_SECONDS) / 60 * SLOWEST_WORDS_PER_MINUTE)
+    return max(cap, calculate_minimum_words_for_duration(duration or "") + 100)
+
+
+def length_feedback(word_count: int, max_words: int, min_words: int) -> str:
+    return (f"\n\n**YOUR PREVIOUS SCRIPT WAS REJECTED because it was too long: {word_count} words, and the limit is {max_words} words "
+            f"(it is read aloud and must stay within the requested length).**\nRewrite it between {min_words} and {max_words} words. Cut "
+            "repetition, general background and restatement; keep the specific findings of the papers you name, and keep to the question asked.\n")
+
+
+class ScriptTooLongError(Exception):
+    """Raised when the script is still over the word cap after the allowed regenerations."""
+
+    def __init__(self, word_count: int, max_words: int):
+        self.word_count, self.max_words = word_count, max_words
+        super().__init__(f"The generated script has {word_count} words, over the limit of {max_words}, and regeneration did not bring it "
+                         "under the limit, so no episode was published.")
+
+
 def extend_script_if_close(script: str, min_words: int, word_count: int) -> str:
     """
     Automatically extend a script if it's close to the minimum (within 50 words or 10%).
