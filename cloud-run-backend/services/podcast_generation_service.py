@@ -2420,6 +2420,7 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
                     'confirmed_papers': [c.to_dict() for c in research_context.confirmed_papers],
                     'dropped_candidates': [d.to_dict() for d in research_context.dropped_candidates],
                     'confirmation_stats': getattr(research_context, 'confirmation_stats', {}),
+                    'relevance_scores': getattr(research_context, 'relevance_scores', {}),
                     'requested_pid': research_context.requested_pid,
                     'updated_at': datetime.utcnow().isoformat()
                 })
