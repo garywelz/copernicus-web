@@ -10,6 +10,7 @@ Integrates sophisticated patterns from legacy Copernicus architecture:
 import asyncio
 import aiohttp
 import json
+from json_reply import parse_json_reply
 import os
 from typing import Dict, List, Optional, Any, Tuple
 from datetime import datetime, timedelta
@@ -162,8 +163,8 @@ class EnhancedResearchService:
         )
         
         try:
-            response = await self._call_google_ai(prompt, max_tokens=1500)
-            analysis_data = json.loads(response)
+            response = await self._call_google_ai(prompt, max_tokens=3000)
+            analysis_data = parse_json_reply(response)
             return self._validate_paper_analysis(analysis_data)
         except Exception as e:
             print(f"❌ Paper analysis error: {e}")
@@ -185,9 +186,11 @@ class EnhancedResearchService:
         )
         
         try:
-            response = await self._call_google_ai(prompt, max_tokens=1000)
-            connections = json.loads(response)
-            return connections if isinstance(connections, list) else [[] for _ in analyses]
+            response = await self._call_google_ai(prompt, max_tokens=2500)  # 1000 cut the reply off mid-sentence (2026-10-13)
+            connections = parse_json_reply(response)
+            if not isinstance(connections, list):
+                return [[] for _ in analyses]
+            return [c if isinstance(c, list) else [str(c)] for c in connections]
         except Exception as e:
             print(f"❌ Connection analysis error: {e}")
             return [[] for _ in analyses]
@@ -246,7 +249,7 @@ class EnhancedResearchService:
         
         try:
             response = await self._call_google_ai(prompt, max_tokens=1200)
-            themes_data = json.loads(response)
+            themes_data = parse_json_reply(response)
             
             themes = []
             for theme_data in themes_data.get("themes", []):
@@ -407,12 +410,10 @@ Thank you for joining us on this journey through the latest scientific discoveri
 Until next time, keep questioning, keep exploring, and keep pushing the boundaries of knowledge."""
 
     def _extract_citations(self, analyses: List[PaperAnalysis]) -> List[str]:
-        """Extract formatted citations from analyses"""
-        citations = []
-        for analysis in analyses:
-            citation = f"{analysis.title}. {', '.join(analysis.keywords[:3])}."
-            citations.append(citation)
-        return citations
+        """Gap 3 fix 1 (C2): no citation strings are produced here. The old version built "Title. keyword, keyword."
+        lines that looked like citations but were not registry data. This script path has no callers; real reference
+        lists are built by code from confirmed papers (paper_confirmation.format_citation_line)."""
+        return []
 
     def _generate_hashtags(self, topic: str, analyses: List[PaperAnalysis]) -> List[str]:
         """Generate relevant hashtags"""
@@ -449,7 +450,10 @@ Until next time, keep questioning, keep exploring, and keep pushing the boundari
             }],
             "generationConfig": {
                 "maxOutputTokens": max_tokens,
-                "temperature": 0.7
+                "temperature": 0.7,
+                # gemini-2.5-flash counts its hidden reasoning against maxOutputTokens; with it on, a 1500-token limit cut the
+                # JSON off mid-string (seen 2026-10-12). These calls extract structured text and need no reasoning.
+                "thinkingConfig": {"thinkingBudget": 0}
             }
         }
         

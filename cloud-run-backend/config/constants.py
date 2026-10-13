@@ -51,7 +51,9 @@ CATEGORY_SLUG_TO_LABEL = {
 EPISODE_COLLECTION_NAME = os.getenv("COPERNICUS_EPISODE_COLLECTION", "episodes")
 
 # Notification Configuration
-ERROR_NOTIFICATION_EMAIL = os.getenv("ERROR_NOTIFICATION_EMAIL", os.getenv("NOTIFICATION_EMAIL", "garywelz@gmail.com"))
+# Gap 3 fix 1 (C8): deliberately NOT chained to NOTIFICATION_EMAIL (the sender address). The revision must set
+# ERROR_NOTIFICATION_EMAIL explicitly; if it does not, failure emails go to this default.
+ERROR_NOTIFICATION_EMAIL = os.getenv("ERROR_NOTIFICATION_EMAIL", "garywelz@gmail.com")
 DEFAULT_SUBSCRIBER_EMAIL = os.getenv("DEFAULT_SUBSCRIBER_EMAIL", "garywelz@gmail.com")
 ADMIN_SUBSCRIBER_EMAIL = os.getenv("ADMIN_SUBSCRIBER_EMAIL", "gwelz@gc.cuny.edu")
 

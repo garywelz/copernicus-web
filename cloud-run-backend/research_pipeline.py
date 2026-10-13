@@ -5,7 +5,7 @@ import os
 from typing import Dict, List, Optional, Any
 from datetime import datetime, timedelta
 import xml.etree.ElementTree as ET
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 import re
 
 @dataclass
@@ -21,6 +21,24 @@ class ResearchSource:
     journal: Optional[str] = None  # real venue; never treat pubmed/arxiv as the journal
     keywords: Optional[List[str]] = None
     relevance_score: Optional[float] = None
+    pid: Optional[str] = None  # P number, set only on a confirmed paper (gap 3 fix 1)
+    # The registry's own record (paper_confirmation shape) when this source was parsed straight from an arXiv or PubMed
+    # response, so confirmation can reuse it instead of asking the same registry again. Set only by the two parsers below.
+    registry_record: Optional[Dict[str, Any]] = field(default=None, repr=False, compare=False)
+
+def _registry_records(xml_data: str, kind: str) -> Dict[str, Dict[str, Any]]:
+    """The response parsed the way paper_confirmation parses it, keyed by arXiv id+version or PMID (cached per response)."""
+    cache = _registry_records.__dict__.setdefault("_cache", {})
+    key = (kind, hash(xml_data))
+    if key not in cache:
+        from paper_confirmation import parse_arxiv, parse_pubmed
+        try:
+            cache.clear()
+            cache[key] = (parse_arxiv if kind == "arxiv" else parse_pubmed)(xml_data)
+        except Exception:
+            cache[key] = {}
+    return cache[key]
+
 
 class ComprehensiveResearchPipeline:
     """
@@ -578,86 +596,53 @@ class ComprehensiveResearchPipeline:
         return sources
 
     async def _process_user_links(self, links: List[str], subject: str) -> List[ResearchSource]:
-        """Process user-provided research links"""
-        sources = []
-        
+        """Process user-provided research links.
+
+        Gap 3 fix 1 (C3): a link becomes a source only if an identifier (arXiv id, PubMed id or DOI) can be found
+        for it -- in the URL, then in the page's standard metadata -- AND that identifier is confirmed in its
+        registry. Title, authors and abstract come from the registry record. No model writes any metadata here.
+        Links that cannot be confirmed are dropped (and printed, as other errors in this module are).
+        """
+        from paper_confirmation import (
+            confirm_sources, discover_identifiers_in_page, RegistryUnavailable,
+        )
+        sources: List[ResearchSource] = []
+
         for link in links:
             try:
-                # Extract metadata from user links using AI
-                async with aiohttp.ClientSession() as session:
-                    # Fetch page content
-                    async with session.get(link, timeout=10) as response:
-                        if response.status == 200:
-                            content = await response.text()
-                            
-                            # Use AI to extract research metadata
-                            metadata = await self._extract_metadata_with_ai(content, link, subject)
-                            if metadata:
-                                sources.append(metadata)
-            
+                ids = discover_identifiers_in_page(link, "")
+                if not any(ids.values()):
+                    async with aiohttp.ClientSession() as session:
+                        async with session.get(link, timeout=10) as response:
+                            if response.status == 200:
+                                ids = discover_identifiers_in_page(link, (await response.text())[:200000])
+                if not any(ids.values()):
+                    print(f"User link dropped (no identifier found): {link}")
+                    continue
+
+                from types import SimpleNamespace
+                probe = SimpleNamespace(
+                    title="", publication_date="", doi=ids.get("doi"),
+                    url=(f"https://arxiv.org/abs/{ids['arxiv']}{ids['arxiv_version'] or ''}" if ids.get("arxiv")
+                         else f"https://pubmed.ncbi.nlm.nih.gov/{ids['pmid']}/" if ids.get("pmid") else ""),
+                )
+
+                result = await confirm_sources([probe])
+                if not result.confirmed:
+                    print(f"User link dropped ({result.drop_counts()}): {link}")
+                    continue
+                c = result.confirmed[0]
+                sources.append(ResearchSource(
+                    title=c.title, authors=list(c.authors), abstract=c.abstract, url=c.url,
+                    publication_date=str(c.year or ""), source="user_provided",
+                    doi=c.ids.get("doi"), journal=c.venue,
+                ))
+            except RegistryUnavailable:
+                raise
             except Exception as e:
                 print(f"Error processing user link {link}: {e}")
-        
-        return sources
 
-    async def _extract_metadata_with_ai(self, content: str, url: str, subject: str) -> Optional[ResearchSource]:
-        """Use AI to extract research metadata from web content"""
-        try:
-            async with aiohttp.ClientSession() as session:
-                headers = {
-                    "Authorization": f"Bearer {self.openrouter_api_key}",
-                    "Content-Type": "application/json"
-                }
-                
-                # Truncate content to avoid token limits
-                truncated_content = content[:3000]
-                
-                prompt = f"""
-                Extract research metadata from this web content about {subject}:
-                
-                URL: {url}
-                Content: {truncated_content}
-                
-                Return a JSON object with:
-                - title: string
-                - authors: array of strings
-                - abstract: string (summary of main content)
-                - publication_date: string (if available)
-                - keywords: array of strings
-                
-                JSON:"""
-                
-                ai_data = {
-                    "model": "anthropic/claude-3-haiku",
-                    "messages": [{"role": "user", "content": prompt}],
-                    "max_tokens": 300
-                }
-                
-                async with session.post(self.endpoints["openrouter"], 
-                                      headers=headers, json=ai_data) as response:
-                    if response.status == 200:
-                        result = await response.json()
-                        metadata_text = result["choices"][0]["message"]["content"]
-                        
-                        # Parse JSON response
-                        try:
-                            metadata = json.loads(metadata_text)
-                            return ResearchSource(
-                                title=metadata.get("title", ""),
-                                authors=metadata.get("authors", []),
-                                abstract=metadata.get("abstract", ""),
-                                url=url,
-                                publication_date=metadata.get("publication_date", ""),
-                                source="user_provided",
-                                keywords=metadata.get("keywords", [])
-                            )
-                        except json.JSONDecodeError:
-                            pass
-        
-        except Exception as e:
-            print(f"AI metadata extraction error: {e}")
-        
-        return None
+        return sources
 
     async def _rank_and_score_sources(self, sources: List[ResearchSource], subject: str) -> List[ResearchSource]:
         """Rank and score research sources by relevance"""
@@ -762,6 +747,7 @@ class ComprehensiveResearchPipeline:
                     source="pubmed",
                     doi=doi or None,
                     journal=journal or None,
+                    registry_record=_registry_records(xml_data, "pubmed").get(pmid),
                 )
                 sources.append(source)
         
@@ -790,13 +776,15 @@ class ComprehensiveResearchPipeline:
                 link = entry.find("atom:id", namespace).text
                 published = entry.find("atom:published", namespace).text
                 
+                m = re.search(r"arxiv\.org/abs/(\d{4}\.\d{4,5}v\d+)", link or "")
                 source = ResearchSource(
                     title=title,
                     authors=authors,
                     abstract=summary,
                     url=link,
                     publication_date=published,
-                    source="arxiv"
+                    source="arxiv",
+                    registry_record=_registry_records(xml_data, "arxiv").get(m.group(1)) if m else None,
                 )
                 sources.append(source)
         

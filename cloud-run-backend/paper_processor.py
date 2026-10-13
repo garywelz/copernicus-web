@@ -4,6 +4,7 @@ Adapted from copernicus_backup/src/services/paperProcessor.ts
 """
 
 import json
+from json_reply import parse_json_reply
 import time
 import hashlib
 from typing import Dict, Any, Optional, List
@@ -51,6 +52,9 @@ class PaperAnalysis:
     methodology_analysis: str
     future_research_directions: List[str]
     confidence_score: float
+    # True when the model's answer could not be parsed and the fields hold placeholder text instead of an analysis.
+    # The research integrator drops such a paper before generation (the placeholder must never reach a prompt).
+    analysis_failed: bool = False
 
 def validate_paper(paper: ResearchPaper) -> None:
     """Validates a research paper object"""
@@ -114,7 +118,6 @@ Please provide a comprehensive analysis in the following JSON format:
     "paradigm_shifts": ["Identify paradigm-shifting implications"],
     "interdisciplinary_connections": ["Connections to other scientific fields"],
     "implications": ["Broader implications for science and society"],
-    "citations": ["Properly formatted academic citations with DOIs where possible"],
     "methodology_analysis": "Analysis of research methodology and its innovations",
     "future_research_directions": ["Suggested future research directions"],
     "confidence_score": 0.85
@@ -139,9 +142,11 @@ Maintain academic rigor while highlighting transformative potential.
             raise Exception("Empty response from Gemini")
             
         # Parse JSON response
+        parse_failed = False
         try:
-            analysis_data = json.loads(response.text)
+            analysis_data = parse_json_reply(response.text)
         except json.JSONDecodeError:
+            parse_failed = True
             # If JSON parsing fails, create structured response from text
             analysis_data = {
                 "summary": response.text[:500],
@@ -162,10 +167,11 @@ Maintain academic rigor while highlighting transformative potential.
             paradigm_shifts=analysis_data.get("paradigm_shifts", []),
             interdisciplinary_connections=analysis_data.get("interdisciplinary_connections", []),
             implications=analysis_data.get("implications", []),
-            citations=analysis_data.get("citations", []),
+            citations=[],  # gap 3 fix 1 (C2): never keep a model-written citation string
             methodology_analysis=analysis_data.get("methodology_analysis", ""),
             future_research_directions=analysis_data.get("future_research_directions", []),
-            confidence_score=analysis_data.get("confidence_score", 0.8)
+            confidence_score=analysis_data.get("confidence_score", 0.8),
+            analysis_failed=parse_failed,
         )
         
         print(f"✅ Paper analysis completed with confidence: {analysis.confidence_score}")
