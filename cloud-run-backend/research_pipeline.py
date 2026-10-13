@@ -289,6 +289,9 @@ class ComprehensiveResearchPipeline:
 
     OPENALEX_ARXIV_SOURCE = "S4306400194"  # OpenAlex's id for arXiv as a source of works
     OPENALEX_RETRY_WAITS = (2.0, 4.0)
+    # OpenAlex's "polite pool": requests that carry a contact address get faster, steadier service. This is the project's dedicated
+    # notification mailbox, never a personal address.
+    OPENALEX_MAILTO = "copernicusai.verify@gmail.com"
     OPENALEX_ARXIV_ID = re.compile(r"10\.48550/arxiv\.(\d{4}\.\d{4,5})(?:v\d+)?$", re.I)
 
     @staticmethod
@@ -314,7 +317,7 @@ class ComprehensiveResearchPipeline:
         RegistryUnavailable(["arxiv", "openalex"]) when OpenAlex cannot be reached either: never continue with other sources only."""
         from paper_confirmation import RegistryUnavailable
         per_page = {"basic": 5, "comprehensive": 15, "exhaustive": 25}.get(depth, 15)
-        params = {"search": query, "filter": f"primary_location.source.id:{self.OPENALEX_ARXIV_SOURCE}", "per-page": per_page,
+        params = {"search": query, "filter": f"primary_location.source.id:{self.OPENALEX_ARXIV_SOURCE}", "per-page": per_page, "mailto": self.OPENALEX_MAILTO,
                   "select": "id,doi,title,publication_year,authorships,abstract_inverted_index"}
         attempts = len(self.OPENALEX_RETRY_WAITS) + 1
         data = None

@@ -70,6 +70,15 @@ def test_arxiv_down_falls_back_to_openalex_and_flags_the_sources_for_datacite(mo
     assert s.abstract == "Machine proofs need structure." and s.authors == ["Ada Lovelace", "Alan Turing"] and s.publication_date == "2026"
     prm = calls["openalex_params"][0]
     assert prm["filter"] == "primary_location.source.id:S4306400194" and prm["search"] == "formal proofs"
+    assert prm["mailto"] == "copernicusai.verify@gmail.com"                       # the polite pool, with the project mailbox
+
+
+def test_no_personal_address_is_ever_in_the_search_code():
+    from pathlib import Path
+    src = Path(rp.__file__).read_text(encoding="utf-8")
+    assert "copernicusai.verify@gmail.com" in src
+    for personal in ("garywelz", "gwelz", "gc.cuny.edu"):
+        assert personal not in src
 
 
 def test_when_arxiv_answers_openalex_is_not_used(monkeypatch):
