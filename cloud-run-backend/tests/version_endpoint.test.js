@@ -1,6 +1,6 @@
 // Run with: node cloud-run-backend/tests/version_endpoint.test.js
 const assert = require('assert');
-const handler = require('../../api/version.js');
+const handler = require('../../api/version/index.js');
 
 function call(env) {
   const saved = { ...process.env };

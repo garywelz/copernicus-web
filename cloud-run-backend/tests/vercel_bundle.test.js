@@ -43,3 +43,41 @@ assert.deepStrictEqual(problems, [], problems.join('\n'));
 // the matcher itself: the files that crashed production are recognised as excluded
 assert(ignored('lib/further-reading.js') && ignored('app/page.tsx') && ignored('api/_lib/further-reading.js') === false);
 console.log('vercel bundle: every required local file is deployed');
+
+// ---------------------------------------------------------------------------------------------------------------------------------
+// Public routes must reach a handler. vercel.json uses "builds", where a function file api/a/b.js is served at /api/a/b.js, and only
+// api/a/b/index.js is also served at /api/a/b (measured on production 2026-10-13: /api/version.js was 200 and /api/version was 404 for
+// api/version.js, while /api/episodes was 200 for api/episodes/index.js). The "/api/(.*)" route sends /api/version to /api/version, so a
+// plain api/version.js was never reachable at the URL DEPLOY.md documents.
+const vercel = JSON.parse(fs.readFileSync(path.join(root, 'vercel.json'), 'utf8'));
+
+function route(url) {
+  for (const r of vercel.routes) {
+    if (!r.src || !r.dest) continue;
+    const m = new RegExp('^' + r.src + '$').exec(url);
+    if (m) {
+      let dest = r.dest;
+      for (const [k, v] of Object.entries(m.groups || {})) dest = dest.replace('$' + k, v);
+      for (let i = 1; i < m.length; i++) dest = dest.replace('$' + i, m[i]);
+      return dest.split('?')[0];
+    }
+  }
+  return null;
+}
+function servedUrls(relFiles) {
+  const urls = new Set();
+  for (const f of relFiles) {
+    urls.add('/' + f);                                           // api/a/b.js -> /api/a/b.js
+    if (path.posix.basename(f) === 'index.js') urls.add('/' + path.posix.dirname(f));   // api/a/b/index.js -> /api/a/b
+  }
+  return urls;
+}
+const apiRel = apiFiles(path.join(root, 'api')).map((f) => path.relative(root, f).split(path.sep).join('/'));
+const served = servedUrls(apiRel);
+for (const publicUrl of ['/api/version', '/episodes/ever-x-1']) {
+  const dest = route(publicUrl);
+  assert(dest && served.has(dest), `${publicUrl} routes to ${dest}, which no deployed function serves (served: ${[...served].join(', ')})`);
+}
+// the matcher itself: the layout that returned 404 in production is recognised as unreachable, the fixed one is not
+assert(!servedUrls(['api/version.js']).has('/api/version') && servedUrls(['api/version/index.js']).has('/api/version'));
+console.log('vercel bundle: public routes reach a handler');
