@@ -5,9 +5,14 @@ from email.mime.multipart import MIMEMultipart
 from typing import Optional
 import os
 import asyncio
-from datetime import datetime
+from datetime import datetime, timezone
 
 # Retry decorator for email operations
+def utc_timestamp_text(now=None) -> str:
+    """The time as text, in true UTC. (datetime.now() is the server's local time, which was labelled UTC by mistake.)"""
+    return (now or datetime.now(timezone.utc)).astimezone(timezone.utc).strftime('%B %d, %Y at %I:%M %p UTC')
+
+
 def retry_email(max_retries=3, delay=2):
     """Decorator for retrying email operations with exponential backoff"""
     def decorator(func):
@@ -92,7 +97,7 @@ class EmailService:
                     </div>
                     
                     <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee; font-size: 14px; color: #7f8c8d;">
-                        <p>Generated on: {datetime.now().strftime('%B %d, %Y at %I:%M %p UTC')}</p>
+                        <p>Generated on: {utc_timestamp_text()}</p>
                         <p>This is an automated notification from the Copernicus AI Podcast Generator.</p>
                     </div>
                 </div>
@@ -164,7 +169,7 @@ class EmailService:
                     </div>
                     
                     <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee; font-size: 14px; color: #7f8c8d;">
-                        <p>Error occurred on: {datetime.now().strftime('%B %d, %Y at %I:%M %p UTC')}</p>
+                        <p>Error occurred on: {utc_timestamp_text()}</p>
                         <p>This is an automated notification from the Copernicus AI Podcast Generator.</p>
                     </div>
                 </div>
