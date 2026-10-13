@@ -95,5 +95,12 @@ const episode = (extra) => ({ title: 'T', episode_id: 'ever-x-1', description_ma
   backendBody = episode({ papers, papers_named: ['P1'] });
   res = await call(file2, dest2, { episodeId: 'ever-x-1' });
   assert(res.body.includes('<h2>Further reading</h2>'));
+  // 7. the date is readable on both pages, not the raw ISO text the backend stores
+  backendBody = episode({ generated_at: '2026-08-21T02:38:37.986690' });
+  for (const [f, d] of [[file, dest], [file2, dest2]]) {
+    res = await call(f, d, { episodeId: 'ever-x-1' });
+    assert(res.body.includes('August 21, 2026'), 'readable date on ' + f);
+    assert(!res.body.includes('2026-08-21T02:38:37'), 'no raw ISO timestamp on ' + f);
+  }
   console.log('further reading on the real route: ok');
 })().catch((e) => { console.error(e); process.exit(1); });

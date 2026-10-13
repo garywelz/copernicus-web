@@ -27,6 +27,7 @@ const ANIMATED_PLAYERS = {
 };
 
 const { furtherReadingHtml } = require('../_lib/further-reading');
+const { formatPubDate } = require('../_lib/format-date');
 
 function normalizeApiEpisode(payload = {}, slug) {
   const descriptionMarkdown = payload.description_markdown ?? payload.descriptionMarkdown;
@@ -216,7 +217,7 @@ async function handler(req, res) {
         <div class="meta">
           ${category ? `<span>🧭 ${category}</span>` : ''}
           ${duration ? `<span>⏱️ ${duration}</span>` : ''}
-          ${pubDate ? `<span>📅 ${pubDate}</span>` : ''}
+          ${pubDate ? `<span>📅 ${formatPubDate(pubDate)}</span>` : ''}
           ${attribution ? `<span>👤 Contributor: ${attribution}</span>` : ''}
         </div>
       </header>
