@@ -115,6 +115,8 @@ def build_stub(spec: Dict[str, Any]):
     service.generate_content_from_research_context = fake_generate
 
     async def llm(system, user):
+        if "PAPERS:" in user and "SCRIPT:" in user:     # the attribution check (fix 4 b): the stub finds nothing to dispute
+            return json.dumps({"attributions": []})
         ms = []
         if "Lovelace and Turing" in user:
             ms.append({"quote": "Lovelace and Turing in 2026", "authors": ["Lovelace", "Turing"], "year": 2026, "title_words": []})
