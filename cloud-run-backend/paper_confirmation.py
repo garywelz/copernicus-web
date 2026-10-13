@@ -55,14 +55,17 @@ class PaperNotConfirmed(Exception):
 class InsufficientConfirmedPapers(Exception):
     """Fewer confirmed papers than the minimum. The message says how many were found, confirmed and dropped, and why."""
 
-    def __init__(self, topic: str, found: int, confirmed: int, needed: int, drop_counts: Dict[str, int], dropped: Optional[List[Dict[str, Any]]] = None):
+    def __init__(self, topic: str, found: int, confirmed: int, needed: int, drop_counts: Dict[str, int], dropped: Optional[List[Dict[str, Any]]] = None,
+                 outside_zenodo: Optional[int] = None):
         self.topic, self.found, self.confirmed, self.needed, self.drop_counts = topic, found, confirmed, needed, dict(drop_counts)
+        self.outside_zenodo = outside_zenodo  # kept papers from arXiv, PubMed or Crossref (Zenodo does not count), when checked
         self.dropped = list(dropped or [])  # the dropped candidates with their identifiers and reasons, for the job record
         why = ", ".join(f"{n} {r.replace('_', ' ')}" for r, n in sorted(drop_counts.items())) or "none"
         super().__init__(
             f"Not enough confirmed research papers for '{topic}': {found} candidate sources were found, {confirmed} were confirmed "
             f"against PubMed, arXiv or Crossref, and at least {needed} are needed. Dropped candidates: {why}. "
-            "No episode was generated or published.")
+            + (f"Only {outside_zenodo} of the remaining papers come from arXiv, PubMed or Crossref (Zenodo records do not count toward the minimum). " if outside_zenodo is not None and outside_zenodo < needed else "")
+            + "No episode was generated or published.")
 
 
 @dataclass
@@ -86,8 +89,9 @@ class ConfirmedPaper:
 @dataclass
 class Dropped:
     title: str
-    reason: str  # no_identifier | not_found | identifier_mismatch | no_abstract | duplicate | over_limit
+    reason: str  # no_identifier | not_found | identifier_mismatch | no_abstract | duplicate | over_limit | off_topic | analysis_failed
     ids: Dict[str, Optional[str]] = field(default_factory=dict)
+    score: Optional[float] = None  # similarity to the topic, set only for off_topic
 
     def to_dict(self) -> Dict[str, Any]:
         return asdict(self)

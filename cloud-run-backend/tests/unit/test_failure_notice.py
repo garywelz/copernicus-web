@@ -156,3 +156,74 @@ def test_error_recipient_is_not_chained_to_the_sender_address(monkeypatch):
     finally:
         monkeypatch.undo()
         importlib.reload(c)
+
+
+# ---------------------------------------------------------------- a subscriber who is not the administrator gets only the plain explanation
+def _every_failure_type():
+    import relevance_gate as rg
+    import speech_text as st
+    return [
+        pc.InsufficientConfirmedPapers("dark matter", 9, 2, 3, {"no_identifier": 5}),
+        pc.InsufficientConfirmedPapers("dark matter", 0, 0, 3, {}),
+        pc.InsufficientConfirmedPapers("dark matter", 8, 2, 3, {"off_topic": 6}),
+        pc.InsufficientConfirmedPapers("dark matter", 8, 4, 3, {}, outside_zenodo=1),
+        pc.RegistryUnavailable(["arxiv"]),
+        pc.PaperNotConfirmed("the requested paper could not be confirmed (not_found)"),
+        nw.NamingViolationError([{"kind": "unlisted_work", "where": "script", "quote": "Zorblatt showed", "authors": ["Zorblatt"], "year": 2019}]),
+        nw.NamingCheckUnavailable("RuntimeError: quota key AIza-secret"),
+        st.UnspeakableNotationError(["\oint"]),
+        rg.RelevanceCheckUnavailable("RuntimeError: embeddings key sk-secret"),
+        RuntimeError("secret-internal db error at line 42"),
+        ValueError("another secret-internal detail"),
+    ]
+
+
+def test_a_non_admin_subscriber_never_gets_brackets_class_names_or_raw_text_in_any_failure():
+    for exc in _every_failure_type():
+        sent = notify(exc, "user@example.org")
+        assert [s[0] for s in sent] == ["user@example.org", "admin@example.org"], exc
+        to_user, to_admin = sent[0], sent[1]
+        text = to_user[1] + " " + (to_user[2] or "")
+        assert "[" not in text and "]" not in text, (exc, text)
+        assert type(exc).__name__ not in text and "Error" not in text.replace("an error", ""), (exc, text)
+        raw = str(exc)
+        assert raw not in text and "secret" not in text and "Zorblatt" not in text and "AIza" not in text and "oint" not in text, (exc, text)
+        assert to_user[1] and to_user[2]
+        assert type(exc).__name__ in to_admin[1] and "[" not in to_admin[1].split(":", 1)[0]      # the administrator gets the raw error
+
+
+def test_only_when_the_subscriber_is_the_administrator_do_brackets_appear():
+    for exc in _every_failure_type():
+        sent = notify(exc, "Admin@Example.org")
+        assert len(sent) == 1 and "[" + type(exc).__name__ in sent[0][1]
+
+
+def test_the_rendered_email_body_for_a_non_admin_subscriber_has_no_technical_text(monkeypatch):
+    import email as email_lib
+    import email_service
+    sent = []
+
+    class FakeSMTP:
+        def __init__(self, *a, **k): pass
+        def __enter__(self): return self
+        def __exit__(self, *a): return False
+        def starttls(self, *a, **k): pass
+        def login(self, *a): pass
+        def send_message(self, msg): sent.append(msg.as_string())
+    monkeypatch.setattr(email_service.smtplib, "SMTP", FakeSMTP)
+    monkeypatch.setenv("NOTIFICATION_EMAIL_PASSWORD", "x" * 16)
+    for exc in _every_failure_type():
+        service = svc.PodcastGenerationService()
+        service.email_service = email_service.EmailService()
+        old = svc.ERROR_NOTIFICATION_EMAIL
+        svc.ERROR_NOTIFICATION_EMAIL = "admin@example.org"
+        sent.clear()
+        try:
+            run(service._notify_failure(exc, "job1", "dark matter", "user@example.org"))
+        finally:
+            svc.ERROR_NOTIFICATION_EMAIL = old
+        msgs = [email_lib.message_from_string(m) for m in sent]
+        to_user = [m for m in msgs if m["To"] == "user@example.org"][0]
+        html = "".join(str(p.get_payload(decode=True), "utf-8", "ignore") for p in to_user.walk() if p.get_content_type() == "text/html")
+        body = html.split("</style>")[-1]
+        assert "[" not in body and type(exc).__name__ not in body and "secret" not in body and "AIza" not in body, exc

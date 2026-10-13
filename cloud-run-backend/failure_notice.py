@@ -9,19 +9,39 @@ from typing import Dict, Optional
 
 from paper_confirmation import InsufficientConfirmedPapers, PaperNotConfirmed, RegistryUnavailable
 from named_work_check import NamingCheckUnavailable, NamingViolationError
+from relevance_gate import RelevanceCheckUnavailable
 from speech_text import UnspeakableNotationError
 
 
 def describe_failure(exc: BaseException) -> Dict[str, Optional[str]]:
     """Returns {'kind', 'summary', 'what_to_do'}; summary and what_to_do are safe to show to the requester."""
     if isinstance(exc, InsufficientConfirmedPapers):
+        off_topic = (exc.drop_counts or {}).get("off_topic", 0)
+        if exc.found == 0:
+            summary = "No research sources were found for this topic. No episode was generated or published."
+        elif off_topic:
+            summary = (f"We found {exc.found} possible research sources for this topic, but {off_topic} of them were not about the topic, "
+                       f"and only {exc.confirmed} remained that could be confirmed as real, relevant published papers; at least "
+                       f"{exc.needed} are needed. No episode was generated or published.")
+        elif exc.outside_zenodo is not None and exc.outside_zenodo < exc.needed:
+            summary = (f"We found {exc.found} possible research sources for this topic, but only {exc.outside_zenodo} of them are "
+                       f"published papers from arXiv, PubMed or Crossref (Zenodo records do not count toward the minimum), and at "
+                       f"least {exc.needed} are needed. No episode was generated or published.")
+        else:
+            summary = (f"We found {exc.found} possible research sources for this topic, but only {exc.confirmed} could be confirmed "
+                       f"as real published papers (PubMed, arXiv or Crossref), and at least {exc.needed} are needed. "
+                       "No episode was generated or published.")
         return {
             "kind": "insufficient_confirmed_papers",
-            "summary": (f"We found {exc.found} possible research sources for this topic, but only {exc.confirmed} could be confirmed "
-                        f"as real published papers (PubMed, arXiv or Crossref), and at least {exc.needed} are needed. "
-                        "No episode was generated or published."),
+            "summary": summary,
             "what_to_do": ("Try a broader or differently worded topic, or add links to specific papers (their arXiv, PubMed or DOI links) "
                            "to the request."),
+        }
+    if isinstance(exc, RelevanceCheckUnavailable):
+        return {
+            "kind": "relevance_check_unavailable",
+            "summary": "The check that makes sure the research papers are about your topic could not run, so no episode was generated.",
+            "what_to_do": "This is usually temporary. Please try again later.",
         }
     if isinstance(exc, RegistryUnavailable):
         return {
@@ -33,7 +53,9 @@ def describe_failure(exc: BaseException) -> Dict[str, Optional[str]]:
     if isinstance(exc, PaperNotConfirmed):
         return {
             "kind": "requested_paper_not_confirmed",
-            "summary": f"The paper you asked about could not be confirmed: {exc}.",
+            # the exception text carries internal reason codes (for example "not_found"); the requester gets plain words only
+            "summary": ("The paper you asked about could not be confirmed as a real published paper (in PubMed, arXiv or Crossref), "
+                        "so no episode was generated."),
             "what_to_do": "Check that the DOI (or arXiv/PubMed link) is correct and try again.",
         }
     if isinstance(exc, NamingViolationError):

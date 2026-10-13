@@ -22,6 +22,7 @@ from enhanced_research_service import EnhancedResearchService, PaperAnalysis
 from paper_processor import analyze_paper_with_gemini, ResearchPaper, AnalyzeOptions, PaperAnalysis as GeminiPaperAnalysis
 from copernicus_character import get_copernicus_character, get_character_prompt, CopernicusCharacter
 from utils.script_validation import calculate_minimum_words_for_duration
+from relevance_gate import RELEVANCE_THRESHOLD, apply_gate, outside_zenodo, relevance_scores
 from paper_confirmation import (
     confirm_sources, confirm_requested_paper, as_research_source, format_citation_line, InsufficientConfirmedPapers,
     PaperNotConfirmed, Dropped,
@@ -95,6 +96,7 @@ class PodcastResearchContext:
     # (if any) is the directly requested paper. research_sources is built from confirmed_papers.
     confirmed_papers: List[Any] = field(default_factory=list)
     dropped_candidates: List[Any] = field(default_factory=list)
+    relevance_scores: Dict[str, float] = field(default_factory=dict)  # similarity of every confirmed paper to the topic (fix 1b)
     confirmation_stats: Dict[str, Any] = field(default_factory=dict)  # registry requests made by confirmation; records reused from search
     requested_pid: Optional[str] = None
 
@@ -103,8 +105,9 @@ class PodcastResearchIntegrator:
     Integrates all research capabilities to create authentic Copernicus podcasts
     """
     
-    def __init__(self, google_api_key: str):
+    def __init__(self, google_api_key: str, embed_batch=None):
         self.google_api_key = google_api_key
+        self.embed_batch = embed_batch  # relevance gate: texts -> vectors; None means the OpenAI embedding service
         self.research_pipeline = ComprehensiveResearchPipeline()
         self.enhanced_research_service = EnhancedResearchService(google_api_key)
         self.character = get_copernicus_character()
@@ -161,14 +164,34 @@ class PodcastResearchIntegrator:
         if len(confirmation.confirmed) < require_minimum_sources:
             raise InsufficientConfirmedPapers(topic, found, len(confirmation.confirmed), require_minimum_sources, confirmation.drop_counts(),
                                               [d.to_dict() for d in confirmation.dropped])
-        research_sources = [as_research_source(c) for c in confirmation.confirmed]
-        pid_by_title = {c.title: c.pid for c in confirmation.confirmed}
+
+        # Fix 1b (b): a confirmed paper must also be about the topic. Papers scoring below RELEVANCE_THRESHOLD against the
+        # topic are dropped (a directly requested paper is exempt), and at least ``require_minimum_sources`` of the kept
+        # papers must come from arXiv, PubMed or Crossref: Zenodo records do not count toward the minimum.
+        scores = await relevance_scores(f"{topic} {additional_context}".strip(), confirmation.confirmed, self.embed_batch)
+        kept, off_topic = apply_gate(confirmation.confirmed, scores, exempt_pids=["P1"] if required else [])
+        if off_topic:
+            print(f"   Dropped {len(off_topic)} off-topic paper(s) (similarity below {RELEVANCE_THRESHOLD}): "
+                  + "; ".join(f"{d.title[:50]} ({d.score})" for d in off_topic))
+
+        def check_minimums(papers) -> None:
+            counts: Dict[str, int] = {}
+            for d in dropped_list:
+                counts[d.reason] = counts.get(d.reason, 0) + 1
+            outside = outside_zenodo(papers)
+            if len(papers) < require_minimum_sources or outside < require_minimum_sources:
+                raise InsufficientConfirmedPapers(topic, found, len(papers), require_minimum_sources, counts,
+                                                  [d.to_dict() for d in dropped_list], outside_zenodo=outside)
+
+        confirmed_list = list(kept)
+        dropped_list = list(confirmation.dropped) + off_topic
+        check_minimums(confirmed_list)
+        research_sources = [as_research_source(c) for c in confirmed_list]
+        pid_by_title = {c.title: c.pid for c in confirmed_list}
 
         # A paper whose analysis failed to parse holds only placeholder text. It is dropped here, before any prompt is built
         # (it stays out of the evidence block, the References and Further reading); if that leaves fewer than the minimum,
         # the episode fails through the same path as too few confirmed papers.
-        confirmed_list = list(confirmation.confirmed)
-        dropped_list = list(confirmation.dropped)
 
         def drop_failed(failed_pids: Set[str]) -> None:
             nonlocal research_sources, confirmed_list
@@ -182,12 +205,7 @@ class PodcastResearchIntegrator:
             confirmed_list = [c for c in confirmed_list if c.pid not in failed_pids]
             research_sources = [x for x in research_sources if x.pid not in failed_pids]
             print(f"   Dropped {len(failed_pids)} paper(s) whose analysis could not be parsed; {len(confirmed_list)} remain")
-            if len(confirmed_list) < require_minimum_sources:
-                counts: Dict[str, int] = {}
-                for d in dropped_list:
-                    counts[d.reason] = counts.get(d.reason, 0) + 1
-                raise InsufficientConfirmedPapers(topic, found, len(confirmed_list), require_minimum_sources, counts,
-                                                  [d.to_dict() for d in dropped_list])
+            check_minimums(confirmed_list)
 
         # PHASE 2: MULTI-PAPER ANALYSIS (Paradigm Shifts & Connections)
         print(f"\n🧠 Phase 2: Multi-Paper Analysis & Synthesis")
@@ -286,6 +304,7 @@ class PodcastResearchIntegrator:
             confirmed_papers=confirmed_list,
             dropped_candidates=dropped_list,
             confirmation_stats=dict(getattr(confirmation, "stats", {}) or {}),
+            relevance_scores=dict(scores),
             requested_pid="P1" if required else None,
             research_quality_score=research_quality_score,
             recommended_expertise_level=recommended_level

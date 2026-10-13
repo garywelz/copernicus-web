@@ -68,7 +68,12 @@ def build_stub(spec: Dict[str, Any]):
     scenario = spec.get("scenario", "ok")
     pc._default_http_get = FakeRegistries(down=(scenario == "registry_down"), crossref_title="Requested sandbox paper title" if scenario == "paper_request" else "")
 
-    integrator = pri.PodcastResearchIntegrator("fake-key")
+    # relevance gate (fix 1b): offline embeddings. Every paper is on topic, except in the 'off_topic' scenario where none is.
+    if scenario == "off_topic":
+        embed = lambda texts: [[1.0, 0.0]] + [[0.0, 1.0] for _ in texts[1:]]
+    else:
+        embed = lambda texts: [[1.0, 0.0] for _ in texts]
+    integrator = pri.PodcastResearchIntegrator("fake-key", embed_batch=embed)
     n_sources = 2 if scenario == "thin" else 3
     candidates = [_src(i) for i in range(1, n_sources + 1)]
 
@@ -100,7 +105,7 @@ def build_stub(spec: Dict[str, Any]):
     body = "Overview of the episode. " + ("A long paragraph about neural computation and its history. " * (120 if scenario == "long_body" else 5))
     desc = body + "\n\n## References\n\n- Model Wrote This (2019). Fake Paper. DOI: 10.9/fake\n\n## Hashtags\n#neural #cells\n"
     scripts = {"ok": [clean], "long_body": [clean], "paper_request": [clean], "thin": [clean], "registry_down": [clean],
-               "bad_then_good": [bad, clean], "never_good": [bad, bad, bad]}[scenario]
+               "bad_then_good": [bad, clean], "never_good": [bad, bad, bad], "off_topic": [clean]}[scenario]
     state = {"n": 0}
 
     async def fake_generate(request, ctx, key, retry_attempt=0, naming_feedback=""):
