@@ -106,6 +106,23 @@ between. Deploy this service by hand, in gated steps, every time.
    Removing a tag removes its URL, not the revision; the revision stays as
    the rollback path.
 
+## After any merge to `main`: check the public site
+
+A merge to `main` deploys the public site (www.copernicusai.fyi) even when
+nothing about the Cloud Run service changed. A Vercel build can succeed while
+the deployed functions crash (2026-10-13: a helper in `lib/`, which
+`.vercelignore` excludes, took down every episode page while all tests and
+checks passed). So before reporting any deploy done:
+
+- Fetch **at least two real production episode pages**, one recent and one
+  old, for example `https://www.copernicusai.fyi/episodes/<id>`, and confirm
+  each returns **200** (`curl -s -o /dev/null -w "%{http_code}" <url>`). A
+  5xx, or a 404 for an episode that exists, means the deploy is not done:
+  roll back (Vercel instant rollback) and report.
+- Confirm the new deployment is actually the one serving production. After an
+  instant rollback Vercel stops promoting new deployments automatically until
+  that is re-enabled, so a green build may not be live.
+
 Clean up the worktree when done: `git worktree remove <path>`.
 
 See `governance/BULLETIN.md` entry 009 for the worked example this
