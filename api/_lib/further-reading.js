@@ -1,6 +1,6 @@
 // Further reading for the episode page: the confirmed papers that are neither named in the script nor the requested paper.
 // Shared by both episode handlers (api/episodes/index.js serves /episodes/<id>; api/episodes/[episodeId].js serves /api/episodes/<id>).
-// Kept outside api/ so that it is not deployed as a function of its own.
+// Lives under api/ because .vercelignore excludes lib/ (the first version in lib/ crashed every episode page in production).
 function escapeHtml(value) {
   return String(value ?? '')
     .replace(/&/g, '&amp;')
