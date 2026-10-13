@@ -231,3 +231,28 @@ def test_convertible_notation_passes_the_gate_and_is_spoken_at_finalize(monkeypa
     service._finalize_content(content, req, _ctx(), NamingResult(named_pids=["P1"]))
     assert "D sub s plus to K short K long pi plus" in content["script"] and "$" not in content["script"]
     assert content["description"].startswith("Overview of K short decays.")
+
+
+# ---------------------------------------------------------------- the description fallback must be publishable
+def _fallback_context(findings, shifts=None, directions=None):
+    from types import SimpleNamespace as NS
+    analysis = NS(future_research_directions=directions or [])
+    source = NS(title="A paper about chaos", authors=["A B", "C D"], journal=None, source="arxiv", doi=None,
+                url="https://arxiv.org/abs/2601.00001v1", publication_date="2026-01-01")
+    return NS(topic="Chaos Theory", key_findings=findings, paradigm_shifts=shifts or [], paper_analyses=[analysis],
+              research_sources=[source])
+
+
+@pytest.mark.parametrize("findings,shifts,directions", [
+    (["Neural signals are not Gaussian.", "Orthonormal bases cut redundancy."], ["[P1] Chaos as design principle: high"], ["Test on larger graphs."]),
+    ([], [], []),
+    (["Research findings require further analysis"], [], []),  # placeholder findings are filtered out, template text is used
+])
+def test_the_description_fallback_passes_the_pre_publish_gate(findings, shifts, directions):
+    from content_fixes import validate_description_before_publish
+    desc = svc.PodcastGenerationService._build_fallback_description(_fallback_context(findings, shifts, directions))
+    validate_description_before_publish(desc)  # raises if the gate would refuse it
+    assert "## Key Concepts Explored" in desc and "## References" in desc
+    assert "significant advancement in our understanding" not in desc
+    if findings and "require further" not in findings[0]:
+        assert findings[0] in desc
