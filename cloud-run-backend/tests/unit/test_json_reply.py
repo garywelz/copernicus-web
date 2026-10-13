@@ -64,3 +64,14 @@ def test_valid_escapes_are_untouched():
 def test_repair_does_not_turn_truncated_json_into_success():
     with pytest.raises(json.JSONDecodeError):
         parse_json_reply('{"a": "' + BS + 'alpha cut off')
+
+
+def test_the_reply_that_failed_in_the_2026_10_13_verification_run():
+    """Already-doubled LaTeX backslashes next to a lone '\!' (from 'C\!P'): the pair must be left alone, the lone one fixed."""
+    raw = ('{"s": "decays of $' + BS + BS + 'bar{D}^0$ and $K^0_{S/L}$ and $' + BS + BS + 'pi^+' + BS + BS + 'pi^-$ violate $C' + BS + '!P$ and '
+           '$' + BS + BS + 'to$ also ' + BS + 'alpha", "n": 2}')
+    got = parse_json_reply(FENCE + "json\n" + raw + "\n" + FENCE)
+    assert got["n"] == 2
+    assert BS + "bar{D}" in got["s"] and BS + "pi^+" in got["s"] and BS + "to" in got["s"]   # doubled pairs read back as one backslash
+    assert "C" + BS + "!P" in got["s"] and BS + "alpha" in got["s"]                          # lone ones kept as text
+    assert "\b" not in got["s"]                                                              # no backspace made from '\bar'
