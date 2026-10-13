@@ -256,3 +256,75 @@ def test_the_description_fallback_passes_the_pre_publish_gate(findings, shifts, 
     assert "significant advancement in our understanding" not in desc
     if findings and "require further" not in findings[0]:
         assert findings[0] in desc
+
+
+# ---------------------------------------------------------------- fix 4 (a): banned wording is a reason to regenerate
+from script_style import BannedPhraseError
+
+HYPE = " Lovelace and Turing showed it, and this is a truly revolutionary, unprecedented paradigm shift."
+
+
+def test_banned_wording_triggers_regeneration_with_the_sentence_quoted_back(monkeypatch):
+    req = PodcastRequest(topic="t")
+    bad, good = _script(HYPE, req), _script(" Lovelace and Turing showed it.", req)
+    service, req, calls = _harness(monkeypatch, [bad, good])
+    content, result, attempts = run(service._generate_checked_content(req, _ctx(), "k", "job1"))
+    assert calls["gen"] == 2 and content["script"] == good
+    assert "truly revolutionary, unprecedented paradigm shift" in calls["feedback"][1] and "overstated or promotional" in calls["feedback"][1]
+    assert sorted(h["phrase"] for h in attempts[0]["banned_phrases"]) == ["paradigm shift", "revolutionary", "unprecedented"] and attempts[1]["banned_phrases"] == []
+
+
+def test_wording_that_never_clears_fails_the_episode(monkeypatch):
+    req = PodcastRequest(topic="t")
+    bad = _script(HYPE, req)
+    service, req, calls = _harness(monkeypatch, [bad, bad, bad])
+    with pytest.raises(BannedPhraseError) as e:
+        run(service._generate_checked_content(req, _ctx(), "k", "job1"))
+    assert calls["gen"] == 3 and "no episode was published" in str(e.value)
+
+
+def test_banned_wording_in_the_description_counts_too(monkeypatch):
+    req = PodcastRequest(topic="t")
+    clean = _script(" Lovelace and Turing showed it.", req)
+    service, req, calls = _harness(monkeypatch, [clean])
+    seen = {"n": 0}
+
+    async def fake_generate(req_, ctx, key, retry_attempt=0, naming_feedback=""):
+        calls["feedback"].append(naming_feedback)
+        seen["n"] += 1
+        return {"title": "T", "script": clean, "description": "A groundbreaking overview." if seen["n"] == 1 else "A careful overview."}
+    monkeypatch.setattr(service, "generate_content_from_research_context", fake_generate)
+    content, result, attempts = run(service._generate_checked_content(req, _ctx(), "k", "job1"))
+    assert seen["n"] == 2 and content["description"] == "A careful overview." and "groundbreaking" in calls["feedback"][1]
+
+
+def test_short_last_attempt_with_banned_wording_is_still_refused(monkeypatch):
+    req = PodcastRequest(topic="t")
+    short_hype = "Lovelace and Turing showed a revolutionary result."
+    service, req, calls = _harness(monkeypatch, [short_hype, short_hype, short_hype])
+    with pytest.raises(BannedPhraseError):
+        run(service._generate_checked_content(req, _ctx(), "k", "job1"))
+
+
+def test_naming_violations_are_reported_before_banned_wording(monkeypatch):
+    req = PodcastRequest(topic="t")
+    both = _script(" Zorblatt and Quux showed a revolutionary result.", req)
+    service, req, calls = _harness(monkeypatch, [both, both, both])
+    with pytest.raises(nw.NamingViolationError):
+        run(service._generate_checked_content(req, _ctx(), "k", "job1"))
+    assert "ONLY these papers" in calls["feedback"][1] and "overstated or promotional" in calls["feedback"][1]    # both are fed back together
+
+
+def test_failure_notice_for_banned_wording_is_plain():
+    from failure_notice import describe_failure
+    d = describe_failure(BannedPhraseError([{"phrase": "revolutionary", "matched": "revolutionary", "where": "script", "sentence": "x"}]))
+    assert d["kind"] == "banned_wording" and "overstated or promotional" in d["summary"] and "script" not in d["summary"].lower().replace("the script", "")
+
+
+def test_the_prompt_lists_the_banned_words_from_the_config_and_no_longer_teaches_the_hype():
+    import inspect
+    from script_style import load_banned_phrases
+    src = inspect.getsource(pri.PodcastResearchIntegrator.build_2_speaker_research_prompt)
+    assert "banned_phrase_list()" in src and "This research represents" not in src and "a paradigm shift because" not in src
+    assert "highlight revolutionary implications" not in src and "Present a paradigm shift only" not in src
+    assert "revolutionary" in load_banned_phrases()

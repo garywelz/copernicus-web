@@ -11,6 +11,7 @@ from paper_confirmation import InsufficientConfirmedPapers, PaperNotConfirmed, R
 from named_work_check import NamingCheckUnavailable, NamingViolationError
 from relevance_gate import RelevanceCheckUnavailable
 from speech_text import UnspeakableNotationError
+from script_style import BannedPhraseError
 
 
 def describe_failure(exc: BaseException) -> Dict[str, Optional[str]]:
@@ -71,6 +72,13 @@ def describe_failure(exc: BaseException) -> Dict[str, Optional[str]]:
             "summary": ("The script kept using mathematical notation that cannot be read aloud, even after being asked to rewrite it "
                         "in words, so no episode was published."),
             "what_to_do": "Please try again, or choose a less notation-heavy wording of the topic.",
+        }
+    if isinstance(exc, BannedPhraseError):
+        return {
+            "kind": "banned_wording",
+            "summary": ("The script kept using overstated or promotional wording (for example 'revolutionary' or 'unprecedented') even after "
+                        "being asked to rewrite it in plain terms, so no episode was published."),
+            "what_to_do": "Please try again.",
         }
     if isinstance(exc, NamingCheckUnavailable):
         return {
