@@ -104,7 +104,15 @@ def _harness(monkeypatch, scripts, short_first=False):
         return {"title": "T", "script": text, "description": "Body."}
     monkeypatch.setattr(service, "generate_content_from_research_context", fake_generate)
 
+    calls["attr"] = []   # what the attribution model reports (a list of {quote, pid, verdict, reason}); one list per call, last one repeats
+    calls["attr_calls"] = 0
+
     async def llm(system, user):
+        if "PAPERS:" in user and "SCRIPT:" in user:     # the attribution check (fix 4 b)
+            seq = calls["attr"]
+            calls["attr_calls"] += 1
+            items = seq[min(calls["attr_calls"] - 1, len(seq) - 1)] if seq else []
+            return json.dumps({"attributions": items})
         ms = []
         if "Lovelace" in user:
             ms.append({"quote": "Lovelace and Turing showed", "authors": ["Lovelace", "Turing"], "year": 2025, "title_words": []})
@@ -157,12 +165,14 @@ def test_too_short_then_violation_then_clean_uses_the_shared_budget(monkeypatch)
     assert calls["gen"] == 3 and content["script"] == good
 
 
-def test_short_last_attempt_is_still_checked(monkeypatch):
+def test_a_script_that_stays_short_fails_and_is_never_kept(monkeypatch):
     req = PodcastRequest(topic="t")
     short_bad = "Zorblatt and Quux showed it."
     service, req, calls = _harness(monkeypatch, [short_bad, short_bad, short_bad])
-    with pytest.raises(nw.NamingViolationError):
+    with pytest.raises(ScriptTooShortError) as e:
         run(service._generate_checked_content(req, _ctx(), "k", "job1"))
+    assert calls["gen"] == 3 and "under the minimum of 600" in str(e.value) and "no episode was published" in str(e.value)
+    assert "too short" in calls["feedback"][1] and "minimum is 600 words" in calls["feedback"][1] and "Do not pad" in calls["feedback"][1]
 
 
 def test_check_unavailable_fails_closed_after_retries(monkeypatch):
@@ -256,3 +266,328 @@ def test_the_description_fallback_passes_the_pre_publish_gate(findings, shifts, 
     assert "significant advancement in our understanding" not in desc
     if findings and "require further" not in findings[0]:
         assert findings[0] in desc
+
+
+# ---------------------------------------------------------------- fix 4 (a): banned wording is a reason to regenerate
+from script_style import BannedPhraseError
+
+HYPE = " Lovelace and Turing showed it, and this is a truly revolutionary, unprecedented paradigm shift."
+
+
+def test_banned_wording_triggers_regeneration_with_the_sentence_quoted_back(monkeypatch):
+    req = PodcastRequest(topic="t")
+    bad, good = _script(HYPE, req), _script(" Lovelace and Turing showed it.", req)
+    service, req, calls = _harness(monkeypatch, [bad, good])
+    content, result, attempts = run(service._generate_checked_content(req, _ctx(), "k", "job1"))
+    assert calls["gen"] == 2 and content["script"] == good
+    assert "truly revolutionary, unprecedented paradigm shift" in calls["feedback"][1] and "overstated or promotional" in calls["feedback"][1]
+    assert sorted(h["phrase"] for h in attempts[0]["banned_phrases"]) == ["paradigm shift", "revolutionary", "unprecedented"] and attempts[1]["banned_phrases"] == []
+
+
+def test_wording_that_never_clears_fails_the_episode(monkeypatch):
+    req = PodcastRequest(topic="t")
+    bad = _script(HYPE, req)
+    service, req, calls = _harness(monkeypatch, [bad, bad, bad])
+    with pytest.raises(BannedPhraseError) as e:
+        run(service._generate_checked_content(req, _ctx(), "k", "job1"))
+    assert calls["gen"] == 3 and "no episode was published" in str(e.value)
+
+
+def test_banned_wording_in_the_description_counts_too(monkeypatch):
+    req = PodcastRequest(topic="t")
+    clean = _script(" Lovelace and Turing showed it.", req)
+    service, req, calls = _harness(monkeypatch, [clean])
+    seen = {"n": 0}
+
+    async def fake_generate(req_, ctx, key, retry_attempt=0, naming_feedback=""):
+        calls["feedback"].append(naming_feedback)
+        seen["n"] += 1
+        return {"title": "T", "script": clean, "description": "A groundbreaking overview." if seen["n"] == 1 else "A careful overview."}
+    monkeypatch.setattr(service, "generate_content_from_research_context", fake_generate)
+    content, result, attempts = run(service._generate_checked_content(req, _ctx(), "k", "job1"))
+    assert seen["n"] == 2 and content["description"] == "A careful overview." and "groundbreaking" in calls["feedback"][1]
+
+
+def test_a_short_script_with_banned_wording_fails_as_too_short_and_is_not_padded(monkeypatch):
+    req = PodcastRequest(topic="t")
+    short_hype = "Lovelace and Turing showed a revolutionary result."
+    service, req, calls = _harness(monkeypatch, [short_hype, short_hype, short_hype])
+    with pytest.raises(ScriptTooShortError):
+        run(service._generate_checked_content(req, _ctx(), "k", "job1"))
+
+
+def test_naming_violations_are_reported_before_banned_wording(monkeypatch):
+    req = PodcastRequest(topic="t")
+    both = _script(" Zorblatt and Quux showed a revolutionary result.", req)
+    service, req, calls = _harness(monkeypatch, [both, both, both])
+    with pytest.raises(nw.NamingViolationError):
+        run(service._generate_checked_content(req, _ctx(), "k", "job1"))
+    assert "ONLY these papers" in calls["feedback"][1] and "overstated or promotional" in calls["feedback"][1]    # both are fed back together
+
+
+def test_failure_notice_for_banned_wording_is_plain():
+    from failure_notice import describe_failure
+    d = describe_failure(BannedPhraseError([{"phrase": "revolutionary", "matched": "revolutionary", "where": "script", "sentence": "x"}]))
+    assert d["kind"] == "banned_wording" and "overstated or promotional" in d["summary"] and "script" not in d["summary"].lower().replace("the script", "")
+
+
+def test_the_prompt_lists_the_banned_words_from_the_config_and_no_longer_teaches_the_hype():
+    import inspect
+    from script_style import load_banned_phrases
+    src = inspect.getsource(pri.PodcastResearchIntegrator.build_2_speaker_research_prompt)
+    assert "banned_phrase_list()" in src and "This research represents" not in src and "a paradigm shift because" not in src
+    assert "highlight revolutionary implications" not in src and "Present a paradigm shift only" not in src
+    assert "revolutionary" in load_banned_phrases()
+
+
+# ---------------------------------------------------------------- fix 4 (b): unsupported attributions are a reason to regenerate
+from attribution_check import AttributionError
+
+CLAIM = "Lovelace and Turing showed that every machine proves everything."
+
+
+def _unsupported(quote=CLAIM):
+    return [{"quote": quote, "pid": "P1", "verdict": "unsupported", "reason": "The abstract says nothing like this."}]
+
+
+def test_unsupported_attribution_triggers_regeneration_with_the_sentence_quoted_back(monkeypatch):
+    req = PodcastRequest(topic="t")
+    bad, good = _script(" " + CLAIM, req), _script(" Lovelace and Turing showed it.", req)
+    service, req, calls = _harness(monkeypatch, [bad, good])
+    calls["attr"] = [_unsupported(), []]
+    content, result, attempts = run(service._generate_checked_content(req, _ctx(), "k", "job1"))
+    assert calls["gen"] == 2 and content["script"] == good and calls["attr_calls"] == 2
+    assert CLAIM in calls["feedback"][1] and "abstracts do not support" in calls["feedback"][1]
+    assert attempts[0]["attribution"]["unsupported"] == 1 and attempts[1]["attribution"]["unsupported"] == 0
+
+
+def test_attribution_that_never_clears_fails_the_episode(monkeypatch):
+    req = PodcastRequest(topic="t")
+    bad = _script(" " + CLAIM, req)
+    service, req, calls = _harness(monkeypatch, [bad, bad, bad])
+    calls["attr"] = [_unsupported()]
+    with pytest.raises(AttributionError) as e:
+        run(service._generate_checked_content(req, _ctx(), "k", "job1"))
+    assert calls["gen"] == 3 and CLAIM[:40] in str(e.value) and "no episode was published" in str(e.value)
+
+
+def test_a_naming_violation_means_no_attribution_call_that_attempt(monkeypatch):
+    req = PodcastRequest(topic="t")
+    bad, good = _script(" Zorblatt and Quux showed it.", req), _script(" Lovelace and Turing showed it.", req)
+    service, req, calls = _harness(monkeypatch, [bad, good])
+    run(service._generate_checked_content(req, _ctx(), "k", "job1"))
+    assert calls["attr_calls"] == 1                      # only for the attempt whose papers were all listed
+
+
+def test_a_short_script_is_regenerated_then_checked_like_any_other(monkeypatch):
+    req = PodcastRequest(topic="t")
+    short = "Lovelace and Turing showed that every machine proves everything."
+    ok = _script(" Lovelace and Turing showed it.", req)
+    service, req, calls = _harness(monkeypatch, [short, ok])
+    content, result, attempts = run(service._generate_checked_content(req, _ctx(), "k", "job1"))
+    assert content["script"] == ok and calls["gen"] == 2 and attempts[0]["too_short"] == len(short.split())
+    assert calls["attr_calls"] == 1                      # the short attempt was not sent to the model checks
+
+
+def test_attribution_check_unavailable_fails_closed(monkeypatch):
+    from attribution_check import AttributionCheckUnavailable
+    req = PodcastRequest(topic="t")
+    good = _script(" Lovelace and Turing showed it.", req)
+    service, req, calls = _harness(monkeypatch, [good])
+    plain = svc.make_gemini_llm_call("k")
+
+    async def llm(system, user):
+        if "PAPERS:" in user and "SCRIPT:" in user:
+            raise RuntimeError("model down")
+        return json.dumps({"mentions": [{"quote": "Lovelace and Turing showed", "authors": ["Lovelace", "Turing"], "year": 2025, "title_words": []}]})
+    monkeypatch.setattr(svc, "make_gemini_llm_call", lambda key: llm)
+    with pytest.raises(AttributionCheckUnavailable):
+        run(service._generate_checked_content(req, _ctx(), "k", "job1"))
+    assert calls["gen"] == 3
+
+
+def test_failure_notices_for_attribution():
+    from failure_notice import describe_failure
+    from attribution_check import AttributionCheckUnavailable
+    a = describe_failure(AttributionError(_unsupported()))
+    b = describe_failure(AttributionCheckUnavailable("x"))
+    assert a["kind"] == "unsupported_attribution" and "abstracts do not support" in a["summary"] and CLAIM not in a["summary"]
+    assert b["kind"] == "attribution_check_unavailable" and "try again later" in b["what_to_do"]
+
+
+# ---------------------------------------------------------------- fix 4 (c): the 5-10 minute target is enforced with a word cap
+from utils.script_validation import (calculate_maximum_words_for_duration as max_words_for, calculate_minimum_words_for_duration as min_words_for,
+                                     length_feedback, ScriptTooLongError, MAX_WORDS_PER_MINUTE)
+
+
+def _long(request, extra=" Lovelace and Turing showed it."):
+    return ("word " * (max_words_for(request.duration) + 5)) + extra
+
+
+def test_the_cap_comes_from_the_measured_speech_rate_and_never_contradicts_the_minimum():
+    assert MAX_WORDS_PER_MINUTE == 120
+    assert max_words_for("5-10 minutes") == 1200                                  # Gary's number, 120 words per minute of the longest length
+    assert max_words_for("10 minutes") == min_words_for("10 minutes") + 100          # the existing minimum is already above the speech-rate cap
+    assert max_words_for("5 minutes") == min_words_for("5 minutes") + 100
+    assert max_words_for("") == 1200 and max_words_for("8-12 minutes") > max_words_for("5-10 minutes")
+    for d in ("5-10 minutes", "10 minutes", "5 minutes", "3-4 minutes", ""):
+        assert max_words_for(d) > min_words_for(d)
+    # the measured episode that was too long (1303 words, 10.8 minutes) is over the cap; the stored episodes of 1193 and 1199 words are under it
+    assert 1303 > max_words_for("5-10 minutes") > 1199
+
+
+def test_a_script_over_the_cap_is_regenerated_with_the_limit_in_the_feedback(monkeypatch):
+    req = PodcastRequest(topic="t")
+    service, req, calls = _harness(monkeypatch, [_long(req), _script(" Lovelace and Turing showed it.", req)])
+    content, result, attempts = run(service._generate_checked_content(req, _ctx(), "k", "job1"))
+    assert calls["gen"] == 2 and attempts[0]["too_long"] > attempts[0]["max_words"] == 1200
+    assert "too long" in calls["feedback"][1] and "limit is 1200 words" in calls["feedback"][1] and result.passed
+    assert calls["attr_calls"] == 1                      # the over-long attempt was not checked for naming or attribution
+
+
+def test_a_script_that_stays_too_long_fails_the_episode(monkeypatch):
+    req = PodcastRequest(topic="t")
+    service, req, calls = _harness(monkeypatch, [_long(req)] * 3)
+    with pytest.raises(ScriptTooLongError) as e:
+        run(service._generate_checked_content(req, _ctx(), "k", "job1"))
+    assert calls["gen"] == 3 and "over the limit of 1200" in str(e.value) and "no episode was published" in str(e.value)
+
+
+def test_a_script_exactly_at_the_cap_passes(monkeypatch):
+    req = PodcastRequest(topic="t")
+    body = "word " * (max_words_for(req.duration) - 5)
+    service, req, calls = _harness(monkeypatch, [body + " Lovelace and Turing showed it."])
+    assert len((body + " Lovelace and Turing showed it.").split()) == 1200
+    run(service._generate_checked_content(req, _ctx(), "k", "job1"))
+    assert calls["gen"] == 1
+
+
+def test_too_long_then_hype_then_clean_shares_the_budget(monkeypatch):
+    req = PodcastRequest(topic="t")
+    service, req, calls = _harness(monkeypatch, [_long(req), _script(HYPE, req), _script(" Lovelace and Turing showed it.", req)])
+    run(service._generate_checked_content(req, _ctx(), "k", "job1"))
+    assert calls["gen"] == 3
+
+
+def test_the_prompt_states_the_maximum_and_the_failure_notice_is_plain():
+    import inspect
+    from failure_notice import describe_failure
+    assert "MAXIMUM: {calculate_maximum_words_for_duration(duration)} words" in inspect.getsource(pri.PodcastResearchIntegrator.build_2_speaker_research_prompt)
+    d = describe_failure(ScriptTooLongError(1300, 1200))
+    assert d["kind"] == "script_too_long" and "1300" not in d["summary"] and "narrower topic" in d["what_to_do"]
+    assert "1303 words" in length_feedback(1303, 1200, 600) and "between 600 and 1200" in length_feedback(1303, 1200, 600)
+
+
+# ---------------------------------------------------------------- fix 4: no padding, and every check runs again on the final text
+from script_style import FinalTextCheckError
+from utils.script_validation import ScriptTooShortError, validate_script_length, short_feedback
+
+
+def test_validation_never_pads_a_script_that_is_close_to_the_minimum():
+    import inspect
+    import utils.script_validation as sv
+    assert not hasattr(sv, "extend_script_if_close") and "auto_extend" not in inspect.signature(validate_script_length).parameters
+    near = " ".join(["word"] * (min_words_for("5-10 minutes") - 20))
+    ok, msg, out = validate_script_length(near, "5-10 minutes")
+    assert not ok and "too short" in msg and out == near                       # before: padded with unchecked boilerplate and accepted
+    ok, msg, out = validate_script_length(near + " " + " ".join(["word"] * 20), "5-10 minutes")
+    assert ok and out.endswith("word")
+    assert "tremendous potential" not in inspect.getsource(sv) and "significant step forward" not in inspect.getsource(sv)
+
+
+def test_the_service_has_no_padding_path():
+    import inspect
+    src = inspect.getsource(svc)
+    assert "auto_extend" not in src and "Script automatically extended" not in src and "proceeding to validation" not in src
+    assert "_verify_final_text(content, request, research_context, google_key, job_id)" in src
+
+
+def _final_content(req, script_extra=" Lovelace and Turing showed it.", description="Overview of the episode."):
+    return {"title": "T", "script": _script(script_extra, req), "description": description + "\n\n## References\n\n- Lovelace and Turing (2025). A. DOI: 10.1/p1\n",
+            "papers_named": ["P1"]}
+
+
+def _final_service(monkeypatch, attributions=None, mentions=None):
+    service = svc.PodcastGenerationService()
+    seen = {"calls": []}
+
+    async def llm(system, user):
+        seen["calls"].append("attribution" if ("PAPERS:" in user and "SCRIPT:" in user) else "naming")
+        if "PAPERS:" in user and "SCRIPT:" in user:
+            return json.dumps({"attributions": attributions or []})
+        ms = []
+        if "Lovelace" in user:
+            ms.append({"quote": "Lovelace and Turing showed", "authors": ["Lovelace", "Turing"], "year": 2025, "title_words": []})
+        if "Zorblatt" in user:
+            ms.append({"quote": "Zorblatt and Quux showed", "authors": ["Zorblatt", "Quux"], "year": 2019, "title_words": []})
+        return json.dumps({"mentions": ms})
+    monkeypatch.setattr(svc, "make_gemini_llm_call", lambda key: llm)
+    return service, seen
+
+
+def test_final_text_that_is_clean_passes_all_checks_and_records_a_summary(monkeypatch):
+    req = PodcastRequest(topic="t")
+    service, seen = _final_service(monkeypatch)
+    content = _final_content(req)
+    summary = run(service._verify_final_text(content, req, _ctx(), "k", "job1"))
+    assert summary["named_pids"] == ["P1"] and summary["max_words"] == 1200 and content["final_text_checks"] == summary
+    assert seen["calls"][-1] == "attribution" and set(seen["calls"]) == {"naming", "attribution"}     # naming reads the script and the description body
+
+
+def test_final_text_with_banned_wording_added_after_the_loop_is_refused(monkeypatch):
+    req = PodcastRequest(topic="t")
+    service, seen = _final_service(monkeypatch)
+    content = _final_content(req, description="A groundbreaking overview.")                     # e.g. introduced by a post-processing step
+    with pytest.raises(BannedPhraseError):
+        run(service._verify_final_text(content, req, _ctx(), "k", "job1"))
+    assert seen["calls"] == []                          # the deterministic checks come first and cost nothing
+
+
+def test_the_reference_sections_are_not_read_as_prose_by_the_final_check(monkeypatch):
+    req = PodcastRequest(topic="t")
+    service, seen = _final_service(monkeypatch)
+    content = _final_content(req)
+    content["description"] += "\n- A revolutionary title (2020). Unprecedented results. DOI: 10.1/x\n"
+    run(service._verify_final_text(content, req, _ctx(), "k", "job1"))
+
+
+def test_final_text_length_is_enforced_both_ways(monkeypatch):
+    req = PodcastRequest(topic="t")
+    service, seen = _final_service(monkeypatch)
+    long_c = {"title": "T", "script": "word " * 1300, "description": "d", "papers_named": ["P1"]}
+    with pytest.raises(ScriptTooLongError):
+        run(service._verify_final_text(long_c, req, _ctx(), "k", "job1"))
+    short_c = {"title": "T", "script": "word " * 100, "description": "d", "papers_named": ["P1"]}
+    with pytest.raises(ScriptTooShortError):
+        run(service._verify_final_text(short_c, req, _ctx(), "k", "job1"))
+
+
+def test_final_text_with_unspeakable_notation_or_a_new_unlisted_work_or_unsupported_claim_is_refused(monkeypatch):
+    req = PodcastRequest(topic="t")
+    service, seen = _final_service(monkeypatch)
+    with pytest.raises(UnspeakableNotationError):
+        run(service._verify_final_text(_final_content(req, " Lovelace and Turing showed $" + _BS + "oint F$."), req, _ctx(), "k", "job1"))
+    service, seen = _final_service(monkeypatch)
+    with pytest.raises(nw.NamingViolationError):
+        run(service._verify_final_text(_final_content(req, " Zorblatt and Quux showed it."), req, _ctx(), "k", "job1"))
+    service, seen = _final_service(monkeypatch, attributions=_unsupported())
+    with pytest.raises(AttributionError):
+        run(service._verify_final_text(_final_content(req, " " + CLAIM), req, _ctx(), "k", "job1"))
+
+
+def test_final_text_naming_a_paper_the_references_were_not_built_for_is_refused(monkeypatch):
+    req = PodcastRequest(topic="t")
+    service, seen = _final_service(monkeypatch)
+    content = _final_content(req)
+    content["papers_named"] = []                        # references were built for an empty set
+    with pytest.raises(FinalTextCheckError) as e:
+        run(service._verify_final_text(content, req, _ctx(), "k", "job1"))
+    assert "P1" in str(e.value) and "no episode was published" in str(e.value)
+
+
+def test_failure_notices_for_short_and_final_check():
+    from failure_notice import describe_failure
+    a = describe_failure(ScriptTooShortError(300, 600))
+    b = describe_failure(FinalTextCheckError("x"))
+    assert a["kind"] == "script_too_short" and "300" not in a["summary"] and b["kind"] == "final_text_check_failed" and "x" not in b["summary"]
+    assert "300 words" in short_feedback(300, 600, 1200)

@@ -38,8 +38,25 @@ def strip_model_reference_sections(description: str) -> str:
     return "".join(out).rstrip() + ("\n" if description and description.endswith("\n") else "")
 
 
+# A collective author ("The mathlib Community", "LIGO Scientific Collaboration") has no surname: its last word ("Community") is
+# not a name. It is shown whole.
+COLLECTIVE_WORDS = {"community", "collaboration", "consortium", "group", "team", "project", "committee", "society", "association",
+                    "foundation", "institute", "initiative", "network", "working", "authors", "contributors"}
+
+
+def is_collective(name: str) -> bool:
+    words = [w.lower().strip(".,;:()") for w in (name or "").split()]
+    return bool(words) and (words[0] == "the" or any(w in COLLECTIVE_WORDS for w in words))
+
+
 def _surname(name: str) -> str:
-    parts = (name or "").replace(",", " ").split()
+    if is_collective(name):
+        return (name or "").strip()
+    if "," in (name or ""):  # "Dijkstra, Edsger W." is Surname, Given
+        head = name.split(",", 1)[0].split()
+        if head:
+            return head[-1]
+    parts = (name or "").split()
     return parts[-1] if parts else ""
 
 

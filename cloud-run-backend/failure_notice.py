@@ -11,6 +11,9 @@ from paper_confirmation import InsufficientConfirmedPapers, PaperNotConfirmed, R
 from named_work_check import NamingCheckUnavailable, NamingViolationError
 from relevance_gate import RelevanceCheckUnavailable
 from speech_text import UnspeakableNotationError
+from script_style import BannedPhraseError, FinalTextCheckError
+from utils.script_validation import ScriptTooLongError, ScriptTooShortError
+from attribution_check import AttributionError, AttributionCheckUnavailable
 
 
 def describe_failure(exc: BaseException) -> Dict[str, Optional[str]]:
@@ -71,6 +74,46 @@ def describe_failure(exc: BaseException) -> Dict[str, Optional[str]]:
             "summary": ("The script kept using mathematical notation that cannot be read aloud, even after being asked to rewrite it "
                         "in words, so no episode was published."),
             "what_to_do": "Please try again, or choose a less notation-heavy wording of the topic.",
+        }
+    if isinstance(exc, BannedPhraseError):
+        return {
+            "kind": "banned_wording",
+            "summary": ("The script kept using overstated or promotional wording (for example 'revolutionary' or 'unprecedented') even after "
+                        "being asked to rewrite it in plain terms, so no episode was published."),
+            "what_to_do": "Please try again.",
+        }
+    if isinstance(exc, ScriptTooShortError):
+        return {
+            "kind": "script_too_short",
+            "summary": ("The script kept coming out shorter than the requested episode length, even after being asked to lengthen it, so no "
+                        "episode was published."),
+            "what_to_do": "Please try again, or choose a broader topic.",
+        }
+    if isinstance(exc, FinalTextCheckError):
+        return {
+            "kind": "final_text_check_failed",
+            "summary": "The final script did not pass the last round of quality checks, so no episode was published.",
+            "what_to_do": "Please try again.",
+        }
+    if isinstance(exc, ScriptTooLongError):
+        return {
+            "kind": "script_too_long",
+            "summary": ("The script kept running longer than the requested episode length, even after being asked to shorten it, so no "
+                        "episode was published."),
+            "what_to_do": "Please try again, or choose a narrower topic.",
+        }
+    if isinstance(exc, AttributionError):
+        return {
+            "kind": "unsupported_attribution",
+            "summary": ("The script kept attributing claims to research papers that the papers' abstracts do not support, even after being "
+                        "asked to rewrite it, so no episode was published."),
+            "what_to_do": "Please try again.",
+        }
+    if isinstance(exc, AttributionCheckUnavailable):
+        return {
+            "kind": "attribution_check_unavailable",
+            "summary": "The check that makes sure an episode attributes only supported claims to research papers could not run, so no episode was published.",
+            "what_to_do": "This is usually temporary. Please try again later.",
         }
     if isinstance(exc, NamingCheckUnavailable):
         return {

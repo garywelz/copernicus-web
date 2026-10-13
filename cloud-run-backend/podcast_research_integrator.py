@@ -21,7 +21,8 @@ from research_pipeline import ComprehensiveResearchPipeline, ResearchSource
 from enhanced_research_service import EnhancedResearchService, PaperAnalysis
 from paper_processor import analyze_paper_with_gemini, ResearchPaper, AnalyzeOptions, PaperAnalysis as GeminiPaperAnalysis
 from copernicus_character import get_copernicus_character, get_character_prompt, CopernicusCharacter
-from utils.script_validation import calculate_minimum_words_for_duration
+from utils.script_validation import calculate_minimum_words_for_duration, calculate_maximum_words_for_duration
+from script_style import prompt_list as banned_phrase_list
 from relevance_gate import RELEVANCE_THRESHOLD, apply_gate, outside_zenodo, relevance_scores
 from paper_confirmation import (
     confirm_sources, confirm_requested_paper, as_research_source, format_citation_line, InsufficientConfirmedPapers,
@@ -109,6 +110,9 @@ class PodcastResearchIntegrator:
         self.google_api_key = google_api_key
         self.embed_batch = embed_batch  # relevance gate: texts -> vectors; None means the OpenAI embedding service
         self.research_pipeline = ComprehensiveResearchPipeline()
+        if google_api_key:  # fix 4 (i): a model proposes the focused arXiv queries; without a key the fallback in search_queries is used
+            from named_work_check import make_gemini_llm_call
+            self.research_pipeline.query_llm = make_gemini_llm_call(google_api_key)
         self.enhanced_research_service = EnhancedResearchService(google_api_key)
         self.character = get_copernicus_character()
         
@@ -426,9 +430,9 @@ PubMed and arXiv are indexes, not journals. If a journal name is present, say th
 ═══════════════════════════════════════════════════════════════
 
 **THE COPERNICUS SPIRIT:**
-You are creating a podcast that embodies revolutionary "delta" thinking - 
-challenging conventional understanding, highlighting paradigm shifts, finding 
-interdisciplinary connections, and making cutting-edge research accessible.
+You are creating a podcast that keeps the "delta" idea without hype: what this research changes in how we see the question,
+stated plainly and only as far as the papers support, with the interdisciplinary connections they show, and making current
+research accessible.
 
 **2-SPEAKER FORMAT:**
 Your podcast has TWO speakers only:
@@ -437,12 +441,12 @@ Your podcast has TWO speakers only:
    - Voice: {host_name}
    - Introduces topic, asks insightful questions
    - Represents curious, intelligent audience
-   - Guides conversation to highlight revolutionary implications
+   - Guides the conversation to what the papers show and what they leave open
 
 2. **{expert_name.upper()}** (Research Expert)
    - Voice: {expert_name}
    - Explains research findings with evidence
-   - Discusses paradigm shifts and implications
+   - Discusses the findings and what they imply, with the papers' own caveats
    - Cites actual papers and researchers
 
 **CRITICAL RULES:**
@@ -459,6 +463,7 @@ Your podcast has TWO speakers only:
 - **TARGET: {int(calculate_minimum_words_for_duration(duration) / 0.8)} words** for full duration coverage
 - **MANDATORY: Your script MUST be at least {calculate_minimum_words_for_duration(duration)} words long**
 - **FAILURE WARNING: Scripts under {calculate_minimum_words_for_duration(duration)} words will be REJECTED and generation will fail - ensure you meet or exceed this minimum**
+- **MAXIMUM: {calculate_maximum_words_for_duration(duration)} words.** The audio must stay within the requested length; a script over this maximum is REJECTED and must be shortened.
 - **WORD COUNT CHECK: Before submitting, count the words in your script. If it's under {calculate_minimum_words_for_duration(duration)} words, you MUST expand it with more dialogue, examples, and detailed explanations.**
 
 **CITATION STYLE IN DIALOGUE:**
@@ -485,7 +490,7 @@ Your podcast has TWO speakers only:
 Create a compelling dialogue where MATILDA interviews ADAM about the actual 
 research provided above. Focus on:
 
-1. **The question** - What do the listed papers actually show about "{research_context.topic}"? Answer the specific question asked, not the field in general. Present a paradigm shift only if a listed paper claims one.
+1. **The question** - What do the listed papers actually show about "{research_context.topic}"? Answer the specific question asked, not the field in general. Use no promotional language about any finding (the banned words are listed below); report what the papers found.
 2. **Evidence** - Cite specific papers, authors, findings from research above
 3. **Connections** - Highlight interdisciplinary implications
 4. **Accessibility** - Make complex concepts understandable without oversimplifying
@@ -496,8 +501,8 @@ research provided above. Focus on:
 {host_name.upper()}: Welcome to Copernicus AI: Frontiers of Science. I'm {host_name}, and today 
 we're exploring {research_context.topic}. {expert_name}, what do the papers reviewed here tell us about it?
 
-{expert_name.upper()}: Thanks {host_name}. [Cites specific paper from research] This research represents 
-a paradigm shift because [explain using actual findings]...
+{expert_name.upper()}: Thanks {host_name}. [Cites specific paper from research] This research matters 
+because [explain using actual findings]...
 
 {host_name.upper()}: That's fascinating. [Asks probing question about implications]...
 
@@ -535,10 +540,11 @@ research. [Final thought on what is still open]
 **CRITICAL:** Use ONLY the real research provided. DO NOT make up fake references.
 If asked about something not in the research, ADAM should acknowledge the gap.
 
-**HONESTY AND FOCUS (do not violate; these override any earlier wish for revolutionary or paradigm-shifting language):**
+**HONESTY AND FOCUS (do not violate; these override any earlier wish for strong or promotional language):**
 - Stay on the question asked: "{research_context.topic}". Most of the episode must answer it from the listed papers (what they measured, built or found about it), not general background on the field. A listed paper that is only loosely related may be used only for the point it really supports, or left out.
 - No absolute or certainty claims beyond what a listed paper itself states. Do not write things like "absolute certainty", "eliminates errors", "beyond doubt", "unassailable", "guarantees", "proves that all" unless the paper says exactly that, and then say it is that paper's claim. Use the hedging the papers use ("suggests", "in the cases studied", "in the library examined").
 - Attribute only what was said. Never write "as you put it", "as you said" or similar unless that speaker said it earlier in this script; never put words into a researcher's or a speaker's mouth that are not in the evidence above.
+- Never use these words or phrases anywhere in the script or the description (case does not matter): {banned_phrase_list()}. They are checked by code and a script that uses them is rejected.
 - If the evidence is thin on part of the question, say so plainly ("the papers reviewed here do not measure that") instead of filling the gap.
 
 **Naming rules (do not violate):**
@@ -581,7 +587,7 @@ If asked about something not in the research, ADAM should acknowledge the gap.
         
         # Paradigm shifts identified
         if context.paradigm_shifts:
-            evidence.append("\n**PARADIGM SHIFTS IDENTIFIED:**")
+            evidence.append("\n**CHANGES IN THINKING THE ANALYSES POINT TO (check each against the abstract before using it):**")
             for shift in context.paradigm_shifts:
                 evidence.append(f"- {shift}")
             evidence.append("")

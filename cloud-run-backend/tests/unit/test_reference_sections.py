@@ -132,3 +132,26 @@ def test_passes_the_existing_pre_publish_placeholder_gate():
     from content_fixes import validate_description_before_publish
     out = rs.apply_reference_sections(DESC, ALL, ["P2", "P3"], "P1")
     validate_description_before_publish(out)  # raises DescriptionValidationError on a placeholder pattern
+
+
+# ---------------------------------------------------------------- collective authors (ever-math-260008 showed "Community (2019)")
+def test_a_collective_author_is_shown_whole_not_by_its_last_word():
+    mathlib = paper("P1", "The Lean mathematical library", ["The mathlib Community"], 2019, venue=None, arxiv="1910.09336", ver="v2")
+    assert rs.compact_line(mathlib) == "- The mathlib Community (2019). The Lean mathematical library. arXiv:1910.09336v2"
+    ligo = paper("P2", "Observation of a signal", ["LIGO Scientific Collaboration", "Virgo Collaboration"], 2016, venue="PRL", doi="10.1/ligo")
+    assert rs.compact_line(ligo).startswith("- LIGO Scientific Collaboration and Virgo Collaboration (2016).")
+    mixed = paper("P3", "A joint paper", ["The ATLAS Collaboration", "Ada Lovelace", "Alan Turing"], 2024, venue=None, doi="10.1/atlas")
+    assert rs.compact_line(mixed).startswith("- The ATLAS Collaboration et al. (2024).")
+
+
+def test_people_are_still_shown_by_surname():
+    assert rs.compact_line(P2).startswith("- Naito and Shirado (2026).")
+    assert rs.compact_line(P3).startswith("- Hopper et al. (2023).")
+    assert rs.compact_line(paper("P9", "A title", ["Dijkstra, Edsger W."], 2022, venue=None, doi="10.1/d")).startswith("- Dijkstra (2022).")   # Surname, Given order
+
+
+def test_what_counts_as_collective():
+    for name in ("The mathlib Community", "LIGO Scientific Collaboration", "Particle Data Group", "The Lean Team", "OpenAI Contributors", "CMS Collaboration"):
+        assert rs.is_collective(name), name
+    for name in ("Ada Lovelace", "Dijkstra, Edsger W.", "Maria Skłodowska Curie", "Nicolas Balacheff", "Thierry Bouche", "Jesse Alama"):
+        assert not rs.is_collective(name), name
