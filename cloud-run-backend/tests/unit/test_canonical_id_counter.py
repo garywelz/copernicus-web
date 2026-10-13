@@ -16,6 +16,14 @@ from google.cloud import firestore
 import services.canonical_service as cs
 
 
+def run(coro):
+    loop = asyncio.new_event_loop()      # not asyncio.run: that leaves no current loop and breaks later tests that call get_event_loop()
+    try:
+        return loop.run_until_complete(coro)
+    finally:
+        loop.close()
+
+
 class Snap:
     def __init__(self, data):
         self._d, self.exists = data, data is not None
@@ -79,7 +87,7 @@ def use(state, **kw):
 
 
 def allocate(category="Mathematics", fmt="feature"):
-    return asyncio.run(cs.CanonicalService().determine_canonical_filename("t", "t", category, fmt))
+    return run(cs.CanonicalService().determine_canonical_filename("t", "t", category, fmt))
 
 
 def test_a_deleted_episode_id_is_not_issued_again(world):
@@ -116,7 +124,7 @@ def test_two_requests_never_get_the_same_id(world):
     async def both():
         svc = cs.CanonicalService()
         return await asyncio.gather(*[svc.determine_canonical_filename("t", "t", "Mathematics", "feature") for _ in range(2)])
-    a, b = asyncio.run(both())
+    a, b = run(both())
     assert a != b
 
 
