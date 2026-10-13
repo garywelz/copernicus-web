@@ -11,8 +11,8 @@ from paper_confirmation import InsufficientConfirmedPapers, PaperNotConfirmed, R
 from named_work_check import NamingCheckUnavailable, NamingViolationError
 from relevance_gate import RelevanceCheckUnavailable
 from speech_text import UnspeakableNotationError
-from script_style import BannedPhraseError
-from utils.script_validation import ScriptTooLongError
+from script_style import BannedPhraseError, FinalTextCheckError
+from utils.script_validation import ScriptTooLongError, ScriptTooShortError
 from attribution_check import AttributionError, AttributionCheckUnavailable
 
 
@@ -80,6 +80,19 @@ def describe_failure(exc: BaseException) -> Dict[str, Optional[str]]:
             "kind": "banned_wording",
             "summary": ("The script kept using overstated or promotional wording (for example 'revolutionary' or 'unprecedented') even after "
                         "being asked to rewrite it in plain terms, so no episode was published."),
+            "what_to_do": "Please try again.",
+        }
+    if isinstance(exc, ScriptTooShortError):
+        return {
+            "kind": "script_too_short",
+            "summary": ("The script kept coming out shorter than the requested episode length, even after being asked to lengthen it, so no "
+                        "episode was published."),
+            "what_to_do": "Please try again, or choose a broader topic.",
+        }
+    if isinstance(exc, FinalTextCheckError):
+        return {
+            "kind": "final_text_check_failed",
+            "summary": "The final script did not pass the last round of quality checks, so no episode was published.",
             "what_to_do": "Please try again.",
         }
     if isinstance(exc, ScriptTooLongError):
