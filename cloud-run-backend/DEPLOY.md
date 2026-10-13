@@ -130,7 +130,11 @@ checks passed). So before reporting any deploy done:
   Current) or with `vercel inspect www.copernicusai.fyi`, and compare its
   commit with the merge commit you just made. GitHub's "Deployment has
   completed" status only means the build finished. Where the change is visible
-  on a page, also fetch a page that shows it.
+  on a page, also fetch a page that shows it. The quickest check needs no
+  dashboard: `curl -s https://www.copernicusai.fyi/api/version` returns the git
+  commit of the deployment serving the domain; it must equal the merge commit
+  (`git rev-parse origin/main`). If it still shows an older commit, new
+  deployments are not being assigned to the domain: stop and tell Gary.
 
 Clean up the worktree when done: `git worktree remove <path>`.
 
