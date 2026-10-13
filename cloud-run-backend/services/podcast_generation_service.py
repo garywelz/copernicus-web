@@ -104,6 +104,7 @@ from named_work_check import check_naming, feedback_text, make_gemini_llm_call, 
 from failure_notice import describe_failure
 from reference_sections import apply_reference_sections, BUILT_BY as REFERENCES_BUILT_BY
 from speech_text import strip_pn_markers_counted, speak_text, notation_problems, notation_feedback, UnspeakableNotationError
+from script_style import banned_phrase_hits, banned_feedback, BannedPhraseError
 
 # Retry decorator for upload operations
 def retry_upload(max_retries=3, delay=2):
@@ -2219,7 +2220,10 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
                     # to fail; it is never silently dropped from a script that will be read aloud.
                     bad_notation = notation_problems(script, generated_content.get('description', '') if isinstance(generated_content, dict) else '')
                     naming_attempts[-1]['unspeakable_notation'] = bad_notation
-                    if naming_result.passed and not bad_notation:
+                    # Fix 4 (a): overstated or promotional wording from the one list in config/banned_phrases.json
+                    banned = banned_phrase_hits(script, generated_content.get('description', '') if isinstance(generated_content, dict) else '')
+                    naming_attempts[-1]['banned_phrases'] = [{'phrase': h['phrase'], 'matched': h['matched'], 'where': h['where']} for h in banned]
+                    if naming_result.passed and not bad_notation and not banned:
                         content = generated_content
                         naming_checked = True
                         structured_logger.info(f"Content generation succeeded on attempt {attempt + 1}",
@@ -2227,19 +2231,23 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
                                               word_count=word_count,
                                               min_required=min_words)
                         break
-                    structured_logger.warning("Script rejected: unlisted works or unspeakable notation",
+                    structured_logger.warning("Script rejected: unlisted works, unspeakable notation or banned wording",
                                              job_id=job_id,
                                              attempt=attempt + 1,
                                              violations=naming_result.violations,
-                                             unspeakable_notation=bad_notation)
+                                             unspeakable_notation=bad_notation,
+                                             banned_phrases=[h['matched'] for h in banned])
                     if attempt < max_retries:
                         naming_feedback = ((feedback_text(naming_result, research_context.confirmed_papers) if not naming_result.passed else "")
-                                           + (notation_feedback(bad_notation) if bad_notation else ""))
+                                           + (notation_feedback(bad_notation) if bad_notation else "")
+                                           + (banned_feedback(banned) if banned else ""))
                         await asyncio.sleep(2)
                         continue
                     if not naming_result.passed:
                         raise NamingViolationError(naming_result.violations)
-                    raise UnspeakableNotationError(bad_notation)
+                    if bad_notation:
+                        raise UnspeakableNotationError(bad_notation)
+                    raise BannedPhraseError(banned)
                 else:
                     if attempt < max_retries:
                         structured_logger.warning(f"Script too short on attempt {attempt + 1}, retrying with stronger prompt",
@@ -2297,6 +2305,9 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
             final_bad = notation_problems(content.get('script', ''), content.get('description', ''))
             if final_bad:
                 raise UnspeakableNotationError(final_bad)
+            final_banned = banned_phrase_hits(content.get('script', ''), content.get('description', ''))
+            if final_banned:
+                raise BannedPhraseError(final_banned)
 
         return content, naming_result, naming_attempts
 
