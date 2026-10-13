@@ -119,9 +119,18 @@ checks passed). So before reporting any deploy done:
   each returns **200** (`curl -s -o /dev/null -w "%{http_code}" <url>`). A
   5xx, or a 404 for an episode that exists, means the deploy is not done:
   roll back (Vercel instant rollback) and report.
-- Confirm the new deployment is actually the one serving production. After an
-  instant rollback Vercel stops promoting new deployments automatically until
-  that is re-enabled, so a green build may not be live.
+- Confirm the new deployment is actually the one serving production. **After a
+  Vercel instant rollback, auto-promotion stops**: new `main` deployments build
+  and report success but production keeps serving the rolled-back deployment
+  until someone promotes one or re-enables auto-assigning production domains
+  (project settings). A 200 from a page proves nothing then: on 2026-10-13 the
+  "pages return 200" checks after the hotfix and the fix2 merge were served by
+  the rolled-back deployment. So **verify the production deployment's commit,
+  not just page status**: in the Vercel dashboard (Deployments, the one marked
+  Current) or with `vercel inspect www.copernicusai.fyi`, and compare its
+  commit with the merge commit you just made. GitHub's "Deployment has
+  completed" status only means the build finished. Where the change is visible
+  on a page, also fetch a page that shows it.
 
 Clean up the worktree when done: `git worktree remove <path>`.
 
