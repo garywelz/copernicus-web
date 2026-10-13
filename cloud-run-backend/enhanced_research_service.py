@@ -186,9 +186,11 @@ class EnhancedResearchService:
         )
         
         try:
-            response = await self._call_google_ai(prompt, max_tokens=1000)
+            response = await self._call_google_ai(prompt, max_tokens=2500)  # 1000 cut the reply off mid-sentence (2026-10-13)
             connections = parse_json_reply(response)
-            return connections if isinstance(connections, list) else [[] for _ in analyses]
+            if not isinstance(connections, list):
+                return [[] for _ in analyses]
+            return [c if isinstance(c, list) else [str(c)] for c in connections]
         except Exception as e:
             print(f"❌ Connection analysis error: {e}")
             return [[] for _ in analyses]

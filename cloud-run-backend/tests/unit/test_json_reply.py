@@ -64,3 +64,49 @@ def test_valid_escapes_are_untouched():
 def test_repair_does_not_turn_truncated_json_into_success():
     with pytest.raises(json.JSONDecodeError):
         parse_json_reply('{"a": "' + BS + 'alpha cut off')
+
+
+def test_the_reply_that_failed_in_the_2026_10_13_verification_run():
+    """Already-doubled LaTeX backslashes next to a lone '\!' (from 'C\!P'): the pair must be left alone, the lone one fixed."""
+    raw = ('{"s": "decays of $' + BS + BS + 'bar{D}^0$ and $K^0_{S/L}$ and $' + BS + BS + 'pi^+' + BS + BS + 'pi^-$ violate $C' + BS + '!P$ and '
+           '$' + BS + BS + 'to$ also ' + BS + 'alpha", "n": 2}')
+    got = parse_json_reply(FENCE + "json\n" + raw + "\n" + FENCE)
+    assert got["n"] == 2
+    assert BS + "bar{D}" in got["s"] and BS + "pi^+" in got["s"] and BS + "to" in got["s"]   # doubled pairs read back as one backslash
+    assert "C" + BS + "!P" in got["s"] and BS + "alpha" in got["s"]                          # lone ones kept as text
+    assert "\b" not in got["s"]                                                              # no backspace made from '\bar'
+
+
+def test_a_fenced_array_is_read():
+    assert parse_json_reply(FENCE + 'json\n[["a", "b"], ["c"]]\n' + FENCE) == [["a", "b"], ["c"]]
+    assert parse_json_reply('Connections:\n[["x"]]\nDone.') == [["x"]]
+
+
+def test_an_object_that_contains_an_array_is_still_an_object():
+    assert parse_json_reply('{"a": [1, 2], "b": {"c": 3}}') == {"a": [1, 2], "b": {"c": 3}}
+    assert parse_json_reply('Here:\n{"a": [1, 2]}\nbye') == {"a": [1, 2]}
+
+
+def test_a_truncated_array_still_raises():
+    with pytest.raises(json.JSONDecodeError):
+        parse_json_reply(FENCE + 'json\n[["Paper 3 performs amplitude')
+
+
+def test_connection_analysis_reads_a_fenced_array_and_asks_for_2500_tokens():
+    import asyncio
+    import enhanced_research_service as ers
+    from types import SimpleNamespace as NS
+    svc = ers.EnhancedResearchService("k")
+    seen = {}
+
+    async def fake(prompt, max_tokens=1000):
+        seen["max"] = max_tokens
+        return FENCE + 'json\n[["Paper 1 links to Paper 2"], "a bare string"]\n' + FENCE
+    svc._call_google_ai = fake
+    analyses = [NS(title="t%d" % i, summary="s", key_findings=["f"]) for i in range(2)]
+    loop = asyncio.new_event_loop()
+    try:
+        got = loop.run_until_complete(svc._find_paper_connections(analyses))
+    finally:
+        loop.close()
+    assert got == [["Paper 1 links to Paper 2"], ["a bare string"]] and seen["max"] == 2500
