@@ -414,7 +414,7 @@ def test_failure_notices_for_attribution():
 
 # ---------------------------------------------------------------- fix 4 (c): the 5-10 minute target is enforced with a word cap
 from utils.script_validation import (calculate_maximum_words_for_duration as max_words_for, calculate_minimum_words_for_duration as min_words_for,
-                                     length_feedback, ScriptTooLongError, SLOWEST_WORDS_PER_MINUTE, BUMPER_SECONDS)
+                                     length_feedback, ScriptTooLongError, MAX_WORDS_PER_MINUTE)
 
 
 def _long(request, extra=" Lovelace and Turing showed it."):
@@ -422,23 +422,23 @@ def _long(request, extra=" Lovelace and Turing showed it."):
 
 
 def test_the_cap_comes_from_the_measured_speech_rate_and_never_contradicts_the_minimum():
-    assert (SLOWEST_WORDS_PER_MINUTE, BUMPER_SECONDS) == (119, 15)
-    assert max_words_for("5-10 minutes") == int((600 - 15) / 60 * 119) == 1160
+    assert MAX_WORDS_PER_MINUTE == 120
+    assert max_words_for("5-10 minutes") == 1200                                  # Gary's number, 120 words per minute of the longest length
     assert max_words_for("10 minutes") == min_words_for("10 minutes") + 100          # the existing minimum is already above the speech-rate cap
     assert max_words_for("5 minutes") == min_words_for("5 minutes") + 100
-    assert max_words_for("") == 1160 and max_words_for("8-12 minutes") > max_words_for("5-10 minutes")
+    assert max_words_for("") == 1200 and max_words_for("8-12 minutes") > max_words_for("5-10 minutes")
     for d in ("5-10 minutes", "10 minutes", "5 minutes", "3-4 minutes", ""):
         assert max_words_for(d) > min_words_for(d)
-    # the measured episode that was too long (1303 words, 10.8 minutes) is over the cap; the typical 900-1100 word episodes are under it
-    assert 1303 > max_words_for("5-10 minutes") > 1100
+    # the measured episode that was too long (1303 words, 10.8 minutes) is over the cap; the stored episodes of 1193 and 1199 words are under it
+    assert 1303 > max_words_for("5-10 minutes") > 1199
 
 
 def test_a_script_over_the_cap_is_regenerated_with_the_limit_in_the_feedback(monkeypatch):
     req = PodcastRequest(topic="t")
     service, req, calls = _harness(monkeypatch, [_long(req), _script(" Lovelace and Turing showed it.", req)])
     content, result, attempts = run(service._generate_checked_content(req, _ctx(), "k", "job1"))
-    assert calls["gen"] == 2 and attempts[0]["too_long"] > attempts[0]["max_words"] == 1160
-    assert "too long" in calls["feedback"][1] and "limit is 1160 words" in calls["feedback"][1] and result.passed
+    assert calls["gen"] == 2 and attempts[0]["too_long"] > attempts[0]["max_words"] == 1200
+    assert "too long" in calls["feedback"][1] and "limit is 1200 words" in calls["feedback"][1] and result.passed
     assert calls["attr_calls"] == 1                      # the over-long attempt was not checked for naming or attribution
 
 
@@ -447,14 +447,14 @@ def test_a_script_that_stays_too_long_fails_the_episode(monkeypatch):
     service, req, calls = _harness(monkeypatch, [_long(req)] * 3)
     with pytest.raises(ScriptTooLongError) as e:
         run(service._generate_checked_content(req, _ctx(), "k", "job1"))
-    assert calls["gen"] == 3 and "over the limit of 1160" in str(e.value) and "no episode was published" in str(e.value)
+    assert calls["gen"] == 3 and "over the limit of 1200" in str(e.value) and "no episode was published" in str(e.value)
 
 
 def test_a_script_exactly_at_the_cap_passes(monkeypatch):
     req = PodcastRequest(topic="t")
     body = "word " * (max_words_for(req.duration) - 5)
     service, req, calls = _harness(monkeypatch, [body + " Lovelace and Turing showed it."])
-    assert len((body + " Lovelace and Turing showed it.").split()) == 1160
+    assert len((body + " Lovelace and Turing showed it.").split()) == 1200
     run(service._generate_checked_content(req, _ctx(), "k", "job1"))
     assert calls["gen"] == 1
 
@@ -470,6 +470,6 @@ def test_the_prompt_states_the_maximum_and_the_failure_notice_is_plain():
     import inspect
     from failure_notice import describe_failure
     assert "MAXIMUM: {calculate_maximum_words_for_duration(duration)} words" in inspect.getsource(pri.PodcastResearchIntegrator.build_2_speaker_research_prompt)
-    d = describe_failure(ScriptTooLongError(1300, 1160))
+    d = describe_failure(ScriptTooLongError(1300, 1200))
     assert d["kind"] == "script_too_long" and "1300" not in d["summary"] and "narrower topic" in d["what_to_do"]
-    assert "1303 words" in length_feedback(1303, 1160, 600) and "between 600 and 1160" in length_feedback(1303, 1160, 600)
+    assert "1303 words" in length_feedback(1303, 1200, 600) and "between 600 and 1200" in length_feedback(1303, 1200, 600)

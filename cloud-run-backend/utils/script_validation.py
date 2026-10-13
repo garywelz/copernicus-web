@@ -34,23 +34,20 @@ def calculate_minimum_words_for_duration(duration: str) -> int:
     return int(minutes * 150 * 0.8)
 
 
-# Speech rate and bumpers measured on the stored episodes (ElevenLabs multi-voice, 15 episodes, 2026-10-13): 119 to 136 words per
-# minute (median 129; 830 to 911 characters per minute), and the intro and outro bumpers add about 14.4 seconds. The cap uses the
-# slowest rate seen, so even a script at the cap stays within the longest requested length.
-SLOWEST_WORDS_PER_MINUTE = 119
-BUMPER_SECONDS = 15
+# Word cap per requested minute. Gary chose 1,200 words for "5-10 minutes" (2026-10-13), i.e. 120 words per minute of the longest length.
+# Measured on 15 stored ElevenLabs episodes: 119 to 136 words per minute (median 129) plus about 14.4 s of bumpers, so a script at the cap
+# runs 9.3 minutes at the median rate and about 10.3 minutes in the slowest case seen.
+MAX_WORDS_PER_MINUTE = 120
 
 
 def calculate_maximum_words_for_duration(duration: str) -> int:
-    """Most words a script may have for the longest length asked for ("5-10 minutes" -> 10 minutes, bumpers included).
+    """Most words a script may have for the longest length asked for ("5-10 minutes" -> 10 minutes -> 1200 words).
 
-    10 minutes: (600 s - 15 s) / 60 * 119 = 1160 words. A single number "N minutes" is treated as the longest length too; when the
-    existing minimum (150 words per minute, 80 percent) is already higher than that, the cap is the minimum plus 100 words, so the
-    cap never contradicts the minimum."""
+    A single number "N minutes" is treated as the longest length too; when the existing minimum (150 words per minute, 80 percent) is
+    already higher than that, the cap is the minimum plus 100 words, so the cap never contradicts the minimum."""
     numbers = re.findall(r"\d+", duration or "")
     longest = int(numbers[-1]) if numbers else 10
-    cap = int((longest * 60 - BUMPER_SECONDS) / 60 * SLOWEST_WORDS_PER_MINUTE)
-    return max(cap, calculate_minimum_words_for_duration(duration or "") + 100)
+    return max(longest * MAX_WORDS_PER_MINUTE, calculate_minimum_words_for_duration(duration or "") + 100)
 
 
 def length_feedback(word_count: int, max_words: int, min_words: int) -> str:
