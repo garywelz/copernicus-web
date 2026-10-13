@@ -295,3 +295,50 @@ def test_an_initial_on_the_listed_side_is_not_enough():
 
 def test_a_different_person_with_a_common_surname_still_does_not_match():
     assert nw.match_mention(m("Song Wang's work", ["Song Wang"], 2023), _listed("Qian Wang", "Li Zhang")) is None
+
+
+# ---------------------------------------------------------------- one author, several works in the same year (ever-math-260007)
+ALAMA_ITEMS = paper("P2", "mizar-items: Exploring fine-grained dependencies in the Mizar Mathematical Library", ["Jesse Alama"], 2011)
+ALAMA_LICENSE = paper("P4", "Licensing the Mizar Mathematical Library", ["Jesse Alama", "Michael Kohlhase", "Adam Naumowicz"], 2011)
+ALAMA_ELICIT = paper("P8", "Eliciting implicit assumptions of proofs in the MIZAR Mathematical Library by property omission", ["Jesse Alama"], 2011)
+ALAMA = [ALAMA_ITEMS, ALAMA_LICENSE, ALAMA_ELICIT]
+ELICIT_WORDS = ["Eliciting", "implicit", "assumptions", "proofs", "MIZAR", "Mathematical", "Library", "property", "omission"]
+ITEMS_WORDS = ["mizar-items", "Exploring", "fine-grained", "dependencies", "Mizar", "Mathematical", "Library"]
+
+
+def test_a_second_work_by_the_same_author_in_the_same_year_is_matched_by_its_title():
+    # The case from ever-math-260007: both quoted titles used to resolve to P2, the first Alama 2011 paper in the list.
+    assert nw.match_mention(m("Jesse Alama, in his 2011 paper, 'mizar-items: ...'", ["Alama"], 2011, ITEMS_WORDS), ALAMA) == "P2"
+    assert nw.match_mention(m("as Alama discussed in another 2011 paper, 'Eliciting implicit assumptions ...'", ["Alama"], 2011, ELICIT_WORDS), ALAMA) == "P8"
+    assert nw.match_mention(m("Licensing ...", ["Alama"], 2011, ["Licensing", "Mizar", "Mathematical", "Library"]), ALAMA) == "P4"
+
+
+def test_same_author_same_year_without_a_title_matches_nothing():
+    assert nw.match_mention(m("a 2011 paper by Alama", ["Alama"], 2011), ALAMA) is None
+    assert nw.match_mention(m("a 2011 paper by Alama", ["Alama"], 2011, ["Mizar", "Library"]), ALAMA) is None       # a tie is not a title match
+
+
+def test_a_bare_author_mention_that_names_no_paper_still_matches():
+    assert nw.match_mention(m("Alama's work on Mizar", ["Alama"], None), ALAMA) == "P2"
+
+
+def test_the_year_alone_still_separates_works_in_different_years():
+    a = paper("P1", "First study of bees", ["Ada Lovelace"], 2024)
+    b = paper("P2", "Second study of wasps", ["Ada Lovelace"], 2025)
+    assert nw.match_mention(m("q", ["Lovelace"], 2025), [a, b]) == "P2" and nw.match_mention(m("q", ["Lovelace"], 2024), [a, b]) == "P1"
+
+
+def test_both_alama_papers_are_named_and_listed_in_the_check_result():
+    script = ("Jesse Alama, in his 2011 paper, 'mizar-items: Exploring fine-grained dependencies in the Mizar Mathematical Library', "
+              "link in the description. Alama discussed in another 2011 paper, 'Eliciting implicit assumptions of proofs in the MIZAR "
+              "Mathematical Library by property omission', link in the description.")
+    llm = fake_llm({"mizar-items": [m("Jesse Alama, in his 2011 paper, 'mizar-items: Exploring fine-grained dependencies in the Mizar Mathematical Library', link in the description", ["Jesse Alama"], 2011, ITEMS_WORDS),
+                                    m("Alama discussed in another 2011 paper, 'Eliciting implicit assumptions of proofs in the MIZAR Mathematical Library by property omission', link in the description", ["Alama"], 2011, ELICIT_WORDS)]})
+    res = run(nw.check_naming(script, "", ALAMA, llm))
+    assert res.passed and res.named_pids == ["P2", "P8"]
+
+
+def test_a_single_author_and_year_fit_is_unchanged():
+    only_items = [ALAMA_ITEMS]
+    res = run(nw.check_naming("x", "", only_items, fake_llm({"x": [m("Alama discussed in another 2011 paper 'Eliciting implicit assumptions ...'", ["Alama"], 2011, ELICIT_WORDS)]})))
+    assert res.named_pids == ["P2"]   # one candidate: author and year are enough, as before
