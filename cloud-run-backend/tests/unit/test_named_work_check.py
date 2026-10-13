@@ -342,3 +342,64 @@ def test_a_single_author_and_year_fit_is_unchanged():
     only_items = [ALAMA_ITEMS]
     res = run(nw.check_naming("x", "", only_items, fake_llm({"x": [m("Alama discussed in another 2011 paper 'Eliciting implicit assumptions ...'", ["Alama"], 2011, ELICIT_WORDS)]})))
     assert res.named_pids == ["P2"]   # one candidate: author and year are enough, as before
+
+
+# ---------------------------------------------------------------- fix 3: title words in the quote, and "Alama's 2011 research" after the paper was named
+def test_title_words_in_the_quoted_passage_count_when_the_model_listed_none():
+    # ever-math-260007 retry: "Jesse Alama's 2011 work on `mizar-items` for the Mizar Mathematical Library" came back with year 2011 and no title words
+    q = "Jesse Alama's 2011 work on `mizar-items` for the Mizar Mathematical Library—link in the description"
+    assert nw.match_mention(m(q, ["Jesse Alama"], 2011), ALAMA) == "P2"
+    q2 = "Alama's 2011 paper on eliciting implicit assumptions in the Mizar Mathematical Library"
+    assert nw.match_mention(m(q2, ["Alama"], 2011), ALAMA) == "P8"
+
+
+def test_a_quote_that_only_has_words_shared_by_all_the_titles_decides_nothing():
+    assert nw.match_mention(m("Alama's 2011 paper on the Mizar Mathematical Library", ["Alama"], 2011), ALAMA) is None
+
+
+def test_a_later_mention_without_a_title_resolves_to_the_one_paper_named_before():
+    later = m("Alama's 2011 research", ["Alama"], 2011)
+    assert nw.match_mention(later, ALAMA, named_before=["P2"]) == "P2"
+    assert nw.match_mention(later, ALAMA, named_before=["P8", "P1"]) == "P8"        # other authors' papers named earlier do not count
+
+
+def test_two_same_year_papers_named_before_leave_the_untitled_mention_a_violation():
+    later = m("Alama's 2011 research", ["Alama"], 2011)
+    assert nw.match_mention(later, ALAMA, named_before=["P2", "P8"]) is None
+    assert nw.match_mention(later, ALAMA, named_before=[]) is None                   # nothing named yet: still a violation
+    assert nw.match_mention(later, ALAMA, named_before=["P99"]) is None
+
+
+def test_a_mention_that_gives_wrong_title_words_is_not_rescued_by_an_earlier_mention():
+    wrong = m("Alama's 2011 study of quantum gardens", ["Alama"], 2011, ["quantum", "gardens"])
+    assert nw.match_mention(wrong, ALAMA, named_before=["P2"]) is None
+
+
+def _script_check(mentions):
+    script = "x " + " ".join(q["quote"] for q in mentions)
+    return run(nw.check_naming(script, "", ALAMA, fake_llm({"x ": mentions})))
+
+
+def test_end_to_end_one_alama_paper_named_then_a_followup_passes():
+    res = _script_check([
+        m("Jesse Alama's 2011 work on mizar-items for the Mizar Mathematical Library, link in the description", ["Jesse Alama"], 2011, ["mizar-items"]),
+        m("Alama's 2011 research also led to an interactive website", ["Alama"], 2011)])
+    assert res.passed and res.named_pids == ["P2"]
+
+
+def test_end_to_end_two_alama_papers_named_then_an_untitled_followup_fails():
+    res = _script_check([
+        m("Jesse Alama's 2011 work on mizar-items for the Mizar Mathematical Library, link in the description", ["Jesse Alama"], 2011, ["mizar-items"]),
+        m("Alama's second 2011 paper, Eliciting implicit assumptions of proofs in the MIZAR Mathematical Library by property omission, link in the description", ["Alama"], 2011, ELICIT_WORDS),
+        m("Alama's 2011 research also led to an interactive website", ["Alama"], 2011)])
+    assert res.named_pids == ["P2", "P8"] and [v["quote"] for v in res.violations] == ["Alama's 2011 research also led to an interactive website"]
+
+
+def test_the_retry_instruction_tells_the_model_to_name_the_paper_by_its_title():
+    res = _script_check([m("Alama's 2011 research", ["Alama"], 2011)])
+    text = nw.feedback_text(res, ALAMA)
+    assert "3 papers by Alama" in text and "name the paper by its title" in text
+    assert "Eliciting implicit assumptions" in text and "mizar-items" in text
+    # nothing extra for an author with one listed paper
+    res2 = run(nw.check_naming("x", "", CONFIRMED, fake_llm({"x": [m("Smith showed", ["Smith"], 2025)]})))
+    assert "papers by" not in nw.feedback_text(res2, CONFIRMED)

@@ -162,13 +162,15 @@ def _group_sets(paper: Any) -> List[set]:
     return [_name_tokens(a) for a in paper.authors if any(m in _norm(a).split() for m in GROUP_MARKERS) and _name_tokens(a)]
 
 
-def match_mention(mention: Dict[str, Any], confirmed: Sequence[Any]) -> Optional[str]:
-    """pid of the confirmed paper this mention refers to, or None. Deterministic."""
+def match_mention(mention: Dict[str, Any], confirmed: Sequence[Any], named_before: Sequence[str] = ()) -> Optional[str]:
+    """pid of the confirmed paper this mention refers to, or None. Deterministic. `named_before` is the pids already matched
+    earlier in the same text, used only to resolve a later "Alama's 2011 research" that gives no title."""
     names = {_norm(a).split()[-1] for a in (mention.get("authors") or []) if _norm(a)} - set(GROUP_MARKERS)  # empty means no usable author
     full_names = _with_given_names(mention.get("authors") or [], mention.get("quote") or "")
     mention_groups = [_name_tokens(a) for a in (mention.get("authors") or []) if _name_tokens(a)]
     quote_words = set(_norm(mention.get("quote") or "").split())
     tw = _words(" ".join(mention.get("title_words") or []))
+    qw = _words(mention.get("quote") or "")  # title words can sit in the quoted passage itself ("work on `mizar-items`")
     year = mention.get("year")
     candidates = []  # (paper, title_overlap) for every paper the author and year (or title) fit
     for c in confirmed:
@@ -180,7 +182,7 @@ def match_mention(mention: Dict[str, Any], confirmed: Sequence[Any]) -> Optional
         by_group_in_quote = not names and any(g <= quote_words for g in gsets) and year is not None  # "the BESIII Collaboration's 2026 ..." with no author listed
         if by_surname or by_group or by_group_in_quote:
             if year_ok:
-                candidates.append((c, title_overlap))
+                candidates.append((c, len((tw | qw) & _words(c.title)) if tw or qw else 0))
         elif not names and title_overlap >= 3:
             candidates.append((c, title_overlap))
     if not candidates:
@@ -195,6 +197,12 @@ def match_mention(mention: Dict[str, Any], confirmed: Sequence[Any]) -> Optional
     ranked = sorted(pool, key=lambda x: x[1], reverse=True)
     if ranked[0][1] >= 2 and ranked[0][1] > ranked[1][1]:
         return ranked[0][0].pid
+    # No title decides. A mention that gives no title at all ("Alama's 2011 research") refers back to a paper already named
+    # in the text, but only when exactly one of the competing papers has been named before it.
+    if not tw:
+        earlier = [x[0].pid for x in pool if x[0].pid in set(named_before)]
+        if len(earlier) == 1:
+            return earlier[0]
     return None
 
 
@@ -276,7 +284,7 @@ async def check_naming(script: str, description: str, confirmed_papers: Sequence
     unknown_position_matched = False
     matched_positions: List[int] = []
     for m in mentions:
-        pid = match_mention(m, confirmed_papers)
+        pid = match_mention(m, confirmed_papers, seen_pids)
         m["pid"] = pid
         result.mentions.append(m)
         if pid:
@@ -307,11 +315,21 @@ def feedback_text(result: NamingResult, confirmed_papers: Sequence[Any]) -> str:
     """Instructions added to the next generation attempt, listing what was wrong and what is allowed."""
     allowed = "; ".join(f"[{c.pid}] {', '.join(c.authors[:2])}{' et al.' if len(c.authors) > 2 else ''} ({c.year})" for c in confirmed_papers)
     lines = [violation_label(v) for v in result.violations]
+    several = []  # authors with more than one listed paper: the model must say which one
+    for v in result.violations:
+        for a in v.get("authors") or []:
+            mine = [c for c in confirmed_papers if any(_name_match(a, la) for la in c.authors)]
+            if len(mine) > 1 and a not in [x[0] for x in several]:
+                several.append((a, mine))
+    extra = "".join(
+        f"\nThe list has {len(mine)} papers by {a}: " + "; ".join(f'[{c.pid}] "{c.title}" ({c.year})' for c in mine) +
+        f". Whenever you mention {a}'s work, name the paper by its title (or its distinctive title words) so it is clear which one; "
+        f"never write only '{a}'s {mine[0].year} research'.\n" for a, mine in several)
     return (
         "\n\n**YOUR PREVIOUS SCRIPT WAS REJECTED because it named works that are not in the numbered list, or promised a link "
         "for a paper that is not in the list:**\n- " + "\n- ".join(lines) +
         f"\n\nRewrite it so that it names ONLY these papers: {allowed}. Remove every other author, study or paper from the script "
-        "and the description, and say \"the link is in the description\" only right after naming one of these papers.\n")
+        "and the description, and say \"the link is in the description\" only right after naming one of these papers.\n" + extra)
 
 
 def make_gemini_llm_call(api_key: str, model: str = "gemini-2.5-flash") -> LlmCall:
