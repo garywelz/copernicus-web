@@ -593,3 +593,15 @@ def test_the_fallback_analysis_is_marked_failed():
     import inspect, paper_processor
     assert "analysis_failed=parse_failed" in inspect.getsource(paper_processor.analyze_paper_with_gemini)
     assert paper_processor.PaperAnalysis("s", [], [], [], [], [], "", [], 0.5).analysis_failed is False
+
+
+def test_prompt_demands_honest_focused_dialogue(monkeypatch):
+    """ever-math-260007 overclaimed ("absolute certainty", "eliminates human oversight errors"), invented "as you put it" and drifted off the question."""
+    it = _integrator(monkeypatch, _srcs(3), _good_http())
+    ctx = run(it.comprehensive_research_for_podcast("cells"))
+    prompt = it.build_2_speaker_research_prompt(ctx, "10 minutes", "interview")
+    assert "HONESTY AND FOCUS" in prompt and 'Stay on the question asked: "cells"' in prompt
+    assert "No absolute or certainty claims beyond what a listed paper itself states" in prompt and "absolute certainty" in prompt   # named as forbidden
+    assert 'Never write "as you put it"' in prompt and "If the evidence is thin" in prompt
+    # the hype the old prompt asked for is gone from the questions and the closing line it taught the model
+    assert "what makes this research so revolutionary" not in prompt and "What revolutionary changes" not in prompt and "groundbreaking research" not in prompt

@@ -9,6 +9,7 @@ Canonical filenames follow patterns:
 - News: news-{category}-{YYYYMMDD}-{4-digit-serial} (YY + MMDD + serial; e.g., news-bio-20250328-0001)
 """
 
+import asyncio
 import re
 import os
 from typing import Optional, List, Tuple
@@ -72,6 +73,15 @@ def parse_evergreen_filename(filename: Optional[str]) -> Optional[Tuple[str, str
     return m.group(1), m.group(2), int(m.group(3))
 
 
+def highest_evergreen_sequence(existing_names: List[str], category_slug: str, yy: str) -> int:
+    top = 0
+    for name in existing_names:
+        parsed = parse_evergreen_filename(name)
+        if parsed and parsed[0] == category_slug and parsed[1] == yy:
+            top = max(top, parsed[2])
+    return top
+
+
 def next_evergreen_filename(
     existing_names: List[str],
     category_slug: str,
@@ -92,6 +102,37 @@ def next_evergreen_filename(
         if cat == category_slug and file_yy == yy:
             max_seq = max(max_seq, seq)
     return f"ever-{category_slug}-{yy}{max_seq + 1:04d}"
+
+
+COUNTER_COLLECTION = "canonical_counters"
+
+
+class CanonicalAllocationError(Exception):
+    """No episode ID could be reserved. The episode must fail rather than take a guessed or reused name."""
+
+
+def counter_key(kind: str, category_slug: str, period: str) -> str:
+    """'ever-math-26' for evergreen episodes of 2026, 'news-bio-20260101' for news of one day."""
+    return f"{kind}-{category_slug}-{period}"
+
+
+def reserve_sequence(database, key: str, floor: int) -> int:
+    """Atomically hand out the next number for `key` and remember it. The stored counter only ever goes up, so a number
+    that was issued once (even to an episode that was later deleted) is never issued again. `floor` is the highest number
+    seen among live episodes and files; it only matters when the counter is missing or behind (first use, or a restore)."""
+    from google.cloud import firestore
+
+    ref = database.collection(COUNTER_COLLECTION).document(key)
+
+    @firestore.transactional
+    def take(transaction):
+        snap = ref.get(transaction=transaction)
+        last = int((snap.to_dict() or {}).get("last_seq") or 0) if snap.exists else 0
+        seq = max(last, floor) + 1
+        transaction.set(ref, {"last_seq": seq, "updated_at": datetime.utcnow().isoformat() + "Z"}, merge=True)
+        return seq
+
+    return take(database.transaction())
 
 
 class CanonicalService:
@@ -124,6 +165,8 @@ class CanonicalService:
 
             existing_names: List[str] = []
             try:
+                if not db:
+                    raise CanonicalAllocationError("Firestore is not available, so no episode ID can be reserved")
                 if db:
                     for collection_name in ("podcast_jobs", "episodes"):
                         for doc in db.collection(collection_name).stream():
@@ -142,11 +185,11 @@ class CanonicalService:
                     category=request_category,
                     year_yy=year_yy,
                 )
+            except CanonicalAllocationError:
+                raise
             except Exception as e:
-                structured_logger.warning(
-                    "Could not query Firestore for episode numbers",
-                    error=str(e),
-                )
+                # Fail closed: an ID chosen without knowing what exists could repeat one that was used.
+                raise CanonicalAllocationError(f"Could not read existing episodes to reserve an ID: {type(e).__name__}") from e
 
             try:
                 gcs_list_url = (
@@ -178,8 +221,13 @@ class CanonicalService:
                         gcs_data = gcs_response.json()
                         existing_files = gcs_data.get('items', [])
                         
-                        # Count existing files for this date/category
-                        serial_number = len(existing_files) + 1
+                        # Highest serial seen (by count or by name), then the stored counter, which never goes down
+                        seen = [int(n.rsplit("-", 1)[-1].split(".")[0]) for n in
+                                [(i.get("name") or "").split("/")[-1] for i in existing_files]
+                                if n.rsplit("-", 1)[-1].split(".")[0].isdigit()]
+                        floor = max([len(existing_files)] + seen)
+                        serial_number = await asyncio.to_thread(
+                            reserve_sequence, db, counter_key("news", request_category, date_str), floor)
                         serial_str = str(serial_number).zfill(4)  # Pad to 4 digits (0001, 0002, etc.)
                         
                         canonical_filename = f"news-{request_category}-{date_str}-{serial_str}"
@@ -189,18 +237,20 @@ class CanonicalService:
                                               date=date_str,
                                               serial=serial_str)
                     else:
-                        # Fallback if GCS check fails
-                        canonical_filename = f"news-{request_category}-{date_str}-0001"
-                        structured_logger.debug("Determined NEWS filename (fallback)", filename=canonical_filename)
+                        # GCS list unavailable: the stored counter alone still never repeats a serial
+                        serial_number = await asyncio.to_thread(
+                            reserve_sequence, db, counter_key("news", request_category, date_str), 0)
+                        canonical_filename = f"news-{request_category}-{date_str}-{str(serial_number).zfill(4)}"
+                        structured_logger.debug("Determined NEWS filename (GCS list unavailable)", filename=canonical_filename)
+                except CanonicalAllocationError:
+                    raise
                 except Exception as e:
-                    structured_logger.warning("Could not check GCS for news serial numbering",
-                                             error=str(e))
-                    canonical_filename = f"news-{request_category}-{date_str}-0001"
-                    structured_logger.debug("Determined NEWS filename (error fallback)", filename=canonical_filename)
+                    raise CanonicalAllocationError(f"Could not reserve a news serial: {type(e).__name__}") from e
             else:
-                canonical_filename = next_evergreen_filename(
-                    existing_names, request_category, datetime.now().year
-                )
+                floor = highest_evergreen_sequence(existing_names, request_category, year_yy)
+                seq = await asyncio.to_thread(
+                    reserve_sequence, db, counter_key("ever", request_category, year_yy), floor)
+                canonical_filename = f"ever-{request_category}-{year_yy}{seq:04d}"
                 structured_logger.debug(
                     "Determined FEATURE filename",
                     filename=canonical_filename,
@@ -216,9 +266,10 @@ class CanonicalService:
                                    topic=topic,
                                    title=title,
                                    category=category)
-            # Fallback to timestamp-based naming
-            timestamp = datetime.now().strftime("%y%m%d")
-            return f"research-fallback-{timestamp}"
+            # No guessed name: a timestamp name repeats within a day. The episode fails instead.
+            if isinstance(e, CanonicalAllocationError):
+                raise
+            raise CanonicalAllocationError(f"Could not determine an episode ID: {type(e).__name__}: {e}") from e
     
     def is_canonical_filename(self, filename: str) -> bool:
         """Check if a filename follows canonical naming conventions"""
