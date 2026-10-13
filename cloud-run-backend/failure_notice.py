@@ -12,6 +12,7 @@ from named_work_check import NamingCheckUnavailable, NamingViolationError
 from relevance_gate import RelevanceCheckUnavailable
 from speech_text import UnspeakableNotationError
 from script_style import BannedPhraseError
+from utils.script_validation import ScriptTooLongError
 from attribution_check import AttributionError, AttributionCheckUnavailable
 
 
@@ -80,6 +81,13 @@ def describe_failure(exc: BaseException) -> Dict[str, Optional[str]]:
             "summary": ("The script kept using overstated or promotional wording (for example 'revolutionary' or 'unprecedented') even after "
                         "being asked to rewrite it in plain terms, so no episode was published."),
             "what_to_do": "Please try again.",
+        }
+    if isinstance(exc, ScriptTooLongError):
+        return {
+            "kind": "script_too_long",
+            "summary": ("The script kept running longer than the requested episode length, even after being asked to shorten it, so no "
+                        "episode was published."),
+            "what_to_do": "Please try again, or choose a narrower topic.",
         }
     if isinstance(exc, AttributionError):
         return {

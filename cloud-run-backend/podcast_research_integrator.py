@@ -21,7 +21,7 @@ from research_pipeline import ComprehensiveResearchPipeline, ResearchSource
 from enhanced_research_service import EnhancedResearchService, PaperAnalysis
 from paper_processor import analyze_paper_with_gemini, ResearchPaper, AnalyzeOptions, PaperAnalysis as GeminiPaperAnalysis
 from copernicus_character import get_copernicus_character, get_character_prompt, CopernicusCharacter
-from utils.script_validation import calculate_minimum_words_for_duration
+from utils.script_validation import calculate_minimum_words_for_duration, calculate_maximum_words_for_duration
 from script_style import prompt_list as banned_phrase_list
 from relevance_gate import RELEVANCE_THRESHOLD, apply_gate, outside_zenodo, relevance_scores
 from paper_confirmation import (
@@ -460,6 +460,7 @@ Your podcast has TWO speakers only:
 - **TARGET: {int(calculate_minimum_words_for_duration(duration) / 0.8)} words** for full duration coverage
 - **MANDATORY: Your script MUST be at least {calculate_minimum_words_for_duration(duration)} words long**
 - **FAILURE WARNING: Scripts under {calculate_minimum_words_for_duration(duration)} words will be REJECTED and generation will fail - ensure you meet or exceed this minimum**
+- **MAXIMUM: {calculate_maximum_words_for_duration(duration)} words.** The audio must stay within the requested length; a script over this maximum is REJECTED and must be shortened.
 - **WORD COUNT CHECK: Before submitting, count the words in your script. If it's under {calculate_minimum_words_for_duration(duration)} words, you MUST expand it with more dialogue, examples, and detailed explanations.**
 
 **CITATION STYLE IN DIALOGUE:**

@@ -99,7 +99,8 @@ from config.constants import (
 from config.database import db
 from services.episode_service import episode_service
 from services.canonical_service import canonical_service
-from utils.script_validation import validate_script_length, calculate_minimum_words_for_duration
+from utils.script_validation import (validate_script_length, calculate_minimum_words_for_duration, calculate_maximum_words_for_duration,
+                                     length_feedback, ScriptTooLongError)
 from named_work_check import check_naming, feedback_text, make_gemini_llm_call, NamingViolationError
 from failure_notice import describe_failure
 from reference_sections import apply_reference_sections, BUILT_BY as REFERENCES_BUILT_BY
@@ -2191,6 +2192,7 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
         max_retries = 2
         content = None
         min_words = calculate_minimum_words_for_duration(request.duration)
+        max_words = calculate_maximum_words_for_duration(request.duration)  # fix 4 (c): the 5-10 minute target is enforced
         # Gap 3 fix 1 (C5): the script may name only confirmed papers. The check runs on every accepted
         # script; violations feed the next attempt, and after the last attempt the episode fails.
         naming_llm = make_gemini_llm_call(google_key)
@@ -2212,6 +2214,15 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
                 script = generated_content.get('script', '') if isinstance(generated_content, dict) else ''
                 word_count = len(script.split()) if script else 0
                 
+                if word_count > max_words:
+                    naming_attempts.append({'attempt': attempt + 1, 'too_long': word_count, 'max_words': max_words})
+                    structured_logger.warning("Script too long, regenerating", job_id=job_id, word_count=word_count,
+                                             max_words=max_words, attempt=attempt + 1)
+                    if attempt < max_retries:
+                        naming_feedback = length_feedback(word_count, max_words, min_words)
+                        await asyncio.sleep(2)
+                        continue
+                    raise ScriptTooLongError(word_count, max_words)
                 if word_count >= min_words:
                     naming_result = await check_naming(
                         script, generated_content.get('description', '') if isinstance(generated_content, dict) else '',
