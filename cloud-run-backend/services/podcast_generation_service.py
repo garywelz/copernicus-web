@@ -106,6 +106,8 @@ from failure_notice import describe_failure
 from reference_sections import apply_reference_sections, BUILT_BY as REFERENCES_BUILT_BY
 from speech_text import strip_pn_markers_counted, speak_text, notation_problems, notation_feedback, UnspeakableNotationError
 from script_style import banned_phrase_hits, banned_feedback, BannedPhraseError, FinalTextCheckError
+from topic_checks import (uncovered_named_things, missing_coverage_statements, coverage_feedback, read_aloud_sentences, read_aloud_feedback,
+                          CoverageStatementError, TopicReadAloudError)
 from attribution_check import check_attributions, attribution_feedback, AttributionError
 import rejection_log
 
@@ -2162,6 +2164,14 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
         if banned:
             reject(rejection_log.banned_items(0, banned))
             raise BannedPhraseError(banned)
+        read_aloud = read_aloud_sentences(script, request.topic)
+        if read_aloud:
+            reject(rejection_log.read_aloud_items(0, read_aloud))
+            raise TopicReadAloudError(read_aloud)
+        missing_cov = missing_coverage_statements(script, uncovered_named_things(request.topic, research_context.confirmed_papers))
+        if missing_cov:
+            reject(rejection_log.coverage_items(0, missing_cov))
+            raise CoverageStatementError(missing_cov)
         llm = make_gemini_llm_call(google_key)
         naming = await model_call("naming_check", lambda: check_naming(script, description, research_context.confirmed_papers, llm, topic=request.topic))
         if not naming.passed:
@@ -2204,6 +2214,7 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
         rejections = []
         transient = {"n": 0}
         self._last_naming_attempts = naming_attempts  # same list objects: the sandbox harness reads them even when this raises
+        uncovered = uncovered_named_things(request.topic, research_context.confirmed_papers)   # fix 7: names in the topic no paper covers
         self._last_rejections = rejections
 
         def reject(items):
@@ -2263,6 +2274,11 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
                 # Fix 4 (a): overstated or promotional wording from the one list in config/banned_phrases.json
                 banned = banned_phrase_hits(script, description)
                 naming_attempts[-1]['banned_phrases'] = [{'phrase': h['phrase'], 'matched': h['matched'], 'where': h['where']} for h in banned]
+                # Fix 7: the topic title is not read aloud, and what the topic names but no paper covers is called out as not covered
+                read_aloud = read_aloud_sentences(script, request.topic)
+                missing_cov = missing_coverage_statements(script, uncovered)
+                naming_attempts[-1]['topic_read_aloud'] = len(read_aloud)
+                naming_attempts[-1]['coverage_statement_missing'] = missing_cov
                 # Fix 4 (b): a claim attributed to a named paper must be supported by that paper's abstract
                 attribution = None
                 if naming_result.passed:
@@ -2271,13 +2287,14 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
                     naming_attempts[-1]['attribution'] = attribution.summary()
                     reject(rejection_log.attribution_items(attempt + 1, attribution.checked))     # every verdict, supported ones too, in full
 
-                if naming_result.passed and not bad_notation and not banned and attribution.passed:
+                if naming_result.passed and not bad_notation and not banned and attribution.passed and not read_aloud and not missing_cov:
                     content = generated_content
                     structured_logger.info(f"Content generation succeeded on attempt {attempt + 1}", job_id=job_id, word_count=word_count,
                                           min_required=min_words, transient_retries=transient["n"])
                     break
                 reject(rejection_log.naming_items(attempt + 1, naming_result.violations) + rejection_log.notation_items(attempt + 1, bad_notation)
-                       + rejection_log.banned_items(attempt + 1, banned))
+                       + rejection_log.banned_items(attempt + 1, banned) + rejection_log.read_aloud_items(attempt + 1, read_aloud)
+                       + rejection_log.coverage_items(attempt + 1, missing_cov))
                 structured_logger.warning("Script rejected: unlisted works, unspeakable notation, banned wording or unsupported attribution",
                                          job_id=job_id, attempt=attempt + 1, violations=len(naming_result.violations),
                                          unspeakable_notation=bad_notation, banned_phrases=[h['matched'] for h in banned],
@@ -2289,11 +2306,17 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
                         raise UnspeakableNotationError(bad_notation)
                     if banned:
                         raise BannedPhraseError(banned)
-                    raise AttributionError(attribution.violations)
+                    if attribution is not None and not attribution.passed:
+                        raise AttributionError(attribution.violations)
+                    if read_aloud:
+                        raise TopicReadAloudError(read_aloud)
+                    raise CoverageStatementError(missing_cov)
                 naming_feedback = ((feedback_text(naming_result, research_context.confirmed_papers) if not naming_result.passed else "")
                                    + (notation_feedback(bad_notation) if bad_notation else "")
                                    + (banned_feedback(banned) if banned else "")
-                                   + (attribution_feedback(attribution) if attribution and not attribution.passed else ""))
+                                   + (attribution_feedback(attribution) if attribution and not attribution.passed else "")
+                                   + (read_aloud_feedback(read_aloud) if read_aloud else "")
+                                   + (coverage_feedback(missing_cov) if missing_cov else ""))
                 await asyncio.sleep(2)
         except Exception as e:
             structured_logger.error("Content generation failed after all retries", job_id=job_id, error=str(e), error_type=type(e).__name__)
