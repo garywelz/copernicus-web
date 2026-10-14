@@ -1,5 +1,5 @@
 {
-  "_note": "Words and phrases a generated script or description may not use (case-insensitive; spaces and hyphens match each other; a phrase also matches longer forms, so 'paradigm shift' matches 'paradigm shifts' and 'paradigm-shifting'). One list, read by script_style.py and shown to the model in the prompt. Edit here to change the rule.",
+  "_note": "Words and phrases a generated script or description may not use (case-insensitive; spaces and hyphens match each other; a phrase also matches longer forms, so 'paradigm shift' matches 'paradigm shifts' and 'paradigm-shifting', and 'profound' matches 'profoundly'). One list, read by script_style.py; the check is in code and the list is not shown to the model. Edit here to change the rule.",
   "banned_phrases": [
     "revolutionary",
     "groundbreaking",
@@ -10,6 +10,9 @@
     "unassailable",
     "beyond doubt",
     "game-changing",
-    "game changer"
+    "game changer",
+    "profound",
+    "fundamentally",
+    "emergent properties"
   ]
 }
