@@ -169,7 +169,7 @@ def test_too_short_then_violation_then_clean_uses_the_shared_budget(monkeypatch)
 
 def test_a_script_that_stays_short_fails_and_is_never_kept(monkeypatch):
     req = PodcastRequest(topic="t")
-    short_bad = "Zorblatt and Quux showed it."
+    short_bad = ("word " * 400) + "Zorblatt and Quux showed it."      # short (400 words) but a real script: a content failure, not a broken reply
     service, req, calls = _harness(monkeypatch, [short_bad, short_bad, short_bad])
     with pytest.raises(ScriptTooShortError) as e:
         run(service._generate_checked_content(req, _ctx(), "k", "job1"))
@@ -312,7 +312,7 @@ def test_banned_wording_in_the_description_counts_too(monkeypatch):
 
 def test_a_short_script_with_banned_wording_fails_as_too_short_and_is_not_padded(monkeypatch):
     req = PodcastRequest(topic="t")
-    short_hype = "Lovelace and Turing showed a revolutionary result."
+    short_hype = ("word " * 400) + "Lovelace and Turing showed a revolutionary result."
     service, req, calls = _harness(monkeypatch, [short_hype, short_hype, short_hype])
     with pytest.raises(ScriptTooShortError):
         run(service._generate_checked_content(req, _ctx(), "k", "job1"))
@@ -383,7 +383,7 @@ def test_a_naming_violation_means_no_attribution_call_that_attempt(monkeypatch):
 
 def test_a_short_script_is_regenerated_then_checked_like_any_other(monkeypatch):
     req = PodcastRequest(topic="t")
-    short = "Lovelace and Turing showed that every machine proves everything."
+    short = ("word " * 400) + "Lovelace and Turing showed that every machine proves everything."
     ok = _script(" Lovelace and Turing showed it.", req)
     service, req, calls = _harness(monkeypatch, [short, ok])
     content, result, attempts = run(service._generate_checked_content(req, _ctx(), "k", "job1"))
@@ -733,3 +733,21 @@ def test_a_final_check_whose_answer_cannot_be_read_is_repeated(monkeypatch):
     stored = []
     summary = run(service._verify_final_text(_final_content(req), req, _ctx(), "k", "job1", on_rejection=stored.extend))
     assert summary["named_pids"] == ["P1"] and [r["stage"] for r in stored if r["check"] == "transient_error"] == ["final_naming_check"] * 2
+
+
+def test_the_loop_passes_the_episode_topic_so_a_quoted_topic_is_not_an_unlisted_work(monkeypatch):
+    topic = "Chaos theory in neural network models of cells"
+    req = PodcastRequest(topic=topic)
+    text = _script(' Today we are exploring "' + topic + '". Lovelace and Turing showed it.', req)
+    service, req, calls = _harness(monkeypatch, [text])
+    req.topic = topic                                   # _harness returns its own request
+    inner = svc.make_gemini_llm_call("k")
+
+    async def llm(system, user):
+        if "PAPERS:" not in user and topic in user:
+            return json.dumps({"mentions": [{"quote": topic, "authors": [], "year": None, "title_words": []},
+                                            {"quote": "Lovelace and Turing showed", "authors": ["Lovelace", "Turing"], "year": 2025, "title_words": []}]})
+        return await inner(system, user)
+    monkeypatch.setattr(svc, "make_gemini_llm_call", lambda key: llm)
+    content, result, attempts = run(service._generate_checked_content(req, _ctx(), "k", "job1"))
+    assert calls["gen"] == 1 and result.passed and [x.get("ignored") for x in result.mentions][:1] == ["episode topic"]

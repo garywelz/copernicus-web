@@ -270,8 +270,58 @@ async def _extract(llm_call: LlmCall, label: str, text: str) -> List[Dict[str, A
     return out
 
 
-async def check_naming(script: str, description: str, confirmed_papers: Sequence[Any], llm_call: LlmCall) -> NamingResult:
-    """Check script and description. Raises NamingCheckUnavailable if the model step fails."""
+# The episode's own topic is not a work: a host who says 'today we're exploring "<the topic>"' has quoted the question, not a paper.
+TOPIC_OVERLAP = 0.8
+MIN_TOPIC_WORDS = 4
+
+
+def is_topic_mention(mention: Dict[str, Any], topic: Optional[str]) -> bool:
+    """True when a mention without authors quotes (nearly) the episode topic itself."""
+    if not topic or mention.get("authors"):
+        return False
+    topic_words = _words(topic)
+    for text in (mention.get("quote") or "", " ".join(mention.get("title_words") or [])):
+        words = _words(text)
+        if len(words) >= MIN_TOPIC_WORDS and len(words & topic_words) / len(words) >= TOPIC_OVERLAP:
+            return True
+    return False
+
+
+# A tool or system the host names without an author ("tools like 'mizar-items'") is not an unlisted paper when a listed paper's own title or
+# abstract uses that name: the listed paper is where the name comes from. A name that no listed paper mentions is still a violation.
+_QUOTED_NAME = re.compile(r"""`([^`]{3,60})`|"([^"]{3,60})"|(?<![A-Za-z0-9])'([^']{3,60})'(?![A-Za-z0-9])|\u2018([^\u2019]{3,60})\u2019|\u201c([^\u201d]{3,60})\u201d""")
+
+
+def tool_names(mention: Dict[str, Any]) -> List[str]:
+    names = []
+    for m in _QUOTED_NAME.finditer(mention.get("quote") or ""):
+        name = next(g for g in m.groups() if g)
+        if len(name.split()) <= 4 and _norm(name):
+            names.append(name)
+    if not names:
+        tw = [w for w in (mention.get("title_words") or []) if _norm(w)]
+        if 1 <= len(tw) <= 2:
+            names = tw
+    return names
+
+
+def match_tool_name(mention: Dict[str, Any], confirmed: Sequence[Any]) -> Optional[str]:
+    """pid of the listed paper whose title or abstract contains every name the mention quotes, or None. Only for mentions without authors."""
+    if mention.get("authors"):
+        return None
+    names = tool_names(mention)
+    if not names:
+        return None
+    for c in confirmed:
+        text = _norm(f"{c.title} {getattr(c, 'abstract', '') or ''}")
+        if all(_norm(n) in text for n in names):
+            return c.pid
+    return None
+
+
+async def check_naming(script: str, description: str, confirmed_papers: Sequence[Any], llm_call: LlmCall, topic: Optional[str] = None) -> NamingResult:
+    """Check script and description. Raises NamingCheckUnavailable if the model step fails. `topic`: a quoted passage that is the episode's own
+    topic is not a work."""
     body = (description or "")
     # the code-built reference sections are added later; strip any model-written ones so they are not read as mentions
     body = re.split(r"(?im)^#{1,3}\s*(?:references|further reading|bibliography|sources)\s*$", body)[0]
@@ -285,6 +335,14 @@ async def check_naming(script: str, description: str, confirmed_papers: Sequence
     matched_positions: List[int] = []
     for m in mentions:
         pid = match_mention(m, confirmed_papers, seen_pids)
+        if pid is None and is_topic_mention(m, topic):
+            m["pid"], m["ignored"] = None, "episode topic"
+            result.mentions.append(m)
+            continue
+        if pid is None:
+            pid = match_tool_name(m, confirmed_papers)
+            if pid:
+                m["matched_by"] = "tool name in the paper's title or abstract"
         m["pid"] = pid
         result.mentions.append(m)
         if pid:
