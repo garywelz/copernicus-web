@@ -12,6 +12,7 @@ from named_work_check import NamingCheckUnavailable, NamingViolationError
 from relevance_gate import RelevanceCheckUnavailable
 from speech_text import UnspeakableNotationError
 from script_style import BannedPhraseError, FinalTextCheckError
+from topic_checks import CoverageStatementError, TopicReadAloudError
 from utils.script_validation import ScriptTooLongError, ScriptTooShortError
 from attribution_check import AttributionError, AttributionCheckUnavailable
 
@@ -80,6 +81,19 @@ def describe_failure(exc: BaseException) -> Dict[str, Optional[str]]:
             "kind": "banned_wording",
             "summary": ("The script kept using overstated or promotional wording (for example 'revolutionary' or 'unprecedented') even after "
                         "being asked to rewrite it in plain terms, so no episode was published."),
+            "what_to_do": "Please try again.",
+        }
+    if isinstance(exc, CoverageStatementError):
+        return {
+            "kind": "coverage_not_stated",
+            "summary": ("Your topic names something that none of the research papers we found covers, and the script kept failing to say so "
+                        "plainly, so no episode was published."),
+            "what_to_do": "Please try again, or narrow the topic to what the papers cover.",
+        }
+    if isinstance(exc, TopicReadAloudError):
+        return {
+            "kind": "topic_read_aloud",
+            "summary": "The script kept reading the topic title aloud instead of introducing the question, so no episode was published.",
             "what_to_do": "Please try again.",
         }
     if isinstance(exc, ScriptTooShortError):

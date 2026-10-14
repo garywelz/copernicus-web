@@ -31,6 +31,15 @@ def attribution_items(attempt: int, checked: Sequence[Dict[str, Any]]) -> List[D
              "abstract": c.get("abstract") if c.get("verdict") == "unsupported" else None, "reason": c.get("reason")} for c in checked]
 
 
+def coverage_items(attempt: int, missing) -> List[Dict[str, Any]]:
+    return [{"attempt": attempt, "check": "coverage_statement", "name": n,
+             "problem": "the topic names this, no confirmed paper covers it, and the script does not say the papers do not cover it"} for n in missing]
+
+
+def read_aloud_items(attempt: int, sentences) -> List[Dict[str, Any]]:
+    return [{"attempt": attempt, "check": "topic_read_aloud", "sentence": s} for s in sentences]
+
+
 def length_item(attempt: int, kind: str, words: int, limit: int) -> Dict[str, Any]:
     return {"attempt": attempt, "check": kind, "words": words, "limit": limit}
 

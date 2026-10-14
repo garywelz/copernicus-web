@@ -105,8 +105,62 @@ def query_terms(queries: Sequence[str]) -> List[str]:
     return out
 
 
-def lexical_score(title: str, abstract: str, terms: Sequence[str]) -> int:
-    """2 points for each term in the title, 1 for each in the abstract (a term is a whole word, case-insensitive)."""
+# ---------------------------------------------------------------- distinctive topic terms (fix 7)
+# Words that say little about WHICH question a topic asks: broad words of mathematics, computing and research. A topic's distinctive terms are
+# its content words minus these ("mathlib", "metamath", "dependency" in the ever-math topic; "network", "graph", "proof" are generic).
+GENERIC_TOPIC_STEMS = set("""proof graph formal mathematic mathematical math library network structure theory system model method data learning
+algorithm computer computational computation science scientific software language logic framework approach study research paper knowledge information
+neural machine analysis technique tool application problem concept general design process development performance experiment result evidence effect factor
+role pattern feature type form field area world human time work way""".split())
+
+
+def stem(word: str) -> str:
+    """A light plural stem: dependencies -> dependency, graphs -> graph, libraries -> library, classes -> class."""
+    w = (word or "").lower()
+    if len(w) > 4 and w.endswith("ies"):
+        return w[:-3] + "y"
+    if len(w) > 4 and (w.endswith("sses") or w.endswith("xes") or w.endswith("ches") or w.endswith("shes")):
+        return w[:-2]
+    if len(w) > 3 and w.endswith("s") and not w.endswith("ss"):
+        return w[:-1]
+    return w
+
+
+def distinctive_terms(topic: str) -> List[str]:
+    """The topic's distinctive words (lower-case surface forms, in topic order): content words that are not generic."""
+    return [w for w in topic_terms(topic) if len(w) >= 4 and stem(w) not in GENERIC_TOPIC_STEMS]
+
+
+def _stems_in(text: str) -> set:
+    return {stem(w) for w in re.findall(r"[a-z0-9][a-z0-9\-]*", (text or "").lower())}
+
+
+def term_hits(text: str, terms: Sequence[str]) -> set:
+    """Which of the terms (as stems) occur in the text."""
+    have = _stems_in(text)
+    return {stem(t) for t in terms if stem(t) in have}
+
+
+def keep_focused_paper(title: str, abstract: str, distinctive: Sequence[str]) -> bool:
+    """A paper that only a focused query found is kept when its title has a distinctive topic term, or its abstract has at least two different
+    ones (one, if the topic has only one). A single mention in an abstract (a tool the paper happens to use) is not enough. With no
+    distinctive terms there is nothing to test and the paper is kept."""
+    if not distinctive:
+        return True
+    if term_hits(title, distinctive):
+        return True
+    need = min(2, len({stem(t) for t in distinctive}))
+    return len(term_hits(abstract, distinctive)) >= need
+
+
+def lexical_score(title: str, abstract: str, terms: Sequence[str], distinctive: Sequence[str] = ()) -> float:
+    """2 points for each term in the title, 1 for each in the abstract (a term is a whole word, case-insensitive); a distinctive term counts
+    three times as much, so papers that contain the topic's rare words come before papers that only share its generic ones."""
     tw = set(re.findall(r"[a-z0-9][a-z0-9\-]*", (title or "").lower()))
     aw = set(re.findall(r"[a-z0-9][a-z0-9\-]*", (abstract or "").lower()))
-    return sum(2 for t in terms if t in tw) + sum(1 for t in terms if t in aw)
+    rare = {stem(t) for t in distinctive}
+    score = 0.0
+    for t in terms:
+        weight = 3 if stem(t) in rare else 1
+        score += weight * (2 * (t in tw) + 1 * (t in aw))
+    return score

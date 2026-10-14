@@ -735,11 +735,12 @@ def test_a_final_check_whose_answer_cannot_be_read_is_repeated(monkeypatch):
     assert summary["named_pids"] == ["P1"] and [r["stage"] for r in stored if r["check"] == "transient_error"] == ["final_naming_check"] * 2
 
 
-def test_the_loop_passes_the_episode_topic_so_a_quoted_topic_is_not_an_unlisted_work(monkeypatch):
+def test_the_loop_passes_the_episode_topic_so_a_quoted_topic_is_not_an_unlisted_work_but_reading_it_aloud_is_still_refused(monkeypatch):
     topic = "Chaos theory in neural network models of cells"
     req = PodcastRequest(topic=topic)
-    text = _script(' Today we are exploring "' + topic + '". Lovelace and Turing showed it.', req)
-    service, req, calls = _harness(monkeypatch, [text])
+    read = _script(' Today we are exploring "' + topic + '". Lovelace and Turing showed it.', req)
+    good = _script(" Today we ask what chaos does in cells. Lovelace and Turing showed it.", req)
+    service, req, calls = _harness(monkeypatch, [read, good])
     req.topic = topic                                   # _harness returns its own request
     inner = svc.make_gemini_llm_call("k")
 
@@ -750,4 +751,77 @@ def test_the_loop_passes_the_episode_topic_so_a_quoted_topic_is_not_an_unlisted_
         return await inner(system, user)
     monkeypatch.setattr(svc, "make_gemini_llm_call", lambda key: llm)
     content, result, attempts = run(service._generate_checked_content(req, _ctx(), "k", "job1"))
-    assert calls["gen"] == 1 and result.passed and [x.get("ignored") for x in result.mentions][:1] == ["episode topic"]
+    kinds = [r["check"] for r in service._last_rejections]
+    assert calls["gen"] == 2 and content["script"] == good
+    assert "naming" not in kinds and "topic_read_aloud" in kinds                  # not an unlisted paper (fix 6), but refused for reading the title (fix 7)
+    assert "reads the topic title aloud" in calls["feedback"][1]
+
+
+# ---------------------------------------------------------------- fix 7: a name the topic gives that no paper covers is called out; the title is not read aloud
+from topic_checks import CoverageStatementError, TopicReadAloudError
+
+NAME_TOPIC = "How Ada used the Blorptron method to compute"      # "Blorptron" is named; the confirmed paper's title and abstract do not mention it
+SAID = " The papers reviewed here do not cover Blorptron. Lovelace and Turing showed it."
+
+
+def test_a_script_that_never_says_the_papers_do_not_cover_the_named_thing_is_sent_back(monkeypatch):
+    req = PodcastRequest(topic=NAME_TOPIC)
+    silent = _script(" Lovelace and Turing showed it.", req)
+    said = _script(SAID, req)
+    service, req, calls = _harness(monkeypatch, [silent, said])
+    req.topic = NAME_TOPIC
+    content, result, attempts = run(service._generate_checked_content(req, _ctx(), "k", "job1"))
+    assert calls["gen"] == 2 and content["script"] == said
+    assert "none of the numbered papers covers it" in calls["feedback"][1] and "Blorptron" in calls["feedback"][1]
+    item = next(r for r in service._last_rejections if r["check"] == "coverage_statement")
+    assert item["name"] == "Blorptron" and item["attempt"] == 1 and attempts[0]["coverage_statement_missing"] == ["Blorptron"]
+
+
+def test_a_script_that_never_says_it_fails_the_episode(monkeypatch):
+    req = PodcastRequest(topic=NAME_TOPIC)
+    silent = _script(" Lovelace and Turing showed it.", req)
+    service, req, calls = _harness(monkeypatch, [silent])
+    req.topic = NAME_TOPIC
+    with pytest.raises(CoverageStatementError) as e:
+        run(service._generate_checked_content(req, _ctx(), "k", "job1"))
+    assert calls["gen"] == 4 and "Blorptron" in str(e.value) and "no episode was published" in str(e.value)
+
+
+def test_a_topic_that_names_nothing_uncovered_asks_for_no_statement(monkeypatch):
+    req = PodcastRequest(topic="t")
+    service, req, calls = _harness(monkeypatch, [_script(" Lovelace and Turing showed it.", req)])
+    run(service._generate_checked_content(req, _ctx(), "k", "job1"))
+    assert calls["gen"] == 1 and not any(r["check"] == "coverage_statement" for r in service._last_rejections)
+
+
+def test_reading_the_topic_aloud_fails_the_episode_if_it_never_stops(monkeypatch):
+    topic = "Chaos theory in neural network models of cells"
+    req = PodcastRequest(topic=topic)
+    read = _script(" Today we are exploring " + topic + ". Lovelace and Turing showed it.", req)
+    service, req, calls = _harness(monkeypatch, [read])
+    req.topic = topic
+    with pytest.raises(TopicReadAloudError):
+        run(service._generate_checked_content(req, _ctx(), "k", "job1"))
+    assert calls["gen"] == 4
+
+
+def test_the_final_text_check_also_requires_the_statement_and_refuses_a_read_aloud_title(monkeypatch):
+    req = PodcastRequest(topic=NAME_TOPIC)
+    service, seen = _final_service(monkeypatch)
+    stored = []
+    with pytest.raises(CoverageStatementError):
+        run(service._verify_final_text(_final_content(req), req, _ctx(), "k", "job1", on_rejection=stored.extend))
+    assert stored[0]["check"] == "coverage_statement" and stored[0]["name"] == "Blorptron" and seen["calls"] == []
+    ok = _final_content(req, SAID)
+    assert run(service._verify_final_text(ok, req, _ctx(), "k", "job1"))["named_pids"] == ["P1"]
+    topic = "Chaos theory in neural network models of cells"
+    req2 = PodcastRequest(topic=topic)
+    with pytest.raises(TopicReadAloudError):
+        run(service._verify_final_text(_final_content(req2, " Today we are exploring " + topic + ". Lovelace and Turing showed it."), req2, _ctx(), "k", "job1"))
+
+
+def test_failure_notices_for_the_topic_checks():
+    from failure_notice import describe_failure
+    a = describe_failure(CoverageStatementError(["Blorptron"]))
+    b = describe_failure(TopicReadAloudError(["x"]))
+    assert a["kind"] == "coverage_not_stated" and "Blorptron" not in a["summary"] and b["kind"] == "topic_read_aloud"

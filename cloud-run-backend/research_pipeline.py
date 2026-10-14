@@ -307,10 +307,11 @@ class ComprehensiveResearchPipeline:
 
     async def _add_focused_arxiv_results(self, topic: str, sentence_sources: List[ResearchSource]) -> List[ResearchSource]:
         from paper_confirmation import RegistryUnavailable
-        from search_queries import focused_queries, query_terms, lexical_score
+        from search_queries import focused_queries, query_terms, lexical_score, distinctive_terms, keep_focused_paper
         queries = await focused_queries(topic, self.query_llm)
         if not queries:
             return sentence_sources
+        distinctive = distinctive_terms(topic)   # a paper only a focused query found must contain one of these (fix 7)
         merged = list(sentence_sources)
         seen = {self._arxiv_key(s) for s in merged}
         for q in queries:
@@ -322,10 +323,12 @@ class ComprehensiveResearchPipeline:
                 break  # OpenAlex is refusing or slow: the sentence results stand
             fresh = [s for s in found if self._arxiv_key(s) not in seen]
             seen.update(self._arxiv_key(s) for s in fresh)
-            merged.extend(fresh)
-            print(f"focused_search query={search!r} results={len(found)} new={len(fresh)}")
+            kept = [s for s in fresh if keep_focused_paper(s.title, s.abstract, distinctive)]
+            merged.extend(kept)
+            print(f"focused_search query={search!r} results={len(found)} new={len(fresh)} kept={len(kept)} "
+                  f"dropped_without_a_distinctive_term={[s.title[:40] for s in fresh if s not in kept]}")
         terms = query_terms(queries)
-        order = sorted(range(len(merged)), key=lambda i: (-lexical_score(merged[i].title, merged[i].abstract, terms), i))
+        order = sorted(range(len(merged)), key=lambda i: (-lexical_score(merged[i].title, merged[i].abstract, terms, distinctive), i))
         return [merged[i] for i in order][:self.ARXIV_MAX_AFTER_FOCUS]
 
     OPENALEX_ARXIV_SOURCE = "S4306400194"  # OpenAlex's id for arXiv as a source of works

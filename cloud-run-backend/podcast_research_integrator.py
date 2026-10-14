@@ -23,6 +23,7 @@ from paper_processor import analyze_paper_with_gemini, ResearchPaper, AnalyzeOpt
 from copernicus_character import get_copernicus_character, get_character_prompt, CopernicusCharacter
 from utils.script_validation import calculate_minimum_words_for_duration, calculate_maximum_words_for_duration
 from attribution_check import MAX_ABSTRACT_CHARS
+from topic_checks import uncovered_named_things, coverage_prompt_block
 from relevance_gate import RELEVANCE_THRESHOLD, apply_gate, outside_zenodo, relevance_scores
 from paper_confirmation import (
     confirm_sources, confirm_requested_paper, as_research_source, format_citation_line, InsufficientConfirmedPapers,
@@ -415,6 +416,8 @@ class PodcastResearchIntegrator:
         # Build research evidence section
         research_evidence = self._format_research_evidence(research_context)
         
+        # fix 7: something the topic names that no confirmed paper covers must be called out as not covered, not filled in from memory
+        coverage_block = coverage_prompt_block(uncovered_named_things(research_context.topic, research_context.confirmed_papers))
         source_paper_block = ""
         if source_paper_citation:
             source_paper_block = f"""
@@ -499,7 +502,7 @@ research provided above. Focus on:
 **DIALOGUE STRUCTURE:**
 
 {host_name.upper()}: Welcome to Copernicus AI: Frontiers of Science. I'm {host_name}, and today 
-we're exploring {research_context.topic}. {expert_name}, what do the papers reviewed here tell us about it?
+we're asking one question: [state the question this episode asks, in your own words, in one or two sentences; do not read the topic title aloud or put it in quotation marks]. {expert_name}, what do the papers reviewed here tell us about it?
 
 {expert_name.upper()}: Thanks {host_name}. [Cites specific paper from research] This research matters 
 because [explain using actual findings]...
@@ -539,7 +542,9 @@ research. [Final thought on what is still open]
 **CRITICAL:** Use ONLY the real research provided. DO NOT make up fake references.
 If asked about something not in the research, ADAM should acknowledge the gap.
 
+{coverage_block}
 **HONESTY AND FOCUS (do not violate; these override any earlier wish for strong or promotional language):**
+- The host introduces the question in her own words. She never reads the topic title aloud and never puts it in quotation marks.
 - Stay on the question asked: "{research_context.topic}". Most of the episode must answer it from the listed papers (what they measured, built or found about it), not general background on the field. A listed paper that is only loosely related may be used only for the point it really supports, or left out.
 - No absolute or certainty claims beyond what a listed paper itself states. Do not write that something is certain, error-free, guaranteed or true in every case unless the paper says exactly that, and then say it is that paper's claim. Use the hedging the papers use ("suggests", "in the cases studied", "in the library examined").
 - Attribute only what was said. Never write "as you put it", "as you said" or similar unless that speaker said it earlier in this script; never put words into a researcher's or a speaker's mouth that are not in the evidence above.
