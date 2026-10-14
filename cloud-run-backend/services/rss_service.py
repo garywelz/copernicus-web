@@ -282,6 +282,10 @@ class RSSService:
         thumbnail_url = result.get("thumbnail_url") or DEFAULT_ARTWORK_URL
         transcript_url = result.get("transcript_url")
         description_markdown = cls._strip_legacy_tagline(result.get("description", ""))
+
+        # Link each reference and point "Further reading" at this episode's own page (rendered here; the stored description is not rewritten)
+        from reference_sections import render_for_feed
+        description_markdown = render_for_feed(description_markdown, f"{EPISODE_BASE_URL}/{canonical}" if canonical else "")
         
         # Convert reference URLs to clickable markdown links BEFORE HTML conversion
         description_markdown = cls._make_reference_links_clickable(description_markdown)
