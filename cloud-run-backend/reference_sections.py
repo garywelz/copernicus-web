@@ -121,3 +121,49 @@ def apply_reference_sections(description: str, confirmed: Sequence[Any], named_p
     if m:
         return body[:m.start()].rstrip() + "\n\n" + sections + "\n\n" + body[m.start():]
     return body.rstrip() + "\n\n" + sections + "\n"
+
+
+# ---- feed rendering: applied when the RSS item is built; the stored description is never rewritten ----
+_REF_START = re.compile(r"(?im)^##[ \t]*(references)[ \t]*$")
+_NEXT_SECTION = re.compile(r"(?m)^##[ \t]")
+_POINTER_LINE = re.compile(r"(?im)^[*_]*[ \t]*Further reading:[^\n]*$")
+_BULLET = re.compile(r"^([-*][ \t]+)(.+?)[ \t]*$")
+_ARXIV = re.compile(r"arXiv:\s*((?:\d{4}\.\d{4,5}|[a-z-]+(?:\.[A-Z]{2})?/\d{7})(?:v\d+)?)", re.I)
+_DOI = re.compile(r"\bDOI:?\s*(10\.\d{4,9}/\S+?)[.,;]*(?=\s|$)", re.I)
+_PMID = re.compile(r"\bPMID:?\s*(\d{5,9})\b", re.I)
+
+
+def reference_url(line: str) -> str:
+    """The one URL a reference line points to: arXiv abs URL (with its version), else DOI URL, else PubMed URL; '' if none."""
+    m = _ARXIV.search(line)
+    if m:
+        return f"https://arxiv.org/abs/{m.group(1)}"
+    m = _DOI.search(line)
+    if m:
+        return f"https://doi.org/{m.group(1)}"
+    m = _PMID.search(line)
+    return f"https://pubmed.ncbi.nlm.nih.gov/{m.group(1)}/" if m else ""
+
+
+def render_for_feed(description: str, page_url: str) -> str:
+    """Link each reference line (the whole line is the link, as on the episode page) and point the Further reading line at the episode's own
+    page. Lines that already carry a link are left alone; lines with no identifier stay plain text."""
+    text = description or ""
+    m = _REF_START.search(text)
+    if m:
+        end = _NEXT_SECTION.search(text, m.end())
+        stop = end.start() if end else len(text)
+        out = []
+        for line in text[m.end():stop].split("\n"):
+            b = _BULLET.match(line)
+            if b and "](" not in line:
+                url = reference_url(b.group(2))
+                if url:
+                    label = b.group(2).replace("[", "(").replace("]", ")")
+                    line = f"{b.group(1)}[{label}]({url})"
+            out.append(line)
+        text = text[:m.end()] + "\n".join(out) + text[stop:]
+    if page_url:
+        text = _POINTER_LINE.sub(
+            f"*Further reading: the other papers reviewed for this episode are listed on [the episode page]({page_url}).*", text)
+    return text
