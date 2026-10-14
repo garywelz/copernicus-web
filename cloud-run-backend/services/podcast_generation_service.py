@@ -2172,7 +2172,7 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
             reject(rejection_log.banned_items(0, banned))
             raise BannedPhraseError(banned)
         llm = make_gemini_llm_call(google_key)
-        naming = await model_call("naming_check", lambda: check_naming(script, description, research_context.confirmed_papers, llm))
+        naming = await model_call("naming_check", lambda: check_naming(script, description, research_context.confirmed_papers, llm, topic=request.topic))
         if not naming.passed:
             reject(rejection_log.naming_items(0, naming.violations))
             raise NamingViolationError(naming.violations)
@@ -2260,7 +2260,7 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
                     continue
 
                 # Gap 3 fix 1 (C5): the script may name only confirmed papers
-                naming_result = await transient_retry("naming_check", attempt, lambda: check_naming(script, description, research_context.confirmed_papers, naming_llm))
+                naming_result = await transient_retry("naming_check", attempt, lambda: check_naming(script, description, research_context.confirmed_papers, naming_llm, topic=request.topic))
                 naming_attempts.append({'attempt': attempt + 1, **naming_result.summary()})
                 # Gap 3 fix 1: notation the converter cannot turn into words is a reason to regenerate, then to fail
                 bad_notation = notation_problems(script, description)
