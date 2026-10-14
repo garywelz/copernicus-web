@@ -22,6 +22,8 @@ pdfplumber>=0.9.0
 
 # Audio processing
 pydub>=0.25.1
+mutagen>=1.47.0  # reads the real audio length for the feed (audio_length.py)
+markdown>=3.5  # feed HTML description (services/rss_service.py); was missing, so Cloud Run fell back to raw text
 
 # Image processing for thumbnails
 Pillow>=10.0.0
