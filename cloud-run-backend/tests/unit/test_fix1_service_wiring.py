@@ -101,6 +101,8 @@ def _harness(monkeypatch, scripts, short_first=False):
         calls["feedback"].append(naming_feedback)
         text = scripts[min(calls["gen"], len(scripts) - 1)]
         calls["gen"] += 1
+        if isinstance(text, Exception):          # a model error: the generator's reply was not JSON, or the call timed out
+            raise text
         return {"title": "T", "script": text, "description": "Body."}
     monkeypatch.setattr(service, "generate_content_from_research_context", fake_generate)
 
@@ -152,7 +154,7 @@ def test_three_bad_scripts_fail_the_episode_and_nothing_is_returned(monkeypatch)
     service, req, calls = _harness(monkeypatch, [bad, bad, bad])
     with pytest.raises(nw.NamingViolationError) as e:
         run(service._generate_checked_content(req, _ctx(), "k", "job1"))
-    assert calls["gen"] == 3 and "Zorblatt" in str(e.value) and "no episode was published" in str(e.value)
+    assert calls["gen"] == 4 and "Zorblatt" in str(e.value) and "no episode was published" in str(e.value)
 
 
 def test_too_short_then_violation_then_clean_uses_the_shared_budget(monkeypatch):
@@ -171,7 +173,7 @@ def test_a_script_that_stays_short_fails_and_is_never_kept(monkeypatch):
     service, req, calls = _harness(monkeypatch, [short_bad, short_bad, short_bad])
     with pytest.raises(ScriptTooShortError) as e:
         run(service._generate_checked_content(req, _ctx(), "k", "job1"))
-    assert calls["gen"] == 3 and "under the minimum of 600" in str(e.value) and "no episode was published" in str(e.value)
+    assert calls["gen"] == 4 and "under the minimum of 600" in str(e.value) and "no episode was published" in str(e.value)
     assert "too short" in calls["feedback"][1] and "minimum is 600 words" in calls["feedback"][1] and "Do not pad" in calls["feedback"][1]
 
 
@@ -185,7 +187,7 @@ def test_check_unavailable_fails_closed_after_retries(monkeypatch):
     monkeypatch.setattr(svc, "make_gemini_llm_call", lambda key: broken)
     with pytest.raises(nw.NamingCheckUnavailable):
         run(service._generate_checked_content(req, _ctx(), "k", "job1"))
-    assert calls["gen"] == 3  # each attempt generated, none could be accepted
+    assert calls["gen"] == 1  # the unreadable check was repeated on the same script (3 more times), then the episode failed; nothing was regenerated
 
 
 def test_legacy_reference_fallbacks_are_gone_from_the_service():
@@ -227,7 +229,7 @@ def test_unknown_notation_that_never_clears_fails_the_episode(monkeypatch):
     service, req, calls = _harness(monkeypatch, [bad, bad, bad])
     with pytest.raises(UnspeakableNotationError):
         run(service._generate_checked_content(req, _ctx(), "k", "job1"))
-    assert calls["gen"] == 3
+    assert calls["gen"] == 4
 
 
 def test_convertible_notation_passes_the_gate_and_is_spoken_at_finalize(monkeypatch):
@@ -290,7 +292,7 @@ def test_wording_that_never_clears_fails_the_episode(monkeypatch):
     service, req, calls = _harness(monkeypatch, [bad, bad, bad])
     with pytest.raises(BannedPhraseError) as e:
         run(service._generate_checked_content(req, _ctx(), "k", "job1"))
-    assert calls["gen"] == 3 and "no episode was published" in str(e.value)
+    assert calls["gen"] == 4 and "no episode was published" in str(e.value)
 
 
 def test_banned_wording_in_the_description_counts_too(monkeypatch):
@@ -368,7 +370,7 @@ def test_attribution_that_never_clears_fails_the_episode(monkeypatch):
     calls["attr"] = [_unsupported()]
     with pytest.raises(AttributionError) as e:
         run(service._generate_checked_content(req, _ctx(), "k", "job1"))
-    assert calls["gen"] == 3 and CLAIM[:40] in str(e.value) and "no episode was published" in str(e.value)
+    assert calls["gen"] == 4 and CLAIM[:40] in str(e.value) and "no episode was published" in str(e.value)
 
 
 def test_a_naming_violation_means_no_attribution_call_that_attempt(monkeypatch):
@@ -403,7 +405,7 @@ def test_attribution_check_unavailable_fails_closed(monkeypatch):
     monkeypatch.setattr(svc, "make_gemini_llm_call", lambda key: llm)
     with pytest.raises(AttributionCheckUnavailable):
         run(service._generate_checked_content(req, _ctx(), "k", "job1"))
-    assert calls["gen"] == 3
+    assert calls["gen"] == 1 and calls["attr_calls"] == 0     # the check was repeated (three more times), the script was not regenerated
 
 
 def test_failure_notices_for_attribution():
@@ -450,7 +452,7 @@ def test_a_script_that_stays_too_long_fails_the_episode(monkeypatch):
     service, req, calls = _harness(monkeypatch, [_long(req)] * 3)
     with pytest.raises(ScriptTooLongError) as e:
         run(service._generate_checked_content(req, _ctx(), "k", "job1"))
-    assert calls["gen"] == 3 and "over the limit of 1200" in str(e.value) and "no episode was published" in str(e.value)
+    assert calls["gen"] == 4 and "over the limit of 1200" in str(e.value) and "no episode was published" in str(e.value)
 
 
 def test_a_script_exactly_at_the_cap_passes(monkeypatch):
@@ -499,7 +501,7 @@ def test_the_service_has_no_padding_path():
     import inspect
     src = inspect.getsource(svc)
     assert "auto_extend" not in src and "Script automatically extended" not in src and "proceeding to validation" not in src
-    assert "_verify_final_text(content, request, research_context, google_key, job_id)" in src
+    assert "_verify_final_text(content, request, research_context, google_key, job_id, on_rejection=" in src
 
 
 def _final_content(req, script_extra=" Lovelace and Turing showed it.", description="Overview of the episode."):
@@ -591,3 +593,143 @@ def test_failure_notices_for_short_and_final_check():
     b = describe_failure(FinalTextCheckError("x"))
     assert a["kind"] == "script_too_short" and "300" not in a["summary"] and b["kind"] == "final_text_check_failed" and "x" not in b["summary"]
     assert "300 words" in short_feedback(300, 600, 1200)
+
+
+# ---------------------------------------------------------------- fix 5: four content attempts, transient errors counted apart, every rejection recorded in full
+from types import SimpleNamespace as NS
+
+
+def test_four_content_attempts_are_allowed(monkeypatch):
+    req = PodcastRequest(topic="t")
+    bad = _script(" Zorblatt and Quux showed it.", req)
+    good = _script(" Lovelace and Turing showed it.", req)
+    service, req, calls = _harness(monkeypatch, [bad, bad, bad, good])
+    content, result, attempts = run(service._generate_checked_content(req, _ctx(), "k", "job1"))
+    assert calls["gen"] == 4 and content["script"] == good and svc.PodcastGenerationService.MAX_CONTENT_RETRIES == 3
+
+
+def test_a_generator_reply_that_is_not_json_does_not_use_a_content_attempt(monkeypatch):
+    req = PodcastRequest(topic="t")
+    bad = _script(" Zorblatt and Quux showed it.", req)
+    good = _script(" Lovelace and Turing showed it.", req)
+    boom = ValueError("No JSON object found in the AI's response.")
+    # two model errors, three content rejections, then a good script: still inside 4 content attempts plus 3 transient retries
+    service, req, calls = _harness(monkeypatch, [boom, bad, boom, bad, bad, good])
+    content, result, attempts = run(service._generate_checked_content(req, _ctx(), "k", "job1"))
+    assert content["script"] == good and calls["gen"] == 6
+    kinds = [r["check"] for r in service._last_rejections]
+    assert kinds.count("transient_error") == 2 and kinds.count("naming") == 3
+    assert [r["attempt"] for r in service._last_rejections if r["check"] == "transient_error"] == [1, 2]       # the content attempt each one interrupted
+    assert "ONLY these papers" in calls["feedback"][3]                                                         # the feedback survived the model error
+
+
+def test_model_errors_have_their_own_budget_and_then_the_error_is_raised(monkeypatch):
+    req = PodcastRequest(topic="t")
+    service, req, calls = _harness(monkeypatch, [ValueError("No JSON object found in the AI's response.")])
+    with pytest.raises(ValueError):
+        run(service._generate_checked_content(req, _ctx(), "k", "job1"))
+    assert calls["gen"] == 4 == 1 + svc.PodcastGenerationService.MAX_TRANSIENT_RETRIES              # never touched a content attempt
+    assert [r["check"] for r in service._last_rejections] == ["transient_error"] * 4
+
+
+def test_a_timeout_is_a_model_error_too(monkeypatch):
+    req = PodcastRequest(topic="t")
+    good = _script(" Lovelace and Turing showed it.", req)
+    service, req, calls = _harness(monkeypatch, [asyncio.TimeoutError(), good])
+    content, *_ = run(service._generate_checked_content(req, _ctx(), "k", "job1"))
+    assert calls["gen"] == 2 and service._last_rejections[0]["error_type"] == "TimeoutError"
+
+
+def test_an_unreadable_check_answer_is_repeated_on_the_same_script_not_regenerated(monkeypatch):
+    req = PodcastRequest(topic="t")
+    good = _script(" Lovelace and Turing showed it.", req)
+    service, req, calls = _harness(monkeypatch, [good])
+    inner = svc.make_gemini_llm_call("k")           # the harness's fake model
+    state = {"n": 0}
+
+    async def flaky(system, user):
+        if "PAPERS:" not in user:
+            state["n"] += 1
+            if state["n"] <= 2:                      # the naming check answers garbage twice, then works
+                return "not json at all"
+        return await inner(system, user)
+    monkeypatch.setattr(svc, "make_gemini_llm_call", lambda key: flaky)
+    content, result, attempts = run(service._generate_checked_content(req, _ctx(), "k", "job1"))
+    assert calls["gen"] == 1 and content["script"] == good and result.passed
+    stages = [r["stage"] for r in service._last_rejections if r["check"] == "transient_error"]
+    assert stages == ["naming_check"] * 2
+
+
+def test_every_rejection_is_recorded_in_full_and_handed_to_the_job(monkeypatch):
+    req = PodcastRequest(topic="t")
+    bad = _script(" It is a truly revolutionary result. Zorblatt and Quux showed it.", req)
+    good = _script(" Lovelace and Turing showed it.", req)
+    service, req, calls = _harness(monkeypatch, [bad, good])
+    stored = []
+    content, *_ = run(service._generate_checked_content(req, _ctx(), "k", "job1", on_rejection=stored.extend))
+    assert stored == service._last_rejections
+    naming = next(r for r in stored if r["check"] == "naming")
+    assert naming["attempt"] == 1 and "Zorblatt" in naming["quote"] and naming["context"]
+    banned = next(r for r in stored if r["check"] == "banned_wording")
+    assert banned["matched"] == "revolutionary" and "truly revolutionary result" in banned["sentence"]
+
+
+def test_an_unsupported_attribution_is_recorded_with_sentence_paper_abstract_verdict_and_reason(monkeypatch):
+    req = PodcastRequest(topic="t")
+    claim = "Lovelace and Turing showed that every machine proves everything."
+    bad, good = _script(" " + claim, req), _script(" Lovelace and Turing showed it.", req)
+    service, req, calls = _harness(monkeypatch, [bad, good])
+    calls["attr"] = [[{"quote": claim, "pid": "P1", "verdict": "unsupported", "reason": "The abstract says nothing like this."},
+                      {"quote": "Lovelace and Turing showed that every", "pid": "P1", "verdict": "supported", "reason": "Stated."}], []]
+    run(service._generate_checked_content(req, _ctx(), "k", "job1"))
+    items = [r for r in service._last_rejections if r["check"] == "attribution"]
+    unsup = next(r for r in items if r["verdict"] == "unsupported")
+    assert unsup == {"attempt": 1, "check": "attribution", "verdict": "unsupported", "quote": claim, "pid": "P1",
+                     "paper": "Analytical engines and the first algorithms", "authors": ["Ada Lovelace", "Alan Turing"], "year": 2025,
+                     "abstract": "Abs.", "reason": "The abstract says nothing like this."}
+    sup = next(r for r in items if r["verdict"] == "supported")
+    assert sup["abstract"] is None and sup["reason"] == "Stated."                 # supported verdicts are kept for comparison, without the abstract
+
+
+def test_storing_on_the_job_is_best_effort_and_uses_array_union(monkeypatch):
+    from google.cloud import firestore
+    updates = []
+    ref = NS(update=lambda d: updates.append(d))
+    svc.PodcastGenerationService._job_rejection_sink(ref)([{"check": "naming"}])
+    assert list(updates[0]) == ["rejections"] and isinstance(updates[0]["rejections"], type(firestore.ArrayUnion([1])))
+    req = PodcastRequest(topic="t")
+    good = _script(" Lovelace and Turing showed it.", req)
+    service, req, calls = _harness(monkeypatch, [_script(" Zorblatt and Quux showed it.", req), good])
+
+    def broken(items):
+        raise RuntimeError("firestore down")
+    content, *_ = run(service._generate_checked_content(req, _ctx(), "k", "job1", on_rejection=broken))
+    assert content["script"] == good                                                  # a storage error never fails the episode
+
+
+def test_the_final_text_check_records_what_it_refused(monkeypatch):
+    req = PodcastRequest(topic="t")
+    service, seen = _final_service(monkeypatch)
+    stored = []
+    content = _final_content(req, description="A groundbreaking overview.")
+    with pytest.raises(BannedPhraseError):
+        run(service._verify_final_text(content, req, _ctx(), "k", "job1", on_rejection=stored.extend))
+    assert stored[0]["check"] == "banned_wording" and stored[0]["attempt"] == 0 and stored[0]["matched"].lower() == "groundbreaking"
+
+
+def test_a_final_check_whose_answer_cannot_be_read_is_repeated(monkeypatch):
+    req = PodcastRequest(topic="t")
+    service = svc.PodcastGenerationService()
+    state = {"n": 0}
+
+    async def llm(system, user):
+        if "PAPERS:" in user:
+            return json.dumps({"attributions": []})
+        state["n"] += 1
+        if state["n"] <= 2:
+            return "garbage"
+        return json.dumps({"mentions": [{"quote": "Lovelace and Turing showed", "authors": ["Lovelace", "Turing"], "year": 2025, "title_words": []}]})
+    monkeypatch.setattr(svc, "make_gemini_llm_call", lambda key: llm)
+    stored = []
+    summary = run(service._verify_final_text(_final_content(req), req, _ctx(), "k", "job1", on_rejection=stored.extend))
+    assert summary["named_pids"] == ["P1"] and [r["stage"] for r in stored if r["check"] == "transient_error"] == ["final_naming_check"] * 2
