@@ -403,3 +403,66 @@ def test_the_retry_instruction_tells_the_model_to_name_the_paper_by_its_title():
     # nothing extra for an author with one listed paper
     res2 = run(nw.check_naming("x", "", CONFIRMED, fake_llm({"x": [m("Smith showed", ["Smith"], 2025)]})))
     assert "papers by" not in nw.feedback_text(res2, CONFIRMED)
+
+
+# ---------------------------------------------------------------- fix 6: the episode topic is not a work, and a tool named in a listed paper is not an unlisted one
+TOPIC = "Proof dependency graphs in formal mathematics libraries: what the network structure of mathlib and Metamath reveals about how mathematics is built"
+MIZAR_ITEMS = paper("P3", "mizar-items: Exploring fine-grained dependencies in the Mizar Mathematical Library", ["Jesse Alama"], 2011)
+MIZAR_ITEMS.abstract = "We have implemented a system, mizar-items, on which a variety of foundational experiments can be based. mizar-items also comes with a website."
+MATHLIB_PAPER = paper("P1", "The Network Structure of Mathlib", ["Xinze Li", "Nanyun Peng"], 2026)
+MATHLIB_PAPER.abstract = "We present a network analysis of Mathlib, the library of Lean 4."
+
+
+def test_a_quoted_passage_that_is_the_episode_topic_is_ignored_not_flagged():
+    # the mention the naming check produced on 2026-10-14, attempts 3 and 4
+    topic_quote = m("MATILDA: Welcome to Copernicus AI. Today we're exploring \"" + TOPIC + ".\" Adam, what do the papers tell us?", [], None, [])
+    topic_quote["quote"] = TOPIC + "."
+    res = run(nw.check_naming("x", "", [MIZAR_ITEMS], fake_llm({"x": [topic_quote]}), topic=TOPIC))
+    assert res.passed and res.violations == [] and res.mentions[0]["ignored"] == "episode topic" and res.mentions[0]["pid"] is None
+    # without the topic given, the old behaviour: flagged
+    res2 = run(nw.check_naming("x", "", [MIZAR_ITEMS], fake_llm({"x": [dict(topic_quote, title_words=["Proof", "dependency", "graphs"])]})))
+    assert not res2.passed
+
+
+def test_the_topic_rule_is_narrow():
+    assert nw.is_topic_mention(m(TOPIC, [], None, []), TOPIC) and nw.is_topic_mention(m("x", [], None, TOPIC.split()), TOPIC)
+    assert not nw.is_topic_mention(m(TOPIC, ["Smith"], 2020, []), TOPIC)                          # an author makes it a paper
+    assert not nw.is_topic_mention(m("Proof dependency graphs", [], None, []), TOPIC)             # fewer than 4 words
+    assert not nw.is_topic_mention(m("Deep learning for protein folding in yeast cells", [], None, []), TOPIC)
+    assert not nw.is_topic_mention(m(TOPIC, [], None, []), None)
+
+
+def test_a_tool_named_in_a_listed_papers_title_or_abstract_is_not_an_unlisted_work():
+    # the description mention flagged on 2026-10-14, attempt 3
+    q = "Research insights highlight the creation of tools like 'mizar-items' for dissecting dependencies, enabling foundational experiments in the Mizar Mathematical Library."
+    mention = m(q, [], None, ["mizar-items"])
+    assert nw.match_mention(mention, [MIZAR_ITEMS, MATHLIB_PAPER]) is None                          # the author-and-year matcher cannot place it
+    assert nw.match_tool_name(mention, [MATHLIB_PAPER, MIZAR_ITEMS]) == "P3"
+    res = run(nw.check_naming("x", "Body", [MATHLIB_PAPER, MIZAR_ITEMS], fake_llm({"Body": [mention]}), topic=TOPIC))
+    assert res.passed and res.named_pids == ["P3"] and res.mentions[0]["matched_by"].startswith("tool name")
+
+
+def test_the_quoted_name_comes_from_the_quote_and_apostrophes_inside_words_are_not_quotes():
+    assert nw.tool_names(m("Adam's tools like 'mizar-items' aren't what they're called", [], None, [])) == ["mizar-items"]
+    assert nw.tool_names(m("the `mathlib` library and the ‘Lean’ prover", [], None, [])) == ["mathlib", "Lean"]
+    assert nw.tool_names(m("no quotes here", [], None, ["Aria"])) == ["Aria"]
+    assert nw.tool_names(m("no quotes here", [], None, ["a", "b", "c"])) == []                       # too many title words to be a name
+
+
+def test_a_name_no_listed_paper_uses_is_still_a_violation():
+    mention = m("tools like 'GlobalFoo' for dissecting dependencies", [], None, ["GlobalFoo"])
+    assert nw.match_tool_name(mention, [MATHLIB_PAPER, MIZAR_ITEMS]) is None
+    res = run(nw.check_naming("x", "Body", [MATHLIB_PAPER, MIZAR_ITEMS], fake_llm({"Body": [mention]}), topic=TOPIC))
+    assert not res.passed and res.violations[0]["kind"] == "unlisted_work"
+
+
+def test_a_mention_with_authors_never_takes_the_tool_name_route():
+    mention = m("Smith's 2019 system 'mizar-items'", ["Smith"], 2019, ["mizar-items"])
+    assert nw.match_tool_name(mention, [MIZAR_ITEMS]) is None
+    res = run(nw.check_naming("x", "", [MIZAR_ITEMS], fake_llm({"x": [mention]}), topic=TOPIC))
+    assert not res.passed                                                                           # an unlisted author claiming a listed tool is still unlisted
+
+
+def test_every_name_must_be_found_in_the_same_listed_paper():
+    mention = m("both 'mizar-items' and 'Zorblatt' were used", [], None, [])
+    assert nw.match_tool_name(mention, [MIZAR_ITEMS, MATHLIB_PAPER]) is None

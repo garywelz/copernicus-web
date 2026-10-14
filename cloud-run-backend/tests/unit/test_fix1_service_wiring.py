@@ -733,3 +733,21 @@ def test_a_final_check_whose_answer_cannot_be_read_is_repeated(monkeypatch):
     stored = []
     summary = run(service._verify_final_text(_final_content(req), req, _ctx(), "k", "job1", on_rejection=stored.extend))
     assert summary["named_pids"] == ["P1"] and [r["stage"] for r in stored if r["check"] == "transient_error"] == ["final_naming_check"] * 2
+
+
+def test_the_loop_passes_the_episode_topic_so_a_quoted_topic_is_not_an_unlisted_work(monkeypatch):
+    topic = "Chaos theory in neural network models of cells"
+    req = PodcastRequest(topic=topic)
+    text = _script(' Today we are exploring "' + topic + '". Lovelace and Turing showed it.', req)
+    service, req, calls = _harness(monkeypatch, [text])
+    req.topic = topic                                   # _harness returns its own request
+    inner = svc.make_gemini_llm_call("k")
+
+    async def llm(system, user):
+        if "PAPERS:" not in user and topic in user:
+            return json.dumps({"mentions": [{"quote": topic, "authors": [], "year": None, "title_words": []},
+                                            {"quote": "Lovelace and Turing showed", "authors": ["Lovelace", "Turing"], "year": 2025, "title_words": []}]})
+        return await inner(system, user)
+    monkeypatch.setattr(svc, "make_gemini_llm_call", lambda key: llm)
+    content, result, attempts = run(service._generate_checked_content(req, _ctx(), "k", "job1"))
+    assert calls["gen"] == 1 and result.passed and [x.get("ignored") for x in result.mentions][:1] == ["episode topic"]
