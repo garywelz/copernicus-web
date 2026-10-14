@@ -2131,8 +2131,12 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
         min_words = calculate_minimum_words_for_duration(request.duration)
         max_words = calculate_maximum_words_for_duration(request.duration)
 
+        final_seq = {"n": 0}
+
         def reject(items):
             for item in items:
+                item["seq"] = 1000 + final_seq["n"]
+                final_seq["n"] += 1
                 structured_logger.warning("Rejection", job_id=job_id, **item)
             if on_rejection:
                 try:
@@ -2218,6 +2222,8 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
         self._last_rejections = rejections
 
         def reject(items):
+            for i, item in enumerate(items):
+                item["seq"] = len(rejections) + i    # keeps identical records distinct (Firestore ArrayUnion drops duplicates)
             rejections.extend(items)
             for item in items:
                 structured_logger.warning("Rejection", job_id=job_id, **item)
