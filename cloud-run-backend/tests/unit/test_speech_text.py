@@ -50,7 +50,7 @@ def test_finalize_removes_markers_from_script_and_description_and_reports_counts
     conf = [pc.ConfirmedPaper(pid="P1", title="T", authors=["Ada Lovelace"], year=2025, venue=None,
                               ids={"arxiv": None, "arxiv_version": None, "pmid": None, "doi": "10.1/x"}, url="https://doi.org/10.1/x",
                               abstract="a", registry="crossref", confirmed_at="t", title_match=1.0)]
-    ctx = pri.PodcastResearchContext(topic="t", research_sources=[], paper_analyses=[], paradigm_shifts=[], interdisciplinary_connections=[],
+    ctx = pri.PodcastResearchContext(topic="t", research_sources=[], paper_analyses=[], significance=[], interdisciplinary_connections=[],
                                      key_findings=[], real_citations=[], research_quality_score=1.0, recommended_expertise_level="x",
                                      confirmed_papers=conf, dropped_candidates=[], requested_pid=None)
     content = {"title": "T", "script": "ADAM: Lovelace [P1] showed it. MATILDA: Indeed [P1].", "description": "Body about Lovelace [P1].\n\n## Hashtags\n#a\n"}

@@ -37,7 +37,7 @@ class AnalyzeOptions:
     focus_areas: List[str]
     analysis_depth: str = "comprehensive"  # basic, detailed, comprehensive
     include_citations: bool = True
-    paradigm_shift_analysis: bool = True
+    significance_analysis: bool = True
     interdisciplinary_connections: bool = True
 
 @dataclass
@@ -45,7 +45,7 @@ class PaperAnalysis:
     """Analysis result structure"""
     summary: str
     key_findings: List[str]
-    paradigm_shifts: List[str]
+    significance: List[str]  # what the paper changes in how we see the question, as far as it supports (may be empty)
     interdisciplinary_connections: List[str]
     implications: List[str]
     citations: List[str]
@@ -55,6 +55,12 @@ class PaperAnalysis:
     # True when the model's answer could not be parsed and the fields hold placeholder text instead of an analysis.
     # The research integrator drops such a paper before generation (the placeholder must never reach a prompt).
     analysis_failed: bool = False
+
+    @property
+    def paradigm_shifts(self) -> List[str]:
+        """Read-only alias for the older generation paths that still use this name; it holds the neutral significance notes."""
+        return self.significance
+
 
 def validate_paper(paper: ResearchPaper) -> None:
     """Validates a research paper object"""
@@ -99,9 +105,7 @@ async def analyze_paper_with_gemini(paper: ResearchPaper, options: AnalyzeOption
     
     # Create comprehensive analysis prompt
     prompt = f"""
-You are Copernicus, a scientific knowledge curator who specializes in identifying paradigm-shifting research across all fields. 
-
-Analyze this research paper with a focus on revolutionary 'delta' thinking that challenges conventional understanding:
+You are a careful science communicator. Read this research paper and report what it actually shows, in plain, neutral language.
 
 **Paper Title:** {paper.title}
 **Authors:** {', '.join(paper.authors)}
@@ -110,27 +114,23 @@ Analyze this research paper with a focus on revolutionary 'delta' thinking that 
 
 **Analysis Focus Areas:** {', '.join(options.focus_areas)}
 
-Please provide a comprehensive analysis in the following JSON format:
+Please provide the analysis in the following JSON format:
 
 {{
-    "summary": "Concise summary highlighting the revolutionary aspects",
-    "key_findings": ["List of 3-5 most significant findings"],
-    "paradigm_shifts": ["Identify paradigm-shifting implications"],
-    "interdisciplinary_connections": ["Connections to other scientific fields"],
-    "implications": ["Broader implications for science and society"],
-    "methodology_analysis": "Analysis of research methodology and its innovations",
-    "future_research_directions": ["Suggested future research directions"],
+    "summary": "What the paper did and found, in plain terms",
+    "key_findings": ["3-5 specific findings the paper reports, with its numbers where it gives them"],
+    "significance": ["What this changes in how we see the question, as far as the paper itself supports; an empty list if the paper claims nothing of the kind"],
+    "interdisciplinary_connections": ["Connections to other fields that the paper itself makes or clearly implies"],
+    "implications": ["Implications the paper itself states"],
+    "methodology_analysis": "How the study was done, and the limits it states",
+    "future_research_directions": ["Directions the paper itself suggests"],
     "confidence_score": 0.85
 }}
 
-Focus on:
-1. Revolutionary changes in scientific understanding
-2. Interdisciplinary connections and implications  
-3. Evidence-based speculation about future developments
-4. Practical applications of breakthrough discoveries
-5. How this research challenges existing paradigms
-
-Maintain academic rigor while highlighting transformative potential.
+Rules:
+1. Describe only what the title, abstract and content state. Do not add claims, numbers or importance that they do not state.
+2. Use plain, neutral wording. No promotional or superlative language.
+3. If the text gives little detail on a point, say less or leave the list empty rather than guess.
 """
 
     try:
@@ -151,7 +151,7 @@ Maintain academic rigor while highlighting transformative potential.
             analysis_data = {
                 "summary": response.text[:500],
                 "key_findings": ["Analysis generated but not in expected JSON format"],
-                "paradigm_shifts": ["See full analysis in summary"],
+                "significance": [],
                 "interdisciplinary_connections": [],
                 "implications": [],
                 "citations": [],
@@ -164,7 +164,7 @@ Maintain academic rigor while highlighting transformative potential.
         analysis = PaperAnalysis(
             summary=analysis_data.get("summary", ""),
             key_findings=analysis_data.get("key_findings", []),
-            paradigm_shifts=analysis_data.get("paradigm_shifts", []),
+            significance=analysis_data.get("significance", []),
             interdisciplinary_connections=analysis_data.get("interdisciplinary_connections", []),
             implications=analysis_data.get("implications", []),
             citations=[],  # gap 3 fix 1 (C2): never keep a model-written citation string

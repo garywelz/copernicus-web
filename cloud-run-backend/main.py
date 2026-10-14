@@ -591,7 +591,7 @@ async def generate_content_vertex_ai(request: PodcastRequest) -> dict:
         options = AnalyzeOptions(
             focus_areas=request.focus_areas or ["methodology", "implications", "future_research"],
             include_citations=request.include_citations,
-            paradigm_shift_analysis=request.paradigm_shift_analysis
+            significance_analysis=request.paradigm_shift_analysis
         )
         
         # Process paper
@@ -623,7 +623,7 @@ async def generate_content_google_api(request: PodcastRequest, google_key: str) 
             focus_areas=request.focus_areas or ["methodology", "implications", "future_research"],
             analysis_depth="comprehensive",
             include_citations=request.include_citations,
-            paradigm_shift_analysis=request.paradigm_shift_analysis,
+            significance_analysis=request.paradigm_shift_analysis,
             interdisciplinary_connections=True
         )
         

@@ -1,6 +1,6 @@
 """
 Podcast Research Integrator - Brings the Spirit of Copernicus to Life
-Integrates all research capabilities for authentic, paradigm-shifting podcast generation
+Integrates all research capabilities for evidence-based podcast generation
 
 This module coordinates:
 - research_pipeline.py: Multi-API research discovery
@@ -8,8 +8,8 @@ This module coordinates:
 - paper_processor.py: Deep paper analysis with Gemini
 - copernicus_character.py: Character-driven prompting
 
-The spirit of Copernicus: Revolutionary "delta" thinking, paradigm shifts,
-interdisciplinary connections, rigorous evidence, accessible communication.
+The spirit of Copernicus: what the research changes in how we see a question (the "delta"), stated plainly and only as far as the papers
+support, interdisciplinary connections, rigorous evidence, accessible communication.
 """
 
 import asyncio
@@ -22,7 +22,7 @@ from enhanced_research_service import EnhancedResearchService, PaperAnalysis
 from paper_processor import analyze_paper_with_gemini, ResearchPaper, AnalyzeOptions, PaperAnalysis as GeminiPaperAnalysis
 from copernicus_character import get_copernicus_character, get_character_prompt, CopernicusCharacter
 from utils.script_validation import calculate_minimum_words_for_duration, calculate_maximum_words_for_duration
-from script_style import prompt_list as banned_phrase_list
+from attribution_check import MAX_ABSTRACT_CHARS
 from relevance_gate import RELEVANCE_THRESHOLD, apply_gate, outside_zenodo, relevance_scores
 from paper_confirmation import (
     confirm_sources, confirm_requested_paper, as_research_source, format_citation_line, InsufficientConfirmedPapers,
@@ -30,17 +30,17 @@ from paper_confirmation import (
 )
 
 def aggregate_enhanced_analyses(paper_analyses: List["PaperAnalysis"], pid_by_title: Optional[Dict[str, str]] = None):
-    """Fold a list of PaperAnalysis into (paradigm_shifts,
+    """Fold a list of PaperAnalysis into (significance,
     interdisciplinary_connections, key_findings).
 
     B5 fix: skips any analysis with analysis_failed=True (the generic
     placeholder object enhanced_research_service._create_fallback_analysis
     returns when AI processing failed for that paper) entirely -- none of
     its placeholder text ("Research findings require further analysis",
-    paradigm_shift_potential="unknown") is allowed to reach the model or
+    significance="unknown") is allowed to reach the model or
     a published description.
     """
-    paradigm_shifts: List[str] = []
+    significance: List[str] = []
     interdisciplinary_connections: List[str] = []
     key_findings: List[str] = []
     for analysis in paper_analyses:
@@ -49,11 +49,11 @@ def aggregate_enhanced_analyses(paper_analyses: List["PaperAnalysis"], pid_by_ti
         # Gap 3 fix 1 (C4): findings carry the P number of the confirmed paper they came from, so the generator can
         # name the right paper (and, with fix 3, put a marker on the claim).
         tag = f"[{pid_by_title[analysis.title]}] " if pid_by_title and analysis.title in pid_by_title else ""
-        if analysis.paradigm_shift_potential not in ["none", "low"]:
-            paradigm_shifts.append(f"{tag}{analysis.title}: {analysis.paradigm_shift_potential}")
+        if (analysis.significance or "").strip().lower() not in ("", "none", "none stated", "unknown"):
+            significance.append(f"{tag}{analysis.title}: {analysis.significance}")
         interdisciplinary_connections.extend(analysis.interdisciplinary_connections)
         key_findings.extend(f"{tag}{f}" for f in analysis.key_findings)
-    return paradigm_shifts, interdisciplinary_connections, key_findings
+    return significance, interdisciplinary_connections, key_findings
 
 
 def format_real_citation_line(source: ResearchSource) -> Optional[str]:
@@ -87,7 +87,7 @@ class PodcastResearchContext:
     topic: str
     research_sources: List[ResearchSource]
     paper_analyses: List[PaperAnalysis]
-    paradigm_shifts: List[str]
+    significance: List[str]  # what the analyses say the papers change in how we see the question (neutral notes, may be empty)
     interdisciplinary_connections: List[str]
     key_findings: List[str]
     real_citations: List[str]
@@ -128,14 +128,14 @@ class PodcastResearchIntegrator:
         """
         Perform comprehensive research following Copernicus philosophy:
         1. Discover research across multiple sources
-        2. Analyze for paradigm shifts and revolutionary implications
+        2. Analyze what each paper shows and what it says it changes in how we see the question
         3. Find interdisciplinary connections
         4. Extract authentic citations and findings
         5. Assess research quality
         """
         
         print(f"🔬 COPERNICUS RESEARCH PIPELINE: {topic}")
-        print(f"   Philosophy: Revolutionary delta thinking, paradigm shifts, evidence-based")
+        print(f"   Philosophy: the delta, stated plainly and only as far as the papers support; evidence-based")
         
         # PHASE 1: RESEARCH DISCOVERY (Multi-API)
         print(f"\n📡 Phase 1: Research Discovery")
@@ -240,10 +240,10 @@ class PodcastResearchIntegrator:
                 doi=source.doi
             )
             options = AnalyzeOptions(
-                focus_areas=["paradigm_shifts", "implications", "methodology"],
+                focus_areas=["significance", "implications", "methodology"],
                 analysis_depth="comprehensive",
                 include_citations=True,
-                paradigm_shift_analysis=True,
+                significance_analysis=True,
                 interdisciplinary_connections=True
             )
             try:
@@ -259,19 +259,19 @@ class PodcastResearchIntegrator:
         pairs = [(g, p) for g, p in zip(gemini_analyses, gemini_pids) if p in kept]
         gemini_analyses, gemini_pids = [g for g, _ in pairs], [p for _, p in pairs]
 
-        # PHASE 4: SYNTHESIS (Extract Paradigm Shifts & Connections)
+        # PHASE 4: SYNTHESIS (significance notes & connections)
         print(f"\n🔗 Phase 4: Synthesis & Connection Analysis")
         
         real_citations = []
 
         # From enhanced research service analyses (B5 fix: excludes failed
         # analyses -- see aggregate_enhanced_analyses's docstring)
-        paradigm_shifts, interdisciplinary_connections, key_findings = \
+        significance, interdisciplinary_connections, key_findings = \
             aggregate_enhanced_analyses(paper_analyses, pid_by_title)
 
         # From Gemini deep analyses
         for gemini_analysis, gpid in zip(gemini_analyses, gemini_pids):
-            paradigm_shifts.extend(f"[{gpid}] {x}" for x in gemini_analysis.paradigm_shifts)
+            significance.extend(f"[{gpid}] {x}" for x in gemini_analysis.significance)
             interdisciplinary_connections.extend(gemini_analysis.interdisciplinary_connections)
             key_findings.extend(f"[{gpid}] {x}" for x in gemini_analysis.key_findings)
             # (C2) gemini_analysis.citations -- model-written citation strings -- are no longer used anywhere.
@@ -284,12 +284,12 @@ class PodcastResearchIntegrator:
         research_quality_score = self._assess_research_quality(
             research_sources, 
             paper_analyses,
-            paradigm_shifts,
+            significance,
             interdisciplinary_connections
         )
         
         print(f"\n📊 Research Quality Score: {research_quality_score:.2f}/10")
-        print(f"   - Paradigm Shifts Identified: {len(paradigm_shifts)}")
+        print(f"   - Significance notes: {len(significance)}")
         print(f"   - Interdisciplinary Connections: {len(interdisciplinary_connections)}")
         print(f"   - Key Findings: {len(key_findings)}")
         print(f"   - Real Citations: {len(real_citations)}")
@@ -301,7 +301,7 @@ class PodcastResearchIntegrator:
             topic=topic,
             research_sources=research_sources,
             paper_analyses=paper_analyses,
-            paradigm_shifts=paradigm_shifts[:10],  # Top 10
+            significance=significance[:10],  # Top 10
             interdisciplinary_connections=interdisciplinary_connections[:10],
             key_findings=key_findings[:15],
             real_citations=real_citations[:10],
@@ -318,14 +318,14 @@ class PodcastResearchIntegrator:
         self,
         sources: List[ResearchSource],
         analyses: List[PaperAnalysis],
-        paradigm_shifts: List[str],
+        significance: List[str],
         connections: List[str]
     ) -> float:
         """
         Assess research quality (0-10 scale) based on Copernicus criteria:
         - Source diversity and quality
-        - Paradigm shift potential
-        - Interdisciplinary connections
+        - Significance notes
+- Interdisciplinary connections
         - Peer-review status
         """
         score = 0.0
@@ -343,10 +343,10 @@ class PodcastResearchIntegrator:
         elif unique_sources >= 2:
             score += 1.0
         
-        # Paradigm shifts (0-2 points)
-        if len(paradigm_shifts) >= 3:
+        # Significance notes (0-2 points)
+        if len(significance) >= 3:
             score += 2.0
-        elif len(paradigm_shifts) >= 1:
+        elif len(significance) >= 1:
             score += 1.0
         
         # Interdisciplinary connections (0-2 points)
@@ -388,7 +388,7 @@ class PodcastResearchIntegrator:
     ) -> str:
         """
         Build comprehensive 2-speaker prompt with all research context
-        Embodies the spirit of Copernicus: paradigm shifts, evidence, accessibility
+        Embodies the spirit of Copernicus: the delta without hype, evidence, accessibility
         
         Args:
             host_voice_id: ElevenLabs voice ID for host (determines speaker name)
@@ -490,7 +490,7 @@ Your podcast has TWO speakers only:
 Create a compelling dialogue where MATILDA interviews ADAM about the actual 
 research provided above. Focus on:
 
-1. **The question** - What do the listed papers actually show about "{research_context.topic}"? Answer the specific question asked, not the field in general. Use no promotional language about any finding (the banned words are listed below); report what the papers found.
+1. **The question** - What do the listed papers actually show about "{research_context.topic}"? Answer the specific question asked, not the field in general. Use plain, neutral wording for every finding; report what the papers found.
 2. **Evidence** - Cite specific papers, authors, findings from research above
 3. **Connections** - Highlight interdisciplinary implications
 4. **Accessibility** - Make complex concepts understandable without oversimplifying
@@ -526,15 +526,14 @@ research. [Final thought on what is still open]
     "description": "Episode description, SHORT: 1500-2200 characters in total (it shares a 4000-character limit with the reference list, so a longer description is cut) with:
         - Opening overview: 2 engaging paragraphs introducing the topic, its significance, and why this research matters. Explain broader context, historical background, and implications. NO section header - just start with the content directly.
         - Key concepts explored: 4 bullet points, one or two sentences each
-        - Research insights: 1 paragraph about current research developments, recent breakthroughs, methodological advances, and what makes this area exciting
+        - Research insights: 1 paragraph about what the papers found, their methods, and what they leave open
         - Practical applications: 1 short paragraph about real-world applications, industry impact, and potential uses
-        - Future directions: 1 short paragraph about emerging research directions, potential breakthroughs, and long-term implications
+        - Future directions: 1 short paragraph about the directions the papers themselves suggest, and what they leave open
         - Do NOT write a References section or any list of references: it is added for you from the papers you name.
 
         CRITICAL: Write a concise, engaging description that maximizes discoverability. Stay within 2200 characters. Do not name any paper that is not in the numbered list.
     ",
-    "keywords": ["comma", "separated", "keywords", "from", "research"],
-    "paradigm_shifts_discussed": ["list", "of", "paradigm", "shifts"]
+    "keywords": ["comma", "separated", "keywords", "from", "research"]
 }}
 
 **CRITICAL:** Use ONLY the real research provided. DO NOT make up fake references.
@@ -542,9 +541,8 @@ If asked about something not in the research, ADAM should acknowledge the gap.
 
 **HONESTY AND FOCUS (do not violate; these override any earlier wish for strong or promotional language):**
 - Stay on the question asked: "{research_context.topic}". Most of the episode must answer it from the listed papers (what they measured, built or found about it), not general background on the field. A listed paper that is only loosely related may be used only for the point it really supports, or left out.
-- No absolute or certainty claims beyond what a listed paper itself states. Do not write things like "absolute certainty", "eliminates errors", "beyond doubt", "unassailable", "guarantees", "proves that all" unless the paper says exactly that, and then say it is that paper's claim. Use the hedging the papers use ("suggests", "in the cases studied", "in the library examined").
+- No absolute or certainty claims beyond what a listed paper itself states. Do not write that something is certain, error-free, guaranteed or true in every case unless the paper says exactly that, and then say it is that paper's claim. Use the hedging the papers use ("suggests", "in the cases studied", "in the library examined").
 - Attribute only what was said. Never write "as you put it", "as you said" or similar unless that speaker said it earlier in this script; never put words into a researcher's or a speaker's mouth that are not in the evidence above.
-- Never use these words or phrases anywhere in the script or the description (case does not matter): {banned_phrase_list()}. They are checked by code and a script that uses them is rejected.
 - If the evidence is thin on part of the question, say so plainly ("the papers reviewed here do not measure that") instead of filling the gap.
 
 **Naming rules (do not violate):**
@@ -582,14 +580,16 @@ If asked about something not in the research, ADAM should acknowledge the gap.
             pub = (source.publication_date or "").strip()
             if pub and pub.lower() not in {"recent", "n.d.", "nd"}:
                 evidence.append(f"   Year: {pub[:4] if pub[:4].isdigit() else pub}")
-            evidence.append(f"   Abstract: {source.abstract[:300]}...")
+            # The whole abstract, up to the length the attribution check reads, so the script is written from the text it is checked against.
+            abstract = " ".join((source.abstract or "").split())
+            evidence.append(f"   Abstract: {abstract[:MAX_ABSTRACT_CHARS]}{'...' if len(abstract) > MAX_ABSTRACT_CHARS else ''}")
             evidence.append("")
         
-        # Paradigm shifts identified
-        if context.paradigm_shifts:
+        # What the analyses say the papers change in how we see the question
+        if context.significance:
             evidence.append("\n**CHANGES IN THINKING THE ANALYSES POINT TO (check each against the abstract before using it):**")
-            for shift in context.paradigm_shifts:
-                evidence.append(f"- {shift}")
+            for note in context.significance:
+                evidence.append(f"- {note}")
             evidence.append("")
         
         # Interdisciplinary connections

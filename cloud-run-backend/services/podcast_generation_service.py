@@ -107,6 +107,7 @@ from reference_sections import apply_reference_sections, BUILT_BY as REFERENCES_
 from speech_text import strip_pn_markers_counted, speak_text, notation_problems, notation_feedback, UnspeakableNotationError
 from script_style import banned_phrase_hits, banned_feedback, BannedPhraseError, FinalTextCheckError
 from attribution_check import check_attributions, attribution_feedback, AttributionError
+import rejection_log
 
 # Retry decorator for upload operations
 def retry_upload(max_retries=3, delay=2):
@@ -300,7 +301,7 @@ class PodcastGenerationService:
             options = AnalyzeOptions(
                 focus_areas=request.focus_areas or ["methodology", "implications", "future_research"],
                 include_citations=request.include_citations,
-                paradigm_shift_analysis=request.paradigm_shift_analysis
+                significance_analysis=request.paradigm_shift_analysis
             )
             
             # Process paper
@@ -326,7 +327,7 @@ class PodcastGenerationService:
                 focus_areas=request.focus_areas or ["methodology", "implications", "future_research"],
                 analysis_depth="comprehensive",
                 include_citations=request.include_citations,
-                paradigm_shift_analysis=request.paradigm_shift_analysis,
+                significance_analysis=request.paradigm_shift_analysis,
                 interdisciplinary_connections=True
             )
             
@@ -1307,27 +1308,19 @@ Say that journal name in dialogue. Never say "published in PubMed" or "published
         
         content['research_quality_score'] = research_context.research_quality_score
         content['research_sources_used'] = len(research_context.research_sources)
-        content['paradigm_shifts'] = research_context.paradigm_shifts
+        content['significance'] = research_context.significance
         
         return content
     
     @staticmethod
     def _build_fallback_description(research_context) -> str:
-        """Description used when the model returned none. It must pass validate_description_before_publish (tested)."""
+        """Description used when the model returned none. Built only from what the research phase found, with no template prose
+        (an older version was a page of promotional filler); it must pass validate_description_before_publish (tested)."""
         topic = research_context.topic
-        
-        # Opening paragraphs (3-4 paragraphs, no header)
-        opening = f"""This episode delves deep into {topic}, a rapidly evolving field that stands at the intersection of cutting-edge research and transformative applications. Recent breakthroughs in this area have revealed fundamental insights that challenge our conventional understanding and open new pathways for scientific discovery and technological innovation.
+        n = len(research_context.research_sources)
+        opening = (f"This episode looks at {topic}, drawing on {n} research paper{'s' if n != 1 else ''} reviewed for it. "
+                   "The papers are listed under References.")
 
-The significance of {topic} extends far beyond its immediate domain, with implications that span multiple disciplines and industries. As researchers continue to push the boundaries of knowledge, we're witnessing paradigm shifts that reshape how we approach complex problems and understand the underlying mechanisms at play.
-
-What makes this research area particularly compelling is its ability to bridge theoretical foundations with practical applications, creating opportunities for real-world impact while advancing our fundamental understanding. The interdisciplinary nature of this work means that discoveries in one field can catalyze breakthroughs in others, creating a rich ecosystem of innovation and discovery.
-
-In this comprehensive exploration, we'll examine the latest research developments, analyze breakthrough findings, and discuss the far-reaching implications for both science and society. Through detailed analysis of recent publications and cutting-edge methodologies, we'll uncover the revolutionary potential of this field and its capacity to transform our approach to complex challenges."""
-        
-        # Key Concepts section
-        key_concepts = "## Key Concepts Explored\n\n"
-        # Filter out placeholder/fallback text that isn't meaningful
         placeholder_texts = [
             "research findings require further analysis",
             "methodology analysis pending",
@@ -1336,90 +1329,34 @@ In this comprehensive exploration, we'll examine the latest research development
             "further analysis required"
         ]
         meaningful_findings = [
-            f for f in research_context.key_findings 
+            f for f in research_context.key_findings
             if f and not any(placeholder.lower() in f.lower() for placeholder in placeholder_texts)
         ]
-        
+        key_concepts = "## Key Concepts Explored\n\n"
         if meaningful_findings:
-            for i, finding in enumerate(meaningful_findings[:5], 1):
-                key_concepts += f"- {finding}\n"  # no template sentence: the pre-publish gate rejects it as boilerplate
+            for finding in meaningful_findings[:5]:
+                key_concepts += f"- {finding}\n"
         else:
-            key_concepts += f"- **Recent research developments in {topic}**: Current studies are revealing new insights into fundamental mechanisms and processes that were previously poorly understood.\n"
-            key_concepts += f"- **Paradigm shifts and revolutionary findings**: The field is experiencing transformative changes that challenge existing models and open new research directions.\n"
-            key_concepts += f"- **Interdisciplinary connections**: Research in {topic} is creating bridges between traditionally separate fields, enabling novel approaches and insights.\n"
-            key_concepts += f"- **Practical applications and future directions**: The theoretical advances are finding applications in diverse areas, from technology to medicine to fundamental science.\n"
-        
-        # Research Insights section (2-3 paragraphs)
-        insights = "## Research Insights\n\n"
-        if research_context.paradigm_shifts:
-            # B5 backstop: paradigm_shifts entries are now filtered at
-            # the source (podcast_research_integrator skips failed
-            # analyses entirely), but guard this interpolation site
-            # too -- never use a paradigm_shifts[0] value that still
-            # looks placeholder-shaped (e.g. "Title: unknown") if one
-            # somehow gets through.
-            first_shift = research_context.paradigm_shifts[0]
-            if re.search(r':\s*unknown\b', first_shift, re.IGNORECASE):
-                first_shift = 'These shifts represent transformative changes in how we conceptualize and approach key problems.'
-            insights += f"Recent research in {topic} has identified several paradigm shifts that fundamentally alter our understanding of the field. "
-            insights += f"{first_shift} "
-            insights += f"The methodological advances driving these discoveries combine rigorous theoretical frameworks with innovative experimental approaches, enabling researchers to probe deeper into complex systems and uncover previously hidden patterns and mechanisms.\n\n"
-        else:
-            insights += f"Current research in {topic} is characterized by methodological innovations that enable unprecedented precision and depth of analysis. "
-            insights += f"Researchers are employing cutting-edge techniques that combine computational modeling, experimental validation, and theoretical frameworks to address fundamental questions. "
-            insights += f"These approaches are revealing new layers of complexity and providing insights that challenge existing paradigms while opening new avenues for investigation.\n\n"
-        
-        insights += f"The significance of these findings extends beyond their immediate domain, with implications for understanding fundamental processes, developing new technologies, and addressing pressing challenges. "
-        insights += f"As the field continues to evolve, we're seeing convergence between different research approaches and the emergence of unified frameworks that can accommodate diverse phenomena and applications."
-        
-        # Practical Applications section (2-3 paragraphs)
-        applications = "## Practical Applications\n\n"
-        applications += f"The research developments in {topic} are finding applications across multiple sectors, demonstrating the practical value of fundamental scientific inquiry. "
-        applications += f"In technology, these advances are enabling new capabilities and improving performance in systems that rely on understanding complex processes and interactions. "
-        applications += f"The insights gained from this research are informing the design of more efficient algorithms, more robust systems, and more effective solutions to real-world problems.\n\n"
-        applications += f"Beyond technology, applications are emerging in fields ranging from healthcare to environmental science to industrial processes. "
-        applications += f"The interdisciplinary nature of this research means that discoveries can be rapidly translated into practical tools and approaches that address pressing societal needs. "
-        applications += f"As our understanding deepens, we can expect to see even more innovative applications that leverage these fundamental insights."
-        
-        # Future Directions section (2-3 paragraphs)
-        future = "## Future Directions\n\n"
-        # Extract future_research_directions from paper_analyses
+            key_concepts += "- The papers reviewed for this episode, listed under References.\n"
+
+        sections = []
+        # What the analyses say the papers change in how we see the question (a note that still looks like a placeholder is skipped)
+        notes = [x for x in (getattr(research_context, "significance", None) or []) if not re.search(r':\s*unknown\b', x, re.IGNORECASE)]
+        if notes:
+            sections.append("## Research Insights\n\n" + "\n".join(f"- {x}" for x in notes[:3]))
+
         future_directions = []
         for analysis in research_context.paper_analyses:
             if hasattr(analysis, 'future_research_directions') and analysis.future_research_directions:
                 future_directions.extend(analysis.future_research_directions)
-        
         if future_directions:
-            future += f"Looking ahead, research in {topic} is poised to explore several exciting directions. "
-            future += f"{future_directions[0] if future_directions else 'Future work will likely focus on addressing remaining questions and extending current findings to new contexts.'} "
-            future += f"These directions represent both near-term opportunities for immediate impact and long-term trajectories that could fundamentally reshape the field.\n\n"
-        else:
-            future += f"The future of {topic} research holds tremendous promise, with several emerging directions that could yield transformative insights. "
-            future += f"Researchers are beginning to explore connections between previously separate areas, developing unified frameworks that can accommodate diverse phenomena. "
-            future += f"These efforts are likely to reveal new principles and mechanisms that will guide future research and applications.\n\n"
-        
-        future += f"Long-term implications include the potential for paradigm-shifting discoveries that could open entirely new research areas and applications. "
-        future += f"As methodological capabilities continue to advance and interdisciplinary collaborations deepen, we can expect to see accelerated progress in understanding fundamental mechanisms and developing practical solutions. "
-        future += f"The field is positioned to make significant contributions to both scientific knowledge and societal challenges in the coming years."
-        
-        # References section
+            sections.append("## Future Directions\n\n" + "\n".join(f"- {x}" for x in future_directions[:3]))
+
         references = "## References\n\n"
         for source in research_context.research_sources[:5]:
             references += format_research_source_line(source) + "\n"
-        
-        # Combine all sections
-        fallback_desc = f"""{opening}
 
-{key_concepts}
-
-{insights}
-
-{applications}
-
-{future}
-
-{references}"""
-        return fallback_desc
+        return "\n\n".join([opening, key_concepts.rstrip("\n")] + sections + [references.rstrip("\n")])
 
     async def determine_canonical_filename(
         self, 
@@ -2182,7 +2119,15 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
         limit_metrics['pn_markers_removed'] = {'script': _n_script, 'description': _n_desc}
         return limit_metrics
 
-    async def _verify_final_text(self, content: dict, request, research_context, google_key: str, job_id: str) -> dict:
+    @staticmethod
+    def _job_rejection_sink(job_ref):
+        """A callback that appends rejection records to the job record (best effort: a storage error never fails the episode)."""
+        def store(items):
+            from google.cloud import firestore as _fs
+            job_ref.update({'rejections': _fs.ArrayUnion(items)})
+        return store
+
+    async def _verify_final_text(self, content: dict, request, research_context, google_key: str, job_id: str, on_rejection=None) -> dict:
         """Run the post-generation checks again on the final text. They ran on the generated text inside the regeneration loop; the
         text that is stored and spoken has since been through notation conversion, venue rewriting, reference building and the
         description limit. Nothing can be regenerated here, so any failure fails the episode. Writes nothing; returns a summary."""
@@ -2192,26 +2137,52 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
         words = len(script.split())
         min_words = calculate_minimum_words_for_duration(request.duration)
         max_words = calculate_maximum_words_for_duration(request.duration)
+
+        def reject(items):
+            for item in items:
+                structured_logger.warning("Rejection", job_id=job_id, **item)
+            if on_rejection:
+                try:
+                    on_rejection(items)
+                except Exception as e:
+                    structured_logger.warning("Could not store rejections on the job", job_id=job_id, error=str(e))
+
+        async def model_call(stage, factory):
+            for n in range(self.MAX_TRANSIENT_RETRIES + 1):      # an unreadable answer from a check is repeated, not fatal
+                try:
+                    return await factory()
+                except Exception as e:
+                    reject([rejection_log.transient_item(0, "final_" + stage, e)])
+                    if n >= self.MAX_TRANSIENT_RETRIES:
+                        raise
+                    await asyncio.sleep(2)
+
         if words > max_words:
+            reject([rejection_log.length_item(0, "too_long", words, max_words)])
             raise ScriptTooLongError(words, max_words)
         if words < min_words:
+            reject([rejection_log.length_item(0, "too_short", words, min_words)])
             raise ScriptTooShortError(words, min_words)
         bad_notation = notation_problems(script, body)
         if bad_notation:
+            reject(rejection_log.notation_items(0, bad_notation))
             raise UnspeakableNotationError(bad_notation)
         banned = banned_phrase_hits(script, description)
         if banned:
+            reject(rejection_log.banned_items(0, banned))
             raise BannedPhraseError(banned)
         llm = make_gemini_llm_call(google_key)
-        naming = await check_naming(script, description, research_context.confirmed_papers, llm)
+        naming = await model_call("naming_check", lambda: check_naming(script, description, research_context.confirmed_papers, llm))
         if not naming.passed:
+            reject(rejection_log.naming_items(0, naming.violations))
             raise NamingViolationError(naming.violations)
         unlisted = [pid for pid in naming.named_pids if pid not in (content.get('papers_named') or [])]
         if unlisted:
             raise FinalTextCheckError("it names " + ", ".join(unlisted) + " which the reference list was not built for")
         named = [c for c in research_context.confirmed_papers if c.pid in naming.named_pids]
-        attribution = await check_attributions(script, named, llm)
+        attribution = await model_call("attribution_check", lambda: check_attributions(script, named, llm))
         if not attribution.passed:
+            reject(rejection_log.attribution_items(0, attribution.checked))
             raise AttributionError(attribution.violations)
         summary = {'words': words, 'min_words': min_words, 'max_words': max_words, 'named_pids': list(naming.named_pids),
                    'attributions_checked': len(attribution.checked)}
@@ -2219,87 +2190,104 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
         structured_logger.info("Final text checks passed", job_id=job_id, **summary)
         return summary
 
-    async def _generate_checked_content(self, request, research_context, google_key: str, job_id: str):
-        """Generate the script and description, accept them only if they pass the length and naming checks.
+    MAX_CONTENT_RETRIES = 3     # fix 5: four content attempts in all
+    MAX_TRANSIENT_RETRIES = 3   # fix 5: model or parse errors, counted separately; they never use a content attempt
 
-        Up to 2 regenerations in total (shared between the too-short retry and the naming retry); violations of the
-        naming check are fed back to the next attempt. Returns (content, naming_result, naming_attempts); raises
-        NamingViolationError / NamingCheckUnavailable if no acceptable script was produced. Nothing is written anywhere."""
-        # Retry loop for content generation - regenerate if script is too short
-        max_retries = 2
+    async def _generate_checked_content(self, request, research_context, google_key: str, job_id: str, on_rejection=None):
+        """Generate the script and description, accept them only if they pass every check.
+
+        Up to four content attempts (MAX_CONTENT_RETRIES + 1). A script is rejected for being too short or too long, for naming works that are
+        not among the confirmed papers, for notation that cannot be read aloud, for banned wording, or for an attribution its paper's abstract
+        does not support; what was wrong is fed back to the next attempt, and after the last attempt the episode fails. Errors of the model
+        itself (a generator reply that is not JSON, a timeout, a check whose answer cannot be read) are transient: that call is repeated
+        without using a content attempt, up to MAX_TRANSIENT_RETRIES times in all. Every rejection is recorded in full (logged, kept in
+        ``self._last_rejections`` and passed to ``on_rejection``). Returns (content, naming_result, naming_attempts). Writes nothing itself."""
+        max_retries = self.MAX_CONTENT_RETRIES
         content = None
         min_words = calculate_minimum_words_for_duration(request.duration)
-        max_words = calculate_maximum_words_for_duration(request.duration)  # fix 4 (c): the 5-10 minute target is enforced
-        # Gap 3 fix 1 (C5): the script may name only confirmed papers. The check runs on every accepted
-        # script; violations feed the next attempt, and after the last attempt the episode fails.
+        max_words = calculate_maximum_words_for_duration(request.duration)
         naming_llm = make_gemini_llm_call(google_key)
         naming_feedback = ""
         naming_result = None
         naming_attempts = []
-        naming_checked = False
-        self._last_naming_attempts = naming_attempts  # same list object: the sandbox harness reads it even when this raises
-        
-        for attempt in range(max_retries + 1):
-            try:
-                # Generate 2-speaker podcast from research
-                generated_content = await asyncio.wait_for(
+        rejections = []
+        transient = {"n": 0}
+        self._last_naming_attempts = naming_attempts  # same list objects: the sandbox harness reads them even when this raises
+        self._last_rejections = rejections
+
+        def reject(items):
+            rejections.extend(items)
+            for item in items:
+                structured_logger.warning("Rejection", job_id=job_id, **item)
+            if on_rejection:
+                try:
+                    on_rejection(items)
+                except Exception as e:
+                    structured_logger.warning("Could not store rejections on the job", job_id=job_id, error=str(e))
+
+        async def transient_retry(stage, attempt_no, factory):
+            while True:
+                try:
+                    return await factory()
+                except Exception as e:
+                    transient["n"] += 1
+                    reject([rejection_log.transient_item(attempt_no + 1, stage, e)])
+                    if transient["n"] > self.MAX_TRANSIENT_RETRIES:
+                        structured_logger.error("Model errors used up the transient retries", job_id=job_id, stage=stage,
+                                               error=str(e), error_type=type(e).__name__)
+                        raise
+                    await asyncio.sleep(2)
+
+        try:
+            for attempt in range(max_retries + 1):
+                last = attempt == max_retries
+                generated_content = await transient_retry("generation", attempt, lambda: asyncio.wait_for(
                     self.generate_content_from_research_context(request, research_context, google_key, retry_attempt=attempt, naming_feedback=naming_feedback),
-                    timeout=600  # 10 minute timeout for content generation
-                )
-                
-                # Check if script is long enough
+                    timeout=600))
                 script = generated_content.get('script', '') if isinstance(generated_content, dict) else ''
+                description = generated_content.get('description', '') if isinstance(generated_content, dict) else ''
                 word_count = len(script.split()) if script else 0
-                
-                if word_count > max_words:
-                    naming_attempts.append({'attempt': attempt + 1, 'too_long': word_count, 'max_words': max_words})
-                    structured_logger.warning("Script too long, regenerating", job_id=job_id, word_count=word_count,
-                                             max_words=max_words, attempt=attempt + 1)
-                    if attempt < max_retries:
-                        naming_feedback = length_feedback(word_count, max_words, min_words)
-                        await asyncio.sleep(2)
-                        continue
-                    raise ScriptTooLongError(word_count, max_words)
-                if word_count >= min_words:
-                    naming_result = await check_naming(
-                        script, generated_content.get('description', '') if isinstance(generated_content, dict) else '',
-                        research_context.confirmed_papers, naming_llm)
-                    naming_attempts.append({'attempt': attempt + 1, **naming_result.summary()})
-                    # Gap 3 fix 1: notation the converter cannot turn into words (unknown LaTeX) is a reason to regenerate, then
-                    # to fail; it is never silently dropped from a script that will be read aloud.
-                    bad_notation = notation_problems(script, generated_content.get('description', '') if isinstance(generated_content, dict) else '')
-                    naming_attempts[-1]['unspeakable_notation'] = bad_notation
-                    # Fix 4 (a): overstated or promotional wording from the one list in config/banned_phrases.json
-                    banned = banned_phrase_hits(script, generated_content.get('description', '') if isinstance(generated_content, dict) else '')
-                    naming_attempts[-1]['banned_phrases'] = [{'phrase': h['phrase'], 'matched': h['matched'], 'where': h['where']} for h in banned]
-                    # Fix 4 (b): a claim attributed to a named paper must be supported by that paper's abstract
-                    attribution = None
-                    if naming_result.passed:
-                        named = [c for c in research_context.confirmed_papers if c.pid in naming_result.named_pids]
-                        attribution = await check_attributions(script, named, naming_llm)
-                        naming_attempts[-1]['attribution'] = attribution.summary()
-                    if naming_result.passed and not bad_notation and not banned and attribution.passed:
-                        content = generated_content
-                        naming_checked = True
-                        structured_logger.info(f"Content generation succeeded on attempt {attempt + 1}",
-                                              job_id=job_id,
-                                              word_count=word_count,
-                                              min_required=min_words)
-                        break
-                    structured_logger.warning("Script rejected: unlisted works, unspeakable notation or banned wording",
-                                             job_id=job_id,
-                                             attempt=attempt + 1,
-                                             violations=naming_result.violations,
-                                             unspeakable_notation=bad_notation,
-                                             banned_phrases=[h['matched'] for h in banned],
-                                             unsupported_attributions=[v['quote'][:160] for v in attribution.violations] if attribution else [])
-                    if attempt < max_retries:
-                        naming_feedback = ((feedback_text(naming_result, research_context.confirmed_papers) if not naming_result.passed else "")
-                                           + (notation_feedback(bad_notation) if bad_notation else "")
-                                           + (banned_feedback(banned) if banned else "")
-                                           + (attribution_feedback(attribution) if attribution and not attribution.passed else ""))
-                        await asyncio.sleep(2)
-                        continue
+
+                if word_count > max_words or word_count < min_words:
+                    too_long = word_count > max_words
+                    naming_attempts.append({'attempt': attempt + 1, **({'too_long': word_count, 'max_words': max_words} if too_long else
+                                                                      {'too_short': word_count, 'min_words': min_words})})
+                    reject([rejection_log.length_item(attempt + 1, "too_long" if too_long else "too_short", word_count, max_words if too_long else min_words)])
+                    if last:
+                        raise ScriptTooLongError(word_count, max_words) if too_long else ScriptTooShortError(word_count, min_words)
+                    naming_feedback = length_feedback(word_count, max_words, min_words) if too_long else short_feedback(word_count, min_words, max_words)
+                    await asyncio.sleep(2)
+                    continue
+
+                # Gap 3 fix 1 (C5): the script may name only confirmed papers
+                naming_result = await transient_retry("naming_check", attempt, lambda: check_naming(script, description, research_context.confirmed_papers, naming_llm))
+                naming_attempts.append({'attempt': attempt + 1, **naming_result.summary()})
+                # Gap 3 fix 1: notation the converter cannot turn into words is a reason to regenerate, then to fail
+                bad_notation = notation_problems(script, description)
+                naming_attempts[-1]['unspeakable_notation'] = bad_notation
+                # Fix 4 (a): overstated or promotional wording from the one list in config/banned_phrases.json
+                banned = banned_phrase_hits(script, description)
+                naming_attempts[-1]['banned_phrases'] = [{'phrase': h['phrase'], 'matched': h['matched'], 'where': h['where']} for h in banned]
+                # Fix 4 (b): a claim attributed to a named paper must be supported by that paper's abstract
+                attribution = None
+                if naming_result.passed:
+                    named = [c for c in research_context.confirmed_papers if c.pid in naming_result.named_pids]
+                    attribution = await transient_retry("attribution_check", attempt, lambda: check_attributions(script, named, naming_llm))
+                    naming_attempts[-1]['attribution'] = attribution.summary()
+                    reject(rejection_log.attribution_items(attempt + 1, attribution.checked))     # every verdict, supported ones too, in full
+
+                if naming_result.passed and not bad_notation and not banned and attribution.passed:
+                    content = generated_content
+                    structured_logger.info(f"Content generation succeeded on attempt {attempt + 1}", job_id=job_id, word_count=word_count,
+                                          min_required=min_words, transient_retries=transient["n"])
+                    break
+                reject(rejection_log.naming_items(attempt + 1, naming_result.violations) + rejection_log.notation_items(attempt + 1, bad_notation)
+                       + rejection_log.banned_items(attempt + 1, banned))
+                structured_logger.warning("Script rejected: unlisted works, unspeakable notation, banned wording or unsupported attribution",
+                                         job_id=job_id, attempt=attempt + 1, violations=len(naming_result.violations),
+                                         unspeakable_notation=bad_notation, banned_phrases=[h['matched'] for h in banned],
+                                         unsupported_attributions=len(attribution.violations) if attribution else 0)
+                if last:
                     if not naming_result.passed:
                         raise NamingViolationError(naming_result.violations)
                     if bad_notation:
@@ -2307,48 +2295,15 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
                     if banned:
                         raise BannedPhraseError(banned)
                     raise AttributionError(attribution.violations)
-                else:
-                    naming_attempts.append({'attempt': attempt + 1, 'too_short': word_count, 'min_words': min_words})
-                    structured_logger.warning(f"Script too short on attempt {attempt + 1}",
-                                             job_id=job_id,
-                                             word_count=word_count,
-                                             min_required=min_words,
-                                             attempt=attempt + 1,
-                                             max_retries=max_retries + 1)
-                    if attempt < max_retries:
-                        naming_feedback = short_feedback(word_count, min_words, max_words)
-                        await asyncio.sleep(2)  # Brief delay before retry
-                    else:
-                        # Never kept and padded: a script that is still short after the allowed regenerations fails the episode.
-                        raise ScriptTooShortError(word_count, min_words)
+                naming_feedback = ((feedback_text(naming_result, research_context.confirmed_papers) if not naming_result.passed else "")
+                                   + (notation_feedback(bad_notation) if bad_notation else "")
+                                   + (banned_feedback(banned) if banned else "")
+                                   + (attribution_feedback(attribution) if attribution and not attribution.passed else ""))
+                await asyncio.sleep(2)
+        except Exception as e:
+            structured_logger.error("Content generation failed after all retries", job_id=job_id, error=str(e), error_type=type(e).__name__)
+            raise
 
-            except asyncio.TimeoutError:
-                if attempt < max_retries:
-                    structured_logger.warning(f"Content generation timed out on attempt {attempt + 1}, retrying",
-                                             job_id=job_id,
-                                             attempt=attempt + 1)
-                    await asyncio.sleep(2)
-                    continue
-                else:
-                    structured_logger.error("Content generation timed out after all retries", 
-                                           job_id=job_id,
-                                           timeout_seconds=600)
-                    raise Exception("Content generation timed out after 10 minutes")
-            except Exception as e:
-                if attempt < max_retries:
-                    structured_logger.warning(f"Content generation failed on attempt {attempt + 1}, retrying",
-                                             job_id=job_id,
-                                             error=str(e),
-                                             attempt=attempt + 1)
-                    await asyncio.sleep(2)
-                    continue
-                else:
-                    structured_logger.error("Content generation failed after all retries", 
-                                           job_id=job_id,
-                                           error=str(e),
-                                           error_type=type(e).__name__)
-                    raise
-        
         if not content:
             raise Exception("Failed to generate content after all retry attempts")
 
@@ -2450,7 +2405,7 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
                                       job_id=job_id,
                                       quality_score=round(research_context.research_quality_score, 1),
                                       sources_count=len(research_context.research_sources),
-                                      paradigm_shifts_count=len(research_context.paradigm_shifts))
+                                      significance_count=len(research_context.significance))
                 
                 # Store research metadata in job (including sources for references)
                 research_sources_summary = []
@@ -2469,7 +2424,7 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
                 job_ref.update({
                     'research_sources_count': len(research_context.research_sources),
                     'research_quality_score': research_context.research_quality_score,
-                    'paradigm_shifts_count': len(research_context.paradigm_shifts),
+                    'significance_count': len(research_context.significance),
                     'research_sources_summary': research_sources_summary,
                     'confirmed_papers': [c.to_dict() for c in research_context.confirmed_papers],
                     'dropped_candidates': [d.to_dict() for d in research_context.dropped_candidates],
@@ -2523,7 +2478,7 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
                 # Generate, check and (if needed) regenerate. Gap 3 fix 1 (C5): the script may name only confirmed
                 # papers; after the allowed regenerations the episode fails (NamingViolationError).
                 content, naming_result, naming_attempts = await self._generate_checked_content(
-                    request, research_context, google_key, job_id)
+                    request, research_context, google_key, job_id, on_rejection=self._job_rejection_sink(job_ref))
 
                 content_memory_after = psutil.virtual_memory().percent
 
@@ -2598,7 +2553,7 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
             
             # Fix 4: every post-generation check runs again on the text that is stored and spoken (after notation became words,
             # venues were rewritten, references were built and the description was limited); nothing is padded or added unchecked.
-            await self._verify_final_text(content, request, research_context, google_key, job_id)
+            await self._verify_final_text(content, request, research_context, google_key, job_id, on_rejection=self._job_rejection_sink(job_ref))
 
             structured_logger.info("Content validation passed",
                                   job_id=job_id,

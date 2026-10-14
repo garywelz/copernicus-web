@@ -70,7 +70,7 @@ def _analysis(**overrides):
         technical_complexity="medium",
         suggested_questions=[],
         keywords=[],
-        paradigm_shift_potential="high",
+        significance="high",
         interdisciplinary_connections=["A real connection"],
         practical_applications=[],
         future_research_directions=[],
@@ -93,7 +93,7 @@ class TestAggregateEnhancedAnalyses:
         failed = _analysis(
             title="Broken Paper",
             key_findings=["Research findings require further analysis"],
-            paradigm_shift_potential="unknown",
+            significance="unknown",
             interdisciplinary_connections=[],
             analysis_failed=True,
         )
@@ -106,7 +106,7 @@ class TestAggregateEnhancedAnalyses:
         failed = _analysis(
             title="Broken Paper",
             key_findings=["Research findings require further analysis"],
-            paradigm_shift_potential="unknown",
+            significance="unknown",
             analysis_failed=True,
         )
         real = _analysis(title="Good Paper")

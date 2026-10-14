@@ -82,11 +82,11 @@ def build_stub(spec: Dict[str, Any]):
 
     class _Analysis:
         def __init__(self, title):
-            self.title, self.analysis_failed, self.paradigm_shift_potential = title, False, "high"
+            self.title, self.analysis_failed, self.significance = title, False, "high"
             self.interdisciplinary_connections, self.key_findings, self.technical_complexity = ["x"], [f"finding about {title}"], "low"
 
     class _Gemini:
-        paradigm_shifts, interdisciplinary_connections, key_findings, citations = ["shift"], [], ["gemini finding"], ["MODEL-WRITTEN CITATION"]
+        significance, interdisciplinary_connections, key_findings, citations = ["shift"], [], ["gemini finding"], ["MODEL-WRITTEN CITATION"]
 
     async def fake_multi(srcs, complexity=None):
         return [_Analysis(s.title) for s in srcs]
