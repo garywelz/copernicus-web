@@ -100,7 +100,7 @@ from config.database import db
 from services.episode_service import episode_service
 from services.canonical_service import canonical_service
 from utils.script_validation import (validate_script_length, calculate_minimum_words_for_duration, calculate_maximum_words_for_duration,
-                                     length_feedback, short_feedback, ScriptTooLongError, ScriptTooShortError)
+                                     length_feedback, short_feedback, ScriptTooLongError, ScriptTooShortError, check_model_reply)
 from named_work_check import check_naming, feedback_text, make_gemini_llm_call, NamingViolationError
 from failure_notice import describe_failure
 from reference_sections import apply_reference_sections, BUILT_BY as REFERENCES_BUILT_BY
@@ -1250,35 +1250,26 @@ Say that journal name in dialogue. Never say "published in PubMed" or "published
         else:
             structured_logger.info("Using Google AI API (fallback)",
                                  topic=request.topic)
-            import google.generativeai as genai
-            genai.configure(api_key=google_key)
-            # Use current models with fallback chain (without models/ prefix for Google AI API)
-            # Removed gemini-1.5-pro as it may not be available in all regions
-            # Only use stable 2.5 models - gemini-1.5-flash may not be available
-            fallback_models = ['gemini-2.5-flash', 'gemini-2.5-pro']
-            response = None
+            # Fix 6: an explicit call (gemini_generate): temperature 0.8, JSON mode with a schema that requires every field, an output limit
+            # and a thinking budget. Before, this branch passed no generation config at all.
+            from gemini_generate import (generate_json_reply, GENERATOR_MODEL, FALLBACK_MODEL, TEMPERATURE, MAX_OUTPUT_TOKENS, THINKING_BUDGET)
+            content = None
             last_error = None
-            
-            for model_name in fallback_models:
+            for model_name in (GENERATOR_MODEL, FALLBACK_MODEL):
                 try:
-                    structured_logger.info("Trying Google AI API model", model=model_name)
-                    model = genai.GenerativeModel(model_name)
-                    response = model.generate_content(prompt)
-                    structured_logger.info("Google AI API successful", model=model_name)
+                    structured_logger.info("Trying Google AI API model", model=model_name, temperature=TEMPERATURE,
+                                          max_output_tokens=MAX_OUTPUT_TOKENS, thinking_budget=THINKING_BUDGET)
+                    reply = await asyncio.to_thread(generate_json_reply, prompt, google_key, model_name)
+                    content = json.loads(reply)
+                    structured_logger.info("Google AI API successful", model=model_name, reply_chars=len(reply))
                     break
                 except Exception as model_error:
                     last_error = model_error
-                    structured_logger.warning("Google AI API model failed, trying next",
-                                             model=model_name,
-                                             error=str(model_error))
+                    structured_logger.warning("Google AI API model failed, trying next", model=model_name, error=str(model_error))
                     continue
-            
-            if not response:
+            if content is None:
                 raise last_error or Exception("All Google AI API models failed")
-            
-            response_text = response.text
-            content = _extract_json_from_response(response_text)
-        
+
         structured_logger.info("Content generated successfully",
                               content_keys=list(content.keys()) if isinstance(content, dict) else None,
                               title=content.get('title', 'N/A')[:60] if isinstance(content, dict) else None,
@@ -2241,9 +2232,13 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
         try:
             for attempt in range(max_retries + 1):
                 last = attempt == max_retries
-                generated_content = await transient_retry("generation", attempt, lambda: asyncio.wait_for(
-                    self.generate_content_from_research_context(request, research_context, google_key, retry_attempt=attempt, naming_feedback=naming_feedback),
-                    timeout=600))
+                async def generate_once():
+                    reply = await asyncio.wait_for(
+                        self.generate_content_from_research_context(request, research_context, google_key, retry_attempt=attempt, naming_feedback=naming_feedback),
+                        timeout=600)
+                    check_model_reply(reply, min_words)       # raises MalformedModelReply: a broken reply is a model error, not a short script
+                    return reply
+                generated_content = await transient_retry("generation", attempt, generate_once)
                 script = generated_content.get('script', '') if isinstance(generated_content, dict) else ''
                 description = generated_content.get('description', '') if isinstance(generated_content, dict) else ''
                 word_count = len(script.split()) if script else 0

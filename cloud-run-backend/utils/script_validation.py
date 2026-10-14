@@ -56,6 +56,26 @@ def length_feedback(word_count: int, max_words: int, min_words: int) -> str:
             "repetition, general background and restatement; keep the specific findings of the papers you name, and keep to the question asked.\n")
 
 
+class MalformedModelReply(Exception):
+    """The generator's reply is not a usable script and description (no description, or a script far too short to be a script)."""
+
+
+MALFORMED_BELOW_FRACTION = 0.25     # a script under a quarter of the minimum is a broken reply, not a short script
+
+
+def check_model_reply(reply, min_words: int) -> None:
+    """Raise MalformedModelReply for a reply that is a model error rather than a content failure: not a dict, no description, or a
+    script under a quarter of the minimum (the 2026-10-14 run got 144 and then 23 words, with no description, from a reply that stopped
+    early). A script that is merely short (a quarter of the minimum or more) is still a content failure and is regenerated with feedback."""
+    if not isinstance(reply, dict):
+        raise MalformedModelReply("the reply is not an object")
+    if not str(reply.get("description") or "").strip():
+        raise MalformedModelReply("the reply has no description")
+    words = len(str(reply.get("script") or "").split())
+    if words < MALFORMED_BELOW_FRACTION * min_words:
+        raise MalformedModelReply(f"the script has {words} words, under a quarter of the minimum of {min_words}")
+
+
 def short_feedback(word_count: int, min_words: int, max_words: int) -> str:
     return (f"\n\n**YOUR PREVIOUS SCRIPT WAS REJECTED because it was too short: {word_count} words, and the minimum is {min_words} words.**\n"
             f"Rewrite it between {min_words} and {max_words} words by covering what the papers you name actually found in more detail "

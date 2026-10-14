@@ -169,7 +169,7 @@ def test_too_short_then_violation_then_clean_uses_the_shared_budget(monkeypatch)
 
 def test_a_script_that_stays_short_fails_and_is_never_kept(monkeypatch):
     req = PodcastRequest(topic="t")
-    short_bad = "Zorblatt and Quux showed it."
+    short_bad = ("word " * 400) + "Zorblatt and Quux showed it."      # short (400 words) but a real script: a content failure, not a broken reply
     service, req, calls = _harness(monkeypatch, [short_bad, short_bad, short_bad])
     with pytest.raises(ScriptTooShortError) as e:
         run(service._generate_checked_content(req, _ctx(), "k", "job1"))
@@ -312,7 +312,7 @@ def test_banned_wording_in_the_description_counts_too(monkeypatch):
 
 def test_a_short_script_with_banned_wording_fails_as_too_short_and_is_not_padded(monkeypatch):
     req = PodcastRequest(topic="t")
-    short_hype = "Lovelace and Turing showed a revolutionary result."
+    short_hype = ("word " * 400) + "Lovelace and Turing showed a revolutionary result."
     service, req, calls = _harness(monkeypatch, [short_hype, short_hype, short_hype])
     with pytest.raises(ScriptTooShortError):
         run(service._generate_checked_content(req, _ctx(), "k", "job1"))
@@ -383,7 +383,7 @@ def test_a_naming_violation_means_no_attribution_call_that_attempt(monkeypatch):
 
 def test_a_short_script_is_regenerated_then_checked_like_any_other(monkeypatch):
     req = PodcastRequest(topic="t")
-    short = "Lovelace and Turing showed that every machine proves everything."
+    short = ("word " * 400) + "Lovelace and Turing showed that every machine proves everything."
     ok = _script(" Lovelace and Turing showed it.", req)
     service, req, calls = _harness(monkeypatch, [short, ok])
     content, result, attempts = run(service._generate_checked_content(req, _ctx(), "k", "job1"))
