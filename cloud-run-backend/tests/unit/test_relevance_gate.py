@@ -115,14 +115,14 @@ def integrator(monkeypatch, confirmed, embed):
 
     class A:
         def __init__(self, title):
-            self.title, self.analysis_failed, self.paradigm_shift_potential = title, False, "high"
+            self.title, self.analysis_failed, self.significance = title, False, "high"
             self.interdisciplinary_connections, self.key_findings, self.technical_complexity = [], [f"f {title}"], "low"
 
     async def fake_multi(srcs, complexity=None):
         return [A(s.title) for s in srcs]
 
     class G:
-        paradigm_shifts, interdisciplinary_connections, key_findings = [], [], ["g"]
+        significance, interdisciplinary_connections, key_findings = [], [], ["g"]
         analysis_failed = False
 
     async def fake_gemini(paper, options, key):

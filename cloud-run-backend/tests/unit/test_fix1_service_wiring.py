@@ -57,7 +57,7 @@ def test_requested_paper_venue_line_comes_from_the_confirmed_record_and_nothing_
     conf = _confirmed()
     sources = [pc.as_research_source(conf)]
     ctx = pri.PodcastResearchContext(
-        topic="t", research_sources=sources, paper_analyses=[], paradigm_shifts=[], interdisciplinary_connections=[],
+        topic="t", research_sources=sources, paper_analyses=[], significance=[], interdisciplinary_connections=[],
         key_findings=[], real_citations=[], research_quality_score=5.0, recommended_expertise_level="intermediate",
         confirmed_papers=[conf], dropped_candidates=[], requested_pid="P1")
     service = svc.PodcastGenerationService()
@@ -81,7 +81,7 @@ def _ctx():
                               venue=None, ids={"arxiv": None, "arxiv_version": None, "pmid": None, "doi": "10.1/p1"}, url="https://doi.org/10.1/p1",
                               abstract="Abs.", registry="crossref", confirmed_at="t", title_match=1.0)]
     return pri.PodcastResearchContext(
-        topic="t", research_sources=[pc.as_research_source(c) for c in conf], paper_analyses=[], paradigm_shifts=[],
+        topic="t", research_sources=[pc.as_research_source(c) for c in conf], paper_analyses=[], significance=[],
         interdisciplinary_connections=[], key_findings=[], real_citations=[], research_quality_score=5.0,
         recommended_expertise_level="intermediate", confirmed_papers=conf, dropped_candidates=[], requested_pid=None)
 
@@ -249,7 +249,7 @@ def _fallback_context(findings, shifts=None, directions=None):
     analysis = NS(future_research_directions=directions or [])
     source = NS(title="A paper about chaos", authors=["A B", "C D"], journal=None, source="arxiv", doi=None,
                 url="https://arxiv.org/abs/2601.00001v1", publication_date="2026-01-01")
-    return NS(topic="Chaos Theory", key_findings=findings, paradigm_shifts=shifts or [], paper_analyses=[analysis],
+    return NS(topic="Chaos Theory", key_findings=findings, significance=shifts or [], paper_analyses=[analysis],
               research_sources=[source])
 
 
@@ -331,13 +331,13 @@ def test_failure_notice_for_banned_wording_is_plain():
     assert d["kind"] == "banned_wording" and "overstated or promotional" in d["summary"] and "script" not in d["summary"].lower().replace("the script", "")
 
 
-def test_the_prompt_lists_the_banned_words_from_the_config_and_no_longer_teaches_the_hype():
+def test_the_generator_prompt_does_not_list_or_use_the_banned_words_and_no_longer_teaches_the_hype():
     import inspect
-    from script_style import load_banned_phrases
     src = inspect.getsource(pri.PodcastResearchIntegrator.build_2_speaker_research_prompt)
-    assert "banned_phrase_list()" in src and "This research represents" not in src and "a paradigm shift because" not in src
+    assert "banned_phrase_list" not in src and "Never use these words or phrases" not in src
+    assert "This research represents" not in src and "a paradigm shift because" not in src
     assert "highlight revolutionary implications" not in src and "Present a paradigm shift only" not in src
-    assert "revolutionary" in load_banned_phrases()
+    assert "recent breakthroughs" not in src and "potential breakthroughs" not in src and "paradigm_shifts_discussed" not in src
 
 
 # ---------------------------------------------------------------- fix 4 (b): unsupported attributions are a reason to regenerate

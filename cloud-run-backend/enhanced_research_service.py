@@ -31,7 +31,7 @@ class PaperAnalysis:
     technical_complexity: str  # 'low', 'medium', 'high'
     suggested_questions: List[str]
     keywords: List[str]
-    paradigm_shift_potential: str
+    significance: str  # what this changes in how we see the question, as far as the paper supports; "none stated" if it claims nothing of the kind
     interdisciplinary_connections: List[str]
     practical_applications: List[str]
     future_research_directions: List[str]
@@ -40,7 +40,7 @@ class PaperAnalysis:
     # paper. Callers must exclude analysis_failed=True entries from
     # anything shown to the model or written into a description --
     # never publish "Research findings require further analysis" or a
-    # paradigm_shift_potential of "unknown" as if they were real content.
+    # significance of "unknown" as if they were real content.
     analysis_failed: bool = False
 
 @dataclass
@@ -478,7 +478,7 @@ Until next time, keep questioning, keep exploring, and keep pushing the boundari
                 analysis_data[field] = self._get_default_value(field)
         
         # Add enhanced fields
-        analysis_data.setdefault("paradigm_shift_potential", "medium")
+        analysis_data.setdefault("significance", "none stated")
         analysis_data.setdefault("interdisciplinary_connections", [])
         analysis_data.setdefault("practical_applications", [])
         analysis_data.setdefault("future_research_directions", [])
@@ -512,7 +512,7 @@ Until next time, keep questioning, keep exploring, and keep pushing the boundari
             technical_complexity="medium",
             suggested_questions=["What are the key implications of this research?"],
             keywords=["research", "analysis"],
-            paradigm_shift_potential="unknown",
+            significance="unknown",
             interdisciplinary_connections=[],
             practical_applications=[],
             future_research_directions=[],
@@ -544,7 +544,9 @@ Until next time, keep questioning, keep exploring, and keep pushing the boundari
         """Structured paper analysis prompt (legacy pattern)"""
         return """
 Analyze this research paper with {complexity} complexity level.
-Focus on making the content accessible while maintaining accuracy.
+Report what the paper actually shows: its question, methods and findings, in plain, neutral language.
+Say only what the title and abstract support; do not add claims, numbers or importance that they do not state, and use no promotional
+or superlative wording. If the abstract gives little detail, say less rather than guess.
 
 Title: {title}
 Authors: {authors}
@@ -552,8 +554,8 @@ Abstract: {abstract}
 
 Provide analysis in JSON format:
 {{
-    "title": "Paper title in accessible terms",
-    "summary": "Clear explanation of main points",
+    "title": "The paper's title exactly as given above",
+    "summary": "What the paper did and found, in plain terms",
     "key_findings": ["Array of key findings"],
     "methodology": "Research approach description",
     "implications": "Real-world impact and applications",
@@ -561,7 +563,7 @@ Provide analysis in JSON format:
     "technical_complexity": "low/medium/high",
     "suggested_questions": ["Discussion questions"],
     "keywords": ["Relevant keywords"],
-    "paradigm_shift_potential": "low/medium/high",
+    "significance": "What this changes in how we see the question, as far as the paper itself supports; the words none stated if it claims nothing of the kind",
     "interdisciplinary_connections": ["Connected fields"],
     "practical_applications": ["Real-world uses"],
     "future_research_directions": ["Next steps"]
