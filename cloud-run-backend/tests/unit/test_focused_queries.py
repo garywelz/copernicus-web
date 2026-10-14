@@ -208,3 +208,56 @@ def test_the_integrator_gives_the_pipeline_a_model_for_the_queries_only_when_it_
     import podcast_research_integrator as pri
     assert pri.PodcastResearchIntegrator("a-key").research_pipeline.query_llm is not None
     assert pri.PodcastResearchIntegrator("").research_pipeline.query_llm is None
+
+
+# ---------------------------------------------------------------- fix 7: order by the topic's rare terms; a paper only the focused queries found must contain one
+RUN6 = json.loads((Path(__file__).resolve().parents[1] / "fixtures" / "ever_math_run6_papers.json").read_text(encoding="utf-8"))["papers"]
+
+
+def test_distinctive_terms_are_the_topics_content_words_minus_the_generic_ones():
+    assert sq.distinctive_terms(TOPIC) == ["dependency", "mathlib", "metamath"]
+    got = sq.distinctive_terms("The galactose switch in yeast cells")
+    assert "galactose" in got and "yeast" in got and "cells" in got
+    assert sq.distinctive_terms("Machine learning methods for data analysis") == []                      # nothing distinctive: nothing to filter on
+    assert sq.stem("dependencies") == "dependency" and sq.stem("graphs") == "graph" and sq.stem("libraries") == "library" and sq.stem("class") == "class"
+
+
+def test_the_papers_of_the_last_run_that_must_be_excluded_are_excluded_and_the_mathlib_paper_is_kept():
+    d = sq.distinctive_terms(TOPIC)
+    verdict = {p["pid"]: sq.keep_focused_paper(p["title"], p["abstract"], d) for p in RUN6}
+    focused_only = [p["pid"] for p in RUN6 if p["retrieved_by"] == "focused"]
+    assert verdict["P1"] is True                                                                      # "The Network Structure of Mathlib": Mathlib in the title
+    for pid in ("P2", "P4", "P8", "P9"):                                                              # GNN explanations, tensor networks, TorchLean, AutoGraphForge
+        assert verdict[pid] is False, pid
+    assert [pid for pid in focused_only if verdict[pid]] == ["P1"]                                    # P5, P6, P7 go too
+    assert verdict["P3"] and verdict["P11"]                                                           # the sentence-query papers that pass anyway
+
+
+def test_the_rule_is_title_one_term_or_abstract_two_terms():
+    d = ["mathlib", "metamath", "dependency"]
+    assert sq.keep_focused_paper("A Mathlib study", "x", d)
+    assert not sq.keep_focused_paper("Something else", "uses Mathlib as a checker", d)               # one abstract mention (P4's case)
+    assert sq.keep_focused_paper("Something else", "uses Mathlib and its dependency structure", d)
+    assert not sq.keep_focused_paper("Something else", "axiom dependencies only", d)                 # one term (P2's case)
+    assert sq.keep_focused_paper("Something else", "only about yeast", [])                           # nothing to test
+    assert sq.keep_focused_paper("Something else", "mentions metamath once", ["metamath"])           # a topic with one distinctive term needs one
+
+
+def test_rare_terms_count_three_times_in_the_ordering():
+    terms = ["mathlib", "network", "graph"]
+    generic = sq.lexical_score("Network graph models", "network graph graph", terms, ["mathlib"])
+    rare = sq.lexical_score("Mathlib notes", "about mathlib", terms, ["mathlib"])
+    assert rare > generic and sq.lexical_score("T", "A", terms) == 0
+    assert sq.lexical_score("The Network Structure of Mathlib", "We study mathlib.", ["mathlib", "metamath", "network", "dependency", "graph"]) == 5   # unchanged without distinctive
+
+
+def test_the_pipeline_drops_generic_network_papers_the_focused_queries_bring_in(monkeypatch):
+    # the real OpenAlex output for "mathlib metamath network" is full of "network" papers (neural networks, network coding, ...)
+    p, calls = pipeline(monkeypatch)
+    out = run(p._search_arxiv(TOPIC, "comprehensive"))
+    focused_only = [s for s in out if s.confirm_via == "datacite"]
+    assert focused_only and TARGET in ids(focused_only)
+    d = sq.distinctive_terms(TOPIC)
+    assert all(sq.keep_focused_paper(s.title, s.abstract, d) for s in focused_only)
+    first = ids(out)[0]
+    assert first == TARGET
