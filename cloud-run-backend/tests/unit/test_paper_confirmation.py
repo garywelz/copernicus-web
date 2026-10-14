@@ -319,12 +319,12 @@ def _integrator(monkeypatch, sources, http):
     class _Analysis:
         def __init__(self, title):
             self.title, self.analysis_failed = title, False
-            self.paradigm_shift_potential, self.interdisciplinary_connections = "high", ["links to physics"]
+            self.significance, self.interdisciplinary_connections = "high", ["links to physics"]
             self.technical_complexity = "low"
             self.key_findings = [f"finding about {title}"]
 
     class _Gemini:
-        paradigm_shifts, interdisciplinary_connections, key_findings = ["gemini shift"], [], ["gemini finding"]
+        significance, interdisciplinary_connections, key_findings = ["gemini shift"], [], ["gemini finding"]
         citations = ["FAKE MODEL-WRITTEN CITATION, Nature 1999"]
 
     async def fake_multi(srcs, complexity=None):
@@ -360,7 +360,7 @@ def test_integrator_uses_only_confirmed_papers_and_no_model_citations(monkeypatc
     ctx = run(it.comprehensive_research_for_podcast("cells"))
     assert [s_.pid for s_ in ctx.research_sources] == ["P1", "P2", "P3"]
     assert [p.pid for p in ctx.confirmed_papers] == ["P1", "P2", "P3"] and ctx.dropped_candidates[0].reason == "no_identifier"
-    joined = " ".join(ctx.real_citations + ctx.key_findings + ctx.paradigm_shifts)
+    joined = " ".join(ctx.real_citations + ctx.key_findings + ctx.significance)
     assert "FAKE MODEL-WRITTEN" not in joined
     assert all("arXiv:2601.0000" in c for c in ctx.real_citations) and len(ctx.real_citations) == 3
     assert any(f.startswith("[P1] ") for f in ctx.key_findings) and "[P1] gemini finding" in ctx.key_findings
@@ -545,14 +545,14 @@ def _failing_integrator(monkeypatch, n_papers, fail_enhanced=(), fail_gemini=())
     class A:
         def __init__(self, title, failed):
             self.title, self.analysis_failed = title, failed
-            self.paradigm_shift_potential, self.interdisciplinary_connections = "high", []
+            self.significance, self.interdisciplinary_connections = "high", []
             self.technical_complexity, self.key_findings = "low", [f"finding about {title}"]
 
     async def multi(rs, complexity=None):
         return [A(x.title, x.title in fail_enhanced) for x in rs]
 
     class G:
-        paradigm_shifts, interdisciplinary_connections = [], []
+        significance, interdisciplinary_connections = [], []
 
         def __init__(self, failed):
             self.analysis_failed = failed
@@ -601,7 +601,7 @@ def test_prompt_demands_honest_focused_dialogue(monkeypatch):
     ctx = run(it.comprehensive_research_for_podcast("cells"))
     prompt = it.build_2_speaker_research_prompt(ctx, "10 minutes", "interview")
     assert "HONESTY AND FOCUS" in prompt and 'Stay on the question asked: "cells"' in prompt
-    assert "No absolute or certainty claims beyond what a listed paper itself states" in prompt and "absolute certainty" in prompt   # named as forbidden
+    assert "No absolute or certainty claims beyond what a listed paper itself states" in prompt
     assert 'Never write "as you put it"' in prompt and "If the evidence is thin" in prompt
     # the hype the old prompt asked for is gone from the questions and the closing line it taught the model
     assert "what makes this research so revolutionary" not in prompt and "What revolutionary changes" not in prompt and "groundbreaking research" not in prompt
@@ -615,12 +615,14 @@ def test_character_prompt_keeps_the_delta_idea_without_hype():
     assert 'revolutionary "delta" thinking' not in p and banned_phrase_hits(p) == []
 
 
-def test_the_research_prompt_asks_for_no_banned_wording_anywhere_except_the_list_that_forbids_it(monkeypatch):
+def test_the_research_prompt_contains_no_banned_wording_at_all(monkeypatch):
+    """The check is in code; the prompt neither lists the words nor uses them (it used to name them, which primes the model)."""
     from script_style import banned_phrase_hits
     it = _integrator(monkeypatch, _srcs(3), _good_http())
     ctx = run(it.comprehensive_research_for_podcast("cells"))
     prompt = it.build_2_speaker_research_prompt(ctx, "10 minutes", "interview")
-    # the prompt names the banned words exactly twice: in the "never use" list, and as the named examples of overstated certainty
-    kept = [ln for ln in prompt.split("\n") if "Never use these words or phrases" not in ln and "No absolute or certainty claims" not in ln]
-    left = banned_phrase_hits("\n".join(kept))
-    assert [h["matched"] + ": " + h["sentence"] for h in left] == []
+    assert [h["matched"] + ": " + h["sentence"] for h in banned_phrase_hits(prompt)] == []
+    low = prompt.lower()
+    for word in ("breakthrough", "revolution", "paradigm", "transformative", "groundbreaking", "cutting-edge", "change everything"):
+        assert word not in low, word
+    assert "No absolute or certainty claims beyond what a listed paper itself states" in prompt
