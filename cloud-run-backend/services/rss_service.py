@@ -22,6 +22,7 @@ from config.constants import (
 )
 from config.database import db
 from utils.logging import structured_logger
+from audio_length import mp3_seconds, format_itunes_duration
 from content_fixes import (
     extract_itunes_summary,
     make_reference_links_clickable,
@@ -67,8 +68,11 @@ class RSSService:
         return dt.astimezone(timezone.utc)
     
     @staticmethod
-    def _format_duration(duration_str: Optional[str]) -> str:
-        """Convert duration strings like '5-10 minutes' into itunes mm:ss format."""
+    def _format_duration(duration_str: Optional[str], audio_seconds: Optional[float] = None) -> str:
+        """The itunes duration: the real audio length when it is known, otherwise (old rule) the top of a range like '5-10 minutes' as mm:ss."""
+        real = format_itunes_duration(audio_seconds)
+        if real:
+            return real
         if not duration_str:
             return "10:00"
         try:
@@ -270,7 +274,7 @@ class RSSService:
         return element
     
     @classmethod
-    def _build_rss_item_data(cls, podcast_data: Dict[str, Any], subscriber_data: Optional[Dict[str, Any]], attribution_initials: Optional[str]) -> Dict[str, Any]:
+    def _build_rss_item_data(cls, podcast_data: Dict[str, Any], subscriber_data: Optional[Dict[str, Any]], attribution_initials: Optional[str], audio_seconds: Optional[float] = None) -> Dict[str, Any]:
         """Prepare structured metadata required to render an RSS item."""
         result = podcast_data.get("result", {})
         request_data = podcast_data.get("request", {})
@@ -349,7 +353,7 @@ class RSSService:
             "canonical": canonical,
             "guid": guid,
             "pub_date": pub_date,
-            "duration_display": cls._format_duration(result.get("duration")),
+            "duration_display": cls._format_duration(result.get("duration"), audio_seconds),
             "episode_link": f"{EPISODE_BASE_URL}/{canonical}" if canonical else EPISODE_BASE_URL,
             "attribution": attribution_initials,
         }
@@ -450,7 +454,17 @@ class RSSService:
                 existing_items.append(item)
 
             if submit_to_rss:
-                item_data = cls._build_rss_item_data(podcast_data, subscriber_data, attribution_initials)
+                audio_blob_for_length = None
+                _audio_name = cls._extract_blob_name_from_url((podcast_data.get("result") or {}).get("audio_url", ""))
+                if _audio_name:
+                    audio_blob_for_length = bucket.blob(_audio_name)
+                audio_seconds = None
+                try:
+                    if audio_blob_for_length is not None and audio_blob_for_length.exists():
+                        audio_seconds = mp3_seconds(audio_blob_for_length.download_as_bytes())
+                except Exception as exc:  # unreadable audio must not block publishing; the old duration rule applies
+                    structured_logger.warning("Could not read audio length for the feed", canonical=canonical, error=str(exc))
+                item_data = cls._build_rss_item_data(podcast_data, subscriber_data, attribution_initials, audio_seconds)
                 # Pre-publish gate: refuse to write a feed item whose text
                 # still contains a known generator placeholder pattern.
                 # Raises before any XML is built or uploaded -- the feed is
