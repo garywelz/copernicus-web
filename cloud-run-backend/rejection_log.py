@@ -45,4 +45,8 @@ def length_item(attempt: int, kind: str, words: int, limit: int) -> Dict[str, An
 
 
 def transient_item(attempt: int, stage: str, error: Exception) -> Dict[str, Any]:
-    return {"attempt": attempt, "check": "transient_error", "stage": stage, "error_type": type(error).__name__, "error": str(error)[:300]}
+    item = {"attempt": attempt, "check": "transient_error", "stage": stage, "error_type": type(error).__name__, "error": str(error)[:300]}
+    raw = getattr(error, "raw", "")
+    if raw:
+        item["raw_head"] = str(raw)[:300]       # what the model actually answered when its answer could not be read
+    return item

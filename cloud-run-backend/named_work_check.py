@@ -390,16 +390,42 @@ def feedback_text(result: NamingResult, confirmed_papers: Sequence[Any]) -> str:
         "and the description, and say \"the link is in the description\" only right after naming one of these papers.\n" + extra)
 
 
-def make_gemini_llm_call(api_key: str, model: str = "gemini-2.5-flash") -> LlmCall:
-    """Production wrapper: the same Google AI key the generator already uses, temperature 0, JSON out."""
-    async def call(system: str, user: str) -> str:
-        import google.generativeai as genai
-        genai.configure(api_key=api_key)
+CHECK_MAX_OUTPUT_TOKENS = 8192
+CHECK_THINKING_BUDGET = 0     # these calls extract structured text and need no reasoning; with dynamic thinking on, hidden reasoning counts
+#                               against the output limit and a slow call returns an empty or cut-off answer (seen on the paper analyses on
+#                               2026-10-12 and on the naming check on Cloud Run on 2026-10-14: four unreadable answers in a row, 30 s each)
 
+
+def check_request(system: str, user: str) -> Dict[str, Any]:
+    return {"systemInstruction": {"parts": [{"text": system}]}, "contents": [{"parts": [{"text": user}]}],
+            "generationConfig": {"temperature": 0, "maxOutputTokens": CHECK_MAX_OUTPUT_TOKENS, "responseMimeType": "application/json",
+                                 "thinkingConfig": {"thinkingBudget": CHECK_THINKING_BUDGET}}}
+
+
+def check_reply_text(payload: Dict[str, Any]) -> str:
+    """The text of a check call's reply; a call that did not finish with STOP raises (the caller treats it as a model error)."""
+    cands = payload.get("candidates") or []
+    if not cands:
+        raise RuntimeError("no candidate in the reply" + (f" (blocked: {payload['promptFeedback']})" if payload.get("promptFeedback") else ""))
+    finish = cands[0].get("finishReason")
+    if finish not in (None, "STOP"):
+        raise RuntimeError(f"the reply ended with {finish}, not STOP")
+    parts = ((cands[0].get("content") or {}).get("parts")) or []
+    return "".join(p.get("text", "") for p in parts if not p.get("thought"))
+
+
+def make_gemini_llm_call(api_key: str, model: str = "gemini-2.5-flash", post=None) -> LlmCall:
+    """Production wrapper: the same Google AI key the generator already uses, temperature 0, JSON out, thinking off (REST, because the older
+    SDK cannot set the thinking budget). Used by the naming check, the attribution check and the focused-query writer."""
+    import requests
+    send = post or requests.post
+
+    async def call(system: str, user: str) -> str:
         def run() -> str:
-            m = genai.GenerativeModel(model, system_instruction=system)
-            r = m.generate_content(user, generation_config=genai.types.GenerationConfig(
-                temperature=0, max_output_tokens=8192, response_mime_type="application/json"))
-            return r.text
+            r = send(f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent",
+                     headers={"x-goog-api-key": api_key, "Content-Type": "application/json"}, json=check_request(system, user), timeout=120)
+            if r.status_code != 200:
+                raise RuntimeError(f"{model} answered HTTP {r.status_code}: {r.text[:200]}")
+            return check_reply_text(r.json())
         return await asyncio.to_thread(run)
     return call

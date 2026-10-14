@@ -684,6 +684,7 @@ def test_an_unsupported_attribution_is_recorded_with_sentence_paper_abstract_ver
     run(service._generate_checked_content(req, _ctx(), "k", "job1"))
     items = [r for r in service._last_rejections if r["check"] == "attribution"]
     unsup = next(r for r in items if r["verdict"] == "unsupported")
+    assert isinstance(unsup.pop("seq"), int)                                    # a sequence number keeps identical records distinct
     assert unsup == {"attempt": 1, "check": "attribution", "verdict": "unsupported", "quote": claim, "pid": "P1",
                      "paper": "Analytical engines and the first algorithms", "authors": ["Ada Lovelace", "Alan Turing"], "year": 2025,
                      "abstract": "Abs.", "reason": "The abstract says nothing like this."}
