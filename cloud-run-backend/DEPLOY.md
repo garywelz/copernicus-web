@@ -135,6 +135,16 @@ checks passed). So before reporting any deploy done:
   commit of the deployment serving the domain; it must equal the merge commit
   (`git rev-parse origin/main`). If it still shows an older commit, new
   deployments are not being assigned to the domain: stop and tell Gary.
+- Also confirm that GitHub told Vercel about the merge. Within a minute of the
+  merge, `gh api repos/garywelz/copernicus-web/commits/<merge-sha>/check-suites
+  --jq '.check_suites[].app.slug'` must list `vercel` (with `gitguardian` and
+  `cursor`). If it lists nothing, the push event never reached the apps: no
+  deployment of any kind will appear for that commit, and nothing is wrong with
+  assignment or with a skip rule (this happened to the backend-only merges
+  `bd296be` and `73b831b` on 2026-10-14; seven earlier backend-only merges
+  deployed normally). Tell Gary. If the merge changed website files, redeploy
+  `main` from the Vercel dashboard; if it changed only backend files, the
+  served site is already identical and nothing needs doing.
 
 Clean up the worktree when done: `git worktree remove <path>`.
 
