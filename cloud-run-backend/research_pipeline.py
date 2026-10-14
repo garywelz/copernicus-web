@@ -289,12 +289,13 @@ class ComprehensiveResearchPipeline:
             sources = await self._add_focused_arxiv_results(query, sources)
         return sources
 
-    # Fix 4 (i): the full topic sentence is a poor arXiv query (generic words outrank the one paper that is exactly about the question),
-    # so two or three focused queries of 2-3 distinctive terms run beside it. A model proposes them (self.query_llm, set by the
-    # integrator); without one, search_queries builds them from the topic words. Results are merged and ordered by how many of the
+    # Fix 4 (i) / fix 6: the full topic sentence is a poor arXiv query (generic words outrank the one paper that is exactly about the
+    # question), so two or three focused queries of 2-3 distinctive terms run beside it. A model proposes them (self.query_llm, set by the
+    # integrator); without one, search_queries builds them from the topic words. They go to OpenAlex (arXiv-hosted works, confirmed through
+    # DataCite), not to arXiv: from Cloud Run arXiv answers 429 or times out for the second and third request in a row (2026-10-14), which
+    # lost the one paper the focused queries exist to find. Results are merged with the sentence results and ordered by how many of the
     # distinctive terms they contain.
     FOCUSED_QUERIES = True
-    FOCUSED_SPACING_S = 3.0        # arXiv asks for one request per 3 seconds
     FOCUSED_MAX_RESULTS = 10
     ARXIV_MAX_AFTER_FOCUS = 20
     query_llm = None
@@ -313,17 +314,16 @@ class ComprehensiveResearchPipeline:
         merged = list(sentence_sources)
         seen = {self._arxiv_key(s) for s in merged}
         for q in queries:
-            await asyncio.sleep(self.FOCUSED_SPACING_S)
-            params = {"search_query": q, "start": 0, "max_results": self.FOCUSED_MAX_RESULTS, "sortBy": "relevance", "sortOrder": "descending"}
+            search = " ".join(query_terms([q]))
             try:
-                found = self._parse_arxiv_xml(await self._arxiv_get(params))
+                found = await self._search_openalex_arxiv(search, "comprehensive", per_page=self.FOCUSED_MAX_RESULTS)
             except RegistryUnavailable:
-                print(f"arxiv_focused query={q!r} unavailable; skipping the remaining focused queries")
-                break  # arXiv is refusing or slow: do not keep waiting through retries for extras
+                print(f"focused_search query={search!r} unavailable; skipping the remaining focused queries")
+                break  # OpenAlex is refusing or slow: the sentence results stand
             fresh = [s for s in found if self._arxiv_key(s) not in seen]
             seen.update(self._arxiv_key(s) for s in fresh)
             merged.extend(fresh)
-            print(f"arxiv_focused query={q!r} results={len(found)} new={len(fresh)}")
+            print(f"focused_search query={search!r} results={len(found)} new={len(fresh)}")
         terms = query_terms(queries)
         order = sorted(range(len(merged)), key=lambda i: (-lexical_score(merged[i].title, merged[i].abstract, terms), i))
         return [merged[i] for i in order][:self.ARXIV_MAX_AFTER_FOCUS]
@@ -353,11 +353,11 @@ class ComprehensiveResearchPipeline:
             async with session.get("https://api.openalex.org/works", params=params) as response:
                 return response.status, (await response.json() if response.status == 200 else None)
 
-    async def _search_openalex_arxiv(self, query: str, depth: str) -> List[ResearchSource]:
+    async def _search_openalex_arxiv(self, query: str, depth: str, per_page: Optional[int] = None) -> List[ResearchSource]:
         """arXiv-hosted works from OpenAlex, as ResearchSource objects flagged for DataCite confirmation. Raises
         RegistryUnavailable(["arxiv", "openalex"]) when OpenAlex cannot be reached either: never continue with other sources only."""
         from paper_confirmation import RegistryUnavailable
-        per_page = {"basic": 5, "comprehensive": 15, "exhaustive": 25}.get(depth, 15)
+        per_page = per_page or {"basic": 5, "comprehensive": 15, "exhaustive": 25}.get(depth, 15)
         params = {"search": query, "filter": f"primary_location.source.id:{self.OPENALEX_ARXIV_SOURCE}", "per-page": per_page, "mailto": self.OPENALEX_MAILTO,
                   "select": "id,doi,title,publication_year,authorships,abstract_inverted_index"}
         attempts = len(self.OPENALEX_RETRY_WAITS) + 1
