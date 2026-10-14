@@ -72,7 +72,7 @@ class AttributionResult:
 
     def summary(self) -> Dict[str, Any]:
         return {"passed": self.passed, "attributions": len(self.checked), "unsupported": len(self.violations), "skipped": self.skipped_reason,
-                "unsupported_quotes": [v["quote"][:160] for v in self.violations]}
+                "unsupported_quotes": [v["quote"] for v in self.violations]}
 
 
 def _flat(s: str) -> str:
@@ -121,7 +121,9 @@ async def check_attributions(script: str, named_papers: Sequence[Any], llm_call:
         # the model reports; the code decides what counts: a real quote from the script, about a paper it was given
         if pid not in by_pid or verdict not in ("supported", "unsupported") or not _in_script(quote, flat_script):
             continue
-        rec = {"quote": quote[:300], "pid": pid, "label": _label(by_pid[pid]), "verdict": verdict, "reason": str(it.get("reason") or "")[:300]}
+        paper = by_pid[pid]
+        rec = {"quote": quote[:600], "pid": pid, "label": _label(paper), "verdict": verdict, "reason": str(it.get("reason") or "")[:300],
+               "title": paper.title, "authors": list(paper.authors)[:6], "year": paper.year, "abstract": (paper.abstract or "").strip()[:MAX_ABSTRACT_CHARS]}
         result.checked.append(rec)
         if verdict == "unsupported":
             result.violations.append(rec)

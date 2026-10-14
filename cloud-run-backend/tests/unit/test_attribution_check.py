@@ -115,3 +115,14 @@ def test_error_message_quotes_the_sentences():
     res = run(ac.check_attributions(EP8_SCRIPT, [MATHLIB], llm_returning([item(EP8_SENTENCES[1])])))
     e = ac.AttributionError(res.violations)
     assert "explicitly highlights this shift" in str(e) and "no episode was published" in str(e)
+
+
+def test_records_carry_the_paper_and_its_abstract_and_the_whole_sentence():
+    long_quote = ("That paper by The mathlib Community in 2019 explicitly highlights this shift " + "and then goes on at length " * 8).strip()
+    script = "ADAM: " + long_quote + "."
+    res = run(ac.check_attributions(script, [MATHLIB], llm_returning([item(long_quote)])))
+    v = res.violations[0]
+    assert v["quote"] == long_quote and len(long_quote) > 160                      # not cut to 160 characters
+    assert v["title"] == "The Lean mathematical library" and v["authors"] == ["The mathlib Community"] and v["year"] == 2019
+    assert v["abstract"] == MATHLIB.abstract and v["pid"] == "P1" and v["reason"]
+    assert res.summary()["unsupported_quotes"] == [long_quote]

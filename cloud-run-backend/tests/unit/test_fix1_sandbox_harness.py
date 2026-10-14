@@ -67,7 +67,7 @@ def test_a_bad_first_script_is_regenerated_and_the_attempts_are_recorded(run_dir
 def test_a_script_that_never_passes_fails_the_episode_and_writes_no_content(run_dir):
     d, out, ledger, p = run_dir
     r = result(out, "never_good")
-    assert r["outcome"] == "failed_naming" and "no episode was published" in r["message"] and len(r["naming_attempts"]) == 3
+    assert r["outcome"] == "failed_naming" and "no episode was published" in r["message"] and len(r["naming_attempts"]) == 4
     assert not (out / "never_good" / "script.txt").exists() and not (out / "never_good" / "description_final.md").exists()
 
 
