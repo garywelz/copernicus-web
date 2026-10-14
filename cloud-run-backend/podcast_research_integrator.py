@@ -487,14 +487,14 @@ Your podcast has TWO speakers only:
 🎯 YOUR TASK
 ═══════════════════════════════════════════════════════════════
 
-Create a compelling dialogue where MATILDA interviews ADAM about the actual 
+Create a clear, well-paced dialogue where MATILDA interviews ADAM about the actual 
 research provided above. Focus on:
 
 1. **The question** - What do the listed papers actually show about "{research_context.topic}"? Answer the specific question asked, not the field in general. Use plain, neutral wording for every finding; report what the papers found.
 2. **Evidence** - Cite specific papers, authors, findings from research above
-3. **Connections** - Highlight interdisciplinary implications
+3. **Connections** - Note interdisciplinary connections the papers themselves make
 4. **Accessibility** - Make complex concepts understandable without oversimplifying
-5. **Future Impact** - Discuss what this means for the field and beyond
+5. **What is still open** - Say what the papers leave unresolved or suggest as next steps; do not predict impact beyond what they claim
 
 **DIALOGUE STRUCTURE:**
 
@@ -504,7 +504,7 @@ we're exploring {research_context.topic}. {expert_name}, what do the papers revi
 {expert_name.upper()}: Thanks {host_name}. [Cites specific paper from research] This research matters 
 because [explain using actual findings]...
 
-{host_name.upper()}: That's fascinating. [Asks probing question about implications]...
+{host_name.upper()}: I see. [Asks a probing question about what the papers show or leave open]...
 
 {expert_name.upper()}: [Answers with evidence, cites another paper]...
 
@@ -521,17 +521,17 @@ research. [Final thought on what is still open]
 
 **OUTPUT FORMAT (JSON):**
 {{
-    "title": "Engaging title closely matching '{research_context.topic}' - should directly reference the topic with compelling wording",
+    "title": "A clear, specific title that closely matches '{research_context.topic}' and says what the papers examine; no superlatives or promotional wording",
     "script": "Full dialogue script with {host_name.upper()}: and {expert_name.upper()}: labels. **CRITICAL: This script MUST be at least {calculate_minimum_words_for_duration(duration)} words long. Count the words before submitting. If under {calculate_minimum_words_for_duration(duration)} words, expand it with more dialogue, examples, and detailed explanations until it reaches the minimum.**",
     "description": "Episode description, SHORT: 1500-2200 characters in total (it shares a 4000-character limit with the reference list, so a longer description is cut) with:
-        - Opening overview: 2 engaging paragraphs introducing the topic, its significance, and why this research matters. Explain broader context, historical background, and implications. NO section header - just start with the content directly.
+        - Opening overview: 2 short paragraphs saying what the episode covers, what question it asks and what the papers found. Say only what the papers support: no claims about importance or impact that they do not make. NO section header - just start with the content directly.
         - Key concepts explored: 4 bullet points, one or two sentences each
         - Research insights: 1 paragraph about what the papers found, their methods, and what they leave open
-        - Practical applications: 1 short paragraph about real-world applications, industry impact, and potential uses
+        - Practical applications: 1 short paragraph on the uses the papers themselves describe; if they describe none, say that the papers do not discuss applications
         - Future directions: 1 short paragraph about the directions the papers themselves suggest, and what they leave open
         - Do NOT write a References section or any list of references: it is added for you from the papers you name.
 
-        CRITICAL: Write a concise, engaging description that maximizes discoverability. Stay within 2200 characters. Do not name any paper that is not in the numbered list.
+        CRITICAL: Write a concise, clear description in plain, neutral wording, with no promotional or superlative language. Stay within 2200 characters. Do not name any paper that is not in the numbered list.
     ",
     "keywords": ["comma", "separated", "keywords", "from", "research"]
 }}

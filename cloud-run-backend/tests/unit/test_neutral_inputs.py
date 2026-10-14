@@ -156,3 +156,26 @@ def test_the_attribution_check_and_the_generator_read_the_same_cap():
     import attribution_check as ac
     import inspect
     assert "MAX_ABSTRACT_CHARS" in inspect.getsource(pri.PodcastResearchIntegrator._format_research_evidence) and ac.MAX_ABSTRACT_CHARS == 2500
+
+
+# ---------------------------------------------------------------- the generator writes the description in the same call as the script: its spec is neutral too
+def test_the_description_and_title_spec_and_task_lines_invite_no_hype():
+    import inspect
+    src = inspect.getsource(pri.PodcastResearchIntegrator.build_2_speaker_research_prompt)
+    low = src.lower()
+    for phrase in ("engaging", "compelling", "maximizes discoverability", "industry impact", "why this research matters", "fascinating",
+                   "future impact", "highlight interdisciplinary implications", "potential uses"):
+        assert phrase not in low, phrase
+    assert "no promotional or superlative language" in src and "no superlatives or promotional wording" in src
+    assert "if they describe none, say that the papers do not discuss applications" in src
+    assert "do not predict impact beyond what they claim" in src
+
+
+def test_there_is_exactly_one_model_call_that_writes_the_description_and_it_is_the_script_call():
+    """The description is written inside the generator's JSON reply; after it only deterministic code touches the text (references, hashtags,
+    placeholder cleanup, length limit, venue rewriting). If a model call is ever added after the script, this test is the place to extend."""
+    import inspect
+    import services.podcast_generation_service as svc
+    src = inspect.getsource(svc.PodcastGenerationService._finalize_content)
+    for model_call in ("generate_content(", "generateContent", "genai.", "make_gemini_llm_call", "openai", "chat.completions"):
+        assert model_call not in src, model_call
