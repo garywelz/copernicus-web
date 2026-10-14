@@ -33,12 +33,24 @@ def test_an_empty_or_missing_list_is_an_error_not_a_silent_pass(tmp_path):
         ss.load_banned_phrases(tmp_path / "nope.json")
 
 
-def test_the_ep8_script_is_caught_five_times():
+def test_the_ep8_script_is_caught_seven_times():
+    # five hits from the original list, plus "profound" and "fundamentally" (added 2026-10-14)
     hits = ss.banned_phrase_hits(SCRIPT)
     assert sorted((h["phrase"], h["matched"]) for h in hits) == sorted([
         ("revolutionary", "revolutionary"), ("revolutionary", "revolutionary"), ("paradigm shift", "paradigm shift"),
-        ("millennia-old", "millennia-old"), ("unprecedented", "unprecedented")])
+        ("millennia-old", "millennia-old"), ("unprecedented", "unprecedented"), ("profound", "profound"), ("fundamentally", "fundamentally")])
     assert all(h["where"] == "script" for h in hits)
+
+
+def test_the_three_phrases_added_after_ever_math_260010_are_banned_in_their_longer_forms_only():
+    # sentences from the ever-math-260010 script
+    assert [h["matched"] for h in ss.banned_phrase_hits("MATILDA: That's a profound insight.")] == ["profound"]
+    assert [h["matched"] for h in ss.banned_phrase_hits("It profoundly changes the picture.")] == ["profoundly"]
+    assert [h["matched"] for h in ss.banned_phrase_hits("these studies fundamentally shift our perspective")] == ["fundamentally"]
+    assert [h["matched"] for h in ss.banned_phrase_hits("networks with their own emergent properties")] == ["emergent properties"]
+    assert ss.banned_phrase_hits("A fundamental result about emergent behaviour, not profit.") == []        # the stems alone are not banned
+    assert ss.banned_phrase_hits("The profundity of it.") == []
+    assert {"profound", "fundamentally", "emergent properties"} <= set(ss.load_banned_phrases())
 
 
 def test_matching_ignores_case_and_treats_space_and_hyphen_alike_and_allows_longer_forms():
