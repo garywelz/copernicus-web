@@ -48,6 +48,7 @@ Entry format:
 - **Waiting on:**
   - **Gary:** a decision on the three site-only episodes (`ever-math-260001`, `ever-math-260002`, `ever-bio-260010`): they appear on the website but not in the podcast feed.
   - **Core:** nobody beyond routine.
+  - **Methods & Tools:** nobody.
 
 ## 022 — 2026-10-13 — Public episode pages returned 500 for about 2 hours 20 minutes; new rules for checking the site after a merge
 
@@ -65,8 +66,6 @@ Entry format:
 - **Waiting on:**
   - **Gary:** review and merge this entry; nothing else from the outage.
   - **Core:** apply the two `cloud-run-backend/DEPLOY.md` rules on every merge to `main`.
-
-  - **Methods & Tools:** nobody.
 
 ## 021 — 2026-10-08 — Gap 3 baseline evaluation: results and decisions
 
