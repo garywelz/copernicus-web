@@ -242,8 +242,12 @@ def _keyword_fallback_search(
         scored = []
         try:
             scanned = 0
+            from utils.episode_access import is_public_episode
             for doc in _stream_candidates(db.collection(COLLECTION_PODCASTS)):
                 d = doc.to_dict() or {}
+                if not is_public_episode(d):
+                    scanned += 1
+                    continue    # private episodes are never returned by search
                 title = d.get("title") or (d.get("result", {}) or {}).get("title") or ""
                 desc = d.get("description") or (d.get("result", {}) or {}).get("description") or ""
                 script = (d.get("result", {}) or {}).get("script") or d.get("transcript") or ""
@@ -648,7 +652,7 @@ async def search_semantic(
                 vector_query = podcasts_ref.find_nearest(
                     vector_field="embedding",
                     query_vector=Vector(query_embedding),
-                    limit=limit,
+                    limit=limit * 3,    # over-fetch: private episodes are dropped below (a pre-filter would need a composite index)
                     distance_measure=DistanceMeasure.COSINE,
                     distance_threshold=distance_threshold,
                         distance_result_field="distance"
@@ -656,8 +660,13 @@ async def search_semantic(
                 
                 podcast_docs = vector_query.stream()
                 
+                from utils.episode_access import is_public_episode
                 for doc in podcast_docs:
                     podcast_data = doc.to_dict()
+                    if not is_public_episode(podcast_data):
+                        continue
+                    if len(results["podcasts"]) >= limit:
+                        break
                     podcast_data["job_id"] = doc.id
                     podcast_data["similarity_score"] = 1.0 - podcast_data.get("distance", 1.0)
                     # Remove embedding from response

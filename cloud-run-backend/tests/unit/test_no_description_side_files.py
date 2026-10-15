@@ -33,7 +33,7 @@ def test_episode_record_endpoint_does_not_return_the_old_url(monkeypatch):
         id = "ever-bio-250050"
 
         def to_dict(self):
-            return {"title": "T", "description_url": "https://x/descriptions/ever-bio-250050.md",
+            return {"title": "T", "submitted_to_rss": True, "description_url": "https://x/descriptions/ever-bio-250050.md",
                     "assets": {"audio_blob": "audio/a.mp3", "description_blob": "descriptions/ever-bio-250050.md"}}
 
     class Coll:
@@ -43,7 +43,7 @@ def test_episode_record_endpoint_does_not_return_the_old_url(monkeypatch):
     monkeypatch.setattr(routes, "db", type("D", (), {"collection": staticmethod(lambda _: Coll())})())
     loop = asyncio.new_event_loop()      # not asyncio.run: it unsets the thread's event loop, which other tests in this suite rely on
     try:
-        out = loop.run_until_complete(routes.get_episode_record("ever-bio-250050"))
+        out = loop.run_until_complete(routes.get_episode_record("ever-bio-250050", None))
     finally:
         loop.close()
     assert "description_url" not in out and out["assets"] == {"audio_blob": "audio/a.mp3"} and out["title"] == "T"
