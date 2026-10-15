@@ -263,3 +263,14 @@ def test_dead_player_map_entries_are_gone():
     for rel in ("api/episodes/index.js", "api/episodes/[episodeId].js"):
         s = (ROOT.parent / rel).read_text(encoding="utf-8")
         assert "ever-math-260001" not in s and "ever-math-260002" not in s and "ever-bio-260010" in s
+
+
+def test_audio_combine_uses_the_proven_pydub_route_and_writes_no_scratch_files():
+    """The streaming-ffmpeg route never completed in production (it failed at signing and fell back to pydub); once signing worked it produced an
+    empty file. The combine step must not call it, so no scratch segments are written anywhere."""
+    import ast
+    src = (ROOT / "elevenlabs_voice_service.py").read_text(encoding="utf-8")
+    tree = ast.parse(src)
+    fn = next(n for n in ast.walk(tree) if isinstance(n, ast.AsyncFunctionDef) and n.name == "_combine_audio_segments")
+    called = {c.func.attr for c in ast.walk(fn) if isinstance(c, ast.Call) and isinstance(c.func, ast.Attribute)}
+    assert "_combine_audio_segments_internal" in called and "_combine_audio_segments_streaming" not in called

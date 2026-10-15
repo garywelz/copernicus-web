@@ -536,29 +536,21 @@ class ElevenLabsVoiceService:
                     raise Exception(f"ElevenLabs API error {response.status}: {error_text}")
     
     async def _combine_audio_segments(self, segments: List[bytes]) -> bytes:
-        """Combine audio segments into a single audio file using streaming ffmpeg"""
+        """Combine audio segments into a single audio file.
+
+        Always the pydub route. The streaming-ffmpeg route (_combine_audio_segments_streaming) has never completed in production: it failed
+        at signing the scratch-segment links and the caller fell back to pydub every time. When signing started to work (private-media stage 2,
+        2026-10-15) it ran, and its ffmpeg call refused to overwrite its own empty output file ("Main audio is empty"). The proven route is used
+        directly, so no scratch files are written to any bucket.
+        """
         if not segments:
             return b""
-        
+
         if len(segments) == 1:
             return segments[0]
-        
-        try:
-            # Use streaming ffmpeg approach for better memory efficiency
-            return await asyncio.wait_for(
-                self._combine_audio_segments_streaming(segments),
-                timeout=600  # 10 minute timeout for streaming approach
-            )
-        except asyncio.TimeoutError:
-            logger.error("❌ Audio combination timed out after 10 minutes")
-            # Return first segment as fallback
-            return segments[0] if segments else b""
-        except Exception as e:
-            logger.error(f"❌ Audio combination failed: {e}")
-            # Fallback to old method if streaming fails
-            logger.info("🔄 Falling back to pydub method")
-            return await self._combine_audio_segments_internal(segments)
-    
+
+        return await self._combine_audio_segments_internal(segments)
+
     async def _combine_audio_segments_streaming(self, segments: List[bytes]) -> bytes:
         """Combine audio segments using streaming ffmpeg with temporary files (memory efficient)"""
         from google.cloud import storage
