@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import Optional, List
 import uuid
+import media_store
 from datetime import datetime, timedelta, timezone
 import os
 import asyncio
@@ -1358,7 +1359,7 @@ async def generate_and_upload_transcript(script: str, canonical_filename: str) -
         
         # Initialize GCS client
         storage_client = storage.Client()
-        bucket = storage_client.bucket("regal-scholar-453620-r7-podcast-storage")
+        bucket = storage_client.bucket(media_store.PRIVATE_BUCKET)
         
         # Create clean transcript from script
         transcript_lines = []
@@ -1401,7 +1402,6 @@ async def generate_and_upload_transcript(script: str, canonical_filename: str) -
         
         # Upload transcript as markdown
         blob.upload_from_string(transcript_content, content_type="text/markdown; charset=utf-8")
-        blob.make_public()
         
         # Return public URL
         public_url = f"https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/transcripts/{transcript_filename}"
@@ -1488,7 +1488,7 @@ async def generate_fallback_thumbnail(canonical_filename: str, topic: str) -> st
         
         # Upload to GCS
         storage_client = storage.Client()
-        bucket = storage_client.bucket("regal-scholar-453620-r7-podcast-storage")
+        bucket = storage_client.bucket(media_store.PRIVATE_BUCKET)
         
         # Save image to bytes
         img_bytes = io.BytesIO()
@@ -1499,7 +1499,6 @@ async def generate_fallback_thumbnail(canonical_filename: str, topic: str) -> st
         thumbnail_filename = f"{canonical_filename}-fallback-thumb.jpg"
         blob = bucket.blob(f"thumbnails/{thumbnail_filename}")
         blob.upload_from_file(img_bytes, content_type="image/jpeg")
-        blob.make_public()
         
         public_url = f"https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/{thumbnail_filename}"
         structured_logger.info("Fallback thumbnail uploaded",
@@ -1524,7 +1523,7 @@ async def generate_and_upload_thumbnail(title: str, topic: str, canonical_filena
         
         # Initialize GCS client
         storage_client = storage.Client()
-        bucket = storage_client.bucket("regal-scholar-453620-r7-podcast-storage")
+        bucket = storage_client.bucket(media_store.PRIVATE_BUCKET)
         
         # Get OpenAI API key from Secret Manager for DALL-E
         openai_api_key = await get_openai_api_key_from_secret_manager()
@@ -1696,7 +1695,6 @@ Mood and Atmosphere: {mood_description}. Convey the excitement and importance of
                 thumbnail_filename = f"{canonical_filename}-thumb.jpg"
                 blob = bucket.blob(f"thumbnails/{thumbnail_filename}")
                 blob.upload_from_string(img_response.content, content_type="image/jpeg")
-                blob.make_public()
                 
                 public_url = f"https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/{thumbnail_filename}"
                 structured_logger.info("DALL-E thumbnail uploaded",

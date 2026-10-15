@@ -11,6 +11,7 @@ This service handles all podcast generation logic including:
 
 import asyncio
 import json
+import media_store
 import re
 import time
 import psutil
@@ -1374,7 +1375,7 @@ Say that journal name in dialogue. Never say "published in PubMed" or "published
             
             # Initialize GCS client
             storage_client = storage.Client()
-            bucket = storage_client.bucket("regal-scholar-453620-r7-podcast-storage")
+            bucket = storage_client.bucket(media_store.PRIVATE_BUCKET)
             
             # Create clean transcript from script
             transcript_lines = []
@@ -1417,7 +1418,6 @@ Say that journal name in dialogue. Never say "published in PubMed" or "published
             
             # Upload transcript as markdown
             blob.upload_from_string(transcript_content, content_type="text/markdown; charset=utf-8")
-            blob.make_public()
             
             # Return public URL
             public_url = f"https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/transcripts/{transcript_filename}"
@@ -1505,7 +1505,7 @@ Say that journal name in dialogue. Never say "published in PubMed" or "published
             
             # Upload to GCS
             storage_client = storage.Client()
-            bucket = storage_client.bucket(self.bucket_name)
+            bucket = storage_client.bucket(media_store.PRIVATE_BUCKET)
             
             # Save image to bytes
             img_bytes = io.BytesIO()
@@ -1516,7 +1516,6 @@ Say that journal name in dialogue. Never say "published in PubMed" or "published
             thumbnail_filename = f"{canonical_filename}-fallback-thumb.jpg"
             blob = bucket.blob(f"thumbnails/{thumbnail_filename}")
             blob.upload_from_file(img_bytes, content_type="image/jpeg")
-            blob.make_public()
             
             public_url = f"https://storage.googleapis.com/{self.bucket_name}/thumbnails/{thumbnail_filename}"
             structured_logger.info("Fallback thumbnail uploaded",
@@ -1547,7 +1546,7 @@ Say that journal name in dialogue. Never say "published in PubMed" or "published
             
             # Initialize GCS client
             storage_client = storage.Client()
-            bucket = storage_client.bucket(self.bucket_name)
+            bucket = storage_client.bucket(media_store.PRIVATE_BUCKET)
             
             # Get OpenAI API key from Secret Manager for DALL-E
             openai_api_key = await self.get_openai_api_key_from_secret_manager()
@@ -1618,7 +1617,6 @@ Say that journal name in dialogue. Never say "published in PubMed" or "published
                 thumbnail_filename = f"{canonical_filename}-thumb.jpg"
                 blob = bucket.blob(f"thumbnails/{thumbnail_filename}")
                 blob.upload_from_string(image_bytes, content_type="image/jpeg")
-                blob.make_public()
                 public_url = f"https://storage.googleapis.com/{self.bucket_name}/thumbnails/{thumbnail_filename}"
                 structured_logger.info(
                     "DALL-E thumbnail uploaded",
@@ -1674,7 +1672,7 @@ Say that journal name in dialogue. Never say "published in PubMed" or "published
             
             # Initialize GCS client
             storage_client = storage.Client()
-            bucket = storage_client.bucket(self.bucket_name)
+            bucket = storage_client.bucket(media_store.PRIVATE_BUCKET)
             
             # Get OpenAI API key
             openai_api_key = await self.get_openai_api_key_from_secret_manager()
@@ -1788,7 +1786,6 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
                             image_filename = f"{canonical_filename}-image-{i+1}.jpg"
                             blob = bucket.blob(f"episode-images/{image_filename}")
                             blob.upload_from_string(image_bytes, content_type="image/jpeg")
-                            blob.make_public()
                             
                             public_url = f"https://storage.googleapis.com/{self.bucket_name}/episode-images/{image_filename}"
                             image_urls.append(public_url)
@@ -2574,6 +2571,7 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
                     'thumbnail_url': thumbnail_url,
                     'episode_images': episode_images,  # Array of 1-2 image URLs
                     'transcript_url': transcript_url,
+                    'media_state': 'private',
                     'duration': request.duration,
                     'topic': request.topic,
                     'expertise_level': request.expertise_level,
@@ -2628,6 +2626,7 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
                         "thumbnail_url": thumbnail_url,
                         "episode_images": episode_images,  # Array of 1-2 image URLs
                         "transcript_url": transcript_url,
+                        "media_state": "private",
                         "duration": request.duration,
                         "canonical_filename": canonical_filename,
                         "generated_at": generated_timestamp,
@@ -2668,14 +2667,23 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
                                   recipient_email=subscriber_email,
                                   memory_before_percent=round(email_memory_before, 1))
             
+            # The audio is private until the episode is published, so its public address would not open: send a 7-day signed link
+            listen_url, link_valid_days = audio_url, None
+            try:
+                signed_listen = await asyncio.to_thread(media_store.signed_audio_link, canonical_filename, media_store.MAX_SIGNED_DAYS)
+                if signed_listen:
+                    listen_url, link_valid_days = signed_listen, media_store.MAX_SIGNED_DAYS
+            except Exception as link_error:
+                structured_logger.warning("Could not sign the audio link for the ready email", job_id=job_id, error=str(link_error))
             await self.email_service.send_podcast_completion_email(
                 recipient_email=subscriber_email,
                 job_id=job_id,
                 podcast_title=content.get('title', 'Untitled Podcast'),
                 topic=request.topic,
-                audio_url=audio_url,
+                audio_url=listen_url,
                 duration=request.duration,
-                canonical_filename=canonical_filename
+                canonical_filename=canonical_filename,
+                link_valid_days=link_valid_days
             )
             
             email_time = time.time() - email_start_time
