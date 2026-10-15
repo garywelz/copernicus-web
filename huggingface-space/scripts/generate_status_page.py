@@ -422,8 +422,7 @@ def build_status(
             "This differs from `processes` from /api/content/browse, which is Firestore `glmp_processes` only."
         )
         out["notes"]["media_catalogs"] = (
-            "JSON-canonical media: episodes-catalog.json (Firestore episodes) and "
-            "videos-catalog.json (ScienceVideoDB / GCS videos-metadata.json)."
+            "JSON-canonical media: videos-catalog.json (ScienceVideoDB / GCS videos-metadata.json)."
         )
         out["notes"]["firestore_process_collections"] = (
             "Vector search process collections: glmp_processes, math_processes, chemistry_processes, "
