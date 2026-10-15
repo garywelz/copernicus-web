@@ -399,17 +399,12 @@ async def browse_content(
         elif content_type == "podcasts":
             # Get podcasts from Firestore
             podcasts_ref = db.collection('episodes')
-            try:
-                count_result = podcasts_ref.count().get()
-                total = _extract_count_value(count_result)
-            except Exception as e:
-                structured_logger.warning("Failed to count podcasts", error=str(e))
-                total = 0
-            
-            # Avoid composite-index requirements in the public browse endpoint.
-            # If we later want filtering (e.g. submitted_to_rss), we can add an index or a separate endpoint.
-            query = podcasts_ref.order_by('title').limit(limit).offset((page - 1) * limit)
-            podcasts = query.stream()
+            # Only public episodes (in the feed or on the website) are browsable. Filtered in Python (no composite index needed;
+            # the collection is small), so the count and the pages both reflect what a visitor may see.
+            from utils.episode_access import is_public_episode
+            public_docs = [d for d in podcasts_ref.order_by('title').stream() if is_public_episode(d.to_dict())]
+            total = len(public_docs)
+            podcasts = public_docs[(page - 1) * limit: page * limit]
             
             for podcast in podcasts:
                 podcast_data = podcast.to_dict()
