@@ -25,6 +25,33 @@ Entry format:
 
 ---
 
+## 023 — 2026-10-15 — Podcast pipeline: fix 1 and follow-ups live; first episode published under it; 39 earlier episodes withdrawn; description side files retired; private episodes no longer served by the public API
+
+- **From:** Claude Code (Core lane); decided by Gary, 2026-10-13 to 2026-10-15
+- **Record:** copernicus-web PRs [#79](https://github.com/garywelz/copernicus-web/pull/79) to [#114](https://github.com/garywelz/copernicus-web/pull/114) (fixes 2 to 8, banned wording), [#115](https://github.com/garywelz/copernicus-web/pull/115) (DEPLOY.md), [#116](https://github.com/garywelz/copernicus-web/pull/116) (page and feed presentation), [#117](https://github.com/garywelz/copernicus-web/pull/117) (real durations, requirements test), [#118](https://github.com/garywelz/copernicus-web/pull/118) (side files), [#120](https://github.com/garywelz/copernicus-web/pull/120) (public API access), [#121](https://github.com/garywelz/copernicus-web/pull/121) (animated player notice); builds on entries 019 to 021. Archives of withdrawn material are private and are not in the repo.
+- **Affects:** Core; anyone who generates or publishes podcast episodes, or who changes the feed or episode-page code
+- **Summary:**
+  - **Generation, live in production.** Fix 1 and its follow-ups changed what a generated script may say:
+    - **Confirmed papers only.** The script may name only papers that were retrieved and confirmed against a registry, and the reference list is built by code from the papers the script names.
+    - **Checks before an episode is accepted.** A naming check, an attribution check against the cited paper's abstract, a banned-wording list, a length cap (no padding of short scripts), a relevance gate on retrieved papers, and a re-run of every check on the final text.
+    - **Better retrieval.** Focused search queries sit beside the full topic sentence, and focused hits are ordered by the topic's rare terms.
+    - **Honest-gap rule.** When the retrieved papers do not cover something the topic names, the script says so instead of filling the gap, and the topic title is not read aloud.
+    - **Neutral inputs.** The analysis and generator prompts no longer invite hype.
+  - **Feed and episode pages.**
+    - **Linked references.** References are links (arXiv abstract, DOI or PubMed), with the structure of the description kept and the Hashtags section hidden on the page.
+    - **Real durations.** `itunes:duration` is now each episode's real audio length. 59 of the 74 items then in the feed carried a different value, and one rebuild of the feed corrected them.
+  - **First episode published under it:** `ever-math-260010`, on 2026-10-14.
+  - **Withdrawal of 35 earlier feed items under rule 16 (level 3), 2026-10-15.** Four episodes whose scripts were cut off mid-sentence, and 31 July 2025 episodes that have no stored script or transcript and so cannot be verified. The feed went from 74 items to 39. Records and files were archived privately with checksums verified before anything was deleted, and every page, API record and file address was checked to return 404. The feed was backed up first and written once with a generation precondition. The same day, by Gary's decision, four more episodes were archived and deleted the same way (three website-only episodes that were never in the feed, and one feed episode), taking the feed from 39 to 38 items. One of the four, the first animated episode, had its animation pack (frames, cues and player files) archived together as a labeled prototype set so the animated player can be revived with a new episode; the player stays in the repository and shows a "coming back" notice when no episode is named or its pack is gone.
+  - **Deliberate exception to rule 16, by Gary's decision (2026-10-15).** The title of `ever-math-260010` was changed in its record, its page and its feed item, because the earlier title promised more about dependency graphs than the episode delivers. The audio, script and references are unchanged. It is Gary's decision, not an agent repair, and sets no precedent: agents still do not edit generated content.
+  - **Description side files retired.** The generator no longer writes `descriptions/<id>.md` or stores a link to it. Nothing read the files (pages and the feed use the stored description), and over 40% of them held placeholder or stock text. The existing 122 were archived privately and removed from the public bucket.
+  - **`cloud-run-backend/DEPLOY.md` additions.** After any merge to `main`: fetch at least two real production episode pages and expect 200; confirm `/api/version` returns the merge commit; and confirm the merge's check suites list the Vercel app (a push that GitHub never delivered produces no deployment of any kind).
+  - **Public API access.** Private episodes are no longer served by the public API routes.
+  - **A new test.** Every third-party package imported by the feed code must be listed in `requirements.txt`; a package installed only on a developer machine had left the feed's HTML description unrendered in production.
+- **Waiting on:**
+  - **Gary:** nothing outstanding from this entry. The one remaining website-only episode, `ever-bio-260010`, stays on the website until he replaces it (decided).
+  - **Core:** nobody beyond routine.
+  - **Methods & Tools:** nobody.
+
 ## 022 — 2026-10-13 — Public episode pages returned 500 for about 2 hours 20 minutes; new rules for checking the site after a merge
 
 - **From:** Claude Code (Core lane), reviewed by Gary
