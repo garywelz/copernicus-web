@@ -25,6 +25,24 @@ Entry format:
 
 ---
 
+## 022 — 2026-10-13 — Public episode pages returned 500 for about 2 hours 20 minutes; new rules for checking the site after a merge
+
+- **From:** Claude Code (Core lane), reviewed by Gary
+- **Record:** `copernicus-web` PR [#76](https://github.com/garywelz/copernicus-web/pull/76) (the merge that caused it) · PR [#78](https://github.com/garywelz/copernicus-web/pull/78) (hotfix) · PR [#83](https://github.com/garywelz/copernicus-web/pull/83) and PR [#88](https://github.com/garywelz/copernicus-web/pull/88) (`cloud-run-backend/DEPLOY.md` rules) · `cloud-run-backend/tests/vercel_bundle.test.js` and `cloud-run-backend/tests/further_reading_route.test.js` (the guards)
+- **Affects:** anyone who merges to `copernicus-web` `main`; Core; readers of www.copernicusai.fyi (the episode pages, not the feed or the audio)
+- **Summary:**
+  - **What happened.** From about 18:37Z to about 20:58Z on 2026-10-13, every public episode page (`/episodes/<id>`) returned HTTP 500 (`FUNCTION_INVOCATION_FAILED`), old episodes included. The home page, the RSS feed and the audio files were not affected; they do not use that function.
+  - **Cause.** PR #76 moved a shared helper (`api/_lib/further-reading.js`) into `lib/` and made both episode handlers require it. `.vercelignore` excludes `lib/`, so the deployed functions could not load the file and crashed on every request. Every test and check passed, because the tests ran locally, where `lib/` exists, and the Vercel build itself succeeded. Nothing looked at a real production page afterwards.
+  - **Fix.** Gary reversed it first with a Vercel instant rollback to the deployment before the merge (about 20:58Z). Hotfix PR #78 then moved the helper to `api/_lib/`, which is deployed, and merged.
+  - **A second finding, the same day.** After an instant rollback Vercel stops promoting new deployments automatically. The "pages return 200" checks made after the hotfix and after the next merge were therefore served by the rolled-back deployment, not by the new one, and proved nothing about the new code. Gary found this, tested the newest deployment on its own URL, promoted it and re-enabled auto-assigning of production domains.
+  - **New rules in `cloud-run-backend/DEPLOY.md`** ("After any merge to `main`: check the public site"): after any merge to `main`, fetch at least two real production episode pages, one recent and one old, and confirm 200 before reporting the deploy done; and after an instant rollback, **verify the production deployment's commit**, not only page status, because a green build and a 200 do not show that the new deployment is the one serving production.
+  - **New guards in the tests.** `cloud-run-backend/tests/vercel_bundle.test.js` fails if any local file an `api/` function requires is excluded by `.vercelignore` (it fails on the old `lib/` layout and passes on the fix). `cloud-run-backend/tests/further_reading_route.test.js` requests the real public route (`/episodes/<id>`, resolved through the route table in the vercel.json file at the repository root to the handler file) rather than a handler that is not the public route, which is how the first version of the Further reading feature had been put in the wrong file.
+  - **Known limit.** The tests model `.vercelignore` with a small matcher that covers the patterns this repo uses; a new kind of pattern would need the matcher extended. Neither test replaces the post-merge fetch of real pages.
+- **Waiting on:**
+  - **Gary:** review and merge this entry; nothing else from the outage.
+  - **Core:** apply the two `cloud-run-backend/DEPLOY.md` rules on every merge to `main`.
+  - **Methods & Tools:** nobody.
+
 ## 021 — 2026-10-08 — Gap 3 baseline evaluation: results and decisions
 
 - **From:** Claude Code (Core lane), decided by Gary 2026-10-08
