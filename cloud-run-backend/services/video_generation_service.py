@@ -5,6 +5,7 @@ Phase 1: Foundation - Basic video composition infrastructure
 Future phases will add: visual extraction, animations, YouTube quoting, advanced composition
 """
 
+import media_store
 import asyncio
 import os
 import tempfile
@@ -218,14 +219,13 @@ class VideoGenerationService:
                 
                 # Upload to GCS
                 video_blob_name = f"{self.video_folder}{canonical_filename}.mp4"
-                blob = self.bucket.blob(video_blob_name)
+                blob = self.storage_client.bucket(media_store.PRIVATE_BUCKET).blob(video_blob_name)   # private until published
                 
                 structured_logger.info("Uploading video to GCS",
                                       canonical_filename=canonical_filename,
                                       blob_name=video_blob_name)
                 
                 blob.upload_from_filename(str(output_file), content_type="video/mp4")
-                blob.make_public()
                 
                 video_url = f"https://storage.googleapis.com/{self.bucket_name}/{video_blob_name}"
                 

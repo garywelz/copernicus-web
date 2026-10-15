@@ -49,9 +49,10 @@ class EmailService:
         topic: str, 
         audio_url: str,
         duration: str,
-        canonical_filename: str
+        canonical_filename: str,
+        link_valid_days: Optional[int] = None
     ) -> bool:
-        """Send email notification when podcast generation is complete"""
+        """Send email notification when podcast generation is complete. `link_valid_days` is set when audio_url is a signed link."""
         
         if not self.sender_password:
             print("⚠️  Email password not configured. Skipping email notification.")
@@ -64,6 +65,9 @@ class EmailService:
             msg['To'] = recipient_email
             msg['Subject'] = f"🎙️ Your Copernicus Podcast is Ready: {podcast_title}"
             
+            link_note = (f'<p style="color: #7f8c8d; font-size: 13px; margin-top: 10px;">Private link, valid for {link_valid_days} days. The episode is not public until it is published.</p>'
+                         if link_valid_days else '')
+
             # Create HTML body
             html_body = f"""
             <html>
@@ -88,6 +92,7 @@ class EmailService:
                            style="background: #3498db; color: white; padding: 12px 30px; text-decoration: none; border-radius: 5px; font-weight: bold; display: inline-block;">
                             🎧 Listen to Podcast
                         </a>
+                        {link_note}
                     </div>
                     
                     <div style="background: #e8f5e8; padding: 15px; border-radius: 5px; margin-top: 20px;">

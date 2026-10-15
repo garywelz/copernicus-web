@@ -16,6 +16,9 @@ from utils.logging import structured_logger
 from utils.auth import verify_admin_api_key
 from config.database import db
 from config.constants import EPISODE_COLLECTION_NAME
+import asyncio
+from datetime import timedelta
+import media_store
 
 router = APIRouter()
 
@@ -342,3 +345,36 @@ async def get_podcast_database(admin_auth: bool = Depends(verify_admin_api_key))
         raise HTTPException(status_code=500, detail="Failed to get podcast database")
 
 
+@router.get("/api/admin/episodes/{episode_id}/media-links")
+async def episode_media_links(episode_id: str, hours: int = Query(1, ge=1, le=168), admin_auth: bool = Depends(verify_admin_api_key)):
+    """Short-lived signed links to a private episode's files (public addresses for files that are already public). For review before publishing."""
+    if not db:
+        raise HTTPException(status_code=503, detail="Firestore service is unavailable")
+    if not db.collection(EPISODE_COLLECTION_NAME).document(episode_id).get().exists:
+        raise HTTPException(status_code=404, detail="Episode not found")
+    try:
+        return await asyncio.to_thread(media_store.signed_links, episode_id, timedelta(hours=hours))
+    except Exception as e:
+        structured_logger.error("Could not build media links", episode_id=episode_id, error=str(e))
+        raise HTTPException(status_code=500, detail="Could not build media links")
+
+
+@router.post("/api/admin/episodes/{episode_id}/publish-site")
+async def publish_episode_to_site(episode_id: str, admin_auth: bool = Depends(verify_admin_api_key)):
+    """Show an episode on the website without putting it in the podcast feed: copy its files to the public bucket (verified), then set visible_on_web."""
+    if not db:
+        raise HTTPException(status_code=503, detail="Firestore service is unavailable")
+    ref = db.collection(EPISODE_COLLECTION_NAME).document(episode_id)
+    if not ref.get().exists:
+        raise HTTPException(status_code=404, detail="Episode not found")
+    try:
+        promotion = await asyncio.to_thread(media_store.promote, episode_id)
+    except media_store.MediaError as e:
+        structured_logger.error("Media promotion failed; episode not published to the site", episode_id=episode_id, error=str(e))
+        raise HTTPException(status_code=500, detail="Could not publish the episode's files; nothing was changed")
+    try:
+        ref.set({"visible_on_web": True, "visibility": "public", "media_state": "public", "updated_at": datetime.utcnow().isoformat()}, merge=True)
+    except Exception:
+        await asyncio.to_thread(media_store.demote, promotion.get("objects", []))
+        raise
+    return {"episode_id": episode_id, "visible_on_web": True, "promoted_files": promotion.get("promoted", 0), "already_public": promotion.get("already_public", False)}

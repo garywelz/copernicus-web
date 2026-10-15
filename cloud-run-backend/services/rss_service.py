@@ -567,6 +567,8 @@ class RSSService:
         }
         if creator_attribution is not None:
             update_payload["creator_attribution"] = creator_attribution
+        if submitted:
+            update_payload["media_state"] = "public"   # publishing promotes the files first (media_store.promote)
         timestamp_field = "rss_submitted_at" if submitted else "rss_removed_at"
         update_payload[timestamp_field] = datetime.utcnow().isoformat()
         db.collection(EPISODE_COLLECTION_NAME).document(canonical).set(update_payload, merge=True)

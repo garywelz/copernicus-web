@@ -14,6 +14,7 @@ import json
 import time
 from google.cloud import secretmanager
 from content_fixes import apply_tts_pronunciation_hints
+import media_store
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -571,9 +572,11 @@ class ElevenLabsVoiceService:
         logger.info(f"🌊 Starting streaming ffmpeg combination for {len(segments)} segments")
         logger.info(f"💾 Initial memory usage: {psutil.virtual_memory().percent:.1f}%")
         
-        bucket_name = "regal-scholar-453620-r7-podcast-storage"
+        bucket_name = media_store.PRIVATE_BUCKET   # scratch segments are private, in a folder of their own per run (no collisions between jobs)
         client = storage.Client()
         bucket = client.bucket(bucket_name)
+        import uuid as _uuid
+        scratch_prefix = f"scratch/{_uuid.uuid4().hex}"
         
         # Upload segments to GCS first
         segment_paths = []
@@ -582,7 +585,7 @@ class ElevenLabsVoiceService:
         try:
             # Upload each segment to GCS
             for i, segment_data in enumerate(segments):
-                segment_blob_name = f"temp_segments/segment_{i:04d}.mp3"
+                segment_blob_name = f"{scratch_prefix}/segment_{i:04d}.mp3"
                 blob = bucket.blob(segment_blob_name)
                 
                 # Upload segment
@@ -601,11 +604,7 @@ class ElevenLabsVoiceService:
             
             for segment_path in segment_paths:
                 # Generate signed URL for the segment
-                blob = bucket.blob(segment_path)
-                signed_url = blob.generate_signed_url(
-                    expiration=timedelta(minutes=120),
-                    method='GET'
-                )
+                signed_url = media_store.signed_url(bucket_name, segment_path, timedelta(minutes=120), client)
                 concat_file.write(f"file '{signed_url}'\n")
             
             concat_file.close()
@@ -1150,7 +1149,7 @@ class ElevenLabsVoiceService:
         
         # Upload to GCS
         client = storage.Client()
-        bucket = client.bucket("regal-scholar-453620-r7-podcast-storage")
+        bucket = client.bucket(media_store.PRIVATE_BUCKET)   # private until the episode is published
         
         # Create temporary file
         with tempfile.NamedTemporaryFile(suffix=".mp3", delete=False) as temp_file:
@@ -1162,10 +1161,9 @@ class ElevenLabsVoiceService:
             blob_name = f"audio/{canonical_filename}.mp3"
             blob = bucket.blob(blob_name)
             blob.upload_from_filename(temp_path, content_type="audio/mpeg")
-            blob.make_public()
             
-            logger.info(f"✅ Multi-voice audio with bumpers uploaded: {blob.public_url}")
-            return blob.public_url
+            logger.info(f"✅ Multi-voice audio with bumpers uploaded (private): {blob_name}")
+            return media_store.public_url(blob_name)   # the address it will have once published
             
         finally:
             # Clean up temp file

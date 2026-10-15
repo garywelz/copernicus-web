@@ -233,6 +233,10 @@ class EpisodeService:
             },
         }
 
+        # Files of a newly generated episode are private until it is published; older records carry no media_state.
+        if result_data.get("media_state"):
+            episode_doc["media_state"] = result_data["media_state"]
+
         # Only set embedding fields when a valid one is present this call. This is
         # a merge=True upsert (see upsert_episode_document) -- unconditionally
         # writing embedding=None here would null out a good embedding already on
