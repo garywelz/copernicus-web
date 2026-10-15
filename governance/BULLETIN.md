@@ -66,6 +66,7 @@ Entry format:
 - **Waiting on:**
   - **Gary:** review and merge this entry; nothing else from the outage.
   - **Core:** apply the two `cloud-run-backend/DEPLOY.md` rules on every merge to `main`.
+  - **Methods & Tools:** nobody.
 
 ## 021 — 2026-10-08 — Gap 3 baseline evaluation: results and decisions
 
