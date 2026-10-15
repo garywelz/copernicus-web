@@ -394,7 +394,6 @@ async def get_subscriber_podcasts(subscriber_id: str, auth: dict = Depends(requi
                     result_obj.update({
                         'audio_url': episode_data.get('audio_url') or result_obj.get('audio_url'),
                         'thumbnail_url': episode_data.get('thumbnail_url') or result_obj.get('thumbnail_url'),
-                        'description_url': episode_data.get('description_url') or result_obj.get('description_url'),
                         'transcript_url': episode_data.get('transcript_url') or result_obj.get('transcript_url'),
                     })
                     
@@ -423,7 +422,6 @@ async def get_subscriber_podcasts(subscriber_id: str, auth: dict = Depends(requi
                     result_obj_episodes = {
                         'audio_url': episode_data.get('audio_url'),
                         'thumbnail_url': episode_data.get('thumbnail_url'),
-                        'description_url': episode_data.get('description_url'),
                         'transcript_url': episode_data.get('transcript_url'),
                     }
                     

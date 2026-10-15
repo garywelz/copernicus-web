@@ -1367,186 +1367,6 @@ Say that journal name in dialogue. Never say "published in PubMed" or "published
         )
     
     @retry_upload(max_retries=3, delay=2)
-    @retry_upload(max_retries=3, delay=2)
-    async def upload_description_to_gcs(self, description: str, canonical_filename: str, title: str = "", topic: str = "", job_id: str = None) -> str:
-        """Upload episode description to GCS descriptions folder with hashtags and references"""
-        try:
-            from google.cloud import storage
-            from google.cloud import firestore
-            from content_fixes import generate_relevant_hashtags, validate_academic_references, sanitize_reference_placeholders
-            
-            # Initialize GCS client
-            storage_client = storage.Client()
-            bucket = storage_client.bucket("regal-scholar-453620-r7-podcast-storage")
-            
-            # (Gap 3 fix 1: references are built by code before this point; no fallback is added here.)
-
-            # Extract topic from canonical filename for hashtag generation
-            filename_parts = canonical_filename.split('-')
-            if len(filename_parts) >= 2:
-                category = filename_parts[1].upper()
-                if category == 'BIO':
-                    category = 'Biology'
-                elif category == 'COMPSCI':
-                    category = 'Computer Science'
-                elif category == 'PHYS':
-                    category = 'Physics'
-                elif category == 'MATH':
-                    category = 'Mathematics'
-                elif category == 'CHEM':
-                    category = 'Chemistry'
-                else:
-                    category = 'Science'
-            else:
-                category = 'Science'
-            
-            # Check if hashtags already exist in description
-            if "## Hashtags" in description or "#CopernicusAI" in description:
-                # Hashtags already added, don't duplicate
-                enhanced_description = description
-            else:
-                # Extract topic from description for better hashtag generation if not provided
-                if not topic:
-                    topic_match = re.search(r'^#\s*(.+)', description, re.MULTILINE)
-                    topic_for_hashtags = topic_match.group(1) if topic_match else ""
-                else:
-                    topic_for_hashtags = topic
-                
-                # Generate context-aware hashtags using title, topic, and description
-                hashtags = generate_relevant_hashtags(topic_for_hashtags, category, title or "", "")
-                
-                # Add hashtags section
-                enhanced_description = f"{description}\n\n## Hashtags\n{hashtags}"
-            
-            # Ensure total description doesn't exceed 4000 characters (podcast description limit)
-            MAX_DESCRIPTION_LENGTH = 4000
-            if len(enhanced_description) > MAX_DESCRIPTION_LENGTH:
-                structured_logger.debug("Description too long, trimming",
-                                       original_length=len(enhanced_description),
-                                       max_length=MAX_DESCRIPTION_LENGTH,
-                                       canonical_filename=canonical_filename)
-                
-                # Try to preserve references and hashtags by trimming the middle content first
-                # First, extract References section more precisely
-                references_text = ""
-                hashtags_text = ""
-                main_content = enhanced_description
-                
-                # Extract References section (look for ## References header)
-                if '## References' in enhanced_description:
-                    ref_parts = enhanced_description.split('## References', 1)
-                    main_content = ref_parts[0]
-                    ref_remainder = ref_parts[1]
-                    # Get everything until next ## header or end
-                    if '##' in ref_remainder:
-                        ref_section = ref_remainder.split('##')[0]
-                        references_text = '## References' + ref_section
-                        # Check if there's a Hashtags section after References
-                        if 'Hashtags' in ref_remainder:
-                            hashtag_parts = ref_remainder.split('## Hashtags', 1)
-                            hashtags_text = '## Hashtags' + hashtag_parts[1] if len(hashtag_parts) > 1 else ""
-                    else:
-                        # References section goes to end
-                        references_text = '## References' + ref_remainder
-                elif '## Hashtags' in enhanced_description:
-                    # No References but Hashtags exist
-                    hashtag_parts = enhanced_description.split('## Hashtags', 1)
-                    main_content = hashtag_parts[0]
-                    hashtags_text = '## Hashtags' + hashtag_parts[1] if len(hashtag_parts) > 1 else ""
-                
-                # Split main content into sections for trimming
-                sections = main_content.split('\n\n')
-                other_sections = [s for s in sections if s.strip()]
-                
-                # Reserve space for references and hashtags
-                reserved_space = len(references_text) + len(hashtags_text) + 100
-                
-                # Trim other sections to fit
-                available_space = MAX_DESCRIPTION_LENGTH - reserved_space
-                trimmed_other = []
-                current_length = 0
-                
-                for section in other_sections:
-                    if current_length + len(section) + 2 < available_space:
-                        trimmed_other.append(section)
-                        current_length += len(section) + 2
-                    elif current_length < available_space:
-                        remaining = available_space - current_length - 20
-                        if remaining > 50:
-                            trimmed_other.append(section[:remaining] + "...")
-                        break
-                
-                # Rebuild description with full references and hashtags
-                main_content_trimmed = '\n\n'.join(trimmed_other)
-                enhanced_description = join_description_sections(
-                    main_content_trimmed,
-                    references_text,
-                    hashtags_text,
-                )
-
-                if not hashtags_text and not ("## Hashtags" in enhanced_description or "#CopernicusAI" in enhanced_description):
-                    hashtags = generate_relevant_hashtags(topic_for_hashtags, category, title or "", "")
-                    enhanced_description = join_description_sections(
-                        enhanced_description, f"## Hashtags\n{hashtags}"
-                    )
-                
-                # Final check - if still too long, trim hashtags section more carefully
-                if len(enhanced_description) > MAX_DESCRIPTION_LENGTH:
-                    # Keep main content and references, trim hashtags if needed
-                    desc_with_refs = join_description_sections(main_content_trimmed, references_text)
-                    
-                    hashtags_available_space = MAX_DESCRIPTION_LENGTH - len(desc_with_refs) - len("\n\n## Hashtags\n")
-                    if hashtags_available_space > 50:
-                        if hashtags_text:
-                            # Extract hashtag content (remove ## Hashtags header)
-                            hashtag_content = hashtags_text.replace('## Hashtags', '').strip()
-                            if len(hashtag_content) > hashtags_available_space:
-                                hashtag_lines = hashtag_content.split('\n')
-                                trimmed_hashtags = []
-                                current_len = 0
-                                for line in hashtag_lines:
-                                    if current_len + len(line) + 1 <= hashtags_available_space:
-                                        trimmed_hashtags.append(line)
-                                        current_len += len(line) + 1
-                                    else:
-                                        break
-                                hashtag_content = '\n'.join(trimmed_hashtags)
-                            enhanced_description = join_description_sections(
-                                desc_with_refs, f"## Hashtags\n{hashtag_content}"
-                            )
-                        else:
-                            hashtags = generate_relevant_hashtags(topic_for_hashtags, category, title or "", "")
-                            hashtag_content = hashtags[:hashtags_available_space] if len(hashtags) > hashtags_available_space else hashtags
-                            enhanced_description = join_description_sections(
-                                desc_with_refs, f"## Hashtags\n{hashtag_content}"
-                            )
-                    else:
-                        enhanced_description = desc_with_refs
-            
-            enhanced_description = sanitize_reference_placeholders(enhanced_description)
-
-            # Create description filename
-            description_filename = f"{canonical_filename}.md"
-            blob = bucket.blob(f"descriptions/{description_filename}")
-            
-            # Upload enhanced description as markdown
-            blob.upload_from_string(enhanced_description, content_type="text/markdown; charset=utf-8")
-            blob.make_public()
-            
-            # Return public URL
-            public_url = f"https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/descriptions/{description_filename}"
-            structured_logger.info("Enhanced description with hashtags uploaded to GCS",
-                                  canonical_filename=canonical_filename,
-                                  public_url=public_url)
-            return public_url
-            
-        except Exception as e:
-            structured_logger.error("Error uploading description to GCS",
-                                   canonical_filename=canonical_filename,
-                                   error=str(e))
-            return None
-    
-    @retry_upload(max_retries=3, delay=2)
     async def generate_and_upload_transcript(self, script: str, canonical_filename: str) -> str:
         """Generate and upload transcript to GCS transcripts folder"""
         try:
@@ -2651,25 +2471,6 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
                                   transcript_time_seconds=round(transcript_time, 2),
                                   transcript_url=transcript_url)
             
-            # Upload description to GCS
-            description_start_time = time.time()
-            description_memory_before = psutil.virtual_memory().percent
-            structured_logger.info("Uploading episode description to GCS",
-                                  job_id=job_id,
-                                  memory_before_percent=round(description_memory_before, 1))
-            description_url = await self.upload_description_to_gcs(
-                content["description"], 
-                canonical_filename,
-                title=content.get("title", ""),
-                topic=request.topic,
-                job_id=job_id
-            )
-            description_time = time.time() - description_start_time
-            structured_logger.info("Description completed",
-                                  job_id=job_id,
-                                  description_time_seconds=round(description_time, 2),
-                                  description_url=description_url)
-            
             # Generate and upload thumbnail
             thumbnail_start_time = time.time()
             thumbnail_memory_before = psutil.virtual_memory().percent
@@ -2773,7 +2574,6 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
                     'thumbnail_url': thumbnail_url,
                     'episode_images': episode_images,  # Array of 1-2 image URLs
                     'transcript_url': transcript_url,
-                    'description_url': description_url,
                     'duration': request.duration,
                     'topic': request.topic,
                     'expertise_level': request.expertise_level,
@@ -2828,7 +2628,6 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
                         "thumbnail_url": thumbnail_url,
                         "episode_images": episode_images,  # Array of 1-2 image URLs
                         "transcript_url": transcript_url,
-                        "description_url": description_url,
                         "duration": request.duration,
                         "canonical_filename": canonical_filename,
                         "generated_at": generated_timestamp,
@@ -2895,7 +2694,6 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
                                   memory_delta=round(final_memory - initial_memory, 1),
                                   audio_url=audio_url,
                                   transcript_url=transcript_url,
-                                  description_url=description_url,
                                   thumbnail_url=thumbnail_url)
             
         except Exception as e:
