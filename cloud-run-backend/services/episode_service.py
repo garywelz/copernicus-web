@@ -213,7 +213,6 @@ class EpisodeService:
             "thumbnail_url": result_data.get("thumbnail_url") or DEFAULT_ARTWORK_URL,
             "episode_images": result_data.get("episode_images", []),  # Array of 1-2 image URLs
             "transcript_url": result_data.get("transcript_url"),
-            "description_url": result_data.get("description_url"),
             "episode_link": f"{EPISODE_BASE_URL}/{slug}",
             "submitted_to_rss": submitted_to_rss,
             "visible_on_web": bool(result_data.get("visible_on_web") or submitted_to_rss),
@@ -230,7 +229,6 @@ class EpisodeService:
             "assets": {
                 "audio_blob": cls._extract_blob_name_from_url(result_data.get("audio_url", "")),
                 "transcript_blob": cls._extract_blob_name_from_url(result_data.get("transcript_url", "")),
-                "description_blob": cls._extract_blob_name_from_url(result_data.get("description_url", "")),
                 "thumbnail_blob": cls._extract_blob_name_from_url(result_data.get("thumbnail_url", "")),
             },
         }

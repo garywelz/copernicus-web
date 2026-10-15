@@ -153,7 +153,6 @@ async def get_podcast_details(podcast_id: str) -> str:
             "subscriber_id": podcast.get("subscriber_id"),
             "audio_url": result.get("audio_url"),
             "transcript_url": result.get("transcript_url"),
-            "description_url": result.get("description_url"),
             "thumbnail_url": result.get("thumbnail_url"),
             "canonical_filename": result.get("canonical_filename"),
             "source_papers": request.get("source_links", []),

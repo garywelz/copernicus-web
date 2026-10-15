@@ -371,6 +371,10 @@ async def get_episode_record(episode_id: str):
             raise HTTPException(status_code=404, detail="Episode not found")
         payload = doc.to_dict() or {}
         payload['episode_id'] = doc.id
+        # The description side files (descriptions/<id>.md) are no longer published; older records still carry their URL, which is not served
+        payload.pop('description_url', None)
+        if isinstance(payload.get('assets'), dict):
+            payload['assets'] = {k: v for k, v in payload['assets'].items() if k != 'description_blob'}
         return payload
     except HTTPException:
         raise
