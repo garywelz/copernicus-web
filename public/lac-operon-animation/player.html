@@ -31,7 +31,7 @@
   <script>
     const params = new URLSearchParams(location.search);
     const pathMatch = location.pathname.match(/animations\/([^/]+)/);
-    const episode = params.get("episode") || (pathMatch && pathMatch[1]) || "ever-bio-260009";
+    const episode = params.get("episode") || (pathMatch && pathMatch[1]) || null;
     const base = params.get("base") ||
       "https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/animations/" + episode;
     const audioEl = document.getElementById("player");
@@ -72,8 +72,18 @@
       return current;
     }
 
-    fetch(base + "/cues.json?v=" + Date.now())
-      .then(r => r.json())
+    // No episode named, or its pack is gone: say the player is between episodes instead of an error.
+    function comingBack() {
+      title.textContent = "Animated episodes are coming back";
+      stage.textContent = "The animated player is between episodes. A new flowchart-synced episode will appear here soon.";
+      img.hidden = true;
+      audioEl.hidden = true;
+    }
+
+    if (!episode) {
+      comingBack();
+    } else fetch(base + "/cues.json?v=" + Date.now())
+      .then(r => { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
       .then(data => {
         title.textContent = data.title || episode;
         audioEl.src = data.audio_url;
@@ -86,7 +96,7 @@
           stage.textContent = cues[0].label;
         }
       })
-      .catch(err => { stage.textContent = "Could not load cues: " + err; });
+      .catch(() => comingBack());
     audioEl.addEventListener("timeupdate", () => {
       showFrame(cueAt(audioEl.currentTime));
     });
