@@ -2,7 +2,7 @@
 
 ## Status as of 2026-10-16
 
-*Added 2026-10-16 by Core (Claude Code). The plan below is unchanged and is dated 2026-07-25 (last edited 2026-08-04). "Done" is claimed here only where a BULLETIN entry or a PR is cited, or where the item was re-checked on 2026-10-16 as stated. Anything not confirmed is "unknown", not guessed. Items recorded as done only in the plan's own 2026-08-04 pass, or in another repo's to-do, are "unknown" here because this check could not confirm them.*
+*Added 2026-10-16 by Core (Claude Code). The plan below is unchanged and is dated 2026-07-25 (last edited 2026-08-04). "Done" is claimed here only where a BULLETIN entry or a PR is cited, or where the item was re-checked on 2026-10-16 as stated. Anything not confirmed is "unknown", not guessed. Items recorded as done only in the plan's own 2026-08-04 pass, or in another repo's to-do, are "unknown" here because this check could not confirm them. Jetson facts come from the GLMP lane's read-only report of 2026-10-16 ([GLMP-lane comment](https://github.com/garywelz/copernicus-web/pull/131#issuecomment-6215827185)); I did not touch the Jetson, and I re-read `scheduler_status` in Firestore myself.*
 
 | Item | Status | Evidence |
 |---|---|---|
@@ -15,25 +15,35 @@
 | Part 1: `huggingface-space/DISCIPLINE_DATABASES_PLAN.md` rewritten against the engine/discipline distinction | unknown | recorded done in this plan on 2026-08-04; not re-read on 2026-10-16 |
 | **Part 2** Option B (copernicus-web stays canonical for deploy-coupled content) | done (decision) | AGENTS.md, "This repo" |
 | Part 2: git-history depth check; the asset migration itself | unknown | depth check recorded in glmp `GLMP_MASTER_TODO.md` item 16 (2026-07-30), no BULLETIN entry or PR cited; no entry records any content moving |
-| **Part 3** Nightly chain (dependency ordering; six acquire cron lines; overnight relocation; production stages in the chain) | unknown, awaiting GLMP-lane report | runs on the Jetson, outside this repo |
+| **Part 3** Ordering: embed `--auto`, then status publish, then findability, then MASTER_TODO | done | [GLMP-lane comment](https://github.com/garywelz/copernicus-web/pull/131#issuecomment-6215827185): hook chain and logs (2026-10-16T01:22Z to 01:26Z); ordering holds |
+| Part 3: acquire as a dependency chain | open | still six clock-scheduled scout lines (PubMed, bioRxiv, arXiv, each AM and PM); ingest is also clock-scheduled (10:30 and 20:15) — [GLMP-lane comment](https://github.com/garywelz/copernicus-web/pull/131#issuecomment-6215827185) |
+| Part 3: overnight relocation | open | only the GLMP batch decoder (02:00) runs between 00:00 and 07:00 ET — [GLMP-lane comment](https://github.com/garywelz/copernicus-web/pull/131#issuecomment-6215827185) |
+| Part 3: morning report | open | none on the Jetson (no cron line, script or status file) — [GLMP-lane comment](https://github.com/garywelz/copernicus-web/pull/131#issuecomment-6215827185) |
+| Part 3: `scheduler_status` heartbeat for every stage | open | the six scout jobs have documents; ingest and post-ingest stages have none (Firestore re-read 2026-10-16: scout_arxiv/biorxiv/pubmed AM and PM, phase1_smoke, _schema only) — [GLMP-lane comment](https://github.com/garywelz/copernicus-web/pull/131#issuecomment-6215827185) |
+| Part 3: production stages (podcast, flowchart, video) in the chain | unknown | not covered by the GLMP-lane report |
 | **Part 4** ATAP focus file | done | BULLETIN 004 (`atap/docs/research_focus.json` has existed since July) |
-| Part 4: date-forward scout | unknown, awaiting GLMP-lane report | scout runs on the Jetson |
+| Part 4: date-forward mode | open | no date-forward or posted-since-last-run mode in the scout config or code; arXiv still uses rolling `submittedDate` windows — [GLMP-lane comment](https://github.com/garywelz/copernicus-web/pull/131#issuecomment-6215827185) |
+| Part 4: ATAP (mathematics) scout section | open | none; the four arXiv queries are q-bio and ML-for-biology only — [GLMP-lane comment](https://github.com/garywelz/copernicus-web/pull/131#issuecomment-6215827185) |
+| Part 4: TDAP scout section | open | none anywhere in the scout config or code — [GLMP-lane comment](https://github.com/garywelz/copernicus-web/pull/131#issuecomment-6215827185) |
+| Part 4: arXiv reliability | open (counts) | 8 rate-limit (429) lines and 14 timeout lines in the 14 days since 2026-10-02 (28 dated log files); several arXiv runs report success with 0 documents — [GLMP-lane comment](https://github.com/garywelz/copernicus-web/pull/131#issuecomment-6215827185) |
 | Part 4: daily brief; production selection | unknown | agent-shaped work; nothing recorded in a BULLETIN entry |
-| **Part 5** Findability probe | partly done | the probe is tracked at `cloud-run-backend/scripts/findability_probe.py` and `glmp/scripts/build_master_todo.py` has `read_findability_status` (2026-10-16 checks). Whether it runs nightly now: unknown, awaiting GLMP-lane report. Open: an anchor for every collection created later (plan, Part 5) |
+| **Part 5** Findability probe | done (built and running) | tracked at `cloud-run-backend/scripts/findability_probe.py`; `glmp/scripts/build_master_todo.py` has `read_findability_status` (checked 2026-10-16); runs as post-ingest hook 3 after every successful ingest, twice daily — [GLMP-lane comment](https://github.com/garywelz/copernicus-web/pull/131#issuecomment-6215827185) |
+| Part 5: latest probe run | ALERT, under diagnosis | 2026-10-16T01:26:15Z: overall ALERT, one anchor miss in the `episodes` collection; no cause is recorded here — [GLMP-lane comment](https://github.com/garywelz/copernicus-web/pull/131#issuecomment-6215827185) |
+| Part 5: an anchor for every collection created later | open | plan, Part 5 |
 | **§6.1** Commit the plan | done | BULLETIN 001 (governance moved into this repo, PR #10) |
 | §6.2 Create Resources and Products projects; add headers; retitle ATAP | partly done | headers: BULLETIN 004; the rest: unknown (see Part 1) |
-| §6.3 Part 5 findability check | partly done | see Part 5 |
+| §6.3 Part 5 findability check | done (built and running) | see Part 5; latest run ALERT, under diagnosis |
 | §6.4 ATAP focus file | done | BULLETIN 004 |
 | §6.5 Git-history depth check | unknown | see Part 2 |
 | §6.6 `sync_*` hardcodes, TSV provenance diagnostic, venv untracking | unknown | recorded done in this plan on 2026-08-04; not re-checked |
 | §6.6 IAM narrowing | open (in progress) | public access removal is done (BULLETIN 005, 006, 014, 018); service-account role narrowing is under way and tracked privately, with no public entry yet |
 
 **Open items recorded since the plan was written**
-- Gap 1b: 58.7% of `research_papers` carry no engine tag (auto-tagging not built) — BULLETIN 012.
+- Gap 1b: 58.7% of `research_papers` carry no engine tag (auto-tagging not built) — BULLETIN 012. Not on the Jetson ingest path: nothing in the nightly ingest writes `question_scope_ids` (the only write path found, `huggingface-space/scripts/acquire_papers/researcher_cited_intake.py`, is not in the cron chain) — [GLMP-lane comment](https://github.com/garywelz/copernicus-web/pull/131#issuecomment-6215827185).
 - Duplicates from two ingest paths: 136 documents across 68 shared DOIs and 64 across 32 arXiv IDs — BULLETIN 012.
 - Missing publication year: 43.8% of documents (52,279) — BULLETIN 012.
 - Fix 3, inline citation markers for the podcast generator (design only until approved) — BULLETIN 021.
-- Part 5 findability check: built (see above); open is its coverage of collections created later, and confirmation that it runs nightly.
+- Part 5 findability probe: built and running after each ingest ([GLMP-lane comment](https://github.com/garywelz/copernicus-web/pull/131#issuecomment-6215827185)); latest run ALERT, under diagnosis; open is an anchor for every collection created later.
 - Other users opening their own private episodes needs the subscriber session design — BULLETIN 024.
 
 ---

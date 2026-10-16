@@ -33,7 +33,7 @@ Entry format:
 - **Affects:** every agent (rules 19 and 20); Gary's Claude Projects (the header); anyone reading `governance/RESOURCE_MANIFEST.md` or `governance/SUITE_REORG_PLAN.md`
 - **Summary:**
   - **Source-side check.** A read of the governance set on 2026-10-15 returned stale copies (the reader-side caching described in entry 013). Checking `main` document by document: `governance/CONSTITUTION.md` §1 already names TDAP (no change); `governance/RESOURCE_MANIFEST.md` was behind in four places and is fixed (no TDAP row; the podcast count; the internal bucket marked unverified; the podcast feed not recorded as the single distribution point).
-  - **`governance/SUITE_REORG_PLAN.md`** gains a dated status section mapping every Part and every recommended action to done, partly done, open or unknown, with the BULLETIN entry or PR for every "done". The plan's own text is unchanged. Parts 3 and 4 stay "unknown, awaiting GLMP-lane report".
+  - **`governance/SUITE_REORG_PLAN.md`** gains a dated status section mapping every Part and every recommended action to done, partly done, open or unknown, with the BULLETIN entry or PR for every "done". The plan's own text is unchanged. Parts 3 to 5 carry the GLMP lane's read-only Jetson evidence (its comment on the PR that adds this entry): ordering done; the acquire chain, overnight relocation, morning report, stage heartbeats, date-forward mode and the ATAP and TDAP scout sections open; the findability probe built and running, its latest run an ALERT under diagnosis.
   - **Corpus totals.** The one living-document paragraph that stated a paper total now points at the live status file (119,321 on 2026-10-01, entry 012). Dated records keep their numbers.
   - **`governance/AGENT_ROLES.md` v2.7 (proposed):** rule 19 (an agent merges a PR only when Gary has named it, leaves a comment quoting the go-ahead, and fixes a regression by proposal) and rule 20 (PR, issue and comment bodies through `--body-file` or the API, never shell interpolation). AGENTS.md points at rule 20.
   - **`governance/PROJECT_HEADERS.md` v1.4 (proposed):** the Claude Projects header gains a stale-read check: compare the newest governance commit, from the GitHub commits API, with what the plain fetches returned.
@@ -41,7 +41,7 @@ Entry format:
   - **Gary:** review and merge; re-paste the updated header into each Claude Project; replace the hard-coded "~62,900 papers" in the Core Project's instructions with a pointer to the live status file.
   - **Core:** nobody beyond routine.
   - **Methods & Tools:** nobody.
-  - **GLMP lane:** the report that settles Parts 3 and 4 of the plan.
+  - **GLMP lane:** the open Jetson items listed under Parts 3 and 4 of the plan's status section.
 
 ## 024 — 2026-10-16 — Private episode media is stored privately; publishing copies verified files to the public bucket; earlier private files migrated; leftover public files and the catalog retired
 
