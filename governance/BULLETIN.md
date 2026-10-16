@@ -25,6 +25,24 @@ Entry format:
 
 ---
 
+## 024 — 2026-10-16 — Private episode media is stored privately; publishing copies verified files to the public bucket; earlier private files migrated; leftover public files and the catalog retired
+
+- **From:** Claude Code (Core lane); decided by Gary, 2026-10-15 and 2026-10-16
+- **Record:** copernicus-web PRs [#123](https://github.com/garywelz/copernicus-web/pull/123) (private media storage, verified publishing, signed review links), [#124](https://github.com/garywelz/copernicus-web/pull/124) (audio combine fix), [#125](https://github.com/garywelz/copernicus-web/pull/125) (catalog retired); follows entry 023. Archives of retired files are private and are not in the repo.
+- **Affects:** Core; anyone who generates, reviews or publishes podcast episodes; anyone who reads episode media from the public bucket
+- **Summary:**
+  - **New episodes' media is stored privately.** Audio, transcript, thumbnail, episode images and video are written to a private bucket. The episode record keeps the address the file will have once published, so publishing changes no record.
+  - **Review uses signed links.** An admin endpoint returns short-lived signed links to an episode's files, and the "ready" email carries a 7-day signed link to the owner.
+  - **Publishing copies verified media to the public bucket.** Before the feed write, the episode's files are copied and checked (MD5, CRC32C and size); any mismatch stops the publish, and the copies are removed again if the feed write fails. Showing an episode on the website only has its own admin endpoint with the same verified copy.
+  - **Older private episodes migrated.** The files of the 27 private episodes, previously stored in the public bucket, were copied to the private bucket (103 files, every copy verified) and removed from the public one.
+  - **Leftover public files retired,** each archived privately with checksums first: files of 17 episode IDs that no longer have a record, 88 old scratch audio segments, a stale root feed file and six old feed copies. The live feed was not touched (generation and checksum unchanged). The episodes catalog and three one-off podcast extracts were retired earlier the same day (#125). The old feed backup copies named in entries 005, 007 and 008 are now in the private archive, no longer in the public bucket.
+  - **Audio combine fix.** The step that joins audio segments now always uses the route every published episode used; the streaming route had never completed in production and was no longer run once signing worked.
+- **Waiting on:**
+  - **Gary:** nothing from this entry.
+  - **Not yet:** other users opening their own private episodes; this needs the subscriber session design.
+  - **Core:** nobody beyond routine.
+  - **Methods & Tools:** nobody.
+
 ## 023 — 2026-10-15 — Podcast pipeline: fix 1 and follow-ups live; first episode published under it; 39 earlier episodes withdrawn; description side files retired; private episodes no longer served by the public API
 
 - **From:** Claude Code (Core lane); decided by Gary, 2026-10-13 to 2026-10-15
