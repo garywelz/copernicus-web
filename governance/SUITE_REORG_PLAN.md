@@ -28,11 +28,11 @@
 | Part 4: arXiv reliability | open (counts) | 8 rate-limit (429) lines and 14 timeout lines in the 14 days since 2026-10-02 (28 dated log files); several arXiv runs report success with 0 documents — [GLMP-lane comment](https://github.com/garywelz/copernicus-web/pull/131#issuecomment-6215827185) |
 | Part 4: daily brief; production selection | unknown | agent-shaped work; nothing recorded in a BULLETIN entry |
 | **Part 5** Findability probe | done (built and running) | tracked at `cloud-run-backend/scripts/findability_probe.py`; `glmp/scripts/build_master_todo.py` has `read_findability_status` (checked 2026-10-16); runs as post-ingest hook 3 after every successful ingest, twice daily — [GLMP-lane comment](https://github.com/garywelz/copernicus-web/pull/131#issuecomment-6215827185) |
-| Part 5: latest probe run | ALERT, under diagnosis | 2026-10-16T01:26:15Z: overall ALERT, one anchor miss in the `episodes` collection; no cause is recorded here — [GLMP-lane comment](https://github.com/garywelz/copernicus-web/pull/131#issuecomment-6215827185) |
+| Part 5: latest probe run | ALERT, diagnosed: stale anchor | 2026-10-16T01:26:15Z: overall ALERT, one anchor miss in the `episodes` collection. The latest ALERT was a stale anchor (the expected episode was deleted 2026-09-29 under rule 16); retrieval is healthy; fix in a separate PR — [GLMP-lane comment](https://github.com/garywelz/copernicus-web/pull/131#issuecomment-6215827185) for the run, Core's read-only diagnosis for the cause |
 | Part 5: an anchor for every collection created later | open | plan, Part 5 |
 | **§6.1** Commit the plan | done | BULLETIN 001 (governance moved into this repo, PR #10) |
 | §6.2 Create Resources and Products projects; add headers; retitle ATAP | partly done | headers: BULLETIN 004; the rest: unknown (see Part 1) |
-| §6.3 Part 5 findability check | done (built and running) | see Part 5; latest run ALERT, under diagnosis |
+| §6.3 Part 5 findability check | done (built and running) | see Part 5; the latest ALERT was a stale anchor |
 | §6.4 ATAP focus file | done | BULLETIN 004 |
 | §6.5 Git-history depth check | unknown | see Part 2 |
 | §6.6 `sync_*` hardcodes, TSV provenance diagnostic, venv untracking | unknown | recorded done in this plan on 2026-08-04; not re-checked |
@@ -43,7 +43,8 @@
 - Duplicates from two ingest paths: 136 documents across 68 shared DOIs and 64 across 32 arXiv IDs — BULLETIN 012.
 - Missing publication year: 43.8% of documents (52,279) — BULLETIN 012.
 - Fix 3, inline citation markers for the podcast generator (design only until approved) — BULLETIN 021.
-- Part 5 findability probe: built and running after each ingest ([GLMP-lane comment](https://github.com/garywelz/copernicus-web/pull/131#issuecomment-6215827185)); latest run ALERT, under diagnosis; open is an anchor for every collection created later.
+- Part 5 findability probe: built and running after each ingest ([GLMP-lane comment](https://github.com/garywelz/copernicus-web/pull/131#issuecomment-6215827185)); the latest ALERT was a stale anchor (fix in a separate PR); open is an anchor for every collection created later.
+- Two older probe warnings (present since July, [GLMP-lane comment](https://github.com/garywelz/copernicus-web/pull/131#issuecomment-6215827185)): `podcast_jobs` holds 1,536-dimension data against a 768-dimension index; an orphan `math_processes` index with 0 documents.
 - Other users opening their own private episodes needs the subscriber session design — BULLETIN 024.
 
 ---

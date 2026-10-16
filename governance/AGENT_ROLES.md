@@ -211,8 +211,9 @@ live fetch of this file fails.
     follows the archive protocol: (1) back up the feed before every feed write, however
     small; (2) archive the record and its storage objects to the private internal
     bucket and verify checksums; (3) remove the item from the feed with a generation
-    precondition; (4) delete only objects that nothing else references; (5) verify on
-    every surface. Archives never go in the public podcast bucket.
+    precondition; (4) delete only objects that nothing else references; (5) update any
+    findability-probe anchor that names the deleted item; (6) verify on every surface.
+    Archives never go in the public podcast bucket.
 
     **Correction notes are not repairs.** A published episode with a confirmed problem that
     does not warrant deletion may carry a *correction note*: a visible, dated addition on the
@@ -226,7 +227,7 @@ live fetch of this file fails.
     is deletion and follows the procedure above unchanged. At every level an agent proposes
     and Gary decides and approves; Gary is the only approver. Writing a note to the page or
     the feed is a change to a public object, so it is also gated by rule 18, and steps (1)
-    and (5) of the archive protocol apply to it: back up the feed before the write and
+    and (6) of the archive protocol apply to it: back up the feed before the write and
     verify on every surface after. An agent still never edits or rewrites the generated
     content itself.
 17. **A security finding goes to a private location first.** It reaches a public PR
@@ -482,7 +483,9 @@ silently.
 - **v2.7** (2026-10-16) — Added session rules 19 (an agent merges only a PR Gary has named, and
   leaves a comment quoting the go-ahead; a regression is fixed by proposal, not by an unasked
   merge) and 20 (PR, issue and comment bodies go through `--body-file` or the API, never shell
-  interpolation). See `governance/BULLETIN.md` entry 025.
+  interpolation). Rule 16's archive protocol gains a step after (4): update any
+  findability-probe anchor that names the deleted item (the old step (5), verify on every
+  surface, becomes (6)). See `governance/BULLETIN.md` entry 025.
 - **v2.6** (2026-10-06) — Rule 16 gains correction notes: levels 1 and 2 may be added as
   visible, dated notes that leave the original intact, with Gary as sole approver; level 3
   (withdrawal) follows the existing delete-not-repair procedure. See
