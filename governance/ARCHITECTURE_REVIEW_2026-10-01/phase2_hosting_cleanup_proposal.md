@@ -1,17 +1,69 @@
-# Hosting cleanup, Phase 2: proposal (draft, nothing executed)
+# Hosting cleanup, Phase 2: proposal and record of execution (Batches 1 to 4.1 done; 4.2 onward not run)
 
-*Core lane (Claude Code), 2026-10-04. Read-only review. For Gary's decision on or after
-2026-10-05, as BULLETIN entries 005, 006, 007, 008, 009, 010 and 011 ask. No deletion, IAM
-change, config change or API enablement was made to produce this. The only writes were this file
-(on a branch) and one private note in the internal bucket (see "Filed privately").*
+*Core lane (Claude Code). The proposal was written on 2026-10-04 as a read-only review. It was executed
+in stages with Gary's approval from 2026-10-05 to 2026-10-13 and is recorded in BULLETIN entry 026. This
+version, of 2026-10-16, turns the proposal into a record: sections 1 to 8 are the proposal and the
+decisions as written, kept so the reasoning and the reversal commands stay with the work; the
+"Execution status" section below is the current state, checked against the live project on 2026-10-16
+with listing commands only.*
 
 **Items filed privately** (AGENT_ROLES rule 17). Rows for items whose fix is not yet live are
-left out of the tables and totals below; each carries its own action, which Gary has been told
-about separately. **One item is no longer private:** `glmp-service` was closed to the public on
-2026-10-04 with Gary's approval and is described in BULLETIN entry 018 (merged in PR #37), so it now
-appears below as a retire row.
+left out of the tables and totals below, and so are the passages of sections 4D, 4G and 7 that described
+an access gap not yet closed; each carries its own action, which Gary has been told about separately.
+`glmp-service` was closed to the public on 2026-10-04 with Gary's approval and is described in
+BULLETIN entry 018, so it appears below as a retire row (now deleted).
 
 ---
+
+## Execution status (checked against the live project, 2026-10-16)
+
+Batches 1 to 4.1 were executed with Gary's approval between 2026-10-05 and 2026-10-13. Batches 4.2
+to 4.4 and Batch 5 have **not** been run. The "Recorded then" column is what the agent that ran
+each step wrote at the time (PR description); the "Observed 2026-10-16" column is a read-only
+`gcloud` listing made for this update. Checksums were verified when the steps ran and were **not**
+re-computed on 2026-10-16; the later check compared object names and sizes only. No secret value
+or key material was read.
+
+| Step | What | Executed | Recorded then | Observed 2026-10-16 | Match |
+|---|---|---|---|---|---|
+| 1.1 | Configs of the services to retire saved to `$I` | 2026-10-05 (`glmp-service`: 2026-10-04) | sizes and MD5 verified | 6 service YAMLs plus `glmp-service-iam-before.json` present | yes |
+| 1.2 | Configs and source zips of 3 functions | 2026-10-05 | verified | 3 YAMLs and 3 source zips present | yes |
+| 1.3 | Image digest lists and revision-to-image map | 2026-10-05 | 235 `gcr.io` images, 166 `cloud-run-source-deploy`, 420 revisions of 15 services | `images-gcr.io.csv`, `images-cloud-run-source-deploy.csv`, `revision-images.tsv` present | yes (lists are as of 2026-10-05) |
+| 1.4 | `scienceviddb-db` backups and deletion protection | 2026-10-05 | backups 04:00 UTC, protection on, `RUNNABLE` | `RUNNABLE`, backups enabled at 04:00, deletion protection on | yes |
+| 1.5 | `glmp-db` deletion protection | 2026-10-05 | on, backups still on | protection on; 7 backups, all `SUCCESSFUL` | yes |
+| 1.6 | `research-metadata-db` authorized network cleared | 2026-10-05 | 0 entries | authorized networks: none | yes |
+| 1.7 | Exports of `copernicus-db` and `research-metadata-db`, via a scratch bucket | 2026-10-05 | copied to `$I`, checksums matched, scratch bucket removed | `copernicus-db-copernicus.sql.gz` (3,728 B) and `research-metadata-db-research_metadata.sql.gz` (4,539,025 B) present; the scratch bucket returns 404 | yes |
+| 1.7b | Export of `glmp-db`/`glmp` | 2026-10-05 | 450 bytes compressed; 0 tables, 0 rows | `glmp-db-glmp.sql.gz` (450 B) present | yes |
+| 1.8 | 299 old revisions deleted (256 `copernicus-podcast-api`, 43 `copernicus-frontend`) | 2026-10-05 | 10 kept on each; both live, both rollback and every tagged revision still existed | the list `revisions-to-delete-1.8.txt` is in `$I`. `copernicus-frontend` holds 10 revisions. `copernicus-podcast-api` holds 26: the 10 kept plus those created by later deploys (it now serves `-00314-bip`, deployed 2026-10-15) | yes |
+| 2.1 | Stopped `copernicus-db`, `research-metadata-db`, `glmp-db` | 2026-10-05 15:43Z | 7-day watch to 2026-10-12, accepted by Gary 2026-10-13; the only WARNING-or-worse entries were the stop itself and two failed scheduled backups on the stopped `glmp-db` | all three `STOPPED`, policy `NEVER`; `glmp-db` keeps protection | yes |
+| (4H hold) | Tags `step2` and `lockdown` removed; rollback holds ended | 2026-10-12 | no 5xx and no error-severity entries on the live revisions since 2026-10-04 | neither tag appears in either service's traffic map; `-00268-muc` and `-00052-zif` still exist | yes |
+| 4.1 | Revision `copernicus-podcast-api-00262-kfx` deleted | 2026-10-12 | image still in Artifact Registry | revision absent from the service | yes |
+| 3.1 | Delete `copernicus-api`, `copernicus-backend`, `copernicus-research-backend`, `copernicus-podcast-generator`, `research-metadata-api`, `glmp-service` | 2026-10-13 | each deleted one at a time after its saved config matched the live config (0 differing lines) and its image was confirmed in the saved lists and in Artifact Registry | 8 Cloud Run services remain: `copernicus-frontend`, `copernicus-podcast-api`, `generate-podcast`, the four `glmp-*` function services, `scienceviddb-web`; none of the six is listed | yes |
+| 3.2 | Delete function `copernicus-podcast-form` | 2026-10-13 | config and source zip in `$I` | 5 functions remain (`generate-podcast` and the four `glmp_*`); it is not listed | yes |
+| 3.3 | Delete the disabled service-account key ending `...48d26d3` of `copernicus-service` | 2026-10-13 13:39Z | still disabled; no audit-log entries naming it; 0 API requests made with it in the last 30 days | no key with that ID in the account's key list; the account's other disabled key is untouched | yes |
+
+**Not executed.**
+
+| Step | State |
+|---|---|
+| 4.2 build-archive lifecycle rules | not run |
+| 4.3 unreferenced and freed images | not run. 251 image versions are listed in `gcr.io` (about 98 GB) and the `cloud-run-source-deploy` repository is about 73 GB (repository sizes from Artifact Registry); the `cloud-run-source-deploy` image count was not re-taken |
+| 4.4 two redundant backup buckets | not run; all three backup buckets still exist |
+| 5.1 delete the three stopped databases | not run; waits for at least 30 days stopped |
+| 5.2 and the Vercel items | not run; deferred (section 4G) |
+| `generate-podcast`, `glmp_process_suggestion` | not touched; they wait for the GLMP lane |
+| C1 minimum instances 1 to 0 | declined 2026-10-05; the service was not changed for it |
+
+**Reversal paths for what was executed.** The commands in section 5 stand. The backups are in
+`gs://regal-scholar-453620-r7-internal/phase2-2026-10/` (`$I`), a private bucket: service and function
+configs, function source zips, the three database exports, the image and revision lists, and the
+1.8 deletion list. A deleted service comes back with `gcloud run services replace` from its saved YAML
+while its image is in Artifact Registry, which is why Batch 4.3 (images) is the point after which
+reversal needs a rebuild. A stopped database comes back with `--activation-policy=ALWAYS` until
+Batch 5, and from the exports after it. The deleted key cannot be restored.
+
+---
+
 
 ## 1. Summary
 
@@ -31,14 +83,14 @@ appears below as a retire row.
 removable** (section 6 gives the derivation and its caveats). The larger prize is attack surface:
 six closed services, three functions and three databases that nothing calls would stop existing.
 
-Nothing in this file is urgent. The privately filed items are, and Gary has been told separately.
+Nothing in this file is urgent. Items still open are filed privately and Gary has been told separately.
 
 **Order of work (lowest to highest risk).** Details and commands are in section 5.
 
 | Batch | When | What | Reversible? |
 |---|---|---|---|
 | 1 | on approval, from 2026-10-05 | back up configs; harden databases; trim the network entry on one database; prune old Cloud Run revisions | yes, all |
-| 2 | after Batch 1, about 2026-10-06 | stop (not delete) three databases, `glmp-db` after its export; Vercel deployment protection is deferred | yes, one command or one toggle |
+| 2 | after Batch 1, about 2026-10-06 | stop (not delete) three databases, `glmp-db` after its export | yes, one command or one toggle |
 | 3 | after 7 quiet days on Batch 2, about 2026-10-13 | delete 6 Cloud Run services and 1 function (`copernicus-podcast-form`); delete the disabled key (entry 005), not before 2026-10-13. `generate-podcast` and `glmp_process_suggestion` wait for the GLMP lane | yes, from saved config while the image exists; the key deletion is not reversible |
 | 4 | not before 2026-10-11 | delete revision -00262-kfx; trim old build archives; delete two redundant backup buckets; delete unreferenced images | partly (7-day undelete on archives; backups recopyable; images need a rebuild) |
 | 5 | after at least 30 days stopped | delete 3 databases; delete retired Vercel projects (deferred) | no, or only by import / recreate |
@@ -140,7 +192,7 @@ applies, so the last three decisions are the GLMP lane's, and Gary's.
 
 Both use `scienceviddb-ingestion:latest`, so that image is *in use*, not stale.
 
-### 4D. Cloud SQL (all four: PostgreSQL 15, db-f1-micro, 10 GB SSD, single zone, always on, public IPv4 address, no deletion protection)
+### 4D. Cloud SQL (all four: PostgreSQL 15, db-f1-micro, 10 GB SSD, single zone, always on, no deletion protection when proposed)
 
 | Instance | Data | Connections (daily max, 30 days) | Attached to | Caller in code | ~$/mo | Rec | Reason | Batch / who |
 |---|---|---|---|---|---|---|---|---|
@@ -150,9 +202,8 @@ Both use `scienceviddb-ingestion:latest`, so that image is *in use*, not stale.
 | scienceviddb-db | 306 MB | 1 to 10 | scienceviddb-web | `sciencevideodb/docs/SCITV_ROADMAP.md:163`, `sciencevideodb/packages/db/` | ~10 to 12 | **KEEP, harden** | the only live database, and it has **no automated backups and no deletion protection** | 1 enable both / CC |
 
 Network settings, read from the instance configuration (no database connection): **no instance
-allows 0.0.0.0/0 or any broad range.** Three have no authorized network at all; `research-metadata-db`
-has the single /32 noted above. All four have a public IPv4 address and accept unencrypted
-connections; tightening that is listed under "not proposed" in section 7.
+allows 0.0.0.0/0 or any broad range.** Three had no authorized network at all; `research-metadata-db`
+had a single /32, removed in step 1.6.
 
 **The constant sessions are a platform poll, not an application.** Every instance shows the same
 pattern: about 5,760 new connections a day to *each* database, one every 15 seconds, identical
@@ -226,17 +277,10 @@ the 166 GB frees up.
 
 ### 4G. Vercel (Gary, by dashboard; no CLI or token here)
 
-Only 10 of the 32 project names are recoverable from governance. Evidence below is from
-the request logs of `copernicus-podcast-api` (page loads from a Vercel deployment call it, and the
-`referer` names the deployment).
-
-| Project | Public? | Evidence | Rec | Action |
-|---|---|---|---|---|
-| copernicus-web-public | yes: www.copernicusai.fyi, www.copernicusai.app | 714 API calls with those referers | **KEEP** | none |
-| copernicus-rss-web | unknown | git disconnected 09-29 (entry 007); the feed is served from the bucket | **RETIRE** after checking no domain is attached | Gary, batch 5 |
-| copernicusai-site | yes: copernicusai.org | 2026-10-01 check returned 404 | **KEEP** until Gary decides on copernicusai.org | none |
-| copernicus-web, copernicus-web-2025, copernicus-web-8pvc, copernicusai-web-032725, copernicusai-podcast-2025, copernicus-podcast-web (all git-disconnected since 09-28) | yes (deployment URLs) | old deployments are still being loaded: about 45 API calls in 30 days arrived from `copernicusai-podcast-2025` deployment URLs and from two other old `copernicus*` deployment hostnames I could not map to a project name | **LOCK DOWN**, watch 7 days, then **RETIRE** | Gary: Settings → Deployment Protection, batch 2; delete, batch 5 |
-| the other 22 | unknown | names not recoverable from this seat | unknown | Gary: export the project list from both teams so the next version can cover them |
+**Deferred.** Only 10 of the 32 Vercel project names are recoverable from this seat, and Gary has deferred the
+project work until he exports the project lists from both teams. Nothing in this section was executed.
+The project-level findings and actions are in the private note until they are closed (rule 17).
+`copernicus-web-public` (www.copernicusai.fyi) is the production site and is KEEP.
 
 ### 4H. Pending items
 
@@ -306,7 +350,7 @@ or contents beyond adding copies.
 Conventions. `P=regal-scholar-453620-r7`, region `us-central1`,
 `I=gs://regal-scholar-453620-r7-internal/phase2-2026-10`. Every backup goes to `$I`, a private bucket.
 Config exports (`--format=export`) can contain plaintext environment values: copy them to `$I` and
-never print them (rule 3). Batch 1, steps 1.1 to 1.7, was run on 2026-10-05 with Gary's approval; no other command here has been run.
+never print them (rule 3). Execution status is in the section near the top: Batches 1 to 4.1 were run (2026-10-05 to 2026-10-13); 4.2 onward were not.
 
 ### Batch 1: back up, harden, trim, prune (all reversible)
 
@@ -327,7 +371,6 @@ never print them (rule 3). Batch 1, steps 1.1 to 1.7, was run on 2026-10-05 with
 | # | Action | Backup first | Reversal | Who |
 |---|---|---|---|---|
 | 2.1 | Stop `copernicus-db`, `research-metadata-db` and `glmp-db` (the last only after 1.7b): `gcloud sql instances patch INST --project $P --activation-policy=NEVER`. Watch 7 days for any error that names them. Storage is still billed while stopped, and a stopped instance takes no new automated backup (the existing ones stay). | 1.7 and 1.7b | `gcloud sql instances patch INST --project $P --activation-policy=ALWAYS` | CC |
-| 2.2 | For the six git-disconnected Vercel projects: Settings → Deployment Protection → Vercel Authentication on. | note each project's current setting | switch it back off | Gary |
 
 ### Batch 3: delete the silent services and functions (after 7 quiet days on Batch 2)
 
@@ -486,8 +529,8 @@ Treat any tag on a revision with a minimum instance as a running cost until it i
   93 files to the internal bucket under rule 16 and then retire it.
 - **Cloud Run Jobs and Artifact Registry were missing from the system map**, and so were 266
   retained revisions of one service. The next map revision should add them.
-- **Not proposed here:** tightening Cloud SQL to encrypted-only connections, a lifecycle rule for
-  old object versions in `podcast-storage`, and enabling the Billing export. Each is its own change.
+- **Not proposed here:** a lifecycle rule for old object versions in `podcast-storage` and enabling the
+  Billing export. Each is its own change.
 
 ## 8. Decisions
 
@@ -517,5 +560,12 @@ Recorded 2026-10-05 from Gary's decisions on this PR.
 9. **The `step2` tag on `-00268-muc`: keep until 2026-10-11**, then remove it as part of the
    rollback-hold expiry.
 
-*Evidence kept in the session scratchpad only; no secret values were read or printed. The
-commands above were proposals; execution is reported in the PR description, not in this file.*
+### Decided and executed 2026-10-12 and 2026-10-13
+
+10. **Rollback holds ended 2026-10-12:** tags `step2` and `lockdown` removed; revision `-00262-kfx` deleted (4.1). Both services kept their live revisions and traffic.
+11. **Database watch accepted 2026-10-13;** Batch 3 rows 3.1 and 3.2 approved and run; the disabled key deleted (3.3). `generate-podcast` and `glmp_process_suggestion` were not touched.
+12. **Batches 4.2 to 4.4, Batch 5 and Vercel** have no go-ahead yet.
+
+*Evidence from the original review was kept in the session scratchpad only; no secret values were read or printed.
+Execution was reported in the PR description until 2026-10-16, when it was moved into the Execution status
+section above and BULLETIN entry 026.*
