@@ -16,6 +16,8 @@ after this pass — it is not covered by the above check and carries no
 verification claim of its own; flipping this date to cover it would repeat
 the false-claim pattern this field exists to prevent.*
 
+*Rows changed 2026-10-16 (TDAP repo; internal bucket; podcast feed and podcast count; the private-media bucket row from #129) were checked on that date as noted on each row. They are not covered by the 2026-08-04 pass above, and that date has not been moved.*
+
 ---
 
 ## Hugging Face Spaces
@@ -36,6 +38,7 @@ the false-claim pattern this field exists to prevent.*
 | Owner | https://github.com/garywelz |
 | GLMP repo | https://github.com/garywelz/glmp |
 | ATAP repo | https://github.com/garywelz/atap — renamed 2026-07-23 from `mathematics-database`; sibling of the GLMP repo (both are engines, not nested under a discipline), not part of "Other suite repos" below. Old URL redirects but is no longer canonical |
+| TDAP repo | https://github.com/garywelz/tdap — engine (persistent cohomology, circular coordinates), created 2026-09-27 with an outside domain collaborator (`governance/AGENT_ROLES.md`; `governance/ENGINE_ONBOARDING.md`). No Hugging Face Space confirmed (2026-10-16: `huggingface.co/api/spaces/garywelz/tdap` answered 401, not a public Space). Its corpus is the `research_papers` documents tagged `tdap-q1` / `tdap-q2` (`cloud-run-backend/config/engine_registry.py`, the `tdap` entry). |
 | Cloud-run backend | Not a separate repo — path `cloud-run-backend/` inside `copernicus-web` (no nested `.git`/submodule; e.g. `cloud-run-backend/main.py`, `cloud-run-backend/endpoints/content/routes.py`) |
 | GLMP GitHub Pages | https://garywelz.github.io/glmp |
 | Other suite repos | https://github.com/garywelz/progframe · https://github.com/garywelz/sciencevideodb · https://github.com/garywelz/metadata-database (repo names per the repo↔Space map in `governance/AGENT_ROLES.md`; all three confirmed to exist via `git ls-remote`, 2026-09-25). **Deleted:** `biology-database`, `chemistry-database`, `computer-science-database`, `physics-database` stub repos, per `governance/SUITE_REORG_PLAN.md` Part 1 (not found via `git ls-remote`, 2026-09-25) |
@@ -45,7 +48,7 @@ the false-claim pattern this field exists to prevent.*
 | Resource | ID / URI |
 |---|---|
 | GCP project (quota) | regal-scholar-453620-r7 |
-| GCS bucket(s) | Public: `regal-scholar-453620-r7-podcast-storage` (confirmed, e.g. `huggingface-space/scripts/generate_status_page.py:26`; media-in-GCS rule in `governance/AGENT_ROLES.md`, Copernicus consolidation). Private: `regal-scholar-453620-r7-internal` — **user-supplied, not repo-verified**: hosts the GLMP master TODO |
+| GCS bucket(s) | Public: `regal-scholar-453620-r7-podcast-storage` (confirmed, e.g. `huggingface-space/scripts/generate_status_page.py:26`; media-in-GCS rule in `governance/AGENT_ROLES.md`, Copernicus consolidation). Private: `regal-scholar-453620-r7-internal` — **verified 2026-10-16** by listing the bucket (Core): holds private archives (archives of deleted episodes and retired public files, feed backups), private working notes, and the GLMP master TODO |
 | GCS bucket (private media) | `regal-scholar-453620-r7-private-media` (repo-verified: constant `PRIVATE_BUCKET` in `cloud-run-backend/media_store.py`). Created 2026-10-15. Holds the media files of episodes that are not yet published, plus the files of earlier private episodes migrated from the public bucket on 2026-10-16. Uniform bucket-level access, public access prevention enforced, no public grants; reviewed through signed links; publishing copies verified files to the public bucket. |
 | Firestore collection | `research_papers`, project `regal-scholar-453620-r7`, database `copernicusai` (project + database: `huggingface-space/scripts/media_catalog/export_episodes_catalog.py:26` (archived) (the exporter was retired 2026-10-15, PR #125; it stays in git history); collection: `huggingface-space/scripts/export_research_papers_jsonl.py:3,7`) |
 
@@ -116,8 +119,10 @@ where a project says which adjacency it means.*
   goal, optimises the wrong thing. A run that acquires many papers against
   declared research questions and field-coverage gaps is doing its job; a run
   that acquires papers because a number is the number is not.
-- **Size as an achievement metric.** "~62,900 papers" describes the collection;
-  it does not commend it. On 2026-08-05 the collection held ~62,900 papers and
+- **Size as an achievement metric.** A paper count describes the collection (live total: the file knowledge-engine-status.json in the public bucket,
+  https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/knowledge-engine-status.json;
+  119,321 on 2026-10-01, `governance/BULLETIN.md` entry 012); it does not commend it.
+  On 2026-08-05 the collection held ~62,900 papers and
   216 of the 217 papers GLMP's own flowcharts cite were absent from it. A
   collection missing the works its own project depends on is not succeeding at
   scale, whatever the count.
@@ -150,7 +155,8 @@ is meant to constrain.
 
 | Product | Access pointer |
 |---|---|
-| CopernicusAI podcast collection (~90) | `GET https://copernicus-podcast-api-phzp4ie2sq-uc.a.run.app/api/content/browse?content_type=podcasts` (`components/knowledge-engine/constants.ts:4`; `cloud-run-backend/endpoints/content/routes.py:15,97-99`) — this is its authored home; the same endpoint is also where it's registered into Resources for downstream consumption (`governance/SUITE_REORG_PLAN.md` §1, "Products → Resources") |
+| CopernicusAI podcast collection (count: live, from the endpoint below) | `GET https://copernicus-podcast-api-phzp4ie2sq-uc.a.run.app/api/content/browse?content_type=podcasts` (`components/knowledge-engine/constants.ts:4`; `cloud-run-backend/endpoints/content/routes.py:15,97-99`) — this is its authored home; the same endpoint is also where it's registered into Resources for downstream consumption (`governance/SUITE_REORG_PLAN.md` §1, "Products → Resources") |
+| Podcast RSS feed (the single distribution point) | https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/feeds/copernicus-mvp-rss-feed.xml — Spotify, Apple Podcasts and YouTube all read this one file; nothing on Vercel serves it (`governance/BULLETIN.md` entry 007). The public URL is cached for up to an hour after a write. Checked 2026-10-16: the object is in the public bucket (generation and MD5 in the live listing). |
 
 ## Zenodo (DOIs)
 
