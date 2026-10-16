@@ -25,6 +25,24 @@ Entry format:
 
 ---
 
+## 025 — 2026-10-16 — Governance documents brought up to date; rules 19 and 20 proposed; corpus totals replaced by pointers; stale-read check for Claude Chat headers
+
+- **From:** Claude Code (Core lane), at Gary's request
+- **Status:** DRAFT: rules 19 and 20 and the header change are proposals until Gary merges the PR that adds this entry
+- **Record:** the pull request that adds this entry; it follows entries 012 to 024
+- **Affects:** every agent (rules 19 and 20); Gary's Claude Projects (the header); anyone reading `governance/RESOURCE_MANIFEST.md` or `governance/SUITE_REORG_PLAN.md`
+- **Summary:**
+  - **Source-side check.** A read of the governance set on 2026-10-15 returned stale copies (the reader-side caching described in entry 013). Checking `main` document by document: `governance/CONSTITUTION.md` §1 already names TDAP (no change); `governance/RESOURCE_MANIFEST.md` was behind in four places and is fixed (no TDAP row; the podcast count; the internal bucket marked unverified; the podcast feed not recorded as the single distribution point).
+  - **`governance/SUITE_REORG_PLAN.md`** gains a dated status section mapping every Part and every recommended action to done, partly done, open or unknown, with the BULLETIN entry or PR for every "done". The plan's own text is unchanged. Parts 3 and 4 stay "unknown, awaiting GLMP-lane report".
+  - **Corpus totals.** The one living-document paragraph that stated a paper total now points at the live status file (119,321 on 2026-10-01, entry 012). Dated records keep their numbers.
+  - **`governance/AGENT_ROLES.md` v2.7 (proposed):** rule 19 (an agent merges a PR only when Gary has named it, leaves a comment quoting the go-ahead, and fixes a regression by proposal) and rule 20 (PR, issue and comment bodies through `--body-file` or the API, never shell interpolation). AGENTS.md points at rule 20.
+  - **`governance/PROJECT_HEADERS.md` v1.4 (proposed):** the Claude Projects header gains a stale-read check: compare the newest governance commit, from the GitHub commits API, with what the plain fetches returned.
+- **Waiting on:**
+  - **Gary:** review and merge; re-paste the updated header into each Claude Project; replace the hard-coded "~62,900 papers" in the Core Project's instructions with a pointer to the live status file.
+  - **Core:** nobody beyond routine.
+  - **Methods & Tools:** nobody.
+  - **GLMP lane:** the report that settles Parts 3 and 4 of the plan.
+
 ## 024 — 2026-10-16 — Private episode media is stored privately; publishing copies verified files to the public bucket; earlier private files migrated; leftover public files and the catalog retired
 
 - **From:** Claude Code (Core lane); decided by Gary, 2026-10-15 and 2026-10-16

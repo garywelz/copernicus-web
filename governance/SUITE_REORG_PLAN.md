@@ -1,5 +1,43 @@
 # Suite Reorganization & Maintenance Plan
 
+## Status as of 2026-10-16
+
+*Added 2026-10-16 by Core (Claude Code). The plan below is unchanged and is dated 2026-07-25 (last edited 2026-08-04). "Done" is claimed here only where a BULLETIN entry or a PR is cited, or where the item was re-checked on 2026-10-16 as stated. Anything not confirmed is "unknown", not guessed. Items recorded as done only in the plan's own 2026-08-04 pass, or in another repo's to-do, are "unknown" here because this check could not confirm them.*
+
+| Item | Status | Evidence |
+|---|---|---|
+| **Part 1** Engine/discipline architecture settled; governance shows engines apart from demonstrations | done | BULLETIN 001, 002, 017 (engine model, onboarding, engine scoping); the repo↔Space map in `governance/AGENT_ROLES.md` lists glmp, atap and tdap as engines |
+| Part 1: ATAP renamed from `mathematics-database` | done | `garywelz/atap` exists (2026-10-16 GitHub API check); manifest ATAP row |
+| Part 1: four discipline stub repos deleted | done | `biology-database`, `chemistry-database`, `computer-science-database`, `physics-database` each return 404 on the GitHub API (2026-10-16 check) |
+| Part 1: fetch-live header on all projects | done | BULLETIN 004 (headers in all four Cursor Projects and all seven of Gary's Claude Projects, 2026-09-28) |
+| Part 1: podcast collection listed under Products | done | `governance/RESOURCE_MANIFEST.md`, "Products" section (2026-10-16 check) |
+| Part 1: Resources and Products Claude Projects created; ATAP retitled and re-scoped | unknown | Claude Project state cannot be read from the repo (plan §6, item 2) |
+| Part 1: `huggingface-space/DISCIPLINE_DATABASES_PLAN.md` rewritten against the engine/discipline distinction | unknown | recorded done in this plan on 2026-08-04; not re-read on 2026-10-16 |
+| **Part 2** Option B (copernicus-web stays canonical for deploy-coupled content) | done (decision) | AGENTS.md, "This repo" |
+| Part 2: git-history depth check; the asset migration itself | unknown | depth check recorded in glmp `GLMP_MASTER_TODO.md` item 16 (2026-07-30), no BULLETIN entry or PR cited; no entry records any content moving |
+| **Part 3** Nightly chain (dependency ordering; six acquire cron lines; overnight relocation; production stages in the chain) | unknown, awaiting GLMP-lane report | runs on the Jetson, outside this repo |
+| **Part 4** ATAP focus file | done | BULLETIN 004 (`atap/docs/research_focus.json` has existed since July) |
+| Part 4: date-forward scout | unknown, awaiting GLMP-lane report | scout runs on the Jetson |
+| Part 4: daily brief; production selection | unknown | agent-shaped work; nothing recorded in a BULLETIN entry |
+| **Part 5** Findability probe | partly done | the probe is tracked at `cloud-run-backend/scripts/findability_probe.py` and `glmp/scripts/build_master_todo.py` has `read_findability_status` (2026-10-16 checks). Whether it runs nightly now: unknown, awaiting GLMP-lane report. Open: an anchor for every collection created later (plan, Part 5) |
+| **§6.1** Commit the plan | done | BULLETIN 001 (governance moved into this repo, PR #10) |
+| §6.2 Create Resources and Products projects; add headers; retitle ATAP | partly done | headers: BULLETIN 004; the rest: unknown (see Part 1) |
+| §6.3 Part 5 findability check | partly done | see Part 5 |
+| §6.4 ATAP focus file | done | BULLETIN 004 |
+| §6.5 Git-history depth check | unknown | see Part 2 |
+| §6.6 `sync_*` hardcodes, TSV provenance diagnostic, venv untracking | unknown | recorded done in this plan on 2026-08-04; not re-checked |
+| §6.6 IAM narrowing | open (in progress) | public access removal is done (BULLETIN 005, 006, 014, 018); service-account role narrowing is under way and tracked privately, with no public entry yet |
+
+**Open items recorded since the plan was written**
+- Gap 1b: 58.7% of `research_papers` carry no engine tag (auto-tagging not built) — BULLETIN 012.
+- Duplicates from two ingest paths: 136 documents across 68 shared DOIs and 64 across 32 arXiv IDs — BULLETIN 012.
+- Missing publication year: 43.8% of documents (52,279) — BULLETIN 012.
+- Fix 3, inline citation markers for the podcast generator (design only until approved) — BULLETIN 021.
+- Part 5 findability check: built (see above); open is its coverage of collections created later, and confirmation that it runs nightly.
+- Other users opening their own private episodes needs the subscriber session design — BULLETIN 024.
+
+---
+
 *Proposed canonical home: `copernicus-web/governance/SUITE_REORG_PLAN.md`.
 Per the Constitution §4, the record of truth is GitHub — this file is written
 to be committed there, not to live in a chat. Every Project's knowledge base

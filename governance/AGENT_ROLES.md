@@ -1,7 +1,7 @@
 # Agent Roles and Division of Labor
 ## CopernicusAI Knowledge Engine suite — every engine, every agent
 
-**Version:** 2.6 — October 6, 2026
+**Version:** 2.7 — October 16, 2026
 **Lives in:** `copernicus-web` repo at `governance/AGENT_ROLES.md` (moved from
 `glmp/docs/AGENT_ROLES.md`; see change log)
 **Read alongside:** the rest of `governance/` — Constitution, Methods Catalog, Resource
@@ -255,6 +255,17 @@ live fetch of this file fails.
     back-filled with a PR or bulletin entry once live (rule 17). Widening access never
     qualifies. See `governance/BULLETIN.md` entries 013, 014 and 018.
 
+19. **An agent merges a PR to `main` only when Gary has named that PR for merging.** It leaves a
+    PR comment quoting the go-ahead. If an agent's change causes a regression, it proposes the
+    fix and waits; it does not merge a repair unasked. Because agents' `gh` sessions are logged
+    in as Gary, the PR comment is the only record that distinguishes an agent's merge from
+    Gary's. (Found 2026-10-16: two citation-fix PRs, #127 and #128, were merged by an agent
+    without being named; each merge redeployed the public site.)
+20. **Write PR, issue and comment bodies with `--body-file` or the API, never through shell
+    interpolation.** Backticks in a heredoc or double-quoted string are executed, and Git Bash
+    on Windows runs a named file as a shell script even without the executable bit (found
+    2026-10-16, PR #130).
+
 ---
 
 ## The three hardware nodes
@@ -468,6 +479,10 @@ silently.
 ---
 
 ## Change log
+- **v2.7** (2026-10-16) — Added session rules 19 (an agent merges only a PR Gary has named, and
+  leaves a comment quoting the go-ahead; a regression is fixed by proposal, not by an unasked
+  merge) and 20 (PR, issue and comment bodies go through `--body-file` or the API, never shell
+  interpolation). See `governance/BULLETIN.md` entry 025.
 - **v2.6** (2026-10-06) — Rule 16 gains correction notes: levels 1 and 2 may be added as
   visible, dated notes that leave the original intact, with Gary as sole approver; level 3
   (withdrawal) follows the existing delete-not-repair procedure. See
