@@ -25,6 +25,26 @@ Entry format:
 
 ---
 
+## 026 — 2026-10-16 — Hosting cleanup Phase 2 executed (Batches 1 to 4.1); the proposal file is now the record
+
+- **From:** Claude Code (Core lane); approved by Gary in stages, 2026-10-05 to 2026-10-13
+- **Status:** DRAFT until Gary merges the PR that adds this entry
+- **Record:** the pull request that adds this entry (copernicus-web PR [#36](https://github.com/garywelz/copernicus-web/pull/36)); the file `governance/ARCHITECTURE_REVIEW_2026-10-01/phase2_hosting_cleanup_proposal.md`, whose "Execution status" section lists every step with its date, what was recorded then and what a read-only listing showed on 2026-10-16. Follows entries 005, 006, 009, 010, 011 and 018, which asked for this phase.
+- **Affects:** Core; the GLMP lane (the `generate-podcast` and `glmp_process_suggestion` functions); anyone who looks for a service, function or database named below
+- **Summary:**
+  - **Retired and deleted (2026-10-13):** six Cloud Run services (`copernicus-api`, `copernicus-backend`, `copernicus-research-backend`, `copernicus-podcast-generator`, `research-metadata-api`, `glmp-service`), the function `copernicus-podcast-form`, and the disabled service-account key recorded in entry 005 (not restorable; a new key would have to be issued). Eight Cloud Run services and five functions remain.
+  - **Stopped, not deleted (2026-10-05):** the Cloud SQL instances `copernicus-db`, `research-metadata-db` and `glmp-db`, after exports of each (the `glmp` database held no rows). The 7-day watch was accepted on 2026-10-13.
+  - **Hardened:** `scienceviddb-db` now has automated backups and deletion protection; `glmp-db` has deletion protection; `research-metadata-db`'s one authorized network was removed.
+  - **Pruned:** 299 old Cloud Run revisions (2026-10-05) and revision `copernicus-podcast-api-00262-kfx` (2026-10-12). The tags `step2` and `lockdown` were removed when the rollback holds ended on 2026-10-12.
+  - **Where the backups and reversals are:** a private bucket (`gs://regal-scholar-453620-r7-internal/phase2-2026-10/`): saved configs, function source zips, the three database exports, the image and revision lists. The reversal command for each step is in section 5 of the file. A deleted service comes back from its saved config while its image is still in Artifact Registry, so image deletion (4.3) is the step after which reversal needs a rebuild.
+  - **Not done:** build-archive and image clean-up (4.2, 4.3), the two redundant backup buckets (4.4), deletion of the three stopped databases (Batch 5) and the Vercel work. Minimum instances 1 to 0 was declined and the service was not changed for it.
+  - **What the file leaves out (rule 17):** findings whose fix is not live yet stay in the private note; the file says so where it omits them.
+- **Waiting on:**
+  - **Gary:** review and merge; a go-ahead for each remaining batch when he wants it.
+  - **Core:** nobody beyond routine until Gary gives that go-ahead.
+  - **GLMP lane:** the two functions named under Affects.
+  - **Methods & Tools:** nobody.
+
 ## 025 — 2026-10-16 — Governance documents brought up to date; rules 19 and 20 proposed; corpus totals replaced by pointers; stale-read check for Claude Chat headers
 
 - **From:** Claude Code (Core lane), at Gary's request
