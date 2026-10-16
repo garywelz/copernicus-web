@@ -46,7 +46,7 @@ the false-claim pattern this field exists to prevent.*
 |---|---|
 | GCP project (quota) | regal-scholar-453620-r7 |
 | GCS bucket(s) | Public: `regal-scholar-453620-r7-podcast-storage` (confirmed, e.g. `huggingface-space/scripts/generate_status_page.py:26`; media-in-GCS rule in `governance/AGENT_ROLES.md`, Copernicus consolidation). Private: `regal-scholar-453620-r7-internal` — **user-supplied, not repo-verified**: hosts the GLMP master TODO |
-| Firestore collection | `research_papers`, project `regal-scholar-453620-r7`, database `copernicusai` (project + database: `huggingface-space/scripts/media_catalog/export_episodes_catalog.py:26` (archived: the exporter was retired 2026-10-15, PR #125; it stays in git history); collection: `huggingface-space/scripts/export_research_papers_jsonl.py:3,7`) |
+| Firestore collection | `research_papers`, project `regal-scholar-453620-r7`, database `copernicusai` (project + database: `huggingface-space/scripts/media_catalog/export_episodes_catalog.py:26` (archived) (the exporter was retired 2026-10-15, PR #125; it stays in git history); collection: `huggingface-space/scripts/export_research_papers_jsonl.py:3,7`) |
 
 ## Status pages
 
