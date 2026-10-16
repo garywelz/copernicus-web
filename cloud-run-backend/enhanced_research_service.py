@@ -10,6 +10,7 @@ Integrates sophisticated patterns from legacy Copernicus architecture:
 import asyncio
 import aiohttp
 import json
+from json_reply import parse_json_reply
 import os
 from typing import Dict, List, Optional, Any, Tuple
 from datetime import datetime, timedelta
@@ -30,7 +31,7 @@ class PaperAnalysis:
     technical_complexity: str  # 'low', 'medium', 'high'
     suggested_questions: List[str]
     keywords: List[str]
-    paradigm_shift_potential: str
+    significance: str  # what this changes in how we see the question, as far as the paper supports; "none stated" if it claims nothing of the kind
     interdisciplinary_connections: List[str]
     practical_applications: List[str]
     future_research_directions: List[str]
@@ -39,7 +40,7 @@ class PaperAnalysis:
     # paper. Callers must exclude analysis_failed=True entries from
     # anything shown to the model or written into a description --
     # never publish "Research findings require further analysis" or a
-    # paradigm_shift_potential of "unknown" as if they were real content.
+    # significance of "unknown" as if they were real content.
     analysis_failed: bool = False
 
 @dataclass
@@ -162,8 +163,8 @@ class EnhancedResearchService:
         )
         
         try:
-            response = await self._call_google_ai(prompt, max_tokens=1500)
-            analysis_data = json.loads(response)
+            response = await self._call_google_ai(prompt, max_tokens=3000)
+            analysis_data = parse_json_reply(response)
             return self._validate_paper_analysis(analysis_data)
         except Exception as e:
             print(f"❌ Paper analysis error: {e}")
@@ -185,9 +186,11 @@ class EnhancedResearchService:
         )
         
         try:
-            response = await self._call_google_ai(prompt, max_tokens=1000)
-            connections = json.loads(response)
-            return connections if isinstance(connections, list) else [[] for _ in analyses]
+            response = await self._call_google_ai(prompt, max_tokens=2500)  # 1000 cut the reply off mid-sentence (2026-10-13)
+            connections = parse_json_reply(response)
+            if not isinstance(connections, list):
+                return [[] for _ in analyses]
+            return [c if isinstance(c, list) else [str(c)] for c in connections]
         except Exception as e:
             print(f"❌ Connection analysis error: {e}")
             return [[] for _ in analyses]
@@ -246,7 +249,7 @@ class EnhancedResearchService:
         
         try:
             response = await self._call_google_ai(prompt, max_tokens=1200)
-            themes_data = json.loads(response)
+            themes_data = parse_json_reply(response)
             
             themes = []
             for theme_data in themes_data.get("themes", []):
@@ -407,12 +410,10 @@ Thank you for joining us on this journey through the latest scientific discoveri
 Until next time, keep questioning, keep exploring, and keep pushing the boundaries of knowledge."""
 
     def _extract_citations(self, analyses: List[PaperAnalysis]) -> List[str]:
-        """Extract formatted citations from analyses"""
-        citations = []
-        for analysis in analyses:
-            citation = f"{analysis.title}. {', '.join(analysis.keywords[:3])}."
-            citations.append(citation)
-        return citations
+        """Gap 3 fix 1 (C2): no citation strings are produced here. The old version built "Title. keyword, keyword."
+        lines that looked like citations but were not registry data. This script path has no callers; real reference
+        lists are built by code from confirmed papers (paper_confirmation.format_citation_line)."""
+        return []
 
     def _generate_hashtags(self, topic: str, analyses: List[PaperAnalysis]) -> List[str]:
         """Generate relevant hashtags"""
@@ -449,7 +450,10 @@ Until next time, keep questioning, keep exploring, and keep pushing the boundari
             }],
             "generationConfig": {
                 "maxOutputTokens": max_tokens,
-                "temperature": 0.7
+                "temperature": 0.7,
+                # gemini-2.5-flash counts its hidden reasoning against maxOutputTokens; with it on, a 1500-token limit cut the
+                # JSON off mid-string (seen 2026-10-12). These calls extract structured text and need no reasoning.
+                "thinkingConfig": {"thinkingBudget": 0}
             }
         }
         
@@ -474,7 +478,7 @@ Until next time, keep questioning, keep exploring, and keep pushing the boundari
                 analysis_data[field] = self._get_default_value(field)
         
         # Add enhanced fields
-        analysis_data.setdefault("paradigm_shift_potential", "medium")
+        analysis_data.setdefault("significance", "none stated")
         analysis_data.setdefault("interdisciplinary_connections", [])
         analysis_data.setdefault("practical_applications", [])
         analysis_data.setdefault("future_research_directions", [])
@@ -508,7 +512,7 @@ Until next time, keep questioning, keep exploring, and keep pushing the boundari
             technical_complexity="medium",
             suggested_questions=["What are the key implications of this research?"],
             keywords=["research", "analysis"],
-            paradigm_shift_potential="unknown",
+            significance="unknown",
             interdisciplinary_connections=[],
             practical_applications=[],
             future_research_directions=[],
@@ -540,7 +544,9 @@ Until next time, keep questioning, keep exploring, and keep pushing the boundari
         """Structured paper analysis prompt (legacy pattern)"""
         return """
 Analyze this research paper with {complexity} complexity level.
-Focus on making the content accessible while maintaining accuracy.
+Report what the paper actually shows: its question, methods and findings, in plain, neutral language.
+Say only what the title and abstract support; do not add claims, numbers or importance that they do not state, and use no promotional
+or superlative wording. If the abstract gives little detail, say less rather than guess.
 
 Title: {title}
 Authors: {authors}
@@ -548,8 +554,8 @@ Abstract: {abstract}
 
 Provide analysis in JSON format:
 {{
-    "title": "Paper title in accessible terms",
-    "summary": "Clear explanation of main points",
+    "title": "The paper's title exactly as given above",
+    "summary": "What the paper did and found, in plain terms",
     "key_findings": ["Array of key findings"],
     "methodology": "Research approach description",
     "implications": "Real-world impact and applications",
@@ -557,7 +563,7 @@ Provide analysis in JSON format:
     "technical_complexity": "low/medium/high",
     "suggested_questions": ["Discussion questions"],
     "keywords": ["Relevant keywords"],
-    "paradigm_shift_potential": "low/medium/high",
+    "significance": "What this changes in how we see the question, as far as the paper itself supports; the words none stated if it claims nothing of the kind",
     "interdisciplinary_connections": ["Connected fields"],
     "practical_applications": ["Real-world uses"],
     "future_research_directions": ["Next steps"]

@@ -49,3 +49,6 @@ to or tighten the shared rules, never loosen their invariants
   `cloud-run-backend/DEPLOY.md`.** `cloud-run-backend/cloudbuild.yaml` builds and
   pushes the image only — it does not deploy, and a merge to `main` never touches
   this service.
+- **PR, issue and comment bodies: use `--body-file` (or the API), never shell interpolation**
+  (rule 20 in `governance/AGENT_ROLES.md`). Backticks in a heredoc or double-quoted string are
+  executed, and Git Bash on Windows will run a named file as a shell script.

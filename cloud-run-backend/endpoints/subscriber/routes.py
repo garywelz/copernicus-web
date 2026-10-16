@@ -22,6 +22,8 @@ from utils.subscriber_helpers import (
 )
 from config.database import db
 from config.constants import EPISODE_COLLECTION_NAME
+import asyncio
+import media_store
 from models.subscriber import (
     SubscriberRegistration,
     SubscriberLogin,
@@ -394,7 +396,6 @@ async def get_subscriber_podcasts(subscriber_id: str, auth: dict = Depends(requi
                     result_obj.update({
                         'audio_url': episode_data.get('audio_url') or result_obj.get('audio_url'),
                         'thumbnail_url': episode_data.get('thumbnail_url') or result_obj.get('thumbnail_url'),
-                        'description_url': episode_data.get('description_url') or result_obj.get('description_url'),
                         'transcript_url': episode_data.get('transcript_url') or result_obj.get('transcript_url'),
                     })
                     
@@ -423,7 +424,6 @@ async def get_subscriber_podcasts(subscriber_id: str, auth: dict = Depends(requi
                     result_obj_episodes = {
                         'audio_url': episode_data.get('audio_url'),
                         'thumbnail_url': episode_data.get('thumbnail_url'),
-                        'description_url': episode_data.get('description_url'),
                         'transcript_url': episode_data.get('transcript_url'),
                     }
                     
@@ -601,7 +601,18 @@ async def submit_podcast_to_rss(
                         creator_attribution = "".join(part[0].upper() for part in display_name.split() if part).strip() or None
 
             # Update RSS feed with new entry before committing Firestore changes
-            await rss_service.update_rss_feed(podcast_data, subscriber_payload, True, creator_attribution)
+            # A new episode's files are private: copy them to the public bucket (every copy verified) BEFORE the feed write. Fail closed.
+            try:
+                promotion = await asyncio.to_thread(media_store.promote, canonical)
+            except media_store.MediaError as media_error:
+                structured_logger.error("Media promotion failed; nothing was published", canonical=canonical, error=str(media_error))
+                raise HTTPException(status_code=500, detail="Could not publish the episode's files; nothing was changed")
+            try:
+                await rss_service.update_rss_feed(podcast_data, subscriber_payload, True, creator_attribution)
+            except Exception:
+                # The feed was not written: take the public copies made a moment ago back out, so a private episode is not left exposed
+                await asyncio.to_thread(media_store.demote, promotion.get("objects", []))
+                raise
                 
             # Update subscriber's RSS submission count
             if subscriber_payload is not None:
@@ -613,6 +624,7 @@ async def submit_podcast_to_rss(
             # Update podcast with RSS info and attribution
             update_data = {
                 'submitted_to_rss': True,
+                'media_state': 'public',
                 'rss_submitted_at': datetime.utcnow().isoformat()
             }
             

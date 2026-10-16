@@ -203,12 +203,16 @@ class EpisodeService:
             "description_markdown": description_markdown,
             "description_html": description_html,
             "script": result_data.get("script", ""),
+            # gap 3 fix 1: the confirmed papers, which of them the script names, and who built the lists
+            "papers": result_data.get("papers"),
+            "papers_named": result_data.get("papers_named"),
+            "requested_pid": result_data.get("requested_pid"),
+            "references_built_by": result_data.get("references_built_by"),
             "duration": result_data.get("duration"),
             "audio_url": result_data.get("audio_url"),
             "thumbnail_url": result_data.get("thumbnail_url") or DEFAULT_ARTWORK_URL,
             "episode_images": result_data.get("episode_images", []),  # Array of 1-2 image URLs
             "transcript_url": result_data.get("transcript_url"),
-            "description_url": result_data.get("description_url"),
             "episode_link": f"{EPISODE_BASE_URL}/{slug}",
             "submitted_to_rss": submitted_to_rss,
             "visible_on_web": bool(result_data.get("visible_on_web") or submitted_to_rss),
@@ -225,10 +229,13 @@ class EpisodeService:
             "assets": {
                 "audio_blob": cls._extract_blob_name_from_url(result_data.get("audio_url", "")),
                 "transcript_blob": cls._extract_blob_name_from_url(result_data.get("transcript_url", "")),
-                "description_blob": cls._extract_blob_name_from_url(result_data.get("description_url", "")),
                 "thumbnail_blob": cls._extract_blob_name_from_url(result_data.get("thumbnail_url", "")),
             },
         }
+
+        # Files of a newly generated episode are private until it is published; older records carry no media_state.
+        if result_data.get("media_state"):
+            episode_doc["media_state"] = result_data["media_state"]
 
         # Only set embedding fields when a valid one is present this call. This is
         # a merge=True upsert (see upsert_episode_document) -- unconditionally

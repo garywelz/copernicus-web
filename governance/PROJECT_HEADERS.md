@@ -3,7 +3,7 @@
 *Canonical home: `copernicus-web/governance/PROJECT_HEADERS.md`. The text pasted into each
 Claude Project's instructions and each Cursor Project is a snapshot of a block below. When a
 block changes here, re-paste it and post a bulletin entry. If a pasted copy and this file
-disagree, this file wins.* Version 1.3 — 2026-09-30. Governed by the *Shared context
+disagree, this file wins.* Version 1.4 — 2026-10-16. Governed by the *Shared context
 contract* in `governance/AGENT_ROLES.md` v2.0.
 
 Every URL is written out in full on purpose: Claude Chat can only fetch URLs that appear
@@ -109,4 +109,5 @@ Canonical governance lives in GitHub, not in this project's knowledge base. At t
 - https://raw.githubusercontent.com/garywelz/copernicus-web/main/governance/AGENT_ROLES.md  (lanes, session rules, repo↔Space map)
 - https://raw.githubusercontent.com/garywelz/copernicus-web/main/governance/BULLETIN.md  (read the newest entries; they say what changed and what is waiting on whom)
 When work in this project produces a decision other agents need, propose a BULLETIN.md entry or a governance amendment rather than leaving it only in this chat or in project memory.
+Stale-read check: a plain fetch of a raw.githubusercontent.com file can return an old copy for hours (BULLETIN entry 013). At the start of substantive work also fetch https://api.github.com/repos/garywelz/copernicus-web/commits?path=governance&per_page=5 and compare the newest governance commit with what the plain fetches returned (for example the newest BULLETIN entry number and the AGENT_ROLES version). If they disagree, re-read the file at that commit's sha instead of trusting the plain fetch.
 ```

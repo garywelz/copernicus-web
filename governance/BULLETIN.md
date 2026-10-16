@@ -25,6 +25,170 @@ Entry format:
 
 ---
 
+## 025 — 2026-10-16 — Governance documents brought up to date; rules 19 and 20 proposed; corpus totals replaced by pointers; stale-read check for Claude Chat headers
+
+- **From:** Claude Code (Core lane), at Gary's request
+- **Status:** DRAFT: rules 19 and 20 and the header change are proposals until Gary merges the PR that adds this entry
+- **Record:** the pull request that adds this entry; it follows entries 012 to 024
+- **Affects:** every agent (rules 19 and 20); Gary's Claude Projects (the header); anyone reading `governance/RESOURCE_MANIFEST.md` or `governance/SUITE_REORG_PLAN.md`
+- **Summary:**
+  - **Source-side check.** A read of the governance set on 2026-10-15 returned stale copies (the reader-side caching described in entry 013). Checking `main` document by document: `governance/CONSTITUTION.md` §1 already names TDAP (no change); `governance/RESOURCE_MANIFEST.md` was behind in four places and is fixed (no TDAP row; the podcast count; the internal bucket marked unverified; the podcast feed not recorded as the single distribution point).
+  - **`governance/SUITE_REORG_PLAN.md`** gains a dated status section mapping every Part and every recommended action to done, partly done, open or unknown, with the BULLETIN entry or PR for every "done". The plan's own text is unchanged. Parts 3 to 5 carry the GLMP lane's read-only Jetson evidence (its comment on the PR that adds this entry): ordering done; the acquire chain, overnight relocation, morning report, stage heartbeats, date-forward mode and the ATAP and TDAP scout sections open; the findability probe built and running, its latest ALERT a stale anchor (see the next finding).
+  - **Corpus totals.** The one living-document paragraph that stated a paper total now points at the live status file (119,321 on 2026-10-01, entry 012). Dated records keep their numbers.
+  - **The finding that matters most: the findability probe has likely been in ALERT since about 2026-09-30, and nothing surfaced it.** Its latest ALERT (2026-10-16) was a stale anchor: the episode the anchor expects was deleted on 2026-09-29 under rule 16, while retrieval of current public episodes is healthy. No report reads the probe's result (the Part 3 morning report is still open), so an ALERT could stand for more than two weeks unseen. The history of earlier runs was not available, so the start date is inferred from the deletion date. The fix (a guard that reports a missing anchor document as a stale anchor, plus fresh anchors) is a separate PR. Two older probe warnings are recorded as open items in the plan.
+  - **`governance/AGENT_ROLES.md` v2.7 (proposed):** rule 19 (an agent merges a PR only when Gary has named it, leaves a comment quoting the go-ahead, and fixes a regression by proposal) and rule 20 (PR, issue and comment bodies through `--body-file` or the API, never shell interpolation). Rule 16's archive protocol gains a step: update any findability-probe anchor that names the deleted item. AGENTS.md points at rule 20.
+  - **`governance/PROJECT_HEADERS.md` v1.4 (proposed):** the Claude Projects header gains a stale-read check: compare the newest governance commit, from the GitHub commits API, with what the plain fetches returned.
+- **Waiting on:**
+  - **Gary:** review and merge; re-paste the updated header into each Claude Project; replace the hard-coded "~62,900 papers" in the Core Project's instructions with a pointer to the live status file.
+  - **Core:** nobody beyond routine.
+  - **Methods & Tools:** nobody.
+  - **GLMP lane:** the open Jetson items listed under Parts 3 and 4 of the plan's status section.
+
+## 024 — 2026-10-16 — Private episode media is stored privately; publishing copies verified files to the public bucket; earlier private files migrated; leftover public files and the catalog retired
+
+- **From:** Claude Code (Core lane); decided by Gary, 2026-10-15 and 2026-10-16
+- **Record:** copernicus-web PRs [#123](https://github.com/garywelz/copernicus-web/pull/123) (private media storage, verified publishing, signed review links), [#124](https://github.com/garywelz/copernicus-web/pull/124) (audio combine fix), [#125](https://github.com/garywelz/copernicus-web/pull/125) (catalog retired); follows entry 023. Archives of retired files are private and are not in the repo.
+- **Affects:** Core; anyone who generates, reviews or publishes podcast episodes; anyone who reads episode media from the public bucket
+- **Summary:**
+  - **New episodes' media is stored privately.** Audio, transcript, thumbnail, episode images and video are written to a private bucket. The episode record keeps the address the file will have once published, so publishing changes no record.
+  - **Review uses signed links.** An admin endpoint returns short-lived signed links to an episode's files, and the "ready" email carries a 7-day signed link to the owner.
+  - **Publishing copies verified media to the public bucket.** Before the feed write, the episode's files are copied and checked (MD5, CRC32C and size); any mismatch stops the publish, and the copies are removed again if the feed write fails. Showing an episode on the website only has its own admin endpoint with the same verified copy.
+  - **Older private episodes migrated.** The files of the 27 private episodes, previously stored in the public bucket, were copied to the private bucket (103 files, every copy verified) and removed from the public one.
+  - **Leftover public files retired,** each archived privately with checksums first: files of 17 episode IDs that no longer have a record, 88 old scratch audio segments, a stale root feed file and six old feed copies. The live feed was not touched (generation and checksum unchanged). The episodes catalog and three one-off podcast extracts were retired earlier the same day (#125). The old feed backup copies named in entries 005, 007 and 008 are now in the private archive, no longer in the public bucket.
+  - **Audio combine fix.** The step that joins audio segments now always uses the route every published episode used; the streaming route had never completed in production and was no longer run once signing worked.
+- **Waiting on:**
+  - **Gary:** nothing from this entry.
+  - **Not yet:** other users opening their own private episodes; this needs the subscriber session design.
+  - **Core:** nobody beyond routine.
+  - **Methods & Tools:** nobody.
+
+## 023 — 2026-10-15 — Podcast pipeline: fix 1 and follow-ups live; first episode published under it; 39 earlier episodes withdrawn; description side files retired; private episodes no longer served by the public API
+
+- **From:** Claude Code (Core lane); decided by Gary, 2026-10-13 to 2026-10-15
+- **Record:** copernicus-web PRs [#79](https://github.com/garywelz/copernicus-web/pull/79) to [#114](https://github.com/garywelz/copernicus-web/pull/114) (fixes 2 to 8, banned wording), [#115](https://github.com/garywelz/copernicus-web/pull/115) (DEPLOY.md), [#116](https://github.com/garywelz/copernicus-web/pull/116) (page and feed presentation), [#117](https://github.com/garywelz/copernicus-web/pull/117) (real durations, requirements test), [#118](https://github.com/garywelz/copernicus-web/pull/118) (side files), [#120](https://github.com/garywelz/copernicus-web/pull/120) (public API access), [#121](https://github.com/garywelz/copernicus-web/pull/121) (animated player notice); builds on entries 019 to 021. Archives of withdrawn material are private and are not in the repo.
+- **Affects:** Core; anyone who generates or publishes podcast episodes, or who changes the feed or episode-page code
+- **Summary:**
+  - **Generation, live in production.** Fix 1 and its follow-ups changed what a generated script may say:
+    - **Confirmed papers only.** The script may name only papers that were retrieved and confirmed against a registry, and the reference list is built by code from the papers the script names.
+    - **Checks before an episode is accepted.** A naming check, an attribution check against the cited paper's abstract, a banned-wording list, a length cap (no padding of short scripts), a relevance gate on retrieved papers, and a re-run of every check on the final text.
+    - **Better retrieval.** Focused search queries sit beside the full topic sentence, and focused hits are ordered by the topic's rare terms.
+    - **Honest-gap rule.** When the retrieved papers do not cover something the topic names, the script says so instead of filling the gap, and the topic title is not read aloud.
+    - **Neutral inputs.** The analysis and generator prompts no longer invite hype.
+  - **Feed and episode pages.**
+    - **Linked references.** References are links (arXiv abstract, DOI or PubMed), with the structure of the description kept and the Hashtags section hidden on the page.
+    - **Real durations.** `itunes:duration` is now each episode's real audio length. 59 of the 74 items then in the feed carried a different value, and one rebuild of the feed corrected them.
+  - **First episode published under it:** `ever-math-260010`, on 2026-10-14.
+  - **Withdrawal of 35 earlier feed items under rule 16 (level 3), 2026-10-15.** Four episodes whose scripts were cut off mid-sentence, and 31 July 2025 episodes that have no stored script or transcript and so cannot be verified. The feed went from 74 items to 39. Records and files were archived privately with checksums verified before anything was deleted, and every page, API record and file address was checked to return 404. The feed was backed up first and written once with a generation precondition. The same day, by Gary's decision, four more episodes were archived and deleted the same way (three website-only episodes that were never in the feed, and one feed episode), taking the feed from 39 to 38 items. One of the four, the first animated episode, had its animation pack (frames, cues and player files) archived together as a labeled prototype set so the animated player can be revived with a new episode; the player stays in the repository and shows a "coming back" notice when no episode is named or its pack is gone.
+  - **Deliberate exception to rule 16, by Gary's decision (2026-10-15).** The title of `ever-math-260010` was changed in its record, its page and its feed item, because the earlier title promised more about dependency graphs than the episode delivers. The audio, script and references are unchanged. It is Gary's decision, not an agent repair, and sets no precedent: agents still do not edit generated content.
+  - **Description side files retired.** The generator no longer writes `descriptions/<id>.md` or stores a link to it. Nothing read the files (pages and the feed use the stored description), and over 40% of them held placeholder or stock text. The existing 122 were archived privately and removed from the public bucket.
+  - **`cloud-run-backend/DEPLOY.md` additions.** After any merge to `main`: fetch at least two real production episode pages and expect 200; confirm `/api/version` returns the merge commit; and confirm the merge's check suites list the Vercel app (a push that GitHub never delivered produces no deployment of any kind).
+  - **Public API access.** Private episodes are no longer served by the public API routes.
+  - **A new test.** Every third-party package imported by the feed code must be listed in `requirements.txt`; a package installed only on a developer machine had left the feed's HTML description unrendered in production.
+- **Waiting on:**
+  - **Gary:** nothing outstanding from this entry. The one remaining website-only episode, `ever-bio-260010`, stays on the website until he replaces it (decided).
+  - **Core:** nobody beyond routine.
+  - **Methods & Tools:** nobody.
+
+## 022 — 2026-10-13 — Public episode pages returned 500 for about 2 hours 20 minutes; new rules for checking the site after a merge
+
+- **From:** Claude Code (Core lane), reviewed by Gary
+- **Record:** `copernicus-web` PR [#76](https://github.com/garywelz/copernicus-web/pull/76) (the merge that caused it) · PR [#78](https://github.com/garywelz/copernicus-web/pull/78) (hotfix) · PR [#83](https://github.com/garywelz/copernicus-web/pull/83) and PR [#88](https://github.com/garywelz/copernicus-web/pull/88) (`cloud-run-backend/DEPLOY.md` rules) · `cloud-run-backend/tests/vercel_bundle.test.js` and `cloud-run-backend/tests/further_reading_route.test.js` (the guards)
+- **Affects:** anyone who merges to `copernicus-web` `main`; Core; readers of www.copernicusai.fyi (the episode pages, not the feed or the audio)
+- **Summary:**
+  - **What happened.** From about 18:37Z to about 20:58Z on 2026-10-13, every public episode page (`/episodes/<id>`) returned HTTP 500 (`FUNCTION_INVOCATION_FAILED`), old episodes included. The home page, the RSS feed and the audio files were not affected; they do not use that function.
+  - **Cause.** PR #76 moved a shared helper (`api/_lib/further-reading.js`) into `lib/` and made both episode handlers require it. `.vercelignore` excludes `lib/`, so the deployed functions could not load the file and crashed on every request. Every test and check passed, because the tests ran locally, where `lib/` exists, and the Vercel build itself succeeded. Nothing looked at a real production page afterwards.
+  - **Fix.** Gary reversed it first with a Vercel instant rollback to the deployment before the merge (about 20:58Z). Hotfix PR #78 then moved the helper to `api/_lib/`, which is deployed, and merged.
+  - **A second finding, the same day.** After an instant rollback Vercel stops promoting new deployments automatically. The "pages return 200" checks made after the hotfix and after the next merge were therefore served by the rolled-back deployment, not by the new one, and proved nothing about the new code. Gary found this, tested the newest deployment on its own URL, promoted it and re-enabled auto-assigning of production domains.
+  - **New rules in `cloud-run-backend/DEPLOY.md`** ("After any merge to `main`: check the public site"): after any merge to `main`, fetch at least two real production episode pages, one recent and one old, and confirm 200 before reporting the deploy done; and after an instant rollback, **verify the production deployment's commit**, not only page status, because a green build and a 200 do not show that the new deployment is the one serving production.
+  - **New guards in the tests.** `cloud-run-backend/tests/vercel_bundle.test.js` fails if any local file an `api/` function requires is excluded by `.vercelignore` (it fails on the old `lib/` layout and passes on the fix). `cloud-run-backend/tests/further_reading_route.test.js` requests the real public route (`/episodes/<id>`, resolved through the route table in the vercel.json file at the repository root to the handler file) rather than a handler that is not the public route, which is how the first version of the Further reading feature had been put in the wrong file.
+  - **Known limit.** The tests model `.vercelignore` with a small matcher that covers the patterns this repo uses; a new kind of pattern would need the matcher extended. Neither test replaces the post-merge fetch of real pages.
+- **Waiting on:**
+  - **Gary:** review and merge this entry; nothing else from the outage.
+  - **Core:** apply the two `cloud-run-backend/DEPLOY.md` rules on every merge to `main`.
+  - **Methods & Tools:** nobody.
+
+## 021 — 2026-10-08 — Gap 3 baseline evaluation: results and decisions
+
+- **From:** Claude Code (Core lane), decided by Gary 2026-10-08
+- **Record:** PR #41 (design proposal) and entry 020 (design decisions); the evaluation report is a private working document and is not in the repo
+- **Affects:** Core; Methods & Tools (the result-record format); anyone who generates or publishes podcast episodes
+- **Summary:**
+  - **What was run.** The checks from the design were run once, read-only, on the 20 most recent public episodes that store a script, with both model rosters, plus a seeded-error test. Gary judged 80 items: 60 sampled flags and 20 claims that no claim-level check had flagged. Provider spend was about $3.25 of a $7 ceiling. Nothing was written to any episode, audio, feed, corpus or database document.
+  - **Results, in aggregate.**
+    - **Flags overall:** 45% judged real or minor (26 of 58 decided). The two rosters were the same (45% and 44%). Of the 20 unflagged claims, none was a problem.
+    - **By check:** source support 5%, model disagreement 8%, missing paper 46%, reading the script alone 42%. Three judges agreeing a source did not support a claim did not help.
+    - **What separated good flags from bad:** a flagged claim with **no matched source** was real or minor in 96% of decided cases (24 of 25); a flagged claim **with** a matched source, in 6% (2 of 33). Where a source had been matched, it was the right one in every decided case (47 of 47).
+    - **Floor metrics, measured, not graded:** the stricter grounding measure (a claim supported by its cited source) was about 51% for the adopted roster against the 90% target, and citation integrity was 82% against 95%. Of 124 reference lines, 21 carry no identifier.
+    - **Seeded errors:** the script-alone pass caught 8 of 11 planted errors with roster A's models and 9 of 11 with roster B's; only 11 plants per roster were possible.
+    - **How to read "real":** it mostly meant "this statement needs a source", not "this statement is wrong". No flagged statement was found to be false. The commonest serious pattern was a paper named in the script, with a promise of a link, that is missing from the reference list.
+  - **Decisions.**
+    - **Roster A is adopted.**
+    - **"No matched source" becomes the primary flag.** New checks: a paper named in the script but absent from the reference list, and duplicate references. Per-claim source support and model disagreement are retired in their current form. The missing-paper check runs only on claims with no matched source. The script-alone check stays on all claims. On claims that have a matched source, its flag is reported only when all three of roster B's models raise it (about $0.024 more per episode, estimated); every other check uses roster A. Until fix 3 exists, the primary flag shows the nearest reference lines next to the claim, so a listed reference the system failed to connect to a claim can be told apart from a truly missing reference.
+    - **Upstream generation fix 1 is approved for design, in an extended form:** the script may name only retrieved, confirmed papers, and the reference list is built from every paper the script names. **Fix 3 (inline citation markers) follows** because the evaluation showed claim-to-source attribution failing (a named paper that is in the list but was not matched to its claim). **Fix 2 (full abstracts to the generator) is deferred:** no evidence of need.
+    - **Gary's ratings of two items stand as recorded;** the attribution failure behind them is recorded as a finding, with no re-judging.
+    - **A reference-title mismatch found by Core's check is closed with no correction note.** The reference was correct for the paper version cited (the paper was retitled in a later version), so the check was a false alarm. Reference-title checks now compare against the version actually cited, not the latest version.
+  - **Known limits.** Samples are small (per-check samples of 12 to 44 items, 11 seeded plants per roster), so the figures show direction, not precision. Source text is the abstract only. The evaluation judged claims against abstracts, so it cannot say whether a claim is supported by the full paper.
+- **Waiting on:**
+  - **Gary:** nothing from this evaluation.
+  - **Core:** design of the extended fix 1, then fix 3 (design only until approved); rewrite and regression-test the source-support prompt; render math and show the full reference list in the next judging package; a fresh judging round on the script-alone pass with roster B's models.
+  - **Methods & Tools:** review of the shared result-record format (entry 020), still open.
+
+## 020 — 2026-10-06 — Gap 3 (layers 1-2) design decisions
+
+- **From:** Claude Code (Core lane), decided by Gary 2026-10-06 on review of PR #41
+- **Record:** PR #41 (design proposal, draft), PR #42 (AGENT_ROLES v2.6, draft); builds on entry 019
+- **Affects:** Core, and Methods & Tools (the result-record format); anyone who generates or publishes podcast episodes
+- **Summary:**
+  - **Suspicion reports, not scores.** The checker flags only the spots it doubts, each with evidence, and never produces a pass/fail or a numeric score. Gary's judgment is final.
+  - **The NSF metrics are the floor.** Grounding of at least 90% and citation integrity of at least 95% are reported next to every run as rates beside their targets, with no verdict. The goal is stricter: flag claims whose cited source does not support them.
+  - **Post-publish checking.** The checker runs after an episode is published and never blocks publishing. Version 1 runs on demand from Claude Code; a scheduled Cloud Run job comes only after the evaluation. Both model rosters (low cost and stronger) run on the evaluation.
+  - **Severity ladder, Gary the only approver at every level.** Level 1, a correction note; level 2, a prominent correction note; level 3, withdrawal under the existing delete-not-repair procedure. Levels 1 and 2 are visible, dated additions that leave the original intact. Rule 16 is amended to say so in AGENT_ROLES v2.6 (PR #42).
+  - **Upstream generation fixes, in build order:** (1) full abstracts to the generator instead of 300 characters; (2) references built in code only from papers confirmed to exist in PubMed, arXiv or Crossref, with no LLM-written citation strings; (3) inline citation markers in the script, stripped before audio; (4) every cited paper ingested into `research_papers`. A topic that cannot find enough confirmed sources fails with a clear failure email instead of publishing with unverified references. Each fix is a gated deploy and is measured against a baseline evaluation on the latest 20 public episodes.
+  - **Podcast scripts first, then paper drafts.**
+  - **Email.** Subscribers receive their own "ready" and failure emails once the sender app password is set up. Suspicion reports and sweep emails go only to Gary, by a separate path.
+  - **Shared result record.** The record format in the proposal (section 4.9) is meant for Methods & Tools layer 3 results too; it should be agreed with them before either side builds.
+- **Waiting on:**
+  - **Gary:** merge decisions on PR #41 and PR #42; create the notification sender account and app password; approve the key check (one tiny call per provider key) before any provider spend.
+  - **Methods & Tools:** review the result-record format.
+  - **Core:** the key check, once approved; then the baseline evaluation.
+
+## 019 — 2026-10-06 — Gap 3 (verification loop) scope split between Core and Methods & Tools
+
+- **From:** Claude Chat (architecture review), decided by Gary 2026-10-05
+- **Record:** this entry; no other repo change
+- **Affects:** Core, and the Methods & Tools project; anyone building verification for the engines (GLMP, ATAP, TDAP)
+- **Summary:**
+  - **Core builds verification layers 1 and 2.**
+    - **Layer 1, faithfulness:** whether generated text (podcast scripts, RAG answers) says what its cited sources say, measured against the targets from the NSF proposal: grounding of at least 90% and citation integrity of at least 95% (`nsf-proposal/NSF_Project_Description.md:128`). The proposal defines grounding as the fraction of claims with traceable supporting sources and citation integrity as the share of citations that resolve to stable identifiers (`nsf-proposal/NSF_Project_Description.md:122`).
+    - **Layer 2, cross-checking by independent models:** one model reviewing another's output, built on the multi-model setup that exists. Several model providers are wired in, but each request uses one: `cloud-run-backend/services/rag_service.py:207-243` picks OpenAI first and Vertex only as a fallback, and the Anthropic option looks unused by default (`governance/ARCHITECTURE_REVIEW_2026-10-01/system_map.md:161`, "not confirmed inactive"). No code compares one model's output with another's. The Vertex path is switched off on the live API by the `DISABLE_VERTEX_AI` flag (`cloud-run-backend/services/rag_service.py:132`, `cloud-run-backend/main.py:336-339`; the flag is set on `copernicus-podcast-api`, read 2026-10-05). The NSF proposal describes the checker as planned research, "Model A generates, Model B critiques" (`nsf-proposal/NSF_Project_Description.md:84`), and says "reliability mechanisms need development" (`nsf-proposal/NSF_Project_Description.md:82`). The glmp service's validation routes ([`ai_validate` and `openrouter_validate`, lines 584-678](https://github.com/garywelz/glmp/blob/main/glmp-cloud-service/main.py)) check one process with one model per call and went off with that service (entry 018).
+  - **Layer 3, domain verification, is method development and belongs to Methods & Tools.**
+    - Lean formalization for ATAP and other mathematics work.
+    - Evo-class and virtual cell models (run on Colab) as computational evidence for GLMP and other biology work.
+    - **Lean results count as verification; model predictions count as evidence, not proof.**
+  - **Core will prepare to receive layer 3 results:** a place to store each verification result, linked to the paper, claim or process document it concerns, and a way to show it in the engines. A shared result-record format should be agreed before either side builds.
+- **Waiting on:**
+  - **Gary:** the gap 3 interview, 2026-10-06.
+  - **Core:** a result-record proposal, after the interview.
+  - **Methods & Tools:** scope a Lean pilot on ATAP material, and an Evo experiment protocol for GLMP.
+
+## 018 — 2026-10-04 — glmp-service closed to the public; stale revision tags removed; entry 009 corrected
+
+- **From:** Claude Code (Core lane), approved by Gary
+- **Record:** changes made in Google Cloud, not in a repo; reversals below. Filed privately until the fix was live (rule 17); published now that it is.
+- **Affects:** the GLMP lane, and anyone who deploys `glmp-service` or `copernicus-podcast-api`
+- **Summary:**
+  - **What was exposed.** The Cloud Run service `glmp-service` accepted unauthenticated calls on every route, and its code has no authentication. One route, `GET /api/secrets/list`, returns the names of every secret in the project's Secret Manager: names only, no values (from the source). Several POST routes call paid providers with keys held server-side.
+  - **What the logs show.** The 30-day request log (2026-09-04 to 2026-10-04) holds 10 requests and no POSTs. Nine were probes of POST-only routes (`405`). On 2026-09-21 one `GET /api/secrets/list` returned the list of secret names to a caller we could not identify, and nothing indicates it was one of ours. Older logs were not available.
+  - **Fix.** Public access was removed on 2026-10-04 and anonymous requests now get `403` (verified 2026-10-05 00:43 UTC; a first check six seconds after the change still got `200`, because IAM changes take a short time to take effect). No caller in any repo, Hugging Face Space, public page or other service needs it public. The previous policy and configuration are saved in the private internal bucket. To reverse: `gcloud run services add-iam-policy-binding glmp-service --region=us-central1 --member=allUsers --role=roles/run.invoker`.
+  - **Revision tags removed** from `copernicus-podcast-api`: `fixes0930`, `test` and `lockdown`. A tag gives a revision its own URL with the service's public access, so revisions older than the lockdown in entry 014 were reachable by URL. Rollback goes by revision name and is unaffected; `step2` (`-00268-muc`) and `gap1-engine` stay. To reverse: `gcloud run services update-traffic copernicus-podcast-api --region us-central1 --update-tags=fixes0930=copernicus-podcast-api-00264-sug,test=copernicus-podcast-api-00097-xal,lockdown=copernicus-podcast-api-00266-nav`.
+  - **Correction to entry 009.** It named "revision -00262-kfx and the fixes0930 tag" as the rollback path. The tag was on `-00264-sug`; `-00262-kfx` never carried one. The tag is gone, and rollback is by revision name.
+  - **A redeploy would have undone the first fix, and cannot now.** The glmp repo's build file and seven documents beside it passed `--allow-unauthenticated`. [glmp#23](https://github.com/garywelz/glmp/pull/23) (commit ae1de18) switched them to `--no-allow-unauthenticated` and added a [RETIRED.md](https://github.com/garywelz/glmp/blob/main/glmp-cloud-service/RETIRED.md) note beside the service's code. No Cloud Build triggers exist in the project, so nothing redeploys the service automatically.
+- **Waiting on:**
+  - **Gary:** check OpenAI, OpenRouter and other provider usage since 2025-10 for unexplained spend (the logs cover only 30 days); decide whether to delete `glmp-service` (nothing calls it, and glmp#23 marked it retired).
+  - **GLMP lane:** nothing; glmp#23 is merged.
+  - **Key review:** the Jetson's credential was identified and is not the disabled key.
+  - **Collaborators:** nobody.
+
 ## 017 — 2026-10-04 — Engine scoping live: GLMP, ATAP and TDAP toggles now scope Browse, Search and Ask Questions
 
 - **From:** Claude Code (Core lane), approved by Gary

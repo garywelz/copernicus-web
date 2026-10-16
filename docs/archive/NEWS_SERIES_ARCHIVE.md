@@ -12,7 +12,10 @@ restarted.
   2026-09-29. Pre-removal backup:
   `feeds/old feeds/copernicus-mvp-rss-feed.pre-news-removal-2026-09-29.xml`
   (bucket `regal-scholar-453620-r7-podcast-storage`).
-- **Audio** (untouched, still in the bucket):
+  *Update 2026-10-16:* this backup is no longer in the public bucket; it is in the private archive.
+- **Audio** (unchanged; *update 2026-10-16:* moved from the public bucket to the private media bucket
+  `regal-scholar-453620-r7-private-media`, same object names, every copy checksum-verified, so these
+  files are no longer publicly reachable):
   `audio/news-bio-28032025.mp3`, `audio/news-chem-28032025.mp3`,
   `audio/news-compsci-28032025.mp3`, `audio/news-math-28032025.mp3`,
   `audio/news-phys-28032025.mp3`.

@@ -42,6 +42,16 @@ Conventions it understands
   ambiguity is what prompted this fix.)
 * A bare filename may resolve anywhere in the tracked tree; if it does,
   that's reported as a WARN (imprecise but not wrong) rather than an error.
+* A path that does not resolve as written but does under `cloud-run-backend/`
+  (entries written before the backend folder was cited with its prefix) is
+  reported as IMPRECISE with the note "resolved via cloud-run-backend/ prefix";
+  it is never counted as resolved. If a path resolves as written AND under that
+  prefix to a different file, it is reported as AMBIGUOUS and fails the check.
+* A bare filename listed in SIBLING_PATHS (a known file of a sibling repo) is
+  accepted only when the repo's name appears on the same line, and is listed in
+  its own SIBLING-REPO section with the full path and the reason. A bare name
+  with no sibling-repo name on its line is DEAD as before. Known limit: only the
+  same line is looked at, not the rest of the entry.
 * Names in CROSS_REPO live in sibling repos by design and are skipped.
 * A citation whose surrounding text contains "(archived)" is treated as a
   deliberate pointer to something outside the tree and is skipped. Use this
@@ -67,6 +77,25 @@ CROSS_REPO = {
     "app.py",
     "requirements.txt",
 }
+
+# Bare filenames that are known to live in a sibling repo, with the full path there and the
+# reason. Unlike CROSS_REPO (accepted anywhere), a name here counts only on a line that also
+# names the sibling repo (e.g. "glmp"), so a stray bare `run_batch.py` elsewhere is still DEAD.
+SIBLING_PATHS = {
+    "run_batch.py": (
+        "glmp",
+        "collaborations/krampis-virtual-cell/dna-decoder/scripts/run_batch.py",
+        "glmp PR #22 (merge commit f601fa2), cited by BULLETIN entry 016",
+    ),
+    "select_batch.py": (
+        "glmp",
+        "collaborations/krampis-virtual-cell/dna-decoder/scripts/select_batch.py",
+        "glmp PR #22 (merge commit f601fa2), cited by BULLETIN entry 016",
+    ),
+}
+
+# A path with a directory that does not resolve as written is tried once under this prefix.
+FALLBACK_PREFIX = "cloud-run-backend/"
 
 # A citation prefixed with a sibling repo's name points outside this repo by
 # design, e.g. `glmp/archive/foo.md`. Not checkable from here.
@@ -103,6 +132,7 @@ def tracked_files():
 def check(docs):
     index, tracked_set = tracked_files()
     errors, warnings, untracked, skipped, ok = [], [], [], 0, 0
+    ambiguous, sibling = [], []
 
     for doc in docs:
         with open(doc, encoding="utf-8") as fh:
@@ -121,11 +151,23 @@ def check(docs):
                     skipped += 1
                     continue
 
+                if "/" not in cited and cited in SIBLING_PATHS:
+                    repo, fullpath, why = SIBLING_PATHS[cited]
+                    if re.search(rf"\b{re.escape(repo)}\b", line, re.IGNORECASE):
+                        sibling.append((doc, lineno, cited, f"{repo}:{fullpath}", why))
+                        continue
+
                 if "/" in cited:
+                    fallback = FALLBACK_PREFIX + cited
                     if cited in tracked_set:
-                        ok += 1
+                        if fallback in tracked_set:
+                            ambiguous.append((doc, lineno, cited, fallback))
+                        else:
+                            ok += 1
                     elif os.path.exists(cited):
                         untracked.append((doc, lineno, cited))
+                    elif fallback in tracked_set:
+                        warnings.append((doc, lineno, cited, fallback, f"resolved via {FALLBACK_PREFIX} prefix"))
                     else:
                         alt = index.get(base, [])
                         hint = f" (found at {alt[0]})" if alt else ""
@@ -134,11 +176,11 @@ def check(docs):
                     found = index.get(base, [])
                     if found:
                         ok += 1
-                        warnings.append((doc, lineno, cited, found[0]))
+                        warnings.append((doc, lineno, cited, found[0], "bare filename, resolves elsewhere in tree"))
                     else:
                         errors.append((doc, lineno, cited, ""))
 
-    return errors, warnings, untracked, skipped, ok
+    return errors, warnings, untracked, skipped, ok, ambiguous, sibling
 
 
 def main():
@@ -147,18 +189,30 @@ def main():
         print("No governance/*.md found. Run from the repo root.", file=sys.stderr)
         return 2
 
-    errors, warnings, untracked, skipped, ok = check(docs)
+    errors, warnings, untracked, skipped, ok, ambiguous, sibling = check(docs)
 
     print(f"Checked {len(docs)} governance documents.")
     print(
         f"  resolved: {ok}   dead: {len(errors)}   untracked: {len(untracked)}"
-        f"   imprecise: {len(warnings)}   skipped: {skipped}"
+        f"   imprecise: {len(warnings)}   ambiguous: {len(ambiguous)}"
+        f"   sibling-repo: {len(sibling)}   skipped: {skipped}"
     )
 
     if warnings:
-        print("\nIMPRECISE — cited by bare filename, resolves elsewhere in tree:")
-        for doc, lineno, cited, found in warnings:
-            print(f"  {doc}:{lineno}  `{cited}`  ->  {found}")
+        print("\nIMPRECISE — resolves, but not exactly as written:")
+        for doc, lineno, cited, found, note in warnings:
+            print(f"  {doc}:{lineno}  `{cited}`  ->  {found}  ({note})")
+
+    if sibling:
+        print("\nSIBLING-REPO — bare name of a file in another repo, accepted because that repo is named on the same line:")
+        for doc, lineno, cited, where, why in sibling:
+            print(f"  {doc}:{lineno}  `{cited}`  ->  {where}  ({why})")
+
+    if ambiguous:
+        print("\nAMBIGUOUS — resolves as written AND under the cloud-run-backend/ prefix, to different files:")
+        for doc, lineno, cited, other in ambiguous:
+            print(f"  {doc}:{lineno}  `{cited}`  (as written, and {other})")
+        print("  Write the full path so the citation names one file.")
 
     if untracked:
         print("\nUNTRACKED — file is present locally but not committed:")
@@ -180,9 +234,10 @@ def main():
         )
         return 1
 
-    if untracked:
+    if untracked or ambiguous:
         # Untracked citations fail too: they resolve only on one machine.
         # Flip this to `return 0` if you'd rather they warn without blocking.
+        # Ambiguous ones fail because a reader cannot tell which file is meant.
         return 1
 
     print("\nAll citations resolve.")

@@ -1,6 +1,6 @@
 """Public and episode endpoints"""
 
-from fastapi import APIRouter, HTTPException, Query
+from fastapi import APIRouter, Header, HTTPException, Query
 from typing import Optional
 from datetime import datetime
 import re
@@ -10,6 +10,7 @@ from google.cloud import firestore
 from google.cloud import storage
 
 from utils.logging import structured_logger
+from utils.episode_access import is_public_episode, admin_key_ok
 from config.database import db
 from config.constants import (
     EPISODE_COLLECTION_NAME,
@@ -131,9 +132,10 @@ async def get_public_podcasts(category: Optional[str] = None, limit: int = 500):
 async def list_episode_catalog(
     category: Optional[str] = Query(None),
     submitted: Optional[bool] = Query(None),
-    limit: int = Query(500)
+    limit: int = Query(500),
+    x_admin_api_key: Optional[str] = Header(None, alias="X-Admin-API-Key"),
 ):
-    """List episodes from the canonical catalog (includes drafts + published)."""
+    """List episodes from the catalog: public ones (feed or website); private ones too only with the admin key header."""
     if not db:
         raise HTTPException(status_code=503, detail="Firestore service is unavailable")
     try:
@@ -145,12 +147,18 @@ async def list_episode_catalog(
         category_slug = _category_value_to_slug(category) if category else None
         if category_slug:
             query = query.where('category_slug', '==', category_slug)
-        episodes_query = query.order_by('generated_at', direction=firestore.Query.DESCENDING).limit(limit)
+        see_all = admin_key_ok(x_admin_api_key)
+        # Private episodes are dropped after reading, so a public request reads a wider window than `limit`
+        episodes_query = query.order_by('generated_at', direction=firestore.Query.DESCENDING).limit(limit if see_all else 1000)
         episodes = []
         for doc in episodes_query.stream():
             payload = doc.to_dict() or {}
+            if not see_all and not is_public_episode(payload):
+                continue
             payload['episode_id'] = doc.id
             episodes.append(payload)
+            if len(episodes) >= limit:
+                break
         return {
             "episodes": episodes,
             "total_count": len(episodes),
@@ -169,7 +177,8 @@ async def list_episode_catalog(
 async def search_episodes(
     q: str = Query(...),
     limit: int = Query(100),
-    search_transcripts: bool = Query(False)
+    search_transcripts: bool = Query(False),
+    x_admin_api_key: Optional[str] = Header(None, alias="X-Admin-API-Key"),
 ):
     """Search episodes by title, description, or transcript.
     
@@ -188,6 +197,8 @@ async def search_episodes(
         search_terms = q.strip().lower().split()
         limit = min(limit, 500)
         
+        see_all = admin_key_ok(x_admin_api_key)
+
         # Fetch all episodes (or a large subset)
         # We'll filter in Python since Firestore doesn't have full-text search
         query = db.collection(EPISODE_COLLECTION_NAME)
@@ -199,6 +210,8 @@ async def search_episodes(
         # First pass: search title and description
         for doc in episodes_query.stream():
             data = doc.to_dict() or {}
+            if not see_all and not is_public_episode(data):
+                continue   # private episodes are not searchable (title, description or transcript) without the admin key
             episode_id = doc.id  # Fix: define episode_id here
             
             # Extract searchable text
@@ -361,8 +374,8 @@ async def search_episodes(
 
 
 @router.get("/api/episodes/{episode_id}")
-async def get_episode_record(episode_id: str):
-    """Fetch a single episode from the catalog."""
+async def get_episode_record(episode_id: str, x_admin_api_key: Optional[str] = Header(None, alias="X-Admin-API-Key")):
+    """Fetch a single episode from the catalog. A private episode answers 404 unless the admin key header is sent."""
     if not db:
         raise HTTPException(status_code=503, detail="Firestore service is unavailable")
     try:
@@ -370,7 +383,13 @@ async def get_episode_record(episode_id: str):
         if not doc.exists:
             raise HTTPException(status_code=404, detail="Episode not found")
         payload = doc.to_dict() or {}
+        if not is_public_episode(payload) and not admin_key_ok(x_admin_api_key):
+            raise HTTPException(status_code=404, detail="Episode not found")
         payload['episode_id'] = doc.id
+        # The description side files (descriptions/<id>.md) are no longer published; older records still carry their URL, which is not served
+        payload.pop('description_url', None)
+        if isinstance(payload.get('assets'), dict):
+            payload['assets'] = {k: v for k, v in payload['assets'].items() if k != 'description_blob'}
         return payload
     except HTTPException:
         raise

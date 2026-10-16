@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import Optional, List
 import uuid
+import media_store
 from datetime import datetime, timedelta, timezone
 import os
 import asyncio
@@ -591,7 +592,7 @@ async def generate_content_vertex_ai(request: PodcastRequest) -> dict:
         options = AnalyzeOptions(
             focus_areas=request.focus_areas or ["methodology", "implications", "future_research"],
             include_citations=request.include_citations,
-            paradigm_shift_analysis=request.paradigm_shift_analysis
+            significance_analysis=request.paradigm_shift_analysis
         )
         
         # Process paper
@@ -623,7 +624,7 @@ async def generate_content_google_api(request: PodcastRequest, google_key: str) 
             focus_areas=request.focus_areas or ["methodology", "implications", "future_research"],
             analysis_depth="comprehensive",
             include_citations=request.include_citations,
-            paradigm_shift_analysis=request.paradigm_shift_analysis,
+            significance_analysis=request.paradigm_shift_analysis,
             interdisciplinary_connections=True
         )
         
@@ -1350,184 +1351,6 @@ async def generate_audio_google_tts(script: str, job_id: str) -> str:
     return f"https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/audio/demo-{job_id[:8]}.mp3"
 
 @retry_upload(max_retries=3, delay=2)
-async def upload_description_to_gcs(description: str, canonical_filename: str, title: str = "", topic: str = "") -> str:
-    """Upload episode description to GCS descriptions folder with hashtags"""
-    try:
-        from google.cloud import storage
-        from content_fixes import generate_relevant_hashtags, validate_academic_references
-        
-        # Initialize GCS client
-        storage_client = storage.Client()
-        bucket = storage_client.bucket("regal-scholar-453620-r7-podcast-storage")
-        
-        # Extract topic from canonical filename for hashtag generation
-        filename_parts = canonical_filename.split('-')
-        if len(filename_parts) >= 2:
-            category = filename_parts[1].upper()
-            if category == 'BIO':
-                category = 'Biology'
-            elif category == 'COMPSCI':
-                category = 'Computer Science'
-            elif category == 'PHYS':
-                category = 'Physics'
-            elif category == 'MATH':
-                category = 'Mathematics'
-            elif category == 'CHEM':
-                category = 'Chemistry'
-            else:
-                category = 'Science'
-        else:
-            category = 'Science'
-        
-        # Check if hashtags already exist in description
-        if "## Hashtags" in description or "#CopernicusAI" in description:
-            # Hashtags already added, don't duplicate
-            enhanced_description = description
-        else:
-            # Extract topic from description for better hashtag generation if not provided
-            if not topic:
-                topic_match = re.search(r'^#\s*(.+)', description, re.MULTILINE)
-                topic_for_hashtags = topic_match.group(1) if topic_match else ""
-            else:
-                topic_for_hashtags = topic
-            
-            # Generate context-aware hashtags using title, topic, and description
-            hashtags = generate_relevant_hashtags(topic_for_hashtags, category, title or "", description)
-            
-            # Add hashtags section (don't add References header - it's already in description if needed)
-            enhanced_description = f"{description}\n\n## Hashtags\n{hashtags}"
-        
-        # Ensure total description doesn't exceed 4000 characters (podcast description limit)
-        MAX_DESCRIPTION_LENGTH = 4000
-        if len(enhanced_description) > MAX_DESCRIPTION_LENGTH:
-            structured_logger.debug("Description too long, trimming",
-                                   original_length=len(enhanced_description),
-                                   max_length=MAX_DESCRIPTION_LENGTH,
-                                   canonical_filename=canonical_filename)
-            
-            # Try to preserve references and hashtags by trimming the middle content first
-            # First, extract References section more precisely
-            references_text = ""
-            hashtags_text = ""
-            main_content = enhanced_description
-            
-            # Extract References section (look for ## References header)
-            if '## References' in enhanced_description:
-                ref_parts = enhanced_description.split('## References', 1)
-                main_content = ref_parts[0]
-                ref_remainder = ref_parts[1]
-                # Get everything until next ## header or end
-                if '##' in ref_remainder:
-                    ref_section = ref_remainder.split('##')[0]
-                    references_text = '## References' + ref_section
-                    # Check if there's a Hashtags section after References
-                    if 'Hashtags' in ref_remainder:
-                        hashtag_parts = ref_remainder.split('## Hashtags', 1)
-                        hashtags_text = '## Hashtags' + hashtag_parts[1] if len(hashtag_parts) > 1 else ""
-                else:
-                    # References section goes to end
-                    references_text = '## References' + ref_remainder
-            elif '## Hashtags' in enhanced_description:
-                # No References but Hashtags exist
-                hashtag_parts = enhanced_description.split('## Hashtags', 1)
-                main_content = hashtag_parts[0]
-                hashtags_text = '## Hashtags' + hashtag_parts[1] if len(hashtag_parts) > 1 else ""
-            
-            # Split main content into sections for trimming
-            sections = main_content.split('\n\n')
-            other_sections = [s for s in sections if s.strip()]
-            
-            # Reserve space for references and hashtags (prioritize these)
-            reserved_space = len(references_text) + len(hashtags_text) + 100  # 100 char buffer
-            
-            # Trim other sections to fit
-            available_space = MAX_DESCRIPTION_LENGTH - reserved_space
-            trimmed_other = []
-            current_length = 0
-            
-            for section in other_sections:
-                if current_length + len(section) + 2 < available_space:  # +2 for \n\n
-                    trimmed_other.append(section)
-                    current_length += len(section) + 2
-                elif current_length < available_space:
-                    # Add partial section
-                    remaining = available_space - current_length - 20  # -20 for "..."
-                    if remaining > 50:  # Only add if meaningful
-                        trimmed_other.append(section[:remaining] + "...")
-                    break
-            
-            # Rebuild description with full references and hashtags
-            main_content_trimmed = '\n\n'.join(trimmed_other)
-            if references_text:
-                enhanced_description = main_content_trimmed + '\n\n' + references_text
-            else:
-                enhanced_description = main_content_trimmed
-            
-            if hashtags_text:
-                enhanced_description += '\n\n' + hashtags_text
-            elif not hashtags_text and not ("## Hashtags" in enhanced_description or "#CopernicusAI" in enhanced_description):
-                # If hashtags were somehow lost, regenerate them
-                hashtags = generate_relevant_hashtags(topic_for_hashtags, category, title or "", description)
-                enhanced_description += f"\n\n## Hashtags\n{hashtags}"
-            
-            # Final check - if still too long, trim hashtags section more carefully
-            if len(enhanced_description) > MAX_DESCRIPTION_LENGTH:
-                # Keep main content and references, trim hashtags if needed
-                desc_with_refs = main_content_trimmed
-                if references_text:
-                    desc_with_refs += '\n\n' + references_text
-                
-                hashtags_available_space = MAX_DESCRIPTION_LENGTH - len(desc_with_refs) - len("\n\n## Hashtags\n")
-                if hashtags_available_space > 50:
-                    if hashtags_text:
-                        # Extract hashtag content (remove ## Hashtags header)
-                        hashtag_content = hashtags_text.replace('## Hashtags', '').strip()
-                        if len(hashtag_content) > hashtags_available_space:
-                            hashtag_lines = hashtag_content.split('\n')
-                            trimmed_hashtags = []
-                            current_len = 0
-                            for line in hashtag_lines:
-                                if current_len + len(line) + 1 <= hashtags_available_space:
-                                    trimmed_hashtags.append(line)
-                                    current_len += len(line) + 1
-                                else:
-                                    break
-                            hashtag_content = '\n'.join(trimmed_hashtags)
-                        enhanced_description = desc_with_refs + f"\n\n## Hashtags\n{hashtag_content}"
-                    else:
-                        # Regenerate hashtags if missing
-                        hashtags = generate_relevant_hashtags(topic_for_hashtags, category, title or "", description)
-                        hashtag_content = hashtags[:hashtags_available_space] if len(hashtags) > hashtags_available_space else hashtags
-                        enhanced_description = desc_with_refs + f"\n\n## Hashtags\n{hashtag_content}"
-                else:
-                    enhanced_description = desc_with_refs
-            
-            structured_logger.debug("Trimmed description, preserving full references",
-                                   canonical_filename=canonical_filename,
-                                   final_length=len(enhanced_description))
-        
-        # Create description filename
-        description_filename = f"{canonical_filename}.md"
-        blob = bucket.blob(f"descriptions/{description_filename}")
-        
-        # Upload enhanced description as markdown
-        blob.upload_from_string(enhanced_description, content_type="text/markdown")
-        blob.make_public()
-        
-        # Return public URL
-        public_url = f"https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/descriptions/{description_filename}"
-        structured_logger.info("Enhanced description with hashtags uploaded to GCS",
-                              canonical_filename=canonical_filename,
-                              public_url=public_url)
-        return public_url
-        
-    except Exception as e:
-        structured_logger.error("Error uploading description to GCS",
-                               canonical_filename=canonical_filename,
-                               error=str(e))
-        return None
-
-@retry_upload(max_retries=3, delay=2)
 async def generate_and_upload_transcript(script: str, canonical_filename: str) -> str:
     """Generate and upload transcript to GCS transcripts folder"""
     try:
@@ -1536,7 +1359,7 @@ async def generate_and_upload_transcript(script: str, canonical_filename: str) -
         
         # Initialize GCS client
         storage_client = storage.Client()
-        bucket = storage_client.bucket("regal-scholar-453620-r7-podcast-storage")
+        bucket = storage_client.bucket(media_store.PRIVATE_BUCKET)
         
         # Create clean transcript from script
         transcript_lines = []
@@ -1578,8 +1401,7 @@ async def generate_and_upload_transcript(script: str, canonical_filename: str) -
         blob = bucket.blob(f"transcripts/{transcript_filename}")
         
         # Upload transcript as markdown
-        blob.upload_from_string(transcript_content, content_type="text/markdown")
-        blob.make_public()
+        blob.upload_from_string(transcript_content, content_type="text/markdown; charset=utf-8")
         
         # Return public URL
         public_url = f"https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/transcripts/{transcript_filename}"
@@ -1666,7 +1488,7 @@ async def generate_fallback_thumbnail(canonical_filename: str, topic: str) -> st
         
         # Upload to GCS
         storage_client = storage.Client()
-        bucket = storage_client.bucket("regal-scholar-453620-r7-podcast-storage")
+        bucket = storage_client.bucket(media_store.PRIVATE_BUCKET)
         
         # Save image to bytes
         img_bytes = io.BytesIO()
@@ -1677,7 +1499,6 @@ async def generate_fallback_thumbnail(canonical_filename: str, topic: str) -> st
         thumbnail_filename = f"{canonical_filename}-fallback-thumb.jpg"
         blob = bucket.blob(f"thumbnails/{thumbnail_filename}")
         blob.upload_from_file(img_bytes, content_type="image/jpeg")
-        blob.make_public()
         
         public_url = f"https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/{thumbnail_filename}"
         structured_logger.info("Fallback thumbnail uploaded",
@@ -1702,7 +1523,7 @@ async def generate_and_upload_thumbnail(title: str, topic: str, canonical_filena
         
         # Initialize GCS client
         storage_client = storage.Client()
-        bucket = storage_client.bucket("regal-scholar-453620-r7-podcast-storage")
+        bucket = storage_client.bucket(media_store.PRIVATE_BUCKET)
         
         # Get OpenAI API key from Secret Manager for DALL-E
         openai_api_key = await get_openai_api_key_from_secret_manager()
@@ -1874,7 +1695,6 @@ Mood and Atmosphere: {mood_description}. Convey the excitement and importance of
                 thumbnail_filename = f"{canonical_filename}-thumb.jpg"
                 blob = bucket.blob(f"thumbnails/{thumbnail_filename}")
                 blob.upload_from_string(img_response.content, content_type="image/jpeg")
-                blob.make_public()
                 
                 public_url = f"https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/thumbnails/{thumbnail_filename}"
                 structured_logger.info("DALL-E thumbnail uploaded",

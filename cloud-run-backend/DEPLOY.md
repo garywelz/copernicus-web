@@ -38,6 +38,9 @@ between. Deploy this service by hand, in gated steps, every time.
      --region us-central1 \
      --project regal-scholar-453620-r7
    ```
+   The tag gives the new revision its own URL, and that URL has the
+   service's public access (`governance/AGENT_ROLES.md` rule 18). It is for
+   step 5 only; remove it in step 9.
 
 4. **Diff the new and old revision specs.** Record which revision is
    currently serving traffic before you start. The only acceptable
@@ -77,8 +80,73 @@ between. Deploy this service by hand, in gated steps, every time.
      --region us-central1 --project regal-scholar-453620-r7 \
      --to-revisions=<old-revision>=100
    ```
+   Rollback names the revision. It does not need, and must not rely on, a tag.
+
+9. **Remove the tag when its hold ends.** A tag is a public URL, so a tag
+   left on an old revision keeps that revision reachable. A tag on a
+   revision with minimum instances also keeps that revision warm and
+   billed, which is a second reason to remove tags promptly. List what is
+   there, remove the tag you added in step 3 (and any other that has
+   outlived its purpose), and record any tag you leave in place and why
+   (a tag on the live revision can stay):
+   ```bash
+   gcloud run services describe copernicus-podcast-api \
+     --region us-central1 --project regal-scholar-453620-r7 \
+     --format="value(status.traffic)"
+   gcloud run services update-traffic copernicus-podcast-api \
+     --region us-central1 --project regal-scholar-453620-r7 \
+     --remove-tags=<label>
+   ```
+   Reversal, if the tag was needed after all:
+   ```bash
+   gcloud run services update-traffic copernicus-podcast-api \
+     --region us-central1 --project regal-scholar-453620-r7 \
+     --update-tags=<label>=<revision>
+   ```
+   Removing a tag removes its URL, not the revision; the revision stays as
+   the rollback path.
+
+## After any merge to `main`: check the public site
+
+A merge to `main` deploys the public site (www.copernicusai.fyi) even when
+nothing about the Cloud Run service changed. A Vercel build can succeed while
+the deployed functions crash (2026-10-13: a helper in `lib/`, which
+`.vercelignore` excludes, took down every episode page while all tests and
+checks passed). So before reporting any deploy done:
+
+- Fetch **at least two real production episode pages**, one recent and one
+  old, for example `https://www.copernicusai.fyi/episodes/<id>`, and confirm
+  each returns **200** (`curl -s -o /dev/null -w "%{http_code}" <url>`). A
+  5xx, or a 404 for an episode that exists, means the deploy is not done:
+  roll back (Vercel instant rollback) and report.
+- Confirm the new deployment is actually the one serving production. **After a
+  Vercel instant rollback, auto-promotion stops**: new `main` deployments build
+  and report success but production keeps serving the rolled-back deployment
+  until someone promotes one or re-enables auto-assigning production domains
+  (project settings). A 200 from a page proves nothing then: on 2026-10-13 the
+  "pages return 200" checks after the hotfix and the fix2 merge were served by
+  the rolled-back deployment. So **verify the production deployment's commit,
+  not just page status**: in the Vercel dashboard (Deployments, the one marked
+  Current) or with `vercel inspect www.copernicusai.fyi`, and compare its
+  commit with the merge commit you just made. GitHub's "Deployment has
+  completed" status only means the build finished. Where the change is visible
+  on a page, also fetch a page that shows it. The quickest check needs no
+  dashboard: `curl -s https://www.copernicusai.fyi/api/version` returns the git
+  commit of the deployment serving the domain; it must equal the merge commit
+  (`git rev-parse origin/main`). If it still shows an older commit, new
+  deployments are not being assigned to the domain: stop and tell Gary.
+- Also confirm that GitHub told Vercel about the merge. Within a minute of the
+  merge, `gh api repos/garywelz/copernicus-web/commits/<merge-sha>/check-suites
+  --jq '.check_suites[].app.slug'` must list `vercel` (with `gitguardian` and
+  `cursor`). If it lists nothing, the push event never reached the apps: no
+  deployment of any kind will appear for that commit, and nothing is wrong with
+  assignment or with a skip rule (this happened to the backend-only merges
+  `bd296be` and `73b831b` on 2026-10-14; seven earlier backend-only merges
+  deployed normally). Tell Gary. If the merge changed website files, redeploy
+  `main` from the Vercel dashboard; if it changed only backend files, the
+  served site is already identical and nothing needs doing.
 
 Clean up the worktree when done: `git worktree remove <path>`.
 
 See `governance/BULLETIN.md` entry 009 for the worked example this
-procedure was extracted from.
+procedure was extracted from, and entry 018 for why step 9 exists.

@@ -21,18 +21,20 @@ function pickString(value) {
 }
 
 const ANIMATED_PLAYERS = {
-  'ever-bio-260009': '/lac-operon-animation/player.html?episode=ever-bio-260009',
   'ever-bio-260010': '/lac-operon-animation/player.html?episode=ever-bio-260010',
-  'ever-math-260001': '/lac-operon-animation/player.html?episode=ever-math-260001',
-  'ever-math-260002': '/lac-operon-animation/player.html?episode=ever-math-260002',
 };
+
+const { furtherReadingHtml } = require('../_lib/further-reading');
+const { formatPubDate } = require('../_lib/format-date');
+const { renderDescriptionHtml } = require('../_lib/render-description');
 
 function normalizeApiEpisode(payload = {}, slug) {
   const descriptionMarkdown = payload.description_markdown ?? payload.descriptionMarkdown;
-  const descriptionHtml =
-    payload.description_html ??
-    descriptionMarkdown ??
-    '<p>No episode description available.</p>';
+  const furtherReading = furtherReadingHtml(payload);
+  // The stored Markdown is rendered here (paragraphs, bullets, linked references, no hashtags); the stored text is never rewritten.
+  const descriptionHtml = descriptionMarkdown
+    ? renderDescriptionHtml(descriptionMarkdown, { hasFurtherReading: Boolean(furtherReading) })
+    : payload.description_html ?? '<p>No episode description available.</p>';
   const resolvedSlug = payload.slug ?? payload.episode_id ?? slug;
 
   return {
@@ -48,6 +50,7 @@ function normalizeApiEpisode(payload = {}, slug) {
     slug: resolvedSlug,
     animationPlayerUrl:
       payload.animation_player_url || ANIMATED_PLAYERS[resolvedSlug] || '',
+    furtherReadingHtml: furtherReading,
   };
 }
 
@@ -162,6 +165,7 @@ async function handler(req, res) {
       imageUrl,
       attribution,
       animationPlayerUrl,
+      furtherReadingHtml: furtherReading = '',
     } = episode;
 
     const html = `<!DOCTYPE html>
@@ -190,6 +194,11 @@ async function handler(req, res) {
       .description h2 { font-size: 1.25rem; color: #0f172a; margin-top: 2rem; margin-bottom: 1rem; font-weight: 600; }
       .description h3 { font-size: 1.15rem; color: #0f172a; margin-top: 1.5rem; margin-bottom: 0.75rem; }
       .description a { color: #1d4ed8; }
+      .description ul { padding-left: 1.5rem; margin: 0.5rem 0 1.25rem; }
+      .description li { margin-bottom: 0.6rem; }
+      .description ul.references li { word-break: break-word; }
+      .description p { margin: 0 0 1rem; }
+      .description p.pointer { font-style: italic; color: #4b5563; }
       /* Normalize all text to consistent size */
       .description p, .description ul, .description ol, .description li { font-size: 1.05rem; line-height: 1.65; }
       /* Hashtag section normalization - target headings before hashtag content */
@@ -214,7 +223,7 @@ async function handler(req, res) {
         <div class="meta">
           ${category ? `<span>🧭 ${category}</span>` : ''}
           ${duration ? `<span>⏱️ ${duration}</span>` : ''}
-          ${pubDate ? `<span>📅 ${pubDate}</span>` : ''}
+          ${pubDate ? `<span>📅 ${formatPubDate(pubDate)}</span>` : ''}
           ${attribution ? `<span>👤 Contributor: ${attribution}</span>` : ''}
         </div>
       </header>
@@ -222,7 +231,7 @@ async function handler(req, res) {
         ${imageUrl ? `<img class="hero" src="${imageUrl}" alt="${title} artwork" loading="lazy" />` : ''}
         ${audioUrl ? `<audio controls preload="metadata" src="${audioUrl}"></audio>` : ''}
         ${animationPlayerUrl ? `<p class="animation-note">A flowchart-synced player is available separately: <a href="${animationPlayerUrl}">watch with animated chart</a>.</p>` : ''}
-        <article class="description">${descriptionHtml}</article>
+        <article class="description">${descriptionHtml}${furtherReading}</article>
       </section>
       <footer>
         <div>Part of the Copernicus AI Podcast</div>
@@ -273,6 +282,7 @@ async function handler(req, res) {
 }
 
 module.exports = handler;
+module.exports.furtherReadingHtml = furtherReadingHtml;
 
 
 

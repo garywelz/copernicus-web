@@ -14,6 +14,7 @@ import json
 import time
 from google.cloud import secretmanager
 from content_fixes import apply_tts_pronunciation_hints
+import media_store
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -237,7 +238,20 @@ class ElevenLabsVoiceService:
         Remove any remaining markup and ensure conversational flow
         """
         import re
-        
+        from speech_text import strip_pn_markers
+
+        # Gap 3 fix 1: the paper labels [P1], [P2] ... are for the model only; without this the bracket cleanup below
+        # would leave "P3" in the text and the voice would read it out.
+        text = strip_pn_markers(text)
+        # Safety net: notation was already turned into words (and anything unknown refused) before the script was stored.
+        # If LaTeX still arrives here, say it in words; if some cannot be converted, keep the words and remove the markup
+        # characters so the voice does not read "dollar" and "backslash".
+        from speech_text import speak_text
+        text, _unknown = speak_text(text)
+        if _unknown:
+            logger.warning(f"Unconvertible notation reached text-to-speech: {_unknown[:5]}")
+            text = re.sub(r"[$\\^_]", " ", text)
+
         # Remove any speaker labels that might have leaked through
         text = re.sub(r'^(HOST|EXPERT|QUESTIONER|CORRESPONDENT):\s*', '', text, flags=re.IGNORECASE)
         text = re.sub(r'^(Matilda|Gary|Bill|Lily|Sarah|Tom|Mary|Bob):\s*', '', text, flags=re.IGNORECASE)
@@ -522,29 +536,21 @@ class ElevenLabsVoiceService:
                     raise Exception(f"ElevenLabs API error {response.status}: {error_text}")
     
     async def _combine_audio_segments(self, segments: List[bytes]) -> bytes:
-        """Combine audio segments into a single audio file using streaming ffmpeg"""
+        """Combine audio segments into a single audio file.
+
+        Always the pydub route. The streaming-ffmpeg route (_combine_audio_segments_streaming) has never completed in production: it failed
+        at signing the scratch-segment links and the caller fell back to pydub every time. When signing started to work (private-media stage 2,
+        2026-10-15) it ran, and its ffmpeg call refused to overwrite its own empty output file ("Main audio is empty"). The proven route is used
+        directly, so no scratch files are written to any bucket.
+        """
         if not segments:
             return b""
-        
+
         if len(segments) == 1:
             return segments[0]
-        
-        try:
-            # Use streaming ffmpeg approach for better memory efficiency
-            return await asyncio.wait_for(
-                self._combine_audio_segments_streaming(segments),
-                timeout=600  # 10 minute timeout for streaming approach
-            )
-        except asyncio.TimeoutError:
-            logger.error("❌ Audio combination timed out after 10 minutes")
-            # Return first segment as fallback
-            return segments[0] if segments else b""
-        except Exception as e:
-            logger.error(f"❌ Audio combination failed: {e}")
-            # Fallback to old method if streaming fails
-            logger.info("🔄 Falling back to pydub method")
-            return await self._combine_audio_segments_internal(segments)
-    
+
+        return await self._combine_audio_segments_internal(segments)
+
     async def _combine_audio_segments_streaming(self, segments: List[bytes]) -> bytes:
         """Combine audio segments using streaming ffmpeg with temporary files (memory efficient)"""
         from google.cloud import storage
@@ -558,9 +564,11 @@ class ElevenLabsVoiceService:
         logger.info(f"🌊 Starting streaming ffmpeg combination for {len(segments)} segments")
         logger.info(f"💾 Initial memory usage: {psutil.virtual_memory().percent:.1f}%")
         
-        bucket_name = "regal-scholar-453620-r7-podcast-storage"
+        bucket_name = media_store.PRIVATE_BUCKET   # scratch segments are private, in a folder of their own per run (no collisions between jobs)
         client = storage.Client()
         bucket = client.bucket(bucket_name)
+        import uuid as _uuid
+        scratch_prefix = f"scratch/{_uuid.uuid4().hex}"
         
         # Upload segments to GCS first
         segment_paths = []
@@ -569,7 +577,7 @@ class ElevenLabsVoiceService:
         try:
             # Upload each segment to GCS
             for i, segment_data in enumerate(segments):
-                segment_blob_name = f"temp_segments/segment_{i:04d}.mp3"
+                segment_blob_name = f"{scratch_prefix}/segment_{i:04d}.mp3"
                 blob = bucket.blob(segment_blob_name)
                 
                 # Upload segment
@@ -588,11 +596,7 @@ class ElevenLabsVoiceService:
             
             for segment_path in segment_paths:
                 # Generate signed URL for the segment
-                blob = bucket.blob(segment_path)
-                signed_url = blob.generate_signed_url(
-                    expiration=timedelta(minutes=120),
-                    method='GET'
-                )
+                signed_url = media_store.signed_url(bucket_name, segment_path, timedelta(minutes=120), client)
                 concat_file.write(f"file '{signed_url}'\n")
             
             concat_file.close()
@@ -1137,7 +1141,7 @@ class ElevenLabsVoiceService:
         
         # Upload to GCS
         client = storage.Client()
-        bucket = client.bucket("regal-scholar-453620-r7-podcast-storage")
+        bucket = client.bucket(media_store.PRIVATE_BUCKET)   # private until the episode is published
         
         # Create temporary file
         with tempfile.NamedTemporaryFile(suffix=".mp3", delete=False) as temp_file:
@@ -1149,10 +1153,9 @@ class ElevenLabsVoiceService:
             blob_name = f"audio/{canonical_filename}.mp3"
             blob = bucket.blob(blob_name)
             blob.upload_from_filename(temp_path, content_type="audio/mpeg")
-            blob.make_public()
             
-            logger.info(f"✅ Multi-voice audio with bumpers uploaded: {blob.public_url}")
-            return blob.public_url
+            logger.info(f"✅ Multi-voice audio with bumpers uploaded (private): {blob_name}")
+            return media_store.public_url(blob_name)   # the address it will have once published
             
         finally:
             # Clean up temp file

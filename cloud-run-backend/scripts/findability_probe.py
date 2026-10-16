@@ -8,7 +8,11 @@ Three checks:
      /api/vector-search/semantic endpoint (not a direct search_semantic()
      call: this probe exists to catch deploy/config drift between the source
      tree and what's actually served, so it must hit what a real caller hits).
-     Fail on a live-query collection = ALERT.
+     Fail on a live-query collection = ALERT, but only when the expected
+     document exists (and, for episodes, is public). A missing expected
+     document is reported as STALE ANCHOR, a WARNING that counts in the
+     overall result: the instrument is out of date, not the world (a rule 16
+     deletion removed an anchor's document and the probe sat in ALERT unseen).
   B. Coverage integrity — doc count vs. embedded count vs. index-covered
      count per collection, by measured dimension (never by embedding_model
      label alone).
@@ -108,11 +112,22 @@ ID_FIELD_CANDIDATES = ["paper_id", "job_id", "process_id", "id"]
 # ── Anchors: (query, expected_doc_id) per collection ────────────────────────
 # Semantic queries (query != title) so a pass proves embedding retrieval, not
 # keyword luck. IDs confirmed live before this script was written (2026-07-28).
+# Each collection has at least two anchors, so one stale anchor cannot hide the
+# collection's health. Rule 16 (AGENT_ROLES.md): when an episode is deleted,
+# update any anchor that names it; the guard in run_check_a reports a missing
+# anchor document as STALE ANCHOR rather than ALERT.
+# Updated 2026-10-16: the first episodes anchor expected ever-bio-250007, deleted
+# 2026-09-29; episodes now has three current public episodes; research_papers and
+# physics_processes gained a second anchor.
 ANCHORS: Dict[str, List[Dict[str, str]]] = {
     "research_papers": [
         {
             "query": "annotation-free integration for cell identity recovery",
             "expected_id": "biorxiv_10.64898_2026.05.14.725078",
+        },
+        {
+            "query": "how the lactose repressor switches bacterial genes on in response to lactose",
+            "expected_id": "pubmed_352620",
         },
     ],
     "atap_graphs": [
@@ -151,16 +166,26 @@ ANCHORS: Dict[str, List[Dict[str, str]]] = {
         },
     ],
     "episodes": [
-        {"query": "gene editing without cutting DNA", "expected_id": "ever-bio-250007"},
+        {"query": "dependency structure of a library of formalized proofs", "expected_id": "ever-math-260010"},
         {"query": "AlphaFold2 protein structure prediction", "expected_id": "ever-compsci-250041"},
+        {"query": "finding where proteins bind DNA when the sequences are not aligned", "expected_id": "ever-bio-260008"},
     ],
     "physics_processes": [
         {
             "query": "why does a changing magnetic field create an electric current",
             "expected_id": "electromagnetism-electromagnetic-induction",
         },
+        {
+            "query": "particles passing through an energy barrier they classically cannot cross",
+            "expected_id": "quantum_mechanics-quantum-tunneling-through-a-barrier",
+        },
     ],
 }
+
+
+SEV_PASS = "pass"
+SEV_ALERT = "ALERT"  # the expected document exists but is not retrievable
+SEV_STALE = "STALE ANCHOR"  # the expected document does not exist (or is not public): the anchor needs updating
 
 
 @dataclass
@@ -169,7 +194,8 @@ class AnchorResult:
     query: str
     expected_id: str
     rank: Optional[int]  # 1-based rank if found in top-K, else None
-    severity: str  # "pass" | "ALERT"
+    severity: str  # SEV_PASS | SEV_ALERT | SEV_STALE (older reports: "ALERT (request failed: ...)")
+    note: str = ""
 
 
 @dataclass
@@ -199,7 +225,25 @@ class IndexResult:
 # ── Check A ──────────────────────────────────────────────────────────────────
 
 
-def run_check_a() -> List[AnchorResult]:
+def _is_public_episode(record: Any) -> bool:
+    """Same rule as cloud-run-backend/utils/episode_access.py (kept in step by a test): in the feed or on the website."""
+    return isinstance(record, dict) and bool(record.get("submitted_to_rss") or record.get("visible_on_web"))
+
+
+def anchor_document_status(db: Any, collection: str, expected_id: str) -> Optional[str]:
+    """None if the expected document exists (and, for episodes, is public); otherwise the reason it cannot be an anchor.
+    The semantic endpoint hides private episodes, so a private episode cannot be found by design."""
+    snap = db.collection(collection).document(expected_id).get()
+    if not snap.exists:
+        return f"expected document {expected_id} does not exist in {collection}"
+    if collection == "episodes" and not _is_public_episode(snap.to_dict()):
+        return f"expected episode {expected_id} exists but is not public"
+    return None
+
+
+def run_check_a(db: Any = None, http_get: Any = None) -> List[AnchorResult]:
+    """db: a Firestore client for the existence guard (None skips the guard, the old behaviour); http_get: injectable for tests."""
+    get = http_get or requests.get
     results: List[AnchorResult] = []
     for collection, anchors in ANCHORS.items():
         content_type = CONTENT_TYPE_PARAM[collection]
@@ -207,9 +251,14 @@ def run_check_a() -> List[AnchorResult]:
         for anchor in anchors:
             query = anchor["query"]
             expected_id = anchor["expected_id"]
+            if db is not None:
+                reason = anchor_document_status(db, collection, expected_id)
+                if reason:
+                    results.append(AnchorResult(collection, query, expected_id, None, SEV_STALE, reason))
+                    continue
             rank: Optional[int] = None
             try:
-                resp = requests.get(
+                resp = get(
                     SEMANTIC_ENDPOINT,
                     params={"query": query, "content_types": content_type, "limit": TOP_K},
                     timeout=20,
@@ -228,10 +277,10 @@ def run_check_a() -> List[AnchorResult]:
                         break
             except Exception as exc:
                 results.append(
-                    AnchorResult(collection, query, expected_id, None, f"ALERT (request failed: {exc})")
+                    AnchorResult(collection, query, expected_id, None, SEV_ALERT, f"request failed: {exc}")
                 )
                 continue
-            severity = "pass" if rank is not None else "ALERT"
+            severity = SEV_PASS if rank is not None else SEV_ALERT
             results.append(AnchorResult(collection, query, expected_id, rank, severity))
     return results
 
@@ -437,7 +486,8 @@ def build_report(
     coverage_results: List[CoverageResult],
     index_results: List[IndexResult],
 ) -> Dict[str, Any]:
-    alerts = [r for r in anchor_results if r.severity != "pass"]
+    alerts = [r for r in anchor_results if r.severity.startswith(SEV_ALERT)]
+    stale = [r for r in anchor_results if r.severity == SEV_STALE]
     warnings = [r for r in index_results if r.severity == "WARNING"]
 
     return {
@@ -445,8 +495,9 @@ def build_report(
         "summary": {
             "check_a_total": len(anchor_results),
             "check_a_alerts": len(alerts),
+            "check_a_stale": len(stale),
             "check_c_warnings": len(warnings),
-            "overall": "ALERT" if alerts else ("WARNING" if warnings else "OK"),
+            "overall": "ALERT" if alerts else ("WARNING" if (warnings or stale) else "OK"),
         },
         "check_a_positive_findability": [
             {
@@ -455,6 +506,7 @@ def build_report(
                 "expected_id": r.expected_id,
                 "rank": r.rank,
                 "severity": r.severity,
+                "note": r.note,
             }
             for r in anchor_results
         ],
@@ -497,8 +549,13 @@ def print_human_summary(report: Dict[str, Any]) -> None:
     print("-- Check A: positive findability --")
     for r in report["check_a_positive_findability"]:
         marker = "PASS" if r["severity"] == "pass" else r["severity"]
-        rank_str = f"rank {r['rank']}" if r["rank"] else "NOT FOUND in top-5"
-        print(f"  [{marker:6s}] {r['collection']:28s} \"{r['query']}\" -> {rank_str}")
+        if r["rank"]:
+            rank_str = f"rank {r['rank']}"
+        elif r["severity"] == SEV_STALE:
+            rank_str = f"not queried: {r.get('note', '')}"
+        else:
+            rank_str = "NOT FOUND in top-5" + (f" ({r['note']})" if r.get("note") else "")
+        print(f"  [{marker:12s}] {r['collection']:28s} \"{r['query']}\" -> {rank_str}")
     print()
     print("-- Check B: coverage integrity --")
     for c in report["check_b_coverage_integrity"]:
@@ -518,7 +575,7 @@ def main() -> int:
 
     db = firestore.Client(project=PROJECT_ID, database=DATABASE_ID)
 
-    anchor_results = run_check_a()
+    anchor_results = run_check_a(db)
     coverage_results = run_check_b(db)
     index_results = run_check_c(coverage_results)
 

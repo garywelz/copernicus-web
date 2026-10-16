@@ -1,7 +1,7 @@
 # Agent Roles and Division of Labor
 ## CopernicusAI Knowledge Engine suite — every engine, every agent
 
-**Version:** 2.4 — October 1, 2026
+**Version:** 2.7 — October 16, 2026
 **Lives in:** `copernicus-web` repo at `governance/AGENT_ROLES.md` (moved from
 `glmp/docs/AGENT_ROLES.md`; see change log)
 **Read alongside:** the rest of `governance/` — Constitution, Methods Catalog, Resource
@@ -211,23 +211,61 @@ live fetch of this file fails.
     follows the archive protocol: (1) back up the feed before every feed write, however
     small; (2) archive the record and its storage objects to the private internal
     bucket and verify checksums; (3) remove the item from the feed with a generation
-    precondition; (4) delete only objects that nothing else references; (5) verify on
-    every surface. Archives never go in the public podcast bucket.
+    precondition; (4) delete only objects that nothing else references; (5) update any
+    findability-probe anchor that names the deleted item; (6) verify on every surface.
+    Archives never go in the public podcast bucket.
+
+    **Correction notes are not repairs.** A published episode with a confirmed problem that
+    does not warrant deletion may carry a *correction note*: a visible, dated addition on the
+    episode page and in the feed item that says what is wrong and which source or check it
+    comes from. The original script, audio, description and references stay intact; a note
+    is added, never substituted for them. There are two levels. **Level 1** is an ordinary
+    note (a claim the cited source does not support but that may be true, or a wrong or
+    unresolved citation). **Level 2** is a prominent note at the top of the description and
+    the feed item (a claim a listener would rely on that its own source contradicts).
+    **Level 3, withdrawal** (the central claim is wrong, or several problems are confirmed),
+    is deletion and follows the procedure above unchanged. At every level an agent proposes
+    and Gary decides and approves; Gary is the only approver. Writing a note to the page or
+    the feed is a change to a public object, so it is also gated by rule 18, and steps (1)
+    and (6) of the archive protocol apply to it: back up the feed before the write and
+    verify on every surface after. An agent still never edits or rewrites the generated
+    content itself.
 17. **A security finding goes to a private location first.** It reaches a public PR
     or `governance/BULLETIN.md` entry only after the fix is live, not while the gap is
     still open — a public repo discloses the finding to anyone the moment it's
     committed. Report to Gary immediately regardless; "private first" governs where it
     is written down, not when Gary is told. See `governance/BULLETIN.md` entry 014.
-18. **Any reader-facing object in a public GCS bucket is gated like a Cloud Run
-    deploy** — status pages, database tables, feeds: (1) edit the tracked copy on a
-    branch, never the live object directly; (2) show Gary the diff, wait for approval;
-    (3) merge to `main`; (4) back up the live object to the private bucket, then
-    publish from `main` with a generation precondition; (5) verify with a plain fetch
-    *and* object metadata (generation, MD5) — if they disagree, the metadata is
-    authoritative, and the reader-side discrepancy gets recorded, not papered over.
-    Emergency exception: a security or data-exposure fix may publish first, reported
-    to Gary immediately and back-filled with a PR. See `governance/BULLETIN.md` entry
-    013.
+18. **A change to what the public can reach is gated like a Cloud Run deploy.** This covers
+    (a) any reader-facing object in a public GCS bucket (status pages, database tables,
+    feeds), and (b) Cloud Run access and addressing: an IAM binding on a service (granting or
+    removing `allUsers` or `allAuthenticatedUsers`) and a revision tag (each tag is a URL with
+    the service's own access, so tagging a revision of a public service publishes that
+    revision). Steps: (1) propose it, with the exact command, the backup and the reversal; for
+    a GCS object, edit the tracked copy on a branch and never the live object; (2) show Gary
+    and wait for approval; (3) for a GCS object, merge to `main`; (4) back up first: the live
+    object to the private bucket, or the current IAM policy or traffic-and-tag map saved to the
+    private bucket; then apply with a precondition where the command allows (generation for
+    GCS, etag for IAM); (5) verify: for GCS, a plain fetch *and* object metadata (generation,
+    MD5), and if they disagree the metadata is authoritative; for Cloud Run, read the policy
+    or traffic back, then, for a change meant to close access, make one unauthenticated request
+    after waiting about two minutes and record the status code only, because IAM changes take a
+    short time to take effect (a probe six seconds after a removal on 2026-10-04 still got
+    `200`); (6) remove a tag when its hold ends and list any tag left in place.
+    Emergency exception: a security or data-exposure fix that *narrows* access (removing a
+    grant, removing a tag) may be applied first, reported to Gary in the same turn, and
+    back-filled with a PR or bulletin entry once live (rule 17). Widening access never
+    qualifies. See `governance/BULLETIN.md` entries 013, 014 and 018.
+
+19. **An agent merges a PR to `main` only when Gary has named that PR for merging.** It leaves a
+    PR comment quoting the go-ahead. If an agent's change causes a regression, it proposes the
+    fix and waits; it does not merge a repair unasked. Because agents' `gh` sessions are logged
+    in as Gary, the PR comment is the only record that distinguishes an agent's merge from
+    Gary's. (Found 2026-10-16: two citation-fix PRs, #127 and #128, were merged by an agent
+    without being named; each merge redeployed the public site.)
+20. **Write PR, issue and comment bodies with `--body-file` or the API, never through shell
+    interpolation.** Backticks in a heredoc or double-quoted string are executed, and Git Bash
+    on Windows runs a named file as a shell script even without the executable bit (found
+    2026-10-16, PR #130).
 
 ---
 
@@ -431,10 +469,32 @@ silently.
 2. **Copernicus legacy audit** — inventory `Copernicus_AI`, `copernicus-podcast-api`,
    `copernicus_backup`; report live vs. dead vs. worth-keeping before any move/archive.
    Candidate Claude Code read-only test.
+3. **Delete the dead `GEMINI_API_KEY` secret** — a provider key check on 2026-10-06 found it
+   rejected as invalid, while `GOOGLE_AI_API_KEY` works. Do it in the cleanup batches, after
+   confirming no Cloud Run revision still mounts it. No action before then.
+4. **Replace the retired default model in `cloud-run-backend/services/llm_providers/claude_rag.py:28`**
+   — `claude-3-5-haiku-20241022` returns not-found on the Anthropic API (2026-10-06). Change it to
+   a pinned, dated model ID through the gated deploy procedure in `cloud-run-backend/DEPLOY.md`.
+   No action now.
 
 ---
 
 ## Change log
+- **v2.7** (2026-10-16) — Added session rules 19 (an agent merges only a PR Gary has named, and
+  leaves a comment quoting the go-ahead; a regression is fixed by proposal, not by an unasked
+  merge) and 20 (PR, issue and comment bodies go through `--body-file` or the API, never shell
+  interpolation). Rule 16's archive protocol gains a step after (4): update any
+  findability-probe anchor that names the deleted item (the old step (5), verify on every
+  surface, becomes (6)). See `governance/BULLETIN.md` entry 025.
+- **v2.6** (2026-10-06) — Rule 16 gains correction notes: levels 1 and 2 may be added as
+  visible, dated notes that leave the original intact, with Gary as sole approver; level 3
+  (withdrawal) follows the existing delete-not-repair procedure. See
+  `governance/BULLETIN.md` entry 020 and
+  the gap 3 design proposal (PR #41, section 5.3).
+- **v2.5** (2026-10-04) — Rule 18 extended from public GCS objects to Cloud Run IAM
+  bindings and revision tags, with a propagation wait before probing an access removal
+  and an emergency exception limited to changes that narrow access. See
+  `governance/BULLETIN.md` entry 018.
 - **v2.4** (2026-10-01) — Added session rules 17 (a security finding goes to a
   private location first, public only after the fix is live) and 18 (gate
   direct-to-GCS publishes of reader-facing objects like a Cloud Run deploy, with

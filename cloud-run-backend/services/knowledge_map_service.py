@@ -948,6 +948,10 @@ Only return the JSON array, no other text."""
             scanned = 0
             for doc in self.db.collection("episodes").limit(PODCAST_CANDIDATE_LIMIT).stream():
                 d = doc.to_dict() or {}
+                from utils.episode_access import is_public_episode
+                if not is_public_episode(d):
+                    scanned += 1
+                    continue    # private episodes never appear in the public knowledge map
                 d.pop("embedding", None)
                 title = (
                     d.get("title")

@@ -5,9 +5,14 @@ from email.mime.multipart import MIMEMultipart
 from typing import Optional
 import os
 import asyncio
-from datetime import datetime
+from datetime import datetime, timezone
 
 # Retry decorator for email operations
+def utc_timestamp_text(now=None) -> str:
+    """The time as text, in true UTC. (datetime.now() is the server's local time, which was labelled UTC by mistake.)"""
+    return (now or datetime.now(timezone.utc)).astimezone(timezone.utc).strftime('%B %d, %Y at %I:%M %p UTC')
+
+
 def retry_email(max_retries=3, delay=2):
     """Decorator for retrying email operations with exponential backoff"""
     def decorator(func):
@@ -44,9 +49,10 @@ class EmailService:
         topic: str, 
         audio_url: str,
         duration: str,
-        canonical_filename: str
+        canonical_filename: str,
+        link_valid_days: Optional[int] = None
     ) -> bool:
-        """Send email notification when podcast generation is complete"""
+        """Send email notification when podcast generation is complete. `link_valid_days` is set when audio_url is a signed link."""
         
         if not self.sender_password:
             print("⚠️  Email password not configured. Skipping email notification.")
@@ -59,6 +65,9 @@ class EmailService:
             msg['To'] = recipient_email
             msg['Subject'] = f"🎙️ Your Copernicus Podcast is Ready: {podcast_title}"
             
+            link_note = (f'<p style="color: #7f8c8d; font-size: 13px; margin-top: 10px;">Private link, valid for {link_valid_days} days. The episode is not public until it is published.</p>'
+                         if link_valid_days else '')
+
             # Create HTML body
             html_body = f"""
             <html>
@@ -83,6 +92,7 @@ class EmailService:
                            style="background: #3498db; color: white; padding: 12px 30px; text-decoration: none; border-radius: 5px; font-weight: bold; display: inline-block;">
                             🎧 Listen to Podcast
                         </a>
+                        {link_note}
                     </div>
                     
                     <div style="background: #e8f5e8; padding: 15px; border-radius: 5px; margin-top: 20px;">
@@ -92,7 +102,7 @@ class EmailService:
                     </div>
                     
                     <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee; font-size: 14px; color: #7f8c8d;">
-                        <p>Generated on: {datetime.now().strftime('%B %d, %Y at %I:%M %p UTC')}</p>
+                        <p>Generated on: {utc_timestamp_text()}</p>
                         <p>This is an automated notification from the Copernicus AI Podcast Generator.</p>
                     </div>
                 </div>
@@ -122,9 +132,12 @@ class EmailService:
         recipient_email: str, 
         job_id: str, 
         topic: str, 
-        error_message: str
+        error_message: str,
+        what_to_do: Optional[str] = None
     ) -> bool:
-        """Send email notification when podcast generation fails"""
+        """Send email notification when podcast generation fails.
+
+        ``what_to_do`` replaces the generic advice when given (gap 3 fix 1, C8)."""
         
         if not self.sender_password:
             print("⚠️  Email password not configured. Skipping failure email notification.")
@@ -156,12 +169,12 @@ class EmailService:
                     
                     <div style="background: #fff3cd; padding: 15px; border-radius: 5px; margin-top: 20px;">
                         <p style="margin: 0; color: #856404;">
-                            <strong>⚠️ What to do:</strong> Please try generating the podcast again, or contact support if the issue persists.
+                            <strong>⚠️ What to do:</strong> {what_to_do or 'Please try generating the podcast again, or contact support if the issue persists.'}
                         </p>
                     </div>
                     
                     <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee; font-size: 14px; color: #7f8c8d;">
-                        <p>Error occurred on: {datetime.now().strftime('%B %d, %Y at %I:%M %p UTC')}</p>
+                        <p>Error occurred on: {utc_timestamp_text()}</p>
                         <p>This is an automated notification from the Copernicus AI Podcast Generator.</p>
                     </div>
                 </div>

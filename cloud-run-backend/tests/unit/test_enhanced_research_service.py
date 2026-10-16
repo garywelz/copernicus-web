@@ -41,7 +41,7 @@ class TestCreateFallbackAnalysis:
             technical_complexity="medium",
             suggested_questions=["A real question?"],
             keywords=["real"],
-            paradigm_shift_potential="high",
+            significance="high",
             interdisciplinary_connections=[],
             practical_applications=[],
             future_research_directions=[],

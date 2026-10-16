@@ -1,0 +1,468 @@
+"""Tests for named_work_check (gap 3 fix 1, C5): matching, link phrases, fail-closed behaviour. Offline."""
+import asyncio
+import json
+
+import pytest
+
+import named_work_check as nw
+import paper_confirmation as pc
+
+
+def run(coro):
+    loop = asyncio.new_event_loop()
+    try:
+        return loop.run_until_complete(coro)
+    finally:
+        loop.close()
+
+
+def paper(pid, title, authors, year):
+    return pc.ConfirmedPaper(pid=pid, title=title, authors=authors, year=year, venue=None,
+                             ids={"arxiv": None, "arxiv_version": None, "pmid": None, "doi": f"10.1/{pid}"},
+                             url="https://doi.org/x", abstract="Abs.", registry="crossref", confirmed_at="t", title_match=1.0)
+
+
+LOVELACE = paper("P1", "Analytical engines and the first algorithms", ["Ada Lovelace", "Alan Turing"], 2025)
+CURIE = paper("P2", "Radioactivity in unaligned samples of pitchblende", ["Marie Skłodowska Curie"], 2024)
+CONFIRMED = [LOVELACE, CURIE]
+
+
+def fake_llm(mentions_by_script):
+    """llm_call that returns the mentions registered for any substring present in the prompt."""
+    async def call(system, user):
+        out = []
+        for key, ms in mentions_by_script.items():
+            if key in user:
+                out += ms
+        return json.dumps({"mentions": out})
+    return call
+
+
+def m(quote, authors=(), year=None, title_words=()):
+    return {"quote": quote, "authors": list(authors), "year": year, "title_words": list(title_words)}
+
+
+# ---------------------------------------------------------------- matching
+def test_match_by_surname_and_year():
+    assert nw.match_mention(m("q", ["Lovelace"], 2025), CONFIRMED) == "P1"
+    assert nw.match_mention(m("q", ["Lovelace", "Turing"], None), CONFIRMED) == "P1"
+
+
+def test_year_off_by_one_still_matches_but_two_does_not():
+    assert nw.match_mention(m("q", ["Lovelace"], 2024), CONFIRMED) == "P1"
+    assert nw.match_mention(m("q", ["Lovelace"], 2019), CONFIRMED) is None
+
+
+def test_year_far_off_but_title_words_match():
+    assert nw.match_mention(m("q", ["Lovelace"], 2019, ["analytical", "engines", "algorithms"]), CONFIRMED) == "P1"
+
+
+def test_accents_and_case_are_ignored():
+    assert nw.match_mention(m("q", ["CURIE"], 2024), CONFIRMED) == "P2"
+    assert nw.match_mention(m("q", ["Skłodowska"], 2024), CONFIRMED) == "P2"  # a word of a compound surname counts
+
+
+def test_unknown_author_does_not_match():
+    assert nw.match_mention(m("q", ["Zorblatt"], 2025), CONFIRMED) is None
+
+
+def test_title_only_mention_needs_three_words():
+    assert nw.match_mention(m("q", [], None, ["radioactivity", "unaligned", "samples"]), CONFIRMED) == "P2"
+    assert nw.match_mention(m("q", [], None, ["radioactivity"]), CONFIRMED) is None
+
+
+# ---------------------------------------------------------------- the check
+def test_listed_work_passes_and_is_named():
+    script = "ADAM: According to Lovelace and Turing in 2025, engines compute. The link is in the description."
+    llm = fake_llm({"According to Lovelace": [m("According to Lovelace and Turing in 2025", ["Lovelace", "Turing"], 2025)]})
+    r = run(nw.check_naming(script, "", CONFIRMED, llm))
+    assert r.passed and r.named_pids == ["P1"]
+
+
+def test_unlisted_work_is_a_violation():
+    script = "ADAM: Zorblatt and Quux showed in 2019 that engines compute."
+    llm = fake_llm({"Zorblatt": [m("Zorblatt and Quux showed in 2019", ["Zorblatt", "Quux"], 2019)]})
+    r = run(nw.check_naming(script, "", CONFIRMED, llm))
+    assert not r.passed and r.violations[0]["kind"] == "unlisted_work" and r.violations[0]["authors"] == ["Zorblatt", "Quux"]
+
+
+def test_mention_with_no_author_and_no_title_is_ignored():
+    script = "ADAM: Some study says engines compute."
+    llm = fake_llm({"Some study": [m("Some study says engines compute")]})
+    assert run(nw.check_naming(script, "", CONFIRMED, llm)).passed
+
+
+def test_link_phrase_without_a_listed_paper_is_a_violation():
+    script = "ADAM: Engines are old. The link is in the description. MATILDA: Great."
+    r = run(nw.check_naming(script, "", CONFIRMED, fake_llm({})))
+    assert [v["kind"] for v in r.violations] == ["link_phrase_unattached"]
+
+
+def test_link_phrase_attached_to_a_listed_paper_passes():
+    script = "ADAM: Lovelace and Turing, 2025, showed engines compute, and the link is in the description."
+    llm = fake_llm({"Lovelace and Turing": [m("Lovelace and Turing, 2025, showed engines compute", ["Lovelace", "Turing"], 2025)]})
+    assert run(nw.check_naming(script, "", CONFIRMED, llm)).passed
+
+
+def test_link_phrase_far_from_the_paper_is_unattached():
+    script = "ADAM: Lovelace and Turing, 2025, showed engines compute. " + ("filler words " * 120) + "And the link is in the description."
+    llm = fake_llm({"Lovelace and Turing": [m("Lovelace and Turing, 2025, showed engines compute", ["Lovelace", "Turing"], 2025)]})
+    r = run(nw.check_naming(script, "", CONFIRMED, llm))
+    assert [v["kind"] for v in r.violations] == ["link_phrase_unattached"]
+
+
+def test_description_mentions_are_checked_too():
+    desc = "Overview. Zorblatt (2019) argued otherwise.\n\n## References\n\n- Zorblatt, 2019 (model-written, must be ignored)\n"
+    llm = fake_llm({"Overview": [m("Zorblatt (2019) argued otherwise", ["Zorblatt"], 2019)]})
+    r = run(nw.check_naming("ADAM: hello", desc, CONFIRMED, llm))
+    assert r.violations and r.violations[0]["where"] == "description"
+
+
+def test_model_written_reference_section_is_not_read_as_mentions():
+    seen = {}
+
+    async def llm(system, user):
+        seen["prompt"] = user
+        return json.dumps({"mentions": []})
+    run(nw.check_naming("ADAM: hi", "Body text.\n\n## References\n\n- Zorblatt 2019\n", CONFIRMED, llm))
+    assert "Zorblatt" not in seen["prompt"]
+
+
+def test_named_pids_are_in_order_of_first_mention():
+    script = "Curie, 2024 first. Then Lovelace, 2025."
+    llm = fake_llm({"Curie, 2024": [m("Curie, 2024 first", ["Curie"], 2024), m("Then Lovelace, 2025", ["Lovelace"], 2025)]})
+    assert run(nw.check_naming(script, "", CONFIRMED, llm)).named_pids == ["P2", "P1"]
+
+
+def test_fail_closed_when_the_model_errors():
+    async def boom(system, user):
+        raise RuntimeError("quota")
+    with pytest.raises(nw.NamingCheckUnavailable):
+        run(nw.check_naming("ADAM: hi", "", CONFIRMED, boom))
+
+
+def test_fail_closed_on_unparseable_answer():
+    async def junk(system, user):
+        return "I could not do that"
+    with pytest.raises(nw.NamingCheckUnavailable):
+        run(nw.check_naming("ADAM: hi", "", CONFIRMED, junk))
+
+
+def test_json_in_code_fences_is_accepted():
+    async def fenced(system, user):
+        return "```json\n{\"mentions\": []}\n```"
+    assert run(nw.check_naming("ADAM: hi", "", CONFIRMED, fenced)).passed
+
+
+def test_feedback_text_lists_violations_and_allowed_papers():
+    r = nw.NamingResult(violations=[{"kind": "unlisted_work", "where": "script", "quote": "Zorblatt and Quux showed", "authors": ["Zorblatt"], "year": 2019},
+                                    {"kind": "link_phrase_unattached", "where": "script", "quote": "link is in the description"}])
+    fb = nw.feedback_text(r, CONFIRMED)
+    assert "Zorblatt" in fb and "link-in-the-description phrase" in fb and "[P1] Ada Lovelace, Alan Turing (2025)" in fb and "ONLY these papers" in fb
+
+
+def test_violation_error_message_is_clear():
+    msg = str(nw.NamingViolationError([{"kind": "unlisted_work", "where": "script", "quote": "Zorblatt showed", "authors": ["Zorblatt"], "year": 2019}]))
+    assert "not among the confirmed papers" in msg and "no episode was published" in msg and "Zorblatt" in msg
+
+
+# ---------------------------------------------------------------- stage 6: LaTeX and other answers that are not strict JSON
+def test_latex_backslashes_in_a_quote_do_not_break_parsing():
+    bs = chr(92)  # a real backslash, as in LaTeX: not a valid JSON escape before the letter a
+
+    async def latex(system, user):
+        return '{"mentions": [{"quote": "the $' + bs + 'alpha$ decay of Zorblatt (2019)", "authors": ["Zorblatt"], "year": 2019, "title_words": []}]}'
+    r = run(nw.check_naming("ADAM: hi", "", CONFIRMED, latex))
+    assert r.violations and r.violations[0]["authors"] == ["Zorblatt"] and (bs + "alpha") in r.violations[0]["quote"]
+
+
+def test_prose_before_the_json_is_tolerated():
+    async def chatty(system, user):
+        return 'Here is the list: {"mentions": []}'
+    assert run(nw.check_naming("ADAM: hi", "", CONFIRMED, chatty)).passed
+
+
+def test_unparseable_answer_keeps_the_start_of_it_for_the_administrator():
+    async def junk(system, user):
+        return "I cannot comply " * 50
+    with pytest.raises(nw.NamingCheckUnavailable) as e:
+        run(nw.check_naming("ADAM: hi", "", CONFIRMED, junk))
+    assert e.value.raw.startswith("I cannot comply") and len(e.value.raw) <= 300
+    assert "I cannot comply" not in str(e.value)  # the message itself stays free of model text
+
+
+def test_prompt_tells_the_model_not_to_emit_latex():
+    assert "never put a backslash or LaTeX command in the JSON" in nw.INSTRUCTIONS
+
+
+# ---------------------------------------------------------------- stage 7: group authors (collaborations)
+LHCB = paper("P3", "Search for rare kaon decays", ["LHCb collaboration", "R. Aaij"], 2025)
+BESIII = paper("P4", "Study of eta decays", ["BESIII Collaboration", "M. Ablikim"], 2024)
+LIGO = paper("P5", "Ultralight vector dark matter search", ["The LIGO Scientific Collaboration", "the Virgo Collaboration"], 2024)
+GROUPS = [LHCB, BESIII, LIGO]
+
+
+def test_a_collaboration_named_in_the_script_matches_its_group_author():
+    assert nw.match_mention(m("q", ["LHCb"], 2025), GROUPS) == "P3"
+    assert nw.match_mention(m("q", ["BESIII"], 2024), GROUPS) == "P4"
+    assert nw.match_mention(m("q", ["LIGO Scientific", "Virgo", "KAGRA"], 2024), GROUPS) == "P5"
+
+
+def test_group_match_still_respects_the_year():
+    assert nw.match_mention(m("q", ["LHCb"], 2019), GROUPS) is None
+    assert nw.match_mention(m("q", ["ATLAS"], 2025), GROUPS) is None
+
+
+def test_group_named_only_in_the_quote_matches_with_a_year():
+    assert nw.match_mention(m("the BESIII Collaboration's 2024 study of eta decays", [], 2024), GROUPS) == "P4"
+    assert nw.match_mention(m("the BESIII Collaboration's study of eta decays", [], None), GROUPS) is None  # no year: too loose
+
+
+def test_the_word_collaboration_alone_never_matches():
+    assert nw.match_mention(m("q", ["Collaboration"], 2025), GROUPS) is None
+
+
+# ---------------------------------------------------------------- stage 8: first names stop a common surname matching the wrong paper
+WANGS = [paper("P6", "Neuromorphic mapping of networks", ["Yi Wang", "Li Zhang"], 2025), paper("P7", "Another study entirely", ["Song Wang"], 2024)]
+
+
+def test_a_different_first_name_does_not_match_a_shared_surname():
+    assert nw.match_mention(m("q", ["Guanrui Wang"], 2025), WANGS) is None
+    assert nw.match_mention(m("q", ["Song Wang"], 2025), WANGS) == "P7"  # same first name, within a year of 2024
+
+
+def test_a_bare_surname_or_an_initial_still_matches():
+    assert nw.match_mention(m("q", ["Wang"], 2025), WANGS) == "P6"
+    assert nw.match_mention(m("q", ["S. Wang"], 2024), WANGS) == "P7"
+    assert nw.match_mention(m("q", ["Y Wang"], 2025), WANGS) == "P6"
+
+
+def test_initials_written_as_m_f_perutz():
+    assert nw.match_mention(m("q", ["M.F. Perutz"], 1976), [paper("P8", "Fundamental research in molecular biology", ["M F Perutz"], 1976)]) == "P8"
+
+
+def test_first_name_in_the_quote_is_used_when_the_model_gives_only_a_surname():
+    # the model returned authors ["Wang"], but the quote says "Song Wang"; the listed Wang is "Qian Wang"
+    listed = [paper("P1", "Neuromorphic devices", ["Yi Lv", "Houpeng Chen", "Qian Wang"], 2022)]
+    assert nw.match_mention(m("Song Wang and team have worked on this", ["Wang"], None), listed) is None
+    assert nw.match_mention(m("Qian Wang and team have worked on this", ["Wang"], None), listed) == "P1"
+    assert nw.match_mention(m("work by Wang and colleagues", ["Wang"], None), listed) == "P1"  # no first name in the quote: surname alone
+
+
+def test_a_word_before_the_surname_that_is_not_a_name_is_ignored():
+    listed = [paper("P1", "Some study", ["Qian Wang"], 2022)]
+    assert nw.match_mention(m("According to Wang and colleagues", ["Wang"], None), listed) == "P1"
+    assert nw.match_mention(m("the study by Wang", ["Wang"], None), listed) == "P1"
+
+
+# ---------------------------------------------------------------- stage 9: a flag carries the passage around it
+def test_violations_carry_the_surrounding_text():
+    before = "Some earlier sentence about computing. " * 5
+    after = " And a later sentence about engines. " * 5
+    script = "ADAM: " + before + "Zorblatt and Quux showed in 2019 that engines compute." + after
+    llm = fake_llm({"Zorblatt": [m("Zorblatt and Quux showed in 2019 that engines compute", ["Zorblatt", "Quux"], 2019)]})
+    v = run(nw.check_naming(script, "", CONFIRMED, llm)).violations[0]
+    assert "Zorblatt and Quux showed" in v["context"] and "earlier sentence" in v["context"] and "later sentence" in v["context"]
+    assert 300 < len(v["context"]) < 1100
+
+
+def test_link_phrase_violation_has_context_and_a_missing_quote_gives_none():
+    script = "ADAM: Engines are old. The link is in the description. MATILDA: Great."
+    r = run(nw.check_naming(script, "", CONFIRMED, fake_llm({})))
+    assert "Engines are old" in r.violations[0]["context"]
+    assert nw.context_around("short text", "not present anywhere") == ""
+
+
+# ---- name-order fix: order-free matching, compound surnames, one full surname word must match exactly
+def _listed(*names, year=2023):
+    return [paper("P1", "Some listed paper title", list(names), year)]
+
+
+@pytest.mark.parametrize("mention,listed", [
+    ("Liu, Zhiqiang", "Zhiqiang Liu"), ("Zhiqiang Liu", "Liu, Zhiqiang"), ("Wang Ziming", "Ziming Wang"), ("Valadez Huerta", "Gerardo Valadez Huerta"),
+    ("Huerta", "Gerardo Valadez Huerta"), ("Fu, Xinyu", "Xinyu Fu"), ("Oladyshkin", "Sergey Oladyshkin"), ("S. Oladyshkin", "Sergey Oladyshkin"),
+    ("Abreu", "Jader Abreu"),
+])
+def test_author_name_formats_match(mention, listed):
+    assert nw.match_mention(m("q", [mention], 2023), _listed("Someone Else", listed)) == "P1"
+
+
+def test_an_initial_on_the_listed_side_is_not_enough():
+    # the unlisted "Robert L. Devaney" must still be caught against a listed "R. D. L. Henderson"
+    assert nw.match_mention(m("Robert L. Devaney's 1989 text", ["Robert L. Devaney"], 1989), _listed("R. D. L. Henderson", year=1989)) is None
+    assert nw.match_mention(m("q", ["Devaney"], 1989), _listed("R. D. L. Henderson", year=1989)) is None
+
+
+def test_a_different_person_with_a_common_surname_still_does_not_match():
+    assert nw.match_mention(m("Song Wang's work", ["Song Wang"], 2023), _listed("Qian Wang", "Li Zhang")) is None
+
+
+# ---------------------------------------------------------------- one author, several works in the same year (ever-math-260007)
+ALAMA_ITEMS = paper("P2", "mizar-items: Exploring fine-grained dependencies in the Mizar Mathematical Library", ["Jesse Alama"], 2011)
+ALAMA_LICENSE = paper("P4", "Licensing the Mizar Mathematical Library", ["Jesse Alama", "Michael Kohlhase", "Adam Naumowicz"], 2011)
+ALAMA_ELICIT = paper("P8", "Eliciting implicit assumptions of proofs in the MIZAR Mathematical Library by property omission", ["Jesse Alama"], 2011)
+ALAMA = [ALAMA_ITEMS, ALAMA_LICENSE, ALAMA_ELICIT]
+ELICIT_WORDS = ["Eliciting", "implicit", "assumptions", "proofs", "MIZAR", "Mathematical", "Library", "property", "omission"]
+ITEMS_WORDS = ["mizar-items", "Exploring", "fine-grained", "dependencies", "Mizar", "Mathematical", "Library"]
+
+
+def test_a_second_work_by_the_same_author_in_the_same_year_is_matched_by_its_title():
+    # The case from ever-math-260007: both quoted titles used to resolve to P2, the first Alama 2011 paper in the list.
+    assert nw.match_mention(m("Jesse Alama, in his 2011 paper, 'mizar-items: ...'", ["Alama"], 2011, ITEMS_WORDS), ALAMA) == "P2"
+    assert nw.match_mention(m("as Alama discussed in another 2011 paper, 'Eliciting implicit assumptions ...'", ["Alama"], 2011, ELICIT_WORDS), ALAMA) == "P8"
+    assert nw.match_mention(m("Licensing ...", ["Alama"], 2011, ["Licensing", "Mizar", "Mathematical", "Library"]), ALAMA) == "P4"
+
+
+def test_same_author_same_year_without_a_title_matches_nothing():
+    assert nw.match_mention(m("a 2011 paper by Alama", ["Alama"], 2011), ALAMA) is None
+    assert nw.match_mention(m("a 2011 paper by Alama", ["Alama"], 2011, ["Mizar", "Library"]), ALAMA) is None       # a tie is not a title match
+
+
+def test_a_bare_author_mention_that_names_no_paper_still_matches():
+    assert nw.match_mention(m("Alama's work on Mizar", ["Alama"], None), ALAMA) == "P2"
+
+
+def test_the_year_alone_still_separates_works_in_different_years():
+    a = paper("P1", "First study of bees", ["Ada Lovelace"], 2024)
+    b = paper("P2", "Second study of wasps", ["Ada Lovelace"], 2025)
+    assert nw.match_mention(m("q", ["Lovelace"], 2025), [a, b]) == "P2" and nw.match_mention(m("q", ["Lovelace"], 2024), [a, b]) == "P1"
+
+
+def test_both_alama_papers_are_named_and_listed_in_the_check_result():
+    script = ("Jesse Alama, in his 2011 paper, 'mizar-items: Exploring fine-grained dependencies in the Mizar Mathematical Library', "
+              "link in the description. Alama discussed in another 2011 paper, 'Eliciting implicit assumptions of proofs in the MIZAR "
+              "Mathematical Library by property omission', link in the description.")
+    llm = fake_llm({"mizar-items": [m("Jesse Alama, in his 2011 paper, 'mizar-items: Exploring fine-grained dependencies in the Mizar Mathematical Library', link in the description", ["Jesse Alama"], 2011, ITEMS_WORDS),
+                                    m("Alama discussed in another 2011 paper, 'Eliciting implicit assumptions of proofs in the MIZAR Mathematical Library by property omission', link in the description", ["Alama"], 2011, ELICIT_WORDS)]})
+    res = run(nw.check_naming(script, "", ALAMA, llm))
+    assert res.passed and res.named_pids == ["P2", "P8"]
+
+
+def test_a_single_author_and_year_fit_is_unchanged():
+    only_items = [ALAMA_ITEMS]
+    res = run(nw.check_naming("x", "", only_items, fake_llm({"x": [m("Alama discussed in another 2011 paper 'Eliciting implicit assumptions ...'", ["Alama"], 2011, ELICIT_WORDS)]})))
+    assert res.named_pids == ["P2"]   # one candidate: author and year are enough, as before
+
+
+# ---------------------------------------------------------------- fix 3: title words in the quote, and "Alama's 2011 research" after the paper was named
+def test_title_words_in_the_quoted_passage_count_when_the_model_listed_none():
+    # ever-math-260007 retry: "Jesse Alama's 2011 work on `mizar-items` for the Mizar Mathematical Library" came back with year 2011 and no title words
+    q = "Jesse Alama's 2011 work on `mizar-items` for the Mizar Mathematical Library—link in the description"
+    assert nw.match_mention(m(q, ["Jesse Alama"], 2011), ALAMA) == "P2"
+    q2 = "Alama's 2011 paper on eliciting implicit assumptions in the Mizar Mathematical Library"
+    assert nw.match_mention(m(q2, ["Alama"], 2011), ALAMA) == "P8"
+
+
+def test_a_quote_that_only_has_words_shared_by_all_the_titles_decides_nothing():
+    assert nw.match_mention(m("Alama's 2011 paper on the Mizar Mathematical Library", ["Alama"], 2011), ALAMA) is None
+
+
+def test_a_later_mention_without_a_title_resolves_to_the_one_paper_named_before():
+    later = m("Alama's 2011 research", ["Alama"], 2011)
+    assert nw.match_mention(later, ALAMA, named_before=["P2"]) == "P2"
+    assert nw.match_mention(later, ALAMA, named_before=["P8", "P1"]) == "P8"        # other authors' papers named earlier do not count
+
+
+def test_two_same_year_papers_named_before_leave_the_untitled_mention_a_violation():
+    later = m("Alama's 2011 research", ["Alama"], 2011)
+    assert nw.match_mention(later, ALAMA, named_before=["P2", "P8"]) is None
+    assert nw.match_mention(later, ALAMA, named_before=[]) is None                   # nothing named yet: still a violation
+    assert nw.match_mention(later, ALAMA, named_before=["P99"]) is None
+
+
+def test_a_mention_that_gives_wrong_title_words_is_not_rescued_by_an_earlier_mention():
+    wrong = m("Alama's 2011 study of quantum gardens", ["Alama"], 2011, ["quantum", "gardens"])
+    assert nw.match_mention(wrong, ALAMA, named_before=["P2"]) is None
+
+
+def _script_check(mentions):
+    script = "x " + " ".join(q["quote"] for q in mentions)
+    return run(nw.check_naming(script, "", ALAMA, fake_llm({"x ": mentions})))
+
+
+def test_end_to_end_one_alama_paper_named_then_a_followup_passes():
+    res = _script_check([
+        m("Jesse Alama's 2011 work on mizar-items for the Mizar Mathematical Library, link in the description", ["Jesse Alama"], 2011, ["mizar-items"]),
+        m("Alama's 2011 research also led to an interactive website", ["Alama"], 2011)])
+    assert res.passed and res.named_pids == ["P2"]
+
+
+def test_end_to_end_two_alama_papers_named_then_an_untitled_followup_fails():
+    res = _script_check([
+        m("Jesse Alama's 2011 work on mizar-items for the Mizar Mathematical Library, link in the description", ["Jesse Alama"], 2011, ["mizar-items"]),
+        m("Alama's second 2011 paper, Eliciting implicit assumptions of proofs in the MIZAR Mathematical Library by property omission, link in the description", ["Alama"], 2011, ELICIT_WORDS),
+        m("Alama's 2011 research also led to an interactive website", ["Alama"], 2011)])
+    assert res.named_pids == ["P2", "P8"] and [v["quote"] for v in res.violations] == ["Alama's 2011 research also led to an interactive website"]
+
+
+def test_the_retry_instruction_tells_the_model_to_name_the_paper_by_its_title():
+    res = _script_check([m("Alama's 2011 research", ["Alama"], 2011)])
+    text = nw.feedback_text(res, ALAMA)
+    assert "3 papers by Alama" in text and "name the paper by its title" in text
+    assert "Eliciting implicit assumptions" in text and "mizar-items" in text
+    # nothing extra for an author with one listed paper
+    res2 = run(nw.check_naming("x", "", CONFIRMED, fake_llm({"x": [m("Smith showed", ["Smith"], 2025)]})))
+    assert "papers by" not in nw.feedback_text(res2, CONFIRMED)
+
+
+# ---------------------------------------------------------------- fix 6: the episode topic is not a work, and a tool named in a listed paper is not an unlisted one
+TOPIC = "Proof dependency graphs in formal mathematics libraries: what the network structure of mathlib and Metamath reveals about how mathematics is built"
+MIZAR_ITEMS = paper("P3", "mizar-items: Exploring fine-grained dependencies in the Mizar Mathematical Library", ["Jesse Alama"], 2011)
+MIZAR_ITEMS.abstract = "We have implemented a system, mizar-items, on which a variety of foundational experiments can be based. mizar-items also comes with a website."
+MATHLIB_PAPER = paper("P1", "The Network Structure of Mathlib", ["Xinze Li", "Nanyun Peng"], 2026)
+MATHLIB_PAPER.abstract = "We present a network analysis of Mathlib, the library of Lean 4."
+
+
+def test_a_quoted_passage_that_is_the_episode_topic_is_ignored_not_flagged():
+    # the mention the naming check produced on 2026-10-14, attempts 3 and 4
+    topic_quote = m("MATILDA: Welcome to Copernicus AI. Today we're exploring \"" + TOPIC + ".\" Adam, what do the papers tell us?", [], None, [])
+    topic_quote["quote"] = TOPIC + "."
+    res = run(nw.check_naming("x", "", [MIZAR_ITEMS], fake_llm({"x": [topic_quote]}), topic=TOPIC))
+    assert res.passed and res.violations == [] and res.mentions[0]["ignored"] == "episode topic" and res.mentions[0]["pid"] is None
+    # without the topic given, the old behaviour: flagged
+    res2 = run(nw.check_naming("x", "", [MIZAR_ITEMS], fake_llm({"x": [dict(topic_quote, title_words=["Proof", "dependency", "graphs"])]})))
+    assert not res2.passed
+
+
+def test_the_topic_rule_is_narrow():
+    assert nw.is_topic_mention(m(TOPIC, [], None, []), TOPIC) and nw.is_topic_mention(m("x", [], None, TOPIC.split()), TOPIC)
+    assert not nw.is_topic_mention(m(TOPIC, ["Smith"], 2020, []), TOPIC)                          # an author makes it a paper
+    assert not nw.is_topic_mention(m("Proof dependency graphs", [], None, []), TOPIC)             # fewer than 4 words
+    assert not nw.is_topic_mention(m("Deep learning for protein folding in yeast cells", [], None, []), TOPIC)
+    assert not nw.is_topic_mention(m(TOPIC, [], None, []), None)
+
+
+def test_a_tool_named_in_a_listed_papers_title_or_abstract_is_not_an_unlisted_work():
+    # the description mention flagged on 2026-10-14, attempt 3
+    q = "Research insights highlight the creation of tools like 'mizar-items' for dissecting dependencies, enabling foundational experiments in the Mizar Mathematical Library."
+    mention = m(q, [], None, ["mizar-items"])
+    assert nw.match_mention(mention, [MIZAR_ITEMS, MATHLIB_PAPER]) is None                          # the author-and-year matcher cannot place it
+    assert nw.match_tool_name(mention, [MATHLIB_PAPER, MIZAR_ITEMS]) == "P3"
+    res = run(nw.check_naming("x", "Body", [MATHLIB_PAPER, MIZAR_ITEMS], fake_llm({"Body": [mention]}), topic=TOPIC))
+    assert res.passed and res.named_pids == ["P3"] and res.mentions[0]["matched_by"].startswith("tool name")
+
+
+def test_the_quoted_name_comes_from_the_quote_and_apostrophes_inside_words_are_not_quotes():
+    assert nw.tool_names(m("Adam's tools like 'mizar-items' aren't what they're called", [], None, [])) == ["mizar-items"]
+    assert nw.tool_names(m("the `mathlib` library and the ‘Lean’ prover", [], None, [])) == ["mathlib", "Lean"]
+    assert nw.tool_names(m("no quotes here", [], None, ["Aria"])) == ["Aria"]
+    assert nw.tool_names(m("no quotes here", [], None, ["a", "b", "c"])) == []                       # too many title words to be a name
+
+
+def test_a_name_no_listed_paper_uses_is_still_a_violation():
+    mention = m("tools like 'GlobalFoo' for dissecting dependencies", [], None, ["GlobalFoo"])
+    assert nw.match_tool_name(mention, [MATHLIB_PAPER, MIZAR_ITEMS]) is None
+    res = run(nw.check_naming("x", "Body", [MATHLIB_PAPER, MIZAR_ITEMS], fake_llm({"Body": [mention]}), topic=TOPIC))
+    assert not res.passed and res.violations[0]["kind"] == "unlisted_work"
+
+
+def test_a_mention_with_authors_never_takes_the_tool_name_route():
+    mention = m("Smith's 2019 system 'mizar-items'", ["Smith"], 2019, ["mizar-items"])
+    assert nw.match_tool_name(mention, [MIZAR_ITEMS]) is None
+    res = run(nw.check_naming("x", "", [MIZAR_ITEMS], fake_llm({"x": [mention]}), topic=TOPIC))
+    assert not res.passed                                                                           # an unlisted author claiming a listed tool is still unlisted
+
+
+def test_every_name_must_be_found_in_the_same_listed_paper():
+    mention = m("both 'mizar-items' and 'Zorblatt' were used", [], None, [])
+    assert nw.match_tool_name(mention, [MIZAR_ITEMS, MATHLIB_PAPER]) is None
