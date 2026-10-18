@@ -1,6 +1,8 @@
-# Proposal: end Jetson scout wrapper drift (do not build in this PR)
+# Proposal: end Jetson scout wrapper drift
 
-**Status:** proposal only. No sync script, drift check, or Jetson copy lands in this PR.
+**Status:** implemented on the scout-wrapper-hardening PR (snapshot +
+`sync_to_jetson.sh` wrapper install + `check_scout_drift.sh`). Deploy remains
+attended; this file keeps the rationale.
 **Context:** Live cron runs `/media/sdcard/scheduler/scout/*.py`, not the
 worker/HFS checkout. On 2026-10-18 the live `scout_common.py` hash differed from
 the worker tree (`a88da6c0612d` vs `5a89f07dbcf3`). `sync_to_jetson.sh` already
