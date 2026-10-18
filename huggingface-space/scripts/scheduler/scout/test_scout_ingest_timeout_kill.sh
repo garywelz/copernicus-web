@@ -48,14 +48,18 @@ echo "=== Part A: timeout --kill-after + PGID reap (raw timeout alone is not eno
 set +e
 timeout --kill-after=2s 1s bash "${WORKDIR}/hung_tree.sh" "$CHILD_PID_FILE" "$MARKER" &
 timeout_pid=$!
-pgid="$(ps -o pgid= -p "$timeout_pid" 2>/dev/null | tr -d ' ' || true)"
+# Same rule as scout_ingest run_timed: PGID == timeout pid (do not ps-race setpgid).
+pgid="$timeout_pid"
+own_pgid="$(ps -o pgid= -p $$ 2>/dev/null | tr -d ' ' || true)"
 wait "$timeout_pid"
 timeout_rc=$?
-if [[ -n "$pgid" ]]; then
-  kill -TERM -"$pgid" 2>/dev/null || true
-  sleep 1
-  kill -KILL -"$pgid" 2>/dev/null || true
+if [[ -n "$own_pgid" && "$pgid" == "$own_pgid" ]]; then
+  echo "FAIL: pgid equals own_pgid ($pgid); refusing reap" >&2
+  exit 1
 fi
+kill -TERM -"$pgid" 2>/dev/null || true
+sleep 1
+kill -KILL -"$pgid" 2>/dev/null || true
 set -e
 sleep 1
 
@@ -90,14 +94,17 @@ rm -f "$CHILD_PID_FILE" "$MARKER"
   set +e
   timeout --kill-after=2s 1s bash "${WORKDIR}/hung_tree.sh" "$CHILD_PID_FILE" "$MARKER" 9>&- &
   timeout_pid=$!
-  pgid="$(ps -o pgid= -p "$timeout_pid" 2>/dev/null | tr -d ' ' || true)"
+  pgid="$timeout_pid"
+  own_pgid="$(ps -o pgid= -p $$ 2>/dev/null | tr -d ' ' || true)"
   wait "$timeout_pid"
   echo "timeout_rc=$?"
-  if [[ -n "$pgid" ]]; then
-    kill -TERM -"$pgid" 2>/dev/null || true
-    sleep 1
-    kill -KILL -"$pgid" 2>/dev/null || true
+  if [[ -n "$own_pgid" && "$pgid" == "$own_pgid" ]]; then
+    echo "FAIL: pgid equals own_pgid ($pgid); refusing reap" >&2
+    exit 1
   fi
+  kill -TERM -"$pgid" 2>/dev/null || true
+  sleep 1
+  kill -KILL -"$pgid" 2>/dev/null || true
   set -e
 )
 sleep 1
