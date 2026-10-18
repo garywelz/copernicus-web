@@ -32,7 +32,9 @@ from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional, Tuple
 
 from google.cloud import firestore
-from google.api_core.exceptions import AlreadyExists
+from google.api_core import exceptions as google_exceptions
+from google.api_core import retry as google_retry
+from google.api_core.exceptions import AlreadyExists, DeadlineExceeded
 
 # Minimal identity core for last-resort ids — fail CLOSED.
 # Hash identity of the paper, not the record's current enrichment state.
@@ -41,6 +43,94 @@ from google.api_core.exceptions import AlreadyExists
 _DEFAULT_REJECT_GCS_PREFIX = (
     "gs://regal-scholar-453620-r7-podcast-storage/research_data/ingest_rejects"
 )
+
+# Per-RPC deadlines (seconds). Env overrides for attended dry-runs / tuning.
+_DEFAULT_FIRESTORE_RPC_TIMEOUT_S = 60.0
+_DEFAULT_GCS_UPLOAD_TIMEOUT_S = 60.0
+_DEFAULT_RETRY_DEADLINE_S = 180.0
+
+
+def _firestore_rpc_timeout_s() -> float:
+    raw = _env("INGEST_FIRESTORE_RPC_TIMEOUT_S", str(_DEFAULT_FIRESTORE_RPC_TIMEOUT_S))
+    try:
+        return max(1.0, float(raw))
+    except ValueError:
+        return _DEFAULT_FIRESTORE_RPC_TIMEOUT_S
+
+
+def _gcs_upload_timeout_s() -> float:
+    raw = _env("INGEST_GCS_UPLOAD_TIMEOUT_S", str(_DEFAULT_GCS_UPLOAD_TIMEOUT_S))
+    try:
+        return max(1.0, float(raw))
+    except ValueError:
+        return _DEFAULT_GCS_UPLOAD_TIMEOUT_S
+
+
+def _retry_deadline_s() -> float:
+    raw = _env("INGEST_RPC_RETRY_DEADLINE_S", str(_DEFAULT_RETRY_DEADLINE_S))
+    try:
+        return max(1.0, float(raw))
+    except ValueError:
+        return _DEFAULT_RETRY_DEADLINE_S
+
+
+def _transient_rpc_retry() -> google_retry.Retry:
+    """Bounded retry for transient Google API errors only (not AlreadyExists)."""
+    return google_retry.Retry(
+        initial=1.0,
+        maximum=30.0,
+        multiplier=2.0,
+        deadline=_retry_deadline_s(),
+        predicate=google_retry.if_exception_type(
+            DeadlineExceeded,
+            google_exceptions.ServiceUnavailable,
+            google_exceptions.InternalServerError,
+            google_exceptions.TooManyRequests,
+            google_exceptions.ResourceExhausted,
+            google_exceptions.Aborted,
+        ),
+    )
+
+
+def _firestore_client(project_id: str, database: str):
+    """Construct Firestore client; RPC deadlines are applied at call sites."""
+    timeout_s = _firestore_rpc_timeout_s()
+    print(
+        f"Firestore client: project={project_id} database={database} "
+        f"rpc_timeout_s={timeout_s} retry_deadline_s={_retry_deadline_s()}"
+    )
+    return firestore.Client(project=project_id, database=database)
+
+
+def _batch_commit(batch) -> None:
+    """Commit a WriteBatch with explicit timeout and transient retries."""
+    timeout_s = _firestore_rpc_timeout_s()
+    try:
+        batch.commit(retry=_transient_rpc_retry(), timeout=timeout_s)
+    except DeadlineExceeded as e:
+        print(
+            f"❌ Firestore batch.commit timed out after {timeout_s}s "
+            f"(DeadlineExceeded): {e}"
+        )
+        raise
+
+
+def _doc_create(doc_ref, doc: Dict[str, Any]) -> None:
+    """Create a document with explicit timeout and transient retries.
+
+    AlreadyExists is not retried — callers handle it as a skip.
+    """
+    timeout_s = _firestore_rpc_timeout_s()
+    try:
+        doc_ref.create(doc, retry=_transient_rpc_retry(), timeout=timeout_s)
+    except DeadlineExceeded as e:
+        print(
+            f"❌ Firestore document.create timed out after {timeout_s}s "
+            f"for {doc_ref.id} (DeadlineExceeded): {e}"
+        )
+        raise
+    except AlreadyExists:
+        raise
 
 
 def _now_iso() -> str:
@@ -200,9 +290,18 @@ def _upload_reject_log_gcs(local_path: Path, gcs_uri: str) -> Optional[str]:
             return f"invalid_gcs_uri:{gcs_uri}"
         _, _, rest = gcs_uri.partition("gs://")
         bucket_name, _, blob_name = rest.partition("/")
+        timeout_s = _gcs_upload_timeout_s()
         client = storage.Client(project=_env("GOOGLE_CLOUD_PROJECT", "regal-scholar-453620-r7"))
-        client.bucket(bucket_name).blob(blob_name).upload_from_filename(str(local_path))
+        client.bucket(bucket_name).blob(blob_name).upload_from_filename(
+            str(local_path),
+            timeout=timeout_s,
+            retry=_transient_rpc_retry(),
+        )
         return None
+    except DeadlineExceeded as e:
+        msg = f"DeadlineExceeded after {_gcs_upload_timeout_s()}s: {e}"
+        print(f"❌ GCS reject-log upload timed out: {msg}")
+        return msg
     except Exception as e:
         return f"{type(e).__name__}: {e}"
 
@@ -565,7 +664,7 @@ def main() -> int:
 
     project_id = _env("GCP_PROJECT_ID", _env("GOOGLE_CLOUD_PROJECT", "regal-scholar-453620-r7"))
     firestore_db_name = _env("FIRESTORE_DATABASE", "copernicusai")
-    db = firestore.Client(project=project_id, database=firestore_db_name)
+    db = _firestore_client(project_id, firestore_db_name)
     col = db.collection("research_papers")
 
     files = list(_iter_json_files(root, args.include_glob or "**/*.json"))
@@ -737,9 +836,17 @@ def main() -> int:
         # Only commit if we actually staged any writes in this batch
         try:
             if staged_in_batch:
-                batch.commit()
+                _batch_commit(batch)
                 written += staged_in_batch
                 last_checkpoint = chunk[-1][2] if chunk else None
+        except DeadlineExceeded:
+            # Hard stop: do not continue a hung ingest; wrapper skips hooks on non-zero.
+            failed += staged_in_batch
+            print(
+                f"❌ Batch commit deadline exceeded ({staged_in_batch} staged); "
+                "aborting remaining chunks"
+            )
+            raise SystemExit(2)
         except Exception as e:
             # Batch commit can fail if any doc already exists when using batch.create.
             # Fall back to per-doc create to count skips precisely.
@@ -747,10 +854,14 @@ def main() -> int:
                 for doc_id, doc, _fp in chunk:
                     try:
                         doc_ref = col.document(doc_id)
-                        doc_ref.create(doc)
+                        _doc_create(doc_ref, doc)
                         written += 1
                     except AlreadyExists:
                         skipped += 1
+                    except DeadlineExceeded as e2:
+                        failed += 1
+                        print(f"❌ Failed writing doc {doc_id} (deadline): {e2}")
+                        raise SystemExit(2)
                     except Exception as e2:
                         failed += 1
                         if failed <= 5:
