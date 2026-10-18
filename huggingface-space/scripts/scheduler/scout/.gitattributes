@@ -1,0 +1,4 @@
+# Scout cron package must stay LF. CRLF breaks bash wrappers and makes
+# Jetson live digests drift from git blobs (see LIVE_VS_REPO_PY.md).
+*.sh text eol=lf
+*.py text eol=lf

@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 # Scoped MathOverflow + BioStars paper-ID harvest (official APIs only).
 # Bioinformatics SE is the locked GLMP fallback when BioStars is blocked.
-# Jetson line (America/New_York), weekly, after PM paper ingest:
-#   0 22 * * 0 .../scout_discussion_boards.sh
+# Weekly, Sunday 22:00 America/New_York, after PM paper ingest.
 # Does not change production PubMed/bioRxiv/arXiv cron.
 set -euo pipefail
 
@@ -13,7 +12,6 @@ ENV_FILE="${COPERNICUS_ENV:-/home/gary/.config/copernicus/env}"
 CREDS="${GOOGLE_APPLICATION_CREDENTIALS:-/home/gary/.config/copernicus/gcp-sa.json}"
 
 if [[ -f "$ENV_FILE" ]]; then
-  # shellcheck disable=SC1090
   . "$ENV_FILE"
 fi
 export GOOGLE_APPLICATION_CREDENTIALS="$CREDS"
