@@ -39,9 +39,11 @@ if ! flock -n 9; then
 fi
 
 # Do not exec — post-ingest hooks must run after ingest returns.
+# Close fd 9 in timed children so an orphaned grandchild cannot keep the flock
+# (Part B 2026-10-18: timeout returned 124 while ingest bash still held fd 9).
 set +e
 timeout --kill-after="$KILL_AFTER" "$INGEST_TIMEOUT" \
-  bash "${HFS}/scripts/ingest_metadata_to_firestore.sh" >>"$INGEST_LOG" 2>&1
+  bash "${HFS}/scripts/ingest_metadata_to_firestore.sh" 9>&- >>"$INGEST_LOG" 2>&1
 ingest_rc=$?
 set -e
 
@@ -57,7 +59,7 @@ fi
 
 set +e
 timeout --kill-after="$KILL_AFTER" "$HOOKS_TIMEOUT" \
-  bash "${HFS}/scripts/run_post_ingest_hooks.sh"
+  bash "${HFS}/scripts/run_post_ingest_hooks.sh" 9>&-
 hooks_rc=$?
 set -e
 
