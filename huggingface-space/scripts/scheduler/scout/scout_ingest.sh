@@ -46,24 +46,32 @@ fi
 run_timed() {
   local duration="$1"
   shift
-  local timeout_pid pgid rc leftover
+  local timeout_pid pgid own_pgid rc
   # Close flock fd in the timed tree (9>&-).
   timeout --kill-after="$KILL_AFTER" "$duration" "$@" 9>&- &
   timeout_pid=$!
-  # GNU timeout creates a new PGID equal to its own pid.
-  pgid="$(ps -o pgid= -p "$timeout_pid" 2>/dev/null | tr -d ' ' || true)"
+  # GNU timeout makes PGID == its own pid once setpgid runs. Do NOT read pgid
+  # via ps right after backgrounding: that races setpgid and can return this
+  # wrapper's PGID, so the cleanup kill would terminate scout_ingest itself.
+  pgid="$timeout_pid"
+  own_pgid="$(ps -o pgid= -p $$ 2>/dev/null | tr -d ' ' || true)"
+  if [[ -n "${own_pgid}" && "${pgid}" == "${own_pgid}" ]]; then
+    echo "$(date -u +%Y-%m-%dT%H:%M:%SZ) scout_ingest: refusing to signal own PGID ${pgid} (timeout_pid=${timeout_pid})" | tee -a "$INGEST_LOG" >&2
+    set +e
+    wait "$timeout_pid"
+    rc=$?
+    set -e
+    return "$rc"
+  fi
   set +e
   wait "$timeout_pid"
   rc=$?
   set -e
-  if [[ -n "${pgid}" ]]; then
-    # Always signal the recorded PGID. Do not gate on `ps -g` — after the
-    # timeout leader exits, some kernels briefly hide the orphaned group from
-    # that listing while grandchildren with trap '' TERM are still running.
-    kill -TERM -"$pgid" 2>/dev/null || true
-    sleep 1
-    kill -KILL -"$pgid" 2>/dev/null || true
-  fi
+  # Always signal the recorded PGID (timeout_pid). Orphans keep that PGID after
+  # the timeout leader exits.
+  kill -TERM -"$pgid" 2>/dev/null || true
+  sleep 1
+  kill -KILL -"$pgid" 2>/dev/null || true
   return "$rc"
 }
 
