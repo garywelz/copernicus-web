@@ -25,6 +25,28 @@ Entry format:
 
 ---
 
+## 027 — 2026-10-19 — Phase 2 security follow-ups closed; Vercel estate and costs reduced; scout ingest hardened; rule 21 proposed
+
+- **From:** Claude Code (Core lane), at Gary's request
+- **Status:** DRAFT: rule 21 (AGENT_ROLES v2.8) is a proposal until Gary merges the PR that adds this entry
+- **Record:** the pull request that adds this entry; copernicus-web PRs [#133](https://github.com/garywelz/copernicus-web/pull/133), [#134](https://github.com/garywelz/copernicus-web/pull/134) and [#136](https://github.com/garywelz/copernicus-web/pull/136) (merged 2026-10-18) and [#135](https://github.com/garywelz/copernicus-web/pull/135) (draft, open); follows entry 026
+- **Affects:** every agent (rule 21); Core; anyone who runs or reviews the Jetson scout and ingest jobs
+- **Summary:**
+  - **Both Phase 2 security follow-ups are closed (rule 17 is satisfied).** A database connection setting was tightened and verified against the live service and by a direct read. The old public hosting endpoints were removed: the Vercel estate is now one live project and one paused project, in one team (reported by Gary; on 2026-10-19 a plain-fetch probe of the removed projects' addresses showed none of them serving). This completes the Vercel work that entry 026 listed as not done. The findings and the evidence stay in the private record.
+  - **Vercel cost findings (reported by Gary):** automatic AI code reviews, an unused add-on and a second plan were retired, saving about $120 a month.
+  - **Scout and ingest hardening.** #133: the arXiv scout reports failures instead of ending in silent success. #134: the scout wrapper scripts are snapshotted into the repo, with a timeout, a lock and a drift check against the live copy. #136: the lock is no longer inherited by timed child processes. #135 (still a draft): deadlines and retries on the ingest's Firestore and storage calls. The Jetson checkout was brought current (reported by Gary); it does not carry #135 until that is merged.
+  - **Rule 21 proposed (`governance/AGENT_ROLES.md` v2.8).** Background scripts an agent leaves running may only observe and report. Any step with a side effect runs attended, in the foreground, with its preconditions re-checked at that moment. A watcher must be able to report its own failure, and an agent lists and stops the background processes it started before a session ends.
+  - **Lessons:**
+    - An approved step that fails means stop and report, not fix it live.
+    - No force-pushes on PR branches (rule 2 already says so; PR branches are not an exception).
+    - A test must be shown capable of failing before it is trusted.
+    - A watcher must be able to observe failure, not only success: a check that stalls or cannot read its target is a result.
+- **Waiting on:** nothing urgent.
+  - **Gary:** review and merge this PR; name #135 for merging when he wants it.
+  - **Core:** nobody beyond routine.
+  - **Open items for the focus review:** arXiv harvesting through OAI-PMH; ScienceVideoDB's future (rebuild, fix or retire); the BioStars source, blocked since August; the incremental ingest scan; a redirect for the suite's older domain name.
+  - **Methods & Tools, GLMP lane:** nobody.
+
 ## 026 — 2026-10-16 — Hosting cleanup Phase 2 executed (Batches 1 to 4.1); the proposal file is now the record
 
 - **From:** Claude Code (Core lane); approved by Gary in stages, 2026-10-05 to 2026-10-13

@@ -1,7 +1,7 @@
 # Agent Roles and Division of Labor
 ## CopernicusAI Knowledge Engine suite — every engine, every agent
 
-**Version:** 2.7 — October 16, 2026
+**Version:** 2.8 — October 19, 2026
 **Lives in:** `copernicus-web` repo at `governance/AGENT_ROLES.md` (moved from
 `glmp/docs/AGENT_ROLES.md`; see change log)
 **Read alongside:** the rest of `governance/` — Constitution, Methods Catalog, Resource
@@ -266,6 +266,17 @@ live fetch of this file fails.
     interpolation.** Backticks in a heredoc or double-quoted string are executed, and Git Bash
     on Windows runs a named file as a shell script even without the executable bit (found
     2026-10-16, PR #130).
+21. **Background scripts an agent leaves running may only observe and report.** A watcher,
+    loop, scheduled job or background command that an agent starts, and that keeps running
+    after the step that started it, reads state and writes a report. It changes nothing: no
+    write to a bucket, database, Cloud Run service, DNS record, Vercel project or repository,
+    and no delete, restart or deploy. Any step with a side effect runs attended: the agent is
+    present, runs it in the foreground, and re-checks its preconditions at that moment (the
+    approval still stands, the target is still the one approved, its current generation, etag
+    or state is what the plan assumed), not as they were when a script was written. A watcher
+    must be able to report failure as well as success: a check that stalls, dies or cannot
+    read its target is itself a result to report. Before ending a session, list the
+    background processes the agent started and stop them.
 
 ---
 
@@ -480,6 +491,11 @@ silently.
 ---
 
 ## Change log
+- **v2.8** (2026-10-19) — Added session rule 21 (background scripts an agent leaves running
+  may only observe and report; any step with a side effect runs attended, with its
+  preconditions re-checked at that moment; a watcher must be able to report failure as well as
+  success). Proposed until Gary merges the PR that adds it. See `governance/BULLETIN.md`
+  entry 027.
 - **v2.7** (2026-10-16) — Added session rules 19 (an agent merges only a PR Gary has named, and
   leaves a comment quoting the go-ahead; a regression is fixed by proposal, not by an unasked
   merge) and 20 (PR, issue and comment bodies go through `--body-file` or the API, never shell
