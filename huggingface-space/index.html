@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CopernicusAI</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
     <style>
         .gradient-bg {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -34,54 +35,23 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
             <div class="text-center">
                 <p class="text-sm uppercase tracking-widest opacity-80 mb-3">CopernicusAI · Gary Welz · CUNY Graduate Center</p>
-                <h1 class="text-4xl sm:text-5xl font-bold mb-4">62,000+ biology papers, indexed and searchable</h1>
-                <p class="text-lg sm:text-xl opacity-90 max-w-4xl mx-auto">
-                    A computational knowledge engine focused on regulatory biology, computational genomics, and
-                    AI-assisted biological discovery. Growing daily.
-                </p>
+                <h1 class="text-4xl sm:text-5xl font-bold mb-4">CopernicusAI — an AI-powered engine for transforming literature, analysis and experimentation into scientific knowledge</h1>
             </div>
         </div>
     </header>
-
-    <!-- Key Statistics (moved above the fold) -->
-    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-4">
-            <div class="bg-white rounded-lg shadow-md p-6 text-center">
-                <div class="stat-number mb-2" id="kstat-papers">62,312</div>
-                <div class="text-gray-600 font-semibold">Research Papers</div>
-                <div class="text-sm text-gray-500 mt-1">Indexed in Knowledge Engine (Firestore)</div>
-            </div>
-            <div class="bg-white rounded-lg shadow-md p-6 text-center">
-                <div class="stat-number mb-2" id="kstat-processes">314</div>
-                <div class="text-gray-600 font-semibold">Process charts (PF)</div>
-                <div class="text-sm text-gray-500 mt-1" id="kstat-processes-sub">Loading…</div>
-            </div>
-            <div class="bg-white rounded-lg shadow-md p-6 text-center">
-                <div class="stat-number mb-2" id="kstat-videos">753</div>
-                <div class="text-gray-600 font-semibold">Videos</div>
-                <div class="text-sm text-gray-500 mt-1">Science videos indexed (published count)</div>
-            </div>
-            <div class="bg-white rounded-lg shadow-md p-6 text-center">
-                <div class="stat-number mb-2" id="kstat-podcasts">79</div>
-                <div class="text-gray-600 font-semibold">Podcasts</div>
-                <div class="text-sm text-gray-500 mt-1">Generated across 5 disciplines</div>
-            </div>
-        </div>
-        <div id="kstat-bloc" class="text-center max-w-3xl mx-auto text-sm text-gray-600 leading-relaxed" aria-live="polite">
-            <p class="mb-0" id="kstat-asof">Loading live counts from knowledge-engine-status.json…</p>
-        </div>
-        <p class="text-center text-sm text-gray-600 mt-3">
-            Part of the GLMP research program —
-            <a href="https://huggingface.co/spaces/garywelz/glmp" target="_blank" rel="noopener noreferrer" class="text-green-700 hover:underline font-medium">github.com/garywelz/glmp</a>
-        </p>
-    </section>
 
     <!-- Abstract/Summary -->
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div class="bg-white rounded-xl shadow-lg p-8 mb-8 border-l-4 border-purple-600">
             <h2 class="text-2xl font-bold text-gray-900 mb-4">📋 Summary</h2>
             <p class="text-lg text-gray-700 leading-relaxed mb-3">
-                <strong>CopernicusAI</strong> is an operational research platform that synthesizes scientific literature from 250+ million papers into AI-generated podcasts, integrates with a knowledge graph of <span id="kstat-summary-papers">62,312</span> indexed papers, and provides collaborative tools for research discovery. The system demonstrates production-ready multi-source research synthesis with full citation tracking and evidence-based content generation requiring minimum 3 research sources per episode.
+                <strong>CopernicusAI</strong> is an operational platform, not a proposal: scouts, embedding, and a
+                query interface, already running in production, already turning two labs' literature into searchable,
+                citable, generative knowledge. The architecture is domain-agnostic by design — what makes a field's
+                engine is which literature its scouts watch and which flowcharts its researchers build, not a
+                rewrite of the platform underneath. Every AI-generated briefing draws on a minimum of three validated
+                academic sources, with automated citation extraction, quality scoring, and paradigm-shift detection
+                applied throughout.
             </p>
             <p class="text-gray-600">
                 The platform includes a fully operational Research Tools Dashboard (deployed December 2025) with interactive knowledge graph visualization, vector search, and RAG capabilities, enabling researchers to explore, query, and synthesize scientific knowledge across disciplines.
@@ -94,37 +64,78 @@
         <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
             <h2 class="text-3xl font-bold text-gray-900 mb-6">🏗️ Knowledge Engine Architecture</h2>
             <p class="text-lg text-gray-700 leading-relaxed mb-6">
-                The CopernicusAI Knowledge Engine systematically transforms information into knowledge through integrated capabilities. At its core, a knowledge engine is any system—biological or artificial—that systematically transforms information into knowledge, performing work by converting raw materials (information) into useful outputs (knowledge, understanding, insights).
+                CopernicusAI is organized in six tiers. A researcher works within a specific frontier —
+                <strong>GLMP</strong> (biology) or <strong>ATAP</strong> (mathematics), the two working knowledge
+                engines — using the <strong>Knowledge Base UI</strong> as their instrument: the microscope they
+                focus on that frontier, backed by <strong>Methods &amp; Tools</strong> (the Programming Framework
+                and its demonstration flowcharts). What they produce — podcasts, written papers — becomes new
+                <strong>Resources</strong>, alongside metadata that <strong>Scouts</strong> continuously bring in
+                from the wider paper universe. A resource only becomes retrievable knowledge once it passes through
+                <strong>Embedding</strong>, the gate between "exists in the collection" and "answerable by the
+                Knowledge Base UI." That's the loop that makes this an engine rather than a pipeline: what a
+                researcher produces today becomes what the next researcher finds tomorrow.
             </p>
-            <p class="text-gray-700 mb-6">
-                The system architecture demonstrates the integration of data ingestion, processing, storage, and query capabilities across multiple modalities—research papers, process descriptions, and media content—enabling comprehensive knowledge discovery and synthesis.
-            </p>
-            
+
             <div class="bg-gray-50 rounded-lg p-6 mb-6">
-                <img src="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/images/copernicusai_architecture.png" 
-                     alt="Knowledge Engine Architecture Diagram showing data ingestion, processing, storage, and query layers" 
-                     class="w-full rounded-lg shadow-md"
-                     style="max-width: 100%; height: auto;">
+                <div class="mermaid">
+graph LR
+    subgraph FRONTIER["🔬 Researcher's frontier — GLMP or ATAP"]
+        R["Researcher"]
+    end
+    KBUI["&lt;b&gt;Knowledge Base UI&lt;/b&gt;&lt;br/&gt;the microscope&lt;br/&gt;graphs · RAG · search"]
+    MT["&lt;b&gt;Methods &amp; Tools&lt;/b&gt;&lt;br/&gt;Programming Framework&lt;br/&gt;demo flowcharts"]
+    PROD["&lt;b&gt;Products&lt;/b&gt;&lt;br/&gt;podcasts · written papers"]
+    RES["&lt;b&gt;Resources&lt;/b&gt;&lt;br/&gt;papers · videos · charts&lt;br/&gt;(the collection)"]
+    SCOUTS["&lt;b&gt;Scouts&lt;/b&gt;&lt;br/&gt;continuous search agents"]
+    ACAD[("Academic databases&lt;br/&gt;PubMed · arXiv · NASA ADS")]
+    EMBED["&lt;b&gt;Embedding&lt;/b&gt;&lt;br/&gt;the gate"]
+
+    R -->|uses| MT
+    R -->|produces| PROD
+    PROD -->|become| RES
+    SCOUTS -->|search| ACAD
+    ACAD -->|metadata| RES
+    RES -->|EMBEDDING&lt;br/&gt;makes findable| EMBED
+    EMBED -->|embedded resources| KBUI
+    KBUI -->|researcher views&lt;br/&gt;papers, videos, charts| R
+
+    classDef frontier fill:#fdf1e2,stroke:#e8850c,stroke-width:2px,color:#1a1c22
+    classDef ui fill:#e6f3fa,stroke:#1f8bc0,stroke-width:2px,color:#1a1c22
+    classDef tool fill:#e6f3fa,stroke:#1f8bc0,stroke-width:2px,color:#1a1c22
+    classDef product fill:#e8f6ee,stroke:#2e9e5b,stroke-width:2px,color:#1a1c22
+    classDef resource fill:#fdeef2,stroke:#d1476b,stroke-width:2px,color:#1a1c22
+    classDef gate fill:#f3ecf7,stroke:#7b3fa0,stroke-width:3px,color:#1a1c22
+    class R frontier
+    class KBUI ui
+    class MT tool
+    class PROD product
+    class RES,SCOUTS,ACAD resource
+    class EMBED gate
+                </div>
                 <p class="text-sm text-gray-600 mt-4 italic text-center">
-                    Figure: Knowledge Engine Architecture - Data flow from ingestion through processing and storage to query interfaces
+                    Figure: the researcher-workflow loop — what makes CopernicusAI an engine, not a pipeline.
                 </p>
             </div>
 
             <div class="grid md:grid-cols-3 gap-6 mt-6">
                 <div class="bg-blue-50 rounded-lg p-6">
-                    <h3 class="text-lg font-semibold text-gray-900 mb-3">📥 Data Ingestion</h3>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-3">📥 Scouts &amp; Ingestion</h3>
                     <p class="text-sm text-gray-700">
-                        Multi-source acquisition from academic databases (PubMed, arXiv, NASA ADS), literature sources (textbooks, reviews), and educational content (videos, transcripts), with quality assessment and type classification.
+                        Scouts continuously search the 250+ million-paper universe (PubMed, arXiv, NASA ADS, and
+                        more) for material relevant to active frontiers, bringing metadata into Resources alongside
+                        products (podcasts, papers, videos) from the researcher's own work.
                     </p>
                 </div>
-                
+
                 <div class="bg-green-50 rounded-lg p-6">
-                    <h3 class="text-lg font-semibold text-gray-900 mb-3">⚙️ Processing & Storage</h3>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-3">⚙️ Embedding — the gate</h3>
                     <p class="text-sm text-gray-700">
-                        LLM-powered entity extraction and process logic extraction, structured data storage (JSON metadata, Mermaid flowcharts, transcripts), and specialized databases for papers, processes, and media.
+                        LLM-powered entity and process-logic extraction, then embedding: a resource becomes
+                        retrievable knowledge only once it's vectorized into the shared corpus (Firestore + GCS).
+                        Not stored — findable.
                     </p>
                 </div>
-                
+
                 <div class="bg-purple-50 rounded-lg p-6">
                     <h3 class="text-lg font-semibold text-gray-900 mb-3">🔍 Query & Output</h3>
                     <p class="text-sm text-gray-700">
@@ -132,6 +143,112 @@
                     </p>
                 </div>
             </div>
+
+            <h3 class="text-xl font-semibold text-gray-900 mt-10 mb-4">How processing works internally</h3>
+            <p class="text-gray-700 mb-6">
+                The headline diagram above is the researcher's loop. Internally, ingested material moves through
+                three parallel modality lanes before converging at the same Embedding gate:
+            </p>
+            <div class="bg-gray-50 rounded-lg p-6 mb-6">
+                <div class="mermaid">
+graph TD
+    subgraph ING["① Ingestion"]
+        SCOUTS2["&lt;b&gt;Scouts&lt;/b&gt;&lt;br/&gt;continuous search agents"]
+        ACAD2[("Academic databases — literature, educational media&lt;br/&gt;PubMed · arXiv · NASA ADS · more")]
+        INTAKE["Products &amp; manual intake&lt;br/&gt;podcasts · papers · videos"]
+        RAW["Raw material ingested"]
+    end
+
+    SCOUTS2 -->|search| ACAD2
+    ACAD2 --> RAW
+    INTAKE --> RAW
+
+    subgraph PROC["② Processing — by modality"]
+        RAW --> PAPERS["&lt;b&gt;Papers&lt;/b&gt;&lt;br/&gt;extract entities&lt;br/&gt;→ structured metadata"]
+        RAW --> MEDIA["&lt;b&gt;Media&lt;/b&gt;&lt;br/&gt;transcribe · parse&lt;br/&gt;→ structured text"]
+        RAW --> CHARTS["&lt;b&gt;Process charts&lt;/b&gt;&lt;br/&gt;extract logic&lt;br/&gt;→ Mermaid + metadata"]
+        PAPERS --> EMBED2["&lt;b&gt;Embedding — the gate&lt;/b&gt;&lt;br/&gt;vectorize all modalities&lt;br/&gt;into one shared corpus"]
+        MEDIA --> EMBED2
+        CHARTS --> EMBED2
+    end
+
+    EMBED2 --> KB2[("&lt;b&gt;Knowledge Base&lt;/b&gt;&lt;br/&gt;corpus + embeddings&lt;br/&gt;Firestore + GCS")]
+
+    subgraph QRY["③ Query — retrieval over the corpus"]
+        KB2 --> VS[Vector search]
+        KB2 --> RAG2["RAG / question answering"]
+        KB2 --> KG[Knowledge graph]
+        KB2 --> BR[Content browse]
+    end
+
+    VS --> UI2["&lt;b&gt;Knowledge Base UI&lt;/b&gt;&lt;br/&gt;the researcher's microscope"]
+    RAG2 --> UI2
+    KG --> UI2
+    BR --> UI2
+
+    classDef ingest fill:#fdeef2,stroke:#d1476b,stroke-width:2px,color:#1a1c22
+    classDef process fill:#e6f3fa,stroke:#1f8bc0,stroke-width:2px,color:#1a1c22
+    classDef gate fill:#f3ecf7,stroke:#7b3fa0,stroke-width:3px,color:#1a1c22
+    classDef storage fill:#fdf1e2,stroke:#e8850c,stroke-width:2px,color:#1a1c22
+    classDef query fill:#e8f6ee,stroke:#2e9e5b,stroke-width:2px,color:#1a1c22
+    classDef ui fill:#e6f3fa,stroke:#1f8bc0,stroke-width:3px,color:#1a1c22
+
+    class SCOUTS2,ACAD2,INTAKE,RAW ingest
+    class PAPERS,MEDIA,CHARTS process
+    class EMBED2 gate
+    class KB2 storage
+    class VS,RAG2,KG,BR query
+    class UI2 ui
+                </div>
+                <p class="text-sm text-gray-600 mt-4 italic text-center">
+                    Figure: how processing works internally — three modality lanes converging at Embedding, then
+                    fanning out to the same Knowledge Base UI as the headline diagram.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Two Flagship Engines -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="bg-gradient-to-r from-orange-50 to-blue-50 rounded-xl shadow-lg p-8 mb-8 border-l-4 border-orange-500">
+            <h2 class="text-3xl font-bold text-gray-900 mb-3">Two flagship engines, one architecture</h2>
+            <p class="text-lg text-gray-700 leading-relaxed mb-6 max-w-4xl">
+                Rather than one large index spread thin, the architecture proves itself where it's been pointed at a
+                real frontier. Each engine's scouts watch that field's own literature — a smaller, sharper number
+                than "papers in general," and a better measure of what the platform actually knows.
+            </p>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-white rounded-lg p-6 card-hover border-2 border-orange-200">
+                    <div class="text-3xl mb-3">🧬</div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">GLMP — biology</h3>
+                    <p class="text-sm text-gray-600 mb-4">
+                        Genome Logic Modeling Project: regulatory circuits decoded as logic-gate flowcharts, directly
+                        from DNA sequence, checked against curated biology.
+                    </p>
+                    <div class="flex items-baseline gap-2 mb-4">
+                        <span class="text-3xl font-bold text-orange-600">29,184</span>
+                        <span class="text-sm text-gray-600">biology papers in the corpus</span>
+                    </div>
+                    <a href="https://huggingface.co/spaces/garywelz/glmp" target="_blank" rel="noopener noreferrer" class="text-sm text-blue-600 hover:underline font-medium">Explore GLMP →</a>
+                </div>
+                <div class="bg-white rounded-lg p-6 card-hover border-2 border-blue-200">
+                    <div class="text-3xl mb-3">📐</div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">ATAP — mathematics</h3>
+                    <p class="text-sm text-gray-600 mb-4">
+                        Axiomatic Theories, Algorithms and Proofs: algorithms, axiomatic theories, and proof
+                        structure modeled as dependency graphs.
+                    </p>
+                    <div class="flex items-baseline gap-2 mb-4">
+                        <span class="text-3xl font-bold text-blue-600">17,153</span>
+                        <span class="text-sm text-gray-600">mathematics papers in the corpus</span>
+                    </div>
+                    <a href="https://huggingface.co/spaces/garywelz/atap" target="_blank" rel="noopener noreferrer" class="text-sm text-blue-600 hover:underline font-medium">Explore ATAP →</a>
+                </div>
+            </div>
+            <p class="text-xs text-gray-500 mt-4">
+                Discipline-level counts, verified against the live corpus. Scouts tuned specifically to each engine's
+                research frontier — not just its broad discipline — are in development.
+            </p>
         </div>
     </section>
 
@@ -141,9 +258,9 @@
             <h2 class="text-3xl font-bold text-gray-900 mb-4">Prior Work & Current Status</h2>
             
             <div class="bg-white rounded-lg p-6 mb-6">
-                <h3 class="text-xl font-semibold text-gray-900 mb-3">Prior Work (2024-2025)</h3>
+                <h3 class="text-xl font-semibold text-gray-900 mb-3">Current state</h3>
                 <p class="text-lg text-gray-700 leading-relaxed mb-4">
-                    CopernicusAI is an active research prototype exploring AI-generated audio briefings as an interface for assisted scientific research.
+                    CopernicusAI is an operational research platform for AI-generated audio briefings as an interface for assisted scientific research.
                 </p>
                 <p class="text-gray-700 mb-4">
                     The system allows any user to generate, refine, and share AI-generated science podcasts based on structured prompts, enabling rapid orientation to a topic, iterative deepening, and personalized research briefings.
@@ -180,11 +297,13 @@
             <p class="text-lg text-gray-700 leading-relaxed">
                 Inspired by Nicolaus Copernicus's evidence-based challenge to accepted knowledge, CopernicusAI builds
                 instruments for observing humanity's collective scientific knowledge — synthesizing a growing index of
-                research papers, biological process flowcharts (GLMP), and AI-generated podcast briefings into a single
-                queryable knowledge graph. Every generated briefing draws on a minimum of three validated academic
-                sources, with automated citation extraction, quality scoring, and paradigm-shift detection applied
-                throughout. Full methodology, validation criteria, and API access are documented in the API
-                Documentation section below.
+                research papers, regulatory and logical process flowcharts, and AI-generated podcast briefings into a
+                single queryable knowledge graph. <strong>GLMP (Biology) and ATAP (Mathematics) are the two working
+                knowledge engines</strong> — each decodes a specific domain's regulatory or logical structure and
+                feeds what it learns back into the shared knowledge base. Every generated briefing draws on a minimum
+                of three validated academic sources, with automated citation extraction, quality scoring, and
+                paradigm-shift detection applied throughout. Full methodology, validation criteria, and API access
+                are documented in the API Documentation section below.
             </p>
         </div>
     </section>
@@ -219,13 +338,6 @@
                 </div>
                 
                 <div class="bg-white rounded-lg p-6 card-hover">
-                    <div class="text-3xl mb-3">🧬</div>
-                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Genome Logic Modeling Project</h3>
-                    <p class="text-sm text-gray-600 mb-3">Mermaid markdown format flowcharts modeling 100+ biochemical processes in Yeast and E. Coli</p>
-                    <a href="https://huggingface.co/spaces/garywelz/glmp" target="_blank" rel="noopener noreferrer" class="text-xs text-blue-600 hover:underline">Explore →</a>
-                </div>
-                
-                <div class="bg-white rounded-lg p-6 card-hover">
                     <div class="text-3xl mb-3">📚</div>
                     <h3 class="text-lg font-semibold text-gray-900 mb-2">Research Paper Database</h3>
                     <p class="text-sm text-gray-600 mb-3">Core data infrastructure for research paper metadata and citation networks</p>
@@ -236,13 +348,13 @@
                     <div class="text-3xl mb-3">🎬</div>
                     <h3 class="text-lg font-semibold text-gray-900 mb-2">Science Video Database</h3>
                     <p class="text-sm text-gray-600 mb-3">Multi-modal content with transcript-based search for scientific videos</p>
-                    <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/videos-database-table.html" target="_blank" rel="noopener noreferrer" class="text-xs text-blue-600 hover:underline">Explore →</a>
+                    <a href="https://huggingface.co/spaces/garywelz/sciencevideodb" target="_blank" rel="noopener noreferrer" class="text-xs text-blue-600 hover:underline">Explore →</a>
                 </div>
                 
                 <div class="bg-white rounded-lg p-6 card-hover border-2 border-green-300">
                     <div class="text-3xl mb-3">🗺️</div>
                     <h3 class="text-lg font-semibold text-gray-900 mb-2">Research Tools Dashboard</h3>
-                    <p class="text-sm text-gray-600 mb-3">✅ Prototype web interface for testing knowledge graph, vector search, RAG queries, and content browsing</p>
+                    <p class="text-sm text-gray-600 mb-3">✅ Fully operational web interface with knowledge graph, vector search, RAG queries, and content browsing</p>
                     <a href="https://copernicus-frontend-phzp4ie2sq-uc.a.run.app/knowledge-engine" target="_blank" rel="noopener noreferrer" class="text-xs text-blue-600 hover:underline">Live System →</a>
                 </div>
             </div>
@@ -305,8 +417,8 @@
                                 <h4 class="font-semibold text-gray-800 mb-2">Primary Models:</h4>
                                 <ul class="text-sm text-gray-600 space-y-1">
                                     <li>• <strong>Google Gemini 3</strong> - Latest research analysis and content generation</li>
-                                    <li>• <strong>OpenAI GPT-4/GPT-3.5</strong> - Content synthesis and quality validation</li>
-                                    <li>• <strong>Anthropic Claude 3</strong> (Sonnet, Haiku) - Alternative reasoning paths</li>
+                                    <li>• <strong>OpenAI GPT-4o</strong> - Content synthesis and quality validation</li>
+                                    <li>• <strong>Anthropic Claude 3.5</strong> (Sonnet, Haiku) - Alternative reasoning paths</li>
                                     <li>• <strong>ElevenLabs TTS</strong> - Multi-voice text-to-speech synthesis</li>
                                 </ul>
                             </div>
@@ -398,10 +510,11 @@
                 <div class="flex items-start mb-4">
                     <span class="text-4xl mr-4">📚</span>
                     <div class="flex-1">
-                        <h3 class="text-2xl font-bold text-gray-900 mb-3">Research Papers Metadata Database (Phase 2)</h3>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-3">Research Papers Metadata Database</h3>
                         <p class="text-gray-600 mb-4">
-                            A centralized <strong>metadata repository</strong> (not a file archive) providing structured JSON objects 
-                            with AI-powered preprocessing.
+                            A centralized <strong>metadata repository</strong> (not a file archive) providing structured JSON objects
+                            with AI-powered preprocessing. Scouts continuously bring in metadata from the academic-database
+                            universe; embedding is what turns a stored record into retrievable knowledge.
                         </p>
                         <div class="grid md:grid-cols-2 gap-4">
                             <div>
@@ -418,11 +531,13 @@
                             <div>
                                 <h4 class="font-semibold text-gray-800 mb-2">AI-Powered Preprocessing:</h4>
                                 <ul class="text-sm text-gray-600 space-y-1">
+                                    <li>• Scout-driven discovery from academic databases</li>
                                     <li>• LLM-based entity extraction</li>
                                     <li>• Automatic categorization</li>
                                     <li>• Keyword extraction & semantic tagging</li>
                                     <li>• Citation tracking & mapping</li>
                                     <li>• Quality assessment</li>
+                                    <li>• Embedding — vectorized into the shared corpus</li>
                                     <li>• RESTful API access</li>
                                 </ul>
                             </div>
@@ -431,6 +546,40 @@
                 </div>
             </div>
         </div>
+    </section>
+
+    <!-- By the Numbers -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <h2 class="text-2xl font-bold text-gray-900 mb-6 text-center">By the numbers</h2>
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-4">
+            <div class="bg-white rounded-lg shadow-md p-6 text-center">
+                <div class="stat-number mb-2" id="kstat-papers">62,312</div>
+                <div class="text-gray-600 font-semibold">Research Papers</div>
+                <div class="text-sm text-gray-500 mt-1">Indexed corpus-wide (Firestore)</div>
+            </div>
+            <div class="bg-white rounded-lg shadow-md p-6 text-center">
+                <div class="stat-number mb-2" id="kstat-processes">692</div>
+                <div class="text-gray-600 font-semibold">Process charts (PF)</div>
+                <div class="text-sm text-gray-500 mt-1" id="kstat-processes-sub">Loading…</div>
+            </div>
+            <div class="bg-white rounded-lg shadow-md p-6 text-center">
+                <div class="stat-number mb-2" id="kstat-videos">582</div>
+                <div class="text-gray-600 font-semibold">Videos</div>
+                <div class="text-sm text-gray-500 mt-1">Science videos indexed (published count)</div>
+            </div>
+            <div class="bg-white rounded-lg shadow-md p-6 text-center">
+                <div class="stat-number mb-2" id="kstat-podcasts">79</div>
+                <div class="text-gray-600 font-semibold">Podcasts</div>
+                <div class="text-sm text-gray-500 mt-1">Generated across 5 disciplines</div>
+            </div>
+        </div>
+        <div id="kstat-bloc" class="text-center max-w-3xl mx-auto text-sm text-gray-600 leading-relaxed" aria-live="polite">
+            <p class="mb-0" id="kstat-asof">Loading live counts from knowledge-engine-status.json…</p>
+        </div>
+        <p class="text-center text-sm text-gray-600 mt-3">
+            Part of the GLMP research program —
+            <a href="https://huggingface.co/spaces/garywelz/glmp" target="_blank" rel="noopener noreferrer" class="text-green-700 hover:underline font-medium">github.com/garywelz/glmp</a>
+        </p>
     </section>
 
     <!-- Technology Stack -->
@@ -444,8 +593,8 @@
                     <ul class="text-sm text-gray-600 space-y-1">
                         <li>• Google Gemini 3</li>
                         <li>• Google Vertex AI (model orchestration)</li>
-                        <li>• OpenAI GPT-4/GPT-3.5</li>
-                        <li>• Anthropic Claude 3</li>
+                        <li>• OpenAI GPT-4o</li>
+                        <li>• Anthropic Claude 3.5</li>
                         <li>• ElevenLabs TTS</li>
                         <li>• DALL-E 3</li>
                         <li>• Cloud Vision API</li>
@@ -670,7 +819,7 @@
                 <h3 class="text-xl font-semibold text-gray-900 mb-4">Reproducibility Information</h3>
                 <ul class="text-gray-700 space-y-2">
                     <li>• <strong>Technology Stack:</strong> All technologies and versions documented in Technology Stack section</li>
-                    <li>• <strong>LLM Models:</strong> Google Gemini 3, OpenAI GPT-4/GPT-3.5, Anthropic Claude 3 (versions specified in documentation)</li>
+                    <li>• <strong>LLM Models:</strong> Google Gemini 3, OpenAI GPT-4o, Anthropic Claude 3.5 (versions specified in documentation)</li>
                     <li>• <strong>Source Citations:</strong> All podcast episodes include full citations to source papers</li>
                     <li>• <strong>Metadata:</strong> Complete metadata for all generated content available through API</li>
                     <li>• <strong>License:</strong> MIT License - see license information in space metadata</li>
@@ -810,7 +959,16 @@
                                 🧬 GLMP - Genome Logic Modeling Project (opens in new tab)
                             </a>
                             <p class="text-sm text-gray-600 mt-1 ml-6">
-                                First application of Programming Framework to biology - 50+ biological processes visualized
+                                Working knowledge engine for biology — 217 decoded processes, part of 692 process charts across six families
+                            </p>
+                        </li>
+                        <li>
+                            <a href="https://huggingface.co/spaces/garywelz/atap" target="_blank" rel="noopener noreferrer"
+                               class="text-blue-600 hover:text-blue-800 font-medium">
+                                📐 ATAP - Axiomatic Theories, Algorithms and Proofs (opens in new tab)
+                            </a>
+                            <p class="text-sm text-gray-600 mt-1 ml-6">
+                                Working knowledge engine for mathematics — algorithms, axiomatic theories, and proofs as dependency graphs
                             </p>
                         </li>
                         <li>
@@ -990,7 +1148,8 @@
             }
             if (s.process_databases && s.process_databases.sum != null) {
                 setText('kstat-processes', fmt(s.process_databases.sum));
-                setText('kstat-processes-sub', 'Sum of 6 GCS metadata families. Firestore GLMP: ' + (s.processes != null ? fmt(s.processes) : '—') + '.');
+                var atapCount = s.process_databases.mathematics;
+                setText('kstat-processes-sub', 'Sum of 6 GCS metadata families. GLMP: ' + (s.processes != null ? fmt(s.processes) : '—') + '. ATAP: ' + (atapCount != null ? fmt(atapCount) : '—') + '.');
             } else {
                 if (s.processes != null) setText('kstat-processes', fmt(s.processes));
                 setText('kstat-processes-sub', 'Visualized across 6 databases (re-publish status JSON for PF sum).');
@@ -1030,8 +1189,27 @@
                 &nbsp;·&nbsp;
                 Methods paper: <a href="https://doi.org/10.5281/zenodo.20831780" target="_blank" rel="noopener noreferrer" class="hover:underline">doi.org/10.5281/zenodo.20831780</a>
             </p>
+            <p class="text-sm opacity-75 mt-2">
+                <a href="https://huggingface.co/spaces/garywelz/glmp" target="_blank" rel="noopener noreferrer" class="hover:underline">GLMP</a>
+                &nbsp;·&nbsp;
+                <a href="https://huggingface.co/spaces/garywelz/atap" target="_blank" rel="noopener noreferrer" class="hover:underline">ATAP</a>
+                &nbsp;·&nbsp;
+                <a href="https://huggingface.co/spaces/garywelz/metadata_database" target="_blank" rel="noopener noreferrer" class="hover:underline">Metadata Database</a>
+                &nbsp;·&nbsp;
+                <a href="https://huggingface.co/spaces/garywelz/sciencevideodb" target="_blank" rel="noopener noreferrer" class="hover:underline">Science Video Database</a>
+                &nbsp;·&nbsp;
+                <a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" rel="noopener noreferrer" class="hover:underline">Programming Framework</a>
+            </p>
             <p class="text-xs opacity-50 mt-4">&copy; 2025 CopernicusAI. All rights reserved.</p>
         </div>
     </footer>
+
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            flowchart: { useMaxWidth: true, htmlLabels: true }
+        });
+    </script>
 </body>
 </html>
