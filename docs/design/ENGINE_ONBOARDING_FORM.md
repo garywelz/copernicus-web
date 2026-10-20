@@ -430,4 +430,4 @@ These are estimates from the size of comparable existing work (the access-contro
 
 ## 11. Not decided here, not built here
 
-This document builds nothing, deploys nothing and changes no engine. It proposes. The pull request that carries it also carries three governance drafts (`AGENT_ROLES.md` v2.9, `ENGINE_ONBOARDING.md` v0.4, and `BULLETIN.md` entry 028), all marked as drafts until Gary merges the pull request.
+This document builds nothing, deploys nothing and changes no engine. It proposes. The pull request that carries it also carries two governance drafts (`AGENT_ROLES.md` v2.9 and `ENGINE_ONBOARDING.md` v0.4), marked as drafts until Gary merges the pull request. The bulletin entry that announces this design (entry 028) is in a separate pull request.
