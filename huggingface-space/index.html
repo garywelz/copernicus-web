@@ -27,6 +27,13 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
+        .kv-na {
+            font-size: 1rem !important;
+            font-weight: 600;
+            -webkit-text-fill-color: #92400e;
+            color: #92400e;
+            background: none;
+        }
     </style>
 </head>
 <body class="bg-gray-50">
@@ -45,16 +52,20 @@
         <div class="bg-white rounded-xl shadow-lg p-8 mb-8 border-l-4 border-purple-600">
             <h2 class="text-2xl font-bold text-gray-900 mb-4">📋 Summary</h2>
             <p class="text-lg text-gray-700 leading-relaxed mb-3">
-                <strong>CopernicusAI</strong> is an operational platform, not a proposal: scouts, embedding, and a
-                query interface, already running in production, already turning two labs' literature into searchable,
-                citable, generative knowledge. The architecture is domain-agnostic by design — what makes a field's
-                engine is which literature its scouts watch and which flowcharts its researchers build, not a
-                rewrite of the platform underneath. Every AI-generated briefing draws on a minimum of three validated
-                academic sources, with automated citation extraction, quality scoring, and paradigm-shift detection
-                applied throughout.
+                <strong>CopernicusAI</strong> is a working research prototype: scouts, embedding and a query
+                interface run in production against three engines &mdash; <strong>GLMP</strong> (biology),
+                <strong>ATAP</strong> (mathematics) and <strong>TDAP</strong> (topological data analysis, early
+                stage). The architecture is domain-agnostic by design: what makes a field's engine is which
+                literature its scouts watch and which flowcharts its researchers build, not a rewrite of the
+                platform underneath. A new podcast briefing is generated only after at least three papers have been
+                confirmed to exist in a registry (arXiv, PubMed or Crossref), and its reference list is built by
+                code from those confirmed records. Quality scores and paradigm-shift notes are heuristic or
+                model-generated, and are marked as such under Current Limitations.
             </p>
             <p class="text-gray-600">
-                The platform includes a fully operational Research Tools Dashboard (deployed December 2025) with interactive knowledge graph visualization, vector search, and RAG capabilities, enabling researchers to explore, query, and synthesize scientific knowledge across disciplines.
+                The Research Tools Dashboard is a prototype web interface (first deployed December 2025) for
+                exploring the knowledge graph, vector search, RAG question answering and content browsing. What is
+                not yet verified or not yet built is listed plainly in the Current Limitations section.
             </p>
         </div>
     </section>
@@ -64,22 +75,23 @@
         <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
             <h2 class="text-3xl font-bold text-gray-900 mb-6">🏗️ Knowledge Engine Architecture</h2>
             <p class="text-lg text-gray-700 leading-relaxed mb-6">
-                CopernicusAI is organized in six tiers. A researcher works within a specific frontier —
-                <strong>GLMP</strong> (biology) or <strong>ATAP</strong> (mathematics), the two working knowledge
-                engines — using the <strong>Knowledge Base UI</strong> as their instrument: the microscope they
-                focus on that frontier, backed by <strong>Methods &amp; Tools</strong> (the Programming Framework
-                and its demonstration flowcharts). What they produce — podcasts, written papers — becomes new
-                <strong>Resources</strong>, alongside metadata that <strong>Scouts</strong> continuously bring in
-                from the wider paper universe. A resource only becomes retrievable knowledge once it passes through
+                CopernicusAI is organized in six tiers. A researcher works within a specific frontier &mdash;
+                <strong>GLMP</strong> (biology), <strong>ATAP</strong> (mathematics) or <strong>TDAP</strong>
+                (topological data analysis, early stage) &mdash; using the <strong>Knowledge Base UI</strong> as
+                their instrument: the microscope they focus on that frontier, backed by
+                <strong>Methods &amp; Tools</strong> (the Programming Framework and its demonstration flowcharts).
+                What they produce &mdash; podcasts, written papers &mdash; becomes new
+                <strong>Resources</strong>, alongside metadata that <strong>Scouts</strong> bring in from the wider
+                paper universe. A resource only becomes retrievable knowledge once it passes through
                 <strong>Embedding</strong>, the gate between "exists in the collection" and "answerable by the
-                Knowledge Base UI." That's the loop that makes this an engine rather than a pipeline: what a
+                Knowledge Base UI." That is the loop that makes this an engine rather than a pipeline: what a
                 researcher produces today becomes what the next researcher finds tomorrow.
             </p>
 
             <div class="bg-gray-50 rounded-lg p-6 mb-6">
                 <div class="mermaid">
 graph LR
-    subgraph FRONTIER["🔬 Researcher's frontier — GLMP or ATAP"]
+    subgraph FRONTIER["🔬 Researcher's frontier — GLMP, ATAP or TDAP"]
         R["Researcher"]
     end
     KBUI["&lt;b&gt;Knowledge Base UI&lt;/b&gt;&lt;br/&gt;the microscope&lt;br/&gt;graphs · RAG · search"]
@@ -87,7 +99,7 @@ graph LR
     PROD["&lt;b&gt;Products&lt;/b&gt;&lt;br/&gt;podcasts · written papers"]
     RES["&lt;b&gt;Resources&lt;/b&gt;&lt;br/&gt;papers · videos · charts&lt;br/&gt;(the collection)"]
     SCOUTS["&lt;b&gt;Scouts&lt;/b&gt;&lt;br/&gt;continuous search agents"]
-    ACAD[("Academic databases&lt;br/&gt;PubMed · arXiv · NASA ADS")]
+    ACAD[("Academic databases&lt;br/&gt;PubMed · bioRxiv/medRxiv · arXiv (paused)")]
     EMBED["&lt;b&gt;Embedding&lt;/b&gt;&lt;br/&gt;the gate"]
 
     R -->|uses| MT
@@ -121,18 +133,19 @@ graph LR
                 <div class="bg-blue-50 rounded-lg p-6">
                     <h3 class="text-lg font-semibold text-gray-900 mb-3">📥 Scouts &amp; Ingestion</h3>
                     <p class="text-sm text-gray-700">
-                        Scouts continuously search the 250+ million-paper universe (PubMed, arXiv, NASA ADS, and
-                        more) for material relevant to active frontiers, bringing metadata into Resources alongside
-                        products (podcasts, papers, videos) from the researcher's own work.
+                        Scouts run twice daily against PubMed and bioRxiv/medRxiv. The arXiv scout is paused
+                        while it fails (see Current Limitations). A NASA ADS harvester exists in the repository
+                        but has contributed no papers. Scouts add metadata to Resources alongside products
+                        (podcasts, papers, videos) from the researcher's own work.
                     </p>
                 </div>
 
                 <div class="bg-green-50 rounded-lg p-6">
                     <h3 class="text-lg font-semibold text-gray-900 mb-3">⚙️ Embedding — the gate</h3>
                     <p class="text-sm text-gray-700">
-                        LLM-powered entity and process-logic extraction, then embedding: a resource becomes
-                        retrievable knowledge only once it's vectorized into the shared corpus (Firestore + GCS).
-                        Not stored — findable.
+                        A resource becomes retrievable knowledge only once it is vectorized into the shared corpus
+                        (Firestore + GCS) with an OpenAI embedding model. Not stored &mdash; findable.
+                        Embedded records: <span class="kv" data-k="embedded">loading&hellip;</span>.
                     </p>
                 </div>
 
@@ -154,7 +167,7 @@ graph LR
 graph TD
     subgraph ING["① Ingestion"]
         SCOUTS2["&lt;b&gt;Scouts&lt;/b&gt;&lt;br/&gt;continuous search agents"]
-        ACAD2[("Academic databases — literature, educational media&lt;br/&gt;PubMed · arXiv · NASA ADS · more")]
+        ACAD2[("Academic databases (literature)&lt;br/&gt;PubMed · bioRxiv/medRxiv · arXiv (paused)")]
         INTAKE["Products &amp; manual intake&lt;br/&gt;podcasts · papers · videos"]
         RAW["Raw material ingested"]
     end
@@ -208,46 +221,72 @@ graph TD
         </div>
     </section>
 
-    <!-- Two Flagship Engines -->
+    <!-- Engines -->
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div class="bg-gradient-to-r from-orange-50 to-blue-50 rounded-xl shadow-lg p-8 mb-8 border-l-4 border-orange-500">
-            <h2 class="text-3xl font-bold text-gray-900 mb-3">Two flagship engines, one architecture</h2>
+            <h2 class="text-3xl font-bold text-gray-900 mb-3">Three engines, one architecture</h2>
             <p class="text-lg text-gray-700 leading-relaxed mb-6 max-w-4xl">
-                Rather than one large index spread thin, the architecture proves itself where it's been pointed at a
-                real frontier. Each engine's scouts watch that field's own literature — a smaller, sharper number
-                than "papers in general," and a better measure of what the platform actually knows.
+                Rather than one large index spread thin, the architecture is tested where it has been pointed at a
+                real frontier. Each engine owns a set of declared research questions; its count below is the number
+                of papers tagged to those questions, which is a smaller and sharper number than "papers in
+                general". Counts are read live from the published status file.
             </p>
-            <div class="grid md:grid-cols-2 gap-6">
+            <div class="grid md:grid-cols-3 gap-6">
                 <div class="bg-white rounded-lg p-6 card-hover border-2 border-orange-200">
                     <div class="text-3xl mb-3">🧬</div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-2">GLMP — biology</h3>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">GLMP &mdash; biology</h3>
                     <p class="text-sm text-gray-600 mb-4">
-                        Genome Logic Modeling Project: regulatory circuits decoded as logic-gate flowcharts, directly
-                        from DNA sequence, checked against curated biology.
+                        Genome Logic Modeling Project: regulatory circuits modeled as logic-gate flowcharts, with a
+                        process-chart database.
                     </p>
-                    <div class="flex items-baseline gap-2 mb-4">
-                        <span class="text-3xl font-bold text-orange-600">29,184</span>
-                        <span class="text-sm text-gray-600">biology papers in the corpus</span>
+                    <div class="flex items-baseline gap-2 mb-1">
+                        <span class="text-3xl font-bold text-orange-600 kv" data-k="glmp-papers">loading&hellip;</span>
+                        <span class="text-sm text-gray-600">papers tagged to GLMP's questions</span>
                     </div>
-                    <a href="https://huggingface.co/spaces/garywelz/glmp" target="_blank" rel="noopener noreferrer" class="text-sm text-blue-600 hover:underline font-medium">Explore GLMP →</a>
+                    <p class="text-xs text-gray-500 mb-4">
+                        Process charts: <span class="kv" data-k="glmp-charts">loading&hellip;</span> &middot;
+                        biology papers corpus-wide: <span class="kv" data-k="glmp-disc">loading&hellip;</span>
+                    </p>
+                    <a href="https://huggingface.co/spaces/garywelz/glmp" target="_blank" rel="noopener noreferrer" class="text-sm text-blue-600 hover:underline font-medium">Explore GLMP &rarr;</a>
                 </div>
                 <div class="bg-white rounded-lg p-6 card-hover border-2 border-blue-200">
                     <div class="text-3xl mb-3">📐</div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-2">ATAP — mathematics</h3>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">ATAP &mdash; mathematics</h3>
                     <p class="text-sm text-gray-600 mb-4">
-                        Axiomatic Theories, Algorithms and Proofs: algorithms, axiomatic theories, and proof
+                        Axiomatic Theories, Algorithms and Proofs: algorithms, axiomatic theories and proof
                         structure modeled as dependency graphs.
                     </p>
-                    <div class="flex items-baseline gap-2 mb-4">
-                        <span class="text-3xl font-bold text-blue-600">17,153</span>
-                        <span class="text-sm text-gray-600">mathematics papers in the corpus</span>
+                    <div class="flex items-baseline gap-2 mb-1">
+                        <span class="text-3xl font-bold text-blue-600 kv" data-k="atap-papers">loading&hellip;</span>
+                        <span class="text-sm text-gray-600">papers tagged to ATAP's questions</span>
                     </div>
-                    <a href="https://huggingface.co/spaces/garywelz/atap" target="_blank" rel="noopener noreferrer" class="text-sm text-blue-600 hover:underline font-medium">Explore ATAP →</a>
+                    <p class="text-xs text-gray-500 mb-4">
+                        Process charts: <span class="kv" data-k="atap-charts">loading&hellip;</span> &middot;
+                        mathematics papers corpus-wide: <span class="kv" data-k="atap-disc">loading&hellip;</span>
+                    </p>
+                    <a href="https://huggingface.co/spaces/garywelz/atap" target="_blank" rel="noopener noreferrer" class="text-sm text-blue-600 hover:underline font-medium">Explore ATAP &rarr;</a>
+                </div>
+                <div class="bg-white rounded-lg p-6 card-hover border-2 border-green-200">
+                    <div class="text-3xl mb-3">🔭</div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">TDAP &mdash; topological data analysis</h3>
+                    <p class="text-sm text-gray-600 mb-4">
+                        Topological Data Analysis Project: a hosted engine built with an outside domain
+                        collaborator, on persistent cohomology and circular/toroidal coordinates.
+                        <strong>Early stage.</strong>
+                    </p>
+                    <div class="flex items-baseline gap-2 mb-1">
+                        <span class="text-3xl font-bold text-green-700 kv" data-k="tdap-papers">loading&hellip;</span>
+                        <span class="text-sm text-gray-600">papers tagged to TDAP's questions</span>
+                    </div>
+                    <p class="text-xs text-gray-500 mb-4">No process-chart database yet.</p>
+                    <a href="https://github.com/garywelz/tdap" target="_blank" rel="noopener noreferrer" class="text-sm text-blue-600 hover:underline font-medium">TDAP repository &rarr;</a>
                 </div>
             </div>
             <p class="text-xs text-gray-500 mt-4">
-                Discipline-level counts, verified against the live corpus. Scouts tuned specifically to each engine's
-                research frontier — not just its broad discipline — are in development.
+                Engine counts come from the status file's <code>papers_by_initiative</code> and
+                <code>process_databases</code> fields. A paper's discipline is a different axis from the engine whose
+                questions it is tagged to, so the two numbers differ. Scouts tuned to each engine's research
+                frontier, rather than to its broad discipline, are in development.
             </p>
         </div>
     </section>
@@ -260,28 +299,35 @@ graph TD
             <div class="bg-white rounded-lg p-6 mb-6">
                 <h3 class="text-xl font-semibold text-gray-900 mb-3">Current state</h3>
                 <p class="text-lg text-gray-700 leading-relaxed mb-4">
-                    CopernicusAI is an operational research platform for AI-generated audio briefings as an interface for assisted scientific research.
+                    CopernicusAI is a research prototype exploring AI-generated audio briefings as an interface for
+                    assisted scientific research. Listening is public at
+                    <a href="https://www.copernicusai.fyi" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">copernicusai.fyi</a>.
                 </p>
                 <p class="text-gray-700 mb-4">
-                    The system allows any user to generate, refine, and share AI-generated science podcasts based on structured prompts, enabling rapid orientation to a topic, iterative deepening, and personalized research briefings.
+                    Podcast generation is currently limited to allowlisted subscribers, each with a monthly quota.
+                    A request that cannot find enough confirmed sources fails with a notice rather than publishing
+                    unverified references.
                 </p>
                 <p class="text-gray-700 mb-4">
-                    Rather than functioning as a static content platform, CopernicusAI supports collectively generated and shared research artifacts, analogous to community-driven knowledge platforms (e.g., discussion forums), but grounded in scientific sources and metadata-aware workflows.
+                    <strong>Planned, not built:</strong> open generation for any user, iterative question
+                    refinement through a conversational interface, and collectively generated and shared research
+                    artifacts grounded in scientific sources.
                 </p>
                 <div class="bg-blue-50 rounded-lg p-4 mt-4">
-                    <h3 class="font-semibold text-gray-900 mb-2">This work demonstrates technical feasibility for:</h3>
+                    <h3 class="font-semibold text-gray-900 mb-2">What this work demonstrates today:</h3>
                     <ul class="text-gray-700 space-y-1">
-                        <li>• AI-assisted research briefing and orientation</li>
-                        <li>• Iterative question refinement via conversational interfaces</li>
-                        <li>• Integration of text, audio, and metadata in research workflows</li>
+                        <li>&bull; AI-assisted research briefing and orientation, with source-confirmed references</li>
+                        <li>&bull; Integration of text, audio and metadata in research workflows</li>
                     </ul>
                 </div>
             </div>
             
             <div class="bg-green-50 border-2 border-green-200 rounded-lg p-6">
-                <h3 class="text-xl font-semibold text-gray-900 mb-3">Current Implementation (December 2025)</h3>
+                <h3 class="text-xl font-semibold text-gray-900 mb-3">Current Implementation (October 2026)</h3>
                 <p class="text-gray-700 mb-3">
-                    The Research Tools Dashboard is <strong>fully operational</strong> and deployed to Google Cloud Run, providing unified access to all components with interactive knowledge graph visualization, vector search, RAG queries, and content browsing.
+                    The Research Tools Dashboard is a <strong>prototype</strong> deployed to Google Cloud Run (its
+                    page responded when last checked on 2026-10-20), offering knowledge-graph visualization,
+                    vector search, RAG queries and content browsing. It has not been through a formal evaluation.
                 </p>
                 <p class="text-sm text-gray-600">
                     See the "Knowledge Engine Ecosystem" section below for details.
@@ -296,14 +342,14 @@ graph TD
             <h2 class="text-3xl font-bold text-gray-900 mb-4">🎯 Mission & Methodology</h2>
             <p class="text-lg text-gray-700 leading-relaxed">
                 Inspired by Nicolaus Copernicus's evidence-based challenge to accepted knowledge, CopernicusAI builds
-                instruments for observing humanity's collective scientific knowledge — synthesizing a growing index of
-                research papers, regulatory and logical process flowcharts, and AI-generated podcast briefings into a
-                single queryable knowledge graph. <strong>GLMP (Biology) and ATAP (Mathematics) are the two working
-                knowledge engines</strong> — each decodes a specific domain's regulatory or logical structure and
-                feeds what it learns back into the shared knowledge base. Every generated briefing draws on a minimum
-                of three validated academic sources, with automated citation extraction, quality scoring, and
-                paradigm-shift detection applied throughout. Full methodology, validation criteria, and API access
-                are documented in the API Documentation section below.
+                instruments for observing humanity's collective scientific knowledge &mdash; a growing index of
+                research papers, regulatory and logical process flowcharts, and AI-generated podcast briefings in a
+                single queryable knowledge graph. <strong>GLMP (biology) and ATAP (mathematics) are the two engines
+                with process-chart databases; TDAP (topological data analysis) is a hosted engine at an early
+                stage.</strong> A new briefing requires at least three papers confirmed to exist in a registry, and
+                its references are built by code from those records; quality scores and paradigm-shift notes are
+                heuristic or model-generated. The Copernican ethos applies to the platform itself: a marked limit is
+                a finding, so limits are listed below.
             </p>
         </div>
     </section>
@@ -347,15 +393,15 @@ graph TD
                 <div class="bg-white rounded-lg p-6 card-hover">
                     <div class="text-3xl mb-3">🎬</div>
                     <h3 class="text-lg font-semibold text-gray-900 mb-2">Science Video Database</h3>
-                    <p class="text-sm text-gray-600 mb-3">Multi-modal content with transcript-based search for scientific videos</p>
-                    <a href="https://huggingface.co/spaces/garywelz/sciencevideodb" target="_blank" rel="noopener noreferrer" class="text-xs text-blue-600 hover:underline">Explore →</a>
+                    <p class="text-sm text-gray-600 mb-3">Catalog of research-related science videos</p>
+                    <a href="https://huggingface.co/spaces/garywelz/sciencevideodb" target="_blank" rel="noopener noreferrer" class="text-xs text-blue-600 hover:underline">Explore &rarr;</a>
                 </div>
-                
+
                 <div class="bg-white rounded-lg p-6 card-hover border-2 border-green-300">
                     <div class="text-3xl mb-3">🗺️</div>
                     <h3 class="text-lg font-semibold text-gray-900 mb-2">Research Tools Dashboard</h3>
-                    <p class="text-sm text-gray-600 mb-3">✅ Fully operational web interface with knowledge graph, vector search, RAG queries, and content browsing</p>
-                    <a href="https://copernicus-frontend-phzp4ie2sq-uc.a.run.app/knowledge-engine" target="_blank" rel="noopener noreferrer" class="text-xs text-blue-600 hover:underline">Live System →</a>
+                    <p class="text-sm text-gray-600 mb-3">Prototype web interface for the knowledge graph, vector search, RAG queries and content browsing</p>
+                    <a href="https://copernicus-frontend-phzp4ie2sq-uc.a.run.app/knowledge-engine" target="_blank" rel="noopener noreferrer" class="text-xs text-blue-600 hover:underline">Live prototype &rarr;</a>
                 </div>
             </div>
         </div>
@@ -373,31 +419,31 @@ graph TD
                     <div class="flex-1">
                         <h3 class="text-2xl font-bold text-gray-900 mb-3">AI-Powered Podcast Generation</h3>
                         <p class="text-gray-600 mb-4">
-                            Collaborative research platform where subscribers prompt and generate multi-voice AI podcasts 
-                            (5-10 minutes) synthesizing research from multiple academic sources. Subscribers can share their 
-                            podcasts publicly or keep them private. Evidence-based content generation requiring minimum 3 
-                            research sources per episode.
+                            Multi-voice AI podcasts of about 5&ndash;10 minutes that synthesize research papers.
+                            Generation is currently open to allowlisted subscribers only, each with a monthly quota.
+                            A subscriber can submit their episode to the public RSS feed; controls for private
+                            episode access are being rolled out in stages and are not yet complete.
                         </p>
                         <div class="grid md:grid-cols-2 gap-4 mt-4">
                             <div>
-                                <h4 class="font-semibold text-gray-800 mb-2">Key Features:</h4>
+                                <h4 class="font-semibold text-gray-800 mb-2">What runs today:</h4>
                                 <ul class="text-sm text-gray-600 space-y-1">
-                                    <li>✓ Comprehensive research integration (8+ databases)</li>
-                                    <li>✓ Professional multi-speaker dialogue</li>
-                                    <li>✓ AI-generated scientific visualizations</li>
-                                    <li>✓ RSS feed distribution</li>
-                                    <li>✓ Quality scoring & relevance ranking</li>
-                                    <li>✓ Paradigm shift identification</li>
+                                    <li>&check; Multi-speaker dialogue with ElevenLabs text-to-speech</li>
+                                    <li>&check; AI-generated cover images (OpenAI gpt-image-1)</li>
+                                    <li>&check; RSS feed distribution</li>
+                                    <li>&check; Relevance gate: papers below an embedding-similarity threshold are dropped</li>
+                                    <li>&check; Heuristic 0&ndash;10 research-quality score (not a validated measure)</li>
+                                    <li>&check; Model-generated paradigm-shift notes (not independently validated)</li>
                                 </ul>
                             </div>
                             <div>
-                                <h4 class="font-semibold text-gray-800 mb-2">Research Integration:</h4>
+                                <h4 class="font-semibold text-gray-800 mb-2">Research integration:</h4>
                                 <ul class="text-sm text-gray-600 space-y-1">
-                                    <li>✓ Real-time discovery from 8+ APIs</li>
-                                    <li>✓ Parallel search across databases</li>
-                                    <li>✓ Automatic citation extraction</li>
-                                    <li>✓ Source validation & verification</li>
-                                    <li>✓ Interdisciplinary connection analysis</li>
+                                    <li>&check; At least three papers must be confirmed to exist in arXiv, PubMed or Crossref before generation proceeds (Zenodo records do not count toward the minimum)</li>
+                                    <li>&check; Reference lists built by code from the confirmed records, not written by the model</li>
+                                    <li>&check; Retrieval clients for PubMed, arXiv (with an OpenAlex fallback), Zenodo, bioRxiv, CORE, NASA ADS, news and YouTube; how reliably each one runs today is not measured here</li>
+                                    <li>&check; Interdisciplinary connections: model-generated, not validated</li>
+                                    <li>&#9203; Source-verification metrics are being re-measured; no figure is claimed here until they are</li>
                                 </ul>
                             </div>
                         </div>
@@ -410,26 +456,27 @@ graph TD
                 <div class="flex items-start mb-4">
                     <span class="text-4xl mr-4">🤖</span>
                     <div class="flex-1">
-                        <h3 class="text-2xl font-bold text-gray-900 mb-3">Advanced LLM Integration</h3>
-                        <p class="text-gray-600 mb-4">Multi-model architecture with intelligent model selection:</p>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-3">Models in use</h3>
+                        <p class="text-gray-600 mb-4">What the production service calls today:</p>
                         <div class="grid md:grid-cols-2 gap-4">
                             <div>
-                                <h4 class="font-semibold text-gray-800 mb-2">Primary Models:</h4>
+                                <h4 class="font-semibold text-gray-800 mb-2">Models:</h4>
                                 <ul class="text-sm text-gray-600 space-y-1">
-                                    <li>• <strong>Google Gemini 3</strong> - Latest research analysis and content generation</li>
-                                    <li>• <strong>OpenAI GPT-4o</strong> - Content synthesis and quality validation</li>
-                                    <li>• <strong>Anthropic Claude 3.5</strong> (Sonnet, Haiku) - Alternative reasoning paths</li>
-                                    <li>• <strong>ElevenLabs TTS</strong> - Multi-voice text-to-speech synthesis</li>
+                                    <li>&bull; <strong>Google Gemini 2.5</strong> (Flash, with Pro as fallback) &mdash; podcast script generation</li>
+                                    <li>&bull; <strong>OpenAI</strong> &mdash; embeddings (text-embedding-3-small), RAG answers (gpt-4o-mini by default) and cover images (gpt-image-1)</li>
+                                    <li>&bull; <strong>ElevenLabs</strong> &mdash; multi-voice text-to-speech</li>
                                 </ul>
+                                <p class="text-xs text-gray-500 mt-2">
+                                    Vertex AI is disabled in production. No Anthropic model is called by the production service.
+                                </p>
                             </div>
                             <div>
                                 <h4 class="font-semibold text-gray-800 mb-2">Capabilities:</h4>
                                 <ul class="text-sm text-gray-600 space-y-1">
-                                    <li>• Multi-paper analysis & synthesis</li>
-                                    <li>• Paradigm shift detection</li>
-                                    <li>• Entity extraction (genes, proteins, compounds)</li>
-                                    <li>• Citation tracking & cross-references</li>
-                                    <li>• Content quality scoring</li>
+                                    <li>&bull; Multi-paper analysis and synthesis</li>
+                                    <li>&bull; Vector search and RAG over the shared corpus</li>
+                                    <li>&bull; Reference building from confirmed registry records</li>
+                                    <li>&bull; Model-generated paradigm-shift notes (experimental)</li>
                                 </ul>
                             </div>
                         </div>
@@ -444,22 +491,25 @@ graph TD
                     <div class="flex-1">
                         <h3 class="text-2xl font-bold text-gray-900 mb-3">Research Resource Access</h3>
                         <p class="text-gray-600 mb-4">
-                            Comprehensive academic database coverage with <strong>250+ million research papers</strong> accessible 
-                            through integrated APIs.
+                            The corpus holds <strong><span class="kv" data-k="papers">loading&hellip;</span> papers</strong>,
+                            acquired through the scouts below. Sizes of the external databases are not claimed here.
                         </p>
                         <div class="grid md:grid-cols-2 gap-4">
                             <div>
-                                <h4 class="font-semibold text-gray-800 mb-2">Academic Databases:</h4>
+                                <h4 class="font-semibold text-gray-800 mb-2">Source status:</h4>
                                 <ul class="text-sm text-gray-600 space-y-1">
-                                    <li>• PubMed/NCBI (~30+ million papers)</li>
-                                    <li>• arXiv (~2+ million preprints)</li>
-                                    <li>• NASA ADS (~15+ million papers)</li>
-                                    <li>• Zenodo (100K+ datasets)</li>
-                                    <li>• bioRxiv/medRxiv (preprints)</li>
-                                    <li>• CORE (~200+ million papers)</li>
-                                    <li>• Google Scholar (comprehensive)</li>
-                                    <li>• News API (current events)</li>
-                                    <li>• YouTube Data API (academic videos)</li>
+                                    <li>&check; PubMed/NCBI &mdash; scout runs twice daily</li>
+                                    <li>&check; bioRxiv/medRxiv &mdash; scout runs twice daily</li>
+                                    <li>&#9888; arXiv &mdash; acquisition paused; the scout is currently failing (OAI-PMH harvesting is planned)</li>
+                                    <li>&#9888; NASA ADS &mdash; harvester exists, no papers acquired</li>
+                                    <li>&bull; Crossref &mdash; used to confirm and enrich records</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-800 mb-2">Used at generation time only (not scouted into the corpus):</h4>
+                                <ul class="text-sm text-gray-600 space-y-1">
+                                    <li>&bull; Zenodo, CORE</li>
+                                    <li>&bull; News API, YouTube Data API</li>
                                 </ul>
                             </div>
                         </div>
@@ -474,31 +524,30 @@ graph TD
                     <div class="flex-1">
                         <h3 class="text-2xl font-bold text-gray-900 mb-3">Audio and Video Podcast Production</h3>
                         <p class="text-gray-600 mb-4">
-                            <strong>Operating Audio Podcast System:</strong> Full production and distribution platform for subscriber-generated 
-                            podcasts. Users can prompt, generate, publish, and distribute audio podcasts with RSS feed support for 
-                            Spotify, Apple Podcasts, and Google Podcasts.
+                            <strong>Audio podcast system:</strong> generation for allowlisted subscribers and
+                            distribution through one public RSS feed, which Spotify, Apple Podcasts and YouTube
+                            read.
                         </p>
                         <div class="bg-green-50 rounded-lg p-4 mb-4">
-                            <h4 class="font-semibold text-gray-800 mb-2">Current Audio Capabilities (Operational):</h4>
+                            <h4 class="font-semibold text-gray-800 mb-2">Audio capabilities running today:</h4>
                             <ul class="text-sm text-gray-700 space-y-1">
-                                <li>✓ Multi-voice AI podcast generation</li>
-                                <li>✓ Research-driven content creation</li>
-                                <li>✓ RSS feed distribution</li>
-                                <li>✓ Public and private podcast options</li>
-                                <li>✓ Professional audio quality</li>
+                                <li>&check; Multi-voice AI podcast generation</li>
+                                <li>&check; Research-driven content creation from confirmed sources</li>
+                                <li>&check; RSS feed distribution</li>
+                                <li>&#9203; Private episode access: pending (staged rollout)</li>
                             </ul>
                         </div>
                         <div class="bg-blue-50 rounded-lg p-4 mt-4">
-                            <h4 class="font-semibold text-gray-800 mb-2">Video Production (Future - Phase 2+):</h4>
-                            <p class="text-sm text-gray-700 mb-2">Advanced video features planned for future development:</p>
+                            <h4 class="font-semibold text-gray-800 mb-2">Video Production (planned, Phase 2+):</h4>
+                            <p class="text-sm text-gray-700 mb-2">None of the following is built:</p>
                             <ul class="text-sm text-gray-700 space-y-2">
-                                <li>• <strong>Visual Content Integration:</strong> Automated extraction from papers, web scraping, JSON database integration</li>
-                                <li>• <strong>Dynamic Visualizations:</strong> Scientific animations, real-time charts, LaTeX rendering</li>
-                                <li>• <strong>External Video Quoting:</strong> YouTube segment extraction with attribution & fair use compliance</li>
-                                <li>• <strong>Advanced Composition:</strong> Multi-layer video, auto subtitles, text overlays, professional transitions</li>
+                                <li>&bull; <strong>Visual Content Integration:</strong> automated extraction from papers, web scraping, JSON database integration</li>
+                                <li>&bull; <strong>Dynamic Visualizations:</strong> scientific animations, real-time charts, LaTeX rendering</li>
+                                <li>&bull; <strong>External Video Quoting:</strong> YouTube segment extraction with attribution and fair-use compliance</li>
+                                <li>&bull; <strong>Advanced Composition:</strong> multi-layer video, auto subtitles, text overlays, professional transitions</li>
                             </ul>
                             <p class="text-xs text-gray-600 mt-2">
-                                See: <a href="https://huggingface.co/spaces/garywelz/sciencevideodb" class="text-blue-600 hover:underline">Science Video Database</a> - Companion project for research video content management.
+                                See: <a href="https://huggingface.co/spaces/garywelz/sciencevideodb" class="text-blue-600 hover:underline">Science Video Database</a> &mdash; companion project for research video content management.
                             </p>
                         </div>
                     </div>
@@ -512,33 +561,31 @@ graph TD
                     <div class="flex-1">
                         <h3 class="text-2xl font-bold text-gray-900 mb-3">Research Papers Metadata Database</h3>
                         <p class="text-gray-600 mb-4">
-                            A centralized <strong>metadata repository</strong> (not a file archive) providing structured JSON objects
-                            with AI-powered preprocessing. Scouts continuously bring in metadata from the academic-database
-                            universe; embedding is what turns a stored record into retrievable knowledge.
+                            A centralized <strong>metadata repository</strong> (not a file archive) of structured
+                            records. Scouts bring in metadata from PubMed and bioRxiv/medRxiv; embedding is what
+                            turns a stored record into retrievable knowledge.
                         </p>
                         <div class="grid md:grid-cols-2 gap-4">
                             <div>
-                                <h4 class="font-semibold text-gray-800 mb-2">Structured JSON Objects:</h4>
+                                <h4 class="font-semibold text-gray-800 mb-2">Structured records:</h4>
                                 <ul class="text-sm text-gray-600 space-y-1">
-                                    <li>• DOI, arXiv ID, publication info</li>
-                                    <li>• Abstracts & key findings</li>
-                                    <li>• Extracted entities (genes, proteins, compounds, equations)</li>
-                                    <li>• Citation networks & cross-references</li>
-                                    <li>• Paradigm shift indicators</li>
-                                    <li>• Quality scores & relevance metrics</li>
+                                    <li>&bull; DOI, arXiv ID, source and publication info</li>
+                                    <li>&bull; Abstracts</li>
+                                    <li>&bull; Discipline and engine-question tags</li>
+                                    <li>&bull; Embedding vector (OpenAI)</li>
                                 </ul>
                             </div>
                             <div>
-                                <h4 class="font-semibold text-gray-800 mb-2">AI-Powered Preprocessing:</h4>
+                                <h4 class="font-semibold text-gray-800 mb-2">Access:</h4>
                                 <ul class="text-sm text-gray-600 space-y-1">
-                                    <li>• Scout-driven discovery from academic databases</li>
-                                    <li>• LLM-based entity extraction</li>
-                                    <li>• Automatic categorization</li>
-                                    <li>• Keyword extraction & semantic tagging</li>
-                                    <li>• Citation tracking & mapping</li>
-                                    <li>• Quality assessment</li>
-                                    <li>• Embedding — vectorized into the shared corpus</li>
-                                    <li>• RESTful API access</li>
+                                    <li>&bull; Public read API for browsing and single-paper lookup (see API section)</li>
+                                    <li>&bull; Vector search and RAG over the corpus</li>
+                                </ul>
+                                <h4 class="font-semibold text-gray-800 mt-3 mb-2">Planned, not claimed as running:</h4>
+                                <ul class="text-sm text-gray-600 space-y-1">
+                                    <li>&bull; Citation networks and cross-references</li>
+                                    <li>&bull; Paradigm-shift indicators and quality scores stored per paper</li>
+                                    <li>&bull; Entity extraction (genes, proteins, compounds, equations) across the full corpus</li>
                                 </ul>
                             </div>
                         </div>
@@ -548,37 +595,38 @@ graph TD
         </div>
     </section>
 
-    <!-- By the Numbers -->
+    <!-- By the Numbers (live from knowledge-engine-status.json; never a hard-coded count) -->
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <h2 class="text-2xl font-bold text-gray-900 mb-6 text-center">By the numbers</h2>
         <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-4">
             <div class="bg-white rounded-lg shadow-md p-6 text-center">
-                <div class="stat-number mb-2" id="kstat-papers">62,312</div>
+                <div class="stat-number mb-2 kv" data-k="papers">loading&hellip;</div>
                 <div class="text-gray-600 font-semibold">Research Papers</div>
                 <div class="text-sm text-gray-500 mt-1">Indexed corpus-wide (Firestore)</div>
             </div>
             <div class="bg-white rounded-lg shadow-md p-6 text-center">
-                <div class="stat-number mb-2" id="kstat-processes">692</div>
+                <div class="stat-number mb-2 kv" data-k="processes">loading&hellip;</div>
                 <div class="text-gray-600 font-semibold">Process charts (PF)</div>
-                <div class="text-sm text-gray-500 mt-1" id="kstat-processes-sub">Loading…</div>
+                <div class="text-sm text-gray-500 mt-1">Sum of six process-chart families</div>
             </div>
             <div class="bg-white rounded-lg shadow-md p-6 text-center">
-                <div class="stat-number mb-2" id="kstat-videos">582</div>
+                <div class="stat-number mb-2 kv" data-k="videos">loading&hellip;</div>
                 <div class="text-gray-600 font-semibold">Videos</div>
-                <div class="text-sm text-gray-500 mt-1">Science videos indexed (published count)</div>
+                <div class="text-sm text-gray-500 mt-1">Science videos in the catalog</div>
             </div>
             <div class="bg-white rounded-lg shadow-md p-6 text-center">
-                <div class="stat-number mb-2" id="kstat-podcasts">79</div>
+                <div class="stat-number mb-2 kv" data-k="podcasts">loading&hellip;</div>
                 <div class="text-gray-600 font-semibold">Podcasts</div>
-                <div class="text-sm text-gray-500 mt-1">Generated across 5 disciplines</div>
+                <div class="text-sm text-gray-500 mt-1">Published episodes</div>
             </div>
         </div>
         <div id="kstat-bloc" class="text-center max-w-3xl mx-auto text-sm text-gray-600 leading-relaxed" aria-live="polite">
-            <p class="mb-0" id="kstat-asof">Loading live counts from knowledge-engine-status.json…</p>
+            <p class="mb-0" id="kstat-asof">Loading live counts from knowledge-engine-status.json&hellip;</p>
+            <noscript><p class="mb-0 text-amber-800">Live counts need JavaScript; they are not shown without it. See knowledge-engine-status.json on GCS.</p></noscript>
         </div>
         <p class="text-center text-sm text-gray-600 mt-3">
-            Part of the GLMP research program —
-            <a href="https://huggingface.co/spaces/garywelz/glmp" target="_blank" rel="noopener noreferrer" class="text-green-700 hover:underline font-medium">github.com/garywelz/glmp</a>
+            Part of the GLMP research program &mdash;
+            <a href="https://huggingface.co/spaces/garywelz/glmp" target="_blank" rel="noopener noreferrer" class="text-green-700 hover:underline font-medium">huggingface.co/spaces/garywelz/glmp</a>
         </p>
     </section>
 
@@ -591,37 +639,31 @@ graph TD
                 <div>
                     <h3 class="text-lg font-semibold text-gray-800 mb-3">AI & Machine Learning</h3>
                     <ul class="text-sm text-gray-600 space-y-1">
-                        <li>• Google Gemini 3</li>
-                        <li>• Google Vertex AI (model orchestration)</li>
-                        <li>• OpenAI GPT-4o</li>
-                        <li>• Anthropic Claude 3.5</li>
-                        <li>• ElevenLabs TTS</li>
-                        <li>• DALL-E 3</li>
-                        <li>• Cloud Vision API</li>
-                        <li>• Video Intelligence API</li>
+                        <li>&bull; Google Gemini 2.5 (script generation)</li>
+                        <li>&bull; OpenAI (embeddings, RAG answers, cover images)</li>
+                        <li>&bull; ElevenLabs TTS</li>
                     </ul>
                 </div>
-                
+
                 <div>
                     <h3 class="text-lg font-semibold text-gray-800 mb-3">Backend Infrastructure</h3>
                     <ul class="text-sm text-gray-600 space-y-1">
-                        <li>• FastAPI (Python)</li>
-                        <li>• Google Cloud Run</li>
-                        <li>• Firestore (NoSQL)</li>
-                        <li>• Cloud Storage</li>
-                        <li>• Cloud Functions</li>
-                        <li>• Cloud Tasks</li>
-                        <li>• Secret Manager</li>
+                        <li>&bull; FastAPI (Python)</li>
+                        <li>&bull; Google Cloud Run</li>
+                        <li>&bull; Firestore (NoSQL)</li>
+                        <li>&bull; Cloud Storage</li>
+                        <li>&bull; Cloud Functions (GLMP suggestion and feedback intake)</li>
+                        <li>&bull; Secret Manager</li>
                     </ul>
                 </div>
-                
+
                 <div>
                     <h3 class="text-lg font-semibold text-gray-800 mb-3">Frontend</h3>
                     <ul class="text-sm text-gray-600 space-y-1">
-                        <li>• Next.js 15.5.7</li>
-                        <li>• Alpine.js</li>
-                        <li>• Tailwind CSS</li>
-                        <li>• Vercel</li>
+                        <li>&bull; Next.js 15</li>
+                        <li>&bull; Alpine.js (subscriber dashboard)</li>
+                        <li>&bull; Tailwind CSS</li>
+                        <li>&bull; Vercel</li>
                     </ul>
                 </div>
             </div>
@@ -637,23 +679,28 @@ graph TD
                 <div class="bg-yellow-50 rounded-lg p-6 border-l-4 border-yellow-400">
                     <h3 class="text-xl font-semibold text-gray-900 mb-4">Current Limitations</h3>
                     <ul class="text-sm text-gray-700 space-y-2">
-                        <li>• <strong>Discipline Coverage:</strong> Currently indexing <span id="kstat-text-discipline">62,312</span> papers across multiple disciplines; expansion to additional disciplines in progress</li>
-                        <li>• <strong>Source Bias:</strong> Coverage depends on database API availability and open access policies</li>
-                        <li>• <strong>LLM Accuracy:</strong> Content generation relies on LLM accuracy; multi-source validation mitigates but doesn't eliminate errors</li>
-                        <li>• <strong>Real-Time Updates:</strong> Knowledge graph updates require manual or scheduled processing cycles</li>
-                        <li>• <strong>Language:</strong> Currently optimized for English-language research papers</li>
+                        <li>&bull; <strong>arXiv acquisition is paused:</strong> the arXiv scout currently fails, so no new arXiv papers are arriving. The arXiv records already in the corpus are not re-checked.</li>
+                        <li>&bull; <strong>Thin source coverage:</strong> the scouts that run are PubMed and bioRxiv/medRxiv. NASA ADS has contributed no papers. The corpus is therefore weighted toward biology.</li>
+                        <li>&bull; <strong>Verification metrics are being re-measured:</strong> how often a cited source is confirmed and relevant has no published figure here until the re-measurement finishes.</li>
+                        <li>&bull; <strong>Generation is not open:</strong> only allowlisted subscribers can generate podcasts, within a monthly quota. Private episode access is pending.</li>
+                        <li>&bull; <strong>Heuristic and model-generated scores:</strong> the research-quality score is a heuristic; paradigm-shift notes and interdisciplinary connections are written by a model and are not independently validated.</li>
+                        <li>&bull; <strong>LLM accuracy:</strong> generated content relies on LLM accuracy; requiring three confirmed sources and a relevance gate reduces but does not eliminate errors.</li>
+                        <li>&bull; <strong>Update cycle:</strong> the corpus updates on scheduled scout and ingest cycles (twice daily), not in real time; counts above are as of the date shown.</li>
+                        <li>&bull; <strong>Engine maturity:</strong> TDAP is at an early stage; engine-specific scouts are in development.</li>
+                        <li>&bull; <strong>Language:</strong> the corpus is English-language research papers.</li>
                     </ul>
                 </div>
-                
+
                 <div class="bg-blue-50 rounded-lg p-6 border-l-4 border-blue-400">
-                    <h3 class="text-xl font-semibold text-gray-900 mb-4">Future Development</h3>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-4">Planned (not built)</h3>
                     <ul class="text-sm text-gray-700 space-y-2">
-                        <li>• <strong>Multi-Discipline Expansion:</strong> Expanding knowledge graph to Biology, Chemistry, Physics, Computer Science</li>
-                        <li>• <strong>Process Databases:</strong> Creating comprehensive flowchart databases for all 5 disciplines (~50 processes each)</li>
-                        <li>• <strong>Advanced Video Features:</strong> Dynamic visualizations, animations, and multi-layer composition</li>
-                        <li>• <strong>Multi-Language Support:</strong> Extending to non-English research papers</li>
-                        <li>• <strong>Enhanced Validation:</strong> Peer review mechanisms and user feedback integration</li>
-                        <li>• <strong>Real-Time Updates:</strong> Automated continuous knowledge graph updates</li>
+                        <li>&bull; <strong>arXiv through OAI-PMH:</strong> a replacement harvesting route</li>
+                        <li>&bull; <strong>Engine-tuned scouts:</strong> scouts aimed at each engine's research frontier</li>
+                        <li>&bull; <strong>Private episode access</strong> for subscribers</li>
+                        <li>&bull; <strong>Per-paper entity extraction, citation networks and stored quality scores</strong></li>
+                        <li>&bull; <strong>Advanced video features:</strong> dynamic visualizations, animations and multi-layer composition</li>
+                        <li>&bull; <strong>Multi-language support:</strong> non-English research papers</li>
+                        <li>&bull; <strong>Enhanced validation:</strong> peer review mechanisms and user feedback integration</li>
                     </ul>
                 </div>
             </div>
@@ -672,26 +719,24 @@ graph TD
                         These platforms enable collective participation and collaboration across diverse user communities:
                     </p>
                     <ul class="text-gray-700 space-y-2">
-                        <li>• <strong>Researchers</strong> - Tools for hypothesis formation and testing, cross-disciplinary synthesis</li>
-                        <li>• <strong>Collaborators</strong> - Collective knowledge exploration and refinement</li>
-                        <li>• <strong>Subscribers</strong> - Prompt, generate, and share podcasts (public or private)</li>
-                        <li>• <strong>Community</strong> - User suggestions, comments, and collaborative flowchart improvement (GLMP)</li>
+                        <li>&bull; <strong>Researchers</strong> &mdash; the engines' researchers work with the Knowledge Base UI on their frontier</li>
+                        <li>&bull; <strong>Subscribers</strong> &mdash; allowlisted subscribers prompt and generate podcasts; sharing through the public RSS feed</li>
+                        <li>&bull; <strong>Community</strong> &mdash; suggestions and feedback on GLMP flowcharts are collected through cloud functions; open comment and collaborative editing are planned</li>
                     </ul>
                     <p class="text-gray-600 mt-4 italic">
-                        Like a microscope enables observation of the microscopic world, these tools enable observation and 
+                        Like a microscope enables observation of the microscopic world, these tools enable observation and
                         exploration of humanity's collective knowledge.
                     </p>
                 </div>
-                
+
                 <div>
-                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Key Innovations</h3>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Key Design Points</h3>
                     <ul class="text-gray-700 space-y-2">
-                        <li>• Multi-source validation (min 3 sources)</li>
-                        <li>• Evidence-based generation</li>
-                        <li>• Paradigm shift detection</li>
-                        <li>• Interdisciplinary connections</li>
-                        <li>• Multiple expertise levels</li>
-                        <li>• Full citation tracking</li>
+                        <li>&bull; Three confirmed sources before a briefing is generated</li>
+                        <li>&bull; References built by code from registry records</li>
+                        <li>&bull; Relevance gate on confirmed papers</li>
+                        <li>&bull; Multiple expertise levels</li>
+                        <li>&bull; Limits stated alongside claims</li>
                     </ul>
                 </div>
             </div>
@@ -717,20 +762,20 @@ graph TD
                 <div class="bg-white rounded-lg p-6">
                     <h3 class="text-lg font-semibold text-gray-900 mb-3">🔬 Research Contributions</h3>
                     <ul class="text-sm text-gray-700 space-y-2">
-                        <li>• <strong>AI-Powered Research Synthesis:</strong> Production system for multi-source research synthesis using LLMs</li>
-                        <li>• <strong>Multi-Model Architecture:</strong> Intelligent model selection with Gemini 3, GPT-4, Claude 3</li>
-                        <li>• <strong>Collaborative Platform:</strong> Subscriber-driven content generation with public/private sharing</li>
-                        <li>• <strong>Knowledge Engine Integration:</strong> Architecture for Research Papers DB, Video DB, GLMP, Framework</li>
+                        <li>&bull; <strong>AI-Powered Research Synthesis:</strong> multi-source research synthesis using LLMs, gated on confirmed sources</li>
+                        <li>&bull; <strong>Multi-Model Architecture:</strong> Gemini 2.5 for scripts, OpenAI for embeddings, RAG and images, ElevenLabs for voice</li>
+                        <li>&bull; <strong>Subscriber generation:</strong> allowlisted, quota-limited generation with submission to a public feed</li>
+                        <li>&bull; <strong>Knowledge Engine Integration:</strong> architecture for Research Papers DB, Video DB, the GLMP, ATAP and TDAP engines, and the Programming Framework</li>
                     </ul>
                 </div>
                 
                 <div class="bg-white rounded-lg p-6">
                     <h3 class="text-lg font-semibold text-gray-900 mb-3">⚙️ Technical Achievements</h3>
                     <ul class="text-sm text-gray-700 space-y-2">
-                        <li>• <strong>250+ Million Papers:</strong> Accessible via 8+ integrated academic databases</li>
-                        <li>• <strong><span id="kstat-text-episodes-n">79</span> Episodes:</strong> Generated across 5 scientific disciplines</li>
-                        <li>• <strong>Production Deployment:</strong> Live platform with operational API and RSS distribution</li>
-                        <li>• <strong>Scalable Architecture:</strong> Serverless microservices on Google Cloud</li>
+                        <li>&bull; <strong><span class="kv" data-k="papers">loading&hellip;</span> papers</strong> in the corpus, with <span class="kv" data-k="embedded">loading&hellip;</span> embedded</li>
+                        <li>&bull; <strong><span class="kv" data-k="podcasts">loading&hellip;</span> published episodes</strong></li>
+                        <li>&bull; <strong>Production deployment:</strong> live public read API and RSS distribution</li>
+                        <li>&bull; <strong>Architecture:</strong> serverless services on Google Cloud Run</li>
                     </ul>
                 </div>
             </div>
@@ -746,13 +791,13 @@ graph TD
                     <h4 class="font-semibold text-gray-900 mb-2">Current Components:</h4>
                     <div class="grid md:grid-cols-2 gap-4 text-sm">
                         <ul class="text-gray-700 space-y-1">
-                            <li>1. <strong>CopernicusAI</strong> (This platform) - Core synthesis & distribution</li>
-                            <li>2. <strong>Programming Framework</strong> - Foundational meta-tool</li>
-                            <li>3. <strong>GLMP</strong> - Biological process visualization</li>
+                            <li>1. <strong>CopernicusAI</strong> (this platform) &mdash; core synthesis &amp; distribution</li>
+                            <li>2. <strong>Programming Framework</strong> &mdash; foundational meta-tool</li>
+                            <li>3. <strong>GLMP, ATAP, TDAP</strong> &mdash; the three engines</li>
                         </ul>
                         <ul class="text-gray-700 space-y-1">
-                            <li>4. <strong>Research Paper Metadata Database</strong> - Data infrastructure</li>
-                            <li>5. <strong>Science Video Database</strong> - Multi-modal content</li>
+                            <li>4. <strong>Research Paper Metadata Database</strong> &mdash; data infrastructure</li>
+                            <li>5. <strong>Science Video Database</strong> &mdash; video catalog</li>
                         </ul>
                     </div>
                 </div>
@@ -771,7 +816,7 @@ graph TD
                     <strong>For Grant Proposals (NSF/DOE):</strong>
                 </p>
                 <div class="bg-white rounded p-4 font-mono text-sm text-gray-800 mb-4">
-                    <p class="mb-2">Welz, G. (2025). CopernicusAI: Knowledge Engine for Scientific Discovery.</p>
+                    <p class="mb-2">Welz, G. (2024&ndash;2026). CopernicusAI: Knowledge Engine for Scientific Discovery.</p>
                     <p class="mb-2">Hugging Face Space. https://huggingface.co/spaces/garywelz/copernicusai</p>
                     <p>Live Platform: https://www.copernicusai.fyi</p>
                 </div>
@@ -780,7 +825,7 @@ graph TD
                     <pre class="bg-gray-900 text-green-400 p-3 rounded text-xs overflow-x-auto"><code>@misc{welz2025copernicusai,
   title={CopernicusAI: Knowledge Engine for Scientific Discovery},
   author={Welz, Gary},
-  year={2025},
+  year={2024--2026},
   url={https://huggingface.co/spaces/garywelz/copernicusai},
   note={Hugging Face Space, Live Platform: https://www.copernicusai.fyi}
 }</code></pre>
@@ -810,7 +855,7 @@ graph TD
                 <ul class="text-gray-700 space-y-2">
                     <li>• <strong>Hugging Face Spaces:</strong> All components accessible at <a href="https://huggingface.co/garywelz" target="_blank" class="text-blue-600 hover:underline">https://huggingface.co/garywelz</a> (opens in new tab)</li>
                     <li>• <strong>Process Flowcharts (GLMP):</strong> JSON files stored in Google Cloud Storage, accessible via <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-database-table.html" target="_blank" class="text-blue-600 hover:underline">GLMP Database Table</a> (opens in new tab)</li>
-                    <li>• <strong>Research Paper Metadata:</strong> <span id="kstat-text-data">62,312</span> indexed papers with metadata accessible through Research Tools Dashboard</li>
+                    <li>&bull; <strong>Research Paper Metadata:</strong> <span class="kv" data-k="papers">loading&hellip;</span> indexed papers, browsable through the public read API and the Research Tools Dashboard</li>
                     <li>• <strong>API Documentation:</strong> RESTful API endpoints available for programmatic access (see API Documentation section)</li>
                 </ul>
             </div>
@@ -819,10 +864,10 @@ graph TD
                 <h3 class="text-xl font-semibold text-gray-900 mb-4">Reproducibility Information</h3>
                 <ul class="text-gray-700 space-y-2">
                     <li>• <strong>Technology Stack:</strong> All technologies and versions documented in Technology Stack section</li>
-                    <li>• <strong>LLM Models:</strong> Google Gemini 3, OpenAI GPT-4o, Anthropic Claude 3.5 (versions specified in documentation)</li>
-                    <li>• <strong>Source Citations:</strong> All podcast episodes include full citations to source papers</li>
-                    <li>• <strong>Metadata:</strong> Complete metadata for all generated content available through API</li>
-                    <li>• <strong>License:</strong> MIT License - see license information in space metadata</li>
+                    <li>&bull; <strong>LLM Models:</strong> Google Gemini 2.5, OpenAI (text-embedding-3-small, gpt-4o-mini, gpt-image-1), ElevenLabs TTS</li>
+                    <li>&bull; <strong>Source Citations:</strong> reference lists are built by code from papers confirmed in arXiv, PubMed or Crossref; episodes generated before that change may differ</li>
+                    <li>&bull; <strong>Metadata:</strong> episode and paper metadata are browsable through the public read API</li>
+                    <li>&bull; <strong>License:</strong> MIT License &mdash; see license information in space metadata</li>
                 </ul>
             </div>
         </div>
@@ -834,7 +879,7 @@ graph TD
             <h2 class="text-3xl font-bold text-gray-900 mb-6">How to Cite This Work</h2>
             <div class="bg-gray-50 rounded-lg p-6 mb-4">
                 <p class="text-gray-800 font-mono text-lg leading-relaxed mb-4">
-                    Welz, G. (2024–2025). <em>CopernicusAI: AI-Generated Audio Briefings as a Research Interface</em>.<br>
+                    Welz, G. (2024&ndash;2026). <em>CopernicusAI: AI-Generated Audio Briefings as a Research Interface</em>.<br>
                     Hugging Face Spaces. https://huggingface.co/spaces/garywelz/copernicusai
                 </p>
                 
@@ -843,7 +888,7 @@ graph TD
                     <pre class="bg-gray-800 text-green-400 p-4 rounded text-sm overflow-x-auto"><code>@misc{welz2025copernicusai,
   title={CopernicusAI: AI-Generated Audio Briefings as a Research Interface},
   author={Welz, Gary},
-  year={2024--2025},
+  year={2024--2026},
   url={https://huggingface.co/spaces/garywelz/copernicusai},
   note={Hugging Face Space}
 }</code></pre>
@@ -908,7 +953,7 @@ graph TD
                         <li>
                             <a href="https://www.copernicusai.fyi/subscriber-dashboard.html" target="_blank" rel="noopener noreferrer"
                                class="text-blue-600 hover:text-blue-800 font-medium">
-                                📊 Creator Dashboard (opens in new tab)
+                                📊 Subscriber Dashboard (allowlisted subscribers; opens in new tab)
                             </a>
                         </li>
                         <li>
@@ -923,13 +968,13 @@ graph TD
                 <div class="bg-white rounded-lg p-6">
                     <h3 class="text-xl font-semibold text-gray-800 mb-4">🧩 Knowledge Engine Components</h3>
                     <p class="text-sm text-gray-600 mb-4">
-                        The CopernicusAI Knowledge Engine is an integrated ecosystem of research and collaboration tools. 
-                        The <strong>Research Tools Dashboard is now fully operational</strong> (December 2025) with a working web interface providing unified access to all components.
+                        The CopernicusAI Knowledge Engine is an integrated ecosystem of research and collaboration tools.
+                        The <strong>Research Tools Dashboard is a prototype</strong> (first deployed December 2025) with a web interface to the other components.
                     </p>
                     <div class="bg-green-50 rounded-lg p-4 mb-4">
-                        <h4 class="font-semibold text-gray-800 mb-2">✅ Research Tools Dashboard (Implemented)</h4>
+                        <h4 class="font-semibold text-gray-800 mb-2">Research Tools Dashboard (prototype)</h4>
                         <p class="text-sm text-gray-700 mb-2">
-                            Fully operational web interface with knowledge graph visualization (<span id="kstat-text-kg">62,312</span> papers), vector search, RAG queries, and content browsing.
+                            Web interface with knowledge graph visualization, vector search, RAG queries and content browsing over <span class="kv" data-k="papers">loading&hellip;</span> papers.
                         </p>
                         <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/copernicusai-public-reviewer.html" 
                            target="_blank" rel="noopener noreferrer"
@@ -959,7 +1004,7 @@ graph TD
                                 🧬 GLMP - Genome Logic Modeling Project (opens in new tab)
                             </a>
                             <p class="text-sm text-gray-600 mt-1 ml-6">
-                                Working knowledge engine for biology — 217 decoded processes, part of 692 process charts across six families
+                                Biology engine &mdash; <span class="kv" data-k="glmp-charts">loading&hellip;</span> decoded processes in its process-chart database
                             </p>
                         </li>
                         <li>
@@ -968,7 +1013,16 @@ graph TD
                                 📐 ATAP - Axiomatic Theories, Algorithms and Proofs (opens in new tab)
                             </a>
                             <p class="text-sm text-gray-600 mt-1 ml-6">
-                                Working knowledge engine for mathematics — algorithms, axiomatic theories, and proofs as dependency graphs
+                                Mathematics engine &mdash; algorithms, axiomatic theories and proofs as dependency graphs
+                            </p>
+                        </li>
+                        <li>
+                            <a href="https://github.com/garywelz/tdap" target="_blank" rel="noopener noreferrer"
+                               class="text-blue-600 hover:text-blue-800 font-medium">
+                                🔭 TDAP - Topological Data Analysis Project (opens in new tab)
+                            </a>
+                            <p class="text-sm text-gray-600 mt-1 ml-6">
+                                Hosted engine, early stage &mdash; persistent cohomology and circular/toroidal coordinates
                             </p>
                         </li>
                         <li>
@@ -995,90 +1049,73 @@ graph TD
         </div>
     </section>
 
-    <!-- API Endpoints -->
+    <!-- API Endpoints (public, unauthenticated read endpoints only) -->
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div class="bg-gray-900 text-white rounded-xl p-8">
-            <h2 class="text-3xl font-bold mb-6">🔌 API Documentation</h2>
+            <h2 class="text-3xl font-bold mb-6">🔌 Public API</h2>
             <p class="text-gray-300 mb-6">Base URL: <code class="bg-gray-800 px-2 py-1 rounded">https://copernicus-podcast-api-phzp4ie2sq-uc.a.run.app</code></p>
-            
-            <div class="grid md:grid-cols-3 gap-4 text-sm mb-8">
+
+            <div class="grid md:grid-cols-2 gap-4 text-sm mb-8">
                 <div>
-                    <h4 class="font-semibold text-blue-300 mb-2">Podcast Generation</h4>
+                    <h4 class="font-semibold text-blue-300 mb-2">Content</h4>
                     <ul class="space-y-1 text-gray-400">
-                        <li>POST /generate-podcast-with-subscriber</li>
-                        <li>GET /api/subscribers/podcasts/{id}</li>
-                        <li>POST /api/subscribers/podcasts/submit-to-rss</li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h4 class="font-semibold text-blue-300 mb-2">Research Endpoints</h4>
-                    <ul class="space-y-1 text-gray-400">
-                        <li>POST /api/papers/upload</li>
+                        <li>GET /api/content/stats</li>
+                        <li>GET /api/content/browse</li>
                         <li>GET /api/papers/{paper_id}</li>
-                        <li>POST /api/papers/query</li>
-                        <li>POST /api/papers/{id}/link-podcast/{id}</li>
                     </ul>
                 </div>
-                
+
                 <div>
-                    <h4 class="font-semibold text-blue-300 mb-2">Admin Endpoints</h4>
+                    <h4 class="font-semibold text-blue-300 mb-2">Search and questions</h4>
                     <ul class="space-y-1 text-gray-400">
-                        <li>GET /api/admin/subscribers</li>
-                        <li>POST /api/admin/podcasts/fix-missing-titles</li>
-                        <li>GET /api/admin/podcasts/catalog</li>
+                        <li>GET /api/vector-search/semantic</li>
+                        <li>GET /api/rag/answer</li>
+                        <li>GET /health</li>
                     </ul>
                 </div>
             </div>
 
             <div class="border-t border-gray-700 pt-6 mt-6">
-                <h3 class="text-xl font-semibold text-blue-300 mb-4">📝 Example Request</h3>
+                <h3 class="text-xl font-semibold text-blue-300 mb-4">📝 Example request</h3>
                 <div class="bg-gray-800 rounded-lg p-4 mb-4">
-                    <p class="text-gray-400 text-xs mb-2">POST /api/papers/query</p>
-                    <pre class="text-green-400 text-xs overflow-x-auto"><code>{
-  "discipline": "biology",
-  "keywords": ["DNA replication", "cell cycle"],
-  "date_range": {
-    "start": "2020-01-01",
-    "end": "2025-01-01"
-  },
-  "limit": 10
-}</code></pre>
+                    <p class="text-gray-400 text-xs mb-2">GET /api/content/browse?content_type=podcasts&amp;limit=1</p>
                 </div>
-                
-                <h3 class="text-xl font-semibold text-blue-300 mb-4 mt-6">📤 Example Response</h3>
+
+                <h3 class="text-xl font-semibold text-blue-300 mb-4 mt-6">📤 Example response (abridged)</h3>
                 <div class="bg-gray-800 rounded-lg p-4 mb-4">
                     <pre class="text-green-400 text-xs overflow-x-auto"><code>{
-  "status": "success",
-  "count": 10,
-  "papers": [
+  "content_type": "podcasts",
+  "items": [
     {
-      "id": "pmid_12345678",
-      "title": "Mechanisms of DNA Replication...",
-      "authors": ["Smith, J.", "Doe, A."],
-      "journal": "Nature",
-      "year": 2023,
-      "doi": "10.1038/s41586-023-01234",
-      "abstract": "..."
+      "id": "ever-phys-250034",
+      "title": "3I/ATLAS: Unveiling the Secrets of Interstellar Comets and the Origins of Planetary Systems",
+      "type": "podcast",
+      "metadata": {
+        "duration": "5:32",
+        "category": "Physics",
+        "slug": "ever-phys-250034",
+        "episode_link": "https://copernicusai.fyi/episodes/ever-phys-250034"
+      }
     }
-  ]
+  ],
+  "pagination": { "page": 1, "limit": 1, "total": 39, "pages": 39 }
 }</code></pre>
+                    <p class="text-gray-500 text-xs mt-2">Recorded 2026-10-20; the total changes as episodes are published.</p>
                 </div>
 
                 <div class="bg-gray-800 rounded-lg p-4 mt-4">
-                    <h4 class="font-semibold text-blue-300 mb-2 text-sm">🔐 Authentication</h4>
-                    <p class="text-gray-400 text-xs mb-2">API uses Bearer token authentication. Include in request headers:</p>
-                    <pre class="text-green-400 text-xs"><code>Authorization: Bearer YOUR_API_TOKEN</code></pre>
+                    <h4 class="font-semibold text-blue-300 mb-2 text-sm">🔐 Access</h4>
+                    <p class="text-gray-400 text-xs">The endpoints listed here are read-only and need no credentials. Routes that write, generate podcasts or administer the service require credentials and are not documented here.</p>
                 </div>
 
                 <div class="bg-gray-800 rounded-lg p-4 mt-4">
-                    <h4 class="font-semibold text-blue-300 mb-2 text-sm">⚡ Rate Limits</h4>
-                    <p class="text-gray-400 text-xs">Standard rate limits apply: 100 requests/minute per API key. Contact for higher limits.</p>
+                    <h4 class="font-semibold text-blue-300 mb-2 text-sm">⚡ Limits</h4>
+                    <p class="text-gray-400 text-xs">/api/rag/answer allows 20 requests per hour per client address. No general rate limit or API-key quota is published for the other endpoints.</p>
                 </div>
 
                 <div class="bg-gray-800 rounded-lg p-4 mt-4">
-                    <h4 class="font-semibold text-blue-300 mb-2 text-sm">📚 API Version</h4>
-                    <p class="text-gray-400 text-xs">Current version: v1.0. API is stable and backward-compatible.</p>
+                    <h4 class="font-semibold text-blue-300 mb-2 text-sm">📚 Stability</h4>
+                    <p class="text-gray-400 text-xs">The API is under active development and has no versioning or backward-compatibility guarantee. Machine-readable definitions are served at /openapi.json.</p>
                 </div>
             </div>
         </div>
@@ -1086,96 +1123,82 @@ graph TD
 
     <script>
     (function () {
-        var STATUS_BASE = 'https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/knowledge-engine-status.json';
-        var API_BASE = 'https://copernicus-podcast-api-phzp4ie2sq-uc.a.run.app';
+        var STATUS_URL = 'https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/knowledge-engine-status.json';
+        var UNAVAILABLE = 'live count unavailable';
+        var TIMEOUT_MS = 10000;
+        var STALE_HOURS = 72;
+
         function fmt(n) {
-            return typeof n === 'number' ? n.toLocaleString() : String(n);
+            return (typeof n === 'number' && isFinite(n)) ? n.toLocaleString('en-US') : null;
         }
-        function setText(id, text) {
-            var el = document.getElementById(id);
-            if (el) el.textContent = text;
-        }
-        function statusUrlBusted() {
-            return STATUS_BASE + (STATUS_BASE.indexOf('?') >= 0 ? '&' : '?') + 'cb=' + Date.now();
-        }
-        function safeJson(r) {
-            if (!r || !r.ok) return Promise.resolve(null);
-            return r.json().catch(function () { return null; });
-        }
-        function renderFooter(s, st) {
-            var asof = s && s.last_updated ? new Date(s.last_updated) : null;
-            var asofStr = asof && !isNaN(asof.getTime())
-                ? asof.toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'short' })
-                : '';
-            var line1 = (s && s.count_source)
-                ? ((asofStr ? 'Counts as of ' + asofStr + '. ' : '') + 'Source: ' + s.count_source + ' (knowledge-engine-status.json on GCS).')
-                : (asofStr ? 'Counts as of ' + asofStr + '.' : 'Live counts from knowledge-engine-status.json.');
-            var p1 = document.getElementById('kstat-asof');
-            if (p1) p1.textContent = line1;
-
-            var emb = (st && st.papers_with_embedding != null) ? st.papers_with_embedding
-                : (s && s.papers_with_embedding != null) ? s.papers_with_embedding : null;
-            var pct = (st && st.papers_embedding_coverage_percent != null) ? st.papers_embedding_coverage_percent
-                : (s && s.papers_embedding_coverage_percent != null) ? s.papers_embedding_coverage_percent : null;
-
-            var wrap = document.getElementById('kstat-bloc');
-            if (!wrap) return;
-            var oldCallout = document.getElementById('kstat-embed-callout');
-            if (oldCallout) oldCallout.remove();
-
-            var p2 = document.createElement('p');
-            p2.id = 'kstat-embed-callout';
-            p2.setAttribute('role', 'status');
-            p2.className = 'mt-3 text-base font-medium text-violet-900 bg-violet-50 border-2 border-violet-200 rounded-lg px-4 py-3 shadow-sm';
-            if (emb != null) {
-                p2.textContent = 'Papers with vector embeddings: ' + fmt(emb) +
-                    (pct != null ? ' (' + pct + '% of metadata catalog). ' : '. ') +
-                    'Not every catalog record is embedded; coverage increases as the embedding pipeline runs.';
-            } else {
-                p2.className = 'mt-3 text-sm text-amber-900 bg-amber-50 border border-amber-200 rounded-lg px-3 py-2';
-                p2.textContent = 'Embedding coverage: not in status JSON. Ensure knowledge-engine-status.json was published with papers_with_embedding (see scripts/publish_knowledge_engine_status.sh).';
+        // Every value on the page is a [data-k] element: it shows a live number or UNAVAILABLE, never an old number.
+        function show(key, value) {
+            var text = fmt(value);
+            var els = document.querySelectorAll('[data-k="' + key + '"]');
+            for (var i = 0; i < els.length; i++) {
+                els[i].textContent = text === null ? UNAVAILABLE : text;
+                if (text === null) { els[i].classList.add('kv-na'); } else { els[i].classList.remove('kv-na'); }
             }
-            wrap.appendChild(p2);
+        }
+        function allUnavailable() {
+            var els = document.querySelectorAll('[data-k]');
+            for (var i = 0; i < els.length; i++) { show(els[i].getAttribute('data-k'), null); }
+        }
+        function get(obj, path) {
+            for (var i = 0; i < path.length; i++) {
+                if (obj === null || typeof obj !== 'object') { return null; }
+                obj = obj[path[i]];
+            }
+            return (obj === undefined) ? null : obj;
+        }
+        function asOf(s) {
+            var el = document.getElementById('kstat-asof');
+            if (!el) { return; }
+            // last_updated is written by the publisher with no time-zone marker (its local clock, Eastern time).
+            var raw = (s && typeof s.last_updated === 'string') ? s.last_updated : '';
+            var m = raw.match(/^(\d{4}-\d{2}-\d{2})T(\d{2}:\d{2})/);
+            if (!m) { el.textContent = 'Counts are shown without an "as of" date because the status file did not carry one.'; return; }
+            var msg = 'Counts as of ' + m[1] + ' ' + m[2] + ' ET (' + (s.count_source ? 'count source: ' + s.count_source : 'count source not stated') + '), read live from knowledge-engine-status.json.';
+            var t = Date.parse(m[1] + 'T' + m[2] + ':00-04:00');
+            if (!isNaN(t) && (Date.now() - t) > STALE_HOURS * 3600 * 1000) {
+                msg += ' This file is more than ' + STALE_HOURS + ' hours old, so the counts may be out of date.';
+            }
+            el.textContent = msg;
         }
         function apply(s) {
-            if (!s || typeof s !== 'object') return;
-            if (s.papers != null) {
-                setText('kstat-papers', fmt(s.papers));
-                setText('kstat-summary-papers', fmt(s.papers));
-                setText('kstat-text-discipline', fmt(s.papers));
-                setText('kstat-text-data', fmt(s.papers));
-                setText('kstat-text-kg', fmt(s.papers));
-            }
-            if (s.process_databases && s.process_databases.sum != null) {
-                setText('kstat-processes', fmt(s.process_databases.sum));
-                var atapCount = s.process_databases.mathematics;
-                setText('kstat-processes-sub', 'Sum of 6 GCS metadata families. GLMP: ' + (s.processes != null ? fmt(s.processes) : '—') + '. ATAP: ' + (atapCount != null ? fmt(atapCount) : '—') + '.');
-            } else {
-                if (s.processes != null) setText('kstat-processes', fmt(s.processes));
-                setText('kstat-processes-sub', 'Visualized across 6 databases (re-publish status JSON for PF sum).');
-            }
-            if (s.videos != null) setText('kstat-videos', fmt(s.videos));
-            if (s.podcasts != null) {
-                setText('kstat-podcasts', fmt(s.podcasts));
-                setText('kstat-text-episodes-n', fmt(s.podcasts));
-            }
+            if (!s || typeof s !== 'object') { throw new Error('status file is not a JSON object'); }
+            show('papers', get(s, ['papers']));
+            show('processes', get(s, ['process_databases', 'sum']));
+            show('videos', get(s, ['videos']));
+            show('podcasts', get(s, ['podcasts']));
+            show('embedded', get(s, ['papers_with_embedding']));
+            show('glmp-papers', get(s, ['papers_by_initiative', 'glmp']));
+            show('atap-papers', get(s, ['papers_by_initiative', 'atap']));
+            show('tdap-papers', get(s, ['papers_by_initiative', 'tdap']));
+            show('glmp-charts', get(s, ['process_databases', 'glmp_v2']));
+            show('atap-charts', get(s, ['process_databases', 'mathematics']));
+            show('glmp-disc', get(s, ['papers_by_discipline', 'biology']));
+            show('atap-disc', get(s, ['papers_by_discipline', 'mathematics']));
+            asOf(s);
         }
         function fail(e) {
-            setText('kstat-asof', 'Live stats unavailable. Open a normal browser with JS enabled, or see knowledge-engine-status.json on GCS. ' + (e && e.message ? '(' + e.message + ')' : ''));
+            allUnavailable();
+            var el = document.getElementById('kstat-asof');
+            if (el) {
+                el.textContent = 'Live counts are unavailable: the status file could not be loaded' +
+                    (e && e.message ? ' (' + e.message + ')' : '') + '. No count is shown rather than an old one.';
+            }
         }
-        fetch(statusUrlBusted(), { cache: 'no-store', mode: 'cors' })
-            .then(function (r) { if (!r.ok) throw new Error('status JSON HTTP ' + r.status); return safeJson(r); })
-            .then(function (s) {
-                if (!s) throw new Error('empty status JSON');
-                return fetch(API_BASE + '/api/content/stats', { cache: 'no-store', mode: 'cors' })
-                    .then(safeJson)
-                    .then(function (st) { return { s: s, st: st }; });
+
+        var ctl = (typeof AbortController !== 'undefined') ? new AbortController() : null;
+        var timer = setTimeout(function () { if (ctl) { ctl.abort(); } else { fail(new Error('timed out')); } }, TIMEOUT_MS);
+        fetch(STATUS_URL, { cache: 'no-store', mode: 'cors', signal: ctl ? ctl.signal : undefined })
+            .then(function (r) {
+                if (!r.ok) { throw new Error('HTTP ' + r.status); }
+                return r.json();
             })
-            .then(function (o) {
-                apply(o.s);
-                renderFooter(o.s, o.st);
-            })
-            .catch(fail);
+            .then(function (s) { clearTimeout(timer); apply(s); })
+            .catch(function (e) { clearTimeout(timer); fail(e && e.name === 'AbortError' ? new Error('timed out') : e); });
     })();
     </script>
 
@@ -1183,7 +1206,7 @@ graph TD
     <footer class="gradient-bg text-white py-8 mt-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <p class="text-lg font-semibold mb-2">CopernicusAI - Advancing Scientific Knowledge</p>
-            <p class="text-sm opacity-75">Built with Google Cloud, Gemini AI, OpenAI, Anthropic Claude, and ElevenLabs</p>
+            <p class="text-sm opacity-75">Built with Google Cloud, Gemini, OpenAI and ElevenLabs</p>
             <p class="text-sm opacity-75 mt-2">
                 ORCID: <a href="https://orcid.org/0009-0005-7806-0892" target="_blank" rel="noopener noreferrer" class="hover:underline">0009-0005-7806-0892</a>
                 &nbsp;·&nbsp;
@@ -1200,7 +1223,7 @@ graph TD
                 &nbsp;·&nbsp;
                 <a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" rel="noopener noreferrer" class="hover:underline">Programming Framework</a>
             </p>
-            <p class="text-xs opacity-50 mt-4">&copy; 2025 CopernicusAI. All rights reserved.</p>
+            <p class="text-xs opacity-50 mt-4">&copy; 2024&ndash;2026 CopernicusAI. All rights reserved.</p>
         </div>
     </footer>
 
