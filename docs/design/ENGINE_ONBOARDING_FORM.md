@@ -1,6 +1,6 @@
 # Design: the Knowledge Engine Onboarding form
 
-**Status: PROPOSAL for Gary's review. Nothing here is built, deployed or approved.** No code is in the pull request that carries this file; the first line of code is written only after Gary approves this design, and then as the separately reviewed pull requests in section 8.
+**Status: PROPOSAL, with Gary's first decisions recorded (2026-10-20, §10a and §8.0). Nothing here is built or deployed, and the design as a whole is not yet approved for merge.** No code is in the pull request that carries this file; the first line of code is written only after Gary approves this design, and then as the separately reviewed pull requests in section 8; the build starts after his return from a week away, with PR 0.
 
 **Author:** Claude Code (Core lane), at Gary's request, 2026-10-20 · **Rules in force:** `governance/AGENT_ROLES.md` v2.8 (v2.9 is proposed alongside this file) · **First instance:** TDAP · **Read with:** `governance/ENGINE_ONBOARDING.md` (the engine checklist this form implements), `governance/AGENT_ROLES.md` § Shared context contract.
 
@@ -14,23 +14,24 @@ People are named by role only in this file, because the file is public: the **ad
 
 **The proposal.** A reusable web form on www.copernicusai.fyi, signed in with the accounts that also let the owners make podcasts. Two research owners answer together, section by section, in a shared workspace. The advisor's "Mark final" makes a section final. Gary approves final sections in a review dashboard. **Nothing changes an engine until Gary approves.** Approved changes leave the system as a *change bundle* that Gary's agent turns into a pull request on the engine's repo, which Gary merges. The form never writes to GitHub, to `research_focus.json`, or to `research_papers`.
 
-**The shape, in six decisions Gary has already made** (recorded here so the review can focus on what is new):
+**The shape: what Gary has decided** (recorded so a review can focus on what is still open; the 2026-10-20 decisions are collected in §10a):
 
 | Decision | Where it lands |
 |---|---|
-| Both owners are equal research owners; the advisor has final say through "Mark final" | §3.2 roles, §4 states |
-| Two gates after drafting: final (advisor), then approved (Gary) | §4 |
+| Both owners are equal research owners; the advisor has the final say through "Mark final", which he may **delegate** (revocably, audited) to the other owner; Gary never overrides it (**decided 2026-10-20**) | §3.2, §4.5, §10a Q4, Q5 |
+| Two gates after drafting: final (the final-say owner), then approved (Gary); "Mark final" is per section, plus a "Mark all ready sections final" action (**decided**) | §4, §10a Q4 |
 | Invitation-based sign-up, where the **invitation carries the permissions** (role, `can_generate`, quota); addresses never stored, only a hash | §3.1, §5 |
-| Podcasts private by default; per-episode "make public"; quota 10/month each, raisable by Gary | §7 (prerequisite PR) |
-| A standing "suggest a paper" box after onboarding, reviewed the same way | §2.7, §8 PR 5 |
-| The advisor is an anchor author for tdap-q1; the form offers his other relevant papers as candidate seeds | §2.4, §3.6 |
+| Podcasts private by default; per-episode "make public" that **only Gary can undo**; private episodes opened with **15-minute signed links minted per play** (no streaming); quota 10/month each, raisable by Gary (**decided**) | §7, §10a Q1, Q2 |
+| The current session mechanism is kept for v1, with the §9 controls; an HttpOnly-cookie move is a later, separate change (**decided**) | §9, §10a Q3 |
+| **v1 / v2 split (decided 2026-10-20):** v1 for the first TDAP invitations is PR 0, 1, 2, 3 and a reduced PR 4; v2 is the anchor-author lookup, the BibTeX/RIS parsers and the suggest-a-paper box | §8.0 |
+| PR 0 starts after Gary's return, not before (**decided**) | §8.1, §10a Q13 |
 
-**What I recommend that Gary has not yet decided:**
-1. **Approved changes reach the engine repo as an exported change bundle that Gary's agent turns into a pull request** (option ii in §6), not as a pull request opened by the web backend. The web backend then holds no write credential to any repository.
-2. **Build the existing-features prerequisite first** (§7): owners must be able to open their own private episodes and publish them, and Gary must be able to raise a quota, before any owner is invited.
-3. **Five separately reviewed pull requests plus one end-to-end test** (§8), roughly 15–19 working days of agent time, plus a small prerequisite PR 0 on the account-credential step (2–3 days, independent of this design), and a running cost under a dollar a month (§8.2).
+**Recommended, not yet decided:**
+1. **Approved changes reach the engine repo as an exported change bundle that Gary's agent turns into a pull request** (option ii in §5.2), not as a pull request opened by the web backend. The web backend then holds no write credential to any repository.
+2. **Build the existing-features prerequisite before inviting anyone** (§7): owners must be able to open their own private episodes and publish them, and Gary must be able to raise a quota, before any owner is invited. This is PR 1 of v1.
+3. **v1 is five separately reviewed pull requests (PR 0 to PR 3 and a reduced PR 4) plus one end-to-end test: about 19 to 25 agent days including PR 0 (17 to 22 without it); v2 is about 5 to 6 more** (§8.2). Running cost stays under a dollar a month.
 
-**What I need from Gary:** the decisions in §10. The ones that change the design are Q1 to Q5.
+**What is still open:** Q6 to Q12 and Q14 to Q17 in §10. Each carries a default that **stands unless Gary says otherwise**.
 
 ---
 
@@ -93,7 +94,7 @@ Per question, the owners choose **accept / reword / drop / split / add** and mar
 - **Confirm:** each current seed shows its full citation and identifier with yes / no / unsure and a comment.
 - **Add** by DOI, arXiv id, PubMed id or title. The server resolves the identifier (§5.5) and shows the registry's own title, authors, year and abstract so the owner confirms the *right* paper. This is the lesson in `ENGINE_ONBOARDING.md` §6 ("relay full titles and identifiers, not author names"): the form never accepts an author name as a seed.
 - Per seed, the question(s) it belongs to (`tdap-q1`, ...). Seeds are never auto-promoted into `research_focus.json`; the seed set stays a separate, deliberate step (the existing design in `researcher_cited_intake.py`).
-- **Anchor authors.** For an owner who is an anchor author of a question (the advisor, for tdap-q1), the form offers that author's other relevant works as *candidate seeds*, found through an OpenAlex author lookup (§3.6). Candidates are suggestions only: nothing is a seed until the owner confirms it item by item.
+- **Anchor authors (v2).** For an owner who is an anchor author of a question (the advisor, for tdap-q1), the form offers that author's other relevant works as *candidate seeds*, found through an OpenAlex author lookup (§3.6). Candidates are suggestions only: nothing is a seed until the owner confirms it item by item. **Decided by Gary 2026-10-20: this lookup is v2.** In v1 the advisor adds his own relevant papers as seeds by identifier, with the same add-by-DOI lookup above.
 - Output files: `docs/seed_papers.md` and a seed CSV (`doi,question_ids[,title,arxiv_id,admit_policy]`, the format `citation_expansion_pilot.py --seed-doi-file` already reads).
 
 ### 2.5 Optional engine-specific review queue
@@ -102,12 +103,14 @@ Per question, the owners choose **accept / reword / drop / split / add** and mar
 - Output files: `docs/hold_list.md` (decisions recorded) and, for *keep* decisions, a request for Core to ingest them (a post-merge Core task, §6.4); the form does not ingest.
 
 ### 2.6 Bibliography upload, with a "not yet public" flag
-- The owners may upload their own bibliography: **BibTeX, RIS, a list of DOIs, or pasted text**. The server parses it into entries and resolves identifiers where it can.
+- The owners may upload their own bibliography: **a list of DOIs or pasted text in v1; BibTeX and RIS in v2** (decided by Gary 2026-10-20). The server parses it into entries and resolves identifiers where it can.
 - Every entry carries `not_yet_public`, **default true**. An entry that is not yet public stays in a private store: it is never written to a public repository, never shown to the other engine's people, never ingested into `research_papers`, and never leaves the system in a bundle. Only an entry the owner has explicitly marked as published (and for which the server can resolve a public identifier) can become a seed candidate.
 - This implements invariant 6 of `ENGINE_ONBOARDING.md` §3 mechanically rather than by instruction. It is also the safeguard against the failure `docs/project_instructions.md` §6 warns about (unpublished work in a public repo).
 - Output files: none by default. A published entry that the owners propose as a seed flows through §2.4.
 
-### 2.7 The standing "suggest a paper" box
+### 2.7 The standing "suggest a paper" box (v2)
+**Decided by Gary 2026-10-20: this is v2.** Until it exists, a paper an owner wants added after onboarding goes through the seed section, which an administrator can re-open for a new round.
+
 After onboarding, a permanent form on the engine's page: identifier (or title), the question it bears on, and a sentence of why. A suggestion goes through the same lookup, the same draft / final / approved path (§4) and the same bundle (§6). Suggestions are batched, so Gary reviews a short list rather than a stream. See §8 PR 5.
 
 ### 2.8 Attribution and privacy consent
@@ -145,11 +148,19 @@ No research owner is on an allow-list today. An **invitation carries the permiss
 ### 3.2 Roles
 | Role | Who | Can |
 |---|---|---|
-| `owner` | each research owner (student, advisor) | read and edit every section of their engine's onboarding; comment; mark items; upload to their own private bibliography; suggest papers |
-| `final_say` | exactly one owner per engine (the advisor), a flag on a membership, not a separate account type | everything an `owner` can, plus **Mark final** on a section |
-| admin | Gary, through the existing admin key | invite, approve/reject, export bundles, raise quotas; **never an edit of an owner's answers** |
+| `owner` | each research owner (student, advisor) | read and edit every section of their engine's onboarding; comment; mark items; upload to their own private bibliography; suggest papers (v2) |
+| `final_say` | exactly one owner per engine (the advisor), a flag on a membership, not a separate account type | everything an `owner` can, plus **Mark final** and **Mark all ready sections final**, and the power to **delegate** final say (below) |
+| final-say delegate | another `owner` of the same engine, named by the `final_say` holder | **Mark final** on exactly the sections the delegation covers (one section, several, or all); nothing else changes for them |
+| admin | Gary, through the existing admin key | invite, approve/reject, export bundles, raise quotas; **never an edit of an owner's answers, and never a final-say decision** |
 
-Equal ownership means both owners can edit anything; the only asymmetry is "Mark final". An engine has one `final_say` member at a time; changing it is an admin action recorded in the audit log.
+Equal ownership means both owners can edit anything; the only asymmetry is who may mark a section final.
+
+**Delegation (decided by Gary 2026-10-20).** Gary never overrides the final-say owner. Instead the `final_say` holder may delegate final say, on one section or on all of them, to the other owner of that engine.
+- **Revocable:** the holder can revoke at any moment, and revocation takes effect for the next action.
+- **Audited:** creating and revoking a delegation each write an event (§5.6) naming who, which sections and when; every "Mark final" records whether it was made by the holder or through a delegation.
+- **Not transitive:** a delegate cannot delegate further, and a delegation names an owner of that engine, never an outsider and never an admin. The holder keeps the power to mark final while a delegation is active.
+- **Succession is not override.** An engine has one `final_say` holder at a time. Changing the holder (for example, if the holder leaves the project) is an administrative action recorded in the audit log, for succession only; it is never used to decide a pending section.
+- **Waiting is visible, not bypassed:** a section the holder has not finalised stays in draft, the progress tracker shows "waiting on the final-say owner", and one reminder email is sent (§4.6).
 
 ### 3.3 What an owner cannot do
 Read another engine's onboarding, read the other owner's private bibliography, approve their own section, change the state of a section Gary has approved (a change after approval opens a new draft revision, §4), reach any route as an unauthenticated caller, or write anywhere outside the `onboarding_*` collections.
@@ -158,9 +169,11 @@ Read another engine's onboarding, read the other owner's private bibliography, a
 The same account, the same session, the same quota. The two features are separate in the data (onboarding documents never live on the subscriber document) and share only the identity and the session.
 
 ### 3.5 Sessions
-The existing session token is used as is: `X-Subscriber-Token`, a 14-day lifetime, hashed at rest. Two points are raised for Gary in §9/§10 (storage of the token in the browser; one session per account at a time).
+The existing session token is used as is: `X-Subscriber-Token`, a 14-day lifetime, hashed at rest. **Decided by Gary 2026-10-20 (Q3):** this mechanism is kept for v1, with the controls in §9 (no third-party scripts, a strict Content-Security-Policy, user text rendered with `x-text` only); a move to an HttpOnly cookie is a later, separate change. One known limit stays: only the latest login's token is valid, so a second sign-in ends the first.
 
-### 3.6 The anchor-author lookup
+### 3.6 The anchor-author lookup (v2)
+**Decided by Gary 2026-10-20: deferred to v2.** Nothing in v1 depends on it (see §8.0).
+
 For a `final_say` or `owner` member who is an anchor author of a question, the form offers: "Find your works". Steps: the owner enters their name and, optionally, an ORCID or institution; the server asks OpenAlex for author candidates; the owner picks the right author record (disambiguation is theirs, not the system's); the server fetches that author's works, scores them against the engine's question terms, and shows the top candidates with the registry title, venue, year and abstract. The owner marks each *seed for tdap-q1 / not a seed / not mine*. Nothing is stored about the author beyond the chosen OpenAlex id, and the name is never written to a bundle unless the owner's naming choice (§2.8) allows it.
 
 ---
@@ -183,7 +196,7 @@ A summary on the engine page: per section, the number of items open / answered /
 ```mermaid
 stateDiagram-v2
     [*] --> draft
-    draft --> final: Mark final (final_say owner only)
+    draft --> final: Mark final (final-say holder, or a delegate for that section)
     final --> draft: any edit by any owner (re-opens; recorded)
     final --> approved: Gary approves
     final --> rejected: Gary rejects with a note
@@ -192,14 +205,17 @@ stateDiagram-v2
     approved --> [*]
 ```
 - **draft.** Both owners edit freely.
-- **final.** Set by the `final_say` owner on a *section*. A final section is read-only until it is re-opened; **any edit by any owner re-opens it to draft** and notifies the `final_say` owner, because a section must not stay "final" with content the advisor has not seen.
+- **final.** Set on a *section* by the `final_say` holder or by a delegate for that section (§3.2). A final section is read-only until it is re-opened; **any edit by any owner re-opens it to draft** and notifies the `final_say` owner, because a section must not stay "final" with content the advisor has not seen.
 - **approved.** Set by Gary. Approval is of a specific section revision and its content hash; an approved section is frozen. A later edit creates a new revision in draft; the old approved revision remains in the history and in any bundle already exported.
 - **rejected.** Gary's note is shown to the owners; the section returns to draft.
 - Gary cannot edit an owner's answer. He can only approve, reject, comment, or export.
-- Nothing reaches the repo from a section that is not `approved`.
+- **Gary never overrides the final-say owner** (decided 2026-10-20). There is no route by which an admin marks a section final; an admin calling a final route receives 404.
+- **"Ready"** means every item in the section is answered and no item has an open disagreement. A section that is not ready cannot be marked final.
+- **Mark final** works per section. The final-say holder (or a delegate, for the sections delegated) also has **"Mark all ready sections final"**, which marks every ready section in one action and writes one audit event per section; sections that are not ready are listed and left in draft.
+- **Delegation** changes who may mark a section final, not the state machine: a delegate's "Mark final" is the same transition, recorded with `via_delegation`.- Nothing reaches the repo from a section that is not `approved`.
 
 ### 4.6 Notifications
-Email to the `final_say` owner when a section becomes ready (every item answered and no open disagreement) or is re-opened; to the owners when Gary approves or rejects. Email only, through the existing SMTP service, with a link and no content in the message. An owner can switch these off for themselves.
+Email to the `final_say` owner (and to any delegate for that section) when a section becomes ready (every item answered and no open disagreement) or is re-opened; **one reminder** if it is still waiting 5 days later (a default, Gary can change it); to the owners when Gary approves or rejects. The progress tracker always shows "waiting on the final-say owner" (decided 2026-10-20: a visible line and one reminder, never an override). Email only, through the existing SMTP service, with a link and no content in the message. An owner can switch these off for themselves.
 
 ---
 
@@ -258,9 +274,10 @@ Written only by the service. No collection holds a raw email address.
 | Collection · key | Fields | Notes |
 |---|---|---|
 | `onboarding_engines` · `engine_id` | `label`, `full_name`, `template_version`, `state` (`open`, `suggest_only`, `closed`), `source` {repo, commit_sha, loaded_at}, `final_say_subscriber_id`, `question_id_prefix`, `created_at` | one per engine instance |
-| `onboarding_members` · `engine_id__subscriber_id` | `role` (`owner`), `final_say` (bool), `consent` {naming, licence, lookups, version, at}, `joined_at`, `status` | membership; the account stays a normal subscriber |
+| `onboarding_members` · `engine_id__subscriber_id` | `role` (`owner`), `final_say` (bool, exclusive per engine), `consent` {naming, licence, lookups, version, at}, `joined_at`, `status` | membership; the account stays a normal subscriber |
+| `onboarding_delegations` · `delegation_id` | `engine_id`, `from_subscriber_id` (the final-say holder), `to_subscriber_id` (another owner), `scope` (`all`, or a list of section keys), `created_at`, `revoked_at`, `revoked_by` | revocable; never transitive; an admin cannot create one |
 | `onboarding_invites` · `invite_id` | `engine_id`, `email_sha256` (of the normalised address), `roles`, `final_say`, `can_generate`, `monthly_quota`, `token_hash`, `expires_at`, `created_by`, `created_at`, `used_at`, `used_by_subscriber_id` | single use; neither the token nor the address is stored |
-| `onboarding_sections` · `engine_id__section` | `status` (`draft`, `final`, `approved`, `rejected`), `revision`, `content_sha256`, `final_by`, `final_at`, `approved_at`, `approver_note`, `reopened_by`, `updated_at` | the gate state |
+| `onboarding_sections` · `engine_id__section` | `status` (`draft`, `final`, `approved`, `rejected`), `revision`, `content_sha256`, `final_by`, `final_via_delegation` (bool), `final_at`, `approved_at`, `approver_note`, `reopened_by`, `updated_at` | the gate state |
 | `onboarding_items` · `engine_id__section__item_id` | `type`, `value`, `revision`, `author_subscriber_id`, `updated_at`, `choice`, `comment_count`, `history` (capped list of {revision, value_sha256, author, at}) | one answer; full prior values in the audit log |
 | `onboarding_comments` · `comment_id` | `engine_id`, `item_id`, `thread_id`, `author_subscriber_id`, `author_role`, `body`, `created_at`, `resolved` | plain text |
 | `onboarding_biblio` · `entry_id` | `engine_id`, `owner_subscriber_id`, `source_format`, `raw_ref` (size-capped), `resolved_id`, `not_yet_public` (default true), `published_ok`, `created_at` | **owner-private**; never read by another member |
@@ -268,7 +285,7 @@ Written only by the service. No collection holds a raw email address.
 | `onboarding_bundles` · `bundle_id` | `engine_id`, `status` (`created`, `exported`, `pr_opened`, `merged`, `superseded`), `base_commit_sha`, `bundle_sha256`, `object_path`, `pr_url`, `created_at` | the JSON itself lives in the private bucket |
 | `onboarding_events` · `event_id` | `ts`, `engine_id`, `actor_subscriber_id` or `admin`, `actor_role`, `action`, `target`, `before_sha256`, `after_sha256`, `ip_hash`, `request_id` | **append-only audit log**; no update or delete route exists |
 
-State changes (`final`, `approve`, `reject`, `reopen`, `invite`, `accept`, `export`, `role change`, `consent`) each write an event in the same transaction as the change, so there is no change without a record. The audit log keeps full prior values (the item document keeps only a capped history).
+State changes (`final`, `final_all`, `delegate`, `revoke_delegation`, `approve`, `reject`, `reopen`, `invite`, `accept`, `export`, `role change`, `consent`) each write an event in the same transaction as the change, so there is no change without a record. The audit log keeps full prior values (the item document keeps only a capped history).
 
 ### 5.7 API routes and access control
 All routes live under `/api/onboarding/` on the existing service and are **default deny**: a shared dependency resolves the caller to an engine membership or to admin before any handler runs. A caller who is not a member of the engine receives **404**, never 403, for any engine route (the same rule `episode_access.py` uses, so a guesser learns nothing).
@@ -280,16 +297,19 @@ All routes live under `/api/onboarding/` on the existing service and are **defau
 | `GET /api/onboarding/engines/{e}/sections/{s}` | member, admin | items, comments, provenance |
 | `PUT /api/onboarding/engines/{e}/items/{i}` | member (not on a `final` or `approved` section: edit re-opens, see §4.5) | autosave one answer with `base_revision` |
 | `POST /api/onboarding/engines/{e}/items/{i}/comments` | member, admin | add a comment |
-| `POST /api/onboarding/engines/{e}/sections/{s}/final` | **`final_say` member only** | Mark final |
+| `POST /api/onboarding/engines/{e}/sections/{s}/final` | **the `final_say` holder, or a delegate for that section; nobody else (an admin gets 404)** | Mark final (the section must be ready) |
+| `POST /api/onboarding/engines/{e}/sections/final-all` | the `final_say` holder, or a delegate (only for the sections delegated) | Mark all ready sections final; returns which were marked and which were not ready |
+| `GET /api/onboarding/engines/{e}/delegations` · `PUT .../delegations` · `DELETE .../delegations/{d}` | the `final_say` holder (a delegate may read their own) | list, create (to another owner of the engine; `all` or named sections) and revoke a delegation |
 | `POST /api/onboarding/engines/{e}/lookup` | member | resolve an identifier or title (rate-limited, cached) |
-| `POST /api/onboarding/engines/{e}/author-lookup` · `GET .../author-lookup/{job}` | member | the anchor-author candidate flow (§3.6) |
-| `POST /api/onboarding/engines/{e}/biblio` · `GET/DELETE .../biblio/{id}` | the owning member only | upload, list and delete one's own private entries |
-| `POST /api/onboarding/engines/{e}/suggestions` | member | suggest a paper |
+| `POST /api/onboarding/engines/{e}/author-lookup` · `GET .../author-lookup/{job}` | member | the anchor-author candidate flow (§3.6) — **v2** |
+| `POST /api/onboarding/engines/{e}/biblio` · `GET/DELETE .../biblio/{id}` | the owning member only | upload (v1: a DOI list or pasted text; v2: BibTeX and RIS), list and delete one's own private entries |
+| `POST /api/onboarding/engines/{e}/suggestions` | member | suggest a paper — **v2** |
 | `GET /api/admin/onboarding/engines` · `.../engines/{e}/diff` | admin | dashboard data and the proposed-vs-current diff |
 | `POST /api/admin/onboarding/engines/{e}/sections/{s}/approve` · `/reject` | admin | approve or reject a `final` section, with a note |
 | `POST /api/admin/onboarding/invites` · `DELETE .../{id}` | admin | create an invitation (address entered once, stored only as a hash; roles, `can_generate`, `monthly_quota`, expiry) or revoke an unused one |
 | `POST /api/admin/onboarding/engines/{e}/bundles` · `GET .../bundles/{b}` · `POST .../bundles/{b}/merged` | admin | create, download and close a bundle |
 | `PUT /api/admin/subscribers/{id}/quota` | admin | raise or lower `monthly_quota` (§7) |
+| `POST /api/admin/episodes/{id}/unpublish` | admin | take a made-public episode back (§7.2) |
 
 ### 5.8 Pages
 All under `public/onboarding/` as static pages with Alpine, in the style of the existing subscriber pages, so no new framework or build step: `accept.html` (invitation and consent), `engine.html` (progress and section list), `section.html` (the item editor), `candidates.html` (seed lookup and the review queue), `biblio.html` (private uploads), `suggest.html` (the standing box), and `public/admin-onboarding.html` (Gary's dashboard, with the invitation, bundle and quota panels). None is linked from a public page, none is indexed (`noindex`), and each loads nothing that can be written by a user as HTML: items are displayed with `x-text`, never `x-html`.
@@ -334,12 +354,12 @@ Owners must be able to hear what they make, and Gary must be able to give them r
 ### 7.1 Opening your own private episodes
 - **New route:** `GET /api/subscribers/episodes/{episode_id}/media-links?minutes=N` guarded by the existing `require_admin_or_podcast_owner` (`utils/auth.py:101-123`), which resolves the owning subscriber from the episode record and verifies the caller's session token. It returns `media_store.signed_links(...)` for that one episode (`media_store.py`), with a **short lifetime: default 15 minutes, hard maximum 60**, against the admin route's up to 7 days (`endpoints/admin/routes.py:348-359`).
 - **New view rule:** `utils/episode_access.py` gets an `owner_ok(record, subscriber_id)` beside `admin_key_ok`, and `can_view` takes an optional authenticated owner; an unauthenticated or non-owner caller still gets 404.
-- **"Bound to the session", stated honestly.** A V4 signed link is a *bearer* link: anyone who holds it can fetch the file until it expires. It cannot be cryptographically tied to a session. The binding available is: the link is minted only for a request carrying a valid owner session, the lifetime is minutes, and the page mints a fresh link each time the owner presses play. The alternative that really binds each byte to a session is to **stream the file through the backend** (`GET /api/subscribers/episodes/{id}/audio` with HTTP Range support). It costs Cloud Run request time and bandwidth for every play and makes cold starts audible. **Recommendation: short-lived signed links** for audio and images, the existing pattern, and streaming left as an upgrade if Gary wants it (Q2).
+- **"Bound to the session", stated honestly.** A V4 signed link is a *bearer* link: anyone who holds it can fetch the file until it expires. It cannot be cryptographically tied to a session. The binding available is: the link is minted only for a request carrying a valid owner session, the lifetime is minutes, and the page mints a fresh link each time the owner presses play. **Decided by Gary 2026-10-20 (Q2): short-lived signed links, 15 minutes, minted per play; streaming is not built.** The alternative that really binds each byte to a session would be to **stream the file through the backend** (`GET /api/subscribers/episodes/{id}/audio` with HTTP Range support). It costs Cloud Run request time and bandwidth for every play and makes cold starts audible. It is not built; if it is ever wanted it is a separate change.
 - The owner's episode *list* already exists (`endpoints/subscriber/routes.py:320`); it needs to mark each episode private or public, which the record already knows.
 
 ### 7.2 Per-episode "make public"
 - **New route:** `POST /api/subscribers/episodes/{episode_id}/make-public`, the same guard. It calls `media_store.promote` (copy private to public, verify MD5/CRC32C/size, fail closed) and then sets `visible_on_web`, exactly the sequence of the admin `publish-site` route (`endpoints/admin/routes.py:362-`), with the same rollback (`demote`) if the record write fails. It does **not** submit the episode to the podcast feed: that is the separate, existing action `submit-to-rss` (`endpoints/subscriber/routes.py:511`), which pushes the episode out to Spotify, Apple Podcasts and YouTube.
-- **It is effectively one-way.** Once files are public they can be cached or copied. The page says so before the owner confirms. Whether an owner can *unpublish* is Gary's call (Q1); the safe default is that only Gary can.
+- **Not reversible by the owner (decided by Gary 2026-10-20, Q1).** Once files are public they can be cached or copied, and **only Gary can unpublish**. The page says so before the owner confirms, and offers no "make private" control. There is no admin unpublish route today (`publish-site` has no inverse), so PR 1 adds one, `POST /api/admin/episodes/{id}/unpublish`: it removes the episode's public copies (the existing `demote` step), clears `visible_on_web`, leaves the private copies and the feed untouched, and is audited. Until it ships, unpublishing is done by hand by Gary's agents.
 - Per rule 18 this is a change to what the public can reach: the route, and the page that calls it, each ship gated, with a test episode, before they serve real owners.
 
 ### 7.3 Quota: 10 a month each, raisable by Gary
@@ -353,42 +373,63 @@ Owners must be able to hear what they make, and Gary must be able to give them r
 
 Each item is a separate pull request, reviewed and gated on its own (rules 15, 18, 19, 20). Each ships dark: new routes answer 404 for anyone who is not on an explicit allow-list until the next PR is ready, controlled by a Firestore configuration document, not an environment variable (DEPLOY.md forbids passing environment variables at deploy time). Backend deploys follow `cloud-run-backend/DEPLOY.md`: build from a clean checkout, deploy by digest with `--no-traffic`, diff the revision specs, smoke-test, and move traffic only when Gary approves. A merge of the static pages to `copernicus-web` `main` is a production deploy of the public site and is treated as publishing.
 
+### 8.0 The v1 / v2 split — Decided by Gary 2026-10-20
+
+| | Contents | Why it can wait / must not |
+|---|---|---|
+| **v1** (the first TDAP invitations) | **PR 0** credential step; **PR 1** private-episode access, publish, unpublish, quota; **PR 2** invitations and engine roles; **PR 3** the form and review dashboard (including delegation and "mark all ready"); **a reduced PR 4**: the TDAP loader, identifier lookups, the hold-list review queue, and the private bibliography accepting **DOI lists and pasted text only**; then the end-to-end test | everything an owner must do to answer the open questions and reach an approved bundle |
+| **v2** | the **anchor-author lookup** (§3.6); the **BibTeX and RIS parsers** (§2.6); **PR 5**, the suggest-a-paper box (§2.7) | each is an addition to a working v1 |
+
+**Dependency check: nothing in v1 depends on anything deferred.**
+- The identifier lookup service (§5.5) is in v1 and serves seed add-by-DOI and the hold-list abstracts; the anchor-author flow only *adds* a second caller of it later.
+- The advisor's own papers reach the seed list in v1 by identifier, through the same add-by-DOI path.
+- The bibliography store, its `not_yet_public` default and the "never leaves the system" rule are v1; only the BibTeX and RIS *parsers* are v2, so v2 adds input formats, not behaviour. A DOI list or pasted text is plain text with a size cap, which is also the smaller attack surface.
+- `onboarding_candidates` has three `origin` values; v1 uses only `hold_list` (and seeds added by identifier); `author_lookup` and `suggestion` are unused until v2. The `suggest_only` engine state and the `suggestions` and `author-lookup` routes are not built in v1 and nothing else calls them.
+- The review dashboard, bundle and bundle checks do not know where a candidate came from.
+- PR 2 depends on PR 0 (the emailed single-use token); PR 3 depends on PR 2 (membership); delegation depends on both and is inside PR 3. The end-to-end test needs PR 0 to PR 4 only.
+
 ### 8.1 The sequence
 
-**PR 0 · Account-credential prerequisites.** The credential step that invitation acceptance depends on: **single-use, expiring emailed tokens** that prove control of a mailbox, used for setting a password and reused for any later credential change. Invitation acceptance (PR 2) relies on this mechanism, or an equivalent single-use invitation link. Any further scope is held in the private security record (rule 17); this document deliberately says no more. *It must land before PR 2; it is independent of the rest and should not wait for this design's approval.* · Effort: 2–3 days. · Test: unit tests for token issue, single use, expiry and refusal; a gated deploy with a tagged revision and a two-account smoke test.
+**PR 0 · Account-credential prerequisites.** The credential step that invitation acceptance depends on: **single-use, expiring emailed tokens** that prove control of a mailbox, used for setting a password and reused for any later credential change. Invitation acceptance (PR 2) relies on this mechanism, or an equivalent single-use invitation link. Any further scope is held in the private security record (rule 17); this document deliberately says no more. *It must land before PR 2 and is independent of the rest. **Decided by Gary 2026-10-20: it starts after his return, not before.*** · Effort: 2–3 days. · Test: unit tests for token issue, single use, expiry and refusal; a gated deploy with a tagged revision and a two-account smoke test.
 
-**PR 1 · Private-episode access, per-episode publish, quota admin (§7).** The owner media-links route, the owner view rule, `make-public`, the quota route and its admin control, and the owner-facing buttons on the subscriber dashboard. · Effort: 3–4 days. · Test plan: (a) a non-owner session and an anonymous caller get 404 for a private episode; (b) the owner gets signed links that work and expire (`minutes=1`, fetch after two); (c) `make-public` on a throwaway episode: files appear in the public bucket with matching checksums, the record flips, rollback works when the record write is forced to fail; (d) `make-public` does not touch the feed; (e) the quota route sets, raises, clears, and is refused without the admin key; the 11th generation at quota 10 is refused with 429; (f) the existing admin routes and the public feed are unchanged (compare sorted episode ids on the tagged revision and the live one, per DEPLOY.md step 5). · Cost: none.
+**PR 1 · Private-episode access, per-episode publish, admin unpublish, quota admin (§7).** The owner media-links route (15-minute signed links), the owner view rule, `make-public`, the admin-only `unpublish`, the quota route and its admin control, and the owner-facing buttons on the subscriber dashboard. · Effort: 3.5–4.5 days. · Test plan: (a) a non-owner session and an anonymous caller get 404 for a private episode; (b) the owner gets signed links that work and expire (`minutes=1`, fetch after two); (c) `make-public` on a throwaway episode: files appear in the public bucket with matching checksums, the record flips, rollback works when the record write is forced to fail; (d) `make-public` does not touch the feed, and an owner has no route that makes a public episode private while the admin `unpublish` removes the public copies (checksums gone, private copies intact, feed unchanged); (e) the quota route sets, raises, clears, and is refused without the admin key; the 11th generation at quota 10 is refused with 429; (f) the existing admin routes and the public feed are unchanged (compare sorted episode ids on the tagged revision and the live one, per DEPLOY.md step 5). · Cost: none.
 
 **PR 2 · Invitations and engine roles.** `onboarding_engines`, `onboarding_members`, `onboarding_invites`, invitation-carried permissions (§3.1), address normalisation at new registrations, the shared membership dependency, `accept.html`, the admin invitation panel, the audit log, and the default-deny/404 rule. No form yet. Depends on PR 0's emailed single-use token. · Effort: 3–4 days. · Test plan: (a) accepting a valid invitation sets `can_generate`, `monthly_quota` and the membership together, and a failure forced partway leaves no account, no membership and the invitation still unused; (b) registration **without** an invitation still gets `can_generate` false and no quota; (c) a used, expired or revoked invitation is refused; (d) a valid token with the wrong address is refused, and the right address **without** the token is refused (knowing the address is not enough); (e) two simultaneous acceptances: exactly one succeeds; (f) an existing ordinary account gains the permissions and its password hash is unchanged; (g) an invitation stores neither the address nor the token, and no log or audit event contains an address; (h) a non-member gets 404 on every `/api/onboarding/` route (table-driven over the route list); (i) the `final_say` flag is exclusive per engine; (j) every state change writes an event.
 
-**PR 3 · The form and the review dashboard.** The template engine, the section editor, item autosave with revision checks, comments, the progress tracker, Mark final, the dashboard with the proposed-vs-current diff, approve/reject, bundle creation and download, and the bundle checks (§5.3). Generic: no TDAP content. · Effort: 6–8 days. · Test plan: the state machine as a table of transitions (including "edit re-opens a final section" and "only `final_say` may mark final"); two simulated owners editing one item (the stale save is refused, nothing is lost); a bundle built from only approved revisions; a bundle with an email-shaped string, a name against the consent choice, or a `not_yet_public` entry is **blocked** by the checks (each shown capable of failing, per the lesson in BULLETIN 027); output files parse and match the A2 fields; no route is reachable without a session.
+**PR 3 · The form and the review dashboard.** The template engine, the section editor, item autosave with revision checks, comments, the progress tracker, Mark final, **Mark all ready sections final, final-say delegation (§3.2)**, the dashboard with the proposed-vs-current diff, approve/reject, bundle creation and download, and the bundle checks (§5.3). Generic: no TDAP content. · Effort: 7–9 days. · Test plan: the state machine as a table of transitions (including "edit re-opens a final section", "only the `final_say` holder or a delegate for that section may mark final" and "an admin gets 404 on the final routes"); delegation: a delegate can mark only the sections delegated, revocation stops the next action, a delegate cannot delegate, a delegation to a non-member or an admin is refused, creation and revocation are audited, and "mark all ready" marks the ready sections and lists the rest; two simulated owners editing one item (the stale save is refused, nothing is lost); a bundle built from only approved revisions; a bundle with an email-shaped string, a name against the consent choice, or a `not_yet_public` entry is **blocked** by the checks (each shown capable of failing, per the lesson in BULLETIN 027); output files parse and match the A2 fields; no route is reachable without a session.
 
-**PR 4 · TDAP content load.** The loader script (reads the engine repo files at a pinned commit and writes Firestore; run by Gary's agent, never by the form), the lookup service (§5.5), the anchor-author flow, the hold-list review queue with abstracts, filters and bulk marking, and the private bibliography upload and parsers. · Effort: 3–4 days. · Test plan: the loader is idempotent and records the commit; counts after load equal the counts in the repo files (3 questions, 6 + 4 seeds, 66 held, 4 flagged); the parsers handle a hostile file (oversize, nested braces, huge entries, control characters) without error beyond a clean refusal; lookups degrade to "not found" under timeout; the anchor-author flow returns candidates for a synthetic author and never stores a name.
+**PR 4 · TDAP content load (v1, reduced).** The loader script (reads the engine repo files at a pinned commit and writes Firestore; run by Gary's agent, never by the form), the identifier lookup service (§5.5), the hold-list review queue with abstracts, filters and bulk marking, and the private bibliography accepting **DOI lists and pasted text only**. *Deferred to v2 (§8.0): the anchor-author flow and the BibTeX and RIS parsers.* · Effort: 2.5–3 days (was 3–4 with the deferred parts). · Test plan: the loader is idempotent and records the commit; counts after load equal the counts in the repo files (3 questions, 6 + 4 seeds, 66 held, 4 flagged); a hostile pasted text or DOI list (oversize, control characters, thousands of entries, non-DOI strings) is refused cleanly without error beyond the refusal; lookups degrade to "not found" under timeout; `not_yet_public` defaults to true and no such entry appears in a bundle.
 
-**PR 5 · Suggest-a-paper.** The standing box, batching, and review through the same gates; a bundle type for seed additions. · Effort: 1.5–2 days. · Test plan: a suggestion for an already-present paper is detected; a batch goes draft, final, approved, bundle; a suggestion made after onboarding closes lands in `suggest_only`.
+**PR 5 · Suggest-a-paper (v2).** Not part of v1 (§8.0). The standing box, batching, and review through the same gates; a bundle type for seed additions. · Effort: 1.5–2 days. · Test plan: a suggestion for an already-present paper is detected; a batch goes draft, final, approved, bundle; a suggestion made after onboarding closes lands in `suggest_only`.
 
-**End-to-end test** (after PR 5, before any real owner is invited): two **throwaway accounts** play the two owners of a synthetic engine (`tdap-e2e`) created from the TDAP template with *synthetic* content, through to an approved bundle:
+**End-to-end test** (v1: after PR 4 and before any real owner is invited; the v2 additions extend it later): two **throwaway accounts** play the two owners of a synthetic engine (`tdap-e2e`) created from the TDAP template with *synthetic* content, through to an approved bundle:
 1. Gary invites both accounts; both accept with different naming choices.
 2. They answer every section; they disagree on one question; the progress tracker shows it.
-3. The non-final owner marks nothing final (refused); the `final_say` owner marks sections final; an edit by the non-final owner re-opens one; it is re-finalised.
+3. The non-final owner marks nothing final (refused); the `final_say` owner marks sections final, including one "mark all ready"; an edit by the non-final owner re-opens one; it is re-finalised. The holder delegates one section, the other owner marks it final, the holder revokes, and the next attempt by the delegate is refused; Gary's attempt to mark anything final gets 404.
 4. Gary approves some sections and rejects one with a note; the owners revise it and it is approved.
-5. A bibliography upload with a `not_yet_public` entry and a hostile entry: the entry stays private, the hostile one is refused.
+5. A bibliography upload by DOI list and by pasted text with a `not_yet_public` entry and a hostile entry: the entry stays private, the hostile one is refused. (BibTeX and RIS are v2.)
 6. A bundle is created; the planted unpublished entry and a planted email-shaped string are absent, or the check blocks the bundle.
 7. Gary's agent turns the bundle into a PR on a **scratch repository**, not on `tdap`; the PR diff matches the dashboard diff exactly.
-8. The throwaway accounts make a podcast each (against the 10-a-month quota), open it privately, make one public, and confirm the other is unreachable anonymously.
+8. The throwaway accounts make a podcast each (against the 10-a-month quota), open it privately through a 15-minute link, make one public, confirm the other is unreachable anonymously, confirm the owner cannot make the public one private again, and have Gary's `unpublish` take it back.
 9. Cleanup: every `tdap-e2e` document and object is deleted, and the deletion is verified.
 
 ### 8.2 Effort and running cost
 | Item | Agent days (excluding review rounds) |
 |---|---|
+| **v1** | |
 | PR 0 credential prerequisites | 2–3 |
-| PR 1 private access, publish, quota | 3–4 |
-| PR 2 invitations and roles | 3 |
-| PR 3 form and review dashboard | 6–8 |
-| PR 4 TDAP content load and lookups | 3–4 |
+| PR 1 private access, publish, unpublish, quota | 3.5–4.5 |
+| PR 2 invitations and roles | 3–4 |
+| PR 3 form and review dashboard (with delegation and "mark all ready") | 7–9 |
+| PR 4 (reduced) TDAP loader, lookups, review queue, DOI/paste bibliography | 2.5–3 |
+| End-to-end test and cleanup | 1–1.5 |
+| **v1 total** | **about 19–25 days including PR 0 (17–22 without it)** |
+| **v2** | |
+| Anchor-author lookup (§3.6) | 1.5 |
+| BibTeX and RIS parsers | 1.5–2 |
 | PR 5 suggest-a-paper | 1.5–2 |
-| End-to-end test and cleanup | 1.5 |
-| **Total** | **about 20–26 days, or 15–19 without PR 0** |
+| End-to-end extension | 0.5 |
+| **v2 total** | **about 5–6 days** |
 
 These are estimates from the size of comparable existing work (the access-control stages and the quota change), not measurements. Add Gary's review and the gated deploys: each backend deploy is a build, a tagged revision, a smoke test and an approval.
 
@@ -403,7 +444,7 @@ These are estimates from the size of comparable existing work (the access-contro
 - **Input sanitisation.** Every free-text field has a length cap and a type; values are stored as text and rendered with `x-text`, never as HTML; identifiers are validated against their format before any lookup; nothing user-supplied is interpolated into a shell command, a Firestore path, or a URL without validation; comment bodies are plain text.
 - **Upload caps.** 1 MB per file, 2,000 entries per file, five uploads per user per day, a strict content-type and extension allow-list (`.bib`, `.ris`, `.txt`), parsing in-process with a non-evaluating parser, no fetches triggered by file content other than the capped identifier lookups, and the raw file kept only in the private bucket with a retention date the owner sees.
 - **No personal data in public repositories.** The bundle linter refuses an email-shaped string, a `not_yet_public` entry, an unresolved author name, or a name beyond the consent choice, and the agent repeats the check before opening the PR. The form states to every owner that addresses are never published. Invitations and the audit log hold subscriber IDs, never addresses.
-- **Browser-side session storage.** The current login page keeps the session in `localStorage`, readable by any script on the origin. The new pages take no third-party scripts, set a strict Content-Security-Policy, and never render user content as HTML; moving the session to an HttpOnly cookie is raised as Q3.
+- **Browser-side session storage.** The current login page keeps the session in `localStorage`, readable by any script on the origin. The new pages take no third-party scripts, set a strict Content-Security-Policy, and never render user content as HTML; keeping the current session mechanism for v1 was decided by Gary on 2026-10-20 (Q3), and a move to an HttpOnly cookie is a later, separate change.
 - **Origin policy.** The service's CORS policy is currently any origin. The new routes accept only `https://www.copernicusai.fyi` for browser calls (they are authenticated by a header, not a cookie, so this is defence in depth).
 - **Deploy gating.** Rule 15 for every backend deploy, rule 18 for every change to what the public can reach (the pages, `make-public`, the invitation email text), rule 19 for every merge, rule 20 for every PR body. Routes ship dark and are enabled engine by engine.
 - **Security findings.** Anything found while building goes to the private record first and reaches a public PR only after it is fixed (rule 17). This document says nothing more about any such finding.
@@ -415,26 +456,35 @@ These are estimates from the size of comparable existing work (the access-contro
 
 ## 10. Open questions for Gary
 
-**Decisions that change the design**
-1. **Is "make public" reversible by the owner?** One-way in effect (files can be cached once public). My default: only Gary can unpublish.
-2. **Signed links or backend streaming** for opening private episodes (§7.1). My default: 15-minute signed links minted per play; streaming only if you want each byte bound to the session.
-3. **Where does the browser keep the session?** `localStorage` today; an HttpOnly cookie would be safer against script injection but changes the existing login flow and the CORS policy. My default for new pages: keep the current mechanism with the strict-CSP controls in §9; revisit as a later change.
-4. **Final per section, or one "Mark final" for the whole engine?** I chose per section so Gary can approve progressively. A whole-engine mark is simpler for the owners.
-5. **What if the advisor is unresponsive?** Sections wait in `draft`. Options: Gary may approve a section the advisor has not marked final, after a stated wait, with the reason in the audit log; or never. My default: never (the advisor's final say is the point), with a visible "waiting on the advisor" line and one reminder email.
+Q1 to Q5 and Q13 were decided on 2026-10-20 and are recorded in §10a. The rest stay open, **each with a default that stands unless Gary says otherwise**; the numbers are kept so earlier references still hold.
 
-**Decisions that can wait but should not be assumed** (Q14 to Q17 were added when it was found that no owner is on an allow-list)
-6. **Does a failed generation consume quota, and what does an owner see at the limit?** (Behaviour of the existing quota check to confirm in PR 1.)
-7. **Should "make public" also offer the feed?** I keep the feed separate and Gary-gated because it pushes the episode out to Spotify, Apple Podcasts and YouTube.
-8. **Notification email sender and wording**, and whether the invitation email should come from a named person or the site.
-9. **Departure and retention** (`ENGINE_ONBOARDING.md` §5): when a researcher leaves, who keeps their records and for how long? The form's consent page needs one sentence from you.
-10. **Licence.** The repo is CC0 by default and unconfirmed. The form asks the owners; what is Gary's fallback if they choose another?
-11. **Naming.** The existing public engine files already name individuals; the form's naming choice governs only *new* changes. Whether existing public references should be revisited with the owners is a separate conversation, and not for this build to decide.
-12. **Who runs the TDAP loader and the bundle hand-off**: the Core agent each time, or a standing instruction? I recommend each time, attended (rule 21).
-13. **Do you want PR 0 started now?** It does not depend on this design and I recommend it should not wait for approval.
-14. **Invitation defaults and who may create one.** Defaults proposed: `can_generate` true, `monthly_quota` 10, expiry 7 days; invitations created by Gary only (admin key). Confirm, or say which differ.
-15. **Owners who already have an ordinary account.** Accepting an invitation adds the permissions to it and never changes its password (§3.1). Is that right, or do you want such owners to register fresh?
-16. **Address normalisation.** New registrations would store the address trimmed and lower-cased, so one mailbox cannot become two accounts. Existing accounts keep their IDs. Comfortable with that change to registration?
-17. **Revoking an owner.** When an owner leaves, should revocation also clear `can_generate` and the quota on their account, or only remove the engine membership?
+6. **Does a failed generation consume quota, and what does an owner see at the limit?** (Behaviour of the existing quota check to confirm in PR 1.) **Default unless Gary says otherwise:** confirm the behaviour of the existing check in PR 1 and report it; a failed generation does not count against the quota if it can be refunded safely, and the owner sees a plain "monthly limit reached" message at 429.
+7. **Should "make public" also offer the feed?** I keep the feed separate and Gary-gated because it pushes the episode out to Spotify, Apple Podcasts and YouTube. **Default unless Gary says otherwise:** no; the feed stays a separate, Gary-gated step.
+8. **Notification email sender and wording**, and whether the invitation email should come from a named person or the site. **Default unless Gary says otherwise:** the invitation and notification emails come from the site's existing sender, signed by the site, not a named person; wording is plain and carries no research content.
+9. **Departure and retention** (`ENGINE_ONBOARDING.md` §5): when a researcher leaves, who keeps their records and for how long? The form's consent page needs one sentence from you. **Default unless Gary says otherwise:** the engine's records are kept in Gary's archives (the `ENGINE_ONBOARDING.md` §5 rule) and the owner may delete their own private bibliography at any time; the consent page says so.
+10. **Licence.** The repo is CC0 by default and unconfirmed. The form asks the owners; what is Gary's fallback if they choose another? **Default unless Gary says otherwise:** CC0 stays unless the owners choose another, in which case Gary decides before any file is changed.
+11. **Naming.** The existing public engine files already name individuals; the form's naming choice governs only *new* changes. Whether existing public references should be revisited with the owners is a separate conversation, and not for this build to decide. **Default unless Gary says otherwise:** the naming choice governs only new changes; existing public references are left to a separate conversation.
+12. **Who runs the TDAP loader and the bundle hand-off**: the Core agent each time, or a standing instruction? I recommend each time, attended (rule 21). **Default unless Gary says otherwise:** the Core agent runs both, each time, attended (rule 21).
+14. **Invitation defaults and who may create one.** Defaults proposed: `can_generate` true, `monthly_quota` 10, expiry 7 days; invitations created by Gary only (admin key). Confirm, or say which differ. **Default unless Gary says otherwise:** as proposed.
+15. **Owners who already have an ordinary account.** Accepting an invitation adds the permissions to it and never changes its password (§3.1). Is that right, or do you want such owners to register fresh? **Default unless Gary says otherwise:** an existing account is upgraded in place and its password is never changed.
+16. **Address normalisation.** New registrations would store the address trimmed and lower-cased, so one mailbox cannot become two accounts. Existing accounts keep their IDs. Comfortable with that change to registration? **Default unless Gary says otherwise:** as proposed.
+17. **Revoking an owner.** When an owner leaves, should revocation also clear `can_generate` and the quota on their account, or only remove the engine membership? **Default unless Gary says otherwise:** revocation also clears `can_generate` and the quota on that account and removes the engine membership; the account and its episodes stay.
+
+## 10a. Decided 2026-10-20
+
+Gary reviewed §0 and §10 with Claude Chat on 2026-10-20 and decided the following. They are reflected in the sections named.
+
+| # | Decision | Where it lands |
+|---|---|---|
+| Q1 | **"Make public" is not reversible by the owner; only Gary can unpublish.** | §7.2; admin `unpublish` route in PR 1 |
+| Q2 | **Short-lived signed links: 15 minutes, minted per play. Streaming is not built.** | §7.1 |
+| Q3 | **Keep the current session mechanism for v1, with the §9 controls** (no third-party scripts, strict Content-Security-Policy, `x-text` only). An HttpOnly-cookie move is a later, separate change. | §3.5, §9 |
+| Q4 | **"Mark final" per section, plus a "Mark all ready sections final" action** for the final-say owner. | §4.5, §5.7 |
+| Q5 | **Gary never overrides the final-say owner.** Instead the final-say owner may delegate final say, on a section or on all sections, to another owner of that engine: revocable and audited. One reminder email plus the visible "waiting on" line. | §3.2, §4.5, §4.6, §5.6, §5.7 |
+| Q13 | **PR 0 starts after Gary's return, not before.** | §8.1 |
+| Scope | **v1 / v2 split.** v1 for the first TDAP invitations = PR 0, PR 1, PR 2, PR 3 and a reduced PR 4 (loader, lookups, hold-list review queue, private bibliography with DOI lists and pasted text only). v2 = the anchor-author lookup, the BibTeX and RIS parsers, and PR 5 suggest-a-paper. | §0, §8.0, §8.2 |
+
+*Decided by Gary 2026-10-20. Not decided there, and therefore still a recommendation:* the change-bundle route (option ii, §5.2).
 
 ---
 
