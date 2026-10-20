@@ -27,6 +27,12 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
+        /* keep code blocks scrolling inside their card on narrow screens */
+        pre { max-width: 100%; overflow-x: auto; }
+        body { overflow-wrap: anywhere; }
+        .kv { overflow-wrap: normal; white-space: nowrap; }
+        .kv.kv-na { white-space: normal; }
+        .flex-1 { min-width: 0; }
         .kv-na {
             font-size: 1rem !important;
             font-weight: 600;
@@ -99,7 +105,7 @@ graph LR
     PROD["&lt;b&gt;Products&lt;/b&gt;&lt;br/&gt;podcasts · written papers"]
     RES["&lt;b&gt;Resources&lt;/b&gt;&lt;br/&gt;papers · videos · charts&lt;br/&gt;(the collection)"]
     SCOUTS["&lt;b&gt;Scouts&lt;/b&gt;&lt;br/&gt;continuous search agents"]
-    ACAD[("Academic databases&lt;br/&gt;PubMed · bioRxiv/medRxiv · arXiv (failing)")]
+    ACAD[("Academic databases&lt;br/&gt;PubMed&lt;br/&gt;bioRxiv / medRxiv&lt;br/&gt;arXiv (failing)")]
     EMBED["&lt;b&gt;Embedding&lt;/b&gt;&lt;br/&gt;the gate"]
 
     R -->|uses| MT
@@ -167,7 +173,7 @@ graph LR
 graph TD
     subgraph ING["① Ingestion"]
         SCOUTS2["&lt;b&gt;Scouts&lt;/b&gt;&lt;br/&gt;continuous search agents"]
-        ACAD2[("Academic databases (literature)&lt;br/&gt;PubMed · bioRxiv/medRxiv · arXiv (failing)")]
+        ACAD2[("Academic databases (literature)&lt;br/&gt;PubMed&lt;br/&gt;bioRxiv / medRxiv&lt;br/&gt;arXiv (failing)")]
         INTAKE["Products &amp; manual intake&lt;br/&gt;podcasts · papers · videos"]
         RAW["Raw material ingested"]
     end
@@ -239,7 +245,7 @@ graph TD
                         Genome Logic Modeling Project: regulatory circuits modeled as logic-gate flowcharts, with a
                         process-chart database.
                     </p>
-                    <div class="flex items-baseline gap-2 mb-1">
+                    <div class="flex flex-wrap items-baseline gap-2 mb-1">
                         <span class="text-3xl font-bold text-orange-600 kv" data-k="glmp-papers">loading&hellip;</span>
                         <span class="text-sm text-gray-600">papers tagged to GLMP's questions</span>
                     </div>
@@ -256,7 +262,7 @@ graph TD
                         Axiomatic Theories, Algorithms and Proofs: algorithms, axiomatic theories and proof
                         structure modeled as dependency graphs.
                     </p>
-                    <div class="flex items-baseline gap-2 mb-1">
+                    <div class="flex flex-wrap items-baseline gap-2 mb-1">
                         <span class="text-3xl font-bold text-blue-600 kv" data-k="atap-papers">loading&hellip;</span>
                         <span class="text-sm text-gray-600">papers tagged to ATAP's questions</span>
                     </div>
@@ -274,7 +280,7 @@ graph TD
                         collaborator, on persistent cohomology and circular/toroidal coordinates.
                         <strong>Early stage.</strong>
                     </p>
-                    <div class="flex items-baseline gap-2 mb-1">
+                    <div class="flex flex-wrap items-baseline gap-2 mb-1">
                         <span class="text-3xl font-bold text-green-700 kv" data-k="tdap-papers">loading&hellip;</span>
                         <span class="text-sm text-gray-600">papers tagged to TDAP's questions</span>
                     </div>
