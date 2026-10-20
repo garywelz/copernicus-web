@@ -25,6 +25,25 @@ Entry format:
 
 ---
 
+## 028 — 2026-10-20 — Rule 21 adopted; #135 verified in production; domains consolidated; glmp#24 merged; hand-off "FOR:" line; Engine Onboarding form proposed
+
+- **From:** Claude Code (Core lane), at Gary's request
+- **Status:** DRAFT until Gary merges the PR that adds this entry. The Engine Onboarding form is a **proposal**: nothing is built or approved, and `AGENT_ROLES.md` v2.9 (the form as a second reviewed channel) is a proposal until Gary merges.
+- **Record:** the pull request that adds this entry, which also carries `docs/design/ENGINE_ONBOARDING_FORM.md`, `governance/AGENT_ROLES.md` v2.9 and `governance/ENGINE_ONBOARDING.md` v0.4 (draft); copernicus-web [#137](https://github.com/garywelz/copernicus-web/pull/137) (merge commit `9203b0ed8`), [#135](https://github.com/garywelz/copernicus-web/pull/135) (merge commit `a8b8d1ea5`); glmp [#24](https://github.com/garywelz/glmp/pull/24) (merge commit `19f6b21f0187`)
+- **Affects:** every agent (rule 21, the "FOR:" line); the Core and GLMP lanes; Gary (the design review); the research owners of TDAP and every future engine (the form)
+- **Corrects:** entry 027's Status line still reads "DRAFT: rule 21 … is a proposal". Rule 21 is **adopted**: it took effect when #137 merged on 2026-10-20 (`9203b0ed8`), and `AGENT_ROLES.md` v2.8 says so in its change log as of this PR.
+- **Summary:**
+  - **Rule 21 adopted** (`AGENT_ROLES.md` v2.8, merge `9203b0ed8`, 2026-10-20): background scripts an agent leaves running may only observe and report; a step with a side effect runs attended with its preconditions re-checked; a watcher must be able to report failure; an agent stops its own background processes before a session ends.
+  - **#135 verified in production** (as reported by the GLMP lane, Cursor, 2026-10-19/20, not re-run by Core): the 2026-10-19 20:15 ET scout and ingest run on the Jetson showed the new banner, 0 deadline errors, and the post-ingest hooks completed.
+  - **Copernicus domains consolidated.** Checked by Core on 2026-10-20: copernicusai.org, www.copernicusai.org and copernicusai.fyi each answer 308 to www.copernicusai.fyi. As reported by Gary and **not verifiable from Core's machine on this date** (its resolver could not look up the `.app` names): the `.app` names also redirect, and the Copernicus_AI Vercel team is retired. This closes the "redirect for the suite's older domain name" item left open in entry 027.
+  - **glmp#24 merged** (2026-10-20T13:46Z, "Count findability stale anchors separately from passing"): stale anchors are now counted apart from passing ones. copernicus-web's own `findability_probe.py` was changed to report a missing anchor document as a stale anchor (a warning), keeping the alert for a document that exists but is not retrievable, in commit `c23db28c1`.
+  - **The hand-off "FOR:" line.** Each pasted hand-off block now starts with a line naming its recipient, for example `FOR: Claude Code (Core lane, copernicus-web)` or `FOR: Cursor (GLMP lane, glmp repo + Jetson)`. An agent that is not the named recipient takes no action and says so. This was added after a block meant for Cursor reached Core on 2026-10-20 and was correctly not acted on. It is a convention, not yet a numbered rule.
+  - **Engine Onboarding form, proposed.** A reusable web form on www.copernicusai.fyi for onboarding any engine's research owners, with TDAP as the first instance. Two research owners work in a shared workspace; the engine's final-say owner marks a section final; Gary approves; nothing changes the engine until he does. Approved changes leave as a change bundle that Gary's agent turns into a pull request on the engine repo, which Gary merges; the form never writes to GitHub, to `research_focus.json` or to `research_papers`. Accounts are by invitation, matched to the existing allow-list, and also let the owners make podcasts (private by default, per-episode "make public", 10 a month each, raisable by Gary). A standing "suggest a paper" box follows onboarding. The design, a build plan of five separately reviewed pull requests plus a small prerequisite, and thirteen open questions are in `docs/design/ENGINE_ONBOARDING_FORM.md`.
+- **Waiting on:**
+  - **Gary:** review the design and answer its open questions (Q1 to Q5 change the design); merge this PR when satisfied.
+  - **Core:** nothing until Gary approves the design; the first build item (PR 0, an independent prerequisite) can start on his go-ahead.
+  - **GLMP lane and Methods & Tools:** nobody.
+
 ## 027 — 2026-10-19 — Phase 2 security follow-ups closed; Vercel estate and costs reduced; scout ingest hardened; rule 21 proposed
 
 - **From:** Claude Code (Core lane), at Gary's request
