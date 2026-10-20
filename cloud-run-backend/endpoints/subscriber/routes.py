@@ -3,6 +3,7 @@
 from fastapi import APIRouter, HTTPException, Depends, Header, Request
 from datetime import datetime
 from typing import Optional
+from google.api_core.exceptions import AlreadyExists
 from google.cloud import firestore
 
 from utils.logging import structured_logger
@@ -39,6 +40,9 @@ router = APIRouter()
 
 LOGIN_RATE_LIMIT_PER_HOUR = 10
 
+SUBSCRIBER_EXISTS_DETAIL = "An account with this email already exists. Sign in instead."
+PASSWORD_RESET_UNAVAILABLE_DETAIL = "Password reset is temporarily unavailable; contact the administrator"
+
 
 @router.post("/api/subscribers/register")
 async def register_subscriber(registration: SubscriberRegistration):
@@ -47,39 +51,18 @@ async def register_subscriber(registration: SubscriberRegistration):
         raise HTTPException(status_code=503, detail="Firestore service is unavailable")
     
     subscriber_id = generate_subscriber_id(registration.email)
-    structured_logger.info("Generated subscriber_id for registration",
-                          email=registration.email,
-                          subscriber_id=subscriber_id)
-    
-    # Check if subscriber already exists
+
+    # An existing account is never modified through this route: no password is written, no field is updated.
+    # get_subscriber_by_email also finds accounts stored under the older 16-character ID format.
     try:
-        existing_doc = db.collection('subscribers').document(subscriber_id).get()
-        if existing_doc.exists:
-            structured_logger.info("Subscriber already exists, updating",
-                                  email=registration.email,
-                                  subscriber_id=subscriber_id)
-            # Update existing subscriber with new password if provided
-            existing_data = existing_doc.to_dict()
-            if registration.password:
-                existing_data['password_hash'] = hash_password(registration.password)
-                existing_data['last_login'] = datetime.utcnow().isoformat()
-                db.collection('subscribers').document(subscriber_id).update(existing_data)
-                structured_logger.info("Updated existing subscriber password",
-                                      email=registration.email)
-            
-            return {
-                "subscriber_id": subscriber_id,
-                "email": registration.email,
-                "name": existing_data.get('name', registration.name),
-                "subscription_tier": existing_data.get('subscription_tier', 'free'),
-                "message": "Existing subscriber updated"
-            }
+        existing_doc = get_subscriber_by_email(registration.email)
     except Exception as e:
-        structured_logger.error("Error checking existing subscriber",
-                               email=registration.email,
-                               error=str(e))
+        structured_logger.error("Error checking existing subscriber", error=str(e))
         raise HTTPException(status_code=500, detail="Failed to check existing subscriber")
-    
+    if existing_doc is not None:
+        structured_logger.info("Registration refused: subscriber already exists", subscriber_id=existing_doc.id)
+        raise HTTPException(status_code=409, detail=SUBSCRIBER_EXISTS_DETAIL)
+
     # Create new subscriber
     subscriber_data = {
         'subscriber_id': subscriber_id,
@@ -101,7 +84,8 @@ async def register_subscriber(registration: SubscriberRegistration):
     }
     
     try:
-        db.collection('subscribers').document(subscriber_id).set(subscriber_data)
+        # create() fails if the document exists, so two concurrent registrations cannot overwrite each other.
+        db.collection('subscribers').document(subscriber_id).create(subscriber_data)
         structured_logger.info("New subscriber registered",
                               email=registration.email,
                               subscriber_id=subscriber_id)
@@ -113,6 +97,9 @@ async def register_subscriber(registration: SubscriberRegistration):
             "subscription_tier": registration.subscription_tier,
             "message": "Subscriber registered successfully"
         }
+    except AlreadyExists:
+        structured_logger.info("Registration refused: subscriber already exists", subscriber_id=subscriber_id)
+        raise HTTPException(status_code=409, detail=SUBSCRIBER_EXISTS_DETAIL)
     except Exception as e:
         structured_logger.error("Error registering subscriber",
                                email=registration.email,
@@ -715,35 +702,10 @@ async def request_password_reset(reset_request: PasswordResetRequest):
 
 
 @router.post("/api/subscribers/password-reset")
-async def reset_password(reset_data: PasswordReset):
-    """Reset a subscriber's password"""
-    if not db:
-        raise HTTPException(status_code=503, detail="Firestore service is unavailable")
-    
-    subscriber_id = generate_subscriber_id(reset_data.email)
-    
-    try:
-        subscriber_doc = db.collection('subscribers').document(subscriber_id).get()
-        if not subscriber_doc.exists:
-            raise HTTPException(status_code=404, detail="Subscriber not found")
-        
-        # Update password
-        db.collection('subscribers').document(subscriber_id).update({
-            'password_hash': hash_password(reset_data.new_password),
-            'last_login': datetime.utcnow().isoformat()
-        })
-        
-        structured_logger.info("Password reset successful",
-                              email=reset_data.email,
-                              subscriber_id=subscriber_id)
-        
-        return {"message": "Password reset successfully"}
-        
-    except Exception as e:
-        structured_logger.error("Error resetting password",
-                               email=reset_data.email,
-                               error=str(e))
-        raise HTTPException(status_code=500, detail="Failed to reset password")
+async def reset_password(request: Request):
+    """Disabled for every caller until a single-use emailed token flow replaces it. It changes nothing and reads nothing:
+    no request body is parsed and there is no database access."""
+    raise HTTPException(status_code=403, detail=PASSWORD_RESET_UNAVAILABLE_DETAIL)
 
 
 @router.delete("/api/subscribers/podcasts/{podcast_id}")
