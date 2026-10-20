@@ -99,7 +99,7 @@ graph LR
     PROD["&lt;b&gt;Products&lt;/b&gt;&lt;br/&gt;podcasts · written papers"]
     RES["&lt;b&gt;Resources&lt;/b&gt;&lt;br/&gt;papers · videos · charts&lt;br/&gt;(the collection)"]
     SCOUTS["&lt;b&gt;Scouts&lt;/b&gt;&lt;br/&gt;continuous search agents"]
-    ACAD[("Academic databases&lt;br/&gt;PubMed · bioRxiv/medRxiv · arXiv (paused)")]
+    ACAD[("Academic databases&lt;br/&gt;PubMed · bioRxiv/medRxiv · arXiv (failing)")]
     EMBED["&lt;b&gt;Embedding&lt;/b&gt;&lt;br/&gt;the gate"]
 
     R -->|uses| MT
@@ -133,8 +133,8 @@ graph LR
                 <div class="bg-blue-50 rounded-lg p-6">
                     <h3 class="text-lg font-semibold text-gray-900 mb-3">📥 Scouts &amp; Ingestion</h3>
                     <p class="text-sm text-gray-700">
-                        Scouts run twice daily against PubMed and bioRxiv/medRxiv. The arXiv scout is paused
-                        while it fails (see Current Limitations). A NASA ADS harvester exists in the repository
+                        Scouts run twice daily against PubMed and bioRxiv/medRxiv. arXiv acquisition is
+                        currently failing because the arXiv API is rate-limiting requests (see Current Limitations). A NASA ADS harvester exists in the repository
                         but has contributed no papers. Scouts add metadata to Resources alongside products
                         (podcasts, papers, videos) from the researcher's own work.
                     </p>
@@ -167,7 +167,7 @@ graph LR
 graph TD
     subgraph ING["① Ingestion"]
         SCOUTS2["&lt;b&gt;Scouts&lt;/b&gt;&lt;br/&gt;continuous search agents"]
-        ACAD2[("Academic databases (literature)&lt;br/&gt;PubMed · bioRxiv/medRxiv · arXiv (paused)")]
+        ACAD2[("Academic databases (literature)&lt;br/&gt;PubMed · bioRxiv/medRxiv · arXiv (failing)")]
         INTAKE["Products &amp; manual intake&lt;br/&gt;podcasts · papers · videos"]
         RAW["Raw material ingested"]
     end
@@ -500,7 +500,7 @@ graph TD
                                 <ul class="text-sm text-gray-600 space-y-1">
                                     <li>&check; PubMed/NCBI &mdash; scout runs twice daily</li>
                                     <li>&check; bioRxiv/medRxiv &mdash; scout runs twice daily</li>
-                                    <li>&#9888; arXiv &mdash; acquisition paused; the scout is currently failing (OAI-PMH harvesting is planned)</li>
+                                    <li>&#9888; arXiv &mdash; acquisition currently failing (the arXiv API is rate-limiting requests); a replacement via arXiv's OAI-PMH harvesting interface is planned</li>
                                     <li>&#9888; NASA ADS &mdash; harvester exists, no papers acquired</li>
                                     <li>&bull; Crossref &mdash; used to confirm and enrich records</li>
                                 </ul>
@@ -679,7 +679,7 @@ graph TD
                 <div class="bg-yellow-50 rounded-lg p-6 border-l-4 border-yellow-400">
                     <h3 class="text-xl font-semibold text-gray-900 mb-4">Current Limitations</h3>
                     <ul class="text-sm text-gray-700 space-y-2">
-                        <li>&bull; <strong>arXiv acquisition is paused:</strong> the arXiv scout currently fails, so no new arXiv papers are arriving. The arXiv records already in the corpus are not re-checked.</li>
+                        <li>&bull; <strong>arXiv acquisition currently failing</strong> (the arXiv API is rate-limiting requests), so no new arXiv papers are arriving; a replacement via arXiv's OAI-PMH harvesting interface is planned. The arXiv records already in the corpus are not re-checked.</li>
                         <li>&bull; <strong>Thin source coverage:</strong> the scouts that run are PubMed and bioRxiv/medRxiv. NASA ADS has contributed no papers. The corpus is therefore weighted toward biology.</li>
                         <li>&bull; <strong>Verification metrics are being re-measured:</strong> how often a cited source is confirmed and relevant has no published figure here until the re-measurement finishes.</li>
                         <li>&bull; <strong>Generation is not open:</strong> only allowlisted subscribers can generate podcasts, within a monthly quota. Private episode access is pending.</li>
@@ -694,7 +694,7 @@ graph TD
                 <div class="bg-blue-50 rounded-lg p-6 border-l-4 border-blue-400">
                     <h3 class="text-xl font-semibold text-gray-900 mb-4">Planned (not built)</h3>
                     <ul class="text-sm text-gray-700 space-y-2">
-                        <li>&bull; <strong>arXiv through OAI-PMH:</strong> a replacement harvesting route</li>
+                        <li>&bull; <strong>arXiv through OAI-PMH:</strong> a replacement harvesting route via arXiv's OAI-PMH interface</li>
                         <li>&bull; <strong>Engine-tuned scouts:</strong> scouts aimed at each engine's research frontier</li>
                         <li>&bull; <strong>Private episode access</strong> for subscribers</li>
                         <li>&bull; <strong>Per-paper entity extraction, citation networks and stored quality scores</strong></li>
@@ -813,7 +813,7 @@ graph TD
             <div class="bg-blue-50 rounded-lg p-6">
                 <h3 class="text-lg font-semibold text-gray-900 mb-3">📖 Citation Information</h3>
                 <p class="text-sm text-gray-700 mb-3">
-                    <strong>For Grant Proposals (NSF/DOE):</strong>
+                    <strong>For grant proposals:</strong>
                 </p>
                 <div class="bg-white rounded p-4 font-mono text-sm text-gray-800 mb-4">
                     <p class="mb-2">Welz, G. (2024&ndash;2026). CopernicusAI: Knowledge Engine for Scientific Discovery.</p>
@@ -903,23 +903,10 @@ graph TD
             <h2 class="text-3xl font-bold text-gray-900 mb-6">🌐 Grant Support & Collaboration</h2>
             
             <div class="mb-6">
-                <h3 class="text-xl font-semibold text-gray-800 mb-3">Grant Applications Supported</h3>
-                <p class="text-gray-700 mb-4">
-                    This platform is designed to support grant applications to:
-                </p>
-                <div class="grid md:grid-cols-3 gap-4">
-                    <div class="bg-blue-50 rounded-lg p-4">
-                        <h4 class="font-semibold text-gray-800 mb-2">NSF</h4>
-                        <p class="text-sm text-gray-600">National Science Foundation - Science education and research infrastructure</p>
-                    </div>
-                    <div class="bg-green-50 rounded-lg p-4">
-                        <h4 class="font-semibold text-gray-800 mb-2">DOE</h4>
-                        <p class="text-sm text-gray-600">Department of Energy - Scientific computing and data science</p>
-                    </div>
-                    <div class="bg-purple-50 rounded-lg p-4">
-                        <h4 class="font-semibold text-gray-800 mb-2">SAIR Foundation</h4>
-                        <p class="text-sm text-gray-600">AI research and development initiatives</p>
-                    </div>
+                <h3 class="text-xl font-semibold text-gray-800 mb-3">Grant Applications</h3>
+                <div class="bg-blue-50 rounded-lg p-4 max-w-xl">
+                    <h4 class="font-semibold text-gray-800 mb-2">NSF</h4>
+                    <p class="text-sm text-gray-600">NSF proposal pending.</p>
                 </div>
             </div>
             
