@@ -20,7 +20,7 @@ People are named by role only in this file, because the file is public: the **ad
 |---|---|
 | Both owners are equal research owners; the advisor has final say through "Mark final" | §3.2 roles, §4 states |
 | Two gates after drafting: final (advisor), then approved (Gary) | §4 |
-| Invitation-based sign-up, matched to the existing allow-list; addresses never copied | §3.1, §5 |
+| Invitation-based sign-up, where the **invitation carries the permissions** (role, `can_generate`, quota); addresses never stored, only a hash | §3.1, §5 |
 | Podcasts private by default; per-episode "make public"; quota 10/month each, raisable by Gary | §7 (prerequisite PR) |
 | A standing "suggest a paper" box after onboarding, reviewed the same way | §2.7, §8 PR 5 |
 | The advisor is an anchor author for tdap-q1; the form offers his other relevant papers as candidate seeds | §2.4, §3.6 |
@@ -48,6 +48,7 @@ Every claim about current behaviour below cites a file and line in `copernicus-w
 **The accounts and permissions that exist today.**
 - A subscriber is a Firestore `subscribers` document whose ID is `sha256(email)` (`utils/subscriber_helpers.py:21-24`). The address is never needed as a key, which is what lets an invitation refer to an account without copying the address.
 - The **allow-list** is the `can_generate` field on that document, with `monthly_quota` (`None` means unlimited), `generations_this_month` and `generation_month` (`utils/generation_quota.py:1-45`). Generation authorisation is `authorize_generation` (`utils/auth.py:126-165`): the admin key, or a subscriber with a valid session token, `can_generate=true`, and quota left (401 / 403 / 429). The check-and-increment is one Firestore transaction.
+- **No research owner is on this allow-list today**, and this design no longer assumes one: the invitation (§3.1) sets `can_generate` and `monthly_quota` when it is accepted. Only an administrator's own account is allow-listed.
 - Sessions: a random token returned once at login; only its sha256 and an expiry are stored on the subscriber document; compared in constant time; lifetime 14 days (`utils/subscriber_helpers.py:11, 60-90`). The client sends it as `X-Subscriber-Token`. The login page keeps the session in the browser's `localStorage` (`public/subscriber-dashboard.html:602-663`). The CORS policy is `allow_origins=["*"]` (`main.py:271-276`). Both matter for §9.
 - Route guards: `require_admin_or_subscriber_owner` (path carries the subscriber ID) and `require_admin_or_podcast_owner` (the owner is resolved from the episode record) in `utils/auth.py:78-123`; the admin key is the `X-Admin-API-Key` header (`utils/auth.py:41-58`).
 - Rate limiting: a Firestore-backed limiter keyed on the last forwarded address (`utils/rate_limit.py:1-40`), used for login (10 an hour) and the public question route (20 an hour).
@@ -130,11 +131,16 @@ The loader records the commit it read, so a later bundle is diffed against exact
 
 ## 3. People, accounts and roles
 
-### 3.1 Accounts and invitations
-- The owners are **existing subscribers**: their allow-list entries (`can_generate`) are already in Firestore and are never copied. An *invitation* refers to a subscriber by `subscriber_id` (the `sha256(email)` document ID), the engine, and a role. The invitation email is sent from the address stored on the subscriber document at send time; the address is never written to the invitation or to a log line.
-- Gary creates an invitation in the admin dashboard for a subscriber who is on the allow-list. The server **refuses to invite a subscriber who is not allow-listed** (the matching rule Gary asked for).
-- The invitation is a random token, emailed as a link to a page on www.copernicusai.fyi. Only the token's sha256 is stored, with an expiry (7 days), a single use, and the engine and role. The recipient opens the link, accepts the consent step (§2.8), and sets or confirms their credentials through the account-credential flow of PR 0 (§8). Acceptance creates an *engine membership* (§3.2) and is audited.
-- No other route creates an account that can reach an onboarding engine.
+### 3.1 Accounts and invitations: the permissions travel with the invitation
+No research owner is on an allow-list today. An **invitation carries the permissions** the account will receive:
+
+- **Creating an invitation (admin only).** In the admin dashboard Gary enters the invitee's address once. The server **normalises** it (trimmed, lower-cased) and stores **only the `sha256` of the normalised address**, never the address. The invitation also stores the engine, the role (`owner`, and `final_say` for the advisor), `can_generate`, `monthly_quota` (**default 10**), an expiry (default 7 days), and the `sha256` of a random single-use token. The address is used once, to send the invitation email; it is not written to the invitation, the audit log or any log line.
+- **The email carries a single-use link** holding the random token. **The token is what proves the person controls the mailbox.** The stored hash of the address is a second check (the address typed at acceptance must hash to it), **not a credential**: someone who only knows or guesses an address cannot claim the invitation, because they do not hold the token. This needs the emailed single-use token mechanism of PR 0 (or an equivalent single-use invitation link); **PR 2 cannot ship without it.**
+- **Accepting.** The recipient opens the link, accepts the consent step (§2.8), and registers through the invitation. In **one Firestore transaction** the server checks that the invitation is unused and unexpired and that the token and the address hash both match; creates the account with `can_generate`, `monthly_quota` and the engine membership exactly as the invitation specifies (the password is set through PR 0's credential step); and marks the invitation used (`used_at` and the new account's ID). Either all of this happens or none of it does, and two attempts to use one invitation at the same moment cannot both succeed.
+- **Registration without an invitation is unchanged.** The account gets the current defaults: `can_generate` false, no quota, no engine access.
+- **A person who already has an ordinary account.** If the address already has an account, accepting the invitation adds the permissions (`can_generate`, `monthly_quota`, the membership) to that account. It **never changes the existing password**; a forgotten password is the reset flow's job (PR 0). The emailed token proves mailbox control, which is the same proof a reset would need.
+- **Address normalisation.** Today an account's ID is `sha256` of the address *as typed* (`utils/subscriber_helpers.py:21-24`), so two spellings of one mailbox are two accounts. The invitation matches on the normalised hash and, for an existing account, looks for the account under the normalised address and its case variants. PR 2 normalises the address at new registrations; existing IDs are untouched.
+- **No other route sets `can_generate` or a quota,** except Gary's admin quota route (§7.3). No other route creates an account that can reach an onboarding engine.
 
 ### 3.2 Roles
 | Role | Who | Can |
@@ -253,7 +259,7 @@ Written only by the service. No collection holds a raw email address.
 |---|---|---|
 | `onboarding_engines` · `engine_id` | `label`, `full_name`, `template_version`, `state` (`open`, `suggest_only`, `closed`), `source` {repo, commit_sha, loaded_at}, `final_say_subscriber_id`, `question_id_prefix`, `created_at` | one per engine instance |
 | `onboarding_members` · `engine_id__subscriber_id` | `role` (`owner`), `final_say` (bool), `consent` {naming, licence, lookups, version, at}, `joined_at`, `status` | membership; the account stays a normal subscriber |
-| `onboarding_invites` · `invite_id` | `engine_id`, `subscriber_id`, `role`, `final_say`, `token_hash`, `expires_at`, `used_at`, `created_by`, `created_at` | single use; token never stored |
+| `onboarding_invites` · `invite_id` | `engine_id`, `email_sha256` (of the normalised address), `roles`, `final_say`, `can_generate`, `monthly_quota`, `token_hash`, `expires_at`, `created_by`, `created_at`, `used_at`, `used_by_subscriber_id` | single use; neither the token nor the address is stored |
 | `onboarding_sections` · `engine_id__section` | `status` (`draft`, `final`, `approved`, `rejected`), `revision`, `content_sha256`, `final_by`, `final_at`, `approved_at`, `approver_note`, `reopened_by`, `updated_at` | the gate state |
 | `onboarding_items` · `engine_id__section__item_id` | `type`, `value`, `revision`, `author_subscriber_id`, `updated_at`, `choice`, `comment_count`, `history` (capped list of {revision, value_sha256, author, at}) | one answer; full prior values in the audit log |
 | `onboarding_comments` · `comment_id` | `engine_id`, `item_id`, `thread_id`, `author_subscriber_id`, `author_role`, `body`, `created_at`, `resolved` | plain text |
@@ -269,7 +275,7 @@ All routes live under `/api/onboarding/` on the existing service and are **defau
 
 | Route | Who | Does |
 |---|---|---|
-| `POST /api/onboarding/invites/accept` | holder of a valid token | consume the token, record consent, create the membership |
+| `POST /api/onboarding/invites/accept` | holder of a valid token | in one transaction: check the invitation (unused, unexpired, token and address hash match), create or upgrade the account with the invitation's permissions, create the membership, record consent, mark the invitation used |
 | `GET /api/onboarding/engines/{e}` | member, admin | engine, sections, progress, who is waiting |
 | `GET /api/onboarding/engines/{e}/sections/{s}` | member, admin | items, comments, provenance |
 | `PUT /api/onboarding/engines/{e}/items/{i}` | member (not on a `final` or `approved` section: edit re-opens, see §4.5) | autosave one answer with `base_revision` |
@@ -281,7 +287,7 @@ All routes live under `/api/onboarding/` on the existing service and are **defau
 | `POST /api/onboarding/engines/{e}/suggestions` | member | suggest a paper |
 | `GET /api/admin/onboarding/engines` · `.../engines/{e}/diff` | admin | dashboard data and the proposed-vs-current diff |
 | `POST /api/admin/onboarding/engines/{e}/sections/{s}/approve` · `/reject` | admin | approve or reject a `final` section, with a note |
-| `POST /api/admin/onboarding/invites` · `DELETE .../{id}` | admin | create or revoke an invitation (allow-listed subscribers only) |
+| `POST /api/admin/onboarding/invites` · `DELETE .../{id}` | admin | create an invitation (address entered once, stored only as a hash; roles, `can_generate`, `monthly_quota`, expiry) or revoke an unused one |
 | `POST /api/admin/onboarding/engines/{e}/bundles` · `GET .../bundles/{b}` · `POST .../bundles/{b}/merged` | admin | create, download and close a bundle |
 | `PUT /api/admin/subscribers/{id}/quota` | admin | raise or lower `monthly_quota` (§7) |
 
@@ -337,7 +343,7 @@ Owners must be able to hear what they make, and Gary must be able to give them r
 - Per rule 18 this is a change to what the public can reach: the route, and the page that calls it, each ship gated, with a test episode, before they serve real owners.
 
 ### 7.3 Quota: 10 a month each, raisable by Gary
-- The mechanism already exists and is atomic (`utils/generation_quota.py`): `monthly_quota` on the subscriber document. Setting the two owners to 10 is a data change, made by Gary's agent at invitation time, not code.
+- The mechanism already exists and is atomic (`utils/generation_quota.py`): `monthly_quota` on the subscriber document. The **invitation sets `monthly_quota` (default 10) when it is accepted** (§3.1), so no separate data change is needed for the owners; the admin quota route below changes it later.
 - **Missing: any admin way to change it** (§1). New route `PUT /api/admin/subscribers/{subscriber_id}/quota` (admin key; integer 0..200 or `null` for unlimited; audited) and a control on `public/admin-subscribers.html`.
 - Two behaviours to decide in review, not assume: whether a *failed* generation consumes quota, and what the owner sees at 429 (Q6).
 
@@ -349,11 +355,11 @@ Each item is a separate pull request, reviewed and gated on its own (rules 15, 1
 
 ### 8.1 The sequence
 
-**PR 0 · Account-credential prerequisites.** The credential step that invitation acceptance depends on: single-use, expiring tokens for setting a password, reused for any later credential change. Any further scope is held in the private security record (rule 17); this document deliberately says no more. *It must land before PR 2; it is independent of the rest and should not wait for this design's approval.* · Effort: 2–3 days. · Test: unit tests for token issue, single use, expiry and refusal; a gated deploy with a tagged revision and a two-account smoke test.
+**PR 0 · Account-credential prerequisites.** The credential step that invitation acceptance depends on: **single-use, expiring emailed tokens** that prove control of a mailbox, used for setting a password and reused for any later credential change. Invitation acceptance (PR 2) relies on this mechanism, or an equivalent single-use invitation link. Any further scope is held in the private security record (rule 17); this document deliberately says no more. *It must land before PR 2; it is independent of the rest and should not wait for this design's approval.* · Effort: 2–3 days. · Test: unit tests for token issue, single use, expiry and refusal; a gated deploy with a tagged revision and a two-account smoke test.
 
 **PR 1 · Private-episode access, per-episode publish, quota admin (§7).** The owner media-links route, the owner view rule, `make-public`, the quota route and its admin control, and the owner-facing buttons on the subscriber dashboard. · Effort: 3–4 days. · Test plan: (a) a non-owner session and an anonymous caller get 404 for a private episode; (b) the owner gets signed links that work and expire (`minutes=1`, fetch after two); (c) `make-public` on a throwaway episode: files appear in the public bucket with matching checksums, the record flips, rollback works when the record write is forced to fail; (d) `make-public` does not touch the feed; (e) the quota route sets, raises, clears, and is refused without the admin key; the 11th generation at quota 10 is refused with 429; (f) the existing admin routes and the public feed are unchanged (compare sorted episode ids on the tagged revision and the live one, per DEPLOY.md step 5). · Cost: none.
 
-**PR 2 · Invitations and engine roles.** `onboarding_engines`, `onboarding_members`, `onboarding_invites`, the shared membership dependency, `accept.html`, the admin invitation panel, the audit log, and the default-deny/404 rule. No form yet. · Effort: 3 days. · Test plan: an invitation for a subscriber who is not allow-listed is refused; a token works once and not after expiry; the acceptance page records consent; a non-member gets 404 on every `/api/onboarding/` route (table-driven over the route list); the `final_say` flag is exclusive per engine; every state change writes an event; the invite and the audit event contain no address.
+**PR 2 · Invitations and engine roles.** `onboarding_engines`, `onboarding_members`, `onboarding_invites`, invitation-carried permissions (§3.1), address normalisation at new registrations, the shared membership dependency, `accept.html`, the admin invitation panel, the audit log, and the default-deny/404 rule. No form yet. Depends on PR 0's emailed single-use token. · Effort: 3–4 days. · Test plan: (a) accepting a valid invitation sets `can_generate`, `monthly_quota` and the membership together, and a failure forced partway leaves no account, no membership and the invitation still unused; (b) registration **without** an invitation still gets `can_generate` false and no quota; (c) a used, expired or revoked invitation is refused; (d) a valid token with the wrong address is refused, and the right address **without** the token is refused (knowing the address is not enough); (e) two simultaneous acceptances: exactly one succeeds; (f) an existing ordinary account gains the permissions and its password hash is unchanged; (g) an invitation stores neither the address nor the token, and no log or audit event contains an address; (h) a non-member gets 404 on every `/api/onboarding/` route (table-driven over the route list); (i) the `final_say` flag is exclusive per engine; (j) every state change writes an event.
 
 **PR 3 · The form and the review dashboard.** The template engine, the section editor, item autosave with revision checks, comments, the progress tracker, Mark final, the dashboard with the proposed-vs-current diff, approve/reject, bundle creation and download, and the bundle checks (§5.3). Generic: no TDAP content. · Effort: 6–8 days. · Test plan: the state machine as a table of transitions (including "edit re-opens a final section" and "only `final_say` may mark final"); two simulated owners editing one item (the stale save is refused, nothing is lost); a bundle built from only approved revisions; a bundle with an email-shaped string, a name against the consent choice, or a `not_yet_public` entry is **blocked** by the checks (each shown capable of failing, per the lesson in BULLETIN 027); output files parse and match the A2 fields; no route is reachable without a session.
 
@@ -416,7 +422,7 @@ These are estimates from the size of comparable existing work (the access-contro
 4. **Final per section, or one "Mark final" for the whole engine?** I chose per section so Gary can approve progressively. A whole-engine mark is simpler for the owners.
 5. **What if the advisor is unresponsive?** Sections wait in `draft`. Options: Gary may approve a section the advisor has not marked final, after a stated wait, with the reason in the audit log; or never. My default: never (the advisor's final say is the point), with a visible "waiting on the advisor" line and one reminder email.
 
-**Decisions that can wait but should not be assumed**
+**Decisions that can wait but should not be assumed** (Q14 to Q17 were added when it was found that no owner is on an allow-list)
 6. **Does a failed generation consume quota, and what does an owner see at the limit?** (Behaviour of the existing quota check to confirm in PR 1.)
 7. **Should "make public" also offer the feed?** I keep the feed separate and Gary-gated because it pushes the episode out to Spotify, Apple Podcasts and YouTube.
 8. **Notification email sender and wording**, and whether the invitation email should come from a named person or the site.
@@ -425,6 +431,10 @@ These are estimates from the size of comparable existing work (the access-contro
 11. **Naming.** The existing public engine files already name individuals; the form's naming choice governs only *new* changes. Whether existing public references should be revisited with the owners is a separate conversation, and not for this build to decide.
 12. **Who runs the TDAP loader and the bundle hand-off**: the Core agent each time, or a standing instruction? I recommend each time, attended (rule 21).
 13. **Do you want PR 0 started now?** It does not depend on this design and I recommend it should not wait for approval.
+14. **Invitation defaults and who may create one.** Defaults proposed: `can_generate` true, `monthly_quota` 10, expiry 7 days; invitations created by Gary only (admin key). Confirm, or say which differ.
+15. **Owners who already have an ordinary account.** Accepting an invitation adds the permissions to it and never changes its password (§3.1). Is that right, or do you want such owners to register fresh?
+16. **Address normalisation.** New registrations would store the address trimmed and lower-cased, so one mailbox cannot become two accounts. Existing accounts keep their IDs. Comfortable with that change to registration?
+17. **Revoking an owner.** When an owner leaves, should revocation also clear `can_generate` and the quota on their account, or only remove the engine membership?
 
 ---
 
