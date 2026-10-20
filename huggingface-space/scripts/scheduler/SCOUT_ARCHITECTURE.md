@@ -60,6 +60,17 @@ Ingest stdout/stderr → `/media/sdcard/logs/scout_ingest.log` (wrapper redirect
 cron also appends wrapper chatter to `paper_acquisition_logs/daily_scout/ingest.log`.
 Hook bodies keep prior destinations: `status_publish_cron.log`, `master_todo_cron.log`.
 
+### If the ingest hangs
+
+`py-spy` **0.4.2** is installed in the Jetson worker venv (installed 2026-10-19;
+works as user `gary` without sudo). Capture a stack dump **before** stopping the
+process:
+
+```bash
+pgrep -af ingest_papers_from_metadata_json
+/media/sdcard/copernicus-worker/venv/bin/py-spy dump --pid <PID>
+```
+
 ### Cutover (ordering fix) — load-bearing order
 
 1. Commit + push on Yoga.
