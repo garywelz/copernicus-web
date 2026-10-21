@@ -25,11 +25,12 @@ People are named by role only in this file, because the file is public: the **ad
 | The current session mechanism is kept for v1, with the §9 controls; an HttpOnly-cookie move is a later, separate change (**decided**) | §9, §10a Q3 |
 | **v1 / v2 split (decided 2026-10-20):** v1 for the first TDAP invitations is PR 0, 1, 2, 3 and a reduced PR 4; v2 is the anchor-author lookup, the BibTeX/RIS parsers and the suggest-a-paper box | §8.0 |
 | PR 0 starts after Gary's return, not before (**decided**) | §8.1, §10a Q13 |
+| **Approved changes leave as an exported change bundle** that Gary's agent re-verifies and turns into a pull request; the web backend holds **no repository write credential** (option ii; **decided 2026-10-20, 20:06 ET**) | §5.2, §5.3, §10a |
+| The six delegation details: a delegate cannot delegate further; a delegate is another owner of the same engine; the holder keeps the power to mark final while a delegation is active; an admin calling a final route gets 404; the reminder email goes out 5 days after a section becomes ready; changing the final-say holder is an audited admin action for succession only (**decided 2026-10-20, 20:06 ET**) | §3.2, §4.5, §4.6, §10a |
 
-**Recommended, not yet decided:**
-1. **Approved changes reach the engine repo as an exported change bundle that Gary's agent turns into a pull request** (option ii in §5.2), not as a pull request opened by the web backend. The web backend then holds no write credential to any repository.
-2. **Build the existing-features prerequisite before inviting anyone** (§7): owners must be able to open their own private episodes and publish them, and Gary must be able to raise a quota, before any owner is invited. This is PR 1 of v1.
-3. **v1 is five separately reviewed pull requests (PR 0 to PR 3 and a reduced PR 4) plus one end-to-end test: about 19 to 25 agent days including PR 0 (17 to 22 without it); v2 is about 5 to 6 more** (§8.2). Running cost stays under a dollar a month.
+**Recommended, not separately decided:**
+1. **Build the existing-features prerequisite before inviting anyone** (§7): owners must be able to open their own private episodes and publish them, and Gary must be able to raise a quota, before any owner is invited. This is PR 1 of v1.
+2. **v1 is five separately reviewed pull requests (PR 0 to PR 3 and a reduced PR 4) plus one end-to-end test: about 19 to 25 agent days including PR 0 (17 to 22 without it); v2 is about 5 to 6 more** (§8.2). Running cost stays under a dollar a month.
 
 **What is still open:** Q6 to Q12 and Q14 to Q17 in §10. Each carries a default that **stands unless Gary says otherwise**.
 
@@ -155,7 +156,7 @@ No research owner is on an allow-list today. An **invitation carries the permiss
 
 Equal ownership means both owners can edit anything; the only asymmetry is who may mark a section final.
 
-**Delegation (decided by Gary 2026-10-20).** Gary never overrides the final-say owner. Instead the `final_say` holder may delegate final say, on one section or on all of them, to the other owner of that engine.
+**Delegation (decided by Gary 2026-10-20; the details below were agreed at 20:06 ET the same day).** Gary never overrides the final-say owner. Instead the `final_say` holder may delegate final say, on one section or on all of them, to the other owner of that engine.
 - **Revocable:** the holder can revoke at any moment, and revocation takes effect for the next action.
 - **Audited:** creating and revoking a delegation each write an event (§5.6) naming who, which sections and when; every "Mark final" records whether it was made by the holder or through a delegation.
 - **Not transitive:** a delegate cannot delegate further, and a delegation names an owner of that engine, never an outsider and never an admin. The holder keeps the power to mark final while a delegation is active.
@@ -215,7 +216,7 @@ stateDiagram-v2
 - **Delegation** changes who may mark a section final, not the state machine: a delegate's "Mark final" is the same transition, recorded with `via_delegation`.- Nothing reaches the repo from a section that is not `approved`.
 
 ### 4.6 Notifications
-Email to the `final_say` owner (and to any delegate for that section) when a section becomes ready (every item answered and no open disagreement) or is re-opened; **one reminder** if it is still waiting 5 days later (a default, Gary can change it); to the owners when Gary approves or rejects. The progress tracker always shows "waiting on the final-say owner" (decided 2026-10-20: a visible line and one reminder, never an override). Email only, through the existing SMTP service, with a link and no content in the message. An owner can switch these off for themselves.
+Email to the `final_say` owner (and to any delegate for that section) when a section becomes ready (every item answered and no open disagreement) or is re-opened; **one reminder** if it is still waiting 5 days after it became ready (decided 2026-10-20); to the owners when Gary approves or rejects. The progress tracker always shows "waiting on the final-say owner" (decided 2026-10-20: a visible line and one reminder, never an override). Email only, through the existing SMTP service, with a link and no content in the message. An owner can switch these off for themselves.
 
 ---
 
@@ -230,7 +231,7 @@ A new admin page beside the existing ones (`public/admin-dashboard.html`, `publi
 - **create bundle** (select approved sections), **download bundle**, and **mark bundle merged** (paste the PR URL).
 - an **invitations** panel and a **quota** panel (§7).
 
-### 5.2 Approved changes reach the engine: the two options compared (item d)
+### 5.2 Approved changes reach the engine: the two options compared (item d) — **Decided by Gary 2026-10-20: option (ii)**
 Both start from the same place: Gary has approved sections, and a bundle of proposed file changes exists.
 
 **Option (i): the backend opens the pull request with a GitHub token.**
@@ -242,7 +243,7 @@ Both start from the same place: Gary has approved sections, and a bundle of prop
 - *For:* **no write credential for any repository exists in the web backend.** The only write the form can do is to its own Firestore collections and a private bucket. The agent that opens the PR is the one that already holds Gary's authority, runs under the session rules, and works from a fresh clone of the engine repo. It *re-verifies* the bundle against the repo before opening the PR (§5.3): the base commit is still the tip, the base blob hashes match, the proposed content passes the public-safety checks, the files parse. The bundle is therefore reviewed three times (the owners, Gary in the dashboard, the agent's re-check), and Gary merges.
 - *Against:* one manual hand-off per bundle. A bundle is small and the volume is low (a few per engine over its onboarding, then occasional suggestion batches), so the cost is a few minutes.
 
-**Recommendation: (ii).** It matches Gary's stated starting view, keeps the credential surface unchanged, and gives a natural place for a final automated check. If volume ever justifies automation, the safe upgrade is for the *agent* to poll for approved bundles; the credential still never enters the web backend.
+**Decision: (ii)** (Gary, 2026-10-20, 20:06 ET): approved changes leave as an exported change bundle that Gary's agent re-verifies and turns into a pull request, and the web backend holds no repository write credential. Reasons: it matches Gary's stated starting view, keeps the credential surface unchanged, and gives a natural place for a final automated check. If volume ever justifies automation, the safe upgrade is for the *agent* to poll for approved bundles; the credential still never enters the web backend.
 
 ### 5.3 The change bundle
 A single JSON document, `engine_onboarding_bundle` v1, stored in the private bucket and downloadable by Gary:
@@ -472,7 +473,7 @@ Q1 to Q5 and Q13 were decided on 2026-10-20 and are recorded in §10a. The rest 
 
 ## 10a. Decided 2026-10-20
 
-Gary reviewed §0 and §10 with Claude Chat on 2026-10-20 and decided the following. They are reflected in the sections named.
+Gary reviewed §0 and §10 with Claude Chat on 2026-10-20 and decided the following; the last two rows were agreed at 20:06 ET the same day. They are reflected in the sections named.
 
 | # | Decision | Where it lands |
 |---|---|---|
@@ -483,8 +484,9 @@ Gary reviewed §0 and §10 with Claude Chat on 2026-10-20 and decided the follow
 | Q5 | **Gary never overrides the final-say owner.** Instead the final-say owner may delegate final say, on a section or on all sections, to another owner of that engine: revocable and audited. One reminder email plus the visible "waiting on" line. | §3.2, §4.5, §4.6, §5.6, §5.7 |
 | Q13 | **PR 0 starts after Gary's return, not before.** | §8.1 |
 | Scope | **v1 / v2 split.** v1 for the first TDAP invitations = PR 0, PR 1, PR 2, PR 3 and a reduced PR 4 (loader, lookups, hold-list review queue, private bibliography with DOI lists and pasted text only). v2 = the anchor-author lookup, the BibTeX and RIS parsers, and PR 5 suggest-a-paper. | §0, §8.0, §8.2 |
+| Q5 details | **Six delegation details.** (1) A delegate cannot delegate further. (2) A delegate must be another owner of the same engine. (3) The final-say holder keeps the power to mark final while a delegation is active. (4) An admin calling a final route gets 404. (5) The reminder email goes out 5 days after a section becomes ready. (6) Changing the final-say holder is an audited admin action for succession only. | §3.2, §4.5, §4.6, §5.7 |
+| Bundle | **The change-bundle route, option (ii).** Approved changes leave as an exported bundle that Gary's agent re-verifies and turns into a pull request; the web backend holds no repository write credential. | §0, §5.2, §5.3 |
 
-*Decided by Gary 2026-10-20. Not decided there, and therefore still a recommendation:* the change-bundle route (option ii, §5.2).
 
 ---
 
