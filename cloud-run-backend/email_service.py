@@ -26,10 +26,10 @@ def retry_email(max_retries=3, delay=2):
                     last_exception = e
                     if attempt < max_retries - 1:
                         wait_time = delay * (2 ** attempt)
-                        print(f"⚠️ Email attempt {attempt + 1} failed: {e}. Retrying in {wait_time}s...")
+                        print(f"⚠️ Email attempt {attempt + 1} failed: {type(e).__name__}. Retrying in {wait_time}s...")
                         await asyncio.sleep(wait_time)
                     else:
-                        print(f"❌ Email failed after {max_retries} attempts: {e}")
+                        print(f"❌ Email failed after {max_retries} attempts: {type(e).__name__}")
             raise last_exception
         return wrapper
     return decorator
@@ -120,11 +120,11 @@ class EmailService:
                 server.login(self.sender_email, self.sender_password)
                 server.send_message(msg)
                 
-            print(f"✅ Email notification sent to {recipient_email}")
+            print(f"✅ Email notification sent for job {job_id}")
             return True
             
         except Exception as e:
-            print(f"❌ Failed to send email notification: {e}")
+            print(f"❌ Failed to send email notification: {type(e).__name__}")
             return False
     
     @retry_email(max_retries=3, delay=2)
@@ -192,11 +192,11 @@ class EmailService:
                 server.login(self.sender_email, self.sender_password)
                 server.send_message(msg)
                 
-            print(f"✅ Failure email notification sent to {recipient_email}")
+            print(f"✅ Failure email notification sent for job {job_id}")
             return True
             
         except Exception as e:
-            print(f"❌ Failed to send failure email notification: {e}")
+            print(f"❌ Failed to send failure email notification: {type(e).__name__}")
             return False
 
     def _send_message_blocking(self, msg) -> None:

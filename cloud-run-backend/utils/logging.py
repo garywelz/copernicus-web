@@ -1,9 +1,25 @@
 """Structured logging utility for Copernicus Podcast API"""
 
 import logging
+import re
 import sys
 import json
 from datetime import datetime
+
+_EMAIL_SHAPED = re.compile(r"[A-Za-z0-9._%+\-]+@[A-Za-z0-9\-]+(?:\.[A-Za-z0-9\-]+)+")
+ADDRESS_PLACEHOLDER = "[address removed]"
+
+
+def redact_addresses(value):
+    """Replace email-shaped text in a log value (strings, and strings nested in lists and dicts). A backstop: call sites
+    should pass subscriber ids, not addresses, and error types, not error text."""
+    if isinstance(value, str):
+        return _EMAIL_SHAPED.sub(ADDRESS_PLACEHOLDER, value)
+    if isinstance(value, dict):
+        return {redact_addresses(k): redact_addresses(v) for k, v in value.items()}
+    if isinstance(value, (list, tuple)):
+        return [redact_addresses(v) for v in value]
+    return value
 
 
 class StructuredLogger:
@@ -28,7 +44,7 @@ class StructuredLogger:
             "message": message,
             **kwargs
         }
-        self.logger.info(json.dumps(log_entry))
+        self.logger.info(json.dumps(redact_addresses(log_entry)))
     
     def info(self, message: str, **kwargs):
         self.log("info", message, **kwargs)
