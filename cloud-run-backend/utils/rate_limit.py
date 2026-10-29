@@ -62,15 +62,18 @@ def _check_and_increment(transaction, ref, now: datetime, window_seconds: int):
     return new_count
 
 
-def check_rate_limit(db, client_key: str, route: str, limit: int, window_seconds: int) -> None:
+def check_rate_limit(db, client_key: str, route: str, limit: int, window_seconds: int, fail_closed: bool = False) -> None:
     """Raises fastapi.HTTPException(429) if `client_key` has exceeded `limit`
     requests to `route` within the trailing `window_seconds`. Fails open
     (returns normally, no exception) on any Firestore error, including
-    `db` being None -- by design, see module docstring."""
+    `db` being None -- by design, see module docstring. With `fail_closed=True`
+    (credential-bearing routes) a Firestore error raises 503 instead."""
     from fastapi import HTTPException  # local import: keep this module
                                         # importable without a FastAPI app
 
     if not db:
+        if fail_closed:
+            raise HTTPException(status_code=503, detail="Service temporarily unavailable. Please try again later.")
         return
     try:
         ref = db.collection(RATE_LIMIT_COLLECTION).document(_bucket_doc_id(client_key, route))
@@ -79,6 +82,8 @@ def check_rate_limit(db, client_key: str, route: str, limit: int, window_seconds
         transactional = firestore.transactional(_check_and_increment)
         new_count = transactional(transaction, ref, now, window_seconds)
     except Exception:
+        if fail_closed:
+            raise HTTPException(status_code=503, detail="Service temporarily unavailable. Please try again later.")
         # Fail open.
         return
 
