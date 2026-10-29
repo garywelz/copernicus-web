@@ -1,7 +1,7 @@
 # Engine Onboarding — adding a Knowledge Engine to the suite
 
-*Canonical home: `copernicus-web/governance/ENGINE_ONBOARDING.md`. Version 0.3
-(2026-09-27). Distilled from TDAP, the suite's first engine shared with an outside
+*Canonical home: `copernicus-web/governance/ENGINE_ONBOARDING.md`. Version 0.4
+(2026-10-20; v0.3 was 2026-09-27). Distilled from TDAP, the suite's first engine shared with an outside
 researcher; each step records TDAP's status so this file doubles as TDAP's audit.
 §3 and §5 were decided by Gary on 2026-09-27 and bind every engine.*
 
@@ -70,6 +70,28 @@ silently changes another PI's rules:
 - **Who:** Gary, or an agent he directs, after the tagged commit is on `main`. Each tag
   gets a `governance/BULLETIN.md` entry saying what changed and whether federated
   engines need to act.
+
+## 3a. The standard first step: the Onboarding form — **Decided 2026-10-20 and 2026-10-29; the form is not yet built**
+
+A new engine starts with the **Engine Onboarding form** (design:
+`docs/design/ENGINE_ONBOARDING_FORM.md`), not with a thread of emails. The form is a
+reusable template that the engine's research owners fill in together on www.copernicusai.fyi:
+scope and use case, research questions (accept, reword, drop, split or add; central or
+background), keywords and horizons, seed papers, an optional review queue, an optional
+private bibliography upload (with a "not yet public" flag), and consent for attribution and
+privacy. It replaces the back-and-forth that Phase 1 and the first half of Phase 2 below
+otherwise run through.
+
+- **Two gates before anything changes.** The engine's final-say owner marks a section final;
+  Gary approves it. Nothing changes the engine until Gary approves.
+- **How an approved change arrives.** As an exported change bundle that Gary's agent turns into
+  a pull request on the engine repo, which Gary merges. The form never writes to GitHub, to
+  `research_focus.json`, or to `research_papers`; corpus work that follows (seed intake,
+  expansion, embedding) is done by Gary's agents as in Phase 3.
+- **Invariant 6 (§3)** is enforced by the form: an entry marked "not yet public" is kept in a
+  private store and cannot be written to a public repo or the corpus.
+- **Until the form exists,** Phase 1 and Phase 2 run as described in the checklist; TDAP is the
+  first instance and will be loaded from its own repo files, not retyped.
 
 ## 4. Checklist — Arrangement A (hosted)
 

@@ -1,7 +1,7 @@
 # Agent Roles and Division of Labor
 ## CopernicusAI Knowledge Engine suite — every engine, every agent
 
-**Version:** 2.8 — October 19, 2026
+**Version:** 2.9 — October 20, 2026 (adopted on merge of #139)
 **Lives in:** `copernicus-web` repo at `governance/AGENT_ROLES.md` (moved from
 `glmp/docs/AGENT_ROLES.md`; see change log)
 **Read alongside:** the rest of `governance/` — Constitution, Methods Catalog, Resource
@@ -158,9 +158,15 @@ is the shared context by construction.
    researcher-owned instruction file in the engine repo (`tdap/docs/project_instructions.md`)
    for their own Claude. Its readers are not suite agents: the lanes here don't bind
    them, and their private work never enters the suite's records. They contribute to
-   the shared engine only through issues and pull requests on its public repo, which
-   reach `main` through Gary's review. How engines are added, and how an engine's PI
-   adds local rules on top of this core, is in `governance/ENGINE_ONBOARDING.md`.
+   the shared engine through **two reviewed channels**: issues and pull requests on its
+   public repo, and — once Gary approves and builds it — the **Engine Onboarding form** on
+   www.copernicusai.fyi (`docs/design/ENGINE_ONBOARDING_FORM.md`). Both reach the engine
+   only through Gary's review. The form is a channel for *proposals*: its answers become
+   changes to an engine's files only when Gary approves them and his agents apply them
+   (as a pull request that Gary merges), and the form's service never writes to GitHub, to
+   an engine's `research_focus.json`, or to `research_papers`. How engines are added, and
+   how an engine's PI adds local rules on top of this core, is in
+   `governance/ENGINE_ONBOARDING.md`.
 7. **Only Gary's agents touch Core infrastructure** — Firestore, GCS, Cloud Run, the
    Jetson, and the HF Spaces. No collaborator's or other PI's agents do, in any
    arrangement; their work reaches Core only as a request that Gary's agents carry out.
@@ -491,11 +497,18 @@ silently.
 ---
 
 ## Change log
+- **v2.9** (2026-10-20) — Shared context contract point 6: the Engine Onboarding form is
+  recorded as a second reviewed channel for collaborators, alongside issues and pull
+  requests; changes are still applied only by Gary's agents after Gary's approval (point 7
+  unchanged). Adopted when #139 merged. The channel opens only when the form is built and
+  Gary enables it. Also records that rule 21 (v2.8)
+  was adopted when the PR that added it merged (`9203b0ed8`, 2026-10-20). See
+  `governance/BULLETIN.md` entry 028 and `docs/design/ENGINE_ONBOARDING_FORM.md`.
 - **v2.8** (2026-10-19) — Added session rule 21 (background scripts an agent leaves running
   may only observe and report; any step with a side effect runs attended, with its
   preconditions re-checked at that moment; a watcher must be able to report failure as well as
-  success). Proposed until Gary merges the PR that adds it. See `governance/BULLETIN.md`
-  entry 027.
+  success). Adopted when the PR that added it merged (`9203b0ed8`, 2026-10-20). See
+  `governance/BULLETIN.md` entry 027.
 - **v2.7** (2026-10-16) — Added session rules 19 (an agent merges only a PR Gary has named, and
   leaves a comment quoting the go-ahead; a regression is fixed by proposal, not by an unasked
   merge) and 20 (PR, issue and comment bodies go through `--body-file` or the API, never shell
