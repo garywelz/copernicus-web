@@ -1,6 +1,6 @@
 # Design: the Knowledge Engine Onboarding form
 
-**Status: PROPOSAL, with Gary's first decisions recorded (2026-10-20, §10a and §8.0). Nothing here is built or deployed, and the design as a whole is not yet approved for merge.** No code is in the pull request that carries this file; the first line of code is written only after Gary approves this design, and then as the separately reviewed pull requests in section 8; the build starts after his return from a week away, with PR 0.
+**Status: ADOPTED. The design was adopted by the merge of #139 (`4096ff4b4`), and every question is decided (§10a). Nothing is built yet. The build proceeds as the separately reviewed pull requests in section 8, starting with PR 0.**
 
 **Author:** Claude Code (Core lane), at Gary's request, 2026-10-20 · **Rules in force:** `governance/AGENT_ROLES.md` v2.8 (v2.9 is proposed alongside this file) · **First instance:** TDAP · **Read with:** `governance/ENGINE_ONBOARDING.md` (the engine checklist this form implements), `governance/AGENT_ROLES.md` § Shared context contract.
 
