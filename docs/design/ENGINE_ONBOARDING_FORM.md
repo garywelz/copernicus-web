@@ -14,7 +14,7 @@ People are named by role only in this file, because the file is public: the **ad
 
 **The proposal.** A reusable web form on www.copernicusai.fyi, signed in with the accounts that also let the owners make podcasts. Two research owners answer together, section by section, in a shared workspace. The advisor's "Mark final" makes a section final. Gary approves final sections in a review dashboard. **Nothing changes an engine until Gary approves.** Approved changes leave the system as a *change bundle* that Gary's agent turns into a pull request on the engine's repo, which Gary merges. The form never writes to GitHub, to `research_focus.json`, or to `research_papers`.
 
-**The shape: what Gary has decided** (recorded so a review can focus on what is still open; the 2026-10-20 decisions are collected in §10a):
+**The shape: what Gary has decided** (the 2026-10-20 and 2026-10-29 decisions are collected in §10a):
 
 | Decision | Where it lands |
 |---|---|
@@ -32,7 +32,7 @@ People are named by role only in this file, because the file is public: the **ad
 1. **Build the existing-features prerequisite before inviting anyone** (§7): owners must be able to open their own private episodes and publish them, and Gary must be able to raise a quota, before any owner is invited. This is PR 1 of v1.
 2. **v1 is five separately reviewed pull requests (PR 0 to PR 3 and a reduced PR 4) plus one end-to-end test: about 19 to 25 agent days including PR 0 (17 to 22 without it); v2 is about 5 to 6 more** (§8.2). Running cost stays under a dollar a month.
 
-**What is still open:** Q6 to Q12 and Q14 to Q17 in §10. Each carries a default that **stands unless Gary says otherwise**.
+**What is still open:** nothing. Q6 to Q12 and Q14 to Q17 were decided on 2026-10-29 (every default confirmed) and are recorded in §10a.
 
 ---
 
@@ -120,7 +120,7 @@ Asked once per person, before any other section accepts input:
 - **Contact details:** the form states that no email address is ever written to a public file. This is not a choice.
 - **Licence:** the engine repo's licence is currently CC0, mirrored from ATAP and GLMP as a default and not confirmed with the collaborator (`tdap/README.md`, Open items). The form asks the owners to confirm the licence or name another.
 - **Consent for third-party lookups:** that titles, identifiers and (for the author lookup) the owner's name are sent to public scholarly APIs (§5.5).
-- **Departure.** `ENGINE_ONBOARDING.md` §5 leaves open whether a departing PI receives a copy of their records. The form displays Gary's decision here once he makes one (Q9).
+- **Departure.** `ENGINE_ONBOARDING.md` §5 leaves open whether a departing PI receives a copy of their records. The form displays Gary's decision (Q9, decided 2026-10-29): the engine's records are kept in Gary's archives, and the owner may delete their own private bibliography at any time.
 - A person's consent record is itself a versioned, audited item (§4).
 
 ### 2.9 Engine-specific content, loaded at build time
@@ -366,7 +366,7 @@ Owners must be able to hear what they make, and Gary must be able to give them r
 ### 7.3 Quota: 10 a month each, raisable by Gary
 - The mechanism already exists and is atomic (`utils/generation_quota.py`): `monthly_quota` on the subscriber document. The **invitation sets `monthly_quota` (default 10) when it is accepted** (§3.1), so no separate data change is needed for the owners; the admin quota route below changes it later.
 - **Missing: any admin way to change it** (§1). New route `PUT /api/admin/subscribers/{subscriber_id}/quota` (admin key; integer 0..200 or `null` for unlimited; audited) and a control on `public/admin-subscribers.html`.
-- Two behaviours to decide in review, not assume: whether a *failed* generation consumes quota, and what the owner sees at 429 (Q6).
+- **Decided (Q6, 2026-10-29):** a failed generation does not count against the quota if it can be refunded safely, and the owner sees a plain "monthly limit reached" message at 429. PR 1 confirms the existing check's behaviour and reports it.
 
 ---
 
@@ -451,25 +451,13 @@ These are estimates from the size of comparable existing work (the access-contro
 - **Security findings.** Anything found while building goes to the private record first and reaches a public PR only after it is fixed (rule 17). This document says nothing more about any such finding.
 - **No credential for the engine repository** exists in the web backend or in this design (§5.2).
 - **Audit.** Append-only events for every state change, with actor, role, before and after hashes, and request ID; there is no route that edits or deletes an event.
-- **Retention and deletion.** An owner can delete their private bibliography entries at any time. What happens to an engine's records when a researcher leaves follows Gary's decision on `ENGINE_ONBOARDING.md` §5 (Q9).
+- **Retention and deletion.** An owner can delete their private bibliography entries at any time. What happens to an engine's records when a researcher leaves follows Gary's decision on `ENGINE_ONBOARDING.md` §5 (Q9, decided 2026-10-29): the records are kept in Gary's archives.
 
 ---
 
 ## 10. Open questions for Gary
 
-Q1 to Q5 and Q13 were decided on 2026-10-20 and are recorded in §10a. The rest stay open, **each with a default that stands unless Gary says otherwise**; the numbers are kept so earlier references still hold.
-
-6. **Does a failed generation consume quota, and what does an owner see at the limit?** (Behaviour of the existing quota check to confirm in PR 1.) **Default unless Gary says otherwise:** confirm the behaviour of the existing check in PR 1 and report it; a failed generation does not count against the quota if it can be refunded safely, and the owner sees a plain "monthly limit reached" message at 429.
-7. **Should "make public" also offer the feed?** I keep the feed separate and Gary-gated because it pushes the episode out to Spotify, Apple Podcasts and YouTube. **Default unless Gary says otherwise:** no; the feed stays a separate, Gary-gated step.
-8. **Notification email sender and wording**, and whether the invitation email should come from a named person or the site. **Default unless Gary says otherwise:** the invitation and notification emails come from the site's existing sender, signed by the site, not a named person; wording is plain and carries no research content.
-9. **Departure and retention** (`ENGINE_ONBOARDING.md` §5): when a researcher leaves, who keeps their records and for how long? The form's consent page needs one sentence from you. **Default unless Gary says otherwise:** the engine's records are kept in Gary's archives (the `ENGINE_ONBOARDING.md` §5 rule) and the owner may delete their own private bibliography at any time; the consent page says so.
-10. **Licence.** The repo is CC0 by default and unconfirmed. The form asks the owners; what is Gary's fallback if they choose another? **Default unless Gary says otherwise:** CC0 stays unless the owners choose another, in which case Gary decides before any file is changed.
-11. **Naming.** The existing public engine files already name individuals; the form's naming choice governs only *new* changes. Whether existing public references should be revisited with the owners is a separate conversation, and not for this build to decide. **Default unless Gary says otherwise:** the naming choice governs only new changes; existing public references are left to a separate conversation.
-12. **Who runs the TDAP loader and the bundle hand-off**: the Core agent each time, or a standing instruction? I recommend each time, attended (rule 21). **Default unless Gary says otherwise:** the Core agent runs both, each time, attended (rule 21).
-14. **Invitation defaults and who may create one.** Defaults proposed: `can_generate` true, `monthly_quota` 10, expiry 7 days; invitations created by Gary only (admin key). Confirm, or say which differ. **Default unless Gary says otherwise:** as proposed.
-15. **Owners who already have an ordinary account.** Accepting an invitation adds the permissions to it and never changes its password (§3.1). Is that right, or do you want such owners to register fresh? **Default unless Gary says otherwise:** an existing account is upgraded in place and its password is never changed.
-16. **Address normalisation.** New registrations would store the address trimmed and lower-cased, so one mailbox cannot become two accounts. Existing accounts keep their IDs. Comfortable with that change to registration? **Default unless Gary says otherwise:** as proposed.
-17. **Revoking an owner.** When an owner leaves, should revocation also clear `can_generate` and the quota on their account, or only remove the engine membership? **Default unless Gary says otherwise:** revocation also clears `can_generate` and the quota on that account and removes the engine membership; the account and its episodes stay.
+None. Every question is decided: Q1 to Q5 and Q13 on 2026-10-20 and Q6 to Q12 and Q14 to Q17 on 2026-10-29. All are recorded in §10a, and the numbers are kept so earlier references still hold.
 
 ## 10a. Decided 2026-10-20
 
@@ -487,6 +475,24 @@ Gary reviewed §0 and §10 with Claude Chat on 2026-10-20 and decided the follow
 | Q5 details | **Six delegation details.** (1) A delegate cannot delegate further. (2) A delegate must be another owner of the same engine. (3) The final-say holder keeps the power to mark final while a delegation is active. (4) An admin calling a final route gets 404. (5) The reminder email goes out 5 days after a section becomes ready. (6) Changing the final-say holder is an audited admin action for succession only. | §3.2, §4.5, §4.6, §5.7 |
 | Bundle | **The change-bundle route, option (ii).** Approved changes leave as an exported bundle that Gary's agent re-verifies and turns into a pull request; the web backend holds no repository write credential. | §0, §5.2, §5.3 |
 
+
+### Decided by Gary 2026-10-29 (defaults confirmed)
+
+On 2026-10-29, at 16:57 ET, Gary confirmed that every remaining default stands. Each decision below is worded as the default it confirms.
+
+| # | Decision | Where it lands |
+|---|---|---|
+| Q6 | **A failed generation does not count against the quota if it can be refunded safely; the owner sees a plain "monthly limit reached" message at 429.** PR 1 confirms the existing check's behaviour and reports it. | §7.3, §8.1 |
+| Q7 | **No. "Make public" does not offer the feed;** the feed stays a separate, Gary-gated step. | §7.2 |
+| Q8 | **Invitation and notification emails come from the site's existing sender, signed by the site, not a named person;** wording is plain and carries no research content. | §3.1, §4.6 |
+| Q9 | **The engine's records are kept in Gary's archives** (the `ENGINE_ONBOARDING.md` §5 rule), and the owner may delete their own private bibliography at any time; the consent page says so. | §2.8, §9 |
+| Q10 | **CC0 stays unless the owners choose another licence,** in which case Gary decides before any file is changed. | §2.8 |
+| Q11 | **The naming choice governs only new changes;** existing public references are left to a separate conversation. | §2.8 |
+| Q12 | **The Core agent runs both the TDAP loader and the bundle hand-off, each time, attended** (rule 21). | §2.9, §5.4 |
+| Q14 | **Invitation defaults as proposed:** `can_generate` true, `monthly_quota` 10, expiry 7 days; invitations are created by Gary only (admin key). | §3.1 |
+| Q15 | **An existing account is upgraded in place** and its password is never changed. | §3.1 |
+| Q16 | **New registrations store the address trimmed and lower-cased;** existing accounts keep their IDs. | §3.1, PR 2 |
+| Q17 | **Revocation also clears `can_generate` and the quota on that account and removes the engine membership;** the account and its episodes stay. | §3.2 |
 
 ---
 
