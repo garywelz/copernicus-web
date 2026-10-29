@@ -1,6 +1,6 @@
 # Engine Onboarding — adding a Knowledge Engine to the suite
 
-*Canonical home: `copernicus-web/governance/ENGINE_ONBOARDING.md`. Version 0.4 draft
+*Canonical home: `copernicus-web/governance/ENGINE_ONBOARDING.md`. Version 0.4
 (2026-10-20; v0.3 was 2026-09-27). Distilled from TDAP, the suite's first engine shared with an outside
 researcher; each step records TDAP's status so this file doubles as TDAP's audit.
 §3 and §5 were decided by Gary on 2026-09-27 and bind every engine.*
@@ -71,7 +71,7 @@ silently changes another PI's rules:
   gets a `governance/BULLETIN.md` entry saying what changed and whether federated
   engines need to act.
 
-## 3a. The standard first step: the Onboarding form — **proposed 2026-10-20, pending Gary's approval of the design**
+## 3a. The standard first step: the Onboarding form — **Decided 2026-10-20 and 2026-10-29; the form is not yet built**
 
 A new engine starts with the **Engine Onboarding form** (design:
 `docs/design/ENGINE_ONBOARDING_FORM.md`), not with a thread of emails. The form is a

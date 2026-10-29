@@ -1,7 +1,7 @@
 # Agent Roles and Division of Labor
 ## CopernicusAI Knowledge Engine suite — every engine, every agent
 
-**Version:** 2.9 — October 20, 2026 (DRAFT until Gary merges the PR that adds it)
+**Version:** 2.9 — October 20, 2026 (adopted on merge of #139)
 **Lives in:** `copernicus-web` repo at `governance/AGENT_ROLES.md` (moved from
 `glmp/docs/AGENT_ROLES.md`; see change log)
 **Read alongside:** the rest of `governance/` — Constitution, Methods Catalog, Resource
@@ -500,8 +500,8 @@ silently.
 - **v2.9** (2026-10-20) — Shared context contract point 6: the Engine Onboarding form is
   recorded as a second reviewed channel for collaborators, alongside issues and pull
   requests; changes are still applied only by Gary's agents after Gary's approval (point 7
-  unchanged). Proposed until Gary merges the PR that adds it, and the channel is not open
-  until Gary approves the design and the form is built. Also records that rule 21 (v2.8)
+  unchanged). Adopted when #139 merged. The channel opens only when the form is built and
+  Gary enables it. Also records that rule 21 (v2.8)
   was adopted when the PR that added it merged (`9203b0ed8`, 2026-10-20). See
   `governance/BULLETIN.md` entry 028 and `docs/design/ENGINE_ONBOARDING_FORM.md`.
 - **v2.8** (2026-10-19) — Added session rule 21 (background scripts an agent leaves running
