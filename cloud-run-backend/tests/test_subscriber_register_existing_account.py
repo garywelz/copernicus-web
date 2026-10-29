@@ -1,5 +1,5 @@
-"""POST /api/subscribers/password-reset is disabled for every caller (403), and POST /api/subscribers/register never modifies an
-existing account (409). In both cases an existing account's password hash must be unchanged afterwards."""
+"""POST /api/subscribers/register never modifies an existing account (409): the account's fields, including its password
+hash, are unchanged afterwards. (The password-reset route is covered in test_credential_tokens.py.)"""
 from unittest.mock import patch, MagicMock
 from fastapi import FastAPI
 from fastapi.testclient import TestClient
@@ -81,48 +81,6 @@ def _db_with_existing(legacy_id=False):
 def _call(fake, path, **kw):
     with patch.object(routes, 'db', fake), patch.object(subscriber_helpers, 'db', fake):
         return client.post(path, **kw)
-
-
-# --- password-reset ---------------------------------------------------------------------------------------
-
-def test_password_reset_is_403_for_an_existing_account_and_changes_nothing():
-    fake, doc_id = _db_with_existing()
-    before = fake.docs[doc_id]['password_hash']
-    r = _call(fake, "/api/subscribers/password-reset", json={"email": EMAIL, "new_password": "attacker-chosen-1"})
-    assert r.status_code == 403
-    assert r.json()["detail"] == "Password reset is temporarily unavailable; contact the administrator"
-    assert fake.docs[doc_id]['password_hash'] == before
-    assert fake.writes == []
-
-
-def test_password_reset_is_403_for_unknown_email_empty_and_malformed_bodies():
-    fake, doc_id = _db_with_existing()
-    before = dict(fake.docs[doc_id])
-    for kw in ({"json": {"email": "nobody@example.invalid", "new_password": "x"}},
-               {"json": {}},
-               {"content": "not json at all", "headers": {"content-type": "application/json"}},
-               {}):
-        r = _call(fake, "/api/subscribers/password-reset", **kw)
-        assert r.status_code == 403, kw
-    assert fake.docs[doc_id] == before
-    assert fake.writes == []
-
-
-def test_password_reset_makes_no_database_call_at_all():
-    spy = MagicMock()
-    r = _call(spy, "/api/subscribers/password-reset", json={"email": EMAIL, "new_password": "x"})
-    assert r.status_code == 403
-    assert spy.mock_calls == []
-
-
-def test_old_password_still_logs_in_after_an_attempted_reset():
-    fake, doc_id = _db_with_existing()
-    _call(fake, "/api/subscribers/password-reset", json={"email": EMAIL, "new_password": "attacker-chosen-1"})
-    with patch.object(routes, 'check_rate_limit', return_value=None):
-        ok = _call(fake, "/api/subscribers/login", json={"email": EMAIL, "password": OLD_PASSWORD})
-        bad = _call(fake, "/api/subscribers/login", json={"email": EMAIL, "password": "attacker-chosen-1"})
-    assert ok.status_code == 200
-    assert bad.status_code == 401
 
 
 # --- register -----------------------------------------------------------------------------------------------

@@ -2,6 +2,7 @@ import smtplib
 import ssl
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+from email.utils import formataddr
 from typing import Optional
 import os
 import asyncio
@@ -196,4 +197,46 @@ class EmailService:
             
         except Exception as e:
             print(f"❌ Failed to send failure email notification: {e}")
+            return False
+
+    def _send_message_blocking(self, msg) -> None:
+        context = ssl.create_default_context()
+        with smtplib.SMTP(self.smtp_server, self.smtp_port) as server:
+            server.starttls(context=context)
+            server.login(self.sender_email, self.sender_password)
+            server.send_message(msg)
+
+    async def send_credential_link_email(self, recipient_email: str, link: str, valid_minutes: int) -> bool:
+        """Email a single-use link that proves control of the mailbox (password reset). Plain wording, no research
+        content, signed by the site. Nothing here writes the recipient address or the link to any log or to stdout."""
+        if not self.sender_password:
+            print("Email password not configured. Credential email not sent.")
+            return False
+        try:
+            msg = MIMEMultipart("alternative")
+            msg['From'] = formataddr(("CopernicusAI", self.sender_email))
+            msg['To'] = recipient_email
+            msg['Subject'] = "Reset your CopernicusAI password"
+            text = (
+                "Someone asked to reset the password for the CopernicusAI account at this address.\n\n"
+                f"To choose a new password, open this link. It works once and expires in {valid_minutes} minutes:\n\n"
+                f"{link}\n\n"
+                "If you did not ask for this, ignore this email; your password has not changed.\n\n"
+                "CopernicusAI\n"
+            )
+            html = (
+                '<html><body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">'
+                '<div style="max-width: 560px; margin: 0 auto; padding: 20px;">'
+                '<p>Someone asked to reset the password for the CopernicusAI account at this address.</p>'
+                f'<p>To choose a new password, open this link. It works once and expires in {valid_minutes} minutes:</p>'
+                f'<p><a href="{link}">{link}</a></p>'
+                '<p>If you did not ask for this, ignore this email; your password has not changed.</p>'
+                '<p>CopernicusAI</p></div></body></html>'
+            )
+            msg.attach(MIMEText(text, 'plain'))
+            msg.attach(MIMEText(html, 'html'))
+            await asyncio.to_thread(self._send_message_blocking, msg)
+            return True
+        except Exception as e:
+            print(f"Credential email failed: {type(e).__name__}")
             return False

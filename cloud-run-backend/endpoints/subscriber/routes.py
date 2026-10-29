@@ -1,6 +1,6 @@
 """Subscriber management endpoints"""
 
-from fastapi import APIRouter, HTTPException, Depends, Header, Request
+from fastapi import APIRouter, BackgroundTasks, HTTPException, Depends, Header, Request
 from datetime import datetime
 from typing import Optional
 from google.api_core.exceptions import AlreadyExists
@@ -13,6 +13,15 @@ from utils.auth import (
 )
 from utils.generation_quota import current_month_key
 from utils.rate_limit import check_rate_limit, last_forwarded_ip
+from utils.credential_tokens import (
+    PASSWORD_MAX_LENGTH,
+    PASSWORD_MIN_LENGTH,
+    PASSWORD_RESET_PAGE_URL,
+    PURPOSE_PASSWORD_RESET,
+    PURPOSE_TTL_MINUTES,
+    issue_token,
+    redeem_password_token,
+)
 from utils.subscriber_helpers import (
     generate_subscriber_id,
     get_subscriber_by_email,
@@ -25,6 +34,7 @@ from config.database import db
 from config.constants import EPISODE_COLLECTION_NAME
 import asyncio
 import media_store
+from email_service import EmailService
 from models.subscriber import (
     SubscriberRegistration,
     SubscriberLogin,
@@ -41,7 +51,14 @@ router = APIRouter()
 LOGIN_RATE_LIMIT_PER_HOUR = 10
 
 SUBSCRIBER_EXISTS_DETAIL = "An account with this email already exists. Sign in instead."
-PASSWORD_RESET_UNAVAILABLE_DETAIL = "Password reset is temporarily unavailable; contact the administrator"
+RESET_REQUEST_LIMIT_PER_IP_PER_HOUR = 10
+RESET_REQUEST_LIMIT_PER_ADDRESS_PER_HOUR = 3
+RESET_REDEEM_LIMIT_PER_IP_PER_HOUR = 10
+PASSWORD_RESET_REQUEST_MESSAGE = f"If the address belongs to an account, we have emailed a link to it. The link works once and expires in {PURPOSE_TTL_MINUTES[PURPOSE_PASSWORD_RESET]} minutes."
+PASSWORD_RESET_TOKEN_INVALID_DETAIL = "This link is invalid or has expired. Request a new one."
+PASSWORD_LENGTH_DETAIL = f"Password must be {PASSWORD_MIN_LENGTH} to {PASSWORD_MAX_LENGTH} characters."
+
+email_service = EmailService()
 
 
 @router.post("/api/subscribers/register")
@@ -671,41 +688,64 @@ async def submit_podcast_to_rss(
         raise HTTPException(status_code=500, detail="Failed to submit podcast to RSS")
 
 
-@router.post("/api/subscribers/password-reset-request")
-async def request_password_reset(reset_request: PasswordResetRequest):
-    """Request a password reset for a subscriber"""
-    if not db:
-        raise HTTPException(status_code=503, detail="Firestore service is unavailable")
-    
-    subscriber_id = generate_subscriber_id(reset_request.email)
-    
+async def _send_password_reset_link(email: str):
+    """Runs after the response is sent, so the caller sees the same answer and timing whether or not the address has an
+    account. Writes no address and no token to any log."""
     try:
-        subscriber_doc = db.collection('subscribers').document(subscriber_id).get()
-        if not subscriber_doc.exists:
-            # Don't reveal if email exists or not for security
-            return {"message": "If the email exists, a password reset link has been sent"}
-        
-        subscriber_data = subscriber_doc.to_dict()
-        
-        # For now, just return success - in production, send email
-        structured_logger.info("Password reset requested",
-                              email=reset_request.email,
-                              subscriber_id=subscriber_id)
-        
-        return {"message": "If the email exists, a password reset link has been sent"}
-        
+        email = (email or "").strip()
+        if not email or len(email) > 254:
+            return
+        try:
+            check_rate_limit(db, email.lower(), "password_reset_request_address",
+                             limit=RESET_REQUEST_LIMIT_PER_ADDRESS_PER_HOUR, window_seconds=3600, fail_closed=True)
+        except HTTPException:
+            return  # over the per-address limit (or the limiter is down): send nothing, say nothing
+        subscriber_doc = None
+        for candidate in dict.fromkeys([email, email.lower()]):
+            subscriber_doc = get_subscriber_by_email(candidate)
+            if subscriber_doc:
+                break
+        if not subscriber_doc:
+            return
+        stored_address = (subscriber_doc.to_dict() or {}).get('email')
+        if not stored_address:
+            return
+        raw_token = issue_token(db, subscriber_doc.id, PURPOSE_PASSWORD_RESET)
+        await email_service.send_credential_link_email(
+            stored_address, f"{PASSWORD_RESET_PAGE_URL}#token={raw_token}", PURPOSE_TTL_MINUTES[PURPOSE_PASSWORD_RESET])
     except Exception as e:
-        structured_logger.error("Error processing password reset request",
-                               email=reset_request.email,
-                               error=str(e))
-        raise HTTPException(status_code=500, detail="Failed to process password reset request")
+        structured_logger.error("Password reset request could not be completed", error_type=type(e).__name__)
+
+
+@router.post("/api/subscribers/password-reset-request")
+async def request_password_reset(reset_request: PasswordResetRequest, request: Request, background_tasks: BackgroundTasks):
+    """Email a single-use, expiring link to the address on an account. The answer is identical for every address."""
+    client_ip = last_forwarded_ip(request.headers.get("x-forwarded-for"))
+    check_rate_limit(db, client_ip, "password_reset_request", limit=RESET_REQUEST_LIMIT_PER_IP_PER_HOUR,
+                     window_seconds=3600, fail_closed=True)
+    background_tasks.add_task(_send_password_reset_link, reset_request.email)
+    return {"message": PASSWORD_RESET_REQUEST_MESSAGE}
 
 
 @router.post("/api/subscribers/password-reset")
-async def reset_password(request: Request):
-    """Disabled for every caller until a single-use emailed token flow replaces it. It changes nothing and reads nothing:
-    no request body is parsed and there is no database access."""
-    raise HTTPException(status_code=403, detail=PASSWORD_RESET_UNAVAILABLE_DETAIL)
+async def reset_password(reset: PasswordReset, request: Request):
+    """Set a new password with the single-use token from the emailed link. The token alone identifies the account; the
+    request carries no address. An unknown, used or expired token gets one and the same refusal."""
+    client_ip = last_forwarded_ip(request.headers.get("x-forwarded-for"))
+    check_rate_limit(db, client_ip, "password_reset_redeem", limit=RESET_REDEEM_LIMIT_PER_IP_PER_HOUR,
+                     window_seconds=3600, fail_closed=True)
+    if not (PASSWORD_MIN_LENGTH <= len(reset.new_password) <= PASSWORD_MAX_LENGTH):
+        raise HTTPException(status_code=400, detail=PASSWORD_LENGTH_DETAIL)  # the token is not spent
+    if not db:
+        raise HTTPException(status_code=503, detail="Firestore service is unavailable")
+    try:
+        subscriber_id = redeem_password_token(db, reset.token, hash_password(reset.new_password))
+    except Exception as e:
+        structured_logger.error("Password reset could not be completed", error_type=type(e).__name__)
+        raise HTTPException(status_code=500, detail="Failed to reset password")
+    if not subscriber_id:
+        raise HTTPException(status_code=400, detail=PASSWORD_RESET_TOKEN_INVALID_DETAIL)
+    return {"message": "Password updated. You can now sign in."}
 
 
 @router.delete("/api/subscribers/podcasts/{podcast_id}")

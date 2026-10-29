@@ -212,16 +212,13 @@
         <div id="passwordResetModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000;">
             <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 30px; border-radius: 10px; width: 90%; max-width: 400px;">
                 <h3 style="margin-bottom: 20px; color: #333;">Reset Password</h3>
+                <p style="color: #666; margin-bottom: 15px;">Enter the email address on your account. If it has one, we will email you a link to choose a new password. The link works once and expires in 30 minutes.</p>
                 <form id="passwordResetForm">
                     <div class="form-group">
                         <label for="resetEmail">Email Address</label>
                         <input type="email" id="resetEmail" name="email" required>
                     </div>
-                    <div class="form-group">
-                        <label for="newPassword">New Password</label>
-                        <input type="password" id="newPassword" name="new_password" required>
-                    </div>
-                    <button type="submit" class="btn" id="resetBtn">Reset Password</button>
+                    <button type="submit" class="btn" id="resetBtn">Email me a link</button>
                     <button type="button" onclick="hidePasswordReset()" class="btn btn-secondary" style="margin-left: 10px;">Cancel</button>
                 </form>
             </div>
@@ -345,12 +342,11 @@
             
             const formData = new FormData(e.target);
             const resetData = {
-                email: formData.get('email'),
-                new_password: formData.get('new_password')
+                email: formData.get('email')
             };
             
             try {
-                const response = await fetch(`${API_BASE}/api/subscribers/password-reset`, {
+                const response = await fetch(`${API_BASE}/api/subscribers/password-reset-request`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -361,10 +357,10 @@
                 const result = await response.json();
                 
                 if (response.ok) {
-                    showMessage('Password reset successfully! You can now log in with your new password.', 'success');
+                    showMessage(result.message || 'If the address belongs to an account, we have emailed a link to it.', 'success');
                     hidePasswordReset();
                 } else {
-                    showMessage(result.detail || 'Password reset failed. Please try again.', 'error');
+                    showMessage(result.detail || 'The request failed. Please try again.', 'error');
                 }
             } catch (error) {
                 console.error('Password reset error:', error);

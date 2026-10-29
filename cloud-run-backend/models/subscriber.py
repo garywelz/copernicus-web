@@ -28,7 +28,7 @@ class PasswordResetRequest(BaseModel):
 
 
 class PasswordReset(BaseModel):
-    email: str
+    token: str
     new_password: str
 
 
