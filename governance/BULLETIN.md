@@ -25,6 +25,27 @@ Entry format:
 
 ---
 
+## 029 — 2026-10-29 — Engine Onboarding design adopted (#139); AGENT_ROLES v2.9 and ENGINE_ONBOARDING v0.4 in force; all design questions decided; the Vercel miss on #141 did not repeat
+
+- **From:** Claude Code (Core lane), at Gary's request
+- **Status:** DRAFT until Gary merges the PR that adds this entry. The design is adopted; **the form itself is not built, and the collaborator channel it describes is closed until the form is built and Gary enables it.**
+- **Record:** the pull request that adds this entry; copernicus-web [#139](https://github.com/garywelz/copernicus-web/pull/139) (merge `4096ff4b4`, merged 2026-10-29 at head `669e78965`); `docs/design/ENGINE_ONBOARDING_FORM.md` (its §10a records every decision); [#141](https://github.com/garywelz/copernicus-web/pull/141) (merge `a54a337b9`); [#140](https://github.com/garywelz/copernicus-web/pull/140) (merge `54226c9f9`).
+- **Affects:** every agent (the v2.9 contract change); Core (PR 0 and the rest of the build, when Gary says); Gary; the research owners of TDAP and every future engine
+- **Corrects:** entry 028's Status line still reads "DRAFT … The Engine Onboarding form is a proposal". #139 is merged, so the design is **adopted**, and the form is still unbuilt. Entry 028's Summary line on the form, and its "Waiting on" list, also describe questions as open that Gary has since decided (below). Entry 028's wording "accounts by invitation on the existing allow-list" is **superseded**: permissions travel with the invitation (design §3.1), and the research owners are not on any allow-list.
+- **Summary:**
+  - **Adopted by the #139 merge (`4096ff4b4`):**
+    - `AGENT_ROLES.md` **v2.9**: shared context contract point 6 records the Engine Onboarding form as a second reviewed channel for collaborators, beside issues and pull requests. Changes are still applied only by Gary's agents after Gary's approval (point 7 unchanged). **The channel opens only when the form is built and Gary enables it.** The v2.8 change log is also corrected: rule 21 is recorded as adopted.
+    - `ENGINE_ONBOARDING.md` **v0.4**: new §3a makes the form the standard first step for a new engine ("Decided 2026-10-20 and 2026-10-29; the form is not yet built").
+    - `docs/design/ENGINE_ONBOARDING_FORM.md`: the design, with nothing left open.
+  - **Every design question is decided.** On 2026-10-20: Q1 to Q5 and Q13, the v1/v2 split, the six delegation details and the change-bundle route (option ii). On 2026-10-29, at 16:57 ET: Gary confirmed that every remaining default stands (Q6 to Q12 and Q14 to Q17). All are in design §10a.
+  - **The build has not started.** v1 is PR 0 to PR 3 and a reduced PR 4, plus an end-to-end test (about 19 to 25 agent days including PR 0). PR 0, the replacement for the disabled password-reset route (single-use, expiring emailed tokens), is the first step and starts only when Gary says so.
+  - **Vercel check on this merge.** Entry 028's follow-up on #141 asked whether production deploys of `main` work again. Gary's 2026-10-20 check of the deployments page found no deployment for the #141 merge `a54a337`, while previews before and after it built, so the GitHub event for that merge did not reach Vercel. Core observed no deployment or status on `a54a337b9` and `/api/version` staying on `54226c9f9`. **For #139 the miss did not repeat:** GitHub showed a Vercel production deployment and a `success` status on `4096ff4b4`, and `/api/version` on www.copernicusai.fyi returned that commit, within about a minute. Both episode pages (`ever-math-260010`, `ever-bio-250034`) returned 200, and the Cloud Run service was still on revision `copernicus-podcast-api-00318-puq` (as expected; a merge does not touch it). The cause of the earlier miss remains **unknown**. #141 changed bulletin text only, so the public site was unaffected, and its content is now live through the #139 deploy.
+  - **#140 is unchanged and live** (revision `00318-puq`; the previous revision `00314-bip` is kept for rollback); this entry says nothing further about it.
+- **Waiting on:**
+  - **Gary:** name this PR for merge; say when PR 0 should start; look into why the #141 merge produced no Vercel deployment, if the cause matters to him.
+  - **Core:** PR 0, then PR 1 to PR 4, each separately reviewed and gated; nothing starts before Gary says so.
+  - **GLMP lane and Methods & Tools:** nobody.
+
 ## 028 — 2026-10-20 — Rule 21 adopted; Space accuracy pass live; subscriber auth tightened; #135 and glmp#24 verified; domains consolidated; onboarding design proposed
 
 - **From:** Claude Code (Core lane), at Gary's request
