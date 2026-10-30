@@ -45,18 +45,19 @@ class Ref:
 
 class FakeDB:
     def __init__(self):
-        self.store = {}
+        self.store = {}          # curated_source_lists
+        self.other = {}          # every other collection, by name (podcast_jobs)
 
     def collection(self, name):
-        assert name == routes.COLLECTION
         db = self
+        store = db.store if name == routes.COLLECTION else db.other.setdefault(name, {})
 
         class Col:
             def document(self_c, doc_id):
-                return Ref(db.store, doc_id)
+                return Ref(store, doc_id)
 
             def stream(self_c):
-                return [type("D", (), {"to_dict": lambda s, d=d: d})() for d in db.store.values()]
+                return [type("D", (), {"to_dict": lambda s, d=d: d})() for d in store.values()]
         return Col()
 
     def transaction(self):
@@ -115,7 +116,7 @@ def add(list_id, canned, raws_to_items):
 # --- admin key on every route ---------------------------------------------------------------------------------------------------------
 def test_every_route_on_the_router_needs_the_admin_key():
     routes_ = [r for r in router.routes if hasattr(r, "methods")]
-    assert len(routes_) == 7
+    assert len(routes_) == 8
     with patch.object(auth, "get_admin_api_key", return_value="test-key"), patch.object(routes, "db", FakeDB()):
         for r in routes_:
             path = r.path.replace("{list_id}", "L").replace("{item_id}", "I")
@@ -335,3 +336,88 @@ def test_pasted_text_is_not_written_to_the_log(env):
     with patch.object(routes, "structured_logger") as log:
         add(lid, canned, {"https://example.org/very-private-looking-link": [refused("https://example.org/very-private-looking-link")]})
     assert "very-private-looking-link" not in repr(log.mock_calls)
+
+
+# --- generating one private episode from an approved list ---------------------------------------------------------------------------------
+from endpoints.curated.routes import GenerateCuratedEpisode  # noqa: E402
+import curated_mode  # noqa: E402
+
+
+class FakeService:
+    def __init__(self, db_, fail=None):
+        self.calls, self.db, self.fail = [], db_, fail
+
+    async def run_curated_generation_job(self, job_id, list_doc, request, subscriber_id=None):
+        self.calls.append({"job_id": job_id, "list_id": list_doc["list_id"], "topic": request.topic, "category": request.category,
+                           "duration": request.duration, "subscriber_id": subscriber_id})
+        job = self.db.other["podcast_jobs"][job_id]
+        job.update({"status": self.fail or "completed", "error_type": "curated_check_failed" if self.fail else None,
+                    "curated_run": {"mode": "curated_sources", "published": False}})
+        self.db.other["podcast_jobs"][job_id] = job
+
+
+def approved_list(fake, canned):
+    lid = ready_list(canned)
+    assert client.post(f"/api/admin/curated/lists/{lid}/approve", headers=KEY).status_code == 200
+    return lid
+
+
+@pytest.fixture
+def gen_env(env):
+    fake, canned = env
+    service = FakeService(fake)
+    with patch.object(routes, "_get_service", return_value=service), patch.object(routes, "resolve_generation_subscriber_id", return_value="admin-id"):
+        yield fake, canned, service
+
+
+def generate(lid, **body):
+    return client.post("/api/admin/curated/generate", json={"list_id": lid, **body}, headers=KEY)
+
+
+def test_generation_makes_one_private_job_from_an_approved_list_and_publishes_nothing(gen_env):
+    fake, canned, service = gen_env
+    lid = approved_list(fake, canned)
+    fake.store[lid]["topic"] = "OpenAI mathematics release"
+    r = generate(lid, duration="15-20 minutes")
+    assert r.status_code == 200 and r.json()["published"] is False and r.json()["status"] == "completed"
+    jid = r.json()["job_id"]
+    job = fake.other["podcast_jobs"][jid]
+    assert job["submitted_to_rss"] is False and job["mode"] == "curated_sources" and job["curated_list_id"] == lid and job["subscriber_id"] == "admin-id"
+    assert service.calls == [{"job_id": jid, "list_id": lid, "topic": "OpenAI mathematics release", "category": "Mathematics",
+                              "duration": "15-20 minutes", "subscriber_id": "admin-id"}]
+    assert fake.store[lid]["jobs"] == [jid]
+
+
+def test_generation_refuses_a_list_that_is_not_approved_or_has_changed_before_any_job_exists(gen_env):
+    fake, canned, service = gen_env
+    draft = new_list()
+    r = generate(draft)
+    assert r.status_code == 409 and "not approved" in r.json()["detail"]
+    lid = approved_list(fake, canned)
+    fake.store[lid]["items"][0]["title"] = "edited after approval"
+    r = generate(lid)
+    assert r.status_code == 409 and "no longer matches" in r.json()["detail"]
+    assert service.calls == [] and fake.other.get("podcast_jobs", {}) == {}
+
+
+def test_generation_for_an_unknown_list_or_without_a_service(gen_env):
+    fake, canned, service = gen_env
+    assert generate("nope").status_code == 404
+    lid = approved_list(fake, canned)
+    with patch.object(routes, "_get_service", return_value=None):
+        assert generate(lid).status_code == 503
+    assert fake.other.get("podcast_jobs", {}) == {}
+
+
+def test_a_failed_generation_is_reported_with_its_error_type_and_still_not_published(gen_env):
+    fake, canned, service = gen_env
+    lid = approved_list(fake, canned)
+    service.fail = "failed"
+    r = generate(lid)
+    assert r.status_code == 200 and r.json()["status"] == "failed" and r.json()["error_type"] == "curated_check_failed" and r.json()["published"] is False
+
+
+def test_the_request_is_bounded(gen_env):
+    assert client.post("/api/admin/curated/generate", json={}, headers=KEY).status_code == 422
+    assert client.post("/api/admin/curated/generate", json={"list_id": ""}, headers=KEY).status_code == 422
+    assert client.post("/api/admin/curated/generate", json={"list_id": "x", "duration": "x" * 41}, headers=KEY).status_code == 422

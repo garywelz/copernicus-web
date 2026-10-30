@@ -1,7 +1,8 @@
 """Curated source lists: create, fill, confirm, strike, override a class, approve and freeze (admin only).
 
 Design: docs/design/CURATED_SOURCES_MODE.md §3. Every route here requires the admin key header (one dependency on the router, so no
-route can be added without it). Nothing here generates anything: an approved list is the input a later build step reads.
+route can be added without it). The one route that generates (`/generate`) makes a PRIVATE episode from an approved list; nothing here
+publishes anything.
 
 Confirmation (network) happens before the list is touched; the list is then changed in one Firestore transaction, so a failed
 confirmation leaves the list exactly as it was and two simultaneous edits cannot overwrite each other.
@@ -14,13 +15,16 @@ import uuid
 from fastapi import APIRouter, Depends, HTTPException
 from google.cloud import firestore
 
+import curated_mode
 import curated_sources as cs
 import openai_math_index as omi
 import paper_confirmation as pc
 from config.database import db
-from models.curated import AddSourceItems, CreateSourceList, OverrideItemClass
+from models.curated import AddSourceItems, CreateSourceList, GenerateCuratedEpisode, OverrideItemClass
+from models.podcast import PodcastRequest
 from utils.auth import verify_admin_api_key
 from utils.logging import structured_logger
+from utils.subscriber_helpers import resolve_generation_subscriber_id
 
 router = APIRouter(dependencies=[Depends(verify_admin_api_key)])
 
@@ -207,3 +211,45 @@ async def approve_list(list_id: str):
     result = _mutate(list_id, apply)
     structured_logger.info("Curated source list approved", list_id=list_id, list_hash=result["list_hash"])
     return result
+
+
+def _get_service():
+    """The podcast generation service, initialised in main.py before the routers are registered."""
+    import sys
+    main_module = sys.modules.get('main')
+    return getattr(main_module, 'podcast_generation_service', None) if main_module else None
+
+
+@router.post("/api/admin/curated/generate")
+async def generate_episode(body: GenerateCuratedEpisode):
+    """Generate ONE private episode from an approved, frozen source list. The list is checked before any job exists: it must be approved,
+    still match its hash, have at least three confirmed non-commentary sources and fit one episode. The episode is never published here
+    (``submitted_to_rss`` is False and its media stay in the private bucket); publishing is a separate, gated step."""
+    _require_db()
+    snap = db.collection(COLLECTION).document(body.list_id).get()
+    if not snap.exists:
+        raise HTTPException(status_code=404, detail="No such source list")
+    doc = snap.to_dict() or {}
+    try:
+        run = curated_mode.CuratedRun.from_list_doc(doc, topic=body.topic)
+    except curated_mode.CuratedListError as e:
+        raise HTTPException(status_code=409, detail=str(e))
+    service = _get_service()
+    if service is None:
+        raise HTTPException(status_code=503, detail="Podcast generation service is not available")
+
+    job_id = str(uuid.uuid4())
+    subscriber_id = resolve_generation_subscriber_id(None)       # the administrator's account, as for the other admin generation
+    request = PodcastRequest(topic=run.topic, category=body.category, duration=body.duration, expertise_level=body.expertise_level,
+                             format_type=body.format_type, host_voice_id=body.host_voice_id, expert_voice_id=body.expert_voice_id)
+    db.collection('podcast_jobs').document(job_id).set({
+        'job_id': job_id, 'status': 'pending', 'created_at': _now(), 'updated_at': _now(), 'request': request.model_dump(),
+        'subscriber_id': subscriber_id, 'submitted_to_rss': False, 'mode': 'curated_sources',
+        'curated_list_id': run.list_id, 'curated_list_hash': run.list_hash})
+    _mutate(body.list_id, lambda d: d.setdefault("jobs", []).append(job_id))
+    structured_logger.info("Curated generation started", job_id=job_id, list_id=run.list_id)
+    await service.run_curated_generation_job(job_id, doc, request, subscriber_id=subscriber_id)
+    job = db.collection('podcast_jobs').document(job_id).get()
+    data = (job.to_dict() or {}) if job.exists else {}
+    return {"job_id": job_id, "status": data.get("status"), "error_type": data.get("error_type"), "published": False,
+            "curated_run": data.get("curated_run")}

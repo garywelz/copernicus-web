@@ -50,3 +50,9 @@ def transient_item(attempt: int, stage: str, error: Exception) -> Dict[str, Any]
     if raw:
         item["raw_head"] = str(raw)[:300]       # what the model actually answered when its answer could not be read
     return item
+
+
+def curated_items(attempt: int, violations: Sequence[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    """Curated-sources checks (status wording, verbatim runs, spoken names, class labels): the whole sentence or run is kept."""
+    return [{"attempt": attempt, "check": v.get("check"), "kind": v.get("kind"), "sentence": v.get("sentence"), "quote": v.get("quote"),
+             "term": v.get("term"), "result": v.get("result"), "words": v.get("words"), "matched": v.get("matched")} for v in violations]

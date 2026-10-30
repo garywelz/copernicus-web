@@ -26,6 +26,8 @@ from paper_processor import process_paper, ResearchPaper, AnalyzeOptions, PaperA
 from copernicus_character import get_copernicus_character, get_character_prompt
 from elevenlabs_voice_service import ElevenLabsVoiceService
 from tts_usage import TtsUsage
+import curated_checks as _cc
+import curated_mode as _curated
 from email_service import EmailService
 from content_fixes import (
     apply_content_fixes,
@@ -1131,6 +1133,9 @@ Say that journal name in dialogue. Never say "published in PubMed" or "published
             # Gap 3 fix 1 (C5): the previous attempt named works that are not on the confirmed list.
             additional_instructions += naming_feedback
 
+        curated = getattr(research_context, "curated", None)
+        if curated is not None:
+            additional_instructions += curated.prompt_block()
         prompt = research_integrator.build_2_speaker_research_prompt(
             research_context=research_context,
             duration=request.duration,
@@ -1139,6 +1144,7 @@ Say that journal name in dialogue. Never say "published in PubMed" or "published
             host_voice_id=request.host_voice_id,
             expert_voice_id=request.expert_voice_id,
             source_paper_citation=source_citation,
+            neutral_labels=curated is not None,
         )
         
         structured_logger.debug("Sending prompt to LLM",
@@ -1897,12 +1903,16 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
         # Gap 3 fix 1 (C6): References and Further reading are built by code from the confirmed papers. Any
         # reference section the model wrote anyway is removed first; the two legacy fallbacks that rebuilt
         # references from model text or from the first five sources are gone.
-        content['description'] = apply_reference_sections(
-            content['description'], research_context.confirmed_papers, naming_result.named_pids, research_context.requested_pid)
+        if getattr(research_context, 'curated', None) is not None:
+            content['description'] = _curated.apply_curated_sources(
+                content['description'], research_context.curated, research_context.confirmed_papers, naming_result.named_pids)
+        else:
+            content['description'] = apply_reference_sections(
+                content['description'], research_context.confirmed_papers, naming_result.named_pids, research_context.requested_pid)
         content['papers'] = [c.to_dict() for c in research_context.confirmed_papers]
         content['papers_named'] = list(naming_result.named_pids)
         content['requested_pid'] = research_context.requested_pid
-        content['references_built_by'] = REFERENCES_BUILT_BY
+        content['references_built_by'] = REFERENCES_BUILT_BY if getattr(research_context, 'curated', None) is None else _curated.BUILT_BY
 
         # Clean placeholder text and limit description length
         content['description'] = clean_placeholder_text_from_description(content['description'])
@@ -2007,6 +2017,12 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
         if not attribution.passed:
             reject(rejection_log.attribution_items(0, attribution.checked))
             raise AttributionError(attribution.violations)
+        curated = getattr(research_context, "curated", None)
+        if curated is not None:
+            curated_viol = curated.checks(script)
+            if curated_viol:
+                reject(rejection_log.curated_items(0, curated_viol))
+                raise _cc.CuratedCheckError(curated_viol)
         summary = {'words': words, 'min_words': min_words, 'max_words': max_words, 'named_pids': list(naming.named_pids),
                    'attributions_checked': len(attribution.checked)}
         content['final_text_checks'] = summary
@@ -2101,6 +2117,9 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
                 # Fix 7: the topic title is not read aloud, and what the topic names but no paper covers is called out as not covered
                 read_aloud = read_aloud_sentences(script, request.topic)
                 missing_cov = missing_coverage_statements(script, uncovered)
+                # Curated-sources mode: status wording, verbatim runs, spoken names, class labels (all deterministic)
+                curated_viol = research_context.curated.checks(script) if getattr(research_context, "curated", None) is not None else []
+                naming_attempts[-1]['curated_checks'] = _cc.summary(curated_viol)
                 naming_attempts[-1]['topic_read_aloud'] = len(read_aloud)
                 naming_attempts[-1]['coverage_statement_missing'] = missing_cov
                 # Fix 4 (b): a claim attributed to a named paper must be supported by that paper's abstract
@@ -2111,14 +2130,14 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
                     naming_attempts[-1]['attribution'] = attribution.summary()
                     reject(rejection_log.attribution_items(attempt + 1, attribution.checked))     # every verdict, supported ones too, in full
 
-                if naming_result.passed and not bad_notation and not banned and attribution.passed and not read_aloud and not missing_cov:
+                if naming_result.passed and not bad_notation and not banned and attribution.passed and not read_aloud and not missing_cov and not curated_viol:
                     content = generated_content
                     structured_logger.info(f"Content generation succeeded on attempt {attempt + 1}", job_id=job_id, word_count=word_count,
                                           min_required=min_words, transient_retries=transient["n"])
                     break
                 reject(rejection_log.naming_items(attempt + 1, naming_result.violations) + rejection_log.notation_items(attempt + 1, bad_notation)
                        + rejection_log.banned_items(attempt + 1, banned) + rejection_log.read_aloud_items(attempt + 1, read_aloud)
-                       + rejection_log.coverage_items(attempt + 1, missing_cov))
+                       + rejection_log.coverage_items(attempt + 1, missing_cov) + rejection_log.curated_items(attempt + 1, curated_viol))
                 structured_logger.warning("Script rejected: unlisted works, unspeakable notation, banned wording or unsupported attribution",
                                          job_id=job_id, attempt=attempt + 1, violations=len(naming_result.violations),
                                          unspeakable_notation=bad_notation, banned_phrases=[h['matched'] for h in banned],
@@ -2130,6 +2149,8 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
                         raise UnspeakableNotationError(bad_notation)
                     if banned:
                         raise BannedPhraseError(banned)
+                    if curated_viol:
+                        raise _cc.CuratedCheckError(curated_viol)
                     if attribution is not None and not attribution.passed:
                         raise AttributionError(attribution.violations)
                     if read_aloud:
@@ -2140,7 +2161,8 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
                                    + (banned_feedback(banned) if banned else "")
                                    + (attribution_feedback(attribution) if attribution and not attribution.passed else "")
                                    + (read_aloud_feedback(read_aloud) if read_aloud else "")
-                                   + (coverage_feedback(missing_cov) if missing_cov else ""))
+                                   + (coverage_feedback(missing_cov) if missing_cov else "")
+                                   + (_cc.feedback_text(curated_viol) if curated_viol else ""))
                 await asyncio.sleep(2)
         except Exception as e:
             structured_logger.error("Content generation failed after all retries", job_id=job_id, error=str(e), error_type=type(e).__name__)
@@ -2155,7 +2177,8 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
         self, 
         job_id: str, 
         request: PodcastRequest, 
-        subscriber_id: Optional[str] = None
+        subscriber_id: Optional[str] = None,
+        curated_run=None
     ):
         """
         Process research-driven podcast generation with comprehensive research integration
@@ -2232,6 +2255,7 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
             try:
                 # Perform comprehensive research
                 research_context = await asyncio.wait_for(
+                    research_integrator.curated_research_for_podcast(curated_run, request.expertise_level) if curated_run is not None else
                     research_integrator.comprehensive_research_for_podcast(
                         topic=request.topic,
                         additional_context=request.additional_instructions or "",
@@ -2240,7 +2264,7 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
                         require_minimum_sources=3,  # FAIL FAST unless 3 papers are CONFIRMED in their registry
                         required_paper=({"doi": request.paper_doi, "title": request.paper_title} if request.paper_title else None),
                     ),
-                    timeout=300  # 5 minute timeout for research
+                    timeout=300 if curated_run is None else 600  # 5 minutes for discovery; the curated mode only analyses
                 )
                 
                 structured_logger.info("Research completed successfully",
@@ -2286,7 +2310,8 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
                 job_ref.update({
                     'status': 'failed',
                     'error': f"Research failed: {error_msg}",
-                    'error_type': RESEARCH_FAILURE_TYPES.get(type(e).__name__, 'insufficient_research'),
+                    'error_type': ('curated_analysis_failed' if type(e).__name__ == 'CuratedAnalysisFailed'
+                                   else RESEARCH_FAILURE_TYPES.get(type(e).__name__, 'insufficient_research')),
                     'updated_at': datetime.utcnow().isoformat()
                 })
                 
@@ -2396,6 +2421,8 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
             # Fix 4: every post-generation check runs again on the text that is stored and spoken (after notation became words,
             # venues were rewritten, references were built and the description was limited); nothing is padded or added unchecked.
             await self._verify_final_text(content, request, research_context, google_key, job_id, on_rejection=self._job_rejection_sink(job_ref))
+            if curated_run is not None:
+                _curated.check_tts_threshold(len(content['script']))     # a script over the producer's own threshold stops before any audio is made
 
             structured_logger.info("Content validation passed",
                                   job_id=job_id,
@@ -2577,7 +2604,13 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
                 'updated_at': datetime.utcnow().isoformat(),
                 'named_work_check': {'attempts': naming_attempts, 'final': 'passed'},
                 **tts_usage.as_record(),
-                'references_built_by': REFERENCES_BUILT_BY,
+                **({'curated_run': curated_run.review_pack(
+                    naming_result.named_pids,
+                    {'naming_attempts': len(naming_attempts), 'final_text_checks': content.get('final_text_checks'),
+                     'curated_checks': _cc.summary([])},
+                    {'tts_estimated_characters': len(content.get('script') or ''), 'tts_warn_threshold': tts_usage.as_record()['tts_warn_threshold']})}
+                   if curated_run is not None else {}),
+                'references_built_by': content.get('references_built_by', REFERENCES_BUILT_BY),
                 'description_limit': limit_metrics,  # what the 4000-character limit removed (gap 3 fix 1)
                 'result': {
                     'title': content.get('title') or request.topic or 'Untitled Podcast',
@@ -2647,6 +2680,7 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
                         "canonical_filename": canonical_filename,
                         "generated_at": generated_timestamp,
                         **tts_usage.as_record(),
+                        **({'curated_list_id': curated_run.list_id, 'curated_list_hash': curated_run.list_hash} if curated_run is not None else {}),
                         **episode_embedding_fields,
                     },
                     metadata_extended,
@@ -2734,6 +2768,20 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
             
             # Send failure email notification (C8): the requester gets a plain explanation, the administrator the raw error
             await self._notify_failure(e, job_id, request.topic if request else "Unknown", subscriber_email)
+
+    async def run_curated_generation_job(self, job_id: str, list_doc: dict, request: PodcastRequest, subscriber_id: Optional[str] = None):
+        """Curated-sources mode (design §3.1): generate one episode from an approved, frozen source list. Only the research stage differs
+        from ``run_podcast_generation_job``, which does everything else (generation, every check, audio, the private record). Nothing here
+        publishes: the episode is private (``submitted_to_rss=False``, media in the private bucket) until Gary publishes it."""
+        try:
+            run = _curated.CuratedRun.from_list_doc(list_doc, topic=request.topic)
+        except _curated.CuratedListError as e:
+            if db:
+                db.collection('podcast_jobs').document(job_id).update({'status': 'failed', 'error': str(e), 'error_type': 'curated_list_invalid',
+                                                                       'updated_at': datetime.utcnow().isoformat()})
+            structured_logger.error("Curated source list refused", job_id=job_id, error_type="CuratedListError")
+            return
+        await self.run_podcast_generation_job(job_id, request, subscriber_id=subscriber_id, curated_run=run)
 
 
 # Create singleton instance

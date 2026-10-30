@@ -82,6 +82,14 @@ def format_real_citation_line(source: ResearchSource) -> Optional[str]:
     return None
 
 
+class CuratedAnalysisFailed(Exception):
+    """An approved source's analysis could not be read, so the curated run stops rather than leave an approved source out."""
+
+    def __init__(self, pids):
+        self.pids = list(pids)
+        super().__init__("The analysis of an approved source could not be read (" + ", ".join(self.pids) + "), so no episode was generated. Try again.")
+
+
 @dataclass
 class PodcastResearchContext:
     """Complete research context for podcast generation"""
@@ -101,6 +109,9 @@ class PodcastResearchContext:
     relevance_scores: Dict[str, float] = field(default_factory=dict)  # similarity of every confirmed paper to the topic (fix 1b)
     confirmation_stats: Dict[str, Any] = field(default_factory=dict)  # registry requests made by confirmation; records reused from search
     requested_pid: Optional[str] = None
+    # Curated-sources mode (design §3.1): the frozen, approved source list this context was built from (a curated_mode.CuratedRun).
+    # None in the ordinary mode, where nothing treats the context differently.
+    curated: Optional[Any] = None
 
 class PodcastResearchIntegrator:
     """
@@ -315,6 +326,53 @@ class PodcastResearchIntegrator:
             recommended_expertise_level=recommended_level
         )
     
+    async def curated_research_for_podcast(self, run, expertise_level: str = "intermediate") -> PodcastResearchContext:
+        """Curated-sources mode (design §3.1): the research stage with discovery and confirmation replaced by the frozen, approved source
+        list. Nothing is discovered, searched or dropped here: every approved source is analysed, and one whose analysis cannot be read
+        fails the run (an approved source is never silently left out). The analysis and synthesis steps are those of
+        ``comprehensive_research_for_podcast`` (phases 2 to 5); this method is separate so the ordinary mode is untouched.
+
+        Commentary items are kept in ``confirmed_papers`` (the naming check must be able to match "Quanta reported ...") but are not
+        analysed as papers: their excerpts reach the model through the curated prompt block."""
+        import curated_sources as _cs
+        confirmed = run.confirmed_papers()
+        paper_items = [c for c in confirmed if c.source_class != _cs.COMMENTARY]
+        research_sources = [as_research_source(c) for c in paper_items]
+        pid_by_title = {c.title: c.pid for c in paper_items}
+
+        paper_analyses = await self.enhanced_research_service.analyze_multiple_papers(research_sources, complexity=expertise_level)
+        failed = [s.pid for s, a in zip(research_sources, paper_analyses) if getattr(a, "analysis_failed", False)]
+
+        gemini_analyses, gemini_pids = [], []
+        for source in research_sources[:3]:
+            paper = ResearchPaper(title=source.title, authors=source.authors, content=source.abstract, abstract=source.abstract, doi=source.doi)
+            options = AnalyzeOptions(focus_areas=["significance", "implications", "methodology"], analysis_depth="comprehensive",
+                                     include_citations=True, significance_analysis=True, interdisciplinary_connections=True)
+            try:
+                g = await analyze_paper_with_gemini(paper, options, self.google_api_key)
+            except Exception as e:  # noqa: BLE001 - the deep analysis is a supplement; its failure is reported, not fatal, as in the ordinary mode
+                print(f"   deep analysis failed for {source.pid}: {type(e).__name__}")
+                continue
+            if getattr(g, "analysis_failed", False):
+                failed.append(source.pid)
+            gemini_analyses.append(g)
+            gemini_pids.append(source.pid)
+        if failed:
+            raise CuratedAnalysisFailed(sorted(set(failed)))
+
+        significance, connections, key_findings = aggregate_enhanced_analyses(paper_analyses, pid_by_title)
+        for g, gpid in zip(gemini_analyses, gemini_pids):
+            significance.extend(f"[{gpid}] {x}" for x in g.significance)
+            connections.extend(g.interdisciplinary_connections)
+            key_findings.extend(f"[{gpid}] {x}" for x in g.key_findings)
+        real_citations = [format_citation_line(c) for c in paper_items[:10]]
+        quality = self._assess_research_quality(research_sources, paper_analyses, significance, connections)
+        return PodcastResearchContext(
+            topic=run.topic, research_sources=research_sources, paper_analyses=paper_analyses, significance=significance[:10],
+            interdisciplinary_connections=connections[:10], key_findings=key_findings[:15], real_citations=real_citations[:10],
+            confirmed_papers=confirmed, dropped_candidates=[], relevance_scores={}, requested_pid=None,
+            research_quality_score=quality, recommended_expertise_level=self._recommend_expertise_level(paper_analyses), curated=run)
+
     def _assess_research_quality(
         self,
         sources: List[ResearchSource],
@@ -386,6 +444,7 @@ class PodcastResearchIntegrator:
         host_voice_id: str = None,
         expert_voice_id: str = None,
         source_paper_citation: str = "",
+        neutral_labels: bool = False,
     ) -> str:
         """
         Build comprehensive 2-speaker prompt with all research context
@@ -409,7 +468,11 @@ class PodcastResearchIntegrator:
         # Determine speaker names from voice IDs
         host_name = VOICE_ID_TO_NAME.get(host_voice_id, "Matilda") if host_voice_id else "Matilda"
         expert_name = VOICE_ID_TO_NAME.get(expert_voice_id, "Adam") if expert_voice_id else "Adam"
-        
+        if neutral_labels:
+            # Curated-sources mode: the channel has no host name, so the labels are the roles themselves (HOST:, EXPERT:); the
+            # voices are still chosen by voice id when the audio is made.
+            host_name, expert_name = "Host", "Expert"
+
         # Get character prompt
         character_prompt = get_character_prompt(self.character)
         
@@ -558,6 +621,11 @@ If asked about something not in the research, ADAM should acknowledge the gap.
 - Never write "(Recent)" or "(Year)" as a publication year. If the year is unknown, omit it.
 """
         
+        if neutral_labels:
+            # Two sentences of the prompt name the default voices literally ("MATILDA interviews ADAM", "ADAM should acknowledge the gap")
+            # whatever voices were chosen. In this mode the speakers are the roles, so the literal names become the labels too.
+            # (The ordinary mode keeps its prompt exactly as it was.)
+            prompt = prompt.replace("MATILDA", "HOST").replace("ADAM", "EXPERT")
         return prompt
     
     def _format_research_evidence(self, context: PodcastResearchContext) -> str:
