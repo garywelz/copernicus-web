@@ -9,6 +9,8 @@ import pytest
 
 import curated_sources as cs
 import openai_math_index as omi
+import openai_math_status as oms
+from tests.unit.repo_fake import FakeRepo, standard_trees, WEIL, OLD_EDITION, QRH_SEPT, QRH_OCT
 import paper_confirmation as pc
 from safe_fetch import FetchResult
 
@@ -72,26 +74,16 @@ class Registries:
         return 500, ""
 
 
-class RepoFetch:
-    def __init__(self, trees=None, status=200):
-        self.trees = trees or {}
-        self.status = status
-
-    async def __call__(self, url, **kw):
-        if url.endswith("/CONTENTS.md"):
-            return FetchResult(self.status, {}, open(FIXTURE, encoding="utf-8").read().encode(), url)
-        from urllib.parse import unquote
-        d = unquote(url.split("%2F", 1)[1])
-        if d not in self.trees:
-            return FetchResult(404, {}, b"{}", url)
-        return FetchResult(200, {}, json.dumps({"tree": [{"path": n, "type": "blob", "sha": s * 40} for n, s in self.trees[d]]}).encode(), url)
+def RepoFetch(trees=None, status=200):
+    """The pinned repository, with the standard trees unless others are given (a map status other than 200 makes the repository unreadable)."""
+    return FakeRepo(trees=trees if trees is not None else standard_trees(), map_status=status)
 
 
 @pytest.fixture(autouse=True)
 def _clear_cache():
-    omi._INDEX_CACHE.clear()
+    omi._INDEX_CACHE.clear(); oms._LEAN_CACHE.clear(); oms._HISTORY_CACHE.clear()
     yield
-    omi._INDEX_CACHE.clear()
+    omi._INDEX_CACHE.clear(); oms._LEAN_CACHE.clear(); oms._HISTORY_CACHE.clear()
 
 
 ETH = "The-Exponential-Time-Hypothesis-is-False-October-25-2026"
@@ -99,7 +91,7 @@ HADWIGER = "A-counterexample-to-Hadwigers-conjecture-September-23-2026"
 
 
 def confirm(raw, regs=None, repo=None):
-    return run(cs.confirm_pasted(raw, PIN, http_get=regs or Registries(), fetch=repo or RepoFetch(trees={ETH: [("paper.pdf", "a")], HADWIGER: [("paper.pdf", "b")]})))
+    return run(cs.confirm_pasted(raw, PIN, http_get=regs or Registries(), fetch=repo or RepoFetch()))
 
 
 # --- parsing what Gary pastes ---------------------------------------------------------------------------------------------------------
@@ -177,6 +169,7 @@ def test_a_named_manuscript_is_a_company_release_with_its_pin():
     assert it["class"] == cs.COMPANY_RELEASE and it["confirmation"]["status"] == cs.CONFIRMED
     assert it["identifiers"] == {"repo": "openai/math", "commit": PIN, "path": f"preprints/{ETH}", "family": "378"}
     assert it["confirmation"]["blob_sha"] == "a" * 40 and it["evidence_text"] and it["title"] == "The Exponential Time Hypothesis is False"
+    assert it["result_status"] == "has_lean_formalization" and it["status_basis"]["in_lean_catalogue"] is True
 
 
 def test_a_family_number_expands_to_its_manuscripts_and_each_is_confirmed():
@@ -194,9 +187,11 @@ def test_an_ambiguous_family_is_refused_and_names_the_directories():
     assert len(items[0]["confirmation"]["directories"]) == 2
 
 
-def test_a_withdrawn_or_old_edition_directory_is_refused_as_not_standing():
-    it = confirm("preprints/Algebraicity-of-Weil-classes-on-split-abelian-eightfolds-September-18-2026")[0]
-    assert it["confirmation"]["reason"] == "not_a_standing_manuscript"
+def test_an_old_edition_is_refused_as_not_standing_and_a_withdrawn_manuscript_is_content_with_its_status():
+    old = confirm(f"preprints/{OLD_EDITION}")[0]
+    assert old["confirmation"]["reason"] == "not_a_standing_manuscript"
+    withdrawn = confirm(f"preprints/{WEIL}")[0]
+    assert withdrawn["confirmation"]["status"] == cs.CONFIRMED and withdrawn["result_status"] == "withdrawn"
 
 
 def test_an_unknown_family_is_refused():
