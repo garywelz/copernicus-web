@@ -8,6 +8,7 @@ Nothing here calls a model, Firestore or the network. The research stage that an
 from __future__ import annotations
 
 import dataclasses
+import hashlib
 import re
 from dataclasses import dataclass, field
 from typing import Any, Dict, List, Optional, Sequence
@@ -77,7 +78,9 @@ class CuratedRun:
 
     # --- building ----------------------------------------------------------------------------------------------------------
     @classmethod
-    def from_list_doc(cls, doc: Dict[str, Any], topic: Optional[str] = None) -> "CuratedRun":
+    def from_list_doc(cls, doc: Dict[str, Any], topic: Optional[str] = None, private_texts: Optional[Dict[str, str]] = None) -> "CuratedRun":
+        """`private_texts` maps a commentary item id to the text stored privately for it. A commentary item with no text, or with text whose hash
+        is not the one the list was approved with, refuses the run."""
         if doc.get("status") != "approved" or not doc.get("list_hash"):
             raise CuratedListError("the source list is not approved")
         items = cs.approved_items(doc.get("items") or [])
@@ -91,6 +94,16 @@ class CuratedRun:
         t = (topic or doc.get("topic") or doc.get("title") or "").strip()
         if not t:
             raise CuratedListError("the episode needs a topic")
+        items = [dict(i) for i in items]
+        for i in items:
+            if i["class"] != cs.COMMENTARY:
+                continue
+            text = (private_texts or {}).get(i["item_id"])
+            if text is None:
+                raise CuratedListError("the pasted text of a commentary item is missing from the private store")
+            if hashlib.sha256(text.encode("utf-8")).hexdigest() != i.get("text_sha256"):
+                raise CuratedListError("the stored text of a commentary item is not the text the list was approved with")
+            i["evidence_text"] = text            # in memory only: this copy is never written back
         pids = {i["item_id"]: f"P{n}" for n, i in enumerate(items, start=1)}
         return cls(list_id=doc["list_id"], list_hash=doc["list_hash"], pin=dict(doc["pin"]), topic=t, items=items, pids=pids)
 
@@ -114,6 +127,9 @@ class CuratedRun:
                         "family_title": c.get("family_title"), "status": st, "path": c.get("path"), "family": c.get("family"),
                         "checked_by": i.get("checked_by")})
         return out
+
+    def commentary_pids(self) -> List[str]:
+        return [self.pids[i["item_id"]] for i in self.items if i["class"] == cs.COMMENTARY]
 
     def commentary_texts(self) -> List[str]:
         return [i["evidence_text"] for i in self.items if i["class"] == cs.COMMENTARY and i.get("evidence_text")]
@@ -179,6 +195,21 @@ class CuratedRun:
         return pack
 
 
+def withheld_pids(research_context: Any) -> List[str]:
+    """The P numbers whose text must not be written to any record (the commentary of a curated run); none in the ordinary mode."""
+    run = getattr(research_context, "curated", None)
+    return run.commentary_pids() if run is not None else []
+
+
+def storage_dict(c: "pc.ConfirmedPaper") -> Dict[str, Any]:
+    """What may be stored about a confirmed source in the job and the episode records. Commentary text is third-party text kept in the private
+    store only: its `abstract` (the pasted excerpt) is withheld here. Every other class is stored exactly as before."""
+    d = c.to_dict()
+    if c.source_class == cs.COMMENTARY:
+        d["abstract"], d["abstract_withheld"] = "", True
+    return d
+
+
 # --- ConfirmedPaper from a list item -------------------------------------------------------------------------------------------------
 _CP_FIELDS = {f.name for f in dataclasses.fields(pc.ConfirmedPaper)}
 
@@ -216,7 +247,7 @@ def source_line(c: "pc.ConfirmedPaper", cls: str, status: Optional[str] = None, 
         return (f"- {authors}{year}. {c.title.rstrip('.')}. OpenAI mathematics release, family {pin.get('family')}, commit {sha}. "
                 f"[{tag}; status: {st}]")
     if cls == cs.COMMENTARY:
-        who = ", ".join(c.authors[:3]) or (c.venue or "")
+        who = ", ".join([x for x in (", ".join(c.authors[:3]), c.venue or "") if x])      # the writer and the outlet
         year = f" ({c.year})" if c.year else ""
         line = f"- {who}{year}. {c.title.rstrip('.')}. [{tag}] {c.url}".replace("-  .", "- ")
         if any(l.get("type") == "fetch_refused" for l in (limits or [])):

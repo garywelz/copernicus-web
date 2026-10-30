@@ -1909,7 +1909,7 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
         else:
             content['description'] = apply_reference_sections(
                 content['description'], research_context.confirmed_papers, naming_result.named_pids, research_context.requested_pid)
-        content['papers'] = [c.to_dict() for c in research_context.confirmed_papers]
+        content['papers'] = [_curated.storage_dict(c) for c in research_context.confirmed_papers]
         content['papers_named'] = list(naming_result.named_pids)
         content['requested_pid'] = research_context.requested_pid
         content['references_built_by'] = REFERENCES_BUILT_BY if getattr(research_context, 'curated', None) is None else _curated.BUILT_BY
@@ -2015,7 +2015,7 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
         named = [c for c in research_context.confirmed_papers if c.pid in naming.named_pids]
         attribution = await model_call("attribution_check", lambda: check_attributions(script, named, llm))
         if not attribution.passed:
-            reject(rejection_log.attribution_items(0, attribution.checked))
+            reject(rejection_log.attribution_items(0, attribution.checked, _curated.withheld_pids(research_context)))
             raise AttributionError(attribution.violations)
         curated = getattr(research_context, "curated", None)
         if curated is not None:
@@ -2128,7 +2128,7 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
                     named = [c for c in research_context.confirmed_papers if c.pid in naming_result.named_pids]
                     attribution = await transient_retry("attribution_check", attempt, lambda: check_attributions(script, named, naming_llm))
                     naming_attempts[-1]['attribution'] = attribution.summary()
-                    reject(rejection_log.attribution_items(attempt + 1, attribution.checked))     # every verdict, supported ones too, in full
+                    reject(rejection_log.attribution_items(attempt + 1, attribution.checked, _curated.withheld_pids(research_context)))     # every verdict, supported ones too, in full
 
                 if naming_result.passed and not bad_notation and not banned and attribution.passed and not read_aloud and not missing_cov and not curated_viol:
                     content = generated_content
@@ -2292,7 +2292,7 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
                     'research_quality_score': research_context.research_quality_score,
                     'significance_count': len(research_context.significance),
                     'research_sources_summary': research_sources_summary,
-                    'confirmed_papers': [c.to_dict() for c in research_context.confirmed_papers],
+                    'confirmed_papers': [_curated.storage_dict(c) for c in research_context.confirmed_papers],
                     'dropped_candidates': [d.to_dict() for d in research_context.dropped_candidates],
                     'confirmation_stats': getattr(research_context, 'confirmation_stats', {}),
                     'relevance_scores': getattr(research_context, 'relevance_scores', {}),
@@ -2769,12 +2769,13 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
             # Send failure email notification (C8): the requester gets a plain explanation, the administrator the raw error
             await self._notify_failure(e, job_id, request.topic if request else "Unknown", subscriber_email)
 
-    async def run_curated_generation_job(self, job_id: str, list_doc: dict, request: PodcastRequest, subscriber_id: Optional[str] = None):
+    async def run_curated_generation_job(self, job_id: str, list_doc: dict, request: PodcastRequest, subscriber_id: Optional[str] = None,
+                                         private_texts: Optional[dict] = None):
         """Curated-sources mode (design §3.1): generate one episode from an approved, frozen source list. Only the research stage differs
         from ``run_podcast_generation_job``, which does everything else (generation, every check, audio, the private record). Nothing here
         publishes: the episode is private (``submitted_to_rss=False``, media in the private bucket) until Gary publishes it."""
         try:
-            run = _curated.CuratedRun.from_list_doc(list_doc, topic=request.topic)
+            run = _curated.CuratedRun.from_list_doc(list_doc, topic=request.topic, private_texts=private_texts)
         except _curated.CuratedListError as e:
             if db:
                 db.collection('podcast_jobs').document(job_id).update({'status': 'failed', 'error': str(e), 'error_type': 'curated_list_invalid',

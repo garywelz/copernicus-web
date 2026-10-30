@@ -42,6 +42,9 @@ class Ref:
         import copy
         self.store[self.doc_id] = copy.deepcopy(data)
 
+    def delete(self):
+        self.store.pop(self.doc_id, None)
+
 
 class FakeDB:
     def __init__(self):
@@ -116,7 +119,7 @@ def add(list_id, canned, raws_to_items):
 # --- admin key on every route ---------------------------------------------------------------------------------------------------------
 def test_every_route_on_the_router_needs_the_admin_key():
     routes_ = [r for r in router.routes if hasattr(r, "methods")]
-    assert len(routes_) == 8
+    assert len(routes_) == 12
     with patch.object(auth, "get_admin_api_key", return_value="test-key"), patch.object(routes, "db", FakeDB()):
         for r in routes_:
             path = r.path.replace("{list_id}", "L").replace("{item_id}", "I")
@@ -347,7 +350,8 @@ class FakeService:
     def __init__(self, db_, fail=None):
         self.calls, self.db, self.fail = [], db_, fail
 
-    async def run_curated_generation_job(self, job_id, list_doc, request, subscriber_id=None):
+    async def run_curated_generation_job(self, job_id, list_doc, request, subscriber_id=None, private_texts=None):
+        self.private_texts = private_texts
         self.calls.append({"job_id": job_id, "list_id": list_doc["list_id"], "topic": request.topic, "category": request.category,
                            "duration": request.duration, "subscriber_id": subscriber_id})
         job = self.db.other["podcast_jobs"][job_id]
@@ -421,3 +425,196 @@ def test_the_request_is_bounded(gen_env):
     assert client.post("/api/admin/curated/generate", json={}, headers=KEY).status_code == 422
     assert client.post("/api/admin/curated/generate", json={"list_id": ""}, headers=KEY).status_code == 422
     assert client.post("/api/admin/curated/generate", json={"list_id": "x", "duration": "x" * 41}, headers=KEY).status_code == 422
+
+
+# --- pasted commentary: the private store, no text in the list, checked-by ----------------------------------------------------------------------
+PASTE = ("Several mathematicians told the magazine that the release is remarkable but that the claims need careful checking by experts, and "
+         "that the formalizations may state weaker results than the papers do. One of them said the Exponential Time Hypothesis result "
+         "had already been examined by a working group of complexity theorists.")
+PRIVATE_COLLECTION = routes.PRIVATE_COLLECTION
+
+
+def commentary_body(**kw):
+    body = {"title": "Mathematicians react", "outlet": "Example Magazine", "authors": ["A. Reporter"], "date": "2026-10-28",
+            "url": "https://example.org/story", "text": PASTE}
+    body.update(kw)
+    return body
+
+
+def paste(lid, **kw):
+    return client.post(f"/api/admin/curated/lists/{lid}/commentary", json=commentary_body(**kw), headers=KEY)
+
+
+def test_pasted_commentary_goes_to_the_private_store_and_never_into_the_list(env):
+    fake, canned = env
+    lid = new_list()
+    r = paste(lid, fetch_refused="robots_disallow")
+    assert r.status_code == 200 and r.json()["text_chars"] == len(PASTE) and r.json()["limits"][0]["reason"] == "robots_disallow"
+    iid = r.json()["added"]["item_id"]
+    item = fake.store[lid]["items"][0]
+    assert item["class"] == "commentary" and item["evidence_text"] is None and item["confirmation"]["mode"] == "pasted"
+    assert PASTE[:40] not in repr(fake.store[lid])                          # not in the list document
+    stored = fake.other[PRIVATE_COLLECTION][f"{lid}__{iid}"]
+    assert stored["text"] == PASTE and stored["text_sha256"] == item["text_sha256"]
+    assert PASTE[:40] not in client.get(f"/api/admin/curated/lists/{lid}", headers=KEY).text            # nor in anything the list route returns
+    assert PASTE[:40] not in client.get("/api/admin/curated/lists", headers=KEY).text
+    assert PASTE[:40] not in r.text                                                                     # nor in the answer to the paste itself
+
+
+def test_the_producer_can_read_back_what_was_stored(env):
+    fake, canned = env
+    lid = new_list()
+    iid = paste(lid).json()["added"]["item_id"]
+    r = client.get(f"/api/admin/curated/lists/{lid}/commentary/{iid}", headers=KEY)
+    assert r.status_code == 200 and r.json()["text"] == PASTE and r.json()["chars"] == len(PASTE)
+    assert client.get(f"/api/admin/curated/lists/{lid}/commentary/nope", headers=KEY).status_code == 404
+
+
+def test_a_pending_address_is_completed_by_pasting_text_for_it(env):
+    fake, canned = env
+    lid = new_list()
+    pending = item("commentary", 9, status=cs.PENDING, approved=False, identifiers={"url": "https://example.org/story"})
+    pending["item_id"] = cs.item_id({"url": "https://example.org/story"})
+    fake.store[lid]["items"].append(pending)
+    r = paste(lid)
+    assert r.status_code == 200
+    items = fake.store[lid]["items"]
+    assert len(items) == 1 and items[0]["confirmation"]["status"] == cs.CONFIRMED and items[0]["approved"] is True
+
+
+def test_the_same_commentary_cannot_be_added_twice_and_a_frozen_list_takes_none(env):
+    fake, canned = env
+    lid = new_list()
+    assert paste(lid).status_code == 200
+    assert paste(lid).status_code == 409 and len(fake.store[lid]["items"]) == 1
+    ready = ready_list(canned)
+    assert client.post(f"/api/admin/curated/lists/{ready}/approve", headers=KEY).status_code == 200
+    r = paste(ready)
+    assert r.status_code == 409 and fake.other.get(PRIVATE_COLLECTION, {}) == {k: v for k, v in fake.other.get(PRIVATE_COLLECTION, {}).items() if k.startswith(lid)}
+
+
+def test_a_list_frozen_between_the_check_and_the_write_takes_no_paste_and_keeps_no_text(env):
+    fake, canned = env
+    lid = new_list()
+    real = routes._private_ref
+
+    def freezing(list_id, item_id):                 # runs after the first check of the list and before the write to it
+        fake.store[list_id]["status"] = "approved"
+        return real(list_id, item_id)
+    with patch.object(routes, "_private_ref", freezing):
+        r = paste(lid)
+    assert r.status_code == 409 and fake.store[lid]["items"] == [] and fake.other.get(PRIVATE_COLLECTION, {}) == {}
+
+
+def test_a_failed_paste_leaves_no_text_behind(env):
+    fake, canned = env
+    lid = new_list()
+    fake.store[lid]["status"] = "approved"
+    assert paste(lid).status_code == 409
+    assert fake.other.get(PRIVATE_COLLECTION, {}) == {}
+
+
+@pytest.mark.parametrize("kw", [dict(text="too short"), dict(date="2026-02-30"), dict(url="ftp://example.org/x"), dict(fetch_refused="no reason"),
+                                dict(approved_quotes=["a quotation that is certainly not in the pasted text at all"]), dict(title="")])
+def test_a_bad_paste_is_refused_and_stores_nothing(env, kw):
+    fake, canned = env
+    lid = new_list()
+    assert paste(lid, **kw).status_code == 422
+    assert fake.store[lid]["items"] == [] and fake.other.get(PRIVATE_COLLECTION, {}) == {}
+
+
+def test_striking_commentary_removes_its_private_text(env):
+    fake, canned = env
+    lid = new_list()
+    iid = paste(lid).json()["added"]["item_id"]
+    assert fake.other[PRIVATE_COLLECTION]
+    assert client.delete(f"/api/admin/curated/lists/{lid}/items/{iid}", headers=KEY).status_code == 200
+    assert fake.other[PRIVATE_COLLECTION] == {} and fake.store[lid]["items"] == []
+
+
+def release(n=3):
+    return item("company_release", n, result_status="unverified", status_basis={"commit": "c"}, venue=None,
+                title="The Exponential Time Hypothesis is False")
+
+
+def commentary_list(fake, canned, status="unverified"):
+    lid = new_list()
+    add(lid, canned, {"a": [item("preprint", 1), item("peer_reviewed", 2), release()]})
+    fake.store[lid]["items"][2]["result_status"] = status
+    cid = paste(lid).json()["added"]["item_id"]
+    return lid, fake.store[lid]["items"][2]["item_id"], cid
+
+
+def test_checked_by_experts_needs_a_sentence_from_a_commentary_source_in_the_list(env):
+    fake, canned = env
+    lid, rid, cid = commentary_list(fake, canned)
+    base = f"/api/admin/curated/lists/{lid}/items/{rid}/checked-by"
+    quote = "had already been examined by a working group of complexity theorists"
+    assert client.put(base, json={"commentary_item_id": cid, "quote": "a sentence that is not in the commentary at all, plainly"}, headers=KEY).status_code == 422
+    assert client.put(base, json={"commentary_item_id": "nope", "quote": quote}, headers=KEY).status_code == 422
+    assert fake.store[lid]["items"][2]["result_status"] == "unverified"
+    r = client.put(base, json={"commentary_item_id": cid, "quote": quote}, headers=KEY)
+    assert r.status_code == 200
+    it = fake.store[lid]["items"][2]
+    assert it["result_status"] == "checked_by_experts" and it["checked_by"] == "Example Magazine"
+    assert it["status_basis"]["checked_by"] == {"commentary_item_id": cid, "quote": quote, "previous_status": "unverified"}
+
+
+def test_checked_by_is_refused_for_the_wrong_kind_of_item_and_for_a_withdrawn_manuscript(env):
+    fake, canned = env
+    lid, rid, cid = commentary_list(fake, canned, status="withdrawn")
+    quote = "had already been examined by a working group of complexity theorists"
+    assert client.put(f"/api/admin/curated/lists/{lid}/items/{rid}/checked-by", json={"commentary_item_id": cid, "quote": quote}, headers=KEY).status_code == 422
+    paper = fake.store[lid]["items"][0]["item_id"]
+    assert client.put(f"/api/admin/curated/lists/{lid}/items/{paper}/checked-by", json={"commentary_item_id": cid, "quote": quote}, headers=KEY).status_code == 422
+    assert client.put(f"/api/admin/curated/lists/{lid}/items/{rid}/checked-by", json={"commentary_item_id": paper, "quote": quote}, headers=KEY).status_code == 422
+
+
+def test_clearing_checked_by_restores_the_previous_status_and_the_hash_follows_the_status(env):
+    fake, canned = env
+    lid, rid, cid = commentary_list(fake, canned, status="has_lean_formalization")
+    quote = "had already been examined by a working group of complexity theorists"
+    before = cs.list_hash(fake.store[lid]["pin"], fake.store[lid]["items"])
+    client.put(f"/api/admin/curated/lists/{lid}/items/{rid}/checked-by", json={"commentary_item_id": cid, "quote": quote}, headers=KEY)
+    during = cs.list_hash(fake.store[lid]["pin"], fake.store[lid]["items"])
+    assert during != before
+    r = client.delete(f"/api/admin/curated/lists/{lid}/items/{rid}/checked-by", headers=KEY)
+    assert r.status_code == 200 and fake.store[lid]["items"][2]["result_status"] == "has_lean_formalization" and "checked_by" not in fake.store[lid]["items"][2]
+    assert cs.list_hash(fake.store[lid]["pin"], fake.store[lid]["items"]) == before
+    assert client.delete(f"/api/admin/curated/lists/{lid}/items/{rid}/checked-by", headers=KEY).status_code == 404
+
+
+def test_checked_by_cannot_be_changed_on_a_frozen_list(env):
+    fake, canned = env
+    lid, rid, cid = commentary_list(fake, canned)
+    assert client.post(f"/api/admin/curated/lists/{lid}/approve", headers=KEY).status_code == 200
+    quote = "had already been examined by a working group of complexity theorists"
+    assert client.put(f"/api/admin/curated/lists/{lid}/items/{rid}/checked-by", json={"commentary_item_id": cid, "quote": quote}, headers=KEY).status_code == 409
+
+
+def test_generation_loads_the_private_text_for_the_run(gen_env):
+    fake, canned, service = gen_env
+    lid = ready_list(canned)
+    cid = paste(lid).json()["added"]["item_id"]
+    assert client.post(f"/api/admin/curated/lists/{lid}/approve", headers=KEY).status_code == 200
+    r = generate(lid)
+    assert r.status_code == 200
+    assert service.private_texts == {cid: PASTE}
+
+
+def test_generation_refuses_when_the_private_text_has_gone_missing(gen_env):
+    fake, canned, service = gen_env
+    lid = ready_list(canned)
+    cid = paste(lid).json()["added"]["item_id"]
+    assert client.post(f"/api/admin/curated/lists/{lid}/approve", headers=KEY).status_code == 200
+    fake.other[PRIVATE_COLLECTION].clear()
+    r = generate(lid)
+    assert r.status_code == 409 and "private store" in r.json()["detail"] and service.calls == []
+
+
+def test_the_pasted_text_never_appears_in_a_log_line(env):
+    fake, canned = env
+    lid = new_list()
+    with patch.object(routes, "structured_logger") as log:
+        paste(lid)
+    assert PASTE[:30] not in repr(log.mock_calls)

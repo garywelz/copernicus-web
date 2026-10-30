@@ -26,7 +26,7 @@ import curated_sources as cs
 import paper_confirmation as pc
 import podcast_research_integrator as pri
 from models.podcast import PodcastRequest
-from tests.unit.test_curated_mode import (PIN, ETH_PATH, approved_doc, base_items, commentary_item, registry_item, release_item)
+from tests.unit.test_curated_mode import (PIN, PRIVATE, ETH_PATH, approved_doc, base_items, commentary_item, registry_item, release_item)
 
 BACKEND = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
@@ -40,7 +40,7 @@ def run(coro):
 
 
 def curated_run(items=None, **kw):
-    return cm.CuratedRun.from_list_doc(approved_doc(items or base_items()), **kw)
+    return cm.CuratedRun.from_list_doc(approved_doc(items or base_items()), private_texts=PRIVATE, **kw)
 
 
 def analysis(title, failed=False):
@@ -264,6 +264,37 @@ def test_eleven_named_sources_fit_in_the_description_with_every_class_label_inta
     assert len(d) <= 4000 and d.count("[company release, not peer reviewed; status: unverified]") == 9
     assert "[peer reviewed]" in d and "[preprint, not peer reviewed]" in d and "## Hashtags" in d and "...." not in d
     assert metrics["body_chars_removed_by_limit"] >= 0
+
+
+# --- pasted commentary never reaches a stored record -------------------------------------------------------------------------------------------
+COMMENT_TEXT = "Several mathematicians told the magazine that the release is remarkable but that the claims need careful checking by experts."
+
+
+def test_the_episode_record_holds_no_commentary_text():
+    items = base_items() + [commentary_item(evidence_text=COMMENT_TEXT)]
+    run_ = curated_run(items)
+    ctx = context(run_)
+    content, _ = finalize(ctx, ["P1", "P4"])
+    assert COMMENT_TEXT[:30] not in repr(content)
+    com = [p for p in content["papers"] if p["source_class"] == cs.COMMENTARY][0]
+    assert com["abstract"] == "" and com["abstract_withheld"] is True
+    assert [p["abstract"] for p in content["papers"] if p["source_class"] != cs.COMMENTARY] == [c.abstract for c in ctx.confirmed_papers if c.source_class != cs.COMMENTARY]
+
+
+def test_every_place_the_service_stores_a_confirmed_source_goes_through_the_withholding_function():
+    src = open(os.path.join(BACKEND, "services", "podcast_generation_service.py"), encoding="utf-8").read()
+    assert "c.to_dict() for c in research_context.confirmed_papers" not in src
+    assert src.count("_curated.storage_dict(c) for c in research_context.confirmed_papers") == 2
+    assert src.count("_curated.withheld_pids(research_context)") == 2          # both places the attribution verdicts are recorded
+
+
+def test_a_script_that_copies_the_pasted_text_is_rejected_in_the_loop_and_the_job_record_does_not_hold_the_text(monkeypatch):
+    items = base_items() + [commentary_item(evidence_text=COMMENT_TEXT)]
+    service, req, calls = harness(monkeypatch, [padded("EXPERT: " + COMMENT_TEXT + " " + CLEAN), padded(CLEAN)])
+    content, naming, attempts = run(service._generate_checked_content(req, context(curated_run(items)), "k", "job8"))
+    assert calls["gen"] == 2 and attempts[0]["curated_checks"]["verbatim_run"] >= 1 and attempts[1]["curated_checks"] == {}
+    assert "copied from a commentary text" in calls["feedback"][1]
+    assert service._last_rejections and not any(COMMENT_TEXT[:30].lower() in repr(r).lower() for r in service._last_rejections)     # not even the copied run
 
 
 # --- the entry point ---------------------------------------------------------------------------------------------------------------------

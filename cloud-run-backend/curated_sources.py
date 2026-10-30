@@ -18,6 +18,8 @@ from __future__ import annotations
 import hashlib
 import json
 import re
+import unicodedata
+from datetime import datetime, timezone
 from dataclasses import dataclass
 from typing import Any, Dict, List, Optional, Sequence, Tuple
 
@@ -126,6 +128,8 @@ def item_key(identifiers: Dict[str, Any]) -> str:
     """A stable text key for an item's identity (what makes two entries 'the same source')."""
     if identifiers.get("repo"):
         return f"{identifiers['repo']}@{identifiers['commit']}:{identifiers['path']}"
+    if identifiers.get("commentary"):
+        return "commentary:" + identifiers["commentary"]
     ids = identifiers
     if ids.get("arxiv"):
         return "arxiv:" + ids["arxiv"] + (ids.get("arxiv_version") or "")
@@ -214,6 +218,78 @@ async def confirm_pasted(raw: Any, commit: str, http_get=None, fetch=None) -> Li
              "relevance_score": None, "approved": False}]
 
 
+# --- commentary: pasted text (design §5; paste-only, no automated fetch) ------------------------------------------------------------
+COMMENTARY_TEXT_MIN, COMMENTARY_TEXT_MAX = 200, 20000
+FETCH_REFUSED_REASONS = ("robots_disallow", "http_error", "timeout", "blocked", "paywall")
+_DATE = re.compile(r"^\d{4}(?:-\d{2}(?:-\d{2})?)?$")
+_CONTROL = re.compile(r"[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]")
+
+
+def _real_date(d: str) -> bool:
+    try:
+        datetime.strptime(d, {4: "%Y", 7: "%Y-%m", 10: "%Y-%m-%d"}[len(d)])
+        return True
+    except (ValueError, KeyError):
+        return False
+
+
+class CommentaryError(ValueError):
+    """The pasted commentary cannot be used; the message says why."""
+
+
+def _norm_words(t: str) -> str:
+    t = unicodedata.normalize("NFKD", t or "").encode("ascii", "ignore").decode("ascii").lower().replace("\u2019", "'")
+    return " ".join(re.findall(r"[a-z0-9]+(?:'[a-z]+)?", t))
+
+
+def text_contains(text: str, quote: str) -> bool:
+    """Whether `quote` occurs in `text`, ignoring case, punctuation and accents."""
+    q = _norm_words(quote)
+    return bool(q) and q in _norm_words(text)
+
+
+def build_commentary_item(title: str, outlet: str, authors, date: str, text: str, url=None, fetch_refused=None, approved_quotes=()) -> Tuple[Dict[str, Any], str]:
+    """A commentary item from text the producer pasted. The returned item holds NO text: only its hash and length (the text goes to the private
+    store, and `evidence_text` is filled in memory at generation time). Raises CommentaryError."""
+    title, outlet = (title or "").strip(), (outlet or "").strip()
+    if not title or len(title) > 300:
+        raise CommentaryError("the title is required (at most 300 characters)")
+    if not outlet or len(outlet) > 120:
+        raise CommentaryError("the outlet is required (at most 120 characters)")
+    authors = [a.strip() for a in (authors or []) if isinstance(a, str) and a.strip()]
+    if len(authors) > 5 or any(len(a) > 120 for a in authors):
+        raise CommentaryError("at most five authors, each at most 120 characters")
+    if not _DATE.match(date or "") or not _real_date(date):
+        raise CommentaryError("the date must be a real date: YYYY, YYYY-MM or YYYY-MM-DD")
+    if not isinstance(text, str) or _CONTROL.search(text):
+        raise CommentaryError("the text must be plain text without control characters")
+    text = text.replace("\r\n", "\n").strip()
+    if not (COMMENTARY_TEXT_MIN <= len(text) <= COMMENTARY_TEXT_MAX):
+        raise CommentaryError(f"the pasted text must be {COMMENTARY_TEXT_MIN} to {COMMENTARY_TEXT_MAX} characters (an excerpt is enough)")
+    if url:
+        from safe_fetch import FetchRefused, validate_url
+        try:
+            validate_url(url)          # the address is only recorded, never fetched; it must still be an ordinary public web address
+        except FetchRefused as e:
+            raise CommentaryError(f"the address is not an ordinary web address ({e.reason})")
+    if fetch_refused is not None and fetch_refused not in FETCH_REFUSED_REASONS:
+        raise CommentaryError("fetch_refused must be one of: " + ", ".join(FETCH_REFUSED_REASONS))
+    quotes = [q.strip() for q in (approved_quotes or []) if isinstance(q, str) and q.strip()]
+    if len(quotes) > 5 or any(not (20 <= len(q) <= 300) for q in quotes):
+        raise CommentaryError("at most five approved quotations, each 20 to 300 characters")
+    for q in quotes:
+        if not text_contains(text, q):
+            raise CommentaryError("an approved quotation does not occur in the pasted text")
+    sha = hashlib.sha256(text.encode("utf-8")).hexdigest()
+    identifiers = {"url": url} if url else {"commentary": hashlib.sha256(f"{outlet}|{title}|{date}".encode()).hexdigest()[:16]}
+    limits = [{"type": "fetch_refused", "reason": fetch_refused, "at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")}] if fetch_refused else []
+    return {"item_id": item_id(identifiers), "input": (url or title)[:MAX_ITEM_CHARS], "class": COMMENTARY, "added_by": "gary", "identifiers": identifiers,
+            "title": title, "authors": authors, "year": int(date[:4]), "venue": outlet, "url": url or "", "evidence_text": None, "text_sha256": sha,
+            "text_chars": len(text), "approved_quotes": quotes, "limits": limits, "date": date,
+            "confirmation": {"status": CONFIRMED, "mode": "pasted", "confirmed_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")},
+            "relevance_score": None, "approved": True}, text
+
+
 # --- the list ----------------------------------------------------------------------------------------------------------
 def approved_items(items: Sequence[Dict[str, Any]]) -> List[Dict[str, Any]]:
     return [i for i in items if i.get("approved") and i.get("confirmation", {}).get("status") == CONFIRMED]
@@ -233,8 +309,8 @@ def list_hash(pin: Dict[str, Any], items: Sequence[Dict[str, Any]]) -> str:
     """sha256 over the pin and the approved items (class, identity, title, evidence text), independent of order and of timestamps.
     Any edit to what is approved changes it; a re-confirmation that changes nothing material does not."""
     rows = sorted(({"id": i["item_id"], "class": i["class"], "key": item_key(i["identifiers"]), "title": i.get("title"),
-                    "evidence_sha256": hashlib.sha256((i.get("evidence_text") or "").encode()).hexdigest(),
-                    "blob_sha": (i.get("confirmation") or {}).get("blob_sha")}
+                    "evidence_sha256": i.get("text_sha256") or hashlib.sha256((i.get("evidence_text") or "").encode()).hexdigest(),
+                    "blob_sha": (i.get("confirmation") or {}).get("blob_sha"), "checked_by": i.get("checked_by")}
                    for i in approved_items(items)), key=lambda r: r["id"])
     body = json.dumps({"pin": {"repo": pin.get("repo"), "commit": pin.get("commit")}, "items": rows}, sort_keys=True, separators=(",", ":"))
     return hashlib.sha256(body.encode()).hexdigest()

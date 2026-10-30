@@ -23,12 +23,16 @@ def notation_items(attempt: int, problems: Sequence[str]) -> List[Dict[str, Any]
     return [{"attempt": attempt, "check": "notation", "problem": p} for p in problems]
 
 
-def attribution_items(attempt: int, checked: Sequence[Dict[str, Any]]) -> List[Dict[str, Any]]:
+WITHHELD = "[withheld: private commentary text]"
+
+
+def attribution_items(attempt: int, checked: Sequence[Dict[str, Any]], withhold: Sequence[str] = ()) -> List[Dict[str, Any]]:
     """One item per attribution the model reported. Supported ones are kept too (without the abstract, to save space) so that a later
     re-check can be compared with the production verdict sentence by sentence; unsupported ones carry the whole abstract."""
     return [{"attempt": attempt, "check": "attribution", "verdict": c.get("verdict"), "quote": c.get("quote"), "pid": c.get("pid"),
              "paper": c.get("title"), "authors": c.get("authors"), "year": c.get("year"),
-             "abstract": c.get("abstract") if c.get("verdict") == "unsupported" else None, "reason": c.get("reason")} for c in checked]
+             "abstract": (WITHHELD if c.get("pid") in withhold else c.get("abstract")) if c.get("verdict") == "unsupported" else None,
+             "reason": c.get("reason")} for c in checked]
 
 
 def coverage_items(attempt: int, missing) -> List[Dict[str, Any]]:
@@ -54,5 +58,7 @@ def transient_item(attempt: int, stage: str, error: Exception) -> Dict[str, Any]
 
 def curated_items(attempt: int, violations: Sequence[Dict[str, Any]]) -> List[Dict[str, Any]]:
     """Curated-sources checks (status wording, verbatim runs, spoken names, class labels): the whole sentence or run is kept."""
-    return [{"attempt": attempt, "check": v.get("check"), "kind": v.get("kind"), "sentence": v.get("sentence"), "quote": v.get("quote"),
+    return [{"attempt": attempt, "check": v.get("check"), "kind": v.get("kind"), "sentence": v.get("sentence"),
+             "quote": WITHHELD if v.get("kind") == "verbatim_run" else v.get("quote"),      # a copied run is third-party text: its length is recorded, not its words
              "term": v.get("term"), "result": v.get("result"), "words": v.get("words"), "matched": v.get("matched")} for v in violations]
+
