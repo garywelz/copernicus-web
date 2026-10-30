@@ -1,6 +1,6 @@
 # Design: curated-sources mode for the podcast generator
 
-**Status: PROPOSAL. Nothing here is built or deployed, and nothing in it is approved until Gary says so.** This pull request carries one file and no code. The first line of code is written only after Gary approves this design, and then as the separately reviewed pull requests in §9.
+**Status: ADOPTED on merge of this PR; every question decided (§10a); nothing built yet; the build proceeds as the separately reviewed PRs in §9, starting with C0.**
 
 **Author:** Claude Code (Core lane), at Gary's request, 2026-10-29 · **Rules in force:** `governance/AGENT_ROLES.md` v2.9 · **Read with:** the current generation code (`cloud-run-backend/services/podcast_generation_service.py`, `podcast_research_integrator.py`, `paper_confirmation.py`, `relevance_gate.py`, `named_work_check.py`, `attribution_check.py`, `reference_sections.py`) and `docs/design/ENGINE_ONBOARDING_FORM.md` (same conventions: draft PRs, gated deploys, private-first). **Pinned source for the first series:** `github.com/openai/math` at commit `7ef5c0cc5ca4b0e072b7a050fca09ab24bc6fa3a`.
 
@@ -21,7 +21,7 @@
 6. **Publishing:** generate private, Gary reviews, then the existing gated publish (§7). The run record gains the TTS character count.
 7. **Build:** eight pull requests (§9). **The smallest build that can make episode 1 is about 8 to 10 agent days** (C0, C1, C2, a reduced C3 and a paste-only C4), which puts the first episode at **about Nov 11 to 14**, not by Nov 10; §9.2 says exactly what is cut to get there. **There is no dependency on the onboarding build's PR 1**; the two compete only for the same agent's time (Q6).
 
-**What is still open:** the questions in §10, each with a default that **stands unless Gary says otherwise**.
+**What is still open:** nothing. All fourteen questions were decided by Gary on 2026-10-29 (every default confirmed) and are recorded in §10a.
 
 ---
 
@@ -63,7 +63,7 @@ Every source in an approved list has exactly one class, assigned by code from ev
 | `company_release` | A manuscript that is in **no registry**. For the first series: `openai/math`, by family number or path, **at a recorded commit** | The company's own page or repository at the pinned commit: the file exists at that path and commit; its title and abstract are taken from the repository's own map at that commit; the blob identifier is recorded | What the company says the manuscript shows. Every episode naming one carries the label. Never "proved", never "verified" |
 | `commentary` | A URL or a pasted text: journalism, a blog, a statement, a social post | Retrieval only: the outlet, author, date and URL, and that it was fetched or pasted (§5). "Confirmed" means retrieved, **not true** | Reactions and context: "X reported", "Y said". Never the basis for a claim that a result is true |
 
-**Labels (wording is Gary's to approve, Q10; these are the defaults).** In the script, at the first mention of a work: "a preprint", "a company release that has not been peer reviewed", "reporting by [outlet]". In the description: a short **Sources** section built by code, one subsection per class, each line carrying its class and its registry or commit identifier. On the episode page: a badge per class beside each reference. The model never writes these; the code does (the existing `code@2` rule, extended to `code@3`).
+**Labels (wording decided by Gary, Q10, §10a).** In the script, at the first mention of a work: "a preprint", "a company release that has not been peer reviewed", "reporting by [outlet]". In the description: a short **Sources** section built by code, one subsection per class, each line carrying its class and its registry or commit identifier. On the episode page: a badge per class beside each reference. The model never writes these; the code does (the existing `code@2` rule, extended to `code@3`).
 
 ### 2.1 How the existing checks extend
 - **Confirmed list.** Today it holds registry records only. In this mode it holds one record per approved source, `ConfirmedPaper` extended with `source_class`, `pin` (repository, commit, path, blob id; empty for registry sources) and `evidence` (below). Registry sources keep their existing confirmation unchanged; `company_release` and `commentary` get their own confirmation records.
@@ -241,22 +241,26 @@ Left for later: the review-pack page and the page badges (C5), topic-proposed in
 
 ## 10. Questions for Gary
 
-Each carries a default that **stands unless Gary says otherwise**.
+None. Every question is decided: all fourteen were decided on 2026-10-29 (every default confirmed) and are recorded in §10a. The numbers are kept so earlier references still hold.
 
-1. **Minimum sources.** At least three confirmed non-commentary sources; company-release manuscripts count; commentary never counts; no per-episode override. **Default:** as stated.
-2. **Relevance gate.** Report only for items Gary pasted or named (the score is shown on the approval screen); drop for engine-proposed items. **Default:** as stated.
-3. **Verbatim limit.** No run of eight or more consecutive words from any pasted or fetched text appears in a script, except a quotation Gary marks approved. **Default:** eight words, no exceptions unless marked.
-4. **Spoken names.** Speaker labels are internal (`HOST`, `EXPERT`); no personal name is spoken; a code check enforces it. **Default:** as stated.
-5. **Evidence beyond the abstract for deep dives.** Abstract-only in v1 (the attribution check judges abstract-level claims). Later, add the first 6,000 characters of a company-release manuscript's introduction from its pinned TeX source as evidence for deep dives. **Default:** abstract only for the first episodes; revisit before the deep dives.
-6. **Sequencing against the onboarding build.** Curated-sources first through the first episode, then PR 1 of the onboarding build resumes. **Default:** curated first.
-7. **TTS budget.** Record the count and set a per-episode warning threshold that Gary chooses after reading the plan's allowance off the account page; no automatic cap. **Default:** record only until Gary names a threshold.
-8. **Publish-time re-check.** A difference between the recorded statuses and the repository's current head blocks publication and goes to Gary. **Default:** block.
-9. **The formalization percentage.** Episodes quote the repository's "300 / 719" only as "OpenAI says" and never alongside the catalogue's 176; the run record stores the catalogue's count. **Default:** as stated.
-10. **Label wording.** "a preprint", "a company release that has not been peer reviewed", "reporting by [outlet]", and the status sentences in §4, as the default text. **Default:** as written here.
-11. **Ambiguous manuscripts.** A bare family number whose manuscripts share a title is refused; Gary names the directory. **Default:** refused.
-12. **Status page count.** The corpus count footnotes "includes N company releases". **Default:** yes, when C7 ships.
-13. **Order after ETH.** Overview, ETH deep dive, then the area episodes in Gary's order with each deep dive after its area episode. **Default:** as stated.
-14. **Robots rules.** The fetch obeys `robots.txt`; a disallowed site is never fetched around. **Default:** obey.
+## 10a. Decided by Gary 2026-10-29 (defaults confirmed)
+
+| # | Decision | Where it lands |
+|---|---|---|
+| Q1 | **Minimum sources:** at least three confirmed non-commentary sources; company-release manuscripts count; commentary never counts; no per-episode override. | §2.1 |
+| Q2 | **Relevance gate:** report only for items Gary pasted or named (the score is shown on the approval screen); drop for engine-proposed items. | §2.1 |
+| Q3 | **Verbatim limit:** no run of eight or more consecutive words from any pasted or fetched text appears in a script, except a quotation Gary marks approved. | §5 |
+| Q4 | **Spoken names:** speaker labels are internal (`HOST`, `EXPERT`); no personal name is spoken; a code check enforces it. | §7 |
+| Q5 | **Evidence beyond the abstract:** abstract only for the first episodes; revisit (the introduction excerpt, first 6,000 characters of the pinned TeX source) before the deep dives. | §2.1 |
+| Q6 | **Sequencing:** curated-sources first, through episode 1; then PR 1 of the onboarding build resumes. | §9.3 |
+| Q7 | **TTS budget:** record the count only, with the per-episode warning-threshold hook left unset until Gary names a threshold; no automatic cap. | §7.5, §7.6, C0 |
+| Q8 | **Publish-time re-check:** a difference between the recorded statuses and the repository's current head blocks publication and goes to Gary. | §4.3 |
+| Q9 | **The formalization percentage:** episodes quote "300 / 719" only as "OpenAI says", never alongside the catalogue's 176; the run record stores the catalogue's count. | §4, §8.3 |
+| Q10 | **Label wording:** "a preprint", "a company release that has not been peer reviewed", "reporting by [outlet]", and the status sentences in §4, as written. | §2, §4 |
+| Q11 | **Ambiguous manuscripts:** a bare family number whose manuscripts share a title is refused; Gary names the directory. | §3.4 |
+| Q12 | **Status page count:** the corpus count footnotes "includes N company releases", when C7 ships. | §6 |
+| Q13 | **Order after ETH:** overview, the ETH deep dive, then the area episodes in Gary's order, each deep dive after its area episode. | §8.2 |
+| Q14 | **Robots rules:** the fetch obeys `robots.txt`; a disallowed site is never fetched around. | §5 |
 
 ---
 
