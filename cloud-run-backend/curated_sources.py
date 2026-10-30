@@ -25,6 +25,7 @@ from typing import Any, Dict, List, Optional, Sequence, Tuple
 
 import paper_confirmation as pc
 import openai_math_index as omi
+import openai_math_status as oms
 
 PEER_REVIEWED, PREPRINT, COMPANY_RELEASE, COMMENTARY = "peer_reviewed", "preprint", "company_release", "commentary"
 CLASSES = (PEER_REVIEWED, PREPRINT, COMPANY_RELEASE, COMMENTARY)
@@ -158,11 +159,14 @@ def _registry_item(c: "pc.ConfirmedPaper", cls: str, parsed: Parsed) -> Dict[str
             "evidence_text": c.abstract, "confirmation": {"status": CONFIRMED, **c.to_dict()}, "relevance_score": None, "approved": True}
 
 
-def _repo_item(conf: Dict[str, Any], parsed: Parsed) -> Dict[str, Any]:
+def _repo_item(conf: Dict[str, Any], parsed: Parsed, status: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
     identifiers = {"repo": conf["repo"], "commit": conf["commit"], "path": conf["path"], "family": conf["family"]}
-    return {"item_id": item_id(identifiers), "input": parsed.raw[:MAX_ITEM_CHARS], "class": COMPANY_RELEASE, "added_by": "gary",
+    item = {"item_id": item_id(identifiers), "input": parsed.raw[:MAX_ITEM_CHARS], "class": COMPANY_RELEASE, "added_by": "gary",
             "identifiers": identifiers, "title": conf["title"], "authors": list(conf["authors"]), "year": conf["year"], "venue": None,
             "url": conf["url"], "evidence_text": conf["abstract"], "confirmation": dict(conf), "relevance_score": None, "approved": True}
+    if status is not None:                       # result status from the pinned commit (design §4), per manuscript
+        item["result_status"], item["status_basis"] = status["status"], status["basis"]
+    return item
 
 
 async def confirm_registry_item(parsed: Parsed, http_get=None) -> Dict[str, Any]:
@@ -188,6 +192,13 @@ async def confirm_repo_items(parsed: Parsed, commit: str, fetch=None) -> List[Di
     or a single refusal. Raises omi.RepoUnavailable when the repository cannot be read."""
     index = await omi.load_index(commit, fetch=fetch)
     manuscripts, refusal = omi.resolve(index, parsed.repo_kind, parsed.repo_value)
+    if refusal and refusal.reason == "not_a_standing_manuscript" and parsed.repo_kind == "path":
+        # not in the map: a WITHDRAWN manuscript may still be used as content (design §4.2); an older edition or an unknown name may not
+        conf, why = await oms.withdrawn_manuscript(commit, parsed.repo_value, fetch=fetch)
+        if conf is None:
+            return [_refused(parsed, why.reason, why.detail, None, COMPANY_RELEASE)]
+        return [_repo_item(conf, parsed, {"status": oms.STATUS_WITHDRAWN, "basis": {"commit": commit, "withdrawal_notice": True,
+                                                                                    "withdrawal": conf["withdrawal"]}})]
     if refusal:
         return [_refused(parsed, refusal.reason, refusal.detail, refusal.directories, COMPANY_RELEASE)]
     out = []
@@ -196,7 +207,7 @@ async def confirm_repo_items(parsed: Parsed, commit: str, fetch=None) -> List[Di
         if refusal:
             out.append(_refused(Parsed("repo", f"preprints/{ms.dir}"), refusal.reason, refusal.detail, None, COMPANY_RELEASE))
         else:
-            out.append(_repo_item(conf, parsed))
+            out.append(_repo_item(conf, parsed, await oms.compute_status(commit, ms.dir, fetch=fetch)))
     return out
 
 
@@ -296,11 +307,16 @@ def approved_items(items: Sequence[Dict[str, Any]]) -> List[Dict[str, Any]]:
 
 
 def minimum_check(items: Sequence[Dict[str, Any]]) -> Tuple[bool, Dict[str, int]]:
-    """At least MIN_NON_COMMENTARY confirmed, approved, non-commentary items (design §2.1, Q1). Commentary never counts."""
+    """At least MIN_NON_COMMENTARY confirmed, approved, non-commentary items (design §2.1, Q1). Commentary never counts, and neither does a
+    withdrawn manuscript: it is content to talk about, not a source for any claim."""
     counts = {c: 0 for c in CLASSES}
+    counts["withdrawn"] = 0
     for i in approved_items(items):
+        if i.get("result_status") == "withdrawn":
+            counts["withdrawn"] += 1
+            continue
         counts[i["class"]] = counts.get(i["class"], 0) + 1
-    non_commentary = sum(n for c, n in counts.items() if c != COMMENTARY)
+    non_commentary = sum(n for c, n in counts.items() if c not in (COMMENTARY, "withdrawn"))
     counts["non_commentary"] = non_commentary
     return non_commentary >= MIN_NON_COMMENTARY, counts
 
@@ -310,7 +326,8 @@ def list_hash(pin: Dict[str, Any], items: Sequence[Dict[str, Any]]) -> str:
     Any edit to what is approved changes it; a re-confirmation that changes nothing material does not."""
     rows = sorted(({"id": i["item_id"], "class": i["class"], "key": item_key(i["identifiers"]), "title": i.get("title"),
                     "evidence_sha256": i.get("text_sha256") or hashlib.sha256((i.get("evidence_text") or "").encode()).hexdigest(),
-                    "blob_sha": (i.get("confirmation") or {}).get("blob_sha"), "checked_by": i.get("checked_by")}
+                    "blob_sha": (i.get("confirmation") or {}).get("blob_sha"), "status": i.get("result_status"),
+                    "checked_by": i.get("checked_by")}
                    for i in approved_items(items)), key=lambda r: r["id"])
     body = json.dumps({"pin": {"repo": pin.get("repo"), "commit": pin.get("commit")}, "items": rows}, sort_keys=True, separators=(",", ":"))
     return hashlib.sha256(body.encode()).hexdigest()
