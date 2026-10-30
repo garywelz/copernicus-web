@@ -20,9 +20,11 @@ The list id is on the episode's job record (`curated_list_id`) and in `curated_r
 1. Reads the approved list.
 2. Asks GitHub for the current head of the repository's default branch.
 3. For every company-release manuscript in the list, recomputes its status **at that head**: withdrawn (its README is a withdrawal notice), has a Lean formalization (its directory is a `sources:` entry of `lean/formalization.yaml`), or unverified. Withdrawn beats the other two.
-4. Compares each with the status recorded in the list, and also flags a manuscript whose file changed since the pinned commit, one that is no longer in the manuscript map, and a withdrawn one that has come back into it.
+4. Compares each with the status the repository gave it when the list was built (for a manuscript marked `checked_by_experts`, the status it had before a commentary source was cited, which the list keeps with it), and also flags a manuscript whose file changed since the pinned commit, one that is no longer in the manuscript map, and a withdrawn one that has come back into it.
 
-It does **not** re-check registry sources (arXiv, PubMed, Crossref), and it cannot tell whether a `checked_by_experts` statement made by a cited commentary source is still true; read those sources again by hand if an episode relies on one.
+5. For every `checked_by_experts` manuscript, reads the cited commentary's private text (read-only; never printed) and confirms that the quoted sentence still occurs in it and that the text still hashes to the value the list was approved with. It prints both results and exits 2 if either fails.
+
+It does **not** re-check registry sources (arXiv, PubMed, Crossref), and it cannot tell whether a `checked_by_experts` statement made by a cited commentary source is still true in the world; read those sources again by hand if an episode relies on one.
 
 ## Reading the result
 
