@@ -204,9 +204,22 @@ async def resolve_head(fetch: Optional[Fetch] = None) -> str:
     return sha
 
 
+STATUS_CHECKED = "checked_by_experts"
+
+
+def repository_baseline(item: Dict[str, Any]) -> str:
+    """The status the repository itself gave this item when it was added: for a `checked_by_experts` item, the status it had before a commentary
+    source was cited for it (kept with the item); for every other item, its recorded status."""
+    recorded = item.get("result_status") or STATUS_UNVERIFIED
+    if recorded != STATUS_CHECKED:
+        return recorded
+    return ((item.get("status_basis") or {}).get("checked_by") or {}).get("previous_status") or STATUS_UNVERIFIED
+
+
 async def recheck_items(items: List[Dict[str, Any]], head: str, fetch: Optional[Fetch] = None) -> List[Dict[str, Any]]:
     """For every company-release item: its status at `head` against the status recorded in the list. One row per item:
-    {item_id, title, path, recorded, current, changed (bool), notes}. A manuscript whose mapped file changed since the pin is flagged too."""
+    {item_id, title, path, recorded, baseline, current, changed (bool), notes}. `baseline` is the repository-derived status the item had
+    before any `checked_by` was set; `changed` compares `current` with it. A manuscript whose mapped file changed since the pin is flagged too."""
     rows = []
     index = await omi.load_index(head, fetch=fetch, use_cache=False)
     for it in items:
@@ -215,6 +228,9 @@ async def recheck_items(items: List[Dict[str, Any]], head: str, fetch: Optional[
         c = it.get("confirmation") or {}
         dirname = (c.get("path") or "").split("preprints/", 1)[-1]
         recorded = it.get("result_status") or STATUS_UNVERIFIED
+        # `checked_by_experts` comes from a commentary source, never from the repository: compare the repository's answer with the status the
+        # item had BEFORE that was set (the quotation and the text are checked separately, by the command).
+        baseline = repository_baseline(it)
         notes: List[str] = []
         try:
             cur = await compute_status(head, dirname, fetch, use_cache=False)
@@ -223,9 +239,9 @@ async def recheck_items(items: List[Dict[str, Any]], head: str, fetch: Optional[
             current, notes = "unreadable", [str(e)]
         in_map = dirname in index.by_dir
         if current != "unreadable":
-            if recorded == STATUS_WITHDRAWN and in_map:
+            if baseline == STATUS_WITHDRAWN and in_map:
                 notes.append("recorded as withdrawn but now back in the manuscript map")
-            if recorded != STATUS_WITHDRAWN and not in_map and current != STATUS_WITHDRAWN:
+            if baseline != STATUS_WITHDRAWN and not in_map and current != STATUS_WITHDRAWN:
                 notes.append("no longer in the manuscript map at the head (superseded or removed)")
                 current = "not_standing"
             ms = index.by_dir.get(dirname)
@@ -233,6 +249,6 @@ async def recheck_items(items: List[Dict[str, Any]], head: str, fetch: Optional[
                 tree = await omi.confirm_manuscript(ms, head, fetch=fetch)
                 if tree[0] and tree[0].get("blob_sha") and c.get("blob_sha") and tree[0]["blob_sha"] != c["blob_sha"]:
                     notes.append("the manuscript file has changed since the pinned commit")
-        rows.append({"item_id": it.get("item_id"), "title": it.get("title"), "path": c.get("path"), "recorded": recorded, "current": current,
-                     "changed": current != recorded or bool(notes), "notes": notes})
+        rows.append({"item_id": it.get("item_id"), "title": it.get("title"), "path": c.get("path"), "recorded": recorded, "baseline": baseline,
+                     "current": current, "changed": current != baseline or bool(notes), "notes": notes})
     return rows
