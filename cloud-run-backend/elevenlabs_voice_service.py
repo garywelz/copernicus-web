@@ -498,8 +498,21 @@ class ElevenLabsVoiceService:
         logger.info(f"🔄 Created {len(segments)} multi-voice segments from script")
         return segments
     
-    async def _synthesize_segment(self, text: str, voice_config: ElevenLabsVoiceConfig) -> tuple[bytes, float]:
-        """Synthesize a single text segment using ElevenLabs"""
+    async def _synthesize_segment(self, text: str, voice_config: ElevenLabsVoiceConfig, usage=None) -> tuple[bytes, float]:
+        """Synthesize a single text segment using ElevenLabs. If `usage` (a tts_usage.TtsUsage) is given, the characters of
+        this request are counted on it. This is the one place a request is made, so the count is exact per attempt: a request
+        that fails (an error status, a dropped connection, a timeout) still sent its characters and is counted as failed."""
+        if usage is not None:
+            usage.sent(voice_config.voice_id, text)
+        try:
+            return await self._request_speech(text, voice_config)
+        except BaseException:
+            if usage is not None:
+                usage.failed(text)
+            raise
+
+    async def _request_speech(self, text: str, voice_config: ElevenLabsVoiceConfig) -> tuple[bytes, float]:
+        """The request itself (unchanged from the former body of _synthesize_segment)."""
         
         # Prepare request data
         data = {
@@ -1056,8 +1069,9 @@ class ElevenLabsVoiceService:
             logger.warning("⚠️ Returning audio without bumpers")
             return main_audio  # Return original audio if bumpers fail
     
-    async def generate_multi_voice_audio_with_bumpers(self, script: str, job_id: str, canonical_filename: str, intro_path: str, outro_path: str, host_voice_id: Optional[str] = None, expert_voice_id: Optional[str] = None) -> str:
-        """Generate multi-voice audio with bumpers and upload to GCS"""
+    async def generate_multi_voice_audio_with_bumpers(self, script: str, job_id: str, canonical_filename: str, intro_path: str, outro_path: str, host_voice_id: Optional[str] = None, expert_voice_id: Optional[str] = None, tts_usage=None) -> str:
+        """Generate multi-voice audio with bumpers and upload to GCS. `tts_usage` (a tts_usage.TtsUsage), when given,
+        is filled in place with the characters sent to ElevenLabs, including by requests that failed."""
         from google.cloud import storage
         import tempfile
         import os
@@ -1103,7 +1117,7 @@ class ElevenLabsVoiceService:
             # Fallback to single voice
             clean_script = self._preprocess_text_for_natural_speech(script)
             voice_config = self.voice_configs['host']
-            audio_data, duration = await self._synthesize_segment(clean_script, voice_config)
+            audio_data, duration = await self._synthesize_segment(clean_script, voice_config, usage=tts_usage)
         else:
             # Generate audio for each segment with appropriate voice
             audio_segments = []
@@ -1118,7 +1132,7 @@ class ElevenLabsVoiceService:
                 logger.info(f"🔊 Segment {i+1}: {voice_config.speaker_name} ({speaker_role}) - {len(content)} chars")
                 
                 try:
-                    audio_data, duration = await self._synthesize_segment(content, voice_config)
+                    audio_data, duration = await self._synthesize_segment(content, voice_config, usage=tts_usage)
                     audio_segments.append(audio_data)
                     total_duration += duration
                     logger.info(f"✅ Segment {i+1} generated: {duration:.1f}s")
