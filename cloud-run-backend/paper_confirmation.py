@@ -82,6 +82,10 @@ class ConfirmedPaper:
     registry: str
     confirmed_at: str
     title_match: float
+    # Curated-sources mode (design §2): set by that mode only; the ordinary mode leaves them None.
+    record_type: Optional[str] = None   # the registry's own record type (Crossref "journal-article", DataCite resource type, ...)
+    source_class: Optional[str] = None  # peer_reviewed | preprint | company_release | commentary
+    pin: Optional[Dict[str, Any]] = None  # repository, commit, path and blob ids for a company release
 
     def to_dict(self) -> Dict[str, Any]:
         return asdict(self)
@@ -308,6 +312,7 @@ def parse_crossref(body: str, doi: str) -> Optional[Dict[str, Any]]:
         "venue": _clean((m.get("container-title") or [None])[0]) or None,
         "ids": {"arxiv": None, "arxiv_version": None, "pmid": None, "doi": normalize_doi(m.get("DOI")) or doi},
         "url": f"https://doi.org/{doi}",
+        "type": m.get("type"),
     }
 
 
@@ -340,6 +345,7 @@ def parse_datacite(body: str, doi: str) -> Optional[Dict[str, Any]]:
         "venue": (("arXiv " if is_arxiv_doi else "Zenodo ") + label) if label else None,
         "ids": {"arxiv": None, "arxiv_version": None, "pmid": None, "doi": normalize_doi(a.get("doi")) or doi},
         "url": f"https://doi.org/{doi}", "excluded_type": None if label else (rtype or "unknown"),
+        "type": rtype,
     }
 
 
@@ -525,7 +531,8 @@ async def confirm_sources(sources: Sequence[Any], http_get: Optional[HttpGet] = 
         seen_keys.update(keys)
         confirmed.append(ConfirmedPaper(
             pid=f"P{len(confirmed) + 1}", title=rec["title"], authors=rec["authors"], year=rec["year"], venue=rec["venue"],
-            ids=merged, url=rec["url"], abstract=rec["abstract"], registry=registry, confirmed_at=_now(), title_match=round(tm, 2)))
+            ids=merged, url=rec["url"], abstract=rec["abstract"], registry=registry, confirmed_at=_now(), title_match=round(tm, 2),
+            record_type=rec.get("type")))
     if bad:
         raise RegistryUnavailable(bad)
     return ConfirmationResult(confirmed=confirmed, dropped=dropped, stats={"requests": dict(requests), "reused_from_search": dict(reused)})

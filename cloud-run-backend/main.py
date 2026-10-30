@@ -289,12 +289,14 @@ from endpoints.knowledge_map.routes import router as knowledge_map_router
 from endpoints.rag.routes import router as rag_router
 from endpoints.content.routes import router as content_router
 from endpoints.vector_search.routes import router as vector_search_router
+from endpoints.curated.routes import router as curated_router
 
 app.include_router(health_router)
 app.include_router(debug_router)
 app.include_router(public_router)
 app.include_router(test_router)
 app.include_router(admin_router)
+app.include_router(curated_router)
 app.include_router(subscriber_router)
 app.include_router(podcast_router)
 app.include_router(papers_router)
