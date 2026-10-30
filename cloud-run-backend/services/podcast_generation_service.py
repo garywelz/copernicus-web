@@ -25,6 +25,7 @@ from functools import wraps
 from paper_processor import process_paper, ResearchPaper, AnalyzeOptions, PaperAnalysis, format_citation
 from copernicus_character import get_copernicus_character, get_character_prompt
 from elevenlabs_voice_service import ElevenLabsVoiceService
+from tts_usage import TtsUsage
 from email_service import EmailService
 from content_fixes import (
     apply_content_fixes,
@@ -2415,15 +2416,29 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
                                   host_voice_id=request.host_voice_id or "XrExE9yKIg1WjnnlVkGX (Matilda - default)",
                                   expert_voice_id=request.expert_voice_id or "pNInz6obpgDQGcFmaJgB (Adam - default)")
             
-            audio_url = await self.elevenlabs_voice_service.generate_multi_voice_audio_with_bumpers(
-                content["script"], 
-                job_id, 
-                canonical_filename,
-                intro_path="bumpers/copernicus-intro.mp3",
-                outro_path="bumpers/copernicus-outro.mp3",
-                host_voice_id=request.host_voice_id,
-                expert_voice_id=request.expert_voice_id
-            )
+            # Characters sent to ElevenLabs are counted per request. They are stored on the job whether or not the audio step
+            # succeeds (a failed run still used them), and again, with the rest of the record, on success.
+            tts_usage = TtsUsage()
+            try:
+                audio_url = await self.elevenlabs_voice_service.generate_multi_voice_audio_with_bumpers(
+                    content["script"],
+                    job_id,
+                    canonical_filename,
+                    intro_path="bumpers/copernicus-intro.mp3",
+                    outro_path="bumpers/copernicus-outro.mp3",
+                    host_voice_id=request.host_voice_id,
+                    expert_voice_id=request.expert_voice_id,
+                    tts_usage=tts_usage,
+                )
+            finally:
+                if tts_usage.segments:
+                    try:
+                        job_ref.update(tts_usage.as_record())
+                    except Exception as usage_error:
+                        structured_logger.warning("Could not store the text-to-speech usage on the job",
+                                                  job_id=job_id, error_type=type(usage_error).__name__)
+                    structured_logger.info("Text-to-speech usage", job_id=job_id, tts_characters=tts_usage.characters,
+                                           tts_segments=tts_usage.segments, tts_failed_segments=tts_usage.failed_segments)
             
             audio_generation_time = time.time() - audio_start_time
             audio_memory_after = psutil.virtual_memory().percent
@@ -2561,6 +2576,7 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
                 'status': 'completed',
                 'updated_at': datetime.utcnow().isoformat(),
                 'named_work_check': {'attempts': naming_attempts, 'final': 'passed'},
+                **tts_usage.as_record(),
                 'references_built_by': REFERENCES_BUILT_BY,
                 'description_limit': limit_metrics,  # what the 4000-character limit removed (gap 3 fix 1)
                 'result': {
@@ -2630,6 +2646,7 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
                         "duration": request.duration,
                         "canonical_filename": canonical_filename,
                         "generated_at": generated_timestamp,
+                        **tts_usage.as_record(),
                         **episode_embedding_fields,
                     },
                     metadata_extended,
