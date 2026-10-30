@@ -19,3 +19,14 @@ class AddSourceItems(BaseModel):
 class OverrideItemClass(BaseModel):
     # "class" is a Python keyword, so the body field is named source_class
     source_class: str = Field(..., max_length=40)
+
+
+class GenerateCuratedEpisode(BaseModel):
+    list_id: str = Field(..., min_length=1, max_length=64)
+    topic: Optional[str] = Field(None, max_length=300)       # default: the list's own topic, else its title
+    category: str = Field("Mathematics", max_length=60)
+    duration: str = Field("15-20 minutes", max_length=40)
+    expertise_level: str = Field("intermediate", max_length=40)
+    format_type: str = Field("interview", max_length=40)
+    host_voice_id: Optional[str] = Field(None, max_length=64)
+    expert_voice_id: Optional[str] = Field(None, max_length=64)
