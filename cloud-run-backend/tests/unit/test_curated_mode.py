@@ -154,7 +154,7 @@ def test_result_status_defaults_to_unverified_and_only_applies_to_company_releas
 
 
 def test_results_carry_what_the_checks_need():
-    items = base_items()
+    items = base_items() + [registry_item(cs.PREPRINT, 3, registry="arxiv")]      # a withdrawn manuscript is not one of the three sources
     items[2]["result_status"] = cc.STATUS_WITHDRAWN
     res = run_of(items).results()
     assert res[2] == {"pid": "P3", "item_id": items[2]["item_id"], "class": "company_release", "title": "The Exponential Time Hypothesis is False",
@@ -178,7 +178,7 @@ def test_the_prompt_block_carries_the_class_wording_the_statuses_and_the_speaker
 
 
 def test_a_withdrawn_result_adds_the_rule_about_every_sentence():
-    items = base_items()
+    items = base_items() + [registry_item(cs.PREPRINT, 3, registry="arxiv")]      # a withdrawn manuscript is not one of the three sources
     items[2]["result_status"] = cc.STATUS_WITHDRAWN
     block = run_of(items).prompt_block()
     assert "status WITHDRAWN" in block and "Every sentence that mentions a WITHDRAWN manuscript must say it was withdrawn" in block
@@ -217,7 +217,7 @@ def test_the_default_status_is_printed_as_unverified():
 
 
 def test_a_withdrawn_manuscript_is_listed_under_its_own_heading_and_never_as_a_company_release():
-    items = base_items()
+    items = base_items() + [registry_item(cs.PREPRINT, 3, registry="arxiv")]      # a withdrawn manuscript is not one of the three sources
     items[2]["result_status"] = cc.STATUS_WITHDRAWN
     text, _ = build(items, ["P3"])
     assert "### Withdrawn" in text and "### Company releases" not in text and "status: withdrawn by OpenAI" in text
