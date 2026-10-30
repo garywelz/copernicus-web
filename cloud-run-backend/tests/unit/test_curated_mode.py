@@ -39,13 +39,20 @@ def release_item(title="The Exponential Time Hypothesis is False", path=ETH_PATH
     return item
 
 
+PRIVATE = {}          # item id -> the pasted text, as the private store would hold it
+
+
 def commentary_item(**extra):
-    ids = {"url": "https://example.org/story"}
+    """A commentary item as a list holds it: no text, only its hash. The text is kept in PRIVATE, as the private store would."""
+    import hashlib
+    ids = extra.pop("identifiers", {"url": "https://example.org/story"})
+    text = extra.pop("evidence_text", "Several mathematicians said the claims need careful checking by experts.")
     item = {"item_id": cs.item_id(ids), "input": "https://example.org/story", "class": cs.COMMENTARY, "added_by": "gary", "identifiers": ids,
             "title": "Mathematicians react to the release", "authors": ["A. Reporter"], "year": 2026, "venue": "Example Magazine",
-            "url": "https://example.org/story", "evidence_text": "Several mathematicians said the claims need careful checking by experts.",
-            "confirmation": {"status": cs.CONFIRMED, "confirmed_at": "2026-10-30T00:00:00Z"}, "relevance_score": None, "approved": True}
+            "url": ids.get("url", ""), "evidence_text": None, "text_sha256": hashlib.sha256(text.encode("utf-8")).hexdigest(), "text_chars": len(text),
+            "confirmation": {"status": cs.CONFIRMED, "mode": "pasted", "confirmed_at": "2026-10-30T00:00:00Z"}, "relevance_score": None, "approved": True}
     item.update(extra)
+    PRIVATE[item["item_id"]] = text
     return item
 
 
@@ -62,7 +69,7 @@ def base_items():
 
 
 def run_of(items=None, **kw):
-    return cm.CuratedRun.from_list_doc(approved_doc(items or base_items()), **kw)
+    return cm.CuratedRun.from_list_doc(approved_doc(items or base_items()), private_texts=PRIVATE, **kw)
 
 
 # --- building a run from a list ------------------------------------------------------------------------------------------------
