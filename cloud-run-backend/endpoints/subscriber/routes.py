@@ -104,7 +104,6 @@ async def register_subscriber(registration: SubscriberRegistration):
         # create() fails if the document exists, so two concurrent registrations cannot overwrite each other.
         db.collection('subscribers').document(subscriber_id).create(subscriber_data)
         structured_logger.info("New subscriber registered",
-                              email=registration.email,
                               subscriber_id=subscriber_id)
         
         return {
@@ -119,8 +118,7 @@ async def register_subscriber(registration: SubscriberRegistration):
         raise HTTPException(status_code=409, detail=SUBSCRIBER_EXISTS_DETAIL)
     except Exception as e:
         structured_logger.error("Error registering subscriber",
-                               email=registration.email,
-                               error=str(e))
+                               error_type=type(e).__name__)
         raise HTTPException(status_code=500, detail="Failed to register subscriber")
 
 
@@ -133,8 +131,7 @@ async def login_subscriber(login: SubscriberLogin, request: Request):
     if not db:
         raise HTTPException(status_code=503, detail="Firestore service is unavailable")
 
-    structured_logger.info("Login attempt",
-                          email=login.email)
+    structured_logger.info("Login attempt")
     
     try:
         subscriber_doc = get_subscriber_by_email(login.email)
@@ -144,7 +141,6 @@ async def login_subscriber(login: SubscriberLogin, request: Request):
         # Get the actual document ID (could be old or new format)
         subscriber_id = subscriber_doc.id
         structured_logger.info("Found subscriber",
-                              email=login.email,
                               subscriber_id=subscriber_id)
         
         subscriber_data = subscriber_doc.to_dict()
@@ -175,7 +171,6 @@ async def login_subscriber(login: SubscriberLogin, request: Request):
         db.collection('subscribers').document(subscriber_id).update(update_fields)
 
         structured_logger.info("Subscriber login successful",
-                              email=login.email,
                               subscriber_id=subscriber_id)
 
         return {
@@ -196,8 +191,7 @@ async def login_subscriber(login: SubscriberLogin, request: Request):
         raise
     except Exception as e:
         structured_logger.error("Error during login",
-                               email=login.email,
-                               error=str(e))
+                               error_type=type(e).__name__)
         raise HTTPException(status_code=500, detail="Login failed")
 
 

@@ -1845,7 +1845,7 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
                     recipient_email=address, job_id=job_id, topic=topic, error_message=message, what_to_do=what_to_do)
             except Exception as email_error:
                 structured_logger.error("Failed to send failure email notification",
-                                       job_id=job_id, email_error=str(email_error))
+                                       job_id=job_id, error_type=type(email_error).__name__)
 
     @staticmethod
     def _description_body(description: str) -> str:
@@ -2198,12 +2198,12 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
                     subscriber_email = subscriber_data.get('email', subscriber_email)
                     structured_logger.info("Subscriber email retrieved",
                                           job_id=job_id,
-                                          subscriber_email=subscriber_email)
+                                          subscriber_id=subscriber_id)
             except Exception as e:
                 structured_logger.warning("Could not get subscriber email, using default",
                                          job_id=job_id,
-                                         error=str(e),
-                                         default_email=subscriber_email)
+                                         subscriber_id=subscriber_id,
+                                         error_type=type(e).__name__)
         
         if not db:
             structured_logger.error("Firestore not available, cannot update job",
@@ -2664,7 +2664,6 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
             email_memory_before = psutil.virtual_memory().percent
             structured_logger.info("Sending completion email notification",
                                   job_id=job_id,
-                                  recipient_email=subscriber_email,
                                   memory_before_percent=round(email_memory_before, 1))
             
             # The audio is private until the episode is published, so its public address would not open: send a 7-day signed link
