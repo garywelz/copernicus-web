@@ -156,7 +156,10 @@ class CuratedRun:
         ]
         for i in self.items:
             pid, cls = self.pids[i["item_id"]], i["class"]
-            lines.append(f"- [{pid}] ({cls.replace('_', ' ')}) {speakable(i.get('title'))}")
+            if cls == cs.COMMENTARY:
+                lines.append(f"- [{pid}] (commentary) a report in {i.get('venue') or 'the outlet'}: say \"{i.get('venue') or 'the outlet'}'s report\", never its title")
+            else:
+                lines.append(f"- [{pid}] ({cls.replace('_', ' ')}) {speakable(i.get('title'))}")
             if cls in CLASS_SAYS:
                 lines.append(f"    The first time you mention it, call it {CLASS_SAYS[cls]}.")
         lines += [
