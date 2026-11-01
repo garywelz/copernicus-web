@@ -286,3 +286,17 @@ def test_the_head_is_the_tip_of_the_default_branch():
 def test_a_head_that_cannot_be_found_is_unavailable(fake):
     with pytest.raises(omi.RepoUnavailable):
         run(oms.resolve_head(fake))
+
+
+def test_a_checked_by_item_is_compared_with_the_status_the_repository_gave_it_before_experts_were_cited():
+    items = list_items()
+    eth = next(i for i in items if i["confirmation"]["path"].endswith(ETH))
+    assert eth["result_status"] == "has_lean_formalization"
+    eth["status_basis"] = dict(eth.get("status_basis") or {}, checked_by={"commentary_item_id": "c1", "quote": "x" * 30, "previous_status": "has_lean_formalization"})
+    eth["result_status"] = "checked_by_experts"
+    assert oms.repository_baseline(eth) == "has_lean_formalization"
+    rows = recheck(items, repo())
+    row = rows[ETH]
+    assert row["recorded"] == "checked_by_experts" and row["baseline"] == "has_lean_formalization" and row["current"] == "has_lean_formalization"
+    assert row["changed"] is False
+    assert oms.repository_baseline({"result_status": "withdrawn"}) == "withdrawn" and oms.repository_baseline({"result_status": "checked_by_experts"}) == "unverified"

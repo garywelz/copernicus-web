@@ -95,6 +95,15 @@ _NEGATION = {"not", "no", "never", "without", "neither", "nor", "cannot", "isn't
 _ATTRIBUTION = re.compile(r"\b(?:openai|the (?:company|authors|manuscript|paper)|they|it)\s+(?:says?|said|claims?|claimed|reports?|reported|states?|stated|"
                           r"describes?|described|asserts?|asserted|announced?|writes?|wrote|argues?|argued|purports?)\b|according to|as claimed by|"
                           r"claims? (?:to|that)|purports? to", re.I)
+# A named source reporting, in any tense: "Quanta reports that ...", "Scientific American said ...", "The Washington Times wrote ...", and the
+# plural who report ("experts say", "mathematicians told Nature"). The name must be capitalised (this pattern is case-sensitive), so a lower-case
+# "the proof says" is not an attribution; it only moves the claim onto someone else, it never lets the episode's own voice say "verified".
+_REPORT_VERB = (r"(?:reports?|reported|reporting|says?|said|writes?|wrote|notes?|noted|states?|stated|claims?|claimed|told|argues?|argued|"
+                r"adds?|added|explains?|explained|describes?|described|calls?|called|quotes?|quoted)")
+_ATTRIBUTION_NAMED = re.compile(
+    rf"(?-i:\b[A-Z][\w'’.\-]*(?:\s+(?:of|the|and|&|[A-Z][\w'’.\-]*)){{0,4}})\s+{_REPORT_VERB}\b"
+    rf"|\b(?i:experts|mathematicians|researchers|reviewers|scientists|critics|reporters|commentators|observers|reports?|articles?|outlets?)\s+"
+    rf"(?i:say|said|report(?:ed)?|write|wrote|note[sd]?|argue[sd]?|agree[sd]?|believe[sd]?|told)\b")
 _FORBIDDEN = [
     ("formally verified", re.compile(r"\bformally verif(?:y|ies|ied)\b", re.I)),
     ("machine-checked", re.compile(r"\bmachine[- ]checked\b", re.I)),
@@ -113,7 +122,7 @@ def _negated_before(sentence: str, start: int) -> bool:
 
 def _forbidden_hits(sentence: str) -> List[str]:
     hits = []
-    attributed = bool(_ATTRIBUTION.search(sentence))
+    attributed = bool(_ATTRIBUTION.search(sentence) or _ATTRIBUTION_NAMED.search(sentence))
     for name, rx in _FORBIDDEN:
         for m in rx.finditer(sentence):
             if _negated_before(sentence, m.start()) or attributed:

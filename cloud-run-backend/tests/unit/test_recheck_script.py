@@ -39,24 +39,25 @@ def _clear():
 class ReadOnlyDB:
     """A one-document database that fails the test if anything is written."""
 
-    def __init__(self, doc):
-        self.doc, self.reads = doc, []
+    def __init__(self, doc, private=None):
+        self.doc, self.private, self.reads, self._name = doc, private or {}, [], None
 
     def collection(self, name):
-        assert name == script.COLLECTION
+        assert name in (script.COLLECTION, script.PRIVATE_COLLECTION)
+        self._name = name
         return self
 
     def document(self, doc_id):
         self.reads.append(doc_id)
-        db = self
+        db, name = self, self._name
 
         class Ref:
             def get(self_r):
                 class Snap:
-                    exists = db.doc is not None
+                    exists = (db.doc is not None) if name == script.COLLECTION else doc_id in db.private
 
                     def to_dict(s):
-                        return db.doc
+                        return db.doc if name == script.COLLECTION else {"text": db.private[doc_id]}
                 return Snap()
 
             def set(self_r, *a, **k):
@@ -83,8 +84,8 @@ class Repo(FakeRepo):
         return await super().__call__(url, **kw)
 
 
-def go(args, doc=None, repo=None, capsys=None):
-    db = ReadOnlyDB(approved_doc() if doc is None else doc)
+def go(args, doc=None, repo=None, capsys=None, private=None):
+    db = ReadOnlyDB(approved_doc() if doc is None else doc, private)
     code = script.main(args, db=db, fetch=repo or Repo(trees=standard_trees()))
     return code, db
 
@@ -141,3 +142,63 @@ def test_the_command_never_writes(capsys):
 def test_the_runbook_names_the_command_and_its_exit_codes():
     text = open(os.path.join(os.path.dirname(BACKEND), "docs", "runbooks", "CURATED_STATUS_RECHECK.md"), encoding="utf-8").read()
     assert "scripts/recheck_curated_statuses.py" in text and "DO NOT PUBLISH" in text and "| 2 |" in text and "Exit code" in text and "rule 16" in text
+
+
+# --- an item marked `checked by experts` -------------------------------------------------------------------------------------------------
+TEXT = ("Mathematicians have been studying the paper intensely. These experts largely agree that the result is correct, and that its novelty lies "
+        "in the way it brings together ideas from number theory that have been around for some time. " * 2)
+QUOTE = "These experts largely agree that the result is correct"
+
+
+def checked_doc(text=TEXT, quote=QUOTE):
+    doc = approved_doc()
+    src, stored = cs.build_commentary_item("A report", "Quanta Magazine", ["A Writer"], "2026-10-19", text, url="https://example.org/a")
+    src["item_id"] = "c1"
+    target = next(i for i in doc["items"] if i.get("result_status") == "has_lean_formalization")
+    target["status_basis"] = dict(target.get("status_basis") or {}, checked_by={"commentary_item_id": "c1", "quote": quote,
+                                                                              "previous_status": target["result_status"]})
+    target["result_status"], target["checked_by"] = "checked_by_experts", "Quanta Magazine"
+    doc["items"].append(src)
+    return doc, stored
+
+
+def test_a_checked_by_item_on_an_unchanged_repository_exits_zero_and_prints_both_results(capsys):
+    doc, stored = checked_doc()
+    code, db = go(["L1"], doc=doc, private={"L1__c1": stored})
+    out = capsys.readouterr().out
+    assert code == 0 and "publication may go ahead" in out
+    assert "has_lean_formalization (+experts)" in out and "quoted sentence found" in out and "text hash matches" in out
+    assert stored[:40] not in out                                         # the private text is never printed
+
+
+def test_a_repository_change_under_a_checked_by_item_exits_two(capsys):
+    doc, stored = checked_doc()
+    target = next(i for i in doc["items"] if i.get("result_status") == "checked_by_experts")
+    path_dir = target["confirmation"]["path"].split("preprints/", 1)[-1]
+    notice = "\n".join(["# Withdrawal notice: " + target["title"], "", "OpenAI  ", "**Withdrawn on November 3, 2026.**", "", "A gap was found.", ""])
+    code, _ = go(["L1"], doc=doc, repo=Repo(trees=standard_trees(), files={f"preprints/{path_dir}/README.md": notice}), private={"L1__c1": stored})
+    out = capsys.readouterr().out
+    assert code == 2 and "DO NOT PUBLISH" in out and "CHANGED" in out and "withdrawn" in out
+
+
+
+def test_a_quotation_missing_from_the_text_exits_two(capsys):
+    doc, stored = checked_doc(quote="Every expert agrees the result is wrong")
+    code, _ = go(["L1"], doc=doc, private={"L1__c1": stored})
+    out = capsys.readouterr().out
+    assert code == 2 and "NOT found" in out and "no longer occurs" in out and "checked-by item(s) no longer match" in out
+
+
+def test_a_text_that_no_longer_matches_its_hash_exits_two(capsys):
+    doc, stored = checked_doc()
+    code, _ = go(["L1"], doc=doc, private={"L1__c1": stored + " An edit."})
+    out = capsys.readouterr().out
+    assert code == 2 and "DOES NOT match" in out
+
+
+def test_a_missing_private_text_exits_two_and_the_json_has_the_rows(capsys):
+    doc, stored = checked_doc()
+    code, _ = go(["L1", "--json"], doc=doc, private={})
+    data = json.loads(capsys.readouterr().out)
+    assert code == 2 and data["checked_by"][0]["ok"] is False and "could not be found" in data["checked_by"][0]["notes"][0]
+    assert all("baseline" in r for r in data["rows"])

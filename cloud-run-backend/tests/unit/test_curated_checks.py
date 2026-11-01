@@ -59,6 +59,29 @@ def test_negated_attributed_and_plain_catalogue_wording_is_allowed(sentence):
     assert status("EXPERT: " + sentence) == []
 
 
+@pytest.mark.parametrize("sentence", [
+    "Quanta reports that experts largely agree the exponential time hypothesis result was verified.",
+    "Quanta reported that the exponential time hypothesis proof was formally verified in Lean.",
+    "Scientific American said the exponential time hypothesis disproof is proven.",
+    "The Washington Times wrote that the exponential time hypothesis result was verified in Lean.",
+    "Experts say the exponential time hypothesis proof is confirmed correct.",
+    "Mathematicians told Nature the exponential time hypothesis disproof is machine-checked.",
+    "The exponential time hypothesis result was verified in Lean, which Quanta says.",
+])
+def test_a_named_source_reporting_is_an_attribution_in_any_tense(sentence):
+    assert status("EXPERT: " + sentence) == []
+
+
+@pytest.mark.parametrize("sentence", [
+    "The exponential time hypothesis result was verified.",
+    "The exponential time hypothesis proof is proven, which Quanta covered.",              # a name, but no reporting verb
+    "The exponential time hypothesis proof says it is proven.",                            # a lower-case subject is not a named source
+    "Quanta reports on the exponential time hypothesis story. The proof was verified.",    # the next sentence is the episode's own voice
+])
+def test_the_episodes_own_voice_still_may_not_say_verified_proven_or_confirmed(sentence):
+    assert status("EXPERT: " + sentence) != []
+
+
 def test_the_sentence_after_a_named_result_is_in_the_window():
     v = status("EXPERT: The exponential time hypothesis manuscript is new. It was machine-checked last week.")
     assert [x["term"] for x in v] == ["machine-checked"]
