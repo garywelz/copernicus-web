@@ -2029,6 +2029,9 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
         structured_logger.info("Final text checks passed", job_id=job_id, **summary)
         return summary
 
+    # "notes_plan_repair" (curated_script.py): notes first, a section plan with word budgets, repair instead of regeneration. "single_call" is the older
+    # one-prompt, regenerate-whole loop below; a curated run uses it only if this is set to it.
+    CURATED_PIPELINE = "notes_plan_repair"
     MAX_CONTENT_RETRIES = 3     # fix 5: four content attempts in all
     MAX_TRANSIENT_RETRIES = 3   # fix 5: model or parse errors, counted separately; they never use a content attempt
 
@@ -2041,6 +2044,8 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
         itself (a generator reply that is not JSON, a timeout, a check whose answer cannot be read) are transient: that call is repeated
         without using a content attempt, up to MAX_TRANSIENT_RETRIES times in all. Every rejection is recorded in full (logged, kept in
         ``self._last_rejections`` and passed to ``on_rejection``). Returns (content, naming_result, naming_attempts). Writes nothing itself."""
+        if getattr(research_context, "curated", None) is not None and self.CURATED_PIPELINE == "notes_plan_repair":
+            return await self._generate_curated_checked_content(request, research_context, google_key, job_id, on_rejection)
         max_retries = self.MAX_CONTENT_RETRIES
         content = None
         min_words = calculate_minimum_words_for_duration(request.duration)
@@ -2172,6 +2177,22 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
             raise Exception("Failed to generate content after all retry attempts")
 
         return content, naming_result, naming_attempts
+
+    async def _generate_curated_checked_content(self, request, research_context, google_key: str, job_id: str, on_rejection=None):
+        """The curated pipeline (curated_pipeline.py): same return shape as ``_generate_checked_content`` and the same fail-closed outcome."""
+        import curated_pipeline
+        self._last_naming_attempts, self._last_rejections = [], []
+        check_llm = make_gemini_llm_call(google_key)
+        writer_llm = curated_pipeline.make_writer_llm(google_key)
+        try:
+            gen = await curated_pipeline.generate_curated_content(request, research_context, check_llm, writer_llm, job_id=job_id, on_rejection=on_rejection)
+        except Exception as e:
+            structured_logger.error("Curated script pipeline failed", job_id=job_id, error_type=type(e).__name__)
+            raise
+        self._last_naming_attempts, self._last_rejections = gen.naming_attempts, gen.rejections
+        self._last_curated_trace = gen.trace
+        structured_logger.info("Curated script accepted", job_id=job_id, words=len(gen.content['script'].split()), checks=len(gen.naming_attempts))
+        return gen.content, gen.naming_result, gen.naming_attempts
 
     async def run_podcast_generation_job(
         self, 
@@ -2770,12 +2791,12 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
             await self._notify_failure(e, job_id, request.topic if request else "Unknown", subscriber_email)
 
     async def run_curated_generation_job(self, job_id: str, list_doc: dict, request: PodcastRequest, subscriber_id: Optional[str] = None,
-                                         private_texts: Optional[dict] = None):
+                                         private_texts: Optional[dict] = None, title: Optional[str] = None):
         """Curated-sources mode (design §3.1): generate one episode from an approved, frozen source list. Only the research stage differs
         from ``run_podcast_generation_job``, which does everything else (generation, every check, audio, the private record). Nothing here
         publishes: the episode is private (``submitted_to_rss=False``, media in the private bucket) until Gary publishes it."""
         try:
-            run = _curated.CuratedRun.from_list_doc(list_doc, topic=request.topic, private_texts=private_texts)
+            run = _curated.CuratedRun.from_list_doc(list_doc, topic=request.topic, private_texts=private_texts, title=title)
         except _curated.CuratedListError as e:
             if db:
                 db.collection('podcast_jobs').document(job_id).update({'status': 'failed', 'error': str(e), 'error_type': 'curated_list_invalid',

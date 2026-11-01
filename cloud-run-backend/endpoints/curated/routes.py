@@ -265,11 +265,57 @@ async def generate_episode(body: GenerateCuratedEpisode):
         'curated_list_id': run.list_id, 'curated_list_hash': run.list_hash})
     _mutate(body.list_id, lambda d: d.setdefault("jobs", []).append(job_id))
     structured_logger.info("Curated generation started", job_id=job_id, list_id=run.list_id)
-    await service.run_curated_generation_job(job_id, doc, request, subscriber_id=subscriber_id, private_texts=texts)
+    await service.run_curated_generation_job(job_id, doc, request, subscriber_id=subscriber_id, private_texts=texts, title=body.title)
     job = db.collection('podcast_jobs').document(job_id).get()
     data = (job.to_dict() or {}) if job.exists else {}
     return {"job_id": job_id, "status": data.get("status"), "error_type": data.get("error_type"), "published": False,
             "curated_run": data.get("curated_run")}
+
+
+@router.post("/api/admin/curated/dry-run")
+async def dry_run_script(body: GenerateCuratedEpisode):
+    """Script-only dry run: the same pipeline and the same checks as a real generation, but NO job record, NO episode record, NO audio and NO media:
+    nothing is written anywhere. Returns the script, its sections, the notes it was written from, the checks and the trace, to the administrator
+    only (the notes and the script paraphrase private commentary, so this answer is never logged). A failure is returned as evidence, not raised."""
+    _require_db()
+    snap = db.collection(COLLECTION).document(body.list_id).get()
+    if not snap.exists:
+        raise HTTPException(status_code=404, detail="No such source list")
+    doc = snap.to_dict() or {}
+    texts = {i["item_id"]: _private_text(body.list_id, i["item_id"]) for i in doc.get("items") or []
+             if i.get("class") == cs.COMMENTARY and i.get("approved")}
+    texts = {k: v for k, v in texts.items() if v is not None}
+    try:
+        run = curated_mode.CuratedRun.from_list_doc(doc, topic=body.topic, private_texts=texts, title=body.title)
+    except curated_mode.CuratedListError as e:
+        raise HTTPException(status_code=409, detail=str(e))
+    import curated_pipeline
+    import curated_script
+    import paper_confirmation
+    from named_work_check import make_gemini_llm_call
+    from podcast_research_integrator import PodcastResearchContext
+    from utils.api_keys import get_google_api_key
+    from utils.script_validation import calculate_maximum_words_for_duration, calculate_minimum_words_for_duration
+    request = PodcastRequest(topic=run.topic, category=body.category, duration=body.duration, expertise_level=body.expertise_level,
+                             format_type=body.format_type, host_voice_id=body.host_voice_id, expert_voice_id=body.expert_voice_id)
+    confirmed = run.confirmed_papers()
+    context = PodcastResearchContext(
+        topic=run.topic, research_sources=[paper_confirmation.as_research_source(c) for c in confirmed if c.source_class != cs.COMMENTARY],
+        paper_analyses=[], significance=[], interdisciplinary_connections=[], key_findings=[], real_citations=[], research_quality_score=5.0,
+        recommended_expertise_level=body.expertise_level, confirmed_papers=confirmed, dropped_candidates=[], requested_pid=None, curated=run)
+    key = get_google_api_key()
+    base = {"list_id": run.list_id, "list_hash": run.list_hash, "dry_run": True, "published": False, "written": "nothing",
+            "limits": {"min_words": calculate_minimum_words_for_duration(body.duration), "max_words": calculate_maximum_words_for_duration(body.duration)}}
+    try:
+        gen = await curated_pipeline.generate_curated_content(request, context, make_gemini_llm_call(key), curated_pipeline.make_writer_llm(key),
+                                                              job_id="dry-run", with_metadata=True)
+    except curated_script.ScriptPipelineError as e:
+        return {**base, "status": "failed", "error_type": type(e).__name__, "error": str(e),
+                "violations": [{k: v for k, v in x.items() if k in ("check", "kind", "find", "message")} for x in getattr(e, "violations", [])]}
+    script = gen.content["script"]
+    return {**base, "status": "ok", "words": len(script.split()), "tts_characters": len(script), "title": gen.content["title"],
+            "description": gen.content["description"], "plan": gen.plan, "section_words": {k: len(v.split()) for k, v in gen.sections.items()},
+            "script": script, "notes": gen.notes, "checks": gen.naming_attempts, "trace": gen.trace, "rejection_count": len(gen.rejections)}
 
 
 # --- pasted commentary (the paste fallback; no automated fetch) ---------------------------------------------------------------------------

@@ -131,6 +131,15 @@ Each **named result** (a manuscript, for the first series) gets exactly one stat
 - **Status constraints in the prompt.** For each named result: its status and the exact allowed wording. The prompt tells the model it may not state any other status.
 - **Family versus manuscript.** A status belongs to a manuscript, not a family (family 240: the CH-obstruction manuscript has a Lean entry; *Eventual Categoricity for Abstract Elementary Classes* does not). The script may say "has a Lean formalization" only of the manuscript that has the entry.
 
+### 4.1a The script pipeline (added after episode 1's first two runs)
+Written in one call under these rules, episode 1's script came back 503 to 1,342 words against a minimum of 1,800, then 1,353 and 1,397 against a maximum of 1,200, and every rejected script was discarded whole. A curated run therefore uses `curated_script.py`:
+1. **Notes first.** Each pasted commentary text is distilled once into two to six short, attributed notes in neutral wording (no "verified"/"proved"/"confirmed", no run of six words from the text; two repairs, then the run fails). The script is written only from the notes and the sources' own facts: the raw pasted text is in no script prompt.
+2. **A section plan with word budgets** that sum to the middle of the requested window; each section's tolerance is derived from the window so that any set of sections inside their tolerances is inside it.
+3. **Repair, not regenerate.** A violation is located in its section by its sentence; only that section is revised, told which sentences to change, and the revision is refused unless the sentences that passed survive word for word. Two repair rounds; then one full regeneration; then the episode fails closed with the violations.
+4. **An allowed-works list** in the prompt; any other work is described generically, with no title.
+5. **A script-only dry run** (`POST /api/admin/curated/dry-run`): the same pipeline and checks, with no job record, no episode record, no audio and no media; the script, notes, checks and trace go to the administrator only.
+The older one-call loop is still in the code (`CURATED_PIPELINE = "single_call"`) and is what the ordinary mode uses.
+
 ### 4.2 The withdrawn manuscripts as content
 A withdrawal is a story the series may tell (episode 1, and the number-theory episode). The three withdrawn manuscripts have no family number, so the list names them by directory. They enter the list with class `company_release` and status `withdrawn`; the check above makes any appearance as a standing result a failure, and the code-built Sources section prints them under a "Withdrawn" heading with the notice's date.
 
