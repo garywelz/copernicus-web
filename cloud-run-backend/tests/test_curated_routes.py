@@ -119,7 +119,7 @@ def add(list_id, canned, raws_to_items):
 # --- admin key on every route ---------------------------------------------------------------------------------------------------------
 def test_every_route_on_the_router_needs_the_admin_key():
     routes_ = [r for r in router.routes if hasattr(r, "methods")]
-    assert len(routes_) == 12
+    assert len(routes_) == 13
     with patch.object(auth, "get_admin_api_key", return_value="test-key"), patch.object(routes, "db", FakeDB()):
         for r in routes_:
             path = r.path.replace("{list_id}", "L").replace("{item_id}", "I")
@@ -350,7 +350,8 @@ class FakeService:
     def __init__(self, db_, fail=None):
         self.calls, self.db, self.fail = [], db_, fail
 
-    async def run_curated_generation_job(self, job_id, list_doc, request, subscriber_id=None, private_texts=None):
+    async def run_curated_generation_job(self, job_id, list_doc, request, subscriber_id=None, private_texts=None, title=None):
+        self.titles = getattr(self, "titles", []) + [title]
         self.private_texts = private_texts
         self.calls.append({"job_id": job_id, "list_id": list_doc["list_id"], "topic": request.topic, "category": request.category,
                            "duration": request.duration, "subscriber_id": subscriber_id})
@@ -618,3 +619,75 @@ def test_the_pasted_text_never_appears_in_a_log_line(env):
     with patch.object(routes, "structured_logger") as log:
         paste(lid)
     assert PASTE[:30] not in repr(log.mock_calls)
+
+
+# --- the script-only dry run ------------------------------------------------------------------------------------------------------------------------
+import curated_pipeline  # noqa: E402
+import curated_script  # noqa: E402
+
+
+def stub_generation(**over):
+    async def fake(request, context, check_llm, writer_llm, job_id="", on_rejection=None, with_metadata=True, sleep=None):
+        fake.args = {"topic": request.topic, "duration": request.duration, "level": request.expertise_level, "title": context.curated.title,
+                     "with_metadata": with_metadata, "job_id": job_id, "on_rejection": on_rejection}
+        return curated_pipeline.CuratedGeneration(
+            content={"title": "T", "script": "HOST: Hello there.\nEXPERT: Hi.", "description": "D", "keywords": []}, naming_result=None,
+            naming_attempts=[{"attempt": 1}], rejections=[{"check": "x"}], trace=[{"stage": "write"}], sections={"opening": "HOST: Hello there.", "closing": "EXPERT: Hi."},
+            notes=[{"pid": "P4", "claim": "a note"}], plan=[{"key": "opening", "budget": 3}])
+    fake.args = None
+    return fake
+
+
+def dry_run(lid, **body):
+    return client.post("/api/admin/curated/dry-run", json={"list_id": lid, **body}, headers=KEY)
+
+
+def test_a_dry_run_returns_the_script_and_the_checks_and_writes_nothing(gen_env):
+    fake, canned, service = gen_env
+    lid = approved_list(fake, canned)
+    fake.store[lid]["topic"] = "OpenAI mathematics release"
+    before = repr(fake.store)
+    stub = stub_generation()
+    with patch.object(curated_pipeline, "generate_curated_content", stub), patch("utils.api_keys.get_google_api_key", return_value="k"), \
+         patch.object(curated_mode.CuratedRun, "confirmed_papers", lambda self: []):
+        r = dry_run(lid, duration="8-10 minutes", expertise_level="general", title="My title")
+    body = r.json()
+    assert r.status_code == 200 and body["status"] == "ok" and body["dry_run"] is True and body["published"] is False and body["written"] == "nothing"
+    assert body["script"].startswith("HOST: Hello") and body["words"] == 5 and body["tts_characters"] == len(body["script"]) and body["notes"] and body["checks"] and body["trace"]
+    assert body["limits"] == {"min_words": 960, "max_words": 1200} and body["list_hash"] == fake.store[lid]["list_hash"]
+    assert stub.args["duration"] == "8-10 minutes" and stub.args["level"] == "general" and stub.args["title"] == "My title" and stub.args["on_rejection"] is None
+    assert repr(fake.store) == before                                          # the list is not touched: no job id appended
+    assert fake.other.get("podcast_jobs", {}) == {} and service.calls == []     # no job record, and the generation service is never called (no audio, no media)
+
+
+def test_a_dry_run_that_fails_closed_returns_the_evidence_instead_of_an_error(gen_env):
+    fake, canned, service = gen_env
+    lid = approved_list(fake, canned)
+
+    async def failing(*a, **k):
+        raise curated_script.ScriptRepairFailed([{"check": "status_wording", "kind": "forbidden_term", "find": "It was verified.", "message": "m", "raw": {"x": 1}}])
+    with patch.object(curated_pipeline, "generate_curated_content", failing), patch("utils.api_keys.get_google_api_key", return_value="k"), \
+         patch.object(curated_mode.CuratedRun, "confirmed_papers", lambda self: []):
+        r = dry_run(lid)
+    body = r.json()
+    assert r.status_code == 200 and body["status"] == "failed" and body["error_type"] == "ScriptRepairFailed" and "repair" in body["error"]
+    assert body["violations"] == [{"check": "status_wording", "kind": "forbidden_term", "find": "It was verified.", "message": "m"}] and "script" not in body
+    assert fake.other.get("podcast_jobs", {}) == {}
+
+
+def test_a_dry_run_refuses_what_a_generation_refuses_and_needs_the_admin_key(gen_env):
+    fake, canned, service = gen_env
+    assert dry_run("nope").status_code == 404
+    assert dry_run(new_list()).status_code == 409                               # a draft list
+    lid = approved_list(fake, canned)
+    fake.store[lid]["items"][0]["title"] = "edited after approval"
+    assert dry_run(lid).status_code == 409
+    assert client.post("/api/admin/curated/dry-run", json={"list_id": lid}).status_code == 401
+
+
+def test_a_generation_passes_the_producers_title_to_the_service(gen_env):
+    fake, canned, service = gen_env
+    lid = approved_list(fake, canned)
+    assert generate(lid, title="722 papers overnight: OpenAI's mathematics release").status_code == 200
+    assert generate(lid).status_code == 200
+    assert service.titles == ["722 papers overnight: OpenAI's mathematics release", None]

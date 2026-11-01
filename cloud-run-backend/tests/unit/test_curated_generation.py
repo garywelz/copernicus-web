@@ -157,6 +157,7 @@ def test_the_real_prompt_uses_host_and_expert_labels_when_asked_and_the_voice_na
 def harness(monkeypatch, scripts):
     calls = {"gen": 0, "feedback": []}
     service = svc.PodcastGenerationService()
+    service.CURATED_PIPELINE = "single_call"      # these tests are about the older one-prompt loop; the pipeline has its own tests
 
     async def fake_generate(req, ctx, key, retry_attempt=0, naming_feedback=""):
         calls["feedback"].append(naming_feedback)
@@ -435,3 +436,38 @@ def test_the_ordinary_job_still_runs_discovery(monkeypatch):
     monkeypatch.setattr(svc.psutil, "virtual_memory", lambda: SimpleNamespace(percent=10.0))      # the stub psutil would return a mock
     run(service.run_podcast_generation_job("job-y", PodcastRequest(topic="t")))
     assert called == {"curated": 0, "discovery": 1}
+
+
+# --- the curated pipeline is what a curated run uses ----------------------------------------------------------------------------------------
+def test_a_curated_run_goes_through_the_notes_plan_repair_pipeline_and_an_ordinary_run_does_not(monkeypatch):
+    import curated_pipeline
+    seen = {}
+
+    async def fake_generate(request, ctx, check_llm, writer_llm, job_id="", on_rejection=None, **kw):
+        seen.update(job_id=job_id, on_rejection=on_rejection, curated=ctx.curated is not None)
+        return curated_pipeline.CuratedGeneration(
+            content={"title": "T", "script": "HOST: Hi.", "description": "D"}, naming_result="NR", naming_attempts=[{"attempt": 1}], rejections=[{"check": "x"}],
+            trace=[{"stage": "write"}], sections={}, notes=[], plan=[])
+    monkeypatch.setattr(curated_pipeline, "generate_curated_content", fake_generate)
+    monkeypatch.setattr(svc, "make_gemini_llm_call", lambda key: None)
+    monkeypatch.setattr(curated_pipeline, "make_writer_llm", lambda key: None)
+    service = svc.PodcastGenerationService()
+    assert service.CURATED_PIPELINE == "notes_plan_repair"
+    sink = []
+    content, naming, attempts = run(service._generate_checked_content(PodcastRequest(topic="t"), context(), "k", "jobP", on_rejection=sink.append))
+    assert content["title"] == "T" and naming == "NR" and attempts == [{"attempt": 1}]
+    assert seen["job_id"] == "jobP" and seen["curated"] is True and seen["on_rejection"] == sink.append
+    assert service._last_naming_attempts == [{"attempt": 1}] and service._last_rejections == [{"check": "x"}]
+
+
+def test_a_failure_of_the_pipeline_propagates_so_the_episode_fails_closed(monkeypatch):
+    import curated_pipeline
+    import curated_script
+
+    async def failing(*a, **k):
+        raise curated_script.ScriptRepairFailed([{"check": "c", "kind": "k"}])
+    monkeypatch.setattr(curated_pipeline, "generate_curated_content", failing)
+    monkeypatch.setattr(svc, "make_gemini_llm_call", lambda key: None)
+    monkeypatch.setattr(curated_pipeline, "make_writer_llm", lambda key: None)
+    with pytest.raises(curated_script.ScriptRepairFailed):
+        run(svc.PodcastGenerationService()._generate_checked_content(PodcastRequest(topic="t"), context(), "k", "jobF"))

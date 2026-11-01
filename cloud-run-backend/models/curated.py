@@ -24,6 +24,7 @@ class OverrideItemClass(BaseModel):
 class GenerateCuratedEpisode(BaseModel):
     list_id: str = Field(..., min_length=1, max_length=64)
     topic: Optional[str] = Field(None, max_length=300)       # default: the list's own topic, else its title
+    title: Optional[str] = Field(None, max_length=200)       # the producer's own episode title; otherwise the model writes one
     category: str = Field("Mathematics", max_length=60)
     duration: str = Field("15-20 minutes", max_length=40)
     expertise_level: str = Field("intermediate", max_length=40)
