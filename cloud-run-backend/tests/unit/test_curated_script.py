@@ -74,7 +74,7 @@ def test_notes_are_short_attributed_and_the_trace_never_holds_the_text():
     llm = NotesLLM([notes_reply(*GOOD)])
     notes, trace = run(csr.distill_notes(llm, commentary()))
     assert [n.pid for n in notes] == ["P4", "P4"] and notes[0].outlet == "Example Magazine" and notes[0].date == "2026-10-19"
-    assert len(llm.calls) == 1 and trace == [{"stage": "notes", "pid": "P4", "attempt": 1, "violations": []}]
+    assert len(llm.calls) == 1 and trace == [{"stage": "notes", "pid": "P4", "attempt": 1, "violations": [], "attributed_in_code": 0, "dropped": 0}]
     assert SECRET not in json.dumps(trace) and "cautious surprise" not in json.dumps(trace)
 
 
@@ -85,7 +85,7 @@ def test_a_note_that_copies_six_words_or_says_verified_is_repaired():
     notes, trace = run(csr.distill_notes(llm, commentary()))
     assert len(llm.calls) == 2 and [n.claim for n in notes] == GOOD
     assert trace[0]["violations"] == ["note_forbidden_term", "note_verbatim_run"] and trace[1]["violations"] == []
-    assert "REJECTED" in llm.calls[1][1] and "neutral wording" in llm.calls[1][1]
+    assert "YOUR PREVIOUS NOTES, NUMBERED" in llm.calls[1][1] and "neutral wording" in llm.calls[1][1] and "fix ONLY the notes named here" in llm.calls[1][1]
 
 
 def test_notes_that_cannot_be_made_to_pass_fail_closed_after_two_repairs():
