@@ -20,6 +20,7 @@ A violation is a dict {"check", "kind", "find", "message", "section"?, "raw"?}: 
 """
 from __future__ import annotations
 
+import inspect
 import json
 import math
 import re
@@ -28,6 +29,7 @@ from typing import Any, Awaitable, Callable, Dict, List, Optional, Sequence, Tup
 
 import curated_checks as cc
 import curated_sources as cs
+from speakable import speakable
 
 LlmCall = Callable[[str, str], Awaitable[str]]
 Checker = Callable[[str], Awaitable[List[Dict[str, Any]]]]
@@ -43,6 +45,7 @@ QUOTE_MAX_WORDS = 25           # a note may carry a quoted fragment of at most t
 PRESERVE_MIN = 0.8             # a repair must keep this fraction of the sentences that did not need changing, word for word
 PRESERVE_MIN_WHEN_CUTTING = 0.5
 MAX_TOLERANCE = 0.15
+LENGTH_RUNAWAY = 1.5          # a section over this multiple of its budget is repaired even when the total is inside the window
 
 SPEAKER_LINE = re.compile(r"^(HOST|EXPERT):\s*\S")
 
@@ -92,13 +95,15 @@ SECTION_TEMPLATES: Tuple[Tuple[str, str, int, str], ...] = (
      "not read the topic out as a title."),
     ("sources", "The sources", 20,
      "What the sources are and what class each is. A preprint is called a preprint. A company release is the company's own claim and has not "
-     "been peer reviewed. Commentary is reported and attributed, never the reason a result is true or false."),
+     "been peer reviewed. Commentary is reported and attributed, never the reason a result is true or false. A withdrawn paper is NEVER named "
+     "without the word \"withdrawn\" in the same sentence."),
     ("claims", "What the manuscripts claim", 25,
      "What each named manuscript says it shows, always attributed (\"OpenAI says\", \"the manuscript argues\"), in plain language for a "
      "science-literate listener."),
     ("status", "What is and is not established", 20,
      "The status of each named manuscript, in exactly the wording given. A withdrawn manuscript is said to be withdrawn every time it is named. "
-     "A Lean formalization is a catalogue entry, not a verdict. Say plainly what has not been checked."),
+     "A Lean formalization is a catalogue entry, not a verdict. Say plainly what has not been checked. A withdrawn paper is NEVER named without "
+     "the word \"withdrawn\" in the same sentence."),
     ("reception", "What others reported", 20,
      "What the commentary sources reported about the release and its reception, only from the notes, each point attributed to its outlet or "
      "speaker by name."),
@@ -301,8 +306,9 @@ def notes_block(notes: Sequence[Note]) -> str:
 def allowed_works_block(run) -> str:
     lines = ["**ALLOWED WORKS (the only works you may name, each by exactly the title given):**"]
     for r in run.results():
-        lines.append(f"- [{r['pid']}] {r['title']}")
+        lines.append(f"- [{r['pid']}] {speakable(r['title'])}")
     lines += [
+        "Titles are SPOKEN IN WORDS: say a title as it is written here, never with symbols, LaTeX, dollar signs or backticks.",
         "Outlets and writers of the commentary above may be named as the source of a report.",
         "Any other paper, preprint, manuscript, theorem, study, book, report or article, including any that appears in the notes, must be described "
         "generically (\"an earlier paper\", \"a news report\", \"a classical problem\") with NO title, NO author-and-year and NO quotation marks around a title. "
@@ -319,7 +325,8 @@ def facts_block(run, max_chars: int = 700) -> str:
             continue
         pid = run.pids[i["item_id"]]
         text = (i.get("evidence_text") or "").strip()
-        lines.append(f"- [{pid}] {i.get('title')}: {text[:max_chars]}{'...' if len(text) > max_chars else ''}")
+        text = speakable(text)
+        lines.append(f"- [{pid}] {speakable(i.get('title'))}: {text[:max_chars]}{'...' if len(text) > max_chars else ''}")
     return "\n".join(lines)
 
 
@@ -405,7 +412,7 @@ def preserved_fraction(before: str, after: str, violations: Sequence[Dict[str, A
 REPAIR_SYSTEM = (
     "You REVISE one section of a two-voice radio script. Change ONLY the sentences listed as problems (and, if a length problem is listed, add or cut "
     "sentences to reach the length). Copy every other sentence exactly, word for word. Keep the speaker labels HOST: and EXPERT: on every line. "
-    "Keep the same rules as before: attribute every claim, say a withdrawn manuscript is withdrawn, name no work that is not allowed, no first names.\n"
+    "When a length is given (\"CUT THIS SECTION TO N WORDS\"), N is a hard target: count your words and stop at N. Keep the same rules as before: attribute every claim, say a withdrawn manuscript is withdrawn, name no work that is not allowed, no first names.\n"
     "Answer with JSON only: {\"dialogue\": \"HOST: ...\\nEXPERT: ...\"}.")
 
 
@@ -415,14 +422,74 @@ def repair_user_prompt(section: Section, text: str, violations: Sequence[Dict[st
             f"PROBLEMS TO FIX:\n{problems}\n\nTHE SECTION AS IT IS:\n{text}")
 
 
-def length_violation(section: Section, text: str) -> Optional[Dict[str, Any]]:
-    n = words_in(text)
-    if section.lo <= n <= section.hi:
-        return None
-    direction = "short" if n < section.lo else "long"
-    verb = "Add sentences that carry real content from the allowed sources and notes" if n < section.lo else "Cut repetition and background"
-    return {"check": "section_length", "kind": "section_too_" + direction, "find": None, "section": section.key,
-            "message": f"This section has {n} words; it must have between {section.lo} and {section.hi} (aim for {section.budget}). {verb}."}
+def _length_violation(section: Section, n: int, total: int, window: Tuple[int, int]) -> Dict[str, Any]:
+    long = n > section.budget
+    if long:
+        message = (f"CUT THIS SECTION TO {section.budget} WORDS (it has {n}; the whole script has {total} and must have between {window[0]} and {window[1]}). "
+                   "Remove repetition, background and asides; keep every attributed claim that matters.")
+    else:
+        message = (f"EXPAND THIS SECTION TO ABOUT {section.budget} WORDS (it has {n}; the whole script has {total} and must have between {window[0]} and {window[1]}). "
+                   "Add content from the allowed sources and notes, attributed.")
+    return {"check": "section_length", "kind": "section_too_" + ("long" if long else "short"), "find": None, "section": section.key, "message": message}
+
+
+def length_violations(plan: Sequence[Section], sections: Dict[str, str], window: Tuple[int, int]) -> List[Dict[str, Any]]:
+    """The episode's TOTAL against the requested window is the binding length rule; the section budgets guide the writing. A section is repaired for
+    length only when the total is outside the window (and then only the sections outside their own tolerance, of which there is always at least
+    one, because sections inside their tolerances cannot sum to a total outside the window), or when it runs past LENGTH_RUNAWAY times its budget."""
+    words = {s.key: words_in(sections[s.key]) for s in plan}
+    total = sum(words.values())
+    total_out = total < window[0] or total > window[1]
+    out = []
+    for s in plan:
+        n = words[s.key]
+        if n > LENGTH_RUNAWAY * s.budget or (total_out and (n < s.lo or n > s.hi)):
+            out.append(_length_violation(s, n, total, window))
+    return out
+
+
+def reporting_text(run, notes: Sequence["Note"]) -> str:
+    """Normalised text of the outlets, authors and notes whose NAMES may be used as a reporting attribution: the venue and authors recorded on the
+    list's commentary items, and whatever the approved notes name."""
+    parts: List[str] = []
+    for i in run.items:
+        if i["class"] == cs.COMMENTARY:
+            parts += [i.get("venue") or ""] + list(i.get("authors") or [])
+    parts += [n.claim for n in notes] + [n.outlet for n in notes]
+    return _norm(" ".join(parts))
+
+
+_REPORTING = re.compile(rf"\b{cc._REPORT_VERB}\b|\baccording to\b", re.I)
+_ET_AL = re.compile(r"\bet\.? al\b", re.I)
+
+
+def is_reporting_attribution(violation: Dict[str, Any], text: str) -> bool:
+    """True for an unlisted-work flag that is only a NAME used as a reporting attribution: every name is recorded on the list's commentary or in
+    the approved notes, and the mention has no title, no year and no "et al." (a title or an author-year citation stays a violation), and it is used
+    with a reporting verb ("said", "reported", "according to"...)."""
+    if violation.get("kind") != "unlisted_work" or violation.get("where") not in ("script", "description"):
+        return False
+    authors = violation.get("authors") or []
+    quote = violation.get("quote") or ""
+    if not authors or violation.get("year") or violation.get("title_words") or _ET_AL.search(quote) or any(_ET_AL.search(a) for a in authors):
+        return False
+    if not _REPORTING.search(quote):
+        return False
+    known = set(text.split())
+    for a in authors:
+        tokens = _norm(a).split()
+        if not tokens or not all(t in known for t in tokens) or not any(len(t) >= 3 for t in tokens):
+            return False
+    return True
+
+
+def exempt_reporting_attributions(violations: Sequence[Dict[str, Any]], text: str) -> Tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
+    """(kept, exempted): the naming check's violations with the pure reporting attributions taken out. Used only in the curated mode."""
+    kept: List[Dict[str, Any]] = []
+    exempt: List[Dict[str, Any]] = []
+    for v in violations:
+        (exempt if is_reporting_attribution(v, text) else kept).append(v)
+    return kept, exempt
 
 
 @dataclass
@@ -437,8 +504,10 @@ class ScriptBuilder:
     """Notes in, a checked script out. `checker(script)` returns the violations of the assembled script (the service supplies every check the
     episode must pass); the builder adds the per-section length rule itself."""
 
-    def __init__(self, llm: LlmCall, run, plan: Sequence[Section], notes: Sequence[Note], checker: Checker, banned: str = ""):
+    def __init__(self, llm: LlmCall, run, plan: Sequence[Section], notes: Sequence[Note], checker: Checker, banned: str = "", window: Optional[Tuple[int, int]] = None):
         self.llm, self.run, self.plan, self.notes, self.checker = llm, run, list(plan), list(notes), checker
+        self.window = window or (sum(x.lo for x in self.plan), sum(x.hi for x in self.plan))
+        self.sections: Dict[str, str] = {}
         self.system = system_prompt(run, self.plan, self.notes, banned)
         self.allowed = allowed_works_block(run)
         self.trace: List[Dict[str, Any]] = []
@@ -467,6 +536,9 @@ class ScriptBuilder:
         except SectionFormatError:
             return None
         cutting = any(v["kind"] == "section_too_long" for v in violations)
+        growing = any(v["kind"] == "section_too_short" for v in violations)
+        if (cutting and words_in(new) >= words_in(text)) or (growing and words_in(new) <= words_in(text)):
+            return None                      # a length repair that does not move the length the right way is not a repair
         if preserved_fraction(text, new, violations) < (PRESERVE_MIN_WHEN_CUTTING if cutting else PRESERVE_MIN):
             return None
         return new
@@ -475,7 +547,7 @@ class ScriptBuilder:
         return "\n\n".join(sections[s.key] for s in self.plan)
 
     async def violations_of(self, sections: Dict[str, str]) -> List[Dict[str, Any]]:
-        out = [v for s in self.plan for v in [length_violation(s, sections[s.key])] if v]
+        out = length_violations(self.plan, sections, self.window)
         out += await self.checker(self.assemble(sections))
         return out
 
@@ -483,6 +555,7 @@ class ScriptBuilder:
         final: List[Dict[str, Any]] = []
         for full in range(1, MAX_FULL_ATTEMPTS + 1):
             sections = await self.write_all()
+            self.sections = sections
             self.trace.append({"stage": "write", "full_attempt": full, "words": {k: words_in(v) for k, v in sections.items()}})
             for rnd in range(MAX_REPAIR_ROUNDS + 1):
                 final = await self.violations_of(sections)
@@ -569,7 +642,7 @@ METADATA_SYSTEM = (
     "Keywords: 5 to 8 plain phrases.")
 
 
-async def write_metadata(llm: LlmCall, script: str, allowed: str, validate: Callable[[str, str], List[str]], title_override: Optional[str] = None,
+async def write_metadata(llm: LlmCall, script: str, allowed: str, validate: Callable[[str, str], Any], title_override: Optional[str] = None,
                          fallback_description: str = "", max_repairs: int = 2) -> Tuple[Dict[str, Any], List[Dict[str, Any]]]:
     """(metadata, trace). `validate(title, description)` returns problems (empty = fine). After max_repairs repairs the description is the code-built
     fallback (recorded in the trace), never an unchecked one."""
@@ -583,7 +656,11 @@ async def write_metadata(llm: LlmCall, script: str, allowed: str, validate: Call
         except (ValueError, AttributeError):
             title, desc, keywords = "", "", []
         title = title_override or title
-        problems = validate(title, desc) if (title and desc) else ["the title or the description is missing"]
+        problems = ["the title or the description is missing"]
+        if title and desc:
+            problems = validate(title, desc)
+            if inspect.isawaitable(problems):
+                problems = await problems
         trace.append({"stage": "metadata", "attempt": attempt + 1, "problems": len(problems)})
         if not problems:
             return {"title": title, "description": desc, "keywords": keywords}, trace

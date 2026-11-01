@@ -52,6 +52,7 @@ class CuratedGeneration:
     notes: List[Dict[str, str]]
     plan: List[Dict[str, Any]]
     final_violations: List[Dict[str, Any]] = field(default_factory=list)
+    model_calls: Dict[str, int] = field(default_factory=dict)
 
 
 def commentary_inputs(run) -> List[Dict[str, Any]]:
@@ -63,10 +64,33 @@ def commentary_inputs(run) -> List[Dict[str, Any]]:
     return out
 
 
+def diagnostics(diag: Dict[str, Any]) -> Dict[str, Any]:
+    """What a failed run leaves for the administrator: model calls, rounds, each section's words against its budget, every check's result. It holds
+    no pasted text and no draft note (the trace and the checks never carry them)."""
+    builder = diag.get("builder")
+    plan = diag.get("plan") or []
+    sections = (builder.sections if builder is not None else {}) or {}
+    return {"model_calls": dict(diag.get("calls") or {}), "model_calls_total": sum((diag.get("calls") or {}).values()),
+            "trace": (diag.get("notes_trace") or []) + (builder.trace if builder is not None else []),
+            "section_words": {k: {"words": len(v.split()), **next(({"budget": p["budget"], "lo": p["lo"], "hi": p["hi"]} for p in plan if p["key"] == k), {})}
+                              for k, v in sections.items()},
+            "checks": diag.get("attempts") or [], "plan": plan, "rejection_count": len(diag.get("rejections") or [])}
+
+
 async def generate_curated_content(request, research_context, check_llm: csr.LlmCall, writer_llm: csr.LlmCall, job_id: str = "", on_rejection=None,
                                    with_metadata: bool = True, sleep: Callable[[float], Awaitable[Any]] = asyncio.sleep) -> CuratedGeneration:
     """Notes, plan, sections, repair, metadata. Raises csr.NotesError / csr.ScriptRepairFailed (fail closed) or any model error that outlasts the
-    transient retries. `check_llm` is the temperature-0 JSON call the existing checks use; `writer_llm` writes the sections."""
+    transient retries; a pipeline error carries `.diagnostics` (see `diagnostics`). `check_llm` is the temperature-0 JSON call the existing checks use;
+    `writer_llm` writes the sections."""
+    diag: Dict[str, Any] = {}
+    try:
+        return await _generate(request, research_context, check_llm, writer_llm, job_id, on_rejection, with_metadata, sleep, diag)
+    except csr.ScriptPipelineError as e:
+        e.diagnostics = diagnostics(diag)
+        raise
+
+
+async def _generate(request, research_context, check_llm, writer_llm, job_id, on_rejection, with_metadata, sleep, diag) -> CuratedGeneration:
     run = research_context.curated
     confirmed = research_context.confirmed_papers
     min_words = calculate_minimum_words_for_duration(request.duration)
@@ -75,6 +99,8 @@ async def generate_curated_content(request, research_context, check_llm: csr.Llm
     plan = csr.plan_sections(min_words, max_words, has_commentary=bool(commentary))
     rejections: List[Dict[str, Any]] = []
     attempts: List[Dict[str, Any]] = []
+    calls: Dict[str, int] = {"notes": 0, "section_writer": 0, "checks": 0, "metadata": 0}
+    diag.update(calls=calls, attempts=attempts, rejections=rejections, plan=[p.to_dict() for p in plan])
     transient = {"n": 0}
     state: Dict[str, Any] = {"naming": None, "checks": 0}
     uncovered = uncovered_named_things(request.topic, confirmed)
@@ -103,17 +129,33 @@ async def generate_curated_content(request, research_context, check_llm: csr.Llm
                     raise
                 await sleep(2)
 
-    def retrying(llm: csr.LlmCall, stage: str) -> csr.LlmCall:
+    def counting(llm: csr.LlmCall, key: str) -> csr.LlmCall:
         async def call(system: str, user: str) -> str:
-            return await model_call(stage, lambda: llm(system, user))
+            calls[key] += 1
+            return await llm(system, user)
         return call
 
-    notes, notes_trace = await csr.distill_notes(retrying(check_llm, "notes"), commentary) if commentary else ([], [])
+    def retrying(llm: csr.LlmCall, stage: str) -> csr.LlmCall:
+        counted = counting(llm, stage)
+
+        async def call(system: str, user: str) -> str:
+            return await model_call(stage, lambda: counted(system, user))
+        return call
+
+    check_counted = counting(check_llm, "checks")
+    try:
+        notes, notes_trace = await csr.distill_notes(retrying(check_llm, "notes"), commentary) if commentary else ([], [])
+    except csr.NotesError as e:
+        diag["notes_trace"] = [{"stage": "notes", "pid": e.pid, "failed": True, "kinds": sorted({v["kind"] for v in e.violations})}]
+        raise
+    diag["notes_trace"] = notes_trace
+    run.reporting_text = csr.reporting_text(run, notes)         # whose names may be used as a reporting attribution
 
     async def checker(script: str) -> List[Dict[str, Any]]:
         state["checks"] += 1
         n = state["checks"]
-        naming = await model_call("naming_check", lambda: check_naming(script, "", confirmed, check_llm, topic=request.topic))
+        naming = await model_call("naming_check", lambda: check_naming(script, "", confirmed, check_counted, topic=request.topic))
+        naming.violations, exempted = csr.exempt_reporting_attributions(naming.violations, run.reporting_text)     # only a name used as a reporting attribution
         state["naming"] = naming
         bad_notation = notation_problems(script, "")
         banned = banned_phrase_hits(script, "")
@@ -123,12 +165,12 @@ async def generate_curated_content(request, research_context, check_llm: csr.Llm
         attribution = None
         if naming.passed:
             named = [c for c in confirmed if c.pid in naming.named_pids]
-            attribution = await model_call("attribution_check", lambda: check_attributions(script, named, check_llm))
+            attribution = await model_call("attribution_check", lambda: check_attributions(script, named, check_counted))
             reject(rejection_log.attribution_items(n, attribution.checked, withheld))
         entry = {"attempt": n, **naming.summary(), "unspeakable_notation": bad_notation,
                  "banned_phrases": [{"phrase": h["phrase"], "matched": h["matched"], "where": h["where"]} for h in banned],
                  "curated_checks": cc.summary(curated), "topic_read_aloud": len(read_aloud), "coverage_statement_missing": missing_cov,
-                 "words": len(script.split())}
+                 "words": len(script.split()), "naming_reporting_attributions_exempt": len(exempted)}
         if attribution is not None:
             entry["attribution"] = attribution.summary()
         attempts.append(entry)
@@ -137,7 +179,8 @@ async def generate_curated_content(request, research_context, check_llm: csr.Llm
                + rejection_log.read_aloud_items(n, read_aloud) + rejection_log.coverage_items(n, missing_cov) + rejection_log.curated_items(n, curated))
         return viol
 
-    builder = csr.ScriptBuilder(retrying(writer_llm, "section_writer"), run, plan, notes, checker, banned=prompt_list())
+    builder = csr.ScriptBuilder(retrying(writer_llm, "section_writer"), run, plan, notes, checker, banned=prompt_list(), window=(min_words, max_words))
+    diag["builder"] = builder
     try:
         result = await builder.build()
     except csr.ScriptRepairFailed as e:
@@ -148,10 +191,13 @@ async def generate_curated_content(request, research_context, check_llm: csr.Llm
 
     description_fallback = f"This episode looks at {request.topic}. The sources are listed under References."
 
-    def validate(title: str, description: str) -> List[str]:
+    async def validate(title: str, description: str) -> List[str]:
         problems = [f"banned wording \"{h['matched']}\": {h['sentence']}" for h in banned_phrase_hits("", description)]
         problems += [f"notation that cannot be read aloud: {p}" for p in notation_problems("", description)]
         problems += [f"status wording \"{v['term']}\": {v['sentence']}" for v in cc.check_status_wording(description, run.results()) if v["kind"] == "forbidden_term"]
+        naming = await model_call("naming_check", lambda: check_naming(script, description, confirmed, check_counted, topic=request.topic))
+        kept, _ = csr.exempt_reporting_attributions(naming.violations, run.reporting_text)
+        problems += [f"the description names a work that is not allowed: {v['quote'][:120]}" for v in kept if v.get("where") == "description"]
         return problems
 
     meta: Dict[str, Any] = {"title": request.topic, "description": description_fallback, "keywords": []}
@@ -166,4 +212,4 @@ async def generate_curated_content(request, research_context, check_llm: csr.Llm
                "significance": research_context.significance}
     return CuratedGeneration(content=content, naming_result=state["naming"], naming_attempts=attempts, rejections=rejections,
                              trace=notes_trace + result.trace + meta_trace, sections=result.sections, notes=[n.to_dict() for n in notes],
-                             plan=[s.to_dict() for s in plan], final_violations=result.checks_final)
+                             plan=[s.to_dict() for s in plan], final_violations=result.checks_final, model_calls=dict(calls))

@@ -356,7 +356,7 @@ async def check_naming(script: str, description: str, confirmed_papers: Sequence
                     unknown_position_matched = True
         elif m["authors"] or m["title_words"]:
             result.violations.append({"kind": "unlisted_work", "where": m["where"], "quote": m["quote"],
-                                      "authors": m["authors"], "year": m["year"],
+                                      "authors": m["authors"], "year": m["year"], "title_words": m["title_words"],
                                       "context": context_around(script if m["where"] == "script" else body, m["quote"])})
     result.named_pids = seen_pids
 

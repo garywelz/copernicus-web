@@ -198,7 +198,7 @@ async def checker(script):
 
 
 def builder(llm, chk=checker):
-    return csr.ScriptBuilder(llm, make_run(), PLAN, [csr.Note("P4", "Example Magazine", "2026-10-19", GOOD[0])], chk)
+    return csr.ScriptBuilder(llm, make_run(), PLAN, [csr.Note("P4", "Example Magazine", "2026-10-19", GOOD[0])], chk, window=(100, 140))
 
 
 def test_a_clean_script_is_written_once_section_by_section_and_checked_once():
@@ -231,19 +231,41 @@ def test_the_repair_prompt_names_the_sentence_and_the_length_and_forbids_other_c
     assert "PROBLEMS TO FIX" in user and "BADWORD" in user and "ALLOWED WORKS" in user and f"{PLAN[2].lo} to {PLAN[2].hi}" in user
 
 
-def test_a_section_outside_its_budget_is_a_violation_and_is_repaired_for_length():
-    short = section_text(PLAN[1], n=PLAN[1].lo - 6)
-    v = csr.length_violation(PLAN[1], short)
-    assert v["kind"] == "section_too_short" and v["section"] == "sources" and str(PLAN[1].lo) in v["message"]
-    assert csr.length_violation(PLAN[1], section_text(PLAN[1])) is None
-    assert csr.length_violation(PLAN[1], section_text(PLAN[1], n=PLAN[1].hi + 5))["kind"] == "section_too_long"
+def test_a_section_outside_its_tolerance_is_a_length_violation_only_when_the_total_is_outside_the_window():
+    sections = {x.key: section_text(x) for x in PLAN}
+    assert csr.length_violations(PLAN, sections, (100, 140)) == []
+    sections["sources"] = section_text(PLAN[1], n=PLAN[1].lo - 6)                     # short, but the total (111) is inside the window
+    assert csr.length_violations(PLAN, sections, (100, 140)) == []
+    sections["claims"] = section_text(PLAN[2], n=10)                                  # now the total (91) is below the window
+    v = csr.length_violations(PLAN, sections, (100, 140))
+    assert sorted(x["section"] for x in v) == ["claims", "sources"] and {x["kind"] for x in v} == {"section_too_short"}
+    assert "EXPAND THIS SECTION TO ABOUT 30 WORDS" in next(x["message"] for x in v if x["section"] == "claims") and "between 100 and 140" in v[0]["message"]
+
+
+def test_a_section_over_one_and_a_half_times_its_budget_is_repaired_even_when_the_total_is_inside_the_window():
+    sections = {x.key: section_text(x) for x in PLAN}
+    sections["closing"] = section_text(PLAN[5], n=int(PLAN[5].budget * 1.4))          # 1.4 times its budget: tolerated (the total is inside the window)
+    sections["opening"] = section_text(PLAN[0], n=PLAN[0].budget - 2)                  # and the total stays inside the window
+    assert csr.length_violations(PLAN, sections, (100, 140)) == []
+    sections["closing"] = section_text(PLAN[5], n=PLAN[5].budget * 2)                 # 2 times its budget: repaired, whatever the total
+    sections["opening"] = section_text(PLAN[0], n=PLAN[0].budget - 6)
+    v = csr.length_violations(PLAN, sections, (100, 140))
+    assert [x["section"] for x in v] == ["closing"] and v[0]["kind"] == "section_too_long"
+    assert f"CUT THIS SECTION TO {PLAN[5].budget} WORDS" in v[0]["message"] and "Remove repetition" in v[0]["message"]
+
+
+def test_sections_inside_their_tolerances_can_never_make_the_total_leave_the_window():
+    for lo, hi in ((960, 1200), (1800, 2400), (100, 140)):
+        plan = csr.plan_sections(lo, hi)
+        for edge in ("lo", "hi"):
+            sections = {x.key: " ".join(["w"] * getattr(x, edge)) for x in plan}
+            assert csr.length_violations(plan, sections, (lo, hi)) == []
 
 
 def test_a_length_repair_that_does_not_reach_the_budget_is_not_accepted_as_clean():
-    short = section_text(PLAN[1], n=PLAN[1].lo - 6)
-    llm = PipelineLLM({"sources": [short]}, repair="fix")             # the fake "fixes" only BADWORD, so the length stays wrong
+    llm = PipelineLLM({"sources": [section_text(PLAN[1], n=PLAN[1].lo - 6)], "claims": [section_text(PLAN[2], n=10)]}, repair="fix")   # total 91: below the window
     with pytest.raises(csr.ScriptRepairFailed) as e:
-        run(builder(llm).build())
+        run(builder(llm).build())                                      # the fake "fixes" only BADWORD, so the lengths stay wrong
     assert {v["kind"] for v in e.value.violations} == {"section_too_short"}
 
 
