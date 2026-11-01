@@ -691,3 +691,26 @@ def test_a_generation_passes_the_producers_title_to_the_service(gen_env):
     assert generate(lid, title="722 papers overnight: OpenAI's mathematics release").status_code == 200
     assert generate(lid).status_code == 200
     assert service.titles == ["722 papers overnight: OpenAI's mathematics release", None]
+
+
+def test_a_dry_run_failure_returns_the_full_diagnostics_and_a_success_returns_the_model_calls(gen_env):
+    fake, canned, service = gen_env
+    lid = approved_list(fake, canned)
+    diag = {"model_calls": {"notes": 8, "section_writer": 14, "checks": 6, "metadata": 0}, "model_calls_total": 28, "trace": [{"stage": "write", "full_attempt": 1}],
+            "section_words": {"opening": {"words": 100, "budget": 108, "lo": 92, "hi": 124}}, "checks": [{"attempt": 1, "curated_checks": {}}],
+            "plan": [{"key": "opening", "budget": 108}], "rejection_count": 3}
+
+    async def failing(*a, **k):
+        e = curated_script.ScriptRepairFailed([{"check": "section_length", "kind": "section_too_long", "find": None, "message": "m"}])
+        e.diagnostics = diag
+        raise e
+    with patch.object(curated_pipeline, "generate_curated_content", failing), patch("utils.api_keys.get_google_api_key", return_value="k"), \
+         patch.object(curated_mode.CuratedRun, "confirmed_papers", lambda self: []):
+        body = dry_run(lid).json()
+    assert body["status"] == "failed" and body["model_calls_total"] == 28 and body["model_calls"]["section_writer"] == 14
+    assert body["trace"] == diag["trace"] and body["section_words"]["opening"]["budget"] == 108 and body["checks"] == diag["checks"] and body["rejection_count"] == 3
+    ok = stub_generation()
+    with patch.object(curated_pipeline, "generate_curated_content", ok), patch("utils.api_keys.get_google_api_key", return_value="k"), \
+         patch.object(curated_mode.CuratedRun, "confirmed_papers", lambda self: []):
+        body = dry_run(lid).json()
+    assert body["status"] == "ok" and body["model_calls"] == {} and body["model_calls_total"] == 0

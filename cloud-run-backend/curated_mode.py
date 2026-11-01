@@ -14,6 +14,7 @@ from dataclasses import dataclass, field
 from typing import Any, Dict, List, Optional, Sequence
 
 import curated_checks as cc
+from speakable import speakable
 import curated_sources as cs
 import paper_confirmation as pc
 from reference_sections import compact_line, strip_model_reference_sections, _STOP
@@ -76,6 +77,7 @@ class CuratedRun:
     items: List[Dict[str, Any]]                     # the approved, confirmed items in list order
     pids: Dict[str, str] = field(default_factory=dict)   # item_id -> P number, for the model only
     title: Optional[str] = None                     # the producer's own title for the episode, if given; otherwise the model writes one
+    reporting_text: str = ""                        # normalised text of the outlets, authors and notes whose NAMES may be used as a reporting attribution (set by the pipeline)
 
     # --- building ----------------------------------------------------------------------------------------------------------
     @classmethod
@@ -154,7 +156,7 @@ class CuratedRun:
         ]
         for i in self.items:
             pid, cls = self.pids[i["item_id"]], i["class"]
-            lines.append(f"- [{pid}] ({cls.replace('_', ' ')}) {i.get('title')}")
+            lines.append(f"- [{pid}] ({cls.replace('_', ' ')}) {speakable(i.get('title'))}")
             if cls in CLASS_SAYS:
                 lines.append(f"    The first time you mention it, call it {CLASS_SAYS[cls]}.")
         lines += [
@@ -168,7 +170,7 @@ class CuratedRun:
         if results:
             lines += ["", "**RESULT STATUS (exact wording; you may not give any other status):**"]
             for r in results:
-                lines.append(f"- [{r['pid']}] {r['title']}: status {r['status'].replace('_', ' ').upper()}. Say it like this: \"{STATUS_WORDING[r['status']]}\"")
+                lines.append(f"- [{r['pid']}] {speakable(r['title'])}: status {r['status'].replace('_', ' ').upper()}. Say it like this: \"{STATUS_WORDING[r['status']]}\"")
             lines += [
                 "- NEVER, in your own voice, call any of these results verified, proved, proven, machine-checked, formally verified or confirmed correct. "
                 "You may report that OpenAI or a cited source says so, attributed, or say that something has NOT been verified.",

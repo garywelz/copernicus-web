@@ -311,11 +311,13 @@ async def dry_run_script(body: GenerateCuratedEpisode):
                                                               job_id="dry-run", with_metadata=True)
     except curated_script.ScriptPipelineError as e:
         return {**base, "status": "failed", "error_type": type(e).__name__, "error": str(e),
-                "violations": [{k: v for k, v in x.items() if k in ("check", "kind", "find", "message")} for x in getattr(e, "violations", [])]}
+                "violations": [{k: v for k, v in x.items() if k in ("check", "kind", "find", "message")} for x in getattr(e, "violations", [])],
+                **getattr(e, "diagnostics", {})}
     script = gen.content["script"]
     return {**base, "status": "ok", "words": len(script.split()), "tts_characters": len(script), "title": gen.content["title"],
             "description": gen.content["description"], "plan": gen.plan, "section_words": {k: len(v.split()) for k, v in gen.sections.items()},
-            "script": script, "notes": gen.notes, "checks": gen.naming_attempts, "trace": gen.trace, "rejection_count": len(gen.rejections)}
+            "script": script, "notes": gen.notes, "checks": gen.naming_attempts, "trace": gen.trace, "rejection_count": len(gen.rejections),
+            "model_calls": gen.model_calls, "model_calls_total": sum(gen.model_calls.values())}
 
 
 # --- pasted commentary (the paste fallback; no automated fetch) ---------------------------------------------------------------------------
