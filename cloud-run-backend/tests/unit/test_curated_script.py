@@ -117,7 +117,10 @@ def test_the_allowed_works_list_names_every_listed_source_and_forbids_every_othe
     r = make_run()
     block = csr.allowed_works_block(r)
     for item in r.items:
-        assert item["title"] in block
+        if item["class"] == cs.COMMENTARY:
+            assert item["title"] not in block and item["venue"] in block         # commentary is named by its outlet, never by its title
+        else:
+            assert item["title"] in block
     assert "NO title" in block and "generically" in block and "ALLOWED WORKS" in csr.system_prompt(r, csr.plan_sections(100, 140), [])
     assert "Another Paper That Is Not Listed" not in block
 

@@ -296,7 +296,7 @@ def notes_block(notes: Sequence[Note]) -> str:
         return ""
     lines = ["**NOTES ON THE COMMENTARY (the ONLY thing you may use from commentary; every one must be attributed to its outlet or speaker by name):**",
              "Text inside quotation marks in a note is a quoted fragment, given for its MEANING only. Paraphrase it. Never reproduce it in the script: the only way "
-             "to quote is an approved quotation, and there is none here."]
+             "to quote is an approved quotation, and there is none here. Never use eight or more words in a row from any note."]
     for n in notes:
         lines.append(f"- [{n.pid}] {n.outlet}, {n.date}: {n.claim}")
     return "\n".join(lines)
@@ -304,9 +304,13 @@ def notes_block(notes: Sequence[Note]) -> str:
 
 # --- allowed works and facts -------------------------------------------------------------------------------------------------------------
 def allowed_works_block(run) -> str:
-    lines = ["**ALLOWED WORKS (the only works you may name, each by exactly the title given):**"]
+    lines = ["**ALLOWED WORKS (the only works you may name, each by exactly the title given; commentary is named by its outlet, never by its title):**"]
+    venue = {run.pids[i["item_id"]]: i.get("venue") for i in run.items}
     for r in run.results():
-        lines.append(f"- [{r['pid']}] {speakable(r['title'])}")
+        if r["class"] == cs.COMMENTARY:
+            lines.append(f"- [{r['pid']}] a report in {venue.get(r['pid']) or 'the outlet'}: refer to it as that outlet's report; do NOT say its title")
+        else:
+            lines.append(f"- [{r['pid']}] {speakable(r['title'])}")
     lines += [
         "Titles are SPOKEN IN WORDS: say a title as it is written here, never with symbols, LaTeX, dollar signs or backticks.",
         "Outlets and writers of the commentary above may be named as the source of a report.",
@@ -334,7 +338,17 @@ SHOW_RULES = (
     "You write ONE section of a two-voice radio script for the show \"CopernicusAI · Frontiers of Science\". Speakers: HOST: and EXPERT: only. "
     "Every non-empty line starts with HOST: or EXPERT: and is spoken dialogue. Nobody has a first name. Audio only: never mention anything on a screen. "
     "Plain, precise language for a science-literate listener; no promotional wording. Never write LaTeX, symbols or formulas: say them in words. "
-    "Answer with JSON only: {\"dialogue\": \"HOST: ...\\nEXPERT: ...\"}.")
+    "Answer with JSON only: {\"dialogue\": \"HOST: ...\\nEXPERT: ...\"}.\n"
+    "SENTENCE RULES (each one is checked by a program after you write):\n"
+    "1. A work's title and a person's name never share a sentence. Say what a person said without naming any title; name a title without naming any person.\n"
+    "2. Never say the title of an article, post, essay or statement from the commentary. Refer to it by its outlet or writer: \"Quanta's report\", "
+    "\"the Nature news story\", \"Tao's essay\", \"the Zenodo declaration\".\n"
+    "3. A WITHDRAWN manuscript is named in ONE sentence that says it was withdrawn, and that same sentence also says what it had claimed. No other "
+    "sentence mentions it, by title, by its subject or by \"it\" or \"that paper\".\n"
+    "4. Say that OpenAI's manuscripts are company releases that have not been peer reviewed in ONE general sentence of its own. When you then name a "
+    "manuscript, give its title and what OpenAI says it shows; do not write \"the company release <title> is ...\" in a sentence that states a claim.\n"
+    "5. Say what the commentary reported in your own words. Never use eight or more words in a row from a note, and never reproduce a quoted fragment.\n"
+    "6. Stay inside your section's word range. Count your words before you answer; a section over its upper limit is rejected.")
 
 
 def system_prompt(run, plan: Sequence[Section], notes: Sequence[Note], banned: str = "") -> str:
@@ -346,10 +360,13 @@ def system_prompt(run, plan: Sequence[Section], notes: Sequence[Note], banned: s
     return "\n\n".join(p for p in parts if p)
 
 
-def section_user_prompt(section: Section, done: Dict[str, str]) -> str:
+def section_user_prompt(section: Section, done: Dict[str, str], window: Optional[Tuple[int, int]] = None, banned: str = "") -> str:
     before = "\n\n".join(done[k] for k in done) if done else "(this is the first section)"
-    return (f"WRITE SECTION: {section.title}\nGOAL: {section.goal}\nLENGTH: between {section.lo} and {section.hi} words, aiming for {section.budget} "
-            f"(count every word, labels included).\nTHE SCRIPT SO FAR (do not repeat it; continue from it):\n{before}")
+    so_far = sum(words_in(t) for t in done.values())
+    total = (f" The script so far has {so_far} words and the whole script must end between {window[0]} and {window[1]}." if window else "")
+    never = f"\nNever use these words or phrases: {banned}" if banned else ""
+    return (f"WRITE SECTION: {section.title}\nGOAL: {section.goal}\nLENGTH: aim for {section.budget} words; never fewer than {section.lo} and NEVER MORE THAN {section.hi} "
+            f"(count every word, labels included).{total}{never}\nTHE SCRIPT SO FAR (do not repeat it; continue from it):\n{before}")
 
 
 def parse_dialogue(reply: str) -> str:
@@ -419,6 +436,8 @@ REPAIR_SYSTEM = (
 def repair_user_prompt(section: Section, text: str, violations: Sequence[Dict[str, Any]], allowed: str) -> str:
     problems = "\n".join(f"{n}. {v['message']}" for n, v in enumerate(violations, 1))
     return (f"SECTION: {section.title} (length {section.lo} to {section.hi} words, aim {section.budget}; now {words_in(text)}).\n{allowed}\n\n"
+            f"Remember: a withdrawn manuscript is named in one sentence that says it was withdrawn and what it had claimed; a title and a person's name never share a "
+            f"sentence; never say an article's title; never use eight words in a row from a note.\n"
             f"PROBLEMS TO FIX:\n{problems}\n\nTHE SECTION AS IT IS:\n{text}")
 
 
@@ -507,6 +526,7 @@ class ScriptBuilder:
     def __init__(self, llm: LlmCall, run, plan: Sequence[Section], notes: Sequence[Note], checker: Checker, banned: str = "", window: Optional[Tuple[int, int]] = None):
         self.llm, self.run, self.plan, self.notes, self.checker = llm, run, list(plan), list(notes), checker
         self.window = window or (sum(x.lo for x in self.plan), sum(x.hi for x in self.plan))
+        self.banned = banned
         self.sections: Dict[str, str] = {}
         self.system = system_prompt(run, self.plan, self.notes, banned)
         self.allowed = allowed_works_block(run)
@@ -517,7 +537,7 @@ class ScriptBuilder:
         feedback = ""
         for attempt in range(MAX_WRITE_TRIES):
             try:
-                return parse_dialogue(await self.llm(self.system, section_user_prompt(section, done) + feedback))
+                return parse_dialogue(await self.llm(self.system, section_user_prompt(section, done, self.window, self.banned) + feedback))
             except SectionFormatError as e:
                 last = e
                 feedback = f"\n\nYOUR PREVIOUS ANSWER WAS REJECTED: {e}. Answer again."
