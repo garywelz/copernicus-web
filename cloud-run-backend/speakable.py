@@ -53,3 +53,20 @@ def speakable(text: str) -> str:
         return text or ""
     out = _SPAN.sub(lambda m: " " + speak_math(next(g for g in m.groups() if g is not None)) + " ", text)
     return re.sub(r"[ \t]{2,}", " ", re.sub(r"\s+([.,;:])", r"\1", out)).strip()
+
+
+# How each commentary outlet is SAID aloud. The venue on a list item is a label for the record ("tao-web (AI-assisted summary reviewed by Terence
+# Tao)", "Zenodo"); a listener should hear the outlet's ordinary name. An outlet not listed is said as its label with any bracket removed.
+_SPOKEN_SOURCES = (
+    ("quanta", "Quanta"), ("wikipedia", "Wikipedia"), ("scientific american", "Scientific American"), ("washington times", "the Washington Times"),
+    ("tao", "Tao's own web page"), ("zenodo", "the Fields Medalists' declaration"), ("nature", "Nature"),
+)
+
+
+def spoken_source(venue: str) -> str:
+    v = (venue or "").strip()
+    low = v.lower()
+    for key, said in _SPOKEN_SOURCES:
+        if key in low:
+            return said
+    return re.sub(r"\s*\([^)]*\)", "", v).strip() or "the outlet"

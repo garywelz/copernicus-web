@@ -38,9 +38,9 @@ def test_the_budgets_sum_to_the_target_and_any_sections_inside_their_tolerances_
     assert all(s.lo <= s.budget <= s.hi for s in plan) and [s.key for s in plan][0] == "opening" and [s.key for s in plan][-1] == "closing"
 
 
-def test_without_commentary_the_reception_section_is_dropped_and_the_budgets_still_sum():
+def test_without_commentary_the_reaction_section_is_dropped_and_the_budgets_still_sum():
     plan = csr.plan_sections(960, 1200, has_commentary=False)
-    assert "reception" not in [s.key for s in plan] and sum(s.budget for s in plan) == 1080
+    assert "reaction" not in [s.key for s in plan] and sum(s.budget for s in plan) == 1080
 
 
 def test_the_tolerance_is_never_wider_than_the_window_allows():
@@ -151,7 +151,7 @@ def test_dialogue_must_be_json_with_a_speaker_on_every_line():
 
 
 # --- 3. repair, not regenerate -----------------------------------------------------------------------------------------------------------------------
-PLAN = csr.plan_sections(100, 140)          # budgets 12, 24, 30, 24, 24, 6
+PLAN = csr.plan_sections(100, 140)          # five sections: opening, claims, trust, reaction, closing
 
 
 def section_text(section, bad=False, n=None):
@@ -214,20 +214,20 @@ def test_a_clean_script_is_written_once_section_by_section_and_checked_once():
 
 def test_a_violation_repairs_only_its_section_and_everything_else_is_kept_word_for_word():
     bad = section_text(PLAN[2], bad=True)
-    llm = PipelineLLM({"claims": [bad]})
+    llm = PipelineLLM({"trust": [bad]})
     res = run(builder(llm).build())
     assert llm.writes == [s.key for s in PLAN]                       # no section was written twice: nothing was regenerated
-    assert llm.repairs == ["claims"] and "BADWORD" not in res.script
+    assert llm.repairs == ["trust"] and "BADWORD" not in res.script
     for s in PLAN:
-        if s.key != "claims":
+        if s.key != "trust":
             assert res.sections[s.key] == section_text(s)             # untouched sections are byte for byte what they were
-    assert res.sections["claims"].split("\n")[0] == bad.split("\n")[0]    # and so is the sentence that passed, inside the repaired section
-    assert [t["stage"] for t in res.trace] == ["write", "check", "repair", "check"] and res.trace[2]["repaired"] == ["claims"]
+    assert res.sections["trust"].split("\n")[0] == bad.split("\n")[0]    # and so is the sentence that passed, inside the repaired section
+    assert [t["stage"] for t in res.trace] == ["write", "check", "repair", "check"] and res.trace[2]["repaired"] == ["trust"]
 
 
 def test_the_repair_prompt_names_the_sentence_and_the_length_and_forbids_other_changes():
     bad = section_text(PLAN[2], bad=True)
-    llm = PipelineLLM({"claims": [bad]})
+    llm = PipelineLLM({"trust": [bad]})
     run(builder(llm).build())
     system, user = next(c for c in llm.calls if c[0].startswith(csr.REPAIR_SYSTEM))
     assert "word for word" in system and "ONLY the sentences listed" in system
@@ -237,24 +237,24 @@ def test_the_repair_prompt_names_the_sentence_and_the_length_and_forbids_other_c
 def test_a_section_outside_its_tolerance_is_a_length_violation_only_when_the_total_is_outside_the_window():
     sections = {x.key: section_text(x) for x in PLAN}
     assert csr.length_violations(PLAN, sections, (100, 140)) == []
-    sections["sources"] = section_text(PLAN[1], n=PLAN[1].lo - 6)                     # short, but the total (111) is inside the window
+    sections["claims"] = section_text(PLAN[1], n=PLAN[1].lo - 6)                     # short, but the total (111) is inside the window
     assert csr.length_violations(PLAN, sections, (100, 140)) == []
-    sections["claims"] = section_text(PLAN[2], n=10)                                  # now the total (91) is below the window
+    sections["trust"] = section_text(PLAN[2], n=10)                                  # now the total (91) is below the window
     v = csr.length_violations(PLAN, sections, (100, 140))
-    assert sorted(x["section"] for x in v) == ["claims", "sources"] and {x["kind"] for x in v} == {"section_too_short"}
-    assert "EXPAND THIS SECTION TO ABOUT 30 WORDS" in next(x["message"] for x in v if x["section"] == "claims") and "between 100 and 140" in v[0]["message"]
+    assert sorted(x["section"] for x in v) == ["claims", "trust"] and {x["kind"] for x in v} == {"section_too_short"}
+    assert "EXPAND THIS SECTION TO ABOUT 32 WORDS" in next(x["message"] for x in v if x["section"] == "trust") and "between 100 and 140" in v[0]["message"]
 
 
 def test_a_section_over_one_and_a_half_times_its_budget_is_repaired_even_when_the_total_is_inside_the_window():
     sections = {x.key: section_text(x) for x in PLAN}
-    sections["closing"] = section_text(PLAN[5], n=int(PLAN[5].budget * 1.4))          # 1.4 times its budget: tolerated (the total is inside the window)
+    sections["closing"] = section_text(PLAN[4], n=int(PLAN[4].budget * 1.4))          # 1.4 times its budget: tolerated (the total is inside the window)
     sections["opening"] = section_text(PLAN[0], n=PLAN[0].budget - 2)                  # and the total stays inside the window
     assert csr.length_violations(PLAN, sections, (100, 140)) == []
-    sections["closing"] = section_text(PLAN[5], n=PLAN[5].budget * 2)                 # 2 times its budget: repaired, whatever the total
+    sections["closing"] = section_text(PLAN[4], n=PLAN[4].budget * 2)                 # 2 times its budget: repaired, whatever the total
     sections["opening"] = section_text(PLAN[0], n=PLAN[0].budget - 6)
     v = csr.length_violations(PLAN, sections, (100, 140))
     assert [x["section"] for x in v] == ["closing"] and v[0]["kind"] == "section_too_long"
-    assert f"CUT THIS SECTION TO {PLAN[5].budget} WORDS" in v[0]["message"] and "Remove repetition" in v[0]["message"]
+    assert f"CUT THIS SECTION TO {PLAN[4].budget} WORDS" in v[0]["message"] and "Remove repetition" in v[0]["message"]
 
 
 def test_sections_inside_their_tolerances_can_never_make_the_total_leave_the_window():
@@ -266,7 +266,7 @@ def test_sections_inside_their_tolerances_can_never_make_the_total_leave_the_win
 
 
 def test_a_length_repair_that_does_not_reach_the_budget_is_not_accepted_as_clean():
-    llm = PipelineLLM({"sources": [section_text(PLAN[1], n=PLAN[1].lo - 6)], "claims": [section_text(PLAN[2], n=10)]}, repair="fix")   # total 91: below the window
+    llm = PipelineLLM({"claims": [section_text(PLAN[1], n=PLAN[1].lo - 6)], "trust": [section_text(PLAN[2], n=10)]}, repair="fix")   # total 91: below the window
     with pytest.raises(csr.ScriptRepairFailed) as e:
         run(builder(llm).build())                                      # the fake "fixes" only BADWORD, so the lengths stay wrong
     assert {v["kind"] for v in e.value.violations} == {"section_too_short"}
@@ -274,34 +274,34 @@ def test_a_length_repair_that_does_not_reach_the_budget_is_not_accepted_as_clean
 
 def test_a_revision_that_rewrites_what_passed_is_refused_and_the_old_text_stays():
     bad = section_text(PLAN[2], bad=True)
-    llm = PipelineLLM({"claims": [bad]}, repair="rewrite")
+    llm = PipelineLLM({"trust": [bad]}, repair="rewrite")
     b = builder(llm)
     with pytest.raises(csr.ScriptRepairFailed):
         run(b.build())
-    assert llm.writes.count("claims") == 2                            # written twice in all: the first script and the one full regeneration
+    assert llm.writes.count("trust") == 2                            # written twice in all: the first script and the one full regeneration
     repairs = [t for t in b.trace if t["stage"] == "repair"]
-    assert repairs and all(t["refused"] == ["claims"] and t["repaired"] == [] for t in repairs)
+    assert repairs and all(t["refused"] == ["trust"] and t["repaired"] == [] for t in repairs)
 
 
 def test_regeneration_in_full_happens_only_after_two_failed_repair_rounds_and_only_once():
     bad = section_text(PLAN[2], bad=True)
-    llm = PipelineLLM({"claims": [bad]}, repair="garbage")
+    llm = PipelineLLM({"trust": [bad]}, repair="garbage")
     b = builder(llm)
     with pytest.raises(csr.ScriptRepairFailed) as e:
         run(b.build())
     stages = [(t["stage"], t.get("full_attempt")) for t in b.trace]
     assert stages.count(("write", 1)) == 1 and stages.count(("write", 2)) == 1 and ("write", 3) not in stages
-    assert llm.writes.count("claims") == csr.MAX_FULL_ATTEMPTS and e.value.violations[0]["kind"] == "badword"
+    assert llm.writes.count("trust") == csr.MAX_FULL_ATTEMPTS and e.value.violations[0]["kind"] == "badword"
     first = [t for t in b.trace if t.get("full_attempt") == 1]
     assert [t["stage"] for t in first] == ["write", "check", "repair"]            # one refused repair round, then nothing changed: no pointless round
-    assert first[2]["refused"] == ["claims"] and first[2]["repaired"] == []
+    assert first[2]["refused"] == ["trust"] and first[2]["repaired"] == []
 
 
 def test_a_full_regeneration_that_comes_out_clean_succeeds():
     bad = section_text(PLAN[2], bad=True)
-    llm = PipelineLLM({"claims": [bad, section_text(PLAN[2])]}, repair="garbage")
+    llm = PipelineLLM({"trust": [bad, section_text(PLAN[2])]}, repair="garbage")
     res = run(builder(llm).build())
-    assert llm.writes.count("claims") == 2 and llm.writes.count("opening") == 2 and "BADWORD" not in res.script
+    assert llm.writes.count("trust") == 2 and llm.writes.count("opening") == 2 and "BADWORD" not in res.script
 
 
 def test_a_violation_that_cannot_be_located_does_not_start_a_pointless_second_round():
@@ -344,7 +344,7 @@ def test_every_check_becomes_a_violation_the_repair_can_act_on():
     assert kinds == ["unlisted_work", "link_phrase_unattached", "unsupported_attribution", "unspeakable_notation", "banned_wording", "topic_read_aloud",
                      "coverage_statement_missing", "forbidden_term", "withdrawn_not_stated", "verbatim_run", "spoken_name", "preprint_not_labelled",
                      "company_release_not_labelled"]
-    assert all(v["message"] for v in out) and {v["section"] for v in out if v.get("section")} == {"status", "sources"}
+    assert all(v["message"] for v in out) and {v["section"] for v in out if v.get("section")} == {"trust", "claims"}
     assert csr.collect_violations() == []
 
 

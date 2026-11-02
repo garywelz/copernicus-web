@@ -29,7 +29,7 @@ from typing import Any, Awaitable, Callable, Dict, List, Optional, Sequence, Tup
 
 import curated_checks as cc
 import curated_sources as cs
-from speakable import speakable
+from speakable import spoken_source, speakable
 
 LlmCall = Callable[[str, str], Awaitable[str]]
 Checker = Callable[[str], Awaitable[List[Dict[str, Any]]]]
@@ -90,25 +90,27 @@ class Section:
 
 
 SECTION_TEMPLATES: Tuple[Tuple[str, str, int, str], ...] = (
-    ("opening", "Opening", 10,
-     "The host opens in her own words: what happened, in one or two plain sentences, and what this episode will and will not cover. She does "
-     "not read the topic out as a title."),
-    ("sources", "The sources", 20,
-     "What the sources are and what class each is. A preprint is called a preprint. A company release is the company's own claim and has not "
-     "been peer reviewed. Commentary is reported and attributed, never the reason a result is true or false. A withdrawn paper is NEVER named "
-     "without the word \"withdrawn\" in the same sentence."),
-    ("claims", "What the manuscripts claim", 25,
-     "What each named manuscript says it shows, always attributed (\"OpenAI says\", \"the manuscript argues\"), in plain language for a "
-     "science-literate listener."),
-    ("status", "What is and is not established", 20,
-     "The status of each named manuscript, in exactly the wording given. A withdrawn manuscript is said to be withdrawn every time it is named. "
-     "A Lean formalization is a catalogue entry, not a verdict. Say plainly what has not been checked. A withdrawn paper is NEVER named without "
-     "the word \"withdrawn\" in the same sentence."),
-    ("reception", "What others reported", 20,
-     "What the commentary sources reported about the release and its reception, only from the notes, each point attributed to its outlet or "
-     "speaker by name."),
-    ("closing", "Closing", 5,
-     "A short close: what is still open and what would settle it. No new claim, no new source."),
+    ("opening", "The hook", 12,
+     "The host opens in her own words and makes a listener want to stay: what happened (hundreds of manuscripts released overnight), the one "
+     "paper that experts reportedly believe, and the paper OpenAI withdrew within a day of the release. Two or three plain sentences, one of them a "
+     "question the listener is now asking. No list of sources, no talk of what the episode will or will not cover. She does not read the topic out "
+     "as a title."),
+    ("claims", "What is claimed", 30,
+     "What the manuscripts say they show and why each would matter, in plain meaning for a general listener, always attributed (\"OpenAI says\", "
+     "\"the manuscript argues\"). The HOST asks what a listener would ask (what is that, why does it matter) and the EXPERT explains. Include ONE "
+     "general sentence saying that OpenAI's manuscripts are company releases that have not been peer reviewed. Say each full title once, then use a "
+     "short name (\"the 7/8 paper\", \"the ETH paper\", \"the Unique Games paper\"). No formulas or symbols read aloud: explain what a result means."),
+    ("trust", "How far to trust it", 28,
+     "What is and is not established, in exactly the wording given. OpenAI's catalogue lists Lean formalizations that it marks \"unchecked\"; a Lean "
+     "formalization is a catalogue entry, not a verdict. Where a news source calls a version formally verified, say that it is that source's "
+     "description. Where experts are reported to largely agree a version is correct, say who reported it. Include any caveat a source raises. End "
+     "with the withdrawal as the cautionary tale: the manuscript was withdrawn within a day of the release for a sign error in a key step, with no "
+     "technical detail. A withdrawn paper is NEVER named without the word \"withdrawn\" in the same sentence."),
+    ("reaction", "The reaction", 28,
+     "How people reacted, from enthusiasm to alarm, only from the notes. Each point is attributed to its source by its short spoken name, or to a "
+     "person only for the words that source attributes to that person. A reporter's own phrase belongs to the outlet, not to a person quoted."),
+    ("closing", "What to watch", 8,
+     "What to watch next: what is still open and what would settle it. No new claim, no new source."),
 )
 
 
@@ -125,8 +127,8 @@ def tolerance_fraction(min_words: int, max_words: int) -> float:
 
 def plan_sections(min_words: int, max_words: int, has_commentary: bool = True) -> List[Section]:
     """Sections with word budgets that sum to the target (the middle of the window) exactly, and a [lo, hi] for each such that the sum of the
-    lows and the sum of the highs both stay inside [min_words, max_words]. Without commentary the reception section is dropped."""
-    templates = [t for t in SECTION_TEMPLATES if has_commentary or t[0] != "reception"]
+    lows and the sum of the highs both stay inside [min_words, max_words]. Without commentary the reaction section is dropped."""
+    templates = [t for t in SECTION_TEMPLATES if has_commentary or t[0] != "reaction"]
     total_weight = sum(t[2] for t in templates)
     target = target_words(min_words, max_words)
     raw = [target * t[2] / total_weight for t in templates]
@@ -298,7 +300,7 @@ def notes_block(notes: Sequence[Note]) -> str:
              "Text inside quotation marks in a note is a quoted fragment, given for its MEANING only. Paraphrase it. Never reproduce it in the script: the only way "
              "to quote is an approved quotation, and there is none here. Never use eight or more words in a row from any note."]
     for n in notes:
-        lines.append(f"- [{n.pid}] {n.outlet}, {n.date}: {n.claim}")
+        lines.append(f"- [{n.pid}] {spoken_source(n.outlet)}, {n.date}: {n.claim}")
     return "\n".join(lines)
 
 
@@ -308,7 +310,7 @@ def allowed_works_block(run) -> str:
     venue = {run.pids[i["item_id"]]: i.get("venue") for i in run.items}
     for r in run.results():
         if r["class"] == cs.COMMENTARY:
-            lines.append(f"- [{r['pid']}] a report in {venue.get(r['pid']) or 'the outlet'}: refer to it as that outlet's report; do NOT say its title")
+            lines.append(f"- [{r['pid']}] a report in {venue.get(r['pid']) or 'the outlet'}: SPOKEN NAME \"{spoken_source(venue.get(r['pid']))}\"; do NOT say its title")
         else:
             lines.append(f"- [{r['pid']}] {speakable(r['title'])}")
     lines += [
@@ -337,18 +339,26 @@ def facts_block(run, max_chars: int = 700) -> str:
 SHOW_RULES = (
     "You write ONE section of a two-voice radio script for the show \"CopernicusAI · Frontiers of Science\". Speakers: HOST: and EXPERT: only. "
     "Every non-empty line starts with HOST: or EXPERT: and is spoken dialogue. Nobody has a first name. Audio only: never mention anything on a screen. "
-    "Plain, precise language for a science-literate listener; no promotional wording. Never write LaTeX, symbols or formulas: say them in words. "
+    "Plain, precise language for a science-literate listener; no promotional wording. The listener is general: never read a formula or symbolic statement aloud, not even spelled out in words; say what the result means. Never write LaTeX or symbols. "
     "Answer with JSON only: {\"dialogue\": \"HOST: ...\\nEXPERT: ...\"}.\n"
     "SENTENCE RULES (each one is checked by a program after you write):\n"
     "1. A work's title and a person's name never share a sentence. Say what a person said without naming any title; name a title without naming any person.\n"
     "2. Never say the title of an article, post, essay or statement from the commentary. Refer to it by its outlet or writer: \"Quanta's report\", "
-    "\"the Nature news story\", \"Tao's essay\", \"the Zenodo declaration\".\n"
-    "3. A WITHDRAWN manuscript is named in ONE sentence that says it was withdrawn, and that same sentence also says what it had claimed. No other "
-    "sentence mentions it, by title, by its subject or by \"it\" or \"that paper\".\n"
+    "\"the Nature news story\", \"Tao's essay\", \"the Fields Medalists' declaration\".\n"
+    "3. A WITHDRAWN manuscript is named in ONE sentence that says it was withdrawn within a day of the release because of a sign error in a key step. "
+    "Give no technical detail and no date. No other sentence mentions it, by title, by its subject or by \"it\" or \"that paper\".\n"
     "4. Say that OpenAI's manuscripts are company releases that have not been peer reviewed in ONE general sentence of its own. When you then name a "
     "manuscript, give its title and what OpenAI says it shows; do not write \"the company release <title> is ...\" in a sentence that states a claim.\n"
     "5. Say what the commentary reported in your own words. Never use eight or more words in a row from a note, and never reproduce a quoted fragment.\n"
-    "6. Stay inside your section's word range. Count your words before you answer; a section over its upper limit is rejected.")
+    "6. Say each manuscript's full title at most once in the whole script, then use a short name (\"the 7/8 paper\", \"the ETH paper\", \"the Unique Games "
+    "paper\"). If a title contains a formula, use only the short name.\n"
+    "7. Name each commentary source by its SPOKEN NAME as given in the source list (for example Quanta, Wikipedia, Nature, Scientific American, the "
+    "Washington Times, Tao's own web page, the Fields Medalists' declaration), never by its label or website. Name a source only where you attribute a "
+    "statement to it; do not list the sources.\n"
+    "8. Attribute to a person only the words the source attributes to that person. A reporter's own phrase or judgement is attributed to the outlet.\n"
+    "9. Write real dialogue: the HOST asks what a curious listener would ask and the EXPERT explains in plain words. Never say what the episode will not "
+    "cover or what it avoids.\n"
+    "10. Stay inside your section's word range. Count your words before you answer; a section over its upper limit is rejected.")
 
 
 def system_prompt(run, plan: Sequence[Section], notes: Sequence[Note], banned: str = "") -> str:
@@ -627,7 +637,7 @@ def collect_violations(naming=None, attribution=None, notation: Sequence[str] = 
     for s in read_aloud:
         out.append({"check": "read_aloud", "kind": "topic_read_aloud", "find": s, "message": f"The host reads the topic title aloud: \"{s[:200]}\". Put it in her own words."})
     for name in missing_cov:
-        out.append({"check": "coverage", "kind": "coverage_statement_missing", "find": None, "section": "status",
+        out.append({"check": "coverage", "kind": "coverage_statement_missing", "find": None, "section": "trust",
                     "message": f"Add one sentence that names {name} and says plainly that the papers reviewed here do not cover it."})
     for v in curated:
         k = v["kind"]
@@ -644,10 +654,10 @@ def collect_violations(naming=None, attribution=None, notation: Sequence[str] = 
             out.append({"check": "spoken_name", "kind": k, "find": v["sentence"], "raw": v,
                         "message": f"Remove the spoken name (the speakers are HOST and EXPERT and have no names): \"{v['sentence']}\""})
         elif k == "preprint_not_labelled":
-            out.append({"check": "class_label", "kind": k, "find": None, "section": "sources",
+            out.append({"check": "class_label", "kind": k, "find": None, "section": "claims",
                         "message": "A named preprint must be called a preprint the first time it is mentioned."})
         elif k == "company_release_not_labelled":
-            out.append({"check": "class_label", "kind": k, "find": None, "section": "sources",
+            out.append({"check": "class_label", "kind": k, "find": None, "section": "claims",
                         "message": "A named company release must be said not to have been peer reviewed, the first time it is mentioned."})
     return out
 

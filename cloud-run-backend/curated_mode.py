@@ -14,7 +14,7 @@ from dataclasses import dataclass, field
 from typing import Any, Dict, List, Optional, Sequence
 
 import curated_checks as cc
-from speakable import speakable
+from speakable import spoken_source, speakable
 import curated_sources as cs
 import paper_confirmation as pc
 from reference_sections import compact_line, strip_model_reference_sections, _STOP
@@ -157,7 +157,7 @@ class CuratedRun:
         for i in self.items:
             pid, cls = self.pids[i["item_id"]], i["class"]
             if cls == cs.COMMENTARY:
-                lines.append(f"- [{pid}] (commentary) a report in {i.get('venue') or 'the outlet'}: say \"{i.get('venue') or 'the outlet'}'s report\", never its title")
+                lines.append(f"- [{pid}] (commentary) a report in {i.get('venue') or 'the outlet'}: SPOKEN NAME \"{spoken_source(i.get('venue'))}\" (say \"{spoken_source(i.get('venue'))} reported ...\"), never its title")
             else:
                 lines.append(f"- [{pid}] ({cls.replace('_', ' ')}) {speakable(i.get('title'))}")
             if cls in CLASS_SAYS:
