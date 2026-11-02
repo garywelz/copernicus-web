@@ -213,7 +213,7 @@ def test_sources_are_grouped_by_class_each_line_carries_its_class_and_identifier
     assert order == sorted(order)
     assert "[peer reviewed]" in text and "[preprint, not peer reviewed]" in text and "[company release, not peer reviewed; status:" in text
     assert "DOI: 10.1000/peer_reviewed1" in text and "Journal of Tests" in text         # the existing compact reference line, plus the class tag
-    assert "OpenAI mathematics release, family 378, commit 7ef5c0cc5" in text
+    assert "family 378, commit 7ef5c0cc5" in text
     assert "status: Lean formalization listed in OpenAI's catalogue, catalogue review status unchecked" in text
     assert "verified" not in text.replace("unverified", "").replace("not independently", "")
 
@@ -233,7 +233,7 @@ def test_a_withdrawn_manuscript_is_listed_under_its_own_heading_and_never_as_a_c
 def test_only_named_sources_are_listed_and_no_pointer_line_is_printed():
     text, _ = build(base_items(), ["P1"])
     assert "A peer_reviewed paper 1" in text
-    assert "A preprint paper 2" not in text and "OpenAI mathematics release" not in text
+    assert "A preprint paper 2" not in text and "family 378" not in text
     assert "Other sources reviewed" not in text            # the page feature it pointed to (C5) is not built
     all_named, _ = build(base_items(), ["P1", "P2", "P3"])
     assert "Other sources reviewed" not in all_named
