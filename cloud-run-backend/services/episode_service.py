@@ -172,11 +172,8 @@ class EpisodeService:
         from content_fixes import limit_description_length
         description_markdown = limit_description_length(description_markdown, 4000)
         
-        # Convert reference URLs to clickable markdown links BEFORE HTML conversion
-        # Use RSS service function (shared utility)
-        from services.rss_service import RSSService
-        description_markdown = RSSService._make_reference_links_clickable(description_markdown)
-        
+        # The stored description is never rewritten with link markup: that lengthened it past the 4,000-character limit (episode 1: 3,939 stored,
+        # about 4,389 with links). Links are added only when the page renders the description; the feed carries bare addresses.
         description_html = cls._markdown_to_html(description_markdown)
         summary_text = result_data.get("itunes_summary") or extract_itunes_summary(description_markdown)
         canonical = result_data.get("canonical_filename")
