@@ -420,6 +420,18 @@ async def check_curated_attributions(script: str, run, named_papers: Sequence[An
     return result
 
 
+def credited_commentary_pids(script: str, run) -> List[str]:
+    """The commentary items the script credits: those the routing sends to the commentary branch. Code only, no model call; in the order of the list."""
+    router = Router(run)
+    found = set()
+    for sentence in cc.split_sentences(cc.dialogue_text(script)):
+        r = router.route(sentence)
+        if r.route == "commentary":
+            found.update(r.pids)
+    order = {run.pids[i["item_id"]]: n for n, i in enumerate(run.items)}
+    return sorted(found, key=lambda p: order.get(p, 10**6))
+
+
 async def check_attributions_for(script: str, named_papers: Sequence[Any], llm: LlmCall, curated_run=None):
     """The ordinary check when there is no curated run, attribution by target when there is."""
     if curated_run is None:

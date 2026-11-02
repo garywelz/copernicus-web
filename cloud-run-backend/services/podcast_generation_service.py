@@ -1925,7 +1925,8 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
         # references from model text or from the first five sources are gone.
         if getattr(research_context, 'curated', None) is not None:
             content['description'] = _curated.apply_curated_sources(
-                content['description'], research_context.curated, research_context.confirmed_papers, naming_result.named_pids)
+                content['description'], research_context.curated, research_context.confirmed_papers, naming_result.named_pids,
+                script=content.get('script'))
         else:
             content['description'] = apply_reference_sections(
                 content['description'], research_context.confirmed_papers, naming_result.named_pids, research_context.requested_pid)
