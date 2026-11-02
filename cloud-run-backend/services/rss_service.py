@@ -180,6 +180,16 @@ class RSSService:
         return make_reference_links_clickable(text)
 
     @staticmethod
+    def _bare_links(text: str) -> str:
+        """Write every Markdown link as plain text: `[label](url)` becomes `label (url)`, or just `label` when the label already holds the address."""
+        import re
+
+        def plain(m):
+            label, url = m.group(1), m.group(2)
+            return label if url in label else f"{label} ({url})"
+        return re.sub(r'\[([^\]]+)\]\(([^\)]+)\)', plain, text or "")
+
+    @staticmethod
     def _clean_description_for_spotify(text: str) -> str:
         """Clean description text to remove HTML entities, unwanted symbols, and ensure clean formatting for Spotify."""
         if not text:
@@ -287,21 +297,21 @@ class RSSService:
         transcript_url = result.get("transcript_url")
         description_markdown = cls._strip_legacy_tagline(result.get("description", ""))
 
-        # Link each reference and point "Further reading" at this episode's own page (rendered here; the stored description is not rewritten)
+        # Point "Further reading" at this episode's own page and give each reference its URL (rendered here; the stored description is not rewritten).
+        # The feed carries reference URLs as bare text, never as link markup (Markdown or HTML), so the limit below is applied to the text exactly as
+        # it is written into the feed. (It used to be applied after link markup was added, which lengthened the text and cut the narrative to nothing.)
         from reference_sections import render_for_feed
         description_markdown = render_for_feed(description_markdown, f"{EPISODE_BASE_URL}/{canonical}" if canonical else "")
-        
-        # Convert reference URLs to clickable markdown links BEFORE HTML conversion
-        description_markdown = cls._make_reference_links_clickable(description_markdown)
-        
+        description_markdown = cls._make_reference_links_clickable(description_markdown)      # gives each reference its address ...
+        description_markdown = cls._bare_links(description_markdown)                          # ... written as bare text, not as a link
+
         # Clean description for Spotify compatibility (remove HTML entities, unwanted symbols)
-        # BUT preserve markdown link syntax [text](url)
         description_markdown = cls._clean_description_for_spotify(description_markdown)
 
-        # Limit description length to 4000 chars while preserving references
+        # Limit description length to 4000 chars while preserving references: the final text, as it goes into the feed
         from content_fixes import limit_description_length
         description_markdown = limit_description_length(description_markdown, 4000)
-        
+
         description_html = cls._markdown_to_html(description_markdown)
         if transcript_url:
             description_html += f'\n<p><a href="{transcript_url}">View full transcript</a></p>'
@@ -313,8 +323,7 @@ class RSSService:
         import re
         import html as html_module
         
-        # Convert markdown links to plain text with URLs: [text](url) -> text (url)
-        description_plain = re.sub(r'\[([^\]]+)\]\(([^\)]+)\)', r'\1 (\2)', description_markdown)
+        description_plain = description_markdown      # already bare: no link markup is left to convert
         # Remove any remaining HTML if present
         description_plain = re.sub(r'<[^>]+>', '', description_plain)
         # Decode HTML entities
