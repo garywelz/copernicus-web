@@ -213,3 +213,127 @@ async def _generate(request, research_context, check_llm, writer_llm, job_id, on
     return CuratedGeneration(content=content, naming_result=state["naming"], naming_attempts=attempts, rejections=rejections,
                              trace=notes_trace + result.trace + meta_trace, sections=result.sections, notes=[n.to_dict() for n in notes],
                              plan=[s.to_dict() for s in plan], final_violations=result.checks_final, model_calls=dict(calls))
+
+
+# --- a script supplied by an editor -------------------------------------------------------------------------------------------------------------
+class SuppliedScriptRejected(csr.ScriptPipelineError):
+    def __init__(self, violations: List[Dict[str, Any]]):
+        self.violations = list(violations)
+        super().__init__("The supplied script failed the checks (" + ", ".join(sorted({f"{v['check']}:{v['kind']}" for v in self.violations})) + "), so no episode was generated.")
+
+
+@dataclass
+class SuppliedCheck:
+    passed: bool
+    words: int
+    min_words: int
+    max_words: int
+    format_problems: List[str]
+    violations: List[Dict[str, Any]]
+    entry: Dict[str, Any]
+    naming_result: Any = None
+    content: Optional[Dict[str, Any]] = None
+    model_calls: Dict[str, int] = field(default_factory=dict)
+
+    @property
+    def length_ok(self) -> bool:
+        return self.min_words <= self.words <= self.max_words
+
+
+def supplied_reporting_text(run) -> str:
+    """Whose NAMES may be used as a reporting attribution in a supplied script. A generated script has approved notes; a supplied one has none, so
+    the text is what the notes are made from: the venue and authors recorded on the list's commentary, and the pasted commentary itself. The
+    exemption's own conditions are unchanged (a reporting verb, no title, no year, no "et al.")."""
+    texts = " ".join(i.get("evidence_text") or "" for i in run.items if i["class"] == cs.COMMENTARY)
+    return csr.reporting_text(run, []) + " " + csr._norm(texts)
+
+
+def script_format_problems(script: str) -> List[str]:
+    lines = [ln.strip() for ln in (script or "").replace("\r", "").split("\n") if ln.strip()]
+    if not lines:
+        return ["the script is empty"]
+    bad = [ln for ln in lines if not csr.SPEAKER_LINE.match(ln)]
+    return [f"every line must start with HOST: or EXPERT: ({len(bad)} do not; the first is: {bad[0][:60]})"] if bad else []
+
+
+async def check_supplied_script(request, research_context, check_llm: csr.LlmCall, script: str, title: str = "", job_id: str = "",
+                                with_metadata: bool = False, sleep: Callable[[float], Awaitable[Any]] = asyncio.sleep) -> SuppliedCheck:
+    """Every check a generated curated script passes, on a script somebody else wrote: the same checks in the same order as `_generate`'s checker
+    (naming with the reporting-attribution exemption, attribution, notation, banned wording, topic read aloud, coverage, every curated check), plus
+    the duration window and the line format. Nothing is repaired or rewritten; a violation is reported. With `with_metadata` and a clean script it also
+    writes the description and keywords (a model call), as for a generated script. Writes nothing."""
+    run = research_context.curated
+    confirmed = research_context.confirmed_papers
+    min_words = calculate_minimum_words_for_duration(request.duration)
+    max_words = calculate_maximum_words_for_duration(request.duration)
+    calls: Dict[str, int] = {"checks": 0, "metadata": 0}
+    transient = {"n": 0}
+
+    async def model_call(factory):
+        while True:
+            try:
+                return await factory()
+            except csr.ScriptPipelineError:
+                raise
+            except Exception:
+                transient["n"] += 1
+                if transient["n"] > MAX_TRANSIENT_RETRIES:
+                    raise
+                await sleep(2)
+
+    async def counted(system: str, user: str) -> str:
+        calls["checks"] += 1
+        return await check_llm(system, user)
+
+    words = len(script.split())
+    fmt = script_format_problems(script)
+    run.reporting_text = supplied_reporting_text(run)
+    uncovered = uncovered_named_things(request.topic, confirmed)
+    naming = await model_call(lambda: check_naming(script, "", confirmed, counted, topic=request.topic))
+    naming.violations, exempted = csr.exempt_reporting_attributions(naming.violations, run.reporting_text)
+    bad_notation = notation_problems(script, "")
+    banned = banned_phrase_hits(script, "")
+    read_aloud = read_aloud_sentences(script, request.topic)
+    missing_cov = missing_coverage_statements(script, uncovered)
+    curated = run.checks(script)
+    attribution = None
+    if naming.passed:
+        named = [c for c in confirmed if c.pid in naming.named_pids]
+        attribution = await model_call(lambda: check_attributions(script, named, counted))
+    entry = {"attempt": 1, **naming.summary(), "unspeakable_notation": bad_notation,
+             "banned_phrases": [{"phrase": h["phrase"], "matched": h["matched"], "where": h["where"]} for h in banned],
+             "curated_checks": cc.summary(curated), "topic_read_aloud": len(read_aloud), "coverage_statement_missing": missing_cov,
+             "words": words, "naming_reporting_attributions_exempt": len(exempted)}
+    if attribution is not None:
+        entry["attribution"] = attribution.summary()
+    violations = csr.collect_violations(naming, attribution, bad_notation, banned, read_aloud, missing_cov, curated)
+    if words > max_words:
+        violations.append({"check": "length", "kind": "too_long", "find": None, "message": f"The script has {words} words; the most for this duration is {max_words}."})
+    if words < min_words:
+        violations.append({"check": "length", "kind": "too_short", "find": None, "message": f"The script has {words} words; the least for this duration is {min_words}."})
+    for p in fmt:
+        violations.append({"check": "format", "kind": "line_format", "find": None, "message": p})
+    result = SuppliedCheck(passed=not violations, words=words, min_words=min_words, max_words=max_words, format_problems=fmt, violations=violations,
+                           entry=entry, naming_result=naming, model_calls=calls)
+    if result.passed and with_metadata:
+        description_fallback = f"This episode looks at {request.topic}. The sources are listed under References."
+
+        async def validate(t: str, description: str) -> List[str]:
+            problems = [f"banned wording \"{h['matched']}\": {h['sentence']}" for h in banned_phrase_hits("", description)]
+            problems += [f"notation that cannot be read aloud: {p}" for p in notation_problems("", description)]
+            problems += [f"status wording \"{v['term']}\": {v['sentence']}" for v in cc.check_status_wording(description, run.results()) if v["kind"] == "forbidden_term"]
+            n2 = await model_call(lambda: check_naming(script, description, confirmed, counted, topic=request.topic))
+            kept, _ = csr.exempt_reporting_attributions(n2.violations, run.reporting_text)
+            problems += [f"the description names a work that is not allowed: {v['quote'][:120]}" for v in kept if v.get("where") == "description"]
+            return problems
+
+        async def metadata_llm(system: str, user: str) -> str:
+            calls["metadata"] += 1
+            return await check_llm(system, user)
+
+        meta, _ = await csr.write_metadata(metadata_llm, script, csr.allowed_works_block(run), validate, title_override=title or run.title,
+                                           fallback_description=description_fallback)
+        result.content = {"title": title or meta.get("title") or request.topic, "script": script, "description": meta["description"],
+                          "keywords": meta.get("keywords") or [], "research_quality_score": research_context.research_quality_score,
+                          "research_sources_used": len(research_context.research_sources), "significance": research_context.significance}
+    return result

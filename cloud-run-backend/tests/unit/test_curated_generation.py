@@ -471,3 +471,28 @@ def test_a_failure_of_the_pipeline_propagates_so_the_episode_fails_closed(monkey
     monkeypatch.setattr(curated_pipeline, "make_writer_llm", lambda key: None)
     with pytest.raises(curated_script.ScriptRepairFailed):
         run(svc.PodcastGenerationService()._generate_checked_content(PodcastRequest(topic="t"), context(), "k", "jobF"))
+
+
+# --- a script supplied by an editor goes through the same job ---------------------------------------------------------------------------------------
+def test_a_supplied_script_is_checked_by_the_service_and_a_failure_stops_the_episode(monkeypatch):
+    import curated_pipeline as cp
+    service = svc.PodcastGenerationService()
+    monkeypatch.setattr(svc, "make_gemini_llm_call", lambda key: None)
+    ctx = SimpleNamespace(curated=None)
+    passed = cp.SuppliedCheck(passed=True, words=3, min_words=1, max_words=9, format_problems=[], violations=[], entry={"attempt": 1},
+                              naming_result="N", content={"title": "T", "script": "HOST: Hi."})
+    calls = {}
+
+    async def ok(request, context, llm, script, title="", job_id="", with_metadata=False, sleep=None):
+        calls.update(script=script, title=title, with_metadata=with_metadata)
+        return passed
+    monkeypatch.setattr(cp, "check_supplied_script", ok)
+    content, naming, attempts = run(service._supplied_curated_content(PodcastRequest(topic="t"), ctx, "k", "j", {"script": "HOST: Hi.", "title": "T"}))
+    assert content["title"] == "T" and naming == "N" and attempts == [{"attempt": 1}] and calls == {"script": "HOST: Hi.", "title": "T", "with_metadata": True}
+
+    async def bad(*a, **k):
+        return cp.SuppliedCheck(passed=False, words=3, min_words=1, max_words=9, format_problems=[], violations=[{"check": "naming", "kind": "unlisted_work"}], entry={})
+    monkeypatch.setattr(cp, "check_supplied_script", bad)
+    with pytest.raises(cp.SuppliedScriptRejected) as e:
+        run(service._supplied_curated_content(PodcastRequest(topic="t"), ctx, "k", "j", {"script": "x", "title": "T"}))
+    assert "naming:unlisted_work" in str(e.value)
