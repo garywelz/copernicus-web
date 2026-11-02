@@ -295,8 +295,8 @@ def source_line(c: "pc.ConfirmedPaper", cls: str, status: Optional[str] = None, 
         authors = ", ".join(c.authors[:3]) or "OpenAI"
         year = f" ({c.year})" if c.year else ""
         family = pin.get("family")
-        family_part = f", family {family}" if family not in (None, "", "None") else ""      # a manuscript with no family has no family field
-        return (f"- {authors}{year}. {title}{stop} OpenAI mathematics release{family_part}, commit {sha}. "
+        family_part = f"family {family}, " if family not in (None, "", "None") else ""      # a manuscript with no family has no family field
+        return (f"- {authors}{year}. {title}{stop} {family_part}commit {sha}. "
                 f"[{tag}; status: {st}]")
     if cls == cs.COMMENTARY:
         who = ", ".join([x for x in (", ".join(c.authors[:3]), c.venue or "") if x])      # the writer and the outlet

@@ -56,12 +56,12 @@ def test_a_title_that_ends_in_a_question_mark_gets_no_second_stop():
 def test_a_manuscript_with_no_family_has_no_family_field():
     run = run_of(base_items() + [release_item(title="Withdrawn thing", path="a/b", family=None, result_status="withdrawn")])
     text = cm.build_sources(run, run.confirmed_papers(), ["P4"])
-    assert "family" not in text and "None" not in text and "OpenAI mathematics release, commit 7ef5c0cc5" in text
+    assert "family" not in text and "None" not in text and ". commit 7ef5c0cc5." in text
 
 
 def test_a_manuscript_with_a_family_still_shows_it():
     text = cm.build_sources(run_of(), run_of().confirmed_papers(), ["P3"])
-    assert "OpenAI mathematics release, family 378, commit 7ef5c0cc5" in text
+    assert "family 378, commit 7ef5c0cc5." in text and "OpenAI mathematics release" not in text
 
 
 # --- the commentary lines --------------------------------------------------------------------------------------------------------------
