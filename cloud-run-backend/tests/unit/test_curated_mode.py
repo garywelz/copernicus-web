@@ -230,11 +230,11 @@ def test_a_withdrawn_manuscript_is_listed_under_its_own_heading_and_never_as_a_c
     assert "### Withdrawn" in text and "### Company releases" not in text and "status: withdrawn by OpenAI" in text
 
 
-def test_only_named_sources_are_listed_and_the_rest_get_one_pointer_line():
+def test_only_named_sources_are_listed_and_no_pointer_line_is_printed():
     text, _ = build(base_items(), ["P1"])
     assert "A peer_reviewed paper 1" in text
     assert "A preprint paper 2" not in text and "OpenAI mathematics release" not in text
-    assert "Other sources reviewed for this episode are listed, with their classes, on the episode page" in text
+    assert "Other sources reviewed" not in text            # the page feature it pointed to (C5) is not built
     all_named, _ = build(base_items(), ["P1", "P2", "P3"])
     assert "Other sources reviewed" not in all_named
 

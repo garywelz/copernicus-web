@@ -239,10 +239,53 @@ def confirmed_from_item(item: Dict[str, Any], pid: str) -> "pc.ConfirmedPaper":
     return pc.ConfirmedPaper(**data)
 
 
+# --- plain text for the printed lines -------------------------------------------------------------------------------------------------
+_TEX_WORDS = {"Re": "Re", "Im": "Im", "gt": ">", "lt": "<", "geq": ">=", "ge": ">=", "leq": "<=", "le": "<=", "neq": "!=", "ne": "!=", "to": "->",
+              "times": "x", "cdot": "*", "infty": "infinity", "pm": "+/-", "ldots": "...", "dots": "...", "log": "log", "ln": "ln", "exp": "exp"}
+_MATH_SPAN = re.compile(r"\$`([^`]*)`\$|\$\$([^$]+)\$\$|\$([^$]+)\$")
+_MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+
+
+def _tex_to_plain(expr: str) -> str:
+    t = expr
+    for _ in range(3):                                           # nested fractions and roots
+        t = re.sub(r"\\d?frac\s*\{([^{}]*)\}\s*\{([^{}]*)\}", r"\1/\2", t)
+        t = re.sub(r"\\sqrt\s*\{([^{}]*)\}", r"sqrt(\1)", t)
+    t = re.sub(r"\\([A-Za-z]+)", lambda m: " " + _TEX_WORDS.get(m.group(1), m.group(1)) + " ", t)
+    t = re.sub(r"[\\{}]", "", t)
+    return re.sub(r"\s+", " ", t).strip()
+
+
+def plain_title(title: Optional[str]) -> str:
+    r"""A title as plain text: a LaTeX span such as $`\Re s\gt 7/8`$ becomes 'Re s > 7/8'; no markup, backslash or brace is left."""
+    t = _MATH_SPAN.sub(lambda m: _tex_to_plain(next(g for g in m.groups() if g is not None)), title or "")
+    t = _tex_to_plain(t) if "\\" in t else t
+    return re.sub(r"\s+", " ", t).strip()
+
+
+def https_url(url: Optional[str]) -> str:
+    u = (url or "").strip()
+    return "https://" + u[len("http://"):] if u.lower().startswith("http://") else u
+
+
+def readable_date(date: Optional[str], year: Optional[int] = None) -> str:
+    """'2026-10-19' -> '19 October 2026'; '2026-10' -> 'October 2026'; anything else falls back to the year."""
+    m = re.match(r"^(\d{4})(?:-(\d{2})(?:-(\d{2}))?)?$", (date or "").strip())
+    if not m:
+        return str(year) if year else ""
+    y, mo, d = m.group(1), m.group(2), m.group(3)
+    if mo and 1 <= int(mo) <= 12:
+        return (f"{int(d)} " if d else "") + f"{_MONTHS[int(mo) - 1]} {y}"
+    return y
+
+
 # --- the code-built Sources section (code@3) ------------------------------------------------------------------------------------------
 def source_line(c: "pc.ConfirmedPaper", cls: str, status: Optional[str] = None, checked_by: Optional[str] = None,
-                limits: Optional[Sequence[Dict[str, Any]]] = None) -> str:
+                limits: Optional[Sequence[Dict[str, Any]]] = None, date: Optional[str] = None) -> str:
     tag = CLASS_TAGS[cls]
+    title = plain_title(c.title)
+    title = title if title.endswith(("?", "!")) else title.rstrip(".")      # the line adds its own full stop, after a title that does not end in one
+    stop = "" if title.endswith(("?", "!")) else "."
     if cls == cs.COMPANY_RELEASE:
         pin = c.pin or {}
         sha = (pin.get("commit") or "")[:9]
@@ -251,45 +294,55 @@ def source_line(c: "pc.ConfirmedPaper", cls: str, status: Optional[str] = None, 
             st = f"checked by experts, as reported by {checked_by}"
         authors = ", ".join(c.authors[:3]) or "OpenAI"
         year = f" ({c.year})" if c.year else ""
-        return (f"- {authors}{year}. {c.title.rstrip('.')}. OpenAI mathematics release, family {pin.get('family')}, commit {sha}. "
+        family = pin.get("family")
+        family_part = f", family {family}" if family not in (None, "", "None") else ""      # a manuscript with no family has no family field
+        return (f"- {authors}{year}. {title}{stop} OpenAI mathematics release{family_part}, commit {sha}. "
                 f"[{tag}; status: {st}]")
     if cls == cs.COMMENTARY:
         who = ", ".join([x for x in (", ".join(c.authors[:3]), c.venue or "") if x])      # the writer and the outlet
-        year = f" ({c.year})" if c.year else ""
-        line = f"- {who}{year}. {c.title.rstrip('.')}. [{tag}] {c.url}".replace("-  .", "- ")
+        when = readable_date(date, c.year)
+        head = " ".join(x for x in (who, f"({when})" if when else "") if x)
+        line = f"- {head}. {title}{stop} [{tag}] {https_url(c.url)}".replace("- . ", "- ")
         if any(l.get("type") == "fetch_refused" for l in (limits or [])):
             line += f" {READING_LIMIT_LINE}"
         return line
     return f"{compact_line(c)} [{tag}]"
 
 
-def build_sources(run: CuratedRun, confirmed: Sequence["pc.ConfirmedPaper"], named_pids: Sequence[str]) -> str:
+def build_sources(run: CuratedRun, confirmed: Sequence["pc.ConfirmedPaper"], named_pids: Sequence[str],
+                  credited_commentary: Sequence[str] = ()) -> str:
     """The sources section as Markdown, headed "## References" so the description's existing handling applies to it (the length limit
     keeps the References section whole, the feed renderer and the page find it): one subsection per class, each line carrying its class
-    and its identifier; withdrawn manuscripts under their own heading; one pointer line when approved sources were reviewed but not
-    discussed."""
+    and its identifier; withdrawn manuscripts under their own heading. A commentary item is listed when the script names it or the
+    attribution routing says the script credits it (`credited_commentary`); every other class is listed when the script names it."""
     by_pid = {c.pid: c for c in confirmed}
     item_by_pid = {run.pids[i["item_id"]]: i for i in run.items}
-    named = [p for p in dict.fromkeys(named_pids) if p in by_pid]
+    wanted = set(named_pids) | set(credited_commentary)
+    named = [c.pid for c in confirmed if c.pid in wanted and (item_by_pid[c.pid]["class"] == cs.COMMENTARY or c.pid in set(named_pids))]
     parts: List[str] = []
     withdrawn = [p for p in named if run.status_of(item_by_pid[p]) == cc.STATUS_WITHDRAWN]
     for cls in (cs.PEER_REVIEWED, cs.PREPRINT, cs.COMPANY_RELEASE, cs.COMMENTARY):
         pids = [p for p in named if item_by_pid[p]["class"] == cls and p not in withdrawn]
         if not pids:
             continue
-        lines = [source_line(by_pid[p], cls, run.status_of(item_by_pid[p]), item_by_pid[p].get("checked_by"), item_by_pid[p].get("limits")) for p in pids]
+        lines = [source_line(by_pid[p], cls, run.status_of(item_by_pid[p]), item_by_pid[p].get("checked_by"), item_by_pid[p].get("limits"),
+                             item_by_pid[p].get("date")) for p in pids]
         parts.append(f"### {CLASS_HEADINGS[cls]}\n\n" + "\n".join(lines))
     if withdrawn:
         parts.append("### Withdrawn\n\n" + "\n".join(source_line(by_pid[p], cs.COMPANY_RELEASE, cc.STATUS_WITHDRAWN) for p in withdrawn))
-    if len(named) < len(by_pid):
-        parts.append("*Other sources reviewed for this episode are listed, with their classes, on the episode page at www.copernicusai.fyi.*")
     return ("## References\n\n" + "\n\n".join(parts)) if parts else ""
 
 
-def apply_curated_sources(description: str, run: CuratedRun, confirmed: Sequence["pc.ConfirmedPaper"], named_pids: Sequence[str]) -> str:
-    """Strip any reference section the model wrote and insert the code-built one before Hashtags / Episode Details (or at the end)."""
+def apply_curated_sources(description: str, run: CuratedRun, confirmed: Sequence["pc.ConfirmedPaper"], named_pids: Sequence[str],
+                          script: Optional[str] = None) -> str:
+    """Strip any reference section the model wrote and insert the code-built one before Hashtags / Episode Details (or at the end).
+    With the final `script`, the commentary it credits (by the attribution routing, which is code) is listed too."""
     body = strip_model_reference_sections(description or "")
-    section = build_sources(run, confirmed, named_pids)
+    credited: List[str] = []
+    if script:
+        from curated_attribution import credited_commentary_pids      # imported here: curated_attribution does not import this module
+        credited = credited_commentary_pids(script, run)
+    section = build_sources(run, confirmed, named_pids, credited)
     if not section:
         return body
     m = _STOP.search(body)
