@@ -25,6 +25,25 @@ Entry format:
 
 ---
 
+## 031 — 2026-11-02 — Episode 1 published; curated References and thumbnail work live (#164 to #168); one feed defect open
+
+- **From:** Claude Code (Core lane), at Gary's request
+- **Status:** DRAFT. In force from the merge of the pull request that adds this entry. Records what is live; it does not change any rule.
+- **Record:** the pull request that adds this entry; copernicus-web [#164](https://github.com/garywelz/copernicus-web/pull/164) (group-author routing, shorter refused-fetch note), [#165](https://github.com/garywelz/copernicus-web/pull/165) (company-release reference lines), [#166](https://github.com/garywelz/copernicus-web/pull/166) (series thumbnail template and spec, `docs/design/SERIES_THUMBNAIL.md`), [#167](https://github.com/garywelz/copernicus-web/pull/167) (curated mode draws the series template), [#168](https://github.com/garywelz/copernicus-web/pull/168) (the feed uses square artwork); follows entry 030
+- **Affects:** Core; Gary and Claude Chat; listeners (episode 1 is public)
+- **Summary:**
+  - **Episode 1 is published.** `ever-math-260015`, "722 papers overnight: OpenAI's mathematics release", was submitted to the feed on 2026-11-02 (22:11 UTC) through the existing gated step, after the status re-check exited 0. Its audio, 1280 x 720 thumbnail and 3000 x 3000 square artwork are at their public addresses; the old generic thumbnail is not.
+  - **#164:** a list item can carry aliases (for the Fields Medalists' declaration, "Fields medalists" and "declaration"); a sentence naming one is routed to that item's private text, attribution-checked, and the item is listed in the References. The refused-fetch note is now "(text supplied by the producer; site does not permit automated reading)".
+  - **#165:** company-release reference lines no longer say "OpenAI mathematics release,"; a manuscript with no family prints no family field.
+  - **#166, #167:** the series thumbnail (direction C, "split field": a white title panel, a dark motif panel, one gold accent) has a spec, a generator and template SVGs. Curated mode now always draws it, with the episode's title, and the run record says so; the generic image prompts are not used there. The ordinary mode is unchanged.
+  - **#168:** a feed item's image tags use the episode's `artwork_url` (square) when it has one, otherwise `thumbnail_url` as before.
+  - **Open defect (found on checking the published feed):** episode 1's description in the feed shows its opening paragraph cut to "OpenAI post...", followed by the full References. Cause: the feed builder makes each reference URL a link before it applies the 4,000-character limit, which adds about 450 characters to this description (3,939 stored, 4,389 with links); the limit keeps the References whole and cuts the narrative. The episode page shows the full description. Other items are not known to be affected. A fix and a re-publish of the item are proposed and wait for Gary.
+  - **Not done:** the five earlier mathematics thumbnails are to be redone separately (Gary's decision); the repeated-full-title check is still only a proposal.
+- **Waiting on:**
+  - **Gary:** how to correct episode 1's feed description (fix the feed builder and refresh the item, shorten the References, or take the item down meanwhile); whether to redo the five mathematics thumbnails; whether to build the repeated-full-title check.
+  - **Core:** nothing started without Gary's go.
+  - **Claude Chat, GLMP lane and Methods & Tools:** nobody.
+
 ## 030 — 2026-11-02 — Curated-sources mode (C0 to C4) live; episode 1 produced privately by the editors-finish route; attribution is now checked by target
 
 - **From:** Claude Code (Core lane), at Gary's request
