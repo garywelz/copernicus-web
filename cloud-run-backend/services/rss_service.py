@@ -347,6 +347,7 @@ class RSSService:
             "summary": summary_text or result.get("title", ""),
             "audio_url": audio_url,
             "thumbnail_url": thumbnail_url,
+            "image_url": result.get("artwork_url") or thumbnail_url,       # the square artwork when the episode has one (podcast apps want square art)
             "transcript_url": transcript_url,
             "category_slug": category_info["slug"],
             "category_label": category_info["label"],
@@ -390,13 +391,13 @@ class RSSService:
         SubElement(item_el, "pubDate").text = format_datetime(item_data["pub_date"])
 
         itunes_image = SubElement(item_el, f"{{{RSS_NAMESPACES['itunes']}}}image")
-        itunes_image.set("href", item_data["thumbnail_url"])
+        itunes_image.set("href", item_data.get("image_url") or item_data["thumbnail_url"])
 
         media_thumb = SubElement(item_el, f"{{{RSS_NAMESPACES['media']}}}thumbnail")
-        media_thumb.set("url", item_data["thumbnail_url"])
+        media_thumb.set("url", item_data.get("image_url") or item_data["thumbnail_url"])
 
         media_content = SubElement(item_el, f"{{{RSS_NAMESPACES['media']}}}content")
-        media_content.set("url", item_data["thumbnail_url"])
+        media_content.set("url", item_data.get("image_url") or item_data["thumbnail_url"])
         media_content.set("medium", "image")
 
         SubElement(item_el, f"{{{RSS_NAMESPACES['itunes']}}}duration").text = item_data["duration_display"]
