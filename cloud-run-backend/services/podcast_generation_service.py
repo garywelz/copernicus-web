@@ -132,6 +132,7 @@ def naming_union(confirmed_papers, *pid_lists) -> list:
 from topic_checks import (uncovered_named_things, missing_coverage_statements, coverage_feedback, read_aloud_sentences, read_aloud_feedback,
                           CoverageStatementError, TopicReadAloudError)
 from attribution_check import check_attributions, attribution_feedback, AttributionError
+from curated_attribution import check_attributions_for
 import rejection_log
 
 # Retry decorator for upload operations
@@ -2057,7 +2058,7 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
         if unlisted:
             raise NamedPapersExtended(naming_union(research_context.confirmed_papers, unlisted))
         named = [c for c in research_context.confirmed_papers if c.pid in naming.named_pids]
-        attribution = await model_call("attribution_check", lambda: check_attributions(script, named, llm))
+        attribution = await model_call("attribution_check", lambda: check_attributions_for(script, named, llm, curated_run=getattr(research_context, 'curated', None)))
         if not attribution.passed:
             reject(rejection_log.attribution_items(0, attribution.checked, _curated.withheld_pids(research_context)))
             raise AttributionError(attribution.violations)
@@ -2176,7 +2177,7 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
                 attribution = None
                 if naming_result.passed:
                     named = [c for c in research_context.confirmed_papers if c.pid in naming_result.named_pids]
-                    attribution = await transient_retry("attribution_check", attempt, lambda: check_attributions(script, named, naming_llm))
+                    attribution = await transient_retry("attribution_check", attempt, lambda: check_attributions_for(script, named, naming_llm, curated_run=getattr(research_context, 'curated', None)))
                     naming_attempts[-1]['attribution'] = attribution.summary()
                     reject(rejection_log.attribution_items(attempt + 1, attribution.checked, _curated.withheld_pids(research_context)))     # every verdict, supported ones too, in full
 

@@ -324,7 +324,7 @@ async def dry_run_script(body: GenerateCuratedEpisode):
 @router.post("/api/admin/curated/check-script")
 async def check_supplied_script(body: CheckSuppliedScript):
     """Check a script an editor wrote, exactly as a generated script is checked: every curated check and every ordinary one, the duration window and the
-    line format. Nothing is repaired and NOTHING IS WRITTEN. The answer (violations quote the script and, for a copied run, the commentary) goes to the
+    line format. Nothing is repaired and NOTHING IS WRITTEN. The answer (violations quote the script and, for a copied run, the commentary; attribution_detail carries the routing, the verdicts and the supporting excerpts) goes to the
     administrator only and is never logged. With ``generate=true``, and ONLY when every check passed, the audio and a private episode record are made
     through the existing pipeline (``submitted_to_rss`` False; the checks run again on the stored text); publishing stays a separate step."""
     _require_db()
@@ -357,6 +357,7 @@ async def check_supplied_script(body: CheckSuppliedScript):
               "words": checked.words, "tts_characters": len(body.script), "limits": {"min_words": checked.min_words, "max_words": checked.max_words},
               "length_ok": checked.length_ok, "format_problems": checked.format_problems, "check_results": checked.entry,
               "violations": [{k: v for k, v in x.items() if k in ("check", "kind", "find", "message")} for x in checked.violations],
+              "attribution_detail": checked.attribution.detail() if hasattr(checked.attribution, "detail") else [],
               "model_calls": checked.model_calls, "written": "nothing", "generated": False, "published": False}
     if not (body.generate and checked.passed):
         if body.generate:

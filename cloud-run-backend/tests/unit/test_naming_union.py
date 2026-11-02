@@ -22,10 +22,10 @@ def sequence(monkeypatch, passes):
         seen["n"] += 1
         return nw.NamingResult(violations=list(res.get("violations", [])), named_pids=list(res.get("named", [])), mentions=[])
 
-    async def fake_attr(script, named, llm):
+    async def fake_attr(script, named, llm, curated_run=None):
         return ac.AttributionResult()
     monkeypatch.setattr(svc, "check_naming", fake_naming)
-    monkeypatch.setattr(svc, "check_attributions", fake_attr)
+    monkeypatch.setattr(svc, "check_attributions_for", fake_attr)
     monkeypatch.setattr(svc, "make_gemini_llm_call", lambda key: None)
     return seen
 
