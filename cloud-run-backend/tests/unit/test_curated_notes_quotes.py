@@ -136,10 +136,10 @@ def test_a_script_that_reproduces_a_quoted_fragment_still_fails_the_script_check
 
 def test_in_the_pipeline_a_quote_that_passed_the_notes_is_repaired_out_of_the_script():
     notes = [{"claim": QUOTE_HEAVY[0]}, {"claim": NOTES[1]["claim"]}]
-    bad = {"reception": filler(PLAN[4], line="EXPERT: " + SECRET + " and so on."), "sources": LABEL}
+    bad = {"reaction": filler(PLAN[3], line="EXPERT: " + SECRET + " and so on."), "claims": LABEL}
     writer = Writer(bad)
     gen, writer, _ = generate(writer, Checker(notes=notes))
-    assert sorted(set(writer.repairs)) == ["reception"] and SECRET not in gen.content["script"]
+    assert sorted(set(writer.repairs)) == ["reaction"] and SECRET not in gen.content["script"]
     assert any(r["check"] == "verbatim_run" for r in gen.rejections) and [n["claim"] for n in gen.notes][0] == QUOTE_HEAVY[0]
 
 

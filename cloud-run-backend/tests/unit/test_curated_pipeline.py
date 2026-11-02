@@ -138,20 +138,20 @@ def test_the_producers_title_is_used_and_the_model_does_not_choose_one():
 
 def test_a_status_wording_violation_is_repaired_in_its_section_and_the_other_sections_are_untouched():
     bad_line = "EXPERT: The Exponential Time Hypothesis is False was formally verified in Lean."
-    bad = {"status": filler(PLAN[3], line=bad_line), "sources": LABEL}
+    bad = {"trust": filler(PLAN[2], line=bad_line), "claims": LABEL}
     gen, writer, _ = generate(Writer(bad))
-    assert writer.repairs == ["status"] and "formally verified" not in gen.content["script"]
+    assert writer.repairs == ["trust"] and "formally verified" not in gen.content["script"]
     for s in PLAN:
-        if s.key != "status":
+        if s.key != "trust":
             assert gen.sections[s.key] == (bad.get(s.key) or filler(s))
     assert any(r["check"] == "status_wording" for r in gen.rejections) and gen.naming_attempts[0]["curated_checks"] and gen.naming_attempts[1]["curated_checks"] == {}
     assert len([x for x in writer.calls if not x[0].startswith(csr.REPAIR_SYSTEM)]) == len(PLAN)         # nothing was regenerated
 
 
 def test_a_spoken_name_and_a_copied_run_are_both_repaired_without_regenerating():
-    bad = {"opening": filler(PLAN[0], line="EXPERT: Hello, I'm Matilda."), "reception": filler(PLAN[4], line="EXPERT: " + SECRET + " and so on.")}
+    bad = {"opening": filler(PLAN[0], line="EXPERT: Hello, I'm Matilda."), "reaction": filler(PLAN[3], line="EXPERT: " + SECRET + " and so on.")}
     gen, writer, _ = generate(Writer(bad))
-    assert sorted(writer.repairs) == ["opening", "reception"] and "Matilda" not in gen.content["script"] and SECRET not in gen.content["script"]
+    assert sorted(writer.repairs) == ["opening", "reaction"] and "Matilda" not in gen.content["script"] and SECRET not in gen.content["script"]
     kinds = {r["check"] for r in gen.rejections}
     assert {"spoken_name", "verbatim_run"} <= kinds
 
@@ -163,7 +163,7 @@ def test_a_script_that_cannot_be_repaired_fails_closed_with_the_violations_and_a
                 self.calls.append((system, user))
                 return "not json"
             return await super().__call__(system, user)
-    writer = Stubborn({"status": filler(PLAN[3], line="EXPERT: The Exponential Time Hypothesis is False was formally verified in Lean."), "sources": LABEL})
+    writer = Stubborn({"trust": filler(PLAN[2], line="EXPERT: The Exponential Time Hypothesis is False was formally verified in Lean."), "claims": LABEL})
     stored = []
     with pytest.raises(csr.ScriptRepairFailed) as e:
         generate(writer, on_rejection=stored.extend)

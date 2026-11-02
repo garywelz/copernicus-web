@@ -124,7 +124,7 @@ NAMED_NOTES = [{"claim": "Maksym Radziwill said the proofs deserve slow and care
 def test_in_the_pipeline_a_named_expert_attributed_by_reporting_does_not_fail_the_naming_check():
     line = "EXPERT: Maksym Radziwill said the proofs need careful reading."
     mention = {"quote": "Maksym Radziwill said the proofs need careful reading", "authors": ["Radziwill"], "year": None, "title_words": []}
-    gen, writer, _ = generate(Writer({"reception": filler(PLAN[4], line=line), "sources": LABEL}), MentionChecker("Maksym Radziwill", mention, notes=NAMED_NOTES))
+    gen, writer, _ = generate(Writer({"reaction": filler(PLAN[3], line=line), "claims": LABEL}), MentionChecker("Maksym Radziwill", mention, notes=NAMED_NOTES))
     assert writer.repairs == [] and gen.naming_result.passed and gen.naming_attempts[0]["naming_reporting_attributions_exempt"] == 1
     assert "Maksym Radziwill said" in gen.content["script"]
 
@@ -141,9 +141,9 @@ def test_in_the_pipeline_a_person_named_nowhere_is_still_an_unlisted_work_and_is
                 return json.dumps({"dialogue": "\n".join(fixed)})
             return await super().__call__(system, user)
     mention = {"quote": "Pat Quimby said the release was big", "authors": ["Quimby"], "year": None, "title_words": []}
-    gen, writer, _ = generate(Fixing({"reception": filler(PLAN[4], line="EXPERT: Pat Quimby said the release was big."), "sources": LABEL}),
+    gen, writer, _ = generate(Fixing({"reaction": filler(PLAN[3], line="EXPERT: Pat Quimby said the release was big."), "claims": LABEL}),
                               MentionChecker("Pat Quimby", mention, notes=NAMED_NOTES))
-    assert writer.repairs == ["reception"] and "Pat Quimby" not in gen.content["script"] and any(r["check"] == "naming" for r in gen.rejections)
+    assert writer.repairs == ["reaction"] and "Pat Quimby" not in gen.content["script"] and any(r["check"] == "naming" for r in gen.rejections)
     assert gen.naming_attempts[0]["violations"] and gen.naming_attempts[1]["violations"] == []
 
 
@@ -156,7 +156,7 @@ def test_a_title_or_a_year_in_a_mention_is_never_exempt_in_the_pipeline():
             return await super().__call__(system, user)
     mention = {"quote": "Maksym Radziwill said in his 2021 paper that the proofs need careful reading", "authors": ["Radziwill"], "year": 2021, "title_words": []}
     with pytest.raises(csr.ScriptRepairFailed) as e:
-        generate(Stubborn({"reception": filler(PLAN[4], line="EXPERT: Maksym Radziwill said in his 2021 paper that the proofs need careful reading."), "sources": LABEL}),
+        generate(Stubborn({"reaction": filler(PLAN[3], line="EXPERT: Maksym Radziwill said in his 2021 paper that the proofs need careful reading."), "claims": LABEL}),
                  MentionChecker("Maksym Radziwill", mention, notes=NAMED_NOTES))
     assert {v["kind"] for v in e.value.violations} == {"unlisted_work"}
 
@@ -209,7 +209,7 @@ def test_a_failed_run_carries_the_calls_the_rounds_the_section_words_and_every_c
                 self.calls.append((system, user))
                 return "not json"
             return await super().__call__(system, user)
-    bad = {"status": filler(PLAN[3], line="EXPERT: The Exponential Time Hypothesis is False was formally verified in Lean."), "sources": LABEL}
+    bad = {"trust": filler(PLAN[2], line="EXPERT: The Exponential Time Hypothesis is False was formally verified in Lean."), "claims": LABEL}
     with pytest.raises(csr.ScriptRepairFailed) as e:
         generate(Stubborn(bad))
     d = e.value.diagnostics
@@ -217,7 +217,7 @@ def test_a_failed_run_carries_the_calls_the_rounds_the_section_words_and_every_c
     assert d["model_calls_total"] == sum(d["model_calls"].values())
     stages = [(t["stage"], t.get("full_attempt")) for t in d["trace"]]
     assert ("write", 1) in stages and ("write", 2) in stages and any(t["stage"] == "repair" for t in d["trace"]) and any(t["stage"] == "notes" for t in d["trace"])
-    assert d["section_words"]["status"]["budget"] == PLAN[3].budget and set(d["section_words"]["status"]) == {"words", "budget", "lo", "hi"}
+    assert d["section_words"]["trust"]["budget"] == PLAN[2].budget and set(d["section_words"]["trust"]) == {"words", "budget", "lo", "hi"}
     assert d["checks"] and d["checks"][0]["curated_checks"] and [p["key"] for p in d["plan"]] == [s.key for s in PLAN]
     assert SECRET not in json.dumps(d) and "Maksym" not in json.dumps(d)
 
@@ -237,10 +237,9 @@ def test_a_successful_run_counts_its_model_calls():
 
 
 # --- 5. the withdrawn-paper instruction ------------------------------------------------------------------------------------------------------------------------
-def test_the_sources_and_status_sections_say_a_withdrawn_paper_is_never_named_without_the_word():
+def test_the_trust_section_says_a_withdrawn_paper_is_never_named_without_the_word():
     goals = {t[0]: t[3] for t in csr.SECTION_TEMPLATES}
-    for key in ("sources", "status"):
-        assert 'NEVER named' in goals[key] and '"withdrawn" in the same sentence' in goals[key]
+    assert 'NEVER named' in goals["trust"] and '"withdrawn" in the same sentence' in goals["trust"]
     system = csr.system_prompt(cm.CuratedRun.from_list_doc(approved_doc(base_items() + [release_item(title="A withdrawn paper", path="preprints/A-Withdrawn-Paper-September-1-2026", status="withdrawn")]), private_texts=PRIVATE),
                                csr.plan_sections(100, 140), [])
     assert "Every sentence that mentions a WITHDRAWN manuscript must say it was withdrawn" in system
