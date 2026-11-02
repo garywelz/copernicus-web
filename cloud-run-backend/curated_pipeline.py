@@ -10,7 +10,7 @@ import curated_checks as cc
 import curated_script as csr
 import curated_sources as cs
 import rejection_log
-from attribution_check import check_attributions
+from curated_attribution import check_attributions_for
 from named_work_check import check_naming, check_reply_text, check_request
 from script_style import banned_phrase_hits, prompt_list
 from speech_text import notation_problems
@@ -166,7 +166,7 @@ async def _generate(request, research_context, check_llm, writer_llm, job_id, on
         attribution = None
         if naming.passed:
             named = [c for c in confirmed if c.pid in naming.named_pids]
-            attribution = await model_call("attribution_check", lambda: check_attributions(script, named, check_counted))
+            attribution = await model_call("attribution_check", lambda: check_attributions_for(script, named, check_counted, curated_run=run))
             reject(rejection_log.attribution_items(n, attribution.checked, withheld))
         entry = {"attempt": n, **naming.summary(), "unspeakable_notation": bad_notation,
                  "banned_phrases": [{"phrase": h["phrase"], "matched": h["matched"], "where": h["where"]} for h in banned],
@@ -235,6 +235,7 @@ class SuppliedCheck:
     naming_result: Any = None
     content: Optional[Dict[str, Any]] = None
     model_calls: Dict[str, int] = field(default_factory=dict)
+    attribution: Any = None
 
     @property
     def length_ok(self) -> bool:
@@ -314,7 +315,7 @@ async def check_supplied_script(request, research_context, check_llm: csr.LlmCal
     attribution = None
     if naming.passed:
         named = [c for c in confirmed if c.pid in naming.named_pids]
-        attribution = await model_call(lambda: check_attributions(script, named, counted))
+        attribution = await model_call(lambda: check_attributions_for(script, named, counted, curated_run=run))
     entry = {"attempt": 1, **naming.summary(), "unspeakable_notation": bad_notation,
              "banned_phrases": [{"phrase": h["phrase"], "matched": h["matched"], "where": h["where"]} for h in banned],
              "curated_checks": cc.summary(curated), "topic_read_aloud": len(read_aloud), "coverage_statement_missing": missing_cov,
@@ -329,7 +330,7 @@ async def check_supplied_script(request, research_context, check_llm: csr.LlmCal
     for p in fmt:
         violations.append({"check": "format", "kind": "line_format", "find": None, "message": p})
     result = SuppliedCheck(passed=not violations, words=words, min_words=min_words, max_words=max_words, format_problems=fmt, violations=violations,
-                           entry=entry, naming_result=naming, model_calls=calls)
+                           entry=entry, naming_result=naming, model_calls=calls, attribution=attribution)
     if result.passed and with_metadata:
         description_fallback = f"This episode looks at {request.topic}. The sources are listed under References."
 

@@ -167,6 +167,8 @@ def test_the_final_text_check_applies_the_same_exemption_in_the_curated_mode_onl
     mention = {"quote": "Maksym Radziwill said the proofs need careful reading", "authors": ["Radziwill"], "year": None, "title_words": []}
 
     async def llm(system, user):
+        if system.startswith("You check whether a source text supports"):
+            return json.dumps({"verdicts": [{"n": 1, "verdict": "supported", "credited_person": None, "person_words_belong_to_someone_else": False, "reason": "ok"}]})
         if "PAPERS:" in user and "SCRIPT:" in user:
             return json.dumps({"attributions": []})
         return json.dumps({"mentions": [mention]})

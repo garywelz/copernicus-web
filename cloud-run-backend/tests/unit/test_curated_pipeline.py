@@ -12,6 +12,7 @@ try:
 except ImportError:
     sys.modules["psutil"] = MagicMock()
 
+import curated_attribution as ca
 import curated_checks as cc
 import curated_mode as cm
 import curated_pipeline as cp
@@ -24,7 +25,8 @@ from tests.unit.test_curated_mode import PRIVATE, approved_doc, base_items, comm
 
 SECRET = "zebra quartz marmalade lantern orbit velvet cinnamon harbour"
 TEXT = ("The reporter wrote that " + SECRET + " was how one mathematician described the mood. Another expert said the proofs need careful reading "
-        "before anyone can say what they establish, and a third said the release was surprising in its scale and timing.")
+        "before anyone can say what they establish, and a third said the release was surprising in its scale and timing. Maksym Radziwill told the "
+        "reporter that the news felt sudden.")
 NOTES = [{"claim": "A mathematician quoted in the report described the mood among number theorists after the release as one of cautious surprise."},
          {"claim": "Another expert told the reporter that nobody can say what the proofs establish until they have been read carefully."}]
 REQUEST = PodcastRequest(topic="t", duration="1-2 minutes", expertise_level="general")
@@ -94,6 +96,11 @@ class Checker:
             return json.dumps({"notes": self.notes})
         if system.startswith(csr.METADATA_SYSTEM[:30]):
             return json.dumps(self.metadata or {"title": "Model title", "description": "A plain summary of the episode.", "keywords": ["maths"]})
+        if system.startswith(ca.SYSTEM[:30]):                          # attribution by target: every credited sentence is supported
+            import re as _re
+            nums = [int(n) for n in _re.findall(r"(?m)^(\d+)\. ", user.split("SENTENCES:", 1)[1])]
+            return json.dumps({"verdicts": [{"n": n, "verdict": "supported", "credited_person": None, "person_words_belong_to_someone_else": False,
+                                             "reason": "ok"} for n in nums]})
         return json.dumps({"attributions": []}) if ("PAPERS:" in user and "SCRIPT:" in user) else json.dumps({"mentions": []})
 
 

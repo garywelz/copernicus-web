@@ -97,12 +97,12 @@ def test_a_name_only_in_the_pasted_text_counts_as_recorded_but_only_for_a_pure_r
 
 def test_attribution_family(monkeypatch):
     script = clean_script()
-    async def unsupported(script, named, llm):
+    async def unsupported(script, named, llm, curated_run=None):
         res = ac.AttributionResult()
         res.checked = [{"quote": "OpenAI proved it", "pid": "P1", "verdict": "unsupported", "reason": "not in the abstract"}]
         res.violations = list(res.checked)
         return res
-    monkeypatch.setattr(cp, "check_attributions", unsupported)
+    monkeypatch.setattr(cp, "check_attributions_for", unsupported)
     result, _ = check(script)
     assert "attribution:unsupported_attribution" in kinds(result) or any(v["check"] == "attribution" for v in result.violations)
 
@@ -155,14 +155,14 @@ def two_passes(monkeypatch, passes):
         seen["naming"] += 1
         return nw.NamingResult(violations=list(res.get("violations", [])), named_pids=list(res.get("named", [])), mentions=[])
 
-    async def fake_attr(script, named, llm):
+    async def fake_attr(script, named, llm, curated_run=None):
         seen["attributed"] = [c.pid for c in named]
         res = ac.AttributionResult()
         if "P_BAD" in res.__class__.__name__:
             pass
         return res
     monkeypatch.setattr(cp, "check_naming", fake_naming)
-    monkeypatch.setattr(cp, "check_attributions", fake_attr)
+    monkeypatch.setattr(cp, "check_attributions_for", fake_attr)
     return seen
 
 
@@ -182,13 +182,13 @@ def test_an_unsupported_attribution_on_a_paper_only_the_second_pass_named_fails_
     a, b = [c.pid for c in ctx.confirmed_papers][:2]
     two_passes(monkeypatch, [{"named": [a]}, {"named": [a, b]}])
 
-    async def attr(script, named, llm):
+    async def attr(script, named, llm, curated_run=None):
         res = ac.AttributionResult()
         if any(c.pid == b for c in named):
             res.checked = [{"quote": "One paper has won broad agreement.", "pid": b, "verdict": "unsupported", "reason": "not in the abstract"}]
             res.violations = list(res.checked)
         return res
-    monkeypatch.setattr(cp, "check_attributions", attr)
+    monkeypatch.setattr(cp, "check_attributions_for", attr)
     result, _ = check(script, ctx=ctx)
     assert not result.passed and any(v["check"] == "attribution" for v in result.violations)
 

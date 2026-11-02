@@ -626,8 +626,11 @@ def collect_violations(naming=None, attribution=None, notation: Sequence[str] = 
             out.append({"check": "naming", "kind": v["kind"], "find": q, "raw": v,
                         "message": f"This phrase points to a link for a paper that is not named in the section: \"{q[:160]}\". Remove it."})
     for v in (attribution.violations if attribution is not None else []):
+        route = v.get("route")
+        where = {"commentary": "the text of that source does not support it as credited", "status": "the list's status records do not agree",
+                 "unlisted_source": "that source is not on the list"}.get(route, "its abstract does not say this")
         out.append({"check": "attribution", "kind": "unsupported_attribution", "find": v.get("quote"), "raw": v,
-                    "message": f"\"{(v.get('quote') or '')[:200]}\" is attributed to {v.get('label')}, but its abstract does not say this "
+                    "message": f"\"{(v.get('quote') or '')[:200]}\" is attributed to {v.get('label')}, but {where} "
                                f"({v.get('reason') or 'not stated'}). Attribute only what the source states, or give it as background without naming the source."})
     for p in notation:
         out.append({"check": "notation", "kind": "unspeakable_notation", "find": p, "message": f"This notation cannot be read aloud: \"{p}\". Write it in words."})
