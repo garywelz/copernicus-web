@@ -2197,12 +2197,25 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
         structured_logger.info("Curated script accepted", job_id=job_id, words=len(gen.content['script'].split()), checks=len(gen.naming_attempts))
         return gen.content, gen.naming_result, gen.naming_attempts
 
+    async def _supplied_curated_content(self, request, research_context, google_key: str, job_id: str, supplied: dict):
+        """Curated mode, a script written by an editor: the same checks as a generated one (curated_pipeline.check_supplied_script); a violation
+        fails the episode, nothing is repaired. Same return shape as ``_generate_checked_content``."""
+        import curated_pipeline
+        checked = await curated_pipeline.check_supplied_script(request, research_context, make_gemini_llm_call(google_key), supplied["script"],
+                                                               title=supplied.get("title") or "", job_id=job_id, with_metadata=True)
+        self._last_naming_attempts, self._last_rejections = [checked.entry], []
+        if not checked.passed or checked.content is None:
+            raise curated_pipeline.SuppliedScriptRejected(checked.violations)
+        structured_logger.info("Supplied curated script accepted", job_id=job_id, words=checked.words)
+        return checked.content, checked.naming_result, [checked.entry]
+
     async def run_podcast_generation_job(
         self, 
         job_id: str, 
         request: PodcastRequest, 
         subscriber_id: Optional[str] = None,
-        curated_run=None
+        curated_run=None,
+        supplied: Optional[dict] = None
     ):
         """
         Process research-driven podcast generation with comprehensive research integration
@@ -2368,8 +2381,11 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
                 
                 # Generate, check and (if needed) regenerate. Gap 3 fix 1 (C5): the script may name only confirmed
                 # papers; after the allowed regenerations the episode fails (NamingViolationError).
-                content, naming_result, naming_attempts = await self._generate_checked_content(
-                    request, research_context, google_key, job_id, on_rejection=self._job_rejection_sink(job_ref))
+                if supplied is not None and curated_run is not None:
+                    content, naming_result, naming_attempts = await self._supplied_curated_content(request, research_context, google_key, job_id, supplied)
+                else:
+                    content, naming_result, naming_attempts = await self._generate_checked_content(
+                        request, research_context, google_key, job_id, on_rejection=self._job_rejection_sink(job_ref))
 
                 content_memory_after = psutil.virtual_memory().percent
 
@@ -2794,7 +2810,7 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
             await self._notify_failure(e, job_id, request.topic if request else "Unknown", subscriber_email)
 
     async def run_curated_generation_job(self, job_id: str, list_doc: dict, request: PodcastRequest, subscriber_id: Optional[str] = None,
-                                         private_texts: Optional[dict] = None, title: Optional[str] = None):
+                                         private_texts: Optional[dict] = None, title: Optional[str] = None, supplied: Optional[dict] = None):
         """Curated-sources mode (design §3.1): generate one episode from an approved, frozen source list. Only the research stage differs
         from ``run_podcast_generation_job``, which does everything else (generation, every check, audio, the private record). Nothing here
         publishes: the episode is private (``submitted_to_rss=False``, media in the private bucket) until Gary publishes it."""
@@ -2806,7 +2822,7 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
                                                                        'updated_at': datetime.utcnow().isoformat()})
             structured_logger.error("Curated source list refused", job_id=job_id, error_type="CuratedListError")
             return
-        await self.run_podcast_generation_job(job_id, request, subscriber_id=subscriber_id, curated_run=run)
+        await self.run_podcast_generation_job(job_id, request, subscriber_id=subscriber_id, curated_run=run, **({'supplied': supplied} if supplied is not None else {}))
 
 
 # Create singleton instance

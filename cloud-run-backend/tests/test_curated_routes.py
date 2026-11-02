@@ -119,7 +119,7 @@ def add(list_id, canned, raws_to_items):
 # --- admin key on every route ---------------------------------------------------------------------------------------------------------
 def test_every_route_on_the_router_needs_the_admin_key():
     routes_ = [r for r in router.routes if hasattr(r, "methods")]
-    assert len(routes_) == 13
+    assert len(routes_) == 14
     with patch.object(auth, "get_admin_api_key", return_value="test-key"), patch.object(routes, "db", FakeDB()):
         for r in routes_:
             path = r.path.replace("{list_id}", "L").replace("{item_id}", "I")
@@ -350,7 +350,9 @@ class FakeService:
     def __init__(self, db_, fail=None):
         self.calls, self.db, self.fail = [], db_, fail
 
-    async def run_curated_generation_job(self, job_id, list_doc, request, subscriber_id=None, private_texts=None, title=None):
+    async def run_curated_generation_job(self, job_id, list_doc, request, subscriber_id=None, private_texts=None, title=None, supplied=None):
+        self.supplied = getattr(self, "supplied_all", []) + [supplied]
+        self.supplied_all = self.supplied
         self.titles = getattr(self, "titles", []) + [title]
         self.private_texts = private_texts
         self.calls.append({"job_id": job_id, "list_id": list_doc["list_id"], "topic": request.topic, "category": request.category,
@@ -714,3 +716,72 @@ def test_a_dry_run_failure_returns_the_full_diagnostics_and_a_success_returns_th
          patch.object(curated_mode.CuratedRun, "confirmed_papers", lambda self: []):
         body = dry_run(lid).json()
     assert body["status"] == "ok" and body["model_calls"] == {} and body["model_calls_total"] == 0
+
+
+# --- the supplied-script check -------------------------------------------------------------------------------------------------------------------------
+def stub_check(passed=True, violations=None, words=1100):
+    async def fake(request, context, check_llm, script, title="", job_id="", with_metadata=False, sleep=None):
+        fake.args = {"script": script, "title": title, "duration": request.duration, "with_metadata": with_metadata, "title_on_run": context.curated.title}
+        return curated_pipeline.SuppliedCheck(passed=passed, words=words, min_words=960, max_words=1200, format_problems=[], violations=violations or [],
+                                              entry={"attempt": 1, "passed": passed}, model_calls={"checks": 3, "metadata": 0})
+    fake.args = None
+    return fake
+
+
+def check_script(lid, **body):
+    return client.post("/api/admin/curated/check-script", json={"list_id": lid, "script": "HOST: Hello there.\nEXPERT: Hi.", "title": "A title", **body}, headers=KEY)
+
+
+def patched(stub):
+    return patch.object(curated_pipeline, "check_supplied_script", stub), patch("utils.api_keys.get_google_api_key", return_value="k"),         patch.object(curated_mode.CuratedRun, "confirmed_papers", lambda self: [])
+
+
+def test_a_passing_script_with_generate_false_returns_the_results_and_writes_nothing(gen_env):
+    fake, canned, service = gen_env
+    lid = approved_list(fake, canned)
+    before = repr(fake.store)
+    stub = stub_check()
+    a, b, c = patched(stub)
+    with a, b, c:
+        r = check_script(lid, duration="8-10 minutes")
+    body = r.json()
+    assert r.status_code == 200 and body["status"] == "pass" and body["passed"] is True and body["words"] == 1100 and body["generated"] is False
+    assert body["written"] == "nothing" and body["published"] is False and body["limits"] == {"min_words": 960, "max_words": 1200} and body["check_results"]
+    assert stub.args["with_metadata"] is False and stub.args["duration"] == "8-10 minutes" and stub.args["title_on_run"] == "A title"
+    assert repr(fake.store) == before and fake.other.get("podcast_jobs", {}) == {} and service.calls == []       # no job, no list change, no audio
+
+
+def test_a_failing_script_returns_the_violations_and_is_never_generated_even_with_generate_true(gen_env):
+    fake, canned, service = gen_env
+    lid = approved_list(fake, canned)
+    viol = [{"check": "status_wording", "kind": "forbidden_term", "find": "It was verified.", "message": "m", "raw": {"x": 1}}]
+    a, b, c = patched(stub_check(passed=False, violations=viol))
+    with a, b, c:
+        r = check_script(lid, generate=True)
+    body = r.json()
+    assert r.status_code == 200 and body["status"] == "fail" and body["generated"] is False and "job_id" not in body and body["generate_skipped"]
+    assert body["violations"] == [{"check": "status_wording", "kind": "forbidden_term", "find": "It was verified.", "message": "m"}]
+    assert fake.other.get("podcast_jobs", {}) == {} and service.calls == [] and "jobs" not in fake.store[lid]
+
+
+def test_generate_true_with_every_check_passed_makes_one_private_job_from_the_supplied_script(gen_env):
+    fake, canned, service = gen_env
+    lid = approved_list(fake, canned)
+    a, b, c = patched(stub_check())
+    with a, b, c:
+        r = check_script(lid, generate=True, expertise_level="general")
+    body = r.json()
+    assert r.status_code == 200 and body["generated"] is True and body["published"] is False and body["job_status"] == "completed"
+    job = fake.other["podcast_jobs"][body["job_id"]]
+    assert job["submitted_to_rss"] is False and job["supplied_script"] is True and job["mode"] == "curated_sources" and fake.store[lid]["jobs"] == [body["job_id"]]
+    assert service.supplied[-1] == {"script": "HOST: Hello there.\nEXPERT: Hi.", "title": "A title"} and service.titles[-1] == "A title"
+
+
+def test_the_check_script_route_refuses_what_a_generation_refuses_and_needs_the_admin_key(gen_env):
+    fake, canned, service = gen_env
+    assert check_script("nope").status_code == 404
+    assert check_script(new_list()).status_code == 409
+    lid = approved_list(fake, canned)
+    assert client.post("/api/admin/curated/check-script", json={"list_id": lid, "script": "HOST: x", "title": "t"}).status_code == 401
+    fake.store[lid]["items"][0]["title"] = "edited after approval"
+    assert check_script(lid).status_code == 409

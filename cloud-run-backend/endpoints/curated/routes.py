@@ -20,7 +20,7 @@ import curated_sources as cs
 import openai_math_index as omi
 import paper_confirmation as pc
 from config.database import db
-from models.curated import AddCommentary, AddSourceItems, CreateSourceList, GenerateCuratedEpisode, OverrideItemClass, SetCheckedBy
+from models.curated import AddCommentary, AddSourceItems, CreateSourceList, CheckSuppliedScript, GenerateCuratedEpisode, OverrideItemClass, SetCheckedBy
 from models.podcast import PodcastRequest
 from utils.auth import verify_admin_api_key
 from utils.logging import structured_logger
@@ -321,6 +321,66 @@ async def dry_run_script(body: GenerateCuratedEpisode):
 
 
 # --- pasted commentary (the paste fallback; no automated fetch) ---------------------------------------------------------------------------
+@router.post("/api/admin/curated/check-script")
+async def check_supplied_script(body: CheckSuppliedScript):
+    """Check a script an editor wrote, exactly as a generated script is checked: every curated check and every ordinary one, the duration window and the
+    line format. Nothing is repaired and NOTHING IS WRITTEN. The answer (violations quote the script and, for a copied run, the commentary) goes to the
+    administrator only and is never logged. With ``generate=true``, and ONLY when every check passed, the audio and a private episode record are made
+    through the existing pipeline (``submitted_to_rss`` False; the checks run again on the stored text); publishing stays a separate step."""
+    _require_db()
+    snap = db.collection(COLLECTION).document(body.list_id).get()
+    if not snap.exists:
+        raise HTTPException(status_code=404, detail="No such source list")
+    doc = snap.to_dict() or {}
+    texts = {i["item_id"]: _private_text(body.list_id, i["item_id"]) for i in doc.get("items") or []
+             if i.get("class") == cs.COMMENTARY and i.get("approved")}
+    texts = {k: v for k, v in texts.items() if v is not None}
+    try:
+        run = curated_mode.CuratedRun.from_list_doc(doc, topic=body.topic, private_texts=texts, title=body.title)
+    except curated_mode.CuratedListError as e:
+        raise HTTPException(status_code=409, detail=str(e))
+    import curated_pipeline
+    import paper_confirmation
+    from named_work_check import make_gemini_llm_call
+    from podcast_research_integrator import PodcastResearchContext
+    from utils.api_keys import get_google_api_key
+    request = PodcastRequest(topic=run.topic, category=body.category, duration=body.duration, expertise_level=body.expertise_level,
+                             format_type=body.format_type, host_voice_id=body.host_voice_id, expert_voice_id=body.expert_voice_id)
+    confirmed = run.confirmed_papers()
+    context = PodcastResearchContext(
+        topic=run.topic, research_sources=[paper_confirmation.as_research_source(c) for c in confirmed if c.source_class != cs.COMMENTARY],
+        paper_analyses=[], significance=[], interdisciplinary_connections=[], key_findings=[], real_citations=[], research_quality_score=5.0,
+        recommended_expertise_level=body.expertise_level, confirmed_papers=confirmed, dropped_candidates=[], requested_pid=None, curated=run)
+    checked = await curated_pipeline.check_supplied_script(request, context, make_gemini_llm_call(get_google_api_key()), body.script, title=body.title,
+                                                           with_metadata=False)
+    answer = {"list_id": run.list_id, "list_hash": run.list_hash, "title": body.title, "passed": checked.passed, "status": "pass" if checked.passed else "fail",
+              "words": checked.words, "tts_characters": len(body.script), "limits": {"min_words": checked.min_words, "max_words": checked.max_words},
+              "length_ok": checked.length_ok, "format_problems": checked.format_problems, "check_results": checked.entry,
+              "violations": [{k: v for k, v in x.items() if k in ("check", "kind", "find", "message")} for x in checked.violations],
+              "model_calls": checked.model_calls, "written": "nothing", "generated": False, "published": False}
+    if not (body.generate and checked.passed):
+        if body.generate:
+            answer["generate_skipped"] = "a check failed, so nothing was generated"
+        return answer
+    service = _get_service()
+    if service is None:
+        raise HTTPException(status_code=503, detail="Podcast generation service is not available")
+    job_id = str(uuid.uuid4())
+    subscriber_id = resolve_generation_subscriber_id(None)
+    db.collection('podcast_jobs').document(job_id).set({
+        'job_id': job_id, 'status': 'pending', 'created_at': _now(), 'updated_at': _now(), 'request': request.model_dump(),
+        'subscriber_id': subscriber_id, 'submitted_to_rss': False, 'mode': 'curated_sources', 'supplied_script': True,
+        'curated_list_id': run.list_id, 'curated_list_hash': run.list_hash})
+    _mutate(body.list_id, lambda d: d.setdefault("jobs", []).append(job_id))
+    structured_logger.info("Curated generation from a supplied script started", job_id=job_id, list_id=run.list_id)
+    await service.run_curated_generation_job(job_id, doc, request, subscriber_id=subscriber_id, private_texts=texts, title=body.title,
+                                             supplied={"script": body.script, "title": body.title})
+    job = db.collection('podcast_jobs').document(job_id).get()
+    data = (job.to_dict() or {}) if job.exists else {}
+    answer.update({"generated": True, "job_id": job_id, "job_status": data.get("status"), "error_type": data.get("error_type")})
+    return answer
+
+
 @router.post("/api/admin/curated/lists/{list_id}/commentary")
 async def add_commentary(list_id: str, body: AddCommentary):
     """Add commentary the producer pasted. Its text goes to the private store; the list keeps only its hash and length. A pending item for the same

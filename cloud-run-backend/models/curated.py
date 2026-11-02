@@ -33,6 +33,22 @@ class GenerateCuratedEpisode(BaseModel):
     expert_voice_id: Optional[str] = Field(None, max_length=64)
 
 
+class CheckSuppliedScript(BaseModel):
+    """An episode script written by an editor, to be checked exactly as a generated one and, only if every check passes and `generate` is true,
+    voiced into a private episode."""
+    list_id: str = Field(..., min_length=1, max_length=64)
+    script: str = Field(..., min_length=1, max_length=40000)       # HOST:/EXPERT: lines
+    title: str = Field(..., min_length=1, max_length=200)
+    topic: Optional[str] = Field(None, max_length=300)
+    category: str = Field("Mathematics", max_length=60)
+    duration: str = Field("15-20 minutes", max_length=40)
+    expertise_level: str = Field("intermediate", max_length=40)
+    format_type: str = Field("interview", max_length=40)
+    host_voice_id: Optional[str] = Field(None, max_length=64)
+    expert_voice_id: Optional[str] = Field(None, max_length=64)
+    generate: bool = False
+
+
 class AddCommentary(BaseModel):
     """Commentary the producer pasted (journalism, a blog, a statement). The text is private: it is stored apart from the list and never returned
     by any list route."""
