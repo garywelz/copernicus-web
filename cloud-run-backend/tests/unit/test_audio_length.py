@@ -51,4 +51,5 @@ def test_markdown_renders_in_the_item_html():
     pd = {"result": {"description": "Intro.\n\n## References\n\n- A (2020). T. arXiv:2604.24797\n\n## Hashtags\n#a", "canonical_filename": "ever-math-260010",
                      "audio_url": "https://x/a.mp3", "title": "T"}, "request": {"category": "Mathematics"}}
     html = RSSService._build_rss_item_data(pd, None, None)["description_html"]
-    assert "<ul" in html and 'href="https://arxiv.org/abs/2604.24797"' in html and "## References" not in html
+    # real HTML (a list), the address as bare text: the feed carries no link markup, so the 4,000-character limit applies to the text as written
+    assert "<ul" in html and "https://arxiv.org/abs/2604.24797" in html and 'href="https://arxiv.org' not in html and "## References" not in html
