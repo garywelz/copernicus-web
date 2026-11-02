@@ -1,0 +1,28 @@
+OpenAI posted 722 AI-generated mathematics manuscripts at once. We look at three headline claims (the quasi-Riemann hypothesis, the Exponential Time Hypothesis and the Unique Games Conjecture), how far to trust them, what a Lean formalization does and does not show, a paper withdrawn within a day, and how mathematicians reacted. Every OpenAI manuscript discussed is a company release that has not been peer reviewed.
+
+## References
+
+### Company releases (not peer reviewed)
+
+- OpenAI (2026). The Quasi-Riemann Hypothesis: A Zero-Free Half-Plane Re s > 7/8. family 003, commit 4eaee8754. [company release, not peer reviewed; status: Lean formalization listed in OpenAI's catalogue, catalogue review status unchecked]
+- OpenAI (2026). The Quasi-Riemann Hypothesis (alternate 11/12 proof). family 003, commit 4eaee8754. [company release, not peer reviewed; status: checked by experts, as reported by Quanta Magazine]
+- OpenAI (2026). The Exponential Time Hypothesis is False. family 378, commit 4eaee8754. [company release, not peer reviewed; status: Lean formalization listed in OpenAI's catalogue, catalogue review status unchecked]
+- OpenAI (2026). The Unique Games Theorem. family 102, commit 4eaee8754. [company release, not peer reviewed; status: Lean formalization listed in OpenAI's catalogue, catalogue review status unchecked]
+
+### Commentary and reporting
+
+- Konstantin Kakaes, Quanta Magazine (19 October 2026). AI Proved the Quasi-Riemann Hypothesis. What Happens Now? [commentary: reported, not a source for any claim that a result is true] [https://www.quantamagazine.org/ai-proved-the-quasi-riemann-hypothesis-what-happens-now-20261019/](https://www.quantamagazine.org/ai-proved-the-quasi-riemann-hypothesis-what-happens-now-20261019/)
+- Wikipedia (29 October 2026). OpenAI bulk release of mathematical papers. [commentary: reported, not a source for any claim that a result is true] [https://en.wikipedia.org/wiki/OpenAI_bulk_release_of_mathematical_papers](https://en.wikipedia.org/wiki/OpenAI_bulk_release_of_mathematical_papers)
+- Mary McCue Bell, The Washington Times (27 October 2026). Did AI just solve a 30-year-old computer science puzzle? Experts are checking. [commentary: reported, not a source for any claim that a result is true] [https://www.washingtontimes.com/news/2026/oct/27/openai-says-model-refuted-exponential-time-hypothesis/](https://www.washingtontimes.com/news/2026/oct/27/openai-says-model-refuted-exponential-time-hypothesis/)
+- Terence Tao, tao-web (AI-assisted summary reviewed by Terence Tao) (28 October 2026). Terence Tao on AI in mathematics (and beyond) — excerpts. [commentary: reported, not a source for any claim that a result is true] [https://teorth.github.io/tao-web/ai-views.html](https://teorth.github.io/tao-web/ai-views.html)
+- 25 initial Fields Medallist signatories, Zenodo (11 September 2026). A Severe Misalignment of AI in Mathematics. [commentary: reported, not a source for any claim that a result is true] [https://zenodo.org/records/22737751](https://zenodo.org/records/22737751)
+- Peter Hall, Joseph Howlett, Scientific American (8 October 2026). The most exciting claims from OpenAI’s heap of new proofs. [commentary: reported, not a source for any claim that a result is true] [https://www.scientificamerican](https://www.scientificamerican).com/article/the-most-exciting-claims-from-openais-heap-of-new-proofs/ (text supplied by the producer; site does not permit automated reading)
+- Davide Castelvecchi, Nature (7 October 2026). OpenAI posts 700 maths preprints online: mathematicians are up in arms. [commentary: reported, not a source for any claim that a result is true] [https://www.nature](https://www.nature).com/articles/d41586-026-03196-8 (text supplied by the producer; site does not permit automated reading)
+- Terence Tao, Nature (22 October 2026). Can maths survive AI? Fields medallist Terence Tao calls for a ‘Maths 2.0’ world. [commentary: reported, not a source for any claim that a result is true] [https://doi.org/10](https://doi.org/10).1038/d41586-026-03389-1 (text supplied by the producer; site does not permit automated reading)
+
+### Withdrawn
+
+- OpenAI (2026). Algebraicity of Weil classes on split abelian eightfolds. commit 4eaee8754. [company release, not peer reviewed; status: withdrawn by OpenAI]
+
+## Hashtags
+#CopernicusAI #SciencePodcast #ResearchInsights #Mathematics #AppliedMath
