@@ -25,6 +25,28 @@ Entry format:
 
 ---
 
+## 030 — 2026-11-02 — Curated-sources mode (C0 to C4) live; episode 1 produced privately by the editors-finish route; attribution is now checked by target
+
+- **From:** Claude Code (Core lane), at Gary's request
+- **Status:** DRAFT. In force from the merge of the pull request that adds this entry. Nothing here publishes anything: episode 1 is private and stays private until Gary says otherwise.
+- **Record:** the pull request that adds this entry; copernicus-web [#146](https://github.com/garywelz/copernicus-web/pull/146) (design, `docs/design/CURATED_SOURCES_MODE.md`), C0 [#147](https://github.com/garywelz/copernicus-web/pull/147), C1 [#148](https://github.com/garywelz/copernicus-web/pull/148), C2 [#149](https://github.com/garywelz/copernicus-web/pull/149), C3 [#150](https://github.com/garywelz/copernicus-web/pull/150), C4 [#151](https://github.com/garywelz/copernicus-web/pull/151); the follow-ups [#152](https://github.com/garywelz/copernicus-web/pull/152) to [#158](https://github.com/garywelz/copernicus-web/pull/158); the three fixes below, [#159](https://github.com/garywelz/copernicus-web/pull/159), [#160](https://github.com/garywelz/copernicus-web/pull/160) and [#161](https://github.com/garywelz/copernicus-web/pull/161); the References fix, [#162](https://github.com/garywelz/copernicus-web/pull/162)
+- **Affects:** Core (the curated generation route and its checks); Gary and Claude Chat (the editors-finish route); nobody else
+- **Summary:**
+  - **C0 to C4 are live, and the curated-sources mode is in use.** A curated episode is built only from a frozen, hashed, approved source list, with classes (peer reviewed, preprint, company release, commentary), result statuses (has a Lean formalization, checked by experts, withdrawn, unverified), private pasted commentary that is never returned or logged, and a re-check script that must exit 0 before a run. The design is `docs/design/CURATED_SOURCES_MODE.md`.
+  - **Episode 1 was produced privately by the editors-finish route.** On 2026-11-02 Gary decided that the editors (Claude Chat) write the script and the pipeline checks and voices it. The script passed the checks three times, then was generated once: episode `ever-math-260015`, job `ff10fcba-c45e-4d5e-9fd4-c0d1cf6b7aef`, 6,345 text-to-speech characters. It is private and not in the feed. Gary has listened to it.
+  - **Three jobs failed closed on the way, each fixed in a separate pull request.**
+    - Job `4be6927a`: the final naming check recognised a listed paper that the first pass had missed. Fixed by [#159](https://github.com/garywelz/copernicus-web/pull/159): the References are built from the union of every naming pass, and only a listed paper can enter the union; an unlisted work still fails the episode. [#160](https://github.com/garywelz/copernicus-web/pull/160) gives the script check the same two-pass union.
+    - Job `1a425912`: an ambiguous "one paper" sentence was judged against the wrong abstract. Fixed by [#160](https://github.com/garywelz/copernicus-web/pull/160) and a revised script.
+    - Job `8c58702b`: sentences about reporting and about the catalogue were judged against paper abstracts, which cannot support them, and the check was not stable between runs. Fixed by [#161](https://github.com/garywelz/copernicus-web/pull/161), below.
+  - **The attribution check now checks by target (#161).** Each sentence that credits a source is routed by code to the source it credits: a commentary item's own text (the model judges only whether that text supports the sentence as credited to that source; "partly" fails only when a person is credited with words the text gives to someone else), the list's status records (deterministic, no model call), or a paper's abstract. A source that is not on the list fails. The ordinary generation mode is unchanged. Finding that led to it: the earlier check had passed a reporter's phrase attributed to an expert, because it verified that the words were supported somewhere, not that they were said by the person named.
+  - **The References are built by code, in plain text (#162).** The commentary part lists every commentary item the final script credits, with outlet or author, title, date and URL; titles are plain text; a manuscript with no family has no family field; addresses are https. The pointer to the episode page (C5) is removed until C5 exists.
+  - **Log retention.** Cloud Run request logs are kept for 30 days. After that, the evidence about a failed or passed curated job is the job record only, which holds fixed-wording reasons and never the pasted text. Read failures from the job records, not the logs, once a job is older than 30 days.
+  - **One proposal remains, not built: a repeated-full-title check.** The current checks do not count how often a full paper title is spoken. Gary decides whether it is worth building.
+- **Waiting on:**
+  - **Gary:** the separate go to publish episode 1 to the feed, after reading its description; whether to build the repeated-full-title check; whether C5 (the review page) should start.
+  - **Core:** nothing started without Gary's go.
+  - **Claude Chat, GLMP lane and Methods & Tools:** nobody.
+
 ## 029 — 2026-10-29 — Engine Onboarding design adopted (#139); AGENT_ROLES v2.9 and ENGINE_ONBOARDING v0.4 in force; all design questions decided; the Vercel miss on #141 did not repeat
 
 - **From:** Claude Code (Core lane), at Gary's request
