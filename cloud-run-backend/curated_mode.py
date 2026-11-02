@@ -46,7 +46,7 @@ STATUS_SHORT = {
     cc.STATUS_UNVERIFIED: "unverified",
     cc.STATUS_WITHDRAWN: "withdrawn by OpenAI",
 }
-READING_LIMIT_LINE = ("The publisher's site does not permit automated reading; this item was summarized from an excerpt supplied by the producer.")
+READING_LIMIT_LINE = "(text supplied by the producer; site does not permit automated reading)"
 
 
 class TtsOverThreshold(Exception):

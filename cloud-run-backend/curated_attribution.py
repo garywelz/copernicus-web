@@ -115,7 +115,8 @@ def commentary_sources(run) -> List[Source]:
         if i["class"] != cs.COMMENTARY or not i.get("evidence_text"):
             continue
         venue = i.get("venue") or ""
-        names = [spoken_source(venue), venue, re.sub(r"\s*\([^)]*\)", "", venue)]
+        aliases = [a for a in (i.get("aliases") or []) if isinstance(a, str)]      # how a sentence names the item without its outlet: a group author, "the declaration"
+        names = [spoken_source(venue), venue, re.sub(r"\s*\([^)]*\)", "", venue)] + aliases
         names = [n for n in dict.fromkeys(names) if n and _fold(n)]
         text = i["evidence_text"]
         out.append(Source(pid=run.pids[i["item_id"]], item_id=i["item_id"], label=spoken_source(venue), names=names, authors=list(i.get("authors") or []),

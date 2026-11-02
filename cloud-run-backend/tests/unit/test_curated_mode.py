@@ -243,7 +243,8 @@ def test_commentary_lines_say_what_they_are_and_a_refused_fetch_adds_the_reading
     items = base_items() + [commentary_item(limits=[{"type": "fetch_refused", "reason": "robots_disallow"}])]
     text, _ = build(items, ["P4"])
     assert "### Commentary and reporting" in text and "commentary: reported, not a source for any claim that a result is true" in text
-    assert cm.READING_LIMIT_LINE in text
+    assert cm.READING_LIMIT_LINE in text and cm.READING_LIMIT_LINE == "(text supplied by the producer; site does not permit automated reading)"
+    assert "summarized from an excerpt" not in text
     plain, _ = build(base_items() + [commentary_item()], ["P4"])
     assert cm.READING_LIMIT_LINE not in plain
 
