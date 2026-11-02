@@ -17,6 +17,7 @@ from speech_text import notation_problems
 from topic_checks import missing_coverage_statements, read_aloud_sentences, uncovered_named_things
 from utils.script_validation import calculate_maximum_words_for_duration, calculate_minimum_words_for_duration
 
+NAMING_PASSES = 2          # a supplied script's naming check runs this many times and the papers named are the union (as in the job)
 MAX_TRANSIENT_RETRIES = 6      # model errors for the whole run (it makes many more calls than one script did); each is repeated, none counts against the script
 WRITER_TEMPERATURE = 0.6
 WRITER_MAX_OUTPUT_TOKENS = 8192
@@ -289,8 +290,22 @@ async def check_supplied_script(request, research_context, check_llm: csr.LlmCal
     fmt = script_format_problems(script)
     run.reporting_text = supplied_reporting_text(run)
     uncovered = uncovered_named_things(request.topic, confirmed)
-    naming = await model_call(lambda: check_naming(script, "", confirmed, counted, topic=request.topic))
-    naming.violations, exempted = csr.exempt_reporting_attributions(naming.violations, run.reporting_text)
+    # The job names the papers twice (once while it checks the draft, once on the final text) and builds the References from the union. The naming check
+    # is a model call, so the passes can differ; two passes here make the attribution check below examine the papers the job could name.
+    passes = []
+    exempted: List[Dict[str, Any]] = []
+    for _ in range(NAMING_PASSES):
+        one = await model_call(lambda: check_naming(script, "", confirmed, counted, topic=request.topic))
+        one.violations, gone = csr.exempt_reporting_attributions(one.violations, run.reporting_text)
+        exempted += gone
+        passes.append(one)
+    naming = passes[0]
+    seen_quotes = {v.get("quote") for v in naming.violations}
+    for other in passes[1:]:
+        naming.violations += [v for v in other.violations if v.get("quote") not in seen_quotes]
+        seen_quotes |= {v.get("quote") for v in other.violations}
+    naming.named_pids = [c.pid for c in confirmed if any(c.pid in p.named_pids for p in passes)]
+    naming.mentions = [m for p in passes for m in p.mentions]
     bad_notation = notation_problems(script, "")
     banned = banned_phrase_hits(script, "")
     read_aloud = read_aloud_sentences(script, request.topic)
@@ -303,7 +318,7 @@ async def check_supplied_script(request, research_context, check_llm: csr.LlmCal
     entry = {"attempt": 1, **naming.summary(), "unspeakable_notation": bad_notation,
              "banned_phrases": [{"phrase": h["phrase"], "matched": h["matched"], "where": h["where"]} for h in banned],
              "curated_checks": cc.summary(curated), "topic_read_aloud": len(read_aloud), "coverage_statement_missing": missing_cov,
-             "words": words, "naming_reporting_attributions_exempt": len(exempted)}
+             "words": words, "naming_reporting_attributions_exempt": len({v.get("quote") for v in exempted}), "naming_passes": len(passes)}
     if attribution is not None:
         entry["attribution"] = attribution.summary()
     violations = csr.collect_violations(naming, attribution, bad_notation, banned, read_aloud, missing_cov, curated)

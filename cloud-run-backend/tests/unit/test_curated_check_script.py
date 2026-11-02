@@ -141,3 +141,72 @@ def test_the_supplied_check_runs_the_same_families_as_the_generated_checker():
     gen, _, _ = generate()
     result, _ = check(gen.content["script"])
     assert set(gen.naming_attempts[0]) <= set(result.entry)
+
+
+# --- the naming check runs twice and the papers named are the union (as in the job) -----------------------------------------------------------------
+import named_work_check as nw  # noqa: E402
+
+
+def two_passes(monkeypatch, passes):
+    seen = {"naming": 0, "attributed": None}
+
+    async def fake_naming(script, description, confirmed, llm, topic=""):
+        res = passes[min(seen["naming"], len(passes) - 1)]
+        seen["naming"] += 1
+        return nw.NamingResult(violations=list(res.get("violations", [])), named_pids=list(res.get("named", [])), mentions=[])
+
+    async def fake_attr(script, named, llm):
+        seen["attributed"] = [c.pid for c in named]
+        res = ac.AttributionResult()
+        if "P_BAD" in res.__class__.__name__:
+            pass
+        return res
+    monkeypatch.setattr(cp, "check_naming", fake_naming)
+    monkeypatch.setattr(cp, "check_attributions", fake_attr)
+    return seen
+
+
+def test_a_paper_named_only_on_the_second_pass_is_examined_by_the_attribution_check(monkeypatch):
+    script = clean_script()
+    ctx = context()
+    a, b = [c.pid for c in ctx.confirmed_papers][:2]
+    seen = two_passes(monkeypatch, [{"named": [a]}, {"named": [a, b]}])
+    result, _ = check(script, ctx=ctx)
+    assert seen["naming"] >= cp.NAMING_PASSES and seen["attributed"] == [a, b]
+    assert result.entry["named_pids"] == [a, b] and result.entry["naming_passes"] == cp.NAMING_PASSES and result.passed
+
+
+def test_an_unsupported_attribution_on_a_paper_only_the_second_pass_named_fails_the_script(monkeypatch):
+    script = clean_script()
+    ctx = context()
+    a, b = [c.pid for c in ctx.confirmed_papers][:2]
+    two_passes(monkeypatch, [{"named": [a]}, {"named": [a, b]}])
+
+    async def attr(script, named, llm):
+        res = ac.AttributionResult()
+        if any(c.pid == b for c in named):
+            res.checked = [{"quote": "One paper has won broad agreement.", "pid": b, "verdict": "unsupported", "reason": "not in the abstract"}]
+            res.violations = list(res.checked)
+        return res
+    monkeypatch.setattr(cp, "check_attributions", attr)
+    result, _ = check(script, ctx=ctx)
+    assert not result.passed and any(v["check"] == "attribution" for v in result.violations)
+
+
+def test_an_unlisted_work_found_only_on_the_second_pass_still_fails_and_a_clean_first_pass_does_not_hide_it(monkeypatch):
+    script = clean_script()
+    ctx = context()
+    a = ctx.confirmed_papers[0].pid
+    bad = {"kind": "unlisted_work", "where": "script", "quote": "Pat Quimby showed it in 2021", "authors": ["Quimby"], "year": 2021, "title_words": []}
+    two_passes(monkeypatch, [{"named": [a]}, {"named": [a], "violations": [bad]}])
+    result, _ = check(script, ctx=ctx)
+    assert not result.passed and any(v["check"] == "naming" for v in result.violations)
+
+
+def test_only_listed_papers_can_be_in_the_union(monkeypatch):
+    script = clean_script()
+    ctx = context()
+    a = ctx.confirmed_papers[0].pid
+    two_passes(monkeypatch, [{"named": [a, "P99"]}, {"named": ["P98"]}])
+    result, _ = check(script, ctx=ctx)
+    assert result.entry["named_pids"] == [a]
