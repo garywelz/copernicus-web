@@ -100,6 +100,7 @@ from config.constants import (
     GCP_PROJECT_ID,
     DEFAULT_SUBSCRIBER_EMAIL,
     ERROR_NOTIFICATION_EMAIL,
+    DEFAULT_ARTWORK_URL,
 )
 from config.database import db
 from services.episode_service import episode_service
@@ -1558,13 +1559,38 @@ Say that journal name in dialogue. Never say "published in PubMed" or "published
             return "https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/images/copernicus-original-portrait.jpg"
     
     @retry_upload(max_retries=3, delay=2)
+    async def series_thumbnail_upload(self, title: str, canonical_filename: str, record: dict) -> str:
+        """Curated mode: the series template (series_thumbnail.py, docs/design/SERIES_THUMBNAIL.md) with the episode's title, as the 1280x720 thumbnail
+        and the 3000x3000 square artwork, in the private bucket like the episode's other media. The generic image prompts are never used. If drawing or
+        uploading fails the episode gets the default series artwork, and `record` says so."""
+        import asyncio
+        import series_thumbnail
+        try:
+            from google.cloud import storage
+            bucket = storage.Client().bucket(media_store.PRIVATE_BUCKET)
+            thumb = await asyncio.to_thread(series_thumbnail.render_16x9, title)
+            square = await asyncio.to_thread(series_thumbnail.render_square, title)
+            bucket.blob(f"thumbnails/{canonical_filename}-thumb.png").upload_from_string(thumb, content_type="image/png")
+            bucket.blob(f"episode-images/{canonical_filename}-artwork-3000.png").upload_from_string(square, content_type="image/png")
+            record.update({"thumbnail_source": "series_template", "artwork_url": media_store.public_url(f"episode-images/{canonical_filename}-artwork-3000.png")})
+            return media_store.public_url(f"thumbnails/{canonical_filename}-thumb.png")
+        except Exception as e:
+            structured_logger.error("Series thumbnail failed, using the default artwork", canonical_filename=canonical_filename, error=str(e))
+            record.update({"thumbnail_source": "default_artwork", "thumbnail_error": type(e).__name__})
+            return DEFAULT_ARTWORK_URL
+
     async def generate_and_upload_thumbnail(
         self, 
         title: str, 
         topic: str, 
-        canonical_filename: str
+        canonical_filename: str,
+        curated: bool = False,
+        record: Optional[dict] = None,
     ) -> str:
-        """Generate AI thumbnail using DALL-E 3 with maximum resolution for podcast platforms"""
+        """Generate AI thumbnail using DALL-E 3 with maximum resolution for podcast platforms. In curated mode the series template is used instead:
+        the generic image prompts (a DNA helix, molecular motifs) do not fit a curated episode's subject."""
+        if curated:
+            return await self.series_thumbnail_upload(title, canonical_filename, record if record is not None else {})
         try:
             import requests
             from google.cloud import storage
@@ -2607,10 +2633,13 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
                                   memory_before_percent=round(thumbnail_memory_before, 1))
             
             async with with_step("thumbnail_generation", job_id):
+                thumbnail_record: dict = {}
                 thumbnail_url = await self.generate_and_upload_thumbnail(
                     content["title"], 
                     request.topic, 
-                    canonical_filename
+                    canonical_filename,
+                    curated=curated_run is not None,
+                    record=thumbnail_record,
                 )
             
             thumbnail_time = time.time() - thumbnail_start_time
@@ -2699,6 +2728,7 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
                      'curated_checks': _cc.summary([])},
                     {'tts_estimated_characters': len(content.get('script') or ''), 'tts_warn_threshold': tts_usage.as_record()['tts_warn_threshold']})}
                    if curated_run is not None else {}),
+                **({'thumbnail': dict(thumbnail_record)} if curated_run is not None else {}),      # the run record says where a curated episode's thumbnail came from
                 'references_built_by': content.get('references_built_by', REFERENCES_BUILT_BY),
                 'description_limit': limit_metrics,  # what the 4000-character limit removed (gap 3 fix 1)
                 'result': {
@@ -2707,6 +2737,7 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
                     'description': content.get('description', ''),
                     'audio_url': audio_url,
                     'thumbnail_url': thumbnail_url,
+                    **({'artwork_url': thumbnail_record['artwork_url']} if thumbnail_record.get('artwork_url') else {}),
                     'episode_images': episode_images,  # Array of 1-2 image URLs
                     'transcript_url': transcript_url,
                     'media_state': 'private',
@@ -2762,6 +2793,7 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
                         **content,
                         "audio_url": audio_url,
                         "thumbnail_url": thumbnail_url,
+                        **({"artwork_url": thumbnail_record["artwork_url"]} if thumbnail_record.get("artwork_url") else {}),
                         "episode_images": episode_images,  # Array of 1-2 image URLs
                         "transcript_url": transcript_url,
                         "media_state": "private",

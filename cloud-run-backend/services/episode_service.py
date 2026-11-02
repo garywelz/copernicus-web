@@ -212,6 +212,7 @@ class EpisodeService:
             "audio_url": result_data.get("audio_url"),
             "thumbnail_url": result_data.get("thumbnail_url") or DEFAULT_ARTWORK_URL,
             "episode_images": result_data.get("episode_images", []),  # Array of 1-2 image URLs
+            **({"artwork_url": result_data["artwork_url"]} if result_data.get("artwork_url") else {}),      # square podcast artwork (curated episodes)
             "transcript_url": result_data.get("transcript_url"),
             "episode_link": f"{EPISODE_BASE_URL}/{slug}",
             "submitted_to_rss": submitted_to_rss,
@@ -230,6 +231,7 @@ class EpisodeService:
                 "audio_blob": cls._extract_blob_name_from_url(result_data.get("audio_url", "")),
                 "transcript_blob": cls._extract_blob_name_from_url(result_data.get("transcript_url", "")),
                 "thumbnail_blob": cls._extract_blob_name_from_url(result_data.get("thumbnail_url", "")),
+                **({"artwork_blob": cls._extract_blob_name_from_url(result_data["artwork_url"])} if result_data.get("artwork_url") else {}),
             },
         }
 
