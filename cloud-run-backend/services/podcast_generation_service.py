@@ -10,6 +10,7 @@ This service handles all podcast generation logic including:
 """
 
 import asyncio
+import copy
 import json
 import media_store
 import re
@@ -110,6 +111,24 @@ from failure_notice import describe_failure
 from reference_sections import apply_reference_sections, BUILT_BY as REFERENCES_BUILT_BY
 from speech_text import strip_pn_markers_counted, speak_text, notation_problems, notation_feedback, UnspeakableNotationError
 from script_style import banned_phrase_hits, banned_feedback, BannedPhraseError, FinalTextCheckError
+
+
+class NamedPapersExtended(FinalTextCheckError):
+    """The final check recognised listed papers the earlier passes had not named. The naming check is a model call, so two passes over the same
+    script can differ; the References are built from the union of the passes, so the job rebuilds them from the larger union and checks again."""
+
+    def __init__(self, extra_pids):
+        self.extra_pids = list(extra_pids)
+        super().__init__("it names " + ", ".join(self.extra_pids) + " which the reference list was not built for")
+
+
+def naming_union(confirmed_papers, *pid_lists) -> list:
+    """The union of the papers every naming pass recognised, in the order of the confirmed list. Only a paper that is in the confirmed list can be
+    in it: a work that is not listed is never added here (it is a naming violation and fails the episode)."""
+    wanted = set()
+    for pids in pid_lists:
+        wanted.update(pids or [])
+    return [c.pid for c in confirmed_papers if c.pid in wanted]
 from topic_checks import (uncovered_named_things, missing_coverage_statements, coverage_feedback, read_aloud_sentences, read_aloud_feedback,
                           CoverageStatementError, TopicReadAloudError)
 from attribution_check import check_attributions, attribution_feedback, AttributionError
@@ -1948,6 +1967,28 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
             job_ref.update({'rejections': _fs.ArrayUnion(items)})
         return store
 
+    async def _verify_with_union(self, content: dict, pre_final_content: dict, limit_metrics: dict, request, research_context, naming_result, google_key: str,
+                                 job_id: str, on_rejection=None) -> dict:
+        """The final check, with the References built from the union of every naming pass. If the final pass recognises a LISTED paper the earlier passes
+        did not name, the content goes back to what it was before the References were built and they are built again from the larger union (up to
+        MAX_UNION_ROUNDS times); the final check then runs on the rebuilt text. A work that is not listed is never added: it is a naming violation and
+        fails the episode as before. Returns the description-limit metrics of the build that passed."""
+        rounds = 0
+        while True:
+            try:
+                await self._verify_final_text(content, request, research_context, google_key, job_id, on_rejection=on_rejection)
+                return limit_metrics
+            except NamedPapersExtended as extended:
+                rounds += 1
+                if rounds > self.MAX_UNION_ROUNDS:
+                    raise
+                structured_logger.info("Final check named more listed papers; rebuilding the References from the union", job_id=job_id,
+                                       added=extended.extra_pids, round=rounds)
+                naming_result.named_pids = naming_union(research_context.confirmed_papers, naming_result.named_pids, extended.extra_pids)
+                content.clear()
+                content.update(copy.deepcopy(pre_final_content))
+                limit_metrics = self._finalize_content(content, request, research_context, naming_result)
+
     async def _verify_final_text(self, content: dict, request, research_context, google_key: str, job_id: str, on_rejection=None) -> dict:
         """Run the post-generation checks again on the final text. They ran on the generated text inside the regeneration loop; the
         text that is stored and spoken has since been through notation conversion, venue rewriting, reference building and the
@@ -2014,7 +2055,7 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
             raise NamingViolationError(naming.violations)
         unlisted = [pid for pid in naming.named_pids if pid not in (content.get('papers_named') or [])]
         if unlisted:
-            raise FinalTextCheckError("it names " + ", ".join(unlisted) + " which the reference list was not built for")
+            raise NamedPapersExtended(naming_union(research_context.confirmed_papers, unlisted))
         named = [c for c in research_context.confirmed_papers if c.pid in naming.named_pids]
         attribution = await model_call("attribution_check", lambda: check_attributions(script, named, llm))
         if not attribution.passed:
@@ -2034,6 +2075,7 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
 
     # "notes_plan_repair" (curated_script.py): notes first, a section plan with word budgets, repair instead of regeneration. "single_call" is the older
     # one-prompt, regenerate-whole loop below; a curated run uses it only if this is set to it.
+    MAX_UNION_ROUNDS = 3          # rebuilds of the References when the final check names more listed papers than the earlier passes did
     CURATED_PIPELINE = "notes_plan_repair"
     MAX_CONTENT_RETRIES = 3     # fix 5: four content attempts in all
     MAX_TRANSIENT_RETRIES = 3   # fix 5: model or parse errors, counted separately; they never use a content attempt
@@ -2433,6 +2475,10 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
             if 'title' not in content or not content.get('title'):
                 raise Exception("Content generation failed - no title produced. Cannot use fake template.")
             
+            # The References are built from the papers the naming passes recognised. Every pass of the generation loop counts, not only the last.
+            naming_result.named_pids = naming_union(research_context.confirmed_papers, naming_result.named_pids,
+                                                    *[a.get('named_pids') for a in (naming_attempts or []) if isinstance(a, dict)])
+            pre_final_content = copy.deepcopy(content)
             limit_metrics = self._finalize_content(content, request, research_context, naming_result)
             
             # Robust validation added here:
@@ -2460,7 +2506,8 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
             
             # Fix 4: every post-generation check runs again on the text that is stored and spoken (after notation became words,
             # venues were rewritten, references were built and the description was limited); nothing is padded or added unchecked.
-            await self._verify_final_text(content, request, research_context, google_key, job_id, on_rejection=self._job_rejection_sink(job_ref))
+            limit_metrics = await self._verify_with_union(content, pre_final_content, limit_metrics, request, research_context, naming_result, google_key,
+                                                          job_id, on_rejection=self._job_rejection_sink(job_ref))
             if curated_run is not None:
                 _curated.check_tts_threshold(len(content['script']))     # a script over the producer's own threshold stops before any audio is made
 
