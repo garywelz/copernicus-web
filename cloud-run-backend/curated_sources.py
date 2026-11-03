@@ -5,7 +5,8 @@ A source list is what Gary approves before anything is generated. Each item has 
   peer_reviewed   a DOI or PMID whose registry record is a journal article (Crossref "journal-article") or a PubMed record
   preprint        an arXiv id (with its version), a Crossref "posted-content" record (bioRxiv, medRxiv ...), or a DataCite record
                   (arXiv DOIs; Zenodo records of a publication type)
-  company_release a manuscript of github.com/openai/math at a recorded commit (openai_math_index)
+  company_release a manuscript of github.com/openai/math at a recorded commit (openai_math_index), or a company release at a stable https
+                  address pinned by the SHA-256 of the fetched bytes (curated_web_release)
   commentary      any other web address; it can only be retrieved, never confirmed, and retrieval is not built yet (C4), so an
                   item of this class is held as pending and blocks approval until Gary removes it
 
@@ -129,6 +130,8 @@ def item_key(identifiers: Dict[str, Any]) -> str:
     """A stable text key for an item's identity (what makes two entries 'the same source')."""
     if identifiers.get("repo"):
         return f"{identifiers['repo']}@{identifiers['commit']}:{identifiers['path']}"
+    if identifiers.get("release_url"):
+        return "release_url:" + identifiers["release_url"]
     if identifiers.get("commentary"):
         return "commentary:" + identifiers["commentary"]
     ids = identifiers
@@ -321,12 +324,18 @@ def minimum_check(items: Sequence[Dict[str, Any]]) -> Tuple[bool, Dict[str, int]
     return non_commentary >= MIN_NON_COMMENTARY, counts
 
 
+def _pin_of(item: Dict[str, Any]) -> Optional[str]:
+    """The content pin of an item: the repository blob id of a manuscript, or the SHA-256 of the bytes of a company release fetched from a web address."""
+    c = item.get("confirmation") or {}
+    return c.get("blob_sha") or (c.get("sha256") if c.get("registry") == "web_release" else None)
+
+
 def list_hash(pin: Dict[str, Any], items: Sequence[Dict[str, Any]]) -> str:
     """sha256 over the pin and the approved items (class, identity, title, evidence text), independent of order and of timestamps.
     Any edit to what is approved changes it; a re-confirmation that changes nothing material does not."""
     rows = sorted(({"id": i["item_id"], "class": i["class"], "key": item_key(i["identifiers"]), "title": i.get("title"),
                     "evidence_sha256": i.get("text_sha256") or hashlib.sha256((i.get("evidence_text") or "").encode()).hexdigest(),
-                    "blob_sha": (i.get("confirmation") or {}).get("blob_sha"), "status": i.get("result_status"),
+                    "blob_sha": _pin_of(i), "status": i.get("result_status"),
                     "checked_by": i.get("checked_by")}
                    for i in approved_items(items)), key=lambda r: r["id"])
     body = json.dumps({"pin": {"repo": pin.get("repo"), "commit": pin.get("commit")}, "items": rows}, sort_keys=True, separators=(",", ":"))

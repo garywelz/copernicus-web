@@ -46,6 +46,22 @@ STATUS_SHORT = {
     cc.STATUS_UNVERIFIED: "unverified",
     cc.STATUS_WITHDRAWN: "withdrawn by OpenAI",
 }
+DEFAULT_COMPANY = "OpenAI"        # the company of every manuscript of github.com/openai/math; a release at a web address names its own
+
+
+def company_of(item: Dict[str, Any]) -> str:
+    return (item.get("company") or (item.get("confirmation") or {}).get("company") or DEFAULT_COMPANY).strip()
+
+
+def status_wording(status: str, company: str = DEFAULT_COMPANY) -> str:
+    """The exact wording a status may be given. Only 'unverified' applies to a release from another company; the Lean, withdrawal and
+    checked-by wordings come from OpenAI's catalogue, a withdrawal notice or a cited source."""
+    text = STATUS_WORDING[status]
+    if status == cc.STATUS_UNVERIFIED and company != DEFAULT_COMPANY:
+        return f"{company}'s own paper, not independently checked."
+    return text
+
+
 READING_LIMIT_LINE = "(text supplied by the producer; site does not permit automated reading)"
 
 
@@ -122,6 +138,11 @@ class CuratedRun:
         st = item.get("result_status") or cc.STATUS_UNVERIFIED
         return st if st in cc.STATUSES else cc.STATUS_UNVERIFIED
 
+    def companies(self) -> List[str]:
+        """The companies whose releases are in the list, in list order (OpenAI when there is none)."""
+        names = list(dict.fromkeys(company_of(i) for i in self.items if i["class"] == cs.COMPANY_RELEASE))
+        return names or [DEFAULT_COMPANY]
+
     def results(self) -> List[Dict[str, Any]]:
         out = []
         for i in self.items:
@@ -165,18 +186,19 @@ class CuratedRun:
         lines += [
             "", "**CLASS RULES:**",
             "- A preprint is always called a preprint. A company release is always described as not peer reviewed, and as the company's own claim "
-            "(\"OpenAI says\", \"OpenAI's manuscript argues\").",
+            + "(" + ", ".join("\"%s says\", \"%s's manuscript argues\"" % (c, c) for c in self.companies()) + ").",
             "- Commentary (journalism, blogs, statements) is only ever reported and attributed (\"[Outlet] reported\", \"[Name] said\"). It supplies "
             "reactions and context. It is never the reason to say that a result is true or false.",
         ]
         results = [r for r in self.results() if r["status"]]
+        by_id = {i["item_id"]: i for i in self.items}
         if results:
             lines += ["", "**RESULT STATUS (exact wording; you may not give any other status):**"]
             for r in results:
-                lines.append(f"- [{r['pid']}] {speakable(r['title'])}: status {r['status'].replace('_', ' ').upper()}. Say it like this: \"{STATUS_WORDING[r['status']]}\"")
+                lines.append(f"- [{r['pid']}] {speakable(r['title'])}: status {r['status'].replace('_', ' ').upper()}. Say it like this: \"{status_wording(r['status'], company_of(by_id[r['item_id']]))}\"")
             lines += [
                 "- NEVER, in your own voice, call any of these results verified, proved, proven, machine-checked, formally verified or confirmed correct. "
-                "You may report that OpenAI or a cited source says so, attributed, or say that something has NOT been verified.",
+                "You may report that " + " or ".join(self.companies()) + " or a cited source says so, attributed, or say that something has NOT been verified.",
                 "- A Lean formalization is a catalogue entry, not a verdict: do not say it makes a result true, and do not say what it proves.",
             ]
             if any(r["status"] == cc.STATUS_WITHDRAWN for r in results):
@@ -225,6 +247,11 @@ def confirmed_from_item(item: Dict[str, Any], pid: str) -> "pc.ConfirmedPaper":
     c = item.get("confirmation") or {}
     cls = item["class"]
     empty_ids = {"arxiv": None, "arxiv_version": None, "pmid": None, "doi": None}
+    if cls == cs.COMPANY_RELEASE and c.get("registry") == "web_release":        # a release at a web address, pinned by the hash of its bytes
+        pin = {k: c.get(k) for k in ("url", "sha256", "fetched_at", "company", "content_type")}
+        return pc.ConfirmedPaper(pid=pid, title=item["title"], authors=list(item.get("authors") or [company_of(item)]), year=item.get("year"), venue=None,
+                                 ids=dict(empty_ids), url=item["url"], abstract=item.get("evidence_text") or "", registry="web_release",
+                                 confirmed_at=c.get("confirmed_at") or "", title_match=1.0, record_type="company_release", source_class=cls, pin=pin)
     if cls == cs.COMPANY_RELEASE:
         pin = {k: c.get(k) for k in ("repo", "commit", "path", "file", "family", "family_title", "blob_sha", "readme_blob_sha")}
         return pc.ConfirmedPaper(pid=pid, title=item["title"], authors=list(item.get("authors") or ["OpenAI"]), year=item.get("year"), venue=None,
@@ -292,8 +319,11 @@ def source_line(c: "pc.ConfirmedPaper", cls: str, status: Optional[str] = None, 
         st = STATUS_SHORT[status or cc.STATUS_UNVERIFIED]
         if status == cc.STATUS_CHECKED and checked_by:
             st = f"checked by experts, as reported by {checked_by}"
-        authors = ", ".join(c.authors[:3]) or "OpenAI"
+        authors = ", ".join(c.authors[:3]) or pin.get("company") or "OpenAI"
         year = f" ({c.year})" if c.year else ""
+        if pin.get("sha256"):                    # a release at a web address: its address, fetch date and the start of the pinned hash
+            return (f"- {authors}{year}. {title}{stop} {https_url(c.url)} (fetched {(pin.get('fetched_at') or '')[:10]}, sha256 {pin['sha256'][:12]}). "
+                    f"[{tag}; status: {st}]")
         family = pin.get("family")
         family_part = f"family {family}, " if family not in (None, "", "None") else ""      # a manuscript with no family has no family field
         return (f"- {authors}{year}. {title}{stop} {family_part}commit {sha}. "

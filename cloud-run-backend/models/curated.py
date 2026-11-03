@@ -16,6 +16,16 @@ class AddSourceItems(BaseModel):
     items: List[str] = Field(..., min_length=1, max_length=40)
 
 
+class AddCompanyRelease(BaseModel):
+    """A company release at a stable https address (a PDF or a page) that is not in github.com/openai/math. The address is fetched, the title and the
+    company's name must occur in what is fetched, and the item is pinned by the SHA-256 of the bytes (design: curated_web_release)."""
+    url: str = Field(..., min_length=10, max_length=500)
+    title: str = Field(..., min_length=1, max_length=300)
+    company: str = Field(..., min_length=1, max_length=60)
+    date: str = Field(..., max_length=10)
+    authors: List[str] = Field(default_factory=list, max_length=5)
+
+
 class OverrideItemClass(BaseModel):
     # "class" is a Python keyword, so the body field is named source_class
     source_class: str = Field(..., max_length=40)
