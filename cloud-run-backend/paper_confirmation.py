@@ -86,6 +86,7 @@ class ConfirmedPaper:
     record_type: Optional[str] = None   # the registry's own record type (Crossref "journal-article", DataCite resource type, ...)
     source_class: Optional[str] = None  # peer_reviewed | preprint | company_release | commentary
     pin: Optional[Dict[str, Any]] = None  # repository, commit, path and blob ids for a company release
+    abstract_source: Optional[str] = None  # curated mode only: "producer_supplied" when the registry has no abstract and the producer supplied the paper's own
 
     def to_dict(self) -> Dict[str, Any]:
         return asdict(self)
@@ -404,12 +405,14 @@ def _dedupe_key(ids: Dict[str, Optional[str]]) -> List[str]:
 
 
 async def confirm_sources(sources: Sequence[Any], http_get: Optional[HttpGet] = None, max_papers: int = MAX_PAPERS,
-                          required_first: Optional["ConfirmedPaper"] = None) -> ConfirmationResult:
+                          required_first: Optional["ConfirmedPaper"] = None,
+                          supplied_abstracts: Optional[Dict[str, str]] = None) -> ConfirmationResult:
     """Confirm ranked ResearchSource-like objects (need .title, .url, .doi, .publication_date).
 
     Returns ConfirmationResult; raises RegistryUnavailable if any registry could not be reached after retries.
     Order follows the input (rank) order; P numbers are assigned in that order, up to ``max_papers``.
     ``required_first`` (an already confirmed, directly requested paper) becomes P1 and any duplicate of it is dropped.
+    ``supplied_abstracts`` (curated mode only; lower-case DOI -> abstract) stands in for the abstract of a Crossref record that has none.
     """
     inner_get = http_get or _default_http_get
     requests: Dict[str, int] = {}
@@ -517,6 +520,8 @@ async def confirm_sources(sources: Sequence[Any], http_get: Optional[HttpGet] = 
         if (title and tm < TITLE_MATCH_MIN) or (sy and ry and abs(sy - ry) > 1):
             dropped.append(Dropped(title, "identifier_mismatch", ids))
             continue
+        if not rec["abstract"] and supplied_abstracts and registry == "crossref" and (ids["doi"] or "").lower() in supplied_abstracts:
+            rec = {**rec, "abstract": supplied_abstracts[ids["doi"].lower()], "abstract_source": "producer_supplied"}
         if not rec["abstract"]:
             dropped.append(Dropped(title, "no_abstract", ids))
             continue
@@ -532,7 +537,7 @@ async def confirm_sources(sources: Sequence[Any], http_get: Optional[HttpGet] = 
         confirmed.append(ConfirmedPaper(
             pid=f"P{len(confirmed) + 1}", title=rec["title"], authors=rec["authors"], year=rec["year"], venue=rec["venue"],
             ids=merged, url=rec["url"], abstract=rec["abstract"], registry=registry, confirmed_at=_now(), title_match=round(tm, 2),
-            record_type=rec.get("type")))
+            record_type=rec.get("type"), abstract_source=rec.get("abstract_source")))
     if bad:
         raise RegistryUnavailable(bad)
     return ConfirmationResult(confirmed=confirmed, dropped=dropped, stats={"requests": dict(requests), "reused_from_search": dict(reused)})

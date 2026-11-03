@@ -21,7 +21,7 @@ import curated_web_release as cwr
 import openai_math_index as omi
 import paper_confirmation as pc
 from config.database import db
-from models.curated import AddCommentary, AddCompanyRelease, AddSourceItems, CreateSourceList, CheckSuppliedScript, GenerateCuratedEpisode, OverrideItemClass, SetCheckedBy
+from models.curated import AddCommentary, AddCompanyRelease, AddPaperWithSuppliedAbstract, AddSourceItems, CreateSourceList, CheckSuppliedScript, GenerateCuratedEpisode, OverrideItemClass, SetCheckedBy
 from models.podcast import PodcastRequest
 from utils.auth import verify_admin_api_key
 from utils.logging import structured_logger
@@ -197,6 +197,26 @@ async def add_company_release(list_id: str, body: AddCompanyRelease):
     structured_logger.info("Curated company release added", list_id=list_id, added=len(added), refused=len(refused))
     return {"list_id": list_id, "added": [_summary(i) | {"sha256": (i.get("confirmation") or {}).get("sha256"),
                                                           "fetched_at": (i.get("confirmation") or {}).get("fetched_at")} for i in added],
+            "refused": [_summary(r) | {"input": r.get("input")} for r in refused]}
+
+
+@router.post("/api/admin/curated/lists/{list_id}/items-with-supplied-abstract")
+async def add_paper_with_supplied_abstract(list_id: str, body: AddPaperWithSuppliedAbstract):
+    """One peer-reviewed paper whose registry record has no abstract, with the paper's own published abstract as the producer copied it from the
+    publisher's page. Confirmed against Crossref as usual; the abstract is stored with its hash and page address and the item is labelled
+    "abstract supplied by the producer". Refused if the registry has an abstract. If a registry cannot be reached nothing is added (503)."""
+    _require_db()
+    snap = db.collection(COLLECTION).document(list_id).get()
+    if not snap.exists:
+        raise HTTPException(status_code=404, detail="No such source list")
+    _require_draft(snap.to_dict() or {})
+    try:
+        result = await cs.confirm_with_supplied_abstract(body.doi, body.abstract, body.abstract_url)
+    except pc.RegistryUnavailable as e:
+        raise HTTPException(status_code=503, detail=str(e))
+    added, refused = _store_results(list_id, [result])
+    structured_logger.info("Curated paper with supplied abstract added", list_id=list_id, added=len(added), refused=len(refused))
+    return {"list_id": list_id, "added": [_summary(i) | {"abstract_sha256": (i.get("confirmation") or {}).get("abstract_sha256")} for i in added],
             "refused": [_summary(r) | {"input": r.get("input")} for r in refused]}
 
 

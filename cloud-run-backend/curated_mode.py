@@ -336,7 +336,10 @@ def source_line(c: "pc.ConfirmedPaper", cls: str, status: Optional[str] = None, 
         if any(l.get("type") == "fetch_refused" for l in (limits or [])):
             line += f" {READING_LIMIT_LINE}"
         return line
-    return f"{compact_line(c)} [{tag}]"
+    line = f"{compact_line(c)} [{tag}]"
+    if any(l.get("type") == "abstract_supplied" for l in (limits or [])):
+        line += f" ({cs.ABSTRACT_SUPPLIED_LABEL})"
+    return line
 
 
 def build_sources(run: CuratedRun, confirmed: Sequence["pc.ConfirmedPaper"], named_pids: Sequence[str],

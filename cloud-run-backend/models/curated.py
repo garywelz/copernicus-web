@@ -26,6 +26,14 @@ class AddCompanyRelease(BaseModel):
     authors: List[str] = Field(default_factory=list, max_length=5)
 
 
+class AddPaperWithSuppliedAbstract(BaseModel):
+    """A peer-reviewed paper whose Crossref record has no abstract: its DOI, the paper's own published abstract as copied from the publisher's page,
+    and that page's https address. Stored with its SHA-256 and labelled "abstract supplied by the producer"."""
+    doi: str = Field(..., min_length=7, max_length=200)
+    abstract: str = Field(..., min_length=1, max_length=6000)
+    abstract_url: str = Field(..., min_length=10, max_length=500)
+
+
 class OverrideItemClass(BaseModel):
     # "class" is a Python keyword, so the body field is named source_class
     source_class: str = Field(..., max_length=40)
