@@ -25,6 +25,22 @@ Entry format:
 
 ---
 
+## 032 — 2026-11-02 — tdap docs tidy merged (PR #2); docs/seeds.csv is the loader's seed record
+
+- **From:** Claude Code (Core lane), at Gary's go-ahead (relayed by Claude Chat, then given directly)
+- **Record:** `tdap` PR [#2](https://github.com/garywelz/tdap/pull/2), merged as `b384da6adc07ae2ef10fa0248c1ad48c4394c0e6` (reviewed head `bc9d5755fe4b4af3be6684ab88e16380e1ee13eb`; `main` was `b13562f` before). The merge commit is the one the Engine Onboarding loader pins.
+- **Affects:** Core; Claude Chat (TDAP Project); the TDAP owners, who review the seeds and the hold list
+- **Summary:**
+  - **New [docs/seeds.csv](https://github.com/garywelz/tdap/blob/main/docs/seeds.csv)** lists the ten seeds with a `status` column: six `confirmed`, four tdap-q3 rows `proposed` with `admit_policy` `strict`. It is the record the loader reads; [seed_papers.md](https://github.com/garywelz/tdap/blob/main/docs/seed_papers.md) describes it. The four q3 rows have no `arxiv_id` yet.
+  - **`research_focus.json`:** the provisional-questions note now points at the seed files, and a new note says terms, categories, horizons and mute are placeholders of 2026-09-19 pending the owners' review. No question text changed.
+  - **[seed_papers.md](https://github.com/garywelz/tdap/blob/main/docs/seed_papers.md) and [hold_list.md](https://github.com/garywelz/tdap/blob/main/docs/hold_list.md):** provenance moved to the end, plain group headings and a label legend added, arXiv ids added for the two seeds without a DOI on file. One hold-list identifier was resolved via Crossref (a Kuratowski book chapter, kept). One ("Wolfram", a one-page 1913 note) was unidentifiable and **dropped, so the hold list is 65 papers, not 66**.
+  - **Corpus count:** the README's "130 papers" stays. A read-only Firestore count of `research_papers` with `cited_project` `tdap` gives 129; the 130th is the merged GLMP paper `pubmed_28459448`, which carries `tdap-q2` in `question_scope_ids` but no `cited_project`.
+  - **No person's name was changed** (naming is open under Q11; the remaining occurrences are left as they are). No Firestore or GCS writes. The merge did not touch Cloud Run.
+- **Waiting on:**
+  - **Gary:** the Q11 naming decision; pinning `b384da6` in the onboarding loader.
+  - **Collaborators:** the owners' review of the seed list and the hold list (their response channel is the onboarding form once it opens).
+  - **Claude Code:** nothing.
+
 ## 031 — 2026-11-02 — Episode 1 published; curated References and thumbnail work live (#164 to #168, #170 and #171); feed description defect fixed
 
 - **From:** Claude Code (Core lane), at Gary's request
