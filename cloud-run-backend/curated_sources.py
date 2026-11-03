@@ -23,6 +23,7 @@ import unicodedata
 from datetime import datetime, timezone
 from dataclasses import dataclass
 from typing import Any, Dict, List, Optional, Sequence, Tuple
+from urllib.parse import urlparse
 
 import paper_confirmation as pc
 import openai_math_index as omi
@@ -172,14 +173,14 @@ def _repo_item(conf: Dict[str, Any], parsed: Parsed, status: Optional[Dict[str, 
     return item
 
 
-async def confirm_registry_item(parsed: Parsed, http_get=None) -> Dict[str, Any]:
+async def confirm_registry_item(parsed: Parsed, http_get=None, supplied_abstracts: Optional[Dict[str, str]] = None) -> Dict[str, Any]:
     """Confirm an arXiv id, DOI or PMID against its registry (the existing confirmation) and assign its class.
     Raises pc.RegistryUnavailable when a registry cannot be reached."""
     class _S:
         pass
     s = _S()
     s.title, s.url, s.doi, s.publication_date = "", parsed.ids_url, parsed.ids_doi or None, None
-    res = await pc.confirm_sources([s], http_get=http_get, max_papers=1)
+    res = await pc.confirm_sources([s], http_get=http_get, max_papers=1, supplied_abstracts=supplied_abstracts)
     if not res.confirmed:
         reason = res.dropped[0].reason if res.dropped else "not_found"
         return _refused(parsed, reason)
@@ -188,6 +189,38 @@ async def confirm_registry_item(parsed: Parsed, http_get=None) -> Dict[str, Any]
     if cls is None:
         return _refused(parsed, why or "unsupported")
     return _registry_item(c, cls, parsed)
+
+
+SUPPLIED_ABSTRACT_MIN, SUPPLIED_ABSTRACT_MAX = 150, 4000
+ABSTRACT_SUPPLIED_LABEL = "abstract supplied by the producer"
+
+
+async def confirm_with_supplied_abstract(doi: Any, abstract: str, abstract_url: str, http_get=None) -> Dict[str, Any]:
+    """A peer-reviewed journal article whose Crossref record has NO abstract, confirmed against Crossref as usual, with the paper's own published
+    abstract as the producer pasted it from the publisher's page. The abstract is stored with its SHA-256 and the page address, the item is labelled
+    "abstract supplied by the producer", and from then on it is checked exactly like a registry abstract. Refused when the registry already has an
+    abstract (use the ordinary route), when the identifier is not a DOI, or when the record is not a journal article. Raises pc.RegistryUnavailable."""
+    parsed = parse_item(doi)
+    if parsed.kind != "doi":
+        return _refused(parsed, "supplied_abstract_needs_a_doi", "only a DOI whose Crossref record has no abstract takes a supplied abstract")
+    text = " ".join((abstract or "").split())
+    if _CONTROL.search(abstract or "") or not (SUPPLIED_ABSTRACT_MIN <= len(text) <= SUPPLIED_ABSTRACT_MAX):
+        return _refused(parsed, "supplied_abstract_length", f"the abstract must be {SUPPLIED_ABSTRACT_MIN} to {SUPPLIED_ABSTRACT_MAX} characters of plain text")
+    page = urlparse((abstract_url or "").strip())
+    if page.scheme != "https" or not page.netloc or "." not in page.netloc:
+        return _refused(parsed, "supplied_abstract_page", "give the https address of the publisher's page the abstract was copied from")
+    item = await confirm_registry_item(parsed, http_get=http_get, supplied_abstracts={parsed.ids_doi.lower(): text})
+    if item["confirmation"]["status"] != CONFIRMED:
+        return item
+    if item["confirmation"].get("abstract_source") != "producer_supplied":
+        return _refused(parsed, "registry_has_abstract", "the registry already has an abstract for this paper; add it by its DOI the ordinary way", cls=item["class"])
+    if item["class"] != PEER_REVIEWED:
+        return _refused(parsed, "supplied_abstract_needs_a_journal_article", f"the record is classed {item['class']}", cls=item["class"])
+    sha = hashlib.sha256(text.encode()).hexdigest()
+    at = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    item["confirmation"].update({"abstract_sha256": sha, "abstract_source_url": page.geturl(), "abstract_supplied_at": at})
+    item["limits"] = [{"type": "abstract_supplied", "label": ABSTRACT_SUPPLIED_LABEL, "url": page.geturl(), "sha256": sha, "at": at}]
+    return item
 
 
 async def confirm_repo_items(parsed: Parsed, commit: str, fetch=None) -> List[Dict[str, Any]]:
