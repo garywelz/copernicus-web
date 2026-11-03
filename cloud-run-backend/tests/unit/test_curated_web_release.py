@@ -129,6 +129,33 @@ def test_a_redirect_to_another_host_is_judged_by_the_final_address():
     assert item["confirmation"]["final_url"] == final and item["confirmation"]["url"] == URL and item["url"] == URL
 
 
+# --- the title as a PDF's text layer reads it ---------------------------------------------------------------------------------------
+REAL_TITLE = "A 2^{o(n)} Time Algorithm for 3-SAT"
+# what the text layer of the actual paper gives for its title (anthropics/formal-math, eth/paper.pdf at 16a5ce41): spacing and superscript lost
+REAL_TEXT = ("A2 o(n) TIME ALGORITHM FOR 3-SAT CLAUDE ANTHROPIC Abstract. We refute the Exponential Time Hypothesis (ETH) by presenting a deterministic "
+             "algorithm for 3-SAT onn variables that runs in2o(n) time. Our algorithm in fact solves the harder problem #3-SAT, providing a count of the "
+             "number of satisfying assignments. The result was discovered by an internal research Claude model and has been formalized in Lean 4.")
+
+
+def PDFOF(text):
+    return b"%PDF-1.7" + bytes([10]) + text.encode() + bytes([10]) + b"%%EOF"
+
+
+def test_a_title_is_found_in_a_text_layer_that_lost_its_spacing_and_superscripts():
+    assert cwr.title_in_text(REAL_TITLE, REAL_TEXT)
+    assert cwr.title_in_text("A 2o(n) Time Algorithm for 3-SAT", REAL_TEXT) and cwr.title_in_text("a 2^o(n) time algorithm for 3-sat", REAL_TEXT)
+    item = confirm(Web({URL: ok(PDFOF(REAL_TEXT))}), title=REAL_TITLE, date="2026-10-27")
+    assert item["confirmation"]["status"] == cs.CONFIRMED and item["title"] == REAL_TITLE          # the title you gave is what is stored and printed
+
+
+def test_the_looser_comparison_still_refuses_a_different_or_a_too_short_title():
+    assert not cwr.title_in_text("A 2^{o(n)} Time Algorithm for 4-SAT", REAL_TEXT)
+    assert not cwr.title_in_text("SAT", REAL_TEXT) and not cwr.title_in_text("Time", REAL_TEXT) and not cwr.title_in_text("", REAL_TEXT)
+    assert not cwr.title_in_text("Algorithm for 3-SAT", "unrelated text " * 50)
+    r = confirm(Web({URL: ok(PDFOF(REAL_TEXT))}), title="A 2^{o(n)} Time Algorithm for 4-SAT")
+    assert r["confirmation"]["reason"] == "title_not_in_document"
+
+
 # --- the list ------------------------------------------------------------------------------------------------------------------
 def test_the_list_hash_changes_when_the_pinned_bytes_change_and_not_otherwise():
     a, b, same = confirm(), confirm(Web({URL: ok(PDF + b" ")})), confirm()

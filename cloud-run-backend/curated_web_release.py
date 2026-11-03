@@ -5,7 +5,7 @@ NOT in that repository (for example a company's own paper on its website) is con
 
   * the address is fetched through `safe_fetch.guarded_get` (public addresses only, redirects re-checked, size and time capped);
   * the answer must be HTTP 200 with a PDF or a web page, from which plain text can be read;
-  * the producer-supplied title must occur in that text, and so must the company's name (or the company's name in the address),
+  * the producer-supplied title must occur in that text (compared without spaces or punctuation, because a PDF's text layer loses both), and so must the company's name (or the company's name in the address),
     so a wrong page or a wrong company is refused rather than trusted;
   * the item is PINNED by the SHA-256 of the fetched bytes and the fetch date. Nothing is taken from a model.
 
@@ -132,6 +132,22 @@ def _norm(s: str) -> str:
     return cs._norm_words(s)
 
 
+MIN_TITLE_SQUASHED = 12
+
+
+def _squash(s: str) -> str:
+    """Letters and digits only, lower case, no spaces or punctuation. A PDF's text layer loses the spacing and the superscripts of a title
+    ("A 2^{o(n)} Time Algorithm for 3-SAT" is read as "A2 o(n) TIME ALGORITHM FOR 3-SAT"), so titles are compared with the spacing removed."""
+    return "".join(_norm(s).split())
+
+
+def title_in_text(title: str, text: str) -> bool:
+    """Whether `title` occurs in `text`, ignoring case, accents, spaces and punctuation. A title with fewer than MIN_TITLE_SQUASHED letters and
+    digits is too short to identify a document this way and never matches."""
+    t = _squash(title)
+    return len(t) >= MIN_TITLE_SQUASHED and t in _squash(text)
+
+
 async def confirm_web_release(url: str, title: str, company: str, date: str, authors=(), fetch=None,
                               pdf_reader: Optional[Callable[[bytes], str]] = None) -> Dict[str, Any]:
     """A confirmed company-release item for `url`, or a refused entry. Raises WebReleaseUnavailable when the address cannot be reached."""
@@ -168,7 +184,7 @@ async def confirm_web_release(url: str, title: str, company: str, date: str, aut
         return _refused(url, msg if msg.startswith("unsupported_content_type") else "text_not_readable", msg)
     if len(text) < MIN_TEXT_CHARS:
         return _refused(url, "no_readable_text", f"only {len(text)} readable characters (a scanned or image-only PDF cannot be used)")
-    if _norm(title) not in _norm(text):
+    if not title_in_text(title, text):
         return _refused(url, "title_not_in_document", "the title you gave does not occur in the fetched document")
     host = (validate_url(res.final_url)[1] or "").lower()
     if _norm(company) not in _norm(text) and _norm(company).replace(" ", "") not in host.replace("-", "").replace(".", ""):
