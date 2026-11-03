@@ -22,7 +22,9 @@ The list id is on the episode's job record (`curated_list_id`) and in `curated_r
 3. For every company-release manuscript in the list, recomputes its status **at that head**: withdrawn (its README is a withdrawal notice), has a Lean formalization (its directory is a `sources:` entry of `lean/formalization.yaml`), or unverified. Withdrawn beats the other two.
 4. Compares each with the status the repository gave it when the list was built (for a manuscript marked `checked_by_experts`, the status it had before a commentary source was cited, which the list keeps with it), and also flags a manuscript whose file changed since the pinned commit, one that is no longer in the manuscript map, and a withdrawn one that has come back into it.
 
-5. For every `checked_by_experts` manuscript, reads the cited commentary's private text (read-only; never printed) and confirms that the quoted sentence still occurs in it and that the text still hashes to the value the list was approved with. It prints both results and exits 2 if either fails.
+5. For every company release pinned by a **web address** (design §3.5a), fetches the recorded address again and compares the SHA-256 of the bytes with the pinned one. Different bytes, or a 404 or 410, is a change (exit 2). An address that cannot be read, or that a guard refuses, is "nothing known" (exit 3). A page with changing content hashes differently on every fetch; Gary decides what to do with that.
+
+6. For every `checked_by_experts` manuscript, reads the cited commentary's private text (read-only; never printed) and confirms that the quoted sentence still occurs in it and that the text still hashes to the value the list was approved with. It prints both results and exits 2 if either fails.
 
 It does **not** re-check registry sources (arXiv, PubMed, Crossref), and it cannot tell whether a `checked_by_experts` statement made by a cited commentary source is still true in the world; read those sources again by hand if an episode relies on one.
 

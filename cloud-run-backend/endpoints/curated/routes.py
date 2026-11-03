@@ -17,10 +17,11 @@ from google.cloud import firestore
 
 import curated_mode
 import curated_sources as cs
+import curated_web_release as cwr
 import openai_math_index as omi
 import paper_confirmation as pc
 from config.database import db
-from models.curated import AddCommentary, AddSourceItems, CreateSourceList, CheckSuppliedScript, GenerateCuratedEpisode, OverrideItemClass, SetCheckedBy
+from models.curated import AddCommentary, AddCompanyRelease, AddSourceItems, CreateSourceList, CheckSuppliedScript, GenerateCuratedEpisode, OverrideItemClass, SetCheckedBy
 from models.podcast import PodcastRequest
 from utils.auth import verify_admin_api_key
 from utils.logging import structured_logger
@@ -85,6 +86,37 @@ def _summary(item: Dict[str, Any]) -> Dict[str, Any]:
             "overrides_allowed": cs.allowed_class_overrides(item)}
 
 
+def _store_results(list_id: str, results: List[Dict[str, Any]]):
+    """Add confirmed items to a draft list and note the refused ones, in one transaction. Returns (added, refused)."""
+    added: List[Dict[str, Any]] = []
+    refused: List[Dict[str, Any]] = []
+
+    def apply(doc: Dict[str, Any]):
+        _require_draft(doc)
+        items = doc.setdefault("items", [])
+        have = {i["item_id"] for i in items}
+        for r in results:
+            if (r.get("confirmation") or {}).get("status") == cs.REFUSED or not r.get("item_id"):
+                refused.append(r)
+                continue
+            if r["item_id"] in have:
+                dup = dict(r)
+                dup["confirmation"] = {"status": cs.REFUSED, "reason": "duplicate", "detail": "already in this list", "directories": []}
+                refused.append(dup)
+                continue
+            if len(items) >= cs.MAX_ITEMS_PER_LIST:
+                raise HTTPException(status_code=409, detail=f"A list holds at most {cs.MAX_ITEMS_PER_LIST} items")
+            items.append(r)
+            have.add(r["item_id"])
+            added.append(r)
+        kept = (doc.get("refused") or []) + [{"input": r.get("input"), "reason": (r.get("confirmation") or {}).get("reason"),
+                                              "at": _now()} for r in refused]
+        doc["refused"] = kept[-MAX_REFUSED_KEPT:]
+
+    _mutate(list_id, apply)
+    return added, refused
+
+
 @router.post("/api/admin/curated/lists")
 async def create_list(body: CreateSourceList):
     _require_db()
@@ -143,34 +175,29 @@ async def add_items(list_id: str, body: AddSourceItems):
     except omi.RepoUnavailable as e:
         raise HTTPException(status_code=503, detail=f"The repository could not be read, so nothing was added: {e}")
 
-    added: List[Dict[str, Any]] = []
-    refused: List[Dict[str, Any]] = []
-
-    def apply(doc: Dict[str, Any]):
-        _require_draft(doc)
-        items = doc.setdefault("items", [])
-        have = {i["item_id"] for i in items}
-        for r in results:
-            if (r.get("confirmation") or {}).get("status") == cs.REFUSED or not r.get("item_id"):
-                refused.append(r)
-                continue
-            if r["item_id"] in have:
-                dup = dict(r)
-                dup["confirmation"] = {"status": cs.REFUSED, "reason": "duplicate", "detail": "already in this list", "directories": []}
-                refused.append(dup)
-                continue
-            if len(items) >= cs.MAX_ITEMS_PER_LIST:
-                raise HTTPException(status_code=409, detail=f"A list holds at most {cs.MAX_ITEMS_PER_LIST} items")
-            items.append(r)
-            have.add(r["item_id"])
-            added.append(r)
-        kept = (doc.get("refused") or []) + [{"input": r.get("input"), "reason": (r.get("confirmation") or {}).get("reason"),
-                                              "at": _now()} for r in refused]
-        doc["refused"] = kept[-MAX_REFUSED_KEPT:]
-
-    _mutate(list_id, apply)
+    added, refused = _store_results(list_id, results)
     structured_logger.info("Curated source items added", list_id=list_id, added=len(added), refused=len(refused))
     return {"list_id": list_id, "added": [_summary(i) for i in added], "refused": [_summary(r) | {"input": r.get("input")} for r in refused]}
+
+
+@router.post("/api/admin/curated/lists/{list_id}/company-releases")
+async def add_company_release(list_id: str, body: AddCompanyRelease):
+    """A company release at a stable https address, confirmed by a guarded fetch and pinned by the SHA-256 of the bytes and the fetch date. If the address
+    cannot be reached nothing is added (503). A refusal (wrong page, title or company not in the document, no readable text, not https) is reported and stored nowhere."""
+    _require_db()
+    snap = db.collection(COLLECTION).document(list_id).get()
+    if not snap.exists:
+        raise HTTPException(status_code=404, detail="No such source list")
+    _require_draft(snap.to_dict() or {})
+    try:
+        result = await cwr.confirm_web_release(body.url, body.title, body.company, body.date, body.authors)
+    except cwr.WebReleaseUnavailable as e:
+        raise HTTPException(status_code=503, detail=f"The address could not be read, so nothing was added: {e}")
+    added, refused = _store_results(list_id, [result])
+    structured_logger.info("Curated company release added", list_id=list_id, added=len(added), refused=len(refused))
+    return {"list_id": list_id, "added": [_summary(i) | {"sha256": (i.get("confirmation") or {}).get("sha256"),
+                                                          "fetched_at": (i.get("confirmation") or {}).get("fetched_at")} for i in added],
+            "refused": [_summary(r) | {"input": r.get("input")} for r in refused]}
 
 
 @router.delete("/api/admin/curated/lists/{list_id}/items/{item_id}")

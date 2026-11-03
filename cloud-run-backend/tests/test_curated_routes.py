@@ -11,6 +11,7 @@ with patch('config.database.db', MagicMock()):
     from endpoints.curated.routes import router
 
 import curated_sources as cs
+import curated_web_release as cwr
 import openai_math_index as omi
 import paper_confirmation as pc
 from utils import auth
@@ -119,7 +120,7 @@ def add(list_id, canned, raws_to_items):
 # --- admin key on every route ---------------------------------------------------------------------------------------------------------
 def test_every_route_on_the_router_needs_the_admin_key():
     routes_ = [r for r in router.routes if hasattr(r, "methods")]
-    assert len(routes_) == 14
+    assert len(routes_) == 15
     with patch.object(auth, "get_admin_api_key", return_value="test-key"), patch.object(routes, "db", FakeDB()):
         for r in routes_:
             path = r.path.replace("{list_id}", "L").replace("{item_id}", "I")
@@ -785,3 +786,73 @@ def test_the_check_script_route_refuses_what_a_generation_refuses_and_needs_the_
     assert client.post("/api/admin/curated/check-script", json={"list_id": lid, "script": "HOST: x", "title": "t"}).status_code == 401
     fake.store[lid]["items"][0]["title"] = "edited after approval"
     assert check_script(lid).status_code == 409
+
+
+# --- a company release at a web address ----------------------------------------------------------------------------------------------------
+REL = {"url": "https://www.anthropic.com/research/eth.pdf", "title": "The Exponential Time Hypothesis Revisited", "company": "Anthropic", "date": "2026-10-31"}
+
+
+def web_item():
+    ids = {"release_url": REL["url"]}
+    return {"item_id": cs.item_id(ids), "input": REL["url"], "class": cs.COMPANY_RELEASE, "added_by": "gary", "identifiers": ids, "title": REL["title"],
+            "authors": ["Anthropic"], "year": 2026, "venue": None, "url": REL["url"], "evidence_text": "text", "company": "Anthropic", "date": REL["date"],
+            "confirmation": {"status": cs.CONFIRMED, "registry": "web_release", "url": REL["url"], "sha256": "ab" * 32, "fetched_at": "2026-11-03T00:00:00Z"},
+            "result_status": "unverified", "relevance_score": None, "approved": True}
+
+
+def post_release(lid, answer):
+    async def fake(url, title, company, date, authors=(), fetch=None, pdf_reader=None):
+        assert (url, title, company, date) == (REL["url"], REL["title"], REL["company"], REL["date"])
+        if isinstance(answer, Exception):
+            raise answer
+        return answer
+    with patch.object(cwr, "confirm_web_release", fake):
+        return client.post(f"/api/admin/curated/lists/{lid}/company-releases", json=REL, headers=KEY)
+
+
+def test_a_web_release_is_added_with_its_pin_and_shown_in_the_answer(env):
+    fake, _ = env
+    lid = new_list()
+    r = post_release(lid, web_item())
+    body = r.json()
+    assert r.status_code == 200 and len(body["added"]) == 1 and body["refused"] == []
+    assert body["added"][0]["sha256"] == "ab" * 32 and body["added"][0]["fetched_at"] == "2026-11-03T00:00:00Z" and body["added"][0]["class"] == cs.COMPANY_RELEASE
+    assert fake.store[lid]["items"][0]["confirmation"]["sha256"] == "ab" * 32
+
+
+def test_a_refused_web_release_is_reported_with_its_reason_and_not_stored(env):
+    fake, _ = env
+    lid = new_list()
+    refusal = cwr._refused(REL["url"], "title_not_in_document", "the title you gave does not occur in the fetched document")
+    r = post_release(lid, refusal)
+    assert r.status_code == 200 and r.json()["added"] == [] and r.json()["refused"][0]["reason"] == "title_not_in_document"
+    assert fake.store[lid]["items"] == [] and fake.store[lid]["refused"][0]["reason"] == "title_not_in_document"
+
+
+def test_a_web_release_that_cannot_be_reached_adds_nothing_and_is_503(env):
+    fake, _ = env
+    lid = new_list()
+    r = post_release(lid, cwr.WebReleaseUnavailable("the address could not be read (TimeoutError)"))
+    assert r.status_code == 503 and fake.store[lid]["items"] == []
+
+
+def test_the_same_web_release_twice_is_a_duplicate(env):
+    fake, _ = env
+    lid = new_list()
+    post_release(lid, web_item())
+    r = post_release(lid, web_item())
+    assert r.json()["added"] == [] and r.json()["refused"][0]["reason"] == "duplicate" and len(fake.store[lid]["items"]) == 1
+
+
+def test_a_web_release_cannot_be_added_to_a_frozen_or_missing_list(env):
+    fake, canned = env
+    lid = ready_list(canned)
+    client.post(f"/api/admin/curated/lists/{lid}/approve", headers=KEY)
+    assert post_release(lid, web_item()).status_code == 409
+    assert post_release("nope", web_item()).status_code == 404
+
+
+def test_the_request_is_bounded(env):
+    lid = new_list()
+    for bad in ({**REL, "url": "x"}, {**REL, "title": ""}, {**REL, "company": "x" * 61}, {**REL, "authors": ["a"] * 6}, {k: v for k, v in REL.items() if k != "date"}):
+        assert client.post(f"/api/admin/curated/lists/{lid}/company-releases", json=bad, headers=KEY).status_code == 422

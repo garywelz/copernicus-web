@@ -7,7 +7,8 @@
     python scripts/recheck_curated_statuses.py <list_id> --json
 
 It READS the approved list from Firestore (your own credentials; it writes nothing, anywhere), asks GitHub for the current head of the
-repository's default branch, recomputes the status of every company-release manuscript in the list at that head (withdrawn, has a Lean
+repository's default branch, recomputes the status of every company-release manuscript in the list at that head (and fetches every company release pinned by a web address
+again, comparing the SHA-256 of its bytes with the pinned one) (withdrawn, has a Lean
 formalization, unverified) and compares it with the status the repository gave it when the list was built (for an item marked `checked by
 experts` that is the status it had before a commentary source was cited, kept with the item). It also flags a manuscript whose file changed
 since the pinned commit and one that is no longer in the manuscript map. For every `checked by experts` item it reads the cited commentary's
@@ -31,6 +32,7 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import curated_sources as cs  # noqa: E402
+import curated_web_release as cwr  # noqa: E402
 import openai_math_index as omi  # noqa: E402
 import openai_math_status as oms  # noqa: E402
 
@@ -88,11 +90,12 @@ def check_checked_by(list_id: str, items, db=None):
     return rows
 
 
-async def check(list_id: str, head: str | None = None, db=None, fetch=None):
+async def check(list_id: str, head: str | None = None, db=None, fetch=None, web_fetch=None):
     """(doc, head, rows, checked_by). Raises LookupError for an unknown list, omi.RepoUnavailable when the repository cannot be read."""
     doc = load_list(list_id, db)
     head = head or await oms.resolve_head(fetch)
     rows = await oms.recheck_items(doc.get("items") or [], head, fetch)
+    rows += await cwr.recheck_web_releases(doc.get("items") or [], web_fetch)          # releases pinned by a web address: same bytes?
     return doc, head, rows, check_checked_by(list_id, doc.get("items") or [], db)
 
 
@@ -124,7 +127,7 @@ def render(doc, head, rows, checked=()) -> str:
     return "\n".join(out)
 
 
-def main(argv=None, db=None, fetch=None) -> int:
+def main(argv=None, db=None, fetch=None, web_fetch=None) -> int:
     ap = argparse.ArgumentParser(description="Re-check an approved curated source list against the current head of openai/math (read-only).")
     ap.add_argument("list_id")
     ap.add_argument("--head", help="check against this commit instead of the current head")
@@ -138,7 +141,7 @@ def main(argv=None, db=None, fetch=None) -> int:
         return 1
     loop = asyncio.new_event_loop()          # not asyncio.run(): that would leave the thread without an event loop
     try:
-        doc, head, rows, checked = loop.run_until_complete(check(args.list_id, args.head, db, fetch))
+        doc, head, rows, checked = loop.run_until_complete(check(args.list_id, args.head, db, fetch, web_fetch))
     except LookupError as e:
         print(str(e), file=sys.stderr)
         return 3

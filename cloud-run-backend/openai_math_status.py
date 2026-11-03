@@ -223,8 +223,8 @@ async def recheck_items(items: List[Dict[str, Any]], head: str, fetch: Optional[
     rows = []
     index = await omi.load_index(head, fetch=fetch, use_cache=False)
     for it in items:
-        if it.get("class") != "company_release":
-            continue
+        if it.get("class") != "company_release" or (it.get("confirmation") or {}).get("registry") == "web_release":
+            continue                     # a release pinned by a web address is re-checked by curated_web_release.recheck_web_releases
         c = it.get("confirmation") or {}
         dirname = (c.get("path") or "").split("preprints/", 1)[-1]
         recorded = it.get("result_status") or STATUS_UNVERIFIED
