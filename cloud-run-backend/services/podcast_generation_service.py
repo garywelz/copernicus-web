@@ -13,7 +13,7 @@ import asyncio
 import copy
 import json
 import media_store
-from channel import CHANNEL_NAME
+from channel import CHANNEL_NAME, CHANNEL_NAME_SPOKEN
 import re
 import time
 import psutil
@@ -779,8 +779,8 @@ Create a compelling {request.duration} research podcast script about "{request.t
 **Focus Areas:** {', '.join(request.focus_areas) if request.focus_areas else 'recent breakthroughs, methodology, implications'}
 
 **CRITICAL SHOW REQUIREMENTS:**
-- The show name is ALWAYS "{CHANNEL_NAME}" - never use any other title
-- HOST must introduce the show as "Welcome to {CHANNEL_NAME}"
+- The show name is ALWAYS "{CHANNEL_NAME_SPOKEN}" - never use any other title
+- HOST must introduce the show as "Welcome to {CHANNEL_NAME_SPOKEN}"
 - The HOST speaker must be named "{host_name}" (use this exact name for all HOST lines)
 - The EXPERT speaker must be named "{expert_name}" (use this exact name for all EXPERT lines)
 - All speakers use FIRST NAMES ONLY - NO surnames, titles, or honorifics
@@ -803,10 +803,10 @@ Create a natural dialogue between HOST, EXPERT, and QUESTIONER that follows this
 - **MUST** use speaker labels at the beginning of each line: "{host_name.upper()}:", "{expert_name.upper()}:", "QUESTIONER:"
 - **CRITICAL: Use the exact names "{host_name}" for HOST and "{expert_name}" for EXPERT in all speaker labels**
 - **DO NOT** write in narrative format - write as a conversation between speakers
-- **NEVER** start with "Welcome to {CHANNEL_NAME}" without a speaker label
+- **NEVER** start with "Welcome to {CHANNEL_NAME_SPOKEN}" without a speaker label
 - **NEVER** use phrases like "{host_name} explains" or "{expert_name} adds" - use speaker labels instead
 - **EXAMPLE FORMAT:**
-  {host_name.upper()}: Welcome to {CHANNEL_NAME}. Today we're discussing {request.topic}.
+  {host_name.upper()}: Welcome to {CHANNEL_NAME_SPOKEN}. Today we're discussing {request.topic}.
   {expert_name.upper()}: Thank you for having me. This is a fascinating area of research.
   QUESTIONER: Can you explain what makes this topic so significant?
   {host_name.upper()}: That's a great question. Let's dive into the details.
@@ -817,7 +817,7 @@ Create a natural dialogue between HOST, EXPERT, and QUESTIONER that follows this
 - Use "{host_name.upper()}:", "{expert_name.upper()}:", and "QUESTIONER:" to mark each speaker clearly
 - The HOST speaker is "{host_name}" - use this name in all HOST speaker labels
 - The EXPERT speaker is "{expert_name}" - use this name in all EXPERT speaker labels
-- HOST introduces the topic and guides the conversation for "{CHANNEL_NAME}"
+- HOST introduces the topic and guides the conversation for "{CHANNEL_NAME_SPOKEN}"
 - EXPERT provides technical analysis and research insights about {request.topic}
 - QUESTIONER asks clarifying questions and represents audience curiosity
 - Include evidence-based insights from recent research

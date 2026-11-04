@@ -20,9 +20,9 @@ import paper_confirmation as pc
 from reference_sections import compact_line, strip_model_reference_sections, _STOP
 
 BUILT_BY = "code@3"
-from channel import CHANNEL_NAME
+from channel import CHANNEL_NAME_SPOKEN
 
-CHANNEL = CHANNEL_NAME
+CHANNEL = CHANNEL_NAME_SPOKEN        # the name the model is given (a script speaks it), so the spoken form; the written form is channel.CHANNEL_NAME
 MAX_NON_COMMENTARY_PER_EPISODE = 12      # the ordinary mode's MAX_PAPERS: a longer list is a second episode
 
 CLASS_HEADINGS = {cs.PEER_REVIEWED: "Peer-reviewed papers", cs.PREPRINT: "Preprints (not peer reviewed)",
