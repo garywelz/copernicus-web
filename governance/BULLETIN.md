@@ -25,6 +25,24 @@ Entry format:
 
 ---
 
+## 035 — 2026-11-04 — Episode 2 published; #179 to #182 live; the supplied-abstract route's first use; the five-word thumbnail rule still cuts titles
+
+- **From:** Claude Code (Core lane), at Gary's go-ahead (relayed by Claude Chat, then given directly)
+- **Status:** DRAFT. In force from the merge of the pull request that adds this entry. Records what is live; it does not change any rule. Follows entries 033 and 034.
+- **Record:** the pull request that adds this entry; copernicus-web [#179](https://github.com/garywelz/copernicus-web/pull/179) (naming check: a work whose whole title is quoted counts as named, merge `347d893e2`), [#180](https://github.com/garywelz/copernicus-web/pull/180) (ETH and SETH spoken as letters, `ddda7d882`), [#181](https://github.com/garywelz/copernicus-web/pull/181) (3-SAT, k-SAT and SAT respelled for the audio, `f625fb8e7`), [#182](https://github.com/garywelz/copernicus-web/pull/182) (admin route to re-voice a private episode, `b1fb1a350`); all live as Cloud Run revision `copernicus-podcast-api-00411-keg` (rollback `00408-ceh`)
+- **Affects:** Core; Gary and Claude Chat; listeners; the curated-sources mode
+- **Summary:**
+  - **Episode 2 is published:** `ever-compsci-260002`, "The Exponential Time Hypothesis is false?", at https://www.copernicusai.fyi/episodes/ever-compsci-260002 (submitted to the feed 2026-11-04 19:48 UTC after the status re-check exited 0). Built privately from revision 5 of the editors' script (SHA-256 `a13ab1c3fa4854d0613ac8974a731f5442f5ab201bec5216c4aba39533f0f4e7`) against the frozen list `3c71500cdecb4f76b2cc233b3b6b0955` (hash `623a1275c1a8fb64c6977a39412eb8702d465f378b48b5a8e6fde0a2245c2a35`). The public list went from 40 to 41 episodes and the feed from 39 to 40 items. The description ends with the disclosure that Claude, made by Anthropic, one of the two companies discussed, helped edit it.
+  - **The first draft is superseded, not deleted:** `ever-compsci-260001` (generated from revision 4; the naming gap of entry 034 left OpenAI's manuscript out of its References) stays private, marked `superseded_by`. It is not in the feed and its public addresses return 404.
+  - **Re-voiced once, audio only:** after Gary listened, the EXPERT voice read "k-SAT" as "K-Seat". #181 added the respellings and #182 the route; the audio of `ever-compsci-260002` was redone from its stored script (the route checks the script's SHA-256 first), with the original audio kept privately under `audio/previous/` and the length recorded (507.9 s). The first real use of the route succeeded on the first call. The text-to-speech counts: 7,104 characters, 30 segments, none failed.
+  - **The supplied-abstract route's first use ([#175](https://github.com/garywelz/copernicus-web/pull/175)):** the two 2001 papers (Impagliazzo and Paturi; Impagliazzo, Paturi and Zane) have no abstract in Crossref, so their abstracts were pasted by Gary from the publisher pages; each is stored with its SHA-256 and page address, labelled "abstract supplied by the producer" in the References, and was checked like a registry abstract.
+  - **What the publish step reads (found while publishing):** the gated publish builds the feed item, and re-saves the episode record, from the **job** record, not from the episode record. A description edited only on the episode would have been overwritten and the generated one published. The approved description was therefore written into the job's `result` first, with the generated text kept as `description_generated`; a preview of the feed item was checked before the call. The feed was backed up first (`gs://regal-scholar-453620-r7-internal/backups/feed/`, checksummed). The writer re-serializes the whole feed file: the parsed content of all 39 existing items is unchanged, but episode 1's item changed byte for byte (CDATA sections became escaped text, as the other 38 items already were).
+  - **Open item:** the series thumbnail template keeps at most five title words, so the six-word title was drawn as "The Exponential Time Hypothesis is", dropping "false?". Both images were redrawn by hand with "Is ETH false?" and the subtitle "The Exponential Time Hypothesis"; the template is unchanged and the same cut will happen to the next long title. A rule change (or a thumbnail-title field on the list or the request) needs Gary's decision.
+- **Waiting on:**
+  - **Gary:** the thumbnail-title decision above; the YouTube channel and handle, after which the site-link PR [#177](https://github.com/garywelz/copernicus-web/pull/177) may merge; uploading the channel branding.
+  - **Core:** nothing started without Gary's go.
+  - **Claude Chat, GLMP lane and Methods & Tools:** nobody.
+
 ## 034 — 2026-11-04 — Episode 2 generated privately; the naming check never counted OpenAI's manuscript as named (fix drafted, not deployed)
 
 - **From:** Claude Code (Core lane), at Gary's go-ahead (relayed by Claude Chat)
