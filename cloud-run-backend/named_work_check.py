@@ -287,6 +287,38 @@ def is_topic_mention(mention: Dict[str, Any], topic: Optional[str]) -> bool:
     return False
 
 
+# A listed work whose WHOLE title is quoted in the script is named, whether or not the model-based extraction above reported it. The extraction is told
+# to leave out companies, so a sentence like: OpenAI's paper is titled "The Exponential Time Hypothesis is False" can come back with no mention at all (episode 2, 2026-11-04:
+# the OpenAI manuscript was never counted as named, so its sentences went unchecked against its abstract and it was missing from the References).
+# Narrow on purpose: only works that are not commentary (a commentary item's title is often just the subject's name, which a script says constantly), only a
+# title of at least MIN_QUOTED_TITLE_LETTERS letters and digits, only inside quotation marks, and the whole title (ignoring case, accents, spaces and
+# punctuation). It adds to the named works and never removes or excuses a violation.
+MIN_QUOTED_TITLE_LETTERS = 12
+_QUOTED_SPAN = re.compile(r'"([^"\n]{3,300})"|“([^”\n]{3,300})”|‘([^’\n]{3,300})’')
+
+
+def _squash(s: str) -> str:
+    return "".join(_norm(s).split())
+
+
+def quoted_title_matches(script: str, confirmed: Sequence[Any]) -> List[Dict[str, Any]]:
+    """(pid, quote) for every listed non-commentary work whose whole title is quoted in `script`, in the order the titles occur."""
+    titles = {}
+    for c in confirmed:
+        if getattr(c, "source_class", None) == "commentary":
+            continue
+        t = _squash(getattr(c, "title", "") or "")
+        if len(t) >= MIN_QUOTED_TITLE_LETTERS:
+            titles.setdefault(t, c)
+    out = []
+    for m in _QUOTED_SPAN.finditer(script or ""):
+        quoted = next(g for g in m.groups() if g)
+        c = titles.get(_squash(quoted))
+        if c is not None:
+            out.append({"pid": c.pid, "quote": m.group(0)[:200], "title": c.title})
+    return out
+
+
 # A tool or system the host names without an author ("tools like 'mizar-items'") is not an unlisted paper when a listed paper's own title or
 # abstract uses that name: the listed paper is where the name comes from. A name that no listed paper mentions is still a violation.
 _QUOTED_NAME = re.compile(r"""`([^`]{3,60})`|"([^"]{3,60})"|(?<![A-Za-z0-9])'([^']{3,60})'(?![A-Za-z0-9])|\u2018([^\u2019]{3,60})\u2019|\u201c([^\u201d]{3,60})\u201d""")
@@ -358,6 +390,15 @@ async def check_naming(script: str, description: str, confirmed_papers: Sequence
             result.violations.append({"kind": "unlisted_work", "where": m["where"], "quote": m["quote"],
                                       "authors": m["authors"], "year": m["year"], "title_words": m["title_words"],
                                       "context": context_around(script if m["where"] == "script" else body, m["quote"])})
+    for hit in quoted_title_matches(script, confirmed_papers):
+        if hit["pid"] in seen_pids:
+            continue
+        seen_pids.append(hit["pid"])
+        result.mentions.append({"quote": hit["quote"], "authors": [], "year": None, "title_words": hit["title"].split()[:12], "where": "script",
+                                "pid": hit["pid"], "matched_by": "the whole title, quoted"})
+        pos = _locate(script, hit["quote"])
+        if pos >= 0:
+            matched_positions.append(pos)
     result.named_pids = seen_pids
 
     flat = re.sub(r"\s+", " ", script)
