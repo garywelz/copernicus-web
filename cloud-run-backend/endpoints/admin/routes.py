@@ -8,6 +8,7 @@ Handles all admin-related API endpoints including:
 """
 
 from fastapi import APIRouter, HTTPException, Depends, Query
+from pydantic import BaseModel, Field
 from typing import Optional, List, Dict, Any
 from datetime import datetime
 from google.cloud import firestore
@@ -357,6 +358,36 @@ async def episode_media_links(episode_id: str, hours: int = Query(1, ge=1, le=16
     except Exception as e:
         structured_logger.error("Could not build media links", episode_id=episode_id, error=str(e))
         raise HTTPException(status_code=500, detail="Could not build media links")
+
+
+class RevoiceRequest(BaseModel):
+    expected_script_sha256: str = Field(..., min_length=64, max_length=64)      # the SHA-256 of the script somebody has read; a different stored script is refused
+
+
+@router.post("/api/admin/episodes/{episode_id}/revoice")
+async def revoice_episode(episode_id: str, body: RevoiceRequest, admin_auth: bool = Depends(verify_admin_api_key)):
+    """New audio for a PRIVATE episode, from the script stored on its job, through the existing text-to-speech path (audio only: the script, description,
+    thumbnail and artwork are not touched). The current audio is kept first under audio/previous/ in the private bucket, and is replaced only after the new
+    audio is checked. Refused for a published episode. See episode_revoice.py for the order and every refusal."""
+    if not db:
+        raise HTTPException(status_code=503, detail="Firestore service is unavailable")
+    import sys
+    from google.cloud import storage
+    import episode_revoice
+    from audio_length import mp3_seconds
+    main_module = sys.modules.get("main")
+    service = getattr(main_module, "podcast_generation_service", None) if main_module else None
+    voice_service = getattr(service, "elevenlabs_voice_service", None)
+    if voice_service is None:
+        raise HTTPException(status_code=503, detail="The voice service is not available")
+    try:
+        result = await episode_revoice.revoice_private_episode(episode_id, body.expected_script_sha256, db=db, client=storage.Client(),
+                                                              voice_service=voice_service, seconds_of=mp3_seconds)
+    except episode_revoice.RevoiceError as e:
+        structured_logger.warning("Re-voice refused", episode_id=episode_id, status=e.status, reason=e.message)
+        raise HTTPException(status_code=e.status, detail=e.message)
+    structured_logger.info("Episode re-voiced", episode_id=episode_id, tts_characters=result.get("tts_characters"), new_seconds=result.get("new_seconds"))
+    return result
 
 
 @router.post("/api/admin/episodes/{episode_id}/publish-site")
