@@ -25,6 +25,23 @@ Entry format:
 
 ---
 
+## 033 — 2026-11-04 — One public channel name, CopernicusAI.fyi ("Frontiers of Science" dropped); episode 2's source list approved; a paper with no registry abstract may carry the producer's abstract
+
+- **From:** Claude Code (Core lane), at Gary's go-ahead (relayed by Claude Chat)
+- **Status:** DRAFT. In force from the merge of the pull request that adds this entry. Records what is live and what is proposed; it does not change any rule.
+- **Record:** the pull request that adds this entry; copernicus-web [#174](https://github.com/garywelz/copernicus-web/pull/174) (title match ignores spaces and punctuation, merge `e82b627d0`) and [#175](https://github.com/garywelz/copernicus-web/pull/175) (a paper whose Crossref record has no abstract may carry the paper's own published abstract, supplied by the producer; merge `419caba86`); draft [#177](https://github.com/garywelz/copernicus-web/pull/177) (site YouTube link, not to be merged until the handle exists); follows entry 032
+- **Affects:** Core; Gary and Claude Chat; the curated-sources mode; the public site; the new YouTube channel
+- **Summary:**
+  - **The public channel's name is `CopernicusAI.fyi`** (Gary, 2026-11-03). "Frontiers of Science" is dropped everywhere because it collides with the existing podcast title "Copernicus AI: Frontiers of Research", which is not changed. The name is set once, in `cloud-run-backend/channel.py` (`CHANNEL_NAME`), and read by the curated prompts, the series thumbnail mark, the ordinary-mode script prompts and the transcript header; the thumbnail documentation and the two template SVGs carry the new mark. Left as they are: this bulletin's earlier entries, a published-episode fixture, one verbatim rejected-script sample and the 2025 archive. A new YouTube channel of that name (handle `@copernicusaifyi`) is being created by Gary.
+  - **Ordinary mode:** its prompts named the show too, so the host's opening line there becomes "Welcome to CopernicusAI.fyi". How a voice model reads ".fyi" is not tested.
+  - **Episode 1's thumbnail and artwork** are to be regenerated with the new mark; the old files are kept under `previous/`. This waits for Gary's approval of the public-object change (rule 18) and is not done by this entry.
+  - **Episode 2's source list** (`3c71500cdecb4f76b2cc233b3b6b0955`, "Episode 2: The Exponential Time Hypothesis is false?") was approved 2026-11-03 at 23:02 UTC with list hash `623a1275c1a8fb64c6977a39412eb8702d465f378b48b5a8e6fde0a2245c2a35` and pin `openai/math` at `4eaee8754`: eight items (OpenAI's ETH manuscript; Anthropic's 3-SAT release at a stable address, pinned by its SHA-256; two 2001 Journal of Computer and System Sciences papers; four commentary items). The publish-day status re-check exited 0. No dry run or generation has been started.
+  - **#175:** the two 2001 papers have no abstract in Crossref, which the ordinary route refuses. A new admin route (`items-with-supplied-abstract`) takes the paper's own published abstract, pasted by the producer from the publisher's page, with that page's address. It confirms the DOI against Crossref as before, refuses when the registry has an abstract, stores the abstract with its SHA-256 and page address, labels the item "abstract supplied by the producer", and checks it like a registry abstract. The code cannot verify that the pasted text is the publisher's abstract; the stored address and hash make that checkable. Live as Cloud Run revision `copernicus-podcast-api-00399-xak` (rollback `00396-boq`).
+- **Waiting on:**
+  - **Gary:** approval of this rename's merge and deploy, and of the public-object change for episode 1's thumbnail and artwork; creating the YouTube channel and confirming the handle, after which #177 may merge; uploading the channel branding (avatar, banner, watermark, rendered on his machine).
+  - **Core:** nothing started without Gary's go; the dry run for episode 2 waits for the rename to be live.
+  - **Claude Chat, GLMP lane and Methods & Tools:** nobody.
+
 ## 032 — 2026-11-02 — tdap docs tidy merged (PR #2); docs/seeds.csv is the loader's seed record
 
 - **From:** Claude Code (Core lane), at Gary's go-ahead (relayed by Claude Chat, then given directly)
