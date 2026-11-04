@@ -163,6 +163,24 @@ class TestTtsPronunciationHints:
         assert "Girdle" in out
         assert "Klaynee" in out
 
+    def test_eth_and_seth_are_spelled_as_letters_for_tts(self):
+        from content_fixes import apply_tts_pronunciation_hints
+        src = ("That conjecture is known as ETH, the Exponential Time Hypothesis. If ETH is false, then SETH is false too. "
+               "ETH's implications are not made false by ETH failing; SETH's neither.")
+        assert apply_tts_pronunciation_hints(src) == (
+            "That conjecture is known as E-T-H, the Exponential Time Hypothesis. If E-T-H is false, then S-E-T-H is false too. "
+            "E-T-H's implications are not made false by E-T-H failing; S-E-T-H's neither.")
+
+    def test_eth_and_seth_match_only_the_capitals_as_whole_words(self):
+        from content_fixes import apply_tts_pronunciation_hints
+        src = "Ethical choices, Ethereum, the eth sign, Eth, Seth the name, METHOD, TETHER and Hypothesis stay put."
+        assert apply_tts_pronunciation_hints(src) == src
+
+    def test_the_stored_script_keeps_eth_and_seth_for_reading(self):
+        from content_fixes import apply_content_fixes
+        out = apply_content_fixes("HOST: ETH and SETH are hypotheses.", "computer_science")
+        assert "ETH" in out and "SETH" in out and "E-T-H" not in out and "S-E-T-H" not in out
+
     def test_does_not_touch_unrelated_words(self):
         from content_fixes import apply_tts_pronunciation_hints
         src = "Godelian methods and Kleenean algebra stay put."

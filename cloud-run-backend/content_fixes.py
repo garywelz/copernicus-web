@@ -868,13 +868,16 @@ _TTS_PRONUNCIATION_PATTERNS = (
     (re.compile(rf"\bG(?:ö|oe|o)del{_TTS_POSSESSIVE}\b", re.IGNORECASE), "Girdle"),
     # Kleene → "cleanee" / KLAY-nee / ˈkleɪni
     (re.compile(rf"\bKleene{_TTS_POSSESSIVE}\b", re.IGNORECASE), "Klaynee"),
+    # Acronyms spoken as letters (approved by Gary 2026-11-04). Case-sensitive: only the capitals, as whole words, so ordinary words are never touched.
+    (re.compile(rf"\bSETH{_TTS_POSSESSIVE}\b"), "S-E-T-H"),
+    (re.compile(rf"\bETH{_TTS_POSSESSIVE}\b"), "E-T-H"),
 )
 
 
 def apply_tts_pronunciation_hints(text: str) -> str:
     """Respell names ElevenLabs mispronounces. TTS audio only — not transcripts.
 
-    Gödel/Godel/Goedel → Girdle; Kleene → Klaynee. Possessives are kept
+    Gödel/Godel/Goedel → Girdle; Kleene → Klaynee; ETH → E-T-H; SETH → S-E-T-H. Possessives are kept
     (Gödel's → Girdle's). Displayed scripts must still show the original names.
     """
     if not text:
