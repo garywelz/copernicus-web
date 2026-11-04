@@ -176,6 +176,40 @@ class TestTtsPronunciationHints:
         src = "Ethical choices, Ethereum, the eth sign, Eth, Seth the name, METHOD, TETHER and Hypothesis stay put."
         assert apply_tts_pronunciation_hints(src) == src
 
+    def test_sat_forms_are_respelled_for_tts_longest_first(self):
+        from content_fixes import apply_tts_pronunciation_hints
+        src = ("EXPERT: That is the satisfiability problem, SAT for short, and the 3 means at most three switches. "
+               "Anthropic's algorithm is for 3-SAT. k-SAT is the same puzzle with up to k switches. 3-SAT's hardness and SAT's name and k-SAT's definition.")
+        out = apply_tts_pronunciation_hints(src)
+        assert out == ("EXPERT: That is the satisfiability problem, sat for short, and the 3 means at most three switches. "
+                       "Anthropic's algorithm is for three-sat. kay-sat is the same puzzle with up to k switches. "
+                       "three-sat's hardness and sat's name and kay-sat's definition.")
+        assert "3-sat" not in out and "k-sat" not in out and "SAT" not in out          # never half-replaced
+
+    def test_sat_matches_only_the_capitals_as_whole_words(self):
+        from content_fixes import apply_tts_pronunciation_hints
+        src = "Saturday, SATURATED, satisfiability, SATISFIABILITY, Sat, sat, 3-SATS, kSAT, 3SAT and the sat navigation stay put."
+        assert apply_tts_pronunciation_hints(src) == src
+
+    def test_sat_inside_other_hyphenated_names_is_respelled_too(self):
+        # the bare SAT rule is whole-word, and a hyphen is a word boundary: 2-SAT, MAX-SAT and K-SAT (capital K) get "sat" for the SAT part
+        from content_fixes import apply_tts_pronunciation_hints
+        assert apply_tts_pronunciation_hints("2-SAT, MAX-SAT and K-SAT.") == "2-sat, MAX-sat and K-sat."
+
+    def test_episode_two_revision_five_lines_with_sat_forms(self):
+        from content_fixes import apply_tts_pronunciation_hints
+        line = ('That is the satisfiability problem, SAT for short, and the 3 means each condition involves at most three switches. '
+                'Their 2001 journal paper is called "On the Complexity of k-SAT". k-SAT is the same puzzle with up to k switches per condition. '
+                'In that paper, they proposed that for k-SAT whenever k is three or more, including 3-SAT, the running time must grow. ETH is known.')
+        out = apply_tts_pronunciation_hints(line)
+        assert out.count("kay-sat") == 3 and out.count("three-sat") == 1 and out.count("sat for short") == 1 and "E-T-H is known" in out
+        assert "k-SAT" not in out and "3-SAT" not in out
+
+    def test_the_stored_script_keeps_the_sat_forms_for_reading(self):
+        from content_fixes import apply_content_fixes
+        out = apply_content_fixes("HOST: 3-SAT, k-SAT and SAT are puzzles.", "computer_science")
+        assert "3-SAT" in out and "k-SAT" in out and "SAT" in out and "three-sat" not in out and "kay-sat" not in out
+
     def test_the_stored_script_keeps_eth_and_seth_for_reading(self):
         from content_fixes import apply_content_fixes
         out = apply_content_fixes("HOST: ETH and SETH are hypotheses.", "computer_science")
