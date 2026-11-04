@@ -27,6 +27,9 @@ class PodcastRequest(BaseModel):
     paradigm_shift_analysis: bool = True
     source_links: Optional[List[str]] = None
     additional_instructions: Optional[str] = None
+    # Curated mode only: the words the series thumbnail draws, instead of the episode title (the title whole, no colon split). Ignored elsewhere.
+    thumbnail_title: Optional[str] = None
+    thumbnail_subtitle: Optional[str] = None
 
 
 class ResolvePaperRequest(BaseModel):
