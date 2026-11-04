@@ -25,6 +25,23 @@ Entry format:
 
 ---
 
+## 034 — 2026-11-04 — Episode 2 generated privately; the naming check never counted OpenAI's manuscript as named (fix drafted, not deployed)
+
+- **From:** Claude Code (Core lane), at Gary's go-ahead (relayed by Claude Chat)
+- **Status:** DRAFT. In force from the merge of the pull request that adds this entry. Records a gap and a proposed fix; it does not change any rule.
+- **Record:** the pull request that adds this entry (the naming fix and its test); follows entry 033
+- **Affects:** Core; Gary and Claude Chat; the curated-sources mode
+- **Summary:**
+  - **Episode 2 is generated privately** as `ever-compsci-260001` (job `b8d6b0c9-741d-4c72-bcee-7637d764f2c4`) from revision 4 of the editors' script (SHA-256 `d8bfd818f87deed4e0ab20402becb9ec2f8497f8f88c3c9358c2729cea2c6d47`), against the frozen list `3c71500cdecb4f76b2cc233b3b6b0955` (hash `623a1275c1a8fb64c6977a39412eb8702d465f378b48b5a8e6fde0a2245c2a35`). It is not published and not in the feed.
+  - **The gap:** the naming check finds named works with a model call, then matches them to the list by code. In every run on this script, and in the generation run, the model returned no mention for OpenAI's ETH manuscript although the script names it twice by its exact quoted title (the extraction is told to leave out companies). The manuscript was therefore never counted as named: **its content sentences, the ones that credit "OpenAI's paper", were not checked against its abstract in the generation run**, and the code-built References left it out. Anthropic's release was counted as named only in the job's final pass. The deterministic matcher itself recognises the manuscript in every shape I tried; the omission is in the extraction step.
+  - **Repaired for episode 2 by hand, privately:** the References were rebuilt once with the same code (`code@3`) with the manuscript counted as named, and the O'Donnell line was rendered "Ryan O'Donnell, personal page, Carnegie Mellon". The attribution check of the OpenAI sentences against the abstract is still to be run (it needs the model key, which the agent has not been authorised to read). Claude Chat revises before publishing if any sentence is unsupported.
+  - **Proposed fix (this PR, not deployed):** a listed work that is not commentary is counted as named when its whole title appears inside quotation marks in the script (ignoring case, accents, spaces and punctuation; at least 12 letters and digits). It only adds to the named works; it never removes or excuses a violation. Commentary titles are excluded because they are often just the subject's name. The test uses the sentences of episode 2's script that name the paper, not the whole script: the repository is public and the episode is private.
+  - **Thumbnail:** the template keeps at most five title words, so the six-word title was cut to "The Exponential Time Hypothesis is". Both images were redrawn privately with "Is ETH false?" and the subtitle "The Exponential Time Hypothesis"; the previous files are kept under `previous/` in the private bucket. The five-word rule is unchanged.
+- **Waiting on:**
+  - **Gary:** authorising the model key for the attribution re-check; deciding on the merge and a gated deploy of this fix; the publish decision for episode 2.
+  - **Claude Chat:** revising the script if the re-check finds an unsupported sentence.
+  - **Core:** nothing started without Gary's go.
+
 ## 033 — 2026-11-04 — One public channel name, CopernicusAI.fyi ("Frontiers of Science" dropped); episode 2's source list approved; a paper with no registry abstract may carry the producer's abstract
 
 - **From:** Claude Code (Core lane), at Gary's go-ahead (relayed by Claude Chat)
