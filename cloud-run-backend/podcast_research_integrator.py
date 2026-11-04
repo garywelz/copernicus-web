@@ -17,6 +17,7 @@ from typing import List, Dict, Any, Optional, Set
 from datetime import datetime
 from dataclasses import dataclass, field
 
+from channel import CHANNEL_NAME
 from research_pipeline import ComprehensiveResearchPipeline, ResearchSource
 from enhanced_research_service import EnhancedResearchService, PaperAnalysis
 from paper_processor import analyze_paper_with_gemini, ResearchPaper, AnalyzeOptions, PaperAnalysis as GeminiPaperAnalysis
@@ -564,7 +565,7 @@ research provided above. Focus on:
 
 **DIALOGUE STRUCTURE:**
 
-{host_name.upper()}: Welcome to Copernicus AI: Frontiers of Science. I'm {host_name}, and today 
+{host_name.upper()}: Welcome to {CHANNEL_NAME}. I'm {host_name}, and today 
 we're asking one question: [state the question this episode asks, in your own words, in one or two sentences; do not read the topic title aloud or put it in quotation marks]. {expert_name}, what do the papers reviewed here tell us about it?
 
 {expert_name.upper()}: Thanks {host_name}. [Cites specific paper from research] This research matters 

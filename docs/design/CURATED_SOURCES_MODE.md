@@ -8,7 +8,7 @@
 
 ## 0. In one page
 
-**What it is.** A second generation mode, admin-only, for public-channel episodes ("CopernicusAI · Frontiers of Science") built from **sources Gary chooses** instead of sources the engine discovers. The existing mode (registry-confirmed papers only, naming and attribution checks, relevance gate, three-paper minimum, code-built reference lists) is unchanged; the new mode reuses every one of those checks and adds the things a curated series needs: source classes with labels, per-result status taken from a pinned repository, a path for commentary that sites will not let us fetch, and a review step before anything reaches the feed.
+**What it is.** A second generation mode, admin-only, for public-channel episodes ("CopernicusAI.fyi"; until 2026-11-03 "CopernicusAI · Frontiers of Science") built from **sources Gary chooses** instead of sources the engine discovers. The existing mode (registry-confirmed papers only, naming and attribution checks, relevance gate, three-paper minimum, code-built reference lists) is unchanged; the new mode reuses every one of those checks and adds the things a curated series needs: source classes with labels, per-result status taken from a pinned repository, a path for commentary that sites will not let us fetch, and a review step before anything reaches the feed.
 
 **Decided by Gary (2026-10-29).** Sources can be chosen both ways: Gary pastes links, or names a topic, the engine proposes sources and Gary approves the final list. The ElevenLabs Pro plan's last month (Nov 7 to Dec 7) is the burst month, so the first episode should be possible by about Nov 10. The first series is OpenAI's mathematics release (§8), run order: overview, then ETH, then the rest.
 

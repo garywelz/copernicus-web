@@ -20,7 +20,9 @@ import paper_confirmation as pc
 from reference_sections import compact_line, strip_model_reference_sections, _STOP
 
 BUILT_BY = "code@3"
-CHANNEL = "CopernicusAI · Frontiers of Science"
+from channel import CHANNEL_NAME
+
+CHANNEL = CHANNEL_NAME
 MAX_NON_COMMENTARY_PER_EPISODE = 12      # the ordinary mode's MAX_PAPERS: a longer list is a second episode
 
 CLASS_HEADINGS = {cs.PEER_REVIEWED: "Peer-reviewed papers", cs.PREPRINT: "Preprints (not peer reviewed)",
