@@ -1,4 +1,4 @@
-from channel import CHANNEL_NAME
+from channel import CHANNEL_NAME, CHANNEL_NAME_SPOKEN
 from fastapi import FastAPI, HTTPException, UploadFile, File, Depends, Header, Query
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -839,8 +839,8 @@ Create a compelling {request.duration} research podcast script about "{request.t
 **Focus Areas:** {', '.join(request.focus_areas) if request.focus_areas else 'recent breakthroughs, methodology, implications'}
 
 **CRITICAL SHOW REQUIREMENTS:**
-- The show name is ALWAYS "{CHANNEL_NAME}" - never use any other title
-- HOST must introduce the show as "Welcome to {CHANNEL_NAME}"
+- The show name is ALWAYS "{CHANNEL_NAME_SPOKEN}" - never use any other title
+- HOST must introduce the show as "Welcome to {CHANNEL_NAME_SPOKEN}"
 - All speakers use FIRST NAMES ONLY (e.g., Matilda, Adam, Bill) - NO surnames, titles, or honorifics
 - Speakers are clearly fictional characters, not real people
 
@@ -857,10 +857,10 @@ Create a natural dialogue between HOST, EXPERT, and QUESTIONER that follows this
 **CRITICAL FORMAT REQUIREMENTS - THIS IS MANDATORY:**
 - **MUST** use speaker labels at the beginning of each line: "HOST:", "EXPERT:", "QUESTIONER:"
 - **DO NOT** write in narrative format - write as a conversation between speakers
-- **NEVER** start with "Welcome to {CHANNEL_NAME}" without a speaker label
+- **NEVER** start with "Welcome to {CHANNEL_NAME_SPOKEN}" without a speaker label
 - **NEVER** use phrases like "Matilda explains" or "Adam adds" - use speaker labels instead
 - **EXAMPLE FORMAT:**
-  HOST: Welcome to {CHANNEL_NAME}. Today we're discussing {request.topic}.
+  HOST: Welcome to {CHANNEL_NAME_SPOKEN}. Today we're discussing {request.topic}.
   EXPERT: Thank you for having me. This is a fascinating area of research.
   QUESTIONER: Can you explain what makes this topic so significant?
   HOST: That's a great question. Let's dive into the details.
@@ -869,7 +869,7 @@ Create a natural dialogue between HOST, EXPERT, and QUESTIONER that follows this
 
 **Format Guidelines:**
 - Use "HOST:", "EXPERT:", and "QUESTIONER:" to mark each speaker clearly
-- HOST introduces the topic and guides the conversation for "{CHANNEL_NAME}"
+- HOST introduces the topic and guides the conversation for "{CHANNEL_NAME_SPOKEN}"
 - EXPERT provides technical analysis and research insights about {request.topic}
 - QUESTIONER asks clarifying questions and represents audience curiosity
 - Include evidence-based insights from recent research
