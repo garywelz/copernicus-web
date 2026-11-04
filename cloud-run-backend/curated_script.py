@@ -28,6 +28,7 @@ from dataclasses import dataclass, field
 from typing import Any, Awaitable, Callable, Dict, List, Optional, Sequence, Tuple
 
 import curated_checks as cc
+from channel import CHANNEL_NAME
 import curated_sources as cs
 from speakable import spoken_source, speakable
 
@@ -337,7 +338,7 @@ def facts_block(run, max_chars: int = 700) -> str:
 
 
 SHOW_RULES = (
-    "You write ONE section of a two-voice radio script for the show \"CopernicusAI · Frontiers of Science\". Speakers: HOST: and EXPERT: only. "
+    "You write ONE section of a two-voice radio script for the show \"" + CHANNEL_NAME + "\". Speakers: HOST: and EXPERT: only. "
     "Every non-empty line starts with HOST: or EXPERT: and is spoken dialogue. Nobody has a first name. Audio only: never mention anything on a screen. "
     "Plain, precise language for a science-literate listener; no promotional wording. The listener is general: never read a formula or symbolic statement aloud, not even spelled out in words; say what the result means. Never write LaTeX or symbols. "
     "Answer with JSON only: {\"dialogue\": \"HOST: ...\\nEXPERT: ...\"}.\n"

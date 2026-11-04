@@ -1,4 +1,4 @@
-"""The series thumbnail ("CopernicusAI · Frontiers of Science", direction C, "split field") drawn with Pillow, for the job to use when an episode has no
+"""The series thumbnail ("CopernicusAI.fyi", direction C, "split field") drawn with Pillow, for the job to use when an episode has no
 subject artwork of its own. The layout, colours and slots are those of docs/design/SERIES_THUMBNAIL.md (and of the SVG generator beside it); only the
 title, the subtitle and the motif change. Pure code: no network, no model, no database.
 
@@ -12,9 +12,11 @@ from typing import List, Sequence, Tuple
 
 from PIL import Image, ImageDraw, ImageFont
 
+from channel import CHANNEL_NAME
+
 INK, WHITE, GOLD = (0x1B, 0x2A, 0x41), (0xFF, 0xFF, 0xFF), (0xD9, 0xA4, 0x41)
 LINE, BAND = (0xE8, 0xEC, 0xF2), (0x2B, 0x3C, 0x58)
-SERIES_MARK = "CopernicusAI · Frontiers of Science"
+SERIES_MARK = CHANNEL_NAME
 FONT_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "assets", "fonts", "Inter-Variable.ttf")
 MAX_TITLE_WORDS = 5
 MOTIFS = ("lattice",)

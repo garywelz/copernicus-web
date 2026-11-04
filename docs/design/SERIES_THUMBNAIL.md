@@ -1,4 +1,4 @@
-# Series thumbnail: CopernicusAI · Frontiers of Science
+# Series thumbnail: CopernicusAI.fyi
 
 **Status:** DRAFT, for Gary's review. Direction C ("split field") chosen 2026-11-02. First use: episode 1 (`ever-math-260015`).
 
@@ -19,7 +19,7 @@ Run: `python make_thumbnail.py --font Inter.ttf --out DIR --slug EPISODE_ID --ti
 - **Font: Inter** (SIL Open Font License 1.1; https://github.com/google/fonts/tree/main/ofl/inter, the variable file). The font file is not stored in this repository; the generator turns text into outlines, so no font is needed to view the SVGs.
 - **Title:** Inter ExtraBold (wght 800), tracking -1%. Line 1 (a number or one short word) at 176 px; later lines at 116 px. **At most 5 words in all, in at most 3 lines.** Colour: ink.
 - **Subtitle:** Inter Medium (wght 500), 32 px, ink at 80% opacity. One short line, sentence case, no full stop.
-- **Series mark:** Inter Medium, 25 px, tracking +10%, ink. Always the exact text `CopernicusAI · Frontiers of Science`, always top-left.
+- **Series mark:** Inter Medium, 25 px, tracking +10%, ink. Always the exact text `CopernicusAI.fyi` (the channel name; `cloud-run-backend/channel.py`), always top-left. (Until 2026-11-03 the mark read `CopernicusAI · Frontiers of Science`; the name was dropped because it collides with the existing podcast title "Copernicus AI: Frontiers of Research".)
 
 ## Colours (three, no more)
 

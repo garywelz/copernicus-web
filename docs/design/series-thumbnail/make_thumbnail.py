@@ -1,4 +1,4 @@
-"""CopernicusAI · Frontiers of Science: series thumbnail generator (direction C, "split field").
+"""CopernicusAI.fyi: series thumbnail generator (direction C, "split field").
 
 Only the title, the subtitle and the motif change from one episode to the next; everything else (colours, grid, type, safe areas) is fixed here and
 described in docs/design/SERIES_THUMBNAIL.md. The text is written as outlines (paths), so the output SVG does not depend on an installed font.
@@ -20,7 +20,7 @@ from fontTools.varLib import instancer
 
 INK, WHITE, GOLD = "#1B2A41", "#FFFFFF", "#D9A441"        # the whole palette: two neutrals and one accent
 LINE, BAND = "#E8ECF2", "#2B3C58"                          # line colour on the dark panel; the inner band's fill (a lifted ink)
-SERIES_MARK = "CopernicusAI · Frontiers of Science"
+SERIES_MARK = "CopernicusAI.fyi"          # the channel name; the same string as cloud-run-backend/channel.py (a test fails if they differ)
 
 # (height fraction along the strip, offset across the inner band): the zeros of the episode 1 motif
 ZEROS = [(0.10, -0.2), (0.22, 0.35), (0.33, -0.5), (0.47, 0.1), (0.60, -0.3), (0.72, 0.5), (0.85, -0.1), (0.94, 0.3)]
