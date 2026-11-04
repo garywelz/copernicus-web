@@ -11,9 +11,9 @@ import series_thumbnail as st
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 OLD = "Frontiers of Science"
 # kept on purpose: append-only history, verbatim data of published episodes, one verbatim sample of a rejected script, two design docs that record the former
-# name, the 2025 archive (excluded above), and this test
+# name (and channel.py itself, whose docstring says why the name changed), the 2025 archive (excluded above), and this test
 HISTORICAL = ("governance/BULLETIN.md", "cloud-run-backend/tests/fixtures/episodes_render.json", "cloud-run-backend/tests/unit/test_script_style.py",
-              "cloud-run-backend/tests/unit/test_channel_name.py", "docs/design/SERIES_THUMBNAIL.md", "docs/design/CURATED_SOURCES_MODE.md")
+              "cloud-run-backend/tests/unit/test_channel_name.py", "docs/design/SERIES_THUMBNAIL.md", "docs/design/CURATED_SOURCES_MODE.md", "cloud-run-backend/channel.py")
 
 
 def test_the_channel_name_is_copernicusai_fyi_and_every_user_of_it_reads_it_from_one_place():
