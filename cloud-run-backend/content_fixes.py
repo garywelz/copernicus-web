@@ -868,16 +868,24 @@ _TTS_PRONUNCIATION_PATTERNS = (
     (re.compile(rf"\bG(?:ö|oe|o)del{_TTS_POSSESSIVE}\b", re.IGNORECASE), "Girdle"),
     # Kleene → "cleanee" / KLAY-nee / ˈkleɪni
     (re.compile(rf"\bKleene{_TTS_POSSESSIVE}\b", re.IGNORECASE), "Klaynee"),
-    # Acronyms spoken as letters (approved by Gary 2026-11-04). Case-sensitive: only the capitals, as whole words, so ordinary words are never touched.
+)
+
+# Acronyms (approved by Gary 2026-11-04). Case-sensitive and whole-word, so ordinary words are never touched, and replaced EXACTLY as written below (the
+# name table above matches the case of what it finds; an all-capitals acronym would turn "sat" back into "SAT"). The longer forms come first so that
+# "3-SAT" and "k-SAT" are never half-replaced by the bare "SAT" (a hyphen is a word boundary). Possessives are kept.
+_TTS_ACRONYM_PATTERNS = (
     (re.compile(rf"\bSETH{_TTS_POSSESSIVE}\b"), "S-E-T-H"),
     (re.compile(rf"\bETH{_TTS_POSSESSIVE}\b"), "E-T-H"),
+    (re.compile(rf"\b3-SAT{_TTS_POSSESSIVE}\b"), "three-sat"),
+    (re.compile(rf"\bk-SAT{_TTS_POSSESSIVE}\b"), "kay-sat"),
+    (re.compile(rf"\bSAT{_TTS_POSSESSIVE}\b"), "sat"),
 )
 
 
 def apply_tts_pronunciation_hints(text: str) -> str:
     """Respell names ElevenLabs mispronounces. TTS audio only — not transcripts.
 
-    Gödel/Godel/Goedel → Girdle; Kleene → Klaynee; ETH → E-T-H; SETH → S-E-T-H. Possessives are kept
+    Gödel/Godel/Goedel → Girdle; Kleene → Klaynee; ETH → E-T-H; SETH → S-E-T-H; 3-SAT → three-sat; k-SAT → kay-sat; SAT → sat. Possessives are kept
     (Gödel's → Girdle's). Displayed scripts must still show the original names.
     """
     if not text:
@@ -903,6 +911,8 @@ def apply_tts_pronunciation_hints(text: str) -> str:
 
     for pattern, alias in _TTS_PRONUNCIATION_PATTERNS:
         text = pattern.sub(lambda m, spoken=alias: _spoken(m, spoken), text)
+    for pattern, alias in _TTS_ACRONYM_PATTERNS:
+        text = pattern.sub(lambda m, spoken=alias: spoken + (m.group(0)[-2:] if m.group(0).endswith(("'s", "’s")) else ""), text)
     return text
 
 
