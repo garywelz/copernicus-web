@@ -452,18 +452,20 @@
                                         </template>
                                         <template x-if="podcast.status === 'completed' && podcast.result">
                                             <div class="flex flex-wrap gap-x-3 gap-y-1 items-center">
-                                                <!-- A private episode's file address is not public, so Listen would 404: Play (a fresh 15-minute link) is the only way to listen -->
+                                                <!-- A private episode's file addresses (audio, transcript, thumbnail, stills) are not public and would 404: none is shown; Play (a fresh 15-minute link) is the only way to listen -->
                                                 <template x-if="!podcast.is_private">
                                                     <a :href="podcast.result.audio_url" target="_blank" rel="noopener noreferrer"
                                                        class="text-blue-600 hover:text-blue-500 text-sm">🎧 Listen</a>
                                                 </template>
-                                                <a :href="podcast.result.transcript_url" target="_blank" rel="noopener noreferrer"
-                                                   class="text-blue-600 hover:text-blue-500 text-sm">📝 Transcript</a>
-                                                <template x-if="podcast.result.thumbnail_url">
+                                                <template x-if="!podcast.is_private">
+                                                    <a :href="podcast.result.transcript_url" target="_blank" rel="noopener noreferrer"
+                                                       class="text-blue-600 hover:text-blue-500 text-sm">📝 Transcript</a>
+                                                </template>
+                                                <template x-if="!podcast.is_private && podcast.result.thumbnail_url">
                                                     <a :href="podcast.result.thumbnail_url" target="_blank" rel="noopener noreferrer"
                                                        class="text-blue-600 hover:text-blue-500 text-sm">🖼️ Thumbnail</a>
                                                 </template>
-                                                <template x-for="(imgUrl, idx) in (podcast.result.episode_images || []).filter(Boolean)" :key="imgUrl + '-' + idx">
+                                                <template x-for="(imgUrl, idx) in (podcast.is_private ? [] : (podcast.result.episode_images || [])).filter(Boolean)" :key="imgUrl + '-' + idx">
                                                     <a :href="imgUrl" target="_blank" rel="noopener noreferrer"
                                                        class="text-blue-600 hover:text-blue-500 text-sm">
                                                         🎬 Still <span x-text="idx + 1"></span>

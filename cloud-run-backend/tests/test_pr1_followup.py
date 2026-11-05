@@ -143,12 +143,23 @@ def test_a_new_job_record_carries_no_signed_link(monkeypatch):
 
 
 # ---- 1 + 3b. the owner dashboard ---------------------------------------------------------------------------------------------------------------
-def test_dashboard_hides_listen_for_a_private_episode_and_keeps_it_for_a_public_one():
+def test_dashboard_hides_every_file_link_for_a_private_episode_and_keeps_them_for_a_public_one():
     html = read(ROOT / "public" / "subscriber-dashboard.html")
-    i = html.index("🎧 Listen")
-    window = html[html.rfind("<template", 0, i - 200):i]
-    assert 'x-if="!podcast.is_private"' in window                                    # the Listen link sits inside the "not private" template
-    assert html.count("🎧 Listen") == 1 and 'x-if="privateAccessEnabled && podcast.is_private"' in html          # Play is the owner's way to listen
+    # each link's own wrapper: the nearest <template ...> opening before the link is the "not private" one (the thumbnail also needs its address)
+    for label, wrapper in (("🎧 Listen", 'x-if="!podcast.is_private"'), ("📝 Transcript", 'x-if="!podcast.is_private"'),
+                           ("🖼️ Thumbnail", 'x-if="!podcast.is_private && podcast.result.thumbnail_url"')):
+        assert html.count(label) == 1, label
+        i = html.index(label)
+        nearest = html[html.rfind("<template", 0, i):i]
+        assert wrapper in nearest.splitlines()[0], (label, nearest[:120])
+    # the stills list is empty for a private episode and is the stored list otherwise
+    assert "(podcast.is_private ? [] : (podcast.result.episode_images || [])).filter(Boolean)" in html and html.count("🎬 Still") == 1
+    # no file link is left outside those wrappers: every href to a result address sits after one of the four guards
+    for field in ("audio_url", "transcript_url", "thumbnail_url"):
+        for m in re.finditer(r'<a :href="podcast\.result\.%s"' % field, html):
+            before = html[max(0, m.start() - 400):m.start()]
+            assert "is_private" in before, field
+    assert 'x-if="privateAccessEnabled && podcast.is_private"' in html          # Play is the owner's way to listen
 
 
 def test_no_owner_facing_page_promises_posting_to_the_feed():
