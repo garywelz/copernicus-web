@@ -104,6 +104,7 @@ from config.constants import (
     DEFAULT_ARTWORK_URL,
 )
 from config.database import db
+from utils.generation_quota import refund_failed_job
 from services.episode_service import episode_service
 from services.canonical_service import canonical_service
 from utils.script_validation import (validate_script_length, calculate_minimum_words_for_duration, calculate_maximum_words_for_duration,
@@ -2436,6 +2437,7 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
                                    else RESEARCH_FAILURE_TYPES.get(type(e).__name__, 'insufficient_research')),
                     'updated_at': datetime.utcnow().isoformat()
                 })
+                refund_failed_job(db, job_id)   # research failed before any text-to-speech: give the quota unit back
                 
                 # Send failure email (C8). The call that used to be here was to send_podcast_ready_email, which EmailService
                 # does not have: it raised AttributeError inside this handler and the job ended up recording that error
@@ -2898,6 +2900,7 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
                 'error': str(e),
                 'updated_at': datetime.utcnow().isoformat()
             })
+            refund_failed_job(db, job_id)   # refunded only if no text-to-speech request was sent and no result exists (utils/generation_quota.py)
             structured_logger.error("Podcast generation failed",
                                    job_id=job_id,
                                    error=str(e),

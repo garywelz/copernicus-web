@@ -7,6 +7,7 @@ from datetime import datetime
 
 from utils.logging import structured_logger
 from utils.auth import authorize_generation
+from utils.generation_quota import quota_stamp, refund_failed_job, refund_unstarted
 from config.database import db
 from utils.subscriber_helpers import resolve_generation_subscriber_id
 from models.podcast import PodcastRequest, ResolvePaperRequest, GeneratePodcastFromPaperRequest
@@ -42,7 +43,7 @@ async def generate_podcast(
     x_subscriber_token: Optional[str] = Header(None, alias="X-Subscriber-Token"),
 ):
     """Generate a new podcast episode"""
-    authorize_generation(subscriber_id_param, x_admin_api_key, x_subscriber_token)
+    auth = authorize_generation(subscriber_id_param, x_admin_api_key, x_subscriber_token)
     job_id = str(uuid.uuid4())
 
     # Enhanced logging for research-driven requests
@@ -66,6 +67,7 @@ async def generate_podcast(
         'request': request.model_dump(),
         'subscriber_id': subscriber_id,
         'submitted_to_rss': False,
+        **quota_stamp(auth),   # lets a failure before any text-to-speech give the unit back (PR 1)
     }
 
     try:
@@ -80,6 +82,7 @@ async def generate_podcast(
                 'podcasts_generated': subscriber_data.get('podcasts_generated', 0) + 1
             })
     except Exception as e:
+        refund_unstarted(db, auth)   # counted, but no job was created: nothing was used
         raise HTTPException(status_code=500, detail=f"Failed to create job in Firestore: {e}")
     
     # Run podcast generation synchronously (not as background task)
@@ -121,6 +124,7 @@ async def generate_podcast(
             'error': str(e),
             'updated_at': datetime.utcnow().isoformat()
         })
+        refund_failed_job(db, job_id)
         
         raise HTTPException(status_code=500, detail=f"Podcast generation failed: {str(e)}")
 
@@ -133,7 +137,7 @@ async def generate_podcast_with_subscriber(
     x_subscriber_token: Optional[str] = Header(None, alias="X-Subscriber-Token"),
 ):
     """Generate podcast with optional subscriber association"""
-    authorize_generation(subscriber_id, x_admin_api_key, x_subscriber_token)
+    auth = authorize_generation(subscriber_id, x_admin_api_key, x_subscriber_token)
     job_id = str(uuid.uuid4())
     
     # Enhanced logging for research-driven requests
@@ -159,6 +163,7 @@ async def generate_podcast_with_subscriber(
         'request': request.model_dump(),
         'subscriber_id': subscriber_id,  # Associate with subscriber
         'submitted_to_rss': False,  # Default to not submitted
+        **quota_stamp(auth),
     }
     
     try:
@@ -181,6 +186,7 @@ async def generate_podcast_with_subscriber(
                                      new_count=new_count)
         
     except Exception as e:
+        refund_unstarted(db, auth)   # counted, but no job was created: nothing was used
         raise HTTPException(status_code=500, detail=f"Failed to create job in Firestore: {e}")
     
     # Run the same podcast generation logic as the original endpoint
@@ -222,6 +228,7 @@ async def generate_podcast_with_subscriber(
             'error': str(e),
             'updated_at': datetime.utcnow().isoformat()
         })
+        refund_failed_job(db, job_id)
 
         raise HTTPException(status_code=500, detail=f"Podcast generation failed: {str(e)}")
 
@@ -271,7 +278,7 @@ async def generate_podcast_from_paper(
     `query` that resolves unambiguously as a DOI/PMID/arXiv identifier --
     a free-text query is rejected here on purpose, to avoid ever generating
     an episode about a paper the caller didn't explicitly confirm."""
-    authorize_generation(request.subscriber_id, x_admin_api_key, x_subscriber_token)
+    auth = authorize_generation(request.subscriber_id, x_admin_api_key, x_subscriber_token)
     if not db:
         raise HTTPException(status_code=503, detail="Firestore service is unavailable. Cannot create job.")
 
@@ -355,6 +362,7 @@ async def generate_podcast_from_paper(
         "source_paper_id": paper.get("paper_id"),
         "subscriber_id": subscriber_id,
         "submitted_to_rss": False,
+        **quota_stamp(auth),
     }
 
     try:
@@ -366,6 +374,7 @@ async def generate_podcast_from_paper(
                 "podcasts_generated": subscriber_data.get("podcasts_generated", 0) + 1
             })
     except Exception as e:
+        refund_unstarted(db, auth)   # counted, but no job was created: nothing was used
         raise HTTPException(status_code=500, detail=f"Failed to create job in Firestore: {e}")
 
     try:
@@ -394,4 +403,5 @@ async def generate_podcast_from_paper(
             "error": str(e),
             "updated_at": datetime.utcnow().isoformat(),
         })
+        refund_failed_job(db, job_id)
         raise HTTPException(status_code=500, detail=f"Podcast generation failed: {str(e)}")

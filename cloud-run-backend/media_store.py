@@ -7,12 +7,15 @@ Publishing calls `promote()`, which copies the episode's files private -> public
 feed. Review of a private episode uses short-lived signed links (`signed_links`). Both bucket names are constants, not environment variables, so a
 deploy still changes only the image.
 """
-from datetime import timedelta
+from datetime import datetime, timedelta, timezone
 from typing import Any, Dict, List, Optional
 
 PUBLIC_BUCKET = "regal-scholar-453620-r7-podcast-storage"
 PRIVATE_BUCKET = "regal-scholar-453620-r7-private-media"
 MAX_SIGNED_DAYS = 7  # the V4 signing maximum
+OWNER_LINK_DEFAULT_MINUTES = 15   # design Q2 (2026-10-20): short-lived, minted per play
+OWNER_LINK_MAX_MINUTES = 60
+OWNER_LINK_PREFIXES = ("audio/", "thumbnails/", "episode-images/")   # what an owner may open: the audio and the artwork, nothing else
 
 
 class MediaError(RuntimeError):
@@ -137,3 +140,57 @@ def signed_audio_link(episode_id: str, days: int = MAX_SIGNED_DAYS, client: Any 
     if c.bucket(PRIVATE_BUCKET).get_blob(name) is None:
         return None
     return signed_url(PRIVATE_BUCKET, name, timedelta(days=days), c, signer)
+
+
+def _now() -> datetime:
+    """The clock the owner-link expiry is computed from (a function so a test can replace it; no test waits)."""
+    return datetime.now(timezone.utc)
+
+
+def owner_media_links(episode_id: str, minutes: int = OWNER_LINK_DEFAULT_MINUTES, client: Any = None, signer: Any = None, now: Any = None) -> Dict[str, Any]:
+    """Short-lived links for the OWNER of an episode: signed links to the audio and artwork files in the private bucket (15 minutes by default, 60 at most).
+
+    Files already in the public bucket are returned as their public addresses (an owner may open them, so they need no signing). Transcripts, scratch segments,
+    animation packs and video are not offered. Each call signs afresh: nothing is cached, so the link a page holds is the one it just asked for.
+    A V4 link is a bearer link: whoever holds it can fetch the file until `expires_at`. It cannot be tied to a session (design 7.1)."""
+    minutes = max(1, min(int(minutes), OWNER_LINK_MAX_MINUTES))
+    expires = timedelta(minutes=minutes)
+    stamp = (now or _now)()
+    full = signed_links(episode_id, expires, client, signer)
+    links = {n: u for n, u in full["links"].items() if n.startswith(OWNER_LINK_PREFIXES)}
+    return {"episode_id": episode_id, "media_state": full["media_state"], "minutes": minutes, "expires_in_seconds": minutes * 60,
+            "expires_at": (stamp + expires).isoformat(), "links": links}
+
+
+def link_expired(expires_at: str, now: Any = None) -> bool:
+    """True when a link's `expires_at` (as returned above) is not later than the current time."""
+    return datetime.fromisoformat(expires_at) <= (now or _now)()
+
+
+def unpublish(episode_id: str, client: Any = None, before_delete: Any = None) -> Dict[str, Any]:
+    """Remove an episode's PUBLIC copies, only where an identical private copy exists (same MD5, CRC32C and size). The private copies are never touched.
+
+    Fail closed: if ANY public file has no identical private copy (an older episode whose only copy is the public one), nothing at all is removed and
+    MediaError is raised, because deleting it would destroy the media. `before_delete` (if given) runs after that check passes and before the first delete, so the
+    caller can hide the episode first. Returns the names removed and any that could not be deleted."""
+    c = _client(client)
+    private = c.bucket(PRIVATE_BUCKET)
+    public_blobs = list_objects(PUBLIC_BUCKET, episode_id, c)
+    unsafe = []
+    for blob in public_blobs:
+        twin = private.get_blob(blob.name)
+        if twin is None or not (twin.md5_hash == blob.md5_hash and twin.crc32c == blob.crc32c and twin.size == blob.size):
+            unsafe.append(blob.name)
+    if unsafe:
+        raise MediaError(f"{len(unsafe)} public file(s) have no identical private copy, so nothing was removed (first: {unsafe[0]})")
+    if before_delete is not None:
+        before_delete()
+    removed: List[str] = []
+    failed: List[str] = []
+    for blob in public_blobs:
+        try:
+            blob.delete()
+            removed.append(blob.name)
+        except Exception:
+            failed.append(blob.name)
+    return {"episode_id": episode_id, "removed": removed, "failed": failed}

@@ -251,6 +251,38 @@
             };
         }
 
+        // Owner quota (PR 1): read the current value, then set a whole number 0-200, or "none" for unlimited. The server validates and audits.
+        async function setQuota(subscriberId) {
+            try {
+                const cur = await fetch(`${API_BASE_URL}/api/admin/subscribers/${encodeURIComponent(subscriberId)}/quota`, { headers: getAuthHeaders() });
+                if (!cur.ok) { alert('Could not read the quota (' + cur.status + ')'); return; }
+                const state = await cur.json();
+                const shown = state.monthly_quota === null ? 'unlimited' : state.monthly_quota;
+                const answer = prompt('Monthly generation quota (now ' + shown + ', used this month ' + state.generations_this_month + ').\nEnter a whole number 0-200, or "none" for unlimited:');
+                if (answer === null) return;
+                const value = answer.trim().toLowerCase() === 'none' ? null : Number(answer.trim());
+                const res = await fetch(`${API_BASE_URL}/api/admin/subscribers/${encodeURIComponent(subscriberId)}/quota`, {
+                    method: 'PUT', headers: getAuthHeaders(), body: JSON.stringify({ monthly_quota: value })
+                });
+                const out = await res.json().catch(() => ({}));
+                alert(res.ok ? 'Quota set to ' + (out.monthly_quota === null ? 'unlimited' : out.monthly_quota) : 'Not changed: ' + (out.detail || res.status));
+            } catch (e) { alert('Not changed: ' + e.message); }
+        }
+
+        // Unpublish (PR 1): return a public episode to private. Needs a reason, kept in the audit record. The podcast feed is not touched.
+        async function unpublishEpisode(episodeId, title) {
+            const reason = prompt('Unpublish "' + title + '" (return it to private; the feed is not touched).\nReason (kept in the audit record):');
+            if (reason === null) return;
+            if (reason.trim().length < 3) { alert('A reason of at least 3 characters is required.'); return; }
+            try {
+                const res = await fetch(`${API_BASE_URL}/api/admin/episodes/${encodeURIComponent(episodeId)}/unpublish`, {
+                    method: 'POST', headers: getAuthHeaders(), body: JSON.stringify({ reason: reason.trim() })
+                });
+                const out = await res.json().catch(() => ({}));
+                alert(res.ok ? (out.already_private ? 'Already private; nothing changed.' : 'Unpublished. ' + out.files_removed + ' public file(s) removed; private copies and the feed untouched.') : 'Not unpublished: ' + (out.detail || res.status));
+            } catch (e) { alert('Not unpublished: ' + e.message); }
+        }
+
         // Tab Management
         function switchTab(tab) {
             currentTab = tab;
@@ -344,6 +376,10 @@
                                 class="text-blue-600 hover:text-blue-900 font-medium mr-4">
                             📋 View Podcasts
                         </button>
+                        <button onclick="setQuota('${subscriber.subscriber_id}')" 
+                                class="text-purple-600 hover:text-purple-900 font-medium mr-4">
+                            🎚️ Quota
+                        </button>
                         <button onclick="deleteSubscriber('${subscriber.subscriber_id}', '${(subscriber.email || 'User').replace(/'/g, "\\'")}')" 
                                 class="text-red-600 hover:text-red-900 font-medium">
                             🗑️ Delete
@@ -405,6 +441,7 @@
                                 </div>
                                 <div class="flex gap-2 ml-4 flex-wrap">
                                     ${submitted ? `<button onclick="removeFromRss('${podcastId}', '${title.replace(/'/g, "\\'")}', this)" class="text-orange-600 hover:text-orange-900 text-sm font-medium">Remove from RSS</button>` : `<button onclick="addToRss('${podcastId}', '${title.replace(/'/g, "\\'")}', this)" class="text-green-600 hover:text-green-900 text-sm font-medium">Add to RSS</button>`}
+                                    <button onclick="unpublishEpisode('${podcastId}', '${title.replace(/'/g, "\\'").replace(/"/g, '&quot;')}')" class="text-amber-600 hover:text-amber-900 text-sm font-medium">↩️ Unpublish</button>
                                     <button onclick="deletePodcast('${podcastId}', '${title.replace(/'/g, "\\'")}', this)" class="text-red-600 hover:text-red-900 text-sm font-medium">🗑️ Delete</button>
                                 </div>
                             </div>
@@ -709,6 +746,7 @@
                     <td class="px-6 py-4 whitespace-nowrap text-sm">
                         <div class="flex gap-1 flex-wrap">
                             ${submitted ? `<button onclick="removeFromRss('${podcastId}', '${title.replace(/'/g, "\\'").replace(/"/g, '&quot;')}', this)" class="text-orange-600 hover:text-orange-900 font-medium text-xs">Remove RSS</button>` : `<button onclick="addToRss('${podcastId}', '${title.replace(/'/g, "\\'").replace(/"/g, '&quot;')}', this)" class="text-green-600 hover:text-green-900 font-medium text-xs">Add RSS</button>`}
+                            <button onclick="unpublishEpisode('${podcastId}', '${title.replace(/'/g, "\\'").replace(/"/g, '&quot;')}')" class="text-amber-600 hover:text-amber-900 font-medium text-xs">↩️ Unpublish</button>
                             <button onclick="deletePodcast('${podcastId}', '${title.replace(/'/g, "\\'").replace(/"/g, '&quot;')}', this)" class="text-red-600 hover:text-red-900 font-medium text-xs">🗑️ Delete</button>
                         </div>
                     </td>

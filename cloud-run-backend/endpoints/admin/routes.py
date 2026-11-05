@@ -7,7 +7,7 @@ Handles all admin-related API endpoints including:
 - Episode management
 """
 
-from fastapi import APIRouter, HTTPException, Depends, Query
+from fastapi import APIRouter, HTTPException, Depends, Query, Request, Header
 from pydantic import BaseModel, Field
 from typing import Optional, List, Dict, Any
 from datetime import datetime
@@ -118,28 +118,45 @@ async def admin_get_subscriber_podcasts(
 
 @router.post("/api/admin/podcasts/fix-missing-titles")
 async def fix_missing_titles(
-    subscriber_email: Optional[str] = Query(None),
-    admin_auth: bool = Depends(verify_admin_api_key)
+    request: Request,
+    subscriber_id: Optional[str] = Query(None),
+    x_admin_api_key: Optional[str] = Header(None, alias="X-Admin-API-Key"),
+    x_subscriber_token: Optional[str] = Header(None, alias="X-Subscriber-Token"),
 ):
-    """Fix missing titles for podcasts"""
+    """Fix missing titles for podcasts.
+
+    Who is fixed comes from the credential, never from an email address in the URL (onboarding PR 1): the admin key may name a `subscriber_id` (the
+    opaque id, not an address) or omit it to fix every job; a subscriber session token may fix only that subscriber's own jobs, and `subscriber_id` must be
+    the token's owner. An email-shaped value, or the old `subscriber_email` parameter, is refused with 400 before anything is read."""
+    if "subscriber_email" in request.query_params or (subscriber_id and "@" in subscriber_id):
+        raise HTTPException(status_code=400, detail="Email addresses are not accepted in the URL; use subscriber_id")
+    from utils.auth import _admin_key_matches
+    if _admin_key_matches(x_admin_api_key):
+        scope_id = subscriber_id
+    else:
+        from utils.subscriber_helpers import verify_session_token
+        if not subscriber_id or not x_subscriber_token:
+            raise HTTPException(status_code=401, detail="Admin key, or a subscriber_id with a valid X-Subscriber-Token, required")
+        if not db:
+            raise HTTPException(status_code=503, detail="Firestore service is unavailable")
+        sub = db.collection('subscribers').document(subscriber_id).get()
+        if not sub.exists or not verify_session_token(sub.to_dict() or {}, x_subscriber_token):
+            raise HTTPException(status_code=401, detail="Missing or invalid session token")
+        scope_id = subscriber_id
     if not db:
         raise HTTPException(status_code=503, detail="Firestore service is unavailable")
-    
+
     try:
-        from utils.subscriber_helpers import generate_subscriber_id
-        
         fixed_count = 0
-        
-        if subscriber_email:
-            subscriber_id = generate_subscriber_id(subscriber_email)
-            jobs = db.collection('podcast_jobs').where('subscriber_id', '==', subscriber_id).stream()
+        if scope_id:
+            jobs = db.collection('podcast_jobs').where('subscriber_id', '==', scope_id).stream()
         else:
             jobs = db.collection('podcast_jobs').stream()
-        
+
         for job_doc in jobs:
             job_data = job_doc.to_dict() or {}
             result = job_data.get('result', {})
-            
+
             # Fix title if missing
             if not result.get('title'):
                 topic = job_data.get('request', {}).get('topic', 'Untitled')
@@ -147,9 +164,9 @@ async def fix_missing_titles(
                 job_data['result'] = result
                 job_doc.reference.update({'result': result})
                 fixed_count += 1
-        
+
         return {"fixed_count": fixed_count, "message": f"Fixed {fixed_count} missing titles"}
-        
+
     except Exception as e:
         structured_logger.error("Error fixing titles", error=str(e))
         raise HTTPException(status_code=500, detail="Failed to fix titles")
@@ -409,3 +426,79 @@ async def publish_episode_to_site(episode_id: str, admin_auth: bool = Depends(ve
         await asyncio.to_thread(media_store.demote, promotion.get("objects", []))
         raise
     return {"episode_id": episode_id, "visible_on_web": True, "promoted_files": promotion.get("promoted", 0), "already_public": promotion.get("already_public", False)}
+
+
+class UnpublishRequest(BaseModel):
+    reason: str = Field(..., min_length=3, max_length=500)   # why; kept in the audit record
+
+
+@router.post("/api/admin/episodes/{episode_id}/unpublish")
+async def unpublish_episode(episode_id: str, body: UnpublishRequest, admin_auth: bool = Depends(verify_admin_api_key)):
+    """Return a PUBLIC episode to private: the inverse of `publish-site` and the only way an episode goes back (an owner cannot).
+
+    Order: (1) refuse if the episode is in the podcast feed (the feed is a separate, editor-controlled step and is not touched here) or if any public
+    file has no identical private copy (removing it would destroy the media); (2) clear visible_on_web; (3) remove the public copies; (4) write the audit
+    record (episode, actor, time, reason, files removed). The private copies and the feed are never touched. Safe to run again after a partial failure."""
+    if not db:
+        raise HTTPException(status_code=503, detail="Firestore service is unavailable")
+    from utils.owner_access import write_audit
+    ref = db.collection(EPISODE_COLLECTION_NAME).document(episode_id)
+    snap = ref.get()
+    if not snap.exists:
+        raise HTTPException(status_code=404, detail="Episode not found")
+    record = snap.to_dict() or {}
+    if record.get("submitted_to_rss"):
+        raise HTTPException(status_code=409, detail="The episode is in the podcast feed. Remove it from the feed first (an editor step); unpublish does not touch the feed")
+
+    was_visible = bool(record.get("visible_on_web"))
+
+    def _flip_record():
+        if not was_visible:
+            return      # already private: leave the record alone
+        ref.set({"visible_on_web": False, "visibility": "private", "media_state": "private", "unpublished_at": datetime.utcnow().isoformat(),
+                 "updated_at": datetime.utcnow().isoformat()}, merge=True)
+
+    try:
+        result = await asyncio.to_thread(media_store.unpublish, episode_id, None, _flip_record)
+    except media_store.MediaError as e:
+        structured_logger.error("Unpublish refused; nothing changed", episode_id=episode_id, error_type=type(e).__name__)
+        raise HTTPException(status_code=409, detail=str(e))
+    if not was_visible and not result["removed"] and not result["failed"]:
+        return {"episode_id": episode_id, "visible_on_web": False, "already_private": True, "files_removed": 0, "private_copies_untouched": True, "feed_untouched": True}
+    write_audit(db, "unpublish", episode_id, "admin-key", reason=body.reason, files_removed=len(result["removed"]), files_failed=len(result["failed"]))
+    if result["failed"]:
+        raise HTTPException(status_code=500, detail=f"The episode is hidden, but {len(result['failed'])} public file(s) could not be removed; run unpublish again")
+    return {"episode_id": episode_id, "visible_on_web": False, "files_removed": len(result["removed"]), "private_copies_untouched": True, "feed_untouched": True}
+
+
+class QuotaRequest(BaseModel):
+    monthly_quota: Optional[Any] = Field(...)   # required; an integer 0..200, or null for unlimited
+
+
+@router.get("/api/admin/subscribers/{subscriber_id}/quota")
+async def get_subscriber_quota(subscriber_id: str, admin_auth: bool = Depends(verify_admin_api_key)):
+    if not db:
+        raise HTTPException(status_code=503, detail="Firestore service is unavailable")
+    from utils.generation_quota import read_quota
+    state = read_quota(db, subscriber_id)
+    if state is None:
+        raise HTTPException(status_code=404, detail="Subscriber not found")
+    return state
+
+
+@router.put("/api/admin/subscribers/{subscriber_id}/quota")
+async def set_subscriber_quota(subscriber_id: str, body: QuotaRequest, admin_auth: bool = Depends(verify_admin_api_key)):
+    """Set a subscriber's monthly generation quota: an integer 0..200, or null for unlimited. Audited. Does not change can_generate or the month's count."""
+    if not db:
+        raise HTTPException(status_code=503, detail="Firestore service is unavailable")
+    from utils.generation_quota import set_quota, validate_quota_value
+    from utils.owner_access import write_audit
+    try:
+        value = validate_quota_value(body.monthly_quota)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    changed = set_quota(db, subscriber_id, value)
+    if changed is None:
+        raise HTTPException(status_code=404, detail="Subscriber not found")
+    write_audit(db, "quota_set", None, "admin-key", subscriber_id=subscriber_id, previous=changed["previous"], current=changed["current"])
+    return {"subscriber_id": subscriber_id, "monthly_quota": value, "previous": changed["previous"]}

@@ -403,6 +403,7 @@ async def get_subscriber_podcasts(subscriber_id: str, auth: dict = Depends(requi
                     podcasts_by_id[canonical].update({
                         'title': final_title,
                         'submitted_to_rss': episode_data.get('submitted_to_rss', podcasts_by_id[canonical].get('submitted_to_rss', False)),
+                        'visible_on_web': bool(episode_data.get('visible_on_web', False)),
                         'audio_url': episode_data.get('audio_url') or result_obj.get('audio_url'),
                         'thumbnail_url': episode_data.get('thumbnail_url') or result_obj.get('thumbnail_url'),
                         'result': result_obj,  # Ensure result object has all URLs for frontend
@@ -437,6 +438,7 @@ async def get_subscriber_podcasts(subscriber_id: str, auth: dict = Depends(requi
                         'category': episode_data.get('category', ''),
                         'subscriber_id': subscriber_id,
                         'submitted_to_rss': episode_data.get('submitted_to_rss', False),
+                        'visible_on_web': bool(episode_data.get('visible_on_web', False)),
                         'created_at': episode_timestamp,  # Use episode timestamp for accurate sorting
                         'audio_url': episode_data.get('audio_url'),
                         'thumbnail_url': episode_data.get('thumbnail_url'),
@@ -481,6 +483,13 @@ async def get_subscriber_podcasts(subscriber_id: str, auth: dict = Depends(requi
             return str(timestamp)
         
         podcasts_list.sort(key=get_sort_key, reverse=True)
+
+        # Mark each episode private or public (the record already knows): public means in the feed or on the site, the one rule in utils/episode_access.py
+        from utils.episode_access import is_public_episode
+        from utils.owner_access import private_access_enabled
+        for p in podcasts_list:
+            p['is_public'] = is_public_episode(p)
+            p['is_private'] = 'visible_on_web' in p and not p['is_public']   # only an episode that exists (has a record) can be private
         
         # Log first few podcasts for debugging
         if podcasts_list:
@@ -496,7 +505,8 @@ async def get_subscriber_podcasts(subscriber_id: str, auth: dict = Depends(requi
         return {
             "subscriber_id": subscriber_id,
             "podcasts": podcasts_list,
-            "total_count": len(podcasts_list)
+            "total_count": len(podcasts_list),
+            "private_access_enabled": private_access_enabled(db, subscriber_id),   # the dashboard shows Play / Make public only when true
         }
         
     except Exception as e:

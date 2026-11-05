@@ -447,6 +447,9 @@
                                                       'bg-yellow-100 text-yellow-800'"
                                               x-text="podcast.status"></span>
                                         
+                                        <template x-if="privateAccessEnabled && podcast.is_private && podcast.playUrl">
+                                            <audio controls autoplay :src="podcast.playUrl" class="mt-2 w-full max-w-md"></audio>
+                                        </template>
                                         <template x-if="podcast.status === 'completed' && podcast.result">
                                             <div class="flex flex-wrap gap-x-3 gap-y-1 items-center">
                                                 <a :href="podcast.result.audio_url" target="_blank" rel="noopener noreferrer"
@@ -471,6 +474,19 @@
                                 <div class="ml-4">
                                     <template x-if="podcast.status === 'completed'">
                                         <div class="flex flex-col space-y-2">
+                                            <template x-if="privateAccessEnabled && podcast.is_private">
+                                                <div class="flex flex-col space-y-2">
+                                                    <span class="px-3 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-700 text-center">🔒 Private</span>
+                                                    <button @click="playPrivate(podcast)"
+                                                            class="px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-700 hover:bg-blue-200 transition duration-200">
+                                                        ▶ Play
+                                                    </button>
+                                                    <button @click="makePublic(podcast)"
+                                                            class="px-3 py-1 rounded-full text-xs font-medium bg-amber-100 text-amber-800 hover:bg-amber-200 transition duration-200">
+                                                        🌐 Make public
+                                                    </button>
+                                                </div>
+                                            </template>
                                             <button @click="submitToRSS(podcast.podcast_id, !podcast.submitted_to_rss)"
                                                     :class="podcast.submitted_to_rss ? 
                                                            'bg-red-100 text-red-700 hover:bg-red-200' : 
@@ -545,6 +561,7 @@
                 showRegister: false,
                 subscriber: null,
                 podcasts: [],
+                privateAccessEnabled: false,   // true only when the server lists this account for private-episode access (PR 1)
                 message: '',
                 messageType: 'success',
                 podcastPollInterval: null,
@@ -969,6 +986,7 @@
                         
                         if (response.ok) {
                             this.podcasts = data.podcasts || [];
+                            this.privateAccessEnabled = data.private_access_enabled === true;
                             console.log('Loaded podcasts:', this.podcasts.length, 'for subscriber:', this.subscriber.email);
                         } else {
                             console.error('Failed to load podcasts:', data);
@@ -1009,6 +1027,43 @@
                     }
                 },
                 
+                // Private episodes (PR 1). Play asks for a fresh 15-minute signed link every time; nothing is stored. A link is a bearer link: do not share it.
+                async playPrivate(podcast) {
+                    try {
+                        const response = await fetch(`${this.API_BASE_URL}/api/subscribers/episodes/${encodeURIComponent(podcast.podcast_id)}/media-links?minutes=15`, {
+                            headers: this.authHeaders()
+                        });
+                        const data = await response.json().catch(() => ({}));
+                        const audio = response.ok ? Object.entries(data.links || {}).find(([name]) => name.startsWith('audio/')) : null;
+                        if (!audio) { this.showMessage('Could not open this episode right now.', 'error'); return; }
+                        podcast.playUrl = audio[1];
+                    } catch (error) {
+                        this.showMessage('Network error. Please try again.', 'error');
+                    }
+                },
+
+                // Make public is permanent for the owner: only the site administrator can take an episode back. It puts the episode on the website; it does NOT post it to the podcast feed.
+                async makePublic(podcast) {
+                    const ok = confirm('Make this episode public?\n\nThis cannot be undone by you. Once it is public, anyone can listen to it, and copies may be saved by others. Only the site administrator can take it down.\n\nIt will appear on the website. It will not be added to the podcast feed.');
+                    if (!ok) return;
+                    try {
+                        const response = await fetch(`${this.API_BASE_URL}/api/subscribers/episodes/${encodeURIComponent(podcast.podcast_id)}/make-public`, {
+                            method: 'POST',
+                            headers: this.authHeaders({ 'Content-Type': 'application/json' }),
+                            body: JSON.stringify({ confirm_irreversible: true })
+                        });
+                        const data = await response.json().catch(() => ({}));
+                        if (response.ok) {
+                            podcast.is_public = true; podcast.is_private = false; podcast.visible_on_web = true; podcast.playUrl = null;
+                            this.showMessage('The episode is now public on the website.', 'success');
+                        } else {
+                            this.showMessage(data.detail || 'Could not make the episode public.', 'error');
+                        }
+                    } catch (error) {
+                        this.showMessage('Network error. Please try again.', 'error');
+                    }
+                },
+
                 // Delete podcast function
                 async deletePodcast(podcastId) {
                     if (!confirm('Are you sure you want to delete this podcast? This action cannot be undone.')) {
