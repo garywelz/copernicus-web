@@ -34,6 +34,9 @@ class Service:
             ref.update({"status": "completed", "result": {"canonical_filename": f"ep-{job_id[:6]}", "title": "t"}})
         elif self.outcome == "raise":
             raise RuntimeError("generation exploded before any audio")
+        elif self.outcome == "raise_after_mark_only":
+            ref.update({"tts_started_at": "2026-11-05T12:00:00"})            # the mark was written, then the usage record never was
+            raise RuntimeError("audio step failed and the usage write was lost")
         elif self.outcome == "raise_after_tts":
             ref.update({"tts_characters": 1200, "tts_segments": 4})      # what the service stores when text-to-speech requests were sent
             raise RuntimeError("audio step failed after sending text")
@@ -81,6 +84,30 @@ def test_the_limit_applies_on_the_other_two_generate_routes_too(env, monkeypatch
     assert env.client.post("/generate-podcast-from-paper", json={"subscriber_id": SUB, "paper_id": "p"}, headers=HS).status_code == 429
 
 
+def test_a_refund_counts_in_refunds_this_month_and_a_new_month_reads_zero(env):
+    env.set_outcome("raise")
+    for n in (1, 2, 3):
+        generate(env)
+        assert env.db.data["subscribers"][SUB]["refunds_this_month"] == n and used(env) == 0
+        assert gq.read_quota(env.db, SUB)["refunds_this_month"] == n
+    env.db.data["subscribers"][SUB]["refunds_month"] = "2000-01"                        # the stored refunds belong to an earlier month
+    assert gq.read_quota(env.db, SUB)["refunds_this_month"] == 0
+    generate(env)
+    assert env.db.data["subscribers"][SUB]["refunds_this_month"] == 1                   # the new month starts again at one, not four
+    assert env.db.data["subscribers"][SUB]["refunds_month"] == MONTH
+    env.set_outcome("raise_after_tts")
+    generate(env)
+    assert env.db.data["subscribers"][SUB]["refunds_this_month"] == 1                   # a refused refund adds nothing
+
+
+def test_the_refund_count_has_no_cap(env):
+    env.db.data["subscribers"][SUB].update(refunds_this_month=500, refunds_month=MONTH, monthly_quota=1)
+    env.set_outcome("raise")
+    for _ in range(3):
+        assert generate(env).status_code == 500                                         # quota 1: each failure is refunded, so each retry is allowed
+    assert env.db.data["subscribers"][SUB]["refunds_this_month"] == 503
+
+
 def test_a_new_month_resets_the_count_and_unlimited_never_stops(env):
     env.db.data["subscribers"][SUB].update(generations_this_month=10, generation_month="2000-01")
     assert generate(env).status_code == 200 and used(env) == 1
@@ -116,6 +143,20 @@ def test_a_failure_after_text_to_speech_was_sent_is_not_refunded(env):
     assert generate(env).status_code == 500 and used(env) == 1                        # characters were paid for: the unit stays used
     job = next(iter(env.db.data["podcast_jobs"].values()))
     assert "quota_refunded" not in job
+
+
+def test_a_job_with_the_tts_mark_but_no_usage_record_is_not_refunded(env):
+    env.set_outcome("raise_after_mark_only")
+    assert generate(env).status_code == 500 and used(env) == 1                        # the usage write failed, but the mark proves speech may have been requested
+    job = next(iter(env.db.data["podcast_jobs"].values()))
+    assert job["tts_started_at"] and "tts_characters" not in job and "quota_refunded" not in job
+    assert gq.refund_failed_job(env.db, next(iter(env.db.data["podcast_jobs"]))) == (False, "tts_started")
+
+
+def test_a_failure_before_the_mark_is_still_refunded(env):
+    env.set_outcome("raise")
+    assert generate(env).status_code == 500 and used(env) == 0
+    assert "tts_started_at" not in next(iter(env.db.data["podcast_jobs"].values()))
 
 
 def test_ten_failures_that_spent_nothing_never_use_up_the_quota(env):
@@ -204,3 +245,13 @@ def test_the_generation_service_refunds_at_both_places_it_marks_a_job_failed():
     assert len(failed_updates) == 2
     for end in failed_updates:
         assert "refund_failed_job(db, job_id)" in body[end:end + 600]
+
+
+def test_the_service_writes_the_tts_mark_before_the_first_speech_request_and_fails_closed():
+    src = Path(__file__).resolve().parent.parent.joinpath("services", "podcast_generation_service.py").read_text(encoding="utf-8").replace("\r\n", "\n")
+    mark = src.index("job_ref.update({'tts_started_at'")
+    first_request = src.index("generate_multi_voice_audio_with_bumpers(")
+    assert mark < first_request
+    guard = src[mark - 40:first_request]
+    assert "except Exception as mark_error:" in guard and "no speech was requested" in guard and "raise RuntimeError" in guard
+    assert src.count("generate_multi_voice_audio_with_bumpers(") == 1                 # there is no other speech request in the generation run

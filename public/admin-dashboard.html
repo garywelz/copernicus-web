@@ -258,7 +258,7 @@
                 if (!cur.ok) { alert('Could not read the quota (' + cur.status + ')'); return; }
                 const state = await cur.json();
                 const shown = state.monthly_quota === null ? 'unlimited' : state.monthly_quota;
-                const answer = prompt('Monthly generation quota (now ' + shown + ', used this month ' + state.generations_this_month + ').\nEnter a whole number 0-200, or "none" for unlimited:');
+                const answer = prompt('Monthly generation quota (now ' + shown + ', used this month ' + state.generations_this_month + ', refunded this month ' + (state.refunds_this_month || 0) + ').\nEnter a whole number 0-200, or "none" for unlimited:');
                 if (answer === null) return;
                 const value = answer.trim().toLowerCase() === 'none' ? null : Number(answer.trim());
                 const res = await fetch(`${API_BASE_URL}/api/admin/subscribers/${encodeURIComponent(subscriberId)}/quota`, {

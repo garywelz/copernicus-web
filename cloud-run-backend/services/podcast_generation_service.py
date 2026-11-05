@@ -2578,6 +2578,12 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
             # Characters sent to ElevenLabs are counted per request. They are stored on the job whether or not the audio step
             # succeeds (a failed run still used them), and again, with the rest of the record, on success.
             tts_usage = TtsUsage()
+            # Mark the job BEFORE the first speech request. A refund (utils/generation_quota.py) is refused for any job carrying this mark, so even if the
+            # usage record below is never written, a run that may have sent text is never refunded. If the mark cannot be written, no speech is requested.
+            try:
+                job_ref.update({'tts_started_at': datetime.utcnow().isoformat()})
+            except Exception as mark_error:
+                raise RuntimeError("Could not record the start of speech generation; no speech was requested") from mark_error
             try:
                 audio_url = await self.elevenlabs_voice_service.generate_multi_voice_audio_with_bumpers(
                     content["script"],

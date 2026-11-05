@@ -87,7 +87,8 @@ def read_quota(db, subscriber_id: str) -> Optional[Dict[str, Any]]:
     month = current_month_key()
     used = data.get("generations_this_month", 0) if data.get("generation_month") == month else 0
     return {"subscriber_id": subscriber_id, "monthly_quota": data.get("monthly_quota"), "can_generate": bool(data.get("can_generate", False)),
-            "generations_this_month": used, "generation_month": month}
+            "generations_this_month": used, "generation_month": month,
+            "refunds_this_month": data.get("refunds_this_month", 0) if data.get("refunds_month") == month else 0}
 
 
 def set_quota(db, subscriber_id: str, value: Optional[int]) -> Optional[Dict[str, Any]]:
@@ -114,7 +115,8 @@ def _refund_in_transaction(transaction, subscriber_ref, month: str) -> bool:
     count = data.get("generations_this_month", 0)
     if data.get("generation_month") != month or count <= 0:
         return False                      # the count was reset (a new month) or is already zero: nothing to give back
-    transaction.update(subscriber_ref, {"generations_this_month": count - 1})
+    refunds = data.get("refunds_this_month", 0) if data.get("refunds_month") == month else 0
+    transaction.update(subscriber_ref, {"generations_this_month": count - 1, "refunds_this_month": refunds + 1, "refunds_month": month})
     return True
 
 
@@ -132,7 +134,8 @@ def _claim_refund(transaction, job_ref) -> Tuple[bool, str]:
     A refund is SAFE only when ALL of these hold:
       1. the job was metered: it carries quota_counted (stamped when the request was accepted) and the month it was counted in;
       2. the job has failed (status == 'failed');
-      3. no text-to-speech request was ever sent for it (no tts_segments / tts_characters on the job): nothing paid for was used;
+      3. no text-to-speech request was ever sent for it: the job has no tts_started_at mark (written before the first speech request) and no
+         tts_segments / tts_characters (the usage record): nothing paid for was used;
       4. the job produced no result (no audio, no episode);
       5. it has not been refunded already (quota_refunded is absent).
     """
@@ -143,6 +146,8 @@ def _claim_refund(transaction, job_ref) -> Tuple[bool, str]:
         return False, "already_refunded"
     if job.get("status") != "failed":
         return False, "not_failed"
+    if job.get("tts_started_at"):
+        return False, "tts_started"       # the mark is written before the first speech request, so it survives a failed usage write
     if (job.get("tts_segments") or 0) > 0 or (job.get("tts_characters") or 0) > 0:
         return False, "tts_characters_spent"
     if job.get("result"):

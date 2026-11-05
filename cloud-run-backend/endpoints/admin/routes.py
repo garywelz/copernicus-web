@@ -120,29 +120,15 @@ async def admin_get_subscriber_podcasts(
 async def fix_missing_titles(
     request: Request,
     subscriber_id: Optional[str] = Query(None),
-    x_admin_api_key: Optional[str] = Header(None, alias="X-Admin-API-Key"),
-    x_subscriber_token: Optional[str] = Header(None, alias="X-Subscriber-Token"),
+    admin_auth: bool = Depends(verify_admin_api_key),
 ):
-    """Fix missing titles for podcasts.
+    """Fix missing titles for podcasts. Admin key only.
 
-    Who is fixed comes from the credential, never from an email address in the URL (onboarding PR 1): the admin key may name a `subscriber_id` (the
-    opaque id, not an address) or omit it to fix every job; a subscriber session token may fix only that subscriber's own jobs, and `subscriber_id` must be
-    the token's owner. An email-shaped value, or the old `subscriber_email` parameter, is refused with 400 before anything is read."""
+    The admin names a subscriber by the opaque `subscriber_id` (never an email address) or omits it to fix every job (onboarding PR 1). An email-shaped
+    value, or the old `subscriber_email` parameter, is refused with 400 before anything is read."""
     if "subscriber_email" in request.query_params or (subscriber_id and "@" in subscriber_id):
         raise HTTPException(status_code=400, detail="Email addresses are not accepted in the URL; use subscriber_id")
-    from utils.auth import _admin_key_matches
-    if _admin_key_matches(x_admin_api_key):
-        scope_id = subscriber_id
-    else:
-        from utils.subscriber_helpers import verify_session_token
-        if not subscriber_id or not x_subscriber_token:
-            raise HTTPException(status_code=401, detail="Admin key, or a subscriber_id with a valid X-Subscriber-Token, required")
-        if not db:
-            raise HTTPException(status_code=503, detail="Firestore service is unavailable")
-        sub = db.collection('subscribers').document(subscriber_id).get()
-        if not sub.exists or not verify_session_token(sub.to_dict() or {}, x_subscriber_token):
-            raise HTTPException(status_code=401, detail="Missing or invalid session token")
-        scope_id = subscriber_id
+    scope_id = subscriber_id
     if not db:
         raise HTTPException(status_code=503, detail="Firestore service is unavailable")
 

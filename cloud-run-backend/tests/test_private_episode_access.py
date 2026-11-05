@@ -339,20 +339,83 @@ def test_fix_missing_titles_refuses_an_email_in_the_url_before_reading_anything(
     assert "podcast_jobs" not in env.db.collections_read and env.db.data["podcast_jobs"]["j1"]["result"] == {}
 
 
-def test_fix_missing_titles_identifies_the_user_from_the_credential(env):
+def test_fix_missing_titles_is_admin_key_only(env):
     env.db.data["podcast_jobs"] = {"a1": job(A), "b1": job(B)}
     base = "/api/admin/podcasts/fix-missing-titles"
-    # a subscriber fixes only their own jobs, by session
-    assert env.client.post(f"{base}?subscriber_id={A}", headers=HA).json()["fixed_count"] == 1
+    for headers in (HA, HB, {}, {"X-Admin-API-Key": "wrong"}):                     # no subscriber token, own or otherwise, is accepted
+        assert env.client.post(f"{base}?subscriber_id={A}", headers=headers).status_code in (401, 403)
+        assert env.client.post(base, headers=headers).status_code in (401, 403)
+    assert env.client.post(f"{base}?subscriber_id={A}", headers=HA).status_code == 401
+    assert env.db.data["podcast_jobs"]["a1"]["result"] == {} and env.db.data["podcast_jobs"]["b1"]["result"] == {}
+    # the admin key works with an opaque subscriber_id, and without one
+    assert env.client.post(f"{base}?subscriber_id={A}", headers=ADMIN).json()["fixed_count"] == 1
     assert env.db.data["podcast_jobs"]["a1"]["result"]["title"] == f"topic of {A}" and env.db.data["podcast_jobs"]["b1"]["result"] == {}
-    # another subscriber's token proves nothing for A; no credential proves nothing either
-    assert env.client.post(f"{base}?subscriber_id={B}", headers=HA).status_code == 401
-    assert env.client.post(f"{base}?subscriber_id={A}", headers=HB).status_code == 401
-    assert env.client.post(f"{base}?subscriber_id={A}").status_code == 401
-    assert env.client.post(base, headers=HA).status_code == 401                    # a subscriber cannot ask for "everyone"
-    # the admin key may name an id, or omit it
-    assert env.client.post(f"{base}?subscriber_id={B}", headers=ADMIN).json()["fixed_count"] == 1
-    assert env.client.post(base, headers=ADMIN).status_code == 200
+    assert env.client.post(base, headers=ADMIN).json()["fixed_count"] == 1
+    assert env.db.data["podcast_jobs"]["b1"]["result"]["title"] == f"topic of {B}"
+
+
+def test_fix_missing_titles_still_refuses_an_email_for_the_admin_too(env):
+    env.db.data["podcast_jobs"] = {"a1": job(A)}
+    for q in ("subscriber_email=x@example.org", "subscriber_id=x@example.org"):
+        assert env.client.post(f"/api/admin/podcasts/fix-missing-titles?{q}", headers=ADMIN).status_code == 400
+    assert env.db.data["podcast_jobs"]["a1"]["result"] == {}
+
+
+# ---- the feed is editor-only (Q1, Q7) -----------------------------------------------------------------------------------------------------
+@pytest.fixture
+def feed(env, monkeypatch):
+    from unittest.mock import AsyncMock, MagicMock
+    from endpoints.subscriber import routes as sub_routes
+    monkeypatch.setattr(sub_routes, "db", env.db)
+    rss = MagicMock()
+    rss.update_rss_feed = AsyncMock()
+    monkeypatch.setattr(sub_routes, "rss_service", rss)
+    monkeypatch.setattr(sub_routes, "episode_service", MagicMock())
+    env.app.include_router(sub_routes.router)
+    env.db.data["podcast_jobs"] = {"job1": {"subscriber_id": A, "result": {"canonical_filename": EID}, "status": "completed"}}
+    env.rss = rss
+    return env
+
+
+SUBMIT = "/api/subscribers/podcasts/submit-to-rss"
+
+
+@pytest.mark.parametrize("submit", [True, False])
+def test_an_owner_cannot_add_to_or_remove_from_the_feed(feed, submit):
+    before = {k: dict(v) for k, v in feed.db.data["episodes"].items()}
+    jobs_before = {k: dict(v) for k, v in feed.db.data["podcast_jobs"].items()}
+    feed.db.writes.clear()
+    feed.db.collections_read.clear()
+    for pid in ("job1", EID, "no-such-podcast"):
+        for headers in (HA, HB, {}, {"X-Admin-API-Key": "wrong"}):
+            r = feed.client.post(SUBMIT, json={"podcast_id": pid, "submit_to_rss": submit}, headers=headers)
+            assert r.status_code == 403 and r.json() == {"detail": "The podcast feed is managed by the editors."}, (pid, r.text)
+    assert feed.db.writes == [] and feed.db.data["episodes"] == before and feed.db.data["podcast_jobs"] == jobs_before
+    assert feed.db.collections_read == []                                          # the key is checked before any Firestore read
+    feed.rss.update_rss_feed.assert_not_called()
+    assert feed.storage.buckets[ms.PUBLIC_BUCKET].store == {}                      # and nothing was copied public
+
+
+def test_the_admin_key_still_adds_to_and_removes_from_the_feed(feed):
+    r = feed.client.post(SUBMIT, json={"podcast_id": "job1", "submit_to_rss": True}, headers=ADMIN)
+    assert r.status_code == 200 and r.json()["submitted_to_rss"] is True
+    assert feed.rss.update_rss_feed.await_args.args[2] is True
+    assert feed.db.data["podcast_jobs"]["job1"]["submitted_to_rss"] is True
+    assert set(feed.storage.buckets[ms.PUBLIC_BUCKET].store) == set(files(EID))   # the verified copy to the public bucket still happens first
+    r = feed.client.post(SUBMIT, json={"podcast_id": "job1", "submit_to_rss": False}, headers=ADMIN)
+    assert r.status_code == 200 and r.json()["submitted_to_rss"] is False
+    assert feed.rss.update_rss_feed.await_args.args[2] is False
+
+
+def test_the_owner_dashboard_no_longer_has_the_rss_button():
+    html = _page("subscriber-dashboard.html")
+    for gone in ("Post to RSS", "Remove from RSS", "submitToRSS", "submit-to-rss", "submit_to_rss"):
+        assert gone not in html, gone
+
+
+def test_the_admin_dashboard_rss_buttons_are_untouched():
+    html = _page("admin-dashboard.html")
+    assert html.count("/api/admin/podcasts/${podcastId}/rss`") == 2 and "addToRss(" in html and "removeFromRss(" in html
 
 
 # ---- 8. unaffected: admin-generated and curated episodes, the public feed, existing public pages ----------------------------------------------

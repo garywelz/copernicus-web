@@ -487,14 +487,6 @@
                                                     </button>
                                                 </div>
                                             </template>
-                                            <button @click="submitToRSS(podcast.podcast_id, !podcast.submitted_to_rss)"
-                                                    :class="podcast.submitted_to_rss ? 
-                                                           'bg-red-100 text-red-700 hover:bg-red-200' : 
-                                                           'bg-green-100 text-green-700 hover:bg-green-200'"
-                                                    class="px-3 py-1 rounded-full text-xs font-medium transition duration-200">
-                                                <span x-show="!podcast.submitted_to_rss">📡 Post to RSS</span>
-                                                <span x-show="podcast.submitted_to_rss">❌ Remove from RSS</span>
-                                            </button>
                                             <button @click="deletePodcast(podcast.podcast_id)"
                                                     class="px-3 py-1 rounded-full text-xs font-medium bg-red-100 text-red-700 hover:bg-red-200 transition duration-200">
                                                 🗑️ Delete
@@ -997,33 +989,6 @@
                         this.showMessage('Network error loading podcasts', 'error');
                     } finally {
                         this.loadingPodcasts = false;
-                    }
-                },
-                
-                async submitToRSS(podcastId, submit) {
-                    try {
-                        const response = await fetch(`${this.API_BASE_URL}/api/subscribers/podcasts/submit-to-rss`, {
-                            method: 'POST',
-                            headers: this.authHeaders({ 'Content-Type': 'application/json' }),
-                            body: JSON.stringify({ podcast_id: podcastId, submit_to_rss: submit })
-                        });
-                        
-                        const data = await response.json();
-                        
-                        if (response.ok) {
-                            this.showMessage(data.message, 'success');
-                            // Update the podcast in the list
-                            const podcast = this.podcasts.find(p => p.podcast_id === podcastId);
-                            if (podcast) {
-                                podcast.submitted_to_rss = submit;
-                            }
-                            // Refresh subscriber data
-                            this.loadSubscriberProfile();
-                        } else {
-                            this.showMessage(data.detail || 'Failed to update RSS status', 'error');
-                        }
-                    } catch (error) {
-                        this.showMessage('Network error. Please try again.', 'error');
                     }
                 },
                 

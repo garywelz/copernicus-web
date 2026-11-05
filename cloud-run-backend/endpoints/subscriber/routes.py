@@ -522,7 +522,11 @@ async def submit_podcast_to_rss(
     x_admin_api_key: Optional[str] = Header(None, alias="X-Admin-API-Key"),
     x_subscriber_token: Optional[str] = Header(None, alias="X-Subscriber-Token"),
 ):
-    """Submit a podcast to the RSS feed"""
+    """Add a podcast to, or remove it from, the RSS feed. EDITORS ONLY (design Q1/Q7, PR 1): the admin key is checked first, before any Firestore read,
+    so an owner (or anyone else) learns nothing about the episode; the feed is never changed from an owner's session."""
+    from utils.auth import _admin_key_matches
+    if not _admin_key_matches(x_admin_api_key):
+        raise HTTPException(status_code=403, detail="The podcast feed is managed by the editors.")
     if not db:
         raise HTTPException(status_code=503, detail="Firestore service is unavailable")
     
