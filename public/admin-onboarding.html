@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Onboarding invitations (admin)</title>
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="referrer" content="no-referrer">
+    <!-- No third-party script and no inline script or style (design 5.8 and 9). The admin key is read from the browser storage the admin dashboard already uses. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; connect-src https://copernicus-podcast-api-phzp4ie2sq-uc.a.run.app; form-action 'none'; base-uri 'none'">
+    <link rel="stylesheet" href="onboarding/accept.css">
+</head>
+<body>
+<main>
+    <h1>Onboarding invitations</h1>
+    <p class="note"><a href="admin-dashboard.html">Back to the admin dashboard</a></p>
+
+    <fieldset>
+        <legend>Admin key</legend>
+        <p id="keystate" class="note"></p>
+        <label for="adminKey">Admin API key (kept in this browser only, as on the admin dashboard)</label>
+        <input id="adminKey" type="password" autocomplete="off" maxlength="200">
+        <button id="saveKey" type="button">Save key</button>
+    </fieldset>
+
+    <fieldset>
+        <legend>Invite a person to an engine</legend>
+        <p class="note">The invitation carries their permissions. The address is typed once, used to send the email, and never stored: only a hash is kept.</p>
+        <label for="invEngine">Engine id</label>
+        <input id="invEngine" type="text" maxlength="60" placeholder="for example tdap" autocomplete="off">
+        <label for="invEmail">Address (entered once)</label>
+        <input id="invEmail" type="email" maxlength="254" autocomplete="off">
+        <label for="invQuota">Monthly generation quota (blank = unlimited; default 10)</label>
+        <input id="invQuota" type="text" inputmode="numeric" maxlength="3" value="10" autocomplete="off">
+        <label for="invDays">Expires in (days, 1 to 30)</label>
+        <input id="invDays" type="text" inputmode="numeric" maxlength="2" value="7" autocomplete="off">
+        <label class="choice"><input id="invCanGenerate" type="checkbox" checked> Can generate episodes</label>
+        <label class="choice"><input id="invFinalSay" type="checkbox"> Final say for this engine (one person only)</label>
+        <button id="sendInvite" type="button">Send invitation</button>
+    </fieldset>
+
+    <fieldset>
+        <legend>Revoke an invitation</legend>
+        <p class="note">An unused invitation simply stops working. A used one also removes the engine membership and clears the account's generation permission and quota (the account and its episodes stay).</p>
+        <label for="invRevokeId">Invitation id</label>
+        <input id="invRevokeId" type="text" maxlength="64" autocomplete="off">
+        <button id="revokeInvite" type="button">Revoke</button>
+    </fieldset>
+
+    <p id="result" role="status"></p>
+</main>
+<script src="admin-onboarding.js"></script>
+</body>
+</html>

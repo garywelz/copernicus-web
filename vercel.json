@@ -12,6 +12,28 @@
   ],
   "routes": [
     {
+      "src": "/admin-onboarding(.*)",
+      "headers": {
+        "Content-Security-Policy": "default-src 'none'; script-src 'self'; style-src 'self'; connect-src https://copernicus-podcast-api-phzp4ie2sq-uc.a.run.app; form-action 'none'; base-uri 'none'; frame-ancestors 'none'",
+        "X-Robots-Tag": "noindex, nofollow",
+        "Referrer-Policy": "no-referrer",
+        "X-Content-Type-Options": "nosniff",
+        "Cache-Control": "no-store"
+      },
+      "continue": true
+    },
+    {
+      "src": "/onboarding/(.*)",
+      "headers": {
+        "Content-Security-Policy": "default-src 'none'; script-src 'self'; style-src 'self'; connect-src https://copernicus-podcast-api-phzp4ie2sq-uc.a.run.app; form-action 'none'; base-uri 'none'; frame-ancestors 'none'",
+        "X-Robots-Tag": "noindex, nofollow",
+        "Referrer-Policy": "no-referrer",
+        "X-Content-Type-Options": "nosniff",
+        "Cache-Control": "no-store"
+      },
+      "continue": true
+    },
+    {
       "src": "/episodes/(?<episodeId>[^/]+)",
       "dest": "/api/episodes?episodeId=$episodeId"
     },

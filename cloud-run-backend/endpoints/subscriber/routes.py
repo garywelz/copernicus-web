@@ -25,6 +25,7 @@ from utils.credential_tokens import (
 from utils.subscriber_helpers import (
     generate_subscriber_id,
     get_subscriber_by_email,
+    normalise_email,
     verify_password,
     hash_password,
     issue_session_token,
@@ -67,12 +68,15 @@ async def register_subscriber(registration: SubscriberRegistration):
     if not db:
         raise HTTPException(status_code=503, detail="Firestore service is unavailable")
     
+    # Design Q16: a NEW registration stores and hashes the address trimmed and lower-cased; existing accounts keep their ids.
+    typed_email = registration.email
+    registration.email = normalise_email(registration.email)
     subscriber_id = generate_subscriber_id(registration.email)
 
     # An existing account is never modified through this route: no password is written, no field is updated.
     # get_subscriber_by_email also finds accounts stored under the older 16-character ID format.
     try:
-        existing_doc = get_subscriber_by_email(registration.email)
+        existing_doc = get_subscriber_by_email(typed_email)    # finds an account stored under the address as typed or as normalised
     except Exception as e:
         structured_logger.error("Error checking existing subscriber", error=str(e))
         raise HTTPException(status_code=500, detail="Failed to check existing subscriber")

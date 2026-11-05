@@ -214,6 +214,41 @@ class EmailService:
             server.login(self.sender_email, self.sender_password)
             server.send_message(msg)
 
+    async def send_invitation_email(self, recipient_email: str, link: str, valid_days: int) -> bool:
+        """Email a single-use invitation link (onboarding PR 2). Sent from the site's existing sender, signed by the site, not by a named person; plain wording
+        that carries no research content (design Q8). Nothing here writes the recipient address or the link to any log or to stdout."""
+        if not self.sender_password:
+            print("Email password not configured. Invitation email not sent.")
+            return False
+        try:
+            msg = MIMEMultipart("alternative")
+            msg['From'] = formataddr(("CopernicusAI", self.sender_email))
+            msg['To'] = recipient_email
+            msg['Subject'] = "You have been invited to CopernicusAI"
+            text = (
+                "You have been invited to join CopernicusAI.\n\n"
+                f"To accept, open this link. It works once and expires in {valid_days} days:\n\n"
+                f"{link}\n\n"
+                "If you were not expecting this invitation, ignore this email; nothing will happen.\n\n"
+                "CopernicusAI\n"
+            )
+            html = (
+                '<html><body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">'
+                '<div style="max-width: 560px; margin: 0 auto; padding: 20px;">'
+                '<p>You have been invited to join CopernicusAI.</p>'
+                f'<p>To accept, open this link. It works once and expires in {valid_days} days:</p>'
+                f'<p><a href="{link}">{link}</a></p>'
+                '<p>If you were not expecting this invitation, ignore this email; nothing will happen.</p>'
+                '<p>CopernicusAI</p></div></body></html>'
+            )
+            msg.attach(MIMEText(text, 'plain'))
+            msg.attach(MIMEText(html, 'html'))
+            await asyncio.to_thread(self._send_message_blocking, msg)
+            return True
+        except Exception as e:
+            print(f"Invitation email failed: {type(e).__name__}")
+            return False
+
     async def send_credential_link_email(self, recipient_email: str, link: str, valid_minutes: int) -> bool:
         """Email a single-use link that proves control of the mailbox (password reset). Plain wording, no research
         content, signed by the site. Nothing here writes the recipient address or the link to any log or to stdout."""

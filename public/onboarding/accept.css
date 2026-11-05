@@ -1,0 +1,13 @@
+body { font-family: Arial, sans-serif; line-height: 1.6; color: #222; background: #f6f7f9; margin: 0; }
+main { max-width: 640px; margin: 0 auto; padding: 24px 16px 48px; background: #fff; min-height: 100vh; }
+h1 { font-size: 1.6rem; margin-top: 0; }
+label { display: block; margin-top: 14px; font-weight: bold; }
+label.choice { font-weight: normal; margin-top: 6px; }
+input[type="text"], input[type="email"], input[type="password"] { width: 100%; box-sizing: border-box; padding: 8px; margin-top: 4px; font-size: 1rem; }
+fieldset { margin-top: 20px; border: 1px solid #cfd4da; padding: 12px 16px; }
+legend { font-weight: bold; }
+.note { color: #555; font-size: 0.9rem; }
+button { margin-top: 20px; padding: 10px 22px; font-size: 1rem; cursor: pointer; }
+button:disabled { opacity: 0.5; cursor: default; }
+#result.error { color: #a40000; }
+#result.ok { color: #0a6b2d; }
