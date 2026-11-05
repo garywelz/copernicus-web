@@ -222,7 +222,7 @@
                 <p class="text-sm text-gray-600 mb-4">
                     Look up a paper already in the Knowledge Engine, confirm the match, then generate.
                     A DOI, PubMed, or arXiv link is the reliable path. Free-text search can miss a real paper.
-                    The episode is built from the stored abstract, not the full PDF, and stays private until you post it to RSS.
+                    The episode is built from the stored abstract, not the full PDF. It stays private until you make it public.
                 </p>
                 <p x-show="subscriber?.monthly_quota !== null && subscriber?.monthly_quota !== undefined"
                    class="text-xs text-gray-500 mb-4">
@@ -452,15 +452,20 @@
                                         </template>
                                         <template x-if="podcast.status === 'completed' && podcast.result">
                                             <div class="flex flex-wrap gap-x-3 gap-y-1 items-center">
-                                                <a :href="podcast.result.audio_url" target="_blank" rel="noopener noreferrer"
-                                                   class="text-blue-600 hover:text-blue-500 text-sm">🎧 Listen</a>
-                                                <a :href="podcast.result.transcript_url" target="_blank" rel="noopener noreferrer"
-                                                   class="text-blue-600 hover:text-blue-500 text-sm">📝 Transcript</a>
-                                                <template x-if="podcast.result.thumbnail_url">
+                                                <!-- A private episode's file addresses (audio, transcript, thumbnail, stills) are not public and would 404: none is shown; Play (a fresh 15-minute link) is the only way to listen -->
+                                                <template x-if="!podcast.is_private">
+                                                    <a :href="podcast.result.audio_url" target="_blank" rel="noopener noreferrer"
+                                                       class="text-blue-600 hover:text-blue-500 text-sm">🎧 Listen</a>
+                                                </template>
+                                                <template x-if="!podcast.is_private">
+                                                    <a :href="podcast.result.transcript_url" target="_blank" rel="noopener noreferrer"
+                                                       class="text-blue-600 hover:text-blue-500 text-sm">📝 Transcript</a>
+                                                </template>
+                                                <template x-if="!podcast.is_private && podcast.result.thumbnail_url">
                                                     <a :href="podcast.result.thumbnail_url" target="_blank" rel="noopener noreferrer"
                                                        class="text-blue-600 hover:text-blue-500 text-sm">🖼️ Thumbnail</a>
                                                 </template>
-                                                <template x-for="(imgUrl, idx) in (podcast.result.episode_images || []).filter(Boolean)" :key="imgUrl + '-' + idx">
+                                                <template x-for="(imgUrl, idx) in (podcast.is_private ? [] : (podcast.result.episode_images || [])).filter(Boolean)" :key="imgUrl + '-' + idx">
                                                     <a :href="imgUrl" target="_blank" rel="noopener noreferrer"
                                                        class="text-blue-600 hover:text-blue-500 text-sm">
                                                         🎬 Still <span x-text="idx + 1"></span>
@@ -874,7 +879,7 @@
                         const data = await response.json();
                         if (response.ok) {
                             const name = (data.result && data.result.canonical_filename) || data.job_id;
-                            this.showMessage('Episode ready: ' + name + '. It is private until you post it to RSS.', 'success');
+                            this.showMessage('Episode ready: ' + name + '. It stays private until you make it public.', 'success');
                             this.paperForm = { query: '', cited_project: this.paperForm.cited_project || 'glmp' };
                             this.paperMatches = [];
                             this.paperMatchType = '';

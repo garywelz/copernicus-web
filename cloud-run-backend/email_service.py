@@ -48,12 +48,15 @@ class EmailService:
         job_id: str, 
         podcast_title: str, 
         topic: str, 
-        audio_url: str,
+        audio_url: Optional[str],
         duration: str,
         canonical_filename: str,
-        link_valid_days: Optional[int] = None
+        link_valid_days: Optional[int] = None,
+        dashboard_url: Optional[str] = None
     ) -> bool:
-        """Send email notification when podcast generation is complete. `link_valid_days` is set when audio_url is a signed link."""
+        """Send email notification when podcast generation is complete. `link_valid_days` is set when audio_url is a signed link.
+        With `dashboard_url` the button opens the subscriber's dashboard instead and the email carries NO link to the file (an owner's private episode is
+        played from the dashboard with a fresh 15-minute link; no long-lived link to private media is mailed)."""
         
         if not self.sender_password:
             print("⚠️  Email password not configured. Skipping email notification.")
@@ -68,6 +71,11 @@ class EmailService:
             
             link_note = (f'<p style="color: #7f8c8d; font-size: 13px; margin-top: 10px;">Private link, valid for {link_valid_days} days. The episode is not public until it is published.</p>'
                          if link_valid_days else '')
+            if dashboard_url:
+                button_href, button_text = dashboard_url, "🎧 Open your dashboard to listen"
+                link_note = '<p style="color: #7f8c8d; font-size: 13px; margin-top: 10px;">Sign in to listen. Your episode stays private until you make it public.</p>'
+            else:
+                button_href, button_text = audio_url, "🎧 Listen to Podcast"
 
             # Create HTML body
             html_body = f"""
@@ -89,9 +97,9 @@ class EmailService:
                     </div>
                     
                     <div style="text-align: center; margin: 30px 0;">
-                        <a href="{audio_url}" 
+                        <a href="{button_href}" 
                            style="background: #3498db; color: white; padding: 12px 30px; text-decoration: none; border-radius: 5px; font-weight: bold; display: inline-block;">
-                            🎧 Listen to Podcast
+                            {button_text}
                         </a>
                         {link_note}
                     </div>

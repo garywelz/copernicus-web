@@ -256,8 +256,11 @@ def test_media_writers_write_only_to_the_private_bucket():
 
 
 def test_the_ready_email_signs_its_link_and_says_how_long_it_lasts():
+    """Only the administrator's own account still gets a 7-day signed link (completion_link.py); an owner's email links to the dashboard (PR 1 follow-up)."""
     gen = (ROOT / "services/podcast_generation_service.py").read_text(encoding="utf-8")
-    assert "media_store.signed_audio_link" in gen and "link_valid_days=link_valid_days" in gen
+    link = (ROOT / "completion_link.py").read_text(encoding="utf-8")
+    assert "completion_email_link" in gen and "link_valid_days=link_args[" in gen
+    assert "media_store.signed_audio_link" in link and "media_store.MAX_SIGNED_DAYS" in link
     assert "link_valid_days" in (ROOT / "email_service.py").read_text(encoding="utf-8")
 
 

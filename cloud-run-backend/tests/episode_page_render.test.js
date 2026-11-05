@@ -38,5 +38,22 @@ function page(h, id) {
     assert(!/hashtag/i.test(article) && !article.includes('## ') && !article.includes('\n- '), id);
     assert(count(article, /<p>/g) >= 3, id);
   }
+  // Cache: an unpublished page must leave the CDN within about a minute (was 'public, max-age=300', which kept it up for five).
+  const CACHE = 'public, max-age=0, s-maxage=60, stale-while-revalidate=15';
+  for (const h of [handler, other]) {
+    const r = await page(h, 'ever-math-260010');
+    assert.strictEqual(r.headers['Cache-Control'], CACHE);
+    assert(!/max-age=300/.test(r.headers['Cache-Control']));
+    // an episode that cannot be loaded (gone, unpublished) is not given the public cache header
+    global.fetch = async () => ({ status: 404, ok: false, json: async () => ({}) });
+    const res = { headers: {}, statusCode: 0, body: '' };
+    res.setHeader = (k, v) => { res.headers[k] = v; };
+    res.status = (c) => { res.statusCode = c; return res; };
+    res.send = (b) => { res.body = b; return res; };
+    res.json = (b) => { res.body = JSON.stringify(b); return res; };
+    await h({ method: 'GET', query: { episodeId: 'ever-gone-1' }, url: '/episodes/ever-gone-1' }, res);
+    assert.notStrictEqual(res.statusCode, 200);            // not served as a page ...
+    assert.strictEqual(res.headers['Cache-Control'], undefined);   // ... and never given the public cache header
+  }
   console.log('episode page render: ok');
 })().catch((e) => { console.error(e); process.exit(1); });

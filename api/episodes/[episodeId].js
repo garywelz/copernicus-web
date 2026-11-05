@@ -254,7 +254,7 @@ async function handler(req, res) {
 </html>`;
 
     res.setHeader('Content-Type', 'text/html; charset=utf-8');
-    res.setHeader('Cache-Control', 'public, max-age=300');
+    res.setHeader('Cache-Control', 'public, max-age=0, s-maxage=60, stale-while-revalidate=15');   // was 'public, max-age=300': an unpublished page now leaves the CDN within about a minute
     return res.status(200).send(html);
   } catch (error) {
     console.error('Failed to render episode page:', error);
