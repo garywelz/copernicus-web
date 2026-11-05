@@ -374,8 +374,10 @@ async def search_episodes(
 
 
 @router.get("/api/episodes/{episode_id}")
-async def get_episode_record(episode_id: str, x_admin_api_key: Optional[str] = Header(None, alias="X-Admin-API-Key")):
-    """Fetch a single episode from the catalog. A private episode answers 404 unless the admin key header is sent."""
+async def get_episode_record(episode_id: str, x_admin_api_key: Optional[str] = Header(None, alias="X-Admin-API-Key"),
+                             x_subscriber_token: Optional[str] = Header(None, alias="X-Subscriber-Token")):
+    """Fetch a single episode from the catalog. A private episode answers 404 unless the admin key header is sent, or the caller's session is the
+    episode's owner (an allow-listed owner, PR 1). Everyone else, signed in or not, gets the same 404."""
     if not db:
         raise HTTPException(status_code=503, detail="Firestore service is unavailable")
     try:
@@ -384,7 +386,10 @@ async def get_episode_record(episode_id: str, x_admin_api_key: Optional[str] = H
             raise HTTPException(status_code=404, detail="Episode not found")
         payload = doc.to_dict() or {}
         if not is_public_episode(payload) and not admin_key_ok(x_admin_api_key):
-            raise HTTPException(status_code=404, detail="Episode not found")
+            from utils.owner_access import private_access_enabled, session_owner_id
+            owner = session_owner_id(db, payload, x_subscriber_token)
+            if not (owner and private_access_enabled(db, owner)):
+                raise HTTPException(status_code=404, detail="Episode not found")
         payload['episode_id'] = doc.id
         # The description side files (descriptions/<id>.md) are no longer published; older records still carry their URL, which is not served
         payload.pop('description_url', None)

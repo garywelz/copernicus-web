@@ -167,6 +167,8 @@ def submit_env(monkeypatch):
     db.collection.return_value.document.return_value.get.return_value = doc
     monkeypatch.setattr(r, "db", db)
     monkeypatch.setattr(r, "require_admin_or_podcast_owner", lambda *a, **k: None)
+    import utils.auth
+    monkeypatch.setattr(utils.auth, "get_admin_api_key", lambda: "k")     # the feed is editor-only (PR 1): the submit() helper below sends this admin key
     monkeypatch.setattr(r.episode_service, "ensure_episode_document_from_job", lambda *a, **k: None)
     monkeypatch.setattr(r.rss_service, "update_episode_submission_state", lambda *a, **k: None)
     calls = []
