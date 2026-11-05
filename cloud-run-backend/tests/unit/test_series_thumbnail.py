@@ -54,15 +54,20 @@ def test_the_square_artwork_is_3000_square_with_the_split_turned_horizontal():
     assert im.size == (3000, 3000) and im.getpixel((10, 10)) == st.WHITE and im.getpixel((10, 2990)) == st.INK
 
 
-def test_a_title_splits_at_the_colon_and_keeps_at_most_five_words_in_three_lines():
+def test_a_title_splits_at_the_colon_and_a_short_one_keeps_the_classic_three_lines():
     assert st.title_parts(TITLE) == (["722", "papers", "overnight"], "OpenAI's mathematics release")
-    lines, sub = st.title_parts("One two three four five six seven: the subtitle")
-    assert sub == "the subtitle" and len(lines) == 3 and len(" ".join(lines).split()) == 5
+    lines, sub = st.title_parts("One two three four five: the subtitle")
+    assert sub == "the subtitle" and lines == ["One", "two three", "four five"]
     assert st.title_parts("") == (["CopernicusAI"], "")
 
 
-def test_a_very_long_word_is_shrunk_to_fit_not_cut_off():
-    im = px(st.render_16x9("Electroencephalographically: sub"))
+def test_no_word_of_a_long_title_is_ever_dropped():
+    lines, sub = st.title_parts("One two three four five six seven: the subtitle")
+    assert sub == "the subtitle" and " ".join(lines).split() == "One two three four five six seven".split()      # all seven words; the renderer wraps them
+
+
+def test_a_long_word_is_shrunk_to_fit_not_cut_off():
+    im = px(st.render_16x9("Counterintuitiveness: sub"))
     assert set(im.crop((775, 100, 796, 700)).getdata()) == {st.WHITE}          # nothing runs into the gap before the dark panel
 
 

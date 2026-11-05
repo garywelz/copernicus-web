@@ -49,6 +49,8 @@ class GenerateCuratedEpisode(BaseModel):
     format_type: str = Field("interview", max_length=40)
     host_voice_id: Optional[str] = Field(None, max_length=64)
     expert_voice_id: Optional[str] = Field(None, max_length=64)
+    thumbnail_title: Optional[str] = Field(None, max_length=120)       # what the series thumbnail draws instead of the title (whole, no colon split); optional
+    thumbnail_subtitle: Optional[str] = Field(None, max_length=160)
 
 
 class CheckSuppliedScript(BaseModel):
@@ -64,6 +66,8 @@ class CheckSuppliedScript(BaseModel):
     format_type: str = Field("interview", max_length=40)
     host_voice_id: Optional[str] = Field(None, max_length=64)
     expert_voice_id: Optional[str] = Field(None, max_length=64)
+    thumbnail_title: Optional[str] = Field(None, max_length=120)       # what the series thumbnail draws instead of the title (whole, no colon split); optional
+    thumbnail_subtitle: Optional[str] = Field(None, max_length=160)
     generate: bool = False
 
 

@@ -1560,21 +1560,33 @@ Say that journal name in dialogue. Never say "published in PubMed" or "published
             return "https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/images/copernicus-original-portrait.jpg"
     
     @retry_upload(max_retries=3, delay=2)
-    async def series_thumbnail_upload(self, title: str, canonical_filename: str, record: dict) -> str:
+    async def series_thumbnail_upload(self, title: str, canonical_filename: str, record: dict, thumbnail_title: Optional[str] = None,
+                                      thumbnail_subtitle: Optional[str] = None) -> str:
         """Curated mode: the series template (series_thumbnail.py, docs/design/SERIES_THUMBNAIL.md) with the episode's title, as the 1280x720 thumbnail
-        and the 3000x3000 square artwork, in the private bucket like the episode's other media. The generic image prompts are never used. If drawing or
-        uploading fails the episode gets the default series artwork, and `record` says so."""
+        and the 3000x3000 square artwork, in the private bucket like the episode's other media. The generic image prompts are never used. When the producer
+        gave a `thumbnail_title` and/or `thumbnail_subtitle` those are drawn instead (the title whole, no colon split); otherwise the episode title, split
+        at its first colon. The template never cuts a word: if the title cannot be set legibly the step fails with a plain message in `record`
+        (`thumbnail_error_message`), nothing is drawn or written, and the episode still gets the default series artwork. If drawing or uploading fails
+        for another reason the episode also gets the default series artwork, and `record` says so."""
         import asyncio
         import series_thumbnail
         try:
             from google.cloud import storage
             bucket = storage.Client().bucket(media_store.PRIVATE_BUCKET)
-            thumb = await asyncio.to_thread(series_thumbnail.render_16x9, title)
-            square = await asyncio.to_thread(series_thumbnail.render_square, title)
+            if thumbnail_title or thumbnail_subtitle:
+                args, kw = (thumbnail_title or title,), {"subtitle": thumbnail_subtitle or ""}
+            else:
+                args, kw = (title,), {}
+            thumb = await asyncio.to_thread(series_thumbnail.render_16x9, *args, **kw)
+            square = await asyncio.to_thread(series_thumbnail.render_square, *args, **kw)
             bucket.blob(f"thumbnails/{canonical_filename}-thumb.png").upload_from_string(thumb, content_type="image/png")
             bucket.blob(f"episode-images/{canonical_filename}-artwork-3000.png").upload_from_string(square, content_type="image/png")
             record.update({"thumbnail_source": "series_template", "artwork_url": media_store.public_url(f"episode-images/{canonical_filename}-artwork-3000.png")})
             return media_store.public_url(f"thumbnails/{canonical_filename}-thumb.png")
+        except series_thumbnail.TitleDoesNotFit as e:
+            structured_logger.error("Series thumbnail not drawn: the title does not fit", canonical_filename=canonical_filename, error=str(e))
+            record.update({"thumbnail_source": "default_artwork", "thumbnail_error": "TitleDoesNotFit", "thumbnail_error_message": str(e)})
+            return DEFAULT_ARTWORK_URL
         except Exception as e:
             structured_logger.error("Series thumbnail failed, using the default artwork", canonical_filename=canonical_filename, error=str(e))
             record.update({"thumbnail_source": "default_artwork", "thumbnail_error": type(e).__name__})
@@ -1587,11 +1599,13 @@ Say that journal name in dialogue. Never say "published in PubMed" or "published
         canonical_filename: str,
         curated: bool = False,
         record: Optional[dict] = None,
+        thumbnail_title: Optional[str] = None,
+        thumbnail_subtitle: Optional[str] = None,
     ) -> str:
         """Generate AI thumbnail using DALL-E 3 with maximum resolution for podcast platforms. In curated mode the series template is used instead:
         the generic image prompts (a DNA helix, molecular motifs) do not fit a curated episode's subject."""
         if curated:
-            return await self.series_thumbnail_upload(title, canonical_filename, record if record is not None else {})
+            return await self.series_thumbnail_upload(title, canonical_filename, record if record is not None else {}, thumbnail_title, thumbnail_subtitle)
         try:
             import requests
             from google.cloud import storage
@@ -2641,6 +2655,8 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
                     canonical_filename,
                     curated=curated_run is not None,
                     record=thumbnail_record,
+                    thumbnail_title=getattr(request, "thumbnail_title", None),
+                    thumbnail_subtitle=getattr(request, "thumbnail_subtitle", None),
                 )
             
             thumbnail_time = time.time() - thumbnail_start_time

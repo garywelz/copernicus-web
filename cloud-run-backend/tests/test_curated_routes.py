@@ -120,7 +120,7 @@ def add(list_id, canned, raws_to_items):
 # --- admin key on every route ---------------------------------------------------------------------------------------------------------
 def test_every_route_on_the_router_needs_the_admin_key():
     routes_ = [r for r in router.routes if hasattr(r, "methods")]
-    assert len(routes_) == 15
+    assert len(routes_) == 16
     with patch.object(auth, "get_admin_api_key", return_value="test-key"), patch.object(routes, "db", FakeDB()):
         for r in routes_:
             path = r.path.replace("{list_id}", "L").replace("{item_id}", "I")

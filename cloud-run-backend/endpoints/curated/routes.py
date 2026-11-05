@@ -305,7 +305,8 @@ async def generate_episode(body: GenerateCuratedEpisode):
     job_id = str(uuid.uuid4())
     subscriber_id = resolve_generation_subscriber_id(None)       # the administrator's account, as for the other admin generation
     request = PodcastRequest(topic=run.topic, category=body.category, duration=body.duration, expertise_level=body.expertise_level,
-                             format_type=body.format_type, host_voice_id=body.host_voice_id, expert_voice_id=body.expert_voice_id)
+                             format_type=body.format_type, host_voice_id=body.host_voice_id, expert_voice_id=body.expert_voice_id,
+                             thumbnail_title=body.thumbnail_title, thumbnail_subtitle=body.thumbnail_subtitle)
     db.collection('podcast_jobs').document(job_id).set({
         'job_id': job_id, 'status': 'pending', 'created_at': _now(), 'updated_at': _now(), 'request': request.model_dump(),
         'subscriber_id': subscriber_id, 'submitted_to_rss': False, 'mode': 'curated_sources',
@@ -315,8 +316,11 @@ async def generate_episode(body: GenerateCuratedEpisode):
     await service.run_curated_generation_job(job_id, doc, request, subscriber_id=subscriber_id, private_texts=texts, title=body.title)
     job = db.collection('podcast_jobs').document(job_id).get()
     data = (job.to_dict() or {}) if job.exists else {}
-    return {"job_id": job_id, "status": data.get("status"), "error_type": data.get("error_type"), "published": False,
-            "curated_run": data.get("curated_run")}
+    out = {"job_id": job_id, "status": data.get("status"), "error_type": data.get("error_type"), "published": False,
+           "curated_run": data.get("curated_run")}
+    if (data.get("thumbnail") or {}).get("thumbnail_error_message"):
+        out["thumbnail_warning"] = data["thumbnail"]["thumbnail_error_message"]          # the episode generated, with the default artwork, and this is why
+    return out
 
 
 @router.post("/api/admin/curated/dry-run")
@@ -392,7 +396,8 @@ async def check_supplied_script(body: CheckSuppliedScript):
     from podcast_research_integrator import PodcastResearchContext
     from utils.api_keys import get_google_api_key
     request = PodcastRequest(topic=run.topic, category=body.category, duration=body.duration, expertise_level=body.expertise_level,
-                             format_type=body.format_type, host_voice_id=body.host_voice_id, expert_voice_id=body.expert_voice_id)
+                             format_type=body.format_type, host_voice_id=body.host_voice_id, expert_voice_id=body.expert_voice_id,
+                             thumbnail_title=body.thumbnail_title, thumbnail_subtitle=body.thumbnail_subtitle)
     confirmed = run.confirmed_papers()
     context = PodcastResearchContext(
         topic=run.topic, research_sources=[paper_confirmation.as_research_source(c) for c in confirmed if c.source_class != cs.COMMENTARY],
@@ -426,6 +431,8 @@ async def check_supplied_script(body: CheckSuppliedScript):
     job = db.collection('podcast_jobs').document(job_id).get()
     data = (job.to_dict() or {}) if job.exists else {}
     answer.update({"generated": True, "job_id": job_id, "job_status": data.get("status"), "error_type": data.get("error_type")})
+    if (data.get("thumbnail") or {}).get("thumbnail_error_message"):
+        answer["thumbnail_warning"] = data["thumbnail"]["thumbnail_error_message"]
     return answer
 
 
