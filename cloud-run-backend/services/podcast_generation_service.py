@@ -105,6 +105,7 @@ from config.constants import (
 )
 from config.database import db
 from utils.generation_quota import refund_failed_job
+from completion_link import completion_email_link
 from services.episode_service import episode_service
 from services.canonical_service import canonical_service
 from utils.script_validation import (validate_script_length, calculate_minimum_words_for_duration, calculate_maximum_words_for_duration,
@@ -2863,23 +2864,21 @@ Technical Quality: Ultra-high resolution. No text, words, or labels. Pure visual
                                   job_id=job_id,
                                   memory_before_percent=round(email_memory_before, 1))
             
-            # The audio is private until the episode is published, so its public address would not open: send a 7-day signed link
-            listen_url, link_valid_days = audio_url, None
-            try:
-                signed_listen = await asyncio.to_thread(media_store.signed_audio_link, canonical_filename, media_store.MAX_SIGNED_DAYS)
-                if signed_listen:
-                    listen_url, link_valid_days = signed_listen, media_store.MAX_SIGNED_DAYS
-            except Exception as link_error:
-                structured_logger.warning("Could not sign the audio link for the ready email", job_id=job_id, error=str(link_error))
+            # The audio is private until the episode is published. An owner is sent to their dashboard (Play mints a fresh 15-minute link); no file link
+            # is mailed. Only the administrator's own account keeps the 7-day signed review link (completion_link.py).
+            from utils.subscriber_helpers import generate_subscriber_id
+            from config.constants import ADMIN_SUBSCRIBER_EMAIL
+            link_args = await asyncio.to_thread(completion_email_link, subscriber_id, audio_url, generate_subscriber_id(ADMIN_SUBSCRIBER_EMAIL), canonical_filename)
             await self.email_service.send_podcast_completion_email(
                 recipient_email=subscriber_email,
                 job_id=job_id,
                 podcast_title=content.get('title', 'Untitled Podcast'),
                 topic=request.topic,
-                audio_url=listen_url,
+                audio_url=link_args["audio_url"],
                 duration=request.duration,
                 canonical_filename=canonical_filename,
-                link_valid_days=link_valid_days
+                link_valid_days=link_args["link_valid_days"],
+                dashboard_url=link_args["dashboard_url"]
             )
             
             email_time = time.time() - email_start_time

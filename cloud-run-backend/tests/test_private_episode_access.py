@@ -413,9 +413,10 @@ def test_the_owner_dashboard_no_longer_has_the_rss_button():
         assert gone not in html, gone
 
 
-def test_the_admin_dashboard_rss_buttons_are_untouched():
+def test_the_admin_dashboard_rss_buttons_still_exist_and_use_the_editors_only_route():
     html = _page("admin-dashboard.html")
-    assert html.count("/api/admin/podcasts/${podcastId}/rss`") == 2 and "addToRss(" in html and "removeFromRss(" in html
+    assert "addToRss(" in html and "removeFromRss(" in html and html.count("/api/subscribers/podcasts/submit-to-rss`") == 2
+    assert "/api/admin/podcasts/${podcastId}/rss" not in html          # that route never existed (follow-up PR)
 
 
 # ---- 8. unaffected: admin-generated and curated episodes, the public feed, existing public pages ----------------------------------------------

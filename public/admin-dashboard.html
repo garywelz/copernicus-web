@@ -484,9 +484,11 @@
                 
                 setTimeout(async () => {
                     try {
-                        const response = await fetch(`${API_BASE_URL}/api/admin/podcasts/${podcastId}/rss`, {
+                        // The feed is editor-only: the admin key goes to the one route that changes it
+                        const response = await fetch(`${API_BASE_URL}/api/subscribers/podcasts/submit-to-rss`, {
                             method: 'POST',
-                            headers: getAuthHeaders()
+                            headers: getAuthHeaders(),
+                            body: JSON.stringify({ podcast_id: podcastId, submit_to_rss: true })
                         });
                         
                         if (!response.ok) {
@@ -537,9 +539,10 @@
                 // Use setTimeout to yield control before blocking operations
                 setTimeout(async () => {
                     try {
-                        const response = await fetch(`${API_BASE_URL}/api/admin/podcasts/${podcastId}/rss`, {
-                            method: 'DELETE',
-                            headers: getAuthHeaders()
+                        const response = await fetch(`${API_BASE_URL}/api/subscribers/podcasts/submit-to-rss`, {
+                            method: 'POST',
+                            headers: getAuthHeaders(),
+                            body: JSON.stringify({ podcast_id: podcastId, submit_to_rss: false })
                         });
                         
                         if (!response.ok) {
