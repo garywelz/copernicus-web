@@ -11,3 +11,5 @@ button { margin-top: 20px; padding: 10px 22px; font-size: 1rem; cursor: pointer;
 button:disabled { opacity: 0.5; cursor: default; }
 #result.error { color: #a40000; }
 #result.ok { color: #0a6b2d; }
+table { border-collapse: collapse; width: 100%; font-size: 0.85rem; margin-top: 10px; }
+th, td { border: 1px solid #cfd4da; padding: 4px 6px; text-align: left; vertical-align: top; }

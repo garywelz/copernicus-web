@@ -660,3 +660,84 @@ def test_the_gate_is_on_the_engine_router_so_a_future_route_is_denied_by_default
         assert c.get(f"/api/onboarding/engines/{ENGINE}/probe", headers=ADMIN_KEY).status_code == 200      # the gate let the admin through, so the route is reachable at all
     finally:
         probe_router.routes.pop()
+
+
+# ---- listing invitations (admin) -----------------------------------------------------------------------------------------------------------------
+LIST_FIELDS = {"invite_id", "engine_id", "status", "final_say", "can_generate", "monthly_quota", "created_at", "expires_at", "used_at", "revoked_at"}
+FORBIDDEN_FIELDS = {"email_sha256", "token_hash", "used_by_subscriber_id", "email", "token", "created_by", "revoked_by", "roles"}
+
+
+def list_url(engine=ENGINE):
+    return f"/api/admin/onboarding/invites?engine_id={engine}"
+
+
+def test_the_invitation_list_is_admin_only(env):
+    invite(env)
+    for headers in ({}, {"X-Admin-API-Key": "wrong"}, {"X-Subscriber-Token": "tok"}):
+        assert env.client.get(list_url(), headers=headers).status_code in (401, 403)
+    assert env.client.get(list_url(), headers=ADMIN_KEY).status_code == 200
+    assert env.client.get("/api/admin/onboarding/invites", headers=ADMIN_KEY).status_code == 422          # engine_id is required
+    assert env.client.get(list_url("Bad_Id"), headers=ADMIN_KEY).status_code == 400
+    assert env.client.get(list_url("a__b"), headers=ADMIN_KEY).status_code == 400
+    assert env.client.get(list_url("no-such-engine"), headers=ADMIN_KEY).json() == {"engine_id": "no-such-engine", "invites": []}
+
+
+def test_the_list_has_exactly_the_allowed_fields_and_no_hash_address_or_token(env):
+    made = invite(env, addr="listed.person@example.invalid")
+    accept(env.db, made, addr="listed.person@example.invalid")
+    invite(env, addr="second.person@example.invalid", engine=ENGINE, final_say=True)
+    r = env.client.get(list_url(), headers=ADMIN_KEY)
+    rows = r.json()["invites"]
+    assert len(rows) == 2 and all(set(row) == LIST_FIELDS for row in rows)                          # the keys, exactly
+    assert not any(set(row) & FORBIDDEN_FIELDS for row in rows)
+    stored = list(env.db.data[ob.INVITES].values())
+    secrets_in_store = {s for inv in stored for k in ("email_sha256", "token_hash", "used_by_subscriber_id") for s in [inv.get(k)] if s}
+    assert secrets_in_store and not [s for s in secrets_in_store if s in r.text]                    # none of the stored hashes or ids appears anywhere in the response
+    assert "@" not in r.text and "example.invalid" not in r.text and made["raw_token"] not in r.text
+
+
+def test_the_status_of_each_of_the_four_states_is_computed_correctly(env):
+    env.mp.setattr(ob, "_utcnow", lambda: NOW)
+    unused = invite(env, addr="unused@example.invalid")
+    used = invite(env, addr="used@example.invalid")
+    accept(env.db, used, addr="used@example.invalid")
+    revoked = invite(env, addr="revoked@example.invalid")
+    env.client.delete(f"/api/admin/onboarding/invites/{revoked['invite_id']}", headers=ADMIN_KEY)
+    used_then_revoked = invite(env, addr="gone@example.invalid")
+    accept(env.db, used_then_revoked, addr="gone@example.invalid")
+    env.client.delete(f"/api/admin/onboarding/invites/{used_then_revoked['invite_id']}", headers=ADMIN_KEY)
+    expired = ob.create_invite(env.db, engine_id=ENGINE, email="expired@example.invalid", expires_days=1, now=NOW - timedelta(days=5))
+    status = {row["invite_id"]: row["status"] for row in env.client.get(list_url(), headers=ADMIN_KEY).json()["invites"]}
+    assert status == {unused["invite_id"]: "unused", used["invite_id"]: "used", revoked["invite_id"]: "revoked",
+                      used_then_revoked["invite_id"]: "revoked", expired["invite_id"]: "expired"}            # revoked wins over used; a past expiry reads expired
+    env.mp.setattr(ob, "_utcnow", lambda: NOW + timedelta(days=8))                                            # the clock moves (mocked, no waiting): the unused one expires
+    later = {row["invite_id"]: row["status"] for row in env.client.get(list_url(), headers=ADMIN_KEY).json()["invites"]}
+    assert later[unused["invite_id"]] == "expired" and later[used["invite_id"]] == "used" and later[revoked["invite_id"]] == "revoked"
+
+
+def test_the_list_is_per_engine_newest_first_and_carries_the_dates_and_flags(env):
+    first = ob.create_invite(env.db, engine_id=ENGINE, email="first@example.invalid", final_say=True, monthly_quota=4, now=NOW - timedelta(hours=2))
+    second = ob.create_invite(env.db, engine_id=ENGINE, email="second@example.invalid", can_generate=False, monthly_quota=None, now=NOW - timedelta(hours=1))
+    other = ob.create_invite(env.db, engine_id=OTHER_ENGINE, email="elsewhere@example.invalid", now=NOW)
+    rows = env.client.get(list_url(), headers=ADMIN_KEY).json()["invites"]
+    assert [r["invite_id"] for r in rows] == [second["invite_id"], first["invite_id"]]                        # newest first, the other engine's invitation is not here
+    assert other["invite_id"] not in {r["invite_id"] for r in rows}
+    by_id = {r["invite_id"]: r for r in rows}
+    assert (by_id[first["invite_id"]]["final_say"], by_id[first["invite_id"]]["monthly_quota"], by_id[first["invite_id"]]["can_generate"]) == (True, 4, True)
+    assert (by_id[second["invite_id"]]["can_generate"], by_id[second["invite_id"]]["monthly_quota"]) == (False, None)
+    assert by_id[first["invite_id"]]["used_at"] is None and by_id[first["invite_id"]]["revoked_at"] is None and by_id[first["invite_id"]]["expires_at"]
+    assert env.client.get(list_url(OTHER_ENGINE), headers=ADMIN_KEY).json()["invites"][0]["invite_id"] == other["invite_id"]
+
+
+def test_the_list_route_is_rate_limited_failing_closed_and_the_admin_page_shows_it_safely(env):
+    env.client.get(list_url(), headers=ADMIN_KEY)
+    assert env.limited[-1][0][1] == "onboarding_invite_list" and env.limited[-1][1].get("fail_closed") is True
+    js, html = read(ROOT / "public/admin-onboarding.js"), read(ROOT / "public/admin-onboarding.html")
+    start = js.index("function cell(")
+    code = js[start:js.index("$('loadList').addEventListener")]
+    assert "id=\"loadList\"" in html and "id=\"inviteList\"" in html
+    assert "/api/admin/onboarding/invites?engine_id=' + encodeURIComponent(engine)" in code and "headers: headers()" in code
+    assert "createElement" in code and "textContent" in code and "innerHTML" not in code and "insertAdjacentHTML" not in code
+    assert "window.confirm(" in js and "inv.status !== 'revoked'" in code and "revoke(inv.invite_id)" in code        # a Revoke button per row, with a confirmation
+    for forbidden in FORBIDDEN_FIELDS - {"email", "token", "roles"}:
+        assert forbidden not in js, forbidden

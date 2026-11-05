@@ -3,6 +3,7 @@
   POST   /api/onboarding/invites/accept                 the holder of a valid single-use token (no session: the token is the proof)
   GET    /api/onboarding/engines/{engine_id}            a member of that engine, or the admin
   POST   /api/admin/onboarding/invites                  admin key: create an invitation (the address is entered once and kept only as a hash)
+  GET    /api/admin/onboarding/invites?engine_id=       admin key: list one engine's invitations (never an address or token hash)
   DELETE /api/admin/onboarding/invites/{invite_id}      admin key: revoke an unused invitation; a used one also removes the membership (Q17)
 
 DEFAULT DENY: every route under /api/onboarding/engines/{engine_id}/... passes through `engine_gate`, which resolves the caller to a membership of that engine
@@ -11,7 +12,7 @@ The accept route is the one exception; it is not an engine route and answers one
 """
 from typing import Any, Optional
 
-from fastapi import APIRouter, Depends, Header, HTTPException, Request
+from fastapi import APIRouter, Depends, Header, HTTPException, Query, Request
 from pydantic import BaseModel, Field
 
 from config.constants import ADMIN_SUBSCRIBER_EMAIL
@@ -31,6 +32,7 @@ INVITATION_REFUSAL = "This invitation link is not valid."
 ACCEPT_LIMIT_PER_IP_PER_HOUR = 10
 ACCEPT_LIMIT_PER_ADDRESS_PER_HOUR = 5
 ADMIN_INVITE_LIMIT_PER_HOUR = 60
+ADMIN_LIST_LIMIT_PER_HOUR = 300
 PASSWORD_DETAIL = f"Password must be {PASSWORD_MIN_LENGTH} to {PASSWORD_MAX_LENGTH} characters."
 
 
@@ -157,6 +159,19 @@ async def create_invitation(body: InviteCreate, request: Request, admin_auth: bo
     sent = await email_service.send_invitation_email(made["address"], link, days)
     structured_logger.info("Invitation created", invite_id=made["invite_id"], engine_id=body.engine_id, email_sent=bool(sent))
     return {"invite_id": made["invite_id"], "engine_id": body.engine_id, "expires_at": made["expires_at"], "email_sent": bool(sent)}
+
+
+@router.get("/api/admin/onboarding/invites")
+async def list_invitations(request: Request, engine_id: str = Query(..., min_length=2, max_length=60), admin_auth: bool = Depends(verify_admin_api_key)):
+    """The invitations of one engine, newest first: id, engine, status (unused, used, expired or revoked), final_say, can_generate, monthly_quota and the
+    four dates. Never the address hash, the token hash or the account that used an invitation."""
+    client_ip = last_forwarded_ip(request.headers.get("x-forwarded-for"))
+    check_rate_limit(db, client_ip, "onboarding_invite_list", limit=ADMIN_LIST_LIMIT_PER_HOUR, window_seconds=3600, fail_closed=True)
+    if not db:
+        raise HTTPException(status_code=503, detail="Firestore service is unavailable")
+    if not ob.ENGINE_ID_RE.match(engine_id) or "__" in engine_id:
+        raise HTTPException(status_code=400, detail="engine_id is not valid")
+    return {"engine_id": engine_id, "invites": ob.list_invites(db, engine_id)}
 
 
 @router.delete("/api/admin/onboarding/invites/{invite_id}")

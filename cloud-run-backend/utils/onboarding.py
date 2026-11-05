@@ -188,6 +188,36 @@ def create_invite(db, *, engine_id: str, email: str, final_say: bool = False, ca
     return {"invite_id": invite_id, "raw_token": raw, "expires_at": doc["expires_at"], "address": norm}
 
 
+# ---- listing invitations (admin) --------------------------------------------------------------------------------------------------------------------
+INVITE_LIST_FIELDS = ("invite_id", "engine_id", "status", "final_say", "can_generate", "monthly_quota", "created_at", "expires_at", "used_at", "revoked_at")
+
+
+def invite_status(inv: dict, now: datetime) -> str:
+    """revoked, used, expired or unused, in that order of precedence (a used invitation that was later revoked reads as revoked)."""
+    if inv.get("revoked_at"):
+        return "revoked"
+    if inv.get("used_at"):
+        return "used"
+    if _expired(inv.get("expires_at"), now):
+        return "expired"
+    return "unused"
+
+
+def list_invites(db, engine_id: str, now: Optional[datetime] = None) -> List[Dict[str, Any]]:
+    """The invitations of one engine, newest first, as an EXPLICIT allow-list of fields. The address hash, the token hash and the id of the account that used
+    an invitation are never in the result: a field cannot leak by being added to the stored document later."""
+    now = now or _utcnow()
+    out = []
+    for d in db.collection(INVITES).where("engine_id", "==", engine_id).stream():
+        inv = d.to_dict() or {}
+        row = {"invite_id": d.id, "engine_id": inv.get("engine_id"), "status": invite_status(inv, now), "final_say": bool(inv.get("final_say")),
+               "can_generate": bool(inv.get("can_generate")), "monthly_quota": inv.get("monthly_quota"), "created_at": inv.get("created_at"),
+               "expires_at": inv.get("expires_at"), "used_at": inv.get("used_at"), "revoked_at": inv.get("revoked_at")}
+        out.append({k: row[k] for k in INVITE_LIST_FIELDS})
+    out.sort(key=lambda r: r.get("created_at") or "", reverse=True)
+    return out
+
+
 # ---- accepting an invitation ----------------------------------------------------------------------------------------------------------------------
 def _accept_in(transaction, db, invite_id: str, token_hash: str, email_sha: str, subscriber_id: str, new_account: Optional[dict], consent: dict,
                now: datetime, ip_hash, request_id) -> Optional[dict]:
@@ -372,6 +402,12 @@ def subscriber_for_token(db, raw_token: Optional[str]) -> Optional[str]:
 
 
 def active_membership(db, engine_id: str, subscriber_id: str) -> Optional[dict]:
+    """The caller's ACTIVE membership of the engine, or None. Guarded before any lookup: a missing, empty or non-string id or engine would build a key like
+    'engine__None' or 'engine__', and a record stored under such a key must never match. The record must also carry exactly this engine and this subscriber."""
+    if not (isinstance(subscriber_id, str) and subscriber_id.strip() and isinstance(engine_id, str) and engine_id.strip()):
+        return None
     snap = db.collection(MEMBERS).document(member_id(engine_id, subscriber_id)).get()
     m = snap.to_dict() if snap.exists else None
-    return m if m and m.get("status") == "active" else None
+    if not m or m.get("status") != "active" or m.get("subscriber_id") != subscriber_id or m.get("engine_id") != engine_id:
+        return None
+    return m
