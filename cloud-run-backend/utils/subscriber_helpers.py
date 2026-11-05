@@ -24,22 +24,30 @@ def generate_subscriber_id(email: str) -> str:
     return hashlib.sha256(email.encode()).hexdigest()
 
 
+def normalise_email(email: str) -> str:
+    """Trimmed and lower-cased (design Q16). New registrations store and hash this form; existing accounts keep the id they have."""
+    return email.strip().lower() if isinstance(email, str) else ""
+
+
 def get_subscriber_by_email(email: str):
-    """Get subscriber by email, trying both old and new ID formats"""
+    """Get subscriber by email, trying both old and new ID formats, and the address as typed and in its normalised form (an account made before
+    normalisation is stored under the id of the address as typed; a new one under the normalised address)."""
     if not db:
         return None
 
-    # Try new format first (full hash)
-    new_id = generate_subscriber_id(email)
-    subscriber_doc = db.collection('subscribers').document(new_id).get()
-    if subscriber_doc.exists:
-        return subscriber_doc
+    typed = email
+    for candidate in dict.fromkeys([typed, normalise_email(typed)]):
+        # Try new format first (full hash)
+        new_id = generate_subscriber_id(candidate)
+        subscriber_doc = db.collection('subscribers').document(new_id).get()
+        if subscriber_doc.exists:
+            return subscriber_doc
 
-    # Try old format (16 chars) for backward compatibility
-    old_id = hashlib.sha256(email.encode()).hexdigest()[:16]
-    subscriber_doc = db.collection('subscribers').document(old_id).get()
-    if subscriber_doc.exists:
-        return subscriber_doc
+        # Try old format (16 chars) for backward compatibility
+        old_id = hashlib.sha256(candidate.encode()).hexdigest()[:16]
+        subscriber_doc = db.collection('subscribers').document(old_id).get()
+        if subscriber_doc.exists:
+            return subscriber_doc
 
     return None
 

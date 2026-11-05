@@ -284,6 +284,7 @@ from endpoints.public.test import router as test_router
 from endpoints.admin.routes import router as admin_router
 from endpoints.subscriber.routes import router as subscriber_router
 from endpoints.subscriber.episode_access import router as episode_access_router
+from endpoints.onboarding.routes import router as onboarding_router
 from endpoints.podcast.routes import router as podcast_router
 from endpoints.papers.routes import router as papers_router
 from endpoints.glmp.routes import router as glmp_router
@@ -301,6 +302,7 @@ app.include_router(admin_router)
 app.include_router(curated_router)
 app.include_router(subscriber_router)
 app.include_router(episode_access_router)
+app.include_router(onboarding_router)
 app.include_router(podcast_router)
 app.include_router(papers_router)
 app.include_router(glmp_router)

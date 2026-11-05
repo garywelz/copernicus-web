@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accept your invitation</title>
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="referrer" content="no-referrer">
+    <!-- No third-party script and no inline script or style: the page loads only its own two files and may call only the site's API (design 9). -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; connect-src https://copernicus-podcast-api-phzp4ie2sq-uc.a.run.app; form-action 'none'; base-uri 'none'">
+    <link rel="stylesheet" href="accept.css">
+</head>
+<body>
+<main>
+    <h1>Accept your invitation</h1>
+    <p id="intro">You were invited to take part in a CopernicusAI research engine. Fill in the form below to accept. Your invitation link works once.</p>
+    <p id="notoken" class="note" hidden>This page needs the link from your invitation email. Please open that link again.</p>
+
+    <form id="acceptForm" autocomplete="off">
+        <label for="email">The email address this invitation was sent to</label>
+        <input id="email" type="email" required maxlength="254" autocomplete="off">
+
+        <label for="name">Your name (shown only to you and the site's administrator)</label>
+        <input id="name" type="text" required maxlength="100" autocomplete="off">
+
+        <label for="password">Choose a password (8 to 128 characters)</label>
+        <input id="password" type="password" required minlength="8" maxlength="128" autocomplete="new-password">
+        <p class="note">If you already have a CopernicusAI account, it keeps its current password; this one is not used.</p>
+
+        <fieldset>
+            <legend>Consent</legend>
+
+            <p><strong>How may you be named in the public repository?</strong></p>
+            <label class="choice"><input type="radio" name="naming" value="role" checked> By role only (default)</label>
+            <label class="choice"><input type="radio" name="naming" value="name"> By name only</label>
+            <label class="choice"><input type="radio" name="naming" value="name_and_role"> By name and role</label>
+            <label class="choice"><input type="radio" name="naming" value="none"> Not at all</label>
+
+            <p><strong>Licence.</strong> The engine repository's licence is currently CC0. This is a default and has not been confirmed with you.</p>
+            <label class="choice"><input id="licenceConfirmed" type="checkbox"> I confirm CC0</label>
+            <label for="licenceOther">Or name another licence for the administrator to review (optional)</label>
+            <input id="licenceOther" type="text" maxlength="200" autocomplete="off">
+
+            <p><strong>Third-party lookups.</strong></p>
+            <label class="choice"><input id="lookups" type="checkbox"> I agree that titles and identifiers I enter may be sent to public scholarly services to look up papers.</label>
+
+            <p><strong>Please read and confirm.</strong></p>
+            <ul>
+                <li>No email address is ever written to a public file. This is not a choice.</li>
+                <li>The engine's records are kept in the site's archives. You may delete your own private bibliography at any time.</li>
+            </ul>
+            <label class="choice"><input id="acknowledged" type="checkbox" required> I have read these statements.</label>
+        </fieldset>
+
+        <button id="submit" type="submit">Accept invitation</button>
+    </form>
+
+    <p id="result" role="status"></p>
+    <p id="next" hidden><a href="/subscriber-login.html">Sign in</a></p>
+</main>
+<script src="accept.js"></script>
+</body>
+</html>
