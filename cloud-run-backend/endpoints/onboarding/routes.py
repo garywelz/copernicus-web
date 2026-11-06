@@ -156,7 +156,7 @@ async def create_invitation(body: InviteCreate, request: Request, admin_auth: bo
         raise HTTPException(status_code=e.status, detail=e.message)
     link = f"{ob.ACCEPT_PAGE_URL}#token={made['raw_token']}"
     days = int(body.expires_days)
-    sent = await email_service.send_invitation_email(made["address"], link, days)
+    sent = await email_service.send_invitation_email(made["address"], link, days, made["engine_label"])
     structured_logger.info("Invitation created", invite_id=made["invite_id"], engine_id=body.engine_id, email_sent=bool(sent))
     return {"invite_id": made["invite_id"], "engine_id": body.engine_id, "expires_at": made["expires_at"], "email_sent": bool(sent)}
 
