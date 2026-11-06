@@ -317,6 +317,8 @@ def test_section_view_lists_items_in_order_with_context_and_unknown_sections_are
 
 # ---- default deny: no route without a session; an owner of X gets 404 on Y -----------------------------------------------------------------------------
 BODIES = {"PUT": {"value": "x", "choice": None, "base_revision": 0}, "POST": {"body": "x", "kind": "comment"}}
+BODY_BY_SUFFIX = {"/questions": {"action": "add", "questions": [{"wording": "W?", "centrality": "central"}]}, "/delegations": {"to": "other_owner", "scope": "all"},
+                  "/notifications": {"email": False}, "/final": None, "/final-all": None, "/resolve": None}
 
 
 def engine_routes(env):
@@ -331,21 +333,25 @@ def engine_routes(env):
 
 def fill(path, engine):
     return (path.replace("{engine_id}", engine).replace("{section_key}", "scope").replace("{item_id}", "ex-q1" if engine == X else "ey-q1")
-            .replace("{comment_id}", "0" * 32))
+            .replace("{comment_id}", "0" * 32).replace("{delegation_id}", "0" * 32))
 
 
 def send(env, method, path, headers):
     body = BODIES.get(method)
-    if path.endswith("/questions"):
-        body = {"action": "add", "questions": [{"wording": "W?", "centrality": "central"}]}
-    return env.client.request(method, path, headers=headers, **({"json": body} if body is not None and not path.endswith("/resolve") else {}))
+    for suffix, b in BODY_BY_SUFFIX.items():
+        if path.endswith(suffix):
+            body = b
+    return env.client.request(method, path, headers=headers, **({"json": body} if body is not None else {}))
 
 
 def test_the_engine_routes_are_exactly_these(env):
     assert engine_routes(env) == sorted([
         ("GET", "/api/onboarding/engines/{engine_id}"), ("GET", "/api/onboarding/engines/{engine_id}/sections/{section_key}"),
         ("PUT", "/api/onboarding/engines/{engine_id}/items/{item_id}"), ("POST", "/api/onboarding/engines/{engine_id}/items/{item_id}/comments"),
-        ("POST", "/api/onboarding/engines/{engine_id}/comments/{comment_id}/resolve"), ("POST", "/api/onboarding/engines/{engine_id}/questions")])
+        ("POST", "/api/onboarding/engines/{engine_id}/comments/{comment_id}/resolve"), ("POST", "/api/onboarding/engines/{engine_id}/questions"),
+        ("POST", "/api/onboarding/engines/{engine_id}/sections/{section_key}/final"), ("POST", "/api/onboarding/engines/{engine_id}/sections/final-all"),
+        ("GET", "/api/onboarding/engines/{engine_id}/delegations"), ("PUT", "/api/onboarding/engines/{engine_id}/delegations"),
+        ("DELETE", "/api/onboarding/engines/{engine_id}/delegations/{delegation_id}"), ("PUT", "/api/onboarding/engines/{engine_id}/notifications")])
 
 
 def test_no_route_is_reachable_without_a_session_and_a_stranger_gets_the_same_404(env):

@@ -26,6 +26,7 @@ from utils.subscriber_helpers import generate_subscriber_id
 
 DELEGATIONS = "onboarding_delegations"
 LIST_CAP = 20
+REOPEN_MAIL_FROM = ("final", "approved")      # an edit to finished content is something the final-say holder should hear about (Gary, 2026-11-06)
 REFUSALS = {
     "not_ready": "This section is not ready: every item needs an answer and no disagreement may be open",
     "already_final": "This section is already marked final",
@@ -291,7 +292,7 @@ def _reconcile_in(transaction, db, engine_id, section, reopened_from, now):
     send = False
     if status != "draft":
         new = flag                                       # a final, approved or sent-back section is not "becoming ready"
-    elif reopened_from == "final":
+    elif reopened_from in REOPEN_MAIL_FROM:
         new = ready                                      # the re-open mail covers a section that is still ready: one mail, not two
     else:
         send, new = ready and not flag, ready
@@ -326,7 +327,7 @@ def plan_notifications(db, *, engine_id: str, section: str, reopened_from: Optio
     now = now or ob._utcnow()
     engine = form._engine(db, engine_id)
     kinds = []
-    if reopened_from == "final":
+    if reopened_from in REOPEN_MAIL_FROM:
         kinds.append("reopened")
     if ob._run_in_transaction(db, _reconcile_in, db, engine_id, section, reopened_from, now):
         kinds.append("ready")
