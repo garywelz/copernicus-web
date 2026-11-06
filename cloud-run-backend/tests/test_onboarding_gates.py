@@ -173,6 +173,19 @@ def test_the_holder_is_the_one_the_engine_record_names_not_a_flag_on_a_membershi
     assert final(env, ADV).status_code == 403 and final(env, OTH).status_code == 200
 
 
+def test_an_engine_with_no_holder_has_nobody_who_may_mark_final_not_even_an_empty_or_missing_id(env):
+    answer_quietly(env, "scope")
+    env.db.data[ob.ENGINES][X]["final_say_subscriber_id"] = None
+    for who in (None, "", OTH, ADV):
+        with pytest.raises(form.FormError) as ex:
+            gates.mark_final(env.db, engine_id=X, section="scope", subscriber_id=who)
+        assert ex.value.status == 403, who
+        with pytest.raises(form.FormError) as ex:
+            gates.create_delegation(env.db, engine_id=X, subscriber_id=who, to_subscriber_id=OTH, scope="all")
+        assert ex.value.status == 403, who
+    assert gates.authority_view(env.db, X, env.db.data[ob.ENGINES][X], ADV) == {"can_mark_final": False, "may_mark": []}
+
+
 # ---- final-all ------------------------------------------------------------------------------------------------------------------------------------------
 def test_final_all_marks_the_ready_sections_and_lists_the_rest_with_one_event_each(env):
     answer_quietly(env, "scope")
@@ -241,6 +254,23 @@ def test_a_delegate_marks_only_the_delegated_sections_and_the_holder_still_can(e
     assert events(env.db, "final")[0]["via_delegation"] is True
     assert final(env, ADV, "questions").status_code == 200                                                   # the holder keeps the power while a delegation is active
     assert section_doc(env, "questions")["final_via_delegation"] is False
+
+
+def test_a_delegation_gives_the_power_to_the_named_owner_alone_not_to_every_owner(env):
+    answer_quietly(env, "scope")
+    delegate(env, scope="all")
+    add_third_owner(env)                                                                                     # an owner who is neither the holder nor the delegate
+    before = snapshot(env.db)
+    assert final(env, OWN3).status_code == 403 and final_all(env, OWN3).status_code == 403 and snapshot(env.db) == before
+    assert gates.authority_view(env.db, X, env.db.data[ob.ENGINES][X], OWN3) == {"can_mark_final": False, "may_mark": []}
+    assert final(env, OTH).status_code == 200
+
+
+def test_a_delegation_record_of_another_engine_confers_nothing(env):
+    answer_quietly(env, "scope")
+    env.db.data["onboarding_delegations"] = {"e" * 32: {"engine_id": Y, "from_subscriber_id": ADV, "to_subscriber_id": OTH, "scope": "all", "created_at": "t", "revoked_at": None}}
+    env.db.data[ob.ENGINES][X]["active_delegation_id"] = "e" * 32                                            # a stray pointer
+    assert final(env, OTH).status_code == 403
 
 
 def test_a_scope_of_all_covers_every_section(env):
@@ -433,6 +463,15 @@ def test_adding_a_question_to_a_ready_questions_section_does_not_resend_and_a_fi
     assert env.mail.sent == []
 
 
+def test_a_section_that_is_final_gets_no_ready_mail_when_its_last_disagreement_is_resolved(env):
+    answer_quietly(env, "keywords")
+    final(env, ADV, "keywords")
+    env.db.data["onboarding_comments"] = {"c" * 32: {"engine_id": X, "section": "keywords", "item_id": "kw-1", "kind": "disagree", "body": "x", "author_subscriber_id": OTH,
+                                                   "author_role": "owner", "created_at": "t", "resolved": False}}
+    r = env.client.post(f"{BASE}/comments/{'c' * 32}/resolve", headers=H[ADV])
+    assert r.status_code == 200 and row(progress(env), "keywords")["status"] == "final" and env.mail.sent == []
+
+
 def test_a_re_open_from_final_tells_the_holder_once_and_a_section_still_ready_gets_no_second_mail(env):
     answer_quietly(env, "scope")
     final(env, ADV)
@@ -560,9 +599,10 @@ def test_a_failure_while_planning_a_notice_also_leaves_the_change_committed(env)
 
 
 def test_a_holder_with_no_address_or_no_membership_is_skipped_quietly(env):
-    del env.db.data["subscribers"][ADV]["email"]
+    saved = env.db.data["subscribers"][ADV].pop("email")
     answer(env, OTH, "scope")
     assert env.mail.sent == []
+    env.db.data["subscribers"][ADV]["email"] = saved                                                         # the address is back, but the membership is gone
     env.db.data[ob.MEMBERS][ob.member_id(X, ADV)]["status"] = "revoked"
     set_section(env, "questions", "draft")
     answer(env, OTH, "questions")
