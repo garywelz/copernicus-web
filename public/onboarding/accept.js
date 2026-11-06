@@ -55,7 +55,15 @@
                 body.password = '';
                 form.hidden = true;
                 say(String(out.data.message || 'Invitation accepted.'), false);
-                document.getElementById('next').hidden = false;
+                var next = document.getElementById('next');
+                if (out.data.engine_id && /^[a-z0-9][a-z0-9-]{1,40}$/.test(String(out.data.engine_id))) {
+                    var link = document.createElement('a');
+                    link.setAttribute('href', 'engine.html?engine=' + encodeURIComponent(String(out.data.engine_id)));
+                    link.textContent = 'Open your engine workspace (sign in first)';
+                    next.appendChild(document.createTextNode(' · '));
+                    next.appendChild(link);
+                }
+                next.hidden = false;
             } else {
                 submit.disabled = false;
                 say(typeof out.data.detail === 'string' ? out.data.detail : 'This invitation could not be accepted.', true);

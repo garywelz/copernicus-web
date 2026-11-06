@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit a section</title>
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="referrer" content="no-referrer">
+    <!-- No third-party script and no inline script or style: the page loads only its own files and may call only the site's API (design 9). -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; connect-src https://copernicus-podcast-api-phzp4ie2sq-uc.a.run.app; form-action 'none'; base-uri 'none'">
+    <link rel="stylesheet" href="workspace.css">
+</head>
+<body>
+<main>
+    <p><a id="back" href="engine.html">Back to the engine</a></p>
+    <h1 id="title">Section</h1>
+    <p id="state" class="note"></p>
+    <p id="msg" role="status"></p>
+    <p id="signin" hidden>Please <a href="/subscriber-login.html">sign in</a> with the account that was invited, then open this page again.</p>
+    <div id="banner" class="banner" hidden></div>
+    <div id="finalRow" hidden>
+        <button id="markFinal" class="primary" type="button">Mark this section final</button>
+        <span id="finalNote" class="note"></span>
+    </div>
+    <div id="adders"></div>
+    <div id="items"></div>
+</main>
+<script src="common.js"></script>
+<script src="section.js"></script>
+</body>
+</html>

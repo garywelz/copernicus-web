@@ -365,6 +365,69 @@ def add_questions(db, *, engine_id: str, subscriber_id: str, action: str, wordin
     return ob._run_in_transaction(db, _add_in, db, engine_id, subscriber_id, values, from_item if action == "split" else None, floor, now, ip_hash, request_id, outcome)
 
 
+# ---- adding a keyword, horizon or mute entry (ids assigned by the system, never reused; a fourth addition to design 5.7) -----------------------------------
+MAX_KEYWORD_ENTRIES = 500       # every keyword item of an engine, loaded or added
+
+
+def _keyword_numbers(db, engine_id: str, prefix: str):
+    """(how many keyword items the engine has, the highest number used by an id of the form '<prefix>-kN'). A dropped entry still counts: ids are never reused."""
+    count, best = 0, 0
+    for d in db.collection(ITEMS).where("engine_id", "==", engine_id).where("type", "==", "keyword_entry").stream():
+        count += 1
+        m = re.match(r"^%s-k(\d+)$" % re.escape(prefix), (d.to_dict() or {}).get("item_id", ""))
+        if m:
+            best = max(best, int(m.group(1)))
+    return count, best
+
+
+def _add_entry_in(transaction, db, engine_id, sid, value, floor, now, ip_hash, request_id, outcome=None):
+    engine_snap = db.collection(ob.ENGINES).document(engine_id).get(transaction=transaction)
+    if not engine_snap.exists:
+        raise FormError(404, "Not found")
+    engine = engine_snap.to_dict() or {}
+    if engine.get("state") != "open":
+        raise FormError(409, "This engine is not open for edits")
+    prefix = _prefix(engine_id, engine)
+    counter = engine.get("next_entry_number")
+    n = max(counter if isinstance(counter, int) and not isinstance(counter, bool) else 1, floor + 1)
+    while db.collection(ITEMS).document(item_key(engine_id, "keywords", f"{prefix}-k{n}")).get(transaction=transaction).exists:      # a number is never reused
+        n += 1
+    item_id = f"{prefix}-k{n}"
+    sec_ref = _section_ref(db, engine_id, "keywords")
+    sec_snap = sec_ref.get(transaction=transaction)
+    sec = sec_snap.to_dict() if sec_snap.exists else {"engine_id": engine_id, "section": "keywords", "status": "draft", "revision": 1}
+    # All reads are done; writes follow.
+    transaction.set(db.collection(ITEMS).document(item_key(engine_id, "keywords", item_id)),
+                    {"engine_id": engine_id, "section": "keywords", "item_id": item_id, "type": "keyword_entry", "value": value, "choice": "add", "revision": 1,
+                     "author_subscriber_id": sid, "updated_at": _iso(now), "comment_count": 0, "history": [], "context": {"added": True}, "order": 1000 + n})
+    transaction.update(db.collection(ob.ENGINES).document(engine_id), {"next_entry_number": n + 1})
+    transaction.set(sec_ref, _reopened(sec, sid, now))
+    if outcome is not None:
+        outcome["reopened_from"] = sec.get("status", "draft")
+    ob._event(transaction, db, engine_id=engine_id, actor=sid, actor_role="owner", action="entry_add", target=item_id, before=None, after={"list": value["list"]}, ip_hash=ip_hash,
+              request_id=request_id, now=now, extra={"section": "keywords", "item_id": item_id, "list": value["list"]})
+    if sec.get("status", "draft") != "draft":
+        ob._event(transaction, db, engine_id=engine_id, actor=sid, actor_role="owner", action="reopen", target="keywords", before={"status": sec.get("status")},
+                  after={"status": "draft"}, ip_hash=ip_hash, request_id=request_id, now=now, extra={"section": "keywords", "from_status": sec.get("status")})
+    return item_id
+
+
+def add_entry(db, *, engine_id: str, subscriber_id: str, list_name: Any, text: Any, now: Optional[datetime] = None, ip_hash: Optional[str] = None,
+              request_id: Optional[str] = None, outcome: Optional[dict] = None) -> str:
+    """Create a new keyword, horizon, mute (or other §2.3 list) entry with the choice 'add'. The system assigns the id: '<prefix>-kN', the next free number from a
+    counter on the engine record that only goes up. The text is validated and capped like any entry; an engine holds at most MAX_KEYWORD_ENTRIES of them."""
+    now = now or ob._utcnow()
+    try:
+        value = tpl.validate_item("keyword_entry", {"list": list_name, "text": text}, "add")[0]
+    except tpl.TemplateError as e:
+        raise FormError(400, str(e))
+    engine = _engine(db, engine_id)
+    count, floor = _keyword_numbers(db, engine_id, _prefix(engine_id, engine))
+    if count >= MAX_KEYWORD_ENTRIES:
+        raise FormError(409, f"This engine already has {MAX_KEYWORD_ENTRIES} keyword entries")
+    return ob._run_in_transaction(db, _add_entry_in, db, engine_id, subscriber_id, value, floor, now, ip_hash, request_id, outcome)
+
+
 # ---- comments ----------------------------------------------------------------------------------------------------------------------------------
 def _add_comment_in(transaction, db, engine_id, section, item_id, comment_id, doc, viewer_actor, now, ip_hash, request_id):
     item_ref = db.collection(ITEMS).document(item_key(engine_id, section, item_id))

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your engine workspace</title>
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="referrer" content="no-referrer">
+    <!-- No third-party script and no inline script or style: the page loads only its own files and may call only the site's API (design 9). -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; connect-src https://copernicus-podcast-api-phzp4ie2sq-uc.a.run.app; form-action 'none'; base-uri 'none'">
+    <link rel="stylesheet" href="workspace.css">
+</head>
+<body>
+<main>
+    <h1 id="title">Your engine workspace</h1>
+    <p id="who" class="note"></p>
+    <p id="msg" role="status"></p>
+    <p id="signin" hidden>Please <a href="/subscriber-login.html">sign in</a> with the account that was invited, then open this page again.</p>
+
+    <details class="panel" id="panelBox">
+        <summary>Who can see and change your work</summary>
+        <section id="panel">
+        <ul id="panelList">
+            <li>Only the owners of this engine and Gary can open this workspace. Anyone else, signed in or not, gets "not found". They can't even tell the workspace exists.</li>
+            <li>Only the owners can change answers. Gary can read, comment, and approve or reject a finished section, but he can't edit your answers, and he can never override a section marked final.</li>
+            <li>Nothing becomes public until two people have said yes: the advisor (or the other owner, if the advisor has delegated it) marks a section final, then Gary approves it. Only then is it proposed as a change to the engine's public repository, which Gary reviews and merges. What can become public is the scope statement, the research questions, keywords, seed papers and review-queue decisions.</li>
+            <li>Your private bibliography stays private. It's never published or added to the corpus, the form never shows it to the other owner, and you can delete it at any time. Entries are marked "not yet public" by default, and an entry so marked can never leave the system.</li>
+            <li>Your email address is never published. Your name appears only as you chose: by role only, unless you picked otherwise.</li>
+            <li>Your podcasts are private until you make one public. Only Gary can undo that.</li>
+            <li>Every change made in this workspace is recorded, with who made it and when.</li>
+            <li>Outside services: if you agreed to lookups, paper titles and identifiers are sent to public scholarly services (Crossref, OpenAlex, arXiv, Semantic Scholar) to find the papers. Making a podcast sends its topic and text to the AI services that write, voice and illustrate it (Google's Gemini, ElevenLabs, and OpenAI's image service). Emails are sent through Google's mail service. Gary's own AI assistants help him check approved changes before they reach the repository.</li>
+            <li>Gary runs the system, so he has technical access to its database. He doesn't use it to read your private bibliography.</li>
+        </ul>
+        </section>
+        <p class="note"><a href="panel.html">Open this as its own page</a></p>
+    </details>
+
+    <div id="workspace" hidden>
+        <h2>Progress</h2>
+        <p id="waiting" class="waiting"></p>
+        <table id="sections">
+            <thead><tr><th>Section</th><th>Status</th><th>Items</th><th>Open</th><th>Answered</th><th>Disagreed</th><th>Final</th><th>Approved</th><th></th></tr></thead>
+            <tbody id="sectionRows"></tbody>
+        </table>
+        <h3>What is left</h3>
+        <ul id="left"></ul>
+        <p id="leftMore" class="note" hidden></p>
+
+        <div id="finalBox" hidden>
+            <h2>Mark final</h2>
+            <p class="note">A section can be marked final when every item is answered and no disagreement is open. Gary then approves it. Editing a final section re-opens it and tells you.</p>
+            <button id="markAll" class="primary" type="button">Mark all ready sections final</button>
+            <p id="markAllResult" role="status"></p>
+        </div>
+
+        <div id="delegateBox" hidden>
+            <h2>Final say delegated to you</h2>
+            <p id="delegateText"></p>
+        </div>
+
+        <div id="delegationBox" hidden>
+            <h2>Delegate final say</h2>
+            <p class="note">You may let the other owner of this engine mark sections final for you. You keep the power yourself, and you can revoke it at any time.</p>
+            <label class="choice"><input id="dscopeAll" type="radio" name="dscope" value="all" checked> All sections</label>
+            <label class="choice"><input id="dscopeSome" type="radio" name="dscope" value="some"> Only the sections I choose:</label>
+            <div id="dsections"></div>
+            <button id="delegate" class="primary" type="button">Delegate to the other owner</button>
+            <p id="delegateResult" role="status"></p>
+            <table id="delegations" hidden>
+                <thead><tr><th>Delegated to</th><th>Covers</th><th>Since</th><th>Status</th><th></th></tr></thead>
+                <tbody id="delegationRows"></tbody>
+            </table>
+        </div>
+
+        <h2>Your emails</h2>
+        <label class="choice"><input id="notifyEmail" type="checkbox"> Email me when a section is ready to mark final or has been re-opened (sent to the final-say owner, and to an owner they delegate to).</label>
+        <p id="notifyResult" class="note" role="status"></p>
+    </div>
+</main>
+<script src="common.js"></script>
+<script src="engine.js"></script>
+</body>
+</html>
