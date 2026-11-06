@@ -317,7 +317,7 @@ def test_section_view_lists_items_in_order_with_context_and_unknown_sections_are
 
 # ---- default deny: no route without a session; an owner of X gets 404 on Y -----------------------------------------------------------------------------
 BODIES = {"PUT": {"value": "x", "choice": None, "base_revision": 0}, "POST": {"body": "x", "kind": "comment"}}
-BODY_BY_SUFFIX = {"/questions": {"action": "add", "questions": [{"wording": "W?", "centrality": "central"}]}, "/delegations": {"to": "other_owner", "scope": "all"},
+BODY_BY_SUFFIX = {"/entries": {"list": "mute", "text": "noise"}, "/questions": {"action": "add", "questions": [{"wording": "W?", "centrality": "central"}]}, "/delegations": {"to": "other_owner", "scope": "all"},
                   "/notifications": {"email": False}, "/final": None, "/final-all": None, "/resolve": None}
 
 
@@ -349,7 +349,7 @@ def test_the_engine_routes_are_exactly_these(env):
         ("GET", "/api/onboarding/engines/{engine_id}"), ("GET", "/api/onboarding/engines/{engine_id}/sections/{section_key}"),
         ("PUT", "/api/onboarding/engines/{engine_id}/items/{item_id}"), ("POST", "/api/onboarding/engines/{engine_id}/items/{item_id}/comments"),
         ("POST", "/api/onboarding/engines/{engine_id}/comments/{comment_id}/resolve"), ("POST", "/api/onboarding/engines/{engine_id}/questions"),
-        ("POST", "/api/onboarding/engines/{engine_id}/sections/{section_key}/final"), ("POST", "/api/onboarding/engines/{engine_id}/sections/final-all"),
+        ("POST", "/api/onboarding/engines/{engine_id}/entries"), ("POST", "/api/onboarding/engines/{engine_id}/sections/{section_key}/final"), ("POST", "/api/onboarding/engines/{engine_id}/sections/final-all"),
         ("GET", "/api/onboarding/engines/{engine_id}/delegations"), ("PUT", "/api/onboarding/engines/{engine_id}/delegations"),
         ("DELETE", "/api/onboarding/engines/{engine_id}/delegations/{delegation_id}"), ("PUT", "/api/onboarding/engines/{engine_id}/notifications")])
 

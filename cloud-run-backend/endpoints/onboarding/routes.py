@@ -39,6 +39,7 @@ ADMIN_LIST_LIMIT_PER_HOUR = 300
 AUTOSAVE_LIMIT_PER_HOUR = 900       # one account saving as it types (the page debounces)
 COMMENT_LIMIT_PER_HOUR = 120
 QUESTION_LIMIT_PER_HOUR = 60
+ENTRY_LIMIT_PER_HOUR = 60
 FINAL_LIMIT_PER_HOUR = 60
 DELEGATION_LIMIT_PER_HOUR = 30
 NOTIFICATION_LIMIT_PER_HOUR = 30
@@ -238,6 +239,26 @@ async def add_or_split_question(engine_id: str, body: QuestionAction, request: R
         raise _fail(e)
     await _notify(engine_id, "questions", outcome.get("reopened_from"))
     return {"ids": ids, "items": [form.item_view(db, engine_id, form.find_item(db, engine_id, i), viewer) for i in ids]}
+
+
+class EntryIn(BaseModel):
+    list_name: str = Field(..., alias="list", max_length=20)           # categories, horizons, mute, frontier or flagged
+    text: str = Field(..., max_length=tpl.ENTRY_CAP * 2)
+
+
+@engine_router.post("/entries")
+async def add_entry(engine_id: str, body: EntryIn, request: Request, caller: dict = Depends(engine_gate), _size: None = Depends(limit_body)):
+    """Create a keyword, horizon or mute entry. The system assigns the id ('<prefix>-kN', never reused). [The fourth addition to design 5.7, approved by Gary.]"""
+    _owner(caller)
+    check_rate_limit(db, caller["subscriber_id"], "onboarding_entry", limit=ENTRY_LIMIT_PER_HOUR, window_seconds=3600)
+    viewer, (ip, rid), outcome = _viewer(caller), _trace(request), {}
+    try:
+        item_id = form.add_entry(db, engine_id=engine_id, subscriber_id=caller["subscriber_id"], list_name=body.list_name, text=body.text, ip_hash=ip, request_id=rid,
+                                 outcome=outcome)
+    except form.FormError as e:
+        raise _fail(e)
+    await _notify(engine_id, "keywords", outcome.get("reopened_from"))
+    return {"id": item_id, "item": form.item_view(db, engine_id, form.find_item(db, engine_id, item_id), viewer)}
 
 
 # ---- the first gate: Mark final, and delegation of final say (PR 3a-2) -----------------------------------------------------------------------------
