@@ -1,0 +1,41 @@
+body { font-family: Arial, sans-serif; line-height: 1.55; color: #222; background: #f6f7f9; margin: 0; }
+main { max-width: 860px; margin: 0 auto; padding: 20px 16px 56px; background: #fff; min-height: 100vh; }
+h1 { font-size: 1.55rem; margin: 0 0 4px; }
+h2 { font-size: 1.2rem; margin-top: 28px; border-bottom: 1px solid #dfe3e8; padding-bottom: 4px; }
+h3 { font-size: 1rem; margin-bottom: 4px; }
+a { color: #0b4f9c; }
+.note { color: #555; font-size: 0.9rem; }
+.error { color: #a40000; }
+.ok { color: #0a6b2d; }
+.banner { background: #fff8e1; border: 1px solid #e6d28a; padding: 8px 12px; margin: 10px 0; }
+.waiting { background: #eef4fb; border: 1px solid #b9cfe8; padding: 8px 12px; margin: 10px 0; font-weight: bold; }
+button { margin: 6px 6px 0 0; padding: 7px 16px; font-size: 0.95rem; cursor: pointer; }
+button:disabled { opacity: 0.5; cursor: default; }
+button.primary { background: #0b4f9c; color: #fff; border: 1px solid #083c78; }
+button.small { padding: 3px 10px; font-size: 0.85rem; }
+table { border-collapse: collapse; width: 100%; font-size: 0.9rem; margin-top: 8px; }
+th, td { border: 1px solid #cfd4da; padding: 5px 8px; text-align: left; vertical-align: top; }
+th { background: #f0f2f5; }
+details.panel { border: 1px solid #b9cfe8; background: #f5f9fe; padding: 8px 14px; margin: 14px 0; }
+details.panel summary { cursor: pointer; font-weight: bold; }
+details.panel li { margin-bottom: 8px; }
+.card { border: 1px solid #cfd4da; border-radius: 4px; padding: 10px 14px; margin: 14px 0; }
+.card.disagreed { border-color: #c77700; background: #fffaf0; }
+.card .head { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+.card .context { color: #444; background: #f6f7f9; padding: 6px 8px; margin: 6px 0; white-space: pre-wrap; }
+.card textarea, .card input[type="text"], .card select { width: 100%; box-sizing: border-box; padding: 6px; font-size: 0.95rem; margin-top: 4px; font-family: inherit; }
+.card label { display: block; margin-top: 8px; }
+.card label.choice { font-weight: normal; margin-top: 4px; }
+.card .terms { margin-top: 10px; }
+.card .terms .term { display: flex; gap: 6px; margin-top: 4px; }
+.card .terms .term input { flex: 1; }
+.card .terms .term select { width: 110px; flex: none; }
+.status { font-size: 0.85rem; color: #555; min-height: 1.2em; }
+.conflict { border: 2px solid #c77700; background: #fff4e0; padding: 8px 12px; margin: 8px 0; }
+.conflict pre { white-space: pre-wrap; background: #fff; border: 1px solid #e0c58f; padding: 6px; margin: 4px 0; font-family: inherit; }
+.comments { border-top: 1px dashed #cfd4da; margin-top: 10px; padding-top: 6px; }
+.comment { margin: 6px 0; padding: 4px 8px; border-left: 3px solid #cfd4da; }
+.comment.disagree { border-left-color: #c77700; }
+.comment.resolved { opacity: 0.6; }
+.comment .by { font-size: 0.8rem; color: #555; }
+.hist li { margin: 2px 0; white-space: pre-wrap; }
