@@ -10,7 +10,7 @@ DEFAULT DENY: every route under /api/onboarding/engines/{engine_id}/... passes t
 or to the admin before any handler runs. Anyone else (signed in or not, member of another engine or none, engine real or invented) gets the same 404.
 The accept route is the one exception; it is not an engine route and answers one and the same refusal for every kind of invalid invitation.
 """
-from typing import Any, Optional
+from typing import Any, List, Optional
 
 from fastapi import APIRouter, Depends, Header, HTTPException, Query, Request
 from pydantic import BaseModel, Field
@@ -19,6 +19,8 @@ from config.constants import ADMIN_SUBSCRIBER_EMAIL
 from config.database import db
 from email_service import EmailService
 from utils import onboarding as ob
+from utils import onboarding_form as form
+from utils import onboarding_template as tpl
 from utils.auth import _admin_key_matches, verify_admin_api_key
 from utils.credential_tokens import PASSWORD_MAX_LENGTH, PASSWORD_MIN_LENGTH
 from utils.logging import structured_logger
@@ -33,6 +35,10 @@ ACCEPT_LIMIT_PER_IP_PER_HOUR = 10
 ACCEPT_LIMIT_PER_ADDRESS_PER_HOUR = 5
 ADMIN_INVITE_LIMIT_PER_HOUR = 60
 ADMIN_LIST_LIMIT_PER_HOUR = 300
+AUTOSAVE_LIMIT_PER_HOUR = 900       # one account saving as it types (the page debounces)
+COMMENT_LIMIT_PER_HOUR = 120
+QUESTION_LIMIT_PER_HOUR = 60
+MAX_BODY_BYTES = 65536
 PASSWORD_DETAIL = f"Password must be {PASSWORD_MIN_LENGTH} to {PASSWORD_MAX_LENGTH} characters."
 
 
@@ -63,16 +69,129 @@ def engine_gate(engine_id: str, _origin: None = Depends(origin_guard),
 engine_router = APIRouter(prefix="/api/onboarding/engines/{engine_id}", dependencies=[Depends(engine_gate)])
 
 
+def _viewer(caller: dict) -> dict:
+    return {"via": "admin"} if caller["via"] == "admin" else {"via": "member", "subscriber_id": caller["subscriber_id"]}
+
+
+def _owner(caller: dict) -> dict:
+    """Owners only. The administrator gets the same 404 as a stranger on every route that changes an owner's work, and an owner must have given consent first."""
+    if caller.get("via") != "member":
+        raise HTTPException(status_code=404, detail="Not found")
+    if not (caller.get("membership") or {}).get("consent"):
+        raise HTTPException(status_code=409, detail="Please complete the consent step first")
+    return caller
+
+
+def _fail(e: "form.FormError", viewer: Optional[dict] = None, engine_id: Optional[str] = None) -> HTTPException:
+    if "current_doc" in e.extra:            # a stale save: say so, and hand back the current answer for a one-click merge
+        return HTTPException(status_code=409, detail={"message": e.message, "stale": True, "current": form.item_view(db, engine_id, e.extra["current_doc"], viewer)})
+    return HTTPException(status_code=e.status, detail=e.message)
+
+
+async def limit_body(request: Request) -> None:
+    if int(request.headers.get("content-length") or 0) > MAX_BODY_BYTES:
+        raise HTTPException(status_code=413, detail="That is too large")
+
+
+def _trace(request: Request):
+    return ob.pseudonymous_ip(last_forwarded_ip(request.headers.get("x-forwarded-for"))), (request.headers.get("x-cloud-trace-context", "")[:64] or None)
+
+
 @engine_router.get("")
 async def get_engine(engine_id: str, caller: dict = Depends(engine_gate)):
-    """The engine, and the caller's own role in it. (Sections, progress and the form arrive in PR 3.)"""
+    """The engine, the caller's own role in it, and the progress tracker (per section: items open, answered, disagreed, final, approved; what is left; who is
+    being waited on)."""
     snap = db.collection(ob.ENGINES).document(engine_id).get()
     if not snap.exists:
         raise HTTPException(status_code=404, detail="Not found")
     e = snap.to_dict() or {}
     m = caller.get("membership") or {}
     return {"engine_id": engine_id, "label": e.get("label"), "state": e.get("state"),
-            "role": m.get("role") if caller["via"] == "member" else "admin", "final_say": bool(m.get("final_say")) if caller["via"] == "member" else False}
+            "role": m.get("role") if caller["via"] == "member" else "admin", "final_say": bool(m.get("final_say")) if caller["via"] == "member" else False,
+            "template_version": tpl.TEMPLATE_VERSION, "progress": form.get_progress(db, engine_id, _viewer(caller))}
+
+
+@engine_router.get("/sections/{section_key}")
+async def get_section(engine_id: str, section_key: str, caller: dict = Depends(engine_gate)):
+    """One section: its status and counts, and every item with its answer, who last changed it and when, its history, and its comments."""
+    try:
+        return form.get_section(db, engine_id, section_key, _viewer(caller))
+    except form.FormError as e:
+        raise _fail(e)
+
+
+class ItemSave(BaseModel):
+    value: Any = None
+    choice: Optional[str] = Field(None, max_length=20)
+    base_revision: int = Field(..., ge=0)               # the revision the owner was looking at; a stale save is refused with the current answer
+
+
+@engine_router.put("/items/{item_id}")
+async def save_item(engine_id: str, item_id: str, body: ItemSave, request: Request, caller: dict = Depends(engine_gate), _size: None = Depends(limit_body)):
+    """Autosave one answer (owners only; an administrator gets 404). 409 with the current answer if the item has moved on; nothing is written then."""
+    _owner(caller)
+    check_rate_limit(db, caller["subscriber_id"], "onboarding_autosave", limit=AUTOSAVE_LIMIT_PER_HOUR, window_seconds=3600)
+    viewer, (ip, rid) = _viewer(caller), _trace(request)
+    try:
+        doc = form.save_item(db, engine_id=engine_id, item_id=item_id, subscriber_id=caller["subscriber_id"], value=body.value, choice=body.choice,
+                             base_revision=body.base_revision, ip_hash=ip, request_id=rid)
+    except form.FormError as e:
+        raise _fail(e, viewer, engine_id)
+    return {"item": form.item_view(db, engine_id, doc, viewer), "section_status": form.section_status(db, engine_id, doc["section"])}
+
+
+class CommentIn(BaseModel):
+    body: str = Field(..., max_length=tpl.COMMENT_CAP * 2)
+    kind: str = Field("comment", max_length=10)
+
+
+@engine_router.post("/items/{item_id}/comments")
+async def add_comment(engine_id: str, item_id: str, body: CommentIn, request: Request, caller: dict = Depends(engine_gate), _size: None = Depends(limit_body)):
+    """A plain-text comment on an item. Owners and the administrator may comment (the administrator's are labelled admin). An owner may mark one 'disagree'."""
+    if caller["via"] == "member":
+        _owner(caller)
+    check_rate_limit(db, caller.get("subscriber_id") or "admin", "onboarding_comment", limit=COMMENT_LIMIT_PER_HOUR, window_seconds=3600)
+    ip, rid = _trace(request)
+    try:
+        return form.add_comment(db, engine_id=engine_id, item_id=item_id, viewer=_viewer(caller), body=body.body, kind=body.kind, ip_hash=ip, request_id=rid)
+    except form.FormError as e:
+        raise _fail(e)
+
+
+@engine_router.post("/comments/{comment_id}/resolve")
+async def resolve_comment(engine_id: str, comment_id: str, request: Request, caller: dict = Depends(engine_gate)):
+    """Resolve a comment (either owner may; the administrator may not). Resolving a 'disagree' comment ends that item's disagreement. [An addition to design 5.7.]"""
+    _owner(caller)
+    ip, rid = _trace(request)
+    try:
+        return form.resolve_comment(db, engine_id=engine_id, comment_id=comment_id, subscriber_id=caller["subscriber_id"], ip_hash=ip, request_id=rid)
+    except form.FormError as e:
+        raise _fail(e)
+
+
+class NewQuestion(BaseModel):
+    wording: str = Field(..., max_length=tpl.WORDING_CAP * 2)
+    centrality: str = Field(..., max_length=12)
+
+
+class QuestionAction(BaseModel):
+    action: str = Field(..., max_length=10)                          # "add" or "split"
+    from_item: Optional[str] = Field(None, max_length=64)            # the question to split
+    questions: List[NewQuestion] = Field(..., min_length=1, max_length=form.MAX_SPLIT)
+
+
+@engine_router.post("/questions")
+async def add_or_split_question(engine_id: str, body: QuestionAction, request: Request, caller: dict = Depends(engine_gate), _size: None = Depends(limit_body)):
+    """Add a question, or split one into two or more. The system assigns the ids ('<prefix>-qN', the next free number, never reused). [An addition to design 5.7.]"""
+    _owner(caller)
+    check_rate_limit(db, caller["subscriber_id"], "onboarding_question", limit=QUESTION_LIMIT_PER_HOUR, window_seconds=3600)
+    viewer, (ip, rid) = _viewer(caller), _trace(request)
+    try:
+        ids = form.add_questions(db, engine_id=engine_id, subscriber_id=caller["subscriber_id"], action=body.action, from_item=body.from_item,
+                                 wordings=[q.model_dump() for q in body.questions], ip_hash=ip, request_id=rid)
+    except form.FormError as e:
+        raise _fail(e)
+    return {"ids": ids, "items": [form.item_view(db, engine_id, form.find_item(db, engine_id, i), viewer) for i in ids]}
 
 
 router.include_router(engine_router)

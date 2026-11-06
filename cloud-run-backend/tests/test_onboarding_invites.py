@@ -392,7 +392,9 @@ def test_a_non_member_gets_the_same_404_on_every_engine_route(env):
                 seen.add(r.text)
     assert len(seen) == 1                                                           # one and the same body for every refusal
     # the member of the engine and the admin do get in
-    assert env.client.get(f"/api/onboarding/engines/{ENGINE}", headers=a).json() == {"engine_id": ENGINE, "label": "TDAP end-to-end", "state": "open", "role": "owner", "final_say": False}
+    got = env.client.get(f"/api/onboarding/engines/{ENGINE}", headers=a).json()
+    assert {k: got[k] for k in ("engine_id", "label", "state", "role", "final_say")} == {"engine_id": ENGINE, "label": "TDAP end-to-end", "state": "open", "role": "owner", "final_say": False}
+    assert got["template_version"] == 1 and [r["key"] for r in got["progress"]["sections"]] == ["scope", "questions", "keywords", "seeds"]       # PR 3a-1 adds the progress tracker
     assert env.client.get(f"/api/onboarding/engines/{ENGINE}", headers=ADMIN_KEY).json()["role"] == "admin"
     assert env.client.get("/api/onboarding/engines/no-such-engine", headers=ADMIN_KEY).status_code == 404       # the admin cannot read an engine that does not exist
     assert env.client.get(f"/api/onboarding/engines/{OTHER_ENGINE}", headers=a).status_code == 404               # and a member cannot read another engine
