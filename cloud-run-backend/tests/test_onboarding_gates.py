@@ -482,6 +482,19 @@ def test_a_re_open_from_final_tells_the_holder_once_and_a_section_still_ready_ge
     assert len(env.mail.sent) == 1
 
 
+def test_adding_or_splitting_a_question_in_a_final_section_re_opens_it_and_tells_the_holder(env):
+    answer_quietly(env, "questions")
+    final(env, ADV, "questions")
+    r = env.client.post(f"{BASE}/questions", json={"action": "add", "questions": [{"wording": "More?", "centrality": "central"}]}, headers=H[OTH])
+    assert r.status_code == 200 and section_doc(env, "questions")["status"] == "draft"
+    assert kinds(env) == [("reopened", ADV_ADDR)] and env.mail.sent[0]["section"] == "Research questions"
+    env.mail.sent.clear()
+    final(env, ADV, "questions")
+    two = [{"wording": "A?", "centrality": "central"}, {"wording": "B?", "centrality": "central"}]
+    assert env.client.post(f"{BASE}/questions", json={"action": "split", "from_item": "ex-q1", "questions": two}, headers=H[OTH]).status_code == 200
+    assert kinds(env) == [("reopened", ADV_ADDR)]
+
+
 def test_a_re_open_from_approved_also_tells_the_holder(env):
     answer_quietly(env, "scope")
     set_section(env, "scope", "approved", approved_at="2026-11-01", content_sha256="abc")
