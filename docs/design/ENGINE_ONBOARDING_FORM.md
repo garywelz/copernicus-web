@@ -484,7 +484,7 @@ On 2026-10-29, at 16:57 ET, Gary confirmed that every remaining default stands. 
 |---|---|---|
 | Q6 | **A failed generation does not count against the quota if it can be refunded safely; the owner sees a plain "monthly limit reached" message at 429.** PR 1 confirms the existing check's behaviour and reports it. | §7.3, §8.1 |
 | Q7 | **No. "Make public" does not offer the feed;** the feed stays a separate, Gary-gated step. | §7.2 |
-| Q8 | **Invitation and notification emails come from the site's existing sender, signed by the site, not a named person;** wording is plain and carries no research content. | §3.1, §4.6 |
+| Q8 | **Invitation and notification emails come from the site's existing sender and are signed by the site. An invitation names who invited the person and which engine** (amended by Gary 2026-11-05, so the email is recognisable and not mistaken for phishing). Wording is plain and carries no research content. | §3.1, §4.6 |
 | Q9 | **The engine's records are kept in Gary's archives** (the `ENGINE_ONBOARDING.md` §5 rule), and the owner may delete their own private bibliography at any time; the consent page says so. | §2.8, §9 |
 | Q10 | **CC0 stays unless the owners choose another licence,** in which case Gary decides before any file is changed. | §2.8 |
 | Q11 | **The naming choice governs only new changes;** existing public references are left to a separate conversation. | §2.8 |
