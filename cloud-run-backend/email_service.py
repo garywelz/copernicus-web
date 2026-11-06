@@ -267,6 +267,48 @@ class EmailService:
             print(f"Invitation email failed: {type(e).__name__}")
             return False
 
+    async def send_onboarding_notice(self, recipient_email: str, kind: str, engine_label: Optional[str], section_title: Optional[str], link: str) -> bool:
+        """Email the final-say owner (or a delegate) that a section is READY to mark final, or was RE-OPENED by an edit (onboarding PR 3a-2, design 4.6). The message
+        names the engine and the section and carries one link to the engine page. It holds NO answer content, and the link holds no address. Both names are cleaned
+        for a mail header. Nothing here writes the recipient address or the link to any log or to stdout."""
+        if not self.sender_password:
+            print("Email password not configured. Onboarding notice not sent.")
+            return False
+        try:
+            label = clean_header_text(engine_label) or SITE_NAME
+            section = clean_header_text(section_title, 60) or "A section"
+            if kind == "ready":
+                subject = f"{section} is ready to mark final ({label} on {SITE_NAME})"
+                line = f'The section "{section}" of the {label} engine is ready: every item is answered and no disagreement is open. You can now mark it final.'
+            elif kind == "reopened":
+                subject = f"{section} was edited and is open again ({label} on {SITE_NAME})"
+                line = (f'The section "{section}" of the {label} engine was marked final or approved, and an owner has since edited it, so it is open again. '
+                        "It needs your final mark again before it can go any further.")
+            else:
+                return False
+            msg = MIMEMultipart("alternative")
+            msg['From'] = formataddr((SITE_NAME, self.sender_email))
+            msg['To'] = recipient_email
+            msg['Subject'] = subject
+            text = (f"{line}\n\nOpen the engine page:\n\n{link}\n\n"
+                    "You get these emails because you are the final-say owner, or were delegated that role. You can switch them off on the engine page.\n\n"
+                    f"{SITE_NAME}\n")
+            html = (
+                '<html><body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">'
+                '<div style="max-width: 560px; margin: 0 auto; padding: 20px;">'
+                f'<p>{html_lib.escape(line)}</p>'
+                f'<p><a href="{html_lib.escape(link)}">{html_lib.escape(link)}</a></p>'
+                "<p>You get these emails because you are the final-say owner, or were delegated that role. You can switch them off on the engine page.</p>"
+                f'<p>{SITE_NAME}</p></div></body></html>'
+            )
+            msg.attach(MIMEText(text, 'plain'))
+            msg.attach(MIMEText(html, 'html'))
+            await asyncio.to_thread(self._send_message_blocking, msg)
+            return True
+        except Exception as e:
+            print(f"Onboarding notice failed: {type(e).__name__}")
+            return False
+
     async def send_credential_link_email(self, recipient_email: str, link: str, valid_minutes: int) -> bool:
         """Email a single-use link that proves control of the mailbox (password reset). Plain wording, no research
         content, signed by the site. Nothing here writes the recipient address or the link to any log or to stdout."""

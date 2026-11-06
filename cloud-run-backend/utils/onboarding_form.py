@@ -1,6 +1,6 @@
 """The owners' workspace, part 1 (onboarding PR 3a-1; docs/design/ENGINE_ONBOARDING_FORM.md 4.1 to 4.5, 5.6, 5.7): items and sections with an optimistic revision
 check, per-answer provenance and history, question add and split with never-reused ids, comment threads with the "disagree" marker, readiness and the progress
-tracker. Marking a section final, delegation and notifications are PR 3a-2; the pages are 3a-3; approve and reject are 3b.
+tracker. Marking a section final, delegation and notifications are PR 3a-2 (utils/onboarding_gates.py); the pages are 3a-3; approve and reject are 3b.
 
 Every change here writes its onboarding_events record IN THE SAME TRANSACTION as the change (utils/onboarding.py _event): there is no change without a record.
 No response carries a subscriber id: authors are shown as 'you', 'advisor', 'other owner' or 'admin'.
@@ -89,19 +89,19 @@ def find_item(db, engine_id: str, item_id: str) -> Optional[dict]:
     return None
 
 
-def _items_of(db, engine_id: str, section: Optional[str] = None) -> List[dict]:
+def _items_of(db, engine_id: str, section: Optional[str] = None, transaction=None) -> List[dict]:
     q = db.collection(ITEMS).where("engine_id", "==", engine_id)
     if section:
         q = q.where("section", "==", section)
-    return sorted((d.to_dict() for d in q.stream()), key=lambda x: (x.get("order", 0), x.get("item_id", "")))
+    return sorted((d.to_dict() for d in q.stream(transaction=transaction)), key=lambda x: (x.get("order", 0), x.get("item_id", "")))
 
 
-def _comments_of(db, engine_id: str, section: Optional[str] = None) -> List[dict]:
+def _comments_of(db, engine_id: str, section: Optional[str] = None, transaction=None) -> List[dict]:
     q = db.collection(COMMENTS).where("engine_id", "==", engine_id)
     if section:
         q = q.where("section", "==", section)
     out = []
-    for d in q.stream():
+    for d in q.stream(transaction=transaction):
         c = d.to_dict()
         c["comment_id"] = d.id
         out.append(c)
@@ -219,7 +219,7 @@ def _section_ref(db, engine_id, section):
     return db.collection(SECTIONS_COL).document(section_doc_id(engine_id, section))
 
 
-def _save_in(transaction, db, engine_id, section, item_id, sid, value, choice, base_revision, now, ip_hash, request_id):
+def _save_in(transaction, db, engine_id, section, item_id, sid, value, choice, base_revision, now, ip_hash, request_id, outcome=None):
     engine_snap = db.collection(ob.ENGINES).document(engine_id).get(transaction=transaction)
     item_ref = db.collection(ITEMS).document(item_key(engine_id, section, item_id))
     item_snap = item_ref.get(transaction=transaction)
@@ -247,6 +247,8 @@ def _save_in(transaction, db, engine_id, section, item_id, sid, value, choice, b
     transaction.set(item_ref, new_item)
     new_sec = _reopened(sec, sid, now)
     transaction.set(sec_ref, new_sec)
+    if outcome is not None:
+        outcome["reopened_from"] = sec.get("status", "draft")          # the notifications (3a-2) need to know a FINAL section was just re-opened
     ob._event(transaction, db, engine_id=engine_id, actor=sid, actor_role="owner", action="item_edit", target=f"{section}/{item_id}", before=item.get("value"), after=clean_value,
               ip_hash=ip_hash, request_id=request_id, now=now, extra={"section": section, "item_id": item_id, "revision": new_item["revision"], "before_value": item.get("value"),
                                                                       "before_choice": item.get("choice"), "choice": clean_choice})
@@ -257,14 +259,14 @@ def _save_in(transaction, db, engine_id, section, item_id, sid, value, choice, b
 
 
 def save_item(db, *, engine_id: str, item_id: str, subscriber_id: str, value: Any, choice: Any, base_revision: int, now: Optional[datetime] = None,
-              ip_hash: Optional[str] = None, request_id: Optional[str] = None) -> dict:
+              ip_hash: Optional[str] = None, request_id: Optional[str] = None, outcome: Optional[dict] = None) -> dict:
     """Save one answer. `base_revision` is the revision the owner was looking at: if the stored item has moved on, FormError(409) carries the current item and
     NOTHING is written (a stale save is never silently merged or overwritten). Returns the new stored item."""
     now = now or ob._utcnow()
     found = find_item(db, engine_id, item_id)
     if not found:
         raise FormError(404, "Not found")
-    return ob._run_in_transaction(db, _save_in, db, engine_id, found["section"], item_id, subscriber_id, value, choice, base_revision, now, ip_hash, request_id)
+    return ob._run_in_transaction(db, _save_in, db, engine_id, found["section"], item_id, subscriber_id, value, choice, base_revision, now, ip_hash, request_id, outcome)
 
 
 # ---- adding and splitting a question (ids assigned by the system, never reused) -----------------------------------------------------------------------
@@ -288,7 +290,7 @@ def _new_question_doc(engine_id, item_id, number, value, sid, now, context):
             "author_subscriber_id": sid, "updated_at": _iso(now), "comment_count": 0, "history": [], "context": context, "order": number}
 
 
-def _add_in(transaction, db, engine_id, sid, new_values, split_from, floor, now, ip_hash, request_id):
+def _add_in(transaction, db, engine_id, sid, new_values, split_from, floor, now, ip_hash, request_id, outcome=None):
     engine_snap = db.collection(ob.ENGINES).document(engine_id).get(transaction=transaction)
     if not engine_snap.exists:
         raise FormError(404, "Not found")
@@ -328,6 +330,8 @@ def _add_in(transaction, db, engine_id, sid, new_values, split_from, floor, now,
         transaction.set(orig_ref, {**orig, "choice": "split", "value": {**(orig.get("value") or {}), "split_into": [c[0] for c in created]}, "revision": orig.get("revision", 0) + 1,
                                    "author_subscriber_id": sid, "updated_at": _iso(now), "history": history})
     transaction.set(sec_ref, _reopened(sec, sid, now))
+    if outcome is not None:
+        outcome["reopened_from"] = sec.get("status", "draft")
     ids = [c[0] for c in created]
     ob._event(transaction, db, engine_id=engine_id, actor=sid, actor_role="owner", action="question_split" if split_from else "question_add", target=split_from or ids[0],
               before=None, after={"new": ids}, ip_hash=ip_hash, request_id=request_id, now=now, extra={"section": "questions", "new_ids": ids})
@@ -338,7 +342,7 @@ def _add_in(transaction, db, engine_id, sid, new_values, split_from, floor, now,
 
 
 def add_questions(db, *, engine_id: str, subscriber_id: str, action: str, wordings: List[dict], from_item: Optional[str] = None, now: Optional[datetime] = None,
-                  ip_hash: Optional[str] = None, request_id: Optional[str] = None) -> List[str]:
+                  ip_hash: Optional[str] = None, request_id: Optional[str] = None, outcome: Optional[dict] = None) -> List[str]:
     """Add one question, or split one into two or more. The system assigns the ids: '<prefix>-qN', the next free number from a counter on the engine record that
     only goes up. Each new question carries the choice 'add', its own wording and centrality, and no terms yet."""
     now = now or ob._utcnow()
@@ -358,7 +362,7 @@ def add_questions(db, *, engine_id: str, subscriber_id: str, action: str, wordin
             raise FormError(400, str(e))
     engine = _engine(db, engine_id)
     floor = _highest_question_number(db, engine_id, _prefix(engine_id, engine))
-    return ob._run_in_transaction(db, _add_in, db, engine_id, subscriber_id, values, from_item if action == "split" else None, floor, now, ip_hash, request_id)
+    return ob._run_in_transaction(db, _add_in, db, engine_id, subscriber_id, values, from_item if action == "split" else None, floor, now, ip_hash, request_id, outcome)
 
 
 # ---- comments ----------------------------------------------------------------------------------------------------------------------------------

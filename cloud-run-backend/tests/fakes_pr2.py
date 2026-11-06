@@ -69,7 +69,7 @@ class Query:
     def select(self, fields):                      # a projection: the fake returns whole documents, which is a superset
         return self
 
-    def stream(self):
+    def stream(self, transaction=None):
         out = [Snap(Ref(self.db, self.col, i), d) for i, d in list(self.db.data.get(self.col, {}).items()) if all(d.get(f) == v for f, v in self.filters)]
         return out[: self.cap] if self.cap else out
 

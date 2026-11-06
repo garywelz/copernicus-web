@@ -12,14 +12,15 @@ The accept route is the one exception; it is not an engine route and answers one
 """
 from typing import Any, List, Optional
 
-from fastapi import APIRouter, Depends, Header, HTTPException, Query, Request
-from pydantic import BaseModel, Field
+from fastapi import APIRouter, BackgroundTasks, Depends, Header, HTTPException, Query, Request
+from pydantic import BaseModel, Field, StrictBool
 
 from config.constants import ADMIN_SUBSCRIBER_EMAIL
 from config.database import db
 from email_service import EmailService
 from utils import onboarding as ob
 from utils import onboarding_form as form
+from utils import onboarding_gates as gates
 from utils import onboarding_template as tpl
 from utils.auth import _admin_key_matches, verify_admin_api_key
 from utils.credential_tokens import PASSWORD_MAX_LENGTH, PASSWORD_MIN_LENGTH
@@ -38,6 +39,10 @@ ADMIN_LIST_LIMIT_PER_HOUR = 300
 AUTOSAVE_LIMIT_PER_HOUR = 900       # one account saving as it types (the page debounces)
 COMMENT_LIMIT_PER_HOUR = 120
 QUESTION_LIMIT_PER_HOUR = 60
+FINAL_LIMIT_PER_HOUR = 60
+DELEGATION_LIMIT_PER_HOUR = 30
+NOTIFICATION_LIMIT_PER_HOUR = 30
+ENGINE_PAGE_URL = "https://www.copernicusai.fyi/onboarding/engine.html"      # the link in a notification: the engine page, never an address
 MAX_BODY_BYTES = 65536
 PASSWORD_DETAIL = f"Password must be {PASSWORD_MIN_LENGTH} to {PASSWORD_MAX_LENGTH} characters."
 
@@ -85,7 +90,34 @@ def _owner(caller: dict) -> dict:
 def _fail(e: "form.FormError", viewer: Optional[dict] = None, engine_id: Optional[str] = None) -> HTTPException:
     if "current_doc" in e.extra:            # a stale save: say so, and hand back the current answer for a one-click merge
         return HTTPException(status_code=409, detail={"message": e.message, "stale": True, "current": form.item_view(db, engine_id, e.extra["current_doc"], viewer)})
+    if e.extra:                              # a refusal with a reason (a section that is not ready, already final, ...)
+        return HTTPException(status_code=e.status, detail={"message": e.message, **e.extra})
     return HTTPException(status_code=e.status, detail=e.message)
+
+
+async def _notify(engine_id: str, section: Optional[str], reopened_from: Optional[str] = None, item_id: Optional[str] = None) -> None:
+    """Tell the final-say owner (and a covering delegate) that a section is ready, or was re-opened. Runs AFTER the change has committed, as a background task:
+    nothing here can undo a change, and a failure is logged by error type only (never an address, a link or a name)."""
+    try:
+        if section is None and item_id:
+            found = form.find_item(db, engine_id, item_id)
+            section = found["section"] if found else None
+        if not section:
+            return
+        plans = gates.plan_notifications(db, engine_id=engine_id, section=section, reopened_from=reopened_from)
+    except Exception as e:
+        structured_logger.error("Onboarding notice could not be planned", error_type=type(e).__name__)
+        return
+    link, sent = f"{ENGINE_PAGE_URL}?engine={engine_id}", 0
+    for plan in plans:
+        for address in plan["to"]:
+            try:
+                if await email_service.send_onboarding_notice(address, plan["kind"], plan["engine_label"], plan["section_title"], link):
+                    sent += 1
+            except Exception as e:
+                structured_logger.error("Onboarding notice could not be sent", error_type=type(e).__name__)
+    if plans:
+        structured_logger.info("Onboarding notices", engine_id=engine_id, section=section, kinds=[p["kind"] for p in plans], sent=sent)
 
 
 async def limit_body(request: Request) -> None:
@@ -106,8 +138,11 @@ async def get_engine(engine_id: str, caller: dict = Depends(engine_gate)):
         raise HTTPException(status_code=404, detail="Not found")
     e = snap.to_dict() or {}
     m = caller.get("membership") or {}
+    member = caller["via"] == "member"
     return {"engine_id": engine_id, "label": e.get("label"), "state": e.get("state"),
-            "role": m.get("role") if caller["via"] == "member" else "admin", "final_say": bool(m.get("final_say")) if caller["via"] == "member" else False,
+            "role": m.get("role") if member else "admin", "final_say": bool(m.get("final_say")) if member else False,
+            **(gates.authority_view(db, engine_id, e, caller["subscriber_id"]) if member else {"can_mark_final": False, "may_mark": []}),
+            "notifications_email": (m.get("notifications_email", True) is not False) if member else None,
             "template_version": tpl.TEMPLATE_VERSION, "progress": form.get_progress(db, engine_id, _viewer(caller))}
 
 
@@ -127,16 +162,18 @@ class ItemSave(BaseModel):
 
 
 @engine_router.put("/items/{item_id}")
-async def save_item(engine_id: str, item_id: str, body: ItemSave, request: Request, caller: dict = Depends(engine_gate), _size: None = Depends(limit_body)):
+async def save_item(engine_id: str, item_id: str, body: ItemSave, request: Request, background: BackgroundTasks, caller: dict = Depends(engine_gate),
+                    _size: None = Depends(limit_body)):
     """Autosave one answer (owners only; an administrator gets 404). 409 with the current answer if the item has moved on; nothing is written then."""
     _owner(caller)
     check_rate_limit(db, caller["subscriber_id"], "onboarding_autosave", limit=AUTOSAVE_LIMIT_PER_HOUR, window_seconds=3600)
-    viewer, (ip, rid) = _viewer(caller), _trace(request)
+    viewer, (ip, rid), outcome = _viewer(caller), _trace(request), {}
     try:
         doc = form.save_item(db, engine_id=engine_id, item_id=item_id, subscriber_id=caller["subscriber_id"], value=body.value, choice=body.choice,
-                             base_revision=body.base_revision, ip_hash=ip, request_id=rid)
+                             base_revision=body.base_revision, ip_hash=ip, request_id=rid, outcome=outcome)
     except form.FormError as e:
         raise _fail(e, viewer, engine_id)
+    background.add_task(_notify, engine_id, doc["section"], outcome.get("reopened_from"))
     return {"item": form.item_view(db, engine_id, doc, viewer), "section_status": form.section_status(db, engine_id, doc["section"])}
 
 
@@ -146,27 +183,33 @@ class CommentIn(BaseModel):
 
 
 @engine_router.post("/items/{item_id}/comments")
-async def add_comment(engine_id: str, item_id: str, body: CommentIn, request: Request, caller: dict = Depends(engine_gate), _size: None = Depends(limit_body)):
+async def add_comment(engine_id: str, item_id: str, body: CommentIn, request: Request, background: BackgroundTasks, caller: dict = Depends(engine_gate),
+                      _size: None = Depends(limit_body)):
     """A plain-text comment on an item. Owners and the administrator may comment (the administrator's are labelled admin). An owner may mark one 'disagree'."""
     if caller["via"] == "member":
         _owner(caller)
     check_rate_limit(db, caller.get("subscriber_id") or "admin", "onboarding_comment", limit=COMMENT_LIMIT_PER_HOUR, window_seconds=3600)
     ip, rid = _trace(request)
     try:
-        return form.add_comment(db, engine_id=engine_id, item_id=item_id, viewer=_viewer(caller), body=body.body, kind=body.kind, ip_hash=ip, request_id=rid)
+        made = form.add_comment(db, engine_id=engine_id, item_id=item_id, viewer=_viewer(caller), body=body.body, kind=body.kind, ip_hash=ip, request_id=rid)
     except form.FormError as e:
         raise _fail(e)
+    if caller["via"] == "member" and body.kind == "disagree":
+        background.add_task(_notify, engine_id, None, None, item_id)          # a disagreement can take a section out of "ready"; this clears its mail flag
+    return made
 
 
 @engine_router.post("/comments/{comment_id}/resolve")
-async def resolve_comment(engine_id: str, comment_id: str, request: Request, caller: dict = Depends(engine_gate)):
+async def resolve_comment(engine_id: str, comment_id: str, request: Request, background: BackgroundTasks, caller: dict = Depends(engine_gate)):
     """Resolve a comment (either owner may; the administrator may not). Resolving a 'disagree' comment ends that item's disagreement. [An addition to design 5.7.]"""
     _owner(caller)
     ip, rid = _trace(request)
     try:
-        return form.resolve_comment(db, engine_id=engine_id, comment_id=comment_id, subscriber_id=caller["subscriber_id"], ip_hash=ip, request_id=rid)
+        resolved = form.resolve_comment(db, engine_id=engine_id, comment_id=comment_id, subscriber_id=caller["subscriber_id"], ip_hash=ip, request_id=rid)
     except form.FormError as e:
         raise _fail(e)
+    background.add_task(_notify, engine_id, None, None, resolved.get("item_id"))      # resolving the last disagreement can make a section ready
+    return resolved
 
 
 class NewQuestion(BaseModel):
@@ -181,17 +224,111 @@ class QuestionAction(BaseModel):
 
 
 @engine_router.post("/questions")
-async def add_or_split_question(engine_id: str, body: QuestionAction, request: Request, caller: dict = Depends(engine_gate), _size: None = Depends(limit_body)):
+async def add_or_split_question(engine_id: str, body: QuestionAction, request: Request, background: BackgroundTasks, caller: dict = Depends(engine_gate),
+                                _size: None = Depends(limit_body)):
     """Add a question, or split one into two or more. The system assigns the ids ('<prefix>-qN', the next free number, never reused). [An addition to design 5.7.]"""
     _owner(caller)
     check_rate_limit(db, caller["subscriber_id"], "onboarding_question", limit=QUESTION_LIMIT_PER_HOUR, window_seconds=3600)
-    viewer, (ip, rid) = _viewer(caller), _trace(request)
+    viewer, (ip, rid), outcome = _viewer(caller), _trace(request), {}
     try:
         ids = form.add_questions(db, engine_id=engine_id, subscriber_id=caller["subscriber_id"], action=body.action, from_item=body.from_item,
-                                 wordings=[q.model_dump() for q in body.questions], ip_hash=ip, request_id=rid)
+                                 wordings=[q.model_dump() for q in body.questions], ip_hash=ip, request_id=rid, outcome=outcome)
     except form.FormError as e:
         raise _fail(e)
+    background.add_task(_notify, engine_id, "questions", outcome.get("reopened_from"))
     return {"ids": ids, "items": [form.item_view(db, engine_id, form.find_item(db, engine_id, i), viewer) for i in ids]}
+
+
+# ---- the first gate: Mark final, and delegation of final say (PR 3a-2) -----------------------------------------------------------------------------
+@engine_router.post("/sections/final-all")
+async def mark_all_final(engine_id: str, request: Request, caller: dict = Depends(engine_gate)):
+    """Mark every READY section the caller may mark final. The final-say holder (or a delegate, for the sections delegated) only; an administrator gets 404, an
+    owner without the power gets 403. Returns which sections were marked and which were left, with the reason for each. One audit event per section marked."""
+    _owner(caller)
+    check_rate_limit(db, caller["subscriber_id"], "onboarding_final", limit=FINAL_LIMIT_PER_HOUR, window_seconds=3600)
+    ip, rid = _trace(request)
+    try:
+        out = gates.mark_all_final(db, engine_id=engine_id, subscriber_id=caller["subscriber_id"], ip_hash=ip, request_id=rid)
+    except form.FormError as e:
+        raise _fail(e)
+    return {**out, "progress": form.get_progress(db, engine_id, _viewer(caller))}
+
+
+@engine_router.post("/sections/{section_key}/final")
+async def mark_section_final(engine_id: str, section_key: str, request: Request, caller: dict = Depends(engine_gate)):
+    """Mark one section final. The final-say holder, or a delegate for THIS section; an administrator gets 404, any other owner 403. 409 (with a reason) if the
+    section is not ready, is already final, was approved, or was sent back."""
+    _owner(caller)
+    check_rate_limit(db, caller["subscriber_id"], "onboarding_final", limit=FINAL_LIMIT_PER_HOUR, window_seconds=3600)
+    ip, rid = _trace(request)
+    try:
+        out = gates.mark_final(db, engine_id=engine_id, section=section_key, subscriber_id=caller["subscriber_id"], ip_hash=ip, request_id=rid)
+    except form.FormError as e:
+        raise _fail(e)
+    return {**out, "progress": form.get_progress(db, engine_id, _viewer(caller))}
+
+
+class DelegationIn(BaseModel):
+    to: str = Field("other_owner", max_length=20)          # the form never shows a person's id, so the delegate is "the other owner"
+    scope: Any = "all"                                      # "all", or a list of section keys
+
+
+@engine_router.get("/delegations")
+async def get_delegations(engine_id: str, caller: dict = Depends(engine_gate)):
+    """The final-say holder sees the engine's delegations; a delegate sees the ones that name them; any other owner sees none. An administrator gets 404."""
+    _owner(caller)
+    try:
+        return {"delegations": gates.list_delegations(db, engine_id=engine_id, subscriber_id=caller["subscriber_id"])}
+    except form.FormError as e:
+        raise _fail(e)
+
+
+@engine_router.put("/delegations")
+async def put_delegation(engine_id: str, body: DelegationIn, request: Request, caller: dict = Depends(engine_gate), _size: None = Depends(limit_body)):
+    """Delegate final say to the other owner of this engine (the holder only; a delegate cannot delegate further). A new delegation replaces the active one: both a
+    revoke event and a create event are written. [An unchanged route of design 5.7.]"""
+    _owner(caller)
+    check_rate_limit(db, caller["subscriber_id"], "onboarding_delegation", limit=DELEGATION_LIMIT_PER_HOUR, window_seconds=3600)
+    if body.to != "other_owner":
+        raise HTTPException(status_code=400, detail='to must be "other_owner"')
+    try:
+        if not gates.is_holder(form._engine(db, engine_id), caller["subscriber_id"]):
+            raise form.FormError(403, "Only the final-say owner can delegate final say")
+        to_sid = gates.other_owner(db, engine_id, caller["subscriber_id"])
+        if not to_sid:
+            raise form.FormError(409, "There is no single other owner of this engine to delegate to")
+        ip, rid = _trace(request)
+        return gates.create_delegation(db, engine_id=engine_id, subscriber_id=caller["subscriber_id"], to_subscriber_id=to_sid, scope=body.scope, ip_hash=ip, request_id=rid)
+    except form.FormError as e:
+        raise _fail(e)
+
+
+@engine_router.delete("/delegations/{delegation_id}")
+async def delete_delegation(engine_id: str, delegation_id: str, request: Request, caller: dict = Depends(engine_gate)):
+    """Revoke a delegation (the holder only). It stops working at the delegate's very next action."""
+    _owner(caller)
+    check_rate_limit(db, caller["subscriber_id"], "onboarding_delegation", limit=DELEGATION_LIMIT_PER_HOUR, window_seconds=3600)
+    ip, rid = _trace(request)
+    try:
+        return gates.revoke_delegation(db, engine_id=engine_id, subscriber_id=caller["subscriber_id"], delegation_id=delegation_id, ip_hash=ip, request_id=rid)
+    except form.FormError as e:
+        raise _fail(e)
+
+
+class NotificationsIn(BaseModel):
+    email: StrictBool
+
+
+@engine_router.put("/notifications")
+async def put_notifications(engine_id: str, body: NotificationsIn, request: Request, caller: dict = Depends(engine_gate)):
+    """An owner's own switch for the e-mails about final sections (on by default). Stored on their membership; audited. [An addition to design 5.7.]"""
+    _owner(caller)
+    check_rate_limit(db, caller["subscriber_id"], "onboarding_notifications", limit=NOTIFICATION_LIMIT_PER_HOUR, window_seconds=3600)
+    ip, rid = _trace(request)
+    try:
+        return {"email": gates.set_notifications(db, engine_id=engine_id, subscriber_id=caller["subscriber_id"], email=body.email, ip_hash=ip, request_id=rid)}
+    except form.FormError as e:
+        raise _fail(e)
 
 
 router.include_router(engine_router)

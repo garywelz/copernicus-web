@@ -55,6 +55,19 @@ def seed():
     return db
 
 
+class FakeMail:
+    """Stands in for EmailService: records each notice (recipient, kind, engine, section, link) and can be made to fail. No network, no SMTP."""
+
+    def __init__(self):
+        self.sent, self.raises = [], False
+
+    async def send_onboarding_notice(self, address, kind, engine_label, section_title, link):
+        if self.raises:
+            raise RuntimeError("the mail service is down")
+        self.sent.append({"to": address, "kind": kind, "engine": engine_label, "section": section_title, "link": link})
+        return True
+
+
 class Clock:
     def __init__(self):
         self.t = T0
@@ -69,16 +82,17 @@ def env(monkeypatch):
     import config.database
     import utils.auth as auth
     from endpoints.onboarding import routes
-    db, limited, clock = seed(), [], Clock()
+    db, limited, clock, mail = seed(), [], Clock(), FakeMail()
     monkeypatch.setattr(ob, "_run_in_transaction", run_in_transaction)
     monkeypatch.setattr(ob, "_utcnow", clock)
     monkeypatch.setattr(routes, "db", db)
+    monkeypatch.setattr(routes, "email_service", mail)
     monkeypatch.setattr(config.database, "db", db)
     monkeypatch.setattr(routes, "check_rate_limit", lambda *a, **k: limited.append((a[1:3], k)))
     monkeypatch.setattr(auth, "get_admin_api_key", lambda: "test-key")
     app = FastAPI()
     app.include_router(routes.router)
-    return type("Env", (), {"db": db, "client": TestClient(app), "routes": routes, "app": app, "limited": limited, "clock": clock, "mp": monkeypatch})()
+    return type("Env", (), {"db": db, "client": TestClient(app), "routes": routes, "app": app, "limited": limited, "clock": clock, "mp": monkeypatch, "mail": mail})()
 
 
 def put(env, who, item_id, value, choice=None, base=0, engine=X):
