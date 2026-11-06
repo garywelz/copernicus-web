@@ -103,12 +103,13 @@ def _utcnow() -> datetime:
 
 
 def _event(transaction, db, *, engine_id: Optional[str], actor: str, actor_role: str, action: str, target: Optional[str], before: Any, after: Any,
-           ip_hash: Optional[str], request_id: Optional[str], now: datetime) -> None:
-    """Append one audit record in the caller's transaction. Holds ids and hashes only: never an address, a token or a name."""
+           ip_hash: Optional[str], request_id: Optional[str], now: datetime, extra: Optional[Dict[str, Any]] = None) -> None:
+    """Append one audit record in the caller's transaction. Holds ids and hashes only (never an address, a token or a name), plus `extra` where the design
+    wants more: an edited item's full prior value (design 5.6: the audit log keeps full prior values, the item keeps only a capped history)."""
     transaction.set(db.collection(EVENTS).document(uuid.uuid4().hex), {
         "ts": now.isoformat(), "engine_id": engine_id, "actor_subscriber_id": actor, "actor_role": actor_role, "action": action, "target": target,
         "before_sha256": _sha(before) if before is not None else None, "after_sha256": _sha(after) if after is not None else None,
-        "ip_hash": ip_hash, "request_id": request_id,
+        "ip_hash": ip_hash, "request_id": request_id, **(extra or {}),
     })
 
 
