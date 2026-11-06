@@ -10,6 +10,7 @@ DEFAULT DENY: every route under /api/onboarding/engines/{engine_id}/... passes t
 or to the admin before any handler runs. Anyone else (signed in or not, member of another engine or none, engine real or invented) gets the same 404.
 The accept route is the one exception; it is not an engine route and answers one and the same refusal for every kind of invalid invitation.
 """
+import asyncio
 from typing import Any, List, Optional
 
 from fastapi import APIRouter, Depends, Header, HTTPException, Query, Request
@@ -43,6 +44,7 @@ ENTRY_LIMIT_PER_HOUR = 60
 FINAL_LIMIT_PER_HOUR = 60
 DELEGATION_LIMIT_PER_HOUR = 30
 NOTIFICATION_LIMIT_PER_HOUR = 30
+NOTICE_TIMEOUT_SECONDS = 10      # the mail is sent before the route returns, so a hung mail server must not hold an owner's save
 ENGINE_PAGE_URL = "https://www.copernicusai.fyi/onboarding/engine.html"      # the link in a notification: the engine page, never an address
 MAX_BODY_BYTES = 65536
 PASSWORD_DETAIL = f"Password must be {PASSWORD_MIN_LENGTH} to {PASSWORD_MAX_LENGTH} characters."
@@ -114,7 +116,7 @@ async def _notify(engine_id: str, section: Optional[str], reopened_from: Optiona
     for plan in plans:
         for address in plan["to"]:
             try:
-                if await email_service.send_onboarding_notice(address, plan["kind"], plan["engine_label"], plan["section_title"], link):
+                if await asyncio.wait_for(email_service.send_onboarding_notice(address, plan["kind"], plan["engine_label"], plan["section_title"], link), NOTICE_TIMEOUT_SECONDS):
                     sent += 1
             except Exception as e:
                 structured_logger.error("Onboarding notice could not be sent", error_type=type(e).__name__)

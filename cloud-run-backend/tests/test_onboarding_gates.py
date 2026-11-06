@@ -641,6 +641,29 @@ def test_a_mail_that_fails_before_the_response_still_leaves_the_change_committed
     assert order == ["mail", ("response", 200)] and stored(env, "out-of-scope", "scope")["value"] == ["kept"]
 
 
+def test_a_mail_server_that_hangs_cannot_hold_the_save_longer_than_the_timeout(env):
+    from endpoints.onboarding import routes
+    logged, started = [], []
+
+    class Log:
+        def error(self, msg, **kw):
+            logged.append((msg, kw))
+
+        def info(self, msg, **kw):
+            pass
+
+    async def hang(*a, **k):
+        started.append(1)
+        await asyncio.sleep(30)
+    env.mp.setattr(routes, "structured_logger", Log())
+    env.mp.setattr(routes, "NOTICE_TIMEOUT_SECONDS", 0.05)
+    env.mail.send_onboarding_notice = hang
+    answer(env, OTH, "scope", upto=2)
+    order = asgi_order(env, OTH, "PUT", f"{BASE}/items/out-of-scope", {"value": ["kept"], "choice": None, "base_revision": 0})
+    assert started and order == ["mail", ("response", 200)] and stored(env, "out-of-scope", "scope")["value"] == ["kept"]
+    assert logged == [("Onboarding notice could not be sent", {"error_type": "TimeoutError"})]
+
+
 def test_a_failure_while_planning_a_notice_also_leaves_the_change_committed(env):
     from endpoints.onboarding import routes
     logged = []
