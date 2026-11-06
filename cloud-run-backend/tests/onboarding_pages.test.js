@@ -450,7 +450,7 @@ test('posting a comment, a disagreement, and resolving one', async () => {
   const it = item({ value: 'x', revision: 1, comments: [{ comment_id: 'c'.repeat(32), item_id: 'use-case', kind: 'disagree', body: 'No', author: 'other owner', role: 'owner', created_at: null, resolved: false, resolved_by: null, resolved_at: null }] });
   const page = sectionPage('scope', [it], { extra: (m, p) => (m === 'POST' ? ok({}) : null) });
   await settle();
-  const ta = box(page, 'use-case', (e) => e.tag === 'textarea' && e.attrs.maxlength === '2000')[0];
+  const ta = box(page, 'use-case', (e) => e.tag === 'textarea' && e.attrs.rows === '2' && e.attrs.maxlength === '2000')[0];
   ta.type('Because of this.');
   const dis = box(page, 'use-case', (e) => e.attrs.type === 'checkbox')[0];
   dis.click();
