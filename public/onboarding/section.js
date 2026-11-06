@@ -337,7 +337,7 @@
     }
 
     function commentForm(c) {
-        var ta = h('textarea', { rows: 2, maxlength: 4000 }), dis = h('input', { type: 'checkbox' }), post = h('button', { class: 'small', type: 'button', text: 'Add comment' });
+        var ta = h('textarea', { rows: 2, maxlength: 2000 }), dis = h('input', { type: 'checkbox' }), post = h('button', { class: 'small', type: 'button', text: 'Add comment' });
         var out = h('span', { class: 'note' });
         post.addEventListener('click', function () {
             if (!ta.value.trim()) { return; }
@@ -389,8 +389,9 @@
             updateMeta(c, it);
             updateComments(c, it);
             var editing = c.el.contains(document.activeElement);
-            if (!c.dirty && !c.saving && !c.conflict && !editing && it.revision !== c.rev) { rebuild(c, it, false); c.statusEl.textContent = ''; }
-            else if (it.revision !== c.rev && c.dirty && !c.conflict) { c.statusEl.textContent = 'Another owner changed this answer. Your next save will ask what to keep.'; }
+            // Only ever move FORWARD: a refresh requested before our own save finished can arrive after it, carrying the older revision.
+            if (!c.dirty && !c.saving && !c.conflict && !editing && it.revision > c.rev) { rebuild(c, it, false); c.statusEl.textContent = ''; }
+            else if (it.revision > c.rev && c.dirty && !c.conflict) { c.statusEl.textContent = 'Another owner changed this answer. Your next save will ask what to keep.'; }
         });
     }
 
