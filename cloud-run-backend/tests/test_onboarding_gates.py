@@ -581,6 +581,53 @@ def test_a_mail_failure_never_undoes_the_change_and_is_logged_by_error_type_only
     assert section_doc(env, "scope")["ready_notified"] is True and env.mail.sent == []                      # the flag is set; the mail was lost (the tracker line is the fallback)
 
 
+def asgi_order(env, who, method, path, payload):
+    """Drive the ASGI app directly and record the ORDER of 'the mail was sent' and 'the response began' (the test client would hide it: it waits for background work)."""
+    order, original = [], env.mail.send_onboarding_notice
+
+    async def noting(*a, **k):
+        order.append("mail")
+        return await original(*a, **k)
+    env.mail.send_onboarding_notice = noting
+    body = json.dumps(payload).encode()
+    scope = {"type": "http", "asgi": {"version": "3.0"}, "http_version": "1.1", "method": method, "path": path, "raw_path": path.encode(), "query_string": b"", "scheme": "http",
+             "root_path": "", "client": ("127.0.0.1", 1), "server": ("testserver", 80),
+             "headers": [(b"content-type", b"application/json"), (b"content-length", str(len(body)).encode()), (b"x-subscriber-token", TOK[who].encode())]}
+    state = {"sent": False}
+
+    async def receive():
+        if not state["sent"]:
+            state["sent"] = True
+            return {"type": "http.request", "body": body, "more_body": False}
+        return {"type": "http.disconnect"}
+
+    async def send(message):
+        if message["type"] == "http.response.start":
+            order.append(("response", message["status"]))
+    loop = asyncio.new_event_loop()
+    try:
+        loop.run_until_complete(env.app(scope, receive, send))
+    finally:
+        loop.close()
+    return order
+
+
+def test_the_mail_is_sent_before_the_response_begins_not_after_it(env):
+    answer(env, OTH, "scope", upto=2)
+    order = asgi_order(env, OTH, "PUT", f"{BASE}/items/out-of-scope", {"value": [f"{SECRET} three"], "choice": None, "base_revision": 0})
+    assert order == ["mail", ("response", 200)]                                                              # the notice went out first
+    assert [m["kind"] for m in env.mail.sent] == ["ready"]
+    plain = asgi_order(env, OTH, "PUT", f"{BASE}/items/use-case", {"value": "x", "choice": None, "base_revision": 1})
+    assert plain == [("response", 200)]                                                                      # a save that calls for no notice sends none
+
+
+def test_a_mail_that_fails_before_the_response_still_leaves_the_change_committed_and_the_response_ok(env):
+    env.mail.raises = True
+    answer(env, OTH, "scope", upto=2)
+    order = asgi_order(env, OTH, "PUT", f"{BASE}/items/out-of-scope", {"value": ["kept"], "choice": None, "base_revision": 0})
+    assert order == ["mail", ("response", 200)] and stored(env, "out-of-scope", "scope")["value"] == ["kept"]
+
+
 def test_a_failure_while_planning_a_notice_also_leaves_the_change_committed(env):
     from endpoints.onboarding import routes
     logged = []

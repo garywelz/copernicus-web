@@ -12,7 +12,7 @@ The accept route is the one exception; it is not an engine route and answers one
 """
 from typing import Any, List, Optional
 
-from fastapi import APIRouter, BackgroundTasks, Depends, Header, HTTPException, Query, Request
+from fastapi import APIRouter, Depends, Header, HTTPException, Query, Request
 from pydantic import BaseModel, Field, StrictBool
 
 from config.constants import ADMIN_SUBSCRIBER_EMAIL
@@ -96,8 +96,9 @@ def _fail(e: "form.FormError", viewer: Optional[dict] = None, engine_id: Optiona
 
 
 async def _notify(engine_id: str, section: Optional[str], reopened_from: Optional[str] = None, item_id: Optional[str] = None) -> None:
-    """Tell the final-say owner (and a covering delegate) that a section is ready, or was re-opened. Runs AFTER the change has committed, as a background task:
-    nothing here can undo a change, and a failure is logged by error type only (never an address, a link or a name)."""
+    """Tell the final-say owner (and a covering delegate) that a section is ready, or was re-opened. Runs AFTER the change has committed and BEFORE the route
+    returns (Cloud Run may throttle the processor once a response is sent, so a background task could be starved): nothing here can undo a change or fail the
+    request, and a failure is logged by error type only (never an address, a link or a name)."""
     try:
         if section is None and item_id:
             found = form.find_item(db, engine_id, item_id)
@@ -162,7 +163,7 @@ class ItemSave(BaseModel):
 
 
 @engine_router.put("/items/{item_id}")
-async def save_item(engine_id: str, item_id: str, body: ItemSave, request: Request, background: BackgroundTasks, caller: dict = Depends(engine_gate),
+async def save_item(engine_id: str, item_id: str, body: ItemSave, request: Request, caller: dict = Depends(engine_gate),
                     _size: None = Depends(limit_body)):
     """Autosave one answer (owners only; an administrator gets 404). 409 with the current answer if the item has moved on; nothing is written then."""
     _owner(caller)
@@ -173,7 +174,7 @@ async def save_item(engine_id: str, item_id: str, body: ItemSave, request: Reque
                              base_revision=body.base_revision, ip_hash=ip, request_id=rid, outcome=outcome)
     except form.FormError as e:
         raise _fail(e, viewer, engine_id)
-    background.add_task(_notify, engine_id, doc["section"], outcome.get("reopened_from"))
+    await _notify(engine_id, doc["section"], outcome.get("reopened_from"))
     return {"item": form.item_view(db, engine_id, doc, viewer), "section_status": form.section_status(db, engine_id, doc["section"])}
 
 
@@ -183,7 +184,7 @@ class CommentIn(BaseModel):
 
 
 @engine_router.post("/items/{item_id}/comments")
-async def add_comment(engine_id: str, item_id: str, body: CommentIn, request: Request, background: BackgroundTasks, caller: dict = Depends(engine_gate),
+async def add_comment(engine_id: str, item_id: str, body: CommentIn, request: Request, caller: dict = Depends(engine_gate),
                       _size: None = Depends(limit_body)):
     """A plain-text comment on an item. Owners and the administrator may comment (the administrator's are labelled admin). An owner may mark one 'disagree'."""
     if caller["via"] == "member":
@@ -195,12 +196,12 @@ async def add_comment(engine_id: str, item_id: str, body: CommentIn, request: Re
     except form.FormError as e:
         raise _fail(e)
     if caller["via"] == "member" and body.kind == "disagree":
-        background.add_task(_notify, engine_id, None, None, item_id)          # a disagreement can take a section out of "ready"; this clears its mail flag
+        await _notify(engine_id, None, None, item_id)          # a disagreement can take a section out of "ready"; this clears its mail flag
     return made
 
 
 @engine_router.post("/comments/{comment_id}/resolve")
-async def resolve_comment(engine_id: str, comment_id: str, request: Request, background: BackgroundTasks, caller: dict = Depends(engine_gate)):
+async def resolve_comment(engine_id: str, comment_id: str, request: Request, caller: dict = Depends(engine_gate)):
     """Resolve a comment (either owner may; the administrator may not). Resolving a 'disagree' comment ends that item's disagreement. [An addition to design 5.7.]"""
     _owner(caller)
     ip, rid = _trace(request)
@@ -208,7 +209,7 @@ async def resolve_comment(engine_id: str, comment_id: str, request: Request, bac
         resolved = form.resolve_comment(db, engine_id=engine_id, comment_id=comment_id, subscriber_id=caller["subscriber_id"], ip_hash=ip, request_id=rid)
     except form.FormError as e:
         raise _fail(e)
-    background.add_task(_notify, engine_id, None, None, resolved.get("item_id"))      # resolving the last disagreement can make a section ready
+    await _notify(engine_id, None, None, resolved.get("item_id"))      # resolving the last disagreement can make a section ready
     return resolved
 
 
@@ -224,7 +225,7 @@ class QuestionAction(BaseModel):
 
 
 @engine_router.post("/questions")
-async def add_or_split_question(engine_id: str, body: QuestionAction, request: Request, background: BackgroundTasks, caller: dict = Depends(engine_gate),
+async def add_or_split_question(engine_id: str, body: QuestionAction, request: Request, caller: dict = Depends(engine_gate),
                                 _size: None = Depends(limit_body)):
     """Add a question, or split one into two or more. The system assigns the ids ('<prefix>-qN', the next free number, never reused). [An addition to design 5.7.]"""
     _owner(caller)
@@ -235,7 +236,7 @@ async def add_or_split_question(engine_id: str, body: QuestionAction, request: R
                                  wordings=[q.model_dump() for q in body.questions], ip_hash=ip, request_id=rid, outcome=outcome)
     except form.FormError as e:
         raise _fail(e)
-    background.add_task(_notify, engine_id, "questions", outcome.get("reopened_from"))
+    await _notify(engine_id, "questions", outcome.get("reopened_from"))
     return {"ids": ids, "items": [form.item_view(db, engine_id, form.find_item(db, engine_id, i), viewer) for i in ids]}
 
 
