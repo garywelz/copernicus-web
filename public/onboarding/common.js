@@ -1,4 +1,4 @@
-/* Shared by the onboarding workspace pages (design 5.8). No third-party script, no innerHTML: every piece of text, whether it came from the server or from a
+/* Shared by the onboarding workspace pages (design 5.8). No third-party script and no HTML-parsing API: every piece of text, whether it came from the server or from a
    person, reaches the page only through textContent / text nodes. Pure helpers are exported for the Node tests. */
 (function (root) {
     'use strict';
