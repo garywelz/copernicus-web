@@ -53,8 +53,8 @@ def env(monkeypatch):
     sent, limited = [], []
 
     class Mail:
-        async def send_invitation_email(self, address, link, days):
-            sent.append({"address": address, "link": link, "days": days})
+        async def send_invitation_email(self, address, link, days, engine_label=None):
+            sent.append({"address": address, "link": link, "days": days, "engine_label": engine_label})
             return True
     monkeypatch.setattr(ob, "_run_in_transaction", run_in_transaction)
     monkeypatch.setattr(routes, "db", db)
@@ -568,7 +568,7 @@ def test_the_invitation_email_sender_prints_no_address_and_no_link(capsys):
     assert NEW_ADDR not in text and "SECRETTOKENVALUE" not in text and EMAIL_SHAPED.findall(text) == []
     body = sent[0].get_payload()[0].get_payload(decode=True).decode()
     assert "SECRETTOKENVALUE" in body and "expires in 7 days" in body and "CopernicusAI" in body
-    assert "podcast" not in body.lower() and "research" not in body.lower()           # plain wording, no research content (Q8)
+    assert "podcast" not in body.lower() and "research" not in body.lower()           # plain wording, no research content
     assert sent[0]["From"].startswith("CopernicusAI")                                  # the site's existing sender, signed by the site
 
 

@@ -1,5 +1,7 @@
 import smtplib
 import ssl
+import html as html_lib
+import re
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from email.utils import formataddr
@@ -7,6 +9,20 @@ from typing import Optional
 import os
 import asyncio
 from datetime import datetime, timezone
+
+# Who the invitation email says invited the person. A constant, not text in the template, so changing the inviter changes one line.
+INVITER_NAME = "Gary Welz"
+SITE_NAME = "CopernicusAI"
+SITE_HOST = "www.copernicusai.fyi"
+_CONTROL_CHARS = re.compile(r"[\x00-\x1f\x7f]+")
+
+
+def clean_header_text(value, limit: int = 80) -> str:
+    """Text that is safe in a mail header and a sentence: control characters (including line breaks, which would let a value inject a header) become a
+    space, runs of spaces collapse, and the result is trimmed and cut to `limit` characters."""
+    text = _CONTROL_CHARS.sub(" ", str(value or ""))
+    return re.sub(r" {2,}", " ", text).strip()[:limit].strip()
+
 
 # Retry decorator for email operations
 def utc_timestamp_text(now=None) -> str:
@@ -214,32 +230,34 @@ class EmailService:
             server.login(self.sender_email, self.sender_password)
             server.send_message(msg)
 
-    async def send_invitation_email(self, recipient_email: str, link: str, valid_days: int) -> bool:
-        """Email a single-use invitation link (onboarding PR 2). Sent from the site's existing sender, signed by the site, not by a named person; plain wording
-        that carries no research content (design Q8). Nothing here writes the recipient address or the link to any log or to stdout."""
+    async def send_invitation_email(self, recipient_email: str, link: str, valid_days: int, engine_label: Optional[str] = None) -> bool:
+        """Email a single-use invitation link (onboarding PR 2). Sent from the site's existing sender; plain wording that carries no research content. The
+        body and subject say WHO invited the person (INVITER_NAME) and to WHICH engine (`engine_label`, from the engine record, cleaned for a mail header);
+        the sign-off stays the site's. Nothing here writes the recipient address or the link to any log or to stdout."""
         if not self.sender_password:
             print("Email password not configured. Invitation email not sent.")
             return False
         try:
+            label = clean_header_text(engine_label) or SITE_NAME
             msg = MIMEMultipart("alternative")
-            msg['From'] = formataddr(("CopernicusAI", self.sender_email))
+            msg['From'] = formataddr((SITE_NAME, self.sender_email))
             msg['To'] = recipient_email
-            msg['Subject'] = "You have been invited to CopernicusAI"
+            msg['Subject'] = f"{INVITER_NAME} invited you to the {label} engine on {SITE_NAME}"
             text = (
-                "You have been invited to join CopernicusAI.\n\n"
+                f"{INVITER_NAME} has invited you to the {label} knowledge engine on {SITE_NAME} ({SITE_HOST}).\n\n"
                 f"To accept, open this link. It works once and expires in {valid_days} days:\n\n"
                 f"{link}\n\n"
-                "If you were not expecting this invitation, ignore this email; nothing will happen.\n\n"
-                "CopernicusAI\n"
+                "If you weren't expecting this invitation, ignore this email; nothing will happen.\n\n"
+                f"{SITE_NAME}\n"
             )
             html = (
                 '<html><body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">'
                 '<div style="max-width: 560px; margin: 0 auto; padding: 20px;">'
-                '<p>You have been invited to join CopernicusAI.</p>'
+                f'<p>{html_lib.escape(INVITER_NAME)} has invited you to the {html_lib.escape(label)} knowledge engine on {SITE_NAME} ({SITE_HOST}).</p>'
                 f'<p>To accept, open this link. It works once and expires in {valid_days} days:</p>'
-                f'<p><a href="{link}">{link}</a></p>'
-                '<p>If you were not expecting this invitation, ignore this email; nothing will happen.</p>'
-                '<p>CopernicusAI</p></div></body></html>'
+                f'<p><a href="{html_lib.escape(link)}">{html_lib.escape(link)}</a></p>'
+                "<p>If you weren't expecting this invitation, ignore this email; nothing will happen.</p>"
+                f'<p>{SITE_NAME}</p></div></body></html>'
             )
             msg.attach(MIMEText(text, 'plain'))
             msg.attach(MIMEText(html, 'html'))

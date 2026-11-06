@@ -157,8 +157,8 @@ def _create_in(transaction, db, invite_id: str, doc: dict, engine_id: str, final
 def create_invite(db, *, engine_id: str, email: str, final_say: bool = False, can_generate: bool = True, monthly_quota: Optional[int] = DEFAULT_INVITE_QUOTA,
                   expires_days: int = INVITE_DEFAULT_DAYS, now: Optional[datetime] = None, ip_hash: Optional[str] = None,
                   request_id: Optional[str] = None) -> Dict[str, Any]:
-    """Create one invitation. Returns {invite_id, raw_token, expires_at, address}: the raw token and the normalised address are for the one email only and
-    must never be stored, returned to a client or logged. Raises InviteError."""
+    """Create one invitation. Returns {invite_id, raw_token, expires_at, address, engine_label}: the raw token and the normalised address are for the one email
+    only and must never be stored, returned to a client or logged. Raises InviteError."""
     now = now or _utcnow()
     if not isinstance(engine_id, str) or not ENGINE_ID_RE.match(engine_id) or "__" in engine_id:
         raise InviteError(400, "engine_id is not valid")
@@ -185,7 +185,10 @@ def create_invite(db, *, engine_id: str, email: str, final_say: bool = False, ca
            "monthly_quota": quota, "token_hash": hash_token(raw), "expires_at": expires.isoformat(), "created_by": "admin", "created_at": now.isoformat(),
            "used_at": None, "used_by_subscriber_id": None, "revoked_at": None, "revoked_by": None}
     _run_in_transaction(db, _create_in, db, invite_id, doc, engine_id, bool(final_say), now, ip_hash, request_id)
-    return {"invite_id": invite_id, "raw_token": raw, "expires_at": doc["expires_at"], "address": norm}
+    # The engine's label names the engine in the invitation email; it falls back to the engine id when the record has none.
+    engine = db.collection(ENGINES).document(engine_id).get()
+    label = str(((engine.to_dict() or {}).get("label") if engine.exists else "") or "").strip() or engine_id
+    return {"invite_id": invite_id, "raw_token": raw, "expires_at": doc["expires_at"], "address": norm, "engine_label": label}
 
 
 # ---- listing invitations (admin) --------------------------------------------------------------------------------------------------------------------
