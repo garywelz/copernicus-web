@@ -2,6 +2,7 @@
 
 from fastapi import APIRouter, HTTPException, Query, Header
 from typing import Optional
+import re
 import uuid
 from datetime import datetime
 
@@ -27,6 +28,24 @@ router = APIRouter()
 
 GENERATION_CATEGORIES = tuple(CATEGORY_SLUG_TO_LABEL.values())      # the list the generation form offers: Biology, Chemistry, Computer Science, Mathematics, Physics
 CATEGORY_REFUSAL = "Choose a category: " + ", ".join(GENERATION_CATEGORIES) + "."
+
+
+_JOB_ID_RE = re.compile(r"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$")
+
+
+def _new_job_id(client_job_id: Optional[str], auth: dict) -> str:
+    """The job's id. The dashboard may choose it (a UUID) so it can follow the job by polling without waiting for this long request to answer; a made-up id
+    that is malformed, or already names a job, is refused (400/409) and the counted unit is given back, because no job was created. Without one the server
+    makes its own, as before."""
+    if client_job_id is None:
+        return str(uuid.uuid4())
+    if not _JOB_ID_RE.match(client_job_id):
+        refund_unstarted(db, auth)
+        raise HTTPException(status_code=400, detail="client_job_id must be a UUID")
+    if db and db.collection('podcast_jobs').document(client_job_id).get().exists:
+        refund_unstarted(db, auth)
+        raise HTTPException(status_code=409, detail="That job id is already in use")
+    return client_job_id
 
 
 def _require_category(request, auth: dict, optional: bool = False) -> None:
@@ -154,13 +173,15 @@ async def generate_podcast(
 async def generate_podcast_with_subscriber(
     request: PodcastRequest,
     subscriber_id: Optional[str] = Query(None),
+    client_job_id: Optional[str] = Query(None),
     x_admin_api_key: Optional[str] = Header(None, alias="X-Admin-API-Key"),
     x_subscriber_token: Optional[str] = Header(None, alias="X-Subscriber-Token"),
 ):
-    """Generate podcast with optional subscriber association"""
+    """Generate podcast with optional subscriber association. The job runs INSIDE this request (Cloud Run gives the instance CPU only while a request is in
+    flight, so it cannot run in the background); the dashboard therefore follows it by polling /api/subscribers/jobs/{job_id}/status, using `client_job_id`."""
     auth = authorize_generation(subscriber_id, x_admin_api_key, x_subscriber_token)
     _require_category(request, auth)
-    job_id = str(uuid.uuid4())
+    job_id = _new_job_id(client_job_id, auth)
     
     # Enhanced logging for research-driven requests
     paper_info = f" + Paper: {request.paper_title[:30]}..." if request.paper_content else ""
@@ -292,6 +313,7 @@ async def resolve_paper_endpoint(request: ResolvePaperRequest):
 @router.post("/generate-podcast-from-paper")
 async def generate_podcast_from_paper(
     request: GeneratePodcastFromPaperRequest,
+    client_job_id: Optional[str] = Query(None),
     x_admin_api_key: Optional[str] = Header(None, alias="X-Admin-API-Key"),
     x_subscriber_token: Optional[str] = Header(None, alias="X-Subscriber-Token"),
 ):
@@ -367,7 +389,7 @@ async def generate_podcast_from_paper(
         additional_instructions=request.additional_instructions,
     )
 
-    job_id = str(uuid.uuid4())
+    job_id = _new_job_id(client_job_id, auth)
     structured_logger.info(
         "New paper-sourced podcast request",
         job_id=job_id,
