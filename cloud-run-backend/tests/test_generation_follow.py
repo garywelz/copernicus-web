@@ -185,7 +185,11 @@ def test_the_job_keeps_running_and_finishes_after_the_client_disconnects(env):
         assert env.db.data["podcast_jobs"][jid]["status"] == "pending"
         release.set()
         await asyncio.wait_for(task, 5)
-    asyncio.run(run())
+    loop = asyncio.new_event_loop()                                                # a private loop: asyncio.run() would leave the thread with no current event loop
+    try:
+        loop.run_until_complete(run())
+    finally:
+        loop.close()
     assert env.db.data["podcast_jobs"][jid]["status"] == "completed"          # the job finished and was recorded though nobody was listening
     assert env.client.get(f"/api/subscribers/jobs/{jid}/status", headers=HA).json()["state"] == "completed"
 
