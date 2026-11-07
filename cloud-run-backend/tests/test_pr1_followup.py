@@ -146,7 +146,7 @@ def test_a_new_job_record_carries_no_signed_link(monkeypatch):
 def test_dashboard_hides_every_file_link_for_a_private_episode_and_keeps_them_for_a_public_one():
     html = read(ROOT / "public" / "subscriber-dashboard.html")
     # each link's own wrapper: the nearest <template ...> opening before the link is the "not private" one (the thumbnail also needs its address)
-    for label, wrapper in (("🎧 Listen", 'x-if="!podcast.is_private"'), ("📝 Transcript", 'x-if="!podcast.is_private"'),
+    for label, wrapper in (("🎧 Listen", 'x-if="!podcast.is_private"'), ("📝 Transcript</a>", 'x-if="!podcast.is_private"'),
                            ("🖼️ Thumbnail", 'x-if="!podcast.is_private && podcast.result.thumbnail_url"')):
         assert html.count(label) == 1, label
         i = html.index(label)
@@ -160,6 +160,11 @@ def test_dashboard_hides_every_file_link_for_a_private_episode_and_keeps_them_fo
             before = html[max(0, m.start() - 400):m.start()]
             assert "is_private" in before, field
     assert 'x-if="privateAccessEnabled && podcast.is_private"' in html          # Play is the owner's way to listen
+    # the owner's private Transcript is a button, inside the private block beside Play, that asks for a fresh signed link; it never uses the stored address
+    private_block = html[html.index('x-if="privateAccessEnabled && podcast.is_private">'):html.index("deletePodcast(podcast.podcast_id)")]
+    assert '@click="openTranscriptPrivate(podcast)"' in private_block and "📝 Transcript" in private_block and "transcript_url" not in private_block
+    fn = html[html.index("async openTranscriptPrivate"):html.index("async makePublic")]
+    assert "media-links" in fn and "transcripts/" in fn and "transcript_url" not in fn
 
 
 def test_no_owner_facing_page_promises_posting_to_the_feed():
