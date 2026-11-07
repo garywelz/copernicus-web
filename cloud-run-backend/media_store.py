@@ -194,3 +194,21 @@ def unpublish(episode_id: str, client: Any = None, before_delete: Any = None) ->
         except Exception:
             failed.append(blob.name)
     return {"episode_id": episode_id, "removed": removed, "failed": failed}
+
+
+def delete_public_copies(episode_id: str, client: Any = None) -> Dict[str, Any]:
+    """Remove every PUBLIC file of an episode (audio, transcript, artwork, stills, animations, video) when its owner deletes it.
+
+    Unlike `unpublish`, this does not require an identical private copy: the owner is deleting the episode itself, so the public copy is not the last copy of
+    something that stays. The private bucket is never touched here. Returns the names removed and any that could not be deleted (the caller must not call the
+    deletion complete while `failed` is not empty)."""
+    c = _client(client)
+    removed: List[str] = []
+    failed: List[str] = []
+    for blob in list_objects(PUBLIC_BUCKET, episode_id, c):
+        try:
+            blob.delete()
+            removed.append(blob.name)
+        except Exception:
+            failed.append(blob.name)
+    return {"episode_id": episode_id, "removed": removed, "failed": failed}
