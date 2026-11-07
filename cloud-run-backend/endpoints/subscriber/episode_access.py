@@ -1,6 +1,6 @@
 """Owner routes for private episodes (onboarding PR 1, design 7.1 and 7.2).
 
-  GET  /api/subscribers/episodes/{episode_id}/media-links   short-lived signed links to the owner's own audio and artwork
+  GET  /api/subscribers/episodes/{episode_id}/media-links   short-lived signed links to the owner's own audio, transcript and artwork
   POST /api/subscribers/episodes/{episode_id}/make-public   the owner publishes their own episode to the website (NOT the feed; not reversible by the owner)
   GET  /api/subscribers/jobs/{job_id}/status                where the owner's own generation job stands (dashboard fixes, 2026-11): the page polls this, so it never
                                                             depends on the long request that started the job
@@ -58,7 +58,7 @@ async def owner_media_links(
     x_admin_api_key: Optional[str] = Header(None, alias="X-Admin-API-Key"),
     x_subscriber_token: Optional[str] = Header(None, alias="X-Subscriber-Token"),
 ):
-    """Signed links (default 15 minutes, at most 60) to the audio and artwork of the caller's own episode. Minted fresh on every call; never stored."""
+    """Signed links (default 15 minutes, at most 60) to the audio, transcript and artwork of the caller's own episode. Minted fresh on every call; never stored."""
     record = _load(episode_id)
     if record is None or _viewer(record, x_admin_api_key, x_subscriber_token) is None:
         raise _not_found()

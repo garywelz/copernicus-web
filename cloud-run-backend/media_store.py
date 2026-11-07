@@ -15,7 +15,7 @@ PRIVATE_BUCKET = "regal-scholar-453620-r7-private-media"
 MAX_SIGNED_DAYS = 7  # the V4 signing maximum
 OWNER_LINK_DEFAULT_MINUTES = 15   # design Q2 (2026-10-20): short-lived, minted per play
 OWNER_LINK_MAX_MINUTES = 60
-OWNER_LINK_PREFIXES = ("audio/", "thumbnails/", "episode-images/")   # what an owner may open: the audio and the artwork, nothing else
+OWNER_LINK_PREFIXES = ("audio/", "transcripts/", "thumbnails/", "episode-images/")   # what an owner may open: the audio, the transcript (Gary, 2026-11-06) and the artwork, nothing else
 
 
 class MediaError(RuntimeError):
@@ -148,10 +148,10 @@ def _now() -> datetime:
 
 
 def owner_media_links(episode_id: str, minutes: int = OWNER_LINK_DEFAULT_MINUTES, client: Any = None, signer: Any = None, now: Any = None) -> Dict[str, Any]:
-    """Short-lived links for the OWNER of an episode: signed links to the audio and artwork files in the private bucket (15 minutes by default, 60 at most).
+    """Short-lived links for the OWNER of an episode: signed links to the audio, transcript and artwork files in the private bucket (15 minutes by default, 60 at most).
 
-    Files already in the public bucket are returned as their public addresses (an owner may open them, so they need no signing). Transcripts, scratch segments,
-    animation packs and video are not offered. Each call signs afresh: nothing is cached, so the link a page holds is the one it just asked for.
+    Files already in the public bucket are returned as their public addresses (an owner may open them, so they need no signing). Scratch segments, animation packs
+    and video are not offered. Each call signs afresh: nothing is cached, so the link a page holds is the one it just asked for.
     A V4 link is a bearer link: whoever holds it can fetch the file until `expires_at`. It cannot be tied to a session (design 7.1)."""
     minutes = max(1, min(int(minutes), OWNER_LINK_MAX_MINUTES))
     expires = timedelta(minutes=minutes)

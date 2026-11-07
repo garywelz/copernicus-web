@@ -489,6 +489,10 @@
                                                             class="px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-700 hover:bg-blue-200 transition duration-200">
                                                         ▶ Play
                                                     </button>
+                                                    <button @click="openTranscriptPrivate(podcast)"
+                                                            class="px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-700 hover:bg-blue-200 transition duration-200">
+                                                        📝 Transcript
+                                                    </button>
                                                     <button @click="makePublic(podcast)"
                                                             class="px-3 py-1 rounded-full text-xs font-medium bg-amber-100 text-amber-800 hover:bg-amber-200 transition duration-200">
                                                         🌐 Make public
@@ -1007,6 +1011,25 @@
                         if (!audio) { this.showMessage('Could not open this episode right now.', 'error'); return; }
                         podcast.playUrl = audio[1];
                     } catch (error) {
+                        this.showMessage('Network error. Please try again.', 'error');
+                    }
+                },
+
+                // Private transcript (dashboard fixes, 2026-11). Same gate as Play: a fresh 15-minute signed link on every click, never stored or shown as an address.
+                // The tab is opened inside the click (so a pop-up blocker allows it) and pointed at the link once it arrives.
+                async openTranscriptPrivate(podcast) {
+                    const tab = window.open('', '_blank');
+                    if (tab) tab.opener = null;
+                    try {
+                        const response = await fetch(`${this.API_BASE_URL}/api/subscribers/episodes/${encodeURIComponent(podcast.podcast_id)}/media-links?minutes=15`, {
+                            headers: this.authHeaders()
+                        });
+                        const data = await response.json().catch(() => ({}));
+                        const transcript = response.ok ? Object.entries(data.links || {}).find(([name]) => name.startsWith('transcripts/')) : null;
+                        if (!transcript) { if (tab) tab.close(); this.showMessage('Could not open this transcript right now.', 'error'); return; }
+                        if (tab) tab.location.href = transcript[1]; else this.showMessage('Allow pop-ups for this site to open the transcript.', 'error');
+                    } catch (error) {
+                        if (tab) tab.close();
                         this.showMessage('Network error. Please try again.', 'error');
                     }
                 },
