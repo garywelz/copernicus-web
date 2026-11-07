@@ -8,6 +8,7 @@ from datetime import datetime
 from utils.logging import structured_logger
 from utils.auth import authorize_generation
 from utils.generation_quota import quota_stamp, refund_failed_job, refund_unstarted
+from config.constants import CATEGORY_SLUG_TO_LABEL
 from config.database import db
 from utils.subscriber_helpers import resolve_generation_subscriber_id
 from models.podcast import PodcastRequest, ResolvePaperRequest, GeneratePodcastFromPaperRequest
@@ -22,6 +23,25 @@ from services.paper_resolver import (
 )
 
 router = APIRouter()
+
+
+GENERATION_CATEGORIES = tuple(CATEGORY_SLUG_TO_LABEL.values())      # the list the generation form offers: Biology, Chemistry, Computer Science, Mathematics, Physics
+CATEGORY_REFUSAL = "Choose a category: " + ", ".join(GENERATION_CATEGORIES) + "."
+
+
+def _require_category(request, auth: dict, optional: bool = False) -> None:
+    """A subscriber's generation request must name one category from the form's list (Gary, 2026-11-06). The model's own default ("Computer Science") used to
+    fill in a missing one, which misfiled the PR 2 smoke-test episode. A missing, empty or unknown category is refused with 400 and the unit that
+    authorize_generation counted is given back (no job was created). `optional` (the paper route, which infers a category from the paper) allows it to be
+    omitted but still refuses an unknown one. The administrator and the curated routes are not touched: only a subscriber's request is checked."""
+    if not isinstance(auth, dict) or auth.get("via") != "subscriber":
+        return
+    given = "category" in request.model_fields_set and request.category is not None
+    if not given and optional:
+        return
+    if not given or request.category not in GENERATION_CATEGORIES:
+        refund_unstarted(db, auth)
+        raise HTTPException(status_code=400, detail=CATEGORY_REFUSAL)
 
 
 def _get_service():
@@ -44,6 +64,7 @@ async def generate_podcast(
 ):
     """Generate a new podcast episode"""
     auth = authorize_generation(subscriber_id_param, x_admin_api_key, x_subscriber_token)
+    _require_category(request, auth)
     job_id = str(uuid.uuid4())
 
     # Enhanced logging for research-driven requests
@@ -138,6 +159,7 @@ async def generate_podcast_with_subscriber(
 ):
     """Generate podcast with optional subscriber association"""
     auth = authorize_generation(subscriber_id, x_admin_api_key, x_subscriber_token)
+    _require_category(request, auth)
     job_id = str(uuid.uuid4())
     
     # Enhanced logging for research-driven requests
@@ -279,6 +301,7 @@ async def generate_podcast_from_paper(
     a free-text query is rejected here on purpose, to avoid ever generating
     an episode about a paper the caller didn't explicitly confirm."""
     auth = authorize_generation(request.subscriber_id, x_admin_api_key, x_subscriber_token)
+    _require_category(request, auth, optional=True)
     if not db:
         raise HTTPException(status_code=503, detail="Firestore service is unavailable. Cannot create job.")
 

@@ -125,7 +125,7 @@ def test_a_new_job_record_carries_no_signed_link(monkeypatch):
     monkeypatch.setattr(gq.firestore, "transactional", passthrough_transactional)
     monkeypatch.setattr(pr, "_get_service", lambda: Service())
     app = FastAPI(); app.include_router(pr.router)
-    r = TestClient(app).post("/generate-podcast-with-subscriber?subscriber_id=s1", json={"topic": "t"}, headers={"X-Subscriber-Token": "tok"})
+    r = TestClient(app).post("/generate-podcast-with-subscriber?subscriber_id=s1", json={"topic": "t", "category": "Physics"}, headers={"X-Subscriber-Token": "tok"})
     assert r.status_code == 200
     job = next(iter(db.data["podcast_jobs"].values()))
 
