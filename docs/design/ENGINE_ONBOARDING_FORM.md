@@ -465,8 +465,8 @@ Gary reviewed §0 and §10 with Claude Chat on 2026-10-20 and decided the follow
 
 | # | Decision | Where it lands |
 |---|---|---|
-| Q1 | **"Make public" is not reversible by the owner; only Gary can unpublish.** | §7.2; admin `unpublish` route in PR 1 |
-| Q2 | **Short-lived signed links: 15 minutes, minted per play. Streaming is not built.** | §7.1 |
+| Q1 | **Make-public can't be undone by the owner (only Gary can return an episode to private), but an owner may delete their own episode, public or private, except one the editors have added to the podcast feed** (amended by Gary 2026-11-06). | §7.2; admin `unpublish` route in PR 1; owner delete in the dashboard fixes |
+| Q2 | **Short-lived signed links: 15 minutes, minted per play. Streaming is not built.** Owners also get their private transcript through the same 15-minute links (Gary, 2026-11-06). | §7.1 |
 | Q3 | **Keep the current session mechanism for v1, with the §9 controls** (no third-party scripts, strict Content-Security-Policy, `x-text` only). An HttpOnly-cookie move is a later, separate change. | §3.5, §9 |
 | Q4 | **"Mark final" per section, plus a "Mark all ready sections final" action** for the final-say owner. | §4.5, §5.7 |
 | Q5 | **Gary never overrides the final-say owner.** Instead the final-say owner may delegate final say, on a section or on all sections, to another owner of that engine: revocable and audited. One reminder email plus the visible "waiting on" line. The 5-day reminder email is deferred (Gary, 2026-11-06); the progress tracker's 'waiting on' line is the visible signal until a scheduler exists. | §3.2, §4.5, §4.6, §5.6, §5.7 |

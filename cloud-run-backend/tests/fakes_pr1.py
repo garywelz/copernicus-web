@@ -39,6 +39,14 @@ class Ref:
         self._store.pop(self.id, None)
 
 
+def _path(d, field):
+    """A field name, or a dotted path into nested maps ('result.canonical_filename'), as Firestore filters allow."""
+    cur = d
+    for part in field.split("."):
+        cur = cur.get(part) if isinstance(cur, dict) else None
+    return cur
+
+
 class Query:
     def __init__(self, db, col, filters=(), order=None, cap=None):
         self.db, self.col, self.filters, self.order, self.cap = db, col, filters, order, cap
@@ -56,7 +64,7 @@ class Query:
     def stream(self):
         out = []
         for id_, d in list(self.db.data.get(self.col, {}).items()):
-            if all(d.get(f) == v for f, v in self.filters):
+            if all(_path(d, f) == v for f, v in self.filters):
                 out.append(Snap(Ref(self.db, self.col, id_), d))
         if self.order:
             out.sort(key=lambda x: str(x.to_dict().get(self.order, "")), reverse=True)

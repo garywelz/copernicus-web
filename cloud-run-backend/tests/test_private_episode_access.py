@@ -89,12 +89,12 @@ def test_media_links_owner_other_signed_out_admin_and_missing(env):
     assert env.client.get(url, headers=HB).json() == env.client.get("/api/subscribers/episodes/no-such-episode/media-links", headers=HB).json()
 
 
-def test_media_links_offer_only_audio_and_artwork_as_signed_links(env):
+def test_media_links_offer_only_audio_transcript_and_artwork_as_signed_links(env):
     body = env.client.get(f"/api/subscribers/episodes/{EID}/media-links", headers=HA).json()
     names = set(body["links"])
-    assert names == {f"audio/{EID}.mp3", f"thumbnails/{EID}-thumb.jpg", f"episode-images/{EID}-image-1.jpg", f"episode-images/{EID}-image-2.jpg"}
+    assert names == {f"audio/{EID}.mp3", f"transcripts/{EID}-transcript.md", f"thumbnails/{EID}-thumb.jpg", f"episode-images/{EID}-image-1.jpg", f"episode-images/{EID}-image-2.jpg"}
     assert all(u.startswith("signed://") for u in body["links"].values()) and body["media_state"] == "private"
-    assert not any("transcripts/" in n or "animations/" in n or "videos/" in n for n in names)
+    assert not any("animations/" in n or "videos/" in n for n in names)                                     # the transcript is offered (Gary, 2026-11-06); stills, animations and video are not
     assert all(EID_B not in n for n in names)                                      # nothing of another episode
 
 
@@ -127,6 +127,39 @@ def test_a_link_expires_after_15_minutes_by_a_mocked_clock(env):
     assert again["expires_at"] == out["expires_at"]
     # the lifetime the storage service is asked to enforce is the same 15 minutes (the real expiry is enforced by Cloud Storage, not by this code)
     assert {int(kw["expiration"].total_seconds()) for _, kw in env.storage.buckets[ms.PRIVATE_BUCKET].signed} == {900}
+
+
+# ---- owner private transcript (dashboard fixes, 2026-11): same gate as audio and artwork ----------------------------------------------------
+def test_transcript_link_is_for_the_owner_or_admin_only_and_404_for_everyone_else(env):
+    url = f"/api/subscribers/episodes/{EID}/media-links"
+    key = f"transcripts/{EID}-transcript.md"
+    assert key in env.client.get(url, headers=HA).json()["links"]                 # the owner
+    assert key in env.client.get(url, headers=ADMIN).json()["links"]              # the admin
+    for headers in (HB, {}, {"X-Subscriber-Token": "garbage"}, {"X-Admin-API-Key": "wrong"}):
+        r = env.client.get(url, headers=headers)
+        assert r.status_code == 404 and "transcripts/" not in r.text              # another user, signed out, bad token, bad key: nothing offered
+    other = env.client.get(f"/api/subscribers/episodes/{EID_B}/media-links", headers=HA)
+    assert other.status_code == 404                                               # A cannot reach B's transcript
+    assert key not in env.client.get(f"/api/subscribers/episodes/{EID_B}/media-links", headers=HB).json()["links"]   # B's own link names B's file only
+
+
+def test_transcript_link_is_signed_afresh_each_time_for_15_minutes_and_never_stored(env):
+    t0 = datetime(2026, 11, 7, 9, 0, 0, tzinfo=timezone.utc)
+    key = f"transcripts/{EID}-transcript.md"
+    with patch.object(ms, "_now", return_value=t0):
+        a = env.client.get(f"/api/subscribers/episodes/{EID}/media-links", headers=HA).json()
+        b = env.client.get(f"/api/subscribers/episodes/{EID}/media-links", headers=HA).json()
+    assert a["expires_at"] == (t0 + timedelta(minutes=15)).isoformat() == b["expires_at"]
+    assert not ms.link_expired(a["expires_at"], now=lambda: t0 + timedelta(minutes=14, seconds=59))
+    assert ms.link_expired(a["expires_at"], now=lambda: t0 + timedelta(minutes=15, seconds=1))
+    signed = [(n, kw) for n, kw in env.storage.buckets[ms.PRIVATE_BUCKET].signed if n == key]
+    assert len(signed) == 2 and {int(kw["expiration"].total_seconds()) for _, kw in signed} == {900}   # one signing per call, 15 minutes each
+    assert env.storage.buckets[ms.PUBLIC_BUCKET].store == {}                      # nothing copied public
+
+
+def test_transcript_prefix_is_in_the_owner_allow_list_but_scratch_and_video_are_not():
+    assert "transcripts/" in ms.OWNER_LINK_PREFIXES
+    assert not any(p in ms.OWNER_LINK_PREFIXES for p in ("animations/", "generated/videos/", "videos/"))
 
 
 def test_owner_not_on_the_allow_list_gets_404_and_the_gate_fails_closed(env):

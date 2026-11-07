@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Copernicus AI - Subscriber Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/generation-follow.js"></script>
     <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     <style>
         .gradient-bg {
@@ -291,6 +292,7 @@
                         <span x-show="!generatingFromPaper">Generate episode from this paper</span>
                         <span x-show="generatingFromPaper">Generating… this usually takes 4–8 minutes</span>
                     </button>
+                    <p x-show="generatingFromPaper && generationStatus" x-text="generationStatus" class="text-sm text-gray-600 mt-2" role="status"></p>
                 </div>
             </div>
 
@@ -399,6 +401,7 @@
                         <span x-show="!generating">Generate AI Podcast</span>
                         <span x-show="generating">Generating Podcast...</span>
                     </button>
+                    <p x-show="generating && generationStatus" x-text="generationStatus" class="text-sm text-gray-600 mt-2" role="status"></p>
                 </form>
             </div>
 
@@ -486,6 +489,10 @@
                                                             class="px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-700 hover:bg-blue-200 transition duration-200">
                                                         ▶ Play
                                                     </button>
+                                                    <button @click="openTranscriptPrivate(podcast)"
+                                                            class="px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-700 hover:bg-blue-200 transition duration-200">
+                                                        📝 Transcript
+                                                    </button>
                                                     <button @click="makePublic(podcast)"
                                                             class="px-3 py-1 rounded-full text-xs font-medium bg-amber-100 text-amber-800 hover:bg-amber-200 transition duration-200">
                                                         🌐 Make public
@@ -548,6 +555,7 @@
                 loading: false,
                 loadingPodcasts: false,
                 generating: false,
+                generationStatus: '',
                 resolvingPaper: false,
                 generatingFromPaper: false,
                 paperLookedUp: false,
@@ -857,45 +865,66 @@
                         this.showMessage('Select the paper you meant before generating.', 'error');
                         return;
                     }
-                    this.generatingFromPaper = true;
-                    try {
-                        const payload = {
-                            paper_id: this.selectedPaperId,
-                            subscriber_id: this.subscriber.subscriber_id,
-                            expertise_level: this.podcastForm.expertise_level || 'intermediate',
-                            duration: this.podcastForm.duration || '5-10 minutes',
-                            host_voice_id: this.podcastForm.host_voice_id,
-                            expert_voice_id: this.podcastForm.expert_voice_id,
-                            additional_instructions: this.podcastForm.instructions || ''
-                        };
-                        if (this.paperForm.cited_project) {
-                            payload.cited_project = this.paperForm.cited_project;
-                        }
-                        const response = await fetch(`${this.API_BASE_URL}/generate-podcast-from-paper`, {
-                            method: 'POST',
-                            headers: this.authHeaders({ 'Content-Type': 'application/json' }),
-                            body: JSON.stringify(payload)
-                        });
-                        const data = await response.json();
-                        if (response.ok) {
-                            const name = (data.result && data.result.canonical_filename) || data.job_id;
-                            this.showMessage('Episode ready: ' + name + '. It stays private until you make it public.', 'success');
-                            this.paperForm = { query: '', cited_project: this.paperForm.cited_project || 'glmp' };
-                            this.paperMatches = [];
-                            this.paperMatchType = '';
-                            this.selectedPaperId = '';
-                            this.paperLookedUp = false;
-                            await this.loadPodcasts();
-                            this.startPollingForPodcasts();
-                        } else {
-                            this.showMessage(this.apiError(data, 'Failed to generate from paper'), 'error');
-                        }
-                    } catch (error) {
-                        console.error('Generate from paper error:', error);
-                        this.showMessage('Network error. The job may still be running — refresh Your Podcasts in a few minutes.', 'error');
-                    } finally {
-                        this.generatingFromPaper = false;
+                    const payload = {
+                        paper_id: this.selectedPaperId,
+                        subscriber_id: this.subscriber.subscriber_id,
+                        expertise_level: this.podcastForm.expertise_level || 'intermediate',
+                        duration: this.podcastForm.duration || '5-10 minutes',
+                        host_voice_id: this.podcastForm.host_voice_id,
+                        expert_voice_id: this.podcastForm.expert_voice_id,
+                        additional_instructions: this.podcastForm.instructions || ''
+                    };
+                    if (this.paperForm.cited_project) {
+                        payload.cited_project = this.paperForm.cited_project;
                     }
+                    this.beginGeneration('generatingFromPaper', '/generate-podcast-from-paper', payload, () => {
+                        this.paperForm = { query: '', cited_project: this.paperForm.cited_project || 'glmp' };
+                        this.paperMatches = [];
+                        this.paperMatchType = '';
+                        this.selectedPaperId = '';
+                        this.paperLookedUp = false;
+                    });
+                },
+
+                // Starting a generation. The request runs the whole job inside it (minutes) and may drop, so the page never depends on its answer: it chooses the
+                // job id, says "Generating..." at once, sends the request without waiting for it, and follows the job by polling (generation-follow.js).
+                beginGeneration(flag, route, payload, resetForm) {
+                    if (this.generating || this.generatingFromPaper) { return; }
+                    this[flag] = true;
+                    this.generationStatus = 'Generating… this usually takes 4–8 minutes. You can leave this page open; it updates by itself.';
+                    const jobId = GenerationFollow.newJobId();
+                    let listed = false;
+                    const finish = () => { this[flag] = false; this.generationStatus = ''; };
+                    GenerationFollow.start({
+                        base: this.API_BASE_URL,
+                        jobId: jobId,
+                        startUrl: this.API_BASE_URL + route + (route === '/generate-podcast-with-subscriber' ? '?subscriber_id=' + encodeURIComponent(this.subscriber.subscriber_id) : ''),
+                        body: JSON.stringify(payload),
+                        headers: (extra) => this.authHeaders(extra || {}),
+                        onRunning: () => {
+                            if (!listed) { listed = true; this.loadPodcasts().then(() => this.startPollingForPodcasts()); }
+                        },
+                        onDone: (d) => {
+                            finish();
+                            resetForm();
+                            this.showMessage('Episode ready' + (d.title ? ': ' + d.title : '') + '. It stays private until you make it public.', 'success');
+                            this.loadPodcasts().then(() => this.startPollingForPodcasts());
+                        },
+                        onFailed: (d) => {
+                            finish();
+                            this.showMessage('The episode could not be made.' + (d.unit_returned ? ' Your monthly unit was given back.' : ''), 'error');
+                            this.loadPodcasts();
+                        },
+                        onRefused: (status, text) => {
+                            finish();
+                            this.showMessage(text || 'Failed to generate podcast', 'error');
+                        },
+                        onLost: () => {
+                            finish();
+                            this.showMessage("We can't see this job any more. Look in Your Podcasts in a few minutes before trying again.", 'error');
+                            this.loadPodcasts();
+                        }
+                    });
                 },
 
                 normalizeSourceUrl(raw) {
@@ -910,53 +939,27 @@
                 },
                 
                 async generatePodcast() {
-                    this.generating = true;
-                    try {
-                        const sourceUrlNormalized = this.normalizeSourceUrl(this.podcastForm.sourceUrl);
-                        // Build request payload with proper field mapping
-                        const requestPayload = {
-                            topic: this.podcastForm.topic,
-                            category: this.podcastForm.category,
-                            expertise_level: this.podcastForm.expertise_level,
-                            duration: this.podcastForm.duration,
-                            format_type: this.podcastForm.format_type,
-                            voice_style: this.podcastForm.voice_style,
-                            // CRITICAL: Include voice selections
-                            host_voice_id: this.podcastForm.host_voice_id,
-                            expert_voice_id: this.podcastForm.expert_voice_id,
-                            additional_instructions: this.podcastForm.instructions || '',
-                            // Map source URL to source_links (backend fetches & extracts metadata)
-                            source_links: sourceUrlNormalized ? [sourceUrlNormalized] : []
-                        };
-                        
-                        console.log('Generating podcast with payload:', requestPayload);
-                        
-                        const response = await fetch(`${this.API_BASE_URL}/generate-podcast-with-subscriber?subscriber_id=${this.subscriber.subscriber_id}`, {
-                            method: 'POST',
-                            headers: this.authHeaders({ 'Content-Type': 'application/json' }),
-                            body: JSON.stringify(requestPayload)
-                        });
-                        
-                        const data = await response.json();
-                        
-                        if (response.ok) {
-                            this.showMessage('Podcast generation started! This typically takes 3-5 minutes. Status will auto-update.', 'success');
-                            this.podcastForm = { topic: '', category: '', expertise_level: '', duration: '5-10 minutes', format_type: 'interview', voice_style: 'professional', host_voice_id: 'XrExE9yKIg1WjnnlVkGX', expert_voice_id: 'pNInz6obpgDQGcFmaJgB', instructions: '', sourceUrl: '' };
-                            // Refresh podcasts immediately to show "pending" status
-                            await this.loadPodcasts();
-                            // Start polling for updates
-                            this.startPollingForPodcasts();
-                        } else {
-                            this.showMessage(data.detail || 'Failed to generate podcast', 'error');
-                        }
-                    } catch (error) {
-                        console.error('Generate podcast error:', error);
-                        this.showMessage('Network error. Please try again.', 'error');
-                    } finally {
-                        this.generating = false;
-                    }
+                    const sourceUrlNormalized = this.normalizeSourceUrl(this.podcastForm.sourceUrl);
+                    // Build request payload with proper field mapping
+                    const requestPayload = {
+                        topic: this.podcastForm.topic,
+                        category: this.podcastForm.category,
+                        expertise_level: this.podcastForm.expertise_level,
+                        duration: this.podcastForm.duration,
+                        format_type: this.podcastForm.format_type,
+                        voice_style: this.podcastForm.voice_style,
+                        // CRITICAL: Include voice selections
+                        host_voice_id: this.podcastForm.host_voice_id,
+                        expert_voice_id: this.podcastForm.expert_voice_id,
+                        additional_instructions: this.podcastForm.instructions || '',
+                        // Map source URL to source_links (backend fetches & extracts metadata)
+                        source_links: sourceUrlNormalized ? [sourceUrlNormalized] : []
+                    };
+                    this.beginGeneration('generating', '/generate-podcast-with-subscriber', requestPayload, () => {
+                        this.podcastForm = { topic: '', category: '', expertise_level: '', duration: '5-10 minutes', format_type: 'interview', voice_style: 'professional', host_voice_id: 'XrExE9yKIg1WjnnlVkGX', expert_voice_id: 'pNInz6obpgDQGcFmaJgB', instructions: '', sourceUrl: '' };
+                    });
                 },
-                
+
                 authHeaders(extra = {}) {
                     // Security lockdown Step 2 (2026-10-01): sent on every
                     // call to a route that now requires either the admin key
@@ -1012,6 +1015,25 @@
                     }
                 },
 
+                // Private transcript (dashboard fixes, 2026-11). Same gate as Play: a fresh 15-minute signed link on every click, never stored or shown as an address.
+                // The tab is opened inside the click (so a pop-up blocker allows it) and pointed at the link once it arrives.
+                async openTranscriptPrivate(podcast) {
+                    const tab = window.open('', '_blank');
+                    if (tab) tab.opener = null;
+                    try {
+                        const response = await fetch(`${this.API_BASE_URL}/api/subscribers/episodes/${encodeURIComponent(podcast.podcast_id)}/media-links?minutes=15`, {
+                            headers: this.authHeaders()
+                        });
+                        const data = await response.json().catch(() => ({}));
+                        const transcript = response.ok ? Object.entries(data.links || {}).find(([name]) => name.startsWith('transcripts/')) : null;
+                        if (!transcript) { if (tab) tab.close(); this.showMessage('Could not open this transcript right now.', 'error'); return; }
+                        if (tab) tab.location.href = transcript[1]; else this.showMessage('Allow pop-ups for this site to open the transcript.', 'error');
+                    } catch (error) {
+                        if (tab) tab.close();
+                        this.showMessage('Network error. Please try again.', 'error');
+                    }
+                },
+
                 // Make public is permanent for the owner: only the site administrator can take an episode back. It puts the episode on the website; it does NOT post it to the podcast feed.
                 async makePublic(podcast) {
                     const ok = confirm('Make this episode public?\n\nThis cannot be undone by you. Once it is public, anyone can listen to it, and copies may be saved by others. Only the site administrator can take it down.\n\nIt will appear on the website. It will not be added to the podcast feed.');
@@ -1036,7 +1058,7 @@
 
                 // Delete podcast function
                 async deletePodcast(podcastId) {
-                    if (!confirm('Are you sure you want to delete this podcast? This action cannot be undone.')) {
+                    if (!confirm("Delete this episode permanently? This can't be undone.")) {
                         return;
                     }
                     

@@ -76,10 +76,10 @@ test('describe and scopeText give readable text', () => {
 });
 
 // ---- the engine page ---------------------------------------------------------------------------------------------------------------------------------------
-function enginePage(over = {}, delegations = [], extra = null) {
+function enginePage(over = {}, delegations = [], extra = null, runOpts = {}) {
   const state = { engine: enginePayload(over), delegations };
   const page = run('engine.html', ['common.js', 'engine.js'], {
-    search: '?engine=eng-x',
+    search: '?engine=eng-x', ...runOpts,
     route: (m, p, b) => {
       if (extra) { const r = extra(m, p, b, state); if (r) return r; }
       if (m === 'GET' && p === '/api/onboarding/engines/eng-x') return ok(state.engine);
@@ -143,14 +143,14 @@ test('Mark all ready sections final posts once and says what was marked and what
 test('delegating: all sections, or only the ones chosen; nothing chosen is refused before any request', async () => {
   const page = enginePage({}, [], (m, p, b) => (m === 'PUT' && p.endsWith('/delegations') ? ok({ delegation_id: 'e'.repeat(32), scope: b.scope, from: 'you', to: 'other owner', active: true }) : null));
   await settle();
+  page.$('dscopeAll').click();                                                    // F1: nothing is preselected, so All sections is chosen on purpose
   page.$('delegate').click();
   await settle();
   assert.deepStrictEqual(puts(page).map((c) => c.body), [{ to: 'other_owner', scope: 'all' }]);
   page.$('dscopeSome').click();
-  page.$('delegate').click();
+  page.$('delegate').click();                                                   // F1: disabled, so nothing is sent
   await settle();
   assert.strictEqual(puts(page).length, 1);
-  assert.match(page.$('delegateResult').textContent, /Choose at least one section/);
   page.$('d_questions').click();
   page.$('d_seeds').click();
   page.$('delegate').click();
@@ -180,6 +180,7 @@ test('the notification switch saves the choice and undoes the checkbox if saving
   page.$('notifyEmail').checked = false;
   page.$('notifyEmail').fire('change');
   await settle();
+  assert.strictEqual(page.confirms.length, 1);
   assert.deepStrictEqual(puts(page).map((c) => c.body), [{ email: false }]);
   assert.match(page.$('notifyResult').textContent, /will not get/);
   fail = true;
@@ -582,4 +583,62 @@ test('the section page needs a signed-in session and a real section', async () =
   await settle();
   assert.strictEqual(gone.$('items').hidden, true);
   assert.strictEqual(gone.$('msg').className, 'error');
+});
+
+// ---- F1: the delegation form has no preselected scope ------------------------------------------------------------------------------------------------------
+test('F1: nothing is preselected and Delegate is enabled only for All sections, or for chosen sections with at least one ticked', async () => {
+  const page = enginePage();
+  await settle();
+  assert.strictEqual(page.$('dscopeAll').checked, false);
+  assert.strictEqual(page.$('dscopeSome').checked, false);
+  assert.strictEqual(page.$('delegate').disabled, true);                         // nothing chosen yet
+  page.$('delegate').click();
+  await settle();
+  assert.strictEqual(puts(page).length, 0);                                      // and a click sends nothing
+  page.$('dscopeSome').click();
+  assert.strictEqual(page.$('delegate').disabled, true);                         // "Only the sections I choose" with none ticked
+  page.$('d_scope').click();
+  assert.strictEqual(page.$('delegate').disabled, false);                        // one ticked
+  page.$('d_scope').click();
+  assert.strictEqual(page.$('delegate').disabled, true);                         // unticked again
+  page.$('dscopeAll').click();
+  assert.strictEqual(page.$('delegate').disabled, false);                        // All sections
+  page.$('dscopeSome').click();
+  assert.strictEqual(page.$('delegate').disabled, true);                         // back to "some" with none ticked
+});
+
+// ---- F2: switching the emails off asks first; switching them on does not; a visible line says they are off ----------------------------------------------------
+test('F2: switching emails OFF asks first; declining changes nothing; accepting saves and shows the "emails are off" line', async () => {
+  const route = (m, p) => (m === 'PUT' && p.endsWith('/notifications') ? ok({ email: false }) : null);
+  const declined = enginePage({}, [], route, { confirmAnswer: false });
+  await settle();
+  assert.strictEqual(declined.$('emailsOff').hidden, true);                      // on: no line
+  declined.$('notifyEmail').checked = false;
+  declined.$('notifyEmail').fire('change');
+  await settle();
+  assert.deepStrictEqual(declined.confirms, ["Stop these emails? You won't be told when a section is ready or re-opened."]);
+  assert.strictEqual(puts(declined).length, 0);                                  // nothing was sent
+  assert.strictEqual(declined.$('notifyEmail').checked, true);                   // put back
+  assert.strictEqual(declined.$('emailsOff').hidden, true);
+
+  const accepted = enginePage({}, [], route, { confirmAnswer: true });
+  await settle();
+  accepted.$('notifyEmail').checked = false;
+  accepted.$('notifyEmail').fire('change');
+  await settle();
+  assert.deepStrictEqual(puts(accepted).map((c) => c.body), [{ email: false }]);
+  assert.strictEqual(accepted.$('emailsOff').hidden, false);
+  assert.match(require('node:fs').readFileSync(require('node:path').join(__dirname, '../../public/onboarding/engine.html'), 'utf8'), /<p id="emailsOff"[^>]*>Your emails about this engine are off\.<\/p>/);
+});
+
+test('F2: switching emails ON asks nothing, and a page that loads with emails off shows the line', async () => {
+  const off = enginePage({ notifications_email: false }, [], (m, p) => (m === 'PUT' && p.endsWith('/notifications') ? ok({ email: true }) : null));
+  await settle();
+  assert.strictEqual(off.$('emailsOff').hidden, false);                          // shown on load
+  off.$('notifyEmail').checked = true;
+  off.$('notifyEmail').fire('change');
+  await settle();
+  assert.deepStrictEqual(off.confirms, []);                                      // no question
+  assert.deepStrictEqual(puts(off).map((c) => c.body), [{ email: true }]);
+  assert.strictEqual(off.$('emailsOff').hidden, true);                           // and the line goes
 });

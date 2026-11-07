@@ -92,13 +92,15 @@ function makeTimers() {
 async function settle(rounds = 8) { for (let i = 0; i < rounds; i += 1) await new Promise((r) => setImmediate(r)); }
 
 // Runs common.js and then the page script in a fresh context. `route(method, path, body)` returns {status, data} (or a Promise of it).
-function run(pageHtml, scripts, { search = '', token = 'tok', route }) {
+function run(pageHtml, scripts, { search = '', token = 'tok', route, confirmAnswer = true }) {
   const doc = new Doc();
   loadPage(pageHtml, doc);
   const timers = makeTimers();
   const calls = [];
+  const confirms = [];   // every question the page asked through confirm(); the answer is `confirmAnswer` (true or false)
   const sandbox = {
     document: doc, location: { search }, console, Promise, JSON, Object, Array, String, Number, Date, Math, encodeURIComponent, decodeURIComponent, RegExp, Error,
+    confirm: (q) => { confirms.push(q); return typeof confirmAnswer === 'function' ? confirmAnswer(q) : confirmAnswer; },
     localStorage: { getItem: (k) => (k === 'subscriber' && token ? JSON.stringify({ session_token: token }) : null) },
     setTimeout: timers.setTimeout, clearTimeout: timers.clearTimeout, setInterval: timers.setInterval, clearInterval: timers.clearInterval,
     fetch: (url, init) => {
@@ -111,7 +113,7 @@ function run(pageHtml, scripts, { search = '', token = 'tok', route }) {
   sandbox.window = sandbox;
   vm.createContext(sandbox);
   for (const s of scripts) vm.runInContext(fs.readFileSync(path.join(PAGES, s), 'utf8'), sandbox, { filename: s });
-  return { doc, timers, calls, sandbox, $: (id) => doc.getElementById(id) };
+  return { doc, timers, calls, confirms, sandbox, $: (id) => doc.getElementById(id) };
 }
 
 // Everything in the tree that is an element (to prove a hostile string never became markup).

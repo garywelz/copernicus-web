@@ -25,6 +25,26 @@ Entry format:
 
 ---
 
+## 038 — 2026-11-07 — Onboarding PR 3a live (owners' workspace: items, comments, gates, delegation, notifications, pages); smoke test passed; generation-dashboard fixes
+
+- **From:** Claude Code (Core lane), at Gary's direction (relayed by Claude Chat)
+- **Status:** DRAFT. In force from the merge of the pull request that adds this entry. Records what is live and what the 3a smoke test found; it does not change any rule. The code changes in this pull request (below) take effect when it is deployed. Follows entry 037.
+- **Record:** copernicus-web [#190](https://github.com/garywelz/copernicus-web/pull/190), [#191](https://github.com/garywelz/copernicus-web/pull/191) and [#192](https://github.com/garywelz/copernicus-web/pull/192) (onboarding PR 3a; merge `00374bb3a`, Cloud Run revision `copernicus-podcast-api-00430-gep`, rollback `00427-guv`), and the pull request that adds this entry (the generation-dashboard fixes, F1 and F2, the design amendments and the panel's delete sentence); design `docs/design/ENGINE_ONBOARDING_FORM.md` §10a (Q1 and Q2).
+- **Affects:** Core; Gary and Claude Chat; invited research owners (none yet besides the test accounts); 3b and PR 4
+- **Summary:**
+  - **3a smoke test (2026-11-07, attended):** existing-account acceptance for both test accounts with the password hashes unchanged (Gary also signed in with his original password after typing a different one on the accept page); a stale save refused with 409 and nothing written; disagree then resolve; system-assigned ids for an added question and a horizon entry; delegation scoped to one section, marked final by the delegate, refused outside its scope, refused after revocation; all five notification mails ARRIVED (four "ready", one "re-opened"), with no duplicate; the email switch tested off and on; generation rights unchanged at 0 non-admin; no stored record holds an address.
+  - **This pull request:** the dashboard follows a generation by polling (`client_job_id` and an owner-only status route), so a dropped long request no longer shows an error; a category is required for subscriber requests (no "Computer Science" default); the owner delete is rewritten (the old one crashed with a 500 for finished episodes, and otherwise left files, wrote no audit and skipped the feed and access checks); the owner's private transcript opens through 15-minute links; F1 and F2 are fixed; job-status access tightened.
+  - **Design:** the 5-day reminder is deferred; the Q1 and Q2 amendments (an owner may delete their own episode except one in the feed; owners also get their private transcript); the panel's delete sentence.
+  - **Left behind on purpose:** the closed `tdap-test` engine with its synthetic content, three revoked invitations, three revoked delegations, the PR 1 owner account's `monthly_quota` field removed (inert: it can't generate), and the private episodes `ever-compsci-260003` and `ever-compsci-260004`.
+- **Findings** (open):
+  - **F3:** the delegation table lists newest first.
+  - **F4:** the page-level stale-save merge is covered by Node tests only.
+  - **F5:** `tdap-test` holds final answers in every section and needs its content reset before the next smoke test.
+- **Waiting on:**
+  - **Gary:** 3b, PR 4, and the real `tdap` engine and invitations, only with his approval.
+  - **Core:** re-run the "who can generate" count before any invitation; re-check every panel sentence before the first real invitation.
+  - **Claude Chat, GLMP lane and Methods & Tools:** nobody.
+
 ## 037 — 2026-11-05 — Onboarding PR 2 live (invitations, engine membership, per-engine owner-features switch); smoke test passed; dashboard index added
 
 - **From:** Claude Code (Core lane), at Gary's go-ahead (relayed by Claude Chat, then given directly)

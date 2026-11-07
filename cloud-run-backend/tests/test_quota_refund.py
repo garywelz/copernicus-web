@@ -14,7 +14,7 @@ SUB = "sub-q"
 TOKEN = "token-q"
 HS = {"X-Subscriber-Token": TOKEN}
 ADMIN = {"X-Admin-API-Key": "test-key"}
-BODY = {"topic": "a topic"}
+BODY = {"topic": "a topic", "category": "Physics"}
 MONTH = gq.current_month_key()
 
 
