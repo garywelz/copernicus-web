@@ -36,6 +36,7 @@
     </details>
 
     <div id="workspace" hidden>
+        <p id="emailsOff" class="waiting" role="status" hidden>Your emails about this engine are off.</p>
         <h2>Progress</h2>
         <p id="waiting" class="waiting"></p>
         <table id="sections">
@@ -61,10 +62,10 @@
         <div id="delegationBox" hidden>
             <h2>Delegate final say</h2>
             <p class="note">You may let the other owner of this engine mark sections final for you. You keep the power yourself, and you can revoke it at any time.</p>
-            <label class="choice"><input id="dscopeAll" type="radio" name="dscope" value="all" checked> All sections</label>
+            <label class="choice"><input id="dscopeAll" type="radio" name="dscope" value="all"> All sections</label>
             <label class="choice"><input id="dscopeSome" type="radio" name="dscope" value="some"> Only the sections I choose:</label>
             <div id="dsections"></div>
-            <button id="delegate" class="primary" type="button">Delegate to the other owner</button>
+            <button id="delegate" class="primary" type="button" disabled>Delegate to the other owner</button>
             <p id="delegateResult" role="status"></p>
             <table id="delegations" hidden>
                 <thead><tr><th>Delegated to</th><th>Covers</th><th>Since</th><th>Status</th><th></th></tr></thead>

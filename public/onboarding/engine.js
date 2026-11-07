@@ -73,6 +73,7 @@
             $('finalBox').hidden = !e.can_mark_final;
             $('delegationBox').hidden = !holder;
             if (document.activeElement !== $('notifyEmail')) { $('notifyEmail').checked = !!e.notifications_email; }
+            showEmailsOff();
             return OB.call('GET', base + '/delegations').then(function (d) { if (d.ok) { renderDelegations(d.data.delegations || []); } });
         }).catch(function () { say('msg', 'Network error. Retrying shortly.', true); });
     }
@@ -98,23 +99,36 @@
         }).catch(function () { say('delegateResult', 'Network error. Please try again.', true); });
     }
 
+    // F1: no scope is preselected. Delegate is enabled only once the holder has chosen "All sections", or "Only the sections I choose" with at least one section ticked.
+    function delegateReady() {
+        return $('dscopeAll').checked || ($('dscopeSome').checked && picked.some(function (k) { return $('d_' + k).checked; }));
+    }
+    function syncDelegate() { $('delegate').disabled = !delegateReady(); }
+
     function delegate() {
+        if (!delegateReady()) { return; }
         var scope = $('dscopeAll').checked ? 'all' : picked.filter(function (k) { return $('d_' + k).checked; });
         if (scope !== 'all' && !scope.length) { return say('delegateResult', 'Choose at least one section, or delegate all.', true); }
         $('delegate').disabled = true;
         OB.call('PUT', base + '/delegations', { to: 'other_owner', scope: scope }).then(function (out) {
-            $('delegate').disabled = false;
+            syncDelegate();
             say('delegateResult', out.ok ? 'Delegated to the other owner for: ' + OB.scopeText(out.data.scope) + '. A new delegation replaces any earlier one.' : OB.problem(out), !out.ok);
             load();
-        }).catch(function () { $('delegate').disabled = false; say('delegateResult', 'Network error. Please try again.', true); });
+        }).catch(function () { syncDelegate(); say('delegateResult', 'Network error. Please try again.', true); });
     }
 
+    // F2: while the emails are off, a visible line says so near the top of the page.
+    function showEmailsOff() { $('emailsOff').hidden = $('notifyEmail').checked; }
+
+    // F2: switching the emails OFF asks first; switching them ON does not.
     function notifications() {
         var on = $('notifyEmail').checked;
+        if (!on && !confirm("Stop these emails? You won't be told when a section is ready or re-opened.")) { $('notifyEmail').checked = true; showEmailsOff(); return; }
         OB.call('PUT', base + '/notifications', { email: on }).then(function (out) {
             if (out.ok) { say('notifyResult', on ? 'You will get these emails.' : 'You will not get these emails.', false); }
             else { $('notifyEmail').checked = !on; say('notifyResult', OB.problem(out), true); }
-        }).catch(function () { $('notifyEmail').checked = !on; say('notifyResult', 'Network error. Please try again.', true); });
+            showEmailsOff();
+        }).catch(function () { $('notifyEmail').checked = !on; say('notifyResult', 'Network error. Please try again.', true); showEmailsOff(); });
     }
 
     function start() {
@@ -127,6 +141,8 @@
         });
         $('markAll').addEventListener('click', markAll);
         $('delegate').addEventListener('click', delegate);
+        ['dscopeAll', 'dscopeSome'].concat(picked.map(function (k) { return 'd_' + k; })).forEach(function (id) { $(id).addEventListener('change', syncDelegate); });
+        syncDelegate();
         $('notifyEmail').addEventListener('change', notifications);
         load();
         OB.poll(load, 20000);
