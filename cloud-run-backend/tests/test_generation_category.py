@@ -41,6 +41,7 @@ def env(monkeypatch):
     monkeypatch.setattr(auth, "get_admin_api_key", lambda: "test-key")
     monkeypatch.setattr(gq.firestore, "transactional", passthrough_transactional)
     monkeypatch.setattr(podcast_routes, "_get_service", lambda: svc)
+    monkeypatch.setattr(podcast_routes, "resolve_generation_subscriber_id", lambda sid=None: sid or "admin-sub")   # no real lookup: other test files leave a mock db in utils.subscriber_helpers
     app = FastAPI()
     app.include_router(podcast_routes.router)
     return type("Env", (), {"db": db, "svc": svc, "client": TestClient(app), "routes": podcast_routes})()
