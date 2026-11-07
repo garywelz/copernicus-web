@@ -1,6 +1,8 @@
 """Public health and status endpoints"""
 
-from fastapi import APIRouter, HTTPException
+from typing import Optional
+
+from fastapi import APIRouter, Header
 from datetime import datetime
 from utils.logging import structured_logger
 from config.database import db
@@ -43,24 +45,12 @@ async def test_frontend():
 
 
 @router.get("/status/{job_id}")
-async def get_job_status(job_id: str):
-    """Get status of a podcast generation job"""
-    if not db:
-        raise HTTPException(status_code=503, detail="Firestore service is unavailable")
-
-    try:
-        job_ref = db.collection('podcast_jobs').document(job_id)
-        job_doc = job_ref.get()
-
-        if not job_doc.exists:
-            raise HTTPException(status_code=404, detail=f"Job '{job_id}' not found in Firestore.")
-        
-        return job_doc.to_dict()
-    except HTTPException:
-        raise
-    except Exception as e:
-        structured_logger.error("Error fetching job from Firestore",
-                               job_id=job_id,
-                               error=str(e))
-        raise HTTPException(status_code=500, detail="Failed to retrieve job status")
-
+async def get_job_status(
+    job_id: str,
+    x_admin_api_key: Optional[str] = Header(None, alias="X-Admin-API-Key"),
+    x_subscriber_token: Optional[str] = Header(None, alias="X-Subscriber-Token"),
+):
+    """Status of a podcast generation job. Job-status access tightened (change 8, 2026-11): only the job's owner or the admin key may ask, anyone else gets 404, and
+    the answer is the minimal view the owner's dashboard uses (the same one as /api/subscribers/jobs/{job_id}/status), not the stored job document."""
+    from endpoints.subscriber.episode_access import job_status_response
+    return job_status_response(job_id, x_admin_api_key, x_subscriber_token)

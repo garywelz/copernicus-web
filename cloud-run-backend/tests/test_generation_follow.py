@@ -43,6 +43,7 @@ def env(monkeypatch):
     import config.database
     import utils.auth as auth
     from endpoints.podcast import routes as podcast_routes
+    from endpoints.public import health as health_routes
     from endpoints.subscriber import episode_access as owner_routes
     db = FakeDB(subscribers={A: subscriber(TOK_A, can_generate=True, monthly_quota=10, generations_this_month=0, generation_month=MONTH),
                              B: subscriber(TOK_B, can_generate=True, monthly_quota=10, generations_this_month=0, generation_month=MONTH)}, podcast_jobs={})
@@ -55,6 +56,7 @@ def env(monkeypatch):
     app = FastAPI()
     app.include_router(podcast_routes.router)
     app.include_router(owner_routes.router)
+    app.include_router(health_routes.router)
     return type("Env", (), {"db": db, "svc": svc, "app": app, "client": TestClient(app)})()
 
 
@@ -186,3 +188,36 @@ def test_the_job_keeps_running_and_finishes_after_the_client_disconnects(env):
     asyncio.run(run())
     assert env.db.data["podcast_jobs"][jid]["status"] == "completed"          # the job finished and was recorded though nobody was listening
     assert env.client.get(f"/api/subscribers/jobs/{jid}/status", headers=HA).json()["state"] == "completed"
+
+
+# ---- change 8: job-status access tightened (GET /status/{job_id}) --------------------------------------------------------------------------
+def test_legacy_status_route_allows_the_owner_and_the_admin_only(env):
+    jid = job(env, new_id(), status="completed", result={"canonical_filename": "ever-phys-990001", "title": "T"})
+    for headers in (HA, ADMIN):
+        r = env.client.get(f"/status/{jid}", headers=headers)
+        assert r.status_code == 200 and r.json()["state"] == "completed" and r.json()["episode_id"] == "ever-phys-990001"
+    expect = env.client.get(f"/status/{new_id()}", headers=HA)                       # a job that does not exist
+    assert expect.status_code == 404
+    for headers in (HB, {}, {"X-Subscriber-Token": "garbage"}, {"X-Admin-API-Key": "wrong"}):
+        r = env.client.get(f"/status/{jid}", headers=headers)
+        assert r.status_code == 404 and r.json() == expect.json()                    # another user, anonymous, bad token, bad key: the same 404 as a missing job
+    assert env.client.get("/status/not-a-uuid", headers=HA).status_code == 404
+
+
+def test_legacy_status_route_returns_no_address_and_no_stored_document(env):
+    jid = job(env, new_id(), status="completed", subscriber_email="someone@example.invalid", result={"canonical_filename": "e", "title": "T", "notify_to": "someone@example.invalid"},
+              request={"topic": "SECRET TOPIC", "email": "someone@example.invalid"})
+    for headers in (HA, ADMIN):
+        text = env.client.get(f"/status/{jid}", headers=headers).text
+        assert "@" not in text and "example.invalid" not in text
+        for hidden in ("SECRET TOPIC", "internal detail", "request", "subscriber", "error"):
+            assert hidden not in text
+        assert set(env.client.get(f"/status/{jid}", headers=headers).json()) <= {"job_id", "state", "status", "created_at", "updated_at", "episode_id", "title", "unit_returned"}
+
+
+def test_the_admin_may_look_up_a_debug_job_but_nobody_else_may(env):
+    jid = "debug-" + new_id()
+    env.db.data["podcast_jobs"][jid] = {"job_id": jid, "status": "pending", "created_at": "2026-11-07T10:00:00"}
+    assert env.client.get(f"/status/{jid}", headers=ADMIN).status_code == 200
+    assert env.client.get(f"/status/{jid}", headers=HA).status_code == 404
+    assert env.client.get(f"/status/{jid}").status_code == 404

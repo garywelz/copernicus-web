@@ -27,6 +27,7 @@ from utils.owner_access import private_access_enabled, session_owner_id, write_a
 router = APIRouter()
 
 NO_STORE = {"Cache-Control": "no-store", "Pragma": "no-cache"}
+ADMIN_JOB_ID_RE = re.compile(r"^(debug-)?[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$")   # the admin-only debug route names its jobs debug-<uuid>
 JOB_ID_RE = re.compile(r"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$")
 
 
@@ -124,9 +125,15 @@ async def owner_job_status(
     same 404. Returns only what a page needs: the state, the raw status, the times, and for a finished job the episode id and title. Never the request, the
     error text or any account data. The owner's allow-list is NOT required: this is the status of the caller's own job, and a subscriber who may generate must
     be able to follow it."""
+    return job_status_response(job_id, x_admin_api_key, x_subscriber_token)
+
+
+def job_status_response(job_id: str, x_admin_api_key: Optional[str], x_subscriber_token: Optional[str]) -> JSONResponse:
+    """The one job-status answer, shared by the owner route above and the older GET /status/{job_id} (job-status access tightened, change 8, 2026-11): the job's
+    owner or the admin key sees the minimal view; everyone else, and a job that does not exist, get the same 404."""
     if not db:
         raise HTTPException(status_code=503, detail="Firestore service is unavailable")
-    if not JOB_ID_RE.match(job_id or ""):
+    if not (JOB_ID_RE.match(job_id or "") or (admin_key_ok(x_admin_api_key) and ADMIN_JOB_ID_RE.match(job_id or ""))):
         raise _not_found()
     snap = db.collection("podcast_jobs").document(job_id).get()
     job = snap.to_dict() if snap.exists else None
