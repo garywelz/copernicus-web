@@ -249,3 +249,31 @@ test('a 409 from the server is shown as the server worded it, and nothing is sav
   assert.strictEqual(p.saved.length, 0);
   assert.match(p.$('bundleMsg').textContent, /Not downloaded: This bundle is blocked/);
 });
+
+// ---- after a create the page must not look like a reload (found in the live smoke test) -----------------------------------------------------------------
+test('after Create bundle the ticked sections stay as chosen, only the bundle list is refreshed, and the message names the new bundle', async () => {
+  const NEW = 'e'.repeat(32);
+  const made = { status: 'created', bundle_id: NEW, sections: ['scope'], checks: { public_safe: true, no_email: true, no_not_yet_public: true, names_ok: true, schema_ok: true }, problems: {}, preview: [], notes: [] };
+  let after = false;
+  const approved = () => ({ engine_id: 'eng-x', label: 'X', sections: [
+    { key: 'scope', title: 'Scope and use case', status: 'approved', approved_revision: 2 }, { key: 'questions', title: 'Research questions', status: 'approved', approved_revision: 1 }] });
+  const p = bundlePage({ 'GET /api/admin/onboarding/engines/eng-x': () => ok(approved()),
+                         'POST /api/admin/onboarding/engines/eng-x/bundles': () => { after = true; return ok(made); },
+                         'GET /api/admin/onboarding/engines/eng-x/bundles': () => ok({ bundles: after ? [bundleRow({ bundle_id: NEW, sections: ['scope'] }), bundleRow()] : [bundleRow()] }) });
+  await settle();
+  p.$('loadBundles').fire('click');
+  await settle();
+  const [scope, questions] = checkboxes(p);
+  questions.checked = false;                                                                  // the reviewer unticks Research questions
+  const detailCallsBefore = p.calls.filter((c) => c.path === '/api/admin/onboarding/engines/eng-x').length;
+  p.$('createBundle').fire('click');
+  await settle();
+  assert.deepStrictEqual(p.calls.find((c) => c.method === 'POST').body, { sections: ['scope'] });
+  assert.deepStrictEqual(checkboxes(p).map((c) => [c.attrs['data-section'], c.checked]), [['scope', true], ['questions', false]]);     // the selection survives
+  assert.strictEqual(checkboxes(p)[0], scope);                                                // the very same elements: the section list was not rebuilt
+  assert.strictEqual(p.calls.filter((c) => c.path === '/api/admin/onboarding/engines/eng-x').length, detailCallsBefore);              // no engine reload
+  assert.match(p.$('bundleMsg').textContent, /Bundle eeeeeeee \(scope\) at .* was created and passed every check\. Its row, highlighted/);
+  const rows = all(p.doc, (e) => /\bbundle\b/.test(e.className));
+  assert.deepStrictEqual(rows.map((r) => r.className), ['bundle newbundle', 'bundle']);       // the new bundle is first and highlighted
+  assert.ok(p.doc.all().findIndex((e) => e.attrs.id === 'bundleMsg') < p.doc.all().findIndex((e) => e.attrs.id === 'bundleList'));                 // the message is above the list, not below it
+});

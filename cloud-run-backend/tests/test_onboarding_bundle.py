@@ -642,3 +642,13 @@ def test_the_review_script_never_reads_the_dom_back_with_array_methods_or_a_fake
 def test_the_owner_engine_page_shows_the_bundle_status_as_text():
     html, js = text_of(ROOT / "public" / "onboarding" / "engine.html"), text_of(ROOT / "public" / "onboarding" / "engine.js")
     assert 'id="bundleBox"' in html and 'id="bundleList"' in html and "e.bundles" in js and "innerHTML" not in js
+
+
+def test_the_bundle_message_sits_directly_under_the_create_button_above_the_list():
+    html = text_of(ROOT / "public" / "admin-onboarding.html")
+    order = [html.index(f'id="{i}"') for i in ("createBundle", "bundleMsg", "bundleChecks", "bundleDiff", "bundleList")]
+    assert order == sorted(order), "the result of a create appears under the button, before the checks, the diff and the list"
+    js = text_of(ROOT / "public" / "admin-review.js")
+    start = js.index("function createBundle()")
+    body = js[start:js.index("$('loadBundles').addEventListener", start)]
+    assert "loadBundleList(engine)" in body and "loadBundles()" not in body, "a create refreshes the list only, never rebuilds the section checkboxes"
