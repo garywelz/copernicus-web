@@ -25,6 +25,30 @@ Entry format:
 
 ---
 
+## 040 — 2026-11-09 — Three retired Cloud SQL instances deleted (dumps kept in two places); two secret versions disabled; Artifact Registry cleanup set to dry-run; the warm podcast-api instance stays
+
+- **From:** Claude Code (Core lane), at Gary's direction (relayed by Claude Chat); each step below was approved by Gary in writing on 2026-11-09 after a read-only proposal
+- **Status:** DRAFT. In force from the merge of the pull request that adds this entry. Records changes already made in Google Cloud on 2026-11-09; the pull request itself changes only documentation. Follows entry 039 (it closes Batch 5 and findings F1 and F2 there).
+- **Record:** the pull request that adds this entry (it also updates the Cloud SQL row of `governance/RESOURCE_MANIFEST.md` and adds an Artifact Registry row). Live reads and writes of 2026-11-09 with `gcloud`; the cost figures come from the SKU lines Gary read in the Billing console (1 to 9 November), not from a billing export.
+- **Affects:** Core; Gary; anyone who finds the `keep-rollback-*` tags in the registry, the disabled secrets, or the missing instances and asks why
+- **Summary:**
+  - **Deleted (irreversible):** `copernicus-db`, `glmp-db` (deletion protection turned off first; its 7 retained backups went with it) and `research-metadata-db`. Each was read back before deletion and confirmed gone after. **Only `scienceviddb-db` remains.**
+  - **Kept, two places.** The three dumps stay permanently in `gs://regal-scholar-453620-r7-internal/phase2-2026-10/` (re-read after each deletion, hashes unchanged), and a second copy was made on Gary's machine and verified. Sizes and SHA-256:
+    - `copernicus-db-copernicus.sql.gz`, 3,728 B, `4c9f996d1bbe689c0c6bf08974bdf97c5efb140292b780f4d967f2e0c6172026`
+    - `glmp-db-glmp.sql.gz`, 450 B (schema only, 0 rows), `e0997c8f9e242ea7929ecf25318f67f19bf3b143b6168f58356bab01b711593f`
+    - `research-metadata-db-research_metadata.sql.gz`, 4,539,025 B, `483001fd9ff90dde7daaf073916d470db0f1c7118410ba07a8a64530eea90c56`
+  - **`research-metadata-db` restore check (no instance needed).** The dump holds 12,040 papers, 2,271 citations and 3 clusters. All 12,040 papers match Firestore `research_papers` on paper id, arXiv id and title (0 missing). Not covered: the dump's `citations`, `clusters` and computed pagerank/UMAP columns were not compared with anything in Firestore; the dump is their only known copy.
+  - **Secrets disabled, not deleted:** version 1 of `copernicus-db-url` and of `cloud-sql-password`. No Cloud Run service, job or revision, Cloud Function or repo file references either, and Cloud Scheduler is not enabled. **Not checked:** Vercel environment variables, Hugging Face Space secrets, and the Jetson scout. **If anything breaks, re-enable the version** (`gcloud secrets versions enable 1 --secret=<name>`); delete the secrets only after a quiet period.
+  - **Artifact Registry (about 183 GiB, mostly `copernicus-podcast-api` images): cleanup set in DRY-RUN only; nothing is deleted.** The 90 digests in `gcr.io` used by any existing Cloud Run revision or job execution got a tag `keep-rollback-<first 12 hex of the digest>` (one tag per digest, because a tag can sit on only one digest per image). The dry-run policy on `gcr.io` and `cloud-run-source-deploy`: keep tagged `keep-rollback-*`, keep the 10 newest versions per image, keep anything newer than 30 days, delete the rest. A local simulation without the tags would have removed 11 digests still used by old revisions; with the tags it should remove none of them. `cloud-run-source-deploy` holds no digest in use. Dry-run results should be readable in the Cloud Audit logs within about a day (not confirmed). **Going live needs Gary's separate go-ahead after he reads them.**
+  - **Cloud Run minimum instances: no change.** Only `copernicus-podcast-api` has `minScale` 1 (2 vCPU, 2 GiB). Its measured 14-day p95 container startup is about 112 seconds (the other services: 2 to 16 s), so scaling it to zero would give the first request after idle a very long wait. The "about 2.5 instances" on the bill is vCPU-seconds (about 1.24 instances); the excess came from up to ten old revisions holding warm instances on 2 to 6 November, down to one on 9 November. Why they stayed warm is not established.
+  - **Expected savings (estimates from SKU lines, not billed figures):** about $27 a month from the three deletions (IP reservations about $22, disks about $5), of which `copernicus-db` and `glmp-db` are about $18 and `research-metadata-db` about $9; about $6 to 12 a month from the registry cleanup once live (planning figure $9; image layers are shared, so the saving is uncertain). Nothing from the Cloud Run decision (the warm instance costs about $26 a month gross).
+- **Findings** (open):
+  - **F1:** the dump's citations, clusters and pagerank/UMAP columns have no confirmed second home.
+  - **F2:** the old `copernicus-podcast-api` revisions all carry `minScale` 1; why several stayed warm in early November is unknown.
+- **Waiting on:**
+  - **Gary:** read the registry dry-run results and say whether to go live; decide when to delete the two disabled secrets.
+  - **Core:** read the dry-run audit log once it is available and report what it would remove; nothing else until Gary decides.
+
 ## 039 — 2026-11-09 — The four Cloud SQL instances recorded; read-only cost and dependency check; the older `copernicusai` project is billing-free
 
 - **From:** Claude Code (Core lane), at Gary's direction (relayed by Claude Chat)
