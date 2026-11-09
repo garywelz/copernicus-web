@@ -25,6 +25,27 @@ Entry format:
 
 ---
 
+## 039 — 2026-11-09 — The four Cloud SQL instances recorded; read-only cost and dependency check; the older `copernicusai` project is billing-free
+
+- **From:** Claude Code (Core lane), at Gary's direction (relayed by Claude Chat)
+- **Status:** DRAFT. In force from the merge of the pull request that adds this entry. A read-only record; it changes no rule and no resource. Follows entry 026 (the Phase 2 hosting clean-up) and the Phase 2 proposal's section 4D.
+- **Record:** `governance/ARCHITECTURE_REVIEW_2026-10-01/phase2_hosting_cleanup_proposal.md` section 4D (the earlier analysis, unchanged); the pull request that adds this entry (it also adds the Cloud SQL row to `governance/RESOURCE_MANIFEST.md`). Live reads of 2026-11-09: `gcloud sql instances describe` and `operations list` for each instance, Cloud Monitoring (`database/up`, `disk/bytes_used`), Cloud Run service and job configs (environment variable names only), Secret Manager secret names, and the exports listed in `gs://regal-scholar-453620-r7-internal/phase2-2026-10/`.
+- **Affects:** Core; Gary; anyone who finds these instances in the console and asks why `RESOURCE_MANIFEST.md` does not list them
+- **Summary:**
+  - **The four instances are known, not orphaned.** All are PostgreSQL 15 Enterprise, `db-f1-micro`, 10 GB SSD, us-central1, public IP, point-in-time recovery off. `scienceviddb-db` (the running one; not `sciencevideodb-db`) is the only live database: about 281 MB, daily backups with 7 kept, deletion protection on, attached to the Cloud Run service `scienceviddb-web` and the jobs `ingest-all-channels` and `add-research-math-channels`, and reached by the Jetson scout sync through cloud-sql-proxy. **Keep.**
+  - **Three are stopped since 2026-10-05 (~15:43 UTC), after exports** (entry 026): `copernicus-db` (near-empty, no backups), `glmp-db` (0 rows; 7 backups and deletion protection still on) and `research-metadata-db` (about 14,300 rows, no backups). No Cloud Run service or job attaches any of them, and no repo, no Cloud Run environment variable and neither static HF Space (`sciencevideodb`, `metadata_database`) holds a connection to them. The dumps (3,728 B, 450 B and 4,539,025 B) are present in the private bucket; no restore has been tested. Deletion (Batch 5) still waits on Gary.
+  - **`RESOURCE_MANIFEST.md` has no Cloud SQL entry.** The same pull request adds the manifest's Cloud SQL row.
+  - **Cost could not be read.** The Cloud Billing API is disabled on the project and no BigQuery billing export exists in either project; enabling either is a write and was not done. The earlier figure (about $10 to 12 a month for an always-on instance) is an estimate, and a stopped instance should cost only its disk, plus `glmp-db`'s retained backups and possibly an idle address. Gary can read the real figure in the Billing console (Reports, grouped by SKU, Cloud SQL, October and November 1 to 9).
+  - **The older project `copernicusai` (number 560141234106):** billing is not linked, 23 APIs are enabled (BigQuery family, Datastore, Storage, YouTube, Logging, Monitoring, IAM and others), Cloud SQL, Run, Compute, Functions, Firestore and Secret Manager are not enabled, and it has no BigQuery datasets and no buckets. Nothing there can be billed. The suite's service account has no access to it; the read used Gary's own gcloud account through a per-command flag, with no change to the configuration.
+  - **The Anthropic API key** exists as the secret `anthropic-api-key` (created 2026-01-20, one version; the only accessor is the default compute service account). No Cloud Run service or job sets it as an environment variable or secret reference; `cloud-run-backend/main.py` loads it from Secret Manager at startup, and the separate `copernicus-eval` repo's evaluation library reads it the same way. No HF Space of the two checked refers to it. Whether `copernicus-podcast-api` uses it at run time was not checked.
+- **Findings** (open):
+  - **F1:** `research-metadata-db` is the only retired instance with real data, and it is not known whether Firestore `research_papers` covers it; its dump has not been restore-tested.
+  - **F2:** `copernicus-db-url` and `cloud-sql-password` stay in Secret Manager after their instances are gone.
+  - **F3:** the active `gcloud` account is the suite's service account, which is denied on the older project; reads there need Gary's account.
+- **Waiting on:**
+  - **Gary:** decide `research-metadata-db` (confirm Firestore covers it, or have the dump restore-tested first); go-ahead for Batch 5 on `copernicus-db` and `glmp-db`; read the Billing console figures; say whether to shut down the older project after checking its OAuth clients.
+  - **Core:** nobody beyond routine until Gary decides.
+
 ## 038 — 2026-11-07 — Onboarding PR 3a live (owners' workspace: items, comments, gates, delegation, notifications, pages); smoke test passed; generation-dashboard fixes
 
 - **From:** Claude Code (Core lane), at Gary's direction (relayed by Claude Chat)
