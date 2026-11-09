@@ -1,5 +1,5 @@
 """The owners' workspace, part 2 (onboarding PR 3a-2; docs/design/ENGINE_ONBOARDING_FORM.md 3.2, 4.5, 4.6, 5.6, 5.7): the first gate (Mark final, one section or every
-ready section), delegation of final say, and the e-mail notifications to the final-say holder. Approve and reject are PR 3b; the pages are 3a-3.
+ready section), delegation of final say, and the e-mail notifications to the final-say holder. Approve and send back are PR 3b-1 (utils/onboarding_review.py); the pages are 3a-3.
 
 WHO MAY MARK FINAL: the engine's final-say holder (`final_say_subscriber_id` on the engine record), or the owner a delegation names, for the sections it covers.
 Nobody else: an owner without either gets 403 (they are a member, so the workspace's existence is no secret from them); an administrator or a stranger gets 404
@@ -128,7 +128,8 @@ def _final_in(transaction, db, engine_id, sid, wanted, bulk, now, ip_hash, reque
     for key, sec_ref, sec, digest in plans:
         revision = sec.get("revision", 1)
         transaction.set(sec_ref, {**sec, "engine_id": engine_id, "section": key, "status": "final", "revision": revision, "content_sha256": digest, "final_by": sid,
-                                  "final_via_delegation": who == "delegate", "final_at": _iso(now), "updated_at": _iso(now), "ready_notified": False, "reopened_by": None})
+                                  "final_via_delegation": who == "delegate", "final_at": _iso(now), "updated_at": _iso(now), "ready_notified": False, "reopened_by": None,
+                                  "rejection_note": None, "rejected_at": None})      # a send-back note is shown until the section is next marked final (Gary, 2026-11-09)
         ob._event(transaction, db, engine_id=engine_id, actor=sid, actor_role="owner", action="final_all" if bulk else "final", target=key, before={"status": "draft"},
                   after={"status": "final", "content_sha256": digest}, ip_hash=ip_hash, request_id=request_id, now=now,
                   extra={"section": key, "revision": revision, "content_sha256": digest, "via_delegation": who == "delegate"})

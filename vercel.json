@@ -12,7 +12,7 @@
   ],
   "routes": [
     {
-      "src": "/admin-onboarding(.*)",
+      "src": "/admin-(?:onboarding|review)(.*)",
       "headers": {
         "Content-Security-Policy": "default-src 'none'; script-src 'self'; style-src 'self'; connect-src https://copernicus-podcast-api-phzp4ie2sq-uc.a.run.app; form-action 'none'; base-uri 'none'; frame-ancestors 'none'",
         "X-Robots-Tag": "noindex, nofollow",

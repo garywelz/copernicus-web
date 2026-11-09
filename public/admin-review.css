@@ -1,0 +1,10 @@
+.diff { font-family: Consolas, "Courier New", monospace; font-size: 0.85rem; border: 1px solid #cfd4da; overflow-x: auto; margin: 6px 0 14px; }
+.diff div { white-space: pre-wrap; padding: 0 8px; }
+.dadd { background: #e6f6ea; }
+.ddel { background: #fdecea; }
+.dhunk { background: #eef2f7; color: #555; }
+.dctx { color: #333; }
+#review { border-top: 2px solid #0b4f9c; margin-top: 24px; padding-top: 8px; }
+textarea#decisionNote { width: 100%; box-sizing: border-box; min-height: 5em; font-family: inherit; }
+details > div { padding: 4px 12px; }
+.comment { border-left: 3px solid #cfd4da; padding-left: 8px; margin: 4px 0; }

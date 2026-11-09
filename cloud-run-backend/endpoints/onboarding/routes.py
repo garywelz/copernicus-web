@@ -5,6 +5,11 @@
   POST   /api/admin/onboarding/invites                  admin key: create an invitation (the address is entered once and kept only as a hash)
   GET    /api/admin/onboarding/invites?engine_id=       admin key: list one engine's invitations (never an address or token hash)
   DELETE /api/admin/onboarding/invites/{invite_id}      admin key: revoke an unused invitation; a used one also removes the membership (Q17)
+  GET    /api/admin/onboarding/engines                  admin key: every engine with its sections, state, revision, age and who each waits on (PR 3b-1)
+  GET    /api/admin/onboarding/engines/{e}              admin key: one engine with every item's history and comment threads, read only
+  GET    /api/admin/onboarding/engines/{e}/diff?section=  admin key: the proposed output files for a final or approved section against the repository's main
+  POST   /api/admin/onboarding/engines/{e}/sections/{s}/approve   admin key: approve a FINAL section at the revision and hash the reviewer saw
+  POST   /api/admin/onboarding/engines/{e}/sections/{s}/reject    admin key: send a FINAL section back to DRAFT with a note
 
 DEFAULT DENY: every route under /api/onboarding/engines/{engine_id}/... passes through `engine_gate`, which resolves the caller to a membership of that engine
 or to the admin before any handler runs. Anyone else (signed in or not, member of another engine or none, engine real or invented) gets the same 404.
@@ -14,7 +19,7 @@ import asyncio
 from typing import Any, List, Optional
 
 from fastapi import APIRouter, Depends, Header, HTTPException, Query, Request
-from pydantic import BaseModel, Field, StrictBool
+from pydantic import BaseModel, Field, StrictBool, StrictInt
 
 from config.constants import ADMIN_SUBSCRIBER_EMAIL
 from config.database import db
@@ -22,6 +27,7 @@ from email_service import EmailService
 from utils import onboarding as ob
 from utils import onboarding_form as form
 from utils import onboarding_gates as gates
+from utils import onboarding_review as review
 from utils import onboarding_template as tpl
 from utils.auth import _admin_key_matches, verify_admin_api_key
 from utils.credential_tokens import PASSWORD_MAX_LENGTH, PASSWORD_MIN_LENGTH
@@ -43,6 +49,8 @@ QUESTION_LIMIT_PER_HOUR = 60
 ENTRY_LIMIT_PER_HOUR = 60
 FINAL_LIMIT_PER_HOUR = 60
 DELEGATION_LIMIT_PER_HOUR = 30
+ADMIN_REVIEW_LIMIT_PER_HOUR = 600
+ADMIN_DECISION_LIMIT_PER_HOUR = 120
 NOTIFICATION_LIMIT_PER_HOUR = 30
 NOTICE_TIMEOUT_SECONDS = 10      # the mail is sent before the route returns, so a hung mail server must not hold an owner's save
 ENGINE_PAGE_URL = "https://www.copernicusai.fyi/onboarding/engine.html"      # the link in a notification: the engine page, never an address
@@ -466,3 +474,101 @@ async def revoke_invitation(invite_id: str, request: Request, admin_auth: bool =
     if result is None:
         raise HTTPException(status_code=404, detail="No such invitation")
     return {"invite_id": invite_id, "outcome": result["outcome"]}
+
+
+# ---- admin: Gary's review (PR 3b-1) -----------------------------------------------------------------------------------------------------------------------
+def admin_only(_origin: None = Depends(origin_guard), x_admin_api_key: Optional[str] = Header(None, alias="X-Admin-API-Key"),
+               x_subscriber_token: Optional[str] = Header(None, alias="X-Subscriber-Token")) -> None:
+    """The review routes are for the administrator alone. A request that carries a SESSION (a member of any engine, or any signed-in person) without the admin key
+    is told 404, as an owner is on every route that is not theirs: the routes' existence is no business of an owner. A request with no credential at all is told 401,
+    so the dashboard can ask for the key. The key is read from its header only."""
+    if _admin_key_matches(x_admin_api_key):
+        return
+    if x_subscriber_token:
+        raise HTTPException(status_code=404, detail="Not found")
+    raise HTTPException(status_code=401, detail="Admin API key required. Provide via X-Admin-API-Key header")
+
+
+def _admin_limit(request: Request, name: str, limit: int) -> None:
+    check_rate_limit(db, last_forwarded_ip(request.headers.get("x-forwarded-for")), name, limit=limit, window_seconds=3600, fail_closed=True)
+    if not db:
+        raise HTTPException(status_code=503, detail="Firestore service is unavailable")
+
+
+def _valid_engine(engine_id: str) -> None:
+    if not isinstance(engine_id, str) or not ob.ENGINE_ID_RE.match(engine_id) or "__" in engine_id:
+        raise HTTPException(status_code=404, detail="Not found")
+
+
+@router.get("/api/admin/onboarding/engines", dependencies=[Depends(admin_only)])
+async def admin_list_engines(request: Request):
+    """Every engine: its state, repository, and per section the status, revision, age in that status and who it waits on (as a role label, never an id)."""
+    _admin_limit(request, "onboarding_review_read", ADMIN_REVIEW_LIMIT_PER_HOUR)
+    return {"engines": review.list_engines(db)}
+
+
+@router.get("/api/admin/onboarding/engines/{engine_id}", dependencies=[Depends(admin_only)])
+async def admin_get_engine(engine_id: str, request: Request):
+    """One engine for review: the overview and, per section, every item with its history and comment threads (authors as roles). Read only."""
+    _valid_engine(engine_id)
+    _admin_limit(request, "onboarding_review_read", ADMIN_REVIEW_LIMIT_PER_HOUR)
+    try:
+        return review.engine_detail(db, engine_id)
+    except form.FormError as e:
+        raise _fail(e)
+
+
+@router.get("/api/admin/onboarding/engines/{engine_id}/diff", dependencies=[Depends(admin_only)])
+async def admin_section_diff(engine_id: str, request: Request, section: str = Query(..., min_length=1, max_length=30)):
+    """The proposed output files of a FINAL or APPROVED section against the repository's main (fetched with no token; the base commit is shown). An engine with no
+    repository is diffed against empty and the response says so. A failed fetch degrades to 'current file unavailable'; it is never a 500."""
+    _valid_engine(engine_id)
+    _admin_limit(request, "onboarding_review_read", ADMIN_REVIEW_LIMIT_PER_HOUR)
+    try:
+        return await asyncio.to_thread(review.section_diff, db, engine_id, section)
+    except form.FormError as e:
+        raise _fail(e)
+
+
+class DecisionIn(BaseModel):
+    note: Optional[str] = Field(None, max_length=review.NOTE_CAP * 2)
+    expected_revision: StrictInt = Field(..., ge=0)         # the revision and hash the reviewer was looking at: a section that changed since is refused with 409
+    expected_content_sha256: str = Field(..., min_length=64, max_length=64)
+
+
+async def _decide(engine_id: str, section_key: str, decision: str, body: DecisionIn, request: Request) -> dict:
+    _valid_engine(engine_id)
+    _admin_limit(request, "onboarding_review_decide", ADMIN_DECISION_LIMIT_PER_HOUR)
+    ip, rid = _trace(request)
+    try:
+        out = review.decide(db, engine_id=engine_id, section=section_key, decision=decision, expected_revision=body.expected_revision,
+                            expected_content_sha256=body.expected_content_sha256, note=body.note, ip_hash=ip, request_id=rid)
+    except form.FormError as e:
+        raise _fail(e)
+    try:
+        plans = review.plan_decision_mail(db, engine_id=engine_id, section=section_key, decision=decision)
+    except Exception as e:                      # the decision is already committed; a mail problem must not undo or fail it
+        structured_logger.error("Onboarding decision notice could not be planned", error_type=type(e).__name__)
+        plans = []
+    link, sent = f"{ENGINE_PAGE_URL}?engine={engine_id}", 0
+    for plan in plans:
+        for address in plan["to"]:
+            try:
+                if await asyncio.wait_for(email_service.send_onboarding_notice(address, plan["kind"], plan["engine_label"], plan["section_title"], link), NOTICE_TIMEOUT_SECONDS):
+                    sent += 1
+            except Exception as e:
+                structured_logger.error("Onboarding notice could not be sent", error_type=type(e).__name__)
+    structured_logger.info("Onboarding review decision", engine_id=engine_id, section=section_key, decision=decision, sent=sent)
+    return {**out, "mail_sent": sent}
+
+
+@router.post("/api/admin/onboarding/engines/{engine_id}/sections/{section_key}/approve", dependencies=[Depends(admin_only)])
+async def admin_approve(engine_id: str, section_key: str, body: DecisionIn, request: Request, _size: None = Depends(limit_body)):
+    """Approve a FINAL section at the revision and content hash the reviewer saw (409 otherwise). The note is optional. Frozen until an owner edits it."""
+    return await _decide(engine_id, section_key, "approve", body, request)
+
+
+@router.post("/api/admin/onboarding/engines/{engine_id}/sections/{section_key}/reject", dependencies=[Depends(admin_only)])
+async def admin_reject(engine_id: str, section_key: str, body: DecisionIn, request: Request, _size: None = Depends(limit_body)):
+    """Send a FINAL section back to DRAFT. The note is required; the owners see it until the section is next marked final."""
+    return await _decide(engine_id, section_key, "reject", body, request)

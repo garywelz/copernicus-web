@@ -642,3 +642,33 @@ test('F2: switching emails ON asks nothing, and a page that loads with emails of
   assert.deepStrictEqual(puts(off).map((c) => c.body), [{ email: true }]);
   assert.strictEqual(off.$('emailsOff').hidden, true);                           // and the line goes
 });
+
+// ---- PR 3b-1: what Gary's review leaves for the owners (read only, text only) -----------------------------------------------------------------------------
+test('the engine page shows a send-back note per section until it is gone, as text', async () => {
+  const sections = SECTION_META.map(([key, title]) => ({ key, title, status: 'draft', items: 3, open: 0, answered: 3, disagreed: 0, final: 0, approved: 0, ready: true,
+                                                         rejection_note: key === 'questions' ? HOSTILE : null }));
+  const p = enginePage({ progress: Object.assign(enginePayload().progress, { sections }) });
+  await settle();
+  assert.strictEqual(p.$('sentBackBox').hidden, false);
+  assert.match(p.$('sentBackList').textContent, /Research questions/);
+  assert.ok(p.$('sentBackList').textContent.includes(HOSTILE));
+  noMarkupIn(p);
+  const clean = enginePage({ progress: Object.assign(enginePayload().progress, { sections: sections.map((s) => Object.assign({}, s, { rejection_note: null })) }) });
+  await settle();
+  assert.strictEqual(clean.$('sentBackBox').hidden, true);
+});
+
+test('the section page shows the send-back note, and the approval read only', async () => {
+  const sent = sectionPage('scope', [item({})], { section: { status: 'draft', rejection_note: HOSTILE } });
+  await settle();
+  assert.strictEqual(sent.$('sentBack').hidden, false);
+  assert.strictEqual(sent.$('sentBackNote').textContent, HOSTILE);
+  assert.strictEqual(sent.$('approval').hidden, true);
+  noMarkupIn(sent);
+  const done = sectionPage('scope', [item({})], { section: { status: 'approved', approved_at: '2026-11-09T10:00:00+00:00', approved_revision: 2, approver_note: 'Good work.' } });
+  await settle();
+  assert.strictEqual(done.$('approval').hidden, false);
+  assert.match(done.$('approvalLine').textContent, /^Approved .*\(revision 2\)$/);
+  assert.strictEqual(done.$('approvalNote').textContent, 'Good work.');
+  assert.strictEqual(done.$('sentBack').hidden, true);
+});

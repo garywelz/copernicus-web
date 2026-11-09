@@ -21,6 +21,11 @@
 
     function renderProgress(p) {
         $('waiting').textContent = p.waiting_on.line;
+        // Gary's send-back notes (PR 3b-1): shown until the section is next marked final. Text only.
+        var sent = p.sections.filter(function (s) { return s.rejection_note; }), sentList = $('sentBackList');
+        OB.clear(sentList);
+        $('sentBackBox').hidden = !sent.length;
+        sent.forEach(function (s) { sentList.appendChild(h('li', {}, [sectionLink(s.key, s.title), ': ' + s.rejection_note])); });
         var rows = $('sectionRows');
         OB.clear(rows);
         p.sections.forEach(function (s) {

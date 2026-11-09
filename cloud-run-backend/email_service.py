@@ -268,7 +268,8 @@ class EmailService:
             return False
 
     async def send_onboarding_notice(self, recipient_email: str, kind: str, engine_label: Optional[str], section_title: Optional[str], link: str) -> bool:
-        """Email the final-say owner (or a delegate) that a section is READY to mark final, or was RE-OPENED by an edit (onboarding PR 3a-2, design 4.6). The message
+        """Email the final-say owner (or a delegate) that a section is READY to mark final, was RE-OPENED by an edit (onboarding PR 3a-2, design 4.6), or was APPROVED or
+        SENT BACK by the reviewer (PR 3b-1; the reviewer's note is never in the mail). The message
         names the engine and the section and carries one link to the engine page. It holds NO answer content, and the link holds no address. Both names are cleaned
         for a mail header. Nothing here writes the recipient address or the link to any log or to stdout."""
         if not self.sender_password:
@@ -284,6 +285,12 @@ class EmailService:
                 subject = f"{section} was edited and is open again ({label} on {SITE_NAME})"
                 line = (f'The section "{section}" of the {label} engine was marked final or approved, and an owner has since edited it, so it is open again. '
                         "It needs your final mark again before it can go any further.")
+            elif kind == "approved":
+                subject = f"{section} was approved ({label} on {SITE_NAME})"
+                line = f'The section "{section}" of the {label} engine was approved.'
+            elif kind == "sent_back":
+                subject = f"{section} was sent back ({label} on {SITE_NAME})"
+                line = f'The section "{section}" of the {label} engine was sent back to draft. The reviewer\'s note is on the engine page.'      # the note itself is never mailed
             else:
                 return False
             msg = MIMEMultipart("alternative")

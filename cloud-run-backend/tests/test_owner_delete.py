@@ -5,8 +5,8 @@ old route looked that id up as a JOB id and crashed (500) without deleting anyth
 no media (public or private), wrote no audit, had no feed check and no private-access gate, and turned every 404/403 into a 500.
 
 The rule now: the same gate as Play (owner with private-episode access, or the admin key; anyone else gets 404); an episode in the feed is refused (409); a public
-episode is hidden, its public files removed, then its records; a failure to remove a public file keeps the records; audited as owner_delete; the admin path is
-unchanged. Offline: an in-memory Firestore and fake buckets."""
+episode is hidden, its public files removed, then its PRIVATE files (Gary, 2026-11-09), then its records; a failure to remove any file keeps the records
+(hidden) and can be run again; audited as owner_delete; the admin path is unchanged (records only). Offline: an in-memory Firestore and fake buckets."""
 from pathlib import Path
 
 import pytest
@@ -93,10 +93,10 @@ def test_an_owner_deletes_a_private_episode(env, ident):
     assert r.status_code == 200 and r.json() == {"message": "Podcast deleted successfully"}
     assert PRIV not in env.db.data["episodes"] and JOBS[PRIV] not in env.db.data["podcast_jobs"]
     assert env.db.data["subscribers"][A]["podcasts_generated"] == 4
-    assert {n for n in env.priv.store if PRIV in n} == set(files(PRIV))          # private media is left where it was, as before
+    assert not {n for n in env.priv.store if PRIV in n}                          # the private media goes too: "permanently" is true
     assert env.pub.store.keys().isdisjoint(files(PRIV))
     [a] = audits(env)
-    assert a["episode_id"] == PRIV and a["actor"] == f"owner:{A}" and a["was_public"] is False and a["public_files_removed"] == 0 and a["job_id"] == JOBS[PRIV]
+    assert a["episode_id"] == PRIV and a["actor"] == f"owner:{A}" and a["was_public"] is False and a["public_files_removed"] == 0 and a["private_files_removed"] == len(files(PRIV)) and a["job_id"] == JOBS[PRIV]
 
 
 def test_other_episodes_and_files_are_untouched(env):
@@ -114,9 +114,9 @@ def test_an_owner_deletes_a_public_episode_not_in_the_feed_and_its_public_copies
     assert r.status_code == 200
     assert PUB not in env.db.data["episodes"] and JOBS[PUB] not in env.db.data["podcast_jobs"]
     assert env.pub.store.keys().isdisjoint(files(PUB))                              # every public copy is gone
-    assert {n for n in env.priv.store if PUB in n} == set(files(PUB))               # the private originals are not touched, as before
+    assert not {n for n in env.priv.store if PUB in n}                              # nor is a private original left behind
     [a] = audits(env)
-    assert a["episode_id"] == PUB and a["was_public"] is True and a["public_files_removed"] == len(files(PUB)) and a["actor"] == f"owner:{A}"
+    assert a["episode_id"] == PUB and a["was_public"] is True and a["public_files_removed"] == len(files(PUB)) and a["private_files_removed"] == len(files(PUB)) and a["actor"] == f"owner:{A}"
 
 
 def test_the_public_page_and_record_are_404_afterwards_allowing_the_60_second_cache(env):
@@ -207,6 +207,36 @@ def test_a_public_file_that_cannot_be_removed_keeps_the_records_hides_the_episod
     assert audits(env) == [] and env.db.data["subscribers"][A]["podcasts_generated"] == 5
     del stuck.delete                                                                             # storage recovers
     assert delete(env, PUB).status_code == 200 and env.pub.store.keys().isdisjoint(files(PUB)) and PUB not in env.db.data["episodes"]
+
+
+def test_a_private_file_that_cannot_be_removed_keeps_the_records_hidden_and_can_be_run_again(env):
+    stuck = env.priv.store[f"audio/{PUB}.mp3"]
+    stuck.delete = lambda: (_ for _ in ()).throw(RuntimeError("storage error"))
+    r = delete(env, PUB)
+    assert r.status_code == 500 and "try again" in r.json()["detail"]
+    assert env.pub.store.keys().isdisjoint(files(PUB))                                           # the public copies had already gone (the order)
+    assert PUB in env.db.data["episodes"] and JOBS[PUB] in env.db.data["podcast_jobs"]           # the records stay
+    assert env.db.data["episodes"][PUB]["visible_on_web"] is False and env.client.get(f"/api/episodes/{PUB}").status_code == 404
+    assert audits(env) == [] and env.db.data["subscribers"][A]["podcasts_generated"] == 5
+    del stuck.delete
+    assert delete(env, PUB).status_code == 200 and not {n for n in env.priv.store if PUB in n} and PUB not in env.db.data["episodes"]
+
+
+def test_the_private_copies_are_removed_after_the_public_ones_and_before_the_records(env):
+    order = []
+    for kind, store in (("public", env.pub.store), ("private", env.priv.store)):
+        blob = store[f"audio/{PUB}.mp3"]
+        orig = blob.delete
+        blob.delete = (lambda o, k: (lambda: (order.append((k, PUB in env.db.data["episodes"])), o())))(orig, kind)
+    assert delete(env, PUB).status_code == 200
+    assert order == [("public", True), ("private", True)]                                        # public first; the record still existed for both
+    assert PUB not in env.db.data["episodes"]
+
+
+def test_the_admin_delete_still_touches_no_media(env):
+    before = (set(env.pub.store), set(env.priv.store))
+    assert delete(env, PRIV, ADMIN).status_code == 200
+    assert (set(env.pub.store), set(env.priv.store)) == before
 
 
 def test_an_audit_that_cannot_be_written_does_not_undo_the_delete(env, monkeypatch):
