@@ -812,8 +812,9 @@ async def delete_subscriber_podcast(
 
     AN OWNER (Gary, 2026-11-06): may delete their own episode, private or public, EXCEPT one in the podcast feed, which is refused with 409. The same gate as Play:
     anyone who is not the owner with private-episode access (and not the admin) gets 404, signed in or not, whether or not the episode exists. A public episode
-    is hidden first, then its public files are removed, then its records; if a public file cannot be removed the records are KEPT (hidden) and the owner is told
-    to run it again. Private media files are left where they are, as before. Audited as owner_delete."""
+    is hidden first, then its public files are removed, then its PRIVATE files (Gary, 2026-11-09: "Delete this episode permanently" is now true), then its
+    records; if any file cannot be removed the records are KEPT (hidden) and the owner is told to run it again. The admin key still touches no media. Audited as
+    owner_delete (public_files_removed and private_files_removed)."""
     if not db:
         raise HTTPException(status_code=503, detail="Firestore service is unavailable")
     from utils.episode_access import admin_key_ok
@@ -838,7 +839,7 @@ async def delete_subscriber_podcast(
         raise HTTPException(status_code=400, detail="Podcast not associated with a subscriber")
 
     try:
-        removed = 0
+        removed = private_removed = 0
         was_public = bool((episode or {}).get('visible_on_web'))
         if not is_admin and episode_id:
             ref = db.collection(EPISODE_COLLECTION_NAME).document(episode_id)
@@ -849,6 +850,11 @@ async def delete_subscriber_podcast(
             if result["failed"]:
                 structured_logger.error("Owner delete stopped: public files could not be removed", episode_id=episode_id, failed=len(result["failed"]))
                 raise HTTPException(status_code=500, detail=f"The episode is hidden, but {len(result['failed'])} public file(s) could not be removed; nothing else was deleted. Please try again.")
+            private_result = await asyncio.to_thread(media_store.delete_private_copies, episode_id)
+            private_removed = len(private_result["removed"])
+            if private_result["failed"]:
+                structured_logger.error("Owner delete stopped: private files could not be removed", episode_id=episode_id, failed=len(private_result["failed"]))
+                raise HTTPException(status_code=500, detail=f"The episode is hidden, but {len(private_result['failed'])} file(s) could not be removed; the records were kept. Please try again.")
 
         if job_id:
             db.collection('podcast_jobs').document(job_id).delete()
@@ -868,7 +874,7 @@ async def delete_subscriber_podcast(
 
     if not is_admin:
         try:
-            write_audit(db, "owner_delete", episode_id or job_id, f"owner:{owner_id}", job_id=job_id, was_public=was_public, public_files_removed=removed)
+            write_audit(db, "owner_delete", episode_id or job_id, f"owner:{owner_id}", job_id=job_id, was_public=was_public, public_files_removed=removed, private_files_removed=private_removed)
         except Exception as e:                                   # the episode is already gone; do not turn that into an error
             structured_logger.error("Audit record for owner delete was not written", podcast_id=podcast_id, error_type=type(e).__name__)
     structured_logger.info("Podcast deleted successfully", podcast_id=podcast_id, subscriber_id=owner_id, by="admin" if is_admin else "owner")
