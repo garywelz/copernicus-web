@@ -163,6 +163,7 @@
     }
 
     // ---- change bundles (PR 3b-2) --------------------------------------------------------------------------------------------------------------------
+    var sectionBoxes = [];       // [{section, box}] kept as we build the checkboxes: never read back from the DOM (a real HTMLCollection has no forEach, and elements have tagName, not tag)
     var CHECK_NAMES = { no_email: 'no email address', no_not_yet_public: 'nothing marked not yet public', names_ok: 'no name beyond an owner\'s choice', schema_ok: 'files parse (schema)' };
 
     function bmsg(text, bad) { var el = $('bundleMsg'); el.textContent = text; el.className = bad ? 'error' : 'ok'; }
@@ -236,8 +237,11 @@
             var box = $('bundleSections');
             clear(box);
             var approved = e.data.sections.filter(function (s) { return s.status === 'approved'; });
+            sectionBoxes = [];
             approved.forEach(function (s) {
-                box.appendChild(h('label', { class: 'choice' }, [h('input', { type: 'checkbox', checked: 'checked', 'data-section': s.key }), ' ' + s.title + ' (approved revision ' + s.approved_revision + ')']));
+                var cb = h('input', { type: 'checkbox', checked: 'checked', 'data-section': s.key });
+                sectionBoxes.push({ section: s.key, box: cb });
+                box.appendChild(h('label', { class: 'choice' }, [cb, ' ' + s.title + ' (approved revision ' + s.approved_revision + ')']));
             });
             if (!approved.length) { box.appendChild(h('p', { class: 'note', text: 'No section is approved yet.' })); }
             $('createBundle').disabled = !approved.length;
@@ -249,10 +253,7 @@
 
     function createBundle() {
         var engine = $('bundleEngine').value.trim();
-        var picked = [];
-        $('bundleSections').children.forEach(function (label) {
-            label.children.forEach(function (c) { if (c.tag === 'input' && c.checked) { picked.push(c.getAttribute('data-section')); } });
-        });
+        var picked = sectionBoxes.filter(function (b) { return b.box.checked; }).map(function (b) { return b.section; });
         if (!picked.length) { bmsg('Choose at least one approved section.', true); return; }
         $('createBundle').disabled = true;
         call('POST', '/api/admin/onboarding/engines/' + encodeURIComponent(engine) + '/bundles', { sections: picked }).then(function (r) {
