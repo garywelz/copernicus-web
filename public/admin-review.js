@@ -163,6 +163,7 @@
     }
 
     // ---- change bundles (PR 3b-2) --------------------------------------------------------------------------------------------------------------------
+    var justMade = null;         // id of the bundle created in this page view: its row is highlighted
     var sectionBoxes = [];       // [{section, box}] kept as we build the checkboxes: never read back from the DOM (a real HTMLCollection has no forEach, and elements have tagName, not tag)
     var CHECK_NAMES = { no_email: 'no email address', no_not_yet_public: 'nothing marked not yet public', names_ok: 'no name beyond an owner\'s choice', schema_ok: 'files parse (schema)' };
 
@@ -188,7 +189,7 @@
     function downloadBundle(engine, id) {
         fetch(API + '/api/admin/onboarding/engines/' + encodeURIComponent(engine) + '/bundles/' + encodeURIComponent(id), { method: 'GET', headers: { 'X-Admin-API-Key': readKey() } })
             .then(function (res) {
-                if (res.ok) { return res.text().then(function (t) { saveText(t, 'bundle-' + engine + '-' + id.slice(0, 8) + '.json'); bmsg('Downloaded. Give it to the agent to re-verify; do not edit it.', false); loadBundles(); }); }
+                if (res.ok) { return res.text().then(function (t) { saveText(t, 'bundle-' + engine + '-' + id.slice(0, 8) + '.json'); bmsg('Downloaded bundle ' + id.slice(0, 8) + '. Give it to the agent to re-verify; do not edit it.', false); loadBundleList(engine); }); }
                 return res.json().catch(function () { return {}; }).then(function (d) { bmsg('Not downloaded: ' + problem({ status: res.status, data: d }), true); });
             }).catch(function (e) { bmsg('Not downloaded: ' + e.message, true); });
     }
@@ -196,7 +197,7 @@
     function bundleAction(engine, id, what, body) {
         call('POST', '/api/admin/onboarding/engines/' + encodeURIComponent(engine) + '/bundles/' + encodeURIComponent(id) + '/' + what, body).then(function (r) {
             bmsg(r.ok ? (what === 'merged' ? 'Marked merged; ' + r.data.mail_sent + ' owner(s) told (no content).' : 'Marked superseded. Create a new bundle.') : 'Failed: ' + problem(r), !r.ok);
-            if (r.ok) { loadBundles(); }
+            if (r.ok) { loadBundleList(engine); }
         }).catch(function (e) { bmsg('Failed: ' + e.message, true); });
     }
 
@@ -225,7 +226,7 @@
             }
             if (b.pr_url) { row.appendChild(h('span', { class: 'note', text: ' merged by ' + b.pr_url })); }
             kids.push(row);
-            box.appendChild(h('div', { class: 'bundle' }, kids));
+            box.appendChild(h('div', { class: b.bundle_id === justMade ? 'bundle newbundle' : 'bundle' }, kids));
         });
     }
 
@@ -245,10 +246,15 @@
             });
             if (!approved.length) { box.appendChild(h('p', { class: 'note', text: 'No section is approved yet.' })); }
             $('createBundle').disabled = !approved.length;
-            return call('GET', '/api/admin/onboarding/engines/' + encodeURIComponent(engine) + '/bundles').then(function (b) {
-                if (b.ok) { renderBundles(engine, b.data.bundles || []); } else { bmsg('Could not load bundles: ' + problem(b), true); }
-            });
+            return loadBundleList(engine);
         }).catch(function (e) { bmsg('Could not load: ' + e.message, true); });
+    }
+
+    // Refreshes ONLY the bundle list: the ticked sections, the checks and the diff above it stay as they are (after a create, the page used to rebuild every box as ticked).
+    function loadBundleList(engine) {
+        return call('GET', '/api/admin/onboarding/engines/' + encodeURIComponent(engine) + '/bundles').then(function (b) {
+            if (b.ok) { renderBundles(engine, b.data.bundles || []); } else { bmsg('Could not load bundles: ' + problem(b), true); }
+        }).catch(function (e) { bmsg('Could not load bundles: ' + e.message, true); });
     }
 
     function createBundle() {
@@ -269,8 +275,10 @@
                 d.appendChild(pre);
             });
             (r.data.notes || []).forEach(function (n) { d.appendChild(h('p', { class: 'note', text: n })); });
-            bmsg(r.data.status === 'blocked' ? 'The bundle is BLOCKED by a failed check above and cannot be downloaded as ready.' : 'Bundle created. It passed every check; download it below.', r.data.status === 'blocked');
-            loadBundles();
+            justMade = r.data.bundle_id;
+            var made = 'Bundle ' + r.data.bundle_id.slice(0, 8) + ' (' + r.data.sections.join(', ') + ') at ' + new Date().toLocaleTimeString();
+            bmsg(r.data.status === 'blocked' ? made + ' is BLOCKED by a failed check below and cannot be downloaded as ready.' : made + ' was created and passed every check. Its row, highlighted, is at the top of the list below; your ticked sections are unchanged.', r.data.status === 'blocked');
+            loadBundleList(engine);
         }).catch(function (e) { $('createBundle').disabled = false; bmsg('No bundle: ' + e.message, true); });
     }
 
