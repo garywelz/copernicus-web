@@ -143,6 +143,15 @@ def _disagreed_ids(comments: List[dict]) -> set:
     return {c.get("item_id") for c in comments if c.get("kind") == "disagree" and not c.get("resolved")}
 
 
+def review_view(sec: dict, status: str) -> dict:
+    """What Gary's review left on a section, for the owners (and Gary) to read: the send-back note while the section is a draft that was sent back (until it is next
+    marked final), and the approval (when, which revision, his note) while it is approved. Plain text; never an id."""
+    sent_back = status == "draft" and bool(sec.get("rejection_note"))
+    return {"rejection_note": sec.get("rejection_note") if sent_back else None, "rejected_at": sec.get("rejected_at") if sent_back else None,
+            "approved_at": sec.get("approved_at") if status == "approved" else None, "approver_note": sec.get("approver_note") if status == "approved" else None,
+            "approved_revision": sec.get("approved_revision") if status == "approved" else None}
+
+
 def get_section(db, engine_id: str, section: str, viewer: dict) -> dict:
     if section not in tpl.SECTION_KEYS:
         raise FormError(404, "Not found")
@@ -156,6 +165,7 @@ def get_section(db, engine_id: str, section: str, viewer: dict) -> dict:
     meta = next(s for s in tpl.SECTIONS if s["key"] == section)
     return {"section": {"key": section, "title": meta["title"], "design": meta["design"], "status": status, "revision": sec.get("revision", 1),
                         "content_sha256": content_sha256(items), "reopened_by": author_label(sec.get("reopened_by"), viewer, engine) if sec.get("reopened_by") else None,
+                        **review_view(sec, status),
                         **section_counts(items, _disagreed_ids(comments), status)},
             "items": [public_item(i, viewer, engine, by_item.get(i.get("item_id"))) for i in items], "template_version": tpl.TEMPLATE_VERSION}
 
@@ -168,7 +178,8 @@ def get_progress(db, engine_id: str, viewer: dict) -> dict:
     for meta in tpl.SECTIONS:
         its = [i for i in items if i.get("section") == meta["key"]]
         status = (sec_docs.get(meta["key"]) or {}).get("status", "draft")
-        rows.append({"key": meta["key"], "title": meta["title"], "status": status, **section_counts(its, disagreed, status)})
+        rows.append({"key": meta["key"], "title": meta["title"], "status": status, **section_counts(its, disagreed, status),
+                     "rejection_note": review_view(sec_docs.get(meta["key"]) or {}, status)["rejection_note"]})
         for i in its:
             if i.get("item_id") in disagreed:
                 left.append({"section": meta["key"], "item_id": i["item_id"], "reason": "disagreed"})

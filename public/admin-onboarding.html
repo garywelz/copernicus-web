@@ -3,16 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Onboarding invitations (admin)</title>
+    <title>Onboarding review and invitations (admin)</title>
     <meta name="robots" content="noindex, nofollow">
     <meta name="referrer" content="no-referrer">
     <!-- No third-party script and no inline script or style (design 5.8 and 9). The admin key is read from the browser storage the admin dashboard already uses. -->
     <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; connect-src https://copernicus-podcast-api-phzp4ie2sq-uc.a.run.app; form-action 'none'; base-uri 'none'">
     <link rel="stylesheet" href="onboarding/accept.css">
+    <link rel="stylesheet" href="admin-review.css">
 </head>
 <body>
 <main>
-    <h1>Onboarding invitations</h1>
+    <h1>Onboarding review and invitations</h1>
     <p class="note"><a href="admin-dashboard.html">Back to the admin dashboard</a></p>
 
     <fieldset>
@@ -21,6 +22,28 @@
         <label for="adminKey">Admin API key (kept in this browser only, as on the admin dashboard)</label>
         <input id="adminKey" type="password" autocomplete="off" maxlength="200">
         <button id="saveKey" type="button">Save key</button>
+    </fieldset>
+
+    <fieldset>
+        <legend>Engines and sections awaiting review</legend>
+        <p class="note">Every engine, its sections, who each one waits on, and how long. Open a final section to see what it would change in the engine's repository, and to approve it or send it back. Nothing here edits an owner's answer.</p>
+        <button id="loadEngines" type="button">Load engines</button>
+        <div id="engineList"></div>
+        <div id="review" hidden>
+            <h2 id="reviewTitle"></h2>
+            <p id="reviewState" class="note"></p>
+            <div id="diffBox"></div>
+            <h3>The owners' answers, history and comments (read only)</h3>
+            <div id="historyBox"></div>
+            <div id="decideBox" hidden>
+                <h3>Decision</h3>
+                <label for="decisionNote">Note (required to send back; optional to approve; plain text, up to 1000 characters; the owners see it in the workspace, it is not emailed)</label>
+                <textarea id="decisionNote" maxlength="1000"></textarea>
+                <button id="approve" type="button">Approve</button>
+                <button id="reject" type="button">Send back</button>
+            </div>
+        </div>
+        <p id="reviewResult" role="status"></p>
     </fieldset>
 
     <fieldset>
@@ -57,5 +80,6 @@
     <p id="result" role="status"></p>
 </main>
 <script src="admin-onboarding.js"></script>
+<script src="admin-review.js"></script>
 </body>
 </html>

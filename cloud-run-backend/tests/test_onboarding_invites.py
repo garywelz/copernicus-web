@@ -594,7 +594,7 @@ def test_the_accept_page_has_a_strict_csp_no_inline_or_third_party_script_and_po
     assert "location.search" not in js and "?token" not in js                         # the token is read from the fragment only
 
 
-@pytest.mark.parametrize("src", ["/onboarding/(.*)", "/admin-onboarding(.*)"])
+@pytest.mark.parametrize("src", ["/onboarding/(.*)", "/admin-(?:onboarding|review)(.*)"])
 def test_vercel_serves_the_onboarding_pages_with_strict_headers(src):
     cfg = json.loads(read(ROOT / "vercel.json"))
     route = next(r for r in cfg["routes"] if r.get("src") == src)
@@ -607,7 +607,7 @@ def test_vercel_serves_the_onboarding_pages_with_strict_headers(src):
 def test_the_admin_invitation_page_is_strict_sends_the_admin_key_and_renders_text_only():
     from endpoints.onboarding.routes import InviteCreate
     html, js = read(ROOT / "public/admin-onboarding.html"), read(ROOT / "public/admin-onboarding.js")
-    assert "noindex" in html and "script-src 'self'" in html and "unsafe-inline" not in html and re.findall(r"<script\b[^>]*>", html) == ['<script src="admin-onboarding.js">']
+    assert "noindex" in html and "script-src 'self'" in html and "unsafe-inline" not in html and re.findall(r"<script\b[^>]*>", html) == ['<script src="admin-onboarding.js">', '<script src="admin-review.js">']
     assert not re.search(r"<script[^>]*>[^<]+</script>", html) and " onclick=" not in html and "<style" not in html
     assert "/api/admin/onboarding/invites" in js and "'X-Admin-API-Key': readKey()" in js and "method: 'POST'" in js and "method: 'DELETE'" in js
     assert "innerHTML" not in js and "eval(" not in js and "textContent" in js and "$('invEmail').value = ''" in js                # the address is cleared after sending

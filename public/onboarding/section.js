@@ -35,6 +35,12 @@
         else if (s.status === 'rejected') { banner = 'This section was sent back. Revise it, and it becomes a draft again.'; }
         $('banner').hidden = !banner;
         $('banner').textContent = banner;
+        // Gary's review, read only (PR 3b-1): the send-back note shows until the section is next marked final; the approval shows while it stays approved.
+        $('sentBack').hidden = !s.rejection_note;
+        $('sentBackNote').textContent = s.rejection_note || '';
+        $('approval').hidden = s.status !== 'approved';
+        $('approvalLine').textContent = s.status === 'approved' ? 'Approved' + (s.approved_at ? ' ' + OB.when(s.approved_at) : '') + (s.approved_revision ? ' (revision ' + s.approved_revision + ')' : '') : '';
+        $('approvalNote').textContent = s.status === 'approved' && s.approver_note ? s.approver_note : '';
         $('finalRow').hidden = !(ctx.mayMark && s.status === 'draft');
         $('markFinal').disabled = !(s.ready && ctx.open);
         $('finalNote').textContent = s.ready ? '' : 'Not ready yet: ' + s.open + ' not answered, ' + s.disagreed + ' disagreement(s) open.';
