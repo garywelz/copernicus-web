@@ -148,7 +148,7 @@ def create_bundle(db, *, engine_id: str, wanted: Optional[List[str]], now: Optio
         preview.append({"path": r["path"], "action": action, **(base.unified(current, r["content"]) if state == "ok" else base.plain_lines(r["content"]))})
         notes += r["notes"]
     all_items = [i for its in items_by_section.values() for i in its]
-    result = lint.run_checks(files, owners, all_items)
+    result = lint.run_checks(files, owners, all_items, {path: text for path, (state, text) in fetched["files"].items() if state == "ok"})
     checks = {**result["checks"], "public_safe": all(result["checks"].values())}
     bundle_id = uuid.uuid4().hex
     titles = [tpl.section_title(k) for k in chosen]

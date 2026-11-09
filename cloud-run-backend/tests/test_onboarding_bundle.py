@@ -231,7 +231,15 @@ def test_names_ok_blocks_a_name_beyond_the_consent_choice_and_allows_it_when_cho
     assert final(env, ADV, "scope").status_code == 200 and decide(env, "scope", "approve").status_code == 200
     out = make(env).json()
     assert out["status"] == "blocked" and out["checks"]["names_ok"] is False and out["problems"] == {"names_ok": ["README.md: names an owner who chose not to be named"]}
-    planted(env, "Led by alice at the lab")                                                          # a first name alone is caught too, in any case
+    planted(env, "Led by example at the lab")                                                        # the surname alone is caught, in any case
+    set_section(env, "scope", "draft")
+    assert final(env, ADV, "scope").status_code == 200 and decide(env, "scope", "approve").status_code == 200
+    assert make(env).json()["checks"]["names_ok"] is False
+    planted(env, "Led by alice at the lab")                                                          # a first name alone is NOT matched ("Jordan" in "Jordan curve")
+    set_section(env, "scope", "draft")
+    assert final(env, ADV, "scope").status_code == 200 and decide(env, "scope", "approve").status_code == 200
+    assert make(env).json()["checks"]["names_ok"] is True
+    planted(env, "Led by Alice Example at the lab")
     set_section(env, "scope", "draft")
     assert final(env, ADV, "scope").status_code == 200 and decide(env, "scope", "approve").status_code == 200
     assert make(env).json()["checks"]["names_ok"] is False
@@ -652,3 +660,120 @@ def test_the_bundle_message_sits_directly_under_the_create_button_above_the_list
     start = js.index("function createBundle()")
     body = js[start:js.index("$('loadBundles').addEventListener", start)]
     assert "loadBundleList(engine)" in body and "loadBundles()" not in body, "a create refreshes the list only, never rebuilds the section checkboxes"
+
+
+# ---- PR A: only the lines a bundle adds or changes; surname not first name; seeds rows need an identifier ---------------------------------------------------
+README_WITH_CONTACT = "# Synth X\n\nContact: [lead@example.invalid](mailto:lead@example.invalid)\n\n## Scope\n\nOld scope text.\n"
+
+
+def lf(path, content):
+    return {"path": path, "content": content}
+
+
+def test_an_address_already_in_the_base_file_does_not_block_but_one_the_bundle_adds_or_keeps_in_a_changed_line_does():
+    base = {"README.md": README_WITH_CONTACT}
+    kept = README_WITH_CONTACT.replace("Old scope text.", "New scope text.")
+    assert lint.check_no_email([lf("README.md", kept)], base) == []                                  # the contact line is untouched: not ours
+    assert lint.check_no_email([lf("README.md", kept)]) != []                                        # without the base the whole file is judged (an add)
+    added = kept + "\nWrite to someone@example.invalid\n"
+    assert lint.check_no_email([lf("README.md", added)], base) == ["README.md: an email-shaped string"]
+    changed = kept.replace("Contact: [lead@example.invalid]", "Lead contact: [lead@example.invalid]")
+    assert lint.check_no_email([lf("README.md", changed)], base) != [], "a line the bundle changes counts as added, so an address kept in it is caught"
+    assert lint.check_no_email([lf("docs/new.md", "a@b.example")], {"docs/new.md": None}) != []     # a file with no base is judged whole
+    assert lint.added_lines("a\nb\nb\n", "a\nb\nb\nb\nc\n") == ["b", "c"] and lint.added_lines(None, "x\ny\n") == ["x", "y"]
+
+
+def test_a_base_readme_that_already_names_an_owner_who_chose_role_only_does_not_block_but_a_new_mention_does():
+    owners = [{"naming": "role", "name": "Alice Example"}]
+    base = {"README.md": "# R\n\nMaintained by Alice Example.\n\n## Scope\n\nOld.\n"}
+    unchanged = base["README.md"].replace("Old.", "New scope.")
+    assert lint.check_names_ok([lf("README.md", unchanged)], owners, base) == []
+    assert lint.check_names_ok([lf("README.md", unchanged)], owners) != []                          # judged whole, with no base
+    added = unchanged + "\nThanks to Alice Example.\n"
+    assert lint.check_names_ok([lf("README.md", added)], owners, base) == ["README.md: names an owner who chose not to be named"]
+
+
+@pytest.mark.parametrize("name,text,blocked", [
+    ("Jordan Smith", "A Jordan curve is a closed loop.", False),                                     # a first name alone is never matched
+    ("Jordan Smith", "Reviewed by Jordan Smith.", True),                                             # the full name is
+    ("Jordan Smith", "Reviewed by Smith.", True),                                                    # the surname alone is
+    ("Jordan Smith", "Smithsonian collection", False),                                               # whole words only
+    ("Zebulon Quartermaine", "Zebulon said so", False),
+    ("Alice Li", "Li and Ma", False),                                                                # a surname under four letters is not matched alone
+    ("Alice Li", "Alice Li", True),
+    ("Zebulon", "Zebulon walked", True),                                                             # a one-word name is matched whole
+    ("Mary-Jane O'Neil", "O'Neil wrote it", True),
+    ("A", "A", False)])
+def test_a_name_is_matched_as_the_full_name_or_the_surname_never_the_first_name(name, text, blocked):
+    assert bool(lint.check_names_ok([lf("docs/x.md", text)], [{"naming": "role", "name": name}])) is blocked
+    assert lint.check_names_ok([lf("docs/x.md", text)], [{"naming": "name", "name": name}]) == [] and lint.check_names_ok([lf("docs/x.md", text)], [{"naming": "none", "name": name}]) == [] or blocked is not None
+
+
+def test_a_seeds_row_the_bundle_adds_or_changes_needs_a_doi_or_an_arxiv_id():
+    base = "doi,question_ids,title,arxiv_id,admit_policy,status\n,,\"Old blank row\",,,proposed\n10.1/x,q1,\"Has doi\",,all_references,confirmed\n"
+    bases = {"docs/seeds.csv": base}
+    blank_added = base + ',,"Synthetic seed paper (not real)",,,confirmed\n'
+    problems = lint.check_schema([lf("docs/seeds.csv", blank_added)], bases)
+    assert problems == ["docs/seeds.csv: line 4 (added or changed) has neither a doi nor an arxiv_id"]
+    assert lint.check_schema([lf("docs/seeds.csv", base)], bases) == [], "a blank row that was already in the repository, untouched, is not the bundle's"
+    changed = base.replace("10.1/x,q1", ",q1")
+    assert lint.check_schema([lf("docs/seeds.csv", changed)], bases) != []                           # a row changed to have neither
+    assert lint.check_schema([lf("docs/seeds.csv", base + ',,"Arxiv only",2212.07201,,confirmed\n')], bases) == []
+    assert lint.check_schema([lf("docs/seeds.csv", base + '10.2/y,,"Doi only",,,confirmed\n')], bases) == []
+    assert lint.check_schema([lf("docs/seeds.csv", "doi,title,status\n,\"x\",confirmed\n")]) != []     # an add: every row is judged
+    assert lint.check_schema([lf("docs/seeds.csv", "title,status\n\"x\",confirmed\n")], bases)[0].endswith("no doi column")
+
+
+def test_the_unprefixed_seed_identifier_of_this_smoke_test_now_blocks_a_bundle_and_a_prefixed_one_passes(env, http, bucket):
+    with_repo(env)
+    http.table[RAW + "docs/seeds.csv"] = (200, 'doi,question_ids,title,arxiv_id,admit_policy,status\n')
+    answer_quietly(env, "seeds")
+    stored(env, "seed-1", "seeds")["context"]["identifier"] = "10.0000/synthetic-test-1"            # what tdap-test holds: no "doi:" prefix
+    assert final(env, ADV, "seeds").status_code == 200 and decide(env, "seeds", "approve").status_code == 200
+    out = make(env).json()
+    assert out["status"] == "blocked" and out["checks"]["schema_ok"] is False and out["checks"]["no_email"] is True
+    assert out["problems"] == {"schema_ok": ["docs/seeds.csv: line 2 (added or changed) has neither a doi nor an arxiv_id"]}
+    set_section(env, "seeds", "draft")
+    stored(env, "seed-1", "seeds")["context"]["identifier"] = "doi:10.0000/synthetic-test-1"
+    assert final(env, ADV, "seeds").status_code == 200 and decide(env, "seeds", "approve").status_code == 200
+    assert make(env).json()["status"] == "created"
+
+
+def test_a_real_looking_readme_with_a_contact_address_and_an_owner_name_does_not_block_a_bundle_through_the_route(env, http, bucket):
+    """The case found against the real tdap repository: the base README already holds a contact address (and here also names an owner who chose role only)."""
+    with_repo(env)
+    env.db.data["subscribers"][ADV]["name"] = "Alice Quartermaine"
+    http.table[RAW + "README.md"] = (200, README_WITH_CONTACT.replace("## Scope", "Maintained by Alice Quartermaine.\n\n## Scope"))
+    approve(env, "scope")
+    out = make(env).json()
+    assert out["status"] == "created" and out["checks"] == {"no_email": True, "no_not_yet_public": True, "names_ok": True, "schema_ok": True, "public_safe": True}
+    b = json.loads(bucket[bundles.object_path(X, out["bundle_id"])])
+    readme = next(f for f in b["files"] if f["path"] == "README.md")
+    assert "lead@example.invalid" in readme["proposed_content"] and "Alice Quartermaine" in readme["proposed_content"] and readme["action"] == "modify"
+    # and a bundle that ADDS an address to that same README is still blocked
+    set_section(env, "scope", "draft")
+    answer_quietly(env, "scope")
+    planted(env, "Reach us at someone@example.invalid")
+    assert final(env, ADV, "scope").status_code == 200 and decide(env, "scope", "approve").status_code == 200
+    again = make(env).json()
+    assert again["status"] == "blocked" and again["problems"] == {"no_email": ["README.md: an email-shaped string"]}
+
+
+def test_verify_judges_only_added_lines_against_the_clone_so_a_contact_address_already_in_the_repo_passes(tmp_path, clone):
+    (clone / "README.md").write_text(README_WITH_CONTACT.replace("## Scope", "Maintained by Alice Quartermaine.\n\n## Scope"), encoding="utf-8", newline="")
+    git(clone, "add", "-A")
+    git(clone, "commit", "-q", "-m", "contact line")
+    b = good_bundle(clone)
+    readme = (clone / "README.md").read_text(encoding="utf-8")
+    b["files"][0]["proposed_content"] = readme.replace("Old scope text.", "New scope text.")
+    b["files"][0]["proposed_sha256"] = hashlib.sha256(b["files"][0]["proposed_content"].encode()).hexdigest()
+    r = verify(tmp_path, clone, b, "--deny-name", "Alice Quartermaine")
+    assert r.returncode == 0, r.stdout                                                               # the address and the name were already there, and are not the bundle's
+    b["files"][0]["proposed_content"] += "\nNew: someone@example.invalid and Alice Quartermaine\n"
+    b["files"][0]["proposed_sha256"] = hashlib.sha256(b["files"][0]["proposed_content"].encode()).hexdigest()
+    r = verify(tmp_path, clone, b, "--deny-name", "Alice Quartermaine")
+    assert r.returncode == 1 and "no_email" in r.stdout and "names_ok" in r.stdout
+    b = good_bundle(clone)
+    b["files"][2]["proposed_content"] = "doi,question_ids,title,arxiv_id,admit_policy,status\n,,\"No identifier\",,,confirmed\n"
+    b["files"][2]["proposed_sha256"] = hashlib.sha256(b["files"][2]["proposed_content"].encode()).hexdigest()
+    assert "neither a doi nor an arxiv_id" in verify(tmp_path, clone, b).stdout
