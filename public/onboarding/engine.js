@@ -75,6 +75,13 @@
             $('title').textContent = e.label || engine;
             $('who').textContent = 'You are an owner of this engine' + (holder ? ' with the final say' : '') + '. The engine is ' + (e.state || 'open') + '.';
             renderProgress(e.progress);
+            // The status of approved changes on their way to the repository (PR 3b-2): read only, text only, no file and no address.
+            var blist = $('bundleList');
+            OB.clear(blist);
+            $('bundleBox').hidden = !(e.bundles || []).length;
+            (e.bundles || []).forEach(function (b) {
+                blist.appendChild(h('li', { text: (b.status === 'merged' ? 'Merged into the repository' : 'Prepared for the repository') + ' ' + OB.when(b.at) + ': ' + b.sections.join(', ') }));
+            });
             $('finalBox').hidden = !e.can_mark_final;
             $('delegationBox').hidden = !holder;
             if (document.activeElement !== $('notifyEmail')) { $('notifyEmail').checked = !!e.notifications_email; }

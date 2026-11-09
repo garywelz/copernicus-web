@@ -672,3 +672,15 @@ test('the section page shows the send-back note, and the approval read only', as
   assert.strictEqual(done.$('approvalNote').textContent, 'Good work.');
   assert.strictEqual(done.$('sentBack').hidden, true);
 });
+
+test('the engine page shows the status of approved changes read only, as text', async () => {
+  const p = enginePage({ bundles: [{ status: 'created', at: '2026-11-09T10:00:00+00:00', sections: ['Scope and use case'] }, { status: 'merged', at: '2026-11-10T10:00:00+00:00', sections: [HOSTILE] }] });
+  await settle();
+  assert.strictEqual(p.$('bundleBox').hidden, false);
+  assert.match(p.$('bundleList').textContent, /Prepared for the repository.*Scope and use case/);
+  assert.match(p.$('bundleList').textContent, /Merged into the repository/);
+  noMarkupIn(p);
+  const none = enginePage({ bundles: [] });
+  await settle();
+  assert.strictEqual(none.$('bundleBox').hidden, true);
+});

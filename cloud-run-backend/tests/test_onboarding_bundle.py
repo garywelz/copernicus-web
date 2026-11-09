@@ -623,7 +623,7 @@ def test_the_dashboard_has_a_bundle_panel_that_renders_text_only_and_uses_only_r
                        ("GET", "/api/admin/onboarding/engines/{engine_id}/bundles/{bundle_id}"), ("POST", "/api/admin/onboarding/engines/{engine_id}/bundles/{bundle_id}/merged"),
                        ("POST", "/api/admin/onboarding/engines/{engine_id}/bundles/{bundle_id}/supersede")):
         assert (verb, path) in known, (verb, path)
-    assert "/bundles" in js and "/merged" in js and "/supersede" in js and "pr_url" in js
+    assert "/bundles'" in js and "'merged'" in js and "'supersede'" in js and "pr_url" in js and "/' + what" in js
 
 
 def test_the_owner_engine_page_shows_the_bundle_status_as_text():

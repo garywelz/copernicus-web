@@ -16,6 +16,7 @@
         Object.keys(props || {}).forEach(function (k) {
             if (k === 'text') { el.textContent = props[k] === null || props[k] === undefined ? '' : String(props[k]); }
             else if (k === 'class') { el.className = props[k]; }
+            else if (k === 'checked') { el.checked = !!props[k]; }
             else { el.setAttribute(k, props[k]); }
         });
         (kids || []).forEach(function (kid) { el.appendChild(typeof kid === 'string' ? document.createTextNode(kid) : kid); });
@@ -117,6 +118,7 @@
 
     function openSection(engine, section) {
         current = null;
+        if (!$('bundleEngine').value) { $('bundleEngine').value = engine; }
         $('review').hidden = false;
         $('decideBox').hidden = true;
         clear($('diffBox')); clear($('historyBox'));
@@ -159,6 +161,120 @@
             }
         }).catch(function (e) { $('approve').disabled = false; $('reject').disabled = false; say('Failed: ' + e.message, true); });
     }
+
+    // ---- change bundles (PR 3b-2) --------------------------------------------------------------------------------------------------------------------
+    var CHECK_NAMES = { no_email: 'no email address', no_not_yet_public: 'nothing marked not yet public', names_ok: 'no name beyond an owner\'s choice', schema_ok: 'files parse (schema)' };
+
+    function bmsg(text, bad) { var el = $('bundleMsg'); el.textContent = text; el.className = bad ? 'error' : 'ok'; }
+
+    function renderChecks(box, checks, problems) {
+        clear(box);
+        Object.keys(CHECK_NAMES).forEach(function (k) {
+            var bad = checks && checks[k] === false;
+            box.appendChild(h('div', { class: bad ? 'error' : 'ok', text: (bad ? 'FAILED: ' : 'passed: ') + CHECK_NAMES[k] + (bad && problems && problems[k] ? ' (' + problems[k].join('; ') + ')' : '') }));
+        });
+    }
+
+    function saveText(text, name) {
+        var url = window.URL.createObjectURL(new window.Blob([text], { type: 'application/json' }));
+        var a = h('a', { href: url, download: name });
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+    }
+
+    function downloadBundle(engine, id) {
+        fetch(API + '/api/admin/onboarding/engines/' + encodeURIComponent(engine) + '/bundles/' + encodeURIComponent(id), { method: 'GET', headers: { 'X-Admin-API-Key': readKey() } })
+            .then(function (res) {
+                if (res.ok) { return res.text().then(function (t) { saveText(t, 'bundle-' + engine + '-' + id.slice(0, 8) + '.json'); bmsg('Downloaded. Give it to the agent to re-verify; do not edit it.', false); loadBundles(); }); }
+                return res.json().catch(function () { return {}; }).then(function (d) { bmsg('Not downloaded: ' + problem({ status: res.status, data: d }), true); });
+            }).catch(function (e) { bmsg('Not downloaded: ' + e.message, true); });
+    }
+
+    function bundleAction(engine, id, what, body) {
+        call('POST', '/api/admin/onboarding/engines/' + encodeURIComponent(engine) + '/bundles/' + encodeURIComponent(id) + '/' + what, body).then(function (r) {
+            bmsg(r.ok ? (what === 'merged' ? 'Marked merged; ' + r.data.mail_sent + ' owner(s) told (no content).' : 'Marked superseded. Create a new bundle.') : 'Failed: ' + problem(r), !r.ok);
+            if (r.ok) { loadBundles(); }
+        }).catch(function (e) { bmsg('Failed: ' + e.message, true); });
+    }
+
+    function renderBundles(engine, list) {
+        var box = $('bundleList');
+        clear(box);
+        if (!list.length) { box.appendChild(h('p', { class: 'note', text: 'No bundles yet.' })); return; }
+        list.forEach(function (b) {
+            var kids = [h('strong', { text: b.status.toUpperCase() + ' · ' + b.created_at + ' · ' + b.sections.join(', ') + ' · base ' + (b.base_commit_sha ? b.base_commit_sha.slice(0, 12) : 'none (no repository)') })];
+            var cbox = h('div', {});
+            renderChecks(cbox, b.checks, b.problems);
+            kids.push(cbox);
+            var row = h('div', {});
+            if (b.status === 'created' || b.status === 'exported') {
+                var dl = h('button', { type: 'button', class: 'small', text: 'Download' });
+                dl.addEventListener('click', function () { downloadBundle(engine, b.bundle_id); });
+                var url = h('input', { type: 'text', maxlength: '200', placeholder: 'address of the merged pull request', autocomplete: 'off' });
+                var mm = h('button', { type: 'button', class: 'small', text: 'Mark merged' });
+                mm.addEventListener('click', function () { bundleAction(engine, b.bundle_id, 'merged', { pr_url: url.value.trim() }); });
+                row.appendChild(dl); row.appendChild(url); row.appendChild(mm);
+            }
+            if (b.status !== 'merged' && b.status !== 'superseded') {
+                var sp = h('button', { type: 'button', class: 'small', text: 'Main moved: supersede' });
+                sp.addEventListener('click', function () { bundleAction(engine, b.bundle_id, 'supersede'); });
+                row.appendChild(sp);
+            }
+            if (b.pr_url) { row.appendChild(h('span', { class: 'note', text: ' merged by ' + b.pr_url })); }
+            kids.push(row);
+            box.appendChild(h('div', { class: 'bundle' }, kids));
+        });
+    }
+
+    function loadBundles() {
+        var engine = $('bundleEngine').value.trim();
+        if (!engine) { bmsg('Enter the engine id first.', true); return; }
+        call('GET', '/api/admin/onboarding/engines/' + encodeURIComponent(engine)).then(function (e) {
+            if (!e.ok) { bmsg('Could not load: ' + problem(e), true); return null; }
+            var box = $('bundleSections');
+            clear(box);
+            var approved = e.data.sections.filter(function (s) { return s.status === 'approved'; });
+            approved.forEach(function (s) {
+                box.appendChild(h('label', { class: 'choice' }, [h('input', { type: 'checkbox', checked: 'checked', 'data-section': s.key }), ' ' + s.title + ' (approved revision ' + s.approved_revision + ')']));
+            });
+            if (!approved.length) { box.appendChild(h('p', { class: 'note', text: 'No section is approved yet.' })); }
+            $('createBundle').disabled = !approved.length;
+            return call('GET', '/api/admin/onboarding/engines/' + encodeURIComponent(engine) + '/bundles').then(function (b) {
+                if (b.ok) { renderBundles(engine, b.data.bundles || []); } else { bmsg('Could not load bundles: ' + problem(b), true); }
+            });
+        }).catch(function (e) { bmsg('Could not load: ' + e.message, true); });
+    }
+
+    function createBundle() {
+        var engine = $('bundleEngine').value.trim();
+        var picked = [];
+        $('bundleSections').children.forEach(function (label) {
+            label.children.forEach(function (c) { if (c.tag === 'input' && c.checked) { picked.push(c.getAttribute('data-section')); } });
+        });
+        if (!picked.length) { bmsg('Choose at least one approved section.', true); return; }
+        $('createBundle').disabled = true;
+        call('POST', '/api/admin/onboarding/engines/' + encodeURIComponent(engine) + '/bundles', { sections: picked }).then(function (r) {
+            $('createBundle').disabled = false;
+            if (!r.ok) { bmsg('No bundle: ' + problem(r), true); return; }
+            renderChecks($('bundleChecks'), r.data.checks, r.data.problems);
+            var d = $('bundleDiff');
+            clear(d);
+            (r.data.preview || []).forEach(function (f) {
+                d.appendChild(h('h4', { text: f.path + ' · ' + f.action + ' · +' + f.added + ' -' + f.removed }));
+                var pre = h('div', { class: 'diff' });
+                f.lines.forEach(function (l) { pre.appendChild(h('div', { class: l.t === '+' ? 'dadd' : l.t === '-' ? 'ddel' : l.t === '@' ? 'dhunk' : 'dctx', text: (l.t === '@' ? '' : l.t) + l.text })); });
+                d.appendChild(pre);
+            });
+            (r.data.notes || []).forEach(function (n) { d.appendChild(h('p', { class: 'note', text: n })); });
+            bmsg(r.data.status === 'blocked' ? 'The bundle is BLOCKED by a failed check above and cannot be downloaded as ready.' : 'Bundle created. It passed every check; download it below.', r.data.status === 'blocked');
+            loadBundles();
+        }).catch(function (e) { $('createBundle').disabled = false; bmsg('No bundle: ' + e.message, true); });
+    }
+
+    $('loadBundles').addEventListener('click', loadBundles);
+    $('createBundle').addEventListener('click', createBundle);
 
     $('loadEngines').addEventListener('click', loadEngines);
     $('approve').addEventListener('click', function () { decide('approve'); });
