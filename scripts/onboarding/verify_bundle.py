@@ -87,6 +87,8 @@ def main(argv=None):
     moved = not base.get("commit_sha") or tip != base.get("commit_sha")
     if not tip:
         fail(f"the clone has no branch {args.branch}")
+    elif not base.get("commit_sha"):
+        fail("the bundle has no base commit (its engine has no repository), so there is nothing to verify it against")
     elif moved:
         fail(f"the clone's {args.branch} is {tip[:12]}, the bundle was made against {str(base.get('commit_sha'))[:12]}: the base moved. Regenerated diff follows")
         for f in files:

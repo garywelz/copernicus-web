@@ -538,6 +538,12 @@ def test_verify_fails_on_a_changed_base_blob_and_an_add_that_already_exists(tmp_
     assert "already exists on main" in verify(tmp_path, clone, b).stdout
 
 
+def test_verify_says_plainly_that_a_bundle_with_no_base_commit_cannot_be_verified(tmp_path, clone):
+    r = verify(tmp_path, clone, good_bundle(clone, base={"repo": None, "branch": "main", "commit_sha": None}), "--apply")
+    assert r.returncode == 1 and "has no base commit" in r.stdout and "the base moved" not in r.stdout
+    assert (clone / "README.md").read_text(encoding="utf-8") == BASE_README
+
+
 def test_verify_fails_on_tampered_proposed_content(tmp_path, clone):
     b = good_bundle(clone)
     b["files"][0]["proposed_content"] += "\nsneaked in\n"

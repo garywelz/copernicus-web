@@ -256,8 +256,9 @@ files:     [ { path, action: "modify" | "add",
                base_blob_sha, proposed_sha256, proposed_content } ]
 core_tasks:[ { kind: "ingest_seed" | "ingest_keep" | "retag" | "scope_change",
                payload } ]                                # what Gary's Core agent does AFTER the PR merges
-checks:    { public_safe: true|false, no_email: true|false,
-             no_not_yet_public: true|false, schema_ok: true|false }
+checks:    { public_safe: true|false,                      # the AND of the four below; a bundle with any false is stored as blocked and cannot be downloaded as ready
+             no_email: true|false, no_not_yet_public: true|false,
+             names_ok: true|false, schema_ok: true|false }
 pr_text:   { title, body }                               # draft text, no names beyond the consent choice
 ```
 The agent's checks, which must all pass before it opens a PR: the base commit is still the repo tip (or the diff is regenerated and shown); every `base_blob_sha` matches; every `proposed_sha256` matches its content; `research_focus.json` parses and has the A2 fields; no email-shaped string, no `not_yet_public` entry and no name outside the consent choice appears in any proposed file.
