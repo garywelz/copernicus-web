@@ -10,8 +10,8 @@ CHECKS (all are run and reported; the exit code is the worst result):
   3. the clone's `main` tip equals base.commit_sha. If it does not, the REGENERATED DIFF (each proposed file against the clone's current main) is printed and
      the script exits 1: the agent shows Gary the difference before anything else (design 6.3);
   4. every base_blob_sha equals git's blob sha of that file on the clone's main (an `add` must not exist there yet);
-  5. docs/research_focus.json parses with the A2 fields, a docs/seeds.csv parses with its header, and no email-shaped string is in any proposed file: the SAME
-     linter the server ran (cloud-run-backend/utils/onboarding_lint.py, loaded from this checkout by path). Names cannot be checked without the owners' names, which
+  5. docs/research_focus.json parses with the A2 fields, a docs/seeds.csv parses with its header (every row it adds has a doi or an arxiv id), and no
+     email-shaped string is in any line the bundle adds or changes: the SAME linter the server ran, given the clone's files at the verified tip (cloud-run-backend/utils/onboarding_lint.py, loaded from this checkout by path). Names cannot be checked without the owners' names, which
      only the server has; pass --deny-name for each name that must not appear.
 
 WRITES NOTHING to the clone unless --apply, and then only after every check passed: --apply writes the proposed files into the WORKING TREE (no commit, no push, no
@@ -105,7 +105,12 @@ def main(argv=None):
             if f["action"] not in ("add", "modify"):
                 fail(f"{f['path']}: unknown action")
 
-    result = load_lint().run_checks(files, [{"naming": "role", "name": n} for n in args.deny_name], [])
+    bases = {}
+    if tip and not moved:                                                  # the file as it is on the verified tip, so only added or changed lines are judged
+        for f in files:
+            shown = git(clone, "show", f"{tip}:{f['path']}")
+            bases[f["path"]] = shown.stdout.replace("\r\n", "\n") if shown.returncode == 0 else None
+    result = load_lint().run_checks(files, [{"naming": "role", "name": n} for n in args.deny_name], [], bases)
     for name, reasons in result["problems"].items():
         for r in reasons:
             fail(f"{name}: {r}")
