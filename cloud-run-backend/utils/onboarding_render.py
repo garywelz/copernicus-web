@@ -8,6 +8,9 @@ THE MAPPING (design 6.2):
   questions  -> docs/research_focus.json   active_questions
   keywords   -> docs/research_focus.json   categories, horizons, mute
   seeds      -> docs/seed_papers.md        a generated "owners' confirmation" block; the rest of the file is left exactly as it is
+                docs/seeds.csv               the real tdap repo's machine-readable seed record (doi,question_ids,title,arxiv_id,admit_policy,status, read at
+                                             b384da6); the confirmation sets each matched row's `status`. (The design's earlier name, seed_papers.csv, is superseded.)
+  (bundles) -> README.md                     also a generated attribution line, following each owner's consent choice (role only by default)
 
 EVERY FILE IS MERGED INTO ITS CURRENT TEXT, never rewritten from nothing, so a diff shows only what the owners changed. With no current text (the engine has
 no repository, or the file is new) the file holds only the generated part.
@@ -18,12 +21,15 @@ question. Keys the form does not own (`project`, `updated`, `frontier`, `flagged
 objects in the A2 contract, which the template's one-line text entries cannot express, so entries an owner typed into those two lists are NOT rendered; they are
 returned in `notes` for Core to decide.
 """
+import csv
 import hashlib
+import io
 import json
 import re
 from typing import Any, Dict, List, Optional
 
-SECTION_FILES = {"scope": "README.md", "questions": "docs/research_focus.json", "keywords": "docs/research_focus.json", "seeds": "docs/seed_papers.md"}
+SECTION_FILES = {"scope": ("README.md",), "questions": ("docs/research_focus.json",), "keywords": ("docs/research_focus.json",),
+                 "seeds": ("docs/seed_papers.md", "docs/seeds.csv")}
 STRING_LISTS = ("categories", "horizons", "mute")
 OBJECT_LISTS = ("frontier", "flagged")
 SEEDS_BEGIN = "<!-- onboarding:seed-confirmations:begin -->"
@@ -39,9 +45,9 @@ def files_for(sections: List[str]) -> List[str]:
     """The distinct output paths for these sections, in a stable order."""
     out: List[str] = []
     for s in sections:
-        p = SECTION_FILES.get(s)
-        if p and p not in out:
-            out.append(p)
+        for p in SECTION_FILES.get(s, ()):
+            if p not in out:
+                out.append(p)
     return out
 
 
@@ -117,8 +123,8 @@ def render_research_focus(base_text: Optional[str], question_items: Optional[Lis
             if lists[name] or name in doc:
                 doc[name] = lists[name]
         if skipped:
-            notes.append(f"{skipped} entr{'y' if skipped == 1 else 'ies'} typed into frontier or flagged were not rendered: those lists hold objects in the acquisition contract, "
-                         "which a one-line entry cannot express. Core decides how to carry them.")
+            notes.append(f"{skipped} entr{'y' if skipped == 1 else 'ies'} typed into frontier or flagged were not exported in v1 (shape not yet agreed with Core): those lists hold objects in the "
+                         "acquisition contract, which a one-line entry cannot express.")
     return dump_json(doc) + "\n", notes
 
 
@@ -133,11 +139,47 @@ def scope_paragraph(items: List[dict]) -> str:
     return "\n\n".join(parts)
 
 
-def render_readme(base_text: Optional[str], paragraph: str):
+ATTR_BEGIN = "<!-- onboarding:attribution:begin -->"
+ATTR_END = "<!-- onboarding:attribution:end -->"
+
+
+def attribution_text(owners: List[dict]) -> str:
+    """One line crediting the owners exactly as each chose (design 2.8): 'role' = the role only (the default), 'name', 'name_and_role', or 'none' = left out.
+    `owners` is [{naming, role, name}]; a name is used only for a choice that includes it."""
+    names = []
+    for o in owners:
+        choice, role, name = o.get("naming") or "role", o.get("role") or "owner", (o.get("name") or "").strip()
+        if choice == "none":
+            continue
+        names.append(f"{name} ({role})" if choice == "name_and_role" and name else name if choice == "name" and name else role)
+    return ("Research owners, as they chose to be named: " + "; ".join(names) + ".") if names else ""
+
+
+def _put_block(text: str, begin: str, end: str, body: str) -> str:
+    block = f"{begin}\n{body}\n{end}\n"
+    if begin in text and end in text:
+        head, rest = text.split(begin, 1)
+        tail = rest.split(end, 1)[1].lstrip("\n")
+        return head + block + (("\n" + tail) if tail else "")
+    return (text.rstrip("\n") + "\n\n" if text.strip() else "") + block
+
+
+def render_readme(base_text: Optional[str], paragraph: str, attribution: str = ""):
     """(text, notes). The scope paragraph replaces the body of the README's existing 'Scope' heading (up to the next heading of the same or a higher level); with no
-    such heading it is appended under a new '## Scope and use case' heading; with no README it is the whole file."""
-    if not paragraph:
-        return (base_text or ""), ["The scope statement is empty, so the README is unchanged."]
+    such heading it is appended under a new '## Scope and use case' heading; with no README it is the whole file. A non-empty `attribution` is then put in a
+    marker-delimited block at the end."""
+    notes: List[str] = []
+    text = base_text or ""
+    if paragraph:
+        text, _ = _scope_into(base_text, paragraph)
+    elif not attribution:
+        return text, ["The scope statement is empty, so the README is unchanged."]
+    if attribution:
+        text = _put_block(text, ATTR_BEGIN, ATTR_END, attribution)
+    return text, notes
+
+
+def _scope_into(base_text: Optional[str], paragraph: str):
     block = paragraph.rstrip() + "\n"
     if not base_text:
         return "## Scope and use case\n\n" + block, []
@@ -176,18 +218,67 @@ def render_seed_papers(base_text: Optional[str], items: List[dict]):
     return base_text.rstrip("\n") + "\n\n" + block, []
 
 
+# ---- docs/seeds.csv -----------------------------------------------------------------------------------------------------------------------------------
+CSV_COLUMNS = ["doi", "question_ids", "title", "arxiv_id", "admit_policy", "status"]
+CSV_STATUS = {"yes": "confirmed", "unsure": "proposed", "no": "rejected"}
+
+
+def _csv_field(name: str, value: str) -> str:
+    value = value or ""
+    return '"' + value.replace('"', '""') + '"' if name == "title" or any(c in value for c in ',"\n') else value
+
+
+def render_seeds_csv(base_text: Optional[str], items: List[dict]):
+    """(text, notes). Each answered seed sets its row's `status` (yes = confirmed, unsure = proposed, no = rejected); the row is matched by DOI or arXiv id, and a seed
+    with no row gets a new one. Rows the owners did not touch, and the header, are kept as they are. The engine's own column order is kept."""
+    rows, header, notes = [], list(CSV_COLUMNS), []
+    if base_text and base_text.strip():
+        try:
+            reader = csv.DictReader(io.StringIO(base_text))
+            header = list(reader.fieldnames or CSV_COLUMNS)
+            rows = [dict(r) for r in reader]
+        except csv.Error:
+            notes.append("The current seeds.csv could not be parsed, so the proposed file holds only the owners' rows.")
+            rows = []
+    if "status" not in header:
+        header.append("status")
+    for i in items:
+        ident = str((i.get("context") or {}).get("identifier") or "").strip()
+        status = CSV_STATUS.get(i.get("choice"))
+        if not status or not ident:
+            continue
+        kind, _, key = ident.partition(":")
+        key = key.strip().lower()
+        row = next((r for r in rows if (kind.lower() == "doi" and (r.get("doi") or "").strip().lower() == key) or (kind.lower() == "arxiv" and (r.get("arxiv_id") or "").strip().lower() == key)), None)
+        if row is None:
+            ctx = i.get("context") or {}
+            row = {c: "" for c in header}
+            row.update({"doi": key if kind.lower() == "doi" else "", "arxiv_id": key if kind.lower() == "arxiv" else "", "title": ctx.get("citation") or "",
+                        "question_ids": ";".join(ctx.get("question_ids") or []) if isinstance(ctx.get("question_ids"), list) else str(ctx.get("question_ids") or "")})
+            rows.append(row)
+        row["status"] = status
+    lines = [",".join(header)] + [",".join(_csv_field(c, str(r.get(c) or "")) for c in header) for r in rows]
+    return "\n".join(lines) + "\n", notes
+
+
 # ---- the one entry point ---------------------------------------------------------------------------------------------------------------------------------
-def render_files(items_by_section: Dict[str, List[dict]], bases: Dict[str, Optional[str]], as_of: str) -> List[Dict[str, Any]]:
+def render_files(items_by_section: Dict[str, List[dict]], bases: Dict[str, Optional[str]], as_of: str, attribution: Optional[List[dict]] = None) -> List[Dict[str, Any]]:
     """The proposed files for these sections. `items_by_section` maps a section key to its stored items; `bases` maps a path to its current text (or None).
+    `attribution` (bundles only) is the owners' [{naming, role, name}]; when given, the README also carries a line crediting them as they chose.
     Returns [{path, content, sha256, sections, notes}] in a stable order. Sections that share a file (questions and keywords) are rendered into it together."""
     out = []
-    for path in files_for(list(items_by_section)):
-        secs = [s for s in items_by_section if SECTION_FILES.get(s) == path]
+    paths = files_for(list(items_by_section))
+    if attribution is not None and "README.md" not in paths:
+        paths.insert(0, "README.md")
+    for path in paths:
+        secs = [s for s in items_by_section if path in SECTION_FILES.get(s, ())]
         base = bases.get(path)
         if path == "README.md":
-            text, notes = render_readme(base, scope_paragraph(items_by_section["scope"]))
+            text, notes = render_readme(base, scope_paragraph(items_by_section["scope"]) if "scope" in items_by_section else "", attribution_text(attribution or []))
         elif path == "docs/research_focus.json":
             text, notes = render_research_focus(base, items_by_section.get("questions"), items_by_section.get("keywords"), as_of)
+        elif path == "docs/seeds.csv":
+            text, notes = render_seeds_csv(base, items_by_section["seeds"])
         else:
             text, notes = render_seed_papers(base, items_by_section["seeds"])
         out.append({"path": path, "content": text, "sha256": sha256_text(text), "sections": secs, "notes": notes})

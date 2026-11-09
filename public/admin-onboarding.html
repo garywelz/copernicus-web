@@ -46,6 +46,20 @@
         <p id="reviewResult" role="status"></p>
     </fieldset>
 
+    <fieldset id="bundleBox">
+        <legend>Change bundles (approved sections to a pull request)</legend>
+        <p class="note">A bundle holds the files the APPROVED sections would change, diffed against the repository's main. It is checked (no email address, nothing marked not yet public, no name beyond an owner's choice, files that parse); a bundle with a failed check is stored as blocked and cannot be downloaded as ready. Download it and give it to the agent, which re-verifies it with scripts/onboarding/verify_bundle.py before opening a pull request. Nothing here writes to the repository.</p>
+        <label for="bundleEngine">Engine id</label>
+        <input id="bundleEngine" type="text" maxlength="60" autocomplete="off">
+        <button id="loadBundles" type="button">Show approved sections and bundles</button>
+        <div id="bundleSections"></div>
+        <button id="createBundle" type="button" disabled>Create bundle</button>
+        <div id="bundleChecks"></div>
+        <div id="bundleDiff"></div>
+        <div id="bundleList"></div>
+        <p id="bundleMsg" role="status"></p>
+    </fieldset>
+
     <fieldset>
         <legend>Invite a person to an engine</legend>
         <p class="note">The invitation carries their permissions. The address is typed once, used to send the email, and never stored: only a hash is kept.</p>

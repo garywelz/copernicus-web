@@ -28,22 +28,24 @@ function loadPage(doc) {
 function page(route, { key = 'the-key', confirmAnswer = true } = {}) {
   const doc = new Doc();
   loadPage(doc);
-  const calls = [], confirms = [];
+  const calls = [], confirms = [], saved = [];
   const sandbox = {
     document: doc, console, Promise, JSON, Object, Array, String, Number, Math, encodeURIComponent, Error,
     confirm: (q) => { confirms.push(q); return confirmAnswer; },
     localStorage: { getItem: (k) => (k === 'admin_api_key' ? key : null), setItem() {} },
+    Blob: class { constructor(parts, opts) { this.text = parts.join(''); this.type = opts && opts.type; } },
+    URL: { createObjectURL: (b) => { saved.push(b); return 'blob:fake'; }, revokeObjectURL() {} },
     fetch: (url, init) => {
       const p = String(url).replace(/^https:\/\/[^/]+/, '');
       const body = init && init.body ? JSON.parse(init.body) : undefined;
       calls.push({ method: (init && init.method) || 'GET', path: p, body, key: init && init.headers && init.headers['X-Admin-API-Key'] });
-      return Promise.resolve(route((init && init.method) || 'GET', p, body)).then((r) => ({ ok: r.status >= 200 && r.status < 300, status: r.status, json: () => Promise.resolve(r.data) }));
+      return Promise.resolve(route((init && init.method) || 'GET', p, body)).then((r) => ({ ok: r.status >= 200 && r.status < 300, status: r.status, json: () => Promise.resolve(r.data), text: () => Promise.resolve(typeof r.data === 'string' ? r.data : JSON.stringify(r.data)) }));
     },
   };
   sandbox.window = sandbox;
   vm.createContext(sandbox);
   for (const f of ['admin-onboarding.js', 'admin-review.js']) vm.runInContext(fs.readFileSync(path.join(PUBLIC, f), 'utf8'), sandbox, { filename: f });
-  return { doc, calls, confirms, $: (id) => doc.getElementById(id) };
+  return { doc, calls, confirms, saved, $: (id) => doc.getElementById(id) };
 }
 
 const row = (o) => Object.assign({ key: 'scope', title: 'Scope and use case', status: 'final', revision: 3, items: 3, ready: true, open: 0, disagreed: 0, waiting_on: { who: 'admin', label: 'admin' },
@@ -165,4 +167,85 @@ test('Send back needs a note; with one it posts to reject; a 409 says to reload'
   assert.strictEqual(post.path, '/api/admin/onboarding/engines/eng-x/sections/scope/reject');
   assert.strictEqual(post.body.note, 'Please narrow it.');
   assert.match(p.$('reviewResult').textContent, /changed since you opened it.*Reload the section/);
+});
+
+// ---- PR 3b-2: the bundle panel ----------------------------------------------------------------------------------------------------------------------
+const BID = 'c'.repeat(32);
+const bundleRow = (o) => Object.assign({ bundle_id: BID, status: 'created', created_at: '2026-11-09T10:00:00+00:00', sections: ['scope'], base_commit_sha: 'd'.repeat(40), pr_url: null,
+  checks: { public_safe: true, no_email: true, no_not_yet_public: true, names_ok: true, schema_ok: true }, problems: {} }, o);
+const engineDetail = () => ({ engine_id: 'eng-x', label: 'X', sections: [
+  { key: 'scope', title: 'Scope and use case', status: 'approved', approved_revision: 2 }, { key: 'questions', title: 'Research questions', status: 'final' }] });
+function bundlePage(over = {}, opts) {
+  const p = page(api(Object.assign({
+    'GET /api/admin/onboarding/engines/eng-x': () => ok(engineDetail()),
+    'GET /api/admin/onboarding/engines/eng-x/bundles': () => ok({ bundles: [bundleRow()] }),
+  }, over)), opts);
+  p.$('bundleEngine').value = 'eng-x';
+  return p;
+}
+const checkboxes = (p) => all(p.doc, (e) => e.tag === 'input' && e.attrs['data-section']);
+
+test('the bundle panel offers only the approved sections and lists the bundles of the engine', async () => {
+  const p = bundlePage();
+  await settle();
+  p.$('loadBundles').fire('click');
+  await settle();
+  assert.deepStrictEqual(checkboxes(p).map((c) => [c.attrs['data-section'], c.checked]), [['scope', true]]);   // the final-not-approved section is not offered
+  assert.strictEqual(p.$('createBundle').disabled, false);
+  assert.match(p.$('bundleList').textContent, /CREATED.*scope.*base dddddddddddd/);
+  assert.match(p.$('bundleList').textContent, /passed: no email address/);
+});
+
+test('Create bundle posts the chosen sections; a blocked bundle shows which check failed, as text, and says it cannot be downloaded', async () => {
+  const blocked = { status: 'blocked', bundle_id: BID, sections: ['scope'], checks: { public_safe: false, no_email: false, no_not_yet_public: true, names_ok: true, schema_ok: true },
+                    problems: { no_email: ['README.md: ' + HOSTILE] }, preview: [{ path: 'README.md', action: 'modify', added: 1, removed: 0, lines: [{ t: '+', text: HOSTILE }] }], notes: ['not exported in v1 (shape not yet agreed with Core)'] };
+  const p = bundlePage({ 'POST /api/admin/onboarding/engines/eng-x/bundles': () => ok(blocked),
+                         'GET /api/admin/onboarding/engines/eng-x/bundles': () => ok({ bundles: [bundleRow({ status: 'blocked', checks: blocked.checks, problems: blocked.problems })] }) });
+  await settle();
+  p.$('loadBundles').fire('click');
+  await settle();
+  p.$('createBundle').fire('click');
+  await settle();
+  assert.deepStrictEqual(p.calls.find((c) => c.method === 'POST').body, { sections: ['scope'] });
+  assert.match(p.$('bundleChecks').textContent, /FAILED: no email address/);
+  assert.match(p.$('bundleChecks').textContent, /passed: files parse/);
+  assert.match(p.$('bundleMsg').textContent, /BLOCKED.*cannot be downloaded as ready/);
+  assert.match(p.$('bundleDiff').textContent, /not exported in v1/);
+  noMarkup(p.doc);
+  assert.strictEqual(button(p.doc, 'Download'), undefined);                                  // a blocked bundle has no Download button
+  assert.strictEqual(button(p.doc, 'Mark merged'), undefined);
+});
+
+test('Download fetches the bundle with the admin key and saves the file; Mark merged sends the trimmed PR address', async () => {
+  const p = bundlePage({ ['GET /api/admin/onboarding/engines/eng-x/bundles/' + BID]: () => ok({ format: 'engine_onboarding_bundle' }),
+                         ['POST /api/admin/onboarding/engines/eng-x/bundles/' + BID + '/merged']: () => ok({ status: 'merged', mail_sent: 2 }) });
+  await settle();
+  p.$('loadBundles').fire('click');
+  await settle();
+  button(p.doc, 'Download').fire('click');
+  await settle();
+  const get = p.calls.find((c) => c.path === '/api/admin/onboarding/engines/eng-x/bundles/' + BID);
+  assert.strictEqual(get.key, 'the-key');
+  assert.strictEqual(p.saved.length, 1);
+  assert.match(p.saved[0].text, /engine_onboarding_bundle/);
+  const url = all(p.doc, (e) => e.tag === 'input' && e.attrs.placeholder)[0];
+  url.value = '  https://github.com/org/repo/pull/12  ';
+  button(p.doc, 'Mark merged').fire('click');
+  await settle();
+  const post = p.calls.find((c) => c.method === 'POST');
+  assert.strictEqual(post.path, '/api/admin/onboarding/engines/eng-x/bundles/' + BID + '/merged');
+  assert.deepStrictEqual(post.body, { pr_url: 'https://github.com/org/repo/pull/12' });
+  assert.match(p.$('bundleMsg').textContent, /Marked merged; 2 owner\(s\) told \(no content\)/);
+});
+
+test('a 409 from the server is shown as the server worded it, and nothing is saved', async () => {
+  const refusal = { status: 409, data: { detail: { message: 'This bundle is blocked by a failed check and cannot be downloaded as ready' } } };
+  const p = bundlePage({ ['GET /api/admin/onboarding/engines/eng-x/bundles/' + BID]: () => refusal });
+  await settle();
+  p.$('loadBundles').fire('click');
+  await settle();
+  button(p.doc, 'Download').fire('click');
+  await settle();
+  assert.strictEqual(p.saved.length, 0);
+  assert.match(p.$('bundleMsg').textContent, /Not downloaded: This bundle is blocked/);
 });

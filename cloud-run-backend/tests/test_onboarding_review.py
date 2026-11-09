@@ -189,9 +189,9 @@ def test_the_scope_paragraph_replaces_the_scope_section_and_the_seeds_block_is_r
     [bare] = render.render_files({"scope": items}, {"README.md": None}, "2026-11-09")
     assert bare["content"].startswith("## Scope and use case\n\nWhat it is for.")
     seeds = [{"item_id": "seed-1", "choice": "yes", "value": {"comment": "good"}, "context": {"citation": "A. Author (2020).", "identifier": "doi:10.0/x"}}]
-    [s1] = render.render_files({"seeds": seeds}, {"docs/seed_papers.md": "# Seeds\n\nProse.\n"}, "2026-11-09")
+    [s1, _csv1] = render.render_files({"seeds": seeds}, {"docs/seed_papers.md": "# Seeds\n\nProse.\n"}, "2026-11-09")
     seeds[0]["choice"] = "no"
-    [s2] = render.render_files({"seeds": seeds}, {"docs/seed_papers.md": s1["content"]}, "2026-11-09")
+    [s2, _csv2] = render.render_files({"seeds": seeds}, {"docs/seed_papers.md": s1["content"]}, "2026-11-09")
     assert s1["content"].startswith("# Seeds\n\nProse.\n") and "confirmed" in s1["content"] and "not confirmed" in s2["content"] and s2["content"].count(render.SEEDS_BEGIN) == 1
 
 
@@ -261,8 +261,8 @@ def test_a_file_the_repository_does_not_have_is_an_add_and_a_lost_commit_lookup_
     make_final(env, "seeds")
     del http.table[RAW + "docs/seed_papers.md"]
     http.table[RAW + "docs/seed_papers.md"] = (404, "Not Found")
-    [f] = get(env, f"/engines/{X}/diff?section=seeds").json()["files"]
-    assert f["base_state"] == "missing" and f["action"] == "add"
+    [f, csv_file] = get(env, f"/engines/{X}/diff?section=seeds").json()["files"]
+    assert f["base_state"] == "missing" and f["action"] == "add" and csv_file["path"] == "docs/seeds.csv"
     base.clear_cache()
     http.table[f"https://api.github.com/repos/{REPO}/commits/main"] = (404, "{}")
     http.table[f"https://raw.githubusercontent.com/{REPO}/main/docs/seed_papers.md"] = (200, "# Seeds\n")
@@ -393,9 +393,9 @@ def test_a_section_sent_back_is_not_sent_a_ready_mail_again_and_reads_as_draft_e
     env.mail.sent.clear()
     decide(env, "scope", "reject", note="No.")
     kinds = [m["kind"] for m in env.mail.sent]
-    assert kinds == ["sent_back"], kinds
+    assert kinds == ["sent_back"] * 2, kinds          # one to each owner, and no "ready" mail
     env.client.post(f"/api/onboarding/engines/{X}/items/use-case/comments", json={"body": "ok"}, headers=H[OTH])
-    assert [m["kind"] for m in env.mail.sent] == ["sent_back"]
+    assert [m["kind"] for m in env.mail.sent] == ["sent_back"] * 2
     assert section_json(env, ADV, "scope")["section"]["status"] == "draft"
 
 
@@ -425,22 +425,32 @@ def test_the_decision_mail_names_the_section_and_engine_and_never_carries_the_no
     NOTE = "UNIQUE-NOTE-TEXT-7731"
     assert decide(env, "scope", "approve", note=NOTE).status_code == 200
     assert decide(env, "questions", "reject", note=NOTE).status_code == 200
-    assert [(m["kind"], m["section"], m["engine"]) for m in env.mail.sent] == [("approved", "Scope and use case", "Synthetic X"), ("sent_back", "Research questions", "Synthetic X")]
+    assert [(m["kind"], m["section"], m["engine"]) for m in env.mail.sent] == [("approved", "Scope and use case", "Synthetic X")] * 2 + [("sent_back", "Research questions", "Synthetic X")] * 2
     assert all(NOTE not in json.dumps(m) and m["link"].endswith(f"engine.html?engine={X}") for m in env.mail.sent)
-    assert {m["to"] for m in env.mail.sent} == {f"{ADV}@example.invalid"}                                      # the final-say holder only (no delegate here)
+    assert sorted(m["to"] for m in env.mail.sent) == sorted([f"{ADV}@example.invalid", f"{OTH}@example.invalid"] * 2)                  # every active owner, not only the final-say holder
 
 
-def test_a_covering_delegate_is_told_too_and_an_owner_who_switched_mail_off_is_not(env):
+def test_every_active_owner_is_told_each_respecting_their_own_switch_and_a_stranger_never(env):
     make_final(env, "scope")
-    assert env.client.put(f"/api/onboarding/engines/{X}/delegations", json={"to": "other_owner", "scope": ["scope"]}, headers=H[ADV]).status_code == 200
     env.mail.sent.clear()
     decide(env, "scope", "approve")
-    assert {m["to"] for m in env.mail.sent} == {f"{ADV}@example.invalid", f"{OTH}@example.invalid"}
+    assert sorted(m["to"] for m in env.mail.sent) == sorted([f"{ADV}@example.invalid", f"{OTH}@example.invalid"])        # not eng-y's member, not a stranger
     make_final(env, "questions")
     env.mail.sent.clear()
     assert env.client.put(f"/api/onboarding/engines/{X}/notifications", json={"email": False}, headers=H[ADV]).status_code == 200
-    decide(env, "questions", "approve")
-    assert env.mail.sent == []                                                                                 # the decision stands; no mail to someone who opted out
+    decide(env, "questions", "reject", note="n")
+    assert [m["to"] for m in env.mail.sent] == [f"{OTH}@example.invalid"]                                       # the one who opted out is not mailed; the other owner is
+    make_final(env, "keywords")
+    env.mail.sent.clear()
+    assert env.client.put(f"/api/onboarding/engines/{X}/notifications", json={"email": False}, headers=H[OTH]).status_code == 200
+    decide(env, "keywords", "approve")
+    assert env.mail.sent == []                                                                                 # both opted out: the decision stands, nothing is sent
+    env.db.data[ob.MEMBERS][ob.member_id(X, OTH)]["status"] = "removed"
+    env.db.data[ob.MEMBERS][ob.member_id(X, ADV)]["notifications_email"] = True
+    make_final(env, "seeds")
+    env.mail.sent.clear()
+    decide(env, "seeds", "approve")
+    assert [m["to"] for m in env.mail.sent] == [f"{ADV}@example.invalid"]                                       # a removed member is not mailed
 
 
 def test_a_mail_failure_never_undoes_or_fails_a_decision(env):

@@ -11,6 +11,7 @@ The files are fetched AT THE BASE COMMIT when the commit lookup worked (so the f
 requests), and from `main` when it did not.
 """
 import difflib
+import hashlib
 import re
 import threading
 import time
@@ -81,30 +82,37 @@ def base_commit(repo: str, now: Optional[float] = None) -> Optional[str]:
     return _cached(("commit", repo), time.time() if now is None else now, make)
 
 
-def fetch_file(repo: str, path: str, ref: str, now: Optional[float] = None) -> Tuple[str, Optional[str]]:
-    """('ok', text) | ('missing', None) | ('unavailable', None)."""
+def git_blob_sha(raw: bytes) -> str:
+    """The sha git gives a file's content (a 'blob'): sha1 of 'blob <size>' + NUL + the bytes. Used as a bundle's base_blob_sha."""
+    return hashlib.sha1(b"blob %d\x00" % len(raw) + raw).hexdigest()
+
+
+def fetch_file(repo: str, path: str, ref: str, now: Optional[float] = None) -> Tuple[str, Optional[str], Optional[str]]:
+    """('ok', text, git blob sha of the bytes as stored) | ('missing', None, None) | ('unavailable', None, None). The text has its line endings normalised."""
     def make():
         try:
             status, body = _http_get(f"{RAW_HOST}/{repo}/{ref}/{path}")
             if status == 404:
-                return ("missing", None), True
+                return ("missing", None, None), True
             if status != 200 or len(body) > MAX_BYTES:
-                return ("unavailable", None), False
-            return ("ok", body.decode("utf-8").replace("\r\n", "\n")), True
+                return ("unavailable", None, None), False
+            return ("ok", body.decode("utf-8").replace("\r\n", "\n"), git_blob_sha(body)), True
         except Exception:                                        # noqa: BLE001
-            return ("unavailable", None), False
+            return ("unavailable", None, None), False
     return _cached(("file", repo, ref, path), time.time() if now is None else now, make)
 
 
 def fetch_bases(engine: dict, paths: List[str], now: Optional[float] = None) -> Dict[str, Any]:
-    """{'repo', 'commit_sha', 'commit_state', 'no_repo', 'files': {path: (state, text)}}. `state` is 'ok', 'missing', 'unavailable' or 'none' (no repository)."""
+    """{'repo', 'commit_sha', 'commit_state', 'no_repo', 'files': {path: (state, text)}, 'blobs': {path: git blob sha or None}}. `state` is 'ok', 'missing',
+    'unavailable' or 'none' (no repository)."""
     repo = engine_repo(engine)
     if not repo:
-        return {"repo": None, "commit_sha": None, "commit_state": "none", "no_repo": True, "files": {p: ("none", None) for p in paths}}
+        return {"repo": None, "commit_sha": None, "commit_state": "none", "no_repo": True, "files": {p: ("none", None) for p in paths}, "blobs": {p: None for p in paths}}
     sha = base_commit(repo, now)
     ref = sha or "main"
+    got = {p: fetch_file(repo, p, ref, now) for p in paths}
     return {"repo": repo, "commit_sha": sha, "commit_state": "ok" if sha else "unavailable", "no_repo": False,
-            "files": {p: fetch_file(repo, p, ref, now) for p in paths}}
+            "files": {p: (g[0], g[1]) for p, g in got.items()}, "blobs": {p: g[2] for p, g in got.items()}}
 
 
 def unified(base_text: Optional[str], proposed: str) -> Dict[str, Any]:

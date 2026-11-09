@@ -169,9 +169,24 @@ def decide(db, *, engine_id: str, section: str, decision: str, expected_revision
     return ob._run_in_transaction(db, _decide_in, db, engine_id, section, decision, expected_revision, expected_content_sha256, text, now or ob._utcnow(), ip_hash, request_id)
 
 
+def owner_addresses(db, engine_id: str) -> List[str]:
+    """The address of every ACTIVE owner of the engine who has not switched the engine's mail off (Gary, 2026-11-09: a decision concerns both owners)."""
+    out = []
+    for d in db.collection(ob.MEMBERS).where("engine_id", "==", engine_id).stream():
+        sid = (d.to_dict() or {}).get("subscriber_id")
+        m = ob.active_membership(db, engine_id, sid) if sid else None
+        if not m or m.get("role") != "owner" or m.get("notifications_email", True) is False:
+            continue
+        snap = db.collection("subscribers").document(sid).get()
+        address = ((snap.to_dict() or {}).get("email") if snap.exists else None) or ""
+        if address and address not in out:
+            out.append(address)
+    return out
+
+
 def plan_decision_mail(db, *, engine_id: str, section: str, decision: str) -> List[Dict[str, Any]]:
-    """Who to tell: the final-say owner and, if a delegation covers the section, the delegate (not an owner who switched the mail off). The mail names the
-    engine and the section and says approved or sent back; it never carries the note."""
+    """Who to tell: ALL active owners of the engine, each respecting their own notification switch (Gary, 2026-11-09). The mail names the engine and the section
+    and says approved or sent back; it never carries the note."""
     engine = form._engine(db, engine_id)
-    to = gates._addresses(db, engine_id, engine, section)
+    to = owner_addresses(db, engine_id)
     return [{"kind": "approved" if decision == "approve" else "sent_back", "engine_label": engine.get("label") or engine_id, "section_title": tpl.section_title(section), "to": to}] if to else []
