@@ -96,7 +96,7 @@ Per question, the owners choose **accept / reword / drop / split / add** and mar
 - **Add** by DOI, arXiv id, PubMed id or title. The server resolves the identifier (§5.5) and shows the registry's own title, authors, year and abstract so the owner confirms the *right* paper. This is the lesson in `ENGINE_ONBOARDING.md` §6 ("relay full titles and identifiers, not author names"): the form never accepts an author name as a seed.
 - Per seed, the question(s) it belongs to (`tdap-q1`, ...). Seeds are never auto-promoted into `research_focus.json`; the seed set stays a separate, deliberate step (the existing design in `researcher_cited_intake.py`).
 - **Anchor authors (v2).** For an owner who is an anchor author of a question (the advisor, for tdap-q1), the form offers that author's other relevant works as *candidate seeds*, found through an OpenAlex author lookup (§3.6). Candidates are suggestions only: nothing is a seed until the owner confirms it item by item. **Decided by Gary 2026-10-20: this lookup is v2.** In v1 the advisor adds his own relevant papers as seeds by identifier, with the same add-by-DOI lookup above.
-- Output files: `docs/seed_papers.md` and a seed CSV (`doi,question_ids[,title,arxiv_id,admit_policy]`, the format `citation_expansion_pilot.py --seed-doi-file` already reads).
+- Output files: `docs/seed_papers.md` and a seed CSV (`docs/seeds.csv` in the real repo: `doi,question_ids,title,arxiv_id,admit_policy,status`; the confirmation sets `status`; the format `citation_expansion_pilot.py --seed-doi-file` already reads).
 
 ### 2.5 Optional engine-specific review queue
 - A list of candidate papers an engine wants judged (TDAP's hold list). Per paper: **keep / drop / unsure**, a comment, the abstract displayed, filters (by group, by flag, by unresolved), bulk marking of a filtered selection, and a "flagged by reviewer as likely keep" marker.
@@ -200,15 +200,14 @@ stateDiagram-v2
     draft --> final: Mark final (final-say holder, or a delegate for that section)
     final --> draft: any edit by any owner (re-opens; recorded)
     final --> approved: Gary approves
-    final --> rejected: Gary rejects with a note
-    rejected --> draft: owners revise
+    final --> draft: Gary sends back with a note (the note is shown to the owners until the section is next marked final)
     approved --> draft: any later edit starts a new revision
     approved --> [*]
 ```
 - **draft.** Both owners edit freely.
 - **final.** Set on a *section* by the `final_say` holder or by a delegate for that section (§3.2). A final section is read-only until it is re-opened; **any edit by any owner re-opens it to draft** and notifies the `final_say` owner, because a section must not stay "final" with content the advisor has not seen.
-- **approved.** Set by Gary. Approval is of a specific section revision and its content hash; an approved section is frozen. A later edit creates a new revision in draft; the old approved revision remains in the history and in any bundle already exported.
-- **rejected.** Gary's note is shown to the owners; the section returns to draft.
+- **approved.** Set by Gary. Approval is of a specific section revision and its content hash; **the approval request must carry the revision and the content hash the reviewer was looking at, and is refused with 409 if either differs** (the revision number alone does not change when an owner re-opens a final section and marks it final again with different content, so the hash is the guard; decided 2026-11-09). An approved section is frozen. A later edit creates a new revision in draft; the old approved revision remains in the history and in any bundle already exported.
+- **sent back** (there is no separate "rejected" state; decided by Gary 2026-11-09). Gary's note, required, is stored on the section and shown to the owners at the top of the section and on the engine page; the section returns **straight to draft**, and the note stays until the section is next marked final. Approve and send back both notify every active owner of the engine by email, each respecting their own switch; the email never contains the note.
 - Gary cannot edit an owner's answer. He can only approve, reject, comment, or export.
 - **Gary never overrides the final-say owner** (decided 2026-10-20). There is no route by which an admin marks a section final; an admin calling a final route receives 404.
 - **"Ready"** means every item in the section is answered and no item has an open disagreement. A section that is not ready cannot be marked final.
@@ -278,7 +277,7 @@ Written only by the service. No collection holds a raw email address.
 | `onboarding_members` · `engine_id__subscriber_id` | `role` (`owner`), `final_say` (bool, exclusive per engine), `consent` {naming, licence, lookups, version, at}, `joined_at`, `status` | membership; the account stays a normal subscriber |
 | `onboarding_delegations` · `delegation_id` | `engine_id`, `from_subscriber_id` (the final-say holder), `to_subscriber_id` (another owner), `scope` (`all`, or a list of section keys), `created_at`, `revoked_at`, `revoked_by` | revocable; never transitive; an admin cannot create one |
 | `onboarding_invites` · `invite_id` | `engine_id`, `email_sha256` (of the normalised address), `roles`, `final_say`, `can_generate`, `monthly_quota`, `token_hash`, `expires_at`, `created_by`, `created_at`, `used_at`, `used_by_subscriber_id` | single use; neither the token nor the address is stored |
-| `onboarding_sections` · `engine_id__section` | `status` (`draft`, `final`, `approved`, `rejected`), `revision`, `content_sha256`, `final_by`, `final_via_delegation` (bool), `final_at`, `approved_at`, `approver_note`, `reopened_by`, `updated_at` | the gate state |
+| `onboarding_sections` · `engine_id__section` | `status` (`draft`, `final`, `approved`), `rejection_note`, `rejected_at`, `approved_revision`, `approved_content_sha256`, `revision`, `content_sha256`, `final_by`, `final_via_delegation` (bool), `final_at`, `approved_at`, `approver_note`, `reopened_by`, `updated_at` | the gate state |
 | `onboarding_items` · `engine_id__section__item_id` | `type`, `value`, `revision`, `author_subscriber_id`, `updated_at`, `choice`, `comment_count`, `history` (capped list of {revision, value_sha256, author, at}) | one answer; full prior values in the audit log |
 | `onboarding_comments` · `comment_id` | `engine_id`, `item_id`, `thread_id`, `author_subscriber_id`, `author_role`, `body`, `created_at`, `resolved` | plain text |
 | `onboarding_biblio` · `entry_id` | `engine_id`, `owner_subscriber_id`, `source_format`, `raw_ref` (size-capped), `resolved_id`, `not_yet_public` (default true), `published_ok`, `created_at` | **owner-private**; never read by another member |
@@ -335,7 +334,7 @@ It can write `onboarding_*` Firestore documents and objects in a private bucket 
 | Scope and use case | `README.md` scope paragraph | none |
 | Research questions | `docs/research_focus.json` (`active_questions`) | update `config/engine_registry.py` tags and the status job's question ids if an id was added or retired |
 | Keywords and horizons | `docs/research_focus.json` | none |
-| Seed papers | `docs/seed_papers.md`, `docs/seed_papers.csv` | seed intake, then gated expansion, then embedding |
+| Seed papers | `docs/seed_papers.md` (a generated, marker-delimited confirmation block; the rest is left alone) and `docs/seeds.csv` (**the name and columns of the real `tdap` repo at `b384da6`: `doi,question_ids,title,arxiv_id,admit_policy,status`; supersedes the earlier `seed_papers.csv`**, 2026-11-09) | seed intake, then gated expansion, then embedding |
 | Review queue | `docs/hold_list.md` | ingest the *keep* set |
 | Bibliography | none (private) | none unless an entry is separately proposed as a seed |
 | Consent | `README.md` attribution line, per the owners' choice | none |

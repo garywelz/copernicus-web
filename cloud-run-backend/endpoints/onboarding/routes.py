@@ -10,6 +10,11 @@
   GET    /api/admin/onboarding/engines/{e}/diff?section=  admin key: the proposed output files for a final or approved section against the repository's main
   POST   /api/admin/onboarding/engines/{e}/sections/{s}/approve   admin key: approve a FINAL section at the revision and hash the reviewer saw
   POST   /api/admin/onboarding/engines/{e}/sections/{s}/reject    admin key: send a FINAL section back to DRAFT with a note
+  GET    /api/admin/onboarding/engines/{e}/bundles       admin key: the engine's bundles (status, checks, failed checks), newest first (PR 3b-2)
+  POST   /api/admin/onboarding/engines/{e}/bundles       admin key: create a bundle from the APPROVED sections (all of them, or the ones named)
+  GET    /api/admin/onboarding/engines/{e}/bundles/{b}   admin key: download the bundle JSON (attachment, no-store); a blocked or superseded bundle is refused
+  POST   /api/admin/onboarding/engines/{e}/bundles/{b}/merged      admin key: close a bundle with the merged pull request's URL; every active owner is told
+  POST   /api/admin/onboarding/engines/{e}/bundles/{b}/supersede   admin key: mark a bundle superseded because the repository's main moved on
 
 DEFAULT DENY: every route under /api/onboarding/engines/{engine_id}/... passes through `engine_gate`, which resolves the caller to a membership of that engine
 or to the admin before any handler runs. Anyone else (signed in or not, member of another engine or none, engine real or invented) gets the same 404.
@@ -18,13 +23,14 @@ The accept route is the one exception; it is not an engine route and answers one
 import asyncio
 from typing import Any, List, Optional
 
-from fastapi import APIRouter, Depends, Header, HTTPException, Query, Request
+from fastapi import APIRouter, Depends, Header, HTTPException, Query, Request, Response
 from pydantic import BaseModel, Field, StrictBool, StrictInt
 
 from config.constants import ADMIN_SUBSCRIBER_EMAIL
 from config.database import db
 from email_service import EmailService
 from utils import onboarding as ob
+from utils import onboarding_bundle as bundles
 from utils import onboarding_form as form
 from utils import onboarding_gates as gates
 from utils import onboarding_review as review
@@ -155,7 +161,7 @@ async def get_engine(engine_id: str, caller: dict = Depends(engine_gate)):
             "role": m.get("role") if member else "admin", "final_say": bool(m.get("final_say")) if member else False,
             **(gates.authority_view(db, engine_id, e, caller["subscriber_id"]) if member else {"can_mark_final": False, "may_mark": []}),
             "notifications_email": (m.get("notifications_email", True) is not False) if member else None,
-            "template_version": tpl.TEMPLATE_VERSION, "progress": form.get_progress(db, engine_id, _viewer(caller))}
+            "template_version": tpl.TEMPLATE_VERSION, "progress": form.get_progress(db, engine_id, _viewer(caller)), "bundles": bundles.owner_view(db, engine_id)}
 
 
 @engine_router.get("/sections/{section_key}")
@@ -572,3 +578,87 @@ async def admin_approve(engine_id: str, section_key: str, body: DecisionIn, requ
 async def admin_reject(engine_id: str, section_key: str, body: DecisionIn, request: Request, _size: None = Depends(limit_body)):
     """Send a FINAL section back to DRAFT. The note is required; the owners see it until the section is next marked final."""
     return await _decide(engine_id, section_key, "reject", body, request)
+
+
+# ---- admin: the change bundle (PR 3b-2) ------------------------------------------------------------------------------------------------------------------
+class BundleIn(BaseModel):
+    sections: Optional[List[str]] = Field(None, max_length=len(tpl.SECTION_KEYS))       # omitted: every approved section
+
+
+class MergedIn(BaseModel):
+    pr_url: str = Field(..., min_length=10, max_length=200)
+
+
+@router.get("/api/admin/onboarding/engines/{engine_id}/bundles", dependencies=[Depends(admin_only)])
+async def admin_list_bundles(engine_id: str, request: Request):
+    _valid_engine(engine_id)
+    _admin_limit(request, "onboarding_review_read", ADMIN_REVIEW_LIMIT_PER_HOUR)
+    try:
+        return {"bundles": bundles.list_bundles(db, engine_id)}
+    except form.FormError as e:
+        raise _fail(e)
+
+
+@router.post("/api/admin/onboarding/engines/{engine_id}/bundles", dependencies=[Depends(admin_only)])
+async def admin_create_bundle(engine_id: str, body: BundleIn, request: Request, _size: None = Depends(limit_body)):
+    """Build a bundle from APPROVED revisions only. A bundle with a failed check is stored as `blocked` (the response says which check failed); it is not an error."""
+    _valid_engine(engine_id)
+    _admin_limit(request, "onboarding_bundle_create", ADMIN_DECISION_LIMIT_PER_HOUR)
+    ip, rid = _trace(request)
+    try:
+        return await asyncio.to_thread(bundles.create_bundle, db=db, engine_id=engine_id, wanted=body.sections, ip_hash=ip, request_id=rid)
+    except form.FormError as e:
+        raise _fail(e)
+    except Exception as e:
+        structured_logger.error("Bundle could not be created", error_type=type(e).__name__)
+        raise HTTPException(status_code=500, detail="The bundle could not be created. Nothing was changed.")
+
+
+@router.get("/api/admin/onboarding/engines/{engine_id}/bundles/{bundle_id}", dependencies=[Depends(admin_only)])
+async def admin_download_bundle(engine_id: str, bundle_id: str, request: Request):
+    """The bundle JSON as a download. A blocked bundle is 409 (it cannot be downloaded as ready)."""
+    _valid_engine(engine_id)
+    _admin_limit(request, "onboarding_review_read", ADMIN_REVIEW_LIMIT_PER_HOUR)
+    ip, rid = _trace(request)
+    try:
+        data = await asyncio.to_thread(bundles.download, db, engine_id=engine_id, bundle_id=bundle_id, ip_hash=ip, request_id=rid)
+    except form.FormError as e:
+        raise _fail(e)
+    return Response(content=data, media_type="application/json", headers={"Content-Disposition": f'attachment; filename="bundle-{engine_id}-{bundle_id[:8]}.json"',
+                                                                             "Cache-Control": "no-store", "X-Content-Type-Options": "nosniff"})
+
+
+@router.post("/api/admin/onboarding/engines/{engine_id}/bundles/{bundle_id}/merged", dependencies=[Depends(admin_only)])
+async def admin_bundle_merged(engine_id: str, bundle_id: str, body: MergedIn, request: Request):
+    """Close a bundle with the URL of the merged pull request (must be https://github.com/<the engine's repository>/pull/<n>). Every active owner is told that the
+    approved changes were merged (no content)."""
+    _valid_engine(engine_id)
+    _admin_limit(request, "onboarding_review_decide", ADMIN_DECISION_LIMIT_PER_HOUR)
+    ip, rid = _trace(request)
+    try:
+        out = await asyncio.to_thread(bundles.mark_merged, db, engine_id=engine_id, bundle_id=bundle_id, pr_url=body.pr_url, ip_hash=ip, request_id=rid)
+    except form.FormError as e:
+        raise _fail(e)
+    sent = 0
+    try:
+        engine_label = form._engine(db, engine_id).get("label") or engine_id
+        for address in review.owner_addresses(db, engine_id):
+            try:
+                if await asyncio.wait_for(email_service.send_onboarding_notice(address, "bundle_merged", engine_label, None, f"{ENGINE_PAGE_URL}?engine={engine_id}"), NOTICE_TIMEOUT_SECONDS):
+                    sent += 1
+            except Exception as e:
+                structured_logger.error("Onboarding notice could not be sent", error_type=type(e).__name__)
+    except Exception as e:
+        structured_logger.error("Onboarding merge notice could not be planned", error_type=type(e).__name__)
+    return {**out, "mail_sent": sent}
+
+
+@router.post("/api/admin/onboarding/engines/{engine_id}/bundles/{bundle_id}/supersede", dependencies=[Depends(admin_only)])
+async def admin_bundle_supersede(engine_id: str, bundle_id: str, request: Request):
+    _valid_engine(engine_id)
+    _admin_limit(request, "onboarding_review_decide", ADMIN_DECISION_LIMIT_PER_HOUR)
+    ip, rid = _trace(request)
+    try:
+        return await asyncio.to_thread(bundles.supersede, db, engine_id=engine_id, bundle_id=bundle_id, ip_hash=ip, request_id=rid)
+    except form.FormError as e:
+        raise _fail(e)

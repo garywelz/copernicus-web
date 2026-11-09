@@ -285,6 +285,9 @@ class EmailService:
                 subject = f"{section} was edited and is open again ({label} on {SITE_NAME})"
                 line = (f'The section "{section}" of the {label} engine was marked final or approved, and an owner has since edited it, so it is open again. '
                         "It needs your final mark again before it can go any further.")
+            elif kind == "bundle_merged":
+                subject = f"Approved changes were merged ({label} on {SITE_NAME})"
+                line = f"The changes to the {label} engine that you and the reviewer approved were merged into its repository."
             elif kind == "approved":
                 subject = f"{section} was approved ({label} on {SITE_NAME})"
                 line = f'The section "{section}" of the {label} engine was approved.'
