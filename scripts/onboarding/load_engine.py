@@ -19,6 +19,9 @@ WRITES (only with --apply and the typed approval line; one Firestore transaction
   onboarding_engines     .source = {repo, commit_sha, loaded_at}  (the engine record must already exist)
   onboarding_events      one `engine_load` event (a no-change re-run writes nothing at all, not even this)
 
+LIMITS: a plan of more than 450 writes (creates + updates + the engine update + the event) is refused with exit 1 and nothing written (Firestore allows 500 per
+transaction). A hold-list bullet without ' -- ' is skipped, never silently: the count and the first 60 characters of each are printed.
+
 EVERY ENTRY GETS A DOCUMENT, OR THE LOAD FAILS: an entry the loader silently skipped would be dropped from the next bundle (the mute-list lesson). Seeds are keyed by
 identifier (doi:, then arxiv:, then pmid:), never by author name.
 
@@ -63,6 +66,7 @@ ITEMS, CANDIDATES, ENGINES, EVENTS, BUNDLES = "onboarding_items", "onboarding_ca
 OPEN_BUNDLE_STATUSES = ("created", "exported")
 MAX_ENTRIES = 2000                       # design 9: 2,000 entries per file
 MAX_QUESTIONS = 30
+WRITE_LIMIT = 450                        # Firestore allows 500 writes in a transaction; the loader refuses a plan over 450 and leaves the margin
 HTML_RE = re.compile(r"<\s*/?\s*[A-Za-z!?]|javascript\s*:|vbscript\s*:|data\s*:\s*text/html", re.I)
 CONTROL_RE = re.compile(r"[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]")
 DOI_RE = re.compile(r"^10\.\d{4,9}/\S+$")
@@ -324,12 +328,17 @@ def parse_seeds(csv_text, papers_text, question_ids):
 
 
 def parse_hold(text):
-    candidates, seen, group = [], {}, None
+    """(candidates, skipped): `skipped` is every "- " bullet without " -- " (legend and notes, not papers); they are skipped but REPORTED, so a paper written in a
+    different shape cannot vanish without being seen."""
+    candidates, seen, group, skipped = [], {}, None, []
     for n, line in enumerate(text.split("\n"), start=1):
         if line.startswith("#"):
             group = value_text(line.lstrip("#"), 200, f"{FILES['hold']} line {n} heading", required=False)
             continue
-        if not line.startswith("- ") or " -- " not in line:
+        if line.startswith("- ") and " -- " not in line:
+            skipped.append(CONTROL_RE.sub(" ", line)[:60])
+            continue
+        if not line.startswith("- "):
             continue
         where = f"{FILES['hold']} line {n}"
         m = HOLD_ENTRY_RE.match(line)
@@ -353,15 +362,16 @@ def parse_hold(text):
         candidates.append({"key": key, "identifiers": found, "flags": flags})
         if len(candidates) > MAX_ENTRIES:
             raise Refused(f"{FILES['hold']}: more than {MAX_ENTRIES} entries")
-    return candidates
+    return candidates, skipped
 
 
 def build_plan(engine_id, texts):
     items, qids = parse_focus(texts["focus"])
     seed_items, notes = parse_seeds(texts["seeds"], texts["papers"], qids)
     items += seed_items
-    cands = []
-    for c in (parse_hold(texts["hold"]) if texts["hold"] is not None else []):
+    cands, skipped = [], []
+    found, skipped = parse_hold(texts["hold"]) if texts["hold"] is not None else ([], [])
+    for c in found:
         doc = {"candidate_id": f"{engine_id}__{hashlib.sha256(c['key'].encode('utf-8')).hexdigest()[:12]}", "engine_id": engine_id, "origin": "hold_list",
                "identifier": c["key"], "identifiers": c["identifiers"], "registry_record": None, "abstract": None, "decision": None, "question_ids": [], "flags": c["flags"]}
         doc["source_sha256"] = sha({k: doc[k] for k in ("identifier", "identifiers", "flags")})
@@ -369,7 +379,7 @@ def build_plan(engine_id, texts):
     ids = [i["item_id"] for i in items]
     if len(ids) != len(set(ids)):
         raise Refused("two entries produced the same item id: " + ", ".join(sorted({i for i in ids if ids.count(i) > 1})))
-    return {"items": items, "candidates": cands, "notes": notes}
+    return {"items": items, "candidates": cands, "notes": notes, "skipped_hold": skipped if texts["hold"] is not None else None}
 
 
 # ---- comparing with what is stored ----------------------------------------------------------------------------------------------------------------
@@ -511,6 +521,10 @@ def main(argv=None, db=None, now=None, out=print):
         out(f"{'APPLY' if args.apply else 'DRY RUN'}: engine {eid}, {args.repo}@{args.commit[:12]}")
         out(f"  read: " + ", ".join(f"{FILES[k]}{' (absent)' if texts[k] is None else ''}" for k in FILES))
         out(f"  plan: {c['questions']} questions, {c['keyword_entries']} keyword entries, {c['seeds']} seeds, {c['candidates']} hold-list candidates ({c['likely_keep']} likely keep)")
+        if plan["skipped_hold"] is not None:
+            out(f"  skipped {len(plan['skipped_hold'])} bullet lines in {FILES['hold']} (not papers)")
+            for s in plan["skipped_hold"]:
+                out(f"    {s}")
         for n in plan["notes"]:
             out(f"  note: {n}")
         if args.files_dir is None:
@@ -552,6 +566,11 @@ def main(argv=None, db=None, now=None, out=print):
             out(f"    BLOCKED: bundle {bid} is {status} on base {b}, not {args.commit[:12]}")
         if planned["conflict"] or blockers:
             out("  REFUSED: " + ("conflicts with owners' edits; " if planned["conflict"] else "") + ("open bundles on a different base; " if blockers else "") + "nothing was written")
+            return 1
+        total = len(planned["create"]) + len(planned["update"]) + 2                  # + the engine update + the event
+        out(f"  transaction: {total} writes (limit {WRITE_LIMIT})")
+        if total > WRITE_LIMIT:
+            out(f"  REFUSED: the plan has {total} writes, over the limit of {WRITE_LIMIT} (Firestore allows 500 per transaction); nothing was written")
             return 1
         if not args.apply:
             out("  nothing was written (dry run). To apply, Gary types the approval line:\n    " + line)

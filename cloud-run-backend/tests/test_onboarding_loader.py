@@ -376,3 +376,54 @@ def test_an_unreachable_host_is_exit_2_and_a_non_utf8_file_is_refused(web, capsy
 def test_the_loader_holds_nothing_engine_specific():
     src = (ROOT / "scripts" / "onboarding" / "load_engine.py").read_text(encoding="utf-8").lower()
     assert "tdap" not in src
+
+
+# ---- the transaction size limit and the skipped hold-list bullets ------------------------------------------------------------------------------------
+def hold_tree(tmp_path, papers, name="big"):
+    root = tree(tmp_path, name)
+    body = "# Big hold list\n\n## One group\n\n" + "".join(f"- Synthetic held paper {n:04d} -- `10.9998/big.{n:04d}`, top_cited_in_seed, cited_by=1\n" for n in range(papers))
+    (root / "docs" / "hold_list.md").write_text(body, encoding="utf-8")
+    return root
+
+
+def test_a_plan_over_the_write_limit_is_refused_and_one_at_the_limit_is_not(web, tmp_path, capsys):
+    # the fixture's 25 items + N candidates + the engine update + the event: N = 423 gives exactly 450, N = 424 gives 451
+    at_limit, over = hold_tree(tmp_path, 423, "at"), hold_tree(tmp_path, 424, "over")
+    web.set(SHA, at_limit)
+    db = engine_db()
+    code, out, _ = run(["--apply", "--approval", LINE], db, capsys)
+    assert code == 0 and "transaction: 450 writes (limit 450)" in out and len(db.data[le.CANDIDATES]) == 423
+    web.set(SHA, over)
+    db = engine_db()
+    before = snapshot(db)
+    for args in ([], ["--apply", "--approval", LINE]):
+        code, out, _ = run(args, db, capsys)
+        assert code == 1 and "REFUSED: the plan has 451 writes, over the limit of 450" in out and "nothing was written" in out
+        assert snapshot(db) == before and le.CANDIDATES not in db.data
+
+
+def test_skipped_hold_list_bullets_are_counted_and_shown(web, capsys):
+    web.set(SHA, FIXTURE)
+    db = engine_db()
+    for args in ([], ["--apply", "--approval", LINE]):
+        code, out, _ = run(args, db, capsys)
+        assert code == 0
+        assert "skipped 3 bullet lines in docs/hold_list.md (not papers)" in out
+        assert "    - `cited_by_2plus_seeds` — synthetic legend line" in out and "    - `cited_by=N` — synthetic legend line" in out
+        assert "    - `10.9998/held.001` — resolved: synthetic note" in out
+    assert len(db.data[le.CANDIDATES]) == 65                    # skipping them lost no paper
+
+
+def test_a_long_or_control_laden_skipped_line_is_cut_to_60_characters_and_cleaned(web, tmp_path, capsys):
+    root = edit(tmp_path, "docs/hold_list.md", lambda t: t.replace("- `cited_by=N`", "- \x1b[31m" + "x" * 100 + " `cited_by=N`"))
+    web.set(SHA, root)
+    _, out, _ = run([], engine_db(), capsys)
+    line = next(l for l in out.split("\n") if l.startswith("    - ") and "xxxx" in l)
+    assert len(line) == 4 + 60 and "\x1b" not in out
+
+
+def test_no_hold_list_means_no_skipped_report(web, tmp_path, capsys):
+    root = tree(tmp_path)
+    (root / "docs" / "hold_list.md").unlink()
+    web.set(SHA, root)
+    assert "skipped" not in run([], engine_db(), capsys)[1]
