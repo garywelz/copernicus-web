@@ -439,6 +439,84 @@ def add_entry(db, *, engine_id: str, subscriber_id: str, list_name: Any, text: A
     return ob._run_in_transaction(db, _add_entry_in, db, engine_id, subscriber_id, value, floor, now, ip_hash, request_id, outcome)
 
 
+# ---- adding a seed by identifier (PR 4b-1; design 2.4) ---------------------------------------------------------------------------------------------
+MAX_SEEDS = 200                 # every seed item of an engine, loaded or added
+CANDIDATES = "onboarding_candidates"
+
+
+def _seed_clash(db, engine_id: str, wanted: set) -> Optional[str]:
+    """'seed' if one of these identifiers already belongs to a seed of the engine, 'review' if it belongs to a paper in the review queue (the hold list), else None."""
+    for d in db.collection(ITEMS).where("engine_id", "==", engine_id).where("type", "==", "seed_confirm").stream():
+        ctx = (d.to_dict() or {}).get("context") or {}
+        if wanted & ({ctx.get("identifier")} | set((ctx.get("identifiers") or {}).values() if isinstance(ctx.get("identifiers"), dict) else [])):
+            return "seed"
+    for d in db.collection(CANDIDATES).where("engine_id", "==", engine_id).stream():
+        c = d.to_dict() or {}
+        if wanted & ({c.get("identifier")} | set((c.get("identifiers") or {}).values() if isinstance(c.get("identifiers"), dict) else [])):
+            return "review"
+    return None
+
+
+def _add_seed_in(transaction, db, engine_id, sid, item_id, context, count, now, ip_hash, request_id, outcome=None):
+    engine_ref = db.collection(ob.ENGINES).document(engine_id)
+    engine_snap = engine_ref.get(transaction=transaction)
+    if not engine_snap.exists:
+        raise FormError(404, "Not found")
+    if (engine_snap.to_dict() or {}).get("state") != "open":
+        raise FormError(409, "This engine is not open for edits")
+    ref = db.collection(ITEMS).document(item_key(engine_id, "seeds", item_id))
+    if ref.get(transaction=transaction).exists:
+        raise FormError(409, "This paper is already a seed of this engine")
+    sec_ref = _section_ref(db, engine_id, "seeds")
+    sec_snap = sec_ref.get(transaction=transaction)
+    sec = sec_snap.to_dict() if sec_snap.exists else {"engine_id": engine_id, "section": "seeds", "status": "draft", "revision": 1}
+    # All reads are done; writes follow. The seed starts UNANSWERED, exactly like a loaded one: revision 0, no choice, no author.
+    transaction.set(ref, {"engine_id": engine_id, "section": "seeds", "item_id": item_id, "type": "seed_confirm", "value": {"comment": ""}, "choice": None, "revision": 0,
+                          "author_subscriber_id": None, "updated_at": _iso(now), "comment_count": 0, "history": [], "context": context, "order": 1000 + count})
+    transaction.set(sec_ref, _reopened(sec, sid, now))
+    if outcome is not None:
+        outcome["reopened_from"] = sec.get("status", "draft")
+    ob._event(transaction, db, engine_id=engine_id, actor=sid, actor_role="owner", action="seed_add", target=item_id, before=None,
+              after={"identifier": context["identifier"], "question_ids": context["question_ids"]}, ip_hash=ip_hash, request_id=request_id, now=now,
+              extra={"section": "seeds", "item_id": item_id, "identifier": context["identifier"], "question_ids": context["question_ids"]})
+    if sec.get("status", "draft") != "draft":
+        ob._event(transaction, db, engine_id=engine_id, actor=sid, actor_role="owner", action="reopen", target="seeds", before={"status": sec.get("status")},
+                  after={"status": "draft"}, ip_hash=ip_hash, request_id=request_id, now=now, extra={"section": "seeds", "from_status": sec.get("status")})
+    return item_id
+
+
+def add_seed(db, *, engine_id: str, subscriber_id: str, record: dict, question_ids: Any, fetched_at: Optional[str] = None, now: Optional[datetime] = None,
+             ip_hash: Optional[str] = None, request_id: Optional[str] = None, outcome: Optional[dict] = None) -> str:
+    """Create a seed from a REGISTRY record (utils/onboarding_lookup.py), never from what a browser sent. The seed is keyed by its DOI, else its arXiv id (the two
+    columns docs/seeds.csv has); a record with only a PubMed id is refused. Its item id is the loader's formula, and it starts unanswered. Refused when the paper
+    is already a seed or is in the review queue, when a question id is not a live question of this engine, and past MAX_SEEDS."""
+    from utils import onboarding_ids as ids
+    now = now or ob._utcnow()
+    found = {k: v for k, v in (record.get("identifiers") or {}).items() if k in ("doi", "arxiv", "pmid") and isinstance(v, str) and v}
+    key = found.get("doi") or found.get("arxiv")
+    if not key:
+        raise FormError(409, "The registry gives this paper neither a DOI nor an arXiv id, and a seed needs one of the two. It was not added.")
+    if not isinstance(question_ids, list) or not question_ids or len(question_ids) > tpl.TERMS_MAX or len(set(question_ids)) != len(question_ids):
+        raise FormError(400, "Choose at least one research question this seed belongs to")
+    live = {i["item_id"] for i in _items_of(db, engine_id, "questions") if i.get("choice") not in ("drop", "split")}
+    if any(not isinstance(q, str) or q not in live for q in question_ids):
+        raise FormError(400, "A seed can belong only to a research question of this engine that has not been dropped or split")
+    _engine(db, engine_id)
+    seeds = [i for i in _items_of(db, engine_id, "seeds") if i.get("type") == "seed_confirm"]
+    if len(seeds) >= MAX_SEEDS:
+        raise FormError(409, f"This engine already has {MAX_SEEDS} seed papers")
+    clash = _seed_clash(db, engine_id, set(found.values()))
+    if clash == "seed":
+        raise FormError(409, "This paper is already a seed of this engine")
+    if clash == "review":
+        raise FormError(409, "This paper is already in this engine's review queue. Decide it there instead of adding it as a seed.")
+    title = record.get("title") or ""
+    context = {"identifier": key, "identifiers": found, "question_ids": list(question_ids), "title": title, "citation": title, "admit_policy": "", "status_in_repo": None,
+               "reference_source": None, "added": True, "added_by": "owner",
+               "registry": {"authors": list(record.get("authors") or []), "year": record.get("year"), "sources": dict(record.get("sources") or {}), "fetched_at": fetched_at}}
+    return ob._run_in_transaction(db, _add_seed_in, db, engine_id, subscriber_id, ids.seed_item_id(key), context, len(seeds), now, ip_hash, request_id, outcome)
+
+
 # ---- comments ----------------------------------------------------------------------------------------------------------------------------------
 def _add_comment_in(transaction, db, engine_id, section, item_id, comment_id, doc, viewer_actor, now, ip_hash, request_id):
     item_ref = db.collection(ITEMS).document(item_key(engine_id, section, item_id))

@@ -591,5 +591,15 @@ def main(argv=None, db=None, now=None, out=print):
         return 2
 
 
+def utf8_output():
+    """Write UTF-8 whatever the console's code page is (BULLETIN 042, F1). On Windows, with the output redirected to a file, Python writes in the code page: a dash
+    came out as a byte that is not UTF-8, and a character outside the code page would have stopped the run. Nothing is ever dropped: a character that still cannot
+    be written is shown as a backslash escape."""
+    for stream in (sys.stdout, sys.stderr):
+        if hasattr(stream, "reconfigure"):
+            stream.reconfigure(encoding="utf-8", errors="backslashreplace")
+
+
 if __name__ == "__main__":
+    utf8_output()
     sys.exit(main())

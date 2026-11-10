@@ -684,3 +684,147 @@ test('the engine page shows the status of approved changes read only, as text', 
   await settle();
   assert.strictEqual(none.$('bundleBox').hidden, true);
 });
+
+// ---- PR 4b-1: adding a seed by lookup, and the lookup-consent switch ----------------------------------------------------------------------------------
+const LOOKUP = '/api/onboarding/engines/eng-x/lookup', SEEDS = '/api/onboarding/engines/eng-x/seeds', CONSENT = '/api/onboarding/engines/eng-x/consent/lookups';
+const QUESTIONS = '/api/onboarding/engines/eng-x/sections/questions';
+const record = (o = {}) => Object.assign({ title: 'A synthetic paper', authors: ['Ada Example', 'Bo Sample'], year: 2021, abstract: 'An indexed abstract', identifiers: { doi: 'doi:10.9998/synthetic.001' },
+                                           sources: { title: 'crossref', authors: 'crossref', year: 'crossref', abstract: 'openalex' } }, o);
+const found = (results, over = {}) => ok(Object.assign({ query: { kind: 'doi', normalised: 'doi:10.9998/synthetic.001' }, state: 'found', message: '', results,
+                                                         checked: [{ name: 'Crossref', state: 'found' }], fetched_at: '2026-11-10T12:00:00+00:00', cached: false }, over));
+const questionItems = () => ok(sectionPayload([
+  item({ item_id: 'ex-q1', section: 'questions', type: 'question', context: { original_wording: 'Original one?' } }),
+  item({ item_id: 'ex-q2', section: 'questions', type: 'question', choice: 'drop', value: { reason: 'gone' }, revision: 1 }),
+  item({ item_id: 'ex-q3', section: 'questions', type: 'question', choice: 'reword', value: { wording: 'Reworded three?' }, revision: 1 }),
+], {}, 'questions'));
+function seedsPage(lookupAnswer, { consent = true, engine = {}, extra = null } = {}) {
+  return sectionPage('seeds', [], { engine: Object.assign({ lookups_consent: consent }, engine), extra: (m, p, b, state) => {
+    if (extra) { const r = extra(m, p, b, state); if (r) return r; }
+    if (m === 'POST' && p === LOOKUP) return typeof lookupAnswer === 'function' ? lookupAnswer(b) : lookupAnswer;
+    if (m === 'GET' && p === QUESTIONS) return questionItems();
+    return null;
+  } });
+}
+const adder = (page) => page.$('adders');
+const lookupBox = (page) => findAll(adder(page), (e) => e.tag === 'input' && e.attrs.type === 'text')[0];
+function lookUp(page, text) { lookupBox(page).value = text; button(adder(page), 'Look up').click(); }
+
+test('4b-1: a lookup shows the registry record beside what was typed, with where each field came from, and adds the seed by identifier', async () => {
+  const page = seedsPage(found([record()]), { extra: (m, p) => (m === 'POST' && p === SEEDS ? ok({ id: 'seed-abc', item: {} }) : null) });
+  await settle();
+  assert.strictEqual(page.calls.filter((c) => c.path === QUESTIONS || c.path === LOOKUP).length, 0, 'nothing is looked up until the owner asks');
+  lookUp(page, ' 10.9998/synthetic.001 ');
+  await settle();
+  assert.deepStrictEqual(posts(page)[0], { method: 'POST', path: LOOKUP, body: { query: '10.9998/synthetic.001' }, token: 'tok' });
+  const text = adder(page).textContent;
+  assert.match(text, /You entered: 10\.9998\/synthetic\.001/);
+  assert.match(text, /A synthetic paperTitle \(from Crossref\)/);
+  assert.match(text, /Authors: Ada Example, Bo Sample \(from Crossref\)/);
+  assert.match(text, /Year: 2021 \(from Crossref\)/);
+  assert.match(text, /Identifier: doi:10\.9998\/synthetic\.001/);
+  assert.match(text, /Abstract \(from OpenAlex\)An indexed abstract/);
+  assert.match(text, /Looked up .*This is the registry's record, not a decision/);
+  const boxes = findAll(adder(page), (e) => e.attrs.type === 'checkbox');
+  assert.deepStrictEqual(boxes.map((b) => b.attrs.value), ['ex-q1', 'ex-q3'], 'a dropped question is not offered');
+  assert.match(text, /ex-q1: Original one\?/);
+  assert.match(text, /ex-q3: Reworded three\?/);
+  button(adder(page), 'Add this paper as a seed').click();
+  await settle();
+  assert.strictEqual(posts(page).filter((c) => c.path === SEEDS).length, 0, 'no question chosen: nothing is sent');
+  assert.match(text.length ? adder(page).textContent : '', /Choose at least one research question/);
+  boxes[1].click();
+  button(adder(page), 'Add this paper as a seed').click();
+  await settle();
+  assert.deepStrictEqual(posts(page).filter((c) => c.path === SEEDS)[0].body, { identifier: 'doi:10.9998/synthetic.001', question_ids: ['ex-q3'] });
+  assert.match(adder(page).textContent, /Added\. It is in the list below, not yet answered\./);
+});
+
+test('4b-1: "not found" and "could not be completed" are shown in the server\'s own words, and the page never says a paper does not exist', async () => {
+  const notFound = 'Not found in Crossref, OpenAlex and Semantic Scholar just now. This does not mean the paper does not exist: please check what you entered, try its DOI or arXiv id, or try again later.';
+  const page = seedsPage(found([], { state: 'not_found', message: notFound }));
+  await settle();
+  lookUp(page, '10.9998/missing');
+  await settle();
+  assert.ok(adder(page).textContent.includes(notFound));
+  assert.strictEqual(findAll(adder(page), (e) => e.tag === 'button' && e.textContent === 'Add this paper as a seed').length, 0);
+  const down = seedsPage(found([], { state: 'unavailable', message: 'The lookup could not be completed just now (Crossref did not give a usable answer). This says nothing about the paper. Please try again in a few minutes.' }));
+  await settle();
+  lookUp(down, '10.9998/missing');
+  await settle();
+  assert.match(down.sandbox.document.getElementById('adders').textContent, /could not be completed just now/);
+  const js = require('fs').readFileSync(require('path').join(__dirname, '..', '..', 'public', 'onboarding', 'section.js'), 'utf8').toLowerCase();
+  for (const phrase of ['no such paper', 'does not exist', "doesn't exist"]) assert.ok(!js.includes(phrase), phrase);
+});
+
+test('4b-1: several possible matches for a title are each shown, none is chosen for the owner, and hostile registry text stays text', async () => {
+  const page = seedsPage(found([record({ title: HOSTILE, authors: [HOSTILE], abstract: HOSTILE }), record({ title: 'Second match', identifiers: { doi: 'doi:10.9998/m2' } })]));
+  await settle();
+  lookUp(page, 'A study of synthetic things');
+  await settle();
+  assert.match(adder(page).textContent, /Possible matches\. Choose the paper you mean/);
+  assert.strictEqual(findAll(adder(page), (e) => e.tag === 'button' && e.textContent === 'Add this paper as a seed').length, 2);
+  assert.strictEqual(findAll(adder(page), (e) => e.attrs.type === 'checkbox' && e.checked).length, 0);
+  assert.ok(adder(page).textContent.includes(HOSTILE));
+  noMarkupIn(page);
+});
+
+test('4b-1: with lookups off the page says nothing is sent, Look up is disabled, and the switch turns consent on and off', async () => {
+  let on = false;
+  const page = seedsPage(found([record()]), { consent: false, extra: (m, p, b, state) => {
+    if (m === 'PUT' && p === CONSENT) { on = b.lookups; state.engine.lookups_consent = on; return ok({ lookups: on, revision: 2 }); }
+    return null;
+  } });
+  await settle();
+  assert.match(adder(page).textContent, /Lookups are off: nothing you type here is sent to any outside service/);
+  assert.strictEqual(button(adder(page), 'Look up').disabled, true);
+  lookUp(page, '10.9998/synthetic.001');
+  await settle();
+  assert.strictEqual(page.calls.filter((c) => c.path === LOOKUP).length, 0, 'a disabled Look up sends nothing');
+  button(adder(page), 'Turn lookups on').click();
+  await settle();
+  assert.deepStrictEqual(puts(page)[0], { method: 'PUT', path: CONSENT, body: { lookups: true }, token: 'tok' });
+  assert.match(adder(page).textContent, /Lookups are on: what you type here is sent to Crossref, OpenAlex, arXiv and Semantic Scholar/);
+  assert.strictEqual(button(adder(page), 'Look up').disabled, false);
+  button(adder(page), 'Turn lookups off').click();
+  await settle();
+  assert.deepStrictEqual(puts(page)[1].body, { lookups: false });
+  assert.strictEqual(button(adder(page), 'Look up').disabled, true);
+});
+
+test('4b-1: a refusal from the server (no consent, a rate limit, a paper already a seed) is shown as its message; the reviewer sees no add-a-seed control', async () => {
+  const refused = seedsPage({ status: 409, data: { detail: { message: 'You have not agreed to lookups at public scholarly services, so nothing was looked up. You can turn lookups on below.', reason: 'lookup_consent' } } });
+  await settle();
+  lookUp(refused, '10.9998/synthetic.001');
+  await settle();
+  assert.match(adder(refused).textContent, /You have not agreed to lookups/);
+  const limited = seedsPage({ status: 429, data: { detail: 'Too many requests. Please try again later.' } });
+  await settle();
+  lookUp(limited, '10.9998/synthetic.001');
+  await settle();
+  assert.match(adder(limited).textContent, /Too many requests/);
+  const dup = seedsPage(found([record()]), { extra: (m, p) => (m === 'POST' && p === SEEDS ? { status: 409, data: { detail: 'This paper is already a seed of this engine' } } : null) });
+  await settle();
+  lookUp(dup, '10.9998/synthetic.001');
+  await settle();
+  findAll(adder(dup), (e) => e.attrs.type === 'checkbox')[0].click();
+  button(adder(dup), 'Add this paper as a seed').click();
+  await settle();
+  assert.match(adder(dup).textContent, /already a seed of this engine/);
+  const admin = seedsPage(found([record()]), { engine: { role: 'admin', lookups_consent: null } });
+  await settle();
+  assert.strictEqual(findAll(adder(admin), (e) => e.tag === 'button').length, 0);
+  const closed = seedsPage(found([record()]), { engine: { state: 'closed' } });
+  await settle();
+  assert.strictEqual(button(adder(closed), 'Look up').disabled, true);
+});
+
+test('4b-1: an added seed card shows the registry title, identifier, authors, year and its questions as text', async () => {
+  const seed = item({ item_id: 'seed-abc', section: 'seeds', type: 'seed_confirm', context: { citation: 'A synthetic paper', identifier: 'doi:10.9998/synthetic.001', added: true,
+                      question_ids: ['ex-q1', 'ex-q3'], registry: { authors: ['Ada Example', HOSTILE], year: 2021, sources: {} } } });
+  const page = sectionPage('seeds', [seed], { engine: { lookups_consent: true } });
+  await settle();
+  const text = card(page, 'seed-abc').textContent;
+  assert.match(text, /A synthetic paper\ndoi:10\.9998\/synthetic\.001\nAda Example, .* \(2021\)\nQuestions: ex-q1, ex-q3\nAdded by an owner\./);
+  assert.strictEqual(box(page, 'seed-abc', (e) => e.attrs.type === 'radio' && e.checked).length, 0, 'it starts unanswered');
+  noMarkupIn(page);
+});

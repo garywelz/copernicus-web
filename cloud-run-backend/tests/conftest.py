@@ -5,6 +5,32 @@ import pytest
 from unittest.mock import MagicMock, AsyncMock, patch
 from typing import Generator
 
+# ---- NO REAL FIRESTORE CLIENT IN THE TEST SUITE (onboarding PR 4b-1) ----------------------------------------------------------------------------------
+# config/database.py creates a Firestore client when it is first imported, and on a machine that is signed in to Google Cloud that client is REAL: it points at
+# the production database. No test ever read or wrote through it, but nothing stopped one from doing so. From here on the client classes are replaced, before any
+# test module is imported, by a stand-in that refuses to be created. config/database.py catches the refusal and leaves `db = None`, which is what it does on a
+# machine with no credentials; every test that needs a database already supplies a fake one. tests/test_no_real_firestore.py fails if this guard is removed.
+import google.cloud.firestore as _firestore
+import google.cloud.firestore_v1 as _firestore_v1
+
+REAL_FIRESTORE_CLASSES = (_firestore_v1.Client, _firestore_v1.AsyncClient)
+FIRESTORE_ATTEMPTS = []          # one entry per attempt to create a client during the run: the keyword arguments it was called with
+
+
+class RealFirestoreRefused(RuntimeError):
+    """Raised instead of creating a Firestore client inside the test suite."""
+
+
+class _NoRealFirestore:
+    def __init__(self, *args, **kwargs):
+        FIRESTORE_ATTEMPTS.append(dict(kwargs))
+        raise RealFirestoreRefused("the test suite must never create a real Firestore client; use a fake (tests/fakes_pr2.py)")
+
+
+for _module in (_firestore, _firestore_v1):
+    _module.Client = _NoRealFirestore
+    _module.AsyncClient = _NoRealFirestore
+
 
 @pytest.fixture
 def mock_db():

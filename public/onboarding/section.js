@@ -1,5 +1,6 @@
 /* The section editor (design 5.8): one card per item, autosaved one item at a time with the revision it was based on. A stale save (409) shows the current answer and
    offers a one-click merge. Provenance and history, comments with "disagree" and resolve, question add and split, keyword entry add, and Mark final.
+   Seeds (PR 4b-1): a paper is looked up BY THE SERVER (never from this page) and added by its identifier; the owner's lookup consent is shown and can be changed here.
    Text from the server or a person reaches the page only through textContent (see common.js). Short polling, no websockets. */
 (function () {
     'use strict';
@@ -7,7 +8,8 @@
     var DEBOUNCE_MS = 800, POLL_MS = 15000, LISTS = ['categories', 'horizons', 'mute', 'frontier', 'flagged'];
     var engine = OB.engineId(), key = OB.param('section');
     var base = '/api/onboarding/engines/' + engine;
-    var cards = {}, queue = [], busy = false, ctx = { open: true, mayMark: false, section: null }, addersBuilt = false;
+    var cards = {}, queue = [], busy = false, ctx = { open: true, mayMark: false, section: null, owner: false, lookups: false, showConsent: null }, addersBuilt = false;
+    var REGISTRY = { crossref: 'Crossref', openalex: 'OpenAlex', arxiv: 'arXiv', s2: 'Semantic Scholar' }, LOOKUP_CAP = 400;
 
     function say(text, isError) { OB.say($('msg'), text, isError); }
 
@@ -52,6 +54,11 @@
         if (c.original_wording) { lines.push('Original wording: ' + c.original_wording); }
         if (c.citation) { lines.push(c.citation); }
         if (c.identifier) { lines.push(String(c.identifier)); }
+        if (c.registry && typeof c.registry === 'object') {
+            var who = Array.isArray(c.registry.authors) ? c.registry.authors.join(', ') : '';
+            if (who || c.registry.year) { lines.push((who || 'Authors not given') + (c.registry.year ? ' (' + c.registry.year + ')' : '')); }
+        }
+        if (Array.isArray(c.question_ids) && c.question_ids.length) { lines.push('Questions: ' + c.question_ids.join(', ')); }
         if (c.added) { lines.push('Added by an owner.'); }
         if (c.split_from) { lines.push('Split from ' + c.split_from + '.'); }
         return lines.length ? h('div', { class: 'context', text: lines.join('\n') }) : null;
@@ -430,6 +437,85 @@
             });
             box.appendChild(h('details', {}, [h('summary', { text: 'Add a keyword, horizon or mute entry' }), h('label', { text: 'List' }), sel, h('label', { text: 'Entry' }), t, add, res]));
         }
+        if (key === 'seeds' && ctx.owner) { box.appendChild(seedAdder()); }
+    }
+
+    // ---- adding a seed: the server looks the paper up; the owner confirms it is the right one (PR 4b-1) -----------------------------------------------------
+    function fromRegistry(rec, field) {
+        var src = rec.sources && rec.sources[field];
+        return src ? ' (from ' + (REGISTRY[src] || 'a registry') + ')' : '';
+    }
+
+    function resultCard(rec, data, typed, questions) {
+        var known = rec.identifiers || {}, id = known.doi || known.arxiv || known.pmid || '';
+        var authors = Array.isArray(rec.authors) && rec.authors.length ? rec.authors.join(', ') : 'not given';
+        var boxes = questions.map(function (q) {
+            var cb = h('input', { type: 'checkbox', value: q.item_id });
+            return { cb: cb, el: h('label', { class: 'choice' }, [cb, ' ' + q.item_id + (q.value && q.value.wording ? ': ' + q.value.wording : (q.context && q.context.original_wording ? ': ' + q.context.original_wording : ''))]) };
+        });
+        var add = h('button', { class: 'small primary', type: 'button', text: 'Add this paper as a seed' }), out = h('span', { class: 'note' });
+        add.disabled = !ctx.open || !id || !boxes.length;
+        add.addEventListener('click', function () {
+            var picked = boxes.filter(function (b) { return b.cb.checked; }).map(function (b) { return b.cb.value; });
+            if (!picked.length) { out.textContent = 'Choose at least one research question this seed belongs to.'; return; }
+            add.disabled = true;
+            OB.call('POST', base + '/seeds', { identifier: id, question_ids: picked }).then(function (r) {
+                add.disabled = false;
+                if (r.ok) { out.textContent = 'Added. It is in the list below, not yet answered.'; load(); } else { out.textContent = OB.problem(r); }
+            }).catch(function () { add.disabled = false; out.textContent = 'Network error. Please try again.'; });
+        });
+        return h('div', { class: 'card' }, [
+            h('div', { class: 'context', text: 'You entered: ' + typed }),
+            h('div', {}, [h('strong', { text: rec.title || '' })]),
+            h('div', { class: 'note', text: 'Title' + fromRegistry(rec, 'title') }),
+            h('div', { text: 'Authors: ' + authors + fromRegistry(rec, 'authors') }),
+            h('div', { text: 'Year: ' + (rec.year || 'not given') + fromRegistry(rec, 'year') }),
+            h('div', { text: 'Identifier: ' + (id || 'none') }),
+            h('details', {}, [h('summary', { text: 'Abstract' + fromRegistry(rec, 'abstract') }), h('p', { text: rec.abstract || 'The registries gave no abstract for this paper.' })]),
+            h('div', { class: 'note', text: 'Looked up ' + OB.when(data.fetched_at) + (data.cached ? ' (kept from an earlier lookup)' : '') + '. This is the registry\'s record, not a decision: check it is the paper you mean.' }),
+            boxes.length ? h('div', {}, [h('label', { text: 'Which research question(s) does it belong to?' })].concat(boxes.map(function (b) { return b.el; })))
+                : h('div', { class: 'note', text: 'The research questions could not be loaded, and a seed must belong to one. Please try again.' }),
+            add, out
+        ]);
+    }
+
+    function seedAdder() {
+        var q = h('input', { type: 'text', maxlength: LOOKUP_CAP }), go = h('button', { type: 'button', text: 'Look up' });
+        var out = h('p', { class: 'note', role: 'status' }), results = h('div', {});
+        var consentLine = h('span', { class: 'note' }), consentBtn = h('button', { class: 'small', type: 'button' });
+        ctx.showConsent = function () {
+            consentLine.textContent = ctx.lookups
+                ? 'Lookups are on: what you type here is sent to Crossref, OpenAlex, arXiv and Semantic Scholar to find the paper. '
+                : 'Lookups are off: nothing you type here is sent to any outside service, so no paper can be looked up or added. ';
+            consentBtn.textContent = ctx.lookups ? 'Turn lookups off' : 'Turn lookups on';
+            go.disabled = !(ctx.lookups && ctx.open);
+        };
+        consentBtn.addEventListener('click', function () {
+            consentBtn.disabled = true;
+            OB.call('PUT', base + '/consent/lookups', { lookups: !ctx.lookups }).then(function (r) {
+                consentBtn.disabled = false;
+                if (r.ok) { ctx.lookups = !!r.data.lookups; ctx.showConsent(); out.textContent = ''; } else { out.textContent = OB.problem(r); }
+            }).catch(function () { consentBtn.disabled = false; out.textContent = 'Network error. Please try again.'; });
+        });
+        go.addEventListener('click', function () {
+            var typed = q.value.trim();
+            if (!typed) { return; }
+            go.disabled = true;
+            OB.clear(results);
+            out.textContent = 'Looking it up...';
+            Promise.all([OB.call('POST', base + '/lookup', { query: typed }), OB.call('GET', base + '/sections/questions')]).then(function (r) {
+                ctx.showConsent();
+                if (!r[0].ok) { out.textContent = OB.problem(r[0]); return; }
+                var d = r[0].data, found = Array.isArray(d.results) ? d.results : [];
+                var questions = r[1].ok && Array.isArray(r[1].data.items) ? r[1].data.items.filter(function (it) { return it.type === 'question' && it.choice !== 'drop' && it.choice !== 'split'; }) : [];
+                out.textContent = d.state === 'found' ? (found.length > 1 ? 'Possible matches. Choose the paper you mean, or look it up by its DOI.' : 'Check that this is the paper you mean.') : String(d.message || '');
+                found.forEach(function (rec) { results.appendChild(resultCard(rec, d, typed, questions)); });
+            }).catch(function () { ctx.showConsent(); out.textContent = 'Network error. Please try again.'; });
+        });
+        ctx.showConsent();
+        return h('details', {}, [h('summary', { text: 'Add a seed paper' }),
+            h('p', { class: 'note', text: 'Enter a DOI, an arXiv id, a PubMed id (as pmid:12345) or the full title. An author\'s name is not accepted: a seed is always a specific paper.' }),
+            h('p', {}, [consentLine, consentBtn]), h('label', { text: 'DOI, arXiv id, PubMed id or title' }), q, go, out, results]);
     }
 
     // ---- loading, marking final, starting ---------------------------------------------------------------------------------------------------------------
@@ -440,6 +526,9 @@
             ctx.open = r[0].data.state === 'open';
             ctx.mayMark = !!(r[0].data.may_mark && r[0].data.may_mark.indexOf(key) !== -1);
             ctx.section = r[1].data.section;
+            ctx.owner = r[0].data.role === 'owner';
+            ctx.lookups = r[0].data.lookups_consent === true;
+            if (ctx.showConsent) { ctx.showConsent(); }
             $('back').setAttribute('href', 'engine.html?engine=' + encodeURIComponent(engine));
             renderHeader();
             buildAdders();
