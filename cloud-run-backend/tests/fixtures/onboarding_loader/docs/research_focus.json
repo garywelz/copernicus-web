@@ -1,0 +1,65 @@
+{
+  "project": "Synthetic demo engine",
+  "updated": "2026-01-01",
+  "provisional_questions": {
+    "note": "synthetic",
+    "placeholders_note": "synthetic",
+    "ids": [
+      "demo-q1",
+      "demo-q2",
+      "demo-q3"
+    ]
+  },
+  "active_questions": [
+    {
+      "id": "demo-q1",
+      "q": "Synthetic research question number 1?",
+      "since": "2026-01-01",
+      "terms": [
+        "synthetic term 1a",
+        "synthetic term 1b",
+        "synthetic term 1c"
+      ]
+    },
+    {
+      "id": "demo-q2",
+      "q": "Synthetic research question number 2?",
+      "since": "2026-01-01",
+      "terms": [
+        "synthetic term 2a",
+        "synthetic term 2b",
+        "synthetic term 2c"
+      ]
+    },
+    {
+      "id": "demo-q3",
+      "q": "Synthetic research question number 3?",
+      "since": "2026-01-01",
+      "terms": [
+        "synthetic term 3a",
+        "synthetic term 3b",
+        "synthetic term 3c"
+      ]
+    }
+  ],
+  "frontier": [],
+  "flagged": [],
+  "categories": [
+    "demo.AA",
+    "demo.BB",
+    "demo.CC",
+    "demo.DD"
+  ],
+  "horizons": [
+    "synthetic horizon one",
+    "synthetic horizon two",
+    "synthetic horizon three",
+    "synthetic horizon four"
+  ],
+  "mute": [
+    "synthetic muted topic one",
+    "synthetic muted topic two",
+    "synthetic muted topic three",
+    "synthetic muted topic four"
+  ]
+}
