@@ -318,7 +318,8 @@ def test_section_view_lists_items_in_order_with_context_and_unknown_sections_are
 # ---- default deny: no route without a session; an owner of X gets 404 on Y -----------------------------------------------------------------------------
 BODIES = {"PUT": {"value": "x", "choice": None, "base_revision": 0}, "POST": {"body": "x", "kind": "comment"}}
 BODY_BY_SUFFIX = {"/entries": {"list": "mute", "text": "noise"}, "/questions": {"action": "add", "questions": [{"wording": "W?", "centrality": "central"}]}, "/delegations": {"to": "other_owner", "scope": "all"},
-                  "/notifications": {"email": False}, "/final": None, "/final-all": None, "/resolve": None}
+                  "/notifications": {"email": False}, "/final": None, "/final-all": None, "/resolve": None,
+                  "/lookup": {"query": "10.9998/synthetic.001"}, "/seeds": {"identifier": "10.9998/synthetic.001", "question_ids": ["ex-q1"]}, "/consent/lookups": {"lookups": True}}
 
 
 def engine_routes(env):
@@ -351,7 +352,9 @@ def test_the_engine_routes_are_exactly_these(env):
         ("POST", "/api/onboarding/engines/{engine_id}/comments/{comment_id}/resolve"), ("POST", "/api/onboarding/engines/{engine_id}/questions"),
         ("POST", "/api/onboarding/engines/{engine_id}/entries"), ("POST", "/api/onboarding/engines/{engine_id}/sections/{section_key}/final"), ("POST", "/api/onboarding/engines/{engine_id}/sections/final-all"),
         ("GET", "/api/onboarding/engines/{engine_id}/delegations"), ("PUT", "/api/onboarding/engines/{engine_id}/delegations"),
-        ("DELETE", "/api/onboarding/engines/{engine_id}/delegations/{delegation_id}"), ("PUT", "/api/onboarding/engines/{engine_id}/notifications")])
+        ("DELETE", "/api/onboarding/engines/{engine_id}/delegations/{delegation_id}"), ("PUT", "/api/onboarding/engines/{engine_id}/notifications"),
+        ("POST", "/api/onboarding/engines/{engine_id}/lookup"), ("POST", "/api/onboarding/engines/{engine_id}/seeds"),          # PR 4b-1
+        ("PUT", "/api/onboarding/engines/{engine_id}/consent/lookups")])
 
 
 def test_no_route_is_reachable_without_a_session_and_a_stranger_gets_the_same_404(env):

@@ -164,7 +164,8 @@ def test_every_request_the_pages_make_is_a_real_route_with_the_fields_the_backen
     table = {(m, r.path.replace("/api/onboarding/engines/{engine_id}", "")) for r in walk(app.routes) if r.path.startswith("/api/onboarding/engines/") for m in r.methods}
     used = [("GET", ""), ("GET", "/delegations"), ("POST", "/sections/final-all"), ("PUT", "/delegations"), ("DELETE", "/delegations/{delegation_id}"), ("PUT", "/notifications"),
             ("GET", "/sections/{section_key}"), ("PUT", "/items/{item_id}"), ("POST", "/items/{item_id}/comments"), ("POST", "/comments/{comment_id}/resolve"),
-            ("POST", "/questions"), ("POST", "/entries"), ("POST", "/sections/{section_key}/final")]
+            ("POST", "/questions"), ("POST", "/entries"), ("POST", "/sections/{section_key}/final"),
+            ("POST", "/lookup"), ("POST", "/seeds"), ("PUT", "/consent/lookups")]
     for pair in used:
         assert pair in table, pair
     for needle in ("OB.call('POST', base + '/sections/final-all')", "OB.call('PUT', base + '/delegations'", "OB.call('DELETE', base + '/delegations/' + encodeURIComponent(id))",
@@ -183,6 +184,12 @@ def test_every_request_the_pages_make_is_a_real_route_with_the_fields_the_backen
     assert object_keys(section, "OB.call('POST', base + '/questions', ", 0) == {"action", "from_item", "questions"} == set(routes.QuestionAction.model_fields)      # the split call
     assert object_keys(section, "OB.call('POST', base + '/questions', ", 1) == {"action", "questions"} <= set(routes.QuestionAction.model_fields)                    # the add call
     assert "action: 'split'" in section and "action: 'add'" in section
+    # PR 4b-1: the lookup, the add-a-seed call and the consent switch send exactly the fields of their models
+    for needle in ("OB.call('POST', base + '/lookup', ", "OB.call('POST', base + '/seeds', ", "OB.call('PUT', base + '/consent/lookups', ", "OB.call('GET', base + '/sections/questions')"):
+        assert needle in section, needle
+    assert object_keys(section, "OB.call('POST', base + '/lookup', ") == set(routes.LookupIn.model_fields)
+    assert object_keys(section, "OB.call('POST', base + '/seeds', ") == set(routes.SeedIn.model_fields)
+    assert object_keys(section, "OB.call('PUT', base + '/consent/lookups', ") == set(routes.LookupConsentIn.model_fields)
     assert "to: 'other_owner'" in engine and routes.DelegationIn.model_fields["to"].default == "other_owner"
 
 
@@ -198,6 +205,9 @@ def test_the_choices_lists_and_caps_in_the_pages_are_the_templates():
     used = {int(x) for x in re.findall(r"maxlength:\s*(\d+)", section)} | {int(x) for x in re.findall(r"textArea\(c, [^;]+?, \d+, (\d+)\)", section)} \
         | {int(x) for x in re.findall(r"lineInput\(c, [^;]+?, (\d+)\)", section)}
     assert caps <= used, caps - used
+    from utils import onboarding_ids as ids
+    assert int(re.search(r"LOOKUP_CAP = (\d+)", section).group(1)) == ids.QUERY_CAP == routes.LookupIn.model_fields["query"].metadata[1].max_length     # the lookup box
+    assert "maxlength: LOOKUP_CAP" in section
     extra = used - caps
     assert len(extra) == 1 and min(extra) >= tpl.LIST_MAX * (tpl.LIST_ITEM_CAP + 1), extra          # the out-of-scope box: 30 lines of 200, with room for the line breaks
     assert re.search(r"maxlength: %d \}\), dis" % tpl.COMMENT_CAP, section)

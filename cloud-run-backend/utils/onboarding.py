@@ -415,3 +415,32 @@ def active_membership(db, engine_id: str, subscriber_id: str) -> Optional[dict]:
     if not m or m.get("status") != "active" or m.get("subscriber_id") != subscriber_id or m.get("engine_id") != engine_id:
         return None
     return m
+
+
+# ---- changing lookup consent later (PR 4b-1; design 2.8) -------------------------------------------------------------------------------------------
+def _set_lookup_consent_in(transaction, db, engine_id: str, subscriber_id: str, on: bool, now: datetime, ip_hash, request_id) -> Optional[dict]:
+    ref = db.collection(MEMBERS).document(member_id(engine_id, subscriber_id))
+    snap = ref.get(transaction=transaction)
+    m = snap.to_dict() if snap.exists else None
+    if not m or m.get("status") != "active" or not isinstance(m.get("consent"), dict):
+        return None
+    before = m["consent"]
+    revision = before.get("revision") if isinstance(before.get("revision"), int) and not isinstance(before.get("revision"), bool) else 1
+    if bool(before.get("lookups")) == on:
+        return {"lookups": on, "revision": revision, "changed": False}                      # nothing changes: no write and no event
+    after = {**before, "lookups": on, "revision": revision + 1, "at": now.isoformat()}
+    transaction.update(ref, {"consent": after})
+    _event(transaction, db, engine_id=engine_id, actor=subscriber_id, actor_role="owner", action="consent", target=member_id(engine_id, subscriber_id),
+           before={k: v for k, v in before.items() if k != "at"}, after={k: v for k, v in after.items() if k != "at"}, ip_hash=ip_hash, request_id=request_id, now=now,
+           extra={"field": "lookups", "lookups": on, "consent_revision": revision + 1, "consent_version": after.get("version")})
+    return {"lookups": on, "revision": revision + 1, "changed": True}
+
+
+def set_lookup_consent(db, *, engine_id: str, subscriber_id: str, lookups: bool, now: Optional[datetime] = None, ip_hash: Optional[str] = None,
+                       request_id: Optional[str] = None) -> Optional[dict]:
+    """An owner turns their own consent for third-party lookups on or off (design 2.8: the consent record is versioned and audited). Each CHANGE adds one to the
+    record's `revision` (the record written at acceptance is revision 1) and writes one `consent` event in the same transaction; saying the same thing again
+    changes nothing and writes nothing. Returns {lookups, revision, changed}, or None when the caller has no active membership with a consent record."""
+    if not isinstance(lookups, bool):
+        raise ValueError("lookups must be true or false")
+    return _run_in_transaction(db, _set_lookup_consent_in, db, engine_id, subscriber_id, lookups, now or _utcnow(), ip_hash, request_id)

@@ -2,6 +2,9 @@
 
   POST   /api/onboarding/invites/accept                 the holder of a valid single-use token (no session: the token is the proof)
   GET    /api/onboarding/engines/{engine_id}            a member of that engine, or the admin
+  POST   /api/onboarding/engines/{e}/lookup             an owner who agreed to lookups: resolve a DOI, arXiv id, PubMed id or title at the public registries (PR 4b-1)
+  POST   /api/onboarding/engines/{e}/seeds              an owner who agreed to lookups: add a seed by identifier; the server resolves it again, and it starts unanswered
+  PUT    /api/onboarding/engines/{e}/consent/lookups    an owner: turn their own lookup consent on or off; each change is a versioned, audited consent event
   POST   /api/admin/onboarding/invites                  admin key: create an invitation (the address is entered once and kept only as a hash)
   GET    /api/admin/onboarding/invites?engine_id=       admin key: list one engine's invitations (never an address or token hash)
   DELETE /api/admin/onboarding/invites/{invite_id}      admin key: revoke an unused invitation; a used one also removes the membership (Q17)
@@ -33,6 +36,8 @@ from utils import onboarding as ob
 from utils import onboarding_bundle as bundles
 from utils import onboarding_form as form
 from utils import onboarding_gates as gates
+from utils import onboarding_ids as ids
+from utils import onboarding_lookup as lookup
 from utils import onboarding_review as review
 from utils import onboarding_template as tpl
 from utils.auth import _admin_key_matches, verify_admin_api_key
@@ -58,6 +63,11 @@ DELEGATION_LIMIT_PER_HOUR = 30
 ADMIN_REVIEW_LIMIT_PER_HOUR = 600
 ADMIN_DECISION_LIMIT_PER_HOUR = 120
 NOTIFICATION_LIMIT_PER_HOUR = 30
+LOOKUP_LIMIT_PER_HOUR = 60          # one person's lookups (each may call up to three registries)
+LOOKUP_ENGINE_LIMIT_PER_HOUR = 300  # all the owners of one engine together
+SEED_ADD_LIMIT_PER_HOUR = 30
+CONSENT_LIMIT_PER_HOUR = 30
+LOOKUP_CONSENT_NEEDED = "You have not agreed to lookups at public scholarly services, so nothing was looked up. You can turn lookups on below."
 NOTICE_TIMEOUT_SECONDS = 10      # the mail is sent before the route returns, so a hung mail server must not hold an owner's save
 ENGINE_PAGE_URL = "https://www.copernicusai.fyi/onboarding/engine.html"      # the link in a notification: the engine page, never an address
 MAX_BODY_BYTES = 65536
@@ -161,6 +171,7 @@ async def get_engine(engine_id: str, caller: dict = Depends(engine_gate)):
             "role": m.get("role") if member else "admin", "final_say": bool(m.get("final_say")) if member else False,
             **(gates.authority_view(db, engine_id, e, caller["subscriber_id"]) if member else {"can_mark_final": False, "may_mark": []}),
             "notifications_email": (m.get("notifications_email", True) is not False) if member else None,
+            "lookups_consent": bool((m.get("consent") or {}).get("lookups")) if member else None,
             "template_version": tpl.TEMPLATE_VERSION, "progress": form.get_progress(db, engine_id, _viewer(caller)), "bundles": bundles.owner_view(db, engine_id)}
 
 
@@ -367,6 +378,88 @@ async def put_notifications(engine_id: str, body: NotificationsIn, request: Requ
         return {"email": gates.set_notifications(db, engine_id=engine_id, subscriber_id=caller["subscriber_id"], email=body.email, ip_hash=ip, request_id=rid)}
     except form.FormError as e:
         raise _fail(e)
+
+
+# ---- lookups, adding a seed, and lookup consent (PR 4b-1; design 2.4, 2.8, 5.5) ------------------------------------------------------------------------
+class LookupIn(BaseModel):
+    query: str = Field(..., min_length=1, max_length=ids.QUERY_CAP)
+
+
+class SeedIn(BaseModel):
+    identifier: str = Field(..., min_length=1, max_length=ids.QUERY_CAP)
+    question_ids: List[str] = Field(..., max_length=tpl.TERMS_MAX)
+
+
+class LookupConsentIn(BaseModel):
+    lookups: StrictBool
+
+
+def _lookup_gate(engine_id: str, caller: dict) -> None:
+    """NO LOOKUP WITHOUT CONSENT: an owner who has not agreed to lookups is refused here, before the rate limiter and before anything leaves the server. Then the
+    limits, which fail CLOSED (an outbound call is not made when the limiter cannot be read): one per person, one for the engine's owners together."""
+    _owner(caller)
+    if (caller["membership"].get("consent") or {}).get("lookups") is not True:
+        raise HTTPException(status_code=409, detail={"message": LOOKUP_CONSENT_NEEDED, "reason": "lookup_consent"})
+    check_rate_limit(db, caller["subscriber_id"], "onboarding_lookup", limit=LOOKUP_LIMIT_PER_HOUR, window_seconds=3600, fail_closed=True)
+    check_rate_limit(db, f"engine:{engine_id}", "onboarding_lookup_engine", limit=LOOKUP_ENGINE_LIMIT_PER_HOUR, window_seconds=3600, fail_closed=True)
+
+
+def _public_lookup(kind: str, value: str, result: dict) -> dict:
+    return {"query": {"kind": kind, "normalised": value}, "state": result["state"], "message": result["message"], "results": result["results"],
+            "checked": [{"name": c["name"], "state": c["state"]} for c in result["checked"]], "fetched_at": result["fetched_at"], "cached": bool(result.get("cached"))}
+
+
+@engine_router.post("/lookup")
+async def lookup_paper(engine_id: str, body: LookupIn, caller: dict = Depends(engine_gate), _size: None = Depends(limit_body)):
+    """Resolve a DOI, an arXiv id, a PubMed id or a title at the public registries, on the server. The answer is the registry's own title, authors, year and
+    abstract with the registry each came from, to be shown beside what the owner typed. `state` is found, not_found or unavailable; an empty result is worded
+    "not found in <registries> just now", never as a statement that the paper does not exist. Nothing is written except the short cache of found records."""
+    _lookup_gate(engine_id, caller)
+    kind, value = ids.classify(body.query)
+    if not kind:
+        raise HTTPException(status_code=400, detail="Enter a DOI, an arXiv id, a PubMed id (as pmid:12345) or the paper's full title. An author's name is not accepted.")
+    try:
+        result = await asyncio.to_thread(lookup.lookup, db, kind, value)
+    except ValueError:
+        raise HTTPException(status_code=400, detail="That identifier cannot be looked up as written.")
+    return _public_lookup(kind, value, result)
+
+
+@engine_router.post("/seeds")
+async def add_seed(engine_id: str, body: SeedIn, request: Request, caller: dict = Depends(engine_gate), _size: None = Depends(limit_body)):
+    """Add a seed by DOI, arXiv id or PubMed id; never by title and never by author name (design 2.4). The server resolves the identifier AGAIN and stores the
+    registry's record; nothing the browser says about the paper is kept. The seed starts unanswered, like a loaded one, so an owner still confirms it."""
+    _lookup_gate(engine_id, caller)
+    check_rate_limit(db, caller["subscriber_id"], "onboarding_seed_add", limit=SEED_ADD_LIMIT_PER_HOUR, window_seconds=3600)
+    kind, value = ids.classify(body.identifier)
+    if kind not in ("doi", "arxiv", "pmid"):
+        raise HTTPException(status_code=400, detail="A seed is added by its DOI, arXiv id or PubMed id. Look the title up first and choose the right paper.")
+    try:
+        result = await asyncio.to_thread(lookup.lookup, db, kind, value)
+    except ValueError:
+        raise HTTPException(status_code=400, detail="That identifier cannot be looked up as written.")
+    if result["state"] != "found":
+        raise HTTPException(status_code=409 if result["state"] == "not_found" else 503, detail={"message": result["message"], "reason": "lookup_" + result["state"]})
+    viewer, (ip, rid), outcome = _viewer(caller), _trace(request), {}
+    try:
+        item_id = form.add_seed(db, engine_id=engine_id, subscriber_id=caller["subscriber_id"], record=result["results"][0], question_ids=body.question_ids,
+                                fetched_at=result["fetched_at"], ip_hash=ip, request_id=rid, outcome=outcome)
+    except form.FormError as e:
+        raise _fail(e)
+    await _notify(engine_id, "seeds", outcome.get("reopened_from"))
+    return {"id": item_id, "item": form.item_view(db, engine_id, form.find_item(db, engine_id, item_id), viewer)}
+
+
+@engine_router.put("/consent/lookups")
+async def put_lookup_consent(engine_id: str, body: LookupConsentIn, request: Request, caller: dict = Depends(engine_gate)):
+    """An owner turns their own consent for third-party lookups on or off, at any time. Each change is one versioned `consent` event (design 2.8)."""
+    _owner(caller)
+    check_rate_limit(db, caller["subscriber_id"], "onboarding_consent", limit=CONSENT_LIMIT_PER_HOUR, window_seconds=3600)
+    ip, rid = _trace(request)
+    out = ob.set_lookup_consent(db, engine_id=engine_id, subscriber_id=caller["subscriber_id"], lookups=body.lookups, ip_hash=ip, request_id=rid)
+    if out is None:
+        raise HTTPException(status_code=404, detail="Not found")
+    return {"lookups": out["lookups"], "revision": out["revision"]}
 
 
 router.include_router(engine_router)
